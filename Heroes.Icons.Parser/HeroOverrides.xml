@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<HeroHelper>
+  <CHero id="Alarak">
+    <!--Cooldown and mana cost are deducted after charge release-->
+    <Ability id="AlarakDeadlyCharge">
+      <Redirect>
+        <Cost id="AlarakDeadlyChargeUnleashModifyUnit" />
+        <VitalArray id="AlarakDeadlyChargeUnleashModifyUnit" />
+      </Redirect>
+    </Ability>
+  </CHero>
+  <CHero id="Alexstrasza">
+    <!--Dragonqueen abilities tied to Dragonqueen form ability-->
+    <Ability id="AlexstraszaBreathOfLife" valid="true">
+      <Override>
+        <ParentLink value="AlexstraszaDragonqueen" />
+      </Override>
+    </Ability>
+    <Ability id="AlexstraszaPreservation" valid="true">
+      <Override>
+        <ParentLink value="AlexstraszaDragonqueen" />
+      </Override>
+    </Ability>
+    <Ability id="AlexstraszaWingBuffet" valid="true">
+      <Override>
+        <ParentLink value="AlexstraszaDragonqueen" />
+      </Override>
+    </Ability>
+    <Ability id="AlexstraszaCleansingFlameDragonqueen" valid="true">
+      <Override>
+        <ParentLink value="AlexstraszaDragonqueen" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Arthas">
+    <!--Mana cost is time based-->
+    <Ability id="ArthasFrozenTempest">
+      <Redirect>
+        <ValidatorArray id="ArthasFrozenTempestInitialApplySet" />
+      </Redirect>
+    </Ability>
+  </CHero>
+  <CHero id="Auriel">
+    <EnergyType value="Energy" />
+  </CHero>
+  <CHero id="Azmodan">
+    <!--Mana cost is time based-->
+    <Ability id="AzmodanAllShallBurn">
+      <Redirect>
+        <VitalArray id="AzmodanAllShallBurnManaDrain">
+          <PeriodicPeriodArray id="AzmodanAllShallBurnCreatePersistent" />
+        </VitalArray>
+      </Redirect>
+    </Ability>
+  </CHero>
+  <CHero id="Barbarian">
+    <EnergyType value="Fury" />
+  </CHero>
+  <CHero id="Chen">
+    <EnergyType value="Brew" />
+    <!--Storm, Earth, and Fire abilities tied to Heroic ability StormEarthFire-->
+    <Ability id="ChenStorm" valid="true">
+      <Override>
+        <ParentLink value="ChenStormEarthFire" />
+      </Override>
+    </Ability>
+    <Ability id="ChenEarth" valid="true">
+      <Override>
+        <ParentLink value="ChenStormEarthFire" />
+      </Override>
+    </Ability>
+    <Ability id="ChenFire" valid="true">
+      <Override>
+        <ParentLink value="ChenStormEarthFire" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Chromie">
+    <!--Mana cost is time based-->
+    <Ability id="ChromieSlowingSands">
+      <Redirect>
+        <VitalArray id="ChromieSlowingSandsCost">
+          <PeriodicPeriodArray id="ChromieSlowingSandsCreatePersistent" />
+        </VitalArray>
+      </Redirect>
+    </Ability>
+  </CHero>
+  <CHero id="DVa">
+    <CUnit value="HeroDVaMech" />
+    <Energy value="0" />
+    <EnergyType value="None" />
+    <Ability id="DVaPilotCallMech" valid="true">
+      <Override>
+        <ParentLink value="DVaMechMechMode" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Gall">
+    <!--Base line activable ability-->
+    <Ability id="GallShove">
+      <Override>
+        <AbilityTier value="Activable" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Genji">
+    <!--Unique basic attack-->
+    <Weapon id="GenjiHeroWeapon">
+      <Redirect>
+        <CEffectDamage id="GenjiWeaponTargetedThrowDamage" />
+      </Redirect>
+    </Weapon>
+  </CHero>
+  <CHero id="Greymane">
+    <!--Greymane worgen form abilities-->
+    <Ability id="GreymaneRazorSwipe" valid="true">
+      <Override>
+        <ParentLink value="GreymaneWorgenForm" />
+      </Override>
+    </Ability>
+    <Ability id="GreymaneDisengage" valid="true">
+      <Override>
+        <ParentLink value="GreymaneWorgenForm" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Junkrat">
+    <EnergyType value="None" />
+  </CHero>
+  <CHero id="Kerrigan">
+    <Weapon id="HeroKerrigan">
+      <Redirect>
+        <CEffectDamage id="KerriganWeaponDamage" />
+      </Redirect>
+    </Weapon>
+  </CHero>
+  <CHero id="Leoric">
+    <!--Undying abilities-->
+    <Ability id="LeoricGhastlySwing" valid="true">
+      <Override>
+        <ParentLink value="LeoricUndyingTrait" />
+      </Override>
+    </Ability>
+    <Ability id="LeoricDrainEssence" valid="true">
+      <Override>
+        <ParentLink value="LeoricUndyingTrait" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="LostVikings">
+    <CUnit value="HeroLostVikingsController" />
+  </CHero>
+  <CHero id="Medic">
+    <EnergyType value="Energy" />
+    <!--Mana cost is time based-->
+    <Ability id="MedicHealingBeam">
+      <Redirect>
+        <VitalArray id="MedicHealingBeamManaCostModifyUnit">
+          <CEffectCreatePersistent id="MedicHealingBeamCreatePersistent" />
+        </VitalArray>
+      </Redirect>
+    </Ability>
+  </CHero>
+  <CHero id="Ragnaros">
+    <!--Molten Core abilities-->
+    <LinkedAbilities>
+      <CAbilEffectTarget id="RagnarosBigRagMoltenSwing" />
+      <CAbilEffectTarget id="RagnarosBigRagMeteorShower" />
+      <CAbilEffectTarget id="RagnarosBigRagExplosiveRune" />
+    </LinkedAbilities>
+    <Ability id="RagnarosBigRagMoltenSwing" valid="true">
+      <Override>
+        <ParentLink value="RagnarosMoltenCore" />
+      </Override>
+    </Ability>
+    <Ability id="RagnarosBigRagMeteorShower" valid="true">
+      <Override>
+        <ParentLink value="RagnarosMoltenCore" />
+      </Override>
+    </Ability>
+    <Ability id="RagnarosBigRagExplosiveRune" valid="true">
+      <Override>
+        <ParentLink value="RagnarosMoltenCore" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Tychus">
+    <!--Odin abilities-->
+    <Ability id="TychusOdinAnnihilate" valid="true">
+      <Override>
+        <ParentLink value="TychusOdinNoHealth" />
+      </Override>
+    </Ability>
+    <Ability id="TychusOdinRagnarokMissilesTargeted" valid="true">
+      <Override>
+        <ParentLink value="TychusOdinNoHealth" />
+      </Override>
+    </Ability>
+    <Ability id="TychusOdinThrusters" valid="true">
+      <Override>
+        <ParentLink value="TychusOdinNoHealth" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Uther">
+    <!--Eternal Devotion ability-->
+    <Ability id="UtherFlashofLight" valid="true">
+      <Override>
+        <ParentLink value="UtherEternalDevotion" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Valeera">
+    <!--Stealth abilities-->
+    <Ability id="ValeeraEviscerate">
+      <Override>
+        <Custom value="Consumes All Combo Points"></Custom>
+      </Override>
+    </Ability>
+    <Ability id="ValeeraAmbush" valid="true">
+      <Override>
+        <ParentLink value="ValeeraStealth" />
+      </Override>
+    </Ability>
+    <Ability id="ValeeraCheapShot" valid="true">
+      <Override>
+        <ParentLink value="ValeeraStealth" />
+      </Override>
+    </Ability>
+    <Ability id="ValeeraGarrote" valid="true">
+      <Override>
+        <ParentLink value="ValeeraStealth" />
+      </Override>
+    </Ability>
+  </CHero>
+</HeroHelper>

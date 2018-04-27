@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CTalent id="AnubarakMasteryEpicenterBurrowCharge">
+    <Face value="AnubarakBurrowChargeEpicenterTalent" />
+    <Abil value="AnubarakBurrowCharge" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="MultiplyLevelModification" />
+        <Catalog value="Effect" />
+        <Entry value="AnubarakBurrowChargeImpactSearch" />
+        <Field value="AreaArray[0].Radius" />
+        <Value value="1.600000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="BurrowChargeEpicenterModifyCooldown" />
+        <Field value="Chance" />
+        <FieldIsInteger value="1" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Actor" />
+        <Entry value="AnubarakBurrowChargeCursorSplat" />
+        <Field value="Scale" />
+        <Value value="0.600000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CEffectModifyUnit id="BurrowChargeEpicenterModifyCooldown">
+    <ValidatorArray value="TargetIsHero" />
+    <Chance value="0" />
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="AnubarakBurrowCharge,Execute" CooldownOperation="Add" CooldownTimeUse="-1.25" />
+  </CEffectModifyUnit>
+  <CBehaviorBuff id="ShedExoskeleton">
+    <Alignment value="Positive" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_Anubarak_HardenCarapace_Var1.dds" />
+    <BehaviorCategories index="Fast" value="1" />
+    <Duration value="3" />
+    <Modification>
+      <UnifiedMoveSpeedFactor value="0.3" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="AnubarakNerubianArmorController">
+    <BehaviorFlags index="Permanent" value="1" />
+    <DisableValidatorArray value="AnubarakNerubianArmorStackCountValidator" />
+    <BuffFlags index="RemoveDamageResponseExhausted" value="0" />
+    <Period value="12" />
+    <PeriodicEffect value="AnubarakNerubianArmorApplyStack" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="AnubarakNerubianArmorActive" parent="StormArmor">
+    <Alignment value="Positive" />
+    <BehaviorFlags index="Permanent" value="1" />
+    <InfoIcon value="Assets\Textures\storm_temp_war3_btnhumanarmorupthree.dds" />
+    <DisableValidatorArray value="SourceNotDead" />
+    <BuffFlags index="RemoveDamageResponseExhausted" value="0" />
+    <BuffFlags index="RefreshStack" value="1" />
+    <Duration value="1.5" />
+    <ArmorModification>
+      <ArmorSet index="Hero">
+        <ArmorMitigationTable index="Ability" value="30" />
+      </ArmorSet>
+      <ArmorSet index="Merc">
+        <ArmorMitigationTable index="Ability" value="30" />
+      </ArmorSet>
+      <ArmorSet index="Monster">
+        <ArmorMitigationTable index="Ability" value="30" />
+      </ArmorSet>
+      <ArmorSet index="Summon">
+        <ArmorMitigationTable index="Ability" value="30" />
+      </ArmorSet>
+      <ArmorSet index="Structure">
+        <ArmorMitigationTable index="Ability" value="30" />
+      </ArmorSet>
+      <ArmorSet index="Minion">
+        <ArmorMitigationTable index="Ability" value="30" />
+      </ArmorSet>
+    </ArmorModification>
+  </CBehaviorBuff>
+  <CEffectDamage id="AzmodanAllShallBurnDamage" parent="StormSpell">
+    <DamageModifierSource Value="Caster" />
+    <AttributeFactor index="Structure" value="0.25" />
+    <Amount value="25">
+      <AccumulatorArray value="AzmodanAllShallBurnAccumulator" />
+    </Amount>
+    <LeechValidator index="Life" value="AzmodanHasGluttony" />
+    <LeechFraction index="Life" value="0.25" />
+  </CEffectDamage>
+  <CEffectCreatePersistent id="AzmodanAllShallBurnCreatePersistent">
+    <WhichLocation Value="TargetUnit" />
+    <Flags index="Channeled" value="1" />
+    <Flags index="PersistUntilDestroyed" value="1" />
+    <InitialEffect value="AzmodanAllShallBurnPersistentInitialSet" />
+    <FinalEffect value="AzmodanAllShallBurnRemoveChannelBehaviorSet" />
+    <PeriodicValidator value="AzmodanAllShallBurnPeriodicValidator" />
+    <PeriodicEffectArray value="AzmodanAllShallBurnImpactSet" />
+    <PeriodicPeriodArray value="0.25" />
+    <RevealRadius value="1" />
+    <RevealFlags index="Unfog" value="1" />
+    <TeleportTrack index="Source" value="1" />
+    <TeleportTrack index="Target" value="1" />
+    <TeleportValidator value="GenericTeleportRangeValidator" />
+  </CEffectCreatePersistent>
+  <CBehaviorBuff id="AzmodanAllShallBurnChannel">
+    <Alignment value="Positive" />
+    <RemoveValidatorArray value="CasterNotInStasisAndNotStunned" />
+    <RemoveValidatorArray value="CasterNotDead" />
+    <RemoveValidatorArray value="HeroGenericCommonAbilityOrderValidationCombine" />
+    <RemoveValidatorArray value="AzmodanAllShallBurnOrderValidationCombine" />
+    <RemoveValidatorArray value="CasterNotTimeStopped" />
+    <Period value="1.5" />
+    <PeriodCount value="3" />
+    <InitialEffect value="AzmodanAllShallBurnApplyInfusedPowerMasteryDelay" />
+    <PeriodicEffect value="AzmodanAllShallBurnApplyMasterofDestructionTalentBuff" />
+    <FinalEffect value="AllShallBurnEndSet" />
+    <Modification>
+      <ModifyFlags index="SuppressTurning" value="1" />
+      <StateFlags index="SuppressCloak" value="1" />
+      <UnifiedMoveSpeedFactor value="-0.6" />
+      <AbilClassDisableArray index="CAbilAttack" value="1" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="CalldownMULETimedLife">
+    <Duration value="40" />
+    <FinalEffect value="StormSuicide" />
+    <Modification>
+      <StateFlags index="SuppressCollision" value="1" />
+    </Modification>
+    <Period value="0.5" />
+    <PeriodicEffect value="CalldownMULERetargetSearch" />
+    <DisplayDuration index="Self" value="1" />
+    <DisplayDuration index="Ally" value="1" />
+    <DisplayDuration index="Neutral" value="1" />
+    <DisplayDuration index="Enemy" value="1" />
+    <BuffFlags index="UpdateDurationWhileDisabled" value="1" />
+  </CBehaviorBuff>
+  <CEffectModifyUnit id="MULERepairHealth">
+    <VitalArray index="Life">
+      <Change value="100" />
+    </VitalArray>
+    <ImpactUnit Value="Source" />
+  </CEffectModifyUnit>
+  <CBehaviorBuff id="MULERepairTargetHealth">
+    <RemoveValidatorArray value="MuleTargetLifeNotFull" />
+    <BuffFlags index="RefreshStack" value="1" />
+    <Duration value="1.0625" />
+    <Period value="1" />
+    <PeriodicEffect value="MuleRepairSet" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BattleshipMovementSuppresser">
+    <Modification PushPriority="5000" AlliedPushPriority="5000">
+      <ModifyFlags index="SuppressMoving" value="1" />
+      <ModifyFlags index="SuppressTurning" value="1" />
+    </Modification>
+  </CBehaviorBuff>
+  <CEffectModifyUnit id="MULERepairHealth">
+    <VitalArray index="Life">
+      <Change value="100" />
+    </VitalArray>
+    <ImpactUnit Value="Source" />
+  </CEffectModifyUnit>
+  <CBehaviorBuff id="GenericCloakRevealer">
+    <Alignment value="Negative" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+    <RemoveValidatorArray value="SourceNotUnrevealable" />
+    <Duration value="3" />
+    <InitialEffect value="DecloakedInitialSet" />
+    <RefreshEffect value="CloakApplyDisplayCooldown" />
+    <ExpireEffect value="HoldFireApplyInitialBehavior" />
+    <Modification>
+      <StateFlags index="SuppressCloak" value="1" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="HeroGenericStationaryExtraStealthCountdown">
+    <RemoveValidatorArray value="TargetIsStationary" />
+    <RemoveValidatorArray value="TargetIsCloaked" />
+    <RemoveValidatorArray value="UserCategoryTargetNotRevealed" />
+    <Duration value="1.5" />
+    <ExpireEffect value="HeroGenericStationaryExtraStealthApplyActive" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="NovaPermanentCloakMovementSpeedBuff">
+    <BehaviorCategories index="Fast" value="1" />
+    <Modification>
+      <UnifiedMoveSpeedFactor value="0.15">
+        <AccumulatorArray value="NovaAdvancedCloakingAccumulator" />
+      </UnifiedMoveSpeedFactor>
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="GenericCloakRevealer">
+    <ExpireEffect value="" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="ArthasIceboundFortitudeCasterBehavior" parent="StormArmor">
+    <BehaviorCategories index="BuffResistant" value="1" />
+    <Duration value="3" />
+    <ArmorModification AllArmorBonus="25" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="Resistant25" parent="StormArmor">
+    <Alignment value="Positive" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_Talent_Resistance.dds" />
+    <BehaviorCategories index="BuffResistant" value="1" />
+    <Duration value="4" />
+    <ArmorModification AllArmorBonus="25" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="ArthasIceboundFortitudeCasterBehavior" parent="StormArmor">
+    <BehaviorCategories index="BuffResistant" value="1" />
+    <Duration value="3" />
+    <ArmorModification AllArmorBonus="25" />
+  </CBehaviorBuff>
+  
+  <!-- double upped, should take the latest one-->
+  <CBehaviorBuff id="ElDruinsMightMasteryPathingBlockerTimedLife" parent="StormTimedLife">
+    <Duration value="4" />
+    <ExpireEffect value="StormSuicide" />
+    <Modification>
+      <StateFlags index="Benign" value="1" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="ElDruinsMightMasteryPathingBlockerTimedLife" parent="StormTimedLife">
+    <Duration value="3" />
+    <ExpireEffect value="StormSuicide" />
+    <Modification>
+      <StateFlags index="Benign" value="1" />
+    </Modification>
+  </CBehaviorBuff>
+</Catalog>

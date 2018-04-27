@@ -1,0 +1,757 @@
+﻿using Heroes.Icons.Parser.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Xml.Linq;
+
+namespace Heroes.Icons.Parser.Heroes
+{
+    public abstract class HeroData
+    {
+        public HeroData(HeroDataLoader heroDataLoader, DescriptionLoader descriptionLoader, DescriptionParser descriptionParser, HeroOverrideLoader heroOverrideLoader)
+        {
+            HeroDataLoader = heroDataLoader;
+            DescriptionLoader = descriptionLoader;
+            DescriptionParser = descriptionParser;
+            HeroOverrideLoader = heroOverrideLoader;
+        }
+
+        protected double DefaultPeriod => 1.2; // for hero weapons
+
+        protected HeroDataLoader HeroDataLoader { get; }
+        protected DescriptionLoader DescriptionLoader { get; }
+        protected DescriptionParser DescriptionParser { get; }
+        protected HeroOverrideLoader HeroOverrideLoader { get; }
+
+        public Hero ParseHeroData(string cHeroId, string cUnitId)
+        {
+            var data = HeroDataLoader.XmlData;
+
+            Hero hero = new Hero
+            {
+                Name = DescriptionLoader.HeroNames[cHeroId],
+                Description = DescriptionParser.HeroParsedDescriptions[cHeroId],
+                CHeroId = cHeroId,
+                UnitName = cUnitId,
+            };
+
+            SetDefaultValues(hero, data);
+            CHeroData(hero, cHeroId, data);
+            CUnitData(hero, cUnitId, data);
+
+            ApplyOverrides(hero);
+
+            // set all default abilities energy types to the hero's energy type
+            foreach (var ability in hero.Abilities)
+            {
+                if (ability.Value.Tooltip.EnergyType == EnergyType.None && ability.Value.Tooltip.Energy > 0)
+                    ability.Value.Tooltip.EnergyType = hero.EnergyType;
+            }
+
+            return hero;
+        }
+
+        /// <summary>
+        /// Sets all the tooltip info: vital costs, cooldowns, charges, range, arc, etc...
+        /// </summary>
+        /// <param name="attributeId">The id name of the ability or talent</param>
+        /// <param name="abilityTalentBase"><see cref="AbilityTalentBase"/> object thats being updated</param>
+        /// <param name="xmlData">Blizzard xml data</param>
+        protected virtual void SetTooltipSubInfo(string attributeId, AbilityTalentBase abilityTalentBase, XDocument xmlData, bool allowOverrides = true)
+        {
+            if (string.IsNullOrEmpty(attributeId))
+                return;
+
+            var foundElements = xmlData.Descendants().Where(x => x.Attribute("id")?.Value == attributeId);
+
+            try
+            {
+                // look through all elements to find the tooltip info
+                foreach (var element in foundElements)
+                {
+                    // cost
+                    var costElement = element.Descendants("Cost").FirstOrDefault();
+                    if (costElement != null)
+                    {
+                        // charge
+                        var chargeElement = costElement.Descendants("Charge").FirstOrDefault();
+                        if (chargeElement != null)
+                        {
+                            var countMaxElement = chargeElement.Descendants("CountMax").FirstOrDefault();
+                            var hideCountElement = chargeElement.Descendants("HideCount").FirstOrDefault();
+                            if (countMaxElement != null)
+                            {
+                                // some abilities have one charge (a talent later adds at least one charge)
+                                int numOfCharges = int.Parse(countMaxElement.Attribute("value").Value);
+                                int hideCount = 0;
+
+                                if (hideCountElement != null)
+                                    hideCount = int.Parse(hideCountElement.Attribute("value").Value);
+
+                                abilityTalentBase.Tooltip.NumberOfCharges = numOfCharges;
+                                abilityTalentBase.Tooltip.IsChargeCooldown = true;
+                            }
+
+                            var timeUseElement = chargeElement.Descendants("TimeUse").FirstOrDefault();
+                            if (timeUseElement != null)
+                            {
+                                abilityTalentBase.Tooltip.Cooldown = double.Parse(timeUseElement.Attribute("value").Value);
+                            }
+                        }
+
+                        SetCooldown(costElement, chargeElement, abilityTalentBase);
+                        SetVital(costElement, abilityTalentBase);
+                    }
+
+                    // range
+                    var rangeElement = element.Descendants("Range").FirstOrDefault();
+                    if (rangeElement != null)
+                        abilityTalentBase.Tooltip.Range = double.Parse(rangeElement.Attribute("value").Value);
+
+                    // arc
+                    var arcElement = element.Descendants("Arc").FirstOrDefault();
+                    if (arcElement != null)
+                        abilityTalentBase.Tooltip.Arc = double.Parse(arcElement.Attribute("value").Value);
+                }
+
+                if (allowOverrides)
+                {
+                    if (HeroOverrideLoader.IdRedirectByAbilityId.ContainsKey(attributeId))
+                    {
+                        foreach (var type in HeroOverrideLoader.IdRedirectByAbilityId[attributeId])
+                        {
+                            if (string.IsNullOrEmpty(type.Value.Id))
+                                continue;
+
+                            // find element in data file by looking up the id
+                            var specialElement = xmlData.Descendants().Where(x => x.Attribute("id")?.Value == type.Value.Id).FirstOrDefault();
+                            if (specialElement != null)
+                            {
+                                // get the first one
+                                var element = specialElement.Descendants(type.Key).FirstOrDefault();
+                                ApplyUniquePropertyLookups(type, element, abilityTalentBase);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ParseException($"Error {nameof(SetTooltipSubInfo)}() - Id={attributeId}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets the values of unqiue property elements
+        /// </summary>
+        /// <param name="elementName">The element lookup</param>
+        /// <param name="dataElement">The xml data element that's being looked into</param>
+        /// <param name="objectToBeUpdated">object that's being updated</param>
+        protected virtual void ApplyUniquePropertyLookups(KeyValuePair<string, RedirectElement> element, XElement dataElement, AbilityTalentBase abilityTalentBase)
+        {
+            return;
+        }
+
+        /// <summary>
+        /// Sets the cooldown of the ability or talent. If the ability or talent has charges, then this will set the RecastCooldown.
+        /// </summary>
+        /// <param name="costElement">The Cost element</param>
+        /// <param name="chargeElement">The Charge element</param>
+        /// <param name="abilityTalentBase"><see cref="AbilityTalentBase"/> object thats being updated</param>
+        protected virtual void SetCooldown(XElement costElement, XElement chargeElement, AbilityTalentBase abilityTalentBase)
+        {
+            var cooldownElement = costElement.Descendants("Cooldown").FirstOrDefault();
+            if (cooldownElement != null)
+            {
+                if (chargeElement != null && abilityTalentBase.Tooltip.IsChargeCooldown)
+                {
+                    string time = cooldownElement.Attribute("TimeUse")?.Value;
+                    if (!string.IsNullOrEmpty(time))
+                        abilityTalentBase.Tooltip.RecastCooldown = double.Parse(time);
+                }
+                else
+                {
+                    if (double.TryParse(cooldownElement.Attribute("TimeUse")?.Value, out double cooldownValue))
+                        abilityTalentBase.Tooltip.Cooldown = cooldownValue;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets the vitals of the ability or talent
+        /// </summary>
+        /// <param name="costElement">The Cost element</param>
+        /// <param name="abilityTalentBase"><see cref="AbilityTalentBase"/> object thats being updated</param>
+        protected virtual void SetVital(XElement costElement, AbilityTalentBase abilityTalentBase)
+        {
+            var vitalElement = costElement.Descendants("Vital").FirstOrDefault();
+            if (vitalElement != null)
+            {
+                var vitalType = vitalElement.Attribute("index").Value;
+                var vitalValue = int.Parse(vitalElement.Attribute("value").Value);
+
+                if (vitalType == "Energy")
+                    abilityTalentBase.Tooltip.Energy = vitalValue;
+                else if (vitalType == "Life")
+                    abilityTalentBase.Tooltip.Life = vitalValue;
+            }
+        }
+
+        /// <summary>
+        /// Override current hero properties
+        /// </summary>
+        /// <param name="hero">Hero object</param>
+        protected virtual void ApplyOverrides(Hero hero)
+        {
+            if (HeroOverrideLoader.EnergyTypeOverrideByCHero.ContainsKey(hero.CHeroId))
+                hero.EnergyType = HeroOverrideLoader.EnergyTypeOverrideByCHero[hero.CHeroId];
+
+            if (HeroOverrideLoader.EnergyOverrideByCHero.ContainsKey(hero.CHeroId))
+                hero.Energy = HeroOverrideLoader.EnergyOverrideByCHero[hero.CHeroId];
+
+            // check each ability for overrides
+            foreach (var ability in hero.Abilities)
+            {
+                if (HeroOverrideLoader.ValueOverrideMethodByAbilityId.ContainsKey(ability.Key))
+                {
+                    foreach (var propertyOverride in HeroOverrideLoader.ValueOverrideMethodByAbilityId[ability.Key])
+                    {
+                        // execute each property override
+                        propertyOverride.Value(ability.Value);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds the hero's basic attack information
+        /// </summary>
+        /// <param name="hero">Hero object</param>
+        /// <param name="element">The element lookup</param>
+        /// <param name="xmlData">Blizzard xml data</param>
+        protected virtual void AddHeroWeapon(Hero hero, XElement element, XDocument xmlData)
+        {
+            string link = element.Attribute("Link")?.Value;
+            if (!string.IsNullOrEmpty(link))
+            {
+                var weaponLegacy = xmlData.Descendants("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == link);
+                if (weaponLegacy != null)
+                {
+                    // range
+                    var rangeElement = weaponLegacy.Descendants("Range").FirstOrDefault();
+                    if (rangeElement != null)
+                        hero.HeroWeapon.Range = double.Parse(rangeElement.Attribute("value").Value);
+
+                    // period
+                    var periodElement = weaponLegacy.Descendants("Period").FirstOrDefault();
+                    if (periodElement != null)
+                        hero.HeroWeapon.Period = double.Parse(periodElement.Attribute("value").Value);
+                    else
+                        hero.HeroWeapon.Period = DefaultPeriod;
+
+                    // get the damage of the weapon
+                    var displayEffectElement = weaponLegacy.Descendants("DisplayEffect").FirstOrDefault();
+                    if (displayEffectElement != null)
+                    {
+                        string displayEffectValue = displayEffectElement.Attribute("value").Value;
+                        var effectDamageElement = xmlData.Descendants("CEffectDamage").Where(x => x.Attribute("id")?.Value == displayEffectValue);
+                        if (effectDamageElement != null)
+                        {
+                            var amountElement = effectDamageElement.Descendants("Amount").FirstOrDefault();
+                            if (amountElement != null)
+                            {
+                                hero.HeroWeapon.Damage = double.Parse(amountElement.Attribute("value").Value);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CHeroData(Hero hero, string cHeroId, XDocument xmlData)
+        {
+            var heroData = xmlData.Descendants("CHero").Where(x => x.Attribute("id")?.Value == cHeroId).FirstOrDefault();
+
+            // get short name of hero
+            var hyperLinkElement = heroData.Descendants("HyperlinkId").Where(x => x.Attribute("value") != null).FirstOrDefault();
+            if (hyperLinkElement != null)
+                hero.ShortName = hyperLinkElement.Value;
+            else
+                hero.ShortName = cHeroId;
+
+            // loop through all descendants and set found elements
+            foreach (var element in heroData.Descendants())
+            {
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "ATTRIBUTEID")
+                {
+                    hero.AttributeId = element.Attribute("value").Value;
+                }
+                else if (elementName == "MELEE")
+                {
+                    if (element.Attribute("value").Value == "1")
+                        hero.Type = HeroType.Melee;
+                    else if (element.Attribute("value").Value == "0")
+                        hero.Type = HeroType.Ranged;
+                    else
+                        hero.Type = HeroType.Ranged;
+                }
+                else if (elementName == "DIFFICULTY")
+                {
+                    string difficulty = element.Attribute("value").Value.ToUpper();
+
+                    if (difficulty == "EASY")
+                        hero.Difficulty = HeroDifficulty.Easy;
+                    else if (difficulty == "MEDIUM")
+                        hero.Difficulty = HeroDifficulty.Medium;
+                    else if (difficulty == "HARD")
+                        hero.Difficulty = HeroDifficulty.Hard;
+                    else if (difficulty == "VERYHARD")
+                        hero.Difficulty = HeroDifficulty.VeryHard;
+                    else
+                        hero.Difficulty = HeroDifficulty.Unknown;
+                }
+                else if (elementName == "ROLE" || elementName == "ROLESMULTICLASS")
+                {
+                    string role = element.Attribute("value").Value.ToUpper();
+
+                    if (hero.Roles == null)
+                        hero.Roles = new List<HeroRole>();
+
+                    if (role == "WARRIOR")
+                    {
+                        if (!hero.Roles.Contains(HeroRole.Warrior))
+                            hero.Roles.Add(HeroRole.Warrior);
+                    }
+                    else if (role == "DAMAGE")
+                    {
+                        if (!hero.Roles.Contains(HeroRole.Assassin))
+                            hero.Roles.Add(HeroRole.Assassin);
+                    }
+                    else if (role == "SUPPORT")
+                    {
+                        if (!hero.Roles.Contains(HeroRole.Support))
+                            hero.Roles.Add(HeroRole.Support);
+                    }
+                    else if (role == "SPECIALIST")
+                    {
+                        if (!hero.Roles.Contains(HeroRole.Specialist))
+                            hero.Roles.Add(HeroRole.Specialist);
+                    }
+                    else if (role == "MULTICLASS")
+                    {
+                        if (!hero.Roles.Contains(HeroRole.Multiclass))
+                            hero.Roles.Add(HeroRole.Multiclass);
+                    }
+                    else
+                    {
+                        if (!hero.Roles.Contains(HeroRole.Unknown))
+                            hero.Roles.Add(HeroRole.Unknown);
+                    }
+                }
+                else if (elementName == "SELECTSCREENBUTTONIMAGE")
+                {
+                    hero.HeroPortrait = Path.GetFileName(element.Attribute("value").Value);
+                }
+                else if (elementName == "SCORESCREENIMAGE")
+                {
+                    hero.LeaderboardPortrait = Path.GetFileName(element.Attribute("value").Value);
+                }
+                else if (elementName == "LOADINGSCREENIMAGE")
+                {
+                    hero.LoadingPortrait = Path.GetFileName(element.Attribute("value").Value);
+                }
+                else if (elementName == "UNIVERSEICON")
+                {
+                    string iconImage = Path.GetFileName(element.Attribute("value").Value).ToUpper();
+
+                    if (iconImage == "UI_GLUES_STORE_GAMEICON_SC2.DDS")
+                        hero.Franchise = HeroFranchise.Starcraft;
+                    else if (iconImage == "UI_GLUES_STORE_GAMEICON_WOW.DDS")
+                        hero.Franchise = HeroFranchise.Warcraft;
+                    else if (iconImage == "UI_GLUES_STORE_GAMEICON_D3.DDS")
+                        hero.Franchise = HeroFranchise.Diablo;
+                    else if (iconImage == "UI_GLUES_STORE_GAMEICON_OW.DDS")
+                        hero.Franchise = HeroFranchise.Overwatch;
+                    else if (iconImage == "UI_GLUES_STORE_GAMEICON_RETRO.DDS")
+                        hero.Franchise = HeroFranchise.Classic;
+                    else
+                        hero.Franchise = HeroFranchise.Unknown;
+                }
+                else if (elementName == "UNIVERSE")
+                {
+                    string universe = element.Attribute("value").Value.ToUpper();
+
+                    if (universe == "STARCRAFT")
+                        hero.Franchise = HeroFranchise.Starcraft;
+                    else if (universe == "WARCRAFT")
+                        hero.Franchise = HeroFranchise.Warcraft;
+                    else if (universe == "DIABLO")
+                        hero.Franchise = HeroFranchise.Diablo;
+                    else if (universe == "OVERWATCH")
+                        hero.Franchise = HeroFranchise.Overwatch;
+                    else if (universe == "RETRO")
+                        hero.Franchise = HeroFranchise.Classic;
+                    else
+                        hero.Franchise = HeroFranchise.Unknown;
+                }
+                else if (elementName == "RELEASEDATE")
+                {
+                    if (!int.TryParse(element.Attribute("Day")?.Value, out int day))
+                        day = 1;
+
+                    if (!int.TryParse(element.Attribute("Month")?.Value, out int month))
+                        month = 1;
+
+                    if (!int.TryParse(element.Attribute("Year")?.Value, out int year))
+                        year = 2014;
+
+                    hero.ReleaseDate = new DateTime(year, month, day);
+                }
+                else if (elementName == "HEROABILARRAY")
+                {
+                    FindAbilities(hero, element, xmlData);
+                }
+                else if (elementName == "TALENTTREEARRAY")
+                {
+                    FindTalents(hero, element, xmlData);
+                }
+            }
+
+            if (hero.Type == HeroType.Unknown)
+                hero.Type = HeroType.Ranged;
+
+            // add additional linked abilities
+            if (HeroOverrideLoader.LinkedAbilityByCHero.ContainsKey(cHeroId))
+            {
+                foreach (var linkedAbility in HeroOverrideLoader.LinkedAbilityByCHero[cHeroId])
+                {
+                    var abilityElement = xmlData.Descendants(linkedAbility.Value).Where(x => x.Attribute("id")?.Value == linkedAbility.Key).FirstOrDefault();
+
+                    if (abilityElement == null)
+                        throw new ParseException($"{nameof(CHeroData)}: Additional link ability element not found - <{linkedAbility.Value} id=\"{linkedAbility.Key}\">");
+
+                    AddLinkedAbility(hero, abilityElement, xmlData);
+                }
+            }
+        }
+
+        private void CUnitData(Hero hero, string cUnitId, XDocument xmlData)
+        {
+            var heroData = xmlData.Descendants("CUnit").Where(x => x.Attribute("id")?.Value == cUnitId).FirstOrDefault();
+
+            // loop through all descendants and set found elements
+            foreach (var element in heroData.Descendants())
+            {
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "LIFEMAX")
+                {
+                    hero.Life = int.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "LIFEREGENRATE")
+                {
+                    hero.LifeRegenerationRate = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "RADIUS")
+                {
+                    hero.Radius = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "INNERRADIUS")
+                {
+                    hero.InnerRadius = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "ENERGYMAX")
+                {
+                    hero.Energy = int.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "ENERGYREGENRATE")
+                {
+                    hero.EnergyRegenerationRate = int.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "WEAPONARRAY")
+                {
+                    AddHeroWeapon(hero, element, xmlData);
+                }
+            }
+
+            if (hero.Energy < 1)
+                hero.EnergyType = EnergyType.None;
+            else
+                hero.EnergyType = EnergyType.Mana;
+
+            hero.Difficulty = HeroDifficulty.Easy;
+        }
+
+        private void FindAbilities(Hero hero, XElement abilityElement, XDocument xmlData)
+        {
+            hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
+
+            string referenceName = abilityElement.Attribute("Abil")?.Value;
+            string descriptionName = abilityElement.Attribute("Button")?.Value;
+            string parentLink = abilityElement.Attribute("Unit")?.Value;
+
+            var validAbility = abilityElement.Descendants("Flags").Where(x => x.Attribute("index").Value == "ShowInHeroSelect" && x.Attribute("value").Value == "1").FirstOrDefault();
+
+            Ability ability = new Ability();
+
+            if (validAbility == null && parentLink == null && !HeroOverrideLoader.ValidAbilities.Contains(referenceName))
+                return;
+
+            if (!string.IsNullOrEmpty(referenceName) && !string.IsNullOrEmpty(descriptionName))
+            {
+                ability.ReferenceNameId = referenceName;
+                ability.FullDescriptionNameId = descriptionName;
+
+                if (!DescriptionLoader.DescriptionNames.ContainsKey(descriptionName))
+                    throw new ParseException($"{nameof(FindAbilities)}: {descriptionName} not found in description names");
+
+                ability.Name = DescriptionLoader.DescriptionNames[descriptionName];
+            }
+            else if (!string.IsNullOrEmpty(referenceName) && string.IsNullOrEmpty(descriptionName)) // is a secondary ability
+            {
+                ability.ReferenceNameId = referenceName;
+                ability.ParentLink = parentLink;
+                ability.FullDescriptionNameId = referenceName;
+
+                if (!DescriptionLoader.DescriptionNames.ContainsKey(referenceName))
+                    throw new ParseException($"{nameof(FindAbilities)}: {referenceName} not found in description names");
+
+                ability.Name = DescriptionLoader.DescriptionNames[referenceName];
+            }
+            else
+            {
+                ability.ReferenceNameId = descriptionName;
+                ability.FullDescriptionNameId = descriptionName;
+
+                if (!DescriptionLoader.DescriptionNames.ContainsKey(descriptionName))
+                    throw new ParseException($"{nameof(FindAbilities)}: {descriptionName} not found in description names");
+
+                ability.Name = DescriptionLoader.DescriptionNames[descriptionName];
+            }
+
+            var heroicElement = abilityElement.Descendants("Flags").Where(x => x.Attribute("index").Value == "Heroic" && x.Attribute("value").Value == "1").FirstOrDefault();
+            var traitElement = abilityElement.Descendants("Flags").Where(x => x.Attribute("index").Value == "Trait" && x.Attribute("value").Value == "1").FirstOrDefault();
+            var mountElement = abilityElement.Descendants("Flags").Where(x => x.Attribute("index").Value == "MountReplacement" && x.Attribute("value").Value == "1").FirstOrDefault();
+
+            if (heroicElement != null)
+                ability.Tier = AbilityTier.Heroic;
+            else if (traitElement != null)
+                ability.Tier = AbilityTier.Trait;
+            else if (mountElement != null)
+                ability.Tier = AbilityTier.Mount;
+            else
+                ability.Tier = AbilityTier.Basic;
+
+            SetAbilityTalentIcon(ability, xmlData);
+            SetTooltipSubInfo(referenceName, ability, xmlData);
+            SetTooltipDescriptions(ability, xmlData);
+
+            // add to abilities
+            if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
+                hero.Abilities.Add(ability.ReferenceNameId, ability);
+        }
+
+        private void FindTalents(Hero hero, XElement talentElement, XDocument xmlData)
+        {
+            hero.Talents = hero.Talents ?? new Dictionary<string, Talent>();
+
+            string referenceName = talentElement.Attribute("Talent").Value;
+            string tier = talentElement.Attribute("Tier").Value;
+            string column = talentElement.Attribute("Column").Value;
+
+            Talent talent = new Talent
+            {
+                ReferenceNameId = referenceName,
+                Column = int.Parse(column),
+            };
+
+            if (tier == "1")
+                talent.Tier = TalentTier.Level1;
+            else if (tier == "2")
+                talent.Tier = TalentTier.Level4;
+            else if (tier == "3")
+                talent.Tier = TalentTier.Level7;
+            else if (tier == "4")
+                talent.Tier = TalentTier.Level10;
+            else if (tier == "5")
+                talent.Tier = TalentTier.Level13;
+            else if (tier == "6")
+                talent.Tier = TalentTier.Level16;
+            else if (tier == "7")
+                talent.Tier = TalentTier.Level20;
+            else
+                talent.Tier = TalentTier.Old;
+
+            XElement cTalentElement = xmlData.Descendants("CTalent").Where(x => x.Attribute("id").Value == referenceName).FirstOrDefault();
+
+            // desc name
+            var talentFaceElement = cTalentElement.Descendants("Face").FirstOrDefault();
+            if (talentFaceElement != null)
+            {
+                talent.FullDescriptionNameId = talentFaceElement.Attribute("value").Value;
+                talent.Name = DescriptionLoader.DescriptionNames[talent.FullDescriptionNameId];
+            }
+
+            SetAbilityTalentIcon(talent, xmlData);
+
+            var talentAbilElement = cTalentElement.Descendants("Abil").FirstOrDefault();
+            var talentActiveElement = cTalentElement.Descendants("Active").FirstOrDefault();
+            if (talentAbilElement != null && talentActiveElement != null)
+            {
+                string effectId = talentAbilElement.Attribute("value").Value;
+
+                if (talentActiveElement.Attribute("value").Value == "1")
+                    SetTooltipSubInfo(effectId, talent, xmlData);
+            }
+
+            SetTooltipDescriptions(talent, xmlData);
+
+            hero.Talents.Add(referenceName, talent);
+        }
+
+        private void SetAbilityTalentIcon(AbilityTalentBase abilityTalentBase, XDocument xmlData)
+        {
+            var cButtonElement = xmlData.Descendants("CButton").Where(x => x.Attribute("id").Value == abilityTalentBase.FullDescriptionNameId).FirstOrDefault();
+            if (cButtonElement != null)
+            {
+                var buttonIconElement = cButtonElement.Descendants("Icon").FirstOrDefault();
+                if (buttonIconElement != null)
+                    abilityTalentBase.IconFileName = Path.GetFileName(buttonIconElement.Attribute("value").Value);
+            }
+        }
+
+        private void SetTooltipDescriptions(AbilityTalentBase abilityTalentBase, XDocument xmlData)
+        {
+            string faceValue = abilityTalentBase.FullDescriptionNameId;
+            abilityTalentBase.ShortDescriptionNameId = faceValue; // set to default
+
+            string fullTooltipValue = string.Empty; // Tooltip
+            string shortTooltipValue = string.Empty; // SimpleDisplayText
+
+            // check cbutton for tooltip overrides
+            var cButtonElement = xmlData.Descendants("CButton").Where(x => x.Attribute("id").Value == faceValue);
+            if (cButtonElement != null)
+            {
+                // full tooltip
+                var cButtonTooltipElement = cButtonElement.Descendants("Tooltip").FirstOrDefault();
+                if (cButtonTooltipElement != null)
+                {
+                    fullTooltipValue = Path.GetFileName(cButtonTooltipElement.Attribute("value").Value);
+                }
+
+                // short tooltip
+                var cButtonSimpleDisplayTextElement = cButtonElement.Descendants("SimpleDisplayText").FirstOrDefault();
+                if (cButtonSimpleDisplayTextElement != null)
+                {
+                    shortTooltipValue = Path.GetFileName(cButtonSimpleDisplayTextElement.Attribute("value").Value);
+                }
+            }
+
+            // full
+            if (DescriptionParser.FullParsedDescriptions.ContainsKey(fullTooltipValue))
+                abilityTalentBase.Tooltip.FullTooltip = DescriptionParser.FullParsedDescriptions[fullTooltipValue];
+            else if (DescriptionParser.FullParsedDescriptions.ContainsKey(faceValue))
+                abilityTalentBase.Tooltip.FullTooltip = DescriptionParser.FullParsedDescriptions[faceValue];
+
+            // short
+            if (DescriptionParser.ShortParsedDescriptions.ContainsKey(shortTooltipValue))
+            {
+                abilityTalentBase.Tooltip.ShortTooltip = DescriptionParser.ShortParsedDescriptions[shortTooltipValue];
+                abilityTalentBase.ShortDescriptionNameId = shortTooltipValue;
+            }
+            else if (DescriptionParser.ShortParsedDescriptions.ContainsKey(faceValue))
+            {
+                abilityTalentBase.Tooltip.ShortTooltip = DescriptionParser.ShortParsedDescriptions[faceValue];
+            }
+        }
+
+        // Additional ability that is not in the hero's CHero xml element
+        private void AddLinkedAbility(Hero hero, XElement abilityElement, XDocument xmlData)
+        {
+            hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
+
+            string linkName = abilityElement.Attribute("id")?.Value;
+
+            Ability ability = new Ability();
+
+            if (linkName == null)
+                return;
+
+            ability.ReferenceNameId = linkName;
+            ability.FullDescriptionNameId = linkName;
+
+            if (DescriptionLoader.DescriptionNames.ContainsKey(linkName))
+                ability.Name = DescriptionLoader.DescriptionNames[linkName];
+
+            SetAbilityTalentIcon(ability, xmlData);
+            SetTooltipSubInfo(linkName, ability, xmlData);
+            SetTooltipDescriptions(ability, xmlData);
+
+            // add to abilities
+            if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
+                hero.Abilities.Add(ability.ReferenceNameId, ability);
+        }
+
+        private void SetDefaultValues(Hero hero, XDocument xmlData)
+        {
+            var stormHeroData = xmlData.Descendants("CUnit").Where(x => x.Attribute("id")?.Value == "StormHero").FirstOrDefault();
+            if (stormHeroData != null)
+            {
+                var parentDataValue = stormHeroData.Attribute("parent").Value;
+                var stormBasicHeroicUnitData = xmlData.Descendants("CUnit").Where(x => x.Attribute("id")?.Value == parentDataValue).FirstOrDefault();
+
+                if (stormBasicHeroicUnitData != null)
+                {
+                    // loop through all descendants and set found elements
+                    foreach (var element in stormBasicHeroicUnitData.Descendants())
+                    {
+                        string elementName = element.Name.LocalName.ToUpper();
+
+                        if (elementName == "SPEED")
+                        {
+                            hero.Speed = double.Parse(element.Attribute("value").Value);
+                        }
+                        else if (elementName == "SIGHT")
+                        {
+                            hero.Sight = double.Parse(element.Attribute("value").Value);
+                        }
+                    }
+                }
+
+                // loop through all StormHero descendants and set found elements
+                foreach (var element in stormHeroData.Descendants())
+                {
+                    string elementName = element.Name.LocalName.ToUpper();
+
+                    if (elementName == "LIFEMAX")
+                    {
+                        hero.Life = int.Parse(element.Attribute("value").Value);
+                    }
+                    else if (elementName == "LIFEREGENRATE")
+                    {
+                        hero.LifeRegenerationRate = double.Parse(element.Attribute("value").Value);
+                    }
+                    else if (elementName == "RADIUS")
+                    {
+                        hero.Radius = double.Parse(element.Attribute("value").Value);
+                    }
+                    else if (elementName == "INNERRADIUS")
+                    {
+                        hero.InnerRadius = double.Parse(element.Attribute("value").Value);
+                    }
+                    else if (elementName == "ENERGYMAX")
+                    {
+                        hero.Energy = int.Parse(element.Attribute("value").Value);
+                    }
+                    else if (elementName == "ENERGYREGENRATE")
+                    {
+                        hero.EnergyRegenerationRate = int.Parse(element.Attribute("value").Value);
+                    }
+                }
+            }
+        }
+    }
+}
