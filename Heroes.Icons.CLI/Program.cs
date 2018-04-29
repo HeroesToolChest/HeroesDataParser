@@ -199,7 +199,7 @@ namespace Heroes.Icons.CLI
 
         private void HeroDataVerification(List<Hero> heroes)
         {
-            Console.WriteLine($"Verifyng hero data...");
+            Console.WriteLine($"Verifying hero data...");
             List<string> warnings = VerifyHeroData.Verify(heroes);
 
             Console.WriteLine($"{warnings.Count} warnings [Check logs for details]");

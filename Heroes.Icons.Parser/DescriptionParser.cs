@@ -77,7 +77,7 @@ namespace Heroes.Icons.Parser
                     }
                     else // no values to look up
                     {
-                        parsedDescriptions.GetOrAdd(name, desc);
+                        parsedDescriptions.GetOrAdd(name, DescriptionValidate.Validate(desc));
                     }
                 }
                 catch (UnparseableException)
@@ -184,7 +184,7 @@ namespace Heroes.Icons.Parser
                 }
 
                 if (!parsedDescriptions.ContainsKey(name))
-                    parsedDescriptions.GetOrAdd(name, joinDesc);
+                    parsedDescriptions.GetOrAdd(name, DescriptionValidate.Validate(joinDesc));
             }
         }
 
