@@ -87,8 +87,8 @@
   </CHero>
   <CHero id="DVa">
     <CUnit value="HeroDVaMech" />
-    <Energy value="0" />
-    <EnergyType value="None" />
+    <Energy value="100" />
+    <EnergyType value="Charge" />
     <Ability id="DVaPilotCallMech" valid="true">
       <Override>
         <ParentLink value="DVaMechMechMode" />
@@ -125,7 +125,7 @@
     </Ability>
   </CHero>
   <CHero id="Junkrat">
-    <EnergyType value="None" />
+    <EnergyType value="Ammo" />
   </CHero>
   <CHero id="Kerrigan">
     <Weapon id="HeroKerrigan">

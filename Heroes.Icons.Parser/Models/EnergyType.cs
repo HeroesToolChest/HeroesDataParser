@@ -7,5 +7,7 @@
         Brew,
         Fury,
         Energy,
+        Ammo,
+        Charge,
     }
 }
