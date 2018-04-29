@@ -34,6 +34,10 @@ namespace Heroes.Icons.Parser.Tests
         private readonly string UpperCaseTagDescription1 = "<C val=\"#TooltipQuest\"> Repeatable Quest:</C> Gain<C val=\"#TooltipNumbers\">10</c>";
         private readonly string UpperCaseTagDescription1Corrected = "<c val=\"#TooltipQuest\"> Repeatable Quest:</c> Gain<c val=\"#TooltipNumbers\">10</c>";
 
+        // space in tags
+        private readonly string ExtraSpacesTagDescription1 = "<c  val=\"#TooltipQuest\"> Repeatable Quest:</c> Gain<c val=\"#TooltipNumbers\">10</c>";
+        private readonly string ExtraSpacesTagDescription2 = "<c     val=\"#TooltipQuest\"> Repeatable Quest:</c> Gain<c val=\"#TooltipNumbers\">10</c>";
+
         // Empty text tags
         private readonly string EmptyTagsDescription1 = "<c val=\"#TooltipQuest\"></c><c val=\"#TooltipNumbers\"></c>";
         private readonly string EmptyTagsDescription1Corrected = string.Empty;
@@ -101,6 +105,13 @@ namespace Heroes.Icons.Parser.Tests
         public void ValidateCaseTags()
         {
             Assert.IsTrue(DescriptionValidate.Validate(UpperCaseTagDescription1) == UpperCaseTagDescription1Corrected);
+        }
+
+        [TestMethod]
+        public void ValidateSpaceTags()
+        {
+            Assert.IsTrue(DescriptionValidate.Validate(ExtraSpacesTagDescription1) == NormalTagsDescription2);
+            Assert.IsTrue(DescriptionValidate.Validate(ExtraSpacesTagDescription2) == NormalTagsDescription2);
         }
 
         [TestMethod]

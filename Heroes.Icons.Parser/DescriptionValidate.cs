@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Heroes.Icons.Parser
 {
@@ -200,12 +201,15 @@ namespace Heroes.Icons.Parser
                         isStartTag = true;
                     else
                         isStartTag = false;
+
+                    tag = Regex.Replace(tag, @"\s+", " ");
                     return true;
                 }
             }
 
             isStartTag = false;
             tag = sb.ToString().ToLower();
+            tag = Regex.Replace(tag, @"\s+", " ");
 
             return false;
         }
