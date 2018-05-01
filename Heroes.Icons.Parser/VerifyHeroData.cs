@@ -52,14 +52,22 @@ namespace Heroes.Icons.Parser
                 if (hero.Speed <= 0)
                     AddWarning($"{nameof(hero.Speed)} is 0");
 
-                if (hero.HeroWeapon.Damage <= 0)
-                    AddWarning($"{nameof(hero.HeroWeapon)} {nameof(hero.HeroWeapon.Damage)} is 0");
+                foreach (var weapon in hero.Weapons)
+                {
+                    if (weapon.Damage <= 0)
+                        AddWarning($"{weapon.WeaponNameId} {nameof(weapon.Damage)} is 0");
 
-                if (hero.HeroWeapon.Period <= 0)
-                    AddWarning($"{nameof(hero.HeroWeapon)} {nameof(hero.HeroWeapon.Period)} is 0");
+                    if (weapon.Period <= 0)
+                        AddWarning($"{weapon.WeaponNameId} {nameof(weapon.Period)} is 0");
 
-                if (hero.HeroWeapon.Range <= 0)
-                    AddWarning($"{nameof(hero.HeroWeapon)} {nameof(hero.HeroWeapon.Range)} is 0");
+                    if (weapon.Range <= 0)
+                        AddWarning($"{weapon.WeaponNameId} {nameof(weapon.Range)} is 0");
+                }
+
+                if (hero.Weapons.Count < 1)
+                    AddWarning("has no weapons");
+                else if (hero.Weapons.Count > 1)
+                    AddWarning("has more than 1 weapon");
 
                 foreach (var ability in hero.Abilities)
                 {

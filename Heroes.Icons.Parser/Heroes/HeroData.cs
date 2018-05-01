@@ -198,11 +198,41 @@ namespace Heroes.Icons.Parser.Heroes
             }
         }
 
-        /// <summary>
-        /// Override current hero properties
-        /// </summary>
-        /// <param name="hero">Hero object</param>
-        protected virtual void ApplyOverrides(Hero hero)
+        protected virtual void HeroWeaponAddRange(XElement weaponLegacy, HeroWeapon weapon, string weaponNameId)
+        {
+            var rangeElement = weaponLegacy.Descendants("Range").FirstOrDefault();
+            if (rangeElement != null)
+                weapon.Range = double.Parse(rangeElement.Attribute("value").Value);
+        }
+
+        protected virtual void HeroWeaponAddPeriod(XElement weaponLegacy, HeroWeapon weapon, string weaponNameId)
+        {
+            var periodElement = weaponLegacy.Descendants("Period").FirstOrDefault();
+            if (periodElement != null)
+                weapon.Period = double.Parse(periodElement.Attribute("value").Value);
+            else
+                weapon.Period = DefaultPeriod;
+        }
+
+        protected virtual void HeroWeaponAddDamage(XElement weaponLegacy, HeroWeapon weapon, XDocument xmlData, string weaponNameId)
+        {
+            var displayEffectElement = weaponLegacy.Descendants("DisplayEffect").FirstOrDefault();
+            if (displayEffectElement != null)
+            {
+                string displayEffectValue = displayEffectElement.Attribute("value").Value;
+                var effectDamageElement = xmlData.Descendants("CEffectDamage").Where(x => x.Attribute("id")?.Value == displayEffectValue);
+                if (effectDamageElement != null)
+                {
+                    var amountElement = effectDamageElement.Descendants("Amount").FirstOrDefault();
+                    if (amountElement != null)
+                    {
+                        weapon.Damage = double.Parse(amountElement.Attribute("value").Value);
+                    }
+                }
+            }
+        }
+
+        private void ApplyOverrides(Hero hero)
         {
             if (HeroOverrideLoader.EnergyTypeOverrideByCHero.ContainsKey(hero.CHeroId))
                 hero.EnergyType = HeroOverrideLoader.EnergyTypeOverrideByCHero[hero.CHeroId];
@@ -222,48 +252,16 @@ namespace Heroes.Icons.Parser.Heroes
                     }
                 }
             }
-        }
 
-        /// <summary>
-        /// Adds the hero's basic attack information
-        /// </summary>
-        /// <param name="hero">Hero object</param>
-        /// <param name="element">The element lookup</param>
-        /// <param name="xmlData">Blizzard xml data</param>
-        protected virtual void AddHeroWeapon(Hero hero, XElement element, XDocument xmlData)
-        {
-            string link = element.Attribute("Link")?.Value;
-            if (!string.IsNullOrEmpty(link))
+            // check each weapon for overrides
+            foreach (var weapon in hero.Weapons)
             {
-                var weaponLegacy = xmlData.Descendants("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == link);
-                if (weaponLegacy != null)
+                if (HeroOverrideLoader.ValueOverrideMethodByWeaponId.ContainsKey(weapon.WeaponNameId))
                 {
-                    // range
-                    var rangeElement = weaponLegacy.Descendants("Range").FirstOrDefault();
-                    if (rangeElement != null)
-                        hero.HeroWeapon.Range = double.Parse(rangeElement.Attribute("value").Value);
-
-                    // period
-                    var periodElement = weaponLegacy.Descendants("Period").FirstOrDefault();
-                    if (periodElement != null)
-                        hero.HeroWeapon.Period = double.Parse(periodElement.Attribute("value").Value);
-                    else
-                        hero.HeroWeapon.Period = DefaultPeriod;
-
-                    // get the damage of the weapon
-                    var displayEffectElement = weaponLegacy.Descendants("DisplayEffect").FirstOrDefault();
-                    if (displayEffectElement != null)
+                    foreach (var propertyOverride in HeroOverrideLoader.ValueOverrideMethodByWeaponId[weapon.WeaponNameId])
                     {
-                        string displayEffectValue = displayEffectElement.Attribute("value").Value;
-                        var effectDamageElement = xmlData.Descendants("CEffectDamage").Where(x => x.Attribute("id")?.Value == displayEffectValue);
-                        if (effectDamageElement != null)
-                        {
-                            var amountElement = effectDamageElement.Descendants("Amount").FirstOrDefault();
-                            if (amountElement != null)
-                            {
-                                hero.HeroWeapon.Damage = double.Parse(amountElement.Attribute("value").Value);
-                            }
-                        }
+                        // execute each property override
+                        propertyOverride.Value(weapon);
                     }
                 }
             }
@@ -471,11 +469,10 @@ namespace Heroes.Icons.Parser.Heroes
                 {
                     hero.EnergyRegenerationRate = int.Parse(element.Attribute("value").Value);
                 }
-                else if (elementName == "WEAPONARRAY")
-                {
-                    AddHeroWeapon(hero, element, xmlData);
-                }
             }
+
+            // get weapons
+            CWeaponLegacyData(hero, heroData.Descendants("WeaponArray").Where(x => x.Attribute("Link") != null), xmlData);
 
             if (hero.Energy < 1)
                 hero.EnergyType = EnergyType.None;
@@ -483,6 +480,35 @@ namespace Heroes.Icons.Parser.Heroes
                 hero.EnergyType = EnergyType.Mana;
 
             hero.Difficulty = HeroDifficulty.Easy;
+        }
+
+        // basic attack data
+        private void CWeaponLegacyData(Hero hero, IEnumerable<XElement> weaponElements, XDocument xmlData)
+        {
+            foreach (var weaponElement in weaponElements)
+            {
+                string weaponNameId = weaponElement.Attribute("Link")?.Value;
+
+                if (string.IsNullOrEmpty(weaponNameId))
+                    continue;
+
+                if (HeroOverrideLoader.ValidWeapons.TryGetValue(weaponNameId, out bool validWeapon))
+                {
+                    if (!validWeapon)
+                        continue;
+                }
+                else
+                {
+                    validWeapon = false;
+                }
+
+                if (validWeapon || weaponElements.Count() == 1 || weaponNameId.Contains("HeroWeapon") || weaponNameId == hero.UnitName)
+                {
+                    HeroWeapon weapon = AddHeroWeapon(hero, weaponNameId, xmlData);
+                    if (weapon != null)
+                        hero.Weapons.Add(weapon);
+                }
+            }
         }
 
         private void FindAbilities(Hero hero, XElement abilityElement, XDocument xmlData)
@@ -693,6 +719,29 @@ namespace Heroes.Icons.Parser.Heroes
             // add to abilities
             if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
                 hero.Abilities.Add(ability.ReferenceNameId, ability);
+        }
+
+        private HeroWeapon AddHeroWeapon(Hero hero, string weaponNameId, XDocument xmlData)
+        {
+            HeroWeapon weapon = null;
+
+            if (!string.IsNullOrEmpty(weaponNameId))
+            {
+                var weaponLegacy = xmlData.Descendants("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == weaponNameId).FirstOrDefault();
+                if (weaponLegacy != null)
+                {
+                    weapon = new HeroWeapon
+                    {
+                        WeaponNameId = weaponNameId,
+                    };
+
+                    HeroWeaponAddRange(weaponLegacy, weapon, weaponNameId);
+                    HeroWeaponAddPeriod(weaponLegacy, weapon, weaponNameId);
+                    HeroWeaponAddDamage(weaponLegacy, weapon, xmlData, weaponNameId);
+                }
+            }
+
+            return weapon;
         }
 
         private void SetDefaultValues(Hero hero, XDocument xmlData)

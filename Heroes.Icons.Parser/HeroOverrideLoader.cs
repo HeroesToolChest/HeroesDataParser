@@ -21,7 +21,9 @@ namespace Heroes.Icons.Parser
         public Dictionary<string, Dictionary<string, RedirectElement>> IdRedirectByAbilityId { get; set; } = new Dictionary<string, Dictionary<string, RedirectElement>>();
         public Dictionary<string, Dictionary<string, RedirectElement>> IdRedirectByWeaponId { get; set; } = new Dictionary<string, Dictionary<string, RedirectElement>>();
         public Dictionary<string, Dictionary<string, string>> LinkedAbilityByCHero { get; set; } = new Dictionary<string, Dictionary<string, string>>();
+        public Dictionary<string, Dictionary<string, Action<HeroWeapon>>> ValueOverrideMethodByWeaponId { get; set; } = new Dictionary<string, Dictionary<string, Action<HeroWeapon>>>();
         public HashSet<string> ValidAbilities { get; set; } = new HashSet<string>();
+        public Dictionary<string, bool> ValidWeapons { get; set; } = new Dictionary<string, bool>();
 
         public void LoadHeroOverride()
         {
@@ -62,14 +64,14 @@ namespace Heroes.Icons.Parser
                         string valid = dataElement.Attribute("valid")?.Value;
 
                         if (string.IsNullOrEmpty(abilityId))
-                            return;
+                            continue;
 
                         if (bool.TryParse(valid, out bool result))
                         {
                             if (result)
                                 ValidAbilities.Add(abilityId);
                             else
-                                return;
+                                continue;
                         }
 
                         var redirectElement = dataElement.Descendants("Redirect").FirstOrDefault();
@@ -88,14 +90,32 @@ namespace Heroes.Icons.Parser
                     else if (elementName == "Weapon")
                     {
                         string weaponId = dataElement.Attribute("id")?.Value;
+                        string valid = dataElement.Attribute("valid")?.Value;
 
                         if (string.IsNullOrEmpty(weaponId))
-                            return;
+                            continue;
+
+                        if (bool.TryParse(valid, out bool result))
+                        {
+                            if (result)
+                            {
+                                ValidWeapons.Add(weaponId, true);
+                            }
+                            else
+                            {
+                                ValidWeapons.Add(weaponId, false);
+                                continue;
+                            }
+                        }
 
                         var redirectElement = dataElement.Descendants("Redirect").FirstOrDefault();
+                        var overrideElement = dataElement.Descendants("Override").FirstOrDefault();
 
                         if (redirectElement != null)
                             SetWeaponRedirects(weaponId, redirectElement);
+
+                        if (overrideElement != null)
+                            SetWeaponOverrides(weaponId, overrideElement);
                     }
                 }
             }
@@ -175,6 +195,33 @@ namespace Heroes.Icons.Parser
 
             if (!ValueOverrideMethodByAbilityId.ContainsKey(abilityId) && propertyOverrides.Count > 0)
                 ValueOverrideMethodByAbilityId.Add(abilityId, propertyOverrides);
+        }
+
+        private void SetWeaponOverrides(string weaponId, XElement element)
+        {
+            var propertyOverrides = new Dictionary<string, Action<HeroWeapon>>();
+
+            // loop through each override child element
+            foreach (var property in element.Descendants())
+            {
+                string propertyName = property.Name.LocalName;
+                string propertyValue = property.Attribute("value")?.Value;
+
+                // remove existing property override - duplicates will override previous
+                if (propertyOverrides.ContainsKey(propertyName))
+                    propertyOverrides.Remove(propertyName);
+
+                if (propertyName == "Range")
+                {
+                    propertyOverrides.Add(propertyName, (weapon) =>
+                    {
+                        weapon.Range = double.Parse(propertyValue);
+                    });
+                }
+            }
+
+            if (!ValueOverrideMethodByWeaponId.ContainsKey(weaponId) && propertyOverrides.Count > 0)
+                ValueOverrideMethodByWeaponId.Add(weaponId, propertyOverrides);
         }
 
         private void SetLinkAbility(string cHeroId, XElement element)

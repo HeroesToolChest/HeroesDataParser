@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<HeroHelper>
+<HeroOverrides>
   <CHero id="Alarak">
     <!--Cooldown and mana cost are deducted after charge release-->
     <Ability id="AlarakDeadlyCharge">
@@ -56,6 +56,9 @@
   <CHero id="Barbarian">
     <EnergyType value="Fury" />
   </CHero>
+  <CHero id="Amazon">
+    <Weapon id="AmazonHeroWeaponMelee" valid="false" />
+  </CHero>
   <CHero id="Chen">
     <EnergyType value="Brew" />
     <!--Storm, Earth, and Fire abilities tied to Heroic ability StormEarthFire-->
@@ -75,6 +78,10 @@
       </Override>
     </Ability>
   </CHero>
+  <CHero id="Cho">
+    <Weapon id="ChoShortRangeHeroWeapon" valid="false" />
+    <Weapon id="ChoLongRangeHeroWeaponCthunsGift" valid="false" />
+  </CHero>
   <CHero id="Chromie">
     <!--Mana cost is time based-->
     <Ability id="ChromieSlowingSands">
@@ -85,6 +92,9 @@
       </Redirect>
     </Ability>
   </CHero>
+  <CHero id="Dryad">
+    <Weapon id="DryadHeroRangedWeapon" valid="true" />
+  </CHero>
   <CHero id="DVa">
     <CUnit value="HeroDVaMech" />
     <Energy value="100" />
@@ -94,6 +104,13 @@
         <ParentLink value="DVaMechMechMode" />
       </Override>
     </Ability>
+  </CHero>
+  <CHero id="Fenix">
+    <Weapon id="FenixHeroWeapon">
+      <Override>
+        <Range value="5" />
+      </Override>
+    </Weapon>
   </CHero>
   <CHero id="Gall">
     <!--Base line activable ability-->
@@ -123,6 +140,7 @@
         <ParentLink value="GreymaneWorgenForm" />
       </Override>
     </Ability>
+    <Weapon id="HeroGreymaneRangedWeapon" valid="true" />
   </CHero>
   <CHero id="Junkrat">
     <EnergyType value="Ammo" />
@@ -184,6 +202,9 @@
       </Override>
     </Ability>
   </CHero>
+  <CHero id="Rexxar">
+    <Weapon id="RexxarRangedWeapon" valid="true" />
+  </CHero>
   <CHero id="Tychus">
     <!--Odin abilities-->
     <Ability id="TychusOdinAnnihilate" valid="true">
@@ -233,4 +254,4 @@
       </Override>
     </Ability>
   </CHero>
-</HeroHelper>
+</HeroOverrides>

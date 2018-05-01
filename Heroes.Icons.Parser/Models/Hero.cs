@@ -103,12 +103,12 @@ namespace Heroes.Icons.Parser.Models
         /// <summary>
         /// The heroes basic attack information
         /// </summary>
-        public HeroWeapon HeroWeapon { get; set; } = new HeroWeapon();
+        public IList<HeroWeapon> Weapons { get; set; } = new List<HeroWeapon>();
 
         /// <summary>
         /// Roles of the hero, multiclass will be first if hero has multiple roles
         /// </summary>
-        public List<HeroRole> Roles { get; set; } = new List<HeroRole>();
+        public IList<HeroRole> Roles { get; set; } = new List<HeroRole>();
 
         /// <summary>
         /// Returns an ability object given the reference name

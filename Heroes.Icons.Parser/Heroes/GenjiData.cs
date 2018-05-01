@@ -11,39 +11,19 @@ namespace Heroes.Icons.Parser.Heroes
         {
         }
 
-        protected override void AddHeroWeapon(Hero hero, XElement element, XDocument xmlData)
+        protected override void HeroWeaponAddDamage(XElement weaponLegacy, HeroWeapon weapon, XDocument xmlData, string weaponNameId)
         {
-            string link = element.Attribute("Link")?.Value;
-            if (!string.IsNullOrEmpty(link))
+            if (HeroOverrideLoader.IdRedirectByWeaponId.ContainsKey(weaponNameId))
             {
-                var weaponLegacy = xmlData.Descendants("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == link);
-                if (weaponLegacy != null)
+                foreach (var type in HeroOverrideLoader.IdRedirectByWeaponId[weaponNameId])
                 {
-                    // range
-                    var rangeElement = weaponLegacy.Descendants("Range").FirstOrDefault();
-                    if (rangeElement != null)
-                        hero.HeroWeapon.Range = double.Parse(rangeElement.Attribute("value").Value);
+                    if (string.IsNullOrEmpty(type.Value.Id))
+                        continue;
 
-                    // period
-                    var periodElement = weaponLegacy.Descendants("Period").FirstOrDefault();
-                    if (periodElement != null)
-                        hero.HeroWeapon.Period = double.Parse(periodElement.Attribute("value").Value);
-                    else
-                        hero.HeroWeapon.Period = DefaultPeriod;
-
-                    if (HeroOverrideLoader.IdRedirectByWeaponId.ContainsKey(link))
+                    var specialElement = xmlData.Descendants(type.Key).Where(x => x.Attribute("id")?.Value == type.Value.Id).FirstOrDefault();
+                    if (specialElement != null)
                     {
-                        foreach (var type in HeroOverrideLoader.IdRedirectByWeaponId[link])
-                        {
-                            if (string.IsNullOrEmpty(type.Value.Id))
-                                continue;
-
-                            var specialElement = xmlData.Descendants(type.Key).Where(x => x.Attribute("id")?.Value == type.Value.Id).FirstOrDefault();
-                            if (specialElement != null)
-                            {
-                                hero.HeroWeapon.Damage = double.Parse(specialElement.Descendants("Amount").FirstOrDefault().Attribute("value").Value);
-                            }
-                        }
+                        weapon.Damage = double.Parse(specialElement.Descendants("Amount").FirstOrDefault().Attribute("value").Value);
                     }
                 }
             }

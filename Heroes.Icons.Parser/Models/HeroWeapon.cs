@@ -2,6 +2,8 @@
 {
     public class HeroWeapon
     {
+        public string WeaponNameId { get; set; }
+
         /// <summary>
         /// Amount of damage the attack deals
         /// </summary>
@@ -24,6 +26,11 @@
         public double GetAttacksPerSecond()
         {
             return 1 / Period;
+        }
+
+        public override string ToString()
+        {
+            return WeaponNameId;
         }
     }
 }
