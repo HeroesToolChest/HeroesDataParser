@@ -117,20 +117,20 @@ namespace Heroes.Icons.Parser.Heroes
 
                 if (allowOverrides)
                 {
-                    if (HeroOverrideLoader.IdRedirectByAbilityId.ContainsKey(attributeId))
+                    if (HeroOverrideLoader.IdRedirectByAbilityId.TryGetValue(attributeId, out Dictionary<string, RedirectElement> idRedirects))
                     {
-                        foreach (var type in HeroOverrideLoader.IdRedirectByAbilityId[attributeId])
+                        foreach (var redirectElement in idRedirects)
                         {
-                            if (string.IsNullOrEmpty(type.Value.Id))
+                            if (string.IsNullOrEmpty(redirectElement.Value.Id))
                                 continue;
 
                             // find element in data file by looking up the id
-                            var specialElement = xmlData.Descendants().Where(x => x.Attribute("id")?.Value == type.Value.Id).FirstOrDefault();
+                            var specialElement = xmlData.Descendants().Where(x => x.Attribute("id")?.Value == redirectElement.Value.Id).FirstOrDefault();
                             if (specialElement != null)
                             {
                                 // get the first one
-                                var element = specialElement.Descendants(type.Key).FirstOrDefault();
-                                ApplyUniquePropertyLookups(type, element, abilityTalentBase);
+                                var element = specialElement.Descendants(redirectElement.Key).FirstOrDefault();
+                                ApplyUniquePropertyLookups(redirectElement, element, abilityTalentBase);
                             }
                         }
                     }
@@ -234,18 +234,18 @@ namespace Heroes.Icons.Parser.Heroes
 
         private void ApplyOverrides(Hero hero)
         {
-            if (HeroOverrideLoader.EnergyTypeOverrideByCHero.ContainsKey(hero.CHeroId))
-                hero.EnergyType = HeroOverrideLoader.EnergyTypeOverrideByCHero[hero.CHeroId];
+            if (HeroOverrideLoader.EnergyTypeOverrideByCHero.TryGetValue(hero.CHeroId, out EnergyType energyType))
+                hero.EnergyType = energyType;
 
-            if (HeroOverrideLoader.EnergyOverrideByCHero.ContainsKey(hero.CHeroId))
-                hero.Energy = HeroOverrideLoader.EnergyOverrideByCHero[hero.CHeroId];
+            if (HeroOverrideLoader.EnergyOverrideByCHero.TryGetValue(hero.CHeroId, out int energyOverride))
+                hero.Energy = energyOverride;
 
             // check each ability for overrides
             foreach (var ability in hero.Abilities)
             {
-                if (HeroOverrideLoader.ValueOverrideMethodByAbilityId.ContainsKey(ability.Key))
+                if (HeroOverrideLoader.ValueOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
                 {
-                    foreach (var propertyOverride in HeroOverrideLoader.ValueOverrideMethodByAbilityId[ability.Key])
+                    foreach (var propertyOverride in valueOverrideMethods)
                     {
                         // execute each property override
                         propertyOverride.Value(ability.Value);
@@ -256,9 +256,9 @@ namespace Heroes.Icons.Parser.Heroes
             // check each weapon for overrides
             foreach (var weapon in hero.Weapons)
             {
-                if (HeroOverrideLoader.ValueOverrideMethodByWeaponId.ContainsKey(weapon.WeaponNameId))
+                if (HeroOverrideLoader.ValueOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<HeroWeapon>> valueOverrideMethods))
                 {
-                    foreach (var propertyOverride in HeroOverrideLoader.ValueOverrideMethodByWeaponId[weapon.WeaponNameId])
+                    foreach (var propertyOverride in valueOverrideMethods)
                     {
                         // execute each property override
                         propertyOverride.Value(weapon);
@@ -410,11 +410,11 @@ namespace Heroes.Icons.Parser.Heroes
                 }
                 else if (elementName == "HEROABILARRAY")
                 {
-                    FindAbilities(hero, element, xmlData);
+                    GetAbility(hero, element, xmlData);
                 }
                 else if (elementName == "TALENTTREEARRAY")
                 {
-                    FindTalents(hero, element, xmlData);
+                    GetTalent(hero, element, xmlData);
                 }
             }
 
@@ -422,9 +422,9 @@ namespace Heroes.Icons.Parser.Heroes
                 hero.Type = HeroType.Ranged;
 
             // add additional linked abilities
-            if (HeroOverrideLoader.LinkedAbilityByCHero.ContainsKey(cHeroId))
+            if (HeroOverrideLoader.LinkedAbilityByCHero.TryGetValue(cHeroId, out Dictionary<string, string> linkHeroAbilities))
             {
-                foreach (var linkedAbility in HeroOverrideLoader.LinkedAbilityByCHero[cHeroId])
+                foreach (var linkedAbility in linkHeroAbilities)
                 {
                     var abilityElement = xmlData.Descendants(linkedAbility.Value).Where(x => x.Attribute("id")?.Value == linkedAbility.Key).FirstOrDefault();
 
@@ -511,7 +511,7 @@ namespace Heroes.Icons.Parser.Heroes
             }
         }
 
-        private void FindAbilities(Hero hero, XElement abilityElement, XDocument xmlData)
+        private void GetAbility(Hero hero, XElement abilityElement, XDocument xmlData)
         {
             hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
 
@@ -519,11 +519,21 @@ namespace Heroes.Icons.Parser.Heroes
             string descriptionName = abilityElement.Attribute("Button")?.Value;
             string parentLink = abilityElement.Attribute("Unit")?.Value;
 
-            var validAbility = abilityElement.Descendants("Flags").Where(x => x.Attribute("index").Value == "ShowInHeroSelect" && x.Attribute("value").Value == "1").FirstOrDefault();
+            XElement usableAbility = abilityElement.Descendants("Flags").Where(x => x.Attribute("index").Value == "ShowInHeroSelect" && x.Attribute("value").Value == "1").FirstOrDefault();
 
             Ability ability = new Ability();
 
-            if (validAbility == null && parentLink == null && !HeroOverrideLoader.ValidAbilities.Contains(referenceName))
+            if (!string.IsNullOrEmpty(referenceName) && HeroOverrideLoader.ValidAbilities.TryGetValue(referenceName, out bool validAbility))
+            {
+                if (!validAbility)
+                    return;
+            }
+            else
+            {
+                validAbility = false;
+            }
+
+            if (usableAbility == null && parentLink == null && !validAbility)
                 return;
 
             if (!string.IsNullOrEmpty(referenceName) && !string.IsNullOrEmpty(descriptionName))
@@ -532,7 +542,7 @@ namespace Heroes.Icons.Parser.Heroes
                 ability.FullDescriptionNameId = descriptionName;
 
                 if (!DescriptionLoader.DescriptionNames.ContainsKey(descriptionName))
-                    throw new ParseException($"{nameof(FindAbilities)}: {descriptionName} not found in description names");
+                    throw new ParseException($"{nameof(GetAbility)}: {descriptionName} not found in description names");
 
                 ability.Name = DescriptionLoader.DescriptionNames[descriptionName];
             }
@@ -543,7 +553,7 @@ namespace Heroes.Icons.Parser.Heroes
                 ability.FullDescriptionNameId = referenceName;
 
                 if (!DescriptionLoader.DescriptionNames.ContainsKey(referenceName))
-                    throw new ParseException($"{nameof(FindAbilities)}: {referenceName} not found in description names");
+                    throw new ParseException($"{nameof(GetAbility)}: {referenceName} not found in description names");
 
                 ability.Name = DescriptionLoader.DescriptionNames[referenceName];
             }
@@ -553,7 +563,7 @@ namespace Heroes.Icons.Parser.Heroes
                 ability.FullDescriptionNameId = descriptionName;
 
                 if (!DescriptionLoader.DescriptionNames.ContainsKey(descriptionName))
-                    throw new ParseException($"{nameof(FindAbilities)}: {descriptionName} not found in description names");
+                    throw new ParseException($"{nameof(GetAbility)}: {descriptionName} not found in description names");
 
                 ability.Name = DescriptionLoader.DescriptionNames[descriptionName];
             }
@@ -580,7 +590,7 @@ namespace Heroes.Icons.Parser.Heroes
                 hero.Abilities.Add(ability.ReferenceNameId, ability);
         }
 
-        private void FindTalents(Hero hero, XElement talentElement, XDocument xmlData)
+        private void GetTalent(Hero hero, XElement talentElement, XDocument xmlData)
         {
             hero.Talents = hero.Talents ?? new Dictionary<string, Talent>();
 
@@ -677,20 +687,20 @@ namespace Heroes.Icons.Parser.Heroes
             }
 
             // full
-            if (DescriptionParser.FullParsedDescriptions.ContainsKey(fullTooltipValue))
-                abilityTalentBase.Tooltip.FullTooltip = DescriptionParser.FullParsedDescriptions[fullTooltipValue];
-            else if (DescriptionParser.FullParsedDescriptions.ContainsKey(faceValue))
-                abilityTalentBase.Tooltip.FullTooltip = DescriptionParser.FullParsedDescriptions[faceValue];
+            if (DescriptionParser.FullParsedDescriptions.TryGetValue(fullTooltipValue, out string fullDescription))
+                abilityTalentBase.Tooltip.FullTooltip = fullDescription;
+            else if (DescriptionParser.FullParsedDescriptions.TryGetValue(faceValue, out fullDescription))
+                abilityTalentBase.Tooltip.FullTooltip = fullDescription;
 
             // short
-            if (DescriptionParser.ShortParsedDescriptions.ContainsKey(shortTooltipValue))
+            if (DescriptionParser.ShortParsedDescriptions.TryGetValue(shortTooltipValue, out string shortDescription))
             {
-                abilityTalentBase.Tooltip.ShortTooltip = DescriptionParser.ShortParsedDescriptions[shortTooltipValue];
+                abilityTalentBase.Tooltip.ShortTooltip = shortDescription;
                 abilityTalentBase.ShortDescriptionNameId = shortTooltipValue;
             }
-            else if (DescriptionParser.ShortParsedDescriptions.ContainsKey(faceValue))
+            else if (DescriptionParser.ShortParsedDescriptions.TryGetValue(faceValue, out shortDescription))
             {
-                abilityTalentBase.Tooltip.ShortTooltip = DescriptionParser.ShortParsedDescriptions[faceValue];
+                abilityTalentBase.Tooltip.ShortTooltip = shortDescription;
             }
         }
 
@@ -709,8 +719,8 @@ namespace Heroes.Icons.Parser.Heroes
             ability.ReferenceNameId = linkName;
             ability.FullDescriptionNameId = linkName;
 
-            if (DescriptionLoader.DescriptionNames.ContainsKey(linkName))
-                ability.Name = DescriptionLoader.DescriptionNames[linkName];
+            if (DescriptionLoader.DescriptionNames.TryGetValue(linkName, out string abilityName))
+                ability.Name = abilityName;
 
             SetAbilityTalentIcon(ability, xmlData);
             SetTooltipSubInfo(linkName, ability, xmlData);

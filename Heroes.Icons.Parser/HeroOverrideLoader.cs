@@ -22,7 +22,7 @@ namespace Heroes.Icons.Parser
         public Dictionary<string, Dictionary<string, RedirectElement>> IdRedirectByWeaponId { get; set; } = new Dictionary<string, Dictionary<string, RedirectElement>>();
         public Dictionary<string, Dictionary<string, string>> LinkedAbilityByCHero { get; set; } = new Dictionary<string, Dictionary<string, string>>();
         public Dictionary<string, Dictionary<string, Action<HeroWeapon>>> ValueOverrideMethodByWeaponId { get; set; } = new Dictionary<string, Dictionary<string, Action<HeroWeapon>>>();
-        public HashSet<string> ValidAbilities { get; set; } = new HashSet<string>();
+        public Dictionary<string, bool> ValidAbilities { get; set; } = new Dictionary<string, bool>();
         public Dictionary<string, bool> ValidWeapons { get; set; } = new Dictionary<string, bool>();
 
         public void LoadHeroOverride()
@@ -68,9 +68,9 @@ namespace Heroes.Icons.Parser
 
                         if (bool.TryParse(valid, out bool result))
                         {
-                            if (result)
-                                ValidAbilities.Add(abilityId);
-                            else
+                            ValidAbilities.Add(abilityId, result);
+
+                            if (!result)
                                 continue;
                         }
 
@@ -97,15 +97,10 @@ namespace Heroes.Icons.Parser
 
                         if (bool.TryParse(valid, out bool result))
                         {
-                            if (result)
-                            {
-                                ValidWeapons.Add(weaponId, true);
-                            }
-                            else
-                            {
-                                ValidWeapons.Add(weaponId, false);
+                            ValidWeapons.Add(weaponId, result);
+
+                            if (!result)
                                 continue;
-                            }
                         }
 
                         var redirectElement = dataElement.Descendants("Redirect").FirstOrDefault();

@@ -26,11 +26,25 @@ namespace Heroes.Icons.Parser
             SetElementNames();
         }
 
+        /// <summary>
+        /// The full tooltip descritions of ability/talent
+        /// </summary>
         public ConcurrentDictionary<string, string> FullParsedDescriptions { get; set; } = new ConcurrentDictionary<string, string>();
+
+        /// <summary>
+        /// Short tooltip descriptions of ability/talent
+        /// </summary>
         public ConcurrentDictionary<string, string> ShortParsedDescriptions { get; set; } = new ConcurrentDictionary<string, string>();
+
+        /// <summary>
+        /// Hero description found on hero select screen
+        /// </summary>
         public ConcurrentDictionary<string, string> HeroParsedDescriptions { get; set; } = new ConcurrentDictionary<string, string>();
+
         public ConcurrentDictionary<string, string> InvalidFullDescriptions { get; set; } = new ConcurrentDictionary<string, string>();
+
         public ConcurrentDictionary<string, string> InvalidShortDescriptions { get; set; } = new ConcurrentDictionary<string, string>();
+
         public ConcurrentDictionary<string, string> InvalidHeroDescriptions { get; set; } = new ConcurrentDictionary<string, string>();
 
         public void Parse()

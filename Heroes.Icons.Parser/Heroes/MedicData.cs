@@ -1,4 +1,5 @@
 ﻿using Heroes.Icons.Parser.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -18,28 +19,28 @@ namespace Heroes.Icons.Parser.Heroes
 
             base.SetTooltipSubInfo(attributeId, abilityTalentBase, xmlData, allowOverrides);
 
-            if (HeroOverrideLoader.IdRedirectByAbilityId.ContainsKey(attributeId))
+            if (HeroOverrideLoader.IdRedirectByAbilityId.TryGetValue(attributeId, out Dictionary<string, RedirectElement> idRedirects))
             {
-                foreach (var type in HeroOverrideLoader.IdRedirectByAbilityId[attributeId])
+                foreach (var redirectElement in idRedirects)
                 {
-                    if (string.IsNullOrEmpty(type.Value.Id))
+                    if (string.IsNullOrEmpty(redirectElement.Value.Id))
                         continue;
 
                     // find element in data file by looking up the id
-                    var specialElement = xmlData.Descendants().Where(x => x.Attribute("id")?.Value == type.Value.Id).FirstOrDefault();
+                    var specialElement = xmlData.Descendants().Where(x => x.Attribute("id")?.Value == redirectElement.Value.Id).FirstOrDefault();
                     if (specialElement != null)
                     {
                         // get the first one
-                        var element = specialElement.Descendants(type.Key).FirstOrDefault();
-                        if (type.Key == "VitalArray")
+                        var element = specialElement.Descendants(redirectElement.Key).FirstOrDefault();
+                        if (redirectElement.Key == "VitalArray")
                         {
                             double value = double.Parse(specialElement.Descendants("Change").FirstOrDefault().Attribute("value").Value);
                             if (value < 0)
                                 value *= -1;
 
-                            if (type.Value.InnerElement != null)
+                            if (redirectElement.Value.InnerElement != null)
                             {
-                                var cEffectCreatePersistent = xmlData.Descendants().Where(x => x.Attribute("id")?.Value == type.Value.InnerElement.Id);
+                                var cEffectCreatePersistent = xmlData.Descendants().Where(x => x.Attribute("id")?.Value == redirectElement.Value.InnerElement.Id);
                                 if (cEffectCreatePersistent != null)
                                 {
                                     int count = cEffectCreatePersistent.Descendants("PeriodicEffectArray").Where(x => x.Attribute("value")?.Value == "MedicHealingBeamPersistentSet").Count();
