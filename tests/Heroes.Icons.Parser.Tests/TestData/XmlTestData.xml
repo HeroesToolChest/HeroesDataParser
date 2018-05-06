@@ -1,5 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
+  <CTalent id="AbathurMasteryEnvenomedNestsToxicNest">
+    <Face value="AbathurToxicNestEnvenomedNestTalent" />
+    <AbilityModificationArray ModifyAbil="AbathurToxicNest" TooltipAddendum="Talent/Abathur/ToxicNest/EnevenomedNest">
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurToxicNestApplyEnvenomedNestDamage" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="AbathurToxicNest" />
+  </CTalent>
+  <CBehaviorBuff id="AbathurToxicNestEnvenomedNest" parent="StormDot">
+    <Duration value="3" />
+    <Period value="1" />
+    <PeriodCount value="3" />
+    <PeriodicEffect value="AbathurToxicNestEnvenomedNestDamage" />
+    <PeriodicDisplayEffect value="AbathurToxicNestEnvenomedNestDamage" />
+  </CBehaviorBuff>
+  <CEffectDamage id="ToxicNestDamage" parent="StormSpell">
+    <Amount value="153" />
+    <Visibility value="Hidden" />
+  </CEffectDamage>
+  <CEffectDamage id="AbathurToxicNestEnvenomedNestDamage" parent="StormSpellDot">
+    <Amount value="38.25" />
+  </CEffectDamage>
   <CTalent id="AnubarakMasteryEpicenterBurrowCharge">
     <Face value="AnubarakBurrowChargeEpicenterTalent" />
     <Abil value="AnubarakBurrowCharge" />
@@ -224,4 +251,70 @@
       <StateFlags index="Benign" value="1" />
     </Modification>
   </CBehaviorBuff>
+  
+  <!-- level scaling data -->
+  <LevelScalingArray Ability="AzmodanAllShallBurn">
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AzmodanAllShallBurnDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+  <LevelScalingArray Ability="AzmodanDemonicInvasion">
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AzmodanDemonicInvasionDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AzmodanDemonicInvasionZombieWeaponDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AzmodanDemonicInvasionPerishingFlameMasteryExplodeDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AzmodanDemonicInvasionZombie" />
+      <Field value="LifeMax" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AzmodanDemonicInvasionZombie" />
+      <Field value="LifeStart" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AzmodanSinsGraspDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AzmodanSinsGraspInitialDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
 </Catalog>

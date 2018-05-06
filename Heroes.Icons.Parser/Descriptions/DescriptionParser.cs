@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Heroes.Icons.Parser.HeroData;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
@@ -7,37 +8,39 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Heroes.Icons.Parser
+namespace Heroes.Icons.Parser.Descriptions
 {
     public class DescriptionParser
     {
         private HeroDataLoader HeroDataLoader;
         private DescriptionLoader DescriptionLoader;
+        private ScalingDataLoader ScalingDataLoader;
 
         private DataTable DataTable = new DataTable();
 
         private Dictionary<string, HashSet<string>> ElementNames = new Dictionary<string, HashSet<string>>();
 
-        public DescriptionParser(HeroDataLoader heroDataLoader, DescriptionLoader descriptionLoader)
+        public DescriptionParser(HeroDataLoader heroDataLoader, DescriptionLoader descriptionLoader, ScalingDataLoader scalingDataLoader)
         {
             HeroDataLoader = heroDataLoader;
             DescriptionLoader = descriptionLoader;
+            ScalingDataLoader = scalingDataLoader;
 
             SetElementNames();
         }
 
         /// <summary>
-        /// The full tooltip descritions of ability/talent
+        /// The full tooltip raw description of ability/talent
         /// </summary>
         public ConcurrentDictionary<string, string> FullParsedDescriptions { get; set; } = new ConcurrentDictionary<string, string>();
 
         /// <summary>
-        /// Short tooltip descriptions of ability/talent
+        /// Short tooltip raw description of ability/talent
         /// </summary>
         public ConcurrentDictionary<string, string> ShortParsedDescriptions { get; set; } = new ConcurrentDictionary<string, string>();
 
         /// <summary>
-        /// Hero description found on hero select screen
+        /// Hero raw description found on hero select screen
         /// </summary>
         public ConcurrentDictionary<string, string> HeroParsedDescriptions { get; set; } = new ConcurrentDictionary<string, string>();
 
@@ -84,14 +87,14 @@ namespace Heroes.Icons.Parser
                     {
                         while (desc.Contains("[d ref="))
                         {
-                            ParseDescription(name, ref desc, HeroDataLoader.XmlData, "(\\[d ref=\".*?/\\])", true, parsedDescriptions, invalidDescriptions);
+                            ParseDescription(name, ref desc, "(\\[d ref=\".*?/\\])", true, parsedDescriptions, invalidDescriptions);
                         }
 
-                        ParseDescription(name, ref desc, HeroDataLoader.XmlData, "(<d ref=\".*?/>)", false, parsedDescriptions, invalidDescriptions);
+                        ParseDescription(name, ref desc, "(<d ref=\".*?/>)", false, parsedDescriptions, invalidDescriptions);
                     }
                     else // no values to look up
                     {
-                        parsedDescriptions.GetOrAdd(name, DescriptionValidate.Validate(desc));
+                        parsedDescriptions.GetOrAdd(name, DescriptionValidation.Validate(desc));
                     }
                 }
                 catch (UnparseableException)
@@ -105,7 +108,7 @@ namespace Heroes.Icons.Parser
             });
         }
 
-        private void ParseDescription(string name, ref string description, XDocument xDocument, string spliter, bool innerRef, ConcurrentDictionary<string, string> parsedDescriptions, ConcurrentDictionary<string, string> invalidDescriptions)
+        private void ParseDescription(string name, ref string description, string spliter, bool innerRef, ConcurrentDictionary<string, string> parsedDescriptions, ConcurrentDictionary<string, string> invalidDescriptions)
         {
             if (innerRef)
             {
@@ -162,7 +165,12 @@ namespace Heroes.Icons.Parser
                             int position = pathLookup.IndexOf(arithmeticPaths[j]);
                             if (position >= 0)
                             {
-                                pathLookup = pathLookup.Substring(0, position) + GetValueFromPath(xDocument, arithmeticPaths[j]) + pathLookup.Substring(position + arithmeticPaths[j].Length);
+                                string value = GetValueFromPath(arithmeticPaths[j], out double? scalingValue);
+
+                                if (scalingValue.HasValue)
+                                    pathLookup = $"{pathLookup.Substring(0, position)}{value}~~{scalingValue}~~{pathLookup.Substring(position + arithmeticPaths[j].Length)}";
+                                else
+                                    pathLookup = pathLookup.Substring(0, position) + value + pathLookup.Substring(position + arithmeticPaths[j].Length);
                             }
                         }
                     }
@@ -175,12 +183,25 @@ namespace Heroes.Icons.Parser
                     return;
                 }
 
+                // extract the scaling
+                string scalingText = GetScalingText(pathLookup);
+
+                if (!string.IsNullOrEmpty(scalingText))
+                {
+                    pathLookup = pathLookup.Replace(scalingText, string.Empty);
+                }
+
                 double number = MathEval.CalculatePathEquation(pathLookup);
 
                 if (precision.HasValue)
                     parts[i] = Math.Round(number, precision.Value).ToString();
                 else
                     parts[i] = Math.Round(number, 0).ToString();
+
+                if (!string.IsNullOrEmpty(scalingText))
+                {
+                    parts[i] += $"{scalingText}";
+                }
             }
 
             if (innerRef)
@@ -198,69 +219,22 @@ namespace Heroes.Icons.Parser
                 }
 
                 if (!parsedDescriptions.ContainsKey(name))
-                    parsedDescriptions.GetOrAdd(name, DescriptionValidate.Validate(joinDesc));
+                    parsedDescriptions.GetOrAdd(name, DescriptionValidation.Validate(joinDesc));
             }
-        }
-
-        private bool UniqueHeroHandler(string name, out string heroName)
-        {
-            if (name.StartsWith("ETC"))
-            {
-                heroName = "L90ETC";
-                return true;
-            }
-            else if (name.StartsWith("FaerieDragon"))
-            {
-                heroName = "Brightwing";
-                return true;
-            }
-            else if (name.StartsWith("Greymane"))
-            {
-                heroName = "Genn";
-                return true;
-            }
-            else if (name.StartsWith("Johanna"))
-            {
-                heroName = "Crusader";
-                return true;
-            }
-            else if (name.StartsWith("Cho"))
-            {
-                heroName = "ChoGall";
-                return true;
-            }
-            else if (name.StartsWith("Gall"))
-            {
-                heroName = "ChoGall";
-                return true;
-            }
-            else if (name.StartsWith("Ragnaros"))
-            {
-                heroName = "TheFirelords";
-                return true;
-            }
-            else if (name == "Sundering" || name == "Windfury")
-            {
-                heroName = "Thrall";
-                return true;
-            }
-
-            heroName = null;
-            return false;
         }
 
         private string GetPrecision(string pathPart, out int? precision)
         {
             // get the precision string first
             Regex regex = new Regex("precision=\".*?\"");
-            var precisionMatches = regex.Matches(pathPart);
+            MatchCollection precisionMatches = regex.Matches(pathPart);
 
             if (precisionMatches.Count != 1)
                 throw new Exception("GetPrecision: invalid matches found");
 
             // now get the value
             regex = new Regex("\".*?\"");
-            var match = regex.Matches(precisionMatches[0].ToString());
+            MatchCollection match = regex.Matches(precisionMatches[0].ToString());
 
             precision = int.Parse(match[0].ToString().Trim('"'));
 
@@ -273,14 +247,14 @@ namespace Heroes.Icons.Parser
         {
             // get the player string first
             Regex regex = new Regex("player=\".*?\"");
-            var playerMatches = regex.Matches(pathPart);
+            MatchCollection playerMatches = regex.Matches(pathPart);
 
             if (playerMatches.Count != 1)
                 throw new Exception("GetPlayer: invalid matches found");
 
             // now get the value
             regex = new Regex("\".*?\"");
-            var match = regex.Matches(playerMatches[0].ToString());
+            MatchCollection match = regex.Matches(playerMatches[0].ToString());
 
             player = int.Parse(match[0].ToString().Trim('"'));
 
@@ -289,19 +263,38 @@ namespace Heroes.Icons.Parser
             return pathPart;
         }
 
-        private string GetValueFromPath(XDocument xDocument, string pathLookup)
+        private string GetScalingText(string pathLookup)
+        {
+            // get scaling string
+            Regex regex = new Regex("~~.*?~~");
+            MatchCollection playerMatches = regex.Matches(pathLookup);
+
+            if (playerMatches.Count < 1)
+                return string.Empty;
+
+            return playerMatches[0].ToString();
+        }
+
+        private string GetValueFromPath(string pathLookup, out double? scaling)
         {
             var parts = pathLookup.Trim().Split(new char[] { ',', '.' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
             if (parts[0].Contains("$BehaviorTokenCount") || parts[0].Contains("$BehaviorStackCount"))
+            {
+                scaling = null;
                 return "0";
+            }
 
-            return ReadData(xDocument, parts);
+            return ReadData(parts, out scaling);
         }
 
-        private string ReadData(XDocument xDocument, List<string> parts)
+        private string ReadData(List<string> parts, out double? scaling)
         {
-            string value = ReadXDocumentData(xDocument, parts, null);
+            scaling = null;
+            string value = ReadXDocumentData(parts, null);
+
+            if (parts.Count == 3)
+                scaling = GetScalingInfo(parts[0], parts[1], parts[2]);
 
             // caster life percents, CValidatorUnitCompareVital
             if (string.IsNullOrEmpty(value) && parts[1] == "CasterLifeGT75Percent")
@@ -338,7 +331,7 @@ namespace Heroes.Icons.Parser
             return value;
         }
 
-        private string ReadXDocumentData(XDocument xDocument, List<string> parts, XAttribute parent)
+        private string ReadXDocumentData(List<string> parts, XAttribute parent)
         {
             XElement currentElement = null;
             parent = null;
@@ -350,10 +343,10 @@ namespace Heroes.Icons.Parser
             if (validElementNames.Count < 1)
                 return string.Empty;
 
-            IEnumerable<XElement> elements = xDocument.Descendants(validElementNames.First()).Where(x => x.Attribute("id")?.Value == parts[1]);
+            IEnumerable<XElement> elements = HeroDataLoader.XmlData.Descendants(validElementNames.First()).Where(x => x.Attribute("id")?.Value == parts[1]);
             for (int i = 1; i < validElementNames.Count(); i++)
             {
-                elements = elements.Concat(xDocument.Descendants(validElementNames.ElementAt(i)).Where(x => x.Attribute("id")?.Value == parts[1]));
+                elements = elements.Concat(HeroDataLoader.XmlData.Descendants(validElementNames.ElementAt(i)).Where(x => x.Attribute("id")?.Value == parts[1]));
             }
 
             elements = elements.Reverse();
@@ -419,14 +412,14 @@ namespace Heroes.Icons.Parser
                     parts[1] = parent.Value;
 
                     // look up the parent in the same file
-                    string value = ReadXDocumentData(xDocument, parts, parent);
+                    string value = ReadXDocumentData(parts, parent);
                     if (!string.IsNullOrEmpty(value))
                         return value;
                 }
 
                 if (currentElement != null)
                 {
-                    var attribute = currentElement.Attribute("value");
+                    XAttribute attribute = currentElement.Attribute("value");
                     if (attribute == null)
                         attribute = currentElement.Attribute("Value");
                     if (attribute != null)
@@ -435,6 +428,17 @@ namespace Heroes.Icons.Parser
             }
 
             return string.Empty;
+        }
+
+        private double? GetScalingInfo(string catalogValue, string entryValue, string fieldValue)
+        {
+            if (fieldValue.EndsWith("]"))
+                fieldValue = fieldValue.Substring(0, fieldValue.Length - 3);
+
+            if (ScalingDataLoader.ScaleValueByLookupId.TryGetValue($"{catalogValue}#{entryValue}#{fieldValue}", out double scaleValue))
+                return scaleValue;
+            else
+                return null;
         }
 
         private void SetElementNames()

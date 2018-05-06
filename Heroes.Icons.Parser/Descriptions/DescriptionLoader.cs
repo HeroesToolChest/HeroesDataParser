@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace Heroes.Icons.Parser
+namespace Heroes.Icons.Parser.Descriptions
 {
     /// <summary>
     /// Loads all the tooltip descriptions from gamestrings text files

@@ -7,12 +7,12 @@ namespace Heroes.Icons.Parser.Models
         /// <summary>
         /// Gets the short tooltip
         /// </summary>
-        public string ShortTooltip { get; set; }
+        public TooltipDescription ShortTooltipDescription { get; set; }
 
         /// <summary>
         /// Gets the detailed tooltip
         /// </summary>
-        public string FullTooltip { get; set; }
+        public TooltipDescription FullTooltipDescription { get; set; }
 
         /// <summary>
         /// Gets the cooldown
@@ -52,7 +52,7 @@ namespace Heroes.Icons.Parser.Models
         /// <summary>
         /// Is the health cost a percentage
         /// </summary>
-        public bool IsHealthPercentage { get; set; } = false;
+        public bool IsLifePercentage { get; set; } = false;
 
         /// <summary>
         /// The distance from the hero casting the ability/talent
@@ -124,7 +124,7 @@ namespace Heroes.Icons.Parser.Models
 
         public override string ToString()
         {
-            return ShortTooltip;
+            return ShortTooltipDescription?.GetPlainTextWithScaling;
         }
     }
 }

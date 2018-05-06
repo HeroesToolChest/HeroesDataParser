@@ -43,6 +43,12 @@ namespace Heroes.Icons.Parser
                 if (hero.Life <= 0)
                     AddWarning($"{nameof(hero.Life)} is 0");
 
+                if (hero.LifeScaling <= 0)
+                    AddWarning($"{nameof(hero.LifeScaling)} is 0");
+
+                if (hero.LifeScalingRegenerationRate <= 0)
+                    AddWarning($"{nameof(hero.LifeScalingRegenerationRate)} is 0");
+
                 if (hero.Energy > 0 && hero.EnergyType == EnergyType.None)
                     AddWarning($"{nameof(hero.Energy)} > 0 and {nameof(hero.EnergyType)} is NONE");
 
@@ -86,11 +92,29 @@ namespace Heroes.Icons.Parser
                     if (string.IsNullOrEmpty(ability.Value.ShortDescriptionNameId))
                         AddWarning($"[{ability.Key}] {nameof(ability.Value.ShortDescriptionNameId)} is null or empty");
 
-                    if (string.IsNullOrEmpty(ability.Value.Tooltip.ShortTooltip))
-                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.ShortTooltip)} is null or empty");
+                    if (string.IsNullOrEmpty(ability.Value.Tooltip.ShortTooltipDescription?.GetRawDescription))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.ShortTooltipDescription)} is null or empty");
 
-                    if (string.IsNullOrEmpty(ability.Value.Tooltip.FullTooltip))
-                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltip)} is null or empty");
+                    if (string.IsNullOrEmpty(ability.Value.Tooltip.FullTooltipDescription?.GetRawDescription))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltipDescription)} is null or empty");
+
+                    if (string.IsNullOrEmpty(ability.Value.Tooltip.FullTooltipDescription?.GetPlainText))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltipDescription)}.{nameof(ability.Value.Tooltip.FullTooltipDescription.GetPlainText)} is null or empty");
+
+                    if (string.IsNullOrEmpty(ability.Value.Tooltip.FullTooltipDescription?.GetPlainTextWithNewlines))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltipDescription)}.{nameof(ability.Value.Tooltip.FullTooltipDescription.GetPlainTextWithScaling)} is null or empty");
+
+                    if (string.IsNullOrEmpty(ability.Value.Tooltip.FullTooltipDescription?.GetPlainTextWithScaling))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltipDescription)}.{nameof(ability.Value.Tooltip.FullTooltipDescription.GetPlainTextWithScaling)} is null or empty");
+
+                    if (string.IsNullOrEmpty(ability.Value.Tooltip.FullTooltipDescription?.GetPlainTextWithScalingWithNewlines))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltipDescription)}.{nameof(ability.Value.Tooltip.FullTooltipDescription.GetPlainTextWithScalingWithNewlines)} is null or empty");
+
+                    if (string.IsNullOrEmpty(ability.Value.Tooltip.FullTooltipDescription?.GetColoredText))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltipDescription)}.{nameof(ability.Value.Tooltip.FullTooltipDescription.GetColoredText)} is null or empty");
+
+                    if (string.IsNullOrEmpty(ability.Value.Tooltip.FullTooltipDescription?.GetColoredTextWithScaling))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltipDescription)}.{nameof(ability.Value.Tooltip.FullTooltipDescription.GetColoredTextWithScaling)} is null or empty");
                 }
 
                 foreach (var talent in hero.Talents)
@@ -110,11 +134,29 @@ namespace Heroes.Icons.Parser
                     if (string.IsNullOrEmpty(talent.Value.ShortDescriptionNameId))
                         AddWarning($"[{talent.Key}] {nameof(talent.Value.ShortDescriptionNameId)} is null or empty");
 
-                    if (string.IsNullOrEmpty(talent.Value.Tooltip.ShortTooltip))
-                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.ShortTooltip)} is null or empty");
+                    if (string.IsNullOrEmpty(talent.Value.Tooltip.ShortTooltipDescription?.GetRawDescription))
+                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.ShortTooltipDescription)} is null or empty");
 
-                    if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip))
-                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)} is null or empty");
+                    if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltipDescription?.GetRawDescription))
+                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltipDescription)} is null or empty");
+
+                    if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltipDescription?.GetPlainText))
+                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltipDescription)}.{nameof(talent.Value.Tooltip.FullTooltipDescription.GetPlainText)} is null or empty");
+
+                    if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltipDescription?.GetPlainTextWithNewlines))
+                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltipDescription)}.{nameof(talent.Value.Tooltip.FullTooltipDescription.GetPlainTextWithScaling)} is null or empty");
+
+                    if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltipDescription?.GetPlainTextWithScaling))
+                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltipDescription)}.{nameof(talent.Value.Tooltip.FullTooltipDescription.GetPlainTextWithScaling)} is null or empty");
+
+                    if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltipDescription?.GetPlainTextWithScalingWithNewlines))
+                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltipDescription)}.{nameof(talent.Value.Tooltip.FullTooltipDescription.GetPlainTextWithScalingWithNewlines)} is null or empty");
+
+                    if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltipDescription?.GetColoredText))
+                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltipDescription)}.{nameof(talent.Value.Tooltip.FullTooltipDescription.GetColoredText)} is null or empty");
+
+                    if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltipDescription?.GetColoredTextWithScaling))
+                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltipDescription)}.{nameof(talent.Value.Tooltip.FullTooltipDescription.GetColoredTextWithScaling)} is null or empty");
                 }
             }
 

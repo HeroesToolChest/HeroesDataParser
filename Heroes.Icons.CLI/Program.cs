@@ -1,4 +1,6 @@
 ﻿using Heroes.Icons.Parser;
+using Heroes.Icons.Parser.Descriptions;
+using Heroes.Icons.Parser.HeroData;
 using Heroes.Icons.Parser.Models;
 using System;
 using System.Collections.Generic;
@@ -37,12 +39,13 @@ namespace Heroes.Icons.CLI
         {
             try
             {
-                HeroDataLoader dataLoader = InitializeDataLoader();
+                HeroDataLoader heroDataLoader = InitializeDataLoader();
+                ScalingDataLoader scalingDataLoader = InitializeScalingDataLoader(heroDataLoader);
                 DescriptionLoader descriptionLoader = InitializeDescriptionLoader();
-                HeroOverrideLoader heroOverride = InitializeHeroOverrideLoader();
+                HeroOverrideLoader heroOverrideLoader = InitializeHeroOverrideLoader();
 
-                DescriptionParser descriptionParser = InitializeDescriptionParser(dataLoader, descriptionLoader);
-                HeroParser heroParser = InitializeHeroParser(dataLoader, descriptionLoader, descriptionParser, heroOverride);
+                DescriptionParser descriptionParser = InitializeDescriptionParser(heroDataLoader, descriptionLoader, scalingDataLoader);
+                HeroParser heroParser = InitializeHeroParser(heroDataLoader, descriptionLoader, descriptionParser, heroOverrideLoader);
 
                 if (heroParser.FailedHeroes.Count > 0)
                 {
@@ -81,6 +84,28 @@ namespace Heroes.Icons.CLI
             Console.WriteLine("...");
 
             return heroDataLoader;
+        }
+
+        /// <summary>
+        /// Loads the scaling data
+        /// </summary>
+        /// <returns></returns>
+        private ScalingDataLoader InitializeScalingDataLoader(HeroDataLoader heroDataLoader)
+        {
+            var time = new Stopwatch();
+
+            Console.WriteLine($"Loading scaling data...");
+            ScalingDataLoader scalingDataLoader = new ScalingDataLoader(heroDataLoader);
+
+            time.Start();
+            scalingDataLoader.Load();
+            time.Stop();
+
+            Console.WriteLine($"{scalingDataLoader.ScaleValueByLookupId.Count} scale data loaded");
+            Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
+            Console.WriteLine("...");
+
+            return scalingDataLoader;
         }
 
         /// <summary>
@@ -137,12 +162,12 @@ namespace Heroes.Icons.CLI
         /// <param name="dataLoader">Contains all xml data</param>
         /// <param name="descriptionLoader">Contains all the raw gamestrings</param>
         /// <returns></returns>
-        private DescriptionParser InitializeDescriptionParser(HeroDataLoader dataLoader, DescriptionLoader descriptionLoader)
+        private DescriptionParser InitializeDescriptionParser(HeroDataLoader dataLoader, DescriptionLoader descriptionLoader, ScalingDataLoader scalingDataLoader)
         {
             var time = new Stopwatch();
 
             Console.WriteLine($"Parsing tooltips...");
-            DescriptionParser descriptionParser = new DescriptionParser(dataLoader, descriptionLoader);
+            DescriptionParser descriptionParser = new DescriptionParser(dataLoader, descriptionLoader, scalingDataLoader);
 
             time.Start();
             descriptionParser.Parse();

@@ -22,7 +22,7 @@ namespace Heroes.Icons.Parser.Models
         public string CHeroId { get; set; }
 
         /// <summary>
-        /// Unit name of the hero, available build 57797
+        /// Unit name of the hero
         /// </summary>
         public string UnitName { get; set; }
 
@@ -91,10 +91,6 @@ namespace Heroes.Icons.Parser.Models
         public double LifeScaling { get; set; }
 
         public double LifeScalingRegenerationRate { get; set; }
-
-        public double EnergyScaling { get; set; }
-
-        public double EnergyScalingRegenerationRate { get; set; }
 
         public Dictionary<string, Ability> Abilities { get; set; }
 

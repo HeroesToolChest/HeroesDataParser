@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Heroes.Icons.Parser.Descriptions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Heroes.Icons.Parser.Tests
 {
     [TestClass]
-    public class DescriptionValidateTests
+    public class DescriptionValidationTests
     {
         private readonly string NoTagsDescription = "previous location.";
         private readonly string NormalTagsDescription1 = "Every <c val=\"#TooltipNumbers\">18</c> seconds, deals <c val=\"#TooltipNumbers\">125</c> bonus by <c val=\"#TooltipNumbers\">2</c> seconds.";
@@ -72,79 +73,164 @@ namespace Heroes.Icons.Parser.Tests
         private readonly string CrusaderPunish = "Step forward dealing <c val=\"#TooltipNumbers\">113</c> damage and Slowing enemies by <c val=\"#TooltipNumbers\">60%</c> decaying over <c val=\"#TooltipNumbers\">2</c> seconds.";
         private readonly string CrusaderPunishSame = "Step forward dealing <c val=\"#TooltipNumbers\">113</c> damage and Slowing enemies by <c val=\"#TooltipNumbers\">60%</c> decaying over <c val=\"#TooltipNumbers\">2</c> seconds.";
 
+        // plain text
+        private readonly string PlainText1 = "Gain 30% points"; // NestedTagDescription1
+        private readonly string PlainText2 = "Max Health Bonus: 0% Health 0"; // NestedNewLineTagDescription2Corrected
+        private readonly string PlainText3 = "Deal 30 damage to an enemy, Stun them for 0.75 seconds, and Blind them for 2 seconds once Cheap Shot's Stun expires.  Awards 1 Combo Point.  Unstealth: Blade Flurry Deal damage in an area around Valeera."; // ValeeraCheapShotCorrected
+        private readonly string PlainText4 = "<c val=\"#TooltipNumbers\">100~~0.04~~</c> damage per second<n/>";
+        private readonly string PlainText4Corrected = "100 damage per second";
+        private readonly string PlainText5 = "<c val=\"#TooltipNumbers\">100~~0.04~~</c> damage per second ~~0.05~~";
+        private readonly string PlainText5Corrected = "100 damage per second";
+
+        // plain text with newlines
+        private readonly string PlainTextNewline1 = "Max Health Bonus: 0%<n/>5%Health 0"; // NestedNewLineTagDescription1Corrected
+        private readonly string PlainTextNewline2 = "Deal 30 damage to an enemy, Stun them for 0.75 seconds, and Blind them for 2 seconds once Cheap Shot's Stun expires.<n/><n/>Awards 1 Combo Point.<n/><n/>Unstealth: Blade Flurry<n/>Deal damage in an area around Valeera."; // ValeeraCheapShotCorrected
+        private readonly string PlainTextNewline3 = "<c val=\"#TooltipNumbers\">100~~0.04~~</c><n/> damage per second ~~0.05~~";
+        private readonly string PlainTextNewline3Corrected = "100<n/> damage per second";
+
+        // plain text with scaling
+        private readonly string PlainTextScaling1 = "<c val=\"#TooltipNumbers\">120~~0.04~~</c><n/> damage per second";
+        private readonly string PlainTextScaling1Corrected = "120 (+4% per level)  damage per second";
+        private readonly string PlainTextScaling2 = "<c val=\"#TooltipNumbers\">120~~0.05~~</c> damage per second ~~0.035~~<n/>";
+        private readonly string PlainTextScaling2Corrected = "120 (+5% per level) damage per second  (+3.5% per level)";
+
+        // plain text with scaling newlines
+        private readonly string PlainTextScalingNewline1 = "<c val=\"#TooltipNumbers\">120~~0.04~~</c><n/> damage per second";
+        private readonly string PlainTextScalingNewline1Corrected = "120 (+4% per level)<n/> damage per second";
+        private readonly string PlainTextScalingNewline2 = "<c val=\"#TooltipNumbers\">120~~0.05~~</c> damage per <n/> second ~~0.035~~";
+        private readonly string PlainTextScalingNewline2Corrected = "120 (+5% per level) damage per <n/> second  (+3.5% per level)";
+
+        // colored text
+        private readonly string ColoredText1 = "<c val=\"#TooltipNumbers\">100~~0.04~~</c><n/> damage per second<n/>";
+        private readonly string ColoredText1Corrected = "<c val=\"#TooltipNumbers\">100</c><n/> damage per second<n/>";
+        private readonly string ColoredText2 = "<c val=\"#TooltipNumbers\">100~~0.04~~</c> damage per second ~~0.05~~";
+        private readonly string ColoredText2Corrected = "<c val=\"#TooltipNumbers\">100</c> damage per second";
+
+        // colored text with scaling
+        private readonly string ColoredTextScaling1 = "<c val=\"#TooltipNumbers\">100~~0.04~~</c><n/> damage per second<n/>";
+        private readonly string ColoredTextScaling1Corrected = "<c val=\"#TooltipNumbers\">100 (+4% per level)</c><n/> damage per second<n/>";
+        private readonly string ColoredTextScaling2 = "<c val=\"#TooltipNumbers\">100~~0.04~~</c> damage per second ~~0.05~~";
+        private readonly string ColoredTextScaling2Corrected = "<c val=\"#TooltipNumbers\">100 (+4% per level)</c> damage per second  (+5% per level)";
+
         [TestMethod]
         public void ValidateTests()
         {
-            Assert.IsTrue(DescriptionValidate.Validate(NoTagsDescription) == NoTagsDescription); // no changes
-            Assert.IsTrue(DescriptionValidate.Validate(NormalTagsDescription1) == NormalTagsDescription1); // no changes
-            Assert.IsTrue(DescriptionValidate.Validate(NormalTagsDescription2) == NormalTagsDescription2); // no changes
-            Assert.IsTrue(DescriptionValidate.Validate(ExtraTagDescription1) == NoTagsDescription);
-            Assert.IsTrue(DescriptionValidate.Validate(ExtraTagDescription2) == NoTagsDescription);
-            Assert.IsTrue(DescriptionValidate.Validate(ExtraTagDescription3) == NoTagsDescription);
-            Assert.IsTrue(DescriptionValidate.Validate(ExtraTagDescription4) == NoTagsDescription);
-            Assert.IsTrue(DescriptionValidate.Validate(ExtraTagDescription5) == NoTagsDescription);
-            Assert.IsTrue(DescriptionValidate.Validate(NewLineTagDescription1) == NewLineTagDescription1); // no changes
-            Assert.IsTrue(DescriptionValidate.Validate(NewLineTagDescription2) == NewLineTagDescription2); // no changes
-            Assert.IsTrue(DescriptionValidate.Validate(SelfCloseTagDescription1) == SelfCloseTagDescription1); // no changes
-            Assert.IsTrue(DescriptionValidate.Validate(SelfCloseTagDescription2) == SelfCloseTagDescription2); // no changes
-            Assert.IsTrue(DescriptionValidate.Validate(SelfCloseTagDescription3) == SelfCloseTagDescription3); // no changes
-            Assert.IsTrue(DescriptionValidate.Validate(SelfCloseTagDescription4) == SelfCloseTagDescription4); // no changes
-            Assert.IsTrue(DescriptionValidate.Validate(DuplicateTagsDescription1) == NormalTagsDescription2);
-            Assert.IsTrue(DescriptionValidate.Validate(DuplicateTagsDescription2) == NormalTagsDescription2);
+            Assert.IsTrue(DescriptionValidation.Validate(NoTagsDescription) == NoTagsDescription); // no changes
+            Assert.IsTrue(DescriptionValidation.Validate(NormalTagsDescription1) == NormalTagsDescription1); // no changes
+            Assert.IsTrue(DescriptionValidation.Validate(NormalTagsDescription2) == NormalTagsDescription2); // no changes
+            Assert.IsTrue(DescriptionValidation.Validate(ExtraTagDescription1) == NoTagsDescription);
+            Assert.IsTrue(DescriptionValidation.Validate(ExtraTagDescription2) == NoTagsDescription);
+            Assert.IsTrue(DescriptionValidation.Validate(ExtraTagDescription3) == NoTagsDescription);
+            Assert.IsTrue(DescriptionValidation.Validate(ExtraTagDescription4) == NoTagsDescription);
+            Assert.IsTrue(DescriptionValidation.Validate(ExtraTagDescription5) == NoTagsDescription);
+            Assert.IsTrue(DescriptionValidation.Validate(NewLineTagDescription1) == NewLineTagDescription1); // no changes
+            Assert.IsTrue(DescriptionValidation.Validate(NewLineTagDescription2) == NewLineTagDescription2); // no changes
+            Assert.IsTrue(DescriptionValidation.Validate(SelfCloseTagDescription1) == SelfCloseTagDescription1); // no changes
+            Assert.IsTrue(DescriptionValidation.Validate(SelfCloseTagDescription2) == SelfCloseTagDescription2); // no changes
+            Assert.IsTrue(DescriptionValidation.Validate(SelfCloseTagDescription3) == SelfCloseTagDescription3); // no changes
+            Assert.IsTrue(DescriptionValidation.Validate(SelfCloseTagDescription4) == SelfCloseTagDescription4); // no changes
+            Assert.IsTrue(DescriptionValidation.Validate(DuplicateTagsDescription1) == NormalTagsDescription2);
+            Assert.IsTrue(DescriptionValidation.Validate(DuplicateTagsDescription2) == NormalTagsDescription2);
         }
 
         [TestMethod]
-        public void ValidateConvertedNewlineTags()
+        public void ValidateConvertedNewlineTagsTests()
         {
-            Assert.IsTrue(DescriptionValidate.Validate(ConvertNewLineTagDescription1) == ConvertNewLineTagDescription1Corrected);
-            Assert.IsTrue(DescriptionValidate.Validate(ConvertNewLineTagDescription2) == ConvertNewLineTagDescription2Corrected);
-            Assert.IsTrue(DescriptionValidate.Validate(ConvertNewLineTagDescription3) == ConvertNewLineTagDescription3Corrected);
+            Assert.IsTrue(DescriptionValidation.Validate(ConvertNewLineTagDescription1) == ConvertNewLineTagDescription1Corrected);
+            Assert.IsTrue(DescriptionValidation.Validate(ConvertNewLineTagDescription2) == ConvertNewLineTagDescription2Corrected);
+            Assert.IsTrue(DescriptionValidation.Validate(ConvertNewLineTagDescription3) == ConvertNewLineTagDescription3Corrected);
         }
 
         [TestMethod]
-        public void ValidateCaseTags()
+        public void ValidateCaseTagsTests()
         {
-            Assert.IsTrue(DescriptionValidate.Validate(UpperCaseTagDescription1) == UpperCaseTagDescription1Corrected);
+            Assert.IsTrue(DescriptionValidation.Validate(UpperCaseTagDescription1) == UpperCaseTagDescription1Corrected);
         }
 
         [TestMethod]
-        public void ValidateSpaceTags()
+        public void ValidateSpaceTagsTests()
         {
-            Assert.IsTrue(DescriptionValidate.Validate(ExtraSpacesTagDescription1) == NormalTagsDescription2);
-            Assert.IsTrue(DescriptionValidate.Validate(ExtraSpacesTagDescription2) == NormalTagsDescription2);
+            Assert.IsTrue(DescriptionValidation.Validate(ExtraSpacesTagDescription1) == NormalTagsDescription2);
+            Assert.IsTrue(DescriptionValidation.Validate(ExtraSpacesTagDescription2) == NormalTagsDescription2);
         }
 
         [TestMethod]
-        public void ValidateEmptyTags()
+        public void ValidateEmptyTagsTests()
         {
-            Assert.IsTrue(DescriptionValidate.Validate(EmptyTagsDescription1) == EmptyTagsDescription1Corrected);
-            Assert.IsTrue(DescriptionValidate.Validate(EmptyTagsDescription2) == EmptyTagsDescription2Corrected);
-            Assert.IsTrue(DescriptionValidate.Validate(EmptyTagsDescription3) == EmptyTagsDescription3Corrected);
+            Assert.IsTrue(DescriptionValidation.Validate(EmptyTagsDescription1) == EmptyTagsDescription1Corrected);
+            Assert.IsTrue(DescriptionValidation.Validate(EmptyTagsDescription2) == EmptyTagsDescription2Corrected);
+            Assert.IsTrue(DescriptionValidation.Validate(EmptyTagsDescription3) == EmptyTagsDescription3Corrected);
         }
 
         [TestMethod]
-        public void ValidateNestedTags()
+        public void ValidateNestedTagsTests()
         {
-            Assert.IsTrue(DescriptionValidate.Validate(NestedTagDescription1) == NestedTagDescription1Corrected);
-            Assert.IsTrue(DescriptionValidate.Validate(NestedTagDescription2) == NestedTagDescription2Corrected);
-            Assert.IsTrue(DescriptionValidate.Validate(NestedTagDescription3) == NestedTagDescription3Corrected);
-            Assert.IsTrue(DescriptionValidate.Validate(NestedTagDescription4) == NestedTagDescription4Corrected);
+            Assert.IsTrue(DescriptionValidation.Validate(NestedTagDescription1) == NestedTagDescription1Corrected);
+            Assert.IsTrue(DescriptionValidation.Validate(NestedTagDescription2) == NestedTagDescription2Corrected);
+            Assert.IsTrue(DescriptionValidation.Validate(NestedTagDescription3) == NestedTagDescription3Corrected);
+            Assert.IsTrue(DescriptionValidation.Validate(NestedTagDescription4) == NestedTagDescription4Corrected);
         }
 
         [TestMethod]
-        public void ValidateNestedNewLineTags()
+        public void ValidateNestedNewLineTagsTests()
         {
-            Assert.IsTrue(DescriptionValidate.Validate(NestedNewLineTagDescription1) == NestedNewLineTagDescription1Corrected);
-            Assert.IsTrue(DescriptionValidate.Validate(NestedNewLineTagDescription2) == NestedNewLineTagDescription2Corrected);
+            Assert.IsTrue(DescriptionValidation.Validate(NestedNewLineTagDescription1) == NestedNewLineTagDescription1Corrected);
+            Assert.IsTrue(DescriptionValidation.Validate(NestedNewLineTagDescription2) == NestedNewLineTagDescription2Corrected);
         }
 
         [TestMethod]
         public void ValidateRealDescriptionTests()
         {
-            Assert.IsTrue(DescriptionValidate.Validate(DiabloBlackSoulstone) == DiabloBlackSoulstoneCorrected);
-            Assert.IsTrue(DescriptionValidate.Validate(DVaMechSelfDestruct) == DVaMechSelfDestructCorrected);
-            Assert.IsTrue(DescriptionValidate.Validate(ValeeraCheapShot) == ValeeraCheapShotCorrected);
-            Assert.IsTrue(DescriptionValidate.Validate(CrusaderPunish) == CrusaderPunishSame);
+            Assert.IsTrue(DescriptionValidation.Validate(DiabloBlackSoulstone) == DiabloBlackSoulstoneCorrected);
+            Assert.IsTrue(DescriptionValidation.Validate(DVaMechSelfDestruct) == DVaMechSelfDestructCorrected);
+            Assert.IsTrue(DescriptionValidation.Validate(ValeeraCheapShot) == ValeeraCheapShotCorrected);
+            Assert.IsTrue(DescriptionValidation.Validate(CrusaderPunish) == CrusaderPunishSame);
+        }
+
+        [TestMethod]
+        public void ValidatePlainTextTests()
+        {
+            Assert.IsTrue(DescriptionValidation.GetPlainText(NestedTagDescription1, false, false) == PlainText1);
+            Assert.IsTrue(DescriptionValidation.GetPlainText(NestedNewLineTagDescription2Corrected, false, false) == PlainText2);
+            Assert.IsTrue(DescriptionValidation.GetPlainText(ValeeraCheapShotCorrected, false, false) == PlainText3);
+            Assert.IsTrue(DescriptionValidation.GetPlainText(PlainText4, false, false) == PlainText4Corrected);
+            Assert.IsTrue(DescriptionValidation.GetPlainText(PlainText5, false, false) == PlainText5Corrected);
+        }
+
+        [TestMethod]
+        public void ValidatePlainTextNewlineTests()
+        {
+            Assert.IsTrue(DescriptionValidation.GetPlainText(NestedNewLineTagDescription1Corrected, true, false) == PlainTextNewline1);
+            Assert.IsTrue(DescriptionValidation.GetPlainText(ValeeraCheapShotCorrected, true, false) == PlainTextNewline2);
+            Assert.IsTrue(DescriptionValidation.GetPlainText(PlainTextNewline3, true, false) == PlainTextNewline3Corrected);
+        }
+
+        [TestMethod]
+        public void ValidatePlainTextScalingTests()
+        {
+            Assert.IsTrue(DescriptionValidation.GetPlainText(PlainTextScaling1, false, true) == PlainTextScaling1Corrected);
+            Assert.IsTrue(DescriptionValidation.GetPlainText(PlainTextScaling2, false, true) == PlainTextScaling2Corrected);
+        }
+
+        [TestMethod]
+        public void ValidatePlainTextScalingNewlineTests()
+        {
+            Assert.IsTrue(DescriptionValidation.GetPlainText(PlainTextScalingNewline1, true, true) == PlainTextScalingNewline1Corrected);
+            Assert.IsTrue(DescriptionValidation.GetPlainText(PlainTextScalingNewline2, true, true) == PlainTextScalingNewline2Corrected);
+        }
+
+        [TestMethod]
+        public void ValidateColoredTextTests()
+        {
+            Assert.IsTrue(DescriptionValidation.GetColoredText(ColoredText1, false) == ColoredText1Corrected);
+            Assert.IsTrue(DescriptionValidation.GetColoredText(ColoredText2, false) == ColoredText2Corrected);
+        }
+
+        [TestMethod]
+        public void ValidateColoredTextScalingTests()
+        {
+            Assert.IsTrue(DescriptionValidation.GetColoredText(ColoredTextScaling1, true) == ColoredTextScaling1Corrected);
+            Assert.IsTrue(DescriptionValidation.GetColoredText(ColoredTextScaling2, true) == ColoredTextScaling2Corrected);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Heroes.Icons.Parser.Models;
+﻿using Heroes.Icons.Parser.Descriptions;
+using Heroes.Icons.Parser.HeroData;
+using Heroes.Icons.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,9 +9,9 @@ using System.Xml.Linq;
 
 namespace Heroes.Icons.Parser.Heroes
 {
-    public abstract class HeroData
+    public abstract class DefaultHeroData
     {
-        public HeroData(HeroDataLoader heroDataLoader, DescriptionLoader descriptionLoader, DescriptionParser descriptionParser, HeroOverrideLoader heroOverrideLoader)
+        public DefaultHeroData(HeroDataLoader heroDataLoader, DescriptionLoader descriptionLoader, DescriptionParser descriptionParser, HeroOverrideLoader heroOverrideLoader)
         {
             HeroDataLoader = heroDataLoader;
             DescriptionLoader = descriptionLoader;
@@ -17,7 +19,7 @@ namespace Heroes.Icons.Parser.Heroes
             HeroOverrideLoader = heroOverrideLoader;
         }
 
-        protected double DefaultPeriod => 1.2; // for hero weapons
+        protected double DefaultWeaponPeriod => 1.2; // for hero weapons
 
         protected HeroDataLoader HeroDataLoader { get; }
         protected DescriptionLoader DescriptionLoader { get; }
@@ -68,18 +70,18 @@ namespace Heroes.Icons.Parser.Heroes
             try
             {
                 // look through all elements to find the tooltip info
-                foreach (var element in foundElements)
+                foreach (XElement element in foundElements)
                 {
                     // cost
-                    var costElement = element.Descendants("Cost").FirstOrDefault();
+                    XElement costElement = element.Descendants("Cost").FirstOrDefault();
                     if (costElement != null)
                     {
                         // charge
-                        var chargeElement = costElement.Descendants("Charge").FirstOrDefault();
+                        XElement chargeElement = costElement.Descendants("Charge").FirstOrDefault();
                         if (chargeElement != null)
                         {
-                            var countMaxElement = chargeElement.Descendants("CountMax").FirstOrDefault();
-                            var hideCountElement = chargeElement.Descendants("HideCount").FirstOrDefault();
+                            XElement countMaxElement = chargeElement.Descendants("CountMax").FirstOrDefault();
+                            XElement hideCountElement = chargeElement.Descendants("HideCount").FirstOrDefault();
                             if (countMaxElement != null)
                             {
                                 // some abilities have one charge (a talent later adds at least one charge)
@@ -93,7 +95,7 @@ namespace Heroes.Icons.Parser.Heroes
                                 abilityTalentBase.Tooltip.IsChargeCooldown = true;
                             }
 
-                            var timeUseElement = chargeElement.Descendants("TimeUse").FirstOrDefault();
+                            XElement timeUseElement = chargeElement.Descendants("TimeUse").FirstOrDefault();
                             if (timeUseElement != null)
                             {
                                 abilityTalentBase.Tooltip.Cooldown = double.Parse(timeUseElement.Attribute("value").Value);
@@ -105,12 +107,12 @@ namespace Heroes.Icons.Parser.Heroes
                     }
 
                     // range
-                    var rangeElement = element.Descendants("Range").FirstOrDefault();
+                    XElement rangeElement = element.Descendants("Range").FirstOrDefault();
                     if (rangeElement != null)
                         abilityTalentBase.Tooltip.Range = double.Parse(rangeElement.Attribute("value").Value);
 
                     // arc
-                    var arcElement = element.Descendants("Arc").FirstOrDefault();
+                    XElement arcElement = element.Descendants("Arc").FirstOrDefault();
                     if (arcElement != null)
                         abilityTalentBase.Tooltip.Arc = double.Parse(arcElement.Attribute("value").Value);
                 }
@@ -125,11 +127,11 @@ namespace Heroes.Icons.Parser.Heroes
                                 continue;
 
                             // find element in data file by looking up the id
-                            var specialElement = xmlData.Descendants().Where(x => x.Attribute("id")?.Value == redirectElement.Value.Id).FirstOrDefault();
+                            XElement specialElement = xmlData.Descendants().Where(x => x.Attribute("id")?.Value == redirectElement.Value.Id).FirstOrDefault();
                             if (specialElement != null)
                             {
                                 // get the first one
-                                var element = specialElement.Descendants(redirectElement.Key).FirstOrDefault();
+                                XElement element = specialElement.Descendants(redirectElement.Key).FirstOrDefault();
                                 ApplyUniquePropertyLookups(redirectElement, element, abilityTalentBase);
                             }
                         }
@@ -161,7 +163,7 @@ namespace Heroes.Icons.Parser.Heroes
         /// <param name="abilityTalentBase"><see cref="AbilityTalentBase"/> object thats being updated</param>
         protected virtual void SetCooldown(XElement costElement, XElement chargeElement, AbilityTalentBase abilityTalentBase)
         {
-            var cooldownElement = costElement.Descendants("Cooldown").FirstOrDefault();
+            XElement cooldownElement = costElement.Descendants("Cooldown").FirstOrDefault();
             if (cooldownElement != null)
             {
                 if (chargeElement != null && abilityTalentBase.Tooltip.IsChargeCooldown)
@@ -185,7 +187,7 @@ namespace Heroes.Icons.Parser.Heroes
         /// <param name="abilityTalentBase"><see cref="AbilityTalentBase"/> object thats being updated</param>
         protected virtual void SetVital(XElement costElement, AbilityTalentBase abilityTalentBase)
         {
-            var vitalElement = costElement.Descendants("Vital").FirstOrDefault();
+            XElement vitalElement = costElement.Descendants("Vital").FirstOrDefault();
             if (vitalElement != null)
             {
                 var vitalType = vitalElement.Attribute("index").Value;
@@ -207,23 +209,23 @@ namespace Heroes.Icons.Parser.Heroes
 
         protected virtual void HeroWeaponAddPeriod(XElement weaponLegacy, HeroWeapon weapon, string weaponNameId)
         {
-            var periodElement = weaponLegacy.Descendants("Period").FirstOrDefault();
+            XElement periodElement = weaponLegacy.Descendants("Period").FirstOrDefault();
             if (periodElement != null)
                 weapon.Period = double.Parse(periodElement.Attribute("value").Value);
             else
-                weapon.Period = DefaultPeriod;
+                weapon.Period = DefaultWeaponPeriod;
         }
 
         protected virtual void HeroWeaponAddDamage(XElement weaponLegacy, HeroWeapon weapon, XDocument xmlData, string weaponNameId)
         {
-            var displayEffectElement = weaponLegacy.Descendants("DisplayEffect").FirstOrDefault();
+            XElement displayEffectElement = weaponLegacy.Descendants("DisplayEffect").FirstOrDefault();
             if (displayEffectElement != null)
             {
                 string displayEffectValue = displayEffectElement.Attribute("value").Value;
                 var effectDamageElement = xmlData.Descendants("CEffectDamage").Where(x => x.Attribute("id")?.Value == displayEffectValue);
                 if (effectDamageElement != null)
                 {
-                    var amountElement = effectDamageElement.Descendants("Amount").FirstOrDefault();
+                    XElement amountElement = effectDamageElement.Descendants("Amount").FirstOrDefault();
                     if (amountElement != null)
                     {
                         weapon.Damage = double.Parse(amountElement.Attribute("value").Value);
@@ -269,10 +271,10 @@ namespace Heroes.Icons.Parser.Heroes
 
         private void CHeroData(Hero hero, string cHeroId, XDocument xmlData)
         {
-            var heroData = xmlData.Descendants("CHero").Where(x => x.Attribute("id")?.Value == cHeroId).FirstOrDefault();
+            XElement heroData = xmlData.Descendants("CHero").Where(x => x.Attribute("id")?.Value == cHeroId).FirstOrDefault();
 
             // get short name of hero
-            var hyperLinkElement = heroData.Descendants("HyperlinkId").Where(x => x.Attribute("value") != null).FirstOrDefault();
+            XElement hyperLinkElement = heroData.Descendants("HyperlinkId").Where(x => x.Attribute("value") != null).FirstOrDefault();
             if (hyperLinkElement != null)
                 hero.ShortName = hyperLinkElement.Value;
             else
@@ -416,6 +418,10 @@ namespace Heroes.Icons.Parser.Heroes
                 {
                     GetTalent(hero, element, xmlData);
                 }
+                else if (elementName == "LEVELSCALINGARRAY")
+                {
+                    HeroScalingData(hero, element, xmlData);
+                }
             }
 
             if (hero.Type == HeroType.Unknown)
@@ -426,7 +432,7 @@ namespace Heroes.Icons.Parser.Heroes
             {
                 foreach (var linkedAbility in linkHeroAbilities)
                 {
-                    var abilityElement = xmlData.Descendants(linkedAbility.Value).Where(x => x.Attribute("id")?.Value == linkedAbility.Key).FirstOrDefault();
+                    XElement abilityElement = xmlData.Descendants(linkedAbility.Value).Where(x => x.Attribute("id")?.Value == linkedAbility.Key).FirstOrDefault();
 
                     if (abilityElement == null)
                         throw new ParseException($"{nameof(CHeroData)}: Additional link ability element not found - <{linkedAbility.Value} id=\"{linkedAbility.Key}\">");
@@ -438,10 +444,10 @@ namespace Heroes.Icons.Parser.Heroes
 
         private void CUnitData(Hero hero, string cUnitId, XDocument xmlData)
         {
-            var heroData = xmlData.Descendants("CUnit").Where(x => x.Attribute("id")?.Value == cUnitId).FirstOrDefault();
+            XElement heroData = xmlData.Descendants("CUnit").Where(x => x.Attribute("id")?.Value == cUnitId).FirstOrDefault();
 
             // loop through all descendants and set found elements
-            foreach (var element in heroData.Descendants())
+            foreach (XElement element in heroData.Descendants())
             {
                 string elementName = element.Name.LocalName.ToUpper();
 
@@ -485,7 +491,7 @@ namespace Heroes.Icons.Parser.Heroes
         // basic attack data
         private void CWeaponLegacyData(Hero hero, IEnumerable<XElement> weaponElements, XDocument xmlData)
         {
-            foreach (var weaponElement in weaponElements)
+            foreach (XElement weaponElement in weaponElements)
             {
                 string weaponNameId = weaponElement.Attribute("Link")?.Value;
 
@@ -568,9 +574,9 @@ namespace Heroes.Icons.Parser.Heroes
                 ability.Name = DescriptionLoader.DescriptionNames[descriptionName];
             }
 
-            var heroicElement = abilityElement.Descendants("Flags").Where(x => x.Attribute("index").Value == "Heroic" && x.Attribute("value").Value == "1").FirstOrDefault();
-            var traitElement = abilityElement.Descendants("Flags").Where(x => x.Attribute("index").Value == "Trait" && x.Attribute("value").Value == "1").FirstOrDefault();
-            var mountElement = abilityElement.Descendants("Flags").Where(x => x.Attribute("index").Value == "MountReplacement" && x.Attribute("value").Value == "1").FirstOrDefault();
+            XElement heroicElement = abilityElement.Descendants("Flags").Where(x => x.Attribute("index").Value == "Heroic" && x.Attribute("value").Value == "1").FirstOrDefault();
+            XElement traitElement = abilityElement.Descendants("Flags").Where(x => x.Attribute("index").Value == "Trait" && x.Attribute("value").Value == "1").FirstOrDefault();
+            XElement mountElement = abilityElement.Descendants("Flags").Where(x => x.Attribute("index").Value == "MountReplacement" && x.Attribute("value").Value == "1").FirstOrDefault();
 
             if (heroicElement != null)
                 ability.Tier = AbilityTier.Heroic;
@@ -624,7 +630,7 @@ namespace Heroes.Icons.Parser.Heroes
             XElement cTalentElement = xmlData.Descendants("CTalent").Where(x => x.Attribute("id").Value == referenceName).FirstOrDefault();
 
             // desc name
-            var talentFaceElement = cTalentElement.Descendants("Face").FirstOrDefault();
+            XElement talentFaceElement = cTalentElement.Descendants("Face").FirstOrDefault();
             if (talentFaceElement != null)
             {
                 talent.FullDescriptionNameId = talentFaceElement.Attribute("value").Value;
@@ -633,8 +639,8 @@ namespace Heroes.Icons.Parser.Heroes
 
             SetAbilityTalentIcon(talent, xmlData);
 
-            var talentAbilElement = cTalentElement.Descendants("Abil").FirstOrDefault();
-            var talentActiveElement = cTalentElement.Descendants("Active").FirstOrDefault();
+            XElement talentAbilElement = cTalentElement.Descendants("Abil").FirstOrDefault();
+            XElement talentActiveElement = cTalentElement.Descendants("Active").FirstOrDefault();
             if (talentAbilElement != null && talentActiveElement != null)
             {
                 string effectId = talentAbilElement.Attribute("value").Value;
@@ -650,10 +656,10 @@ namespace Heroes.Icons.Parser.Heroes
 
         private void SetAbilityTalentIcon(AbilityTalentBase abilityTalentBase, XDocument xmlData)
         {
-            var cButtonElement = xmlData.Descendants("CButton").Where(x => x.Attribute("id").Value == abilityTalentBase.FullDescriptionNameId).FirstOrDefault();
+            XElement cButtonElement = xmlData.Descendants("CButton").Where(x => x.Attribute("id").Value == abilityTalentBase.FullDescriptionNameId).FirstOrDefault();
             if (cButtonElement != null)
             {
-                var buttonIconElement = cButtonElement.Descendants("Icon").FirstOrDefault();
+                XElement buttonIconElement = cButtonElement.Descendants("Icon").FirstOrDefault();
                 if (buttonIconElement != null)
                     abilityTalentBase.IconFileName = Path.GetFileName(buttonIconElement.Attribute("value").Value);
             }
@@ -668,18 +674,18 @@ namespace Heroes.Icons.Parser.Heroes
             string shortTooltipValue = string.Empty; // SimpleDisplayText
 
             // check cbutton for tooltip overrides
-            var cButtonElement = xmlData.Descendants("CButton").Where(x => x.Attribute("id").Value == faceValue);
+            XElement cButtonElement = xmlData.Descendants("CButton").Where(x => x.Attribute("id").Value == faceValue).FirstOrDefault();
             if (cButtonElement != null)
             {
                 // full tooltip
-                var cButtonTooltipElement = cButtonElement.Descendants("Tooltip").FirstOrDefault();
+                XElement cButtonTooltipElement = cButtonElement.Descendants("Tooltip").FirstOrDefault();
                 if (cButtonTooltipElement != null)
                 {
                     fullTooltipValue = Path.GetFileName(cButtonTooltipElement.Attribute("value").Value);
                 }
 
                 // short tooltip
-                var cButtonSimpleDisplayTextElement = cButtonElement.Descendants("SimpleDisplayText").FirstOrDefault();
+                XElement cButtonSimpleDisplayTextElement = cButtonElement.Descendants("SimpleDisplayText").FirstOrDefault();
                 if (cButtonSimpleDisplayTextElement != null)
                 {
                     shortTooltipValue = Path.GetFileName(cButtonSimpleDisplayTextElement.Attribute("value").Value);
@@ -688,19 +694,19 @@ namespace Heroes.Icons.Parser.Heroes
 
             // full
             if (DescriptionParser.FullParsedDescriptions.TryGetValue(fullTooltipValue, out string fullDescription))
-                abilityTalentBase.Tooltip.FullTooltip = fullDescription;
+                abilityTalentBase.Tooltip.FullTooltipDescription = new TooltipDescription(fullDescription);
             else if (DescriptionParser.FullParsedDescriptions.TryGetValue(faceValue, out fullDescription))
-                abilityTalentBase.Tooltip.FullTooltip = fullDescription;
+                abilityTalentBase.Tooltip.FullTooltipDescription = new TooltipDescription(fullDescription);
 
             // short
             if (DescriptionParser.ShortParsedDescriptions.TryGetValue(shortTooltipValue, out string shortDescription))
             {
-                abilityTalentBase.Tooltip.ShortTooltip = shortDescription;
+                abilityTalentBase.Tooltip.ShortTooltipDescription = new TooltipDescription(shortDescription);
                 abilityTalentBase.ShortDescriptionNameId = shortTooltipValue;
             }
             else if (DescriptionParser.ShortParsedDescriptions.TryGetValue(faceValue, out shortDescription))
             {
-                abilityTalentBase.Tooltip.ShortTooltip = shortDescription;
+                abilityTalentBase.Tooltip.ShortTooltipDescription = new TooltipDescription(shortDescription);
             }
         }
 
@@ -737,7 +743,7 @@ namespace Heroes.Icons.Parser.Heroes
 
             if (!string.IsNullOrEmpty(weaponNameId))
             {
-                var weaponLegacy = xmlData.Descendants("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == weaponNameId).FirstOrDefault();
+                XElement weaponLegacy = xmlData.Descendants("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == weaponNameId).FirstOrDefault();
                 if (weaponLegacy != null)
                 {
                     weapon = new HeroWeapon
@@ -754,18 +760,37 @@ namespace Heroes.Icons.Parser.Heroes
             return weapon;
         }
 
+        private void HeroScalingData(Hero hero, XElement scalingElement, XDocument xmlData)
+        {
+            if (scalingElement.HasAttributes)
+                return;
+
+            IEnumerable<XElement> modifications = scalingElement.Descendants("Modifications");
+
+            foreach (XElement modification in modifications)
+            {
+                if (modification.Descendants("Entry").Where(x => x.Attribute("value")?.Value == hero.UnitName).FirstOrDefault() != null)
+                {
+                    if (modification.Descendants("Field").Where(x => x.Attribute("value")?.Value == "LifeMax").FirstOrDefault() != null)
+                        hero.LifeScaling = double.Parse(modification.Descendants("Value").FirstOrDefault().Attribute("value").Value);
+                    else if (modification.Descendants("Field").Where(x => x.Attribute("value")?.Value == "LifeRegenRate").FirstOrDefault() != null)
+                        hero.LifeScalingRegenerationRate = double.Parse(modification.Descendants("Value").FirstOrDefault().Attribute("value").Value);
+                }
+            }
+        }
+
         private void SetDefaultValues(Hero hero, XDocument xmlData)
         {
-            var stormHeroData = xmlData.Descendants("CUnit").Where(x => x.Attribute("id")?.Value == "StormHero").FirstOrDefault();
+            XElement stormHeroData = xmlData.Descendants("CUnit").Where(x => x.Attribute("id")?.Value == "StormHero").FirstOrDefault();
             if (stormHeroData != null)
             {
-                var parentDataValue = stormHeroData.Attribute("parent").Value;
-                var stormBasicHeroicUnitData = xmlData.Descendants("CUnit").Where(x => x.Attribute("id")?.Value == parentDataValue).FirstOrDefault();
+                string parentDataValue = stormHeroData.Attribute("parent").Value;
+                XElement stormBasicHeroicUnitData = xmlData.Descendants("CUnit").Where(x => x.Attribute("id")?.Value == parentDataValue).FirstOrDefault();
 
                 if (stormBasicHeroicUnitData != null)
                 {
                     // loop through all descendants and set found elements
-                    foreach (var element in stormBasicHeroicUnitData.Descendants())
+                    foreach (XElement element in stormBasicHeroicUnitData.Descendants())
                     {
                         string elementName = element.Name.LocalName.ToUpper();
 
@@ -781,7 +806,7 @@ namespace Heroes.Icons.Parser.Heroes
                 }
 
                 // loop through all StormHero descendants and set found elements
-                foreach (var element in stormHeroData.Descendants())
+                foreach (XElement element in stormHeroData.Descendants())
                 {
                     string elementName = element.Name.LocalName.ToUpper();
 
