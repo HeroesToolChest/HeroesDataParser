@@ -762,9 +762,6 @@ namespace Heroes.Icons.Parser.Heroes
 
         private void HeroScalingData(Hero hero, XElement scalingElement, XDocument xmlData)
         {
-            if (scalingElement.HasAttributes)
-                return;
-
             IEnumerable<XElement> modifications = scalingElement.Elements("Modifications");
 
             foreach (XElement modification in modifications)
