@@ -29,11 +29,9 @@ namespace Heroes.Icons.Parser.Heroes
                         continue;
 
                     // find element in data file by looking up the id
-                    var specialElement = xmlData.Descendants().Where(x => x.Attribute("id")?.Value == redirectElement.Value.Id).FirstOrDefault();
+                    var specialElement = xmlData.Root.Elements().Where(x => x.Attribute("id")?.Value == redirectElement.Value.Id).FirstOrDefault();
                     if (specialElement != null)
                     {
-                        // get the first one
-                        var element = specialElement.Descendants(redirectElement.Key).FirstOrDefault();
                         if (redirectElement.Key == "VitalArray")
                         {
                             double value = double.Parse(specialElement.Descendants("Change").FirstOrDefault().Attribute("value").Value);
@@ -42,7 +40,7 @@ namespace Heroes.Icons.Parser.Heroes
 
                             if (redirectElement.Value.InnerElement != null)
                             {
-                                var cEffectCreatePersistent = xmlData.Descendants().Where(x => x.Attribute("id")?.Value == redirectElement.Value.InnerElement.Id).FirstOrDefault();
+                                var cEffectCreatePersistent = xmlData.Root.Elements().Where(x => x.Attribute("id")?.Value == redirectElement.Value.InnerElement.Id).FirstOrDefault();
                                 if (cEffectCreatePersistent != null)
                                 {
                                     double periodic = double.Parse(cEffectCreatePersistent.Descendants(redirectElement.Value.InnerElement.Name).FirstOrDefault().Attribute("value").Value);
