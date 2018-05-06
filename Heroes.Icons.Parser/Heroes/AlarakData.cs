@@ -24,7 +24,7 @@ namespace Heroes.Icons.Parser.Heroes
             {
                 if (dataElement.Attribute("index").Value == "Energy")
                 {
-                    int value = int.Parse(dataElement.Descendants("Change").FirstOrDefault().Attribute("value").Value);
+                    int value = int.Parse(dataElement.Elements("Change").FirstOrDefault().Attribute("value").Value);
                     if (value < 0)
                         value *= -1;
 

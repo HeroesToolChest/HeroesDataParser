@@ -20,12 +20,12 @@ namespace Heroes.Icons.Parser.Tests
         {
             TooltipDescription tooltipDescription = new TooltipDescription(TestDescription);
 
-            Assert.IsTrue(tooltipDescription.GetPlainText == PlainText);
-            Assert.IsTrue(tooltipDescription.GetPlainTextWithNewlines == PlainTextWithNewlines);
-            Assert.IsTrue(tooltipDescription.GetPlainTextWithScaling == PlainTextWithScaling);
-            Assert.IsTrue(tooltipDescription.GetPlainTextWithScalingWithNewlines == PlainTextWithScalingWithNewlines);
-            Assert.IsTrue(tooltipDescription.GetColoredText == ColoredText);
-            Assert.IsTrue(tooltipDescription.GetColoredTextWithScaling == ColoredTextWithScaling);
+            Assert.IsTrue(tooltipDescription.PlainText == PlainText);
+            Assert.IsTrue(tooltipDescription.PlainTextWithNewlines == PlainTextWithNewlines);
+            Assert.IsTrue(tooltipDescription.PlainTextWithScaling == PlainTextWithScaling);
+            Assert.IsTrue(tooltipDescription.PlainTextWithScalingWithNewlines == PlainTextWithScalingWithNewlines);
+            Assert.IsTrue(tooltipDescription.ColoredText == ColoredText);
+            Assert.IsTrue(tooltipDescription.ColoredTextWithScaling == ColoredTextWithScaling);
         }
     }
 }

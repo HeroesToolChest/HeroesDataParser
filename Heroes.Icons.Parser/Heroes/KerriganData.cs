@@ -23,10 +23,10 @@ namespace Heroes.Icons.Parser.Heroes
                     if (string.IsNullOrEmpty(redirectElement.Value.Id))
                         continue;
 
-                    var specialElement = xmlData.Descendants(redirectElement.Key).Where(x => x.Attribute("id")?.Value == redirectElement.Value.Id).FirstOrDefault();
+                    var specialElement = xmlData.Root.Elements(redirectElement.Key).Where(x => x.Attribute("id")?.Value == redirectElement.Value.Id).FirstOrDefault();
                     if (specialElement != null)
                     {
-                        weapon.Damage = double.Parse(specialElement.Descendants("Amount").FirstOrDefault().Attribute("value").Value);
+                        weapon.Damage = double.Parse(specialElement.Elements("Amount").FirstOrDefault().Attribute("value").Value);
                     }
                 }
             }

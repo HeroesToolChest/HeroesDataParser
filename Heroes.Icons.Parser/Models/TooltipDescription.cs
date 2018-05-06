@@ -10,62 +10,62 @@ namespace Heroes.Icons.Parser.Models
         /// <param name="rawParsedDescription">Description with color tags and raw scaling info.</param>
         public TooltipDescription(string rawParsedDescription)
         {
-            GetRawDescription = rawParsedDescription;
+            RawDescription = rawParsedDescription;
 
-            GetPlainText = DescriptionValidation.GetPlainText(rawParsedDescription, false, false);
-            GetPlainTextWithNewlines = DescriptionValidation.GetPlainText(rawParsedDescription, true, false);
-            GetPlainTextWithScaling = DescriptionValidation.GetPlainText(rawParsedDescription, false, true);
-            GetPlainTextWithScalingWithNewlines = DescriptionValidation.GetPlainText(rawParsedDescription, true, true);
+            PlainText = DescriptionValidation.GetPlainText(rawParsedDescription, false, false);
+            PlainTextWithNewlines = DescriptionValidation.GetPlainText(rawParsedDescription, true, false);
+            PlainTextWithScaling = DescriptionValidation.GetPlainText(rawParsedDescription, false, true);
+            PlainTextWithScalingWithNewlines = DescriptionValidation.GetPlainText(rawParsedDescription, true, true);
 
-            GetColoredText = DescriptionValidation.GetColoredText(rawParsedDescription, false);
-            GetColoredTextWithScaling = DescriptionValidation.GetColoredText(rawParsedDescription, true);
+            ColoredText = DescriptionValidation.GetColoredText(rawParsedDescription, false);
+            ColoredTextWithScaling = DescriptionValidation.GetColoredText(rawParsedDescription, true);
         }
 
         /// <summary>
         /// Gets the raw parsed description
         /// </summary>
-        public string GetRawDescription { get; }
+        public string RawDescription { get; }
 
         /// <summary>
         /// Gets the description with text only.
         /// No scaling info or color tags.
         /// Newlines are replaced with spaces.
         /// </summary>
-        public string GetPlainText { get; }
+        public string PlainText { get; }
 
         /// <summary>
         /// Gets the description with text only.
         /// No scaling info or color tags.
         /// </summary>
-        public string GetPlainTextWithNewlines { get; }
+        public string PlainTextWithNewlines { get; }
 
         /// <summary>
         /// Gets the description with text only.
         /// No color tags.
         /// Newlines are replaced with spaces.
         /// </summary>
-        public string GetPlainTextWithScaling { get; }
+        public string PlainTextWithScaling { get; }
 
         /// <summary>
         /// Gets the description with text only.
         /// No color tags.
         /// </summary>
-        public string GetPlainTextWithScalingWithNewlines { get; }
+        public string PlainTextWithScalingWithNewlines { get; }
 
         /// <summary>
         /// Gets the description with colored tags and new lines.
         /// No scaling info.
         /// </summary>
-        public string GetColoredText { get; }
+        public string ColoredText { get; }
 
         /// <summary>
         /// Gets the description with colored tags, newlines, and scaling info.
         /// </summary>
-        public string GetColoredTextWithScaling { get; }
+        public string ColoredTextWithScaling { get; }
 
         public override string ToString()
         {
-            return GetPlainTextWithScaling;
+            return PlainTextWithScaling;
         }
     }
 }

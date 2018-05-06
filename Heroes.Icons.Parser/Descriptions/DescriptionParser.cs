@@ -343,10 +343,10 @@ namespace Heroes.Icons.Parser.Descriptions
             if (validElementNames.Count < 1)
                 return string.Empty;
 
-            IEnumerable<XElement> elements = HeroDataLoader.XmlData.Descendants(validElementNames.First()).Where(x => x.Attribute("id")?.Value == parts[1]);
+            IEnumerable<XElement> elements = HeroDataLoader.XmlData.Root.Elements(validElementNames.First()).Where(x => x.Attribute("id")?.Value == parts[1]);
             for (int i = 1; i < validElementNames.Count(); i++)
             {
-                elements = elements.Concat(HeroDataLoader.XmlData.Descendants(validElementNames.ElementAt(i)).Where(x => x.Attribute("id")?.Value == parts[1]));
+                elements = elements.Concat(HeroDataLoader.XmlData.Root.Elements(validElementNames.ElementAt(i)).Where(x => x.Attribute("id")?.Value == parts[1]));
             }
 
             elements = elements.Reverse();
@@ -362,7 +362,7 @@ namespace Heroes.Icons.Parser.Descriptions
                     if (parts[i].Contains("]")) // attribute index
                     {
                         string[] elementIndexParts = parts[i].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
-                        var indexElements = currentElement.Descendants(elementIndexParts[0]).ToList();
+                        var indexElements = currentElement.Elements(elementIndexParts[0]).ToList();
 
                         for (int j = 0; j < indexElements.Count; j++)
                         {
@@ -400,7 +400,7 @@ namespace Heroes.Icons.Parser.Descriptions
                     }
                     else
                     {
-                        currentElement = currentElement.Descendants(parts[i]).FirstOrDefault();
+                        currentElement = currentElement.Elements(parts[i]).FirstOrDefault();
                     }
 
                     if (currentElement == null)

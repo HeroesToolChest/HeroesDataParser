@@ -124,7 +124,7 @@ namespace Heroes.Icons.Parser.Models
 
         public override string ToString()
         {
-            return ShortTooltipDescription?.GetPlainTextWithScaling;
+            return ShortTooltipDescription?.PlainTextWithScaling;
         }
     }
 }
