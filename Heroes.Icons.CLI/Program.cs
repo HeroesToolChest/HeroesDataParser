@@ -127,6 +127,7 @@ namespace Heroes.Icons.CLI
             Console.WriteLine($"{descriptionLoader.ShortDescriptions.Count} Short descriptions");
             Console.WriteLine($"{descriptionLoader.HeroDescriptions.Count} Hero descriptions");
             Console.WriteLine($"{descriptionLoader.HeroNames.Count} Hero names");
+            Console.WriteLine($"{descriptionLoader.UnitNames.Count} Unit names");
             Console.WriteLine($"{descriptionLoader.DescriptionNames.Count} Ability/talent names");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine("...");

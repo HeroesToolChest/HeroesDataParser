@@ -158,6 +158,30 @@ namespace Heroes.Icons.Parser
                     if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltipDescription?.ColoredTextWithScaling))
                         AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltipDescription)}.{nameof(talent.Value.Tooltip.FullTooltipDescription.ColoredTextWithScaling)} is null or empty");
                 }
+
+                if (hero.AdditionalHeroUnits.Count > 0)
+                {
+                    foreach (Hero additionalUnit in hero.AdditionalHeroUnits)
+                    {
+                        if (additionalUnit.Life <= 0)
+                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.Life)} is 0");
+
+                        if (additionalUnit.LifeScaling <= 0)
+                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.LifeScaling)} is 0");
+
+                        if (additionalUnit.LifeScalingRegenerationRate <= 0)
+                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.LifeScalingRegenerationRate)} is 0");
+
+                        if (additionalUnit.Energy > 0 && hero.EnergyType == EnergyType.None)
+                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.Energy)} > 0 and {nameof(hero.EnergyType)} is NONE");
+
+                        if (additionalUnit.Sight <= 0)
+                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.Sight)} is 0");
+
+                        if (additionalUnit.Speed <= 0)
+                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.Speed)} is 0");
+                    }
+                }
             }
 
             return Warnings;

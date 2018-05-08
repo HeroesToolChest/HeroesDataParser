@@ -1,6 +1,6 @@
 ﻿namespace Heroes.Icons.Parser.Models
 {
-    public enum HeroType
+    public enum UnitType
     {
         Unknown,
         Melee,

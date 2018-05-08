@@ -14,12 +14,12 @@ namespace Heroes.Icons.Parser.Heroes
         {
         }
 
-        protected override void SetTooltipSubInfo(string attributeId, AbilityTalentBase abilityTalentBase, XDocument xmlData, bool allowOverrides = false)
+        protected override void SetTooltipSubInfo(string attributeId, AbilityTalentBase abilityTalentBase, bool allowOverrides = false)
         {
             if (string.IsNullOrEmpty(attributeId))
                 return;
 
-            base.SetTooltipSubInfo(attributeId, abilityTalentBase, xmlData, allowOverrides);
+            base.SetTooltipSubInfo(attributeId, abilityTalentBase, allowOverrides);
 
             if (HeroOverrideLoader.IdRedirectByAbilityId.TryGetValue(attributeId, out Dictionary<string, RedirectElement> idRedirects))
             {
@@ -29,7 +29,7 @@ namespace Heroes.Icons.Parser.Heroes
                         continue;
 
                     // find element in data file by looking up the id
-                    var specialElement = xmlData.Descendants().Where(x => x.Attribute("id")?.Value == redirectElement.Value.Id).FirstOrDefault();
+                    var specialElement = HeroDataLoader.XmlData.Descendants().Where(x => x.Attribute("id")?.Value == redirectElement.Value.Id).FirstOrDefault();
                     if (specialElement != null)
                     {
                         if (redirectElement.Key == "VitalArray")
@@ -40,7 +40,7 @@ namespace Heroes.Icons.Parser.Heroes
 
                             if (redirectElement.Value.InnerElement != null)
                             {
-                                var cEffectCreatePersistent = xmlData.Root.Elements().Where(x => x.Attribute("id")?.Value == redirectElement.Value.InnerElement.Id);
+                                var cEffectCreatePersistent = HeroDataLoader.XmlData.Root.Elements().Where(x => x.Attribute("id")?.Value == redirectElement.Value.InnerElement.Id);
                                 if (cEffectCreatePersistent != null)
                                 {
                                     int count = cEffectCreatePersistent.Descendants("PeriodicEffectArray").Where(x => x.Attribute("value")?.Value == "MedicHealingBeamPersistentSet").Count();

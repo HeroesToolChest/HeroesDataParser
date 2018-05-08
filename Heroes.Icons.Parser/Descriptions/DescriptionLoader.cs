@@ -14,6 +14,7 @@ namespace Heroes.Icons.Parser.Descriptions
         private readonly string FullPrefix = "Button/Tooltip/";
         private readonly string HeroNamePrefix = "Hero/Name/"; // real name of hero
         private readonly string DescriptionNamePrefix = "Button/Name/"; // real name of ability/talent
+        private readonly string UnitPrefix = "Unit/Name/";
 
         private string ModsFolderPath;
         private string OldDescriptionsPath;
@@ -50,6 +51,11 @@ namespace Heroes.Icons.Parser.Descriptions
         /// The names of the ability/talents
         /// </summary>
         public SortedDictionary<string, string> DescriptionNames { get; set; } = new SortedDictionary<string, string>();
+
+        /// <summary>
+        /// The real name of units
+        /// </summary>
+        public SortedDictionary<string, string> UnitNames { get; set; } = new SortedDictionary<string, string>();
 
         public void Load()
         {
@@ -104,6 +110,14 @@ namespace Heroes.Icons.Parser.Descriptions
 
                         if (!DescriptionNames.ContainsKey(splitLine[0]))
                             DescriptionNames.Add(splitLine[0], splitLine[1]);
+                    }
+                    else if (line.StartsWith(UnitPrefix))
+                    {
+                        line = line.Remove(0, UnitPrefix.Length);
+                        string[] splitLine = line.Split(new char[] { '=' }, 2);
+
+                        if (!UnitNames.ContainsKey(splitLine[0]))
+                            UnitNames.Add(splitLine[0], splitLine[1]);
                     }
                 }
             }

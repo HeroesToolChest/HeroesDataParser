@@ -14,7 +14,7 @@ namespace Heroes.Icons.Parser.Heroes
         {
         }
 
-        protected override void HeroWeaponAddDamage(XElement weaponLegacy, HeroWeapon weapon, XDocument xmlData, string weaponNameId)
+        protected override void HeroWeaponAddDamage(XElement weaponLegacy, HeroWeapon weapon, string weaponNameId)
         {
             if (HeroOverrideLoader.IdRedirectByWeaponId.TryGetValue(weaponNameId, out Dictionary<string, RedirectElement> idRedirects))
             {
@@ -23,7 +23,7 @@ namespace Heroes.Icons.Parser.Heroes
                     if (string.IsNullOrEmpty(redirectElement.Value.Id))
                         continue;
 
-                    var specialElement = xmlData.Root.Elements(redirectElement.Key).Where(x => x.Attribute("id")?.Value == redirectElement.Value.Id).FirstOrDefault();
+                    var specialElement = HeroDataLoader.XmlData.Root.Elements(redirectElement.Key).Where(x => x.Attribute("id")?.Value == redirectElement.Value.Id).FirstOrDefault();
                     if (specialElement != null)
                     {
                         weapon.Damage = double.Parse(specialElement.Elements("Amount").FirstOrDefault().Attribute("value").Value);
