@@ -71,15 +71,15 @@ namespace Heroes.Icons.Parser.Heroes
                 foreach (XElement element in foundElements)
                 {
                     // cost
-                    XElement costElement = element.Elements("Cost").FirstOrDefault();
+                    XElement costElement = element.Element("Cost");
                     if (costElement != null)
                     {
                         // charge
-                        XElement chargeElement = costElement.Elements("Charge").FirstOrDefault();
+                        XElement chargeElement = costElement.Element("Charge");
                         if (chargeElement != null)
                         {
-                            XElement countMaxElement = chargeElement.Elements("CountMax").FirstOrDefault();
-                            XElement hideCountElement = chargeElement.Elements("HideCount").FirstOrDefault();
+                            XElement countMaxElement = chargeElement.Element("CountMax");
+                            XElement hideCountElement = chargeElement.Element("HideCount");
                             if (countMaxElement != null)
                             {
                                 // some abilities have one charge (a talent later adds at least one charge)
@@ -93,7 +93,7 @@ namespace Heroes.Icons.Parser.Heroes
                                 abilityTalentBase.Tooltip.IsChargeCooldown = true;
                             }
 
-                            XElement timeUseElement = chargeElement.Elements("TimeUse").FirstOrDefault();
+                            XElement timeUseElement = chargeElement.Element("TimeUse");
                             if (timeUseElement != null)
                             {
                                 abilityTalentBase.Tooltip.Cooldown = double.Parse(timeUseElement.Attribute("value").Value);
@@ -129,7 +129,7 @@ namespace Heroes.Icons.Parser.Heroes
                             if (specialElement != null)
                             {
                                 // get the first one
-                                XElement element = specialElement.Elements(redirectElement.Key).FirstOrDefault();
+                                XElement element = specialElement.Element(redirectElement.Key);
                                 ApplyUniquePropertyLookups(redirectElement, element, abilityTalentBase);
                             }
                         }
@@ -161,7 +161,7 @@ namespace Heroes.Icons.Parser.Heroes
         /// <param name="abilityTalentBase"><see cref="AbilityTalentBase"/> object thats being updated</param>
         protected virtual void SetCooldown(XElement costElement, XElement chargeElement, AbilityTalentBase abilityTalentBase)
         {
-            XElement cooldownElement = costElement.Elements("Cooldown").FirstOrDefault();
+            XElement cooldownElement = costElement.Element("Cooldown");
             if (cooldownElement != null)
             {
                 if (chargeElement != null && abilityTalentBase.Tooltip.IsChargeCooldown)
@@ -185,7 +185,7 @@ namespace Heroes.Icons.Parser.Heroes
         /// <param name="abilityTalentBase"><see cref="AbilityTalentBase"/> object thats being updated</param>
         protected virtual void SetVital(XElement costElement, AbilityTalentBase abilityTalentBase)
         {
-            XElement vitalElement = costElement.Elements("Vital").FirstOrDefault();
+            XElement vitalElement = costElement.Element("Vital");
             if (vitalElement != null)
             {
                 string vitalType = vitalElement.Attribute("index").Value;
@@ -662,7 +662,7 @@ namespace Heroes.Icons.Parser.Heroes
             XElement cTalentElement = HeroDataLoader.XmlData.Root.Elements("CTalent").Where(x => x.Attribute("id").Value == referenceName).FirstOrDefault();
 
             // desc name
-            XElement talentFaceElement = cTalentElement.Elements("Face").FirstOrDefault();
+            XElement talentFaceElement = cTalentElement.Element("Face");
             if (talentFaceElement != null)
             {
                 talent.FullDescriptionNameId = talentFaceElement.Attribute("value").Value;
@@ -691,7 +691,7 @@ namespace Heroes.Icons.Parser.Heroes
             XElement cButtonElement = HeroDataLoader.XmlData.Root.Elements("CButton").Where(x => x.Attribute("id").Value == abilityTalentBase.FullDescriptionNameId).FirstOrDefault();
             if (cButtonElement != null)
             {
-                XElement buttonIconElement = cButtonElement.Elements("Icon").FirstOrDefault();
+                XElement buttonIconElement = cButtonElement.Element("Icon");
                 if (buttonIconElement != null)
                     abilityTalentBase.IconFileName = Path.GetFileName(buttonIconElement.Attribute("value").Value);
             }
@@ -710,14 +710,14 @@ namespace Heroes.Icons.Parser.Heroes
             if (cButtonElement != null)
             {
                 // full tooltip
-                XElement cButtonTooltipElement = cButtonElement.Elements("Tooltip").FirstOrDefault();
+                XElement cButtonTooltipElement = cButtonElement.Element("Tooltip");
                 if (cButtonTooltipElement != null)
                 {
                     fullTooltipValue = Path.GetFileName(cButtonTooltipElement.Attribute("value").Value);
                 }
 
                 // short tooltip
-                XElement cButtonSimpleDisplayTextElement = cButtonElement.Elements("SimpleDisplayText").FirstOrDefault();
+                XElement cButtonSimpleDisplayTextElement = cButtonElement.Element("SimpleDisplayText");
                 if (cButtonSimpleDisplayTextElement != null)
                 {
                     shortTooltipValue = Path.GetFileName(cButtonSimpleDisplayTextElement.Attribute("value").Value);
@@ -799,12 +799,12 @@ namespace Heroes.Icons.Parser.Heroes
 
             foreach (XElement modification in modifications)
             {
-                if (modification.Elements("Entry").Where(x => x.Attribute("value")?.Value == hero.CUnitId).FirstOrDefault() != null)
+                if (modification.Element("Entry")?.Attribute("value")?.Value == hero.CUnitId)
                 {
-                    if (modification.Elements("Field").Where(x => x.Attribute("value")?.Value == "LifeMax").FirstOrDefault() != null)
-                        hero.LifeScaling = double.Parse(modification.Elements("Value").FirstOrDefault().Attribute("value").Value);
-                    else if (modification.Elements("Field").Where(x => x.Attribute("value")?.Value == "LifeRegenRate").FirstOrDefault() != null)
-                        hero.LifeScalingRegenerationRate = double.Parse(modification.Elements("Value").FirstOrDefault().Attribute("value").Value);
+                    if (modification.Element("Field").Attribute("value").Value == "LifeMax")
+                        hero.LifeScaling = double.Parse(modification.Element("Value").Attribute("value").Value);
+                    else if (modification.Element("Field").Attribute("value").Value == "LifeRegenRate")
+                        hero.LifeScalingRegenerationRate = double.Parse(modification.Element("Value").Attribute("value").Value);
                 }
             }
         }
@@ -888,7 +888,7 @@ namespace Heroes.Icons.Parser.Heroes
                         SetDefaultValues(additionalHero);
                         CUnitData(additionalHero, unit);
 
-                        additionalHero.Difficulty = hero.Difficulty;
+                        additionalHero.Difficulty = hero.Difficulty; // set to same as parent
 
                         hero.AdditionalHeroUnits.Add(additionalHero);
                     }
