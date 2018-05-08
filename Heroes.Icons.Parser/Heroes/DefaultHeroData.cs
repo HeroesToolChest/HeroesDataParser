@@ -804,7 +804,7 @@ namespace Heroes.Icons.Parser.Heroes
                     if (modification.Element("Field").Attribute("value").Value == "LifeMax")
                         hero.LifeScaling = double.Parse(modification.Element("Value").Attribute("value").Value);
                     else if (modification.Element("Field").Attribute("value").Value == "LifeRegenRate")
-                        hero.LifeScalingRegenerationRate = double.Parse(modification.Element("Value").Attribute("value").Value);
+                        hero.LifeRegenerationRateScaling = double.Parse(modification.Element("Value").Attribute("value").Value);
                 }
             }
         }
@@ -889,6 +889,11 @@ namespace Heroes.Icons.Parser.Heroes
                         CUnitData(additionalHero, unit);
 
                         additionalHero.Difficulty = hero.Difficulty; // set to same as parent
+
+                        foreach (XElement scalingElement in HeroDataLoader.XmlData.Root.Elements("CHero").Where(x => x.Attribute("id")?.Value == hero.CHeroId).Elements("LevelScalingArray"))
+                        {
+                            HeroScalingData(additionalHero, scalingElement);
+                        }
 
                         hero.AdditionalHeroUnits.Add(additionalHero);
                     }

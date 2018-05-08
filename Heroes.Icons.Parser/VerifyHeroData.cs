@@ -46,8 +46,8 @@ namespace Heroes.Icons.Parser
                 if (hero.LifeScaling <= 0)
                     AddWarning($"{nameof(hero.LifeScaling)} is 0");
 
-                if (hero.LifeScalingRegenerationRate <= 0)
-                    AddWarning($"{nameof(hero.LifeScalingRegenerationRate)} is 0");
+                if (hero.LifeRegenerationRateScaling <= 0)
+                    AddWarning($"{nameof(hero.LifeRegenerationRateScaling)} is 0");
 
                 if (hero.Energy > 0 && hero.EnergyType == EnergyType.None)
                     AddWarning($"{nameof(hero.Energy)} > 0 and {nameof(hero.EnergyType)} is NONE");
@@ -169,8 +169,8 @@ namespace Heroes.Icons.Parser
                         if (additionalUnit.LifeScaling <= 0)
                             AddWarning($"[{additionalUnit.Name}] {nameof(hero.LifeScaling)} is 0");
 
-                        if (additionalUnit.LifeScalingRegenerationRate <= 0)
-                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.LifeScalingRegenerationRate)} is 0");
+                        if (additionalUnit.LifeRegenerationRateScaling <= 0)
+                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.LifeRegenerationRateScaling)} is 0");
 
                         if (additionalUnit.Energy > 0 && hero.EnergyType == EnergyType.None)
                             AddWarning($"[{additionalUnit.Name}] {nameof(hero.Energy)} > 0 and {nameof(hero.EnergyType)} is NONE");

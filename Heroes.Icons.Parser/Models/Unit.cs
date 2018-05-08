@@ -61,7 +61,7 @@ namespace Heroes.Icons.Parser.Models
 
         public double LifeScaling { get; set; }
 
-        public double LifeScalingRegenerationRate { get; set; }
+        public double LifeRegenerationRateScaling { get; set; }
 
         public Dictionary<string, Ability> Abilities { get; set; }
 
