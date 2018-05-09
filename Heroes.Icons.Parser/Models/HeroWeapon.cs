@@ -5,22 +5,27 @@
         public string WeaponNameId { get; set; }
 
         /// <summary>
-        /// Amount of damage the attack deals
+        /// Gets or sets the amount of damage the attack deals.
         /// </summary>
         public double Damage { get; set; }
 
         /// <summary>
-        /// The time between attacks
+        /// Gets or sets the time between attacks.
         /// </summary>
         public double Period { get; set; }
 
         /// <summary>
-        /// The distance of the attack
+        /// Gets or sets the distance of the attack.
         /// </summary>
         public double Range { get; set; }
 
         /// <summary>
-        /// Gets the attacks per second
+        /// Gets or sets the damage scaling per level.
+        /// </summary>
+        public double DamageScaling { get; set; }
+
+        /// <summary>
+        /// Gets the attacks per second.
         /// </summary>
         /// <returns></returns>
         public double GetAttacksPerSecond()

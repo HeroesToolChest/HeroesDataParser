@@ -68,6 +68,9 @@ namespace Heroes.Icons.Parser
 
                     if (weapon.Range <= 0)
                         AddWarning($"{weapon.WeaponNameId} {nameof(weapon.Range)} is 0");
+
+                    if (weapon.DamageScaling <= 0)
+                        AddWarning($"{weapon.WeaponNameId} {nameof(weapon.DamageScaling)} is 0");
                 }
 
                 if (hero.Weapons.Count < 1)
@@ -180,6 +183,21 @@ namespace Heroes.Icons.Parser
 
                         if (additionalUnit.Speed <= 0)
                             AddWarning($"[{additionalUnit.Name}] {nameof(hero.Speed)} is 0");
+
+                        foreach (var weapon in additionalUnit.Weapons)
+                        {
+                            if (weapon.Damage <= 0)
+                                AddWarning($"[{additionalUnit.Name}] {weapon.WeaponNameId} {nameof(weapon.Damage)} is 0");
+
+                            if (weapon.Period <= 0)
+                                AddWarning($"[{additionalUnit.Name}] {weapon.WeaponNameId} {nameof(weapon.Period)} is 0");
+
+                            if (weapon.Range <= 0)
+                                AddWarning($"[{additionalUnit.Name}] {weapon.WeaponNameId} {nameof(weapon.Range)} is 0");
+
+                            if (weapon.DamageScaling <= 0)
+                                AddWarning($"[{additionalUnit.Name}] {weapon.WeaponNameId} {nameof(weapon.DamageScaling)} is 0");
+                        }
                     }
                 }
             }

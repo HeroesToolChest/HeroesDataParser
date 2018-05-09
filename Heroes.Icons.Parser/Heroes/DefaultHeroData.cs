@@ -791,6 +791,13 @@ namespace Heroes.Icons.Parser.Heroes
                     HeroWeaponAddRange(weaponLegacy, weapon, weaponNameId);
                     HeroWeaponAddPeriod(weaponLegacy, weapon, weaponNameId);
                     HeroWeaponAddDamage(weaponLegacy, weapon, weaponNameId);
+
+                    string displayEffectValue = weaponLegacy.Element("DisplayEffect")?.Attribute("value")?.Value;
+                    if (!string.IsNullOrEmpty(displayEffectValue))
+                    {
+                        if (ScalingDataLoader.ScaleValueByLookupId.TryGetValue($"Effect#{displayEffectValue}#Amount", out double scaleValue))
+                            weapon.DamageScaling = scaleValue;
+                    }
                 }
             }
 
