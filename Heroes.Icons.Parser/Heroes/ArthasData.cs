@@ -8,8 +8,8 @@ namespace Heroes.Icons.Parser.Heroes
 {
     public class ArthasData : DefaultHeroData
     {
-        public ArthasData(HeroDataLoader heroDataLoader, DescriptionLoader descriptionLoader, DescriptionParser descriptionParser, HeroOverrideLoader heroOverrideLoader)
-            : base(heroDataLoader, descriptionLoader, descriptionParser, heroOverrideLoader)
+        public ArthasData(DataLoader dataLoader, DescriptionParser descriptionParser)
+            : base(dataLoader, descriptionParser)
         {
         }
 

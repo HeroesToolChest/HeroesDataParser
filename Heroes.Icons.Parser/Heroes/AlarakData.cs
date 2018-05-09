@@ -9,8 +9,8 @@ namespace Heroes.Icons.Parser.Heroes
 {
     public class AlarakData : DefaultHeroData
     {
-        public AlarakData(HeroDataLoader heroDataLoader, DescriptionLoader descriptionLoader, DescriptionParser descriptionParser, HeroOverrideLoader heroOverrideLoader)
-            : base(heroDataLoader, descriptionLoader, descriptionParser, heroOverrideLoader)
+        public AlarakData(DataLoader dataLoader, DescriptionParser descriptionParser) 
+            : base(dataLoader, descriptionParser)
         {
         }
 

@@ -8,8 +8,8 @@ namespace Heroes.Icons.Parser.Heroes
 {
     public class AzmodanData : DefaultHeroData
     {
-        public AzmodanData(HeroDataLoader heroDataLoader, DescriptionLoader descriptionLoader, DescriptionParser descriptionParser, HeroOverrideLoader heroOverrideLoader)
-            : base(heroDataLoader, descriptionLoader, descriptionParser, heroOverrideLoader)
+        public AzmodanData(DataLoader dataLoader, DescriptionParser descriptionParser)
+            : base(dataLoader, descriptionParser)
         {
         }
 

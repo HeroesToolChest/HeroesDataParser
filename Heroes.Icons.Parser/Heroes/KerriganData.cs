@@ -9,8 +9,8 @@ namespace Heroes.Icons.Parser.Heroes
 {
     public class KerriganData : DefaultHeroData
     {
-        public KerriganData(HeroDataLoader heroDataLoader, DescriptionLoader descriptionLoader, DescriptionParser descriptionParser, HeroOverrideLoader heroOverrideLoader)
-            : base(heroDataLoader, descriptionLoader, descriptionParser, heroOverrideLoader)
+        public KerriganData(DataLoader dataLoader, DescriptionParser descriptionParser)
+            : base(dataLoader, descriptionParser)
         {
         }
 

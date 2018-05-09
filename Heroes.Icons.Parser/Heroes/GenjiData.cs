@@ -9,8 +9,8 @@ namespace Heroes.Icons.Parser.Heroes
 {
     public class GenjiData : DefaultHeroData
     {
-        public GenjiData(HeroDataLoader heroDataLoader, DescriptionLoader descriptionLoader, DescriptionParser descriptionParser, HeroOverrideLoader heroOverrideLoader)
-            : base(heroDataLoader, descriptionLoader, descriptionParser, heroOverrideLoader)
+        public GenjiData(DataLoader dataLoader, DescriptionParser descriptionParser)
+            : base(dataLoader, descriptionParser)
         {
         }
 

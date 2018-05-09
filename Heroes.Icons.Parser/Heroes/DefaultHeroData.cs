@@ -11,20 +11,22 @@ namespace Heroes.Icons.Parser.Heroes
 {
     public abstract class DefaultHeroData
     {
-        public DefaultHeroData(HeroDataLoader heroDataLoader, DescriptionLoader descriptionLoader, DescriptionParser descriptionParser, HeroOverrideLoader heroOverrideLoader)
+        public DefaultHeroData(DataLoader dataLoader, DescriptionParser descriptionParser)
         {
-            HeroDataLoader = heroDataLoader;
-            DescriptionLoader = descriptionLoader;
+            HeroDataLoader = dataLoader.HeroDataLoader;
+            DescriptionLoader = dataLoader.DescriptionLoader;
+            HeroOverrideLoader = dataLoader.HeroOverrideLoader;
+            ScalingDataLoader = dataLoader.ScalingDataLoader;
             DescriptionParser = descriptionParser;
-            HeroOverrideLoader = heroOverrideLoader;
         }
 
         protected double DefaultWeaponPeriod => 1.2; // for hero weapons
 
         protected HeroDataLoader HeroDataLoader { get; }
         protected DescriptionLoader DescriptionLoader { get; }
-        protected DescriptionParser DescriptionParser { get; }
         protected HeroOverrideLoader HeroOverrideLoader { get; }
+        protected ScalingDataLoader ScalingDataLoader { get; }
+        protected DescriptionParser DescriptionParser { get; }
 
         public Hero ParseHeroData(string cHeroId, string cUnitId)
         {
@@ -446,10 +448,6 @@ namespace Heroes.Icons.Parser.Heroes
                 {
                     GetTalent(hero, element);
                 }
-                else if (elementName == "LEVELSCALINGARRAY")
-                {
-                    HeroScalingData(hero, element);
-                }
             }
 
             if (hero.Type == UnitType.Unknown)
@@ -482,10 +480,16 @@ namespace Heroes.Icons.Parser.Heroes
                 if (elementName == "LIFEMAX")
                 {
                     hero.Life = int.Parse(element.Attribute("value").Value);
+
+                    if (ScalingDataLoader.ScaleValueByLookupId.TryGetValue($"Unit#{hero.CUnitId}#LifeMax", out double scaleValue))
+                        hero.LifeScaling = scaleValue;
                 }
                 else if (elementName == "LIFEREGENRATE")
                 {
                     hero.LifeRegenerationRate = double.Parse(element.Attribute("value").Value);
+
+                    if (ScalingDataLoader.ScaleValueByLookupId.TryGetValue($"Unit#{hero.CUnitId}#LifeRegenRate", out double scaleValue))
+                        hero.LifeRegenerationRateScaling = scaleValue;
                 }
                 else if (elementName == "RADIUS")
                 {
@@ -793,22 +797,6 @@ namespace Heroes.Icons.Parser.Heroes
             return weapon;
         }
 
-        private void HeroScalingData(Hero hero, XElement scalingElement)
-        {
-            IEnumerable<XElement> modifications = scalingElement.Elements("Modifications");
-
-            foreach (XElement modification in modifications)
-            {
-                if (modification.Element("Entry")?.Attribute("value")?.Value == hero.CUnitId)
-                {
-                    if (modification.Element("Field").Attribute("value").Value == "LifeMax")
-                        hero.LifeScaling = double.Parse(modification.Element("Value").Attribute("value").Value);
-                    else if (modification.Element("Field").Attribute("value").Value == "LifeRegenRate")
-                        hero.LifeRegenerationRateScaling = double.Parse(modification.Element("Value").Attribute("value").Value);
-                }
-            }
-        }
-
         private void SetDefaultValues(Hero hero)
         {
             XElement stormHeroData = HeroDataLoader.XmlData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value == "StormHero").FirstOrDefault();
@@ -889,11 +877,6 @@ namespace Heroes.Icons.Parser.Heroes
                         CUnitData(additionalHero, unit);
 
                         additionalHero.Difficulty = hero.Difficulty; // set to same as parent
-
-                        foreach (XElement scalingElement in HeroDataLoader.XmlData.Root.Elements("CHero").Where(x => x.Attribute("id")?.Value == hero.CHeroId).Elements("LevelScalingArray"))
-                        {
-                            HeroScalingData(additionalHero, scalingElement);
-                        }
 
                         hero.AdditionalHeroUnits.Add(additionalHero);
                     }

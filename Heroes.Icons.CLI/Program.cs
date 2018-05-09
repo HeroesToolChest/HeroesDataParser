@@ -1,6 +1,7 @@
 ﻿using Heroes.Icons.Parser;
 using Heroes.Icons.Parser.Descriptions;
 using Heroes.Icons.Parser.HeroData;
+using Heroes.Icons.Parser.Heroes;
 using Heroes.Icons.Parser.Models;
 using System;
 using System.Collections.Generic;
@@ -44,8 +45,10 @@ namespace Heroes.Icons.CLI
                 DescriptionLoader descriptionLoader = InitializeDescriptionLoader();
                 HeroOverrideLoader heroOverrideLoader = InitializeHeroOverrideLoader();
 
+                DataLoader dataLoader = new DataLoader(heroDataLoader, descriptionLoader, heroOverrideLoader, scalingDataLoader);
+
                 DescriptionParser descriptionParser = InitializeDescriptionParser(heroDataLoader, descriptionLoader, scalingDataLoader);
-                HeroParser heroParser = InitializeHeroParser(heroDataLoader, descriptionLoader, descriptionParser, heroOverrideLoader);
+                HeroParser heroParser = InitializeHeroParser(dataLoader, descriptionParser);
 
                 if (heroParser.FailedHeroes.Count > 0)
                 {
@@ -135,10 +138,6 @@ namespace Heroes.Icons.CLI
             return descriptionLoader;
         }
 
-        /// <summary>
-        /// Loads the hardcoded/override values
-        /// </summary>
-        /// <returns></returns>
         private HeroOverrideLoader InitializeHeroOverrideLoader()
         {
             var time = new Stopwatch();
@@ -157,12 +156,6 @@ namespace Heroes.Icons.CLI
             return heroOverrideLoader;
         }
 
-        /// <summary>
-        /// Parses through all the gamestrings, filling in data references
-        /// </summary>
-        /// <param name="dataLoader">Contains all xml data</param>
-        /// <param name="descriptionLoader">Contains all the raw gamestrings</param>
-        /// <returns></returns>
         private DescriptionParser InitializeDescriptionParser(HeroDataLoader dataLoader, DescriptionLoader descriptionLoader, ScalingDataLoader scalingDataLoader)
         {
             var time = new Stopwatch();
@@ -186,19 +179,12 @@ namespace Heroes.Icons.CLI
             return descriptionParser;
         }
 
-        /// <summary>
-        /// Parses all the hero data into a Hero object
-        /// </summary>
-        /// <param name="dataLoader">Contains all xml data</param>
-        /// <param name="descriptionLoader">Contains all the raw gamestrings</param>
-        /// <param name="descriptionParser">Contains the parsed gamestrings</param>
-        /// <param name="heroHelperLoader">Contains the manual inputted data</param>
-        private HeroParser InitializeHeroParser(HeroDataLoader dataLoader, DescriptionLoader descriptionLoader, DescriptionParser descriptionParser, HeroOverrideLoader heroHelperLoader)
+        private HeroParser InitializeHeroParser(DataLoader dataLoader, DescriptionParser descriptionParser)
         {
             var time = new Stopwatch();
 
             Console.WriteLine($"Executing hero data...");
-            HeroParser heroParser = new HeroParser(dataLoader, descriptionLoader, descriptionParser, heroHelperLoader);
+            HeroParser heroParser = new HeroParser(dataLoader, descriptionParser);
 
             time.Start();
             heroParser.Parse();

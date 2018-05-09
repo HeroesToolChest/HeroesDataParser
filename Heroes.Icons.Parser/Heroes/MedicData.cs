@@ -9,8 +9,8 @@ namespace Heroes.Icons.Parser.Heroes
 {
     public class MedicData : DefaultHeroData
     {
-        public MedicData(HeroDataLoader heroDataLoader, DescriptionLoader descriptionLoader, DescriptionParser descriptionParser, HeroOverrideLoader heroOverrideLoader)
-            : base(heroDataLoader, descriptionLoader, descriptionParser, heroOverrideLoader)
+        public MedicData(DataLoader dataLoader, DescriptionParser descriptionParser)
+            : base(dataLoader, descriptionParser)
         {
         }
 

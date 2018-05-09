@@ -8,8 +8,8 @@ namespace Heroes.Icons.Parser.Heroes
 {
     public class ChromieData : DefaultHeroData
     {
-        public ChromieData(HeroDataLoader heroDataLoader, DescriptionLoader descriptionLoader, DescriptionParser descriptionParser, HeroOverrideLoader heroOverrideLoader)
-            : base(heroDataLoader, descriptionLoader, descriptionParser, heroOverrideLoader)
+        public ChromieData(DataLoader dataLoader, DescriptionParser descriptionParser)
+            : base(dataLoader, descriptionParser)
         {
         }
 
