@@ -58,14 +58,14 @@ namespace Heroes.Icons.Parser.Heroes
         /// <summary>
         /// Sets all the tooltip info: vital costs, cooldowns, charges, range, arc, etc...
         /// </summary>
-        /// <param name="attributeId">The id name of the ability or talent</param>
+        /// <param name="elementId">The id name of the ability or talent</param>
         /// <param name="abilityTalentBase"><see cref="AbilityTalentBase"/> object thats being updated</param>
-        protected virtual void SetTooltipSubInfo(string attributeId, AbilityTalentBase abilityTalentBase, bool allowOverrides = true)
+        protected virtual void SetTooltipSubInfo(string elementId, AbilityTalentBase abilityTalentBase, bool allowOverrides = true)
         {
-            if (string.IsNullOrEmpty(attributeId))
+            if (string.IsNullOrEmpty(elementId))
                 return;
 
-            var foundElements = HeroDataLoader.XmlData.Root.Elements().Where(x => x.Attribute("id")?.Value == attributeId);
+            var foundElements = HeroDataLoader.XmlData.Root.Elements().Where(x => x.Attribute("id")?.Value == elementId);
 
             try
             {
@@ -119,7 +119,7 @@ namespace Heroes.Icons.Parser.Heroes
 
                 if (allowOverrides)
                 {
-                    if (HeroOverrideLoader.IdRedirectByAbilityId.TryGetValue(attributeId, out Dictionary<string, RedirectElement> idRedirects))
+                    if (HeroOverrideLoader.IdRedirectByAbilityId.TryGetValue(elementId, out Dictionary<string, RedirectElement> idRedirects))
                     {
                         foreach (var redirectElement in idRedirects)
                         {
@@ -140,7 +140,7 @@ namespace Heroes.Icons.Parser.Heroes
             }
             catch (Exception ex)
             {
-                throw new ParseException($"Error {nameof(SetTooltipSubInfo)}() - Id={attributeId}", ex);
+                throw new ParseException($"Error {nameof(SetTooltipSubInfo)}() - Id={elementId}", ex);
             }
         }
 
@@ -561,7 +561,8 @@ namespace Heroes.Icons.Parser.Heroes
             string descriptionName = abilityElement.Attribute("Button")?.Value;
             string parentLink = abilityElement.Attribute("Unit")?.Value;
 
-            XElement usableAbility = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "ShowInHeroSelect" && x.Attribute("value").Value == "1").FirstOrDefault();
+            XElement usableAbility = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "ShowInHeroSelect" && x.Attribute("value").Value == "1" ).FirstOrDefault();
+            XElement mountAbility = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "MountReplacement" && x.Attribute("value").Value == "1").FirstOrDefault();
 
             Ability ability = new Ability();
 
@@ -575,7 +576,7 @@ namespace Heroes.Icons.Parser.Heroes
                 validAbility = false;
             }
 
-            if (usableAbility == null && parentLink == null && !validAbility)
+            if (usableAbility == null && mountAbility == null && parentLink == null && !validAbility)
                 return;
 
             if (!string.IsNullOrEmpty(referenceName) && !string.IsNullOrEmpty(descriptionName))
