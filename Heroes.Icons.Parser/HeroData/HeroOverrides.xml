@@ -267,4 +267,11 @@
       </Override>
     </Ability>
   </CHero>
+  <CHero id="WitchDoctor">
+    <Ability id="WitchDoctorGargantuanStomp" valid="true">
+      <Override>
+        <ParentLink value="WitchDoctorGargantuan" />
+      </Override>
+    </Ability>
+  </CHero>
 </HeroOverrides>
