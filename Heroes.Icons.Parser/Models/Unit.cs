@@ -1,55 +1,44 @@
 ﻿using System.Collections.Generic;
+using Heroes.Icons.Parser.Models.AbilityTalents;
 
 namespace Heroes.Icons.Parser.Models
 {
     public class Unit
     {
         /// <summary>
-        /// Id of CUnit element stored in blizzard xml file
+        /// Gets or sets the id of CUnit element stored in blizzard xml file
         /// </summary>
         public string CUnitId { get; set; }
 
         /// <summary>
-        /// The real in game name.
+        /// Gets or sets the real in game name.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Shorthand name.
+        /// Gets or sets the  shorthand name.
         /// </summary>
         public string ShortName { get; set; }
 
         /// <summary>
-        /// Description of the unit.
+        /// Gets or sets the description of the unit.
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// Melee or ranged.
+        /// Gets or sets the unit type: Melee or ranged.
         /// </summary>
         public UnitType Type { get; set; }
 
         /// <summary>
-        /// The amount of life the unit has.
+        /// Gets or sets the Life properties.
         /// </summary>
-        public int Life { get; set; }
+        public UnitLife Life { get; set; } = new UnitLife();
 
         /// <summary>
-        /// The life regeneration rate of the unit.
+        /// Gets or sets the Energy properties.
         /// </summary>
-        public double LifeRegenerationRate { get; set; }
-
-        /// <summary>
-        /// The amount of Energy the unit has (mana, brew, fury...).
-        /// </summary>
-        public int Energy { get; set; }
-
-        /// <summary>
-        /// The energy regeneration rate of the unit.
-        /// </summary>
-        public double EnergyRegenerationRate { get; set; }
-
-        public EnergyType EnergyType { get; set; }
+        public UnitEnergy Energy { get; set; } = new UnitEnergy();
 
         public double Radius { get; set; }
 
@@ -59,14 +48,10 @@ namespace Heroes.Icons.Parser.Models
 
         public double Sight { get; set; }
 
-        public double LifeScaling { get; set; }
-
-        public double LifeRegenerationRateScaling { get; set; }
-
         public Dictionary<string, Ability> Abilities { get; set; }
 
         /// <summary>
-        /// Basic attack information.
+        /// Gets or sets a list of basic attack weapons.
         /// </summary>
         public IList<HeroWeapon> Weapons { get; set; } = new List<HeroWeapon>();
 

@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestData\FullDescriptionTestData.txt">
+    <None Update="TestData\GameStringsTestData.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestData\XmlTestData.xml">

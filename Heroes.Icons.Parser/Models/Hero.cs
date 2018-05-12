@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Heroes.Icons.Parser.Models.AbilityTalents;
+using System;
 using System.Collections.Generic;
 
 namespace Heroes.Icons.Parser.Models

@@ -21,16 +21,5 @@ namespace Heroes.Icons.Parser.Tests
             Assert.IsTrue(MathEval.CalculatePathEquation("-0.5") == -0.5);
             Assert.IsTrue(MathEval.CalculatePathEquation("0") == 0);
         }
-
-        /*[TestMethod]
-        public void CalculateScalingValueTest()
-        {
-           Assert.IsTrue(MathEval.CalculateScalingValue(1924, 0.04, 0) == 1924);
-           Assert.IsTrue(MathEval.CalculateScalingValue(1924, 0.04, 1) == 2002);
-           Assert.IsTrue(MathEval.CalculateScalingValue(1924, 0.04, 2) == 2082);
-           Assert.IsTrue(MathEval.CalculateScalingValue(1924, 0.04, 5) == 2342);
-            Assert.IsTrue(MathEval.CalculateScalingValue(1924, 0.04, 30) == 6248);
-           Assert.IsTrue(MathEval.CalculateScalingValue(2000, 0.04, 30) == 6495);
-        */
     }
 }

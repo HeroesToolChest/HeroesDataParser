@@ -1,8 +1,9 @@
 ﻿using Heroes.Icons.Parser;
-using Heroes.Icons.Parser.Descriptions;
-using Heroes.Icons.Parser.HeroData;
-using Heroes.Icons.Parser.Heroes;
+using Heroes.Icons.Parser.GameStrings;
 using Heroes.Icons.Parser.Models;
+using Heroes.Icons.Parser.UnitData;
+using Heroes.Icons.Parser.UnitData.Overrides;
+using Heroes.Icons.Parser.XmlGameData;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,6 +14,9 @@ namespace Heroes.Icons.CLI
     internal class Program
     {
         private string ModsFolderPath;
+        private GameData GameData;
+        private GameStringData GameStringData;
+        private HeroOverrideData HeroOverrideData;
 
         internal static void Main(string[] args)
         {
@@ -40,17 +44,15 @@ namespace Heroes.Icons.CLI
         {
             try
             {
-                HeroDataLoader heroDataLoader = InitializeDataLoader();
-                ScalingDataLoader scalingDataLoader = InitializeScalingDataLoader(heroDataLoader);
-                DescriptionLoader descriptionLoader = InitializeDescriptionLoader();
-                HeroOverrideLoader heroOverrideLoader = InitializeHeroOverrideLoader();
+                InitializeGameData();
+                InitializeGameStringData();
+                InitializeHeroOverrideData();
 
-                DataLoader dataLoader = new DataLoader(heroDataLoader, descriptionLoader, heroOverrideLoader, scalingDataLoader);
+                GameStringParser gameStringParser = InitializeDescriptionParser();
 
-                DescriptionParser descriptionParser = InitializeDescriptionParser(heroDataLoader, descriptionLoader, scalingDataLoader);
-                HeroParser heroParser = InitializeHeroParser(dataLoader, descriptionParser);
+                UnitParser unitParser = InitializeUnitParser(gameStringParser);
 
-                if (heroParser.FailedHeroes.Count > 0)
+                if (unitParser.FailedHeroesExceptionsByHeroName.Count > 0)
                 {
                     Console.WriteLine("Terminating program...");
                     Console.WriteLine("Press any key to quit...");
@@ -58,7 +60,7 @@ namespace Heroes.Icons.CLI
                     Environment.Exit(0);
                 }
 
-                HeroDataVerification(heroParser.ParsedHeroes);
+                HeroDataVerification(unitParser.ParsedHeroes);
             }
             catch (Exception ex) // catch everything
             {
@@ -67,146 +69,111 @@ namespace Heroes.Icons.CLI
             }
         }
 
-        /// <summary>
-        /// Loads all the blizzard xml files
-        /// </summary>
-        /// <returns></returns>
-        private HeroDataLoader InitializeDataLoader()
+        private void InitializeGameData()
         {
             var time = new Stopwatch();
 
             Console.WriteLine($"Loading xml files...");
-            HeroDataLoader heroDataLoader = new HeroDataLoader(ModsFolderPath);
+            GameData gameData = new GameData(ModsFolderPath);
 
             time.Start();
-            heroDataLoader.Load();
+            gameData.Load();
+            GameData = gameData;
             time.Stop();
 
-            Console.WriteLine($"{heroDataLoader.XmlFileCount} xml files loaded");
+            Console.WriteLine($"{gameData.XmlFileCount} xml files loaded");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
-            Console.WriteLine("...");
-
-            return heroDataLoader;
+            Console.WriteLine(string.Empty);
         }
 
-        /// <summary>
-        /// Loads the scaling data
-        /// </summary>
-        /// <returns></returns>
-        private ScalingDataLoader InitializeScalingDataLoader(HeroDataLoader heroDataLoader)
+        private void InitializeGameStringData()
         {
             var time = new Stopwatch();
 
-            Console.WriteLine($"Loading scaling data...");
-            ScalingDataLoader scalingDataLoader = new ScalingDataLoader(heroDataLoader);
+            Console.WriteLine($"Loading game strings...");
+            GameStringData = new GameStringData(ModsFolderPath);
 
             time.Start();
-            scalingDataLoader.Load();
+            GameStringData.Load();
             time.Stop();
 
-            Console.WriteLine($"{scalingDataLoader.ScaleValueByLookupId.Count} scale data loaded");
+            Console.WriteLine($"{GameStringData.FullTooltipsByFullTooltipNameId.Count} Full Tooltips");
+            Console.WriteLine($"{GameStringData.ShortTooltipsByShortTooltipNameId.Count} Short Tooltips");
+            Console.WriteLine($"{GameStringData.HeroDescriptionsByShortName.Count} Hero descriptions");
+            Console.WriteLine($"{GameStringData.HeroNamesByShortName.Count} Hero names");
+            Console.WriteLine($"{GameStringData.UnitNamesByShortName.Count} Unit names");
+            Console.WriteLine($"{GameStringData.AbilityTalentNamesByReferenceNameId.Count} Ability/talent names");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine("...");
-
-            return scalingDataLoader;
         }
 
-        /// <summary>
-        /// Loads all the blizzard gamestring files
-        /// </summary>
-        /// <returns></returns>
-        private DescriptionLoader InitializeDescriptionLoader()
+        private void InitializeHeroOverrideData()
         {
             var time = new Stopwatch();
 
-            Console.WriteLine($"Loading tooltips descriptions...");
-            DescriptionLoader descriptionLoader = new DescriptionLoader(ModsFolderPath);
+            HeroOverrideData = new HeroOverrideData(GameData);
+
+            Console.WriteLine($"Loading {HeroOverrideData.HeroDataOverrideXmlFile} ...");
 
             time.Start();
-            descriptionLoader.Load();
-            time.Stop();
-
-            Console.WriteLine($"{descriptionLoader.FullDescriptions.Count} Full descriptions");
-            Console.WriteLine($"{descriptionLoader.ShortDescriptions.Count} Short descriptions");
-            Console.WriteLine($"{descriptionLoader.HeroDescriptions.Count} Hero descriptions");
-            Console.WriteLine($"{descriptionLoader.HeroNames.Count} Hero names");
-            Console.WriteLine($"{descriptionLoader.UnitNames.Count} Unit names");
-            Console.WriteLine($"{descriptionLoader.DescriptionNames.Count} Ability/talent names");
-            Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
-            Console.WriteLine("...");
-
-            return descriptionLoader;
-        }
-
-        private HeroOverrideLoader InitializeHeroOverrideLoader()
-        {
-            var time = new Stopwatch();
-
-            HeroOverrideLoader heroOverrideLoader = new HeroOverrideLoader();
-
-            Console.WriteLine($"Loading {heroOverrideLoader.HeroDataOverrideXmlFile} ...");
-
-            time.Start();
-            heroOverrideLoader.LoadHeroOverride();
+            HeroOverrideData.LoadHeroOverrideData();
             time.Stop();
 
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine("...");
-
-            return heroOverrideLoader;
         }
 
-        private DescriptionParser InitializeDescriptionParser(HeroDataLoader dataLoader, DescriptionLoader descriptionLoader, ScalingDataLoader scalingDataLoader)
+        private GameStringParser InitializeDescriptionParser()
         {
             var time = new Stopwatch();
 
             Console.WriteLine($"Parsing tooltips...");
-            DescriptionParser descriptionParser = new DescriptionParser(dataLoader, descriptionLoader, scalingDataLoader);
+            GameStringParser descriptionParser = new GameStringParser(GameData, GameStringData);
 
             time.Start();
-            descriptionParser.Parse();
+            descriptionParser.ParseAllGameStrings();
             time.Stop();
 
-            Console.WriteLine($"{descriptionParser.FullParsedDescriptions.Count} parsed full tooltips");
-            Console.WriteLine($"{descriptionParser.InvalidFullDescriptions.Count} invalid full tooltips");
-            Console.WriteLine($"{descriptionParser.ShortParsedDescriptions.Count} parsed short tooltips");
-            Console.WriteLine($"{descriptionParser.InvalidShortDescriptions.Count} invalid short tooltips");
-            Console.WriteLine($"{descriptionParser.HeroParsedDescriptions.Count} parsed hero tooltips");
-            Console.WriteLine($"{descriptionParser.InvalidHeroDescriptions.Count} invalid hero tooltips");
+            Console.WriteLine($"{descriptionParser.FullParsedTooltipsByFullTooltipNameId.Count} parsed full tooltips");
+            Console.WriteLine($"{descriptionParser.InvalidFullTooltipsByFullTooltipNameId.Count} invalid full tooltips");
+            Console.WriteLine($"{descriptionParser.ShortParsedTooltipsByShortTooltipNameId.Count} parsed short tooltips");
+            Console.WriteLine($"{descriptionParser.InvalidShortTooltipsByShortTooltipNameId.Count} invalid short tooltips");
+            Console.WriteLine($"{descriptionParser.HeroParsedDescriptionsByShortName.Count} parsed hero tooltips");
+            Console.WriteLine($"{descriptionParser.InvalidHeroDescriptionsByShortName.Count} invalid hero tooltips");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine("...");
 
             return descriptionParser;
         }
 
-        private HeroParser InitializeHeroParser(DataLoader dataLoader, DescriptionParser descriptionParser)
+        private UnitParser InitializeUnitParser(GameStringParser gameStringParser)
         {
             var time = new Stopwatch();
 
             Console.WriteLine($"Executing hero data...");
-            HeroParser heroParser = new HeroParser(dataLoader, descriptionParser);
+            UnitParser unitParser = new UnitParser(GameData, GameStringData, gameStringParser, HeroOverrideData);
 
             time.Start();
-            heroParser.Parse();
+            unitParser.ParseHeroes();
             time.Stop();
 
-            if (heroParser.FailedHeroes.Count > 0)
+            if (unitParser.FailedHeroesExceptionsByHeroName.Count > 0)
             {
-                foreach (var hero in heroParser.FailedHeroes)
+                foreach (var hero in unitParser.FailedHeroesExceptionsByHeroName)
                 {
                     WriteExceptionLog($"FailedHeroParsed_{hero.Key}", hero.Value);
                 }
             }
 
-            Console.WriteLine($"{heroParser.ParsedHeroes.Count} successfully parsed heroes");
+            Console.WriteLine($"{unitParser.ParsedHeroes.Count} successfully parsed heroes");
 
-            if (heroParser.FailedHeroes.Count > 0)
-                Console.WriteLine($"{heroParser.FailedHeroes.Count} failed to parse [Check logs for details]");
+            if (unitParser.FailedHeroesExceptionsByHeroName.Count > 0)
+                Console.WriteLine($"{unitParser.FailedHeroesExceptionsByHeroName.Count} failed to parse [Check logs for details]");
 
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine("...");
 
-            return heroParser;
+            return unitParser;
         }
 
         private void HeroDataVerification(List<Hero> heroes)

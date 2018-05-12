@@ -1,4 +1,4 @@
-﻿using Heroes.Icons.Parser.Descriptions;
+﻿using Heroes.Icons.Parser.GameStrings;
 
 namespace Heroes.Icons.Parser.Models
 {
@@ -12,17 +12,17 @@ namespace Heroes.Icons.Parser.Models
         {
             RawDescription = rawParsedDescription;
 
-            PlainText = DescriptionValidation.GetPlainText(rawParsedDescription, false, false);
-            PlainTextWithNewlines = DescriptionValidation.GetPlainText(rawParsedDescription, true, false);
-            PlainTextWithScaling = DescriptionValidation.GetPlainText(rawParsedDescription, false, true);
-            PlainTextWithScalingWithNewlines = DescriptionValidation.GetPlainText(rawParsedDescription, true, true);
+            PlainText = GameStringValidator.GetPlainText(rawParsedDescription, false, false);
+            PlainTextWithNewlines = GameStringValidator.GetPlainText(rawParsedDescription, true, false);
+            PlainTextWithScaling = GameStringValidator.GetPlainText(rawParsedDescription, false, true);
+            PlainTextWithScalingWithNewlines = GameStringValidator.GetPlainText(rawParsedDescription, true, true);
 
-            ColoredText = DescriptionValidation.GetColoredText(rawParsedDescription, false);
-            ColoredTextWithScaling = DescriptionValidation.GetColoredText(rawParsedDescription, true);
+            ColoredText = GameStringValidator.GetColoredText(rawParsedDescription, false);
+            ColoredTextWithScaling = GameStringValidator.GetColoredText(rawParsedDescription, true);
         }
 
         /// <summary>
-        /// Gets the raw parsed description
+        /// Gets the raw parsed description.
         /// </summary>
         public string RawDescription { get; }
 
