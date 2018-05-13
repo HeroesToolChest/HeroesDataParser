@@ -67,21 +67,6 @@ namespace Heroes.Icons.Parser
             return double.Parse(input);
         }
 
-        public static double CalculateScalingValue(double startingValue, double scaling, int level)
-        {
-            if (level <= 0)
-                return startingValue;
-
-            double value = startingValue;
-
-            for (int i = 0; i <= level; i++)
-            {
-                value = value + Math.Round(value * scaling);
-            }
-
-            return value + 1;
-        }
-
         private static string[] SplitExpression(string input)
         {
             return Regex.Split(input, @"([+\-*/])").Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
