@@ -37,32 +37,32 @@ namespace Heroes.Icons.Parser.GameStrings
         /// <summary>
         /// Gets or sets the short parsed tooltips
         /// </summary>
-        public ConcurrentDictionary<string, string> ShortParsedTooltipsByShortTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>();
+        public ConcurrentDictionary<string, string> ShortParsedTooltipsByShortTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 5001);
 
         /// <summary>
         /// Gets or sets the full parsed tooltips
         /// </summary>
-        public ConcurrentDictionary<string, string> FullParsedTooltipsByFullTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>();
+        public ConcurrentDictionary<string, string> FullParsedTooltipsByFullTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 5001);
 
         /// <summary>
         /// Gets or sets the parsed hero descriptions
         /// </summary>
-        public ConcurrentDictionary<string, string> HeroParsedDescriptionsByShortName { get; set; } = new ConcurrentDictionary<string, string>();
+        public ConcurrentDictionary<string, string> HeroParsedDescriptionsByShortName { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
 
         /// <summary>
         /// Gets or sets the invalid short parsed tooltips
         /// </summary>
-        public ConcurrentDictionary<string, string> InvalidShortTooltipsByShortTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>();
+        public ConcurrentDictionary<string, string> InvalidShortTooltipsByShortTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
 
         /// <summary>
         /// Gets or sets the invalid full parsed tooltips
         /// </summary>
-        public ConcurrentDictionary<string, string> InvalidFullTooltipsByFullTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>();
+        public ConcurrentDictionary<string, string> InvalidFullTooltipsByFullTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
 
         /// <summary>
         /// Gets or sets the invalid hero descriptions
         /// </summary>
-        public ConcurrentDictionary<string, string> InvalidHeroDescriptionsByShortName { get; set; } = new ConcurrentDictionary<string, string>();
+        public ConcurrentDictionary<string, string> InvalidHeroDescriptionsByShortName { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
 
         /// <summary>
         /// Parse a dref string and return the calculated value
@@ -418,7 +418,7 @@ namespace Heroes.Icons.Parser.GameStrings
 
             elements = elements.Reverse();
 
-            foreach (var element in elements)
+            foreach (XElement element in elements)
             {
                 currentElement = element;
                 parent = currentElement.Attribute("parent");

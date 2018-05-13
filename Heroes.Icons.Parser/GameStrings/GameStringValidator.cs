@@ -6,10 +6,13 @@ namespace Heroes.Icons.Parser.GameStrings
 {
     public class GameStringValidator
     {
+        private readonly int SmallSize = 51;
+        private readonly int LargeSize = 501;
+
         private string GameString;
 
         private int Iterator = 0;
-        private Stack<string> TextStack = new Stack<string>();
+        private Stack<string> TextStack = new Stack<string>(101);
 
         private GameStringValidator(string gameString)
         {
@@ -53,7 +56,7 @@ namespace Heroes.Icons.Parser.GameStrings
         {
             ValideGameString(string.Empty);
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder(LargeSize);
 
             if (TextStack.Count < 1)
                 return string.Empty;
@@ -103,7 +106,7 @@ namespace Heroes.Icons.Parser.GameStrings
         // modifies game string, remove unmatched tags, nested tags
         private void ValideGameString(string startTag)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder(LargeSize);
             for (; Iterator < GameString.Length; Iterator++)
             {
                 if (GameString[Iterator] == '<' && GameString[Iterator + 1] != ' ')
@@ -111,7 +114,7 @@ namespace Heroes.Icons.Parser.GameStrings
                     if (sb.Length > 0)
                     {
                         TextStack.Push(sb.ToString());
-                        sb = new StringBuilder();
+                        sb = new StringBuilder(LargeSize);
                     }
 
                     if (TryParseTag(out string tag, out bool isStartTag))
@@ -191,7 +194,7 @@ namespace Heroes.Icons.Parser.GameStrings
         // removes all tags
         private string ParsePlainText(bool includeNewlineTags, bool includeScaling)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder(LargeSize);
             for (; Iterator < GameString.Length; Iterator++)
             {
                 if (GameString[Iterator] == '<')
@@ -199,7 +202,7 @@ namespace Heroes.Icons.Parser.GameStrings
                     if (sb.Length > 0)
                     {
                         TextStack.Push(sb.ToString());
-                        sb = new StringBuilder();
+                        sb = new StringBuilder(LargeSize);
                     }
 
                     if (TryParseTag(out string tag, out bool isStartTag))
@@ -218,7 +221,7 @@ namespace Heroes.Icons.Parser.GameStrings
                 else if (GameString[Iterator] == '~' && Iterator + 1 < GameString.Length && GameString[Iterator + 1] == '~')
                 {
                     TextStack.Push(sb.ToString());
-                    sb = new StringBuilder();
+                    sb = new StringBuilder(LargeSize);
 
                     if (ParseScalingTag(out string scaleText, includeScaling))
                     {
@@ -237,7 +240,7 @@ namespace Heroes.Icons.Parser.GameStrings
             if (sb.Length > 0)
                 TextStack.Push(sb.ToString());
 
-            sb = new StringBuilder();
+            sb = new StringBuilder(LargeSize);
 
             while (TextStack.Count > 0)
             {
@@ -250,7 +253,7 @@ namespace Heroes.Icons.Parser.GameStrings
         // keeps colored tags and new lines
         private string ParseColoredText(bool includeScaling)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder(SmallSize);
             for (; Iterator < GameString.Length; Iterator++)
             {
                 if (GameString[Iterator] == '<')
@@ -258,7 +261,7 @@ namespace Heroes.Icons.Parser.GameStrings
                     if (sb.Length > 0)
                     {
                         TextStack.Push(sb.ToString());
-                        sb = new StringBuilder();
+                        sb = new StringBuilder(SmallSize);
                     }
 
                     if (TryParseTag(out string tag, out bool isStartTag))
@@ -271,7 +274,7 @@ namespace Heroes.Icons.Parser.GameStrings
                 else if (GameString[Iterator] == '~' && Iterator + 1 < GameString.Length && GameString[Iterator + 1] == '~')
                 {
                     TextStack.Push(sb.ToString());
-                    sb = new StringBuilder();
+                    sb = new StringBuilder(SmallSize);
 
                     if (ParseScalingTag(out string scaleText, includeScaling))
                     {
@@ -290,7 +293,7 @@ namespace Heroes.Icons.Parser.GameStrings
             if (sb.Length > 0)
                 TextStack.Push(sb.ToString());
 
-            sb = new StringBuilder();
+            sb = new StringBuilder(SmallSize);
 
             while (TextStack.Count > 0)
             {
@@ -318,7 +321,7 @@ namespace Heroes.Icons.Parser.GameStrings
         // get whole tag, determine if it's a start tag
         private bool TryParseTag(out string tag, out bool isStartTag)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder(SmallSize);
             for (; Iterator < GameString.Length; Iterator++)
             {
                 sb.Append(GameString[Iterator]);
@@ -369,7 +372,7 @@ namespace Heroes.Icons.Parser.GameStrings
         private bool ParseScalingTag(out string scaleText, bool replace)
         {
             int tagCount = 0;
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder(SmallSize);
 
             for (; Iterator < GameString.Length; Iterator++)
             {
