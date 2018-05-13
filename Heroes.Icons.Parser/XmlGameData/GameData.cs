@@ -6,7 +6,7 @@ namespace Heroes.Icons.Parser.XmlGameData
 {
     public class GameData
     {
-        private string ModsFolderPath;
+        private readonly string ModsFolderPath;
 
         public GameData(string modsFolderPath)
         {

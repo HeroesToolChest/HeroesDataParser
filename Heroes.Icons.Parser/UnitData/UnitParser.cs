@@ -13,10 +13,10 @@ namespace Heroes.Icons.Parser.UnitData
 {
     public class UnitParser
     {
-        private GameData GameData;
-        private GameStringData GameStringData;
-        private GameStringParser GameStringParser;
-        private HeroOverrideData HeroOverrideData;
+        private readonly GameData GameData;
+        private readonly GameStringData GameStringData;
+        private readonly GameStringParser GameStringParser;
+        private readonly HeroOverrideData HeroOverrideData;
 
         private SortedDictionary<string, string> CUnitIdByHeroCHeroIds = new SortedDictionary<string, string>();
 
@@ -86,8 +86,9 @@ namespace Heroes.Icons.Parser.UnitData
         private void ParseHeroData()
         {
             HeroDataParser heroDataParser = new HeroDataParser(GameData, GameStringData, GameStringParser, HeroOverrideData);
-
-            Parallel.ForEach(CUnitIdByHeroCHeroIds, hero =>
+            var p = new ParallelOptions();
+            p.MaxDegreeOfParallelism = 1;
+            Parallel.ForEach(CUnitIdByHeroCHeroIds, p, hero =>
             {
                 try
                 {

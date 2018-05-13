@@ -9,7 +9,7 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
     public abstract class PropertyOverrideBase<T>
         where T : class
     {
-        private GameData GameData;
+        private readonly GameData GameData;
 
         public PropertyOverrideBase(GameData gameData)
         {

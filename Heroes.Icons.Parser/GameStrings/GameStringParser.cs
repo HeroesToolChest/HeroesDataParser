@@ -13,10 +13,10 @@ namespace Heroes.Icons.Parser.GameStrings
 {
     public class GameStringParser
     {
-        private GameData GameData;
-        private GameStringData GameStringData;
+        private readonly GameData GameData;
+        private readonly GameStringData GameStringData;
 
-        private DataTable DataTable = new DataTable();
+        private readonly DataTable DataTable = new DataTable();
 
         private Dictionary<string, HashSet<string>> ElementNames = new Dictionary<string, HashSet<string>>();
 

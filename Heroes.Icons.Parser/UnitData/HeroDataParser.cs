@@ -16,10 +16,10 @@ namespace Heroes.Icons.Parser.UnitData
     {
         private readonly double DefaultWeaponPeriod = 1.2; // for hero weapons
 
-        private GameData GameData;
-        private GameStringData GameStringData;
-        private GameStringParser GameStringParser;
-        private HeroOverrideData HeroOverrideData;
+        private readonly GameData GameData;
+        private readonly GameStringData GameStringData;
+        private readonly GameStringParser GameStringParser;
+        private readonly HeroOverrideData HeroOverrideData;
 
         private HeroOverride HeroOverride = new HeroOverride();
 

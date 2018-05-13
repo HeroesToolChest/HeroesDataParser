@@ -13,9 +13,9 @@ namespace Heroes.Icons.Parser.GameStrings
         private readonly string DescriptionNamePrefix = "Button/Name/"; // real name of ability/talent
         private readonly string UnitPrefix = "Unit/Name/";
 
-        private string ModsFolderPath;
-        private string OldDescriptionsPath;
-        private string HeroModsPath;
+        private readonly string ModsFolderPath;
+        private readonly string OldDescriptionsPath;
+        private readonly string HeroModsPath;
 
         public GameStringData(string modsFolderPath)
         {

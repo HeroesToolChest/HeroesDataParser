@@ -9,7 +9,7 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
 {
     public class HeroOverrideData
     {
-        private GameData GameData;
+        private readonly GameData GameData;
 
         public HeroOverrideData(GameData gameData)
         {
