@@ -36,16 +36,6 @@ namespace Heroes.Icons.Parser.Models.AbilityTalents
         public TooltipDescription FullTooltip { get; set; }
 
         /// <summary>
-        /// Gets or sets the distance from the hero casting the ability/talent.
-        /// </summary>
-        public double? Range { get; set; } = null;
-
-        /// <summary>
-        /// Gets or sets the arc degree.
-        /// </summary>
-        public double? Arc { get; set; } = null;
-
-        /// <summary>
         /// Gets or sets the custom string that goes after the cooldown string.
         /// </summary>
         public string Custom { get; set; }

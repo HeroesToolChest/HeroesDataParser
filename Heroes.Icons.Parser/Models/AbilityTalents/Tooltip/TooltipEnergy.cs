@@ -16,5 +16,13 @@
         /// Gets or sets if whether the energy cost is time based.
         /// </summary>
         public bool IsPerCost { get; set; } = false;
+
+        public override string ToString()
+        {
+            if (EnergyCost.HasValue)
+                return $"Energy: {EnergyCost} - Type: {EnergyType} - IsPerCost: {IsPerCost}";
+            else
+                return "None";
+        }
     }
 }

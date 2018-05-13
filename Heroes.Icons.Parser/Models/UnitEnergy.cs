@@ -19,7 +19,7 @@
 
         public override string ToString()
         {
-            return $"{EnergyMax} {EnergyRegenerationRate}";
+            return $"Amount :{EnergyMax} - RegenRate: {EnergyRegenerationRate}";
         }
     }
 }

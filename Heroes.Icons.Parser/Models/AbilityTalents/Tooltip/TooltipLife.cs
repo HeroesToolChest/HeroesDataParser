@@ -11,5 +11,13 @@
         /// Gets or sets if whether the life is a percentage cost.
         /// </summary>
         public bool IsLifePercentage { get; set; } = false;
+
+        public override string ToString()
+        {
+            if (LifeCost.HasValue)
+                return $"Life: {LifeCost} - IsLifePercentage: {IsLifePercentage}";
+            else
+                return "None";
+        }
     }
 }

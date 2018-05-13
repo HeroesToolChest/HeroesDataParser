@@ -501,24 +501,24 @@ namespace Heroes.Icons.Parser.UnitData
                         if (chargeElement != null)
                         {
                             XElement countMaxElement = chargeElement.Element("CountMax");
+                            XElement countStartElement = chargeElement.Element("CountStart");
+                            XElement countUseElement = chargeElement.Element("CountUse");
                             XElement hideCountElement = chargeElement.Element("HideCount");
-                            if (countMaxElement != null)
-                            {
-                                // some abilities have one charge (a talent later adds at least one charge)
-                                int maxCountCharges = int.Parse(countMaxElement.Attribute("value").Value);
-                                int hideCount = 0;
-
-                                if (hideCountElement != null)
-                                    hideCount = int.Parse(hideCountElement.Attribute("value").Value);
-
-                                abilityTalentBase.Tooltip.Charges.MaxCharges = maxCountCharges;
-                            }
-
                             XElement timeUseElement = chargeElement.Element("TimeUse");
+                            if (countMaxElement != null)
+                                abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(countMaxElement.Attribute("value").Value);
+
+                            if (countStartElement != null)
+                                abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(countStartElement.Attribute("value").Value);
+
+                            if (countUseElement != null)
+                                abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(countUseElement.Attribute("value").Value);
+
+                            if (hideCountElement != null)
+                                abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountElement.Attribute("value").Value) == 1 ? true : false;
+
                             if (timeUseElement != null)
-                            {
                                 abilityTalentBase.Tooltip.Cooldown.CooldownValue = double.Parse(timeUseElement.Attribute("value").Value);
-                            }
                         }
 
                         // cooldown
@@ -551,16 +551,6 @@ namespace Heroes.Icons.Parser.UnitData
                                 abilityTalentBase.Tooltip.Life.LifeCost = vitalValue;
                         }
                     }
-
-                    // range
-                    XElement rangeElement = element.Elements("Range").FirstOrDefault();
-                    if (rangeElement != null)
-                        abilityTalentBase.Tooltip.Range = double.Parse(rangeElement.Attribute("value").Value);
-
-                    // arc
-                    XElement arcElement = element.Elements("Arc").FirstOrDefault();
-                    if (arcElement != null)
-                        abilityTalentBase.Tooltip.Arc = double.Parse(arcElement.Attribute("value").Value);
                 }
             }
             catch (Exception ex)
