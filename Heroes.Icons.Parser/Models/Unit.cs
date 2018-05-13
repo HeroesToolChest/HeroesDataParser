@@ -23,7 +23,7 @@ namespace Heroes.Icons.Parser.Models
         /// <summary>
         /// Gets or sets the description of the unit.
         /// </summary>
-        public string Description { get; set; }
+        public TooltipDescription Description { get; set; }
 
         /// <summary>
         /// Gets or sets the unit type: Melee or ranged.

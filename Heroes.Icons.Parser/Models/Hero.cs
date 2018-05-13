@@ -7,17 +7,23 @@ namespace Heroes.Icons.Parser.Models
     public class Hero : Unit
     {
         /// <summary>
-        /// Id of CHero element stored in blizzard xml file
+        /// Gets or sets the id of CHero element stored in blizzard xml file
         /// </summary>
         public string CHeroId { get; set; }
 
         /// <summary>
-        /// Four character code.
+        /// Gets or sets the four character code.
         /// </summary>
         public string AttributeId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the difficulty of the hero.
+        /// </summary>
         public HeroDifficulty Difficulty { get; set; }
 
+        /// <summary>
+        /// Gets or sets the franchise the hero belongs to.
+        /// </summary>
         public HeroFranchise Franchise { get; set; }
 
         public string HeroPortrait { get; set; }
@@ -27,19 +33,19 @@ namespace Heroes.Icons.Parser.Models
         public string LeaderboardPortrait { get; set; }
 
         /// <summary>
-        /// The date the hero was release.
+        /// Gets or sets the date the hero was release.
         /// </summary>
         public DateTime? ReleaseDate { get; set; }
 
         public Dictionary<string, Talent> Talents { get; set; }
 
         /// <summary>
-        /// Roles of the hero, multiclass will be first if hero has multiple roles.
+        /// Gets or sets the roles of the hero, multiclass will be first if hero has multiple roles.
         /// </summary>
         public IList<HeroRole> Roles { get; set; } = new List<HeroRole>();
 
         /// <summary>
-        /// Additional hero units associated with this hero
+        /// Gets or sets the additional hero units associated with this hero.
         /// </summary>
         public IList<Hero> AdditionalHeroUnits { get; set; } = new List<Hero>();
 

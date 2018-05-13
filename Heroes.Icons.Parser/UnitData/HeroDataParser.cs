@@ -36,7 +36,7 @@ namespace Heroes.Icons.Parser.UnitData
             Hero hero = new Hero
             {
                 Name = GameStringData.HeroNamesByShortName[cHeroId],
-                Description = GameStringParser.HeroParsedDescriptionsByShortName[cHeroId],
+                Description = new TooltipDescription(GameStringParser.HeroParsedDescriptionsByShortName[cHeroId]),
                 CHeroId = cHeroId,
                 CUnitId = cUnitId,
             };
@@ -783,10 +783,12 @@ namespace Heroes.Icons.Parser.UnitData
                     Hero additionalHero = new Hero
                     {
                         Name = GameStringData.UnitNamesByShortName[unit],
-                        Description = null,
                         CHeroId = null,
                         CUnitId = unit,
                     };
+
+                    if (GameStringParser.HeroParsedDescriptionsByShortName.TryGetValue(unit, out string desc))
+                        additionalHero.Description = new TooltipDescription(desc);
 
                     SetDefaultValues(additionalHero);
                     CUnitData(additionalHero, unit);
