@@ -235,6 +235,20 @@
     <Duration value="3" />
     <ArmorModification AllArmorBonus="25" />
   </CBehaviorBuff>
+  <CEffectRemoveBehavior id="LostVikingsVikingBriberyRemoveStackBehavior">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="LostVikingsVikingBriberyStacks" />
+    <Count value="40" />
+  </CEffectRemoveBehavior>
+  <CBehaviorBuff id="LostVikingsVikingBriberyStacks">
+    <Alignment value="Positive" />
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+    <InfoIcon value="Assets\Textures\storm_temp_btn-tips-credit.dds" />
+    <MaxStackCount value="200" />
+    <RefreshEffect value="BribeStackSoundSet" />
+    <RemoveValidatorArray value="LostVikingsHasVikingBribeCarry" />
+  </CBehaviorBuff>
   
   <!-- double upped, should take the latest one-->
   <CBehaviorBuff id="ElDruinsMightMasteryPathingBlockerTimedLife" parent="StormTimedLife">

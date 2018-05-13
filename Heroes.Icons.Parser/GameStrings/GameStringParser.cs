@@ -102,7 +102,7 @@ namespace Heroes.Icons.Parser.GameStrings
                     }
 
                     if (tooltip.Contains("<d score="))
-                        tooltip = Regex.Replace(tooltip, @"<d score=\w+/>", "0");
+                        tooltip = Regex.Replace(tooltip, @"<d score=.*?/>", "0");
 
                     if (tooltip.Contains("<D ref="))
                         tooltip = tooltip.Replace("<D ref=", "<d ref=");

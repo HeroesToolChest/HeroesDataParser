@@ -54,7 +54,7 @@ namespace Heroes.Icons.Parser.GameStrings
 
         private string Validate()
         {
-            ValideGameString(string.Empty);
+            ValidateGameString(string.Empty);
 
             StringBuilder sb = new StringBuilder(LargeSize);
 
@@ -104,7 +104,7 @@ namespace Heroes.Icons.Parser.GameStrings
         }
 
         // modifies game string, remove unmatched tags, nested tags
-        private void ValideGameString(string startTag)
+        private void ValidateGameString(string startTag)
         {
             StringBuilder sb = new StringBuilder(LargeSize);
             for (; Iterator < GameString.Length; Iterator++)
@@ -128,7 +128,7 @@ namespace Heroes.Icons.Parser.GameStrings
                                 TextStack.Push(CreateEndTag(startTag));
 
                             TextStack.Push(tag);
-                            ValideGameString(tag);
+                            ValidateGameString(tag);
 
                             if (!string.IsNullOrEmpty(startTag))
                                 TextStack.Push(startTag);
