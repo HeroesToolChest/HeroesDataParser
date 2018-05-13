@@ -85,13 +85,11 @@ namespace Heroes.Icons.Parser.UnitData
 
         private void ParseHeroData()
         {
-            HeroDataParser heroDataParser = new HeroDataParser(GameData, GameStringData, GameStringParser, HeroOverrideData);
-            var p = new ParallelOptions();
-            p.MaxDegreeOfParallelism = 1;
-            Parallel.ForEach(CUnitIdByHeroCHeroIds, p, hero =>
+            Parallel.ForEach(CUnitIdByHeroCHeroIds, hero =>
             {
                 try
                 {
+                    HeroDataParser heroDataParser = new HeroDataParser(GameData, GameStringData, GameStringParser, HeroOverrideData);
                     ParsedHeroes.Add(heroDataParser.Parse(hero.Key, hero.Value));
                 }
                 catch (Exception ex)
