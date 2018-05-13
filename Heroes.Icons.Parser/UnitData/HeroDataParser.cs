@@ -405,9 +405,23 @@ namespace Heroes.Icons.Parser.UnitData
             SetTooltipSubInfo(referenceName, ability);
             SetTooltipDescriptions(ability);
 
-            // add to abilities
+            // add ability
             if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
+            {
                 hero.Abilities.Add(ability.ReferenceNameId, ability);
+            }
+            else if (HeroOverride.AddedAbilitiesByAbilityId.TryGetValue(ability.ReferenceNameId, out var addedAbility))
+            {
+                // overridden add ability
+                if (addedAbility.Add)
+                {
+                    ability.ReferenceNameId = addedAbility.Button;
+
+                    // attempt to readd
+                    if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
+                        hero.Abilities.Add(ability.ReferenceNameId, ability);
+                }
+            }
         }
 
         private void GetTalent(Hero hero, XElement talentElement)

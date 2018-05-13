@@ -215,6 +215,15 @@
     <Weapon id="RexxarMeleeWeapon" valid="true" />
     <Weapon id="RexxarRangedWeapon" valid="true" />
   </CHero>
+  <CHero id="Samuro">
+    <Ability id="SamuroIllusionMaster">
+      <Override>
+        <Tooltip.Cooldown.CooldownValue value="&lt;d ref=&quot;Abil,SamuroIllusionMaster,Cost[0].Cooldown.TimeUse+Talent,SamuroHeroicAbilityIllusionMaster,AbilityModificationArray[0].Modifications[0].Value&quot;/>" />
+      </Override>
+    </Ability>
+    <!--Image Transmission -->
+    <Ability id="SamuroIllusionMaster" button="SamuroAdvancingStrikes" add="true" />
+  </CHero>
   <CHero id="Tychus">
     <!--Odin abilities-->
     <Ability id="TychusOdinAnnihilate" valid="true">

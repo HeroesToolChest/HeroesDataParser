@@ -60,10 +60,13 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
                     {
                         string abilityId = dataElement.Attribute("id")?.Value;
                         string valid = dataElement.Attribute("valid")?.Value;
+                        string add = dataElement.Attribute("add")?.Value;
+                        string button = dataElement.Attribute("button")?.Value;
 
                         if (string.IsNullOrEmpty(abilityId))
                             continue;
 
+                        // valid
                         if (bool.TryParse(valid, out bool result))
                         {
                             heroOverride.IsValidAbilityByAbilityId.Add(abilityId, result);
@@ -72,6 +75,16 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
                                 continue;
                         }
 
+                        // add
+                        if (bool.TryParse(add, out result))
+                        {
+                            heroOverride.AddedAbilitiesByAbilityId.Add(abilityId, (button, result));
+
+                            if (!result)
+                                continue;
+                        }
+
+                        // override
                         var overrideElement = dataElement.Elements("Override").FirstOrDefault();
                         if (overrideElement != null)
                             abilityOverride.SetOverride(abilityId, overrideElement, heroOverride.PropertyOverrideMethodByAbilityId);

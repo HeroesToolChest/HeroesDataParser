@@ -33,12 +33,12 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
         public Dictionary<string, Dictionary<string, Action<HeroWeapon>>> PropertyOverrideMethodByWeaponId { get; set; } = new Dictionary<string, Dictionary<string, Action<HeroWeapon>>>();
 
         /// <summary>
-        /// Gets or sets the linked abilities that are not part of the hero's CHero xml element
+        /// Gets or sets the linked abilities that are not part of the hero's CHero xml element.
         /// </summary>
         public Dictionary<string, string> LinkedElementNamesByAbilityId { get; set; } = new Dictionary<string, string>();
 
         /// <summary>
-        /// Gets or sets a hashset of additional hero units
+        /// Gets or sets a hashset of additional hero units.
         /// </summary>
         public HashSet<string> AdditionalHeroUnits { get; set; } = new HashSet<string>();
 
@@ -51,5 +51,10 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
         /// Gets or sets the valid weapons.
         /// </summary>
         public Dictionary<string, bool> IsValidWeaponByWeaponId { get; set; } = new Dictionary<string, bool>();
+
+        /// <summary>
+        /// Gets or sets the collection of added abilities.
+        /// </summary>
+        public Dictionary<string, (string Button, bool Add)> AddedAbilitiesByAbilityId { get; set; } = new Dictionary<string, (string Button, bool Add)>();
     }
 }
