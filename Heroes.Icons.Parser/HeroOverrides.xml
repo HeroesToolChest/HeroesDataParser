@@ -242,7 +242,7 @@
     <Ability id="SamuroIllusionMaster" button="SamuroAdvancingStrikes" add="true" />
   </CHero>
   <CHero id="Tracer">
-    <EnergyType value="None" />
+    <EnergyType value="Ammo" />
   </CHero>
   <CHero id="Tychus">
     <!--Odin abilities-->
