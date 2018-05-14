@@ -125,9 +125,9 @@ namespace Heroes.Icons.Parser.UnitData
             XElement heroData = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id")?.Value == cHeroId).FirstOrDefault();
 
             // get short name of hero
-            XElement hyperLinkElement = heroData.Elements("HyperlinkId").Where(x => x.Attribute("value") != null).FirstOrDefault();
-            if (hyperLinkElement != null)
-                hero.ShortName = hyperLinkElement.Value;
+            string hyperLinkElement = heroData.Element("HyperlinkId")?.Attribute("value")?.Value;
+            if (!string.IsNullOrEmpty(hyperLinkElement))
+                hero.ShortName = hyperLinkElement;
             else
                 hero.ShortName = cHeroId;
 
