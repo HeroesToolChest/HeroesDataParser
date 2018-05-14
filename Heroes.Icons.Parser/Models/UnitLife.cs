@@ -5,7 +5,7 @@
         /// <summary>
         /// Gets or sets the amount of life the unit has.
         /// </summary>
-        public int LifeMax { get; set; }
+        public double LifeMax { get; set; }
 
         /// <summary>
         /// Gets or sets the life regeneration rate of the unit.

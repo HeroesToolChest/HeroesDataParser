@@ -5,7 +5,7 @@
         /// <summary>
         /// Gets or sets the amount of Energy the unit has (mana, brew, fury...).
         /// </summary>
-        public int EnergyMax { get; set; }
+        public double EnergyMax { get; set; }
 
         /// <summary>
         /// Gets or sets the energy regeneration rate of the unit.

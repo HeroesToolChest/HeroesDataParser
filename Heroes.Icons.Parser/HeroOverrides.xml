@@ -31,6 +31,9 @@
         <ParentLink value="AlexstraszaDragonqueen" />
       </Override>
     </Ability>
+    <AdditionalUnits value="Hero">
+      <Unit id="HeroAlexstraszaDragon" />
+    </AdditionalUnits>
   </CHero>
   <CHero id="Arthas">
     <!--Mana cost is time based-->
@@ -74,6 +77,11 @@
         <ParentLink value="ChenStormEarthFire" />
       </Override>
     </Ability>
+    <AdditionalUnits value="Hero">
+      <Unit id="HeroChenStorm" />
+      <Unit id="HeroChenEarth" />
+      <Unit id="HeroChenFire" />
+    </AdditionalUnits>
   </CHero>
   <CHero id="Cho">
     <Weapon id="ChoShortRangeHeroWeapon" valid="false" />
@@ -97,6 +105,9 @@
         <ParentLink value="DVaMechMechMode" />
       </Override>
     </Ability>
+    <AdditionalUnits value="Hero">
+      <Unit id="HeroDVaPilot" />
+    </AdditionalUnits>
   </CHero>
   <CHero id="Dryad">
     <Weapon id="DryadHeroRangedWeapon" valid="true" />
@@ -210,6 +221,9 @@
         <ParentLink value="RagnarosMoltenCore" />
       </Override>
     </Ability>
+    <AdditionalUnits value="Hero">
+      <Unit id="RagnarosBigRag" />
+    </AdditionalUnits>
   </CHero>
   <CHero id="Rexxar">
     <Weapon id="RexxarMeleeWeapon" valid="true" />

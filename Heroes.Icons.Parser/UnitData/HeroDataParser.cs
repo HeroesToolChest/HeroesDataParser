@@ -288,7 +288,7 @@ namespace Heroes.Icons.Parser.UnitData
 
                 if (elementName == "LIFEMAX")
                 {
-                    hero.Life.LifeMax = int.Parse(element.Attribute("value").Value);
+                    hero.Life.LifeMax = double.Parse(element.Attribute("value").Value);
 
                     if (GameData.ScaleValueByLookupId.TryGetValue($"Unit#{hero.CUnitId}#LifeMax", out double scaleValue))
                         hero.Life.LifeScaling = scaleValue;
@@ -310,11 +310,11 @@ namespace Heroes.Icons.Parser.UnitData
                 }
                 else if (elementName == "ENERGYMAX")
                 {
-                    hero.Energy.EnergyMax = int.Parse(element.Attribute("value").Value);
+                    hero.Energy.EnergyMax = double.Parse(element.Attribute("value").Value);
                 }
                 else if (elementName == "ENERGYREGENRATE")
                 {
-                    hero.Energy.EnergyRegenerationRate = int.Parse(element.Attribute("value").Value);
+                    hero.Energy.EnergyRegenerationRate = double.Parse(element.Attribute("value").Value);
                 }
             }
 
