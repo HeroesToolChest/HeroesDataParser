@@ -17,7 +17,7 @@ namespace Heroes.Icons.Parser.Models
         public string AttributeId { get; set; }
 
         /// <summary>
-        /// Gets or sets the difficulty of the hero.
+        /// Gets or sets the difficulty> of the hero.
         /// </summary>
         public HeroDifficulty Difficulty { get; set; }
 
@@ -37,6 +37,24 @@ namespace Heroes.Icons.Parser.Models
         /// </summary>
         public DateTime? ReleaseDate { get; set; }
 
+        /// <summary>
+        /// Gets or sets the gender of the hero.
+        /// </summary>
+        public HeroGender Gender { get; set; }
+
+        /// <summary>
+        /// Gets or sets the rarity of the hero.
+        /// </summary>
+        public HeroRarity Rarity { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ratings of the hero.
+        /// </summary>
+        public HeroRatings Ratings { get; set; } = new HeroRatings();
+
+        /// <summary>
+        /// Gets or sets the talents.
+        /// </summary>
         public Dictionary<string, Talent> Talents { get; set; }
 
         /// <summary>

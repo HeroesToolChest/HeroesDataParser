@@ -58,6 +58,9 @@ namespace Heroes.Icons.Parser
                 if (hero.Speed <= 0)
                     AddWarning($"{nameof(hero.Speed)} is 0");
 
+                if (hero.Rarity == HeroRarity.None)
+                    AddWarning($"{nameof(hero.Rarity)} is None");
+
                 foreach (var weapon in hero.Weapons)
                 {
                     if (weapon.Damage <= 0)

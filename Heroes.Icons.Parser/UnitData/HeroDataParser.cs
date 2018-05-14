@@ -261,6 +261,47 @@ namespace Heroes.Icons.Parser.UnitData
 
                     hero.ReleaseDate = new DateTime(year, month, day);
                 }
+                else if (elementName == "GENDER")
+                {
+                    if (Enum.TryParse(element.Attribute("value").Value, out HeroGender heroGender))
+                        hero.Gender = heroGender;
+                    else
+                        hero.Gender = HeroGender.Neutral;
+                }
+                else if (elementName == "RARITY")
+                {
+                    if (Enum.TryParse(element.Attribute("value").Value, out HeroRarity heroRarity))
+                        hero.Rarity = heroRarity;
+                    else
+                        hero.Rarity = HeroRarity.None;
+                }
+                else if (elementName == "RATINGS")
+                {
+                    string damage = string.Empty;
+                    string utility = string.Empty;
+                    string survivability = string.Empty;
+                    string complexity = string.Empty;
+
+                    if (element.HasElements)
+                    {
+                        damage = element.Element("Damage").Attribute("value")?.Value;
+                        utility = element.Element("Utility").Attribute("value")?.Value;
+                        survivability = element.Element("Survivability").Attribute("value")?.Value;
+                        complexity = element.Element("Complexity").Attribute("value")?.Value;
+                    }
+                    else
+                    {
+                        damage = element.Attribute("Damage")?.Value;
+                        utility = element.Attribute("Utility")?.Value;
+                        survivability = element.Attribute("Survivability")?.Value;
+                        complexity = element.Attribute("Complexity")?.Value;
+                    }
+
+                    hero.Ratings.Damage = !string.IsNullOrEmpty(damage) ? double.Parse(damage) : 1;
+                    hero.Ratings.Utility = !string.IsNullOrEmpty(utility) ? double.Parse(utility) : 1;
+                    hero.Ratings.Survivability = !string.IsNullOrEmpty(survivability) ? double.Parse(survivability) : 1;
+                    hero.Ratings.Complexity = !string.IsNullOrEmpty(complexity) ? double.Parse(complexity) : 1;
+                }
                 else if (elementName == "HEROABILARRAY")
                 {
                     GetAbility(hero, element);

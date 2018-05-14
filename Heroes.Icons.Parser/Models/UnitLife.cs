@@ -24,7 +24,7 @@
 
         public override string ToString()
         {
-            return $"Life: {LifeMax} (+{LifeScaling * 100}% per level)- RegenRate: {LifeRegenerationRate} (+{LifeRegenerationRateScaling * 100}% per level)";
+            return $"Life: {LifeMax} (+{LifeScaling * 100}% per level) - RegenRate: {LifeRegenerationRate} (+{LifeRegenerationRateScaling * 100}% per level)";
         }
     }
 }
