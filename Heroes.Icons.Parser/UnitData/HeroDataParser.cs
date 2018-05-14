@@ -796,7 +796,11 @@ namespace Heroes.Icons.Parser.UnitData
                     SetDefaultValues(additionalHero);
                     CUnitData(additionalHero, unit);
 
-                    additionalHero.Difficulty = hero.Difficulty; // set to same as parent
+                    // set to same as parent
+                    additionalHero.Difficulty = hero.Difficulty;
+                    additionalHero.Franchise = hero.Franchise;
+                    additionalHero.ReleaseDate = hero.ReleaseDate;
+                    additionalHero.Roles = hero.Roles;
 
                     hero.AdditionalHeroUnits.Add(additionalHero);
                 }

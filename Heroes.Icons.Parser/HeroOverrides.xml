@@ -214,6 +214,9 @@
   <CHero id="Rexxar">
     <Weapon id="RexxarMeleeWeapon" valid="true" />
     <Weapon id="RexxarRangedWeapon" valid="true" />
+    <AdditionalUnits value="Hero">
+      <Unit id="RexxarMisha" />
+    </AdditionalUnits>
   </CHero>
   <CHero id="Samuro">
     <Ability id="SamuroIllusionMaster">
@@ -223,6 +226,9 @@
     </Ability>
     <!--Image Transmission -->
     <Ability id="SamuroIllusionMaster" button="SamuroAdvancingStrikes" add="true" />
+  </CHero>
+  <CHero id="Tracer">
+    <EnergyType value="None" />
   </CHero>
   <CHero id="Tychus">
     <!--Odin abilities-->
@@ -279,5 +285,8 @@
         <ParentLink value="WitchDoctorGargantuan" />
       </Override>
     </Ability>
+  </CHero>
+  <CHero id="Zarya">
+    <EnergyType value="Energy" />
   </CHero>
 </HeroOverrides>
