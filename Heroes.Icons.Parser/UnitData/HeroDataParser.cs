@@ -391,6 +391,7 @@ namespace Heroes.Icons.Parser.UnitData
             XElement heroicElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "Heroic" && x.Attribute("value").Value == "1").FirstOrDefault();
             XElement traitElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "Trait" && x.Attribute("value").Value == "1").FirstOrDefault();
             XElement mountElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "MountReplacement" && x.Attribute("value").Value == "1").FirstOrDefault();
+            XElement activableElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "ShowInQuickCastSetting" && x.Attribute("value").Value == "1").FirstOrDefault();
 
             if (heroicElement != null)
                 ability.Tier = AbilityTier.Heroic;
@@ -398,6 +399,8 @@ namespace Heroes.Icons.Parser.UnitData
                 ability.Tier = AbilityTier.Trait;
             else if (mountElement != null)
                 ability.Tier = AbilityTier.Mount;
+            else if (activableElement != null)
+                ability.Tier = AbilityTier.Activable;
             else
                 ability.Tier = AbilityTier.Basic;
 
