@@ -47,7 +47,7 @@ namespace Heroes.Icons.Parser.UnitData
             SetDefaultValues(hero);
             CHeroData(hero, cHeroId);
             CUnitData(hero, cUnitId);
-            AddAdditionalCUnits(hero);
+            AddSubCUnits(hero);
 
             ApplyOverrides(hero);
 
@@ -817,14 +817,14 @@ namespace Heroes.Icons.Parser.UnitData
             }
         }
 
-        private void AddAdditionalCUnits(Hero hero)
+        private void AddSubCUnits(Hero hero)
         {
             foreach (string unit in HeroOverride.AdditionalHeroUnits)
             {
                 XElement cUnit = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value == unit).FirstOrDefault();
                 if (cUnit != null)
                 {
-                    Hero additionalHero = new Hero
+                    Hero subHero = new Hero
                     {
                         Name = GameStringData.UnitNamesByShortName[unit],
                         CHeroId = null,
@@ -832,18 +832,23 @@ namespace Heroes.Icons.Parser.UnitData
                     };
 
                     if (GameStringParser.HeroParsedDescriptionsByShortName.TryGetValue(unit, out string desc))
-                        additionalHero.Description = new TooltipDescription(desc);
+                        subHero.Description = new TooltipDescription(desc);
 
-                    SetDefaultValues(additionalHero);
-                    CUnitData(additionalHero, unit);
+                    SetDefaultValues(subHero);
+                    CUnitData(subHero, unit);
 
                     // set to same as parent
-                    additionalHero.Difficulty = hero.Difficulty;
-                    additionalHero.Franchise = hero.Franchise;
-                    additionalHero.ReleaseDate = hero.ReleaseDate;
-                    additionalHero.Roles = hero.Roles;
+                    subHero.Difficulty = hero.Difficulty;
+                    subHero.Franchise = hero.Franchise;
+                    subHero.ReleaseDate = hero.ReleaseDate;
+                    subHero.Roles = hero.Roles;
 
-                    hero.AdditionalHeroUnits.Add(additionalHero);
+                    // clear
+                    subHero.Abilities = null;
+                    subHero.Ratings = null;
+                    subHero.Talents = null;
+
+                    hero.SubHeroUnits.Add(subHero);
                 }
             }
         }
