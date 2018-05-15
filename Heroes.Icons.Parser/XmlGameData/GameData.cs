@@ -38,16 +38,18 @@ namespace Heroes.Icons.Parser.XmlGameData
             GetLevelScalingData();
         }
 
+        // loads xml files, order is important
         private void LoadXmlFiles()
         {
-            string gameDataFolderPath = Path.Combine(ModsFolderPath, @"heroesdata.stormmod\base.stormdata\GameData\");
-            string oldHeroesFolderPath = Path.Combine(gameDataFolderPath, "Heroes");
+            string coreStormModFolderPath = Path.Combine(ModsFolderPath, @"core.stormmod\base.stormdata\GameData\");
+            string heroesdataStormModFolderPath = Path.Combine(ModsFolderPath, @"heroesdata.stormmod\base.stormdata\GameData\");
+            string oldHeroesFolderPath = Path.Combine(heroesdataStormModFolderPath, "Heroes");
             string newHeroesFolderPath = Path.Combine(ModsFolderPath, "heromods");
 
             XDocument xDoc = new XDocument();
 
-            // load all GameData xml files
-            foreach (var gameDataFile in Directory.GetFiles(gameDataFolderPath))
+            // loads all core.stormmod xml files
+            foreach (string gameDataFile in Directory.GetFiles(coreStormModFolderPath))
             {
                 if (Path.GetExtension(gameDataFile) != ".xml")
                     continue;
@@ -64,10 +66,20 @@ namespace Heroes.Icons.Parser.XmlGameData
                 }
             }
 
-            // old heroes
-            foreach (var heroFolderPath in Directory.GetDirectories(oldHeroesFolderPath))
+            // load all heroesdata.stormmod xml files
+            foreach (string gameDataFile in Directory.GetFiles(heroesdataStormModFolderPath))
             {
-                var heroFolder = Path.GetFileName(heroFolderPath);
+                if (Path.GetExtension(gameDataFile) != ".xml")
+                    continue;
+
+                xDoc.Root.Add(XDocument.Load(gameDataFile).Root.Elements());
+                XmlFileCount++;
+            }
+
+            // old heroes
+            foreach (string heroFolderPath in Directory.GetDirectories(oldHeroesFolderPath))
+            {
+                string heroFolder = Path.GetFileName(heroFolderPath);
 
                 if (!heroFolder.Contains("Data"))
                     continue;
@@ -78,9 +90,9 @@ namespace Heroes.Icons.Parser.XmlGameData
             }
 
             // new heroes
-            foreach (var heroFolderPath in Directory.GetDirectories(newHeroesFolderPath))
+            foreach (string heroFolderPath in Directory.GetDirectories(newHeroesFolderPath))
             {
-                var heroFolder = Path.GetFileName(heroFolderPath);
+                string heroFolder = Path.GetFileName(heroFolderPath);
 
                 if (!heroFolder.Contains("stormmod") || heroFolder == "herointeractions.stormmod")
                     continue;

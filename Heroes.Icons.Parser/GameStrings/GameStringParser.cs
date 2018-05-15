@@ -365,21 +365,6 @@ namespace Heroes.Icons.Parser.GameStrings
 
             if (string.IsNullOrEmpty(value))
             {
-                if (parts[1] == "CasterLifeGT75Percent")
-                    return "0.75";
-                else if (parts[1] == "CasterLifeGT50Percent")
-                    return "0.50";
-                else if (parts[1] == "CasterLifeGT25Percent")
-                    return "0.25";
-                else if (parts[1] == "CasterLifeLT75Percent")
-                    return "0.75";
-                else if (parts[1] == "CasterLifeLT50Percent")
-                    return "0.50";
-                else if (parts[1] == "CasterLifeLT25Percent")
-                    return "0.25";
-                else if (parts[1] == "CasterNotInCombat4")
-                    return "4";
-
                 if (parts.Last() == "AttributeFactor[Heroic]" || parts.Last() == "AttributeFactor[Structure]")
                     return "0";
                 else if (parts.Last() == "ModifyFraction" || parts.Last() == "Ratio")
@@ -509,7 +494,7 @@ namespace Heroes.Icons.Parser.GameStrings
                 "CEffectModifyTokenCount", "CEffectApplyBehavior", "CEffectModifyBehaviorBuffDuration", "CEffectModifyCatalogNumeric", "CEffectLaunchMissile", "CEffectCreateUnit", "CEffectRemoveBehavior", });
             ElementNames.Add("Unit", new HashSet<string> { "CUnit" });
             ElementNames.Add("Talent", new HashSet<string> { "CTalent" });
-            ElementNames.Add("Validator", new HashSet<string> { "CValidatorUnitCompareVital", "CValidatorLocationEnumArea", "CValidatorUnitCompareTokenCount", "CValidatorCompareTrackedUnitsCount" });
+            ElementNames.Add("Validator", new HashSet<string> { "CValidatorUnitCompareVital", "CValidatorLocationEnumArea", "CValidatorUnitCompareTokenCount", "CValidatorCompareTrackedUnitsCount", "CValidatorUnitCompareDamageTakenTime" });
             ElementNames.Add("Accumulator", new HashSet<string> { "CAccumulatorToken", "CAccumulatorVitals", "CBehaviorTokenCounter", "CAccumulatorTimed", "CAccumulatorDistanceUnitTraveled" });
             ElementNames.Add("Weapon", new HashSet<string> { "CWeaponLegacy" });
             ElementNames.Add("Actor", new HashSet<string> { "CActorQuad" });

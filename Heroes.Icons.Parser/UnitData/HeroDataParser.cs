@@ -499,7 +499,7 @@ namespace Heroes.Icons.Parser.UnitData
             else
                 talent.Tier = TalentTier.Old;
 
-            XElement cTalentElement = GameData.XmlGameData.Root.Elements("CTalent").Where(x => x.Attribute("id").Value == referenceName).FirstOrDefault();
+            XElement cTalentElement = GameData.XmlGameData.Root.Elements("CTalent").Where(x => x.Attribute("id")?.Value == referenceName).FirstOrDefault();
 
             // desc name
             XElement talentFaceElement = cTalentElement.Element("Face");
@@ -528,7 +528,7 @@ namespace Heroes.Icons.Parser.UnitData
 
         private void SetAbilityTalentIcon(AbilityTalentBase abilityTalentBase)
         {
-            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id").Value == abilityTalentBase.FullTooltipNameId).FirstOrDefault();
+            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == abilityTalentBase.FullTooltipNameId).FirstOrDefault();
             if (cButtonElement != null)
             {
                 XElement buttonIconElement = cButtonElement.Element("Icon");
@@ -626,7 +626,7 @@ namespace Heroes.Icons.Parser.UnitData
             string shortTooltipValue = string.Empty; // SimpleDisplayText
 
             // check cbutton for tooltip overrides
-            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id").Value == faceValue).FirstOrDefault();
+            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue).FirstOrDefault();
             if (cButtonElement != null)
             {
                 // full tooltip
