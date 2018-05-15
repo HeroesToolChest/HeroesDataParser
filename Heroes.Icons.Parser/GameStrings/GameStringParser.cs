@@ -363,38 +363,31 @@ namespace Heroes.Icons.Parser.GameStrings
             if (parts.Count == 3)
                 scaling = GetScalingInfo(parts[0], parts[1], parts[2]);
 
-            // caster life percents, CValidatorUnitCompareVital
-            if (string.IsNullOrEmpty(value) && parts[1] == "CasterLifeGT75Percent")
-                return "0.75";
-            else if (string.IsNullOrEmpty(value) && parts[1] == "CasterLifeGT50Percent")
-                return "0.50";
-            else if (string.IsNullOrEmpty(value) && parts[1] == "CasterLifeGT25Percent")
-                return "0.25";
-            else if (string.IsNullOrEmpty(value) && parts[1] == "CasterLifeLT75Percent")
-                return "0.75";
-            else if (string.IsNullOrEmpty(value) && parts[1] == "CasterLifeLT50Percent")
-                return "0.50";
-            else if (string.IsNullOrEmpty(value) && parts[1] == "CasterLifeLT25Percent")
-                return "0.25";
-            else if (string.IsNullOrEmpty(value) && parts[1] == "CasterNotInCombat4")
-                return "4";
+            if (string.IsNullOrEmpty(value))
+            {
+                if (parts[1] == "CasterLifeGT75Percent")
+                    return "0.75";
+                else if (parts[1] == "CasterLifeGT50Percent")
+                    return "0.50";
+                else if (parts[1] == "CasterLifeGT25Percent")
+                    return "0.25";
+                else if (parts[1] == "CasterLifeLT75Percent")
+                    return "0.75";
+                else if (parts[1] == "CasterLifeLT50Percent")
+                    return "0.50";
+                else if (parts[1] == "CasterLifeLT25Percent")
+                    return "0.25";
+                else if (parts[1] == "CasterNotInCombat4")
+                    return "4";
 
-            if (string.IsNullOrEmpty(value) && (parts.Last() == "AttributeFactor[Heroic]" || parts.Last() == "AttributeFactor[Structure]"))
-                return "0";
-            else if (string.IsNullOrEmpty(value) && (parts.Last() == "ModifyFraction" || parts.Last() == "Ratio"))
-                return "1.00";
-            else if (string.IsNullOrEmpty(value) && (parts.Last() == "Count" || parts.Last() == "MaxStackCount" || parts.Last() == "SpawnCount" || parts.Last() == "Scale"))
-                return "1";
-            else if (string.IsNullOrEmpty(value) && parts[1] == "KelThuzadMasterOfTheColdDarkModifyToken")
-                return "1";
-            else if (string.IsNullOrEmpty(value) && parts[1] == "TyraelElDruinsMightStalwartAngelTalentActiveBuff") // tyrael talent, unknown location
-                return "20";
-            else if (string.IsNullOrEmpty(value) && parts[1] == "TyraelElDruinsMightStalwartAngelTalentProcBuff") // tyrael talent, unknown location
-                return "3";
-            else if (string.IsNullOrEmpty(value) && parts[1] == "AlexstraszaAbundanceTimedAccumulator" && parts[2] == "MultiplierPerStep") // alextrasza ability, unknown location
-                return "-0.333333333333"; // unknown value
-            else if (string.IsNullOrEmpty(value) && parts[1] == "AlexstraszaAbundanceTimedAccumulator" && parts[2] == "MaxStepCount") // alextrasza ability, unknown location
-                return "1"; // unknown value
+                if (parts.Last() == "AttributeFactor[Heroic]" || parts.Last() == "AttributeFactor[Structure]")
+                    return "0";
+                else if (parts.Last() == "ModifyFraction" || parts.Last() == "Ratio")
+                    return "1.00";
+                else if (parts.Last() == "Count" || parts.Last() == "MaxStackCount" || parts.Last() == "SpawnCount" || parts.Last() == "Scale")
+                    return "1";
+            }
+
             return value;
         }
 
