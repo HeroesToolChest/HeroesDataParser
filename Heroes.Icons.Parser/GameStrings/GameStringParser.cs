@@ -15,6 +15,7 @@ namespace Heroes.Icons.Parser.GameStrings
     {
         private readonly GameData GameData;
         private readonly GameStringData GameStringData;
+        private readonly GameStringValues GameStringValues;
 
         private readonly DataTable DataTable = new DataTable();
 
@@ -24,6 +25,7 @@ namespace Heroes.Icons.Parser.GameStrings
         {
             GameData = gameData;
             GameStringData = gameStringData;
+            GameStringValues = GameStringValues.GetGameStringValues();
 
             SetValidElementNames();
         }
@@ -365,12 +367,19 @@ namespace Heroes.Icons.Parser.GameStrings
 
             if (string.IsNullOrEmpty(value))
             {
-                if (parts.Last() == "AttributeFactor[Heroic]" || parts.Last() == "AttributeFactor[Structure]")
-                    return "0";
-                else if (parts.Last() == "ModifyFraction" || parts.Last() == "Ratio")
-                    return "1.00";
-                else if (parts.Last() == "Count" || parts.Last() == "MaxStackCount" || parts.Last() == "SpawnCount" || parts.Last() == "Scale")
-                    return "1";
+                // check each part value to see if we can find one
+                foreach (var (name, partIndex, partValue) in GameStringValues.PartValueByPartName)
+                {
+                    if (partIndex == "last" && parts.Last() == name)
+                    {
+                        return partValue;
+                    }
+                    else if (int.TryParse(partIndex, out int partIndexInt))
+                    {
+                        if (parts.Count > partIndexInt && parts[partIndexInt] == name)
+                            return partValue;
+                    }
+                }
             }
 
             return value;

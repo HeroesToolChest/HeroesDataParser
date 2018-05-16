@@ -13,6 +13,9 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="GameStringValues.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="HeroOverrides.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
