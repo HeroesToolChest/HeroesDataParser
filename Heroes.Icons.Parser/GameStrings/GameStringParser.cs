@@ -37,39 +37,39 @@ namespace Heroes.Icons.Parser.GameStrings
         }
 
         /// <summary>
-        /// Gets or sets the short parsed tooltips
+        /// Gets or sets the short parsed tooltips.
         /// </summary>
         public ConcurrentDictionary<string, string> ShortParsedTooltipsByShortTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 5001);
 
         /// <summary>
-        /// Gets or sets the full parsed tooltips
+        /// Gets or sets the full parsed tooltips.
         /// </summary>
         public ConcurrentDictionary<string, string> FullParsedTooltipsByFullTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 5001);
 
         /// <summary>
-        /// Gets or sets the parsed hero descriptions
+        /// Gets or sets the parsed hero descriptions.
         /// </summary>
         public ConcurrentDictionary<string, string> HeroParsedDescriptionsByShortName { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
 
         /// <summary>
-        /// Gets or sets the invalid short parsed tooltips
+        /// Gets or sets the invalid short parsed tooltips.
         /// </summary>
         public ConcurrentDictionary<string, string> InvalidShortTooltipsByShortTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
 
         /// <summary>
-        /// Gets or sets the invalid full parsed tooltips
+        /// Gets or sets the invalid full parsed tooltips.
         /// </summary>
         public ConcurrentDictionary<string, string> InvalidFullTooltipsByFullTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
 
         /// <summary>
-        /// Gets or sets the invalid hero descriptions
+        /// Gets or sets the invalid hero descriptions.
         /// </summary>
         public ConcurrentDictionary<string, string> InvalidHeroDescriptionsByShortName { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
 
         /// <summary>
-        /// Parse a dref string and return the calculated value
+        /// Parse a dref string and return the calculated value.
         /// </summary>
-        /// <param name="dRef">The dref string</param>
+        /// <param name="dRef">The dref string.</param>
         /// <returns></returns>
         public static double? ParseDRefString(GameData gameData, string dRef)
         {
@@ -77,7 +77,7 @@ namespace Heroes.Icons.Parser.GameStrings
         }
 
         /// <summary>
-        /// Parses all the game strings
+        /// Parses all the game strings.
         /// </summary>
         public void ParseAllGameStrings()
         {

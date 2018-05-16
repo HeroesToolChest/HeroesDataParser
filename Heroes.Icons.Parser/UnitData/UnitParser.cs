@@ -29,12 +29,12 @@ namespace Heroes.Icons.Parser.UnitData
         }
 
         /// <summary>
-        /// Gets or sets a list of successfully parsed hero data
+        /// Gets or sets a list of successfully parsed hero data.
         /// </summary>
         public List<Hero> ParsedHeroes { get; set; } = new List<Hero>(101);
 
         /// <summary>
-        /// Gets or sets a dictionary of heroes that unsuccesfully parsed
+        /// Gets or sets a dictionary of heroes that unsuccesfully parsed.
         /// </summary>
         public ConcurrentDictionary<string, Exception> FailedHeroesExceptionsByHeroName { get; set; } = new ConcurrentDictionary<string, Exception>();
 
