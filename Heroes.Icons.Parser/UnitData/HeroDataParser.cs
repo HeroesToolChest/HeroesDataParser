@@ -829,7 +829,7 @@ namespace Heroes.Icons.Parser.UnitData
 
         private void AddSubCUnits(Hero hero)
         {
-            foreach (string unit in HeroOverride.AdditionalHeroUnits)
+            foreach (string unit in HeroOverride.SubHeroUnits)
             {
                 XElement cUnit = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value == unit).FirstOrDefault();
                 if (cUnit != null)

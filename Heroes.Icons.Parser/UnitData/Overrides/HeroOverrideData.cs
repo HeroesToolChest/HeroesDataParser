@@ -113,9 +113,9 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
                         if (overrideElement != null)
                             weaponOverride.SetOverride(weaponId, overrideElement, heroOverride.PropertyOverrideMethodByWeaponId);
                     }
-                    else if (elementName == "AdditionalUnits")
+                    else if (elementName == "SubHeroUnit")
                     {
-                        AddAdditionalUnits(dataElement.Attribute("value")?.Value, dataElement, heroOverride);
+                        AddSubHeroUnits(dataElement.Attribute("value")?.Value, dataElement, heroOverride);
                     }
                 }
 
@@ -140,7 +140,7 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
             }
         }
 
-        private void AddAdditionalUnits(string type, XElement dataElement, HeroOverride heroOverride)
+        private void AddSubHeroUnits(string type, XElement dataElement, HeroOverride heroOverride)
         {
             if (type == "Hero")
             {
@@ -150,10 +150,10 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
 
                     if (!string.IsNullOrEmpty(unit))
                     {
-                        if (heroOverride.AdditionalHeroUnits.Contains(unit))
-                            heroOverride.AdditionalHeroUnits.Remove(unit);
+                        if (heroOverride.SubHeroUnits.Contains(unit))
+                            heroOverride.SubHeroUnits.Remove(unit);
 
-                        heroOverride.AdditionalHeroUnits.Add(unit);
+                        heroOverride.SubHeroUnits.Add(unit);
                     }
                 }
             }

@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides>
+  <CHero id="Abathur">
+    <SubHeroUnit value="Hero">
+      <Unit id="AbathurSymbiote" />
+    </SubHeroUnit>
+  </CHero>
   <CHero id="Alarak">
     <!--Cooldown and mana cost are deducted after charge release-->
     <Ability id="AlarakDeadlyCharge">
@@ -31,9 +36,9 @@
         <ParentLink value="AlexstraszaDragonqueen" />
       </Override>
     </Ability>
-    <AdditionalUnits value="Hero">
+    <SubHeroUnit value="Hero">
       <Unit id="HeroAlexstraszaDragon" />
-    </AdditionalUnits>
+    </SubHeroUnit>
   </CHero>
   <CHero id="Arthas">
     <!--Mana cost is time based-->
@@ -77,11 +82,11 @@
         <ParentLink value="ChenStormEarthFire" />
       </Override>
     </Ability>
-    <AdditionalUnits value="Hero">
+    <SubHeroUnit value="Hero">
       <Unit id="HeroChenStorm" />
       <Unit id="HeroChenEarth" />
       <Unit id="HeroChenFire" />
-    </AdditionalUnits>
+    </SubHeroUnit>
   </CHero>
   <CHero id="Cho">
     <Weapon id="ChoShortRangeHeroWeapon" valid="false" />
@@ -105,9 +110,9 @@
         <ParentLink value="DVaMechMechMode" />
       </Override>
     </Ability>
-    <AdditionalUnits value="Hero">
+    <SubHeroUnit value="Hero">
       <Unit id="HeroDVaPilot" />
-    </AdditionalUnits>
+    </SubHeroUnit>
   </CHero>
   <CHero id="Dryad">
     <Weapon id="DryadHeroRangedWeapon" valid="true" />
@@ -181,11 +186,11 @@
   </CHero>
   <CHero id="LostVikings">
     <CUnit value="HeroLostVikingsController" />
-    <AdditionalUnits value="Hero">
+    <SubHeroUnit value="Hero">
       <Unit id="HeroBaleog" />
       <Unit id="HeroErik" />
       <Unit id="HeroOlaf" />
-    </AdditionalUnits>
+    </SubHeroUnit>
     <Weapon id="HeroBaleogSword" valid="true" />
     <Weapon id="HeroBaleogBow" valid="true" />
     <Weapon id="HeroErikSlingshot" valid="true" />
@@ -221,16 +226,16 @@
         <ParentLink value="RagnarosMoltenCore" />
       </Override>
     </Ability>
-    <AdditionalUnits value="Hero">
+    <SubHeroUnit value="Hero">
       <Unit id="RagnarosBigRag" />
-    </AdditionalUnits>
+    </SubHeroUnit>
   </CHero>
   <CHero id="Rexxar">
     <Weapon id="RexxarMeleeWeapon" valid="true" />
     <Weapon id="RexxarRangedWeapon" valid="true" />
-    <AdditionalUnits value="Hero">
+    <SubHeroUnit value="Hero">
       <Unit id="RexxarMisha" />
-    </AdditionalUnits>
+    </SubHeroUnit>
   </CHero>
   <CHero id="Samuro">
     <Ability id="SamuroIllusionMaster">
