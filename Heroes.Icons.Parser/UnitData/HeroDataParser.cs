@@ -120,6 +120,7 @@ namespace Heroes.Icons.Parser.UnitData
             }
 
             hero.ReleaseDate = new DateTime(2014, 3, 13);
+            hero.Gender = HeroGender.Male;
         }
 
         private void CHeroData(Hero hero, string cHeroId)
@@ -358,6 +359,13 @@ namespace Heroes.Icons.Parser.UnitData
                 else if (elementName == "ENERGYREGENRATE")
                 {
                     hero.Energy.EnergyRegenerationRate = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "GENDER")
+                {
+                    if (Enum.TryParse(element.Attribute("value").Value, out HeroGender heroGender))
+                        hero.Gender = heroGender;
+                    else
+                        hero.Gender = HeroGender.Neutral;
                 }
             }
 
