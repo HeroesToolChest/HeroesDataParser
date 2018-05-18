@@ -61,6 +61,9 @@ namespace Heroes.Icons.Parser
                 if (hero.Rarity == HeroRarity.None)
                     AddWarning($"{nameof(hero.Rarity)} is None");
 
+                if (!hero.ReleaseDate.HasValue)
+                    AddWarning($"{nameof(hero.ReleaseDate)} is null");
+
                 foreach (var weapon in hero.Weapons)
                 {
                     if (weapon.Damage <= 0)

@@ -17,7 +17,7 @@ namespace Heroes.Icons.Parser.Models
         public string AttributeId { get; set; }
 
         /// <summary>
-        /// Gets or sets the difficulty> of the hero.
+        /// Gets or sets the difficulty of the hero.
         /// </summary>
         public HeroDifficulty Difficulty { get; set; }
 

@@ -118,6 +118,8 @@ namespace Heroes.Icons.Parser.UnitData
                     }
                 }
             }
+
+            hero.ReleaseDate = new DateTime(2014, 3, 13);
         }
 
         private void CHeroData(Hero hero, string cHeroId)
