@@ -26,6 +26,10 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
                 string propertyName = property.Name.LocalName;
                 string propertyValue = property.Attribute("value")?.Value;
 
+                // text will override attribute value
+                if (!string.IsNullOrEmpty(property.Value))
+                    propertyValue = property.Value;
+
                 // remove existing property override - duplicates will override previous
                 if (propertyOverrides.ContainsKey(propertyName))
                     propertyOverrides.Remove(propertyName);
