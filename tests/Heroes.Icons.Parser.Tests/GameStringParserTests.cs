@@ -77,9 +77,9 @@ namespace Heroes.Icons.Parser.Tests
             };
         }
 
-        private Dictionary<string, double> LoadScalingData(XDocument xmlGameData)
+        private Dictionary<(string Catalog, string Entry, string Field), double> LoadScalingData(XDocument xmlGameData)
         {
-            var scalingData = new Dictionary<string, double>();
+            var scalingData = new Dictionary<(string Catalog, string Entry, string Field), double>();
             IEnumerable<XElement> levelScalingArrays = xmlGameData.Root.Descendants("LevelScalingArray");
 
             foreach (XElement scalingArray in levelScalingArrays)
@@ -94,12 +94,10 @@ namespace Heroes.Icons.Parser.Tests
                     if (string.IsNullOrEmpty(value))
                         continue;
 
-                    string id = $"{catalog}#{entry}#{field}";
-
-                    if (scalingData.ContainsKey(id))
-                        scalingData[id] = double.Parse(value); // replace
+                    if (scalingData.ContainsKey((catalog, entry, field)))
+                        scalingData[(catalog, entry, field)] = double.Parse(value); // replace
                     else
-                        scalingData.Add(id, double.Parse(value));
+                        scalingData.Add((catalog, entry, field), double.Parse(value));
                 }
             }
 

@@ -334,14 +334,14 @@ namespace Heroes.Icons.Parser.UnitData
                 {
                     hero.Life.LifeMax = double.Parse(element.Attribute("value").Value);
 
-                    if (GameData.ScaleValueByLookupId.TryGetValue($"Unit#{hero.CUnitId}#LifeMax", out double scaleValue))
+                    if (GameData.ScaleValueByLookupId.TryGetValue(("Unit", hero.CUnitId, "LifeMax"), out double scaleValue))
                         hero.Life.LifeScaling = scaleValue;
                 }
                 else if (elementName == "LIFEREGENRATE")
                 {
                     hero.Life.LifeRegenerationRate = double.Parse(element.Attribute("value").Value);
 
-                    if (GameData.ScaleValueByLookupId.TryGetValue($"Unit#{hero.CUnitId}#LifeRegenRate", out double scaleValue))
+                    if (GameData.ScaleValueByLookupId.TryGetValue(("Unit", hero.CUnitId, "LifeRegenRate"), out double scaleValue))
                         hero.Life.LifeRegenerationRateScaling = scaleValue;
                 }
                 else if (elementName == "RADIUS")
@@ -816,7 +816,7 @@ namespace Heroes.Icons.Parser.UnitData
                     }
                 }
 
-                if (GameData.ScaleValueByLookupId.TryGetValue($"Effect#{displayEffectValue}#Amount", out double scaleValue))
+                if (GameData.ScaleValueByLookupId.TryGetValue(("Effect", displayEffectValue, "Amount"), out double scaleValue))
                     weapon.DamageScaling = scaleValue;
             }
             else if (!string.IsNullOrEmpty(parentWeaponId))

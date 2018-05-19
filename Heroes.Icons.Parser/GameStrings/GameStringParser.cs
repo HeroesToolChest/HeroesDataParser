@@ -489,7 +489,7 @@ namespace Heroes.Icons.Parser.GameStrings
             if (fieldValue.EndsWith("]"))
                 fieldValue = fieldValue.Substring(0, fieldValue.Length - 3);
 
-            if (GameData.ScaleValueByLookupId.TryGetValue($"{catalogValue}#{entryValue}#{fieldValue}", out double scaleValue))
+            if (GameData.ScaleValueByLookupId.TryGetValue((catalogValue, entryValue, fieldValue), out double scaleValue))
                 return scaleValue;
             else
                 return null;

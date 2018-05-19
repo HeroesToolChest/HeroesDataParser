@@ -14,22 +14,22 @@ namespace Heroes.Icons.Parser.XmlGameData
         }
 
         /// <summary>
-        /// Gets or sets the number of xml files that were to added <see cref="XmlGameData"/>
+        /// Gets or sets the number of xml files that were to added <see cref="XmlGameData"/>.
         /// </summary>
         public int XmlFileCount { get; set; } = 0;
 
         /// <summary>
-        /// Gets or sets the an XDoucment of game data
+        /// Gets or sets the an XDoucment of game data.
         /// </summary>
         public XDocument XmlGameData { get; set; }
 
         /// <summary>
-        /// Gets or sets the scaling value by the lookup id: catalog#entry#field
+        /// Gets or sets the scaling value by the lookup id  (catalog, entry, and field).
         /// </summary>
-        public Dictionary<string, double> ScaleValueByLookupId { get; set; } = new Dictionary<string, double>();
+        public Dictionary<(string Catalog, string Entry, string Field), double> ScaleValueByLookupId { get; set; } = new Dictionary<(string Catalog, string Entry, string Field), double>();
 
         /// <summary>
-        /// Loads all the needed xml data files
+        /// Loads all the needed xml data files.
         /// </summary>
         /// <returns></returns>
         public void Load()
@@ -139,12 +139,10 @@ namespace Heroes.Icons.Parser.XmlGameData
                     if (string.IsNullOrEmpty(value))
                         continue;
 
-                    string id = $"{catalog}#{entry}#{field}";
-
-                    if (ScaleValueByLookupId.ContainsKey(id))
-                        ScaleValueByLookupId[id] = double.Parse(value); // replace
+                    if (ScaleValueByLookupId.ContainsKey((catalog, entry, field)))
+                        ScaleValueByLookupId[(catalog, entry, field)] = double.Parse(value); // replace
                     else
-                        ScaleValueByLookupId.Add(id, double.Parse(value));
+                        ScaleValueByLookupId.Add((catalog, entry, field), double.Parse(value));
                 }
             }
         }
