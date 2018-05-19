@@ -187,6 +187,21 @@
   </CHero>
   <CHero id="LostVikings">
     <CUnit value="HeroLostVikingsController" />
+    <Ability id="LostVikingSelectOlaf">
+      <Override>
+        <AbilityTier value="Activable" />
+      </Override>
+    </Ability>
+    <Ability id="LostVikingSelectBaleog">
+      <Override>
+        <AbilityTier value="Activable" />
+      </Override>
+    </Ability>
+    <Ability id="LostVikingSelectErik">
+      <Override>
+        <AbilityTier value="Activable" />
+      </Override>
+    </Ability>
     <SubHeroUnit value="Hero">
       <Unit id="HeroBaleog" />
       <Unit id="HeroErik" />
