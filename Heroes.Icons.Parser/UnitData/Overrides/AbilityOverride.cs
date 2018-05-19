@@ -62,6 +62,23 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
                     ability.Tooltip.Cooldown.CooldownValue = (int)GetValue(propertyValue);
                 });
             }
+            else if (propertyName == "Tooltip.Life.LifeCost")
+            {
+                propertyOverrides.Add(propertyName, (ability) =>
+                {
+                    ability.Tooltip.Life.LifeCost = (int)GetValue(propertyValue);
+                });
+            }
+            else if (propertyName == "Tooltip.Life.IsLifePercentage")
+            {
+                propertyOverrides.Add(propertyName, (ability) =>
+                {
+                    if (bool.TryParse(propertyValue, out bool value))
+                        ability.Tooltip.Life.IsLifePercentage = value;
+                    else
+                        ability.Tooltip.Life.IsLifePercentage = false;
+                });
+            }
         }
     }
 }

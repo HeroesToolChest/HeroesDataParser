@@ -11,6 +11,12 @@
   </CHero>
   <CHero id="Alexstrasza">
     <!--Dragonqueen abilities tied to Dragonqueen form ability-->
+    <Ability id="AlexstraszaGiftOfLife">
+      <Override>
+        <Tooltip.Life.LifeCost value="&lt;d ref=&quot;-100*Accumulator,AlexstraszaGiftOfLifeCostAccumulator,Ratio&quot;/>" />
+        <Tooltip.Life.IsLifePercentage value="true" />
+      </Override>
+    </Ability>
     <Ability id="AlexstraszaBreathOfLife" valid="true">
       <Override>
         <ParentLink value="AlexstraszaDragonqueen" />
