@@ -1,10 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides>
-  <CHero id="Abathur">
-    <SubHeroUnit value="Hero">
-      <Unit id="AbathurSymbiote" />
-    </SubHeroUnit>
-  </CHero>
   <CHero id="Alarak">
     <!--Cooldown and mana cost are deducted after charge release-->
     <Ability id="AlarakDeadlyCharge">
