@@ -1,4 +1,5 @@
-﻿using Heroes.Icons.Parser.Models;
+﻿using Heroes.Icons.FileWriter.Writer;
+using Heroes.Icons.Parser.Models;
 using System.Collections.Generic;
 
 namespace Heroes.Icons.FileWriter

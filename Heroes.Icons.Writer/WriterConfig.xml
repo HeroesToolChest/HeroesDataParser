@@ -18,11 +18,23 @@
     <Description>5</Description>
     <ShortTooltip>5</ShortTooltip>
     <FullTooltip>5</FullTooltip>
+    <ImageExtension>png</ImageExtension>
+    <IncludeWeapons>True</IncludeWeapons>
+    <IncludeAbilities>True</IncludeAbilities>
+    <IncludeExtraAbilities>True</IncludeExtraAbilities>
+    <IncludeTalents>True</IncludeTalents>
+    <IncludeHeroUnits>True</IncludeHeroUnits>
   </JsonWriter>
   <XmlWriter enabled="true">
     <FileSplit>False</FileSplit>
     <Description>5</Description>
     <ShortTooltip>5</ShortTooltip>
     <FullTooltip>5</FullTooltip>
+    <ImageExtension>png</ImageExtension>
+    <IncludeWeapons>True</IncludeWeapons>
+    <IncludeAbilities>True</IncludeAbilities>
+    <IncludeExtraAbilities>True</IncludeExtraAbilities>
+    <IncludeTalents>True</IncludeTalents>
+    <IncludeHeroUnits>True</IncludeHeroUnits>
   </XmlWriter>
 </Configuration>

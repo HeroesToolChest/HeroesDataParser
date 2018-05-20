@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace Heroes.Icons.FileWriter
 {
-    public class FileConfiguration
+    internal class FileConfiguration
     {
         private readonly string WriterConfigFile = "WriterConfig.xml";
 
@@ -61,6 +61,42 @@ namespace Heroes.Icons.FileWriter
                 fileSettings.FullTooltip = fullTooltipValue;
             else
                 fileSettings.FullTooltip = 5;
+
+            string imageExtension = writerElement.Element("ImageExtension")?.Value;
+            if (!string.IsNullOrEmpty(imageExtension))
+                fileSettings.ImageExtension = imageExtension;
+            else
+                fileSettings.ImageExtension = "dds";
+
+            string includeWeapons = writerElement.Element("IncludeWeapons")?.Value;
+            if (bool.TryParse(includeWeapons, out bool includeWeaponsValue))
+                fileSettings.IncludeWeapons = includeWeaponsValue;
+            else
+                fileSettings.IncludeWeapons = false;
+
+            string includeAbilities = writerElement.Element("IncludeAbilities")?.Value;
+            if (bool.TryParse(includeAbilities, out bool includeAbilitiesValue))
+                fileSettings.IncludeAbilities = includeAbilitiesValue;
+            else
+                fileSettings.IncludeAbilities = false;
+
+            string includeExtraAbilities = writerElement.Element("IncludeExtraAbilities")?.Value;
+            if (bool.TryParse(includeExtraAbilities, out bool includeExtraAbilitiesValue))
+                fileSettings.IncludeExtraAbilities = includeExtraAbilitiesValue;
+            else
+                fileSettings.IncludeExtraAbilities = false;
+
+            string includeTalents = writerElement.Element("IncludeTalents")?.Value;
+            if (bool.TryParse(includeTalents, out bool includeTalentsValue))
+                fileSettings.IncludeTalents = includeTalentsValue;
+            else
+                fileSettings.IncludeTalents = false;
+
+            string includeHeroUnits = writerElement.Element("IncludeHeroUnits")?.Value;
+            if (bool.TryParse(includeHeroUnits, out bool includeHeroUnitsValue))
+                fileSettings.IncludeHeroUnits = includeHeroUnitsValue;
+            else
+                fileSettings.IncludeHeroUnits = false;
         }
     }
 }

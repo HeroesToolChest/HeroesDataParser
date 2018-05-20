@@ -3,12 +3,13 @@ using Heroes.Icons.Parser.Models;
 using Heroes.Icons.Parser.Models.AbilityTalents;
 using Heroes.Icons.Parser.Models.AbilityTalents.Tooltip;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace Heroes.Icons.FileWriter
+namespace Heroes.Icons.FileWriter.Writer
 {
-    public class XmlWriter
+    internal class XmlWriter : Writer
     {
         private readonly XmlFileSettings FileSettings;
 
@@ -16,7 +17,13 @@ namespace Heroes.Icons.FileWriter
         {
             FileSettings = fileSettings;
 
-            CreateXml(heroes);
+            if (FileSettings.WriterEnabled)
+            {
+                if (FileSettings.FileSplit)
+                    CreateMultipleFilesXml(heroes);
+                else
+                    CreateSingleFileXml(heroes);
+            }
         }
 
         public static void CreateOutput(XmlFileSettings fileSettings, List<Hero> heroes)
@@ -24,7 +31,7 @@ namespace Heroes.Icons.FileWriter
             new XmlWriter(fileSettings, heroes);
         }
 
-        public virtual void CreateXml(List<Hero> heroes)
+        private void CreateSingleFileXml(List<Hero> heroes)
         {
             XDocument xmlDoc = new XDocument(
                 new XElement(
@@ -32,7 +39,17 @@ namespace Heroes.Icons.FileWriter
                     heroes.Select(
                         hero => HeroElement(hero))));
 
-            xmlDoc.Save("test.xml");
+            xmlDoc.Save(Path.Combine(OutputFolder, "heroesdata.xml"));
+        }
+
+        private void CreateMultipleFilesXml(List<Hero> heroes)
+        {
+            foreach (Hero hero in heroes)
+            {
+                XDocument xmlDoc = new XDocument(new XElement("Heroes", HeroElement(hero)));
+
+                xmlDoc.Save(Path.Combine(OutputFolder, $"{hero.ShortName}.xml"));
+            }
         }
 
         private XElement HeroElement(Hero hero)
@@ -90,7 +107,7 @@ namespace Heroes.Icons.FileWriter
 
         private XElement WeaponsElement(Hero hero)
         {
-            if (hero.Weapons?.Count > 0)
+            if (FileSettings.IncludeWeapons && hero.Weapons?.Count > 0)
             {
                 return new XElement(
                     "Weapons",
@@ -108,7 +125,7 @@ namespace Heroes.Icons.FileWriter
 
         private XElement AbilitiesElement(Hero hero)
         {
-            if (hero.Abilities?.Count > 0)
+            if (FileSettings.IncludeAbilities && hero.Abilities?.Count > 0)
             {
                 return new XElement(
                     "Abilities",
@@ -126,7 +143,7 @@ namespace Heroes.Icons.FileWriter
 
         private XElement ExtraAbilitiesElement(Hero hero)
         {
-            if (hero.Abilities?.Count > 0)
+            if (FileSettings.IncludeExtraAbilities && hero.Abilities?.Count > 0)
             {
                 ILookup<string, Ability> linkedAbilities = hero.ParentLinkedAbilities();
                 if (linkedAbilities.Count > 0)
@@ -154,7 +171,7 @@ namespace Heroes.Icons.FileWriter
 
         private XElement TalentsElement(Hero hero)
         {
-            if (hero.Talents?.Count > 0)
+            if (FileSettings.IncludeTalents && hero.Talents?.Count > 0)
             {
                 return new XElement(
                     "Talents",
@@ -174,7 +191,7 @@ namespace Heroes.Icons.FileWriter
 
         private XElement HeroUnitsElement(Hero hero)
         {
-            if (hero.HeroUnits?.Count > 0)
+            if (FileSettings.IncludeHeroUnits && hero.HeroUnits?.Count > 0)
             {
                 return new XElement(
                     "HeroUnits",
@@ -193,7 +210,7 @@ namespace Heroes.Icons.FileWriter
                 new XAttribute("name", abilityTalentBase.Name),
                 string.IsNullOrEmpty(abilityTalentBase.ShortTooltipNameId) ? null : new XAttribute("shortTooltipId", abilityTalentBase.ShortTooltipNameId),
                 string.IsNullOrEmpty(abilityTalentBase.FullTooltipNameId) ? null : new XAttribute("fullTooltipId", abilityTalentBase.FullTooltipNameId),
-                new XElement("Icon", abilityTalentBase.IconFileName),
+                new XElement("Icon", Path.ChangeExtension(abilityTalentBase.IconFileName, FileSettings.ImageExtension)),
                 AbilityLifeElement(abilityTalentBase.Tooltip.Life),
                 AbilityEnergyElement(abilityTalentBase.Tooltip.Energy),
                 AbilityCooldownElement(abilityTalentBase.Tooltip.Cooldown),

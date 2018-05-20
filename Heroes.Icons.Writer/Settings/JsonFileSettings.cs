@@ -1,6 +1,6 @@
 ﻿namespace Heroes.Icons.FileWriter.Settings
 {
-    public class JsonFileSettings : FileSettings
+    internal class JsonFileSettings : FileSettings
     {
     }
 }
