@@ -12,23 +12,23 @@ using System.Xml.Linq;
 
 namespace Heroes.Icons.Parser.UnitData
 {
-    public class HeroDataParser
+    internal class HeroDataParser
     {
         private readonly double DefaultWeaponPeriod = 1.2; // for hero weapons
 
         private readonly GameData GameData;
         private readonly GameStringData GameStringData;
         private readonly GameStringParser GameStringParser;
-        private readonly HeroOverrideData HeroOverrideData;
+        private readonly OverrideData OverrideData;
 
         private HeroOverride HeroOverride = new HeroOverride();
 
-        public HeroDataParser(GameData gameData, GameStringData gameStringData, GameStringParser gameStringParser, HeroOverrideData heroOverrideData)
+        public HeroDataParser(GameData gameData, GameStringData gameStringData, GameStringParser gameStringParser, OverrideData overrideData)
         {
             GameData = gameData;
             GameStringData = gameStringData;
             GameStringParser = gameStringParser;
-            HeroOverrideData = heroOverrideData;
+            OverrideData = overrideData;
         }
 
         public Hero Parse(string cHeroId, string cUnitId)
@@ -41,7 +41,7 @@ namespace Heroes.Icons.Parser.UnitData
                 CUnitId = cUnitId,
             };
 
-            if (HeroOverrideData.HeroOverridesByCHero.TryGetValue(cHeroId, out HeroOverride heroOverride))
+            if (OverrideData.HeroOverridesByCHeroId.TryGetValue(cHeroId, out HeroOverride heroOverride))
                 HeroOverride = heroOverride;
 
             SetDefaultValues(hero);
@@ -864,7 +864,7 @@ namespace Heroes.Icons.Parser.UnitData
                     heroUnit.Type = null;
                     heroUnit.Rarity = null;
 
-                    if (HeroOverrideData.HeroOverridesByCHero.TryGetValue(unit, out HeroOverride heroOverride))
+                    if (OverrideData.HeroOverridesByCHeroId.TryGetValue(unit, out HeroOverride heroOverride))
                         ApplyOverrides(heroUnit, heroOverride);
 
                     hero.HeroUnits.Add(heroUnit);

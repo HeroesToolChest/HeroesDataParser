@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Heroes.Icons.FileWriter
+﻿namespace Heroes.Icons.FileWriter
 {
-    class JsonWriter
+    public class JsonWriter
     {
     }
 }

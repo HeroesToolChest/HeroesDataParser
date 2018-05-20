@@ -7,20 +7,20 @@ using System.Xml.Linq;
 
 namespace Heroes.Icons.Parser.UnitData.Overrides
 {
-    public class HeroOverrideData
+    public class OverrideData
     {
         private readonly GameData GameData;
 
-        public HeroOverrideData(GameData gameData)
+        public OverrideData(GameData gameData)
         {
             GameData = gameData;
         }
 
         public string HeroDataOverrideXmlFile => @"HeroOverrides.xml";
 
-        public Dictionary<string, HeroOverride> HeroOverridesByCHero { get; set; } = new Dictionary<string, HeroOverride>();
+        public Dictionary<string, HeroOverride> HeroOverridesByCHeroId { get; set; } = new Dictionary<string, HeroOverride>();
 
-        public void LoadHeroOverrideData()
+        public void LoadOverrideData()
         {
             XDocument cHeroDocument = XDocument.Load(HeroDataOverrideXmlFile);
             IEnumerable<XElement> cHeroes = cHeroDocument.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
@@ -142,8 +142,8 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
                 }
             }
 
-            if (!HeroOverridesByCHero.ContainsKey(cHeroId))
-                HeroOverridesByCHero.Add(cHeroId, heroOverride);
+            if (!HeroOverridesByCHeroId.ContainsKey(cHeroId))
+                HeroOverridesByCHeroId.Add(cHeroId, heroOverride);
         }
 
         private void SetLinkAbilities(XElement element, HeroOverride heroOverride)

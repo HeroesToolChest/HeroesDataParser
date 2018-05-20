@@ -16,16 +16,16 @@ namespace Heroes.Icons.Parser.UnitData
         private readonly GameData GameData;
         private readonly GameStringData GameStringData;
         private readonly GameStringParser GameStringParser;
-        private readonly HeroOverrideData HeroOverrideData;
+        private readonly OverrideData OverrideData;
 
         private SortedDictionary<string, string> CUnitIdByHeroCHeroIds = new SortedDictionary<string, string>();
 
-        public UnitParser(GameData gameData, GameStringData gameStringData, GameStringParser gameStringParser, HeroOverrideData heroOverrideData)
+        public UnitParser(GameData gameData, GameStringData gameStringData, GameStringParser gameStringParser, OverrideData overrideData)
         {
             GameData = gameData;
             GameStringData = gameStringData;
             GameStringParser = gameStringParser;
-            HeroOverrideData = heroOverrideData;
+            OverrideData = overrideData;
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Heroes.Icons.Parser.UnitData
             }
 
             // add overrides for CUnit
-            foreach (KeyValuePair<string, HeroOverride> heroOverride in HeroOverrideData.HeroOverridesByCHero)
+            foreach (KeyValuePair<string, HeroOverride> heroOverride in OverrideData.HeroOverridesByCHeroId)
             {
                 if (CUnitIdByHeroCHeroIds.ContainsKey(heroOverride.Key))
                 {
@@ -89,7 +89,7 @@ namespace Heroes.Icons.Parser.UnitData
             {
                 try
                 {
-                    HeroDataParser heroDataParser = new HeroDataParser(GameData, GameStringData, GameStringParser, HeroOverrideData);
+                    HeroDataParser heroDataParser = new HeroDataParser(GameData, GameStringData, GameStringParser, OverrideData);
                     ParsedHeroes.Add(heroDataParser.Parse(hero.Key, hero.Value));
                 }
                 catch (Exception ex)
