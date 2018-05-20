@@ -186,9 +186,9 @@ namespace Heroes.Icons.Parser
                         AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.ColoredTextWithScaling)} is null or empty");
                 }
 
-                if (hero.SubHeroUnits.Count > 0)
+                if (hero.HeroUnits.Count > 0)
                 {
-                    foreach (Hero additionalUnit in hero.SubHeroUnits)
+                    foreach (Hero additionalUnit in hero.HeroUnits)
                     {
                         if (additionalUnit.Life.LifeMax <= 0)
                             AddWarning($"[{additionalUnit.Name}] {nameof(hero.Life)} is 0");

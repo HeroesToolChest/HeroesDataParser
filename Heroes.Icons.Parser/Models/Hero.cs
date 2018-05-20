@@ -1,13 +1,14 @@
 ﻿using Heroes.Icons.Parser.Models.AbilityTalents;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Heroes.Icons.Parser.Models
 {
     public class Hero : Unit
     {
         /// <summary>
-        /// Gets or sets the id of CHero element stored in blizzard xml file
+        /// Gets or sets the id of CHero element stored in blizzard xml file.
         /// </summary>
         public string CHeroId { get; set; }
 
@@ -40,12 +41,12 @@ namespace Heroes.Icons.Parser.Models
         /// <summary>
         /// Gets or sets the gender of the hero.
         /// </summary>
-        public HeroGender Gender { get; set; }
+        public HeroGender? Gender { get; set; }
 
         /// <summary>
         /// Gets or sets the rarity of the hero.
         /// </summary>
-        public HeroRarity Rarity { get; set; }
+        public HeroRarity? Rarity { get; set; }
 
         /// <summary>
         /// Gets or sets the ratings of the hero.
@@ -65,7 +66,7 @@ namespace Heroes.Icons.Parser.Models
         /// <summary>
         /// Gets or sets the additional hero units associated with this hero.
         /// </summary>
-        public IList<Hero> SubHeroUnits { get; set; } = new List<Hero>();
+        public IList<Hero> HeroUnits { get; set; } = new List<Hero>();
 
         /*/// <summary>
         /// Returns an ability object given the reference name.
@@ -114,25 +115,14 @@ namespace Heroes.Icons.Parser.Models
         }
         */
 
-        /*/// <summary>
-        /// Returns a collection of all the abilities in the selected tier.
-        /// </summary>
-        /// <param name="tier">The ability tier.</param>
-        /// <returns></returns>
-        public ICollection<Ability> GetTierAbilities(AbilityTier tier)
-        {
-            return Abilities.Values.Where(x => x.Tier == tier).ToArray();
-        }
-
         /// <summary>
         /// Returns a collection of all the talents in the selected tier.
         /// </summary>
-        /// <param name="tier">The talent tier.</param>
+        /// <param name = "tier" > The talent tier.</param>
         /// <returns></returns>
-        public ICollection<Talent> GetTierTalents(TalentTier tier)
+        public ICollection<Talent> TierTalents(TalentTier tier)
         {
-            return Talents.Values.Where(x => x.Tier == tier).ToArray();
+            return Talents.Values.Where(x => x.Tier == tier).ToList();
         }
-        */
     }
 }

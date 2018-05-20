@@ -12,6 +12,6 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
         /// <summary>
         /// Gets or sets a hashset of additional hero units.
         /// </summary>
-        public HashSet<string> SubHeroUnits { get; set; } = new HashSet<string>();
+        public HashSet<string> HeroUnits { get; set; } = new HashSet<string>();
     }
 }

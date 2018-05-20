@@ -37,12 +37,11 @@
         <ParentLink value="AlexstraszaDragonqueen" />
       </Override>
     </Ability>
-    <SubHeroUnit value="Hero">
-      <Unit id="HeroAlexstraszaDragon">
-        <Name value="Dragonqueen" />
-        <ShortName value="Dragonqueen" />
-      </Unit>
-    </SubHeroUnit>
+    <HeroUnit id="HeroAlexstraszaDragon">
+      <Name value="Dragonqueen" />
+      <ShortName value="Dragonqueen" />
+      <ParentLink value="AlexstraszaDragonqueen" />
+    </HeroUnit>
   </CHero>
   <CHero id="Arthas">
     <!--Mana cost is time based-->
@@ -86,17 +85,18 @@
         <ParentLink value="ChenStormEarthFire" />
       </Override>
     </Ability>
-    <SubHeroUnit value="Hero">
-      <Unit id="HeroChenStorm">
-        <ShortName value="ChenStorm" />
-      </Unit>
-      <Unit id="HeroChenEarth">
-        <ShortName value="ChenEarth" />     
-      </Unit>
-      <Unit id="HeroChenFire">
-        <ShortName value="ChenFire" />
-      </Unit>
-    </SubHeroUnit>
+    <HeroUnit id="HeroChenStorm">
+      <ShortName value="ChenStorm" />
+      <ParentLink value="ChenStormEarthFire" />
+    </HeroUnit>
+    <HeroUnit id="HeroChenEarth">
+      <ShortName value="ChenEarth" />
+      <ParentLink value="ChenStormEarthFire" />
+    </HeroUnit>
+    <HeroUnit id="HeroChenFire">
+      <ShortName value="ChenFire" />
+      <ParentLink value="ChenStormEarthFire" />
+    </HeroUnit>
   </CHero>
   <CHero id="Cho">
     <Weapon id="ChoShortRangeHeroWeapon" valid="false" />
@@ -120,12 +120,11 @@
         <ParentLink value="DVaMechMechMode" />
       </Override>
     </Ability>
-    <SubHeroUnit value="Hero">
-      <Unit id="HeroDVaPilot">
-        <Name value="D.Va Pilot" />
-        <ShortName value="DVaPilot" />
-      </Unit>
-    </SubHeroUnit>
+    <HeroUnit id="HeroDVaPilot">
+      <Name value="D.Va Pilot" />
+      <ShortName value="DVaPilot" />
+      <ParentLink value="DVaMechMechMode" />
+    </HeroUnit>
   </CHero>
   <CHero id="Dryad">
     <Weapon id="DryadHeroRangedWeapon" valid="true" />
@@ -214,11 +213,15 @@
         <AbilityTier value="Activable" />
       </Override>
     </Ability>
-    <SubHeroUnit value="Hero">
-      <Unit id="HeroBaleog" />
-      <Unit id="HeroErik" />
-      <Unit id="HeroOlaf" />
-    </SubHeroUnit>
+    <HeroUnit id="HeroBaleog">
+      <ParentLink value="LostVikings" />
+    </HeroUnit>
+    <HeroUnit id="HeroErik">
+      <ParentLink value="LostVikings" />
+    </HeroUnit>
+    <HeroUnit id="HeroOlaf">
+      <ParentLink value="LostVikings" />  
+    </HeroUnit>
     <Weapon id="HeroBaleogSword" valid="true" />
     <Weapon id="HeroBaleogBow" valid="true" />
     <Weapon id="HeroErikSlingshot" valid="true" />
@@ -254,18 +257,17 @@
         <ParentLink value="RagnarosMoltenCore" />
       </Override>
     </Ability>
-    <SubHeroUnit value="Hero">
-      <Unit id="RagnarosBigRag">
-        <ShortName value="BigRag" />
-      </Unit>
-    </SubHeroUnit>
+    <HeroUnit id="RagnarosBigRag">
+      <ShortName value="BigRag" />
+      <ParentLink value="RagnarosMoltenCore" />
+    </HeroUnit>
   </CHero>
   <CHero id="Rexxar">
     <Weapon id="RexxarMeleeWeapon" valid="true" />
     <Weapon id="RexxarRangedWeapon" valid="true" />
-    <SubHeroUnit value="Hero">
-      <Unit id="RexxarMisha" />
-    </SubHeroUnit>
+    <HeroUnit id="RexxarMisha">
+      <ParentLink value="RexxarMishaFocus" />
+    </HeroUnit>
   </CHero>
   <CHero id="Samuro">
     <Ability id="SamuroIllusionMaster">

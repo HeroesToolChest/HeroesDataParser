@@ -47,7 +47,7 @@ namespace Heroes.Icons.Parser.UnitData
             SetDefaultValues(hero);
             CHeroData(hero, cHeroId);
             CUnitData(hero, cUnitId);
-            AddSubCUnits(hero);
+            AddSubHeroCUnits(hero);
 
             ApplyOverrides(hero, HeroOverride);
 
@@ -827,14 +827,14 @@ namespace Heroes.Icons.Parser.UnitData
             }
         }
 
-        private void AddSubCUnits(Hero hero)
+        private void AddSubHeroCUnits(Hero hero)
         {
-            foreach (string unit in HeroOverride.SubHeroUnits)
+            foreach (string unit in HeroOverride.HeroUnits)
             {
                 XElement cUnit = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value == unit).FirstOrDefault();
                 if (cUnit != null)
                 {
-                    Hero subHero = new Hero
+                    Hero heroUnit = new Hero
                     {
                         Name = GameStringData.UnitNamesByShortName[unit],
                         CHeroId = null,
@@ -842,30 +842,32 @@ namespace Heroes.Icons.Parser.UnitData
                     };
 
                     if (GameStringParser.HeroParsedDescriptionsByShortName.TryGetValue(unit, out string desc))
-                        subHero.Description = new TooltipDescription(desc);
+                        heroUnit.Description = new TooltipDescription(desc);
 
-                    SetDefaultValues(subHero);
-                    CUnitData(subHero, unit);
+                    SetDefaultValues(heroUnit);
+                    CUnitData(heroUnit, unit);
 
-                    subHero.ShortName = subHero.Name;
+                    heroUnit.ShortName = heroUnit.Name;
 
                     // set to same as parent
-                    subHero.Difficulty = hero.Difficulty;
-                    subHero.Franchise = hero.Franchise;
+                    heroUnit.Difficulty = hero.Difficulty;
+                    heroUnit.Franchise = hero.Franchise;
 
                     // clear
-                    subHero.Abilities = null;
-                    subHero.Ratings = null;
-                    subHero.Talents = null;
-                    subHero.Gender = null;
-                    subHero.ReleaseDate = null;
-                    subHero.Roles = null;
-                    subHero.SubHeroUnits = null;
+                    heroUnit.Abilities = null;
+                    heroUnit.Ratings = null;
+                    heroUnit.Talents = null;
+                    heroUnit.Gender = null;
+                    heroUnit.ReleaseDate = null;
+                    heroUnit.Roles = null;
+                    heroUnit.HeroUnits = null;
+                    heroUnit.Type = null;
+                    heroUnit.Rarity = null;
 
                     if (HeroOverrideData.HeroOverridesByCHero.TryGetValue(unit, out HeroOverride heroOverride))
-                        ApplyOverrides(subHero, heroOverride);
+                        ApplyOverrides(heroUnit, heroOverride);
 
-                    hero.SubHeroUnits.Add(subHero);
+                    hero.HeroUnits.Add(heroUnit);
                 }
             }
         }
@@ -883,6 +885,9 @@ namespace Heroes.Icons.Parser.UnitData
 
             if (heroOverride.EnergyOverride.Enabled)
                 hero.Energy.EnergyMax = heroOverride.EnergyOverride.Energy;
+
+            if (heroOverride.ParentLinkOverride.Enabled)
+                hero.ParentLink = heroOverride.ParentLinkOverride.ParentLink;
 
             // abilities
             if (hero.Abilities != null)

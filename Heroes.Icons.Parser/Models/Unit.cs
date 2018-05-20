@@ -29,7 +29,7 @@ namespace Heroes.Icons.Parser.Models
         /// <summary>
         /// Gets or sets the unit type: Melee or ranged.
         /// </summary>
-        public UnitType Type { get; set; }
+        public UnitType? Type { get; set; }
 
         /// <summary>
         /// Gets or sets the Life properties.
@@ -52,6 +52,11 @@ namespace Heroes.Icons.Parser.Models
         public Dictionary<string, Ability> Abilities { get; set; }
 
         /// <summary>
+        /// Gets or sets the parent link of this unit.
+        /// </summary>
+        public string ParentLink { get; set; }
+
+        /// <summary>
         /// Gets or sets a list of basic attack weapons.
         /// </summary>
         public IList<UnitWeapon> Weapons { get; set; } = new List<UnitWeapon>();
@@ -71,35 +76,12 @@ namespace Heroes.Icons.Parser.Models
         }
 
         /// <summary>
-        /// Returns a collection of all the parent linked abilities in the selected tier by the parent linked name.
-        /// </summary>
-        /// <param name="tier">The ability tier.</param>
-        /// <returns></returns>
-        public ILookup<string, Ability> ParentLinkedAbilities(AbilityTier tier)
-        {
-           return Abilities.Values.Where(x => x.Tier == tier && !string.IsNullOrEmpty(x.ParentLink)).ToLookup(x => x.ParentLink);
-        }
-
-        /// <summary>
-        /// Returns the total count of all Abilities.
-        /// </summary>
-        /// <param name="includeParentLinkedAbilities">Include abilities that are not the primary abilites of the hero.</param>
-        /// <returns></returns>
-        public int AbilitiesCount(bool includeParentLinkedAbilities)
-        {
-            if (includeParentLinkedAbilities)
-                return Abilities.Count();
-            else
-                return Abilities.Where(x => string.IsNullOrEmpty(x.Value.ParentLink)).Count();
-        }
-
-        /// <summary>
-        /// Returns the total count of all parent linked abilities.
+        /// Returns a collection of all the parent linked abilities.
         /// </summary>
         /// <returns></returns>
-        public int ParentLinkedAbilitiesCount()
+        public ILookup<string, Ability> ParentLinkedAbilities()
         {
-            return Abilities.Where(x => !string.IsNullOrEmpty(x.Value.ParentLink)).Count();
+           return Abilities.Values.Where(x => !string.IsNullOrEmpty(x.ParentLink)).ToLookup(x => x.ParentLink);
         }
 
         public override string ToString()

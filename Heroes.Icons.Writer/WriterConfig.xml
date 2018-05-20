@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <!--
+    HeroFileSplit: True: only one file will be created
+                   False: one file for each hero will be created
+    
+    Description, ShortTooltip, FullTooltip:
+      0 - RawDescription
+      1 - PlainText
+      2 - PlainTextWithNewlines
+      3 - PlainTextWithScaling
+      4 - PlainTextWithScalingWithNewlines
+      5 - ColoredText
+      6 - ColoredTextWithScaling
+  -->
+  <JsonWriter enabled="false">
+    <FileSplit>False</FileSplit>
+    <Description>5</Description>
+    <ShortTooltip>5</ShortTooltip>
+    <FullTooltip>5</FullTooltip>
+  </JsonWriter>
+  <XmlWriter enabled="true">
+    <FileSplit>False</FileSplit>
+    <Description>5</Description>
+    <ShortTooltip>5</ShortTooltip>
+    <FullTooltip>5</FullTooltip>
+  </XmlWriter>
+</Configuration>

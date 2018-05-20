@@ -33,6 +33,11 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
         public (bool Enabled, int Energy) EnergyOverride { get; set; } = (false, 0);
 
         /// <summary>
+        /// Gets or sets the parent link.
+        /// </summary>
+        public (bool Enabled, string ParentLink) ParentLinkOverride { get; set; } = (false, string.Empty);
+
+        /// <summary>
         /// Gets or sets the property override action methods for abilities by ability id.
         /// </summary>
         public Dictionary<string, Dictionary<string, Action<Ability>>> PropertyOverrideMethodByAbilityId { get; set; } = new Dictionary<string, Dictionary<string, Action<Ability>>>();

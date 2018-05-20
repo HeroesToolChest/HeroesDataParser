@@ -127,9 +127,18 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
                     if (overrideElement != null)
                         weaponOverride.SetOverride(weaponId, overrideElement, heroOverride.PropertyOverrideMethodByWeaponId);
                 }
-                else if (elementName == "SubHeroUnit")
+                else if (elementName == "HeroUnit")
                 {
-                    AddSubHeroUnits(dataElement.Attribute("value")?.Value, dataElement, heroOverride);
+                    string heroUnitId = dataElement.Attribute("id")?.Value;
+
+                    if (string.IsNullOrEmpty(heroUnitId))
+                        continue;
+
+                    AddHeroUnits(heroUnitId, dataElement, heroOverride);
+                }
+                else if (elementName == "ParentLink")
+                {
+                    heroOverride.ParentLinkOverride = (true, dataElement.Attribute("value").Value);
                 }
             }
 
@@ -153,26 +162,14 @@ namespace Heroes.Icons.Parser.UnitData.Overrides
             }
         }
 
-        private void AddSubHeroUnits(string type, XElement dataElement, HeroOverride heroOverride)
+        private void AddHeroUnits(string elementId, XElement element, HeroOverride heroOverride)
         {
-            if (type == "Hero")
-            {
-                // for each unit
-                foreach (XElement unitElement in dataElement.Elements("Unit"))
-                {
-                    string unit = unitElement.Attribute("id")?.Value;
+            if (heroOverride.HeroUnits.Contains(elementId))
+                heroOverride.HeroUnits.Remove(elementId);
 
-                    if (!string.IsNullOrEmpty(unit))
-                    {
-                        if (heroOverride.SubHeroUnits.Contains(unit))
-                            heroOverride.SubHeroUnits.Remove(unit);
+            heroOverride.HeroUnits.Add(elementId);
 
-                        heroOverride.SubHeroUnits.Add(unit);
-
-                        SetHeroOverrides(unitElement);
-                    }
-                }
-            }
+            SetHeroOverrides(element);
         }
     }
 }
