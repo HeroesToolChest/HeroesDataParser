@@ -38,7 +38,10 @@
       </Override>
     </Ability>
     <SubHeroUnit value="Hero">
-      <Unit id="HeroAlexstraszaDragon" />
+      <Unit id="HeroAlexstraszaDragon">
+        <Name value="Dragonqueen" />
+        <ShortName value="Dragonqueen" />
+      </Unit>
     </SubHeroUnit>
   </CHero>
   <CHero id="Arthas">
@@ -84,9 +87,15 @@
       </Override>
     </Ability>
     <SubHeroUnit value="Hero">
-      <Unit id="HeroChenStorm" />
-      <Unit id="HeroChenEarth" />
-      <Unit id="HeroChenFire" />
+      <Unit id="HeroChenStorm">
+        <ShortName value="ChenStorm" />
+      </Unit>
+      <Unit id="HeroChenEarth">
+        <ShortName value="ChenEarth" />     
+      </Unit>
+      <Unit id="HeroChenFire">
+        <ShortName value="ChenFire" />
+      </Unit>
     </SubHeroUnit>
   </CHero>
   <CHero id="Cho">
@@ -112,7 +121,10 @@
       </Override>
     </Ability>
     <SubHeroUnit value="Hero">
-      <Unit id="HeroDVaPilot" />
+      <Unit id="HeroDVaPilot">
+        <Name value="D.Va Pilot" />
+        <ShortName value="DVaPilot" />
+      </Unit>
     </SubHeroUnit>
   </CHero>
   <CHero id="Dryad">
@@ -243,7 +255,9 @@
       </Override>
     </Ability>
     <SubHeroUnit value="Hero">
-      <Unit id="RagnarosBigRag" />
+      <Unit id="RagnarosBigRag">
+        <ShortName value="BigRag" />
+      </Unit>
     </SubHeroUnit>
   </CHero>
   <CHero id="Rexxar">

@@ -5,7 +5,7 @@ namespace Heroes.Icons.Parser.Models
     public class TooltipDescription
     {
         /// <summary>
-        /// Contructor
+        /// Contructor.
         /// </summary>
         /// <param name="rawParsedDescription">Description with color tags and raw scaling info.</param>
         public TooltipDescription(string rawParsedDescription)

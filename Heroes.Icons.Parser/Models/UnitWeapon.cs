@@ -1,6 +1,6 @@
 ﻿namespace Heroes.Icons.Parser.Models
 {
-    public class HeroWeapon
+    public class UnitWeapon
     {
         public string WeaponNameId { get; set; }
 

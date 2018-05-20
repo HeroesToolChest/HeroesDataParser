@@ -49,7 +49,7 @@ namespace Heroes.Icons.Parser.UnitData
             CUnitData(hero, cUnitId);
             AddSubCUnits(hero);
 
-            ApplyOverrides(hero);
+            ApplyOverrides(hero, HeroOverride);
 
             // set all default abilities energy types to the hero's energy type
             foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
@@ -729,16 +729,16 @@ namespace Heroes.Icons.Parser.UnitData
 
                 if (validWeapon || weaponsIds.Count == 1 || weaponNameId.Contains("HeroWeapon") || weaponNameId == hero.CUnitId)
                 {
-                    HeroWeapon weapon = AddHeroWeapon(weaponNameId, weaponsIds);
+                    UnitWeapon weapon = AddHeroWeapon(weaponNameId, weaponsIds);
                     if (weapon != null)
                         hero.Weapons.Add(weapon);
                 }
             }
         }
 
-        private HeroWeapon AddHeroWeapon(string weaponNameId, List<string> allWeaponIds)
+        private UnitWeapon AddHeroWeapon(string weaponNameId, List<string> allWeaponIds)
         {
-            HeroWeapon weapon = null;
+            UnitWeapon weapon = null;
 
             if (!string.IsNullOrEmpty(weaponNameId))
             {
@@ -746,7 +746,7 @@ namespace Heroes.Icons.Parser.UnitData
 
                 if (weaponLegacy != null)
                 {
-                    weapon = new HeroWeapon
+                    weapon = new UnitWeapon
                     {
                         WeaponNameId = weaponNameId,
                     };
@@ -760,7 +760,7 @@ namespace Heroes.Icons.Parser.UnitData
             return weapon;
         }
 
-        private void HeroWeaponAddRange(XElement weaponLegacy, HeroWeapon weapon, string weaponNameId)
+        private void HeroWeaponAddRange(XElement weaponLegacy, UnitWeapon weapon, string weaponNameId)
         {
             XElement rangeElement = weaponLegacy.Element("Range");
             string parentWeaponId = weaponLegacy.Attribute("parent")?.Value;
@@ -777,7 +777,7 @@ namespace Heroes.Icons.Parser.UnitData
             }
         }
 
-        private void HeroWeaponAddPeriod(XElement weaponLegacy, HeroWeapon weapon, string weaponNameId)
+        private void HeroWeaponAddPeriod(XElement weaponLegacy, UnitWeapon weapon, string weaponNameId)
         {
             XElement periodElement = weaponLegacy.Element("Period");
             string parentWeaponId = weaponLegacy.Attribute("parent")?.Value;
@@ -798,7 +798,7 @@ namespace Heroes.Icons.Parser.UnitData
             }
         }
 
-        private void HeroWeaponAddDamage(XElement weaponLegacy, HeroWeapon weapon, string weaponNameId)
+        private void HeroWeaponAddDamage(XElement weaponLegacy, UnitWeapon weapon, string weaponNameId)
         {
             XElement displayEffectElement = weaponLegacy.Element("DisplayEffect");
             string parentWeaponId = weaponLegacy.Attribute("parent")?.Value;
@@ -847,52 +847,71 @@ namespace Heroes.Icons.Parser.UnitData
                     SetDefaultValues(subHero);
                     CUnitData(subHero, unit);
 
+                    subHero.ShortName = subHero.Name;
+
                     // set to same as parent
                     subHero.Difficulty = hero.Difficulty;
                     subHero.Franchise = hero.Franchise;
-                    subHero.ReleaseDate = hero.ReleaseDate;
-                    subHero.Roles = hero.Roles;
 
                     // clear
                     subHero.Abilities = null;
                     subHero.Ratings = null;
                     subHero.Talents = null;
+                    subHero.Gender = null;
+                    subHero.ReleaseDate = null;
+                    subHero.Roles = null;
+                    subHero.SubHeroUnits = null;
+
+                    if (HeroOverrideData.HeroOverridesByCHero.TryGetValue(unit, out HeroOverride heroOverride))
+                        ApplyOverrides(subHero, heroOverride);
 
                     hero.SubHeroUnits.Add(subHero);
                 }
             }
         }
 
-        private void ApplyOverrides(Hero hero)
+        private void ApplyOverrides(Hero hero, HeroOverride heroOverride)
         {
-            if (HeroOverride.EnergyTypeOverride.Enabled)
-                hero.Energy.EnergyType = HeroOverride.EnergyTypeOverride.EnergyType;
+            if (heroOverride.NameOverride.Enabled)
+                hero.Name = heroOverride.NameOverride.Name;
 
-            if (HeroOverride.EnergyOverride.Enabled)
-                hero.Energy.EnergyMax = HeroOverride.EnergyOverride.Energy;
+            if (heroOverride.ShortNameOverride.Enabled)
+                hero.ShortName = heroOverride.ShortNameOverride.ShortName;
+
+            if (heroOverride.EnergyTypeOverride.Enabled)
+                hero.Energy.EnergyType = heroOverride.EnergyTypeOverride.EnergyType;
+
+            if (heroOverride.EnergyOverride.Enabled)
+                hero.Energy.EnergyMax = heroOverride.EnergyOverride.Energy;
 
             // abilities
-            foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
+            if (hero.Abilities != null)
             {
-                if (HeroOverride.PropertyOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
+                foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
                 {
-                    foreach (var propertyOverride in valueOverrideMethods)
+                    if (heroOverride.PropertyOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
                     {
-                        // execute each property override
-                        propertyOverride.Value(ability.Value);
+                        foreach (var propertyOverride in valueOverrideMethods)
+                        {
+                            // execute each property override
+                            propertyOverride.Value(ability.Value);
+                        }
                     }
                 }
             }
 
             // weapons
-            foreach (HeroWeapon weapon in hero.Weapons)
+            if (hero.Weapons != null)
             {
-                if (HeroOverride.PropertyOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<HeroWeapon>> valueOverrideMethods))
+                foreach (UnitWeapon weapon in hero.Weapons)
                 {
-                    foreach (var propertyOverride in valueOverrideMethods)
+                    if (heroOverride.PropertyOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<UnitWeapon>> valueOverrideMethods))
                     {
-                        // execute each property override
-                        propertyOverride.Value(weapon);
+                        foreach (var propertyOverride in valueOverrideMethods)
+                        {
+                            // execute each property override
+                            propertyOverride.Value(weapon);
+                        }
                     }
                 }
             }

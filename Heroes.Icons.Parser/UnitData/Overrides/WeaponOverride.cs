@@ -5,14 +5,14 @@ using System.Collections.Generic;
 
 namespace Heroes.Icons.Parser.UnitData.Overrides
 {
-    public class WeaponOverride : PropertyOverrideBase<HeroWeapon>
+    public class WeaponOverride : PropertyOverrideBase<UnitWeapon>
     {
         public WeaponOverride(GameData gameData)
             : base(gameData)
         {
         }
 
-        protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<HeroWeapon>> propertyOverrides)
+        protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<UnitWeapon>> propertyOverrides)
         {
             if (propertyName == "Range")
             {
