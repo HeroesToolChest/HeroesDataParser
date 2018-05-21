@@ -5,6 +5,7 @@ using Heroes.Icons.Parser.Models.AbilityTalents.Tooltip;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace Heroes.Icons.FileWriter.Writer
@@ -206,7 +207,7 @@ namespace Heroes.Icons.FileWriter.Writer
         private XElement AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)
         {
             return new XElement(
-                StripInvalidChars(abilityTalentBase.ReferenceNameId),
+                XmlConvert.EncodeName(abilityTalentBase.ReferenceNameId),
                 new XAttribute("name", abilityTalentBase.Name),
                 string.IsNullOrEmpty(abilityTalentBase.ShortTooltipNameId) ? null : new XAttribute("shortTooltipId", abilityTalentBase.ShortTooltipNameId),
                 string.IsNullOrEmpty(abilityTalentBase.FullTooltipNameId) ? null : new XAttribute("fullTooltipId", abilityTalentBase.FullTooltipNameId),
