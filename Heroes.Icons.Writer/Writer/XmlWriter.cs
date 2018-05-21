@@ -80,7 +80,7 @@ namespace Heroes.Icons.FileWriter.Writer
                     "Energy",
                     new XElement("EnergyAmount", hero.Energy.EnergyMax, new XAttribute("type", hero.Energy.EnergyType)),
                     new XElement("EnergyRegenRate", hero.Energy.EnergyRegenerationRate)),
-                hero.Roles != null ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
+                hero.Roles != null && hero.Roles.Count > 0 ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
                 RatingsElement(hero),
                 WeaponsElement(hero),
                 AbilitiesElement(hero),
