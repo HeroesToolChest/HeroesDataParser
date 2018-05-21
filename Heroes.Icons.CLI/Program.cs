@@ -1,4 +1,5 @@
-﻿using Heroes.Icons.Parser;
+﻿using Heroes.Icons.FileWriter;
+using Heroes.Icons.Parser;
 using Heroes.Icons.Parser.GameStrings;
 using Heroes.Icons.Parser.Models;
 using Heroes.Icons.Parser.UnitData;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace Heroes.Icons.CLI
 {
@@ -16,7 +18,7 @@ namespace Heroes.Icons.CLI
         private string ModsFolderPath;
         private GameData GameData;
         private GameStringData GameStringData;
-        private HeroOverrideData HeroOverrideData;
+        private OverrideData HeroOverrideData;
 
         internal static void Main(string[] args)
         {
@@ -61,6 +63,8 @@ namespace Heroes.Icons.CLI
                 }
 
                 HeroDataVerification(unitParser.ParsedHeroes);
+
+                FileOutput.CreateOutput(unitParser.ParsedHeroes.OrderBy(x => x.ShortName).ToList());
             }
             catch (Exception ex) // catch everything
             {
@@ -111,12 +115,12 @@ namespace Heroes.Icons.CLI
         {
             var time = new Stopwatch();
 
-            HeroOverrideData = new HeroOverrideData(GameData);
+            HeroOverrideData = new OverrideData(GameData);
 
             Console.WriteLine($"Loading {HeroOverrideData.HeroDataOverrideXmlFile} ...");
 
             time.Start();
-            HeroOverrideData.LoadHeroOverrideData();
+            HeroOverrideData.LoadOverrideData();
             time.Stop();
 
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");

@@ -25,32 +25,32 @@ namespace Heroes.Icons.Parser.GameStrings
         }
 
         /// <summary>
-        /// Gets or sets the short tooltip descriptions of all ability/talent
+        /// Gets or sets the short tooltip descriptions of all ability/talent.
         /// </summary>
         public SortedDictionary<string, string> ShortTooltipsByShortTooltipNameId { get; set; } = new SortedDictionary<string, string>();
 
         /// <summary>
-        /// Gets or sets the full tooltip descriptions of all ability/talent
+        /// Gets or sets the full tooltip descriptions of all ability/talent.
         /// </summary>
         public SortedDictionary<string, string> FullTooltipsByFullTooltipNameId { get; set; } = new SortedDictionary<string, string>();
 
         /// <summary>
-        /// Gets or sets the hero descriptions of all heroes
+        /// Gets or sets the hero descriptions of all heroes.
         /// </summary>
         public SortedDictionary<string, string> HeroDescriptionsByShortName { get; set; } = new SortedDictionary<string, string>();
 
         /// <summary>
-        /// Gets or sets the real names of all heroes
+        /// Gets or sets the real names of all heroes.
         /// </summary>
         public SortedDictionary<string, string> HeroNamesByShortName { get; set; } = new SortedDictionary<string, string>();
 
         /// <summary>
-        /// Gets or sets the real names of the all ability/talents
+        /// Gets or sets the real names of the all ability/talents.
         /// </summary>
         public SortedDictionary<string, string> AbilityTalentNamesByReferenceNameId { get; set; } = new SortedDictionary<string, string>();
 
         /// <summary>
-        /// Gets or sets the real names of all units
+        /// Gets or sets the real names of all units.
         /// </summary>
         public SortedDictionary<string, string> UnitNamesByShortName { get; set; } = new SortedDictionary<string, string>();
 
