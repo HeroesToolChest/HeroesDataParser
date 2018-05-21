@@ -206,7 +206,7 @@ namespace Heroes.Icons.FileWriter.Writer
         private XElement AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)
         {
             return new XElement(
-                abilityTalentBase.ReferenceNameId,
+                StripInvalidChars(abilityTalentBase.ReferenceNameId),
                 new XAttribute("name", abilityTalentBase.Name),
                 string.IsNullOrEmpty(abilityTalentBase.ShortTooltipNameId) ? null : new XAttribute("shortTooltipId", abilityTalentBase.ShortTooltipNameId),
                 string.IsNullOrEmpty(abilityTalentBase.FullTooltipNameId) ? null : new XAttribute("fullTooltipId", abilityTalentBase.FullTooltipNameId),

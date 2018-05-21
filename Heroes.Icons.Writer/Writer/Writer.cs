@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 
 namespace Heroes.Icons.FileWriter.Writer
 {
@@ -10,5 +11,10 @@ namespace Heroes.Icons.FileWriter.Writer
         }
 
         protected string OutputFolder => "Output";
+
+        protected string StripInvalidChars(string text)
+        {
+            return new string(text.Where(c => !char.IsPunctuation(c)).ToArray());
+        }
     }
 }
