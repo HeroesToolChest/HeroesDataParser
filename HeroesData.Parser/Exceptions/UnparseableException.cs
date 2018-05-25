@@ -3,7 +3,7 @@
 namespace HeroesData.Parser.Exceptions
 {
     [Serializable]
-    public class UnparseableException : Exception
+    internal class UnparseableException : Exception
     {
         public UnparseableException(string message)
             : base(message)

@@ -17,44 +17,51 @@ namespace HeroesData.Parser.GameStrings
         private readonly string OldDescriptionsPath;
         private readonly string HeroModsPath;
 
-        public GameStringData(string modsFolderPath)
+        private GameStringData(string modsFolderPath)
         {
             ModsFolderPath = modsFolderPath;
             OldDescriptionsPath = Path.Combine(modsFolderPath, @"heroesdata.stormmod\enus.stormdata\LocalizedData\GameStrings.txt");
             HeroModsPath = Path.Combine(modsFolderPath, "heromods");
+
+            Initialize();
         }
 
         /// <summary>
-        /// Gets or sets the short tooltip descriptions of all ability/talent.
+        /// Gets the short tooltip descriptions of all ability/talent.
         /// </summary>
-        public SortedDictionary<string, string> ShortTooltipsByShortTooltipNameId { get; set; } = new SortedDictionary<string, string>();
+        public SortedDictionary<string, string> ShortTooltipsByShortTooltipNameId { get; } = new SortedDictionary<string, string>();
 
         /// <summary>
-        /// Gets or sets the full tooltip descriptions of all ability/talent.
+        /// Gets the full tooltip descriptions of all ability/talent.
         /// </summary>
-        public SortedDictionary<string, string> FullTooltipsByFullTooltipNameId { get; set; } = new SortedDictionary<string, string>();
+        public SortedDictionary<string, string> FullTooltipsByFullTooltipNameId { get; } = new SortedDictionary<string, string>();
 
         /// <summary>
-        /// Gets or sets the hero descriptions of all heroes.
+        /// Gets the hero descriptions of all heroes.
         /// </summary>
-        public SortedDictionary<string, string> HeroDescriptionsByShortName { get; set; } = new SortedDictionary<string, string>();
+        public SortedDictionary<string, string> HeroDescriptionsByShortName { get; } = new SortedDictionary<string, string>();
 
         /// <summary>
-        /// Gets or sets the real names of all heroes.
+        /// Gets the real names of all heroes.
         /// </summary>
-        public SortedDictionary<string, string> HeroNamesByShortName { get; set; } = new SortedDictionary<string, string>();
+        public SortedDictionary<string, string> HeroNamesByShortName { get; } = new SortedDictionary<string, string>();
 
         /// <summary>
-        /// Gets or sets the real names of the all ability/talents.
+        /// Gets the real names of the all ability/talents.
         /// </summary>
-        public SortedDictionary<string, string> AbilityTalentNamesByReferenceNameId { get; set; } = new SortedDictionary<string, string>();
+        public SortedDictionary<string, string> AbilityTalentNamesByReferenceNameId { get; } = new SortedDictionary<string, string>();
 
         /// <summary>
-        /// Gets or sets the real names of all units.
+        /// Gets the real names of all units.
         /// </summary>
-        public SortedDictionary<string, string> UnitNamesByShortName { get; set; } = new SortedDictionary<string, string>();
+        public SortedDictionary<string, string> UnitNamesByShortName { get; } = new SortedDictionary<string, string>();
 
-        public void Load()
+        public static GameStringData Load(string modsFolderPath)
+        {
+            return new GameStringData(modsFolderPath);
+        }
+
+        private void Initialize()
         {
             ParseFiles(OldDescriptionsPath);
             ParseNewHeroes();

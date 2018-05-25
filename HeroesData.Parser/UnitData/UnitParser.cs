@@ -20,25 +20,40 @@ namespace HeroesData.Parser.UnitData
 
         private SortedDictionary<string, string> CUnitIdByHeroCHeroIds = new SortedDictionary<string, string>();
 
-        public UnitParser(GameData gameData, GameStringData gameStringData, GameStringParser gameStringParser, OverrideData overrideData)
+        private UnitParser(GameData gameData, GameStringData gameStringData, GameStringParser gameStringParser, OverrideData overrideData)
         {
             GameData = gameData;
             GameStringData = gameStringData;
             GameStringParser = gameStringParser;
             OverrideData = overrideData;
+
+            Initialize();
         }
 
         /// <summary>
-        /// Gets or sets a list of successfully parsed hero data.
+        /// Gets a list of successfully parsed hero data.
         /// </summary>
-        public List<Hero> ParsedHeroes { get; set; } = new List<Hero>(101);
+        public List<Hero> ParsedHeroes { get; } = new List<Hero>(101);
 
         /// <summary>
-        /// Gets or sets a dictionary of heroes that unsuccesfully parsed.
+        /// Gets a dictionary of heroes that unsuccesfully parsed.
         /// </summary>
-        public ConcurrentDictionary<string, Exception> FailedHeroesExceptionsByHeroName { get; set; } = new ConcurrentDictionary<string, Exception>();
+        public ConcurrentDictionary<string, Exception> FailedHeroesExceptionsByHeroName { get; } = new ConcurrentDictionary<string, Exception>();
 
-        public void ParseHeroes()
+        /// <summary>
+        /// Loads all unit data.
+        /// </summary>
+        /// <param name="gameData"></param>
+        /// <param name="gameStringData"></param>
+        /// <param name="gameStringParser"></param>
+        /// <param name="overrideData"></param>
+        /// <returns></returns>
+        public static UnitParser Load(GameData gameData, GameStringData gameStringData, GameStringParser gameStringParser, OverrideData overrideData)
+        {
+            return new UnitParser(gameData, gameStringData, gameStringParser, overrideData);
+        }
+
+        private void Initialize()
         {
             GetCHeroNames();
             ParseHeroData();
@@ -73,12 +88,13 @@ namespace HeroesData.Parser.UnitData
             }
 
             // add overrides for CUnit
-            foreach (KeyValuePair<string, HeroOverride> heroOverride in OverrideData.HeroOverridesByCHeroId)
+            foreach (KeyValuePair<string, string> hero in CUnitIdByHeroCHeroIds.ToList())
             {
-                if (CUnitIdByHeroCHeroIds.ContainsKey(heroOverride.Key))
+                HeroOverride heroOverride = OverrideData.HeroOverride(hero.Key);
+                if (heroOverride != null)
                 {
-                    if (heroOverride.Value.CUnitOverride.Enabled)
-                        CUnitIdByHeroCHeroIds[heroOverride.Key] = heroOverride.Value.CUnitOverride.CUnit;
+                    if (heroOverride.CUnitOverride.Enabled)
+                        CUnitIdByHeroCHeroIds[hero.Key] = heroOverride.CUnitOverride.CUnit;
                 }
             }
         }

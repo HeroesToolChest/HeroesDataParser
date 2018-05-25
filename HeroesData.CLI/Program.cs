@@ -18,7 +18,7 @@ namespace HeroesData.CLI
         private string ModsFolderPath;
         private GameData GameData;
         private GameStringData GameStringData;
-        private OverrideData HeroOverrideData;
+        private OverrideData OverrideData;
 
         internal static void Main(string[] args)
         {
@@ -46,12 +46,12 @@ namespace HeroesData.CLI
         {
             try
             {
+                // get all data
                 InitializeGameData();
                 InitializeGameStringData();
-                InitializeHeroOverrideData();
+                InitializeOverrideData();
 
-                GameStringParser gameStringParser = InitializeDescriptionParser();
-
+                GameStringParser gameStringParser = InitializeGameStringParser();
                 UnitParser unitParser = InitializeUnitParser(gameStringParser);
 
                 if (unitParser.FailedHeroesExceptionsByHeroName.Count > 0)
@@ -78,14 +78,12 @@ namespace HeroesData.CLI
             var time = new Stopwatch();
 
             Console.WriteLine($"Loading xml files...");
-            GameData gameData = new GameData(ModsFolderPath);
 
             time.Start();
-            gameData.Load();
-            GameData = gameData;
+            GameData = GameData.Load(ModsFolderPath);
             time.Stop();
 
-            Console.WriteLine($"{gameData.XmlFileCount} xml files loaded");
+            Console.WriteLine($"{GameData.XmlFileCount} xml files loaded");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine(string.Empty);
         }
@@ -95,10 +93,9 @@ namespace HeroesData.CLI
             var time = new Stopwatch();
 
             Console.WriteLine($"Loading game strings...");
-            GameStringData = new GameStringData(ModsFolderPath);
 
             time.Start();
-            GameStringData.Load();
+            GameStringData = GameStringData.Load(ModsFolderPath);
             time.Stop();
 
             Console.WriteLine($"{GameStringData.FullTooltipsByFullTooltipNameId.Count} Full Tooltips");
@@ -111,31 +108,28 @@ namespace HeroesData.CLI
             Console.WriteLine("...");
         }
 
-        private void InitializeHeroOverrideData()
+        private void InitializeOverrideData()
         {
             var time = new Stopwatch();
 
-            HeroOverrideData = new OverrideData(GameData);
-
-            Console.WriteLine($"Loading {HeroOverrideData.HeroDataOverrideXmlFile} ...");
+            Console.WriteLine($"Loading {OverrideData.HeroDataOverrideXmlFile} ...");
 
             time.Start();
-            HeroOverrideData.LoadOverrideData();
+            OverrideData = OverrideData.Load(GameData);
             time.Stop();
 
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine("...");
         }
 
-        private GameStringParser InitializeDescriptionParser()
+        private GameStringParser InitializeGameStringParser()
         {
             var time = new Stopwatch();
 
             Console.WriteLine($"Parsing tooltips...");
-            GameStringParser descriptionParser = new GameStringParser(GameData, GameStringData);
 
             time.Start();
-            descriptionParser.ParseAllGameStrings();
+            GameStringParser descriptionParser = GameStringParser.ParseGameStrings(GameData, GameStringData);
             time.Stop();
 
             Console.WriteLine($"{descriptionParser.FullParsedTooltipsByFullTooltipNameId.Count} parsed full tooltips");
@@ -155,10 +149,9 @@ namespace HeroesData.CLI
             var time = new Stopwatch();
 
             Console.WriteLine($"Executing hero data...");
-            UnitParser unitParser = new UnitParser(GameData, GameStringData, gameStringParser, HeroOverrideData);
 
             time.Start();
-            unitParser.ParseHeroes();
+            UnitParser unitParser = UnitParser.Load(GameData, GameStringData, gameStringParser, OverrideData);
             time.Stop();
 
             if (unitParser.FailedHeroesExceptionsByHeroName.Count > 0)

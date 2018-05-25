@@ -45,7 +45,7 @@ namespace HeroesData.Parser.GameStrings
         /// Returns the string with all tags.
         /// </summary>
         /// <param name="gameString">The game string text.</param>
-        /// <param name="includeScaling">If true, includes the scaling info</param>
+        /// <param name="includeScaling">If true, includes the scaling info.</param>
         /// <returns></returns>
         public static string GetColoredText(string gameString, bool includeScaling)
         {
@@ -365,10 +365,10 @@ namespace HeroesData.Parser.GameStrings
         }
 
         /// <summary>
-        /// Parse the scaling tag, removes the tag or replaces it
+        /// Parse the scaling tag, removes the tag or replaces it.
         /// </summary>
         /// <param name="scaleText"></param>
-        /// <param name="replace">If true, replace the tag, else return an empty string</param>
+        /// <param name="replace">If true, replace the tag, else return an empty string.</param>
         private bool ParseScalingTag(out string scaleText, bool replace)
         {
             int tagCount = 0;

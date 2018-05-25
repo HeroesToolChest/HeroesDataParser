@@ -21,13 +21,14 @@ namespace HeroesData.Parser.GameStrings
 
         private Dictionary<string, HashSet<string>> ElementNames = new Dictionary<string, HashSet<string>>();
 
-        public GameStringParser(GameData gameData, GameStringData gameStringData)
+        private GameStringParser(GameData gameData, GameStringData gameStringData)
         {
             GameData = gameData;
             GameStringData = gameStringData;
-            GameStringValues = GameStringValues.GetGameStringValues();
+            GameStringValues = GameStringValues.Load();
 
             SetValidElementNames();
+            Initialize();
         }
 
         private GameStringParser(GameData gameData)
@@ -37,34 +38,45 @@ namespace HeroesData.Parser.GameStrings
         }
 
         /// <summary>
-        /// Gets or sets the short parsed tooltips.
+        /// Gets the short parsed tooltips.
         /// </summary>
-        public ConcurrentDictionary<string, string> ShortParsedTooltipsByShortTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 5001);
+        public ConcurrentDictionary<string, string> ShortParsedTooltipsByShortTooltipNameId { get; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 5001);
 
         /// <summary>
-        /// Gets or sets the full parsed tooltips.
+        /// Gets the full parsed tooltips.
         /// </summary>
-        public ConcurrentDictionary<string, string> FullParsedTooltipsByFullTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 5001);
+        public ConcurrentDictionary<string, string> FullParsedTooltipsByFullTooltipNameId { get; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 5001);
 
         /// <summary>
-        /// Gets or sets the parsed hero descriptions.
+        /// Gets the parsed hero descriptions.
         /// </summary>
-        public ConcurrentDictionary<string, string> HeroParsedDescriptionsByShortName { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
+        public ConcurrentDictionary<string, string> HeroParsedDescriptionsByShortName { get; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
 
         /// <summary>
-        /// Gets or sets the invalid short parsed tooltips.
+        /// Gets the invalid short parsed tooltips.
         /// </summary>
-        public ConcurrentDictionary<string, string> InvalidShortTooltipsByShortTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
+        public ConcurrentDictionary<string, string> InvalidShortTooltipsByShortTooltipNameId { get; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
 
         /// <summary>
-        /// Gets or sets the invalid full parsed tooltips.
+        /// Gets the invalid full parsed tooltips.
         /// </summary>
-        public ConcurrentDictionary<string, string> InvalidFullTooltipsByFullTooltipNameId { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
+        public ConcurrentDictionary<string, string> InvalidFullTooltipsByFullTooltipNameId { get; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
 
         /// <summary>
-        /// Gets or sets the invalid hero descriptions.
+        /// Gets the invalid hero descriptions.
         /// </summary>
-        public ConcurrentDictionary<string, string> InvalidHeroDescriptionsByShortName { get; set; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
+        public ConcurrentDictionary<string, string> InvalidHeroDescriptionsByShortName { get; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
+
+        /// <summary>
+        /// Parses all the game strings.
+        /// </summary>
+        /// <param name="gameData"></param>
+        /// <param name="gameStringData"></param>
+        /// <returns></returns>
+        public static GameStringParser ParseGameStrings(GameData gameData, GameStringData gameStringData)
+        {
+            return new GameStringParser(gameData, gameStringData);
+        }
 
         /// <summary>
         /// Parse a dref string and return the calculated value.
@@ -76,10 +88,7 @@ namespace HeroesData.Parser.GameStrings
             return new GameStringParser(gameData).ParseDataReferenceString(dRef);
         }
 
-        /// <summary>
-        /// Parses all the game strings.
-        /// </summary>
-        public void ParseAllGameStrings()
+        private void Initialize()
         {
             ParseTooltipGameStringData(GameStringData.ShortTooltipsByShortTooltipNameId, ShortParsedTooltipsByShortTooltipNameId, InvalidShortTooltipsByShortTooltipNameId);
             ParseTooltipGameStringData(GameStringData.FullTooltipsByFullTooltipNameId, FullParsedTooltipsByFullTooltipNameId, InvalidFullTooltipsByFullTooltipNameId);
@@ -489,10 +498,7 @@ namespace HeroesData.Parser.GameStrings
             if (fieldValue.EndsWith("]"))
                 fieldValue = fieldValue.Substring(0, fieldValue.Length - 3);
 
-            if (GameData.ScaleValueByLookupId.TryGetValue((catalogValue, entryValue, fieldValue), out double scaleValue))
-                return scaleValue;
-            else
-                return null;
+            return GameData.ScaleValue((catalogValue, entryValue, fieldValue));
         }
 
         private void SetValidElementNames()
@@ -503,7 +509,8 @@ namespace HeroesData.Parser.GameStrings
                 "CEffectModifyTokenCount", "CEffectApplyBehavior", "CEffectModifyBehaviorBuffDuration", "CEffectModifyCatalogNumeric", "CEffectLaunchMissile", "CEffectCreateUnit", "CEffectRemoveBehavior", });
             ElementNames.Add("Unit", new HashSet<string> { "CUnit" });
             ElementNames.Add("Talent", new HashSet<string> { "CTalent" });
-            ElementNames.Add("Validator", new HashSet<string> { "CValidatorUnitCompareVital", "CValidatorLocationEnumArea", "CValidatorUnitCompareTokenCount", "CValidatorCompareTrackedUnitsCount", "CValidatorUnitCompareDamageTakenTime" });
+            ElementNames.Add("Validator", new HashSet<string> { "CValidatorUnitCompareVital", "CValidatorLocationEnumArea", "CValidatorUnitCompareTokenCount", "CValidatorCompareTrackedUnitsCount", "CValidatorUnitCompareDamageTakenTime",
+                "CValidatorUnitCompareBehaviorCount", });
             ElementNames.Add("Accumulator", new HashSet<string> { "CAccumulatorToken", "CAccumulatorVitals", "CBehaviorTokenCounter", "CAccumulatorTimed", "CAccumulatorDistanceUnitTraveled" });
             ElementNames.Add("Weapon", new HashSet<string> { "CWeaponLegacy" });
             ElementNames.Add("Actor", new HashSet<string> { "CActorQuad" });

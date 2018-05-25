@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 
@@ -7,32 +8,49 @@ namespace HeroesData.Parser.XmlGameData
     public class GameData
     {
         private readonly string ModsFolderPath;
+        private readonly Dictionary<(string Catalog, string Entry, string Field), double> ScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
 
-        public GameData(string modsFolderPath)
+        private GameData(string modsFolderPath)
         {
             ModsFolderPath = modsFolderPath;
+
+            Initialize();
         }
 
         /// <summary>
-        /// Gets or sets the number of xml files that were to added <see cref="XmlGameData"/>.
+        /// Gets the number of xml files that were to added <see cref="XmlGameData"/>.
         /// </summary>
-        public int XmlFileCount { get; set; } = 0;
+        public int XmlFileCount { get; private set; } = 0;
 
         /// <summary>
-        /// Gets or sets the an XDoucment of game data.
+        /// Gets a XDocument of all the combined xml game data.
         /// </summary>
-        public XDocument XmlGameData { get; set; }
+        public XDocument XmlGameData { get; private set; }
 
         /// <summary>
-        /// Gets or sets the scaling value by the lookup id  (catalog, entry, and field).
+        /// Loads all the required game files.
         /// </summary>
-        public Dictionary<(string Catalog, string Entry, string Field), double> ScaleValueByLookupId { get; set; } = new Dictionary<(string Catalog, string Entry, string Field), double>();
-
-        /// <summary>
-        /// Loads all the needed xml data files.
-        /// </summary>
+        /// <param name="modsFolderPath">The file path of the mods folder.</param>
         /// <returns></returns>
-        public void Load()
+        public static GameData Load(string modsFolderPath)
+        {
+            return new GameData(modsFolderPath);
+        }
+
+        /// <summary>
+        /// Gets the scale value of the given lookup id.
+        /// </summary>
+        /// <param name="lookupId">lookupId.</param>
+        /// <returns></returns>
+        public double? ScaleValue((string Catalog, string Entry, string Field) lookupId)
+        {
+            if (ScaleValueByLookupId.TryGetValue(lookupId, out double value))
+                return value;
+            else
+                return null;
+        }
+
+        private void Initialize()
         {
             LoadXmlFiles();
             GetLevelScalingData();

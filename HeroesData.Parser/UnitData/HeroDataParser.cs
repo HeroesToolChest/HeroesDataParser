@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser.UnitData
 {
-    internal class HeroDataParser
+    public class HeroDataParser
     {
         private readonly double DefaultWeaponPeriod = 1.2; // for hero weapons
 
@@ -41,7 +41,8 @@ namespace HeroesData.Parser.UnitData
                 CUnitId = cUnitId,
             };
 
-            if (OverrideData.HeroOverridesByCHeroId.TryGetValue(cHeroId, out HeroOverride heroOverride))
+            HeroOverride heroOverride = OverrideData.HeroOverride(cHeroId);
+            if (heroOverride != null)
                 HeroOverride = heroOverride;
 
             SetDefaultValues(hero);
@@ -334,15 +335,17 @@ namespace HeroesData.Parser.UnitData
                 {
                     hero.Life.LifeMax = double.Parse(element.Attribute("value").Value);
 
-                    if (GameData.ScaleValueByLookupId.TryGetValue(("Unit", hero.CUnitId, "LifeMax"), out double scaleValue))
-                        hero.Life.LifeScaling = scaleValue;
+                    double? scaleValue = GameData.ScaleValue(("Unit", hero.CUnitId, "LifeMax"));
+                    if (scaleValue.HasValue)
+                        hero.Life.LifeScaling = scaleValue.Value;
                 }
                 else if (elementName == "LIFEREGENRATE")
                 {
                     hero.Life.LifeRegenerationRate = double.Parse(element.Attribute("value").Value);
 
-                    if (GameData.ScaleValueByLookupId.TryGetValue(("Unit", hero.CUnitId, "LifeRegenRate"), out double scaleValue))
-                        hero.Life.LifeRegenerationRateScaling = scaleValue;
+                    double? scaleValue = GameData.ScaleValue(("Unit", hero.CUnitId, "LifeRegenRate"));
+                    if (scaleValue.HasValue)
+                        hero.Life.LifeRegenerationRateScaling = scaleValue.Value;
                 }
                 else if (elementName == "RADIUS")
                 {
@@ -816,8 +819,9 @@ namespace HeroesData.Parser.UnitData
                     }
                 }
 
-                if (GameData.ScaleValueByLookupId.TryGetValue(("Effect", displayEffectValue, "Amount"), out double scaleValue))
-                    weapon.DamageScaling = scaleValue;
+                double? scaleValue = GameData.ScaleValue(("Effect", displayEffectValue, "Amount"));
+                if (scaleValue.HasValue)
+                    weapon.DamageScaling = scaleValue.Value;
             }
             else if (!string.IsNullOrEmpty(parentWeaponId))
             {
@@ -864,7 +868,8 @@ namespace HeroesData.Parser.UnitData
                     heroUnit.Type = null;
                     heroUnit.Rarity = null;
 
-                    if (OverrideData.HeroOverridesByCHeroId.TryGetValue(unit, out HeroOverride heroOverride))
+                    HeroOverride heroOverride = OverrideData.HeroOverride(unit);
+                    if (heroOverride != null)
                         ApplyOverrides(heroUnit, heroOverride);
 
                     hero.HeroUnits.Add(heroUnit);

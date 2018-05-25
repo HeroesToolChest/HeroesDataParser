@@ -1,9 +1,7 @@
 ﻿using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.XmlGameData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using System.IO;
-using System.Xml.Linq;
 
 namespace HeroesData.Parser.Tests
 {
@@ -11,8 +9,7 @@ namespace HeroesData.Parser.Tests
     public class GameStringParserTests
     {
         private const string TestDataFolder = "TestData";
-        private readonly string XmlTestDataFile = Path.Combine(TestDataFolder, "XmlTestData.xml");
-        private readonly string GameStringsTestDataFile = Path.Combine(TestDataFolder, "GameStringsTestData.txt");
+        private readonly string ModsTestFolder = Path.Combine(TestDataFolder, "mods");
 
         private readonly string DataReferenceText1 = "<d ref=\"100*Talent,AnubarakMasteryEpicenterBurrowCharge,AbilityModificationArray[0].Modifications[2].Value\"/>";
 
@@ -27,8 +24,7 @@ namespace HeroesData.Parser.Tests
         [TestMethod]
         public void ParseGameStringsTest()
         {
-            GameStringParser parser = new GameStringParser(GameData, GameStringData);
-            parser.ParseAllGameStrings();
+            GameStringParser parser = GameStringParser.ParseGameStrings(GameData, GameStringData);
 
             Assert.IsTrue(parser.FullParsedTooltipsByFullTooltipNameId.Count == GameStringData.FullTooltipsByFullTooltipNameId.Count);
             Assert.IsTrue(parser.InvalidFullTooltipsByFullTooltipNameId.Count == 0);
@@ -50,58 +46,8 @@ namespace HeroesData.Parser.Tests
 
         private void LoadTestData()
         {
-            XDocument data = XDocument.Load(XmlTestDataFile);
-            GameData = new GameData(string.Empty)
-            {
-                XmlGameData = data,
-                ScaleValueByLookupId = LoadScalingData(data),
-            };
-
-            SortedDictionary<string, string> fullTooltips = new SortedDictionary<string, string>();
-
-            using (StreamReader reader = new StreamReader(GameStringsTestDataFile))
-            {
-                while (!reader.EndOfStream)
-                {
-                    string line = reader.ReadLine();
-                    string[] lines = line.Split(new char[] { '=' }, 2);
-
-                    if (lines.Length == 2 && !fullTooltips.ContainsKey(lines[0]))
-                        fullTooltips.Add(lines[0], lines[1]);
-                }
-            }
-
-            GameStringData = new GameStringData(string.Empty)
-            {
-                FullTooltipsByFullTooltipNameId = fullTooltips,
-            };
-        }
-
-        private Dictionary<(string Catalog, string Entry, string Field), double> LoadScalingData(XDocument xmlGameData)
-        {
-            var scalingData = new Dictionary<(string Catalog, string Entry, string Field), double>();
-            IEnumerable<XElement> levelScalingArrays = xmlGameData.Root.Descendants("LevelScalingArray");
-
-            foreach (XElement scalingArray in levelScalingArrays)
-            {
-                foreach (XElement modification in scalingArray.Elements("Modifications"))
-                {
-                    string catalog = modification.Element("Catalog")?.Attribute("value")?.Value;
-                    string entry = modification.Element("Entry")?.Attribute("value")?.Value;
-                    string field = modification.Element("Field")?.Attribute("value")?.Value;
-                    string value = modification.Element("Value")?.Attribute("value")?.Value;
-
-                    if (string.IsNullOrEmpty(value))
-                        continue;
-
-                    if (scalingData.ContainsKey((catalog, entry, field)))
-                        scalingData[(catalog, entry, field)] = double.Parse(value); // replace
-                    else
-                        scalingData.Add((catalog, entry, field), double.Parse(value));
-                }
-            }
-
-            return scalingData;
+            GameData = GameData.Load(ModsTestFolder);
+            GameStringData = GameStringData.Load(ModsTestFolder);
         }
     }
 }

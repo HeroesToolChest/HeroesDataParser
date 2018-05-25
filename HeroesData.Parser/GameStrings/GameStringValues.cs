@@ -3,23 +3,30 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser.GameStrings
 {
-    public class GameStringValues
+    internal class GameStringValues
     {
         private readonly string GameStringValuesXmlFile = "GameStringValues.xml";
 
-        public GameStringValues()
+        private GameStringValues()
         {
-            Load();
+            Initialize();
         }
 
-        public List<(string Name, string PartIndex, string Value)> PartValueByPartName { get; set; } = new List<(string Name, string PartIndex, string Value)>();
+        /// <summary>
+        /// Gets a lists of values for selected parts of a path.
+        /// </summary>
+        public List<(string Name, string PartIndex, string Value)> PartValueByPartName { get; } = new List<(string Name, string PartIndex, string Value)>();
 
-        public static GameStringValues GetGameStringValues()
+        /// <summary>
+        /// Loads the GameStringValues xml file data.
+        /// </summary>
+        /// <returns></returns>
+        public static GameStringValues Load()
         {
             return new GameStringValues();
         }
 
-        private void Load()
+        private void Initialize()
         {
             XDocument xDoc = XDocument.Load(GameStringValuesXmlFile);
 

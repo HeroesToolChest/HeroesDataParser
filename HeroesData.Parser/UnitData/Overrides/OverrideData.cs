@@ -11,16 +11,40 @@ namespace HeroesData.Parser.UnitData.Overrides
     {
         private readonly GameData GameData;
 
-        public OverrideData(GameData gameData)
+        private Dictionary<string, HeroOverride> HeroOverridesByCHeroId = new Dictionary<string, HeroOverride>();
+
+        private OverrideData(GameData gameData)
         {
             GameData = gameData;
+            Initialize();
         }
 
-        public string HeroDataOverrideXmlFile => @"HeroOverrides.xml";
+        public static string HeroDataOverrideXmlFile => @"HeroOverrides.xml";
 
-        public Dictionary<string, HeroOverride> HeroOverridesByCHeroId { get; set; } = new Dictionary<string, HeroOverride>();
+        /// <summary>
+        /// Loads the override data.
+        /// </summary>
+        /// <param name="gameData">GameData.</param>
+        /// <returns></returns>
+        public static OverrideData Load(GameData gameData)
+        {
+            return new OverrideData(gameData);
+        }
 
-        public void LoadOverrideData()
+        /// <summary>
+        /// Gets the HeroOverride for the given cHeroId. Returns null if none found.
+        /// </summary>
+        /// <param name="cHeroId">CHero id of hero name.</param>
+        /// <returns></returns>
+        public HeroOverride HeroOverride(string cHeroId)
+        {
+            if (HeroOverridesByCHeroId.TryGetValue(cHeroId, out HeroOverride overrideData))
+                return overrideData;
+            else
+                return null;
+        }
+
+        private void Initialize()
         {
             XDocument cHeroDocument = XDocument.Load(HeroDataOverrideXmlFile);
             IEnumerable<XElement> cHeroes = cHeroDocument.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
