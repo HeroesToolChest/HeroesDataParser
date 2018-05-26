@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides>
   <CHero id="Abathur">
-    <Energy value="0" />
     <HeroUnit id="AbathurSymbiote"></HeroUnit>
   </CHero>
   <CHero id="Alarak">
