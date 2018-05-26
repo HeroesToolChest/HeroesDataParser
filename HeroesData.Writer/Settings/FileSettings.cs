@@ -10,7 +10,7 @@
         public string ImageExtension { get; set; }
         public bool IncludeWeapons { get; set; }
         public bool IncludeAbilities { get; set; }
-        public bool IncludeExtraAbilities { get; set; }
+        public bool IncludeSubAbilities { get; set; }
         public bool IncludeTalents { get; set; }
         public bool IncludeHeroUnits { get; set; }
     }

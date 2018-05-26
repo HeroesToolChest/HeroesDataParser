@@ -188,7 +188,7 @@ namespace HeroesData.Parser
 
                 if (hero.HeroUnits.Count > 0)
                 {
-                    foreach (Hero additionalUnit in hero.HeroUnits)
+                    foreach (Unit additionalUnit in hero.HeroUnits)
                     {
                         if (additionalUnit.Life.LifeMax <= 0)
                             AddWarning($"[{additionalUnit.Name}] {nameof(hero.Life)} is 0");

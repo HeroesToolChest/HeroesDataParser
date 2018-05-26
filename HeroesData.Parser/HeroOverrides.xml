@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides>
+  <CHero id="Abathur">
+    <Energy value="0" />
+    <HeroUnit id="AbathurSymbiote"></HeroUnit>
+  </CHero>
   <CHero id="Alarak">
     <!--Cooldown and mana cost are deducted after charge release-->
     <Ability id="AlarakDeadlyCharge">
@@ -19,29 +23,25 @@
     </Ability>
     <Ability id="AlexstraszaBreathOfLife" valid="true">
       <Override>
-        <ParentLink value="AlexstraszaDragonqueen" />
+        <ParentLink value="HeroAlexstraszaDragon" />
       </Override>
     </Ability>
     <Ability id="AlexstraszaPreservation" valid="true">
       <Override>
-        <ParentLink value="AlexstraszaDragonqueen" />
+        <ParentLink value="HeroAlexstraszaDragon" />
       </Override>
     </Ability>
     <Ability id="AlexstraszaWingBuffet" valid="true">
       <Override>
-        <ParentLink value="AlexstraszaDragonqueen" />
+        <ParentLink value="HeroAlexstraszaDragon" />
       </Override>
     </Ability>
     <Ability id="AlexstraszaCleansingFlameDragonqueen" valid="true">
       <Override>
-        <ParentLink value="AlexstraszaDragonqueen" />
+        <ParentLink value="HeroAlexstraszaDragon" />
       </Override>
     </Ability>
-    <HeroUnit id="HeroAlexstraszaDragon">
-      <Name value="Dragonqueen" />
-      <ShortName value="Dragonqueen" />
-      <ParentLink value="AlexstraszaDragonqueen" />
-    </HeroUnit>
+    <HeroUnit id="HeroAlexstraszaDragon"></HeroUnit>
   </CHero>
   <CHero id="Arthas">
     <!--Mana cost is time based-->
@@ -72,31 +72,22 @@
     <!--Storm, Earth, and Fire abilities tied to Heroic ability StormEarthFire-->
     <Ability id="ChenStorm" valid="true">
       <Override>
-        <ParentLink value="ChenStormEarthFire" />
+        <ParentLink value="HeroChenStorm" />
       </Override>
     </Ability>
     <Ability id="ChenEarth" valid="true">
       <Override>
-        <ParentLink value="ChenStormEarthFire" />
+        <ParentLink value="HeroChenStorm" />
       </Override>
     </Ability>
     <Ability id="ChenFire" valid="true">
       <Override>
-        <ParentLink value="ChenStormEarthFire" />
+        <ParentLink value="HeroChenStorm" />
       </Override>
     </Ability>
-    <HeroUnit id="HeroChenStorm">
-      <ShortName value="ChenStorm" />
-      <ParentLink value="ChenStormEarthFire" />
-    </HeroUnit>
-    <HeroUnit id="HeroChenEarth">
-      <ShortName value="ChenEarth" />
-      <ParentLink value="ChenStormEarthFire" />
-    </HeroUnit>
-    <HeroUnit id="HeroChenFire">
-      <ShortName value="ChenFire" />
-      <ParentLink value="ChenStormEarthFire" />
-    </HeroUnit>
+    <HeroUnit id="HeroChenStorm"></HeroUnit>
+    <HeroUnit id="HeroChenEarth"></HeroUnit>
+    <HeroUnit id="HeroChenFire"></HeroUnit>
   </CHero>
   <CHero id="Cho">
     <Weapon id="ChoShortRangeHeroWeapon" valid="false" />
@@ -117,14 +108,10 @@
     <EnergyType value="Charge" />
     <Ability id="DVaPilotCallMech" valid="true">
       <Override>
-        <ParentLink value="DVaMechMechMode" />
+        <ParentLink value="HeroDVaPilot" />
       </Override>
     </Ability>
-    <HeroUnit id="HeroDVaPilot">
-      <Name value="D.Va Pilot" />
-      <ShortName value="DVaPilot" />
-      <ParentLink value="DVaMechMechMode" />
-    </HeroUnit>
+    <HeroUnit id="HeroDVaPilot"></HeroUnit>
   </CHero>
   <CHero id="Dryad">
     <Weapon id="DryadHeroRangedWeapon" valid="true" />
@@ -172,6 +159,7 @@
     </Ability>
     <Weapon id="HeroGreymaneRangedWeapon" valid="true" />
     <Weapon id="HeroGreymaneMeleeWeapon" valid="true" />
+    <HeroUnit id="GreymaneWorgenForm"></HeroUnit>
   </CHero>
   <CHero id="Junkrat">
     <EnergyType value="Ammo" />
@@ -244,29 +232,27 @@
     </LinkedAbilities>
     <Ability id="RagnarosBigRagMoltenSwing" valid="true">
       <Override>
-        <ParentLink value="RagnarosMoltenCore" />
+        <ParentLink value="RagnarosBigRag" />
       </Override>
     </Ability>
     <Ability id="RagnarosBigRagMeteorShower" valid="true">
       <Override>
-        <ParentLink value="RagnarosMoltenCore" />
+        <ParentLink value="RagnarosBigRag" />
       </Override>
     </Ability>
     <Ability id="RagnarosBigRagExplosiveRune" valid="true">
       <Override>
-        <ParentLink value="RagnarosMoltenCore" />
+        <ParentLink value="RagnarosBigRag" />
       </Override>
     </Ability>
-    <HeroUnit id="RagnarosBigRag">
-      <ShortName value="BigRag" />
-      <ParentLink value="RagnarosMoltenCore" />
-    </HeroUnit>
+    <HeroUnit id="RagnarosBigRag"></HeroUnit>
   </CHero>
   <CHero id="Rexxar">
     <Weapon id="RexxarMeleeWeapon" valid="true" />
     <Weapon id="RexxarRangedWeapon" valid="true" />
     <HeroUnit id="RexxarMisha">
-      <ParentLink value="RexxarMishaFocus" />
+      <EnergyType value="None" />
+      <Energy value="0" />
     </HeroUnit>
   </CHero>
   <CHero id="Samuro">

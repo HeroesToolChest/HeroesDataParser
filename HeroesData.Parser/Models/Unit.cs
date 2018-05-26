@@ -62,21 +62,27 @@ namespace HeroesData.Parser.Models
         public IList<UnitWeapon> Weapons { get; set; } = new List<UnitWeapon>();
 
         /// <summary>
-        /// Returns a collection of all the abilities in the selected tier.
+        /// Returns a collection of all the primary abilities in the selected tier (no parent linked abilities).
         /// </summary>
         /// <param name="tier">The ability tier.</param>
-        /// <param name="includeParentLinkedAbilities">Include abilities that are not the primary abilites of the hero.</param>
         /// <returns></returns>
-        public ICollection<Ability> TierAbilities(AbilityTier tier, bool includeParentLinkedAbilities)
+        public ICollection<Ability> PrimaryAbilities(AbilityTier tier)
         {
-            if (includeParentLinkedAbilities)
-                return Abilities.Values.Where(x => x.Tier == tier).ToList();
-            else
-                return Abilities.Values.Where(x => x.Tier == tier && string.IsNullOrEmpty(x.ParentLink)).ToList();
+            return Abilities.Values.Where(x => x.Tier == tier && string.IsNullOrEmpty(x.ParentLink)).ToList();
         }
 
         /// <summary>
-        /// Returns a collection of all the parent linked abilities.
+        /// Returns a collection of all the sub abilities in the selected tier..
+        /// </summary>
+        /// <param name="tier">The ability tier.</param>
+        /// <returns></returns>
+        public ICollection<Ability> SubAbilities(AbilityTier tier)
+        {
+            return Abilities.Values.Where(x => x.Tier == tier && !string.IsNullOrEmpty(x.ParentLink)).ToList();
+        }
+
+        /// <summary>
+        /// Returns a lookup of all the parent linked abilities.
         /// </summary>
         /// <returns></returns>
         public ILookup<string, Ability> ParentLinkedAbilities()

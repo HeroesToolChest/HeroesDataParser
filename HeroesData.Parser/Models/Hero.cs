@@ -66,7 +66,7 @@ namespace HeroesData.Parser.Models
         /// <summary>
         /// Gets or sets the additional hero units associated with this hero.
         /// </summary>
-        public IList<Hero> HeroUnits { get; set; } = new List<Hero>();
+        public IList<Unit> HeroUnits { get; set; } = new List<Unit>();
 
         /*/// <summary>
         /// Returns an ability object given the reference name.

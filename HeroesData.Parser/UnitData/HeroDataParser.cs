@@ -51,6 +51,7 @@ namespace HeroesData.Parser.UnitData
             AddSubHeroCUnits(hero);
 
             ApplyOverrides(hero, HeroOverride);
+            MoveParentLinkedAbilities(hero);
 
             // set all default abilities energy types to the hero's energy type
             foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
@@ -836,44 +837,36 @@ namespace HeroesData.Parser.UnitData
             foreach (string unit in HeroOverride.HeroUnits)
             {
                 XElement cUnit = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value == unit).FirstOrDefault();
+
+                string name = string.Empty;
+                if (!GameStringData.UnitNamesByShortName.TryGetValue(unit, out name))
+                {
+                    if (!GameStringData.AbilityTalentNamesByReferenceNameId.TryGetValue(unit, out name))
+                        name = unit;
+                }
+
+                Hero heroUnit = new Hero
+                {
+                    Name = name,
+                    ShortName = unit.StartsWith("Hero") ? unit.Remove(0, 4) : unit,
+                    CHeroId = null,
+                    CUnitId = unit,
+                };
+
                 if (cUnit != null)
                 {
-                    Hero heroUnit = new Hero
-                    {
-                        Name = GameStringData.UnitNamesByShortName[unit],
-                        CHeroId = null,
-                        CUnitId = unit,
-                    };
-
                     if (GameStringParser.HeroParsedDescriptionsByShortName.TryGetValue(unit, out string desc))
                         heroUnit.Description = new TooltipDescription(desc);
 
                     SetDefaultValues(heroUnit);
                     CUnitData(heroUnit, unit);
 
-                    heroUnit.ShortName = heroUnit.Name;
-
-                    // set to same as parent
-                    heroUnit.Difficulty = hero.Difficulty;
-                    heroUnit.Franchise = hero.Franchise;
-
-                    // clear
-                    heroUnit.Abilities = null;
-                    heroUnit.Ratings = null;
-                    heroUnit.Talents = null;
-                    heroUnit.Gender = null;
-                    heroUnit.ReleaseDate = null;
-                    heroUnit.Roles = null;
-                    heroUnit.HeroUnits = null;
-                    heroUnit.Type = null;
-                    heroUnit.Rarity = null;
-
                     HeroOverride heroOverride = OverrideData.HeroOverride(unit);
                     if (heroOverride != null)
                         ApplyOverrides(heroUnit, heroOverride);
-
-                    hero.HeroUnits.Add(heroUnit);
                 }
+
+                hero.HeroUnits.Add(heroUnit);
             }
         }
 
@@ -923,6 +916,23 @@ namespace HeroesData.Parser.UnitData
                             propertyOverride.Value(weapon);
                         }
                     }
+                }
+            }
+        }
+
+        // moves the parent linked abilites to the respective herounit
+        private void MoveParentLinkedAbilities(Hero hero)
+        {
+            // move sub abilities to hero unit abilites
+            ILookup<string, Ability> linkedAbilities = hero.ParentLinkedAbilities();
+            if (linkedAbilities.Count > 0)
+            {
+                foreach (Hero heroUnit in hero.HeroUnits)
+                {
+                    heroUnit.Abilities = linkedAbilities[heroUnit.CUnitId].ToDictionary(x => x.ReferenceNameId, x => x);
+
+                    foreach (Ability linkedAbility in linkedAbilities[heroUnit.CUnitId].ToList())
+                        hero.Abilities.Remove(linkedAbility.ReferenceNameId);
                 }
             }
         }

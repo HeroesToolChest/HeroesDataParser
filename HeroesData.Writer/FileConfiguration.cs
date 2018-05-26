@@ -80,11 +80,11 @@ namespace HeroesData.FileWriter
             else
                 fileSettings.IncludeAbilities = false;
 
-            string includeExtraAbilities = writerElement.Element("IncludeExtraAbilities")?.Value;
-            if (bool.TryParse(includeExtraAbilities, out bool includeExtraAbilitiesValue))
-                fileSettings.IncludeExtraAbilities = includeExtraAbilitiesValue;
+            string includeSubAbilities = writerElement.Element("IncludeSubAbilities")?.Value;
+            if (bool.TryParse(includeSubAbilities, out bool includeSubAbilitiesValue))
+                fileSettings.IncludeSubAbilities = includeSubAbilitiesValue;
             else
-                fileSettings.IncludeExtraAbilities = false;
+                fileSettings.IncludeSubAbilities = false;
 
             string includeTalents = writerElement.Element("IncludeTalents")?.Value;
             if (bool.TryParse(includeTalents, out bool includeTalentsValue))

@@ -2,6 +2,7 @@
 using HeroesData.Parser.Models;
 using HeroesData.Parser.Models.AbilityTalents;
 using HeroesData.Parser.Models.AbilityTalents.Tooltip;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,10 +11,10 @@ using System.Xml.Linq;
 
 namespace HeroesData.FileWriter.Writer
 {
-    internal class XmlWriter : Writer
+    internal class XmlWriter : Writer<XElement>
     {
         private readonly XmlFileSettings FileSettings;
-
+        private readonly string SingleFileName = "heroesdata.xml";
         private XmlWriter(XmlFileSettings fileSettings, List<Hero> heroes)
         {
             FileSettings = fileSettings;
@@ -21,9 +22,9 @@ namespace HeroesData.FileWriter.Writer
             if (FileSettings.WriterEnabled)
             {
                 if (FileSettings.FileSplit)
-                    CreateMultipleFilesXml(heroes);
+                    CreateMultipleFiles(heroes);
                 else
-                    CreateSingleFileXml(heroes);
+                    CreateSingleFile(heroes);
             }
         }
 
@@ -32,18 +33,13 @@ namespace HeroesData.FileWriter.Writer
             new XmlWriter(fileSettings, heroes);
         }
 
-        private void CreateSingleFileXml(List<Hero> heroes)
+        protected override void CreateSingleFile(List<Hero> heroes)
         {
-            XDocument xmlDoc = new XDocument(
-                new XElement(
-                    "Heroes",
-                    heroes.Select(
-                        hero => HeroElement(hero))));
-
-            xmlDoc.Save(Path.Combine(OutputFolder, "heroesdata.xml"));
+            XDocument xmlDoc = new XDocument(new XElement(RootNode, heroes.Select(hero => HeroElement(hero))));
+            xmlDoc.Save(Path.Combine(OutputFolder, SingleFileName));
         }
 
-        private void CreateMultipleFilesXml(List<Hero> heroes)
+        protected override void CreateMultipleFiles(List<Hero> heroes)
         {
             foreach (Hero hero in heroes)
             {
@@ -53,7 +49,7 @@ namespace HeroesData.FileWriter.Writer
             }
         }
 
-        private XElement HeroElement(Hero hero)
+        protected override XElement HeroElement(Hero hero)
         {
             return new XElement(
                 hero.ShortName,
@@ -64,32 +60,77 @@ namespace HeroesData.FileWriter.Writer
                 new XAttribute("difficulty", hero.Difficulty),
                 new XAttribute("franchise", hero.Franchise),
                 hero.Gender.HasValue ? new XAttribute("gender", hero.Gender.Value) : null,
-                new XAttribute("innerRadius", hero.InnerRadius),
-                new XAttribute("radius", hero.Radius),
+                hero.InnerRadius > 0 ? new XAttribute("innerRadius", hero.InnerRadius) : null,
+                hero.Radius > 0 ? new XAttribute("radius", hero.Radius) : null,
                 hero.ReleaseDate.HasValue ? new XAttribute("releaseDate", hero.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
-                new XAttribute("sight", hero.Sight),
-                new XAttribute("speed", hero.Speed),
+                hero.Sight > 0 ? new XAttribute("sight", hero.Sight) : null,
+                hero.Speed > 0 ? new XAttribute("speed", hero.Speed) : null,
                 hero.Type.HasValue ? new XAttribute("type", hero.Type.Value) : null,
                 hero.Rarity.HasValue ? new XAttribute("rarity", hero.Rarity.Value) : null,
                 string.IsNullOrEmpty(hero.Description?.RawDescription) ? null : new XElement("Description", GetTooltip(hero.Description, FileSettings.Description)),
-                new XElement(
-                    "Life",
-                    new XElement("LifeAmount", hero.Life.LifeMax, new XAttribute("scale", hero.Life.LifeScaling)),
-                    new XElement("LifeRegenRate", hero.Life.LifeRegenerationRate, new XAttribute("scale", hero.Life.LifeRegenerationRateScaling))),
-                new XElement(
-                    "Energy",
-                    new XElement("EnergyAmount", hero.Energy.EnergyMax, new XAttribute("type", hero.Energy.EnergyType)),
-                    new XElement("EnergyRegenRate", hero.Energy.EnergyRegenerationRate)),
-                hero.Roles != null && hero.Roles.Count > 0 ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
+                UnitLife(hero),
+                UnitEnergy(hero),
+                hero.Roles?.Count > 0 ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
                 RatingsElement(hero),
                 WeaponsElement(hero),
-                AbilitiesElement(hero),
-                ExtraAbilitiesElement(hero),
+                AbilitiesElement(hero, false),
+                SubAbilitiesElement(hero),
                 TalentsElement(hero),
                 HeroUnitsElement(hero));
         }
 
-        private XElement RatingsElement(Hero hero)
+        protected override XElement UnitElement(Unit unit)
+        {
+            try
+            {
+                return new XElement(
+                    unit.ShortName,
+                    new XAttribute("name", unit.Name),
+                    string.IsNullOrEmpty(unit.CUnitId) ? null : new XAttribute("cUnitId", unit.CUnitId),
+                    unit.InnerRadius > 0 ? new XAttribute("innerRadius", unit.InnerRadius) : null,
+                    unit.Radius > 0 ? new XAttribute("radius", unit.Radius) : null,
+                    unit.Sight > 0 ? new XAttribute("sight", unit.Sight) : null,
+                    unit.Speed > 0 ? new XAttribute("speed", unit.Speed) : null,
+                    unit.Type.HasValue ? new XAttribute("type", unit.Type.Value) : null,
+                    string.IsNullOrEmpty(unit.Description?.RawDescription) ? null : new XElement("Description", GetTooltip(unit.Description, FileSettings.Description)),
+                    UnitLife(unit),
+                    UnitEnergy(unit),
+                    WeaponsElement(unit),
+                    AbilitiesElement(unit, true));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        protected override XElement UnitLife(Unit unit)
+        {
+            if (unit.Life.LifeMax > 0)
+            {
+                return new XElement(
+                    "Life",
+                    new XElement("LifeAmount", unit.Life.LifeMax, new XAttribute("scale", unit.Life.LifeScaling)),
+                    new XElement("LifeRegenRate", unit.Life.LifeRegenerationRate, new XAttribute("scale", unit.Life.LifeRegenerationRateScaling)));
+            }
+
+            return null;
+        }
+
+        protected override XElement UnitEnergy(Unit unit)
+        {
+            if (unit.Energy.EnergyMax > 0)
+            {
+                return new XElement(
+                    "Energy",
+                    new XElement("EnergyAmount", unit.Energy.EnergyMax, new XAttribute("type", unit.Energy.EnergyType)),
+                    new XElement("EnergyRegenRate", unit.Energy.EnergyRegenerationRate));
+            }
+
+            return null;
+        }
+
+        protected override XElement RatingsElement(Hero hero)
         {
             if (hero.Ratings != null)
             {
@@ -100,57 +141,48 @@ namespace HeroesData.FileWriter.Writer
                     new XAttribute("survivability", hero.Ratings.Survivability),
                     new XAttribute("utility", hero.Ratings.Utility));
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
 
-        private XElement WeaponsElement(Hero hero)
+        protected override XElement AbilitiesElement(Unit unit, bool isUnitAbilities)
         {
-            if (FileSettings.IncludeWeapons && hero.Weapons?.Count > 0)
+            if (FileSettings.IncludeAbilities && unit.Abilities?.Count > 0)
             {
-                return new XElement(
-                    "Weapons",
-                    hero.Weapons.Select(w => new XElement(
-                        w.WeaponNameId,
-                        new XAttribute("range", w.Range),
-                        new XAttribute("period", w.Period),
-                        new XElement("Damage", w.Damage, new XAttribute("scale", w.DamageScaling)))));
+                if (isUnitAbilities)
+                {
+                    return new XElement(
+                        "Abilities",
+                        unit.SubAbilities(AbilityTier.Basic).Count > 0 ? new XElement("Basic", unit.SubAbilities(AbilityTier.Basic).Select(basic => AbilityTalentInfoElement(basic))) : null,
+                        unit.SubAbilities(AbilityTier.Heroic).Count > 0 ? new XElement("Heroic", unit.SubAbilities(AbilityTier.Heroic).Select(heroic => AbilityTalentInfoElement(heroic))) : null,
+                        unit.SubAbilities(AbilityTier.Trait).Count > 0 ? new XElement("Trait", unit.SubAbilities(AbilityTier.Trait).Select(trait => AbilityTalentInfoElement(trait))) : null,
+                        unit.SubAbilities(AbilityTier.Mount).Count > 0 ? new XElement("Mount", unit.SubAbilities(AbilityTier.Mount).Select(mount => AbilityTalentInfoElement(mount))) : null,
+                        unit.SubAbilities(AbilityTier.Activable).Count > 0 ? new XElement("Activable", unit.SubAbilities(AbilityTier.Activable).Select(activable => AbilityTalentInfoElement(activable))) : null);
+                }
+                else
+                {
+                    return new XElement(
+                        "Abilities",
+                        unit.PrimaryAbilities(AbilityTier.Basic).Count > 0 ? new XElement("Basic", unit.PrimaryAbilities(AbilityTier.Basic).Select(basic => AbilityTalentInfoElement(basic))) : null,
+                        unit.PrimaryAbilities(AbilityTier.Heroic).Count > 0 ? new XElement("Heroic", unit.PrimaryAbilities(AbilityTier.Heroic).Select(heroic => AbilityTalentInfoElement(heroic))) : null,
+                        unit.PrimaryAbilities(AbilityTier.Trait).Count > 0 ? new XElement("Trait", unit.PrimaryAbilities(AbilityTier.Trait).Select(trait => AbilityTalentInfoElement(trait))) : null,
+                        unit.PrimaryAbilities(AbilityTier.Mount).Count > 0 ? new XElement("Mount", unit.PrimaryAbilities(AbilityTier.Mount).Select(mount => AbilityTalentInfoElement(mount))) : null,
+                        unit.PrimaryAbilities(AbilityTier.Activable).Count > 0 ? new XElement("Activable", unit.PrimaryAbilities(AbilityTier.Activable).Select(activable => AbilityTalentInfoElement(activable))) : null);
+                }
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
 
-        private XElement AbilitiesElement(Hero hero)
+        protected override XElement SubAbilitiesElement(Hero hero)
         {
-            if (FileSettings.IncludeAbilities && hero.Abilities?.Count > 0)
-            {
-                return new XElement(
-                    "Abilities",
-                    hero.TierAbilities(AbilityTier.Basic, false).Count > 0 ? new XElement("Basic", hero.TierAbilities(AbilityTier.Basic, false).Select(basic => AbilityTalentInfoElement(basic))) : null,
-                    hero.TierAbilities(AbilityTier.Heroic, false).Count > 0 ? new XElement("Heroic", hero.TierAbilities(AbilityTier.Heroic, false).Select(heroic => AbilityTalentInfoElement(heroic))) : null,
-                    hero.TierAbilities(AbilityTier.Trait, false).Count > 0 ? new XElement("Trait", hero.TierAbilities(AbilityTier.Trait, false).Select(trait => AbilityTalentInfoElement(trait))) : null,
-                    hero.TierAbilities(AbilityTier.Mount, false).Count > 0 ? new XElement("Mount", hero.TierAbilities(AbilityTier.Mount, false).Select(mount => AbilityTalentInfoElement(mount))) : null,
-                    hero.TierAbilities(AbilityTier.Activable, false).Count > 0 ? new XElement("Activable", hero.TierAbilities(AbilityTier.Activable, false).Select(activable => AbilityTalentInfoElement(activable))) : null);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        private XElement ExtraAbilitiesElement(Hero hero)
-        {
-            if (FileSettings.IncludeExtraAbilities && hero.Abilities?.Count > 0)
+            if (FileSettings.IncludeSubAbilities && hero.Abilities?.Count > 0)
             {
                 ILookup<string, Ability> linkedAbilities = hero.ParentLinkedAbilities();
                 if (linkedAbilities.Count > 0)
                 {
                     return new XElement(
-                        "ExtraAbilities",
+                        "SubAbilities",
                         linkedAbilities.Select(parent => new XElement(
                             parent.Key,
                             parent.Where(x => x.Tier == AbilityTier.Basic).Count() > 0 ? new XElement("Basic", parent.Where(x => x.Tier == AbilityTier.Basic).Select(ability => AbilityTalentInfoElement(ability))) : null,
@@ -159,18 +191,12 @@ namespace HeroesData.FileWriter.Writer
                             parent.Where(x => x.Tier == AbilityTier.Mount).Count() > 0 ? new XElement("Mount", parent.Where(x => x.Tier == AbilityTier.Mount).Select(ability => AbilityTalentInfoElement(ability))) : null,
                             parent.Where(x => x.Tier == AbilityTier.Activable).Count() > 0 ? new XElement("Activable", parent.Where(x => x.Tier == AbilityTier.Activable).Select(ability => AbilityTalentInfoElement(ability))) : null)));
                 }
-                else
-                {
-                    return null;
-                }
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
 
-        private XElement TalentsElement(Hero hero)
+        protected override XElement TalentsElement(Hero hero)
         {
             if (FileSettings.IncludeTalents && hero.Talents?.Count > 0)
             {
@@ -184,27 +210,23 @@ namespace HeroesData.FileWriter.Writer
                     new XElement("Level16", hero.TierTalents(TalentTier.Level16).Select(level16 => TalentInfoElement(level16))),
                     new XElement("Level20", hero.TierTalents(TalentTier.Level20).Select(level20 => TalentInfoElement(level20))));
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
 
-        private XElement HeroUnitsElement(Hero hero)
+        protected override XElement HeroUnitsElement(Hero hero)
         {
             if (FileSettings.IncludeHeroUnits && hero.HeroUnits?.Count > 0)
             {
                 return new XElement(
                     "HeroUnits",
-                    hero.HeroUnits?.Select(heroUnit => new XElement(heroUnit.ParentLink, HeroElement(heroUnit))));
+                    hero.HeroUnits.Select(heroUnit => new XElement(heroUnit.CUnitId, UnitElement(heroUnit))));
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
 
-        private XElement AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)
+        protected override XElement AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)
         {
             return new XElement(
                 XmlConvert.EncodeName(abilityTalentBase.ReferenceNameId),
@@ -221,7 +243,7 @@ namespace HeroesData.FileWriter.Writer
                 string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription) ? null : new XElement("FullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileSettings.FullTooltip)));
         }
 
-        private XElement TalentInfoElement(Talent talent)
+        protected override XElement TalentInfoElement(Talent talent)
         {
             XElement element = AbilityTalentInfoElement(talent);
             element.Add(new XAttribute("sort", talent.Column));
@@ -229,7 +251,7 @@ namespace HeroesData.FileWriter.Writer
             return element;
         }
 
-        private XElement AbilityLifeElement(TooltipLife tooltipLife)
+        protected override XElement AbilityLifeElement(TooltipLife tooltipLife)
         {
             if (tooltipLife.LifeCost.HasValue)
             {
@@ -244,7 +266,7 @@ namespace HeroesData.FileWriter.Writer
             return null;
         }
 
-        private XElement AbilityEnergyElement(TooltipEnergy tooltipEnergy)
+        protected override XElement AbilityEnergyElement(TooltipEnergy tooltipEnergy)
         {
             if (tooltipEnergy.EnergyCost.HasValue)
             {
@@ -260,7 +282,7 @@ namespace HeroesData.FileWriter.Writer
             return null;
         }
 
-        private XElement AbilityCooldownElement(TooltipCooldown tooltipCooldown)
+        protected override XElement AbilityCooldownElement(TooltipCooldown tooltipCooldown)
         {
             if (tooltipCooldown.CooldownValue.HasValue)
             {
@@ -275,7 +297,7 @@ namespace HeroesData.FileWriter.Writer
             return null;
         }
 
-        private XElement AbilityChargesElement(TooltipCharges tooltipCharges)
+        protected override XElement AbilityChargesElement(TooltipCharges tooltipCharges)
         {
             if (tooltipCharges.HasCharges)
             {
@@ -292,22 +314,20 @@ namespace HeroesData.FileWriter.Writer
             return null;
         }
 
-        private string GetTooltip(TooltipDescription tooltipDescription, int setting)
+        protected override XElement WeaponsElement(Unit unit)
         {
-            if (setting == 0)
-                return tooltipDescription.RawDescription;
-            else if (setting == 1)
-                return tooltipDescription.PlainText;
-            else if (setting == 2)
-                return tooltipDescription.PlainTextWithNewlines;
-            else if (setting == 3)
-                return tooltipDescription.PlainTextWithScaling;
-            else if (setting == 4)
-                return tooltipDescription.PlainTextWithScalingWithNewlines;
-            else if (setting == 6)
-                return tooltipDescription.ColoredTextWithScaling;
-            else
-                return tooltipDescription.ColoredText;
+            if (FileSettings.IncludeWeapons && unit.Weapons?.Count > 0)
+            {
+                return new XElement(
+                    "Weapons",
+                    unit.Weapons.Select(w => new XElement(
+                        w.WeaponNameId,
+                        new XAttribute("range", w.Range),
+                        new XAttribute("period", w.Period),
+                        new XElement("Damage", w.Damage, new XAttribute("scale", w.DamageScaling)))));
+            }
+
+            return null;
         }
     }
 }

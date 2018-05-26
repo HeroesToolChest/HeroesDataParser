@@ -21,7 +21,7 @@
     <ImageExtension>png</ImageExtension>
     <IncludeWeapons>True</IncludeWeapons>
     <IncludeAbilities>True</IncludeAbilities>
-    <IncludeExtraAbilities>True</IncludeExtraAbilities>
+    <IncludeSubAbilities>True</IncludeSubAbilities>
     <IncludeTalents>True</IncludeTalents>
     <IncludeHeroUnits>True</IncludeHeroUnits>
   </JsonWriter>
@@ -33,7 +33,7 @@
     <ImageExtension>png</ImageExtension>
     <IncludeWeapons>True</IncludeWeapons>
     <IncludeAbilities>True</IncludeAbilities>
-    <IncludeExtraAbilities>True</IncludeExtraAbilities>
+    <IncludeSubAbilities>True</IncludeSubAbilities>
     <IncludeTalents>True</IncludeTalents>
     <IncludeHeroUnits>True</IncludeHeroUnits>
   </XmlWriter>
