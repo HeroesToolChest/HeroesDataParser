@@ -13,6 +13,7 @@ namespace HeroesData.Parser.Tests
         private readonly string ExtraTagDescription3 = "previous </w>location.";
         private readonly string ExtraTagDescription4 = "previous <w>location.";
         private readonly string ExtraTagDescription5 = "previous <w><w>location.";
+        private readonly string ExtraTagDescription6 = "<li/>previous location.";
         private readonly string NewLineTagDescription1 = "Max Health Bonus: <c val=\"#TooltipNumbers\">0%</c><n/>Health Per Second Bonus: <c val=\"#TooltipNumbers\">0</c>";
         private readonly string NewLineTagDescription2 = "Max Health Bonus: <c val=\"#TooltipNumbers\">0%</c><n/><n/>Health Per Second Bonus: <c val=\"#TooltipNumbers\">0</c>";
         private readonly string SelfCloseTagDescription1 = "<img path=\"sdf\"/>previous location.";
@@ -122,6 +123,7 @@ namespace HeroesData.Parser.Tests
             Assert.Equal(NoTagsDescription, GameStringValidator.Validate(ExtraTagDescription3));
             Assert.Equal(NoTagsDescription, GameStringValidator.Validate(ExtraTagDescription4));
             Assert.Equal(NoTagsDescription, GameStringValidator.Validate(ExtraTagDescription5));
+            Assert.Equal(NoTagsDescription, GameStringValidator.Validate(ExtraTagDescription6));
             Assert.Equal(NewLineTagDescription1, GameStringValidator.Validate(NewLineTagDescription1)); // no changes
             Assert.Equal(NewLineTagDescription2, GameStringValidator.Validate(NewLineTagDescription2)); // no changes
             Assert.Equal(SelfCloseTagDescription1, GameStringValidator.Validate(SelfCloseTagDescription1)); // no changes

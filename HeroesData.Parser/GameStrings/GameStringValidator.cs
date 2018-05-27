@@ -16,7 +16,7 @@ namespace HeroesData.Parser.GameStrings
 
         private GameStringValidator(string gameString)
         {
-            GameString = gameString;
+            GameString = RemovedStartingRogueTags(gameString);
         }
 
         /// <summary>
@@ -398,6 +398,14 @@ namespace HeroesData.Parser.GameStrings
 
             scaleText = string.Empty;
             return false;
+        }
+
+        private string RemovedStartingRogueTags(string gameString)
+        {
+            if (gameString.StartsWith("<li/>"))
+                gameString = gameString.Remove(0, 5);
+
+            return gameString;
         }
     }
 }
