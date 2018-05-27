@@ -68,7 +68,7 @@ namespace HeroesData.Parser.Models
         /// <returns></returns>
         public ICollection<Ability> PrimaryAbilities(AbilityTier tier)
         {
-            return Abilities.Values.Where(x => x.Tier == tier && string.IsNullOrEmpty(x.ParentLink)).ToList();
+            return Abilities?.Values.Where(x => x.Tier == tier && string.IsNullOrEmpty(x.ParentLink)).ToList();
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace HeroesData.Parser.Models
         /// <returns></returns>
         public ICollection<Ability> SubAbilities(AbilityTier tier)
         {
-            return Abilities.Values.Where(x => x.Tier == tier && !string.IsNullOrEmpty(x.ParentLink)).ToList();
+            return Abilities?.Values.Where(x => x.Tier == tier && !string.IsNullOrEmpty(x.ParentLink)).ToList();
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace HeroesData.Parser.Models
         /// <returns></returns>
         public ILookup<string, Ability> ParentLinkedAbilities()
         {
-           return Abilities.Values.Where(x => !string.IsNullOrEmpty(x.ParentLink)).ToLookup(x => x.ParentLink);
+           return Abilities?.Values.Where(x => !string.IsNullOrEmpty(x.ParentLink)).ToLookup(x => x.ParentLink);
         }
 
         public override string ToString()

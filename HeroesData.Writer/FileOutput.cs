@@ -10,6 +10,7 @@ namespace HeroesData.FileWriter
         {
             FileConfiguration fileConfiguration = FileConfiguration.Load();
             XmlWriter.CreateOutput(fileConfiguration.XmlFileSettings, heroes);
+            JsonWriter.CreateOutput(fileConfiguration.JsonFileSettings, heroes);
         }
 
         public static FileOutput CreateOutput(List<Hero> heroes)

@@ -13,7 +13,7 @@
       5 - ColoredText
       6 - ColoredTextWithScaling
   -->
-  <JsonWriter enabled="false">
+  <JsonWriter enabled="true">
     <FileSplit>False</FileSplit>
     <Description>5</Description>
     <ShortTooltip>5</ShortTooltip>
