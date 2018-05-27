@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "HeroesData.CLI": {
-      "commandName": "Project",
-      "commandLineArgs": "F:\\heroes_65285\\mods"
-    }
-  }
-}
