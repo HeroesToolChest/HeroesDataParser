@@ -1,9 +1,8 @@
 ﻿using HeroesData.Parser.GameStrings;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace HeroesData.Parser.Tests
 {
-    [TestClass]
     public class DescriptionValidationTests
     {
         private readonly string NoTagsDescription = "previous location.";
@@ -112,125 +111,125 @@ namespace HeroesData.Parser.Tests
         private readonly string ColoredTextScaling2 = "<c val=\"#TooltipNumbers\">100~~0.04~~</c> damage per second ~~0.05~~";
         private readonly string ColoredTextScaling2Corrected = "<c val=\"#TooltipNumbers\">100 (+4% per level)</c> damage per second  (+5% per level)";
 
-        [TestMethod]
+        [Fact]
         public void ValidateTests()
         {
-            Assert.IsTrue(GameStringValidator.Validate(NoTagsDescription) == NoTagsDescription); // no changes
-            Assert.IsTrue(GameStringValidator.Validate(NormalTagsDescription1) == NormalTagsDescription1); // no changes
-            Assert.IsTrue(GameStringValidator.Validate(NormalTagsDescription2) == NormalTagsDescription2); // no changes
-            Assert.IsTrue(GameStringValidator.Validate(ExtraTagDescription1) == NoTagsDescription);
-            Assert.IsTrue(GameStringValidator.Validate(ExtraTagDescription2) == NoTagsDescription);
-            Assert.IsTrue(GameStringValidator.Validate(ExtraTagDescription3) == NoTagsDescription);
-            Assert.IsTrue(GameStringValidator.Validate(ExtraTagDescription4) == NoTagsDescription);
-            Assert.IsTrue(GameStringValidator.Validate(ExtraTagDescription5) == NoTagsDescription);
-            Assert.IsTrue(GameStringValidator.Validate(NewLineTagDescription1) == NewLineTagDescription1); // no changes
-            Assert.IsTrue(GameStringValidator.Validate(NewLineTagDescription2) == NewLineTagDescription2); // no changes
-            Assert.IsTrue(GameStringValidator.Validate(SelfCloseTagDescription1) == SelfCloseTagDescription1); // no changes
-            Assert.IsTrue(GameStringValidator.Validate(SelfCloseTagDescription2) == SelfCloseTagDescription2); // no changes
-            Assert.IsTrue(GameStringValidator.Validate(SelfCloseTagDescription3) == SelfCloseTagDescription3); // no changes
-            Assert.IsTrue(GameStringValidator.Validate(SelfCloseTagDescription4) == SelfCloseTagDescription4); // no changes
-            Assert.IsTrue(GameStringValidator.Validate(DuplicateTagsDescription1) == NormalTagsDescription2);
-            Assert.IsTrue(GameStringValidator.Validate(DuplicateTagsDescription2) == NormalTagsDescription2);
+            Assert.Equal(NoTagsDescription, GameStringValidator.Validate(NoTagsDescription)); // no changes
+            Assert.Equal(NormalTagsDescription1, GameStringValidator.Validate(NormalTagsDescription1)); // no changes
+            Assert.Equal(NormalTagsDescription2, GameStringValidator.Validate(NormalTagsDescription2)); // no changes
+            Assert.Equal(NoTagsDescription, GameStringValidator.Validate(ExtraTagDescription1));
+            Assert.Equal(NoTagsDescription, GameStringValidator.Validate(ExtraTagDescription2));
+            Assert.Equal(NoTagsDescription, GameStringValidator.Validate(ExtraTagDescription3));
+            Assert.Equal(NoTagsDescription, GameStringValidator.Validate(ExtraTagDescription4));
+            Assert.Equal(NoTagsDescription, GameStringValidator.Validate(ExtraTagDescription5));
+            Assert.Equal(NewLineTagDescription1, GameStringValidator.Validate(NewLineTagDescription1)); // no changes
+            Assert.Equal(NewLineTagDescription2, GameStringValidator.Validate(NewLineTagDescription2)); // no changes
+            Assert.Equal(SelfCloseTagDescription1, GameStringValidator.Validate(SelfCloseTagDescription1)); // no changes
+            Assert.Equal(SelfCloseTagDescription2, GameStringValidator.Validate(SelfCloseTagDescription2)); // no changes
+            Assert.Equal(SelfCloseTagDescription3, GameStringValidator.Validate(SelfCloseTagDescription3)); // no changes
+            Assert.Equal(SelfCloseTagDescription4, GameStringValidator.Validate(SelfCloseTagDescription4)); // no changes
+            Assert.Equal(NormalTagsDescription2, GameStringValidator.Validate(DuplicateTagsDescription1));
+            Assert.Equal(NormalTagsDescription2, GameStringValidator.Validate(DuplicateTagsDescription2));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateConvertedNewlineTagsTests()
         {
-            Assert.IsTrue(GameStringValidator.Validate(ConvertNewLineTagDescription1) == ConvertNewLineTagDescription1Corrected);
-            Assert.IsTrue(GameStringValidator.Validate(ConvertNewLineTagDescription2) == ConvertNewLineTagDescription2Corrected);
-            Assert.IsTrue(GameStringValidator.Validate(ConvertNewLineTagDescription3) == ConvertNewLineTagDescription3Corrected);
+            Assert.Equal(ConvertNewLineTagDescription1Corrected, GameStringValidator.Validate(ConvertNewLineTagDescription1));
+            Assert.Equal(ConvertNewLineTagDescription2Corrected, GameStringValidator.Validate(ConvertNewLineTagDescription2));
+            Assert.Equal(ConvertNewLineTagDescription3Corrected, GameStringValidator.Validate(ConvertNewLineTagDescription3));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateCaseTagsTests()
         {
-            Assert.IsTrue(GameStringValidator.Validate(UpperCaseTagDescription1) == UpperCaseTagDescription1Corrected);
+            Assert.Equal(UpperCaseTagDescription1Corrected, GameStringValidator.Validate(UpperCaseTagDescription1));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateSpaceTagsTests()
         {
-            Assert.IsTrue(GameStringValidator.Validate(ExtraSpacesTagDescription1) == NormalTagsDescription2);
-            Assert.IsTrue(GameStringValidator.Validate(ExtraSpacesTagDescription2) == NormalTagsDescription2);
+            Assert.Equal(NormalTagsDescription2, GameStringValidator.Validate(ExtraSpacesTagDescription1));
+            Assert.Equal(NormalTagsDescription2, GameStringValidator.Validate(ExtraSpacesTagDescription2));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateEmptyTagsTests()
         {
-            Assert.IsTrue(GameStringValidator.Validate(EmptyTagsDescription1) == EmptyTagsDescription1Corrected);
-            Assert.IsTrue(GameStringValidator.Validate(EmptyTagsDescription2) == EmptyTagsDescription2Corrected);
-            Assert.IsTrue(GameStringValidator.Validate(EmptyTagsDescription3) == EmptyTagsDescription3Corrected);
+            Assert.Equal(EmptyTagsDescription1Corrected, GameStringValidator.Validate(EmptyTagsDescription1));
+            Assert.Equal(EmptyTagsDescription2Corrected, GameStringValidator.Validate(EmptyTagsDescription2));
+            Assert.Equal(EmptyTagsDescription3Corrected, GameStringValidator.Validate(EmptyTagsDescription3));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateNestedTagsTests()
         {
-            Assert.IsTrue(GameStringValidator.Validate(NestedTagDescription1) == NestedTagDescription1Corrected);
-            Assert.IsTrue(GameStringValidator.Validate(NestedTagDescription2) == NestedTagDescription2Corrected);
-            Assert.IsTrue(GameStringValidator.Validate(NestedTagDescription3) == NestedTagDescription3Corrected);
-            Assert.IsTrue(GameStringValidator.Validate(NestedTagDescription4) == NestedTagDescription4Corrected);
+            Assert.Equal(NestedTagDescription1Corrected, GameStringValidator.Validate(NestedTagDescription1));
+            Assert.Equal(NestedTagDescription2Corrected, GameStringValidator.Validate(NestedTagDescription2));
+            Assert.Equal(NestedTagDescription3Corrected, GameStringValidator.Validate(NestedTagDescription3));
+            Assert.Equal(NestedTagDescription4Corrected, GameStringValidator.Validate(NestedTagDescription4));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateNestedNewLineTagsTests()
         {
-            Assert.IsTrue(GameStringValidator.Validate(NestedNewLineTagDescription1) == NestedNewLineTagDescription1Corrected);
-            Assert.IsTrue(GameStringValidator.Validate(NestedNewLineTagDescription2) == NestedNewLineTagDescription2Corrected);
+            Assert.Equal(NestedNewLineTagDescription1Corrected, GameStringValidator.Validate(NestedNewLineTagDescription1));
+            Assert.Equal(NestedNewLineTagDescription2Corrected, GameStringValidator.Validate(NestedNewLineTagDescription2));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateRealDescriptionTests()
         {
-            Assert.IsTrue(GameStringValidator.Validate(DiabloBlackSoulstone) == DiabloBlackSoulstoneCorrected);
-            Assert.IsTrue(GameStringValidator.Validate(DVaMechSelfDestruct) == DVaMechSelfDestructCorrected);
-            Assert.IsTrue(GameStringValidator.Validate(ValeeraCheapShot) == ValeeraCheapShotCorrected);
-            Assert.IsTrue(GameStringValidator.Validate(CrusaderPunish) == CrusaderPunishSame);
+            Assert.Equal(DiabloBlackSoulstoneCorrected, GameStringValidator.Validate(DiabloBlackSoulstone));
+            Assert.Equal(DVaMechSelfDestructCorrected, GameStringValidator.Validate(DVaMechSelfDestruct));
+            Assert.Equal(ValeeraCheapShotCorrected, GameStringValidator.Validate(ValeeraCheapShot));
+            Assert.Equal(CrusaderPunishSame, GameStringValidator.Validate(CrusaderPunish));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidatePlainTextTests()
         {
-            Assert.IsTrue(GameStringValidator.GetPlainText(NestedTagDescription1, false, false) == PlainText1);
-            Assert.IsTrue(GameStringValidator.GetPlainText(NestedNewLineTagDescription2Corrected, false, false) == PlainText2);
-            Assert.IsTrue(GameStringValidator.GetPlainText(ValeeraCheapShotCorrected, false, false) == PlainText3);
-            Assert.IsTrue(GameStringValidator.GetPlainText(PlainText4, false, false) == PlainText4Corrected);
-            Assert.IsTrue(GameStringValidator.GetPlainText(PlainText5, false, false) == PlainText5Corrected);
+            Assert.Equal(PlainText1, GameStringValidator.GetPlainText(NestedTagDescription1, false, false));
+            Assert.Equal(PlainText2, GameStringValidator.GetPlainText(NestedNewLineTagDescription2Corrected, false, false));
+            Assert.Equal(PlainText3, GameStringValidator.GetPlainText(ValeeraCheapShotCorrected, false, false));
+            Assert.Equal(PlainText4Corrected, GameStringValidator.GetPlainText(PlainText4, false, false));
+            Assert.Equal(PlainText5Corrected, GameStringValidator.GetPlainText(PlainText5, false, false));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidatePlainTextNewlineTests()
         {
-            Assert.IsTrue(GameStringValidator.GetPlainText(NestedNewLineTagDescription1Corrected, true, false) == PlainTextNewline1);
-            Assert.IsTrue(GameStringValidator.GetPlainText(ValeeraCheapShotCorrected, true, false) == PlainTextNewline2);
-            Assert.IsTrue(GameStringValidator.GetPlainText(PlainTextNewline3, true, false) == PlainTextNewline3Corrected);
+            Assert.Equal(PlainTextNewline1, GameStringValidator.GetPlainText(NestedNewLineTagDescription1Corrected, true, false));
+            Assert.Equal(PlainTextNewline2, GameStringValidator.GetPlainText(ValeeraCheapShotCorrected, true, false));
+            Assert.Equal(PlainTextNewline3Corrected, GameStringValidator.GetPlainText(PlainTextNewline3, true, false));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidatePlainTextScalingTests()
         {
-            Assert.IsTrue(GameStringValidator.GetPlainText(PlainTextScaling1, false, true) == PlainTextScaling1Corrected);
-            Assert.IsTrue(GameStringValidator.GetPlainText(PlainTextScaling2, false, true) == PlainTextScaling2Corrected);
+            Assert.Equal(PlainTextScaling1Corrected, GameStringValidator.GetPlainText(PlainTextScaling1, false, true));
+            Assert.Equal(PlainTextScaling2Corrected, GameStringValidator.GetPlainText(PlainTextScaling2, false, true));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidatePlainTextScalingNewlineTests()
         {
-            Assert.IsTrue(GameStringValidator.GetPlainText(PlainTextScalingNewline1, true, true) == PlainTextScalingNewline1Corrected);
-            Assert.IsTrue(GameStringValidator.GetPlainText(PlainTextScalingNewline2, true, true) == PlainTextScalingNewline2Corrected);
+            Assert.Equal(PlainTextScalingNewline1Corrected, GameStringValidator.GetPlainText(PlainTextScalingNewline1, true, true));
+            Assert.Equal(PlainTextScalingNewline2Corrected, GameStringValidator.GetPlainText(PlainTextScalingNewline2, true, true));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateColoredTextTests()
         {
-            Assert.IsTrue(GameStringValidator.GetColoredText(ColoredText1, false) == ColoredText1Corrected);
-            Assert.IsTrue(GameStringValidator.GetColoredText(ColoredText2, false) == ColoredText2Corrected);
+            Assert.Equal(ColoredText1Corrected, GameStringValidator.GetColoredText(ColoredText1, false));
+            Assert.Equal(ColoredText2Corrected, GameStringValidator.GetColoredText(ColoredText2, false));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateColoredTextScalingTests()
         {
-            Assert.IsTrue(GameStringValidator.GetColoredText(ColoredTextScaling1, true) == ColoredTextScaling1Corrected);
-            Assert.IsTrue(GameStringValidator.GetColoredText(ColoredTextScaling2, true) == ColoredTextScaling2Corrected);
+            Assert.Equal(ColoredTextScaling1Corrected, GameStringValidator.GetColoredText(ColoredTextScaling1, true));
+            Assert.Equal(ColoredTextScaling2Corrected, GameStringValidator.GetColoredText(ColoredTextScaling2, true));
         }
     }
 }

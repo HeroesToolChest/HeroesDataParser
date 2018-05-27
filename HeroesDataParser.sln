@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{344D38AE-FCDC-45D8-84B3-B7AC075EB76B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Parser.Tests", "tests\HeroesData.Parser.Tests\HeroesData.Parser.Tests.csproj", "{2DDB1308-1812-43A2-BFDE-931045FE2CFD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.FileWriter", "HeroesData.Writer\HeroesData.FileWriter.csproj", "{85556F4B-8A67-4DA5-A927-EC5BFFF3B59A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Parser", "HeroesData.Parser\HeroesData.Parser.csproj", "{49F3CEE8-458B-4C07-BAB4-065F4770D198}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.CLI", "HeroesData.CLI\HeroesData.CLI.csproj", "{C3E6D672-9FC3-4A86-9D3B-9FFCDC67121C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Parser.Tests", "tests\HeroesData.Parser.Tests\HeroesData.Parser.Tests.csproj", "{77E3C9BB-6AD5-4AF4-8571-AC84A9261191}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2DDB1308-1812-43A2-BFDE-931045FE2CFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DDB1308-1812-43A2-BFDE-931045FE2CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DDB1308-1812-43A2-BFDE-931045FE2CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DDB1308-1812-43A2-BFDE-931045FE2CFD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{85556F4B-8A67-4DA5-A927-EC5BFFF3B59A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{85556F4B-8A67-4DA5-A927-EC5BFFF3B59A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85556F4B-8A67-4DA5-A927-EC5BFFF3B59A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,12 +31,16 @@ Global
 		{C3E6D672-9FC3-4A86-9D3B-9FFCDC67121C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3E6D672-9FC3-4A86-9D3B-9FFCDC67121C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3E6D672-9FC3-4A86-9D3B-9FFCDC67121C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E3C9BB-6AD5-4AF4-8571-AC84A9261191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E3C9BB-6AD5-4AF4-8571-AC84A9261191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E3C9BB-6AD5-4AF4-8571-AC84A9261191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E3C9BB-6AD5-4AF4-8571-AC84A9261191}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{2DDB1308-1812-43A2-BFDE-931045FE2CFD} = {344D38AE-FCDC-45D8-84B3-B7AC075EB76B}
+		{77E3C9BB-6AD5-4AF4-8571-AC84A9261191} = {344D38AE-FCDC-45D8-84B3-B7AC075EB76B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6BC537F-9CC6-441B-AE64-F0EFF0A467C5}
