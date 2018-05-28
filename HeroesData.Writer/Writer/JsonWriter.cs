@@ -34,7 +34,17 @@ namespace HeroesData.FileWriter.Writer
 
         protected override void CreateMultipleFiles(List<Hero> heroes)
         {
-            throw new System.NotImplementedException();
+            foreach (Hero hero in heroes)
+            {
+                JObject jObject = new JObject(HeroElement(hero));
+
+                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputFolder, $"{hero.ShortName}.json")))
+                using (JsonTextWriter writer = new JsonTextWriter(file))
+                {
+                    writer.Formatting = Formatting.Indented;
+                    jObject.WriteTo(writer);
+                }
+            }
         }
 
         protected override void CreateSingleFile(List<Hero> heroes)

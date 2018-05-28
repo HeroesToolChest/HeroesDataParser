@@ -41,7 +41,7 @@ namespace HeroesData.FileWriter.Writer
         {
             foreach (Hero hero in heroes)
             {
-                XDocument xmlDoc = new XDocument(new XElement("Heroes", HeroElement(hero)));
+                XDocument xmlDoc = new XDocument(new XElement(RootNode, HeroElement(hero)));
 
                 xmlDoc.Save(Path.Combine(XmlOutputFolder, $"{hero.ShortName}.xml"));
             }

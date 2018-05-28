@@ -19,8 +19,8 @@ namespace HeroesData.FileWriter.Writer
         }
 
         protected FileSettings FileSettings { get; set; }
-        protected string XmlOutputFolder => Path.Combine("Output", "xml");
-        protected string JsonOutputFolder => Path.Combine("Output", "json");
+        protected string XmlOutputFolder => Path.Combine("output", "xml");
+        protected string JsonOutputFolder => Path.Combine("output", "json");
         protected string RootNode => "Heroes";
         protected string HeroUnits => "HeroUnits";
 
