@@ -446,7 +446,7 @@ namespace HeroesData.Parser.UnitData
             XElement heroicElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "Heroic" && x.Attribute("value").Value == "1").FirstOrDefault();
             XElement traitElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "Trait" && x.Attribute("value").Value == "1").FirstOrDefault();
             XElement mountElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "MountReplacement" && x.Attribute("value").Value == "1").FirstOrDefault();
-            XElement activableElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "ShowInQuickCastSetting" && x.Attribute("value").Value == "1").FirstOrDefault();
+            XElement activableElement = GameData.XmlGameData.Root.Elements("CItemAbil").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ReferenceNameId);
 
             if (heroicElement != null)
                 ability.Tier = AbilityTier.Heroic;

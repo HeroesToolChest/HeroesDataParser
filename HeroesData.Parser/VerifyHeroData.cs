@@ -1,4 +1,5 @@
 ﻿using HeroesData.Parser.Models;
+using HeroesData.Parser.Models.AbilityTalents;
 using System.Collections.Generic;
 
 namespace HeroesData.Parser
@@ -15,7 +16,7 @@ namespace HeroesData.Parser
         /// <returns></returns>
         public static List<string> Verify(List<Hero> heroData)
         {
-            foreach (var hero in heroData)
+            foreach (Hero hero in heroData)
             {
                 HeroName = hero.Name;
 
@@ -70,6 +71,12 @@ namespace HeroesData.Parser
                     AddWarning("has no weapons");
                 else if (hero.Weapons.Count > 1)
                     AddWarning("has more than 1 weapon");
+
+                if (hero.PrimaryAbilities(AbilityTier.Basic).Count < 3)
+                    AddWarning($"Has less than 3 basic abilities");
+
+                if (hero.PrimaryAbilities(AbilityTier.Basic).Count > 3)
+                    AddWarning($"Has more than 3 basic abilities");
 
                 VerifyAbilities(hero);
 

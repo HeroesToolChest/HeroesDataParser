@@ -222,6 +222,13 @@
       </Override>
     </Ability>
   </CHero>
+  <CHero id="Necromancer">
+    <Ability id="NecromancerBoneArmor">
+      <Override>
+        <AbilityTier value="Activable" />
+      </Override>
+    </Ability>
+  </CHero>
   <CHero id="Ragnaros">
     <!--Molten Core abilities-->
     <LinkedAbilities>
@@ -324,5 +331,12 @@
   </CHero>
   <CHero id="Zarya">
     <EnergyType value="Energy" />
+  </CHero>
+  <CHero id="Zeratul">
+    <Ability id="VorpalBladeBlink">
+      <Override>
+        <AbilityTier value="Activable" />
+      </Override>
+    </Ability>
   </CHero>
 </HeroOverrides>
