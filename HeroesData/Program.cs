@@ -1,17 +1,19 @@
-﻿using HeroesData.FileWriter;
+﻿using HeroesData.Commands;
+using HeroesData.FileWriter;
 using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.Models;
 using HeroesData.Parser.UnitData;
 using HeroesData.Parser.UnitData.Overrides;
 using HeroesData.Parser.XmlGameData;
+using Microsoft.Extensions.CommandLineUtils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace HeroesData.CLI
+namespace HeroesData
 {
     internal class Program
     {
@@ -22,24 +24,49 @@ namespace HeroesData.CLI
 
         internal static void Main(string[] args)
         {
-            string dataPath = string.Empty;
-
-            if (args == null || args.Length < 1)
-                dataPath = @"mods";
-            else
-                dataPath = args[0].TrimStart('/');
-
-            var program = new Program
+            CommandLineApplication app = new CommandLineApplication(false)
             {
-                ModsFolderPath = Path.Combine(Environment.CurrentDirectory, dataPath),
+                Description = "Test description",
             };
-            program.Execute();
+            app.HelpOption("-?|-h|--help");
+            app.VersionOption("-v|--version", $"Heroes Parser Data v{AppVersion.GetVersion()}");
 
-            Console.WriteLine(string.Empty);
-            Console.WriteLine("Done.");
-            Console.WriteLine(string.Empty);
-            Console.WriteLine("Press any key to quit...");
-            Console.ReadKey();
+            CommandOption modPathOption = app.Option("-m|--modsPath <filePath>", "The file path of the mods folder", CommandOptionType.SingleValue);
+
+            app.OnExecute(() =>
+            {
+                if (modPathOption.HasValue())
+                {
+                    var program = new Program
+                    {
+                        ModsFolderPath = Path.Combine(Environment.CurrentDirectory, modPathOption.Value()),
+                    };
+                    program.Execute();
+                }
+
+                return 0;
+            });
+
+            if (args.Length > 0)
+            {
+                try
+                {
+                    app.Execute(args);
+                }
+                catch (CommandParsingException)
+                {
+                    return;
+                }
+            }
+            else // defaults
+            {
+                Console.WriteLine("Defaulting to current directory");
+                var program = new Program
+                {
+                    ModsFolderPath = Path.Combine(Environment.CurrentDirectory, "mods"),
+                };
+                program.Execute();
+            }
         }
 
         private void Execute()
@@ -68,7 +95,7 @@ namespace HeroesData.CLI
             }
             catch (Exception ex) // catch everything
             {
-                Console.WriteLine($"{Environment.NewLine}An error has occured, check errors log for details");
+                Console.WriteLine($"{Environment.NewLine}An error has occured, check error logs for details");
                 WriteExceptionLog("Error", ex);
             }
         }
@@ -80,7 +107,16 @@ namespace HeroesData.CLI
             Console.WriteLine($"Loading xml files...");
 
             time.Start();
-            GameData = GameData.Load(ModsFolderPath);
+            try
+            {
+                GameData = GameData.Load(ModsFolderPath);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Environment.Exit(1);
+            }
+
             time.Stop();
 
             Console.WriteLine($"{GameData.XmlFileCount} xml files loaded");
@@ -95,7 +131,16 @@ namespace HeroesData.CLI
             Console.WriteLine($"Loading game strings...");
 
             time.Start();
-            GameStringData = GameStringData.Load(ModsFolderPath);
+            try
+            {
+                GameStringData = GameStringData.Load(ModsFolderPath);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Environment.Exit(1);
+            }
+
             time.Stop();
 
             Console.WriteLine($"{GameStringData.FullTooltipsByFullTooltipNameId.Count} Full Tooltips");
@@ -105,7 +150,7 @@ namespace HeroesData.CLI
             Console.WriteLine($"{GameStringData.UnitNamesByShortName.Count} Unit names");
             Console.WriteLine($"{GameStringData.AbilityTalentNamesByReferenceNameId.Count} Ability/talent names");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
-            Console.WriteLine("...");
+            Console.WriteLine(string.Empty);
         }
 
         private void InitializeOverrideData()
@@ -119,7 +164,7 @@ namespace HeroesData.CLI
             time.Stop();
 
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
-            Console.WriteLine("...");
+            Console.WriteLine(string.Empty);
         }
 
         private GameStringParser InitializeGameStringParser()
@@ -139,7 +184,7 @@ namespace HeroesData.CLI
             Console.WriteLine($"{descriptionParser.HeroParsedDescriptionsByShortName.Count} parsed hero tooltips");
             Console.WriteLine($"{descriptionParser.InvalidHeroDescriptionsByShortName.Count} invalid hero tooltips");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
-            Console.WriteLine("...");
+            Console.WriteLine(string.Empty);
 
             return descriptionParser;
         }
@@ -168,7 +213,7 @@ namespace HeroesData.CLI
                 Console.WriteLine($"{unitParser.FailedHeroesExceptionsByHeroName.Count} failed to parse [Check logs for details]");
 
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
-            Console.WriteLine("...");
+            Console.WriteLine(string.Empty);
 
             return unitParser;
         }
