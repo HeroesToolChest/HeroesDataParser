@@ -10,10 +10,12 @@ namespace HeroesData.Parser.UnitData.Overrides
         where T : class
     {
         private readonly GameData GameData;
+        private readonly GameStringParser GameStringParser;
 
         public PropertyOverrideBase(GameData gameData)
         {
             GameData = gameData;
+            GameStringParser = new GameStringParser(GameData);
         }
 
         public void SetOverride(string elementId, XElement element, Dictionary<string, Dictionary<string, Action<T>>> propertyOverrideMethodByElementId)
@@ -45,7 +47,7 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         protected double GetValue(string textValue)
         {
-            double? value = GameStringParser.ParseDRefString(GameData, textValue);
+            double? value = GameStringParser.ParseDRefString(textValue);
             if (value.HasValue)
                 return value.Value;
             else

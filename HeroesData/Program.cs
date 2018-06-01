@@ -1,5 +1,4 @@
-﻿using HeroesData.Commands;
-using HeroesData.FileWriter;
+﻿using HeroesData.FileWriter;
 using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.Models;
@@ -8,10 +7,13 @@ using HeroesData.Parser.UnitData.Overrides;
 using HeroesData.Parser.XmlGameData;
 using Microsoft.Extensions.CommandLineUtils;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace HeroesData
 {
@@ -78,20 +80,11 @@ namespace HeroesData
                 InitializeGameStringData();
                 InitializeOverrideData();
 
-                GameStringParser gameStringParser = InitializeGameStringParser();
-                UnitParser unitParser = InitializeUnitParser(gameStringParser);
+                ParsedGameStrings parsedGameStrings = InitializeGameStringParser();
+                List<Hero> parsedHeroes = ParseUnits(parsedGameStrings);
 
-                if (unitParser.FailedHeroesExceptionsByHeroName.Count > 0)
-                {
-                    Console.WriteLine("Terminating program...");
-                    Console.WriteLine("Press any key to quit...");
-                    Console.ReadKey();
-                    Environment.Exit(0);
-                }
-
-                HeroDataVerification(unitParser.ParsedHeroes);
-
-                FileOutput.CreateOutput(unitParser.ParsedHeroes.OrderBy(x => x.ShortName).ToList());
+                HeroDataVerification(parsedHeroes);
+                CreateOutput(parsedHeroes);
             }
             catch (Exception ex) // catch everything
             {
@@ -167,55 +160,153 @@ namespace HeroesData
             Console.WriteLine(string.Empty);
         }
 
-        private GameStringParser InitializeGameStringParser()
+        private ParsedGameStrings InitializeGameStringParser()
         {
             var time = new Stopwatch();
+            var parsedGameStrings = new ParsedGameStrings();
+            var fullParsedTooltips = new ConcurrentDictionary<string, string>();
+            var shortParsedTooltips = new ConcurrentDictionary<string, string>();
+            var heroParsedDescriptions = new ConcurrentDictionary<string, string>();
+            int invalidFullParsedToolips = 0;
+            int invalidShortParsedTooltips = 0;
+            int invalidParsedDescriptions = 0;
+            int currentCount = 0;
 
             Console.WriteLine($"Parsing tooltips...");
 
             time.Start();
-            GameStringParser descriptionParser = GameStringParser.ParseGameStrings(GameData, GameStringData);
+            GameStringParser gameStringParser = new GameStringParser(GameData);
+
+            Parallel.ForEach(GameStringData.FullTooltipsByFullTooltipNameId, tooltip =>
+            {
+                try
+                {
+                    if (gameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
+                        fullParsedTooltips.GetOrAdd(tooltip.Key, parsedTooltip);
+                    else
+                        invalidFullParsedToolips++;
+                }
+                finally
+                {
+                    Interlocked.Increment(ref currentCount);
+
+                    Console.Write($"\r{currentCount} / {GameStringData.FullTooltipsByFullTooltipNameId.Count} total full tooltips");
+                }
+            });
+
+            currentCount = 0;
+            Console.WriteLine(string.Empty);
+
+            Parallel.ForEach(GameStringData.ShortTooltipsByShortTooltipNameId, tooltip =>
+            {
+                try
+                {
+                    if (gameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
+                        shortParsedTooltips.GetOrAdd(tooltip.Key, parsedTooltip);
+                    else
+                        invalidFullParsedToolips++;
+                }
+                finally
+                {
+                    Interlocked.Increment(ref currentCount);
+
+                    Console.Write($"\r{currentCount} / {GameStringData.ShortTooltipsByShortTooltipNameId.Count} total short tooltips");
+                }
+            });
+
+            currentCount = 0;
+            Console.WriteLine(string.Empty);
+
+            Parallel.ForEach(GameStringData.HeroDescriptionsByShortName, tooltip =>
+            {
+                try
+                {
+                    if (gameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
+                        heroParsedDescriptions.GetOrAdd(tooltip.Key, parsedTooltip);
+                    else
+                        invalidFullParsedToolips++;
+                }
+                finally
+                {
+                    Interlocked.Increment(ref currentCount);
+
+                    Console.Write($"\r{currentCount} / {GameStringData.HeroDescriptionsByShortName.Count} total hero descriptions");
+                }
+            });
+
+            parsedGameStrings.FullParsedTooltipsByFullTooltipNameId = new Dictionary<string, string>(fullParsedTooltips);
+            parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId = new Dictionary<string, string>(shortParsedTooltips);
+            parsedGameStrings.HeroParsedDescriptionsByShortName = new Dictionary<string, string>(heroParsedDescriptions);
+
             time.Stop();
 
-            Console.WriteLine($"{descriptionParser.FullParsedTooltipsByFullTooltipNameId.Count} parsed full tooltips");
-            Console.WriteLine($"{descriptionParser.InvalidFullTooltipsByFullTooltipNameId.Count} invalid full tooltips");
-            Console.WriteLine($"{descriptionParser.ShortParsedTooltipsByShortTooltipNameId.Count} parsed short tooltips");
-            Console.WriteLine($"{descriptionParser.InvalidShortTooltipsByShortTooltipNameId.Count} invalid short tooltips");
-            Console.WriteLine($"{descriptionParser.HeroParsedDescriptionsByShortName.Count} parsed hero tooltips");
-            Console.WriteLine($"{descriptionParser.InvalidHeroDescriptionsByShortName.Count} invalid hero tooltips");
+            Console.WriteLine(string.Empty);
+            Console.WriteLine($"{parsedGameStrings.FullParsedTooltipsByFullTooltipNameId.Count} parsed full tooltips");
+            Console.WriteLine($"{invalidFullParsedToolips} invalid full tooltips");
+            Console.WriteLine($"{parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.Count} parsed short tooltips");
+            Console.WriteLine($"{invalidShortParsedTooltips} invalid short tooltips");
+            Console.WriteLine($"{parsedGameStrings.HeroParsedDescriptionsByShortName.Count} parsed hero tooltips");
+            Console.WriteLine($"{invalidParsedDescriptions} invalid hero tooltips");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine(string.Empty);
 
-            return descriptionParser;
+            return parsedGameStrings;
         }
 
-        private UnitParser InitializeUnitParser(GameStringParser gameStringParser)
+        private List<Hero> ParseUnits(ParsedGameStrings parsedGameStrings)
         {
             var time = new Stopwatch();
+            var parsedHeroes = new List<Hero>();
+            var failedParsedHeroes = new List<(string CHeroId, Exception Exception)>();
+            int currentCount = 0;
 
             Console.WriteLine($"Executing hero data...");
 
             time.Start();
-            UnitParser unitParser = UnitParser.Load(GameData, GameStringData, gameStringParser, OverrideData);
+            UnitParser unitParser = UnitParser.Load(GameData, OverrideData);
+            HeroDataParser heroDataParser = new HeroDataParser(GameData, GameStringData, parsedGameStrings, OverrideData);
+
+            Parallel.ForEach(unitParser.CUnitIdByHeroCHeroIds, hero =>
+            {
+                try
+                {
+                    parsedHeroes.Add(heroDataParser.Parse(hero.Key, hero.Value));
+                }
+                catch (Exception ex)
+                {
+                    failedParsedHeroes.Add((hero.Key, ex));
+                }
+                finally
+                {
+                    Interlocked.Increment(ref currentCount);
+
+                    Console.Write($"\r{currentCount} / {unitParser.CUnitIdByHeroCHeroIds.Count} total heroes");
+                }
+            });
+
+            Console.WriteLine(string.Empty);
             time.Stop();
 
-            if (unitParser.FailedHeroesExceptionsByHeroName.Count > 0)
+            if (failedParsedHeroes.Count > 0)
             {
-                foreach (var hero in unitParser.FailedHeroesExceptionsByHeroName)
+                foreach (var hero in failedParsedHeroes)
                 {
-                    WriteExceptionLog($"FailedHeroParsed_{hero.Key}", hero.Value);
+                    WriteExceptionLog($"FailedHeroParsed_{hero.CHeroId}", hero.Exception);
                 }
             }
 
-            Console.WriteLine($"{unitParser.ParsedHeroes.Count} successfully parsed heroes");
-
-            if (unitParser.FailedHeroesExceptionsByHeroName.Count > 0)
-                Console.WriteLine($"{unitParser.FailedHeroesExceptionsByHeroName.Count} failed to parse [Check logs for details]");
-
+            Console.WriteLine($"{parsedHeroes.Count} successfully parsed heroes");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
+            if (failedParsedHeroes.Count > 0)
+            {
+                Console.WriteLine($"{failedParsedHeroes.Count} failed to parse [Check logs for details]");
+                Console.WriteLine($"Terminating program...");
+                Environment.Exit(0);
+            }
+
             Console.WriteLine(string.Empty);
 
-            return unitParser;
+            return parsedHeroes;
         }
 
         private void HeroDataVerification(List<Hero> heroes)
@@ -237,6 +328,11 @@ namespace HeroesData
                     writer.WriteLine($"{Environment.NewLine}{warnings.Count} warnings");
                 }
             }
+        }
+
+        private void CreateOutput(List<Hero> parsedHeroes)
+        {
+            FileOutput.CreateOutput(parsedHeroes.OrderBy(x => x.ShortName).ToList());
         }
 
         private void WriteExceptionLog(string fileName, Exception ex)

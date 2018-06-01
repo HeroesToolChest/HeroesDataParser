@@ -1,12 +1,7 @@
-﻿using HeroesData.Parser.GameStrings;
-using HeroesData.Parser.Models;
-using HeroesData.Parser.UnitData.Overrides;
+﻿using HeroesData.Parser.UnitData.Overrides;
 using HeroesData.Parser.XmlGameData;
-using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace HeroesData.Parser.UnitData
@@ -14,49 +9,33 @@ namespace HeroesData.Parser.UnitData
     public class UnitParser
     {
         private readonly GameData GameData;
-        private readonly GameStringData GameStringData;
-        private readonly GameStringParser GameStringParser;
         private readonly OverrideData OverrideData;
 
-        private SortedDictionary<string, string> CUnitIdByHeroCHeroIds = new SortedDictionary<string, string>();
-
-        private UnitParser(GameData gameData, GameStringData gameStringData, GameStringParser gameStringParser, OverrideData overrideData)
+        private UnitParser(GameData gameData, OverrideData overrideData)
         {
             GameData = gameData;
-            GameStringData = gameStringData;
-            GameStringParser = gameStringParser;
             OverrideData = overrideData;
 
             Initialize();
         }
 
-        /// <summary>
-        /// Gets a list of successfully parsed hero data.
-        /// </summary>
-        public List<Hero> ParsedHeroes { get; } = new List<Hero>(101);
+        public SortedDictionary<string, string> CUnitIdByHeroCHeroIds { get; private set; } = new SortedDictionary<string, string>();
 
         /// <summary>
-        /// Gets a dictionary of heroes that unsuccesfully parsed.
-        /// </summary>
-        public ConcurrentDictionary<string, Exception> FailedHeroesExceptionsByHeroName { get; } = new ConcurrentDictionary<string, Exception>();
-
-        /// <summary>
-        /// Loads all unit data.
+        /// Loads all unit id data to be parsed.
         /// </summary>
         /// <param name="gameData"></param>
-        /// <param name="gameStringData"></param>
         /// <param name="gameStringParser"></param>
         /// <param name="overrideData"></param>
         /// <returns></returns>
-        public static UnitParser Load(GameData gameData, GameStringData gameStringData, GameStringParser gameStringParser, OverrideData overrideData)
+        public static UnitParser Load(GameData gameData, OverrideData overrideData)
         {
-            return new UnitParser(gameData, gameStringData, gameStringParser, overrideData);
+            return new UnitParser(gameData, overrideData);
         }
 
         private void Initialize()
         {
             GetCHeroNames();
-            ParseHeroData();
         }
 
         private void GetCHeroNames()
@@ -64,6 +43,7 @@ namespace HeroesData.Parser.UnitData
             // CHero
             var cHeroElements = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
 
+            // get all heroes
             foreach (XElement hero in cHeroElements)
             {
                 string id = hero.Attribute("id").Value;
@@ -75,7 +55,7 @@ namespace HeroesData.Parser.UnitData
                 CUnitIdByHeroCHeroIds.Add(id, string.Empty);
             }
 
-            // CUnit
+            // get all hero cunit id and associate it with the chero id found above
             var cUnitElements = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id") != null);
 
             foreach (XElement hero in cUnitElements)
@@ -97,23 +77,6 @@ namespace HeroesData.Parser.UnitData
                         CUnitIdByHeroCHeroIds[hero.Key] = heroOverride.CUnitOverride.CUnit;
                 }
             }
-        }
-
-        private void ParseHeroData()
-        {
-            Parallel.ForEach(CUnitIdByHeroCHeroIds, hero =>
-            {
-                try
-                {
-                    HeroDataParser heroDataParser = new HeroDataParser(GameData, GameStringData, GameStringParser, OverrideData);
-                    ParsedHeroes.Add(heroDataParser.Parse(hero.Key, hero.Value));
-                }
-                catch (Exception ex)
-                {
-                    FailedHeroesExceptionsByHeroName.GetOrAdd(hero.Key, ex);
-                    return;
-                }
-            });
         }
     }
 }

@@ -1,12 +1,10 @@
 ﻿using HeroesData.Parser.Exceptions;
 using HeroesData.Parser.XmlGameData;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace HeroesData.Parser.GameStrings
@@ -14,68 +12,47 @@ namespace HeroesData.Parser.GameStrings
     public class GameStringParser
     {
         private readonly GameData GameData;
-        private readonly GameStringData GameStringData;
         private readonly GameStringValues GameStringValues;
 
         private readonly DataTable DataTable = new DataTable();
 
         private Dictionary<string, HashSet<string>> ElementNames = new Dictionary<string, HashSet<string>>();
 
-        private GameStringParser(GameData gameData, GameStringData gameStringData)
+        public GameStringParser(GameData gameData)
         {
             GameData = gameData;
-            GameStringData = gameStringData;
             GameStringValues = GameStringValues.Load();
-
-            SetValidElementNames();
-            Initialize();
-        }
-
-        private GameStringParser(GameData gameData)
-        {
-            GameData = gameData;
             SetValidElementNames();
         }
 
         /// <summary>
-        /// Gets the short parsed tooltips.
+        /// Gets a parsed tooltip from a given tooltip.
         /// </summary>
-        public ConcurrentDictionary<string, string> ShortParsedTooltipsByShortTooltipNameId { get; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 5001);
-
-        /// <summary>
-        /// Gets the full parsed tooltips.
-        /// </summary>
-        public ConcurrentDictionary<string, string> FullParsedTooltipsByFullTooltipNameId { get; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 5001);
-
-        /// <summary>
-        /// Gets the parsed hero descriptions.
-        /// </summary>
-        public ConcurrentDictionary<string, string> HeroParsedDescriptionsByShortName { get; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
-
-        /// <summary>
-        /// Gets the invalid short parsed tooltips.
-        /// </summary>
-        public ConcurrentDictionary<string, string> InvalidShortTooltipsByShortTooltipNameId { get; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
-
-        /// <summary>
-        /// Gets the invalid full parsed tooltips.
-        /// </summary>
-        public ConcurrentDictionary<string, string> InvalidFullTooltipsByFullTooltipNameId { get; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
-
-        /// <summary>
-        /// Gets the invalid hero descriptions.
-        /// </summary>
-        public ConcurrentDictionary<string, string> InvalidHeroDescriptionsByShortName { get; } = new ConcurrentDictionary<string, string>(Environment.ProcessorCount, 101);
-
-        /// <summary>
-        /// Parses all the game strings.
-        /// </summary>
-        /// <param name="gameData"></param>
-        /// <param name="gameStringData"></param>
+        /// <param name="referenceNameId">The id of the tooltip.</param>
+        /// <param name="tooltip">The tooltip to be parsed.</param>
+        /// <param name="parsedTooltip">The parsed tooltip.</param>
         /// <returns></returns>
-        public static GameStringParser ParseGameStrings(GameData gameData, GameStringData gameStringData)
+        public bool TryParseRawTooltip(string referenceNameId, string tooltip, out string parsedTooltip)
         {
-            return new GameStringParser(gameData, gameStringData);
+            parsedTooltip = string.Empty;
+            if (string.IsNullOrEmpty(referenceNameId) || string.IsNullOrEmpty(tooltip))
+                return false;
+
+            try
+            {
+                parsedTooltip = ParseTooltipGameStringData(referenceNameId, tooltip);
+                return true;
+            }
+            catch (UnparseableException)
+            {
+                parsedTooltip = null;
+                return false;
+            }
+            catch (Exception)
+            {
+                parsedTooltip = null;
+                return false;
+            }
         }
 
         /// <summary>
@@ -83,70 +60,43 @@ namespace HeroesData.Parser.GameStrings
         /// </summary>
         /// <param name="dRef">The dref string.</param>
         /// <returns></returns>
-        public static double? ParseDRefString(GameData gameData, string dRef)
+        public double? ParseDRefString(string dRef)
         {
-            return new GameStringParser(gameData).ParseDataReferenceString(dRef);
+            return ParseDataReferenceString(dRef);
         }
 
-        private void Initialize()
+        private string ParseTooltipGameStringData(string referenceNameId, string tooltip)
         {
-            ParseTooltipGameStringData(GameStringData.ShortTooltipsByShortTooltipNameId, ShortParsedTooltipsByShortTooltipNameId, InvalidShortTooltipsByShortTooltipNameId);
-            ParseTooltipGameStringData(GameStringData.FullTooltipsByFullTooltipNameId, FullParsedTooltipsByFullTooltipNameId, InvalidFullTooltipsByFullTooltipNameId);
-            ParseTooltipGameStringData(GameStringData.HeroDescriptionsByShortName, HeroParsedDescriptionsByShortName, InvalidHeroDescriptionsByShortName);
-        }
-
-        private void ParseTooltipGameStringData(SortedDictionary<string, string> gameStringTooltips, ConcurrentDictionary<string, string> parsedTooltips, ConcurrentDictionary<string, string> invalidTooltips)
-        {
-            if (gameStringTooltips == null || gameStringTooltips.Count < 1)
-                return;
-
-            Parallel.ForEach(gameStringTooltips, gameStringTooltip =>
+            if (tooltip.Contains("$GalaxyVar") || tooltip.Contains("**TEMP**"))
             {
-                string referenceNameId = gameStringTooltip.Key;
-                string tooltip = gameStringTooltip.Value;
+                return string.Empty;
+            }
 
-                try
+            if (tooltip.Contains("<d score="))
+                tooltip = Regex.Replace(tooltip, @"<d score=.*?/>", "0");
+
+            if (tooltip.Contains("<D ref="))
+                tooltip = tooltip.Replace("<D ref=", "<d ref=");
+
+            if (tooltip.Contains("<d ref= \""))
+                tooltip = tooltip.Replace("<d ref= \"", "<d ref=\"");
+
+            if (tooltip.Contains("<d ref="))
+            {
+                while (tooltip.Contains("[d ref="))
                 {
-                    if (tooltip.Contains("$GalaxyVar") || tooltip.Contains("**TEMP**"))
-                    {
-                        return;
-                    }
-
-                    if (tooltip.Contains("<d score="))
-                        tooltip = Regex.Replace(tooltip, @"<d score=.*?/>", "0");
-
-                    if (tooltip.Contains("<D ref="))
-                        tooltip = tooltip.Replace("<D ref=", "<d ref=");
-
-                    if (tooltip.Contains("<d ref= \""))
-                        tooltip = tooltip.Replace("<d ref= \"", "<d ref=\"");
-
-                    if (tooltip.Contains("<d ref="))
-                    {
-                        while (tooltip.Contains("[d ref="))
-                        {
-                            ParseGameString(referenceNameId, ref tooltip, "(\\[d ref=\".*?/\\])", true, parsedTooltips, invalidTooltips);
-                        }
-
-                        ParseGameString(referenceNameId, ref tooltip, "(<d ref=\".*?/>)", false, parsedTooltips, invalidTooltips);
-                    }
-                    else // no values to look up
-                    {
-                        parsedTooltips.GetOrAdd(referenceNameId, GameStringValidator.Validate(tooltip));
-                    }
+                    tooltip = ParseGameString(referenceNameId, tooltip, "(\\[d ref=\".*?/\\])", true);
                 }
-                catch (UnparseableException)
-                {
-                    invalidTooltips.GetOrAdd(referenceNameId, tooltip);
-                }
-                catch (Exception)
-                {
-                    invalidTooltips.GetOrAdd(referenceNameId, tooltip);
-                }
-            });
+
+                return ParseGameString(referenceNameId, tooltip, "(<d ref=\".*?/>)", false);
+            }
+            else // no values to look up
+            {
+                return tooltip;
+            }
         }
 
-        private void ParseGameString(string referenceNameId, ref string tooltip, string spliter, bool nestedTooltip, ConcurrentDictionary<string, string> parsedTooltips, ConcurrentDictionary<string, string> invalidTooltips)
+        private string ParseGameString(string referenceNameId, string tooltip, string spliter, bool nestedTooltip)
         {
             if (nestedTooltip)
             {
@@ -193,9 +143,7 @@ namespace HeroesData.Parser.GameStrings
 
                 if (string.IsNullOrEmpty(Regex.Replace(pathLookup, @"[/*+\-()]", string.Empty)))
                 {
-                    invalidTooltips.GetOrAdd(referenceNameId, tooltip);
-                    tooltip = string.Empty;
-                    return;
+                    return string.Empty;
                 }
 
                 // extract the scaling
@@ -221,7 +169,7 @@ namespace HeroesData.Parser.GameStrings
 
             if (nestedTooltip)
             {
-                tooltip = string.Join(string.Empty, parts);
+                return string.Join(string.Empty, parts);
             }
             else
             {
@@ -233,8 +181,7 @@ namespace HeroesData.Parser.GameStrings
                     joinDesc = joinDesc.Replace(match.Value, match.Value.Replace("\"", "'"));
                 }
 
-                if (!parsedTooltips.ContainsKey(referenceNameId))
-                    parsedTooltips.GetOrAdd(referenceNameId, GameStringValidator.Validate(joinDesc));
+                return GameStringValidator.Validate(joinDesc);
             }
         }
 

@@ -18,25 +18,31 @@ namespace HeroesData.Parser.UnitData
 
         private readonly GameData GameData;
         private readonly GameStringData GameStringData;
-        private readonly GameStringParser GameStringParser;
+        private readonly ParsedGameStrings ParsedGameStrings;
         private readonly OverrideData OverrideData;
 
         private HeroOverride HeroOverride = new HeroOverride();
 
-        public HeroDataParser(GameData gameData, GameStringData gameStringData, GameStringParser gameStringParser, OverrideData overrideData)
+        public HeroDataParser(GameData gameData, GameStringData gameStringData, ParsedGameStrings parsedGameStrings, OverrideData overrideData)
         {
             GameData = gameData;
             GameStringData = gameStringData;
-            GameStringParser = gameStringParser;
+            ParsedGameStrings = parsedGameStrings;
             OverrideData = overrideData;
         }
 
+        /// <summary>
+        /// Parses the hero's game data.
+        /// </summary>
+        /// <param name="cHeroId">The id value of the CHero element.</param>
+        /// <param name="cUnitId">The id value of the CUnit element.</param>
+        /// <returns></returns>
         public Hero Parse(string cHeroId, string cUnitId)
         {
             Hero hero = new Hero
             {
                 Name = GameStringData.HeroNamesByShortName[cHeroId],
-                Description = new TooltipDescription(GameStringParser.HeroParsedDescriptionsByShortName[cHeroId]),
+                Description = new TooltipDescription(ParsedGameStrings.HeroParsedDescriptionsByShortName[cHeroId]),
                 CHeroId = cHeroId,
                 CUnitId = cUnitId,
             };
@@ -659,18 +665,18 @@ namespace HeroesData.Parser.UnitData
             }
 
             // full
-            if (GameStringParser.FullParsedTooltipsByFullTooltipNameId.TryGetValue(fullTooltipValue, out string fullDescription))
+            if (ParsedGameStrings.FullParsedTooltipsByFullTooltipNameId.TryGetValue(fullTooltipValue, out string fullDescription))
                 abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription);
-            else if (GameStringParser.FullParsedTooltipsByFullTooltipNameId.TryGetValue(faceValue, out fullDescription))
+            else if (ParsedGameStrings.FullParsedTooltipsByFullTooltipNameId.TryGetValue(faceValue, out fullDescription))
                 abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription);
 
             // short
-            if (GameStringParser.ShortParsedTooltipsByShortTooltipNameId.TryGetValue(shortTooltipValue, out string shortDescription))
+            if (ParsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.TryGetValue(shortTooltipValue, out string shortDescription))
             {
                 abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription);
                 abilityTalentBase.ShortTooltipNameId = shortTooltipValue;
             }
-            else if (GameStringParser.ShortParsedTooltipsByShortTooltipNameId.TryGetValue(faceValue, out shortDescription))
+            else if (ParsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.TryGetValue(faceValue, out shortDescription))
             {
                 abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription);
             }
@@ -855,7 +861,7 @@ namespace HeroesData.Parser.UnitData
 
                 if (cUnit != null)
                 {
-                    if (GameStringParser.HeroParsedDescriptionsByShortName.TryGetValue(unit, out string desc))
+                    if (ParsedGameStrings.HeroParsedDescriptionsByShortName.TryGetValue(unit, out string desc))
                         heroUnit.Description = new TooltipDescription(desc);
 
                     SetDefaultValues(heroUnit);
