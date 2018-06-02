@@ -19,32 +19,49 @@ namespace HeroesData
 {
     internal class Program
     {
-        private string ModsFolderPath;
         private GameData GameData;
         private GameStringData GameStringData;
         private OverrideData OverrideData;
 
+        private string ModsFolderPath = Path.Combine(Environment.CurrentDirectory, "mods");
+        private bool Defaults = true;
+        private bool CreateXml = true;
+        private bool CreateJson = true;
+
         internal static void Main(string[] args)
         {
-            CommandLineApplication app = new CommandLineApplication(false)
+            CommandLineApplication app = new CommandLineApplication(true)
             {
                 Description = "Test description",
             };
             app.HelpOption("-?|-h|--help");
-            app.VersionOption("-v|--version", $"Heroes Parser Data v{AppVersion.GetVersion()}");
+            app.VersionOption("-v|--version", $"Heroes Data Parser ({AppVersion.GetVersion()})");
 
             CommandOption modPathOption = app.Option("-m|--modsPath <filePath>", "The file path of the mods folder", CommandOptionType.SingleValue);
+            CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
+            CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
 
             app.OnExecute(() =>
             {
-                if (modPathOption.HasValue())
+                var program = new Program()
                 {
-                    var program = new Program
-                    {
-                        ModsFolderPath = Path.Combine(Environment.CurrentDirectory, modPathOption.Value()),
-                    };
-                    program.Execute();
-                }
+                    Defaults = false,
+                };
+
+                if (modPathOption.HasValue())
+                    program.ModsFolderPath = Path.Combine(Environment.CurrentDirectory, modPathOption.Value());
+
+                if (xmlOutputOption.HasValue())
+                    program.CreateXml = true;
+                else
+                    program.CreateXml = false;
+
+                if (jsonOutputOption.HasValue())
+                    program.CreateJson = true;
+                else
+                    program.CreateJson = false;
+
+                program.Execute();
 
                 return 0;
             });
@@ -62,10 +79,9 @@ namespace HeroesData
             }
             else // defaults
             {
-                Console.WriteLine("Defaulting to current directory");
-                var program = new Program
+                var program = new Program()
                 {
-                    ModsFolderPath = Path.Combine(Environment.CurrentDirectory, "mods"),
+                    Defaults = true,
                 };
                 program.Execute();
             }
@@ -73,6 +89,18 @@ namespace HeroesData
 
         private void Execute()
         {
+            Console.WriteLine($"Heroes Data Parser ({AppVersion.GetVersion()})");
+            Console.WriteLine(string.Empty);
+
+            if (Defaults)
+            {
+                Console.WriteLine("Using default settings:");
+                Console.WriteLine("  Current directory mods folder");
+                Console.WriteLine("  Create xml output");
+                Console.WriteLine("  Create json output");
+                Console.WriteLine(string.Empty);
+            }
+
             try
             {
                 // get all data
@@ -85,6 +113,9 @@ namespace HeroesData
 
                 HeroDataVerification(parsedHeroes);
                 CreateOutput(parsedHeroes);
+
+                Console.WriteLine("HDP successfully completed.");
+                Console.WriteLine(string.Empty);
             }
             catch (Exception ex) // catch everything
             {
@@ -321,11 +352,62 @@ namespace HeroesData
                     writer.WriteLine($"{Environment.NewLine}{warnings.Count} warnings");
                 }
             }
+
+            Console.WriteLine(string.Empty);
         }
 
         private void CreateOutput(List<Hero> parsedHeroes)
         {
-            FileOutput.CreateOutput(parsedHeroes.OrderBy(x => x.ShortName).ToList());
+            bool anyCreated = false; // did we create any output at all?
+
+            Console.WriteLine("Creating output...");
+
+            FileOutput fileOutput = FileOutput.SetHeroData(parsedHeroes.OrderBy(x => x.ShortName).ToList());
+
+            if (Defaults)
+            {
+                if (fileOutput.IsXmlEnabled)
+                {
+                    Console.Write("Writing xml file(s)...");
+                    fileOutput.CreateXml();
+                    anyCreated = true;
+                    Console.WriteLine("Done.");
+                }
+
+                if (fileOutput.IsJsonEnabled)
+                {
+                    Console.Write("Writing json file(s)...");
+                    fileOutput.CreateJson();
+                    anyCreated = true;
+                    Console.WriteLine("Done.");
+                }
+            }
+            else
+            {
+                if (CreateXml)
+                {
+                    Console.Write("Writing xml file(s)...");
+                    fileOutput.CreateXml(CreateXml);
+                    anyCreated = true;
+                    Console.WriteLine("Done.");
+                }
+
+                if (CreateJson)
+                {
+                    Console.Write("Writing json file(s)...");
+                    fileOutput.CreateJson(CreateJson);
+                    anyCreated = true;
+                    Console.WriteLine("Done.");
+                }
+            }
+
+            if (!anyCreated)
+            {
+                Console.WriteLine("No writers were enabled!");
+                Console.WriteLine("No output was created.");
+            }
+
+            Console.WriteLine(string.Empty);
         }
 
         private void WriteExceptionLog(string fileName, Exception ex)
