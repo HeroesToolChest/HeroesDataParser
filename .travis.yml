@@ -1,9 +1,10 @@
 language: csharp
 mono: none
 solution: HeroesDataParser.sln
-dotnet: 2.1.2
+dotnet: 2.1.300
 os:
   - linux
   - osx
 script:
-  - dotnet restore
+  - dotnet build --configuration Debug
+  - dotnet build --configuration Release
