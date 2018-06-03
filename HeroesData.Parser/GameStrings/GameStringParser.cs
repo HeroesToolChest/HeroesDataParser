@@ -122,12 +122,14 @@ namespace HeroesData.Parser.GameStrings
 
                 string pathLookup = parts[i];
 
+                // get precision
                 if (pathLookup.ToLower().Contains("precision=\""))
                 {
                     pathLookup = pathLookup.Replace("Precision=\"", "precision=\"");
                     pathLookup = GetPrecision(pathLookup, out precision);
                 }
 
+                // remove the player
                 if (pathLookup.ToLower().Contains("player=\"") || pathLookup.ToLower().Contains("player =\""))
                 {
                     if (pathLookup.ToLower().Contains("player =\""))
@@ -138,7 +140,7 @@ namespace HeroesData.Parser.GameStrings
                     pathLookup = GetPlayer(pathLookup, out int? player);
                 }
 
-                // perform xml data lookkup to find values
+                // perform xml data lookup to find values
                 pathLookup = ParseValues(pathLookup);
 
                 if (string.IsNullOrEmpty(Regex.Replace(pathLookup, @"[/*+\-()]", string.Empty)))

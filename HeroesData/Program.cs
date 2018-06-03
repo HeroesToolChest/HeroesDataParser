@@ -25,11 +25,14 @@ namespace HeroesData
 
         private string ModsFolderPath = Path.Combine(Environment.CurrentDirectory, "mods");
         private string HotsFolderPath = Path.Combine(Environment.CurrentDirectory);
+        private StorageMode StorageMode = StorageMode.None;
+        private CASCHotsStorage CASCHotsStorage = null;
         private bool Defaults = true;
         private bool CreateXml = true;
         private bool CreateJson = true;
-        private StorageMode StorageMode = StorageMode.None;
-        private CASCHotsStorage CASCHotsStorage = null;
+        private bool showInvalidFullTooltips = false;
+        private bool showInvalidShortTooltips = false;
+        private bool showInvalidHeroTooltips = false;
 
         internal static void Main(string[] args)
         {
@@ -44,6 +47,9 @@ namespace HeroesData
             CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The file path of the 'Heroes of the Storm' folder", CommandOptionType.SingleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
+            CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
+            CommandOption invalidShortOption = app.Option("--invalidShort", "Show all invalid short tooltips", CommandOptionType.NoValue);
+            CommandOption invalidHeroOption = app.Option("--invalidHero", "Show all invalid hero tooltips", CommandOptionType.NoValue);
 
             app.OnExecute(() =>
             {
@@ -65,6 +71,9 @@ namespace HeroesData
 
                 program.CreateXml = xmlOutputOption.HasValue() ? true : false;
                 program.CreateJson = jsonOutputOption.HasValue() ? true : false;
+                program.showInvalidFullTooltips = invalidFullOption.HasValue() ? true : false;
+                program.showInvalidShortTooltips = invalidShortOption.HasValue() ? true : false;
+                program.showInvalidHeroTooltips = invalidHeroOption.HasValue() ? true : false;
 
                 program.Execute();
                 Console.ResetColor();
@@ -124,6 +133,9 @@ namespace HeroesData
                     Environment.Exit(0);
                 }
             }
+
+            if (StorageMode == StorageMode.None)
+                StoragePathFinder();
 
             try
             {
@@ -242,9 +254,10 @@ namespace HeroesData
             var fullParsedTooltips = new ConcurrentDictionary<string, string>();
             var shortParsedTooltips = new ConcurrentDictionary<string, string>();
             var heroParsedDescriptions = new ConcurrentDictionary<string, string>();
-            int invalidFullParsedToolips = 0;
-            int invalidShortParsedTooltips = 0;
-            int invalidParsedDescriptions = 0;
+            var invalidFullTooltips = new ConcurrentDictionary<string, string>();
+            var invalidShortTooltips = new ConcurrentDictionary<string, string>();
+            var invalidHeroDescriptions = new ConcurrentDictionary<string, string>();
+
             int currentCount = 0;
 
             Console.WriteLine($"Parsing tooltips...");
@@ -259,7 +272,7 @@ namespace HeroesData
                     if (gameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
                         fullParsedTooltips.GetOrAdd(tooltip.Key, parsedTooltip);
                     else
-                        invalidFullParsedToolips++;
+                        invalidFullTooltips.GetOrAdd(tooltip.Key, tooltip.Value);
                 }
                 finally
                 {
@@ -279,7 +292,7 @@ namespace HeroesData
                     if (gameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
                         shortParsedTooltips.GetOrAdd(tooltip.Key, parsedTooltip);
                     else
-                        invalidFullParsedToolips++;
+                        invalidShortTooltips.GetOrAdd(tooltip.Key, tooltip.Value);
                 }
                 finally
                 {
@@ -297,7 +310,7 @@ namespace HeroesData
                 if (gameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
                     heroParsedDescriptions.GetOrAdd(tooltip.Key, parsedTooltip);
                 else
-                    invalidFullParsedToolips++;
+                    invalidHeroDescriptions.GetOrAdd(tooltip.Key, tooltip.Value);
 
                 Console.Write($"\r{++currentCount,6} / {GameStringData.HeroDescriptionsByShortName.Count} total hero descriptions");
             }
@@ -312,11 +325,20 @@ namespace HeroesData
             Console.WriteLine($"{parsedGameStrings.FullParsedTooltipsByFullTooltipNameId.Count,6} parsed full tooltips");
             Console.WriteLine($"{parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.Count,6} parsed short tooltips");
             Console.WriteLine($"{parsedGameStrings.HeroParsedDescriptionsByShortName.Count,6} parsed hero tooltips");
-            Console.WriteLine($"{invalidFullParsedToolips,6} invalid full tooltips");
-            Console.WriteLine($"{invalidShortParsedTooltips,6} invalid short tooltips");
-            Console.WriteLine($"{invalidParsedDescriptions,6} invalid hero tooltips");
+            Console.WriteLine($"{invalidFullTooltips.Count,6} invalid full tooltips");
+            Console.WriteLine($"{invalidShortTooltips.Count,6} invalid short tooltips");
+            Console.WriteLine($"{invalidHeroDescriptions.Count,6} invalid hero tooltips");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine(string.Empty);
+
+            if (showInvalidFullTooltips && invalidFullTooltips.Count > 0)
+                OutputInvalidTooltips(new SortedDictionary<string, string>(invalidFullTooltips), "Invalid full tooltips");
+
+            if (showInvalidShortTooltips && invalidShortTooltips.Count > 0)
+                OutputInvalidTooltips(new SortedDictionary<string, string>(invalidShortTooltips), "Invalid short tooltips");
+
+            if (showInvalidHeroTooltips && invalidHeroDescriptions.Count > 0)
+                OutputInvalidTooltips(new SortedDictionary<string, string>(invalidHeroDescriptions), "Invalid hero tooltips");
 
             return parsedGameStrings;
         }
@@ -477,18 +499,22 @@ namespace HeroesData
             if (Directory.Exists(ModsFolderPath))
             {
                 StorageMode = StorageMode.Mods;
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Found 'mods' directory");
                 Console.WriteLine(string.Empty);
+                Console.ResetColor();
             }
             else if (CheckHotsDirectory())
             {
                 StorageMode = StorageMode.CASC;
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Found Heroes of the Storm storage directory");
                 Console.WriteLine(string.Empty);
+                Console.ResetColor();
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Could not find a 'mods' or Heroes of the Storm storage directory");
                 Console.WriteLine(string.Empty);
 
@@ -526,6 +552,24 @@ namespace HeroesData
                 if (!string.IsNullOrEmpty(ex.StackTrace))
                     writer.Write(ex.StackTrace);
             }
+        }
+
+        private void OutputInvalidTooltips(SortedDictionary<string, string> tooltips, string headerMessage)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"{tooltips.Count} {headerMessage}");
+
+            foreach (KeyValuePair<string, string> item in tooltips)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"{item.Key}");
+                Console.Write("=");
+                Console.ResetColor();
+                Console.WriteLine($"{item.Value}");
+            }
+
+            Console.ResetColor();
+            Console.WriteLine(string.Empty);
         }
     }
 }
