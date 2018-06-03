@@ -24,9 +24,12 @@ namespace HeroesData
         private OverrideData OverrideData;
 
         private string ModsFolderPath = Path.Combine(Environment.CurrentDirectory, "mods");
+        private string HotsFolderPath = Path.Combine(Environment.CurrentDirectory);
         private bool Defaults = true;
         private bool CreateXml = true;
         private bool CreateJson = true;
+        private StorageMode StorageMode = StorageMode.None;
+        private CASCHotsStorage CASCHotsStorage = null;
 
         internal static void Main(string[] args)
         {
@@ -37,7 +40,8 @@ namespace HeroesData
             app.HelpOption("-?|-h|--help");
             app.VersionOption("-v|--version", $"Heroes Data Parser ({AppVersion.GetVersion()})");
 
-            CommandOption modPathOption = app.Option("-m|--modsPath <filePath>", "The file path of the mods folder", CommandOptionType.SingleValue);
+            CommandOption modPathOption = app.Option("-m|--modsPath <filePath>", "The file path of the 'mods' folder", CommandOptionType.SingleValue);
+            CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The file path of the 'Heroes of the Storm' folder", CommandOptionType.SingleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
 
@@ -49,19 +53,21 @@ namespace HeroesData
                 };
 
                 if (modPathOption.HasValue())
-                    program.ModsFolderPath = Path.Combine(Environment.CurrentDirectory, modPathOption.Value());
+                {
+                    program.ModsFolderPath = modPathOption.Value();
+                    program.StorageMode = StorageMode.Mods;
+                }
+                else if (storagePathOption.HasValue())
+                {
+                    program.HotsFolderPath = storagePathOption.Value();
+                    program.StorageMode = StorageMode.CASC;
+                }
 
-                if (xmlOutputOption.HasValue())
-                    program.CreateXml = true;
-                else
-                    program.CreateXml = false;
-
-                if (jsonOutputOption.HasValue())
-                    program.CreateJson = true;
-                else
-                    program.CreateJson = false;
+                program.CreateXml = xmlOutputOption.HasValue() ? true : false;
+                program.CreateJson = jsonOutputOption.HasValue() ? true : false;
 
                 program.Execute();
+                Console.ResetColor();
 
                 return 0;
             });
@@ -85,6 +91,10 @@ namespace HeroesData
                 };
                 program.Execute();
             }
+
+            Console.ResetColor();
+
+            Environment.Exit(0);
         }
 
         private void Execute()
@@ -95,14 +105,31 @@ namespace HeroesData
             if (Defaults)
             {
                 Console.WriteLine("Using default settings:");
-                Console.WriteLine("  Current directory mods folder");
                 Console.WriteLine("  Create xml output");
                 Console.WriteLine("  Create json output");
                 Console.WriteLine(string.Empty);
+
+                StoragePathFinder();
+            }
+            else
+            {
+                if (!CreateXml && !CreateJson)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("No writers are enabled!");
+                    Console.WriteLine("Please include the option --xml or --json");
+                    Console.WriteLine(string.Empty);
+                    Console.ResetColor();
+
+                    Environment.Exit(0);
+                }
             }
 
             try
             {
+                if (StorageMode == StorageMode.CASC)
+                    CASCHotsStorage = CASCHotsStorage.Load(HotsFolderPath);
+
                 // get all data
                 InitializeGameData();
                 InitializeGameStringData();
@@ -114,13 +141,19 @@ namespace HeroesData
                 HeroDataVerification(parsedHeroes);
                 CreateOutput(parsedHeroes);
 
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("HDP successfully completed.");
                 Console.WriteLine(string.Empty);
             }
             catch (Exception ex) // catch everything
             {
-                Console.WriteLine($"{Environment.NewLine}An error has occured, check error logs for details");
                 WriteExceptionLog("Error", ex);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"{Environment.NewLine}An error has occured, check error logs for details");
+                Console.WriteLine(string.Empty);
+
+                Console.ResetColor();
+                Environment.Exit(1);
             }
         }
 
@@ -133,11 +166,16 @@ namespace HeroesData
             time.Start();
             try
             {
-                GameData = GameData.Load(ModsFolderPath);
+                if (StorageMode == StorageMode.Mods)
+                    GameData = GameData.Load(ModsFolderPath);
+                else if (StorageMode == StorageMode.CASC)
+                    GameData = GameData.Load(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot);
             }
             catch (DirectoryNotFoundException ex)
             {
                 Console.WriteLine(ex.Message);
+
+                Console.ResetColor();
                 Environment.Exit(1);
             }
 
@@ -157,11 +195,17 @@ namespace HeroesData
             time.Start();
             try
             {
-                GameStringData = GameStringData.Load(ModsFolderPath);
+                if (StorageMode == StorageMode.Mods)
+                    GameStringData = GameStringData.Load(ModsFolderPath);
+                else if (StorageMode == StorageMode.CASC)
+                    GameStringData = GameStringData.Load(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot);
             }
             catch (DirectoryNotFoundException ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(ex.Message);
+
+                Console.ResetColor();
                 Environment.Exit(1);
             }
 
@@ -323,9 +367,12 @@ namespace HeroesData
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             if (failedParsedHeroes.Count > 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{failedParsedHeroes.Count} failed to parse [Check logs for details]");
-                Console.WriteLine($"Terminating program...");
-                Environment.Exit(0);
+                Console.WriteLine(string.Empty);
+
+                Console.ResetColor();
+                Environment.Exit(1);
             }
 
             Console.WriteLine(string.Empty);
@@ -338,7 +385,9 @@ namespace HeroesData
             Console.WriteLine($"Verifying hero data...");
             List<string> warnings = VerifyHeroData.Verify(heroes);
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"{warnings.Count} warnings [Check logs for details]");
+            Console.ResetColor();
 
             if (warnings.Count > 0)
             {
@@ -403,11 +452,57 @@ namespace HeroesData
 
             if (!anyCreated)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("No writers were enabled!");
                 Console.WriteLine("No output was created.");
+                Console.ResetColor();
             }
 
             Console.WriteLine(string.Empty);
+        }
+
+        private void StoragePathFinder()
+        {
+            if (Directory.Exists(ModsFolderPath))
+            {
+                StorageMode = StorageMode.Mods;
+                Console.WriteLine("Found 'mods' directory");
+                Console.WriteLine(string.Empty);
+            }
+            else if (CheckHotsDirectory())
+            {
+                StorageMode = StorageMode.CASC;
+                Console.WriteLine("Found Heroes of the Storm storage directory");
+                Console.WriteLine(string.Empty);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Could not find a 'mods' or Heroes of the Storm storage directory");
+                Console.WriteLine(string.Empty);
+
+                Console.ResetColor();
+                Environment.Exit(0);
+            }
+        }
+
+        private bool CheckHotsDirectory()
+        {
+            // check current directory
+            if (Directory.Exists(HotsFolderPath) && Directory.Exists(Path.Combine(HotsFolderPath, "HeroesData")) && File.Exists(Path.Combine(HotsFolderPath, ".build.info")))
+            {
+                return true;
+            }
+            else
+            {
+                HotsFolderPath = Path.Combine(HotsFolderPath, "Heroes of the Storm");
+
+                // check if Heroes of the Storm directory exists
+                if (Directory.Exists(HotsFolderPath) && Directory.Exists(Path.Combine(HotsFolderPath, "HeroesData")) && File.Exists(Path.Combine(HotsFolderPath, ".build.info")))
+                    return true;
+            }
+
+            return false;
         }
 
         private void WriteExceptionLog(string fileName, Exception ex)

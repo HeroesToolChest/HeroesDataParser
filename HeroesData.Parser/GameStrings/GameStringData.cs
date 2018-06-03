@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using CASCLib;
+using System.Collections.Generic;
 using System.IO;
 
 namespace HeroesData.Parser.GameStrings
 {
-    public class GameStringData
+    public abstract class GameStringData
     {
         private readonly string SimpleDisplayPrefix = "Button/SimpleDisplayText/";
         private readonly string SimplePrefix = "Button/Simple/";
@@ -13,17 +14,9 @@ namespace HeroesData.Parser.GameStrings
         private readonly string DescriptionNamePrefix = "Button/Name/"; // real name of ability/talent
         private readonly string UnitPrefix = "Unit/Name/";
 
-        private readonly string ModsFolderPath;
-        private readonly string OldDescriptionsPath;
-        private readonly string HeroModsPath;
-
-        private GameStringData(string modsFolderPath)
+        protected GameStringData(string modsFolderPath)
         {
             ModsFolderPath = modsFolderPath;
-            OldDescriptionsPath = Path.Combine(modsFolderPath, @"heroesdata.stormmod\enus.stormdata\LocalizedData\GameStrings.txt");
-            HeroModsPath = Path.Combine(modsFolderPath, "heromods");
-
-            Initialize();
         }
 
         /// <summary>
@@ -56,82 +49,98 @@ namespace HeroesData.Parser.GameStrings
         /// </summary>
         public SortedDictionary<string, string> UnitNamesByShortName { get; } = new SortedDictionary<string, string>();
 
+        protected string ModsFolderPath { get; }
+        protected string OldDescriptionsPath { get; private set; }
+        protected string HeroModsPath { get; private set; }
+        protected string GameStringFile => "GameStrings.txt";
+
+        /// <summary>
+        /// Loads all the required games strings.
+        /// </summary>
+        /// <param name="modsFolderPath">The file path of the mods folder.</param>
+        /// <returns></returns>
         public static GameStringData Load(string modsFolderPath)
         {
-            return new GameStringData(modsFolderPath);
+            return new FileGameStringData(modsFolderPath);
         }
 
-        private void Initialize()
+        /// <summary>
+        /// Loads all the required games strings.
+        /// </summary>
+        /// <param name="cascHandler"></param>
+        /// <param name="cascFolder"></param>
+        /// <param name="modsFolderPath">The root folder of the heroes data.</param>
+        /// <returns></returns>
+        public static GameStringData Load(CASCHandler cascHandler, CASCFolder cascFolder, string modsFolderPath = "mods")
         {
-            ParseFiles(OldDescriptionsPath);
-            ParseNewHeroes();
+            return new CASCGameStringData(cascHandler, cascFolder, modsFolderPath);
         }
 
-        private void ParseFiles(string filePath)
+        protected void Initialize()
         {
-            using (StreamReader reader = new StreamReader(filePath))
+            OldDescriptionsPath = Path.Combine(ModsFolderPath, @"heroesdata.stormmod\enus.stormdata\LocalizedData\");
+            HeroModsPath = Path.Combine(ModsFolderPath, "heromods");
+
+            ParseGameStringFiles();
+        }
+
+        protected abstract void ParseGameStringFiles();
+        protected abstract void ParseNewHeroes();
+
+        protected void ReadFile(StreamReader reader)
+        {
+            while (!reader.EndOfStream)
             {
-                while (!reader.EndOfStream)
+                string line = reader.ReadLine();
+
+                if (line.StartsWith(SimpleDisplayPrefix))
                 {
-                    string line = reader.ReadLine();
-
-                    if (line.StartsWith(SimpleDisplayPrefix))
-                    {
-                        line = line.Remove(0, SimpleDisplayPrefix.Length);
-                        string[] splitLine = line.Split(new char[] { '=' }, 2);
-                        ShortTooltipsByShortTooltipNameId.Add(splitLine[0], splitLine[1]);
-                    }
-                    else if (line.StartsWith(SimplePrefix))
-                    {
-                        line = line.Remove(0, SimplePrefix.Length);
-                        string[] splitLine = line.Split(new char[] { '=' }, 2);
-                        ShortTooltipsByShortTooltipNameId.Add(splitLine[0], splitLine[1]);
-                    }
-                    else if (line.StartsWith(DescriptionPrefix))
-                    {
-                        line = line.Remove(0, DescriptionPrefix.Length);
-                        string[] splitLine = line.Split(new char[] { '=' }, 2);
-                        HeroDescriptionsByShortName.Add(splitLine[0], splitLine[1]);
-                    }
-                    else if (line.StartsWith(FullPrefix))
-                    {
-                        line = line.Remove(0, FullPrefix.Length);
-                        string[] splitLine = line.Split(new char[] { '=' }, 2);
-                        FullTooltipsByFullTooltipNameId.Add(splitLine[0], splitLine[1]);
-                    }
-                    else if (line.StartsWith(HeroNamePrefix))
-                    {
-                        line = line.Remove(0, HeroNamePrefix.Length);
-                        string[] splitLine = line.Split(new char[] { '=' }, 2);
-
-                        if (!HeroNamesByShortName.ContainsKey(splitLine[0]))
-                            HeroNamesByShortName.Add(splitLine[0], splitLine[1]);
-                    }
-                    else if (line.StartsWith(DescriptionNamePrefix))
-                    {
-                        line = line.Remove(0, DescriptionNamePrefix.Length);
-                        string[] splitLine = line.Split(new char[] { '=' }, 2);
-
-                        if (!AbilityTalentNamesByReferenceNameId.ContainsKey(splitLine[0]))
-                            AbilityTalentNamesByReferenceNameId.Add(splitLine[0], splitLine[1]);
-                    }
-                    else if (line.StartsWith(UnitPrefix))
-                    {
-                        line = line.Remove(0, UnitPrefix.Length);
-                        string[] splitLine = line.Split(new char[] { '=' }, 2);
-
-                        if (!UnitNamesByShortName.ContainsKey(splitLine[0]))
-                            UnitNamesByShortName.Add(splitLine[0], splitLine[1]);
-                    }
+                    line = line.Remove(0, SimpleDisplayPrefix.Length);
+                    string[] splitLine = line.Split(new char[] { '=' }, 2);
+                    ShortTooltipsByShortTooltipNameId.Add(splitLine[0], splitLine[1]);
                 }
-            }
-        }
+                else if (line.StartsWith(SimplePrefix))
+                {
+                    line = line.Remove(0, SimplePrefix.Length);
+                    string[] splitLine = line.Split(new char[] { '=' }, 2);
+                    ShortTooltipsByShortTooltipNameId.Add(splitLine[0], splitLine[1]);
+                }
+                else if (line.StartsWith(DescriptionPrefix))
+                {
+                    line = line.Remove(0, DescriptionPrefix.Length);
+                    string[] splitLine = line.Split(new char[] { '=' }, 2);
+                    HeroDescriptionsByShortName.Add(splitLine[0], splitLine[1]);
+                }
+                else if (line.StartsWith(FullPrefix))
+                {
+                    line = line.Remove(0, FullPrefix.Length);
+                    string[] splitLine = line.Split(new char[] { '=' }, 2);
+                    FullTooltipsByFullTooltipNameId.Add(splitLine[0], splitLine[1]);
+                }
+                else if (line.StartsWith(HeroNamePrefix))
+                {
+                    line = line.Remove(0, HeroNamePrefix.Length);
+                    string[] splitLine = line.Split(new char[] { '=' }, 2);
 
-        private void ParseNewHeroes()
-        {
-            foreach (var heroDirectory in Directory.GetDirectories(HeroModsPath))
-            {
-                ParseFiles(Path.Combine(heroDirectory, @"enus.stormdata\LocalizedData\GameStrings.txt"));
+                    if (!HeroNamesByShortName.ContainsKey(splitLine[0]))
+                        HeroNamesByShortName.Add(splitLine[0], splitLine[1]);
+                }
+                else if (line.StartsWith(DescriptionNamePrefix))
+                {
+                    line = line.Remove(0, DescriptionNamePrefix.Length);
+                    string[] splitLine = line.Split(new char[] { '=' }, 2);
+
+                    if (!AbilityTalentNamesByReferenceNameId.ContainsKey(splitLine[0]))
+                        AbilityTalentNamesByReferenceNameId.Add(splitLine[0], splitLine[1]);
+                }
+                else if (line.StartsWith(UnitPrefix))
+                {
+                    line = line.Remove(0, UnitPrefix.Length);
+                    string[] splitLine = line.Split(new char[] { '=' }, 2);
+
+                    if (!UnitNamesByShortName.ContainsKey(splitLine[0]))
+                        UnitNamesByShortName.Add(splitLine[0], splitLine[1]);
+                }
             }
         }
     }

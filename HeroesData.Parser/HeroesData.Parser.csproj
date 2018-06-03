@@ -13,6 +13,9 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta007" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CASCExplorer\CascLibCore\CascLibCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="GameStringValues.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
