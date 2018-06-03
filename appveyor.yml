@@ -3,7 +3,7 @@ image: Visual Studio 2017
 configuration:
 - Debug
 - Release
-platform: x64
+platform: Any CPU
 install:
 - cmd: git submodule update --init --recursive
 before_build:
