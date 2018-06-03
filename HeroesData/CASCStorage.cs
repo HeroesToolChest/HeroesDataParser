@@ -2,6 +2,8 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace HeroesData
 {
@@ -9,6 +11,9 @@ namespace HeroesData
     {
         private readonly string StoragePath;
         private readonly string Locale = "enUS";
+
+        private ManualResetEvent ResetEvent = new ManualResetEvent(false);
+        private BackgroundWorkerEx BackgroundWorker = new BackgroundWorkerEx();
 
         private CASCHotsStorage(string storagePath)
         {
@@ -32,37 +37,97 @@ namespace HeroesData
             Console.ResetColor();
 
             TextWriter console = Console.Out;
-            Console.SetOut(TextWriter.Null); // suppress output
 
             var time = new Stopwatch();
 
-            try
+            BackgroundWorker.DoWork += (_, e) =>
             {
-                time.Start();
+                Console.SetOut(TextWriter.Null); // suppress output
                 CASCConfig config = CASCConfig.LoadLocalStorageConfig(StoragePath);
-                CASCHandler = CASCHandler.OpenStorage(config);
+                CASCHandler = CASCHandler.OpenStorage(config, BackgroundWorker);
 
                 LocaleFlags locale = (LocaleFlags)Enum.Parse(typeof(LocaleFlags), Locale);
                 ContentFlags content = (ContentFlags)Enum.Parse(typeof(ContentFlags), "None");
 
-                CASCHandler.Root.LoadListFile(Path.Combine(Environment.CurrentDirectory, "listfile.txt"));
-                CASCFolderRoot = CASCHandler.Root.SetFlags(locale, content);
+                Console.SetOut(console); // enable output
+                CASCHandler.Root.LoadListFile(Path.Combine(Environment.CurrentDirectory, "listfile.txt"), BackgroundWorker);
 
+                Console.SetOut(TextWriter.Null); // suppress output
+                CASCFolderRoot = CASCHandler.Root.SetFlags(locale, content);
+            };
+
+            BackgroundWorker.ProgressChanged += (_, e) =>
+            {
+                // main thread is blocked, so push it on another thread
+                Task.Run(() => { DrawProgressBar(e.ProgressPercentage, 100, 72, '#'); });
+            };
+
+            BackgroundWorker.RunWorkerCompleted += (_, e) =>
+            {
                 time.Stop();
-                Console.SetOut(console);
+                Console.SetOut(console); // enable output
+                DrawProgressBar(100, 100, 72, '#');
+
+                Console.WriteLine(string.Empty);
                 Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
                 Console.WriteLine(string.Empty);
+
+                ResetEvent.Set();
+            };
+
+            try
+            {
+                // use backgroundworker for progress reporting since it is provided by CASCLib
+                // the main thread is blocked until the background process is completed
+                time.Start();
+                BackgroundWorker.RunWorkerAsync();
+                ResetEvent.WaitOne();
             }
             catch (Exception ex)
             {
+                ResetEvent.Set();
                 Console.SetOut(console);
                 Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(string.Empty);
                 Console.WriteLine("Error while opening storage");
                 Console.WriteLine(ex.Message);
 
                 Console.ResetColor();
                 Environment.Exit(1);
             }
+        }
+
+        private void DrawProgressBar(int complete, int maxVal, int barSize, char progressCharacter)
+        {
+            float percent = (float)complete / maxVal;
+            DrawProgressBar(percent, barSize, progressCharacter);
+        }
+
+        private void DrawProgressBar(float percent, int barSize, char progressCharacter)
+        {
+            Console.CursorVisible = false;
+            string p1 = string.Empty;
+            string p2 = string.Empty;
+
+            int chars = (int)Math.Round(percent / (1.0f / barSize));
+
+            for (int i = 0; i < chars; i++)
+                p1 += progressCharacter;
+            for (int i = 0; i < barSize - chars; i++)
+                p2 += progressCharacter;
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"{p1}");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write($"{p2}");
+
+            Console.ResetColor();
+
+            percent *= 100;
+            Console.Write($"{percent.ToString(),4}%");
+
+            if (percent < 100)
+                Console.Write("\r");
         }
     }
 }
