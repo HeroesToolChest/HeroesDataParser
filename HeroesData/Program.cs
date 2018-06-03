@@ -181,7 +181,7 @@ namespace HeroesData
 
             time.Stop();
 
-            Console.WriteLine($"{GameData.XmlFileCount} xml files loaded");
+            Console.WriteLine($"{GameData.XmlFileCount,6} xml files loaded");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine(string.Empty);
         }
@@ -211,12 +211,12 @@ namespace HeroesData
 
             time.Stop();
 
-            Console.WriteLine($"{GameStringData.FullTooltipsByFullTooltipNameId.Count} Full Tooltips");
-            Console.WriteLine($"{GameStringData.ShortTooltipsByShortTooltipNameId.Count} Short Tooltips");
-            Console.WriteLine($"{GameStringData.HeroDescriptionsByShortName.Count} Hero descriptions");
-            Console.WriteLine($"{GameStringData.HeroNamesByShortName.Count} Hero names");
-            Console.WriteLine($"{GameStringData.UnitNamesByShortName.Count} Unit names");
-            Console.WriteLine($"{GameStringData.AbilityTalentNamesByReferenceNameId.Count} Ability/talent names");
+            Console.WriteLine($"{GameStringData.FullTooltipsByFullTooltipNameId.Count,6} Full Tooltips");
+            Console.WriteLine($"{GameStringData.ShortTooltipsByShortTooltipNameId.Count,6} Short Tooltips");
+            Console.WriteLine($"{GameStringData.HeroDescriptionsByShortName.Count,6} Hero descriptions");
+            Console.WriteLine($"{GameStringData.HeroNamesByShortName.Count,6} Hero names");
+            Console.WriteLine($"{GameStringData.UnitNamesByShortName.Count,6} Unit names");
+            Console.WriteLine($"{GameStringData.AbilityTalentNamesByReferenceNameId.Count,6} Ability/talent names");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine(string.Empty);
         }
@@ -265,7 +265,7 @@ namespace HeroesData
                 {
                     Interlocked.Increment(ref currentCount);
 
-                    Console.Write($"\r{currentCount} / {GameStringData.FullTooltipsByFullTooltipNameId.Count} total full tooltips");
+                    Console.Write($"\r{currentCount,6} / {GameStringData.FullTooltipsByFullTooltipNameId.Count} total full tooltips");
                 }
             });
 
@@ -285,7 +285,7 @@ namespace HeroesData
                 {
                     Interlocked.Increment(ref currentCount);
 
-                    Console.Write($"\r{currentCount} / {GameStringData.ShortTooltipsByShortTooltipNameId.Count} total short tooltips");
+                    Console.Write($"\r{currentCount,6} / {GameStringData.ShortTooltipsByShortTooltipNameId.Count} total short tooltips");
                 }
             });
 
@@ -299,7 +299,7 @@ namespace HeroesData
                 else
                     invalidFullParsedToolips++;
 
-                Console.Write($"\r{++currentCount} / {GameStringData.HeroDescriptionsByShortName.Count} total hero descriptions");
+                Console.Write($"\r{++currentCount,6} / {GameStringData.HeroDescriptionsByShortName.Count} total hero descriptions");
             }
 
             parsedGameStrings.FullParsedTooltipsByFullTooltipNameId = new Dictionary<string, string>(fullParsedTooltips);
@@ -309,12 +309,12 @@ namespace HeroesData
             time.Stop();
 
             Console.WriteLine(string.Empty);
-            Console.WriteLine($"{parsedGameStrings.FullParsedTooltipsByFullTooltipNameId.Count} parsed full tooltips");
-            Console.WriteLine($"{parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.Count} parsed short tooltips");
-            Console.WriteLine($"{parsedGameStrings.HeroParsedDescriptionsByShortName.Count} parsed hero tooltips");
-            Console.WriteLine($"{invalidFullParsedToolips} invalid full tooltips");
-            Console.WriteLine($"{invalidShortParsedTooltips} invalid short tooltips");
-            Console.WriteLine($"{invalidParsedDescriptions} invalid hero tooltips");
+            Console.WriteLine($"{parsedGameStrings.FullParsedTooltipsByFullTooltipNameId.Count,6} parsed full tooltips");
+            Console.WriteLine($"{parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.Count,6} parsed short tooltips");
+            Console.WriteLine($"{parsedGameStrings.HeroParsedDescriptionsByShortName.Count,6} parsed hero tooltips");
+            Console.WriteLine($"{invalidFullParsedToolips,6} invalid full tooltips");
+            Console.WriteLine($"{invalidShortParsedTooltips,6} invalid short tooltips");
+            Console.WriteLine($"{invalidParsedDescriptions,6} invalid hero tooltips");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine(string.Empty);
 
@@ -324,11 +324,11 @@ namespace HeroesData
         private List<Hero> ParseUnits(ParsedGameStrings parsedGameStrings)
         {
             var time = new Stopwatch();
-            var parsedHeroes = new List<Hero>();
+            var parsedHeroes = new ConcurrentDictionary<string, Hero>();
             var failedParsedHeroes = new List<(string CHeroId, Exception Exception)>();
             int currentCount = 0;
 
-            Console.WriteLine($"Executing hero data...");
+            Console.WriteLine($"Parsing hero data...");
 
             time.Start();
             UnitParser unitParser = UnitParser.Load(GameData, OverrideData);
@@ -338,7 +338,7 @@ namespace HeroesData
                 try
                 {
                     HeroDataParser heroDataParser = new HeroDataParser(GameData, GameStringData, parsedGameStrings, OverrideData);
-                    parsedHeroes.Add(heroDataParser.Parse(hero.Key, hero.Value));
+                    parsedHeroes.GetOrAdd(hero.Key, heroDataParser.Parse(hero.Key, hero.Value));
                 }
                 catch (Exception ex)
                 {
@@ -348,7 +348,7 @@ namespace HeroesData
                 {
                     Interlocked.Increment(ref currentCount);
 
-                    Console.Write($"\r{currentCount} / {unitParser.CUnitIdByHeroCHeroIds.Count} total heroes");
+                    Console.Write($"\r{currentCount,6} / {unitParser.CUnitIdByHeroCHeroIds.Count} total heroes");
                 }
             });
 
@@ -363,7 +363,18 @@ namespace HeroesData
                 }
             }
 
-            Console.WriteLine($"{parsedHeroes.Count} successfully parsed heroes");
+            if (parsedHeroes.Count < unitParser.CUnitIdByHeroCHeroIds.Count)
+            {
+                Console.WriteLine($"{parsedHeroes.Count} successfully added");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"{unitParser.CUnitIdByHeroCHeroIds.Count - parsedHeroes.Count} failed to be added!");
+                Console.WriteLine(string.Empty);
+
+                Console.ResetColor();
+                Environment.Exit(1);
+            }
+
+            Console.WriteLine($"{parsedHeroes.Count,6} successfully parsed heroes");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             if (failedParsedHeroes.Count > 0)
             {
@@ -377,7 +388,7 @@ namespace HeroesData
 
             Console.WriteLine(string.Empty);
 
-            return parsedHeroes;
+            return parsedHeroes.Values.ToList();
         }
 
         private void HeroDataVerification(List<Hero> heroes)
