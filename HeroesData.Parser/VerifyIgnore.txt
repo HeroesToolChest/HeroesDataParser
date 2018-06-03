@@ -1,4 +1,4 @@
-﻿## Verication checks to ignore
+﻿## Verication messages to ignore
 
 # unit has no health or energy
 [Abathur] [Symbiote] Energy > 0 and EnergyType is NONE

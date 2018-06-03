@@ -423,11 +423,18 @@ namespace HeroesData
 
             if (warnings.Count > 0)
             {
+                List<string> nonTooltips = new List<string>(warnings.Where(x => !x.ToLower().Contains("tooltip")));
+                List<string> tooltips = new List<string>(warnings.Where(x => x.ToLower().Contains("tooltip")));
+
                 using (StreamWriter writer = new StreamWriter($"VerificationCheck_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.txt", false))
                 {
-                    foreach (var warning in warnings)
+                    if (nonTooltips.Count > 0)
+                        nonTooltips.ForEach((warning) => { writer.WriteLine(warning); });
+
+                    if (tooltips.Count > 0)
                     {
-                        writer.WriteLine(warning);
+                        writer.WriteLine(string.Empty);
+                        tooltips.ForEach((warning) => { writer.WriteLine(warning); });
                     }
 
                     writer.WriteLine($"{Environment.NewLine}{warnings.Count} warnings ({verifyData.Ignore.Count} ignored)");
