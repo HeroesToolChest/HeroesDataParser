@@ -7,7 +7,7 @@ platform: x64
 install:
 - cmd: git submodule update --init --recursive
 before_build:
-- cmd: dotnet restore
+- cmd: dotnet build
 build:
   parallel: true
   verbosity: minimal
