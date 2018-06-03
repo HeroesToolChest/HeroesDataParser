@@ -179,20 +179,14 @@ namespace HeroesData.Parser.UnitData.Overrides
                 if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(elementName))
                     continue;
 
-                if (heroOverride.LinkedElementNamesByAbilityId.ContainsKey(id))
-                    heroOverride.LinkedElementNamesByAbilityId.Remove(id);
-
-                heroOverride.LinkedElementNamesByAbilityId.Add(id, elementName);
+                // add or update
+                heroOverride.LinkedElementNamesByAbilityId[id] = elementName;
             }
         }
 
         private void AddHeroUnits(string elementId, XElement element, HeroOverride heroOverride)
-        {
-            if (heroOverride.HeroUnits.Contains(elementId))
-                heroOverride.HeroUnits.Remove(elementId);
-
+        { 
             heroOverride.HeroUnits.Add(elementId);
-
             SetHeroOverrides(element);
         }
     }
