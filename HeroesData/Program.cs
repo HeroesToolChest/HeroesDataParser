@@ -416,11 +416,10 @@ namespace HeroesData
         private void HeroDataVerification(List<Hero> heroes)
         {
             Console.WriteLine($"Verifying hero data...");
-            List<string> warnings = VerifyHeroData.Verify(heroes);
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"{warnings.Count} warnings [Check logs for details]");
-            Console.ResetColor();
+            var verifyData = VerifyHeroData.Verify(heroes);
+            List<string> warnings = verifyData.Warnings.ToList();
+            warnings.Sort();
 
             if (warnings.Count > 0)
             {
@@ -431,10 +430,27 @@ namespace HeroesData
                         writer.WriteLine(warning);
                     }
 
-                    writer.WriteLine($"{Environment.NewLine}{warnings.Count} warnings");
+                    writer.WriteLine($"{Environment.NewLine}{warnings.Count} warnings ({verifyData.Ignore.Count} ignored)");
                 }
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"{warnings.Count} warnings");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write($"{warnings.Count} warnings");
             }
 
+            if (verifyData.Ignore.Count > 0)
+                Console.Write($" ({verifyData.Ignore.Count} ignored)");
+
+            if (warnings.Count > 0)
+                Console.WriteLine(" [Check logs for details]");
+            else
+                Console.WriteLine(string.Empty);
+
+            Console.ResetColor();
             Console.WriteLine(string.Empty);
         }
 

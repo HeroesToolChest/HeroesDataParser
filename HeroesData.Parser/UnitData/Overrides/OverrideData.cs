@@ -185,7 +185,7 @@ namespace HeroesData.Parser.UnitData.Overrides
         }
 
         private void AddHeroUnits(string elementId, XElement element, HeroOverride heroOverride)
-        { 
+        {
             heroOverride.HeroUnits.Add(elementId);
             SetHeroOverrides(element);
         }

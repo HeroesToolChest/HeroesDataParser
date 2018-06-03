@@ -1,22 +1,41 @@
 ﻿using HeroesData.Parser.Models;
 using HeroesData.Parser.Models.AbilityTalents;
 using System.Collections.Generic;
+using System.IO;
 
 namespace HeroesData.Parser
 {
-    public static class VerifyHeroData
+    public class VerifyHeroData
     {
-        private static string HeroName;
-        private static List<string> Warnings = new List<string>();
+        private readonly List<Hero> HeroData = new List<Hero>();
+        private readonly string VerifyIgnoreFileName = "VerifyIgnore.txt";
+
+        private string HeroName;
+
+        private VerifyHeroData(List<Hero> heroData)
+        {
+            HeroData = heroData;
+
+            ReadIgnoreFile();
+            VerifyData();
+        }
+
+        public HashSet<string> Warnings { get; private set; } = new HashSet<string>();
+        public HashSet<string> Ignore { get; private set; } = new HashSet<string>();
 
         /// <summary>
-        /// Verifies the all the hero data for missing data. Returns a list of warnings.
+        /// Verifies the all the hero data for missing data.
         /// </summary>
         /// <param name="heroData">A list of all hero data.</param>
         /// <returns></returns>
-        public static List<string> Verify(List<Hero> heroData)
+        public static VerifyHeroData Verify(List<Hero> heroData)
         {
-            foreach (Hero hero in heroData)
+            return new VerifyHeroData(heroData);
+        }
+
+        private void VerifyData()
+        {
+            foreach (Hero hero in HeroData)
             {
                 HeroName = hero.Name;
 
@@ -158,12 +177,9 @@ namespace HeroesData.Parser
                     }
                 }
             }
-
-            Warnings.Sort();
-            return Warnings;
         }
 
-        private static void VerifyWeapons(Unit unit)
+        private void VerifyWeapons(Unit unit)
         {
             foreach (var weapon in unit.Weapons)
             {
@@ -181,7 +197,7 @@ namespace HeroesData.Parser
             }
         }
 
-        private static void VerifyAbilities(Unit unit)
+        private void VerifyAbilities(Unit unit)
         {
             foreach (var ability in unit.Abilities)
             {
@@ -217,9 +233,32 @@ namespace HeroesData.Parser
             }
         }
 
-        private static void AddWarning(string message)
+        private void AddWarning(string message)
         {
-            Warnings.Add($"[{HeroName}] {message}");
+            message = $"[{HeroName}] {message}".Trim();
+
+            if (!Ignore.Contains(message))
+                Warnings.Add(message);
+        }
+
+        private void ReadIgnoreFile()
+        {
+            if (File.Exists(VerifyIgnoreFileName))
+            {
+                using (StreamReader reader = new StreamReader(VerifyIgnoreFileName))
+                {
+                    string line = string.Empty;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        line = line.Trim();
+
+                        if (!string.IsNullOrEmpty(line) && !line.StartsWith("#"))
+                        {
+                            Ignore.Add(line);
+                        }
+                    }
+                }
+            }
         }
     }
 }
