@@ -9,5 +9,6 @@ install:
 before_build:
 - cmd: dotnet build
 build:
+  project: HeroesDataParser.sln
   parallel: true
   verbosity: minimal
