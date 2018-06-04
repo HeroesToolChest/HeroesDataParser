@@ -18,6 +18,15 @@ namespace HeroesData.Parser.GameStrings
             Initialize();
         }
 
+        public CASCGameStringData(CASCHandler cascHandler, CASCFolder cascFolder, string modsFolderPath, int? hotsBuild)
+            : base(modsFolderPath, hotsBuild)
+        {
+            CASCHandlerData = cascHandler;
+            CASCFolderData = cascFolder;
+
+            Initialize();
+        }
+
         protected override void ParseGameStringFiles()
         {
             CASCFolder currentFolder = CASCExtensions.GetDirectory(CASCFolderData, OldDescriptionsPath);

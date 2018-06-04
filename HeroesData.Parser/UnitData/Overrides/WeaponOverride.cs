@@ -12,6 +12,11 @@ namespace HeroesData.Parser.UnitData.Overrides
         {
         }
 
+        public WeaponOverride(GameData gameData, int? hotsBuild)
+            : base(gameData, hotsBuild)
+        {
+        }
+
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<UnitWeapon>> propertyOverrides)
         {
             if (propertyName == "Range")

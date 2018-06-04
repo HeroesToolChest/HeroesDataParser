@@ -2,6 +2,7 @@
 using HeroesData.Parser.XmlGameData;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -10,6 +11,7 @@ namespace HeroesData.Parser.UnitData.Overrides
     public class OverrideData
     {
         private readonly GameData GameData;
+        private readonly int? HotsBuild;
 
         private Dictionary<string, HeroOverride> HeroOverridesByCHeroId = new Dictionary<string, HeroOverride>();
 
@@ -19,7 +21,17 @@ namespace HeroesData.Parser.UnitData.Overrides
             Initialize();
         }
 
-        public static string HeroDataOverrideXmlFile => @"HeroOverrides.xml";
+        private OverrideData(GameData gameData, int? hotsBuild)
+        {
+            GameData = gameData;
+            HotsBuild = hotsBuild;
+            Initialize();
+        }
+
+        /// <summary>
+        /// Gets the file name of the Override file.
+        /// </summary>
+        public string HeroDataOverrideXmlFile { get; private set; } = @"HeroOverrides.xml";
 
         /// <summary>
         /// Loads the override data.
@@ -29,6 +41,17 @@ namespace HeroesData.Parser.UnitData.Overrides
         public static OverrideData Load(GameData gameData)
         {
             return new OverrideData(gameData);
+        }
+
+        /// <summary>
+        /// Loads the override data.
+        /// </summary>
+        /// <param name="gameData">GameData.</param>
+        /// <param name="hotsBuild">The override build version to load.</param>
+        /// <returns></returns>
+        public static OverrideData Load(GameData gameData, int? hotsBuild)
+        {
+            return new OverrideData(gameData, hotsBuild);
         }
 
         /// <summary>
@@ -46,7 +69,7 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         private void Initialize()
         {
-            XDocument cHeroDocument = XDocument.Load(HeroDataOverrideXmlFile);
+            XDocument cHeroDocument = LoadOverrideFile();
             IEnumerable<XElement> cHeroes = cHeroDocument.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
 
             foreach (XElement heroElement in cHeroes)
@@ -55,11 +78,38 @@ namespace HeroesData.Parser.UnitData.Overrides
             }
         }
 
+        private XDocument LoadOverrideFile()
+        {
+            if (HotsBuild.HasValue)
+            {
+                string file = $"{Path.GetFileNameWithoutExtension(HeroDataOverrideXmlFile)}_{HotsBuild}.xml";
+
+                if (File.Exists(file))
+                {
+                    HeroDataOverrideXmlFile = file;
+                    return XDocument.Load(file);
+                }
+            }
+
+            // default load
+            if (File.Exists(HeroDataOverrideXmlFile))
+            {
+                return XDocument.Load(HeroDataOverrideXmlFile);
+            }
+            else
+            {
+                if (HotsBuild.HasValue)
+                    throw new FileNotFoundException($"File not found: {HeroDataOverrideXmlFile} or {Path.GetFileNameWithoutExtension(HeroDataOverrideXmlFile)}_{HotsBuild}.xml");
+                else
+                    throw new FileNotFoundException($"File not found: {HeroDataOverrideXmlFile}");
+            }
+        }
+
         private void SetHeroOverrides(XElement heroElement)
         {
             HeroOverride heroOverride = new HeroOverride();
-            AbilityOverride abilityOverride = new AbilityOverride(GameData);
-            WeaponOverride weaponOverride = new WeaponOverride(GameData);
+            AbilityOverride abilityOverride = new AbilityOverride(GameData, HotsBuild);
+            WeaponOverride weaponOverride = new WeaponOverride(GameData, HotsBuild);
             string cHeroId = heroElement.Attribute("id").Value;
 
             foreach (var dataElement in heroElement.Elements())

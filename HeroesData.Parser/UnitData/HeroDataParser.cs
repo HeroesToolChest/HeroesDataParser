@@ -32,6 +32,11 @@ namespace HeroesData.Parser.UnitData
         }
 
         /// <summary>
+        /// Gets or sets the hots build number.
+        /// </summary>
+        public int? HotsBuild { get; set; }
+
+        /// <summary>
         /// Parses the hero's game data.
         /// </summary>
         /// <param name="cHeroId">The id value of the CHero element.</param>

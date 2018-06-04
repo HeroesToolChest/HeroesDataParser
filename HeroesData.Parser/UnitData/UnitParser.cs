@@ -8,6 +8,7 @@ namespace HeroesData.Parser.UnitData
 {
     public class UnitParser
     {
+        private readonly int? HotsBuild;
         private readonly GameData GameData;
         private readonly OverrideData OverrideData;
 
@@ -15,6 +16,15 @@ namespace HeroesData.Parser.UnitData
         {
             GameData = gameData;
             OverrideData = overrideData;
+
+            Initialize();
+        }
+
+        private UnitParser(GameData gameData, OverrideData overrideData, int? hotsBuild)
+        {
+            GameData = gameData;
+            OverrideData = overrideData;
+            HotsBuild = hotsBuild;
 
             Initialize();
         }
@@ -31,6 +41,19 @@ namespace HeroesData.Parser.UnitData
         public static UnitParser Load(GameData gameData, OverrideData overrideData)
         {
             return new UnitParser(gameData, overrideData);
+        }
+
+        /// <summary>
+        /// Loads all unit id data to be parsed.
+        /// </summary>
+        /// <param name="gameData"></param>
+        /// <param name="gameStringParser"></param>
+        /// <param name="overrideData"></param>
+        /// <param name="hotsBuild">The hots build number.</param>
+        /// <returns></returns>
+        public static UnitParser Load(GameData gameData, OverrideData overrideData, int? hotsBuild)
+        {
+            return new UnitParser(gameData, overrideData, hotsBuild);
         }
 
         private void Initialize()

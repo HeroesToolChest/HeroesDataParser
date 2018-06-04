@@ -14,6 +14,12 @@ namespace HeroesData.Parser.XmlGameData
             ModsFolderPath = modsFolderPath;
         }
 
+        protected GameData(string modsFolderPath, int? hotsBuild)
+        {
+            ModsFolderPath = modsFolderPath;
+            HotsBuild = hotsBuild;
+        }
+
         /// <summary>
         /// Gets the number of xml files that were to added <see cref="XmlGameData"/>.
         /// </summary>
@@ -24,6 +30,7 @@ namespace HeroesData.Parser.XmlGameData
         /// </summary>
         public XDocument XmlGameData { get; protected set; } = new XDocument();
 
+        protected int? HotsBuild { get; }
         protected string ModsFolderPath { get; }
         protected string CoreStormModFolderPath { get; set; }
         protected string HeroesdataStormModFolderPath { get; set; }
@@ -43,12 +50,35 @@ namespace HeroesData.Parser.XmlGameData
         /// <summary>
         /// Loads all the required game files.
         /// </summary>
+        /// <param name="modsFolderPath">The file path of the mods folder.</param>
+        /// <param name="hotsBuild">The hots build number.</param>
+        /// <returns></returns>
+        public static GameData Load(string modsFolderPath, int? hotsBuild)
+        {
+            return new FileGameData(modsFolderPath, hotsBuild);
+        }
+
+        /// <summary>
+        /// Loads all the required game files.
+        /// </summary>
         /// <param name="cascFolder"></param>
         /// <param name="modsFolderPath">The root folder of the heroes data.</param>
         /// <returns></returns>
         public static GameData Load(CASCHandler cascHandler, CASCFolder cascFolder, string modsFolderPath = "mods")
         {
             return new CASCGameData(cascHandler, cascFolder, modsFolderPath);
+        }
+
+        /// <summary>
+        /// Loads all the required game files.
+        /// </summary>
+        /// <param name="cascFolder"></param>
+        /// <param name="hotsBuild">The hots build number.</param>
+        /// <param name="modsFolderPath">The root folder of the heroes data.</param>
+        /// <returns></returns>
+        public static GameData Load(CASCHandler cascHandler, CASCFolder cascFolder, int? hotsBuild, string modsFolderPath = "mods")
+        {
+            return new CASCGameData(cascHandler, cascFolder, modsFolderPath, hotsBuild);
         }
 
         /// <summary>

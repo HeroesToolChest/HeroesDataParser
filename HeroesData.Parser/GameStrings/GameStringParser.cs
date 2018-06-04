@@ -11,6 +11,7 @@ namespace HeroesData.Parser.GameStrings
 {
     public class GameStringParser
     {
+        private readonly int? HotsBuild;
         private readonly GameData GameData;
         private readonly GameStringValues GameStringValues;
 
@@ -22,6 +23,14 @@ namespace HeroesData.Parser.GameStrings
         {
             GameData = gameData;
             GameStringValues = GameStringValues.Load();
+            SetValidElementNames();
+        }
+
+        public GameStringParser(GameData gameData, int? hotsBuild)
+        {
+            GameData = gameData;
+            HotsBuild = hotsBuild;
+            GameStringValues = GameStringValues.Load(hotsBuild);
             SetValidElementNames();
         }
 

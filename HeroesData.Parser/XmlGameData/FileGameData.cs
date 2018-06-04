@@ -11,6 +11,12 @@ namespace HeroesData.Parser.XmlGameData
             Initialize();
         }
 
+        public FileGameData(string modsFolderPath, int? hotsBuild)
+            : base(modsFolderPath, hotsBuild)
+        {
+            Initialize();
+        }
+
         protected override void LoadCoreStormMod()
         {
             foreach (string file in Directory.GetFiles(CoreStormModFolderPath))

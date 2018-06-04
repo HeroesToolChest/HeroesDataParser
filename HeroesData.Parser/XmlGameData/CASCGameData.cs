@@ -21,6 +21,15 @@ namespace HeroesData.Parser.XmlGameData
             Initialize();
         }
 
+        public CASCGameData(CASCHandler cascHandler, CASCFolder cascFolder, string modsFolderPath, int? hotsBuild)
+            : base(modsFolderPath, hotsBuild)
+        {
+            CASCHandlerData = cascHandler;
+            CASCFolderData = cascFolder;
+
+            Initialize();
+        }
+
         protected override void LoadCoreStormMod()
         {
             // core.stormmod xml files

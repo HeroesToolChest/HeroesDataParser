@@ -1,16 +1,28 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Xml.Linq;
 
 namespace HeroesData.Parser.GameStrings
 {
     internal class GameStringValues
     {
-        private readonly string GameStringValuesXmlFile = "GameStringValues.xml";
+        private readonly int? HotsBuild;
 
         private GameStringValues()
         {
             Initialize();
         }
+
+        private GameStringValues(int? hotsBuild)
+        {
+            HotsBuild = hotsBuild;
+            Initialize();
+        }
+
+        /// <summary>
+        /// Gets the file name of the GameStringValues file.
+        /// </summary>
+        public string GameStringValuesXmlFile { get; private set; } = "GameStringValues.xml";
 
         /// <summary>
         /// Gets a lists of values for selected parts of a path.
@@ -26,9 +38,14 @@ namespace HeroesData.Parser.GameStrings
             return new GameStringValues();
         }
 
+        public static GameStringValues Load(int? hotsBuild)
+        {
+            return new GameStringValues(hotsBuild);
+        }
+
         private void Initialize()
         {
-            XDocument xDoc = XDocument.Load(GameStringValuesXmlFile);
+            XDocument xDoc = LoadGameStringFile();
 
             foreach (XElement element in xDoc.Root.Elements("Id"))
             {
@@ -40,6 +57,33 @@ namespace HeroesData.Parser.GameStrings
                     continue;
 
                 PartValueByPartName.Add((name, part, value));
+            }
+        }
+
+        private XDocument LoadGameStringFile()
+        {
+            if (HotsBuild.HasValue)
+            {
+                string file = $"{Path.GetFileNameWithoutExtension(GameStringValuesXmlFile)}_{HotsBuild}.xml";
+
+                if (File.Exists(file))
+                {
+                    GameStringValuesXmlFile = file;
+                    return XDocument.Load(file);
+                }
+            }
+
+            // default load
+            if (File.Exists(GameStringValuesXmlFile))
+            {
+                return XDocument.Load(GameStringValuesXmlFile);
+            }
+            else
+            {
+                if (HotsBuild.HasValue)
+                    throw new FileNotFoundException($"File not found: {GameStringValuesXmlFile} or {Path.GetFileNameWithoutExtension(GameStringValuesXmlFile)}_{HotsBuild}.xml");
+                else
+                    throw new FileNotFoundException($"File not found: {GameStringValuesXmlFile}");
             }
         }
     }

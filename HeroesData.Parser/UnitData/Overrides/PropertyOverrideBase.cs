@@ -18,6 +18,15 @@ namespace HeroesData.Parser.UnitData.Overrides
             GameStringParser = new GameStringParser(GameData);
         }
 
+        public PropertyOverrideBase(GameData gameData, int? hotsBuild)
+        {
+            GameData = gameData;
+            HotsBuild = hotsBuild;
+            GameStringParser = new GameStringParser(GameData, hotsBuild);
+        }
+
+        protected int? HotsBuild { get; }
+
         public void SetOverride(string elementId, XElement element, Dictionary<string, Dictionary<string, Action<T>>> propertyOverrideMethodByElementId)
         {
             var propertyOverrides = new Dictionary<string, Action<T>>();

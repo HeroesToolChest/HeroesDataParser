@@ -10,6 +10,12 @@ namespace HeroesData.Parser.GameStrings
             Initialize();
         }
 
+        public FileGameStringData(string modsFolderPath, int? hotsBuild)
+            : base(modsFolderPath, hotsBuild)
+        {
+            Initialize();
+        }
+
         protected override void ParseGameStringFiles()
         {
             ParseFiles(Path.Combine(OldDescriptionsPath, GameStringFile));

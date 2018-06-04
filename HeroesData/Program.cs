@@ -33,7 +33,7 @@ namespace HeroesData
         private bool ShowInvalidFullTooltips = false;
         private bool ShowInvalidShortTooltips = false;
         private bool ShowInvalidHeroTooltips = false;
-        private int HotsBuild = 999999; // default to latest
+        private int? HotsBuild = null;
 
         internal static void Main(string[] args)
         {
@@ -155,14 +155,15 @@ namespace HeroesData
             try
             {
                 if (StorageMode == StorageMode.Mods)
-                    GameData = GameData.Load(ModsFolderPath);
+                    GameData = GameData.Load(ModsFolderPath, HotsBuild);
                 else if (StorageMode == StorageMode.CASC)
-                    GameData = GameData.Load(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot);
+                    GameData = GameData.Load(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
             }
             catch (DirectoryNotFoundException ex)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(ex.Message);
+                Console.WriteLine();
 
                 Console.ResetColor();
                 Environment.Exit(1);
@@ -185,9 +186,9 @@ namespace HeroesData
             try
             {
                 if (StorageMode == StorageMode.Mods)
-                    GameStringData = GameStringData.Load(ModsFolderPath);
+                    GameStringData = GameStringData.Load(ModsFolderPath, HotsBuild);
                 else if (StorageMode == StorageMode.CASC)
-                    GameStringData = GameStringData.Load(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot);
+                    GameStringData = GameStringData.Load(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
             }
             catch (DirectoryNotFoundException ex)
             {
@@ -214,12 +215,26 @@ namespace HeroesData
         {
             var time = new Stopwatch();
 
-            Console.WriteLine($"Loading {OverrideData.HeroDataOverrideXmlFile} ...");
+            Console.WriteLine($"Loading OverrideData...");
 
             time.Start();
-            OverrideData = OverrideData.Load(GameData);
+            try
+            {
+                OverrideData = OverrideData.Load(GameData, HotsBuild);
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(ex.Message);
+                Console.WriteLine();
+
+                Console.ResetColor();
+                Environment.Exit(1);
+            }
+
             time.Stop();
 
+            Console.WriteLine($"Loaded {OverrideData.HeroDataOverrideXmlFile}");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
         }
@@ -240,7 +255,21 @@ namespace HeroesData
             Console.WriteLine($"Parsing tooltips...");
 
             time.Start();
-            GameStringParser gameStringParser = new GameStringParser(GameData);
+            GameStringParser gameStringParser = null;
+
+            try
+            {
+                gameStringParser = new GameStringParser(GameData, HotsBuild);
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(ex.Message);
+                Console.WriteLine();
+
+                Console.ResetColor();
+                Environment.Exit(1);
+            }
 
             Parallel.ForEach(GameStringData.FullTooltipsByFullTooltipNameId, tooltip =>
             {
@@ -330,13 +359,17 @@ namespace HeroesData
             Console.WriteLine($"Parsing hero data...");
 
             time.Start();
-            UnitParser unitParser = UnitParser.Load(GameData, OverrideData);
+            UnitParser unitParser = UnitParser.Load(GameData, OverrideData, HotsBuild);
 
             Parallel.ForEach(unitParser.CUnitIdByHeroCHeroIds, hero =>
             {
                 try
                 {
-                    HeroDataParser heroDataParser = new HeroDataParser(GameData, GameStringData, parsedGameStrings, OverrideData);
+                    HeroDataParser heroDataParser = new HeroDataParser(GameData, GameStringData, parsedGameStrings, OverrideData)
+                    {
+                        HotsBuild = HotsBuild,
+                    };
+
                     parsedHeroes.GetOrAdd(hero.Key, heroDataParser.Parse(hero.Key, hero.Value));
                 }
                 catch (Exception ex)
@@ -530,8 +563,11 @@ namespace HeroesData
                 string versionBuild = CASCHotsStorage.CASCHandler.Config.BuildName?.Split('.').LastOrDefault();
                 if (!string.IsNullOrEmpty(versionBuild))
                 {
-                    if (int.TryParse(versionBuild, out HotsBuild))
+                    if (int.TryParse(versionBuild, out int hotsBuild))
+                    {
+                        HotsBuild = hotsBuild;
                         Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
+                    }
                 }
                 else
                 {
@@ -658,6 +694,7 @@ namespace HeroesData
             else
             {
                 ModsFolderPath = Path.Combine(Environment.CurrentDirectory, selectedDirectory);
+                HotsBuild = max;
 
                 Console.WriteLine($"Using {selectedDirectory}");
                 Console.WriteLine($"Hots build: {max}");
