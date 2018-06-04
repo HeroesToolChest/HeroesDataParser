@@ -68,9 +68,9 @@ namespace HeroesData
                 Console.SetOut(console); // enable output
                 DrawProgressBar(100, 100, 72, '#');
 
-                Console.WriteLine(string.Empty);
+                Console.WriteLine();
                 Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
-                Console.WriteLine(string.Empty);
+                Console.WriteLine();
 
                 ResetEvent.Set();
             };
@@ -88,7 +88,7 @@ namespace HeroesData
                 ResetEvent.Set();
                 Console.SetOut(console);
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(string.Empty);
+                Console.WriteLine();
                 Console.WriteLine("Error while opening storage");
                 Console.WriteLine(ex.Message);
 

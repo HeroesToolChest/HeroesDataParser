@@ -30,9 +30,10 @@ namespace HeroesData
         private bool Defaults = true;
         private bool CreateXml = true;
         private bool CreateJson = true;
-        private bool showInvalidFullTooltips = false;
-        private bool showInvalidShortTooltips = false;
-        private bool showInvalidHeroTooltips = false;
+        private bool ShowInvalidFullTooltips = false;
+        private bool ShowInvalidShortTooltips = false;
+        private bool ShowInvalidHeroTooltips = false;
+        private int HotsBuild = 999999; // default to latest
 
         internal static void Main(string[] args)
         {
@@ -71,9 +72,9 @@ namespace HeroesData
 
                 program.CreateXml = xmlOutputOption.HasValue() ? true : false;
                 program.CreateJson = jsonOutputOption.HasValue() ? true : false;
-                program.showInvalidFullTooltips = invalidFullOption.HasValue() ? true : false;
-                program.showInvalidShortTooltips = invalidShortOption.HasValue() ? true : false;
-                program.showInvalidHeroTooltips = invalidHeroOption.HasValue() ? true : false;
+                program.ShowInvalidFullTooltips = invalidFullOption.HasValue() ? true : false;
+                program.ShowInvalidShortTooltips = invalidShortOption.HasValue() ? true : false;
+                program.ShowInvalidHeroTooltips = invalidHeroOption.HasValue() ? true : false;
 
                 program.Execute();
                 Console.ResetColor();
@@ -108,39 +109,14 @@ namespace HeroesData
 
         private void Execute()
         {
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine($"Heroes Data Parser ({AppVersion.GetVersion()})");
-            Console.WriteLine(string.Empty);
-
-            if (Defaults)
-            {
-                Console.WriteLine("Using default settings:");
-                Console.WriteLine("  Create xml output");
-                Console.WriteLine("  Create json output");
-                Console.WriteLine(string.Empty);
-
-                StoragePathFinder();
-            }
-            else
-            {
-                if (!CreateXml && !CreateJson)
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("No writers are enabled!");
-                    Console.WriteLine("Please include the option --xml or --json");
-                    Console.WriteLine(string.Empty);
-                    Console.ResetColor();
-
-                    Environment.Exit(0);
-                }
-            }
-
-            if (StorageMode == StorageMode.None)
-                StoragePathFinder();
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine();
 
             try
             {
-                if (StorageMode == StorageMode.CASC)
-                    CASCHotsStorage = CASCHotsStorage.Load(HotsFolderPath);
+                PreInitialize();
 
                 // get all data
                 InitializeGameData();
@@ -155,14 +131,14 @@ namespace HeroesData
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("HDP successfully completed.");
-                Console.WriteLine(string.Empty);
+                Console.WriteLine();
             }
             catch (Exception ex) // catch everything
             {
                 WriteExceptionLog("Error", ex);
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{Environment.NewLine}An error has occured, check error logs for details");
-                Console.WriteLine(string.Empty);
+                Console.WriteLine();
 
                 Console.ResetColor();
                 Environment.Exit(1);
@@ -185,6 +161,7 @@ namespace HeroesData
             }
             catch (DirectoryNotFoundException ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(ex.Message);
 
                 Console.ResetColor();
@@ -195,7 +172,7 @@ namespace HeroesData
 
             Console.WriteLine($"{GameData.XmlFileCount,6} xml files loaded");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
-            Console.WriteLine(string.Empty);
+            Console.WriteLine();
         }
 
         private void InitializeGameStringData()
@@ -230,7 +207,7 @@ namespace HeroesData
             Console.WriteLine($"{GameStringData.UnitNamesByShortName.Count,6} Unit names");
             Console.WriteLine($"{GameStringData.AbilityTalentNamesByReferenceNameId.Count,6} Ability/talent names");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
-            Console.WriteLine(string.Empty);
+            Console.WriteLine();
         }
 
         private void InitializeOverrideData()
@@ -244,7 +221,7 @@ namespace HeroesData
             time.Stop();
 
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
-            Console.WriteLine(string.Empty);
+            Console.WriteLine();
         }
 
         private ParsedGameStrings InitializeGameStringParser()
@@ -283,7 +260,7 @@ namespace HeroesData
             });
 
             currentCount = 0;
-            Console.WriteLine(string.Empty);
+            Console.WriteLine();
 
             Parallel.ForEach(GameStringData.ShortTooltipsByShortTooltipNameId, tooltip =>
             {
@@ -303,7 +280,7 @@ namespace HeroesData
             });
 
             currentCount = 0;
-            Console.WriteLine(string.Empty);
+            Console.WriteLine();
 
             foreach (KeyValuePair<string, string> tooltip in GameStringData.HeroDescriptionsByShortName)
             {
@@ -321,7 +298,7 @@ namespace HeroesData
 
             time.Stop();
 
-            Console.WriteLine(string.Empty);
+            Console.WriteLine();
             Console.WriteLine($"{parsedGameStrings.FullParsedTooltipsByFullTooltipNameId.Count,6} parsed full tooltips");
             Console.WriteLine($"{parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.Count,6} parsed short tooltips");
             Console.WriteLine($"{parsedGameStrings.HeroParsedDescriptionsByShortName.Count,6} parsed hero tooltips");
@@ -329,15 +306,15 @@ namespace HeroesData
             Console.WriteLine($"{invalidShortTooltips.Count,6} invalid short tooltips");
             Console.WriteLine($"{invalidHeroDescriptions.Count,6} invalid hero tooltips");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
-            Console.WriteLine(string.Empty);
+            Console.WriteLine();
 
-            if (showInvalidFullTooltips && invalidFullTooltips.Count > 0)
+            if (ShowInvalidFullTooltips && invalidFullTooltips.Count > 0)
                 OutputInvalidTooltips(new SortedDictionary<string, string>(invalidFullTooltips), "Invalid full tooltips");
 
-            if (showInvalidShortTooltips && invalidShortTooltips.Count > 0)
+            if (ShowInvalidShortTooltips && invalidShortTooltips.Count > 0)
                 OutputInvalidTooltips(new SortedDictionary<string, string>(invalidShortTooltips), "Invalid short tooltips");
 
-            if (showInvalidHeroTooltips && invalidHeroDescriptions.Count > 0)
+            if (ShowInvalidHeroTooltips && invalidHeroDescriptions.Count > 0)
                 OutputInvalidTooltips(new SortedDictionary<string, string>(invalidHeroDescriptions), "Invalid hero tooltips");
 
             return parsedGameStrings;
@@ -374,7 +351,7 @@ namespace HeroesData
                 }
             });
 
-            Console.WriteLine(string.Empty);
+            Console.WriteLine();
             time.Stop();
 
             if (failedParsedHeroes.Count > 0)
@@ -390,7 +367,7 @@ namespace HeroesData
                 Console.WriteLine($"{parsedHeroes.Count} successfully added");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{unitParser.CUnitIdByHeroCHeroIds.Count - parsedHeroes.Count} failed to be added!");
-                Console.WriteLine(string.Empty);
+                Console.WriteLine();
 
                 Console.ResetColor();
                 Environment.Exit(1);
@@ -402,13 +379,13 @@ namespace HeroesData
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{failedParsedHeroes.Count} failed to parse [Check logs for details]");
-                Console.WriteLine(string.Empty);
+                Console.WriteLine();
 
                 Console.ResetColor();
                 Environment.Exit(1);
             }
 
-            Console.WriteLine(string.Empty);
+            Console.WriteLine();
 
             return parsedHeroes.Values.ToList();
         }
@@ -433,7 +410,7 @@ namespace HeroesData
 
                     if (tooltips.Count > 0)
                     {
-                        writer.WriteLine(string.Empty);
+                        writer.WriteLine();
                         tooltips.ForEach((warning) => { writer.WriteLine(warning); });
                     }
 
@@ -455,10 +432,10 @@ namespace HeroesData
             if (warnings.Count > 0)
                 Console.WriteLine(" [Check logs for details]");
             else
-                Console.WriteLine(string.Empty);
+                Console.WriteLine();
 
             Console.ResetColor();
-            Console.WriteLine(string.Empty);
+            Console.WriteLine();
         }
 
         private void CreateOutput(List<Hero> parsedHeroes)
@@ -514,7 +491,56 @@ namespace HeroesData
                 Console.ResetColor();
             }
 
-            Console.WriteLine(string.Empty);
+            Console.WriteLine();
+        }
+
+        private void PreInitialize()
+        {
+            if (Defaults)
+            {
+                Console.WriteLine("Using default settings:");
+                Console.WriteLine("  Create xml output");
+                Console.WriteLine("  Create json output");
+                Console.WriteLine();
+
+                StoragePathFinder();
+            }
+            else
+            {
+                if (!CreateXml && !CreateJson)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("No writers are enabled!");
+                    Console.WriteLine("Please include the option --xml or --json");
+                    Console.WriteLine();
+                    Console.ResetColor();
+
+                    Environment.Exit(0);
+                }
+            }
+
+            if (StorageMode == StorageMode.None)
+                StoragePathFinder();
+
+            if (StorageMode == StorageMode.CASC)
+            {
+                CASCHotsStorage = CASCHotsStorage.Load(HotsFolderPath);
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                string versionBuild = CASCHotsStorage.CASCHandler.Config.BuildName?.Split('.').LastOrDefault();
+                if (!string.IsNullOrEmpty(versionBuild))
+                {
+                    if (int.TryParse(versionBuild, out HotsBuild))
+                        Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
+                }
+                else
+                {
+                    Console.WriteLine($"Defaulting to latest build");
+                }
+
+                Console.WriteLine();
+                Console.ResetColor();
+            }
         }
 
         private void StoragePathFinder()
@@ -522,24 +548,29 @@ namespace HeroesData
             if (Directory.Exists(ModsFolderPath))
             {
                 StorageMode = StorageMode.Mods;
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("Found 'mods' directory");
-                Console.WriteLine(string.Empty);
+                Console.WriteLine("Defaulting to latest build");
+                Console.WriteLine();
                 Console.ResetColor();
+            }
+            else if (MultiModsDirectorySearch())
+            {
+                StorageMode = StorageMode.Mods;
             }
             else if (CheckHotsDirectory())
             {
                 StorageMode = StorageMode.CASC;
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("Found Heroes of the Storm storage directory");
-                Console.WriteLine(string.Empty);
+                Console.WriteLine();
                 Console.ResetColor();
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Could not find a 'mods' or Heroes of the Storm storage directory");
-                Console.WriteLine(string.Empty);
+                Console.WriteLine();
 
                 Console.ResetColor();
                 Environment.Exit(0);
@@ -592,7 +623,49 @@ namespace HeroesData
             }
 
             Console.ResetColor();
-            Console.WriteLine(string.Empty);
+            Console.WriteLine();
+        }
+
+        private bool MultiModsDirectorySearch()
+        {
+            string[] directories = Directory.GetDirectories(Environment.CurrentDirectory, "mods_*", SearchOption.TopDirectoryOnly);
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Found 'mods_*' directory(s)");
+
+            int max = 0;
+            string selectedDirectory = string.Empty;
+            for (int i = 0; i < directories.Length; i++)
+            {
+                string lastDirectory = directories[i].Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+                if (!string.IsNullOrEmpty(lastDirectory))
+                {
+                    if (int.TryParse(lastDirectory.Split('_')[1], out int value) && value >= max)
+                    {
+                        max = value;
+                        selectedDirectory = lastDirectory;
+                    }
+                }
+            }
+
+            if (string.IsNullOrEmpty(selectedDirectory))
+            {
+                Console.WriteLine("No valid 'mods' directory found");
+                Console.WriteLine();
+                Console.ResetColor();
+                return false;
+            }
+            else
+            {
+                ModsFolderPath = Path.Combine(Environment.CurrentDirectory, selectedDirectory);
+
+                Console.WriteLine($"Using {selectedDirectory}");
+                Console.WriteLine($"Hots build: {max}");
+                Console.WriteLine();
+                Console.ResetColor();
+
+                return true;
+            }
         }
     }
 }
