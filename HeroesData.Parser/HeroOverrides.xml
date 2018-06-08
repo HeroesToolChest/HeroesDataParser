@@ -42,6 +42,7 @@
     </Ability>
     <HeroUnit id="HeroAlexstraszaDragon"></HeroUnit>
   </CHero>
+  <CHero id="Amazon" alt="d2amazonf"/>
   <CHero id="Arthas">
     <!--Mana cost is time based-->
     <Ability id="ArthasFrozenTempest">
@@ -63,8 +64,14 @@
       </Override>
     </Ability>
   </CHero>
-  <CHero id="Barbarian">
+  <CHero id="Barbarian" name="Sonya" alt="femalebarbarian">
     <EnergyType value="Fury" />
+    <Portrait>
+      <Override>
+        <PartyPanelPortraitFileName value="storm_ui_ingame_partypanel_btn_barbarian.dds" />
+        <TargetPortraitFileName value="ui_targetportrait_hero_barbarian.dds" />
+      </Override>
+    </Portrait>
   </CHero>
   <CHero id="Chen">
     <EnergyType value="Brew" />
@@ -112,7 +119,7 @@
     </Ability>
     <HeroUnit id="HeroDVaPilot"></HeroUnit>
   </CHero>
-  <CHero id="Dryad">
+  <CHero id="Dryad" name="Lunara">
     <Weapon id="DryadHeroRangedWeapon" valid="true" />
     <Weapon id="DryadHeroMeleeWeapon" valid="true" />
   </CHero>
@@ -144,7 +151,7 @@
       </Override>
     </Weapon>
   </CHero>
-  <CHero id="Greymane">
+  <CHero id="Greymane" alt="genngreymane">
     <!--Greymane worgen form abilities-->
     <Ability id="GreymaneRazorSwipe" valid="true">
       <Override>
@@ -170,6 +177,7 @@
       </Override>
     </Weapon>
   </CHero>
+  <CHero id="L90ETC" alt="etc"/>
   <CHero id="Leoric">
     <!--Undying abilities-->
     <Ability id="LeoricGhastlySwing" valid="true">
@@ -213,7 +221,7 @@
     <Weapon id="HeroBaleogBow" valid="true" />
     <Weapon id="HeroErikSlingshot" valid="true" />
   </CHero>
-  <CHero id="Medic">
+  <CHero id="Medic" name="Lt. Morales">
     <EnergyType value="Energy" />  
     <!--Mana cost is time based-->
     <Ability id="MedicHealingBeam">
@@ -222,7 +230,7 @@
       </Override>
     </Ability>
   </CHero>
-  <CHero id="Necromancer">
+  <CHero id="Necromancer" name="Xul">
     <Ability id="NecromancerBoneArmor">
       <Override>
         <AbilityTier value="Activable" />
@@ -273,6 +281,7 @@
   <CHero id="Tracer">
     <EnergyType value="Ammo" />
   </CHero>
+  <CHero id="Tinker" name="gazlowe"/>
   <CHero id="Tychus">
     <!--Odin abilities-->
     <Ability id="TychusOdinAnnihilate" valid="true">
@@ -322,7 +331,7 @@
       </Override>
     </Ability>
   </CHero>
-  <CHero id="WitchDoctor">
+  <CHero id="WitchDoctor" name="Nazeebo">
     <Ability id="WitchDoctorGargantuanStomp" valid="true">
       <Override>
         <ParentLink value="WitchDoctorGargantuan" />

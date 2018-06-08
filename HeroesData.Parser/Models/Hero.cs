@@ -27,11 +27,10 @@ namespace HeroesData.Parser.Models
         /// </summary>
         public HeroFranchise Franchise { get; set; }
 
-        public string HeroPortrait { get; set; }
-
-        public string LoadingPortrait { get; set; }
-
-        public string LeaderboardPortrait { get; set; }
+        /// <summary>
+        /// Gets or sets the hero portraits.
+        /// </summary>
+        public HeroPortrait HeroPortrait { get; set; } = new HeroPortrait();
 
         /// <summary>
         /// Gets or sets the date the hero was release.

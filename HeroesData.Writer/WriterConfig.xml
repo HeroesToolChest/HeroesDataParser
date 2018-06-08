@@ -24,6 +24,13 @@
     <IncludeSubAbilities>True</IncludeSubAbilities>
     <IncludeTalents>True</IncludeTalents>
     <IncludeHeroUnits>True</IncludeHeroUnits>
+    <Portrait>
+      <HeroSelect>True</HeroSelect>
+      <Leaderboard>True</Leaderboard>
+      <LoadingPortrait>True</LoadingPortrait>
+      <PartyPanel>True</PartyPanel>
+      <Target>True</Target>
+    </Portrait>
   </JsonWriter>
   <XmlWriter enabled="true">
     <FileSplit>False</FileSplit>
@@ -36,5 +43,12 @@
     <IncludeSubAbilities>True</IncludeSubAbilities>
     <IncludeTalents>True</IncludeTalents>
     <IncludeHeroUnits>True</IncludeHeroUnits>
+    <Portrait>
+      <HeroSelect>True</HeroSelect>
+      <Leaderboard>True</Leaderboard>
+      <LoadingPortrait>True</LoadingPortrait>
+      <PartyPanel>True</PartyPanel>
+      <Target>True</Target>
+    </Portrait>
   </XmlWriter>
 </Configuration>

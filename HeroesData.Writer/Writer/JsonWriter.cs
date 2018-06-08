@@ -95,6 +95,10 @@ namespace HeroesData.FileWriter.Writer
             if (!string.IsNullOrEmpty(hero.Description?.RawDescription))
                 heroObject.Add("description", GetTooltip(hero.Description, FileSettings.Description));
 
+            JProperty portraits = HeroPortraits(hero);
+            if (portraits != null)
+                heroObject.Add(portraits);
+
             JProperty life = UnitLife(hero);
             if (life != null)
                 heroObject.Add(life);
@@ -591,6 +595,24 @@ namespace HeroesData.FileWriter.Writer
                         new JProperty("period", w.Period),
                         new JProperty("damage", w.Damage),
                         new JProperty("damageScale", w.DamageScaling))));
+        }
+
+        protected override JProperty GetPortraitObject(Hero hero)
+        {
+            JObject portrait = new JObject();
+
+            if (FileSettings.HeroSelectPortrait)
+                portrait.Add("heroSelect", Path.ChangeExtension(hero.HeroPortrait.HeroSelectPortraitFileName, FileSettings.ImageExtension));
+            if (FileSettings.LeaderboardPortrait)
+                portrait.Add("leaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName, FileSettings.ImageExtension));
+            if (FileSettings.LoadingPortraitPortrait)
+                portrait.Add("loading", Path.ChangeExtension(hero.HeroPortrait.LoadingPortraitFileName, FileSettings.ImageExtension));
+            if (FileSettings.PartyPanelPortrait)
+                portrait.Add("partyPanel", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName, FileSettings.ImageExtension));
+            if (FileSettings.TargetPortrait)
+                portrait.Add("target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName, FileSettings.ImageExtension));
+
+            return new JProperty("portraits", portrait);
         }
     }
 }

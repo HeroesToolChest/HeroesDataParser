@@ -57,8 +57,9 @@ namespace HeroesData.Parser.UnitData
                 HeroOverride = heroOverride;
 
             SetDefaultValues(hero);
-            CHeroData(hero, cHeroId);
-            CUnitData(hero, cUnitId);
+            CHeroData(hero);
+            CUnitData(hero);
+            SetHeroPortraits(hero);
             AddSubHeroCUnits(hero);
 
             ApplyOverrides(hero, HeroOverride);
@@ -136,16 +137,19 @@ namespace HeroesData.Parser.UnitData
             hero.Gender = HeroGender.Male;
         }
 
-        private void CHeroData(Hero hero, string cHeroId)
+        private void CHeroData(Hero hero)
         {
-            XElement heroData = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id")?.Value == cHeroId).FirstOrDefault();
+            XElement heroData = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id")?.Value == hero.CHeroId).FirstOrDefault();
+
+            if (heroData == null)
+                return;
 
             // get short name of hero
             string hyperLinkElement = heroData.Element("HyperlinkId")?.Attribute("value")?.Value;
             if (!string.IsNullOrEmpty(hyperLinkElement))
                 hero.ShortName = hyperLinkElement;
             else
-                hero.ShortName = cHeroId;
+                hero.ShortName = hero.CHeroId;
 
             // loop through all elements and set found elements
             foreach (var element in heroData.Elements())
@@ -217,18 +221,6 @@ namespace HeroesData.Parser.UnitData
                         if (!hero.Roles.Contains(HeroRole.Unknown))
                             hero.Roles.Add(HeroRole.Unknown);
                     }
-                }
-                else if (elementName == "SELECTSCREENBUTTONIMAGE")
-                {
-                    hero.HeroPortrait = Path.GetFileName(element.Attribute("value").Value);
-                }
-                else if (elementName == "SCORESCREENIMAGE")
-                {
-                    hero.LeaderboardPortrait = Path.GetFileName(element.Attribute("value").Value);
-                }
-                else if (elementName == "LOADINGSCREENIMAGE")
-                {
-                    hero.LoadingPortrait = Path.GetFileName(element.Attribute("value").Value);
                 }
                 else if (elementName == "UNIVERSEICON")
                 {
@@ -334,9 +326,12 @@ namespace HeroesData.Parser.UnitData
             SetAdditionalLinkedAbilities(hero);
         }
 
-        private void CUnitData(Hero hero, string cUnitId)
+        private void CUnitData(Hero hero)
         {
-            XElement heroData = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value == cUnitId).FirstOrDefault();
+            XElement heroData = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value == hero.CUnitId).FirstOrDefault();
+
+            if (heroData == null)
+                return;
 
             // loop through all elements and set found elements
             foreach (XElement element in heroData.Elements())
@@ -862,6 +857,7 @@ namespace HeroesData.Parser.UnitData
                     ShortName = unit.StartsWith("Hero") ? unit.Remove(0, 4) : unit,
                     CHeroId = null,
                     CUnitId = unit,
+                    HeroPortrait = null,
                 };
 
                 if (cUnit != null)
@@ -870,7 +866,7 @@ namespace HeroesData.Parser.UnitData
                         heroUnit.Description = new TooltipDescription(desc);
 
                     SetDefaultValues(heroUnit);
-                    CUnitData(heroUnit, unit);
+                    CUnitData(heroUnit);
 
                     HeroOverride heroOverride = OverrideData.HeroOverride(unit);
                     if (heroOverride != null)
@@ -903,7 +899,7 @@ namespace HeroesData.Parser.UnitData
             {
                 foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
                 {
-                    if (heroOverride.PropertyOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
+                    if (heroOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
                     {
                         foreach (var propertyOverride in valueOverrideMethods)
                         {
@@ -919,13 +915,24 @@ namespace HeroesData.Parser.UnitData
             {
                 foreach (UnitWeapon weapon in hero.Weapons)
                 {
-                    if (heroOverride.PropertyOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<UnitWeapon>> valueOverrideMethods))
+                    if (heroOverride.PropertyWeaponOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<UnitWeapon>> valueOverrideMethods))
                     {
                         foreach (var propertyOverride in valueOverrideMethods)
                         {
                             // execute each property override
                             propertyOverride.Value(weapon);
                         }
+                    }
+                }
+            }
+
+            if (hero.HeroPortrait != null)
+            {
+                if (heroOverride.PropertyPortraitOverrideMethodByCHeroId.TryGetValue(hero.CHeroId, out Dictionary<string, Action<HeroPortrait>> valueOverrideMethods))
+                {
+                    foreach (var propertyOverride in valueOverrideMethods)
+                    {
+                        propertyOverride.Value(hero.HeroPortrait);
                     }
                 }
             }
@@ -946,6 +953,15 @@ namespace HeroesData.Parser.UnitData
                         hero.Abilities.Remove(linkedAbility.ReferenceNameId);
                 }
             }
+        }
+
+        private void SetHeroPortraits(Hero hero)
+        {
+            hero.HeroPortrait.HeroSelectPortraitFileName = $"{PortraitFileNames.HeroSelectPortraitPrefix}{hero.CHeroId}.dds";
+            hero.HeroPortrait.LeaderboardPortraitFileName = $"{PortraitFileNames.LeaderboardPortraitPrefix}{hero.CHeroId}.dds";
+            hero.HeroPortrait.LoadingPortraitFileName = $"{PortraitFileNames.LoadingPortraitPrefix}{hero.CHeroId}.dds";
+            hero.HeroPortrait.PartyPanelPortraitFileName = $"{PortraitFileNames.PartyPanelPortraitPrefix}{hero.CHeroId}.dds";
+            hero.HeroPortrait.TargetPortraitFileName = $"{PortraitFileNames.TargetPortraitPrefix}{hero.CHeroId}.dds";
         }
     }
 }

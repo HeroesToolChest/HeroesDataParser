@@ -40,12 +40,17 @@ namespace HeroesData.Parser.UnitData.Overrides
         /// <summary>
         /// Gets or sets the property override action methods for abilities by ability id.
         /// </summary>
-        public Dictionary<string, Dictionary<string, Action<Ability>>> PropertyOverrideMethodByAbilityId { get; set; } = new Dictionary<string, Dictionary<string, Action<Ability>>>();
+        public Dictionary<string, Dictionary<string, Action<Ability>>> PropertyAbilityOverrideMethodByAbilityId { get; set; } = new Dictionary<string, Dictionary<string, Action<Ability>>>();
 
         /// <summary>
         /// Gets or sets the property override action methods for weapons by weapon id.
         /// </summary>
-        public Dictionary<string, Dictionary<string, Action<UnitWeapon>>> PropertyOverrideMethodByWeaponId { get; set; } = new Dictionary<string, Dictionary<string, Action<UnitWeapon>>>();
+        public Dictionary<string, Dictionary<string, Action<UnitWeapon>>> PropertyWeaponOverrideMethodByWeaponId { get; set; } = new Dictionary<string, Dictionary<string, Action<UnitWeapon>>>();
+
+        /// <summary>
+        /// Gets or sets the property override action methods for portraits by cHero id.
+        /// </summary>
+        public Dictionary<string, Dictionary<string, Action<HeroPortrait>>> PropertyPortraitOverrideMethodByCHeroId { get; set; } = new Dictionary<string, Dictionary<string, Action<HeroPortrait>>>();
 
         /// <summary>
         /// Gets or sets the valid abilities.

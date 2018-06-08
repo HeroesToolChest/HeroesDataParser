@@ -66,6 +66,7 @@ namespace HeroesData.FileWriter.Writer
                 hero.Type.HasValue ? new XAttribute("type", hero.Type.Value) : null,
                 hero.Rarity.HasValue ? new XAttribute("rarity", hero.Rarity.Value) : null,
                 string.IsNullOrEmpty(hero.Description?.RawDescription) ? null : new XElement("Description", GetTooltip(hero.Description, FileSettings.Description)),
+                HeroPortraits(hero),
                 UnitLife(hero),
                 UnitEnergy(hero),
                 hero.Roles?.Count > 0 ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
@@ -246,6 +247,17 @@ namespace HeroesData.FileWriter.Writer
                     new XAttribute("range", w.Range),
                     new XAttribute("period", w.Period),
                     new XElement("Damage", w.Damage, new XAttribute("scale", w.DamageScaling)))));
+        }
+
+        protected override XElement GetPortraitObject(Hero hero)
+        {
+            return new XElement(
+                "Portraits",
+                FileSettings.HeroSelectPortrait ? new XElement("HeroSelect", Path.ChangeExtension(hero.HeroPortrait.HeroSelectPortraitFileName, FileSettings.ImageExtension)) : null,
+                FileSettings.LeaderboardPortrait ? new XElement("Loaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName, FileSettings.ImageExtension)) : null,
+                FileSettings.LoadingPortraitPortrait ? new XElement("Loading", Path.ChangeExtension(hero.HeroPortrait.LoadingPortraitFileName, FileSettings.ImageExtension)) : null,
+                FileSettings.PartyPanelPortrait ? new XElement("PartyFrame", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName, FileSettings.ImageExtension)) : null,
+                FileSettings.TargetPortrait ? new XElement("Target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName, FileSettings.ImageExtension)) : null);
         }
     }
 }

@@ -92,12 +92,28 @@ namespace HeroesData.Parser
                     AddWarning("has more than 1 weapon");
 
                 if (hero.PrimaryAbilities(AbilityTier.Basic).Count < 3)
-                    AddWarning($"Has less than 3 basic abilities");
+                    AddWarning($"has less than 3 basic abilities");
 
                 if (hero.PrimaryAbilities(AbilityTier.Basic).Count > 3)
-                    AddWarning($"Has more than 3 basic abilities");
+                    AddWarning($"has more than 3 basic abilities");
 
                 VerifyAbilities(hero);
+
+                // hero portraits
+                if (string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName))
+                    AddWarning($"[{nameof(hero.HeroPortrait.HeroSelectPortraitFileName)}]  is null or empty");
+
+                if (string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName))
+                    AddWarning($"[{nameof(hero.HeroPortrait.LeaderboardPortraitFileName)}]  is null or empty");
+
+                if (string.IsNullOrEmpty(hero.HeroPortrait.LoadingPortraitFileName))
+                    AddWarning($"[{nameof(hero.HeroPortrait.LoadingPortraitFileName)}]  is null or empty");
+
+                if (string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName))
+                    AddWarning($"[{nameof(hero.HeroPortrait.PartyPanelPortraitFileName)}]  is null or empty");
+
+                if (string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
+                    AddWarning($"[{nameof(hero.HeroPortrait.TargetPortraitFileName)}]  is null or empty");
 
                 foreach (var talent in hero.Talents)
                 {

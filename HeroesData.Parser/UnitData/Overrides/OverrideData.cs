@@ -110,111 +110,115 @@ namespace HeroesData.Parser.UnitData.Overrides
             HeroOverride heroOverride = new HeroOverride();
             AbilityOverride abilityOverride = new AbilityOverride(GameData, HotsBuild);
             WeaponOverride weaponOverride = new WeaponOverride(GameData, HotsBuild);
+            PortraitOverride portraitOverride = new PortraitOverride(GameData, HotsBuild);
+
             string cHeroId = heroElement.Attribute("id").Value;
+            string imageAlt = heroElement.Attribute("alt")?.Value;
 
             foreach (var dataElement in heroElement.Elements())
             {
                 string elementName = dataElement.Name.LocalName;
 
-                if (elementName == "Name")
+                switch (elementName)
                 {
-                    heroOverride.NameOverride = (true, dataElement.Attribute("value").Value);
-                }
-                else if (elementName == "ShortName")
-                {
-                    heroOverride.ShortNameOverride = (true, dataElement.Attribute("value").Value);
-                }
-                else if (elementName == "CUnit")
-                {
-                    heroOverride.CUnitOverride = (true, dataElement.Attribute("value").Value);
-                }
-                else if (elementName == "EnergyType")
-                {
-                    string energyType = dataElement.Attribute("value").Value;
-                    if (Enum.TryParse(energyType, out UnitEnergyType heroEnergyType))
-                        heroOverride.EnergyTypeOverride = (true, heroEnergyType);
-                    else
-                        heroOverride.EnergyTypeOverride = (true, UnitEnergyType.None);
-                }
-                else if (elementName == "Energy")
-                {
-                    string energyValue = dataElement.Attribute("value").Value;
-                    if (int.TryParse(energyValue, out int value))
-                        heroOverride.EnergyOverride = (true, value);
-                    else
-                        heroOverride.EnergyOverride = (true, 0);
-                }
-                else if (elementName == "Ability")
-                {
-                    string abilityId = dataElement.Attribute("id")?.Value;
-                    string valid = dataElement.Attribute("valid")?.Value;
-                    string add = dataElement.Attribute("add")?.Value;
-                    string button = dataElement.Attribute("button")?.Value;
+                    case "Name":
+                        heroOverride.NameOverride = (true, dataElement.Attribute("value").Value);
+                        break;
+                    case "ShortName":
+                        heroOverride.ShortNameOverride = (true, dataElement.Attribute("value").Value);
+                        break;
+                    case "CUnit":
+                        heroOverride.CUnitOverride = (true, dataElement.Attribute("value").Value);
+                        break;
+                    case "EnergyType":
+                        string energyType = dataElement.Attribute("value").Value;
+                        if (Enum.TryParse(energyType, out UnitEnergyType heroEnergyType))
+                            heroOverride.EnergyTypeOverride = (true, heroEnergyType);
+                        else
+                            heroOverride.EnergyTypeOverride = (true, UnitEnergyType.None);
+                        break;
+                    case "Energy":
+                        string energyValue = dataElement.Attribute("value").Value;
+                        if (int.TryParse(energyValue, out int value))
+                            heroOverride.EnergyOverride = (true, value);
+                        else
+                            heroOverride.EnergyOverride = (true, 0);
+                        break;
+                    case "Ability":
+                        string abilityId = dataElement.Attribute("id")?.Value;
+                        string valid = dataElement.Attribute("valid")?.Value;
+                        string add = dataElement.Attribute("add")?.Value;
+                        string button = dataElement.Attribute("button")?.Value;
 
-                    if (string.IsNullOrEmpty(abilityId))
-                        continue;
-
-                    // valid
-                    if (bool.TryParse(valid, out bool result))
-                    {
-                        heroOverride.IsValidAbilityByAbilityId.Add(abilityId, result);
-
-                        if (!result)
+                        if (string.IsNullOrEmpty(abilityId))
                             continue;
-                    }
 
-                    // add
-                    if (bool.TryParse(add, out result))
-                    {
-                        heroOverride.AddedAbilitiesByAbilityId.Add(abilityId, (button, result));
+                        // valid
+                        if (bool.TryParse(valid, out bool result))
+                        {
+                            heroOverride.IsValidAbilityByAbilityId.Add(abilityId, result);
 
-                        if (!result)
+                            if (!result)
+                                continue;
+                        }
+
+                        // add
+                        if (bool.TryParse(add, out result))
+                        {
+                            heroOverride.AddedAbilitiesByAbilityId.Add(abilityId, (button, result));
+
+                            if (!result)
+                                continue;
+                        }
+
+                        // override
+                        var overrideElement = dataElement.Elements("Override").FirstOrDefault();
+                        if (overrideElement != null)
+                            abilityOverride.SetOverride(abilityId, overrideElement, heroOverride.PropertyAbilityOverrideMethodByAbilityId);
+                        break;
+                    case "LinkedAbilities":
+                        SetLinkAbilities(dataElement, heroOverride);
+                        break;
+                    case "Weapon":
+                        string weaponId = dataElement.Attribute("id")?.Value;
+                        valid = dataElement.Attribute("valid")?.Value;
+
+                        if (string.IsNullOrEmpty(weaponId))
                             continue;
-                    }
 
-                    // override
-                    var overrideElement = dataElement.Elements("Override").FirstOrDefault();
-                    if (overrideElement != null)
-                        abilityOverride.SetOverride(abilityId, overrideElement, heroOverride.PropertyOverrideMethodByAbilityId);
-                }
-                else if (elementName == "LinkedAbilities")
-                {
-                    SetLinkAbilities(dataElement, heroOverride);
-                }
-                else if (elementName == "Weapon")
-                {
-                    string weaponId = dataElement.Attribute("id")?.Value;
-                    string valid = dataElement.Attribute("valid")?.Value;
+                        if (bool.TryParse(valid, out result))
+                        {
+                            heroOverride.IsValidWeaponByWeaponId.Add(weaponId, result);
 
-                    if (string.IsNullOrEmpty(weaponId))
-                        continue;
+                            if (!result)
+                                continue;
+                        }
 
-                    if (bool.TryParse(valid, out bool result))
-                    {
-                        heroOverride.IsValidWeaponByWeaponId.Add(weaponId, result);
+                        overrideElement = dataElement.Elements("Override").FirstOrDefault();
+                        if (overrideElement != null)
+                            weaponOverride.SetOverride(weaponId, overrideElement, heroOverride.PropertyWeaponOverrideMethodByWeaponId);
+                        break;
+                    case "HeroUnit":
+                        string heroUnitId = dataElement.Attribute("id")?.Value;
 
-                        if (!result)
+                        if (string.IsNullOrEmpty(heroUnitId))
                             continue;
-                    }
 
-                    var overrideElement = dataElement.Elements("Override").FirstOrDefault();
-                    if (overrideElement != null)
-                        weaponOverride.SetOverride(weaponId, overrideElement, heroOverride.PropertyOverrideMethodByWeaponId);
-                }
-                else if (elementName == "HeroUnit")
-                {
-                    string heroUnitId = dataElement.Attribute("id")?.Value;
-
-                    if (string.IsNullOrEmpty(heroUnitId))
-                        continue;
-
-                    AddHeroUnits(heroUnitId, dataElement, heroOverride);
-                }
-                else if (elementName == "ParentLink")
-                {
-                    heroOverride.ParentLinkOverride = (true, dataElement.Attribute("value").Value);
+                        AddHeroUnits(heroUnitId, dataElement, heroOverride);
+                        break;
+                    case "ParentLink":
+                        heroOverride.ParentLinkOverride = (true, dataElement.Attribute("value").Value);
+                        break;
+                    case "Portrait":
+                        overrideElement = dataElement.Elements("Override").FirstOrDefault();
+                        if (overrideElement != null)
+                            portraitOverride.SetOverride(cHeroId, overrideElement, heroOverride.PropertyPortraitOverrideMethodByCHeroId);
+                        break;
                 }
             }
+
+            if (!string.IsNullOrEmpty(imageAlt))
+                SetPortraits(cHeroId, imageAlt, heroOverride);
 
             if (!HeroOverridesByCHeroId.ContainsKey(cHeroId))
                 HeroOverridesByCHeroId.Add(cHeroId, heroOverride);
@@ -231,6 +235,58 @@ namespace HeroesData.Parser.UnitData.Overrides
 
                 // add or update
                 heroOverride.LinkedElementNamesByAbilityId[id] = elementName;
+            }
+        }
+
+        private void SetPortraits(string cHeroId, string imageAlt, HeroOverride heroOverride)
+        {
+            var propertyOverrides = new Dictionary<string, Action<HeroPortrait>>();
+
+            if (heroOverride.PropertyPortraitOverrideMethodByCHeroId.ContainsKey(cHeroId))
+            {
+                if (!heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].ContainsKey(nameof(Hero.HeroPortrait.HeroSelectPortraitFileName)))
+                {
+                    heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].Add(nameof(Hero.HeroPortrait.HeroSelectPortraitFileName), (portrait) =>
+                    {
+                        portrait.HeroSelectPortraitFileName = $"{PortraitFileNames.HeroSelectPortraitPrefix}{imageAlt}.dds";
+                    });
+                }
+
+                if (!heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].ContainsKey(nameof(Hero.HeroPortrait.LeaderboardPortraitFileName)))
+                {
+                    heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].Add(nameof(Hero.HeroPortrait.LeaderboardPortraitFileName), (portrait) =>
+                    {
+                        portrait.LeaderboardPortraitFileName = $"{PortraitFileNames.LeaderboardPortraitPrefix}{imageAlt}.dds";
+                    });
+                }
+
+                if (!heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].ContainsKey(nameof(Hero.HeroPortrait.LoadingPortraitFileName)))
+                {
+                    heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].Add(nameof(Hero.HeroPortrait.LoadingPortraitFileName), (portrait) =>
+                    {
+                        portrait.LoadingPortraitFileName = $"{PortraitFileNames.LoadingPortraitPrefix}{imageAlt}.dds";
+                    });
+                }
+
+                if (!heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].ContainsKey(nameof(Hero.HeroPortrait.PartyPanelPortraitFileName)))
+                {
+                    heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].Add(nameof(Hero.HeroPortrait.PartyPanelPortraitFileName), (portrait) =>
+                    {
+                        portrait.PartyPanelPortraitFileName = $"{PortraitFileNames.PartyPanelPortraitPrefix}{imageAlt}.dds";
+                    });
+                }
+
+                if (!heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].ContainsKey(nameof(Hero.HeroPortrait.TargetPortraitFileName)))
+                {
+                    heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].Add(nameof(Hero.HeroPortrait.TargetPortraitFileName), (portrait) =>
+                    {
+                        portrait.TargetPortraitFileName = $"{PortraitFileNames.TargetPortraitPrefix}{imageAlt}.dds";
+                    });
+                }
+            }
+            else
+            {
+                heroOverride.PropertyPortraitOverrideMethodByCHeroId.Add(cHeroId, propertyOverrides);
             }
         }
 

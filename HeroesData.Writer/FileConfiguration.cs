@@ -97,6 +97,37 @@ namespace HeroesData.FileWriter
                 fileSettings.IncludeHeroUnits = includeHeroUnitsValue;
             else
                 fileSettings.IncludeHeroUnits = false;
+
+            // portraits
+            string heroSelectPortrait = writerElement.Element("Portrait").Element("HeroSelect")?.Value;
+            if (bool.TryParse(heroSelectPortrait, out bool includePortrait))
+                fileSettings.HeroSelectPortrait = includePortrait;
+            else
+                fileSettings.HeroSelectPortrait = false;
+
+            string leaderboardPortrait = writerElement.Element("Portrait").Element("Leaderboard")?.Value;
+            if (bool.TryParse(leaderboardPortrait, out includePortrait))
+                fileSettings.LeaderboardPortrait = includePortrait;
+            else
+                fileSettings.LeaderboardPortrait = false;
+
+            string loadingPortrait = writerElement.Element("Portrait").Element("LoadingPortrait")?.Value;
+            if (bool.TryParse(loadingPortrait, out includePortrait))
+                fileSettings.LoadingPortraitPortrait = includePortrait;
+            else
+                fileSettings.LoadingPortraitPortrait = false;
+
+            string partyPortrait = writerElement.Element("Portrait").Element("PartyPanel")?.Value;
+            if (bool.TryParse(partyPortrait, out includePortrait))
+                fileSettings.PartyPanelPortrait = includePortrait;
+            else
+                fileSettings.PartyPanelPortrait = false;
+
+            string targetPortrait = writerElement.Element("Portrait").Element("Target")?.Value;
+            if (bool.TryParse(targetPortrait, out includePortrait))
+                fileSettings.TargetPortrait = includePortrait;
+            else
+                fileSettings.TargetPortrait = false;
         }
     }
 }

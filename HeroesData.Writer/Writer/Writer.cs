@@ -33,6 +33,7 @@ namespace HeroesData.FileWriter.Writer
         protected abstract void CreateSingleFile(List<Hero> heroes);
         protected abstract T HeroElement(Hero hero);
         protected abstract T UnitElement(Unit unit);
+        protected abstract T GetPortraitObject(Hero hero);
         protected abstract T GetLifeObject(Unit unit);
         protected abstract T GetEnergyObject(Unit unit);
         protected abstract T GetRatingsObject(Hero hero);
@@ -47,6 +48,18 @@ namespace HeroesData.FileWriter.Writer
         protected abstract T GetAbilityEnergyCostObject(TooltipEnergy tooltipEnergy);
         protected abstract T GetAbilityCooldownObject(TooltipCooldown tooltipCooldown);
         protected abstract T GetAbilityChargesObject(TooltipCharges tooltipCharges);
+
+        protected T HeroPortraits(Hero hero)
+        {
+            if ((FileSettings.HeroSelectPortrait || FileSettings.LeaderboardPortrait ||
+                FileSettings.LoadingPortraitPortrait || FileSettings.PartyPanelPortrait ||
+                FileSettings.TargetPortrait) && hero.HeroPortrait != null)
+            {
+                return GetPortraitObject(hero);
+            }
+
+            return null;
+        }
 
         protected T UnitLife(Unit unit)
         {
