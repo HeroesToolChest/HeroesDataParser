@@ -19,14 +19,14 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<UnitWeapon>> propertyOverrides)
         {
-            if (propertyName == "Range")
+            if (propertyName == nameof(UnitWeapon.Range))
             {
                 propertyOverrides.Add(propertyName, (weapon) =>
                 {
                     weapon.Range = double.Parse(propertyValue);
                 });
             }
-            else if (propertyName == "Damage")
+            else if (propertyName == nameof(UnitWeapon.Damage))
             {
                 propertyOverrides.Add(propertyName, (weapon) =>
                 {

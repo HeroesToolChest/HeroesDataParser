@@ -19,7 +19,7 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<Ability>> propertyOverrides)
         {
-            if (propertyName == "ParentLink")
+            if (propertyName == nameof(Ability.ParentLink))
             {
                 propertyOverrides.Add(propertyName, (ability) =>
                 {
