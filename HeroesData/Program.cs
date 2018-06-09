@@ -34,6 +34,7 @@ namespace HeroesData
         private bool ShowInvalidShortTooltips = false;
         private bool ShowInvalidHeroTooltips = false;
         private int? HotsBuild = null;
+        private int MaxParallelism = -1;
 
         internal static void Main(string[] args)
         {
@@ -46,6 +47,7 @@ namespace HeroesData
 
             CommandOption modPathOption = app.Option("-m|--modsPath <filePath>", "The file path of the 'mods' folder", CommandOptionType.SingleValue);
             CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The file path of the 'Heroes of the Storm' folder", CommandOptionType.SingleValue);
+            CommandOption setMaxDegreeParallism = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
@@ -69,6 +71,9 @@ namespace HeroesData
                     program.HotsFolderPath = storagePathOption.Value();
                     program.StorageMode = StorageMode.CASC;
                 }
+
+                if (setMaxDegreeParallism.HasValue() && int.TryParse(setMaxDegreeParallism.Value(), out int result))
+                    program.MaxParallelism = result;
 
                 program.CreateXml = xmlOutputOption.HasValue() ? true : false;
                 program.CreateJson = jsonOutputOption.HasValue() ? true : false;
@@ -271,7 +276,7 @@ namespace HeroesData
                 Environment.Exit(1);
             }
 
-            Parallel.ForEach(GameStringData.FullTooltipsByFullTooltipNameId, tooltip =>
+            Parallel.ForEach(GameStringData.FullTooltipsByFullTooltipNameId, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, tooltip =>
             {
                 try
                 {
@@ -291,7 +296,7 @@ namespace HeroesData
             currentCount = 0;
             Console.WriteLine();
 
-            Parallel.ForEach(GameStringData.ShortTooltipsByShortTooltipNameId, tooltip =>
+            Parallel.ForEach(GameStringData.ShortTooltipsByShortTooltipNameId, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, tooltip =>
             {
                 try
                 {
@@ -361,7 +366,7 @@ namespace HeroesData
             time.Start();
             UnitParser unitParser = UnitParser.Load(GameData, OverrideData, HotsBuild);
 
-            Parallel.ForEach(unitParser.CUnitIdByHeroCHeroIds, hero =>
+            Parallel.ForEach(unitParser.CUnitIdByHeroCHeroIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, hero =>
             {
                 try
                 {
