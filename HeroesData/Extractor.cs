@@ -44,7 +44,7 @@ namespace HeroesData
                 string cascFilepath = Path.Combine(CASCTexturesPath, fileName);
                 if (CASCHandler.FileExists(cascFilepath))
                 {
-                    using (MagickImage image = new MagickImage(CASCHandler.OpenFile(cascFilepath)))
+                    using (MagickImage image = new MagickImage(CASCHandler.OpenFile(cascFilepath), new MagickReadSettings { Compression = Compression.NoCompression }))
                     {
                         image.Write(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(fileName)}.png"));
                     }
