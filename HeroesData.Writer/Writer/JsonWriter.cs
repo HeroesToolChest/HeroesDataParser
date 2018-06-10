@@ -575,7 +575,7 @@ namespace HeroesData.FileWriter.Writer
                 talantObject.Add(new JProperty(
                     "level16",
                     new JArray(
-                        from talent in level13Talents
+                        from talent in level16Talents
                         select new JObject(TalentInfoElement(talent)))));
             }
 
