@@ -15,7 +15,7 @@
         /// <summary>
         /// Gets or sets the loading screen portrait file name.
         /// </summary>
-        public string LoadingPortraitFileName { get; set; }
+        public string LoadingScreenPortraitFileName { get; set; }
 
         /// <summary>
         /// Gets or sets the part panel portrait file name.

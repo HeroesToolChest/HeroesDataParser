@@ -959,7 +959,7 @@ namespace HeroesData.Parser.UnitData
         {
             hero.HeroPortrait.HeroSelectPortraitFileName = $"{PortraitFileNames.HeroSelectPortraitPrefix}{hero.CHeroId}.dds";
             hero.HeroPortrait.LeaderboardPortraitFileName = $"{PortraitFileNames.LeaderboardPortraitPrefix}{hero.CHeroId}.dds";
-            hero.HeroPortrait.LoadingPortraitFileName = $"{PortraitFileNames.LoadingPortraitPrefix}{hero.CHeroId}.dds";
+            hero.HeroPortrait.LoadingScreenPortraitFileName = $"{PortraitFileNames.LoadingPortraitPrefix}{hero.CHeroId}.dds";
             hero.HeroPortrait.PartyPanelPortraitFileName = $"{PortraitFileNames.PartyPanelPortraitPrefix}{hero.CHeroId}.dds";
             hero.HeroPortrait.TargetPortraitFileName = $"{PortraitFileNames.TargetPortraitPrefix}{hero.CHeroId}.dds";
         }

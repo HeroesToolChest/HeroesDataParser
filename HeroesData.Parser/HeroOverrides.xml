@@ -2,6 +2,11 @@
 <HeroOverrides>
   <CHero id="Abathur">
     <HeroUnit id="AbathurSymbiote"></HeroUnit>
+    <Portrait>
+      <Override>
+        <HeroSelectPortraitFileName value="storm_ui_ingame_heroselect_btn_infestor.dds" />
+      </Override>
+    </Portrait>
   </CHero>
   <CHero id="Alarak">
     <!--Cooldown and mana cost are deducted after charge release-->
@@ -64,12 +69,11 @@
       </Override>
     </Ability>
   </CHero>
-  <CHero id="Barbarian" name="Sonya" alt="femalebarbarian">
+  <CHero id="Barbarian" name="Sonya">
     <EnergyType value="Fury" />
     <Portrait>
       <Override>
-        <PartyPanelPortraitFileName value="storm_ui_ingame_partypanel_btn_barbarian.dds" />
-        <TargetPortraitFileName value="ui_targetportrait_hero_barbarian.dds" />
+        <LeaderboardPortraitFileName value="storm_ui_ingame_hero_leaderboard_femalebarbarian.dds" />
       </Override>
     </Portrait>
   </CHero>
@@ -98,6 +102,11 @@
   <CHero id="Cho">
     <Weapon id="ChoShortRangeHeroWeapon" valid="false" />
     <Weapon id="ChoLongRangeHeroWeaponCthunsGift" valid="false" />
+    <Portrait>
+      <Override>
+        <HeroSelectPortraitFileName value="storm_ui_ingame_heroselect_cho.dds" />
+      </Override>
+    </Portrait>
   </CHero>
   <CHero id="Chromie">
     <!--Mana cost is time based-->
@@ -107,6 +116,13 @@
         <Tooltip.Energy.IsPerCost value="true" />
       </Override>
     </Ability>
+  </CHero>
+  <CHero id="Crusader" name="Johanna" alt="Johanna">
+    <Portrait>
+      <Override>
+        <LoadingScreenPortraitFileName value="storm_ui_ingame_hero_loadingscreen_crusader.dds" />
+      </Override>
+    </Portrait>
   </CHero>
   <CHero id="DVa">
     <CUnit value="HeroDVaMech" />
@@ -119,9 +135,21 @@
     </Ability>
     <HeroUnit id="HeroDVaPilot"></HeroUnit>
   </CHero>
-  <CHero id="Dryad" name="Lunara">
+  <CHero id="Dryad" name="Lunara" alt="Lunara">
     <Weapon id="DryadHeroRangedWeapon" valid="true" />
     <Weapon id="DryadHeroMeleeWeapon" valid="true" />
+    <Portrait>
+      <Override>
+        <LoadingScreenPortraitFileName value="storm_ui_ingame_hero_loadingscreen_dryad.dds" />
+      </Override>
+    </Portrait>
+  </CHero>
+  <CHero id="Falstad">
+    <Portrait>
+      <Override>
+        <HeroSelectPortraitFileName value="storm_ui_ingame_heroselect_btn_gryphon_rider.dds" />
+      </Override>
+    </Portrait>
   </CHero>
   <CHero id="Fenix">
     <Weapon id="FenixHeroWeapon">
@@ -166,6 +194,11 @@
     <Weapon id="HeroGreymaneRangedWeapon" valid="true" />
     <Weapon id="HeroGreymaneMeleeWeapon" valid="true" />
     <HeroUnit id="GreymaneWorgenForm"></HeroUnit>
+    <Portrait>
+      <Override>
+        <LoadingScreenPortraitFileName value="storm_ui_ingame_hero_loadingscreen_greymane.dds" />
+      </Override>
+    </Portrait>
   </CHero>
   <CHero id="Junkrat">
     <EnergyType value="Ammo" />
@@ -177,7 +210,14 @@
       </Override>
     </Weapon>
   </CHero>
-  <CHero id="L90ETC" alt="etc"/>
+  <CHero id="L90ETC">
+    <Portrait>
+      <Override>
+        <HeroSelectPortraitFileName value="storm_ui_ingame_heroselect_btn_etc.dds" />
+        <LeaderboardPortraitFileName value="storm_ui_ingame_hero_leaderboard_etc.dds" />
+      </Override>
+    </Portrait>
+  </CHero>
   <CHero id="Leoric">
     <!--Undying abilities-->
     <Ability id="LeoricGhastlySwing" valid="true">
@@ -281,7 +321,13 @@
   <CHero id="Tracer">
     <EnergyType value="Ammo" />
   </CHero>
-  <CHero id="Tinker" name="gazlowe"/>
+  <CHero id="Tinker" name="Gazlowe">
+    <Portrait>
+      <Override>
+        <HeroSelectPortraitFileName value="storm_ui_ingame_heroselect_btn_gazlowe.dds" />
+      </Override>
+    </Portrait>
+  </CHero>
   <CHero id="Tychus">
     <!--Odin abilities-->
     <Ability id="TychusOdinAnnihilate" valid="true">

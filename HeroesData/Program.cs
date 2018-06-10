@@ -33,6 +33,8 @@ namespace HeroesData
         private bool ShowInvalidFullTooltips = false;
         private bool ShowInvalidShortTooltips = false;
         private bool ShowInvalidHeroTooltips = false;
+        private bool ExtractPortraits = false;
+        private bool ExtractTalents = false;
         private int? HotsBuild = null;
         private int MaxParallelism = -1;
 
@@ -48,6 +50,7 @@ namespace HeroesData
             CommandOption modPathOption = app.Option("-m|--modsPath <filePath>", "The file path of the 'mods' folder", CommandOptionType.SingleValue);
             CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The file path of the 'Heroes of the Storm' folder", CommandOptionType.SingleValue);
             CommandOption setMaxDegreeParallism = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
+            CommandOption extractIcons = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all portraits talents", CommandOptionType.MultipleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
@@ -75,12 +78,25 @@ namespace HeroesData
                 if (setMaxDegreeParallism.HasValue() && int.TryParse(setMaxDegreeParallism.Value(), out int result))
                     program.MaxParallelism = result;
 
+                if (extractIcons.HasValue())
+                {
+                    if (extractIcons.Values.Contains("all"))
+                    {
+                        program.ExtractPortraits = true;
+                        program.ExtractTalents = true;
+                    }
+
+                    if (extractIcons.Values.Contains("portraits"))
+                        program.ExtractPortraits = true;
+                    if (extractIcons.Values.Contains("talents"))
+                        program.ExtractTalents = true;
+                }
+
                 program.CreateXml = xmlOutputOption.HasValue() ? true : false;
                 program.CreateJson = jsonOutputOption.HasValue() ? true : false;
                 program.ShowInvalidFullTooltips = invalidFullOption.HasValue() ? true : false;
                 program.ShowInvalidShortTooltips = invalidShortOption.HasValue() ? true : false;
                 program.ShowInvalidHeroTooltips = invalidHeroOption.HasValue() ? true : false;
-
                 program.Execute();
                 Console.ResetColor();
 
@@ -133,6 +149,7 @@ namespace HeroesData
 
                 HeroDataVerification(parsedHeroes);
                 CreateOutput(parsedHeroes);
+                ExtractFiles(parsedHeroes);
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("HDP successfully completed.");
@@ -708,6 +725,21 @@ namespace HeroesData
 
                 return true;
             }
+        }
+
+        private void ExtractFiles(List<Hero> heroes)
+        {
+            if (!ExtractPortraits && !ExtractTalents && StorageMode != StorageMode.CASC)
+                return;
+
+            Extractor extractor = Extractor.Load(heroes, CASCHotsStorage.CASCHandler);
+
+            if (ExtractPortraits)
+                extractor.ExtractPortraits();
+            if (ExtractTalents)
+                extractor.ExtractTalentIcons();
+
+            Console.WriteLine();
         }
     }
 }

@@ -106,8 +106,8 @@ namespace HeroesData.Parser
                 if (string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName))
                     AddWarning($"[{nameof(hero.HeroPortrait.LeaderboardPortraitFileName)}]  is null or empty");
 
-                if (string.IsNullOrEmpty(hero.HeroPortrait.LoadingPortraitFileName))
-                    AddWarning($"[{nameof(hero.HeroPortrait.LoadingPortraitFileName)}]  is null or empty");
+                if (string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName))
+                    AddWarning($"[{nameof(hero.HeroPortrait.LoadingScreenPortraitFileName)}]  is null or empty");
 
                 if (string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName))
                     AddWarning($"[{nameof(hero.HeroPortrait.PartyPanelPortraitFileName)}]  is null or empty");

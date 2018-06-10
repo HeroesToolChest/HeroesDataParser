@@ -606,7 +606,7 @@ namespace HeroesData.FileWriter.Writer
             if (FileSettings.LeaderboardPortrait)
                 portrait.Add("leaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName, FileSettings.ImageExtension));
             if (FileSettings.LoadingPortraitPortrait)
-                portrait.Add("loading", Path.ChangeExtension(hero.HeroPortrait.LoadingPortraitFileName, FileSettings.ImageExtension));
+                portrait.Add("loading", Path.ChangeExtension(hero.HeroPortrait.LoadingScreenPortraitFileName, FileSettings.ImageExtension));
             if (FileSettings.PartyPanelPortrait)
                 portrait.Add("partyPanel", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName, FileSettings.ImageExtension));
             if (FileSettings.TargetPortrait)

@@ -260,11 +260,11 @@ namespace HeroesData.Parser.UnitData.Overrides
                     });
                 }
 
-                if (!heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].ContainsKey(nameof(Hero.HeroPortrait.LoadingPortraitFileName)))
+                if (!heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].ContainsKey(nameof(Hero.HeroPortrait.LoadingScreenPortraitFileName)))
                 {
-                    heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].Add(nameof(Hero.HeroPortrait.LoadingPortraitFileName), (portrait) =>
+                    heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].Add(nameof(Hero.HeroPortrait.LoadingScreenPortraitFileName), (portrait) =>
                     {
-                        portrait.LoadingPortraitFileName = $"{PortraitFileNames.LoadingPortraitPrefix}{imageAlt}.dds";
+                        portrait.LoadingScreenPortraitFileName = $"{PortraitFileNames.LoadingPortraitPrefix}{imageAlt}.dds";
                     });
                 }
 
@@ -286,6 +286,27 @@ namespace HeroesData.Parser.UnitData.Overrides
             }
             else
             {
+                propertyOverrides.Add(nameof(Hero.HeroPortrait.HeroSelectPortraitFileName), (portrait) =>
+                {
+                    portrait.HeroSelectPortraitFileName = $"{PortraitFileNames.HeroSelectPortraitPrefix}{imageAlt}.dds";
+                });
+                propertyOverrides.Add(nameof(Hero.HeroPortrait.LeaderboardPortraitFileName), (portrait) =>
+                {
+                    portrait.LeaderboardPortraitFileName = $"{PortraitFileNames.LeaderboardPortraitPrefix}{imageAlt}.dds";
+                });
+                propertyOverrides.Add(nameof(Hero.HeroPortrait.LoadingScreenPortraitFileName), (portrait) =>
+                {
+                    portrait.LoadingScreenPortraitFileName = $"{PortraitFileNames.LoadingPortraitPrefix}{imageAlt}.dds";
+                });
+                propertyOverrides.Add(nameof(Hero.HeroPortrait.PartyPanelPortraitFileName), (portrait) =>
+                {
+                    portrait.PartyPanelPortraitFileName = $"{PortraitFileNames.PartyPanelPortraitPrefix}{imageAlt}.dds";
+                });
+                propertyOverrides.Add(nameof(Hero.HeroPortrait.TargetPortraitFileName), (portrait) =>
+                {
+                    portrait.TargetPortraitFileName = $"{PortraitFileNames.TargetPortraitPrefix}{imageAlt}.dds";
+                });
+
                 heroOverride.PropertyPortraitOverrideMethodByCHeroId.Add(cHeroId, propertyOverrides);
             }
         }
