@@ -50,7 +50,7 @@ namespace HeroesData
             CommandOption modPathOption = app.Option("-m|--modsPath <filePath>", "The file path of the 'mods' folder", CommandOptionType.SingleValue);
             CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The file path of the 'Heroes of the Storm' folder", CommandOptionType.SingleValue);
             CommandOption setMaxDegreeParallism = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
-            CommandOption extractIcons = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all portraits talents", CommandOptionType.MultipleValue);
+            CommandOption extractIcons = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all|portraits|talents. Available only in -s|--storage mode", CommandOptionType.MultipleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
@@ -78,7 +78,7 @@ namespace HeroesData
                 if (setMaxDegreeParallism.HasValue() && int.TryParse(setMaxDegreeParallism.Value(), out int result))
                     program.MaxParallelism = result;
 
-                if (extractIcons.HasValue())
+                if (extractIcons.HasValue() && storagePathOption.HasValue())
                 {
                     if (extractIcons.Values.Contains("all"))
                     {
