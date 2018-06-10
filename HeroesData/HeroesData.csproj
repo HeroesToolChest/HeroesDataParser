@@ -6,10 +6,11 @@
     <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
     <ApplicationIcon />
     <Win32Resource />
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.4.6" />
+    <PackageReference Include="Magick.NET-Q16-x64" Version="7.4.6" />
     <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta007" />
   </ItemGroup>
