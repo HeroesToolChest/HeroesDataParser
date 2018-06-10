@@ -12,24 +12,33 @@ namespace HeroesData.FileWriter.Writer
 {
     internal class JsonWriter : Writer<JProperty, JObject>
     {
-        private readonly string SingleFileName = "heroesdata.json";
-
         private JsonWriter(JsonFileSettings fileSettings, List<Hero> heroes)
         {
-            FileSettings = fileSettings;
+            Initialize(fileSettings, heroes);
+        }
 
-            if (FileSettings.WriterEnabled)
-            {
-                if (FileSettings.FileSplit)
-                    CreateMultipleFiles(heroes);
-                else
-                    CreateSingleFile(heroes);
-            }
+        private JsonWriter(JsonFileSettings fileSettings, List<Hero> heroes, int? hotsBuild)
+            : base(hotsBuild)
+        {
+            Initialize(fileSettings, heroes);
         }
 
         public static void CreateOutput(JsonFileSettings fileSettings, List<Hero> heroes)
         {
             new JsonWriter(fileSettings, heroes);
+        }
+
+        public static void CreateOutput(JsonFileSettings fileSettings, List<Hero> heroes, int? hotsBuild)
+        {
+            new JsonWriter(fileSettings, heroes, hotsBuild);
+        }
+
+        protected override void SetSingleFileName()
+        {
+            if (HotsBuild.HasValue)
+                SingleFileName = $"heroesdata_{HotsBuild.Value}.json";
+            else
+                SingleFileName = "heroesdata.json";
         }
 
         protected override void CreateMultipleFiles(List<Hero> heroes)

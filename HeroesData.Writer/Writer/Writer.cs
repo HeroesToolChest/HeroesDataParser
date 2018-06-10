@@ -18,17 +18,42 @@ namespace HeroesData.FileWriter.Writer
             Directory.CreateDirectory(JsonOutputFolder);
         }
 
+        protected Writer(int? hotsBuild)
+        {
+            Directory.CreateDirectory(XmlOutputFolder);
+            Directory.CreateDirectory(JsonOutputFolder);
+
+            HotsBuild = hotsBuild;
+        }
+
         protected FileSettings FileSettings { get; set; }
+        protected string SingleFileName { get; set; }
         protected string XmlOutputFolder => Path.Combine("output", "xml");
         protected string JsonOutputFolder => Path.Combine("output", "json");
         protected string RootNode => "Heroes";
         protected string HeroUnits => "HeroUnits";
+        protected int? HotsBuild { get; }
 
         protected string StripInvalidChars(string text)
         {
             return new string(text.Where(c => !char.IsPunctuation(c)).ToArray());
         }
 
+        protected void Initialize(FileSettings fileSettings, List<Hero> heroes)
+        {
+            FileSettings = fileSettings;
+            SetSingleFileName();
+
+            if (FileSettings.WriterEnabled)
+            {
+                if (FileSettings.FileSplit)
+                    CreateMultipleFiles(heroes);
+                else
+                    CreateSingleFile(heroes);
+            }
+        }
+
+        protected abstract void SetSingleFileName();
         protected abstract void CreateMultipleFiles(List<Hero> heroes);
         protected abstract void CreateSingleFile(List<Hero> heroes);
         protected abstract T HeroElement(Hero hero);

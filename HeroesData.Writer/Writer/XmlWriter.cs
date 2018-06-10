@@ -12,23 +12,33 @@ namespace HeroesData.FileWriter.Writer
 {
     internal class XmlWriter : Writer<XElement, XElement>
     {
-        private readonly string SingleFileName = "heroesdata.xml";
         private XmlWriter(XmlFileSettings fileSettings, List<Hero> heroes)
         {
-            FileSettings = fileSettings;
+            Initialize(fileSettings, heroes);
+        }
 
-            if (FileSettings.WriterEnabled)
-            {
-                if (FileSettings.FileSplit)
-                    CreateMultipleFiles(heroes);
-                else
-                    CreateSingleFile(heroes);
-            }
+        private XmlWriter(XmlFileSettings fileSettings, List<Hero> heroes, int? hotsBuild)
+            : base(hotsBuild)
+        {
+            Initialize(fileSettings, heroes);
         }
 
         public static void CreateOutput(XmlFileSettings fileSettings, List<Hero> heroes)
         {
             new XmlWriter(fileSettings, heroes);
+        }
+
+        public static void CreateOutput(XmlFileSettings fileSettings, List<Hero> heroes, int? hotsBuild)
+        {
+            new XmlWriter(fileSettings, heroes, hotsBuild);
+        }
+
+        protected override void SetSingleFileName()
+        {
+            if (HotsBuild.HasValue)
+                SingleFileName = $"heroesdata_{HotsBuild.Value}.xml";
+            else
+                SingleFileName = "heroesdata.xml";
         }
 
         protected override void CreateSingleFile(List<Hero> heroes)

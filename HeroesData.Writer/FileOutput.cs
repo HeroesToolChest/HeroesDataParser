@@ -8,12 +8,23 @@ namespace HeroesData.FileWriter
     {
         private readonly FileConfiguration FileConfiguration;
         private readonly List<Hero> Heroes;
+        private readonly int? HotsBuild;
 
         private FileOutput(List<Hero> heroes)
         {
             FileConfiguration = FileConfiguration.Load();
             IsXmlEnabled = FileConfiguration.XmlFileSettings.WriterEnabled;
             IsJsonEnabled = FileConfiguration.JsonFileSettings.WriterEnabled;
+
+            Heroes = heroes;
+        }
+
+        private FileOutput(List<Hero> heroes, int? hotsBuild)
+        {
+            FileConfiguration = FileConfiguration.Load();
+            IsXmlEnabled = FileConfiguration.XmlFileSettings.WriterEnabled;
+            IsJsonEnabled = FileConfiguration.JsonFileSettings.WriterEnabled;
+            HotsBuild = hotsBuild;
 
             Heroes = heroes;
         }
@@ -33,12 +44,17 @@ namespace HeroesData.FileWriter
             return new FileOutput(heroes);
         }
 
+        public static FileOutput SetHeroData(List<Hero> heroes, int? hotsBuild)
+        {
+            return new FileOutput(heroes, hotsBuild);
+        }
+
         /// <summary>
         /// Creates the xml output.
         /// </summary>
         public void CreateXml()
         {
-            XmlWriter.CreateOutput(FileConfiguration.XmlFileSettings, Heroes);
+            XmlWriter.CreateOutput(FileConfiguration.XmlFileSettings, Heroes, HotsBuild);
         }
 
         /// <summary>
@@ -49,7 +65,7 @@ namespace HeroesData.FileWriter
         {
             FileConfiguration.XmlFileSettings.WriterEnabled = isEnabled;
 
-            XmlWriter.CreateOutput(FileConfiguration.XmlFileSettings, Heroes);
+            XmlWriter.CreateOutput(FileConfiguration.XmlFileSettings, Heroes, HotsBuild);
         }
 
         /// <summary>
@@ -57,7 +73,7 @@ namespace HeroesData.FileWriter
         /// </summary>
         public void CreateJson()
         {
-            JsonWriter.CreateOutput(FileConfiguration.JsonFileSettings, Heroes);
+            JsonWriter.CreateOutput(FileConfiguration.JsonFileSettings, Heroes, HotsBuild);
         }
 
         /// <summary>
@@ -68,7 +84,7 @@ namespace HeroesData.FileWriter
         {
             FileConfiguration.JsonFileSettings.WriterEnabled = isEnabled;
 
-            JsonWriter.CreateOutput(FileConfiguration.JsonFileSettings, Heroes);
+            JsonWriter.CreateOutput(FileConfiguration.JsonFileSettings, Heroes, HotsBuild);
         }
     }
 }
