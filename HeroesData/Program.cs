@@ -23,8 +23,7 @@ namespace HeroesData
         private GameStringData GameStringData;
         private OverrideData OverrideData;
 
-        private string ModsFolderPath = Path.Combine(Environment.CurrentDirectory, "mods");
-        private string HotsFolderPath = Path.Combine(Environment.CurrentDirectory);
+        private string StoragePath = Environment.CurrentDirectory;
         private StorageMode StorageMode = StorageMode.None;
         private CASCHotsStorage CASCHotsStorage = null;
         private bool Defaults = true;
@@ -47,10 +46,9 @@ namespace HeroesData
             app.HelpOption("-?|-h|--help");
             app.VersionOption("-v|--version", $"Heroes Data Parser ({AppVersion.GetVersion()})");
 
-            CommandOption modPathOption = app.Option("-m|--modsPath <filePath>", "The file path of the 'mods' folder", CommandOptionType.SingleValue);
-            CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The file path of the 'Heroes of the Storm' folder", CommandOptionType.SingleValue);
+            CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory", CommandOptionType.SingleValue);
             CommandOption setMaxDegreeParallism = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
-            CommandOption extractIcons = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all|portraits|talents. Available only in -s|--storage mode", CommandOptionType.MultipleValue);
+            CommandOption extractIcons = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all|portraits|talents. Available only in -s|--storagePath mode", CommandOptionType.MultipleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
@@ -64,15 +62,9 @@ namespace HeroesData
                     Defaults = false,
                 };
 
-                if (modPathOption.HasValue())
+                if (storagePathOption.HasValue())
                 {
-                    program.ModsFolderPath = modPathOption.Value();
-                    program.StorageMode = StorageMode.Mods;
-                }
-                else if (storagePathOption.HasValue())
-                {
-                    program.HotsFolderPath = storagePathOption.Value();
-                    program.StorageMode = StorageMode.CASC;
+                    program.StoragePath = storagePathOption.Value();
                 }
 
                 if (setMaxDegreeParallism.HasValue() && int.TryParse(setMaxDegreeParallism.Value(), out int result))
@@ -132,6 +124,7 @@ namespace HeroesData
         {
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine($"Heroes Data Parser ({AppVersion.GetVersion()})");
+            Console.WriteLine("  --https://github.com/koliva8245/HeroesDataParser");
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine();
 
@@ -167,6 +160,164 @@ namespace HeroesData
             }
         }
 
+        private void PreInitialize()
+        {
+            StoragePathFinder();
+
+            if (!CreateXml && !CreateJson)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("No writers are enabled!");
+                Console.WriteLine("Please include the option(s) --xml or --json");
+                Console.WriteLine();
+                Console.ResetColor();
+
+                Environment.Exit(0);
+            }
+
+            if (StorageMode == StorageMode.CASC)
+            {
+                CASCHotsStorage = CASCHotsStorage.Load(StoragePath);
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                string versionBuild = CASCHotsStorage.CASCHandler.Config.BuildName?.Split('.').LastOrDefault();
+                if (!string.IsNullOrEmpty(versionBuild) && int.TryParse(versionBuild, out int hotsBuild))
+                {
+                    HotsBuild = hotsBuild;
+                    Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
+                }
+                else
+                {
+                    Console.WriteLine($"Defaulting to latest build");
+                }
+
+                Console.WriteLine();
+                Console.ResetColor();
+            }
+        }
+
+        /// <summary>
+        /// Determine the type of storage, Hots folder or mods extracted.
+        /// </summary>
+        private void StoragePathFinder()
+        {
+            string modsPath = StoragePath;
+            string hotsPath = StoragePath;
+
+            if (Defaults)
+            {
+                modsPath = Path.Combine(StoragePath, "mods");
+
+                if (Directory.GetParent(StoragePath) != null)
+                    hotsPath = Directory.GetParent(StoragePath).FullName;
+            }
+
+            if (Directory.Exists(modsPath) &&
+                Directory.Exists(Path.Combine(modsPath, "core.stormmod")) && Directory.Exists(Path.Combine(modsPath, "heroesdata.stormmod")) && Directory.Exists(Path.Combine(modsPath, "heromods")))
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Found 'mods' directory");
+
+                StoragePath = modsPath;
+                ModsDirectoryBuildNumber();
+                StorageMode = StorageMode.Mods;
+
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            else if (MultiModsDirectorySearch())
+            {
+                StorageMode = StorageMode.Mods;
+            }
+            else if (Directory.Exists(hotsPath) && Directory.Exists(Path.Combine(hotsPath, "HeroesData")) && File.Exists(Path.Combine(hotsPath, ".build.info")))
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Found 'Heroes of the Storm' directory");
+
+                StoragePath = hotsPath;
+                StorageMode = StorageMode.CASC;
+
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Could not find a 'mods' or 'Heroes of the Storm' storage directory");
+                Console.WriteLine();
+
+                Console.ResetColor();
+                Environment.Exit(0);
+            }
+        }
+
+        /// <summary>
+        /// Checks for multiple mods folders with a number suffix, selects the highest one and sets the storage path.
+        /// </summary>
+        /// <returns></returns>
+        private bool MultiModsDirectorySearch()
+        {
+            string[] directories = Directory.GetDirectories(StoragePath, "mods_*", SearchOption.TopDirectoryOnly);
+
+            if (directories.Length < 1)
+                return false;
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Found 'mods_*' directory(s)");
+
+            int max = 0;
+            string selectedDirectory = string.Empty;
+            for (int i = 0; i < directories.Length; i++)
+            {
+                string lastDirectory = directories[i].Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+                if (!string.IsNullOrEmpty(lastDirectory))
+                {
+                    if (int.TryParse(lastDirectory.Split('_').LastOrDefault(), out int value) && value >= max)
+                    {
+                        max = value;
+                        selectedDirectory = lastDirectory;
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(selectedDirectory))
+            {
+                StoragePath = Path.Combine(StoragePath, selectedDirectory);
+                HotsBuild = max;
+
+                Console.WriteLine($"Using {selectedDirectory}");
+                Console.WriteLine($"Hots build: {max}");
+                Console.WriteLine();
+                Console.ResetColor();
+
+                return true;
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("mods_* directories are not valid");
+            Console.WriteLine();
+            Console.ResetColor();
+            return false;
+        }
+
+        /// <summary>
+        /// Attempts to get the build number from the mods folder.
+        /// </summary>
+        private void ModsDirectoryBuildNumber()
+        {
+            string lastDirectory = StoragePath.Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+            if (!string.IsNullOrEmpty(lastDirectory) && int.TryParse(lastDirectory.Split('_').LastOrDefault(), out int value))
+            {
+                HotsBuild = value;
+
+                Console.WriteLine($"Hots build: {HotsBuild}");
+            }
+            else
+            {
+                Console.WriteLine($"Defaulting to latest build");
+            }
+        }
+
         private void InitializeGameData()
         {
             var time = new Stopwatch();
@@ -177,7 +328,7 @@ namespace HeroesData
             try
             {
                 if (StorageMode == StorageMode.Mods)
-                    GameData = GameData.Load(ModsFolderPath, HotsBuild);
+                    GameData = GameData.Load(StoragePath, HotsBuild);
                 else if (StorageMode == StorageMode.CASC)
                     GameData = GameData.Load(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
             }
@@ -208,7 +359,7 @@ namespace HeroesData
             try
             {
                 if (StorageMode == StorageMode.Mods)
-                    GameStringData = GameStringData.Load(ModsFolderPath, HotsBuild);
+                    GameStringData = GameStringData.Load(StoragePath, HotsBuild);
                 else if (StorageMode == StorageMode.CASC)
                     GameStringData = GameStringData.Load(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
             }
@@ -549,123 +700,6 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        private void PreInitialize()
-        {
-            if (Defaults)
-            {
-                Console.WriteLine("Using default settings:");
-                Console.WriteLine("  Create xml output");
-                Console.WriteLine("  Create json output");
-                Console.WriteLine();
-
-                StoragePathFinder();
-            }
-            else if (!CreateXml && !CreateJson)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("No writers are enabled!");
-                Console.WriteLine("Please include the option --xml or --json");
-                Console.WriteLine();
-                Console.ResetColor();
-
-                Environment.Exit(0);
-            }
-            else if (StorageMode == StorageMode.None)
-            {
-                StoragePathFinder();
-            }
-            else if (StorageMode == StorageMode.Mods)
-            {
-                ModsDirectoryBuildNumber();
-            }
-            else if (StorageMode == StorageMode.CASC)
-            {
-                CASCHotsStorage = CASCHotsStorage.Load(HotsFolderPath);
-
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                string versionBuild = CASCHotsStorage.CASCHandler.Config.BuildName?.Split('.').LastOrDefault();
-                if (!string.IsNullOrEmpty(versionBuild) && int.TryParse(versionBuild, out int hotsBuild))
-                {
-                    HotsBuild = hotsBuild;
-                    Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
-                }
-                else
-                {
-                    Console.WriteLine($"Defaulting to latest build");
-                }
-
-                Console.WriteLine();
-                Console.ResetColor();
-            }
-        }
-
-        private void StoragePathFinder()
-        {
-            if (Directory.Exists(ModsFolderPath))
-            {
-                StorageMode = StorageMode.Mods;
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Found 'mods' directory");
-                ModsDirectoryBuildNumber();
-            }
-            else if (MultiModsDirectorySearch())
-            {
-                StorageMode = StorageMode.Mods;
-            }
-            else if (CheckHotsDirectory())
-            {
-                StorageMode = StorageMode.CASC;
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Found Heroes of the Storm storage directory");
-                Console.WriteLine();
-                Console.ResetColor();
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Could not find a 'mods' or Heroes of the Storm storage directory");
-                Console.WriteLine();
-
-                Console.ResetColor();
-                Environment.Exit(0);
-            }
-        }
-
-        /// <summary>
-        /// Checks for a valid Heroes of the Storm directory.
-        /// </summary>
-        /// <returns></returns>
-        private bool CheckHotsDirectory()
-        {
-            // check current directory
-            if (Directory.Exists(HotsFolderPath) && Directory.Exists(Path.Combine(HotsFolderPath, "HeroesData")) && File.Exists(Path.Combine(HotsFolderPath, ".build.info")))
-            {
-                return true;
-            }
-            else
-            {
-                HotsFolderPath = Path.Combine(HotsFolderPath, "Heroes of the Storm");
-
-                // check if Heroes of the Storm directory exists
-                if (Directory.Exists(HotsFolderPath) && Directory.Exists(Path.Combine(HotsFolderPath, "HeroesData")) && File.Exists(Path.Combine(HotsFolderPath, ".build.info")))
-                    return true;
-            }
-
-            return false;
-        }
-
-        private void WriteExceptionLog(string fileName, Exception ex)
-        {
-            using (StreamWriter writer = new StreamWriter($"Exception_{fileName}_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.txt", false))
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                    writer.Write(ex.Message);
-
-                if (!string.IsNullOrEmpty(ex.StackTrace))
-                    writer.Write(ex.StackTrace);
-            }
-        }
-
         private void OutputInvalidTooltips(SortedDictionary<string, string> tooltips, string headerMessage)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -685,81 +719,12 @@ namespace HeroesData
         }
 
         /// <summary>
-        /// Checks for multiple mods folders with a number suffix and selects the highest one.
-        /// </summary>
-        /// <returns></returns>
-        private bool MultiModsDirectorySearch()
-        {
-            string[] directories = Directory.GetDirectories(Environment.CurrentDirectory, "mods_*", SearchOption.TopDirectoryOnly);
-
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Found 'mods_*' directory(s)");
-
-            int max = 0;
-            string selectedDirectory = string.Empty;
-            for (int i = 0; i < directories.Length; i++)
-            {
-                string lastDirectory = directories[i].Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
-                if (!string.IsNullOrEmpty(lastDirectory))
-                {
-                    if (int.TryParse(lastDirectory.Split('_').LastOrDefault(), out int value) && value >= max)
-                    {
-                        max = value;
-                        selectedDirectory = lastDirectory;
-                    }
-                }
-            }
-
-            if (string.IsNullOrEmpty(selectedDirectory))
-            {
-                Console.WriteLine("No valid 'mods' directory found");
-                Console.WriteLine();
-                Console.ResetColor();
-                return false;
-            }
-            else
-            {
-                ModsFolderPath = Path.Combine(Environment.CurrentDirectory, selectedDirectory);
-                HotsBuild = max;
-
-                Console.WriteLine($"Using {selectedDirectory}");
-                Console.WriteLine($"Hots build: {max}");
-                Console.WriteLine();
-                Console.ResetColor();
-
-                return true;
-            }
-        }
-
-        /// <summary>
-        /// Attempts to get the build number from the mods folder.
-        /// </summary>
-        private void ModsDirectoryBuildNumber()
-        {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            string lastDirectory = ModsFolderPath.Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
-            if (!string.IsNullOrEmpty(lastDirectory) && int.TryParse(lastDirectory.Split('_').LastOrDefault(), out int value))
-            {
-                HotsBuild = value;
-
-                Console.WriteLine($"Hots build: {HotsBuild}");
-            }
-            else
-            {
-                Console.WriteLine($"Defaulting to latest build");
-            }
-
-            Console.WriteLine();
-            Console.ResetColor();
-        }
-
-        /// <summary>
         /// Extract image files.
         /// </summary>
         /// <param name="heroes"></param>
         private void ExtractFiles(List<Hero> heroes)
         {
-            if (!ExtractPortraits && !ExtractTalents && StorageMode != StorageMode.CASC)
+            if ((!ExtractPortraits && !ExtractTalents) || StorageMode != StorageMode.CASC)
                 return;
 
             Extractor extractor = Extractor.Load(heroes, CASCHotsStorage.CASCHandler);
@@ -770,6 +735,18 @@ namespace HeroesData
                 extractor.ExtractTalentIcons();
 
             Console.WriteLine();
+        }
+
+        private void WriteExceptionLog(string fileName, Exception ex)
+        {
+            using (StreamWriter writer = new StreamWriter($"Exception_{fileName}_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.txt", false))
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    writer.Write(ex.Message);
+
+                if (!string.IsNullOrEmpty(ex.StackTrace))
+                    writer.Write(ex.StackTrace);
+            }
         }
     }
 }
