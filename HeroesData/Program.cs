@@ -575,21 +575,37 @@ namespace HeroesData
             }
 
             if (StorageMode == StorageMode.None)
+            {
                 StoragePathFinder();
+            }
+            else if (StorageMode == StorageMode.Mods)
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                string lastDirectory = ModsFolderPath.Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+                if (!string.IsNullOrEmpty(lastDirectory) && int.TryParse(lastDirectory.Split('_').LastOrDefault(), out int value))
+                {
+                    HotsBuild = value;
 
-            if (StorageMode == StorageMode.CASC)
+                    Console.WriteLine($"Hots build: {HotsBuild}");
+                }
+                else
+                {
+                    Console.WriteLine($"Defaulting to latest build");
+                }
+
+                Console.WriteLine();
+                Console.ResetColor();
+            }
+            else if (StorageMode == StorageMode.CASC)
             {
                 CASCHotsStorage = CASCHotsStorage.Load(HotsFolderPath);
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 string versionBuild = CASCHotsStorage.CASCHandler.Config.BuildName?.Split('.').LastOrDefault();
-                if (!string.IsNullOrEmpty(versionBuild))
+                if (!string.IsNullOrEmpty(versionBuild) && int.TryParse(versionBuild, out int hotsBuild))
                 {
-                    if (int.TryParse(versionBuild, out int hotsBuild))
-                    {
-                        HotsBuild = hotsBuild;
-                        Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
-                    }
+                    HotsBuild = hotsBuild;
+                    Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
                 }
                 else
                 {
@@ -698,7 +714,7 @@ namespace HeroesData
                 string lastDirectory = directories[i].Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
                 if (!string.IsNullOrEmpty(lastDirectory))
                 {
-                    if (int.TryParse(lastDirectory.Split('_')[1], out int value) && value >= max)
+                    if (int.TryParse(lastDirectory.Split('_').LastOrDefault(), out int value) && value >= max)
                     {
                         max = value;
                         selectedDirectory = lastDirectory;
