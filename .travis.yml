@@ -8,3 +8,4 @@ os:
 script:
   - dotnet build --configuration Debug
   - dotnet build --configuration Release
+  - dotnet test
