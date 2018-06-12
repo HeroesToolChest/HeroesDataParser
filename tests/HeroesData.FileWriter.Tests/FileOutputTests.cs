@@ -57,6 +57,43 @@ namespace HeroesData.FileWriter.Tests
             }
         }
 
+        [Fact]
+        public void XmlWriterTest()
+        {
+            FileOutput.CreateXml();
+
+            List<string> outputJson = new List<string>();
+            List<string> outputJsonTest = new List<string>();
+
+            using (StreamReader reader = new StreamReader(Path.Combine("output", "xml", "heroesdata.xml")))
+            {
+                string line = string.Empty;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    outputJson.Add(line);
+                }
+            }
+
+            using (StreamReader reader = new StreamReader("XmlOutputTest.xml"))
+            {
+                string line = string.Empty;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    outputJsonTest.Add(line);
+                }
+            }
+
+            Assert.Equal(outputJsonTest.Count, outputJson.Count);
+
+            if (outputJsonTest.Count == outputJson.Count)
+            {
+                for (int i = 0; i < outputJsonTest.Count; i++)
+                {
+                    Assert.Equal(outputJsonTest[i], outputJson[i]);
+                }
+            }
+        }
+
         private void SetHeroData()
         {
             Hero hero = new Hero
@@ -96,7 +133,7 @@ namespace HeroesData.FileWriter.Tests
                     EnergyType = UnitEnergyType.Mana,
                     EnergyRegenerationRate = 3,
                 },
-                Roles = new List<HeroRole> { HeroRole.Assassin },
+                Roles = new List<HeroRole> { HeroRole.Assassin, HeroRole.Warrior },
                 Ratings = new HeroRatings()
                 {
                     Complexity = 8,
@@ -113,6 +150,14 @@ namespace HeroesData.FileWriter.Tests
                         Period = 1.2,
                         Damage = 140,
                         DamageScaling = 0.04,
+                    },
+                    new UnitWeapon
+                    {
+                        WeaponNameId = "HeroWeaponDestructionAlarak",
+                        Range = 2,
+                        Period = 1.2,
+                        Damage = 340,
+                        DamageScaling = 0.05,
                     },
                 },
                 Abilities = new Dictionary<string, Ability>

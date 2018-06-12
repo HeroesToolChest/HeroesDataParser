@@ -32,7 +32,8 @@
       "energyRegenRate": 3.0
     },
     "roles": [
-      "Assassin"
+      "Assassin",
+      "Warrior"
     ],
     "ratings": {
       "complexity": 8.0,
@@ -47,6 +48,13 @@
         "period": 1.2,
         "damage": 140.0,
         "damageScale": 0.04
+      },
+      {
+        "nameId": "HeroWeaponDestructionAlarak",
+        "range": 2.0,
+        "period": 1.2,
+        "damage": 340.0,
+        "damageScale": 0.05
       }
     ],
     "abilities": {
