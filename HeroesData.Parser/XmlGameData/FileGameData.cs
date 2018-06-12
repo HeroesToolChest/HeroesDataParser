@@ -74,9 +74,10 @@ namespace HeroesData.Parser.XmlGameData
                     continue;
 
                 string heroName = heroFolder.Split('.')[0];
-                string xmlHeroPath = Path.Combine(NewHeroesFolderPath, heroFolder, $@"base.stormdata\GameData\{heroName}Data.xml");
-                string xmlHeroNamePath = Path.Combine(NewHeroesFolderPath, heroFolder, $@"base.stormdata\GameData\{heroName}.xml");
-                string xmlHeroDataPath = Path.Combine(NewHeroesFolderPath, heroFolder, @"base.stormdata\GameData\HeroData.xml");
+                string xmlHeroPath = Path.Combine(NewHeroesFolderPath, heroFolder, "base.stormdata", "GameData", $"{heroName}Data.xml");
+                string xmlHeroNamePath = Path.Combine(NewHeroesFolderPath, heroFolder, "base.stormdata", "GameData", $"{heroName}.xml");
+
+                string xmlHeroDataPath = Path.Combine(NewHeroesFolderPath, heroFolder, "base.stormdata", "GameData", "HeroData.xml");
 
                 if (File.Exists(xmlHeroPath))
                 {

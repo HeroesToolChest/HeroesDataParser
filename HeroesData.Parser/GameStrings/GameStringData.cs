@@ -109,7 +109,7 @@ namespace HeroesData.Parser.GameStrings
 
         protected void Initialize()
         {
-            OldDescriptionsPath = Path.Combine(ModsFolderPath, @"heroesdata.stormmod\enus.stormdata\LocalizedData\");
+            OldDescriptionsPath = Path.Combine(ModsFolderPath, "heroesdata.stormmod", "enus.stormdata", "LocalizedData");
             HeroModsPath = Path.Combine(ModsFolderPath, "heromods");
 
             ParseGameStringFiles();

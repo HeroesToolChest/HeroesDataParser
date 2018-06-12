@@ -26,7 +26,7 @@ namespace HeroesData.Parser.GameStrings
         {
             foreach (string heroDirectory in Directory.GetDirectories(HeroModsPath))
             {
-                ParseFiles(Path.Combine(heroDirectory, Path.Combine("enus.stormdata", "LocalizedData", "GameStrings.txt")));
+                ParseFiles(Path.Combine(heroDirectory, "enus.stormdata", "LocalizedData", "GameStrings.txt"));
             }
         }
 
