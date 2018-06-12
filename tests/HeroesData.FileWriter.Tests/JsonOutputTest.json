@@ -1,0 +1,141 @@
+﻿{
+  "Alarak": {
+    "name": "Alarak",
+    "cHeroId": "HeroAlarak",
+    "cUnitId": "Alar",
+    "difficulty": "Hard",
+    "franchise": "Starcraft",
+    "gender": "Male",
+    "radius": 0.875,
+    "releaseDate": "2016-09-13",
+    "sight": 12.0,
+    "speed": 4.3984,
+    "type": "Melee",
+    "rarity": "Legendary",
+    "description": "A combo Assassin that can move enemies around and punish mistakes.",
+    "portraits": {
+      "heroSelect": "storm_ui_ingame_heroselect_btn_alarak.png",
+      "leaderboard": "storm_ui_ingame_hero_leaderboard_alarak.png",
+      "loading": "storm_ui_ingame_hero_loadingscreen_alarak.png",
+      "partyPanel": "storm_ui_ingame_partypanel_btn_alarak.png",
+      "target": "ui_targetportrait_hero_alarak.png"
+    },
+    "life": {
+      "lifeAmount": 1900.0,
+      "lifeScale": 0.04,
+      "lifeRegenRate": 3.957,
+      "regenScale": 0.04
+    },
+    "energy": {
+      "energyAmount": 500.0,
+      "type": "Mana",
+      "energyRegenRate": 3.0
+    },
+    "roles": [
+      "Assassin"
+    ],
+    "ratings": {
+      "complexity": 8.0,
+      "damage": 7.0,
+      "survivability": 6.0,
+      "utility": 7.0
+    },
+    "weapons": [
+      {
+        "nameId": "HeroWeaponAlarak",
+        "range": 1.5,
+        "period": 1.2,
+        "damage": 140.0,
+        "damageScale": 0.04
+      }
+    ],
+    "abilities": {
+      "basic": [
+        {
+          "nameId": "AlarakDiscordStrike",
+          "name": "Discord Strike",
+          "shortTooltipId": "AlarakDiscordStrike",
+          "fullTooltipId": "AlarakDiscordStrike",
+          "icon": "storm_ui_icon_alarak_discordstrike.png",
+          "energy": {
+            "cost": 45
+          },
+          "cooldown": {
+            "value": 8.0
+          },
+          "shortTooltip": "Damage and silence enemies in an area",
+          "fullTooltip": "After a <c val=\"#TooltipNumbers\">0.5</c> second delay, enemies in front of Alarak take <c val=\"#TooltipNumbers\">175</c> damage and are silenced for <c val=\"#TooltipNumbers\">1.5</c> seconds."
+        }
+      ],
+      "trait": [
+        {
+          "nameId": "AlarakSadismDummyUI",
+          "name": "Sadism",
+          "shortTooltipId": "AlarakSadismDummyUI",
+          "fullTooltipId": "AlarakSadismDummyUI",
+          "icon": "storm_ui_icon_alarak_sadism.png",
+          "shortTooltip": "Alarak deals increased damage and has increased self-healing against enemy Heroes",
+          "fullTooltip": "Alarak's Ability damage and self-healing are increased by <c val=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Repeatable Quest:</c> Takedowns increase Sadism by <c val=\"#TooltipNumbers\">3%</c>, up to <c val=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death."
+        }
+      ]
+    },
+    "talents": {
+      "level1": [
+        {
+          "nameId": "AlarakSustainingPower",
+          "name": "Sustaining Power",
+          "shortTooltipId": "AlarakSustainingPower",
+          "fullTooltipId": "AlarakSustainingPower",
+          "icon": "storm_ui_icon_alarak_lightningsurge_a.png",
+          "shortTooltip": "Increase Lightning Surge healing",
+          "fullTooltip": "Increase the healing received from damaging Heroes with Lightning Surge by <c val=\"#TooltipNumbers\">40%</c>.",
+          "sort": 1
+        },
+        {
+          "nameId": "AlarakExtendedLightning",
+          "name": "Extended Lightning",
+          "shortTooltipId": "AlarakExtendedLightning",
+          "fullTooltipId": "AlarakExtendedLightning",
+          "icon": "storm_ui_icon_alarak_lightningsurge.png",
+          "shortTooltip": "<c val=\"#TooltipQuest\">Quest:</c> Reduce Sadism, empower Lightning Surge",
+          "fullTooltip": "Reduce Sadism by <c val=\"#TooltipNumbers\">10%</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Quest:</c> Hit Heroes with the center of Lightning Surge.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">5</c> Heroes, increase Lightning Surge's range by <c val=\"#TooltipNumbers\">20%</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">15</c> Heroes, Lightning Surge's center also Slows enemies by <c val=\"#TooltipNumbers\">40%</c> for <c val=\"#TooltipNumbers\">2</c> seconds.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">3</c> Heroes with the center of a single cast, increase Sadism by <c val=\"#TooltipNumbers\">10%</c> and instantly gain all other Rewards.",
+          "sort": 2
+        }
+      ],
+      "level10": [
+        {
+          "nameId": "AlarakHeroicAbilityDeadlyCharge",
+          "name": "Deadly Charge",
+          "shortTooltipId": "AlarakDeadlyCharge",
+          "fullTooltipId": "AlarakDeadlyCharge",
+          "icon": "storm_ui_icon_alarak_recklesscharge.png",
+          "energy": {
+            "cost": 60
+          },
+          "cooldown": {
+            "value": 45.0
+          },
+          "shortTooltip": "Channel to charge a long distance",
+          "fullTooltip": "After channeling, Alarak charges forward dealing <c val=\"#TooltipNumbers\">200</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"#TooltipNumbers\">1.6</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.",
+          "sort": 1
+        },
+        {
+          "nameId": "AlarakHeroicAbilityCounterStrike",
+          "name": "Counter-Strike",
+          "shortTooltipId": "AlarakCounterStrikeTargeted",
+          "fullTooltipId": "AlarakCounterStrikeTargeted",
+          "icon": "storm_ui_icon_alarak_counterstrike.png",
+          "energy": {
+            "cost": 50
+          },
+          "cooldown": {
+            "value": 30.0
+          },
+          "shortTooltip": "Prevents damage to deal damage in a large area",
+          "fullTooltip": "Alarak targets an area and channels for <c val=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"#TooltipNumbers\">275</c> damage.",
+          "sort": 2
+        }
+      ]
+    }
+  }
+}

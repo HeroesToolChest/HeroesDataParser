@@ -240,6 +240,8 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         private void SetPortraits(string cHeroId, string imageAlt, HeroOverride heroOverride)
         {
+            imageAlt = imageAlt.ToLower();
+
             var propertyOverrides = new Dictionary<string, Action<HeroPortrait>>();
 
             if (heroOverride.PropertyPortraitOverrideMethodByCHeroId.ContainsKey(cHeroId))

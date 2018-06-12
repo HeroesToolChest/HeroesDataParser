@@ -957,11 +957,11 @@ namespace HeroesData.Parser.UnitData
 
         private void SetHeroPortraits(Hero hero)
         {
-            hero.HeroPortrait.HeroSelectPortraitFileName = $"{PortraitFileNames.HeroSelectPortraitPrefix}{hero.CHeroId}.dds";
-            hero.HeroPortrait.LeaderboardPortraitFileName = $"{PortraitFileNames.LeaderboardPortraitPrefix}{hero.CHeroId}.dds";
-            hero.HeroPortrait.LoadingScreenPortraitFileName = $"{PortraitFileNames.LoadingPortraitPrefix}{hero.CHeroId}.dds";
-            hero.HeroPortrait.PartyPanelPortraitFileName = $"{PortraitFileNames.PartyPanelPortraitPrefix}{hero.CHeroId}.dds";
-            hero.HeroPortrait.TargetPortraitFileName = $"{PortraitFileNames.TargetPortraitPrefix}{hero.CHeroId}.dds";
+            hero.HeroPortrait.HeroSelectPortraitFileName = $"{PortraitFileNames.HeroSelectPortraitPrefix}{hero.CHeroId.ToLower()}.dds";
+            hero.HeroPortrait.LeaderboardPortraitFileName = $"{PortraitFileNames.LeaderboardPortraitPrefix}{hero.CHeroId.ToLower()}.dds";
+            hero.HeroPortrait.LoadingScreenPortraitFileName = $"{PortraitFileNames.LoadingPortraitPrefix}{hero.CHeroId.ToLower()}.dds";
+            hero.HeroPortrait.PartyPanelPortraitFileName = $"{PortraitFileNames.PartyPanelPortraitPrefix}{hero.CHeroId.ToLower()}.dds";
+            hero.HeroPortrait.TargetPortraitFileName = $"{PortraitFileNames.TargetPortraitPrefix}{hero.CHeroId.ToLower()}.dds";
         }
     }
 }
