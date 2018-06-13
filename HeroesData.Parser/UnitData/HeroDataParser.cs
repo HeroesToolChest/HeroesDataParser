@@ -135,6 +135,7 @@ namespace HeroesData.Parser.UnitData
 
             hero.ReleaseDate = new DateTime(2014, 3, 13);
             hero.Gender = HeroGender.Male;
+            hero.Type = UnitType.Ranged;
         }
 
         private void CHeroData(Hero hero)

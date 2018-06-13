@@ -84,6 +84,9 @@ namespace HeroesData.Parser
                 if (!hero.ReleaseDate.HasValue)
                     AddWarning($"{nameof(hero.ReleaseDate)} is null");
 
+                if (!hero.Type.HasValue)
+                    AddWarning($"{nameof(hero.Type)} is null");
+
                 VerifyWeapons(hero);
 
                 if (hero.Weapons.Count < 1)

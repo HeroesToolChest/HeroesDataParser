@@ -610,15 +610,15 @@ namespace HeroesData.FileWriter.Writer
         {
             JObject portrait = new JObject();
 
-            if (FileSettings.HeroSelectPortrait)
+            if (FileSettings.HeroSelectPortrait && !string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName))
                 portrait.Add("heroSelect", Path.ChangeExtension(hero.HeroPortrait.HeroSelectPortraitFileName, FileSettings.ImageExtension));
-            if (FileSettings.LeaderboardPortrait)
+            if (FileSettings.LeaderboardPortrait && !string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName))
                 portrait.Add("leaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName, FileSettings.ImageExtension));
-            if (FileSettings.LoadingPortraitPortrait)
+            if (FileSettings.LoadingPortraitPortrait && !string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName))
                 portrait.Add("loading", Path.ChangeExtension(hero.HeroPortrait.LoadingScreenPortraitFileName, FileSettings.ImageExtension));
-            if (FileSettings.PartyPanelPortrait)
+            if (FileSettings.PartyPanelPortrait && !string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName))
                 portrait.Add("partyPanel", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName, FileSettings.ImageExtension));
-            if (FileSettings.TargetPortrait)
+            if (FileSettings.TargetPortrait && !string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
                 portrait.Add("target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName, FileSettings.ImageExtension));
 
             return new JProperty("portraits", portrait);

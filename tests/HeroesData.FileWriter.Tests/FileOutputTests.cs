@@ -3,100 +3,27 @@ using HeroesData.Parser.Models.AbilityTalents;
 using HeroesData.Parser.Models.AbilityTalents.Tooltip;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using Xunit;
 
 namespace HeroesData.FileWriter.Tests
 {
     public class FileOutputTests
     {
-        private readonly FileOutput FileOutput;
-
-        private List<Hero> Heroes = new List<Hero>();
-
         public FileOutputTests()
         {
-            SetHeroData();
-            FileOutput = FileOutput.SetHeroData(Heroes);
+            SetTestHeroData();
+            FileOutputNoBuildNumber = FileOutput.SetHeroData(Heroes);
+            FileOutputHasBuildNumber = FileOutput.SetHeroData(Heroes, BuildNumber);
         }
 
-        [Fact]
-        public void JsonWriterTest()
+        protected FileOutput FileOutputNoBuildNumber { get; }
+        protected FileOutput FileOutputHasBuildNumber { get; }
+        protected int? BuildNumber => 12345;
+
+        protected List<Hero> Heroes { get; set; } = new List<Hero>();
+
+        private void SetTestHeroData()
         {
-            FileOutput.CreateJson();
-
-            List<string> outputJson = new List<string>();
-            List<string> outputJsonTest = new List<string>();
-
-            using (StreamReader reader = new StreamReader(Path.Combine("output", "json", "heroesdata.json")))
-            {
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    outputJson.Add(line);
-                }
-            }
-
-            using (StreamReader reader = new StreamReader("JsonOutputTest.json"))
-            {
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    outputJsonTest.Add(line);
-                }
-            }
-
-            Assert.Equal(outputJsonTest.Count, outputJson.Count);
-
-            if (outputJsonTest.Count == outputJson.Count)
-            {
-                for (int i = 0; i < outputJsonTest.Count; i++)
-                {
-                    Assert.Equal(outputJsonTest[i], outputJson[i]);
-                }
-            }
-        }
-
-        [Fact]
-        public void XmlWriterTest()
-        {
-            FileOutput.CreateXml();
-
-            List<string> outputJson = new List<string>();
-            List<string> outputJsonTest = new List<string>();
-
-            using (StreamReader reader = new StreamReader(Path.Combine("output", "xml", "heroesdata.xml")))
-            {
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    outputJson.Add(line);
-                }
-            }
-
-            using (StreamReader reader = new StreamReader("XmlOutputTest.xml"))
-            {
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    outputJsonTest.Add(line);
-                }
-            }
-
-            Assert.Equal(outputJsonTest.Count, outputJson.Count);
-
-            if (outputJsonTest.Count == outputJson.Count)
-            {
-                for (int i = 0; i < outputJsonTest.Count; i++)
-                {
-                    Assert.Equal(outputJsonTest[i], outputJson[i]);
-                }
-            }
-        }
-
-        private void SetHeroData()
-        {
-            Hero hero = new Hero
+            Hero alarakHero = new Hero
             {
                 ShortName = "Alarak",
                 Name = "Alarak",
@@ -298,7 +225,114 @@ namespace HeroesData.FileWriter.Tests
                 },
             };
 
-            Heroes.Add(hero);
+            Heroes.Add(alarakHero);
+
+            Hero alexstraszaHero = new Hero
+            {
+                ShortName = "Alexstrasza",
+                Name = "Alexstrasza",
+                CHeroId = "Alexstrasza",
+                CUnitId = "HeroAlexstrasza",
+                AttributeId = "Alex",
+                Difficulty = HeroDifficulty.Medium,
+                Franchise = HeroFranchise.Warcraft,
+                Gender = HeroGender.Female,
+                InnerRadius = 0.75,
+                Radius = 0.75,
+                ReleaseDate = new DateTime(2017, 11, 14),
+                Sight = 12,
+                Speed = 4.3984,
+                Type = UnitType.Ranged,
+                Rarity = HeroRarity.Legendary,
+                Description = new TooltipDescription("A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities."),
+                Life = new UnitLife
+                {
+                    LifeMax = -1,
+                    LifeScaling = 0.04,
+                    LifeRegenerationRate = 3.957,
+                    LifeRegenerationRateScaling = 0.04,
+                },
+                Energy = new UnitEnergy
+                {
+                    EnergyMax = -1,
+                    EnergyType = UnitEnergyType.Mana,
+                    EnergyRegenerationRate = 3,
+                },
+                Abilities = new Dictionary<string, Ability>
+                {
+                    {
+                        "TychusOdinAnnihilate",
+                        new Ability()
+                        {
+                            ReferenceNameId = "TychusOdinAnnihilate",
+                            Name = "Annihilate",
+                            ShortTooltipNameId = "TychusCommandeerOdinAnnihilate",
+                            FullTooltipNameId = "TychusCommandeerOdinAnnihilate",
+                            IconFileName = "storm_ui_icon_tychus_annihilate.png",
+                            Tier = AbilityTier.Basic,
+                            ParentLink = "TychusOdinNoHealth",
+                        }
+                    },
+                },
+                HeroUnits = new List<Unit>
+                {
+                    new Unit
+                    {
+                        ShortName = "AlexstraszaDragon",
+                        Name = "Alexstrasza",
+                        CUnitId = "HeroAlexstraszaDragon",
+                        InnerRadius = 1,
+                        Radius = 1.25,
+                        Sight = 12,
+                        Speed = 4.3984,
+                        Life = new UnitLife
+                        {
+                                LifeMax = 1787,
+                                LifeScaling = 0.04,
+                                LifeRegenerationRate = 3.7226,
+                                LifeRegenerationRateScaling = 0.04,
+                        },
+                        Abilities = new Dictionary<string, Ability>
+                        {
+                            {
+                                "AlexstraszaBreathOfLife",
+                                new Ability
+                                {
+                                    ReferenceNameId = "AlexstraszaBreathOfLife",
+                                    Name = "Breath of Life",
+                                    ShortTooltipNameId = "AlexstraszaBreathOfLife",
+                                    FullTooltipNameId = "AlexstraszaBreathOfLife",
+                                    IconFileName = "storm_ui_icon_alexstrasza_breath_of_life.png",
+                                    Tier = AbilityTier.Basic,
+                                    ParentLink = "HeroAlexstraszaDragon",
+                                    Tooltip = new AbilityTalentTooltip()
+                                    {
+                                        Cooldown = new TooltipCooldown()
+                                        {
+                                            CooldownValue = 3,
+                                            RecastCooldown = 1,
+                                        },
+                                        Life = new TooltipLife()
+                                        {
+                                            LifeCost = 50,
+                                            IsLifePercentage = true,
+                                        },
+                                        Charges = new TooltipCharges()
+                                        {
+                                            CountMax = 3,
+                                            CountStart = 3,
+                                            CountUse = 1,
+                                            IsHideCount = false,
+                                        },
+                                    },
+                                }
+                             },
+                         },
+                    },
+                },
+            };
+
+            Heroes.Add(alexstraszaHero);
         }
     }
 }

@@ -34,11 +34,6 @@ namespace HeroesData.FileWriter.Writer
         protected string HeroUnits => "HeroUnits";
         protected int? HotsBuild { get; }
 
-        protected string StripInvalidChars(string text)
-        {
-            return new string(text.Where(c => !char.IsPunctuation(c)).ToArray());
-        }
-
         protected void Initialize(FileSettings fileSettings, List<Hero> heroes)
         {
             FileSettings = fileSettings;
@@ -78,7 +73,10 @@ namespace HeroesData.FileWriter.Writer
         {
             if ((FileSettings.HeroSelectPortrait || FileSettings.LeaderboardPortrait ||
                 FileSettings.LoadingPortraitPortrait || FileSettings.PartyPanelPortrait ||
-                FileSettings.TargetPortrait) && hero.HeroPortrait != null)
+                FileSettings.TargetPortrait) &&
+                (!string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName) || !string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName) ||
+                !string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName) || !string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName) ||
+                !string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName)) && hero.HeroPortrait != null)
             {
                 return GetPortraitObject(hero);
             }

@@ -145,5 +145,87 @@
         }
       ]
     }
+  },
+  "Alexstrasza": {
+    "name": "Alexstrasza",
+    "cHeroId": "Alexstrasza",
+    "cUnitId": "HeroAlexstrasza",
+    "attributeId": "Alex",
+    "difficulty": "Medium",
+    "franchise": "Warcraft",
+    "gender": "Female",
+    "innerRadius": 0.75,
+    "radius": 0.75,
+    "releaseDate": "2017-11-14",
+    "sight": 12.0,
+    "speed": 4.3984,
+    "type": "Ranged",
+    "rarity": "Legendary",
+    "description": "A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities.",
+    "ratings": {
+      "complexity": 0.0,
+      "damage": 0.0,
+      "survivability": 0.0,
+      "utility": 0.0
+    },
+    "abilities": {},
+    "subAbilities": [
+      {
+        "TychusOdinNoHealth": {
+          "basic": [
+            {
+              "nameId": "TychusOdinAnnihilate",
+              "name": "Annihilate",
+              "shortTooltipId": "TychusCommandeerOdinAnnihilate",
+              "fullTooltipId": "TychusCommandeerOdinAnnihilate",
+              "icon": "storm_ui_icon_tychus_annihilate.png"
+            }
+          ]
+        }
+      }
+    ],
+    "HeroUnits": [
+      {
+        "AlexstraszaDragon": {
+          "name": "Alexstrasza",
+          "cUnitId": "HeroAlexstraszaDragon",
+          "innerRadius": 1.0,
+          "radius": 1.25,
+          "sight": 12.0,
+          "speed": 4.3984,
+          "life": {
+            "lifeAmount": 1787.0,
+            "lifeScale": 0.04,
+            "lifeRegenRate": 3.7226,
+            "regenScale": 0.04
+          },
+          "abilities": {
+            "basic": [
+              {
+                "nameId": "AlexstraszaBreathOfLife",
+                "name": "Breath of Life",
+                "shortTooltipId": "AlexstraszaBreathOfLife",
+                "fullTooltipId": "AlexstraszaBreathOfLife",
+                "icon": "storm_ui_icon_alexstrasza_breath_of_life.png",
+                "life": {
+                  "cost": 50,
+                  "percent": true
+                },
+                "cooldown": {
+                  "value": 3.0,
+                  "recast": 1.0
+                },
+                "charges": {
+                  "countMax": 3,
+                  "countUse": 1,
+                  "countStart": 3,
+                  "hideCount": false
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
   }
 }
