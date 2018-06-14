@@ -87,7 +87,9 @@ namespace HeroesData.FileWriter.Tests
         {
             string filePath = Path.Combine("output", "xml", "heroesdata.xml");
 
-            File.Delete(filePath);
+            if (File.Exists(filePath)) // not really needed
+                File.Delete(filePath);
+
             FileOutputHasBuildNumber.CreateXml(false);
             Assert.False(File.Exists(filePath), "heroesdata.xml should not have been created");
         }
