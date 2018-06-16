@@ -7,7 +7,7 @@ namespace HeroesData.Parser.Models
         /// <summary>
         /// Contructor.
         /// </summary>
-        /// <param name="rawParsedDescription">Description with color tags and raw scaling info.</param>
+        /// <param name="rawParsedDescription">A parsed description with color tags and raw scaling info.</param>
         public TooltipDescription(string rawParsedDescription)
         {
             RawDescription = rawParsedDescription;

@@ -424,7 +424,7 @@ namespace HeroesData.FileWriter.Writer
 
         protected override JProperty GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities)
         {
-            JProperty parentLink = null;
+            JObject parentLink = null;
 
             IEnumerable<string> parentLinks = linkedAbilities.Select(x => x.Key).ToList();
             foreach (string parent in parentLinks)
@@ -481,7 +481,9 @@ namespace HeroesData.FileWriter.Writer
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
-                parentLink = new JProperty(parent, abilities);
+                if (parentLink == null)
+                    parentLink = new JObject();
+                parentLink.Add(new JProperty(parent, abilities));
             }
 
             return new JProperty("subAbilities", new JArray(new JObject(parentLink)));

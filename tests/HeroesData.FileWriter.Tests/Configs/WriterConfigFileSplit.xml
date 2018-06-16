@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <!--
+  TEST  TEST  TEST  TEST  TEST  TEST  TEST  TEST  TEST  TEST  TEST  TEST  TEST  TEST  TEST  TEST  TEST  TEST
+    HeroFileSplit: True: only one file will be created
+                   False: one file for each hero will be created
+    
+    Description, ShortTooltip, FullTooltip:
+      0 - RawDescription
+      1 - PlainText
+      2 - PlainTextWithNewlines
+      3 - PlainTextWithScaling
+      4 - PlainTextWithScalingWithNewlines
+      5 - ColoredText
+      6 - ColoredTextWithScaling
+  -->
+  <JsonWriter enabled="true">
+    <FileSplit>True</FileSplit>
+    <Description>5</Description>
+    <ShortTooltip>5</ShortTooltip>
+    <FullTooltip>5</FullTooltip>
+    <ImageExtension>jpg</ImageExtension>
+    <IncludeWeapons>True</IncludeWeapons>
+    <IncludeAbilities>True</IncludeAbilities>
+    <IncludeSubAbilities>True</IncludeSubAbilities>
+    <IncludeTalents>True</IncludeTalents>
+    <IncludeHeroUnits>True</IncludeHeroUnits>
+    <Portrait>
+      <HeroSelect>True</HeroSelect>
+      <Leaderboard>True</Leaderboard>
+      <LoadingPortrait>True</LoadingPortrait>
+      <PartyPanel>True</PartyPanel>
+      <Target>True</Target>
+    </Portrait>
+  </JsonWriter>
+  <XmlWriter enabled="true">
+    <FileSplit>True</FileSplit>
+    <Description>5</Description>
+    <ShortTooltip>5</ShortTooltip>
+    <FullTooltip>5</FullTooltip>
+    <ImageExtension>jpg</ImageExtension>
+    <IncludeWeapons>True</IncludeWeapons>
+    <IncludeAbilities>True</IncludeAbilities>
+    <IncludeSubAbilities>True</IncludeSubAbilities>
+    <IncludeTalents>True</IncludeTalents>
+    <IncludeHeroUnits>True</IncludeHeroUnits>
+    <Portrait>
+      <HeroSelect>True</HeroSelect>
+      <Leaderboard>True</Leaderboard>
+      <LoadingPortrait>True</LoadingPortrait>
+      <PartyPanel>True</PartyPanel>
+      <Target>True</Target>
+    </Portrait>
+  </XmlWriter>
+</Configuration>

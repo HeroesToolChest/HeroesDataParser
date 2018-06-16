@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Heroes>
+  <Alarak name="Alarak" cHeroId="HeroAlarak" cUnitId="Alar" difficulty="Hard" franchise="Starcraft" gender="Male" radius="0.875" releaseDate="2016-09-13" sight="12" speed="4.3984" type="Melee" rarity="Legendary">
+    <Description>A Tank who specializes against Mages thanks in part to his innate Spell Armor.&lt;n/&gt;&lt;n/&gt;&lt;img path="@UI / StormTalentInTextArmorIcon" alignment="uppermiddle" color="e12bfc" width="20" height="22"/&gt;&lt;c val="#TooltipNumbers"&gt;20 Spell Armor&lt;/c&gt;</Description>
+    <Life>
+      <LifeAmount scale="0.04">1900</LifeAmount>
+      <LifeRegenRate scale="0.04">3.957</LifeRegenRate>
+    </Life>
+    <Energy>
+      <EnergyAmount type="Mana">500</EnergyAmount>
+      <EnergyRegenRate>3</EnergyRegenRate>
+    </Energy>
+    <Roles>
+      <Role>Assassin</Role>
+      <Role>Warrior</Role>
+    </Roles>
+    <Ratings complexity="8" damage="7" survivability="6" utility="7" />
+  </Alarak>
+  <Alexstrasza name="Alexstrasza" cHeroId="Alexstrasza" cUnitId="HeroAlexstrasza" attributeId="Alex" difficulty="Medium" franchise="Warcraft" gender="Female" innerRadius="0.75" radius="0.75" releaseDate="2017-11-14" sight="12" speed="4.3984" type="Ranged" rarity="Legendary">
+    <Description>A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities.</Description>
+    <Ratings complexity="0" damage="0" survivability="0" utility="0" />
+  </Alexstrasza>
+</Heroes>

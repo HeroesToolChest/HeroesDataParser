@@ -3,23 +3,94 @@ using HeroesData.Parser.Models.AbilityTalents;
 using HeroesData.Parser.Models.AbilityTalents.Tooltip;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using Xunit;
 
 namespace HeroesData.FileWriter.Tests
 {
-    public class FileOutputTests
+    public class FileOutputTestBase
     {
-        public FileOutputTests()
+        public FileOutputTestBase()
         {
             SetTestHeroData();
             FileOutputNoBuildNumber = FileOutput.SetHeroData(Heroes);
             FileOutputHasBuildNumber = FileOutput.SetHeroData(Heroes, BuildNumber);
+            FileOutputFalseSettings = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfigFalseSettings.xml"));
+            FileOutputFileSplit = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfigFileSplit.xml"));
+            FileOutputRawDescription = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfig0.xml"));
+            FileOutputPlainText = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfig1.xml"));
+            FileOutputPlainTextWithNewlines = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfig2.xml"));
+            FileOutputPlainTextWithScaling = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfig3.xml"));
+            FileOutputPlainTextWithScalingWithNewlines = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfig4.xml"));
+            FileOutputColoredTextWithScaling = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfig6.xml"));
+            FileOutputIsEnabledFalse = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfigEnabledFalse.xml"));
         }
 
         protected FileOutput FileOutputNoBuildNumber { get; }
         protected FileOutput FileOutputHasBuildNumber { get; }
+        protected FileOutput FileOutputFalseSettings { get; }
+        protected FileOutput FileOutputFileSplit { get; }
+        protected FileOutput FileOutputRawDescription { get; }
+        protected FileOutput FileOutputPlainText { get; }
+        protected FileOutput FileOutputPlainTextWithNewlines { get; }
+        protected FileOutput FileOutputPlainTextWithScaling { get; }
+        protected FileOutput FileOutputPlainTextWithScalingWithNewlines { get; }
+        protected FileOutput FileOutputColoredTextWithScaling { get; }
+        protected FileOutput FileOutputIsEnabledFalse { get; }
+
         protected int? BuildNumber => 12345;
+        protected string OutputFileFolder => "OutputFiles";
 
         protected List<Hero> Heroes { get; set; } = new List<Hero>();
+
+        [Fact]
+        public void FileOuputIsEnabledTrueTest()
+        {
+            Assert.True(FileOutputNoBuildNumber.IsJsonEnabled);
+            Assert.True(FileOutputNoBuildNumber.IsXmlEnabled);
+        }
+
+        [Fact]
+        public void FileOuputIsEnabledFalseTest()
+        {
+            Assert.False(FileOutputIsEnabledFalse.IsJsonEnabled);
+            Assert.False(FileOutputIsEnabledFalse.IsXmlEnabled);
+        }
+
+        protected void CompareFile(string outputFilePath, string testFilePath)
+        {
+            List<string> output = new List<string>();
+            List<string> outputTest = new List<string>();
+
+            // actual created output
+            using (StreamReader reader = new StreamReader(Path.Combine(Environment.CurrentDirectory, outputFilePath)))
+            {
+                string line = string.Empty;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    output.Add(line);
+                }
+            }
+
+            using (StreamReader reader = new StreamReader(Path.Combine(Environment.CurrentDirectory, OutputFileFolder, testFilePath)))
+            {
+                string line = string.Empty;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    outputTest.Add(line);
+                }
+            }
+
+            Assert.Equal(outputTest.Count, output.Count);
+
+            if (outputTest.Count == output.Count)
+            {
+                for (int i = 0; i < outputTest.Count; i++)
+                {
+                    Assert.Equal(outputTest[i], output[i]);
+                }
+            }
+        }
 
         private void SetTestHeroData()
         {
@@ -38,7 +109,7 @@ namespace HeroesData.FileWriter.Tests
                 Speed = 4.3984,
                 Type = UnitType.Melee,
                 Rarity = HeroRarity.Legendary,
-                Description = new TooltipDescription("A combo Assassin that can move enemies around and punish mistakes."),
+                Description = new TooltipDescription("A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/><img path=\"@UI / StormTalentInTextArmorIcon\" alignment=\"uppermiddle\" color=\"e12bfc\" width=\"20\" height=\"22\"/><c val=\"#TooltipNumbers\">20 Spell Armor</c>"),
                 HeroPortrait = new HeroPortrait()
                 {
                     HeroSelectPortraitFileName = "storm_ui_ingame_heroselect_btn_alarak.png",
@@ -131,6 +202,33 @@ namespace HeroesData.FileWriter.Tests
                             },
                         }
                     },
+                    {
+                        "HeroicAbility",
+                        new Ability
+                        {
+                            ReferenceNameId = "HeroicAbility",
+                            Name = "Heroic",
+                            Tier = AbilityTier.Heroic,
+                        }
+                    },
+                    {
+                        "MountAbility",
+                        new Ability
+                        {
+                            ReferenceNameId = "MountAbility",
+                            Name = "Mount",
+                            Tier = AbilityTier.Mount,
+                        }
+                    },
+                    {
+                        "ActivableAbility",
+                        new Ability
+                        {
+                            ReferenceNameId = "ActivableAbility",
+                            Name = "Activable",
+                            Tier = AbilityTier.Activable,
+                        }
+                    },
                 },
                 Talents = new Dictionary<string, Talent>
                 {
@@ -168,6 +266,28 @@ namespace HeroesData.FileWriter.Tests
                             },
                             Column = 2,
                             Tier = TalentTier.Level1,
+                        }
+                    },
+                    {
+                        "Level4Talent",
+                        new Talent
+                        {
+                            ReferenceNameId = "Level4Talent",
+                            Name = "Level4Talent",
+                            Tier = TalentTier.Level4,
+                            Tooltip = new AbilityTalentTooltip()
+                            {
+                                FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
+                            },
+                        }
+                    },
+                    {
+                        "Level7Talent",
+                        new Talent
+                        {
+                            ReferenceNameId = "Level7Talent",
+                            Name = "Level4Talent",
+                            Tier = TalentTier.Level7,
                         }
                     },
                     {
@@ -222,6 +342,33 @@ namespace HeroesData.FileWriter.Tests
                             Tier = TalentTier.Level10,
                         }
                     },
+                    {
+                        "Leve13Talent",
+                        new Talent
+                        {
+                            ReferenceNameId = "Leve13Talent",
+                            Name = "Leve13Talent",
+                            Tier = TalentTier.Level13,
+                        }
+                    },
+                    {
+                        "Level16Talent",
+                        new Talent
+                        {
+                            ReferenceNameId = "Level16Talent",
+                            Name = "Level16Talent",
+                            Tier = TalentTier.Level16,
+                        }
+                    },
+                    {
+                        "Level20Talent",
+                        new Talent
+                        {
+                            ReferenceNameId = "Level20Talent",
+                            Name = "Level20Talent",
+                            Tier = TalentTier.Level20,
+                        }
+                    },
                 },
             };
 
@@ -271,6 +418,50 @@ namespace HeroesData.FileWriter.Tests
                             IconFileName = "storm_ui_icon_tychus_annihilate.png",
                             Tier = AbilityTier.Basic,
                             ParentLink = "TychusOdinNoHealth",
+                            Tooltip = new AbilityTalentTooltip()
+                            {
+                                 FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
+                            },
+                        }
+                    },
+                    {
+                        "SubAbilHeroic",
+                        new Ability
+                        {
+                            ReferenceNameId = "SubAbilHeroic",
+                            Name = "SubAbilHeroic",
+                            Tier = AbilityTier.Heroic,
+                            ParentLink = "HeroAlexstraszaDragon",
+                        }
+                    },
+                    {
+                        "SubAbilMount",
+                        new Ability
+                        {
+                            ReferenceNameId = "SubAbilMount",
+                            Name = "SubAbilMount",
+                            Tier = AbilityTier.Mount,
+                            ParentLink = "HeroAlexstraszaDragon",
+                        }
+                    },
+                    {
+                        "SubAbilTrait",
+                        new Ability
+                        {
+                            ReferenceNameId = "SubAbilTrait",
+                            Name = "SubAbilTrait",
+                            Tier = AbilityTier.Trait,
+                            ParentLink = "HeroAlexstraszaDragon",
+                        }
+                    },
+                    {
+                        "SubAbilActivable",
+                        new Ability
+                        {
+                            ReferenceNameId = "SubAbilActivable",
+                            Name = "SubAbilActivable",
+                            Tier = AbilityTier.Activable,
+                            ParentLink = "HeroAlexstraszaDragon",
                         }
                     },
                 },
@@ -326,8 +517,52 @@ namespace HeroesData.FileWriter.Tests
                                         },
                                     },
                                 }
-                             },
-                         },
+                            },
+                            {
+                                "DragonAbilHeroic",
+                                new Ability
+                                {
+                                    ReferenceNameId = "DragonAbilHeroic",
+                                    Name = "DragonAbilHeroic",
+                                    Tier = AbilityTier.Heroic,
+                                    ParentLink = "HeroAlexstraszaDragon",
+                                }
+                            },
+                            {
+                                "DragonAbilMount",
+                                new Ability
+                                {
+                                    ReferenceNameId = "DragonAbilMount",
+                                    Name = "DragonAbilMount",
+                                    Tier = AbilityTier.Mount,
+                                    ParentLink = "HeroAlexstraszaDragon",
+                                }
+                            },
+                            {
+                                "DragonAbilTrait",
+                                new Ability
+                                {
+                                    ReferenceNameId = "DragonAbilTrait",
+                                    Name = "DragonAbilTrait",
+                                    Tier = AbilityTier.Trait,
+                                    ParentLink = "HeroAlexstraszaDragon",
+                                    Tooltip = new AbilityTalentTooltip()
+                                    {
+                                         FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
+                                    },
+                                }
+                            },
+                            {
+                                "DragonAbilActivable",
+                                new Ability
+                                {
+                                    ReferenceNameId = "DragonAbilActivable",
+                                    Name = "DragonAbilActivable",
+                                    Tier = AbilityTier.Activable,
+                                    ParentLink = "HeroAlexstraszaDragon",
+                                }
+                            },
+                        },
                     },
                 },
             };

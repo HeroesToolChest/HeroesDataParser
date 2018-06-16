@@ -1,0 +1,61 @@
+﻿{
+  "Alarak": {
+    "name": "Alarak",
+    "cHeroId": "HeroAlarak",
+    "cUnitId": "Alar",
+    "difficulty": "Hard",
+    "franchise": "Starcraft",
+    "gender": "Male",
+    "radius": 0.875,
+    "releaseDate": "2016-09-13",
+    "sight": 12.0,
+    "speed": 4.3984,
+    "type": "Melee",
+    "rarity": "Legendary",
+    "description": "A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/><img path=\"@UI / StormTalentInTextArmorIcon\" alignment=\"uppermiddle\" color=\"e12bfc\" width=\"20\" height=\"22\"/><c val=\"#TooltipNumbers\">20 Spell Armor</c>",
+    "life": {
+      "lifeAmount": 1900.0,
+      "lifeScale": 0.04,
+      "lifeRegenRate": 3.957,
+      "regenScale": 0.04
+    },
+    "energy": {
+      "energyAmount": 500.0,
+      "type": "Mana",
+      "energyRegenRate": 3.0
+    },
+    "roles": [
+      "Assassin",
+      "Warrior"
+    ],
+    "ratings": {
+      "complexity": 8.0,
+      "damage": 7.0,
+      "survivability": 6.0,
+      "utility": 7.0
+    }
+  },
+  "Alexstrasza": {
+    "name": "Alexstrasza",
+    "cHeroId": "Alexstrasza",
+    "cUnitId": "HeroAlexstrasza",
+    "attributeId": "Alex",
+    "difficulty": "Medium",
+    "franchise": "Warcraft",
+    "gender": "Female",
+    "innerRadius": 0.75,
+    "radius": 0.75,
+    "releaseDate": "2017-11-14",
+    "sight": 12.0,
+    "speed": 4.3984,
+    "type": "Ranged",
+    "rarity": "Legendary",
+    "description": "A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities.",
+    "ratings": {
+      "complexity": 0.0,
+      "damage": 0.0,
+      "survivability": 0.0,
+      "utility": 0.0
+    }
+  }
+}

@@ -1,97 +1,91 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Xunit;
 
 namespace HeroesData.FileWriter.Tests
 {
-    public class XmlTests : FileOutputTests
+    public class XmlTests : FileOutputTestBase
     {
+        private readonly string DefaultCreatedFile = Path.Combine("output", "xml", "heroesdata.xml");
+
         [Fact]
         public void XmlWriterNoBuildNumberTest()
         {
             FileOutputNoBuildNumber.CreateXml();
-
-            List<string> outputJson = new List<string>();
-            List<string> outputJsonTest = new List<string>();
-
-            // actual created output
-            using (StreamReader reader = new StreamReader(Path.Combine("output", "xml", "heroesdata.xml")))
-            {
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    outputJson.Add(line);
-                }
-            }
-
-            using (StreamReader reader = new StreamReader("XmlOutputTest.xml"))
-            {
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    outputJsonTest.Add(line);
-                }
-            }
-
-            Assert.Equal(outputJsonTest.Count, outputJson.Count);
-
-            if (outputJsonTest.Count == outputJson.Count)
-            {
-                for (int i = 0; i < outputJsonTest.Count; i++)
-                {
-                    Assert.Equal(outputJsonTest[i], outputJson[i]);
-                }
-            }
+            CompareFile(DefaultCreatedFile, "XmlOutputTest.xml");
         }
 
         [Fact]
         public void XmlWriterHasBuildNumberTest()
         {
             FileOutputHasBuildNumber.CreateXml();
-
-            List<string> outputJson = new List<string>();
-            List<string> outputJsonTest = new List<string>();
-
-            // actual created output
-            using (StreamReader reader = new StreamReader(Path.Combine("output", "xml", $"heroesdata_{BuildNumber}.xml")))
-            {
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    outputJson.Add(line);
-                }
-            }
-
-            using (StreamReader reader = new StreamReader("XmlOutputTest.xml"))
-            {
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    outputJsonTest.Add(line);
-                }
-            }
-
-            Assert.Equal(outputJsonTest.Count, outputJson.Count);
-
-            if (outputJsonTest.Count == outputJson.Count)
-            {
-                for (int i = 0; i < outputJsonTest.Count; i++)
-                {
-                    Assert.Equal(outputJsonTest[i], outputJson[i]);
-                }
-            }
+            CompareFile(Path.Combine("output", "xml", $"heroesdata_{BuildNumber}.xml"), "XmlOutputTest.xml");
         }
 
         [Fact]
         public void XmlWriterNoCreateTest()
         {
-            string filePath = Path.Combine("output", "xml", "heroesdata.xml");
-
-            if (File.Exists(filePath)) // not really needed
-                File.Delete(filePath);
+            if (File.Exists(DefaultCreatedFile)) // not really needed
+                File.Delete(DefaultCreatedFile);
 
             FileOutputHasBuildNumber.CreateXml(false);
-            Assert.False(File.Exists(filePath), "heroesdata.xml should not have been created");
+            Assert.False(File.Exists(DefaultCreatedFile), "heroesdata.xml should not have been created");
+        }
+
+        [Fact]
+        public void XmlWriterFalseSettingsTest()
+        {
+            FileOutputFalseSettings.CreateXml();
+            CompareFile(DefaultCreatedFile, "XmlOutputFalseSettingsTest.xml");
+        }
+
+        [Fact]
+        public void XmlWriterFileSplitTest()
+        {
+            FileOutputFileSplit.CreateXml();
+            CompareFile(Path.Combine("output", "xml", "Alarak.xml"), "Alarak.xml");
+            CompareFile(Path.Combine("output", "xml", "Alexstrasza.xml"), "Alexstrasza.xml");
+        }
+
+        [Fact]
+        public void XmlWriterRawDescriptionTest()
+        {
+            FileOutputRawDescription.CreateXml();
+            CompareFile(DefaultCreatedFile, "XmlOutput0.xml");
+        }
+
+        [Fact]
+        public void XmlWriterPlainTextTest()
+        {
+            FileOutputPlainText.CreateXml();
+            CompareFile(DefaultCreatedFile, "XmlOutput1.xml");
+        }
+
+        [Fact]
+        public void XmlWriterPlainTextWithNewlinesTest()
+        {
+            FileOutputPlainTextWithNewlines.CreateXml();
+            CompareFile(DefaultCreatedFile, "XmlOutput2.xml");
+        }
+
+        [Fact]
+        public void XmlWriterPlainTextWithScalingTest()
+        {
+            FileOutputPlainTextWithScaling.CreateXml();
+            CompareFile(DefaultCreatedFile, "XmlOutput3.xml");
+        }
+
+        [Fact]
+        public void XmlWriterPlainTextWithScalingWithNewlinesTest()
+        {
+            FileOutputPlainTextWithScalingWithNewlines.CreateXml();
+            CompareFile(DefaultCreatedFile, "XmlOutput4.xml");
+        }
+
+        [Fact]
+        public void XmlWriterColoredTextWithScalingTest()
+        {
+            FileOutputColoredTextWithScaling.CreateXml();
+            CompareFile(DefaultCreatedFile, "XmlOutput6.xml");
         }
     }
 }

@@ -12,14 +12,7 @@
     "speed": 4.3984,
     "type": "Melee",
     "rarity": "Legendary",
-    "description": "A combo Assassin that can move enemies around and punish mistakes.",
-    "portraits": {
-      "heroSelect": "storm_ui_ingame_heroselect_btn_alarak.png",
-      "leaderboard": "storm_ui_ingame_hero_leaderboard_alarak.png",
-      "loading": "storm_ui_ingame_hero_loadingscreen_alarak.png",
-      "partyPanel": "storm_ui_ingame_partypanel_btn_alarak.png",
-      "target": "ui_targetportrait_hero_alarak.png"
-    },
+    "description": "A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/><img path=\"@UI / StormTalentInTextArmorIcon\" alignment=\"uppermiddle\" color=\"e12bfc\" width=\"20\" height=\"22\"/><c val=\"#TooltipNumbers\">20 Spell Armor</c>",
     "life": {
       "lifeAmount": 1900.0,
       "lifeScale": 0.04,
@@ -41,22 +34,6 @@
       "survivability": 6.0,
       "utility": 7.0
     },
-    "weapons": [
-      {
-        "nameId": "HeroWeaponAlarak",
-        "range": 1.5,
-        "period": 1.2,
-        "damage": 140.0,
-        "damageScale": 0.04
-      },
-      {
-        "nameId": "HeroWeaponDestructionAlarak",
-        "range": 2.0,
-        "period": 1.2,
-        "damage": 340.0,
-        "damageScale": 0.05
-      }
-    ],
     "abilities": {
       "basic": [
         {
@@ -75,6 +52,13 @@
           "fullTooltip": "After a <c val=\"#TooltipNumbers\">0.5</c> second delay, enemies in front of Alarak take <c val=\"#TooltipNumbers\">175</c> damage and are silenced for <c val=\"#TooltipNumbers\">1.5</c> seconds."
         }
       ],
+      "heroic": [
+        {
+          "nameId": "HeroicAbility",
+          "name": "Heroic",
+          "icon": null
+        }
+      ],
       "trait": [
         {
           "nameId": "AlarakSadismDummyUI",
@@ -84,6 +68,20 @@
           "icon": "storm_ui_icon_alarak_sadism.png",
           "shortTooltip": "Alarak deals increased damage and has increased self-healing against enemy Heroes",
           "fullTooltip": "Alarak's Ability damage and self-healing are increased by <c val=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Repeatable Quest:</c> Takedowns increase Sadism by <c val=\"#TooltipNumbers\">3%</c>, up to <c val=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death."
+        }
+      ],
+      "mount": [
+        {
+          "nameId": "MountAbility",
+          "name": "Mount",
+          "icon": null
+        }
+      ],
+      "activable": [
+        {
+          "nameId": "ActivableAbility",
+          "name": "Activable",
+          "icon": null
         }
       ]
     },
@@ -108,6 +106,23 @@
           "shortTooltip": "<c val=\"#TooltipQuest\">Quest:</c> Reduce Sadism, empower Lightning Surge",
           "fullTooltip": "Reduce Sadism by <c val=\"#TooltipNumbers\">10%</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Quest:</c> Hit Heroes with the center of Lightning Surge.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">5</c> Heroes, increase Lightning Surge's range by <c val=\"#TooltipNumbers\">20%</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">15</c> Heroes, Lightning Surge's center also Slows enemies by <c val=\"#TooltipNumbers\">40%</c> for <c val=\"#TooltipNumbers\">2</c> seconds.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">3</c> Heroes with the center of a single cast, increase Sadism by <c val=\"#TooltipNumbers\">10%</c> and instantly gain all other Rewards.",
           "sort": 2
+        }
+      ],
+      "level4": [
+        {
+          "nameId": "Level4Talent",
+          "name": "Level4Talent",
+          "icon": null,
+          "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+          "sort": 0
+        }
+      ],
+      "level7": [
+        {
+          "nameId": "Level7Talent",
+          "name": "Level4Talent",
+          "icon": null,
+          "sort": 0
         }
       ],
       "level10": [
@@ -143,6 +158,30 @@
           "fullTooltip": "Alarak targets an area and channels for <c val=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"#TooltipNumbers\">275</c> damage.",
           "sort": 2
         }
+      ],
+      "level13": [
+        {
+          "nameId": "Leve13Talent",
+          "name": "Leve13Talent",
+          "icon": null,
+          "sort": 0
+        }
+      ],
+      "level16": [
+        {
+          "nameId": "Level16Talent",
+          "name": "Level16Talent",
+          "icon": null,
+          "sort": 0
+        }
+      ],
+      "level20": [
+        {
+          "nameId": "Level20Talent",
+          "name": "Level20Talent",
+          "icon": null,
+          "sort": 0
+        }
       ]
     }
   },
@@ -168,64 +207,6 @@
       "survivability": 0.0,
       "utility": 0.0
     },
-    "abilities": {},
-    "subAbilities": [
-      {
-        "TychusOdinNoHealth": {
-          "basic": [
-            {
-              "nameId": "TychusOdinAnnihilate",
-              "name": "Annihilate",
-              "shortTooltipId": "TychusCommandeerOdinAnnihilate",
-              "fullTooltipId": "TychusCommandeerOdinAnnihilate",
-              "icon": "storm_ui_icon_tychus_annihilate.png"
-            }
-          ]
-        }
-      }
-    ],
-    "HeroUnits": [
-      {
-        "AlexstraszaDragon": {
-          "name": "Alexstrasza",
-          "cUnitId": "HeroAlexstraszaDragon",
-          "innerRadius": 1.0,
-          "radius": 1.25,
-          "sight": 12.0,
-          "speed": 4.3984,
-          "life": {
-            "lifeAmount": 1787.0,
-            "lifeScale": 0.04,
-            "lifeRegenRate": 3.7226,
-            "regenScale": 0.04
-          },
-          "abilities": {
-            "basic": [
-              {
-                "nameId": "AlexstraszaBreathOfLife",
-                "name": "Breath of Life",
-                "shortTooltipId": "AlexstraszaBreathOfLife",
-                "fullTooltipId": "AlexstraszaBreathOfLife",
-                "icon": "storm_ui_icon_alexstrasza_breath_of_life.png",
-                "life": {
-                  "cost": 50,
-                  "percent": true
-                },
-                "cooldown": {
-                  "value": 3.0,
-                  "recast": 1.0
-                },
-                "charges": {
-                  "countMax": 3,
-                  "countUse": 1,
-                  "countStart": 3,
-                  "hideCount": false
-                }
-              }
-            ]
-          }
-        }
-      }
-    ]
+    "abilities": {}
   }
 }

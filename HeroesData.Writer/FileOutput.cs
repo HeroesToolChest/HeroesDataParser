@@ -19,9 +19,28 @@ namespace HeroesData.FileWriter
             Heroes = heroes;
         }
 
+        private FileOutput(List<Hero> heroes, string configFileName)
+        {
+            FileConfiguration = FileConfiguration.Load(configFileName);
+            IsXmlEnabled = FileConfiguration.XmlFileSettings.WriterEnabled;
+            IsJsonEnabled = FileConfiguration.JsonFileSettings.WriterEnabled;
+
+            Heroes = heroes;
+        }
+
         private FileOutput(List<Hero> heroes, int? hotsBuild)
         {
             FileConfiguration = FileConfiguration.Load();
+            IsXmlEnabled = FileConfiguration.XmlFileSettings.WriterEnabled;
+            IsJsonEnabled = FileConfiguration.JsonFileSettings.WriterEnabled;
+            HotsBuild = hotsBuild;
+
+            Heroes = heroes;
+        }
+
+        private FileOutput(List<Hero> heroes, int? hotsBuild, string configFileName)
+        {
+            FileConfiguration = FileConfiguration.Load(configFileName);
             IsXmlEnabled = FileConfiguration.XmlFileSettings.WriterEnabled;
             IsJsonEnabled = FileConfiguration.JsonFileSettings.WriterEnabled;
             HotsBuild = hotsBuild;
@@ -39,14 +58,48 @@ namespace HeroesData.FileWriter
         /// </summary>
         public bool IsJsonEnabled { get; }
 
+        /// <summary>
+        /// Sets the heroes data to be used for the output writer and load the writer configuration file.
+        /// </summary>
+        /// <param name="heroes">Heroes to be written.</param>
+        /// <returns></returns>
         public static FileOutput SetHeroData(List<Hero> heroes)
         {
             return new FileOutput(heroes);
         }
 
+        /// <summary>
+        /// Sets the heroes data to be used for the output writer and load the writer configuration file.
+        /// </summary>
+        /// <param name="heroes">Heroes to be written.</param>
+        /// <param name="configFileName">The name of the configuration file to load.</param>
+        /// <returns></returns>
+        public static FileOutput SetHeroData(List<Hero> heroes, string configFileName)
+        {
+            return new FileOutput(heroes, configFileName);
+        }
+
+        /// <summary>
+        /// Sets the heroes data to be used for the output writer and load the writer configuration file.
+        /// </summary>
+        /// <param name="heroes">Heroes to be written.</param>
+        /// <param name="hotsBuild">The current Hots build.</param>
+        /// <returns></returns>
         public static FileOutput SetHeroData(List<Hero> heroes, int? hotsBuild)
         {
             return new FileOutput(heroes, hotsBuild);
+        }
+
+        /// <summary>
+        /// Sets the heroes data to be used for the output writer and load the writer configuration file.
+        /// </summary>
+        /// <param name="heroes">Heroes to be written.</param>
+        /// <param name="hotsBuild">The current Hots build.</param>
+        /// <param name="configFileName">The name of the configuration file to load.</param>
+        /// <returns></returns>
+        public static FileOutput SetHeroData(List<Hero> heroes, int? hotsBuild, string configFileName)
+        {
+            return new FileOutput(heroes, hotsBuild, configFileName);
         }
 
         /// <summary>

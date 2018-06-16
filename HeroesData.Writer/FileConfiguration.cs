@@ -20,12 +20,30 @@ namespace HeroesData.FileWriter
             LoadConfig("XmlWriter", XmlFileSettings);
         }
 
+        private FileConfiguration(string configFileName)
+        {
+            WriterConfigFile = configFileName;
+
+            Configuration = XDocument.Load(WriterConfigFile);
+
+            JsonFileSettings = new JsonFileSettings();
+            LoadConfig("JsonWriter", JsonFileSettings);
+
+            XmlFileSettings = new XmlFileSettings();
+            LoadConfig("XmlWriter", XmlFileSettings);
+        }
+
         public JsonFileSettings JsonFileSettings { get; }
         public XmlFileSettings XmlFileSettings { get; }
 
         public static FileConfiguration Load()
         {
             return new FileConfiguration();
+        }
+
+        public static FileConfiguration Load(string configFileName)
+        {
+            return new FileConfiguration(configFileName);
         }
 
         private void LoadConfig(string elementName, FileSettings fileSettings)

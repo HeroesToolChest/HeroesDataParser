@@ -1,95 +1,89 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Xunit;
 
 namespace HeroesData.FileWriter.Tests
 {
-    public class JsonTests : FileOutputTests
+    public class JsonTests : FileOutputTestBase
     {
+        private readonly string DefaultCreatedFile = Path.Combine("output", "json", "heroesdata.json");
+
         [Fact]
         public void JsonWriterNoBuildNumberTest()
         {
             FileOutputNoBuildNumber.CreateJson();
-
-            List<string> outputJson = new List<string>();
-            List<string> outputJsonTest = new List<string>();
-
-            // actual created output
-            using (StreamReader reader = new StreamReader(Path.Combine("output", "json", "heroesdata.json")))
-            {
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    outputJson.Add(line);
-                }
-            }
-
-            using (StreamReader reader = new StreamReader("JsonOutputTest.json"))
-            {
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    outputJsonTest.Add(line);
-                }
-            }
-
-            Assert.Equal(outputJsonTest.Count, outputJson.Count);
-
-            if (outputJsonTest.Count == outputJson.Count)
-            {
-                for (int i = 0; i < outputJsonTest.Count; i++)
-                {
-                    Assert.Equal(outputJsonTest[i], outputJson[i]);
-                }
-            }
+            CompareFile(DefaultCreatedFile, "JsonOutputTest.json");
         }
 
         [Fact]
         public void JsonWriterHasBuildNumberTest()
         {
             FileOutputHasBuildNumber.CreateJson();
-
-            List<string> outputJson = new List<string>();
-            List<string> outputJsonTest = new List<string>();
-
-            // actual created output
-            using (StreamReader reader = new StreamReader(Path.Combine("output", "json", $"heroesdata_{BuildNumber}.json")))
-            {
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    outputJson.Add(line);
-                }
-            }
-
-            using (StreamReader reader = new StreamReader("JsonOutputTest.json"))
-            {
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    outputJsonTest.Add(line);
-                }
-            }
-
-            Assert.Equal(outputJsonTest.Count, outputJson.Count);
-
-            if (outputJsonTest.Count == outputJson.Count)
-            {
-                for (int i = 0; i < outputJsonTest.Count; i++)
-                {
-                    Assert.Equal(outputJsonTest[i], outputJson[i]);
-                }
-            }
+            CompareFile(Path.Combine("output", "json", $"heroesdata_{BuildNumber}.json"), "JsonOutputTest.json");
         }
 
         [Fact]
         public void JsonWriterNoCreateTest()
         {
-            string filePath = Path.Combine("output", "json", "heroesdata.json");
-
-            File.Delete(filePath);
+            File.Delete(DefaultCreatedFile);
             FileOutputHasBuildNumber.CreateJson(false);
-            Assert.False(File.Exists(filePath), "heroesdata.json should not have been created");
+            Assert.False(File.Exists(DefaultCreatedFile), "heroesdata.json should not have been created");
+        }
+
+        [Fact]
+        public void JsonWriterFalseSettingsTest()
+        {
+            FileOutputFalseSettings.CreateJson();
+            CompareFile(DefaultCreatedFile, "JsonOutputFalseSettingsTest.json");
+        }
+
+        [Fact]
+        public void JsonWriterFileSplitTest()
+        {
+            FileOutputFileSplit.CreateJson();
+            CompareFile(Path.Combine("output", "json", "Alarak.json"), "Alarak.json");
+            CompareFile(Path.Combine("output", "json", "Alexstrasza.json"), "Alexstrasza.json");
+        }
+
+        [Fact]
+        public void JsonWriterRawDescriptionTest()
+        {
+            FileOutputRawDescription.CreateJson();
+            CompareFile(DefaultCreatedFile, "JsonOutput0.json");
+        }
+
+        [Fact]
+        public void JsonWriterPlainTextTest()
+        {
+            FileOutputPlainText.CreateJson();
+            CompareFile(DefaultCreatedFile, "JsonOutput1.json");
+        }
+
+        [Fact]
+        public void JsonWriterPlainTextWithNewlinesTest()
+        {
+            FileOutputPlainTextWithNewlines.CreateJson();
+            CompareFile(DefaultCreatedFile, "JsonOutput2.json");
+        }
+
+        [Fact]
+        public void JsonWriterPlainTextWithScalingTest()
+        {
+            FileOutputPlainTextWithScaling.CreateJson();
+            CompareFile(DefaultCreatedFile, "JsonOutput3.json");
+        }
+
+        [Fact]
+        public void JsonWriterPlainTextWithScalingWithNewlinesTest()
+        {
+            FileOutputPlainTextWithScalingWithNewlines.CreateJson();
+            CompareFile(DefaultCreatedFile, "JsonOutput4.json");
+        }
+
+        [Fact]
+        public void JsonWriterColoredTextWithScalingTest()
+        {
+            FileOutputColoredTextWithScaling.CreateJson();
+            CompareFile(DefaultCreatedFile, "JsonOutput6.json");
         }
     }
 }
