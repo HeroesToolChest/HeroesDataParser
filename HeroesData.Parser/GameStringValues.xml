@@ -8,4 +8,5 @@
   <Id name="MaxStackCount" part="last" value="1" />
   <Id name="SpawnCount" part="last" value="1" />
   <Id name="Scale" part="last" value="1" />
+  <Id name="Modifier" part="last" value="0" />
 </GameStringValues>

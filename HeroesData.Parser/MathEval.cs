@@ -13,7 +13,6 @@ namespace HeroesData.Parser
             input = ModifyOperators(input);
 
             var regex = new Regex(@"\(([^()]+|(?<Level>\()|(?<-Level>\)))+(?(Level)(?!))\)", RegexOptions.IgnorePatternWhitespace);
-
             var matches = regex.Matches(input);
 
             foreach (Match match in matches)
@@ -83,6 +82,10 @@ namespace HeroesData.Parser
 
             if (Regex.IsMatch(pathLookup, @"\(\d*/\d*\)\-\d*\*\d*\)"))
                 return Regex.Replace(pathLookup, pattern2, "($0)").TrimEnd(')');
+
+            string trimParenthesis = pathLookup.Trim('(', ')');
+            if (!trimParenthesis.Contains('(') && !trimParenthesis.Contains(')'))
+                return trimParenthesis;
 
             return pathLookup;
         }

@@ -19,6 +19,8 @@ namespace HeroesData.Parser.Tests
             Assert.Equal(70, MathEval.CalculatePathEquation("- (-0.7*100)"));
             Assert.Equal(-0.5, MathEval.CalculatePathEquation("-0.5"));
             Assert.Equal(0, MathEval.CalculatePathEquation("0"));
+            Assert.Equal(100, MathEval.CalculatePathEquation("1+0*100"));
+            Assert.Equal(100, MathEval.CalculatePathEquation("(1+0*100)"));
         }
     }
 }
