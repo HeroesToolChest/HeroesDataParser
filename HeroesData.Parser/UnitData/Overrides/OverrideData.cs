@@ -109,6 +109,7 @@ namespace HeroesData.Parser.UnitData.Overrides
         {
             HeroOverride heroOverride = new HeroOverride();
             AbilityOverride abilityOverride = new AbilityOverride(GameData, HotsBuild);
+            TalentOverride talentOverride = new TalentOverride(GameData, HotsBuild);
             WeaponOverride weaponOverride = new WeaponOverride(GameData, HotsBuild);
             PortraitOverride portraitOverride = new PortraitOverride(GameData, HotsBuild);
 
@@ -175,6 +176,20 @@ namespace HeroesData.Parser.UnitData.Overrides
                         var overrideElement = dataElement.Elements("Override").FirstOrDefault();
                         if (overrideElement != null)
                             abilityOverride.SetOverride(abilityId, overrideElement, heroOverride.PropertyAbilityOverrideMethodByAbilityId);
+                        break;
+                    case "Talent":
+                        string talentId = dataElement.Attribute("id")?.Value;
+                        valid = dataElement.Attribute("valid")?.Value;
+                        add = dataElement.Attribute("add")?.Value;
+                        button = dataElement.Attribute("button")?.Value;
+
+                        if (string.IsNullOrEmpty(talentId))
+                            continue;
+
+                        // override
+                        overrideElement = dataElement.Elements("Override").FirstOrDefault();
+                        if (overrideElement != null)
+                            talentOverride.SetOverride(talentId, overrideElement, heroOverride.PropertyTalentOverrideMethodByTalentId);
                         break;
                     case "LinkedAbilities":
                         SetLinkAbilities(dataElement, heroOverride);

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using HeroesData.Parser.Models.AbilityTalents;
+using System;
+using System.Collections.Generic;
 
 namespace HeroesData.Parser.UnitData.Overrides
 {
@@ -13,5 +15,10 @@ namespace HeroesData.Parser.UnitData.Overrides
         /// Gets or sets a hashset of additional hero units.
         /// </summary>
         public HashSet<string> HeroUnits { get; set; } = new HashSet<string>();
+
+        /// <summary>
+        /// Gets or sets the property override action methods for talents by talent id.
+        /// </summary>
+        public Dictionary<string, Dictionary<string, Action<Talent>>> PropertyTalentOverrideMethodByTalentId { get; set; } = new Dictionary<string, Dictionary<string, Action<Talent>>>();
     }
 }

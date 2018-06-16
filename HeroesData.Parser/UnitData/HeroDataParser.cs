@@ -911,6 +911,22 @@ namespace HeroesData.Parser.UnitData
                 }
             }
 
+            // talents
+            if (hero.Talents != null)
+            {
+                foreach (KeyValuePair<string, Talent> talents in hero.Talents)
+                {
+                    if (heroOverride.PropertyTalentOverrideMethodByTalentId.TryGetValue(talents.Key, out Dictionary<string, Action<Talent>> valueOverrideMethods))
+                    {
+                        foreach (var propertyOverride in valueOverrideMethods)
+                        {
+                            // execute each property override
+                            propertyOverride.Value(talents.Value);
+                        }
+                    }
+                }
+            }
+
             // weapons
             if (hero.Weapons != null)
             {

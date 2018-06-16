@@ -16,6 +16,18 @@
         <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeUnleashModifyUnit,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
       </Override>
     </Ability>
+    <Talent id="AlarakHeroicAbilityDeadlyCharge">
+      <Override>
+        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeUnleashModifyUnit,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
+        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeUnleashModifyUnit,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
+      </Override>
+    </Talent>
+    <Talent id="AlarakDeadlyChargeItem">
+      <Override>
+        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeUnleashModifyUnit,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
+        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeUnleashModifyUnit,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
+      </Override>
+    </Talent>
   </CHero>
   <CHero id="Alexstrasza">
     <!--Dragonqueen abilities tied to Dragonqueen form ability-->
@@ -116,6 +128,12 @@
         <Tooltip.Energy.IsPerCost value="true" />
       </Override>
     </Ability>
+    <Talent id="ChromieHeroicAbilitySlowingSands">
+      <Override>
+        <Tooltip.Energy.EnergyCost>&lt;d ref="-Effect,ChromieSlowingSandsCost,VitalArray[Energy].Change/Effect,ChromieSlowingSandsCreatePersistent,PeriodicPeriodArray"/></Tooltip.Energy.EnergyCost>
+        <Tooltip.Energy.IsPerCost value="true" />
+      </Override>
+    </Talent>
   </CHero>
   <CHero id="Crusader" name="Johanna" alt="Johanna">
     <Portrait>
