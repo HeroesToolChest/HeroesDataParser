@@ -51,7 +51,7 @@ namespace HeroesData.Parser
                 if (hero.Franchise == HeroFranchise.Unknown)
                     AddWarning($"{nameof(hero.Franchise)} is Unknown");
 
-                if (hero.Roles[0] == HeroRole.Unknown)
+                if (hero.Roles.Contains(HeroRole.Unknown))
                     AddWarning($"{nameof(hero.Roles)} is Unknown");
 
                 if (hero.Abilities.Count < 1)

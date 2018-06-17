@@ -136,6 +136,7 @@ namespace HeroesData.Parser.UnitData
             hero.ReleaseDate = new DateTime(2014, 3, 13);
             hero.Gender = HeroGender.Male;
             hero.Type = UnitType.Ranged;
+            hero.Franchise = HeroFranchise.Unknown;
         }
 
         private void CHeroData(Hero hero)
@@ -237,8 +238,6 @@ namespace HeroesData.Parser.UnitData
                         hero.Franchise = HeroFranchise.Overwatch;
                     else if (iconImage == "UI_GLUES_STORE_GAMEICON_RETRO.DDS")
                         hero.Franchise = HeroFranchise.Classic;
-                    else
-                        hero.Franchise = HeroFranchise.Unknown;
                 }
                 else if (elementName == "UNIVERSE")
                 {
@@ -254,8 +253,6 @@ namespace HeroesData.Parser.UnitData
                         hero.Franchise = HeroFranchise.Overwatch;
                     else if (universe == "RETRO")
                         hero.Franchise = HeroFranchise.Classic;
-                    else
-                        hero.Franchise = HeroFranchise.Unknown;
                 }
                 else if (elementName == "RELEASEDATE")
                 {
