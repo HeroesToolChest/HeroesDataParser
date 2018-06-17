@@ -1,5 +1,5 @@
-﻿using HeroesData.FileWriter.Writer;
-using HeroesData.Parser.Models;
+﻿using Heroes.Models;
+using HeroesData.FileWriter.Writer;
 using System.Collections.Generic;
 
 namespace HeroesData.FileWriter

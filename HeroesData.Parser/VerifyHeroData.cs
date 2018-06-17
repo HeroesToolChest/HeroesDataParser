@@ -1,5 +1,5 @@
-﻿using HeroesData.Parser.Models;
-using HeroesData.Parser.Models.AbilityTalents;
+﻿using Heroes.Models;
+using Heroes.Models.AbilityTalents;
 using System.Collections.Generic;
 using System.IO;
 

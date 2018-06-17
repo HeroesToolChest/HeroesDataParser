@@ -1,7 +1,7 @@
-﻿using HeroesData.Parser.Exceptions;
+﻿using Heroes.Models;
+using Heroes.Models.AbilityTalents;
+using HeroesData.Parser.Exceptions;
 using HeroesData.Parser.GameStrings;
-using HeroesData.Parser.Models;
-using HeroesData.Parser.Models.AbilityTalents;
 using HeroesData.Parser.UnitData.Overrides;
 using HeroesData.Parser.XmlGameData;
 using System;

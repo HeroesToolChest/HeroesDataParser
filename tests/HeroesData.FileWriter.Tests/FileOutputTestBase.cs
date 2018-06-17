@@ -1,6 +1,6 @@
-﻿using HeroesData.Parser.Models;
-using HeroesData.Parser.Models.AbilityTalents;
-using HeroesData.Parser.Models.AbilityTalents.Tooltip;
+﻿using Heroes.Models;
+using Heroes.Models.AbilityTalents;
+using Heroes.Models.AbilityTalents.Tooltip;
 using System;
 using System.Collections.Generic;
 using System.IO;

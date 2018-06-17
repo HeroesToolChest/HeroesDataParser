@@ -1,5 +1,5 @@
 ﻿using CASCLib;
-using HeroesData.Parser.Models;
+using Heroes.Models;
 using ImageMagick;
 using System;
 using System.Collections.Generic;

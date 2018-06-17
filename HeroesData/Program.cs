@@ -1,7 +1,7 @@
-﻿using HeroesData.FileWriter;
+﻿using Heroes.Models;
+using HeroesData.FileWriter;
 using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
-using HeroesData.Parser.Models;
 using HeroesData.Parser.UnitData;
 using HeroesData.Parser.UnitData.Overrides;
 using HeroesData.Parser.XmlGameData;

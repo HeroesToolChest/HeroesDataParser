@@ -1,4 +1,4 @@
-﻿using HeroesData.Parser.Models.AbilityTalents;
+﻿using Heroes.Models.AbilityTalents;
 using HeroesData.Parser.XmlGameData;
 using System;
 using System.Collections.Generic;

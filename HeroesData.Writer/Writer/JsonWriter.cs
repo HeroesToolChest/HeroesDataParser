@@ -1,7 +1,7 @@
-﻿using HeroesData.FileWriter.Settings;
-using HeroesData.Parser.Models;
-using HeroesData.Parser.Models.AbilityTalents;
-using HeroesData.Parser.Models.AbilityTalents.Tooltip;
+﻿using Heroes.Models;
+using Heroes.Models.AbilityTalents;
+using Heroes.Models.AbilityTalents.Tooltip;
+using HeroesData.FileWriter.Settings;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
