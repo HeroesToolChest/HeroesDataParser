@@ -226,7 +226,7 @@ namespace HeroesData.Parser.UnitData
                 }
                 else if (elementName == "UNIVERSEICON")
                 {
-                    string iconImage = Path.GetFileName(element.Attribute("value").Value).ToUpper();
+                    string iconImage = Path.GetFileName(PathExtensions.GetFilePath(element.Attribute("value").Value)).ToUpper();
 
                     if (iconImage == "UI_GLUES_STORE_GAMEICON_SC2.DDS")
                         hero.Franchise = HeroFranchise.Starcraft;
@@ -551,7 +551,7 @@ namespace HeroesData.Parser.UnitData
             {
                 XElement buttonIconElement = cButtonElement.Element("Icon");
                 if (buttonIconElement != null)
-                    abilityTalentBase.IconFileName = Path.GetFileName(buttonIconElement.Attribute("value").Value);
+                    abilityTalentBase.IconFileName = Path.GetFileName(PathExtensions.GetFilePath(buttonIconElement.Attribute("value").Value));
             }
         }
 
@@ -651,14 +651,14 @@ namespace HeroesData.Parser.UnitData
                 XElement cButtonTooltipElement = cButtonElement.Element("Tooltip");
                 if (cButtonTooltipElement != null)
                 {
-                    fullTooltipValue = Path.GetFileName(cButtonTooltipElement.Attribute("value").Value);
+                    fullTooltipValue = Path.GetFileName(PathExtensions.GetFilePath(cButtonTooltipElement.Attribute("value").Value));
                 }
 
                 // short tooltip
                 XElement cButtonSimpleDisplayTextElement = cButtonElement.Element("SimpleDisplayText");
                 if (cButtonSimpleDisplayTextElement != null)
                 {
-                    shortTooltipValue = Path.GetFileName(cButtonSimpleDisplayTextElement.Attribute("value").Value);
+                    shortTooltipValue = Path.GetFileName(PathExtensions.GetFilePath(cButtonSimpleDisplayTextElement.Attribute("value").Value));
                 }
             }
 
