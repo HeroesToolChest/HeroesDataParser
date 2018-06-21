@@ -609,7 +609,7 @@ namespace HeroesData
                 List<string> nonTooltips = new List<string>(warnings.Where(x => !x.ToLower().Contains("tooltip")));
                 List<string> tooltips = new List<string>(warnings.Where(x => x.ToLower().Contains("tooltip")));
 
-                using (StreamWriter writer = new StreamWriter($"VerificationCheck_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.txt", false))
+                using (StreamWriter writer = new StreamWriter($"VerificationCheck.txt", false))
                 {
                     if (nonTooltips.Count > 0)
                         nonTooltips.ForEach((warning) => { writer.WriteLine(warning); });
