@@ -60,6 +60,7 @@ namespace HeroesData.Parser.UnitData
             CHeroData(hero);
             CUnitData(hero);
             SetHeroPortraits(hero);
+            SetUnitArmor(hero);
             AddSubHeroCUnits(hero);
 
             ApplyOverrides(hero, HeroOverride);
@@ -836,6 +837,50 @@ namespace HeroesData.Parser.UnitData
             }
         }
 
+        private void SetUnitArmor(Unit unit)
+        {
+            string name = unit.ShortName;
+            if (name.EndsWith("Form"))
+                name = name.Remove(name.LastIndexOf("Form"), 4);
+
+            XElement armorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == $"{name}Armor").FirstOrDefault();
+            XElement physicalArmorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == $"{name}PhysicalArmor").FirstOrDefault();
+            XElement spellArmorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == $"{name}SpellArmor").FirstOrDefault();
+
+            if (armorElement != null)
+            {
+                UnitArmorAddValue(armorElement, unit);
+            }
+
+            if (physicalArmorElement != null)
+            {
+                UnitArmorAddValue(physicalArmorElement, unit);
+            }
+
+            if (spellArmorElement != null)
+            {
+                UnitArmorAddValue(spellArmorElement, unit);
+            }
+        }
+
+        private void UnitArmorAddValue(XElement armorElement, Unit unit)
+        {
+            unit.Armor = unit.Armor ?? new UnitArmor();
+
+            XElement basicElement = armorElement.Element("ArmorSet").Elements("ArmorMitigationTable").Where(x => x.Attribute("index")?.Value == "Basic").FirstOrDefault();
+            XElement abilityElement = armorElement.Element("ArmorSet").Elements("ArmorMitigationTable").Where(x => x.Attribute("index")?.Value == "Ability").FirstOrDefault();
+
+            if (basicElement != null && int.TryParse(basicElement.Attribute("value").Value, out int armorValue))
+            {
+                unit.Armor.PhysicalArmor = armorValue;
+            }
+
+            if (abilityElement != null && int.TryParse(abilityElement.Attribute("value").Value, out armorValue))
+            {
+                unit.Armor.SpellArmor = armorValue;
+            }
+        }
+
         private void AddSubHeroCUnits(Hero hero)
         {
             foreach (string unit in HeroOverride.HeroUnits)
@@ -865,11 +910,13 @@ namespace HeroesData.Parser.UnitData
 
                     SetDefaultValues(heroUnit);
                     CUnitData(heroUnit);
-
-                    HeroOverride heroOverride = OverrideData.HeroOverride(unit);
-                    if (heroOverride != null)
-                        ApplyOverrides(heroUnit, heroOverride);
                 }
+
+                SetUnitArmor(heroUnit);
+
+                HeroOverride heroOverride = OverrideData.HeroOverride(unit);
+                if (heroOverride != null)
+                    ApplyOverrides(heroUnit, heroOverride);
 
                 hero.HeroUnits.Add(heroUnit);
             }

@@ -116,6 +116,10 @@ namespace HeroesData.FileWriter.Writer
             if (energy != null)
                 heroObject.Add(energy);
 
+            JProperty armor = UnitArmor(hero);
+            if (armor != null)
+                heroObject.Add(armor);
+
             if (hero.Roles?.Count > 0)
                 heroObject.Add(new JProperty("roles", new JArray(from r in hero.Roles select new JValue(r.ToString()))));
 
@@ -172,6 +176,10 @@ namespace HeroesData.FileWriter.Writer
             if (life != null)
                 heroObject.Add(life);
 
+            JProperty armor = UnitArmor(unit);
+            if (armor != null)
+                heroObject.Add(armor);
+
             JProperty energy = UnitEnergy(unit);
             if (energy != null)
                 heroObject.Add(energy);
@@ -185,6 +193,15 @@ namespace HeroesData.FileWriter.Writer
                 heroObject.Add(abilities);
 
             return new JProperty(unit.ShortName, heroObject);
+        }
+
+        protected override JProperty GetArmorObject(Unit unit)
+        {
+            return new JProperty(
+                "armor",
+                new JObject(
+                    new JProperty("Physical", unit.Armor.PhysicalArmor),
+                    new JProperty("Spell", unit.Armor.SpellArmor)));
         }
 
         protected override JProperty GetLifeObject(Unit unit)

@@ -24,6 +24,10 @@
       "type": "Mana",
       "energyRegenRate": 3.0
     },
+    "armor": {
+      "Physical": 10,
+      "Spell": 5
+    },
     "roles": [
       "Assassin",
       "Warrior"

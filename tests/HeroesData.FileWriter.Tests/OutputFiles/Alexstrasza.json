@@ -83,6 +83,10 @@
             "lifeRegenRate": 3.7226,
             "regenScale": 0.04
           },
+          "armor": {
+            "Physical": 5,
+            "Spell": 30
+          },
           "abilities": {
             "basic": [
               {

@@ -54,6 +54,7 @@ namespace HeroesData.FileWriter.Writer
         protected abstract T HeroElement(Hero hero);
         protected abstract T UnitElement(Unit unit);
         protected abstract T GetPortraitObject(Hero hero);
+        protected abstract T GetArmorObject(Unit unit);
         protected abstract T GetLifeObject(Unit unit);
         protected abstract T GetEnergyObject(Unit unit);
         protected abstract T GetRatingsObject(Hero hero);
@@ -79,6 +80,16 @@ namespace HeroesData.FileWriter.Writer
                 !string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName)) && hero.HeroPortrait != null)
             {
                 return GetPortraitObject(hero);
+            }
+
+            return null;
+        }
+
+        protected T UnitArmor(Unit unit)
+        {
+            if (unit.Armor != null)
+            {
+                return GetArmorObject(unit);
             }
 
             return null;

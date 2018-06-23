@@ -31,6 +31,10 @@
       "type": "Mana",
       "energyRegenRate": 3.0
     },
+    "armor": {
+      "Physical": 10,
+      "Spell": 5
+    },
     "roles": [
       "Assassin",
       "Warrior"
@@ -291,6 +295,10 @@
             "lifeScale": 0.04,
             "lifeRegenRate": 3.7226,
             "regenScale": 0.04
+          },
+          "armor": {
+            "Physical": 5,
+            "Spell": 30
           },
           "abilities": {
             "basic": [

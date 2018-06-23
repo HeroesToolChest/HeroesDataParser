@@ -17,6 +17,10 @@
       <EnergyAmount type="Mana">500</EnergyAmount>
       <EnergyRegenRate>3</EnergyRegenRate>
     </Energy>
+    <Armor>
+      <Physical>10</Physical>
+      <Spell>5</Spell>
+    </Armor>
     <Roles>
       <Role>Assassin</Role>
       <Role>Warrior</Role>

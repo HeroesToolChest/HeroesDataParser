@@ -17,6 +17,10 @@
       <EnergyAmount type="Mana">500</EnergyAmount>
       <EnergyRegenRate>3</EnergyRegenRate>
     </Energy>
+    <Armor>
+      <Physical>10</Physical>
+      <Spell>5</Spell>
+    </Armor>
     <Roles>
       <Role>Assassin</Role>
       <Role>Warrior</Role>
@@ -163,6 +167,10 @@
             <LifeAmount scale="0.04">1787</LifeAmount>
             <LifeRegenRate scale="0.04">3.7226</LifeRegenRate>
           </Life>
+          <Armor>
+            <Physical>5</Physical>
+            <Spell>30</Spell>
+          </Armor>
           <Abilities>
             <Basic>
               <AlexstraszaBreathOfLife name="Breath of Life" shortTooltipId="AlexstraszaBreathOfLife" fullTooltipId="AlexstraszaBreathOfLife">

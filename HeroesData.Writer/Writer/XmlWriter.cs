@@ -79,6 +79,7 @@ namespace HeroesData.FileWriter.Writer
                 HeroPortraits(hero),
                 UnitLife(hero),
                 UnitEnergy(hero),
+                UnitArmor(hero),
                 hero.Roles?.Count > 0 ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
                 HeroRatings(hero),
                 UnitWeapons(hero),
@@ -101,9 +102,18 @@ namespace HeroesData.FileWriter.Writer
                 unit.Type.HasValue ? new XAttribute("type", unit.Type.Value) : null,
                 string.IsNullOrEmpty(unit.Description?.RawDescription) ? null : new XElement("Description", GetTooltip(unit.Description, FileSettings.Description)),
                 UnitLife(unit),
+                UnitArmor(unit),
                 UnitEnergy(unit),
                 UnitWeapons(unit),
                 UnitAbilities(unit, true));
+        }
+
+        protected override XElement GetArmorObject(Unit unit)
+        {
+            return new XElement(
+                "Armor",
+                new XElement("Physical", unit.Armor.PhysicalArmor),
+                new XElement("Spell", unit.Armor.SpellArmor));
         }
 
         protected override XElement GetLifeObject(Unit unit)

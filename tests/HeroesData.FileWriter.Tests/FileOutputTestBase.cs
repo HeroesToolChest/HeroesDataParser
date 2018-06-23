@@ -118,6 +118,11 @@ namespace HeroesData.FileWriter.Tests
                     PartyPanelPortraitFileName = "storm_ui_ingame_partypanel_btn_alarak.png",
                     TargetPortraitFileName = "ui_targetportrait_hero_alarak.png",
                 },
+                Armor = new UnitArmor()
+                {
+                    PhysicalArmor = 10,
+                    SpellArmor = 5,
+                },
                 Life = new UnitLife
                 {
                     LifeMax = 1900,
@@ -478,10 +483,15 @@ namespace HeroesData.FileWriter.Tests
                         Speed = 4.3984,
                         Life = new UnitLife
                         {
-                                LifeMax = 1787,
-                                LifeScaling = 0.04,
-                                LifeRegenerationRate = 3.7226,
-                                LifeRegenerationRateScaling = 0.04,
+                            LifeMax = 1787,
+                            LifeScaling = 0.04,
+                            LifeRegenerationRate = 3.7226,
+                            LifeRegenerationRateScaling = 0.04,
+                        },
+                        Armor = new UnitArmor
+                        {
+                            PhysicalArmor = 5,
+                            SpellArmor = 30,
                         },
                         Abilities = new Dictionary<string, Ability>
                         {

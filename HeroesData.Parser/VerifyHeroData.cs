@@ -72,6 +72,9 @@ namespace HeroesData.Parser
                 if (hero.Energy.EnergyMax > 0 && hero.Energy.EnergyType == UnitEnergyType.None)
                     AddWarning($"{nameof(hero.Energy)} > 0 and {nameof(hero.Energy.EnergyType)} is NONE");
 
+                if (hero.Armor != null && hero.Armor.PhysicalArmor < 1 && hero.Armor.SpellArmor < 1)
+                    AddWarning($"{nameof(hero.Armor.PhysicalArmor)} and {nameof(hero.Armor.SpellArmor)} are both 0");
+
                 if (hero.Sight <= 0)
                     AddWarning($"{nameof(hero.Sight)} is 0");
 
