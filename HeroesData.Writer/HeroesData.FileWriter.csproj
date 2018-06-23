@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <Version>0.5.0</Version>
+    <Copyright>Copyright © 2018 Kevin Oliva</Copyright>
+    <Authors>Kevin Oliva</Authors>
   </PropertyGroup>
 
   <ItemGroup>
