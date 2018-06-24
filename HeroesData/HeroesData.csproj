@@ -10,13 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.4.6" />
     <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta008" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CASCExplorer\CascLibCore\CascLibCore.csproj" />
+    <ProjectReference Include="..\dds-reader\DDSReader\DDSReader.csproj" />
     <ProjectReference Include="..\Heroes.Models\Heroes.Models\Heroes.Models.csproj" />
     <ProjectReference Include="..\HeroesData.Parser\HeroesData.Parser.csproj" />
     <ProjectReference Include="..\HeroesData.Writer\HeroesData.FileWriter.csproj" />
