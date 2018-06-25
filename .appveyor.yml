@@ -1,5 +1,4 @@
 image: Visual Studio 2017
-platform: Any CPU
 install:
 - cmd: git submodule update --init --recursive
 build_script:
@@ -29,3 +28,4 @@ deploy:
   on:
     branch: master
     appveyor_repo_tag: true
+    
