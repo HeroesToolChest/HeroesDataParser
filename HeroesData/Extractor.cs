@@ -54,12 +54,12 @@ namespace HeroesData
                 else
                 {
                     Console.WriteLine($"CASC file not found: {fileName}");
-                    Console.WriteLine($"--> {ex.Message}");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error extracting file: {fileName}");
+                Console.WriteLine($"--> {ex.Message}");
             }
         }
 
