@@ -54,6 +54,7 @@ namespace HeroesData
                 else
                 {
                     Console.WriteLine($"CASC file not found: {fileName}");
+                    Console.WriteLine($"--> {ex.Message}");
                 }
             }
             catch (Exception)
