@@ -5,6 +5,8 @@ dotnet: 2.1.300
 os:
   - linux
   - osx
+before_install:
+  - sudo apt-get install -y libgdiplus
 script:
   - dotnet build --configuration Debug
   - dotnet build --configuration Release
