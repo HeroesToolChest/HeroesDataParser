@@ -6,9 +6,18 @@ configuration:
 platform: Any CPU
 install:
 - cmd: git submodule update --init --recursive
-before_build:
-- cmd: dotnet build
-build:
-  project: HeroesDataParser.sln
-  parallel: true
-  verbosity: minimal
+build_script:
+- pwsh: >-
+    dotnet build --configuration Debug
+    
+    dotnet build --configuration Release
+    
+    dotnet test
+    
+    dotnet publish -c release -o .\bin\publish\all\
+    
+    Remove-Item *.pdb
+artifacts:
+- path: bin\publish\all
+  name: HeroesDataParser-FDD-All
+  type: zip
