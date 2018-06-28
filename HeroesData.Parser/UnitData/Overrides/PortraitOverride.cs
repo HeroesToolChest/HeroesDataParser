@@ -19,6 +19,9 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<HeroPortrait>> propertyOverrides)
         {
+            if (string.IsNullOrEmpty(propertyValue))
+                return;
+
             propertyOverrides.Add(propertyName, (portrait) =>
             {
                 portrait.GetType().GetProperty(propertyName).SetValue(portrait, propertyValue);

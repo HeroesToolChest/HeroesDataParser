@@ -15,23 +15,31 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         private Dictionary<string, HeroOverride> HeroOverridesByCHeroId = new Dictionary<string, HeroOverride>();
 
-        private OverrideData(GameData gameData)
+        private OverrideData(GameData gameData, string heroDataOverrideFile)
         {
             GameData = gameData;
+
+            if (!string.IsNullOrEmpty(heroDataOverrideFile))
+                HeroDataOverrideXmlFile = heroDataOverrideFile;
+
             Initialize();
         }
 
-        private OverrideData(GameData gameData, int? hotsBuild)
+        private OverrideData(GameData gameData, int? hotsBuild, string heroDataOverrideFile)
         {
             GameData = gameData;
             HotsBuild = hotsBuild;
+
+            if (!string.IsNullOrEmpty(heroDataOverrideFile))
+                HeroDataOverrideXmlFile = heroDataOverrideFile;
+
             Initialize();
         }
 
         /// <summary>
         /// Gets the file name of the Override file.
         /// </summary>
-        public string HeroDataOverrideXmlFile { get; private set; } = @"HeroOverrides.xml";
+        public string HeroDataOverrideXmlFile { get; private set; } = "HeroOverrides.xml";
 
         /// <summary>
         /// Loads the override data.
@@ -40,7 +48,18 @@ namespace HeroesData.Parser.UnitData.Overrides
         /// <returns></returns>
         public static OverrideData Load(GameData gameData)
         {
-            return new OverrideData(gameData);
+            return new OverrideData(gameData, null);
+        }
+
+        /// <summary>
+        /// Loads the override data.
+        /// </summary>
+        /// <param name="gameData">GameData.</param>
+        /// <param name="heroDataOverrideFile">The file name of the overrides file.</param>
+        /// <returns></returns>
+        public static OverrideData Load(GameData gameData, string heroDataOverrideFile)
+        {
+            return new OverrideData(gameData, heroDataOverrideFile);
         }
 
         /// <summary>
@@ -51,7 +70,19 @@ namespace HeroesData.Parser.UnitData.Overrides
         /// <returns></returns>
         public static OverrideData Load(GameData gameData, int? hotsBuild)
         {
-            return new OverrideData(gameData, hotsBuild);
+            return new OverrideData(gameData, hotsBuild, null);
+        }
+
+        /// <summary>
+        /// Loads the override data.
+        /// </summary>
+        /// <param name="gameData">GameData.</param>
+        /// <param name="hotsBuild">The override build version to load.</param>
+        /// <param name="heroDataOverrideFile">The file name of the overrides file.</param>
+        /// <returns></returns>
+        public static OverrideData Load(GameData gameData, int? hotsBuild, string heroDataOverrideFile)
+        {
+            return new OverrideData(gameData, hotsBuild, heroDataOverrideFile);
         }
 
         /// <summary>
@@ -119,31 +150,42 @@ namespace HeroesData.Parser.UnitData.Overrides
             foreach (var dataElement in heroElement.Elements())
             {
                 string elementName = dataElement.Name.LocalName;
-
+                string valueAttribute = dataElement.Attribute("value")?.Value;
                 switch (elementName)
                 {
                     case "Name":
-                        heroOverride.NameOverride = (true, dataElement.Attribute("value").Value);
+                        if (!string.IsNullOrEmpty(valueAttribute))
+                            heroOverride.NameOverride = (true, valueAttribute);
                         break;
                     case "ShortName":
-                        heroOverride.ShortNameOverride = (true, dataElement.Attribute("value").Value);
+                        if (!string.IsNullOrEmpty(valueAttribute))
+                            heroOverride.ShortNameOverride = (true, valueAttribute);
                         break;
                     case "CUnit":
-                        heroOverride.CUnitOverride = (true, dataElement.Attribute("value").Value);
+                        if (!string.IsNullOrEmpty(valueAttribute))
+                            heroOverride.CUnitOverride = (true, valueAttribute);
                         break;
                     case "EnergyType":
-                        string energyType = dataElement.Attribute("value").Value;
+                        string energyType = valueAttribute;
                         if (Enum.TryParse(energyType, out UnitEnergyType heroEnergyType))
                             heroOverride.EnergyTypeOverride = (true, heroEnergyType);
                         else
                             heroOverride.EnergyTypeOverride = (true, UnitEnergyType.None);
                         break;
                     case "Energy":
-                        string energyValue = dataElement.Attribute("value").Value;
+                        string energyValue = valueAttribute;
                         if (int.TryParse(energyValue, out int value))
+                        {
+                            if (value < 0)
+                                value = 0;
+
                             heroOverride.EnergyOverride = (true, value);
+                        }
                         else
+                        {
                             heroOverride.EnergyOverride = (true, 0);
+                        }
+
                         break;
                     case "Ability":
                         string abilityId = dataElement.Attribute("id")?.Value;
@@ -222,7 +264,7 @@ namespace HeroesData.Parser.UnitData.Overrides
                         AddHeroUnits(heroUnitId, dataElement, heroOverride);
                         break;
                     case "ParentLink":
-                        heroOverride.ParentLinkOverride = (true, dataElement.Attribute("value").Value);
+                        heroOverride.ParentLinkOverride = (true, dataElement.Attribute("value")?.Value);
                         break;
                     case "Portrait":
                         overrideElement = dataElement.Elements("Override").FirstOrDefault();

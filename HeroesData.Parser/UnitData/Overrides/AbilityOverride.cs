@@ -19,6 +19,9 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<Ability>> propertyOverrides)
         {
+            if (string.IsNullOrEmpty(propertyValue))
+                return;
+
             if (propertyName == nameof(Ability.ParentLink))
             {
                 propertyOverrides.Add(propertyName, (ability) =>
@@ -36,7 +39,7 @@ namespace HeroesData.Parser.UnitData.Overrides
                         ability.Tier = AbilityTier.Basic;
                 });
             }
-            else if (propertyName == "Custom")
+            else if (propertyName == "Tooltip.Custom")
             {
                 propertyOverrides.Add(propertyName, (ability) =>
                 {

@@ -376,7 +376,7 @@
     <!--Stealth abilities-->
     <Ability id="ValeeraEviscerate">
       <Override>
-        <Custom value="Consumes All Combo Points"></Custom>
+        <Tooltip.Custom value="Consumes All Combo Points" />
       </Override>
     </Ability>
     <Ability id="ValeeraAmbush" valid="true">

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<HeroOverrides> 
+  <!--Successful values-->
+  <CHero id="Abathur">
+    <Name value="Acceptable" />
+    <ShortName value="Funzo" />
+    <CUnit value="HeroAbathur" />
+    <EnergyType value="Charge" />
+    <Energy value="100" />
+  
+    <!--Ability overrides test-->
+    <Ability id="SpikeAbilityThingy">
+      <Override>
+        <ParentLink value="Symbiote" />
+        <AbilityTier value="Activable" />
+        <Tooltip.Custom value="W.I.R.E.D is wireless?" />
+        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,ToxicNestDamage,Amount"/></Tooltip.Energy.EnergyCost>
+        <Tooltip.Energy.IsPerCost value="true" />
+        <Tooltip.Cooldown.CooldownValue>&lt;d ref="Effect,ToxicNestDamage,Amount-150"/></Tooltip.Cooldown.CooldownValue>
+        <Tooltip.Life.LifeCost>&lt;d ref="Effect,ToxicNestDamage,Amount-3"/></Tooltip.Life.LifeCost>
+        <Tooltip.Life.IsLifePercentage>false</Tooltip.Life.IsLifePercentage>
+      </Override>
+    </Ability>
+  </CHero>
+  
+  <!--Bad/Incorrect/Empty values-->
+  <CHero id="Alarak">
+    <Name value="" />
+    <ShortName value="" />
+    <CUnit />
+    <EnergyType value="Ammo" />
+    <Energy value="Ten" />
+  
+    <!--Ability overrides test-->
+    <Ability id="ZapiptyZap">
+      <Override>
+        <ParentLink />
+        <AbilityTier value="GodLike" />
+        <Tooltip.Custom value="" />
+        <Tooltip.Energy.IsPerCost value="1" /> <!--0, 1, -1, or any number is false-->
+        <Tooltip.Life.IsLifePercentage>88</Tooltip.Life.IsLifePercentage>
+      </Override>
+    </Ability>
+  </CHero>
+  
+  <!--Mostly no elements or incorrect/bad values-->
+  <CHero id="Alexstrasza">
+    <EnergyType value="CrazyPills" />
+    <Energy value="-666" />
+
+    <!--Ability overrides test-->
+    <Ability id="PuffPuff">
+      <Override>
+      </Override>
+    </Ability>
+  </CHero>
+</HeroOverrides>
