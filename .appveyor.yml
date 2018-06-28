@@ -1,31 +1,51 @@
-image: Visual Studio 2017
-install:
-- cmd: git submodule update --init --recursive
+image:
+- Visual Studio 2017
+- Ubuntu
+environment:
+  matrix:
+    - configuration: Debug
+    - configuration: Release
 build_script:
-- pwsh: >-
-    dotnet build --configuration Debug
-    
-    dotnet build --configuration Release
-    
-    dotnet test
-    
-    dotnet publish -c release -o .\bin\publish\all\
-    
-    Remove-Item .\HeroesData\bin\publish\all\*.pdb
-artifacts:
-- path: '.\HeroesData\bin\publish\all'
-  name: HeroesDataParser-FDD-All
-  type: zip
-deploy:
-  release: Heroes Data Parser
-  description: '## What''s New\n## Fixes\n## Other\n## Builds'
-  provider: GitHub
-  auth_token:
-    secure: qr/xMva47Xz8Ea9FcoYTUEFG72wxhgFTINZW8emNDlkWmopOH1ZK9BD3k+8LMsdU
-  artifact: HeroesData\bin\publish\HeroesDataParser-FDD-All.zip
-  draft: true
-  prerelease: false
-  on:
-    branch: master
-    appveyor_repo_tag: true
-    
+- pwsh: |
+    git submodule update --init --recursive
+    dotnet build -c Debug
+    dotnet test -c Debug
+for:
+-
+  matrix:
+    only:
+      - image: Visual Studio 2017  
+        configuration: Release
+  build_script:
+    - pwsh: |
+        git submodule update --init --recursive
+        dotnet build -c Release
+        dotnet test -c Release
+        dotnet publish -c release -o .\bin\publish\all\     
+        Remove-Item .\HeroesData\bin\publish\all\*.pdb
+  artifacts:
+    - path: '.\HeroesData\bin\publish\all'
+      name: HeroesDataParser-FDD-All
+      type: zip
+  deploy:
+    release: Heroes Data Parser
+    description: '## What''s New\n## Fixes\n## Other\n## Builds'
+    provider: GitHub
+    auth_token:
+      secure: qr/xMva47Xz8Ea9FcoYTUEFG72wxhgFTINZW8emNDlkWmopOH1ZK9BD3k+8LMsdU
+    artifact: HeroesData\bin\publish\HeroesDataParser-FDD-All.zip
+    draft: true
+    prerelease: false
+    on:
+      branch: master
+      appveyor_repo_tag: true  
+-
+  matrix:
+    only:
+      - image: Ubuntu
+        configuration: Release
+  build_script:
+    - pwsh: |
+        git submodule update --init --recursive
+        dotnet build -c Release
+        dotnet test -c Release
