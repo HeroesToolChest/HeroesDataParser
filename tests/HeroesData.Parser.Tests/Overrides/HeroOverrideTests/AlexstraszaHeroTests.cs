@@ -4,7 +4,7 @@ using Xunit;
 
 namespace HeroesData.Parser.Tests.Overrides.HeroOverrideTest
 {
-    public class AlexstraszaHeroTests : OverrideBase, IHeroOverride
+    public class AlexstraszaHeroTests : OverrideBaseTests, IHeroOverride
     {
         private readonly string Hero = "Alexstrasza";
 
@@ -45,6 +45,53 @@ namespace HeroesData.Parser.Tests.Overrides.HeroOverrideTest
         public void ShortNameOverrideTest()
         {
             Assert.False(HeroOverride.ShortNameOverride.Enabled);
+        }
+
+        [Fact]
+        public void IsNotValidAbilityTest()
+        {
+            Assert.True(HeroOverride.IsValidAbilityByAbilityId.ContainsKey("AVeryLargeSword"));
+            Assert.False(HeroOverride.IsValidAbilityByAbilityId["AVeryLargeSword"]);
+        }
+
+        [Fact]
+        public void IsNotAddedAbilityTest()
+        {
+            Assert.True(HeroOverride.AddedAbilitiesByAbilityId.ContainsKey("FireBreath"));
+            Assert.False(HeroOverride.AddedAbilitiesByAbilityId["FireBreath"].Add);
+        }
+
+        [Fact]
+        public void IsNotValidWeaponTest()
+        {
+            Assert.True(HeroOverride.IsValidWeaponByWeaponId.ContainsKey("Ffffwwwwaaa-2.0"));
+            Assert.False(HeroOverride.IsValidWeaponByWeaponId["Ffffwwwwaaa-2.0"]);
+        }
+
+        [Fact]
+        public void LinkedAbilitiesTest()
+        {
+            Assert.Empty(HeroOverride.LinkedElementNamesByAbilityId);
+        }
+
+        [Fact]
+        public void IsValidAbilityTest()
+        {
+            Assert.True(HeroOverride.IsValidAbilityByAbilityId.ContainsKey("AVeryLargeSword"));
+            Assert.False(HeroOverride.IsValidAbilityByAbilityId["AVeryLargeSword"]);
+        }
+
+        [Fact]
+        public void IsAddedAbilityTest()
+        {
+            Assert.True(HeroOverride.AddedAbilitiesByAbilityId.ContainsKey("FireBreath"));
+            Assert.False(HeroOverride.AddedAbilitiesByAbilityId["FireBreath"].Add);
+        }
+
+        [Fact]
+        public void IsValidWeaponTest()
+        {
+            Assert.False(HeroOverride.IsValidWeaponByWeaponId.ContainsKey("Ffffwwwwaaa"));
         }
     }
 }

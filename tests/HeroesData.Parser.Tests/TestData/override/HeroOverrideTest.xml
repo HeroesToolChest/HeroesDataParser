@@ -8,8 +8,7 @@
     <EnergyType value="Charge" />
     <Energy value="100" />
   
-    <!--Ability overrides test-->
-    <Ability id="SpikeAbilityThingy">
+    <Ability id="SpikeAbilityThingy" valid="true">
       <Override>
         <ParentLink value="Symbiote" />
         <AbilityTier value="Activable" />
@@ -21,6 +20,39 @@
         <Tooltip.Life.IsLifePercentage>false</Tooltip.Life.IsLifePercentage>
       </Override>
     </Ability>
+    
+    <Ability id="MindControl" add="true" button="MindControlButton" />
+    
+    <Talent id="UpgradeSpikeAbilityThingy">
+      <Override>
+        <Tooltip.Custom value="Zip Zap" />
+        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,ToxicNestDamage,Amount"/></Tooltip.Energy.EnergyCost>
+        <Tooltip.Energy.IsPerCost value="true" />
+        <Tooltip.Cooldown.CooldownValue>&lt;d ref="Effect,ToxicNestDamage,Amount-150"/></Tooltip.Cooldown.CooldownValue>
+        <Tooltip.Life.LifeCost>&lt;d ref="Effect,ToxicNestDamage,Amount-3"/></Tooltip.Life.LifeCost>
+        <Tooltip.Life.IsLifePercentage>true</Tooltip.Life.IsLifePercentage>
+      </Override>
+    </Talent>
+  
+    <Weapon id="SlapSlap" valid="true">
+      <Override>
+        <Range value="1.5" />
+        <Damage value="1000" />
+      </Override>
+    </Weapon>
+
+    <Portrait>
+      <Override>
+        <HeroSelectPortraitFileName value="storm_ui_ingame_heroselect_btn_infestor.dds" />
+        <LeaderboardPortraitFileName value="storm_ui_ingame_hero_leaderboard_femalebarbarian.dds" />
+        <LoadingScreenPortraitFileName value="someImage.dds" />
+      </Override>
+    </Portrait>
+
+    <LinkedAbilities>
+      <Ability id="AbathurBigAbaSlapSwing" element="CAbilEffectTarget" />
+      <Ability id="AbathurBigAbaMeteorLocust" element="CAbilEffectTarget" />
+    </LinkedAbilities>
   </CHero>
   
   <!--Bad/Incorrect/Empty values-->
@@ -31,16 +63,44 @@
     <EnergyType value="Ammo" />
     <Energy value="Ten" />
   
-    <!--Ability overrides test-->
     <Ability id="ZapiptyZap">
       <Override>
         <ParentLink />
         <AbilityTier value="GodLike" />
         <Tooltip.Custom value="" />
-        <Tooltip.Energy.IsPerCost value="1" /> <!--0, 1, -1, or any number is false-->
+        <!--0, 1, -1, or any number is false-->
+        <Tooltip.Energy.IsPerCost value="1" />
         <Tooltip.Life.IsLifePercentage>88</Tooltip.Life.IsLifePercentage>
       </Override>
     </Ability>
+
+    <Talent id="UpgradeZapiptyZap">
+      <Override>
+        <Tooltip.Custom value="" />
+        <!--0, 1, -1, or any number is false-->
+        <Tooltip.Energy.IsPerCost value="1" />
+        <Tooltip.Life.IsLifePercentage>88</Tooltip.Life.IsLifePercentage>
+      </Override>
+    </Talent>
+
+    <Weapon id="Slashy">
+      <Override>
+        <Range value="2" />
+        <Damage value="" />
+      </Override>
+    </Weapon>
+
+    <Portrait>
+      <Override>
+        <HeroSelectPortraitFileName value="" />
+        <LoadingScreenPortraitFileName value="someOtherImage" />
+      </Override>
+    </Portrait>
+
+    <LinkedAbilities>
+      <Ability element="CAbilEffectTarget" />
+      <Ability id="AbathurBigAbaMeteorLocust" />
+    </LinkedAbilities>
   </CHero>
   
   <!--Mostly no elements or incorrect/bad values-->
@@ -48,10 +108,59 @@
     <EnergyType value="CrazyPills" />
     <Energy value="-666" />
 
-    <!--Ability overrides test-->
     <Ability id="PuffPuff">
       <Override>
       </Override>
     </Ability>
+
+    <!--no id, should be ignored-->
+    <Ability id="">
+      <Override>
+      </Override>
+    </Ability>
+
+    <Ability id="AVeryLargeSword" valid="false">
+      <Override>
+      </Override>
+    </Ability>
+
+    <Ability id="FireBreath" add="false" />
+    
+    <Talent id="UpgradePuffPuff">
+      <Override>
+      </Override>
+    </Talent>
+
+    <!--no id, should be ignored-->
+    <Talent id="">
+      <Override>
+      </Override>
+    </Talent>
+    
+    <Weapon id="Ffffwwwwaaa">
+      <Override>
+      </Override>
+    </Weapon>
+
+    <!--no id, should be ignored-->
+    <Weapon id="">
+      <Override>
+      </Override>
+    </Weapon>
+
+    <Weapon id="Ffffwwwwaaa-2.0" valid="false">
+      <Override>
+      </Override>
+    </Weapon>
+    
+    <Portrait>
+      <Override>
+      </Override>
+    </Portrait>
+
+    <LinkedAbilities>
+      <Ability id="" element="" />
+      <Ability id="" element="" />
+    </LinkedAbilities>
   </CHero>
 </HeroOverrides>

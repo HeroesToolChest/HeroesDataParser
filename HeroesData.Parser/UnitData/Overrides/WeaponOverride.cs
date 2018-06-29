@@ -26,7 +26,7 @@ namespace HeroesData.Parser.UnitData.Overrides
             {
                 propertyOverrides.Add(propertyName, (weapon) =>
                 {
-                    weapon.Range = double.Parse(propertyValue);
+                    weapon.Range = GetValue(propertyValue);
                 });
             }
             else if (propertyName == nameof(UnitWeapon.Damage))

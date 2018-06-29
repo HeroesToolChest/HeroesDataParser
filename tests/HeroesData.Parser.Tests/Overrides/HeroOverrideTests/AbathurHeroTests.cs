@@ -4,7 +4,7 @@ using Xunit;
 
 namespace HeroesData.Parser.Tests.Overrides.HeroOverrideTest
 {
-    public class AbathurHeroTests : OverrideBase, IHeroOverride
+    public class AbathurHeroTests : OverrideBaseTests, IHeroOverride
     {
         private readonly string Hero = "Abathur";
 
@@ -48,6 +48,38 @@ namespace HeroesData.Parser.Tests.Overrides.HeroOverrideTest
         {
             Assert.True(HeroOverride.ShortNameOverride.Enabled);
             Assert.Equal("Funzo", HeroOverride.ShortNameOverride.ShortName);
+        }
+
+        [Fact]
+        public void IsValidAbilityTest()
+        {
+            Assert.True(HeroOverride.IsValidAbilityByAbilityId.ContainsKey("SpikeAbilityThingy"));
+            Assert.True(HeroOverride.IsValidAbilityByAbilityId["SpikeAbilityThingy"]);
+        }
+
+        [Fact]
+        public void IsAddedAbilityTest()
+        {
+            Assert.True(HeroOverride.AddedAbilitiesByAbilityId.ContainsKey("MindControl"));
+            Assert.True(HeroOverride.AddedAbilitiesByAbilityId["MindControl"].Add);
+            Assert.Equal("MindControlButton", HeroOverride.AddedAbilitiesByAbilityId["MindControl"].Button);
+        }
+
+        [Fact]
+        public void IsValidWeaponTest()
+        {
+            Assert.True(HeroOverride.IsValidWeaponByWeaponId.ContainsKey("SlapSlap"));
+            Assert.True(HeroOverride.IsValidWeaponByWeaponId["SlapSlap"]);
+        }
+
+        [Fact]
+        public void LinkedAbilitiesTest()
+        {
+            Assert.True(HeroOverride.LinkedElementNamesByAbilityId.ContainsKey("AbathurBigAbaSlapSwing"));
+            Assert.Equal("CAbilEffectTarget", HeroOverride.LinkedElementNamesByAbilityId["AbathurBigAbaSlapSwing"]);
+
+            Assert.True(HeroOverride.LinkedElementNamesByAbilityId.ContainsKey("AbathurBigAbaMeteorLocust"));
+            Assert.Equal("CAbilEffectTarget", HeroOverride.LinkedElementNamesByAbilityId["AbathurBigAbaMeteorLocust"]);
         }
     }
 }

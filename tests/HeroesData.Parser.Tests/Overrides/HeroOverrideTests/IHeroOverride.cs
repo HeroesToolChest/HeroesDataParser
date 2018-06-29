@@ -7,5 +7,9 @@
         void CUnitOverrideTest();
         void EnergyTypeOverrideTest();
         void EnergyOverrideTest();
+        void IsValidAbilityTest();
+        void IsAddedAbilityTest();
+        void IsValidWeaponTest();
+        void LinkedAbilitiesTest();
     }
 }

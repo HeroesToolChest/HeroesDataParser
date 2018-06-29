@@ -3,7 +3,7 @@ using Xunit;
 
 namespace HeroesData.Parser.Tests.Overrides.AbilityOverrideTests
 {
-    public class AlexstraszaAbilityTests : OverrideBase, IAbilityOverride
+    public class AlexstraszaAbilityTests : OverrideBaseTests, IAbilityOverride
     {
         private readonly string Hero = "Alexstrasza";
 
@@ -56,7 +56,7 @@ namespace HeroesData.Parser.Tests.Overrides.AbilityOverrideTests
         [Fact]
         public void TooltipLifeCostOverrideTest()
         {
-            Assert.Null(TestAbility.Tooltip.Life.LifeCost);
+            Assert.Equal(10, TestAbility.Tooltip.Life.LifeCost);
         }
 
         [Fact]

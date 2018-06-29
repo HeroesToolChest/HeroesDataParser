@@ -56,17 +56,24 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         protected double GetValue(string textValue)
         {
-            try
+            if (double.TryParse(textValue, out double doubleValue))
             {
-                double? value = GameStringParser.ParseDRefString(textValue);
-                if (value.HasValue)
-                    return value.Value;
-                else
-                    throw new NullReferenceException($"Invalid dref text: {textValue}");
+                return doubleValue;
             }
-            catch (Exception)
+            else
             {
-                throw new Exception("Invalid value");
+                try
+                {
+                    double? value = GameStringParser.ParseDRefString(textValue);
+                    if (value.HasValue)
+                        return value.Value;
+                    else
+                        throw new NullReferenceException($"Invalid dref text: {textValue}");
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Invalid value");
+                }
             }
         }
     }

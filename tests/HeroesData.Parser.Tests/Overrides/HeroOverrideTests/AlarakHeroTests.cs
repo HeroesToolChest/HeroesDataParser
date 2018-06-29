@@ -4,7 +4,7 @@ using Xunit;
 
 namespace HeroesData.Parser.Tests.Overrides.HeroOverrideTest
 {
-    public class AlarakHeroTests : OverrideBase, IHeroOverride
+    public class AlarakHeroTests : OverrideBaseTests, IHeroOverride
     {
         private readonly string Hero = "Alarak";
 
@@ -36,9 +36,36 @@ namespace HeroesData.Parser.Tests.Overrides.HeroOverrideTest
         }
 
         [Fact]
+        public void IsAddedAbilityTest()
+        {
+            Assert.Empty(HeroOverride.AddedAbilitiesByAbilityId);
+        }
+
+        [Fact]
+        public void IsValidAbilityTest()
+        {
+            Assert.Empty(HeroOverride.IsValidAbilityByAbilityId);
+        }
+
+        [Fact]
+        public void IsValidWeaponTest()
+        {
+            Assert.Empty(HeroOverride.IsValidWeaponByWeaponId);
+        }
+
+        [Fact]
         public void NameOverrideTest()
         {
             Assert.False(HeroOverride.NameOverride.Enabled);
+        }
+
+        [Fact]
+        public void LinkedAbilitiesTest()
+        {
+            Assert.False(HeroOverride.LinkedElementNamesByAbilityId.ContainsKey("AbathurBigAbaSlapSwing"));
+            Assert.False(HeroOverride.LinkedElementNamesByAbilityId.ContainsKey("AbathurBigAbaMeteorLocust"));
+
+            Assert.Empty(HeroOverride.LinkedElementNamesByAbilityId);
         }
 
         [Fact]

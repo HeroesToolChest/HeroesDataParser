@@ -3,7 +3,7 @@ using Xunit;
 
 namespace HeroesData.Parser.Tests.Overrides.AbilityOverrideTests
 {
-    public class AbathurAbilityTests : OverrideBase, IAbilityOverride
+    public class AbathurAbilityTests : OverrideBaseTests, IAbilityOverride
     {
         private readonly string Hero = "Abathur";
 
