@@ -5,6 +5,7 @@ using HeroesData.Parser.XmlGameData;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Xunit;
 
 namespace HeroesData.Parser.Tests.Overrides
 {
@@ -30,6 +31,12 @@ namespace HeroesData.Parser.Tests.Overrides
         protected Talent TestTalent { get; } = new Talent();
         protected UnitWeapon TestWeapon { get; } = new UnitWeapon();
         protected HeroPortrait TestPortrait { get; } = new HeroPortrait();
+
+        [Fact]
+        public void HeroIdDoesntExistTest()
+        {
+            Assert.Null(OverrideData.HeroOverride("KaboomBaby"));
+        }
 
         protected void LoadOverrideIntoTestAbility(string abilityName)
         {

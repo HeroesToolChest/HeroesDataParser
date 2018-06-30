@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<HeroOverrides> 
+  <CHero id="Yrel" alt="GoatPowers">
+    <EnergyType value="CrazyPills" />
+  </CHero>
+</HeroOverrides>

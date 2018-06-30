@@ -42,6 +42,11 @@ namespace HeroesData.Parser.UnitData.Overrides
         public string HeroDataOverrideXmlFile { get; private set; } = "HeroOverrides.xml";
 
         /// <summary>
+        /// Gets the total number of overrides.
+        /// </summary>
+        public int Count => HeroOverridesByCHeroId.Count;
+
+        /// <summary>
         /// Loads the override data.
         /// </summary>
         /// <param name="gameData">GameData.</param>
@@ -113,7 +118,13 @@ namespace HeroesData.Parser.UnitData.Overrides
         {
             if (HotsBuild.HasValue)
             {
-                string file = $"{Path.GetFileNameWithoutExtension(HeroDataOverrideXmlFile)}_{HotsBuild}.xml";
+                string file = string.Empty;
+                string fileNoExtension = Path.GetFileNameWithoutExtension(HeroDataOverrideXmlFile);
+
+                if (fileNoExtension.EndsWith(HotsBuild.Value.ToString()))
+                    file = HeroDataOverrideXmlFile;
+                else
+                    file = Path.Combine(Path.GetDirectoryName(HeroDataOverrideXmlFile), $"{fileNoExtension}_{HotsBuild}.xml");
 
                 if (File.Exists(file))
                 {
