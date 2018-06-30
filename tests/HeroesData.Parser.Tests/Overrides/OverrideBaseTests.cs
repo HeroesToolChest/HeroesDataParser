@@ -13,7 +13,6 @@ namespace HeroesData.Parser.Tests.Overrides
         private const string TestDataFolder = "TestData";
         private readonly string ModsTestFolder = Path.Combine(TestDataFolder, "mods");
         private readonly string HeroOverrideTestFolder = Path.Combine(TestDataFolder, "override", "HeroOverrideTest.xml");
-        private readonly OverrideData OverrideData;
 
         public OverrideBaseTests()
         {
@@ -25,6 +24,7 @@ namespace HeroesData.Parser.Tests.Overrides
         }
 
         protected abstract string CHeroId { get; }
+        protected OverrideData OverrideData { get; }
         protected HeroOverride HeroOverride { get; }
         protected Ability TestAbility { get; } = new Ability();
         protected Talent TestTalent { get; } = new Talent();
@@ -87,10 +87,6 @@ namespace HeroesData.Parser.Tests.Overrides
 
             TestWeapon.Damage = 500;
             TestWeapon.Range = 5;
-
-            TestPortrait.HeroSelectPortraitFileName = "Boom.dds";
-            TestPortrait.LeaderboardPortraitFileName = "Zoom.dds";
-            TestPortrait.LoadingScreenPortraitFileName = "StraightToTheMoon.dds";
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides> 
   <!--Successful values-->
-  <CHero id="Abathur">
+  <CHero id="Abathur" alt="SupremeBeing">
     <Name value="Acceptable" />
     <ShortName value="Funzo" />
     <CUnit value="HeroAbathur" />
     <EnergyType value="Charge" />
     <Energy value="100" />
-  
+    <ParentLink value="TheSwarm" />
+    
     <Ability id="SpikeAbilityThingy" valid="true">
       <Override>
         <ParentLink value="Symbiote" />
@@ -53,16 +54,22 @@
       <Ability id="AbathurBigAbaSlapSwing" element="CAbilEffectTarget" />
       <Ability id="AbathurBigAbaMeteorLocust" element="CAbilEffectTarget" />
     </LinkedAbilities>
+  
+    <HeroUnit id="LittleLoco">
+      <EnergyType value="None" />
+      <Energy value="0" />
+    </HeroUnit>
   </CHero>
   
   <!--Bad/Incorrect/Empty values-->
-  <CHero id="Alarak">
+  <CHero id="Alarak" alt="Karala">
     <Name value="" />
     <ShortName value="" />
     <CUnit />
     <EnergyType value="Ammo" />
     <Energy value="Ten" />
-  
+    <ParentLink value="" />
+    
     <Ability id="ZapiptyZap">
       <Override>
         <ParentLink />
@@ -92,8 +99,7 @@
 
     <Portrait>
       <Override>
-        <HeroSelectPortraitFileName value="" />
-        <LoadingScreenPortraitFileName value="someOtherImage" />
+        <PartyPanelPortraitFileName value="testimage.dds" />
       </Override>
     </Portrait>
 
@@ -101,10 +107,15 @@
       <Ability element="CAbilEffectTarget" />
       <Ability id="AbathurBigAbaMeteorLocust" />
     </LinkedAbilities>
+  
+    <HeroUnit id="">
+      <EnergyType value="None" />
+      <Energy value="0" />
+    </HeroUnit>
   </CHero>
   
   <!--Mostly no elements or incorrect/bad values-->
-  <CHero id="Alexstrasza">
+  <CHero id="Alexstrasza" alt="FireDragon">
     <EnergyType value="CrazyPills" />
     <Energy value="-666" />
 

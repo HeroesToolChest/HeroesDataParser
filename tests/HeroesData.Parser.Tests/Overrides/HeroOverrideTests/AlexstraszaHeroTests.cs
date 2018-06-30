@@ -93,5 +93,18 @@ namespace HeroesData.Parser.Tests.Overrides.HeroOverrideTest
         {
             Assert.False(HeroOverride.IsValidWeaponByWeaponId.ContainsKey("Ffffwwwwaaa"));
         }
+
+        [Fact]
+        public void HeroUnitTests()
+        {
+            Assert.Empty(HeroOverride.HeroUnits);
+        }
+
+        [Fact]
+        public void ParentLinkedOverrideTests()
+        {
+            Assert.False(HeroOverride.ParentLinkOverride.Enabled);
+            Assert.Equal(string.Empty, HeroOverride.ParentLinkOverride.ParentLink);
+        }
     }
 }

@@ -11,5 +11,7 @@
         void IsAddedAbilityTest();
         void IsValidWeaponTest();
         void LinkedAbilitiesTest();
+        void HeroUnitTests();
+        void ParentLinkedOverrideTests();
     }
 }

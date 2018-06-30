@@ -73,5 +73,18 @@ namespace HeroesData.Parser.Tests.Overrides.HeroOverrideTest
         {
             Assert.False(HeroOverride.ShortNameOverride.Enabled);
         }
+
+        [Fact]
+        public void HeroUnitTests()
+        {
+            Assert.Empty(HeroOverride.HeroUnits);
+        }
+
+        [Fact]
+        public void ParentLinkedOverrideTests()
+        {
+            Assert.True(HeroOverride.ParentLinkOverride.Enabled);
+            Assert.Equal(string.Empty, HeroOverride.ParentLinkOverride.ParentLink);
+        }
     }
 }

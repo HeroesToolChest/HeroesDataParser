@@ -19,31 +19,31 @@ namespace HeroesData.Parser.Tests.Overrides.PortraitOverrideTests
         [Fact]
         public void HeroSelectPortraitOverrideTest()
         {
-            Assert.Equal("Boom.dds", TestPortrait.HeroSelectPortraitFileName);
+            Assert.Equal("storm_ui_ingame_heroselect_btn_firedragon.dds", TestPortrait.HeroSelectPortraitFileName);
         }
 
         [Fact]
         public void LeaderboardPortraitOverrideTest()
         {
-            Assert.Equal("Zoom.dds", TestPortrait.LeaderboardPortraitFileName);
+            Assert.Equal("storm_ui_ingame_hero_leaderboard_firedragon.dds", TestPortrait.LeaderboardPortraitFileName);
         }
 
         [Fact]
         public void LoadingScreenPortraitOverrideTest()
         {
-            Assert.Equal("StraightToTheMoon.dds", TestPortrait.LoadingScreenPortraitFileName);
+            Assert.Equal("storm_ui_ingame_hero_loadingscreen_firedragon.dds", TestPortrait.LoadingScreenPortraitFileName);
         }
 
         [Fact]
         public void PartyPanelPortraitOverrideTest()
         {
-            Assert.Null(TestPortrait.PartyPanelPortraitFileName);
+            Assert.Equal("storm_ui_ingame_partypanel_btn_firedragon.dds", TestPortrait.PartyPanelPortraitFileName);
         }
 
         [Fact]
         public void TargetPortraitOverrideTest()
         {
-            Assert.Null(TestPortrait.TargetPortraitFileName);
+            Assert.Equal("ui_targetportrait_hero_firedragon.dds", TestPortrait.TargetPortraitFileName);
         }
     }
 }

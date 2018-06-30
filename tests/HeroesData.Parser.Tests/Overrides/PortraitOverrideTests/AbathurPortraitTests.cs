@@ -37,13 +37,13 @@ namespace HeroesData.Parser.Tests.Overrides.PortraitOverrideTests
         [Fact]
         public void PartyPanelPortraitOverrideTest()
         {
-            Assert.Null(TestPortrait.PartyPanelPortraitFileName);
+            Assert.Equal("storm_ui_ingame_partypanel_btn_supremebeing.dds", TestPortrait.PartyPanelPortraitFileName);
         }
 
         [Fact]
         public void TargetPortraitOverrideTest()
         {
-            Assert.Null(TestPortrait.TargetPortraitFileName);
+            Assert.Equal("ui_targetportrait_hero_supremebeing.dds", TestPortrait.TargetPortraitFileName);
         }
     }
 }

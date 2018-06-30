@@ -81,5 +81,26 @@ namespace HeroesData.Parser.Tests.Overrides.HeroOverrideTest
             Assert.True(HeroOverride.LinkedElementNamesByAbilityId.ContainsKey("AbathurBigAbaMeteorLocust"));
             Assert.Equal("CAbilEffectTarget", HeroOverride.LinkedElementNamesByAbilityId["AbathurBigAbaMeteorLocust"]);
         }
+
+        [Fact]
+        public void HeroUnitTests()
+        {
+            Assert.Contains("LittleLoco", HeroOverride.HeroUnits);
+
+            HeroOverride heroOverride = OverrideData.HeroOverride("LittleLoco");
+
+            Assert.True(heroOverride.EnergyTypeOverride.Enabled);
+            Assert.Equal(UnitEnergyType.None, heroOverride.EnergyTypeOverride.EnergyType);
+
+            Assert.True(heroOverride.EnergyOverride.Enabled);
+            Assert.Equal(0, heroOverride.EnergyOverride.Energy);
+        }
+
+        [Fact]
+        public void ParentLinkedOverrideTests()
+        {
+            Assert.True(HeroOverride.ParentLinkOverride.Enabled);
+            Assert.Equal("TheSwarm", HeroOverride.ParentLinkOverride.ParentLink);
+        }
     }
 }
