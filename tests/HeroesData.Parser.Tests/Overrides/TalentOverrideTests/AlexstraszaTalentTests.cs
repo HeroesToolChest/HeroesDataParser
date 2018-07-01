@@ -2,7 +2,7 @@
 
 namespace HeroesData.Parser.Tests.Overrides.TalentOverrideTests
 {
-    public class AlexstraszaTalentTests: OverrideBaseTests, ITalentOverride
+    public class AlexstraszaTalentTests : OverrideBaseTests, ITalentOverride
     {
         private readonly string Hero = "Alexstrasza";
 

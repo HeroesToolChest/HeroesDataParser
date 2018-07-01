@@ -15,10 +15,9 @@
   -->
   <JsonWriter enabled="true">
     <FileSplit>False</FileSplit>
-    <Description>3</Description>
-    <ShortTooltip>3</ShortTooltip>
-    <FullTooltip>3</FullTooltip>
-    <ImageExtension>png</ImageExtension>
+    <Description>0</Description>
+    <ShortTooltip>0</ShortTooltip>
+    <FullTooltip>0</FullTooltip>
     <IncludeWeapons>True</IncludeWeapons>
     <IncludeAbilities>True</IncludeAbilities>
     <IncludeSubAbilities>True</IncludeSubAbilities>
@@ -34,10 +33,9 @@
   </JsonWriter>
   <XmlWriter enabled="true">
     <FileSplit>False</FileSplit>
-    <Description>3</Description>
-    <ShortTooltip>3</ShortTooltip>
-    <FullTooltip>3</FullTooltip>
-    <ImageExtension>png</ImageExtension>
+    <Description>0</Description>
+    <ShortTooltip>0</ShortTooltip>
+    <FullTooltip>0</FullTooltip>
     <IncludeWeapons>True</IncludeWeapons>
     <IncludeAbilities>True</IncludeAbilities>
     <IncludeSubAbilities>True</IncludeSubAbilities>
