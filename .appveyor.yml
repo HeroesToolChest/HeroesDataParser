@@ -53,7 +53,7 @@ for:
       api_key:
         secure: S2P9RpHbD7FxgJ5MCMe3tupCqQxChGlL6MCRRfjPB3RoAxoS3bbLqSrkwUIccgje
       skip_symbols: true
-      artifact: HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg
+      artifact: /.*\.nupkg/
       on:
         branch: master 
         appveyor_repo_tag: true
