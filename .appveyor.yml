@@ -31,7 +31,7 @@ for:
         dotnet test -c Release --no-build
         dotnet publish -c release --no-build -o .\bin\publish\any\
         dotnet pack .\HeroesData\HeroesData.csproj -c release --no-build -o .\bin\nupkg\any\
-        nuget sign .\HeroesData\bin\nupkg\any\HeroesData.*.nupkg -CertificatePath koliva8245_certificate.pfx -CertificatePassword $env:cert_pass -Timestamper http://timestamp.digicert.com
+        nuget sign .\HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg -CertificatePath koliva8245_certificate.pfx -CertificatePassword $env:cert_pass -Timestamper http://timestamp.digicert.com
   artifacts:
     - path: '.\HeroesData\bin\publish\any'
       name: HeroesDataParser-FDD-Any
@@ -53,7 +53,7 @@ for:
       api_key:
         secure: S2P9RpHbD7FxgJ5MCMe3tupCqQxChGlL6MCRRfjPB3RoAxoS3bbLqSrkwUIccgje
       skip_symbols: true
-      artifact: '.\HeroesData\bin\nupkg\any\HeroesData.*.nupkg'
+      artifact: '.\HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg'
       on:
         branch: master
         appveyor_repo_tag: true
