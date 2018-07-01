@@ -36,7 +36,7 @@ for:
     - path: '.\HeroesData\bin\publish\any'
       name: HeroesDataParser-FDD-Any
       type: zip
-    - path: '.\HeroesData\bin\nupkg\any\HeroesData.*.nupkg'
+    - path: '.\HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg'
   deploy:
     - provider: Github
       release: Heroes Data Parser
