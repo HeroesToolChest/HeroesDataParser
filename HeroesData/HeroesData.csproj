@@ -3,8 +3,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>heroes-data</ToolCommandName>
     <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
     <Version>0.5.0</Version>
+    <PackageVersion>0.5.0</PackageVersion>
     <Copyright>Copyright © 2018 Kevin Oliva</Copyright>
     <Authors>Kevin Oliva</Authors>
   </PropertyGroup>
