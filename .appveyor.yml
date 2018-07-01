@@ -2,6 +2,10 @@ image:
 - Visual Studio 2017
 - Ubuntu
 environment:
+  cert_secret:
+    secure: Xwr2cGvIyoq44sGmyN23kWlKjeG+Meh0j2R2yWJMdMb904g5HBOpV2vYaLEveyOfGyaebQdR2H/2q5bjbrvDPN4lEh+BOZ7/LJnVN2ykanLmVjnfTmORXu2V5OB6cm4WV1/GjMx1YFi0+CbA13wIUKsJM+2Jt+lEKcLwNZaRuPL5DYQ8qzXYlfd8b6w3hdPJ4dZNRjRsbdPmQ83z10nK3Sk2lvfNyvv2su5i4VklqbxQ/xUj1wqk0mU5qO9TgCcqZufoiIKE7oMJwhR+ApWKse9xk5VKTI5Mf0PiqEOy/Ry8UJNTFPjv0AggHBO5x9FtIIZWbdsTA5XNS6ZjRDbmqyb3W81SHNOJIDV4UAXdWZA=
+  cert_pass:
+    secure: aygvbcUflzEYaib5oR9XYRvWQ9lUNUhWsb9RDjoViaE=
   matrix:
     - configuration: Debug
     - configuration: Release
@@ -9,36 +13,50 @@ build_script:
 - pwsh: |
     git submodule update --init --recursive
     dotnet build -c Debug
-    dotnet test -c Debug
+    dotnet test -c Debug --no-build
 for:
 -
   matrix:
     only:
       - image: Visual Studio 2017  
         configuration: Release
+  install:
+  - pwsh: |
+      iex ((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/appveyor/secure-file/master/install.ps1'))
+  - cmd: appveyor-tools\secure-file -decrypt koliva8245_certificate.pfx.enc -secret %cert_secret%
   build_script:
     - pwsh: |
         git submodule update --init --recursive
         dotnet build -c Release
-        dotnet test -c Release
-        dotnet publish -c release -o .\bin\publish\all\     
-        Remove-Item .\HeroesData\bin\publish\all\*.pdb
+        dotnet test -c Release --no-build
+        dotnet publish -c release --no-build -o .\bin\publish\any\
+        dotnet pack .\HeroesData\HeroesData.csproj -c release --no-build -o .\bin\nupkg\any\
+        nuget sign .\HeroesData\bin\nupkg\any\HeroesData.*.nupkg -CertificatePath koliva8245_certificate.pfx -CertificatePassword $env:cert_pass -Timestamper http://timestamp.digicert.com
   artifacts:
-    - path: '.\HeroesData\bin\publish\all'
-      name: HeroesDataParser-FDD-All
+    - path: '.\HeroesData\bin\publish\any'
+      name: HeroesDataParser-FDD-Any
       type: zip
+    - path: '.\HeroesData\bin\nupkg\any\HeroesData.*.nupkg'
   deploy:
-    release: Heroes Data Parser
-    description: '## What''s New\n## Fixes\n## Other\n## Builds'
-    provider: GitHub
-    auth_token:
-      secure: qr/xMva47Xz8Ea9FcoYTUEFG72wxhgFTINZW8emNDlkWmopOH1ZK9BD3k+8LMsdU
-    artifact: HeroesData\bin\publish\HeroesDataParser-FDD-All.zip
-    draft: true
-    prerelease: false
-    on:
-      branch: master
-      appveyor_repo_tag: true  
+    - provider: Github
+      release: Heroes Data Parser
+      description: '## What''s New\n## Fixes\n## Other\n## Builds'
+      auth_token:
+        secure: qr/xMva47Xz8Ea9FcoYTUEFG72wxhgFTINZW8emNDlkWmopOH1ZK9BD3k+8LMsdU
+      artifact: HeroesData\bin\publish\HeroesDataParser-FDD-All.zip
+      draft: true
+      prerelease: false
+      on:
+        branch: master
+        appveyor_repo_tag: true
+    - provider: NuGet
+      api_key:
+        secure: S2P9RpHbD7FxgJ5MCMe3tupCqQxChGlL6MCRRfjPB3RoAxoS3bbLqSrkwUIccgje
+      skip_symbols: true
+      artifact: '.\HeroesData\bin\nupkg\any\HeroesData.*.nupkg'
+      on:
+        branch: master
+        appveyor_repo_tag: true
 -
   matrix:
     only:
@@ -48,4 +66,4 @@ for:
     - pwsh: |
         git submodule update --init --recursive
         dotnet build -c Release
-        dotnet test -c Release
+        dotnet test -c Release --no-build
