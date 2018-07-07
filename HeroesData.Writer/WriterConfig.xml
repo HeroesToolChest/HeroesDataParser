@@ -18,6 +18,7 @@
     <Description>0</Description>
     <ShortTooltip>0</ShortTooltip>
     <FullTooltip>0</FullTooltip>
+    <ImageExtension>png</ImageExtension>
     <IncludeWeapons>True</IncludeWeapons>
     <IncludeAbilities>True</IncludeAbilities>
     <IncludeSubAbilities>True</IncludeSubAbilities>
@@ -36,6 +37,7 @@
     <Description>0</Description>
     <ShortTooltip>0</ShortTooltip>
     <FullTooltip>0</FullTooltip>
+    <ImageExtension>png</ImageExtension>
     <IncludeWeapons>True</IncludeWeapons>
     <IncludeAbilities>True</IncludeAbilities>
     <IncludeSubAbilities>True</IncludeSubAbilities>
