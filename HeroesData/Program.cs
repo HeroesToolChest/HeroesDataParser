@@ -568,22 +568,16 @@ namespace HeroesData
                 }
             }
 
-            if (parsedHeroes.Count < unitParser.CUnitIdByHeroCHeroIds.Count)
-            {
-                Console.WriteLine($"{parsedHeroes.Count} successfully added");
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"{unitParser.CUnitIdByHeroCHeroIds.Count - parsedHeroes.Count} failed to be added!");
-                Console.WriteLine();
-
-                Console.ResetColor();
-                Environment.Exit(1);
-            }
-
             Console.WriteLine($"{parsedHeroes.Count,6} successfully parsed heroes");
-            Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
+
             if (failedParsedHeroes.Count > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
+                foreach (var hero in failedParsedHeroes)
+                {
+                    Console.WriteLine($"{hero.CHeroId} - {hero.Exception.Message}");
+                }
+
                 Console.WriteLine($"{failedParsedHeroes.Count} failed to parse [Check logs for details]");
                 Console.WriteLine();
 
@@ -591,6 +585,8 @@ namespace HeroesData
                 Environment.Exit(1);
             }
 
+            Console.ResetColor();
+            Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
 
             return parsedHeroes.Values.ToList();
