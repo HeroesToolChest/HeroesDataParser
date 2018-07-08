@@ -10,7 +10,7 @@ namespace HeroesData.FileWriter
         private readonly List<Hero> Heroes;
         private readonly int? HotsBuild;
 
-        private FileOutput(List<Hero> heroes)
+        public FileOutput(List<Hero> heroes)
         {
             FileConfiguration = FileConfiguration.Load();
             IsXmlEnabled = FileConfiguration.XmlFileSettings.WriterEnabled;
@@ -19,7 +19,7 @@ namespace HeroesData.FileWriter
             Heroes = heroes;
         }
 
-        private FileOutput(List<Hero> heroes, string configFileName)
+        public FileOutput(List<Hero> heroes, string configFileName)
         {
             FileConfiguration = FileConfiguration.Load(configFileName);
             IsXmlEnabled = FileConfiguration.XmlFileSettings.WriterEnabled;
@@ -28,7 +28,7 @@ namespace HeroesData.FileWriter
             Heroes = heroes;
         }
 
-        private FileOutput(List<Hero> heroes, int? hotsBuild)
+        public FileOutput(List<Hero> heroes, int? hotsBuild)
         {
             FileConfiguration = FileConfiguration.Load();
             IsXmlEnabled = FileConfiguration.XmlFileSettings.WriterEnabled;
@@ -38,7 +38,7 @@ namespace HeroesData.FileWriter
             Heroes = heroes;
         }
 
-        private FileOutput(List<Hero> heroes, int? hotsBuild, string configFileName)
+        public FileOutput(List<Hero> heroes, int? hotsBuild, string configFileName)
         {
             FileConfiguration = FileConfiguration.Load(configFileName);
             IsXmlEnabled = FileConfiguration.XmlFileSettings.WriterEnabled;
@@ -59,48 +59,14 @@ namespace HeroesData.FileWriter
         public bool IsJsonEnabled { get; }
 
         /// <summary>
-        /// Sets the heroes data to be used for the output writer and load the writer configuration file.
+        /// Gets or sets the file split option.
         /// </summary>
-        /// <param name="heroes">Heroes to be written.</param>
-        /// <returns></returns>
-        public static FileOutput SetHeroData(List<Hero> heroes)
-        {
-            return new FileOutput(heroes);
-        }
+        public bool FileSplit { get; set; }
 
         /// <summary>
-        /// Sets the heroes data to be used for the output writer and load the writer configuration file.
+        /// Gets or set the tooltip description type.
         /// </summary>
-        /// <param name="heroes">Heroes to be written.</param>
-        /// <param name="configFileName">The name of the configuration file to load.</param>
-        /// <returns></returns>
-        public static FileOutput SetHeroData(List<Hero> heroes, string configFileName)
-        {
-            return new FileOutput(heroes, configFileName);
-        }
-
-        /// <summary>
-        /// Sets the heroes data to be used for the output writer and load the writer configuration file.
-        /// </summary>
-        /// <param name="heroes">Heroes to be written.</param>
-        /// <param name="hotsBuild">The current Hots build.</param>
-        /// <returns></returns>
-        public static FileOutput SetHeroData(List<Hero> heroes, int? hotsBuild)
-        {
-            return new FileOutput(heroes, hotsBuild);
-        }
-
-        /// <summary>
-        /// Sets the heroes data to be used for the output writer and load the writer configuration file.
-        /// </summary>
-        /// <param name="heroes">Heroes to be written.</param>
-        /// <param name="hotsBuild">The current Hots build.</param>
-        /// <param name="configFileName">The name of the configuration file to load.</param>
-        /// <returns></returns>
-        public static FileOutput SetHeroData(List<Hero> heroes, int? hotsBuild, string configFileName)
-        {
-            return new FileOutput(heroes, hotsBuild, configFileName);
-        }
+        public int DescriptionType { get; set; }
 
         /// <summary>
         /// Creates the xml output.
@@ -117,6 +83,8 @@ namespace HeroesData.FileWriter
         public void CreateXml(bool isEnabled)
         {
             FileConfiguration.XmlFileSettings.WriterEnabled = isEnabled;
+            FileConfiguration.XmlFileSettings.FileSplit = FileSplit;
+            FileConfiguration.XmlFileSettings.Description = DescriptionType;
 
             XmlWriter.CreateOutput(FileConfiguration.XmlFileSettings, Heroes, HotsBuild);
         }
@@ -136,6 +104,8 @@ namespace HeroesData.FileWriter
         public void CreateJson(bool isEnabled)
         {
             FileConfiguration.JsonFileSettings.WriterEnabled = isEnabled;
+            FileConfiguration.JsonFileSettings.FileSplit = FileSplit;
+            FileConfiguration.JsonFileSettings.Description = DescriptionType;
 
             JsonWriter.CreateOutput(FileConfiguration.JsonFileSettings, Heroes, HotsBuild);
         }

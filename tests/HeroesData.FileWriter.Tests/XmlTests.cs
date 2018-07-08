@@ -47,6 +47,15 @@ namespace HeroesData.FileWriter.Tests
         }
 
         [Fact]
+        public void XmlWriterOverrideFileSplitTest()
+        {
+            FileOutputFileSplit.FileSplit = true;
+            FileOutputFileSplit.CreateXml();
+            CompareFile(Path.Combine("output", "xml", "Alarak.xml"), "Alarak.xml");
+            CompareFile(Path.Combine("output", "xml", "Alexstrasza.xml"), "Alexstrasza.xml");
+        }
+
+        [Fact]
         public void XmlWriterRawDescriptionTest()
         {
             FileOutputRawDescription.CreateXml();
@@ -70,6 +79,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void XmlWriterPlainTextWithScalingTest()
         {
+            FileOutputPlainTextWithScaling.DescriptionType = 3;
             FileOutputPlainTextWithScaling.CreateXml();
             CompareFile(DefaultCreatedFile, "XmlOutput3.xml");
         }

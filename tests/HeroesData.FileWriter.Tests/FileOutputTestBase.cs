@@ -13,23 +13,25 @@ namespace HeroesData.FileWriter.Tests
         public FileOutputTestBase()
         {
             SetTestHeroData();
-            FileOutputNoBuildNumber = FileOutput.SetHeroData(Heroes);
-            FileOutputHasBuildNumber = FileOutput.SetHeroData(Heroes, BuildNumber);
-            FileOutputFalseSettings = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfigFalseSettings.xml"));
-            FileOutputFileSplit = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfigFileSplit.xml"));
-            FileOutputRawDescription = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfig0.xml"));
-            FileOutputPlainText = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfig1.xml"));
-            FileOutputPlainTextWithNewlines = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfig2.xml"));
-            FileOutputPlainTextWithScaling = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfig3.xml"));
-            FileOutputPlainTextWithScalingWithNewlines = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfig4.xml"));
-            FileOutputColoredTextWithScaling = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfig6.xml"));
-            FileOutputIsEnabledFalse = FileOutput.SetHeroData(Heroes, Path.Combine("Configs", "WriterConfigEnabledFalse.xml"));
+            FileOutputNoBuildNumber = new FileOutput(Heroes);
+            FileOutputHasBuildNumber = new FileOutput(Heroes, BuildNumber);
+            FileOutputFalseSettings = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfigFalseSettings.xml"));
+            FileOutputFileSplit = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfigFileSplit.xml"));
+            FileOutputOverrideFileSplit = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfigFileSplit.xml"));
+            FileOutputRawDescription = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig0.xml"));
+            FileOutputPlainText = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig1.xml"));
+            FileOutputPlainTextWithNewlines = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig2.xml"));
+            FileOutputPlainTextWithScaling = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig3.xml"));
+            FileOutputPlainTextWithScalingWithNewlines = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig4.xml"));
+            FileOutputColoredTextWithScaling = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig6.xml"));
+            FileOutputIsEnabledFalse = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfigEnabledFalse.xml"));
         }
 
         protected FileOutput FileOutputNoBuildNumber { get; }
         protected FileOutput FileOutputHasBuildNumber { get; }
         protected FileOutput FileOutputFalseSettings { get; }
         protected FileOutput FileOutputFileSplit { get; }
+        protected FileOutput FileOutputOverrideFileSplit { get; }
         protected FileOutput FileOutputRawDescription { get; }
         protected FileOutput FileOutputPlainText { get; }
         protected FileOutput FileOutputPlainTextWithNewlines { get; }

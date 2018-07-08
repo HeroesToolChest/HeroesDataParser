@@ -45,6 +45,15 @@ namespace HeroesData.FileWriter.Tests
         }
 
         [Fact]
+        public void JsonWriterOverrideFileSplitTest()
+        {
+            FileOutputOverrideFileSplit.FileSplit = true;
+            FileOutputFileSplit.CreateJson();
+            CompareFile(Path.Combine("output", "json", "Alarak.json"), "Alarak.json");
+            CompareFile(Path.Combine("output", "json", "Alexstrasza.json"), "Alexstrasza.json");
+        }
+
+        [Fact]
         public void JsonWriterRawDescriptionTest()
         {
             FileOutputRawDescription.CreateJson();
@@ -68,6 +77,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void JsonWriterPlainTextWithScalingTest()
         {
+            FileOutputPlainTextWithScaling.DescriptionType = 3;
             FileOutputPlainTextWithScaling.CreateJson();
             CompareFile(DefaultCreatedFile, "JsonOutput3.json");
         }

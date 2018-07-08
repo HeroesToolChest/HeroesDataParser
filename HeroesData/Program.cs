@@ -34,8 +34,10 @@ namespace HeroesData
         private bool ShowInvalidHeroTooltips = false;
         private bool ExtractPortraits = false;
         private bool ExtractTalents = false;
+        private bool FileSplit = false;
         private int? HotsBuild = null;
         private int MaxParallelism = -1;
+        private int DescriptionType = 0;
 
         internal static void Main(string[] args)
         {
@@ -51,6 +53,8 @@ namespace HeroesData
             CommandOption extractIcons = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all|portraits|talents. Available only in -s|--storagePath mode", CommandOptionType.MultipleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
+            CommandOption setFileSplit = app.Option("-f|--fileSplit", "Sets the file output type, if true, creates a file for each hero parsed.  Default 'false'", CommandOptionType.SingleValue);
+            CommandOption setDescription = app.Option("-d|--description", "Sets the description output type (0 - 6). Default 0.", CommandOptionType.SingleValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
             CommandOption invalidShortOption = app.Option("--invalidShort", "Show all invalid short tooltips", CommandOptionType.NoValue);
             CommandOption invalidHeroOption = app.Option("--invalidHero", "Show all invalid hero tooltips", CommandOptionType.NoValue);
@@ -69,6 +73,9 @@ namespace HeroesData
 
                 if (setMaxDegreeParallism.HasValue() && int.TryParse(setMaxDegreeParallism.Value(), out int result))
                     program.MaxParallelism = result;
+
+                if (setDescription.HasValue() && int.TryParse(setDescription.Value(), out result))
+                    program.DescriptionType = result;
 
                 if (extractIcons.HasValue() && storagePathOption.HasValue())
                 {
@@ -89,6 +96,7 @@ namespace HeroesData
                 program.ShowInvalidFullTooltips = invalidFullOption.HasValue() ? true : false;
                 program.ShowInvalidShortTooltips = invalidShortOption.HasValue() ? true : false;
                 program.ShowInvalidHeroTooltips = invalidHeroOption.HasValue() ? true : false;
+                program.FileSplit = setFileSplit.HasValue() ? true : false;
                 program.Execute();
                 Console.ResetColor();
 
@@ -648,7 +656,11 @@ namespace HeroesData
 
             Console.WriteLine("Creating output...");
 
-            FileOutput fileOutput = FileOutput.SetHeroData(parsedHeroes.OrderBy(x => x.ShortName).ToList(), HotsBuild);
+            FileOutput fileOutput = new FileOutput(parsedHeroes.OrderBy(x => x.ShortName).ToList(), HotsBuild)
+            {
+                DescriptionType = DescriptionType,
+                FileSplit = FileSplit,
+            };
 
             if (Defaults)
             {
