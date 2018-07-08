@@ -3,11 +3,11 @@
   <Alarak name="Alarak" cHeroId="HeroAlarak" cUnitId="Alar" difficulty="Hard" franchise="Starcraft" gender="Male" radius="0.875" releaseDate="2016-09-13" sight="12" speed="4.3984" type="Melee" rarity="Legendary">
     <Description>A Tank who specializes against Mages thanks in part to his innate Spell Armor.&lt;n/&gt;&lt;n/&gt;&lt;img path="@UI / StormTalentInTextArmorIcon" alignment="uppermiddle" color="e12bfc" width="20" height="22"/&gt;&lt;c val="#TooltipNumbers"&gt;20 Spell Armor&lt;/c&gt;</Description>
     <Portraits>
-      <HeroSelect>storm_ui_ingame_heroselect_btn_alarak.dds</HeroSelect>
-      <Loaderboard>storm_ui_ingame_hero_leaderboard_alarak.dds</Loaderboard>
-      <Loading>storm_ui_ingame_hero_loadingscreen_alarak.dds</Loading>
-      <PartyFrame>storm_ui_ingame_partypanel_btn_alarak.dds</PartyFrame>
-      <Target>ui_targetportrait_hero_alarak.dds</Target>
+      <HeroSelect>storm_ui_ingame_heroselect_btn_alarak.png</HeroSelect>
+      <Loaderboard>storm_ui_ingame_hero_leaderboard_alarak.png</Loaderboard>
+      <Loading>storm_ui_ingame_hero_loadingscreen_alarak.png</Loading>
+      <PartyFrame>storm_ui_ingame_partypanel_btn_alarak.png</PartyFrame>
+      <Target>ui_targetportrait_hero_alarak.png</Target>
     </Portraits>
     <Life>
       <LifeAmount scale="0.04">1900</LifeAmount>
@@ -37,7 +37,7 @@
     <Abilities>
       <Basic>
         <AlarakDiscordStrike name="Discord Strike" shortTooltipId="AlarakDiscordStrike" fullTooltipId="AlarakDiscordStrike">
-          <Icon>storm_ui_icon_alarak_discordstrike.dds</Icon>
+          <Icon>storm_ui_icon_alarak_discordstrike.png</Icon>
           <Energy>45</Energy>
           <Cooldown>8</Cooldown>
           <ShortTooltip>Damage and silence enemies in an area</ShortTooltip>
@@ -51,7 +51,7 @@
       </Heroic>
       <Trait>
         <AlarakSadismDummyUI name="Sadism" shortTooltipId="AlarakSadismDummyUI" fullTooltipId="AlarakSadismDummyUI">
-          <Icon>storm_ui_icon_alarak_sadism.dds</Icon>
+          <Icon>storm_ui_icon_alarak_sadism.png</Icon>
           <ShortTooltip>Alarak deals increased damage and has increased self-healing against enemy Heroes</ShortTooltip>
           <FullTooltip>Alarak's Ability damage and self-healing are increased by &lt;c val="#TooltipNumbers"&gt;100%&lt;/c&gt; against enemy Heroes.&lt;n/&gt;&lt;n/&gt;&lt;img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/&gt;&lt;c val="#TooltipQuest"&gt;Repeatable Quest:&lt;/c&gt; Takedowns increase Sadism by &lt;c val="#TooltipNumbers"&gt;3%&lt;/c&gt;, up to &lt;c val="#TooltipNumbers"&gt;30%&lt;/c&gt;. Sadism gained from Takedowns is lost on death.</FullTooltip>
         </AlarakSadismDummyUI>
@@ -70,12 +70,12 @@
     <Talents>
       <Level1>
         <AlarakSustainingPower name="Sustaining Power" shortTooltipId="AlarakSustainingPower" fullTooltipId="AlarakSustainingPower" sort="1">
-          <Icon>storm_ui_icon_alarak_lightningsurge_a.dds</Icon>
+          <Icon>storm_ui_icon_alarak_lightningsurge_a.png</Icon>
           <ShortTooltip>Increase Lightning Surge healing</ShortTooltip>
           <FullTooltip>Increase the healing received from damaging Heroes with Lightning Surge by &lt;c val="#TooltipNumbers"&gt;40%&lt;/c&gt;.</FullTooltip>
         </AlarakSustainingPower>
         <AlarakExtendedLightning name="Extended Lightning" shortTooltipId="AlarakExtendedLightning" fullTooltipId="AlarakExtendedLightning" sort="2">
-          <Icon>storm_ui_icon_alarak_lightningsurge.dds</Icon>
+          <Icon>storm_ui_icon_alarak_lightningsurge.png</Icon>
           <ShortTooltip>&lt;c val="#TooltipQuest"&gt;Quest:&lt;/c&gt; Reduce Sadism, empower Lightning Surge</ShortTooltip>
           <FullTooltip>Reduce Sadism by &lt;c val="#TooltipNumbers"&gt;10%&lt;/c&gt;.&lt;n/&gt;&lt;n/&gt;&lt;img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/&gt;&lt;c val="#TooltipQuest"&gt;Quest:&lt;/c&gt; Hit Heroes with the center of Lightning Surge.&lt;n/&gt;&lt;n/&gt;&lt;img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/&gt;&lt;c val="#TooltipQuest"&gt;Reward:&lt;/c&gt; After hitting &lt;c val="#TooltipNumbers"&gt;5&lt;/c&gt; Heroes, increase Lightning Surge's range by &lt;c val="#TooltipNumbers"&gt;20%&lt;/c&gt;.&lt;n/&gt;&lt;n/&gt;&lt;img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/&gt;&lt;c val="#TooltipQuest"&gt;Reward:&lt;/c&gt; After hitting &lt;c val="#TooltipNumbers"&gt;15&lt;/c&gt; Heroes, Lightning Surge's center also Slows enemies by &lt;c val="#TooltipNumbers"&gt;40%&lt;/c&gt; for &lt;c val="#TooltipNumbers"&gt;2&lt;/c&gt; seconds.&lt;n/&gt;&lt;n/&gt;&lt;img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/&gt;&lt;c val="#TooltipQuest"&gt;Reward:&lt;/c&gt; After hitting &lt;c val="#TooltipNumbers"&gt;3&lt;/c&gt; Heroes with the center of a single cast, increase Sadism by &lt;c val="#TooltipNumbers"&gt;10%&lt;/c&gt; and instantly gain all other Rewards.</FullTooltip>
         </AlarakExtendedLightning>
@@ -93,14 +93,14 @@
       </Level7>
       <Level10>
         <AlarakHeroicAbilityDeadlyCharge name="Deadly Charge" shortTooltipId="AlarakDeadlyCharge" fullTooltipId="AlarakDeadlyCharge" sort="1">
-          <Icon>storm_ui_icon_alarak_recklesscharge.dds</Icon>
+          <Icon>storm_ui_icon_alarak_recklesscharge.png</Icon>
           <Energy>60</Energy>
           <Cooldown>45</Cooldown>
           <ShortTooltip>Channel to charge a long distance</ShortTooltip>
           <FullTooltip>After channeling, Alarak charges forward dealing &lt;c val="#TooltipNumbers"&gt;200&lt;/c&gt; damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to &lt;c val="#TooltipNumbers"&gt;1.6&lt;/c&gt; seconds.&lt;n/&gt;&lt;n/&gt;Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.</FullTooltip>
         </AlarakHeroicAbilityDeadlyCharge>
         <AlarakHeroicAbilityCounterStrike name="Counter-Strike" shortTooltipId="AlarakCounterStrikeTargeted" fullTooltipId="AlarakCounterStrikeTargeted" sort="2">
-          <Icon>storm_ui_icon_alarak_counterstrike.dds</Icon>
+          <Icon>storm_ui_icon_alarak_counterstrike.png</Icon>
           <Energy>50</Energy>
           <Cooldown>30</Cooldown>
           <ShortTooltip>Prevents damage to deal damage in a large area</ShortTooltip>
@@ -132,7 +132,7 @@
       <TychusOdinNoHealth>
         <Basic>
           <TychusOdinAnnihilate name="Annihilate" shortTooltipId="TychusCommandeerOdinAnnihilate" fullTooltipId="TychusCommandeerOdinAnnihilate">
-            <Icon>storm_ui_icon_tychus_annihilate.dds</Icon>
+            <Icon>storm_ui_icon_tychus_annihilate.png</Icon>
             <FullTooltip>Burrow to the target location, dealing &lt;c val="#TooltipNumbers"&gt;96~~0.04~~&lt;/c&gt; damage and briefly stunning enemies in a small area upon surfacing, slowing them by &lt;c val="#TooltipNumbers"&gt;25%&lt;/c&gt; for &lt;c val="#TooltipNumbers"&gt;2.5&lt;/c&gt; seconds.&lt;n/&gt;&lt;n/&gt;Burrow Charge can be reactivated to surface early.</FullTooltip>
           </TychusOdinAnnihilate>
         </Basic>
@@ -174,7 +174,7 @@
           <Abilities>
             <Basic>
               <AlexstraszaBreathOfLife name="Breath of Life" shortTooltipId="AlexstraszaBreathOfLife" fullTooltipId="AlexstraszaBreathOfLife">
-                <Icon>storm_ui_icon_alexstrasza_breath_of_life.dds</Icon>
+                <Icon>storm_ui_icon_alexstrasza_breath_of_life.png</Icon>
                 <Life isPercentage="true">50</Life>
                 <Cooldown recast="1">3</Cooldown>
                 <Charges consume="1" initial="3" isHidden="false">3</Charges>

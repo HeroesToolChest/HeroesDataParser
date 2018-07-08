@@ -14,11 +14,11 @@
     "rarity": "Legendary",
     "description": "A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/><img path=\"@UI / StormTalentInTextArmorIcon\" alignment=\"uppermiddle\" color=\"e12bfc\" width=\"20\" height=\"22\"/><c val=\"#TooltipNumbers\">20 Spell Armor</c>",
     "portraits": {
-      "heroSelect": "storm_ui_ingame_heroselect_btn_alarak.dds",
-      "leaderboard": "storm_ui_ingame_hero_leaderboard_alarak.dds",
-      "loading": "storm_ui_ingame_hero_loadingscreen_alarak.dds",
-      "partyPanel": "storm_ui_ingame_partypanel_btn_alarak.dds",
-      "target": "ui_targetportrait_hero_alarak.dds"
+      "heroSelect": "storm_ui_ingame_heroselect_btn_alarak.png",
+      "leaderboard": "storm_ui_ingame_hero_leaderboard_alarak.png",
+      "loading": "storm_ui_ingame_hero_loadingscreen_alarak.png",
+      "partyPanel": "storm_ui_ingame_partypanel_btn_alarak.png",
+      "target": "ui_targetportrait_hero_alarak.png"
     },
     "life": {
       "lifeAmount": 1900.0,
@@ -68,7 +68,7 @@
           "name": "Discord Strike",
           "shortTooltipId": "AlarakDiscordStrike",
           "fullTooltipId": "AlarakDiscordStrike",
-          "icon": "storm_ui_icon_alarak_discordstrike.dds",
+          "icon": "storm_ui_icon_alarak_discordstrike.png",
           "energy": {
             "cost": 45
           },
@@ -92,7 +92,7 @@
           "name": "Sadism",
           "shortTooltipId": "AlarakSadismDummyUI",
           "fullTooltipId": "AlarakSadismDummyUI",
-          "icon": "storm_ui_icon_alarak_sadism.dds",
+          "icon": "storm_ui_icon_alarak_sadism.png",
           "shortTooltip": "Alarak deals increased damage and has increased self-healing against enemy Heroes",
           "fullTooltip": "Alarak's Ability damage and self-healing are increased by <c val=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Repeatable Quest:</c> Takedowns increase Sadism by <c val=\"#TooltipNumbers\">3%</c>, up to <c val=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death."
         }
@@ -119,7 +119,7 @@
           "name": "Sustaining Power",
           "shortTooltipId": "AlarakSustainingPower",
           "fullTooltipId": "AlarakSustainingPower",
-          "icon": "storm_ui_icon_alarak_lightningsurge_a.dds",
+          "icon": "storm_ui_icon_alarak_lightningsurge_a.png",
           "shortTooltip": "Increase Lightning Surge healing",
           "fullTooltip": "Increase the healing received from damaging Heroes with Lightning Surge by <c val=\"#TooltipNumbers\">40%</c>.",
           "sort": 1
@@ -129,7 +129,7 @@
           "name": "Extended Lightning",
           "shortTooltipId": "AlarakExtendedLightning",
           "fullTooltipId": "AlarakExtendedLightning",
-          "icon": "storm_ui_icon_alarak_lightningsurge.dds",
+          "icon": "storm_ui_icon_alarak_lightningsurge.png",
           "shortTooltip": "<c val=\"#TooltipQuest\">Quest:</c> Reduce Sadism, empower Lightning Surge",
           "fullTooltip": "Reduce Sadism by <c val=\"#TooltipNumbers\">10%</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Quest:</c> Hit Heroes with the center of Lightning Surge.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">5</c> Heroes, increase Lightning Surge's range by <c val=\"#TooltipNumbers\">20%</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">15</c> Heroes, Lightning Surge's center also Slows enemies by <c val=\"#TooltipNumbers\">40%</c> for <c val=\"#TooltipNumbers\">2</c> seconds.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">3</c> Heroes with the center of a single cast, increase Sadism by <c val=\"#TooltipNumbers\">10%</c> and instantly gain all other Rewards.",
           "sort": 2
@@ -158,7 +158,7 @@
           "name": "Deadly Charge",
           "shortTooltipId": "AlarakDeadlyCharge",
           "fullTooltipId": "AlarakDeadlyCharge",
-          "icon": "storm_ui_icon_alarak_recklesscharge.dds",
+          "icon": "storm_ui_icon_alarak_recklesscharge.png",
           "energy": {
             "cost": 60
           },
@@ -174,7 +174,7 @@
           "name": "Counter-Strike",
           "shortTooltipId": "AlarakCounterStrikeTargeted",
           "fullTooltipId": "AlarakCounterStrikeTargeted",
-          "icon": "storm_ui_icon_alarak_counterstrike.dds",
+          "icon": "storm_ui_icon_alarak_counterstrike.png",
           "energy": {
             "cost": 50
           },
@@ -244,7 +244,7 @@
               "name": "Annihilate",
               "shortTooltipId": "TychusCommandeerOdinAnnihilate",
               "fullTooltipId": "TychusCommandeerOdinAnnihilate",
-              "icon": "storm_ui_icon_tychus_annihilate.dds",
+              "icon": "storm_ui_icon_tychus_annihilate.png",
               "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."
             }
           ]
@@ -307,7 +307,7 @@
                 "name": "Breath of Life",
                 "shortTooltipId": "AlexstraszaBreathOfLife",
                 "fullTooltipId": "AlexstraszaBreathOfLife",
-                "icon": "storm_ui_icon_alexstrasza_breath_of_life.dds",
+                "icon": "storm_ui_icon_alexstrasza_breath_of_life.png",
                 "life": {
                   "cost": 50,
                   "percent": true
