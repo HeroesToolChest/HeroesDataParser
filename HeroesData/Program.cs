@@ -32,6 +32,7 @@ namespace HeroesData
         private bool ShowInvalidFullTooltips = false;
         private bool ShowInvalidShortTooltips = false;
         private bool ShowInvalidHeroTooltips = false;
+        private bool ShowHeroWarnings = false;
         private bool ExtractPortraits = false;
         private bool ExtractTalents = false;
         private bool FileSplit = false;
@@ -51,13 +52,14 @@ namespace HeroesData
             CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory", CommandOptionType.SingleValue);
             CommandOption setMaxDegreeParallism = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
             CommandOption extractIcons = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all|portraits|talents. Available only in -s|--storagePath mode", CommandOptionType.MultipleValue);
-            CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
-            CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption setFileSplit = app.Option("-f|--fileSplit", "Sets the file output type, if true, creates a file for each hero parsed.  Default 'false'", CommandOptionType.SingleValue);
             CommandOption setDescription = app.Option("-d|--description", "Sets the description output type (0 - 6). Default 0.", CommandOptionType.SingleValue);
+            CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
+            CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
             CommandOption invalidShortOption = app.Option("--invalidShort", "Show all invalid short tooltips", CommandOptionType.NoValue);
             CommandOption invalidHeroOption = app.Option("--invalidHero", "Show all invalid hero tooltips", CommandOptionType.NoValue);
+            CommandOption heroWarningsOption = app.Option("--heroWarnings", "Shows all hero warnings", CommandOptionType.NoValue);
 
             app.OnExecute(() =>
             {
@@ -96,6 +98,7 @@ namespace HeroesData
                 program.ShowInvalidFullTooltips = invalidFullOption.HasValue() ? true : false;
                 program.ShowInvalidShortTooltips = invalidShortOption.HasValue() ? true : false;
                 program.ShowInvalidHeroTooltips = invalidHeroOption.HasValue() ? true : false;
+                program.ShowHeroWarnings = heroWarningsOption.HasValue() ? true : false;
                 program.FileSplit = setFileSplit.HasValue() ? true : false;
                 program.Execute();
                 Console.ResetColor();
@@ -618,12 +621,22 @@ namespace HeroesData
                 using (StreamWriter writer = new StreamWriter($"VerificationCheck.txt", false))
                 {
                     if (nonTooltips.Count > 0)
-                        nonTooltips.ForEach((warning) => { writer.WriteLine(warning); });
+                    {
+                        nonTooltips.ForEach((warning) =>
+                        {
+                            writer.WriteLine(warning);
+                            Console.WriteLine(warning);
+                        });
+                    }
 
                     if (tooltips.Count > 0)
                     {
                         writer.WriteLine();
-                        tooltips.ForEach((warning) => { writer.WriteLine(warning); });
+                        tooltips.ForEach((warning) =>
+                        {
+                            writer.WriteLine(warning);
+                            Console.WriteLine(warning);
+                        });
                     }
 
                     writer.WriteLine($"{Environment.NewLine}{warnings.Count} warnings ({verifyData.Ignore.Count} ignored)");
@@ -641,11 +654,7 @@ namespace HeroesData
             if (verifyData.Ignore.Count > 0)
                 Console.Write($" ({verifyData.Ignore.Count} ignored)");
 
-            if (warnings.Count > 0)
-                Console.WriteLine(" [Check logs for details]");
-            else
-                Console.WriteLine();
-
+            Console.WriteLine();
             Console.ResetColor();
             Console.WriteLine();
         }
