@@ -62,7 +62,62 @@ Example command to create xml and json files from the `Heroes of the Storm` dire
 - Hero warnings can be shown to the console using the option `--heroWarnings`
 - Ignored warnings are in `VerifyIgnore.txt`
 
-For advanced features, visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki)
+## Advanced Features
+### Storage Path (-s|--storagePath)
+There are two types of paths you can provide for the app. One is the directory path of the `Heroes of the Storm` directory, the other is an already extracted `mods` directory containing the following file structure:
+```
+mods/
+|--core.stormmod/base.stormdata/GameData/
+   |--(ALL FILES)
+|--heroesdata.stormmod/
+   |--base.stormdata/GameData/
+      |--Heroes/
+         |--(ALL FILES)
+   |--enus.stormdata/LocalizedData/
+      |--GameStrings.txt
+|--heromods/
+   |--(ALL FILES)
+```
+Or a simpler way, extract these directorys and file (keep the directory paths)
+- (LIST)
+
+### Multi-mods directory
+You can have multiple mods directories with the suffix `_<build number>` in the same directory.  If you select the parent directory as the storage path, the highest build number suffix diretory will be parsed.
+
+For example, with this directory:
+```
+modFolders/
+|--mods_22000/
+   |--(FILES)
+|--mods_22100/
+   |--(FILES)
+|--mods_22388/
+   |--(FILES)
+```
+Setting `modFolders` as the storage path will have the app parsed the `mods_22388` directory.
+
+### File Split (-f|--fileSplit)
+If true, one xml and json file will be created for each hero.
+If false (default), a single xml and json file will be created.
+
+### Description (-d|--description)
+Sets the description/tooltip output type (0 - 6)
+
+`0 (Default)` - RawDescription
+
+`1` - PlainText
+
+`2` - PlainTextWithNewlines
+
+`3` - PlainTextWithScaling
+
+`4` - PlainTextWithScalingWithNewlines
+
+`5` - ColoredText
+
+`6` - ColoredTextWithScaling
+
+### Advanced File Configuration
 
 ## License
 [MIT license](/LICENSE)
