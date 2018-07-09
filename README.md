@@ -54,7 +54,15 @@ Example command to create xml and json files from the `Heroes of the Storm` dire
 (example)
 ```
 
-For more advanced features, visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki)
+## Hero Warnings
+- Please be mindful of the hero warnings, especially on a build with a new hero or re-worked hero
+- All the warnings do not need to be fixed, they are shown for awareness
+- Tooltip strings that fail to parsed will show up **empty** in the xml or json files and thus will be a valid warning
+- Fix the warning yourself (and possibly create an issue or pull request) or wait for an update
+- Hero warnings can be shown to the console using the option `--heroWarnings`
+- Ignored warnings are in `VerifyIgnore.txt`
+
+For advanced features, visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki)
 
 ## License
 [MIT license](/LICENSE)
