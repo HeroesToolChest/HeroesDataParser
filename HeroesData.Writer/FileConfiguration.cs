@@ -66,19 +66,19 @@ namespace HeroesData.FileWriter
             if (int.TryParse(description, out int descriptionValue))
                 fileSettings.Description = descriptionValue;
             else
-                fileSettings.Description = 5;
+                fileSettings.Description = 0;
 
             string shortTooltip = writerElement.Element("ShortTooltip")?.Value;
             if (int.TryParse(shortTooltip, out int shortTooltipValue))
                 fileSettings.ShortTooltip = shortTooltipValue;
             else
-                fileSettings.ShortTooltip = 5;
+                fileSettings.ShortTooltip = 0;
 
             string fullTooltip = writerElement.Element("FullTooltip")?.Value;
             if (int.TryParse(fullTooltip, out int fullTooltipValue))
                 fileSettings.FullTooltip = fullTooltipValue;
             else
-                fileSettings.FullTooltip = 5;
+                fileSettings.FullTooltip = 0;
 
             string imageExtension = writerElement.Element("ImageExtension")?.Value;
             if (!string.IsNullOrEmpty(imageExtension))
