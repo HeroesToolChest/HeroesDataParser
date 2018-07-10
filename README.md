@@ -74,7 +74,7 @@ dotnet heroes-data -s 'D:\Games\Heroes of the Storm Public Test' --xml --json
 ## Hero Warnings
 - Please be mindful of the hero warnings, especially on a build with a new hero or re-worked hero
 - All the warnings do not need to be fixed, they are shown for awareness
-- **Tooltip strings that fail to parsed will show up __empty__** in the xml or json files and thus will be a valid warning
+- **Tooltip strings that fail to parse will show up __empty__** in the xml or json files and thus will be a valid warning
 - Fix the warning yourself (and possibly create an issue or pull request) or wait for an update
 - Hero warnings can be shown to the console using the option `--heroWarnings`
 - Ignored warnings are in `VerifyIgnore.txt`
