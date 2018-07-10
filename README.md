@@ -200,13 +200,13 @@ Fires a laser that deals <c val=\"#TooltipNumbers\">200 (+4% per level)</c> dama
 Extracts images that have been referenced for a hero or ability/talent in the xml and json file(s).
 
 Parameters
-- all: all hero portrait and ability/talent icons are extracted
+- all: all hero portraits and ability/talent icons are extracted
 - portraits: only hero portraits are extracted
 - talents: only ability/talent icons are extracted
 
 Notes:
-- This option only works if you provided a `Heroes of the Storm` directory path for the -s|--storagePath option
-- Images are always extracted in .png format
+- This option only works if you provided a `Heroes of the Storm` directory path for the `-s|--storagePath` option
+- Images are always extracted in `.png` format
 
 ### Advanced File Configuration
 For more advanced file configurations, you can edit the file `WriterConfig.xml`.  Options in the console override the options in the config file.
