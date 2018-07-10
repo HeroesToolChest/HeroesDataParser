@@ -34,11 +34,11 @@ Download and extract the latest `HeroesDataParser.*-scd-*.zip` file from the [re
 This zip file contains everything that is needed to run the dotnet core app without .NET Core being installed, so the zip file is quite large.
 
 ## Usage
-If installed as a global tool, the app can be run with the following commands:
+If installed as a global tool, the app can be run with one of the following commands:
 ```
 heroes-data -h
-// or as...
 dotnet heroes-data -h
+dotnet-heroes-data -h
 ```
 If you download one of the zip files, run the following command from the extracted directory:
 ```
@@ -46,12 +46,29 @@ dotnet heroesdata.dll -h
 ```
 Output of the -h option
 ```
-(example)
+Heroes Data Parser (VERSION)
+
+Usage:  [options]
+
+Options:
+  -?|-h|--help                 Show help information
+  -v|--version                 Show version information
+  -s|--storagePath <filePath>  The 'Heroes of the Storm' directory or an already extracted 'mods' directory
+  -t|--threads <amount>        Limits the maximum amount of threads to use
+  -e|--extract <value(s)>      Extracts images, available values: all|portraits|talents. Available only in -s|--storagePath mode
+  -f|--fileSplit <boolean>     Sets the file output type, if true, creates a file for each hero parsed.  Default 'false'
+  -d|--description <value>     Sets the description output type (0 - 6). Default 0.
+  --xml                        Create xml output
+  --json                       Create json output
+  --invalidFull                Show all invalid full tooltips
+  --invalidShort               Show all invalid short tooltips
+  --invalidHero                Show all invalid hero tooltips
+  --heroWarnings               Shows all hero warnings
 ```
 
 Example command to create xml and json files from the `Heroes of the Storm` directory
 ```
-(example)
+dotnet heroes-data -s 'D:\Games\Heroes of the Storm Public Test' --xml --json
 ```
 
 ## Hero Warnings
@@ -78,8 +95,15 @@ mods/
 |--heromods/
    |--(ALL FILES)
 ```
-Or a simpler way, extract these directorys and file (keep the directory paths)
-- (LIST)
+Or a simpler way, extract these directories and file (keep the directory paths)
+
+`mods/core.stormmod/base.stormdata/GameData/`
+
+`mods/heroesData.stormmod/base.stormdata/GameData/` 
+
+`mods/heroesData.stormmod/enus.stormdata/LocalizedData/GameStrings.txt`
+
+`mods/heromods/`
 
 ### Multi-mods directory
 You can have multiple mods directories with the suffix `_<build number>` in the same directory.  If you select the parent directory as the storage path, the highest build number suffix diretory will be parsed.
