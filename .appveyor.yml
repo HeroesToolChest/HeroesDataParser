@@ -38,19 +38,19 @@ for:
         nuget sign .\HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg -CertificatePath koliva8245_certificate.pfx -CertificatePassword $env:cert_pass -Timestamper http://timestamp.digicert.com
   artifacts:
     - path: '.\HeroesData\bin\publish\any'
-      name: HeroesDataParser-FDD-any
+      name: HeroesDataParser-fdd-any
       type: zip
     - path: '.\HeroesData\bin\publish\win-x86'
-      name: HeroesDataParser-SCD-win-x86
+      name: HeroesDataParser-scd-win-x86
       type: zip
     - path: '.\HeroesData\bin\publish\win-x64'
-      name: HeroesDataParser-SCD-win-x64
+      name: HeroesDataParser-scd-win-x64
       type: zip
     - path: '.\HeroesData\bin\publish\osx-x64'
-      name: HeroesDataParser-SCD-osx-x64
+      name: HeroesDataParser-scd-osx-x64
       type: zip
     - path: '.\HeroesData\bin\publish\linux-x64'
-      name: HeroesDataParser-SCD-linux-x64
+      name: HeroesDataParser-scd-linux-x64
       type: zip
     - path: '.\HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg'
   deploy:
