@@ -52,8 +52,8 @@ namespace HeroesData
             CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory", CommandOptionType.SingleValue);
             CommandOption setMaxDegreeParallism = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
             CommandOption extractIcons = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all|portraits|talents. Available only in -s|--storagePath mode", CommandOptionType.MultipleValue);
-            CommandOption setFileSplit = app.Option("-f|--fileSplit", "Sets the file output type, if true, creates a file for each hero parsed.  Default 'false'", CommandOptionType.SingleValue);
-            CommandOption setDescription = app.Option("-d|--description", "Sets the description output type (0 - 6). Default 0.", CommandOptionType.SingleValue);
+            CommandOption setFileSplit = app.Option("-f|--fileSplit <boolean>", "Sets the file output type, if true, creates a file for each hero parsed.  Default 'false'", CommandOptionType.SingleValue);
+            CommandOption setDescription = app.Option("-d|--description <value>", "Sets the description output type (0 - 6). Default 0.", CommandOptionType.SingleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
