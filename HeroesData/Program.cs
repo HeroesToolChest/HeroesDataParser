@@ -625,7 +625,8 @@ namespace HeroesData
                         nonTooltips.ForEach((warning) =>
                         {
                             writer.WriteLine(warning);
-                            Console.WriteLine(warning);
+                            if (ShowHeroWarnings)
+                                Console.WriteLine(warning);
                         });
                     }
 
@@ -635,7 +636,8 @@ namespace HeroesData
                         tooltips.ForEach((warning) =>
                         {
                             writer.WriteLine(warning);
-                            Console.WriteLine(warning);
+                            if (ShowHeroWarnings)
+                                Console.WriteLine(warning);
                         });
                     }
 
