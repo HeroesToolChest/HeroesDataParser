@@ -4,7 +4,8 @@
 Heroes Data Parser is a cross platform (Windows/MacOS/Linux) command line tool that extracts Heroes of the Storm game data into XML or JSON files. Extracts hero information along with all abilities, talents, and their respective portraits and icons.
 
 ## Installation
-- Windows 7 SP1 (x64 and x86) or higher 
+### Operating System Support
+- Windows 7 SP1 (x86 and x64) or higher 
 - Linux (x64)
 - macOS 10.12 and later versions
 
@@ -29,7 +30,7 @@ Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [
 ### Zip File Download - Self-Contained
 No runtime or SDK is required.
 
-Download and extract the latest `HeroesDataParser.*-scd-*.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for your Operating System.
+Download and extract the latest `HeroesDataParser.*-scd-*.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
 This zip file contains everything that is needed to run the dotnet core app without .NET Core being installed, so the zip file is quite large.
 
@@ -40,7 +41,7 @@ heroes-data -h
 dotnet heroes-data -h
 dotnet-heroes-data -h
 ```
-If you download one of the zip files, run the following command from the extracted directory:
+If one of the zip files was downloaded, run the following command from the extracted directory:
 ```
 dotnet heroesdata.dll -h
 ```
@@ -75,13 +76,12 @@ dotnet heroes-data -s 'D:\Games\Heroes of the Storm Public Test' --xml --json
 - Please be mindful of the hero warnings, especially on a build with a new hero or re-worked hero
 - All the warnings do not need to be fixed, they are shown for awareness
 - **Tooltip strings that fail to parse will show up __empty__** in the xml or json files and thus will be a valid warning
-- Fix the warning yourself (and possibly create an issue or pull request) or wait for an update
 - Hero warnings can be shown to the console using the option `--heroWarnings`
 - Ignored warnings are in `VerifyIgnore.txt`
 
 ## Advanced Features
 ### Storage Path (-s|--storagePath)
-There are two types of paths you can provide for the app. One is the directory path of the `Heroes of the Storm` directory, the other is an already extracted `mods` directory containing the following file structure:
+There are two types of paths that can be provided for this option. One is the directory path of the `Heroes of the Storm` directory and the other is an already extracted `mods` directory containing the following file structure:
 ```
 mods/
 |--core.stormmod/base.stormdata/GameData/
@@ -126,6 +126,8 @@ If false (default), a single xml and json file will be created.
 
 ### Description (-d|--description)
 Sets the description/tooltip output type (0 - 6)
+
+Some of these may require parsing for a readable output. Visit the [wiki page](https://github.com/koliva8245/HeroesDataParser/wiki/Parsing-Descriptions) for parsing tips.
 
 `0 (Default)` - RawDescription
 
@@ -205,11 +207,11 @@ Parameters
 - talents: only ability/talent icons are extracted
 
 Notes:
-- This option only works if you provided a `Heroes of the Storm` directory path for the `-s|--storagePath` option
+- This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storagePath` option
 - Images are always extracted in `.png` format
 
 ### Advanced File Configuration
-For more advanced file configurations, you can edit the file `WriterConfig.xml`.  Options in the console override the options in the config file.
+For more advanced file configurations, edit the file `WriterConfig.xml`.  Options in the console override the options in the config file.
 
 ## License
 [MIT license](/LICENSE)
