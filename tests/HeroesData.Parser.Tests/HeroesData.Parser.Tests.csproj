@@ -35,10 +35,10 @@
     <None Update="TestData\mods\heromods\blank.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\override\HeroOverrideTest_12345.xml">
+    <None Update="HeroOverridesXml\HeroOverrideTest_12345.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\override\HeroOverrideTest.xml">
+    <None Update="HeroOverridesXml\HeroOverrideTest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

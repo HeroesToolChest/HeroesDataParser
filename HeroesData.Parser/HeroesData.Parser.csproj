@@ -18,10 +18,10 @@
     <None Update="GameStringValues.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="OldHeroOverrides\HeroOverrides_66182.xml">
+    <None Update="HeroOverridesXml\HeroOverrides_66182.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="HeroOverrides.xml">
+    <None Update="HeroOverridesXml\HeroOverrides.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="VerifyIgnore.txt">

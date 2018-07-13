@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 
 namespace HeroesData.Parser.UnitData.Overrides
@@ -12,6 +13,7 @@ namespace HeroesData.Parser.UnitData.Overrides
     {
         private readonly GameData GameData;
         private readonly int? HotsBuild;
+        private readonly string HeroOverridesDirectoryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "HeroOverridesXml");
 
         private Dictionary<string, HeroOverride> HeroOverridesByCHeroId = new Dictionary<string, HeroOverride>();
 
@@ -126,24 +128,24 @@ namespace HeroesData.Parser.UnitData.Overrides
                 else
                     file = Path.Combine(Path.GetDirectoryName(HeroDataOverrideXmlFile), $"{fileNoExtension}_{HotsBuild}.xml");
 
-                if (File.Exists(file))
+                if (File.Exists(Path.Combine(HeroOverridesDirectoryPath, file)))
                 {
                     HeroDataOverrideXmlFile = file;
-                    return XDocument.Load(file);
+                    return XDocument.Load(Path.Combine(HeroOverridesDirectoryPath, file));
                 }
             }
 
             // default load
-            if (File.Exists(HeroDataOverrideXmlFile))
+            if (File.Exists(Path.Combine(HeroOverridesDirectoryPath, HeroDataOverrideXmlFile)))
             {
-                return XDocument.Load(HeroDataOverrideXmlFile);
+                return XDocument.Load(Path.Combine(HeroOverridesDirectoryPath, HeroDataOverrideXmlFile));
             }
             else
             {
                 if (HotsBuild.HasValue)
-                    throw new FileNotFoundException($"File not found: {HeroDataOverrideXmlFile} or {Path.GetFileNameWithoutExtension(HeroDataOverrideXmlFile)}_{HotsBuild}.xml");
+                    throw new FileNotFoundException($"File not found: {HeroDataOverrideXmlFile} or {Path.GetFileNameWithoutExtension(HeroDataOverrideXmlFile)}_{HotsBuild}.xml at {HeroOverridesDirectoryPath}");
                 else
-                    throw new FileNotFoundException($"File not found: {HeroDataOverrideXmlFile}");
+                    throw new FileNotFoundException($"File not found: {HeroDataOverrideXmlFile} at {HeroOverridesDirectoryPath}");
             }
         }
 

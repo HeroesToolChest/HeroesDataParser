@@ -9,8 +9,8 @@ namespace HeroesData.Parser.Tests.Overrides
     {
         private const string TestDataFolder = "TestData";
         private readonly string ModsTestFolder = Path.Combine(TestDataFolder, "mods");
-        private readonly string HeroOverrideTestFolder = Path.Combine(TestDataFolder, "override", "HeroOverrideTest.xml");
-        private readonly string HeroOverrideBuildTestFolder = Path.Combine(TestDataFolder, "override", "HeroOverrideTest_12345.xml");
+        private readonly string HeroOverrideTestFolder = "HeroOverrideTest.xml";
+        private readonly string HeroOverrideBuildTestFolder = "HeroOverrideTest_12345.xml";
         private readonly GameData GameData;
 
         public LoadOverrideFileTests()
