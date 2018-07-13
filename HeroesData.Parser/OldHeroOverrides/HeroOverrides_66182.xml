@@ -10,22 +10,22 @@
   </CHero>
   <CHero id="Alarak">
     <!--Cooldown and mana cost are deducted after charge release-->
-    <Ability id="AlarakDeadlyChargeActivate">
+    <Ability id="AlarakDeadlyCharge">
       <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeExecuteSetCooldown,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeExecuteSetCooldown,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
+        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeUnleashModifyUnit,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
+        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeUnleashModifyUnit,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
       </Override>
     </Ability>
-    <Talent id="AlarakDeadlyChargeFirstHeroic">
+    <Talent id="AlarakHeroicAbilityDeadlyCharge">
       <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeExecuteSetCooldown,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeExecuteSetCooldown,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
+        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeUnleashModifyUnit,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
+        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeUnleashModifyUnit,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
       </Override>
     </Talent>
-    <Talent id="AlarakDeadlyChargeSecondHeroic">
+    <Talent id="AlarakDeadlyChargeItem">
       <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeExecuteSetCooldown,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeExecuteSetCooldown,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
+        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeUnleashModifyUnit,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
+        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeUnleashModifyUnit,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
       </Override>
     </Talent>
   </CHero>
@@ -71,6 +71,15 @@
   </CHero>
   <CHero id="Auriel">
     <EnergyType value="Energy" />
+  </CHero>
+  <CHero id="Azmodan">
+    <!--Mana cost is time based-->
+    <Ability id="AzmodanAllShallBurn">
+      <Override>
+        <Tooltip.Energy.EnergyCost>&lt;d ref="-Effect,AzmodanAllShallBurnManaDrain,VitalArray[Energy].Change/Effect,AzmodanAllShallBurnCreatePersistent,PeriodicPeriodArray"/></Tooltip.Energy.EnergyCost>
+        <Tooltip.Energy.IsPerCost value="true" />
+      </Override>
+    </Ability>
   </CHero>
   <CHero id="Barbarian" name="Sonya">
     <EnergyType value="Fury" />

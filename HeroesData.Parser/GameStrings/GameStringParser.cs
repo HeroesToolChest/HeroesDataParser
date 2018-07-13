@@ -165,7 +165,7 @@ namespace HeroesData.Parser.GameStrings
                     pathLookup = pathLookup.Replace(scalingText, string.Empty);
                 }
 
-                double number = MathEval.CalculatePathEquation(pathLookup);
+                double number = MathEval.CalculatePathEquation(pathLookup.Trim('/'));
 
                 if (precision.HasValue)
                     parts[i] = Math.Round(number, precision.Value).ToString();
@@ -471,7 +471,7 @@ namespace HeroesData.Parser.GameStrings
                 "CValidatorUnitCompareBehaviorCount", });
             ElementNames.Add("Accumulator", new HashSet<string> { "CAccumulatorToken", "CAccumulatorVitals", "CBehaviorTokenCounter", "CAccumulatorTimed", "CAccumulatorDistanceUnitTraveled" });
             ElementNames.Add("Weapon", new HashSet<string> { "CWeaponLegacy" });
-            ElementNames.Add("Actor", new HashSet<string> { "CActorQuad" });
+            ElementNames.Add("Actor", new HashSet<string> { "CActorQuad", "CActorRange" });
             ElementNames.Add("Armor", new HashSet<string> { "CArmor" });
         }
     }
