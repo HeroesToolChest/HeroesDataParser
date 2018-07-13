@@ -4,7 +4,8 @@
 Heroes Data Parser is a cross platform (Windows/MacOS/Linux) command line tool that extracts Heroes of the Storm game data into XML or JSON files. Extracts hero information along with all abilities, talents, and their respective portraits and icons.
 
 ## Installation
-- Windows 7 SP1 (x64 and x86) or higher 
+### Operating System Support
+- Windows 7 SP1 (x86 and x64) or higher 
 - Linux (x64)
 - macOS 10.12 and later versions
 
@@ -29,7 +30,7 @@ Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [
 ### Zip File Download - Self-Contained
 No runtime or SDK is required.
 
-Download and extract the latest `HeroesDataParser.*-scd-*.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for your Operating System.
+Download and extract the latest `HeroesDataParser.*-scd-*.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
 This zip file contains everything that is needed to run the dotnet core app without .NET Core being installed, so the zip file is quite large.
 
@@ -40,7 +41,7 @@ heroes-data -h
 dotnet heroes-data -h
 dotnet-heroes-data -h
 ```
-If you download one of the zip files, run the following command from the extracted directory:
+If one of the zip files was downloaded, run the following command from the extracted directory:
 ```
 dotnet heroesdata.dll -h
 ```
@@ -74,14 +75,13 @@ dotnet heroes-data -s 'D:\Games\Heroes of the Storm Public Test' --xml --json
 ## Hero Warnings
 - Please be mindful of the hero warnings, especially on a build with a new hero or re-worked hero
 - All the warnings do not need to be fixed, they are shown for awareness
-- Tooltip strings that fail to parsed will show up **empty** in the xml or json files and thus will be a valid warning
-- Fix the warning yourself (and possibly create an issue or pull request) or wait for an update
+- **Tooltip strings that fail to parse will show up __empty__** in the xml or json files and thus will be a valid warning
 - Hero warnings can be shown to the console using the option `--heroWarnings`
 - Ignored warnings are in `VerifyIgnore.txt`
 
 ## Advanced Features
 ### Storage Path (-s|--storagePath)
-There are two types of paths you can provide for the app. One is the directory path of the `Heroes of the Storm` directory, the other is an already extracted `mods` directory containing the following file structure:
+There are two types of paths that can be provided for this option. One is the directory path of the `Heroes of the Storm` directory and the other is an already extracted `mods` directory containing the following file structure:
 ```
 mods/
 |--core.stormmod/base.stormdata/GameData/
@@ -118,7 +118,7 @@ modFolders/
 |--mods_22388/
    |--(FILES)
 ```
-Setting `modFolders` as the storage path will have the app parsed the `mods_22388` directory.
+Setting `modFolders` as the storage path will have the app parse the `mods_22388` directory.
 
 ### File Split (-f|--fileSplit)
 If true, one xml and json file will be created for each hero.
@@ -127,21 +127,91 @@ If false (default), a single xml and json file will be created.
 ### Description (-d|--description)
 Sets the description/tooltip output type (0 - 6)
 
+Some of these may require parsing for a readable output. Visit the [wiki page](https://github.com/koliva8245/HeroesDataParser/wiki/Parsing-Descriptions) for parsing tips.
+
 `0 (Default)` - RawDescription
+
+The raw output of the description. Contains the color tags `<c val=\"#TooltipNumbers\"></c>`, scaling data `~~0.04~~`, and newlines `<n/>`.
+
+Example
+
+```
+Fires a laser that deals <c val=\"#TooltipNumbers\">200~~0.04~~</c> damage.<n/>Does not affect minions.
+```
 
 `1` - PlainText
 
+Plain text without any color tags, scaling info, or newlines.  Newlines are replaced with a double space.
+
+Example:
+
+```
+Fires a laser that deals 200 damage.  Does not affect minions.
+```
+
 `2` - PlainTextWithNewlines
+
+Same as PlainText but contains newlines.
+
+Example:
+
+```
+Fires a laser that deals 200 damage.<n/>Does not affect minions.
+```
 
 `3` - PlainTextWithScaling
 
+Same as PlainText but contains the scaling info `(+X% per level)`.
+
+Example:
+
+```
+Fires a laser that deals 200 (+4% per level) damage.  Does not affect minions.
+```
+
 `4` - PlainTextWithScalingWithNewlines
+
+Same as PlainTextWithScaling but contains the newlines.
+
+Example:
+
+```
+Fires a laser that deals 200 (+4% per level) damage.<n/>Does not affect minions.
+```
 
 `5` - ColoredText
 
+Contains the color tags and newlines. When parsed, this is what appears ingame for tooltips.
+
+Example:
+
+```
+Fires a laser that deals <c val=\"#TooltipNumbers\">200</c> damage.<n/>Does not affect minions.
+```
+
 `6` - ColoredTextWithScaling
 
+Same as ColoredText but contains the scaling info.
+
+Example:
+
+```
+Fires a laser that deals <c val=\"#TooltipNumbers\">200 (+4% per level)</c> damage.<n/>Does not affect minions.
+```
+### Extract (-e|--extract)
+Extracts images that have been referenced for a hero or ability/talent in the xml and json file(s).
+
+Parameters
+- all: all hero portraits and ability/talent icons are extracted
+- portraits: only hero portraits are extracted
+- talents: only ability/talent icons are extracted
+
+Notes:
+- This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storagePath` option
+- Images are always extracted in `.png` format
+
 ### Advanced File Configuration
+For more advanced file configurations, edit the file `WriterConfig.xml`.  Options in the console override the options in the config file.
 
 ## License
 [MIT license](/LICENSE)
