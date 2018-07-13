@@ -198,10 +198,10 @@ Fires a laser that deals <c val=\"#TooltipNumbers\">200 (+4% per level)</c> dama
 ### Extract (-e|--extract)
 Extracts images that have been referenced for a hero or ability/talent in the xml and json file(s).
 
-Parameters
-- all: all hero portraits and ability/talent icons are extracted
-- portraits: only hero portraits are extracted
-- talents: only ability/talent icons are extracted
+Parameters  
+_all_: all hero portraits and ability/talent icons are extracted  
+_portraits_: only hero portraits are extracted  
+_talents_: only ability/talent icons are extracted  
 
 Notes:
 - This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storagePath` option
