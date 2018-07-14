@@ -118,6 +118,7 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         private XDocument LoadOverrideFile()
         {
+            // see if we can load a build override file
             if (HotsBuild.HasValue)
             {
                 string file = string.Empty;
@@ -128,10 +129,36 @@ namespace HeroesData.Parser.UnitData.Overrides
                 else
                     file = Path.Combine(Path.GetDirectoryName(HeroDataOverrideXmlFile), $"{fileNoExtension}_{HotsBuild}.xml");
 
+                // check if exact build number override file exists
                 if (File.Exists(Path.Combine(HeroOverridesDirectoryPath, file)))
                 {
                     HeroDataOverrideXmlFile = file;
                     return XDocument.Load(Path.Combine(HeroOverridesDirectoryPath, file));
+                }
+                else // load the next lowest build override file
+                {
+                    (int selectedBuild, int difference) = (HotsBuild.Value, 999999);
+
+                    foreach (string directoryName in Directory.EnumerateFiles(HeroOverridesDirectoryPath, $"{Path.GetFileNameWithoutExtension(HeroDataOverrideXmlFile)}_*.xml"))
+                    {
+                        if (int.TryParse(Path.GetFileNameWithoutExtension(directoryName).Split('_')[1], out int buildNumber))
+                        {
+                            if (HotsBuild.Value - buildNumber > 0 && (HotsBuild.Value - buildNumber < difference))
+                            {
+                                selectedBuild = buildNumber;
+                                difference = HotsBuild.Value - buildNumber;
+                            }
+                        }
+                    }
+
+                    // check if it exists and load it
+                    file = Path.Combine(Path.GetDirectoryName(HeroDataOverrideXmlFile), $"{fileNoExtension}_{selectedBuild}.xml");
+
+                    if (File.Exists(Path.Combine(HeroOverridesDirectoryPath, file)))
+                    {
+                        HeroDataOverrideXmlFile = file;
+                        return XDocument.Load(Path.Combine(HeroOverridesDirectoryPath, file));
+                    }
                 }
             }
 

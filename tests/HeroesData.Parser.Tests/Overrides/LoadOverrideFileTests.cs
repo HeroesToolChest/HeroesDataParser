@@ -9,8 +9,8 @@ namespace HeroesData.Parser.Tests.Overrides
     {
         private const string TestDataFolder = "TestData";
         private readonly string ModsTestFolder = Path.Combine(TestDataFolder, "mods");
-        private readonly string HeroOverrideTestFolder = "HeroOverrideTest.xml";
-        private readonly string HeroOverrideBuildTestFolder = "HeroOverrideTest_12345.xml";
+        private readonly string HeroOverrideTest = "HeroOverrideTest.xml";
+        private readonly string HeroOverrideBuild12345Test = "HeroOverrideTest_12345.xml";
         private readonly GameData GameData;
 
         public LoadOverrideFileTests()
@@ -21,7 +21,7 @@ namespace HeroesData.Parser.Tests.Overrides
         [Fact]
         public void LoadOverrideFileTest()
         {
-            OverrideData overrideData = OverrideData.Load(GameData, HeroOverrideTestFolder);
+            OverrideData overrideData = OverrideData.Load(GameData, HeroOverrideTest);
             Assert.NotNull(overrideData);
 
             Assert.Equal(4, overrideData.Count); // LittleLoco counts as one
@@ -30,16 +30,34 @@ namespace HeroesData.Parser.Tests.Overrides
         [Fact]
         public void LoadOverrideHasBuildInFileTest()
         {
-            OverrideData overrideData = OverrideData.Load(GameData, 12345, HeroOverrideBuildTestFolder);
+            OverrideData overrideData = OverrideData.Load(GameData, 12345, HeroOverrideBuild12345Test);
             Assert.NotNull(overrideData);
 
             Assert.Equal(1, overrideData.Count);
         }
 
         [Fact]
+        public void LoadOverrideHasBuildOpenNextLowestBuildTest()
+        {
+            OverrideData overrideData = OverrideData.Load(GameData, 11500, HeroOverrideTest);
+            Assert.NotNull(overrideData);
+
+            Assert.Equal(7, overrideData.Count);
+        }
+
+        [Fact]
+        public void LoadOverrideHasBuildOpenNextLowestBuildTest2()
+        {
+            OverrideData overrideData = OverrideData.Load(GameData, 12100, HeroOverrideTest);
+            Assert.NotNull(overrideData);
+
+            Assert.Equal(11, overrideData.Count);
+        }
+
+        [Fact]
         public void LoadOverrideNoBuildInFileTest()
         {
-            OverrideData overrideData = OverrideData.Load(GameData, 12345, HeroOverrideTestFolder);
+            OverrideData overrideData = OverrideData.Load(GameData, 12345, HeroOverrideTest);
             Assert.NotNull(overrideData);
 
             Assert.Equal(1, overrideData.Count);

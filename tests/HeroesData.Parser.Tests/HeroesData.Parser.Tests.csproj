@@ -20,6 +20,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="HeroOverridesXml\HeroOverrideTest_11000.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="HeroOverridesXml\HeroOverrideTest_12000.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\mods\core.stormmod\base.stormdata\GameData\XmlTestData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
