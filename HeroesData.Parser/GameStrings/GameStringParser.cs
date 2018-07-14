@@ -174,7 +174,11 @@ namespace HeroesData.Parser.GameStrings
 
                 if (!string.IsNullOrEmpty(scalingText))
                 {
-                    parts[i] += $"{scalingText}";
+                    // only add the scaling text if the next part does not start with a % sign
+                    if (!(i + 1 < parts.Length && parts[i + 1].StartsWith("%")))
+                    {
+                        parts[i] += $"{scalingText}";
+                    }
                 }
             }
 
@@ -314,6 +318,7 @@ namespace HeroesData.Parser.GameStrings
         private string GetValueFromPath(string pathLookup, out double? scaling)
         {
             var parts = pathLookup.Trim().Split(new char[] { ',', '.' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var scalingParts = pathLookup.Trim().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
             if (parts[0].Contains("$BehaviorTokenCount") || parts[0].Contains("$BehaviorStackCount"))
             {
@@ -321,16 +326,16 @@ namespace HeroesData.Parser.GameStrings
                 return "0";
             }
 
-            return ReadData(parts, out scaling);
+            return ReadData(parts, scalingParts, out scaling);
         }
 
-        private string ReadData(List<string> parts, out double? scaling)
+        private string ReadData(List<string> parts, List<string> scalingParts, out double? scaling)
         {
             scaling = null;
             string value = ReadGameData(parts, null);
 
-            if (parts.Count == 3)
-                scaling = GetScalingInfo(parts[0], parts[1], parts[2]);
+            if (scalingParts.Count == 3)
+                scaling = GetScalingInfo(scalingParts[0], scalingParts[1], scalingParts[2]);
 
             if (string.IsNullOrEmpty(value))
             {
@@ -456,7 +461,7 @@ namespace HeroesData.Parser.GameStrings
             if (fieldValue.EndsWith("]"))
                 fieldValue = fieldValue.Substring(0, fieldValue.Length - 3);
 
-            return GameData.ScaleValue((catalogValue, entryValue, fieldValue));
+            return GameData.GetScaleValue((catalogValue, entryValue, fieldValue));
         }
 
         private void SetValidElementNames()

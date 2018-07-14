@@ -27,6 +27,16 @@
   <CEffectDamage id="AbathurToxicNestEnvenomedNestDamage" parent="StormSpellDot">
     <Amount value="38.25" />
   </CEffectDamage>
+  <CBehaviorBuff id="CarapaceEvolutionShield" parent="StormShield">
+    <Duration value="8" />
+    <DamageResponse ModifyLimit="157">
+      <ModifyScoreArray index="0" Value="Healing" />
+    </DamageResponse>
+    <PeriodicEffect value="CarapaceEvolutionTalentBuffsApplySet" />
+    <RemoveValidatorArray value="AbathurCarapaceActiveCombine" />
+    <PeriodCount value="1" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="CarapaceEvolutionShieldTooltipDummy" parent="CarapaceEvolutionShield" />
   <CTalent id="AnubarakMasteryEpicenterBurrowCharge">
     <Face value="AnubarakBurrowChargeEpicenterTalent" />
     <Abil value="AnubarakBurrowCharge" />
@@ -266,7 +276,7 @@
     </Modification>
   </CBehaviorBuff>
   
-  <!-- level scaling data -->
+  <!-- level scaling data for azmodan -->
   <LevelScalingArray Ability="AzmodanAllShallBurn">
     <Modifications>
       <Catalog value="Effect" />
@@ -327,6 +337,296 @@
       <Catalog value="Effect" />
       <Entry value="AzmodanSinsGraspInitialDamage" />
       <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+
+  <!--level scaling data for abathur-->
+  <LevelScalingArray Ability="AbathurSpawnLocusts">
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AbathurLocustNormal" />
+      <Field value="LifeMax" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AbathurLocustNormal" />
+      <Field value="LifeStart" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurLocustWeaponDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AbathurLocustNest" />
+      <Field value="LifeMax" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AbathurLocustNest" />
+      <Field value="LifeStart" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+  <LevelScalingArray Ability="AbathurSpawnLocustsAssaultStrain">
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AbathurLocustAssaultStrain" />
+      <Field value="LifeMax" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AbathurLocustAssaultStrain" />
+      <Field value="LifeStart" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurLocustAssaultWeaponDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurLocustAssaultExplodeDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurLocustAssaultWeaponCleaveDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+  <LevelScalingArray Ability="AbathurSpawnLocustsBombardStrain">
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AbathurLocustBombardStrain" />
+      <Field value="LifeMax" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AbathurLocustBombardStrain" />
+      <Field value="LifeStart" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurLocustBombardWeaponDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurLocustBombardWeaponCloseRangeDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+  <LevelScalingArray Ability="AbathurSymbiote">
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurSymbioteStabDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurSymbioteStabDamageHivemind" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurSymbioteSpikeBurstDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurSymbioteSpikeBurstDamageHivemind" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="CarapaceEvolutionShield" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="CarapaceEvolutionShieldHivemind" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="CarapaceEvolutionShieldTooltipDummy" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="AbathurSymbioteCarapaceNetworkedCarapaceTalent" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="RegenerativeMicrobesCreateHealer" />
+      <Field value="RechargeVitalRate" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurSymbioteSpikeBurstSomaTransferenceCreateHealer" />
+      <Field value="RechargeVitalRate" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+  <LevelScalingArray Ability="AbathurToxicNest">
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="ToxicNestDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurToxicNestEnvenomedNestDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AbathurToxicNest" />
+      <Field value="LifeStart" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AbathurToxicNest" />
+      <Field value="LifeMax" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+  <LevelScalingArray Ability="AbathurUltimateEvolution">
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="UltimateEvolutionBuff" />
+      <Field value="Modification.DamageDealtScaled[2]" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+  <LevelScalingArray Ability="AbathurVolatileMutation">
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurVolatileMutationDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurVolatileMutationDamageUltimateEvolution" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+  <LevelScalingArray Ability="AbathurEvolveMonstrosity">
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AbathurEvolvedMonstrosity" />
+      <Field value="LifeStart" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AbathurEvolvedMonstrosity" />
+      <Field value="LifeMax" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AbathurEvolveMonstrosityWeaponDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="AbathurEvolveMonstrosityDamageStack" />
+      <Field value="Modification.DamageDealtScaled[Basic]" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="AbathurEvolveMonstrosityHealthStack" />
+      <Field value="Modification.VitalMaxArray[Life]" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="EvolveMonstrosityHealthStackHealer" />
+      <Field value="RechargeVitalRate" />
       <Value value="0.040000" />
       <AffectedByOverdrive value="1" />
     </Modifications>

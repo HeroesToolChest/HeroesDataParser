@@ -86,7 +86,7 @@ namespace HeroesData.Parser.XmlGameData
         /// </summary>
         /// <param name="lookupId">lookupId.</param>
         /// <returns></returns>
-        public double? ScaleValue((string Catalog, string Entry, string Field) lookupId)
+        public double? GetScaleValue((string Catalog, string Entry, string Field) lookupId)
         {
             if (ScaleValueByLookupId.TryGetValue(lookupId, out double value))
                 return value;
@@ -134,10 +134,7 @@ namespace HeroesData.Parser.XmlGameData
                     if (string.IsNullOrEmpty(value))
                         continue;
 
-                    if (ScaleValueByLookupId.ContainsKey((catalog, entry, field)))
-                        ScaleValueByLookupId[(catalog, entry, field)] = double.Parse(value); // replace
-                    else
-                        ScaleValueByLookupId.Add((catalog, entry, field), double.Parse(value));
+                    ScaleValueByLookupId[(catalog, entry, field)] = double.Parse(value);
                 }
             }
         }

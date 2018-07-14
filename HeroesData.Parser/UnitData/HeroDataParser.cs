@@ -341,7 +341,7 @@ namespace HeroesData.Parser.UnitData
                 {
                     hero.Life.LifeMax = double.Parse(element.Attribute("value").Value);
 
-                    double? scaleValue = GameData.ScaleValue(("Unit", hero.CUnitId, "LifeMax"));
+                    double? scaleValue = GameData.GetScaleValue(("Unit", hero.CUnitId, "LifeMax"));
                     if (scaleValue.HasValue)
                         hero.Life.LifeScaling = scaleValue.Value;
                 }
@@ -349,7 +349,7 @@ namespace HeroesData.Parser.UnitData
                 {
                     hero.Life.LifeRegenerationRate = double.Parse(element.Attribute("value").Value);
 
-                    double? scaleValue = GameData.ScaleValue(("Unit", hero.CUnitId, "LifeRegenRate"));
+                    double? scaleValue = GameData.GetScaleValue(("Unit", hero.CUnitId, "LifeRegenRate"));
                     if (scaleValue.HasValue)
                         hero.Life.LifeRegenerationRateScaling = scaleValue.Value;
                 }
@@ -825,7 +825,7 @@ namespace HeroesData.Parser.UnitData
                     }
                 }
 
-                double? scaleValue = GameData.ScaleValue(("Effect", displayEffectValue, "Amount"));
+                double? scaleValue = GameData.GetScaleValue(("Effect", displayEffectValue, "Amount"));
                 if (scaleValue.HasValue)
                     weapon.DamageScaling = scaleValue.Value;
             }

@@ -18,6 +18,7 @@ namespace HeroesData.Parser.Tests
 
         private int FailedParsedCount = 0;
         private Dictionary<string, string> FullParsedTooltipsByFullTooltipNameId = new Dictionary<string, string>();
+
         public GameStringParserTests()
         {
             LoadTestData();
@@ -42,6 +43,7 @@ namespace HeroesData.Parser.Tests
         public void FullParsedTooltipSuccessTest()
         {
             Assert.Equal("Toxic Nests deal <c val=\"#TooltipNumbers\">75%</c> more damage over <c val=\"#TooltipNumbers\">3</c> seconds.", FullParsedTooltipsByFullTooltipNameId["AbathurToxicNestEnvenomedNestTalent"]);
+            Assert.Equal("Shields the assisted ally for <c val=\"#TooltipNumbers\">157~~0.04~~</c>. Lasts for <c val=\"#TooltipNumbers\">8</c> seconds.", FullParsedTooltipsByFullTooltipNameId["AbathurSymbioteCarapace"]);
             Assert.Equal("Increases Burrow Charge impact area by <c val=\"#TooltipNumbers\">60%</c> and lowers the cooldown by <c val=\"#TooltipNumbers\">1.25</c> seconds for each Hero hit.", FullParsedTooltipsByFullTooltipNameId["AnubarakBurrowChargeEpicenterTalent"]);
             Assert.Equal("Harden Carapace grants <c val=\"#TooltipNumbers\">30%</c> increased Movement Speed for <c val=\"#TooltipNumbers\">3</c> seconds.", FullParsedTooltipsByFullTooltipNameId["AnubarakHardenCarapaceShedExoskeletonTalent"]);
             Assert.Equal("Every <c val=\"#TooltipNumbers\">12</c> seconds, gain <c val=\"#TooltipNumbers\">30</c> Spell Armor against the next enemy Ability and subsequent Abilities for <c val=\"#TooltipNumbers\">1.5</c> seconds, reducing the damage taken by <c val=\"#TooltipNumbers\">30%</c>.", FullParsedTooltipsByFullTooltipNameId["AnubarakNerubianArmor"]);
