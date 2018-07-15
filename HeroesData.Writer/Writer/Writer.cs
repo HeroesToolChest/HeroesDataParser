@@ -12,39 +12,35 @@ namespace HeroesData.FileWriter.Writer
         where T : class
         where TU : class
     {
-        protected Writer()
-        {
-            Directory.CreateDirectory(XmlOutputFolder);
-            Directory.CreateDirectory(JsonOutputFolder);
-        }
+        public FileSettings FileSettings { get; set; }
+        public string OutputDirectory { get; set; }
+        public int? HotsBuild { get; set; }
+        public List<Hero> Heroes { get; set; }
 
-        protected Writer(int? hotsBuild)
-        {
-            Directory.CreateDirectory(XmlOutputFolder);
-            Directory.CreateDirectory(JsonOutputFolder);
-
-            HotsBuild = hotsBuild;
-        }
-
-        protected FileSettings FileSettings { get; set; }
         protected string SingleFileName { get; set; }
-        protected string XmlOutputFolder => Path.Combine("output", "xml");
-        protected string JsonOutputFolder => Path.Combine("output", "json");
+        protected string XmlOutputFolder => Path.Combine(OutputDirectory, "xml");
+        protected string JsonOutputFolder => Path.Combine(OutputDirectory, "json");
         protected string RootNode => "Heroes";
         protected string HeroUnits => "HeroUnits";
-        protected int? HotsBuild { get; }
 
-        protected void Initialize(FileSettings fileSettings, List<Hero> heroes)
+        public void CreateOutput()
         {
-            FileSettings = fileSettings;
+            Directory.CreateDirectory(XmlOutputFolder);
+            Directory.CreateDirectory(JsonOutputFolder);
+
+            Initialize();
+        }
+
+        protected void Initialize()
+        {
             SetSingleFileName();
 
             if (FileSettings.WriterEnabled)
             {
                 if (FileSettings.FileSplit)
-                    CreateMultipleFiles(heroes);
+                    CreateMultipleFiles(Heroes);
                 else
-                    CreateSingleFile(heroes);
+                    CreateSingleFile(Heroes);
             }
         }
 

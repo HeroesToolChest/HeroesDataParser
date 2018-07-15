@@ -12,26 +12,8 @@ namespace HeroesData.FileWriter.Writer
 {
     internal class JsonWriter : Writer<JProperty, JObject>
     {
-        private JsonWriter(JsonFileSettings fileSettings, List<Hero> heroes)
-        {
-            Initialize(fileSettings, heroes);
-        }
-
-        private JsonWriter(JsonFileSettings fileSettings, List<Hero> heroes, int? hotsBuild)
-            : base(hotsBuild)
-        {
-            Initialize(fileSettings, heroes);
-        }
-
-        public static void CreateOutput(JsonFileSettings fileSettings, List<Hero> heroes)
-        {
-            new JsonWriter(fileSettings, heroes);
-        }
-
-        public static void CreateOutput(JsonFileSettings fileSettings, List<Hero> heroes, int? hotsBuild)
-        {
-            new JsonWriter(fileSettings, heroes, hotsBuild);
-        }
+        public JsonWriter()
+        { }
 
         protected override void SetSingleFileName()
         {
@@ -39,6 +21,18 @@ namespace HeroesData.FileWriter.Writer
                 SingleFileName = $"heroesdata_{HotsBuild.Value}.json";
             else
                 SingleFileName = "heroesdata.json";
+        }
+
+        protected override void CreateSingleFile(List<Hero> heroes)
+        {
+            JObject jObject = new JObject(heroes.Select(hero => HeroElement(hero)));
+
+            using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputFolder, SingleFileName)))
+            using (JsonTextWriter writer = new JsonTextWriter(file))
+            {
+                writer.Formatting = Formatting.Indented;
+                jObject.WriteTo(writer);
+            }
         }
 
         protected override void CreateMultipleFiles(List<Hero> heroes)
@@ -53,18 +47,6 @@ namespace HeroesData.FileWriter.Writer
                     writer.Formatting = Formatting.Indented;
                     jObject.WriteTo(writer);
                 }
-            }
-        }
-
-        protected override void CreateSingleFile(List<Hero> heroes)
-        {
-            JObject jObject = new JObject(heroes.Select(hero => HeroElement(hero)));
-
-            using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputFolder, SingleFileName)))
-            using (JsonTextWriter writer = new JsonTextWriter(file))
-            {
-                writer.Formatting = Formatting.Indented;
-                jObject.WriteTo(writer);
             }
         }
 

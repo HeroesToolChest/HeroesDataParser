@@ -1,6 +1,8 @@
 ﻿using Heroes.Models;
 using HeroesData.FileWriter.Writer;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace HeroesData.FileWriter
 {
@@ -69,11 +71,24 @@ namespace HeroesData.FileWriter
         public int DescriptionType { get; set; }
 
         /// <summary>
+        /// Gets or sets the output directory.
+        /// </summary>
+        public string OutputDirectory { get; set; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "output");
+
+        /// <summary>
         /// Creates the xml output.
         /// </summary>
         public void CreateXml()
         {
-            XmlWriter.CreateOutput(FileConfiguration.XmlFileSettings, Heroes, HotsBuild);
+            XmlWriter xmlWriter = new XmlWriter
+            {
+                FileSettings = FileConfiguration.XmlFileSettings,
+                Heroes = Heroes,
+                HotsBuild = HotsBuild,
+                OutputDirectory = OutputDirectory,
+            };
+
+            xmlWriter.CreateOutput();
         }
 
         /// <summary>
@@ -88,7 +103,15 @@ namespace HeroesData.FileWriter
             FileConfiguration.XmlFileSettings.ShortTooltip = DescriptionType;
             FileConfiguration.XmlFileSettings.FullTooltip = DescriptionType;
 
-            XmlWriter.CreateOutput(FileConfiguration.XmlFileSettings, Heroes, HotsBuild);
+            XmlWriter xmlWriter = new XmlWriter
+            {
+                FileSettings = FileConfiguration.XmlFileSettings,
+                Heroes = Heroes,
+                HotsBuild = HotsBuild,
+                OutputDirectory = OutputDirectory,
+            };
+
+            xmlWriter.CreateOutput();
         }
 
         /// <summary>
@@ -96,7 +119,15 @@ namespace HeroesData.FileWriter
         /// </summary>
         public void CreateJson()
         {
-            JsonWriter.CreateOutput(FileConfiguration.JsonFileSettings, Heroes, HotsBuild);
+            JsonWriter jsonWriter = new JsonWriter
+            {
+                FileSettings = FileConfiguration.JsonFileSettings,
+                Heroes = Heroes,
+                HotsBuild = HotsBuild,
+                OutputDirectory = OutputDirectory,
+            };
+
+            jsonWriter.CreateOutput();
         }
 
         /// <summary>
@@ -111,7 +142,15 @@ namespace HeroesData.FileWriter
             FileConfiguration.JsonFileSettings.ShortTooltip = DescriptionType;
             FileConfiguration.JsonFileSettings.FullTooltip = DescriptionType;
 
-            JsonWriter.CreateOutput(FileConfiguration.JsonFileSettings, Heroes, HotsBuild);
+            JsonWriter jsonWriter = new JsonWriter
+            {
+                FileSettings = FileConfiguration.JsonFileSettings,
+                Heroes = Heroes,
+                HotsBuild = HotsBuild,
+                OutputDirectory = OutputDirectory,
+            };
+
+            jsonWriter.CreateOutput();
         }
     }
 }

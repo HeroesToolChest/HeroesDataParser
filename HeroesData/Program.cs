@@ -24,6 +24,7 @@ namespace HeroesData
         private OverrideData OverrideData;
 
         private string StoragePath = Environment.CurrentDirectory;
+        private string OutputDirectory = string.Empty;
         private StorageMode StorageMode = StorageMode.None;
         private CASCHotsStorage CASCHotsStorage = null;
         private bool Defaults = true;
@@ -56,6 +57,7 @@ namespace HeroesData
             CommandOption setFileSplitOption = app.Option("-f|--fileSplit <boolean>", "Sets the file output type, if true, creates a file for each hero parsed.  Default 'false'", CommandOptionType.SingleValue);
             CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Sets the description output type (0 - 6). Default 0.", CommandOptionType.SingleValue);
             CommandOption setBuildOption = app.Option("-b|--build", "Sets the override build file. Available only in -s|--storagePath mode in CASC mode", CommandOptionType.SingleValue);
+            CommandOption setOutputDirectoryOption = app.Option("-o|--outputDirectory", "Sets the output directory", CommandOptionType.SingleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
@@ -83,6 +85,9 @@ namespace HeroesData
 
                 if (setBuildOption.HasValue() && int.TryParse(setBuildOption.Value(), out result))
                     program.OverrideBuild = result;
+
+                if (setOutputDirectoryOption.HasValue())
+                    program.OutputDirectory = setOutputDirectoryOption.Value();
 
                 if (extractIconsOption.HasValue() && storagePathOption.HasValue())
                 {
@@ -690,13 +695,20 @@ namespace HeroesData
         {
             bool anyCreated = false; // did we create any output at all?
 
-            Console.WriteLine("Creating output...");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("Creating output...");
 
             FileOutput fileOutput = new FileOutput(parsedHeroes.OrderBy(x => x.ShortName).ToList(), HotsBuild)
             {
                 DescriptionType = DescriptionType,
                 FileSplit = FileSplit,
             };
+
+            if (!string.IsNullOrEmpty(OutputDirectory))
+                fileOutput.OutputDirectory = OutputDirectory;
+
+            Console.WriteLine(fileOutput.OutputDirectory);
+            Console.ResetColor();
 
             if (Defaults)
             {

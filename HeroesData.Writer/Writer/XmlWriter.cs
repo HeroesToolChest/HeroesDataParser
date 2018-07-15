@@ -12,26 +12,8 @@ namespace HeroesData.FileWriter.Writer
 {
     internal class XmlWriter : Writer<XElement, XElement>
     {
-        private XmlWriter(XmlFileSettings fileSettings, List<Hero> heroes)
-        {
-            Initialize(fileSettings, heroes);
-        }
-
-        private XmlWriter(XmlFileSettings fileSettings, List<Hero> heroes, int? hotsBuild)
-            : base(hotsBuild)
-        {
-            Initialize(fileSettings, heroes);
-        }
-
-        public static void CreateOutput(XmlFileSettings fileSettings, List<Hero> heroes)
-        {
-            new XmlWriter(fileSettings, heroes);
-        }
-
-        public static void CreateOutput(XmlFileSettings fileSettings, List<Hero> heroes, int? hotsBuild)
-        {
-            new XmlWriter(fileSettings, heroes, hotsBuild);
-        }
+        public XmlWriter()
+        { }
 
         protected override void SetSingleFileName()
         {
