@@ -141,7 +141,7 @@ namespace HeroesData.Parser.UnitData.Overrides
 
                     foreach (string directoryName in Directory.EnumerateFiles(HeroOverridesDirectoryPath, $"{Path.GetFileNameWithoutExtension(HeroDataOverrideXmlFile)}_*.xml"))
                     {
-                        if (int.TryParse(Path.GetFileNameWithoutExtension(directoryName).Split('_')[1], out int buildNumber))
+                        if (int.TryParse(Path.GetFileNameWithoutExtension(directoryName).Split('_').LastOrDefault(), out int buildNumber))
                         {
                             if (HotsBuild.Value - buildNumber > 0 && (HotsBuild.Value - buildNumber < difference))
                             {

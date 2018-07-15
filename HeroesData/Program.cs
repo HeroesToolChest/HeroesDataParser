@@ -431,7 +431,19 @@ namespace HeroesData
 
             time.Stop();
 
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            if (int.TryParse(Path.GetFileNameWithoutExtension(OverrideData.HeroDataOverrideXmlFile).Split('_').LastOrDefault(), out int loadedBuild))
+            {
+                if ((StorageMode == StorageMode.Mods && HotsBuild.HasValue && HotsBuild.Value != loadedBuild) ||
+                    (StorageMode == StorageMode.CASC && HotsBuild.HasValue && HotsBuild.Value != loadedBuild))
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                else
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+            }
+            else // default override
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+            }
+
             Console.WriteLine($"Loaded {OverrideData.HeroDataOverrideXmlFile}");
             Console.ResetColor();
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
