@@ -85,6 +85,8 @@ namespace HeroesData.FileWriter
             FileConfiguration.XmlFileSettings.WriterEnabled = isEnabled;
             FileConfiguration.XmlFileSettings.FileSplit = FileSplit;
             FileConfiguration.XmlFileSettings.Description = DescriptionType;
+            FileConfiguration.XmlFileSettings.ShortTooltip = DescriptionType;
+            FileConfiguration.XmlFileSettings.FullTooltip = DescriptionType;
 
             XmlWriter.CreateOutput(FileConfiguration.XmlFileSettings, Heroes, HotsBuild);
         }
@@ -106,6 +108,8 @@ namespace HeroesData.FileWriter
             FileConfiguration.JsonFileSettings.WriterEnabled = isEnabled;
             FileConfiguration.JsonFileSettings.FileSplit = FileSplit;
             FileConfiguration.JsonFileSettings.Description = DescriptionType;
+            FileConfiguration.JsonFileSettings.ShortTooltip = DescriptionType;
+            FileConfiguration.JsonFileSettings.FullTooltip = DescriptionType;
 
             JsonWriter.CreateOutput(FileConfiguration.JsonFileSettings, Heroes, HotsBuild);
         }
