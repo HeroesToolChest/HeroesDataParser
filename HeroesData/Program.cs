@@ -406,7 +406,10 @@ namespace HeroesData
             time.Start();
             try
             {
-                OverrideData = OverrideData.Load(GameData, HotsBuild);
+                if (StorageMode == StorageMode.Mods)
+                    OverrideData = OverrideData.Load(GameData, HotsBuild);
+                else
+                    OverrideData = OverrideData.Load(GameData);
             }
             catch (FileNotFoundException ex)
             {
@@ -420,7 +423,9 @@ namespace HeroesData
 
             time.Stop();
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"Loaded {OverrideData.HeroDataOverrideXmlFile}");
+            Console.ResetColor();
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
         }
