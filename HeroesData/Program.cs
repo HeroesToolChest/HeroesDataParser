@@ -37,6 +37,7 @@ namespace HeroesData
         private bool ExtractTalents = false;
         private bool FileSplit = false;
         private int? HotsBuild = null;
+        private int? OverrideBuild = null;
         private int MaxParallelism = -1;
         private int DescriptionType = 0;
 
@@ -50,10 +51,11 @@ namespace HeroesData
             app.VersionOption("-v|--version", $"Heroes Data Parser ({AppVersion.GetVersion()})");
 
             CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory", CommandOptionType.SingleValue);
-            CommandOption setMaxDegreeParallism = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
-            CommandOption extractIcons = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all|portraits|talents. Available only in -s|--storagePath mode", CommandOptionType.MultipleValue);
-            CommandOption setFileSplit = app.Option("-f|--fileSplit <boolean>", "Sets the file output type, if true, creates a file for each hero parsed.  Default 'false'", CommandOptionType.SingleValue);
-            CommandOption setDescription = app.Option("-d|--description <value>", "Sets the description output type (0 - 6). Default 0.", CommandOptionType.SingleValue);
+            CommandOption setMaxDegreeParallismOption = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
+            CommandOption extractIconsOption = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all|portraits|talents. Available only in -s|--storagePath mode", CommandOptionType.MultipleValue);
+            CommandOption setFileSplitOption = app.Option("-f|--fileSplit <boolean>", "Sets the file output type, if true, creates a file for each hero parsed.  Default 'false'", CommandOptionType.SingleValue);
+            CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Sets the description output type (0 - 6). Default 0.", CommandOptionType.SingleValue);
+            CommandOption setBuildOption = app.Option("-b|--build", "Sets the override build file. Available only in -s|--storagePath mode in CASC mode", CommandOptionType.SingleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
@@ -73,23 +75,26 @@ namespace HeroesData
                     program.StoragePath = storagePathOption.Value();
                 }
 
-                if (setMaxDegreeParallism.HasValue() && int.TryParse(setMaxDegreeParallism.Value(), out int result))
+                if (setMaxDegreeParallismOption.HasValue() && int.TryParse(setMaxDegreeParallismOption.Value(), out int result))
                     program.MaxParallelism = result;
 
-                if (setDescription.HasValue() && int.TryParse(setDescription.Value(), out result))
+                if (setDescriptionOption.HasValue() && int.TryParse(setDescriptionOption.Value(), out result))
                     program.DescriptionType = result;
 
-                if (extractIcons.HasValue() && storagePathOption.HasValue())
+                if (setBuildOption.HasValue() && int.TryParse(setBuildOption.Value(), out result))
+                    program.OverrideBuild = result;
+
+                if (extractIconsOption.HasValue() && storagePathOption.HasValue())
                 {
-                    if (extractIcons.Values.Contains("all"))
+                    if (extractIconsOption.Values.Contains("all"))
                     {
                         program.ExtractPortraits = true;
                         program.ExtractTalents = true;
                     }
 
-                    if (extractIcons.Values.Contains("portraits"))
+                    if (extractIconsOption.Values.Contains("portraits"))
                         program.ExtractPortraits = true;
-                    if (extractIcons.Values.Contains("talents"))
+                    if (extractIconsOption.Values.Contains("talents"))
                         program.ExtractTalents = true;
                 }
 
@@ -99,7 +104,7 @@ namespace HeroesData
                 program.ShowInvalidShortTooltips = invalidShortOption.HasValue() ? true : false;
                 program.ShowInvalidHeroTooltips = invalidHeroOption.HasValue() ? true : false;
                 program.ShowHeroWarnings = heroWarningsOption.HasValue() ? true : false;
-                program.FileSplit = setFileSplit.HasValue() ? true : false;
+                program.FileSplit = setFileSplitOption.HasValue() ? true : false;
                 program.Execute();
                 Console.ResetColor();
 
@@ -404,10 +409,13 @@ namespace HeroesData
             Console.WriteLine($"Loading OverrideData...");
 
             time.Start();
+
             try
             {
                 if (StorageMode == StorageMode.Mods)
                     OverrideData = OverrideData.Load(GameData, HotsBuild);
+                else if (OverrideBuild.HasValue)
+                    OverrideData = OverrideData.Load(GameData, OverrideBuild.Value);
                 else
                     OverrideData = OverrideData.Load(GameData);
             }
