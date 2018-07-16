@@ -7,12 +7,13 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace HeroesData
 {
     internal class Extractor
     {
-        private readonly string FolderPath = "extract";
+        private readonly string FolderPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "output");
         private readonly string CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "Assets", "Textures");
 
         private readonly List<Hero> Heroes;
