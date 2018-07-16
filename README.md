@@ -233,7 +233,7 @@ modFolders/
 Setting `modFolders` as the storage path will have the `mods_22388` directory parsed.
 
 ### CASC HeroOverrides loading
-When using a `Heroes of the Storm` directory, it will load the equivalent hero overrides file, just like in the [Mods suffix directory](./#Mods-suffix-directory).
+When using a `Heroes of the Storm` directory, it will load the equivalent hero overrides file, just like in the [mods suffix directory](./#Mods-suffix-directory).
 
 ### Advanced File Configuration
 For more advanced file configurations, edit the file `WriterConfig.xml`.  Options in the console override the options in the config file.
