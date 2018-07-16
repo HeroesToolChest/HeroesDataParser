@@ -72,6 +72,8 @@ Options:
   -e|--extract <value(s)>      Extracts images, available values: all|portraits|talents. Available only in -s|--storagePath mode
   -f|--fileSplit <boolean>     Sets the file output type, if true, creates a file for each hero parsed.  Default 'false'
   -d|--description <value>     Sets the description output type (0 - 6). Default 0.
+  -b|--build                   Sets the override build file. Available only in -s|--storagePath mode in CASC mode
+  -o|--outputDirectory         Sets the output directory
   --xml                        Create xml output
   --json                       Create json output
   --invalidFull                Show all invalid full tooltips
