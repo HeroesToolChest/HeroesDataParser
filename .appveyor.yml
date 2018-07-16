@@ -55,6 +55,7 @@ for:
     - path: '.\HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg'
   deploy:
     - provider: GitHub
+      tag: $(appveyor_repo_tag_name)
       release: Heroes Data Parser
       description: '## What''s New\n## Fixes\n## Other\n## Builds'
       auth_token:

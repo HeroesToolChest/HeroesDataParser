@@ -4,20 +4,20 @@
 Heroes Data Parser is a cross platform (Windows/MacOS/Linux) command line tool that extracts Heroes of the Storm game data into XML or JSON files. Extracts hero information along with all abilities, talents, and their respective portraits and icons.
 
 ## Installation
-### Operating System Support
+### Supported Operating Systems
 - Windows 7 SP1 (x86 and x64) or higher 
 - Linux (x64)
 - macOS 10.12 and later versions
 
-### For Linux and macOs users
+### For Linux and macOS users
 To use the -e|--extract option, `libgdiplus` is required 
 
-Ubuntu (or equivalent for Linux distro)
+Ubuntu (or Linux distro equivalent)
 ```
 sudo apt-get install -y libgdiplus
 ```
 
-macOs
+macOS
 ```
 brew install mono-libgdiplus
 ```
@@ -92,7 +92,7 @@ All the warnings do not need to be fixed, they are shown for awareness.
 Hero warnings can be shown to the console using the option `--heroWarnings`.  
 Ignored warnings are in `VerifyIgnore.txt`.  
 
-## Advanced Features
+## Options
 ### Storage Path (-s|--storagePath)
 There are two types of paths that can be provided for this option. One is the directory path of the `Heroes of the Storm` directory and the other is an already extracted `mods` directory containing the following file structure:
 ```
@@ -115,20 +115,7 @@ Or a simpler way, extract these directories and file (keep the directory paths)
 `mods/heroesData.stormmod/enus.stormdata/LocalizedData/GameStrings.txt`  
 `mods/heromods/`
 
-### Multi-mods directory
-You can have multiple mods directories with the suffix `_<build number>` in the same directory.  If you select the parent directory as the storage path, the highest build number suffix diretory will be parsed.
-
-For example, with this directory:
-```
-modFolders/
-|--mods_22000/
-   |--(FILES)
-|--mods_22100/
-   |--(FILES)
-|--mods_22388/
-   |--(FILES)
-```
-Setting `modFolders` as the storage path will have the app parse the `mods_22388` directory.
+The `mods` directory can also have a build suffix in its name. [More info](./#Mods-suffix-directory).
 
 ### File Split (-f|--fileSplit)
 If true, one xml and json file will be created for each hero.  
@@ -139,7 +126,7 @@ Sets the description/tooltip output type (0 - 6)
 
 Some of these may require parsing for a readable output. Visit the [wiki page](https://github.com/koliva8245/HeroesDataParser/wiki/Parsing-Descriptions) for parsing tips.
 
-`0 (Default)` - RawDescription  
+`0` - RawDescription (Default)  
 The raw output of the description. Contains the color tags `<c val=\"#TooltipNumbers\"></c>`, scaling data `~~0.04~~`, and newlines `<n/>`.
 
 Example:  
@@ -206,6 +193,47 @@ _talents_: only ability/talent icons are extracted
 Notes:
 - This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storagePath` option
 - Images are always extracted in `.png` format
+
+## Advanced Features
+### Mods suffix directory
+The `mods` directory may have a `_<build number>` suffix in its name. The build number determines the hero overrides file to load. If the overrides file does not exist and the build number is greater than the highest overrides file then it will load the default overrides file `HeroesOverrides.xml` otherwise it will load next **lowest** overrides file.
+
+Example:
+```
+directory to load: mods_13500
+
+HeroOverrides files:
+HeroOverrides.xml
+HeroOverrdies_12000.xml
+HeroOverrdies_13000.xml <--- will be loaded
+HeroOverrdies_14000.xml
+
+directory to load: mods_14100
+
+HeroOverrides files:
+HeroOverrides.xml <--- will be loaded
+HeroOverrdies_12000.xml
+HeroOverrdies_13000.xml 
+HeroOverrdies_14000.xml
+```
+
+### Multi-mods directory
+You can have multiple mods directories with the suffix `_<build number>` in the same directory.  If you select the parent directory as the storage path, the highest build number suffix diretory will be parsed.
+
+For example, with this directory:
+```
+modFolders/
+|--mods_22000/
+   |--(FILES)
+|--mods_22100/
+   |--(FILES)
+|--mods_22388/
+   |--(FILES)
+```
+Setting `modFolders` as the storage path will have the `mods_22388` directory parsed.
+
+### CASC HeroOverrides loading
+When using a `Heroes of the Storm` directory, it will load the equivalent hero overrides file, just like in the [mods suffix directory](./#Mods-suffix-directory).
 
 ### Advanced File Configuration
 For more advanced file configurations, edit the file `WriterConfig.xml`.  Options in the console override the options in the config file.
