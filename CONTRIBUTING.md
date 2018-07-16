@@ -2,6 +2,7 @@
 - Questions, bugs, issues, features/requests are welcomed
 
 Helpful things to include
+- Version of HeroesData
 - Operating system and version
 - Method of installation
   - dotnet global tool
