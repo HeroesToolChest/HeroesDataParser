@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Xml.Linq;
 
 namespace HeroesData.Parser.GameStrings
@@ -22,7 +23,7 @@ namespace HeroesData.Parser.GameStrings
         /// <summary>
         /// Gets the file name of the GameStringValues file.
         /// </summary>
-        public string GameStringValuesXmlFile { get; private set; } = "GameStringValues.xml";
+        public string GameStringValuesXmlFile { get; private set; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "GameStringValues.xml");
 
         /// <summary>
         /// Gets a lists of values for selected parts of a path.
