@@ -46,12 +46,21 @@ namespace HeroesData.Parser.Tests.Overrides
         }
 
         [Fact]
-        public void LoadOverrideHasBuildOpenNextLowestBuildTest2()
+        public void LoadOverrideHasBuildOpenNextLowestBuild2Test()
         {
             OverrideData overrideData = OverrideData.Load(GameData, 12100, HeroOverrideTest);
             Assert.NotNull(overrideData);
 
             Assert.Equal(11, overrideData.Count);
+        }
+
+        [Fact]
+        public void LoadOverrideHasBuildHighestDefaultBuildTest()
+        {
+            OverrideData overrideData = OverrideData.Load(GameData, 13000, HeroOverrideTest);
+            Assert.NotNull(overrideData);
+
+            Assert.Equal(4, overrideData.Count);
         }
 
         [Fact]

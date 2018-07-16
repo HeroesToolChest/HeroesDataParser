@@ -137,7 +137,7 @@ namespace HeroesData.Parser.UnitData.Overrides
                 }
                 else // load the next lowest build override file
                 {
-                    (int selectedBuild, int difference) = (HotsBuild.Value, 999999);
+                    (int selectedBuild, int difference, int highestBuild) = (HotsBuild.Value, 999999, 0);
 
                     foreach (string directoryName in Directory.EnumerateFiles(HeroOverridesDirectoryPath, $"{Path.GetFileNameWithoutExtension(HeroDataOverrideXmlFile)}_*.xml"))
                     {
@@ -148,16 +148,23 @@ namespace HeroesData.Parser.UnitData.Overrides
                                 selectedBuild = buildNumber;
                                 difference = HotsBuild.Value - buildNumber;
                             }
+                            else if (buildNumber > highestBuild)
+                            {
+                                highestBuild = buildNumber;
+                            }
                         }
                     }
 
-                    // check if it exists and load it
-                    file = Path.Combine(Path.GetDirectoryName(HeroDataOverrideXmlFile), $"{fileNoExtension}_{selectedBuild}.xml");
-
-                    if (File.Exists(Path.Combine(HeroOverridesDirectoryPath, file)))
+                    if (HotsBuild.Value < highestBuild)
                     {
-                        HeroDataOverrideXmlFile = file;
-                        return XDocument.Load(Path.Combine(HeroOverridesDirectoryPath, file));
+                        // check if it exists and load it
+                        file = Path.Combine(Path.GetDirectoryName(HeroDataOverrideXmlFile), $"{fileNoExtension}_{selectedBuild}.xml");
+
+                        if (File.Exists(Path.Combine(HeroOverridesDirectoryPath, file)))
+                        {
+                            HeroDataOverrideXmlFile = file;
+                            return XDocument.Load(Path.Combine(HeroOverridesDirectoryPath, file));
+                        }
                     }
                 }
             }
