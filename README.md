@@ -139,7 +139,7 @@ Sets the description/tooltip output type (0 - 6)
 
 Some of these may require parsing for a readable output. Visit the [wiki page](https://github.com/koliva8245/HeroesDataParser/wiki/Parsing-Descriptions) for parsing tips.
 
-`0 (Default)` - RawDescription  
+`0` - RawDescription (Default)
 The raw output of the description. Contains the color tags `<c val=\"#TooltipNumbers\"></c>`, scaling data `~~0.04~~`, and newlines `<n/>`.
 
 Example:  
