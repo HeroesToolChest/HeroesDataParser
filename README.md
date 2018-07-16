@@ -4,7 +4,7 @@
 Heroes Data Parser is a cross platform (Windows/MacOS/Linux) command line tool that extracts Heroes of the Storm game data into XML or JSON files. Extracts hero information along with all abilities, talents, and their respective portraits and icons.
 
 ## Installation
-### Supported Operating Sytems
+### Supported Operating Systems
 - Windows 7 SP1 (x86 and x64) or higher 
 - Linux (x64)
 - macOS 10.12 and later versions
@@ -115,7 +115,7 @@ Or a simpler way, extract these directories and file (keep the directory paths)
 `mods/heroesData.stormmod/enus.stormdata/LocalizedData/GameStrings.txt`  
 `mods/heromods/`
 
-The `mods` directory can also have a build suffix in its name. [More info](../#Mods-suffix-directory).
+The `mods` directory can also have a build suffix in its name. [More info](./#Mods-suffix-directory).
 
 ### File Split (-f|--fileSplit)
 If true, one xml and json file will be created for each hero.  
@@ -233,7 +233,7 @@ modFolders/
 Setting `modFolders` as the storage path will have the `mods_22388` directory parsed.
 
 ### CASC HeroOverrides loading
-When using a `Heroes of the Storm` directory, it will load the equivalent hero overrides file, just like in the [Mods suffix directory](../#Mods-suffix-directory).
+When using a `Heroes of the Storm` directory, it will load the equivalent hero overrides file, just like in the [Mods suffix directory](./#Mods-suffix-directory).
 
 ### Advanced File Configuration
 For more advanced file configurations, edit the file `WriterConfig.xml`.  Options in the console override the options in the config file.
