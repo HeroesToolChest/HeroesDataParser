@@ -56,7 +56,7 @@ namespace HeroesData
             CommandOption extractIconsOption = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all|portraits|talents. Available only in -s|--storagePath mode", CommandOptionType.MultipleValue);
             CommandOption setFileSplitOption = app.Option("-f|--fileSplit <boolean>", "Sets the file output type, if true, creates a file for each hero parsed.  Default 'false'", CommandOptionType.SingleValue);
             CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Sets the description output type (0 - 6). Default 0.", CommandOptionType.SingleValue);
-            CommandOption setBuildOption = app.Option("-b|--build", "Sets the override build file. Available only in -s|--storagePath mode in CASC mode", CommandOptionType.SingleValue);
+            CommandOption setBuildOption = app.Option("-b|--build", "Sets the override build file.", CommandOptionType.SingleValue);
             CommandOption setOutputDirectoryOption = app.Option("-o|--outputDirectory", "Sets the output directory", CommandOptionType.SingleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
@@ -417,9 +417,7 @@ namespace HeroesData
 
             try
             {
-                if (StorageMode == StorageMode.Mods)
-                    OverrideData = OverrideData.Load(GameData, HotsBuild);
-                else if (OverrideBuild.HasValue)
+                if (OverrideBuild.HasValue)
                     OverrideData = OverrideData.Load(GameData, OverrideBuild.Value);
                 else
                     OverrideData = OverrideData.Load(GameData);
