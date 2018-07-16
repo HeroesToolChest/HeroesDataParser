@@ -50,7 +50,6 @@ This zip file contains everything that is needed to run the dotnet core app with
 ## Usage
 If installed as a global tool, the app can be run with one of the following commands:
 ```
-heroes-data -h
 dotnet heroes-data -h
 dotnet-heroes-data -h
 ```
