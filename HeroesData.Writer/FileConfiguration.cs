@@ -1,11 +1,13 @@
 ﻿using HeroesData.FileWriter.Settings;
+using System.IO;
+using System.Reflection;
 using System.Xml.Linq;
 
 namespace HeroesData.FileWriter
 {
     internal class FileConfiguration
     {
-        private readonly string WriterConfigFile = "WriterConfig.xml";
+        private readonly string WriterConfigFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "WriterConfig.xml");
 
         private XDocument Configuration;
 
