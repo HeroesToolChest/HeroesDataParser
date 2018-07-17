@@ -162,8 +162,8 @@ namespace HeroesData
                 List<Hero> parsedHeroes = ParseUnits(parsedGameStrings);
 
                 HeroDataVerification(parsedHeroes);
-                CreateOutput(parsedHeroes);
-                ExtractFiles(parsedHeroes);
+                CreateOutput(parsedHeroes, out string outputDirectory);
+                ExtractFiles(parsedHeroes, outputDirectory);
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("HDP successfully completed.");
@@ -689,7 +689,7 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        private void CreateOutput(List<Hero> parsedHeroes)
+        private void CreateOutput(List<Hero> parsedHeroes, out string outputDirectory)
         {
             bool anyCreated = false; // did we create any output at all?
 
@@ -705,6 +705,7 @@ namespace HeroesData
             if (!string.IsNullOrEmpty(OutputDirectory))
                 fileOutput.OutputDirectory = OutputDirectory;
 
+            outputDirectory = fileOutput.OutputDirectory;
             Console.WriteLine(fileOutput.OutputDirectory);
             Console.ResetColor();
 
@@ -778,15 +779,13 @@ namespace HeroesData
         /// Extract image files.
         /// </summary>
         /// <param name="heroes"></param>
-        private void ExtractFiles(List<Hero> heroes)
+        private void ExtractFiles(List<Hero> heroes, string outputDirectory)
         {
             if ((!ExtractPortraits && !ExtractTalents) || StorageMode != StorageMode.CASC)
                 return;
 
             Extractor extractor = new Extractor(heroes, CASCHotsStorage.CASCHandler);
-
-            if (!string.IsNullOrEmpty(OutputDirectory))
-                extractor.OutputDirectory = OutputDirectory;
+            extractor.OutputDirectory = outputDirectory;
 
             if (ExtractPortraits)
                 extractor.ExtractPortraits();
