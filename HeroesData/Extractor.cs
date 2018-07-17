@@ -13,7 +13,6 @@ namespace HeroesData
 {
     internal class Extractor
     {
-        private readonly string FolderPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "output");
         private readonly string CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "Assets", "Textures");
 
         private readonly List<Hero> Heroes;
@@ -21,17 +20,17 @@ namespace HeroesData
         private SortedSet<string> Portraits = new SortedSet<string>();
         private SortedSet<string> Talents = new SortedSet<string>();
 
-        private Extractor(List<Hero> heroes, CASCHandler cascHandler)
+        public Extractor(List<Hero> heroes, CASCHandler cascHandler)
         {
             Heroes = heroes;
             CASCHandler = cascHandler;
             Initialize();
         }
 
-        public static Extractor Load(List<Hero> heroes, CASCHandler cascHandler)
-        {
-            return new Extractor(heroes, cascHandler);
-        }
+        /// <summary>
+        /// Gets or sets the output directory.
+        /// </summary>
+        public string OutputDirectory { get; set; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "output");
 
         /// <summary>
         /// Extracts a file.
@@ -69,14 +68,16 @@ namespace HeroesData
         /// </summary>
         public void ExtractPortraits()
         {
-            Console.WriteLine("Extracting portrait files...");
+            Console.Write("Extracting portrait files...");
 
-            string extractFilePath = Path.Combine(FolderPath, "portraits");
+            string extractFilePath = Path.Combine(OutputDirectory, "portraits");
 
             foreach (string portrait in Portraits)
             {
                 ExtractFile(extractFilePath, portrait);
             }
+
+            Console.WriteLine("Done.");
         }
 
         /// <summary>
@@ -84,14 +85,16 @@ namespace HeroesData
         /// </summary>
         public void ExtractTalentIcons()
         {
-            Console.WriteLine("Extracting talent icon files...");
+            Console.Write("Extracting talent icon files...");
 
-            string extractFilePath = Path.Combine(FolderPath, "talents");
+            string extractFilePath = Path.Combine(OutputDirectory, "talents");
 
             foreach (string talent in Talents)
             {
                 ExtractFile(extractFilePath, talent);
             }
+
+            Console.WriteLine("Done.");
         }
 
         private void Initialize()
