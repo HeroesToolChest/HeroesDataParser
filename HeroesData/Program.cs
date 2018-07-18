@@ -784,8 +784,10 @@ namespace HeroesData
             if ((!ExtractPortraits && !ExtractTalents) || StorageMode != StorageMode.CASC)
                 return;
 
-            Extractor extractor = new Extractor(heroes, CASCHotsStorage.CASCHandler);
-            extractor.OutputDirectory = outputDirectory;
+            Extractor extractor = new Extractor(heroes, CASCHotsStorage.CASCHandler)
+            {
+                OutputDirectory = outputDirectory,
+            };
 
             if (ExtractPortraits)
                 extractor.ExtractPortraits();
