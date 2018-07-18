@@ -116,7 +116,7 @@ Or a simpler way, extract these directories and file (keep the directory paths)
 `mods/heroesData.stormmod/enus.stormdata/LocalizedData/GameStrings.txt`  
 `mods/heromods/`
 
-The `mods` directory can also have a build suffix in its name. [More info](./#Mods-suffix-directory).
+The `mods` directory can also have a build suffix in its name. [More info](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
 
 ### File Split (-f|--fileSplit)
 If true, one xml and json file will be created for each hero.  
@@ -234,10 +234,13 @@ modFolders/
 Setting `modFolders` as the storage path will have the `mods_22388` directory parsed.
 
 ### CASC HeroOverrides loading
-When using a `Heroes of the Storm` directory, it will load the equivalent hero overrides file, just like in the [mods suffix directory](./#Mods-suffix-directory).
+When using a `Heroes of the Storm` directory, it will load the equivalent hero overrides file, just like in the [mods suffix directory](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
 
 ### Advanced File Configuration
 For more advanced file configurations, edit the file `WriterConfig.xml`.  Options in the console override the options in the config file.
+
+## Wiki
+Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some more information and examples.
 
 ## License
 [MIT license](/LICENSE)
