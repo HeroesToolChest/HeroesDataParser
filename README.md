@@ -239,5 +239,8 @@ When using a `Heroes of the Storm` directory, it will load the equivalent hero o
 ### Advanced File Configuration
 For more advanced file configurations, edit the file `WriterConfig.xml`.  Options in the console override the options in the config file.
 
+## Wiki
+Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some more information and examples.
+
 ## License
 [MIT license](/LICENSE)
