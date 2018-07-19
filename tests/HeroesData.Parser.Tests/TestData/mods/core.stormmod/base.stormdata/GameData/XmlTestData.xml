@@ -259,6 +259,27 @@
     <RefreshEffect value="BribeStackSoundSet" />
     <RemoveValidatorArray value="LostVikingsHasVikingBribeCarry" />
   </CBehaviorBuff>
+  <CBehaviorBuff id="ChenBrewmastersBalanceSpeedBuff" parent="CarryBehaviorParent">
+    <Alignment value="Positive" />
+    <InfoIcon value="Assets\Textures\storm_ui_temp_icon_sprint.dds" />
+    <DisableValidatorArray value="ChenLTE50EnergySource" />
+    <DisableValidatorArray value="SourceNotDead" />
+    <Modification>
+      <UnifiedMoveSpeedFactor value="0.2" />
+    </Modification>
+    <SortIndex value="30" />
+    <BehaviorCategories index="Fast" value="1" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="ChenBrewmastersBalanceHealthRegen" parent="CarryBehaviorParent">
+    <Alignment value="Positive" />
+    <InfoIcon value="Assets\Textures\storm_temp_btn-ability-terran-heal-color.dds" />
+    <DisableValidatorArray value="ChenGTE50EnergySource" />
+    <DisableValidatorArray value="SourceNotDead" />
+    <Modification>
+      <VitalRegenArray index="Life" value="18" />
+    </Modification>
+    <SortIndex value="30" />
+  </CBehaviorBuff>
   
   <!-- double upped, should take the latest one-->
   <CBehaviorBuff id="ElDruinsMightMasteryPathingBlockerTimedLife" parent="StormTimedLife">
@@ -627,6 +648,17 @@
       <Catalog value="Effect" />
       <Entry value="EvolveMonstrosityHealthStackHealer" />
       <Field value="RechargeVitalRate" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+
+  <!--level scaling for Chen-->
+  <LevelScalingArray Ability="ChenFortifyingBrew">
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="ChenBrewmastersBalanceHealthRegen" />
+      <Field value="Modification.VitalRegenArray[Life]" />
       <Value value="0.040000" />
       <AffectedByOverdrive value="1" />
     </Modifications>

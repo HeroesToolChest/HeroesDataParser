@@ -458,7 +458,7 @@ namespace HeroesData.Parser.GameStrings
 
         private double? GetScalingInfo(string catalogValue, string entryValue, string fieldValue)
         {
-            if (fieldValue.EndsWith("]"))
+            if (fieldValue.EndsWith("[0]"))
                 fieldValue = fieldValue.Substring(0, fieldValue.Length - 3);
 
             return GameData.GetScaleValue((catalogValue, entryValue, fieldValue));
