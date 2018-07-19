@@ -458,10 +458,17 @@ namespace HeroesData.Parser.GameStrings
 
         private double? GetScalingInfo(string catalogValue, string entryValue, string fieldValue)
         {
-            if (fieldValue.EndsWith("[0]"))
-                fieldValue = fieldValue.Substring(0, fieldValue.Length - 3);
+            double? scaleValue = null;
 
-            return GameData.GetScaleValue((catalogValue, entryValue, fieldValue));
+            if (fieldValue.EndsWith("[0]"))
+            {
+                scaleValue = GameData.GetScaleValue((catalogValue, entryValue, fieldValue.Substring(0, fieldValue.Length - 3)));
+            }
+
+            if (!scaleValue.HasValue)
+                scaleValue = GameData.GetScaleValue((catalogValue, entryValue, fieldValue));
+
+            return scaleValue;
         }
 
         private void SetValidElementNames()

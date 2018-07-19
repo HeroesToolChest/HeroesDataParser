@@ -51,6 +51,7 @@ namespace HeroesData.Parser.Tests
             Assert.Equal("Enemy Minions or captured Mercenaries killed near The Lost Vikings grant stacks of Bribe. Use <c val=\"#TooltipNumbers\">40</c> stacks to bribe target Mercenary, instantly defeating them. Does not work on Bosses. Maximum stacks available: <c val=\"#TooltipNumbers\">200</c>. If a camp is defeated entirely with Bribe, the camp respawns <c val=\"#TooltipNumbers\">50%</c> faster.<n/><n/><c val=\"ffff8a\">Current number of Bribe stacks: </c><c val=\"#TooltipNumbers\">0</c>", FullParsedTooltipsByFullTooltipNameId["LostVikingsVikingBribery"]);
             Assert.Equal("Create a ring for <c val=\"#TooltipNumbers\">3</c> seconds that blocks enemies from entering the area teleported to using El'druin's Might.", FullParsedTooltipsByFullTooltipNameId["TyraelElDruinsMightHolyGroundTalent"]);
             Assert.Equal("While at or below <c val=\"#TooltipNumbers\">50</c> Brew, gain <c val=\"#TooltipNumbers\">20%</c> Movement Speed. While at or above <c val=\"#TooltipNumbers\">50</c> Brew, regenerate an additional <c val=\"#TooltipNumbers\">18~~0.04~~</c> Health per second.", FullParsedTooltipsByFullTooltipNameId["ChenFortifyingBrewBrewmastersBalanceTalent"]);
+            Assert.Equal("Transform for <c val=\"#TooltipNumbers\">20</c> seconds, gaining <c val=\"#TooltipNumbers\">1053~~0.04~~</c> Health.", FullParsedTooltipsByFullTooltipNameId["MuradinAvatar"]);
         }
 
         [Fact]
