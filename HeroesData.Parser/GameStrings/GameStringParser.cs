@@ -183,7 +183,7 @@ namespace HeroesData.Parser.GameStrings
                         if (nextPart.StartsWith("<n/>"))
                             nextPart = nextPart.Substring("<n/>".Length).TrimStart();
 
-                        if (!(nextPart.StartsWith("%") || nextPart.StartsWith("second")))
+                        if (!(nextPart.StartsWith("%") || nextPart.StartsWith("0%") || nextPart.StartsWith("second")))
                             parts[i] += $"{scalingText}";
                     }
                     else
@@ -471,9 +471,10 @@ namespace HeroesData.Parser.GameStrings
         {
             double? scaleValue = null;
 
-            if (fieldValue.EndsWith("[0]"))
+            // try lookup without indexing first
+            if (fieldValue.Contains("]"))
             {
-                scaleValue = GameData.GetScaleValue((catalogValue, entryValue, fieldValue.Substring(0, fieldValue.Length - 3)));
+                scaleValue = GameData.GetScaleValue((catalogValue, entryValue, Regex.Replace(fieldValue, @"\[.*?\]", string.Empty)));
             }
 
             if (!scaleValue.HasValue)

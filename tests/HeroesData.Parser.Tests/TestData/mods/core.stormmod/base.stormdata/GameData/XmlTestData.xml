@@ -366,6 +366,7 @@
     <PeriodicPeriodArray value="0.25" />
     <PeriodicPeriodArray value="0.25" />
   </CEffectCreatePersistent>
+  
   <!-- double upped, should take the latest one-->
   <CBehaviorBuff id="ElDruinsMightMasteryPathingBlockerTimedLife" parent="StormTimedLife">
     <Duration value="4" />
@@ -381,7 +382,30 @@
       <StateFlags index="Benign" value="1" />
     </Modification>
   </CBehaviorBuff>
-    
+  <!--end double up-->
+  
+  <CBehaviorBuff id="TyraelRighteousnessShield" parent="StormShield">
+    <Face value="TyraelRighteousnessReciprocateTalent" />
+    <Duration value="4" />
+    <FinalEffect value="RighteousnessExpirationFinalSet" />
+    <DamageResponse Exhausted="RighteousnessSalvationCreateHealer" Handled="TyraelDefenseOfTheAngelsModifyPlayerCooldown" ModifyLimit="336" />
+  </CBehaviorBuff>
+  <CEffectDamage id="MultishotDamage" parent="StormSpell">
+    <MultiplicativeModifierArray index="0" Accumulator="DemonHunterMultishotTalentPunishmentTokenAccumulator" />
+    <AmountArray index="Quest" value="172" />
+  </CEffectDamage>
+  <CEffectDamage id="ZaryaWeaponFeelTheHeatDamage" parent="StormWeapon">
+    <Amount value="30">
+      <AccumulatorArray value="ZaryaEnergyAccumulator" />
+    </Amount>
+    <Flags index="Crit" value="1" />
+  </CEffectDamage>
+  <CEffectDamage id="ZaryaWeaponDamage" parent="StormWeapon">
+    <Amount value="20">
+      <AccumulatorArray value="ZaryaEnergyAccumulator" />
+    </Amount>
+  </CEffectDamage>
+  
   <!-- level scaling data for azmodan -->
   <LevelScalingArray Ability="AzmodanAllShallBurn">
     <Modifications>
@@ -769,6 +793,170 @@
       <Field value="Amount" />
       <Value value="0.040000" />
       <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+
+  <!--level scaling for tyrael-->
+  <LevelScalingArray Ability="TyraelRighteousness">
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="TyraelRighteousnessShield" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="TyraelRighteousnessSalvationShield" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="TyraelRighteousnessAllyShield" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="TyraelRighteousnessJusticeForAllAllyShield" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="RighteousnessExpirationDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="RighteousnessRegenerationCreateHealer" />
+      <Field value="RechargeVitalRate" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="TyraelRighteousnessAllyDummyShield" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="TyraelRighteousnessDummyShield" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="RighteousnessSalvationCreateHealer" />
+      <Field value="RechargeVitalRate" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+
+  <!--level scaling for demon hunter / valla-->
+  <LevelScalingArray Ability="DemonHunterMultishot">
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="MultishotDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="MultishotArsenalGrenadeDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="MultishotDamage" />
+      <Field value="AmountArray[Quest]" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+
+  <!--level scaling for zarya-->
+  <LevelScalingArray>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="HeroZarya" />
+      <Field value="LifeStart" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="HeroZarya" />
+      <Field value="LifeMax" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="HeroZarya" />
+      <Field value="LifeRegenRate" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="ZaryaEnergyBoostDecay" />
+      <Field value="Period" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="ZaryaWeaponDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="ZaryaWeaponSplashDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="ZaryaWeaponFeelTheHeatDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="ZaryaWeaponSplashFeelTheHeatDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
       <AffectedByOverdrive value="1" />
     </Modifications>
   </LevelScalingArray>

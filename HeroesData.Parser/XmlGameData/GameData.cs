@@ -1,6 +1,7 @@
 ﻿using CASCLib;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace HeroesData.Parser.XmlGameData
@@ -133,6 +134,10 @@ namespace HeroesData.Parser.XmlGameData
 
                     if (string.IsNullOrEmpty(value))
                         continue;
+
+                    // add data without index
+                    if (field.Contains("]"))
+                        ScaleValueByLookupId[(catalog, entry, Regex.Replace(field, @"\[.*?\]", string.Empty))] = double.Parse(value);
 
                     ScaleValueByLookupId[(catalog, entry, field)] = double.Parse(value);
                 }

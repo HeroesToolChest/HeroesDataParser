@@ -54,6 +54,9 @@ namespace HeroesData.Parser.Tests
             Assert.Equal("Transform for <c val=\"#TooltipNumbers\">20</c> seconds, gaining <c val=\"#TooltipNumbers\">1053~~0.04~~</c> Health.", FullParsedTooltipsByFullTooltipNameId["MuradinAvatar"]);
             Assert.Equal("Rain a small army of Demonic Grunts down on enemies, dealing <c val=\"#TooltipNumbers\">65~~0.04~~</c> damage per impact. Grunts deal <c val=\"#TooltipNumbers\">42~~0.04~~</c> damage, have <c val=\"#TooltipNumbers\">750~~0.04~~</c> health and last up to <c val=\"#TooltipNumbers\">8</c> seconds. When Grunts die they explode, dealing <c val=\"#TooltipNumbers\">65~~0.04~~</c> damage to nearby enemies.", FullParsedTooltipsByFullTooltipNameId["AzmodanDemonicInvasion"]);
             Assert.Equal("Instead of a single shot, Big Shot fires <c val=\"#TooltipNumbers\">3</c> shots over <c val=\"#TooltipNumbers\">0.5</c> seconds. Each shot deals <c val=\"#TooltipNumbers\">50</c>% damage.", FullParsedTooltipsByFullTooltipNameId["DVaBigShotPewPewPew"]);
+            Assert.Equal("Shields Tyrael for <c val=\"#TooltipNumbers\">336~~0.04~~</c> damage and nearby allies for <c val=\"#TooltipNumbers\">40%</c> as much for <c val=\"#TooltipNumbers\">4</c> seconds.", FullParsedTooltipsByFullTooltipNameId["TyraelRighteousness"]);
+            Assert.Equal("Deal <c val=\"#TooltipNumbers\">172~~0.04~~</c> damage to enemies within the target area.", FullParsedTooltipsByFullTooltipNameId["DemonHunterMultishot"]);
+            Assert.Equal("Zarya's Basic Attack deals <c val=\"#TooltipNumbers\">50%</c> additional damage to enemies in melee range.", FullParsedTooltipsByFullTooltipNameId["ZaryaWeaponFeelTheHeatTalent"]);
         }
 
         [Fact]
