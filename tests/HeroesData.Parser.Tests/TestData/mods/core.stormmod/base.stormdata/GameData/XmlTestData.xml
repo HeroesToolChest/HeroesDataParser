@@ -305,7 +305,67 @@
       <AbilLinkDisableArray value="Mount" />
     </Modification>
   </CBehaviorBuff>
-  
+   <CEffectDamage id="AzmodanDemonicInvasionImpactDamage" parent="StormSpell">
+    <MultiplicativeModifierArray index="Siegebreaker" Validator="AzmodanSiegebreakerTalentCombine" Modifier="0.5" />
+    <Amount value="65" />
+    <SourceButtonFace value="AzmodanDemonicInvasion" />
+  </CEffectDamage>
+  <CEffectDamage id="AzmodanDemonicInvasionDemonGruntWeaponDamage" parent="StormWeapon">
+    <MultiplicativeModifierArray index="Siegebreaker" Validator="AzmodanSiegebreakerTalentCombine" Modifier="0.5" />
+    <Amount value="42" />
+    <SourceButtonFace value="AzmodanDemonicInvasion" />
+  </CEffectDamage>
+  <CUnit id="AzmodanDemonicInvasionDemonGrunt" parent="StormSummonActive">
+    <FlagArray index="CreateAITreeOnSpawn" value="1" />
+    <LifeStart value="750" />
+    <LifeMax value="750" />
+    <LifeRegenRate value="-93.75" />
+    <Sight value="7" />
+    <AbilArray Link="stop" />
+    <AbilArray Link="attack" />
+    <AbilArray Link="move" />
+    <BehaviorArray Link="AzmodanDemonicInvasionInitialDisable" />
+    <BehaviorArray Link="AzmodanDemonicInvasionInitialRoot" />
+    <BehaviorArray Link="AzmodanDemonicInvasionTimedLife" />
+    <BehaviorArray Link="HeroicSummon" />
+    <WeaponArray Link="AzmodanDemonGruntWeapon" />
+    <CardLayouts>
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="stop,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="move,HoldPos" Slot="Hold" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Cancel" />
+      <LayoutButtons Face="MovePatrol" Type="AbilCmd" AbilCmd="move,Patrol" Slot="Hearth" />
+    </CardLayouts>
+    <Radius value="0.6875" />
+    <InnerRadius value="0.6875" />
+  </CUnit> 
+  <CEffectDamage id="AzmodanDemonicInvasionExplodeDamage" parent="StormSpell">
+    <DamageModifierSource Value="Source" />
+    <MultiplicativeModifierArray index="Siegebreaker" Validator="AzmodanSiegebreakerTalentCombine" Modifier="0.5" />
+    <Visibility value="Hidden" />
+    <Amount value="65" />
+    <SourceButtonFace value="AzmodanDemonicInvasion" />
+  </CEffectDamage>
+  <CEffectDamage id="DVaPilotBigShotPewPewPewDamage" parent="StormSpell">
+    <Amount value="125" />
+  </CEffectDamage>
+  <CEffectDamage id="DVaPilotBigShotDamage" parent="StormSpell">
+    <Amount value="250" />
+  </CEffectDamage>
+  <CEffectCreatePersistent id="DVaBigShotPewPewPewOffsetPeriodic">
+    <WhichLocation Value="SourceUnit" />
+    <Flags index="Channeled" value="1" />
+    <PeriodCount value="3" />
+    <PeriodicEffectArray value="DVaBigShotMissileScan" />
+    <PeriodicEffectArray value="DVaBigShotMissileScan" />
+    <PeriodicEffectArray value="DVaBigShotMissileScan" />
+    <PeriodicOffsetArray Y="-7.5" />
+    <PeriodicOffsetArray Y="-7.5" />
+    <PeriodicOffsetArray Y="-7.5" />
+    <PeriodicPeriodArray value="0" />
+    <PeriodicPeriodArray value="0.25" />
+    <PeriodicPeriodArray value="0.25" />
+  </CEffectCreatePersistent>
   <!-- double upped, should take the latest one-->
   <CBehaviorBuff id="ElDruinsMightMasteryPathingBlockerTimedLife" parent="StormTimedLife">
     <Duration value="4" />
@@ -321,7 +381,7 @@
       <StateFlags index="Benign" value="1" />
     </Modification>
   </CBehaviorBuff>
-  
+    
   <!-- level scaling data for azmodan -->
   <LevelScalingArray Ability="AzmodanAllShallBurn">
     <Modifications>
@@ -336,7 +396,7 @@
   <LevelScalingArray Ability="AzmodanDemonicInvasion">
     <Modifications>
       <Catalog value="Effect" />
-      <Entry value="AzmodanDemonicInvasionDamage" />
+      <Entry value="AzmodanDemonicInvasionImpactDamage" />
       <Field value="Amount" />
       <Value value="0.040000" />
       <AffectedByAbilityPower value="1" />
@@ -344,7 +404,7 @@
     </Modifications>
     <Modifications>
       <Catalog value="Effect" />
-      <Entry value="AzmodanDemonicInvasionZombieWeaponDamage" />
+      <Entry value="AzmodanDemonicInvasionDemonGruntWeaponDamage" />
       <Field value="Amount" />
       <Value value="0.040000" />
       <AffectedByAbilityPower value="1" />
@@ -352,7 +412,7 @@
     </Modifications>
     <Modifications>
       <Catalog value="Effect" />
-      <Entry value="AzmodanDemonicInvasionPerishingFlameMasteryExplodeDamage" />
+      <Entry value="AzmodanDemonicInvasionExplodeDamage" />
       <Field value="Amount" />
       <Value value="0.040000" />
       <AffectedByAbilityPower value="1" />
@@ -360,34 +420,27 @@
     </Modifications>
     <Modifications>
       <Catalog value="Unit" />
-      <Entry value="AzmodanDemonicInvasionZombie" />
+      <Entry value="AzmodanDemonicInvasionDemonGrunt" />
       <Field value="LifeMax" />
       <Value value="0.040000" />
       <AffectedByOverdrive value="1" />
     </Modifications>
     <Modifications>
       <Catalog value="Unit" />
-      <Entry value="AzmodanDemonicInvasionZombie" />
+      <Entry value="AzmodanDemonicInvasionDemonGrunt" />
       <Field value="LifeStart" />
       <Value value="0.040000" />
       <AffectedByOverdrive value="1" />
     </Modifications>
     <Modifications>
-      <Catalog value="Effect" />
-      <Entry value="AzmodanSinsGraspDamage" />
-      <Field value="Amount" />
-      <Value value="0.040000" />
-      <AffectedByOverdrive value="1" />
-    </Modifications>
-    <Modifications>
-      <Catalog value="Effect" />
-      <Entry value="AzmodanSinsGraspInitialDamage" />
-      <Field value="Amount" />
+      <Catalog value="Unit" />
+      <Entry value="AzmodanDemonicInvasionDemonGrunt" />
+      <Field value="LifeRegenRate" />
       <Value value="0.040000" />
       <AffectedByOverdrive value="1" />
     </Modifications>
   </LevelScalingArray>
-
+  
   <!--level scaling data for abathur-->
   <LevelScalingArray Ability="AbathurSpawnLocusts">
     <Modifications>
@@ -696,6 +749,26 @@
       <Entry value="MuradinAvatar" />
       <Field value="Modification.VitalMaxArray[0]" />
       <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+
+  <!--level scaling for DVa-->
+  <LevelScalingArray Ability="DVaPilotBigShot">
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="DVaPilotBigShotDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="DVaPilotBigShotPewPewPewDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
       <AffectedByOverdrive value="1" />
     </Modifications>
   </LevelScalingArray>

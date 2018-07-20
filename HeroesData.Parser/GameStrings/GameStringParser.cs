@@ -174,8 +174,19 @@ namespace HeroesData.Parser.GameStrings
 
                 if (!string.IsNullOrEmpty(scalingText))
                 {
-                    // only add the scaling text if the next part does not start with a % sign
-                    if (!(i + 1 < parts.Length && parts[i + 1].StartsWith("%")))
+                    // only add the scaling text if the next part does not start with a % sign or is time based
+                    if (i + 1 < parts.Length)
+                    {
+                        string nextPart = parts[i + 1].Trim();
+                        if (nextPart.StartsWith("</c>"))
+                            nextPart = nextPart.Substring("</c>".Length).TrimStart();
+                        if (nextPart.StartsWith("<n/>"))
+                            nextPart = nextPart.Substring("<n/>".Length).TrimStart();
+
+                        if (!(nextPart.StartsWith("%") || nextPart.StartsWith("second")))
+                            parts[i] += $"{scalingText}";
+                    }
+                    else
                     {
                         parts[i] += $"{scalingText}";
                     }

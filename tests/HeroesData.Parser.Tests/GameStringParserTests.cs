@@ -52,6 +52,8 @@ namespace HeroesData.Parser.Tests
             Assert.Equal("Create a ring for <c val=\"#TooltipNumbers\">3</c> seconds that blocks enemies from entering the area teleported to using El'druin's Might.", FullParsedTooltipsByFullTooltipNameId["TyraelElDruinsMightHolyGroundTalent"]);
             Assert.Equal("While at or below <c val=\"#TooltipNumbers\">50</c> Brew, gain <c val=\"#TooltipNumbers\">20%</c> Movement Speed. While at or above <c val=\"#TooltipNumbers\">50</c> Brew, regenerate an additional <c val=\"#TooltipNumbers\">18~~0.04~~</c> Health per second.", FullParsedTooltipsByFullTooltipNameId["ChenFortifyingBrewBrewmastersBalanceTalent"]);
             Assert.Equal("Transform for <c val=\"#TooltipNumbers\">20</c> seconds, gaining <c val=\"#TooltipNumbers\">1053~~0.04~~</c> Health.", FullParsedTooltipsByFullTooltipNameId["MuradinAvatar"]);
+            Assert.Equal("Rain a small army of Demonic Grunts down on enemies, dealing <c val=\"#TooltipNumbers\">65~~0.04~~</c> damage per impact. Grunts deal <c val=\"#TooltipNumbers\">42~~0.04~~</c> damage, have <c val=\"#TooltipNumbers\">750~~0.04~~</c> health and last up to <c val=\"#TooltipNumbers\">8</c> seconds. When Grunts die they explode, dealing <c val=\"#TooltipNumbers\">65~~0.04~~</c> damage to nearby enemies.", FullParsedTooltipsByFullTooltipNameId["AzmodanDemonicInvasion"]);
+            Assert.Equal("Instead of a single shot, Big Shot fires <c val=\"#TooltipNumbers\">3</c> shots over <c val=\"#TooltipNumbers\">0.5</c> seconds. Each shot deals <c val=\"#TooltipNumbers\">50</c>% damage.", FullParsedTooltipsByFullTooltipNameId["DVaBigShotPewPewPew"]);
         }
 
         [Fact]
