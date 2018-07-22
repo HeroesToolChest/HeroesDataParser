@@ -25,6 +25,7 @@ namespace HeroesData.Parser.Tests.Overrides
             Assert.NotNull(overrideData);
 
             Assert.Equal(4, overrideData.Count); // LittleLoco counts as one
+            Assert.Equal(HeroOverrideTest, overrideData.HeroDataOverrideXmlFile);
         }
 
         [Fact]
@@ -34,6 +35,7 @@ namespace HeroesData.Parser.Tests.Overrides
             Assert.NotNull(overrideData);
 
             Assert.Equal(1, overrideData.Count);
+            Assert.Equal(HeroOverrideBuild12345Test, overrideData.HeroDataOverrideXmlFile);
         }
 
         [Fact]
@@ -43,6 +45,7 @@ namespace HeroesData.Parser.Tests.Overrides
             Assert.NotNull(overrideData);
 
             Assert.Equal(7, overrideData.Count);
+            Assert.Equal("HeroOverrideTest_11000.xml", overrideData.HeroDataOverrideXmlFile);
         }
 
         [Fact]
@@ -52,6 +55,17 @@ namespace HeroesData.Parser.Tests.Overrides
             Assert.NotNull(overrideData);
 
             Assert.Equal(11, overrideData.Count);
+            Assert.Equal("HeroOverrideTest_12000.xml", overrideData.HeroDataOverrideXmlFile);
+        }
+
+        [Fact]
+        public void LoadOverrideHasBuildLowerThanLowTest()
+        {
+            OverrideData overrideData = OverrideData.Load(GameData, 1000, HeroOverrideTest);
+            Assert.NotNull(overrideData);
+
+            Assert.Equal(7, overrideData.Count);
+            Assert.Equal("HeroOverrideTest_11000.xml", overrideData.HeroDataOverrideXmlFile);
         }
 
         [Fact]
@@ -61,6 +75,7 @@ namespace HeroesData.Parser.Tests.Overrides
             Assert.NotNull(overrideData);
 
             Assert.Equal(4, overrideData.Count);
+            Assert.Equal(HeroOverrideTest, overrideData.HeroDataOverrideXmlFile);
         }
 
         [Fact]
@@ -70,6 +85,7 @@ namespace HeroesData.Parser.Tests.Overrides
             Assert.NotNull(overrideData);
 
             Assert.Equal(1, overrideData.Count);
+            Assert.Equal("HeroOverrideTest_12345.xml", overrideData.HeroDataOverrideXmlFile);
         }
 
         [Fact]
@@ -102,8 +118,8 @@ namespace HeroesData.Parser.Tests.Overrides
         {
             OverrideData overrideData = OverrideData.Load(GameData, 23433);
 
-            // finds HeroOverrides.xml since HeroOverrides_23433.xml doesn't exist
-            Assert.Equal("HeroOverrides.xml", overrideData.HeroDataOverrideXmlFile);
+            // finds HeroOverrides_66182.xml since HeroOverrides_23433.xml doesn't exist and 66182 is the lowest
+            Assert.Equal("HeroOverrides_66182.xml", overrideData.HeroDataOverrideXmlFile);
         }
     }
 }
