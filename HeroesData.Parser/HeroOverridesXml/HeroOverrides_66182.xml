@@ -322,7 +322,7 @@
         <ParentLink value="RagnarosBigRag" />
       </Override>
     </Ability>
-g
+    <HeroUnit id="RagnarosBigRag"></HeroUnit> 
   </CHero>
   <CHero id="Rexxar">
     <Weapon id="RexxarMeleeWeapon" valid="true" />
