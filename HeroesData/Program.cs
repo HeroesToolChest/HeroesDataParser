@@ -419,6 +419,8 @@ namespace HeroesData
             {
                 if (OverrideBuild.HasValue)
                     OverrideData = OverrideData.Load(GameData, OverrideBuild.Value);
+                else if (HotsBuild.HasValue)
+                    OverrideData = OverrideData.Load(GameData, HotsBuild.Value);
                 else
                     OverrideData = OverrideData.Load(GameData);
             }
