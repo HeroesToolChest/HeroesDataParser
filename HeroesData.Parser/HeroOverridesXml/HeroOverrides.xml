@@ -202,6 +202,11 @@
     </Ability>
     <Weapon id="HeroGreymaneRangedWeapon" valid="true" />
     <Weapon id="HeroGreymaneMeleeWeapon" valid="true" />
+    <Weapon id="HeroGreymaneWorgenWeapon" valid="true">
+      <Override>
+        <ParentLink value="GreymaneWorgenForm" />
+      </Override>
+    </Weapon>
     <HeroUnit id="GreymaneWorgenForm"></HeroUnit>
     <Portrait>
       <Override>

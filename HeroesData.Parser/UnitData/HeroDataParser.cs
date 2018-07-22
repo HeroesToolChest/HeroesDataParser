@@ -65,6 +65,7 @@ namespace HeroesData.Parser.UnitData
 
             ApplyOverrides(hero, HeroOverride);
             MoveParentLinkedAbilities(hero);
+            MoveParentLinkedWeapons(hero);
 
             // set all default abilities energy types to the hero's energy type
             foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
@@ -739,6 +740,7 @@ namespace HeroesData.Parser.UnitData
                 if (validWeapon || weaponsIds.Count == 1 || weaponNameId.Contains("HeroWeapon") || weaponNameId == hero.CUnitId)
                 {
                     UnitWeapon weapon = AddHeroWeapon(weaponNameId, weaponsIds);
+
                     if (weapon != null)
                         hero.Weapons.Add(weapon);
                 }
@@ -1012,6 +1014,21 @@ namespace HeroesData.Parser.UnitData
 
                     foreach (Ability linkedAbility in linkedAbilities[heroUnit.CUnitId].ToList())
                         hero.Abilities.Remove(linkedAbility.ReferenceNameId);
+                }
+            }
+        }
+
+        private void MoveParentLinkedWeapons(Hero hero)
+        {
+            ILookup<string, UnitWeapon> linkedWeapons = hero.ParentLinkedWeapons();
+            if (linkedWeapons.Count > 0)
+            {
+                foreach (Hero heroUnit in hero.HeroUnits)
+                {
+                    heroUnit.Weapons = linkedWeapons[heroUnit.CUnitId].ToList();
+
+                    foreach (UnitWeapon linkedWeapon in linkedWeapons[heroUnit.CUnitId].ToList())
+                        hero.Weapons.Remove(linkedWeapon);
                 }
             }
         }

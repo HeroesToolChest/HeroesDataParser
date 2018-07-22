@@ -22,6 +22,14 @@ namespace HeroesData.Parser.UnitData.Overrides
             if (string.IsNullOrEmpty(propertyValue))
                 return;
 
+            if (propertyName == nameof(UnitWeapon.ParentLink))
+            {
+                propertyOverrides.Add(propertyName, (weapon) =>
+                {
+                    weapon.ParentLink = propertyValue;
+                });
+            }
+
             if (propertyName == nameof(UnitWeapon.Range))
             {
                 propertyOverrides.Add(propertyName, (weapon) =>

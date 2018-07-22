@@ -27,5 +27,11 @@ namespace HeroesData.Parser.Tests.Overrides.WeaponOverrideTests
         {
             Assert.Equal(1.5, TestWeapon.Range);
         }
+
+        [Fact]
+        public void WeaponParentLinkOverrideTest()
+        {
+            Assert.Equal("LittleLoco", TestWeapon.ParentLink);
+        }
     }
 }

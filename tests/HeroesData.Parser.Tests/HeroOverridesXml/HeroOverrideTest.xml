@@ -34,11 +34,12 @@
         <Tooltip.Life.IsLifePercentage>true</Tooltip.Life.IsLifePercentage>
       </Override>
     </Talent>
-  
+
     <Weapon id="SlapSlap" valid="true">
       <Override>
         <Range value="1.5" />
         <Damage value="1000" />
+        <ParentLink value="LittleLoco" />
       </Override>
     </Weapon>
 
@@ -58,6 +59,7 @@
     <HeroUnit id="LittleLoco">
       <EnergyType value="None" />
       <Energy value="0" />
+      <Weapon id="ScratchScratch" valid="true" />
     </HeroUnit>
   </CHero>
   
