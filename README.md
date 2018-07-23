@@ -196,6 +196,22 @@ Notes:
 - This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storagePath` option
 - Images are always extracted in `.png` format
 
+### Game String Localization (-l|--localization)
+Sets the game string localization (descriptions/tooltips).
+
+`enUS` - English (Default)  
+`deDE` - German  
+`esES` - Spanish (EU)  
+`esMX` - Spanish (AL)  
+`frFR` - French  
+`itIT` - Italian  
+`koKR` - Korean  
+`plPL` - Polish  
+`ptBR` - Portuguese  
+`ruRU` - Russian  
+`zhCN` - Chinese  
+`zhTW` - Chinese (TW)  
+
 ## Advanced Features
 ### Mods suffix directory
 The `mods` directory may have a `_<build number>` suffix in its name. The build number determines the hero overrides file to load. If the overrides file does not exist and the build number is greater than the highest overrides file then it will load the default overrides file `HeroesOverrides.xml` otherwise it will load next **lowest** overrides file.
