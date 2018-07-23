@@ -10,7 +10,6 @@ namespace HeroesData
     internal class CASCHotsStorage
     {
         private readonly string StoragePath;
-        private readonly string Locale = "enUS";
 
         private ManualResetEvent ResetEvent = new ManualResetEvent(false);
         private BackgroundWorkerEx BackgroundWorker = new BackgroundWorkerEx();
@@ -46,7 +45,7 @@ namespace HeroesData
                 CASCConfig config = CASCConfig.LoadLocalStorageConfig(StoragePath);
                 CASCHandler = CASCHandler.OpenStorage(config, BackgroundWorker);
 
-                LocaleFlags locale = (LocaleFlags)Enum.Parse(typeof(LocaleFlags), Locale);
+                LocaleFlags locale = LocaleFlags.All;
                 ContentFlags content = (ContentFlags)Enum.Parse(typeof(ContentFlags), "None");
 
                 Console.SetOut(console); // enable output

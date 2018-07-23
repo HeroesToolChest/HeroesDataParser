@@ -68,7 +68,14 @@ namespace HeroesData.Parser.Tests
         private void LoadTestData()
         {
             GameData = GameData.Load(ModsTestFolder);
-            GameStringData = GameStringData.Load(ModsTestFolder);
+            FileGameStringData fileGameStringData = new FileGameStringData
+            {
+                ModsFolderPath = ModsTestFolder,
+            };
+
+            fileGameStringData.Load();
+
+            GameStringData = fileGameStringData;
         }
 
         private void ParseTooltips()

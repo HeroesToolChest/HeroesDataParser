@@ -27,6 +27,7 @@ namespace HeroesData
         private string OutputDirectory = string.Empty;
         private StorageMode StorageMode = StorageMode.None;
         private CASCHotsStorage CASCHotsStorage = null;
+        private GameStringLocalization GameStringLocalization = GameStringLocalization.ENUS;
         private bool Defaults = true;
         private bool CreateXml = true;
         private bool CreateJson = true;
@@ -53,11 +54,12 @@ namespace HeroesData
 
             CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory", CommandOptionType.SingleValue);
             CommandOption setMaxDegreeParallismOption = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
-            CommandOption extractIconsOption = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all|portraits|talents. Available only in -s|--storagePath mode", CommandOptionType.MultipleValue);
-            CommandOption setFileSplitOption = app.Option("-f|--fileSplit <boolean>", "Sets the file output type, if true, creates a file for each hero parsed.  Default 'false'", CommandOptionType.SingleValue);
-            CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Sets the description output type (0 - 6). Default 0.", CommandOptionType.SingleValue);
-            CommandOption setBuildOption = app.Option("-b|--build", "Sets the override build file.", CommandOptionType.SingleValue);
+            CommandOption extractIconsOption = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all|portraits|talents - Available only in -s|--storagePath mode using Hots directory", CommandOptionType.MultipleValue);
+            CommandOption setFileSplitOption = app.Option("-f|--fileSplit <boolean>", "Sets the file output type, if true, creates a file for each hero parsed - Default 'false'", CommandOptionType.SingleValue);
+            CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Sets the description output type (0 - 6) - Default 0", CommandOptionType.SingleValue);
+            CommandOption setBuildOption = app.Option("-b|--build", "Sets the override build file", CommandOptionType.SingleValue);
             CommandOption setOutputDirectoryOption = app.Option("-o|--outputDirectory", "Sets the output directory", CommandOptionType.SingleValue);
+            CommandOption setGameStringLocalization = app.Option("-l|--localization", "Sets the gamestrings localization - Default: enus", CommandOptionType.SingleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
@@ -101,6 +103,22 @@ namespace HeroesData
                         program.ExtractPortraits = true;
                     if (extractIconsOption.Values.Contains("talents"))
                         program.ExtractTalents = true;
+                }
+
+                if (setGameStringLocalization.HasValue())
+                {
+                    if (Enum.TryParse(setGameStringLocalization.Value(), true, out GameStringLocalization localization))
+                    {
+                        program.GameStringLocalization = localization;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Unknown localization");
+                        Console.ResetColor();
+                        Console.WriteLine();
+                        Environment.Exit(0);
+                    }
                 }
 
                 program.CreateXml = xmlOutputOption.HasValue() ? true : false;
@@ -186,6 +204,9 @@ namespace HeroesData
         private void PreInitialize()
         {
             StoragePathFinder();
+            Console.WriteLine($"Localization: {GameStringLocalization.GetFriendlyName()}");
+            Console.WriteLine();
+            Console.ResetColor();
 
             if (!CreateXml && !CreateJson)
             {
@@ -244,9 +265,6 @@ namespace HeroesData
                 StoragePath = modsPath;
                 ModsDirectoryBuildNumber();
                 StorageMode = StorageMode.Mods;
-
-                Console.ResetColor();
-                Console.WriteLine();
             }
             else if (MultiModsDirectorySearch())
             {
@@ -259,9 +277,6 @@ namespace HeroesData
 
                 StoragePath = hotsPath;
                 StorageMode = StorageMode.CASC;
-
-                Console.ResetColor();
-                Console.WriteLine();
             }
             else
             {
@@ -382,9 +397,30 @@ namespace HeroesData
             try
             {
                 if (StorageMode == StorageMode.Mods)
-                    GameStringData = GameStringData.Load(StoragePath, HotsBuild);
+                {
+                    FileGameStringData fileGameStringData = new FileGameStringData
+                    {
+                        HotsBuild = HotsBuild,
+                        ModsFolderPath = StoragePath,
+                        GameStringLocalization = GameStringLocalization.GetFriendlyName(),
+                    };
+
+                    fileGameStringData.Load();
+                    GameStringData = fileGameStringData;
+                    //GameStringData = GameStringData.Load(StoragePath, HotsBuild);
+                }
                 else if (StorageMode == StorageMode.CASC)
-                    GameStringData = GameStringData.Load(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
+                {
+                    CASCGameStringData cascGameStringData = new CASCGameStringData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot)
+                    {
+                        HotsBuild = HotsBuild,
+                        GameStringLocalization = GameStringLocalization.GetFriendlyName(),
+                    };
+
+                    cascGameStringData.Load();
+                    GameStringData = cascGameStringData;
+                    //GameStringData = GameStringData.Load(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
+                }
             }
             catch (DirectoryNotFoundException ex)
             {

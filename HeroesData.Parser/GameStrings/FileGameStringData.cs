@@ -4,18 +4,6 @@ namespace HeroesData.Parser.GameStrings
 {
     public class FileGameStringData : GameStringData
     {
-        public FileGameStringData(string modsFolderPath)
-            : base(modsFolderPath)
-        {
-            Initialize();
-        }
-
-        public FileGameStringData(string modsFolderPath, int? hotsBuild)
-            : base(modsFolderPath, hotsBuild)
-        {
-            Initialize();
-        }
-
         protected override void ParseGameStringFiles()
         {
             ParseFiles(Path.Combine(OldDescriptionsPath, GameStringFile));
@@ -26,7 +14,7 @@ namespace HeroesData.Parser.GameStrings
         {
             foreach (string heroDirectory in Directory.GetDirectories(HeroModsPath))
             {
-                ParseFiles(Path.Combine(heroDirectory, "enus.stormdata", "LocalizedData", "GameStrings.txt"));
+                ParseFiles(Path.Combine(heroDirectory, GameStringLocalization, "LocalizedData", "GameStrings.txt"));
             }
         }
 
