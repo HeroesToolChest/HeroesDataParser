@@ -9,22 +9,10 @@ namespace HeroesData.Parser.GameStrings
         private readonly CASCHandler CASCHandlerData;
         private readonly CASCFolder CASCFolderData;
 
-        public CASCGameStringData(CASCHandler cascHandler, CASCFolder cascFolder, string modsFolderPath)
-            : base(modsFolderPath)
+        public CASCGameStringData(CASCHandler cascHandler, CASCFolder cascFolder)
         {
             CASCHandlerData = cascHandler;
             CASCFolderData = cascFolder;
-
-            Initialize();
-        }
-
-        public CASCGameStringData(CASCHandler cascHandler, CASCFolder cascFolder, string modsFolderPath, int? hotsBuild)
-            : base(modsFolderPath, hotsBuild)
-        {
-            CASCHandlerData = cascHandler;
-            CASCFolderData = cascFolder;
-
-            Initialize();
         }
 
         protected override void ParseGameStringFiles()
@@ -41,13 +29,16 @@ namespace HeroesData.Parser.GameStrings
 
             foreach (KeyValuePair<string, ICASCEntry> heroFolder in currentFolder.Entries)
             {
-                ICASCEntry enUsStormdata = ((CASCFolder)heroFolder.Value).GetEntry("enus.stormdata");
-                ICASCEntry localizedData = ((CASCFolder)enUsStormdata).GetEntry("LocalizedData");
+                if (heroFolder.Key != "herointeractions.stormmod")
+                {
+                    ICASCEntry localizationStormdata = ((CASCFolder)heroFolder.Value).GetEntry(GameStringLocalization);
+                    ICASCEntry localizedData = ((CASCFolder)localizationStormdata).GetEntry("LocalizedData");
 
-                ICASCEntry gameStringFile = ((CASCFolder)localizedData).GetEntry(GameStringFile);
-                Stream data = CASCHandlerData.OpenFile(((CASCFile)gameStringFile).FullName);
+                    ICASCEntry gameStringFile = ((CASCFolder)localizedData).GetEntry(GameStringFile);
+                    Stream data = CASCHandlerData.OpenFile(((CASCFile)gameStringFile).FullName);
 
-                ParseFiles(data);
+                    ParseFiles(data);
+                }
             }
         }
 

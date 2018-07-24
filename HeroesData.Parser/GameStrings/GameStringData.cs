@@ -14,17 +14,6 @@ namespace HeroesData.Parser.GameStrings
         private readonly string DescriptionNamePrefix = "Button/Name/"; // real name of ability/talent
         private readonly string UnitPrefix = "Unit/Name/";
 
-        protected GameStringData(string modsFolderPath)
-        {
-            ModsFolderPath = modsFolderPath;
-        }
-
-        protected GameStringData(string modsFolderPath, int? hotsBuild)
-        {
-            ModsFolderPath = modsFolderPath;
-            HotsBuild = hotsBuild;
-        }
-
         /// <summary>
         /// Gets the short tooltip descriptions of all ability/talent.
         /// </summary>
@@ -55,8 +44,9 @@ namespace HeroesData.Parser.GameStrings
         /// </summary>
         public SortedDictionary<string, string> UnitNamesByShortName { get; } = new SortedDictionary<string, string>();
 
-        protected int? HotsBuild { get; }
-        protected string ModsFolderPath { get; }
+        public int? HotsBuild { get; set; } = null;
+        public string ModsFolderPath { get; set; } = "mods";
+        public string GameStringLocalization { get; set; } = "enus.stormdata";
         protected string OldDescriptionsPath { get; private set; }
         protected string HeroModsPath { get; private set; }
         protected string GameStringFile => "GameStrings.txt";
@@ -64,52 +54,14 @@ namespace HeroesData.Parser.GameStrings
         /// <summary>
         /// Loads all the required games strings.
         /// </summary>
-        /// <param name="modsFolderPath">The file path of the mods folder.</param>
-        /// <returns></returns>
-        public static GameStringData Load(string modsFolderPath)
+        public void Load()
         {
-            return new FileGameStringData(modsFolderPath);
-        }
-
-        /// <summary>
-        /// Loads all the required games strings.
-        /// </summary>
-        /// <param name="modsFolderPath">The file path of the mods folder.</param>
-        /// <param name="hotsBuild">The hots build number.</param>
-        /// <returns></returns>
-        public static GameStringData Load(string modsFolderPath, int? hotsBuild)
-        {
-            return new FileGameStringData(modsFolderPath, hotsBuild);
-        }
-
-        /// <summary>
-        /// Loads all the required games strings.
-        /// </summary>
-        /// <param name="cascHandler"></param>
-        /// <param name="cascFolder"></param>
-        /// <param name="modsFolderPath">The root folder of the heroes data.</param>
-        /// <returns></returns>
-        public static GameStringData Load(CASCHandler cascHandler, CASCFolder cascFolder, string modsFolderPath = "mods")
-        {
-            return new CASCGameStringData(cascHandler, cascFolder, modsFolderPath);
-        }
-
-        /// <summary>
-        /// Loads all the required games strings.
-        /// </summary>
-        /// <param name="cascHandler"></param>
-        /// <param name="cascFolder"></param>
-        /// <param name="hotsBuild">The hots build number.</param>
-        /// <param name="modsFolderPath">The root folder of the heroes data.</param>
-        /// <returns></returns>
-        public static GameStringData Load(CASCHandler cascHandler, CASCFolder cascFolder, int? hotsBuild, string modsFolderPath = "mods")
-        {
-            return new CASCGameStringData(cascHandler, cascFolder, modsFolderPath, hotsBuild);
+            Initialize();
         }
 
         protected void Initialize()
         {
-            OldDescriptionsPath = Path.Combine(ModsFolderPath, "heroesdata.stormmod", "enus.stormdata", "LocalizedData");
+            OldDescriptionsPath = Path.Combine(ModsFolderPath, "heroesdata.stormmod", GameStringLocalization, "LocalizedData");
             HeroModsPath = Path.Combine(ModsFolderPath, "heromods");
 
             ParseGameStringFiles();
