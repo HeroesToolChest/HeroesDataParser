@@ -59,7 +59,7 @@ namespace HeroesData
             CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Sets the description output type (0 - 6) - Default 0", CommandOptionType.SingleValue);
             CommandOption setBuildOption = app.Option("-b|--build", "Sets the override build file", CommandOptionType.SingleValue);
             CommandOption setOutputDirectoryOption = app.Option("-o|--outputDirectory", "Sets the output directory", CommandOptionType.SingleValue);
-            CommandOption setGameStringLocalization = app.Option("-l|--localization", "Sets the gamestrings localization - Default: enus", CommandOptionType.SingleValue);
+            CommandOption setGameStringLocalization = app.Option("-l|--localization", "Sets the gamestrings localization - Default: enUS", CommandOptionType.SingleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
