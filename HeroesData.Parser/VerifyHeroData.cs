@@ -2,13 +2,14 @@
 using Heroes.Models.AbilityTalents;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace HeroesData.Parser
 {
     public class VerifyHeroData
     {
         private readonly List<Hero> HeroData = new List<Hero>();
-        private readonly string VerifyIgnoreFileName = "VerifyIgnore.txt";
+        private readonly string VerifyIgnoreFileName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "VerifyIgnore.txt");
 
         private string HeroName;
 
