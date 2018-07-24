@@ -405,6 +405,16 @@
       <AccumulatorArray value="ZaryaEnergyAccumulator" />
     </Amount>
   </CEffectDamage>
+  <CUnit id="RagnarosBigRag" parent="StormBasicHeroicUnit">
+    <DeathTime value="10" />
+    <FlagArray index="Unstoppable" value="1" />
+    <FogVisibility value="Dimmed" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <Attributes index="AITargetableStructure" value="1" />
+    <LifeStart value="3996" />
+    <LifeMax value="3996" />
+    <LifeRegenRate value="-222" />
+  </CUnit>
   
   <!-- level scaling data for azmodan -->
   <LevelScalingArray Ability="AzmodanAllShallBurn">
@@ -956,6 +966,31 @@
       <Catalog value="Effect" />
       <Entry value="ZaryaWeaponSplashFeelTheHeatDamage" />
       <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+  
+    <!--level scaling for ragnaros-->
+  <LevelScalingArray Ability="RagnarosMoltenCore">
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="RagnarosBigRag" />
+      <Field value="LifeStart" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="RagnarosBigRag" />
+      <Field value="LifeMax" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="RagnarosBigRag" />
+      <Field value="LifeRegenRate" />
       <Value value="0.040000" />
       <AffectedByOverdrive value="1" />
     </Modifications>

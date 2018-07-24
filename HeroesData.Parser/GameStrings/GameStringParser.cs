@@ -150,22 +150,22 @@ namespace HeroesData.Parser.GameStrings
                 }
 
                 // perform xml data lookup to find values
-                pathLookup = ParseValues(pathLookup);
+                string mathPath = ParseValues(pathLookup);
 
-                if (string.IsNullOrEmpty(Regex.Replace(pathLookup, @"[/*+\-()]", string.Empty)))
+                if (string.IsNullOrEmpty(Regex.Replace(mathPath, @"[/*+\-()]", string.Empty)))
                 {
                     return string.Empty;
                 }
 
                 // extract the scaling
-                string scalingText = GetScalingText(pathLookup);
+                string scalingText = GetScalingText(mathPath);
 
                 if (!string.IsNullOrEmpty(scalingText))
                 {
-                    pathLookup = pathLookup.Replace(scalingText, string.Empty);
+                    mathPath = mathPath.Replace(scalingText, string.Empty);
                 }
 
-                double number = MathEval.CalculatePathEquation(pathLookup.Trim('/'));
+                double number = MathEval.CalculatePathEquation(mathPath.Trim('/'));
 
                 if (precision.HasValue)
                     parts[i] = Math.Round(number, precision.Value).ToString();
@@ -183,7 +183,7 @@ namespace HeroesData.Parser.GameStrings
                         if (nextPart.StartsWith("<n/>"))
                             nextPart = nextPart.Substring("<n/>".Length).TrimStart();
 
-                        if (!(nextPart.StartsWith("%") || nextPart.StartsWith("0%") || nextPart.StartsWith("second")))
+                        if (!(nextPart.StartsWith("%") || nextPart.StartsWith("0%") || CheckForTimeBasedScaling(pathLookup)))
                             parts[i] += $"{scalingText}";
                     }
                     else
@@ -285,11 +285,7 @@ namespace HeroesData.Parser.GameStrings
 
         private string ParseValues(string pathLookup)
         {
-            pathLookup = pathLookup.Substring(8); // get path without the d ref
-            pathLookup = pathLookup.Remove(pathLookup.LastIndexOf('/') - 1).TrimEnd(' ').TrimEnd('"'); // removes ending />
-
-            // check for math operators
-            string[] arithmeticPaths = pathLookup.Split(new char[] { '/', '*', '+', '-', '(', ')' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] arithmeticPaths = GetArithmeticPaths(ref pathLookup);
 
             for (int j = 0; j < arithmeticPaths.Length; j++)
             {
@@ -312,6 +308,15 @@ namespace HeroesData.Parser.GameStrings
             }
 
             return pathLookup;
+        }
+
+        private string[] GetArithmeticPaths(ref string pathLookup)
+        {
+            pathLookup = pathLookup.Substring(8); // get path without the d ref
+            pathLookup = pathLookup.Remove(pathLookup.LastIndexOf('/') - 1).TrimEnd(' ').TrimEnd('"'); // removes ending />
+
+            // check for math operators
+            return pathLookup.Split(new char[] { '/', '*', '+', '-', '(', ')' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
         private string GetScalingText(string pathLookup)
@@ -338,6 +343,19 @@ namespace HeroesData.Parser.GameStrings
             }
 
             return ReadData(parts, scalingParts, out scaling);
+        }
+
+        private bool CheckForTimeBasedScaling(string pathLookup)
+        {
+            string[] arithmeticPaths = GetArithmeticPaths(ref pathLookup);
+
+            for (int i = 0; i + 2 <= arithmeticPaths.Length; i++)
+            {
+                if (arithmeticPaths.Length >= i + 2 && arithmeticPaths[i].TrimEnd().EndsWith("LifeMax") && arithmeticPaths[i + 1].TrimEnd().EndsWith("LifeRegenRate"))
+                    return true;
+            }
+
+            return false;
         }
 
         private string ReadData(List<string> parts, List<string> scalingParts, out double? scaling)

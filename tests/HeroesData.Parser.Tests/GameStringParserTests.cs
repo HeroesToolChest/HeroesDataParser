@@ -57,6 +57,7 @@ namespace HeroesData.Parser.Tests
             Assert.Equal("Shields Tyrael for <c val=\"#TooltipNumbers\">336~~0.04~~</c> damage and nearby allies for <c val=\"#TooltipNumbers\">40%</c> as much for <c val=\"#TooltipNumbers\">4</c> seconds.", FullParsedTooltipsByFullTooltipNameId["TyraelRighteousness"]);
             Assert.Equal("Deal <c val=\"#TooltipNumbers\">172~~0.04~~</c> damage to enemies within the target area.", FullParsedTooltipsByFullTooltipNameId["DemonHunterMultishot"]);
             Assert.Equal("Zarya's Basic Attack deals <c val=\"#TooltipNumbers\">50%</c> additional damage to enemies in melee range.", FullParsedTooltipsByFullTooltipNameId["ZaryaWeaponFeelTheHeatTalent"]);
+            Assert.Equal("Channel on an allied or destroyed Fort or Keep to replace it with Ragnaros's ultimate form, temporarily gaining new Abilities, having <c val=\"#TooltipNumbers\">3996~~0.04~~</c> Health that burns away over <c val=\"#TooltipNumbers\">18</c> seconds.<n/><n/>Ragnaros returns to his normal form upon losing all Health in Molten Core.", FullParsedTooltipsByFullTooltipNameId["RagnarosMoltenCore"]);
         }
 
         [Fact]
