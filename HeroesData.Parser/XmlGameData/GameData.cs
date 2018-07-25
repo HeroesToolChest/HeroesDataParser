@@ -97,8 +97,8 @@ namespace HeroesData.Parser.XmlGameData
 
         protected void Initialize()
         {
-            CoreStormModFolderPath = Path.Combine(ModsFolderPath, Path.Combine("core.stormmod", "base.stormdata", "GameData"));
-            HeroesdataStormModFolderPath = Path.Combine(ModsFolderPath, Path.Combine("heroesdata.stormmod", "base.stormdata", "GameData"));
+            CoreStormModFolderPath = Path.Combine(ModsFolderPath, "core.stormmod", "base.stormdata", "GameData");
+            HeroesdataStormModFolderPath = Path.Combine(ModsFolderPath, "heroesdata.stormmod", "base.stormdata", "GameData");
             OldHeroesFolderPath = Path.Combine(HeroesdataStormModFolderPath, "Heroes");
             NewHeroesFolderPath = Path.Combine(ModsFolderPath, "heromods");
 
