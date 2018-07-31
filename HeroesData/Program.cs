@@ -407,7 +407,6 @@ namespace HeroesData
 
                     fileGameStringData.Load();
                     GameStringData = fileGameStringData;
-                    //GameStringData = GameStringData.Load(StoragePath, HotsBuild);
                 }
                 else if (StorageMode == StorageMode.CASC)
                 {
@@ -419,7 +418,6 @@ namespace HeroesData
 
                     cascGameStringData.Load();
                     GameStringData = cascGameStringData;
-                    //GameStringData = GameStringData.Load(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
                 }
             }
             catch (DirectoryNotFoundException ex)

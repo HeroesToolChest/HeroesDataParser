@@ -1,5 +1,4 @@
-﻿using CASCLib;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace HeroesData.Parser.GameStrings
