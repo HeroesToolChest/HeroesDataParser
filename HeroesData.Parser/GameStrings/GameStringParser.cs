@@ -510,7 +510,7 @@ namespace HeroesData.Parser.GameStrings
             ElementNames.Add("Unit", new HashSet<string> { "CUnit" });
             ElementNames.Add("Talent", new HashSet<string> { "CTalent" });
             ElementNames.Add("Validator", new HashSet<string> { "CValidatorUnitCompareVital", "CValidatorLocationEnumArea", "CValidatorUnitCompareTokenCount", "CValidatorCompareTrackedUnitsCount", "CValidatorUnitCompareDamageTakenTime",
-                "CValidatorUnitCompareBehaviorCount", });
+                "CValidatorUnitCompareBehaviorCount", "CValidatorUnitCompareBehaviorDuration", });
             ElementNames.Add("Accumulator", new HashSet<string> { "CAccumulatorToken", "CAccumulatorVitals", "CBehaviorTokenCounter", "CAccumulatorTimed", "CAccumulatorDistanceUnitTraveled" });
             ElementNames.Add("Weapon", new HashSet<string> { "CWeaponLegacy" });
             ElementNames.Add("Actor", new HashSet<string> { "CActorQuad", "CActorRange" });
