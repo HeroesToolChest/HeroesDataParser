@@ -2,14 +2,14 @@
 using HeroesData.Parser.XmlGameData;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Xunit;
 
 namespace HeroesData.Parser.Tests
 {
     public class GameStringParserTests
     {
-        private const string TestDataFolder = "TestData";
-        private readonly string ModsTestFolder = Path.Combine(TestDataFolder, "mods");
+        private readonly string ModsTestFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestData", "mods");
         private readonly string DataReferenceText1 = "<d ref=\"100*Talent,AnubarakMasteryEpicenterBurrowCharge,AbilityModificationArray[0].Modifications[2].Value\"/>";
         private readonly GameStringParser GameStringParser;
 

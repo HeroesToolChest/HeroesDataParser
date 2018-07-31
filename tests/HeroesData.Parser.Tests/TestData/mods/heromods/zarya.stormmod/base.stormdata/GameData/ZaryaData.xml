@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CEffectDamage id="ZaryaWeaponFeelTheHeatDamage" parent="StormWeapon">
+    <Amount value="30">
+      <AccumulatorArray value="ZaryaEnergyAccumulator" />
+    </Amount>
+  </CEffectDamage>
+  <CEffectDamage id="ZaryaWeaponDamage" parent="StormWeapon">
+    <Amount value="20">
+      <AccumulatorArray value="ZaryaEnergyAccumulator" />
+    </Amount>
+  </CEffectDamage>
+
+  <LevelScalingArray>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="HeroZarya" />
+      <Field value="LifeStart" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="HeroZarya" />
+      <Field value="LifeMax" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="HeroZarya" />
+      <Field value="LifeRegenRate" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="ZaryaEnergyBoostDecay" />
+      <Field value="Period" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="ZaryaWeaponDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="ZaryaWeaponSplashDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="ZaryaWeaponFeelTheHeatDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="ZaryaWeaponSplashFeelTheHeatDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+</Catalog>

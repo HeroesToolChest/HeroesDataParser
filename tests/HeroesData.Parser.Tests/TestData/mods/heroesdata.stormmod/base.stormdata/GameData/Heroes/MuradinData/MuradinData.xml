@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CBehaviorBuff id="MuradinAvatarHealthBuff">
+    <Alignment value="Positive" />
+    <InfoFlags index="AlwaysUseGameText" value="1" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_avatar.dds" />
+    <BehaviorCategories index="Restorable" value="1" />
+    <BehaviorCategories index="BuffTempMaxHealth" value="1" />
+    <DisplayDuration index="Self" value="1" />
+    <Duration value="20" />
+    <Modification>
+      <WeaponRange value="1" />
+      <VitalMaxArray index="Life" value="1053" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="MuradinAvatar">
+    <Alignment value="Positive" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_avatar.dds" />
+    <BehaviorCategories index="Restorable" value="1" />
+    <DisplayDuration index="Self" value="1" />
+    <Duration value="20" />
+    <Modification>
+      <WeaponRange value="1" />
+      <VitalMaxArray index="Life" value="1053" />
+      <AbilLinkDisableArray value="Mount" />
+    </Modification>
+  </CBehaviorBuff>
+
+  <LevelScalingArray Ability="MuradinAvatar">
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="MuradinAvatar" />
+      <Field value="Modification.VitalMaxArray[0]" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+</Catalog>

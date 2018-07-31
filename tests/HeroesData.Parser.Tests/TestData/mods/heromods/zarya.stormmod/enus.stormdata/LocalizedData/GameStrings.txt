@@ -1,0 +1,1 @@
+﻿Button/Tooltip/ZaryaWeaponFeelTheHeatTalent=Zarya's Basic Attack deals <c val="#TooltipNumbers"><d ref="(Effect,ZaryaWeaponFeelTheHeatDamage,Amount/Effect,ZaryaWeaponDamage,Amount)-1*10)" />0%</c> additional damage to enemies in melee range.

@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CTalent id="AnubarakMasteryEpicenterBurrowCharge">
+    <Face value="AnubarakBurrowChargeEpicenterTalent" />
+    <Abil value="AnubarakBurrowCharge" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="MultiplyLevelModification" />
+        <Catalog value="Effect" />
+        <Entry value="AnubarakBurrowChargeImpactSearch" />
+        <Field value="AreaArray[0].Radius" />
+        <Value value="1.600000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="BurrowChargeEpicenterModifyCooldown" />
+        <Field value="Chance" />
+        <FieldIsInteger value="1" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Actor" />
+        <Entry value="AnubarakBurrowChargeCursorSplat" />
+        <Field value="Scale" />
+        <Value value="0.600000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CEffectModifyUnit id="BurrowChargeEpicenterModifyCooldown">
+    <ValidatorArray value="TargetIsHero" />
+    <Chance value="0" />
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="AnubarakBurrowCharge,Execute" CooldownOperation="Add" CooldownTimeUse="-1.25" />
+  </CEffectModifyUnit>
+  <CBehaviorBuff id="ShedExoskeleton">
+    <Alignment value="Positive" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_Anubarak_HardenCarapace_Var1.dds" />
+    <BehaviorCategories index="Fast" value="1" />
+    <Duration value="3" />
+    <Modification>
+      <UnifiedMoveSpeedFactor value="0.3" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="AnubarakNerubianArmorController">
+    <BehaviorFlags index="Permanent" value="1" />
+    <DisableValidatorArray value="AnubarakNerubianArmorStackCountValidator" />
+    <BuffFlags index="RemoveDamageResponseExhausted" value="0" />
+    <Period value="12" />
+    <PeriodicEffect value="AnubarakNerubianArmorApplyStack" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="AnubarakNerubianArmorActive" parent="StormArmor">
+    <Alignment value="Positive" />
+    <BehaviorFlags index="Permanent" value="1" />
+    <InfoIcon value="Assets\Textures\storm_temp_war3_btnhumanarmorupthree.dds" />
+    <DisableValidatorArray value="SourceNotDead" />
+    <BuffFlags index="RemoveDamageResponseExhausted" value="0" />
+    <BuffFlags index="RefreshStack" value="1" />
+    <Duration value="1.5" />
+    <ArmorModification>
+      <ArmorSet index="Hero">
+        <ArmorMitigationTable index="Ability" value="30" />
+      </ArmorSet>
+      <ArmorSet index="Merc">
+        <ArmorMitigationTable index="Ability" value="30" />
+      </ArmorSet>
+      <ArmorSet index="Monster">
+        <ArmorMitigationTable index="Ability" value="30" />
+      </ArmorSet>
+      <ArmorSet index="Summon">
+        <ArmorMitigationTable index="Ability" value="30" />
+      </ArmorSet>
+      <ArmorSet index="Structure">
+        <ArmorMitigationTable index="Ability" value="30" />
+      </ArmorSet>
+      <ArmorSet index="Minion">
+        <ArmorMitigationTable index="Ability" value="30" />
+      </ArmorSet>
+    </ArmorModification>
+  </CBehaviorBuff>
+</Catalog>

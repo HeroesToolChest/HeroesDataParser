@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CEffectDamage id="DVaPilotBigShotPewPewPewDamage" parent="StormSpell">
+    <Amount value="125" />
+  </CEffectDamage>
+  <CEffectDamage id="DVaPilotBigShotDamage" parent="StormSpell">
+    <Amount value="250" />
+  </CEffectDamage>
+  <CEffectCreatePersistent id="DVaBigShotPewPewPewOffsetPeriodic">
+    <WhichLocation Value="SourceUnit" />
+    <Flags index="Channeled" value="1" />
+    <PeriodCount value="3" />
+    <PeriodicEffectArray value="DVaBigShotMissileScan" />
+    <PeriodicEffectArray value="DVaBigShotMissileScan" />
+    <PeriodicEffectArray value="DVaBigShotMissileScan" />
+    <PeriodicOffsetArray Y="-7.5" />
+    <PeriodicOffsetArray Y="-7.5" />
+    <PeriodicOffsetArray Y="-7.5" />
+    <PeriodicPeriodArray value="0" />
+    <PeriodicPeriodArray value="0.25" />
+    <PeriodicPeriodArray value="0.25" />
+  </CEffectCreatePersistent>
+
+  <LevelScalingArray Ability="DVaPilotBigShot">
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="DVaPilotBigShotDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="DVaPilotBigShotPewPewPewDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+</Catalog>

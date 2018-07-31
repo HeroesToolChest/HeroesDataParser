@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="RagnarosBigRag" parent="StormBasicHeroicUnit">
+    <DeathTime value="10" />
+    <LifeStart value="3996" />
+    <LifeMax value="3996" />
+    <LifeRegenRate value="-222" />
+  </CUnit>
+
+  <LevelScalingArray Ability="RagnarosMoltenCore">
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="RagnarosBigRag" />
+      <Field value="LifeStart" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="RagnarosBigRag" />
+      <Field value="LifeMax" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="RagnarosBigRag" />
+      <Field value="LifeRegenRate" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+</Catalog>

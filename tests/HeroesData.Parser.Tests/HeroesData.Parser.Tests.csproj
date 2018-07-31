@@ -25,19 +25,7 @@
     <None Update="HeroOverridesXml\HeroOverrideTest_12000.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\mods\core.stormmod\base.stormdata\GameData\XmlTestData.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\mods\heroesdata.stormmod\base.stormdata\GameData\blank.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\mods\heroesdata.stormmod\base.stormdata\GameData\Heroes\blank.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\mods\heroesdata.stormmod\enus.stormdata\LocalizedData\GameStrings.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\mods\heromods\blank.txt">
+    <None Update="TestData\mods\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="HeroOverridesXml\HeroOverrideTest_12345.xml">

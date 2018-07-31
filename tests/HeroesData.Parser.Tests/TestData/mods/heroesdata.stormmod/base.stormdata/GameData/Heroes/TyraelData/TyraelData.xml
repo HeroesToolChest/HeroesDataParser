@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <!-- double upped, should take the latest one-->
+  <CBehaviorBuff id="ElDruinsMightMasteryPathingBlockerTimedLife" parent="StormTimedLife">
+    <Duration value="4" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="ElDruinsMightMasteryPathingBlockerTimedLife" parent="StormTimedLife">
+    <Duration value="3" />
+  </CBehaviorBuff>
+  <!--end double up-->
+
+  <CBehaviorBuff id="TyraelRighteousnessShield" parent="StormShield">
+    <Face value="TyraelRighteousnessReciprocateTalent" />
+    <Duration value="4" />
+    <FinalEffect value="RighteousnessExpirationFinalSet" />
+    <DamageResponse Exhausted="RighteousnessSalvationCreateHealer" Handled="TyraelDefenseOfTheAngelsModifyPlayerCooldown" ModifyLimit="336" />
+  </CBehaviorBuff>
+
+  <LevelScalingArray Ability="TyraelRighteousness">
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="TyraelRighteousnessShield" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="TyraelRighteousnessSalvationShield" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="TyraelRighteousnessAllyShield" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="TyraelRighteousnessJusticeForAllAllyShield" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="RighteousnessExpirationDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="RighteousnessRegenerationCreateHealer" />
+      <Field value="RechargeVitalRate" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="TyraelRighteousnessAllyDummyShield" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Behavior" />
+      <Entry value="TyraelRighteousnessDummyShield" />
+      <Field value="DamageResponse.ModifyLimit" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="RighteousnessSalvationCreateHealer" />
+      <Field value="RechargeVitalRate" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+</Catalog>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CEffectDamage id="MultishotDamage" parent="StormSpell">
+    <MultiplicativeModifierArray index="0" Accumulator="DemonHunterMultishotTalentPunishmentTokenAccumulator" />
+    <AmountArray index="Quest" value="172" />
+  </CEffectDamage>
+
+  <LevelScalingArray Ability="DemonHunterMultishot">
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="MultishotDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="MultishotArsenalGrenadeDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="MultishotDamage" />
+      <Field value="AmountArray[Quest]" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+</Catalog>

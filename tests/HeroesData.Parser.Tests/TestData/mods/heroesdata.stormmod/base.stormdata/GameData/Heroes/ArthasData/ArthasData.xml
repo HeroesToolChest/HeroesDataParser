@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CBehaviorBuff id="ArthasIceboundFortitudeCasterBehavior" parent="StormArmor">
+    <BehaviorCategories index="BuffResistant" value="1" />
+    <Duration value="3" />
+    <ArmorModification AllArmorBonus="25" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="ArthasIceboundFortitudeCasterBehavior" parent="StormArmor">
+    <BehaviorCategories index="BuffResistant" value="1" />
+    <Duration value="3" />
+    <ArmorModification AllArmorBonus="25" />
+  </CBehaviorBuff>
+</Catalog>

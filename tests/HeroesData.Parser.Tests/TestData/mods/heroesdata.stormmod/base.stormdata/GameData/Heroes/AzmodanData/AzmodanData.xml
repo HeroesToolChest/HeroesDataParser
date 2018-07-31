@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CEffectDamage id="AzmodanAllShallBurnDamage" parent="StormSpell">
+    <DamageModifierSource Value="Caster" />
+    <AttributeFactor index="Structure" value="0.25" />
+    <Amount value="25">
+      <AccumulatorArray value="AzmodanAllShallBurnAccumulator" />
+    </Amount>
+    <LeechValidator index="Life" value="AzmodanHasGluttony" />
+    <LeechFraction index="Life" value="0.25" />
+  </CEffectDamage>
+  <CEffectCreatePersistent id="AzmodanAllShallBurnCreatePersistent">
+    <WhichLocation Value="TargetUnit" />
+    <Flags index="Channeled" value="1" />
+    <Flags index="PersistUntilDestroyed" value="1" />
+    <InitialEffect value="AzmodanAllShallBurnPersistentInitialSet" />
+    <FinalEffect value="AzmodanAllShallBurnRemoveChannelBehaviorSet" />
+    <PeriodicValidator value="AzmodanAllShallBurnPeriodicValidator" />
+    <PeriodicEffectArray value="AzmodanAllShallBurnImpactSet" />
+    <PeriodicPeriodArray value="0.25" />
+  </CEffectCreatePersistent>
+  <CBehaviorBuff id="AzmodanAllShallBurnChannel">
+    <Alignment value="Positive" />
+    <Period value="1.5" />
+    <PeriodCount value="3" />
+    <InitialEffect value="AzmodanAllShallBurnApplyInfusedPowerMasteryDelay" />
+    <PeriodicEffect value="AzmodanAllShallBurnApplyMasterofDestructionTalentBuff" />
+    <FinalEffect value="AllShallBurnEndSet" />
+    <Modification>
+      <ModifyFlags index="SuppressTurning" value="1" />
+      <StateFlags index="SuppressCloak" value="1" />
+      <UnifiedMoveSpeedFactor value="-0.6" />
+      <AbilClassDisableArray index="CAbilAttack" value="1" />
+    </Modification>
+  </CBehaviorBuff>
+  <CEffectDamage id="AzmodanDemonicInvasionImpactDamage" parent="StormSpell">
+    <MultiplicativeModifierArray index="Siegebreaker" Validator="AzmodanSiegebreakerTalentCombine" Modifier="0.5" />
+    <Amount value="65" />
+    <SourceButtonFace value="AzmodanDemonicInvasion" />
+  </CEffectDamage>
+  <CEffectDamage id="AzmodanDemonicInvasionDemonGruntWeaponDamage" parent="StormWeapon">
+    <MultiplicativeModifierArray index="Siegebreaker" Validator="AzmodanSiegebreakerTalentCombine" Modifier="0.5" />
+    <Amount value="42" />
+    <SourceButtonFace value="AzmodanDemonicInvasion" />
+  </CEffectDamage>
+  <CUnit id="AzmodanDemonicInvasionDemonGrunt" parent="StormSummonActive">
+    <FlagArray index="CreateAITreeOnSpawn" value="1" />
+    <LifeStart value="750" />
+    <LifeMax value="750" />
+    <LifeRegenRate value="-93.75" />
+    <Sight value="7" />
+    <Radius value="0.6875" />
+    <InnerRadius value="0.6875" />
+  </CUnit>
+  <CEffectDamage id="AzmodanDemonicInvasionExplodeDamage" parent="StormSpell">
+    <DamageModifierSource Value="Source" />
+    <MultiplicativeModifierArray index="Siegebreaker" Validator="AzmodanSiegebreakerTalentCombine" Modifier="0.5" />
+    <Amount value="65" />
+    <SourceButtonFace value="AzmodanDemonicInvasion" />
+  </CEffectDamage>
+
+  <LevelScalingArray Ability="AzmodanAllShallBurn">
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AzmodanAllShallBurnDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+  <LevelScalingArray Ability="AzmodanDemonicInvasion">
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AzmodanDemonicInvasionImpactDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AzmodanDemonicInvasionDemonGruntWeaponDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AzmodanDemonicInvasionExplodeDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByAbilityPower value="1" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AzmodanDemonicInvasionDemonGrunt" />
+      <Field value="LifeMax" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AzmodanDemonicInvasionDemonGrunt" />
+      <Field value="LifeStart" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AzmodanDemonicInvasionDemonGrunt" />
+      <Field value="LifeRegenRate" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
+</Catalog>
