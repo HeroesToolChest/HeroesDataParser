@@ -422,10 +422,7 @@ namespace HeroesData.Parser.UnitData
                 ability.ReferenceNameId = referenceName;
                 ability.FullTooltipNameId = tooltipName;
 
-                if (!GameStringData.AbilityTalentNamesByReferenceNameId.ContainsKey(tooltipName))
-                    throw new ParseException($"{nameof(GetAbility)}: {tooltipName} not found in description names");
-
-                ability.Name = GameStringData.AbilityTalentNamesByReferenceNameId[tooltipName];
+                SetAbilityTalentName(ability, tooltipName);
             }
             else if (!string.IsNullOrEmpty(referenceName) && string.IsNullOrEmpty(tooltipName)) // is a secondary ability
             {
@@ -433,20 +430,14 @@ namespace HeroesData.Parser.UnitData
                 ability.ParentLink = parentLink;
                 ability.FullTooltipNameId = referenceName;
 
-                if (!GameStringData.AbilityTalentNamesByReferenceNameId.ContainsKey(referenceName))
-                    throw new ParseException($"{nameof(GetAbility)}: {referenceName} not found in description names");
-
-                ability.Name = GameStringData.AbilityTalentNamesByReferenceNameId[referenceName];
+                SetAbilityTalentName(ability, referenceName);
             }
             else
             {
                 ability.ReferenceNameId = tooltipName;
                 ability.FullTooltipNameId = tooltipName;
 
-                if (!GameStringData.AbilityTalentNamesByReferenceNameId.ContainsKey(tooltipName))
-                    throw new ParseException($"{nameof(GetAbility)}: {tooltipName} not found in description names");
-
-                ability.Name = GameStringData.AbilityTalentNamesByReferenceNameId[tooltipName];
+                SetAbilityTalentName(ability, tooltipName);
             }
 
             XElement heroicElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "Heroic" && x.Attribute("value").Value == "1").FirstOrDefault();
@@ -526,7 +517,8 @@ namespace HeroesData.Parser.UnitData
             if (talentFaceElement != null)
             {
                 talent.FullTooltipNameId = talentFaceElement.Attribute("value").Value;
-                talent.Name = GameStringData.AbilityTalentNamesByReferenceNameId[talent.FullTooltipNameId];
+
+                SetAbilityTalentName(talent, talent.FullTooltipNameId);
             }
 
             SetAbilityTalentIcon(talent);
@@ -544,6 +536,23 @@ namespace HeroesData.Parser.UnitData
             SetTooltipDescriptions(talent);
 
             hero.Talents.Add(referenceName, talent);
+        }
+
+        private void SetAbilityTalentName(AbilityTalentBase abilityTalentBase, string tooltipName)
+        {
+            // check for name override
+            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == abilityTalentBase.FullTooltipNameId).FirstOrDefault();
+            if (cButtonElement != null)
+            {
+                XElement buttonNameElement = cButtonElement.Element("Name");
+                if (buttonNameElement != null)
+                    tooltipName = Path.GetFileName(PathExtensions.GetFilePath(buttonNameElement.Attribute("value").Value)); // override
+            }
+
+            if (!GameStringData.AbilityTalentNamesByReferenceNameId.ContainsKey(tooltipName))
+                throw new ParseException($"{nameof(SetAbilityTalentName)}: {tooltipName} not found in description names");
+
+            abilityTalentBase.Name = GameStringData.AbilityTalentNamesByReferenceNameId[tooltipName];
         }
 
         private void SetAbilityTalentIcon(AbilityTalentBase abilityTalentBase)
