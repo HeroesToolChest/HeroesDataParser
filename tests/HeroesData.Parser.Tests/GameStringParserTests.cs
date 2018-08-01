@@ -28,18 +28,6 @@ namespace HeroesData.Parser.Tests
         }
 
         [Fact]
-        public void AllFullParsedTooltipsTest()
-        {
-            Assert.True(FullParsedTooltipsByFullTooltipNameId.Count == GameStringData.FullTooltipsByFullTooltipNameId.Count);
-        }
-
-        [Fact]
-        public void AllFullParsedTooltipsNoFailedTest()
-        {
-            Assert.True(FailedParsedCount == 0);
-        }
-
-        [Fact]
         public void FullParsedTooltipSuccessTest()
         {
             Assert.Equal("Toxic Nests deal <c val=\"#TooltipNumbers\">75%</c> more damage over <c val=\"#TooltipNumbers\">3</c> seconds.", FullParsedTooltipsByFullTooltipNameId["AbathurToxicNestEnvenomedNestTalent"]);

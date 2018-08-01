@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CTalent id="GenericTalentSeasonedMarksman">
+    <Face value="GenericSeasonedMarksmanTalent"/>
+    <RankArray Item="SeasonedMarksmanItem">
+      <BehaviorArray value="TalentSeasonedMarksmanCarryBehavior"/>
+      <BehaviorArray value="TalentSeasonedMarksmanTokenCounter"/>
+    </RankArray>
+    <QuestData StackBehavior="TalentSeasonedMarksmanTokenCounter" TargetCount="40"/>
+  </CTalent>
+  <CTalent id="GenericTalentGiantKiller">
+    <Face value="GenericGiantKiller"/>
+    <RankArray>
+      <BehaviorArray value="TalentBucketGiantKiller"/>
+    </RankArray>
+  </CTalent>
+  <CTalent id="GenericTalentNexusFrenzy">
+    <Face value="NexusFrenzyTalent"/>
+    <RankArray>
+      <BehaviorArray value="NexusFrenzyCarryBehavior"/>
+    </RankArray>
+    <AbilityModificationArray ModifyAbil="attack">
+      <Modifications>
+        <Type value="FlatModification"/>
+        <Catalog value="Actor"/>
+        <Entry value="TychusOdinRangeIndicator"/>
+        <Field value="Range"/>
+        <Value value="1.100000"/>
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+</Catalog>

@@ -19,19 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="HeroOverridesXml\HeroOverrideTest_11000.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="HeroOverridesXml\HeroOverrideTest_12000.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="TestData\mods\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="HeroOverridesXml\HeroOverrideTest_12345.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="HeroOverridesXml\HeroOverrideTest.xml">
+    <None Update="HeroOverridesXml\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

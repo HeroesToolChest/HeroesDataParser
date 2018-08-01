@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit default="1" id="StormBasicHeroicUnit">
+    <Speed value="4.3984" />
+    <Sight value="12" />
+    <AttackTargetPriority value="10" />
+    <DamageDealtXP value="1" />
+    <DamageTakenXP value="1" />
+    <TargetingHitTestPriority value="10" />
+    <CargoSize value="1" />
+  </CUnit>
+  <CUnit default="1" id="StormHero" parent="StormBasicHeroicUnit">
+    <DeathTime value="-1" />
+    <DeathRevealRadius value="3" />
+    <FlagArray index="SelectableWhileDead" value="1" />
+    <FlagArray index="PreferLastAttackTarget" value="1" />
+    <FlagArray index="ResumeLastMoveOrder" value="1" />
+    <FlagArray index="StatTrackAbilities" value="1" />
+    <FlagArray index="LeechBehaviorShieldDamage" value="1" />
+    <FlagArray index="DisableLeashing" value="1" />
+    <EnergyStart value="500" />
+    <EnergyMax value="500" />
+    <EnergyRegenRate value="3" />
+    <ShieldRegenDelay value="10" />
+  </CUnit>
+  <CUnit default="1" id="StormHeroMountedCustom" parent="StormHero">
+  </CUnit>
+</Catalog>

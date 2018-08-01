@@ -14,3 +14,124 @@ Button/Tooltip/MuradinAvatar=Transform for <c val="#TooltipNumbers"><d ref="Beha
 Button/Tooltip/NovaPermanentCloak=Gain Stealth when out of combat for <c val="#TooltipNumbers"><d ref="Behavior,GenericCloakRevealer,Duration" player="0" precision="2"/></c> seconds. Taking damage, attacking, using Abilities, or Channeling ends Stealth. Remaining stationary for at least <c val="#TooltipNumbers"><d ref="Behavior,HeroGenericStationaryExtraStealthCountdown,Duration" precision="1"/></c> seconds while Stealthed grants Invisible.<n/><n/><c val="#AbilityPassive">Passive:</c> Gain <c val="#TooltipNumbers"><d ref="100*Behavior,NovaPermanentCloakMovementSpeedBuff,Modification.UnifiedMoveSpeedFactor"/>%</c> Movement Speed while Stealthed.
 Button/Tooltip/TyraelElDruinsMightHolyGroundTalent=Create a ring for <c val="#TooltipNumbers"><d ref="Behavior,ElDruinsMightMasteryPathingBlockerTimedLife,Duration"/></c> seconds that blocks enemies from entering the area teleported to using El'druin's Might.
 Button/Tooltip/TyraelRighteousness=Shields Tyrael for <c val="#TooltipNumbers"><d ref="Behavior,TyraelRighteousnessShield,DamageResponse[0].ModifyLimit[0]"/></c> damage and nearby allies for <c val="#TooltipNumbers">40%</c> as much for <c val="#TooltipNumbers"><d ref="Behavior,TyraelRighteousnessShield,Duration[0]"/></c> seconds.
+
+
+Abil/Name/FalstadBOOMerang=BOOMerang
+Abil/Name/FalstadBarrelRoll=Falstad Barrel Roll
+Abil/Name/FalstadFlight=Flight
+Abil/Name/FalstadHammerang=Falstad Hammerang
+Abil/Name/FalstadHinterlandBlast=Hinterland Blast
+Abil/Name/FalstadLightningRod=Lightning Rod
+Abil/Name/FalstadMightyGust=Mighty Gust
+Abil/Name/FalstadTailwindCooldownDisplay=Tailwind
+Abil/Name/FalstadWingman=Wingman
+Button/Name/FalstadBarrelRoll=Barrel Roll
+Button/Name/FalstadBarrelRollAfterburnerTalent=Afterburner
+Button/Name/FalstadBarrelRollDogFightTalent=Dog Fight
+Button/Name/FalstadBarrelRollDogFightTalentSimple=Dog Fight
+Button/Name/FalstadBarrelRollUpdraftTalent=Updraft
+Button/Name/FalstadChargedUpTalent=Charged Up
+Button/Name/FalstadEpicMountTalent=Epic Mount
+Button/Name/FalstadFlight=Flight
+Button/Name/FalstadFlowRiderTalent=Flow Rider
+Button/Name/FalstadFreeRollTalent=Free Roll
+Button/Name/FalstadGatheringStormTalent=Gathering Storm
+Button/Name/FalstadHammerGainsTalent=Hammer Gains
+Button/Name/FalstadHammerang=Hammerang
+Button/Name/FalstadHammerangBOOMerangActive=BOOMerang
+Button/Name/FalstadHammerangBOOMerangTalent=BOOMerang
+Button/Name/FalstadHammerangCripplingHammerTalent=Crippling Hammer
+Button/Name/FalstadHammerangGatheringStormQuestToken=Gathering Storm
+Button/Name/FalstadHinterlandBlast=Hinterland Blast
+Button/Name/FalstadHinterlandBlastCalloftheWildhammerTalent=Call of the Wildhammer
+Button/Name/FalstadLightningRod=Lightning Rod
+Button/Name/FalstadMightyGust=Mighty Gust
+Button/Name/FalstadMightyGustHeroSelect=Mighty Gust
+Button/Name/FalstadPowerThrowTalent=Power Throw
+Button/Name/FalstadSecretWeaponTalent=Secret Weapon
+Button/Name/FalstadStaticShieldTalent=Static Shield
+Button/Name/FalstadTailwind=Tailwind
+Button/Name/FalstadTailwindAerieGustsTalent=Aerie Gusts
+Button/Name/FalstadTailwindStormhammerTalent=Stormhammer
+Button/Name/FalstadTailwindStormhammerTalentSimple=Stormhammer
+Button/Name/FalstadThunderstrikesTalent=Thunderstrikes
+Button/Name/FalstadWindTunnelTalent=Wind Tunnel
+Button/Name/FalstadWingmanHotbar=Wingman
+Button/Name/FalstadWingmanHotbarTalent=Wingman
+Button/Name/FalstadWingmanTalentToken=Wingman
+Button/Name/FalstadWingmanToken=Wingman
+Button/SimpleDisplayText/FalstadBarrelRoll=Dash to a location and gain a temporary shield
+Button/SimpleDisplayText/FalstadBarrelRollAfterburnerTalent=Barrel Roll increases Move Speed
+Button/SimpleDisplayText/FalstadBarrelRollUpdraftTalent=Increases Barrel Roll range, Shield
+Button/SimpleDisplayText/FalstadChargedUpTalent=Increases Lightning Rod strikes and range
+Button/SimpleDisplayText/FalstadEpicMountTalent=Reduces Flight cooldown and delay
+Button/SimpleDisplayText/FalstadFlight=Instead of mounting, Falstad can fly a great distance over terrain
+Button/SimpleDisplayText/FalstadFlowRiderTalent=Tailwind recharges Basic Abilities faster
+Button/SimpleDisplayText/FalstadFreeRollTalent=Barrel Roll costs no Mana
+Button/SimpleDisplayText/FalstadGatheringStormTalent=<c val="#TooltipQuest">Quest:</c> Hitting Heroes empowers Hammerang
+Button/SimpleDisplayText/FalstadHammerGainsTalent=Basic Attacks heal
+Button/SimpleDisplayText/FalstadHammerang=Throw out a Hammer that returns. Hammer slows and damages enemies
+Button/SimpleDisplayText/FalstadHammerangBOOMerangActive=Deal damage in a small area around the Hammer.
+Button/SimpleDisplayText/FalstadHammerangBOOMerangTalent=Activate Hammerang second time for more damage
+Button/SimpleDisplayText/FalstadHammerangCripplingHammerTalent=Increases Hammerang slow
+Button/SimpleDisplayText/FalstadHinterlandBlast=Long range damage beam
+Button/SimpleDisplayText/FalstadHinterlandBlastCalloftheWildhammerTalent=Increases Hinterland Blast range and damage
+Button/SimpleDisplayText/FalstadLightningRod=Deal damage to target enemy while staying close to them
+Button/SimpleDisplayText/FalstadMightyGust=Push away enemies and slow them
+Button/SimpleDisplayText/FalstadPowerThrowTalent=Hammerang travels farther and slows longer
+Button/SimpleDisplayText/FalstadSecretWeaponTalent=Increases Hammerang range, Basic Attack damage
+Button/SimpleDisplayText/FalstadStaticShieldTalent=Gain Shields after every Lightning Rod strike
+Button/SimpleDisplayText/FalstadTailwind=After not taking damage for a brief period, gain increased Movement Speed
+Button/SimpleDisplayText/FalstadTailwindAerieGustsTalent=Reduce Tailwind delay, increase Move Speed
+Button/SimpleDisplayText/FalstadThunderstrikesTalent=Lightning Rod deals increasing damage
+Button/SimpleDisplayText/FalstadWindTunnelTalent=Mighty Gust constantly knocks back
+Button/SimpleDisplayText/FalstadWingmanHotbar=Kill Minions to bribe a Mercenary and empower Lightning Rod
+Button/SimpleDisplayText/FalstadWingmanHotbarTalent=Kill Minions to bribe Mercenaries
+Button/SimpleDisplayText/FalstadWingmanTalentToken=Kill Minions to bribe a Mercenary and empower Lightning Rod
+Button/SimpleDisplayText/FalstadWingmanToken=Kill Minions to bribe a Mercenary and empower Lightning Rod
+Button/Tooltip/FalstadBarrelRoll=Dashes forward and grants a <c val="#TooltipNumbers"><d ref="Behavior,BarrelRoll,DamageResponse.ModifyLimit"/></c> point Shield for <c val="#TooltipNumbers"><d ref="Behavior,BarrelRoll,Duration" player="0"/></c> seconds.
+Button/Tooltip/FalstadBarrelRollAfterburnerTalent=Barrel Roll increases Movement Speed by <c val="#TooltipNumbers"><d ref="100*Behavior,BarrelRollRelicBuff,MaxStackCount*Behavior,BarrelRollRelicBuff,Modification.UnifiedMoveSpeedFactor"/>%</c>, decaying over <c val="#TooltipNumbers"><d ref="Behavior,BarrelRollRelicBuff,Duration" player="0"/></c> seconds.
+Button/Tooltip/FalstadBarrelRollDogFightTalent=<s val="StandardTooltipHeader">Dog Fight </s><n/><s val="StandardTooltipDetails"><n/><s val="StandardTooltip">The Barrel Roll Shield lasts <s val="StandardTooltipDetails">3</s> seconds longer.
+Button/Tooltip/FalstadBarrelRollDogFightTalentSimple=<s val="TalentChoiceNameLabel">Dog Fight </s><n/><s val="TalentChoiceDescriptionLabel">Increased Shield duration
+Button/Tooltip/FalstadBarrelRollUpdraftTalent=Increases Barrel Roll's range and Shield amount by <c val="#TooltipNumbers">40%</c>, and its Shield now lasts indefinitely.
+Button/Tooltip/FalstadChargedUpTalent=Increases the number of Lightning Rod strikes by <c val="#TooltipNumbers"><d ref="Talent,FalstadMasteryLightningRodChargedUp,AbilityModificationArray[0].Modifications[0].Value"/></c> and its range by <c val="#TooltipNumbers"><d ref="100*Talent,FalstadMasteryLightningRodChargedUp,AbilityModificationArray[0].Modifications[2].Value-100"Precision="2"/>%</c>. 
+Button/Tooltip/FalstadEpicMountTalent=Reduce the cooldown of Flight to <c val="#TooltipNumbers">30</c> seconds, reduce the cast time before flying to <c val="#TooltipNumbers">0.5</c> seconds, and increase the speed by <c val="#TooltipNumbers">50%</c>.
+Button/Tooltip/FalstadFlight=Instead of mounting, Falstad can fly a great distance over terrain.
+Button/Tooltip/FalstadFlowRiderTalent=While Tailwind is active, Falstad's Basic Abilities recharge <c val="#TooltipNumbers">100%</c> faster.
+Button/Tooltip/FalstadFreeRollTalent=Barrel Roll costs no Mana.
+Button/Tooltip/FalstadGatheringStormTalent=<img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Quest:</c> Each time a Hero is hit by Hammerang, its damage is permanently increased by <c val="#TooltipNumbers"><d ref="Accumulator,FalstadHammerangGatheringStormAccumulator,Scale" precision="2"/></c> and it refunds <c val="#TooltipNumbers"><d ref="Effect,FalstadHammerangGatheringStormCreateManaHealer,RechargeVitalRate"/></c> Mana.
+Button/Tooltip/FalstadHammerGainsTalent=Basic Attacks heal for <c val="#TooltipNumbers"><d ref="Behavior,FalstadHammerGains,Modification.VitalDamageLeechArray[0].KindArray[1] * 100"/>%</c> of the damage dealt to the primary target.
+Button/Tooltip/FalstadHammerang=Throw out a Hammer that returns to Falstad, dealing <c val="#TooltipNumbers"><d ref="Effect,HammerangDamage,Amount"/></c> damage and slowing enemies by <c val="#TooltipNumbers"><d ref="-100 * Behavior,HammerangSlow,Modification.UnifiedMoveSpeedFactor" precision="2"/>%</c> for <c val="#TooltipNumbers"><d ref="Behavior,HammerangSlow,Duration" player="0" precision="2"/></c> seconds.
+Button/Tooltip/FalstadHammerangBOOMerangActive=Deal <c val="#TooltipNumbers"><d ref="Effect,FalstadHammerangBOOMerangDamage,Amount"/></c> additional damage in a small area around the hammer.
+Button/Tooltip/FalstadHammerangBOOMerangTalent=Reactivate Hammerang mid-flight to deal <c val="#TooltipNumbers"><d ref="Effect,FalstadHammerangBOOMerangDamage,Amount"/></c> damage around the hammer.
+Button/Tooltip/FalstadHammerangCripplingHammerTalent=Increases Hammerang's slow from <c val="#TooltipNumbers"><d ref="-100*Behavior,HammerangSlow,Modification.UnifiedMoveSpeedFactor" player="0"/>%</c> to <c val="#TooltipNumbers"><d ref="-100*(Behavior,HammerangSlow,Modification.UnifiedMoveSpeedFactor+Talent,FalstadMasteryCripplingHammerHammerang,AbilityModificationArray[0].Modifications[0].Value)" player="0"/>%</c>.
+Button/Tooltip/FalstadHammerangGatheringStormQuestToken=<c val="#TooltipQuest">Heroes hit: <c val="#TooltipNumbers" validator="True"><d ref="$BehaviorStackCount:FalstadHammerangGatheringStormQuestToken$"/></c></n>Bonus damage: <c val="#TooltipNumbers" validator="True"><d ref="$BehaviorStackCount:FalstadHammerangGatheringStormQuestToken$*Accumulator,FalstadHammerangGatheringStormAccumulator,Scale" precision="1"/></c></c>
+Button/Tooltip/FalstadHinterlandBlast=After <c val="#TooltipNumbers"><d ref="Abil,FalstadHinterlandBlast,CastIntroTime"/></c> second, deal <c val="#TooltipNumbers"><d ref="Effect,HinterlandBlastDamage,Amount"/></c> damage to enemies within a long line. The cooldown is reduced by <c val="#TooltipNumbers"><d ref="-Effect,FalstadHinterlandBlastModifyCooldown,Cost[0].CooldownTimeUse"/></c> seconds for every enemy Hero hit.
+Button/Tooltip/FalstadHinterlandBlastCalloftheWildhammerTalent=Hinterland Blast has double the range and deals <c val="#TooltipNumbers"><d ref="Effect,HinterlandBlastDamage,MultiplicativeModifierArray[FalstadCallOfTheWildhammer].Modifier*100"/>%</c> more damage.
+Button/Tooltip/FalstadLightningRod=Deal <c val="#TooltipNumbers"><d ref="Effect,FalstadLightningRodInitialDamage,Amount"/></c> damage to an enemy, and an additional <c val="#TooltipNumbers"><d ref="Effect,FalstadLightningRodDamage,Amount"/></c> damage per second for <c val="#TooltipNumbers"><d ref="Behavior,FalstadLightningRodCasterBehavior,Duration" player="0"/></c> seconds while close to the target.
+Button/Tooltip/FalstadMightyGust=Push enemies away, and slow their Movement Speed by <c val="#TooltipNumbers"><d ref="-Behavior,FalstadMightyGustSlowStacks,Modification.UnifiedMoveSpeedFactor*Behavior,FalstadMightyGustSlowStacks,MaxStackCount*100" precision="1"/>%</c> decaying over <c val="#TooltipNumbers"><d ref="Behavior,FalstadMightyGustSlowStacks,Duration" player="0"/></c> seconds.
+Button/Tooltip/FalstadMightyGustHeroSelect=<s val="StandardTooltip">Push enemies away and slow them.
+Button/Tooltip/FalstadPowerThrowTalent=Increase the range and slow duration of Hammerang by <c val="#TooltipNumbers">40%</c>.
+Button/Tooltip/FalstadSecretWeaponTalent=Increases Hammerang's range by <c val="#TooltipNumbers">30%</c> and Basic Attacks deal <c val="#TooltipNumbers"><d ref="Behavior,FalstadSecretWeapon,Modification.DamageDealtFraction[Basic]*100"/>%</c> bonus damage while Hammerang is in flight.
+Button/Tooltip/FalstadStaticShieldTalent=Gain a Shield equal to <c val="#TooltipNumbers"><d ref="100*Behavior,FalstadLightningRodStaticShield,DamageResponse.ModifyLimitVitalMaxFractionArray[Life]"/>%</c> of Falstad's maximum Health after every Lightning Rod strike. Lasts <c val="#TooltipNumbers">4</c> seconds and stacks.
+Button/Tooltip/FalstadTailwind=Gain <c val="#TooltipNumbers"><d ref="100*Behavior,FalstadTailwind,Modification.UnifiedMoveSpeedFactor" player="0"/>%</c> increased Movement Speed after not taking damage for <c val="#TooltipNumbers"><d ref="Abil,FalstadTailwindCooldownDisplay,Cost.Cooldown.TimeUse" player="0"/></c> seconds.
+Button/Tooltip/FalstadTailwindAerieGustsTalent=Reduces the activation time for Tailwind from <c val="#TooltipNumbers"><d ref="Abil,FalstadTailwindCooldownDisplay,Cost.Cooldown.TimeUse" player="0"/></c> to <c val="#TooltipNumbers"><d ref="Abil,FalstadTailwindCooldownDisplay,Cost.Cooldown.TimeUse+Talent,FalstadMasteryAerieGustsTailwind,AbilityModificationArray[0].Modifications[0].Value" player="0"/></c> seconds, and increases the Movement Speed bonus from <c val="#TooltipNumbers"><d ref="Behavior,FalstadTailwind,Modification.UnifiedMoveSpeedFactor*100" player="0"/>%</c> to <c val="#TooltipNumbers"><d ref="(Behavior,FalstadTailwind,Modification.UnifiedMoveSpeedFactor+Talent,FalstadMasteryAerieGustsTailwind,AbilityModificationArray[0].Modifications[1].Value)*100" player="0"/>%</c>.
+Button/Tooltip/FalstadTailwindStormhammerTalent=<s val="StandardTooltipHeader">Stormhammer</s><n/><s val="StandardTooltip"><n/>Basic Attacks deal <s val="StandardTooltipDetails">50%</s> damage against a nearby target.
+Button/Tooltip/FalstadTailwindStormhammerTalentSimple=<s val="TalentChoiceNameLabel">Stormhammer</s><n/><s val="TalentChoiceDescriptionLabel">Basic Attacks bounce</s>
+Button/Tooltip/FalstadThunderstrikesTalent=Lightning Rod deals <c val="#TooltipNumbers">20%</c> more damage each subsequent strike.
+Button/Tooltip/FalstadWindTunnelTalent=Mighty Gust creates a wind tunnel for <c val="#TooltipNumbers">4</c> seconds. Enemies caught in the tunnel will periodically be pushed back.
+Button/Tooltip/FalstadWingmanHotbar=Enemy Minions killed near Falstad grant a stack of Bribe. Falstad can use <c val="#TooltipNumbers"><d ref="-Effect,FalstadWingmanRemove20Token,Value"/></c> stacks to bribe a Mercenary, instantly defeating them and permanently increasing the damage of Lightning Rod by <c val="#TooltipNumbers"><d ref="100*Accumulator,FalstadWingmanAccumulator,Scale"/>%</c>. Does not work on Bosses. Maximum of <c val="#TooltipNumbers"><d ref="Behavior,FalstadWingmanTokenCounter,Max"/></c> stacks.<n/><n/><c val="ffff8a">Current number of Bribe stacks: <c val="#TooltipNumbers"><d ref="$BehaviorStackCount:FalstadWingmanTokenCounter$"/>/<d ref="Behavior,FalstadWingmanTokenCounter,Max"/></c></c><n/><n/><c val="#TooltipQuest">Lightning Rod Damage Bonus:</c> <c val="#TooltipNumbers"><d ref="100*($BehaviorStackCount:FalstadWingmanDamageTokenCounter$*Accumulator,FalstadWingmanAccumulator,Scale)"/>%</c><n/><n/><c val="#AbilityPassive">Passive:</c> Reduce Lightning Rod's cooldown by <c val="#TooltipNumbers"><d ref="-Talent,FalstadWingman,AbilityModificationArray[0].Modifications[0].Value"/></c> seconds.
+Button/Tooltip/FalstadWingmanHotbarTalent=Enemy Minions killed near Falstad grant a stack of Bribe. Falstad can use <c val="#TooltipNumbers"><d ref="-Effect,FalstadWingmanRemove20Token,Value"/></c> stacks to bribe a Mercenary, instantly defeating them and permanently increasing the damage of Lightning Rod by <c val="#TooltipNumbers"><d ref="100*Accumulator,FalstadWingmanAccumulator,Scale"/>%</c>.<n/><n/>Does not work on Bosses. Maximum of <c val="#TooltipNumbers"><d ref="Behavior,FalstadWingmanTokenCounter,Max"/></c> stacks.<n/><n/><c val="#AbilityPassive">Passive:</c> Reduce Lightning Rod's cooldown by <c val="#TooltipNumbers"><d ref="-Talent,FalstadWingman,AbilityModificationArray[0].Modifications[0].Value"/></c> seconds.
+Button/Tooltip/FalstadWingmanTalentToken=<c val="#TooltipQuest">Current number of Bribe stacks: <c val="#TooltipNumbers" validator="True"><d ref="$BehaviorStackCount:FalstadWingmanTokenCounter$"/>/<d ref="Behavior,FalstadWingmanTokenCounter,Max"/></c></c><n/><c val="#TooltipQuest">Lightning Rod Damage Bonus: <c val="#TooltipNumbers" validator="True"><d ref="100*($BehaviorStackCount:FalstadWingmanDamageTokenCounter$*Accumulator,FalstadWingmanAccumulator,Scale)"/>%
+Button/Tooltip/FalstadWingmanToken=<c val="#TooltipQuest">Nearby Minions Killed: <c val="#TooltipNumbers" validator="True"><d ref="$BehaviorStackCount:FalstadWingmanTokenCounter$"/>/<d ref="Behavior,FalstadWingmanTokenCounter,Max"/></c><n/>Lightning Rod Damage Bonus: <c val="#TooltipNumbers" validator="True"><d ref="100*($BehaviorStackCount:FalstadWingmanDamageTokenCounter$*Accumulator,FalstadWingmanAccumulator,Scale)"/>%
+Hero/Description/Falstad=An Assassin that can fly large distances, excelling on large battlegrounds.
+Hero/Name/Falstad=Falstad
+Button/Name/GenericSeasonedMarksmanTalent=Seasoned Marksman
+Button/SimpleDisplayText/GenericSeasonedMarksmanTalent=<c val="#TooltipQuest">Quest:</c> Kill enemies to empower Basic Attacks
+Button/Tooltip/GenericSeasonedMarksmanTalent=<img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Quest:</c> Every Minion killed near you grants <c val="#TooltipNumbers"><d ref="Accumulator,TalentSeasonedMarksmanAccumulator,Scale*Effect,TalentSeasonedMarksmanAdd2TokenCount,Value"precision="2"/></c> Attack Damage, and Takedowns grant <c val="#TooltipNumbers"><d ref="Accumulator,TalentSeasonedMarksmanAccumulator,Scale*Effect,TalentSeasonedMarksmanAdd5TokenCount,Value"precision="2"/></c> Attack Damage.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Reward:</c> Upon gaining <c val="#TooltipNumbers"><d ref="Talent,GenericTalentSeasonedMarksman,QuestData.TargetCount*Accumulator,TalentSeasonedMarksmanAccumulator,Scale"/></c> bonus Attack Damage, you can also activate Seasoned Marksman to increase your Attack Speed by <c val="#TooltipNumbers"><d ref="Behavior,SeasonedMarksmanAttackSpeedBuff,Modification.AdditiveAttackSpeedFactor*100"/>%</c> for <c val="#TooltipNumbers"><d ref="Behavior,SeasonedMarksmanAttackSpeedBuff,Duration"/></c> seconds. <c val="#TooltipNumbers"><d ref="Abil,SeasonedMarksmanActivatable,Cost[0].Cooldown.TimeUse"/></c> second cooldown.
+Button/Name/GenericGiantKiller=Giant Killer
+Button/SimpleDisplayText/GenericGiantKiller=Empowers your Basic Attacks against Heroes
+Button/Tooltip/GenericGiantKiller=Basic Attacks against enemy Heroes deal bonus damage equal to <c val="#TooltipNumbers"><d ref="Effect,TalentBucketGiantKillerDamage,VitalFractionMax[Life]*100" precision="2"/>%</c> of the Hero's maximum Health.
+Button/Name/NexusFrenzyTalent=Nexus Frenzy
+Button/SimpleDisplayText/NexusFrenzyTalent=Increases Attack Speed and Range
+Button/Tooltip/NexusFrenzyTalent=Increases Attack Speed by <c val="#TooltipNumbers"><d ref="100*Behavior,NexusFrenzyCarryBehavior,Modification.AdditiveAttackSpeedFactor"/>%</c> and Attack Range by <c val="#TooltipNumbers"><d ref="Behavior,NexusFrenzyCarryBehavior,Modification.WeaponRange" precision="2"/></c>.

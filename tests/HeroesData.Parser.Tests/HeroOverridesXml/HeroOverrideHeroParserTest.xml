@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<HeroOverrides>
+  <CHero id="Falstad">
+    <Portrait>
+      <Override>
+        <HeroSelectPortraitFileName value="storm_ui_ingame_heroselect_btn_gryphon_rider.dds" />
+      </Override>
+    </Portrait>
+  </CHero>
+</HeroOverrides>
