@@ -1386,11 +1386,6 @@
       <Survivability value="4" />
       <Complexity value="5" />
     </Ratings>
-    <VoiceLineArray value="FalstadBase_VoiceLine01" />
-    <VoiceLineArray value="FalstadBase_VoiceLine02" />
-    <VoiceLineArray value="FalstadBase_VoiceLine03" />
-    <VoiceLineArray value="FalstadBase_VoiceLine04" />
-    <VoiceLineArray value="FalstadBase_VoiceLine05" />
     <Rarity value="Epic" />
   </CHero>
   <CTalent id="FalstadWingman">

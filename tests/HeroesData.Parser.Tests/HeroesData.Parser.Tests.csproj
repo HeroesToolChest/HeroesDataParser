@@ -27,4 +27,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestData\mods\heromods\thefirelords.stormmod\base.stormdata\GameData\TheFirelordsData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

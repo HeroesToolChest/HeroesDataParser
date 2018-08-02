@@ -135,3 +135,12 @@ Button/Tooltip/GenericGiantKiller=Basic Attacks against enemy Heroes deal bonus 
 Button/Name/NexusFrenzyTalent=Nexus Frenzy
 Button/SimpleDisplayText/NexusFrenzyTalent=Increases Attack Speed and Range
 Button/Tooltip/NexusFrenzyTalent=Increases Attack Speed by <c val="#TooltipNumbers"><d ref="100*Behavior,NexusFrenzyCarryBehavior,Modification.AdditiveAttackSpeedFactor"/>%</c> and Attack Range by <c val="#TooltipNumbers"><d ref="Behavior,NexusFrenzyCarryBehavior,Modification.WeaponRange" precision="2"/></c>.
+
+Hero/Name/TestHero=TestHero
+Hero/Description/TestHero=TestHero is a hero that can do everything.
+Button/Name/TestHeroBigBoomSelectButton=Big Boomy Boom
+Button/SimpleDisplayText/TestHeroBigBoom=Deals damage
+Button/Tooltip/TestHeroBigBoom=Deals lot and lots of damage
+Button/Name/TestHeroBattleRage=Battle Rage v2
+Button/SimpleDisplayText/TestHeroBattleRage=Get angry
+Button/Tooltip/TestHeroBattleRage=Get very very very angry

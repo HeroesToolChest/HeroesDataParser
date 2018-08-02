@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CHero id="TestHero" parent="LegacyVOHero">
+    <Difficulty value="Easy" />
+    <AttributeId value="Test" />
+    <Role value="Support" />
+    <RolesMultiClass value="Support" />
+    <CollectionCategory value="Support" />
+    <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_gryphon_rider.dds" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_Wow.dds" />
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Orange_Bright.dds" />
+    
+    <!--talents-->
+    <TalentTreeArray Talent="TestHeroBattleRage" Tier="1" Column="1" />
+       
+    <Universe value="Warcraft" />
+    <ProductId value="10115" />
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroTestHero" />
+        <Field value="LifeStart" />
+        <Value value="0.050000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroTestHero" />
+        <Field value="LifeMax" />
+        <Value value="0.050000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroTestHero" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.050000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    
+    <!--abilties-->
+    <HeroAbilArray Abil="TestHeroBigBoom" Button="TestHeroBigBoom">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    
+    <Ratings>
+      <Damage value="9" />
+      <Utility value="9" />
+      <Survivability value="3" />
+      <Complexity value="3" />
+    </Ratings>
+    <Rarity value="Epic" />
+  </CHero>
+  <CUnit id="HeroTestHero" parent="StormHeroMountedCustom">
+    <LifeStart value="1667" />
+    <LifeMax value="1677" />
+    <Radius value="1.235" />
+    <InnerRadius value="0.576" />
+    <LifeRegenRate value="3.2456" />
+  </CUnit>
+
+  <CAbilEffectInstant id="TestHeroBigBoom">
+    <Cost>
+      <Vital index="Energy" value="40" />
+      <Cooldown Location="Unit" TimeUse="60" />
+    </Cost>
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="TestHeroBattleRage">
+    <Cost>
+      <Charge>
+        <CountMax value="3" />
+        <CountUse value="1" />
+        <Location value="Player" />
+        <TimeUse value="40" />
+      </Charge>
+      <Cooldown Location="Player" TimeUse="10" />
+    </Cost>
+  </CAbilEffectInstant>
+
+  <!--buttons-->
+  <CButton id="TestHeroBigBoom" parent="StormButtonParent">
+    <Name value="Button/Name/TestHeroBigBoomSelectButton" />
+    <TooltipAppender Validator="TassadarHasTwilightArchon" Face="TassadarArchonTwilightArchonTalent" />
+    <Icon value="Assets\Textures\storm_ui_icon_testhero_bigboom.dds" />
+  </CButton>
+  <CButton id="TestHeroBattleRage" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_battlerage.dds" />
+  </CButton>
+  
+  <!--talent-->
+  <CTalent id="TestHeroBattleRage">
+    <Face value="TestHeroBattleRage" />
+    <Abil value="TestHeroBattleRage" />
+    <Active value="1" />
+  </CTalent>
+</Catalog>
