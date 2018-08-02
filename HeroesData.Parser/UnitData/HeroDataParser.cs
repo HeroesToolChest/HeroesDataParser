@@ -592,20 +592,46 @@ namespace HeroesData.Parser.UnitData
                             XElement countUseElement = chargeElement.Element("CountUse");
                             XElement hideCountElement = chargeElement.Element("HideCount");
                             XElement timeUseElement = chargeElement.Element("TimeUse");
-                            if (countMaxElement != null)
-                                abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(countMaxElement.Attribute("value").Value);
 
-                            if (countStartElement != null)
-                                abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(countStartElement.Attribute("value").Value);
+                            if (countMaxElement != null || countStartElement != null || countUseElement != null || hideCountElement != null || timeUseElement != null)
+                            {
+                                if (countMaxElement != null)
+                                    abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(countMaxElement.Attribute("value").Value);
 
-                            if (countUseElement != null)
-                                abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(countUseElement.Attribute("value").Value);
+                                if (countStartElement != null)
+                                    abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(countStartElement.Attribute("value").Value);
 
-                            if (hideCountElement != null)
-                                abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountElement.Attribute("value").Value) == 1 ? true : false;
+                                if (countUseElement != null)
+                                    abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(countUseElement.Attribute("value").Value);
 
-                            if (timeUseElement != null)
-                                abilityTalentBase.Tooltip.Cooldown.CooldownValue = double.Parse(timeUseElement.Attribute("value").Value);
+                                if (hideCountElement != null)
+                                    abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountElement.Attribute("value").Value) == 1 ? true : false;
+
+                                if (timeUseElement != null)
+                                    abilityTalentBase.Tooltip.Cooldown.CooldownValue = double.Parse(timeUseElement.Attribute("value").Value);
+                            }
+                            else
+                            {
+                                XAttribute countMaxAttribute = chargeElement.Attribute("CountMax");
+                                XAttribute countStartAttribute = chargeElement.Attribute("CountStart");
+                                XAttribute countUseAttribute = chargeElement.Attribute("CountUse");
+                                XAttribute hideCountAttribute = chargeElement.Attribute("HideCount");
+                                XAttribute timeUseAttribute = chargeElement.Attribute("TimeUse");
+                                if (countMaxAttribute != null)
+                                    abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(countMaxAttribute.Value);
+
+                                if (countStartAttribute != null)
+                                    abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(countStartAttribute.Value);
+
+                                if (countUseAttribute != null)
+                                    abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(countUseAttribute.Value);
+
+                                if (hideCountAttribute != null)
+                                    abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountAttribute.Value) == 1 ? true : false;
+
+                                if (timeUseAttribute != null)
+                                    abilityTalentBase.Tooltip.Cooldown.CooldownValue = double.Parse(timeUseAttribute.Value);
+                            }
                         }
 
                         // cooldown

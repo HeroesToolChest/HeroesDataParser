@@ -147,6 +147,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         [Fact]
         public void TalentTests()
         {
+            // Secret Weapon
             Talent talent = HeroFalstad.Talents["FalstadMasteryHammerangSecretWeapon"];
             Assert.Equal(TalentTier.Level7, talent.Tier);
             Assert.Equal("FalstadMasteryHammerangSecretWeapon", talent.ReferenceNameId);
@@ -168,7 +169,26 @@ namespace HeroesData.Parser.Tests.HeroParserTests
 
             Assert.Equal(1, talent.Column);
 
-            // TODO: Add FalstadWingman
+            // Wingman
+            talent = HeroFalstad.Talents["FalstadWingman"];
+            Assert.Equal(TalentTier.Level1, talent.Tier);
+            Assert.Equal("FalstadWingman", talent.ReferenceNameId);
+            Assert.Equal("Wingman", talent.Name);
+            Assert.Equal("FalstadWingmanHotbarTalent", talent.ShortTooltipNameId);
+            Assert.Equal("FalstadWingmanHotbarTalent", talent.FullTooltipNameId);
+            Assert.Equal("storm_ui_icon_talent_bribe.dds", talent.IconFileName);
+
+            Assert.Null(talent.Tooltip.Energy.EnergyCost);
+            Assert.Equal(UnitEnergyType.None, talent.Tooltip.Energy.EnergyType);
+            Assert.False(talent.Tooltip.Energy.IsPerCost);
+            Assert.Null(talent.Tooltip.Cooldown.CooldownValue);
+            Assert.Equal(0.25, talent.Tooltip.Cooldown.RecastCooldown);
+            Assert.Null(talent.Tooltip.Life.LifeCost);
+            Assert.Equal(4, talent.Tooltip.Charges.CountMax);
+            Assert.Null(talent.Tooltip.Charges.CountStart);
+            Assert.Equal(1, talent.Tooltip.Charges.CountUse);
+            Assert.True(talent.Tooltip.Charges.HasCharges);
+            Assert.Null(talent.Tooltip.Charges.IsHideCount);
         }
 
         [Fact]
