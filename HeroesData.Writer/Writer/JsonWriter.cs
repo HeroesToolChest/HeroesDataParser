@@ -335,6 +335,9 @@ namespace HeroesData.FileWriter.Writer
             if (tooltipCharges.IsHideCount.HasValue)
                 charges.Add("hideCount", tooltipCharges.IsHideCount.Value);
 
+            if (tooltipCharges.CooldownValue.HasValue)
+                charges.Add("cooldown", tooltipCharges.CooldownValue.Value);
+
             return new JProperty("charges", charges);
         }
 
@@ -344,9 +347,6 @@ namespace HeroesData.FileWriter.Writer
             {
                 { "value", tooltipCooldown.CooldownValue },
             };
-
-            if (tooltipCooldown.RecastCooldown.HasValue)
-                cooldown.Add("recast", tooltipCooldown.RecastCooldown.Value);
 
             return new JProperty("cooldown", cooldown);
         }
@@ -401,13 +401,13 @@ namespace HeroesData.FileWriter.Writer
             if (energy != null)
                 info.Add(energy);
 
-            JProperty cooldown = UnitAbilityCooldown(abilityTalentBase.Tooltip.Cooldown);
-            if (cooldown != null)
-                info.Add(cooldown);
-
             JProperty charges = UnitAbilityCharges(abilityTalentBase.Tooltip.Charges);
             if (charges != null)
                 info.Add(charges);
+
+            JProperty cooldown = UnitAbilityCooldown(abilityTalentBase.Tooltip.Cooldown);
+            if (cooldown != null)
+                info.Add(cooldown);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.Custom))
                 info.Add("custom", abilityTalentBase.Tooltip.Custom);

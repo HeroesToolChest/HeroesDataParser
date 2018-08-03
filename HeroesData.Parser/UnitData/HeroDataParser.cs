@@ -608,7 +608,7 @@ namespace HeroesData.Parser.UnitData
                                     abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountElement.Attribute("value").Value) == 1 ? true : false;
 
                                 if (timeUseElement != null)
-                                    abilityTalentBase.Tooltip.Cooldown.CooldownValue = double.Parse(timeUseElement.Attribute("value").Value);
+                                    abilityTalentBase.Tooltip.Charges.CooldownValue = double.Parse(timeUseElement.Attribute("value").Value);
                             }
                             else
                             {
@@ -630,7 +630,7 @@ namespace HeroesData.Parser.UnitData
                                     abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountAttribute.Value) == 1 ? true : false;
 
                                 if (timeUseAttribute != null)
-                                    abilityTalentBase.Tooltip.Cooldown.CooldownValue = double.Parse(timeUseAttribute.Value);
+                                    abilityTalentBase.Tooltip.Charges.CooldownValue = double.Parse(timeUseAttribute.Value);
                             }
                         }
 
@@ -638,17 +638,8 @@ namespace HeroesData.Parser.UnitData
                         XElement cooldownElement = costElement.Element("Cooldown");
                         if (cooldownElement != null)
                         {
-                            if (chargeElement != null && abilityTalentBase.Tooltip.Charges.HasCharges)
-                            {
-                                string time = cooldownElement.Attribute("TimeUse")?.Value;
-                                if (!string.IsNullOrEmpty(time))
-                                    abilityTalentBase.Tooltip.Cooldown.RecastCooldown = double.Parse(time);
-                            }
-                            else
-                            {
-                                if (double.TryParse(cooldownElement.Attribute("TimeUse")?.Value, out double cooldownValue))
-                                    abilityTalentBase.Tooltip.Cooldown.CooldownValue = cooldownValue;
-                            }
+                            if (double.TryParse(cooldownElement.Attribute("TimeUse")?.Value, out double cooldownValue))
+                                abilityTalentBase.Tooltip.Cooldown.CooldownValue = cooldownValue;
                         }
 
                         // vitals

@@ -27,7 +27,6 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal(UnitEnergyType.Mana, ability.Tooltip.Energy.EnergyType);
             Assert.False(ability.Tooltip.Energy.IsPerCost);
             Assert.Equal(10, ability.Tooltip.Cooldown.CooldownValue);
-            Assert.Null(ability.Tooltip.Cooldown.RecastCooldown);
             Assert.Null(ability.Tooltip.Life.LifeCost);
             Assert.Null(ability.Tooltip.Charges.CountMax);
 
@@ -78,7 +77,6 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal(UnitEnergyType.Mana, ability.Tooltip.Energy.EnergyType);
             Assert.False(ability.Tooltip.Energy.IsPerCost);
             Assert.Equal(120, ability.Tooltip.Cooldown.CooldownValue);
-            Assert.Null(ability.Tooltip.Cooldown.RecastCooldown);
             Assert.Null(ability.Tooltip.Life.LifeCost);
             Assert.Null(ability.Tooltip.Charges.CountMax);
 
@@ -110,7 +108,6 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal(UnitEnergyType.None, ability.Tooltip.Energy.EnergyType);
             Assert.False(ability.Tooltip.Energy.IsPerCost);
             Assert.Equal(55, ability.Tooltip.Cooldown.CooldownValue);
-            Assert.Null(ability.Tooltip.Cooldown.RecastCooldown);
             Assert.Null(ability.Tooltip.Life.LifeCost);
             Assert.Null(ability.Tooltip.Charges.CountMax);
 
@@ -160,7 +157,6 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal(UnitEnergyType.None, talent.Tooltip.Energy.EnergyType);
             Assert.False(talent.Tooltip.Energy.IsPerCost);
             Assert.Null(talent.Tooltip.Cooldown.CooldownValue);
-            Assert.Null(talent.Tooltip.Cooldown.RecastCooldown);
             Assert.Null(talent.Tooltip.Life.LifeCost);
             Assert.Null(talent.Tooltip.Charges.CountMax);
 
@@ -181,8 +177,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Null(talent.Tooltip.Energy.EnergyCost);
             Assert.Equal(UnitEnergyType.None, talent.Tooltip.Energy.EnergyType);
             Assert.False(talent.Tooltip.Energy.IsPerCost);
-            Assert.Null(talent.Tooltip.Cooldown.CooldownValue);
-            Assert.Equal(0.25, talent.Tooltip.Cooldown.RecastCooldown);
+            Assert.Equal(0.25, talent.Tooltip.Cooldown.CooldownValue);
             Assert.Null(talent.Tooltip.Life.LifeCost);
             Assert.Equal(4, talent.Tooltip.Charges.CountMax);
             Assert.Null(talent.Tooltip.Charges.CountStart);
@@ -206,7 +201,6 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal(UnitEnergyType.None, ability.Tooltip.Energy.EnergyType);
             Assert.False(ability.Tooltip.Energy.IsPerCost);
             Assert.Null(ability.Tooltip.Cooldown.CooldownValue);
-            Assert.Null(ability.Tooltip.Cooldown.RecastCooldown);
             Assert.Null(ability.Tooltip.Life.LifeCost);
             Assert.Null(ability.Tooltip.Charges.CountMax);
 

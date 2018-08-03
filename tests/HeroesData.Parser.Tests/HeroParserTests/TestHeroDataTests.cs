@@ -19,13 +19,14 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal(3, talent.Tooltip.Charges.CountMax);
             Assert.Equal(1, talent.Tooltip.Charges.CountUse);
             Assert.Null(talent.Tooltip.Charges.CountStart);
+            Assert.Equal(40, talent.Tooltip.Charges.CooldownValue);
         }
 
         [Fact]
         public void TalentCooldownTest()
         {
             Talent talent = HeroTestHero.Talents["TestHeroBattleRage"];
-            Assert.Equal(40, talent.Tooltip.Cooldown.CooldownValue);
+            Assert.Equal(10, talent.Tooltip.Cooldown.CooldownValue);
         }
     }
 }

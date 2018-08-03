@@ -99,15 +99,15 @@
                   "cost": 50,
                   "percent": true
                 },
-                "cooldown": {
-                  "value": 3.0,
-                  "recast": 1.0
-                },
                 "charges": {
                   "countMax": 3,
                   "countUse": 1,
                   "countStart": 3,
-                  "hideCount": false
+                  "hideCount": false,
+                  "cooldown": 5.0
+                },
+                "cooldown": {
+                  "value": 3.0
                 }
               }
             ],

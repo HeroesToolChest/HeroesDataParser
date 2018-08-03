@@ -176,8 +176,8 @@
               <AlexstraszaBreathOfLife name="Breath of Life" shortTooltipId="AlexstraszaBreathOfLife" fullTooltipId="AlexstraszaBreathOfLife">
                 <Icon>storm_ui_icon_alexstrasza_breath_of_life.png</Icon>
                 <Life isPercentage="true">50</Life>
-                <Cooldown recast="1">3</Cooldown>
-                <Charges consume="1" initial="3" isHidden="false">3</Charges>
+                <Charges consume="1" initial="3" isHidden="false" cooldown="5">3</Charges>
+                <Cooldown>3</Cooldown>
               </AlexstraszaBreathOfLife>
             </Basic>
             <Heroic>

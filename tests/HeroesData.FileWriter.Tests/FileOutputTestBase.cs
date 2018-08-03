@@ -513,7 +513,6 @@ namespace HeroesData.FileWriter.Tests
                                         Cooldown = new TooltipCooldown()
                                         {
                                             CooldownValue = 3,
-                                            RecastCooldown = 1,
                                         },
                                         Life = new TooltipLife()
                                         {
@@ -526,6 +525,7 @@ namespace HeroesData.FileWriter.Tests
                                             CountStart = 3,
                                             CountUse = 1,
                                             IsHideCount = false,
+                                            CooldownValue = 5,
                                         },
                                     },
                                 }

@@ -191,8 +191,8 @@ namespace HeroesData.FileWriter.Writer
                 new XElement("Icon", Path.ChangeExtension(abilityTalentBase.IconFileName, FileSettings.ImageExtension)),
                 UnitAbilityLifeCost(abilityTalentBase.Tooltip.Life),
                 UnitAbilityEnergyCost(abilityTalentBase.Tooltip.Energy),
-                UnitAbilityCooldown(abilityTalentBase.Tooltip.Cooldown),
                 UnitAbilityCharges(abilityTalentBase.Tooltip.Charges),
+                UnitAbilityCooldown(abilityTalentBase.Tooltip.Cooldown),
                 string.IsNullOrEmpty(abilityTalentBase.Tooltip.Custom) ? null : new XElement("Custom", abilityTalentBase.Tooltip.Custom),
                 string.IsNullOrEmpty(abilityTalentBase.Tooltip.ShortTooltip?.RawDescription) ? null : new XElement("ShortTooltip", GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileSettings.ShortTooltip)),
                 string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription) ? null : new XElement("FullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileSettings.FullTooltip)));
@@ -226,8 +226,7 @@ namespace HeroesData.FileWriter.Writer
         {
             return new XElement(
                 "Cooldown",
-                tooltipCooldown.CooldownValue,
-                tooltipCooldown.RecastCooldown.HasValue == true ? new XAttribute("recast", tooltipCooldown.RecastCooldown.Value) : null);
+                tooltipCooldown.CooldownValue);
         }
 
         protected override XElement GetAbilityChargesObject(TooltipCharges tooltipCharges)
@@ -237,7 +236,8 @@ namespace HeroesData.FileWriter.Writer
                 tooltipCharges.CountMax,
                 tooltipCharges.CountUse.HasValue == true ? new XAttribute("consume", tooltipCharges.CountUse.Value) : null,
                 tooltipCharges.CountStart.HasValue == true ? new XAttribute("initial", tooltipCharges.CountStart.Value) : null,
-                tooltipCharges.IsHideCount.HasValue == true ? new XAttribute("isHidden", tooltipCharges.IsHideCount.Value) : null);
+                tooltipCharges.IsHideCount.HasValue == true ? new XAttribute("isHidden", tooltipCharges.IsHideCount.Value) : null,
+                tooltipCharges.CooldownValue.HasValue == true ? new XAttribute("cooldown", tooltipCharges.CooldownValue.Value) : null);
         }
 
         protected override XElement GetWeaponsObject(Unit unit)
