@@ -28,5 +28,17 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Talent talent = HeroTestHero.Talents["TestHeroBattleRage"];
             Assert.Equal(10, talent.Tooltip.Cooldown.CooldownValue);
         }
+
+        [Fact]
+        public void AbilityTooltipOverrideTest()
+        {
+            Ability ability = HeroTestHero.Abilities["TestHeroNerazimDummy"];
+            Assert.Equal("Nerazim v2", ability.Name);
+            Assert.Equal("storm_ui_icon_testhero_nerazim.dds", ability.IconFileName);
+            Assert.Equal("TestHeroNerazimTalent", ability.ShortTooltipNameId);
+            Assert.Equal("TestHeroNerazimPassive", ability.FullTooltipNameId);
+            Assert.Equal("Gain an extra ability", ability.Tooltip.ShortTooltip.RawDescription);
+            Assert.Equal("Gain an extra ability three times", ability.Tooltip.FullTooltip.RawDescription);
+        }
     }
 }

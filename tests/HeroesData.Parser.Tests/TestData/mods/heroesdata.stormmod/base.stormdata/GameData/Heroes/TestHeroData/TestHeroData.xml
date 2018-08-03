@@ -45,6 +45,11 @@
       <Flags index="AffectedByCooldownReduction" value="1" />
       <Flags index="Heroic" value="1" />
     </HeroAbilArray>
+    <HeroAbilArray Abil="TestHeroNerazimDummy" Button="TestHeroNerazimPassive">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
     
     <Ratings>
       <Damage value="9" />
@@ -79,6 +84,12 @@
       <Cooldown Location="Player" TimeUse="10" />
     </Cost>
   </CAbilEffectInstant>
+  <CAbilEffectInstant id="TestHeroNerazimDummy">
+    <Cost>
+      <Vital index="Energy" value="10" />
+      <Cooldown Link="Abil/ZeratulMightOfTheNerazim" TimeUse="15" />
+    </Cost>
+  </CAbilEffectInstant>
 
   <!--buttons-->
   <CButton id="TestHeroBigBoom" parent="StormButtonParent">
@@ -88,6 +99,13 @@
   </CButton>
   <CButton id="TestHeroBattleRage" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_talent_battlerage.dds" />
+  </CButton>
+  <CButton id="TestHeroNerazimPassive" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_testhero_nerazim.dds" />
+    <TooltipCooldownOverrideText value="Abil/ZeratulMightOfTheNerazimCooldownOverride" />
+    <TooltipVitalOverrideText index="Energy" value="Abil/ZeratulMightoftheNerazimOverride" />
+    <Tooltip value="Button/Tooltip/TestHeroNerazimTalent" />
+    <SimpleDisplayText value="Button/SimpleDisplayText/TestHeroNerazimTalent" />
   </CButton>
   
   <!--talent-->

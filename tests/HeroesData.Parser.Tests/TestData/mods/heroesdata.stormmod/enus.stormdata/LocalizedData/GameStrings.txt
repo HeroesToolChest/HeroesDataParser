@@ -144,3 +144,6 @@ Button/Tooltip/TestHeroBigBoom=Deals lot and lots of damage
 Button/Name/TestHeroBattleRage=Battle Rage v2
 Button/SimpleDisplayText/TestHeroBattleRage=Get angry
 Button/Tooltip/TestHeroBattleRage=Get very very very angry
+Button/Name/TestHeroNerazimPassive=Nerazim v2
+Button/SimpleDisplayText/TestHeroNerazimTalent=Gain an extra ability
+Button/Tooltip/TestHeroNerazimTalent=Gain an extra ability three times
