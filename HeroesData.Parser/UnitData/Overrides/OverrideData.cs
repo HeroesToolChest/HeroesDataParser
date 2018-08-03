@@ -139,9 +139,9 @@ namespace HeroesData.Parser.UnitData.Overrides
                 {
                     (int lowestBuild, int highestBuild, int selectedBuild, int difference) = (int.MaxValue, int.MinValue, HotsBuild.Value, 999999);
 
-                    foreach (string directoryName in Directory.EnumerateFiles(HeroOverridesDirectoryPath, $"{Path.GetFileNameWithoutExtension(HeroDataOverrideXmlFile)}_*.xml"))
+                    foreach (string filePath in Directory.EnumerateFiles(HeroOverridesDirectoryPath, $"{Path.GetFileNameWithoutExtension(HeroDataOverrideXmlFile)}_*.xml"))
                     {
-                        if (int.TryParse(Path.GetFileNameWithoutExtension(directoryName).Split('_').LastOrDefault(), out int buildNumber))
+                        if (int.TryParse(Path.GetFileNameWithoutExtension(filePath).Split('_').LastOrDefault(), out int buildNumber))
                         {
                             if (buildNumber > highestBuild)
                                 highestBuild = buildNumber;
