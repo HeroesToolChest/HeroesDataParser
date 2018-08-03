@@ -692,9 +692,14 @@ namespace HeroesData.Parser.UnitData
 
             // full
             if (ParsedGameStrings.FullParsedTooltipsByFullTooltipNameId.TryGetValue(fullTooltipValue, out string fullDescription))
+            {
                 abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription);
+                abilityTalentBase.FullTooltipNameId = fullTooltipValue;
+            }
             else if (ParsedGameStrings.FullParsedTooltipsByFullTooltipNameId.TryGetValue(faceValue, out fullDescription))
+            {
                 abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription);
+            }
 
             // short
             if (ParsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.TryGetValue(shortTooltipValue, out string shortDescription))

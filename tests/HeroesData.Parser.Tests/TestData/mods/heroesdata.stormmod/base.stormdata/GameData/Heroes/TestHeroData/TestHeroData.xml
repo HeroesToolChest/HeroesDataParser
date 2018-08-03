@@ -50,6 +50,15 @@
       <Flags index="AffectedByCooldownReduction" value="1" />
       <Flags index="Heroic" value="1" />
     </HeroAbilArray>
+    <HeroAbilArray Abil="TestHeroIllusionMaster" Button="TestHeroIllusionMaster">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="TestHeroIllusionMaster" Button="TestHeroAdvancingStrikes">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
     
     <Ratings>
       <Damage value="9" />
@@ -90,6 +99,11 @@
       <Cooldown Link="Abil/ZeratulMightOfTheNerazim" TimeUse="15" />
     </Cost>
   </CAbilEffectInstant>
+  <CAbilEffectTarget id="TestHeroIllusionMaster">
+    <Cost>
+      <Cooldown Location="Player" TimeUse="25" />
+    </Cost>
+  </CAbilEffectTarget>
 
   <!--buttons-->
   <CButton id="TestHeroBigBoom" parent="StormButtonParent">
@@ -107,7 +121,16 @@
     <Tooltip value="Button/Tooltip/TestHeroNerazimTalent" />
     <SimpleDisplayText value="Button/SimpleDisplayText/TestHeroNerazimTalent" />
   </CButton>
-  
+  <CButton id="TestHeroIllusionMaster" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_testhero_illusiondancer.dds" />
+    <Tooltip value="Button/Tooltip/TestHeroIllusionMasterTalent" />
+    <SimpleDisplayText value="Button/SimpleDisplayText/TestHeroIllusionMasterTalent" />
+    <TooltipCooldownOverrideText value="TestHeroIllusionMaster" />
+  </CButton>
+  <CButton id="TestHeroAdvancingStrikes" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_testhero_flowingstrikes.dds" />
+  </CButton>
+
   <!--talent-->
   <CTalent id="TestHeroBattleRage">
     <Face value="TestHeroBattleRage" />

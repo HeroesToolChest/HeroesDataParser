@@ -36,9 +36,33 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("Nerazim v2", ability.Name);
             Assert.Equal("storm_ui_icon_testhero_nerazim.dds", ability.IconFileName);
             Assert.Equal("TestHeroNerazimTalent", ability.ShortTooltipNameId);
-            Assert.Equal("TestHeroNerazimPassive", ability.FullTooltipNameId);
+            Assert.Equal("TestHeroNerazimTalent", ability.FullTooltipNameId);
             Assert.Equal("Gain an extra ability", ability.Tooltip.ShortTooltip.RawDescription);
             Assert.Equal("Gain an extra ability three times", ability.Tooltip.FullTooltip.RawDescription);
+        }
+
+        [Fact]
+        public void AbilityIllusionMasterTest()
+        {
+            Ability ability = HeroTestHero.Abilities["TestHeroIllusionMaster"];
+            Assert.Equal("Illusion Master", ability.Name);
+            Assert.Equal("storm_ui_icon_testhero_illusiondancer.dds", ability.IconFileName);
+            Assert.Equal("TestHeroIllusionMasterTalent", ability.ShortTooltipNameId);
+            Assert.Equal("TestHeroIllusionMasterTalent", ability.FullTooltipNameId);
+            Assert.Equal("Disappear", ability.Tooltip.ShortTooltip.RawDescription);
+            Assert.Equal("Disappear and out of sight", ability.Tooltip.FullTooltip.RawDescription);
+        }
+
+        [Fact]
+        public void AbilityTraitAdvancingStrikes()
+        {
+            Ability ability = HeroTestHero.Abilities["TestHeroAdvancingStrikes"];
+            Assert.Equal("Advancing Strikes", ability.Name);
+            Assert.Equal("storm_ui_icon_testhero_flowingstrikes.dds", ability.IconFileName);
+            Assert.Equal("TestHeroAdvancingStrikes", ability.ShortTooltipNameId);
+            Assert.Equal("TestHeroAdvancingStrikes", ability.FullTooltipNameId);
+            Assert.Equal("Slash Slash", ability.Tooltip.ShortTooltip.RawDescription);
+            Assert.Equal("More slashes, more damage", ability.Tooltip.FullTooltip.RawDescription);
         }
     }
 }

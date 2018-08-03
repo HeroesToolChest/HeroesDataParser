@@ -7,4 +7,7 @@
       </Override>
     </Portrait>
   </CHero>
+  <CHero id="TestHero">
+    <Ability id="TestHeroIllusionMaster" button="TestHeroAdvancingStrikes" add="true" />
+  </CHero>
 </HeroOverrides>
