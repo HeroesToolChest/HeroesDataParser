@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Runtime.InteropServices;
 using System.Xml.Linq;
 
 namespace HeroesData.Parser.XmlGameData
@@ -79,15 +80,44 @@ namespace HeroesData.Parser.XmlGameData
 
                 string xmlHeroDataPath = Path.Combine(NewHeroesFolderPath, heroFolder, "base.stormdata", "GameData", "HeroData.xml");
 
-                if (File.Exists(xmlHeroPath))
+                if (!RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 {
-                    XmlGameData.Root.Add(XDocument.Load(xmlHeroPath).Root.Elements());
-                    XmlFileCount++;
+                    if (File.Exists(xmlHeroPath))
+                    {
+                        XmlGameData.Root.Add(XDocument.Load(xmlHeroPath).Root.Elements());
+                        XmlFileCount++;
+                    }
+                    else
+                    {
+                        XmlGameData.Root.Add(XDocument.Load(xmlHeroNamePath).Root.Elements());
+                        XmlFileCount++;
+                    }
                 }
-                else
+                else // linux file names are case sensitive
                 {
-                    XmlGameData.Root.Add(XDocument.Load(xmlHeroNamePath).Root.Elements());
-                    XmlFileCount++;
+                    bool found = false;
+                    string xmlDirectoryPath = Path.Combine(NewHeroesFolderPath, heroFolder, "base.stormdata", "GameData");
+                    foreach (string filePath in Directory.EnumerateFiles(xmlDirectoryPath))
+                    {
+                        if (Path.GetFileName(filePath).ToLower() == $"{heroName}Data.xml".ToLower())
+                        {
+                            XmlGameData.Root.Add(XDocument.Load(filePath).Root.Elements());
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        foreach (string filePath in Directory.EnumerateFiles(xmlDirectoryPath))
+                        {
+                            if (Path.GetFileName(filePath).ToLower() == $"{heroName}.xml".ToLower())
+                            {
+                                XmlGameData.Root.Add(XDocument.Load(filePath).Root.Elements());
+                                break;
+                            }
+                        }
+                    }
                 }
 
                 if (File.Exists(xmlHeroDataPath))
