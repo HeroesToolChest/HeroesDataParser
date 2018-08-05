@@ -173,8 +173,13 @@
     </Weapon>
   </CHero>
   <CHero id="Gall">
-    <!--Base line activable ability-->
     <Ability id="GallShove">
+      <Override>
+        <AbilityTier value="Mount" />
+      </Override>
+    </Ability>
+    <!--Base line activable ability-->
+    <Ability id="GallTalentEyeOfKilrogg" valid="true">
       <Override>
         <AbilityTier value="Activable" />
       </Override>
