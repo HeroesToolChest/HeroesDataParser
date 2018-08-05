@@ -151,6 +151,16 @@
         <ParentLink value="HeroDVaPilot" />
       </Override>
     </Ability>
+        <Talent id="DVaPilotConcussivePulse">
+      <Override>
+        <AbilityType value="W" />
+      </Override>
+    </Talent>
+    <Talent id="DVaPilotCallMechMEKAfall">
+      <Override>
+        <AbilityType value="E" />
+      </Override>
+    </Talent>  
     <HeroUnit id="HeroDVaPilot"></HeroUnit>
   </CHero>
   <CHero id="Dryad" name="Lunara" alt="Lunara">
@@ -193,6 +203,16 @@
         <AbilityTier value="Activable" />
       </Override>
     </Ability>
+    <Talent id="GallKeepMoving">
+      <Override>
+        <AbilityType value="Z" />
+      </Override>
+    </Talent>
+    <Talent id="GallBombsAway">
+      <Override>
+        <AbilityType value="E" />
+      </Override>
+    </Talent>
   </CHero>
   <CHero id="Genji">
     <!--Unique basic attack-->
@@ -315,19 +335,22 @@
     <Ability id="RagnarosBigRagMoltenSwing" valid="true">
       <Override>
         <ParentLink value="RagnarosBigRag" />
+        <AbilityType value="Q" />
       </Override>
     </Ability>
     <Ability id="RagnarosBigRagMeteorShower" valid="true">
       <Override>
         <ParentLink value="RagnarosBigRag" />
+        <AbilityType value="W" />
       </Override>
     </Ability>
     <Ability id="RagnarosBigRagExplosiveRune" valid="true">
       <Override>
         <ParentLink value="RagnarosBigRag" />
+        <AbilityType value="E" />
       </Override>
     </Ability>
-    <HeroUnit id="RagnarosBigRag"></HeroUnit> 
+    <HeroUnit id="RagnarosBigRag"></HeroUnit>
   </CHero>
   <CHero id="Rexxar">
     <Weapon id="RexxarMeleeWeapon" valid="true" />
@@ -343,6 +366,8 @@
         <Tooltip.Cooldown.CooldownValue>&lt;d ref="Abil,SamuroIllusionMaster,Cost[0].Cooldown.TimeUse+Talent,SamuroHeroicAbilityIllusionMaster,AbilityModificationArray[0].Modifications[0].Value"/></Tooltip.Cooldown.CooldownValue>
       </Override>
     </Ability>
+    <Ability id="SamuroCriticalStrikeDummy" valid="false"></Ability>
+    <Ability id="SamuroCriticalStrike" valid="true"></Ability>
     <!--Image Transmission -->
     <Ability id="SamuroIllusionMaster" button="SamuroAdvancingStrikes" add="true" />
   </CHero>

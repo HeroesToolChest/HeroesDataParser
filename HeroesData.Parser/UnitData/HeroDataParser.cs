@@ -144,6 +144,7 @@ namespace HeroesData.Parser.UnitData
         private void CHeroData(Hero hero)
         {
             XElement heroData = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id")?.Value == hero.CHeroId).FirstOrDefault();
+            IEnumerable<XElement> layoutButtons = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value != "TargetHeroDummy").Elements("CardLayouts").Elements("LayoutButtons");
 
             if (heroData == null)
                 return;
@@ -310,14 +311,17 @@ namespace HeroesData.Parser.UnitData
                     hero.Ratings.Survivability = !string.IsNullOrEmpty(survivability) ? double.Parse(survivability) : 1;
                     hero.Ratings.Complexity = !string.IsNullOrEmpty(complexity) ? double.Parse(complexity) : 1;
                 }
-                else if (elementName == "HEROABILARRAY")
-                {
-                    GetAbility(hero, element);
-                }
-                else if (elementName == "TALENTTREEARRAY")
-                {
-                    GetTalent(hero, element);
-                }
+            }
+
+            // abilities must be gotten before talents
+            foreach (XElement abilArrayElement in heroData.Elements("HeroAbilArray"))
+            {
+                GetAbility(hero, abilArrayElement, layoutButtons);
+            }
+
+            foreach (XElement talentArrayElement in heroData.Elements("TalentTreeArray"))
+            {
+                GetTalent(hero, talentArrayElement);
             }
 
             if (hero.Type == UnitType.Unknown)
@@ -391,7 +395,7 @@ namespace HeroesData.Parser.UnitData
                 hero.Difficulty = HeroDifficulty.Easy;
         }
 
-        private void GetAbility(Hero hero, XElement abilityElement)
+        private void GetAbility(Hero hero, XElement abilityElement, IEnumerable<XElement> layoutButtons)
         {
             hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
 
@@ -421,6 +425,7 @@ namespace HeroesData.Parser.UnitData
             {
                 ability.ReferenceNameId = referenceName;
                 ability.FullTooltipNameId = tooltipName;
+                ability.ButtonName = tooltipName;
 
                 SetAbilityTalentName(ability, tooltipName);
             }
@@ -429,6 +434,7 @@ namespace HeroesData.Parser.UnitData
                 ability.ReferenceNameId = referenceName;
                 ability.ParentLink = parentLink;
                 ability.FullTooltipNameId = referenceName;
+                ability.ButtonName = referenceName;
 
                 SetAbilityTalentName(ability, referenceName);
             }
@@ -436,6 +442,7 @@ namespace HeroesData.Parser.UnitData
             {
                 ability.ReferenceNameId = tooltipName;
                 ability.FullTooltipNameId = tooltipName;
+                ability.ButtonName = tooltipName;
 
                 SetAbilityTalentName(ability, tooltipName);
             }
@@ -459,6 +466,7 @@ namespace HeroesData.Parser.UnitData
             SetAbilityTalentIcon(ability);
             SetTooltipSubInfo(referenceName, ability);
             SetTooltipDescriptions(ability);
+            SetAbilityTypeForAbility(hero.CUnitId, ability, layoutButtons);
 
             // add ability
             if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
@@ -472,7 +480,7 @@ namespace HeroesData.Parser.UnitData
                 {
                     ability.ReferenceNameId = addedAbility.Button;
 
-                    // attempt to readd
+                    // attempt to re-add
                     if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
                         hero.Abilities.Add(ability.ReferenceNameId, ability);
                 }
@@ -534,6 +542,7 @@ namespace HeroesData.Parser.UnitData
             }
 
             SetTooltipDescriptions(talent);
+            SetAbilityTypeForTalent(hero, talent, cTalentElement);
 
             hero.Talents.Add(referenceName, talent);
         }
@@ -911,6 +920,97 @@ namespace HeroesData.Parser.UnitData
             if (abilityElement != null && int.TryParse(abilityElement.Attribute("value").Value, out armorValue))
             {
                 unit.Armor.SpellArmor = armorValue;
+            }
+        }
+
+        private void SetAbilityTypeForAbility(string cUnit, Ability ability, IEnumerable<XElement> layoutButtons)
+        {
+            if (ability.Tier == AbilityTier.Heroic)
+            {
+                ability.AbilityType = AbilityType.Heroic;
+                return;
+            }
+            else if (ability.Tier == AbilityTier.Mount)
+            {
+                ability.AbilityType = AbilityType.Z;
+                return;
+            }
+            else if (ability.Tier == AbilityTier.Trait)
+            {
+                ability.AbilityType = AbilityType.Trait;
+                return;
+            }
+
+            // as attributes
+            XElement layoutButton = layoutButtons.Where(x => x.Attribute("Face")?.Value == ability.ButtonName && x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth").FirstOrDefault();
+            if (layoutButton != null)
+            {
+                string slot = layoutButton.Attribute("Slot").Value;
+                if (slot.ToUpper().StartsWith("ABILITY1"))
+                    ability.AbilityType = AbilityType.Q;
+                else if (slot.ToUpper().StartsWith("ABILITY2"))
+                    ability.AbilityType = AbilityType.W;
+                else if (slot.ToUpper().StartsWith("ABILITY3"))
+                    ability.AbilityType = AbilityType.E;
+                else if (slot.ToUpper().StartsWith("MOUNT"))
+                    ability.AbilityType = AbilityType.Z;
+                else if (slot.ToUpper().StartsWith("HEROIC"))
+                    ability.AbilityType = AbilityType.Heroic;
+                else
+                    throw new ParseException($"Unknown slot type (attribute) for ability type: {slot} - Hero(CUnit): {cUnit} - Ability: {ability.ReferenceNameId}");
+
+                return;
+            }
+
+            // as elements
+            if (layoutButton == null)
+            {
+               layoutButton = layoutButtons.Where(x => x.HasElements)
+                    .Where(x => x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName && x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth").FirstOrDefault();
+            }
+
+            if (layoutButton != null)
+            {
+                string slot = layoutButton.Element("Slot").Attribute("value").Value;
+                if (slot.ToUpper().StartsWith("ABILITY1"))
+                    ability.AbilityType = AbilityType.Q;
+                else if (slot.ToUpper().StartsWith("ABILITY2"))
+                    ability.AbilityType = AbilityType.W;
+                else if (slot.ToUpper().StartsWith("ABILITY3"))
+                    ability.AbilityType = AbilityType.E;
+                else if (slot.ToUpper().StartsWith("MOUNT"))
+                    ability.AbilityType = AbilityType.Z;
+                else if (slot.ToUpper().StartsWith("HEROIC"))
+                    ability.AbilityType = AbilityType.Heroic;
+                else
+                    throw new ParseException($"Unknown slot type (element) for ability type: {slot} - Hero(CUnit): {cUnit} - Ability: {ability.ReferenceNameId}");
+
+                return;
+            }
+
+            ability.AbilityType = AbilityType.Active;
+        }
+
+        private void SetAbilityTypeForTalent(Hero hero, Talent talent, XElement talentElement)
+        {
+            XElement talentTraitElement = talentElement.Element("Trait");
+            XElement talentAbilElement = talentElement.Element("Abil");
+
+            if (talentTraitElement != null && talentTraitElement.Attribute("value")?.Value == "1")
+            {
+                talent.AbilityType = AbilityType.Trait;
+            }
+            else if (talentAbilElement != null)
+            {
+                string abilValue = talentAbilElement.Attribute("value").Value;
+                if (hero.Abilities.TryGetValue(abilValue, out Ability ability))
+                    talent.AbilityType = ability.AbilityType;
+                else
+                    talent.AbilityType = AbilityType.Active;
+            }
+            else
+            {
+                talent.AbilityType = AbilityType.Passive;
             }
         }
 

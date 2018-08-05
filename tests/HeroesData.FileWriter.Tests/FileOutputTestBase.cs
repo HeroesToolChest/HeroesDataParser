@@ -190,6 +190,7 @@ namespace HeroesData.FileWriter.Tests
                                 ShortTooltip = new TooltipDescription("Damage and silence enemies in an area"),
                                 FullTooltip = new TooltipDescription("After a <c val=\"#TooltipNumbers\">0.5</c> second delay, enemies in front of Alarak take <c val=\"#TooltipNumbers\">175</c> damage and are silenced for <c val=\"#TooltipNumbers\">1.5</c> seconds."),
                             },
+                            AbilityType = AbilityType.Q,
                         }
                     },
                     {
@@ -207,6 +208,7 @@ namespace HeroesData.FileWriter.Tests
                                 ShortTooltip = new TooltipDescription("Alarak deals increased damage and has increased self-healing against enemy Heroes"),
                                 FullTooltip = new TooltipDescription("Alarak's Ability damage and self-healing are increased by <c val=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Repeatable Quest:</c> Takedowns increase Sadism by <c val=\"#TooltipNumbers\">3%</c>, up to <c val=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death."),
                             },
+                            AbilityType = AbilityType.Trait,
                         }
                     },
                     {
@@ -216,6 +218,7 @@ namespace HeroesData.FileWriter.Tests
                             ReferenceNameId = "HeroicAbility",
                             Name = "Heroic",
                             Tier = AbilityTier.Heroic,
+                            AbilityType = AbilityType.Heroic,
                         }
                     },
                     {
@@ -225,6 +228,7 @@ namespace HeroesData.FileWriter.Tests
                             ReferenceNameId = "MountAbility",
                             Name = "Mount",
                             Tier = AbilityTier.Mount,
+                            AbilityType = AbilityType.Z,
                         }
                     },
                     {
@@ -234,6 +238,7 @@ namespace HeroesData.FileWriter.Tests
                             ReferenceNameId = "ActivableAbility",
                             Name = "Activable",
                             Tier = AbilityTier.Activable,
+                            AbilityType = AbilityType.Active,
                         }
                     },
                 },
@@ -255,6 +260,7 @@ namespace HeroesData.FileWriter.Tests
                             },
                             Column = 1,
                             Tier = TalentTier.Level1,
+                            AbilityType = AbilityType.Q,
                         }
                     },
                     {
@@ -273,6 +279,7 @@ namespace HeroesData.FileWriter.Tests
                             },
                             Column = 2,
                             Tier = TalentTier.Level1,
+                            AbilityType = AbilityType.Q,
                         }
                     },
                     {
@@ -286,6 +293,7 @@ namespace HeroesData.FileWriter.Tests
                             {
                                 FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
                             },
+                            AbilityType = AbilityType.Q,
                         }
                     },
                     {
@@ -295,6 +303,7 @@ namespace HeroesData.FileWriter.Tests
                             ReferenceNameId = "Level7Talent",
                             Name = "Level4Talent",
                             Tier = TalentTier.Level7,
+                            AbilityType = AbilityType.Q,
                         }
                     },
                     {
@@ -321,6 +330,7 @@ namespace HeroesData.FileWriter.Tests
                             },
                             Column = 1,
                             Tier = TalentTier.Level10,
+                            AbilityType = AbilityType.Heroic,
                         }
                     },
                     {
@@ -347,6 +357,7 @@ namespace HeroesData.FileWriter.Tests
                             },
                             Column = 2,
                             Tier = TalentTier.Level10,
+                            AbilityType = AbilityType.Heroic,
                         }
                     },
                     {
@@ -356,6 +367,7 @@ namespace HeroesData.FileWriter.Tests
                             ReferenceNameId = "Leve13Talent",
                             Name = "Leve13Talent",
                             Tier = TalentTier.Level13,
+                            AbilityType = AbilityType.W,
                         }
                     },
                     {
@@ -365,6 +377,7 @@ namespace HeroesData.FileWriter.Tests
                             ReferenceNameId = "Level16Talent",
                             Name = "Level16Talent",
                             Tier = TalentTier.Level16,
+                            AbilityType = AbilityType.W,
                         }
                     },
                     {
@@ -374,6 +387,7 @@ namespace HeroesData.FileWriter.Tests
                             ReferenceNameId = "Level20Talent",
                             Name = "Level20Talent",
                             Tier = TalentTier.Level20,
+                            AbilityType = AbilityType.W,
                         }
                     },
                 },
@@ -429,6 +443,7 @@ namespace HeroesData.FileWriter.Tests
                             {
                                  FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
                             },
+                            AbilityType = AbilityType.Q,
                         }
                     },
                     {
@@ -439,6 +454,7 @@ namespace HeroesData.FileWriter.Tests
                             Name = "SubAbilHeroic",
                             Tier = AbilityTier.Heroic,
                             ParentLink = "HeroAlexstraszaDragon",
+                            AbilityType = AbilityType.Heroic,
                         }
                     },
                     {
@@ -449,6 +465,7 @@ namespace HeroesData.FileWriter.Tests
                             Name = "SubAbilMount",
                             Tier = AbilityTier.Mount,
                             ParentLink = "HeroAlexstraszaDragon",
+                            AbilityType = AbilityType.Z,
                         }
                     },
                     {
@@ -459,6 +476,7 @@ namespace HeroesData.FileWriter.Tests
                             Name = "SubAbilTrait",
                             Tier = AbilityTier.Trait,
                             ParentLink = "HeroAlexstraszaDragon",
+                            AbilityType = AbilityType.Trait,
                         }
                     },
                     {
@@ -469,6 +487,7 @@ namespace HeroesData.FileWriter.Tests
                             Name = "SubAbilActivable",
                             Tier = AbilityTier.Activable,
                             ParentLink = "HeroAlexstraszaDragon",
+                            AbilityType = AbilityType.Active,
                         }
                     },
                 },
@@ -528,6 +547,7 @@ namespace HeroesData.FileWriter.Tests
                                             CooldownValue = 5,
                                         },
                                     },
+                                    AbilityType = AbilityType.Q,
                                 }
                             },
                             {
@@ -538,6 +558,7 @@ namespace HeroesData.FileWriter.Tests
                                     Name = "DragonAbilHeroic",
                                     Tier = AbilityTier.Heroic,
                                     ParentLink = "HeroAlexstraszaDragon",
+                                    AbilityType = AbilityType.Heroic,
                                 }
                             },
                             {
@@ -548,6 +569,7 @@ namespace HeroesData.FileWriter.Tests
                                     Name = "DragonAbilMount",
                                     Tier = AbilityTier.Mount,
                                     ParentLink = "HeroAlexstraszaDragon",
+                                    AbilityType = AbilityType.Z,
                                 }
                             },
                             {
@@ -562,6 +584,7 @@ namespace HeroesData.FileWriter.Tests
                                     {
                                          FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
                                     },
+                                    AbilityType = AbilityType.Trait,
                                 }
                             },
                             {
@@ -572,6 +595,7 @@ namespace HeroesData.FileWriter.Tests
                                     Name = "DragonAbilActivable",
                                     Tier = AbilityTier.Activable,
                                     ParentLink = "HeroAlexstraszaDragon",
+                                    AbilityType = AbilityType.Trait,
                                 }
                             },
                         },

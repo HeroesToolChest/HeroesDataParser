@@ -12,7 +12,13 @@
     
     <!--talents-->
     <TalentTreeArray Talent="TestHeroBattleRage" Tier="1" Column="1" />
-       
+    <TalentTreeArray Talent="TestHeroDismantle" Tier="1" Column="2" />  
+    <TalentTreeArray Talent="TestHeroFastAttack" Tier="1" Column="3" />  
+    <TalentTreeArray Talent="TestHeroSpawnLocusts" Tier="2" Column="1" />  
+    <TalentTreeArray Talent="TestHeroHighlord" Tier="2" Column="2" />
+    <TalentTreeArray Talent="TestHeroMasteredStab" Tier="2" Column="3" />
+    <TalentTreeArray Talent="TestHeroMekaFall" Tier="2" Column="4" />
+    
     <Universe value="Warcraft" />
     <ProductId value="10115" />
     <LevelScalingArray>
@@ -48,16 +54,37 @@
     <HeroAbilArray Abil="TestHeroNerazimDummy" Button="TestHeroNerazimPassive">
       <Flags index="ShowInHeroSelect" value="1" />
       <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="Heroic" value="1" />
     </HeroAbilArray>
     <HeroAbilArray Abil="TestHeroIllusionMaster" Button="TestHeroIllusionMaster">
       <Flags index="ShowInHeroSelect" value="1" />
       <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="Heroic" value="1" />
+      <Flags index="MountReplacement" value="1" />
     </HeroAbilArray>
     <HeroAbilArray Abil="TestHeroIllusionMaster" Button="TestHeroAdvancingStrikes">
       <Flags index="ShowInHeroSelect" value="1" />
       <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="TestHeroActiveAbility" Button="TestHeroActiveAbility">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="TestHeroDismantle" Button="TestHeroDismantle">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="TestUnitStab" Unit="HeroTestUnit">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="TestUnitCallUnit" Button="TestUnitCallUnit">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="FaerieDragonPolymorph" Button="BrightwingPolymorph">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="TestHeroCriticalStrikeDummy" Button="TestHeroCriticalStrike">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
     </HeroAbilArray>
     
     <Ratings>
@@ -74,6 +101,34 @@
     <Radius value="1.235" />
     <InnerRadius value="0.576" />
     <LifeRegenRate value="3.2456" />
+    <CardLayouts index="0">
+      <LayoutButtons index="4" Face="TestHeroDismantle" Type="AbilCmd" AbilCmd="TestHeroDismantleCancel,Execute" Slot="Cancel" />
+      <LayoutButtons Face="TestHeroBigBoom" Type="AbilCmd" AbilCmd="TestHeroBigBoom,Execute" Slot="Heroic" />
+      <LayoutButtons Face="TestHeroNerazimPassive" Type="AbilCmd" AbilCmd="TestHeroNerazimDummy,Execute" Slot="Ability2" />
+      <LayoutButtons Face="TestHeroIllusionMaster" Type="AbilCmd" AbilCmd="TestHeroIllusionMaster,Execute" Slot="Mount" />
+      <LayoutButtons Face="TestHeroAdvancingStrikes" Type="AbilCmd" AbilCmd="TestHeroIllusionMaster,Execute" Slot="Trait" />
+      <LayoutButtons Face="TestHeroDismantle" Type="AbilCmd" AbilCmd="TestHeroDismantle,Execute" Slot="Ability2" />
+      <LayoutButtons Face="BrightwingPolymorph" Type="AbilCmd" AbilCmd="FaerieDragonPolymorph,Execute" Slot="Ability2" />
+      <LayoutButtons>
+        <Face value="TestHeroCriticalStrike" />
+        <Type value="AbilCmd" />
+        <AbilCmd value="TestHeroCriticalStrike,Execute" />
+        <Behavior value="TestHeroCriticalStrike,Execute" />
+        <SubmenuAbilState value="TestHeroCriticalStrike,Execute" />
+        <Slot value="Ability2" />
+      </LayoutButtons>
+    </CardLayouts>
+  </CUnit>
+  <CUnit id="HeroTestUnit" parent="StormHeroMountedCustom">
+    <LifeStart value="100" />
+    <LifeMax value="100" />
+    <Radius value="1.235" />
+    <InnerRadius value="0.576" />
+    <LifeRegenRate value="3.2456" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="TestUnitStab" Type="AbilCmd" AbilCmd="TestUnitStab,Execute" Slot="Ability3" />
+      <LayoutButtons Face="TestUnitCallUnit" Type="AbilCmd" AbilCmd="TestUnitCallUnit,Execute" Slot="Ability2" />
+    </CardLayouts>
   </CUnit>
 
   <CAbilEffectInstant id="TestHeroBigBoom">
@@ -104,7 +159,49 @@
       <Cooldown Location="Player" TimeUse="25" />
     </Cost>
   </CAbilEffectTarget>
-
+  <CAbilEffectTarget id="TestHeroDismantle">
+    <Cost>
+      <Charge>
+        <CountMax value="2" />
+        <CountUse value="1" />
+        <Location value="Player" />
+        <TimeUse value="10" />
+      </Charge>
+      <Cooldown Location="Player" TimeUse="5" />
+    </Cost>
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="TestHeroSpawnLocusts">
+    <Cost>
+      <Vital index="Energy" value="60" />
+      <Cooldown Location="Unit" TimeUse="40" />
+    </Cost>
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="TestUnitStab">
+    <Cost>
+      <Charge>
+        <CountMax value="2" />
+        <CountStart value="2" />
+        <CountUse value="1" />
+        <Location value="Unit" />
+        <TimeUse value="3" />
+      </Charge>
+      <Cooldown Location="Unit" TimeStart="0.5" TimeUse="1" />
+    </Cost>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="TestUnitCallUnit">
+    <Cost>
+      <Cooldown Location="Player" TimeUse="25" />
+    </Cost>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="FaerieDragonPolymorph">
+    <Cost>
+      <Vital index="Energy" value="50" />
+      <Cooldown Location="Unit" TimeUse="10" />
+    </Cost>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="TestHeroCriticalStrike">
+  </CAbilEffectTarget>
+  
   <!--buttons-->
   <CButton id="TestHeroBigBoom" parent="StormButtonParent">
     <Name value="Button/Name/TestHeroBigBoomSelectButton" />
@@ -130,11 +227,50 @@
   <CButton id="TestHeroAdvancingStrikes" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_testhero_flowingstrikes.dds" />
   </CButton>
-
+  <CButton id="TestHeroActiveAbility" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_activeAbility.dds" />
+  </CButton>
+  <CButton id="TestUnitStab" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_stab.dds" />
+  </CButton>
+  <CButton id="TestUnitCallUnit" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_callUnit.dds" />
+  </CButton>
+  <CButton id="BrightwingPolymorph" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_brightwing_polymorph.dds" />
+  </CButton>
+  <CButton id="TestHeroCriticalStrike" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_criticalStrike.dds" />
+  </CButton>
+  
   <!--talent-->
   <CTalent id="TestHeroBattleRage">
     <Face value="TestHeroBattleRage" />
     <Abil value="TestHeroBattleRage" />
     <Active value="1" />
+  </CTalent>
+  <CTalent id="TestHeroDismantle">
+    <Face value="TestHeroDismantle" />
+    <Abil value="TestHeroDismantle" />
+  </CTalent>
+  <CTalent id="TestHeroFastAttack">
+    <Face value="TestHeroFastAttack" />
+  </CTalent>
+  <CTalent id="TestHeroSpawnLocusts">
+    <Face value="TestHeroSpawnLocusts" />
+    <Abil value="TestHeroSpawnLocusts" />
+  </CTalent>
+  <CTalent id="TestHeroHighlord">
+    <Face value="TestHeroHighlord" />
+    <Abil value="TestHeroBattleRage" />
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="TestHeroMasteredStab">
+    <Face value="TestHeroMasteredStab" />
+    <Abil value="TestUnitStab" />
+  </CTalent>
+  <CTalent id="TestHeroMekaFall">
+    <Face value="TestHeroMekaFall" />
+    <Abil value="TestUnitCallUnit" />
   </CTalent>
 </Catalog>

@@ -39,6 +39,16 @@ namespace HeroesData.Parser.UnitData.Overrides
                         ability.Tier = AbilityTier.Basic;
                 });
             }
+            else if (propertyName == "AbilityType")
+            {
+                propertyOverrides.Add(propertyName, (ability) =>
+                {
+                    if (Enum.TryParse(propertyValue, out AbilityType abilityType))
+                        ability.AbilityType = abilityType;
+                    else
+                        ability.AbilityType = AbilityType.Q;
+                });
+            }
             else if (propertyName == "Tooltip.Custom")
             {
                 propertyOverrides.Add(propertyName, (ability) =>

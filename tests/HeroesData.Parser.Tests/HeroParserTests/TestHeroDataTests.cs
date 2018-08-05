@@ -54,7 +54,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         }
 
         [Fact]
-        public void AbilityTraitAdvancingStrikes()
+        public void AbilityTraitAdvancingStrikesTests()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroAdvancingStrikes"];
             Assert.Equal("Advancing Strikes", ability.Name);
@@ -63,6 +63,59 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("TestHeroAdvancingStrikes", ability.FullTooltipNameId);
             Assert.Equal("Slash Slash", ability.Tooltip.ShortTooltip.RawDescription);
             Assert.Equal("More slashes, more damage", ability.Tooltip.FullTooltip.RawDescription);
+        }
+
+        [Fact]
+        public void AbilityTypesForAbilitiesTests()
+        {
+            Ability ability = HeroTestHero.Abilities["TestHeroBigBoom"];
+            Assert.Equal(AbilityType.Heroic, ability.AbilityType);
+
+            ability = HeroTestHero.Abilities["TestHeroNerazimDummy"];
+            Assert.Equal(AbilityType.W, ability.AbilityType);
+
+            ability = HeroTestHero.Abilities["TestHeroIllusionMaster"];
+            Assert.Equal(AbilityType.Z, ability.AbilityType);
+
+            ability = HeroTestHero.Abilities["TestHeroAdvancingStrikes"];
+            Assert.Equal(AbilityType.Trait, ability.AbilityType);
+
+            ability = HeroTestHero.Abilities["TestHeroActiveAbility"];
+            Assert.Equal(AbilityType.Active, ability.AbilityType);
+
+            ability = HeroTestHero.Abilities["TestUnitStab"];
+            Assert.Equal(AbilityType.E, ability.AbilityType);
+
+            ability = HeroTestHero.Abilities["TestUnitCallUnit"];
+            Assert.Equal(AbilityType.W, ability.AbilityType);
+
+            ability = HeroTestHero.Abilities["FaerieDragonPolymorph"];
+            Assert.Equal(AbilityType.W, ability.AbilityType);
+
+            ability = HeroTestHero.Abilities["TestHeroCriticalStrikeDummy"];
+            Assert.Equal(AbilityType.W, ability.AbilityType);
+        }
+
+        [Fact]
+        public void AbilityTypesForTalentsTests()
+        {
+            Talent talent = HeroTestHero.Talents["TestHeroDismantle"];
+            Assert.Equal(AbilityType.W, talent.AbilityType);
+
+            talent = HeroTestHero.Talents["TestHeroFastAttack"];
+            Assert.Equal(AbilityType.Passive, talent.AbilityType);
+
+            talent = HeroTestHero.Talents["TestHeroSpawnLocusts"];
+            Assert.Equal(AbilityType.Active, talent.AbilityType);
+
+            talent = HeroTestHero.Talents["TestHeroHighlord"];
+            Assert.Equal(AbilityType.Trait, talent.AbilityType);
+
+            talent = HeroTestHero.Talents["TestHeroMasteredStab"];
+            Assert.Equal(AbilityType.E, talent.AbilityType);
+
+            talent = HeroTestHero.Talents["TestHeroMekaFall"];
+            Assert.Equal(AbilityType.W, talent.AbilityType);
         }
     }
 }

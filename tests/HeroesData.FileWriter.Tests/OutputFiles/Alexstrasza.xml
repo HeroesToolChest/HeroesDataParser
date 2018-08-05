@@ -7,7 +7,7 @@
     <SubAbilities>
       <TychusOdinNoHealth>
         <Basic>
-          <TychusOdinAnnihilate name="Annihilate" shortTooltipId="TychusCommandeerOdinAnnihilate" fullTooltipId="TychusCommandeerOdinAnnihilate">
+          <TychusOdinAnnihilate name="Annihilate" shortTooltipId="TychusCommandeerOdinAnnihilate" fullTooltipId="TychusCommandeerOdinAnnihilate" abilityType="Q">
             <Icon>storm_ui_icon_tychus_annihilate.jpg</Icon>
             <FullTooltip>Burrow to the target location, dealing &lt;c val="#TooltipNumbers"&gt;96&lt;/c&gt; damage and briefly stunning enemies in a small area upon surfacing, slowing them by &lt;c val="#TooltipNumbers"&gt;25%&lt;/c&gt; for &lt;c val="#TooltipNumbers"&gt;2.5&lt;/c&gt; seconds.&lt;n/&gt;&lt;n/&gt;Burrow Charge can be reactivated to surface early.</FullTooltip>
           </TychusOdinAnnihilate>
@@ -15,22 +15,22 @@
       </TychusOdinNoHealth>
       <HeroAlexstraszaDragon>
         <Heroic>
-          <SubAbilHeroic name="SubAbilHeroic">
+          <SubAbilHeroic name="SubAbilHeroic" abilityType="Heroic">
             <Icon />
           </SubAbilHeroic>
         </Heroic>
         <Trait>
-          <SubAbilTrait name="SubAbilTrait">
+          <SubAbilTrait name="SubAbilTrait" abilityType="Trait">
             <Icon />
           </SubAbilTrait>
         </Trait>
         <Mount>
-          <SubAbilMount name="SubAbilMount">
+          <SubAbilMount name="SubAbilMount" abilityType="Z">
             <Icon />
           </SubAbilMount>
         </Mount>
         <Activable>
-          <SubAbilActivable name="SubAbilActivable">
+          <SubAbilActivable name="SubAbilActivable" abilityType="Active">
             <Icon />
           </SubAbilActivable>
         </Activable>
@@ -49,7 +49,7 @@
           </Armor>
           <Abilities>
             <Basic>
-              <AlexstraszaBreathOfLife name="Breath of Life" shortTooltipId="AlexstraszaBreathOfLife" fullTooltipId="AlexstraszaBreathOfLife">
+              <AlexstraszaBreathOfLife name="Breath of Life" shortTooltipId="AlexstraszaBreathOfLife" fullTooltipId="AlexstraszaBreathOfLife" abilityType="Q">
                 <Icon>storm_ui_icon_alexstrasza_breath_of_life.jpg</Icon>
                 <Life isPercentage="true">50</Life>
                 <Charges consume="1" initial="3" isHidden="false" cooldown="5">3</Charges>
@@ -57,23 +57,23 @@
               </AlexstraszaBreathOfLife>
             </Basic>
             <Heroic>
-              <DragonAbilHeroic name="DragonAbilHeroic">
+              <DragonAbilHeroic name="DragonAbilHeroic" abilityType="Heroic">
                 <Icon />
               </DragonAbilHeroic>
             </Heroic>
             <Trait>
-              <DragonAbilTrait name="DragonAbilTrait">
+              <DragonAbilTrait name="DragonAbilTrait" abilityType="Trait">
                 <Icon />
                 <FullTooltip>Burrow to the target location, dealing &lt;c val="#TooltipNumbers"&gt;96&lt;/c&gt; damage and briefly stunning enemies in a small area upon surfacing, slowing them by &lt;c val="#TooltipNumbers"&gt;25%&lt;/c&gt; for &lt;c val="#TooltipNumbers"&gt;2.5&lt;/c&gt; seconds.&lt;n/&gt;&lt;n/&gt;Burrow Charge can be reactivated to surface early.</FullTooltip>
               </DragonAbilTrait>
             </Trait>
             <Mount>
-              <DragonAbilMount name="DragonAbilMount">
+              <DragonAbilMount name="DragonAbilMount" abilityType="Z">
                 <Icon />
               </DragonAbilMount>
             </Mount>
             <Activable>
-              <DragonAbilActivable name="DragonAbilActivable">
+              <DragonAbilActivable name="DragonAbilActivable" abilityType="Trait">
                 <Icon />
               </DragonAbilActivable>
             </Activable>

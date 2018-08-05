@@ -158,3 +158,47 @@ Button/Tooltip/TestHeroIllusionMasterTalent=Disappear and out of sight
 Button/Name/TestHeroAdvancingStrikes=Advancing Strikes
 Button/SimpleDisplayText/TestHeroAdvancingStrikes=Slash Slash
 Button/Tooltip/TestHeroAdvancingStrikes=More slashes, more damage
+
+Button/Name/TestHeroActiveAbility=Test Active
+Button/SimpleDisplayText/TestHeroActiveAbility=Test
+Button/Tooltip/TestHeroActiveAbility=Test
+
+Button/Name/TestHeroDismantle=Dismantle
+Button/SimpleDisplayText/TestHeroDismantle=Dismantle towers
+Button/Tooltip/TestHeroDismantle=Dismantle an enemy tower
+
+Button/Name/TestHeroFastAttack=Fast Attck
+Button/SimpleDisplayText/TestHeroFastAttack=Attack faster
+Button/Tooltip/TestHeroFastAttack=Increased attack speed 10-fold
+
+Button/Name/TestHeroSpawnLocusts=Spawn Locusts
+Button/SimpleDisplayText/TestHeroSpawnLocusts=Spawn locusts
+Button/Tooltip/TestHeroSpawnLocusts=Spawn 10 locusts to attack enemies
+
+Button/Name/TestHeroHighlord=Test
+Button/SimpleDisplayText/TestHeroHighlord=Test
+Button/Tooltip/TestHeroHighlord=Test
+
+Button/Name/TestUnitStab=Stab
+Button/SimpleDisplayText/TestUnitStab=Stab 
+Button/Tooltip/TestUnitStab=Fire out a spike that deals damage
+
+Button/Name/TestHeroMasteredStab=Mastered Stab
+Button/SimpleDisplayText/TestHeroMasteredStab=Improves Stab 
+Button/Tooltip/TestHeroMasteredStab=Makes stab more powerful
+
+Button/Name/TestUnitCallUnit=Call Unit
+Button/SimpleDisplayText/TestUnitCallUnit=Calls unit
+Button/Tooltip/TestUnitCallUnit=Calls down a powerful unit
+
+Button/Name/TestHeroMekaFall=Meka Fall
+Button/SimpleDisplayText/TestHeroMekaFall=Meka Fall
+Button/Tooltip/TestHeroMekaFall=Meka Fall
+
+Button/Name/BrightwingPolymorph=Brightwing Polymorph
+Button/SimpleDisplayText/BrightwingPolymorph=BrightwingPolymorph
+Button/Tooltip/BrightwingPolymorph=BrightwingPolymorph
+
+Button/Name/TestHeroCriticalStrike=Critical Strikes
+Button/SimpleDisplayText/TestHeroCriticalStrike=Deal more damage
+Button/Tooltip/TestHeroCriticalStrike=Deal more damage every 2nd strike

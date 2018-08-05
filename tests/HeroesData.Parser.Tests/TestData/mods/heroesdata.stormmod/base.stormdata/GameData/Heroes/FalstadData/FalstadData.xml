@@ -1807,6 +1807,9 @@
     <InnerRadius value="0.9375" />
     <AIThinkTree value="AI/Falstad.aitree" />
     <LifeRegenRate value="2.8437" />
+    <CardLayouts>
+      <LayoutButtons Face="Test" />
+    </CardLayouts>
   </CUnit>
   <CWeaponLegacy id="FalstadStormhammerWeapon">
     <Options index="ContinuousScan" value="1" />

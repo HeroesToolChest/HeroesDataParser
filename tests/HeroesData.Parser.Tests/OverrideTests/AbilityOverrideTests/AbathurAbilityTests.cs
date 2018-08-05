@@ -64,5 +64,11 @@ namespace HeroesData.Parser.Tests.OverrideTests.AbilityOverrideTests
         {
             Assert.False(TestAbility.Tooltip.Life.IsLifePercentage);
         }
+
+        [Fact]
+        public void AbilityTypeOverrideTest()
+        {
+            Assert.Equal(AbilityType.W, TestAbility.AbilityType);
+        }
     }
 }

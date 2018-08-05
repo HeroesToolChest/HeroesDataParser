@@ -9,5 +9,10 @@
   </CHero>
   <CHero id="TestHero">
     <Ability id="TestHeroIllusionMaster" button="TestHeroAdvancingStrikes" add="true" />
+    <Ability id="TestUnitCallUnit" valid="true">
+      <Override>
+        <ParentLink value="HeroTestUnit" />
+      </Override>
+    </Ability>
   </CHero>
 </HeroOverrides>

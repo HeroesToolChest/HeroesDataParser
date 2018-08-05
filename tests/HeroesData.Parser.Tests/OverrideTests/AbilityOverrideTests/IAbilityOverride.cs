@@ -5,6 +5,7 @@
         string AbilityName { get; }
         void ParentLinkOverrideTest();
         void AbilityTierOverrideTest();
+        void AbilityTypeOverrideTest();
         void TooltipCustomOverrideTest();
         void TooltipEnergyCostOverrideTest();
         void TooltipEnergyPerCostOverrideTest();

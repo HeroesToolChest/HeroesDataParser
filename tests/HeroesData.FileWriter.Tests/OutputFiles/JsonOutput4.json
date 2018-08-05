@@ -53,14 +53,16 @@
             "value": 8.0
           },
           "shortTooltip": "Damage and silence enemies in an area",
-          "fullTooltip": "After a 0.5 second delay, enemies in front of Alarak take 175 damage and are silenced for 1.5 seconds."
+          "fullTooltip": "After a 0.5 second delay, enemies in front of Alarak take 175 damage and are silenced for 1.5 seconds.",
+          "abilityType": "Q"
         }
       ],
       "heroic": [
         {
           "nameId": "HeroicAbility",
           "name": "Heroic",
-          "icon": null
+          "icon": null,
+          "abilityType": "Heroic"
         }
       ],
       "trait": [
@@ -71,21 +73,24 @@
           "fullTooltipId": "AlarakSadismDummyUI",
           "icon": "storm_ui_icon_alarak_sadism.png",
           "shortTooltip": "Alarak deals increased damage and has increased self-healing against enemy Heroes",
-          "fullTooltip": "Alarak's Ability damage and self-healing are increased by 100% against enemy Heroes.<n/><n/>Repeatable Quest: Takedowns increase Sadism by 3%, up to 30%. Sadism gained from Takedowns is lost on death."
+          "fullTooltip": "Alarak's Ability damage and self-healing are increased by 100% against enemy Heroes.<n/><n/>Repeatable Quest: Takedowns increase Sadism by 3%, up to 30%. Sadism gained from Takedowns is lost on death.",
+          "abilityType": "Trait"
         }
       ],
       "mount": [
         {
           "nameId": "MountAbility",
           "name": "Mount",
-          "icon": null
+          "icon": null,
+          "abilityType": "Z"
         }
       ],
       "activable": [
         {
           "nameId": "ActivableAbility",
           "name": "Activable",
-          "icon": null
+          "icon": null,
+          "abilityType": "Active"
         }
       ]
     },
@@ -99,6 +104,7 @@
           "icon": "storm_ui_icon_alarak_lightningsurge_a.png",
           "shortTooltip": "Increase Lightning Surge healing",
           "fullTooltip": "Increase the healing received from damaging Heroes with Lightning Surge by 40%.",
+          "abilityType": "Q",
           "sort": 1
         },
         {
@@ -109,6 +115,7 @@
           "icon": "storm_ui_icon_alarak_lightningsurge.png",
           "shortTooltip": "Quest: Reduce Sadism, empower Lightning Surge",
           "fullTooltip": "Reduce Sadism by 10%.<n/><n/>Quest: Hit Heroes with the center of Lightning Surge.<n/><n/>Reward: After hitting 5 Heroes, increase Lightning Surge's range by 20%.<n/><n/>Reward: After hitting 15 Heroes, Lightning Surge's center also Slows enemies by 40% for 2 seconds.<n/><n/>Reward: After hitting 3 Heroes with the center of a single cast, increase Sadism by 10% and instantly gain all other Rewards.",
+          "abilityType": "Q",
           "sort": 2
         }
       ],
@@ -118,6 +125,7 @@
           "name": "Level4Talent",
           "icon": null,
           "fullTooltip": "Burrow to the target location, dealing 96 (+4% per level) damage and briefly stunning enemies in a small area upon surfacing, slowing them by 25% for 2.5 seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+          "abilityType": "Q",
           "sort": 0
         }
       ],
@@ -126,6 +134,7 @@
           "nameId": "Level7Talent",
           "name": "Level4Talent",
           "icon": null,
+          "abilityType": "Q",
           "sort": 0
         }
       ],
@@ -144,6 +153,7 @@
           },
           "shortTooltip": "Channel to charge a long distance",
           "fullTooltip": "After channeling, Alarak charges forward dealing 200 damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to 1.6 seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.",
+          "abilityType": "Heroic",
           "sort": 1
         },
         {
@@ -160,6 +170,7 @@
           },
           "shortTooltip": "Prevents damage to deal damage in a large area",
           "fullTooltip": "Alarak targets an area and channels for 1 second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals 275 damage.",
+          "abilityType": "Heroic",
           "sort": 2
         }
       ],
@@ -168,6 +179,7 @@
           "nameId": "Leve13Talent",
           "name": "Leve13Talent",
           "icon": null,
+          "abilityType": "W",
           "sort": 0
         }
       ],
@@ -176,6 +188,7 @@
           "nameId": "Level16Talent",
           "name": "Level16Talent",
           "icon": null,
+          "abilityType": "W",
           "sort": 0
         }
       ],
@@ -184,6 +197,7 @@
           "nameId": "Level20Talent",
           "name": "Level20Talent",
           "icon": null,
+          "abilityType": "W",
           "sort": 0
         }
       ]

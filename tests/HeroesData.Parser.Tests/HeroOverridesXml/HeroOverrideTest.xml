@@ -13,6 +13,7 @@
       <Override>
         <ParentLink value="Symbiote" />
         <AbilityTier value="Activable" />
+        <AbilityType value="W" />
         <Tooltip.Custom value="W.I.R.E.D is wireless?" />
         <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,ToxicNestDamage,Amount"/></Tooltip.Energy.EnergyCost>
         <Tooltip.Energy.IsPerCost value="true" />
@@ -76,6 +77,7 @@
       <Override>
         <ParentLink />
         <AbilityTier value="GodLike" />
+        <AbilityType value="What" />
         <Tooltip.Custom value="" />
         <!--0, 1, -1, or any number is false-->
         <Tooltip.Energy.IsPerCost value="1" />

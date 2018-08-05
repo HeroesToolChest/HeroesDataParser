@@ -22,7 +22,17 @@ namespace HeroesData.Parser.UnitData.Overrides
             if (string.IsNullOrEmpty(propertyValue))
                 return;
 
-            if (propertyName == "Tooltip.Custom")
+            if (propertyName == "AbilityType")
+            {
+                propertyOverrides.Add(propertyName, (talent) =>
+                {
+                    if (Enum.TryParse(propertyValue, out AbilityType abilityType))
+                        talent.AbilityType = abilityType;
+                    else
+                        talent.AbilityType = AbilityType.Q;
+                });
+            }
+            else if (propertyName == "Tooltip.Custom")
             {
                 propertyOverrides.Add(propertyName, (talent) =>
                 {

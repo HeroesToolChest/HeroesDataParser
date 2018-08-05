@@ -418,6 +418,8 @@ namespace HeroesData.FileWriter.Writer
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription))
                 info.Add("fullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileSettings.FullTooltip));
 
+            info.Add("abilityType", abilityTalentBase.AbilityType.ToString());
+
             return info;
         }
 

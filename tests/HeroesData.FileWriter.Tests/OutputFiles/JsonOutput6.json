@@ -53,14 +53,16 @@
             "value": 8.0
           },
           "shortTooltip": "Damage and silence enemies in an area",
-          "fullTooltip": "After a <c val=\"#TooltipNumbers\">0.5</c> second delay, enemies in front of Alarak take <c val=\"#TooltipNumbers\">175</c> damage and are silenced for <c val=\"#TooltipNumbers\">1.5</c> seconds."
+          "fullTooltip": "After a <c val=\"#TooltipNumbers\">0.5</c> second delay, enemies in front of Alarak take <c val=\"#TooltipNumbers\">175</c> damage and are silenced for <c val=\"#TooltipNumbers\">1.5</c> seconds.",
+          "abilityType": "Q"
         }
       ],
       "heroic": [
         {
           "nameId": "HeroicAbility",
           "name": "Heroic",
-          "icon": null
+          "icon": null,
+          "abilityType": "Heroic"
         }
       ],
       "trait": [
@@ -71,21 +73,24 @@
           "fullTooltipId": "AlarakSadismDummyUI",
           "icon": "storm_ui_icon_alarak_sadism.png",
           "shortTooltip": "Alarak deals increased damage and has increased self-healing against enemy Heroes",
-          "fullTooltip": "Alarak's Ability damage and self-healing are increased by <c val=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Repeatable Quest:</c> Takedowns increase Sadism by <c val=\"#TooltipNumbers\">3%</c>, up to <c val=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death."
+          "fullTooltip": "Alarak's Ability damage and self-healing are increased by <c val=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Repeatable Quest:</c> Takedowns increase Sadism by <c val=\"#TooltipNumbers\">3%</c>, up to <c val=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death.",
+          "abilityType": "Trait"
         }
       ],
       "mount": [
         {
           "nameId": "MountAbility",
           "name": "Mount",
-          "icon": null
+          "icon": null,
+          "abilityType": "Z"
         }
       ],
       "activable": [
         {
           "nameId": "ActivableAbility",
           "name": "Activable",
-          "icon": null
+          "icon": null,
+          "abilityType": "Active"
         }
       ]
     },
@@ -99,6 +104,7 @@
           "icon": "storm_ui_icon_alarak_lightningsurge_a.png",
           "shortTooltip": "Increase Lightning Surge healing",
           "fullTooltip": "Increase the healing received from damaging Heroes with Lightning Surge by <c val=\"#TooltipNumbers\">40%</c>.",
+          "abilityType": "Q",
           "sort": 1
         },
         {
@@ -109,6 +115,7 @@
           "icon": "storm_ui_icon_alarak_lightningsurge.png",
           "shortTooltip": "<c val=\"#TooltipQuest\">Quest:</c> Reduce Sadism, empower Lightning Surge",
           "fullTooltip": "Reduce Sadism by <c val=\"#TooltipNumbers\">10%</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Quest:</c> Hit Heroes with the center of Lightning Surge.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">5</c> Heroes, increase Lightning Surge's range by <c val=\"#TooltipNumbers\">20%</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">15</c> Heroes, Lightning Surge's center also Slows enemies by <c val=\"#TooltipNumbers\">40%</c> for <c val=\"#TooltipNumbers\">2</c> seconds.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">3</c> Heroes with the center of a single cast, increase Sadism by <c val=\"#TooltipNumbers\">10%</c> and instantly gain all other Rewards.",
+          "abilityType": "Q",
           "sort": 2
         }
       ],
@@ -118,6 +125,7 @@
           "name": "Level4Talent",
           "icon": null,
           "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96 (+4% per level)</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+          "abilityType": "Q",
           "sort": 0
         }
       ],
@@ -126,6 +134,7 @@
           "nameId": "Level7Talent",
           "name": "Level4Talent",
           "icon": null,
+          "abilityType": "Q",
           "sort": 0
         }
       ],
@@ -144,6 +153,7 @@
           },
           "shortTooltip": "Channel to charge a long distance",
           "fullTooltip": "After channeling, Alarak charges forward dealing <c val=\"#TooltipNumbers\">200</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"#TooltipNumbers\">1.6</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.",
+          "abilityType": "Heroic",
           "sort": 1
         },
         {
@@ -160,6 +170,7 @@
           },
           "shortTooltip": "Prevents damage to deal damage in a large area",
           "fullTooltip": "Alarak targets an area and channels for <c val=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"#TooltipNumbers\">275</c> damage.",
+          "abilityType": "Heroic",
           "sort": 2
         }
       ],
@@ -168,6 +179,7 @@
           "nameId": "Leve13Talent",
           "name": "Leve13Talent",
           "icon": null,
+          "abilityType": "W",
           "sort": 0
         }
       ],
@@ -176,6 +188,7 @@
           "nameId": "Level16Talent",
           "name": "Level16Talent",
           "icon": null,
+          "abilityType": "W",
           "sort": 0
         }
       ],
@@ -184,6 +197,7 @@
           "nameId": "Level20Talent",
           "name": "Level20Talent",
           "icon": null,
+          "abilityType": "W",
           "sort": 0
         }
       ]

@@ -32,7 +32,8 @@
               "shortTooltipId": "TychusCommandeerOdinAnnihilate",
               "fullTooltipId": "TychusCommandeerOdinAnnihilate",
               "icon": "storm_ui_icon_tychus_annihilate.jpg",
-              "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."
+              "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+              "abilityType": "Q"
             }
           ]
         },
@@ -41,28 +42,32 @@
             {
               "nameId": "SubAbilHeroic",
               "name": "SubAbilHeroic",
-              "icon": null
+              "icon": null,
+              "abilityType": "Heroic"
             }
           ],
           "trait": [
             {
               "nameId": "SubAbilTrait",
               "name": "SubAbilTrait",
-              "icon": null
+              "icon": null,
+              "abilityType": "Trait"
             }
           ],
           "mount": [
             {
               "nameId": "SubAbilMount",
               "name": "SubAbilMount",
-              "icon": null
+              "icon": null,
+              "abilityType": "Z"
             }
           ],
           "activable": [
             {
               "nameId": "SubAbilActivable",
               "name": "SubAbilActivable",
-              "icon": null
+              "icon": null,
+              "abilityType": "Active"
             }
           ]
         }
@@ -108,14 +113,16 @@
                 },
                 "cooldown": {
                   "value": 3.0
-                }
+                },
+                "abilityType": "Q"
               }
             ],
             "heroic": [
               {
                 "nameId": "DragonAbilHeroic",
                 "name": "DragonAbilHeroic",
-                "icon": null
+                "icon": null,
+                "abilityType": "Heroic"
               }
             ],
             "trait": [
@@ -123,21 +130,24 @@
                 "nameId": "DragonAbilTrait",
                 "name": "DragonAbilTrait",
                 "icon": null,
-                "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."
+                "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+                "abilityType": "Trait"
               }
             ],
             "mount": [
               {
                 "nameId": "DragonAbilMount",
                 "name": "DragonAbilMount",
-                "icon": null
+                "icon": null,
+                "abilityType": "Z"
               }
             ],
             "activable": [
               {
                 "nameId": "DragonAbilActivable",
                 "name": "DragonAbilActivable",
-                "icon": null
+                "icon": null,
+                "abilityType": "Trait"
               }
             ]
           }
