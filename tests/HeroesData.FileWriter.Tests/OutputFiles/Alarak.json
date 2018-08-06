@@ -128,6 +128,8 @@
           "shortTooltip": "Increase Lightning Surge healing",
           "fullTooltip": "Increase the healing received from damaging Heroes with Lightning Surge by <c val=\"#TooltipNumbers\">40%</c>.",
           "abilityType": "Q",
+          "isActive": true,
+          "isQuest": true,
           "sort": 1
         },
         {

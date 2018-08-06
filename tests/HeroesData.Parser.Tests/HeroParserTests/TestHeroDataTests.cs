@@ -117,5 +117,21 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             talent = HeroTestHero.Talents["TestHeroMekaFall"];
             Assert.Equal(AbilityType.W, talent.AbilityType);
         }
+
+        [Fact]
+        public void IsActiveIsQuestForTalentsTests()
+        {
+            Talent talent = HeroTestHero.Talents["TestHeroBattleRage"];
+            Assert.True(talent.IsActive);
+
+            talent = HeroTestHero.Talents["TestHeroHighlord"];
+            Assert.False(talent.IsQuest);
+
+            talent = HeroTestHero.Talents["TestHeroMasteredStab"];
+            Assert.True(talent.IsQuest);
+
+            talent = HeroTestHero.Talents["TestHeroMekaFall"];
+            Assert.False(talent.IsQuest);
+        }
     }
 }

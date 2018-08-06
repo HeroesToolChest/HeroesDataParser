@@ -189,6 +189,8 @@ namespace HeroesData.FileWriter.Writer
                 string.IsNullOrEmpty(abilityTalentBase.ShortTooltipNameId) ? null : new XAttribute("shortTooltipId", abilityTalentBase.ShortTooltipNameId),
                 string.IsNullOrEmpty(abilityTalentBase.FullTooltipNameId) ? null : new XAttribute("fullTooltipId", abilityTalentBase.FullTooltipNameId),
                 new XAttribute("abilityType", abilityTalentBase.AbilityType.ToString()),
+                abilityTalentBase.IsActive ? new XAttribute("isActive", abilityTalentBase.IsActive) : null,
+                abilityTalentBase.IsQuest ? new XAttribute("isQuest", abilityTalentBase.IsQuest) : null,
                 new XElement("Icon", Path.ChangeExtension(abilityTalentBase.IconFileName, FileSettings.ImageExtension)),
                 UnitAbilityLifeCost(abilityTalentBase.Tooltip.Life),
                 UnitAbilityEnergyCost(abilityTalentBase.Tooltip.Energy),

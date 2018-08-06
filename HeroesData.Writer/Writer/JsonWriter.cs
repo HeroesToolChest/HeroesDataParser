@@ -420,6 +420,12 @@ namespace HeroesData.FileWriter.Writer
 
             info.Add("abilityType", abilityTalentBase.AbilityType.ToString());
 
+            if (abilityTalentBase.IsActive)
+                info.Add("isActive", abilityTalentBase.IsActive);
+
+            if (abilityTalentBase.IsQuest)
+                info.Add("isQuest", abilityTalentBase.IsQuest);
+
             return info;
         }
 

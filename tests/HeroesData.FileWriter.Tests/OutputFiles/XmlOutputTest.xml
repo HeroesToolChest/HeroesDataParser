@@ -69,7 +69,7 @@
     </Abilities>
     <Talents>
       <Level1>
-        <AlarakSustainingPower name="Sustaining Power" shortTooltipId="AlarakSustainingPower" fullTooltipId="AlarakSustainingPower" abilityType="Q" sort="1">
+        <AlarakSustainingPower name="Sustaining Power" shortTooltipId="AlarakSustainingPower" fullTooltipId="AlarakSustainingPower" abilityType="Q" isActive="true" isQuest="true" sort="1">
           <Icon>storm_ui_icon_alarak_lightningsurge_a.png</Icon>
           <ShortTooltip>Increase Lightning Surge healing</ShortTooltip>
           <FullTooltip>Increase the healing received from damaging Heroes with Lightning Surge by &lt;c val="#TooltipNumbers"&gt;40%&lt;/c&gt;.</FullTooltip>

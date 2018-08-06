@@ -261,6 +261,8 @@ namespace HeroesData.FileWriter.Tests
                             Column = 1,
                             Tier = TalentTier.Level1,
                             AbilityType = AbilityType.Q,
+                            IsActive = true,
+                            IsQuest = true,
                         }
                     },
                     {

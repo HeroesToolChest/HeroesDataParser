@@ -268,6 +268,7 @@
   <CTalent id="TestHeroMasteredStab">
     <Face value="TestHeroMasteredStab" />
     <Abil value="TestUnitStab" />
+    <QuestData StackBehavior="TokenCounter" TargetCount="200" IgnoreTargetCount="0" />
   </CTalent>
   <CTalent id="TestHeroMekaFall">
     <Face value="TestHeroMekaFall" />

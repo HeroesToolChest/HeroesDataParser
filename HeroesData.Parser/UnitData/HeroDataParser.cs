@@ -995,6 +995,8 @@ namespace HeroesData.Parser.UnitData
         {
             XElement talentTraitElement = talentElement.Element("Trait");
             XElement talentAbilElement = talentElement.Element("Abil");
+            XElement talentActiveElement = talentElement.Element("Active");
+            XElement talentQuestElement = talentElement.Element("QuestData");
 
             if (talentTraitElement != null && talentTraitElement.Attribute("value")?.Value == "1")
             {
@@ -1012,6 +1014,12 @@ namespace HeroesData.Parser.UnitData
             {
                 talent.AbilityType = AbilityType.Passive;
             }
+
+            if (talentActiveElement != null && talentActiveElement.Attribute("value")?.Value == "1")
+                talent.IsActive = true;
+
+            if (talentQuestElement != null && !string.IsNullOrEmpty(talentQuestElement.Attribute("StackBehavior")?.Value))
+                talent.IsQuest = true;
         }
 
         private void AddSubHeroCUnits(Hero hero)
