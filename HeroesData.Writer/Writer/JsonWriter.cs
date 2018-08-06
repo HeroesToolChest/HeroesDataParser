@@ -18,19 +18,34 @@ namespace HeroesData.FileWriter.Writer
         protected override void SetSingleFileName()
         {
             if (HotsBuild.HasValue)
+            {
                 SingleFileName = $"heroesdata_{HotsBuild.Value}.json";
+                SingleFileNameNoIndentation = $"heroesdata_{HotsBuild.Value}.min.json";
+            }
             else
+            {
                 SingleFileName = "heroesdata.json";
+                SingleFileNameNoIndentation = $"heroesdata.min.json";
+            }
         }
 
         protected override void CreateSingleFile(List<Hero> heroes)
         {
             JObject jObject = new JObject(heroes.Select(hero => HeroElement(hero)));
 
+            // has formatting
             using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputFolder, SingleFileName)))
             using (JsonTextWriter writer = new JsonTextWriter(file))
             {
                 writer.Formatting = Formatting.Indented;
+                jObject.WriteTo(writer);
+            }
+
+            // no formatting
+            using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputFolder, SingleFileNameNoIndentation)))
+            using (JsonTextWriter writer = new JsonTextWriter(file))
+            {
+                writer.Formatting = Formatting.None;
                 jObject.WriteTo(writer);
             }
         }
@@ -41,10 +56,19 @@ namespace HeroesData.FileWriter.Writer
             {
                 JObject jObject = new JObject(HeroElement(hero));
 
+                // has formatting
                 using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputFolder, $"{hero.ShortName}.json")))
                 using (JsonTextWriter writer = new JsonTextWriter(file))
                 {
                     writer.Formatting = Formatting.Indented;
+                    jObject.WriteTo(writer);
+                }
+
+                // no formatting
+                using (StreamWriter file = File.CreateText(Path.Combine(SplitFileJsonNoIndentationFolder, $"{hero.ShortName}.min.json")))
+                using (JsonTextWriter writer = new JsonTextWriter(file))
+                {
+                    writer.Formatting = Formatting.None;
                     jObject.WriteTo(writer);
                 }
             }

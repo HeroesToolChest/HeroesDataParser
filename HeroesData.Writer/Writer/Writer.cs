@@ -18,8 +18,11 @@ namespace HeroesData.FileWriter.Writer
         public List<Hero> Heroes { get; set; }
 
         protected string SingleFileName { get; set; }
+        protected string SingleFileNameNoIndentation { get; set; }
         protected string XmlOutputFolder => Path.Combine(OutputDirectory, "xml");
         protected string JsonOutputFolder => Path.Combine(OutputDirectory, "json");
+        protected string SplitFileXmlNoIndentationFolder => Path.Combine(XmlOutputFolder, "min");
+        protected string SplitFileJsonNoIndentationFolder => Path.Combine(JsonOutputFolder, "min");
         protected string RootNode => "Heroes";
         protected string HeroUnits => "HeroUnits";
 
@@ -27,6 +30,12 @@ namespace HeroesData.FileWriter.Writer
         {
             Directory.CreateDirectory(XmlOutputFolder);
             Directory.CreateDirectory(JsonOutputFolder);
+
+            if (FileSettings.FileSplit)
+            {
+                Directory.CreateDirectory(SplitFileXmlNoIndentationFolder);
+                Directory.CreateDirectory(SplitFileJsonNoIndentationFolder);
+            }
 
             Initialize();
         }

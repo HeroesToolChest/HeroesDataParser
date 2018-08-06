@@ -18,15 +18,22 @@ namespace HeroesData.FileWriter.Writer
         protected override void SetSingleFileName()
         {
             if (HotsBuild.HasValue)
+            {
                 SingleFileName = $"heroesdata_{HotsBuild.Value}.xml";
+                SingleFileNameNoIndentation = $"heroesdata_{HotsBuild.Value}.min.xml";
+            }
             else
+            {
                 SingleFileName = "heroesdata.xml";
+                SingleFileNameNoIndentation = "heroesdata.min.xml";
+            }
         }
 
         protected override void CreateSingleFile(List<Hero> heroes)
         {
             XDocument xmlDoc = new XDocument(new XElement(RootNode, heroes.Select(hero => HeroElement(hero))));
             xmlDoc.Save(Path.Combine(XmlOutputFolder, SingleFileName));
+            xmlDoc.Save(Path.Combine(XmlOutputFolder, SingleFileNameNoIndentation), SaveOptions.DisableFormatting);
         }
 
         protected override void CreateMultipleFiles(List<Hero> heroes)
@@ -36,6 +43,7 @@ namespace HeroesData.FileWriter.Writer
                 XDocument xmlDoc = new XDocument(new XElement(RootNode, HeroElement(hero)));
 
                 xmlDoc.Save(Path.Combine(XmlOutputFolder, $"{hero.ShortName}.xml"));
+                xmlDoc.Save(Path.Combine(SplitFileXmlNoIndentationFolder, $"{hero.ShortName}.min.xml"), SaveOptions.DisableFormatting);
             }
         }
 
