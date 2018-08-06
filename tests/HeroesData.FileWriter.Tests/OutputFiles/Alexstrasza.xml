@@ -51,9 +51,9 @@
             <Basic>
               <AlexstraszaBreathOfLife name="Breath of Life" shortTooltipId="AlexstraszaBreathOfLife" fullTooltipId="AlexstraszaBreathOfLife" abilityType="Q">
                 <Icon>storm_ui_icon_alexstrasza_breath_of_life.jpg</Icon>
-                <Life isPercentage="true">50</Life>
+                <Life>15%</Life>
                 <Charges consume="1" initial="3" isHidden="false" cooldown="5">3</Charges>
-                <Cooldown>3</Cooldown>
+                <Cooldown>3 seconds</Cooldown>
               </AlexstraszaBreathOfLife>
             </Basic>
             <Heroic>

@@ -69,12 +69,8 @@
           "shortTooltipId": "AlarakDiscordStrike",
           "fullTooltipId": "AlarakDiscordStrike",
           "icon": "storm_ui_icon_alarak_discordstrike.png",
-          "energy": {
-            "cost": 45
-          },
-          "cooldown": {
-            "value": 8.0
-          },
+          "energy": "45",
+          "cooldown": "8 seconds",
           "shortTooltip": "Damage and silence enemies in an area",
           "fullTooltip": "After a <c val=\"#TooltipNumbers\">0.5</c> second delay, enemies in front of Alarak take <c val=\"#TooltipNumbers\">175</c> damage and are silenced for <c val=\"#TooltipNumbers\">1.5</c> seconds.",
           "abilityType": "Q"
@@ -170,12 +166,8 @@
           "shortTooltipId": "AlarakDeadlyCharge",
           "fullTooltipId": "AlarakDeadlyCharge",
           "icon": "storm_ui_icon_alarak_recklesscharge.png",
-          "energy": {
-            "cost": 60
-          },
-          "cooldown": {
-            "value": 45.0
-          },
+          "energy": "8",
+          "cooldown": "45",
           "shortTooltip": "Channel to charge a long distance",
           "fullTooltip": "After channeling, Alarak charges forward dealing <c val=\"#TooltipNumbers\">200</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"#TooltipNumbers\">1.6</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.",
           "abilityType": "Heroic",
@@ -187,12 +179,8 @@
           "shortTooltipId": "AlarakCounterStrikeTargeted",
           "fullTooltipId": "AlarakCounterStrikeTargeted",
           "icon": "storm_ui_icon_alarak_counterstrike.png",
-          "energy": {
-            "cost": 50
-          },
-          "cooldown": {
-            "value": 30.0
-          },
+          "energy": "50",
+          "cooldown": "30 seconds",
           "shortTooltip": "Prevents damage to deal damage in a large area",
           "fullTooltip": "Alarak targets an area and channels for <c val=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"#TooltipNumbers\">275</c> damage.",
           "abilityType": "Heroic",
@@ -329,10 +317,7 @@
                 "shortTooltipId": "AlexstraszaBreathOfLife",
                 "fullTooltipId": "AlexstraszaBreathOfLife",
                 "icon": "storm_ui_icon_alexstrasza_breath_of_life.png",
-                "life": {
-                  "cost": 50,
-                  "percent": true
-                },
+                "life": "15%",
                 "charges": {
                   "countMax": 3,
                   "countUse": 1,
@@ -340,9 +325,7 @@
                   "hideCount": false,
                   "cooldown": 5.0
                 },
-                "cooldown": {
-                  "value": 3.0
-                },
+                "cooldown": "3 seconds",
                 "abilityType": "Q"
               }
             ],

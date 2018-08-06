@@ -70,7 +70,7 @@ namespace HeroesData.Parser.UnitData
             // set all default abilities energy types to the hero's energy type
             foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
             {
-                if (ability.Value.Tooltip.Energy.EnergyType == UnitEnergyType.None && ability.Value.Tooltip.Energy.EnergyCost > 0)
+                if (ability.Value.Tooltip.Energy.EnergyType == UnitEnergyType.None && !string.IsNullOrEmpty(ability.Value.Tooltip.Energy.EnergyText))
                     ability.Value.Tooltip.Energy.EnergyType = hero.Energy.EnergyType;
             }
 
@@ -647,8 +647,9 @@ namespace HeroesData.Parser.UnitData
                         XElement cooldownElement = costElement.Element("Cooldown");
                         if (cooldownElement != null)
                         {
-                            if (double.TryParse(cooldownElement.Attribute("TimeUse")?.Value, out double cooldownValue))
-                                abilityTalentBase.Tooltip.Cooldown.CooldownValue = cooldownValue;
+                            string cooldownValue = cooldownElement.Attribute("TimeUse")?.Value;
+                            if (!string.IsNullOrEmpty(cooldownValue))
+                                abilityTalentBase.Tooltip.Cooldown.CooldownText = cooldownValue;
                         }
 
                         // vitals
@@ -656,12 +657,12 @@ namespace HeroesData.Parser.UnitData
                         if (vitalElement != null)
                         {
                             string vitalType = vitalElement.Attribute("index").Value;
-                            int vitalValue = int.Parse(vitalElement.Attribute("value").Value);
+                            string vitalValue = vitalElement.Attribute("value").Value;
 
                             if (vitalType == "Energy")
-                                abilityTalentBase.Tooltip.Energy.EnergyCost = vitalValue;
+                                abilityTalentBase.Tooltip.Energy.EnergyText = vitalValue;
                             else if (vitalType == "Life")
-                                abilityTalentBase.Tooltip.Life.LifeCost = vitalValue;
+                                abilityTalentBase.Tooltip.Life.LifeCostText = vitalValue;
                         }
                     }
                 }
@@ -696,6 +697,23 @@ namespace HeroesData.Parser.UnitData
                 if (cButtonSimpleDisplayTextElement != null)
                 {
                     shortTooltipValue = Path.GetFileName(PathExtensions.GetFilePath(cButtonSimpleDisplayTextElement.Attribute("value").Value));
+                }
+
+                // check for vital override text
+                XElement cButtonTooltipVitalElement = cButtonElement.Element("TooltipVitalOverrideText");
+                if (cButtonTooltipVitalElement != null)
+                {
+
+                }
+
+                // check for cooldown override text
+                XElement cButtonTooltipCooldownElement = cButtonElement.Element("TooltipCooldownOverrideText");
+                if (cButtonTooltipCooldownElement != null)
+                {
+                    if (GameStringData.ValueStringByKeyString.TryGetValue(cButtonTooltipCooldownElement.Attribute("value").Value, out string text))
+                    {
+
+                    }
                 }
             }
 

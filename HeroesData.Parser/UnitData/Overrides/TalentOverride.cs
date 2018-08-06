@@ -32,54 +32,6 @@ namespace HeroesData.Parser.UnitData.Overrides
                         talent.AbilityType = AbilityType.Q;
                 });
             }
-            else if (propertyName == "Tooltip.Custom")
-            {
-                propertyOverrides.Add(propertyName, (talent) =>
-                {
-                    talent.Tooltip.Custom = propertyValue;
-                });
-            }
-            else if (propertyName == "Tooltip.Energy.EnergyCost")
-            {
-                propertyOverrides.Add(propertyName, (talent) =>
-                {
-                    talent.Tooltip.Energy.EnergyCost = (int)GetValue(propertyValue);
-                });
-            }
-            else if (propertyName == "Tooltip.Energy.IsPerCost")
-            {
-                propertyOverrides.Add(propertyName, (talent) =>
-                {
-                    if (bool.TryParse(propertyValue, out bool value))
-                        talent.Tooltip.Energy.IsPerCost = value;
-                    else
-                        talent.Tooltip.Energy.IsPerCost = false;
-                });
-            }
-            else if (propertyName == "Tooltip.Cooldown.CooldownValue")
-            {
-                propertyOverrides.Add(propertyName, (talent) =>
-                {
-                    talent.Tooltip.Cooldown.CooldownValue = (int)GetValue(propertyValue);
-                });
-            }
-            else if (propertyName == "Tooltip.Life.LifeCost")
-            {
-                propertyOverrides.Add(propertyName, (talent) =>
-                {
-                    talent.Tooltip.Life.LifeCost = (int)GetValue(propertyValue);
-                });
-            }
-            else if (propertyName == "Tooltip.Life.IsLifePercentage")
-            {
-                propertyOverrides.Add(propertyName, (talent) =>
-                {
-                    if (bool.TryParse(propertyValue, out bool value))
-                        talent.Tooltip.Life.IsLifePercentage = value;
-                    else
-                        talent.Tooltip.Life.IsLifePercentage = false;
-                });
-            }
         }
     }
 }

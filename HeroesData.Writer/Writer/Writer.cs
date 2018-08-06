@@ -166,7 +166,7 @@ namespace HeroesData.FileWriter.Writer
 
         protected T UnitAbilityLifeCost(TooltipLife tooltipLife)
         {
-            if (tooltipLife.LifeCost.HasValue)
+            if (!string.IsNullOrEmpty(tooltipLife.LifeCostText))
             {
                 return GetAbilityLifeCostObject(tooltipLife);
             }
@@ -176,7 +176,7 @@ namespace HeroesData.FileWriter.Writer
 
         protected T UnitAbilityEnergyCost(TooltipEnergy tooltipEnergy)
         {
-            if (tooltipEnergy.EnergyCost.HasValue)
+            if (!string.IsNullOrEmpty(tooltipEnergy.EnergyText))
             {
                 return GetAbilityEnergyCostObject(tooltipEnergy);
             }
@@ -186,7 +186,7 @@ namespace HeroesData.FileWriter.Writer
 
         protected T UnitAbilityCooldown(TooltipCooldown tooltipCooldown)
         {
-            if (tooltipCooldown.CooldownValue.HasValue)
+            if (!string.IsNullOrEmpty(tooltipCooldown.CooldownText))
             {
                 return GetAbilityCooldownObject(tooltipCooldown);
             }

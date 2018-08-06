@@ -88,9 +88,9 @@ namespace HeroesData.Parser.Tests.OverrideTests
 
         private void LoadInitialValues()
         {
-            TestAbility.Tooltip.Life.LifeCost = 10;
+            TestAbility.Tooltip.Life.LifeCostText = "10";
 
-            TestTalent.Tooltip.Energy.EnergyCost = 500;
+            TestTalent.Tooltip.Energy.EnergyText = "500";
 
             TestWeapon.Damage = 500;
             TestWeapon.Range = 5;

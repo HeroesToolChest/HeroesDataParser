@@ -26,7 +26,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         public void TalentCooldownTest()
         {
             Talent talent = HeroTestHero.Talents["TestHeroBattleRage"];
-            Assert.Equal(10, talent.Tooltip.Cooldown.CooldownValue);
+            Assert.Equal("10", talent.Tooltip.Cooldown.CooldownText);
         }
 
         [Fact]

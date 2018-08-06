@@ -145,15 +145,6 @@ namespace HeroesData.Parser
                     if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.RawDescription))
                         AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)} is null or empty");
 
-                    if (talent.Value.Tooltip.Cooldown.CooldownValue < 0)
-                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Cooldown.CooldownValue)} is negative.");
-
-                    if (talent.Value.Tooltip.Energy.EnergyCost < 0)
-                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Energy.EnergyCost)} is negative.");
-
-                    if (talent.Value.Tooltip.Life.LifeCost < 0)
-                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Life.LifeCost)} is negative.");
-
                     if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.PlainText))
                         AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainText)} is null or empty");
 
@@ -238,15 +229,6 @@ namespace HeroesData.Parser
 
                 if (string.IsNullOrEmpty(ability.Value.ShortTooltipNameId))
                     AddWarning($"[{ability.Key}] {nameof(ability.Value.ShortTooltipNameId)} is null or empty");
-
-                if (ability.Value.Tooltip.Cooldown.CooldownValue < 0)
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Cooldown.CooldownValue)} is negative.");
-
-                if (ability.Value.Tooltip.Energy.EnergyCost < 0)
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Energy.EnergyCost)} is negative.");
-
-                if (ability.Value.Tooltip.Life.LifeCost < 0)
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Life.LifeCost)} is negative.");
 
                 if (string.IsNullOrEmpty(ability.Value.Tooltip.ShortTooltip?.RawDescription))
                     AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.ShortTooltip)} is null or empty");

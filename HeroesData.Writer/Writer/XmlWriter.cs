@@ -204,7 +204,6 @@ namespace HeroesData.FileWriter.Writer
                 UnitAbilityEnergyCost(abilityTalentBase.Tooltip.Energy),
                 UnitAbilityCharges(abilityTalentBase.Tooltip.Charges),
                 UnitAbilityCooldown(abilityTalentBase.Tooltip.Cooldown),
-                string.IsNullOrEmpty(abilityTalentBase.Tooltip.Custom) ? null : new XElement("Custom", abilityTalentBase.Tooltip.Custom),
                 string.IsNullOrEmpty(abilityTalentBase.Tooltip.ShortTooltip?.RawDescription) ? null : new XElement("ShortTooltip", GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileSettings.ShortTooltip)),
                 string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription) ? null : new XElement("FullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileSettings.FullTooltip)));
         }
@@ -221,23 +220,21 @@ namespace HeroesData.FileWriter.Writer
         {
             return new XElement(
                 "Life",
-                tooltipLife.LifeCost,
-                tooltipLife.IsLifePercentage == true ? new XAttribute("isPercentage", tooltipLife.IsLifePercentage) : null);
+                tooltipLife.LifeCostText);
         }
 
         protected override XElement GetAbilityEnergyCostObject(TooltipEnergy tooltipEnergy)
         {
             return new XElement(
                 "Energy",
-                tooltipEnergy.EnergyCost,
-                tooltipEnergy.IsPerCost == true ? new XAttribute("isPerCost", tooltipEnergy.IsPerCost) : null);
+                tooltipEnergy.EnergyText);
         }
 
         protected override XElement GetAbilityCooldownObject(TooltipCooldown tooltipCooldown)
         {
             return new XElement(
                 "Cooldown",
-                tooltipCooldown.CooldownValue);
+                tooltipCooldown.CooldownText);
         }
 
         protected override XElement GetAbilityChargesObject(TooltipCharges tooltipCharges)

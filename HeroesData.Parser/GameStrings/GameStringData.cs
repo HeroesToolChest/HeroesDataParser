@@ -43,6 +43,11 @@ namespace HeroesData.Parser.GameStrings
         /// </summary>
         public SortedDictionary<string, string> UnitNamesByShortName { get; } = new SortedDictionary<string, string>();
 
+        /// <summary>
+        /// Gets all other strings.
+        /// </summary>
+        public SortedDictionary<string, string> ValueStringByKeyString { get; } = new SortedDictionary<string, string>();
+
         public int? HotsBuild { get; set; } = null;
         public string ModsFolderPath { get; set; } = "mods";
         public string GameStringLocalization { get; set; } = "enus.stormdata";
@@ -122,6 +127,15 @@ namespace HeroesData.Parser.GameStrings
 
                     if (!UnitNamesByShortName.ContainsKey(splitLine[0]))
                         UnitNamesByShortName.Add(splitLine[0], splitLine[1]);
+                }
+                else
+                {
+                    string[] splitLine = line.Split(new char[] { '=' }, 2);
+                    if (splitLine.Length < 2)
+                        continue;
+
+                    if (!ValueStringByKeyString.ContainsKey(splitLine[0]))
+                        ValueStringByKeyString.Add(splitLine[0], splitLine[1]);
                 }
             }
         }

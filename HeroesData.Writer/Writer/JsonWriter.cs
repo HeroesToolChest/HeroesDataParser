@@ -367,38 +367,17 @@ namespace HeroesData.FileWriter.Writer
 
         protected override JProperty GetAbilityCooldownObject(TooltipCooldown tooltipCooldown)
         {
-            JObject cooldown = new JObject
-            {
-                { "value", tooltipCooldown.CooldownValue },
-            };
-
-            return new JProperty("cooldown", cooldown);
+            return new JProperty("cooldown", tooltipCooldown.CooldownText);
         }
 
         protected override JProperty GetAbilityEnergyCostObject(TooltipEnergy tooltipEnergy)
         {
-            JObject energy = new JObject
-            {
-                { "cost", tooltipEnergy.EnergyCost },
-            };
-
-            if (tooltipEnergy.IsPerCost)
-                energy.Add("per", tooltipEnergy.IsPerCost);
-
-            return new JProperty("energy", energy);
+            return new JProperty("energy", tooltipEnergy.EnergyText);
         }
 
         protected override JProperty GetAbilityLifeCostObject(TooltipLife tooltipLife)
         {
-            JObject life = new JObject
-            {
-                { "cost", tooltipLife.LifeCost },
-            };
-
-            if (tooltipLife.IsLifePercentage)
-                life.Add("percent", tooltipLife.IsLifePercentage);
-
-            return new JProperty("life", life);
+            return new JProperty("life", tooltipLife.LifeCostText);
         }
 
         protected override JObject AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)
@@ -432,9 +411,6 @@ namespace HeroesData.FileWriter.Writer
             JProperty cooldown = UnitAbilityCooldown(abilityTalentBase.Tooltip.Cooldown);
             if (cooldown != null)
                 info.Add(cooldown);
-
-            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.Custom))
-                info.Add("custom", abilityTalentBase.Tooltip.Custom);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.ShortTooltip?.RawDescription))
                 info.Add("shortTooltip", GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileSettings.ShortTooltip));

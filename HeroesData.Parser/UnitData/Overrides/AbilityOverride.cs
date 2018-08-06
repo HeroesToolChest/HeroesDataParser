@@ -49,54 +49,6 @@ namespace HeroesData.Parser.UnitData.Overrides
                         ability.AbilityType = AbilityType.Q;
                 });
             }
-            else if (propertyName == "Tooltip.Custom")
-            {
-                propertyOverrides.Add(propertyName, (ability) =>
-                {
-                    ability.Tooltip.Custom = propertyValue;
-                });
-            }
-            else if (propertyName == "Tooltip.Energy.EnergyCost")
-            {
-                propertyOverrides.Add(propertyName, (ability) =>
-                {
-                    ability.Tooltip.Energy.EnergyCost = (int)GetValue(propertyValue);
-                });
-            }
-            else if (propertyName == "Tooltip.Energy.IsPerCost")
-            {
-                propertyOverrides.Add(propertyName, (ability) =>
-                {
-                    if (bool.TryParse(propertyValue, out bool value))
-                        ability.Tooltip.Energy.IsPerCost = value;
-                    else
-                        ability.Tooltip.Energy.IsPerCost = false;
-                });
-            }
-            else if (propertyName == "Tooltip.Cooldown.CooldownValue")
-            {
-                propertyOverrides.Add(propertyName, (ability) =>
-                {
-                    ability.Tooltip.Cooldown.CooldownValue = (int)GetValue(propertyValue);
-                });
-            }
-            else if (propertyName == "Tooltip.Life.LifeCost")
-            {
-                propertyOverrides.Add(propertyName, (ability) =>
-                {
-                    ability.Tooltip.Life.LifeCost = (int)GetValue(propertyValue);
-                });
-            }
-            else if (propertyName == "Tooltip.Life.IsLifePercentage")
-            {
-                propertyOverrides.Add(propertyName, (ability) =>
-                {
-                    if (bool.TryParse(propertyValue, out bool value))
-                        ability.Tooltip.Life.IsLifePercentage = value;
-                    else
-                        ability.Tooltip.Life.IsLifePercentage = false;
-                });
-            }
         }
     }
 }

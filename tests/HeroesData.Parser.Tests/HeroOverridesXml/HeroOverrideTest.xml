@@ -14,12 +14,6 @@
         <ParentLink value="Symbiote" />
         <AbilityTier value="Activable" />
         <AbilityType value="W" />
-        <Tooltip.Custom value="W.I.R.E.D is wireless?" />
-        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,ToxicNestDamage,Amount"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Energy.IsPerCost value="true" />
-        <Tooltip.Cooldown.CooldownValue>&lt;d ref="Effect,ToxicNestDamage,Amount-150"/></Tooltip.Cooldown.CooldownValue>
-        <Tooltip.Life.LifeCost>&lt;d ref="Effect,ToxicNestDamage,Amount-3"/></Tooltip.Life.LifeCost>
-        <Tooltip.Life.IsLifePercentage>false</Tooltip.Life.IsLifePercentage>
       </Override>
     </Ability>
     
@@ -27,12 +21,7 @@
     
     <Talent id="UpgradeSpikeAbilityThingy">
       <Override>
-        <Tooltip.Custom value="Zip Zap" />
-        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,ToxicNestDamage,Amount"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Energy.IsPerCost value="true" />
-        <Tooltip.Cooldown.CooldownValue>&lt;d ref="Effect,ToxicNestDamage,Amount-150"/></Tooltip.Cooldown.CooldownValue>
-        <Tooltip.Life.LifeCost>&lt;d ref="Effect,ToxicNestDamage,Amount-3"/></Tooltip.Life.LifeCost>
-        <Tooltip.Life.IsLifePercentage>true</Tooltip.Life.IsLifePercentage>
+        <AbilityType value="W" />
       </Override>
     </Talent>
 
@@ -78,19 +67,12 @@
         <ParentLink />
         <AbilityTier value="GodLike" />
         <AbilityType value="What" />
-        <Tooltip.Custom value="" />
-        <!--0, 1, -1, or any number is false-->
-        <Tooltip.Energy.IsPerCost value="1" />
-        <Tooltip.Life.IsLifePercentage>88</Tooltip.Life.IsLifePercentage>
       </Override>
     </Ability>
 
     <Talent id="UpgradeZapiptyZap">
       <Override>
-        <Tooltip.Custom value="" />
-        <!--0, 1, -1, or any number is false-->
-        <Tooltip.Energy.IsPerCost value="1" />
-        <Tooltip.Life.IsLifePercentage>88</Tooltip.Life.IsLifePercentage>
+        <AbilityType value="Z" />
       </Override>
     </Talent>
 

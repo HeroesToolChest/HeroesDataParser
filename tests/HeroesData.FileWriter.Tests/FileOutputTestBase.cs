@@ -181,11 +181,11 @@ namespace HeroesData.FileWriter.Tests
                             {
                                 Energy = new TooltipEnergy
                                 {
-                                    EnergyCost = 45,
+                                    EnergyText = "45",
                                 },
                                 Cooldown = new TooltipCooldown()
                                 {
-                                    CooldownValue = 8,
+                                    CooldownText = "8 seconds",
                                 },
                                 ShortTooltip = new TooltipDescription("Damage and silence enemies in an area"),
                                 FullTooltip = new TooltipDescription("After a <c val=\"#TooltipNumbers\">0.5</c> second delay, enemies in front of Alarak take <c val=\"#TooltipNumbers\">175</c> damage and are silenced for <c val=\"#TooltipNumbers\">1.5</c> seconds."),
@@ -321,11 +321,11 @@ namespace HeroesData.FileWriter.Tests
                             {
                                 Cooldown = new TooltipCooldown()
                                 {
-                                    CooldownValue = 45,
+                                    CooldownText = "45",
                                 },
                                 Energy = new TooltipEnergy()
                                 {
-                                    EnergyCost = 60,
+                                    EnergyText = "8",
                                 },
                                 ShortTooltip = new TooltipDescription("Channel to charge a long distance"),
                                 FullTooltip = new TooltipDescription("After channeling, Alarak charges forward dealing <c val=\"#TooltipNumbers\">200</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"#TooltipNumbers\">1.6</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling."),
@@ -348,11 +348,11 @@ namespace HeroesData.FileWriter.Tests
                             {
                                 Energy = new TooltipEnergy()
                                 {
-                                    EnergyCost = 50,
+                                    EnergyText = "50",
                                 },
                                 Cooldown = new TooltipCooldown()
                                 {
-                                    CooldownValue = 30,
+                                    CooldownText = "30 seconds",
                                 },
                                 ShortTooltip = new TooltipDescription("Prevents damage to deal damage in a large area"),
                                 FullTooltip = new TooltipDescription("Alarak targets an area and channels for <c val=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"#TooltipNumbers\">275</c> damage."),
@@ -533,12 +533,11 @@ namespace HeroesData.FileWriter.Tests
                                     {
                                         Cooldown = new TooltipCooldown()
                                         {
-                                            CooldownValue = 3,
+                                            CooldownText = "3 seconds",
                                         },
                                         Life = new TooltipLife()
                                         {
-                                            LifeCost = 50,
-                                            IsLifePercentage = true,
+                                            LifeCostText = "15%",
                                         },
                                         Charges = new TooltipCharges()
                                         {
