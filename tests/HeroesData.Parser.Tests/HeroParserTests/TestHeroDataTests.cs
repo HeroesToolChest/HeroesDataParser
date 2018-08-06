@@ -133,5 +133,13 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             talent = HeroTestHero.Talents["TestHeroMekaFall"];
             Assert.False(talent.IsQuest);
         }
+
+        [Fact]
+        public void OverrideTextTests()
+        {
+            Ability ability = HeroTestHero.Abilities["TestHeroBigBoom"];
+            Assert.Equal("10 picks", ability.Tooltip.Energy.EnergyText);
+            Assert.Equal("20 per second", ability.Tooltip.Cooldown.CooldownText);
+        }
     }
 }

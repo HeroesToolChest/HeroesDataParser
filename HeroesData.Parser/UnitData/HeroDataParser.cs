@@ -673,6 +673,7 @@ namespace HeroesData.Parser.UnitData
             }
         }
 
+        // sets tooltip descriptions and override texts
         private void SetTooltipDescriptions(AbilityTalentBase abilityTalentBase)
         {
             string faceValue = abilityTalentBase.FullTooltipNameId;
@@ -703,16 +704,22 @@ namespace HeroesData.Parser.UnitData
                 XElement cButtonTooltipVitalElement = cButtonElement.Element("TooltipVitalOverrideText");
                 if (cButtonTooltipVitalElement != null)
                 {
-
+                    if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipVitalElement.Attribute("value").Value, out string text))
+                    {
+                        if (cButtonTooltipVitalElement.Attribute("index")?.Value == "Energy")
+                            abilityTalentBase.Tooltip.Energy.EnergyText = text;
+                        else if (cButtonTooltipVitalElement.Attribute("index")?.Value == "Life")
+                            abilityTalentBase.Tooltip.Life.LifeCostText = text;
+                    }
                 }
 
                 // check for cooldown override text
                 XElement cButtonTooltipCooldownElement = cButtonElement.Element("TooltipCooldownOverrideText");
                 if (cButtonTooltipCooldownElement != null)
                 {
-                    if (GameStringData.ValueStringByKeyString.TryGetValue(cButtonTooltipCooldownElement.Attribute("value").Value, out string text))
+                    if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipCooldownElement.Attribute("value").Value, out string text))
                     {
-
+                        abilityTalentBase.Tooltip.Cooldown.CooldownText = text;
                     }
                 }
             }

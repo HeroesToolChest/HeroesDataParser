@@ -70,6 +70,12 @@ namespace HeroesData.Parser.Tests.HeroParserTests
                 if (GameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
                     ParsedGameStrings.HeroParsedDescriptionsByShortName.Add(tooltip.Key, parsedTooltip);
             }
+
+            foreach (KeyValuePair<string, string> tooltip in GameStringData.ValueStringByKeyString)
+            {
+                if (GameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
+                    ParsedGameStrings.TooltipsByKeyString.Add(tooltip.Key, parsedTooltip);
+            }
         }
 
         private void ParseHeroes()

@@ -207,6 +207,8 @@
     <Name value="Button/Name/TestHeroBigBoomSelectButton" />
     <TooltipAppender Validator="TassadarHasTwilightArchon" Face="TassadarArchonTwilightArchonTalent" />
     <Icon value="Assets\Textures\storm_ui_icon_testhero_bigboom.dds" />
+    <TooltipVitalOverrideText index="Energy" value="TestUnitBigBoomCost" />
+    <TooltipCooldownOverrideText value="Button/CooldownOverride/TestUnitBigBoom" />
   </CButton>
   <CButton id="TestHeroBattleRage" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_talent_battlerage.dds" />
