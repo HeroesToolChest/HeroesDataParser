@@ -8,35 +8,8 @@
       </Override>
     </Portrait>
   </CHero>
-  <CHero id="Alarak">
-    <!--Cooldown and mana cost are deducted after charge release-->
-    <Ability id="AlarakDeadlyChargeActivate">
-      <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeExecuteSetCooldown,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeExecuteSetCooldown,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
-      </Override>
-    </Ability>
-    <Talent id="AlarakDeadlyChargeFirstHeroic">
-      <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeExecuteSetCooldown,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeExecuteSetCooldown,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
-      </Override>
-    </Talent>
-    <Talent id="AlarakDeadlyChargeSecondHeroic">
-      <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeExecuteSetCooldown,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeExecuteSetCooldown,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
-      </Override>
-    </Talent>
-  </CHero>
   <CHero id="Alexstrasza">
     <!--Dragonqueen abilities tied to Dragonqueen form ability-->
-    <Ability id="AlexstraszaGiftOfLife">
-      <Override>
-        <Tooltip.Life.LifeCost>&lt;d ref="-100*Accumulator,AlexstraszaGiftOfLifeCostAccumulator,Ratio"/></Tooltip.Life.LifeCost>
-        <Tooltip.Life.IsLifePercentage value="true" />
-      </Override>
-    </Ability>
     <Ability id="AlexstraszaBreathOfLife" valid="true">
       <Override>
         <ParentLink value="HeroAlexstraszaDragon" />
@@ -60,15 +33,6 @@
     <HeroUnit id="HeroAlexstraszaDragon"></HeroUnit>
   </CHero>
   <CHero id="Amazon" alt="d2amazonf"/>
-  <CHero id="Arthas">
-    <!--Mana cost is time based-->
-    <Ability id="ArthasFrozenTempest">
-      <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="-Behavior,ArthasFrozenTempestCaster,Modification[0].VitalRegenArray[Energy]"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Energy.IsPerCost value="true" />
-      </Override>
-    </Ability>
-  </CHero>
   <CHero id="Auriel">
     <EnergyType value="Energy" />
   </CHero>
@@ -110,21 +74,6 @@
         <HeroSelectPortraitFileName value="storm_ui_ingame_heroselect_cho.dds" />
       </Override>
     </Portrait>
-  </CHero>
-  <CHero id="Chromie">
-    <!--Mana cost is time based-->
-    <Ability id="ChromieSlowingSands">
-      <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="-Effect,ChromieSlowingSandsCost,VitalArray[Energy].Change/Effect,ChromieSlowingSandsCreatePersistent,PeriodicPeriodArray"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Energy.IsPerCost value="true" />
-      </Override>
-    </Ability>
-    <Talent id="ChromieHeroicAbilitySlowingSands">
-      <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="-Effect,ChromieSlowingSandsCost,VitalArray[Energy].Change/Effect,ChromieSlowingSandsCreatePersistent,PeriodicPeriodArray"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Energy.IsPerCost value="true" />
-      </Override>
-    </Talent>
   </CHero>
   <CHero id="Crusader" name="Johanna" alt="Johanna">
     <Portrait>
@@ -205,14 +154,6 @@
       </Override>
     </Talent>
   </CHero>
-  <CHero id="Genji">
-    <!--Unique basic attack-->
-    <Weapon id="GenjiHeroWeapon">
-      <Override>
-        <Damage>&lt;d ref="Effect,GenjiWeaponTargetedThrowDamage,Amount"/></Damage>
-      </Override>
-    </Weapon>
-  </CHero>
   <CHero id="Greymane" alt="genngreymane">
     <!--Greymane worgen form abilities-->
     <Ability id="GreymaneRazorSwipe" valid="true">
@@ -241,13 +182,6 @@
   </CHero>
   <CHero id="Junkrat">
     <EnergyType value="Ammo" />
-  </CHero>
-  <CHero id="Kerrigan">
-    <Weapon id="HeroKerrigan">
-      <Override>
-        <Damage>&lt;d ref="Effect,KerriganWeaponDamage,Amount"/></Damage>
-      </Override>
-    </Weapon>
   </CHero>
   <CHero id="L90ETC">
     <Portrait>
@@ -302,12 +236,6 @@
   </CHero>
   <CHero id="Medic" name="Lt. Morales">
     <EnergyType value="Energy" />  
-    <!--Mana cost is time based-->
-    <Ability id="MedicHealingBeam">
-      <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="-Effect,MedicHealingBeamManaCostModifyUnit,VitalArray[Energy].Change*2"/></Tooltip.Energy.EnergyCost>
-      </Override>
-    </Ability>
   </CHero>
   <CHero id="Necromancer" name="Xul">
     <Ability id="NecromancerBoneArmor">
@@ -352,11 +280,6 @@
     </HeroUnit>
   </CHero>
   <CHero id="Samuro">
-    <Ability id="SamuroIllusionMaster">
-      <Override>
-        <Tooltip.Cooldown.CooldownValue>&lt;d ref="Abil,SamuroIllusionMaster,Cost[0].Cooldown.TimeUse+Talent,SamuroHeroicAbilityIllusionMaster,AbilityModificationArray[0].Modifications[0].Value"/></Tooltip.Cooldown.CooldownValue>
-      </Override>
-    </Ability>
     <Ability id="SamuroCriticalStrikeDummy" valid="false"></Ability>
     <Ability id="SamuroCriticalStrike" valid="true"></Ability>
     <!--Image Transmission -->
@@ -400,11 +323,6 @@
   </CHero>
   <CHero id="Valeera">
     <!--Stealth abilities-->
-    <Ability id="ValeeraEviscerate">
-      <Override>
-        <Tooltip.Custom value="Consumes All Combo Points" />
-      </Override>
-    </Ability>
     <Ability id="ValeeraAmbush" valid="true">
       <Override>
         <ParentLink value="ValeeraStealth" />

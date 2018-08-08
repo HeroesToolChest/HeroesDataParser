@@ -15,6 +15,15 @@ namespace HeroesData.Parser.UnitData
     public class HeroDataParser
     {
         private readonly double DefaultWeaponPeriod = 1.2; // for hero weapons
+        private readonly string AbilTooltipCooldownText;
+        private readonly string AbilTooltipCooldownPluralText;
+        private readonly string StringChargeCooldownColon;
+        private readonly string AbilTooltipBrew;
+        private readonly string AbilTooltipEnergy;
+        private readonly string AbilTooltipFury;
+        private readonly string AbilTooltipMana;
+        //private readonly string StringEnergyColon;
+        //private readonly string StringLifeColon;
 
         private readonly GameData GameData;
         private readonly GameStringData GameStringData;
@@ -29,6 +38,16 @@ namespace HeroesData.Parser.UnitData
             GameStringData = gameStringData;
             ParsedGameStrings = parsedGameStrings;
             OverrideData = overrideData;
+
+            AbilTooltipCooldownText = ParsedGameStrings.TooltipsByKeyString["UI/AbilTooltipCooldown"];
+            AbilTooltipCooldownPluralText = ParsedGameStrings.TooltipsByKeyString["UI/AbilTooltipCooldownPlural"];
+            StringChargeCooldownColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringChargeCooldownColon"];
+            AbilTooltipBrew = ParsedGameStrings.TooltipsByKeyString["UI/Tooltip/Abil/Brew"];
+            AbilTooltipEnergy = ParsedGameStrings.TooltipsByKeyString["UI/Tooltip/Abil/Energy"];
+            AbilTooltipFury = ParsedGameStrings.TooltipsByKeyString["UI/Tooltip/Abil/Fury"];
+            AbilTooltipMana = ParsedGameStrings.TooltipsByKeyString["UI/Tooltip/Abil/Mana"];
+            //StringEnergyColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringEnergyColon"];
+            //StringLifeColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringLifeColon"];
         }
 
         /// <summary>
@@ -70,7 +89,7 @@ namespace HeroesData.Parser.UnitData
             // set all default abilities energy types to the hero's energy type
             foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
             {
-                if (ability.Value.Tooltip.Energy.EnergyType == UnitEnergyType.None && !string.IsNullOrEmpty(ability.Value.Tooltip.Energy.EnergyText))
+                if (ability.Value.Tooltip.Energy.EnergyType == UnitEnergyType.None && !string.IsNullOrEmpty(ability.Value.Tooltip.Energy.EnergyText?.RawDescription))
                     ability.Value.Tooltip.Energy.EnergyType = hero.Energy.EnergyType;
             }
 
@@ -583,93 +602,104 @@ namespace HeroesData.Parser.UnitData
 
             var foundElements = GameData.XmlGameData.Root.Elements().Where(x => x.Attribute("id")?.Value == elementId);
 
-            try
+            // look through all elements to find the tooltip info
+            foreach (XElement element in foundElements)
             {
-                // look through all elements to find the tooltip info
-                foreach (XElement element in foundElements)
+                // cost
+                XElement costElement = element.Element("Cost");
+                if (costElement != null)
                 {
-                    // cost
-                    XElement costElement = element.Element("Cost");
-                    if (costElement != null)
+                    // charge
+                    XElement chargeElement = costElement.Element("Charge");
+                    if (chargeElement != null)
                     {
-                        // charge
-                        XElement chargeElement = costElement.Element("Charge");
-                        if (chargeElement != null)
+                        XElement countMaxElement = chargeElement.Element("CountMax");
+                        XElement countStartElement = chargeElement.Element("CountStart");
+                        XElement countUseElement = chargeElement.Element("CountUse");
+                        XElement hideCountElement = chargeElement.Element("HideCount");
+                        XElement timeUseElement = chargeElement.Element("TimeUse");
+
+                        if (countMaxElement != null || countStartElement != null || countUseElement != null || hideCountElement != null || timeUseElement != null)
                         {
-                            XElement countMaxElement = chargeElement.Element("CountMax");
-                            XElement countStartElement = chargeElement.Element("CountStart");
-                            XElement countUseElement = chargeElement.Element("CountUse");
-                            XElement hideCountElement = chargeElement.Element("HideCount");
-                            XElement timeUseElement = chargeElement.Element("TimeUse");
+                            if (countMaxElement != null)
+                                abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(countMaxElement.Attribute("value").Value);
 
-                            if (countMaxElement != null || countStartElement != null || countUseElement != null || hideCountElement != null || timeUseElement != null)
+                            if (countStartElement != null)
+                                abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(countStartElement.Attribute("value").Value);
+
+                            if (countUseElement != null)
+                                abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(countUseElement.Attribute("value").Value);
+
+                            if (hideCountElement != null)
+                                abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountElement.Attribute("value").Value) == 1 ? true : false;
+
+                            if (timeUseElement != null)
                             {
-                                if (countMaxElement != null)
-                                    abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(countMaxElement.Attribute("value").Value);
-
-                                if (countStartElement != null)
-                                    abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(countStartElement.Attribute("value").Value);
-
-                                if (countUseElement != null)
-                                    abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(countUseElement.Attribute("value").Value);
-
-                                if (hideCountElement != null)
-                                    abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountElement.Attribute("value").Value) == 1 ? true : false;
-
-                                if (timeUseElement != null)
-                                    abilityTalentBase.Tooltip.Charges.CooldownValue = double.Parse(timeUseElement.Attribute("value").Value);
-                            }
-                            else
-                            {
-                                XAttribute countMaxAttribute = chargeElement.Attribute("CountMax");
-                                XAttribute countStartAttribute = chargeElement.Attribute("CountStart");
-                                XAttribute countUseAttribute = chargeElement.Attribute("CountUse");
-                                XAttribute hideCountAttribute = chargeElement.Attribute("HideCount");
-                                XAttribute timeUseAttribute = chargeElement.Attribute("TimeUse");
-                                if (countMaxAttribute != null)
-                                    abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(countMaxAttribute.Value);
-
-                                if (countStartAttribute != null)
-                                    abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(countStartAttribute.Value);
-
-                                if (countUseAttribute != null)
-                                    abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(countUseAttribute.Value);
-
-                                if (hideCountAttribute != null)
-                                    abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountAttribute.Value) == 1 ? true : false;
-
-                                if (timeUseAttribute != null)
-                                    abilityTalentBase.Tooltip.Charges.CooldownValue = double.Parse(timeUseAttribute.Value);
+                                string cooldownValue = timeUseElement.Attribute("value").Value;
+                                if (cooldownValue == "1")
+                                    abilityTalentBase.Tooltip.Charges.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace("Cooldown: ", StringChargeCooldownColon).Replace("%1", cooldownValue));
+                                else
+                                    abilityTalentBase.Tooltip.Charges.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace("Cooldown: ", StringChargeCooldownColon).Replace("%1", cooldownValue));
                             }
                         }
-
-                        // cooldown
-                        XElement cooldownElement = costElement.Element("Cooldown");
-                        if (cooldownElement != null)
+                        else
                         {
-                            string cooldownValue = cooldownElement.Attribute("TimeUse")?.Value;
-                            if (!string.IsNullOrEmpty(cooldownValue))
-                                abilityTalentBase.Tooltip.Cooldown.CooldownText = cooldownValue;
-                        }
+                            XAttribute countMaxAttribute = chargeElement.Attribute("CountMax");
+                            XAttribute countStartAttribute = chargeElement.Attribute("CountStart");
+                            XAttribute countUseAttribute = chargeElement.Attribute("CountUse");
+                            XAttribute hideCountAttribute = chargeElement.Attribute("HideCount");
+                            XAttribute timeUseAttribute = chargeElement.Attribute("TimeUse");
+                            if (countMaxAttribute != null)
+                                abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(countMaxAttribute.Value);
 
-                        // vitals
-                        XElement vitalElement = costElement.Element("Vital");
-                        if (vitalElement != null)
-                        {
-                            string vitalType = vitalElement.Attribute("index").Value;
-                            string vitalValue = vitalElement.Attribute("value").Value;
+                            if (countStartAttribute != null)
+                                abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(countStartAttribute.Value);
 
-                            if (vitalType == "Energy")
-                                abilityTalentBase.Tooltip.Energy.EnergyText = vitalValue;
-                            else if (vitalType == "Life")
-                                abilityTalentBase.Tooltip.Life.LifeCostText = vitalValue;
+                            if (countUseAttribute != null)
+                                abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(countUseAttribute.Value);
+
+                            if (hideCountAttribute != null)
+                                abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountAttribute.Value) == 1 ? true : false;
+
+                            if (timeUseAttribute != null)
+                            {
+                                string cooldownValue = timeUseAttribute.Value;
+                                if (!string.IsNullOrEmpty(cooldownValue))
+                                {
+                                    if (cooldownValue == "1")
+                                        abilityTalentBase.Tooltip.Charges.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace("Cooldown: ", StringChargeCooldownColon).Replace("%1", cooldownValue));
+                                    else
+                                        abilityTalentBase.Tooltip.Charges.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace("Cooldown: ", StringChargeCooldownColon).Replace("%1", cooldownValue));
+                                }
+                            }
                         }
                     }
+
+                    // cooldown
+                    XElement cooldownElement = costElement.Element("Cooldown");
+                    if (cooldownElement != null)
+                    {
+                        string cooldownValue = cooldownElement.Attribute("TimeUse")?.Value;
+                        if (!string.IsNullOrEmpty(cooldownValue))
+                        {
+                            if (cooldownValue == "1")
+                                abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace("%1", cooldownValue));
+                            else
+                                abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace("%1", cooldownValue));
+                        }
+                    }
+
+                    // vitals
+                    XElement vitalElement = costElement.Element("Vital");
+                    if (vitalElement != null)
+                    {
+                        string vitalType = vitalElement.Attribute("index").Value;
+                        string vitalValue = vitalElement.Attribute("value").Value;
+
+                        if (vitalType == "Energy")
+                            abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(AbilTooltipMana.Replace("%1", vitalValue));
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new ParseException($"Error {nameof(SetTooltipSubInfo)}() - Id={elementId}", ex);
             }
         }
 
@@ -700,6 +730,33 @@ namespace HeroesData.Parser.UnitData
                     shortTooltipValue = Path.GetFileName(PathExtensions.GetFilePath(cButtonSimpleDisplayTextElement.Attribute("value").Value));
                 }
 
+                // Vital Name override
+                XElement cButtonTooltipVitalNameElement = cButtonElement.Element("TooltipVitalName");
+                if (cButtonTooltipVitalNameElement != null)
+                {
+                    string index = cButtonTooltipVitalNameElement.Attribute("index")?.Value;
+                    if (index == "Life")
+                    {
+                        if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipVitalNameElement.Attribute("value").Value, out string overrideVitalName))
+                        {
+                            if (string.IsNullOrEmpty(abilityTalentBase.Tooltip.Life.LifeCostText?.RawDescription))
+                                abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName));
+                            else
+                                abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace("%1", abilityTalentBase.Tooltip.Life.LifeCostText.RawDescription)));
+                        }
+                    }
+                    else if (index == "Energy")
+                    {
+                        if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipVitalNameElement.Attribute("value").Value, out string overrideVitalName))
+                        {
+                            if (string.IsNullOrEmpty(abilityTalentBase.Tooltip.Energy.EnergyText?.RawDescription))
+                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName));
+                            else
+                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace("%1", abilityTalentBase.Tooltip.Energy.EnergyText.RawDescription)));
+                        }
+                    }
+                }
+
                 // check for vital override text
                 XElement cButtonTooltipVitalElement = cButtonElement.Element("TooltipVitalOverrideText");
                 if (cButtonTooltipVitalElement != null)
@@ -707,9 +764,16 @@ namespace HeroesData.Parser.UnitData
                     if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipVitalElement.Attribute("value").Value, out string text))
                     {
                         if (cButtonTooltipVitalElement.Attribute("index")?.Value == "Energy")
-                            abilityTalentBase.Tooltip.Energy.EnergyText = text;
+                        {
+                            if (int.TryParse(text, out int result)) // missing Mana:
+                                text = DescriptionValidator.Validate(AbilTooltipMana.Replace("%1", text)); // add it as the default
+
+                            abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(text);
+                        }
                         else if (cButtonTooltipVitalElement.Attribute("index")?.Value == "Life")
-                            abilityTalentBase.Tooltip.Life.LifeCostText = text;
+                        {
+                            abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(abilityTalentBase.Tooltip.Life.LifeCostText.RawDescription.Replace("%1", text)));
+                        }
                     }
                 }
 
@@ -719,7 +783,7 @@ namespace HeroesData.Parser.UnitData
                 {
                     if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipCooldownElement.Attribute("value").Value, out string text))
                     {
-                        abilityTalentBase.Tooltip.Cooldown.CooldownText = text;
+                        abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(text);
                     }
                 }
             }

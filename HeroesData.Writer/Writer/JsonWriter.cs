@@ -359,25 +359,25 @@ namespace HeroesData.FileWriter.Writer
             if (tooltipCharges.IsHideCount.HasValue)
                 charges.Add("hideCount", tooltipCharges.IsHideCount.Value);
 
-            if (tooltipCharges.CooldownValue.HasValue)
-                charges.Add("cooldown", tooltipCharges.CooldownValue.Value);
+            if (!string.IsNullOrEmpty(tooltipCharges.CooldownText?.RawDescription))
+                charges.Add("cooldownTooltip", GetTooltip(tooltipCharges.CooldownText, FileSettings.Description));
 
             return new JProperty("charges", charges);
         }
 
         protected override JProperty GetAbilityCooldownObject(TooltipCooldown tooltipCooldown)
         {
-            return new JProperty("cooldown", tooltipCooldown.CooldownText);
+            return new JProperty("cooldownTooltip", GetTooltip(tooltipCooldown.CooldownText, FileSettings.Description));
         }
 
         protected override JProperty GetAbilityEnergyCostObject(TooltipEnergy tooltipEnergy)
         {
-            return new JProperty("energy", tooltipEnergy.EnergyText);
+            return new JProperty("energyTooltip", GetTooltip(tooltipEnergy.EnergyText, FileSettings.Description));
         }
 
         protected override JProperty GetAbilityLifeCostObject(TooltipLife tooltipLife)
         {
-            return new JProperty("life", tooltipLife.LifeCostText);
+            return new JProperty("lifeTooltip", GetTooltip(tooltipLife.LifeCostText, FileSettings.Description));
         }
 
         protected override JObject AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)

@@ -51,6 +51,16 @@
       <Flags index="AffectedByCooldownReduction" value="1" />
       <Flags index="Heroic" value="1" />
     </HeroAbilArray>
+    <HeroAbilArray Abil="TestHeroBigBoomV2" Button="TestHeroBigBoomV2">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="TestHeroBigBoomV3" Button="TestHeroBigBoomV3">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
     <HeroAbilArray Abil="TestHeroNerazimDummy" Button="TestHeroNerazimPassive">
       <Flags index="ShowInHeroSelect" value="1" />
       <Flags index="AffectedByCooldownReduction" value="1" />
@@ -137,6 +147,18 @@
       <Cooldown Location="Unit" TimeUse="60" />
     </Cost>
   </CAbilEffectInstant>
+  <CAbilEffectInstant id="TestHeroBigBoomV2">
+    <Cost>
+      <Vital index="Energy" value="40" />
+      <Cooldown Location="Unit" TimeUse="60" />
+    </Cost>
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="TestHeroBigBoomV3">
+    <Cost>
+      <Vital index="Energy" value="40" />
+      <Cooldown Location="Unit" TimeUse="60" />
+    </Cost>
+  </CAbilEffectInstant>
   <CAbilEffectInstant id="TestHeroBattleRage">
     <Cost>
       <Charge>
@@ -145,7 +167,7 @@
         <Location value="Player" />
         <TimeUse value="40" />
       </Charge>
-      <Cooldown Location="Player" TimeUse="10" />
+      <Cooldown Location="Player" TimeUse="1" />
     </Cost>
   </CAbilEffectInstant>
   <CAbilEffectInstant id="TestHeroNerazimDummy">
@@ -209,6 +231,17 @@
     <Icon value="Assets\Textures\storm_ui_icon_testhero_bigboom.dds" />
     <TooltipVitalOverrideText index="Energy" value="TestUnitBigBoomCost" />
     <TooltipCooldownOverrideText value="Button/CooldownOverride/TestUnitBigBoom" />
+  </CButton>
+  <CButton id="TestHeroBigBoomV2" parent="StormButtonParent">
+    <TooltipVitalName index="Life" value="UI/Tooltip/Abil/CurrentLife" />
+    <TooltipVitalName index="Shields" value="UI/Tooltip/Abil/Life" />
+    <TooltipVitalOverrideText index="Life" value="UI/Tooltip/Abil/TestHeroBigBoomV2VitalCostOverride" />
+    <Icon value="Assets\Textures\storm_ui_icon_testhero_bigboom.dds" />
+  </CButton>
+  <CButton id="TestHeroBigBoomV3" parent="StormButtonParent">
+    <TooltipCooldownOverrideText value="Abil/TestHeroBigBoomV3CooldownOverride" />
+    <TooltipVitalOverrideText index="Energy" value="Abil/TestHeroBigBoomV3ManaOverride" />
+    <Icon value="Assets\Textures\storm_ui_icon_testhero_bigboom.dds" />
   </CButton>
   <CButton id="TestHeroBattleRage" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_talent_battlerage.dds" />

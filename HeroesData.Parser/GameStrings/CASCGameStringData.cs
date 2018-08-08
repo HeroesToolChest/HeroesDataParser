@@ -17,9 +17,12 @@ namespace HeroesData.Parser.GameStrings
 
         protected override void ParseGameStringFiles()
         {
-            CASCFolder currentFolder = CASCExtensions.GetDirectory(CASCFolderData, OldDescriptionsPath);
-
+            CASCFolder currentFolder = CASCExtensions.GetDirectory(CASCFolderData, CoreStormmodDescriptionsPath);
             ParseFiles(CASCHandlerData.OpenFile(((CASCFile)currentFolder.GetEntry(GameStringFile)).FullName));
+
+            currentFolder = CASCExtensions.GetDirectory(CASCFolderData, OldDescriptionsPath);
+            ParseFiles(CASCHandlerData.OpenFile(((CASCFile)currentFolder.GetEntry(GameStringFile)).FullName));
+
             ParseNewHeroes();
         }
 

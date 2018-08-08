@@ -51,6 +51,7 @@ namespace HeroesData.Parser.GameStrings
         public int? HotsBuild { get; set; } = null;
         public string ModsFolderPath { get; set; } = "mods";
         public string GameStringLocalization { get; set; } = "enus.stormdata";
+        protected string CoreStormmodDescriptionsPath { get; private set; }
         protected string OldDescriptionsPath { get; private set; }
         protected string HeroModsPath { get; private set; }
         protected string GameStringFile => "GameStrings.txt";
@@ -66,6 +67,7 @@ namespace HeroesData.Parser.GameStrings
         protected void Initialize()
         {
             OldDescriptionsPath = Path.Combine(ModsFolderPath, "heroesdata.stormmod", GameStringLocalization, "LocalizedData");
+            CoreStormmodDescriptionsPath = Path.Combine(ModsFolderPath, "core.stormmod", GameStringLocalization, "LocalizedData");
             HeroModsPath = Path.Combine(ModsFolderPath, "heromods");
 
             ParseGameStringFiles();

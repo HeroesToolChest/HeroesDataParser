@@ -15,7 +15,6 @@ Button/Tooltip/NovaPermanentCloak=Gain Stealth when out of combat for <c val="#T
 Button/Tooltip/TyraelElDruinsMightHolyGroundTalent=Create a ring for <c val="#TooltipNumbers"><d ref="Behavior,ElDruinsMightMasteryPathingBlockerTimedLife,Duration"/></c> seconds that blocks enemies from entering the area teleported to using El'druin's Might.
 Button/Tooltip/TyraelRighteousness=Shields Tyrael for <c val="#TooltipNumbers"><d ref="Behavior,TyraelRighteousnessShield,DamageResponse[0].ModifyLimit[0]"/></c> damage and nearby allies for <c val="#TooltipNumbers">40%</c> as much for <c val="#TooltipNumbers"><d ref="Behavior,TyraelRighteousnessShield,Duration[0]"/></c> seconds.
 
-
 Abil/Name/FalstadBOOMerang=BOOMerang
 Abil/Name/FalstadBarrelRoll=Falstad Barrel Roll
 Abil/Name/FalstadFlight=Flight
@@ -135,6 +134,12 @@ Button/Tooltip/GenericGiantKiller=Basic Attacks against enemy Heroes deal bonus 
 Button/Name/NexusFrenzyTalent=Nexus Frenzy
 Button/SimpleDisplayText/NexusFrenzyTalent=Increases Attack Speed and Range
 Button/Tooltip/NexusFrenzyTalent=Increases Attack Speed by <c val="#TooltipNumbers"><d ref="100*Behavior,NexusFrenzyCarryBehavior,Modification.AdditiveAttackSpeedFactor"/>%</c> and Attack Range by <c val="#TooltipNumbers"><d ref="Behavior,NexusFrenzyCarryBehavior,Modification.WeaponRange" precision="2"/></c>.
+UI/Tooltip/Abil/Brew=<s val="StandardTooltipDetails">Brew: %1</s>
+UI/Tooltip/Abil/Energy=<s val="StandardTooltipDetails">Energy: %1</s>
+UI/Tooltip/Abil/Fury=<s val="StandardTooltipDetails">Fury: %1</s>
+UI/Tooltip/Abil/Mana=<s val="StandardTooltipDetails">Mana: %1</s>
+UI/Tooltip/Abil/Life=<s val="StandardTooltipDetails">Life: %1</s>
+UI/Tooltip/Abil/CurrentLife=<s val="StandardTooltipDetails">Health: %1</s>
 
 Hero/Name/TestHero=TestHero
 TestUnitBigBoomCost=10 picks
@@ -204,3 +209,14 @@ Button/Tooltip/BrightwingPolymorph=BrightwingPolymorph
 Button/Name/TestHeroCriticalStrike=Critical Strikes
 Button/SimpleDisplayText/TestHeroCriticalStrike=Deal more damage
 Button/Tooltip/TestHeroCriticalStrike=Deal more damage every 2nd strike
+
+Button/Name/TestHeroBigBoomV2=Big Boom V2
+Button/SimpleDisplayText/TestHeroBigBoomV2=Big Boom V2
+Button/Tooltip/TestHeroBigBoomV2=Big Boom V2
+UI/Tooltip/Abil/TestHeroBigBoomV2VitalCostOverride=<s val="StandardTooltipDetails">15%</s>
+
+Button/Name/TestHeroBigBoomV3=Big Boom V3
+Button/SimpleDisplayText/TestHeroBigBoomV3=Big Boom V3
+Button/Tooltip/TestHeroBigBoomV3=Big Boom V3
+Abil/TestHeroBigBoomV3CooldownOverride=12 Seconds
+Abil/TestHeroBigBoomV3ManaOverride=30

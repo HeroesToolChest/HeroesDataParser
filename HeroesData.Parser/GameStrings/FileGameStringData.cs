@@ -6,6 +6,7 @@ namespace HeroesData.Parser.GameStrings
     {
         protected override void ParseGameStringFiles()
         {
+            ParseFiles(Path.Combine(CoreStormmodDescriptionsPath, GameStringFile));
             ParseFiles(Path.Combine(OldDescriptionsPath, GameStringFile));
             ParseNewHeroes();
         }

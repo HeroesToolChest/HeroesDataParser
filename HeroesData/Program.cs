@@ -496,9 +496,11 @@ namespace HeroesData
             var fullParsedTooltips = new ConcurrentDictionary<string, string>();
             var shortParsedTooltips = new ConcurrentDictionary<string, string>();
             var heroParsedDescriptions = new ConcurrentDictionary<string, string>();
+            var otherTooltips = new ConcurrentDictionary<string, string>();
             var invalidFullTooltips = new ConcurrentDictionary<string, string>();
             var invalidShortTooltips = new ConcurrentDictionary<string, string>();
             var invalidHeroDescriptions = new ConcurrentDictionary<string, string>();
+            var invalidOtherTooltips = new ConcurrentDictionary<string, string>();
 
             int currentCount = 0;
 
@@ -571,9 +573,30 @@ namespace HeroesData
                 Console.Write($"\r{++currentCount,6} / {GameStringData.HeroDescriptionsByShortName.Count} total hero descriptions");
             }
 
+            currentCount = 0;
+            Console.WriteLine();
+
+            Parallel.ForEach(GameStringData.ValueStringByKeyString, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, tooltip =>
+            {
+                try
+                {
+                    if (gameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
+                        otherTooltips.GetOrAdd(tooltip.Key, parsedTooltip);
+                    else
+                        invalidOtherTooltips.GetOrAdd(tooltip.Key, tooltip.Value);
+                }
+                finally
+                {
+                    Interlocked.Increment(ref currentCount);
+
+                    Console.Write($"\r{currentCount,6} / {GameStringData.ValueStringByKeyString.Count} total other tooltips");
+                }
+            });
+
             parsedGameStrings.FullParsedTooltipsByFullTooltipNameId = new Dictionary<string, string>(fullParsedTooltips);
             parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId = new Dictionary<string, string>(shortParsedTooltips);
             parsedGameStrings.HeroParsedDescriptionsByShortName = new Dictionary<string, string>(heroParsedDescriptions);
+            parsedGameStrings.TooltipsByKeyString = new Dictionary<string, string>(otherTooltips);
 
             time.Stop();
 
@@ -581,9 +604,11 @@ namespace HeroesData
             Console.WriteLine($"{parsedGameStrings.FullParsedTooltipsByFullTooltipNameId.Count,6} parsed full tooltips");
             Console.WriteLine($"{parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.Count,6} parsed short tooltips");
             Console.WriteLine($"{parsedGameStrings.HeroParsedDescriptionsByShortName.Count,6} parsed hero tooltips");
+            Console.WriteLine($"{parsedGameStrings.TooltipsByKeyString.Count,6} parsed other tooltips");
             Console.WriteLine($"{invalidFullTooltips.Count,6} invalid full tooltips");
             Console.WriteLine($"{invalidShortTooltips.Count,6} invalid short tooltips");
             Console.WriteLine($"{invalidHeroDescriptions.Count,6} invalid hero tooltips");
+            Console.WriteLine($"{invalidOtherTooltips.Count,6} invalid other tooltips");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
 
