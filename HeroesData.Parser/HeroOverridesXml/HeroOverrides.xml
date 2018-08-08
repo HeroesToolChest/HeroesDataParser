@@ -33,11 +33,7 @@
     <HeroUnit id="HeroAlexstraszaDragon"></HeroUnit>
   </CHero>
   <CHero id="Amazon" alt="d2amazonf"/>
-  <CHero id="Auriel">
-    <EnergyType value="Energy" />
-  </CHero>
   <CHero id="Barbarian" name="Sonya">
-    <EnergyType value="Fury" />
     <Portrait>
       <Override>
         <LeaderboardPortraitFileName value="storm_ui_ingame_hero_leaderboard_femalebarbarian.dds" />
@@ -45,7 +41,6 @@
     </Portrait>
   </CHero>
   <CHero id="Chen">
-    <EnergyType value="Brew" />
     <!--Storm, Earth, and Fire abilities tied to Heroic ability StormEarthFire-->
     <Ability id="ChenStorm" valid="true">
       <Override>
@@ -85,7 +80,6 @@
   <CHero id="DVa">
     <CUnit value="HeroDVaMech" />
     <Energy value="100" />
-    <EnergyType value="Charge" />
     <Ability id="DVaPilotCallMech" valid="true">
       <Override>
         <ParentLink value="HeroDVaPilot" />
@@ -180,9 +174,6 @@
       </Override>
     </Portrait>
   </CHero>
-  <CHero id="Junkrat">
-    <EnergyType value="Ammo" />
-  </CHero>
   <CHero id="L90ETC">
     <Portrait>
       <Override>
@@ -234,9 +225,6 @@
     <Weapon id="HeroBaleogBow" valid="true" />
     <Weapon id="HeroErikSlingshot" valid="true" />
   </CHero>
-  <CHero id="Medic" name="Lt. Morales">
-    <EnergyType value="Energy" />  
-  </CHero>
   <CHero id="Necromancer" name="Xul">
     <Ability id="NecromancerBoneArmor">
       <Override>
@@ -284,9 +272,6 @@
     <Ability id="SamuroCriticalStrike" valid="true"></Ability>
     <!--Image Transmission -->
     <Ability id="SamuroIllusionMaster" button="SamuroAdvancingStrikes" add="true" />
-  </CHero>
-  <CHero id="Tracer">
-    <EnergyType value="Ammo" />
   </CHero>
   <CHero id="Tinker" name="Gazlowe">
     <Portrait>
@@ -345,9 +330,6 @@
         <ParentLink value="WitchDoctorGargantuan" />
       </Override>
     </Ability>
-  </CHero>
-  <CHero id="Zarya">
-    <EnergyType value="Energy" />
   </CHero>
   <CHero id="Zeratul">
     <Ability id="VorpalBladeBlink">

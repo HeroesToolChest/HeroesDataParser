@@ -24,7 +24,6 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("storm_ui_icon_falstad_hammerang.dds", ability.IconFileName);
 
             Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 70</s>", ability.Tooltip.Energy.EnergyText?.RawDescription);
-            Assert.Equal(UnitEnergyType.Mana, ability.Tooltip.Energy.EnergyType);
             Assert.Equal("Cooldown: 10 seconds", ability.Tooltip.Cooldown.CooldownText?.RawDescription);
             Assert.True(string.IsNullOrEmpty(ability.Tooltip.Life.LifeCostText?.RawDescription));
             Assert.Null(ability.Tooltip.Charges.CountMax);
@@ -74,7 +73,6 @@ namespace HeroesData.Parser.Tests.HeroParserTests
 
             Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 100</s>", ability.Tooltip.Energy.EnergyText?.RawDescription);
             Assert.Equal("Mana: 100", ability.Tooltip.Energy.EnergyText?.PlainText);
-            Assert.Equal(UnitEnergyType.Mana, ability.Tooltip.Energy.EnergyType);
             Assert.Equal("Cooldown: 120 seconds", ability.Tooltip.Cooldown.CooldownText?.RawDescription);
             Assert.True(string.IsNullOrEmpty(ability.Tooltip.Life.LifeCostText?.RawDescription));
             Assert.Null(ability.Tooltip.Charges.CountMax);
@@ -104,7 +102,6 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("storm_ui_icon_falstad_mount.dds", ability.IconFileName);
 
             Assert.True(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyText?.RawDescription));
-            Assert.Equal(UnitEnergyType.None, ability.Tooltip.Energy.EnergyType);
             Assert.Equal("Cooldown: 55 seconds", ability.Tooltip.Cooldown.CooldownText?.RawDescription);
             Assert.Null(ability.Tooltip.Charges.CountMax);
 
@@ -151,7 +148,6 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("storm_ui_icon_falstad_hammerang.dds", talent.IconFileName);
 
             Assert.True(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyText?.RawDescription));
-            Assert.Equal(UnitEnergyType.None, talent.Tooltip.Energy.EnergyType);
             Assert.True(string.IsNullOrEmpty(talent.Tooltip.Cooldown.CooldownText?.RawDescription));
             Assert.Null(talent.Tooltip.Charges.CountMax);
 
@@ -170,7 +166,6 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("storm_ui_icon_talent_bribe.dds", talent.IconFileName);
 
             Assert.True(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyText?.RawDescription));
-            Assert.Equal(UnitEnergyType.None, talent.Tooltip.Energy.EnergyType);
             Assert.Equal("Cooldown: 0.25 seconds", talent.Tooltip.Cooldown.CooldownText?.RawDescription);
             Assert.Equal(4, talent.Tooltip.Charges.CountMax);
             Assert.Null(talent.Tooltip.Charges.CountStart);
@@ -191,7 +186,6 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("storm_ui_icon_falstad_tailwind.dds", ability.IconFileName);
 
             Assert.True(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyText?.RawDescription));
-            Assert.Equal(UnitEnergyType.None, ability.Tooltip.Energy.EnergyType);
             Assert.True(string.IsNullOrEmpty(ability.Tooltip.Cooldown.CooldownText?.RawDescription));
             Assert.Null(ability.Tooltip.Charges.CountMax);
 

@@ -15,15 +15,10 @@ namespace HeroesData.Parser.UnitData
     public class HeroDataParser
     {
         private readonly double DefaultWeaponPeriod = 1.2; // for hero weapons
+        private readonly string DefaultEnergyText = "<s val=\"StandardTooltipDetails\">Mana: %1</s>";
         private readonly string AbilTooltipCooldownText;
         private readonly string AbilTooltipCooldownPluralText;
         private readonly string StringChargeCooldownColon;
-        private readonly string AbilTooltipBrew;
-        private readonly string AbilTooltipEnergy;
-        private readonly string AbilTooltipFury;
-        private readonly string AbilTooltipMana;
-        //private readonly string StringEnergyColon;
-        //private readonly string StringLifeColon;
 
         private readonly GameData GameData;
         private readonly GameStringData GameStringData;
@@ -42,12 +37,6 @@ namespace HeroesData.Parser.UnitData
             AbilTooltipCooldownText = ParsedGameStrings.TooltipsByKeyString["UI/AbilTooltipCooldown"];
             AbilTooltipCooldownPluralText = ParsedGameStrings.TooltipsByKeyString["UI/AbilTooltipCooldownPlural"];
             StringChargeCooldownColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringChargeCooldownColon"];
-            AbilTooltipBrew = ParsedGameStrings.TooltipsByKeyString["UI/Tooltip/Abil/Brew"];
-            AbilTooltipEnergy = ParsedGameStrings.TooltipsByKeyString["UI/Tooltip/Abil/Energy"];
-            AbilTooltipFury = ParsedGameStrings.TooltipsByKeyString["UI/Tooltip/Abil/Fury"];
-            AbilTooltipMana = ParsedGameStrings.TooltipsByKeyString["UI/Tooltip/Abil/Mana"];
-            //StringEnergyColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringEnergyColon"];
-            //StringLifeColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringLifeColon"];
         }
 
         /// <summary>
@@ -76,6 +65,7 @@ namespace HeroesData.Parser.UnitData
                 HeroOverride = heroOverride;
 
             SetDefaultValues(hero);
+            CActorData(hero);
             CHeroData(hero);
             CUnitData(hero);
             SetHeroPortraits(hero);
@@ -85,13 +75,6 @@ namespace HeroesData.Parser.UnitData
             ApplyOverrides(hero, HeroOverride);
             MoveParentLinkedAbilities(hero);
             MoveParentLinkedWeapons(hero);
-
-            // set all default abilities energy types to the hero's energy type
-            foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
-            {
-                if (ability.Value.Tooltip.Energy.EnergyType == UnitEnergyType.None && !string.IsNullOrEmpty(ability.Value.Tooltip.Energy.EnergyText?.RawDescription))
-                    ability.Value.Tooltip.Energy.EnergyType = hero.Energy.EnergyType;
-            }
 
             return hero;
         }
@@ -154,6 +137,7 @@ namespace HeroesData.Parser.UnitData
                 }
             }
 
+            hero.Energy.EnergyType = UnitEnergyType.Mana;
             hero.ReleaseDate = new DateTime(2014, 3, 13);
             hero.Gender = HeroGender.Male;
             hero.Type = UnitType.Ranged;
@@ -407,11 +391,32 @@ namespace HeroesData.Parser.UnitData
 
             if (hero.Energy.EnergyMax < 1)
                 hero.Energy.EnergyType = UnitEnergyType.None;
-            else
-                hero.Energy.EnergyType = UnitEnergyType.Mana;
 
             if (hero.Difficulty == HeroDifficulty.Unknown)
                 hero.Difficulty = HeroDifficulty.Easy;
+        }
+
+        private void CActorData(Hero hero)
+        {
+            XElement heroData = GameData.XmlGameData.Root.Elements("CActorUnit").Where(x => x.Attribute("id")?.Value == hero.CUnitId).FirstOrDefault();
+
+            if (heroData == null)
+                return;
+
+            // find special energy type
+            foreach (XElement vitalName in heroData.Elements("VitalNames"))
+            {
+                string indexValue = vitalName.Attribute("index")?.Value;
+                string valueValue = vitalName.Attribute("value")?.Value;
+                if (indexValue == "Energy")
+                {
+                    if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(valueValue, out string energyType))
+                    {
+                        if (Enumerations.ConvertToEnum(energyType, out UnitEnergyType unitEnergyType))
+                            hero.Energy.EnergyType = unitEnergyType;
+                    }
+                }
+            }
         }
 
         private void GetAbility(Hero hero, XElement abilityElement, IEnumerable<XElement> layoutButtons)
@@ -483,7 +488,7 @@ namespace HeroesData.Parser.UnitData
                 ability.Tier = AbilityTier.Basic;
 
             SetAbilityTalentIcon(ability);
-            SetTooltipSubInfo(referenceName, ability);
+            SetTooltipSubInfo(hero, referenceName, ability);
             SetTooltipDescriptions(ability);
             SetAbilityTypeForAbility(hero.CUnitId, ability, layoutButtons);
 
@@ -557,7 +562,7 @@ namespace HeroesData.Parser.UnitData
                 string effectId = talentAbilElement.Attribute("value").Value;
 
                 if (talentActiveElement.Attribute("value").Value == "1")
-                    SetTooltipSubInfo(effectId, talent);
+                    SetTooltipSubInfo(hero, effectId, talent);
             }
 
             SetTooltipDescriptions(talent);
@@ -595,7 +600,7 @@ namespace HeroesData.Parser.UnitData
         }
 
         // Sets all the tooltip info: vital costs, cooldowns, charges, range, arc, etc...
-        private void SetTooltipSubInfo(string elementId, AbilityTalentBase abilityTalentBase)
+        private void SetTooltipSubInfo(Hero hero, string elementId, AbilityTalentBase abilityTalentBase)
         {
             if (string.IsNullOrEmpty(elementId))
                 return;
@@ -693,11 +698,18 @@ namespace HeroesData.Parser.UnitData
                     XElement vitalElement = costElement.Element("Vital");
                     if (vitalElement != null)
                     {
-                        string vitalType = vitalElement.Attribute("index").Value;
+                        string vitalIndex = vitalElement.Attribute("index").Value;
                         string vitalValue = vitalElement.Attribute("value").Value;
 
-                        if (vitalType == "Energy")
-                            abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(AbilTooltipMana.Replace("%1", vitalValue));
+                        if (vitalIndex == "Energy")
+                        {
+                            abilityTalentBase.Tooltip.Energy.EnergyValue = double.Parse(vitalValue);
+
+                            if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"UI/Tooltip/Abil/{hero.Energy.EnergyType.ToString()}", out string energyText))
+                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(energyText.Replace("%1", vitalValue)));
+                            else
+                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(DefaultEnergyText.Replace("%1", vitalValue)));
+                        }
                     }
                 }
             }
@@ -741,6 +753,8 @@ namespace HeroesData.Parser.UnitData
                         {
                             if (string.IsNullOrEmpty(abilityTalentBase.Tooltip.Life.LifeCostText?.RawDescription))
                                 abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName));
+                            else if (overrideVitalName.Contains("%1"))
+                                abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace("%1", abilityTalentBase.Tooltip.Life.LifeValue.ToString())));
                             else
                                 abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace("%1", abilityTalentBase.Tooltip.Life.LifeCostText.RawDescription)));
                         }
@@ -751,6 +765,8 @@ namespace HeroesData.Parser.UnitData
                         {
                             if (string.IsNullOrEmpty(abilityTalentBase.Tooltip.Energy.EnergyText?.RawDescription))
                                 abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName));
+                            else if (overrideVitalName.Contains("%1"))
+                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace("%1", abilityTalentBase.Tooltip.Energy.EnergyValue.ToString())));
                             else
                                 abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace("%1", abilityTalentBase.Tooltip.Energy.EnergyText.RawDescription)));
                         }
@@ -766,7 +782,7 @@ namespace HeroesData.Parser.UnitData
                         if (cButtonTooltipVitalElement.Attribute("index")?.Value == "Energy")
                         {
                             if (int.TryParse(text, out int result)) // missing Mana:
-                                text = DescriptionValidator.Validate(AbilTooltipMana.Replace("%1", text)); // add it as the default
+                                text = DescriptionValidator.Validate(DefaultEnergyText.Replace("%1", text)); // add it as the default
 
                             abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(text);
                         }
@@ -834,7 +850,7 @@ namespace HeroesData.Parser.UnitData
                     ability.Name = abilityName;
 
                 SetAbilityTalentIcon(ability);
-                SetTooltipSubInfo(linkName, ability);
+                SetTooltipSubInfo(hero, linkName, ability);
                 SetTooltipDescriptions(ability);
 
                 // add to abilities

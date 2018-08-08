@@ -1,10 +1,17 @@
-﻿using Heroes.Models.AbilityTalents;
+﻿using Heroes.Models;
+using Heroes.Models.AbilityTalents;
 using Xunit;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
     public class TestHeroDataTests : HeroParserBaseTest
     {
+        [Fact]
+        public void HeroEnergyTypeTest()
+        {
+            Assert.Equal(UnitEnergyType.StoredEnergy, HeroTestHero.Energy.EnergyType);
+        }
+
         [Fact]
         public void AbilityNameOverrideTest()
         {
@@ -143,6 +150,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
 
             ability = HeroTestHero.Abilities["TestHeroBigBoomV2"];
             Assert.Equal("<s val=\"StandardTooltipDetails\">Health: </s><s val=\"StandardTooltipDetails\">15%</s>", ability.Tooltip.Life.LifeCostText.RawDescription);
+            Assert.Equal("<s val=\"StandardTooltipDetails\">Energy: 40</s>", ability.Tooltip.Energy.EnergyText.RawDescription);
 
             ability = HeroTestHero.Abilities["TestHeroBigBoomV3"];
             Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 30</s>", ability.Tooltip.Energy.EnergyText.RawDescription);

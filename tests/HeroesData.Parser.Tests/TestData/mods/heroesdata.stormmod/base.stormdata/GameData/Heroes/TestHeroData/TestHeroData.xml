@@ -141,6 +141,10 @@
     </CardLayouts>
   </CUnit>
 
+  <CActorUnit id="HeroTestHero" parent="StormHeroBasePredictive" unitName="HeroTestHero">
+    <VitalNames index="Energy" value="UI/HeroEnergyType/StoredHealing" />
+  </CActorUnit>
+  
   <CAbilEffectInstant id="TestHeroBigBoom">
     <Cost>
       <Vital index="Energy" value="40" />

@@ -140,6 +140,11 @@ UI/Tooltip/Abil/Fury=<s val="StandardTooltipDetails">Fury: %1</s>
 UI/Tooltip/Abil/Mana=<s val="StandardTooltipDetails">Mana: %1</s>
 UI/Tooltip/Abil/Life=<s val="StandardTooltipDetails">Life: %1</s>
 UI/Tooltip/Abil/CurrentLife=<s val="StandardTooltipDetails">Health: %1</s>
+UI/HeroEnergyType/Brew=Brew
+UI/HeroEnergyType/Energy=Energy
+UI/HeroEnergyType/Fury=Fury
+UI/HeroEnergyType/Mana=Mana
+UI/HeroEnergyType/StoredHealing=Stored Energy
 
 Hero/Name/TestHero=TestHero
 TestUnitBigBoomCost=10 picks
