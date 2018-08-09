@@ -359,8 +359,8 @@ namespace HeroesData.FileWriter.Writer
             if (tooltipCharges.IsHideCount.HasValue)
                 charges.Add("hideCount", tooltipCharges.IsHideCount.Value);
 
-            if (!string.IsNullOrEmpty(tooltipCharges.CooldownText?.RawDescription))
-                charges.Add("cooldownTooltip", GetTooltip(tooltipCharges.CooldownText, FileSettings.Description));
+            if (tooltipCharges.RecastCoodown.HasValue)
+                charges.Add("recastCooldown", tooltipCharges.RecastCoodown.Value);
 
             return new JProperty("charges", charges);
         }

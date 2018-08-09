@@ -15,10 +15,11 @@ namespace HeroesData.Parser.UnitData
     public class HeroDataParser
     {
         private readonly double DefaultWeaponPeriod = 1.2; // for hero weapons
-        private readonly string DefaultEnergyText = "<s val=\"StandardTooltipDetails\">Mana: %1</s>";
+        private readonly string DefaultEnergyText;
         private readonly string AbilTooltipCooldownText;
         private readonly string AbilTooltipCooldownPluralText;
         private readonly string StringChargeCooldownColon;
+        private readonly string StringCooldownColon;
 
         private readonly GameData GameData;
         private readonly GameStringData GameStringData;
@@ -37,6 +38,8 @@ namespace HeroesData.Parser.UnitData
             AbilTooltipCooldownText = ParsedGameStrings.TooltipsByKeyString["UI/AbilTooltipCooldown"];
             AbilTooltipCooldownPluralText = ParsedGameStrings.TooltipsByKeyString["UI/AbilTooltipCooldownPlural"];
             StringChargeCooldownColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringChargeCooldownColon"];
+            StringCooldownColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringCooldownColon"];
+            DefaultEnergyText = ParsedGameStrings.TooltipsByKeyString["UI/Tooltip/Abil/Mana"];
         }
 
         /// <summary>
@@ -59,6 +62,11 @@ namespace HeroesData.Parser.UnitData
                 CHeroId = cHeroId,
                 CUnitId = cUnitId,
             };
+
+            if (cHeroId == "Dehaka")
+            {
+                string text = string.Empty;
+            }
 
             HeroOverride heroOverride = OverrideData.HeroOverride(cHeroId);
             if (heroOverride != null)
@@ -641,10 +649,17 @@ namespace HeroesData.Parser.UnitData
                             if (timeUseElement != null)
                             {
                                 string cooldownValue = timeUseElement.Attribute("value").Value;
-                                if (cooldownValue == "1")
-                                    abilityTalentBase.Tooltip.Charges.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace("Cooldown: ", StringChargeCooldownColon).Replace("%1", cooldownValue));
+
+                                string replaceText = string.Empty;
+                                if (abilityTalentBase.Tooltip.Charges.CountMax.HasValue && abilityTalentBase.Tooltip.Charges.CountMax.Value > 1)
+                                    replaceText = StringChargeCooldownColon; // Charge Cooldown:<space>
                                 else
-                                    abilityTalentBase.Tooltip.Charges.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace("Cooldown: ", StringChargeCooldownColon).Replace("%1", cooldownValue));
+                                    replaceText = StringCooldownColon; // Cooldown:<space>
+
+                                if (cooldownValue == "1")
+                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace(StringCooldownColon, replaceText).Replace("%1", cooldownValue));
+                                else
+                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace(StringCooldownColon, replaceText).Replace("%1", cooldownValue));
                             }
                         }
                         else
@@ -669,12 +684,19 @@ namespace HeroesData.Parser.UnitData
                             if (timeUseAttribute != null)
                             {
                                 string cooldownValue = timeUseAttribute.Value;
+
+                                string replaceText = string.Empty;
+                                if (abilityTalentBase.Tooltip.Charges.CountMax.HasValue && abilityTalentBase.Tooltip.Charges.CountMax.Value > 1)
+                                    replaceText = StringChargeCooldownColon; // Charge Cooldown:<space>
+                                else
+                                    replaceText = StringCooldownColon; // Cooldown:<space>
+
                                 if (!string.IsNullOrEmpty(cooldownValue))
                                 {
                                     if (cooldownValue == "1")
-                                        abilityTalentBase.Tooltip.Charges.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace("Cooldown: ", StringChargeCooldownColon).Replace("%1", cooldownValue));
+                                        abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace(StringCooldownColon, StringChargeCooldownColon).Replace("%1", cooldownValue));
                                     else
-                                        abilityTalentBase.Tooltip.Charges.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace("Cooldown: ", StringChargeCooldownColon).Replace("%1", cooldownValue));
+                                        abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace(StringCooldownColon, StringChargeCooldownColon).Replace("%1", cooldownValue));
                                 }
                             }
                         }
@@ -687,10 +709,17 @@ namespace HeroesData.Parser.UnitData
                         string cooldownValue = cooldownElement.Attribute("TimeUse")?.Value;
                         if (!string.IsNullOrEmpty(cooldownValue))
                         {
-                            if (cooldownValue == "1")
-                                abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace("%1", cooldownValue));
+                            if (abilityTalentBase.Tooltip.Charges.HasCharges)
+                            {
+                                abilityTalentBase.Tooltip.Charges.RecastCoodown = double.Parse(cooldownValue);
+                            }
                             else
-                                abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace("%1", cooldownValue));
+                            {
+                                if (cooldownValue == "1")
+                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace("%1", cooldownValue));
+                                else
+                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace("%1", cooldownValue));
+                            }
                         }
                     }
 
@@ -728,6 +757,21 @@ namespace HeroesData.Parser.UnitData
             XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue).FirstOrDefault();
             if (cButtonElement != null)
             {
+                // check for hotkeyalias
+                XElement cButtonHotkeyAliasElement = cButtonElement.Element("HotkeyAlias");
+                if (cButtonHotkeyAliasElement != null)
+                {
+                    // get new value
+                    string hotkeyAliasValue = cButtonHotkeyAliasElement.Attribute("value")?.Value;
+                    if (!string.IsNullOrEmpty(hotkeyAliasValue))
+                    {
+                        // check it it exists
+                        XElement cButtonNewElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == hotkeyAliasValue).FirstOrDefault();
+                        if (cButtonNewElement != null)
+                            cButtonElement = cButtonNewElement; // set as new
+                    }
+                }
+
                 // full tooltip
                 XElement cButtonTooltipElement = cButtonElement.Element("Tooltip");
                 if (cButtonTooltipElement != null)
@@ -799,6 +843,9 @@ namespace HeroesData.Parser.UnitData
                 {
                     if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipCooldownElement.Attribute("value").Value, out string text))
                     {
+                        if (!text.StartsWith(StringCooldownColon))
+                            text = $"{StringCooldownColon}{text}";
+
                         abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(text);
                     }
                 }

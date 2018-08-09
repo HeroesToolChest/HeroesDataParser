@@ -545,7 +545,7 @@ namespace HeroesData.FileWriter.Tests
                                             CountStart = 3,
                                             CountUse = 1,
                                             IsHideCount = false,
-                                            CooldownText = new TooltipDescription("Charge Cooldown: 4 seconds"),
+                                            RecastCoodown = 2,
                                         },
                                     },
                                     AbilityType = AbilityType.Q,

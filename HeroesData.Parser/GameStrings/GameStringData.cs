@@ -102,8 +102,14 @@ namespace HeroesData.Parser.GameStrings
                 }
                 else if (line.StartsWith(FullPrefix))
                 {
-                    line = line.Remove(0, FullPrefix.Length);
+                    // add all the full prefix to the other strings
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
+                    if (!ValueStringByKeyString.ContainsKey(splitLine[0]))
+                        ValueStringByKeyString.Add(splitLine[0], splitLine[1]);
+
+                    // add to fulltooltips
+                    line = line.Remove(0, FullPrefix.Length);
+                    splitLine = line.Split(new char[] { '=' }, 2);
                     FullTooltipsByFullTooltipNameId.Add(splitLine[0], splitLine[1]);
                 }
                 else if (line.StartsWith(HeroNamePrefix))

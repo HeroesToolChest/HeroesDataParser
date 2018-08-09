@@ -26,14 +26,14 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal(3, talent.Tooltip.Charges.CountMax);
             Assert.Equal(1, talent.Tooltip.Charges.CountUse);
             Assert.Null(talent.Tooltip.Charges.CountStart);
-            Assert.Equal("Charge Cooldown: 40 seconds", talent.Tooltip.Charges.CooldownText?.RawDescription);
+            Assert.Equal("Charge Cooldown: 40 seconds", talent.Tooltip.Cooldown.CooldownText?.RawDescription);
         }
 
         [Fact]
         public void TalentCooldownTest()
         {
             Talent talent = HeroTestHero.Talents["TestHeroBattleRage"];
-            Assert.Equal("Cooldown: 1 second", talent.Tooltip.Cooldown.CooldownText?.RawDescription);
+            Assert.Equal("Charge Cooldown: 40 seconds", talent.Tooltip.Cooldown.CooldownText?.RawDescription);
         }
 
         [Fact]
@@ -150,7 +150,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
 
             ability = HeroTestHero.Abilities["TestHeroBigBoomV2"];
             Assert.Equal("<s val=\"StandardTooltipDetails\">Health: </s><s val=\"StandardTooltipDetails\">15%</s>", ability.Tooltip.Life.LifeCostText.RawDescription);
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Energy: 40</s>", ability.Tooltip.Energy.EnergyText.RawDescription);
+            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 40</s>", ability.Tooltip.Energy.EnergyText.RawDescription);
 
             ability = HeroTestHero.Abilities["TestHeroBigBoomV3"];
             Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 30</s>", ability.Tooltip.Energy.EnergyText.RawDescription);

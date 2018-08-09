@@ -1,5 +1,6 @@
 ﻿UI/AbilTooltipCooldown=Cooldown: %1 second
 UI/AbilTooltipCooldownPlural=Cooldown: %1 seconds
 e_gameUIStringChargeCooldownColon=Charge Cooldown: 
+e_gameUIStringCooldownColon=Cooldown: 
 e_gameUIStringEnergyColon=Energy: 
 e_gameUIStringLifeColon=Life: 

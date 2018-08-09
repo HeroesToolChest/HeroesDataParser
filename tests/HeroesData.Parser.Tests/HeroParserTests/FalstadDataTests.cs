@@ -166,7 +166,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("storm_ui_icon_talent_bribe.dds", talent.IconFileName);
 
             Assert.True(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyText?.RawDescription));
-            Assert.Equal("Cooldown: 0.25 seconds", talent.Tooltip.Cooldown.CooldownText?.RawDescription);
+            Assert.Null(talent.Tooltip.Cooldown.CooldownText?.RawDescription);
             Assert.Equal(4, talent.Tooltip.Charges.CountMax);
             Assert.Null(talent.Tooltip.Charges.CountStart);
             Assert.Equal(1, talent.Tooltip.Charges.CountUse);
