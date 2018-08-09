@@ -156,5 +156,12 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 30</s>", ability.Tooltip.Energy.EnergyText.RawDescription);
             Assert.Equal("12 Seconds", ability.Tooltip.Cooldown.CooldownText.RawDescription);
         }
+
+        [Fact]
+        public void TalentActiveCooldownOverrideTextTest()
+        {
+            Talent talent = HeroTestHero.Talents["TestHeroTimeOut"];
+            Assert.Equal("Cooldown: 60 seconds", talent.Tooltip.Cooldown.CooldownText.RawDescription);
+        }
     }
 }

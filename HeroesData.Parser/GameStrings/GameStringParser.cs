@@ -46,6 +46,11 @@ namespace HeroesData.Parser.GameStrings
             parsedTooltip = string.Empty;
             if (string.IsNullOrEmpty(referenceNameId) || string.IsNullOrEmpty(tooltip))
                 return false;
+            
+            if (referenceNameId == "Abil/ChromieTimeOutCooldownOverride")
+            {
+                string text = string.Empty;
+            }
 
             try
             {
@@ -504,7 +509,7 @@ namespace HeroesData.Parser.GameStrings
         private void SetValidElementNames()
         {
             ElementNames.Add("Behavior", new HashSet<string> { "CBehaviorBuff", "CBehaviorTokenCounter", "CBehaviorUnitTracker" });
-            ElementNames.Add("Abil", new HashSet<string> { "CAbilEffectTarget", "CAbilEffectInstant", "CAbilAugment" });
+            ElementNames.Add("Abil", new HashSet<string> { "CAbilEffectTarget", "CAbilEffectInstant", "CAbilAugment", "CAbilBehavior" });
             ElementNames.Add("Effect", new HashSet<string> { "CEffectDamage", "CEffectEnumArea", "CEffectCreateHealer", "CEffectModifyUnit", "CEffectCreatePersistent", "CEffectModifyPlayer",
                 "CEffectModifyTokenCount", "CEffectApplyBehavior", "CEffectModifyBehaviorBuffDuration", "CEffectModifyCatalogNumeric", "CEffectLaunchMissile", "CEffectCreateUnit", "CEffectRemoveBehavior", });
             ElementNames.Add("Unit", new HashSet<string> { "CUnit" });

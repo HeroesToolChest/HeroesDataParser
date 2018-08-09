@@ -63,7 +63,7 @@ namespace HeroesData.Parser.UnitData
                 CUnitId = cUnitId,
             };
 
-            if (cHeroId == "Dehaka")
+            if (cHeroId == "Chromie")
             {
                 string text = string.Empty;
             }
@@ -757,21 +757,6 @@ namespace HeroesData.Parser.UnitData
             XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue).FirstOrDefault();
             if (cButtonElement != null)
             {
-                // check for hotkeyalias
-                XElement cButtonHotkeyAliasElement = cButtonElement.Element("HotkeyAlias");
-                if (cButtonHotkeyAliasElement != null)
-                {
-                    // get new value
-                    string hotkeyAliasValue = cButtonHotkeyAliasElement.Attribute("value")?.Value;
-                    if (!string.IsNullOrEmpty(hotkeyAliasValue))
-                    {
-                        // check it it exists
-                        XElement cButtonNewElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == hotkeyAliasValue).FirstOrDefault();
-                        if (cButtonNewElement != null)
-                            cButtonElement = cButtonNewElement; // set as new
-                    }
-                }
-
                 // full tooltip
                 XElement cButtonTooltipElement = cButtonElement.Element("Tooltip");
                 if (cButtonTooltipElement != null)

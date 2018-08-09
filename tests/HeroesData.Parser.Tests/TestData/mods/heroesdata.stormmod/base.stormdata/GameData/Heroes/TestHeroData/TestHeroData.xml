@@ -18,6 +18,7 @@
     <TalentTreeArray Talent="TestHeroHighlord" Tier="2" Column="2" />
     <TalentTreeArray Talent="TestHeroMasteredStab" Tier="2" Column="3" />
     <TalentTreeArray Talent="TestHeroMekaFall" Tier="2" Column="4" />
+    <TalentTreeArray Talent="TestHeroTimeOut" Tier="3" Column="1" />
     
     <Universe value="Warcraft" />
     <ProductId value="10115" />
@@ -227,7 +228,17 @@
   </CAbilEffectTarget>
   <CAbilEffectTarget id="TestHeroCriticalStrike">
   </CAbilEffectTarget>
-  
+  <CAbilBehavior id="TestHeroTimeOut">
+    <Cost>
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <OffCost>
+      <Cooldown TimeUse="60" />
+    </OffCost>
+    <ExpireCost>
+      <Cooldown TimeUse="60" />
+    </ExpireCost>
+  </CAbilBehavior> 
   <!--buttons-->
   <CButton id="TestHeroBigBoom" parent="StormButtonParent">
     <Name value="Button/Name/TestHeroBigBoomSelectButton" />
@@ -281,7 +292,11 @@
   <CButton id="TestHeroCriticalStrike" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_criticalStrike.dds" />
   </CButton>
-  
+  <CButton id="TestHeroTimeOutHotbar" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_testhero_TimeBlock.dds" />
+    <TooltipCooldownOverrideText value="Abil/TestHeroTimeOutCooldownOverride" />
+  </CButton>
+      
   <!--talent-->
   <CTalent id="TestHeroBattleRage">
     <Face value="TestHeroBattleRage" />
@@ -312,5 +327,11 @@
   <CTalent id="TestHeroMekaFall">
     <Face value="TestHeroMekaFall" />
     <Abil value="TestUnitCallUnit" />
+  </CTalent>
+  <CTalent id="TestHeroTimeOut">
+    <Face value="TestHeroTimeOutHotbar" />
+    <Abil value="TestHeroTimeOut" />
+    <RankArray Item="TestHeroTimeOutItem" />
+    <Active value="1" />
   </CTalent>
 </Catalog>

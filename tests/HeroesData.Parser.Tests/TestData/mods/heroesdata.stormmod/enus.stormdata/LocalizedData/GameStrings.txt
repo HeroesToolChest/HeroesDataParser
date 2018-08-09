@@ -224,4 +224,9 @@ Button/Name/TestHeroBigBoomV3=Big Boom V3
 Button/SimpleDisplayText/TestHeroBigBoomV3=Big Boom V3
 Button/Tooltip/TestHeroBigBoomV3=Big Boom V3
 Abil/TestHeroBigBoomV3CooldownOverride=12 Seconds
-Abil/TestHeroBigBoomV3ManaOverride=30
+Abil/TestHeroBigBoomV3ManaOverride=3
+
+Button/Tooltip/TestHeroTimeOut=Time out for quite a while
+Button/SimpleDisplayText/TestHeroTimeOut=Time out short
+Button/Name/TestHeroTimeOutHotbar=Time out
+Abil/TestHeroTimeOutCooldownOverride=60 seconds
