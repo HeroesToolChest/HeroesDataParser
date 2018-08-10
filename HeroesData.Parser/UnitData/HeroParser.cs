@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser.UnitData
 {
-    public class HeroDataParser
+    public class HeroParser
     {
         private readonly double DefaultWeaponPeriod = 1.2; // for hero weapons
         private readonly string DefaultEnergyText;
@@ -28,7 +28,7 @@ namespace HeroesData.Parser.UnitData
 
         private HeroOverride HeroOverride = new HeroOverride();
 
-        public HeroDataParser(GameData gameData, GameStringData gameStringData, ParsedGameStrings parsedGameStrings, OverrideData overrideData)
+        public HeroParser(GameData gameData, GameStringData gameStringData, ParsedGameStrings parsedGameStrings, OverrideData overrideData)
         {
             GameData = gameData;
             GameStringData = gameStringData;
@@ -602,7 +602,12 @@ namespace HeroesData.Parser.UnitData
             }
         }
 
-        // Sets all the tooltip info: vital costs, cooldowns, charges, range, arc, etc...
+        /// <summary>
+        /// Sets all the tooltip info: vital costs, cooldowns, charges.
+        /// </summary>
+        /// <param name="hero"></param>
+        /// <param name="elementId"></param>
+        /// <param name="abilityTalentBase"></param>
         private void SetTooltipSubInfo(Hero hero, string elementId, AbilityTalentBase abilityTalentBase)
         {
             if (string.IsNullOrEmpty(elementId))
@@ -613,6 +618,9 @@ namespace HeroesData.Parser.UnitData
             // look through all elements to find the tooltip info
             foreach (XElement element in foundElements)
             {
+                if (element.Name.LocalName == "CButton" || element.Name.LocalName == "CWeaponLegacy")
+                    continue;
+
                 // cost
                 XElement costElement = element.Element("Cost");
                 if (costElement != null)
@@ -739,7 +747,10 @@ namespace HeroesData.Parser.UnitData
             }
         }
 
-        // sets tooltip descriptions and override texts
+        /// <summary>
+        /// Sets tooltip descriptions and override texts for vitals and cooldowns.
+        /// </summary>
+        /// <param name="abilityTalentBase"></param>
         private void SetTooltipDescriptions(AbilityTalentBase abilityTalentBase)
         {
             string faceValue = abilityTalentBase.FullTooltipNameId;
@@ -805,7 +816,8 @@ namespace HeroesData.Parser.UnitData
                     {
                         if (cButtonTooltipVitalElement.Attribute("index")?.Value == "Energy")
                         {
-                            if (int.TryParse(text, out int result)) // missing Mana:
+                            // check if overriding text has 'Mana: '
+                            if (!new TooltipDescription(DescriptionValidator.Validate(text)).PlainText.StartsWith("Mana"))
                                 text = DescriptionValidator.Validate(DefaultEnergyText.Replace("%1", text)); // add it as the default
 
                             abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(text);

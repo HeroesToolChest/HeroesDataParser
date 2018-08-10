@@ -230,3 +230,7 @@ Button/Tooltip/TestHeroTimeOut=Time out for quite a while
 Button/SimpleDisplayText/TestHeroTimeOut=Time out short
 Button/Name/TestHeroTimeOutHotbar=Time out
 Abil/TestHeroTimeOutCooldownOverride=60 seconds
+
+Button/Name/TestHeroTheHunt=The hunt
+Button/SimpleDisplayText/TestHeroTheHunt=deal damage
+Button/Tooltip/TestHeroTheHunt=fly across battlefield, deals damage

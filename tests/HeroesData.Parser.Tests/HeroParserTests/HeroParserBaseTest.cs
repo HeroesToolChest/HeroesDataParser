@@ -80,7 +80,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
 
         private void ParseHeroes()
         {
-            HeroDataParser heroDataParser = new HeroDataParser(GameData, GameStringData, ParsedGameStrings, OverrideData);
+            HeroParser heroDataParser = new HeroParser(GameData, GameStringData, ParsedGameStrings, OverrideData);
             HeroFalstad = heroDataParser.Parse("Falstad", "HeroFalstad");
             HeroTestHero = heroDataParser.Parse("TestHero", "HeroTestHero");
         }

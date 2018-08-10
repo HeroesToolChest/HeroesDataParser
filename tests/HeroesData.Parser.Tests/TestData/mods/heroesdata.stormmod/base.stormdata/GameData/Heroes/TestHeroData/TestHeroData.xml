@@ -97,6 +97,11 @@
       <Flags index="ShowInHeroSelect" value="1" />
       <Flags index="AffectedByCooldownReduction" value="1" />
     </HeroAbilArray>
+    <HeroAbilArray Abil="TestHeroTheHunt" Button="TestHeroTheHunt">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
     
     <Ratings>
       <Damage value="9" />
@@ -238,7 +243,19 @@
     <ExpireCost>
       <Cooldown TimeUse="60" />
     </ExpireCost>
-  </CAbilBehavior> 
+  </CAbilBehavior>
+  <CAbilEffectTarget id="TestHeroTheHunt">
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Cost>
+      <Cooldown Location="Unit" TimeUse="100" />
+    </Cost>
+    <TargetFilters value="-;Player,Ally,Structure,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+  </CAbilEffectTarget>
+  <CBehaviorBuff id="TestHeroTheHunt">
+    <Alignment value="Positive" />
+    <Duration value="0.5" />
+  </CBehaviorBuff>
+  
   <!--buttons-->
   <CButton id="TestHeroBigBoom" parent="StormButtonParent">
     <Name value="Button/Name/TestHeroBigBoomSelectButton" />
@@ -296,7 +313,10 @@
     <Icon value="Assets\Textures\storm_ui_icon_testhero_TimeBlock.dds" />
     <TooltipCooldownOverrideText value="Abil/TestHeroTimeOutCooldownOverride" />
   </CButton>
-      
+  <CButton id="TestHeroTheHunt" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_testhero_thehunt.dds" />>
+  </CButton>
+  
   <!--talent-->
   <CTalent id="TestHeroBattleRage">
     <Face value="TestHeroBattleRage" />

@@ -30,6 +30,13 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         }
 
         [Fact]
+        public void AbilityCooldownTest()
+        {
+            Ability ability = HeroTestHero.Abilities["TestHeroTheHunt"];
+            Assert.Equal("Cooldown: 100 seconds", ability.Tooltip.Cooldown.CooldownText.RawDescription);
+        }
+
+        [Fact]
         public void TalentCooldownTest()
         {
             Talent talent = HeroTestHero.Talents["TestHeroBattleRage"];
@@ -145,16 +152,16 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         public void OverrideTextTests()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroBigBoom"];
-            Assert.Equal("10 picks", ability.Tooltip.Energy.EnergyText?.RawDescription);
-            Assert.Equal("20 per second", ability.Tooltip.Cooldown.CooldownText?.RawDescription);
+            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 10 picks</s>", ability.Tooltip.Energy.EnergyText?.RawDescription);
+            Assert.Equal("Cooldown: 20 per second", ability.Tooltip.Cooldown.CooldownText?.RawDescription);
 
             ability = HeroTestHero.Abilities["TestHeroBigBoomV2"];
             Assert.Equal("<s val=\"StandardTooltipDetails\">Health: </s><s val=\"StandardTooltipDetails\">15%</s>", ability.Tooltip.Life.LifeCostText.RawDescription);
             Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 40</s>", ability.Tooltip.Energy.EnergyText.RawDescription);
 
             ability = HeroTestHero.Abilities["TestHeroBigBoomV3"];
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 30</s>", ability.Tooltip.Energy.EnergyText.RawDescription);
-            Assert.Equal("12 Seconds", ability.Tooltip.Cooldown.CooldownText.RawDescription);
+            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 3</s>", ability.Tooltip.Energy.EnergyText.RawDescription);
+            Assert.Equal("Cooldown: 12 Seconds", ability.Tooltip.Cooldown.CooldownText.RawDescription);
         }
 
         [Fact]

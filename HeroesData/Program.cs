@@ -640,7 +640,7 @@ namespace HeroesData
             {
                 try
                 {
-                    HeroDataParser heroDataParser = new HeroDataParser(GameData, GameStringData, parsedGameStrings, OverrideData)
+                    HeroParser heroDataParser = new HeroParser(GameData, GameStringData, parsedGameStrings, OverrideData)
                     {
                         HotsBuild = HotsBuild,
                     };
