@@ -46,11 +46,6 @@ namespace HeroesData.Parser.GameStrings
             parsedTooltip = string.Empty;
             if (string.IsNullOrEmpty(referenceNameId) || string.IsNullOrEmpty(tooltip))
                 return false;
-            
-            if (referenceNameId == "Abil/ChromieTimeOutCooldownOverride")
-            {
-                string text = string.Empty;
-            }
 
             try
             {

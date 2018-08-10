@@ -63,11 +63,6 @@ namespace HeroesData.Parser.UnitData
                 CUnitId = cUnitId,
             };
 
-            if (cHeroId == "Chromie")
-            {
-                string text = string.Empty;
-            }
-
             HeroOverride heroOverride = OverrideData.HeroOverride(cHeroId);
             if (heroOverride != null)
                 HeroOverride = heroOverride;
