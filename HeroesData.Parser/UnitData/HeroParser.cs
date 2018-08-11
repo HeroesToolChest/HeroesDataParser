@@ -718,10 +718,15 @@ namespace HeroesData.Parser.UnitData
                             }
                             else
                             {
-                                if (cooldownValue == "1")
+                                double cooldown = double.Parse(cooldownValue);
+
+                                if (cooldown == 1)
                                     abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace("%1", cooldownValue));
-                                else
+                                else if (cooldown >= 1)
                                     abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace("%1", cooldownValue));
+
+                                if (cooldown < 1)
+                                    abilityTalentBase.Tooltip.Cooldown.ToggleCooldown = cooldown;
                             }
                         }
                     }

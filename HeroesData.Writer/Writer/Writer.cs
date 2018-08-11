@@ -70,10 +70,10 @@ namespace HeroesData.FileWriter.Writer
         protected abstract T GetUnitsObject(Hero hero);
         protected abstract TU AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase);
         protected abstract TU TalentInfoElement(Talent talent);
-        protected abstract T GetAbilityLifeCostObject(TooltipLife tooltipLife);
-        protected abstract T GetAbilityEnergyCostObject(TooltipEnergy tooltipEnergy);
-        protected abstract T GetAbilityCooldownObject(TooltipCooldown tooltipCooldown);
-        protected abstract T GetAbilityChargesObject(TooltipCharges tooltipCharges);
+        protected abstract T GetAbilityTalentLifeCostObject(TooltipLife tooltipLife);
+        protected abstract T GetAbilityTalentEnergyCostObject(TooltipEnergy tooltipEnergy);
+        protected abstract T GetAbilityTalentCooldownObject(TooltipCooldown tooltipCooldown);
+        protected abstract T GetAbilityTalentChargesObject(TooltipCharges tooltipCharges);
 
         protected T HeroPortraits(Hero hero)
         {
@@ -164,41 +164,41 @@ namespace HeroesData.FileWriter.Writer
             return null;
         }
 
-        protected T UnitAbilityLifeCost(TooltipLife tooltipLife)
+        protected T UnitAbilityTalentLifeCost(TooltipLife tooltipLife)
         {
             if (!string.IsNullOrEmpty(tooltipLife.LifeCostText?.RawDescription))
             {
-                return GetAbilityLifeCostObject(tooltipLife);
+                return GetAbilityTalentLifeCostObject(tooltipLife);
             }
 
             return null;
         }
 
-        protected T UnitAbilityEnergyCost(TooltipEnergy tooltipEnergy)
+        protected T UnitAbilityTalentEnergyCost(TooltipEnergy tooltipEnergy)
         {
             if (!string.IsNullOrEmpty(tooltipEnergy.EnergyText?.RawDescription))
             {
-                return GetAbilityEnergyCostObject(tooltipEnergy);
+                return GetAbilityTalentEnergyCostObject(tooltipEnergy);
             }
 
             return null;
         }
 
-        protected T UnitAbilityCooldown(TooltipCooldown tooltipCooldown)
+        protected T UnitAbilityTalentCooldown(TooltipCooldown tooltipCooldown)
         {
             if (!string.IsNullOrEmpty(tooltipCooldown.CooldownText?.RawDescription))
             {
-                return GetAbilityCooldownObject(tooltipCooldown);
+                return GetAbilityTalentCooldownObject(tooltipCooldown);
             }
 
             return null;
         }
 
-        protected T UnitAbilityCharges(TooltipCharges tooltipCharges)
+        protected T UnitAbilityTalentCharges(TooltipCharges tooltipCharges)
         {
             if (tooltipCharges.HasCharges)
             {
-                return GetAbilityChargesObject(tooltipCharges);
+                return GetAbilityTalentChargesObject(tooltipCharges);
             }
 
             return null;

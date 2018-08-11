@@ -343,7 +343,7 @@ namespace HeroesData.FileWriter.Writer
             return new JProperty("abilities", abilityObject);
         }
 
-        protected override JProperty GetAbilityChargesObject(TooltipCharges tooltipCharges)
+        protected override JProperty GetAbilityTalentChargesObject(TooltipCharges tooltipCharges)
         {
             JObject charges = new JObject
             {
@@ -365,17 +365,17 @@ namespace HeroesData.FileWriter.Writer
             return new JProperty("charges", charges);
         }
 
-        protected override JProperty GetAbilityCooldownObject(TooltipCooldown tooltipCooldown)
+        protected override JProperty GetAbilityTalentCooldownObject(TooltipCooldown tooltipCooldown)
         {
             return new JProperty("cooldownTooltip", GetTooltip(tooltipCooldown.CooldownText, FileSettings.Description));
         }
 
-        protected override JProperty GetAbilityEnergyCostObject(TooltipEnergy tooltipEnergy)
+        protected override JProperty GetAbilityTalentEnergyCostObject(TooltipEnergy tooltipEnergy)
         {
             return new JProperty("energyTooltip", GetTooltip(tooltipEnergy.EnergyText, FileSettings.Description));
         }
 
-        protected override JProperty GetAbilityLifeCostObject(TooltipLife tooltipLife)
+        protected override JProperty GetAbilityTalentLifeCostObject(TooltipLife tooltipLife)
         {
             return new JProperty("lifeTooltip", GetTooltip(tooltipLife.LifeCostText, FileSettings.Description));
         }
@@ -396,19 +396,22 @@ namespace HeroesData.FileWriter.Writer
 
             info.Add("icon", Path.ChangeExtension(abilityTalentBase.IconFileName, FileSettings.ImageExtension));
 
-            JProperty life = UnitAbilityLifeCost(abilityTalentBase.Tooltip.Life);
+            if (abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.HasValue)
+                info.Add("toggleCooldown", abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.Value);
+
+            JProperty life = UnitAbilityTalentLifeCost(abilityTalentBase.Tooltip.Life);
             if (life != null)
                 info.Add(life);
 
-            JProperty energy = UnitAbilityEnergyCost(abilityTalentBase.Tooltip.Energy);
+            JProperty energy = UnitAbilityTalentEnergyCost(abilityTalentBase.Tooltip.Energy);
             if (energy != null)
                 info.Add(energy);
 
-            JProperty charges = UnitAbilityCharges(abilityTalentBase.Tooltip.Charges);
+            JProperty charges = UnitAbilityTalentCharges(abilityTalentBase.Tooltip.Charges);
             if (charges != null)
                 info.Add(charges);
 
-            JProperty cooldown = UnitAbilityCooldown(abilityTalentBase.Tooltip.Cooldown);
+            JProperty cooldown = UnitAbilityTalentCooldown(abilityTalentBase.Tooltip.Cooldown);
             if (cooldown != null)
                 info.Add(cooldown);
 

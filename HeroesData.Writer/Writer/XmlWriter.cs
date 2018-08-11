@@ -200,10 +200,11 @@ namespace HeroesData.FileWriter.Writer
                 abilityTalentBase.IsActive ? new XAttribute("isActive", abilityTalentBase.IsActive) : null,
                 abilityTalentBase.IsQuest ? new XAttribute("isQuest", abilityTalentBase.IsQuest) : null,
                 new XElement("Icon", Path.ChangeExtension(abilityTalentBase.IconFileName, FileSettings.ImageExtension)),
-                UnitAbilityLifeCost(abilityTalentBase.Tooltip.Life),
-                UnitAbilityEnergyCost(abilityTalentBase.Tooltip.Energy),
-                UnitAbilityCharges(abilityTalentBase.Tooltip.Charges),
-                UnitAbilityCooldown(abilityTalentBase.Tooltip.Cooldown),
+                abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.HasValue ? new XElement("ToggleCooldown", abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.Value) : null,
+                UnitAbilityTalentLifeCost(abilityTalentBase.Tooltip.Life),
+                UnitAbilityTalentEnergyCost(abilityTalentBase.Tooltip.Energy),
+                UnitAbilityTalentCharges(abilityTalentBase.Tooltip.Charges),
+                UnitAbilityTalentCooldown(abilityTalentBase.Tooltip.Cooldown),
                 string.IsNullOrEmpty(abilityTalentBase.Tooltip.ShortTooltip?.RawDescription) ? null : new XElement("ShortTooltip", GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileSettings.ShortTooltip)),
                 string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription) ? null : new XElement("FullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileSettings.FullTooltip)));
         }
@@ -216,28 +217,28 @@ namespace HeroesData.FileWriter.Writer
             return element;
         }
 
-        protected override XElement GetAbilityLifeCostObject(TooltipLife tooltipLife)
+        protected override XElement GetAbilityTalentLifeCostObject(TooltipLife tooltipLife)
         {
             return new XElement(
                 "LifeTooltip",
                 GetTooltip(tooltipLife.LifeCostText, FileSettings.Description));
         }
 
-        protected override XElement GetAbilityEnergyCostObject(TooltipEnergy tooltipEnergy)
+        protected override XElement GetAbilityTalentEnergyCostObject(TooltipEnergy tooltipEnergy)
         {
             return new XElement(
                 "EnergyTooltip",
                 GetTooltip(tooltipEnergy.EnergyText, FileSettings.Description));
         }
 
-        protected override XElement GetAbilityCooldownObject(TooltipCooldown tooltipCooldown)
+        protected override XElement GetAbilityTalentCooldownObject(TooltipCooldown tooltipCooldown)
         {
             return new XElement(
                 "CooldownTooltip",
                 GetTooltip(tooltipCooldown.CooldownText, FileSettings.Description));
         }
 
-        protected override XElement GetAbilityChargesObject(TooltipCharges tooltipCharges)
+        protected override XElement GetAbilityTalentChargesObject(TooltipCharges tooltipCharges)
         {
             return new XElement(
                 "Charges",
