@@ -57,8 +57,8 @@ namespace HeroesData.Parser.UnitData
         {
             Hero hero = new Hero
             {
-                Name = GameStringData.HeroNamesByShortName[cHeroId],
-                Description = new TooltipDescription(ParsedGameStrings.HeroParsedDescriptionsByShortName[cHeroId]),
+                Name = GameStringData.HeroNamesByShortName[$"{GameStringPrefixes.HeroNamePrefix}{cHeroId}"],
+                Description = new TooltipDescription(ParsedGameStrings.HeroParsedDescriptionsByShortName[$"{GameStringPrefixes.DescriptionPrefix}{cHeroId}"]),
                 CHeroId = cHeroId,
                 CUnitId = cUnitId,
             };
@@ -585,10 +585,10 @@ namespace HeroesData.Parser.UnitData
                     tooltipName = Path.GetFileName(PathExtensions.GetFilePath(buttonNameElement.Attribute("value").Value)); // override
             }
 
-            if (!GameStringData.AbilityTalentNamesByReferenceNameId.ContainsKey(tooltipName))
+            if (ParsedGameStrings.TryGetAbilityTalentParsedNames(tooltipName, out string abilityTalentName))
+                abilityTalentBase.Name = abilityTalentName;
+            else
                 throw new ParseException($"{nameof(SetAbilityTalentName)}: {tooltipName} not found in description names");
-
-            abilityTalentBase.Name = GameStringData.AbilityTalentNamesByReferenceNameId[tooltipName];
         }
 
         private void SetAbilityTalentIcon(AbilityTalentBase abilityTalentBase)
@@ -838,7 +838,7 @@ namespace HeroesData.Parser.UnitData
                 XElement cButtonTooltipCooldownElement = cButtonElement.Element("TooltipCooldownOverrideText");
                 if (cButtonTooltipCooldownElement != null)
                 {
-                    if (ParsedGameStrings.TryGetValuesFromAll(cButtonTooltipCooldownElement.Attribute("value").Value, out string text))
+                    if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipCooldownElement.Attribute("value").Value, out string text))
                     {
                         if (!text.StartsWith(StringCooldownColon))
                             text = $"{StringCooldownColon}{text}";
@@ -849,23 +849,23 @@ namespace HeroesData.Parser.UnitData
             }
 
             // full
-            if (ParsedGameStrings.FullParsedTooltipsByFullTooltipNameId.TryGetValue(fullTooltipValue, out string fullDescription))
+            if (ParsedGameStrings.TryGetFullParsedTooltips(fullTooltipValue, out string fullDescription))
             {
                 abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription);
                 abilityTalentBase.FullTooltipNameId = fullTooltipValue;
             }
-            else if (ParsedGameStrings.FullParsedTooltipsByFullTooltipNameId.TryGetValue(faceValue, out fullDescription))
+            else if (ParsedGameStrings.TryGetFullParsedTooltips(faceValue, out fullDescription))
             {
                 abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription);
             }
 
             // short
-            if (ParsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.TryGetValue(shortTooltipValue, out string shortDescription))
+            if (ParsedGameStrings.TryGetShortParsedTooltips(shortTooltipValue, out string shortDescription))
             {
                 abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription);
                 abilityTalentBase.ShortTooltipNameId = shortTooltipValue;
             }
-            else if (ParsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.TryGetValue(faceValue, out shortDescription))
+            else if (ParsedGameStrings.TryGetShortParsedTooltips(faceValue, out shortDescription))
             {
                 abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription);
             }
@@ -890,7 +890,7 @@ namespace HeroesData.Parser.UnitData
                 ability.ReferenceNameId = linkName;
                 ability.FullTooltipNameId = linkName;
 
-                if (GameStringData.AbilityTalentNamesByReferenceNameId.TryGetValue(linkName, out string abilityName))
+                if (ParsedGameStrings.TryGetAbilityTalentParsedNames(linkName, out string abilityName))
                     ability.Name = abilityName;
 
                 SetAbilityTalentIcon(ability);
@@ -1178,9 +1178,9 @@ namespace HeroesData.Parser.UnitData
                 XElement cUnit = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value == unit).FirstOrDefault();
 
                 string name = string.Empty;
-                if (!GameStringData.UnitNamesByShortName.TryGetValue(unit, out name))
+                if (!GameStringData.UnitNamesByShortName.TryGetValue($"{GameStringPrefixes.UnitPrefix}{unit}", out name))
                 {
-                    if (!GameStringData.AbilityTalentNamesByReferenceNameId.TryGetValue(unit, out name))
+                    if (!GameStringData.AbilityTalentNamesByReferenceNameId.TryGetValue($"{GameStringPrefixes.DescriptionNamePrefix}{unit}", out name))
                         name = unit;
                 }
 
@@ -1195,7 +1195,7 @@ namespace HeroesData.Parser.UnitData
 
                 if (cUnit != null)
                 {
-                    if (ParsedGameStrings.HeroParsedDescriptionsByShortName.TryGetValue(unit, out string desc))
+                    if (ParsedGameStrings.TryGetHeroParsedDescriptions(unit, out string desc))
                         heroUnit.Description = new TooltipDescription(desc);
 
                     SetDefaultValues(heroUnit);

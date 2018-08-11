@@ -71,6 +71,24 @@ namespace HeroesData.Parser.Tests.HeroParserTests
                     ParsedGameStrings.HeroParsedDescriptionsByShortName.Add(tooltip.Key, parsedTooltip);
             }
 
+            foreach (KeyValuePair<string, string> tooltip in GameStringData.HeroNamesByShortName)
+            {
+                if (GameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
+                    ParsedGameStrings.HeroParsedNamesByShortName.Add(tooltip.Key, parsedTooltip);
+            }
+
+            foreach (KeyValuePair<string, string> tooltip in GameStringData.UnitNamesByShortName)
+            {
+                if (GameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
+                    ParsedGameStrings.UnitParsedNamesByShortName.Add(tooltip.Key, parsedTooltip);
+            }
+
+            foreach (KeyValuePair<string, string> tooltip in GameStringData.AbilityTalentNamesByReferenceNameId)
+            {
+                if (GameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
+                    ParsedGameStrings.AbilityTalentParsedNamesByReferenceNameId.Add(tooltip.Key, parsedTooltip);
+            }
+
             foreach (KeyValuePair<string, string> tooltip in GameStringData.ValueStringByKeyString)
             {
                 if (GameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))

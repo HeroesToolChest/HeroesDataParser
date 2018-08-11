@@ -494,16 +494,6 @@ namespace HeroesData
         {
             var time = new Stopwatch();
             var parsedGameStrings = new ParsedGameStrings();
-            var fullParsedTooltips = new ConcurrentDictionary<string, string>();
-            var shortParsedTooltips = new ConcurrentDictionary<string, string>();
-            var heroParsedDescriptions = new ConcurrentDictionary<string, string>();
-            var otherTooltips = new ConcurrentDictionary<string, string>();
-            var invalidFullTooltips = new ConcurrentDictionary<string, string>();
-            var invalidShortTooltips = new ConcurrentDictionary<string, string>();
-            var invalidHeroDescriptions = new ConcurrentDictionary<string, string>();
-            var invalidOtherTooltips = new ConcurrentDictionary<string, string>();
-
-            int currentCount = 0;
 
             Console.WriteLine($"Parsing tooltips...");
 
@@ -524,80 +514,21 @@ namespace HeroesData
                 Environment.Exit(1);
             }
 
-            Parallel.ForEach(GameStringData.FullTooltipsByFullTooltipNameId, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, tooltip =>
-            {
-                try
-                {
-                    if (gameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
-                        fullParsedTooltips.GetOrAdd(tooltip.Key, parsedTooltip);
-                    else
-                        invalidFullTooltips.GetOrAdd(tooltip.Key, tooltip.Value);
-                }
-                finally
-                {
-                    Interlocked.Increment(ref currentCount);
+            var (fullParsed, fullInvalid) = GameStringParse.Parse(GameStringData.FullTooltipsByFullTooltipNameId, gameStringParser, "total full tooltips", MaxParallelism);
+            var (shortParsed, shortInvalid) = GameStringParse.Parse(GameStringData.ShortTooltipsByShortTooltipNameId, gameStringParser, "total short tooltips", MaxParallelism);
+            var (heroDescriptionParsed, heroDescriptionInvalid) = GameStringParse.Parse(GameStringData.HeroDescriptionsByShortName, gameStringParser, "total hero descriptions", MaxParallelism);
+            var (heroNamesParsed, heroNamesInvalid) = GameStringParse.Parse(GameStringData.HeroNamesByShortName, gameStringParser, "total hero names", MaxParallelism);
+            var (unitNamesParsed, unitNamesInvalid) = GameStringParse.Parse(GameStringData.UnitNamesByShortName, gameStringParser, "total unit names", MaxParallelism);
+            var (abilityTalentNamesParsed, abilityTalentNamesInvalid) = GameStringParse.Parse(GameStringData.AbilityTalentNamesByReferenceNameId, gameStringParser, "total ability/talent names", MaxParallelism);
+            var (otherParsed, otherInvalid) = GameStringParse.Parse(GameStringData.ValueStringByKeyString, gameStringParser, "total other strings", MaxParallelism);
 
-                    Console.Write($"\r{currentCount,6} / {GameStringData.FullTooltipsByFullTooltipNameId.Count} total full tooltips");
-                }
-            });
-
-            currentCount = 0;
-            Console.WriteLine();
-
-            Parallel.ForEach(GameStringData.ShortTooltipsByShortTooltipNameId, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, tooltip =>
-            {
-                try
-                {
-                    if (gameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
-                        shortParsedTooltips.GetOrAdd(tooltip.Key, parsedTooltip);
-                    else
-                        invalidShortTooltips.GetOrAdd(tooltip.Key, tooltip.Value);
-                }
-                finally
-                {
-                    Interlocked.Increment(ref currentCount);
-
-                    Console.Write($"\r{currentCount,6} / {GameStringData.ShortTooltipsByShortTooltipNameId.Count} total short tooltips");
-                }
-            });
-
-            currentCount = 0;
-            Console.WriteLine();
-
-            foreach (KeyValuePair<string, string> tooltip in GameStringData.HeroDescriptionsByShortName)
-            {
-                if (gameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
-                    heroParsedDescriptions.GetOrAdd(tooltip.Key, parsedTooltip);
-                else
-                    invalidHeroDescriptions.GetOrAdd(tooltip.Key, tooltip.Value);
-
-                Console.Write($"\r{++currentCount,6} / {GameStringData.HeroDescriptionsByShortName.Count} total hero descriptions");
-            }
-
-            currentCount = 0;
-            Console.WriteLine();
-
-            Parallel.ForEach(GameStringData.ValueStringByKeyString, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, tooltip =>
-            {
-                try
-                {
-                    if (gameStringParser.TryParseRawTooltip(tooltip.Key, tooltip.Value, out string parsedTooltip))
-                        otherTooltips.GetOrAdd(tooltip.Key, parsedTooltip);
-                    else
-                        invalidOtherTooltips.GetOrAdd(tooltip.Key, tooltip.Value);
-                }
-                finally
-                {
-                    Interlocked.Increment(ref currentCount);
-
-                    Console.Write($"\r{currentCount,6} / {GameStringData.ValueStringByKeyString.Count} total other strings");
-                }
-            });
-
-            parsedGameStrings.FullParsedTooltipsByFullTooltipNameId = new Dictionary<string, string>(fullParsedTooltips);
-            parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId = new Dictionary<string, string>(shortParsedTooltips);
-            parsedGameStrings.HeroParsedDescriptionsByShortName = new Dictionary<string, string>(heroParsedDescriptions);
-            parsedGameStrings.TooltipsByKeyString = new Dictionary<string, string>(otherTooltips);
+            parsedGameStrings.FullParsedTooltipsByFullTooltipNameId = new Dictionary<string, string>(fullParsed);
+            parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId = new Dictionary<string, string>(shortParsed);
+            parsedGameStrings.HeroParsedDescriptionsByShortName = new Dictionary<string, string>(heroDescriptionParsed);
+            parsedGameStrings.HeroParsedNamesByShortName = new Dictionary<string, string>(heroNamesParsed);
+            parsedGameStrings.UnitParsedNamesByShortName = new Dictionary<string, string>(unitNamesParsed);
+            parsedGameStrings.AbilityTalentParsedNamesByReferenceNameId = new Dictionary<string, string>(abilityTalentNamesParsed);
+            parsedGameStrings.TooltipsByKeyString = new Dictionary<string, string>(otherParsed);
 
             time.Stop();
 
@@ -605,22 +536,28 @@ namespace HeroesData
             Console.WriteLine($"{parsedGameStrings.FullParsedTooltipsByFullTooltipNameId.Count,6} parsed full tooltips");
             Console.WriteLine($"{parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.Count,6} parsed short tooltips");
             Console.WriteLine($"{parsedGameStrings.HeroParsedDescriptionsByShortName.Count,6} parsed hero descriptions");
+            Console.WriteLine($"{parsedGameStrings.HeroParsedNamesByShortName.Count,6} parsed hero names");
+            Console.WriteLine($"{parsedGameStrings.UnitParsedNamesByShortName.Count,6} parsed unit names");
+            Console.WriteLine($"{parsedGameStrings.AbilityTalentParsedNamesByReferenceNameId.Count,6} parsed ability/talent names");
             Console.WriteLine($"{parsedGameStrings.TooltipsByKeyString.Count,6} parsed other strings");
-            Console.WriteLine($"{invalidFullTooltips.Count,6} invalid full tooltips");
-            Console.WriteLine($"{invalidShortTooltips.Count,6} invalid short tooltips");
-            Console.WriteLine($"{invalidHeroDescriptions.Count,6} invalid hero descriptions");
-            Console.WriteLine($"{invalidOtherTooltips.Count,6} invalid other strings");
+            Console.WriteLine($"{fullInvalid.Count,6} invalid full tooltips");
+            Console.WriteLine($"{shortInvalid.Count,6} invalid short tooltips");
+            Console.WriteLine($"{heroDescriptionInvalid.Count,6} invalid hero descriptions");
+            Console.WriteLine($"{heroNamesInvalid.Count,6} invalid hero names");
+            Console.WriteLine($"{unitNamesInvalid.Count,6} invalid unit names");
+            Console.WriteLine($"{abilityTalentNamesInvalid.Count,6} invalid ability/talent names");
+            Console.WriteLine($"{otherInvalid.Count,6} invalid other strings");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
 
-            if (ShowInvalidFullTooltips && invalidFullTooltips.Count > 0)
-                OutputInvalidTooltips(new SortedDictionary<string, string>(invalidFullTooltips), "Invalid full tooltips");
+            if (ShowInvalidFullTooltips && fullInvalid.Count > 0)
+                OutputInvalidTooltips(new SortedDictionary<string, string>(fullInvalid), "Invalid full tooltips");
 
-            if (ShowInvalidShortTooltips && invalidShortTooltips.Count > 0)
-                OutputInvalidTooltips(new SortedDictionary<string, string>(invalidShortTooltips), "Invalid short tooltips");
+            if (ShowInvalidShortTooltips && shortInvalid.Count > 0)
+                OutputInvalidTooltips(new SortedDictionary<string, string>(shortInvalid), "Invalid short tooltips");
 
-            if (ShowInvalidHeroTooltips && invalidHeroDescriptions.Count > 0)
-                OutputInvalidTooltips(new SortedDictionary<string, string>(invalidHeroDescriptions), "Invalid hero descriptions");
+            if (ShowInvalidHeroTooltips && heroDescriptionInvalid.Count > 0)
+                OutputInvalidTooltips(new SortedDictionary<string, string>(heroDescriptionInvalid), "Invalid hero descriptions");
 
             return parsedGameStrings;
         }

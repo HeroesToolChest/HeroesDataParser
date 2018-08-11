@@ -37,19 +37,19 @@ namespace HeroesData.Parser.GameStrings
         /// <summary>
         /// Gets a parsed tooltip from a given tooltip.
         /// </summary>
-        /// <param name="referenceNameId">The id of the tooltip.</param>
-        /// <param name="tooltip">The tooltip to be parsed.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="tooltip">The tooltip (value) to be parsed.</param>
         /// <param name="parsedTooltip">The parsed tooltip.</param>
         /// <returns></returns>
-        public bool TryParseRawTooltip(string referenceNameId, string tooltip, out string parsedTooltip)
+        public bool TryParseRawTooltip(string key, string tooltip, out string parsedTooltip)
         {
             parsedTooltip = string.Empty;
-            if (string.IsNullOrEmpty(referenceNameId) || string.IsNullOrEmpty(tooltip))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(tooltip))
                 return false;
 
             try
             {
-                parsedTooltip = ParseTooltipGameStringData(referenceNameId, tooltip);
+                parsedTooltip = ParseTooltipGameStringData(key, tooltip);
                 return true;
             }
             catch (UnparseableException)
