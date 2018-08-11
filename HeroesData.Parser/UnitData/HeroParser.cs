@@ -448,13 +448,15 @@ namespace HeroesData.Parser.UnitData
             if (usableAbility == null && mountAbility == null && parentLink == null && !validAbility)
                 return;
 
+            // check for the HeroAbilArray button value
+            if (!string.IsNullOrEmpty(tooltipName) && HeroOverride.NewButtonValueByHeroAbilArrayButton.TryGetValue(tooltipName, out string setButtonValue))
+                tooltipName = setButtonValue;
+
             if (!string.IsNullOrEmpty(referenceName) && !string.IsNullOrEmpty(tooltipName))
             {
                 ability.ReferenceNameId = referenceName;
                 ability.FullTooltipNameId = tooltipName;
                 ability.ButtonName = tooltipName;
-
-                SetAbilityTalentName(ability, tooltipName);
             }
             else if (!string.IsNullOrEmpty(referenceName) && string.IsNullOrEmpty(tooltipName)) // is a secondary ability
             {
@@ -462,17 +464,15 @@ namespace HeroesData.Parser.UnitData
                 ability.ParentLink = parentLink;
                 ability.FullTooltipNameId = referenceName;
                 ability.ButtonName = referenceName;
-
-                SetAbilityTalentName(ability, referenceName);
             }
             else
             {
                 ability.ReferenceNameId = tooltipName;
                 ability.FullTooltipNameId = tooltipName;
                 ability.ButtonName = tooltipName;
-
-                SetAbilityTalentName(ability, tooltipName);
             }
+
+            SetAbilityTalentName(ability, ability.ButtonName);
 
             XElement heroicElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "Heroic" && x.Attribute("value").Value == "1").FirstOrDefault();
             XElement traitElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "Trait" && x.Attribute("value").Value == "1").FirstOrDefault();
@@ -838,7 +838,7 @@ namespace HeroesData.Parser.UnitData
                 XElement cButtonTooltipCooldownElement = cButtonElement.Element("TooltipCooldownOverrideText");
                 if (cButtonTooltipCooldownElement != null)
                 {
-                    if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipCooldownElement.Attribute("value").Value, out string text))
+                    if (ParsedGameStrings.TryGetValuesFromAll(cButtonTooltipCooldownElement.Attribute("value").Value, out string text))
                     {
                         if (!text.StartsWith(StringCooldownColon))
                             text = $"{StringCooldownColon}{text}";

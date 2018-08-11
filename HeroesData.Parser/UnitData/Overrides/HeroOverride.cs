@@ -20,5 +20,10 @@ namespace HeroesData.Parser.UnitData.Overrides
         /// Gets or sets the property override action methods for talents by talent id.
         /// </summary>
         public Dictionary<string, Dictionary<string, Action<Talent>>> PropertyTalentOverrideMethodByTalentId { get; set; } = new Dictionary<string, Dictionary<string, Action<Talent>>>();
+
+        /// <summary>
+        /// Gets or sets the HeroAbilArray button value with a new value.
+        /// </summary>
+        public Dictionary<string, string> NewButtonValueByHeroAbilArrayButton { get; set; } = new Dictionary<string, string>();
     }
 }

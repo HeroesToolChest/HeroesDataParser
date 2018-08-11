@@ -5,14 +5,6 @@ namespace HeroesData.Parser.GameStrings
 {
     public abstract class GameStringData
     {
-        private readonly string SimpleDisplayPrefix = "Button/SimpleDisplayText/";
-        private readonly string SimplePrefix = "Button/Simple/";
-        private readonly string DescriptionPrefix = "Hero/Description/";
-        private readonly string FullPrefix = "Button/Tooltip/";
-        private readonly string HeroNamePrefix = "Hero/Name/"; // real name of hero
-        private readonly string DescriptionNamePrefix = "Button/Name/"; // real name of ability/talent
-        private readonly string UnitPrefix = "Unit/Name/";
-
         /// <summary>
         /// Gets the short tooltip descriptions of all ability/talent.
         /// </summary>
@@ -82,49 +74,49 @@ namespace HeroesData.Parser.GameStrings
             {
                 string line = reader.ReadLine();
 
-                if (line.StartsWith(SimpleDisplayPrefix))
+                if (line.StartsWith(StringPrefixes.SimpleDisplayPrefix))
                 {
-                    line = line.Remove(0, SimpleDisplayPrefix.Length);
+                    line = line.Remove(0, StringPrefixes.SimpleDisplayPrefix.Length);
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
                     ShortTooltipsByShortTooltipNameId.Add(splitLine[0], splitLine[1]);
                 }
-                else if (line.StartsWith(SimplePrefix))
+                else if (line.StartsWith(StringPrefixes.SimplePrefix))
                 {
-                    line = line.Remove(0, SimplePrefix.Length);
+                    line = line.Remove(0, StringPrefixes.SimplePrefix.Length);
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
                     ShortTooltipsByShortTooltipNameId.Add(splitLine[0], splitLine[1]);
                 }
-                else if (line.StartsWith(DescriptionPrefix))
+                else if (line.StartsWith(StringPrefixes.DescriptionPrefix))
                 {
-                    line = line.Remove(0, DescriptionPrefix.Length);
+                    line = line.Remove(0, StringPrefixes.DescriptionPrefix.Length);
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
                     HeroDescriptionsByShortName.Add(splitLine[0], splitLine[1]);
                 }
-                else if (line.StartsWith(FullPrefix))
+                else if (line.StartsWith(StringPrefixes.FullPrefix))
                 {
-                    line = line.Remove(0, FullPrefix.Length);
+                    line = line.Remove(0, StringPrefixes.FullPrefix.Length);
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
                     FullTooltipsByFullTooltipNameId.Add(splitLine[0], splitLine[1]);
                 }
-                else if (line.StartsWith(HeroNamePrefix))
+                else if (line.StartsWith(StringPrefixes.HeroNamePrefix))
                 {
-                    line = line.Remove(0, HeroNamePrefix.Length);
+                    line = line.Remove(0, StringPrefixes.HeroNamePrefix.Length);
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
 
                     if (!HeroNamesByShortName.ContainsKey(splitLine[0]))
                         HeroNamesByShortName.Add(splitLine[0], splitLine[1]);
                 }
-                else if (line.StartsWith(DescriptionNamePrefix))
+                else if (line.StartsWith(StringPrefixes.DescriptionNamePrefix))
                 {
-                    line = line.Remove(0, DescriptionNamePrefix.Length);
+                    line = line.Remove(0, StringPrefixes.DescriptionNamePrefix.Length);
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
 
                     if (!AbilityTalentNamesByReferenceNameId.ContainsKey(splitLine[0]))
                         AbilityTalentNamesByReferenceNameId.Add(splitLine[0], splitLine[1]);
                 }
-                else if (line.StartsWith(UnitPrefix))
+                else if (line.StartsWith(StringPrefixes.UnitPrefix))
                 {
-                    line = line.Remove(0, UnitPrefix.Length);
+                    line = line.Remove(0, StringPrefixes.UnitPrefix.Length);
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
 
                     if (!UnitNamesByShortName.ContainsKey(splitLine[0]))

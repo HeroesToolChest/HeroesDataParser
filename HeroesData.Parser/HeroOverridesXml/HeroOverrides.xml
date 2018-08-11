@@ -77,6 +77,12 @@
       </Override>
     </Portrait>
   </CHero>
+  <CHero id="Dehaka">
+    <!--This points to the collection which the tooltip is different from the ingame tooltip-->
+    <HeroAbilArray button="DehakaEssenceCollectionStore">
+      <Set value="DehakaEssenceCollection" /> <!--set it to the ingame tooltip-->
+    </HeroAbilArray>
+  </CHero>
   <CHero id="DVa">
     <CUnit value="HeroDVaMech" />
     <Energy value="100" />

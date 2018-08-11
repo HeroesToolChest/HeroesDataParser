@@ -249,6 +249,17 @@ namespace HeroesData.Parser.UnitData.Overrides
                         }
 
                         break;
+                    case "HeroAbilArray":
+                        string buttonOld = dataElement.Attribute("button")?.Value;
+
+                        if (!string.IsNullOrEmpty(buttonOld))
+                        {
+                            string newButtonValue = dataElement.Element("Set")?.Attribute("value")?.Value;
+                            if (!string.IsNullOrEmpty(newButtonValue))
+                                heroOverride.NewButtonValueByHeroAbilArrayButton[buttonOld] = newButtonValue;
+                        }
+
+                        break;
                     case "Ability":
                         string abilityId = dataElement.Attribute("id")?.Value;
                         string valid = dataElement.Attribute("valid")?.Value;
