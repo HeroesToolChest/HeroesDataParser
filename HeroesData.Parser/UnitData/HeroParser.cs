@@ -838,7 +838,9 @@ namespace HeroesData.Parser.UnitData
                 XElement cButtonTooltipCooldownElement = cButtonElement.Element("TooltipCooldownOverrideText");
                 if (cButtonTooltipCooldownElement != null)
                 {
-                    if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipCooldownElement.Attribute("value").Value, out string text))
+                    string overrideValueText = cButtonTooltipCooldownElement.Attribute("value").Value;
+                    if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(overrideValueText, out string text) ||
+                        ParsedGameStrings.TryGetFullParsedTooltips(overrideValueText, out text))
                     {
                         if (!text.StartsWith(StringCooldownColon))
                             text = $"{StringCooldownColon}{text}";

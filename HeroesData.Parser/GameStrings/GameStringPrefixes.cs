@@ -8,7 +8,7 @@
         public static string SimpleDisplayPrefix { get; } = "Button/SimpleDisplayText/";
 
         /// <summary>
-        /// Short tooltip description of the ability/talent
+        /// Short tooltip description of the ability/talent.
         /// </summary>
         public static string SimplePrefix { get; } = "Button/Simple/";
 
