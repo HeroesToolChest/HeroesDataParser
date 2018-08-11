@@ -668,7 +668,7 @@ namespace HeroesData
                         });
                     }
 
-                    writer.WriteLine($"{Environment.NewLine}{warnings.Count} warnings ({verifyData.Ignore.Count} ignored)");
+                    writer.WriteLine($"{Environment.NewLine}{warnings.Count} warnings ({verifyData.WarningsIgnored} ignored)");
                 }
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -680,8 +680,8 @@ namespace HeroesData
                 Console.Write($"{warnings.Count} warnings");
             }
 
-            if (verifyData.Ignore.Count > 0)
-                Console.Write($" ({verifyData.Ignore.Count} ignored)");
+            if (verifyData.WarningsIgnored > 0)
+                Console.Write($" ({verifyData.WarningsIgnored} ignored)");
 
             Console.WriteLine();
             Console.ResetColor();

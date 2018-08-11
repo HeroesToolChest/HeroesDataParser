@@ -13,6 +13,8 @@ namespace HeroesData.Parser
 
         private string HeroName;
 
+        private HashSet<string> IgnoreLines = new HashSet<string>();
+
         private VerifyHeroData(List<Hero> heroData)
         {
             HeroData = heroData;
@@ -22,7 +24,7 @@ namespace HeroesData.Parser
         }
 
         public HashSet<string> Warnings { get; private set; } = new HashSet<string>();
-        public HashSet<string> Ignore { get; private set; } = new HashSet<string>();
+        public int WarningsIgnored { get; private set; } = 0;
 
         /// <summary>
         /// Verifies the all the hero data for missing data.
@@ -278,8 +280,10 @@ namespace HeroesData.Parser
         {
             message = $"[{HeroName}] {message}".Trim();
 
-            if (!Ignore.Contains(message))
+            if (!IgnoreLines.Contains(message))
                 Warnings.Add(message);
+            else
+                WarningsIgnored++;
         }
 
         private void ReadIgnoreFile()
@@ -295,7 +299,7 @@ namespace HeroesData.Parser
 
                         if (!string.IsNullOrEmpty(line) && !line.StartsWith("#"))
                         {
-                            Ignore.Add(line);
+                            IgnoreLines.Add(line);
                         }
                     }
                 }
