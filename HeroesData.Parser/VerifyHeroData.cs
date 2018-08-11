@@ -162,6 +162,24 @@ namespace HeroesData.Parser
 
                     if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.ColoredTextWithScaling))
                         AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.ColoredTextWithScaling)} is null or empty");
+
+                    if (talent.Value.Tooltip.Cooldown?.CooldownText != null)
+                    {
+                        if (char.IsDigit(talent.Value.Tooltip.Cooldown.CooldownText.PlainText[0]))
+                            AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Cooldown.CooldownText)} does not have a prefix");
+                    }
+
+                    if (talent.Value.Tooltip.Energy?.EnergyText != null)
+                    {
+                        if (char.IsDigit(talent.Value.Tooltip.Energy.EnergyText.PlainText[0]))
+                            AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Energy.EnergyText)} does not have a prefix");
+                    }
+
+                    if (talent.Value.Tooltip.Life?.LifeCostText != null)
+                    {
+                        if (char.IsDigit(talent.Value.Tooltip.Life.LifeCostText.PlainText[0]))
+                            AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Life.LifeCostText)} does not have a prefix");
+                    }
                 }
 
                 if (hero.HeroUnits.Count > 0)
@@ -235,6 +253,24 @@ namespace HeroesData.Parser
 
                 if (string.IsNullOrEmpty(ability.Value.Tooltip.FullTooltip?.RawDescription))
                     AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltip)} is null or empty");
+
+                if (ability.Value.Tooltip.Cooldown?.CooldownText != null)
+                {
+                    if (char.IsDigit(ability.Value.Tooltip.Cooldown.CooldownText.PlainText[0]))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Cooldown.CooldownText)} does not have a prefix");
+                }
+
+                if (ability.Value.Tooltip.Energy?.EnergyText != null)
+                {
+                    if (char.IsDigit(ability.Value.Tooltip.Energy.EnergyText.PlainText[0]))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Energy.EnergyText)} does not have a prefix");
+                }
+
+                if (ability.Value.Tooltip.Life?.LifeCostText != null)
+                {
+                    if (char.IsDigit(ability.Value.Tooltip.Life.LifeCostText.PlainText[0]))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Life.LifeCostText)} does not have a prefix");
+                }
             }
         }
 
