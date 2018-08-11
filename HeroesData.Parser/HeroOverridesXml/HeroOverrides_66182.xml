@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<HeroOverrides>
+  <CHero id="Abathur">
+    <HeroUnit id="AbathurSymbiote"></HeroUnit>
+    <Portrait>
+      <Override>
+        <HeroSelectPortraitFileName value="storm_ui_ingame_heroselect_btn_infestor.dds" />
+      </Override>
+    </Portrait>
+  </CHero>
+  <CHero id="Alexstrasza">
+    <!--Dragonqueen abilities tied to Dragonqueen form ability-->
+    <Ability id="AlexstraszaBreathOfLife" valid="true">
+      <Override>
+        <ParentLink value="HeroAlexstraszaDragon" />
+      </Override>
+    </Ability>
+    <Ability id="AlexstraszaPreservation" valid="true">
+      <Override>
+        <ParentLink value="HeroAlexstraszaDragon" />
+      </Override>
+    </Ability>
+    <Ability id="AlexstraszaWingBuffet" valid="true">
+      <Override>
+        <ParentLink value="HeroAlexstraszaDragon" />
+      </Override>
+    </Ability>
+    <Ability id="AlexstraszaCleansingFlameDragonqueen" valid="true">
+      <Override>
+        <ParentLink value="HeroAlexstraszaDragon" />
+      </Override>
+    </Ability>
+    <HeroUnit id="HeroAlexstraszaDragon"></HeroUnit>
+  </CHero>
+  <CHero id="Amazon" alt="d2amazonf"/>
+  <CHero id="Barbarian" name="Sonya">
+    <Portrait>
+      <Override>
+        <LeaderboardPortraitFileName value="storm_ui_ingame_hero_leaderboard_femalebarbarian.dds" />
+      </Override>
+    </Portrait>
+  </CHero>
+  <CHero id="Chen">
+    <!--Storm, Earth, and Fire abilities tied to Heroic ability StormEarthFire-->
+    <Ability id="ChenStorm" valid="true">
+      <Override>
+        <ParentLink value="HeroChenStorm" />
+      </Override>
+    </Ability>
+    <Ability id="ChenEarth" valid="true">
+      <Override>
+        <ParentLink value="HeroChenStorm" />
+      </Override>
+    </Ability>
+    <Ability id="ChenFire" valid="true">
+      <Override>
+        <ParentLink value="HeroChenStorm" />
+      </Override>
+    </Ability>
+    <HeroUnit id="HeroChenStorm"></HeroUnit>
+    <HeroUnit id="HeroChenEarth"></HeroUnit>
+    <HeroUnit id="HeroChenFire"></HeroUnit>
+  </CHero>
+  <CHero id="Cho">
+    <Weapon id="ChoShortRangeHeroWeapon" valid="false" />
+    <Weapon id="ChoLongRangeHeroWeaponCthunsGift" valid="false" />
+    <Portrait>
+      <Override>
+        <HeroSelectPortraitFileName value="storm_ui_ingame_heroselect_cho.dds" />
+      </Override>
+    </Portrait>
+  </CHero>
+  <CHero id="Crusader" name="Johanna" alt="Johanna">
+    <Portrait>
+      <Override>
+        <LoadingScreenPortraitFileName value="storm_ui_ingame_hero_loadingscreen_crusader.dds" />
+      </Override>
+    </Portrait>
+  </CHero>
+  <CHero id="Dehaka">
+    <!--This points to the collection which the tooltip is different from the ingame tooltip-->
+    <HeroAbilArray button="DehakaEssenceCollectionStore">
+      <Set value="DehakaEssenceCollection" /> <!--set it to the ingame tooltip-->
+    </HeroAbilArray>
+  </CHero>
+  <CHero id="DVa">
+    <CUnit value="HeroDVaMech" />
+    <Energy value="100" />
+    <Ability id="DVaPilotCallMech" valid="true">
+      <Override>
+        <ParentLink value="HeroDVaPilot" />
+      </Override>
+    </Ability>
+    <Talent id="DVaPilotConcussivePulse">
+      <Override>
+        <AbilityType value="W" />
+      </Override>
+    </Talent>
+    <Talent id="DVaPilotCallMechMEKAfall">
+      <Override>
+        <AbilityType value="E" />
+      </Override>
+    </Talent>  
+    <HeroUnit id="HeroDVaPilot"></HeroUnit>
+  </CHero>
+  <CHero id="Dryad" name="Lunara" alt="Lunara">
+    <Weapon id="DryadHeroRangedWeapon" valid="true" />
+    <Weapon id="DryadHeroMeleeWeapon" valid="true" />
+    <Portrait>
+      <Override>
+        <LoadingScreenPortraitFileName value="storm_ui_ingame_hero_loadingscreen_dryad.dds" />
+      </Override>
+    </Portrait>
+  </CHero>
+  <CHero id="Falstad">
+    <Portrait>
+      <Override>
+        <HeroSelectPortraitFileName value="storm_ui_ingame_heroselect_btn_gryphon_rider.dds" />
+      </Override>
+    </Portrait>
+  </CHero>
+  <CHero id="Fenix">
+    <Weapon id="FenixHeroWeapon">
+      <Override>
+        <Range value="5" />
+      </Override>
+    </Weapon>
+    <Weapon id="FenixPhaseBombWeapon">
+      <Override>
+        <Range value="5" />
+      </Override>
+    </Weapon>
+  </CHero>
+  <CHero id="Gall">
+    <Ability id="GallShove">
+      <Override>
+        <AbilityTier value="Mount" />
+      </Override>
+    </Ability>
+    <!--Base line activable ability-->
+    <Ability id="GallTalentEyeOfKilrogg" valid="true">
+      <Override>
+        <AbilityTier value="Activable" />
+      </Override>
+    </Ability>
+    <Talent id="GallKeepMoving">
+      <Override>
+        <AbilityType value="Z" />
+      </Override>
+    </Talent>
+    <Talent id="GallBombsAway">
+      <Override>
+        <AbilityType value="E" />
+      </Override>
+    </Talent>
+  </CHero>
+  <CHero id="Greymane" alt="genngreymane">
+    <!--Greymane worgen form abilities-->
+    <Ability id="GreymaneRazorSwipe" valid="true">
+      <Override>
+        <ParentLink value="GreymaneWorgenForm" />
+      </Override>
+    </Ability>
+    <Ability id="GreymaneDisengage" valid="true">
+      <Override>
+        <ParentLink value="GreymaneWorgenForm" />
+      </Override>
+    </Ability>
+    <Weapon id="HeroGreymaneRangedWeapon" valid="true" />
+    <Weapon id="HeroGreymaneMeleeWeapon" valid="true" />
+    <Weapon id="HeroGreymaneWorgenWeapon" valid="true">
+      <Override>
+        <ParentLink value="GreymaneWorgenForm" />
+      </Override>
+    </Weapon>
+    <HeroUnit id="GreymaneWorgenForm"></HeroUnit>
+    <Portrait>
+      <Override>
+        <LoadingScreenPortraitFileName value="storm_ui_ingame_hero_loadingscreen_greymane.dds" />
+      </Override>
+    </Portrait>
+  </CHero>
+  <CHero id="L90ETC">
+    <Portrait>
+      <Override>
+        <HeroSelectPortraitFileName value="storm_ui_ingame_heroselect_btn_etc.dds" />
+        <LeaderboardPortraitFileName value="storm_ui_ingame_hero_leaderboard_etc.dds" />
+      </Override>
+    </Portrait>
+  </CHero>
+  <CHero id="Leoric">
+    <!--Undying abilities-->
+    <Ability id="LeoricGhastlySwing" valid="true">
+      <Override>
+        <ParentLink value="LeoricUndyingTrait" />
+      </Override>
+    </Ability>
+    <Ability id="LeoricDrainEssence" valid="true">
+      <Override>
+        <ParentLink value="LeoricUndyingTrait" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="LostVikings">
+    <CUnit value="HeroLostVikingsController" />
+    <Ability id="LostVikingSelectOlaf">
+      <Override>
+        <AbilityTier value="Activable" />
+      </Override>
+    </Ability>
+    <Ability id="LostVikingSelectBaleog">
+      <Override>
+        <AbilityTier value="Activable" />
+      </Override>
+    </Ability>
+    <Ability id="LostVikingSelectErik">
+      <Override>
+        <AbilityTier value="Activable" />
+      </Override>
+    </Ability>
+    <HeroUnit id="HeroBaleog">
+      <ParentLink value="LostVikings" />
+    </HeroUnit>
+    <HeroUnit id="HeroErik">
+      <ParentLink value="LostVikings" />
+    </HeroUnit>
+    <HeroUnit id="HeroOlaf">
+      <ParentLink value="LostVikings" />  
+    </HeroUnit>
+    <Weapon id="HeroBaleogSword" valid="true" />
+    <Weapon id="HeroBaleogBow" valid="true" />
+    <Weapon id="HeroErikSlingshot" valid="true" />
+  </CHero>
+  <CHero id="Necromancer" name="Xul">
+    <Ability id="NecromancerBoneArmor">
+      <Override>
+        <AbilityTier value="Activable" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Ragnaros">
+    <!--Molten Core abilities-->
+    <LinkedAbilities>
+      <Ability id="RagnarosBigRagMoltenSwing" element="CAbilEffectTarget" />
+      <Ability id="RagnarosBigRagMeteorShower" element="CAbilEffectTarget" />
+      <Ability id="RagnarosBigRagExplosiveRune" element="CAbilEffectTarget" />
+    </LinkedAbilities>
+    <Ability id="RagnarosBigRagMoltenSwing" valid="true">
+      <Override>
+        <ParentLink value="RagnarosBigRag" />
+        <AbilityType value="Q" />
+      </Override>
+    </Ability>
+    <Ability id="RagnarosBigRagMeteorShower" valid="true">
+      <Override>
+        <ParentLink value="RagnarosBigRag" />
+        <AbilityType value="W" />
+      </Override>
+    </Ability>
+    <Ability id="RagnarosBigRagExplosiveRune" valid="true">
+      <Override>
+        <ParentLink value="RagnarosBigRag" />
+        <AbilityType value="E" />
+      </Override>
+    </Ability>
+    <HeroUnit id="RagnarosBigRag"></HeroUnit>
+  </CHero>
+  <CHero id="Rexxar">
+    <Weapon id="RexxarMeleeWeapon" valid="true" />
+    <Weapon id="RexxarRangedWeapon" valid="true" />
+    <HeroUnit id="RexxarMisha">
+      <EnergyType value="None" />
+      <Energy value="0" />
+    </HeroUnit>
+  </CHero>
+  <CHero id="Samuro">
+    <Ability id="SamuroCriticalStrikeDummy" valid="false"></Ability>
+    <Ability id="SamuroCriticalStrike" valid="true"></Ability>
+    <!--Image Transmission -->
+    <Ability id="SamuroIllusionMaster" button="SamuroAdvancingStrikes" add="true" />
+  </CHero>
+  <CHero id="Tinker" name="Gazlowe">
+    <Portrait>
+      <Override>
+        <HeroSelectPortraitFileName value="storm_ui_ingame_heroselect_btn_gazlowe.dds" />
+      </Override>
+    </Portrait>
+  </CHero>
+  <CHero id="Tychus">
+    <!--Odin abilities-->
+    <Ability id="TychusOdinAnnihilate" valid="true">
+      <Override>
+        <ParentLink value="TychusOdinNoHealth" />
+      </Override>
+    </Ability>
+    <Ability id="TychusOdinRagnarokMissilesTargeted" valid="true">
+      <Override>
+        <ParentLink value="TychusOdinNoHealth" />
+      </Override>
+    </Ability>
+    <Ability id="TychusOdinThrusters" valid="true">
+      <Override>
+        <ParentLink value="TychusOdinNoHealth" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Uther">
+    <!--Eternal Devotion ability-->
+    <Ability id="UtherFlashofLight" valid="true">
+      <Override>
+        <ParentLink value="UtherEternalDevotion" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Valeera">
+    <!--Stealth abilities-->
+    <Ability id="ValeeraAmbush" valid="true">
+      <Override>
+        <ParentLink value="ValeeraStealth" />
+      </Override>
+    </Ability>
+    <Ability id="ValeeraCheapShot" valid="true">
+      <Override>
+        <ParentLink value="ValeeraStealth" />
+      </Override>
+    </Ability>
+    <Ability id="ValeeraGarrote" valid="true">
+      <Override>
+        <ParentLink value="ValeeraStealth" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="WitchDoctor" name="Nazeebo">
+    <Ability id="WitchDoctorGargantuanStomp" valid="true">
+      <Override>
+        <ParentLink value="WitchDoctorGargantuan" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Zeratul">
+    <Ability id="VorpalBladeBlink">
+      <Override>
+        <AbilityTier value="Activable" />
+      </Override>
+    </Ability>
+  </CHero>
+</HeroOverrides>
