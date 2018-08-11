@@ -1,5 +1,4 @@
-﻿using Heroes.Models;
-using HeroesData.Parser.UnitData.Overrides;
+﻿using HeroesData.Parser.UnitData.Overrides;
 using Xunit;
 
 namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
@@ -32,7 +31,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         public void EnergyTypeOverrideTest()
         {
             Assert.True(HeroOverride.EnergyTypeOverride.Enabled);
-            Assert.Equal(UnitEnergyType.None, HeroOverride.EnergyTypeOverride.EnergyType);
+            Assert.Equal("CrazyPills", HeroOverride.EnergyTypeOverride.EnergyType);
         }
 
         [Fact]

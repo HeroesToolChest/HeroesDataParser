@@ -25,7 +25,7 @@ namespace HeroesData.Parser.UnitData.Overrides
         /// <summary>
         /// Gets or sets the type of energy.
         /// </summary>
-        public (bool Enabled, UnitEnergyType EnergyType) EnergyTypeOverride { get; set; } = (false, UnitEnergyType.None);
+        public (bool Enabled, string EnergyType) EnergyTypeOverride { get; set; } = (false, string.Empty);
 
         /// <summary>
         /// Gets or sets the amount of energy.

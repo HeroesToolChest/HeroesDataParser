@@ -1,5 +1,4 @@
-﻿using Heroes.Models;
-using HeroesData.Parser.UnitData.Overrides;
+﻿using HeroesData.Parser.UnitData.Overrides;
 using Xunit;
 
 namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
@@ -33,7 +32,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         public void EnergyTypeOverrideTest()
         {
             Assert.True(HeroOverride.EnergyTypeOverride.Enabled);
-            Assert.Equal(UnitEnergyType.Charge, HeroOverride.EnergyTypeOverride.EnergyType);
+            Assert.Equal("Charge", HeroOverride.EnergyTypeOverride.EnergyType);
         }
 
         [Fact]
@@ -90,7 +89,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
             HeroOverride heroOverride = OverrideData.HeroOverride("LittleLoco");
 
             Assert.True(heroOverride.EnergyTypeOverride.Enabled);
-            Assert.Equal(UnitEnergyType.None, heroOverride.EnergyTypeOverride.EnergyType);
+            Assert.Equal("None", heroOverride.EnergyTypeOverride.EnergyType);
 
             Assert.True(heroOverride.EnergyOverride.Enabled);
             Assert.Equal(0, heroOverride.EnergyOverride.Energy);

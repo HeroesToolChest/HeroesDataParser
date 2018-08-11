@@ -1,5 +1,4 @@
-﻿using Heroes.Models;
-using Heroes.Models.AbilityTalents;
+﻿using Heroes.Models.AbilityTalents;
 using Xunit;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
@@ -9,7 +8,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         [Fact]
         public void HeroEnergyTypeTest()
         {
-            Assert.Equal(UnitEnergyType.StoredEnergy, HeroTestHero.Energy.EnergyType);
+            Assert.Equal("Stored Energy", HeroTestHero.Energy.EnergyType);
         }
 
         [Fact]

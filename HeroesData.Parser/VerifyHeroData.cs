@@ -70,7 +70,7 @@ namespace HeroesData.Parser
                 if (hero.Life.LifeRegenerationRateScaling <= 0)
                     AddWarning($"{nameof(hero.Life.LifeRegenerationRateScaling)} is 0");
 
-                if (hero.Energy.EnergyMax > 0 && hero.Energy.EnergyType == UnitEnergyType.None)
+                if (hero.Energy.EnergyMax > 0 && string.IsNullOrEmpty(hero.Energy.EnergyType))
                     AddWarning($"{nameof(hero.Energy)} > 0 and {nameof(hero.Energy.EnergyType)} is NONE");
 
                 if (hero.Armor != null && hero.Armor.PhysicalArmor < 1 && hero.Armor.SpellArmor < 1)
@@ -195,7 +195,7 @@ namespace HeroesData.Parser
                         if (additionalUnit.Life.LifeRegenerationRateScaling <= 0)
                             AddWarning($"[{additionalUnit.Name}] {nameof(hero.Life.LifeRegenerationRateScaling)} is 0");
 
-                        if (additionalUnit.Energy.EnergyMax > 0 && hero.Energy.EnergyType == UnitEnergyType.None)
+                        if (additionalUnit.Energy.EnergyMax > 0 && string.IsNullOrEmpty(hero.Energy.EnergyType))
                             AddWarning($"[{additionalUnit.Name}] {nameof(hero.Energy)} > 0 and {nameof(hero.Energy.EnergyType)} is NONE");
 
                         if (additionalUnit.Sight <= 0)

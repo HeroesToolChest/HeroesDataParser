@@ -15,7 +15,8 @@ namespace HeroesData.Parser.UnitData
     public class HeroParser
     {
         private readonly double DefaultWeaponPeriod = 1.2; // for hero weapons
-        private readonly string DefaultEnergyText;
+        private readonly string DefaultAbilityTalentEnergyText;
+        private readonly string DefaultHeroEnergyText;
         private readonly string AbilTooltipCooldownText;
         private readonly string AbilTooltipCooldownPluralText;
         private readonly string StringChargeCooldownColon;
@@ -39,7 +40,8 @@ namespace HeroesData.Parser.UnitData
             AbilTooltipCooldownPluralText = ParsedGameStrings.TooltipsByKeyString["UI/AbilTooltipCooldownPlural"];
             StringChargeCooldownColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringChargeCooldownColon"];
             StringCooldownColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringCooldownColon"];
-            DefaultEnergyText = ParsedGameStrings.TooltipsByKeyString["UI/Tooltip/Abil/Mana"];
+            DefaultAbilityTalentEnergyText = ParsedGameStrings.TooltipsByKeyString["UI/Tooltip/Abil/Mana"];
+            DefaultHeroEnergyText = ParsedGameStrings.TooltipsByKeyString["UI/HeroEnergyType/Mana"];
         }
 
         /// <summary>
@@ -140,7 +142,7 @@ namespace HeroesData.Parser.UnitData
                 }
             }
 
-            hero.Energy.EnergyType = UnitEnergyType.Mana;
+            hero.Energy.EnergyType = DefaultHeroEnergyText;
             hero.ReleaseDate = new DateTime(2014, 3, 13);
             hero.Gender = HeroGender.Male;
             hero.Type = UnitType.Ranged;
@@ -393,7 +395,7 @@ namespace HeroesData.Parser.UnitData
             CWeaponLegacyData(hero, heroData.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
 
             if (hero.Energy.EnergyMax < 1)
-                hero.Energy.EnergyType = UnitEnergyType.None;
+                hero.Energy.EnergyType = string.Empty;
 
             if (hero.Difficulty == HeroDifficulty.Unknown)
                 hero.Difficulty = HeroDifficulty.Easy;
@@ -414,10 +416,7 @@ namespace HeroesData.Parser.UnitData
                 if (indexValue == "Energy")
                 {
                     if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(valueValue, out string energyType))
-                    {
-                        if (Enumerations.ConvertToEnum(energyType, out UnitEnergyType unitEnergyType))
-                            hero.Energy.EnergyType = unitEnergyType;
-                    }
+                        hero.Energy.EnergyType = energyType;
                 }
             }
         }
@@ -745,7 +744,7 @@ namespace HeroesData.Parser.UnitData
                             if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"UI/Tooltip/Abil/{hero.Energy.EnergyType.ToString()}", out string energyText))
                                 abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(energyText.Replace("%1", vitalValue)));
                             else
-                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(DefaultEnergyText.Replace("%1", vitalValue)));
+                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(DefaultAbilityTalentEnergyText.Replace("%1", vitalValue)));
                         }
                     }
                 }
@@ -823,7 +822,7 @@ namespace HeroesData.Parser.UnitData
                         {
                             // check if overriding text has 'Mana: '
                             if (!new TooltipDescription(DescriptionValidator.Validate(text)).PlainText.StartsWith("Mana"))
-                                text = DescriptionValidator.Validate(DefaultEnergyText.Replace("%1", text)); // add it as the default
+                                text = DescriptionValidator.Validate(DefaultAbilityTalentEnergyText.Replace("%1", text)); // add it as the default
 
                             abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(text);
                         }

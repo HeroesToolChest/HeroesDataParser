@@ -229,10 +229,7 @@ namespace HeroesData.Parser.UnitData.Overrides
                         break;
                     case "EnergyType":
                         string energyType = valueAttribute;
-                        if (Enum.TryParse(energyType, out UnitEnergyType heroEnergyType))
-                            heroOverride.EnergyTypeOverride = (true, heroEnergyType);
-                        else
-                            heroOverride.EnergyTypeOverride = (true, UnitEnergyType.None);
+                        heroOverride.EnergyTypeOverride = (true, energyType);
                         break;
                     case "Energy":
                         string energyValue = valueAttribute;

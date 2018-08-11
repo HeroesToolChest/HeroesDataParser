@@ -135,7 +135,7 @@ namespace HeroesData.FileWriter.Tests
                 Energy = new UnitEnergy
                 {
                     EnergyMax = 500,
-                    EnergyType = UnitEnergyType.Mana,
+                    EnergyType = "Mana",
                     EnergyRegenerationRate = 3,
                 },
                 Roles = new List<HeroRole> { HeroRole.Assassin, HeroRole.Warrior },
@@ -426,7 +426,7 @@ namespace HeroesData.FileWriter.Tests
                 Energy = new UnitEnergy
                 {
                     EnergyMax = -1,
-                    EnergyType = UnitEnergyType.Mana,
+                    EnergyType = "Mana",
                     EnergyRegenerationRate = 3,
                 },
                 Abilities = new Dictionary<string, Ability>

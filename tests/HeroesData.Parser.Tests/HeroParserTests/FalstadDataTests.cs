@@ -56,7 +56,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         public void EnergyTests()
         {
             Assert.Equal(500, HeroFalstad.Energy.EnergyMax);
-            Assert.Equal(UnitEnergyType.Mana, HeroFalstad.Energy.EnergyType);
+            Assert.Equal("Mana", HeroFalstad.Energy.EnergyType);
             Assert.Equal(3.0, HeroFalstad.Energy.EnergyRegenerationRate);
         }
 
