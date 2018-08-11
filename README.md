@@ -89,19 +89,23 @@ dotnet heroes-data -s 'D:\Games\Heroes of the Storm Public Test' --xml --json
 ```
 
 ## Hero Warnings
-Please be mindful of the hero warnings, especially on a build with a new hero or re-worked hero.  
+Please be aware of the hero warnings, especially on a build with a new hero or re-worked hero.  
 All the warnings do not need to be fixed, they are shown for awareness.  
 **Tooltip strings that fail to parse will show up __empty__** in the xml or json files and thus will be a valid warning.  
 Hero warnings can be shown to the console using the option `--heroWarnings`.  
 Ignored warnings are in `VerifyIgnore.txt`.  
+Ignored warnings only work for english strings (enUS).  
 
 ## Options
 ### Storage Path (-s|--storagePath)
 There are two types of paths that can be provided for this option. One is the directory path of the `Heroes of the Storm` directory and the other is an already extracted `mods` directory containing the following file structure:
 ```
 mods/
-|--core.stormmod/base.stormdata/GameData/
-   |--(ALL FILES)
+|--core.stormmod/
+   |--base.stormdata/GameData/
+      |--(ALL FILES)
+   |--enus.stormdata/LocalizedData/
+      |--GameStrings.txt
 |--heroesdata.stormmod/
    |--base.stormdata/GameData/
       |--Heroes/
@@ -114,6 +118,7 @@ mods/
 Or a simpler way, extract these directories and file (keep the directory paths)
 
 `mods/core.stormmod/base.stormdata/GameData/`  
+`mods/core.stormmod/enus.stormdata/LocalizedData/GameStrings.txt`  
 `mods/heroesData.stormmod/base.stormdata/GameData/`   
 `mods/heroesData.stormmod/enus.stormdata/LocalizedData/GameStrings.txt`  
 `mods/heromods/`
