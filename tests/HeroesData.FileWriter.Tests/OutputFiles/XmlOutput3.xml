@@ -23,8 +23,9 @@
       <Basic>
         <AlarakDiscordStrike name="Discord Strike" shortTooltipId="AlarakDiscordStrike" fullTooltipId="AlarakDiscordStrike" abilityType="Q">
           <Icon>storm_ui_icon_alarak_discordstrike.png</Icon>
-          <Energy>45</Energy>
-          <Cooldown>8 seconds</Cooldown>
+          <ToggleCooldown>2.5</ToggleCooldown>
+          <EnergyTooltip>45</EnergyTooltip>
+          <CooldownTooltip>8 seconds</CooldownTooltip>
           <ShortTooltip>Damage and silence enemies in an area</ShortTooltip>
           <FullTooltip>After a 0.5 second delay, enemies in front of Alarak take 175 damage and are silenced for 1.5 seconds.</FullTooltip>
         </AlarakDiscordStrike>
@@ -79,15 +80,15 @@
       <Level10>
         <AlarakHeroicAbilityDeadlyCharge name="Deadly Charge" shortTooltipId="AlarakDeadlyCharge" fullTooltipId="AlarakDeadlyCharge" abilityType="Heroic" sort="1">
           <Icon>storm_ui_icon_alarak_recklesscharge.png</Icon>
-          <Energy>8</Energy>
-          <Cooldown>45</Cooldown>
+          <EnergyTooltip>8</EnergyTooltip>
+          <CooldownTooltip>45</CooldownTooltip>
           <ShortTooltip>Channel to charge a long distance</ShortTooltip>
           <FullTooltip>After channeling, Alarak charges forward dealing 200 damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to 1.6 seconds.  Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.</FullTooltip>
         </AlarakHeroicAbilityDeadlyCharge>
         <AlarakHeroicAbilityCounterStrike name="Counter-Strike" shortTooltipId="AlarakCounterStrikeTargeted" fullTooltipId="AlarakCounterStrikeTargeted" abilityType="Heroic" sort="2">
           <Icon>storm_ui_icon_alarak_counterstrike.png</Icon>
-          <Energy>50</Energy>
-          <Cooldown>30 seconds</Cooldown>
+          <EnergyTooltip>50</EnergyTooltip>
+          <CooldownTooltip>30 seconds</CooldownTooltip>
           <ShortTooltip>Prevents damage to deal damage in a large area</ShortTooltip>
           <FullTooltip>Alarak targets an area and channels for 1 second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals 275 damage.</FullTooltip>
         </AlarakHeroicAbilityCounterStrike>

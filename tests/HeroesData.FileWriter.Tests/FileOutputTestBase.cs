@@ -185,6 +185,7 @@ namespace HeroesData.FileWriter.Tests
                                 },
                                 Cooldown = new TooltipCooldown()
                                 {
+                                    ToggleCooldown = 2.5,
                                     CooldownText = new TooltipDescription("8 seconds"),
                                 },
                                 ShortTooltip = new TooltipDescription("Damage and silence enemies in an area"),

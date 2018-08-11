@@ -100,15 +100,15 @@
                 "shortTooltipId": "AlexstraszaBreathOfLife",
                 "fullTooltipId": "AlexstraszaBreathOfLife",
                 "icon": "storm_ui_icon_alexstrasza_breath_of_life.jpg",
-                "life": "15%",
+                "lifeTooltip": "15%",
                 "charges": {
                   "countMax": 3,
                   "countUse": 1,
                   "countStart": 3,
                   "hideCount": false,
-                  "cooldown": 5.0
+                  "recastCooldown": 2.0
                 },
-                "cooldown": "3 seconds",
+                "cooldownTooltip": "3 seconds",
                 "abilityType": "Q"
               }
             ],
