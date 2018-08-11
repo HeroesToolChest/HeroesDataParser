@@ -8,35 +8,8 @@
       </Override>
     </Portrait>
   </CHero>
-  <CHero id="Alarak">
-    <!--Cooldown and mana cost are deducted after charge release-->
-    <Ability id="AlarakDeadlyCharge">
-      <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeUnleashModifyUnit,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeUnleashModifyUnit,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
-      </Override>
-    </Ability>
-    <Talent id="AlarakHeroicAbilityDeadlyCharge">
-      <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeUnleashModifyUnit,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeUnleashModifyUnit,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
-      </Override>
-    </Talent>
-    <Talent id="AlarakDeadlyChargeItem">
-      <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="Effect,AlarakDeadlyChargeUnleashModifyUnit,Cost[0].CooldownTimeUse"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Cooldown.CooldownValue>&lt;d ref="-Effect,AlarakDeadlyChargeUnleashModifyUnit,VitalArray[Energy].Change"/></Tooltip.Cooldown.CooldownValue>
-      </Override>
-    </Talent>
-  </CHero>
   <CHero id="Alexstrasza">
     <!--Dragonqueen abilities tied to Dragonqueen form ability-->
-    <Ability id="AlexstraszaGiftOfLife">
-      <Override>
-        <Tooltip.Life.LifeCost>&lt;d ref="-100*Accumulator,AlexstraszaGiftOfLifeCostAccumulator,Ratio"/></Tooltip.Life.LifeCost>
-        <Tooltip.Life.IsLifePercentage value="true" />
-      </Override>
-    </Ability>
     <Ability id="AlexstraszaBreathOfLife" valid="true">
       <Override>
         <ParentLink value="HeroAlexstraszaDragon" />
@@ -60,27 +33,6 @@
     <HeroUnit id="HeroAlexstraszaDragon"></HeroUnit>
   </CHero>
   <CHero id="Amazon" alt="d2amazonf"/>
-  <CHero id="Arthas">
-    <!--Mana cost is time based-->
-    <Ability id="ArthasFrozenTempest">
-      <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="-Behavior,ArthasFrozenTempestCaster,Modification[0].VitalRegenArray[Energy]"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Energy.IsPerCost value="true" />
-      </Override>
-    </Ability>
-  </CHero>
-  <CHero id="Auriel">
-    <EnergyType value="Energy" />
-  </CHero>
-  <CHero id="Azmodan">
-    <!--Mana cost is time based-->
-    <Ability id="AzmodanAllShallBurn">
-      <Override>
-        <Tooltip.Energy.EnergyCost>&lt;d ref="-Effect,AzmodanAllShallBurnManaDrain,VitalArray[Energy].Change/Effect,AzmodanAllShallBurnCreatePersistent,PeriodicPeriodArray"/></Tooltip.Energy.EnergyCost>
-        <Tooltip.Energy.IsPerCost value="true" />
-      </Override>
-    </Ability>
-  </CHero>
   <CHero id="Barbarian" name="Sonya">
     <EnergyType value="Fury" />
     <Portrait>
