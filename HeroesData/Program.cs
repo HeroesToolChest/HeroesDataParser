@@ -437,6 +437,7 @@ namespace HeroesData
             Console.WriteLine($"{GameStringData.HeroNamesByShortName.Count,6} Hero names");
             Console.WriteLine($"{GameStringData.UnitNamesByShortName.Count,6} Unit names");
             Console.WriteLine($"{GameStringData.AbilityTalentNamesByReferenceNameId.Count,6} Ability/talent names");
+            Console.WriteLine($"{GameStringData.ValueStringByKeyString.Count,6} Other strings");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
         }
@@ -589,7 +590,7 @@ namespace HeroesData
                 {
                     Interlocked.Increment(ref currentCount);
 
-                    Console.Write($"\r{currentCount,6} / {GameStringData.ValueStringByKeyString.Count} total other tooltips");
+                    Console.Write($"\r{currentCount,6} / {GameStringData.ValueStringByKeyString.Count} total other strings");
                 }
             });
 
@@ -603,12 +604,12 @@ namespace HeroesData
             Console.WriteLine();
             Console.WriteLine($"{parsedGameStrings.FullParsedTooltipsByFullTooltipNameId.Count,6} parsed full tooltips");
             Console.WriteLine($"{parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.Count,6} parsed short tooltips");
-            Console.WriteLine($"{parsedGameStrings.HeroParsedDescriptionsByShortName.Count,6} parsed hero tooltips");
-            Console.WriteLine($"{parsedGameStrings.TooltipsByKeyString.Count,6} parsed other tooltips");
+            Console.WriteLine($"{parsedGameStrings.HeroParsedDescriptionsByShortName.Count,6} parsed hero descriptions");
+            Console.WriteLine($"{parsedGameStrings.TooltipsByKeyString.Count,6} parsed other strings");
             Console.WriteLine($"{invalidFullTooltips.Count,6} invalid full tooltips");
             Console.WriteLine($"{invalidShortTooltips.Count,6} invalid short tooltips");
-            Console.WriteLine($"{invalidHeroDescriptions.Count,6} invalid hero tooltips");
-            Console.WriteLine($"{invalidOtherTooltips.Count,6} invalid other tooltips");
+            Console.WriteLine($"{invalidHeroDescriptions.Count,6} invalid hero descriptions");
+            Console.WriteLine($"{invalidOtherTooltips.Count,6} invalid other strings");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
 
@@ -619,7 +620,7 @@ namespace HeroesData
                 OutputInvalidTooltips(new SortedDictionary<string, string>(invalidShortTooltips), "Invalid short tooltips");
 
             if (ShowInvalidHeroTooltips && invalidHeroDescriptions.Count > 0)
-                OutputInvalidTooltips(new SortedDictionary<string, string>(invalidHeroDescriptions), "Invalid hero tooltips");
+                OutputInvalidTooltips(new SortedDictionary<string, string>(invalidHeroDescriptions), "Invalid hero descriptions");
 
             return parsedGameStrings;
         }
