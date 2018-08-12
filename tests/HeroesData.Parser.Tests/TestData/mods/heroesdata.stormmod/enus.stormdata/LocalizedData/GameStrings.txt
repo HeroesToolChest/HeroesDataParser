@@ -234,3 +234,11 @@ Abil/TestHeroTimeOutCooldownOverride=60 seconds
 Button/Name/TestHeroTheHunt=The hunt
 Button/SimpleDisplayText/TestHeroTheHunt=deal damage
 Button/Tooltip/TestHeroTheHunt=fly across battlefield, deals damage
+
+Button/Name/TestHeroEssenseCollectionStore=Collect
+Button/SimpleDisplayText/TestHeroEssenseCollectionStore=Collect
+Button/Tooltip/TestHeroEssenseCollectionStore=Collect
+Button/Name/TestHeroEssenseCollection=Collect essence
+Button/SimpleDisplayText/TestHeroEssenseCollection=Collect essence
+Button/Tooltip/TestHeroEssenseCollection=Collect essence
+Button/Tooltip/TestHeroEssenseCollectionCooldownOverride=5 seconds

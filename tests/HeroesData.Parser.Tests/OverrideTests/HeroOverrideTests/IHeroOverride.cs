@@ -13,5 +13,6 @@
         void LinkedAbilitiesTest();
         void HeroUnitTests();
         void ParentLinkedOverrideTests();
+        void HeroAbilSetTest();
     }
 }

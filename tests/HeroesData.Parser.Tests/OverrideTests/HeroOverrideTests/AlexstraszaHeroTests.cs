@@ -105,5 +105,11 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
             Assert.False(HeroOverride.ParentLinkOverride.Enabled);
             Assert.Equal(string.Empty, HeroOverride.ParentLinkOverride.ParentLink);
         }
+
+        [Fact]
+        public void HeroAbilSetTest()
+        {
+            Assert.Empty(HeroOverride.NewButtonValueByHeroAbilArrayButton);
+        }
     }
 }

@@ -85,5 +85,11 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
             Assert.True(HeroOverride.ParentLinkOverride.Enabled);
             Assert.Equal(string.Empty, HeroOverride.ParentLinkOverride.ParentLink);
         }
+
+        [Fact]
+        public void HeroAbilSetTest()
+        {
+            Assert.False(HeroOverride.NewButtonValueByHeroAbilArrayButton.ContainsKey("SnapCollectionStore"));
+        }
     }
 }

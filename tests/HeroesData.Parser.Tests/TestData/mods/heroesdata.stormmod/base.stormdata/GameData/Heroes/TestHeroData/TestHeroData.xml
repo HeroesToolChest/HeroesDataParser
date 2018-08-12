@@ -102,6 +102,10 @@
       <Flags index="AffectedByCooldownReduction" value="1" />
       <Flags index="Heroic" value="1" />
     </HeroAbilArray>
+    <HeroAbilArray Abil="TestHeroEssenseCollection" Button="TestHeroEssenseCollectionStore">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
     
     <Ratings>
       <Damage value="9" />
@@ -255,6 +259,12 @@
     <Alignment value="Positive" />
     <Duration value="0.5" />
   </CBehaviorBuff>
+  <CAbilEffectInstant id="TestHeroEssenseCollection">
+    <Cost>
+      <Charge CountMax="50" />
+      <Cooldown TimeUse="1" />
+    </Cost>
+  </CAbilEffectInstant>
   
   <!--buttons-->
   <CButton id="TestHeroBigBoom" parent="StormButtonParent">
@@ -315,6 +325,14 @@
   </CButton>
   <CButton id="TestHeroTheHunt" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_testhero_thehunt.dds" />>
+  </CButton>
+  <CButton id="TestHeroEssenseCollectionStore" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_testhero_essencecollection.dds" />
+    <HotkeyAlias value="TestHeroEssenseCollection" />
+  </CButton>
+  <CButton id="TestHeroEssenseCollection" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_testhero_essencecollection.dds" />
+    <TooltipCooldownOverrideText value="Button/Tooltip/TestHeroEssenseCollectionCooldownOverride" />
   </CButton>
   
   <!--talent-->

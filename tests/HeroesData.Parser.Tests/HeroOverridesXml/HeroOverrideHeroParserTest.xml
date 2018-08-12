@@ -14,5 +14,8 @@
         <ParentLink value="HeroTestUnit" />
       </Override>
     </Ability>
+    <HeroAbilArray button="TestHeroEssenseCollectionStore">
+      <Set value="TestHeroEssenseCollection" />
+    </HeroAbilArray>
   </CHero>
 </HeroOverrides>

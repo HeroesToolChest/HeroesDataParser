@@ -41,6 +41,10 @@
       </Override>
     </Portrait>
 
+    <HeroAbilArray button="CarapaceCollectionStore">
+      <Set value="CarapaceCollection" />
+    </HeroAbilArray>
+    
     <LinkedAbilities>
       <Ability id="AbathurBigAbaSlapSwing" element="CAbilEffectTarget" />
       <Ability id="AbathurBigAbaMeteorLocust" element="CAbilEffectTarget" />
@@ -51,6 +55,7 @@
       <Energy value="0" />
       <Weapon id="ScratchScratch" valid="true" />
     </HeroUnit>
+    
   </CHero>
   
   <!--Bad/Incorrect/Empty values-->
@@ -83,6 +88,10 @@
       </Override>
     </Weapon>
 
+    <HeroAbilArray button="SnapCollectionStore">
+      <Set value="" />
+    </HeroAbilArray>
+    
     <Portrait>
       <Override>
         <PartyPanelPortraitFileName value="testimage.dds" />
@@ -149,6 +158,10 @@
       <Override>
       </Override>
     </Weapon>
+
+    <HeroAbilArray button="">
+      <Set value="" />
+    </HeroAbilArray>
     
     <Portrait>
       <Override>

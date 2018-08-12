@@ -169,5 +169,12 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Talent talent = HeroTestHero.Talents["TestHeroTimeOut"];
             Assert.Equal("Cooldown: 60 seconds", talent.Tooltip.Cooldown.CooldownText.RawDescription);
         }
+
+        [Fact]
+        public void HeroAbilArraySetTest()
+        {
+            Ability ability = HeroTestHero.Abilities["TestHeroEssenseCollection"];
+            Assert.Equal("Cooldown: 5 seconds", ability.Tooltip.Cooldown.CooldownText.RawDescription);
+        }
     }
 }

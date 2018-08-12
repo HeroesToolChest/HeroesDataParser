@@ -101,5 +101,11 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
             Assert.True(HeroOverride.ParentLinkOverride.Enabled);
             Assert.Equal("TheSwarm", HeroOverride.ParentLinkOverride.ParentLink);
         }
+
+        [Fact]
+        public void HeroAbilSetTest()
+        {
+            Assert.Equal("CarapaceCollection", HeroOverride.NewButtonValueByHeroAbilArrayButton["CarapaceCollectionStore"]);
+        }
     }
 }
