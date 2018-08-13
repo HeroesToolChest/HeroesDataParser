@@ -32,6 +32,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         protected Hero HeroFalstad { get; set; }
         protected Hero HeroAuriel { get; set; }
         protected Hero HeroZarya { get; set; }
+        protected Hero HeroMedic { get; set; }
         protected Hero HeroTestHero { get; set; }
 
         private void LoadTestData()
@@ -102,8 +103,9 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         {
             HeroParser heroDataParser = new HeroParser(GameData, GameStringData, ParsedGameStrings, OverrideData);
             HeroFalstad = heroDataParser.Parse("Falstad", "HeroFalstad");
-            HeroAuriel = heroDataParser.Parse("TestHero", "HeroAuriel");
-            HeroZarya = heroDataParser.Parse("TestHero", "HeroZarya");
+            HeroAuriel = heroDataParser.Parse("Auriel", "HeroAuriel");
+            HeroZarya = heroDataParser.Parse("Zarya", "HeroZarya");
+            HeroMedic = heroDataParser.Parse("Medic", "HeroMedic");
             HeroTestHero = heroDataParser.Parse("TestHero", "HeroTestHero");
         }
     }

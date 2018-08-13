@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroMedic" parent="StormHeroMounted">
+    <LifeStart value="1472" />
+    <LifeMax value="1472" />
+    <LifeRegenRate value="3.0703" />
+    <WeaponArray Link="MedicHeroWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="MedicHealingBeam" Type="AbilCmd" AbilCmd="MedicHealingBeam,Execute" Slot="Ability1" />
+    </CardLayouts>
+    <EnergyRegenRate value="0" />
+    <EnergyStart value="100" />
+    <EnergyMax value="100" />
+  </CUnit>
+  <CHero id="Medic">
+    <ReleaseDate Month="10" Day="6" Year="2015" />
+    <AttributeId value="Medi" />
+    <Role value="Support" />
+    <RolesMultiClass value="Support" />
+    <CollectionCategory value="Support" />
+    <HeroAbilArray Abil="MedicHealingBeam" Button="MedicHealingBeam">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+  </CHero>
+  <CActorUnit id="HeroMedic" parent="StormHeroBasePredictive" unitName="HeroMedic">
+    <VitalNames index="Energy" value="UI/HeroEnergyType/Energy" />
+  </CActorUnit>
+  <CAbilEffectTarget id="MedicHealingBeam">
+    <Cost>
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+  </CAbilEffectTarget>
+  <CEffectCreateHealer id="MedicHealingBeamCreateHealer" parent="StormHealingSpell">
+    <RechargeVitalRate value="86" />
+  </CEffectCreateHealer>
+  <CBehaviorBuff id="MedicHealingBeamCooldown">
+    <Duration value="2" />
+  </CBehaviorBuff>
+  <CEffectCreateHealer id="MedicCaduceusReactorCreateEnergyHealer">
+    <RechargeVitalFraction value="0.06" />
+  </CEffectCreateHealer>
+  <CButton id="MedicHealingBeam" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_medic_healingbeam.dds" />
+    <TooltipVitalOverrideText index="Energy" value="Abil/MedicHealingBeamTooltipButtonOverride" />
+    <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Energy" />
+  </CButton>
+</Catalog>

@@ -242,3 +242,10 @@ Button/Name/TestHeroEssenseCollection=Collect essence
 Button/SimpleDisplayText/TestHeroEssenseCollection=Collect essence
 Button/Tooltip/TestHeroEssenseCollection=Collect essence
 Button/Tooltip/TestHeroEssenseCollectionCooldownOverride=5 seconds
+
+Hero/Description/Medic=desc
+Hero/Name/Medic=Lt. Morales
+Abil/Name/MedicHealingBeam=Healing Beam
+Button/Name/MedicHealingBeam=Healing Beam
+Button/Tooltip/MedicHealingBeam=Heal target ally for <c val="#TooltipNumbers"><d ref="Effect,MedicHealingBeamCreateHealer,RechargeVitalRate*2"/></c> Health per second as long as they are in range. After not channeling Healing Beam for <c val="#TooltipNumbers"><d ref="Behavior,MedicHealingBeamCooldown,Duration"/></c> seconds, regenerate <c val="#TooltipNumbers"><d ref="100*Effect,MedicCaduceusReactorCreateEnergyHealer,RechargeVitalFraction"/></c> Energy per second.<n/><n/>Reactivate to switch targets, or self-cast to cancel channeling.
+Abil/MedicHealingBeamTooltipButtonOverride=6 per second

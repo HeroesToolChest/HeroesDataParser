@@ -1,4 +1,5 @@
 ﻿using Heroes.Models;
+using Heroes.Models.AbilityTalents;
 using Xunit;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
@@ -24,6 +25,13 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         {
             Assert.Equal(1, HeroAuriel.Roles.Count);
             Assert.Equal(HeroRole.Support, HeroAuriel.Roles[0]);
+        }
+
+        [Fact]
+        public void AbilityEnergyTooltipTextTest()
+        {
+            Ability ability = HeroAuriel.Abilities["AurielSacredSweep"];
+            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Energy?.EnergyText.RawDescription));
         }
     }
 }

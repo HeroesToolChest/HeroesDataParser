@@ -16,6 +16,7 @@ namespace HeroesData.Parser.UnitData
     {
         private readonly double DefaultWeaponPeriod = 1.2; // for hero weapons
         private readonly string UITooltipAbilLookupPrefix = "UI/Tooltip/Abil/";
+        private readonly string ReplacementCharacter = "%1";
         private readonly string DefaultAbilityTalentEnergyText;
         private readonly string DefaultHeroEnergyText;
         private readonly string AbilTooltipCooldownText;
@@ -660,9 +661,9 @@ namespace HeroesData.Parser.UnitData
                                     replaceText = StringCooldownColon; // Cooldown:<space>
 
                                 if (cooldownValue == "1")
-                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace(StringCooldownColon, replaceText).Replace("%1", cooldownValue));
+                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace(StringCooldownColon, replaceText).Replace(ReplacementCharacter, cooldownValue));
                                 else
-                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace(StringCooldownColon, replaceText).Replace("%1", cooldownValue));
+                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace(StringCooldownColon, replaceText).Replace(ReplacementCharacter, cooldownValue));
                             }
                         }
                         else
@@ -697,9 +698,9 @@ namespace HeroesData.Parser.UnitData
                                 if (!string.IsNullOrEmpty(cooldownValue))
                                 {
                                     if (cooldownValue == "1")
-                                        abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace(StringCooldownColon, StringChargeCooldownColon).Replace("%1", cooldownValue));
+                                        abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace(StringCooldownColon, StringChargeCooldownColon).Replace(ReplacementCharacter, cooldownValue));
                                     else
-                                        abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace(StringCooldownColon, StringChargeCooldownColon).Replace("%1", cooldownValue));
+                                        abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace(StringCooldownColon, StringChargeCooldownColon).Replace(ReplacementCharacter, cooldownValue));
                                 }
                             }
                         }
@@ -721,9 +722,9 @@ namespace HeroesData.Parser.UnitData
                                 double cooldown = double.Parse(cooldownValue);
 
                                 if (cooldown == 1)
-                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace("%1", cooldownValue));
+                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace(ReplacementCharacter, cooldownValue));
                                 else if (cooldown >= 1)
-                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace("%1", cooldownValue));
+                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace(ReplacementCharacter, cooldownValue));
 
                                 if (cooldown < 1)
                                     abilityTalentBase.Tooltip.Cooldown.ToggleCooldown = cooldown;
@@ -743,9 +744,9 @@ namespace HeroesData.Parser.UnitData
                             abilityTalentBase.Tooltip.Energy.EnergyValue = double.Parse(vitalValue);
 
                             if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{UITooltipAbilLookupPrefix}{hero.Energy.EnergyType}", out string energyText))
-                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(energyText.Replace("%1", vitalValue)));
+                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(energyText.Replace(ReplacementCharacter, vitalValue)));
                             else
-                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(DefaultAbilityTalentEnergyText.Replace("%1", vitalValue)));
+                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(DefaultAbilityTalentEnergyText.Replace(ReplacementCharacter, vitalValue)));
                         }
                     }
                 }
@@ -794,10 +795,10 @@ namespace HeroesData.Parser.UnitData
                         {
                             if (string.IsNullOrEmpty(abilityTalentBase.Tooltip.Life.LifeCostText?.RawDescription))
                                 abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName));
-                            else if (overrideVitalName.Contains("%1"))
-                                abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace("%1", abilityTalentBase.Tooltip.Life.LifeValue.ToString())));
+                            else if (overrideVitalName.Contains(ReplacementCharacter))
+                                abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(ReplacementCharacter, abilityTalentBase.Tooltip.Life.LifeValue.ToString())));
                             else
-                                abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace("%1", abilityTalentBase.Tooltip.Life.LifeCostText.RawDescription)));
+                                abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(ReplacementCharacter, abilityTalentBase.Tooltip.Life.LifeCostText.RawDescription)));
                         }
                     }
                     else if (index == "Energy")
@@ -806,10 +807,10 @@ namespace HeroesData.Parser.UnitData
                         {
                             if (string.IsNullOrEmpty(abilityTalentBase.Tooltip.Energy.EnergyText?.RawDescription))
                                 abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName));
-                            else if (overrideVitalName.Contains("%1"))
-                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace("%1", abilityTalentBase.Tooltip.Energy.EnergyValue.ToString())));
+                            else if (overrideVitalName.Contains(ReplacementCharacter))
+                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(ReplacementCharacter, abilityTalentBase.Tooltip.Energy.EnergyValue.ToString())));
                             else
-                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace("%1", abilityTalentBase.Tooltip.Energy.EnergyText.RawDescription)));
+                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(ReplacementCharacter, abilityTalentBase.Tooltip.Energy.EnergyText.RawDescription)));
                         }
                     }
                 }
@@ -826,14 +827,14 @@ namespace HeroesData.Parser.UnitData
                             if (!new TooltipDescription(DescriptionValidator.Validate(text)).PlainText.StartsWith(hero.Energy.EnergyType))
                             {
                                 if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{UITooltipAbilLookupPrefix}{hero.Energy.EnergyType}", out string energyText))
-                                    text = DescriptionValidator.Validate(energyText.Replace("%1", text)); // add it as the default
+                                    text = DescriptionValidator.Validate(energyText.Replace(ReplacementCharacter, text)); // add it as the default
                             }
 
                             abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(text);
                         }
                         else if (cButtonTooltipVitalElement.Attribute("index")?.Value == "Life")
                         {
-                            abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(abilityTalentBase.Tooltip.Life.LifeCostText.RawDescription.Replace("%1", text)));
+                            abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(abilityTalentBase.Tooltip.Life.LifeCostText.RawDescription.Replace(ReplacementCharacter, text)));
                         }
                     }
                 }
@@ -875,6 +876,12 @@ namespace HeroesData.Parser.UnitData
             {
                 abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription);
             }
+
+            // check if the life and energy string contain the replacement character
+            if (abilityTalentBase.Tooltip.Life.LifeCostText != null && abilityTalentBase.Tooltip.Life.LifeCostText.RawDescription.Contains(ReplacementCharacter))
+                abilityTalentBase.Tooltip.Life = null;
+            if (abilityTalentBase.Tooltip.Energy.EnergyText != null && abilityTalentBase.Tooltip.Energy.EnergyText.RawDescription.Contains(ReplacementCharacter))
+                abilityTalentBase.Tooltip.Energy = null;
         }
 
         private void SetAdditionalLinkedAbilities(Hero hero)
@@ -1300,7 +1307,7 @@ namespace HeroesData.Parser.UnitData
         {
             // move sub abilities to hero unit abilites
             ILookup<string, Ability> linkedAbilities = hero.ParentLinkedAbilities();
-            if (linkedAbilities.Count > 0)
+            if (linkedAbilities?.Count > 0)
             {
                 foreach (Hero heroUnit in hero.HeroUnits)
                 {
@@ -1315,7 +1322,7 @@ namespace HeroesData.Parser.UnitData
         private void MoveParentLinkedWeapons(Hero hero)
         {
             ILookup<string, UnitWeapon> linkedWeapons = hero.ParentLinkedWeapons();
-            if (linkedWeapons.Count > 0)
+            if (linkedWeapons?.Count > 0)
             {
                 foreach (Hero heroUnit in hero.HeroUnits)
                 {

@@ -11,6 +11,9 @@
     <EnergyMax value="475" />
     <EnergyRegenRate value="0" />
     <Gender value="Female" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="AurielSacredSweep" Type="AbilCmd" AbilCmd="AurielSacredSweep,Execute" Slot="Ability1" />
+    </CardLayouts>
   </CUnit>
   <CHero id="Auriel">
     <AttributeId value="Auri" />
@@ -18,8 +21,21 @@
     <RolesMultiClass value="Support" />
     <RoleScoreValueOverride value="Support" />
     <CollectionCategory value="Support" />
+    <HeroAbilArray Abil="AurielSacredSweep" Button="AurielSacredSweep">
+      <Flags index="ShowInHeroSelect" value="1" />
+    </HeroAbilArray>
   </CHero>
-<CActorUnit id="HeroAuriel" parent="StormHeroBase" unitName="HeroAuriel">
+  <CActorUnit id="HeroAuriel" parent="StormHeroBase" unitName="HeroAuriel">
     <VitalNames index="Energy" value="UI/HeroEnergyType/StoredHealing" />
   </CActorUnit>
+  <CAbilEffectTarget id="AurielSacredSweep">
+    <Cost>
+      <Charge Link="Abil/AurielAngelicWhip" />
+      <Cooldown Link="Abil/AurielAngelicWhip" TimeUse="8" />
+    </Cost>
+  </CAbilEffectTarget>
+  <CButton id="AurielSacredSweep">
+    <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Mana" />
+    <SimpleDisplayText value="Button/Simple/AurielSacredSweep" />
+  </CButton>
 </Catalog>
