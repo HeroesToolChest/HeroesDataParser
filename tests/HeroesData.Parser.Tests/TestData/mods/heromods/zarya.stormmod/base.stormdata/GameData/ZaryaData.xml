@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
+  <CUnit id="HeroZarya" parent="StormHeroMounted">
+    <LifeStart value="2292" />
+    <LifeMax value="2292" />
+    <LifeRegenRate value="4.7734" />
+    <EnergyStart value="0" />
+    <EnergyMax value="100" />
+    <EnergyRegenRate value="0" />
+  </CUnit>
+  <CHero id="Zarya">
+    <AttributeId value="Zary" />
+  </CHero>
+  <CActorUnit id="HeroZarya" parent="StormHeroStandard" unitName="HeroZarya">
+    <VitalNames index="Energy" value="UI/HeroEnergyType/ZaryaEnergy" />
+  </CActorUnit>
   <CEffectDamage id="ZaryaWeaponFeelTheHeatDamage" parent="StormWeapon">
     <Amount value="30">
       <AccumulatorArray value="ZaryaEnergyAccumulator" />

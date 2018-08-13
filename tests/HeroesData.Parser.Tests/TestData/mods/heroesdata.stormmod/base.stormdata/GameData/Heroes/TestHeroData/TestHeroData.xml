@@ -152,7 +152,7 @@
   </CUnit>
 
   <CActorUnit id="HeroTestHero" parent="StormHeroBasePredictive" unitName="HeroTestHero">
-    <VitalNames index="Energy" value="UI/HeroEnergyType/StoredHealing" />
+    <!--<VitalNames index="Energy" value="UI/HeroEnergyType/StoredHealing" />-->
   </CActorUnit>
   
   <CAbilEffectInstant id="TestHeroBigBoom">

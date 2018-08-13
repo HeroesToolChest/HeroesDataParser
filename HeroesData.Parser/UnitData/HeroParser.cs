@@ -15,6 +15,7 @@ namespace HeroesData.Parser.UnitData
     public class HeroParser
     {
         private readonly double DefaultWeaponPeriod = 1.2; // for hero weapons
+        private readonly string UITooltipAbilLookupPrefix = "UI/Tooltip/Abil/";
         private readonly string DefaultAbilityTalentEnergyText;
         private readonly string DefaultHeroEnergyText;
         private readonly string AbilTooltipCooldownText;
@@ -491,7 +492,7 @@ namespace HeroesData.Parser.UnitData
 
             SetAbilityTalentIcon(ability);
             SetTooltipSubInfo(hero, referenceName, ability);
-            SetTooltipDescriptions(ability);
+            SetTooltipDescriptions(hero, ability);
             SetAbilityTypeForAbility(hero.CUnitId, ability, layoutButtons);
 
             // add ability
@@ -567,7 +568,7 @@ namespace HeroesData.Parser.UnitData
                     SetTooltipSubInfo(hero, effectId, talent);
             }
 
-            SetTooltipDescriptions(talent);
+            SetTooltipDescriptions(hero, talent);
             SetAbilityTypeForTalent(hero, talent, cTalentElement);
 
             hero.Talents.Add(referenceName, talent);
@@ -741,7 +742,7 @@ namespace HeroesData.Parser.UnitData
                         {
                             abilityTalentBase.Tooltip.Energy.EnergyValue = double.Parse(vitalValue);
 
-                            if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"UI/Tooltip/Abil/{hero.Energy.EnergyType.ToString()}", out string energyText))
+                            if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{UITooltipAbilLookupPrefix}{hero.Energy.EnergyType}", out string energyText))
                                 abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(energyText.Replace("%1", vitalValue)));
                             else
                                 abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(DefaultAbilityTalentEnergyText.Replace("%1", vitalValue)));
@@ -754,8 +755,9 @@ namespace HeroesData.Parser.UnitData
         /// <summary>
         /// Sets tooltip descriptions and override texts for vitals and cooldowns.
         /// </summary>
+        /// <param name="hero"></param>
         /// <param name="abilityTalentBase"></param>
-        private void SetTooltipDescriptions(AbilityTalentBase abilityTalentBase)
+        private void SetTooltipDescriptions(Hero hero, AbilityTalentBase abilityTalentBase)
         {
             string faceValue = abilityTalentBase.FullTooltipNameId;
             abilityTalentBase.ShortTooltipNameId = faceValue; // set to default
@@ -820,9 +822,12 @@ namespace HeroesData.Parser.UnitData
                     {
                         if (cButtonTooltipVitalElement.Attribute("index")?.Value == "Energy")
                         {
-                            // check if overriding text has 'Mana: '
-                            if (!new TooltipDescription(DescriptionValidator.Validate(text)).PlainText.StartsWith("Mana"))
-                                text = DescriptionValidator.Validate(DefaultAbilityTalentEnergyText.Replace("%1", text)); // add it as the default
+                            // check if overriding text has starts with the energy text
+                            if (!new TooltipDescription(DescriptionValidator.Validate(text)).PlainText.StartsWith(hero.Energy.EnergyType))
+                            {
+                                if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{UITooltipAbilLookupPrefix}{hero.Energy.EnergyType}", out string energyText))
+                                    text = DescriptionValidator.Validate(energyText.Replace("%1", text)); // add it as the default
+                            }
 
                             abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(text);
                         }
@@ -896,7 +901,7 @@ namespace HeroesData.Parser.UnitData
 
                 SetAbilityTalentIcon(ability);
                 SetTooltipSubInfo(hero, linkName, ability);
-                SetTooltipDescriptions(ability);
+                SetTooltipDescriptions(hero, ability);
 
                 // add to abilities
                 if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))

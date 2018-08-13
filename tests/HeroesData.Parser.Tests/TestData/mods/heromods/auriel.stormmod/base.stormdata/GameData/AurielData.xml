@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+<CUnit id="HeroAuriel" parent="StormHeroMounted">
+    <LifeStart value="1700" />
+    <LifeMax value="1700" />
+    <WeaponArray Link="AurielHeroWeapon" />
+    <Radius value="0.75" />
+    <InnerRadius value="0.4375" />
+    <LifeRegenRate value="3.539" />
+    <EnergyStart value="0" />
+    <EnergyMax value="475" />
+    <EnergyRegenRate value="0" />
+    <Gender value="Female" />
+  </CUnit>
+  <CHero id="Auriel">
+    <AttributeId value="Auri" />
+    <Role value="Support" />
+    <RolesMultiClass value="Support" />
+    <RoleScoreValueOverride value="Support" />
+    <CollectionCategory value="Support" />
+  </CHero>
+<CActorUnit id="HeroAuriel" parent="StormHeroBase" unitName="HeroAuriel">
+    <VitalNames index="Energy" value="UI/HeroEnergyType/StoredHealing" />
+  </CActorUnit>
+</Catalog>

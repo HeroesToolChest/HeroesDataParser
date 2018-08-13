@@ -8,7 +8,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         [Fact]
         public void HeroEnergyTypeTest()
         {
-            Assert.Equal("Stored Energy", HeroTestHero.Energy.EnergyType);
+            Assert.Equal("Mana", HeroTestHero.Energy.EnergyType);
         }
 
         [Fact]

@@ -7,12 +7,6 @@ namespace HeroesData.Parser.Tests.HeroParserTests
     public class FalstadDataTests : HeroParserBaseTest
     {
         [Fact]
-        public void ActivableAbilitiesTests()
-        {
-            return;
-        }
-
-        [Fact]
         public void BasicAbilitiesTests()
         {
             Ability ability = HeroFalstad.Abilities["FalstadHammerang"];
