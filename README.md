@@ -98,7 +98,9 @@ Ignored warnings only work for english strings (enUS).
 
 ## Options
 ### Storage Path (-s|--storagePath)
-There are two types of paths that can be provided for this option. One is the directory path of the `Heroes of the Storm` directory and the other is an already extracted `mods` directory containing the following file structure:
+There are two types of paths that can be provided for this option. One is the directory path of the `Heroes of the Storm` directory and the other is an already extracted `mods` directory containing the following file structure:  
+**Note:** `enus.stormdata` is for the localization
+
 ```
 mods/
 |--core.stormmod/
