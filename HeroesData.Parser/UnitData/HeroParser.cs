@@ -14,6 +14,8 @@ namespace HeroesData.Parser.UnitData
 {
     public class HeroParser
     {
+        private const string UIHeroEnergyTypeMana = "UI/HeroEnergyType/Mana";
+
         private readonly double DefaultWeaponPeriod = 1.2; // for hero weapons
         private readonly string UITooltipAbilLookupPrefix = "UI/Tooltip/Abil/";
         private readonly string ReplacementCharacter = "%1";
@@ -30,6 +32,7 @@ namespace HeroesData.Parser.UnitData
         private readonly OverrideData OverrideData;
 
         private HeroOverride HeroOverride = new HeroOverride();
+        private string HeroEnergyTypeEnglish;
 
         public HeroParser(GameData gameData, GameStringData gameStringData, ParsedGameStrings parsedGameStrings, OverrideData overrideData)
         {
@@ -43,7 +46,7 @@ namespace HeroesData.Parser.UnitData
             StringChargeCooldownColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringChargeCooldownColon"];
             StringCooldownColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringCooldownColon"];
             DefaultAbilityTalentEnergyText = ParsedGameStrings.TooltipsByKeyString["UI/Tooltip/Abil/Mana"];
-            DefaultHeroEnergyText = ParsedGameStrings.TooltipsByKeyString["UI/HeroEnergyType/Mana"];
+            DefaultHeroEnergyText = ParsedGameStrings.TooltipsByKeyString[UIHeroEnergyTypeMana];
         }
 
         /// <summary>
@@ -145,6 +148,7 @@ namespace HeroesData.Parser.UnitData
             }
 
             hero.Energy.EnergyType = DefaultHeroEnergyText;
+            HeroEnergyTypeEnglish = UIHeroEnergyTypeMana.Split('/').Last();
             hero.ReleaseDate = new DateTime(2014, 3, 13);
             hero.Gender = HeroGender.Male;
             hero.Type = UnitType.Ranged;
@@ -418,7 +422,10 @@ namespace HeroesData.Parser.UnitData
                 if (indexValue == "Energy")
                 {
                     if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(valueValue, out string energyType))
+                    {
                         hero.Energy.EnergyType = energyType;
+                        HeroEnergyTypeEnglish = valueValue.Split('/').Last();
+                    }
                 }
             }
         }
@@ -743,7 +750,7 @@ namespace HeroesData.Parser.UnitData
                         {
                             abilityTalentBase.Tooltip.Energy.EnergyValue = double.Parse(vitalValue);
 
-                            if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{UITooltipAbilLookupPrefix}{hero.Energy.EnergyType}", out string energyText))
+                            if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{UITooltipAbilLookupPrefix}{HeroEnergyTypeEnglish}", out string energyText))
                                 abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(energyText.Replace(ReplacementCharacter, vitalValue)));
                             else
                                 abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(DefaultAbilityTalentEnergyText.Replace(ReplacementCharacter, vitalValue)));
@@ -823,10 +830,10 @@ namespace HeroesData.Parser.UnitData
                     {
                         if (cButtonTooltipVitalElement.Attribute("index")?.Value == "Energy")
                         {
-                            // check if overriding text has starts with the energy text
+                            // check if overriding text starts with the energy text
                             if (!new TooltipDescription(DescriptionValidator.Validate(text)).PlainText.StartsWith(hero.Energy.EnergyType))
                             {
-                                if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{UITooltipAbilLookupPrefix}{hero.Energy.EnergyType}", out string energyText))
+                                if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{UITooltipAbilLookupPrefix}{HeroEnergyTypeEnglish}", out string energyText))
                                     text = DescriptionValidator.Validate(energyText.Replace(ReplacementCharacter, text)); // add it as the default
                             }
 
