@@ -10,6 +10,11 @@
   </CUnit>
   <CHero id="Zarya">
     <AttributeId value="Zary" />
+    <HeroAbilArray Abil="ZaryaParticleGrenade" Button="ZaryaParticleGrenade">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <TalentTreeArray Talent="ZaryaPainIsTemporary" Tier="5" Column="4" />
   </CHero>
   <CActorUnit id="HeroZarya" parent="StormHeroStandard" unitName="HeroZarya">
     <VitalNames index="Energy" value="UI/HeroEnergyType/ZaryaEnergy" />
@@ -24,7 +29,40 @@
       <AccumulatorArray value="ZaryaEnergyAccumulator" />
     </Amount>
   </CEffectDamage>
-
+  <CAbilEffectInstant id="ZaryaPainIsTemporary">
+    <Cost>
+      <Vital index="Energy" value="1" />
+      <Cooldown TimeUse="30" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="ZaryaPainIsTemporaryTalent" Requirements="ZaryaPainIsTemporary">
+      <Flags index="AllowSelfCast" value="1" />
+    </CmdButtonArray>
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="ZaryaParticleGrenade">
+    <Cost>
+      <Charge>
+        <CountMax value="4" />
+        <CountStart value="4" />
+        <CountUse value="1" />
+        <TimeUse value="8" />
+      </Charge>
+      <Cooldown TimeUse="0.75" />
+    </Cost>
+  </CAbilEffectTarget>
+  <CTalent id="ZaryaPainIsTemporary">
+    <Face value="ZaryaPainIsTemporaryTalent" />
+    <Abil value="ZaryaPainIsTemporary" />
+    <RankArray Item="ZaryaPainIsTemporaryItem" />
+    <Active value="1" />
+  </CTalent>
+  <CButton id="ZaryaPainIsTemporaryTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_Zarya_PainIsTemporary.dds" />
+    <TooltipFlags index="ShowUsage" value="0" />
+    <TooltipVitalName index="Energy" value="" />
+  </CButton>
+  <CButton id="ZaryaParticleGrenade" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_Zarya_ParticleGrenade.dds" />
+  </CButton>
   <LevelScalingArray>
     <Modifications>
       <Catalog value="Unit" />

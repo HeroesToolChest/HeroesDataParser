@@ -249,3 +249,24 @@ Abil/Name/MedicHealingBeam=Healing Beam
 Button/Name/MedicHealingBeam=Healing Beam
 Button/Tooltip/MedicHealingBeam=Heal target ally for <c val="#TooltipNumbers"><d ref="Effect,MedicHealingBeamCreateHealer,RechargeVitalRate*2"/></c> Health per second as long as they are in range. After not channeling Healing Beam for <c val="#TooltipNumbers"><d ref="Behavior,MedicHealingBeamCooldown,Duration"/></c> seconds, regenerate <c val="#TooltipNumbers"><d ref="100*Effect,MedicCaduceusReactorCreateEnergyHealer,RechargeVitalFraction"/></c> Energy per second.<n/><n/>Reactivate to switch targets, or self-cast to cancel channeling.
 Abil/MedicHealingBeamTooltipButtonOverride=6 per second
+
+Button/Name/TestHeroTheWill=Test
+Button/Tooltip/TestHeroTheWill=TestWill
+WillofTestHeroCooldownOverride=60 seconds
+
+Abil/Name/MedicCellularReactor=Cellular Reactor
+Button/Name/MedicCellularReactorTalent=Cellular Reactor
+Button/Tooltip/MedicCellularReactorTalent=Consueme energy to heal
+
+Hero/Description/Uther=A Healer that can negate high bursts of damage.
+Hero/Name/Uther=Uther
+
+Abil/Name/UtherHolyLight=Holy Light
+Button/Name/UtherHolyLight=Holy Light
+Button/SimpleDisplayText/UtherHolyLight=Heal an ally and Uther
+Button/Tooltip/UtherHolyLight=Heal target ally for
+
+Button/Name/UtherBenedictionHotbar=Benediction
+Button/SimpleDisplayText/UtherBenedictionHotbar=Reduce Mana cost, cooldown of next ability
+Button/Tooltip/UtherBenedictionHotbar=Activate to reduce the Mana cost
+Benediction Cool Down=60 seconds

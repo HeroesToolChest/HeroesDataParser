@@ -2,3 +2,12 @@
 Hero/Name/Zarya=Zarya
 Button/Tooltip/ZaryaWeaponFeelTheHeatTalent=Zarya's Basic Attack deals <c val="#TooltipNumbers"><d ref="(Effect,ZaryaWeaponFeelTheHeatDamage,Amount/Effect,ZaryaWeaponDamage,Amount)-1*10)" />0%</c> additional damage to enemies in melee range.
 UI/HeroEnergyType/ZaryaEnergy=Energy
+
+Abil/Name/ZaryaParticleGrenade=Particle Grenade
+Button/Name/ZaryaParticleGrenade=Particle Grenade
+Button/SimpleDisplayText/ZaryaParticleGrenade=Deals damage to enemies in a small area
+Button/Tooltip/ZaryaParticleGrenade=Launch a particle grenade
+
+Button/Name/ZaryaPainIsTemporaryTalent=Pain is Temporary
+Button/SimpleDisplayText/ZaryaPainIsTemporaryTalent=Consume Energy to gain a Shield
+Button/Tooltip/ZaryaPainIsTemporaryTalent=Activate to consume all Energy and gain a Shield

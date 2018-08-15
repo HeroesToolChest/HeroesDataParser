@@ -773,10 +773,17 @@ namespace HeroesData.Parser.UnitData
             string fullTooltipValue = string.Empty; // Tooltip
             string shortTooltipValue = string.Empty; // SimpleDisplayText
 
+            bool showUsage = true;
+
             // check cbutton for tooltip overrides
             XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue).FirstOrDefault();
             if (cButtonElement != null)
             {
+                // check if show usage has been set to 0
+                XElement cButtonTooltipFlagsElement = cButtonElement.Element("TooltipFlags");
+                if (cButtonTooltipFlagsElement != null && cButtonTooltipFlagsElement.Attribute("index")?.Value == "ShowUsage" && cButtonTooltipFlagsElement.Attribute("value")?.Value == "0")
+                    showUsage = false;
+
                 // full tooltip
                 XElement cButtonTooltipElement = cButtonElement.Element("Tooltip");
                 if (cButtonTooltipElement != null)
@@ -798,7 +805,13 @@ namespace HeroesData.Parser.UnitData
                     string index = cButtonTooltipVitalNameElement.Attribute("index")?.Value;
                     if (index == "Life")
                     {
-                        if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipVitalNameElement.Attribute("value").Value, out string overrideVitalName))
+                        string value = cButtonTooltipVitalNameElement.Attribute("value").Value;
+
+                        if (string.IsNullOrEmpty(value))
+                        {
+                            abilityTalentBase.Tooltip.Life.LifeCostText = null;
+                        }
+                        else if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipVitalNameElement.Attribute("value").Value, out string overrideVitalName))
                         {
                             if (string.IsNullOrEmpty(abilityTalentBase.Tooltip.Life.LifeCostText?.RawDescription))
                                 abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName));
@@ -810,7 +823,13 @@ namespace HeroesData.Parser.UnitData
                     }
                     else if (index == "Energy")
                     {
-                        if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipVitalNameElement.Attribute("value").Value, out string overrideVitalName))
+                        string value = cButtonTooltipVitalNameElement.Attribute("value").Value;
+
+                        if (string.IsNullOrEmpty(value))
+                        {
+                            abilityTalentBase.Tooltip.Energy.EnergyText = null;
+                        }
+                        else if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(value, out string overrideVitalName))
                         {
                             if (string.IsNullOrEmpty(abilityTalentBase.Tooltip.Energy.EnergyText?.RawDescription))
                                 abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName));
@@ -848,7 +867,7 @@ namespace HeroesData.Parser.UnitData
 
                 // check for cooldown override text
                 XElement cButtonTooltipCooldownElement = cButtonElement.Element("TooltipCooldownOverrideText");
-                if (cButtonTooltipCooldownElement != null)
+                if (cButtonTooltipCooldownElement != null && showUsage)
                 {
                     string overrideValueText = cButtonTooltipCooldownElement.Attribute("value").Value;
                     if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(overrideValueText, out string text) ||

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroUther" parent="StormHeroMounted">
+    <LifeStart value="2156" />
+    <LifeMax value="2156" />
+    <LifeRegenRate value="4.4921" />
+  </CUnit>
+  <CHero id="Uther" parent="LegacyVOHero">
+    <AttributeId value="Uthe" />
+    <Role value="Support" />
+    <RolesMultiClass value="Support" />
+    <CollectionCategory value="Support" />
+    <RoleScoreValueOverride value="Support" />
+    <RoleScoreValueOverride value="Warrior" />
+    <TalentTreeArray Talent="UtherMasteryBenediction" Tier="6" Column="3" />
+    <HeroAbilArray Abil="UtherHolyLight" Button="UtherHolyLight">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+  </CHero>
+  <CAbilEffectTarget id="UtherHolyLight">
+    <Cost>
+      <Vital index="Energy" value="90" />
+      <Cooldown Location="Unit" TimeUse="12" />
+    </Cost>
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="UtherBenediction">
+    <Cost>
+      <Cooldown Location="Player" TimeUse="0.5" />
+    </Cost>
+  </CAbilEffectInstant>
+  <CButton id="UtherHolyLight" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_holylight.dds" />
+  </CButton>
+  <CButton id="UtherBenedictionHotbar" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_benediction.dds" />
+    <TooltipCooldownOverrideText value="Benediction Cool Down" />
+    <TooltipFlags index="ShowUsage" value="0" />
+  </CButton>
+  <CTalent id="UtherMasteryBenediction">
+    <Face value="UtherBenedictionHotbar" />
+    <Abil value="UtherBenediction" />
+    <RankArray Item="UtherBenedictionItem" />
+    <Active value="1" />
+  </CTalent>
+</Catalog>

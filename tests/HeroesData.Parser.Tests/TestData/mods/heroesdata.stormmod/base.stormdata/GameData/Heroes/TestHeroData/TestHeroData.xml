@@ -19,6 +19,7 @@
     <TalentTreeArray Talent="TestHeroMasteredStab" Tier="2" Column="3" />
     <TalentTreeArray Talent="TestHeroMekaFall" Tier="2" Column="4" />
     <TalentTreeArray Talent="TestHeroTimeOut" Tier="3" Column="1" />
+    <TalentTreeArray Talent="TestHeroTheWill" Tier="3" Column="2" />
     
     <Universe value="Warcraft" />
     <ProductId value="10115" />
@@ -265,7 +266,7 @@
       <Cooldown TimeUse="1" />
     </Cost>
   </CAbilEffectInstant>
-  
+
   <!--buttons-->
   <CButton id="TestHeroBigBoom" parent="StormButtonParent">
     <Name value="Button/Name/TestHeroBigBoomSelectButton" />
@@ -334,6 +335,11 @@
     <Icon value="Assets\Textures\storm_ui_icon_testhero_essencecollection.dds" />
     <TooltipCooldownOverrideText value="Button/Tooltip/TestHeroEssenseCollectionCooldownOverride" />
   </CButton>
+  <CButton id="TestHeroTheWill" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_testhero_will.dds" />
+    <TooltipFlags index="ShowUsage" value="0" />
+    <TooltipCooldownOverrideText value="WillofTestHeroCooldownOverride" />
+  </CButton>
   
   <!--talent-->
   <CTalent id="TestHeroBattleRage">
@@ -371,5 +377,9 @@
     <Abil value="TestHeroTimeOut" />
     <RankArray Item="TestHeroTimeOutItem" />
     <Active value="1" />
+  </CTalent>
+  <CTalent id="TestHeroTheWill">
+    <Face value="TestHeroTheWill" />
+    <Abil value="TestHeroTheWill" />
   </CTalent>
 </Catalog>

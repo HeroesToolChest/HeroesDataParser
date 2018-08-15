@@ -176,5 +176,12 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Ability ability = HeroTestHero.Abilities["TestHeroEssenseCollection"];
             Assert.Equal("Cooldown: 5 seconds", ability.Tooltip.Cooldown.CooldownText.RawDescription);
         }
+
+        [Fact]
+        public void AbilityTalentTooltipShowUsageOffTest()
+        {
+            Talent talent = HeroTestHero.Talents["TestHeroTheWill"];
+            Assert.Null(talent.Tooltip.Cooldown?.CooldownText?.RawDescription);
+        }
     }
 }

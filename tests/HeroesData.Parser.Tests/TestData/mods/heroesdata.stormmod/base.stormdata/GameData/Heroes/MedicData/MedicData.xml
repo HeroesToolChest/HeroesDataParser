@@ -23,6 +23,8 @@
       <Flags index="AffectedByCooldownReduction" value="1" />
       <Flags index="AffectedByOverdrive" value="1" />
     </HeroAbilArray>
+    <HeroAbilArray Abil="MedicCellularReactor" Button="MedicCellularReactorTalent" />
+    <TalentTreeArray Talent="MedicCellularReactor" Tier="2" Column="1" />
   </CHero>
   <CActorUnit id="HeroMedic" parent="StormHeroBasePredictive" unitName="HeroMedic">
     <VitalNames index="Energy" value="UI/HeroEnergyType/Energy" />
@@ -32,6 +34,12 @@
       <Cooldown TimeUse="0.5" />
     </Cost>
   </CAbilEffectTarget>
+  <CAbilEffectInstant id="MedicCellularReactor">
+    <Cost>
+      <Vital index="Energy" value="30" />
+      <Cooldown Location="Player" TimeUse="45" />
+    </Cost>
+  </CAbilEffectInstant>
   <CEffectCreateHealer id="MedicHealingBeamCreateHealer" parent="StormHealingSpell">
     <RechargeVitalRate value="86" />
   </CEffectCreateHealer>
@@ -46,4 +54,14 @@
     <TooltipVitalOverrideText index="Energy" value="Abil/MedicHealingBeamTooltipButtonOverride" />
     <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Energy" />
   </CButton>
+  <CButton id="MedicCellularReactorTalent" parent="StormButtonParent">
+    <TooltipFlags index="ShowUsage" value="0" />
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-terran-mobiusreactor.dds" />
+  </CButton>
+  <CTalent id="MedicCellularReactor">
+    <Face value="MedicCellularReactorTalent" />
+    <Abil value="MedicCellularReactor" />
+    <RankArray Item="MedicCellularReactorItem" />
+    <Active value="1" />
+  </CTalent>
 </Catalog>

@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using Heroes.Models.AbilityTalents;
+using Xunit;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
@@ -9,6 +10,13 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         {
             Assert.Equal(100, HeroZarya.Energy.EnergyMax);
             Assert.Equal("Energy", HeroZarya.Energy.EnergyType);
+        }
+
+        [Fact]
+        public void AbilityTalentVitalNameOverrideEmptyTest()
+        {
+            Talent talent = HeroZarya.Talents["ZaryaPainIsTemporary"];
+            Assert.Null(talent.Tooltip.Energy.EnergyText);
         }
     }
 }
