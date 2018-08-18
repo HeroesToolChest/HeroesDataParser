@@ -53,7 +53,7 @@ namespace HeroesData.Parser.UnitData.Data
         /// <param name="hero"></param>
         /// <param name="elementId"></param>
         /// <param name="abilityTalentBase"></param>
-        protected void SetTooltipSubInfo(Hero hero, string elementId, AbilityTalentBase abilityTalentBase, bool isTalent = false)
+        protected void SetTooltipSubInfo(Hero hero, string elementId, AbilityTalentBase abilityTalentBase)
         {
             if (string.IsNullOrEmpty(elementId))
                 return;
