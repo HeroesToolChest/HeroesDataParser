@@ -256,19 +256,19 @@ namespace HeroesData.Parser
                 if (string.IsNullOrEmpty(ability.Value.Tooltip.FullTooltip?.RawDescription))
                     AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltip)} is null or empty");
 
-                if (ability.Value.Tooltip.Cooldown?.CooldownText != null)
+                if (!string.IsNullOrEmpty(ability.Value.Tooltip.Cooldown?.CooldownText?.RawDescription))
                 {
                     if (char.IsDigit(ability.Value.Tooltip.Cooldown.CooldownText.PlainText[0]))
                         AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Cooldown.CooldownText)} does not have a prefix");
                 }
 
-                if (ability.Value.Tooltip.Energy?.EnergyText != null)
+                if (!string.IsNullOrEmpty(ability.Value.Tooltip.Energy?.EnergyText?.RawDescription))
                 {
                     if (char.IsDigit(ability.Value.Tooltip.Energy.EnergyText.PlainText[0]))
                         AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Energy.EnergyText)} does not have a prefix");
                 }
 
-                if (ability.Value.Tooltip.Life?.LifeCostText != null)
+                if (!string.IsNullOrEmpty(ability.Value.Tooltip.Life?.LifeCostText?.RawDescription))
                 {
                     if (char.IsDigit(ability.Value.Tooltip.Life.LifeCostText.PlainText[0]))
                         AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Life.LifeCostText)} does not have a prefix");

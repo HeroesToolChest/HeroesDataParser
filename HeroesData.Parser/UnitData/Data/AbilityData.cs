@@ -91,7 +91,7 @@ namespace HeroesData.Parser.UnitData.Data
             {
                 SetAbilityTalentName(cButtonElement, ability);
                 SetAbilityTalentIcon(cButtonElement, ability);
-                SetTooltipSubInfo(hero, referenceName, ability);
+                SetTooltipSubInfo(hero, ability.ReferenceNameId, ability);
                 SetTooltipDescriptions(cButtonElement, hero, ability);
             }
 

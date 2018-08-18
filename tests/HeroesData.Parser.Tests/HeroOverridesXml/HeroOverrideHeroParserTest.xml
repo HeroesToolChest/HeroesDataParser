@@ -7,6 +7,13 @@
       </Override>
     </Portrait>
   </CHero>
+  <CHero id="Dryad" name="Lunara" alt="Lunara">
+    <Ability id="DryadGallopingGait">
+      <Override>
+        <CooldownTooltip value="" />
+      </Override>
+    </Ability>
+  </CHero>
   <CHero id="TestHero">
     <Ability id="TestHeroIllusionMaster" button="TestHeroAdvancingStrikes" add="true" />
     <Ability id="TestUnitCallUnit" valid="true">

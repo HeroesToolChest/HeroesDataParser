@@ -68,10 +68,14 @@ namespace HeroesData.Parser.UnitData.Data
                         string effectId = talentAbilElement.Attribute("value").Value;
 
                         if (talentActiveElement.Attribute("value").Value == "1")
-                            SetTooltipSubInfo(hero, effectId, talent);
+                            SetTooltipSubInfo(hero, effectId, talent, true);
                     }
 
                     SetTooltipDescriptions(cButtonElement, hero, talent);
+
+                    // if not active, it shouldn't have a cooldown
+                    if (talentActiveElement == null)
+                        talent.Tooltip.Cooldown.CooldownText = null;
                 }
 
                 SetAbilityType(hero, talent, cTalentElement);

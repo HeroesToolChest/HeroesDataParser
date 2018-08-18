@@ -53,17 +53,17 @@ namespace HeroesData.Parser.UnitData.Data
         /// <param name="hero"></param>
         /// <param name="elementId"></param>
         /// <param name="abilityTalentBase"></param>
-        protected void SetTooltipSubInfo(Hero hero, string elementId, AbilityTalentBase abilityTalentBase)
+        protected void SetTooltipSubInfo(Hero hero, string elementId, AbilityTalentBase abilityTalentBase, bool isTalent = false)
         {
             if (string.IsNullOrEmpty(elementId))
                 return;
 
-            var foundElements = GameData.XmlGameData.Root.Elements().Where(x => x.Attribute("id")?.Value == elementId);
+            var foundElements = GameData.XmlGameData.Root.Elements().Where(x => x.Attribute("id")?.Value == elementId).ToList();
 
             // look through all elements to find the tooltip info
             foreach (XElement element in foundElements)
             {
-                if (element.Name.LocalName == "CButton" || element.Name.LocalName == "CWeaponLegacy")
+                if (element.Name.LocalName == "CButton" || element.Name.LocalName == "CWeaponLegacy" || element.Name.LocalName == "CTalent")
                     continue;
 
                 // cost
@@ -211,13 +211,6 @@ namespace HeroesData.Parser.UnitData.Data
             string fullTooltipValue = string.Empty; // Tooltip
             string shortTooltipValue = string.Empty; // SimpleDisplayText
 
-            bool showUsage = true;
-
-            // check if show usage has been set to 0
-            XElement cButtonTooltipFlagsElement = cButtonElement.Element("TooltipFlags");
-            if (cButtonTooltipFlagsElement != null && cButtonTooltipFlagsElement.Attribute("index")?.Value == "ShowUsage" && cButtonTooltipFlagsElement.Attribute("value")?.Value == "0")
-                showUsage = false;
-
             // full tooltip
             XElement cButtonTooltipElement = cButtonElement.Element("Tooltip");
             if (cButtonTooltipElement != null)
@@ -301,7 +294,7 @@ namespace HeroesData.Parser.UnitData.Data
 
             // check for cooldown override text
             XElement cButtonTooltipCooldownElement = cButtonElement.Element("TooltipCooldownOverrideText");
-            if (cButtonTooltipCooldownElement != null && showUsage)
+            if (cButtonTooltipCooldownElement != null)
             {
                 string overrideValueText = cButtonTooltipCooldownElement.Attribute("value").Value;
                 if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(overrideValueText, out string text) ||

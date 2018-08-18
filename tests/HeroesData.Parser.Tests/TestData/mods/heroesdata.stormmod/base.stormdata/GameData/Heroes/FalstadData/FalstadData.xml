@@ -99,6 +99,9 @@
     <Range value="500" />
     <Arc value="360" />
     <CastIntroTime value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="FalstadHinterlandBlast" Requirements="Ultimate2Unlocked">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
   </CAbilEffectTarget>
   <CAccumulatorToken id="FalstadWingmanAccumulator" parent="BaseAccumulator">
     <MaxAccumulation value="10" />

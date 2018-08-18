@@ -19,9 +19,6 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<Talent>> propertyOverrides)
         {
-            if (string.IsNullOrEmpty(propertyValue))
-                return;
-
             if (propertyName == "AbilityType")
             {
                 propertyOverrides.Add(propertyName, (talent) =>

@@ -270,3 +270,13 @@ Button/Name/UtherBenedictionHotbar=Benediction
 Button/SimpleDisplayText/UtherBenedictionHotbar=Reduce Mana cost, cooldown of next ability
 Button/Tooltip/UtherBenedictionHotbar=Activate to reduce the Mana cost
 Benediction Cool Down=60 seconds
+
+Hero/Name/Dryad=Lunara
+Hero/Description/Dryad=A sustained Assassin who can wear down her enemies from afar with her poison.
+Button/Name/DryadDryadsSwiftness=Dryad's Swiftness
+Button/SimpleDisplayText/DryadDryadsSwiftness=Lunara moves about <c val="#TooltipNumbers">20%</c> faster by leaping short distances.
+Button/Tooltip/DryadDryadsSwiftness=Lunara moves
+DryadGallopingGait=Galloping Gait
+Button/Name/DryadGallopingGaitTalent=Galloping Gait
+Button/SimpleDisplayText/DryadGallopingGaitTalent=Activate to increase Movement Speed
+Button/Tooltip/DryadGallopingGaitTalent=Activate to increase the Movement

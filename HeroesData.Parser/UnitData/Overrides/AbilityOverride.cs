@@ -19,9 +19,6 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<Ability>> propertyOverrides)
         {
-            if (string.IsNullOrEmpty(propertyValue))
-                return;
-
             if (propertyName == nameof(Ability.ParentLink))
             {
                 propertyOverrides.Add(propertyName, (ability) =>
@@ -47,6 +44,13 @@ namespace HeroesData.Parser.UnitData.Overrides
                         ability.AbilityType = abilityType;
                     else
                         ability.AbilityType = AbilityType.Q;
+                });
+            }
+            else if (propertyName == "CooldownTooltip")
+            {
+                propertyOverrides.Add(propertyName, (ability) =>
+                {
+                    ability.Tooltip.Cooldown.CooldownText = new Heroes.Models.TooltipDescription(propertyValue);
                 });
             }
         }

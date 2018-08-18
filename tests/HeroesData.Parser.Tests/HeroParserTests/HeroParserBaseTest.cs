@@ -34,6 +34,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         protected Hero HeroZarya { get; set; }
         protected Hero HeroMedic { get; set; }
         protected Hero HeroUther { get; set; }
+        protected Hero HeroDryad { get; set; }
         protected Hero HeroTestHero { get; set; }
 
         private void LoadTestData()
@@ -108,6 +109,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             HeroZarya = heroDataParser.Parse("Zarya", "HeroZarya");
             HeroMedic = heroDataParser.Parse("Medic", "HeroMedic");
             HeroUther = heroDataParser.Parse("Uther", "HeroUther");
+            HeroDryad = heroDataParser.Parse("Dryad", "HeroDryad");
             HeroTestHero = heroDataParser.Parse("TestHero", "HeroTestHero");
         }
     }

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroDryad" parent="StormHeroMountedCustom">
+    <LifeStart value="1430" />
+    <LifeMax value="1430" />
+    <LifeRegenRate value="2.9804" />
+    <WeaponArray Link="DryadHeroRangedWeapon" />
+    <WeaponArray Link="DryadHeroRangedWeaponStarwoodSpearMastery" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="DryadThornwoodVine" Type="AbilCmd" AbilCmd="DryadThornwoodVine,Execute" Slot="Heroic" />
+      <LayoutButtons Face="DryadLeapingStrike" Type="AbilCmd" AbilCmd="DryadLeapingStrike,Execute" Slot="Heroic" />
+      <LayoutButtons Face="DryadNaturesToxin" Type="Passive" Slot="Trait" />
+      <LayoutButtons Face="DryadWispRedirect" Type="AbilCmd" AbilCmd="DryadWispRedirect,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DryadWisp" Type="AbilCmd" AbilCmd="DryadWisp,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DryadCripplingSpores" Type="AbilCmd" AbilCmd="DryadCripplingSpores,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DryadNoxiousBlossom" Type="AbilCmd" AbilCmd="DryadNoxiousBlossom,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DryadDryadsSwiftness" Type="AbilCmd" AbilCmd="DryadGallopingGait,Execute" Slot="Mount" />
+      <LayoutButtons Face="DryadDryadsSwiftness" Type="Passive" Slot="Mount" />
+    </CardLayouts>
+  </CUnit>
+  <CHero id="Dryad">
+    <HeroAbilArray Abil="DryadGallopingGait" Button="DryadDryadsSwiftness">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="MountReplacement" value="1" />
+    </HeroAbilArray>
+    <TalentTreeArray Talent="DryadGallopingGait" Tier="7" Column="4" />
+  </CHero>
+  <CAbilEffectInstant id="DryadGallopingGait">
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown TimeUse="30" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="DryadDryadsSwiftness" Requirements="DryadHasGallopingGaitCarry" />
+  </CAbilEffectInstant>
+  <CBehaviorBuff id="DryadGallopingGait">
+    <Duration value="6" />
+  </CBehaviorBuff>
+  <CTalent id="DryadGallopingGait">
+    <Face value="DryadGallopingGaitTalent" />
+    <RankArray>
+      <BehaviorArray value="DryadGallopingGaitCarry" />
+    </RankArray>
+    <Abil value="DryadGallopingGait" />
+    <Active value="1" />
+  </CTalent>
+  <CButton id="DryadDryadsSwiftness" parent="StormButtonParentTrait">
+    <TooltipAppender Validator="DryadHasHippityHop" Face="DryadHippityHop" />
+    <TooltipAppender Validator="DryadHasGallopingGaitTalent" Face="DryadGallopingGaitTalent" />
+    <Icon value="Assets\Textures\storm_ui_icon_Lunara_Mount.dds" />
+  </CButton>
+  <CButton id="DryadGallopingGaitTalent" parent="StormButtonParentTrait">
+    <TooltipAppender Validator="DryadHasGallopingGaitTalent" Face="DryadDryadsSwiftness" />
+    <Icon value="Assets\Textures\storm_ui_icon_lunara_boundlessstride_a.dds" />
+    <HotkeyAlias value="DryadDryadsSwiftness" />
+  </CButton>
+</Catalog>

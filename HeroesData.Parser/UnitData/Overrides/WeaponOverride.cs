@@ -19,9 +19,6 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<UnitWeapon>> propertyOverrides)
         {
-            if (string.IsNullOrEmpty(propertyValue))
-                return;
-
             if (propertyName == nameof(UnitWeapon.ParentLink))
             {
                 propertyOverrides.Add(propertyName, (weapon) =>
@@ -34,6 +31,9 @@ namespace HeroesData.Parser.UnitData.Overrides
             {
                 propertyOverrides.Add(propertyName, (weapon) =>
                 {
+                    if (string.IsNullOrEmpty(propertyValue))
+                        return;
+
                     weapon.Range = GetValue(propertyValue);
                 });
             }
@@ -41,6 +41,9 @@ namespace HeroesData.Parser.UnitData.Overrides
             {
                 propertyOverrides.Add(propertyName, (weapon) =>
                 {
+                    if (string.IsNullOrEmpty(propertyValue))
+                        return;
+
                     weapon.Damage = GetValue(propertyValue);
                 });
             }
