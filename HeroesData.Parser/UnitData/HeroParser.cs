@@ -1,7 +1,7 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
-using HeroesData.Parser.Exceptions;
 using HeroesData.Parser.GameStrings;
+using HeroesData.Parser.UnitData.Data;
 using HeroesData.Parser.UnitData.Overrides;
 using HeroesData.Parser.XmlGameData;
 using System;
@@ -14,25 +14,18 @@ namespace HeroesData.Parser.UnitData
 {
     public class HeroParser
     {
-        private const string UIHeroEnergyTypeMana = "UI/HeroEnergyType/Mana";
-
-        private readonly double DefaultWeaponPeriod = 1.2; // for hero weapons
-        private readonly string UITooltipAbilLookupPrefix = "UI/Tooltip/Abil/";
-        private readonly string ReplacementCharacter = "%1";
-        private readonly string DefaultAbilityTalentEnergyText;
-        private readonly string DefaultHeroEnergyText;
-        private readonly string AbilTooltipCooldownText;
-        private readonly string AbilTooltipCooldownPluralText;
-        private readonly string StringChargeCooldownColon;
-        private readonly string StringCooldownColon;
-
         private readonly GameData GameData;
         private readonly GameStringData GameStringData;
         private readonly ParsedGameStrings ParsedGameStrings;
         private readonly OverrideData OverrideData;
+        private readonly TextValueData TextValueData;
 
-        private HeroOverride HeroOverride = new HeroOverride();
-        private string HeroEnergyTypeEnglish;
+        private HeroOverride HeroOverride;
+
+        private WeaponData WeaponData;
+        private ArmorData ArmorData;
+        private AbilityData AbilityData;
+        private TalentData TalentData;
 
         public HeroParser(GameData gameData, GameStringData gameStringData, ParsedGameStrings parsedGameStrings, OverrideData overrideData)
         {
@@ -40,13 +33,7 @@ namespace HeroesData.Parser.UnitData
             GameStringData = gameStringData;
             ParsedGameStrings = parsedGameStrings;
             OverrideData = overrideData;
-
-            AbilTooltipCooldownText = ParsedGameStrings.TooltipsByKeyString["UI/AbilTooltipCooldown"];
-            AbilTooltipCooldownPluralText = ParsedGameStrings.TooltipsByKeyString["UI/AbilTooltipCooldownPlural"];
-            StringChargeCooldownColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringChargeCooldownColon"];
-            StringCooldownColon = ParsedGameStrings.TooltipsByKeyString["e_gameUIStringCooldownColon"];
-            DefaultAbilityTalentEnergyText = ParsedGameStrings.TooltipsByKeyString["UI/Tooltip/Abil/Mana"];
-            DefaultHeroEnergyText = ParsedGameStrings.TooltipsByKeyString[UIHeroEnergyTypeMana];
+            TextValueData = new TextValueData(parsedGameStrings);
         }
 
         /// <summary>
@@ -70,16 +57,20 @@ namespace HeroesData.Parser.UnitData
                 CUnitId = cUnitId,
             };
 
-            HeroOverride heroOverride = OverrideData.HeroOverride(cHeroId);
-            if (heroOverride != null)
-                HeroOverride = heroOverride;
+            HeroOverride = OverrideData.HeroOverride(cHeroId) ?? new HeroOverride();
 
             SetDefaultValues(hero);
             CActorData(hero);
+
+            WeaponData = new WeaponData(GameData, HeroOverride);
+            ArmorData = new ArmorData(GameData);
+            AbilityData = new AbilityData(GameData, HeroOverride, ParsedGameStrings, TextValueData);
+            TalentData = new TalentData(GameData, HeroOverride, ParsedGameStrings, TextValueData);
+
             CHeroData(hero);
             CUnitData(hero);
             SetHeroPortraits(hero);
-            SetUnitArmor(hero);
+            ArmorData.SetUnitArmorData(hero);
             AddSubHeroCUnits(hero);
 
             ApplyOverrides(hero, HeroOverride);
@@ -147,8 +138,8 @@ namespace HeroesData.Parser.UnitData
                 }
             }
 
-            hero.Energy.EnergyType = DefaultHeroEnergyText;
-            HeroEnergyTypeEnglish = UIHeroEnergyTypeMana.Split('/').Last();
+            hero.Energy.EnergyType = TextValueData.DefaultHeroEnergyText;
+            TextValueData.HeroEnergyTypeEnglish = TextValueData.UIHeroEnergyTypeMana.Split('/').Last();
             hero.ReleaseDate = new DateTime(2014, 3, 13);
             hero.Gender = HeroGender.Male;
             hero.Type = UnitType.Ranged;
@@ -330,12 +321,12 @@ namespace HeroesData.Parser.UnitData
             // abilities must be gotten before talents
             foreach (XElement abilArrayElement in heroData.Elements("HeroAbilArray"))
             {
-                GetAbility(hero, abilArrayElement, layoutButtons);
+                AbilityData.SetAbilityData(hero, abilArrayElement, layoutButtons);
             }
 
             foreach (XElement talentArrayElement in heroData.Elements("TalentTreeArray"))
             {
-                GetTalent(hero, talentArrayElement);
+                TalentData.SetTalentData(hero, talentArrayElement);
             }
 
             if (hero.Type == UnitType.Unknown)
@@ -397,8 +388,8 @@ namespace HeroesData.Parser.UnitData
                 }
             }
 
-            // get weapons
-            CWeaponLegacyData(hero, heroData.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
+            // set weapons
+            WeaponData.SetHeroWeaponData(hero, heroData.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
 
             if (hero.Energy.EnergyMax < 1)
                 hero.Energy.EnergyType = string.Empty;
@@ -424,790 +415,18 @@ namespace HeroesData.Parser.UnitData
                     if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(valueValue, out string energyType))
                     {
                         hero.Energy.EnergyType = energyType;
-                        HeroEnergyTypeEnglish = valueValue.Split('/').Last();
+                        TextValueData.HeroEnergyTypeEnglish = valueValue.Split('/').Last();
                     }
                 }
             }
-        }
-
-        private void GetAbility(Hero hero, XElement abilityElement, IEnumerable<XElement> layoutButtons)
-        {
-            hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
-
-            string referenceName = abilityElement.Attribute("Abil")?.Value;
-            string tooltipName = abilityElement.Attribute("Button")?.Value;
-            string parentLink = abilityElement.Attribute("Unit")?.Value;
-
-            XElement usableAbility = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "ShowInHeroSelect" && x.Attribute("value").Value == "1").FirstOrDefault();
-            XElement mountAbility = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "MountReplacement" && x.Attribute("value").Value == "1").FirstOrDefault();
-
-            Ability ability = new Ability();
-
-            if (!string.IsNullOrEmpty(referenceName) && HeroOverride.IsValidAbilityByAbilityId.TryGetValue(referenceName, out bool validAbility))
-            {
-                if (!validAbility)
-                    return;
-            }
-            else
-            {
-                validAbility = false;
-            }
-
-            if (usableAbility == null && mountAbility == null && parentLink == null && !validAbility)
-                return;
-
-            // check for the HeroAbilArray button value
-            if (!string.IsNullOrEmpty(tooltipName) && HeroOverride.NewButtonValueByHeroAbilArrayButton.TryGetValue(tooltipName, out string setButtonValue))
-                tooltipName = setButtonValue;
-
-            if (!string.IsNullOrEmpty(referenceName) && !string.IsNullOrEmpty(tooltipName))
-            {
-                ability.ReferenceNameId = referenceName;
-                ability.FullTooltipNameId = tooltipName;
-                ability.ButtonName = tooltipName;
-            }
-            else if (!string.IsNullOrEmpty(referenceName) && string.IsNullOrEmpty(tooltipName)) // is a secondary ability
-            {
-                ability.ReferenceNameId = referenceName;
-                ability.ParentLink = parentLink;
-                ability.FullTooltipNameId = referenceName;
-                ability.ButtonName = referenceName;
-            }
-            else
-            {
-                ability.ReferenceNameId = tooltipName;
-                ability.FullTooltipNameId = tooltipName;
-                ability.ButtonName = tooltipName;
-            }
-
-            SetAbilityTalentName(ability, ability.ButtonName);
-
-            XElement heroicElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "Heroic" && x.Attribute("value").Value == "1").FirstOrDefault();
-            XElement traitElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "Trait" && x.Attribute("value").Value == "1").FirstOrDefault();
-            XElement mountElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "MountReplacement" && x.Attribute("value").Value == "1").FirstOrDefault();
-            XElement activableElement = GameData.XmlGameData.Root.Elements("CItemAbil").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ReferenceNameId);
-
-            if (heroicElement != null)
-                ability.Tier = AbilityTier.Heroic;
-            else if (traitElement != null)
-                ability.Tier = AbilityTier.Trait;
-            else if (mountElement != null)
-                ability.Tier = AbilityTier.Mount;
-            else if (activableElement != null)
-                ability.Tier = AbilityTier.Activable;
-            else
-                ability.Tier = AbilityTier.Basic;
-
-            SetAbilityTalentIcon(ability);
-            SetTooltipSubInfo(hero, referenceName, ability);
-            SetTooltipDescriptions(hero, ability);
-            SetAbilityTypeForAbility(hero.CUnitId, ability, layoutButtons);
-
-            // add ability
-            if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
-            {
-                hero.Abilities.Add(ability.ReferenceNameId, ability);
-            }
-            else if (HeroOverride.AddedAbilitiesByAbilityId.TryGetValue(ability.ReferenceNameId, out var addedAbility))
-            {
-                // overridden add ability
-                if (addedAbility.Add)
-                {
-                    ability.ReferenceNameId = addedAbility.Button;
-
-                    // attempt to re-add
-                    if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
-                        hero.Abilities.Add(ability.ReferenceNameId, ability);
-                }
-            }
-        }
-
-        private void GetTalent(Hero hero, XElement talentElement)
-        {
-            hero.Talents = hero.Talents ?? new Dictionary<string, Talent>();
-
-            string referenceName = talentElement.Attribute("Talent").Value;
-            string tier = talentElement.Attribute("Tier").Value;
-            string column = talentElement.Attribute("Column").Value;
-
-            Talent talent = new Talent
-            {
-                ReferenceNameId = referenceName,
-                Column = int.Parse(column),
-            };
-
-            if (tier == "1")
-                talent.Tier = TalentTier.Level1;
-            else if (tier == "2")
-                talent.Tier = TalentTier.Level4;
-            else if (tier == "3")
-                talent.Tier = TalentTier.Level7;
-            else if (tier == "4")
-                talent.Tier = TalentTier.Level10;
-            else if (tier == "5")
-                talent.Tier = TalentTier.Level13;
-            else if (tier == "6")
-                talent.Tier = TalentTier.Level16;
-            else if (tier == "7")
-                talent.Tier = TalentTier.Level20;
-            else
-                talent.Tier = TalentTier.Old;
-
-            XElement cTalentElement = GameData.XmlGameData.Root.Elements("CTalent").Where(x => x.Attribute("id")?.Value == referenceName).FirstOrDefault();
-
-            // desc name
-            XElement talentFaceElement = cTalentElement.Element("Face");
-            if (talentFaceElement != null)
-            {
-                talent.FullTooltipNameId = talentFaceElement.Attribute("value").Value;
-
-                SetAbilityTalentName(talent, talent.FullTooltipNameId);
-            }
-
-            SetAbilityTalentIcon(talent);
-
-            XElement talentAbilElement = cTalentElement.Elements("Abil").FirstOrDefault();
-            XElement talentActiveElement = cTalentElement.Elements("Active").FirstOrDefault();
-            if (talentAbilElement != null && talentActiveElement != null)
-            {
-                string effectId = talentAbilElement.Attribute("value").Value;
-
-                if (talentActiveElement.Attribute("value").Value == "1")
-                    SetTooltipSubInfo(hero, effectId, talent);
-            }
-
-            SetTooltipDescriptions(hero, talent);
-            SetAbilityTypeForTalent(hero, talent, cTalentElement);
-
-            hero.Talents.Add(referenceName, talent);
-        }
-
-        private void SetAbilityTalentName(AbilityTalentBase abilityTalentBase, string tooltipName)
-        {
-            // check for name override
-            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == abilityTalentBase.FullTooltipNameId).FirstOrDefault();
-            if (cButtonElement != null)
-            {
-                XElement buttonNameElement = cButtonElement.Element("Name");
-                if (buttonNameElement != null)
-                    tooltipName = Path.GetFileName(PathExtensions.GetFilePath(buttonNameElement.Attribute("value").Value)); // override
-            }
-
-            if (ParsedGameStrings.TryGetAbilityTalentParsedNames(tooltipName, out string abilityTalentName))
-                abilityTalentBase.Name = abilityTalentName;
-            else
-                throw new ParseException($"{nameof(SetAbilityTalentName)}: {tooltipName} not found in description names");
-        }
-
-        private void SetAbilityTalentIcon(AbilityTalentBase abilityTalentBase)
-        {
-            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == abilityTalentBase.FullTooltipNameId).FirstOrDefault();
-            if (cButtonElement != null)
-            {
-                XElement buttonIconElement = cButtonElement.Element("Icon");
-                if (buttonIconElement != null)
-                    abilityTalentBase.IconFileName = Path.GetFileName(PathExtensions.GetFilePath(buttonIconElement.Attribute("value").Value));
-            }
-        }
-
-        /// <summary>
-        /// Sets all the tooltip info: vital costs, cooldowns, charges.
-        /// </summary>
-        /// <param name="hero"></param>
-        /// <param name="elementId"></param>
-        /// <param name="abilityTalentBase"></param>
-        private void SetTooltipSubInfo(Hero hero, string elementId, AbilityTalentBase abilityTalentBase)
-        {
-            if (string.IsNullOrEmpty(elementId))
-                return;
-
-            var foundElements = GameData.XmlGameData.Root.Elements().Where(x => x.Attribute("id")?.Value == elementId);
-
-            // look through all elements to find the tooltip info
-            foreach (XElement element in foundElements)
-            {
-                if (element.Name.LocalName == "CButton" || element.Name.LocalName == "CWeaponLegacy")
-                    continue;
-
-                // cost
-                XElement costElement = element.Element("Cost");
-                if (costElement != null)
-                {
-                    // charge
-                    XElement chargeElement = costElement.Element("Charge");
-                    if (chargeElement != null)
-                    {
-                        XElement countMaxElement = chargeElement.Element("CountMax");
-                        XElement countStartElement = chargeElement.Element("CountStart");
-                        XElement countUseElement = chargeElement.Element("CountUse");
-                        XElement hideCountElement = chargeElement.Element("HideCount");
-                        XElement timeUseElement = chargeElement.Element("TimeUse");
-
-                        if (countMaxElement != null || countStartElement != null || countUseElement != null || hideCountElement != null || timeUseElement != null)
-                        {
-                            if (countMaxElement != null)
-                                abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(countMaxElement.Attribute("value").Value);
-
-                            if (countStartElement != null)
-                                abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(countStartElement.Attribute("value").Value);
-
-                            if (countUseElement != null)
-                                abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(countUseElement.Attribute("value").Value);
-
-                            if (hideCountElement != null)
-                                abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountElement.Attribute("value").Value) == 1 ? true : false;
-
-                            if (timeUseElement != null)
-                            {
-                                string cooldownValue = timeUseElement.Attribute("value").Value;
-
-                                string replaceText = string.Empty;
-                                if (abilityTalentBase.Tooltip.Charges.CountMax.HasValue && abilityTalentBase.Tooltip.Charges.CountMax.Value > 1)
-                                    replaceText = StringChargeCooldownColon; // Charge Cooldown:<space>
-                                else
-                                    replaceText = StringCooldownColon; // Cooldown:<space>
-
-                                if (cooldownValue == "1")
-                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace(StringCooldownColon, replaceText).Replace(ReplacementCharacter, cooldownValue));
-                                else
-                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace(StringCooldownColon, replaceText).Replace(ReplacementCharacter, cooldownValue));
-                            }
-                        }
-                        else
-                        {
-                            XAttribute countMaxAttribute = chargeElement.Attribute("CountMax");
-                            XAttribute countStartAttribute = chargeElement.Attribute("CountStart");
-                            XAttribute countUseAttribute = chargeElement.Attribute("CountUse");
-                            XAttribute hideCountAttribute = chargeElement.Attribute("HideCount");
-                            XAttribute timeUseAttribute = chargeElement.Attribute("TimeUse");
-                            if (countMaxAttribute != null)
-                                abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(countMaxAttribute.Value);
-
-                            if (countStartAttribute != null)
-                                abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(countStartAttribute.Value);
-
-                            if (countUseAttribute != null)
-                                abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(countUseAttribute.Value);
-
-                            if (hideCountAttribute != null)
-                                abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountAttribute.Value) == 1 ? true : false;
-
-                            if (timeUseAttribute != null)
-                            {
-                                string cooldownValue = timeUseAttribute.Value;
-
-                                string replaceText = string.Empty;
-                                if (abilityTalentBase.Tooltip.Charges.CountMax.HasValue && abilityTalentBase.Tooltip.Charges.CountMax.Value > 1)
-                                    replaceText = StringChargeCooldownColon; // Charge Cooldown:<space>
-                                else
-                                    replaceText = StringCooldownColon; // Cooldown:<space>
-
-                                if (!string.IsNullOrEmpty(cooldownValue))
-                                {
-                                    if (cooldownValue == "1")
-                                        abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace(StringCooldownColon, StringChargeCooldownColon).Replace(ReplacementCharacter, cooldownValue));
-                                    else
-                                        abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace(StringCooldownColon, StringChargeCooldownColon).Replace(ReplacementCharacter, cooldownValue));
-                                }
-                            }
-                        }
-                    }
-
-                    // cooldown
-                    XElement cooldownElement = costElement.Element("Cooldown");
-                    if (cooldownElement != null)
-                    {
-                        string cooldownValue = cooldownElement.Attribute("TimeUse")?.Value;
-                        if (!string.IsNullOrEmpty(cooldownValue))
-                        {
-                            if (abilityTalentBase.Tooltip.Charges.HasCharges)
-                            {
-                                abilityTalentBase.Tooltip.Charges.RecastCoodown = double.Parse(cooldownValue);
-                            }
-                            else
-                            {
-                                double cooldown = double.Parse(cooldownValue);
-
-                                if (cooldown == 1)
-                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownText.Replace(ReplacementCharacter, cooldownValue));
-                                else if (cooldown >= 1)
-                                    abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(AbilTooltipCooldownPluralText.Replace(ReplacementCharacter, cooldownValue));
-
-                                if (cooldown < 1)
-                                    abilityTalentBase.Tooltip.Cooldown.ToggleCooldown = cooldown;
-                            }
-                        }
-                    }
-
-                    // vitals
-                    XElement vitalElement = costElement.Element("Vital");
-                    if (vitalElement != null)
-                    {
-                        string vitalIndex = vitalElement.Attribute("index").Value;
-                        string vitalValue = vitalElement.Attribute("value").Value;
-
-                        if (vitalIndex == "Energy")
-                        {
-                            abilityTalentBase.Tooltip.Energy.EnergyValue = double.Parse(vitalValue);
-
-                            if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{UITooltipAbilLookupPrefix}{HeroEnergyTypeEnglish}", out string energyText))
-                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(energyText.Replace(ReplacementCharacter, vitalValue)));
-                            else
-                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(DefaultAbilityTalentEnergyText.Replace(ReplacementCharacter, vitalValue)));
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Sets tooltip descriptions and override texts for vitals and cooldowns.
-        /// </summary>
-        /// <param name="hero"></param>
-        /// <param name="abilityTalentBase"></param>
-        private void SetTooltipDescriptions(Hero hero, AbilityTalentBase abilityTalentBase)
-        {
-            string faceValue = abilityTalentBase.FullTooltipNameId;
-            abilityTalentBase.ShortTooltipNameId = faceValue; // set to default
-
-            string fullTooltipValue = string.Empty; // Tooltip
-            string shortTooltipValue = string.Empty; // SimpleDisplayText
-
-            bool showUsage = true;
-
-            // check cbutton for tooltip overrides
-            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue).FirstOrDefault();
-            if (cButtonElement != null)
-            {
-                // check if show usage has been set to 0
-                XElement cButtonTooltipFlagsElement = cButtonElement.Element("TooltipFlags");
-                if (cButtonTooltipFlagsElement != null && cButtonTooltipFlagsElement.Attribute("index")?.Value == "ShowUsage" && cButtonTooltipFlagsElement.Attribute("value")?.Value == "0")
-                    showUsage = false;
-
-                // full tooltip
-                XElement cButtonTooltipElement = cButtonElement.Element("Tooltip");
-                if (cButtonTooltipElement != null)
-                {
-                    fullTooltipValue = Path.GetFileName(PathExtensions.GetFilePath(cButtonTooltipElement.Attribute("value").Value));
-                }
-
-                // short tooltip
-                XElement cButtonSimpleDisplayTextElement = cButtonElement.Element("SimpleDisplayText");
-                if (cButtonSimpleDisplayTextElement != null)
-                {
-                    shortTooltipValue = Path.GetFileName(PathExtensions.GetFilePath(cButtonSimpleDisplayTextElement.Attribute("value").Value));
-                }
-
-                // Vital Name override
-                XElement cButtonTooltipVitalNameElement = cButtonElement.Element("TooltipVitalName");
-                if (cButtonTooltipVitalNameElement != null)
-                {
-                    string index = cButtonTooltipVitalNameElement.Attribute("index")?.Value;
-                    if (index == "Life")
-                    {
-                        string value = cButtonTooltipVitalNameElement.Attribute("value").Value;
-
-                        if (string.IsNullOrEmpty(value))
-                        {
-                            abilityTalentBase.Tooltip.Life.LifeCostText = null;
-                        }
-                        else if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipVitalNameElement.Attribute("value").Value, out string overrideVitalName))
-                        {
-                            if (string.IsNullOrEmpty(abilityTalentBase.Tooltip.Life.LifeCostText?.RawDescription))
-                                abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName));
-                            else if (overrideVitalName.Contains(ReplacementCharacter))
-                                abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(ReplacementCharacter, abilityTalentBase.Tooltip.Life.LifeValue.ToString())));
-                            else
-                                abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(ReplacementCharacter, abilityTalentBase.Tooltip.Life.LifeCostText.RawDescription)));
-                        }
-                    }
-                    else if (index == "Energy")
-                    {
-                        string value = cButtonTooltipVitalNameElement.Attribute("value").Value;
-
-                        if (string.IsNullOrEmpty(value))
-                        {
-                            abilityTalentBase.Tooltip.Energy.EnergyText = null;
-                        }
-                        else if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(value, out string overrideVitalName))
-                        {
-                            if (string.IsNullOrEmpty(abilityTalentBase.Tooltip.Energy.EnergyText?.RawDescription))
-                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName));
-                            else if (overrideVitalName.Contains(ReplacementCharacter))
-                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(ReplacementCharacter, abilityTalentBase.Tooltip.Energy.EnergyValue.ToString())));
-                            else
-                                abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(ReplacementCharacter, abilityTalentBase.Tooltip.Energy.EnergyText.RawDescription)));
-                        }
-                    }
-                }
-
-                // check for vital override text
-                XElement cButtonTooltipVitalElement = cButtonElement.Element("TooltipVitalOverrideText");
-                if (cButtonTooltipVitalElement != null)
-                {
-                    if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(cButtonTooltipVitalElement.Attribute("value").Value, out string text))
-                    {
-                        if (cButtonTooltipVitalElement.Attribute("index")?.Value == "Energy")
-                        {
-                            // check if overriding text starts with the energy text
-                            if (!new TooltipDescription(DescriptionValidator.Validate(text)).PlainText.StartsWith(hero.Energy.EnergyType))
-                            {
-                                if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{UITooltipAbilLookupPrefix}{HeroEnergyTypeEnglish}", out string energyText))
-                                    text = DescriptionValidator.Validate(energyText.Replace(ReplacementCharacter, text)); // add it as the default
-                            }
-
-                            abilityTalentBase.Tooltip.Energy.EnergyText = new TooltipDescription(text);
-                        }
-                        else if (cButtonTooltipVitalElement.Attribute("index")?.Value == "Life")
-                        {
-                            abilityTalentBase.Tooltip.Life.LifeCostText = new TooltipDescription(DescriptionValidator.Validate(abilityTalentBase.Tooltip.Life.LifeCostText.RawDescription.Replace(ReplacementCharacter, text)));
-                        }
-                    }
-                }
-
-                // check for cooldown override text
-                XElement cButtonTooltipCooldownElement = cButtonElement.Element("TooltipCooldownOverrideText");
-                if (cButtonTooltipCooldownElement != null && showUsage)
-                {
-                    string overrideValueText = cButtonTooltipCooldownElement.Attribute("value").Value;
-                    if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(overrideValueText, out string text) ||
-                        ParsedGameStrings.TryGetFullParsedTooltips(overrideValueText, out text))
-                    {
-                        if (!text.StartsWith(StringCooldownColon))
-                            text = $"{StringCooldownColon}{text}";
-
-                        abilityTalentBase.Tooltip.Cooldown.CooldownText = new TooltipDescription(text);
-                    }
-                }
-            }
-
-            // full
-            if (ParsedGameStrings.TryGetFullParsedTooltips(fullTooltipValue, out string fullDescription))
-            {
-                abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription);
-                abilityTalentBase.FullTooltipNameId = fullTooltipValue;
-            }
-            else if (ParsedGameStrings.TryGetFullParsedTooltips(faceValue, out fullDescription))
-            {
-                abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription);
-            }
-
-            // short
-            if (ParsedGameStrings.TryGetShortParsedTooltips(shortTooltipValue, out string shortDescription))
-            {
-                abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription);
-                abilityTalentBase.ShortTooltipNameId = shortTooltipValue;
-            }
-            else if (ParsedGameStrings.TryGetShortParsedTooltips(faceValue, out shortDescription))
-            {
-                abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription);
-            }
-
-            // check if the life and energy string contain the replacement character
-            if (abilityTalentBase.Tooltip.Life.LifeCostText != null && abilityTalentBase.Tooltip.Life.LifeCostText.RawDescription.Contains(ReplacementCharacter))
-                abilityTalentBase.Tooltip.Life = null;
-            if (abilityTalentBase.Tooltip.Energy.EnergyText != null && abilityTalentBase.Tooltip.Energy.EnergyText.RawDescription.Contains(ReplacementCharacter))
-                abilityTalentBase.Tooltip.Energy = null;
         }
 
         private void SetAdditionalLinkedAbilities(Hero hero)
         {
             foreach (KeyValuePair<string, string> linkedAbility in HeroOverride.LinkedElementNamesByAbilityId)
             {
-                Ability ability = new Ability();
-                hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
-
-                XElement abilityElement = GameData.XmlGameData.Root.Elements(linkedAbility.Value).Where(x => x.Attribute("id")?.Value == linkedAbility.Key).FirstOrDefault();
-
-                if (abilityElement == null)
-                    throw new ParseException($"{nameof(CHeroData)}: Additional link ability element not found - <{linkedAbility.Value} id=\"{linkedAbility.Key}\">");
-
-                string linkName = abilityElement.Attribute("id")?.Value;
-                if (linkName == null)
-                    return;
-
-                ability.ReferenceNameId = linkName;
-                ability.FullTooltipNameId = linkName;
-
-                if (ParsedGameStrings.TryGetAbilityTalentParsedNames(linkName, out string abilityName))
-                    ability.Name = abilityName;
-
-                SetAbilityTalentIcon(ability);
-                SetTooltipSubInfo(hero, linkName, ability);
-                SetTooltipDescriptions(hero, ability);
-
-                // add to abilities
-                if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
-                    hero.Abilities.Add(ability.ReferenceNameId, ability);
+                AbilityData.SetLinkedAbility(hero, linkedAbility.Key, linkedAbility.Value);
             }
-        }
-
-        // basic attack data
-        private void CWeaponLegacyData(Hero hero, IEnumerable<XElement> weaponElements)
-        {
-            List<string> weaponsIds = new List<string>();
-            foreach (XElement weaponElement in weaponElements)
-            {
-                string weaponNameId = weaponElement.Attribute("Link")?.Value;
-                if (!string.IsNullOrEmpty(weaponNameId))
-                    weaponsIds.Add(weaponNameId);
-            }
-
-            foreach (string weaponNameId in weaponsIds)
-            {
-                if (HeroOverride.IsValidWeaponByWeaponId.TryGetValue(weaponNameId, out bool validWeapon))
-                {
-                    if (!validWeapon)
-                        continue;
-                }
-                else
-                {
-                    validWeapon = false;
-                }
-
-                if (validWeapon || weaponsIds.Count == 1 || weaponNameId.Contains("HeroWeapon") || weaponNameId == hero.CUnitId)
-                {
-                    UnitWeapon weapon = AddHeroWeapon(weaponNameId, weaponsIds);
-
-                    if (weapon != null)
-                        hero.Weapons.Add(weapon);
-                }
-            }
-        }
-
-        private UnitWeapon AddHeroWeapon(string weaponNameId, List<string> allWeaponIds)
-        {
-            UnitWeapon weapon = null;
-
-            if (!string.IsNullOrEmpty(weaponNameId))
-            {
-                XElement weaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == weaponNameId).FirstOrDefault();
-
-                if (weaponLegacy != null)
-                {
-                    weapon = new UnitWeapon
-                    {
-                        WeaponNameId = weaponNameId,
-                    };
-
-                    HeroWeaponAddRange(weaponLegacy, weapon, weaponNameId);
-                    HeroWeaponAddPeriod(weaponLegacy, weapon, weaponNameId);
-                    HeroWeaponAddDamage(weaponLegacy, weapon, weaponNameId);
-                }
-            }
-
-            return weapon;
-        }
-
-        private void HeroWeaponAddRange(XElement weaponLegacy, UnitWeapon weapon, string weaponNameId)
-        {
-            XElement rangeElement = weaponLegacy.Element("Range");
-            string parentWeaponId = weaponLegacy.Attribute("parent")?.Value;
-
-            if (rangeElement != null)
-            {
-                weapon.Range = double.Parse(rangeElement.Attribute("value").Value);
-            }
-            else if (!string.IsNullOrEmpty(parentWeaponId))
-            {
-                XElement parentWeaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == parentWeaponId).FirstOrDefault();
-                if (parentWeaponLegacy != null)
-                    HeroWeaponAddRange(parentWeaponLegacy, weapon, parentWeaponId);
-            }
-        }
-
-        private void HeroWeaponAddPeriod(XElement weaponLegacy, UnitWeapon weapon, string weaponNameId)
-        {
-            XElement periodElement = weaponLegacy.Element("Period");
-            string parentWeaponId = weaponLegacy.Attribute("parent")?.Value;
-
-            if (periodElement != null)
-            {
-                weapon.Period = double.Parse(periodElement.Attribute("value").Value);
-            }
-            else if (!string.IsNullOrEmpty(parentWeaponId))
-            {
-                XElement parentWeaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == parentWeaponId).FirstOrDefault();
-                if (parentWeaponLegacy != null)
-                    HeroWeaponAddPeriod(parentWeaponLegacy, weapon, parentWeaponId);
-            }
-            else
-            {
-                weapon.Period = DefaultWeaponPeriod;
-            }
-        }
-
-        private void HeroWeaponAddDamage(XElement weaponLegacy, UnitWeapon weapon, string weaponNameId)
-        {
-            XElement displayEffectElement = weaponLegacy.Element("DisplayEffect");
-            string parentWeaponId = weaponLegacy.Attribute("parent")?.Value;
-
-            if (displayEffectElement != null)
-            {
-                string displayEffectValue = displayEffectElement.Attribute("value").Value;
-                XElement effectDamageElement = GameData.XmlGameData.Root.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == displayEffectValue).FirstOrDefault();
-                if (effectDamageElement != null)
-                {
-                    XElement amountElement = effectDamageElement.Element("Amount");
-                    if (amountElement != null)
-                    {
-                        weapon.Damage = double.Parse(amountElement.Attribute("value").Value);
-                    }
-                }
-
-                double? scaleValue = GameData.GetScaleValue(("Effect", displayEffectValue, "Amount"));
-                if (scaleValue.HasValue)
-                    weapon.DamageScaling = scaleValue.Value;
-            }
-            else if (!string.IsNullOrEmpty(parentWeaponId))
-            {
-                XElement parentWeaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == parentWeaponId).FirstOrDefault();
-                if (parentWeaponLegacy != null)
-                    HeroWeaponAddDamage(parentWeaponLegacy, weapon, parentWeaponId);
-            }
-        }
-
-        private void SetUnitArmor(Unit unit)
-        {
-            string name = unit.ShortName;
-            if (name.EndsWith("Form"))
-                name = name.Remove(name.LastIndexOf("Form"), 4);
-
-            XElement armorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == $"{name}Armor").FirstOrDefault();
-            XElement physicalArmorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == $"{name}PhysicalArmor").FirstOrDefault();
-            XElement spellArmorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == $"{name}SpellArmor").FirstOrDefault();
-
-            if (armorElement != null)
-            {
-                UnitArmorAddValue(armorElement, unit);
-            }
-
-            if (physicalArmorElement != null)
-            {
-                UnitArmorAddValue(physicalArmorElement, unit);
-            }
-
-            if (spellArmorElement != null)
-            {
-                UnitArmorAddValue(spellArmorElement, unit);
-            }
-        }
-
-        private void UnitArmorAddValue(XElement armorElement, Unit unit)
-        {
-            unit.Armor = unit.Armor ?? new UnitArmor();
-
-            XElement basicElement = armorElement.Element("ArmorSet").Elements("ArmorMitigationTable").Where(x => x.Attribute("index")?.Value == "Basic").FirstOrDefault();
-            XElement abilityElement = armorElement.Element("ArmorSet").Elements("ArmorMitigationTable").Where(x => x.Attribute("index")?.Value == "Ability").FirstOrDefault();
-
-            if (basicElement != null && int.TryParse(basicElement.Attribute("value").Value, out int armorValue))
-            {
-                unit.Armor.PhysicalArmor = armorValue;
-            }
-
-            if (abilityElement != null && int.TryParse(abilityElement.Attribute("value").Value, out armorValue))
-            {
-                unit.Armor.SpellArmor = armorValue;
-            }
-        }
-
-        private void SetAbilityTypeForAbility(string cUnit, Ability ability, IEnumerable<XElement> layoutButtons)
-        {
-            if (ability.Tier == AbilityTier.Heroic)
-            {
-                ability.AbilityType = AbilityType.Heroic;
-                return;
-            }
-            else if (ability.Tier == AbilityTier.Mount)
-            {
-                ability.AbilityType = AbilityType.Z;
-                return;
-            }
-            else if (ability.Tier == AbilityTier.Trait)
-            {
-                ability.AbilityType = AbilityType.Trait;
-                return;
-            }
-
-            // as attributes
-            XElement layoutButton = layoutButtons.Where(x => x.Attribute("Face")?.Value == ability.ButtonName && x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth").FirstOrDefault();
-            if (layoutButton != null)
-            {
-                string slot = layoutButton.Attribute("Slot").Value;
-                if (slot.ToUpper().StartsWith("ABILITY1"))
-                    ability.AbilityType = AbilityType.Q;
-                else if (slot.ToUpper().StartsWith("ABILITY2"))
-                    ability.AbilityType = AbilityType.W;
-                else if (slot.ToUpper().StartsWith("ABILITY3"))
-                    ability.AbilityType = AbilityType.E;
-                else if (slot.ToUpper().StartsWith("MOUNT"))
-                    ability.AbilityType = AbilityType.Z;
-                else if (slot.ToUpper().StartsWith("HEROIC"))
-                    ability.AbilityType = AbilityType.Heroic;
-                else
-                    throw new ParseException($"Unknown slot type (attribute) for ability type: {slot} - Hero(CUnit): {cUnit} - Ability: {ability.ReferenceNameId}");
-
-                return;
-            }
-
-            // as elements
-            if (layoutButton == null)
-            {
-               layoutButton = layoutButtons.Where(x => x.HasElements)
-                    .Where(x => x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName && x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth").FirstOrDefault();
-            }
-
-            if (layoutButton != null)
-            {
-                string slot = layoutButton.Element("Slot").Attribute("value").Value;
-                if (slot.ToUpper().StartsWith("ABILITY1"))
-                    ability.AbilityType = AbilityType.Q;
-                else if (slot.ToUpper().StartsWith("ABILITY2"))
-                    ability.AbilityType = AbilityType.W;
-                else if (slot.ToUpper().StartsWith("ABILITY3"))
-                    ability.AbilityType = AbilityType.E;
-                else if (slot.ToUpper().StartsWith("MOUNT"))
-                    ability.AbilityType = AbilityType.Z;
-                else if (slot.ToUpper().StartsWith("HEROIC"))
-                    ability.AbilityType = AbilityType.Heroic;
-                else
-                    throw new ParseException($"Unknown slot type (element) for ability type: {slot} - Hero(CUnit): {cUnit} - Ability: {ability.ReferenceNameId}");
-
-                return;
-            }
-
-            ability.AbilityType = AbilityType.Active;
-        }
-
-        private void SetAbilityTypeForTalent(Hero hero, Talent talent, XElement talentElement)
-        {
-            XElement talentTraitElement = talentElement.Element("Trait");
-            XElement talentAbilElement = talentElement.Element("Abil");
-            XElement talentActiveElement = talentElement.Element("Active");
-            XElement talentQuestElement = talentElement.Element("QuestData");
-
-            if (talentTraitElement != null && talentTraitElement.Attribute("value")?.Value == "1")
-            {
-                talent.AbilityType = AbilityType.Trait;
-            }
-            else if (talentAbilElement != null)
-            {
-                string abilValue = talentAbilElement.Attribute("value").Value;
-                if (hero.Abilities.TryGetValue(abilValue, out Ability ability))
-                    talent.AbilityType = ability.AbilityType;
-                else
-                    talent.AbilityType = AbilityType.Active;
-            }
-            else
-            {
-                talent.AbilityType = AbilityType.Passive;
-            }
-
-            if (talentActiveElement != null && talentActiveElement.Attribute("value")?.Value == "1")
-                talent.IsActive = true;
-
-            if (talentQuestElement != null && !string.IsNullOrEmpty(talentQuestElement.Attribute("StackBehavior")?.Value))
-                talent.IsQuest = true;
         }
 
         private void AddSubHeroCUnits(Hero hero)
@@ -1241,7 +460,7 @@ namespace HeroesData.Parser.UnitData
                     CUnitData(heroUnit);
                 }
 
-                SetUnitArmor(heroUnit);
+                ArmorData.SetUnitArmorData(heroUnit);
 
                 HeroOverride heroOverride = OverrideData.HeroOverride(unit);
                 if (heroOverride != null)
