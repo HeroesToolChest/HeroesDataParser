@@ -68,7 +68,7 @@ namespace HeroesData.Parser.UnitData.Data
                         string effectId = talentAbilElement.Attribute("value").Value;
 
                         if (talentActiveElement.Attribute("value").Value == "1")
-                            SetTooltipSubInfo(hero, effectId, talent, true);
+                            SetTooltipSubInfo(hero, effectId, talent);
                     }
 
                     SetTooltipDescriptions(cButtonElement, hero, talent);
