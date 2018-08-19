@@ -131,7 +131,7 @@ namespace HeroesData.Parser.GameStrings
         }
 
         /// <summary>
-        /// Attempts to get the value from short parsed strings.
+        /// Attempts to get the value from full parsed strings.
         /// </summary>
         /// <param name="key">The key to look up.</param>
         /// <param name="value">The found value.</param>
@@ -150,7 +150,7 @@ namespace HeroesData.Parser.GameStrings
         }
 
         /// <summary>
-        /// Attempts to get the value from short parsed strings.
+        /// Attempts to get the value from parsed hero descriptions strings.
         /// </summary>
         /// <param name="key">The key to look up.</param>
         /// <param name="value">The found value.</param>
@@ -169,7 +169,7 @@ namespace HeroesData.Parser.GameStrings
         }
 
         /// <summary>
-        /// Attempts to get the value from short parsed strings.
+        /// Attempts to get the value from hero parsed strings.
         /// </summary>
         /// <param name="key">The key to look up.</param>
         /// <param name="value">The found value.</param>
@@ -188,7 +188,7 @@ namespace HeroesData.Parser.GameStrings
         }
 
         /// <summary>
-        /// Attempts to get the value from short parsed strings.
+        /// Attempts to get the value from parsed abilityTalent strings.
         /// </summary>
         /// <param name="key">The key to look up.</param>
         /// <param name="value">The found value.</param>
@@ -207,7 +207,7 @@ namespace HeroesData.Parser.GameStrings
         }
 
         /// <summary>
-        /// Attempts to get the value from short parsed strings.
+        /// Attempts to get the value from parsed unit name strings.
         /// </summary>
         /// <param name="key">The key to look up.</param>
         /// <param name="value">The found value.</param>

@@ -142,7 +142,7 @@ namespace HeroesData.Parser.UnitData
             TextValueData.HeroEnergyTypeEnglish = TextValueData.UIHeroEnergyTypeMana.Split('/').Last();
             hero.ReleaseDate = new DateTime(2014, 3, 13);
             hero.Gender = HeroGender.Male;
-            hero.Type = UnitType.Ranged;
+            hero.Type = TextValueData.StringRanged;
             hero.Franchise = HeroFranchise.Unknown;
         }
 
@@ -173,63 +173,37 @@ namespace HeroesData.Parser.UnitData
                 else if (elementName == "MELEE")
                 {
                     if (element.Attribute("value").Value == "1")
-                        hero.Type = UnitType.Melee;
+                        hero.Type = TextValueData.StringMelee;
                     else if (element.Attribute("value").Value == "0")
-                        hero.Type = UnitType.Ranged;
+                        hero.Type = TextValueData.StringRanged;
                     else
-                        hero.Type = UnitType.Ranged;
+                        hero.Type = TextValueData.StringRanged;
                 }
                 else if (elementName == "DIFFICULTY")
                 {
-                    string difficulty = element.Attribute("value")?.Value.ToUpper();
+                    string difficultyValue = element.Attribute("value")?.Value;
 
-                    if (difficulty == "EASY")
-                        hero.Difficulty = HeroDifficulty.Easy;
-                    else if (difficulty == "MEDIUM")
-                        hero.Difficulty = HeroDifficulty.Medium;
-                    else if (difficulty == "HARD")
-                        hero.Difficulty = HeroDifficulty.Hard;
-                    else if (difficulty == "VERYHARD")
-                        hero.Difficulty = HeroDifficulty.VeryHard;
-                    else
-                        hero.Difficulty = HeroDifficulty.Unknown;
+                    if (!string.IsNullOrEmpty(difficultyValue))
+                    {
+                        if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{TextValueData.UIHeroUtilDifficultyPrefix}{difficultyValue}", out string difficulty))
+                            hero.Difficulty = difficulty;
+                    }
                 }
                 else if (elementName == "ROLE" || elementName == "ROLESMULTICLASS")
                 {
-                    string role = element.Attribute("value")?.Value.ToUpper();
+                    string roleValue = element.Attribute("value")?.Value;
 
                     if (hero.Roles == null)
-                        hero.Roles = new List<HeroRole>();
+                        hero.Roles = new List<string>();
 
-                    if (role == "WARRIOR")
+                    if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{TextValueData.UIHeroUtilRolePrefix}{roleValue}", out string role))
                     {
-                        if (!hero.Roles.Contains(HeroRole.Warrior))
-                            hero.Roles.Add(HeroRole.Warrior);
-                    }
-                    else if (role == "DAMAGE")
-                    {
-                        if (!hero.Roles.Contains(HeroRole.Assassin))
-                            hero.Roles.Add(HeroRole.Assassin);
-                    }
-                    else if (role == "SUPPORT")
-                    {
-                        if (!hero.Roles.Contains(HeroRole.Support))
-                            hero.Roles.Add(HeroRole.Support);
-                    }
-                    else if (role == "SPECIALIST")
-                    {
-                        if (!hero.Roles.Contains(HeroRole.Specialist))
-                            hero.Roles.Add(HeroRole.Specialist);
-                    }
-                    else if (role == "MULTICLASS")
-                    {
-                        if (!hero.Roles.Contains(HeroRole.Multiclass))
-                            hero.Roles.Add(HeroRole.Multiclass);
+                        if (!hero.Roles.Contains(role))
+                            hero.Roles.Add(role);
                     }
                     else
                     {
-                        if (!hero.Roles.Contains(HeroRole.Unknown))
-                            hero.Roles.Add(HeroRole.Unknown);
+                        hero.Roles.Add("Unknown");
                     }
                 }
                 else if (elementName == "UNIVERSEICON")
@@ -329,8 +303,8 @@ namespace HeroesData.Parser.UnitData
                 TalentData.SetTalentData(hero, talentArrayElement);
             }
 
-            if (hero.Type == UnitType.Unknown)
-                hero.Type = UnitType.Ranged;
+            if (string.IsNullOrEmpty(hero.Type))
+                hero.Type = TextValueData.StringRanged;
 
             SetAdditionalLinkedAbilities(hero);
         }
@@ -394,8 +368,8 @@ namespace HeroesData.Parser.UnitData
             if (hero.Energy.EnergyMax < 1)
                 hero.Energy.EnergyType = string.Empty;
 
-            if (hero.Difficulty == HeroDifficulty.Unknown)
-                hero.Difficulty = HeroDifficulty.Easy;
+            if (string.IsNullOrEmpty(hero.Difficulty))
+                hero.Difficulty = TextValueData.DefaultHeroDifficulty;
         }
 
         private void CActorData(Hero hero)

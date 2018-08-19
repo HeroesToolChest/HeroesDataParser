@@ -103,8 +103,8 @@ namespace HeroesData.FileWriter.Writer
                 heroObject.Add("sight", hero.Sight);
             if (hero.Speed > 0)
                 heroObject.Add("speed", hero.Speed);
-            if (hero.Type.HasValue)
-                heroObject.Add("type", hero.Type.Value.ToString());
+            if (!string.IsNullOrEmpty(hero.Type))
+                heroObject.Add("type", hero.Type);
             if (hero.Rarity.HasValue)
                 heroObject.Add("rarity", hero.Rarity.Value.ToString());
             if (!string.IsNullOrEmpty(hero.Description?.RawDescription))
@@ -173,8 +173,8 @@ namespace HeroesData.FileWriter.Writer
                 heroObject.Add("sight", unit.Sight);
             if (unit.Speed > 0)
                 heroObject.Add("speed", unit.Speed);
-            if (unit.Type.HasValue)
-                heroObject.Add("type", unit.Type.Value.ToString());
+            if (!string.IsNullOrEmpty(unit.Type))
+                heroObject.Add("type", unit.Type);
             if (!string.IsNullOrEmpty(unit.Description?.RawDescription))
                 heroObject.Add("description", GetTooltip(unit.Description, FileSettings.Description));
 

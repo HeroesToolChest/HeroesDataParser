@@ -24,7 +24,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         public void RolesTests()
         {
             Assert.Equal(1, HeroAuriel.Roles.Count);
-            Assert.Equal(HeroRole.Support, HeroAuriel.Roles[0]);
+            Assert.Equal("Support", HeroAuriel.Roles[0]);
         }
 
         [Fact]

@@ -102,14 +102,14 @@ namespace HeroesData.FileWriter.Tests
                 Name = "Alarak",
                 CHeroId = "HeroAlarak",
                 CUnitId = "Alar",
-                Difficulty = HeroDifficulty.Hard,
+                Difficulty = "Hard",
                 Franchise = HeroFranchise.Starcraft,
                 Gender = HeroGender.Male,
                 Radius = 0.875,
                 ReleaseDate = new DateTime(2016, 9, 13),
                 Sight = 12,
                 Speed = 4.3984,
-                Type = UnitType.Melee,
+                Type = "Melee",
                 Rarity = HeroRarity.Legendary,
                 Description = new TooltipDescription("A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/><img path=\"@UI / StormTalentInTextArmorIcon\" alignment=\"uppermiddle\" color=\"e12bfc\" width=\"20\" height=\"22\"/><c val=\"#TooltipNumbers\">20 Spell Armor</c>"),
                 HeroPortrait = new HeroPortrait()
@@ -138,7 +138,7 @@ namespace HeroesData.FileWriter.Tests
                     EnergyType = "Mana",
                     EnergyRegenerationRate = 3,
                 },
-                Roles = new List<HeroRole> { HeroRole.Assassin, HeroRole.Warrior },
+                Roles = new List<string> { "Assassin", "Warrior" },
                 Ratings = new HeroRatings()
                 {
                     Complexity = 8,
@@ -405,7 +405,7 @@ namespace HeroesData.FileWriter.Tests
                 CHeroId = "Alexstrasza",
                 CUnitId = "HeroAlexstrasza",
                 AttributeId = "Alex",
-                Difficulty = HeroDifficulty.Medium,
+                Difficulty = "Medium",
                 Franchise = HeroFranchise.Warcraft,
                 Gender = HeroGender.Female,
                 InnerRadius = 0.75,
@@ -413,7 +413,7 @@ namespace HeroesData.FileWriter.Tests
                 ReleaseDate = new DateTime(2017, 11, 14),
                 Sight = 12,
                 Speed = 4.3984,
-                Type = UnitType.Ranged,
+                Type = "Ranged",
                 Rarity = HeroRarity.Legendary,
                 Description = new TooltipDescription("A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities."),
                 Life = new UnitLife

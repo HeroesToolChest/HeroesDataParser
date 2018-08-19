@@ -33,7 +33,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("Falstad", HeroFalstad.CHeroId);
             Assert.Equal("HeroFalstad", HeroFalstad.CUnitId);
             Assert.Equal("Fals", HeroFalstad.AttributeId);
-            Assert.Equal(HeroDifficulty.Medium, HeroFalstad.Difficulty);
+            Assert.Equal("Medium", HeroFalstad.Difficulty);
             Assert.Equal(HeroFranchise.Warcraft, HeroFalstad.Franchise);
             Assert.Equal(HeroGender.Male, HeroFalstad.Gender);
             Assert.Equal(0.9375, HeroFalstad.InnerRadius);
@@ -41,7 +41,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("2014-03-13", HeroFalstad.ReleaseDate.Value.ToString("yyyy-MM-dd"));
             Assert.Equal(12.0, HeroFalstad.Sight);
             Assert.Equal(4.3984, HeroFalstad.Speed);
-            Assert.Equal(UnitType.Ranged, HeroFalstad.Type);
+            Assert.Equal("Ranged", HeroFalstad.Type);
             Assert.Equal(HeroRarity.Epic, HeroFalstad.Rarity);
             Assert.Equal("An Assassin that can fly large distances, excelling on large battlegrounds.", HeroFalstad.Description.RawDescription);
         }
@@ -126,7 +126,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         public void RolesTests()
         {
             Assert.Equal(1, HeroFalstad.Roles.Count);
-            Assert.Equal(HeroRole.Assassin, HeroFalstad.Roles[0]);
+            Assert.Equal("Assassin", HeroFalstad.Roles[0]);
         }
 
         [Fact]

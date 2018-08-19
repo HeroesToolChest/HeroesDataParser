@@ -48,13 +48,13 @@ namespace HeroesData.Parser
                 if (string.IsNullOrEmpty(hero.Description?.RawDescription))
                     AddWarning($"{nameof(hero.Description)} is null or empty");
 
-                if (hero.Difficulty == HeroDifficulty.Unknown)
+                if (string.IsNullOrEmpty(hero.Difficulty))
                     AddWarning($"{nameof(hero.Difficulty)} is Unknown");
 
                 if (hero.Franchise == HeroFranchise.Unknown)
                     AddWarning($"{nameof(hero.Franchise)} is Unknown");
 
-                if (hero.Roles.Contains(HeroRole.Unknown))
+                if (hero.Roles.Contains("Unknown"))
                     AddWarning($"{nameof(hero.Roles)} is Unknown");
 
                 if (hero.Abilities.Count < 1)
@@ -90,8 +90,8 @@ namespace HeroesData.Parser
                 if (!hero.ReleaseDate.HasValue)
                     AddWarning($"{nameof(hero.ReleaseDate)} is null");
 
-                if (!hero.Type.HasValue)
-                    AddWarning($"{nameof(hero.Type)} is null");
+                if (string.IsNullOrEmpty(hero.Type))
+                    AddWarning($"{nameof(hero.Type)} is null or emtpy");
 
                 VerifyWeapons(hero);
 
