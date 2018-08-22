@@ -14,6 +14,7 @@ namespace HeroesData.FileWriter.Writer
     {
         public FileSettings FileSettings { get; set; }
         public string OutputDirectory { get; set; }
+        public string Localization { get; set; }
         public int? HotsBuild { get; set; }
         public List<Hero> Heroes { get; set; }
 

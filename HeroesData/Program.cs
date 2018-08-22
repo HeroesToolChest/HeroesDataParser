@@ -699,6 +699,7 @@ namespace HeroesData
             {
                 DescriptionType = DescriptionType,
                 FileSplit = FileSplit,
+                Localization = GameStringLocalization.ToString().ToLower(),
             };
 
             if (!string.IsNullOrEmpty(OutputDirectory))

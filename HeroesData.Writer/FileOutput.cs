@@ -66,9 +66,14 @@ namespace HeroesData.FileWriter
         public bool FileSplit { get; set; }
 
         /// <summary>
-        /// Gets or set the tooltip description type.
+        /// Gets or sets the tooltip description type.
         /// </summary>
         public int DescriptionType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the localization string.
+        /// </summary>
+        public string Localization { get; set; }
 
         /// <summary>
         /// Gets or sets the output directory.
@@ -86,6 +91,7 @@ namespace HeroesData.FileWriter
                 Heroes = Heroes,
                 HotsBuild = HotsBuild,
                 OutputDirectory = OutputDirectory,
+                Localization = Localization,
             };
 
             xmlWriter.CreateOutput();
@@ -109,6 +115,7 @@ namespace HeroesData.FileWriter
                 Heroes = Heroes,
                 HotsBuild = HotsBuild,
                 OutputDirectory = OutputDirectory,
+                Localization = Localization,
             };
 
             xmlWriter.CreateOutput();
@@ -125,6 +132,7 @@ namespace HeroesData.FileWriter
                 Heroes = Heroes,
                 HotsBuild = HotsBuild,
                 OutputDirectory = OutputDirectory,
+                Localization = Localization,
             };
 
             jsonWriter.CreateOutput();
@@ -148,6 +156,7 @@ namespace HeroesData.FileWriter
                 Heroes = Heroes,
                 HotsBuild = HotsBuild,
                 OutputDirectory = OutputDirectory,
+                Localization = Localization,
             };
 
             jsonWriter.CreateOutput();

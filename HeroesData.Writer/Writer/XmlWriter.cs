@@ -19,13 +19,13 @@ namespace HeroesData.FileWriter.Writer
         {
             if (HotsBuild.HasValue)
             {
-                SingleFileName = $"heroesdata_{HotsBuild.Value}.xml";
-                SingleFileNameNoIndentation = $"heroesdata_{HotsBuild.Value}.min.xml";
+                SingleFileName = $"heroesdata_{HotsBuild.Value}_{Localization}.xml";
+                SingleFileNameNoIndentation = $"heroesdata_{HotsBuild.Value}_{Localization}.min.xml";
             }
             else
             {
-                SingleFileName = "heroesdata.xml";
-                SingleFileNameNoIndentation = "heroesdata.min.xml";
+                SingleFileName = $"heroesdata_{Localization}.xml";
+                SingleFileNameNoIndentation = $"heroesdata_{Localization}.min.xml";
             }
         }
 
