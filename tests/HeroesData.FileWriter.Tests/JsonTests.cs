@@ -18,8 +18,9 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void JsonWriterHasBuildNumberTest()
         {
+            FileOutputHasBuildNumber.Localization = Localization;
             FileOutputHasBuildNumber.CreateJson();
-            CompareFile(Path.Combine("output", "json", $"heroesdata_{BuildNumber}.json"), "JsonOutputTest.json");
+            CompareFile(Path.Combine("output", "json", $"heroesdata_{BuildNumber}_{Localization}.json"), "JsonOutputTest.json");
         }
 
         [Fact]

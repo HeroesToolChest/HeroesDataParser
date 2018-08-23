@@ -18,8 +18,9 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void XmlWriterHasBuildNumberTest()
         {
+            FileOutputHasBuildNumber.Localization = Localization;
             FileOutputHasBuildNumber.CreateXml();
-            CompareFile(Path.Combine("output", "xml", $"heroesdata_{BuildNumber}.xml"), "XmlOutputTest.xml");
+            CompareFile(Path.Combine("output", "xml", $"heroesdata_{BuildNumber}_{Localization}.xml"), "XmlOutputTest.xml");
         }
 
         [Fact]
@@ -43,18 +44,20 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void XmlWriterFileSplitTest()
         {
+            FileOutputFileSplit.Localization = Localization;
             FileOutputFileSplit.CreateXml();
-            CompareFile(Path.Combine("output", "xml", "Alarak.xml"), "Alarak.xml");
-            CompareFile(Path.Combine("output", "xml", "Alexstrasza.xml"), "Alexstrasza.xml");
+            CompareFile(Path.Combine("output", "xml", $"splitfiles.{Localization}", "Alarak.xml"), "Alarak.xml");
+            CompareFile(Path.Combine("output", "xml", $"splitfiles.{Localization}", "Alexstrasza.xml"), "Alexstrasza.xml");
         }
 
         [Fact]
         public void XmlWriterOverrideFileSplitTest()
         {
+            FileOutputFileSplit.Localization = Localization;
             FileOutputFileSplit.FileSplit = true;
             FileOutputFileSplit.CreateXml();
-            CompareFile(Path.Combine("output", "xml", "Alarak.xml"), "Alarak.xml");
-            CompareFile(Path.Combine("output", "xml", "Alexstrasza.xml"), "Alexstrasza.xml");
+            CompareFile(Path.Combine("output", "xml", $"splitfiles.{Localization}", "Alarak.xml"), "Alarak.xml");
+            CompareFile(Path.Combine("output", "xml", $"splitfiles.{Localization}", "Alexstrasza.xml"), "Alexstrasza.xml");
         }
 
         [Fact]
