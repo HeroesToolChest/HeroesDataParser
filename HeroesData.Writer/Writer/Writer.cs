@@ -22,29 +22,20 @@ namespace HeroesData.FileWriter.Writer
         protected string SingleFileNameNoIndentation { get; set; }
         protected string XmlOutputFolder => Path.Combine(OutputDirectory, "xml");
         protected string JsonOutputFolder => Path.Combine(OutputDirectory, "json");
-        protected string SplitFileXmlNoIndentationFolder => Path.Combine(XmlOutputFolder, "min");
-        protected string SplitFileJsonNoIndentationFolder => Path.Combine(JsonOutputFolder, "min");
+        protected string XmlOutputSplitFolder { get; set; }
+        protected string JsonOutputSplitFolder { get; set; }
+        protected string SplitFileXmlNoIndentationFolder { get; set; }
+        protected string SplitFileJsonNoIndentationFolder { get; set; }
         protected string RootNode => "Heroes";
         protected string HeroUnits => "HeroUnits";
 
-        public void CreateOutput()
+        public virtual void CreateOutput()
         {
-            Directory.CreateDirectory(XmlOutputFolder);
-            Directory.CreateDirectory(JsonOutputFolder);
-
-            if (FileSettings.FileSplit)
-            {
-                Directory.CreateDirectory(SplitFileXmlNoIndentationFolder);
-                Directory.CreateDirectory(SplitFileJsonNoIndentationFolder);
-            }
-
             Initialize();
         }
 
         protected void Initialize()
         {
-            SetSingleFileName();
-
             if (FileSettings.WriterEnabled)
             {
                 if (FileSettings.FileSplit)
@@ -55,6 +46,7 @@ namespace HeroesData.FileWriter.Writer
         }
 
         protected abstract void SetSingleFileName();
+        protected abstract void SetMultipleFileFolderNames();
         protected abstract void CreateMultipleFiles(List<Hero> heroes);
         protected abstract void CreateSingleFile(List<Hero> heroes);
         protected abstract T HeroElement(Hero hero);

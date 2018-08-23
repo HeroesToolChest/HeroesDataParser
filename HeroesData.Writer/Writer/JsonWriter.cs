@@ -15,6 +15,22 @@ namespace HeroesData.FileWriter.Writer
         public JsonWriter()
         { }
 
+        public override void CreateOutput()
+        {
+            SetSingleFileName();
+            SetMultipleFileFolderNames();
+
+            Directory.CreateDirectory(JsonOutputFolder);
+
+            if (FileSettings.FileSplit)
+            {
+                Directory.CreateDirectory(JsonOutputSplitFolder);
+                Directory.CreateDirectory(SplitFileJsonNoIndentationFolder);
+            }
+
+            base.CreateOutput();
+        }
+
         protected override void SetSingleFileName()
         {
             if (HotsBuild.HasValue)
@@ -26,6 +42,20 @@ namespace HeroesData.FileWriter.Writer
             {
                 SingleFileName = $"heroesdata_{Localization}.json";
                 SingleFileNameNoIndentation = $"heroesdata_{Localization}.min.json";
+            }
+        }
+
+        protected override void SetMultipleFileFolderNames()
+        {
+            if (HotsBuild.HasValue)
+            {
+                JsonOutputSplitFolder = Path.Combine(JsonOutputFolder, $"splitfiles_{HotsBuild.Value}.{Localization}");
+                SplitFileJsonNoIndentationFolder = Path.Combine(JsonOutputFolder, $"splitfiles_{HotsBuild.Value}.{Localization}.min");
+            }
+            else
+            {
+                JsonOutputSplitFolder = Path.Combine(JsonOutputFolder, $"splitfiles.{Localization}");
+                SplitFileJsonNoIndentationFolder = Path.Combine(JsonOutputFolder, $"splitfiles.{Localization}");
             }
         }
 
@@ -57,7 +87,7 @@ namespace HeroesData.FileWriter.Writer
                 JObject jObject = new JObject(HeroElement(hero));
 
                 // has formatting
-                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputFolder, $"{hero.ShortName}.json")))
+                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputSplitFolder, $"{hero.ShortName}.json")))
                 using (JsonTextWriter writer = new JsonTextWriter(file))
                 {
                     writer.Formatting = Formatting.Indented;

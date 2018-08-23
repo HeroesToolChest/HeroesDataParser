@@ -15,6 +15,22 @@ namespace HeroesData.FileWriter.Writer
         public XmlWriter()
         { }
 
+        public override void CreateOutput()
+        {
+            SetSingleFileName();
+            SetMultipleFileFolderNames();
+
+            Directory.CreateDirectory(XmlOutputFolder);
+
+            if (FileSettings.FileSplit)
+            {
+                Directory.CreateDirectory(XmlOutputSplitFolder);
+                Directory.CreateDirectory(SplitFileXmlNoIndentationFolder);
+            }
+
+            base.CreateOutput();
+        }
+
         protected override void SetSingleFileName()
         {
             if (HotsBuild.HasValue)
@@ -26,6 +42,20 @@ namespace HeroesData.FileWriter.Writer
             {
                 SingleFileName = $"heroesdata_{Localization}.xml";
                 SingleFileNameNoIndentation = $"heroesdata_{Localization}.min.xml";
+            }
+        }
+
+        protected override void SetMultipleFileFolderNames()
+        {
+            if (HotsBuild.HasValue)
+            {
+                XmlOutputSplitFolder = Path.Combine(XmlOutputFolder, $"splitfiles_{HotsBuild.Value}.{Localization}");
+                SplitFileXmlNoIndentationFolder = Path.Combine(XmlOutputFolder, $"splitfiles_{HotsBuild.Value}.{Localization}.min");
+            }
+            else
+            {
+                XmlOutputSplitFolder = Path.Combine(XmlOutputFolder, $"splitfiles.{Localization}");
+                SplitFileXmlNoIndentationFolder = Path.Combine(XmlOutputFolder, $"splitfiles.{Localization}.min");
             }
         }
 
@@ -42,7 +72,7 @@ namespace HeroesData.FileWriter.Writer
             {
                 XDocument xmlDoc = new XDocument(new XElement(RootNode, HeroElement(hero)));
 
-                xmlDoc.Save(Path.Combine(XmlOutputFolder, $"{hero.ShortName}.xml"));
+                xmlDoc.Save(Path.Combine(XmlOutputSplitFolder, $"{hero.ShortName}.xml"));
                 xmlDoc.Save(Path.Combine(SplitFileXmlNoIndentationFolder, $"{hero.ShortName}.min.xml"), SaveOptions.DisableFormatting);
             }
         }

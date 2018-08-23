@@ -42,6 +42,7 @@ namespace HeroesData.FileWriter.Tests
 
         protected int? BuildNumber => 12345;
         protected string OutputFileFolder => "OutputFiles";
+        protected string Localization => "enus";
 
         protected List<Hero> Heroes { get; set; } = new List<Hero>();
 

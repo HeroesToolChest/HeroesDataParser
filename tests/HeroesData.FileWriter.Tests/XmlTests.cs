@@ -5,11 +5,12 @@ namespace HeroesData.FileWriter.Tests
 {
     public class XmlTests : FileOutputTestBase
     {
-        private readonly string DefaultCreatedFile = Path.Combine("output", "xml", "heroesdata.xml");
+        private readonly string DefaultCreatedFile = Path.Combine("output", "xml", "heroesdata_enus.xml");
 
         [Fact]
         public void XmlWriterNoBuildNumberTest()
         {
+            FileOutputNoBuildNumber.Localization = Localization;
             FileOutputNoBuildNumber.CreateXml();
             CompareFile(DefaultCreatedFile, "XmlOutputTest.xml");
         }
@@ -34,6 +35,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void XmlWriterFalseSettingsTest()
         {
+            FileOutputFalseSettings.Localization = Localization;
             FileOutputFalseSettings.CreateXml();
             CompareFile(DefaultCreatedFile, "XmlOutputFalseSettingsTest.xml");
         }
@@ -58,6 +60,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void XmlWriterRawDescriptionTest()
         {
+            FileOutputRawDescription.Localization = Localization;
             FileOutputRawDescription.CreateXml();
             CompareFile(DefaultCreatedFile, "XmlOutput0.xml");
         }
@@ -65,6 +68,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void XmlWriterPlainTextTest()
         {
+            FileOutputPlainText.Localization = Localization;
             FileOutputPlainText.CreateXml();
             CompareFile(DefaultCreatedFile, "XmlOutput1.xml");
         }
@@ -72,6 +76,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void XmlWriterPlainTextWithNewlinesTest()
         {
+            FileOutputPlainTextWithNewlines.Localization = Localization;
             FileOutputPlainTextWithNewlines.CreateXml();
             CompareFile(DefaultCreatedFile, "XmlOutput2.xml");
         }
@@ -79,6 +84,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void XmlWriterPlainTextWithScalingTest()
         {
+            FileOutputPlainTextWithScaling.Localization = Localization;
             FileOutputPlainTextWithScaling.DescriptionType = 3;
             FileOutputPlainTextWithScaling.CreateXml();
             CompareFile(DefaultCreatedFile, "XmlOutput3.xml");
@@ -87,6 +93,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void XmlWriterPlainTextWithScalingWithNewlinesTest()
         {
+            FileOutputPlainTextWithScalingWithNewlines.Localization = Localization;
             FileOutputPlainTextWithScalingWithNewlines.CreateXml();
             CompareFile(DefaultCreatedFile, "XmlOutput4.xml");
         }
@@ -94,6 +101,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void XmlWriterColoredTextWithScalingTest()
         {
+            FileOutputColoredTextWithScaling.Localization = Localization;
             FileOutputColoredTextWithScaling.CreateXml();
             CompareFile(DefaultCreatedFile, "XmlOutput6.xml");
         }

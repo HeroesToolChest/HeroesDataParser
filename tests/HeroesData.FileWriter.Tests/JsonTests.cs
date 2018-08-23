@@ -5,11 +5,12 @@ namespace HeroesData.FileWriter.Tests
 {
     public class JsonTests : FileOutputTestBase
     {
-        private readonly string DefaultCreatedFile = Path.Combine("output", "json", "heroesdata.json");
+        private readonly string DefaultCreatedFile = Path.Combine("output", "json", "heroesdata_enus.json");
 
         [Fact]
         public void JsonWriterNoBuildNumberTest()
         {
+            FileOutputNoBuildNumber.Localization = Localization;
             FileOutputNoBuildNumber.CreateJson();
             CompareFile(DefaultCreatedFile, "JsonOutputTest.json");
         }
@@ -32,6 +33,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void JsonWriterFalseSettingsTest()
         {
+            FileOutputFalseSettings.Localization = Localization;
             FileOutputFalseSettings.CreateJson();
             CompareFile(DefaultCreatedFile, "JsonOutputFalseSettingsTest.json");
         }
@@ -39,9 +41,10 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void JsonWriterFileSplitTest()
         {
+            FileOutputFileSplit.Localization = Localization;
             FileOutputFileSplit.CreateJson();
-            CompareFile(Path.Combine("output", "json", "Alarak.json"), "Alarak.json");
-            CompareFile(Path.Combine("output", "json", "Alexstrasza.json"), "Alexstrasza.json");
+            CompareFile(Path.Combine("output", "json", $"splitfiles.{Localization}", "Alarak.json"), "Alarak.json");
+            CompareFile(Path.Combine("output", "json", $"splitfiles.{Localization}", "Alexstrasza.json"), "Alexstrasza.json");
         }
 
         [Fact]
@@ -49,13 +52,14 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputOverrideFileSplit.FileSplit = true;
             FileOutputFileSplit.CreateJson();
-            CompareFile(Path.Combine("output", "json", "Alarak.json"), "Alarak.json");
-            CompareFile(Path.Combine("output", "json", "Alexstrasza.json"), "Alexstrasza.json");
+            CompareFile(Path.Combine("output", "json", $"splitfiles.{Localization}", "Alarak.json"), "Alarak.json");
+            CompareFile(Path.Combine("output", "json", $"splitfiles.{Localization}", "Alexstrasza.json"), "Alexstrasza.json");
         }
 
         [Fact]
         public void JsonWriterRawDescriptionTest()
         {
+            FileOutputRawDescription.Localization = Localization;
             FileOutputRawDescription.CreateJson();
             CompareFile(DefaultCreatedFile, "JsonOutput0.json");
         }
@@ -63,6 +67,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void JsonWriterPlainTextTest()
         {
+            FileOutputPlainText.Localization = Localization;
             FileOutputPlainText.CreateJson();
             CompareFile(DefaultCreatedFile, "JsonOutput1.json");
         }
@@ -70,6 +75,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void JsonWriterPlainTextWithNewlinesTest()
         {
+            FileOutputPlainTextWithNewlines.Localization = Localization;
             FileOutputPlainTextWithNewlines.CreateJson();
             CompareFile(DefaultCreatedFile, "JsonOutput2.json");
         }
@@ -77,6 +83,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void JsonWriterPlainTextWithScalingTest()
         {
+            FileOutputPlainTextWithScaling.Localization = Localization;
             FileOutputPlainTextWithScaling.DescriptionType = 3;
             FileOutputPlainTextWithScaling.CreateJson();
             CompareFile(DefaultCreatedFile, "JsonOutput3.json");
@@ -85,6 +92,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void JsonWriterPlainTextWithScalingWithNewlinesTest()
         {
+            FileOutputPlainTextWithScalingWithNewlines.Localization = Localization;
             FileOutputPlainTextWithScalingWithNewlines.CreateJson();
             CompareFile(DefaultCreatedFile, "JsonOutput4.json");
         }
@@ -92,6 +100,7 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void JsonWriterColoredTextWithScalingTest()
         {
+            FileOutputColoredTextWithScaling.Localization = Localization;
             FileOutputColoredTextWithScaling.CreateJson();
             CompareFile(DefaultCreatedFile, "JsonOutput6.json");
         }
