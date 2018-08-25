@@ -93,7 +93,7 @@ namespace HeroesData
 
                 if (extractIconsOption.HasValue() && storagePathOption.HasValue())
                 {
-                    if (extractIconsOption.Values.Contains("all"))
+                    if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ALL"))
                     {
                         program.ExtractPortraits = true;
                         program.ExtractTalents = true;
