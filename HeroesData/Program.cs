@@ -107,7 +107,14 @@ namespace HeroesData
 
                 if (setGameStringLocalizations.HasValue())
                 {
-                    foreach (string local in setGameStringLocalizations.Values)
+                    List<string> localizations = new List<string>();
+
+                    if (setGameStringLocalizations.Values.Exists(x => x.ToUpper() == "ALL"))
+                        localizations = Enum.GetNames(typeof(GameStringLocalization)).ToList();
+                    else
+                        localizations = setGameStringLocalizations.Values;
+
+                    foreach (string local in localizations)
                     {
                         if (Enum.TryParse(local, true, out GameStringLocalization localization))
                         {
