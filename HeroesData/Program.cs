@@ -47,7 +47,7 @@ namespace HeroesData
         {
             CommandLineApplication app = new CommandLineApplication(true)
             {
-                Description = "Test description",
+                Description = "Extract Heroes of the Storm game data into XML and JSON format",
             };
             app.HelpOption("-?|-h|--help");
             app.VersionOption("-v|--version", $"Heroes Data Parser ({AppVersion.GetVersion()})");
