@@ -57,15 +57,15 @@ namespace HeroesData
             CommandOption extractIconsOption = app.Option("-e|--extract <value>", $"Extracts images, available values: all|portraits|talents - Available only in -s|--storagePath mode using Hots directory", CommandOptionType.MultipleValue);
             CommandOption setFileSplitOption = app.Option("-f|--fileSplit <boolean>", "Sets the file output type, if true, creates a file for each hero parsed - Default 'false'", CommandOptionType.SingleValue);
             CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Sets the description output type (0 - 6) - Default 0", CommandOptionType.SingleValue);
-            CommandOption setBuildOption = app.Option("-b|--build", "Sets the override build file", CommandOptionType.SingleValue);
-            CommandOption setOutputDirectoryOption = app.Option("-o|--outputDirectory", "Sets the output directory", CommandOptionType.SingleValue);
+            CommandOption setBuildOption = app.Option("-b|--build <number>", "Sets the override build file", CommandOptionType.SingleValue);
+            CommandOption setOutputDirectoryOption = app.Option("-o|--outputDirectory <filePath>", "Sets the output directory", CommandOptionType.SingleValue);
             CommandOption setGameStringLocalizations = app.Option("-l|--localization <local>", "Sets the gamestrings localization - Default: enUS", CommandOptionType.MultipleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
             CommandOption invalidShortOption = app.Option("--invalidShort", "Show all invalid short tooltips", CommandOptionType.NoValue);
             CommandOption invalidHeroOption = app.Option("--invalidHero", "Show all invalid hero tooltips", CommandOptionType.NoValue);
-            CommandOption heroWarningsOption = app.Option("--heroWarnings", "Shows all hero warnings", CommandOptionType.NoValue);
+            CommandOption heroWarningsOption = app.Option("--heroWarnings", "Show all hero warnings", CommandOptionType.NoValue);
 
             app.OnExecute(() =>
             {
