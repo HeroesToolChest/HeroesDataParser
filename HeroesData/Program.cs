@@ -27,7 +27,7 @@ namespace HeroesData
         private string OutputDirectory = string.Empty;
         private StorageMode StorageMode = StorageMode.None;
         private CASCHotsStorage CASCHotsStorage = null;
-        private GameStringLocalization GameStringLocalization = GameStringLocalization.ENUS;
+        private List<GameStringLocalization> Localizations = new List<GameStringLocalization>();
         private bool Defaults = true;
         private bool CreateXml = true;
         private bool CreateJson = true;
@@ -54,12 +54,12 @@ namespace HeroesData
 
             CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory", CommandOptionType.SingleValue);
             CommandOption setMaxDegreeParallismOption = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
-            CommandOption extractIconsOption = app.Option("-e|--extract <value(s)>", $"Extracts images, available values: all|portraits|talents - Available only in -s|--storagePath mode using Hots directory", CommandOptionType.MultipleValue);
+            CommandOption extractIconsOption = app.Option("-e|--extract <value>", $"Extracts images, available values: all|portraits|talents - Available only in -s|--storagePath mode using Hots directory", CommandOptionType.MultipleValue);
             CommandOption setFileSplitOption = app.Option("-f|--fileSplit <boolean>", "Sets the file output type, if true, creates a file for each hero parsed - Default 'false'", CommandOptionType.SingleValue);
             CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Sets the description output type (0 - 6) - Default 0", CommandOptionType.SingleValue);
             CommandOption setBuildOption = app.Option("-b|--build", "Sets the override build file", CommandOptionType.SingleValue);
             CommandOption setOutputDirectoryOption = app.Option("-o|--outputDirectory", "Sets the output directory", CommandOptionType.SingleValue);
-            CommandOption setGameStringLocalization = app.Option("-l|--localization", "Sets the gamestrings localization - Default: enUS", CommandOptionType.SingleValue);
+            CommandOption setGameStringLocalizations = app.Option("-l|--localization <local>", "Sets the gamestrings localization - Default: enUS", CommandOptionType.MultipleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
@@ -105,20 +105,27 @@ namespace HeroesData
                         program.ExtractTalents = true;
                 }
 
-                if (setGameStringLocalization.HasValue())
+                if (setGameStringLocalizations.HasValue())
                 {
-                    if (Enum.TryParse(setGameStringLocalization.Value(), true, out GameStringLocalization localization))
+                    foreach (string local in setGameStringLocalizations.Values)
                     {
-                        program.GameStringLocalization = localization;
+                        if (Enum.TryParse(local, true, out GameStringLocalization localization))
+                        {
+                            program.Localizations.Add(localization);
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"Unknown localization - {local}");
+                        }
                     }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Unknown localization");
-                        Console.ResetColor();
-                        Console.WriteLine();
-                        Environment.Exit(0);
-                    }
+
+                    Console.ResetColor();
+                    Console.WriteLine();
+                }
+                else
+                {
+                    program.Localizations.Add(GameStringLocalization.ENUS);
                 }
 
                 program.CreateXml = xmlOutputOption.HasValue() ? true : false;
@@ -169,22 +176,51 @@ namespace HeroesData
 
             try
             {
+                List<Hero> parsedHeroes = new List<Hero>();
+                string outputDirectory = string.Empty;
+                int totalLocalSuccess = 0;
+
                 PreInitialize();
-
-                // get all data
                 InitializeGameData();
-                InitializeGameStringData();
-                InitializeOverrideData();
 
-                ParsedGameStrings parsedGameStrings = InitializeGameStringParser();
-                List<Hero> parsedHeroes = ParseUnits(parsedGameStrings);
+                foreach (GameStringLocalization localization in Localizations)
+                {
+                    try
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine($"[{localization.GetFriendlyName()}]");
+                        Console.ResetColor();
 
-                HeroDataVerification(parsedHeroes);
-                CreateOutput(parsedHeroes, out string outputDirectory);
+                        InitializeGameStringData(localization);
+                        InitializeOverrideData();
+
+                        ParsedGameStrings parsedGameStrings = InitializeGameStringParser();
+                        parsedHeroes = ParseUnits(parsedGameStrings);
+
+                        HeroDataVerification(parsedHeroes, localization);
+                        CreateOutput(parsedHeroes, localization, out outputDirectory);
+                        totalLocalSuccess++;
+                    }
+                    catch (Exception ex)
+                    {
+                        // catch and display error and continue on
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(ex.Message);
+                        Console.WriteLine();
+                        Console.ResetColor();
+                    }
+                }
+
                 ExtractFiles(parsedHeroes, outputDirectory);
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("HDP successfully completed.");
+                if (totalLocalSuccess == Localizations.Count)
+                    Console.ForegroundColor = ConsoleColor.Green;
+                else if (totalLocalSuccess > 0)
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                else
+                    Console.ForegroundColor = ConsoleColor.Red;
+
+                Console.WriteLine($"HDP has completed [{totalLocalSuccess} out of {Localizations.Count} successful].");
                 Console.WriteLine();
             }
             catch (Exception ex) // catch everything
@@ -204,7 +240,9 @@ namespace HeroesData
         private void PreInitialize()
         {
             StoragePathFinder();
-            Console.WriteLine($"Localization: {GameStringLocalization.GetFriendlyName()}");
+            Console.Write($"Localization(s): ");
+            Localizations.ForEach(local => { Console.Write($"{local.ToString().ToLower()} "); });
+            Console.WriteLine();
             Console.WriteLine();
             Console.ResetColor();
 
@@ -387,46 +425,36 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        private void InitializeGameStringData()
+        private void InitializeGameStringData(GameStringLocalization localization)
         {
             var time = new Stopwatch();
 
             Console.WriteLine($"Loading game strings...");
 
             time.Start();
-            try
+
+            if (StorageMode == StorageMode.Mods)
             {
-                if (StorageMode == StorageMode.Mods)
+                FileGameStringData fileGameStringData = new FileGameStringData
                 {
-                    FileGameStringData fileGameStringData = new FileGameStringData
-                    {
-                        HotsBuild = HotsBuild,
-                        ModsFolderPath = StoragePath,
-                        GameStringLocalization = GameStringLocalization.GetFriendlyName(),
-                    };
+                    HotsBuild = HotsBuild,
+                    ModsFolderPath = StoragePath,
+                    GameStringLocalization = localization.GetFriendlyName(),
+                };
 
-                    fileGameStringData.Load();
-                    GameStringData = fileGameStringData;
-                }
-                else if (StorageMode == StorageMode.CASC)
-                {
-                    CASCGameStringData cascGameStringData = new CASCGameStringData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot)
-                    {
-                        HotsBuild = HotsBuild,
-                        GameStringLocalization = GameStringLocalization.GetFriendlyName(),
-                    };
-
-                    cascGameStringData.Load();
-                    GameStringData = cascGameStringData;
-                }
+                fileGameStringData.Load();
+                GameStringData = fileGameStringData;
             }
-            catch (DirectoryNotFoundException ex)
+            else if (StorageMode == StorageMode.CASC)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ex.Message);
+                CASCGameStringData cascGameStringData = new CASCGameStringData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot)
+                {
+                    HotsBuild = HotsBuild,
+                    GameStringLocalization = localization.GetFriendlyName(),
+                };
 
-                Console.ResetColor();
-                Environment.Exit(1);
+                cascGameStringData.Load();
+                GameStringData = cascGameStringData;
             }
 
             time.Stop();
@@ -450,24 +478,12 @@ namespace HeroesData
 
             time.Start();
 
-            try
-            {
-                if (OverrideBuild.HasValue)
-                    OverrideData = OverrideData.Load(GameData, OverrideBuild.Value);
-                else if (HotsBuild.HasValue)
-                    OverrideData = OverrideData.Load(GameData, HotsBuild.Value);
-                else
-                    OverrideData = OverrideData.Load(GameData);
-            }
-            catch (FileNotFoundException ex)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ex.Message);
-                Console.WriteLine();
-
-                Console.ResetColor();
-                Environment.Exit(1);
-            }
+            if (OverrideBuild.HasValue)
+                OverrideData = OverrideData.Load(GameData, OverrideBuild.Value);
+            else if (HotsBuild.HasValue)
+                OverrideData = OverrideData.Load(GameData, HotsBuild.Value);
+            else
+                OverrideData = OverrideData.Load(GameData);
 
             time.Stop();
 
@@ -500,19 +516,7 @@ namespace HeroesData
             time.Start();
             GameStringParser gameStringParser = null;
 
-            try
-            {
-                gameStringParser = new GameStringParser(GameData, HotsBuild);
-            }
-            catch (FileNotFoundException ex)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ex.Message);
-                Console.WriteLine();
-
-                Console.ResetColor();
-                Environment.Exit(1);
-            }
+            gameStringParser = new GameStringParser(GameData, HotsBuild);
 
             var (fullParsed, fullInvalid) = GameStringParse.Parse(GameStringData.FullTooltipsByFullTooltipNameId, gameStringParser, "total full tooltips", MaxParallelism);
             var (shortParsed, shortInvalid) = GameStringParse.Parse(GameStringData.ShortTooltipsByShortTooltipNameId, gameStringParser, "total short tooltips", MaxParallelism);
@@ -632,9 +636,9 @@ namespace HeroesData
             return parsedHeroes.Values.ToList();
         }
 
-        private void HeroDataVerification(List<Hero> heroes)
+        private void HeroDataVerification(List<Hero> heroes, GameStringLocalization localization)
         {
-            Console.WriteLine($"Verifying hero data...");
+            Console.WriteLine("Verifying hero data...");
 
             var verifyData = VerifyHeroData.Verify(heroes);
             List<string> warnings = verifyData.Warnings.ToList();
@@ -645,7 +649,7 @@ namespace HeroesData
                 List<string> nonTooltips = new List<string>(warnings.Where(x => !x.ToLower().Contains("tooltip")));
                 List<string> tooltips = new List<string>(warnings.Where(x => x.ToLower().Contains("tooltip")));
 
-                using (StreamWriter writer = new StreamWriter($"VerificationCheck.txt", false))
+                using (StreamWriter writer = new StreamWriter($"VerificationCheck_{localization.ToString().ToLower()}.txt", false))
                 {
                     if (nonTooltips.Count > 0)
                     {
@@ -688,24 +692,26 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        private void CreateOutput(List<Hero> parsedHeroes, out string outputDirectory)
+        private void CreateOutput(List<Hero> parsedHeroes, GameStringLocalization localization, out string outputDirectory)
         {
             bool anyCreated = false; // did we create any output at all?
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("Creating output...");
+            Console.Write($"Creating output ({localization.ToString().ToLower()})...");
 
             FileOutput fileOutput = new FileOutput(parsedHeroes.OrderBy(x => x.ShortName).ToList(), HotsBuild)
             {
                 DescriptionType = DescriptionType,
                 FileSplit = FileSplit,
-                Localization = GameStringLocalization.ToString().ToLower(),
+                Localization = localization.ToString().ToLower(),
             };
 
             if (!string.IsNullOrEmpty(OutputDirectory))
                 fileOutput.OutputDirectory = OutputDirectory;
 
+            // get the current output directory, which may be the default directory
             outputDirectory = fileOutput.OutputDirectory;
+
             Console.WriteLine(fileOutput.OutputDirectory);
             Console.ResetColor();
 
@@ -781,7 +787,7 @@ namespace HeroesData
         /// <param name="heroes"></param>
         private void ExtractFiles(List<Hero> heroes, string outputDirectory)
         {
-            if ((!ExtractPortraits && !ExtractTalents) || StorageMode != StorageMode.CASC)
+            if ((!ExtractPortraits && !ExtractTalents) || StorageMode != StorageMode.CASC || heroes == null || string.IsNullOrEmpty(outputDirectory))
                 return;
 
             Extractor extractor = new Extractor(heroes, CASCHotsStorage.CASCHandler)
