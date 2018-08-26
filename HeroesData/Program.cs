@@ -63,7 +63,7 @@ namespace HeroesData
             CommandOption setGameStringLocalizations = app.Option("-l|--localization <local>", "Sets the gamestrings localization - Default: enUS", CommandOptionType.MultipleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
-            CommandOption localizedTextOption = app.Option("--localizedText", "temp", CommandOptionType.NoValue);
+            CommandOption localizedTextOption = app.Option("--localizedText", "Extracts localized gamestrings from the XML and JSON file(s) into a text file", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
             CommandOption invalidShortOption = app.Option("--invalidShort", "Show all invalid short tooltips", CommandOptionType.NoValue);
             CommandOption invalidHeroOption = app.Option("--invalidHero", "Show all invalid hero tooltips", CommandOptionType.NoValue);
