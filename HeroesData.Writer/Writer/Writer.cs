@@ -49,7 +49,7 @@ namespace HeroesData.FileWriter.Writer
                 if (HotsBuild.HasValue)
                 {
                     GameStringFolder = Path.Combine(OutputDirectory, $"gamestrings-{HotsBuild.Value}");
-                    GameStringTextFileName = $"gamestrings_{Localization}_{HotsBuild.Value}.txt";
+                    GameStringTextFileName = $"gamestrings_{HotsBuild.Value}_{Localization}.txt";
                 }
                 else
                 {
@@ -81,13 +81,13 @@ namespace HeroesData.FileWriter.Writer
         {
             if (HotsBuild.HasValue)
             {
-                splitFolder = Path.Combine(outFolder, $"splitfiles_{HotsBuild.Value}.{Localization}");
-                minFolder = Path.Combine(outFolder, $"splitfiles_{HotsBuild.Value}.{Localization}.min");
+                splitFolder = Path.Combine(outFolder, $"splitfiles-{HotsBuild.Value}-{Localization}");
+                minFolder = Path.Combine(outFolder, $"splitfiles-{HotsBuild.Value}-{Localization}.min");
             }
             else
             {
-                splitFolder = Path.Combine(outFolder, $"splitfiles.{Localization}");
-                minFolder = Path.Combine(outFolder, $"splitfiles.{Localization}");
+                splitFolder = Path.Combine(outFolder, $"splitfiles-{Localization}");
+                minFolder = Path.Combine(outFolder, $"splitfiles-{Localization}");
             }
         }
 
