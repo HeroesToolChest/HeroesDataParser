@@ -56,11 +56,11 @@ namespace HeroesData
             CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory", CommandOptionType.SingleValue);
             CommandOption setMaxDegreeParallismOption = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
             CommandOption extractIconsOption = app.Option("-e|--extract <value>", $"Extracts images, available values: all|portraits|talents - Available only in -s|--storagePath mode using Hots directory", CommandOptionType.MultipleValue);
-            CommandOption setFileSplitOption = app.Option("-f|--fileSplit <boolean>", "Sets the file output type, if true, creates a file for each hero parsed - Default 'false'", CommandOptionType.SingleValue);
             CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Sets the description output type (0 - 6) - Default 0", CommandOptionType.SingleValue);
             CommandOption setBuildOption = app.Option("-b|--build <number>", "Sets the override build file", CommandOptionType.SingleValue);
             CommandOption setOutputDirectoryOption = app.Option("-o|--outputDirectory <filePath>", "Sets the output directory", CommandOptionType.SingleValue);
             CommandOption setGameStringLocalizations = app.Option("-l|--localization <local>", "Sets the gamestrings localization - Default: enUS", CommandOptionType.MultipleValue);
+            CommandOption setFileSplitOption = app.Option("-f|--fileSplit", "Creates a separate file for each hero parsed", CommandOptionType.NoValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption localizedTextOption = app.Option("--localizedText", "Extracts localized gamestrings from the XML and JSON file(s) into a text file", CommandOptionType.NoValue);
