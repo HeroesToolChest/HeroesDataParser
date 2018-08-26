@@ -65,22 +65,23 @@ Heroes Data Parser (VERSION)
 Usage:  [options]
 
 Options:
-  -?|-h|--help                 Show help information
-  -v|--version                 Show version information
-  -s|--storagePath <filePath>  The 'Heroes of the Storm' directory or an already extracted 'mods' directory
-  -t|--threads <amount>        Limits the maximum amount of threads to use
-  -e|--extract <value(s)>      Extracts images, available values: all|portraits|talents - Available only in -s|--storagePath mode using Hots directory
-  -f|--fileSplit <boolean>     Sets the file output type, if true, creates a file for each hero parsed - Default 'false'
-  -d|--description <value>     Sets the description output type (0 - 6) - Default 0
-  -b|--build                   Sets the override build file
-  -o|--outputDirectory         Sets the output directory
-  -l|--localization            Sets the gamestrings localization - Default: enUS
-  --xml                        Create xml output
-  --json                       Create json output
-  --invalidFull                Show all invalid full tooltips
-  --invalidShort               Show all invalid short tooltips
-  --invalidHero                Show all invalid hero tooltips
-  --heroWarnings               Shows all hero warnings
+  -?|-h|--help                     Show help information
+  -v|--version                     Show version information
+  -s|--storagePath <filePath>      The 'Heroes of the Storm' directory or an already extracted 'mods' directory
+  -t|--threads <amount>            Limits the maximum amount of threads to use
+  -e|--extract <value>             Extracts images, available values: all|portraits|talents - Available only in -s|--storagePath mode using Hots directory
+  -d|--description <value>         Sets the description output type (0 - 6) - Default 0
+  -b|--build <number>              Sets the override build file
+  -o|--outputDirectory <filePath>  Sets the output directory
+  -l|--localization <local>        Sets the gamestrings localization(s) - Default: enUS
+  -f|--fileSplit                   Creates a separate file for each hero parsed
+  --xml                            Create xml output
+  --json                           Create json output
+  --localizedText                  Extracts localized gamestrings from the XML and JSON file(s) into a text file
+  --invalidFull                    Show all invalid full tooltips
+  --invalidShort                   Show all invalid short tooltips
+  --invalidHero                    Show all invalid hero tooltips
+  --heroWarnings                   Show all hero warnings
 ```
 
 Example command to create xml and json files from the `Heroes of the Storm` directory
@@ -94,7 +95,7 @@ All the warnings do not need to be fixed, they are shown for awareness.
 **Tooltip strings that fail to parse will show up __empty__** in the xml or json files and thus will be a valid warning.  
 Hero warnings can be shown to the console using the option `--heroWarnings`.  
 Ignored warnings are in `VerifyIgnore.txt`.  
-Ignored warnings only work for english strings (enUS).  
+Ignored warnings only work for english strings.  
 
 ## Options
 ### Storage Path (-s|--storagePath)
@@ -127,17 +128,13 @@ Or a simpler way, extract these directories and file (keep the directory paths)
 
 The `mods` directory can also have a build suffix in its name. [More info](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
 
-### File Split (-f|--fileSplit)
-If true, one xml and json file will be created for each hero.  
-If false (default), a single xml and json file will be created.
-
 ### Description (-d|--description)
 Sets the description/tooltip output type (0 - 6)
 
 Some of these may require parsing for a readable output. Visit the [wiki page](https://github.com/koliva8245/HeroesDataParser/wiki/Parsing-Descriptions) for parsing tips.
 
 `0` - RawDescription (Default)  
-The raw output of the description. Contains the color tags `<c val=\"#TooltipNumbers\"></c>`, scaling data `~~0.04~~`, and newlines `<n/>`.
+The raw output of the description. Contains the color tags `<c val=\"#TooltipNumbers\"></c>`, scaling data `~~x~~`, and newlines `<n/>`.
 
 Example:  
 ```
@@ -161,7 +158,7 @@ Fires a laser that deals 200 damage.<n/>Does not affect minions.
 ```
 
 `3` - PlainTextWithScaling  
-Same as PlainText but contains the scaling info `(+X% per level)`.
+Same as PlainText but contains the scaling info `(+x% per level)`.
 
 Example:  
 ```
@@ -195,17 +192,17 @@ Fires a laser that deals <c val=\"#TooltipNumbers\">200 (+4% per level)</c> dama
 ### Extract (-e|--extract)
 Extracts images that have been referenced for a hero or ability/talent in the xml and json file(s).
 
-Parameters  
-_all_: all hero portraits and ability/talent icons are extracted  
-_portraits_: only hero portraits are extracted  
-_talents_: only ability/talent icons are extracted  
+Parameters (one or more)  
+`all` - all hero portraits and ability/talent icons are extracted  
+`portraits` - only hero portraits are extracted  
+`talents` - only ability/talent icons are extracted  
 
 Notes:
 - This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storagePath` option
 - Images are always extracted in `.png` format
 
 ### Game String Localization (-l|--localization)
-Sets the game string localization (descriptions/tooltips).
+Sets the game string localization (descriptions/tooltips). Multiple are allowed, use `all` to select all. The application will parse all game strings and hero data for each local selected.
 
 `enUS` - English (Default)  
 `deDE` - German  
@@ -219,6 +216,33 @@ Sets the game string localization (descriptions/tooltips).
 `ruRU` - Russian  
 `zhCN` - Chinese  
 `zhTW` - Chinese (TW)  
+
+Example selecting multiple locals
+```
+-l enus -l dede -l kokr
+```
+
+### Localized Text (--localizedText)
+Strings that are localized are removed from the XML and JSON file(s) and are instead put into a text file to allow easy swapping between localizations.
+
+The following are all localized strings that are removed:
+- Hero/Unit: `name`, `difficulty`, `type`, `role`, `description`
+- Ability/Talent: `name`, `lifeTooltip`, `energyTooltip`, `cooldownTooltip`, `shortTooltip`, `fullTooltip`
+
+The gamestring text file is lcoated at `output/gamestrings/`
+
+The format of the strings in the text file are the following:
+- `unit/name/[hero.shortname]=[value]`
+- `unit/difficulty/[hero.shortname]=[value]`
+- `unit/type/[hero.shortname]=[value]`
+- `unit/role/[hero.shortname]=[value] (one for each role of the hero)`
+- `unit/description/[hero.shortname]=[value]`
+- `abiltalent/name/[nameId]=[value]`
+- `tooltip/life/[nameId]=[value]`
+- `tooltip/energy/[nameId]=[value]`
+- `tooltip/cooldown/[nameId]=[value]`
+- `tooltip/short/[shortTooltipId]=[value]`
+- `tooltip/full/[fullTooltipId]=[value]`
 
 ## Advanced Features
 ### Mods suffix directory
