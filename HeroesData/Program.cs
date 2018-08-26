@@ -1,4 +1,5 @@
 ﻿using Heroes.Models;
+using HeroesData.Commands;
 using HeroesData.FileWriter;
 using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
@@ -52,6 +53,8 @@ namespace HeroesData
             };
             app.HelpOption("-?|-h|--help");
             app.VersionOption("-v|--version", $"Heroes Data Parser ({AppVersion.GetVersion()})");
+
+            ReadCommand.Add(app).SetCommand();
 
             CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory", CommandOptionType.SingleValue);
             CommandOption setMaxDegreeParallismOption = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
