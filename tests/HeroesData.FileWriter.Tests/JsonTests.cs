@@ -44,8 +44,8 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputFileSplit.Localization = Localization;
             FileOutputFileSplit.CreateJson();
-            CompareFile(Path.Combine("output", "json", $"splitfiles.{Localization}", "Alarak.json"), "Alarak.json");
-            CompareFile(Path.Combine("output", "json", $"splitfiles.{Localization}", "Alexstrasza.json"), "Alexstrasza.json");
+            CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", "Alarak.json"), "Alarak.json");
+            CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", "Alexstrasza.json"), "Alexstrasza.json");
         }
 
         [Fact]
@@ -53,8 +53,8 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputOverrideFileSplit.FileSplit = true;
             FileOutputFileSplit.CreateJson();
-            CompareFile(Path.Combine("output", "json", $"splitfiles.{Localization}", "Alarak.json"), "Alarak.json");
-            CompareFile(Path.Combine("output", "json", $"splitfiles.{Localization}", "Alexstrasza.json"), "Alexstrasza.json");
+            CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", "Alarak.json"), "Alarak.json");
+            CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", "Alexstrasza.json"), "Alexstrasza.json");
         }
 
         [Fact]
@@ -113,7 +113,7 @@ namespace HeroesData.FileWriter.Tests
             FileOutputGameStringLocalized.IsLocalizedText = true;
             FileOutputGameStringLocalized.CreateJson(true, true);
             CompareFile(Path.Combine("output", "json", $"heroesdata_{BuildNumber}_{Localization}.json"), "JsonGameStringLocalized.json");
-            CompareFile(Path.Combine("output", "gamestrings-12345", $"gamestrings_{Localization}_{BuildNumber}.txt"), "gamestrings_12345.txt");
+            CompareFile(Path.Combine("output", "gamestrings-12345", $"gamestrings_{BuildNumber}_{Localization}.txt"), "gamestrings_12345.txt");
         }
     }
 }

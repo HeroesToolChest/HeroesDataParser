@@ -46,8 +46,8 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputFileSplit.Localization = Localization;
             FileOutputFileSplit.CreateXml();
-            CompareFile(Path.Combine("output", "xml", $"splitfiles.{Localization}", "Alarak.xml"), "Alarak.xml");
-            CompareFile(Path.Combine("output", "xml", $"splitfiles.{Localization}", "Alexstrasza.xml"), "Alexstrasza.xml");
+            CompareFile(Path.Combine("output", "xml", $"splitfiles-{Localization}", "Alarak.xml"), "Alarak.xml");
+            CompareFile(Path.Combine("output", "xml", $"splitfiles-{Localization}", "Alexstrasza.xml"), "Alexstrasza.xml");
         }
 
         [Fact]
@@ -56,8 +56,8 @@ namespace HeroesData.FileWriter.Tests
             FileOutputFileSplit.Localization = Localization;
             FileOutputFileSplit.FileSplit = true;
             FileOutputFileSplit.CreateXml();
-            CompareFile(Path.Combine("output", "xml", $"splitfiles.{Localization}", "Alarak.xml"), "Alarak.xml");
-            CompareFile(Path.Combine("output", "xml", $"splitfiles.{Localization}", "Alexstrasza.xml"), "Alexstrasza.xml");
+            CompareFile(Path.Combine("output", "xml", $"splitfiles-{Localization}", "Alarak.xml"), "Alarak.xml");
+            CompareFile(Path.Combine("output", "xml", $"splitfiles-{Localization}", "Alexstrasza.xml"), "Alexstrasza.xml");
         }
 
         [Fact]
