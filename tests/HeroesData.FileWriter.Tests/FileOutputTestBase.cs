@@ -25,6 +25,7 @@ namespace HeroesData.FileWriter.Tests
             FileOutputPlainTextWithScalingWithNewlines = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig4.xml"));
             FileOutputColoredTextWithScaling = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig6.xml"));
             FileOutputIsEnabledFalse = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfigEnabledFalse.xml"));
+            FileOutputGameStringLocalized = new FileOutput(Heroes, BuildNumber);
         }
 
         protected FileOutput FileOutputNoBuildNumber { get; }
@@ -39,6 +40,7 @@ namespace HeroesData.FileWriter.Tests
         protected FileOutput FileOutputPlainTextWithScalingWithNewlines { get; }
         protected FileOutput FileOutputColoredTextWithScaling { get; }
         protected FileOutput FileOutputIsEnabledFalse { get; }
+        protected FileOutput FileOutputGameStringLocalized { get; }
 
         protected int? BuildNumber => 12345;
         protected string OutputFileFolder => "OutputFiles";

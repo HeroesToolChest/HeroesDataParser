@@ -54,15 +54,15 @@ namespace HeroesData.FileWriter
 
             string enabled = writerElement.Attribute("enabled")?.Value;
             if (bool.TryParse(enabled, out bool enabledValue))
-                fileSettings.WriterEnabled = enabledValue;
+                fileSettings.IsWriterEnabled = enabledValue;
             else
-                fileSettings.WriterEnabled = false;
+                fileSettings.IsWriterEnabled = false;
 
             string fileSplit = writerElement.Element("FileSplit")?.Value;
             if (bool.TryParse(fileSplit, out bool fileSplitValue))
-                fileSettings.FileSplit = fileSplitValue;
+                fileSettings.IsFileSplit = fileSplitValue;
             else
-                fileSettings.FileSplit = false;
+                fileSettings.IsFileSplit = false;
 
             string description = writerElement.Element("Description")?.Value;
             if (int.TryParse(description, out int descriptionValue))

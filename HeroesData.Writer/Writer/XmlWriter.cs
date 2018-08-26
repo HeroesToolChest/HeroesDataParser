@@ -17,46 +17,25 @@ namespace HeroesData.FileWriter.Writer
 
         public override void CreateOutput()
         {
-            SetSingleFileName();
-            SetMultipleFileFolderNames();
+            SetSingleFileName("xml");
 
             Directory.CreateDirectory(XmlOutputFolder);
 
-            if (FileSettings.FileSplit)
+            if (FileSettings.IsFileSplit)
             {
+                string xmlOutputSplitFolder = XmlOutputSplitFolder;
+                string xmlOutputSplitMinFolder = XmlOutputSplitMinFolder;
+
+                SetMultipleFileFolderNames(XmlOutputFolder, ref xmlOutputSplitFolder, ref xmlOutputSplitMinFolder);
+
+                XmlOutputSplitFolder = xmlOutputSplitFolder;
+                XmlOutputSplitMinFolder = xmlOutputSplitMinFolder;
+
                 Directory.CreateDirectory(XmlOutputSplitFolder);
-                Directory.CreateDirectory(SplitFileXmlNoIndentationFolder);
+                Directory.CreateDirectory(XmlOutputSplitMinFolder);
             }
 
             base.CreateOutput();
-        }
-
-        protected override void SetSingleFileName()
-        {
-            if (HotsBuild.HasValue)
-            {
-                SingleFileName = $"heroesdata_{HotsBuild.Value}_{Localization}.xml";
-                SingleFileNameNoIndentation = $"heroesdata_{HotsBuild.Value}_{Localization}.min.xml";
-            }
-            else
-            {
-                SingleFileName = $"heroesdata_{Localization}.xml";
-                SingleFileNameNoIndentation = $"heroesdata_{Localization}.min.xml";
-            }
-        }
-
-        protected override void SetMultipleFileFolderNames()
-        {
-            if (HotsBuild.HasValue)
-            {
-                XmlOutputSplitFolder = Path.Combine(XmlOutputFolder, $"splitfiles_{HotsBuild.Value}.{Localization}");
-                SplitFileXmlNoIndentationFolder = Path.Combine(XmlOutputFolder, $"splitfiles_{HotsBuild.Value}.{Localization}.min");
-            }
-            else
-            {
-                XmlOutputSplitFolder = Path.Combine(XmlOutputFolder, $"splitfiles.{Localization}");
-                SplitFileXmlNoIndentationFolder = Path.Combine(XmlOutputFolder, $"splitfiles.{Localization}.min");
-            }
         }
 
         protected override void CreateSingleFile(List<Hero> heroes)
@@ -73,19 +52,22 @@ namespace HeroesData.FileWriter.Writer
                 XDocument xmlDoc = new XDocument(new XElement(RootNode, HeroElement(hero)));
 
                 xmlDoc.Save(Path.Combine(XmlOutputSplitFolder, $"{hero.ShortName}.xml"));
-                xmlDoc.Save(Path.Combine(SplitFileXmlNoIndentationFolder, $"{hero.ShortName}.min.xml"), SaveOptions.DisableFormatting);
+                xmlDoc.Save(Path.Combine(XmlOutputSplitMinFolder, $"{hero.ShortName}.min.xml"), SaveOptions.DisableFormatting);
             }
         }
 
         protected override XElement HeroElement(Hero hero)
         {
+            if (IsLocalizedText)
+                AddHeroGameStrings(hero);
+
             return new XElement(
                 hero.ShortName,
-                new XAttribute("name", hero.Name),
+                string.IsNullOrEmpty(hero.Name) || IsLocalizedText ? null : new XAttribute("name", hero.Name),
                 string.IsNullOrEmpty(hero.CHeroId) ? null : new XAttribute("cHeroId", hero.CHeroId),
                 string.IsNullOrEmpty(hero.CUnitId) ? null : new XAttribute("cUnitId", hero.CUnitId),
                 string.IsNullOrEmpty(hero.AttributeId) ? null : new XAttribute("attributeId", hero.AttributeId),
-                new XAttribute("difficulty", hero.Difficulty),
+                string.IsNullOrEmpty(hero.Difficulty) || IsLocalizedText ? null : new XAttribute("difficulty", hero.Difficulty),
                 new XAttribute("franchise", hero.Franchise),
                 hero.Gender.HasValue ? new XAttribute("gender", hero.Gender.Value) : null,
                 hero.InnerRadius > 0 ? new XAttribute("innerRadius", hero.InnerRadius) : null,
@@ -93,14 +75,14 @@ namespace HeroesData.FileWriter.Writer
                 hero.ReleaseDate.HasValue ? new XAttribute("releaseDate", hero.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
                 hero.Sight > 0 ? new XAttribute("sight", hero.Sight) : null,
                 hero.Speed > 0 ? new XAttribute("speed", hero.Speed) : null,
-                string.IsNullOrEmpty(hero.Type) ? null : new XAttribute("type", hero.Type),
+                string.IsNullOrEmpty(hero.Type) || IsLocalizedText ? null : new XAttribute("type", hero.Type),
                 hero.Rarity.HasValue ? new XAttribute("rarity", hero.Rarity.Value) : null,
-                string.IsNullOrEmpty(hero.Description?.RawDescription) ? null : new XElement("Description", GetTooltip(hero.Description, FileSettings.Description)),
+                string.IsNullOrEmpty(hero.Description?.RawDescription) || IsLocalizedText ? null : new XElement("Description", GetTooltip(hero.Description, FileSettings.Description)),
                 HeroPortraits(hero),
                 UnitLife(hero),
                 UnitEnergy(hero),
                 UnitArmor(hero),
-                hero.Roles?.Count > 0 ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
+                hero.Roles?.Count > 0 && !IsLocalizedText ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
                 HeroRatings(hero),
                 UnitWeapons(hero),
                 UnitAbilities(hero, false),
@@ -111,16 +93,19 @@ namespace HeroesData.FileWriter.Writer
 
         protected override XElement UnitElement(Unit unit)
         {
+            if (IsLocalizedText)
+                AddUnitGameStrings(unit);
+
             return new XElement(
                 unit.ShortName,
-                new XAttribute("name", unit.Name),
+                string.IsNullOrEmpty(unit.Name) || IsLocalizedText ? null : new XAttribute("name", unit.Name),
                 string.IsNullOrEmpty(unit.CUnitId) ? null : new XAttribute("cUnitId", unit.CUnitId),
                 unit.InnerRadius > 0 ? new XAttribute("innerRadius", unit.InnerRadius) : null,
                 unit.Radius > 0 ? new XAttribute("radius", unit.Radius) : null,
                 unit.Sight > 0 ? new XAttribute("sight", unit.Sight) : null,
                 unit.Speed > 0 ? new XAttribute("speed", unit.Speed) : null,
-                string.IsNullOrEmpty(unit.Type) ? null : new XAttribute("type", unit.Type),
-                string.IsNullOrEmpty(unit.Description?.RawDescription) ? null : new XElement("Description", GetTooltip(unit.Description, FileSettings.Description)),
+                string.IsNullOrEmpty(unit.Type) || IsLocalizedText ? null : new XAttribute("type", unit.Type),
+                string.IsNullOrEmpty(unit.Description?.RawDescription) || IsLocalizedText ? null : new XElement("Description", GetTooltip(unit.Description, FileSettings.Description)),
                 UnitLife(unit),
                 UnitArmor(unit),
                 UnitEnergy(unit),
@@ -221,9 +206,12 @@ namespace HeroesData.FileWriter.Writer
 
         protected override XElement AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)
         {
+            if (IsLocalizedText)
+                AddAbilityTalentGameStrings(abilityTalentBase);
+
             return new XElement(
                 XmlConvert.EncodeName(abilityTalentBase.ReferenceNameId),
-                new XAttribute("name", abilityTalentBase.Name),
+                string.IsNullOrEmpty(abilityTalentBase.Name) ? null : new XAttribute("name", abilityTalentBase.Name),
                 string.IsNullOrEmpty(abilityTalentBase.ShortTooltipNameId) ? null : new XAttribute("shortTooltipId", abilityTalentBase.ShortTooltipNameId),
                 string.IsNullOrEmpty(abilityTalentBase.FullTooltipNameId) ? null : new XAttribute("fullTooltipId", abilityTalentBase.FullTooltipNameId),
                 new XAttribute("abilityType", abilityTalentBase.AbilityType.ToString()),
@@ -235,8 +223,8 @@ namespace HeroesData.FileWriter.Writer
                 UnitAbilityTalentEnergyCost(abilityTalentBase.Tooltip.Energy),
                 UnitAbilityTalentCharges(abilityTalentBase.Tooltip.Charges),
                 UnitAbilityTalentCooldown(abilityTalentBase.Tooltip.Cooldown),
-                string.IsNullOrEmpty(abilityTalentBase.Tooltip.ShortTooltip?.RawDescription) ? null : new XElement("ShortTooltip", GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileSettings.ShortTooltip)),
-                string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription) ? null : new XElement("FullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileSettings.FullTooltip)));
+                string.IsNullOrEmpty(abilityTalentBase.Tooltip.ShortTooltip?.RawDescription) || IsLocalizedText ? null : new XElement("ShortTooltip", GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileSettings.ShortTooltip)),
+                string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription) || IsLocalizedText ? null : new XElement("FullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileSettings.FullTooltip)));
         }
 
         protected override XElement TalentInfoElement(Talent talent)

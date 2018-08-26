@@ -1,0 +1,60 @@
+﻿abiltalent/name/ActivableAbility=Activable
+abiltalent/name/AlarakDiscordStrike=Discord Strike
+abiltalent/name/AlarakExtendedLightning=Extended Lightning
+abiltalent/name/AlarakHeroicAbilityCounterStrike=Counter-Strike
+abiltalent/name/AlarakHeroicAbilityDeadlyCharge=Deadly Charge
+abiltalent/name/AlarakSadismDummyUI=Sadism
+abiltalent/name/AlarakSustainingPower=Sustaining Power
+abiltalent/name/AlexstraszaBreathOfLife=Breath of Life
+abiltalent/name/DragonAbilActivable=DragonAbilActivable
+abiltalent/name/DragonAbilHeroic=DragonAbilHeroic
+abiltalent/name/DragonAbilMount=DragonAbilMount
+abiltalent/name/DragonAbilTrait=DragonAbilTrait
+abiltalent/name/HeroicAbility=Heroic
+abiltalent/name/Leve13Talent=Leve13Talent
+abiltalent/name/Level16Talent=Level16Talent
+abiltalent/name/Level20Talent=Level20Talent
+abiltalent/name/Level4Talent=Level4Talent
+abiltalent/name/Level7Talent=Level4Talent
+abiltalent/name/MountAbility=Mount
+abiltalent/name/SubAbilActivable=SubAbilActivable
+abiltalent/name/SubAbilHeroic=SubAbilHeroic
+abiltalent/name/SubAbilMount=SubAbilMount
+abiltalent/name/SubAbilTrait=SubAbilTrait
+abiltalent/name/TychusOdinAnnihilate=Annihilate
+tooltip/cooldown/AlarakDiscordStrike=8 seconds
+tooltip/cooldown/AlarakHeroicAbilityCounterStrike=30 seconds
+tooltip/cooldown/AlarakHeroicAbilityDeadlyCharge=45
+tooltip/cooldown/AlexstraszaBreathOfLife=3 seconds
+tooltip/energy/AlarakDiscordStrike=45
+tooltip/energy/AlarakHeroicAbilityCounterStrike=50
+tooltip/energy/AlarakHeroicAbilityDeadlyCharge=8
+tooltip/full/AlarakCounterStrikeTargeted=Alarak targets an area and channels for <c val="#TooltipNumbers">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val="#TooltipNumbers">275</c> damage.
+tooltip/full/AlarakDeadlyCharge=After channeling, Alarak charges forward dealing <c val="#TooltipNumbers">200</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val="#TooltipNumbers">1.6</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.
+tooltip/full/AlarakDiscordStrike=After a <c val="#TooltipNumbers">0.5</c> second delay, enemies in front of Alarak take <c val="#TooltipNumbers">175</c> damage and are silenced for <c val="#TooltipNumbers">1.5</c> seconds.
+tooltip/full/AlarakExtendedLightning=Reduce Sadism by <c val="#TooltipNumbers">10%</c>.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Quest:</c> Hit Heroes with the center of Lightning Surge.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Reward:</c> After hitting <c val="#TooltipNumbers">5</c> Heroes, increase Lightning Surge's range by <c val="#TooltipNumbers">20%</c>.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Reward:</c> After hitting <c val="#TooltipNumbers">15</c> Heroes, Lightning Surge's center also Slows enemies by <c val="#TooltipNumbers">40%</c> for <c val="#TooltipNumbers">2</c> seconds.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Reward:</c> After hitting <c val="#TooltipNumbers">3</c> Heroes with the center of a single cast, increase Sadism by <c val="#TooltipNumbers">10%</c> and instantly gain all other Rewards.
+tooltip/full/AlarakSadismDummyUI=Alarak's Ability damage and self-healing are increased by <c val="#TooltipNumbers">100%</c> against enemy Heroes.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Repeatable Quest:</c> Takedowns increase Sadism by <c val="#TooltipNumbers">3%</c>, up to <c val="#TooltipNumbers">30%</c>. Sadism gained from Takedowns is lost on death.
+tooltip/full/AlarakSustainingPower=Increase the healing received from damaging Heroes with Lightning Surge by <c val="#TooltipNumbers">40%</c>.
+tooltip/full/AlexstraszaBreathOfLife=
+tooltip/full/TychusCommandeerOdinAnnihilate=Burrow to the target location, dealing <c val="#TooltipNumbers">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val="#TooltipNumbers">25%</c> for <c val="#TooltipNumbers">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.
+tooltip/life/AlexstraszaBreathOfLife=15%
+tooltip/short/AlarakCounterStrikeTargeted=Prevents damage to deal damage in a large area
+tooltip/short/AlarakDeadlyCharge=Channel to charge a long distance
+tooltip/short/AlarakDiscordStrike=Damage and silence enemies in an area
+tooltip/short/AlarakExtendedLightning=<c val="#TooltipQuest">Quest:</c> Reduce Sadism, empower Lightning Surge
+tooltip/short/AlarakSadismDummyUI=Alarak deals increased damage and has increased self-healing against enemy Heroes
+tooltip/short/AlarakSustainingPower=Increase Lightning Surge healing
+tooltip/short/AlexstraszaBreathOfLife=
+tooltip/short/TychusCommandeerOdinAnnihilate=
+unit/description/Alarak=A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/><img path="@UI / StormTalentInTextArmorIcon" alignment="uppermiddle" color="e12bfc" width="20" height="22"/><c val="#TooltipNumbers">20 Spell Armor</c>
+unit/description/Alexstrasza=A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities.
+unit/difficulty/Alarak=Hard
+unit/difficulty/Alexstrasza=Medium
+unit/name/Alarak=Alarak
+unit/name/Alexstrasza=Alexstrasza
+unit/name/AlexstraszaDragon=Alexstrasza
+unit/role/Alarak=Assassin
+unit/role/Alarak=Warrior
+unit/type/Alarak=Melee
+unit/type/Alexstrasza=Ranged
+unit/type/AlexstraszaDragon=

@@ -37,7 +37,8 @@ namespace HeroesData
         private bool ShowHeroWarnings = false;
         private bool ExtractPortraits = false;
         private bool ExtractTalents = false;
-        private bool FileSplit = false;
+        private bool IsFileSplit = false;
+        private bool IsLocalizedText = false;
         private int? HotsBuild = null;
         private int? OverrideBuild = null;
         private int MaxParallelism = -1;
@@ -62,6 +63,7 @@ namespace HeroesData
             CommandOption setGameStringLocalizations = app.Option("-l|--localization <local>", "Sets the gamestrings localization - Default: enUS", CommandOptionType.MultipleValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
+            CommandOption localizedTextOption = app.Option("--localizedText", "temp", CommandOptionType.NoValue);
             CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
             CommandOption invalidShortOption = app.Option("--invalidShort", "Show all invalid short tooltips", CommandOptionType.NoValue);
             CommandOption invalidHeroOption = app.Option("--invalidHero", "Show all invalid hero tooltips", CommandOptionType.NoValue);
@@ -141,7 +143,8 @@ namespace HeroesData
                 program.ShowInvalidShortTooltips = invalidShortOption.HasValue() ? true : false;
                 program.ShowInvalidHeroTooltips = invalidHeroOption.HasValue() ? true : false;
                 program.ShowHeroWarnings = heroWarningsOption.HasValue() ? true : false;
-                program.FileSplit = setFileSplitOption.HasValue() ? true : false;
+                program.IsFileSplit = setFileSplitOption.HasValue() ? true : false;
+                program.IsLocalizedText = localizedTextOption.HasValue() ? true : false;
                 program.Execute();
                 Console.ResetColor();
 
@@ -709,8 +712,9 @@ namespace HeroesData
             FileOutput fileOutput = new FileOutput(parsedHeroes.OrderBy(x => x.ShortName).ToList(), HotsBuild)
             {
                 DescriptionType = DescriptionType,
-                FileSplit = FileSplit,
+                FileSplit = IsFileSplit,
                 Localization = localization.ToString().ToLower(),
+                IsLocalizedText = IsLocalizedText,
             };
 
             if (!string.IsNullOrEmpty(OutputDirectory))
@@ -745,7 +749,7 @@ namespace HeroesData
                 if (CreateXml)
                 {
                     Console.Write("Writing xml file(s)...");
-                    fileOutput.CreateXml(CreateXml);
+                    fileOutput.CreateXml(CreateXml, IsLocalizedText);
                     anyCreated = true;
                     Console.WriteLine("Done.");
                 }
@@ -753,7 +757,12 @@ namespace HeroesData
                 if (CreateJson)
                 {
                     Console.Write("Writing json file(s)...");
-                    fileOutput.CreateJson(CreateJson);
+
+                    if (CreateXml)
+                        fileOutput.CreateJson(CreateJson, false); // only need to create it once
+                    else
+                        fileOutput.CreateJson(CreateJson, IsLocalizedText);
+
                     anyCreated = true;
                     Console.WriteLine("Done.");
                 }

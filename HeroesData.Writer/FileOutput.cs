@@ -15,8 +15,8 @@ namespace HeroesData.FileWriter
         public FileOutput(List<Hero> heroes)
         {
             FileConfiguration = FileConfiguration.Load();
-            IsXmlEnabled = FileConfiguration.XmlFileSettings.WriterEnabled;
-            IsJsonEnabled = FileConfiguration.JsonFileSettings.WriterEnabled;
+            IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
+            IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
 
             Heroes = heroes;
         }
@@ -24,8 +24,8 @@ namespace HeroesData.FileWriter
         public FileOutput(List<Hero> heroes, string configFileName)
         {
             FileConfiguration = FileConfiguration.Load(configFileName);
-            IsXmlEnabled = FileConfiguration.XmlFileSettings.WriterEnabled;
-            IsJsonEnabled = FileConfiguration.JsonFileSettings.WriterEnabled;
+            IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
+            IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
 
             Heroes = heroes;
         }
@@ -33,8 +33,8 @@ namespace HeroesData.FileWriter
         public FileOutput(List<Hero> heroes, int? hotsBuild)
         {
             FileConfiguration = FileConfiguration.Load();
-            IsXmlEnabled = FileConfiguration.XmlFileSettings.WriterEnabled;
-            IsJsonEnabled = FileConfiguration.JsonFileSettings.WriterEnabled;
+            IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
+            IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
             HotsBuild = hotsBuild;
 
             Heroes = heroes;
@@ -43,8 +43,8 @@ namespace HeroesData.FileWriter
         public FileOutput(List<Hero> heroes, int? hotsBuild, string configFileName)
         {
             FileConfiguration = FileConfiguration.Load(configFileName);
-            IsXmlEnabled = FileConfiguration.XmlFileSettings.WriterEnabled;
-            IsJsonEnabled = FileConfiguration.JsonFileSettings.WriterEnabled;
+            IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
+            IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
             HotsBuild = hotsBuild;
 
             Heroes = heroes;
@@ -64,6 +64,11 @@ namespace HeroesData.FileWriter
         /// Gets or sets the file split option.
         /// </summary>
         public bool FileSplit { get; set; }
+
+        /// <summary>
+        /// Gets or sets if localized text is removed from the XML and JSON files.
+        /// </summary>
+        public bool IsLocalizedText { get; set; }
 
         /// <summary>
         /// Gets or sets the tooltip description type.
@@ -101,10 +106,11 @@ namespace HeroesData.FileWriter
         /// Creates the xml output.
         /// </summary>
         /// <param name="isEnabled">If true, xml will be created.</param>
-        public void CreateXml(bool isEnabled)
+        /// <param name="createLocalizedTextFile">If true, create a localized text file for gamestrings.</param>
+        public void CreateXml(bool isEnabled, bool createLocalizedTextFile)
         {
-            FileConfiguration.XmlFileSettings.WriterEnabled = isEnabled;
-            FileConfiguration.XmlFileSettings.FileSplit = FileSplit;
+            FileConfiguration.XmlFileSettings.IsWriterEnabled = isEnabled;
+            FileConfiguration.XmlFileSettings.IsFileSplit = FileSplit;
             FileConfiguration.XmlFileSettings.Description = DescriptionType;
             FileConfiguration.XmlFileSettings.ShortTooltip = DescriptionType;
             FileConfiguration.XmlFileSettings.FullTooltip = DescriptionType;
@@ -116,6 +122,8 @@ namespace HeroesData.FileWriter
                 HotsBuild = HotsBuild,
                 OutputDirectory = OutputDirectory,
                 Localization = Localization,
+                IsLocalizedText = IsLocalizedText,
+                CreateLocalizedTextFile = createLocalizedTextFile,
             };
 
             xmlWriter.CreateOutput();
@@ -142,10 +150,11 @@ namespace HeroesData.FileWriter
         /// Creates the Json output.
         /// </summary>
         /// <param name="isEnabled">If true, json will be created.</param>
-        public void CreateJson(bool isEnabled)
+        /// /// <param name="createLocalizedTextFile">If true, create a localized text file for gamestrings.</param>
+        public void CreateJson(bool isEnabled, bool createLocalizedTextFile)
         {
-            FileConfiguration.JsonFileSettings.WriterEnabled = isEnabled;
-            FileConfiguration.JsonFileSettings.FileSplit = FileSplit;
+            FileConfiguration.JsonFileSettings.IsWriterEnabled = isEnabled;
+            FileConfiguration.JsonFileSettings.IsFileSplit = FileSplit;
             FileConfiguration.JsonFileSettings.Description = DescriptionType;
             FileConfiguration.JsonFileSettings.ShortTooltip = DescriptionType;
             FileConfiguration.JsonFileSettings.FullTooltip = DescriptionType;
@@ -157,6 +166,8 @@ namespace HeroesData.FileWriter
                 HotsBuild = HotsBuild,
                 OutputDirectory = OutputDirectory,
                 Localization = Localization,
+                IsLocalizedText = IsLocalizedText,
+                CreateLocalizedTextFile = createLocalizedTextFile,
             };
 
             jsonWriter.CreateOutput();

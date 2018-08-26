@@ -2,8 +2,8 @@
 {
     internal class FileSettings
     {
-        public bool WriterEnabled { get; set; }
-        public bool FileSplit { get; set; }
+        public bool IsWriterEnabled { get; set; }
+        public bool IsFileSplit { get; set; }
         public int Description { get; set; }
         public int ShortTooltip { get; set; }
         public int FullTooltip { get; set; }

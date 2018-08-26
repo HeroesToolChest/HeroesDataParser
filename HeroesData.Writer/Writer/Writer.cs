@@ -15,8 +15,11 @@ namespace HeroesData.FileWriter.Writer
         public FileSettings FileSettings { get; set; }
         public string OutputDirectory { get; set; }
         public string Localization { get; set; }
+        public bool IsLocalizedText { get; set; }
+        public bool CreateLocalizedTextFile { get; set; }
         public int? HotsBuild { get; set; }
         public List<Hero> Heroes { get; set; }
+        public LocalizedGameString LocalizedGameString { get; } = new LocalizedGameString();
 
         protected string SingleFileName { get; set; }
         protected string SingleFileNameNoIndentation { get; set; }
@@ -24,29 +27,84 @@ namespace HeroesData.FileWriter.Writer
         protected string JsonOutputFolder => Path.Combine(OutputDirectory, "json");
         protected string XmlOutputSplitFolder { get; set; }
         protected string JsonOutputSplitFolder { get; set; }
-        protected string SplitFileXmlNoIndentationFolder { get; set; }
-        protected string SplitFileJsonNoIndentationFolder { get; set; }
+        protected string XmlOutputSplitMinFolder { get; set; }
+        protected string JsonOutputSplitMinFolder { get; set; }
+        protected string GameStringFolder { get; set; }
         protected string RootNode => "Heroes";
         protected string HeroUnits => "HeroUnits";
+        protected string GameStringTextFileName { get; set; }
 
         public virtual void CreateOutput()
         {
-            Initialize();
-        }
-
-        protected void Initialize()
-        {
-            if (FileSettings.WriterEnabled)
+            if (FileSettings.IsWriterEnabled)
             {
-                if (FileSettings.FileSplit)
+                if (FileSettings.IsFileSplit)
                     CreateMultipleFiles(Heroes);
                 else
                     CreateSingleFile(Heroes);
             }
+
+            if (IsLocalizedText && CreateLocalizedTextFile)
+            {
+                if (HotsBuild.HasValue)
+                {
+                    GameStringFolder = Path.Combine(OutputDirectory, $"gamestrings-{HotsBuild.Value}");
+                    GameStringTextFileName = $"gamestrings_{Localization}_{HotsBuild.Value}.txt";
+                }
+                else
+                {
+                    GameStringFolder = Path.Combine(OutputDirectory, $"gamestrings");
+                    GameStringTextFileName = $"gamestrings_{Localization}.txt";
+                }
+
+                Directory.CreateDirectory(GameStringFolder);
+                DeleteExistingGameStrings();
+                CreateGameStringTextFile();
+            }
         }
 
-        protected abstract void SetSingleFileName();
-        protected abstract void SetMultipleFileFolderNames();
+        protected virtual void SetSingleFileName(string fileExtension)
+        {
+            if (HotsBuild.HasValue)
+            {
+                SingleFileName = $"heroesdata_{HotsBuild.Value}_{Localization}.{fileExtension}";
+                SingleFileNameNoIndentation = $"heroesdata_{HotsBuild.Value}_{Localization}.min.{fileExtension}";
+            }
+            else
+            {
+                SingleFileName = $"heroesdata_{Localization}.{fileExtension}";
+                SingleFileNameNoIndentation = $"heroesdata_{Localization}.min.{fileExtension}";
+            }
+        }
+
+        protected virtual void SetMultipleFileFolderNames(string outFolder, ref string splitFolder, ref string minFolder)
+        {
+            if (HotsBuild.HasValue)
+            {
+                splitFolder = Path.Combine(outFolder, $"splitfiles_{HotsBuild.Value}.{Localization}");
+                minFolder = Path.Combine(outFolder, $"splitfiles_{HotsBuild.Value}.{Localization}.min");
+            }
+            else
+            {
+                splitFolder = Path.Combine(outFolder, $"splitfiles.{Localization}");
+                minFolder = Path.Combine(outFolder, $"splitfiles.{Localization}");
+            }
+        }
+
+        protected virtual void CreateGameStringTextFile()
+        {
+            List<string> gameStrings = LocalizedGameString.GameStrings.ToList();
+            gameStrings.Sort();
+
+            using (StreamWriter writer = new StreamWriter(Path.Combine(GameStringFolder, GameStringTextFileName)))
+            {
+                foreach (string item in gameStrings)
+                {
+                    writer.WriteLine(item);
+                }
+            }
+        }
+
         protected abstract void CreateMultipleFiles(List<Hero> heroes);
         protected abstract void CreateSingleFile(List<Hero> heroes);
         protected abstract T HeroElement(Hero hero);
@@ -159,7 +217,7 @@ namespace HeroesData.FileWriter.Writer
 
         protected T UnitAbilityTalentLifeCost(TooltipLife tooltipLife)
         {
-            if (!string.IsNullOrEmpty(tooltipLife?.LifeCostText?.RawDescription))
+            if (!string.IsNullOrEmpty(tooltipLife?.LifeCostText?.RawDescription) && !IsLocalizedText)
             {
                 return GetAbilityTalentLifeCostObject(tooltipLife);
             }
@@ -169,7 +227,7 @@ namespace HeroesData.FileWriter.Writer
 
         protected T UnitAbilityTalentEnergyCost(TooltipEnergy tooltipEnergy)
         {
-            if (!string.IsNullOrEmpty(tooltipEnergy?.EnergyText?.RawDescription))
+            if (!string.IsNullOrEmpty(tooltipEnergy?.EnergyText?.RawDescription) && !IsLocalizedText)
             {
                 return GetAbilityTalentEnergyCostObject(tooltipEnergy);
             }
@@ -179,7 +237,7 @@ namespace HeroesData.FileWriter.Writer
 
         protected T UnitAbilityTalentCooldown(TooltipCooldown tooltipCooldown)
         {
-            if (!string.IsNullOrEmpty(tooltipCooldown?.CooldownText?.RawDescription))
+            if (!string.IsNullOrEmpty(tooltipCooldown?.CooldownText?.RawDescription) && !IsLocalizedText)
             {
                 return GetAbilityTalentCooldownObject(tooltipCooldown);
             }
@@ -219,6 +277,9 @@ namespace HeroesData.FileWriter.Writer
 
         protected string GetTooltip(TooltipDescription tooltipDescription, int setting)
         {
+            if (tooltipDescription == null)
+                return string.Empty;
+
             if (setting == 0)
                 return tooltipDescription.RawDescription;
             else if (setting == 1)
@@ -233,6 +294,57 @@ namespace HeroesData.FileWriter.Writer
                 return tooltipDescription.ColoredTextWithScaling;
             else
                 return tooltipDescription.ColoredText;
+        }
+
+        /// <summary>
+        /// Adds the gamestrings to to a localized text file.
+        /// </summary>
+        /// <param name="abilityTalentBase"></param>
+        protected void AddAbilityTalentGameStrings(AbilityTalentBase abilityTalentBase)
+        {
+            LocalizedGameString.AddAbilityTalentName(abilityTalentBase.ReferenceNameId, abilityTalentBase.Name);
+
+            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Life?.LifeCostText?.RawDescription))
+                LocalizedGameString.AddAbilityTalentLifeTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Life.LifeCostText, FileSettings.Description));
+
+            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Energy?.EnergyText?.RawDescription))
+                LocalizedGameString.AddAbilityTalentEnergyTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Energy.EnergyText, FileSettings.Description));
+
+            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Cooldown?.CooldownText?.RawDescription))
+                LocalizedGameString.AddAbilityTalentCooldownTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Cooldown.CooldownText, FileSettings.Description));
+
+            LocalizedGameString.AddAbilityTalentShortTooltip(abilityTalentBase.ShortTooltipNameId, GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileSettings.Description));
+            LocalizedGameString.AddAbilityTalentFullTooltip(abilityTalentBase.FullTooltipNameId, GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileSettings.Description));
+        }
+
+        protected void AddUnitGameStrings(Unit unit)
+        {
+            LocalizedGameString.AddUnitName(unit.ShortName, unit.Name);
+            LocalizedGameString.AddUnitType(unit.ShortName, unit.Type);
+
+            string unitDescription = GetTooltip(unit.Description, FileSettings.Description);
+            if (!string.IsNullOrEmpty(unitDescription))
+                LocalizedGameString.AddUnitDescription(unit.ShortName, unitDescription);
+        }
+
+        protected void AddHeroGameStrings(Hero hero)
+        {
+            LocalizedGameString.AddUnitName(hero.ShortName, hero.Name);
+            LocalizedGameString.AddUnitDifficulty(hero.ShortName, hero.Difficulty);
+            LocalizedGameString.AddUnitType(hero.ShortName, hero.Type);
+            LocalizedGameString.AddUnitDescription(hero.ShortName, GetTooltip(hero.Description, FileSettings.Description));
+
+            foreach (string role in hero.Roles)
+                LocalizedGameString.AddUnitRole(hero.ShortName, role);
+        }
+
+        private void DeleteExistingGameStrings()
+        {
+            string filePath = Path.Combine(GameStringFolder, GameStringTextFileName);
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
         }
     }
 }

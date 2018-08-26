@@ -17,46 +17,25 @@ namespace HeroesData.FileWriter.Writer
 
         public override void CreateOutput()
         {
-            SetSingleFileName();
-            SetMultipleFileFolderNames();
+            SetSingleFileName("json");
 
             Directory.CreateDirectory(JsonOutputFolder);
 
-            if (FileSettings.FileSplit)
+            if (FileSettings.IsFileSplit)
             {
+                string jsonOutputSplitFolder = string.Empty;
+                string jsonOutputSplitMinFolder = string.Empty;
+
+                SetMultipleFileFolderNames(JsonOutputFolder, ref jsonOutputSplitFolder, ref jsonOutputSplitMinFolder);
+
+                JsonOutputSplitFolder = jsonOutputSplitFolder;
+                JsonOutputSplitMinFolder = jsonOutputSplitMinFolder;
+
                 Directory.CreateDirectory(JsonOutputSplitFolder);
-                Directory.CreateDirectory(SplitFileJsonNoIndentationFolder);
+                Directory.CreateDirectory(JsonOutputSplitMinFolder);
             }
 
             base.CreateOutput();
-        }
-
-        protected override void SetSingleFileName()
-        {
-            if (HotsBuild.HasValue)
-            {
-                SingleFileName = $"heroesdata_{HotsBuild.Value}_{Localization}.json";
-                SingleFileNameNoIndentation = $"heroesdata_{HotsBuild.Value}_{Localization}.min.json";
-            }
-            else
-            {
-                SingleFileName = $"heroesdata_{Localization}.json";
-                SingleFileNameNoIndentation = $"heroesdata_{Localization}.min.json";
-            }
-        }
-
-        protected override void SetMultipleFileFolderNames()
-        {
-            if (HotsBuild.HasValue)
-            {
-                JsonOutputSplitFolder = Path.Combine(JsonOutputFolder, $"splitfiles_{HotsBuild.Value}.{Localization}");
-                SplitFileJsonNoIndentationFolder = Path.Combine(JsonOutputFolder, $"splitfiles_{HotsBuild.Value}.{Localization}.min");
-            }
-            else
-            {
-                JsonOutputSplitFolder = Path.Combine(JsonOutputFolder, $"splitfiles.{Localization}");
-                SplitFileJsonNoIndentationFolder = Path.Combine(JsonOutputFolder, $"splitfiles.{Localization}");
-            }
         }
 
         protected override void CreateSingleFile(List<Hero> heroes)
@@ -95,7 +74,7 @@ namespace HeroesData.FileWriter.Writer
                 }
 
                 // no formatting
-                using (StreamWriter file = File.CreateText(Path.Combine(SplitFileJsonNoIndentationFolder, $"{hero.ShortName}.min.json")))
+                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputSplitMinFolder, $"{hero.ShortName}.min.json")))
                 using (JsonTextWriter writer = new JsonTextWriter(file))
                 {
                     writer.Formatting = Formatting.None;
@@ -106,11 +85,13 @@ namespace HeroesData.FileWriter.Writer
 
         protected override JProperty HeroElement(Hero hero)
         {
-            JObject heroObject = new JObject
-            {
-                { "name", hero.Name },
-            };
+            if (IsLocalizedText)
+                AddHeroGameStrings(hero);
 
+            JObject heroObject = new JObject();
+
+            if (!string.IsNullOrEmpty(hero.Name) && !IsLocalizedText)
+                heroObject.Add("name", hero.Name);
             if (!string.IsNullOrEmpty(hero.CHeroId))
                 heroObject.Add("cHeroId", hero.CHeroId);
             if (!string.IsNullOrEmpty(hero.CUnitId))
@@ -118,7 +99,9 @@ namespace HeroesData.FileWriter.Writer
             if (!string.IsNullOrEmpty(hero.AttributeId))
                 heroObject.Add("attributeId", hero.AttributeId);
 
-            heroObject.Add("difficulty", hero.Difficulty.ToString());
+            if (!IsLocalizedText)
+                heroObject.Add("difficulty", hero.Difficulty);
+
             heroObject.Add("franchise", hero.Franchise.ToString());
 
             if (hero.Gender.HasValue)
@@ -133,11 +116,11 @@ namespace HeroesData.FileWriter.Writer
                 heroObject.Add("sight", hero.Sight);
             if (hero.Speed > 0)
                 heroObject.Add("speed", hero.Speed);
-            if (!string.IsNullOrEmpty(hero.Type))
+            if (!string.IsNullOrEmpty(hero.Type) && !IsLocalizedText)
                 heroObject.Add("type", hero.Type);
             if (hero.Rarity.HasValue)
                 heroObject.Add("rarity", hero.Rarity.Value.ToString());
-            if (!string.IsNullOrEmpty(hero.Description?.RawDescription))
+            if (!string.IsNullOrEmpty(hero.Description?.RawDescription) && !IsLocalizedText)
                 heroObject.Add("description", GetTooltip(hero.Description, FileSettings.Description));
 
             JProperty portraits = HeroPortraits(hero);
@@ -156,7 +139,7 @@ namespace HeroesData.FileWriter.Writer
             if (armor != null)
                 heroObject.Add(armor);
 
-            if (hero.Roles?.Count > 0)
+            if (hero.Roles?.Count > 0 && !IsLocalizedText)
                 heroObject.Add(new JProperty("roles", new JArray(from r in hero.Roles select new JValue(r.ToString()))));
 
             JProperty ratings = HeroRatings(hero);
@@ -188,11 +171,13 @@ namespace HeroesData.FileWriter.Writer
 
         protected override JProperty UnitElement(Unit unit)
         {
-            JObject heroObject = new JObject
-            {
-                { "name", unit.Name },
-            };
+            if (IsLocalizedText)
+                AddUnitGameStrings(unit);
 
+            JObject heroObject = new JObject();
+
+            if (!string.IsNullOrEmpty(unit.Name) && !IsLocalizedText)
+                heroObject.Add("name", unit.Name);
             if (!string.IsNullOrEmpty(unit.CUnitId))
                 heroObject.Add("cUnitId", unit.CUnitId);
             if (unit.InnerRadius > 0)
@@ -203,9 +188,9 @@ namespace HeroesData.FileWriter.Writer
                 heroObject.Add("sight", unit.Sight);
             if (unit.Speed > 0)
                 heroObject.Add("speed", unit.Speed);
-            if (!string.IsNullOrEmpty(unit.Type))
+            if (!string.IsNullOrEmpty(unit.Type) && !IsLocalizedText)
                 heroObject.Add("type", unit.Type);
-            if (!string.IsNullOrEmpty(unit.Description?.RawDescription))
+            if (!string.IsNullOrEmpty(unit.Description?.RawDescription) && !IsLocalizedText)
                 heroObject.Add("description", GetTooltip(unit.Description, FileSettings.Description));
 
             JProperty life = UnitLife(unit);
@@ -412,11 +397,16 @@ namespace HeroesData.FileWriter.Writer
 
         protected override JObject AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)
         {
+            if (IsLocalizedText)
+                AddAbilityTalentGameStrings(abilityTalentBase);
+
             JObject info = new JObject
             {
                 { "nameId", abilityTalentBase.ReferenceNameId },
-                { "name", abilityTalentBase.Name },
             };
+
+            if (!IsLocalizedText)
+                info.Add("name", abilityTalentBase.Name);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.ShortTooltipNameId))
                 info.Add("shortTooltipId", abilityTalentBase.ShortTooltipNameId);
@@ -445,10 +435,10 @@ namespace HeroesData.FileWriter.Writer
             if (cooldown != null)
                 info.Add(cooldown);
 
-            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.ShortTooltip?.RawDescription))
+            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.ShortTooltip?.RawDescription) && !IsLocalizedText)
                 info.Add("shortTooltip", GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileSettings.ShortTooltip));
 
-            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription))
+            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription) && !IsLocalizedText)
                 info.Add("fullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileSettings.FullTooltip));
 
             info.Add("abilityType", abilityTalentBase.AbilityType.ToString());

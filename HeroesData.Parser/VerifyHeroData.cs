@@ -189,22 +189,22 @@ namespace HeroesData.Parser
                     foreach (Unit additionalUnit in hero.HeroUnits)
                     {
                         if (additionalUnit.Life.LifeMax <= 0)
-                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.Life)} is 0");
+                            AddWarning($"[{additionalUnit.Name}] {nameof(additionalUnit.Life)} is 0");
 
                         if (additionalUnit.Life.LifeScaling <= 0)
-                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.Life.LifeScaling)} is 0");
+                            AddWarning($"[{additionalUnit.Name}] {nameof(additionalUnit.Life.LifeScaling)} is 0");
 
                         if (additionalUnit.Life.LifeRegenerationRateScaling <= 0)
-                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.Life.LifeRegenerationRateScaling)} is 0");
+                            AddWarning($"[{additionalUnit.Name}] {nameof(additionalUnit.Life.LifeRegenerationRateScaling)} is 0");
 
                         if (additionalUnit.Energy.EnergyMax > 0 && string.IsNullOrEmpty(hero.Energy.EnergyType))
-                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.Energy)} > 0 and {nameof(hero.Energy.EnergyType)} is NONE");
+                            AddWarning($"[{additionalUnit.Name}] {nameof(additionalUnit.Energy)} > 0 and {nameof(additionalUnit.Energy.EnergyType)} is NONE");
 
                         if (additionalUnit.Sight <= 0)
-                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.Sight)} is 0");
+                            AddWarning($"[{additionalUnit.Name}] {nameof(additionalUnit.Sight)} is 0");
 
                         if (additionalUnit.Speed <= 0)
-                            AddWarning($"[{additionalUnit.Name}] {nameof(hero.Speed)} is 0");
+                            AddWarning($"[{additionalUnit.Name}] {nameof(additionalUnit.Speed)} is 0");
 
                         VerifyWeapons(hero);
                         VerifyAbilities(hero);

@@ -27,7 +27,7 @@ namespace HeroesData.FileWriter.Tests
         public void JsonWriterNoCreateTest()
         {
             File.Delete(DefaultCreatedFile);
-            FileOutputHasBuildNumber.CreateJson(false);
+            FileOutputHasBuildNumber.CreateJson(false, false);
             Assert.False(File.Exists(DefaultCreatedFile), "heroesdata.json should not have been created");
         }
 
@@ -104,6 +104,16 @@ namespace HeroesData.FileWriter.Tests
             FileOutputColoredTextWithScaling.Localization = Localization;
             FileOutputColoredTextWithScaling.CreateJson();
             CompareFile(DefaultCreatedFile, "JsonOutput6.json");
+        }
+
+        [Fact]
+        public void JsonWriterGameStringLocalizedTests()
+        {
+            FileOutputGameStringLocalized.Localization = Localization;
+            FileOutputGameStringLocalized.IsLocalizedText = true;
+            FileOutputGameStringLocalized.CreateJson(true, true);
+            CompareFile(Path.Combine("output", "json", $"heroesdata_{BuildNumber}_{Localization}.json"), "JsonGameStringLocalized.json");
+            CompareFile(Path.Combine("output", "gamestrings-12345", $"gamestrings_{Localization}_{BuildNumber}.txt"), "gamestrings_12345.txt");
         }
     }
 }

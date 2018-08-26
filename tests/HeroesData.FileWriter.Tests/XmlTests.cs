@@ -29,7 +29,7 @@ namespace HeroesData.FileWriter.Tests
             if (File.Exists(DefaultCreatedFile)) // not really needed
                 File.Delete(DefaultCreatedFile);
 
-            FileOutputHasBuildNumber.CreateXml(false);
+            FileOutputHasBuildNumber.CreateXml(false, false);
             Assert.False(File.Exists(DefaultCreatedFile), "heroesdata.xml should not have been created");
         }
 
@@ -107,6 +107,15 @@ namespace HeroesData.FileWriter.Tests
             FileOutputColoredTextWithScaling.Localization = Localization;
             FileOutputColoredTextWithScaling.CreateXml();
             CompareFile(DefaultCreatedFile, "XmlOutput6.xml");
+        }
+
+        [Fact]
+        public void XmlWriterGameStringLocalizedTests()
+        {
+            FileOutputGameStringLocalized.Localization = Localization;
+            FileOutputGameStringLocalized.IsLocalizedText = true;
+            FileOutputGameStringLocalized.CreateXml(true, false);
+            CompareFile(Path.Combine("output", "xml", $"heroesdata_{BuildNumber}_{Localization}.xml"), "XmlGameStringLocalized.xml");
         }
     }
 }
