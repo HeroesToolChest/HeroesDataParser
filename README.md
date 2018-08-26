@@ -62,7 +62,7 @@ Output of the -h option
 ```
 Heroes Data Parser (VERSION)
 
-Usage:  [options]
+Usage:  [options] [command]
 
 Options:
   -?|-h|--help                     Show help information
@@ -70,18 +70,23 @@ Options:
   -s|--storagePath <filePath>      The 'Heroes of the Storm' directory or an already extracted 'mods' directory
   -t|--threads <amount>            Limits the maximum amount of threads to use
   -e|--extract <value>             Extracts images, available values: all|portraits|talents - Available only in -s|--storagePath mode using Hots directory
-  -d|--description <value>         Sets the description output type (0 - 6) - Default 0
-  -b|--build <number>              Sets the override build file
-  -o|--outputDirectory <filePath>  Sets the output directory
-  -l|--localization <local>        Sets the gamestrings localization(s) - Default: enUS
-  -f|--fileSplit                   Creates a separate file for each hero parsed
+  -d|--description <value>         Set the description output type (0 - 6) - Default 0
+  -b|--build <number>              Set the override build file
+  -o|--outputDirectory <filePath>  Set the output directory
+  -l|--localization <local>        Set the gamestring localization(s) - Default: enUS
+  -f|--fileSplit                   Create a separate file for each hero parsed
   --xml                            Create xml output
   --json                           Create json output
-  --localizedText                  Extracts localized gamestrings from the XML and JSON file(s) into a text file
+  --localizedText                  Extract localized gamestrings from the XML and JSON file(s) into a text file
   --invalidFull                    Show all invalid full tooltips
   --invalidShort                   Show all invalid short tooltips
   --invalidHero                    Show all invalid hero tooltips
   --heroWarnings                   Show all hero warnings
+
+Commands:
+  read
+
+Use " [command] --help" for more information about a command.
 ```
 
 Example command to create xml and json files from the `Heroes of the Storm` directory
@@ -122,8 +127,8 @@ Or a simpler way, extract these directories and file (keep the directory paths)
 
 `mods/core.stormmod/base.stormdata/GameData/`  
 `mods/core.stormmod/enus.stormdata/LocalizedData/GameStrings.txt`  
-`mods/heroesData.stormmod/base.stormdata/GameData/`   
-`mods/heroesData.stormmod/enus.stormdata/LocalizedData/GameStrings.txt`  
+`mods/heroesdata.stormmod/base.stormdata/GameData/`   
+`mods/heroesdata.stormmod/enus.stormdata/LocalizedData/GameStrings.txt`  
 `mods/heromods/`
 
 The `mods` directory can also have a build suffix in its name. [More info](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
@@ -243,6 +248,15 @@ The format of the strings in the text file are the following:
 - `tooltip/cooldown/[nameId]=[value]`
 - `tooltip/short/[shortTooltipId]=[value]`
 - `tooltip/full/[fullTooltipId]=[value]`
+
+## Commands
+### Read
+```
+Options:
+  -?|-h|--help     Show help information
+  -f|--fileName    The filename of the file to read and display on the console
+  -v|--validFiles  Show all available files to read
+```
 
 ## Advanced Features
 ### Mods suffix directory
