@@ -23,6 +23,8 @@ macOS
 brew install mono-libgdiplus
 ```
 
+***
+
 ### Dotnet Global Tool (Recommended)
 Download and install the [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/windows) or newer. 
 
@@ -36,10 +38,14 @@ Installing via this method also allows easy updating to future versions using th
 dotnet tool update --global HeroesDataParser
 ```
 
+***
+
 ### Zip File Download - Framework-Dependent
 Download and install the [.NET Core 2.1 Runtime or SDK](https://www.microsoft.com/net/download/windows) or newer. 
 
 Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page.
+
+***
 
 ### Zip File Download - Self-Contained
 No runtime or SDK is required.
@@ -133,6 +139,8 @@ Or a simpler way, extract these directories and file (keep the directory paths)
 
 The `mods` directory can also have a build suffix in its name. [More info](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
 
+***
+
 ### Description (-d|--description)
 Sets the description/tooltip output type (0 - 6)
 
@@ -194,6 +202,8 @@ Example:
 Fires a laser that deals <c val=\"#TooltipNumbers\">200 (+4% per level)</c> damage.<n/>Does not affect minions.
 ```
 
+***
+
 ### Extract (-e|--extract)
 Extracts images that have been referenced for a hero or ability/talent in the xml and json file(s).
 
@@ -205,6 +215,8 @@ Parameters (one or more)
 Notes:
 - This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storagePath` option
 - Images are always extracted in `.png` format
+
+***
 
 ### Game String Localization (-l|--localization)
 Sets the game string localization (descriptions/tooltips). Multiple are allowed, use `all` to select all. The application will parse all game strings and hero data for each local selected.
@@ -226,6 +238,8 @@ Example selecting multiple locals
 ```
 -l enus -l dede -l kokr
 ```
+
+***
 
 ### Localized Text (--localizedText)
 Strings that are localized are removed from the XML and JSON file(s) and are instead put into a text file to allow easy swapping between localizations.
@@ -281,6 +295,8 @@ HeroOverrdies_13000.xml
 HeroOverrdies_14000.xml
 ```
 
+***
+
 ### Multi-mods directory
 You can have multiple mods directories with the suffix `_<build number>` in the same directory.  If you select the parent directory as the storage path, the highest build number suffix diretory will be parsed.
 
@@ -296,8 +312,12 @@ modFolders/
 ```
 Setting `modFolders` as the storage path will have the `mods_22388` directory parsed.
 
+***
+
 ### CASC HeroOverrides loading
 When using a `Heroes of the Storm` directory, it will load the equivalent hero overrides file, just like in the [mods suffix directory](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
+
+***
 
 ### Advanced File Configuration
 For more advanced file configurations, edit the file `WriterConfig.xml`.  Options in the console override the options in the config file.
