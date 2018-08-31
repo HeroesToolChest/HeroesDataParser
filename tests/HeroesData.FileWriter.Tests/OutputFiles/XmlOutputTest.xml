@@ -10,12 +10,12 @@
       <Target>ui_targetportrait_hero_alarak.png</Target>
     </Portraits>
     <Life>
-      <LifeAmount scale="0.04">1900</LifeAmount>
-      <LifeRegenRate scale="0.04">3.957</LifeRegenRate>
+      <Amount scale="0.04">1900</Amount>
+      <RegenRate scale="0.04">3.957</RegenRate>
     </Life>
     <Energy>
-      <EnergyAmount type="Mana">500</EnergyAmount>
-      <EnergyRegenRate>3</EnergyRegenRate>
+      <Amount type="Mana">500</Amount>
+      <RegenRate>3</RegenRate>
     </Energy>
     <Armor>
       <Physical>10</Physical>
@@ -165,8 +165,8 @@
       <HeroAlexstraszaDragon>
         <AlexstraszaDragon name="Alexstrasza" cUnitId="HeroAlexstraszaDragon" innerRadius="1" radius="1.25" sight="12" speed="4.3984">
           <Life>
-            <LifeAmount scale="0.04">1787</LifeAmount>
-            <LifeRegenRate scale="0.04">3.7226</LifeRegenRate>
+            <Amount scale="0.04">1787</Amount>
+            <RegenRate scale="0.04">3.7226</RegenRate>
           </Life>
           <Armor>
             <Physical>5</Physical>

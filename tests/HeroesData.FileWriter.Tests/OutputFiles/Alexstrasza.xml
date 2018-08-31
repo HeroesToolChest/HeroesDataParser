@@ -40,8 +40,8 @@
       <HeroAlexstraszaDragon>
         <AlexstraszaDragon name="Alexstrasza" cUnitId="HeroAlexstraszaDragon" innerRadius="1" radius="1.25" sight="12" speed="4.3984">
           <Life>
-            <LifeAmount scale="0.04">1787</LifeAmount>
-            <LifeRegenRate scale="0.04">3.7226</LifeRegenRate>
+            <Amount scale="0.04">1787</Amount>
+            <RegenRate scale="0.04">3.7226</RegenRate>
           </Life>
           <Armor>
             <Physical>5</Physical>

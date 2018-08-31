@@ -21,15 +21,15 @@
       "target": "ui_targetportrait_hero_alarak.png"
     },
     "life": {
-      "lifeAmount": 1900.0,
-      "lifeScale": 0.04,
-      "lifeRegenRate": 3.957,
+      "amount": 1900.0,
+      "scale": 0.04,
+      "regenRate": 3.957,
       "regenScale": 0.04
     },
     "energy": {
-      "energyAmount": 500.0,
+      "amount": 500.0,
       "type": "Mana",
-      "energyRegenRate": 3.0
+      "regenRate": 3.0
     },
     "armor": {
       "Physical": 10,
@@ -301,9 +301,9 @@
           "sight": 12.0,
           "speed": 4.3984,
           "life": {
-            "lifeAmount": 1787.0,
-            "lifeScale": 0.04,
-            "lifeRegenRate": 3.7226,
+            "amount": 1787.0,
+            "scale": 0.04,
+            "regenRate": 3.7226,
             "regenScale": 0.04
           },
           "armor": {

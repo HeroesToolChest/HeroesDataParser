@@ -14,15 +14,15 @@
     "rarity": "Legendary",
     "description": "A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/><img path=\"@UI / StormTalentInTextArmorIcon\" alignment=\"uppermiddle\" color=\"e12bfc\" width=\"20\" height=\"22\"/><c val=\"#TooltipNumbers\">20 Spell Armor</c>",
     "life": {
-      "lifeAmount": 1900.0,
-      "lifeScale": 0.04,
-      "lifeRegenRate": 3.957,
+      "amount": 1900.0,
+      "scale": 0.04,
+      "regenRate": 3.957,
       "regenScale": 0.04
     },
     "energy": {
-      "energyAmount": 500.0,
+      "amount": 500.0,
       "type": "Mana",
-      "energyRegenRate": 3.0
+      "regenRate": 3.0
     },
     "armor": {
       "Physical": 10,

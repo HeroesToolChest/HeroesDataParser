@@ -230,9 +230,9 @@ namespace HeroesData.FileWriter.Writer
             return new JProperty(
                 "life",
                 new JObject(
-                    new JProperty("lifeAmount", unit.Life.LifeMax),
-                    new JProperty("lifeScale", unit.Life.LifeScaling),
-                    new JProperty("lifeRegenRate", unit.Life.LifeRegenerationRate),
+                    new JProperty("amount", unit.Life.LifeMax),
+                    new JProperty("scale", unit.Life.LifeScaling),
+                    new JProperty("regenRate", unit.Life.LifeRegenerationRate),
                     new JProperty("regenScale", unit.Life.LifeRegenerationRateScaling)));
         }
 
@@ -241,9 +241,9 @@ namespace HeroesData.FileWriter.Writer
             return new JProperty(
                 "energy",
                 new JObject(
-                    new JProperty("energyAmount", unit.Energy.EnergyMax),
+                    new JProperty("amount", unit.Energy.EnergyMax),
                     new JProperty("type", unit.Energy.EnergyType.ToString()),
-                    new JProperty("energyRegenRate", unit.Energy.EnergyRegenerationRate)));
+                    new JProperty("regenRate", unit.Energy.EnergyRegenerationRate)));
         }
 
         protected override JProperty GetAbilitiesObject(Unit unit, bool isSubAbilities)

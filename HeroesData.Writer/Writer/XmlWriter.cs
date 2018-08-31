@@ -125,16 +125,16 @@ namespace HeroesData.FileWriter.Writer
         {
             return new XElement(
                 "Life",
-                new XElement("LifeAmount", unit.Life.LifeMax, new XAttribute("scale", unit.Life.LifeScaling)),
-                new XElement("LifeRegenRate", unit.Life.LifeRegenerationRate, new XAttribute("scale", unit.Life.LifeRegenerationRateScaling)));
+                new XElement("Amount", unit.Life.LifeMax, new XAttribute("scale", unit.Life.LifeScaling)),
+                new XElement("RegenRate", unit.Life.LifeRegenerationRate, new XAttribute("scale", unit.Life.LifeRegenerationRateScaling)));
         }
 
         protected override XElement GetEnergyObject(Unit unit)
         {
             return new XElement(
                 "Energy",
-                new XElement("EnergyAmount", unit.Energy.EnergyMax, new XAttribute("type", unit.Energy.EnergyType)),
-                new XElement("EnergyRegenRate", unit.Energy.EnergyRegenerationRate));
+                new XElement("Amount", unit.Energy.EnergyMax, new XAttribute("type", unit.Energy.EnergyType)),
+                new XElement("RegenRate", unit.Energy.EnergyRegenerationRate));
         }
 
         protected override XElement GetRatingsObject(Hero hero)
