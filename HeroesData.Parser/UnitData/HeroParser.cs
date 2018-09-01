@@ -70,7 +70,6 @@ namespace HeroesData.Parser.UnitData
             CHeroData(hero);
             CUnitData(hero);
             SetHeroPortraits(hero);
-            ArmorData.SetUnitArmorData(hero);
             AddSubHeroCUnits(hero);
 
             ApplyOverrides(hero, HeroOverride);
@@ -364,6 +363,7 @@ namespace HeroesData.Parser.UnitData
 
             // set weapons
             WeaponData.SetHeroWeaponData(hero, heroData.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
+            ArmorData.SetUnitArmorData(hero, heroData.Element("ArmorLink"));
 
             if (hero.Energy.EnergyMax < 1)
                 hero.Energy.EnergyType = string.Empty;
@@ -433,8 +433,6 @@ namespace HeroesData.Parser.UnitData
                     SetDefaultValues(heroUnit);
                     CUnitData(heroUnit);
                 }
-
-                ArmorData.SetUnitArmorData(heroUnit);
 
                 HeroOverride heroOverride = OverrideData.HeroOverride(unit);
                 if (heroOverride != null)

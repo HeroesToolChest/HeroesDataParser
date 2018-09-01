@@ -18,15 +18,16 @@ namespace HeroesData.Parser.UnitData.Data
         /// Sets the unit armor data.
         /// </summary>
         /// <param name="unit"></param>
-        public void SetUnitArmorData(Unit unit)
+        public void SetUnitArmorData(Unit unit, XElement armorLink)
         {
-            string name = unit.ShortName;
-            if (name.EndsWith("Form"))
-                name = name.Remove(name.LastIndexOf("Form"), 4);
+            string armorLinkValue = armorLink?.Attribute("value")?.Value;
 
-            XElement armorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == $"{name}Armor").FirstOrDefault();
-            XElement physicalArmorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == $"{name}PhysicalArmor").FirstOrDefault();
-            XElement spellArmorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == $"{name}SpellArmor").FirstOrDefault();
+            if (string.IsNullOrEmpty(armorLinkValue))
+                return;
+
+            XElement armorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLinkValue).FirstOrDefault();
+            XElement physicalArmorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLinkValue).FirstOrDefault();
+            XElement spellArmorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLinkValue).FirstOrDefault();
 
             if (armorElement != null)
             {
