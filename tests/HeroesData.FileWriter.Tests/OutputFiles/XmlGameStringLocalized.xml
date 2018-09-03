@@ -3,7 +3,7 @@
   <Alarak cHeroId="HeroAlarak" cUnitId="Alar" franchise="Starcraft" gender="Male" radius="0.875" releaseDate="2016-09-13" sight="12" speed="4.3984" rarity="Legendary">
     <Portraits>
       <HeroSelect>storm_ui_ingame_heroselect_btn_alarak.png</HeroSelect>
-      <Loaderboard>storm_ui_ingame_hero_leaderboard_alarak.png</Loaderboard>
+      <Leaderboard>storm_ui_ingame_hero_leaderboard_alarak.png</Leaderboard>
       <Loading>storm_ui_ingame_hero_loadingscreen_alarak.png</Loading>
       <PartyFrame>storm_ui_ingame_partypanel_btn_alarak.png</PartyFrame>
       <Target>ui_targetportrait_hero_alarak.png</Target>

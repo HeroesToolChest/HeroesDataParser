@@ -4,7 +4,7 @@
     <Description>A Tank who specializes against Mages thanks in part to his innate Spell Armor.&lt;n/&gt;&lt;n/&gt;&lt;img path="@UI / StormTalentInTextArmorIcon" alignment="uppermiddle" color="e12bfc" width="20" height="22"/&gt;&lt;c val="#TooltipNumbers"&gt;20 Spell Armor&lt;/c&gt;</Description>
     <Portraits>
       <HeroSelect>storm_ui_ingame_heroselect_btn_alarak.jpg</HeroSelect>
-      <Loaderboard>storm_ui_ingame_hero_leaderboard_alarak.jpg</Loaderboard>
+      <Leaderboard>storm_ui_ingame_hero_leaderboard_alarak.jpg</Leaderboard>
       <Loading>storm_ui_ingame_hero_loadingscreen_alarak.jpg</Loading>
       <PartyFrame>storm_ui_ingame_partypanel_btn_alarak.jpg</PartyFrame>
       <Target>ui_targetportrait_hero_alarak.jpg</Target>

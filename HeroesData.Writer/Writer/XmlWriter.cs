@@ -283,7 +283,7 @@ namespace HeroesData.FileWriter.Writer
             return new XElement(
                 "Portraits",
                 FileSettings.HeroSelectPortrait ? new XElement("HeroSelect", Path.ChangeExtension(hero.HeroPortrait.HeroSelectPortraitFileName, FileSettings.ImageExtension)) : null,
-                FileSettings.LeaderboardPortrait ? new XElement("Loaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName, FileSettings.ImageExtension)) : null,
+                FileSettings.LeaderboardPortrait ? new XElement("Leaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName, FileSettings.ImageExtension)) : null,
                 FileSettings.LoadingPortraitPortrait ? new XElement("Loading", Path.ChangeExtension(hero.HeroPortrait.LoadingScreenPortraitFileName, FileSettings.ImageExtension)) : null,
                 FileSettings.PartyPanelPortrait ? new XElement("PartyFrame", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName, FileSettings.ImageExtension)) : null,
                 FileSettings.TargetPortrait ? new XElement("Target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName, FileSettings.ImageExtension)) : null);
