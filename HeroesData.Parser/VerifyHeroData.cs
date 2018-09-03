@@ -165,22 +165,22 @@ namespace HeroesData.Parser
                     if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.ColoredTextWithScaling))
                         AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.ColoredTextWithScaling)} is null or empty");
 
-                    if (talent.Value.Tooltip.Cooldown?.CooldownText != null)
+                    if (talent.Value.Tooltip.Cooldown?.CooldownTooltip != null)
                     {
-                        if (char.IsDigit(talent.Value.Tooltip.Cooldown.CooldownText.PlainText[0]))
-                            AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Cooldown.CooldownText)} does not have a prefix");
+                        if (char.IsDigit(talent.Value.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
+                            AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
                     }
 
-                    if (talent.Value.Tooltip.Energy?.EnergyText != null)
+                    if (talent.Value.Tooltip.Energy?.EnergyTooltip != null)
                     {
-                        if (char.IsDigit(talent.Value.Tooltip.Energy.EnergyText.PlainText[0]))
-                            AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Energy.EnergyText)} does not have a prefix");
+                        if (char.IsDigit(talent.Value.Tooltip.Energy.EnergyTooltip.PlainText[0]))
+                            AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
                     }
 
-                    if (talent.Value.Tooltip.Life?.LifeCostText != null)
+                    if (talent.Value.Tooltip.Life?.LifeCostTooltip != null)
                     {
-                        if (char.IsDigit(talent.Value.Tooltip.Life.LifeCostText.PlainText[0]))
-                            AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Life.LifeCostText)} does not have a prefix");
+                        if (char.IsDigit(talent.Value.Tooltip.Life.LifeCostTooltip.PlainText[0]))
+                            AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
                     }
                 }
 
@@ -256,22 +256,22 @@ namespace HeroesData.Parser
                 if (string.IsNullOrEmpty(ability.Value.Tooltip.FullTooltip?.RawDescription))
                     AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltip)} is null or empty");
 
-                if (!string.IsNullOrEmpty(ability.Value.Tooltip.Cooldown?.CooldownText?.RawDescription))
+                if (!string.IsNullOrEmpty(ability.Value.Tooltip.Cooldown?.CooldownTooltip?.RawDescription))
                 {
-                    if (char.IsDigit(ability.Value.Tooltip.Cooldown.CooldownText.PlainText[0]))
-                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Cooldown.CooldownText)} does not have a prefix");
+                    if (char.IsDigit(ability.Value.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
                 }
 
-                if (!string.IsNullOrEmpty(ability.Value.Tooltip.Energy?.EnergyText?.RawDescription))
+                if (!string.IsNullOrEmpty(ability.Value.Tooltip.Energy?.EnergyTooltip?.RawDescription))
                 {
-                    if (char.IsDigit(ability.Value.Tooltip.Energy.EnergyText.PlainText[0]))
-                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Energy.EnergyText)} does not have a prefix");
+                    if (char.IsDigit(ability.Value.Tooltip.Energy.EnergyTooltip.PlainText[0]))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
                 }
 
-                if (!string.IsNullOrEmpty(ability.Value.Tooltip.Life?.LifeCostText?.RawDescription))
+                if (!string.IsNullOrEmpty(ability.Value.Tooltip.Life?.LifeCostTooltip?.RawDescription))
                 {
-                    if (char.IsDigit(ability.Value.Tooltip.Life.LifeCostText.PlainText[0]))
-                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Life.LifeCostText)} does not have a prefix");
+                    if (char.IsDigit(ability.Value.Tooltip.Life.LifeCostTooltip.PlainText[0]))
+                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
                 }
             }
         }

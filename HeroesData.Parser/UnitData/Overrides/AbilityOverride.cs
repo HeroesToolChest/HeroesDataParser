@@ -50,7 +50,7 @@ namespace HeroesData.Parser.UnitData.Overrides
             {
                 propertyOverrides.Add(propertyName, (ability) =>
                 {
-                    ability.Tooltip.Cooldown.CooldownText = new Heroes.Models.TooltipDescription(propertyValue);
+                    ability.Tooltip.Cooldown.CooldownTooltip = new Heroes.Models.TooltipDescription(propertyValue);
                 });
             }
         }

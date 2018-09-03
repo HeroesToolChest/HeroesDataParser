@@ -239,21 +239,21 @@ namespace HeroesData.FileWriter.Writer
         {
             return new XElement(
                 "LifeTooltip",
-                GetTooltip(tooltipLife.LifeCostText, FileSettings.Description));
+                GetTooltip(tooltipLife.LifeCostTooltip, FileSettings.Description));
         }
 
         protected override XElement GetAbilityTalentEnergyCostObject(TooltipEnergy tooltipEnergy)
         {
             return new XElement(
                 "EnergyTooltip",
-                GetTooltip(tooltipEnergy.EnergyText, FileSettings.Description));
+                GetTooltip(tooltipEnergy.EnergyTooltip, FileSettings.Description));
         }
 
         protected override XElement GetAbilityTalentCooldownObject(TooltipCooldown tooltipCooldown)
         {
             return new XElement(
                 "CooldownTooltip",
-                GetTooltip(tooltipCooldown.CooldownText, FileSettings.Description));
+                GetTooltip(tooltipCooldown.CooldownTooltip, FileSettings.Description));
         }
 
         protected override XElement GetAbilityTalentChargesObject(TooltipCharges tooltipCharges)

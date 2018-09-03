@@ -75,7 +75,7 @@ namespace HeroesData.Parser.UnitData.Data
 
                     // if not active, it shouldn't have a cooldown
                     if (talentActiveElement == null)
-                        talent.Tooltip.Cooldown.CooldownText = null;
+                        talent.Tooltip.Cooldown.CooldownTooltip = null;
                 }
 
                 SetAbilityType(hero, talent, cTalentElement);

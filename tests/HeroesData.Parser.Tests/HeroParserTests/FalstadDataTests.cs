@@ -17,9 +17,9 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("FalstadHammerang", ability.FullTooltipNameId);
             Assert.Equal("storm_ui_icon_falstad_hammerang.dds", ability.IconFileName);
 
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 70</s>", ability.Tooltip.Energy.EnergyText?.RawDescription);
-            Assert.Equal("Cooldown: 10 seconds", ability.Tooltip.Cooldown.CooldownText?.RawDescription);
-            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Life.LifeCostText?.RawDescription));
+            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 70</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
+            Assert.Equal("Cooldown: 10 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
+            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Life.LifeCostTooltip?.RawDescription));
             Assert.Null(ability.Tooltip.Charges.CountMax);
 
             Assert.Equal("Throw out a Hammer that returns. Hammer slows and damages enemies", ability.Tooltip.ShortTooltip.RawDescription);
@@ -65,10 +65,10 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("FalstadHinterlandBlast", ability.FullTooltipNameId);
             Assert.Equal("storm_ui_icon_falstad_hinterlandblast.dds", ability.IconFileName);
 
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 100</s>", ability.Tooltip.Energy.EnergyText?.RawDescription);
-            Assert.Equal("Mana: 100", ability.Tooltip.Energy.EnergyText?.PlainText);
-            Assert.Equal("Cooldown: 120 seconds", ability.Tooltip.Cooldown.CooldownText?.RawDescription);
-            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Life.LifeCostText?.RawDescription));
+            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 100</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
+            Assert.Equal("Mana: 100", ability.Tooltip.Energy.EnergyTooltip?.PlainText);
+            Assert.Equal("Cooldown: 120 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
+            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Life.LifeCostTooltip?.RawDescription));
             Assert.Null(ability.Tooltip.Charges.CountMax);
 
             Assert.Equal("Long range damage beam", ability.Tooltip.ShortTooltip.RawDescription);
@@ -95,8 +95,8 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("FalstadFlight", ability.FullTooltipNameId);
             Assert.Equal("storm_ui_icon_falstad_mount.dds", ability.IconFileName);
 
-            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyText?.RawDescription));
-            Assert.Equal("Cooldown: 55 seconds", ability.Tooltip.Cooldown.CooldownText?.RawDescription);
+            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyTooltip?.RawDescription));
+            Assert.Equal("Cooldown: 55 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
             Assert.Null(ability.Tooltip.Charges.CountMax);
 
             Assert.Equal("Instead of mounting, Falstad can fly a great distance over terrain", ability.Tooltip.ShortTooltip.RawDescription);
@@ -141,8 +141,8 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("FalstadSecretWeaponTalent", talent.FullTooltipNameId);
             Assert.Equal("storm_ui_icon_falstad_hammerang.dds", talent.IconFileName);
 
-            Assert.True(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyText?.RawDescription));
-            Assert.True(string.IsNullOrEmpty(talent.Tooltip.Cooldown.CooldownText?.RawDescription));
+            Assert.True(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyTooltip?.RawDescription));
+            Assert.True(string.IsNullOrEmpty(talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription));
             Assert.Null(talent.Tooltip.Charges.CountMax);
 
             Assert.Equal("Increases Hammerang range, Basic Attack damage", talent.Tooltip.ShortTooltip.RawDescription);
@@ -159,8 +159,8 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("FalstadWingmanHotbarTalent", talent.FullTooltipNameId);
             Assert.Equal("storm_ui_icon_talent_bribe.dds", talent.IconFileName);
 
-            Assert.True(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyText?.RawDescription));
-            Assert.Null(talent.Tooltip.Cooldown.CooldownText?.RawDescription);
+            Assert.True(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyTooltip?.RawDescription));
+            Assert.Null(talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
             Assert.Equal(4, talent.Tooltip.Charges.CountMax);
             Assert.Null(talent.Tooltip.Charges.CountStart);
             Assert.Equal(1, talent.Tooltip.Charges.CountUse);
@@ -179,8 +179,8 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("FalstadTailwind", ability.FullTooltipNameId);
             Assert.Equal("storm_ui_icon_falstad_tailwind.dds", ability.IconFileName);
 
-            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyText?.RawDescription));
-            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Cooldown.CooldownText?.RawDescription));
+            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyTooltip?.RawDescription));
+            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription));
             Assert.Null(ability.Tooltip.Charges.CountMax);
 
             Assert.Equal("After not taking damage for a brief period, gain increased Movement Speed", ability.Tooltip.ShortTooltip.RawDescription);

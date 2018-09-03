@@ -9,7 +9,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         public void TalentCooldownTextOverrideShowUsageOff()
         {
             Talent talent = HeroUther.Talents["UtherMasteryBenediction"];
-            Assert.Equal("Cooldown: 60 seconds", talent.Tooltip.Cooldown?.CooldownText?.RawDescription);
+            Assert.Equal("Cooldown: 60 seconds", talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
         }
     }
 }

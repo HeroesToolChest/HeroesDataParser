@@ -1,5 +1,4 @@
-﻿using Heroes.Models;
-using Heroes.Models.AbilityTalents;
+﻿using Heroes.Models.AbilityTalents;
 using Xunit;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
@@ -31,7 +30,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         public void AbilityEnergyTooltipTextTest()
         {
             Ability ability = HeroAuriel.Abilities["AurielSacredSweep"];
-            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Energy?.EnergyText.RawDescription));
+            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Energy?.EnergyTooltip.RawDescription));
         }
     }
 }

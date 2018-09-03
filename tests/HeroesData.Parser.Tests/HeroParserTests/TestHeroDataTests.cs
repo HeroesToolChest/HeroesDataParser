@@ -25,21 +25,21 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal(3, talent.Tooltip.Charges.CountMax);
             Assert.Equal(1, talent.Tooltip.Charges.CountUse);
             Assert.Null(talent.Tooltip.Charges.CountStart);
-            Assert.Equal("Charge Cooldown: 40 seconds", talent.Tooltip.Cooldown.CooldownText?.RawDescription);
+            Assert.Equal("Charge Cooldown: 40 seconds", talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
         }
 
         [Fact]
         public void AbilityCooldownTest()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroTheHunt"];
-            Assert.Equal("Cooldown: 100 seconds", ability.Tooltip.Cooldown.CooldownText.RawDescription);
+            Assert.Equal("Cooldown: 100 seconds", ability.Tooltip.Cooldown.CooldownTooltip.RawDescription);
         }
 
         [Fact]
         public void TalentCooldownTest()
         {
             Talent talent = HeroTestHero.Talents["TestHeroBattleRage"];
-            Assert.Equal("Charge Cooldown: 40 seconds", talent.Tooltip.Cooldown.CooldownText?.RawDescription);
+            Assert.Equal("Charge Cooldown: 40 seconds", talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
         }
 
         [Fact]
@@ -151,37 +151,37 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         public void OverrideTextTests()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroBigBoom"];
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 10 picks</s>", ability.Tooltip.Energy.EnergyText?.RawDescription);
-            Assert.Equal("Cooldown: 20 per second", ability.Tooltip.Cooldown.CooldownText?.RawDescription);
+            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 10 picks</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
+            Assert.Equal("Cooldown: 20 per second", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
 
             ability = HeroTestHero.Abilities["TestHeroBigBoomV2"];
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Health: </s><s val=\"StandardTooltipDetails\">15%</s>", ability.Tooltip.Life.LifeCostText.RawDescription);
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 40</s>", ability.Tooltip.Energy.EnergyText.RawDescription);
+            Assert.Equal("<s val=\"StandardTooltipDetails\">Health: </s><s val=\"StandardTooltipDetails\">15%</s>", ability.Tooltip.Life.LifeCostTooltip.RawDescription);
+            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 40</s>", ability.Tooltip.Energy.EnergyTooltip.RawDescription);
 
             ability = HeroTestHero.Abilities["TestHeroBigBoomV3"];
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 3</s>", ability.Tooltip.Energy.EnergyText.RawDescription);
-            Assert.Equal("Cooldown: 12 Seconds", ability.Tooltip.Cooldown.CooldownText.RawDescription);
+            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 3</s>", ability.Tooltip.Energy.EnergyTooltip.RawDescription);
+            Assert.Equal("Cooldown: 12 Seconds", ability.Tooltip.Cooldown.CooldownTooltip.RawDescription);
         }
 
         [Fact]
         public void TalentActiveCooldownOverrideTextTest()
         {
             Talent talent = HeroTestHero.Talents["TestHeroTimeOut"];
-            Assert.Equal("Cooldown: 60 seconds", talent.Tooltip.Cooldown.CooldownText.RawDescription);
+            Assert.Equal("Cooldown: 60 seconds", talent.Tooltip.Cooldown.CooldownTooltip.RawDescription);
         }
 
         [Fact]
         public void HeroAbilArraySetTest()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroEssenseCollection"];
-            Assert.Equal("Cooldown: 5 seconds", ability.Tooltip.Cooldown.CooldownText.RawDescription);
+            Assert.Equal("Cooldown: 5 seconds", ability.Tooltip.Cooldown.CooldownTooltip.RawDescription);
         }
 
         [Fact]
         public void AbilityTalentTooltipShowUsageOffTest()
         {
             Talent talent = HeroTestHero.Talents["TestHeroTheWill"];
-            Assert.Null(talent.Tooltip.Cooldown?.CooldownText?.RawDescription);
+            Assert.Null(talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
         }
     }
 }

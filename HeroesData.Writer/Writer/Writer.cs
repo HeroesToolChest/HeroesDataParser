@@ -217,7 +217,7 @@ namespace HeroesData.FileWriter.Writer
 
         protected T UnitAbilityTalentLifeCost(TooltipLife tooltipLife)
         {
-            if (!string.IsNullOrEmpty(tooltipLife?.LifeCostText?.RawDescription) && !IsLocalizedText)
+            if (!string.IsNullOrEmpty(tooltipLife?.LifeCostTooltip?.RawDescription) && !IsLocalizedText)
             {
                 return GetAbilityTalentLifeCostObject(tooltipLife);
             }
@@ -227,7 +227,7 @@ namespace HeroesData.FileWriter.Writer
 
         protected T UnitAbilityTalentEnergyCost(TooltipEnergy tooltipEnergy)
         {
-            if (!string.IsNullOrEmpty(tooltipEnergy?.EnergyText?.RawDescription) && !IsLocalizedText)
+            if (!string.IsNullOrEmpty(tooltipEnergy?.EnergyTooltip?.RawDescription) && !IsLocalizedText)
             {
                 return GetAbilityTalentEnergyCostObject(tooltipEnergy);
             }
@@ -237,7 +237,7 @@ namespace HeroesData.FileWriter.Writer
 
         protected T UnitAbilityTalentCooldown(TooltipCooldown tooltipCooldown)
         {
-            if (!string.IsNullOrEmpty(tooltipCooldown?.CooldownText?.RawDescription) && !IsLocalizedText)
+            if (!string.IsNullOrEmpty(tooltipCooldown?.CooldownTooltip?.RawDescription) && !IsLocalizedText)
             {
                 return GetAbilityTalentCooldownObject(tooltipCooldown);
             }
@@ -304,14 +304,14 @@ namespace HeroesData.FileWriter.Writer
         {
             LocalizedGameString.AddAbilityTalentName(abilityTalentBase.ReferenceNameId, abilityTalentBase.Name);
 
-            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Life?.LifeCostText?.RawDescription))
-                LocalizedGameString.AddAbilityTalentLifeTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Life.LifeCostText, FileSettings.Description));
+            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Life?.LifeCostTooltip?.RawDescription))
+                LocalizedGameString.AddAbilityTalentLifeTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Life.LifeCostTooltip, FileSettings.Description));
 
-            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Energy?.EnergyText?.RawDescription))
-                LocalizedGameString.AddAbilityTalentEnergyTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Energy.EnergyText, FileSettings.Description));
+            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Energy?.EnergyTooltip?.RawDescription))
+                LocalizedGameString.AddAbilityTalentEnergyTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Energy.EnergyTooltip, FileSettings.Description));
 
-            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Cooldown?.CooldownText?.RawDescription))
-                LocalizedGameString.AddAbilityTalentCooldownTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Cooldown.CooldownText, FileSettings.Description));
+            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Cooldown?.CooldownTooltip?.RawDescription))
+                LocalizedGameString.AddAbilityTalentCooldownTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Cooldown.CooldownTooltip, FileSettings.Description));
 
             LocalizedGameString.AddAbilityTalentShortTooltip(abilityTalentBase.ShortTooltipNameId, GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileSettings.Description));
             LocalizedGameString.AddAbilityTalentFullTooltip(abilityTalentBase.FullTooltipNameId, GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileSettings.Description));

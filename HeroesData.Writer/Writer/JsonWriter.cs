@@ -382,17 +382,17 @@ namespace HeroesData.FileWriter.Writer
 
         protected override JProperty GetAbilityTalentCooldownObject(TooltipCooldown tooltipCooldown)
         {
-            return new JProperty("cooldownTooltip", GetTooltip(tooltipCooldown.CooldownText, FileSettings.Description));
+            return new JProperty("cooldownTooltip", GetTooltip(tooltipCooldown.CooldownTooltip, FileSettings.Description));
         }
 
         protected override JProperty GetAbilityTalentEnergyCostObject(TooltipEnergy tooltipEnergy)
         {
-            return new JProperty("energyTooltip", GetTooltip(tooltipEnergy.EnergyText, FileSettings.Description));
+            return new JProperty("energyTooltip", GetTooltip(tooltipEnergy.EnergyTooltip, FileSettings.Description));
         }
 
         protected override JProperty GetAbilityTalentLifeCostObject(TooltipLife tooltipLife)
         {
-            return new JProperty("lifeTooltip", GetTooltip(tooltipLife.LifeCostText, FileSettings.Description));
+            return new JProperty("lifeTooltip", GetTooltip(tooltipLife.LifeCostTooltip, FileSettings.Description));
         }
 
         protected override JObject AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)
