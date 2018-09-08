@@ -6,26 +6,47 @@ namespace HeroesData.Parser
 {
     public static class MathEval
     {
+        private static DataTable DataTable = new DataTable();
+
         public static double CalculatePathEquation(string input)
         {
-            DataTable datatable = new DataTable();
+            input = ParenthesisValidator(input);
+            input = GetInnerParenthesisValues(input);
 
-            input = ModifyOperators(input);
+            // finalize calculations
+            input = CalculateInput(input);
 
+            return double.Parse(input);
+        }
+
+        private static string GetInnerParenthesisValues(string input)
+        {
             var regex = new Regex(@"\(([^()]+|(?<Level>\()|(?<-Level>\)))+(?(Level)(?!))\)", RegexOptions.IgnorePatternWhitespace);
             var matches = regex.Matches(input);
 
             foreach (Match match in matches)
             {
-                double value = double.Parse(datatable.Compute(match.Value, string.Empty).ToString());
+                string matchInput = match.Value;
+
+                if (matchInput.StartsWith("("))
+                    matchInput = matchInput.Substring(1);
+                if (matchInput.EndsWith(")"))
+                    matchInput = matchInput.Remove(matchInput.Length - 1);
+
+                matchInput = GetInnerParenthesisValues(matchInput);
 
                 int position = input.IndexOf(match.Value);
                 if (position >= 0)
                 {
-                    input = input.Substring(0, position) + value + input.Substring(position + match.Length);
+                    input = input.Substring(0, position) + CalculateInput(matchInput) + input.Substring(position + match.Length);
                 }
             }
 
+            return input;
+        }
+
+        private static string CalculateInput(string input)
+        {
             input = RemoveAllSpaces(input);
             input = RemoveDoubleNegative(input);
             string[] parts = SplitExpression(input);
@@ -51,7 +72,7 @@ namespace HeroesData.Parser
                         toBeComputed = parts[0] + parts[1] + parts[2];
                 }
 
-                double value = double.Parse(datatable.Compute(toBeComputed, string.Empty).ToString());
+                double value = double.Parse(DataTable.Compute(toBeComputed, string.Empty).ToString());
 
                 int pos = input.IndexOf(toBeComputed);
                 if (pos >= 0)
@@ -62,32 +83,12 @@ namespace HeroesData.Parser
                 parts = SplitExpression(input);
             }
 
-            return double.Parse(input);
+            return input;
         }
 
         private static string[] SplitExpression(string input)
         {
             return Regex.Split(input, @"([+\-*/])").Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
-        }
-
-        private static string ModifyOperators(string pathLookup)
-        {
-            pathLookup = RemoveDoubleNegative(pathLookup);
-
-            string pattern1 = @"\(\-*\d*\.*\d*\+\(\-*\d*\.*\d*\)";
-            string pattern2 = @"\(\d*/\d*\)\-\d*";
-
-            if (Regex.IsMatch(pathLookup, pattern1))
-                return Regex.Replace(pathLookup, pattern1, "($0)");
-
-            if (Regex.IsMatch(pathLookup, @"\(\d*/\d*\)\-\d*\*\d*\)"))
-                return Regex.Replace(pathLookup, pattern2, "($0)").TrimEnd(')');
-
-            string trimParenthesis = pathLookup.Trim('(', ')');
-            if (!trimParenthesis.Contains('(') && !trimParenthesis.Contains(')'))
-                return trimParenthesis;
-
-            return pathLookup;
         }
 
         private static string RemoveDoubleNegative(string input)
@@ -101,6 +102,41 @@ namespace HeroesData.Parser
         private static string RemoveAllSpaces(string input)
         {
             return Regex.Replace(input, @"\s+", string.Empty);
+        }
+
+        private static string ParenthesisValidator(string input)
+        {
+            int leftCount = 0;
+            int rightCount = 0;
+
+            foreach (char c in input)
+            {
+                if (c == '(')
+                    leftCount++;
+                else if (c == ')')
+                    rightCount++;
+            }
+
+            if (leftCount == rightCount)
+            {
+                return input; // no change
+            }
+
+            // add parenthesis to left
+            while (leftCount < rightCount)
+            {
+                input = $"({input}";
+                leftCount++;
+            }
+
+            // add parenthesis to right
+            while (leftCount > rightCount)
+            {
+                input = $"{input})";
+                rightCount++;
+            }
+
+            return input;
         }
     }
 }
