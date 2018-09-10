@@ -111,6 +111,11 @@
         <CooldownTooltip value="" />
       </Override>
     </Ability>
+    <Ability id="DryadWispRedirect">
+      <Override>
+        <ParentLink value="DryadWisp" />
+      </Override>
+    </Ability>
     <Portrait>
       <Override>
         <LoadingScreenPortraitFileName value="storm_ui_ingame_hero_loadingscreen_dryad.dds" />
