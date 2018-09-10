@@ -228,6 +228,11 @@
         <AbilityTier value="Activable" />
       </Override>
     </Ability>
+    <Ability id="LostVikingsLongboatRaidMortar" valid="true">
+      <Override>
+        <ParentLink value="LostVikingsLongboatRaidNewer" />
+      </Override>
+    </Ability>
     <HeroUnit id="HeroBaleog">
       <ParentLink value="LostVikings" />
     </HeroUnit>
