@@ -122,6 +122,8 @@
     <Radius value="1.235" />
     <InnerRadius value="0.576" />
     <LifeRegenRate value="3.2456" />
+    <Speed value="2.124" />
+    <Sight value="6.5" />
     <CardLayouts index="0">
       <LayoutButtons index="4" Face="TestHeroDismantle" Type="AbilCmd" AbilCmd="TestHeroDismantleCancel,Execute" Slot="Cancel" />
       <LayoutButtons Face="TestHeroBigBoom" Type="AbilCmd" AbilCmd="TestHeroBigBoom,Execute" Slot="Heroic" />

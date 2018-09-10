@@ -1,10 +1,20 @@
-﻿using Heroes.Models.AbilityTalents;
+﻿using Heroes.Models;
+using Heroes.Models.AbilityTalents;
 using Xunit;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
     public class TestHeroDataTests : HeroParserBaseTest
     {
+        [Fact]
+        public void HeroBasicPropertiesTests()
+        {
+            Assert.Equal(2.124, HeroTestHero.Speed);
+            Assert.Equal(6.5, HeroTestHero.Sight);
+            Assert.Equal("Support", HeroTestHero.Roles[0]);
+            Assert.Equal(HeroFranchise.Warcraft, HeroTestHero.Franchise);
+        }
+
         [Fact]
         public void HeroEnergyTypeTest()
         {
