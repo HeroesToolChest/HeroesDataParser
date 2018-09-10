@@ -359,6 +359,14 @@ namespace HeroesData.Parser.UnitData
                     else
                         hero.Gender = HeroGender.Neutral;
                 }
+                else if (elementName == "SPEED")
+                {
+                    hero.Speed = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "SIGHT")
+                {
+                    hero.Sight = double.Parse(element.Attribute("value").Value);
+                }
             }
 
             // set weapons
