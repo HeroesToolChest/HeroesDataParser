@@ -1,4 +1,4 @@
-﻿## Verication messages to ignore
+﻿## Verification messages to ignore
 
 # unit has no health or energy
 [Abathur] [Symbiote] Energy > 0 and EnergyType is NONE
@@ -24,3 +24,4 @@
 [The Lost Vikings] Life is 0
 [The Lost Vikings] LifeRegenerationRateScaling is 0
 [The Lost Vikings] LifeScaling is 0
+[The Lost Vikings] Sight is 0
