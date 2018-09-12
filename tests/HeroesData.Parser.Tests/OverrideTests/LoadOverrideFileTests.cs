@@ -112,14 +112,5 @@ namespace HeroesData.Parser.Tests.OverrideTests
             OverrideData overrideData = OverrideData.Load(GameData);
             Assert.Equal("HeroOverrides.xml", overrideData.HeroDataOverrideXmlFile);
         }
-
-        [Fact]
-        public void LoadOverrideOnlyGameDataAndHotsBuildNoExistsTest()
-        {
-            OverrideData overrideData = OverrideData.Load(GameData, 23433);
-
-            // finds HeroOverrides_66182.xml since HeroOverrides_23433.xml doesn't exist and 66182 is the lowest
-            Assert.Equal("HeroOverrides_66182.xml", overrideData.HeroDataOverrideXmlFile);
-        }
     }
 }
