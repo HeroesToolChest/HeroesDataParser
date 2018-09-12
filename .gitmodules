@@ -6,4 +6,4 @@
 	url = https://github.com/koliva8245/Heroes.Models.git
 [submodule "dds-reader"]
 	path = dds-reader
-	url = https://github.com/koliva8245/dds-reader.git
+	url = https://github.com/andburn/dds-reader.git

@@ -1,22 +1,18 @@
-using Imaging.DDSReader;
-using System.Drawing;
-using System.Drawing.Imaging;
+using DDSReader;
 using System.IO;
 using Xunit;
 
 namespace HeroesData.Tests
 {
-    public class BitmapTests
+    public class ConvertImageTests
     {
         [Fact]
         public void DDSToPNGImageTest()
         {
             string file = "storm_ui_icon_nova_orbitalstrike.dds";
 
-            using (Bitmap image = DDS.LoadImage(file))
-            {
-                image.Save(Path.ChangeExtension(file, ".png"), ImageFormat.Png);
-            }
+            DDSImage image = new DDSImage(file);
+            image.Save(Path.ChangeExtension(file, ".png"));
 
             Assert.True(File.Exists(Path.ChangeExtension(file, ".png")));
         }

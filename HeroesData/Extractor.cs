@@ -1,10 +1,8 @@
 ﻿using CASCLib;
+using DDSReader;
 using Heroes.Models;
-using Imaging.DDSReader;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -46,10 +44,8 @@ namespace HeroesData
                 string cascFilepath = Path.Combine(CASCTexturesPath, fileName);
                 if (CASCHandler.FileExists(cascFilepath))
                 {
-                    using (Bitmap image = DDS.LoadImage(CASCHandler.OpenFile(cascFilepath)))
-                    {
-                        image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(fileName)}.png"), ImageFormat.Png);
-                    }
+                    DDSImage image = new DDSImage(CASCHandler.OpenFile(cascFilepath));
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(fileName)}.png"));
                 }
                 else
                 {

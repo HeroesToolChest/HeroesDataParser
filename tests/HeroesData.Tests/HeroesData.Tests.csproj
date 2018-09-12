@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\dds-reader\DDSReader\DDSReader.csproj" />
+    <ProjectReference Include="..\..\dds-reader\DDSReader\DDSReader\DDSReader.csproj" />
   </ItemGroup>
 
   <ItemGroup>
