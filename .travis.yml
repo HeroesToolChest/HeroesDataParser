@@ -5,8 +5,6 @@ dotnet: 2.1.300
 os:
   - linux
   - osx
-before_install:
-  - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get install -y libgdiplus; else brew install mono-libgdiplus; fi
 script:
   - dotnet build --configuration Debug
   - dotnet build --configuration Release
