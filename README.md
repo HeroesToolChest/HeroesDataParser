@@ -10,19 +10,6 @@ Heroes Data Parser is a cross platform (Windows/MacOS/Linux) command line tool t
 - Linux (x64)
 - macOS 10.12 and later versions
 
-### For Linux and macOS users
-To use the -e|--extract option, `libgdiplus` is required 
-
-Ubuntu (or Linux distro equivalent)
-```
-sudo apt-get install -y libgdiplus
-```
-
-macOS
-```
-brew install mono-libgdiplus
-```
-
 ***
 
 ### Dotnet Global Tool (Recommended)
