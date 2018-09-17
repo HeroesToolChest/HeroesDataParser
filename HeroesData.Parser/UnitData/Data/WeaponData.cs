@@ -47,7 +47,7 @@ namespace HeroesData.Parser.UnitData.Data
                     validWeapon = false;
                 }
 
-                if (validWeapon || weaponsIds.Count == 1 || weaponNameId.Contains("HeroWeapon") || weaponNameId == hero.CUnitId)
+                if (validWeapon || weaponsIds.Count == 1 || weaponNameId.Contains("HeroWeapon") || weaponNameId == hero.CUnitId || weaponNameId == $"{hero.CHeroId}Weapon" || weaponNameId == $"{hero.CHeroId}WeaponMelee")
                 {
                     UnitWeapon weapon = GetWeapon(weaponNameId, weaponsIds);
 
