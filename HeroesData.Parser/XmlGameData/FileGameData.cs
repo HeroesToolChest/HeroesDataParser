@@ -56,7 +56,7 @@ namespace HeroesData.Parser.XmlGameData
             {
                 string heroFolder = Path.GetFileName(heroFolderPath);
 
-                if (!heroFolder.Contains("Data"))
+                if (!heroFolder.ToLower().Contains("data"))
                     continue;
 
                 string xmlHeroPath = Path.Combine(OldHeroesFolderPath, heroFolder, heroFolder + ".xml");
@@ -75,10 +75,10 @@ namespace HeroesData.Parser.XmlGameData
                     continue;
 
                 string heroName = heroFolder.Split('.')[0];
-                string xmlHeroPath = Path.Combine(NewHeroesFolderPath, heroFolder, "base.stormdata", "GameData", $"{heroName}Data.xml");
-                string xmlHeroNamePath = Path.Combine(NewHeroesFolderPath, heroFolder, "base.stormdata", "GameData", $"{heroName}.xml");
+                string xmlHeroPath = Path.Combine(NewHeroesFolderPath, heroFolder, "base.stormdata", GameDataStringName, $"{heroName}{DataStringName}.xml");
+                string xmlHeroNamePath = Path.Combine(NewHeroesFolderPath, heroFolder, "base.stormdata", GameDataStringName, $"{heroName}.xml");
 
-                string xmlHeroDataPath = Path.Combine(NewHeroesFolderPath, heroFolder, "base.stormdata", "GameData", "HeroData.xml");
+                string xmlHeroDataPath = Path.Combine(NewHeroesFolderPath, heroFolder, "base.stormdata", GameDataStringName, $"{HeroDataStringName}.xml");
 
                 if (!RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 {
@@ -96,10 +96,10 @@ namespace HeroesData.Parser.XmlGameData
                 else // linux file names are case sensitive
                 {
                     bool found = false;
-                    string xmlDirectoryPath = Path.Combine(NewHeroesFolderPath, heroFolder, "base.stormdata", "GameData");
+                    string xmlDirectoryPath = Path.Combine(NewHeroesFolderPath, heroFolder, "base.stormdata", GameDataStringName);
                     foreach (string filePath in Directory.EnumerateFiles(xmlDirectoryPath))
                     {
-                        if (Path.GetFileName(filePath).ToLower() == $"{heroName}Data.xml".ToLower())
+                        if (Path.GetFileName(filePath).ToLower() == $"{heroName}{DataStringName}.xml".ToLower())
                         {
                             XmlGameData.Root.Add(XDocument.Load(filePath).Root.Elements());
                             found = true;

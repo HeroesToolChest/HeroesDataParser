@@ -38,6 +38,11 @@ namespace HeroesData.Parser.XmlGameData
         protected string OldHeroesFolderPath { get; set; }
         protected string NewHeroesFolderPath { get; set; }
 
+        protected string GameDataStringName { get; set; }
+        protected string DataStringName { get; set; }
+        protected string HeroDataStringName { get; set; }
+        protected string HeroesStringName { get; set; }
+
         /// <summary>
         /// Loads all the required game files.
         /// </summary>
@@ -97,9 +102,22 @@ namespace HeroesData.Parser.XmlGameData
 
         protected void Initialize()
         {
-            CoreStormModFolderPath = Path.Combine(ModsFolderPath, "core.stormmod", "base.stormdata", "GameData");
-            HeroesdataStormModFolderPath = Path.Combine(ModsFolderPath, "heroesdata.stormmod", "base.stormdata", "GameData");
-            OldHeroesFolderPath = Path.Combine(HeroesdataStormModFolderPath, "Heroes");
+            GameDataStringName = "gamedata";
+            DataStringName = "data";
+            HeroDataStringName = "herodata";
+            HeroesStringName = "heroes";
+
+            if (HotsBuild.HasValue && HotsBuild.Value <= 67985)
+            {
+                GameDataStringName = "GameData";
+                DataStringName = "Data";
+                HeroDataStringName = "HeroData";
+                HeroesStringName = "Heroes";
+            }
+
+            CoreStormModFolderPath = Path.Combine(ModsFolderPath, "core.stormmod", "base.stormdata", GameDataStringName);
+            HeroesdataStormModFolderPath = Path.Combine(ModsFolderPath, "heroesdata.stormmod", "base.stormdata", GameDataStringName);
+            OldHeroesFolderPath = Path.Combine(HeroesdataStormModFolderPath, HeroesStringName);
             NewHeroesFolderPath = Path.Combine(ModsFolderPath, "heromods");
 
             LoadFiles();

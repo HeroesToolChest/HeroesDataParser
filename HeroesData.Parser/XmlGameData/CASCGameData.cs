@@ -78,7 +78,7 @@ namespace HeroesData.Parser.XmlGameData
             // loop through each hero folder
             foreach (KeyValuePair<string, ICASCEntry> heroFolder in currentFolder.Entries)
             {
-                if (!heroFolder.Key.Contains("Data"))
+                if (!heroFolder.Key.ToLower().Contains("data"))
                     continue;
 
                 string pathFileName = ((CASCFile)((CASCFolder)heroFolder.Value).GetEntry($"{heroFolder.Key}.xml")).FullName;
@@ -103,12 +103,12 @@ namespace HeroesData.Parser.XmlGameData
 
                     string heroName = heroFolder.Key.Split('.')[0];
 
-                    ICASCEntry baseStormData = ((CASCFolder)heroFolder.Value).GetEntry("base.stormData");
-                    ICASCEntry gameData = ((CASCFolder)baseStormData).GetEntry("GameData");
+                    ICASCEntry baseStormData = ((CASCFolder)heroFolder.Value).GetEntry("base.stormdata");
+                    ICASCEntry gameData = ((CASCFolder)baseStormData).GetEntry(GameDataStringName);
 
-                    ICASCEntry xmlHero = ((CASCFolder)gameData).GetEntry($"{heroName}Data.xml");
+                    ICASCEntry xmlHero = ((CASCFolder)gameData).GetEntry($"{heroName}{DataStringName}.xml");
                     ICASCEntry xmlHeroName = ((CASCFolder)gameData).GetEntry($"{heroName}.xml");
-                    ICASCEntry xmlHeroData = ((CASCFolder)gameData).GetEntry($"HeroData.xml");
+                    ICASCEntry xmlHeroData = ((CASCFolder)gameData).GetEntry($"{HeroDataStringName}.xml");
 
                     if (xmlHero != null && !string.IsNullOrEmpty(xmlHero.Name))
                     {
