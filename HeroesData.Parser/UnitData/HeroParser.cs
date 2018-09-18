@@ -81,11 +81,11 @@ namespace HeroesData.Parser.UnitData
 
         private void SetDefaultValues(Hero hero)
         {
-            XElement stormHeroData = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value == "StormHero").FirstOrDefault();
+            XElement stormHeroData = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == "StormHero");
             if (stormHeroData != null)
             {
                 string parentDataValue = stormHeroData.Attribute("parent").Value;
-                XElement stormBasicHeroicUnitData = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value == parentDataValue).FirstOrDefault();
+                XElement stormBasicHeroicUnitData = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == parentDataValue);
 
                 if (stormBasicHeroicUnitData != null)
                 {
@@ -147,7 +147,7 @@ namespace HeroesData.Parser.UnitData
 
         private void CHeroData(Hero hero)
         {
-            XElement heroData = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id")?.Value == hero.CHeroId).FirstOrDefault();
+            XElement heroData = GameData.XmlGameData.Root.Elements("CHero").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CHeroId);
             IEnumerable<XElement> layoutButtons = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value != "TargetHeroDummy").Elements("CardLayouts").Elements("LayoutButtons");
 
             if (heroData == null)
@@ -310,7 +310,7 @@ namespace HeroesData.Parser.UnitData
 
         private void CUnitData(Hero hero)
         {
-            XElement heroData = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value == hero.CUnitId).FirstOrDefault();
+            XElement heroData = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CUnitId);
 
             if (heroData == null)
                 return;
@@ -382,7 +382,7 @@ namespace HeroesData.Parser.UnitData
 
         private void CActorData(Hero hero)
         {
-            XElement heroData = GameData.XmlGameData.Root.Elements("CActorUnit").Where(x => x.Attribute("id")?.Value == hero.CUnitId).FirstOrDefault();
+            XElement heroData = GameData.XmlGameData.Root.Elements("CActorUnit").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CUnitId);
 
             if (heroData == null)
                 return;
@@ -415,7 +415,7 @@ namespace HeroesData.Parser.UnitData
         {
             foreach (string unit in HeroOverride.HeroUnits)
             {
-                XElement cUnit = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value == unit).FirstOrDefault();
+                XElement cUnit = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == unit);
 
                 string name = string.Empty;
                 if (!GameStringData.UnitNamesByShortName.TryGetValue($"{GameStringPrefixes.UnitPrefix}{unit}", out name))

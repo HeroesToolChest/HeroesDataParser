@@ -47,7 +47,7 @@ namespace HeroesData.Parser.UnitData.Data
             else
                 talent.Tier = TalentTier.Old;
 
-            XElement cTalentElement = GameData.XmlGameData.Root.Elements("CTalent").Where(x => x.Attribute("id")?.Value == referenceName).FirstOrDefault();
+            XElement cTalentElement = GameData.XmlGameData.Root.Elements("CTalent").FirstOrDefault(x => x.Attribute("id")?.Value == referenceName);
 
             // desc name
             XElement talentFaceElement = cTalentElement.Element("Face");
@@ -55,7 +55,7 @@ namespace HeroesData.Parser.UnitData.Data
             {
                 talent.FullTooltipNameId = talentFaceElement.Attribute("value").Value;
 
-                XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == talent.FullTooltipNameId).FirstOrDefault();
+                XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == talent.FullTooltipNameId);
                 if (cButtonElement != null)
                 {
                     SetAbilityTalentName(cButtonElement, talent);

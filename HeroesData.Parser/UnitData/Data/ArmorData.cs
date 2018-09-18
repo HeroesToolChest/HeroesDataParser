@@ -25,9 +25,9 @@ namespace HeroesData.Parser.UnitData.Data
             if (string.IsNullOrEmpty(armorLinkValue))
                 return;
 
-            XElement armorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLinkValue).FirstOrDefault();
-            XElement physicalArmorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLinkValue).FirstOrDefault();
-            XElement spellArmorElement = GameData.XmlGameData.Root.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLinkValue).FirstOrDefault();
+            XElement armorElement = GameData.XmlGameData.Root.Elements("CArmor").FirstOrDefault(x => x.Attribute("id")?.Value == armorLinkValue);
+            XElement physicalArmorElement = GameData.XmlGameData.Root.Elements("CArmor").FirstOrDefault(x => x.Attribute("id")?.Value == armorLinkValue);
+            XElement spellArmorElement = GameData.XmlGameData.Root.Elements("CArmor").FirstOrDefault(x => x.Attribute("id")?.Value == armorLinkValue);
 
             if (armorElement != null)
             {
@@ -49,8 +49,8 @@ namespace HeroesData.Parser.UnitData.Data
         {
             unit.Armor = unit.Armor ?? new UnitArmor();
 
-            XElement basicElement = armorElement.Element("ArmorSet").Elements("ArmorMitigationTable").Where(x => x.Attribute("index")?.Value == "Basic").FirstOrDefault();
-            XElement abilityElement = armorElement.Element("ArmorSet").Elements("ArmorMitigationTable").Where(x => x.Attribute("index")?.Value == "Ability").FirstOrDefault();
+            XElement basicElement = armorElement.Element("ArmorSet").Elements("ArmorMitigationTable").FirstOrDefault(x => x.Attribute("index")?.Value == "Basic");
+            XElement abilityElement = armorElement.Element("ArmorSet").Elements("ArmorMitigationTable").FirstOrDefault(x => x.Attribute("index")?.Value == "Ability");
 
             if (basicElement != null && int.TryParse(basicElement.Attribute("value").Value, out int armorValue))
             {

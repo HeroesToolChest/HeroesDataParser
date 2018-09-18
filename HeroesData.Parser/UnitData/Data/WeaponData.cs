@@ -63,7 +63,7 @@ namespace HeroesData.Parser.UnitData.Data
 
             if (!string.IsNullOrEmpty(weaponNameId))
             {
-                XElement weaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == weaponNameId).FirstOrDefault();
+                XElement weaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").FirstOrDefault(x => x.Attribute("id")?.Value == weaponNameId);
 
                 if (weaponLegacy != null)
                 {
@@ -92,7 +92,7 @@ namespace HeroesData.Parser.UnitData.Data
             }
             else if (!string.IsNullOrEmpty(parentWeaponId))
             {
-                XElement parentWeaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == parentWeaponId).FirstOrDefault();
+                XElement parentWeaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").FirstOrDefault(x => x.Attribute("id")?.Value == parentWeaponId);
                 if (parentWeaponLegacy != null)
                     WeaponAddRange(parentWeaponLegacy, weapon, parentWeaponId);
             }
@@ -109,7 +109,7 @@ namespace HeroesData.Parser.UnitData.Data
             }
             else if (!string.IsNullOrEmpty(parentWeaponId))
             {
-                XElement parentWeaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == parentWeaponId).FirstOrDefault();
+                XElement parentWeaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").FirstOrDefault(x => x.Attribute("id")?.Value == parentWeaponId);
                 if (parentWeaponLegacy != null)
                     WeaponAddPeriod(parentWeaponLegacy, weapon, parentWeaponId);
             }
@@ -127,7 +127,7 @@ namespace HeroesData.Parser.UnitData.Data
             if (displayEffectElement != null)
             {
                 string displayEffectValue = displayEffectElement.Attribute("value").Value;
-                XElement effectDamageElement = GameData.XmlGameData.Root.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == displayEffectValue).FirstOrDefault();
+                XElement effectDamageElement = GameData.XmlGameData.Root.Elements("CEffectDamage").FirstOrDefault(x => x.Attribute("id")?.Value == displayEffectValue);
                 if (effectDamageElement != null)
                 {
                     XElement amountElement = effectDamageElement.Element("Amount");
@@ -143,7 +143,7 @@ namespace HeroesData.Parser.UnitData.Data
             }
             else if (!string.IsNullOrEmpty(parentWeaponId))
             {
-                XElement parentWeaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == parentWeaponId).FirstOrDefault();
+                XElement parentWeaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").FirstOrDefault(x => x.Attribute("id")?.Value == parentWeaponId);
                 if (parentWeaponLegacy != null)
                     WeaponAddDamage(parentWeaponLegacy, weapon, parentWeaponId);
             }

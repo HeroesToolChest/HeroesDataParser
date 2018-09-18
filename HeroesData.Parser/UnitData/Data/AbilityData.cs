@@ -25,8 +25,8 @@ namespace HeroesData.Parser.UnitData.Data
             string tooltipName = abilityElement.Attribute("Button")?.Value;
             string parentLink = abilityElement.Attribute("Unit")?.Value;
 
-            XElement usableAbility = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "ShowInHeroSelect" && x.Attribute("value").Value == "1").FirstOrDefault();
-            XElement mountAbility = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "MountReplacement" && x.Attribute("value").Value == "1").FirstOrDefault();
+            XElement usableAbility = abilityElement.Elements("Flags").FirstOrDefault(x => x.Attribute("index").Value == "ShowInHeroSelect" && x.Attribute("value").Value == "1");
+            XElement mountAbility = abilityElement.Elements("Flags").FirstOrDefault(x => x.Attribute("index").Value == "MountReplacement" && x.Attribute("value").Value == "1");
 
             Ability ability = new Ability();
 
@@ -68,9 +68,9 @@ namespace HeroesData.Parser.UnitData.Data
                 ability.ButtonName = tooltipName;
             }
 
-            XElement heroicElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "Heroic" && x.Attribute("value").Value == "1").FirstOrDefault();
-            XElement traitElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "Trait" && x.Attribute("value").Value == "1").FirstOrDefault();
-            XElement mountElement = abilityElement.Elements("Flags").Where(x => x.Attribute("index").Value == "MountReplacement" && x.Attribute("value").Value == "1").FirstOrDefault();
+            XElement heroicElement = abilityElement.Elements("Flags").FirstOrDefault(x => x.Attribute("index").Value == "Heroic" && x.Attribute("value").Value == "1");
+            XElement traitElement = abilityElement.Elements("Flags").FirstOrDefault(x => x.Attribute("index").Value == "Trait" && x.Attribute("value").Value == "1");
+            XElement mountElement = abilityElement.Elements("Flags").FirstOrDefault(x => x.Attribute("index").Value == "MountReplacement" && x.Attribute("value").Value == "1");
             XElement activableElement = GameData.XmlGameData.Root.Elements("CItemAbil").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ReferenceNameId);
 
             if (heroicElement != null)
@@ -85,7 +85,7 @@ namespace HeroesData.Parser.UnitData.Data
                 ability.Tier = AbilityTier.Basic;
 
             // set button related data
-            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId).FirstOrDefault();
+            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId);
 
             if (cButtonElement != null)
             {
@@ -124,7 +124,7 @@ namespace HeroesData.Parser.UnitData.Data
             Ability ability = new Ability();
             hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
 
-            XElement abilityElement = GameData.XmlGameData.Root.Elements(elementName).Where(x => x.Attribute("id")?.Value == idValue).FirstOrDefault();
+            XElement abilityElement = GameData.XmlGameData.Root.Elements(elementName).FirstOrDefault(x => x.Attribute("id")?.Value == idValue);
 
             if (abilityElement == null)
                 throw new ParseException($"{nameof(SetLinkedAbility)}: Additional link ability element not found - <{elementName} id=\"{idValue}\">");
@@ -139,7 +139,7 @@ namespace HeroesData.Parser.UnitData.Data
             if (ParsedGameStrings.TryGetAbilityTalentParsedNames(linkName, out string abilityName))
                 ability.Name = abilityName;
 
-            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId).FirstOrDefault();
+            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId);
 
             if (cButtonElement != null)
             {
@@ -172,7 +172,7 @@ namespace HeroesData.Parser.UnitData.Data
             }
 
             // as attributes
-            XElement layoutButton = layoutButtons.Where(x => x.Attribute("Face")?.Value == ability.ButtonName && x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth").FirstOrDefault();
+            XElement layoutButton = layoutButtons.FirstOrDefault(x => x.Attribute("Face")?.Value == ability.ButtonName && x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
             if (layoutButton != null)
             {
                 string slot = layoutButton.Attribute("Slot").Value;
@@ -196,7 +196,7 @@ namespace HeroesData.Parser.UnitData.Data
             if (layoutButton == null)
             {
                 layoutButton = layoutButtons.Where(x => x.HasElements)
-                     .Where(x => x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName && x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth").FirstOrDefault();
+                     .FirstOrDefault(x => x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName && x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
             }
 
             if (layoutButton != null)
