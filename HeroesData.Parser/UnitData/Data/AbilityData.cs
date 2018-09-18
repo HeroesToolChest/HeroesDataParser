@@ -100,6 +100,9 @@ namespace HeroesData.Parser.UnitData.Data
             // add ability
             if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
             {
+                if (hero.Abilities.Count >= 3 && ability.AbilityType == AbilityType.Active)
+                    ability.Tier = AbilityTier.Activable;
+
                 hero.Abilities.Add(ability.ReferenceNameId, ability);
             }
             else if (HeroOverride.AddedAbilitiesByAbilityId.TryGetValue(ability.ReferenceNameId, out var addedAbility))

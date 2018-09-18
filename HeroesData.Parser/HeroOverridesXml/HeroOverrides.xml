@@ -246,13 +246,6 @@
     <Weapon id="HeroBaleogBow" valid="true" />
     <Weapon id="HeroErikSlingshot" valid="true" />
   </CHero>
-  <CHero id="Necromancer" name="Xul">
-    <Ability id="NecromancerBoneArmor">
-      <Override>
-        <AbilityTier value="Activable" />
-      </Override>
-    </Ability>
-  </CHero>
   <CHero id="Ragnaros">
     <!--Molten Core abilities-->
     <LinkedAbilities>
@@ -349,13 +342,6 @@
     <Ability id="WitchDoctorGargantuanStomp" valid="true">
       <Override>
         <ParentLink value="WitchDoctorGargantuan" />
-      </Override>
-    </Ability>
-  </CHero>
-  <CHero id="Zeratul">
-    <Ability id="VorpalBladeBlink">
-      <Override>
-        <AbilityTier value="Activable" />
       </Override>
     </Ability>
   </CHero>
