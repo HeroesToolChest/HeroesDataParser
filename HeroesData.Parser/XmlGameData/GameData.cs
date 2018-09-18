@@ -107,7 +107,9 @@ namespace HeroesData.Parser.XmlGameData
             HeroDataStringName = "herodata";
             HeroesStringName = "heroes";
 
-            if (HotsBuild.HasValue && HotsBuild.Value <= 67985)
+            CoreStormModFolderPath = Path.Combine(ModsFolderPath, "core.stormmod", "base.stormdata", GameDataStringName);
+
+            if ((HotsBuild.HasValue && HotsBuild.Value <= 67985) || !Directory.Exists(CoreStormModFolderPath))
             {
                 GameDataStringName = "GameData";
                 DataStringName = "Data";
