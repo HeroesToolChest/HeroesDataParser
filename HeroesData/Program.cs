@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,6 +21,8 @@ namespace HeroesData
 {
     internal class Program
     {
+        private readonly string AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
         private GameData GameData;
         private GameStringData GameStringData;
         private OverrideData OverrideData;
@@ -662,7 +665,7 @@ namespace HeroesData
                 List<string> nonTooltips = new List<string>(warnings.Where(x => !x.ToLower().Contains("tooltip")));
                 List<string> tooltips = new List<string>(warnings.Where(x => x.ToLower().Contains("tooltip")));
 
-                using (StreamWriter writer = new StreamWriter($"VerificationCheck_{localization.ToString().ToLower()}.txt", false))
+                using (StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"VerificationCheck_{localization.ToString().ToLower()}.txt"), false))
                 {
                     if (nonTooltips.Count > 0)
                     {
@@ -824,7 +827,7 @@ namespace HeroesData
 
         private void WriteExceptionLog(string fileName, Exception ex)
         {
-            using (StreamWriter writer = new StreamWriter($"Exception_{fileName}_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.txt", false))
+            using (StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"Exception_{fileName}_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.txt"), false))
             {
                 if (!string.IsNullOrEmpty(ex.Message))
                     writer.Write(ex.Message);
