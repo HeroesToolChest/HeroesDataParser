@@ -264,7 +264,7 @@ namespace HeroesData.FileWriter.Writer
                 tooltipCharges.CountUse.HasValue == true ? new XAttribute("consume", tooltipCharges.CountUse.Value) : null,
                 tooltipCharges.CountStart.HasValue == true ? new XAttribute("initial", tooltipCharges.CountStart.Value) : null,
                 tooltipCharges.IsHideCount.HasValue == true ? new XAttribute("isHidden", tooltipCharges.IsHideCount.Value) : null,
-                tooltipCharges.RecastCoodown.HasValue == true ? new XAttribute("recastCooldown", tooltipCharges.RecastCoodown.Value) : null);
+                tooltipCharges.RecastCooldown.HasValue == true ? new XAttribute("recastCooldown", tooltipCharges.RecastCooldown.Value) : null);
         }
 
         protected override XElement GetWeaponsObject(Unit unit)

@@ -159,7 +159,7 @@ namespace HeroesData.Parser.UnitData.Data
                         {
                             if (abilityTalentBase.Tooltip.Charges.HasCharges)
                             {
-                                abilityTalentBase.Tooltip.Charges.RecastCoodown = double.Parse(cooldownValue);
+                                abilityTalentBase.Tooltip.Charges.RecastCooldown = double.Parse(cooldownValue);
                             }
                             else
                             {

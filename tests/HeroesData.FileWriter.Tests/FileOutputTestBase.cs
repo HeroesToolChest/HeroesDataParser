@@ -549,7 +549,7 @@ namespace HeroesData.FileWriter.Tests
                                             CountStart = 3,
                                             CountUse = 1,
                                             IsHideCount = false,
-                                            RecastCoodown = 2,
+                                            RecastCooldown = 2,
                                         },
                                     },
                                     AbilityType = AbilityType.Q,
