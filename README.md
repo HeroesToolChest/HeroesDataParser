@@ -6,7 +6,7 @@ Heroes Data Parser is a cross platform (Windows/MacOS/Linux) command line tool t
 
 ## Installation
 ### Supported Operating Systems
-- Windows 7 SP1 (x86 and x64) or higher 
+- Windows 7 SP1 (x86 and x64) and later
 - Linux (x64)
 - macOS 10.12 and later versions
 
@@ -62,7 +62,7 @@ Options:
   -v|--version                     Show version information
   -s|--storagePath <filePath>      The 'Heroes of the Storm' directory or an already extracted 'mods' directory
   -t|--threads <amount>            Limits the maximum amount of threads to use
-  -e|--extract <value>             Extracts images, available values: all|portraits|talents - Available only in -s|--storagePath mode using Hots directory
+  -e|--extract <value>             Extracts images, available only in -s|--storagePath mode using Hots directory
   -d|--description <value>         Set the description output type (0 - 6) - Default 0
   -b|--build <number>              Set the override build file
   -o|--outputDirectory <filePath>  Set the output directory
@@ -192,16 +192,22 @@ Fires a laser that deals <c val=\"#TooltipNumbers\">200 (+4% per level)</c> dama
 ***
 
 ### Extract (-e|--extract)
-Extracts images that have been referenced for a hero or ability/talent in the xml and json file(s).
+Extracts portraits and abilityTalent icons that have been referenced for a hero in the xml and json file(s). Multiple are allowed.
 
-Parameters (one or more)  
-`all` - all hero portraits and ability/talent icons are extracted  
-`portraits` - only hero portraits are extracted  
-`talents` - only ability/talent icons are extracted  
+`portraits` - extracts hero portraits (HeroSelect, Leaderboard, Loading, PartyPanel, and Target portraits)  
+`abilities` - extracts ability icons  
+`talents` - extracts talent icons  
+`abilityTalents` - extracts both ability and talent icons into the same directory  
+`all` - performs `portraits` and `abilityTalents`
 
 Notes:
 - This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storagePath` option
 - Images are always extracted in `.png` format
+
+Example selecting multiple extractions
+```
+-e abilities -e talents
+```
 
 ***
 
