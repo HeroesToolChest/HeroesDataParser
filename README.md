@@ -317,5 +317,10 @@ When using a `Heroes of the Storm` directory, it will load the equivalent hero o
 ### Advanced File Configuration
 For more advanced file configurations, edit the file `WriterConfig.xml`.  Options in the console override the options in the config file.
 
+## Developing
+To build and compile the code, it is recommended to use the latest version of Visual Studio 2017.
+
+Another option is to download and install the [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/windows) or newer. 
+
 ## License
 [MIT license](/LICENSE)
