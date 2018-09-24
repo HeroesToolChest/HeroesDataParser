@@ -39,8 +39,10 @@ namespace HeroesData
         private bool ShowInvalidShortTooltips = false;
         private bool ShowInvalidHeroTooltips = false;
         private bool ShowHeroWarnings = false;
-        private bool ExtractPortraits = false;
-        private bool ExtractTalents = false;
+        private bool ExtractImagePortraits = false;
+        private bool ExtractImageTalents = false;
+        private bool ExtractImageAbilities = false;
+        private bool ExtractImageAbilityTalents = false;
         private bool IsFileSplit = false;
         private bool IsLocalizedText = false;
         private int? HotsBuild = null;
@@ -61,7 +63,7 @@ namespace HeroesData
 
             CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory", CommandOptionType.SingleValue);
             CommandOption setMaxDegreeParallismOption = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
-            CommandOption extractIconsOption = app.Option("-e|--extract <value>", $"Extracts images, available values: all|portraits|talents - Available only in -s|--storagePath mode using Hots directory", CommandOptionType.MultipleValue);
+            CommandOption extractIconsOption = app.Option("-e|--extract <value>", $"Extracts images, available only in -s|--storagePath mode using Hots directory", CommandOptionType.MultipleValue);
             CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Set the description output type (0 - 6) - Default 0", CommandOptionType.SingleValue);
             CommandOption setBuildOption = app.Option("-b|--build <number>", "Set the override build file", CommandOptionType.SingleValue);
             CommandOption setOutputDirectoryOption = app.Option("-o|--outputDirectory <filePath>", "Set the output directory", CommandOptionType.SingleValue);
@@ -103,14 +105,18 @@ namespace HeroesData
                 {
                     if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ALL"))
                     {
-                        program.ExtractPortraits = true;
-                        program.ExtractTalents = true;
+                        program.ExtractImagePortraits = true;
+                        program.ExtractImageAbilityTalents = true;
                     }
 
-                    if (extractIconsOption.Values.Contains("portraits"))
-                        program.ExtractPortraits = true;
-                    if (extractIconsOption.Values.Contains("talents"))
-                        program.ExtractTalents = true;
+                    if (extractIconsOption.Values.Exists(x => x.ToUpper() == "PORTRAITS"))
+                        program.ExtractImagePortraits = true;
+                    if (extractIconsOption.Values.Exists(x => x.ToUpper() == "TALENTS"))
+                        program.ExtractImageTalents = true;
+                    if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITIES"))
+                        program.ExtractImageAbilities = true;
+                    if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITYTALENTS"))
+                        program.ExtractImageAbilityTalents = true;
                 }
 
                 if (setGameStringLocalizations.HasValue())
@@ -809,7 +815,7 @@ namespace HeroesData
         /// <param name="heroes"></param>
         private void ExtractFiles(List<Hero> heroes, string outputDirectory)
         {
-            if ((!ExtractPortraits && !ExtractTalents) || StorageMode != StorageMode.CASC || heroes == null || string.IsNullOrEmpty(outputDirectory))
+            if ((!ExtractImagePortraits && !ExtractImageAbilityTalents && !ExtractImageTalents && !ExtractImageAbilities) || StorageMode != StorageMode.CASC || heroes == null || string.IsNullOrEmpty(outputDirectory))
                 return;
 
             Extractor extractor = new Extractor(heroes, CASCHotsStorage.CASCHandler)
@@ -817,10 +823,19 @@ namespace HeroesData
                 OutputDirectory = outputDirectory,
             };
 
-            if (ExtractPortraits)
+            if (ExtractImagePortraits)
                 extractor.ExtractPortraits();
-            if (ExtractTalents)
-                extractor.ExtractTalentIcons();
+            if (ExtractImageAbilityTalents)
+            {
+                extractor.ExtractAbilityTalentIcons();
+            }
+            else
+            {
+                if (ExtractImageTalents)
+                    extractor.ExtractTalentIcons();
+                if (ExtractImageAbilities)
+                    extractor.ExtractAbilityIcons();
+            }
 
             Console.WriteLine();
         }

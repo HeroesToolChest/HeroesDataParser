@@ -17,6 +17,8 @@ namespace HeroesData
         private readonly CASCHandler CASCHandler;
         private SortedSet<string> Portraits = new SortedSet<string>();
         private SortedSet<string> Talents = new SortedSet<string>();
+        private SortedSet<string> Abilities = new SortedSet<string>();
+        private SortedSet<string> AbilityTalents = new SortedSet<string>();
 
         public Extractor(List<Hero> heroes, CASCHandler cascHandler)
         {
@@ -77,7 +79,24 @@ namespace HeroesData
         }
 
         /// <summary>
-        /// Extracts all talent and ability icons.
+        /// Extract ability icons.
+        /// </summary>
+        public void ExtractAbilityIcons()
+        {
+            Console.Write("Extracting ability icon files...");
+
+            string extractFilePath = Path.Combine(OutputDirectory, "abilities");
+
+            foreach (string ability in Abilities)
+            {
+                ExtractFile(extractFilePath, ability);
+            }
+
+            Console.WriteLine("Done.");
+        }
+
+        /// <summary>
+        /// Extract talent icons.
         /// </summary>
         public void ExtractTalentIcons()
         {
@@ -88,6 +107,23 @@ namespace HeroesData
             foreach (string talent in Talents)
             {
                 ExtractFile(extractFilePath, talent);
+            }
+
+            Console.WriteLine("Done.");
+        }
+
+        /// <summary>
+        /// Extract abilities and talent icons into the same output directory.
+        /// </summary>
+        public void ExtractAbilityTalentIcons()
+        {
+            Console.Write("Extracting abilityTalent icon files...");
+
+            string extractFilePath = Path.Combine(OutputDirectory, "abilityTalents");
+
+            foreach (string abilityTalent in AbilityTalents)
+            {
+                ExtractFile(extractFilePath, abilityTalent);
             }
 
             Console.WriteLine("Done.");
@@ -111,13 +147,19 @@ namespace HeroesData
                 foreach (string abilityIconFileName in hero.Abilities.Select(x => x.Value.IconFileName))
                 {
                     if (!string.IsNullOrEmpty(abilityIconFileName))
-                        Talents.Add(abilityIconFileName.ToLower());
+                    {
+                        Abilities.Add(abilityIconFileName.ToLower());
+                        AbilityTalents.Add(abilityIconFileName.ToLower());
+                    }
                 }
 
                 foreach (string talentIconFileName in hero.Talents.Select(x => x.Value.IconFileName))
                 {
                     if (!string.IsNullOrEmpty(talentIconFileName))
+                    {
                         Talents.Add(talentIconFileName.ToLower());
+                        AbilityTalents.Add(talentIconFileName.ToLower());
+                    }
                 }
             }
         }
