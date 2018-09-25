@@ -4,6 +4,8 @@
 
 Heroes Data Parser is a cross platform (Windows/MacOS/Linux) command line tool that extracts Heroes of the Storm game data into XML or JSON files. Extracts hero information along with all abilities, talents, and their respective portraits and icons.
 
+Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some more information and examples.
+
 ## Installation
 ### Supported Operating Systems
 - Windows 7 SP1 (x86 and x64) and later
@@ -315,8 +317,10 @@ When using a `Heroes of the Storm` directory, it will load the equivalent hero o
 ### Advanced File Configuration
 For more advanced file configurations, edit the file `WriterConfig.xml`.  Options in the console override the options in the config file.
 
-## Wiki
-Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some more information and examples.
+## Developing
+To build and compile the code, it is recommended to use the latest version of Visual Studio 2017.
+
+Another option is to download and install the [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/windows) or newer. 
 
 ## License
 [MIT license](/LICENSE)
