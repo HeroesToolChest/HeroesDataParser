@@ -2,7 +2,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/g3linacec0a4kqkn/branch/master?svg=true)](https://ci.appveyor.com/project/koliva8245/heroesdataparser/branch/master)  [![Build Status](https://travis-ci.org/koliva8245/HeroesDataParser.svg?branch=master)](https://travis-ci.org/koliva8245/HeroesDataParser) [![Release](https://img.shields.io/github/release/koliva8245/HeroesDataParser.svg)](https://github.com/koliva8245/HeroesDataParser/releases/latest)
 
 
-Heroes Data Parser is a cross platform (Windows/MacOS/Linux) command line tool that extracts Heroes of the Storm game data into XML or JSON files. Extracts hero information along with all abilities, talents, and their respective portraits and icons.
+Heroes Data Parser is a .NET Core command line tool that extracts Heroes of the Storm game data into XML or JSON files. Extracts hero information along with all abilities, talents, and their respective portraits and icons.
 
 Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some more information and examples.
 
@@ -277,17 +277,17 @@ directory to load: mods_13500
 
 HeroOverrides files:
 HeroOverrides.xml
-HeroOverrdies_12000.xml
-HeroOverrdies_13000.xml <--- will be loaded
-HeroOverrdies_14000.xml
+HeroOverrides_12000.xml
+HeroOverrides_13000.xml <--- will be loaded
+HeroOverrides_14000.xml
 
 directory to load: mods_14100
 
 HeroOverrides files:
 HeroOverrides.xml <--- will be loaded
-HeroOverrdies_12000.xml
-HeroOverrdies_13000.xml 
-HeroOverrdies_14000.xml
+HeroOverrides_12000.xml
+HeroOverrides_13000.xml 
+HeroOverrides_14000.xml
 ```
 
 ***
