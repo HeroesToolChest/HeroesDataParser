@@ -136,5 +136,31 @@ namespace HeroesData.Parser.XmlGameData
                 }
             }
         }
+
+        protected override void LoadHeroesMapMods()
+        {
+            CASCFolder currentFolder = CASCExtensions.GetDirectory(CASCFolderData, HeroesMapModsFolderPath);
+
+            // loop through each mapmods folder
+            foreach (KeyValuePair<string, ICASCEntry> mapFolder in currentFolder.Entries)
+            {
+                if (mapFolder.Key.ToLower().Contains("data"))
+                    continue;
+
+                ICASCEntry baseStormDataFolder = ((CASCFolder)mapFolder.Value).GetEntry("base.stormdata");
+                ICASCEntry gameDataFolder = ((CASCFolder)baseStormDataFolder).GetEntry(GameDataStringName);
+
+                foreach (KeyValuePair<string, ICASCEntry> dataFiles in ((CASCFolder)gameDataFolder).Entries)
+                {
+                    if (Path.GetExtension(dataFiles.Key) == ".xml")
+                    {
+                        Stream data = CASCHandlerData.OpenFile(((CASCFile)dataFiles.Value).FullName);
+
+                        XmlGameData.Root.Add(XDocument.Load(data).Root.Elements());
+                        XmlFileCount++;
+                    }
+                }
+            }
+        }
     }
 }
