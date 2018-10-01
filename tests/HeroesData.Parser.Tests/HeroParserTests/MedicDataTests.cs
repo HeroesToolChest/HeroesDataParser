@@ -3,7 +3,7 @@ using Xunit;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
-    public class MedicDataTests : HeroParserBaseTest
+    public class MedicDataTests : HeroDataBaseTest
     {
         [Fact]
         public void AbilityEnergyTooltipTextTest()

@@ -15,6 +15,28 @@ Button/Tooltip/NovaPermanentCloak=Gain Stealth when out of combat for <c val="#T
 Button/Tooltip/TyraelElDruinsMightHolyGroundTalent=Create a ring for <c val="#TooltipNumbers"><d ref="Behavior,ElDruinsMightMasteryPathingBlockerTimedLife,Duration"/></c> seconds that blocks enemies from entering the area teleported to using El'druin's Might.
 Button/Tooltip/TyraelRighteousness=Shields Tyrael for <c val="#TooltipNumbers"><d ref="Behavior,TyraelRighteousnessShield,DamageResponse[0].ModifyLimit[0]"/></c> damage and nearby allies for <c val="#TooltipNumbers">40%</c> as much for <c val="#TooltipNumbers"><d ref="Behavior,TyraelRighteousnessShield,Duration[0]"/></c> seconds.
 
+ScoreValue/Tooltip/EndOfMatchAwardHighestKillStreakBoolean=High Killstreak
+ScoreValue/Tooltip/EndOfMatchAwardMostDamageToMinionsBoolean=High Damage Done to Shrine Guardians
+ScoreValue/Tooltip/EndOfMatchAwardMostDamageToPlantsBoolean=High Damage Done to Plants
+ScoreValue/Tooltip/EndOfMatchAwardMostDaredevilEscapesBoolean=Escaped Death Many Times in Team Fights
+ScoreValue/Tooltip/EndOfMatchAwardMostDragonShrinesCapturedBoolean=High Shrines Captured
+ScoreValue/Tooltip/EndOfMatchAwardMostEscapesBoolean=Escaped Death Many Times
+ScoreValue/Tooltip/EndOfMatchAwardMostGemsTurnedInBoolean=Many Gems Turned in
+ScoreValue/Tooltip/EndOfMatchAwardMostHealingBoolean=High Healing Done
+ScoreValue/Tooltip/EndOfMatchAwardMostHeroDamageDoneBoolean=High Hero Damage Done
+ScoreValue/Tooltip/EndOfMatchAwardMostImmortalDamageBoolean=High Damage Done to Immortals
+ScoreValue/Tooltip/EndOfMatchAwardMostInterruptedCageUnlocksBoolean=Interrupted Many Cage Unlock Attempts
+ScoreValue/Tooltip/EndOfMatchAwardMostKillsBoolean=High Kills
+ScoreValue/Tooltip/EndOfMatchAwardMostMercCampsCapturedBoolean=High Mercenary Captures
+ScoreValue/Tooltip/EndOfMatchAwardMostNukeDamageDoneBoolean=High Damage Done with Warheads
+ScoreValue/Tooltip/EndOfMatchAwardMostProtectionBoolean=High Damage Prevented
+ScoreValue/Tooltip/EndOfMatchAwardMostTimeInTempleBoolean=High Time Occupying Shrines
+ScoreValue/Tooltip/EndOfMatchAwardMostTimeOnPointBoolean=High Time Spent On Point
+ScoreValue/Tooltip/EndOfMatchAwardMostTimePushingBoolean=High amount of time on Payload
+ScoreValue/Tooltip/EndOfMatchAwardMostVengeancesPerformedBoolean=Avenged Many Deaths
+ScoreValue/Tooltip/EndOfMatchAwardMostXPContributionBoolean=High XP Contributed
+ScoreValue/Tooltip/EndOfMatchAwardMostDamageTakenBoolean=High Efficient Damage Soaked
+
 Abil/Name/FalstadBOOMerang=BOOMerang
 Abil/Name/FalstadBarrelRoll=Falstad Barrel Roll
 Abil/Name/FalstadFlight=Flight

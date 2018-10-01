@@ -97,23 +97,17 @@ namespace HeroesData.Parser.GameStrings
                 else if (line.StartsWith(GameStringPrefixes.HeroNamePrefix))
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
-
-                    if (!HeroNamesByShortName.ContainsKey(splitLine[0]))
-                        HeroNamesByShortName.Add(splitLine[0], splitLine[1]);
+                    HeroNamesByShortName.Add(splitLine[0], splitLine[1]);
                 }
                 else if (line.StartsWith(GameStringPrefixes.DescriptionNamePrefix))
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
-
-                    if (!AbilityTalentNamesByReferenceNameId.ContainsKey(splitLine[0]))
-                        AbilityTalentNamesByReferenceNameId.Add(splitLine[0], splitLine[1]);
+                    AbilityTalentNamesByReferenceNameId.Add(splitLine[0], splitLine[1]);
                 }
                 else if (line.StartsWith(GameStringPrefixes.UnitPrefix))
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
-
-                    if (!UnitNamesByShortName.ContainsKey(splitLine[0]))
-                        UnitNamesByShortName.Add(splitLine[0], splitLine[1]);
+                    UnitNamesByShortName.Add(splitLine[0], splitLine[1]);
                 }
                 else
                 {
@@ -121,8 +115,7 @@ namespace HeroesData.Parser.GameStrings
                     if (splitLine.Length < 2)
                         continue;
 
-                    if (!ValueStringByKeyString.ContainsKey(splitLine[0]))
-                        ValueStringByKeyString.Add(splitLine[0], splitLine[1]);
+                    ValueStringByKeyString.Add(splitLine[0], splitLine[1]);
                 }
             }
         }

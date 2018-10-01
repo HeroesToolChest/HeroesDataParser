@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser.GameStrings;
+using HeroesData.Parser.MatchAwards;
 using HeroesData.Parser.UnitData;
 using HeroesData.Parser.UnitData.Overrides;
 using HeroesData.Parser.XmlGameData;
@@ -7,9 +8,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace HeroesData.Parser.Tests.HeroParserTests
+namespace HeroesData.Parser.Tests
 {
-    public class HeroParserBaseTest
+    public class HeroDataBaseTest
     {
         private readonly string ModsTestFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestData", "mods");
         private readonly string TestOverrideFile = "HeroOverrideHeroParserTest.xml";
@@ -20,13 +21,14 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         private ParsedGameStrings ParsedGameStrings;
         private OverrideData OverrideData;
 
-        public HeroParserBaseTest()
+        public HeroDataBaseTest()
         {
             LoadTestData();
             GameStringParser = new GameStringParser(GameData);
-
             ParseGameStrings();
             ParseHeroes();
+
+            MatchAwardParser = MatchAwardParser.Load(GameData, ParsedGameStrings);
         }
 
         protected Hero HeroFalstad { get; set; }
@@ -36,6 +38,8 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         protected Hero HeroUther { get; set; }
         protected Hero HeroDryad { get; set; }
         protected Hero HeroTestHero { get; set; }
+
+        protected MatchAwardParser MatchAwardParser { get; set; }
 
         private void LoadTestData()
         {

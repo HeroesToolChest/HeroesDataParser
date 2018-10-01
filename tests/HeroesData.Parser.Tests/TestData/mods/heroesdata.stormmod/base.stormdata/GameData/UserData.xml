@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CUser id="EndOfMatchGeneralAward">
+        <Instances Id="[Default]">
+        </Instances>
+        <Instances Id="Experienced">
+            <Fixed Fixed="12335">
+                <Field Id="Base"/>
+            </Fixed>
+            <GameLink GameLink="EndOfMatchAwardMostXPContributionBoolean">
+                <Field Id="Score Value Boolean"/>
+            </GameLink>
+            <String String="01">
+                <Field Id="Award Badge Index"/>
+            </String>
+            <String String="true">
+                <Field Id="Present as Ratio"/>
+            </String>
+            <Text Text="UserData/EndOfMatchGeneralAward/Experienced_Award Name">
+                <Field Id="Award Name"/>
+            </Text>
+            <Text Text="UserData/EndOfMatchGeneralAward/Experienced_Description">
+                <Field Id="Description"/>
+            </Text>
+            <Text Text="UserData/EndOfMatchGeneralAward/Experienced_Tooltip Text">
+                <Field Id="Tooltip Text"/>
+            </Text>
+        </Instances>
+        <Instances Id="Painbringer">
+            <Fixed Fixed="37352">
+                <Field Id="Base"/>
+            </Fixed>
+            <GameLink GameLink="EndOfMatchAwardMostHeroDamageDoneBoolean">
+                <Field Id="Score Value Boolean"/>
+            </GameLink>
+            <String String="02">
+                <Field Id="Award Badge Index"/>
+            </String>
+            <String String="true">
+                <Field Id="Present as Ratio"/>
+            </String>
+            <Text Text="UserData/EndOfMatchGeneralAward/Painbringer_Description">
+                <Field Id="Description"/>
+            </Text>
+            <Text Text="UserData/EndOfMatchGeneralAward/Painbringer_Award Name">
+                <Field Id="Award Name"/>
+            </Text>
+            <Text Text="UserData/EndOfMatchGeneralAward/Painbringer_Tooltip Text">
+                <Field Id="Tooltip Text"/>
+            </Text>
+        </Instances>
+        <Instances Id="Bulwark">
+            <Fixed Fixed="8705">
+                <Field Id="Base"/>
+            </Fixed>
+            <Fixed Fixed="1.1">
+                <Field Id="Weight Modifier"/>
+            </Fixed>
+            <GameLink GameLink="EndOfMatchAwardMostDamageTakenBoolean">
+                <Field Id="Score Value Boolean"/>
+            </GameLink>
+            <String String="04">
+                <Field Id="Award Badge Index"/>
+            </String>
+            <String String="true">
+                <Field Id="Present as Ratio"/>
+            </String>
+            <Text Text="UserData/EndOfMatchGeneralAward/Bulwark_Award Name">
+                <Field Id="Award Name"/>
+            </Text>
+            <Text Text="UserData/EndOfMatchGeneralAward/Bulwark_Description">
+                <Field Id="Description"/>
+            </Text>
+            <Text Text="UserData/EndOfMatchGeneralAward/Bulwark_Tooltip Text">
+                <Field Id="Tooltip Text"/>
+            </Text>
+        </Instances>          
+    </CUser>
+    <CUser id="EndOfMatchMapSpecificAward">
+        <Instances Id="[Default]">
+            <Fixed Fixed="1">
+                <Field Id="Base"/>
+            </Fixed>
+            <Fixed Fixed="1">
+                <Field Id="Weight Modifier"/>
+            </Fixed>
+            <String String="false">
+                <Field Id="Gated by Base"/>
+            </String>
+            <String String="false">
+                <Field Id="Present as Ratio"/>
+            </String>
+        </Instances>
+        <Instances Id="Generic Instance"/>
+        <Instances Id="Shriner">
+            <Fixed Fixed="2">
+                <Field Id="Base"/>
+            </Fixed>
+            <GameLink GameLink="EndOfMatchAwardMostDragonShrinesCapturedBoolean">
+                <Field Id="Score Value Boolean"/>
+            </GameLink>
+            <String String="09">
+                <Field Id="Award Badge Index"/>
+            </String>
+            <String String="true">
+                <Field Id="Gated by Base"/>
+            </String>
+            <Text Text="UserData/EndOfMatchMapSpecificAward/Shriner_Award Name">
+                <Field Id="Award Name"/>
+            </Text>
+            <Text Text="UserData/EndOfMatchMapSpecificAward/Shriner_Description">
+                <Field Id="Description"/>
+            </Text>
+            <Text Text="UserData/EndOfMatchMapSpecificAward/Shriner_Tooltip Text">
+                <Field Id="Tooltip Text"/>
+            </Text>
+        </Instances>
+    </CUser>
+</Catalog>
