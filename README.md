@@ -243,7 +243,7 @@ The following are all localized strings that are removed:
 - Hero/Unit: `name`, `difficulty`, `type`, `role`, `description`
 - Ability/Talent: `name`, `lifeTooltip`, `energyTooltip`, `cooldownTooltip`, `shortTooltip`, `fullTooltip`
 
-The gamestring text file is lcoated at `output/gamestrings/`
+The gamestring text file(s) are located in `output/gamestrings/`
 
 The format of the strings in the text file are the following:
 - `unit/name/[hero.shortname]=[value]`
