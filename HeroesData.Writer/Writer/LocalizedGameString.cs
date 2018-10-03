@@ -93,5 +93,21 @@ namespace HeroesData.FileWriter.Writer
 
             GameStrings.Add($"tooltip/full/{key}={value}");
         }
+
+        public void AddMatchAwardName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings.Add($"award/name/{key}={value}");
+        }
+
+        public void AddMatchAwardDescription(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings.Add($"award/description/{key}={value}");
+        }
     }
 }

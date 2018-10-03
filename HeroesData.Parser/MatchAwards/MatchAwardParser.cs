@@ -90,7 +90,7 @@ namespace HeroesData.Parser.MatchAwards
                 };
 
                 if (ParsedGameStrings.TryGetValuesFromAll($"{GameStringPrefixes.ScoreValueTooltipPrefix}{gameLink}", out string description))
-                    matchAward.Description = description;
+                    matchAward.Description = new TooltipDescription(description);
 
                 MatchAwards.Add(matchAward);
             }

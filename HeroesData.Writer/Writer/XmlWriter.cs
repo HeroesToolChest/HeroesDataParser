@@ -2,6 +2,7 @@
 using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
 using HeroesData.FileWriter.Settings;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -38,22 +39,48 @@ namespace HeroesData.FileWriter.Writer
             base.CreateOutput();
         }
 
-        protected override void CreateSingleFile(List<Hero> heroes)
+        protected override void CreateSingleFile<TObject>(List<TObject> items, string rootNodeName, string singleFileName, string noIndentationName, Func<TObject, XElement> dataMethod)
         {
-            XDocument xmlDoc = new XDocument(new XElement(RootNode, heroes.Select(hero => HeroElement(hero))));
-            xmlDoc.Save(Path.Combine(XmlOutputFolder, SingleFileName));
-            xmlDoc.Save(Path.Combine(XmlOutputFolder, SingleFileNameNoIndentation), SaveOptions.DisableFormatting);
+            if (items == null)
+                return;
+
+            XDocument xmlDoc = new XDocument(new XElement(rootNodeName, items.Select(item => dataMethod(item))));
+            xmlDoc.Save(Path.Combine(XmlOutputFolder, singleFileName));
+            xmlDoc.Save(Path.Combine(XmlOutputFolder, noIndentationName), SaveOptions.DisableFormatting);
         }
 
-        protected override void CreateMultipleFiles(List<Hero> heroes)
+        protected override void CreateMultipleFiles<TObject>(List<TObject> items, string rootNodeName, Func<TObject, XElement> dataMethod)
         {
-            foreach (Hero hero in heroes)
-            {
-                XDocument xmlDoc = new XDocument(new XElement(RootNode, HeroElement(hero)));
+            if (items == null)
+                return;
 
-                xmlDoc.Save(Path.Combine(XmlOutputSplitFolder, $"{hero.ShortName}.xml"));
-                xmlDoc.Save(Path.Combine(XmlOutputSplitMinFolder, $"{hero.ShortName}.min.xml"), SaveOptions.DisableFormatting);
+            foreach (TObject item in items)
+            {
+                XDocument xmlDoc = new XDocument(new XElement(rootNodeName, dataMethod(item)));
+
+                xmlDoc.Save(Path.Combine(XmlOutputSplitFolder, $"{item.ShortName}.xml"));
+                xmlDoc.Save(Path.Combine(XmlOutputSplitMinFolder, $"{item.ShortName}.min.xml"), SaveOptions.DisableFormatting);
             }
+        }
+
+        protected override void CreateHeroDataMultipleFiles()
+        {
+            CreateMultipleFiles(Heroes, HeroDataRootNode, HeroElement);
+        }
+
+        protected override void CreateMatchAwardMultipleFiles()
+        {
+            CreateMultipleFiles(MatchAwards, "MatchAwards", AwardElement);
+        }
+
+        protected override void CreateHeroDataSingleFile()
+        {
+            CreateSingleFile(Heroes, HeroDataRootNode, HeroDataSingleFileName, HeroDataSingleFileNameNoIndentation, HeroElement);
+        }
+
+        protected override void CreateMatchAwardSingleFile()
+        {
+            CreateSingleFile(MatchAwards, "MatchAwards", MatchAwardSingleFileName, MatchAwardFileNameNoIndentation, AwardElement);
         }
 
         protected override XElement HeroElement(Hero hero)
@@ -200,7 +227,7 @@ namespace HeroesData.FileWriter.Writer
         protected override XElement GetUnitsObject(Hero hero)
         {
             return new XElement(
-                HeroUnits,
+                HeroDataHeroUnits,
                 hero.HeroUnits.Select(heroUnit => new XElement(heroUnit.CUnitId, UnitElement(heroUnit))));
         }
 
@@ -287,6 +314,21 @@ namespace HeroesData.FileWriter.Writer
                 FileSettings.LoadingPortraitPortrait ? new XElement("Loading", Path.ChangeExtension(hero.HeroPortrait.LoadingScreenPortraitFileName, FileSettings.ImageExtension)) : null,
                 FileSettings.PartyPanelPortrait ? new XElement("PartyFrame", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName, FileSettings.ImageExtension)) : null,
                 FileSettings.TargetPortrait ? new XElement("Target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName, FileSettings.ImageExtension)) : null);
+        }
+
+        protected override XElement AwardElement(MatchAward matchAward)
+        {
+            if (IsLocalizedText)
+                AddMatchAwardGameStrings(matchAward);
+
+            return new XElement(
+                matchAward.ShortName,
+                new XAttribute("id", matchAward.Id),
+                string.IsNullOrEmpty(matchAward.Name) || IsLocalizedText ? null : new XAttribute("name", matchAward.Name),
+                new XAttribute("tag", matchAward.Tag),
+                new XElement("MVPScreenIcon", matchAward.MVPScreenImageFileName),
+                new XElement("ScoreScreenIcon", matchAward.ScoreScreenImageFileName),
+                IsLocalizedText ? null : new XElement("Description", GetTooltip(matchAward.Description, FileSettings.Description)));
         }
     }
 }

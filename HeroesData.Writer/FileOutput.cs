@@ -10,6 +10,7 @@ namespace HeroesData.FileWriter
     {
         private readonly FileConfiguration FileConfiguration;
         private readonly List<Hero> Heroes;
+        private readonly List<MatchAward> MatchAwards;
         private readonly int? HotsBuild;
 
         public FileOutput(List<Hero> heroes)
@@ -48,6 +49,15 @@ namespace HeroesData.FileWriter
             HotsBuild = hotsBuild;
 
             Heroes = heroes;
+        }
+
+        public FileOutput(List<MatchAward> matchAwards, int? hotsBuild)
+        {
+            IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
+            IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
+            HotsBuild = hotsBuild;
+
+            MatchAwards = matchAwards;
         }
 
         /// <summary>
@@ -97,6 +107,7 @@ namespace HeroesData.FileWriter
                 HotsBuild = HotsBuild,
                 OutputDirectory = OutputDirectory,
                 Localization = Localization,
+                MatchAwards = MatchAwards,
             };
 
             xmlWriter.CreateOutput();
@@ -124,6 +135,7 @@ namespace HeroesData.FileWriter
                 Localization = Localization,
                 IsLocalizedText = IsLocalizedText,
                 CreateLocalizedTextFile = createLocalizedTextFile,
+                MatchAwards = MatchAwards,
             };
 
             xmlWriter.CreateOutput();
@@ -141,6 +153,7 @@ namespace HeroesData.FileWriter
                 HotsBuild = HotsBuild,
                 OutputDirectory = OutputDirectory,
                 Localization = Localization,
+                MatchAwards = MatchAwards,
             };
 
             jsonWriter.CreateOutput();
@@ -168,6 +181,7 @@ namespace HeroesData.FileWriter
                 Localization = Localization,
                 IsLocalizedText = IsLocalizedText,
                 CreateLocalizedTextFile = createLocalizedTextFile,
+                MatchAwards = MatchAwards,
             };
 
             jsonWriter.CreateOutput();

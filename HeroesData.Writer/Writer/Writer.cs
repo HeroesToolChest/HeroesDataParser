@@ -2,6 +2,7 @@
 using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
 using HeroesData.FileWriter.Settings;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,10 +20,13 @@ namespace HeroesData.FileWriter.Writer
         public bool CreateLocalizedTextFile { get; set; }
         public int? HotsBuild { get; set; }
         public List<Hero> Heroes { get; set; }
+        public List<MatchAward> MatchAwards { get; set; }
         public LocalizedGameString LocalizedGameString { get; } = new LocalizedGameString();
 
-        protected string SingleFileName { get; set; }
-        protected string SingleFileNameNoIndentation { get; set; }
+        protected string HeroDataSingleFileName { get; set; }
+        protected string HeroDataSingleFileNameNoIndentation { get; set; }
+        protected string MatchAwardSingleFileName { get; set; }
+        protected string MatchAwardFileNameNoIndentation { get; set; }
         protected string XmlOutputFolder => Path.Combine(OutputDirectory, "xml");
         protected string JsonOutputFolder => Path.Combine(OutputDirectory, "json");
         protected string XmlOutputSplitFolder { get; set; }
@@ -30,8 +34,8 @@ namespace HeroesData.FileWriter.Writer
         protected string XmlOutputSplitMinFolder { get; set; }
         protected string JsonOutputSplitMinFolder { get; set; }
         protected string GameStringFolder { get; set; }
-        protected string RootNode => "Heroes";
-        protected string HeroUnits => "HeroUnits";
+        protected string HeroDataRootNode => "Heroes";
+        protected string HeroDataHeroUnits => "HeroUnits";
         protected string GameStringTextFileName { get; set; }
 
         public virtual void CreateOutput()
@@ -39,9 +43,15 @@ namespace HeroesData.FileWriter.Writer
             if (FileSettings.IsWriterEnabled)
             {
                 if (FileSettings.IsFileSplit)
-                    CreateMultipleFiles(Heroes);
+                {
+                    CreateHeroDataMultipleFiles();
+                    CreateMatchAwardMultipleFiles();
+                }
                 else
-                    CreateSingleFile(Heroes);
+                {
+                    CreateHeroDataSingleFile();
+                    CreateMatchAwardSingleFile();
+                }
             }
 
             if (IsLocalizedText && CreateLocalizedTextFile)
@@ -67,13 +77,17 @@ namespace HeroesData.FileWriter.Writer
         {
             if (HotsBuild.HasValue)
             {
-                SingleFileName = $"heroesdata_{HotsBuild.Value}_{Localization}.{fileExtension}";
-                SingleFileNameNoIndentation = $"heroesdata_{HotsBuild.Value}_{Localization}.min.{fileExtension}";
+                HeroDataSingleFileName = $"heroesdata_{HotsBuild.Value}_{Localization}.{fileExtension}";
+                HeroDataSingleFileNameNoIndentation = $"heroesdata_{HotsBuild.Value}_{Localization}.min.{fileExtension}";
+                MatchAwardSingleFileName = $"awards_{HotsBuild.Value}_{Localization}.{fileExtension}";
+                MatchAwardFileNameNoIndentation = $"awards_{HotsBuild.Value}_{Localization}.min.{fileExtension}";
             }
             else
             {
-                SingleFileName = $"heroesdata_{Localization}.{fileExtension}";
-                SingleFileNameNoIndentation = $"heroesdata_{Localization}.min.{fileExtension}";
+                HeroDataSingleFileName = $"heroesdata_{Localization}.{fileExtension}";
+                HeroDataSingleFileNameNoIndentation = $"heroesdata_{Localization}.min.{fileExtension}";
+                MatchAwardSingleFileName = $"awards_{Localization}.{fileExtension}";
+                MatchAwardFileNameNoIndentation = $"awards_{Localization}.min.{fileExtension}";
             }
         }
 
@@ -105,8 +119,15 @@ namespace HeroesData.FileWriter.Writer
             }
         }
 
-        protected abstract void CreateMultipleFiles(List<Hero> heroes);
-        protected abstract void CreateSingleFile(List<Hero> heroes);
+        protected abstract void CreateSingleFile<TObject>(List<TObject> items, string rootNodeName, string singleFileName, string noIndentationName, Func<TObject, T> dataMethod)
+            where TObject : IName;
+        protected abstract void CreateMultipleFiles<TObject>(List<TObject> items, string rootNodeName, Func<TObject, T> dataMethod)
+            where TObject : IName;
+
+        protected abstract void CreateHeroDataMultipleFiles();
+        protected abstract void CreateMatchAwardMultipleFiles();
+        protected abstract void CreateHeroDataSingleFile();
+        protected abstract void CreateMatchAwardSingleFile();
         protected abstract T HeroElement(Hero hero);
         protected abstract T UnitElement(Unit unit);
         protected abstract T GetPortraitObject(Hero hero);
@@ -125,6 +146,7 @@ namespace HeroesData.FileWriter.Writer
         protected abstract T GetAbilityTalentEnergyCostObject(TooltipEnergy tooltipEnergy);
         protected abstract T GetAbilityTalentCooldownObject(TooltipCooldown tooltipCooldown);
         protected abstract T GetAbilityTalentChargesObject(TooltipCharges tooltipCharges);
+        protected abstract T AwardElement(MatchAward matchAward);
 
         protected T HeroPortraits(Hero hero)
         {
@@ -336,6 +358,12 @@ namespace HeroesData.FileWriter.Writer
 
             foreach (string role in hero.Roles)
                 LocalizedGameString.AddUnitRole(hero.ShortName, role);
+        }
+
+        protected void AddMatchAwardGameStrings(MatchAward matchAward)
+        {
+            LocalizedGameString.AddMatchAwardName(matchAward.Id, matchAward.Name);
+            LocalizedGameString.AddMatchAwardDescription(matchAward.Id, GetTooltip(matchAward.Description, FileSettings.Description));
         }
 
         private void DeleteExistingGameStrings()
