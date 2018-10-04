@@ -9,8 +9,6 @@ namespace HeroesData.Parser.UnitData.Data
 {
     public class WeaponData
     {
-        private readonly double DefaultWeaponPeriod = 1.2;
-
         private readonly GameData GameData;
         private readonly HeroOverride HeroOverride;
 
@@ -49,7 +47,7 @@ namespace HeroesData.Parser.UnitData.Data
 
                 if (validWeapon || weaponsIds.Count == 1 || weaponNameId.Contains("HeroWeapon") || weaponNameId == hero.CUnitId || weaponNameId == $"{hero.CHeroId}Weapon" || weaponNameId == $"{hero.CHeroId}WeaponMelee")
                 {
-                    UnitWeapon weapon = GetWeapon(weaponNameId, weaponsIds);
+                    UnitWeapon weapon = GetWeapon(weaponNameId);
 
                     if (weapon != null)
                         hero.Weapons.Add(weapon);
@@ -57,7 +55,7 @@ namespace HeroesData.Parser.UnitData.Data
             }
         }
 
-        private UnitWeapon GetWeapon(string weaponNameId, List<string> allWeaponIds)
+        private UnitWeapon GetWeapon(string weaponNameId)
         {
             UnitWeapon weapon = null;
 
@@ -67,9 +65,13 @@ namespace HeroesData.Parser.UnitData.Data
 
                 if (weaponLegacy != null)
                 {
+                    XElement defaultCWeaponElement = GameData.XmlGameData.Root.Elements("CWeapon").FirstOrDefault(x => x.Attribute("default")?.Value == "1");
+
                     weapon = new UnitWeapon
                     {
                         WeaponNameId = weaponNameId,
+                        Period = double.Parse(defaultCWeaponElement.Element("Period").Attribute("value").Value),
+                        Range = double.Parse(defaultCWeaponElement.Element("Range").Attribute("value").Value),
                     };
 
                     WeaponAddRange(weaponLegacy, weapon, weaponNameId);
@@ -112,10 +114,6 @@ namespace HeroesData.Parser.UnitData.Data
                 XElement parentWeaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").FirstOrDefault(x => x.Attribute("id")?.Value == parentWeaponId);
                 if (parentWeaponLegacy != null)
                     WeaponAddPeriod(parentWeaponLegacy, weapon, parentWeaponId);
-            }
-            else
-            {
-                weapon.Period = DefaultWeaponPeriod;
             }
         }
 
