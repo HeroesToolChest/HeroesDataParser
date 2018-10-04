@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CWeapon default="1">
+        <DisplayEffect value="##id##"/>
+        <DisplayAttackCount value="0"/>
+        <MinScanRange value="5"/>
+        <Range value="5"/>
+        <RangeSlop value="1"/>
+        <TeleportResetRange value="500"/>
+        <ArcSlop value="11.25"/>
+        <Period value="0.8332"/>
+        <PeriodMin value="0.0625"/>
+        <PeriodMax value="500.0"/>
+        <DamagePoint value="0.167"/>
+        <Backswing value="0.5"/>
+    </CWeapon>
+</Catalog>
