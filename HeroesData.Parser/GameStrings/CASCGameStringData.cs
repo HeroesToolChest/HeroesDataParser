@@ -24,6 +24,23 @@ namespace HeroesData.Parser.GameStrings
             ParseFiles(CASCHandlerData.OpenFile(((CASCFile)currentFolder.GetEntry(GameStringFile)).FullName));
 
             ParseNewHeroes();
+            ParseMapMods();
+        }
+
+        protected override void ParseMapMods()
+        {
+            CASCFolder currentFolder = CASCExtensions.GetDirectory(CASCFolderData, MapModsPath);
+
+            foreach (KeyValuePair<string, ICASCEntry> mapFolder in currentFolder.Entries)
+            {
+                ICASCEntry localizationStormdata = ((CASCFolder)mapFolder.Value).GetEntry(GameStringLocalization);
+                ICASCEntry localizedData = ((CASCFolder)localizationStormdata).GetEntry(LocalizedName);
+
+                ICASCEntry gameStringFile = ((CASCFolder)localizedData).GetEntry(GameStringFile);
+                Stream data = CASCHandlerData.OpenFile(((CASCFile)gameStringFile).FullName);
+
+                ParseFiles(data);
+            }
         }
 
         protected override void ParseNewHeroes()
@@ -35,7 +52,7 @@ namespace HeroesData.Parser.GameStrings
                 if (heroFolder.Key != "herointeractions.stormmod")
                 {
                     ICASCEntry localizationStormdata = ((CASCFolder)heroFolder.Value).GetEntry(GameStringLocalization);
-                    ICASCEntry localizedData = ((CASCFolder)localizationStormdata).GetEntry("LocalizedData");
+                    ICASCEntry localizedData = ((CASCFolder)localizationStormdata).GetEntry(LocalizedName);
 
                     ICASCEntry gameStringFile = ((CASCFolder)localizedData).GetEntry(GameStringFile);
                     Stream data = CASCHandlerData.OpenFile(((CASCFile)gameStringFile).FullName);

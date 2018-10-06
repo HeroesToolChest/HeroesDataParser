@@ -45,8 +45,10 @@ namespace HeroesData.Parser.GameStrings
         public string GameStringLocalization { get; set; } = "enus.stormdata";
         protected string CoreStormmodDescriptionsPath { get; private set; }
         protected string OldDescriptionsPath { get; private set; }
+        protected string MapModsPath { get; private set; }
         protected string HeroModsPath { get; private set; }
-        protected string GameStringFile => "GameStrings.txt";
+        protected string GameStringFile { get; set; }
+        protected string LocalizedName { get; set; }
 
         /// <summary>
         /// Loads all the required games strings.
@@ -58,15 +60,29 @@ namespace HeroesData.Parser.GameStrings
 
         protected void Initialize()
         {
-            OldDescriptionsPath = Path.Combine(ModsFolderPath, "heroesdata.stormmod", GameStringLocalization, "LocalizedData");
-            CoreStormmodDescriptionsPath = Path.Combine(ModsFolderPath, "core.stormmod", GameStringLocalization, "LocalizedData");
+            GameStringFile = "gamestrings.txt";
+            LocalizedName = "localizeddata";
+
+            // default check
+            OldDescriptionsPath = Path.Combine(ModsFolderPath, "heroesdata.stormmod", GameStringLocalization, LocalizedName);
+
+            // if doesn't exist, try capitilized directory
+            if (!Directory.Exists(OldDescriptionsPath))
+            {
+                GameStringFile = "GameStrings.txt";
+                LocalizedName = "LocalizedData";
+            }
+
+            CoreStormmodDescriptionsPath = Path.Combine(ModsFolderPath, "core.stormmod", GameStringLocalization, LocalizedName);
             HeroModsPath = Path.Combine(ModsFolderPath, "heromods");
+            MapModsPath = Path.Combine(ModsFolderPath, "heroesmapmods", "battlegroundmapmods");
 
             ParseGameStringFiles();
         }
 
         protected abstract void ParseGameStringFiles();
         protected abstract void ParseNewHeroes();
+        protected abstract void ParseMapMods();
 
         protected void ReadFile(StreamReader reader)
         {

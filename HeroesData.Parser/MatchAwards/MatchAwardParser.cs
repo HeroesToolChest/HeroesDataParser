@@ -36,7 +36,7 @@ namespace HeroesData.Parser.MatchAwards
         public List<MatchAward> MatchAwards { get; set; } = new List<MatchAward>();
 
         /// <summary>
-        /// Loads all unit id data to be parsed.
+        /// Loads all match awards data to be parsed.
         /// </summary>
         /// <param name="gameData"></param>
         /// <param name="gameStringParser"></param>
@@ -48,7 +48,7 @@ namespace HeroesData.Parser.MatchAwards
         }
 
         /// <summary>
-        /// Loads all unit id data to be parsed.
+        /// Loads all match awards data to be parsed.
         /// </summary>
         /// <param name="gameData"></param>
         /// <param name="gameStringParser"></param>
@@ -68,11 +68,25 @@ namespace HeroesData.Parser.MatchAwards
         private void GetAwardInstances()
         {
             XElement matchAwardsGeneral = GameData.XmlGameData.Root.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward");
+            IEnumerable<XElement> matchAwardsMapSpecific = GameData.XmlGameData.Root.Elements("CUser").Where(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward");
 
-            foreach (XElement awardInstance in matchAwardsGeneral.Elements("Instances"))
+            // combine both
+            IEnumerable<XElement> mapAwardsInstances = matchAwardsMapSpecific.Elements("Instances").Concat(matchAwardsGeneral.Elements("Instances"));
+
+            foreach (XElement awardInstance in mapAwardsInstances)
             {
-                if (awardInstance.Attribute("Id")?.Value == "[Default]")
+                string instanceId = awardInstance.Attribute("Id")?.Value;
+
+                if (instanceId == "[Default]" || !awardInstance.HasElements)
+                {
                     continue;
+                }
+                else if (instanceId == "[Override]Generic Instance")
+                {
+                    // get the name
+                    if (ParsedGameStrings.TryGetValuesFromAll($"UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Award Name", out string awardNameText))
+                        instanceId = new TooltipDescription(awardNameText).PlainText;
+                }
 
                 string gameLink = awardInstance.Element("GameLink").Attribute("GameLink").Value;
 
@@ -82,8 +96,8 @@ namespace HeroesData.Parser.MatchAwards
 
                 MatchAward matchAward = new MatchAward()
                 {
-                    Name = awardInstance.Attribute("Id")?.Value,
-                    ShortName = XmlConvert.EncodeLocalName(Regex.Replace(awardInstance.Attribute("Id")?.Value, @"\s+", string.Empty)),
+                    Name = instanceId,
+                    ShortName = XmlConvert.EncodeLocalName(Regex.Replace(instanceId, @"\s+", string.Empty)),
                     Id = gameLink.Substring(0, gameLink.IndexOf("Boolean")).Remove(0, "EndOfMatchAward".Length),
                     ScoreScreenImageFileNameOriginal = Path.GetFileName(PathExtensions.GetFilePath(scoreScreenIconFilePath)),
                     MVPScreenImageFileNameOriginal = $"storm_ui_mvp_icons_rewards_{awardSpecialName}.dds",

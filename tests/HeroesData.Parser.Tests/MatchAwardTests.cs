@@ -16,7 +16,7 @@ namespace HeroesData.Parser.Tests
         {
             List<MatchAward> matchAwards = MatchAwardParser.MatchAwards;
 
-            Assert.Equal(3, matchAwards.Count);
+            Assert.Equal(5, matchAwards.Count);
 
             foreach (MatchAward matchAward in matchAwards)
             {
