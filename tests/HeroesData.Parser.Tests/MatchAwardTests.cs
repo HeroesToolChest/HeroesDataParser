@@ -22,8 +22,10 @@ namespace HeroesData.Parser.Tests
             {
                 Assert.NotNull(matchAward.Description);
                 Assert.NotNull(matchAward.Id);
+                Assert.NotNull(matchAward.MVPScreenImageFileNameOriginal);
                 Assert.NotNull(matchAward.MVPScreenImageFileName);
                 Assert.NotNull(matchAward.Name);
+                Assert.NotNull(matchAward.ScoreScreenImageFileNameOriginal);
                 Assert.NotNull(matchAward.ScoreScreenImageFileName);
                 Assert.NotNull(matchAward.ShortName);
                 Assert.NotNull(matchAward.Tag);

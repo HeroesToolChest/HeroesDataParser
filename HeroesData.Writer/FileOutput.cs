@@ -51,8 +51,18 @@ namespace HeroesData.FileWriter
             Heroes = heroes;
         }
 
+        public FileOutput(List<MatchAward> matchAwards)
+        {
+            FileConfiguration = FileConfiguration.Load();
+            IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
+            IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
+
+            MatchAwards = matchAwards;
+        }
+
         public FileOutput(List<MatchAward> matchAwards, int? hotsBuild)
         {
+            FileConfiguration = FileConfiguration.Load();
             IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
             IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
             HotsBuild = hotsBuild;

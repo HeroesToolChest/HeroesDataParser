@@ -1,0 +1,18 @@
+{
+  "Bulwark": {
+    "id": "Bulwark",
+    "name": "Bulwark",
+    "tag": "AwBK",
+    "mvpScreenIcon": "image_bulwark.png",
+    "scoreScreenIcon": "image_scorescreen_bulwark.png",
+    "description": "Highest damage soaked"
+  },
+  "Killer": {
+    "id": "Killer",
+    "name": "Killer",
+    "tag": "AwKL",
+    "mvpScreenIcon": "image_killer.png",
+    "scoreScreenIcon": "image_scorescreen_killer.png",
+    "description": "Most Kills"
+  }
+}

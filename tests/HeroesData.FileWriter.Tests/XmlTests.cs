@@ -5,14 +5,15 @@ namespace HeroesData.FileWriter.Tests
 {
     public class XmlTests : FileOutputTestBase
     {
-        private readonly string DefaultCreatedFile = Path.Combine("output", "xml", "heroesdata_enus.xml");
+        private readonly string DefaultHeroDataCreatedFile = Path.Combine("output", "xml", "heroesdata_enus.xml");
+        private readonly string DefaultMatchAwardCreatedFile = Path.Combine("output", "xml", "awards_enus.xml");
 
         [Fact]
         public void XmlWriterNoBuildNumberTest()
         {
             FileOutputNoBuildNumber.Localization = Localization;
             FileOutputNoBuildNumber.CreateXml();
-            CompareFile(DefaultCreatedFile, "XmlOutputTest.xml");
+            CompareFile(DefaultHeroDataCreatedFile, "XmlOutputTest.xml");
         }
 
         [Fact]
@@ -26,11 +27,11 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void XmlWriterNoCreateTest()
         {
-            if (File.Exists(DefaultCreatedFile)) // not really needed
-                File.Delete(DefaultCreatedFile);
+            if (File.Exists(DefaultHeroDataCreatedFile)) // not really needed
+                File.Delete(DefaultHeroDataCreatedFile);
 
             FileOutputHasBuildNumber.CreateXml(false, false);
-            Assert.False(File.Exists(DefaultCreatedFile), "heroesdata.xml should not have been created");
+            Assert.False(File.Exists(DefaultHeroDataCreatedFile), "heroesdata.xml should not have been created");
         }
 
         [Fact]
@@ -38,7 +39,7 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputFalseSettings.Localization = Localization;
             FileOutputFalseSettings.CreateXml();
-            CompareFile(DefaultCreatedFile, "XmlOutputFalseSettingsTest.xml");
+            CompareFile(DefaultHeroDataCreatedFile, "XmlOutputFalseSettingsTest.xml");
         }
 
         [Fact]
@@ -65,7 +66,7 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputRawDescription.Localization = Localization;
             FileOutputRawDescription.CreateXml();
-            CompareFile(DefaultCreatedFile, "XmlOutput0.xml");
+            CompareFile(DefaultHeroDataCreatedFile, "XmlOutput0.xml");
         }
 
         [Fact]
@@ -73,7 +74,7 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputPlainText.Localization = Localization;
             FileOutputPlainText.CreateXml();
-            CompareFile(DefaultCreatedFile, "XmlOutput1.xml");
+            CompareFile(DefaultHeroDataCreatedFile, "XmlOutput1.xml");
         }
 
         [Fact]
@@ -81,7 +82,7 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputPlainTextWithNewlines.Localization = Localization;
             FileOutputPlainTextWithNewlines.CreateXml();
-            CompareFile(DefaultCreatedFile, "XmlOutput2.xml");
+            CompareFile(DefaultHeroDataCreatedFile, "XmlOutput2.xml");
         }
 
         [Fact]
@@ -90,7 +91,7 @@ namespace HeroesData.FileWriter.Tests
             FileOutputPlainTextWithScaling.Localization = Localization;
             FileOutputPlainTextWithScaling.DescriptionType = 3;
             FileOutputPlainTextWithScaling.CreateXml();
-            CompareFile(DefaultCreatedFile, "XmlOutput3.xml");
+            CompareFile(DefaultHeroDataCreatedFile, "XmlOutput3.xml");
         }
 
         [Fact]
@@ -98,7 +99,7 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputPlainTextWithScalingWithNewlines.Localization = Localization;
             FileOutputPlainTextWithScalingWithNewlines.CreateXml();
-            CompareFile(DefaultCreatedFile, "XmlOutput4.xml");
+            CompareFile(DefaultHeroDataCreatedFile, "XmlOutput4.xml");
         }
 
         [Fact]
@@ -106,7 +107,7 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputColoredTextWithScaling.Localization = Localization;
             FileOutputColoredTextWithScaling.CreateXml();
-            CompareFile(DefaultCreatedFile, "XmlOutput6.xml");
+            CompareFile(DefaultHeroDataCreatedFile, "XmlOutput6.xml");
         }
 
         [Fact]
@@ -116,6 +117,14 @@ namespace HeroesData.FileWriter.Tests
             FileOutputGameStringLocalized.IsLocalizedText = true;
             FileOutputGameStringLocalized.CreateXml(true, false);
             CompareFile(Path.Combine("output", "xml", $"heroesdata_{BuildNumber}_{Localization}.xml"), "XmlGameStringLocalized.xml");
+        }
+
+        [Fact]
+        public void XmlWriterMatchAward()
+        {
+            FileOutputMatchAwards.Localization = Localization;
+            FileOutputMatchAwards.CreateXml();
+            CompareFile(DefaultMatchAwardCreatedFile, "XmlOutputMatchAward.xml");
         }
     }
 }

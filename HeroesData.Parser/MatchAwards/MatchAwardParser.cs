@@ -77,17 +77,21 @@ namespace HeroesData.Parser.MatchAwards
                 string gameLink = awardInstance.Element("GameLink").Attribute("GameLink").Value;
 
                 XElement scoreValueCustomElement = GameData.XmlGameData.Root.Elements("CScoreValueCustom").FirstOrDefault(x => x.Attribute("id")?.Value == gameLink);
-                string scoreScreenIconFileName = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
+                string scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
+                string awardSpecialName = Path.GetFileName(PathExtensions.GetFilePath(scoreScreenIconFilePath)).Split('_')[4];
 
                 MatchAward matchAward = new MatchAward()
                 {
                     Name = awardInstance.Attribute("Id")?.Value,
                     ShortName = XmlConvert.EncodeLocalName(Regex.Replace(awardInstance.Attribute("Id")?.Value, @"\s+", string.Empty)),
                     Id = gameLink.Substring(0, gameLink.IndexOf("Boolean")).Remove(0, "EndOfMatchAward".Length),
-                    ScoreScreenImageFileName = Path.GetFileName(PathExtensions.GetFilePath(scoreScreenIconFileName)),
-                    MVPScreenImageFileName = $"storm_ui_mvp_icons_rewards_{scoreScreenIconFileName.Split('_')[4]}.dds",
+                    ScoreScreenImageFileNameOriginal = Path.GetFileName(PathExtensions.GetFilePath(scoreScreenIconFilePath)),
+                    MVPScreenImageFileNameOriginal = $"storm_ui_mvp_icons_rewards_{awardSpecialName}.dds",
                     Tag = scoreValueCustomElement.Element("UniqueTag").Attribute("value")?.Value,
                 };
+
+                matchAward.ScoreScreenImageFileName = matchAward.ScoreScreenImageFileNameOriginal;
+                matchAward.MVPScreenImageFileName = $"storm_ui_mvp_{awardSpecialName}_%color%.dds";
 
                 if (ParsedGameStrings.TryGetValuesFromAll($"{GameStringPrefixes.ScoreValueTooltipPrefix}{gameLink}", out string description))
                     matchAward.Description = new TooltipDescription(description);

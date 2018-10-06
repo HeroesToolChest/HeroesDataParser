@@ -26,6 +26,9 @@ namespace HeroesData.FileWriter.Tests
             FileOutputColoredTextWithScaling = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig6.xml"));
             FileOutputIsEnabledFalse = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfigEnabledFalse.xml"));
             FileOutputGameStringLocalized = new FileOutput(Heroes, BuildNumber);
+
+            SetTestMatchAwardData();
+            FileOutputMatchAwards = new FileOutput(MatchAwards);
         }
 
         protected FileOutput FileOutputNoBuildNumber { get; }
@@ -41,12 +44,14 @@ namespace HeroesData.FileWriter.Tests
         protected FileOutput FileOutputColoredTextWithScaling { get; }
         protected FileOutput FileOutputIsEnabledFalse { get; }
         protected FileOutput FileOutputGameStringLocalized { get; }
+        protected FileOutput FileOutputMatchAwards { get; set; }
 
         protected int? BuildNumber => 12345;
         protected string OutputFileFolder => "OutputFiles";
         protected string Localization => "enus";
 
         protected List<Hero> Heroes { get; set; } = new List<Hero>();
+        protected List<MatchAward> MatchAwards { get; set; } = new List<MatchAward>();
 
         [Fact]
         public void FileOuputIsEnabledTrueTest()
@@ -609,6 +614,35 @@ namespace HeroesData.FileWriter.Tests
             };
 
             Heroes.Add(alexstraszaHero);
+        }
+
+        private void SetTestMatchAwardData()
+        {
+            MatchAward matchAward = new MatchAward()
+            {
+                ShortName = "Bulwark",
+                Name = "Bulwark",
+                Description = new TooltipDescription("Highest damage soaked"),
+                Id = "Bulwark",
+                Tag = "AwBK",
+                MVPScreenImageFileName = "image_bulwark.png",
+                ScoreScreenImageFileName = "image_scorescreen_bulwark.png",
+            };
+
+            MatchAwards.Add(matchAward);
+
+            MatchAward matchAward2 = new MatchAward()
+            {
+                ShortName = "Killer",
+                Name = "Killer",
+                Description = new TooltipDescription("Most Kills"),
+                Id = "Killer",
+                Tag = "AwKL",
+                MVPScreenImageFileName = "image_killer.png",
+                ScoreScreenImageFileName = "image_scorescreen_killer.png",
+            };
+
+            MatchAwards.Add(matchAward2);
         }
     }
 }

@@ -326,8 +326,8 @@ namespace HeroesData.FileWriter.Writer
                 new XAttribute("id", matchAward.Id),
                 string.IsNullOrEmpty(matchAward.Name) || IsLocalizedText ? null : new XAttribute("name", matchAward.Name),
                 new XAttribute("tag", matchAward.Tag),
-                new XElement("MVPScreenIcon", matchAward.MVPScreenImageFileName),
-                new XElement("ScoreScreenIcon", matchAward.ScoreScreenImageFileName),
+                new XElement("MVPScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName, FileSettings.ImageExtension)),
+                new XElement("ScoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName, FileSettings.ImageExtension)),
                 IsLocalizedText ? null : new XElement("Description", GetTooltip(matchAward.Description, FileSettings.Description)));
         }
     }

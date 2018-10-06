@@ -697,8 +697,8 @@ namespace HeroesData.FileWriter.Writer
                 matchAwardObject.Add("name", matchAward.Name);
 
             matchAwardObject.Add("tag", matchAward.Tag);
-            matchAwardObject.Add("mvpScreenIcon", matchAward.MVPScreenImageFileName);
-            matchAwardObject.Add("scoreScreenIcon", matchAward.ScoreScreenImageFileName);
+            matchAwardObject.Add("mvpScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName, FileSettings.ImageExtension));
+            matchAwardObject.Add("scoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName, FileSettings.ImageExtension));
 
             if (!IsLocalizedText)
                 matchAwardObject.Add("description", GetTooltip(matchAward.Description, FileSettings.Description));
