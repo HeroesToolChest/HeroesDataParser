@@ -54,6 +54,8 @@ namespace HeroesData
 
         internal static void Main(string[] args)
         {
+            AppCulture.SetCurrentCulture();
+
             CommandLineApplication app = new CommandLineApplication(true)
             {
                 Description = "Extract Heroes of the Storm game data into XML and JSON format",

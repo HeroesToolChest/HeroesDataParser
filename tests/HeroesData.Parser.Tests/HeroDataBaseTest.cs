@@ -5,6 +5,7 @@ using HeroesData.Parser.UnitData;
 using HeroesData.Parser.UnitData.Overrides;
 using HeroesData.Parser.XmlGameData;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 
@@ -23,6 +24,10 @@ namespace HeroesData.Parser.Tests
 
         public HeroDataBaseTest()
         {
+            CultureInfo cultureInfo = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
             LoadTestData();
             GameStringParser = new GameStringParser(GameData);
             ParseGameStrings();
