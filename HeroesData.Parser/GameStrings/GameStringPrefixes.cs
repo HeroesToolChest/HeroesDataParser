@@ -41,5 +41,10 @@
         /// Gets the score value prefix string.
         /// </summary>
         public static string ScoreValueTooltipPrefix { get; } = "ScoreValue/Tooltip/";
+
+        /// <summary>
+        /// Gets the name value prefix string.
+        /// </summary>
+        public static string ScoreValueNamePrefix { get; } = "ScoreValue/Name/";
     }
 }

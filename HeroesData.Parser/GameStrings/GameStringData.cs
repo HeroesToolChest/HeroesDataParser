@@ -84,46 +84,51 @@ namespace HeroesData.Parser.GameStrings
         protected abstract void ParseNewHeroes();
         protected abstract void ParseMapMods();
 
-        protected void ReadFile(StreamReader reader)
+        protected void ReadFile(StreamReader reader, bool isMapMod = false)
         {
             while (!reader.EndOfStream)
             {
                 string line = reader.ReadLine();
 
-                if (line.StartsWith(GameStringPrefixes.SimpleDisplayPrefix))
+                if (line.StartsWith(GameStringPrefixes.SimpleDisplayPrefix) && !isMapMod)
+                {
+                    string[] splitLine = line.Split(new char[] { '=' }, 2);
+
+                    ShortTooltipsByShortTooltipNameId.Add(splitLine[0], splitLine[1]);
+                }
+                else if (line.StartsWith(GameStringPrefixes.SimplePrefix) && !isMapMod)
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
                     ShortTooltipsByShortTooltipNameId.Add(splitLine[0], splitLine[1]);
                 }
-                else if (line.StartsWith(GameStringPrefixes.SimplePrefix))
-                {
-                    string[] splitLine = line.Split(new char[] { '=' }, 2);
-                    ShortTooltipsByShortTooltipNameId.Add(splitLine[0], splitLine[1]);
-                }
-                else if (line.StartsWith(GameStringPrefixes.DescriptionPrefix))
+                else if (line.StartsWith(GameStringPrefixes.DescriptionPrefix) && !isMapMod)
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
                     HeroDescriptionsByShortName.Add(splitLine[0], splitLine[1]);
                 }
-                else if (line.StartsWith(GameStringPrefixes.FullPrefix))
+                else if (line.StartsWith(GameStringPrefixes.FullPrefix) && !isMapMod)
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
                     FullTooltipsByFullTooltipNameId.Add(splitLine[0], splitLine[1]);
                 }
-                else if (line.StartsWith(GameStringPrefixes.HeroNamePrefix))
+                else if (line.StartsWith(GameStringPrefixes.HeroNamePrefix) && !isMapMod)
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
-                    HeroNamesByShortName.Add(splitLine[0], splitLine[1]);
+
+                    if (!HeroNamesByShortName.ContainsKey(splitLine[0]))
+                        HeroNamesByShortName.Add(splitLine[0], splitLine[1]);
                 }
-                else if (line.StartsWith(GameStringPrefixes.DescriptionNamePrefix))
+                else if (line.StartsWith(GameStringPrefixes.DescriptionNamePrefix) && !isMapMod)
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
                     AbilityTalentNamesByReferenceNameId.Add(splitLine[0], splitLine[1]);
                 }
-                else if (line.StartsWith(GameStringPrefixes.UnitPrefix))
+                else if (line.StartsWith(GameStringPrefixes.UnitPrefix) && !isMapMod)
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
-                    UnitNamesByShortName.Add(splitLine[0], splitLine[1]);
+
+                    if (!UnitNamesByShortName.ContainsKey(splitLine[0]))
+                        UnitNamesByShortName.Add(splitLine[0], splitLine[1]);
                 }
                 else
                 {
@@ -131,7 +136,7 @@ namespace HeroesData.Parser.GameStrings
                     if (splitLine.Length < 2)
                         continue;
 
-                    ValueStringByKeyString.Add(splitLine[0], splitLine[1]);
+                    ValueStringByKeyString[splitLine[0]] = splitLine[1];
                 }
             }
         }

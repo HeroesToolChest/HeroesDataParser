@@ -39,7 +39,7 @@ namespace HeroesData.Parser.GameStrings
                 ICASCEntry gameStringFile = ((CASCFolder)localizedData).GetEntry(GameStringFile);
                 Stream data = CASCHandlerData.OpenFile(((CASCFile)gameStringFile).FullName);
 
-                ParseFiles(data);
+                ParseFiles(data, true);
             }
         }
 
@@ -62,11 +62,11 @@ namespace HeroesData.Parser.GameStrings
             }
         }
 
-        private void ParseFiles(Stream fileStream)
+        private void ParseFiles(Stream fileStream, bool isMapMod = false)
         {
             using (StreamReader reader = new StreamReader(fileStream))
             {
-                ReadFile(reader);
+                ReadFile(reader, isMapMod);
             }
         }
     }

@@ -28,7 +28,8 @@ namespace HeroesData.Parser.Tests
             ParseGameStrings();
             ParseHeroes();
 
-            MatchAwardParser = MatchAwardParser.Load(GameData, ParsedGameStrings);
+            MatchAwardParser = new MatchAwardParser(GameData, ParsedGameStrings);
+            MatchAwardParser.Parse();
         }
 
         protected Hero HeroFalstad { get; set; }

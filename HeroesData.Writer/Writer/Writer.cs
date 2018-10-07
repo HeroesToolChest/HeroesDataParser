@@ -19,8 +19,8 @@ namespace HeroesData.FileWriter.Writer
         public bool IsLocalizedText { get; set; }
         public bool CreateLocalizedTextFile { get; set; }
         public int? HotsBuild { get; set; }
-        public List<Hero> Heroes { get; set; }
-        public List<MatchAward> MatchAwards { get; set; }
+        public IEnumerable<Hero> Heroes { get; set; }
+        public IEnumerable<MatchAward> MatchAwards { get; set; }
         public LocalizedGameString LocalizedGameString { get; } = new LocalizedGameString();
 
         protected string HeroDataSingleFileName { get; set; }
@@ -119,9 +119,9 @@ namespace HeroesData.FileWriter.Writer
             }
         }
 
-        protected abstract void CreateSingleFile<TObject>(List<TObject> items, string rootNodeName, string singleFileName, string noIndentationName, Func<TObject, T> dataMethod)
+        protected abstract void CreateSingleFile<TObject>(IEnumerable<TObject> items, string rootNodeName, string singleFileName, string noIndentationName, Func<TObject, T> dataMethod)
             where TObject : IName;
-        protected abstract void CreateMultipleFiles<TObject>(List<TObject> items, string rootNodeName, Func<TObject, T> dataMethod)
+        protected abstract void CreateMultipleFiles<TObject>(IEnumerable<TObject> items, string rootNodeName, Func<TObject, T> dataMethod)
             where TObject : IName;
 
         protected abstract void CreateHeroDataMultipleFiles();

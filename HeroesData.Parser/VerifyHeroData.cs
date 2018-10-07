@@ -8,14 +8,14 @@ namespace HeroesData.Parser
 {
     public class VerifyHeroData
     {
-        private readonly List<Hero> HeroData = new List<Hero>();
+        private readonly IEnumerable<Hero> HeroData = new List<Hero>();
         private readonly string VerifyIgnoreFileName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "VerifyIgnore.txt");
 
         private string HeroName;
 
         private HashSet<string> IgnoreLines = new HashSet<string>();
 
-        private VerifyHeroData(List<Hero> heroData)
+        private VerifyHeroData(IEnumerable<Hero> heroData)
         {
             HeroData = heroData;
 
@@ -29,9 +29,9 @@ namespace HeroesData.Parser
         /// <summary>
         /// Verifies the all the hero data for missing data.
         /// </summary>
-        /// <param name="heroData">A list of all hero data.</param>
+        /// <param name="heroData">A collection of all hero data.</param>
         /// <returns></returns>
-        public static VerifyHeroData Verify(List<Hero> heroData)
+        public static VerifyHeroData Verify(IEnumerable<Hero> heroData)
         {
             return new VerifyHeroData(heroData);
         }

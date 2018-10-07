@@ -17,7 +17,7 @@ namespace HeroesData.Parser.GameStrings
         {
             foreach (string mapDirectory in Directory.GetDirectories(MapModsPath))
             {
-                ParseFiles(Path.Combine(mapDirectory, GameStringLocalization, LocalizedName, GameStringFile));
+                ParseFiles(Path.Combine(mapDirectory, GameStringLocalization, LocalizedName, GameStringFile), true);
             }
         }
 
@@ -29,11 +29,11 @@ namespace HeroesData.Parser.GameStrings
             }
         }
 
-        private void ParseFiles(string filePath)
+        private void ParseFiles(string filePath, bool isMapMod = false)
         {
             using (StreamReader reader = new StreamReader(filePath))
             {
-                ReadFile(reader);
+                ReadFile(reader, isMapMod);
             }
         }
     }

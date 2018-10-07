@@ -13,14 +13,14 @@ namespace HeroesData
     {
         private readonly string CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "Assets", "Textures");
 
-        private readonly List<Hero> Heroes;
+        private readonly IEnumerable<Hero> Heroes;
         private readonly CASCHandler CASCHandler;
         private SortedSet<string> Portraits = new SortedSet<string>();
         private SortedSet<string> Talents = new SortedSet<string>();
         private SortedSet<string> Abilities = new SortedSet<string>();
         private SortedSet<string> AbilityTalents = new SortedSet<string>();
 
-        public Extractor(List<Hero> heroes, CASCHandler cascHandler)
+        public Extractor(IEnumerable<Hero> heroes, CASCHandler cascHandler)
         {
             Heroes = heroes;
             CASCHandler = cascHandler;

@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser.MatchAwards;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace HeroesData.Parser.Tests
@@ -14,7 +15,7 @@ namespace HeroesData.Parser.Tests
         [Fact]
         public void MatchAwardListTests()
         {
-            List<MatchAward> matchAwards = MatchAwardParser.MatchAwards;
+            List<MatchAward> matchAwards = MatchAwardParser.GetParsedMatchAwards().ToList();
 
             Assert.Equal(5, matchAwards.Count);
 

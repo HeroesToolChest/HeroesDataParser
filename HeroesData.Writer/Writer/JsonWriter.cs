@@ -39,7 +39,7 @@ namespace HeroesData.FileWriter.Writer
             base.CreateOutput();
         }
 
-        protected override void CreateSingleFile<TObject>(List<TObject> items, string rootNodeName, string singleFileName, string noIndentationName, Func<TObject, JProperty> dataMethod)
+        protected override void CreateSingleFile<TObject>(IEnumerable<TObject> items, string rootNodeName, string singleFileName, string noIndentationName, Func<TObject, JProperty> dataMethod)
         {
             if (items == null)
                 return;
@@ -63,7 +63,7 @@ namespace HeroesData.FileWriter.Writer
             }
         }
 
-        protected override void CreateMultipleFiles<TObject>(List<TObject> items, string rootNodeName, Func<TObject, JProperty> dataMethod)
+        protected override void CreateMultipleFiles<TObject>(IEnumerable<TObject> items, string rootNodeName, Func<TObject, JProperty> dataMethod)
         {
             if (items == null)
                 return;
@@ -483,7 +483,7 @@ namespace HeroesData.FileWriter.Writer
         {
             JObject parentLink = null;
 
-            IEnumerable<string> parentLinks = linkedAbilities.Select(x => x.Key).ToList();
+            IEnumerable<string> parentLinks = linkedAbilities.Select(x => x.Key);
             foreach (string parent in parentLinks)
             {
                 JObject abilities = new JObject();

@@ -13,22 +13,22 @@ namespace HeroesData.FileWriter.Tests
         public FileOutputTestBase()
         {
             SetTestHeroData();
-            FileOutputNoBuildNumber = new FileOutput(Heroes);
-            FileOutputHasBuildNumber = new FileOutput(Heroes, BuildNumber);
-            FileOutputFalseSettings = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfigFalseSettings.xml"));
-            FileOutputFileSplit = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfigFileSplit.xml"));
-            FileOutputOverrideFileSplit = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfigFileSplit.xml"));
-            FileOutputRawDescription = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig0.xml"));
-            FileOutputPlainText = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig1.xml"));
-            FileOutputPlainTextWithNewlines = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig2.xml"));
-            FileOutputPlainTextWithScaling = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig3.xml"));
-            FileOutputPlainTextWithScalingWithNewlines = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig4.xml"));
-            FileOutputColoredTextWithScaling = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfig6.xml"));
-            FileOutputIsEnabledFalse = new FileOutput(Heroes, Path.Combine("Configs", "WriterConfigEnabledFalse.xml"));
-            FileOutputGameStringLocalized = new FileOutput(Heroes, BuildNumber);
+            FileOutputNoBuildNumber = new FileOutput() { ParsedHeroes = Heroes };
+            FileOutputHasBuildNumber = new FileOutput(BuildNumber) { ParsedHeroes = Heroes };
+            FileOutputFalseSettings = new FileOutput(Path.Combine("Configs", "WriterConfigFalseSettings.xml")) { ParsedHeroes = Heroes };
+            FileOutputFileSplit = new FileOutput(Path.Combine("Configs", "WriterConfigFileSplit.xml")) { ParsedHeroes = Heroes };
+            FileOutputOverrideFileSplit = new FileOutput(Path.Combine("Configs", "WriterConfigFileSplit.xml")) { ParsedHeroes = Heroes };
+            FileOutputRawDescription = new FileOutput(Path.Combine("Configs", "WriterConfig0.xml")) { ParsedHeroes = Heroes };
+            FileOutputPlainText = new FileOutput(Path.Combine("Configs", "WriterConfig1.xml")) { ParsedHeroes = Heroes };
+            FileOutputPlainTextWithNewlines = new FileOutput(Path.Combine("Configs", "WriterConfig2.xml")) { ParsedHeroes = Heroes };
+            FileOutputPlainTextWithScaling = new FileOutput(Path.Combine("Configs", "WriterConfig3.xml")) { ParsedHeroes = Heroes };
+            FileOutputPlainTextWithScalingWithNewlines = new FileOutput(Path.Combine("Configs", "WriterConfig4.xml")) { ParsedHeroes = Heroes };
+            FileOutputColoredTextWithScaling = new FileOutput(Path.Combine("Configs", "WriterConfig6.xml")) { ParsedHeroes = Heroes };
+            FileOutputIsEnabledFalse = new FileOutput(Path.Combine("Configs", "WriterConfigEnabledFalse.xml")) { ParsedHeroes = Heroes };
+            FileOutputGameStringLocalized = new FileOutput(BuildNumber) { ParsedHeroes = Heroes };
 
             SetTestMatchAwardData();
-            FileOutputMatchAwards = new FileOutput(MatchAwards);
+            FileOutputMatchAwards = new FileOutput() { ParsedAwards = MatchAwards };
         }
 
         protected FileOutput FileOutputNoBuildNumber { get; }

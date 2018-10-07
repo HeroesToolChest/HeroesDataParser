@@ -39,7 +39,7 @@ namespace HeroesData.FileWriter.Writer
             base.CreateOutput();
         }
 
-        protected override void CreateSingleFile<TObject>(List<TObject> items, string rootNodeName, string singleFileName, string noIndentationName, Func<TObject, XElement> dataMethod)
+        protected override void CreateSingleFile<TObject>(IEnumerable<TObject> items, string rootNodeName, string singleFileName, string noIndentationName, Func<TObject, XElement> dataMethod)
         {
             if (items == null)
                 return;
@@ -49,7 +49,7 @@ namespace HeroesData.FileWriter.Writer
             xmlDoc.Save(Path.Combine(XmlOutputFolder, noIndentationName), SaveOptions.DisableFormatting);
         }
 
-        protected override void CreateMultipleFiles<TObject>(List<TObject> items, string rootNodeName, Func<TObject, XElement> dataMethod)
+        protected override void CreateMultipleFiles<TObject>(IEnumerable<TObject> items, string rootNodeName, Func<TObject, XElement> dataMethod)
         {
             if (items == null)
                 return;

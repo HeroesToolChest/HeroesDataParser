@@ -16,56 +16,45 @@ namespace HeroesData.Parser.MatchAwards
         private readonly GameData GameData;
         private readonly ParsedGameStrings ParsedGameStrings;
 
-        private MatchAwardParser(GameData gameData, ParsedGameStrings parsedGameStrings)
+        private readonly List<MatchAward> MatchAwards = new List<MatchAward>();
+
+        private int ParsedCount = 0;
+
+        public MatchAwardParser(GameData gameData, ParsedGameStrings parsedGameStrings)
         {
             GameData = gameData;
             ParsedGameStrings = parsedGameStrings;
-
-            Initialize();
         }
 
-        private MatchAwardParser(GameData gameData, ParsedGameStrings parsedGameStrings, int? hotsBuild)
+        public MatchAwardParser(GameData gameData, ParsedGameStrings parsedGameStrings, int? hotsBuild)
         {
             GameData = gameData;
             ParsedGameStrings = parsedGameStrings;
             HotsBuild = hotsBuild;
-
-            Initialize();
-        }
-
-        public List<MatchAward> MatchAwards { get; set; } = new List<MatchAward>();
-
-        /// <summary>
-        /// Loads all match awards data to be parsed.
-        /// </summary>
-        /// <param name="gameData"></param>
-        /// <param name="gameStringParser"></param>
-        /// <param name="overrideData"></param>
-        /// <returns></returns>
-        public static MatchAwardParser Load(GameData gameData, ParsedGameStrings parsedGameStrings)
-        {
-            return new MatchAwardParser(gameData, parsedGameStrings);
         }
 
         /// <summary>
-        /// Loads all match awards data to be parsed.
+        /// Returns all parsed match awards.
         /// </summary>
-        /// <param name="gameData"></param>
-        /// <param name="gameStringParser"></param>
-        /// <param name="overrideData"></param>
-        /// <param name="hotsBuild">The hots build number.</param>
         /// <returns></returns>
-        public static MatchAwardParser Load(GameData gameData, ParsedGameStrings parsedGameStrings, int? hotsBuild)
+        public IEnumerable<MatchAward> GetParsedMatchAwards()
         {
-            return new MatchAwardParser(gameData, parsedGameStrings, hotsBuild);
+            return MatchAwards;
         }
 
-        private void Initialize()
+        /// <summary>
+        /// Returns the total count of parsed awards.
+        /// </summary>
+        /// <returns></returns>
+        public int Count()
         {
-            GetAwardInstances();
+            return ParsedCount;
         }
 
-        private void GetAwardInstances()
+        /// <summary>
+        /// Parse all match awards.
+        /// </summary>
+        public void Parse()
         {
             XElement matchAwardsGeneral = GameData.XmlGameData.Root.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward");
             IEnumerable<XElement> matchAwardsMapSpecific = GameData.XmlGameData.Root.Elements("CUser").Where(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward");
@@ -78,17 +67,16 @@ namespace HeroesData.Parser.MatchAwards
                 string instanceId = awardInstance.Attribute("Id")?.Value;
 
                 if (instanceId == "[Default]" || !awardInstance.HasElements)
-                {
                     continue;
-                }
-                else if (instanceId == "[Override]Generic Instance")
-                {
-                    // get the name
-                    if (ParsedGameStrings.TryGetValuesFromAll($"UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Award Name", out string awardNameText))
-                        instanceId = new TooltipDescription(awardNameText).PlainText;
-                }
 
                 string gameLink = awardInstance.Element("GameLink").Attribute("GameLink").Value;
+
+                if (instanceId == "[Override]Generic Instance")
+                {
+                    // get the name
+                    if (ParsedGameStrings.TryGetValuesFromAll($"{GameStringPrefixes.ScoreValueNamePrefix}{gameLink}", out string awardNameText))
+                        instanceId = new TooltipDescription(awardNameText).PlainText;
+                }
 
                 XElement scoreValueCustomElement = GameData.XmlGameData.Root.Elements("CScoreValueCustom").FirstOrDefault(x => x.Attribute("id")?.Value == gameLink);
                 string scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
@@ -98,12 +86,18 @@ namespace HeroesData.Parser.MatchAwards
                 {
                     Name = instanceId,
                     ShortName = XmlConvert.EncodeLocalName(Regex.Replace(instanceId, @"\s+", string.Empty)),
-                    Id = gameLink.Substring(0, gameLink.IndexOf("Boolean")).Remove(0, "EndOfMatchAward".Length),
                     ScoreScreenImageFileNameOriginal = Path.GetFileName(PathExtensions.GetFilePath(scoreScreenIconFilePath)),
                     MVPScreenImageFileNameOriginal = $"storm_ui_mvp_icons_rewards_{awardSpecialName}.dds",
                     Tag = scoreValueCustomElement.Element("UniqueTag").Attribute("value")?.Value,
                 };
 
+                string id = gameLink;
+                if (id.StartsWith("EndOfMatchAward"))
+                    id = id.Remove(0, "EndOfMatchAward".Length);
+                if (id.EndsWith("Boolean"))
+                    id = id.Substring(0, id.IndexOf("Boolean"));
+
+                matchAward.Id = id;
                 matchAward.ScoreScreenImageFileName = matchAward.ScoreScreenImageFileNameOriginal;
                 matchAward.MVPScreenImageFileName = $"storm_ui_mvp_{awardSpecialName}_%color%.dds";
 
@@ -111,6 +105,7 @@ namespace HeroesData.Parser.MatchAwards
                     matchAward.Description = new TooltipDescription(description);
 
                 MatchAwards.Add(matchAward);
+                ParsedCount++;
             }
         }
     }
