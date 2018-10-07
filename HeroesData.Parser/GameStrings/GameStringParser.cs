@@ -1,4 +1,5 @@
-﻿using HeroesData.Parser.Exceptions;
+﻿using Heroes.Models;
+using HeroesData.Parser.Exceptions;
 using HeroesData.Parser.XmlGameData;
 using System;
 using System.Collections.Generic;
@@ -207,7 +208,7 @@ namespace HeroesData.Parser.GameStrings
                     joinDesc = joinDesc.Replace(match.Value, match.Value.Replace("\"", "'"));
                 }
 
-                return GameStringValidator.Validate(joinDesc);
+                return DescriptionValidator.Validate(joinDesc);
             }
         }
 
