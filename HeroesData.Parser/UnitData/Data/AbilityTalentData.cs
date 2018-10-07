@@ -4,6 +4,7 @@ using HeroesData.Parser.Exceptions;
 using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.UnitData.Overrides;
 using HeroesData.Parser.XmlGameData;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -58,7 +59,7 @@ namespace HeroesData.Parser.UnitData.Data
             if (string.IsNullOrEmpty(elementId))
                 return;
 
-            var foundElements = GameData.XmlGameData.Root.Elements().Where(x => x.Attribute("id")?.Value == elementId).ToList();
+            IEnumerable<XElement> foundElements = GameData.XmlGameData.Root.Elements().Where(x => x.Attribute("id")?.Value == elementId);
 
             // look through all elements to find the tooltip info
             foreach (XElement element in foundElements)

@@ -22,6 +22,9 @@
     <None Update="storm_ui_icon_nova_orbitalstrike.dds">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="storm_ui_mvp_icons_rewards_loyaldefender.dds">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -3,38 +3,48 @@
     public static class GameStringPrefixes
     {
         /// <summary>
-        /// Short tooltip description of the ability/talent.
+        /// Gets the short tooltip description prefix string of the ability/talent.
         /// </summary>
         public static string SimpleDisplayPrefix { get; } = "Button/SimpleDisplayText/";
 
         /// <summary>
-        /// Short tooltip description of the ability/talent.
+        /// Gets the short tooltip description prefix string of the ability/talent.
         /// </summary>
         public static string SimplePrefix { get; } = "Button/Simple/";
 
         /// <summary>
-        /// Description of hero.
+        /// Gets the description prefix string of hero.
         /// </summary>
         public static string DescriptionPrefix { get; } = "Hero/Description/";
 
         /// <summary>
-        /// Full tooltip description of the ability/talent.
+        /// Gets the full tooltip description prefix string of the ability/talent.
         /// </summary>
         public static string FullPrefix { get; } = "Button/Tooltip/";
 
         /// <summary>
-        /// Real name of hero.
+        /// Gets the real name prefix string of hero.
         /// </summary>
         public static string HeroNamePrefix { get; } = "Hero/Name/";
 
         /// <summary>
-        /// Real name of ability/talent.
+        /// Gets the real name prefix string of ability/talent.
         /// </summary>
         public static string DescriptionNamePrefix { get; } = "Button/Name/";
 
         /// <summary>
-        /// Real name of unit.
+        /// Gets the real name prefix string of unit.
         /// </summary>
         public static string UnitPrefix { get; } = "Unit/Name/";
+
+        /// <summary>
+        /// Gets the score value prefix string.
+        /// </summary>
+        public static string ScoreValueTooltipPrefix { get; } = "ScoreValue/Tooltip/";
+
+        /// <summary>
+        /// Gets the name value prefix string.
+        /// </summary>
+        public static string ScoreValueNamePrefix { get; } = "ScoreValue/Name/";
     }
 }

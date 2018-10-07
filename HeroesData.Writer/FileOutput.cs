@@ -9,46 +9,47 @@ namespace HeroesData.FileWriter
     public class FileOutput
     {
         private readonly FileConfiguration FileConfiguration;
-        private readonly List<Hero> Heroes;
         private readonly int? HotsBuild;
 
-        public FileOutput(List<Hero> heroes)
+        public FileOutput()
         {
             FileConfiguration = FileConfiguration.Load();
             IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
             IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
-
-            Heroes = heroes;
         }
 
-        public FileOutput(List<Hero> heroes, string configFileName)
+        public FileOutput(string configFileName)
         {
             FileConfiguration = FileConfiguration.Load(configFileName);
             IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
             IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
-
-            Heroes = heroes;
         }
 
-        public FileOutput(List<Hero> heroes, int? hotsBuild)
+        public FileOutput(int? hotsBuild)
         {
             FileConfiguration = FileConfiguration.Load();
             IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
             IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
             HotsBuild = hotsBuild;
-
-            Heroes = heroes;
         }
 
-        public FileOutput(List<Hero> heroes, int? hotsBuild, string configFileName)
+        public FileOutput(int? hotsBuild, string configFileName)
         {
             FileConfiguration = FileConfiguration.Load(configFileName);
             IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
             IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
             HotsBuild = hotsBuild;
-
-            Heroes = heroes;
         }
+
+        /// <summary>
+        /// Gets or sets the collection of parsed hero data.
+        /// </summary>
+        public IEnumerable<Hero> ParsedHeroes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of parsed match award data.
+        /// </summary>
+        public IEnumerable<MatchAward> ParsedAwards { get; set; }
 
         /// <summary>
         /// Gets whether the xml writer is enabled via the file configuration.
@@ -93,10 +94,11 @@ namespace HeroesData.FileWriter
             XmlWriter xmlWriter = new XmlWriter
             {
                 FileSettings = FileConfiguration.XmlFileSettings,
-                Heroes = Heroes,
+                Heroes = ParsedHeroes,
                 HotsBuild = HotsBuild,
                 OutputDirectory = OutputDirectory,
                 Localization = Localization,
+                MatchAwards = ParsedAwards,
             };
 
             xmlWriter.CreateOutput();
@@ -118,12 +120,13 @@ namespace HeroesData.FileWriter
             XmlWriter xmlWriter = new XmlWriter
             {
                 FileSettings = FileConfiguration.XmlFileSettings,
-                Heroes = Heroes,
+                Heroes = ParsedHeroes,
                 HotsBuild = HotsBuild,
                 OutputDirectory = OutputDirectory,
                 Localization = Localization,
                 IsLocalizedText = IsLocalizedText,
                 CreateLocalizedTextFile = createLocalizedTextFile,
+                MatchAwards = ParsedAwards,
             };
 
             xmlWriter.CreateOutput();
@@ -137,10 +140,11 @@ namespace HeroesData.FileWriter
             JsonWriter jsonWriter = new JsonWriter
             {
                 FileSettings = FileConfiguration.JsonFileSettings,
-                Heroes = Heroes,
+                Heroes = ParsedHeroes,
                 HotsBuild = HotsBuild,
                 OutputDirectory = OutputDirectory,
                 Localization = Localization,
+                MatchAwards = ParsedAwards,
             };
 
             jsonWriter.CreateOutput();
@@ -162,12 +166,13 @@ namespace HeroesData.FileWriter
             JsonWriter jsonWriter = new JsonWriter
             {
                 FileSettings = FileConfiguration.JsonFileSettings,
-                Heroes = Heroes,
+                Heroes = ParsedHeroes,
                 HotsBuild = HotsBuild,
                 OutputDirectory = OutputDirectory,
                 Localization = Localization,
                 IsLocalizedText = IsLocalizedText,
                 CreateLocalizedTextFile = createLocalizedTextFile,
+                MatchAwards = ParsedAwards,
             };
 
             jsonWriter.CreateOutput();

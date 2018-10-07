@@ -4,6 +4,7 @@ using Heroes.Models.AbilityTalents.Tooltip;
 using HeroesData.FileWriter.Settings;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -38,12 +39,15 @@ namespace HeroesData.FileWriter.Writer
             base.CreateOutput();
         }
 
-        protected override void CreateSingleFile(List<Hero> heroes)
+        protected override void CreateSingleFile<TObject>(IEnumerable<TObject> items, string rootNodeName, string singleFileName, string noIndentationName, Func<TObject, JProperty> dataMethod)
         {
-            JObject jObject = new JObject(heroes.Select(hero => HeroElement(hero)));
+            if (items == null)
+                return;
+
+            JObject jObject = new JObject(items.Select(item => dataMethod(item)));
 
             // has formatting
-            using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputFolder, SingleFileName)))
+            using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputFolder, singleFileName)))
             using (JsonTextWriter writer = new JsonTextWriter(file))
             {
                 writer.Formatting = Formatting.Indented;
@@ -51,7 +55,7 @@ namespace HeroesData.FileWriter.Writer
             }
 
             // no formatting
-            using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputFolder, SingleFileNameNoIndentation)))
+            using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputFolder, noIndentationName)))
             using (JsonTextWriter writer = new JsonTextWriter(file))
             {
                 writer.Formatting = Formatting.None;
@@ -59,14 +63,17 @@ namespace HeroesData.FileWriter.Writer
             }
         }
 
-        protected override void CreateMultipleFiles(List<Hero> heroes)
+        protected override void CreateMultipleFiles<TObject>(IEnumerable<TObject> items, string rootNodeName, Func<TObject, JProperty> dataMethod)
         {
-            foreach (Hero hero in heroes)
+            if (items == null)
+                return;
+
+            foreach (TObject item in items)
             {
-                JObject jObject = new JObject(HeroElement(hero));
+                JObject jObject = new JObject(dataMethod(item));
 
                 // has formatting
-                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputSplitFolder, $"{hero.ShortName}.json")))
+                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputSplitFolder, $"{item.ShortName}.json")))
                 using (JsonTextWriter writer = new JsonTextWriter(file))
                 {
                     writer.Formatting = Formatting.Indented;
@@ -74,13 +81,33 @@ namespace HeroesData.FileWriter.Writer
                 }
 
                 // no formatting
-                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputSplitMinFolder, $"{hero.ShortName}.min.json")))
+                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputSplitMinFolder, $"{item.ShortName}.min.json")))
                 using (JsonTextWriter writer = new JsonTextWriter(file))
                 {
                     writer.Formatting = Formatting.None;
                     jObject.WriteTo(writer);
                 }
             }
+        }
+
+        protected override void CreateHeroDataMultipleFiles()
+        {
+            CreateMultipleFiles(Heroes, string.Empty, HeroElement);
+        }
+
+        protected override void CreateMatchAwardMultipleFiles()
+        {
+            CreateMultipleFiles(MatchAwards, string.Empty, AwardElement);
+        }
+
+        protected override void CreateHeroDataSingleFile()
+        {
+            CreateSingleFile(Heroes, string.Empty, HeroDataSingleFileName, HeroDataSingleFileNameNoIndentation, HeroElement);
+        }
+
+        protected override void CreateMatchAwardSingleFile()
+        {
+            CreateSingleFile(MatchAwards, string.Empty, MatchAwardSingleFileName, MatchAwardFileNameNoIndentation, AwardElement);
         }
 
         protected override JProperty HeroElement(Hero hero)
@@ -456,7 +483,7 @@ namespace HeroesData.FileWriter.Writer
         {
             JObject parentLink = null;
 
-            IEnumerable<string> parentLinks = linkedAbilities.Select(x => x.Key).ToList();
+            IEnumerable<string> parentLinks = linkedAbilities.Select(x => x.Key);
             foreach (string parent in parentLinks)
             {
                 JObject abilities = new JObject();
@@ -522,7 +549,7 @@ namespace HeroesData.FileWriter.Writer
         protected override JProperty GetUnitsObject(Hero hero)
         {
             return new JProperty(
-                HeroUnits,
+                HeroDataHeroUnits,
                 new JArray(
                     from heroUnit in hero.HeroUnits
                     select new JObject(UnitElement(heroUnit))));
@@ -654,6 +681,29 @@ namespace HeroesData.FileWriter.Writer
                 portrait.Add("target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName, FileSettings.ImageExtension));
 
             return new JProperty("portraits", portrait);
+        }
+
+        protected override JProperty AwardElement(MatchAward matchAward)
+        {
+            if (IsLocalizedText)
+                AddMatchAwardGameStrings(matchAward);
+
+            JObject matchAwardObject = new JObject
+            {
+                { "id", matchAward.Id },
+            };
+
+            if (!string.IsNullOrEmpty(matchAward.Name) && !IsLocalizedText)
+                matchAwardObject.Add("name", matchAward.Name);
+
+            matchAwardObject.Add("tag", matchAward.Tag);
+            matchAwardObject.Add("mvpScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName, FileSettings.ImageExtension));
+            matchAwardObject.Add("scoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName, FileSettings.ImageExtension));
+
+            if (!IsLocalizedText)
+                matchAwardObject.Add("description", GetTooltip(matchAward.Description, FileSettings.Description));
+
+            return new JProperty(matchAward.ShortName, matchAwardObject);
         }
     }
 }

@@ -3,6 +3,7 @@ using HeroesData.Commands;
 using HeroesData.FileWriter;
 using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
+using HeroesData.Parser.MatchAwards;
 using HeroesData.Parser.UnitData;
 using HeroesData.Parser.UnitData.Overrides;
 using HeroesData.Parser.XmlGameData;
@@ -43,6 +44,7 @@ namespace HeroesData
         private bool ExtractImageTalents = false;
         private bool ExtractImageAbilities = false;
         private bool ExtractImageAbilityTalents = false;
+        private bool ExtractMatchAwards = false;
         private bool IsFileSplit = false;
         private bool IsLocalizedText = false;
         private int? HotsBuild = null;
@@ -107,6 +109,7 @@ namespace HeroesData
                     {
                         program.ExtractImagePortraits = true;
                         program.ExtractImageAbilityTalents = true;
+                        program.ExtractMatchAwards = true;
                     }
 
                     if (extractIconsOption.Values.Exists(x => x.ToUpper() == "PORTRAITS"))
@@ -117,14 +120,16 @@ namespace HeroesData
                         program.ExtractImageAbilities = true;
                     if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITYTALENTS"))
                         program.ExtractImageAbilityTalents = true;
+                    if (extractIconsOption.Values.Exists(x => x.ToUpper() == "AWARDS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "MATCHAWARDS"))
+                        program.ExtractMatchAwards = true;
                 }
 
                 if (setGameStringLocalizations.HasValue())
                 {
-                    List<string> localizations = new List<string>();
+                    IEnumerable<string> localizations = new List<string>();
 
                     if (setGameStringLocalizations.Values.Exists(x => x.ToUpper() == "ALL"))
-                        localizations = Enum.GetNames(typeof(GameStringLocalization)).ToList();
+                        localizations = Enum.GetNames(typeof(GameStringLocalization));
                     else
                         localizations = setGameStringLocalizations.Values;
 
@@ -198,7 +203,9 @@ namespace HeroesData
 
             try
             {
-                List<Hero> parsedHeroes = new List<Hero>();
+                IEnumerable<Hero> parsedHeroes = new List<Hero>();
+                IEnumerable<MatchAward> parsedMatchAwards = new List<MatchAward>();
+
                 string outputDirectory = string.Empty;
                 int totalLocalSuccess = 0;
 
@@ -217,15 +224,17 @@ namespace HeroesData
                         InitializeOverrideData();
 
                         ParsedGameStrings parsedGameStrings = InitializeGameStringParser();
-                        parsedHeroes = ParseUnits(parsedGameStrings);
+                        parsedHeroes = ParseHeroes(parsedGameStrings);
+                        parsedMatchAwards = ParseMatchAwards(parsedGameStrings);
 
                         HeroDataVerification(parsedHeroes, localization);
-                        CreateOutput(parsedHeroes, localization, out outputDirectory);
+                        CreateOutput(parsedHeroes, parsedMatchAwards, localization, out outputDirectory);
                         totalLocalSuccess++;
                     }
                     catch (Exception ex)
                     {
                         // catch and display error and continue on
+                        WriteExceptionLog("Error", ex);
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(ex.Message);
                         Console.WriteLine();
@@ -233,7 +242,7 @@ namespace HeroesData
                     }
                 }
 
-                ExtractFiles(parsedHeroes, outputDirectory);
+                ExtractFiles(parsedHeroes, parsedMatchAwards, outputDirectory);
 
                 if (totalLocalSuccess == Localizations.Count)
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -588,7 +597,7 @@ namespace HeroesData
             return parsedGameStrings;
         }
 
-        private List<Hero> ParseUnits(ParsedGameStrings parsedGameStrings)
+        private IEnumerable<Hero> ParseHeroes(ParsedGameStrings parsedGameStrings)
         {
             var time = new Stopwatch();
             var parsedHeroes = new ConcurrentDictionary<string, Hero>();
@@ -655,10 +664,44 @@ namespace HeroesData
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
 
-            return parsedHeroes.Values.ToList();
+            return parsedHeroes.Values;
         }
 
-        private void HeroDataVerification(List<Hero> heroes, GameStringLocalization localization)
+        private IEnumerable<MatchAward> ParseMatchAwards(ParsedGameStrings parsedGameStrings)
+        {
+            var time = new Stopwatch();
+
+            Console.WriteLine($"Parsing award data...");
+
+            time.Start();
+            MatchAwardParser awardParser = new MatchAwardParser(GameData, parsedGameStrings, HotsBuild);
+
+            try
+            {
+                awardParser.Parse();
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+
+                WriteExceptionLog($"FailedAwardParser", ex);
+
+                Console.WriteLine();
+                Console.WriteLine($"Failed to parse awards [Check logs for details]");
+                Console.WriteLine();
+
+                Console.ResetColor();
+                Environment.Exit(1);
+            }
+
+            Console.WriteLine($"{awardParser.Count(),6} successfully parsed awards");
+            Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
+            Console.WriteLine();
+
+            return awardParser.GetParsedMatchAwards();
+        }
+
+        private void HeroDataVerification(IEnumerable<Hero> heroes, GameStringLocalization localization)
         {
             Console.WriteLine("Verifying hero data...");
 
@@ -714,19 +757,21 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        private void CreateOutput(List<Hero> parsedHeroes, GameStringLocalization localization, out string outputDirectory)
+        private void CreateOutput(IEnumerable<Hero> parsedHeroes, IEnumerable<MatchAward> parsedAwards, GameStringLocalization localization, out string outputDirectory)
         {
             bool anyCreated = false; // did we create any output at all?
 
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write($"Creating output ({localization.ToString().ToLower()})...");
 
-            FileOutput fileOutput = new FileOutput(parsedHeroes.OrderBy(x => x.ShortName).ToList(), HotsBuild)
+            FileOutput fileOutput = new FileOutput(HotsBuild)
             {
                 DescriptionType = DescriptionType,
                 FileSplit = IsFileSplit,
                 Localization = localization.ToString().ToLower(),
                 IsLocalizedText = IsLocalizedText,
+                ParsedHeroes = parsedHeroes.OrderBy(x => x.ShortName),
+                ParsedAwards = parsedAwards.OrderBy(x => x.ShortName),
             };
 
             if (!string.IsNullOrEmpty(OutputDirectory))
@@ -813,18 +858,21 @@ namespace HeroesData
         /// Extract image files.
         /// </summary>
         /// <param name="heroes"></param>
-        private void ExtractFiles(List<Hero> heroes, string outputDirectory)
+        private void ExtractFiles(IEnumerable<Hero> heroes, IEnumerable<MatchAward> matchAwards, string outputDirectory)
         {
-            if ((!ExtractImagePortraits && !ExtractImageAbilityTalents && !ExtractImageTalents && !ExtractImageAbilities) || StorageMode != StorageMode.CASC || heroes == null || string.IsNullOrEmpty(outputDirectory))
+            if ((!ExtractImagePortraits && !ExtractImageAbilityTalents && !ExtractImageTalents && !ExtractImageAbilities && !ExtractMatchAwards) || StorageMode != StorageMode.CASC || heroes == null || string.IsNullOrEmpty(outputDirectory))
                 return;
 
-            Extractor extractor = new Extractor(heroes, CASCHotsStorage.CASCHandler)
+            Extractor extractor = new Extractor(heroes, matchAwards, CASCHotsStorage.CASCHandler)
             {
                 OutputDirectory = outputDirectory,
             };
 
             if (ExtractImagePortraits)
                 extractor.ExtractPortraits();
+            if (ExtractMatchAwards)
+                extractor.ExtractMatchAwardIcons();
+
             if (ExtractImageAbilityTalents)
             {
                 extractor.ExtractAbilityTalentIcons();

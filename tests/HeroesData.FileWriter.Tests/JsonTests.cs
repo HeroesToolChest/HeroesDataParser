@@ -5,14 +5,15 @@ namespace HeroesData.FileWriter.Tests
 {
     public class JsonTests : FileOutputTestBase
     {
-        private readonly string DefaultCreatedFile = Path.Combine("output", "json", "heroesdata_enus.json");
+        private readonly string DefaultHeroDataCreatedFile = Path.Combine("output", "json", "heroesdata_enus.json");
+        private readonly string DefaultMatchAwardCreatedFile = Path.Combine("output", "json", "awards_enus.json");
 
         [Fact]
         public void JsonWriterNoBuildNumberTest()
         {
             FileOutputNoBuildNumber.Localization = Localization;
             FileOutputNoBuildNumber.CreateJson();
-            CompareFile(DefaultCreatedFile, "JsonOutputTest.json");
+            CompareFile(DefaultHeroDataCreatedFile, "JsonOutputTest.json");
         }
 
         [Fact]
@@ -26,9 +27,9 @@ namespace HeroesData.FileWriter.Tests
         [Fact]
         public void JsonWriterNoCreateTest()
         {
-            File.Delete(DefaultCreatedFile);
+            File.Delete(DefaultHeroDataCreatedFile);
             FileOutputHasBuildNumber.CreateJson(false, false);
-            Assert.False(File.Exists(DefaultCreatedFile), "heroesdata.json should not have been created");
+            Assert.False(File.Exists(DefaultHeroDataCreatedFile), "heroesdata.json should not have been created");
         }
 
         [Fact]
@@ -36,7 +37,7 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputFalseSettings.Localization = Localization;
             FileOutputFalseSettings.CreateJson();
-            CompareFile(DefaultCreatedFile, "JsonOutputFalseSettingsTest.json");
+            CompareFile(DefaultHeroDataCreatedFile, "JsonOutputFalseSettingsTest.json");
         }
 
         [Fact]
@@ -62,7 +63,7 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputRawDescription.Localization = Localization;
             FileOutputRawDescription.CreateJson();
-            CompareFile(DefaultCreatedFile, "JsonOutput0.json");
+            CompareFile(DefaultHeroDataCreatedFile, "JsonOutput0.json");
         }
 
         [Fact]
@@ -70,7 +71,7 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputPlainText.Localization = Localization;
             FileOutputPlainText.CreateJson();
-            CompareFile(DefaultCreatedFile, "JsonOutput1.json");
+            CompareFile(DefaultHeroDataCreatedFile, "JsonOutput1.json");
         }
 
         [Fact]
@@ -78,7 +79,7 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputPlainTextWithNewlines.Localization = Localization;
             FileOutputPlainTextWithNewlines.CreateJson();
-            CompareFile(DefaultCreatedFile, "JsonOutput2.json");
+            CompareFile(DefaultHeroDataCreatedFile, "JsonOutput2.json");
         }
 
         [Fact]
@@ -87,7 +88,7 @@ namespace HeroesData.FileWriter.Tests
             FileOutputPlainTextWithScaling.Localization = Localization;
             FileOutputPlainTextWithScaling.DescriptionType = 3;
             FileOutputPlainTextWithScaling.CreateJson();
-            CompareFile(DefaultCreatedFile, "JsonOutput3.json");
+            CompareFile(DefaultHeroDataCreatedFile, "JsonOutput3.json");
         }
 
         [Fact]
@@ -95,7 +96,7 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputPlainTextWithScalingWithNewlines.Localization = Localization;
             FileOutputPlainTextWithScalingWithNewlines.CreateJson();
-            CompareFile(DefaultCreatedFile, "JsonOutput4.json");
+            CompareFile(DefaultHeroDataCreatedFile, "JsonOutput4.json");
         }
 
         [Fact]
@@ -103,7 +104,7 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputColoredTextWithScaling.Localization = Localization;
             FileOutputColoredTextWithScaling.CreateJson();
-            CompareFile(DefaultCreatedFile, "JsonOutput6.json");
+            CompareFile(DefaultHeroDataCreatedFile, "JsonOutput6.json");
         }
 
         [Fact]
@@ -114,6 +115,14 @@ namespace HeroesData.FileWriter.Tests
             FileOutputGameStringLocalized.CreateJson(true, true);
             CompareFile(Path.Combine("output", "json", $"heroesdata_{BuildNumber}_{Localization}.json"), "JsonGameStringLocalized.json");
             CompareFile(Path.Combine("output", "gamestrings-12345", $"gamestrings_{BuildNumber}_{Localization}.txt"), "gamestrings_12345.txt");
+        }
+
+        [Fact]
+        public void JsonWriterMatchAward()
+        {
+            FileOutputMatchAwards.Localization = Localization;
+            FileOutputMatchAwards.CreateJson();
+            CompareFile(DefaultMatchAwardCreatedFile, "JsonOutputMatchAward.json");
         }
     }
 }

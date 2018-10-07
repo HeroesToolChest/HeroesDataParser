@@ -3,7 +3,7 @@ using Xunit;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
-    public class ZaryaDataTests : HeroParserBaseTest
+    public class ZaryaDataTests : HeroDataBaseTest
     {
         [Fact]
         public void EnergyTests()

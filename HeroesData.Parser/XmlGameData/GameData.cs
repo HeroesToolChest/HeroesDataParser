@@ -35,6 +35,7 @@ namespace HeroesData.Parser.XmlGameData
         protected string ModsFolderPath { get; }
         protected string CoreStormModFolderPath { get; set; }
         protected string HeroesdataStormModFolderPath { get; set; }
+        protected string HeroesMapModsFolderPath { get; set; }
         protected string OldHeroesFolderPath { get; set; }
         protected string NewHeroesFolderPath { get; set; }
 
@@ -121,6 +122,7 @@ namespace HeroesData.Parser.XmlGameData
 
             CoreStormModFolderPath = Path.Combine(ModsFolderPath, "core.stormmod", "base.stormdata", GameDataStringName);
             HeroesdataStormModFolderPath = Path.Combine(ModsFolderPath, "heroesdata.stormmod", "base.stormdata", GameDataStringName);
+            HeroesMapModsFolderPath = Path.Combine(ModsFolderPath, "heroesmapmods", "battlegroundmapmods");
             OldHeroesFolderPath = Path.Combine(HeroesdataStormModFolderPath, HeroesStringName);
             NewHeroesFolderPath = Path.Combine(ModsFolderPath, "heromods");
 
@@ -130,6 +132,7 @@ namespace HeroesData.Parser.XmlGameData
 
         protected abstract void LoadCoreStormMod();
         protected abstract void LoadHeroesDataStormMod();
+        protected abstract void LoadHeroesMapMods();
         protected abstract void LoadOldHeroes();
         protected abstract void LoadNewHeroes();
 
@@ -139,6 +142,7 @@ namespace HeroesData.Parser.XmlGameData
             LoadHeroesDataStormMod();
             LoadOldHeroes();
             LoadNewHeroes();
+            LoadHeroesMapMods();
         }
 
         private void GetLevelScalingData()

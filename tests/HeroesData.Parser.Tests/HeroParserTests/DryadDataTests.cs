@@ -3,7 +3,7 @@ using Xunit;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
-    public class DryadDataTests : HeroParserBaseTest
+    public class DryadDataTests : HeroDataBaseTest
     {
         [Fact]
         public void AbilityMountNoCooldownUntilTalentUpgradeTest()

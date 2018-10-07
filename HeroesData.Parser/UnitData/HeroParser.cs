@@ -538,7 +538,7 @@ namespace HeroesData.Parser.UnitData
                 {
                     heroUnit.Abilities = linkedAbilities[heroUnit.CUnitId].ToDictionary(x => x.ReferenceNameId, x => x);
 
-                    foreach (Ability linkedAbility in linkedAbilities[heroUnit.CUnitId].ToList())
+                    foreach (Ability linkedAbility in linkedAbilities[heroUnit.CUnitId])
                         hero.Abilities.Remove(linkedAbility.ReferenceNameId);
                 }
             }
@@ -553,7 +553,7 @@ namespace HeroesData.Parser.UnitData
                 {
                     heroUnit.Weapons = linkedWeapons[heroUnit.CUnitId].ToList();
 
-                    foreach (UnitWeapon linkedWeapon in linkedWeapons[heroUnit.CUnitId].ToList())
+                    foreach (UnitWeapon linkedWeapon in linkedWeapons[heroUnit.CUnitId])
                         hero.Weapons.Remove(linkedWeapon);
                 }
             }

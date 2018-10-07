@@ -127,5 +127,27 @@ namespace HeroesData.Parser.XmlGameData
                 }
             }
         }
+
+        protected override void LoadHeroesMapMods()
+        {
+            foreach (string mapModsFolderPath in Directory.GetDirectories(HeroesMapModsFolderPath))
+            {
+                string mapFolderName = Path.GetFileName(mapModsFolderPath);
+
+                if (mapFolderName.ToLower().Contains("data"))
+                    continue;
+
+                string xmlMapGameDataPath = Path.Combine(HeroesMapModsFolderPath, mapFolderName, "base.stormdata", GameDataStringName);
+
+                foreach (string xmlFilePath in Directory.GetFiles(xmlMapGameDataPath))
+                {
+                    if (Path.GetExtension(xmlFilePath) == ".xml")
+                    {
+                        XmlGameData.Root.Add(XDocument.Load(xmlFilePath).Root.Elements());
+                        XmlFileCount++;
+                    }
+                }
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ using Xunit;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
-    public class UtherDataTests : HeroParserBaseTest
+    public class UtherDataTests : HeroDataBaseTest
     {
         [Fact]
         public void TalentCooldownTextOverrideShowUsageOff()

@@ -4,7 +4,7 @@ using Xunit;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
-    public class TestHeroDataTests : HeroParserBaseTest
+    public class TestHeroDataTests : HeroDataBaseTest
     {
         [Fact]
         public void HeroBasicPropertiesTests()
