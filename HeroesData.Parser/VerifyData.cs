@@ -6,21 +6,24 @@ using System.Reflection;
 
 namespace HeroesData.Parser
 {
-    public class VerifyHeroData
+    public class VerifyData
     {
         private readonly IEnumerable<Hero> HeroData = new List<Hero>();
+        private readonly IEnumerable<MatchAward> MatchAwardData = new List<MatchAward>();
         private readonly string VerifyIgnoreFileName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "VerifyIgnore.txt");
 
-        private string HeroName;
+        private string WarningId;
 
         private HashSet<string> IgnoreLines = new HashSet<string>();
 
-        private VerifyHeroData(IEnumerable<Hero> heroData)
+        private VerifyData(IEnumerable<Hero> heroData, IEnumerable<MatchAward> awardData)
         {
             HeroData = heroData;
+            MatchAwardData = awardData;
 
             ReadIgnoreFile();
-            VerifyData();
+            VerifyHeroData();
+            VerifyMatchAwardData();
         }
 
         public HashSet<string> Warnings { get; private set; } = new HashSet<string>();
@@ -31,16 +34,16 @@ namespace HeroesData.Parser
         /// </summary>
         /// <param name="heroData">A collection of all hero data.</param>
         /// <returns></returns>
-        public static VerifyHeroData Verify(IEnumerable<Hero> heroData)
+        public static VerifyData Verify(IEnumerable<Hero> heroData, IEnumerable<MatchAward> awardData)
         {
-            return new VerifyHeroData(heroData);
+            return new VerifyData(heroData, awardData);
         }
 
-        private void VerifyData()
+        private void VerifyHeroData()
         {
             foreach (Hero hero in HeroData)
             {
-                HeroName = hero.Name;
+                WarningId = hero.Name;
 
                 if (string.IsNullOrEmpty(hero.AttributeId))
                     AddWarning($"{nameof(hero.AttributeId)} is null or empty");
@@ -276,9 +279,41 @@ namespace HeroesData.Parser
             }
         }
 
+        private void VerifyMatchAwardData()
+        {
+            foreach (MatchAward award in MatchAwardData)
+            {
+                WarningId = award.Id;
+
+                if (string.IsNullOrEmpty(award.Name))
+                    AddWarning($"{nameof(award.Name)} is null or empty");
+
+                if (award.Name.Contains("_"))
+                    AddWarning($"{nameof(award.Name)} contains an underscore, may have a duplicate name");
+
+                if (string.IsNullOrEmpty(award.ShortName))
+                    AddWarning($"{nameof(award.ShortName)} is null or empty");
+
+                if (award.ShortName.Contains(","))
+                    AddWarning($"{nameof(award.ShortName)} contains a comma, may have a duplicate short name");
+
+                if (string.IsNullOrEmpty(award.Tag))
+                    AddWarning($"{nameof(award.Tag)} is null or empty");
+
+                if (string.IsNullOrEmpty(award.MVPScreenImageFileName))
+                    AddWarning($"{nameof(award.MVPScreenImageFileName)} is null or empty");
+
+                if (string.IsNullOrEmpty(award.ScoreScreenImageFileName))
+                    AddWarning($"{nameof(award.ScoreScreenImageFileName)} is null or empty");
+
+                if (string.IsNullOrEmpty(award.ScoreScreenImageFileNameOriginal))
+                    AddWarning($"{nameof(award.ScoreScreenImageFileNameOriginal)} is null or empty");
+            }
+        }
+
         private void AddWarning(string message)
         {
-            message = $"[{HeroName}] {message}".Trim();
+            message = $"[{WarningId}] {message}".Trim();
 
             if (!IgnoreLines.Contains(message))
                 Warnings.Add(message);

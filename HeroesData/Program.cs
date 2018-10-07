@@ -229,7 +229,7 @@ namespace HeroesData
                         parsedHeroes = ParseHeroes(parsedGameStrings);
                         parsedMatchAwards = ParseMatchAwards(parsedGameStrings);
 
-                        HeroDataVerification(parsedHeroes, localization);
+                        OutputDataVerification(parsedHeroes, parsedMatchAwards, localization);
                         CreateOutput(parsedHeroes, parsedMatchAwards, localization, out outputDirectory);
                         totalLocalSuccess++;
                     }
@@ -703,11 +703,11 @@ namespace HeroesData
             return awardParser.GetParsedMatchAwards();
         }
 
-        private void HeroDataVerification(IEnumerable<Hero> heroes, GameStringLocalization localization)
+        private void OutputDataVerification(IEnumerable<Hero> heroes, IEnumerable<MatchAward> matchAwards, GameStringLocalization localization)
         {
-            Console.WriteLine("Verifying hero data...");
+            Console.WriteLine("Verifying output data...");
 
-            var verifyData = VerifyHeroData.Verify(heroes);
+            var verifyData = VerifyData.Verify(heroes, matchAwards);
             List<string> warnings = verifyData.Warnings.ToList();
             warnings.Sort();
 
