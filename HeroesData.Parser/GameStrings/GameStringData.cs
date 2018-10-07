@@ -73,6 +73,7 @@ namespace HeroesData.Parser.GameStrings
                 LocalizedName = "LocalizedData";
             }
 
+            OldDescriptionsPath = Path.Combine(ModsFolderPath, "heroesdata.stormmod", GameStringLocalization, LocalizedName);
             CoreStormmodDescriptionsPath = Path.Combine(ModsFolderPath, "core.stormmod", GameStringLocalization, LocalizedName);
             HeroModsPath = Path.Combine(ModsFolderPath, "heromods");
             MapModsPath = Path.Combine(ModsFolderPath, "heroesmapmods", "battlegroundmapmods");
