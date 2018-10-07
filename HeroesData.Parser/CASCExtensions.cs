@@ -6,9 +6,9 @@ namespace HeroesData.Parser
 {
     public static class CASCExtensions
     {
-        public static CASCFolder GetDirectory(CASCFolder cascFolderData, string folderPath)
+        public static CASCFolder GetDirectory(this CASCFolder cascFolder, string folderPath)
         {
-            CASCFolder currentFolder = cascFolderData;
+            CASCFolder currentFolder = cascFolder;
 
             foreach (string directory in EnumeratedStringPath(folderPath))
             {

@@ -17,10 +17,10 @@ namespace HeroesData.Parser.GameStrings
 
         protected override void ParseGameStringFiles()
         {
-            CASCFolder currentFolder = CASCExtensions.GetDirectory(CASCFolderData, CoreStormmodDescriptionsPath);
+            CASCFolder currentFolder = CASCFolderData.GetDirectory(CoreStormmodDescriptionsPath);
             ParseFiles(CASCHandlerData.OpenFile(((CASCFile)currentFolder.GetEntry(GameStringFile)).FullName));
 
-            currentFolder = CASCExtensions.GetDirectory(CASCFolderData, OldDescriptionsPath);
+            currentFolder = CASCFolderData.GetDirectory(OldDescriptionsPath);
             ParseFiles(CASCHandlerData.OpenFile(((CASCFile)currentFolder.GetEntry(GameStringFile)).FullName));
 
             ParseNewHeroes();
@@ -29,7 +29,7 @@ namespace HeroesData.Parser.GameStrings
 
         protected override void ParseMapMods()
         {
-            CASCFolder currentFolder = CASCExtensions.GetDirectory(CASCFolderData, MapModsPath);
+            CASCFolder currentFolder = CASCFolderData.GetDirectory(MapModsPath);
 
             foreach (KeyValuePair<string, ICASCEntry> mapFolder in currentFolder.Entries)
             {
@@ -45,7 +45,7 @@ namespace HeroesData.Parser.GameStrings
 
         protected override void ParseNewHeroes()
         {
-            CASCFolder currentFolder = CASCExtensions.GetDirectory(CASCFolderData, HeroModsPath);
+            CASCFolder currentFolder = CASCFolderData.GetDirectory(HeroModsPath);
 
             foreach (KeyValuePair<string, ICASCEntry> heroFolder in currentFolder.Entries)
             {

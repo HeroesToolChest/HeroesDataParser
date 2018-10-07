@@ -33,7 +33,7 @@ namespace HeroesData.Parser.XmlGameData
         protected override void LoadCoreStormMod()
         {
             // core.stormmod xml files
-            CASCFolder currentFolder = CASCExtensions.GetDirectory(CASCFolderData, CoreStormModFolderPath);
+            CASCFolder currentFolder = CASCFolderData.GetDirectory(CoreStormModFolderPath);
 
             foreach (KeyValuePair<string, ICASCEntry> file in currentFolder.Entries)
             {
@@ -57,7 +57,7 @@ namespace HeroesData.Parser.XmlGameData
 
         protected override void LoadHeroesDataStormMod()
         {
-            CASCFolder currentFolder = CASCExtensions.GetDirectory(CASCFolderData, HeroesdataStormModFolderPath);
+            CASCFolder currentFolder = CASCFolderData.GetDirectory(HeroesdataStormModFolderPath);
 
             foreach (KeyValuePair<string, ICASCEntry> file in currentFolder.Entries)
             {
@@ -73,7 +73,7 @@ namespace HeroesData.Parser.XmlGameData
 
         protected override void LoadOldHeroes()
         {
-            CASCFolder currentFolder = CASCExtensions.GetDirectory(CASCFolderData, OldHeroesFolderPath);
+            CASCFolder currentFolder = CASCFolderData.GetDirectory(OldHeroesFolderPath);
 
             // loop through each hero folder
             foreach (KeyValuePair<string, ICASCEntry> heroFolder in currentFolder.Entries)
@@ -91,7 +91,7 @@ namespace HeroesData.Parser.XmlGameData
 
         protected override void LoadNewHeroes()
         {
-            CASCFolder currentFolder = CASCExtensions.GetDirectory(CASCFolderData, NewHeroesFolderPath);
+            CASCFolder currentFolder = CASCFolderData.GetDirectory(NewHeroesFolderPath);
 
             // loop through each hero folder
             foreach (KeyValuePair<string, ICASCEntry> heroFolder in currentFolder.Entries)
@@ -139,7 +139,7 @@ namespace HeroesData.Parser.XmlGameData
 
         protected override void LoadHeroesMapMods()
         {
-            CASCFolder currentFolder = CASCExtensions.GetDirectory(CASCFolderData, HeroesMapModsFolderPath);
+            CASCFolder currentFolder = CASCFolderData.GetDirectory(HeroesMapModsFolderPath);
 
             // loop through each mapmods folder
             foreach (KeyValuePair<string, ICASCEntry> mapFolder in currentFolder.Entries)
