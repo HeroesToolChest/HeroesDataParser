@@ -1,6 +1,7 @@
 ﻿using CASCLib;
 using DDSReader;
 using Heroes.Models;
+using SixLabors.Primitives;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,15 +15,17 @@ namespace HeroesData
         private readonly string CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "Assets", "Textures");
 
         private readonly IEnumerable<Hero> Heroes;
+        private readonly IEnumerable<MatchAward> MatchAwards;
         private readonly CASCHandler CASCHandler;
         private SortedSet<string> Portraits = new SortedSet<string>();
         private SortedSet<string> Talents = new SortedSet<string>();
         private SortedSet<string> Abilities = new SortedSet<string>();
         private SortedSet<string> AbilityTalents = new SortedSet<string>();
-
-        public Extractor(IEnumerable<Hero> heroes, CASCHandler cascHandler)
+        private SortedSet<(string OriginalName, string NewName)> Awards = new SortedSet<(string Original, string NewName)>();
+        public Extractor(IEnumerable<Hero> heroes, IEnumerable<MatchAward> matchAwards, CASCHandler cascHandler)
         {
             Heroes = heroes;
+            MatchAwards = matchAwards;
             CASCHandler = cascHandler;
             Initialize();
         }
@@ -31,35 +34,6 @@ namespace HeroesData
         /// Gets or sets the output directory.
         /// </summary>
         public string OutputDirectory { get; set; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "output");
-
-        /// <summary>
-        /// Extracts a file.
-        /// </summary>
-        /// <param name="path">The path to extract the file to.</param>
-        /// <param name="fileName">The name of the file to extract.</param>
-        public void ExtractFile(string path, string fileName)
-        {
-            Directory.CreateDirectory(path);
-
-            try
-            {
-                string cascFilepath = Path.Combine(CASCTexturesPath, fileName);
-                if (CASCHandler.FileExists(cascFilepath))
-                {
-                    DDSImage image = new DDSImage(CASCHandler.OpenFile(cascFilepath));
-                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(fileName)}.png"));
-                }
-                else
-                {
-                    Console.WriteLine($"CASC file not found: {fileName}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error extracting file: {fileName}");
-                Console.WriteLine($"--> {ex.Message}");
-            }
-        }
 
         /// <summary>
         /// Extracts all portrait images.
@@ -129,6 +103,28 @@ namespace HeroesData
             Console.WriteLine("Done.");
         }
 
+        public void ExtractMatchAwardIcons()
+        {
+            Console.Write("Extracting match award icon files...");
+
+            string extractFilePath = Path.Combine(OutputDirectory, "matchAwards");
+
+            foreach ((string originalName, string newName) in Awards)
+            {
+                if (originalName.StartsWith("storm_ui_mvp_icons_rewards_"))
+                {
+                    ExtractMVPAwardFile(extractFilePath, originalName, newName);
+                }
+                else
+                {
+                    ExtractScoreAwardFile(extractFilePath, originalName, newName, "red");
+                    ExtractScoreAwardFile(extractFilePath, originalName, newName, "blue");
+                }
+            }
+
+            Console.WriteLine("Done.");
+        }
+
         private void Initialize()
         {
             foreach (Hero hero in Heroes)
@@ -161,6 +157,118 @@ namespace HeroesData
                         AbilityTalents.Add(talentIconFileName.ToLower());
                     }
                 }
+            }
+
+            foreach (MatchAward matchAward in MatchAwards)
+            {
+                if (!string.IsNullOrEmpty(matchAward.MVPScreenImageFileNameOriginal))
+                    Awards.Add((matchAward.MVPScreenImageFileNameOriginal.ToLower(), matchAward.MVPScreenImageFileName.ToLower()));
+                if (!string.IsNullOrEmpty(matchAward.ScoreScreenImageFileNameOriginal))
+                    Awards.Add((matchAward.ScoreScreenImageFileNameOriginal.ToLower(), matchAward.ScoreScreenImageFileName.ToLower()));
+            }
+        }
+
+        /// <summary>
+        /// Extracts a file.
+        /// </summary>
+        /// <param name="path">The path to extract the file to.</param>
+        /// <param name="fileName">The name of the file to extract.</param>
+        private void ExtractFile(string path, string fileName)
+        {
+            Directory.CreateDirectory(path);
+
+            try
+            {
+                string cascFilepath = Path.Combine(CASCTexturesPath, fileName);
+                if (CASCHandler.FileExists(cascFilepath))
+                {
+                    DDSImage image = new DDSImage(CASCHandler.OpenFile(cascFilepath));
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(fileName)}.png"));
+                }
+                else
+                {
+                    Console.WriteLine($"CASC file not found: {fileName}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine();
+                Console.WriteLine($"Error extracting file: {fileName}");
+                Console.WriteLine($"--> {ex.Message}");
+                Console.ResetColor();
+            }
+        }
+
+        /// <summary>
+        /// Extracts a score screen match award file.
+        /// </summary>
+        /// <param name="path">The path to extract the file to.</param>
+        /// <param name="fileName">The name of the file to extract.</param>
+        /// <param name="newFileName">The new file name of the award.</param>
+        /// <param name="color">The color of the award.</param>
+        private void ExtractScoreAwardFile(string path, string fileName, string newFileName, string color)
+        {
+            Directory.CreateDirectory(path);
+
+            try
+            {
+                fileName = fileName.Replace("%team%", color);
+                string cascFilepath = Path.Combine(CASCTexturesPath, fileName);
+                if (CASCHandler.FileExists(cascFilepath))
+                {
+                    DDSImage image = new DDSImage(CASCHandler.OpenFile(cascFilepath));
+
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%team%", color))}.png"));
+                }
+                else
+                {
+                    Console.WriteLine($"CASC file not found: {fileName}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine();
+                Console.WriteLine($"Error extracting file: {fileName}");
+                Console.WriteLine($"--> {ex.Message}");
+                Console.ResetColor();
+            }
+        }
+
+        /// <summary>
+        /// Extracts a MVP match award file.
+        /// </summary>
+        /// <param name="path">The path to extract the file to.</param>
+        /// <param name="fileName">The name of the file to extract.</param>
+        /// <param name="newFileName">The new file name of the award.</param>
+        private void ExtractMVPAwardFile(string path, string fileName, string newFileName)
+        {
+            Directory.CreateDirectory(path);
+
+            try
+            {
+                string cascFilepath = Path.Combine(CASCTexturesPath, fileName);
+                if (CASCHandler.FileExists(cascFilepath))
+                {
+                    DDSImage image = new DDSImage(CASCHandler.OpenFile(cascFilepath));
+
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "blue"))}.png"), new Point(0, 0), new Size(148, 148));
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "red"))}.png"), new Point(148, 0), new Size(148, 148));
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "gold"))}.png"), new Point(296, 0), new Size(148, 148));
+                }
+                else
+                {
+                    Console.WriteLine($"CASC file not found: {fileName}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine();
+                Console.WriteLine($"Error extracting file: {fileName}");
+                Console.WriteLine($"--> {ex.Message}");
+                Console.ResetColor();
             }
         }
     }

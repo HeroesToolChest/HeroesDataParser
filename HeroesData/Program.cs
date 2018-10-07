@@ -44,6 +44,7 @@ namespace HeroesData
         private bool ExtractImageTalents = false;
         private bool ExtractImageAbilities = false;
         private bool ExtractImageAbilityTalents = false;
+        private bool ExtractMatchAwards = false;
         private bool IsFileSplit = false;
         private bool IsLocalizedText = false;
         private int? HotsBuild = null;
@@ -108,6 +109,7 @@ namespace HeroesData
                     {
                         program.ExtractImagePortraits = true;
                         program.ExtractImageAbilityTalents = true;
+                        program.ExtractMatchAwards = true;
                     }
 
                     if (extractIconsOption.Values.Exists(x => x.ToUpper() == "PORTRAITS"))
@@ -118,6 +120,8 @@ namespace HeroesData
                         program.ExtractImageAbilities = true;
                     if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITYTALENTS"))
                         program.ExtractImageAbilityTalents = true;
+                    if (extractIconsOption.Values.Exists(x => x.ToUpper() == "AWARDS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "MATCHAWARDS"))
+                        program.ExtractMatchAwards = true;
                 }
 
                 if (setGameStringLocalizations.HasValue())
@@ -238,7 +242,7 @@ namespace HeroesData
                     }
                 }
 
-                ExtractFiles(parsedHeroes, outputDirectory);
+                ExtractFiles(parsedHeroes, parsedMatchAwards, outputDirectory);
 
                 if (totalLocalSuccess == Localizations.Count)
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -854,18 +858,21 @@ namespace HeroesData
         /// Extract image files.
         /// </summary>
         /// <param name="heroes"></param>
-        private void ExtractFiles(IEnumerable<Hero> heroes, string outputDirectory)
+        private void ExtractFiles(IEnumerable<Hero> heroes, IEnumerable<MatchAward> matchAwards, string outputDirectory)
         {
-            if ((!ExtractImagePortraits && !ExtractImageAbilityTalents && !ExtractImageTalents && !ExtractImageAbilities) || StorageMode != StorageMode.CASC || heroes == null || string.IsNullOrEmpty(outputDirectory))
+            if ((!ExtractImagePortraits && !ExtractImageAbilityTalents && !ExtractImageTalents && !ExtractImageAbilities && !ExtractMatchAwards) || StorageMode != StorageMode.CASC || heroes == null || string.IsNullOrEmpty(outputDirectory))
                 return;
 
-            Extractor extractor = new Extractor(heroes, CASCHotsStorage.CASCHandler)
+            Extractor extractor = new Extractor(heroes, matchAwards, CASCHotsStorage.CASCHandler)
             {
                 OutputDirectory = outputDirectory,
             };
 
             if (ExtractImagePortraits)
                 extractor.ExtractPortraits();
+            if (ExtractMatchAwards)
+                extractor.ExtractMatchAwardIcons();
+
             if (ExtractImageAbilityTalents)
             {
                 extractor.ExtractAbilityTalentIcons();

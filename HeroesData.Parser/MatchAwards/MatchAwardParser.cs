@@ -82,6 +82,11 @@ namespace HeroesData.Parser.MatchAwards
                 string scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
                 string awardSpecialName = Path.GetFileName(PathExtensions.GetFilePath(scoreScreenIconFilePath)).Split('_')[4];
 
+                if (awardSpecialName == "hattrick")
+                    awardSpecialName = "hottrick";
+                else if (awardSpecialName == "skull")
+                    awardSpecialName = "dominator";
+
                 MatchAward matchAward = new MatchAward()
                 {
                     Name = instanceId,
