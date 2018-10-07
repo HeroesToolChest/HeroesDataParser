@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.XmlGameData;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -75,13 +76,16 @@ namespace HeroesData.Parser.MatchAwards
                 {
                     // get the name
                     if (ParsedGameStrings.TryGetValuesFromAll($"{GameStringPrefixes.ScoreValueNamePrefix}{gameLink}", out string awardNameText))
-                        instanceId = new TooltipDescription(awardNameText).PlainText;
+                        instanceId = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
                 }
 
                 XElement scoreValueCustomElement = GameData.XmlGameData.Root.Elements("CScoreValueCustom").FirstOrDefault(x => x.Attribute("id")?.Value == gameLink);
                 string scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
+
+                // get the name being used in the dds file
                 string awardSpecialName = Path.GetFileName(PathExtensions.GetFilePath(scoreScreenIconFilePath)).Split('_')[4];
 
+                // set some correct names
                 if (awardSpecialName == "hattrick")
                     awardSpecialName = "hottrick";
                 else if (awardSpecialName == "skull")
@@ -103,8 +107,14 @@ namespace HeroesData.Parser.MatchAwards
                     id = id.Substring(0, id.IndexOf("Boolean"));
 
                 matchAward.Id = id;
-                matchAward.ScoreScreenImageFileName = matchAward.ScoreScreenImageFileNameOriginal;
-                matchAward.MVPScreenImageFileName = $"storm_ui_mvp_{awardSpecialName}_%color%.dds";
+
+                // set new image file names for the extraction
+                // change it back to the correct spelling
+                if (awardSpecialName == "hottrick")
+                    awardSpecialName = "hattrick";
+
+                matchAward.ScoreScreenImageFileName = matchAward.ScoreScreenImageFileNameOriginal.ToLower();
+                matchAward.MVPScreenImageFileName = $"storm_ui_mvp_{awardSpecialName}_%color%.dds".ToLower();
 
                 if (ParsedGameStrings.TryGetValuesFromAll($"{GameStringPrefixes.ScoreValueTooltipPrefix}{gameLink}", out string description))
                     matchAward.Description = new TooltipDescription(description);
@@ -112,6 +122,17 @@ namespace HeroesData.Parser.MatchAwards
                 MatchAwards.Add(matchAward);
                 ParsedCount++;
             }
+        }
+
+        private string GetNameFromGenderRule(string name)
+        {
+            string[] parts = name.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length == 2)
+            {
+                return parts[0];
+            }
+
+            return name;
         }
     }
 }
