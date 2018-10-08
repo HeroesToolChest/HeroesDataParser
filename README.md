@@ -1,10 +1,12 @@
 # Heroes Data Parser
 [![Build status](https://ci.appveyor.com/api/projects/status/g3linacec0a4kqkn/branch/master?svg=true)](https://ci.appveyor.com/project/koliva8245/heroesdataparser/branch/master)  [![Build Status](https://travis-ci.org/koliva8245/HeroesDataParser.svg?branch=master)](https://travis-ci.org/koliva8245/HeroesDataParser) [![Release](https://img.shields.io/github/release/koliva8245/HeroesDataParser.svg)](https://github.com/koliva8245/HeroesDataParser/releases/latest)
 
+Heroes Data Parser is a .NET Core command line tool that extracts Heroes of the Storm game data into XML and JSON files. Extracts hero data along with all abilities, talents, and their respective portraits and icons.
 
-Heroes Data Parser is a .NET Core command line tool that extracts Heroes of the Storm game data into XML or JSON files. Extracts hero information along with all abilities, talents, and their respective portraits and icons.
-
-Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some more information and examples.
+Also extracts the following:
+ - Match Awards
+ 
+Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some more information and examples of XML and JSON output.
 
 ## Installation
 ### Supported Operating Systems
@@ -105,25 +107,28 @@ There are two types of paths that can be provided for this option. One is the di
 ```
 mods/
 |--core.stormmod/
-   |--base.stormdata/GameData/
+   |--base.stormdata/gamedata/
       |--(ALL FILES)
-   |--enus.stormdata/LocalizedData/
-      |--GameStrings.txt
+   |--enus.stormdata/localizeddata/
+      |--gamestrings.txt
 |--heroesdata.stormmod/
-   |--base.stormdata/GameData/
-      |--Heroes/
+   |--base.stormdata/gamedata/
+      |--heroes/
          |--(ALL FILES)
-   |--enus.stormdata/LocalizedData/
-      |--GameStrings.txt
+   |--enus.stormdata/localizeddata/
+      |--gamestrings.txt
+|--heroesmapmods/battlegroundmapmods/
+   |--(ALL FILES)
 |--heromods/
    |--(ALL FILES)
 ```
 Or a simpler way, extract these directories and file (keep the directory paths)
 
-`mods/core.stormmod/base.stormdata/GameData/`  
-`mods/core.stormmod/enus.stormdata/LocalizedData/GameStrings.txt`  
-`mods/heroesdata.stormmod/base.stormdata/GameData/`   
-`mods/heroesdata.stormmod/enus.stormdata/LocalizedData/GameStrings.txt`  
+`mods/core.stormmod/base.stormdata/gamedata/`  
+`mods/core.stormmod/enus.stormdata/localizeddata/gamestrings.txt`  
+`mods/heroesdata.stormmod/base.stormdata/gamedata/`   
+`mods/heroesdata.stormmod/enus.stormdata/localizeddata/gamestrings.txt`  
+`mods/heroesmapmods/battlegroundmapmods/`  
 `mods/heromods/`
 
 The `mods` directory can also have a build suffix in its name. [More info](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
