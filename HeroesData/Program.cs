@@ -317,18 +317,26 @@ namespace HeroesData
 
             if (StorageMode == StorageMode.CASC)
             {
-                CASCHotsStorage = CASCHotsStorage.Load(StoragePath);
+                try
+                {
+                    CASCHotsStorage = CASCHotsStorage.Load(StoragePath);
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                string versionBuild = CASCHotsStorage.CASCHandler.Config.BuildName?.Split('.').LastOrDefault();
-                if (!string.IsNullOrEmpty(versionBuild) && int.TryParse(versionBuild, out int hotsBuild))
-                {
-                    HotsBuild = hotsBuild;
-                    Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    string versionBuild = CASCHotsStorage.CASCHandler.Config.BuildName?.Split('.').LastOrDefault();
+
+                    if (!string.IsNullOrEmpty(versionBuild) && int.TryParse(versionBuild, out int hotsBuild))
+                    {
+                        HotsBuild = hotsBuild;
+                        Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Defaulting to latest build");
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    Console.WriteLine($"Defaulting to latest build");
+                    throw new CASCException("Error: Could not load the Heroes of the Storm data. Check if game is installed correctly.");
                 }
 
                 Console.WriteLine();
@@ -511,7 +519,15 @@ namespace HeroesData
                     GameStringLocalization = localization.GetFriendlyName(),
                 };
 
-                cascGameStringData.Load();
+                try
+                {
+                    cascGameStringData.Load();
+                }
+                catch (Exception)
+                {
+                    throw new CASCException("Error: Gamestrings could not be loaded. Check if localization is installed in game client.");
+                }
+
                 GameStringData = cascGameStringData;
             }
 
