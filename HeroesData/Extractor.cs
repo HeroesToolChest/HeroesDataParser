@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace HeroesData
 {
@@ -42,7 +41,7 @@ namespace HeroesData
         /// <summary>
         /// Gets or sets the output directory.
         /// </summary>
-        public string OutputDirectory { get; set; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "output");
+        public string OutputDirectory { get; set; }
 
         public bool ExtractImagePortraits { get; set; }
         public bool ExtractImageAbilityTalents { get; set; }

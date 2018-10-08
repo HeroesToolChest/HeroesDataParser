@@ -102,6 +102,8 @@ namespace HeroesData
 
                 if (setOutputDirectoryOption.HasValue())
                     program.OutputDirectory = setOutputDirectoryOption.Value();
+                else
+                    program.OutputDirectory = Path.Combine(program.AssemblyPath, "output");
 
                 if (extractIconsOption.HasValue() && storagePathOption.HasValue())
                 {
@@ -206,7 +208,6 @@ namespace HeroesData
                 IEnumerable<Hero> parsedHeroes = new List<Hero>();
                 IEnumerable<MatchAward> parsedMatchAwards = new List<MatchAward>();
 
-                string outputDirectory = string.Empty;
                 int totalLocaleSuccess = 0;
 
                 PreInitialize();
@@ -235,14 +236,14 @@ namespace HeroesData
                             DescriptionType = DescriptionType,
                             IsFileSplit = IsFileSplit,
                             IsLocalizedText = IsLocalizedText,
-                            OutputDirectory = outputDirectory,
+                            OutputDirectory = OutputDirectory,
                             ParsedHeroData = parsedHeroes,
                             ParsedMatchAwardData = parsedMatchAwards,
                             ShowHeroWarnings = ShowHeroWarnings,
                         };
 
                         dataOutput.Verify();
-                        dataOutput.CreateOutput(HotsBuild, out outputDirectory);
+                        dataOutput.CreateOutput(HotsBuild);
 
                         totalLocaleSuccess++;
                     }
@@ -264,12 +265,12 @@ namespace HeroesData
                     ExtractImagePortraits = ExtractImagePortraits,
                     ExtractImageTalents = ExtractImageTalents,
                     ExtractMatchAwards = ExtractMatchAwards,
-                    OutputDirectory = outputDirectory,
+                    OutputDirectory = OutputDirectory,
                     ParsedHeroData = parsedHeroes,
                     ParsedMatchAwardData = parsedMatchAwards,
                 };
 
-                extractor.ExtractFiles(outputDirectory);
+                extractor.ExtractFiles(OutputDirectory);
 
                 if (totalLocaleSuccess == Localizations.Count)
                     Console.ForegroundColor = ConsoleColor.Green;

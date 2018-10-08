@@ -102,7 +102,7 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        public void CreateOutput(int? hotsBuild, out string outputDirectory)
+        public void CreateOutput(int? hotsBuild)
         {
             bool anyCreated = false; // did we create any output at all?
 
@@ -113,17 +113,12 @@ namespace HeroesData
             {
                 DescriptionType = DescriptionType,
                 FileSplit = IsFileSplit,
+                OutputDirectory = OutputDirectory,
                 Localization = Localization.ToString().ToLower(),
                 IsLocalizedText = IsLocalizedText,
                 ParsedHeroes = ParsedHeroData.OrderBy(x => x.ShortName),
                 ParsedAwards = ParsedMatchAwardData.OrderBy(x => x.ShortName),
             };
-
-            if (!string.IsNullOrEmpty(OutputDirectory))
-                fileOutput.OutputDirectory = OutputDirectory;
-
-            // get the current output directory, which may be the default directory
-            outputDirectory = fileOutput.OutputDirectory;
 
             Console.WriteLine(fileOutput.OutputDirectory);
             Console.ResetColor();
