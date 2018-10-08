@@ -126,5 +126,14 @@ namespace HeroesData.FileWriter.Tests
             FileOutputMatchAwards.CreateXml();
             CompareFile(DefaultMatchAwardCreatedFile, "XmlOutputMatchAward.xml");
         }
+
+        [Fact]
+        public void XmlWriterMatchAwardLocalizedTests()
+        {
+            FileOutputMatchAwardsLocalized.Localization = Localization;
+            FileOutputMatchAwardsLocalized.IsLocalizedText = true;
+            FileOutputMatchAwardsLocalized.CreateXml(true, false);
+            CompareFile(Path.Combine("output", "xml", $"awards_{BuildNumber}_{Localization}.xml"), "XmlOutputMatchAwardLocalized.xml");
+        }
     }
 }

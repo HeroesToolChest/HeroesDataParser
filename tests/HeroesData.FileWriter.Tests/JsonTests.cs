@@ -124,5 +124,15 @@ namespace HeroesData.FileWriter.Tests
             FileOutputMatchAwards.CreateJson();
             CompareFile(DefaultMatchAwardCreatedFile, "JsonOutputMatchAward.json");
         }
+
+        [Fact]
+        public void JsonWriterMatchAwardLocalizedTests()
+        {
+            FileOutputMatchAwardsLocalized.Localization = Localization;
+            FileOutputMatchAwardsLocalized.IsLocalizedText = true;
+            FileOutputMatchAwardsLocalized.CreateJson(true, true);
+            CompareFile(Path.Combine("output", "json", $"awards_{BuildNumber}_{Localization}.json"), "JsonOutputMatchAwardLocalized.json");
+            CompareFile(Path.Combine("output", "gamestrings-12345", $"gamestrings_{BuildNumber}_{Localization}.txt"), "gamestrings_12345-awards.txt");
+        }
     }
 }

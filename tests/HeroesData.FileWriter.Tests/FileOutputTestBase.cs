@@ -29,6 +29,7 @@ namespace HeroesData.FileWriter.Tests
 
             SetTestMatchAwardData();
             FileOutputMatchAwards = new FileOutput() { ParsedAwards = MatchAwards };
+            FileOutputMatchAwardsLocalized = new FileOutput(BuildNumber) { ParsedAwards = MatchAwards };
         }
 
         protected FileOutput FileOutputNoBuildNumber { get; }
@@ -45,6 +46,7 @@ namespace HeroesData.FileWriter.Tests
         protected FileOutput FileOutputIsEnabledFalse { get; }
         protected FileOutput FileOutputGameStringLocalized { get; }
         protected FileOutput FileOutputMatchAwards { get; set; }
+        protected FileOutput FileOutputMatchAwardsLocalized { get; set; }
 
         protected int? BuildNumber => 12345;
         protected string OutputFileFolder => "OutputFiles";

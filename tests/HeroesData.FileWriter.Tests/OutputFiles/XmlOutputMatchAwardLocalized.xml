@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MatchAwards>
+  <Bulwark id="Bulwark" tag="AwBK">
+    <MVPScreenIcon>image_bulwark.png</MVPScreenIcon>
+    <ScoreScreenIcon>image_scorescreen_bulwark.png</ScoreScreenIcon>
+  </Bulwark>
+  <Killer id="Killer" tag="AwKL">
+    <MVPScreenIcon>image_killer.png</MVPScreenIcon>
+    <ScoreScreenIcon>image_scorescreen_killer.png</ScoreScreenIcon>
+  </Killer>
+</MatchAwards>
