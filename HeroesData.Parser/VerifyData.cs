@@ -8,40 +8,39 @@ namespace HeroesData.Parser
 {
     public class VerifyData
     {
-        private readonly IEnumerable<Hero> HeroData = new List<Hero>();
-        private readonly IEnumerable<MatchAward> MatchAwardData = new List<MatchAward>();
         private readonly string VerifyIgnoreFileName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "VerifyIgnore.txt");
 
         private string WarningId;
 
         private HashSet<string> IgnoreLines = new HashSet<string>();
 
-        private VerifyData(IEnumerable<Hero> heroData, IEnumerable<MatchAward> awardData)
+        public VerifyData()
         {
-            HeroData = heroData;
-            MatchAwardData = awardData;
-
             ReadIgnoreFile();
-            VerifyHeroData();
-            VerifyMatchAwardData();
         }
+
+        /// <summary>
+        /// Gets or sets the parsed hero data.
+        /// </summary>
+        public IEnumerable<Hero> ParsedHeroData { get; set; } = new List<Hero>();
+
+        /// <summary>
+        /// Gets or sets the parsed match award data.
+        /// </summary>
+        public IEnumerable<MatchAward> ParsedMatchAwardData { get; set; } = new List<MatchAward>();
 
         public HashSet<string> Warnings { get; private set; } = new HashSet<string>();
         public int WarningsIgnored { get; private set; } = 0;
 
-        /// <summary>
-        /// Verifies the all the hero data for missing data.
-        /// </summary>
-        /// <param name="heroData">A collection of all hero data.</param>
-        /// <returns></returns>
-        public static VerifyData Verify(IEnumerable<Hero> heroData, IEnumerable<MatchAward> awardData)
+        public void PerformVerification()
         {
-            return new VerifyData(heroData, awardData);
+            VerifyHeroData();
+            VerifyMatchAwardData();
         }
 
         private void VerifyHeroData()
         {
-            foreach (Hero hero in HeroData)
+            foreach (Hero hero in ParsedHeroData)
             {
                 WarningId = hero.Name;
 
@@ -281,7 +280,7 @@ namespace HeroesData.Parser
 
         private void VerifyMatchAwardData()
         {
-            foreach (MatchAward award in MatchAwardData)
+            foreach (MatchAward award in ParsedMatchAwardData)
             {
                 WarningId = award.Id;
 

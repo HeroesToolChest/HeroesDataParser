@@ -12,34 +12,79 @@ namespace HeroesData
 {
     internal class Extractor
     {
-        private readonly string CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "Assets", "Textures");
+        private readonly string CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "assets", "textures");
 
-        private readonly IEnumerable<Hero> Heroes;
-        private readonly IEnumerable<MatchAward> MatchAwards;
         private readonly CASCHandler CASCHandler;
+        private readonly StorageMode StorageMode;
+
         private SortedSet<string> Portraits = new SortedSet<string>();
         private SortedSet<string> Talents = new SortedSet<string>();
         private SortedSet<string> Abilities = new SortedSet<string>();
         private SortedSet<string> AbilityTalents = new SortedSet<string>();
         private SortedSet<(string OriginalName, string NewName)> Awards = new SortedSet<(string Original, string NewName)>();
-        public Extractor(IEnumerable<Hero> heroes, IEnumerable<MatchAward> matchAwards, CASCHandler cascHandler)
+
+        public Extractor(CASCHandler cascHandler, StorageMode storageMode)
         {
-            Heroes = heroes;
-            MatchAwards = matchAwards;
             CASCHandler = cascHandler;
-            Initialize();
+            StorageMode = storageMode;
         }
+
+        /// <summary>
+        /// Gets or sets the parsed hero data.
+        /// </summary>
+        public IEnumerable<Hero> ParsedHeroData { get; set; } = new List<Hero>();
+
+        /// <summary>
+        /// Gets or sets the parsed match award data.
+        /// </summary>
+        public IEnumerable<MatchAward> ParsedMatchAwardData { get; set; } = new List<MatchAward>();
 
         /// <summary>
         /// Gets or sets the output directory.
         /// </summary>
         public string OutputDirectory { get; set; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "output");
 
+        public bool ExtractImagePortraits { get; set; }
+        public bool ExtractImageAbilityTalents { get; set; }
+        public bool ExtractImageTalents { get; set; }
+        public bool ExtractImageAbilities { get; set; }
+        public bool ExtractMatchAwards { get; set; }
+
+        public void ExtractFiles(string outputDirectory)
+        {
+            LoadImageFileNames();
+
+            if (StorageMode != StorageMode.CASC || string.IsNullOrEmpty(outputDirectory))
+                return;
+
+            if (ExtractImagePortraits)
+                ExtractPortraits();
+            if (ExtractMatchAwards)
+                ExtractMatchAwardIcons();
+
+            if (ExtractImageAbilityTalents)
+            {
+                ExtractAbilityTalentIcons();
+            }
+            else
+            {
+                if (ExtractImageTalents)
+                    ExtractTalentIcons();
+                if (ExtractImageAbilities)
+                    ExtractAbilityIcons();
+            }
+
+            Console.WriteLine();
+        }
+
         /// <summary>
         /// Extracts all portrait images.
         /// </summary>
-        public void ExtractPortraits()
+        private void ExtractPortraits()
         {
+            if (Portraits == null)
+                return;
+
             Console.Write("Extracting portrait files...");
 
             string extractFilePath = Path.Combine(OutputDirectory, "portraits");
@@ -55,8 +100,11 @@ namespace HeroesData
         /// <summary>
         /// Extract ability icons.
         /// </summary>
-        public void ExtractAbilityIcons()
+        private void ExtractAbilityIcons()
         {
+            if (Abilities == null)
+                return;
+
             Console.Write("Extracting ability icon files...");
 
             string extractFilePath = Path.Combine(OutputDirectory, "abilities");
@@ -72,8 +120,11 @@ namespace HeroesData
         /// <summary>
         /// Extract talent icons.
         /// </summary>
-        public void ExtractTalentIcons()
+        private void ExtractTalentIcons()
         {
+            if (Talents == null)
+                return;
+
             Console.Write("Extracting talent icon files...");
 
             string extractFilePath = Path.Combine(OutputDirectory, "talents");
@@ -89,8 +140,11 @@ namespace HeroesData
         /// <summary>
         /// Extract abilities and talent icons into the same output directory.
         /// </summary>
-        public void ExtractAbilityTalentIcons()
+        private void ExtractAbilityTalentIcons()
         {
+            if (AbilityTalents == null)
+                return;
+
             Console.Write("Extracting abilityTalent icon files...");
 
             string extractFilePath = Path.Combine(OutputDirectory, "abilityTalents");
@@ -103,8 +157,11 @@ namespace HeroesData
             Console.WriteLine("Done.");
         }
 
-        public void ExtractMatchAwardIcons()
+        private void ExtractMatchAwardIcons()
         {
+            if (Awards == null)
+                return;
+
             Console.Write("Extracting match award icon files...");
 
             string extractFilePath = Path.Combine(OutputDirectory, "matchAwards");
@@ -125,9 +182,9 @@ namespace HeroesData
             Console.WriteLine("Done.");
         }
 
-        private void Initialize()
+        private void LoadImageFileNames()
         {
-            foreach (Hero hero in Heroes)
+            foreach (Hero hero in ParsedHeroData)
             {
                 if (!string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName))
                     Portraits.Add(hero.HeroPortrait.HeroSelectPortraitFileName.ToLower());
@@ -159,7 +216,7 @@ namespace HeroesData
                 }
             }
 
-            foreach (MatchAward matchAward in MatchAwards)
+            foreach (MatchAward matchAward in ParsedMatchAwardData)
             {
                 if (!string.IsNullOrEmpty(matchAward.MVPScreenImageFileNameOriginal))
                     Awards.Add((matchAward.MVPScreenImageFileNameOriginal.ToLower(), matchAward.MVPScreenImageFileName.ToLower()));

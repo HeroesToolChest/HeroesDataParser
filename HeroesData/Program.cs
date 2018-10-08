@@ -1,7 +1,5 @@
 ﻿using Heroes.Models;
 using HeroesData.Commands;
-using HeroesData.FileWriter;
-using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.MatchAwards;
 using HeroesData.Parser.UnitData;
@@ -71,7 +69,7 @@ namespace HeroesData
             CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Set the description output type (0 - 6) - Default 0", CommandOptionType.SingleValue);
             CommandOption setBuildOption = app.Option("-b|--build <number>", "Set the override build file", CommandOptionType.SingleValue);
             CommandOption setOutputDirectoryOption = app.Option("-o|--outputDirectory <filePath>", "Set the output directory", CommandOptionType.SingleValue);
-            CommandOption setGameStringLocalizations = app.Option("-l|--localization <local>", "Set the gamestring localization(s) - Default: enUS", CommandOptionType.MultipleValue);
+            CommandOption setGameStringLocalizations = app.Option("-l|--localization <locale>", "Set the gamestring localization(s) - Default: enUS", CommandOptionType.MultipleValue);
             CommandOption setFileSplitOption = app.Option("-f|--fileSplit", "Create a separate file for each hero parsed", CommandOptionType.NoValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
@@ -135,16 +133,16 @@ namespace HeroesData
                     else
                         localizations = setGameStringLocalizations.Values;
 
-                    foreach (string local in localizations)
+                    foreach (string locale in localizations)
                     {
-                        if (Enum.TryParse(local, true, out GameStringLocalization localization))
+                        if (Enum.TryParse(locale, true, out GameStringLocalization localization))
                         {
                             program.Localizations.Add(localization);
                         }
                         else
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine($"Unknown localization - {local}");
+                            Console.WriteLine($"Unknown localization - {locale}");
                         }
                     }
 
@@ -209,7 +207,7 @@ namespace HeroesData
                 IEnumerable<MatchAward> parsedMatchAwards = new List<MatchAward>();
 
                 string outputDirectory = string.Empty;
-                int totalLocalSuccess = 0;
+                int totalLocaleSuccess = 0;
 
                 PreInitialize();
                 InitializeGameData();
@@ -229,9 +227,24 @@ namespace HeroesData
                         parsedHeroes = ParseHeroes(parsedGameStrings);
                         parsedMatchAwards = ParseMatchAwards(parsedGameStrings);
 
-                        OutputDataVerification(parsedHeroes, parsedMatchAwards, localization);
-                        CreateOutput(parsedHeroes, parsedMatchAwards, localization, out outputDirectory);
-                        totalLocalSuccess++;
+                        DataOutput dataOutput = new DataOutput(localization)
+                        {
+                            CreateJson = CreateJson,
+                            CreateXml = CreateXml,
+                            Defaults = Defaults,
+                            DescriptionType = DescriptionType,
+                            IsFileSplit = IsFileSplit,
+                            IsLocalizedText = IsLocalizedText,
+                            OutputDirectory = outputDirectory,
+                            ParsedHeroData = parsedHeroes,
+                            ParsedMatchAwardData = parsedMatchAwards,
+                            ShowHeroWarnings = ShowHeroWarnings,
+                        };
+
+                        dataOutput.Verify();
+                        dataOutput.CreateOutput(HotsBuild, out outputDirectory);
+
+                        totalLocaleSuccess++;
                     }
                     catch (Exception ex)
                     {
@@ -244,16 +257,28 @@ namespace HeroesData
                     }
                 }
 
-                ExtractFiles(parsedHeroes, parsedMatchAwards, outputDirectory);
+                Extractor extractor = new Extractor(CASCHotsStorage.CASCHandler, StorageMode)
+                {
+                    ExtractImageAbilities = ExtractImageAbilities,
+                    ExtractImageAbilityTalents = ExtractImageAbilityTalents,
+                    ExtractImagePortraits = ExtractImagePortraits,
+                    ExtractImageTalents = ExtractImageTalents,
+                    ExtractMatchAwards = ExtractMatchAwards,
+                    OutputDirectory = outputDirectory,
+                    ParsedHeroData = parsedHeroes,
+                    ParsedMatchAwardData = parsedMatchAwards,
+                };
 
-                if (totalLocalSuccess == Localizations.Count)
+                extractor.ExtractFiles(outputDirectory);
+
+                if (totalLocaleSuccess == Localizations.Count)
                     Console.ForegroundColor = ConsoleColor.Green;
-                else if (totalLocalSuccess > 0)
+                else if (totalLocaleSuccess > 0)
                     Console.ForegroundColor = ConsoleColor.Yellow;
                 else
                     Console.ForegroundColor = ConsoleColor.Red;
 
-                Console.WriteLine($"HDP has completed [{totalLocalSuccess} out of {Localizations.Count} successful].");
+                Console.WriteLine($"HDP has completed [{totalLocaleSuccess} out of {Localizations.Count} successful].");
                 Console.WriteLine();
             }
             catch (Exception ex) // catch everything
@@ -274,7 +299,7 @@ namespace HeroesData
         {
             StoragePathFinder();
             Console.Write($"Localization(s): ");
-            Localizations.ForEach(local => { Console.Write($"{local.ToString().ToLower()} "); });
+            Localizations.ForEach(locale => { Console.Write($"{locale.ToString().ToLower()} "); });
             Console.WriteLine();
             Console.WriteLine();
             Console.ResetColor();
@@ -703,141 +728,6 @@ namespace HeroesData
             return awardParser.GetParsedMatchAwards();
         }
 
-        private void OutputDataVerification(IEnumerable<Hero> heroes, IEnumerable<MatchAward> matchAwards, GameStringLocalization localization)
-        {
-            Console.WriteLine("Verifying output data...");
-
-            var verifyData = VerifyData.Verify(heroes, matchAwards);
-            List<string> warnings = verifyData.Warnings.ToList();
-            warnings.Sort();
-
-            if (warnings.Count > 0)
-            {
-                List<string> nonTooltips = new List<string>(warnings.Where(x => !x.ToLower().Contains("tooltip")));
-                List<string> tooltips = new List<string>(warnings.Where(x => x.ToLower().Contains("tooltip")));
-
-                using (StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"VerificationCheck_{localization.ToString().ToLower()}.txt"), false))
-                {
-                    if (nonTooltips.Count > 0)
-                    {
-                        nonTooltips.ForEach((warning) =>
-                        {
-                            writer.WriteLine(warning);
-                            if (ShowHeroWarnings)
-                                Console.WriteLine(warning);
-                        });
-                    }
-
-                    if (tooltips.Count > 0)
-                    {
-                        writer.WriteLine();
-                        tooltips.ForEach((warning) =>
-                        {
-                            writer.WriteLine(warning);
-                            if (ShowHeroWarnings)
-                                Console.WriteLine(warning);
-                        });
-                    }
-
-                    writer.WriteLine($"{Environment.NewLine}{warnings.Count} warnings ({verifyData.WarningsIgnored} ignored)");
-                }
-
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write($"{warnings.Count} warnings");
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write($"{warnings.Count} warnings");
-            }
-
-            if (verifyData.WarningsIgnored > 0)
-                Console.Write($" ({verifyData.WarningsIgnored} ignored)");
-
-            Console.WriteLine();
-            Console.ResetColor();
-            Console.WriteLine();
-        }
-
-        private void CreateOutput(IEnumerable<Hero> parsedHeroes, IEnumerable<MatchAward> parsedAwards, GameStringLocalization localization, out string outputDirectory)
-        {
-            bool anyCreated = false; // did we create any output at all?
-
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write($"Creating output ({localization.ToString().ToLower()})...");
-
-            FileOutput fileOutput = new FileOutput(HotsBuild)
-            {
-                DescriptionType = DescriptionType,
-                FileSplit = IsFileSplit,
-                Localization = localization.ToString().ToLower(),
-                IsLocalizedText = IsLocalizedText,
-                ParsedHeroes = parsedHeroes.OrderBy(x => x.ShortName),
-                ParsedAwards = parsedAwards.OrderBy(x => x.ShortName),
-            };
-
-            if (!string.IsNullOrEmpty(OutputDirectory))
-                fileOutput.OutputDirectory = OutputDirectory;
-
-            // get the current output directory, which may be the default directory
-            outputDirectory = fileOutput.OutputDirectory;
-
-            Console.WriteLine(fileOutput.OutputDirectory);
-            Console.ResetColor();
-
-            if (Defaults)
-            {
-                if (fileOutput.IsXmlEnabled)
-                {
-                    Console.Write("Writing xml file(s)...");
-                    fileOutput.CreateXml();
-                    anyCreated = true;
-                    Console.WriteLine("Done.");
-                }
-
-                if (fileOutput.IsJsonEnabled)
-                {
-                    Console.Write("Writing json file(s)...");
-                    fileOutput.CreateJson();
-                    anyCreated = true;
-                    Console.WriteLine("Done.");
-                }
-            }
-            else
-            {
-                if (CreateXml)
-                {
-                    Console.Write("Writing xml file(s)...");
-                    fileOutput.CreateXml(CreateXml, IsLocalizedText);
-                    anyCreated = true;
-                    Console.WriteLine("Done.");
-                }
-
-                if (CreateJson)
-                {
-                    Console.Write("Writing json file(s)...");
-
-                    if (CreateXml)
-                        fileOutput.CreateJson(CreateJson, false); // only need to create it once
-                    else
-                        fileOutput.CreateJson(CreateJson, IsLocalizedText);
-
-                    anyCreated = true;
-                    Console.WriteLine("Done.");
-                }
-            }
-
-            if (!anyCreated)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("No writers were enabled!");
-                Console.WriteLine("No output was created.");
-                Console.ResetColor();
-            }
-
-            Console.WriteLine();
-        }
-
         private void OutputInvalidTooltips(SortedDictionary<string, string> tooltips, string headerMessage)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -853,40 +743,6 @@ namespace HeroesData
             }
 
             Console.ResetColor();
-            Console.WriteLine();
-        }
-
-        /// <summary>
-        /// Extract image files.
-        /// </summary>
-        /// <param name="heroes"></param>
-        private void ExtractFiles(IEnumerable<Hero> heroes, IEnumerable<MatchAward> matchAwards, string outputDirectory)
-        {
-            if ((!ExtractImagePortraits && !ExtractImageAbilityTalents && !ExtractImageTalents && !ExtractImageAbilities && !ExtractMatchAwards) || StorageMode != StorageMode.CASC || heroes == null || string.IsNullOrEmpty(outputDirectory))
-                return;
-
-            Extractor extractor = new Extractor(heroes, matchAwards, CASCHotsStorage.CASCHandler)
-            {
-                OutputDirectory = outputDirectory,
-            };
-
-            if (ExtractImagePortraits)
-                extractor.ExtractPortraits();
-            if (ExtractMatchAwards)
-                extractor.ExtractMatchAwardIcons();
-
-            if (ExtractImageAbilityTalents)
-            {
-                extractor.ExtractAbilityTalentIcons();
-            }
-            else
-            {
-                if (ExtractImageTalents)
-                    extractor.ExtractTalentIcons();
-                if (ExtractImageAbilities)
-                    extractor.ExtractAbilityIcons();
-            }
-
             Console.WriteLine();
         }
 
