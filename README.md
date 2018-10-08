@@ -200,7 +200,8 @@ Extracts portraits and abilityTalent icons that have been referenced for a hero 
 `abilities` - extracts ability icons  
 `talents` - extracts talent icons  
 `abilityTalents` - extracts both ability and talent icons into the same directory  
-`all` - performs `portraits` and `abilityTalents`
+`awards` - extracts match award icons  
+`all` - performs `portraits`, `abilityTalents`, and `awards`
 
 Notes:
 - This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storagePath` option
