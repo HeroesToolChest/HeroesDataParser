@@ -68,7 +68,7 @@ Options:
   -d|--description <value>         Set the description output type (0 - 6) - Default 0
   -b|--build <number>              Set the override build file
   -o|--outputDirectory <filePath>  Set the output directory
-  -l|--localization <local>        Set the gamestring localization(s) - Default: enUS
+  -l|--localization <locale>       Set the gamestring localization(s) - Default: enUS
   -f|--fileSplit                   Create a separate file for each hero parsed
   --xml                            Create xml output
   --json                           Create json output
