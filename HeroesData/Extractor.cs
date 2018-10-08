@@ -52,6 +52,9 @@ namespace HeroesData
 
         public void ExtractFiles(string outputDirectory)
         {
+            if (!ExtractImagePortraits && !ExtractImageAbilityTalents && !ExtractImageTalents && !ExtractImageAbilities && !ExtractMatchAwards)
+                return;
+
             LoadImageFileNames();
 
             if (StorageMode != StorageMode.CASC || string.IsNullOrEmpty(outputDirectory))
