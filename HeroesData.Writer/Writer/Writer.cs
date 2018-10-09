@@ -362,8 +362,8 @@ namespace HeroesData.FileWriter.Writer
 
         protected void AddMatchAwardGameStrings(MatchAward matchAward)
         {
-            LocalizedGameString.AddMatchAwardName(matchAward.Id, matchAward.Name);
-            LocalizedGameString.AddMatchAwardDescription(matchAward.Id, GetTooltip(matchAward.Description, FileSettings.Description));
+            LocalizedGameString.AddMatchAwardName(matchAward.ShortName, matchAward.Name);
+            LocalizedGameString.AddMatchAwardDescription(matchAward.ShortName, GetTooltip(matchAward.Description, FileSettings.Description));
         }
 
         private void DeleteExistingGameStrings()
