@@ -4,32 +4,35 @@ using Heroes.Models.AbilityTalents.Tooltip;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Xunit;
 
 namespace HeroesData.FileWriter.Tests
 {
     public class FileOutputTestBase
     {
+        private readonly string OutputPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "output");
+
         public FileOutputTestBase()
         {
             SetTestHeroData();
-            FileOutputNoBuildNumber = new FileOutput() { ParsedHeroes = Heroes };
-            FileOutputHasBuildNumber = new FileOutput(BuildNumber) { ParsedHeroes = Heroes };
-            FileOutputFalseSettings = new FileOutput(Path.Combine("Configs", "WriterConfigFalseSettings.xml")) { ParsedHeroes = Heroes };
-            FileOutputFileSplit = new FileOutput(Path.Combine("Configs", "WriterConfigFileSplit.xml")) { ParsedHeroes = Heroes };
-            FileOutputOverrideFileSplit = new FileOutput(Path.Combine("Configs", "WriterConfigFileSplit.xml")) { ParsedHeroes = Heroes };
-            FileOutputRawDescription = new FileOutput(Path.Combine("Configs", "WriterConfig0.xml")) { ParsedHeroes = Heroes };
-            FileOutputPlainText = new FileOutput(Path.Combine("Configs", "WriterConfig1.xml")) { ParsedHeroes = Heroes };
-            FileOutputPlainTextWithNewlines = new FileOutput(Path.Combine("Configs", "WriterConfig2.xml")) { ParsedHeroes = Heroes };
-            FileOutputPlainTextWithScaling = new FileOutput(Path.Combine("Configs", "WriterConfig3.xml")) { ParsedHeroes = Heroes };
-            FileOutputPlainTextWithScalingWithNewlines = new FileOutput(Path.Combine("Configs", "WriterConfig4.xml")) { ParsedHeroes = Heroes };
-            FileOutputColoredTextWithScaling = new FileOutput(Path.Combine("Configs", "WriterConfig6.xml")) { ParsedHeroes = Heroes };
-            FileOutputIsEnabledFalse = new FileOutput(Path.Combine("Configs", "WriterConfigEnabledFalse.xml")) { ParsedHeroes = Heroes };
-            FileOutputGameStringLocalized = new FileOutput(BuildNumber) { ParsedHeroes = Heroes };
+            FileOutputNoBuildNumber = new FileOutput() { ParsedHeroes = Heroes, OutputDirectory = OutputPath };
+            FileOutputHasBuildNumber = new FileOutput(BuildNumber) { ParsedHeroes = Heroes, OutputDirectory = OutputPath };
+            FileOutputFalseSettings = new FileOutput(Path.Combine("Configs", "WriterConfigFalseSettings.xml")) { ParsedHeroes = Heroes, OutputDirectory = OutputPath };
+            FileOutputFileSplit = new FileOutput(Path.Combine("Configs", "WriterConfigFileSplit.xml")) { ParsedHeroes = Heroes, OutputDirectory = OutputPath };
+            FileOutputOverrideFileSplit = new FileOutput(Path.Combine("Configs", "WriterConfigFileSplit.xml")) { ParsedHeroes = Heroes, OutputDirectory = OutputPath };
+            FileOutputRawDescription = new FileOutput(Path.Combine("Configs", "WriterConfig0.xml")) { ParsedHeroes = Heroes, OutputDirectory = OutputPath };
+            FileOutputPlainText = new FileOutput(Path.Combine("Configs", "WriterConfig1.xml")) { ParsedHeroes = Heroes, OutputDirectory = OutputPath };
+            FileOutputPlainTextWithNewlines = new FileOutput(Path.Combine("Configs", "WriterConfig2.xml")) { ParsedHeroes = Heroes, OutputDirectory = OutputPath };
+            FileOutputPlainTextWithScaling = new FileOutput(Path.Combine("Configs", "WriterConfig3.xml")) { ParsedHeroes = Heroes, OutputDirectory = OutputPath };
+            FileOutputPlainTextWithScalingWithNewlines = new FileOutput(Path.Combine("Configs", "WriterConfig4.xml")) { ParsedHeroes = Heroes, OutputDirectory = OutputPath };
+            FileOutputColoredTextWithScaling = new FileOutput(Path.Combine("Configs", "WriterConfig6.xml")) { ParsedHeroes = Heroes, OutputDirectory = OutputPath };
+            FileOutputIsEnabledFalse = new FileOutput(Path.Combine("Configs", "WriterConfigEnabledFalse.xml")) { ParsedHeroes = Heroes, OutputDirectory = OutputPath };
+            FileOutputGameStringLocalized = new FileOutput(BuildNumber) { ParsedHeroes = Heroes, OutputDirectory = OutputPath };
 
             SetTestMatchAwardData();
-            FileOutputMatchAwards = new FileOutput() { ParsedAwards = MatchAwards };
-            FileOutputMatchAwardsLocalized = new FileOutput(BuildNumber) { ParsedAwards = MatchAwards };
+            FileOutputMatchAwards = new FileOutput() { ParsedAwards = MatchAwards, OutputDirectory = OutputPath };
+            FileOutputMatchAwardsLocalized = new FileOutput(BuildNumber) { ParsedAwards = MatchAwards, OutputDirectory = OutputPath };
         }
 
         protected FileOutput FileOutputNoBuildNumber { get; }
