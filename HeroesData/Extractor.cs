@@ -11,10 +11,18 @@ namespace HeroesData
 {
     internal class Extractor
     {
-        private readonly string CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "assets", "textures");
-
         private readonly CASCHandler CASCHandler;
         private readonly StorageMode StorageMode;
+
+        private readonly string CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "assets", "textures");
+        private readonly string ImagesDirectory = "images";
+        private readonly string PortraitsDirectory = "portraits";
+        private readonly string AbilitiesDirectory = "abilities";
+        private readonly string TalentsDirectory = "talents";
+        private readonly string AbilityTalentsDirectory = "abilityTalents";
+        private readonly string MatchAwardsDirectory = "matchAwards";
+
+        private string _outputDirectory;
 
         private SortedSet<string> Portraits = new SortedSet<string>();
         private SortedSet<string> Talents = new SortedSet<string>();
@@ -41,7 +49,11 @@ namespace HeroesData
         /// <summary>
         /// Gets or sets the output directory.
         /// </summary>
-        public string OutputDirectory { get; set; }
+        public string OutputDirectory
+        {
+            get => _outputDirectory;
+            set => _outputDirectory = Path.Combine(value, ImagesDirectory);
+        }
 
         public bool ExtractImagePortraits { get; set; }
         public bool ExtractImageAbilityTalents { get; set; }
@@ -89,7 +101,7 @@ namespace HeroesData
 
             Console.Write("Extracting portrait files...");
 
-            string extractFilePath = Path.Combine(OutputDirectory, "portraits");
+            string extractFilePath = Path.Combine(OutputDirectory, PortraitsDirectory);
 
             foreach (string portrait in Portraits)
             {
@@ -109,7 +121,7 @@ namespace HeroesData
 
             Console.Write("Extracting ability icon files...");
 
-            string extractFilePath = Path.Combine(OutputDirectory, "abilities");
+            string extractFilePath = Path.Combine(OutputDirectory, AbilitiesDirectory);
 
             foreach (string ability in Abilities)
             {
@@ -129,7 +141,7 @@ namespace HeroesData
 
             Console.Write("Extracting talent icon files...");
 
-            string extractFilePath = Path.Combine(OutputDirectory, "talents");
+            string extractFilePath = Path.Combine(OutputDirectory, TalentsDirectory);
 
             foreach (string talent in Talents)
             {
@@ -149,7 +161,7 @@ namespace HeroesData
 
             Console.Write("Extracting abilityTalent icon files...");
 
-            string extractFilePath = Path.Combine(OutputDirectory, "abilityTalents");
+            string extractFilePath = Path.Combine(OutputDirectory, AbilityTalentsDirectory);
 
             foreach (string abilityTalent in AbilityTalents)
             {
@@ -166,7 +178,7 @@ namespace HeroesData
 
             Console.Write("Extracting match award icon files...");
 
-            string extractFilePath = Path.Combine(OutputDirectory, "matchAwards");
+            string extractFilePath = Path.Combine(OutputDirectory, MatchAwardsDirectory);
 
             foreach ((string originalName, string newName) in Awards)
             {
