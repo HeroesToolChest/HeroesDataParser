@@ -356,8 +356,8 @@ namespace HeroesData.FileWriter.Writer
             LocalizedGameString.AddUnitType(hero.ShortName, hero.Type);
             LocalizedGameString.AddUnitDescription(hero.ShortName, GetTooltip(hero.Description, FileSettings.Description));
 
-            foreach (string role in hero.Roles)
-                LocalizedGameString.AddUnitRole(hero.ShortName, role);
+            if (hero.Roles != null && hero.Roles.Count > 0)
+                LocalizedGameString.AddUnitRole(hero.ShortName, string.Join(",", hero.Roles));
         }
 
         protected void AddMatchAwardGameStrings(MatchAward matchAward)
