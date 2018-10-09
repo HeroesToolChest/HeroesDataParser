@@ -86,7 +86,7 @@ Commands:
 Use " [command] --help" for more information about a command.
 ```
 
-Example command to create xml and json files from the `Heroes of the Storm` directory
+Example command to create xml and json files from the `Heroes of the Storm` directory. Since no `-o|--outputDirectory` option is set, it defaults to the directory of HDP.
 ```
 dotnet heroes-data -s 'D:\Games\Heroes of the Storm Public Test' --xml --json
 ```
@@ -201,6 +201,8 @@ Fires a laser that deals <c val=\"#TooltipNumbers\">200 (+4% per level)</c> dama
 ### Extract (-e|--extract)
 Extracts portraits and abilityTalent icons that have been referenced for a hero in the xml and json file(s). Multiple are allowed.
 
+The extracted images are located at `<OUTPUT-DIRECTORY>/images/`
+
 `portraits` - extracts hero portraits (HeroSelect, Leaderboard, Loading, PartyPanel, and Target portraits)  
 `abilities` - extracts ability icons  
 `talents` - extracts talent icons  
@@ -210,7 +212,7 @@ Extracts portraits and abilityTalent icons that have been referenced for a hero 
 
 Notes:
 - This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storagePath` option
-- Images are always extracted in `.png` format
+- Files are extracted in `.png` format
 
 Example selecting multiple extractions
 ```
@@ -243,19 +245,20 @@ Example selecting multiple locals
 ***
 
 ### Localized Text (--localizedText)
-Strings that are localized are removed from the XML and JSON file(s) and are instead put into a text file to allow easy swapping between localizations.
+Strings that are localized are removed from the XML and JSON file(s) and are instead put into a text file to allow easy swapping between localizations. The file(s) are sorted alphabetically and each line can be read in as a key-value pair (split on `=`). 
+
+The gamestring text file(s) are located at `<OUTPUT-DIRECTORY>/gamestrings/`
 
 The following are all localized strings that are removed:
 - Hero/Unit: `name`, `difficulty`, `type`, `role`, `description`
 - Ability/Talent: `name`, `lifeTooltip`, `energyTooltip`, `cooldownTooltip`, `shortTooltip`, `fullTooltip`
-
-The gamestring text file(s) are located in `output/gamestrings/`
+- MatchAwards: `name`, `description`
 
 The format of the strings in the text file are the following:
 - `unit/name/[hero.shortname]=[value]`
 - `unit/difficulty/[hero.shortname]=[value]`
 - `unit/type/[hero.shortname]=[value]`
-- `unit/role/[hero.shortname]=[value] (one for each role of the hero)`
+- `unit/role/[hero.shortname]=[value] (comma delimited if more than 1 role)`
 - `unit/description/[hero.shortname]=[value]`
 - `abiltalent/name/[nameId]=[value]`
 - `tooltip/life/[nameId]=[value]`
@@ -263,6 +266,9 @@ The format of the strings in the text file are the following:
 - `tooltip/cooldown/[nameId]=[value]`
 - `tooltip/short/[shortTooltipId]=[value]`
 - `tooltip/full/[fullTooltipId]=[value]`
+- `award/name/[shortname]=[value]`
+- `award/description/[shortname]=[value]`
+
 
 ## Commands
 ### Read
@@ -321,7 +327,7 @@ When using a `Heroes of the Storm` directory, it will load the equivalent hero o
 ***
 
 ### Advanced File Configuration
-For more advanced file configurations, edit the file `WriterConfig.xml`.  Options in the console override the options in the config file.
+For more advanced file configurations, edit the file `WriterConfig.xml`.  Options in the console override the options in the config file. Typically this file should not be modified at all.
 
 ## Developing
 To build and compile the code, it is recommended to use the latest version of Visual Studio 2017.
