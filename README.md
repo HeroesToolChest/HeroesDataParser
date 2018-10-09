@@ -201,6 +201,8 @@ Fires a laser that deals <c val=\"#TooltipNumbers\">200 (+4% per level)</c> dama
 ### Extract (-e|--extract)
 Extracts portraits and abilityTalent icons that have been referenced for a hero in the xml and json file(s). Multiple are allowed.
 
+The extracted images are located at `<OUTPUT-DIRECTORY>/images/`
+
 `portraits` - extracts hero portraits (HeroSelect, Leaderboard, Loading, PartyPanel, and Target portraits)  
 `abilities` - extracts ability icons  
 `talents` - extracts talent icons  
@@ -245,12 +247,12 @@ Example selecting multiple locals
 ### Localized Text (--localizedText)
 Strings that are localized are removed from the XML and JSON file(s) and are instead put into a text file to allow easy swapping between localizations. The file(s) are sorted alphabetically and each line can be read in as a key-value pair (split on `=`). 
 
+The gamestring text file(s) are located at `<OUTPUT-DIRECTORY>/gamestrings/`
+
 The following are all localized strings that are removed:
 - Hero/Unit: `name`, `difficulty`, `type`, `role`, `description`
 - Ability/Talent: `name`, `lifeTooltip`, `energyTooltip`, `cooldownTooltip`, `shortTooltip`, `fullTooltip`
 - MatchAwards: `name`, `description`
-
-The gamestring text file(s) are located in `<OUTPUT-DIRECTORY>/gamestrings/`
 
 The format of the strings in the text file are the following:
 - `unit/name/[hero.shortname]=[value]`
