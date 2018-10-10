@@ -70,7 +70,7 @@ namespace HeroesData
             CommandOption setBuildOption = app.Option("-b|--build <number>", "Set the override build file", CommandOptionType.SingleValue);
             CommandOption setOutputDirectoryOption = app.Option("-o|--outputDirectory <filePath>", "Set the output directory", CommandOptionType.SingleValue);
             CommandOption setGameStringLocalizations = app.Option("-l|--localization <locale>", "Set the gamestring localization(s) - Default: enUS", CommandOptionType.MultipleValue);
-            CommandOption setFileSplitOption = app.Option("-f|--fileSplit", "Create a separate file for each hero parsed", CommandOptionType.NoValue);
+            CommandOption setFileSplitOption = app.Option("-f|--fileSplit", "Split the XML and JSON file(s) into multiple files", CommandOptionType.NoValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
             CommandOption localizedTextOption = app.Option("--localizedText", "Extract localized gamestrings from the XML and JSON file(s) into a text file", CommandOptionType.NoValue);
