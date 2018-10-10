@@ -85,7 +85,7 @@ namespace HeroesData.Parser.MatchAwards
                 // get the name being used in the dds file
                 string awardSpecialName = Path.GetFileName(PathExtensions.GetFilePath(scoreScreenIconFilePath)).Split('_')[4];
 
-                // set some correct names
+                // set some correct names for looking up the icons
                 if (awardSpecialName == "hattrick")
                     awardSpecialName = "hottrick";
                 else if (awardSpecialName == "skull")
@@ -105,6 +105,8 @@ namespace HeroesData.Parser.MatchAwards
                     id = id.Remove(0, "EndOfMatchAward".Length);
                 if (id.EndsWith("Boolean"))
                     id = id.Substring(0, id.IndexOf("Boolean"));
+                if (id.StartsWith("0"))
+                    id = id.ReplaceFirst("0", "Zero");
 
                 matchAward.Id = id;
 
