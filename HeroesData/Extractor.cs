@@ -182,7 +182,7 @@ namespace HeroesData
 
             foreach ((string originalName, string newName) in Awards)
             {
-                if (originalName.StartsWith("storm_ui_mvp_icons_rewards_"))
+                if (originalName.StartsWith("storm_ui_mvp_icons_rewards_") || originalName == "storm_ui_mvp_icon.dds")
                 {
                     ExtractMVPAwardFile(extractFilePath, originalName, newName);
                 }
@@ -324,9 +324,11 @@ namespace HeroesData
                 {
                     DDSImage image = new DDSImage(CASCHandler.OpenFile(cascFilepath));
 
-                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "blue"))}.png"), new Point(0, 0), new Size(148, 148));
-                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "red"))}.png"), new Point(148, 0), new Size(148, 148));
-                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "gold"))}.png"), new Point(296, 0), new Size(148, 148));
+                    int newWidth = image.Width / 3;
+
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "blue"))}.png"), new Point(0, 0), new Size(newWidth, image.Height));
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "red"))}.png"), new Point(newWidth, 0), new Size(newWidth, image.Height));
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "gold"))}.png"), new Point(newWidth * 2, 0), new Size(newWidth, image.Height));
                 }
                 else
                 {

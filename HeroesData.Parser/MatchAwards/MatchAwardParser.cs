@@ -77,6 +77,7 @@ namespace HeroesData.Parser.MatchAwards
 
             // manually add mvp award
             ParseAward("[Override]Generic Instance", "EndOfMatchAwardMVPBoolean");
+            MatchAwards.Last().Value.MVPScreenImageFileNameOriginal = "storm_ui_mvp_icon.dds";
         }
 
         private void ParseAward(string instanceId, string gameLink)

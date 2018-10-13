@@ -17,10 +17,13 @@ namespace HeroesData.Parser.Tests
         {
             List<MatchAward> matchAwards = MatchAwardParser.GetParsedMatchAwards().ToList();
 
-            Assert.Equal(5, matchAwards.Count);
+            Assert.Equal(6, matchAwards.Count);
 
             foreach (MatchAward matchAward in matchAwards)
             {
+                if (matchAward.Id == "MVP")
+                    continue;
+
                 Assert.NotNull(matchAward.Description);
                 Assert.NotNull(matchAward.Id);
                 Assert.NotNull(matchAward.MVPScreenImageFileNameOriginal);
