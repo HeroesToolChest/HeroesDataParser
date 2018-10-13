@@ -71,7 +71,7 @@ Options:
   -b|--build <number>              Set the override build file
   -o|--outputDirectory <filePath>  Set the output directory
   -l|--localization <locale>       Set the gamestring localization(s) - Default: enUS
-  -f|--fileSplit                   Create a separate file for each hero parsed
+  -f|--fileSplit                   Split the XML and JSON file(s) into multiple files
   --xml                            Create xml output
   --json                           Create json output
   --localizedText                  Extract localized gamestrings from the XML and JSON file(s) into a text file
@@ -79,6 +79,7 @@ Options:
   --invalidShort                   Show all invalid short tooltips
   --invalidHero                    Show all invalid hero tooltips
   --heroWarnings                   Show all hero warnings
+  --excludeAwards                  Exclude match award parsing
 
 Commands:
   read
