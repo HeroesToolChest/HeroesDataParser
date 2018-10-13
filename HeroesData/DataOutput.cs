@@ -117,7 +117,7 @@ namespace HeroesData
                 Localization = Localization.ToString().ToLower(),
                 IsLocalizedText = IsLocalizedText,
                 ParsedHeroes = ParsedHeroData.OrderBy(x => x.ShortName),
-                ParsedAwards = ParsedMatchAwardData.OrderBy(x => x.ShortName),
+                ParsedAwards = ParsedMatchAwardData?.OrderBy(x => x.ShortName),
             };
 
             Console.WriteLine(fileOutput.OutputDirectory);

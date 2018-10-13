@@ -173,7 +173,7 @@ namespace HeroesData
 
         private void ExtractMatchAwardIcons()
         {
-            if (Awards == null)
+            if (Awards == null || Awards.Count < 1)
                 return;
 
             Console.Write("Extracting match award icon files...");
@@ -230,12 +230,15 @@ namespace HeroesData
                 }
             }
 
-            foreach (MatchAward matchAward in ParsedMatchAwardData)
+            if (ParsedMatchAwardData != null)
             {
-                if (!string.IsNullOrEmpty(matchAward.MVPScreenImageFileNameOriginal))
-                    Awards.Add((matchAward.MVPScreenImageFileNameOriginal.ToLower(), matchAward.MVPScreenImageFileName.ToLower()));
-                if (!string.IsNullOrEmpty(matchAward.ScoreScreenImageFileNameOriginal))
-                    Awards.Add((matchAward.ScoreScreenImageFileNameOriginal.ToLower(), matchAward.ScoreScreenImageFileName.ToLower()));
+                foreach (MatchAward matchAward in ParsedMatchAwardData)
+                {
+                    if (!string.IsNullOrEmpty(matchAward.MVPScreenImageFileNameOriginal))
+                        Awards.Add((matchAward.MVPScreenImageFileNameOriginal.ToLower(), matchAward.MVPScreenImageFileName.ToLower()));
+                    if (!string.IsNullOrEmpty(matchAward.ScoreScreenImageFileNameOriginal))
+                        Awards.Add((matchAward.ScoreScreenImageFileNameOriginal.ToLower(), matchAward.ScoreScreenImageFileName.ToLower()));
+                }
             }
         }
 

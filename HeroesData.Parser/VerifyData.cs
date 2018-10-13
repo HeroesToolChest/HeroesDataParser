@@ -280,6 +280,9 @@ namespace HeroesData.Parser
 
         private void VerifyMatchAwardData()
         {
+            if (ParsedMatchAwardData == null)
+                return;
+
             foreach (MatchAward award in ParsedMatchAwardData)
             {
                 WarningId = award.Id;

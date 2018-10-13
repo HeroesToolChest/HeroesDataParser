@@ -45,6 +45,7 @@ namespace HeroesData
         private bool ExtractMatchAwards = false;
         private bool IsFileSplit = false;
         private bool IsLocalizedText = false;
+        private bool ExcludeAwardParsing = false;
         private int? HotsBuild = null;
         private int? OverrideBuild = null;
         private int MaxParallelism = -1;
@@ -78,6 +79,7 @@ namespace HeroesData
             CommandOption invalidShortOption = app.Option("--invalidShort", "Show all invalid short tooltips", CommandOptionType.NoValue);
             CommandOption invalidHeroOption = app.Option("--invalidHero", "Show all invalid hero tooltips", CommandOptionType.NoValue);
             CommandOption heroWarningsOption = app.Option("--heroWarnings", "Show all hero warnings", CommandOptionType.NoValue);
+            CommandOption excludeAwardParseOption = app.Option("--excludeAwards", "Exclude match award parsing", CommandOptionType.NoValue);
 
             app.OnExecute(() =>
             {
@@ -164,6 +166,7 @@ namespace HeroesData
                 program.ShowHeroWarnings = heroWarningsOption.HasValue() ? true : false;
                 program.IsFileSplit = setFileSplitOption.HasValue() ? true : false;
                 program.IsLocalizedText = localizedTextOption.HasValue() ? true : false;
+                program.ExcludeAwardParsing = excludeAwardParseOption.HasValue() ? true : false;
                 program.Execute();
                 Console.ResetColor();
 
@@ -205,8 +208,8 @@ namespace HeroesData
 
             try
             {
-                IEnumerable<Hero> parsedHeroes = new List<Hero>();
-                IEnumerable<MatchAward> parsedMatchAwards = new List<MatchAward>();
+                IEnumerable<Hero> parsedHeroes = null;
+                IEnumerable<MatchAward> parsedMatchAwards = null;
 
                 int totalLocaleSuccess = 0;
 
@@ -226,7 +229,9 @@ namespace HeroesData
 
                         ParsedGameStrings parsedGameStrings = InitializeGameStringParser();
                         parsedHeroes = ParseHeroes(parsedGameStrings);
-                        parsedMatchAwards = ParseMatchAwards(parsedGameStrings);
+
+                        if (!ExcludeAwardParsing)
+                            parsedMatchAwards = ParseMatchAwards(parsedGameStrings);
 
                         DataOutput dataOutput = new DataOutput(localization)
                         {
