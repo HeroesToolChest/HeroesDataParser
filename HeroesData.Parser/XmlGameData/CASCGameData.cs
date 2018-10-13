@@ -144,9 +144,6 @@ namespace HeroesData.Parser.XmlGameData
             // loop through each mapmods folder
             foreach (KeyValuePair<string, ICASCEntry> mapFolder in currentFolder.Entries)
             {
-                if (mapFolder.Key.ToLower().Contains("data"))
-                    continue;
-
                 ICASCEntry baseStormDataFolder = ((CASCFolder)mapFolder.Value).GetEntry("base.stormdata");
                 ICASCEntry gameDataFolder = ((CASCFolder)baseStormDataFolder).GetEntry(GameDataStringName);
 

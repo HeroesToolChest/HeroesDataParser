@@ -6,8 +6,8 @@ namespace HeroesData.Parser.GameStrings
     {
         protected override void ParseGameStringFiles()
         {
-            ParseFiles(Path.Combine(CoreStormmodDescriptionsPath, GameStringFile));
-            ParseFiles(Path.Combine(OldDescriptionsPath, GameStringFile));
+            ParseFile(Path.Combine(CoreStormmodDescriptionsPath, GameStringFile));
+            ParseFile(Path.Combine(OldDescriptionsPath, GameStringFile));
 
             ParseNewHeroes();
             ParseMapMods();
@@ -17,7 +17,7 @@ namespace HeroesData.Parser.GameStrings
         {
             foreach (string mapDirectory in Directory.GetDirectories(MapModsPath))
             {
-                ParseFiles(Path.Combine(mapDirectory, GameStringLocalization, LocalizedName, GameStringFile), true);
+                ParseFile(Path.Combine(mapDirectory, GameStringLocalization, LocalizedName, GameStringFile), true);
             }
         }
 
@@ -25,15 +25,7 @@ namespace HeroesData.Parser.GameStrings
         {
             foreach (string heroDirectory in Directory.GetDirectories(HeroModsPath))
             {
-                ParseFiles(Path.Combine(heroDirectory, GameStringLocalization, LocalizedName, GameStringFile));
-            }
-        }
-
-        private void ParseFiles(string filePath, bool isMapMod = false)
-        {
-            using (StreamReader reader = new StreamReader(filePath))
-            {
-                ReadFile(reader, isMapMod);
+                ParseFile(Path.Combine(heroDirectory, GameStringLocalization, LocalizedName, GameStringFile));
             }
         }
     }

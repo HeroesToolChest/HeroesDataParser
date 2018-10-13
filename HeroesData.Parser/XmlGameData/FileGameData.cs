@@ -133,10 +133,6 @@ namespace HeroesData.Parser.XmlGameData
             foreach (string mapModsFolderPath in Directory.GetDirectories(HeroesMapModsFolderPath))
             {
                 string mapFolderName = Path.GetFileName(mapModsFolderPath);
-
-                if (mapFolderName.ToLower().Contains("data"))
-                    continue;
-
                 string xmlMapGameDataPath = Path.Combine(HeroesMapModsFolderPath, mapFolderName, "base.stormdata", GameDataStringName);
 
                 foreach (string xmlFilePath in Directory.GetFiles(xmlMapGameDataPath))

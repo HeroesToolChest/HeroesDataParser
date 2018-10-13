@@ -18,10 +18,10 @@ namespace HeroesData.Parser.GameStrings
         protected override void ParseGameStringFiles()
         {
             CASCFolder currentFolder = CASCFolderData.GetDirectory(CoreStormmodDescriptionsPath);
-            ParseFiles(CASCHandlerData.OpenFile(((CASCFile)currentFolder.GetEntry(GameStringFile)).FullName));
+            ParseFile(CASCHandlerData.OpenFile(((CASCFile)currentFolder.GetEntry(GameStringFile)).FullName));
 
             currentFolder = CASCFolderData.GetDirectory(OldDescriptionsPath);
-            ParseFiles(CASCHandlerData.OpenFile(((CASCFile)currentFolder.GetEntry(GameStringFile)).FullName));
+            ParseFile(CASCHandlerData.OpenFile(((CASCFile)currentFolder.GetEntry(GameStringFile)).FullName));
 
             ParseNewHeroes();
             ParseMapMods();
@@ -37,9 +37,7 @@ namespace HeroesData.Parser.GameStrings
                 ICASCEntry localizedData = ((CASCFolder)localizationStormdata).GetEntry(LocalizedName);
 
                 ICASCEntry gameStringFile = ((CASCFolder)localizedData).GetEntry(GameStringFile);
-                Stream data = CASCHandlerData.OpenFile(((CASCFile)gameStringFile).FullName);
-
-                ParseFiles(data, true);
+                ParseFile(CASCHandlerData.OpenFile(((CASCFile)gameStringFile).FullName), true);
             }
         }
 
@@ -55,18 +53,8 @@ namespace HeroesData.Parser.GameStrings
                     ICASCEntry localizedData = ((CASCFolder)localizationStormdata).GetEntry(LocalizedName);
 
                     ICASCEntry gameStringFile = ((CASCFolder)localizedData).GetEntry(GameStringFile);
-                    Stream data = CASCHandlerData.OpenFile(((CASCFile)gameStringFile).FullName);
-
-                    ParseFiles(data);
+                    ParseFile(CASCHandlerData.OpenFile(((CASCFile)gameStringFile).FullName));
                 }
-            }
-        }
-
-        private void ParseFiles(Stream fileStream, bool isMapMod = false)
-        {
-            using (StreamReader reader = new StreamReader(fileStream))
-            {
-                ReadFile(reader, isMapMod);
             }
         }
     }

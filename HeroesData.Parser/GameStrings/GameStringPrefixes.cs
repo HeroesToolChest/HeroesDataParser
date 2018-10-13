@@ -43,8 +43,13 @@
         public static string ScoreValueTooltipPrefix { get; } = "ScoreValue/Tooltip/";
 
         /// <summary>
-        /// Gets the name value prefix string.
+        /// Gets the award gamelink value prefix string.
         /// </summary>
-        public static string ScoreValueNamePrefix { get; } = "ScoreValue/Name/";
+        public static string MatchAwardMapSpecificInstanceNamePrefix { get; } = "UserData/EndOfMatchMapSpecificAward/";
+
+        /// <summary>
+        /// Gets the award gamelink value prefix string.
+        /// </summary>
+        public static string MatchAwardInstanceNamePrefix { get; } = "ScoreValue/Name/";
     }
 }

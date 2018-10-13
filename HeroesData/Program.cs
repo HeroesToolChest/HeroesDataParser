@@ -258,19 +258,22 @@ namespace HeroesData
                     }
                 }
 
-                Extractor extractor = new Extractor(CASCHotsStorage.CASCHandler, StorageMode)
+                if (StorageMode == StorageMode.CASC)
                 {
-                    ExtractImageAbilities = ExtractImageAbilities,
-                    ExtractImageAbilityTalents = ExtractImageAbilityTalents,
-                    ExtractImagePortraits = ExtractImagePortraits,
-                    ExtractImageTalents = ExtractImageTalents,
-                    ExtractMatchAwards = ExtractMatchAwards,
-                    OutputDirectory = OutputDirectory,
-                    ParsedHeroData = parsedHeroes,
-                    ParsedMatchAwardData = parsedMatchAwards,
-                };
+                    Extractor extractor = new Extractor(CASCHotsStorage.CASCHandler, StorageMode)
+                    {
+                        ExtractImageAbilities = ExtractImageAbilities,
+                        ExtractImageAbilityTalents = ExtractImageAbilityTalents,
+                        ExtractImagePortraits = ExtractImagePortraits,
+                        ExtractImageTalents = ExtractImageTalents,
+                        ExtractMatchAwards = ExtractMatchAwards,
+                        OutputDirectory = OutputDirectory,
+                        ParsedHeroData = parsedHeroes,
+                        ParsedMatchAwardData = parsedMatchAwards,
+                    };
 
-                extractor.ExtractFiles(OutputDirectory);
+                    extractor.ExtractFiles(OutputDirectory);
+                }
 
                 if (totalLocaleSuccess == Localizations.Count)
                     Console.ForegroundColor = ConsoleColor.Green;
