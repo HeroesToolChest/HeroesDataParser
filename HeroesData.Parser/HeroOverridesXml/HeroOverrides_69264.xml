@@ -285,6 +285,8 @@
   <CHero id="Samuro">
     <Ability id="SamuroCriticalStrikeDummy" valid="false"></Ability>
     <Ability id="SamuroCriticalStrike" valid="true"></Ability>
+    <!--Image Transmission -->
+    <Ability id="SamuroIllusionMaster" button="SamuroAdvancingStrikes" add="true" />
   </CHero>
   <CHero id="Tinker" name="Gazlowe">
     <Portrait>
