@@ -343,8 +343,9 @@ namespace HeroesData
                         Console.WriteLine($"Defaulting to latest build");
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    WriteExceptionLog("hots", ex);
                     throw new CASCException("Error: Could not load the Heroes of the Storm data. Check if game is installed correctly.");
                 }
 
@@ -532,8 +533,9 @@ namespace HeroesData
                 {
                     cascGameStringData.Load();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    WriteExceptionLog($"gamestrings_{localization}", ex);
                     throw new CASCException("Error: Gamestrings could not be loaded. Check if localization is installed in game client.");
                 }
 
