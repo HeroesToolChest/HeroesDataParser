@@ -33,6 +33,10 @@ namespace HeroesData.Parser.GameStrings
 
             foreach (KeyValuePair<string, ICASCEntry> mapFolder in currentFolder.Entries)
             {
+                // check if localization folder exists
+                if (!((CASCFolder)mapFolder.Value).Entries.ContainsKey(GameStringLocalization))
+                    continue;
+
                 ICASCEntry localizationStormdata = ((CASCFolder)mapFolder.Value).GetEntry(GameStringLocalization);
                 ICASCEntry localizedData = ((CASCFolder)localizationStormdata).GetEntry(LocalizedName);
 
