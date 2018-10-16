@@ -119,6 +119,8 @@ namespace HeroesData.Parser.MatchAwards
                 id = id.Substring(0, id.IndexOf("Boolean"));
             if (id.StartsWith("0"))
                 id = id.ReplaceFirst("0", "Zero");
+            if (id == "MostAltarDamageDone")
+                id = "MostAltarDamage";
 
             matchAward.Id = id;
 
