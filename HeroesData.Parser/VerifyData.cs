@@ -285,7 +285,7 @@ namespace HeroesData.Parser
 
             foreach (MatchAward award in ParsedMatchAwardData)
             {
-                WarningId = award.Id;
+                WarningId = award.ShortName;
 
                 if (string.IsNullOrEmpty(award.Name))
                     AddWarning($"{nameof(award.Name)} is null or empty");

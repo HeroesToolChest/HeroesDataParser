@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace HeroesData.Parser.MatchAwards
@@ -106,23 +104,22 @@ namespace HeroesData.Parser.MatchAwards
             MatchAward matchAward = new MatchAward()
             {
                 Name = instanceId,
-                ShortName = XmlConvert.EncodeLocalName(Regex.Replace(instanceId, @"\s+", string.Empty)),
                 ScoreScreenImageFileNameOriginal = Path.GetFileName(PathExtensions.GetFilePath(scoreScreenIconFilePath)),
                 MVPScreenImageFileNameOriginal = $"storm_ui_mvp_icons_rewards_{awardSpecialName}.dds",
                 Tag = scoreValueCustomElement.Element("UniqueTag").Attribute("value")?.Value,
             };
 
-            string id = gameLink;
-            if (id.StartsWith("EndOfMatchAward"))
-                id = id.Remove(0, "EndOfMatchAward".Length);
-            if (id.EndsWith("Boolean"))
-                id = id.Substring(0, id.IndexOf("Boolean"));
-            if (id.StartsWith("0"))
-                id = id.ReplaceFirst("0", "Zero");
-            if (id == "MostAltarDamageDone")
-                id = "MostAltarDamage";
+            string shortName = gameLink;
+            if (shortName.StartsWith("EndOfMatchAward"))
+                shortName = shortName.Remove(0, "EndOfMatchAward".Length);
+            if (shortName.EndsWith("Boolean"))
+                shortName = shortName.Substring(0, shortName.IndexOf("Boolean"));
+            if (shortName.StartsWith("0"))
+                shortName = shortName.ReplaceFirst("0", "Zero");
+            if (shortName == "MostAltarDamageDone")
+                shortName = "MostAltarDamage";
 
-            matchAward.Id = id;
+            matchAward.ShortName = shortName;
 
             // set new image file names for the extraction
             // change it back to the correct spelling
@@ -135,7 +132,7 @@ namespace HeroesData.Parser.MatchAwards
             if (ParsedGameStrings.TryGetValuesFromAll($"{GameStringPrefixes.ScoreValueTooltipPrefix}{gameLink}", out string description))
                 matchAward.Description = new TooltipDescription(description);
 
-            MatchAwards[matchAward.Id] = matchAward;
+            MatchAwards[matchAward.ShortName] = matchAward;
             ParsedCount++;
         }
 

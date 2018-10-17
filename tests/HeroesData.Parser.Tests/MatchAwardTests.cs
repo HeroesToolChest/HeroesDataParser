@@ -21,11 +21,10 @@ namespace HeroesData.Parser.Tests
 
             foreach (MatchAward matchAward in matchAwards)
             {
-                if (matchAward.Id == "MVP")
+                if (matchAward.ShortName == "MVP")
                     continue;
 
                 Assert.NotNull(matchAward.Description);
-                Assert.NotNull(matchAward.Id);
                 Assert.NotNull(matchAward.MVPScreenImageFileNameOriginal);
                 Assert.NotNull(matchAward.MVPScreenImageFileName);
                 Assert.NotNull(matchAward.Name);

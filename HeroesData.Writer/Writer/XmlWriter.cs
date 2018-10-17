@@ -323,7 +323,6 @@ namespace HeroesData.FileWriter.Writer
 
             return new XElement(
                 matchAward.ShortName,
-                new XAttribute("id", matchAward.Id),
                 string.IsNullOrEmpty(matchAward.Name) || IsLocalizedText ? null : new XAttribute("name", matchAward.Name),
                 new XAttribute("tag", matchAward.Tag),
                 new XElement("MVPScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName, FileSettings.ImageExtension)),

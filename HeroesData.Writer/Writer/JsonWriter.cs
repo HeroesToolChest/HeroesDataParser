@@ -688,10 +688,7 @@ namespace HeroesData.FileWriter.Writer
             if (IsLocalizedText)
                 AddMatchAwardGameStrings(matchAward);
 
-            JObject matchAwardObject = new JObject
-            {
-                { "id", matchAward.Id },
-            };
+            JObject matchAwardObject = new JObject();
 
             if (!string.IsNullOrEmpty(matchAward.Name) && !IsLocalizedText)
                 matchAwardObject.Add("name", matchAward.Name);
