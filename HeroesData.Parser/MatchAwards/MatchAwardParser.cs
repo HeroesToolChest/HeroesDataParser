@@ -80,14 +80,11 @@ namespace HeroesData.Parser.MatchAwards
 
         private void ParseAward(string instanceId, string gameLink)
         {
-            if (instanceId == "[Override]Generic Instance")
-            {
-                // get the name
-                if (ParsedGameStrings.TryGetValuesFromAll($"{GameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}{gameLink}", out string awardNameText))
-                    instanceId = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
-                else if (ParsedGameStrings.TryGetValuesFromAll($"{GameStringPrefixes.MatchAwardInstanceNamePrefix}{gameLink}", out awardNameText))
-                    instanceId = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
-            }
+            // get the name
+            if (ParsedGameStrings.TryGetValuesFromAll($"{GameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}{gameLink}", out string awardNameText))
+                instanceId = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
+            else if (ParsedGameStrings.TryGetValuesFromAll($"{GameStringPrefixes.MatchAwardInstanceNamePrefix}{gameLink}", out awardNameText))
+                instanceId = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
 
             XElement scoreValueCustomElement = GameData.XmlGameData.Root.Elements("CScoreValueCustom").FirstOrDefault(x => x.Attribute("id")?.Value == gameLink);
             string scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
