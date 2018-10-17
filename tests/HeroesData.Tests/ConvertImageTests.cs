@@ -46,7 +46,6 @@ namespace HeroesData.Tests
 
             Assert.Equal(148, newImage.Height);
             Assert.Equal(148, newImage.Width);
-
         }
     }
 }
