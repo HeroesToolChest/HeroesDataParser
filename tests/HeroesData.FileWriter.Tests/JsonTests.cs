@@ -45,8 +45,8 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputFileSplit.Localization = Localization;
             FileOutputFileSplit.CreateJson();
-            CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", "Alarak.json"), "Alarak.json");
-            CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", "Alexstrasza.json"), "Alexstrasza.json");
+            CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", SplitSubDirectoryHeroes, "Alarak.json"), "Alarak.json");
+            CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", SplitSubDirectoryHeroes, "Alexstrasza.json"), "Alexstrasza.json");
         }
 
         [Fact]
@@ -54,8 +54,8 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputOverrideFileSplit.FileSplit = true;
             FileOutputFileSplit.CreateJson();
-            CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", "Alarak.json"), "Alarak.json");
-            CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", "Alexstrasza.json"), "Alexstrasza.json");
+            CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", SplitSubDirectoryHeroes, "Alarak.json"), "Alarak.json");
+            CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", SplitSubDirectoryHeroes, "Alexstrasza.json"), "Alexstrasza.json");
         }
 
         [Fact]

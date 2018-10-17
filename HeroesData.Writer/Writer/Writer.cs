@@ -36,6 +36,8 @@ namespace HeroesData.FileWriter.Writer
         protected string GameStringFolder { get; set; }
         protected string HeroDataRootNode => "Heroes";
         protected string HeroDataHeroUnits => "HeroUnits";
+        protected string MultiFilesSubDirectoryHeroes => "heroes";
+        protected string MultiFilesSubDirectoryAwards => "awards";
         protected string GameStringTextFileName { get; set; }
 
         public virtual void CreateOutput()
@@ -121,7 +123,7 @@ namespace HeroesData.FileWriter.Writer
 
         protected abstract void CreateSingleFile<TObject>(IEnumerable<TObject> items, string rootNodeName, string singleFileName, string noIndentationName, Func<TObject, T> dataMethod)
             where TObject : IName;
-        protected abstract void CreateMultipleFiles<TObject>(IEnumerable<TObject> items, string rootNodeName, Func<TObject, T> dataMethod)
+        protected abstract void CreateMultipleFiles<TObject>(IEnumerable<TObject> items, string rootNodeName, string subDirectory, Func<TObject, T> dataMethod)
             where TObject : IName;
 
         protected abstract void CreateHeroDataMultipleFiles();

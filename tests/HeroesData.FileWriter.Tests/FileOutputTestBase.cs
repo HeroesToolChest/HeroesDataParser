@@ -54,6 +54,8 @@ namespace HeroesData.FileWriter.Tests
         protected int? BuildNumber => 12345;
         protected string OutputFileFolder => "OutputFiles";
         protected string Localization => "enus";
+        protected string SplitSubDirectoryHeroes => "heroes";
+        protected string SplitSubDirectoryAwards => "awards";
 
         protected List<Hero> Heroes { get; set; } = new List<Hero>();
         protected List<MatchAward> MatchAwards { get; set; } = new List<MatchAward>();

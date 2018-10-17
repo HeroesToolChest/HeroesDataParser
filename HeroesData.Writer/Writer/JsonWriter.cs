@@ -63,17 +63,20 @@ namespace HeroesData.FileWriter.Writer
             }
         }
 
-        protected override void CreateMultipleFiles<TObject>(IEnumerable<TObject> items, string rootNodeName, Func<TObject, JProperty> dataMethod)
+        protected override void CreateMultipleFiles<TObject>(IEnumerable<TObject> items, string rootNodeName, string subDirectory, Func<TObject, JProperty> dataMethod)
         {
             if (items == null)
                 return;
+
+            Directory.CreateDirectory(Path.Combine(JsonOutputSplitFolder, subDirectory));
+            Directory.CreateDirectory(Path.Combine(JsonOutputSplitMinFolder, subDirectory));
 
             foreach (TObject item in items)
             {
                 JObject jObject = new JObject(dataMethod(item));
 
                 // has formatting
-                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputSplitFolder, $"{item.ShortName}.json")))
+                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputSplitFolder, subDirectory, $"{item.ShortName}.json")))
                 using (JsonTextWriter writer = new JsonTextWriter(file))
                 {
                     writer.Formatting = Formatting.Indented;
@@ -81,7 +84,7 @@ namespace HeroesData.FileWriter.Writer
                 }
 
                 // no formatting
-                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputSplitMinFolder, $"{item.ShortName}.min.json")))
+                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputSplitMinFolder, subDirectory, $"{item.ShortName}.min.json")))
                 using (JsonTextWriter writer = new JsonTextWriter(file))
                 {
                     writer.Formatting = Formatting.None;
@@ -92,12 +95,12 @@ namespace HeroesData.FileWriter.Writer
 
         protected override void CreateHeroDataMultipleFiles()
         {
-            CreateMultipleFiles(Heroes, string.Empty, HeroElement);
+            CreateMultipleFiles(Heroes, string.Empty, MultiFilesSubDirectoryHeroes, HeroElement);
         }
 
         protected override void CreateMatchAwardMultipleFiles()
         {
-            CreateMultipleFiles(MatchAwards, string.Empty, AwardElement);
+            CreateMultipleFiles(MatchAwards, string.Empty, MultiFilesSubDirectoryAwards, AwardElement);
         }
 
         protected override void CreateHeroDataSingleFile()

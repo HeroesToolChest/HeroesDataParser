@@ -49,28 +49,31 @@ namespace HeroesData.FileWriter.Writer
             xmlDoc.Save(Path.Combine(XmlOutputFolder, noIndentationName), SaveOptions.DisableFormatting);
         }
 
-        protected override void CreateMultipleFiles<TObject>(IEnumerable<TObject> items, string rootNodeName, Func<TObject, XElement> dataMethod)
+        protected override void CreateMultipleFiles<TObject>(IEnumerable<TObject> items, string rootNodeName, string subDirectory, Func<TObject, XElement> dataMethod)
         {
             if (items == null)
                 return;
+
+            Directory.CreateDirectory(Path.Combine(XmlOutputSplitFolder, subDirectory));
+            Directory.CreateDirectory(Path.Combine(XmlOutputSplitMinFolder, subDirectory));
 
             foreach (TObject item in items)
             {
                 XDocument xmlDoc = new XDocument(new XElement(rootNodeName, dataMethod(item)));
 
-                xmlDoc.Save(Path.Combine(XmlOutputSplitFolder, $"{item.ShortName}.xml"));
-                xmlDoc.Save(Path.Combine(XmlOutputSplitMinFolder, $"{item.ShortName}.min.xml"), SaveOptions.DisableFormatting);
+                xmlDoc.Save(Path.Combine(XmlOutputSplitFolder, subDirectory, $"{item.ShortName}.xml"));
+                xmlDoc.Save(Path.Combine(XmlOutputSplitMinFolder, subDirectory, $"{item.ShortName}.min.xml"), SaveOptions.DisableFormatting);
             }
         }
 
         protected override void CreateHeroDataMultipleFiles()
         {
-            CreateMultipleFiles(Heroes, HeroDataRootNode, HeroElement);
+            CreateMultipleFiles(Heroes, HeroDataRootNode, MultiFilesSubDirectoryHeroes, HeroElement);
         }
 
         protected override void CreateMatchAwardMultipleFiles()
         {
-            CreateMultipleFiles(MatchAwards, "MatchAwards", AwardElement);
+            CreateMultipleFiles(MatchAwards, "MatchAwards", MultiFilesSubDirectoryAwards, AwardElement);
         }
 
         protected override void CreateHeroDataSingleFile()
