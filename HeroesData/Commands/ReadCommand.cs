@@ -32,7 +32,7 @@ namespace HeroesData.Commands
             {
                 config.HelpOption("-?|-h|--help");
 
-                CommandOption fileNameOption = config.Option("-f|--fileName", "The filename of the file to read and display on the console", CommandOptionType.SingleValue);
+                CommandOption fileNameOption = config.Option("-f|--fileName <filename>", "The filename of the file to read and display on the console", CommandOptionType.SingleValue);
                 CommandOption validFilesOption = config.Option("-v|--validFiles", "Show all available files to read", CommandOptionType.NoValue);
 
                 config.OnExecute(() =>
