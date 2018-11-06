@@ -275,9 +275,9 @@ The format of the strings in the text file are the following:
 ### Read
 ```
 Options:
-  -?|-h|--help     Show help information
-  -f|--fileName    The filename of the file to read and display on the console
-  -v|--validFiles  Show all available files to read
+  -?|-h|--help              Show help information
+  -f|--fileName <filename>  The filename of the file to read and display on the console
+  -v|--validFiles           Show all available files to read
 ```
 
 ## Advanced Features
