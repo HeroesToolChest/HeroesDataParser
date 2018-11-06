@@ -141,22 +141,29 @@ namespace HeroesData.Parser.GameStrings
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
 
-                    ShortTooltipsByShortTooltipNameId.Add(splitLine[0], splitLine[1]);
+                    if (!ShortTooltipsByShortTooltipNameId.ContainsKey(splitLine[0]))
+                        ShortTooltipsByShortTooltipNameId.Add(splitLine[0], splitLine[1]);
                 }
                 else if (line.StartsWith(GameStringPrefixes.SimplePrefix))
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
-                    ShortTooltipsByShortTooltipNameId.Add(splitLine[0], splitLine[1]);
+
+                    if (!ShortTooltipsByShortTooltipNameId.ContainsKey(splitLine[0]))
+                        ShortTooltipsByShortTooltipNameId.Add(splitLine[0], splitLine[1]);
                 }
                 else if (line.StartsWith(GameStringPrefixes.DescriptionPrefix))
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
-                    HeroDescriptionsByShortName.Add(splitLine[0], splitLine[1]);
+
+                    if (!HeroDescriptionsByShortName.ContainsKey(splitLine[0]))
+                        HeroDescriptionsByShortName.Add(splitLine[0], splitLine[1]);
                 }
                 else if (line.StartsWith(GameStringPrefixes.FullPrefix))
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
-                    FullTooltipsByFullTooltipNameId.Add(splitLine[0], splitLine[1]);
+
+                    if (!FullTooltipsByFullTooltipNameId.ContainsKey(splitLine[0]))
+                        FullTooltipsByFullTooltipNameId.Add(splitLine[0], splitLine[1]);
                 }
                 else if (line.StartsWith(GameStringPrefixes.HeroNamePrefix))
                 {
@@ -168,7 +175,9 @@ namespace HeroesData.Parser.GameStrings
                 else if (line.StartsWith(GameStringPrefixes.DescriptionNamePrefix))
                 {
                     string[] splitLine = line.Split(new char[] { '=' }, 2);
-                    AbilityTalentNamesByReferenceNameId.Add(splitLine[0], splitLine[1]);
+
+                    if (!AbilityTalentNamesByReferenceNameId.ContainsKey(splitLine[0]))
+                        AbilityTalentNamesByReferenceNameId.Add(splitLine[0], splitLine[1]);
                 }
                 else if (line.StartsWith(GameStringPrefixes.UnitPrefix))
                 {
