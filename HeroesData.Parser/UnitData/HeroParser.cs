@@ -219,6 +219,8 @@ namespace HeroesData.Parser.UnitData
                         hero.Franchise = HeroFranchise.Overwatch;
                     else if (iconImage == "UI_GLUES_STORE_GAMEICON_RETRO.DDS")
                         hero.Franchise = HeroFranchise.Classic;
+                    else if (iconImage == "UI_GLUES_STORE_GAMEICON_NEXUS.DDS")
+                        hero.Franchise = HeroFranchise.Nexus;
                 }
                 else if (elementName == "UNIVERSE")
                 {
@@ -232,7 +234,7 @@ namespace HeroesData.Parser.UnitData
                         hero.Franchise = HeroFranchise.Diablo;
                     else if (universe == "OVERWATCH")
                         hero.Franchise = HeroFranchise.Overwatch;
-                    else if (universe == "RETRO")
+                    else if (universe == "RETRO" && hero.Franchise == HeroFranchise.Unknown)
                         hero.Franchise = HeroFranchise.Classic;
                 }
                 else if (elementName == "RELEASEDATE")
