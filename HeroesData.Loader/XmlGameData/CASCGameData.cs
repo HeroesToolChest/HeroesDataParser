@@ -1,11 +1,10 @@
 ﻿using CASCLib;
-using HeroesData.Parser.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.XmlGameData
+namespace HeroesData.Loader.XmlGameData
 {
     public class CASCGameData : GameData
     {
@@ -96,43 +95,36 @@ namespace HeroesData.Parser.XmlGameData
             // loop through each hero folder
             foreach (KeyValuePair<string, ICASCEntry> heroFolder in currentFolder.Entries)
             {
-                try
+                if (!heroFolder.Key.Contains("stormmod") || heroFolder.Key == "herointeractions.stormmod")
+                    continue;
+
+                string heroName = heroFolder.Key.Split('.')[0];
+
+                ICASCEntry baseStormData = ((CASCFolder)heroFolder.Value).GetEntry("base.stormdata");
+                ICASCEntry gameData = ((CASCFolder)baseStormData).GetEntry(GameDataStringName);
+
+                ICASCEntry xmlHero = ((CASCFolder)gameData).GetEntry($"{heroName}{DataStringName}.xml");
+                ICASCEntry xmlHeroName = ((CASCFolder)gameData).GetEntry($"{heroName}.xml");
+                ICASCEntry xmlHeroData = ((CASCFolder)gameData).GetEntry($"{HeroDataStringName}.xml");
+
+                if (xmlHero != null && !string.IsNullOrEmpty(xmlHero.Name))
                 {
-                    if (!heroFolder.Key.Contains("stormmod") || heroFolder.Key == "herointeractions.stormmod")
-                        continue;
-
-                    string heroName = heroFolder.Key.Split('.')[0];
-
-                    ICASCEntry baseStormData = ((CASCFolder)heroFolder.Value).GetEntry("base.stormdata");
-                    ICASCEntry gameData = ((CASCFolder)baseStormData).GetEntry(GameDataStringName);
-
-                    ICASCEntry xmlHero = ((CASCFolder)gameData).GetEntry($"{heroName}{DataStringName}.xml");
-                    ICASCEntry xmlHeroName = ((CASCFolder)gameData).GetEntry($"{heroName}.xml");
-                    ICASCEntry xmlHeroData = ((CASCFolder)gameData).GetEntry($"{HeroDataStringName}.xml");
-
-                    if (xmlHero != null && !string.IsNullOrEmpty(xmlHero.Name))
-                    {
-                        Stream data = CASCHandlerData.OpenFile(((CASCFile)xmlHero).FullName);
-                        XmlGameData.Root.Add(XDocument.Load(data).Root.Elements());
-                        XmlFileCount++;
-                    }
-                    else
-                    {
-                        Stream data = CASCHandlerData.OpenFile(((CASCFile)xmlHeroName).FullName);
-                        XmlGameData.Root.Add(XDocument.Load(data).Root.Elements());
-                        XmlFileCount++;
-                    }
-
-                    if (xmlHeroData != null && !string.IsNullOrEmpty(xmlHeroData.Name))
-                    {
-                        Stream data = CASCHandlerData.OpenFile(((CASCFile)xmlHeroData).FullName);
-                        XmlGameData.Root.Add(XDocument.Load(data).Root.Elements());
-                        XmlFileCount++;
-                    }
+                    Stream data = CASCHandlerData.OpenFile(((CASCFile)xmlHero).FullName);
+                    XmlGameData.Root.Add(XDocument.Load(data).Root.Elements());
+                    XmlFileCount++;
                 }
-                catch (Exception ex)
+                else
                 {
-                    throw new ParseException($"LoadNewHeroes error: {ex.Message}{Environment.NewLine}{ex.StackTrace}");
+                    Stream data = CASCHandlerData.OpenFile(((CASCFile)xmlHeroName).FullName);
+                    XmlGameData.Root.Add(XDocument.Load(data).Root.Elements());
+                    XmlFileCount++;
+                }
+
+                if (xmlHeroData != null && !string.IsNullOrEmpty(xmlHeroData.Name))
+                {
+                    Stream data = CASCHandlerData.OpenFile(((CASCFile)xmlHeroData).FullName);
+                    XmlGameData.Root.Add(XDocument.Load(data).Root.Elements());
+                    XmlFileCount++;
                 }
             }
         }

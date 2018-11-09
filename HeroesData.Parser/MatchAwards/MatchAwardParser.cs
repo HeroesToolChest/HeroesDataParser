@@ -1,6 +1,6 @@
 ﻿using Heroes.Models;
+using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.GameStrings;
-using HeroesData.Parser.XmlGameData;
 using System;
 using System.Collections.Generic;
 using System.IO;

@@ -1,10 +1,11 @@
 ﻿using Heroes.Models;
 using HeroesData.Commands;
+using HeroesData.Loader.GameStrings;
+using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.MatchAwards;
 using HeroesData.Parser.UnitData;
 using HeroesData.Parser.UnitData.Overrides;
-using HeroesData.Parser.XmlGameData;
 using Microsoft.Extensions.CommandLineUtils;
 using System;
 using System.Collections.Concurrent;

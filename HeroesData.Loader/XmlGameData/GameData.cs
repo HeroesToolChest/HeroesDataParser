@@ -4,7 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.XmlGameData
+namespace HeroesData.Loader.XmlGameData
 {
     public abstract class GameData
     {

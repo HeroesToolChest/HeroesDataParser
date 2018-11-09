@@ -1,7 +1,8 @@
 ﻿using CASCLib;
+using HeroesData.Loader;
 using System.Collections.Generic;
 
-namespace HeroesData.Parser.GameStrings
+namespace HeroesData.Loader.GameStrings
 {
     public class CASCGameStringData : GameStringData
     {

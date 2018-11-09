@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace HeroesData.Parser.GameStrings
+namespace HeroesData.Loader.GameStrings
 {
     public class FileGameStringData : GameStringData
     {

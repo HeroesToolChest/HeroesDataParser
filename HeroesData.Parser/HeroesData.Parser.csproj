@@ -14,8 +14,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CASCExplorer\CascLibCore\CascLibCore.csproj" />
     <ProjectReference Include="..\Heroes.Models\Heroes.Models\Heroes.Models.csproj" />
+    <ProjectReference Include="..\HeroesData.Loader\HeroesData.Loader.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="GameStringValues.xml">

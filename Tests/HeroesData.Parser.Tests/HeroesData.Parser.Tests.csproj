@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\HeroesData.Loader\HeroesData.Loader.csproj" />
     <ProjectReference Include="..\..\HeroesData.Parser\HeroesData.Parser.csproj" />
   </ItemGroup>
 

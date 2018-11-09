@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace HeroesData.Parser.GameStrings
+namespace HeroesData.Loader.GameStrings
 {
     public abstract class GameStringData
     {

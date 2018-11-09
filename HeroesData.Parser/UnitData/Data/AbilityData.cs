@@ -1,9 +1,9 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
+using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Exceptions;
 using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.UnitData.Overrides;
-using HeroesData.Parser.XmlGameData;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;

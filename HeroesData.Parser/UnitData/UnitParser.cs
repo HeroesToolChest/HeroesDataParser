@@ -1,5 +1,5 @@
-﻿using HeroesData.Parser.UnitData.Overrides;
-using HeroesData.Parser.XmlGameData;
+﻿using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser.UnitData.Overrides;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;

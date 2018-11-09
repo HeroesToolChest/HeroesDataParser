@@ -1,7 +1,7 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
+using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.UnitData.Overrides;
-using HeroesData.Parser.XmlGameData;
 using System;
 using System.Collections.Generic;
 using System.IO;
