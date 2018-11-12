@@ -172,7 +172,8 @@ namespace HeroesData.Parser.UnitData.Data
             }
 
             // as attributes
-            XElement layoutButton = layoutButtons.FirstOrDefault(x => x.Attribute("Face")?.Value == ability.ButtonName && x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
+            XElement layoutButton = layoutButtons.FirstOrDefault(x => (x.Attribute("Face")?.Value == ability.ButtonName || x.Attribute("Face")?.Value == ability.ReferenceNameId) &&
+                                                                      x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
             if (layoutButton != null)
             {
                 string slot = layoutButton.Attribute("Slot").Value;
