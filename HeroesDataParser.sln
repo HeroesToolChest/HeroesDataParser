@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.FileWriter.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Heroes.Models", "Heroes.Models\Heroes.Models\Heroes.Models.csproj", "{49FBAD69-C8F6-4154-B268-0AE756F18D92}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Tests", "tests\HeroesData.Tests\HeroesData.Tests.csproj", "{5692921D-094A-493B-9576-D7E6F9C150E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Tests", "Tests\HeroesData.Tests\HeroesData.Tests.csproj", "{5692921D-094A-493B-9576-D7E6F9C150E5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDSReader", "dds-reader\DDSReader\DDSReader\DDSReader.csproj", "{D16AD6F4-C6F3-4DE4-AFF3-F545661C42A2}"
 EndProject
