@@ -177,49 +177,42 @@ namespace HeroesData.Parser.UnitData.Data
             if (layoutButton != null)
             {
                 string slot = layoutButton.Attribute("Slot").Value;
-                if (slot.ToUpper().StartsWith("ABILITY1"))
-                    ability.AbilityType = AbilityType.Q;
-                else if (slot.ToUpper().StartsWith("ABILITY2"))
-                    ability.AbilityType = AbilityType.W;
-                else if (slot.ToUpper().StartsWith("ABILITY3"))
-                    ability.AbilityType = AbilityType.E;
-                else if (slot.ToUpper().StartsWith("MOUNT"))
-                    ability.AbilityType = AbilityType.Z;
-                else if (slot.ToUpper().StartsWith("HEROIC"))
-                    ability.AbilityType = AbilityType.Heroic;
-                else
-                    throw new ParseException($"Unknown slot type (attribute) for ability type: {slot} - Hero(CUnit): {hero.CUnitId} - Ability: {ability.ReferenceNameId}");
+                SetAbilityTypeFromSlot(slot, hero, ability, "attribute");
 
                 return;
             }
-
-            // as elements
-            if (layoutButton == null)
+            else // as elements
             {
                 layoutButton = layoutButtons.Where(x => x.HasElements)
-                     .FirstOrDefault(x => x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName && x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
-            }
+                     .FirstOrDefault(x => (x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName || x.Element("Face")?.Attribute("value")?.Value == ability.ReferenceNameId) &&
+                                     x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
 
-            if (layoutButton != null)
-            {
-                string slot = layoutButton.Element("Slot").Attribute("value").Value;
-                if (slot.ToUpper().StartsWith("ABILITY1"))
-                    ability.AbilityType = AbilityType.Q;
-                else if (slot.ToUpper().StartsWith("ABILITY2"))
-                    ability.AbilityType = AbilityType.W;
-                else if (slot.ToUpper().StartsWith("ABILITY3"))
-                    ability.AbilityType = AbilityType.E;
-                else if (slot.ToUpper().StartsWith("MOUNT"))
-                    ability.AbilityType = AbilityType.Z;
-                else if (slot.ToUpper().StartsWith("HEROIC"))
-                    ability.AbilityType = AbilityType.Heroic;
-                else
-                    throw new ParseException($"Unknown slot type (element) for ability type: {slot} - Hero(CUnit): {hero.CUnitId} - Ability: {ability.ReferenceNameId}");
+                if (layoutButton != null)
+                {
+                    string slot = layoutButton.Element("Slot").Attribute("value").Value;
+                    SetAbilityTypeFromSlot(slot, hero, ability, "element");
 
-                return;
+                    return;
+                }
             }
 
             ability.AbilityType = AbilityType.Active;
+        }
+
+        private void SetAbilityTypeFromSlot(string slot, Hero hero, Ability ability, string type)
+        {
+            if (slot.ToUpper().StartsWith("ABILITY1"))
+                ability.AbilityType = AbilityType.Q;
+            else if (slot.ToUpper().StartsWith("ABILITY2"))
+                ability.AbilityType = AbilityType.W;
+            else if (slot.ToUpper().StartsWith("ABILITY3"))
+                ability.AbilityType = AbilityType.E;
+            else if (slot.ToUpper().StartsWith("MOUNT"))
+                ability.AbilityType = AbilityType.Z;
+            else if (slot.ToUpper().StartsWith("HEROIC"))
+                ability.AbilityType = AbilityType.Heroic;
+            else
+                throw new ParseException($"Unknown slot type ({type}) for ability type: {slot} - Hero(CUnit): {hero.CUnitId} - Ability: {ability.ReferenceNameId}");
         }
     }
 }
