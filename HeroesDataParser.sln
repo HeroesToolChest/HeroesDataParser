@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData", "HeroesData\He
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CascLibCore", "CASCExplorer\CascLibCore\CascLibCore.csproj", "{45D3C6CD-6F30-4C90-BC26-AFFE2DC99E4B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.FileWriter.Tests", "tests\HeroesData.FileWriter.Tests\HeroesData.FileWriter.Tests.csproj", "{71D38A71-AB19-468A-8F19-F7949D8F908D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.FileWriter.Tests", "Tests\HeroesData.FileWriter.Tests\HeroesData.FileWriter.Tests.csproj", "{71D38A71-AB19-468A-8F19-F7949D8F908D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Heroes.Models", "Heroes.Models\Heroes.Models\Heroes.Models.csproj", "{49FBAD69-C8F6-4154-B268-0AE756F18D92}"
 EndProject
