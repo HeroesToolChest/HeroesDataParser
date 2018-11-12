@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.FileWriter", "He
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Parser", "HeroesData.Parser\HeroesData.Parser.csproj", "{49F3CEE8-458B-4C07-BAB4-065F4770D198}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Parser.Tests", "tests\HeroesData.Parser.Tests\HeroesData.Parser.Tests.csproj", "{77E3C9BB-6AD5-4AF4-8571-AC84A9261191}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Parser.Tests", "Tests\HeroesData.Parser.Tests\HeroesData.Parser.Tests.csproj", "{77E3C9BB-6AD5-4AF4-8571-AC84A9261191}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData", "HeroesData\HeroesData.csproj", "{E8EEFFBF-6529-4EDC-8E28-92BE0A17687F}"
 EndProject
