@@ -248,13 +248,19 @@ namespace HeroesData.Parser.UnitData.Overrides
                         break;
                     case "HeroAbilArray":
                         string buttonOld = dataElement.Attribute("button")?.Value;
+                        string newButtonValue = string.Empty;
 
                         if (!string.IsNullOrEmpty(buttonOld))
                         {
-                            string newButtonValue = dataElement.Element("Set")?.Attribute("value")?.Value;
+                            newButtonValue = dataElement.Element("Set")?.Attribute("value")?.Value;
                             if (!string.IsNullOrEmpty(newButtonValue))
                                 heroOverride.NewButtonValueByHeroAbilArrayButton[buttonOld] = newButtonValue;
                         }
+
+                        // override
+                        var overrideElement = dataElement.Element("Override");
+                        if (overrideElement != null && !string.IsNullOrEmpty(newButtonValue))
+                            abilityOverride.SetOverride(newButtonValue, overrideElement, heroOverride.PropertyAbilityOverrideMethodByAbilityId);
 
                         break;
                     case "Ability":
@@ -285,7 +291,7 @@ namespace HeroesData.Parser.UnitData.Overrides
                         }
 
                         // override
-                        var overrideElement = dataElement.Elements("Override").FirstOrDefault();
+                        overrideElement = dataElement.Element("Override");
                         if (overrideElement != null)
                             abilityOverride.SetOverride(abilityId, overrideElement, heroOverride.PropertyAbilityOverrideMethodByAbilityId);
                         break;
@@ -299,7 +305,7 @@ namespace HeroesData.Parser.UnitData.Overrides
                             continue;
 
                         // override
-                        overrideElement = dataElement.Elements("Override").FirstOrDefault();
+                        overrideElement = dataElement.Element("Override");
                         if (overrideElement != null)
                             talentOverride.SetOverride(talentId, overrideElement, heroOverride.PropertyTalentOverrideMethodByTalentId);
                         break;
@@ -321,7 +327,7 @@ namespace HeroesData.Parser.UnitData.Overrides
                                 continue;
                         }
 
-                        overrideElement = dataElement.Elements("Override").FirstOrDefault();
+                        overrideElement = dataElement.Element("Override");
                         if (overrideElement != null)
                             weaponOverride.SetOverride(weaponId, overrideElement, heroOverride.PropertyWeaponOverrideMethodByWeaponId);
                         break;
@@ -337,7 +343,7 @@ namespace HeroesData.Parser.UnitData.Overrides
                         heroOverride.ParentLinkOverride = (true, dataElement.Attribute("value")?.Value);
                         break;
                     case "Portrait":
-                        overrideElement = dataElement.Elements("Override").FirstOrDefault();
+                        overrideElement = dataElement.Element("Override");
                         if (overrideElement != null)
                             portraitOverride.SetOverride(cHeroId, overrideElement, heroOverride.PropertyPortraitOverrideMethodByCHeroId);
                         break;

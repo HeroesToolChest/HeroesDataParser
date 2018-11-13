@@ -131,6 +131,14 @@
     </Portrait>
   </CHero>
   <CHero id="Fenix">
+    <Ability id="FenixRepeaterCannon" valid="true">
+      <Override>
+        <ParentLink value="FenixPhaseBomb" />
+      </Override>
+    </Ability>
+    <HeroAbilArray button="FenixWeaponModes">
+      <Set value="FenixPhaseBomb" />
+    </HeroAbilArray>
     <Weapon id="FenixHeroWeapon">
       <Override>
         <Range value="5" />
