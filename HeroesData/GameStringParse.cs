@@ -15,6 +15,8 @@ namespace HeroesData
             ConcurrentDictionary<string, string> invalid = new ConcurrentDictionary<string, string>();
 
             int currentCount = 0;
+            Console.Write($"\r{currentCount,6} / {gameStringData.Count} {message}");
+
             Parallel.ForEach(gameStringData, new ParallelOptions { MaxDegreeOfParallelism = maxDegreeOfParallelism }, tooltip =>
             {
                 try
@@ -26,9 +28,7 @@ namespace HeroesData
                 }
                 finally
                 {
-                    Interlocked.Increment(ref currentCount);
-
-                    Console.Write($"\r{currentCount,6} / {gameStringData.Count} {message}");
+                    Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {gameStringData.Count} {message}");
                 }
             });
 

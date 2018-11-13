@@ -664,6 +664,7 @@ namespace HeroesData
             time.Start();
             UnitParser unitParser = UnitParser.Load(GameData, OverrideData, HotsBuild);
 
+            Console.Write($"\r{currentCount,6} / {unitParser.CUnitIdByHeroCHeroIds.Count} total heroes");
             Parallel.ForEach(unitParser.CUnitIdByHeroCHeroIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, hero =>
             {
                 try
@@ -681,9 +682,7 @@ namespace HeroesData
                 }
                 finally
                 {
-                    Interlocked.Increment(ref currentCount);
-
-                    Console.Write($"\r{currentCount,6} / {unitParser.CUnitIdByHeroCHeroIds.Count} total heroes");
+                    Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {unitParser.CUnitIdByHeroCHeroIds.Count} total heroes");
                 }
             });
 
