@@ -255,6 +255,17 @@
     <Weapon id="HeroBaleogBow" valid="true" />
     <Weapon id="HeroErikSlingshot" valid="true" />
   </CHero>
+  <CHero id="Lucio">
+    <Ability id="LucioCrossfade" valid="true">
+      <Override>
+        <ParentLink value="LucioCrossfadeActivateHealingBoost" />
+      </Override>
+    </Ability>
+    <Ability id="LucioCrossfade" button="LucioCrossfadeActivateHealingBoost" add="true"></Ability>
+    <HeroAbilArray button="LucioCrossfadeShop">
+      <Set value="LucioCrossfadeActivateSpeedBoost" />
+    </HeroAbilArray>
+  </CHero>
   <CHero id="Ragnaros">
     <!--Molten Core abilities-->
     <LinkedAbilities>
