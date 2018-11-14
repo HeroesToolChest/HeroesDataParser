@@ -211,22 +211,11 @@ namespace HeroesData
                 if (!string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
                     Portraits.Add(hero.HeroPortrait.TargetPortraitFileName.ToLower());
 
-                foreach (string abilityIconFileName in hero.Abilities.Select(x => x.Value.IconFileName))
-                {
-                    if (!string.IsNullOrEmpty(abilityIconFileName))
-                    {
-                        Abilities.Add(abilityIconFileName.ToLower());
-                        AbilityTalents.Add(abilityIconFileName.ToLower());
-                    }
-                }
+                LoadAbilityTalentFileNames(hero);
 
-                foreach (string talentIconFileName in hero.Talents.Select(x => x.Value.IconFileName))
+                foreach (Hero heroUnit in hero.HeroUnits)
                 {
-                    if (!string.IsNullOrEmpty(talentIconFileName))
-                    {
-                        Talents.Add(talentIconFileName.ToLower());
-                        AbilityTalents.Add(talentIconFileName.ToLower());
-                    }
+                    LoadAbilityTalentFileNames(heroUnit);
                 }
             }
 
@@ -238,6 +227,27 @@ namespace HeroesData
                         Awards.Add((matchAward.MVPScreenImageFileNameOriginal.ToLower(), matchAward.MVPScreenImageFileName.ToLower()));
                     if (!string.IsNullOrEmpty(matchAward.ScoreScreenImageFileNameOriginal))
                         Awards.Add((matchAward.ScoreScreenImageFileNameOriginal.ToLower(), matchAward.ScoreScreenImageFileName.ToLower()));
+                }
+            }
+        }
+
+        private void LoadAbilityTalentFileNames(Hero hero)
+        {
+            foreach (string abilityIconFileName in hero.Abilities.Select(x => x.Value.IconFileName))
+            {
+                if (!string.IsNullOrEmpty(abilityIconFileName))
+                {
+                    Abilities.Add(abilityIconFileName.ToLower());
+                    AbilityTalents.Add(abilityIconFileName.ToLower());
+                }
+            }
+
+            foreach (string talentIconFileName in hero.Talents.Select(x => x.Value.IconFileName))
+            {
+                if (!string.IsNullOrEmpty(talentIconFileName))
+                {
+                    Talents.Add(talentIconFileName.ToLower());
+                    AbilityTalents.Add(talentIconFileName.ToLower());
                 }
             }
         }
