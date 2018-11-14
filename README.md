@@ -223,7 +223,7 @@ Example selecting multiple extractions
 ***
 
 ### Game String Localization (-l|--localization)
-Sets the game string localization (descriptions/tooltips). Multiple are allowed, use `all` to select all. The application will parse all game strings and hero data for each local selected.
+Sets the game string localization (descriptions/tooltips). Multiple are allowed, use `all` to select all. The application will parse all game strings and hero data for each locale selected.
 
 `enUS` - English (Default)  
 `deDE` - German  
@@ -238,7 +238,7 @@ Sets the game string localization (descriptions/tooltips). Multiple are allowed,
 `zhCN` - Chinese  
 `zhTW` - Chinese (TW)  
 
-Example selecting multiple locals
+Example selecting multiple locales
 ```
 -l enus -l dede -l kokr
 ```
