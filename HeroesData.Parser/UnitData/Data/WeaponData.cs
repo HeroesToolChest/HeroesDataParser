@@ -65,6 +65,7 @@ namespace HeroesData.Parser.UnitData.Data
 
                 if (weaponLegacy != null)
                 {
+                    // set default values
                     XElement defaultCWeaponElement = GameData.XmlGameData.Root.Elements("CWeapon").FirstOrDefault(x => x.Attribute("default")?.Value == "1");
 
                     weapon = new UnitWeapon

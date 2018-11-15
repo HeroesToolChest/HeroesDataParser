@@ -131,16 +131,14 @@
     </Portrait>
   </CHero>
   <CHero id="Fenix">
-    <Weapon id="FenixHeroWeapon">
+    <Ability id="FenixRepeaterCannon" valid="true">
       <Override>
-        <Range value="5" />
+        <ParentLink value="FenixPhaseBomb" />
       </Override>
-    </Weapon>
-    <Weapon id="FenixPhaseBombWeapon">
-      <Override>
-        <Range value="5" />
-      </Override>
-    </Weapon>
+    </Ability>
+    <HeroAbilArray button="FenixWeaponModes">
+      <Set value="FenixPhaseBomb" />
+    </HeroAbilArray>
   </CHero>
   <CHero id="Gall">
     <Ability id="GallShove">
@@ -246,6 +244,17 @@
     <Weapon id="HeroBaleogSword" valid="true" />
     <Weapon id="HeroBaleogBow" valid="true" />
     <Weapon id="HeroErikSlingshot" valid="true" />
+  </CHero>
+  <CHero id="Lucio">
+    <Ability id="LucioCrossfade" valid="true">
+      <Override>
+        <ParentLink value="LucioCrossfadeActivateHealingBoost" />
+      </Override>
+    </Ability>
+    <Ability id="LucioCrossfade" button="LucioCrossfadeActivateHealingBoost" add="true"></Ability>
+    <HeroAbilArray button="LucioCrossfadeShop">
+      <Set value="LucioCrossfadeActivateSpeedBoost" />
+    </HeroAbilArray>
   </CHero>
   <CHero id="Ragnaros">
     <!--Molten Core abilities-->

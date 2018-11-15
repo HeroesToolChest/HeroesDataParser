@@ -139,16 +139,6 @@
     <HeroAbilArray button="FenixWeaponModes">
       <Set value="FenixPhaseBomb" />
     </HeroAbilArray>
-    <Weapon id="FenixHeroWeapon">
-      <Override>
-        <Range value="5" />
-      </Override>
-    </Weapon>
-    <Weapon id="FenixPhaseBombWeapon">
-      <Override>
-        <Range value="5" />
-      </Override>
-    </Weapon>
   </CHero>
   <CHero id="Gall">
     <Ability id="GallShove">
