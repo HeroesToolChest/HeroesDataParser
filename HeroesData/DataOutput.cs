@@ -1,7 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.FileWriter;
 using HeroesData.Parser;
-using HeroesData.Parser.GameStrings;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,9 +12,9 @@ namespace HeroesData
     internal class DataOutput
     {
         private readonly string AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        private readonly GameStringLocalization Localization;
+        private readonly Localization Localization;
 
-        public DataOutput(GameStringLocalization localization)
+        public DataOutput(Localization localization)
         {
             Localization = localization;
         }

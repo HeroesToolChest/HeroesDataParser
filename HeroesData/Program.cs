@@ -31,7 +31,7 @@ namespace HeroesData
         private string OutputDirectory = string.Empty;
         private StorageMode StorageMode = StorageMode.None;
         private CASCHotsStorage CASCHotsStorage = null;
-        private List<GameStringLocalization> Localizations = new List<GameStringLocalization>();
+        private List<Localization> Localizations = new List<Localization>();
         private bool Defaults = true;
         private bool CreateXml = true;
         private bool CreateJson = true;
@@ -134,13 +134,13 @@ namespace HeroesData
                     IEnumerable<string> localizations = new List<string>();
 
                     if (setGameStringLocalizations.Values.Exists(x => x.ToUpper() == "ALL"))
-                        localizations = Enum.GetNames(typeof(GameStringLocalization));
+                        localizations = Enum.GetNames(typeof(Localization));
                     else
                         localizations = setGameStringLocalizations.Values;
 
                     foreach (string locale in localizations)
                     {
-                        if (Enum.TryParse(locale, true, out GameStringLocalization localization))
+                        if (Enum.TryParse(locale, true, out Localization localization))
                         {
                             program.Localizations.Add(localization);
                         }
@@ -156,7 +156,7 @@ namespace HeroesData
                 }
                 else
                 {
-                    program.Localizations.Add(GameStringLocalization.ENUS);
+                    program.Localizations.Add(Localization.ENUS);
                 }
 
                 program.CreateXml = xmlOutputOption.HasValue() ? true : false;
@@ -217,7 +217,7 @@ namespace HeroesData
                 PreInitialize();
                 InitializeGameData();
 
-                foreach (GameStringLocalization localization in Localizations)
+                foreach (Localization localization in Localizations)
                 {
                     try
                     {
@@ -229,7 +229,7 @@ namespace HeroesData
                         InitializeOverrideData();
 
                         ParsedGameStrings parsedGameStrings = InitializeGameStringParser();
-                        parsedHeroes = ParseHeroes(parsedGameStrings);
+                        parsedHeroes = ParseHeroes(parsedGameStrings, localization);
 
                         if (!ExcludeAwardParsing)
                             parsedMatchAwards = ParseMatchAwards(parsedGameStrings);
@@ -502,7 +502,7 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        private void InitializeGameStringData(GameStringLocalization localization)
+        private void InitializeGameStringData(Localization localization)
         {
             var time = new Stopwatch();
 
@@ -652,7 +652,7 @@ namespace HeroesData
             return parsedGameStrings;
         }
 
-        private IEnumerable<Hero> ParseHeroes(ParsedGameStrings parsedGameStrings)
+        private IEnumerable<Hero> ParseHeroes(ParsedGameStrings parsedGameStrings, Localization localization)
         {
             var time = new Stopwatch();
             var parsedHeroes = new ConcurrentDictionary<string, Hero>();
@@ -672,6 +672,7 @@ namespace HeroesData
                     HeroParser heroDataParser = new HeroParser(GameData, GameStringData, parsedGameStrings, OverrideData)
                     {
                         HotsBuild = HotsBuild,
+                        Localization = localization,
                     };
 
                     parsedHeroes.GetOrAdd(hero.Key, heroDataParser.Parse(hero.Key, hero.Value));

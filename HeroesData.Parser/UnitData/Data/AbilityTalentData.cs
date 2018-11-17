@@ -13,18 +13,20 @@ namespace HeroesData.Parser.UnitData.Data
 {
     public class AbilityTalentData
     {
-        public AbilityTalentData(GameData gameData, HeroOverride heroOverride, ParsedGameStrings parsedGameStrings, TextValueData textValueData)
+        public AbilityTalentData(GameData gameData, HeroOverride heroOverride, ParsedGameStrings parsedGameStrings, TextValueData textValueData, Localization localization)
         {
             GameData = gameData;
             HeroOverride = heroOverride;
             ParsedGameStrings = parsedGameStrings;
             TextValueData = textValueData;
+            Localization = localization;
         }
 
         protected GameData GameData { get; }
         protected HeroOverride HeroOverride { get; }
         protected ParsedGameStrings ParsedGameStrings { get; }
         protected TextValueData TextValueData { get; }
+        protected Localization Localization { get; }
 
         protected void SetAbilityTalentName(XElement cButtonElement, AbilityTalentBase abilityTalentBase)
         {
@@ -311,23 +313,23 @@ namespace HeroesData.Parser.UnitData.Data
             // full
             if (ParsedGameStrings.TryGetFullParsedTooltips(fullTooltipValue, out string fullDescription))
             {
-                abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription);
+                abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription, Localization);
                 abilityTalentBase.FullTooltipNameId = fullTooltipValue;
             }
             else if (ParsedGameStrings.TryGetFullParsedTooltips(faceValue, out fullDescription))
             {
-                abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription);
+                abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription, Localization);
             }
 
             // short
             if (ParsedGameStrings.TryGetShortParsedTooltips(shortTooltipValue, out string shortDescription))
             {
-                abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription);
+                abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription, Localization);
                 abilityTalentBase.ShortTooltipNameId = shortTooltipValue;
             }
             else if (ParsedGameStrings.TryGetShortParsedTooltips(faceValue, out shortDescription))
             {
-                abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription);
+                abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription, Localization);
             }
 
             // check if the life and energy string contain the replacement character

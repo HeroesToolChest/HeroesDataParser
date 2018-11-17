@@ -12,8 +12,8 @@ namespace HeroesData.Parser.UnitData.Data
 {
     public class AbilityData : AbilityTalentData
     {
-        public AbilityData(GameData gameData, HeroOverride heroOverride, ParsedGameStrings parsedGameStrings, TextValueData textValueData)
-            : base(gameData, heroOverride, parsedGameStrings, textValueData)
+        public AbilityData(GameData gameData, HeroOverride heroOverride, ParsedGameStrings parsedGameStrings, TextValueData textValueData, Localization localization)
+            : base(gameData, heroOverride, parsedGameStrings, textValueData, localization)
         {
         }
 
