@@ -107,7 +107,7 @@ namespace HeroesData.Parser.UnitData.Data
                 talent.IsQuest = true;
 
             // check the AbilityModificationArray element for ability upgrades
-            if (talentAbilityModificationArray != null && string.IsNullOrEmpty(talent.AbilityTalentIdLink))
+            if (talentAbilityModificationArray != null && string.IsNullOrEmpty(talent.AbilityTalentLinkId))
             {
                 IEnumerable<XElement> modificationElements = talentAbilityModificationArray.Elements("Modifications");
                 if (modificationElements != null)
@@ -122,12 +122,12 @@ namespace HeroesData.Parser.UnitData.Data
 
                             if (hero.Abilities.TryGetValue(entryValue, out Ability ability)) // check if abil exits from hero abilities
                             {
-                                talent.AbilityTalentIdLink = entryValue;
+                                talent.AbilityTalentLinkId = entryValue;
                                 break;
                             }
                             else if (ActivableTalents.Contains(entryValue)) // check if abil exist from a granted talent ability
                             {
-                                talent.AbilityTalentIdLink = entryValue;
+                                talent.AbilityTalentLinkId = entryValue;
                                 break;
                             }
                         }
@@ -140,12 +140,12 @@ namespace HeroesData.Parser.UnitData.Data
         {
             if (hero.Abilities.TryGetValue(value, out Ability ability)) // check if abil exits from hero abilities
             {
-                talent.AbilityTalentIdLink = value;
+                talent.AbilityTalentLinkId = value;
                 talent.AbilityType = ability.AbilityType;
             }
             else if (ActivableTalents.Contains(value)) // check if abil exist from a granted talent ability
             {
-                talent.AbilityTalentIdLink = value;
+                talent.AbilityTalentLinkId = value;
                 talent.AbilityType = AbilityType.Active;
             }
             else // an active abil, add to list of activable talents

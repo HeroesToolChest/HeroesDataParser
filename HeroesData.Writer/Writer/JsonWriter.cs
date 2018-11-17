@@ -573,8 +573,8 @@ namespace HeroesData.FileWriter.Writer
         {
             JObject jObject = AbilityTalentInfoElement(talent);
 
-            if (!string.IsNullOrEmpty(talent.AbilityTalentIdLink))
-                jObject.Add(new JProperty("abilityTalentIdLink", talent.AbilityTalentIdLink));
+            if (!string.IsNullOrEmpty(talent.AbilityTalentLinkId))
+                jObject.Add(new JProperty("abilityTalentLinkId", talent.AbilityTalentLinkId));
 
             jObject.Add(new JProperty("sort", talent.Column));
 

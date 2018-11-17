@@ -312,7 +312,7 @@ namespace HeroesData.FileWriter.Tests
                                 FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
                             },
                             AbilityType = AbilityType.Q,
-                            AbilityTalentIdLink = "AlarakDiscordStrike",
+                            AbilityTalentLinkId = "AlarakDiscordStrike",
                         }
                     },
                     {

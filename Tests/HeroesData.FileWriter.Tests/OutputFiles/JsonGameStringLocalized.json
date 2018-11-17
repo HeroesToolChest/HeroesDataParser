@@ -121,7 +121,7 @@
           "nameId": "Level4Talent",
           "icon": null,
           "abilityType": "Q",
-          "abilityTalentIdLink": "AlarakDiscordStrike",
+          "abilityTalentLinkId": "AlarakDiscordStrike",
           "sort": 0
         }
       ],
