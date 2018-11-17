@@ -1810,8 +1810,15 @@
     <InnerRadius value="0.9375" />
     <AIThinkTree value="AI/Falstad.aitree" />
     <LifeRegenRate value="2.8437" />
-    <CardLayouts>
-      <LayoutButtons Face="Test" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="FalstadMightyGust" Type="AbilCmd" AbilCmd="FalstadMightyGust,Execute" Slot="Heroic" />
+      <LayoutButtons Face="FalstadHinterlandBlast" Type="AbilCmd" AbilCmd="FalstadHinterlandBlast,Execute" Slot="Heroic" />
+      <LayoutButtons Face="FalstadHammerang" Type="AbilCmd" AbilCmd="FalstadHammerang,Execute" Slot="Ability1" />
+      <LayoutButtons Face="FalstadHammerangBOOMerangActive" Type="AbilCmd" AbilCmd="FalstadBOOMerang,Execute" Slot="Ability1" />
+      <LayoutButtons Face="FalstadFlight" Type="AbilCmd" AbilCmd="FalstadFlight,Execute" Slot="Mount" />
+      <LayoutButtons Face="FalstadLightningRod" Type="AbilCmd" AbilCmd="FalstadLightningRod,Execute" Slot="Ability2" />
+      <LayoutButtons Face="FalstadBarrelRoll" Type="AbilCmd" AbilCmd="FalstadBarrelRoll,Execute" Slot="Ability3" />
+      <LayoutButtons Face="FalstadTailwind" Type="AbilCmd" AbilCmd="FalstadTailwindCooldownDisplay,Execute" Slot="Trait" />
     </CardLayouts>
   </CUnit>
   <CWeaponLegacy id="FalstadStormhammerWeapon">

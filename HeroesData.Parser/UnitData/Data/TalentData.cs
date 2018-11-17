@@ -11,6 +11,8 @@ namespace HeroesData.Parser.UnitData.Data
 {
     public class TalentData : AbilityTalentData
     {
+        private HashSet<string> ActivableTalents = new HashSet<string>(); // keep track of talents that grant activable abilities
+
         public TalentData(GameData gameData, HeroOverride heroOverride, ParsedGameStrings parsedGameStrings, TextValueData textValueData)
             : base(gameData, heroOverride, parsedGameStrings, textValueData)
         {
@@ -89,29 +91,68 @@ namespace HeroesData.Parser.UnitData.Data
             XElement talentAbilElement = talentElement.Element("Abil");
             XElement talentActiveElement = talentElement.Element("Active");
             XElement talentQuestElement = talentElement.Element("QuestData");
+            XElement talentAbilityModificationArray = talentElement.Element("AbilityModificationArray");
 
             if (talentTraitElement != null && talentTraitElement.Attribute("value")?.Value == "1")
-            {
                 talent.AbilityType = AbilityType.Trait;
-            }
             else if (talentAbilElement != null)
-            {
-                string abilValue = talentAbilElement.Attribute("value").Value;
-                if (hero.Abilities.TryGetValue(abilValue, out Ability ability))
-                    talent.AbilityType = ability.AbilityType;
-                else
-                    talent.AbilityType = AbilityType.Active;
-            }
+                SetAbilityTypeValue(hero, talent, talentAbilElement.Attribute("value").Value);
             else
-            {
                 talent.AbilityType = AbilityType.Passive;
-            }
 
             if (talentActiveElement != null && talentActiveElement.Attribute("value")?.Value == "1")
                 talent.IsActive = true;
 
             if (talentQuestElement != null && !string.IsNullOrEmpty(talentQuestElement.Attribute("StackBehavior")?.Value))
                 talent.IsQuest = true;
+
+            // check the AbilityModificationArray element for ability upgrades
+            if (talentAbilityModificationArray != null && string.IsNullOrEmpty(talent.AbilityTalentIdLink))
+            {
+                IEnumerable<XElement> modificationElements = talentAbilityModificationArray.Elements("Modifications");
+                if (modificationElements != null)
+                {
+                    foreach (XElement modificationElemnt in modificationElements)
+                    {
+                        XElement entryElement = modificationElemnt.Element("Entry");
+
+                        if (entryElement != null)
+                        {
+                            string entryValue = entryElement.Attribute("value")?.Value;
+
+                            if (hero.Abilities.TryGetValue(entryValue, out Ability ability)) // check if abil exits from hero abilities
+                            {
+                                talent.AbilityTalentIdLink = entryValue;
+                                break;
+                            }
+                            else if (ActivableTalents.Contains(entryValue)) // check if abil exist from a granted talent ability
+                            {
+                                talent.AbilityTalentIdLink = entryValue;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SetAbilityTypeValue(Hero hero, Talent talent, string value)
+        {
+            if (hero.Abilities.TryGetValue(value, out Ability ability)) // check if abil exits from hero abilities
+            {
+                talent.AbilityTalentIdLink = value;
+                talent.AbilityType = ability.AbilityType;
+            }
+            else if (ActivableTalents.Contains(value)) // check if abil exist from a granted talent ability
+            {
+                talent.AbilityTalentIdLink = value;
+                talent.AbilityType = AbilityType.Active;
+            }
+            else // an active abil, add to list of activable talents
+            {
+                ActivableTalents.Add(value);
+                talent.AbilityType = AbilityType.Active;
+            }
         }
     }
 }
