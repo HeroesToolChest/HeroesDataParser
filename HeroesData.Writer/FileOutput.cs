@@ -85,6 +85,11 @@ namespace HeroesData.FileWriter
         public string OutputDirectory { get; set; }
 
         /// <summary>
+        /// Gets or sets the minify file option.
+        /// </summary>
+        public bool CreateMinifiedFiles { get; set; }
+
+        /// <summary>
         /// Creates the xml output.
         /// </summary>
         public void CreateXml()
@@ -97,6 +102,7 @@ namespace HeroesData.FileWriter
                 OutputDirectory = OutputDirectory,
                 Localization = Localization,
                 MatchAwards = ParsedAwards,
+                CreateMinifiedFiles = CreateMinifiedFiles,
             };
 
             xmlWriter.CreateOutput();
@@ -125,6 +131,7 @@ namespace HeroesData.FileWriter
                 IsLocalizedText = IsLocalizedText,
                 CreateLocalizedTextFile = createLocalizedTextFile,
                 MatchAwards = ParsedAwards,
+                CreateMinifiedFiles = CreateMinifiedFiles,
             };
 
             xmlWriter.CreateOutput();
@@ -143,6 +150,7 @@ namespace HeroesData.FileWriter
                 OutputDirectory = OutputDirectory,
                 Localization = Localization,
                 MatchAwards = ParsedAwards,
+                CreateMinifiedFiles = CreateMinifiedFiles,
             };
 
             jsonWriter.CreateOutput();
@@ -171,6 +179,7 @@ namespace HeroesData.FileWriter
                 IsLocalizedText = IsLocalizedText,
                 CreateLocalizedTextFile = createLocalizedTextFile,
                 MatchAwards = ParsedAwards,
+                CreateMinifiedFiles = CreateMinifiedFiles,
             };
 
             jsonWriter.CreateOutput();

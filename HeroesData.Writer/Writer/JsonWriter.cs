@@ -33,7 +33,11 @@ namespace HeroesData.FileWriter.Writer
                 JsonOutputSplitMinFolder = jsonOutputSplitMinFolder;
 
                 Directory.CreateDirectory(JsonOutputSplitFolder);
-                Directory.CreateDirectory(JsonOutputSplitMinFolder);
+
+                if (CreateMinifiedFiles)
+                {
+                    Directory.CreateDirectory(JsonOutputSplitMinFolder);
+                }
             }
 
             base.CreateOutput();
@@ -55,11 +59,14 @@ namespace HeroesData.FileWriter.Writer
             }
 
             // no formatting
-            using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputFolder, noIndentationName)))
-            using (JsonTextWriter writer = new JsonTextWriter(file))
+            if (CreateMinifiedFiles)
             {
-                writer.Formatting = Formatting.None;
-                jObject.WriteTo(writer);
+                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputFolder, noIndentationName)))
+                using (JsonTextWriter writer = new JsonTextWriter(file))
+                {
+                    writer.Formatting = Formatting.None;
+                    jObject.WriteTo(writer);
+                }
             }
         }
 
@@ -69,7 +76,9 @@ namespace HeroesData.FileWriter.Writer
                 return;
 
             Directory.CreateDirectory(Path.Combine(JsonOutputSplitFolder, subDirectory));
-            Directory.CreateDirectory(Path.Combine(JsonOutputSplitMinFolder, subDirectory));
+
+            if (CreateMinifiedFiles)
+                Directory.CreateDirectory(Path.Combine(JsonOutputSplitMinFolder, subDirectory));
 
             foreach (TObject item in items)
             {
@@ -83,12 +92,15 @@ namespace HeroesData.FileWriter.Writer
                     jObject.WriteTo(writer);
                 }
 
-                // no formatting
-                using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputSplitMinFolder, subDirectory, $"{item.ShortName}.min.json")))
-                using (JsonTextWriter writer = new JsonTextWriter(file))
+                if (CreateMinifiedFiles)
                 {
-                    writer.Formatting = Formatting.None;
-                    jObject.WriteTo(writer);
+                    // no formatting
+                    using (StreamWriter file = File.CreateText(Path.Combine(JsonOutputSplitMinFolder, subDirectory, $"{item.ShortName}.min.json")))
+                    using (JsonTextWriter writer = new JsonTextWriter(file))
+                    {
+                        writer.Formatting = Formatting.None;
+                        jObject.WriteTo(writer);
+                    }
                 }
             }
         }

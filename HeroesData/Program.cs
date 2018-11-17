@@ -47,6 +47,7 @@ namespace HeroesData
         private bool IsFileSplit = false;
         private bool IsLocalizedText = false;
         private bool ExcludeAwardParsing = false;
+        private bool CreateMinFiles = false;
         private int? HotsBuild = null;
         private int? OverrideBuild = null;
         private int MaxParallelism = -1;
@@ -81,6 +82,7 @@ namespace HeroesData
             CommandOption invalidHeroOption = app.Option("--invalidHero", "Show all invalid hero tooltips", CommandOptionType.NoValue);
             CommandOption heroWarningsOption = app.Option("--heroWarnings", "Show all hero warnings", CommandOptionType.NoValue);
             CommandOption excludeAwardParseOption = app.Option("--excludeAwards", "Exclude match award parsing", CommandOptionType.NoValue);
+            CommandOption minifyOption = app.Option("--minify", "Create .min file(s) along with current output file(s)", CommandOptionType.NoValue);
 
             app.OnExecute(() =>
             {
@@ -168,6 +170,7 @@ namespace HeroesData
                 program.IsFileSplit = setFileSplitOption.HasValue() ? true : false;
                 program.IsLocalizedText = localizedTextOption.HasValue() ? true : false;
                 program.ExcludeAwardParsing = excludeAwardParseOption.HasValue() ? true : false;
+                program.CreateMinFiles = minifyOption.HasValue() ? true : false;
                 program.Execute();
                 Console.ResetColor();
 
@@ -246,6 +249,7 @@ namespace HeroesData
                             ParsedHeroData = parsedHeroes,
                             ParsedMatchAwardData = parsedMatchAwards,
                             ShowHeroWarnings = ShowHeroWarnings,
+                            CreateMinifiedFiles = CreateMinFiles,
                         };
 
                         dataOutput.Verify();
