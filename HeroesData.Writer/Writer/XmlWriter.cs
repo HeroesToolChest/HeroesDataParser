@@ -33,7 +33,11 @@ namespace HeroesData.FileWriter.Writer
                 XmlOutputSplitMinFolder = xmlOutputSplitMinFolder;
 
                 Directory.CreateDirectory(XmlOutputSplitFolder);
-                Directory.CreateDirectory(XmlOutputSplitMinFolder);
+
+                if (CreateMinifiedFiles)
+                {
+                    Directory.CreateDirectory(XmlOutputSplitMinFolder);
+                }
             }
 
             base.CreateOutput();
@@ -46,7 +50,11 @@ namespace HeroesData.FileWriter.Writer
 
             XDocument xmlDoc = new XDocument(new XElement(rootNodeName, items.Select(item => dataMethod(item))));
             xmlDoc.Save(Path.Combine(XmlOutputFolder, singleFileName));
-            xmlDoc.Save(Path.Combine(XmlOutputFolder, noIndentationName), SaveOptions.DisableFormatting);
+
+            if (CreateMinifiedFiles)
+            {
+                xmlDoc.Save(Path.Combine(XmlOutputFolder, noIndentationName), SaveOptions.DisableFormatting);
+            }
         }
 
         protected override void CreateMultipleFiles<TObject>(IEnumerable<TObject> items, string rootNodeName, string subDirectory, Func<TObject, XElement> dataMethod)
@@ -55,14 +63,20 @@ namespace HeroesData.FileWriter.Writer
                 return;
 
             Directory.CreateDirectory(Path.Combine(XmlOutputSplitFolder, subDirectory));
-            Directory.CreateDirectory(Path.Combine(XmlOutputSplitMinFolder, subDirectory));
+
+            if (CreateMinifiedFiles)
+                Directory.CreateDirectory(Path.Combine(XmlOutputSplitMinFolder, subDirectory));
 
             foreach (TObject item in items)
             {
                 XDocument xmlDoc = new XDocument(new XElement(rootNodeName, dataMethod(item)));
 
                 xmlDoc.Save(Path.Combine(XmlOutputSplitFolder, subDirectory, $"{item.ShortName}.xml"));
-                xmlDoc.Save(Path.Combine(XmlOutputSplitMinFolder, subDirectory, $"{item.ShortName}.min.xml"), SaveOptions.DisableFormatting);
+
+                if (CreateMinifiedFiles)
+                {
+                    xmlDoc.Save(Path.Combine(XmlOutputSplitMinFolder, subDirectory, $"{item.ShortName}.min.xml"), SaveOptions.DisableFormatting);
+                }
             }
         }
 

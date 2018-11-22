@@ -37,6 +37,7 @@ namespace HeroesData
         public bool Defaults { get; set; }
         public bool CreateXml { get; set; }
         public bool CreateJson { get; set; }
+        public bool CreateMinifiedFiles { get; set; }
         public string OutputDirectory { get; set; }
 
         public void Verify()
@@ -118,6 +119,7 @@ namespace HeroesData
                 IsLocalizedText = IsLocalizedText,
                 ParsedHeroes = ParsedHeroData.OrderBy(x => x.ShortName),
                 ParsedAwards = ParsedMatchAwardData?.OrderBy(x => x.ShortName),
+                CreateMinifiedFiles = CreateMinifiedFiles,
             };
 
             Console.WriteLine(fileOutput.OutputDirectory);

@@ -18,6 +18,7 @@ namespace HeroesData.FileWriter.Writer
         public string Localization { get; set; }
         public bool IsLocalizedText { get; set; }
         public bool CreateLocalizedTextFile { get; set; }
+        public bool CreateMinifiedFiles { get; set; }
         public int? HotsBuild { get; set; }
         public IEnumerable<Hero> Heroes { get; set; }
         public IEnumerable<MatchAward> MatchAwards { get; set; }
