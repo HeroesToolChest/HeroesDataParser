@@ -85,6 +85,7 @@
         <Level4Talent name="Level4Talent" abilityType="Q" sort="0">
           <Icon />
           <FullTooltip>Burrow to the target location, dealing &lt;c val="#TooltipNumbers"&gt;96~~0.04~~&lt;/c&gt; damage and briefly stunning enemies in a small area upon surfacing, slowing them by &lt;c val="#TooltipNumbers"&gt;25%&lt;/c&gt; for &lt;c val="#TooltipNumbers"&gt;2.5&lt;/c&gt; seconds.&lt;n/&gt;&lt;n/&gt;Burrow Charge can be reactivated to surface early.</FullTooltip>
+          <AbilityTalentLinkId>AlarakDiscordStrike</AbilityTalentLinkId>
         </Level4Talent>
       </Level4>
       <Level7>

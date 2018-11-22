@@ -16,6 +16,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("FalstadHammerang", ability.ShortTooltipNameId);
             Assert.Equal("FalstadHammerang", ability.FullTooltipNameId);
             Assert.Equal("storm_ui_icon_falstad_hammerang.dds", ability.IconFileName);
+            Assert.Equal(AbilityType.Q, ability.AbilityType);
 
             Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 70</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
             Assert.Equal("Cooldown: 10 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
@@ -140,6 +141,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("FalstadSecretWeaponTalent", talent.ShortTooltipNameId);
             Assert.Equal("FalstadSecretWeaponTalent", talent.FullTooltipNameId);
             Assert.Equal("storm_ui_icon_falstad_hammerang.dds", talent.IconFileName);
+            Assert.Equal(AbilityType.Q, talent.AbilityType);
 
             Assert.True(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyTooltip?.RawDescription));
             Assert.True(string.IsNullOrEmpty(talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription));
@@ -149,6 +151,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("Increases Hammerang's range by <c val=\"#TooltipNumbers\">30%</c> and Basic Attacks deal <c val=\"#TooltipNumbers\">60%</c> bonus damage while Hammerang is in flight.", talent.Tooltip.FullTooltip.RawDescription);
 
             Assert.Equal(1, talent.Column);
+            Assert.Equal("FalstadHammerang", talent.AbilityTalentLinkId);
 
             // Wingman
             talent = HeroFalstad.Talents["FalstadWingman"];
@@ -158,6 +161,8 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("FalstadWingmanHotbarTalent", talent.ShortTooltipNameId);
             Assert.Equal("FalstadWingmanHotbarTalent", talent.FullTooltipNameId);
             Assert.Equal("storm_ui_icon_talent_bribe.dds", talent.IconFileName);
+            Assert.Equal(AbilityType.Active, talent.AbilityType);
+            Assert.True(talent.IsActive);
 
             Assert.True(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyTooltip?.RawDescription));
             Assert.Null(talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
@@ -166,6 +171,12 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal(1, talent.Tooltip.Charges.CountUse);
             Assert.True(talent.Tooltip.Charges.HasCharges);
             Assert.Null(talent.Tooltip.Charges.IsHideCount);
+
+            // Hinterland Blast
+            talent = HeroFalstad.Talents["FalstadHeroicAbilityHinterlandBlast"];
+            Assert.Equal("FalstadHinterlandBlast", talent.AbilityTalentLinkId);
+            Assert.True(talent.IsActive);
+            Assert.Equal(AbilityType.Heroic, talent.AbilityType);
         }
 
         [Fact]

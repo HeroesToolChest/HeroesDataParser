@@ -572,6 +572,10 @@ namespace HeroesData.FileWriter.Writer
         protected override JObject TalentInfoElement(Talent talent)
         {
             JObject jObject = AbilityTalentInfoElement(talent);
+
+            if (!string.IsNullOrEmpty(talent.AbilityTalentLinkId))
+                jObject.Add(new JProperty("abilityTalentLinkId", talent.AbilityTalentLinkId));
+
             jObject.Add(new JProperty("sort", talent.Column));
 
             return jObject;
