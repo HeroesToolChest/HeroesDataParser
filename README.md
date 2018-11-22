@@ -80,6 +80,7 @@ Options:
   --invalidHero                    Show all invalid hero tooltips
   --heroWarnings                   Show all hero warnings
   --excludeAwards                  Exclude match award parsing
+  --minify                         Create .min file(s) along with current output file(s)
 
 Commands:
   read
