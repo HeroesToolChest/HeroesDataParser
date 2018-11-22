@@ -13,8 +13,8 @@ namespace HeroesData.Parser.UnitData.Data
     {
         private HashSet<string> ActivableTalents = new HashSet<string>(); // keep track of talents that grant activable abilities
 
-        public TalentData(GameData gameData, HeroOverride heroOverride, ParsedGameStrings parsedGameStrings, TextValueData textValueData)
-            : base(gameData, heroOverride, parsedGameStrings, textValueData)
+        public TalentData(GameData gameData, HeroOverride heroOverride, ParsedGameStrings parsedGameStrings, TextValueData textValueData, Localization localization)
+            : base(gameData, heroOverride, parsedGameStrings, textValueData, localization)
         {
         }
 

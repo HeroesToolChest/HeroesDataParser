@@ -43,6 +43,11 @@ namespace HeroesData.Parser.UnitData
         public int? HotsBuild { get; set; }
 
         /// <summary>
+        /// Gets or sets the localization.
+        /// </summary>
+        public Localization Localization { get; set; }
+
+        /// <summary>
         /// Parses the hero's game data.
         /// </summary>
         /// <param name="cHeroId">The id value of the CHero element.</param>
@@ -53,7 +58,7 @@ namespace HeroesData.Parser.UnitData
             Hero hero = new Hero
             {
                 Name = GameStringData.HeroNamesByShortName[$"{GameStringPrefixes.HeroNamePrefix}{cHeroId}"],
-                Description = new TooltipDescription(ParsedGameStrings.HeroParsedDescriptionsByShortName[$"{GameStringPrefixes.DescriptionPrefix}{cHeroId}"]),
+                Description = new TooltipDescription(ParsedGameStrings.HeroParsedDescriptionsByShortName[$"{GameStringPrefixes.DescriptionPrefix}{cHeroId}"], Localization),
                 CHeroId = cHeroId,
                 CUnitId = cUnitId,
             };
@@ -65,8 +70,8 @@ namespace HeroesData.Parser.UnitData
 
             WeaponData = new WeaponData(GameData, HeroOverride);
             ArmorData = new ArmorData(GameData);
-            AbilityData = new AbilityData(GameData, HeroOverride, ParsedGameStrings, TextValueData);
-            TalentData = new TalentData(GameData, HeroOverride, ParsedGameStrings, TextValueData);
+            AbilityData = new AbilityData(GameData, HeroOverride, ParsedGameStrings, TextValueData, Localization);
+            TalentData = new TalentData(GameData, HeroOverride, ParsedGameStrings, TextValueData, Localization);
 
             CHeroData(hero);
             CUnitData(hero);
@@ -439,7 +444,7 @@ namespace HeroesData.Parser.UnitData
                 if (cUnit != null)
                 {
                     if (ParsedGameStrings.TryGetHeroParsedDescriptions(unit, out string desc))
-                        heroUnit.Description = new TooltipDescription(desc);
+                        heroUnit.Description = new TooltipDescription(desc, Localization);
 
                     SetDefaultValues(heroUnit);
                     CUnitData(heroUnit);
