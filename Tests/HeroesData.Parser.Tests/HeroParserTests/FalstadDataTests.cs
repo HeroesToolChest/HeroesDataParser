@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
+using System.Collections.Generic;
 using Xunit;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
@@ -151,7 +152,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal("Increases Hammerang's range by <c val=\"#TooltipNumbers\">30%</c> and Basic Attacks deal <c val=\"#TooltipNumbers\">60%</c> bonus damage while Hammerang is in flight.", talent.Tooltip.FullTooltip.RawDescription);
 
             Assert.Equal(1, talent.Column);
-            Assert.Equal("FalstadHammerang", talent.AbilityTalentLinkId);
+            Assert.Equal(new List<string>() { "FalstadHammerang" }, talent.AbilityTalentLinkId);
 
             // Wingman
             talent = HeroFalstad.Talents["FalstadWingman"];
@@ -174,7 +175,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
 
             // Hinterland Blast
             talent = HeroFalstad.Talents["FalstadHeroicAbilityHinterlandBlast"];
-            Assert.Equal("FalstadHinterlandBlast", talent.AbilityTalentLinkId);
+            Assert.Equal(new List<string>() { "FalstadHinterlandBlast" }, talent.AbilityTalentLinkId);
             Assert.True(talent.IsActive);
             Assert.Equal(AbilityType.Heroic, talent.AbilityType);
         }

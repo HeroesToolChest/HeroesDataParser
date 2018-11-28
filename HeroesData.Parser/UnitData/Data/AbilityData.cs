@@ -93,6 +93,7 @@ namespace HeroesData.Parser.UnitData.Data
                 SetAbilityTalentIcon(cButtonElement, ability);
                 SetTooltipSubInfo(hero, ability.ReferenceNameId, ability);
                 SetTooltipDescriptions(cButtonElement, hero, ability);
+                SetTalentIdUpgrades(cButtonElement, ability);
             }
 
             SetAbilityType(hero, ability, layoutButtons);
@@ -213,6 +214,19 @@ namespace HeroesData.Parser.UnitData.Data
                 ability.AbilityType = AbilityType.Heroic;
             else
                 throw new ParseException($"Unknown slot type ({type}) for ability type: {slot} - Hero(CUnit): {hero.CUnitId} - Ability: {ability.ReferenceNameId}");
+        }
+
+        private void SetTalentIdUpgrades(XElement buttonElement, Ability ability)
+        {
+            foreach (XElement tooltipAppenderElement in buttonElement.Elements("TooltipAppender"))
+            {
+                string talentId = tooltipAppenderElement.Attribute("Face")?.Value;
+
+                if (!string.IsNullOrEmpty(talentId))
+                {
+                    ability.TalentIdUpgrades.Add(talentId);
+                }
+            }
         }
     }
 }

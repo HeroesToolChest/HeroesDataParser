@@ -462,6 +462,11 @@
   </CButton>
   <CButton id="FalstadHammerang" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_falstad_hammerang.dds" />
+    <TooltipAppender Validator="FalstadHasGatheringStorm" Face="FalstadGatheringStormTalent" />
+    <TooltipAppender Validator="HasFalstadMasteryHammerangPowerThrow" Face="FalstadPowerThrowTalent" />
+    <TooltipAppender Validator="HasFalstadMasteryHammerangSecretWeapon" Face="FalstadSecretWeaponTalent" />
+    <TooltipAppender Validator="HasFalstadBoomerang" Face="FalstadHammerangBOOMerangTalent" />
+    <TooltipAppender Validator="HasFalstadCripplingHammer" Face="FalstadHammerangCripplingHammerTalent" />
   </CButton>
   <CButton id="FalstadLightningRod" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_falstad_lightningrod.dds" />
@@ -1787,6 +1792,11 @@
     </AbilityModificationArray>
     <Abil value="FalstadBarrelRoll" />
   </CTalent>
+  <CValidatorPlayerTalent id="HasFalstadMasteryHammerangSecretWeapon">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryHammerangSecretWeapon" />
+  </CValidatorPlayerTalent>
   <CUnit id="FalstadWingman">
     <LifeStart value="10" />
     <LifeMax value="10" />

@@ -276,7 +276,8 @@ namespace HeroesData.FileWriter.Writer
             XElement element = AbilityTalentInfoElement(talent);
             element.Add(new XAttribute("sort", talent.Column));
 
-            if (!string.IsNullOrEmpty(talent.AbilityTalentLinkId))
+            List<string> abilityTalentLinkIds = talent.AbilityTalentLinkId?.ToList();
+            if (abilityTalentLinkIds?.Count > 0)
                 element.Add(new XElement("AbilityTalentLinkId", talent.AbilityTalentLinkId));
 
             return element;

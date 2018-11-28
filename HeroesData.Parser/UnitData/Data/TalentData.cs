@@ -11,7 +11,7 @@ namespace HeroesData.Parser.UnitData.Data
 {
     public class TalentData : AbilityTalentData
     {
-        private HashSet<string> ActivableTalents = new HashSet<string>(); // keep track of talents that grant activable abilities
+        private Dictionary<string, List<string>> AbilityTalentIdsByTalentIdUpgrade = new Dictionary<string, List<string>>();
 
         public TalentData(GameData gameData, HeroOverride heroOverride, ParsedGameStrings parsedGameStrings, TextValueData textValueData, Localization localization)
             : base(gameData, heroOverride, parsedGameStrings, textValueData, localization)
@@ -81,7 +81,45 @@ namespace HeroesData.Parser.UnitData.Data
                 }
 
                 SetAbilityType(hero, talent, cTalentElement);
+                SetAbilityTalentLinkIds(hero, talent);
                 hero.Talents.Add(referenceName, talent);
+            }
+        }
+
+        /// <summary>
+        /// Acquire TooltipAppender data for abilityTalentLinkIds.
+        /// </summary>
+        public void SetButtonTooltipAppenderData(Hero hero)
+        {
+            List<XElement> buttonElements = new List<XElement>();
+
+            foreach (Ability ability in hero.Abilities.Values)
+            {
+                XElement buttonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ButtonName);
+                if (buttonElement != null)
+                    buttonElements.Add(buttonElement);
+            }
+
+            foreach (XElement buttonElement in buttonElements)
+            {
+                string abilityTalentId = buttonElement.Attribute("id").Value;
+
+                IEnumerable<XElement> tooltipAppenderElements = buttonElement.Elements("TooltipAppender").Where(x => !string.IsNullOrEmpty(x.Attribute("Validator")?.Value));
+                foreach (XElement tooltipAppenderElement in tooltipAppenderElements)
+                {
+                    string validatorId = tooltipAppenderElement.Attribute("Validator").Value;
+
+                    XElement validatorPlayerTalentElement = GameData.XmlGameData.Root.Elements("CValidatorPlayerTalent").FirstOrDefault(x => x.Attribute("id")?.Value == validatorId);
+                    if (validatorPlayerTalentElement != null)
+                    {
+                        string referenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value;
+
+                        if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(referenceNameId))
+                            AbilityTalentIdsByTalentIdUpgrade[referenceNameId].Add(abilityTalentId);
+                        else
+                            AbilityTalentIdsByTalentIdUpgrade.Add(referenceNameId, new List<string>() { abilityTalentId });
+                    }
+                }
             }
         }
 
@@ -91,67 +129,40 @@ namespace HeroesData.Parser.UnitData.Data
             XElement talentAbilElement = talentElement.Element("Abil");
             XElement talentActiveElement = talentElement.Element("Active");
             XElement talentQuestElement = talentElement.Element("QuestData");
-            XElement talentAbilityModificationArray = talentElement.Element("AbilityModificationArray");
 
             if (talentTraitElement != null && talentTraitElement.Attribute("value")?.Value == "1")
+            {
                 talent.AbilityType = AbilityType.Trait;
+            }
             else if (talentAbilElement != null)
-                SetAbilityTypeValue(hero, talent, talentAbilElement.Attribute("value").Value);
+            {
+                string abilValue = talentAbilElement.Attribute("value").Value;
+                if (hero.Abilities.TryGetValue(abilValue, out Ability ability))
+                    talent.AbilityType = ability.AbilityType;
+                else
+                    talent.AbilityType = AbilityType.Active;
+            }
             else
+            {
                 talent.AbilityType = AbilityType.Passive;
+            }
 
             if (talentActiveElement != null && talentActiveElement.Attribute("value")?.Value == "1")
                 talent.IsActive = true;
 
             if (talentQuestElement != null && !string.IsNullOrEmpty(talentQuestElement.Attribute("StackBehavior")?.Value))
                 talent.IsQuest = true;
-
-            // check the AbilityModificationArray element for ability upgrades
-            if (talentAbilityModificationArray != null && string.IsNullOrEmpty(talent.AbilityTalentLinkId))
-            {
-                IEnumerable<XElement> modificationElements = talentAbilityModificationArray.Elements("Modifications");
-                if (modificationElements != null)
-                {
-                    foreach (XElement modificationElemnt in modificationElements)
-                    {
-                        XElement entryElement = modificationElemnt.Element("Entry");
-
-                        if (entryElement != null)
-                        {
-                            string entryValue = entryElement.Attribute("value")?.Value;
-
-                            if (hero.Abilities.TryGetValue(entryValue, out Ability ability)) // check if abil exits from hero abilities
-                            {
-                                talent.AbilityTalentLinkId = entryValue;
-                                break;
-                            }
-                            else if (ActivableTalents.Contains(entryValue)) // check if abil exist from a granted talent ability
-                            {
-                                talent.AbilityTalentLinkId = entryValue;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
         }
 
-        private void SetAbilityTypeValue(Hero hero, Talent talent, string value)
+        private void SetAbilityTalentLinkIds(Hero hero, Talent talent)
         {
-            if (hero.Abilities.TryGetValue(value, out Ability ability)) // check if abil exits from hero abilities
+            if (AbilityTalentIdsByTalentIdUpgrade.TryGetValue(talent.ReferenceNameId, out List<string> abilityTalentIds))
             {
-                talent.AbilityTalentLinkId = value;
-                talent.AbilityType = ability.AbilityType;
+                talent.AbilityTalentLinkId = abilityTalentIds;
             }
-            else if (ActivableTalents.Contains(value)) // check if abil exist from a granted talent ability
+
+            if (talent.AbilityType == AbilityType.Heroic)
             {
-                talent.AbilityTalentLinkId = value;
-                talent.AbilityType = AbilityType.Active;
-            }
-            else // an active abil, add to list of activable talents
-            {
-                ActivableTalents.Add(value);
-                talent.AbilityType = AbilityType.Active;
             }
         }
     }
