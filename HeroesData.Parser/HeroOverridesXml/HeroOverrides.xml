@@ -189,6 +189,20 @@
       </Override>
     </Portrait>
   </CHero>
+  <CHero id="Jaina">
+    <Button id="JainaImprovedIceBlockHotbar" quest="true">
+      <Override>
+        <ParentLink value="JainaTraitFrostbite" />   
+      </Override>
+    </Button>
+  </CHero>
+  <CHero id="KelThuzad">
+    <Button id="KelThuzadGlacialSpike" quest="true">
+      <Override>
+        <ParentLink value="KelThuzadMasterOfTheColdDark" />
+      </Override>
+    </Button>
+  </CHero>
   <CHero id="L90ETC">
     <Portrait>
       <Override>

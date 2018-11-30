@@ -65,6 +65,13 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         }
 
         [Fact]
+        public void IsAddedButtonAbilityTest()
+        {
+            Assert.True(HeroOverride.IsAddedAbilityByButtonId.ContainsKey("IceBlock"));
+            Assert.True(HeroOverride.IsAddedAbilityByButtonId["IceBlock"]);
+        }
+
+        [Fact]
         public void IsValidWeaponTest()
         {
             Assert.True(HeroOverride.IsValidWeaponByWeaponId.ContainsKey("SlapSlap"));

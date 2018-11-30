@@ -305,6 +305,8 @@ namespace HeroesData.Parser.UnitData
                 AbilityData.SetAbilityData(hero, abilArrayElement, layoutButtons);
             }
 
+            AbilityData.AddAdditionalButtonAbilities(hero);
+
             foreach (XElement talentArrayElement in heroData.Elements("TalentTreeArray"))
             {
                 TalentData.SetTalentData(hero, talentArrayElement);
