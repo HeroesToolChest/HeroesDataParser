@@ -49,7 +49,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [Fact]
         public void IsAddedButtonAbilityTest()
         {
-            Assert.False(HeroOverride.IsAddedAbilityByButtonId.ContainsKey("IceBlock"));
+            Assert.Contains("IceBlock", HeroOverride.AddedAbilitiesByButtonId);
         }
 
         [Fact]

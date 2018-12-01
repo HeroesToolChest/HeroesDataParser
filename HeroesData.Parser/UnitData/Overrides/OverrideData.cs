@@ -297,19 +297,11 @@ namespace HeroesData.Parser.UnitData.Overrides
                         break;
                     case "Button":
                         string buttonId = dataElement.Attribute("id")?.Value;
-                        string quest = dataElement.Attribute("quest")?.Value;
 
                         if (string.IsNullOrEmpty(buttonId))
                             continue;
 
-                        // quest
-                        if (bool.TryParse(quest, out result))
-                        {
-                            heroOverride.IsAddedAbilityByButtonId.Add(buttonId, result);
-
-                            if (!result)
-                                continue;
-                        }
+                        heroOverride.AddedAbilitiesByButtonId.Add(buttonId);
 
                         // override
                         overrideElement = dataElement.Element("Override");

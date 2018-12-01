@@ -2,6 +2,7 @@
 using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
 using HeroesData.FileWriter.Settings;
+using HeroesData.Parser;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -134,17 +135,18 @@ namespace HeroesData.FileWriter.Writer
 
             if (!string.IsNullOrEmpty(hero.Name) && !IsLocalizedText)
                 heroObject.Add("name", hero.Name);
-            if (!string.IsNullOrEmpty(hero.CHeroId))
+            if (!string.IsNullOrEmpty(hero.CHeroId) && hero.CHeroId != StormHero.CHeroId)
                 heroObject.Add("cHeroId", hero.CHeroId);
-            if (!string.IsNullOrEmpty(hero.CUnitId))
+            if (!string.IsNullOrEmpty(hero.CUnitId) && hero.CHeroId != StormHero.CHeroId)
                 heroObject.Add("cUnitId", hero.CUnitId);
             if (!string.IsNullOrEmpty(hero.AttributeId))
                 heroObject.Add("attributeId", hero.AttributeId);
 
-            if (!IsLocalizedText)
+            if (!IsLocalizedText && !string.IsNullOrEmpty(hero.Difficulty))
                 heroObject.Add("difficulty", hero.Difficulty);
 
-            heroObject.Add("franchise", hero.Franchise.ToString());
+            if (hero.CHeroId != StormHero.CHeroId)
+                heroObject.Add("franchise", hero.Franchise.ToString());
 
             if (hero.Gender.HasValue)
                 heroObject.Add("gender", hero.Gender.Value.ToString());
@@ -343,6 +345,16 @@ namespace HeroesData.FileWriter.Writer
                             from abil in activableAbilities
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
+
+                ICollection<Ability> hearthAbilities = unit.SubAbilities(AbilityTier.Hearth);
+                if (hearthAbilities?.Count > 0)
+                {
+                    abilityObject.Add(new JProperty(
+                        "hearth",
+                        new JArray(
+                            from abil in hearthAbilities
+                            select new JObject(AbilityTalentInfoElement(abil)))));
+                }
             }
             else
             {
@@ -393,6 +405,16 @@ namespace HeroesData.FileWriter.Writer
                         "activable",
                         new JArray(
                             from abil in activableAbilities
+                            select new JObject(AbilityTalentInfoElement(abil)))));
+                }
+
+                ICollection<Ability> hearthAbilities = unit.PrimaryAbilities(AbilityTier.Hearth);
+                if (hearthAbilities?.Count > 0)
+                {
+                    abilityObject.Add(new JProperty(
+                        "hearth",
+                        new JArray(
+                            from abil in hearthAbilities
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
             }

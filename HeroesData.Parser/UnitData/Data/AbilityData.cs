@@ -157,33 +157,30 @@ namespace HeroesData.Parser.UnitData.Data
         {
             hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
 
-            foreach (var newAbility in HeroOverride.IsAddedAbilityByButtonId)
+            foreach (string newAbility in HeroOverride.AddedAbilitiesByButtonId)
             {
-                if (newAbility.Value)
+                Ability ability = new Ability()
                 {
-                    Ability ability = new Ability()
-                    {
-                        FullTooltipNameId = newAbility.Key,
-                        ButtonName = newAbility.Key,
-                        ReferenceNameId = newAbility.Key,
-                    };
+                    FullTooltipNameId = newAbility,
+                    ButtonName = newAbility,
+                    ReferenceNameId = newAbility,
+                };
 
-                    // defaults
-                    ability.Tier = AbilityTier.Activable;
-                    ability.AbilityType = AbilityType.Active;
+                // defaults
+                ability.Tier = AbilityTier.Activable;
+                ability.AbilityType = AbilityType.Active;
 
-                    XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId);
+                XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId);
 
-                    SetAbilityTalentName(cButtonElement, ability);
-                    SetAbilityTalentIcon(cButtonElement, ability);
-                    SetTooltipSubInfo(hero, ability.ReferenceNameId, ability);
-                    SetTooltipDescriptions(cButtonElement, hero, ability);
+                SetAbilityTalentName(cButtonElement, ability);
+                SetAbilityTalentIcon(cButtonElement, ability);
+                SetTooltipSubInfo(hero, ability.ReferenceNameId, ability);
+                SetTooltipDescriptions(cButtonElement, hero, ability);
 
-                    // add ability
-                    if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
-                    {
-                        hero.Abilities.Add(ability.ReferenceNameId, ability);
-                    }
+                // add ability
+                if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
+                {
+                    hero.Abilities.Add(ability.ReferenceNameId, ability);
                 }
             }
         }

@@ -93,6 +93,13 @@
           "icon": null,
           "abilityType": "Active"
         }
+      ],
+      "hearth": [
+        {
+          "nameId": "HearthAbility",
+          "icon": null,
+          "abilityType": "B"
+        }
       ]
     },
     "talents": {

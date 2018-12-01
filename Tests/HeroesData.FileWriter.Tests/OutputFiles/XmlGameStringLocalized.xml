@@ -56,6 +56,11 @@
           <Icon />
         </ActivableAbility>
       </Activable>
+      <Hearth>
+        <HearthAbility name="Hearth" abilityType="B">
+          <Icon />
+        </HearthAbility>
+      </Hearth>
     </Abilities>
     <Talents>
       <Level1>

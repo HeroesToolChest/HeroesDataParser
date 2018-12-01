@@ -257,6 +257,16 @@ namespace HeroesData.FileWriter.Tests
                             AbilityType = AbilityType.Active,
                         }
                     },
+                    {
+                        "HearthAbility",
+                        new Ability
+                        {
+                            ReferenceNameId = "HearthAbility",
+                            Name = "Hearth",
+                            Tier = AbilityTier.Hearth,
+                            AbilityType = AbilityType.B,
+                        }
+                    },
                 },
                 Talents = new Dictionary<string, Talent>
                 {

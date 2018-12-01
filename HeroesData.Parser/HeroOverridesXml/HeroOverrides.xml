@@ -1,5 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides>
+  <CHero id="_StormHero">
+    <Button id="PortBackToBase">
+      <Override>
+        <AbilityTier value="Hearth" />
+        <AbilityType value="B" />
+      </Override>
+    </Button>
+    <Button id="PortBackToBaseNoMana">
+      <Override>
+        <AbilityTier value="Hearth" />
+        <AbilityType value="B" />
+      </Override>
+    </Button>
+    <Button id="SummonMount">
+      <Override>
+        <AbilityTier value="Mount" />
+        <AbilityType value="Z" />
+      </Override>
+    </Button>
+  </CHero>
   <CHero id="Abathur">
     <HeroUnit id="AbathurSymbiote"></HeroUnit>
     <Portrait>
@@ -190,14 +210,14 @@
     </Portrait>
   </CHero>
   <CHero id="Jaina">
-    <Button id="JainaImprovedIceBlockHotbar" quest="true">
+    <Button id="JainaImprovedIceBlockHotbar">
       <Override>
         <ParentLink value="JainaTraitFrostbite" />   
       </Override>
     </Button>
   </CHero>
   <CHero id="KelThuzad">
-    <Button id="KelThuzadGlacialSpike" quest="true">
+    <Button id="KelThuzadGlacialSpike">
       <Override>
         <ParentLink value="KelThuzadMasterOfTheColdDark" />
       </Override>
