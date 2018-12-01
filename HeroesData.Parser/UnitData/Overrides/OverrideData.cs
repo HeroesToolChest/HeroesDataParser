@@ -258,7 +258,7 @@ namespace HeroesData.Parser.UnitData.Overrides
                         }
 
                         // override
-                        var overrideElement = dataElement.Element("Override");
+                        XElement overrideElement = dataElement.Element("Override");
                         if (overrideElement != null && !string.IsNullOrEmpty(newButtonValue))
                             abilityOverride.SetOverride(newButtonValue, overrideElement, heroOverride.PropertyAbilityOverrideMethodByAbilityId);
 
@@ -294,6 +294,19 @@ namespace HeroesData.Parser.UnitData.Overrides
                         overrideElement = dataElement.Element("Override");
                         if (overrideElement != null)
                             abilityOverride.SetOverride(abilityId, overrideElement, heroOverride.PropertyAbilityOverrideMethodByAbilityId);
+                        break;
+                    case "Button":
+                        string buttonId = dataElement.Attribute("id")?.Value;
+
+                        if (string.IsNullOrEmpty(buttonId))
+                            continue;
+
+                        heroOverride.AddedAbilitiesByButtonId.Add(buttonId);
+
+                        // override
+                        overrideElement = dataElement.Element("Override");
+                        if (overrideElement != null)
+                            abilityOverride.SetOverride(buttonId, overrideElement, heroOverride.PropertyAbilityOverrideMethodByAbilityId);
                         break;
                     case "Talent":
                         string talentId = dataElement.Attribute("id")?.Value;

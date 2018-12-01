@@ -6,6 +6,12 @@ namespace HeroesData.Parser.Tests.HeroParserTests
     public class AurielDataTests : HeroDataBaseTest
     {
         [Fact]
+        public void BasicPropertiesTests()
+        {
+            Assert.Equal("SummonMount", HeroAuriel.MountLinkId);
+        }
+
+        [Fact]
         public void EnergyTests()
         {
             Assert.Equal(475, HeroAuriel.Energy.EnergyMax);

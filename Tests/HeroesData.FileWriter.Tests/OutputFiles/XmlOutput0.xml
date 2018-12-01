@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Heroes>
   <Alarak name="Alarak" cHeroId="HeroAlarak" cUnitId="Alar" difficulty="Hard" franchise="Starcraft" gender="Male" radius="0.875" releaseDate="2016-09-13" sight="12" speed="4.3984" type="Melee" rarity="Legendary">
+    <MountLinkId>SummonMount</MountLinkId>
     <Description>A Tank who specializes against Mages thanks in part to his innate Spell Armor.&lt;n/&gt;&lt;n/&gt;&lt;img path="@UI / StormTalentInTextArmorIcon" alignment="uppermiddle" color="e12bfc" width="20" height="22"/&gt;&lt;c val="#TooltipNumbers"&gt;20 Spell Armor&lt;/c&gt;</Description>
     <Life>
       <Amount scale="0.04">1900</Amount>
@@ -52,6 +53,11 @@
           <Icon />
         </ActivableAbility>
       </Activable>
+      <Hearth>
+        <HearthAbility name="Hearth" abilityType="B">
+          <Icon />
+        </HearthAbility>
+      </Hearth>
     </Abilities>
     <Talents>
       <Level1>

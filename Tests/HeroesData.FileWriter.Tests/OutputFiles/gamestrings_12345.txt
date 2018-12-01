@@ -10,6 +10,7 @@ abiltalent/name/DragonAbilActivable=DragonAbilActivable
 abiltalent/name/DragonAbilHeroic=DragonAbilHeroic
 abiltalent/name/DragonAbilMount=DragonAbilMount
 abiltalent/name/DragonAbilTrait=DragonAbilTrait
+abiltalent/name/HearthAbility=Hearth
 abiltalent/name/HeroicAbility=Heroic
 abiltalent/name/Leve13Talent=Leve13Talent
 abiltalent/name/Level16Talent=Level16Talent

@@ -9,6 +9,7 @@
         void EnergyOverrideTest();
         void IsValidAbilityTest();
         void IsAddedAbilityTest();
+        void IsAddedButtonAbilityTest();
         void IsValidWeaponTest();
         void LinkedAbilitiesTest();
         void HeroUnitTests();

@@ -88,6 +88,12 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         }
 
         [Fact]
+        public void IsAddedButtonAbilityTest()
+        {
+            Assert.DoesNotContain("IceBlock", HeroOverride.AddedAbilitiesByButtonId);
+        }
+
+        [Fact]
         public void IsValidWeaponTest()
         {
             Assert.False(HeroOverride.IsValidWeaponByWeaponId.ContainsKey("Ffffwwwwaaa"));

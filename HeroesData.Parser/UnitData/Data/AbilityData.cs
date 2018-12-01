@@ -154,8 +154,43 @@ namespace HeroesData.Parser.UnitData.Data
                 hero.Abilities.Add(ability.ReferenceNameId, ability);
         }
 
+        public void AddAdditionalButtonAbilities(Hero hero)
+        {
+            hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
+
+            foreach (string newAbility in HeroOverride.AddedAbilitiesByButtonId)
+            {
+                Ability ability = new Ability()
+                {
+                    FullTooltipNameId = newAbility,
+                    ButtonName = newAbility,
+                    ReferenceNameId = newAbility,
+                };
+
+                // defaults
+                ability.Tier = AbilityTier.Activable;
+                ability.AbilityType = AbilityType.Active;
+
+                XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId);
+
+                SetAbilityTalentName(cButtonElement, ability);
+                SetAbilityTalentIcon(cButtonElement, ability);
+                SetTooltipSubInfo(hero, ability.ReferenceNameId, ability);
+                SetTooltipDescriptions(cButtonElement, hero, ability);
+
+                // add ability
+                if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
+                {
+                    hero.Abilities.Add(ability.ReferenceNameId, ability);
+                }
+            }
+        }
+
         private void SetAbilityType(Hero hero, Ability ability, IEnumerable<XElement> layoutButtons)
         {
+            if (layoutButtons == null)
+                return;
+
             if (ability.Tier == AbilityTier.Heroic)
             {
                 ability.AbilityType = AbilityType.Heroic;

@@ -64,13 +64,13 @@ namespace HeroesData.Parser.UnitData
         private void GetCHeroNames()
         {
             // CHero
-            var cHeroElements = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
+            IEnumerable<XElement> cHeroElements = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
 
             // get all heroes
             foreach (XElement hero in cHeroElements)
             {
                 string id = hero.Attribute("id").Value;
-                var withAttributId = hero.Elements("AttributeId").FirstOrDefault(x => x.Attribute("value") != null);
+                XElement withAttributId = hero.Elements("AttributeId").FirstOrDefault(x => x.Attribute("value") != null);
 
                 if (withAttributId == null || id == "TestHero" || id == "Random")
                     continue;
@@ -100,6 +100,9 @@ namespace HeroesData.Parser.UnitData
                         CUnitIdByHeroCHeroIds[hero.Key] = heroOverride.CUnitOverride.CUnit;
                 }
             }
+
+            // add base hero unit for base data
+            CUnitIdByHeroCHeroIds.Add(StormHero.CHeroId, StormHero.CUnitId);
         }
     }
 }

@@ -18,6 +18,12 @@
     </Ability>
     
     <Ability id="MindControl" add="true" button="MindControlButton" />
+
+    <Button id="IceBlock">
+      <Override>
+        <ParentLink value="Symbiote" />
+      </Override>
+    </Button>
     
     <Talent id="UpgradeSpikeAbilityThingy">
       <Override>
@@ -75,6 +81,8 @@
       </Override>
     </Ability>
 
+    <Button id="IceBlock"></Button>
+    
     <Talent id="UpgradeZapiptyZap">
       <Override>
         <AbilityType value="Z" />
@@ -119,6 +127,9 @@
       </Override>
     </Ability>
 
+    <!--no id, should be ignored-->
+    <Button id=""></Button>
+    
     <!--no id, should be ignored-->
     <Ability id="">
       <Override>
