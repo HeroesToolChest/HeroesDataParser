@@ -13,6 +13,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.Equal(6.5, HeroTestHero.Sight);
             Assert.Equal("Support", HeroTestHero.Roles[0]);
             Assert.Equal(HeroFranchise.Warcraft, HeroTestHero.Franchise);
+            Assert.Equal("TestHeroIllusionMaster", HeroTestHero.MountLinkId);
         }
 
         [Fact]

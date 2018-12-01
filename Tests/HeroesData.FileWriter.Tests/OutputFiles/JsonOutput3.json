@@ -12,6 +12,7 @@
     "speed": 4.3984,
     "type": "Melee",
     "rarity": "Legendary",
+    "mountLinkId": "SummonMount",
     "description": "A Tank who specializes against Mages thanks in part to his innate Spell Armor.  20 Spell Armor",
     "life": {
       "amount": 1900.0,

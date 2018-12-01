@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Heroes>
   <Alarak cHeroId="HeroAlarak" cUnitId="Alar" franchise="Starcraft" gender="Male" radius="0.875" releaseDate="2016-09-13" sight="12" speed="4.3984" rarity="Legendary">
+    <MountLinkId>SummonMount</MountLinkId>
     <Portraits>
       <HeroSelect>storm_ui_ingame_heroselect_btn_alarak.png</HeroSelect>
       <Leaderboard>storm_ui_ingame_hero_leaderboard_alarak.png</Leaderboard>

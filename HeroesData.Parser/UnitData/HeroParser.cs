@@ -170,6 +170,7 @@ namespace HeroesData.Parser.UnitData
             hero.Gender = HeroGender.Male;
             hero.Type = TextValueData.StringRanged;
             hero.Franchise = HeroFranchise.Unknown;
+            hero.MountLinkId = "SummonMount";
         }
 
         private void CHeroData(Hero hero)
@@ -402,6 +403,8 @@ namespace HeroesData.Parser.UnitData
 
             // set weapons
             WeaponData.SetHeroWeaponData(hero, heroData.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
+
+            // set armor
             ArmorData.SetUnitArmorData(hero, heroData.Element("ArmorLink"));
 
             if (hero.Energy.EnergyMax < 1)
@@ -409,6 +412,13 @@ namespace HeroesData.Parser.UnitData
 
             if (string.IsNullOrEmpty(hero.Difficulty))
                 hero.Difficulty = TextValueData.DefaultHeroDifficulty;
+
+            // set mount link
+            IList<Ability> mountAbilities = hero.PrimaryAbilities(AbilityTier.Mount);
+            string parentAttribute = heroData.Attribute("parent")?.Value;
+
+            if (parentAttribute == "StormHeroMountedCustom" && mountAbilities.Count > 0)
+                hero.MountLinkId = mountAbilities.FirstOrDefault()?.ReferenceNameId;
         }
 
         private void CActorData(Hero hero)
