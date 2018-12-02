@@ -147,6 +147,8 @@ namespace HeroesData.Parser.UnitData.Data
                 string abilValue = talentAbilElement.Attribute("value").Value;
                 if (hero.Abilities.TryGetValue(abilValue, out Ability ability))
                     talent.AbilityType = ability.AbilityType;
+                else if (abilValue == "Mount")
+                    talent.AbilityType = AbilityType.Z;
                 else
                     talent.AbilityType = AbilityType.Active;
             }
