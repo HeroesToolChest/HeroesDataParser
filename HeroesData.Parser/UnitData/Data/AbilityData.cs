@@ -172,7 +172,7 @@ namespace HeroesData.Parser.UnitData.Data
                 ability.AbilityType = AbilityType.Active;
 
                 // LastOrDefault, since overrides can happen in later xml files
-                XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").LastOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId);
+                XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").LastOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && !string.IsNullOrEmpty(x.Attribute("parent")?.Value));
 
                 SetAbilityTalentName(cButtonElement, ability);
                 SetAbilityTalentIcon(cButtonElement, ability);
