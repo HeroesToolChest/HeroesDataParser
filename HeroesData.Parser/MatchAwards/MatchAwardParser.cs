@@ -1,4 +1,5 @@
 ﻿using Heroes.Models;
+using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.GameStrings;
 using System;

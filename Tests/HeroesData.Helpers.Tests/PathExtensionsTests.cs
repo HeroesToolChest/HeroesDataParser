@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using Xunit;
 
-namespace HeroesData.Parser.Tests
+namespace HeroesData.Helpers.Tests
 {
     public class PathExtensionsTests
     {

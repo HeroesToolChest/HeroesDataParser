@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace HeroesData.Parser
+namespace HeroesData.Helpers
 {
     public static class PathExtensions
     {

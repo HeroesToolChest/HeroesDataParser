@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
+using HeroesData.Helpers;
 using HeroesData.Loader.GameStrings;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.GameStrings;
