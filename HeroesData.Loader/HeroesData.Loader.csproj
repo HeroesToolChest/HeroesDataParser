@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta009">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.1-beta.61">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CASCExplorer\CascLibCore\CascLibCore.csproj" />
+    <ProjectReference Include="..\HeroesData.Helpers\HeroesData.Helpers.csproj" />
   </ItemGroup>
 
 </Project>

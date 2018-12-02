@@ -33,16 +33,22 @@ namespace HeroesData.Loader.XmlGameData
 
         protected int? HotsBuild { get; }
         protected string ModsFolderPath { get; }
-        protected string CoreStormModFolderPath { get; set; }
-        protected string HeroesdataStormModFolderPath { get; set; }
-        protected string HeroesMapModsFolderPath { get; set; }
-        protected string OldHeroesFolderPath { get; set; }
-        protected string NewHeroesFolderPath { get; set; }
 
-        protected string GameDataStringName { get; set; }
-        protected string DataStringName { get; set; }
-        protected string HeroDataStringName { get; set; }
-        protected string HeroesStringName { get; set; }
+        protected string CoreStormModDirectoryName { get; } = "core.stormmod";
+        protected string HeroesDataStormModDirectoryName { get; } = "heroesdata.stormmod";
+        protected string HeroesMapModsDirectoryName { get; } = "heroesmapmods";
+        protected string HeroesModsDiretoryName { get; } = "heromods";
+        protected string BaseStormDataDirectoryName { get; } = "base.stormdata";
+        protected string BattlegroundMapModsDirectoryName { get; } = "battlegroundmapmods";
+
+        protected string GameDataStringName { get; } = "gamedata";
+
+        protected string GameDataXmlFile { get; } = "gamedata.xml";
+        protected string IncludesXmlFile { get; } = "includes.xml";
+
+        protected string CoreBaseDataDirectoryPath { get; set; }
+        protected string HeroesDataBaseDataDirectoryPath { get; set; }
+        protected string HeroesMapModsDirectoryPath { get; set; }
 
         /// <summary>
         /// Loads all the required game files.
@@ -103,28 +109,9 @@ namespace HeroesData.Loader.XmlGameData
 
         protected void Initialize()
         {
-            GameDataStringName = "gamedata";
-            DataStringName = "data";
-            HeroDataStringName = "herodata";
-            HeroesStringName = "heroes";
-
-            // default check
-            CoreStormModFolderPath = Path.Combine(ModsFolderPath, "core.stormmod", "base.stormdata", GameDataStringName);
-
-            // if doesn't exist, try capitilized directory
-            if (!Directory.Exists(CoreStormModFolderPath))
-            {
-                GameDataStringName = "GameData";
-                DataStringName = "Data";
-                HeroDataStringName = "HeroData";
-                HeroesStringName = "Heroes";
-            }
-
-            CoreStormModFolderPath = Path.Combine(ModsFolderPath, "core.stormmod", "base.stormdata", GameDataStringName);
-            HeroesdataStormModFolderPath = Path.Combine(ModsFolderPath, "heroesdata.stormmod", "base.stormdata", GameDataStringName);
-            HeroesMapModsFolderPath = Path.Combine(ModsFolderPath, "heroesmapmods", "battlegroundmapmods");
-            OldHeroesFolderPath = Path.Combine(HeroesdataStormModFolderPath, HeroesStringName);
-            NewHeroesFolderPath = Path.Combine(ModsFolderPath, "heromods");
+            CoreBaseDataDirectoryPath = Path.Combine(ModsFolderPath, CoreStormModDirectoryName, BaseStormDataDirectoryName);
+            HeroesDataBaseDataDirectoryPath = Path.Combine(ModsFolderPath, HeroesDataStormModDirectoryName, BaseStormDataDirectoryName);
+            HeroesMapModsDirectoryPath = Path.Combine(ModsFolderPath, HeroesMapModsDirectoryName, BattlegroundMapModsDirectoryName);
 
             LoadFiles();
             GetLevelScalingData();
@@ -133,15 +120,13 @@ namespace HeroesData.Loader.XmlGameData
         protected abstract void LoadCoreStormMod();
         protected abstract void LoadHeroesDataStormMod();
         protected abstract void LoadHeroesMapMods();
-        protected abstract void LoadOldHeroes();
-        protected abstract void LoadNewHeroes();
+        protected abstract void LoadGameDataXmlContents(string gameDataXmlFilePath);
 
         private void LoadFiles()
         {
             LoadCoreStormMod(); // must come first
             LoadHeroesDataStormMod();
-            LoadOldHeroes();
-            LoadNewHeroes();
+
             LoadHeroesMapMods();
         }
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Includes>
+  <Catalog path="GameData/Heroes/AbathurData/AbathurData.xml" />
+  <Catalog path="GameData/Heroes/AnubarakData/AnubarakData.xml" />
+  <Catalog path="GameData/Heroes/ArthasData/ArthasData.xml" />
+  <Catalog path="GameData/Heroes/AzmodanData/AzmodanData.xml" />
+  <Catalog path="GameData/Heroes/ChenData/ChenData.xml" />
+  <Catalog path="GameData/Heroes/DemonHunterData/DemonHunterData.xml" />
+  <Catalog path="GameData/Heroes/DryadData/DryadData.xml" />
+  <Catalog path="GameData/Heroes/FalstadData/FalstadData.xml" />
+  <Catalog path="GameData/Heroes/LostVikingsData/LostVikingsData.xml" />
+  <Catalog path="GameData/Heroes/MedicData/MedicData.xml" />
+  <Catalog path="GameData/Heroes/MuradinData/MuradinData.xml" />
+  <Catalog path="GameData/Heroes/TestHeroData/TestHeroData.xml" />
+  <Catalog path="GameData/Heroes/TyraelData/TyraelData.xml" />
+  <Catalog path="GameData/Heroes/UtherData/UtherData.xml" />
+</Includes>
