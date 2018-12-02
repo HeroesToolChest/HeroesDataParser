@@ -134,8 +134,11 @@
           "icon": null,
           "fullTooltip": "Burrow to the target location, dealing 96 (+4% per level) damage and briefly stunning enemies in a small area upon surfacing, slowing them by 25% for 2.5 seconds.  Burrow Charge can be reactivated to surface early.",
           "abilityType": "Q",
-          "abilityTalentLinkId": "AlarakDiscordStrike",
-          "sort": 0
+          "sort": 0,
+          "abilityTalentLinkIds": [
+            "AlarakDiscordStrike",
+            "AlarakExtendedLightning"
+          ]
         }
       ],
       "level7": [

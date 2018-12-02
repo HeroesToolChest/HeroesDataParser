@@ -23,6 +23,7 @@
       <Flags index="AffectedByCooldownReduction" value="1" />
       <Flags index="MountReplacement" value="1" />
     </HeroAbilArray>
+    <TalentTreeArray Talent="DryadHippityHop" Tier="1" Column="3" />
     <TalentTreeArray Talent="DryadGallopingGait" Tier="7" Column="4" />
   </CHero>
   <CAbilEffectInstant id="DryadGallopingGait">
@@ -43,6 +44,13 @@
     <Abil value="DryadGallopingGait" />
     <Active value="1" />
   </CTalent>
+  <CTalent id="DryadHippityHop">
+    <Face value="DryadHippityHop" />
+    <RankArray>
+      <BehaviorArray value="DryadHippityHopCarryBehavior" />
+    </RankArray>
+    <Abil value="DryadGallopingGait" />
+  </CTalent>
   <CButton id="DryadDryadsSwiftness" parent="StormButtonParentTrait">
     <TooltipAppender Validator="DryadHasHippityHop" Face="DryadHippityHop" />
     <TooltipAppender Validator="DryadHasGallopingGaitTalent" Face="DryadGallopingGaitTalent" />
@@ -53,4 +61,18 @@
     <Icon value="Assets\Textures\storm_ui_icon_lunara_boundlessstride_a.dds" />
     <HotkeyAlias value="DryadDryadsSwiftness" />
   </CButton>
+  <CButton id="DryadHippityHop" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\storm_ui_icon_lunara_boundlessstride_a.dds" />
+    <HotkeyAlias value="DryadDryadsSwiftness" />
+  </CButton>
+  <CValidatorPlayerTalent id="DryadHasGallopingGaitTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="DryadGallopingGait" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="DryadHasHippityHop">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="DryadHippityHop" />
+  </CValidatorPlayerTalent>
 </Catalog>

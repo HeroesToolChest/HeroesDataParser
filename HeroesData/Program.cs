@@ -668,6 +668,17 @@ namespace HeroesData
             time.Start();
             UnitParser unitParser = UnitParser.Load(GameData, OverrideData, HotsBuild);
 
+            // parse the base hero data first
+            HeroParser heroBaseDataParser = new HeroParser(GameData, GameStringData, parsedGameStrings, OverrideData)
+            {
+                HotsBuild = HotsBuild,
+                Localization = localization,
+            };
+
+            // add it to parsedHeroes
+            Hero baseHeroData = heroBaseDataParser.ParseBaseHero();
+            parsedHeroes.GetOrAdd(baseHeroData.CHeroId, baseHeroData);
+
             Console.Write($"\r{currentCount,6} / {unitParser.CUnitIdByHeroCHeroIds.Count} total heroes");
             Parallel.ForEach(unitParser.CUnitIdByHeroCHeroIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, hero =>
             {
@@ -677,6 +688,7 @@ namespace HeroesData
                     {
                         HotsBuild = HotsBuild,
                         Localization = localization,
+                        StormHeroBase = baseHeroData,
                     };
 
                     parsedHeroes.GetOrAdd(hero.Key, heroDataParser.Parse(hero.Key, hero.Value));

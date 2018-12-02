@@ -335,3 +335,6 @@ DryadGallopingGait=Galloping Gait
 Button/Name/DryadGallopingGaitTalent=Galloping Gait
 Button/SimpleDisplayText/DryadGallopingGaitTalent=Activate to increase Movement Speed
 Button/Tooltip/DryadGallopingGaitTalent=Activate to increase the Movement
+Button/Name/DryadHippityHop=Hippity Hop
+Button/SimpleDisplayText/DryadHippityHop=Increase Dryad's Swiftness bonus
+Button/Tooltip/DryadHippityHop=After not Basic

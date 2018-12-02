@@ -48,6 +48,11 @@ namespace HeroesData.Parser.UnitData
         public Localization Localization { get; set; }
 
         /// <summary>
+        /// Gets or sets the base hero data.
+        /// </summary>
+        public Hero StormHeroBase { get; set; } = new Hero();
+
+        /// <summary>
         /// Parses the hero's game data.
         /// </summary>
         /// <param name="cHeroId">The id value of the CHero element.</param>
@@ -55,55 +60,59 @@ namespace HeroesData.Parser.UnitData
         /// <returns></returns>
         public Hero Parse(string cHeroId, string cUnitId)
         {
-            if (cHeroId != StormHero.CHeroId)
+            Hero hero = new Hero
             {
-                Hero hero = new Hero
-                {
-                    Name = GameStringData.HeroNamesByShortName[$"{GameStringPrefixes.HeroNamePrefix}{cHeroId}"],
-                    Description = new TooltipDescription(ParsedGameStrings.HeroParsedDescriptionsByShortName[$"{GameStringPrefixes.DescriptionPrefix}{cHeroId}"], Localization),
-                    CHeroId = cHeroId,
-                    CUnitId = cUnitId,
-                };
+                Name = GameStringData.HeroNamesByShortName[$"{GameStringPrefixes.HeroNamePrefix}{cHeroId}"],
+                Description = new TooltipDescription(ParsedGameStrings.HeroParsedDescriptionsByShortName[$"{GameStringPrefixes.DescriptionPrefix}{cHeroId}"], Localization),
+                CHeroId = cHeroId,
+                CUnitId = cUnitId,
+            };
 
-                HeroOverride = OverrideData.HeroOverride(cHeroId) ?? new HeroOverride();
+            HeroOverride = OverrideData.HeroOverride(cHeroId) ?? new HeroOverride();
 
-                SetDefaultValues(hero);
-                CActorData(hero);
+            SetDefaultValues(hero);
+            CActorData(hero);
 
-                WeaponData = new WeaponData(GameData, HeroOverride);
-                ArmorData = new ArmorData(GameData);
-                AbilityData = new AbilityData(GameData, HeroOverride, ParsedGameStrings, TextValueData, Localization);
-                TalentData = new TalentData(GameData, HeroOverride, ParsedGameStrings, TextValueData, Localization);
+            WeaponData = new WeaponData(GameData, HeroOverride);
+            ArmorData = new ArmorData(GameData);
+            AbilityData = new AbilityData(GameData, HeroOverride, ParsedGameStrings, TextValueData, Localization);
+            TalentData = new TalentData(GameData, HeroOverride, ParsedGameStrings, TextValueData, Localization);
 
-                CHeroData(hero);
-                CUnitData(hero);
-                SetHeroPortraits(hero);
-                AddSubHeroCUnits(hero);
+            CHeroData(hero);
+            CUnitData(hero);
+            SetHeroPortraits(hero);
+            AddSubHeroCUnits(hero);
 
-                ApplyOverrides(hero, HeroOverride);
-                MoveParentLinkedAbilities(hero);
-                MoveParentLinkedWeapons(hero);
+            ApplyOverrides(hero, HeroOverride);
+            MoveParentLinkedAbilities(hero);
+            MoveParentLinkedWeapons(hero);
 
-                return hero;
-            }
-            else
+            return hero;
+        }
+
+        /// <summary>
+        /// Parses the base hero data.
+        /// </summary>
+        /// <returns></returns>
+        public Hero ParseBaseHero()
+        {
+            StormHeroBase = new Hero
             {
-                Hero hero = new Hero
-                {
-                    ShortName = cHeroId,
-                    CHeroId = cHeroId,
-                    CUnitId = cUnitId,
-                    Ratings = null,
-                };
+                ShortName = StormHero.CHeroId,
+                CHeroId = StormHero.CHeroId,
+                CUnitId = StormHero.CUnitId,
+                Ratings = null,
+            };
 
-                HeroOverride = OverrideData.HeroOverride(cHeroId) ?? new HeroOverride();
-                AbilityData = new AbilityData(GameData, HeroOverride, ParsedGameStrings, TextValueData, Localization);
-                AbilityData.AddAdditionalButtonAbilities(hero);
+            HeroOverride = OverrideData.HeroOverride(StormHeroBase.CHeroId) ?? new HeroOverride();
+            AbilityData = new AbilityData(GameData, HeroOverride, ParsedGameStrings, TextValueData, Localization);
 
-                ApplyOverrides(hero, HeroOverride);
-                MoveParentLinkedAbilities(hero);
-                return hero;
-            }
+            SetBaseHeroData(StormHeroBase);
+
+            ApplyOverrides(StormHeroBase, HeroOverride);
+            MoveParentLinkedAbilities(StormHeroBase);
+
+            return StormHeroBase;
         }
 
         private void SetDefaultValues(Hero hero)
@@ -328,7 +337,7 @@ namespace HeroesData.Parser.UnitData
             }
 
             AbilityData.AddAdditionalButtonAbilities(hero);
-            TalentData.SetButtonTooltipAppenderData(hero);
+            TalentData.SetButtonTooltipAppenderData(StormHeroBase, hero);
 
             foreach (XElement talentArrayElement in heroData.Elements("TalentTreeArray"))
             {

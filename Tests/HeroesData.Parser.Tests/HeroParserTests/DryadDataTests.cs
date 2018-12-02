@@ -18,5 +18,12 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Talent talent = HeroDryad.Talents["DryadGallopingGait"];
             Assert.Equal("Cooldown: 30 seconds", talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
         }
+
+        [Fact]
+        public void AbilityTalentLinkIdTest()
+        {
+            Talent talent = HeroDryad.Talents["DryadHippityHop"];
+            Assert.Contains("DryadGallopingGait", talent.AbilityTalentLinkIds);
+        }
     }
 }

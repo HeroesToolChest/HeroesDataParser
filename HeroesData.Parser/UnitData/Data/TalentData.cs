@@ -11,7 +11,7 @@ namespace HeroesData.Parser.UnitData.Data
 {
     public class TalentData : AbilityTalentData
     {
-        private Dictionary<string, List<string>> AbilityTalentIdsByTalentIdUpgrade = new Dictionary<string, List<string>>();
+        private Dictionary<string, HashSet<string>> AbilityTalentIdsByTalentIdUpgrade = new Dictionary<string, HashSet<string>>();
 
         public TalentData(GameData gameData, HeroOverride heroOverride, ParsedGameStrings parsedGameStrings, TextValueData textValueData, Localization localization)
             : base(gameData, heroOverride, parsedGameStrings, textValueData, localization)
@@ -81,7 +81,7 @@ namespace HeroesData.Parser.UnitData.Data
                 }
 
                 SetAbilityType(hero, talent, cTalentElement);
-                SetAbilityTalentLinkIds(hero, talent);
+                SetAbilityTalentLinkIds(hero, talent, cTalentElement);
                 hero.Talents.Add(referenceName, talent);
             }
         }
@@ -89,20 +89,28 @@ namespace HeroesData.Parser.UnitData.Data
         /// <summary>
         /// Acquire TooltipAppender data for abilityTalentLinkIds.
         /// </summary>
-        public void SetButtonTooltipAppenderData(Hero hero)
+        public void SetButtonTooltipAppenderData(Hero stormHeroBase, Hero hero)
         {
-            List<XElement> buttonElements = new List<XElement>();
+            Dictionary<string, (XElement, Ability)> abilityByButtonElements = new Dictionary<string, (XElement, Ability)>();
+
+            foreach (Ability ability in stormHeroBase.Abilities.Values)
+            {
+                XElement buttonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ButtonName);
+                if (buttonElement != null)
+                    abilityByButtonElements.Add(ability.ButtonName, (buttonElement, ability));
+            }
 
             foreach (Ability ability in hero.Abilities.Values)
             {
                 XElement buttonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ButtonName);
                 if (buttonElement != null)
-                    buttonElements.Add(buttonElement);
+                    abilityByButtonElements.Add(ability.ButtonName, (buttonElement, ability));
             }
 
-            foreach (XElement buttonElement in buttonElements)
+            foreach (var abilityElement in abilityByButtonElements)
             {
-                string abilityTalentId = buttonElement.Attribute("id").Value;
+                string buttonName = abilityElement.Key;
+                (XElement buttonElement, Ability ability) = abilityElement.Value;
 
                 IEnumerable<XElement> tooltipAppenderElements = buttonElement.Elements("TooltipAppender").Where(x => !string.IsNullOrEmpty(x.Attribute("Validator")?.Value));
                 foreach (XElement tooltipAppenderElement in tooltipAppenderElements)
@@ -112,12 +120,12 @@ namespace HeroesData.Parser.UnitData.Data
                     XElement validatorPlayerTalentElement = GameData.XmlGameData.Root.Elements("CValidatorPlayerTalent").FirstOrDefault(x => x.Attribute("id")?.Value == validatorId);
                     if (validatorPlayerTalentElement != null)
                     {
-                        string referenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value;
+                        string talentReferenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value;
 
-                        if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(referenceNameId))
-                            AbilityTalentIdsByTalentIdUpgrade[referenceNameId].Add(abilityTalentId);
+                        if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
+                            AbilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(ability.ReferenceNameId);
                         else
-                            AbilityTalentIdsByTalentIdUpgrade.Add(referenceNameId, new List<string>() { abilityTalentId });
+                            AbilityTalentIdsByTalentIdUpgrade.Add(talentReferenceNameId, new HashSet<string>() { ability.ReferenceNameId });
                     }
                 }
             }
@@ -154,15 +162,30 @@ namespace HeroesData.Parser.UnitData.Data
                 talent.IsQuest = true;
         }
 
-        private void SetAbilityTalentLinkIds(Hero hero, Talent talent)
+        private void SetAbilityTalentLinkIds(Hero hero, Talent talent, XElement talentElement)
         {
-            if (AbilityTalentIdsByTalentIdUpgrade.TryGetValue(talent.ReferenceNameId, out List<string> abilityTalentIds))
+            if (AbilityTalentIdsByTalentIdUpgrade.TryGetValue(talent.ReferenceNameId, out HashSet<string> abilityTalentIds))
             {
-                talent.AbilityTalentLinkId = abilityTalentIds;
+                talent.AbilityTalentLinkIds = abilityTalentIds;
             }
 
             if (talent.AbilityType == AbilityType.Heroic)
             {
+                XElement talentAbilElement = talentElement.Element("Abil");
+                XElement rankArrayElement = talentElement.Element("RankArray");
+
+                if (rankArrayElement != null)
+                {
+                    XElement behaviorArrayElement = rankArrayElement.Elements("BehaviorArray").FirstOrDefault(x => !string.IsNullOrEmpty(x.Attribute("value")?.Value) &&
+                        x.Attribute("value").Value.StartsWith("Ultimate") && x.Attribute("value").Value.EndsWith("Unlocked"));
+
+                    if (talentAbilElement != null && behaviorArrayElement != null)
+                    {
+                        string abilValue = talentAbilElement.Attribute("value").Value;
+                        if (!string.IsNullOrEmpty(abilValue))
+                            talent.AbilityTalentLinkIds.Add(abilValue);
+                    }
+                }
             }
         }
     }

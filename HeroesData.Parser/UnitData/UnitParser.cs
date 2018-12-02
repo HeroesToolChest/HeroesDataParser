@@ -100,9 +100,6 @@ namespace HeroesData.Parser.UnitData
                         CUnitIdByHeroCHeroIds[hero.Key] = heroOverride.CUnitOverride.CUnit;
                 }
             }
-
-            // add base hero unit for base data
-            CUnitIdByHeroCHeroIds.Add(StormHero.CHeroId, StormHero.CUnitId);
         }
     }
 }

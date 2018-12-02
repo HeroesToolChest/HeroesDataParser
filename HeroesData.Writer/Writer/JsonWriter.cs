@@ -610,9 +610,9 @@ namespace HeroesData.FileWriter.Writer
             JObject jObject = AbilityTalentInfoElement(talent);
             jObject.Add(new JProperty("sort", talent.Column));
 
-            List<string> abilityTalentLinkIds = talent.AbilityTalentLinkId?.ToList();
+            List<string> abilityTalentLinkIds = talent.AbilityTalentLinkIds?.ToList();
             if (abilityTalentLinkIds?.Count > 0)
-                jObject.Add(new JProperty("abilityTalentLinkIds", talent.AbilityTalentLinkId));
+                jObject.Add(new JProperty("abilityTalentLinkIds", talent.AbilityTalentLinkIds));
 
             return jObject;
         }

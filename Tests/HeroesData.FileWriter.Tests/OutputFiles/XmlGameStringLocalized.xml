@@ -75,7 +75,10 @@
       <Level4>
         <Level4Talent name="Level4Talent" abilityType="Q" sort="0">
           <Icon />
-          <AbilityTalentLinkId>AlarakDiscordStrike</AbilityTalentLinkId>
+          <AbilityTalentLinkIds>
+            <AbilityTalentLinkId>AlarakDiscordStrike</AbilityTalentLinkId>
+            <AbilityTalentLinkId>AlarakExtendedLightning</AbilityTalentLinkId>
+          </AbilityTalentLinkIds>
         </Level4Talent>
       </Level4>
       <Level7>
