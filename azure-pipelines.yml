@@ -19,18 +19,18 @@ jobs:
   steps:
   - template: azure-pipelines.template.yml
   - task: PublishTestResults
-  inputs:
-    testResultsFormat: 'xUnit'
-    testResultsFiles: '**/TEST-*.xml
+    inputs:
+      testResultsFormat: 'xUnit'
+      testResultsFiles: '**/TEST-*.xml
 - job: Windows
   pool:
     vmImage: 'vs2017-win2016'
   steps:
   - template: azure-pipelines.template.yml
   - task: PublishTestResults
-  inputs:
-    testResultsFormat: 'xUnit'
-    testResultsFiles: '**/TEST-*.xml
+    inputs:
+      testResultsFormat: 'xUnit'
+      testResultsFiles: '**/TEST-*.xml
 
 # pool:
 #   vmImage: 'VS2017-Win2016'
