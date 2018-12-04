@@ -1,6 +1,6 @@
 steps:
 - script: |
-  dotnet build -c Debug
-  dotnet test -c Debug --no-build
-  dotnet build -c Release
-  dotnet test -c Release --no-build
+    dotnet build -c Debug
+    dotnet test -c Debug --no-build
+    dotnet build -c Release
+    dotnet test -c Release --no-build
