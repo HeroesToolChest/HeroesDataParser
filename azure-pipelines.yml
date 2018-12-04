@@ -21,7 +21,7 @@ jobs:
   - task: PublishTestResults
     inputs:
       testResultsFormat: 'xUnit'
-      testResultsFiles: '**/TEST-*.xml
+      testResultsFiles: '**/TEST-*.xml'
 - job: Windows
   pool:
     vmImage: 'vs2017-win2016'
@@ -30,7 +30,7 @@ jobs:
   - task: PublishTestResults
     inputs:
       testResultsFormat: 'xUnit'
-      testResultsFiles: '**/TEST-*.xml
+      testResultsFiles: '**/TEST-*.xml'
 
 # pool:
 #   vmImage: 'VS2017-Win2016'
