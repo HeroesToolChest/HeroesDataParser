@@ -9,16 +9,28 @@ jobs:
     vmImage: 'ubuntu-16.04'
   steps:
   - template: azure-pipelines.template.yml
+  - task: PublishTestResults
+    inputs:
+      testResultsFormat: 'xUnit'
+      testResultsFiles: '**/TEST-*.xml'
 - job: macOS
   pool:
     vmImage: 'macOS-10.13'
   steps:
   - template: azure-pipelines.template.yml
+  - task: PublishTestResults
+  inputs:
+    testResultsFormat: 'xUnit'
+    testResultsFiles: '**/TEST-*.xml
 - job: Windows
   pool:
     vmImage: 'vs2017-win2016'
   steps:
   - template: azure-pipelines.template.yml
+  - task: PublishTestResults
+  inputs:
+    testResultsFormat: 'xUnit'
+    testResultsFiles: '**/TEST-*.xml
 
 # pool:
 #   vmImage: 'VS2017-Win2016'
