@@ -26,7 +26,7 @@ jobs:
     displayName: Publish release [fdd]
     
   - script: dotnet pack .\HeroesData\HeroesData.csproj -c release --no-build -o .\bin\nupkg\any\
-    dislayName: Nuget pack [fdd]
+    displayName: Nuget pack [fdd]
     
   - script: dotnet publish -c release --self-contained -r win-x86 -o .\bin\publish\win-x86\
     displayName: Publish release [win-x86]
