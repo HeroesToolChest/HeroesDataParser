@@ -2,7 +2,7 @@ steps:
 - script: dotnet build -c Debug
   displayName: Build debug
   
-- script dotnet test -c Debug --no-build
+- script: dotnet test -c Debug --no-build
   displayName: Test debug build
   
 - script: dotnet build -c Release    
