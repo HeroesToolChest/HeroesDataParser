@@ -1,9 +1,12 @@
 steps:
-- script: |
-    dotnet build -c Debug
-    dotnet test -c Debug --no-build
-  displayName: Debug Build and Test
-- script: |
-    dotnet build -c Release    
-    dotnet test -c Release --no-build
-  displayName: Release Build and Test
+- script: dotnet build -c Debug
+  displayName: Build debug
+  
+- script dotnet test -c Debug --no-build
+  displayName: Test debug build
+  
+- script: dotnet build -c Release    
+  displayName: Build release
+  
+- script: dotnet test -c Release --no-build
+  displayName: Test release build
