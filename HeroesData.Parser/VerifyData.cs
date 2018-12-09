@@ -42,6 +42,9 @@ namespace HeroesData.Parser
         {
             foreach (Hero hero in ParsedHeroData)
             {
+                if (hero.CHeroId == StormHero.CHeroId)
+                    continue;
+
                 WarningId = hero.Name;
 
                 if (string.IsNullOrEmpty(hero.AttributeId))
