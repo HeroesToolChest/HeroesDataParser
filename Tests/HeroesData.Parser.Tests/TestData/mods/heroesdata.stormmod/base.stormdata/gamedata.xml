@@ -14,4 +14,5 @@
   <Catalog path="GameData/Heroes/TestHeroData/TestHeroData.xml" />
   <Catalog path="GameData/Heroes/TyraelData/TyraelData.xml" />
   <Catalog path="GameData/Heroes/UtherData/UtherData.xml" />
+  <Catalog path="GameData/Heroes/BarbarianData/BarbarianData.xml" />
 </Includes>

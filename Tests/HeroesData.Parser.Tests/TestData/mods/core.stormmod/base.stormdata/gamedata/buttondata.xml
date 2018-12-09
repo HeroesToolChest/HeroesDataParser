@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CButton default="1">
+      <Name value="Button/Name/##id##"/>
+      <Tooltip value="Button/Tooltip/##id##"/>
+      <AlertName value="Button/Name/##id##"/>
+      <AlertTooltip value="Button/Tooltip/##id##"/>
+      <Hotkey value="Button/Hotkey/##id##"/>
+      <HotkeyAlias value="##id##"/>
+      <UseHotkeyLabel value="1"/>
+  </CButton>
+  <CButton default="1" id="StormButtonParentFury" parent="StormButtonParent">
+    <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Fury" />
+  </CButton>
+</Catalog>

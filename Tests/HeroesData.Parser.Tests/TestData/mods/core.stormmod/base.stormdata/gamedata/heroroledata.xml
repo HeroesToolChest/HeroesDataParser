@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CHeroRole default="1">
+        <Name value="UI/HeroUtil/Role/##id##"/>
+    </CHeroRole>
+</Catalog>

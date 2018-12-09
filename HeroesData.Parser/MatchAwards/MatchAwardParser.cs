@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.Helpers;
+using HeroesData.Loader;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.GameStrings;
 using System;
@@ -14,22 +15,19 @@ namespace HeroesData.Parser.MatchAwards
     {
         private readonly int? HotsBuild;
         private readonly GameData GameData;
-        private readonly ParsedGameStrings ParsedGameStrings;
 
         private readonly Dictionary<string, MatchAward> MatchAwards = new Dictionary<string, MatchAward>();
 
         private int ParsedCount = 0;
 
-        public MatchAwardParser(GameData gameData, ParsedGameStrings parsedGameStrings)
+        public MatchAwardParser(GameData gameData)
         {
             GameData = gameData;
-            ParsedGameStrings = parsedGameStrings;
         }
 
-        public MatchAwardParser(GameData gameData, ParsedGameStrings parsedGameStrings, int? hotsBuild)
+        public MatchAwardParser(GameData gameData, int? hotsBuild)
         {
             GameData = gameData;
-            ParsedGameStrings = parsedGameStrings;
             HotsBuild = hotsBuild;
         }
 
@@ -82,9 +80,9 @@ namespace HeroesData.Parser.MatchAwards
         private void ParseAward(string instanceId, string gameLink)
         {
             // get the name
-            if (ParsedGameStrings.TryGetValuesFromAll($"{GameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}{gameLink}", out string awardNameText))
+            if (GameData.TryGetGameString($"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}{gameLink}", out string awardNameText))
                 instanceId = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
-            else if (ParsedGameStrings.TryGetValuesFromAll($"{GameStringPrefixes.MatchAwardInstanceNamePrefix}{gameLink}", out awardNameText))
+            else if (GameData.TryGetGameString($"{MapGameStringPrefixes.MatchAwardInstanceNamePrefix}{gameLink}", out awardNameText))
                 instanceId = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
 
             XElement scoreValueCustomElement = GameData.XmlGameData.Root.Elements("CScoreValueCustom").FirstOrDefault(x => x.Attribute("id")?.Value == gameLink);
@@ -127,7 +125,7 @@ namespace HeroesData.Parser.MatchAwards
             matchAward.ScoreScreenImageFileName = matchAward.ScoreScreenImageFileNameOriginal.ToLower();
             matchAward.MVPScreenImageFileName = $"storm_ui_mvp_{awardSpecialName}_%color%.dds".ToLower();
 
-            if (ParsedGameStrings.TryGetValuesFromAll($"{GameStringPrefixes.ScoreValueTooltipPrefix}{gameLink}", out string description))
+            if (GameData.TryGetParsedGameString($"{MapGameStringPrefixes.ScoreValueTooltipPrefix}{gameLink}", out string description))
                 matchAward.Description = new TooltipDescription(description);
 
             MatchAwards[matchAward.ShortName] = matchAward;

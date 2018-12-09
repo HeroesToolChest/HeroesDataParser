@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectTarget id="BarbarianSeismicSlam">
+    <Effect value="BarbarianSeismicSlamSet" />
+    <Cost>
+      <Vital index="Energy" value="25" />
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <TargetFilters value="-;Player,Ally,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="2.25" />
+    <RangeSlop value="2.5" />
+    <Arc value="219.9902" />
+    <CastIntroTime value="0.15" />
+    <UninterruptibleArray index="Prep" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianSeismicSlam">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="BarbarianWhirlwindCancel">
+    <Effect value="BarbarianWhirlwindDestroyPersistent" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown TimeUse="0.75" />
+    </Cost>
+    <CmdButtonArray index="Execute" AutoQueueId="" DefaultButtonFace="BarbarianWhirlwindCancel" Requirements="BarbarianWhirlwindActive" />
+    <ParentAbil value="BarbarianWhirlwind" />
+  </CAbilEffectInstant>
+  <CHero id="Barbarian" parent="LegacyVOHero">
+    <AIComplexityTier value="Mid" />
+    <AttributeId value="Barb" />
+    <ProductId value="10198" />
+    <Melee value="1" />
+    <RolesMultiClass value="Warrior" />
+    <CollectionCategory value="Warrior" />
+    <RoleScoreValueOverride value="Warrior" />
+    <HeroAbilArray Abil="BarbarianSeismicSlam" Button="BarbarianSeismicSlam">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="BarbarianWhirlwind" Button="BarbarianWhirlwind">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+  </CHero>
+  <CUnit id="HeroBarbarian" parent="StormHeroMounted">
+    <LifeStart value="2341" />
+    <LifeMax value="2341" />
+    <LifeRegenRate value="4.879" />
+    <WeaponArray Link="HeroBarbarian" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="BarbarianLeap" Type="AbilCmd" AbilCmd="BarbarianLeap,Execute" Slot="Heroic" />
+      <LayoutButtons Face="BarbarianWrathoftheBerserker" Type="AbilCmd" AbilCmd="BarbarianWrathoftheBerserker,Execute" Slot="Heroic" />
+      <LayoutButtons Face="PortBackToBaseNoMana" Type="AbilCmd" AbilCmd="PortBackToBase,Execute" Slot="Hearth" />
+      <LayoutButtons Face="BarbarianAncientSpear" Type="AbilCmd" AbilCmd="BarbarianAncientSpear,Execute" Slot="Ability1" />
+      <LayoutButtons Face="BarbarianSeismicSlam" Type="AbilCmd" AbilCmd="BarbarianSeismicSlam,Execute" Slot="Ability2" />
+      <LayoutButtons Face="BarbarianWhirlwindCancel" Type="AbilCmd" AbilCmd="BarbarianWhirlwindCancel,Execute" Slot="Ability3" />
+      <LayoutButtons Face="BarbarianWhirlwind" Type="AbilCmd" AbilCmd="BarbarianWhirlwind,Execute" Slot="Ability3" />
+      <LayoutButtons Face="BarbarianFuryShotOfFury" Type="AbilCmd" AbilCmd="BarbarianShotofFury,Execute" Slot="Trait" />
+      <LayoutButtons Face="BarbarianFury" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+  </CUnit>
+  <CButton id="BarbarianSeismicSlam" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_seismicslam.dds" />
+    <TooltipAppender Validator="HasBarbarianMasteryFuriousBlowSeismicSlam" Face="BarbarianSeismicSlamFuriousBlowTalent" />
+    <TooltipAppender Validator="HasBarbarianMasteryShatteredGroundSeismicSlam" Face="BarbarianSeismicSlamShatteredGroundTalent" />
+    <TooltipAppender Validator="BarbarianHasGiantSlammerTalent" Face="BarbarianGiantSlammer" />
+  </CButton>
+  <CButton id="BarbarianWhirlwind" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_whirlwind.dds" />
+    <TooltipAppender Validator="HasBarbarianMasteryHurricaneWhirlwind" Face="BarbarianHurricaneWhirlwindTalent" />
+    <TooltipAppender Validator="HasBarbarianMasteryLifeFunnelWhirlwind" Face="BarbarianWhirlwindLifeFunnelTalent" />
+    <TooltipAppender Validator="BarbarianHasRuthlessTalent" Face="BarbarianRuthless" />
+    <TooltipCooldownOverrideText value="Button/CooldownOverride/BarbarianWhirlwind" />
+  </CButton>
+</Catalog>

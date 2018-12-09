@@ -15,7 +15,7 @@ namespace HeroesData.Parser.Tests.OverrideTests
 
         public LoadOverrideFileTests()
         {
-            GameData = GameData.Load(ModsTestFolder);
+            GameData = new FileGameData(ModsTestFolder);
         }
 
         [Fact]

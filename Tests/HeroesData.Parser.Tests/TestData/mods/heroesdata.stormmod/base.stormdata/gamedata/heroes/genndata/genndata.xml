@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Catalog>
+  <CHero id="Greymane">
+    <AIComplexityTier value="Mid" />
+    <ProductId value="21084" />
+    <ReleaseDate Day="12" Year="2016" />
+    <AttributeId value="Genn" />
+    <Portrait value="Assets\Textures\ui_targetportrait_hero_genngreymane.dds" />
+    <PortraitPaired value="Assets\Textures\UI_TargetPortrait_hero_pairedswap_genngreymane.dds" />
+    <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_genngreymane.dds" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_Wow.dds" />
+    <Rarity value="Epic" />
+  </CHero>
+  <CHero id="GreymaneWorgen" parent="Greymane">
+    <PairedHero value="Greymane" />
+    <Name value="Hero/Name/GreymaneWorgen" />
+    <PortraitPaired value="Assets\Textures\ui_targetportrait_hero_genngreymane.dds" />
+    <Melee value="1" />
+    <HeroAbilArray index="0" Abil="GreymaneGilneanCocktail" Button="GreymaneGilneanCocktail">
+      <Flags index="ShowInHeroSelect" value="0" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray index="1" Abil="GreymaneRazorSwipe" Button="GreymaneRazorSwipe">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray index="3" Abil="GreymaneDarkflight" Button="GreymaneDarkflight">
+      <Flags index="ShowInHeroSelect" value="0" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray index="4" Abil="GreymaneDisengage" Button="GreymaneDisengage">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+  </CHero>
+  <CUnit id="HeroGreymane" parent="StormHeroMounted">
+    <LifeStart value="1876" />
+    <LifeMax value="1876" />
+    <LifeRegenRate value="3.9062" />
+    <BehaviorArray Link="ExcellentMana" />
+    <WeaponArray Link="HeroGreymaneMeleeWeapon" />
+    <WeaponArray Link="HeroGreymaneRangedWeapon" />
+    <WeaponArray Link="HeroGreymaneWorgenWeapon" />
+  </CUnit>
+  <CWeaponLegacy id="HeroGreymaneRangedWeapon" parent="StormHeroMediumWeapon">
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-terran-infantryweaponslevel3.dds" />
+    <DisplayEffect value="HeroGreymaneWeaponDamage" />
+    <MinScanRange value="5.5" />
+    <Range value="5.5" />
+    <Period value="1" />
+    <DamagePoint value="0.125" />
+    <Effect value="GreymaneWeaponLaunchInnerBeastSwitch" />
+    <ArcSlop value="149.9963" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="HeroGreymaneMeleeWeapon" parent="HeroGreymaneRangedWeapon">
+    <Name value="Weapon/Name/HeroGreymaneMeleeWeapon" />
+    <Tip value="Weapon/Tip/HeroGreymaneMeleeWeapon" />
+    <Icon value="Assets\Textures\btn-missing-kaeo.dds" />
+    <MinScanRange value="0" />
+    <Range value="1.5" />
+    <RangeSlop value="1" />
+    <Marker Link="Weapon/HeroGreymaneMeleeWeapon" />
+    <Cost>
+      <Cooldown Link="Weapon/HeroGreymaneMeleeWeapon" />
+    </Cost>
+    <Effect value="HeroGreymaneHumanMeleeWeaponImpactSet" />
+    <ArcSlop value="219.9902" />
+    <Options index="Melee" value="1" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="HeroGreymaneWorgenWeapon" parent="StormHeroMediumWeapon">
+    <DisplayEffect value="HeroGreymaneWorgenWeaponDamage" />
+    <MinScanRange value="4" />
+    <Range value="1.25" />
+    <Period value="1" />
+    <Effect value="HeroGreymaneWorgenWeaponImpactSet" />
+  </CWeaponLegacy>
+</Catalog>

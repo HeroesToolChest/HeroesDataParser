@@ -1,33 +1,180 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
+  <CAbilEffectTarget id="RagnarosBigRagMoltenSwing">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="RagnarosBigRagMoltenSwingCreatePersistent" />
+    <Flags index="AllowMovement" value="0" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Cost>
+      <Cooldown TimeUse="6" />
+    </Cost>
+    <Range value="500" />
+    <FinishTime value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="RagnarosBigRagMoltenSwing" Requirements="RagnarosHasMoltenCoreDurationBehavior">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <CursorEffect value="RagnarosBigRagMoltenSwingSearchDummy" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="RagnarosBigRagMeteorShower">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Cost>
+      <Cooldown TimeUse="2.5" />
+    </Cost>
+    <Range value="35" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <VectorRange value="10,10" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="RagnarosBigRagMeteorShower" Requirements="RagnarosHasMoltenCoreDurationBehavior">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <CursorEffect value="TheFIrelordsRagnarosMeteorShowerSearchArea" />
+    <CursorRangeFlags index="ClampMin" value="1" />
+    <CursorRangeFlags index="ClampMax" value="1" />
+    <Effect value="RagnarosBigRagMeteorShowerInitialPersistent" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="RagnarosBigRagExplosiveRune">
+    <Cost>
+      <Cooldown TimeUse="4" />
+    </Cost>
+    <Range value="35" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="RagnarosBigRagExplosiveRune" Requirements="RagnarosHasMoltenCoreDurationBehavior">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Flags index="RequireTargetVision" value="0" />
+    <CursorRangeFlags index="ClampMin" value="1" />
+    <CursorRangeFlags index="ClampMax" value="1" />
+    <Effect value="RagnarosBigRagExplosiveRuneCreatePersistent" />
+    <CursorEffect value="RagnarosBigRagExplosiveRuneSearchArea" />
+  </CAbilEffectTarget>
+  <CButton id="RagnarosBigRagMoltenSwing" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\storm_ui_icon_ragnaros_moltenswing.dds" />
+  </CButton>
+  <CButton id="RagnarosBigRagMeteorShower" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_ragnaros_meteorshower.dds" />
+    <Hotkey value="Button/Hotkey/RagnarosLivingMeteor" />
+  </CButton>
+  <CButton id="RagnarosBigRagExplosiveRune" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_ragnaros_explosiverune.dds" />
+  </CButton>
+  <CUnit id="HeroRagnaros" parent="StormHeroMounted">
+    <LifeStart value="2000" />
+    <LifeMax value="2000" />
+    <LifeRegenRate value="4.168" />
+    <AbilArray Link="RagnarosEmpowerSulfuras" />
+    <AbilArray Link="RagnarosLivingMeteor" />
+    <AbilArray Link="RagnarosLivingMeteorShiftingMeteor" />
+    <AbilArray Link="RagnarosBlastWave" />
+    <AbilArray Link="RagnarosSulfurasSmash" />
+    <AbilArray Link="RagnarosLavaWaveTargetPoint" />
+    <AbilArray Link="RagnarosMoltenCore" />
+    <WeaponArray Link="RagnarosAttackWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons index="0" Face="RagnarosMoltenCore" Type="AbilCmd" AbilCmd="RagnarosMoltenCore,Execute" Requirements="" Slot="Trait" />
+      <LayoutButtons Face="RagnarosSulfurasSmash" Type="AbilCmd" AbilCmd="RagnarosSulfurasSmash,Execute" Slot="Heroic" />
+      <LayoutButtons Face="RagnarosLavaWaveTargetPoint" Type="AbilCmd" AbilCmd="RagnarosLavaWaveTargetPoint,Execute" Slot="Heroic" />
+      <LayoutButtons Face="LockedHeroicAbility" Type="Passive" Requirements="UltimateNotUnlocked" Slot="Heroic" />
+      <LayoutButtons Face="RagnarosEmpowerSulfurasActive" Type="Passive" Requirements="RagnarosHasEmpowerSulfurasCasterBehavior" Slot="Ability1" />
+      <LayoutButtons Face="RagnarosEmpowerSulfuras" Type="AbilCmd" AbilCmd="RagnarosEmpowerSulfuras,Execute" Slot="Ability1" />
+      <LayoutButtons Face="RagnarosLivingMeteorShiftingMeteorRedirect" Type="AbilCmd" AbilCmd="RagnarosLivingMeteorShiftingMeteor,Execute" Slot="Ability2" />
+      <LayoutButtons Face="RagnarosLivingMeteor" Type="AbilCmd" AbilCmd="RagnarosLivingMeteor,Execute" Slot="Ability2" />
+      <LayoutButtons Face="RagnarosBlastWave" Type="AbilCmd" AbilCmd="RagnarosBlastWave,Execute" Slot="Ability3" />
+    </CardLayouts>
+    <Radius value="1.125" />
+    <InnerRadius value="1" />
+    <AIThinkTree value="AI/Ragnaros.aitree" />
+    <AIEvalFactor value="1.2" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="RagnarosMountTrailBehavior" />
+    <InitializerFunction value="libHMaj_gf_HeroRagnarosIncrementHeroCountFunction" />
+    <DestructionFunction value="libHMaj_gf_HeroRagnarosDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+    <TauntDuration index="Dance" value="10" />
+  </CUnit>
   <CUnit id="RagnarosBigRag" parent="StormBasicHeroicUnit">
     <DeathTime value="10" />
+    <FlagArray index="Unstoppable" value="1" />
+    <FogVisibility value="Dimmed" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <Attributes index="AITargetableStructure" value="1" />
     <LifeStart value="3996" />
     <LifeMax value="3996" />
     <LifeRegenRate value="-222" />
+    <AbilArray Link="move" />
+    <AbilArray Link="HoldFire" />
+    <AbilArray Link="attack" />
+    <AbilArray Link="RagnarosBigRagMoltenSwing" />
+    <AbilArray Link="RagnarosBigRagMeteorShower" />
+    <AbilArray Link="RagnarosBigRagExplosiveRune" />
+    <AbilArray Link="RagnarosBigRagSulfurasSmash" />
+    <AbilArray Link="RagnarosLavaWaveTargetPoint" />
+    <AbilArray Link="RagnarosBigRagReturnMoltenCore" />
+    <BehaviorArray Link="ImmunetoSylvanasBlackArrow" />
+    <BehaviorArray Link="RagnarosMoltenCoreHeroicDifficulty" />
+    <BehaviorArray Link="RagnarosBigRagHealingBlocker" />
+    <BehaviorArray Link="UnitImmuneToDevouringMaw" />
+    <BehaviorArray Link="UltimateEvolutionInvalidTarget" />
+    <BehaviorArray Link="IsHallucination" />
+    <BehaviorArray Link="DisableMove" />
+    <BehaviorArray Link="DisableAIGoalAssignment" />
+    <BehaviorArray Link="DisableAttack" />
+    <BehaviorArray Link="IsPseudoStructure" />
+    <CardLayouts>
+      <LayoutButtons Face="RagnarosSulfurasSmash" Type="AbilCmd" AbilCmd="RagnarosBigRagSulfurasSmash,Execute" Slot="Heroic" />
+      <LayoutButtons Face="RagnarosLavaWaveTargetPoint" Type="AbilCmd" AbilCmd="RagnarosLavaWaveTargetPoint,Execute" Slot="Heroic" />
+      <LayoutButtons Face="LockedHeroicAbility" Type="Passive" Requirements="UltimateNotUnlocked" Slot="Heroic" />
+      <LayoutButtons Face="RagnarosBigRagExplosiveRune" Type="AbilCmd" AbilCmd="RagnarosBigRagExplosiveRune,Execute" Slot="Ability3" />
+      <LayoutButtons Face="RagnarosBigRagMeteorShower" Type="AbilCmd" AbilCmd="RagnarosBigRagMeteorShower,Execute" Slot="Ability2" />
+      <LayoutButtons Face="RagnarosBigRagMoltenSwing" Type="AbilCmd" AbilCmd="RagnarosBigRagMoltenSwing,Execute" Slot="Ability1" />
+      <LayoutButtons Face="RagnarosBigRagReturnMoltenCore" Type="AbilCmd" AbilCmd="RagnarosBigRagReturnMoltenCore,On" Slot="Trait" />
+      <LayoutButtons Face="RagnarosBigRagCancelReturnMoltenCore" Type="AbilCmd" AbilCmd="RagnarosBigRagReturnMoltenCore,Off" Slot="Trait" />
+    </CardLayouts> 
   </CUnit>
-
-  <LevelScalingArray Ability="RagnarosMoltenCore">
-    <Modifications>
-      <Catalog value="Unit" />
-      <Entry value="RagnarosBigRag" />
-      <Field value="LifeStart" />
-      <Value value="0.040000" />
-      <AffectedByOverdrive value="1" />
-    </Modifications>
-    <Modifications>
-      <Catalog value="Unit" />
-      <Entry value="RagnarosBigRag" />
-      <Field value="LifeMax" />
-      <Value value="0.040000" />
-      <AffectedByOverdrive value="1" />
-    </Modifications>
-    <Modifications>
-      <Catalog value="Unit" />
-      <Entry value="RagnarosBigRag" />
-      <Field value="LifeRegenRate" />
-      <Value value="0.040000" />
-      <AffectedByOverdrive value="1" />
-    </Modifications>
-  </LevelScalingArray>
+  <CHero id="Ragnaros">
+    <AIComplexityTier value="Mid" />
+    <AttributeId value="Ragn" />
+    <Flags index="GoodForModeA" value="1" />
+    <Flags index="GoodForModeB" value="1" />
+    <AlternateUnitArray value="RagnarosBigRag" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <CollectionCategory value="Damage" />
+    <Melee value="1" />
+    <Portrait value="Assets\Textures\ui_targetportrait_hero_ragnaros.dds" />
+    <SkinArray value="RagnarosUltimate" />
+    <SkinArray value="RagnarosLil" />
+    <DefaultMount value="MountRagnarosWake" />
+    <VOArray index="GluePurchase" value="RagnarosBase_UI_Lockin" />
+    <LevelScalingArray Ability="RagnarosMoltenCore">
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="RagnarosBigRag" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="RagnarosBigRag" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="RagnarosBigRag" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+  </CHero>
 </Catalog>

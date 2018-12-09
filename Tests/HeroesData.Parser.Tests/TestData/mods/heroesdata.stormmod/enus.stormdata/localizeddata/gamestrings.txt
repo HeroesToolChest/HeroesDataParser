@@ -338,3 +338,17 @@ Button/Tooltip/DryadGallopingGaitTalent=Activate to increase the Movement
 Button/Name/DryadHippityHop=Hippity Hop
 Button/SimpleDisplayText/DryadHippityHop=Increase Dryad's Swiftness bonus
 Button/Tooltip/DryadHippityHop=After not Basic
+
+Abil/Name/AbathurSymbiote=Symbiote
+Button/Name/AbathurSymbiote=Symbiote
+Unit/Name/AbathurSymbiote=Symbiote
+
+Abil/Name/ArthasAntiMagicShell=Anti-Magic Shell
+Button/Name/ArthasAntiMagicShellTalent=Anti-Magic Shell
+Button/Simple/ArthasAntiMagicShellTalent=Activate to become immune to Spell Damage
+Button/Tooltip/ArthasAntiMagicShellTalent=Activate to make Arthas immune to Spell Damage 
+
+Abil/Name/ArthasDeathCoil=Death Coil
+Button/Name/ArthasDeathCoil=Death Coil
+Button/SimpleDisplayText/ArthasDeathCoil=Deals damage to a target or heal Arthas
+Button/Tooltip/ArthasDeathCoil=Deals damage to target enemy.

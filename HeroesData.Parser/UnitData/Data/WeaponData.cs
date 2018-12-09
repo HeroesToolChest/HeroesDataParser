@@ -10,11 +10,13 @@ namespace HeroesData.Parser.UnitData.Data
     public class WeaponData
     {
         private readonly GameData GameData;
+        private readonly DefaultData DefaultData;
         private readonly HeroOverride HeroOverride;
 
-        public WeaponData(GameData gameData, HeroOverride heroOverride)
+        public WeaponData(GameData gameData, DefaultData defaultData, HeroOverride heroOverride)
         {
             GameData = gameData;
+            DefaultData = defaultData;
             HeroOverride = heroOverride;
         }
 
@@ -23,7 +25,7 @@ namespace HeroesData.Parser.UnitData.Data
         /// </summary>
         /// <param name="hero"></param>
         /// <param name="weaponElements"></param>
-        public void SetHeroWeaponData(Hero hero, IEnumerable<XElement> weaponElements)
+        public void SetHeroWeapons(Hero hero, IEnumerable<XElement> weaponElements)
         {
             List<string> weaponsIds = new List<string>();
             foreach (XElement weaponElement in weaponElements)
@@ -47,85 +49,63 @@ namespace HeroesData.Parser.UnitData.Data
 
                 if (validWeapon || weaponsIds.Count == 1 || weaponNameId.Contains("HeroWeapon") || weaponNameId == hero.CUnitId || weaponNameId == $"{hero.CHeroId}Weapon" || weaponNameId == $"{hero.CHeroId}WeaponMelee")
                 {
-                    UnitWeapon weapon = GetWeapon(weaponNameId);
+                    // defaults
+                    UnitWeapon weapon = new UnitWeapon
+                    {
+                        WeaponNameId = weaponNameId,
+                        Name = GameData.GetGameString(DefaultData.WeaponName.Replace(DefaultData.IdReplacer, weaponNameId)),
+                        Period = DefaultData.WeaponPeriod,
+                        Range = DefaultData.WeaponRange,
+                    };
 
-                    if (weapon != null)
-                        hero.Weapons.Add(weapon);
+                    WeaponAddDamage(weapon, DefaultData.WeaponDisplayEffect.Replace(DefaultData.IdReplacer, weapon.WeaponNameId));
+
+                    XElement weaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").FirstOrDefault(x => x.Attribute("id")?.Value == weaponNameId);
+                    if (weaponLegacy != null)
+                        weapon = SetWeaponData(weaponLegacy, weapon);
+
+                    hero.Weapons.Add(weapon);
                 }
             }
         }
 
-        private UnitWeapon GetWeapon(string weaponNameId)
+        private UnitWeapon SetWeaponData(XElement weaponElement, UnitWeapon weapon)
         {
-            UnitWeapon weapon = null;
-
-            if (!string.IsNullOrEmpty(weaponNameId))
+            // parent lookup
+            string parentValue = weaponElement.Attribute("parent")?.Value;
+            if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement weaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").FirstOrDefault(x => x.Attribute("id")?.Value == weaponNameId);
+                XElement parentElement = GameData.XmlGameData.Root.Elements("CWeaponLegacy").FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
+                if (parentElement != null)
+                    SetWeaponData(parentElement, weapon);
+            }
 
-                if (weaponLegacy != null)
+            // loop through all elements and set found elements
+            foreach (XElement element in weaponElement.Elements())
+            {
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "RANGE")
                 {
-                    // set default values
-                    XElement defaultCWeaponElement = GameData.XmlGameData.Root.Elements("CWeapon").FirstOrDefault(x => x.Attribute("default")?.Value == "1");
-
-                    weapon = new UnitWeapon
-                    {
-                        WeaponNameId = weaponNameId,
-                        Period = double.Parse(defaultCWeaponElement.Element("Period").Attribute("value").Value),
-                        Range = double.Parse(defaultCWeaponElement.Element("Range").Attribute("value").Value),
-                    };
-
-                    WeaponAddRange(weaponLegacy, weapon, weaponNameId);
-                    WeaponAddPeriod(weaponLegacy, weapon, weaponNameId);
-                    WeaponAddDamage(weaponLegacy, weapon, weaponNameId);
+                    weapon.Range = double.Parse(element.Attribute("value")?.Value);
+                }
+                else if (elementName == "PERIOD")
+                {
+                    weapon.Period = double.Parse(element.Attribute("value")?.Value);
+                }
+                else if (elementName == "DISPLAYEFFECT")
+                {
+                    WeaponAddDamage(weapon, element.Attribute("value")?.Value);
                 }
             }
 
             return weapon;
         }
 
-        private void WeaponAddRange(XElement weaponLegacy, UnitWeapon weapon, string weaponNameId)
+        private void WeaponAddDamage(UnitWeapon weapon, string displayEffectValue)
         {
-            XElement rangeElement = weaponLegacy.Element("Range");
-            string parentWeaponId = weaponLegacy.Attribute("parent")?.Value;
-
-            if (rangeElement != null)
+            if (!string.IsNullOrEmpty(displayEffectValue))
             {
-                weapon.Range = double.Parse(rangeElement.Attribute("value").Value);
-            }
-            else if (!string.IsNullOrEmpty(parentWeaponId))
-            {
-                XElement parentWeaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").FirstOrDefault(x => x.Attribute("id")?.Value == parentWeaponId);
-                if (parentWeaponLegacy != null)
-                    WeaponAddRange(parentWeaponLegacy, weapon, parentWeaponId);
-            }
-        }
-
-        private void WeaponAddPeriod(XElement weaponLegacy, UnitWeapon weapon, string weaponNameId)
-        {
-            XElement periodElement = weaponLegacy.Element("Period");
-            string parentWeaponId = weaponLegacy.Attribute("parent")?.Value;
-
-            if (periodElement != null)
-            {
-                weapon.Period = double.Parse(periodElement.Attribute("value").Value);
-            }
-            else if (!string.IsNullOrEmpty(parentWeaponId))
-            {
-                XElement parentWeaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").FirstOrDefault(x => x.Attribute("id")?.Value == parentWeaponId);
-                if (parentWeaponLegacy != null)
-                    WeaponAddPeriod(parentWeaponLegacy, weapon, parentWeaponId);
-            }
-        }
-
-        private void WeaponAddDamage(XElement weaponLegacy, UnitWeapon weapon, string weaponNameId)
-        {
-            XElement displayEffectElement = weaponLegacy.Element("DisplayEffect");
-            string parentWeaponId = weaponLegacy.Attribute("parent")?.Value;
-
-            if (displayEffectElement != null)
-            {
-                string displayEffectValue = displayEffectElement.Attribute("value").Value;
                 XElement effectDamageElement = GameData.XmlGameData.Root.Elements("CEffectDamage").FirstOrDefault(x => x.Attribute("id")?.Value == displayEffectValue);
                 if (effectDamageElement != null)
                 {
@@ -139,12 +119,6 @@ namespace HeroesData.Parser.UnitData.Data
                 double? scaleValue = GameData.GetScaleValue(("Effect", displayEffectValue, "Amount"));
                 if (scaleValue.HasValue)
                     weapon.DamageScaling = scaleValue.Value;
-            }
-            else if (!string.IsNullOrEmpty(parentWeaponId))
-            {
-                XElement parentWeaponLegacy = GameData.XmlGameData.Root.Elements("CWeaponLegacy").FirstOrDefault(x => x.Attribute("id")?.Value == parentWeaponId);
-                if (parentWeaponLegacy != null)
-                    WeaponAddDamage(parentWeaponLegacy, weapon, parentWeaponId);
             }
         }
     }

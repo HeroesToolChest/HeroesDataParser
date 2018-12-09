@@ -1,7 +1,6 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.UnitData.Overrides;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +12,8 @@ namespace HeroesData.Parser.UnitData.Data
     {
         private Dictionary<string, HashSet<string>> AbilityTalentIdsByTalentIdUpgrade = new Dictionary<string, HashSet<string>>();
 
-        public TalentData(GameData gameData, HeroOverride heroOverride, ParsedGameStrings parsedGameStrings, TextValueData textValueData, Localization localization)
-            : base(gameData, heroOverride, parsedGameStrings, textValueData, localization)
+        public TalentData(GameData gameData, DefaultData defaultData, HeroOverride heroOverride, Localization localization)
+            : base(gameData, defaultData, heroOverride, localization)
         {
         }
 

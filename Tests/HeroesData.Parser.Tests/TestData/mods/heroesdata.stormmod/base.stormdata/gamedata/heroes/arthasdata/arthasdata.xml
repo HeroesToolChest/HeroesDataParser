@@ -10,4 +10,149 @@
     <Duration value="3" />
     <ArmorModification AllArmorBonus="25" />
   </CBehaviorBuff>
+  <CAbilEffectTarget id="ArthasDeathCoil">
+    <Effect value="ArthasDeathCoilInitialSwitch" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Cost>
+      <Vital index="Energy" value="50" />
+      <Cooldown TimeUse="9" />
+    </Cost>
+    <TargetFilters value="-;Ally,Missile,Item,Stasis,Dead,Hidden" />
+    <Range value="6" />
+    <Arc value="360" />
+    <CastIntroTime value="0.15" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="ArthasDeathCoil" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <RangeSlop value="3" />
+  </CAbilEffectTarget>
+  <CBehaviorAbility id="ArthasAntiMagicShell">
+    <Buttons Face="ArthasAntiMagicShellTalent" Type="AbilCmd" AbilCmd="ArthasAntiMagicShell,Execute" />
+  </CBehaviorAbility>
+  <CHero id="Arthas">
+    <AIComplexityTier value="Mid" />
+    <AttributeId value="Arth" />
+    <Melee value="1" />
+    <RolesMultiClass value="Warrior" />
+    <CollectionCategory value="Warrior" />
+    <RoleScoreValueOverride value="Warrior" />
+    <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_arthas.dds" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_Wow.dds" />
+    <Difficulty value="Medium" />
+    <TalentTreeArray Talent="ArthasAntiMagicShell" Tier="7" Column="4" />
+    <Universe value="Warcraft" />
+    <ProductId value="10112" />
+    <LevelScalingArray Ability="ArthasDeathCoil">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ArthasDeathCoilDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ArthasDeathCoilSelfCastCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ArthasDeathCoilEmbraceDeathTalentDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ArthasDeathCoilImmortalCoilCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="ArthasHowlingBlast">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ArthasHowlingBlastDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="ArthasFrozenTempest">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ArthasFrozenTempestDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <HeroAbilArray Abil="ArthasDeathCoil" Button="ArthasDeathCoil">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="ArthasHowlingBlast" Button="ArthasHowlingBlast">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <Ratings>
+      <Damage value="6" />
+      <Utility value="5" />
+      <Survivability value="8" />
+      <Complexity value="4" />
+    </Ratings>
+    <Rarity value="Epic" />
+    <ReleaseDate Month="3" Day="13" />
+  </CHero>
+  <CUnit id="HeroArthas" parent="StormHeroMounted">
+    <LifeStart value="2782" />
+    <LifeMax value="2782" />
+    <LifeRegenRate value="5.8007" />
+    <Radius value="0.875" />
+    <InnerRadius value="0.875" />
+    <AIThinkTree value="AI/Arthas.aitree" />
+    <BehaviorArray Link="ExcellentMana" />
+    <WeaponArray Link="HeroArthas" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="ArthasArmyOfTheDeadSacrifice" Type="AbilCmd" AbilCmd="ArthasArmyOfTheDeadSacrifice,Execute" Slot="Heroic" />
+      <LayoutButtons Face="ArthasArmyOfTheDead" Type="AbilCmd" AbilCmd="ArthasArmyOfTheDead,Execute" Slot="Heroic" />
+      <LayoutButtons Face="ArthasSummonSindragosa" Type="AbilCmd" AbilCmd="ArthasSummonSindragosa,Execute" Slot="Heroic" />
+      <LayoutButtons Face="ArthasHowlingBlast" Type="AbilCmd" AbilCmd="ArthasHowlingBlast,Execute" Slot="Ability2" />
+      <LayoutButtons Face="ArthasFrozenTempestDeactive" Type="AbilCmd" AbilCmd="ArthasFrozenTempestCancel,Execute" Slot="Ability3" />
+      <LayoutButtons Face="ArthasFrozenTempest" Type="AbilCmd" AbilCmd="ArthasFrozenTempest,Execute" Slot="Ability3" />
+      <LayoutButtons Face="ArthasFrostmourneHungersPrimed" Type="Passive" Requirements="ArthasHasArthasFrostmourneHungersActive" Slot="Trait" />
+      <LayoutButtons Face="ArthasFrostmourneHungers" Type="AbilCmd" AbilCmd="ArthasFrostmourneHungers,Execute" Slot="Trait" />
+      <LayoutButtons Face="ArthasDeathCoil" Type="AbilCmd" AbilCmd="ArthasDeathCoil,Execute" Slot="Ability1" />
+    </CardLayouts>
+  </CUnit>
+  <CButton id="ArthasDeathCoil" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_Arthas_DeathCoil.dds" />
+    <TooltipAppender Validator="ArthasHasDeathCoilDeathlord" Face="ArthasDeathlord" />
+    <TooltipAppender Validator="ArthasHasDeathCoilImmortalCoil" Face="ArthasImmortalCoilDeathCoilTalent" />
+    <TooltipAppender Validator="ArthasHasDeathCoilEmbraceDeath" Face="ArthasEmbraceDeathDeathCoilTalent" />
+  </CButton>
+  <CButton id="ArthasAntiMagicShellTalent">
+    <Icon value="Assets\Textures\storm_temp_war3_btnantimagicshell.dds" />
+    <SimpleDisplayText value="Button/Simple/ArthasAntiMagicShellTalent" />
+    <TooltipFlags index="ShowRequirements" value="0" />
+  </CButton>
+  <CTalent id="ArthasAntiMagicShell">
+    <Face value="ArthasAntiMagicShellTalent" />
+    <RankArray>
+      <BehaviorArray value="ArthasAntiMagicShell" />
+    </RankArray>
+    <Abil value="ArthasAntiMagicShell" />
+    <Active value="1" />
+  </CTalent>
 </Catalog>

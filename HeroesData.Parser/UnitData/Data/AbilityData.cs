@@ -2,7 +2,6 @@
 using Heroes.Models.AbilityTalents;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Exceptions;
-using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.UnitData.Overrides;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +11,8 @@ namespace HeroesData.Parser.UnitData.Data
 {
     public class AbilityData : AbilityTalentData
     {
-        public AbilityData(GameData gameData, HeroOverride heroOverride, ParsedGameStrings parsedGameStrings, TextValueData textValueData, Localization localization)
-            : base(gameData, heroOverride, parsedGameStrings, textValueData, localization)
+        public AbilityData(GameData gameData, DefaultData defaultData, HeroOverride heroOverride, Localization localization)
+            : base(gameData, defaultData, heroOverride, localization)
         {
         }
 
@@ -137,7 +136,7 @@ namespace HeroesData.Parser.UnitData.Data
             ability.ReferenceNameId = linkName;
             ability.FullTooltipNameId = linkName;
 
-            if (ParsedGameStrings.TryGetAbilityTalentParsedNames(linkName, out string abilityName))
+            if (GameData.TryGetGameString(DefaultData.ButtonName.Replace(DefaultData.IdReplacer, linkName), out string abilityName))
                 ability.Name = abilityName;
 
             XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId);

@@ -8,53 +8,74 @@ namespace HeroesData.Loader.XmlGameData
 {
     public class FileGameData : GameData
     {
+        /// <summary>
+        /// Contruct the FileGameData object.
+        /// </summary>
+        /// <param name="modsFolderPath">The file path of the mods folder.</param>
         public FileGameData(string modsFolderPath)
             : base(modsFolderPath)
         {
-            Initialize();
         }
 
+        /// <summary>
+        /// Contruct the FileGameData object.
+        /// </summary>
+        /// <param name="modsFolderPath">The file path of the mods folder.</param>
+        /// <param name="hotsBuild">The hots build number.</param>
         public FileGameData(string modsFolderPath, int? hotsBuild)
             : base(modsFolderPath, hotsBuild)
         {
-            Initialize();
         }
 
         protected override void LoadCoreStormMod()
         {
-            foreach (string file in Directory.GetFiles(Path.Combine(CoreBaseDataDirectoryPath, GameDataStringName)))
+            if (!IsXmlGameDataLoaded)
             {
-                if (Path.GetExtension(file) != ".xml")
-                    continue;
+                foreach (string file in Directory.GetFiles(Path.Combine(CoreBaseDataDirectoryPath, GameDataStringName)))
+                {
+                    if (Path.GetExtension(file) != ".xml")
+                        continue;
 
-                if (XmlGameData.LastNode == null)
-                {
-                    XmlGameData = XDocument.Load(file);
-                    XmlFileCount++;
-                }
-                else
-                {
-                    XmlGameData.Root.Add(XDocument.Load(file).Root.Elements());
-                    XmlFileCount++;
+                    if (XmlGameData.LastNode == null)
+                    {
+                        XmlGameData = XDocument.Load(file);
+                        XmlFileCount++;
+                    }
+                    else
+                    {
+                        XmlGameData.Root.Add(XDocument.Load(file).Root.Elements());
+                        XmlFileCount++;
+                    }
                 }
             }
+
+            ParseTextFile(Path.Combine(CoreLocalizedDataPath, GameStringFile));
+            TextFileCount++;
         }
 
         protected override void LoadHeroesDataStormMod()
         {
-            // load up xml files in gamedata folder
-            foreach (string file in Directory.GetFiles(Path.Combine(HeroesDataBaseDataDirectoryPath, GameDataStringName)))
+            if (!IsXmlGameDataLoaded)
             {
-                if (Path.GetExtension(file) != ".xml")
-                    continue;
+                // load up xml files in gamedata folder
+                foreach (string file in Directory.GetFiles(Path.Combine(HeroesDataBaseDataDirectoryPath, GameDataStringName)))
+                {
+                    if (Path.GetExtension(file) != ".xml")
+                        continue;
 
-                XmlGameData.Root.Add(XDocument.Load(file).Root.Elements());
-                XmlFileCount++;
+                    XmlGameData.Root.Add(XDocument.Load(file).Root.Elements());
+                    XmlFileCount++;
+                }
+
+                // load up files in gamedata.xml file
+                LoadGameDataXmlContents(Path.Combine(HeroesDataBaseDataDirectoryPath, GameDataXmlFile));
             }
 
-            LoadGameDataXmlContents(Path.Combine(HeroesDataBaseDataDirectoryPath, GameDataXmlFile));
+            // load gamestring file
+            ParseTextFile(Path.Combine(HeroesDataLocalizedDataPath, GameStringFile));
+            TextFileCount++;
 
-            // load up files in includes.xml file - which is the heroes in the heromods folder
+            // load up files in includes.xml file - which are the heroes in the heromods folder
             XDocument includesXml = XDocument.Load(Path.Combine(HeroesDataBaseDataDirectoryPath, IncludesXmlFile));
             IEnumerable pathElements = includesXml.Root.Elements("Path");
 
@@ -66,11 +87,14 @@ namespace HeroesData.Loader.XmlGameData
                     valuePath = PathExtensions.GetFilePath(valuePath);
                     valuePath = valuePath.Remove(0, 5); // remove 'mods/'
 
-                    if (valuePath.StartsWith(HeroesModsDiretoryName) && !valuePath.EndsWith("herointeractions.stormmod"))
+                    if (valuePath.StartsWith(HeroesModsDiretoryName))
                     {
                         string gameDataPath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, GameDataXmlFile);
 
                         LoadGameDataXmlContents(gameDataPath);
+
+                        ParseTextFile(Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile));
+                        TextFileCount++;
                     }
                 }
             }
@@ -91,11 +115,17 @@ namespace HeroesData.Loader.XmlGameData
                         XmlFileCount++;
                     }
                 }
+
+                ParseTextFile(Path.Combine(HeroesMapModsDirectoryPath, mapFolderName, GameStringLocalization, LocalizedDataName, GameStringFile), true);
+                TextFileCount++;
             }
         }
 
         protected override void LoadGameDataXmlContents(string gameDataXmlFilePath)
         {
+            if ((!File.Exists(gameDataXmlFilePath) && gameDataXmlFilePath.Contains("herointeractions.stormmod")) || IsXmlGameDataLoaded)
+                return;
+
             // load up files in gamedata.xml file
             XDocument gameDataXml = XDocument.Load(gameDataXmlFilePath);
             IEnumerable<XElement> catalogElements = gameDataXml.Root.Elements("Catalog");

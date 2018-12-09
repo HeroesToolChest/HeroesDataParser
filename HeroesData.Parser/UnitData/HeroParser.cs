@@ -1,9 +1,7 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using HeroesData.Helpers;
-using HeroesData.Loader.GameStrings;
 using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.UnitData.Data;
 using HeroesData.Parser.UnitData.Overrides;
 using System;
@@ -17,25 +15,20 @@ namespace HeroesData.Parser.UnitData
     public class HeroParser
     {
         private readonly GameData GameData;
-        private readonly GameStringData GameStringData;
-        private readonly ParsedGameStrings ParsedGameStrings;
+        private readonly DefaultData DefaultData;
         private readonly OverrideData OverrideData;
-        private readonly TextValueData TextValueData;
 
         private HeroOverride HeroOverride;
-
         private WeaponData WeaponData;
         private ArmorData ArmorData;
         private AbilityData AbilityData;
         private TalentData TalentData;
 
-        public HeroParser(GameData gameData, GameStringData gameStringData, ParsedGameStrings parsedGameStrings, OverrideData overrideData)
+        public HeroParser(GameData gameData, DefaultData defaultData, OverrideData overrideData)
         {
             GameData = gameData;
-            GameStringData = gameStringData;
-            ParsedGameStrings = parsedGameStrings;
+            DefaultData = defaultData;
             OverrideData = overrideData;
-            TextValueData = new TextValueData(parsedGameStrings);
         }
 
         /// <summary>
@@ -57,31 +50,29 @@ namespace HeroesData.Parser.UnitData
         /// Parses the hero's game data.
         /// </summary>
         /// <param name="cHeroId">The id value of the CHero element.</param>
-        /// <param name="cUnitId">The id value of the CUnit element.</param>
         /// <returns></returns>
-        public Hero Parse(string cHeroId, string cUnitId)
+        public Hero Parse(string cHeroId)
         {
             Hero hero = new Hero
             {
-                Name = GameStringData.HeroNamesByShortName[$"{GameStringPrefixes.HeroNamePrefix}{cHeroId}"],
-                Description = new TooltipDescription(ParsedGameStrings.HeroParsedDescriptionsByShortName[$"{GameStringPrefixes.DescriptionPrefix}{cHeroId}"], Localization),
+                Name = GameData.GetGameString(DefaultData.HeroName.Replace(DefaultData.IdReplacer, cHeroId)),
+                Description = new TooltipDescription(GameData.GetParsedGameString(DefaultData.Description.Replace(DefaultData.IdReplacer, cHeroId)), Localization),
                 CHeroId = cHeroId,
-                CUnitId = cUnitId,
             };
 
             HeroOverride = OverrideData.HeroOverride(cHeroId) ?? new HeroOverride();
 
+            WeaponData = new WeaponData(GameData, DefaultData, HeroOverride);
+            ArmorData = new ArmorData(GameData);
+            AbilityData = new AbilityData(GameData, DefaultData, HeroOverride, Localization);
+            TalentData = new TalentData(GameData, DefaultData, HeroOverride, Localization);
+
             SetDefaultValues(hero);
             CActorData(hero);
 
-            WeaponData = new WeaponData(GameData, HeroOverride);
-            ArmorData = new ArmorData(GameData);
-            AbilityData = new AbilityData(GameData, HeroOverride, ParsedGameStrings, TextValueData, Localization);
-            TalentData = new TalentData(GameData, HeroOverride, ParsedGameStrings, TextValueData, Localization);
-
             CHeroData(hero);
             CUnitData(hero);
-            SetHeroPortraits(hero);
+
             AddSubHeroCUnits(hero);
 
             ApplyOverrides(hero, HeroOverride);
@@ -106,7 +97,7 @@ namespace HeroesData.Parser.UnitData
             };
 
             HeroOverride = OverrideData.HeroOverride(StormHeroBase.CHeroId) ?? new HeroOverride();
-            AbilityData = new AbilityData(GameData, HeroOverride, ParsedGameStrings, TextValueData, Localization);
+            AbilityData = new AbilityData(GameData, DefaultData, HeroOverride, Localization);
 
             SetBaseHeroData(StormHeroBase);
 
@@ -118,69 +109,59 @@ namespace HeroesData.Parser.UnitData
 
         private void SetDefaultValues(Hero hero)
         {
-            XElement stormHeroData = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == "StormHero");
-            if (stormHeroData != null)
+            hero.Type = GameData.GetGameString(DefaultData.StringRanged).Trim();
+            hero.Radius = DefaultData.Radius;
+            hero.Speed = DefaultData.Speed;
+            hero.Sight = DefaultData.Sight;
+            hero.ReleaseDate = DefaultData.ReleaseDate;
+            hero.Gender = HeroGender.Male;
+            hero.Franchise = HeroFranchise.Unknown;
+            hero.Life.LifeMax = DefaultData.LifeMax;
+            hero.Life.LifeRegenerationRate = 0;
+            hero.Energy.EnergyType = GameData.GetGameString(DefaultData.HeroEnergyTypeManaText);
+            hero.Energy.EnergyMax = DefaultData.EnergyMax;
+            hero.Energy.EnergyRegenerationRate = DefaultData.EnergyRegenRate;
+            hero.Difficulty = GameData.GetGameString(DefaultData.Difficulty.Replace(DefaultData.IdReplacer, DefaultData.DefaultHeroDifficulty)).Trim();
+
+            if (hero.CHeroId != null)
             {
-                string parentDataValue = stormHeroData.Attribute("parent").Value;
-                XElement stormBasicHeroicUnitData = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == parentDataValue);
+                hero.ShortName = DefaultData.HyperlinkId.Replace(DefaultData.IdReplacer, hero.CHeroId);
+                hero.CUnitId = DefaultData.Unit.Replace(DefaultData.IdReplacer, hero.CHeroId);
 
-                if (stormBasicHeroicUnitData != null)
+                hero.HeroPortrait.HeroSelectPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.SelectScreenButtonImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.LeaderboardPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.LeaderboardImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.LoadingScreenImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.PartyPanelButtonImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.Portrait.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
+
+                hero.MountLinkId = "SummonMount";
+
+                if (HeroOverride.CUnitOverride.Enabled)
+                    hero.CUnitId = HeroOverride.CUnitOverride.CUnit;
+            }
+        }
+
+        // used to acquire the hero's unique energy type
+        private void CActorData(Hero hero)
+        {
+            XElement actorUnitElement = GameData.XmlGameData.Root.Elements("CActorUnit").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CUnitId);
+
+            if (actorUnitElement == null)
+                return;
+
+            // find special energy type
+            foreach (XElement vitalName in actorUnitElement.Elements("VitalNames"))
+            {
+                string indexValue = vitalName.Attribute("index")?.Value;
+                string valueValue = vitalName.Attribute("value")?.Value;
+                if (indexValue == "Energy")
                 {
-                    // loop through all elements and set found elements
-                    foreach (XElement element in stormBasicHeroicUnitData.Elements())
+                    if (GameData.TryGetGameString(valueValue, out string energyType))
                     {
-                        string elementName = element.Name.LocalName.ToUpper();
-
-                        if (elementName == "SPEED")
-                        {
-                            hero.Speed = double.Parse(element.Attribute("value").Value);
-                        }
-                        else if (elementName == "SIGHT")
-                        {
-                            hero.Sight = double.Parse(element.Attribute("value").Value);
-                        }
-                    }
-                }
-
-                // loop through all StormHero elements and set found elements
-                foreach (XElement element in stormHeroData.Elements())
-                {
-                    string elementName = element.Name.LocalName.ToUpper();
-
-                    if (elementName == "LIFEMAX")
-                    {
-                        hero.Life.LifeMax = int.Parse(element.Attribute("value").Value);
-                    }
-                    else if (elementName == "LIFEREGENRATE")
-                    {
-                        hero.Life.LifeRegenerationRate = double.Parse(element.Attribute("value").Value);
-                    }
-                    else if (elementName == "RADIUS")
-                    {
-                        hero.Radius = double.Parse(element.Attribute("value").Value);
-                    }
-                    else if (elementName == "INNERRADIUS")
-                    {
-                        hero.InnerRadius = double.Parse(element.Attribute("value").Value);
-                    }
-                    else if (elementName == "ENERGYMAX")
-                    {
-                        hero.Energy.EnergyMax = int.Parse(element.Attribute("value").Value);
-                    }
-                    else if (elementName == "ENERGYREGENRATE")
-                    {
-                        hero.Energy.EnergyRegenerationRate = int.Parse(element.Attribute("value").Value);
+                        hero.Energy.EnergyType = energyType;
                     }
                 }
             }
-
-            hero.Energy.EnergyType = TextValueData.DefaultHeroEnergyText;
-            TextValueData.HeroEnergyTypeEnglish = TextValueData.UIHeroEnergyTypeMana.Split('/').Last();
-            hero.ReleaseDate = new DateTime(2014, 3, 13);
-            hero.Gender = HeroGender.Male;
-            hero.Type = TextValueData.StringRanged;
-            hero.Franchise = HeroFranchise.Unknown;
-            hero.MountLinkId = "SummonMount";
         }
 
         private void CHeroData(Hero hero)
@@ -191,30 +172,27 @@ namespace HeroesData.Parser.UnitData
             if (heroData == null)
                 return;
 
-            // get short name of hero
-            string hyperLinkElement = heroData.Element("HyperlinkId")?.Attribute("value")?.Value;
-            if (!string.IsNullOrEmpty(hyperLinkElement))
-                hero.ShortName = hyperLinkElement;
-            else
-                hero.ShortName = hero.CHeroId;
-
             // loop through all elements and set found elements
-            foreach (var element in heroData.Elements())
+            foreach (XElement element in heroData.Elements())
             {
                 string elementName = element.Name.LocalName.ToUpper();
 
-                if (elementName == "ATTRIBUTEID")
+                if (elementName == "HYPERLINKID")
                 {
-                    hero.AttributeId = element.Attribute("value").Value;
+                    hero.ShortName = element.Attribute("value")?.Value;
+                }
+                else if (elementName == "ATTRIBUTEID")
+                {
+                    hero.AttributeId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "MELEE")
                 {
                     if (element.Attribute("value").Value == "1")
-                        hero.Type = TextValueData.StringMelee;
+                        hero.Type = GameData.GetGameString(DefaultData.StringMelee).Trim();
                     else if (element.Attribute("value").Value == "0")
-                        hero.Type = TextValueData.StringRanged;
+                        hero.Type = GameData.GetGameString(DefaultData.StringRanged).Trim();
                     else
-                        hero.Type = TextValueData.StringRanged;
+                        hero.Type = GameData.GetGameString(DefaultData.StringRanged).Trim();
                 }
                 else if (elementName == "DIFFICULTY")
                 {
@@ -222,8 +200,7 @@ namespace HeroesData.Parser.UnitData
 
                     if (!string.IsNullOrEmpty(difficultyValue))
                     {
-                        if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{TextValueData.UIHeroUtilDifficultyPrefix}{difficultyValue}", out string difficulty))
-                            hero.Difficulty = difficulty;
+                        hero.Difficulty = GameData.GetGameString(DefaultData.Difficulty.Replace(DefaultData.IdReplacer, difficultyValue)).Trim();
                     }
                 }
                 else if (elementName == "ROLE" || elementName == "ROLESMULTICLASS")
@@ -233,15 +210,10 @@ namespace HeroesData.Parser.UnitData
                     if (hero.Roles == null)
                         hero.Roles = new List<string>();
 
-                    if (ParsedGameStrings.TooltipsByKeyString.TryGetValue($"{TextValueData.UIHeroUtilRolePrefix}{roleValue}", out string role))
-                    {
-                        if (!hero.Roles.Contains(role))
-                            hero.Roles.Add(role);
-                    }
-                    else
-                    {
-                        hero.Roles.Add("Unknown");
-                    }
+                    string role = GameData.GetGameString(DefaultData.HeroRoleName.Replace(DefaultData.IdReplacer, roleValue)).Trim();
+
+                    if (!hero.Roles.Contains(role))
+                        hero.Roles.Add(role);
                 }
                 else if (elementName == "UNIVERSEICON")
                 {
@@ -278,13 +250,13 @@ namespace HeroesData.Parser.UnitData
                 else if (elementName == "RELEASEDATE")
                 {
                     if (!int.TryParse(element.Attribute("Day")?.Value, out int day))
-                        day = 1;
+                        day = DefaultData.ReleaseDate.Day;
 
                     if (!int.TryParse(element.Attribute("Month")?.Value, out int month))
-                        month = 1;
+                        month = DefaultData.ReleaseDate.Month;
 
                     if (!int.TryParse(element.Attribute("Year")?.Value, out int year))
-                        year = 2014;
+                        year = DefaultData.ReleaseDate.Year;
 
                     hero.ReleaseDate = new DateTime(year, month, day);
                 }
@@ -329,7 +301,30 @@ namespace HeroesData.Parser.UnitData
                     hero.Ratings.Survivability = !string.IsNullOrEmpty(survivability) ? double.Parse(survivability) : 1;
                     hero.Ratings.Complexity = !string.IsNullOrEmpty(complexity) ? double.Parse(complexity) : 1;
                 }
+                else if (elementName == "SELECTSCREENBUTTONIMAGE")
+                {
+                    hero.HeroPortrait.HeroSelectPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                }
+                else if (elementName == "SCORESCREENIMAGE")
+                {
+                    hero.HeroPortrait.LeaderboardPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                }
+                else if (elementName == "LOADINGSCREENIMAGE")
+                {
+                    hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                }
+                else if (elementName == "PARTYPANELBUTTONIMAGE")
+                {
+                    hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                }
+                else if (elementName == "PORTRAIT")
+                {
+                    hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                }
             }
+
+            if (hero.ReleaseDate == DefaultData.ReleaseDate)
+                hero.ReleaseDate = DefaultData.AlphaReleaseDate;
 
             // abilities must be gotten before talents
             foreach (XElement abilArrayElement in heroData.Elements("HeroAbilArray"))
@@ -344,9 +339,6 @@ namespace HeroesData.Parser.UnitData
             {
                 TalentData.SetTalentData(hero, talentArrayElement);
             }
-
-            if (string.IsNullOrEmpty(hero.Type))
-                hero.Type = TextValueData.StringRanged;
 
             SetAdditionalLinkedAbilities(hero);
         }
@@ -413,7 +405,7 @@ namespace HeroesData.Parser.UnitData
             }
 
             // set weapons
-            WeaponData.SetHeroWeaponData(hero, heroData.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
+            WeaponData.SetHeroWeapons(hero, heroData.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
 
             // set armor
             ArmorData.SetUnitArmorData(hero, heroData.Element("ArmorLink"));
@@ -421,38 +413,12 @@ namespace HeroesData.Parser.UnitData
             if (hero.Energy.EnergyMax < 1)
                 hero.Energy.EnergyType = string.Empty;
 
-            if (string.IsNullOrEmpty(hero.Difficulty))
-                hero.Difficulty = TextValueData.DefaultHeroDifficulty;
-
             // set mount link
             IList<Ability> mountAbilities = hero.PrimaryAbilities(AbilityTier.Mount);
             string parentAttribute = heroData.Attribute("parent")?.Value;
 
             if (parentAttribute == "StormHeroMountedCustom" && mountAbilities.Count > 0)
                 hero.MountLinkId = mountAbilities.FirstOrDefault()?.ReferenceNameId;
-        }
-
-        private void CActorData(Hero hero)
-        {
-            XElement heroData = GameData.XmlGameData.Root.Elements("CActorUnit").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CUnitId);
-
-            if (heroData == null)
-                return;
-
-            // find special energy type
-            foreach (XElement vitalName in heroData.Elements("VitalNames"))
-            {
-                string indexValue = vitalName.Attribute("index")?.Value;
-                string valueValue = vitalName.Attribute("value")?.Value;
-                if (indexValue == "Energy")
-                {
-                    if (ParsedGameStrings.TooltipsByKeyString.TryGetValue(valueValue, out string energyType))
-                    {
-                        hero.Energy.EnergyType = energyType;
-                        TextValueData.HeroEnergyTypeEnglish = valueValue.Split('/').Last();
-                    }
-                }
-            }
         }
 
         private void SetAdditionalLinkedAbilities(Hero hero)
@@ -465,36 +431,32 @@ namespace HeroesData.Parser.UnitData
 
         private void AddSubHeroCUnits(Hero hero)
         {
-            foreach (string unit in HeroOverride.HeroUnits)
+            foreach (string cUnitId in HeroOverride.HeroUnits)
             {
-                XElement cUnit = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == unit);
-
-                string name = string.Empty;
-                if (!GameStringData.UnitNamesByShortName.TryGetValue($"{GameStringPrefixes.UnitPrefix}{unit}", out name))
+                if (!GameData.TryGetGameString(DefaultData.UnitName.Replace(DefaultData.IdReplacer, cUnitId), out string name))
                 {
-                    if (!GameStringData.AbilityTalentNamesByReferenceNameId.TryGetValue($"{GameStringPrefixes.DescriptionNamePrefix}{unit}", out name))
-                        name = unit;
+                    if (!GameData.TryGetGameString(DefaultData.ButtonName.Replace(DefaultData.IdReplacer, cUnitId), out name))
+                        name = cUnitId;
                 }
 
                 Hero heroUnit = new Hero
                 {
                     Name = name,
-                    ShortName = unit.StartsWith("Hero") ? unit.Remove(0, 4) : unit,
+                    ShortName = cUnitId.StartsWith("Hero") ? cUnitId.Remove(0, 4) : cUnitId,
                     CHeroId = null,
-                    CUnitId = unit,
+                    CUnitId = cUnitId,
                     HeroPortrait = null,
                 };
 
-                if (cUnit != null)
+                XElement cUnitElement = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == cUnitId);
+                if (cUnitElement != null)
                 {
-                    if (ParsedGameStrings.TryGetHeroParsedDescriptions(unit, out string desc))
-                        heroUnit.Description = new TooltipDescription(desc, Localization);
-
                     SetDefaultValues(heroUnit);
+                    CActorData(heroUnit);
                     CUnitData(heroUnit);
                 }
 
-                HeroOverride heroOverride = OverrideData.HeroOverride(unit);
+                HeroOverride heroOverride = OverrideData.HeroOverride(cUnitId);
                 if (heroOverride != null)
                     ApplyOverrides(heroUnit, heroOverride);
 
@@ -614,15 +576,6 @@ namespace HeroesData.Parser.UnitData
                         hero.Weapons.Remove(linkedWeapon);
                 }
             }
-        }
-
-        private void SetHeroPortraits(Hero hero)
-        {
-            hero.HeroPortrait.HeroSelectPortraitFileName = $"{PortraitFileNames.HeroSelectPortraitPrefix}{hero.CHeroId.ToLower()}.dds";
-            hero.HeroPortrait.LeaderboardPortraitFileName = $"{PortraitFileNames.LeaderboardPortraitPrefix}{hero.CHeroId.ToLower()}.dds";
-            hero.HeroPortrait.LoadingScreenPortraitFileName = $"{PortraitFileNames.LoadingPortraitPrefix}{hero.CHeroId.ToLower()}.dds";
-            hero.HeroPortrait.PartyPanelPortraitFileName = $"{PortraitFileNames.PartyPanelPortraitPrefix}{hero.CHeroId.ToLower()}.dds";
-            hero.HeroPortrait.TargetPortraitFileName = $"{PortraitFileNames.TargetPortraitPrefix}{hero.CHeroId.ToLower()}.dds";
         }
     }
 }

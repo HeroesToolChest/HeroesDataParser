@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides>
+  <CHero id="Abathur">
+    <HeroUnit id="AbathurSymbiote"></HeroUnit>
+  </CHero>
   <CHero id="Falstad">
     <Portrait>
       <Override>
@@ -24,5 +27,32 @@
     <HeroAbilArray button="TestHeroEssenseCollectionStore">
       <Set value="TestHeroEssenseCollection" />
     </HeroAbilArray>
+  </CHero>
+  <CHero id="Ragnaros">
+    <!--Molten Core abilities-->
+    <LinkedAbilities>
+      <Ability id="RagnarosBigRagMoltenSwing" element="CAbilEffectTarget" />
+      <Ability id="RagnarosBigRagMeteorShower" element="CAbilEffectTarget" />
+      <Ability id="RagnarosBigRagExplosiveRune" element="CAbilEffectTarget" />
+    </LinkedAbilities>
+    <Ability id="RagnarosBigRagMoltenSwing" valid="true">
+      <Override>
+        <ParentLink value="RagnarosBigRag" />
+        <AbilityType value="Q" />
+      </Override>
+    </Ability>
+    <Ability id="RagnarosBigRagMeteorShower" valid="true">
+      <Override>
+        <ParentLink value="RagnarosBigRag" />
+        <AbilityType value="W" />
+      </Override>
+    </Ability>
+    <Ability id="RagnarosBigRagExplosiveRune" valid="true">
+      <Override>
+        <ParentLink value="RagnarosBigRag" />
+        <AbilityType value="E" />
+      </Override>
+    </Ability>
+    <HeroUnit id="RagnarosBigRag"></HeroUnit>
   </CHero>
 </HeroOverrides>

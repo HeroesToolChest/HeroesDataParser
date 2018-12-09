@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <Catalog>
     <CWeapon default="1">
+        <Name value="Weapon/Name/##id##"/>
         <DisplayEffect value="##id##"/>
         <DisplayAttackCount value="0"/>
         <MinScanRange value="5"/>

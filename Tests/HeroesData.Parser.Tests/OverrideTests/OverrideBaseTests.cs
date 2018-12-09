@@ -17,7 +17,7 @@ namespace HeroesData.Parser.Tests.OverrideTests
 
         public OverrideBaseTests()
         {
-            GameData gameData = GameData.Load(ModsTestFolder);
+            GameData gameData = new FileGameData(ModsTestFolder);
             OverrideData = OverrideData.Load(gameData, HeroOverrideTestFolder);
 
             HeroOverride = OverrideData.HeroOverride(CHeroId);

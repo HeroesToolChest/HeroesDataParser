@@ -6,14 +6,14 @@ namespace HeroesData.Parser.Tests.HeroParserTests
     public class MedicDataTests : HeroDataBaseTest
     {
         [Fact]
-        public void AbilityEnergyTooltipTextTest()
+        public void AbilityTests()
         {
             Ability ability = HeroMedic.Abilities["MedicHealingBeam"];
             Assert.Equal("<s val=\"StandardTooltipDetails\">Energy: 6 per second</s>", ability.Tooltip.Energy?.EnergyTooltip.RawDescription);
         }
 
         [Fact]
-        public void AbilityTalentShowUsageOffTest()
+        public void TalentTests()
         {
             Talent talent = HeroMedic.Talents["MedicCellularReactor"];
             Assert.Equal("Cooldown: 45 seconds", talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);

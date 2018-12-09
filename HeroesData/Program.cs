@@ -1,10 +1,9 @@
 ﻿using Heroes.Models;
 using HeroesData.Commands;
-using HeroesData.Loader.GameStrings;
 using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.MatchAwards;
 using HeroesData.Parser.UnitData;
+using HeroesData.Parser.UnitData.Data;
 using HeroesData.Parser.UnitData.Overrides;
 using Microsoft.Extensions.CommandLineUtils;
 using System;
@@ -24,7 +23,6 @@ namespace HeroesData
         private readonly string AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         private GameData GameData;
-        private GameStringData GameStringData;
         private OverrideData OverrideData;
 
         private string StoragePath = Environment.CurrentDirectory;
@@ -219,6 +217,7 @@ namespace HeroesData
 
                 PreInitialize();
                 InitializeGameData();
+                InitializeOverrideData();
 
                 foreach (Localization localization in Localizations)
                 {
@@ -228,14 +227,14 @@ namespace HeroesData
                         Console.WriteLine($"[{localization.GetFriendlyName()}]");
                         Console.ResetColor();
 
-                        InitializeGameStringData(localization);
-                        InitializeOverrideData();
+                        GameData.GameStringLocalization = localization.GetFriendlyName();
 
-                        ParsedGameStrings parsedGameStrings = InitializeGameStringParser();
-                        parsedHeroes = ParseHeroes(parsedGameStrings, localization);
+                        // parse heroes
+                        parsedHeroes = ParseHeroes(localization);
 
+                        // parse awards
                         if (!ExcludeAwardParsing)
-                            parsedMatchAwards = ParseMatchAwards(parsedGameStrings);
+                            parsedMatchAwards = ParseMatchAwards();
 
                         DataOutput dataOutput = new DataOutput(localization)
                         {
@@ -485,9 +484,11 @@ namespace HeroesData
             try
             {
                 if (StorageMode == StorageMode.Mods)
-                    GameData = GameData.Load(StoragePath, HotsBuild);
+                    GameData = new FileGameData(StoragePath, HotsBuild);
                 else if (StorageMode == StorageMode.CASC)
-                    GameData = GameData.Load(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
+                    GameData = new CASCGameData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
+
+                GameData.Load();
             }
             catch (DirectoryNotFoundException ex)
             {
@@ -502,60 +503,6 @@ namespace HeroesData
             time.Stop();
 
             Console.WriteLine($"{GameData.XmlFileCount,6} xml files loaded");
-            Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
-            Console.WriteLine();
-        }
-
-        private void InitializeGameStringData(Localization localization)
-        {
-            var time = new Stopwatch();
-
-            Console.WriteLine($"Loading game strings...");
-
-            time.Start();
-
-            if (StorageMode == StorageMode.Mods)
-            {
-                FileGameStringData fileGameStringData = new FileGameStringData
-                {
-                    HotsBuild = HotsBuild,
-                    ModsFolderPath = StoragePath,
-                    GameStringLocalization = localization.GetFriendlyName(),
-                };
-
-                fileGameStringData.Load();
-                GameStringData = fileGameStringData;
-            }
-            else if (StorageMode == StorageMode.CASC)
-            {
-                CASCGameStringData cascGameStringData = new CASCGameStringData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot)
-                {
-                    HotsBuild = HotsBuild,
-                    GameStringLocalization = localization.GetFriendlyName(),
-                };
-
-                try
-                {
-                    cascGameStringData.Load();
-                }
-                catch (Exception ex)
-                {
-                    WriteExceptionLog($"gamestrings_{localization}", ex);
-                    throw new CASCException("Error: Gamestrings could not be loaded. Check if localization is installed in game client.");
-                }
-
-                GameStringData = cascGameStringData;
-            }
-
-            time.Stop();
-
-            Console.WriteLine($"{GameStringData.FullTooltipsByFullTooltipNameId.Count,6} Full Tooltips");
-            Console.WriteLine($"{GameStringData.ShortTooltipsByShortTooltipNameId.Count,6} Short Tooltips");
-            Console.WriteLine($"{GameStringData.HeroDescriptionsByShortName.Count,6} Hero descriptions");
-            Console.WriteLine($"{GameStringData.HeroNamesByShortName.Count,6} Hero names");
-            Console.WriteLine($"{GameStringData.UnitNamesByShortName.Count,6} Unit names");
-            Console.WriteLine($"{GameStringData.AbilityTalentNamesByReferenceNameId.Count,6} Ability/talent names");
-            Console.WriteLine($"{GameStringData.ValueStringByKeyString.Count,6} Other strings");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
         }
@@ -596,67 +543,7 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        private ParsedGameStrings InitializeGameStringParser()
-        {
-            var time = new Stopwatch();
-            var parsedGameStrings = new ParsedGameStrings();
-
-            Console.WriteLine($"Parsing tooltips...");
-
-            time.Start();
-            GameStringParser gameStringParser = null;
-
-            gameStringParser = new GameStringParser(GameData, HotsBuild);
-
-            var (fullParsed, fullInvalid) = GameStringParse.Parse(GameStringData.FullTooltipsByFullTooltipNameId, gameStringParser, "total full tooltips", MaxParallelism);
-            var (shortParsed, shortInvalid) = GameStringParse.Parse(GameStringData.ShortTooltipsByShortTooltipNameId, gameStringParser, "total short tooltips", MaxParallelism);
-            var (heroDescriptionParsed, heroDescriptionInvalid) = GameStringParse.Parse(GameStringData.HeroDescriptionsByShortName, gameStringParser, "total hero descriptions", MaxParallelism);
-            var (heroNamesParsed, heroNamesInvalid) = GameStringParse.Parse(GameStringData.HeroNamesByShortName, gameStringParser, "total hero names", MaxParallelism);
-            var (unitNamesParsed, unitNamesInvalid) = GameStringParse.Parse(GameStringData.UnitNamesByShortName, gameStringParser, "total unit names", MaxParallelism);
-            var (abilityTalentNamesParsed, abilityTalentNamesInvalid) = GameStringParse.Parse(GameStringData.AbilityTalentNamesByReferenceNameId, gameStringParser, "total ability/talent names", MaxParallelism);
-            var (otherParsed, otherInvalid) = GameStringParse.Parse(GameStringData.ValueStringByKeyString, gameStringParser, "total other strings", MaxParallelism);
-
-            parsedGameStrings.FullParsedTooltipsByFullTooltipNameId = new Dictionary<string, string>(fullParsed);
-            parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId = new Dictionary<string, string>(shortParsed);
-            parsedGameStrings.HeroParsedDescriptionsByShortName = new Dictionary<string, string>(heroDescriptionParsed);
-            parsedGameStrings.HeroParsedNamesByShortName = new Dictionary<string, string>(heroNamesParsed);
-            parsedGameStrings.UnitParsedNamesByShortName = new Dictionary<string, string>(unitNamesParsed);
-            parsedGameStrings.AbilityTalentParsedNamesByReferenceNameId = new Dictionary<string, string>(abilityTalentNamesParsed);
-            parsedGameStrings.TooltipsByKeyString = new Dictionary<string, string>(otherParsed);
-
-            time.Stop();
-
-            Console.WriteLine();
-            Console.WriteLine($"{parsedGameStrings.FullParsedTooltipsByFullTooltipNameId.Count,6} parsed full tooltips");
-            Console.WriteLine($"{parsedGameStrings.ShortParsedTooltipsByShortTooltipNameId.Count,6} parsed short tooltips");
-            Console.WriteLine($"{parsedGameStrings.HeroParsedDescriptionsByShortName.Count,6} parsed hero descriptions");
-            Console.WriteLine($"{parsedGameStrings.HeroParsedNamesByShortName.Count,6} parsed hero names");
-            Console.WriteLine($"{parsedGameStrings.UnitParsedNamesByShortName.Count,6} parsed unit names");
-            Console.WriteLine($"{parsedGameStrings.AbilityTalentParsedNamesByReferenceNameId.Count,6} parsed ability/talent names");
-            Console.WriteLine($"{parsedGameStrings.TooltipsByKeyString.Count,6} parsed other strings");
-            Console.WriteLine($"{fullInvalid.Count,6} invalid full tooltips");
-            Console.WriteLine($"{shortInvalid.Count,6} invalid short tooltips");
-            Console.WriteLine($"{heroDescriptionInvalid.Count,6} invalid hero descriptions");
-            Console.WriteLine($"{heroNamesInvalid.Count,6} invalid hero names");
-            Console.WriteLine($"{unitNamesInvalid.Count,6} invalid unit names");
-            Console.WriteLine($"{abilityTalentNamesInvalid.Count,6} invalid ability/talent names");
-            Console.WriteLine($"{otherInvalid.Count,6} invalid other strings");
-            Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
-            Console.WriteLine();
-
-            if (ShowInvalidFullTooltips && fullInvalid.Count > 0)
-                OutputInvalidTooltips(new SortedDictionary<string, string>(fullInvalid), "Invalid full tooltips");
-
-            if (ShowInvalidShortTooltips && shortInvalid.Count > 0)
-                OutputInvalidTooltips(new SortedDictionary<string, string>(shortInvalid), "Invalid short tooltips");
-
-            if (ShowInvalidHeroTooltips && heroDescriptionInvalid.Count > 0)
-                OutputInvalidTooltips(new SortedDictionary<string, string>(heroDescriptionInvalid), "Invalid hero descriptions");
-
-            return parsedGameStrings;
-        }
-
-        private IEnumerable<Hero> ParseHeroes(ParsedGameStrings parsedGameStrings, Localization localization)
+        private IEnumerable<Hero> ParseHeroes(Localization localization)
         {
             var time = new Stopwatch();
             var parsedHeroes = new ConcurrentDictionary<string, Hero>();
@@ -666,10 +553,16 @@ namespace HeroesData
             Console.WriteLine($"Parsing hero data...");
 
             time.Start();
-            UnitParser unitParser = UnitParser.Load(GameData, OverrideData, HotsBuild);
+
+            UnitParser unitParser = new UnitParser(GameData, OverrideData, HotsBuild);
+            unitParser.Load();
+
+            // gets the default values for hero data
+            DefaultData defaultData = new DefaultData(GameData);
+            defaultData.Load();
 
             // parse the base hero data first
-            HeroParser heroBaseDataParser = new HeroParser(GameData, GameStringData, parsedGameStrings, OverrideData)
+            HeroParser heroBaseDataParser = new HeroParser(GameData, defaultData, OverrideData)
             {
                 HotsBuild = HotsBuild,
                 Localization = localization,
@@ -679,27 +572,27 @@ namespace HeroesData
             Hero baseHeroData = heroBaseDataParser.ParseBaseHero();
             parsedHeroes.GetOrAdd(baseHeroData.CHeroId, baseHeroData);
 
-            Console.Write($"\r{currentCount,6} / {unitParser.CUnitIdByHeroCHeroIds.Count} total heroes");
-            Parallel.ForEach(unitParser.CUnitIdByHeroCHeroIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, hero =>
+            Console.Write($"\r{currentCount,6} / {unitParser.CHeroIds.Count} total heroes");
+            Parallel.ForEach(unitParser.CHeroIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, cHeroId =>
             {
                 try
                 {
-                    HeroParser heroDataParser = new HeroParser(GameData, GameStringData, parsedGameStrings, OverrideData)
+                    HeroParser heroDataParser = new HeroParser(GameData, defaultData, OverrideData)
                     {
                         HotsBuild = HotsBuild,
                         Localization = localization,
                         StormHeroBase = baseHeroData,
                     };
 
-                    parsedHeroes.GetOrAdd(hero.Key, heroDataParser.Parse(hero.Key, hero.Value));
+                    parsedHeroes.GetOrAdd(cHeroId, heroDataParser.Parse(cHeroId));
                 }
                 catch (Exception ex)
                 {
-                    failedParsedHeroes.Add((hero.Key, ex));
+                    failedParsedHeroes.Add((cHeroId, ex));
                 }
                 finally
                 {
-                    Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {unitParser.CUnitIdByHeroCHeroIds.Count} total heroes");
+                    Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {unitParser.CHeroIds.Count} total heroes");
                 }
             });
 
@@ -738,14 +631,14 @@ namespace HeroesData
             return parsedHeroes.Values;
         }
 
-        private IEnumerable<MatchAward> ParseMatchAwards(ParsedGameStrings parsedGameStrings)
+        private IEnumerable<MatchAward> ParseMatchAwards()
         {
             var time = new Stopwatch();
 
             Console.WriteLine($"Parsing award data...");
 
             time.Start();
-            MatchAwardParser awardParser = new MatchAwardParser(GameData, parsedGameStrings, HotsBuild);
+            MatchAwardParser awardParser = new MatchAwardParser(GameData, HotsBuild);
 
             try
             {
