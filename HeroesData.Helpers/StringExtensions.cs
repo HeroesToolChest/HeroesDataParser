@@ -3,7 +3,7 @@
     public static class StringExtensions
     {
         /// <summary>
-        /// Returns a new string in which the first occurence of a specified string is relaced with another specified string.
+        /// Returns a new string in which the first occurence of a specified string is replaced with another specified string.
         /// </summary>
         /// <param name="text"></param>
         /// <param name="oldValue">The string to be replaced.</param>
