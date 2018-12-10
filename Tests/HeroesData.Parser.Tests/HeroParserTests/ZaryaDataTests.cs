@@ -16,7 +16,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         public void AbilityTalentVitalNameOverrideEmptyTest()
         {
             Talent talent = HeroZarya.Talents["ZaryaPainIsTemporary"];
-            Assert.Null(talent.Tooltip.Energy.EnergyTooltip);
+            Assert.True(string.IsNullOrEmpty(talent.Tooltip?.Energy?.EnergyTooltip?.RawDescription));
         }
     }
 }

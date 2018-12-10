@@ -18,6 +18,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Talent talent = HeroMedic.Talents["MedicCellularReactor"];
             Assert.Equal("Cooldown: 45 seconds", talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
             Assert.Equal("Consueme energy to heal", talent.Tooltip.FullTooltip.RawDescription);
+            Assert.True(string.IsNullOrEmpty(talent.Tooltip?.Energy?.EnergyTooltip?.RawDescription));
         }
     }
 }

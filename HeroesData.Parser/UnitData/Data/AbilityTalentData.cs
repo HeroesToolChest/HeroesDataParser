@@ -353,9 +353,20 @@ namespace HeroesData.Parser.UnitData.Data
 
             // check if the life and energy string contain the replacement character
             if (abilityTalentBase.Tooltip.Life?.LifeCostTooltip != null && abilityTalentBase.Tooltip.Life.LifeCostTooltip.RawDescription.Contains(DefaultData.ReplacementCharacter))
-                abilityTalentBase.Tooltip.Life = null;
+                abilityTalentBase.Tooltip.Life.LifeCostTooltip = null;
             if (abilityTalentBase.Tooltip.Energy?.EnergyTooltip != null && abilityTalentBase.Tooltip.Energy.EnergyTooltip.RawDescription.Contains(DefaultData.ReplacementCharacter))
-                abilityTalentBase.Tooltip.Energy = null;
+                abilityTalentBase.Tooltip.Energy.EnergyTooltip = null;
+
+            // tooltip flags
+            IEnumerable<XElement> tooltipFlagsElements = cButtonElement.Elements("TooltipFlags");
+            foreach (XElement tooltipFlag in tooltipFlagsElements)
+            {
+                if (tooltipFlag.Attribute("index")?.Value == "ShowUsage" && tooltipFlag.Attribute("value").Value == "0")
+                {
+                    abilityTalentBase.Tooltip.Life.LifeCostTooltip = null;
+                    abilityTalentBase.Tooltip.Energy.EnergyTooltip = null;
+                }
+            }
         }
 
         private void StormButtonParentLookup(XElement buttonElement, AbilityTalentBase abilityTalentBase, Action<XElement, AbilityTalentBase> methodToExecute)
