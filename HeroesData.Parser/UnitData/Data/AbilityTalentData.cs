@@ -361,7 +361,7 @@ namespace HeroesData.Parser.UnitData.Data
         private void StormButtonParentLookup(XElement buttonElement, AbilityTalentBase abilityTalentBase, Action<XElement, AbilityTalentBase> methodToExecute)
         {
             string parentValue = buttonElement.Attribute("parent")?.Value;
-            if (!string.IsNullOrEmpty(parentValue) && parentValue != DefaultData.StormButtonParentName)
+            if (!string.IsNullOrEmpty(parentValue) && parentValue != DefaultData.CButtonDefaultBaseId)
             {
                 XElement parentElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
                 if (parentElement != null)
@@ -372,7 +372,7 @@ namespace HeroesData.Parser.UnitData.Data
         private void StormButtonParentLookup(XElement buttonElement, Hero hero, AbilityTalentBase abilityTalentBase, Action<XElement, Hero, AbilityTalentBase> methodToExecute)
         {
             string parentValue = buttonElement.Attribute("parent")?.Value;
-            if (!string.IsNullOrEmpty(parentValue) && parentValue != DefaultData.StormButtonParentName)
+            if (!string.IsNullOrEmpty(parentValue) && parentValue != DefaultData.CButtonDefaultBaseId)
             {
                 XElement parentElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
                 if (parentElement != null)

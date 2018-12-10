@@ -56,7 +56,7 @@ namespace HeroesData.Parser.UnitData
             Hero hero = new Hero
             {
                 Name = GameData.GetGameString(DefaultData.HeroName.Replace(DefaultData.IdReplacer, cHeroId)),
-                Description = new TooltipDescription(GameData.GetParsedGameString(DefaultData.Description.Replace(DefaultData.IdReplacer, cHeroId)), Localization),
+                Description = new TooltipDescription(GameData.GetParsedGameString(DefaultData.HeroDescription.Replace(DefaultData.IdReplacer, cHeroId)), Localization),
                 CHeroId = cHeroId,
             };
 
@@ -110,29 +110,29 @@ namespace HeroesData.Parser.UnitData
         private void SetDefaultValues(Hero hero)
         {
             hero.Type = GameData.GetGameString(DefaultData.StringRanged).Trim();
-            hero.Radius = DefaultData.Radius;
-            hero.Speed = DefaultData.Speed;
-            hero.Sight = DefaultData.Sight;
+            hero.Radius = DefaultData.UnitRadius;
+            hero.Speed = DefaultData.UnitSpeed;
+            hero.Sight = DefaultData.UnitSight;
             hero.ReleaseDate = DefaultData.ReleaseDate;
             hero.Gender = HeroGender.Male;
             hero.Franchise = HeroFranchise.Unknown;
-            hero.Life.LifeMax = DefaultData.LifeMax;
+            hero.Life.LifeMax = DefaultData.UnitLifeMax;
             hero.Life.LifeRegenerationRate = 0;
             hero.Energy.EnergyType = GameData.GetGameString(DefaultData.HeroEnergyTypeManaText);
-            hero.Energy.EnergyMax = DefaultData.EnergyMax;
-            hero.Energy.EnergyRegenerationRate = DefaultData.EnergyRegenRate;
+            hero.Energy.EnergyMax = DefaultData.UnitEnergyMax;
+            hero.Energy.EnergyRegenerationRate = DefaultData.UnitEnergyRegenRate;
             hero.Difficulty = GameData.GetGameString(DefaultData.Difficulty.Replace(DefaultData.IdReplacer, DefaultData.DefaultHeroDifficulty)).Trim();
 
             if (hero.CHeroId != null)
             {
-                hero.ShortName = DefaultData.HyperlinkId.Replace(DefaultData.IdReplacer, hero.CHeroId);
-                hero.CUnitId = DefaultData.Unit.Replace(DefaultData.IdReplacer, hero.CHeroId);
+                hero.ShortName = DefaultData.HeroHyperlinkId.Replace(DefaultData.IdReplacer, hero.CHeroId);
+                hero.CUnitId = DefaultData.HeroUnit.Replace(DefaultData.IdReplacer, hero.CHeroId);
 
-                hero.HeroPortrait.HeroSelectPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.SelectScreenButtonImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.LeaderboardPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.LeaderboardImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.LoadingScreenImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.PartyPanelButtonImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.Portrait.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.HeroSelectPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroSelectScreenButtonImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.LeaderboardPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroLeaderboardImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroLoadingScreenImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroPartyPanelButtonImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroPortrait.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
 
                 hero.MountLinkId = "SummonMount";
 

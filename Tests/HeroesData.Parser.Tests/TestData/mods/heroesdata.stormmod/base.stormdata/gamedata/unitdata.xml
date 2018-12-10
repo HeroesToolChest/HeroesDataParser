@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
+  <CUnit default="1">
+    <TauntDoesntStopUnit index="Cheer" value="1" />
+    <TauntDoesntStopUnit index="Dance" value="1" />
+  </CUnit>
   <CUnit default="1" id="StormBasicHeroicUnit">
     <Speed value="4.3984" />
     <Sight value="12" />

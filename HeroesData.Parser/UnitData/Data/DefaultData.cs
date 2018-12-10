@@ -24,7 +24,9 @@ namespace HeroesData.Parser.UnitData.Data
         public const string MatchAwardMapSpecificInstanceNamePrefix = "UserData/EndOfMatchMapSpecificAward/";
         public const string HeroEnergyTypeManaText = "UI/HeroEnergyType/Mana";
 
-        public const string StormButtonParentName = "StormButtonParent";
+        public const string CButtonDefaultBaseId = "StormButtonParent";
+        public const string CUnitDefaultBaseId = "StormHero";
+
         public const string DefaultHeroDifficulty = "Easy";
 
         private readonly GameData GameData;
@@ -47,67 +49,67 @@ namespace HeroesData.Parser.UnitData.Data
         /// <summary>
         /// Gets the default description text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string Description { get; private set; }
+        public string HeroDescription { get; private set; }
 
         /// <summary>
         /// Gets the default life amount.
         /// </summary>
-        public double LifeMax { get; private set; }
+        public double UnitLifeMax { get; private set; }
 
         /// <summary>
         /// Gets the default radius value.
         /// </summary>
-        public double Radius { get; private set; }
+        public double UnitRadius { get; private set; }
 
         /// <summary>
         /// Gets the default speed value.
         /// </summary>
-        public double Speed { get; private set; }
+        public double UnitSpeed { get; private set; }
 
         /// <summary>
         /// Gets the default sight value.
         /// </summary>
-        public double Sight { get; private set; }
+        public double UnitSight { get; private set; }
 
         /// <summary>
         /// Gets the default energy value.
         /// </summary>
-        public double EnergyMax { get; private set; }
+        public double UnitEnergyMax { get; private set; }
 
         /// <summary>
         /// Gets the default energy regeneration rate.
         /// </summary>
-        public double EnergyRegenRate { get; private set; }
+        public double UnitEnergyRegenRate { get; private set; }
 
         /// <summary>
         /// Gets the default portrait text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string Portrait { get; private set; }
+        public string HeroPortrait { get; private set; }
 
         /// <summary>
         /// Gets the default select screen button text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string SelectScreenButtonImage { get; private set; }
+        public string HeroSelectScreenButtonImage { get; private set; }
 
         /// <summary>
         /// Gets the default party panel button image text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string PartyPanelButtonImage { get; private set; }
+        public string HeroPartyPanelButtonImage { get; private set; }
 
         /// <summary>
         /// Gets the default leaderboard image text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string LeaderboardImage { get; private set; }
+        public string HeroLeaderboardImage { get; private set; }
 
         /// <summary>
         /// Gets the default loading screen text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string LoadingScreenImage { get; private set; }
+        public string HeroLoadingScreenImage { get; private set; }
 
         /// <summary>
         /// Gets the default hyperlink id text. Used for shortname. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string HyperlinkId { get; private set; }
+        public string HeroHyperlinkId { get; private set; }
 
         /// <summary>
         /// Gets the default release date value.
@@ -122,7 +124,7 @@ namespace HeroesData.Parser.UnitData.Data
         /// <summary>
         /// Gets the unit text. Contains ##id##. Used to get the cUnitId.
         /// </summary>
-        public string Unit { get; private set; }
+        public string HeroUnit { get; private set; }
 
         /// <summary>
         /// Gets the default hero role text. Contains ##id##.
@@ -148,6 +150,51 @@ namespace HeroesData.Parser.UnitData.Data
         /// Gets the default button tooltip vital text.
         /// </summary>
         public string ButtonTooltipEnergyVitalName { get; private set; }
+
+        /// <summary>
+        /// Gets the default button hotkey text. Contains ##id##.
+        /// </summary>
+        public string ButtonHotkey { get; private set; }
+
+        /// <summary>
+        /// Gets the default button hotkey alias text. Contains ##id##.
+        /// </summary>
+        public string ButtonHotkeyAlias { get; private set; }
+
+        /// <summary>
+        /// Gets the default button tooltip flag - show name.
+        /// </summary>
+        public bool ButtonTooltipFlagShowName { get; private set; }
+
+        /// <summary>
+        /// Gets the default button tooltip flag - show hotkey.
+        /// </summary>
+        public bool ButtonTooltipFlagShowHotkey { get; private set; }
+
+        /// <summary>
+        /// Gets the default button tooltip flag - show usage.
+        /// </summary>
+        public bool ButtonTooltipFlagShowUsage { get; private set; }
+
+        /// <summary>
+        /// Gets the default button tooltip flag - show time.
+        /// </summary>
+        public bool ButtonTooltipFlagShowTime { get; private set; }
+
+        /// <summary>
+        /// Gets the default button tooltip flag - show cooldown.
+        /// </summary>
+        public bool ButtonTooltipFlagShowCooldown { get; private set; }
+
+        /// <summary>
+        /// Gets the default button tooltip flag - show requirements.
+        /// </summary>
+        public bool ButtonTooltipFlagShowRequirements { get; private set; }
+
+        /// <summary>
+        /// Gets the default button tooltip flag - show autocast.
+        /// </summary>
+        public bool ButtonTooltipFlagShowAutocast { get; private set; }
 
         /// <summary>
         /// Gets the defualt weapon name text. Contains ##id##.
@@ -177,6 +224,7 @@ namespace HeroesData.Parser.UnitData.Data
         /// <summary>
         /// Load all default data.
         /// </summary>
+        /// <remarks>Order is important.</remarks>
         public void Load()
         {
             if (GameData == null)
@@ -197,136 +245,239 @@ namespace HeroesData.Parser.UnitData.Data
         }
 
         // <CUnit default="1">
-        // there are two, but second one doesn't have anything useful so get first one only
         private void LoadCUnitDefault()
         {
-            XElement cUnitDefault = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("default")?.Value == "1");
-
-            UnitName = cUnitDefault.Element("Name").Attribute("value").Value;
-            LifeMax = double.Parse(cUnitDefault.Element("LifeMax").Attribute("value").Value);
-            Radius = double.Parse(cUnitDefault.Element("Radius").Attribute("value").Value);
+            CUnitElement(GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CUnit default="1" id="StormBasicHeroicUnit">
         private void LoadCUnitDefaultStormBasicHeroicUnit()
         {
-            XElement cUnitDefaultStormBasicHeroicUnit = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == "StormBasicHeroicUnit");
-
-            Speed = double.Parse(cUnitDefaultStormBasicHeroicUnit.Element("Speed").Attribute("value").Value);
-            Sight = double.Parse(cUnitDefaultStormBasicHeroicUnit.Element("Sight").Attribute("value").Value);
+            CUnitElement(GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == "StormBasicHeroicUnit"));
         }
 
         // <CUnit default="1" id="StormHero" parent="StormBasicHeroicUnit">
         private void LoadCUnitDefaultStormHero()
         {
-            XElement cUnitDefaultStormHero = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == "StormHero");
-
-            EnergyMax = double.Parse(cUnitDefaultStormHero.Element("EnergyMax").Attribute("value").Value);
-            EnergyRegenRate = double.Parse(cUnitDefaultStormHero.Element("EnergyRegenRate").Attribute("value").Value);
+            CUnitElement(GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == CUnitDefaultBaseId));
         }
 
         // <CHero default="1">
         private void LoadCHeroDefault()
         {
-            IEnumerable<XElement> cHeroDefaults = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("default")?.Value == "1");
-
-            foreach (XElement cHeroDefault in cHeroDefaults)
-            {
-                foreach (XElement element in cHeroDefault.Elements())
-                {
-                    string elementName = element.Name.LocalName.ToUpper();
-
-                    if (elementName == "NAME")
-                    {
-                        HeroName = element.Attribute("value").Value;
-                    }
-                    else if (elementName == "DESCRIPTION")
-                    {
-                        Description = element.Attribute("value").Value;
-                    }
-                    else if (elementName == "PORTRAIT")
-                    {
-                        Portrait = element.Attribute("value").Value;
-                    }
-                    else if (elementName == "SELECTSCREENBUTTONIMAGE")
-                    {
-                        SelectScreenButtonImage = element.Attribute("value").Value;
-                    }
-                    else if (elementName == "SCORESCREENIMAGE")
-                    {
-                        LeaderboardImage = element.Attribute("value").Value;
-                    }
-                    else if (elementName == "LOADINGSCREENIMAGE")
-                    {
-                        LoadingScreenImage = element.Attribute("value").Value;
-                    }
-                    else if (elementName == "PARTYPANELBUTTONIMAGE")
-                    {
-                        PartyPanelButtonImage = element.Attribute("value").Value;
-                    }
-                    else if (elementName == "RELEASEDATE")
-                    {
-                        if (!int.TryParse(element.Element("Year").Value, out int year))
-                            year = 2014;
-
-                        if (!int.TryParse(element.Element("Month").Value, out int month))
-                            month = 1;
-
-                        if (!int.TryParse(element.Element("Day").Value, out int day))
-                            day = 1;
-
-                        ReleaseDate = new DateTime(year, month, day);
-                    }
-                    else if (elementName == "UNIT")
-                    {
-                        Unit = element.Attribute("value").Value;
-                    }
-                    else if (elementName == "HYPERLINKID")
-                    {
-                        HyperlinkId = element.Attribute("value").Value;
-                    }
-                }
-            }
+            CHeroElement(GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CHeroRole default="1">
         private void LoadCHeroRoleDefault()
         {
-            XElement cHeroRoleDefault = GameData.XmlGameData.Root.Elements("CHeroRole").FirstOrDefault(x => x.Attribute("default")?.Value == "1");
-
-            HeroRoleName = cHeroRoleDefault.Element("Name").Attribute("value").Value;
+            CHeroRoleElement(GameData.XmlGameData.Root.Elements("CHeroRole").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CButton default="1">
         private void LoadCButtonDefault()
         {
-            XElement cButtonDefault = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("default")?.Value == "1");
-
-            ButtonName = cButtonDefault.Element("Name").Attribute("value").Value;
-            ButtonTooltip = cButtonDefault.Element("Tooltip").Attribute("value").Value;
+            CButtonElement(GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CButton default="1" id="StormButtonParent">
         private void LoadCButtonDefaultStormButtonParent()
         {
-            XElement cButtonDefaultStormButtonParent = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == StormButtonParentName);
-
-            ButtonSimpleDisplayText = cButtonDefaultStormButtonParent.Element("SimpleDisplayText").Attribute("value").Value;
-
-            XElement tooltipVitalNameElement = cButtonDefaultStormButtonParent.Element("TooltipVitalName");
-            if (tooltipVitalNameElement.Attribute("index")?.Value == "Energy")
-                ButtonTooltipEnergyVitalName = tooltipVitalNameElement.Attribute("value").Value;
+            CButtonElement(GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == CButtonDefaultBaseId));
         }
 
         // <CWeapon default="1">
         private void LoadCWeaponDefault()
         {
-            XElement cWeaponDefault = GameData.XmlGameData.Root.Elements("CWeapon").FirstOrDefault(x => x.Attribute("default")?.Value == "1");
+            CWeaponElement(GameData.XmlGameData.Root.Elements("CWeapon").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+        }
 
-            WeaponName = cWeaponDefault.Element("Name").Attribute("value").Value;
-            WeaponDisplayEffect = cWeaponDefault.Element("DisplayEffect").Attribute("value").Value;
-            WeaponRange = double.Parse(cWeaponDefault.Element("Range").Attribute("value").Value);
-            WeaponPeriod = double.Parse(cWeaponDefault.Element("Period").Attribute("value").Value);
+        private void CUnitElement(IEnumerable<XElement> cUnitElements)
+        {
+            foreach (XElement element in cUnitElements.Elements())
+            {
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "NAME")
+                {
+                    UnitName = element.Attribute("value").Value;
+                }
+                else if (elementName == "LIFEMAX")
+                {
+                    UnitLifeMax = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "RADIUS")
+                {
+                    UnitRadius = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "SPEED")
+                {
+                    UnitSpeed = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "SIGHT")
+                {
+                    UnitSight = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "ENERGYMAX")
+                {
+                    UnitEnergyMax = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "ENERGYREGENRATE")
+                {
+                    UnitEnergyRegenRate = double.Parse(element.Attribute("value").Value);
+                }
+            }
+        }
+
+        private void CHeroElement(IEnumerable<XElement> cHeroElements)
+        {
+            foreach (XElement element in cHeroElements.Elements())
+            {
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "NAME")
+                {
+                    HeroName = element.Attribute("value").Value;
+                }
+                else if (elementName == "DESCRIPTION")
+                {
+                    HeroDescription = element.Attribute("value").Value;
+                }
+                else if (elementName == "PORTRAIT")
+                {
+                    HeroPortrait = element.Attribute("value").Value;
+                }
+                else if (elementName == "SELECTSCREENBUTTONIMAGE")
+                {
+                    HeroSelectScreenButtonImage = element.Attribute("value").Value;
+                }
+                else if (elementName == "SCORESCREENIMAGE")
+                {
+                    HeroLeaderboardImage = element.Attribute("value").Value;
+                }
+                else if (elementName == "LOADINGSCREENIMAGE")
+                {
+                    HeroLoadingScreenImage = element.Attribute("value").Value;
+                }
+                else if (elementName == "PARTYPANELBUTTONIMAGE")
+                {
+                    HeroPartyPanelButtonImage = element.Attribute("value").Value;
+                }
+                else if (elementName == "RELEASEDATE")
+                {
+                    if (!int.TryParse(element.Element("Year").Value, out int year))
+                        year = 2014;
+
+                    if (!int.TryParse(element.Element("Month").Value, out int month))
+                        month = 1;
+
+                    if (!int.TryParse(element.Element("Day").Value, out int day))
+                        day = 1;
+
+                    ReleaseDate = new DateTime(year, month, day);
+                }
+                else if (elementName == "UNIT")
+                {
+                    HeroUnit = element.Attribute("value").Value;
+                }
+                else if (elementName == "HYPERLINKID")
+                {
+                    HeroHyperlinkId = element.Attribute("value").Value;
+                }
+            }
+        }
+
+        private void CHeroRoleElement(IEnumerable<XElement> cHeroRoleElements)
+        {
+            foreach (XElement element in cHeroRoleElements.Elements())
+            {
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "NAME")
+                {
+                    HeroRoleName = element.Attribute("value").Value;
+                }
+            }
+        }
+
+        private void CButtonElement(IEnumerable<XElement> cButtonElements)
+        {
+            foreach (XElement element in cButtonElements.Elements())
+            {
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "NAME")
+                {
+                    ButtonName = element.Attribute("value").Value;
+                }
+                else if (elementName == "TOOLTIP")
+                {
+                    ButtonTooltip = element.Attribute("value").Value;
+                }
+                else if (elementName == "HOTKEY")
+                {
+                    ButtonHotkey = element.Attribute("value").Value;
+                }
+                else if (elementName == "HOTKEYALIAS")
+                {
+                    ButtonHotkeyAlias = element.Attribute("value").Value;
+                }
+                else if (elementName == "TOOLTIPFLAGS")
+                {
+                    string index = element.Attribute("index").Value;
+
+                    if (index == "ShowName")
+                        ButtonTooltipFlagShowName = element.Attribute("value").Value == "1" ? true : false;
+                    else if (index == "ShowHotkey")
+                        ButtonTooltipFlagShowHotkey = element.Attribute("value").Value == "1" ? true : false;
+                    else if (index == "ShowUsage")
+                        ButtonTooltipFlagShowUsage = element.Attribute("value").Value == "1" ? true : false;
+                    else if (index == "ShowTime")
+                        ButtonTooltipFlagShowTime = element.Attribute("value").Value == "1" ? true : false;
+                    else if (index == "ShowCooldown")
+                        ButtonTooltipFlagShowCooldown = element.Attribute("value").Value == "1" ? true : false;
+                    else if (index == "ShowRequirements")
+                        ButtonTooltipFlagShowRequirements = element.Attribute("value").Value == "1" ? true : false;
+                    else if (index == "ShowAutocast")
+                        ButtonTooltipFlagShowAutocast = element.Attribute("value").Value == "1" ? true : false;
+                }
+                else if (elementName == "SIMPLEDISPLAYTEXT")
+                {
+                    ButtonSimpleDisplayText = element.Attribute("value").Value;
+                }
+                else if (elementName == "TOOLTIPVITALNAME")
+                {
+                    string index = element.Attribute("index").Value;
+
+                    if (index == "Energy")
+                        ButtonTooltipEnergyVitalName = element.Attribute("value").Value;
+                }
+            }
+        }
+
+        private void CWeaponElement(IEnumerable<XElement> cWeaponElements)
+        {
+            foreach (XElement element in cWeaponElements.Elements())
+            {
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "NAME")
+                {
+                    WeaponName = element.Attribute("value").Value;
+                }
+                else if (elementName == "DISPLAYEFFECT")
+                {
+                    WeaponDisplayEffect = element.Attribute("value").Value;
+                }
+                else if (elementName == "RANGE")
+                {
+                    WeaponRange = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "PERIOD")
+                {
+                    WeaponPeriod = double.Parse(element.Attribute("value").Value);
+                }
+            }
         }
     }
 }
