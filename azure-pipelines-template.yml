@@ -1,0 +1,33 @@
+parameters:
+  name: ''
+  pool: ''
+
+jobs:
+  - job: ${{ parameters.name }}
+    pool: ${{ parameters.pool }}
+    variables:
+      config_debug: debug
+      config_release: release
+    strategy:
+      matrix:
+        Build_Debug:
+          configuration: $(config_debug)
+        Build_Release:
+          configuration: $(config_release)
+    steps:
+    - task: DotNetCoreInstaller@0
+      displayName: dotnet installer 2.2.100
+      inputs:
+        version: '2.2.100'
+        
+    - script: dotnet build -c $(configuration)
+      displayName: Build
+ 
+    - script: dotnet test -c $(configuration) --no-build --logger trx --collect "Code coverage"
+      displayName: Run tests
+      
+    - task: PublishTestResults@2
+      displayName: Publish tests
+      inputs:
+        testRunner: VSTest
+        testResultsFiles: '**/*.trx'
