@@ -88,10 +88,9 @@ namespace HeroesData.Parser.UnitData.Data
 
             if (cButtonElement != null)
             {
-                SetAbilityTalentName(cButtonElement, ability);
-                SetAbilityTalentIcon(cButtonElement, ability);
-                SetTooltipSubInfo(hero, ability.ReferenceNameId, ability);
-                SetTooltipDescriptions(cButtonElement, hero, ability);
+                SetTooltipCostData(hero, ability.ReferenceNameId, ability);
+                SetTooltipDescriptions(ability);
+                SetTooltipOverrideData(cButtonElement, ability);
                 SetTalentIdUpgrades(cButtonElement, ability);
             }
 
@@ -143,9 +142,9 @@ namespace HeroesData.Parser.UnitData.Data
 
             if (cButtonElement != null)
             {
-                SetAbilityTalentIcon(cButtonElement, ability);
-                SetTooltipSubInfo(hero, linkName, ability);
-                SetTooltipDescriptions(cButtonElement, hero, ability);
+                SetTooltipCostData(hero, linkName, ability);
+                SetTooltipDescriptions(ability);
+                SetTooltipOverrideData(cButtonElement, ability);
             }
 
             // add to abilities
@@ -173,10 +172,9 @@ namespace HeroesData.Parser.UnitData.Data
                 // LastOrDefault, since overrides can happen in later xml files
                 XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").LastOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && !string.IsNullOrEmpty(x.Attribute("parent")?.Value));
 
-                SetAbilityTalentName(cButtonElement, ability);
-                SetAbilityTalentIcon(cButtonElement, ability);
-                SetTooltipSubInfo(hero, ability.ReferenceNameId, ability);
-                SetTooltipDescriptions(cButtonElement, hero, ability);
+                SetTooltipCostData(hero, ability.ReferenceNameId, ability);
+                SetTooltipDescriptions(ability);
+                SetTooltipOverrideData(cButtonElement, ability);
 
                 // add ability
                 if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))

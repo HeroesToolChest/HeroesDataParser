@@ -156,6 +156,7 @@ namespace HeroesData.Parser.UnitData
             {
                 string indexValue = vitalName.Attribute("index")?.Value;
                 string valueValue = vitalName.Attribute("value")?.Value;
+
                 if (indexValue == "Energy")
                 {
                     if (GameData.TryGetGameString(valueValue, out string energyType))

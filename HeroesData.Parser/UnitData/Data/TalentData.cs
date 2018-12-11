@@ -59,9 +59,6 @@ namespace HeroesData.Parser.UnitData.Data
                 XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == talent.FullTooltipNameId);
                 if (cButtonElement != null)
                 {
-                    SetAbilityTalentName(cButtonElement, talent);
-                    SetAbilityTalentIcon(cButtonElement, talent);
-
                     XElement talentAbilElement = cTalentElement.Elements("Abil").FirstOrDefault();
                     XElement talentActiveElement = cTalentElement.Elements("Active").FirstOrDefault();
                     if (talentAbilElement != null && talentActiveElement != null)
@@ -69,10 +66,11 @@ namespace HeroesData.Parser.UnitData.Data
                         string effectId = talentAbilElement.Attribute("value").Value;
 
                         if (talentActiveElement.Attribute("value").Value == "1")
-                            SetTooltipSubInfo(hero, effectId, talent);
+                            SetTooltipCostData(hero, effectId, talent);
                     }
 
-                    SetTooltipDescriptions(cButtonElement, hero, talent);
+                    SetTooltipDescriptions(talent);
+                    SetTooltipOverrideData(cButtonElement, talent);
 
                     // if not active, it shouldn't have a cooldown
                     if (talentActiveElement == null)
