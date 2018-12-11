@@ -1,7 +1,6 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
