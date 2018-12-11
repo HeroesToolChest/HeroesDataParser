@@ -36,7 +36,7 @@ jobs:
         testResultsFiles: '**/*.trx'
         
     - ${{ if eq(parameters.artifacts, 'true') }}:
-      - script: dotnet publish -c release --no-build -o .\bin\publish\any\
+      - script: dotnet publish -c release -o .\bin\publish\any\
         displayName: Publish release [fdd]
         
       - script: dotnet pack .\HeroesData\HeroesData.csproj -c release --no-build -o .\bin\nupkg\any\
