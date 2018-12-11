@@ -16,23 +16,5 @@ jobs:
     name: Windows
     pool:
       vmImage: 'vs2017-win2016'
-
-
-
-  # - script: dotnet publish -c release --no-build -o .\bin\publish\any\
-  #   displayName: Publish release [fdd]
-    
-  # - script: dotnet pack .\HeroesData\HeroesData.csproj -c release --no-build -o .\bin\nupkg\any\
-  #   displayName: Nuget pack [fdd]
-    
-  # - script: dotnet publish -c release --self-contained -r win-x86 -o .\bin\publish\win-x86\
-  #   displayName: Publish release [win-x86]
-    
-  # - script: dotnet publish -c release --self-contained -r win-x64 -o .\bin\publish\win-x64\
-  #   displayName: Publish release [win-x64]
-    
-  # - script: dotnet publish -c release --self-contained -r osx-x64 -o .\bin\publish\osx-x64\
-  #   displayName: Publish release [osx-x64]
-    
-  # - script: dotnet publish -c release --self-contained -r linux-x64 -o .\bin\publish\linux-x64\
-  #   displayName: Publish release linux-x64
+    artifacts: true
+      
