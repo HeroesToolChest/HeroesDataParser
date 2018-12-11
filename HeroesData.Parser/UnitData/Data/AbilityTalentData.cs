@@ -361,7 +361,7 @@ namespace HeroesData.Parser.UnitData.Data
                     }
                     else if (index == "ShowCooldown" && element.Attribute("value").Value == "0")
                     {
-                        abilityTalentBase.Tooltip.Cooldown.CooldownTooltip = null;
+                       // ignore, always show the cooldown
                     }
                     else if (index == "ShowRequirements")
                     {
