@@ -75,6 +75,8 @@ namespace HeroesData.Parser.UnitData
 
             AddSubHeroCUnits(hero);
 
+            FinalizeDataChecks(hero);
+
             ApplyOverrides(hero, HeroOverride);
             MoveParentLinkedAbilities(hero);
             MoveParentLinkedWeapons(hero);
@@ -454,6 +456,8 @@ namespace HeroesData.Parser.UnitData
                     SetDefaultValues(heroUnit);
                     CActorData(heroUnit);
                     CUnitData(heroUnit);
+
+                    FinalizeDataChecks(heroUnit);
                 }
 
                 HeroOverride heroOverride = OverrideData.HeroOverride(cUnitId);
@@ -467,6 +471,12 @@ namespace HeroesData.Parser.UnitData
         private void SetBaseHeroData(Hero hero)
         {
             AbilityData.AddAdditionalButtonAbilities(hero);
+        }
+
+        private void FinalizeDataChecks(Hero hero)
+        {
+            if (hero.Life.LifeMax == 1 && hero.Life.LifeRegenerationRate == 0 && hero.Life.LifeRegenerationRateScaling == 0 && hero.Life.LifeScaling == 0)
+                hero.Life.LifeMax = 0;
         }
 
         private void ApplyOverrides(Hero hero, HeroOverride heroOverride)
