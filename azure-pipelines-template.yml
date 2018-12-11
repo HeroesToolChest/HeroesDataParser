@@ -1,6 +1,9 @@
 parameters:
   name: ''
   pool: ''
+  artifacts: false
+  deploy-nuget: false
+  deploy-github: false
 
 jobs:
   - job: ${{ parameters.name }}
@@ -31,3 +34,19 @@ jobs:
       inputs:
         testRunner: VSTest
         testResultsFiles: '**/*.trx'
+        
+    - ${{ if eq(parameters.artifacts, 'true') }}:
+      - script: dotnet publish -c release --no-build -o .\bin\publish\any\
+        displayName: Publish release [fdd]
+        
+      - script: dotnet pack .\HeroesData\HeroesData.csproj -c release --no-build -o .\bin\nupkg\any\
+        displayName: Nuget pack [fdd]
+
+      - script: dotnet publish -c release --self-contained -r win-x64 -o .\bin\publish\win-x64\
+        displayName: Publish release [win-x64]
+    
+      - script: dotnet publish -c release --self-contained -r osx-x64 -o .\bin\publish\osx-x64\
+        displayName: Publish release [osx-x64]
+        
+      - script: dotnet publish -c release --self-contained -r linux-x64 -o .\bin\publish\linux-x64\
+        displayName: Publish release linux-x64
