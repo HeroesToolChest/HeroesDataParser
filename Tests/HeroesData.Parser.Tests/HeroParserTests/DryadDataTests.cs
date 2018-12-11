@@ -1,29 +1,30 @@
 ﻿using Heroes.Models.AbilityTalents;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
+    [TestClass]
     public class DryadDataTests : HeroDataBaseTest
     {
-        [Fact]
+        [TestMethod]
         public void AbilityMountNoCooldownUntilTalentUpgradeTest()
         {
             Ability ability = HeroDryad.Abilities["DryadGallopingGait"];
-            Assert.Empty(ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
+            Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription));
         }
 
-        [Fact]
+        [TestMethod]
         public void TalentCooldownTest()
         {
             Talent talent = HeroDryad.Talents["DryadGallopingGait"];
-            Assert.Equal("Cooldown: 30 seconds", talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
+            Assert.AreEqual("Cooldown: 30 seconds", talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void AbilityTalentLinkIdTest()
         {
             Talent talent = HeroDryad.Talents["DryadHippityHop"];
-            Assert.Contains("DryadGallopingGait", talent.AbilityTalentLinkIds);
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("DryadGallopingGait"));
         }
     }
 }

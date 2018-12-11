@@ -1,14 +1,15 @@
-﻿using System.IO;
-using Xunit;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 
 namespace HeroesData.FileWriter.Tests
 {
+    [TestClass]
     public class JsonTests : FileOutputTestBase
     {
         private readonly string DefaultHeroDataCreatedFile = Path.Combine("output", "json", "heroesdata_enus.json");
         private readonly string DefaultMatchAwardCreatedFile = Path.Combine("output", "json", "awards_enus.json");
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterNoBuildNumberTest()
         {
             FileOutputNoBuildNumber.Localization = Localization;
@@ -16,7 +17,7 @@ namespace HeroesData.FileWriter.Tests
             CompareFile(DefaultHeroDataCreatedFile, "JsonOutputTest.json");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterHasBuildNumberTest()
         {
             FileOutputHasBuildNumber.Localization = Localization;
@@ -24,15 +25,15 @@ namespace HeroesData.FileWriter.Tests
             CompareFile(Path.Combine("output", "json", $"heroesdata_{BuildNumber}_{Localization}.json"), "JsonOutputTest.json");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterNoCreateTest()
         {
             File.Delete(DefaultHeroDataCreatedFile);
             FileOutputHasBuildNumber.CreateJson(false, false);
-            Assert.False(File.Exists(DefaultHeroDataCreatedFile), "heroesdata.json should not have been created");
+            Assert.IsFalse(File.Exists(DefaultHeroDataCreatedFile), "heroesdata.json should not have been created");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterFalseSettingsTest()
         {
             FileOutputFalseSettings.Localization = Localization;
@@ -40,7 +41,7 @@ namespace HeroesData.FileWriter.Tests
             CompareFile(DefaultHeroDataCreatedFile, "JsonOutputFalseSettingsTest.json");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterFileSplitTest()
         {
             FileOutputFileSplit.Localization = Localization;
@@ -49,7 +50,7 @@ namespace HeroesData.FileWriter.Tests
             CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", SplitSubDirectoryHeroes, "Alexstrasza.json"), "Alexstrasza.json");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterOverrideFileSplitTest()
         {
             FileOutputOverrideFileSplit.FileSplit = true;
@@ -58,7 +59,7 @@ namespace HeroesData.FileWriter.Tests
             CompareFile(Path.Combine("output", "json", $"splitfiles-{Localization}", SplitSubDirectoryHeroes, "Alexstrasza.json"), "Alexstrasza.json");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterRawDescriptionTest()
         {
             FileOutputRawDescription.Localization = Localization;
@@ -66,7 +67,7 @@ namespace HeroesData.FileWriter.Tests
             CompareFile(DefaultHeroDataCreatedFile, "JsonOutput0.json");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterPlainTextTest()
         {
             FileOutputPlainText.Localization = Localization;
@@ -74,7 +75,7 @@ namespace HeroesData.FileWriter.Tests
             CompareFile(DefaultHeroDataCreatedFile, "JsonOutput1.json");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterPlainTextWithNewlinesTest()
         {
             FileOutputPlainTextWithNewlines.Localization = Localization;
@@ -82,7 +83,7 @@ namespace HeroesData.FileWriter.Tests
             CompareFile(DefaultHeroDataCreatedFile, "JsonOutput2.json");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterPlainTextWithScalingTest()
         {
             FileOutputPlainTextWithScaling.Localization = Localization;
@@ -91,7 +92,7 @@ namespace HeroesData.FileWriter.Tests
             CompareFile(DefaultHeroDataCreatedFile, "JsonOutput3.json");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterPlainTextWithScalingWithNewlinesTest()
         {
             FileOutputPlainTextWithScalingWithNewlines.Localization = Localization;
@@ -99,7 +100,7 @@ namespace HeroesData.FileWriter.Tests
             CompareFile(DefaultHeroDataCreatedFile, "JsonOutput4.json");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterColoredTextWithScalingTest()
         {
             FileOutputColoredTextWithScaling.Localization = Localization;
@@ -107,7 +108,7 @@ namespace HeroesData.FileWriter.Tests
             CompareFile(DefaultHeroDataCreatedFile, "JsonOutput6.json");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterGameStringLocalizedTests()
         {
             FileOutputGameStringLocalized.Localization = Localization;
@@ -117,7 +118,7 @@ namespace HeroesData.FileWriter.Tests
             CompareFile(Path.Combine("output", "gamestrings-12345", $"gamestrings_{BuildNumber}_{Localization}.txt"), "gamestrings_12345.txt");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterMatchAward()
         {
             FileOutputMatchAwards.Localization = Localization;
@@ -125,7 +126,7 @@ namespace HeroesData.FileWriter.Tests
             CompareFile(DefaultMatchAwardCreatedFile, "JsonOutputMatchAward.json");
         }
 
-        [Fact]
+        [TestMethod]
         public void JsonWriterMatchAwardLocalizedTests()
         {
             FileOutputMatchAwardsLocalized.Localization = Localization;

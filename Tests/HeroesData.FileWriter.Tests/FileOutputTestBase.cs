@@ -1,14 +1,15 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Xunit;
 
 namespace HeroesData.FileWriter.Tests
 {
+    [TestClass]
     public class FileOutputTestBase
     {
         private readonly string OutputPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "output");
@@ -60,18 +61,18 @@ namespace HeroesData.FileWriter.Tests
         protected List<Hero> Heroes { get; set; } = new List<Hero>();
         protected List<MatchAward> MatchAwards { get; set; } = new List<MatchAward>();
 
-        [Fact]
+        [TestMethod]
         public void FileOuputIsEnabledTrueTest()
         {
-            Assert.True(FileOutputNoBuildNumber.IsJsonEnabled);
-            Assert.True(FileOutputNoBuildNumber.IsXmlEnabled);
+            Assert.IsTrue(FileOutputNoBuildNumber.IsJsonEnabled);
+            Assert.IsTrue(FileOutputNoBuildNumber.IsXmlEnabled);
         }
 
-        [Fact]
+        [TestMethod]
         public void FileOuputIsEnabledFalseTest()
         {
-            Assert.False(FileOutputIsEnabledFalse.IsJsonEnabled);
-            Assert.False(FileOutputIsEnabledFalse.IsXmlEnabled);
+            Assert.IsFalse(FileOutputIsEnabledFalse.IsJsonEnabled);
+            Assert.IsFalse(FileOutputIsEnabledFalse.IsXmlEnabled);
         }
 
         protected void CompareFile(string outputFilePath, string testFilePath)
@@ -98,13 +99,13 @@ namespace HeroesData.FileWriter.Tests
                 }
             }
 
-            Assert.Equal(outputTest.Count, output.Count);
+            Assert.AreEqual(outputTest.Count, output.Count);
 
             if (outputTest.Count == output.Count)
             {
                 for (int i = 0; i < outputTest.Count; i++)
                 {
-                    Assert.Equal(outputTest[i], output[i]);
+                    Assert.AreEqual(outputTest[i], output[i]);
                 }
             }
         }

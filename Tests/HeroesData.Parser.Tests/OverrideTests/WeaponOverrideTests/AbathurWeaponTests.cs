@@ -1,7 +1,8 @@
-﻿using Xunit;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.OverrideTests.WeaponOverrideTests
 {
+    [TestClass]
     public class AbathurWeaponTests : OverrideBaseTests, IWeaponOverride
     {
         private readonly string Hero = "Abathur";
@@ -16,22 +17,22 @@ namespace HeroesData.Parser.Tests.OverrideTests.WeaponOverrideTests
 
         protected override string CHeroId => Hero;
 
-        [Fact]
+        [TestMethod]
         public void DamageOverrideTest()
         {
-            Assert.Equal(1000, TestWeapon.Damage);
+            Assert.AreEqual(1000, TestWeapon.Damage);
         }
 
-        [Fact]
+        [TestMethod]
         public void RangeOverrideTest()
         {
-            Assert.Equal(1.5, TestWeapon.Range);
+            Assert.AreEqual(1.5, TestWeapon.Range);
         }
 
-        [Fact]
+        [TestMethod]
         public void WeaponParentLinkOverrideTest()
         {
-            Assert.Equal("LittleLoco", TestWeapon.ParentLink);
+            Assert.AreEqual("LittleLoco", TestWeapon.ParentLink);
         }
     }
 }

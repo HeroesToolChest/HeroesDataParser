@@ -1,8 +1,9 @@
 ﻿using Heroes.Models.AbilityTalents;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.OverrideTests.TalentOverrideTests
 {
+    [TestClass]
     public class AlarakTalentTests : OverrideBaseTests, ITalentOverride
     {
         private readonly string Hero = "Alarak";
@@ -17,10 +18,10 @@ namespace HeroesData.Parser.Tests.OverrideTests.TalentOverrideTests
 
         protected override string CHeroId => Hero;
 
-        [Fact]
+        [TestMethod]
         public void AbilityTypeOverrideTest()
         {
-            Assert.Equal(AbilityType.Z, TestTalent.AbilityType);
+            Assert.AreEqual(AbilityType.Z, TestTalent.AbilityType);
         }
     }
 }

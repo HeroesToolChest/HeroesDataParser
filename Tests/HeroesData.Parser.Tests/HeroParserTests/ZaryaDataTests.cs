@@ -1,22 +1,23 @@
 ﻿using Heroes.Models.AbilityTalents;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
+    [TestClass]
     public class ZaryaDataTests : HeroDataBaseTest
     {
-        [Fact]
+        [TestMethod]
         public void EnergyTests()
         {
-            Assert.Equal(100, HeroZarya.Energy.EnergyMax);
-            Assert.Equal("Energy", HeroZarya.Energy.EnergyType);
+            Assert.AreEqual(100, HeroZarya.Energy.EnergyMax);
+            Assert.AreEqual("Energy", HeroZarya.Energy.EnergyType);
         }
 
-        [Fact]
+        [TestMethod]
         public void AbilityTalentVitalNameOverrideEmptyTest()
         {
             Talent talent = HeroZarya.Talents["ZaryaPainIsTemporary"];
-            Assert.True(string.IsNullOrEmpty(talent.Tooltip?.Energy?.EnergyTooltip?.RawDescription));
+            Assert.IsTrue(string.IsNullOrEmpty(talent.Tooltip?.Energy?.EnergyTooltip?.RawDescription));
         }
     }
 }

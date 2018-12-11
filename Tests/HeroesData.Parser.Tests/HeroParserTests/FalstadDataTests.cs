@@ -1,213 +1,214 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using Xunit;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
+    [TestClass]
     public class FalstadDataTests : HeroDataBaseTest
     {
-        [Fact]
+        [TestMethod]
         public void BasicAbilitiesTests()
         {
             Ability ability = HeroFalstad.Abilities["FalstadHammerang"];
-            Assert.Equal(AbilityTier.Basic, ability.Tier);
-            Assert.Equal("FalstadHammerang", ability.ReferenceNameId);
-            Assert.Equal("Hammerang", ability.Name);
-            Assert.Equal("FalstadHammerang", ability.ShortTooltipNameId);
-            Assert.Equal("FalstadHammerang", ability.FullTooltipNameId);
-            Assert.Equal("storm_ui_icon_falstad_hammerang.dds", ability.IconFileName);
-            Assert.Equal(AbilityType.Q, ability.AbilityType);
+            Assert.AreEqual(AbilityTier.Basic, ability.Tier);
+            Assert.AreEqual("FalstadHammerang", ability.ReferenceNameId);
+            Assert.AreEqual("Hammerang", ability.Name);
+            Assert.AreEqual("FalstadHammerang", ability.ShortTooltipNameId);
+            Assert.AreEqual("FalstadHammerang", ability.FullTooltipNameId);
+            Assert.AreEqual("storm_ui_icon_falstad_hammerang.dds", ability.IconFileName);
+            Assert.AreEqual(AbilityType.Q, ability.AbilityType);
 
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 70</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
-            Assert.Equal("Cooldown: 10 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
-            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Life.LifeCostTooltip?.RawDescription));
-            Assert.Null(ability.Tooltip.Charges.CountMax);
+            Assert.AreEqual("<s val=\"StandardTooltipDetails\">Mana: 70</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
+            Assert.AreEqual("Cooldown: 10 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
+            Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Life.LifeCostTooltip?.RawDescription));
+            Assert.IsNull(ability.Tooltip.Charges.CountMax);
 
-            Assert.Equal("Throw out a Hammer that returns. Hammer slows and damages enemies", ability.Tooltip.ShortTooltip.RawDescription);
-            Assert.Equal("Throw out a Hammer that returns to Falstad, dealing <c val=\"#TooltipNumbers\">121~~0.04~~</c> damage and slowing enemies by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2</c> seconds.", ability.Tooltip.FullTooltip.RawDescription);
+            Assert.AreEqual("Throw out a Hammer that returns. Hammer slows and damages enemies", ability.Tooltip.ShortTooltip.RawDescription);
+            Assert.AreEqual("Throw out a Hammer that returns to Falstad, dealing <c val=\"#TooltipNumbers\">121~~0.04~~</c> damage and slowing enemies by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2</c> seconds.", ability.Tooltip.FullTooltip.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void BasicDataTests()
         {
-            Assert.Equal("Falstad", HeroFalstad.Name);
-            Assert.Equal("Falstad", HeroFalstad.CHeroId);
-            Assert.Equal("HeroFalstad", HeroFalstad.CUnitId);
-            Assert.Equal("Fals", HeroFalstad.AttributeId);
-            Assert.Equal("Medium", HeroFalstad.Difficulty);
-            Assert.Equal(HeroFranchise.Warcraft, HeroFalstad.Franchise);
-            Assert.Equal(HeroGender.Male, HeroFalstad.Gender);
-            Assert.Equal(0.9375, HeroFalstad.InnerRadius);
-            Assert.Equal(0.9375, HeroFalstad.Radius);
-            Assert.Equal("2014-03-13", HeroFalstad.ReleaseDate.Value.ToString("yyyy-MM-dd"));
-            Assert.Equal(12.0, HeroFalstad.Sight);
-            Assert.Equal(4.3984, HeroFalstad.Speed);
-            Assert.Equal("Ranged", HeroFalstad.Type);
-            Assert.Equal(HeroRarity.Epic, HeroFalstad.Rarity);
-            Assert.Equal("An Assassin that can fly large distances, excelling on large battlegrounds.", HeroFalstad.Description.RawDescription);
+            Assert.AreEqual("Falstad", HeroFalstad.Name);
+            Assert.AreEqual("Falstad", HeroFalstad.CHeroId);
+            Assert.AreEqual("HeroFalstad", HeroFalstad.CUnitId);
+            Assert.AreEqual("Fals", HeroFalstad.AttributeId);
+            Assert.AreEqual("Medium", HeroFalstad.Difficulty);
+            Assert.AreEqual(HeroFranchise.Warcraft, HeroFalstad.Franchise);
+            Assert.AreEqual(HeroGender.Male, HeroFalstad.Gender);
+            Assert.AreEqual(0.9375, HeroFalstad.InnerRadius);
+            Assert.AreEqual(0.9375, HeroFalstad.Radius);
+            Assert.AreEqual("2014-03-13", HeroFalstad.ReleaseDate.Value.ToString("yyyy-MM-dd"));
+            Assert.AreEqual(12.0, HeroFalstad.Sight);
+            Assert.AreEqual(4.3984, HeroFalstad.Speed);
+            Assert.AreEqual("Ranged", HeroFalstad.Type);
+            Assert.AreEqual(HeroRarity.Epic, HeroFalstad.Rarity);
+            Assert.AreEqual("An Assassin that can fly large distances, excelling on large battlegrounds.", HeroFalstad.Description.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void EnergyTests()
         {
-            Assert.Equal(500, HeroFalstad.Energy.EnergyMax);
-            Assert.Equal("Mana", HeroFalstad.Energy.EnergyType);
-            Assert.Equal(3.0, HeroFalstad.Energy.EnergyRegenerationRate);
+            Assert.AreEqual(500, HeroFalstad.Energy.EnergyMax);
+            Assert.AreEqual("Mana", HeroFalstad.Energy.EnergyType);
+            Assert.AreEqual(3.0, HeroFalstad.Energy.EnergyRegenerationRate);
         }
 
-        [Fact]
+        [TestMethod]
         public void HeroicAbilitiesTests()
         {
             Ability ability = HeroFalstad.Abilities["FalstadHinterlandBlast"];
-            Assert.Equal(AbilityTier.Heroic, ability.Tier);
-            Assert.Equal("FalstadHinterlandBlast", ability.ReferenceNameId);
-            Assert.Equal("Hinterland Blast", ability.Name);
-            Assert.Equal("FalstadHinterlandBlast", ability.ShortTooltipNameId);
-            Assert.Equal("FalstadHinterlandBlast", ability.FullTooltipNameId);
-            Assert.Equal("storm_ui_icon_falstad_hinterlandblast.dds", ability.IconFileName);
+            Assert.AreEqual(AbilityTier.Heroic, ability.Tier);
+            Assert.AreEqual("FalstadHinterlandBlast", ability.ReferenceNameId);
+            Assert.AreEqual("Hinterland Blast", ability.Name);
+            Assert.AreEqual("FalstadHinterlandBlast", ability.ShortTooltipNameId);
+            Assert.AreEqual("FalstadHinterlandBlast", ability.FullTooltipNameId);
+            Assert.AreEqual("storm_ui_icon_falstad_hinterlandblast.dds", ability.IconFileName);
 
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 100</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
-            Assert.Equal("Mana: 100", ability.Tooltip.Energy.EnergyTooltip?.PlainText);
-            Assert.Equal("Cooldown: 120 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
-            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Life.LifeCostTooltip?.RawDescription));
-            Assert.Null(ability.Tooltip.Charges.CountMax);
+            Assert.AreEqual("<s val=\"StandardTooltipDetails\">Mana: 100</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
+            Assert.AreEqual("Mana: 100", ability.Tooltip.Energy.EnergyTooltip?.PlainText);
+            Assert.AreEqual("Cooldown: 120 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
+            Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Life.LifeCostTooltip?.RawDescription));
+            Assert.IsNull(ability.Tooltip.Charges.CountMax);
 
-            Assert.Equal("Long range damage beam", ability.Tooltip.ShortTooltip.RawDescription);
-            Assert.Equal("After <c val=\"#TooltipNumbers\">1</c> second, deal <c val=\"#TooltipNumbers\">475~~0.0475~~</c> damage to enemies within a long line. The cooldown is reduced by <c val=\"#TooltipNumbers\">25</c> seconds for every enemy Hero hit.", ability.Tooltip.FullTooltip.RawDescription);
+            Assert.AreEqual("Long range damage beam", ability.Tooltip.ShortTooltip.RawDescription);
+            Assert.AreEqual("After <c val=\"#TooltipNumbers\">1</c> second, deal <c val=\"#TooltipNumbers\">475~~0.0475~~</c> damage to enemies within a long line. The cooldown is reduced by <c val=\"#TooltipNumbers\">25</c> seconds for every enemy Hero hit.", ability.Tooltip.FullTooltip.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void LifeTests()
         {
-            Assert.Equal(1365.0, HeroFalstad.Life.LifeMax);
-            Assert.Equal(0.04, HeroFalstad.Life.LifeScaling);
-            Assert.Equal(2.8437, HeroFalstad.Life.LifeRegenerationRate);
-            Assert.Equal(0.04, HeroFalstad.Life.LifeRegenerationRateScaling);
+            Assert.AreEqual(1365.0, HeroFalstad.Life.LifeMax);
+            Assert.AreEqual(0.04, HeroFalstad.Life.LifeScaling);
+            Assert.AreEqual(2.8437, HeroFalstad.Life.LifeRegenerationRate);
+            Assert.AreEqual(0.04, HeroFalstad.Life.LifeRegenerationRateScaling);
         }
 
-        [Fact]
+        [TestMethod]
         public void MountAbilitiesTests()
         {
             Ability ability = HeroFalstad.Abilities["FalstadFlight"];
-            Assert.Equal(AbilityTier.Mount, ability.Tier);
-            Assert.Equal("FalstadFlight", ability.ReferenceNameId);
-            Assert.Equal("Flight", ability.Name);
-            Assert.Equal("FalstadFlight", ability.ShortTooltipNameId);
-            Assert.Equal("FalstadFlight", ability.FullTooltipNameId);
-            Assert.Equal("storm_ui_icon_falstad_mount.dds", ability.IconFileName);
+            Assert.AreEqual(AbilityTier.Mount, ability.Tier);
+            Assert.AreEqual("FalstadFlight", ability.ReferenceNameId);
+            Assert.AreEqual("Flight", ability.Name);
+            Assert.AreEqual("FalstadFlight", ability.ShortTooltipNameId);
+            Assert.AreEqual("FalstadFlight", ability.FullTooltipNameId);
+            Assert.AreEqual("storm_ui_icon_falstad_mount.dds", ability.IconFileName);
 
-            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyTooltip?.RawDescription));
-            Assert.Equal("Cooldown: 55 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
-            Assert.Null(ability.Tooltip.Charges.CountMax);
+            Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyTooltip?.RawDescription));
+            Assert.AreEqual("Cooldown: 55 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
+            Assert.IsNull(ability.Tooltip.Charges.CountMax);
 
-            Assert.Equal("Instead of mounting, Falstad can fly a great distance over terrain", ability.Tooltip.ShortTooltip.RawDescription);
-            Assert.Equal("Instead of mounting, Falstad can fly a great distance over terrain.", ability.Tooltip.FullTooltip.RawDescription);
+            Assert.AreEqual("Instead of mounting, Falstad can fly a great distance over terrain", ability.Tooltip.ShortTooltip.RawDescription);
+            Assert.AreEqual("Instead of mounting, Falstad can fly a great distance over terrain.", ability.Tooltip.FullTooltip.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void PortraitsTests()
         {
-            Assert.Equal("storm_ui_ingame_heroselect_btn_gryphon_rider.dds", HeroFalstad.HeroPortrait.HeroSelectPortraitFileName);
-            Assert.Equal("storm_ui_ingame_hero_leaderboard_falstad.dds", HeroFalstad.HeroPortrait.LeaderboardPortraitFileName);
-            Assert.Equal("storm_ui_ingame_hero_loadingscreen_falstad.dds", HeroFalstad.HeroPortrait.LoadingScreenPortraitFileName);
-            Assert.Equal("storm_ui_ingame_partypanel_btn_falstad.dds", HeroFalstad.HeroPortrait.PartyPanelPortraitFileName);
-            Assert.Equal("ui_targetportrait_hero_falstad.dds", HeroFalstad.HeroPortrait.TargetPortraitFileName);
+            Assert.AreEqual("storm_ui_ingame_heroselect_btn_gryphon_rider.dds", HeroFalstad.HeroPortrait.HeroSelectPortraitFileName);
+            Assert.AreEqual("storm_ui_ingame_hero_leaderboard_falstad.dds", HeroFalstad.HeroPortrait.LeaderboardPortraitFileName);
+            Assert.AreEqual("storm_ui_ingame_hero_loadingscreen_falstad.dds", HeroFalstad.HeroPortrait.LoadingScreenPortraitFileName);
+            Assert.AreEqual("storm_ui_ingame_partypanel_btn_falstad.dds", HeroFalstad.HeroPortrait.PartyPanelPortraitFileName);
+            Assert.AreEqual("ui_targetportrait_hero_falstad.dds", HeroFalstad.HeroPortrait.TargetPortraitFileName);
         }
 
-        [Fact]
+        [TestMethod]
         public void RatingsTests()
         {
-            Assert.Equal(5.0, HeroFalstad.Ratings.Complexity);
-            Assert.Equal(8.0, HeroFalstad.Ratings.Damage);
-            Assert.Equal(4.0, HeroFalstad.Ratings.Survivability);
-            Assert.Equal(4.0, HeroFalstad.Ratings.Utility);
+            Assert.AreEqual(5.0, HeroFalstad.Ratings.Complexity);
+            Assert.AreEqual(8.0, HeroFalstad.Ratings.Damage);
+            Assert.AreEqual(4.0, HeroFalstad.Ratings.Survivability);
+            Assert.AreEqual(4.0, HeroFalstad.Ratings.Utility);
         }
 
-        [Fact]
+        [TestMethod]
         public void RolesTests()
         {
-            Assert.Equal(1, HeroFalstad.Roles.Count);
-            Assert.Equal("Assassin", HeroFalstad.Roles[0]);
+            Assert.AreEqual(1, HeroFalstad.Roles.Count);
+            Assert.AreEqual("Assassin", HeroFalstad.Roles[0]);
         }
 
-        [Fact]
+        [TestMethod]
         public void TalentTests()
         {
             // Secret Weapon
             Talent talent = HeroFalstad.Talents["FalstadMasteryHammerangSecretWeapon"];
-            Assert.Equal(TalentTier.Level7, talent.Tier);
-            Assert.Equal("FalstadMasteryHammerangSecretWeapon", talent.ReferenceNameId);
-            Assert.Equal("Secret Weapon", talent.Name);
-            Assert.Equal("FalstadSecretWeaponTalent", talent.ShortTooltipNameId);
-            Assert.Equal("FalstadSecretWeaponTalent", talent.FullTooltipNameId);
-            Assert.Equal("storm_ui_icon_falstad_hammerang.dds", talent.IconFileName);
-            Assert.Equal(AbilityType.Q, talent.AbilityType);
+            Assert.AreEqual(TalentTier.Level7, talent.Tier);
+            Assert.AreEqual("FalstadMasteryHammerangSecretWeapon", talent.ReferenceNameId);
+            Assert.AreEqual("Secret Weapon", talent.Name);
+            Assert.AreEqual("FalstadSecretWeaponTalent", talent.ShortTooltipNameId);
+            Assert.AreEqual("FalstadSecretWeaponTalent", talent.FullTooltipNameId);
+            Assert.AreEqual("storm_ui_icon_falstad_hammerang.dds", talent.IconFileName);
+            Assert.AreEqual(AbilityType.Q, talent.AbilityType);
 
-            Assert.True(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyTooltip?.RawDescription));
-            Assert.True(string.IsNullOrEmpty(talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription));
-            Assert.Null(talent.Tooltip.Charges.CountMax);
+            Assert.IsTrue(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyTooltip?.RawDescription));
+            Assert.IsTrue(string.IsNullOrEmpty(talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription));
+            Assert.IsNull(talent.Tooltip.Charges.CountMax);
 
-            Assert.Equal("Increases Hammerang range, Basic Attack damage", talent.Tooltip.ShortTooltip.RawDescription);
-            Assert.Equal("Increases Hammerang's range by <c val=\"#TooltipNumbers\">30%</c> and Basic Attacks deal <c val=\"#TooltipNumbers\">60%</c> bonus damage while Hammerang is in flight.", talent.Tooltip.FullTooltip.RawDescription);
+            Assert.AreEqual("Increases Hammerang range, Basic Attack damage", talent.Tooltip.ShortTooltip.RawDescription);
+            Assert.AreEqual("Increases Hammerang's range by <c val=\"#TooltipNumbers\">30%</c> and Basic Attacks deal <c val=\"#TooltipNumbers\">60%</c> bonus damage while Hammerang is in flight.", talent.Tooltip.FullTooltip.RawDescription);
 
-            Assert.Equal(1, talent.Column);
-            Assert.Equal(new List<string>() { "FalstadHammerang" }, talent.AbilityTalentLinkIds);
+            Assert.AreEqual(1, talent.Column);
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("FalstadHammerang"));
 
             // Wingman
             talent = HeroFalstad.Talents["FalstadWingman"];
-            Assert.Equal(TalentTier.Level1, talent.Tier);
-            Assert.Equal("FalstadWingman", talent.ReferenceNameId);
-            Assert.Equal("Wingman", talent.Name);
-            Assert.Equal("FalstadWingmanHotbarTalent", talent.ShortTooltipNameId);
-            Assert.Equal("FalstadWingmanHotbarTalent", talent.FullTooltipNameId);
-            Assert.Equal("storm_ui_icon_talent_bribe.dds", talent.IconFileName);
-            Assert.Equal(AbilityType.Active, talent.AbilityType);
-            Assert.True(talent.IsActive);
+            Assert.AreEqual(TalentTier.Level1, talent.Tier);
+            Assert.AreEqual("FalstadWingman", talent.ReferenceNameId);
+            Assert.AreEqual("Wingman", talent.Name);
+            Assert.AreEqual("FalstadWingmanHotbarTalent", talent.ShortTooltipNameId);
+            Assert.AreEqual("FalstadWingmanHotbarTalent", talent.FullTooltipNameId);
+            Assert.AreEqual("storm_ui_icon_talent_bribe.dds", talent.IconFileName);
+            Assert.AreEqual(AbilityType.Active, talent.AbilityType);
+            Assert.IsTrue(talent.IsActive);
 
-            Assert.True(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyTooltip?.RawDescription));
-            Assert.Null(talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
-            Assert.Equal(4, talent.Tooltip.Charges.CountMax);
-            Assert.Null(talent.Tooltip.Charges.CountStart);
-            Assert.Equal(1, talent.Tooltip.Charges.CountUse);
-            Assert.True(talent.Tooltip.Charges.HasCharges);
-            Assert.Null(talent.Tooltip.Charges.IsHideCount);
+            Assert.IsTrue(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyTooltip?.RawDescription));
+            Assert.IsNull(talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
+            Assert.AreEqual(4, talent.Tooltip.Charges.CountMax);
+            Assert.IsNull(talent.Tooltip.Charges.CountStart);
+            Assert.AreEqual(1, talent.Tooltip.Charges.CountUse);
+            Assert.IsTrue(talent.Tooltip.Charges.HasCharges);
+            Assert.IsNull(talent.Tooltip.Charges.IsHideCount);
 
             // Hinterland Blast
             talent = HeroFalstad.Talents["FalstadHeroicAbilityHinterlandBlast"];
-            Assert.Equal(new List<string>() { "FalstadHinterlandBlast" }, talent.AbilityTalentLinkIds);
-            Assert.True(talent.IsActive);
-            Assert.Equal(AbilityType.Heroic, talent.AbilityType);
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("FalstadHinterlandBlast"));
+            Assert.IsTrue(talent.IsActive);
+            Assert.AreEqual(AbilityType.Heroic, talent.AbilityType);
         }
 
-        [Fact]
+        [TestMethod]
         public void TraitAbilitiesTests()
         {
             Ability ability = HeroFalstad.Abilities["FalstadTailwind"];
-            Assert.Equal(AbilityTier.Trait, ability.Tier);
-            Assert.Equal("FalstadTailwind", ability.ReferenceNameId);
-            Assert.Equal("Tailwind", ability.Name);
-            Assert.Equal("FalstadTailwind", ability.ShortTooltipNameId);
-            Assert.Equal("FalstadTailwind", ability.FullTooltipNameId);
-            Assert.Equal("storm_ui_icon_falstad_tailwind.dds", ability.IconFileName);
+            Assert.AreEqual(AbilityTier.Trait, ability.Tier);
+            Assert.AreEqual("FalstadTailwind", ability.ReferenceNameId);
+            Assert.AreEqual("Tailwind", ability.Name);
+            Assert.AreEqual("FalstadTailwind", ability.ShortTooltipNameId);
+            Assert.AreEqual("FalstadTailwind", ability.FullTooltipNameId);
+            Assert.AreEqual("storm_ui_icon_falstad_tailwind.dds", ability.IconFileName);
 
-            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyTooltip?.RawDescription));
-            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription));
-            Assert.Null(ability.Tooltip.Charges.CountMax);
+            Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyTooltip?.RawDescription));
+            Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription));
+            Assert.IsNull(ability.Tooltip.Charges.CountMax);
 
-            Assert.Equal("After not taking damage for a brief period, gain increased Movement Speed", ability.Tooltip.ShortTooltip.RawDescription);
-            Assert.Equal("Gain <c val=\"#TooltipNumbers\">15%</c> increased Movement Speed after not taking damage for <c val=\"#TooltipNumbers\">6</c> seconds.", ability.Tooltip.FullTooltip.RawDescription);
+            Assert.AreEqual("After not taking damage for a brief period, gain increased Movement Speed", ability.Tooltip.ShortTooltip.RawDescription);
+            Assert.AreEqual("Gain <c val=\"#TooltipNumbers\">15%</c> increased Movement Speed after not taking damage for <c val=\"#TooltipNumbers\">6</c> seconds.", ability.Tooltip.FullTooltip.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void WeaponTests()
         {
-            Assert.Equal(1, HeroFalstad.Weapons.Count);
-            Assert.Equal("HeroFalstad", HeroFalstad.Weapons[0].WeaponNameId);
-            Assert.Equal(5.5, HeroFalstad.Weapons[0].Range);
-            Assert.Equal(0.7, HeroFalstad.Weapons[0].Period);
-            Assert.Equal(104.0, HeroFalstad.Weapons[0].Damage);
-            Assert.Equal(0.04, HeroFalstad.Weapons[0].DamageScaling);
+            Assert.AreEqual(1, HeroFalstad.Weapons.Count);
+            Assert.AreEqual("HeroFalstad", HeroFalstad.Weapons[0].WeaponNameId);
+            Assert.AreEqual(5.5, HeroFalstad.Weapons[0].Range);
+            Assert.AreEqual(0.7, HeroFalstad.Weapons[0].Period);
+            Assert.AreEqual(104.0, HeroFalstad.Weapons[0].Damage);
+            Assert.AreEqual(0.04, HeroFalstad.Weapons[0].DamageScaling);
         }
     }
 }

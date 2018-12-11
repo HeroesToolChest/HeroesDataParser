@@ -2,13 +2,14 @@
 using Heroes.Models.AbilityTalents;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.UnitData.Overrides;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Xunit;
 
 namespace HeroesData.Parser.Tests.OverrideTests
 {
+    [TestClass]
     public abstract class OverrideBaseTests
     {
         private const string TestDataFolder = "TestData";
@@ -32,10 +33,10 @@ namespace HeroesData.Parser.Tests.OverrideTests
         protected UnitWeapon TestWeapon { get; } = new UnitWeapon();
         protected HeroPortrait TestPortrait { get; } = new HeroPortrait();
 
-        [Fact]
+        [TestMethod]
         public void HeroIdDoesntExistTest()
         {
-            Assert.Null(OverrideData.HeroOverride("KaboomBaby"));
+            Assert.IsNull(OverrideData.HeroOverride("KaboomBaby"));
         }
 
         protected void LoadOverrideIntoTestAbility(string abilityName)

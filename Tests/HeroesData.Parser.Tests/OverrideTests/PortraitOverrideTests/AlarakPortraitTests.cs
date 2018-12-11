@@ -1,7 +1,8 @@
-﻿using Xunit;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.OverrideTests.PortraitOverrideTests
 {
+    [TestClass]
     public class AlarakPortraitTests : OverrideBaseTests, IPortraitOverride
     {
         private readonly string Hero = "Alarak";
@@ -16,34 +17,34 @@ namespace HeroesData.Parser.Tests.OverrideTests.PortraitOverrideTests
 
         protected override string CHeroId => Hero;
 
-        [Fact]
+        [TestMethod]
         public void HeroSelectPortraitOverrideTest()
         {
-            Assert.Equal("storm_ui_ingame_heroselect_btn_karala.dds", TestPortrait.HeroSelectPortraitFileName);
+            Assert.AreEqual("storm_ui_ingame_heroselect_btn_karala.dds", TestPortrait.HeroSelectPortraitFileName);
         }
 
-        [Fact]
+        [TestMethod]
         public void LeaderboardPortraitOverrideTest()
         {
-            Assert.Equal("storm_ui_ingame_hero_leaderboard_karala.dds", TestPortrait.LeaderboardPortraitFileName);
+            Assert.AreEqual("storm_ui_ingame_hero_leaderboard_karala.dds", TestPortrait.LeaderboardPortraitFileName);
         }
 
-        [Fact]
+        [TestMethod]
         public void LoadingScreenPortraitOverrideTest()
         {
-            Assert.Equal("storm_ui_ingame_hero_loadingscreen_karala.dds", TestPortrait.LoadingScreenPortraitFileName);
+            Assert.AreEqual("storm_ui_ingame_hero_loadingscreen_karala.dds", TestPortrait.LoadingScreenPortraitFileName);
         }
 
-        [Fact]
+        [TestMethod]
         public void PartyPanelPortraitOverrideTest()
         {
-            Assert.Equal("testimage.dds", TestPortrait.PartyPanelPortraitFileName);
+            Assert.AreEqual("testimage.dds", TestPortrait.PartyPanelPortraitFileName);
         }
 
-        [Fact]
+        [TestMethod]
         public void TargetPortraitOverrideTest()
         {
-            Assert.Equal("ui_targetportrait_hero_karala.dds", TestPortrait.TargetPortraitFileName);
+            Assert.AreEqual("ui_targetportrait_hero_karala.dds", TestPortrait.TargetPortraitFileName);
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using Heroes.Models.AbilityTalents;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.OverrideTests.AbilityOverrideTests
 {
+    [TestClass]
     public class AbathurAbilityTests : OverrideBaseTests, IAbilityOverride
     {
         private readonly string Hero = "Abathur";
@@ -17,22 +18,22 @@ namespace HeroesData.Parser.Tests.OverrideTests.AbilityOverrideTests
 
         protected override string CHeroId => Hero;
 
-        [Fact]
+        [TestMethod]
         public void ParentLinkOverrideTest()
         {
-            Assert.Equal("Symbiote", TestAbility.ParentLink);
+            Assert.AreEqual("Symbiote", TestAbility.ParentLink);
         }
 
-        [Fact]
+        [TestMethod]
         public void AbilityTierOverrideTest()
         {
-            Assert.Equal(AbilityTier.Activable, TestAbility.Tier);
+            Assert.AreEqual(AbilityTier.Activable, TestAbility.Tier);
         }
 
-        [Fact]
+        [TestMethod]
         public void AbilityTypeOverrideTest()
         {
-            Assert.Equal(AbilityType.W, TestAbility.AbilityType);
+            Assert.AreEqual(AbilityType.W, TestAbility.AbilityType);
         }
     }
 }

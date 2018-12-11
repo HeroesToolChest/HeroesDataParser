@@ -1,11 +1,12 @@
 ﻿using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.UnitData.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Reflection;
-using Xunit;
 
 namespace HeroesData.Parser.Tests
 {
+    [TestClass]
     public class GameDataExtensionsTests
     {
         private readonly GameData GameData;
@@ -39,33 +40,33 @@ namespace HeroesData.Parser.Tests
             DefaultData.Load();
         }
 
-        [Fact]
+        [TestMethod]
         public void GetParsedGameStringTests()
         {
-            Assert.Equal(ParsedTooltip1, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AbathurToxicNestEnvenomedNestTalent")));
-            Assert.Equal(ParsedTooltip2, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AbathurSymbioteCarapace")));
-            Assert.Equal(ParsedTooltip3, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AnubarakBurrowChargeEpicenterTalent")));
-            Assert.Equal(ParsedTooltip4, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AnubarakHardenCarapaceShedExoskeletonTalent")));
-            Assert.Equal(ParsedTooltip5, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AnubarakNerubianArmor")));
-            Assert.Equal(ParsedTooltip6, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AzmodanAllShallBurn")));
-            Assert.Equal(ParsedTooltip7, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "LostVikingsVikingBribery")));
-            Assert.Equal(ParsedTooltip8, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "TyraelElDruinsMightHolyGroundTalent")));
-            Assert.Equal(ParsedTooltip9, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "ChenFortifyingBrewBrewmastersBalanceTalent")));
-            Assert.Equal(ParsedTooltip10, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "MuradinAvatar")));
-            Assert.Equal(ParsedTooltip11, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AzmodanDemonicInvasion")));
-            Assert.Equal(ParsedTooltip12, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "DVaBigShotPewPewPew")));
-            Assert.Equal(ParsedTooltip13, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "TyraelRighteousness")));
-            Assert.Equal(ParsedTooltip14, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "DemonHunterMultishot")));
-            Assert.Equal(ParsedTooltip15, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "ZaryaWeaponFeelTheHeatTalent")));
-            Assert.Equal(ParsedTooltip16, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "RagnarosMoltenCore")));
+            Assert.AreEqual(ParsedTooltip1, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AbathurToxicNestEnvenomedNestTalent")));
+            Assert.AreEqual(ParsedTooltip2, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AbathurSymbioteCarapace")));
+            Assert.AreEqual(ParsedTooltip3, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AnubarakBurrowChargeEpicenterTalent")));
+            Assert.AreEqual(ParsedTooltip4, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AnubarakHardenCarapaceShedExoskeletonTalent")));
+            Assert.AreEqual(ParsedTooltip5, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AnubarakNerubianArmor")));
+            Assert.AreEqual(ParsedTooltip6, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AzmodanAllShallBurn")));
+            Assert.AreEqual(ParsedTooltip7, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "LostVikingsVikingBribery")));
+            Assert.AreEqual(ParsedTooltip8, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "TyraelElDruinsMightHolyGroundTalent")));
+            Assert.AreEqual(ParsedTooltip9, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "ChenFortifyingBrewBrewmastersBalanceTalent")));
+            Assert.AreEqual(ParsedTooltip10, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "MuradinAvatar")));
+            Assert.AreEqual(ParsedTooltip11, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AzmodanDemonicInvasion")));
+            Assert.AreEqual(ParsedTooltip12, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "DVaBigShotPewPewPew")));
+            Assert.AreEqual(ParsedTooltip13, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "TyraelRighteousness")));
+            Assert.AreEqual(ParsedTooltip14, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "DemonHunterMultishot")));
+            Assert.AreEqual(ParsedTooltip15, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "ZaryaWeaponFeelTheHeatTalent")));
+            Assert.AreEqual(ParsedTooltip16, GameData.GetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "RagnarosMoltenCore")));
         }
 
-        [Fact]
+        [TestMethod]
         public void TryGetParsedGameStringsTests()
         {
             if (GameData.TryGetParsedGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AbathurToxicNestEnvenomedNestTalent"), out string parsedText))
             {
-                Assert.Equal(ParsedTooltip1, parsedText);
+                Assert.AreEqual(ParsedTooltip1, parsedText);
             }
         }
     }

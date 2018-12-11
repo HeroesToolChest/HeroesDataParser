@@ -1,14 +1,15 @@
 using DDSReader;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SixLabors.ImageSharp;
 using SixLabors.Primitives;
 using System.IO;
-using Xunit;
 
 namespace HeroesData.Tests
 {
+    [TestClass]
     public class ConvertImageTests
     {
-        [Fact]
+        [TestMethod]
         public void DDSToPNGImageTest()
         {
             string file = "storm_ui_icon_nova_orbitalstrike.dds";
@@ -16,10 +17,10 @@ namespace HeroesData.Tests
             DDSImage image = new DDSImage(file);
             image.Save(Path.ChangeExtension(file, ".png"));
 
-            Assert.True(File.Exists(Path.ChangeExtension(file, ".png")));
+            Assert.IsTrue(File.Exists(Path.ChangeExtension(file, ".png")));
         }
 
-        [Fact]
+        [TestMethod]
         public void MVPImageSplitIntoThreeTest()
         {
             string file = "storm_ui_mvp_icons_rewards_loyaldefender.dds";
@@ -30,22 +31,22 @@ namespace HeroesData.Tests
 
             DDSImage image = new DDSImage(file);
 
-            Assert.Equal(148, image.Height);
-            Assert.Equal(444, image.Width);
+            Assert.AreEqual(148, image.Height);
+            Assert.AreEqual(444, image.Width);
 
             int newWidth = 444 / 3;
             image.Save(blueAward, new Point(0, 0), new Size(newWidth, image.Height));
             image.Save(redAward, new Point(newWidth, 0), new Size(newWidth, image.Height));
             image.Save(goldAward, new Point(newWidth * 2, 0), new Size(newWidth, image.Height));
 
-            Assert.True(File.Exists(blueAward));
-            Assert.True(File.Exists(redAward));
-            Assert.True(File.Exists(goldAward));
+            Assert.IsTrue(File.Exists(blueAward));
+            Assert.IsTrue(File.Exists(redAward));
+            Assert.IsTrue(File.Exists(goldAward));
 
             var newImage = Image.Load(blueAward);
 
-            Assert.Equal(148, newImage.Height);
-            Assert.Equal(148, newImage.Width);
+            Assert.AreEqual(148, newImage.Height);
+            Assert.AreEqual(148, newImage.Width);
         }
     }
 }

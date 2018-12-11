@@ -1,17 +1,18 @@
-﻿using System.Runtime.InteropServices;
-using Xunit;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Runtime.InteropServices;
 
 namespace HeroesData.Helpers.Tests
 {
+    [TestClass]
     public class PathExtensionsTests
     {
-        [Fact]
+        [TestMethod]
         public void GetWindowsFilePathTest()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                Assert.Equal(@"test\to\filePath\", PathExtensions.GetFilePath(@"test\to\filePath\"));
+                Assert.AreEqual(@"test\to\filePath\", PathExtensions.GetFilePath(@"test\to\filePath\"));
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                Assert.Equal("test/to/filePath/", PathExtensions.GetFilePath(@"test\to\filePath\"));
+                Assert.AreEqual("test/to/filePath/", PathExtensions.GetFilePath(@"test\to\filePath\"));
         }
     }
 }

@@ -1,15 +1,16 @@
 ﻿using Heroes.Models.AbilityTalents;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
+    [TestClass]
     public class UtherDataTests : HeroDataBaseTest
     {
-        [Fact]
+        [TestMethod]
         public void TalentCooldownTextOverrideShowUsageOff()
         {
             Talent talent = HeroUther.Talents["UtherMasteryBenediction"];
-            Assert.Equal("Cooldown: 60 seconds", talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
+            Assert.AreEqual("Cooldown: 60 seconds", talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
         }
     }
 }

@@ -1,42 +1,43 @@
 ﻿using Heroes.Models.AbilityTalents;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
+    [TestClass]
     public class AurielDataTests : HeroDataBaseTest
     {
-        [Fact]
+        [TestMethod]
         public void BasicPropertiesTests()
         {
-            Assert.Equal("SummonMount", HeroAuriel.MountLinkId);
+            Assert.AreEqual("SummonMount", HeroAuriel.MountLinkId);
         }
 
-        [Fact]
+        [TestMethod]
         public void EnergyTests()
         {
-            Assert.Equal(475, HeroAuriel.Energy.EnergyMax);
-            Assert.Equal("Stored Energy", HeroAuriel.Energy.EnergyType);
+            Assert.AreEqual(475, HeroAuriel.Energy.EnergyMax);
+            Assert.AreEqual("Stored Energy", HeroAuriel.Energy.EnergyType);
         }
 
-        [Fact]
+        [TestMethod]
         public void LifeTests()
         {
-            Assert.Equal(1700, HeroAuriel.Life.LifeMax);
-            Assert.Equal(3.539, HeroAuriel.Life.LifeRegenerationRate);
+            Assert.AreEqual(1700, HeroAuriel.Life.LifeMax);
+            Assert.AreEqual(3.539, HeroAuriel.Life.LifeRegenerationRate);
         }
 
-        [Fact]
+        [TestMethod]
         public void RolesTests()
         {
-            Assert.Equal(1, HeroAuriel.Roles.Count);
-            Assert.Equal("Support", HeroAuriel.Roles[0]);
+            Assert.AreEqual(1, HeroAuriel.Roles.Count);
+            Assert.AreEqual("Support", HeroAuriel.Roles[0]);
         }
 
-        [Fact]
+        [TestMethod]
         public void AbilityEnergyTooltipTextTest()
         {
             Ability ability = HeroAuriel.Abilities["AurielSacredSweep"];
-            Assert.True(string.IsNullOrEmpty(ability.Tooltip.Energy?.EnergyTooltip?.RawDescription));
+            Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Energy?.EnergyTooltip?.RawDescription));
         }
     }
 }

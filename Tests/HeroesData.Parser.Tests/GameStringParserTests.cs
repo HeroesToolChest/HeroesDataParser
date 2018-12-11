@@ -1,11 +1,12 @@
 ﻿using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.GameStrings;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Reflection;
-using Xunit;
 
 namespace HeroesData.Parser.Tests
 {
+    [TestClass]
     public class GameStringParserTests
     {
         private readonly GameStringParser GameStringParser;
@@ -24,20 +25,20 @@ namespace HeroesData.Parser.Tests
             GameStringParser = new GameStringParser(GameData);
         }
 
-        [Fact]
+        [TestMethod]
         public void ParseDataReferenceStringTest()
         {
-            Assert.Equal(60, GameStringParser.ParseDRefString(DataReferenceText1));
+            Assert.AreEqual(60, GameStringParser.ParseDRefString(DataReferenceText1));
         }
 
-        [Fact]
+        [TestMethod]
         public void ParseTooltips()
         {
-            Assert.True(GameStringParser.TryParseRawTooltip("AbathurToxicNestEnvenomedNestTalent", Tooltip1, out string output));
-            Assert.Equal("Toxic Nests deal <c val=\"#TooltipNumbers\">75%</c> more damage over <c val=\"#TooltipNumbers\">3</c> seconds.", output);
+            Assert.IsTrue(GameStringParser.TryParseRawTooltip("AbathurToxicNestEnvenomedNestTalent", Tooltip1, out string output));
+            Assert.AreEqual("Toxic Nests deal <c val=\"#TooltipNumbers\">75%</c> more damage over <c val=\"#TooltipNumbers\">3</c> seconds.", output);
 
-            Assert.True(GameStringParser.TryParseRawTooltip("ZaryaWeaponFeelTheHeatTalent", Tolltip2, out output));
-            Assert.Equal("Zarya's Basic Attack deals <c val=\"#TooltipNumbers\">50%</c> additional damage to enemies in melee range.", output);
+            Assert.IsTrue(GameStringParser.TryParseRawTooltip("ZaryaWeaponFeelTheHeatTalent", Tolltip2, out output));
+            Assert.AreEqual("Zarya's Basic Attack deals <c val=\"#TooltipNumbers\">50%</c> additional damage to enemies in melee range.", output);
         }
     }
 }

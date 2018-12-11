@@ -1,198 +1,199 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
+    [TestClass]
     public class TestHeroDataTests : HeroDataBaseTest
     {
-        [Fact]
+        [TestMethod]
         public void HeroBasicPropertiesTests()
         {
-            Assert.Equal(2.124, HeroTestHero.Speed);
-            Assert.Equal(6.5, HeroTestHero.Sight);
-            Assert.Equal("Support", HeroTestHero.Roles[0]);
-            Assert.Equal(HeroFranchise.Warcraft, HeroTestHero.Franchise);
-            Assert.Equal("TestHeroIllusionMaster", HeroTestHero.MountLinkId);
+            Assert.AreEqual(2.124, HeroTestHero.Speed);
+            Assert.AreEqual(6.5, HeroTestHero.Sight);
+            Assert.AreEqual("Support", HeroTestHero.Roles[0]);
+            Assert.AreEqual(HeroFranchise.Warcraft, HeroTestHero.Franchise);
+            Assert.AreEqual("TestHeroIllusionMaster", HeroTestHero.MountLinkId);
         }
 
-        [Fact]
+        [TestMethod]
         public void HeroEnergyTypeTest()
         {
-            Assert.Equal("Mana", HeroTestHero.Energy.EnergyType);
+            Assert.AreEqual("Mana", HeroTestHero.Energy.EnergyType);
         }
 
-        [Fact]
+        [TestMethod]
         public void AbilityNameOverrideTest()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroBigBoom"];
-            Assert.Equal("Big Boomy Boom", ability.Name);
+            Assert.AreEqual("Big Boomy Boom", ability.Name);
         }
 
-        [Fact]
+        [TestMethod]
         public void TalentChargesTest()
         {
             Talent talent = HeroTestHero.Talents["TestHeroBattleRage"];
-            Assert.Equal(3, talent.Tooltip.Charges.CountMax);
-            Assert.Equal(1, talent.Tooltip.Charges.CountUse);
-            Assert.Null(talent.Tooltip.Charges.CountStart);
-            Assert.Equal("Charge Cooldown: 40 seconds", talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
+            Assert.AreEqual(3, talent.Tooltip.Charges.CountMax);
+            Assert.AreEqual(1, talent.Tooltip.Charges.CountUse);
+            Assert.IsNull(talent.Tooltip.Charges.CountStart);
+            Assert.AreEqual("Charge Cooldown: 40 seconds", talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void AbilityCooldownTest()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroTheHunt"];
-            Assert.Equal("Cooldown: 100 seconds", ability.Tooltip.Cooldown.CooldownTooltip.RawDescription);
+            Assert.AreEqual("Cooldown: 100 seconds", ability.Tooltip.Cooldown.CooldownTooltip.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void TalentCooldownTest()
         {
             Talent talent = HeroTestHero.Talents["TestHeroBattleRage"];
-            Assert.Equal("Charge Cooldown: 40 seconds", talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
+            Assert.AreEqual("Charge Cooldown: 40 seconds", talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void AbilityTooltipOverrideTest()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroNerazimDummy"];
-            Assert.Equal("Nerazim v2", ability.Name);
-            Assert.Equal("storm_ui_icon_testhero_nerazim.dds", ability.IconFileName);
-            Assert.Equal("TestHeroNerazimTalent", ability.ShortTooltipNameId);
-            Assert.Equal("TestHeroNerazimTalent", ability.FullTooltipNameId);
-            Assert.Equal("Gain an extra ability", ability.Tooltip.ShortTooltip.RawDescription);
-            Assert.Equal("Gain an extra ability three times", ability.Tooltip.FullTooltip.RawDescription);
+            Assert.AreEqual("Nerazim v2", ability.Name);
+            Assert.AreEqual("storm_ui_icon_testhero_nerazim.dds", ability.IconFileName);
+            Assert.AreEqual("TestHeroNerazimTalent", ability.ShortTooltipNameId);
+            Assert.AreEqual("TestHeroNerazimTalent", ability.FullTooltipNameId);
+            Assert.AreEqual("Gain an extra ability", ability.Tooltip.ShortTooltip.RawDescription);
+            Assert.AreEqual("Gain an extra ability three times", ability.Tooltip.FullTooltip.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void AbilityIllusionMasterTest()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroIllusionMaster"];
-            Assert.Equal("Illusion Master", ability.Name);
-            Assert.Equal("storm_ui_icon_testhero_illusiondancer.dds", ability.IconFileName);
-            Assert.Equal("TestHeroIllusionMasterTalent", ability.ShortTooltipNameId);
-            Assert.Equal("TestHeroIllusionMasterTalent", ability.FullTooltipNameId);
-            Assert.Equal("Disappear", ability.Tooltip.ShortTooltip.RawDescription);
-            Assert.Equal("Disappear and out of sight", ability.Tooltip.FullTooltip.RawDescription);
+            Assert.AreEqual("Illusion Master", ability.Name);
+            Assert.AreEqual("storm_ui_icon_testhero_illusiondancer.dds", ability.IconFileName);
+            Assert.AreEqual("TestHeroIllusionMasterTalent", ability.ShortTooltipNameId);
+            Assert.AreEqual("TestHeroIllusionMasterTalent", ability.FullTooltipNameId);
+            Assert.AreEqual("Disappear", ability.Tooltip.ShortTooltip.RawDescription);
+            Assert.AreEqual("Disappear and out of sight", ability.Tooltip.FullTooltip.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void AbilityTraitAdvancingStrikesTests()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroAdvancingStrikes"];
-            Assert.Equal("Advancing Strikes", ability.Name);
-            Assert.Equal("storm_ui_icon_testhero_flowingstrikes.dds", ability.IconFileName);
-            Assert.Equal("TestHeroAdvancingStrikes", ability.ShortTooltipNameId);
-            Assert.Equal("TestHeroAdvancingStrikes", ability.FullTooltipNameId);
-            Assert.Equal("Slash Slash", ability.Tooltip.ShortTooltip.RawDescription);
-            Assert.Equal("More slashes, more damage", ability.Tooltip.FullTooltip.RawDescription);
+            Assert.AreEqual("Advancing Strikes", ability.Name);
+            Assert.AreEqual("storm_ui_icon_testhero_flowingstrikes.dds", ability.IconFileName);
+            Assert.AreEqual("TestHeroAdvancingStrikes", ability.ShortTooltipNameId);
+            Assert.AreEqual("TestHeroAdvancingStrikes", ability.FullTooltipNameId);
+            Assert.AreEqual("Slash Slash", ability.Tooltip.ShortTooltip.RawDescription);
+            Assert.AreEqual("More slashes, more damage", ability.Tooltip.FullTooltip.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void AbilityTypesForAbilitiesTests()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroBigBoom"];
-            Assert.Equal(AbilityType.Heroic, ability.AbilityType);
+            Assert.AreEqual(AbilityType.Heroic, ability.AbilityType);
 
             ability = HeroTestHero.Abilities["TestHeroNerazimDummy"];
-            Assert.Equal(AbilityType.W, ability.AbilityType);
+            Assert.AreEqual(AbilityType.W, ability.AbilityType);
 
             ability = HeroTestHero.Abilities["TestHeroIllusionMaster"];
-            Assert.Equal(AbilityType.Z, ability.AbilityType);
+            Assert.AreEqual(AbilityType.Z, ability.AbilityType);
 
             ability = HeroTestHero.Abilities["TestHeroAdvancingStrikes"];
-            Assert.Equal(AbilityType.Trait, ability.AbilityType);
+            Assert.AreEqual(AbilityType.Trait, ability.AbilityType);
 
             ability = HeroTestHero.Abilities["TestHeroActiveAbility"];
-            Assert.Equal(AbilityType.Active, ability.AbilityType);
+            Assert.AreEqual(AbilityType.Active, ability.AbilityType);
 
             ability = HeroTestHero.Abilities["TestUnitStab"];
-            Assert.Equal(AbilityType.E, ability.AbilityType);
+            Assert.AreEqual(AbilityType.E, ability.AbilityType);
 
             ability = HeroTestHero.Abilities["TestUnitCallUnit"];
-            Assert.Equal(AbilityType.W, ability.AbilityType);
+            Assert.AreEqual(AbilityType.W, ability.AbilityType);
 
             ability = HeroTestHero.Abilities["FaerieDragonPolymorph"];
-            Assert.Equal(AbilityType.W, ability.AbilityType);
+            Assert.AreEqual(AbilityType.W, ability.AbilityType);
 
             ability = HeroTestHero.Abilities["TestHeroCriticalStrikeDummy"];
-            Assert.Equal(AbilityType.W, ability.AbilityType);
+            Assert.AreEqual(AbilityType.W, ability.AbilityType);
         }
 
-        [Fact]
+        [TestMethod]
         public void AbilityTypesForTalentsTests()
         {
             Talent talent = HeroTestHero.Talents["TestHeroDismantle"];
-            Assert.Equal(AbilityType.W, talent.AbilityType);
+            Assert.AreEqual(AbilityType.W, talent.AbilityType);
 
             talent = HeroTestHero.Talents["TestHeroFastAttack"];
-            Assert.Equal(AbilityType.Passive, talent.AbilityType);
+            Assert.AreEqual(AbilityType.Passive, talent.AbilityType);
 
             talent = HeroTestHero.Talents["TestHeroSpawnLocusts"];
-            Assert.Equal(AbilityType.Active, talent.AbilityType);
+            Assert.AreEqual(AbilityType.Active, talent.AbilityType);
 
             talent = HeroTestHero.Talents["TestHeroHighlord"];
-            Assert.Equal(AbilityType.Trait, talent.AbilityType);
+            Assert.AreEqual(AbilityType.Trait, talent.AbilityType);
 
             talent = HeroTestHero.Talents["TestHeroMasteredStab"];
-            Assert.Equal(AbilityType.E, talent.AbilityType);
+            Assert.AreEqual(AbilityType.E, talent.AbilityType);
 
             talent = HeroTestHero.Talents["TestHeroMekaFall"];
-            Assert.Equal(AbilityType.W, talent.AbilityType);
+            Assert.AreEqual(AbilityType.W, talent.AbilityType);
         }
 
-        [Fact]
+        [TestMethod]
         public void IsActiveIsQuestForTalentsTests()
         {
             Talent talent = HeroTestHero.Talents["TestHeroBattleRage"];
-            Assert.True(talent.IsActive);
+            Assert.IsTrue(talent.IsActive);
 
             talent = HeroTestHero.Talents["TestHeroHighlord"];
-            Assert.False(talent.IsQuest);
+            Assert.IsFalse(talent.IsQuest);
 
             talent = HeroTestHero.Talents["TestHeroMasteredStab"];
-            Assert.True(talent.IsQuest);
+            Assert.IsTrue(talent.IsQuest);
 
             talent = HeroTestHero.Talents["TestHeroMekaFall"];
-            Assert.False(talent.IsQuest);
+            Assert.IsFalse(talent.IsQuest);
         }
 
-        [Fact]
+        [TestMethod]
         public void OverrideTextTests()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroBigBoom"];
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 10 picks</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
-            Assert.Equal("Cooldown: 20 per second", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
+            Assert.AreEqual("<s val=\"StandardTooltipDetails\">Mana: 10 picks</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
+            Assert.AreEqual("Cooldown: 20 per second", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
 
             ability = HeroTestHero.Abilities["TestHeroBigBoomV2"];
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Health: </s><s val=\"StandardTooltipDetails\">15%</s>", ability.Tooltip.Life.LifeCostTooltip.RawDescription);
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 40</s>", ability.Tooltip.Energy.EnergyTooltip.RawDescription);
+            Assert.AreEqual("<s val=\"StandardTooltipDetails\">Health: </s><s val=\"StandardTooltipDetails\">15%</s>", ability.Tooltip.Life.LifeCostTooltip.RawDescription);
+            Assert.AreEqual("<s val=\"StandardTooltipDetails\">Mana: 40</s>", ability.Tooltip.Energy.EnergyTooltip.RawDescription);
 
             ability = HeroTestHero.Abilities["TestHeroBigBoomV3"];
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Mana: 3</s>", ability.Tooltip.Energy.EnergyTooltip.RawDescription);
-            Assert.Equal("Cooldown: 12 Seconds", ability.Tooltip.Cooldown.CooldownTooltip.RawDescription);
+            Assert.AreEqual("<s val=\"StandardTooltipDetails\">Mana: 3</s>", ability.Tooltip.Energy.EnergyTooltip.RawDescription);
+            Assert.AreEqual("Cooldown: 12 Seconds", ability.Tooltip.Cooldown.CooldownTooltip.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void TalentActiveCooldownOverrideTextTest()
         {
             Talent talent = HeroTestHero.Talents["TestHeroTimeOut"];
-            Assert.Equal("Cooldown: 60 seconds", talent.Tooltip.Cooldown.CooldownTooltip.RawDescription);
+            Assert.AreEqual("Cooldown: 60 seconds", talent.Tooltip.Cooldown.CooldownTooltip.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void HeroAbilArraySetTest()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroEssenseCollection"];
-            Assert.Equal("Cooldown: 5 seconds", ability.Tooltip.Cooldown.CooldownTooltip.RawDescription);
+            Assert.AreEqual("Cooldown: 5 seconds", ability.Tooltip.Cooldown.CooldownTooltip.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void AbilityTalentTooltipShowUsageOffTest()
         {
             Talent talent = HeroTestHero.Talents["TestHeroTheWill"];
-            Assert.Null(talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
+            Assert.IsNull(talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
         }
     }
 }

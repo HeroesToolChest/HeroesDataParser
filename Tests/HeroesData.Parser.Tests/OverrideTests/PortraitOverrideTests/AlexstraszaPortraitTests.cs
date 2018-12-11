@@ -1,7 +1,8 @@
-﻿using Xunit;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.OverrideTests.PortraitOverrideTests
 {
+    [TestClass]
     public class AlexstraszaPortraitTests : OverrideBaseTests, IPortraitOverride
     {
         private readonly string Hero = "Alexstrasza";
@@ -16,34 +17,34 @@ namespace HeroesData.Parser.Tests.OverrideTests.PortraitOverrideTests
 
         protected override string CHeroId => Hero;
 
-        [Fact]
+        [TestMethod]
         public void HeroSelectPortraitOverrideTest()
         {
-            Assert.Equal("storm_ui_ingame_heroselect_btn_firedragon.dds", TestPortrait.HeroSelectPortraitFileName);
+            Assert.AreEqual("storm_ui_ingame_heroselect_btn_firedragon.dds", TestPortrait.HeroSelectPortraitFileName);
         }
 
-        [Fact]
+        [TestMethod]
         public void LeaderboardPortraitOverrideTest()
         {
-            Assert.Equal("storm_ui_ingame_hero_leaderboard_firedragon.dds", TestPortrait.LeaderboardPortraitFileName);
+            Assert.AreEqual("storm_ui_ingame_hero_leaderboard_firedragon.dds", TestPortrait.LeaderboardPortraitFileName);
         }
 
-        [Fact]
+        [TestMethod]
         public void LoadingScreenPortraitOverrideTest()
         {
-            Assert.Equal("storm_ui_ingame_hero_loadingscreen_firedragon.dds", TestPortrait.LoadingScreenPortraitFileName);
+            Assert.AreEqual("storm_ui_ingame_hero_loadingscreen_firedragon.dds", TestPortrait.LoadingScreenPortraitFileName);
         }
 
-        [Fact]
+        [TestMethod]
         public void PartyPanelPortraitOverrideTest()
         {
-            Assert.Equal("storm_ui_ingame_partypanel_btn_firedragon.dds", TestPortrait.PartyPanelPortraitFileName);
+            Assert.AreEqual("storm_ui_ingame_partypanel_btn_firedragon.dds", TestPortrait.PartyPanelPortraitFileName);
         }
 
-        [Fact]
+        [TestMethod]
         public void TargetPortraitOverrideTest()
         {
-            Assert.Equal("ui_targetportrait_hero_firedragon.dds", TestPortrait.TargetPortraitFileName);
+            Assert.AreEqual("ui_targetportrait_hero_firedragon.dds", TestPortrait.TargetPortraitFileName);
         }
     }
 }

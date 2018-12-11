@@ -1,8 +1,9 @@
 ﻿using HeroesData.Parser.UnitData.Overrides;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
 {
+    [TestClass]
     public class AlarakHeroTests : OverrideBaseTests, IHeroOverride
     {
         private readonly string Hero = "Alarak";
@@ -14,88 +15,88 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
 
         protected override string CHeroId => Hero;
 
-        [Fact]
+        [TestMethod]
         public void CUnitOverrideTest()
         {
-            Assert.False(HeroOverride.CUnitOverride.Enabled);
+            Assert.IsFalse(HeroOverride.CUnitOverride.Enabled);
         }
 
-        [Fact]
+        [TestMethod]
         public void EnergyOverrideTest()
         {
-            Assert.True(HeroOverride.EnergyOverride.Enabled);
-            Assert.Equal(0, HeroOverride.EnergyOverride.Energy);
+            Assert.IsTrue(HeroOverride.EnergyOverride.Enabled);
+            Assert.AreEqual(0, HeroOverride.EnergyOverride.Energy);
         }
 
-        [Fact]
+        [TestMethod]
         public void EnergyTypeOverrideTest()
         {
-            Assert.True(HeroOverride.EnergyTypeOverride.Enabled);
-            Assert.Equal("Ammo", HeroOverride.EnergyTypeOverride.EnergyType);
+            Assert.IsTrue(HeroOverride.EnergyTypeOverride.Enabled);
+            Assert.AreEqual("Ammo", HeroOverride.EnergyTypeOverride.EnergyType);
         }
 
-        [Fact]
+        [TestMethod]
         public void IsAddedAbilityTest()
         {
-            Assert.Empty(HeroOverride.AddedAbilitiesByAbilityId);
+            Assert.IsTrue(HeroOverride.AddedAbilitiesByAbilityId.Count == 0);
         }
 
-        [Fact]
+        [TestMethod]
         public void IsValidAbilityTest()
         {
-            Assert.Empty(HeroOverride.IsValidAbilityByAbilityId);
+            Assert.IsTrue(HeroOverride.IsValidAbilityByAbilityId.Count == 0);
         }
 
-        [Fact]
+        [TestMethod]
         public void IsAddedButtonAbilityTest()
         {
-            Assert.Contains("IceBlock", HeroOverride.AddedAbilitiesByButtonId);
+            Assert.IsTrue(HeroOverride.AddedAbilitiesByButtonId.Contains("IceBlock"));
         }
 
-        [Fact]
+        [TestMethod]
         public void IsValidWeaponTest()
         {
-            Assert.Empty(HeroOverride.IsValidWeaponByWeaponId);
+            Assert.IsTrue(HeroOverride.IsValidWeaponByWeaponId.Count == 0);
         }
 
-        [Fact]
+        [TestMethod]
         public void NameOverrideTest()
         {
-            Assert.False(HeroOverride.NameOverride.Enabled);
+            Assert.IsFalse(HeroOverride.NameOverride.Enabled);
         }
 
-        [Fact]
+        [TestMethod]
         public void LinkedAbilitiesTest()
         {
-            Assert.False(HeroOverride.LinkedElementNamesByAbilityId.ContainsKey("AbathurBigAbaSlapSwing"));
-            Assert.False(HeroOverride.LinkedElementNamesByAbilityId.ContainsKey("AbathurBigAbaMeteorLocust"));
+            Assert.IsFalse(HeroOverride.LinkedElementNamesByAbilityId.ContainsKey("AbathurBigAbaSlapSwing"));
+            Assert.IsFalse(HeroOverride.LinkedElementNamesByAbilityId.ContainsKey("AbathurBigAbaMeteorLocust"));
 
-            Assert.Empty(HeroOverride.LinkedElementNamesByAbilityId);
+            Assert.IsTrue(HeroOverride.LinkedElementNamesByAbilityId.Count == 0);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShortNameOverrideTest()
         {
-            Assert.False(HeroOverride.ShortNameOverride.Enabled);
+            Assert.IsFalse(HeroOverride.ShortNameOverride.Enabled);
         }
 
-        [Fact]
+        [TestMethod]
         public void HeroUnitTests()
         {
-            Assert.Empty(HeroOverride.HeroUnits);
+            Assert.IsTrue(HeroOverride.HeroUnits.Count == 0);
         }
 
-        [Fact]
+        [TestMethod]
         public void ParentLinkedOverrideTests()
         {
-            Assert.True(HeroOverride.ParentLinkOverride.Enabled);
-            Assert.Equal(string.Empty, HeroOverride.ParentLinkOverride.ParentLink);
+            Assert.IsTrue(HeroOverride.ParentLinkOverride.Enabled);
+            Assert.AreEqual(string.Empty, HeroOverride.ParentLinkOverride.ParentLink);
         }
 
-        [Fact]
+        [TestMethod]
         public void HeroAbilSetTest()
         {
-            Assert.False(HeroOverride.NewButtonValueByHeroAbilArrayButton.ContainsKey("SnapCollectionStore"));
+            Assert.IsFalse(HeroOverride.NewButtonValueByHeroAbilArrayButton.ContainsKey("SnapCollectionStore"));
         }
     }
 }

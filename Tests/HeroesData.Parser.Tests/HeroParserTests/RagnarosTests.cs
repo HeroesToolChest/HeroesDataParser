@@ -1,24 +1,25 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
+    [TestClass]
     public class RagnarosTests : HeroDataBaseTest
     {
-        [Fact]
+        [TestMethod]
         public void HeroUnitTests()
         {
-            Assert.Equal(1, HeroRagnaros.HeroUnits.Count);
+            Assert.AreEqual(1, HeroRagnaros.HeroUnits.Count);
 
             Unit unit = HeroRagnaros.HeroUnits[0];
-            Assert.Equal("RagnarosBigRag", unit.CUnitId);
-            Assert.Equal("RagnarosBigRag", unit.ShortName);
-            Assert.Equal("Ragnaros", unit.Name);
+            Assert.AreEqual("RagnarosBigRag", unit.CUnitId);
+            Assert.AreEqual("RagnarosBigRag", unit.ShortName);
+            Assert.AreEqual("Ragnaros", unit.Name);
 
             Ability ability = unit.Abilities["RagnarosBigRagMeteorShower"];
-            Assert.Equal("Meteor Shower", ability.Name);
-            Assert.Equal(AbilityType.W, ability.AbilityType);
+            Assert.AreEqual("Meteor Shower", ability.Name);
+            Assert.AreEqual(AbilityType.W, ability.AbilityType);
         }
     }
 }

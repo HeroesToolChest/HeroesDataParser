@@ -1,24 +1,25 @@
 ﻿using Heroes.Models.AbilityTalents;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
+    [TestClass]
     public class MedicDataTests : HeroDataBaseTest
     {
-        [Fact]
+        [TestMethod]
         public void AbilityTests()
         {
             Ability ability = HeroMedic.Abilities["MedicHealingBeam"];
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Energy: 6 per second</s>", ability.Tooltip.Energy?.EnergyTooltip.RawDescription);
+            Assert.AreEqual("<s val=\"StandardTooltipDetails\">Energy: 6 per second</s>", ability.Tooltip.Energy?.EnergyTooltip.RawDescription);
         }
 
-        [Fact]
+        [TestMethod]
         public void TalentTests()
         {
             Talent talent = HeroMedic.Talents["MedicCellularReactor"];
-            Assert.Equal("Cooldown: 45 seconds", talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
-            Assert.Equal("Consueme energy to heal", talent.Tooltip.FullTooltip.RawDescription);
-            Assert.True(string.IsNullOrEmpty(talent.Tooltip?.Energy?.EnergyTooltip?.RawDescription));
+            Assert.AreEqual("Cooldown: 45 seconds", talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
+            Assert.AreEqual("Consueme energy to heal", talent.Tooltip.FullTooltip.RawDescription);
+            Assert.IsTrue(string.IsNullOrEmpty(talent.Tooltip?.Energy?.EnergyTooltip?.RawDescription));
         }
     }
 }

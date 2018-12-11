@@ -1,11 +1,12 @@
 ﻿using Heroes.Models;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
+    [TestClass]
     public class GreymaneTests : HeroDataBaseTest
     {
-        [Fact]
+        [TestMethod]
         public void WeaponTests()
         {
             var weapons = HeroGreymane.Weapons;
@@ -14,8 +15,8 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             {
                 if (weapon.WeaponNameId == "HeroGreymaneMeleeWeapon")
                 {
-                    Assert.Equal(140, weapon.Damage);
-                    Assert.Equal(1.5, weapon.Range);
+                    Assert.AreEqual(140, weapon.Damage);
+                    Assert.AreEqual(1.5, weapon.Range);
                 }
             }
         }

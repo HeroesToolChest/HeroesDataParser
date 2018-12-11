@@ -1,15 +1,16 @@
 ﻿using Heroes.Models.AbilityTalents;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
+    [TestClass]
     public class SonyaTests : HeroDataBaseTest
     {
-        [Fact]
+        [TestMethod]
         public void AbilityTests()
         {
             Ability ability = HeroSonya.Abilities["BarbarianSeismicSlam"];
-            Assert.Equal("<s val=\"StandardTooltipDetails\">Fury: 25</s>", ability.Tooltip.Energy.EnergyTooltip.RawDescription);
+            Assert.AreEqual("<s val=\"StandardTooltipDetails\">Fury: 25</s>", ability.Tooltip.Energy.EnergyTooltip.RawDescription);
         }
     }
 }
