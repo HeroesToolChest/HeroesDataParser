@@ -5,34 +5,32 @@ namespace HeroesData.Parser.Tests.OverrideTests.PortraitOverrideTests
     [TestClass]
     public class AlarakPortraitTests : OverrideBaseTests, IPortraitOverride
     {
-        private readonly string Hero = "Alarak";
-
         public AlarakPortraitTests()
             : base()
         {
             LoadOverrideIntoTestPortrait(CHeroIdName);
         }
 
-        public string CHeroIdName => Hero;
+        public string CHeroIdName { get; } = "Alarak";
 
-        protected override string CHeroId => Hero;
+        protected override string CHeroId => CHeroIdName;
 
         [TestMethod]
         public void HeroSelectPortraitOverrideTest()
         {
-            Assert.AreEqual("storm_ui_ingame_heroselect_btn_karala.dds", TestPortrait.HeroSelectPortraitFileName);
+            Assert.IsTrue(string.IsNullOrEmpty(TestPortrait.HeroSelectPortraitFileName));
         }
 
         [TestMethod]
         public void LeaderboardPortraitOverrideTest()
         {
-            Assert.AreEqual("storm_ui_ingame_hero_leaderboard_karala.dds", TestPortrait.LeaderboardPortraitFileName);
+            Assert.IsTrue(string.IsNullOrEmpty(TestPortrait.LeaderboardPortraitFileName));
         }
 
         [TestMethod]
         public void LoadingScreenPortraitOverrideTest()
         {
-            Assert.AreEqual("storm_ui_ingame_hero_loadingscreen_karala.dds", TestPortrait.LoadingScreenPortraitFileName);
+            Assert.IsTrue(string.IsNullOrEmpty(TestPortrait.LoadingScreenPortraitFileName));
         }
 
         [TestMethod]
@@ -44,7 +42,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.PortraitOverrideTests
         [TestMethod]
         public void TargetPortraitOverrideTest()
         {
-            Assert.AreEqual("ui_targetportrait_hero_karala.dds", TestPortrait.TargetPortraitFileName);
+            Assert.IsTrue(string.IsNullOrEmpty(TestPortrait.TargetPortraitFileName));
         }
     }
 }

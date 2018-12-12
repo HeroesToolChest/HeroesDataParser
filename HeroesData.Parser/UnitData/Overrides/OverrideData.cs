@@ -1,6 +1,4 @@
-﻿using Heroes.Models;
-using HeroesData.Loader.XmlGameData;
-using System;
+﻿using HeroesData.Loader.XmlGameData;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -207,7 +205,6 @@ namespace HeroesData.Parser.UnitData.Overrides
             PortraitOverride portraitOverride = new PortraitOverride(GameData, HotsBuild);
 
             string cHeroId = heroElement.Attribute("id").Value;
-            string imageAlt = heroElement.Attribute("alt")?.Value;
 
             foreach (var dataElement in heroElement.Elements())
             {
@@ -363,9 +360,6 @@ namespace HeroesData.Parser.UnitData.Overrides
                 }
             }
 
-            if (!string.IsNullOrEmpty(imageAlt))
-                SetPortraits(cHeroId, imageAlt, heroOverride);
-
             if (!HeroOverridesByCHeroId.ContainsKey(cHeroId))
                 HeroOverridesByCHeroId.Add(cHeroId, heroOverride);
         }
@@ -381,81 +375,6 @@ namespace HeroesData.Parser.UnitData.Overrides
 
                 // add or update
                 heroOverride.LinkedElementNamesByAbilityId[id] = elementName;
-            }
-        }
-
-        private void SetPortraits(string cHeroId, string imageAlt, HeroOverride heroOverride)
-        {
-            imageAlt = imageAlt.ToLower();
-
-            var propertyOverrides = new Dictionary<string, Action<HeroPortrait>>();
-
-            if (heroOverride.PropertyPortraitOverrideMethodByCHeroId.ContainsKey(cHeroId))
-            {
-                if (!heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].ContainsKey(nameof(Hero.HeroPortrait.HeroSelectPortraitFileName)))
-                {
-                    heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].Add(nameof(Hero.HeroPortrait.HeroSelectPortraitFileName), (portrait) =>
-                    {
-                        portrait.HeroSelectPortraitFileName = $"{PortraitFileNames.HeroSelectPortraitPrefix}{imageAlt}.dds";
-                    });
-                }
-
-                if (!heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].ContainsKey(nameof(Hero.HeroPortrait.LeaderboardPortraitFileName)))
-                {
-                    heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].Add(nameof(Hero.HeroPortrait.LeaderboardPortraitFileName), (portrait) =>
-                    {
-                        portrait.LeaderboardPortraitFileName = $"{PortraitFileNames.LeaderboardPortraitPrefix}{imageAlt}.dds";
-                    });
-                }
-
-                if (!heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].ContainsKey(nameof(Hero.HeroPortrait.LoadingScreenPortraitFileName)))
-                {
-                    heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].Add(nameof(Hero.HeroPortrait.LoadingScreenPortraitFileName), (portrait) =>
-                    {
-                        portrait.LoadingScreenPortraitFileName = $"{PortraitFileNames.LoadingPortraitPrefix}{imageAlt}.dds";
-                    });
-                }
-
-                if (!heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].ContainsKey(nameof(Hero.HeroPortrait.PartyPanelPortraitFileName)))
-                {
-                    heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].Add(nameof(Hero.HeroPortrait.PartyPanelPortraitFileName), (portrait) =>
-                    {
-                        portrait.PartyPanelPortraitFileName = $"{PortraitFileNames.PartyPanelPortraitPrefix}{imageAlt}.dds";
-                    });
-                }
-
-                if (!heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].ContainsKey(nameof(Hero.HeroPortrait.TargetPortraitFileName)))
-                {
-                    heroOverride.PropertyPortraitOverrideMethodByCHeroId[cHeroId].Add(nameof(Hero.HeroPortrait.TargetPortraitFileName), (portrait) =>
-                    {
-                        portrait.TargetPortraitFileName = $"{PortraitFileNames.TargetPortraitPrefix}{imageAlt}.dds";
-                    });
-                }
-            }
-            else
-            {
-                propertyOverrides.Add(nameof(Hero.HeroPortrait.HeroSelectPortraitFileName), (portrait) =>
-                {
-                    portrait.HeroSelectPortraitFileName = $"{PortraitFileNames.HeroSelectPortraitPrefix}{imageAlt}.dds";
-                });
-                propertyOverrides.Add(nameof(Hero.HeroPortrait.LeaderboardPortraitFileName), (portrait) =>
-                {
-                    portrait.LeaderboardPortraitFileName = $"{PortraitFileNames.LeaderboardPortraitPrefix}{imageAlt}.dds";
-                });
-                propertyOverrides.Add(nameof(Hero.HeroPortrait.LoadingScreenPortraitFileName), (portrait) =>
-                {
-                    portrait.LoadingScreenPortraitFileName = $"{PortraitFileNames.LoadingPortraitPrefix}{imageAlt}.dds";
-                });
-                propertyOverrides.Add(nameof(Hero.HeroPortrait.PartyPanelPortraitFileName), (portrait) =>
-                {
-                    portrait.PartyPanelPortraitFileName = $"{PortraitFileNames.PartyPanelPortraitPrefix}{imageAlt}.dds";
-                });
-                propertyOverrides.Add(nameof(Hero.HeroPortrait.TargetPortraitFileName), (portrait) =>
-                {
-                    portrait.TargetPortraitFileName = $"{PortraitFileNames.TargetPortraitPrefix}{imageAlt}.dds";
-                });
-
-                heroOverride.PropertyPortraitOverrideMethodByCHeroId.Add(cHeroId, propertyOverrides);
             }
         }
 

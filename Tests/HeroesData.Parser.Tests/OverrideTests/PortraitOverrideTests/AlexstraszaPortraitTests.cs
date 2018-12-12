@@ -5,46 +5,44 @@ namespace HeroesData.Parser.Tests.OverrideTests.PortraitOverrideTests
     [TestClass]
     public class AlexstraszaPortraitTests : OverrideBaseTests, IPortraitOverride
     {
-        private readonly string Hero = "Alexstrasza";
-
         public AlexstraszaPortraitTests()
             : base()
         {
             LoadOverrideIntoTestPortrait(CHeroIdName);
         }
 
-        public string CHeroIdName => Hero;
+        public string CHeroIdName { get; } = "Alexstrasza";
 
-        protected override string CHeroId => Hero;
+        protected override string CHeroId => CHeroIdName;
 
         [TestMethod]
         public void HeroSelectPortraitOverrideTest()
         {
-            Assert.AreEqual("storm_ui_ingame_heroselect_btn_firedragon.dds", TestPortrait.HeroSelectPortraitFileName);
+            Assert.IsTrue(string.IsNullOrEmpty(TestPortrait.HeroSelectPortraitFileName));
         }
 
         [TestMethod]
         public void LeaderboardPortraitOverrideTest()
         {
-            Assert.AreEqual("storm_ui_ingame_hero_leaderboard_firedragon.dds", TestPortrait.LeaderboardPortraitFileName);
+            Assert.IsTrue(string.IsNullOrEmpty(TestPortrait.LeaderboardPortraitFileName));
         }
 
         [TestMethod]
         public void LoadingScreenPortraitOverrideTest()
         {
-            Assert.AreEqual("storm_ui_ingame_hero_loadingscreen_firedragon.dds", TestPortrait.LoadingScreenPortraitFileName);
+            Assert.IsTrue(string.IsNullOrEmpty(TestPortrait.LoadingScreenPortraitFileName));
         }
 
         [TestMethod]
         public void PartyPanelPortraitOverrideTest()
         {
-            Assert.AreEqual("storm_ui_ingame_partypanel_btn_firedragon.dds", TestPortrait.PartyPanelPortraitFileName);
+            Assert.IsTrue(string.IsNullOrEmpty(TestPortrait.PartyPanelPortraitFileName));
         }
 
         [TestMethod]
         public void TargetPortraitOverrideTest()
         {
-            Assert.AreEqual("ui_targetportrait_hero_firedragon.dds", TestPortrait.TargetPortraitFileName);
+            Assert.IsTrue(string.IsNullOrEmpty(TestPortrait.TargetPortraitFileName));
         }
     }
 }
