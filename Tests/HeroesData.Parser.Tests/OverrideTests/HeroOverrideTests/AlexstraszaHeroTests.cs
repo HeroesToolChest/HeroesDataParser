@@ -57,8 +57,8 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void IsNotAddedAbilityTest()
         {
-            Assert.IsTrue(HeroOverride.AddedAbilitiesByAbilityId.ContainsKey("FireBreath"));
-            Assert.IsFalse(HeroOverride.AddedAbilitiesByAbilityId["FireBreath"].Add);
+            Assert.IsTrue(HeroOverride.AddedAbilityByAbilityId.ContainsKey("FireBreath"));
+            Assert.IsFalse(HeroOverride.AddedAbilityByAbilityId["FireBreath"].IsAdded);
         }
 
         [TestMethod]
@@ -66,12 +66,6 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         {
             Assert.IsTrue(HeroOverride.IsValidWeaponByWeaponId.ContainsKey("Ffffwwwwaaa-2.0"));
             Assert.IsFalse(HeroOverride.IsValidWeaponByWeaponId["Ffffwwwwaaa-2.0"]);
-        }
-
-        [TestMethod]
-        public void LinkedAbilitiesTest()
-        {
-            Assert.IsTrue(HeroOverride.LinkedElementNamesByAbilityId.Count == 0);
         }
 
         [TestMethod]
@@ -84,14 +78,14 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void IsAddedAbilityTest()
         {
-            Assert.IsTrue(HeroOverride.AddedAbilitiesByAbilityId.ContainsKey("FireBreath"));
-            Assert.IsFalse(HeroOverride.AddedAbilitiesByAbilityId["FireBreath"].Add);
+            Assert.IsTrue(HeroOverride.AddedAbilityByAbilityId.ContainsKey("FireBreath"));
+            Assert.IsFalse(HeroOverride.AddedAbilityByAbilityId["FireBreath"].IsAdded);
         }
 
         [TestMethod]
         public void IsAddedButtonAbilityTest()
         {
-            Assert.IsFalse(HeroOverride.AddedAbilitiesByButtonId.Contains("IceBlock"));
+            Assert.IsFalse(HeroOverride.AddedAbilityByButtonId.Contains(("IceBlock", string.Empty)));
         }
 
         [TestMethod]
@@ -114,9 +108,9 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         }
 
         [TestMethod]
-        public void HeroAbilSetTest()
+        public void AbilityButtonNameOverrideTest()
         {
-            Assert.IsTrue(HeroOverride.NewButtonValueByHeroAbilArrayButton.Count == 0);
+            Assert.IsTrue(HeroOverride.ButtonNameOverrideByAbilityId.Count == 0);
         }
     }
 }

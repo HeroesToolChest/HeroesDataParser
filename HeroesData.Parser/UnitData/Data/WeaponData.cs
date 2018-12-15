@@ -27,6 +27,9 @@ namespace HeroesData.Parser.UnitData.Data
         /// <param name="weaponElements"></param>
         public void SetHeroWeapons(Hero hero, IEnumerable<XElement> weaponElements)
         {
+            if (weaponElements == null)
+                return;
+
             List<string> weaponsIds = new List<string>();
             foreach (XElement weaponElement in weaponElements)
             {

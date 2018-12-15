@@ -7,9 +7,30 @@ namespace HeroesData.Parser.UnitData.Overrides
     public class HeroOverride : UnitOverride
     {
         /// <summary>
-        /// Gets or sets the linked abilities that are not part of the hero's CHero xml element.
+        /// Gets or sets abilities that are valid in the HeroAbilArray or to be invalidated.
         /// </summary>
-        public Dictionary<string, string> LinkedElementNamesByAbilityId { get; set; } = new Dictionary<string, string>();
+        /// <remarks>If the ability has the ShowInHeroSelect as true, it is valid.
+        /// If not, setting this boolean to true will make it a valid ability.
+        /// Setting the boolean to false, the ability will be ignored and not parsed.
+        /// </remarks>
+        public Dictionary<string, bool> IsValidAbilityByAbilityId { get; set; } = new Dictionary<string, bool>();
+
+        /// <summary>
+        /// Gets or sets abilities to be added that have the same Abil value in the HeroAbilArray. Requires both the Abil and Button values.
+        /// </summary>
+        /// <remarks>
+        /// To be used for abilities that have ShowInHeroSelect as false and are Abil name duplicates.
+        /// This should all the ability to be added in with its button name as the ability id.
+        /// </remarks>
+        public Dictionary<string, (string ButtonName, bool IsAdded)> AddedAbilityByAbilityId { get; set; } = new Dictionary<string, (string ButtonName, bool IsAdded)>();
+
+        /// <summary>
+        /// Gets or sets abilities that have their button names overriddened by a new value.
+        /// </summary>
+        /// <remarks>
+        /// To be used for abilities that need to have their button value changed to a different value for the purpose of tooltips.
+        /// </remarks>
+        public Dictionary<string, string> ButtonNameOverrideByAbilityId { get; set; } = new Dictionary<string, string>();
 
         /// <summary>
         /// Gets or sets a hashset of additional hero units.
@@ -20,10 +41,5 @@ namespace HeroesData.Parser.UnitData.Overrides
         /// Gets or sets the property override action methods for talents by talent id.
         /// </summary>
         public Dictionary<string, Dictionary<string, Action<Talent>>> PropertyTalentOverrideMethodByTalentId { get; set; } = new Dictionary<string, Dictionary<string, Action<Talent>>>();
-
-        /// <summary>
-        /// Gets or sets the HeroAbilArray button value with a new value.
-        /// </summary>
-        public Dictionary<string, string> NewButtonValueByHeroAbilArrayButton { get; set; } = new Dictionary<string, string>();
     }
 }

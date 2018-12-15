@@ -183,7 +183,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         }
 
         [TestMethod]
-        public void HeroAbilArraySetTest()
+        public void AbilityButtonNameOverrideTest()
         {
             Ability ability = HeroTestHero.Abilities["TestHeroEssenseCollection"];
             Assert.AreEqual("Cooldown: 5 seconds", ability.Tooltip.Cooldown.CooldownTooltip.RawDescription);

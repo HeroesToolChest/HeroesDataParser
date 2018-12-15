@@ -60,15 +60,15 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void IsAddedAbilityTest()
         {
-            Assert.IsTrue(HeroOverride.AddedAbilitiesByAbilityId.ContainsKey("MindControl"));
-            Assert.IsTrue(HeroOverride.AddedAbilitiesByAbilityId["MindControl"].Add);
-            Assert.AreEqual("MindControlButton", HeroOverride.AddedAbilitiesByAbilityId["MindControl"].Button);
+            Assert.IsTrue(HeroOverride.AddedAbilityByAbilityId.ContainsKey("MindControl"));
+            Assert.IsTrue(HeroOverride.AddedAbilityByAbilityId["MindControl"].IsAdded);
+            Assert.AreEqual("MindControlButton", HeroOverride.AddedAbilityByAbilityId["MindControl"].ButtonName);
         }
 
         [TestMethod]
         public void IsAddedButtonAbilityTest()
         {
-            Assert.IsTrue(HeroOverride.AddedAbilitiesByButtonId.Contains("IceBlock"));
+            Assert.IsTrue(HeroOverride.AddedAbilityByButtonId.Contains(("IceBlock", "StormButtonParent")));
         }
 
         [TestMethod]
@@ -76,16 +76,6 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         {
             Assert.IsTrue(HeroOverride.IsValidWeaponByWeaponId.ContainsKey("SlapSlap"));
             Assert.IsTrue(HeroOverride.IsValidWeaponByWeaponId["SlapSlap"]);
-        }
-
-        [TestMethod]
-        public void LinkedAbilitiesTest()
-        {
-            Assert.IsTrue(HeroOverride.LinkedElementNamesByAbilityId.ContainsKey("AbathurBigAbaSlapSwing"));
-            Assert.AreEqual("CAbilEffectTarget", HeroOverride.LinkedElementNamesByAbilityId["AbathurBigAbaSlapSwing"]);
-
-            Assert.IsTrue(HeroOverride.LinkedElementNamesByAbilityId.ContainsKey("AbathurBigAbaMeteorLocust"));
-            Assert.AreEqual("CAbilEffectTarget", HeroOverride.LinkedElementNamesByAbilityId["AbathurBigAbaMeteorLocust"]);
         }
 
         [TestMethod]
@@ -110,9 +100,9 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         }
 
         [TestMethod]
-        public void HeroAbilSetTest()
+        public void AbilityButtonNameOverrideTest()
         {
-            Assert.AreEqual("CarapaceCollection", HeroOverride.NewButtonValueByHeroAbilArrayButton["CarapaceCollectionStore"]);
+            Assert.AreEqual("CarapaceCollection", HeroOverride.ButtonNameOverrideByAbilityId["CarapaceCollection"]);
         }
     }
 }

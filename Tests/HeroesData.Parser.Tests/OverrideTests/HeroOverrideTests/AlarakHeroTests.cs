@@ -38,7 +38,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void IsAddedAbilityTest()
         {
-            Assert.IsTrue(HeroOverride.AddedAbilitiesByAbilityId.Count == 0);
+            Assert.IsTrue(HeroOverride.AddedAbilityByAbilityId.Count == 0);
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void IsAddedButtonAbilityTest()
         {
-            Assert.IsTrue(HeroOverride.AddedAbilitiesByButtonId.Contains("IceBlock"));
+            Assert.IsTrue(HeroOverride.AddedAbilityByButtonId.Contains(("IceBlock", string.Empty)));
         }
 
         [TestMethod]
@@ -63,15 +63,6 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         public void NameOverrideTest()
         {
             Assert.IsFalse(HeroOverride.NameOverride.Enabled);
-        }
-
-        [TestMethod]
-        public void LinkedAbilitiesTest()
-        {
-            Assert.IsFalse(HeroOverride.LinkedElementNamesByAbilityId.ContainsKey("AbathurBigAbaSlapSwing"));
-            Assert.IsFalse(HeroOverride.LinkedElementNamesByAbilityId.ContainsKey("AbathurBigAbaMeteorLocust"));
-
-            Assert.IsTrue(HeroOverride.LinkedElementNamesByAbilityId.Count == 0);
         }
 
         [TestMethod]
@@ -94,9 +85,9 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         }
 
         [TestMethod]
-        public void HeroAbilSetTest()
+        public void AbilityButtonNameOverrideTest()
         {
-            Assert.IsFalse(HeroOverride.NewButtonValueByHeroAbilArrayButton.ContainsKey("SnapCollectionStore"));
+            Assert.IsFalse(HeroOverride.ButtonNameOverrideByAbilityId.ContainsKey("SnapCollectionStore"));
         }
     }
 }

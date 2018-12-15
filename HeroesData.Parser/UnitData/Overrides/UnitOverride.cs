@@ -53,23 +53,16 @@ namespace HeroesData.Parser.UnitData.Overrides
         public Dictionary<string, Dictionary<string, Action<HeroPortrait>>> PropertyPortraitOverrideMethodByCHeroId { get; set; } = new Dictionary<string, Dictionary<string, Action<HeroPortrait>>>();
 
         /// <summary>
-        /// Gets or sets the valid abilities that are part of the HeroAbilArray.
-        /// </summary>
-        public Dictionary<string, bool> IsValidAbilityByAbilityId { get; set; } = new Dictionary<string, bool>();
-
-        /// <summary>
-        /// Gets or sets the valid weapons.
+        /// Gets or sets weapons that are valid or to be invalidated.
         /// </summary>
         public Dictionary<string, bool> IsValidWeaponByWeaponId { get; set; } = new Dictionary<string, bool>();
 
         /// <summary>
-        /// Gets or sets the collection of added abilities that are part of the HeroAbilArray.
+        /// Gets or sets the additional abilities available by their button ids.
         /// </summary>
-        public Dictionary<string, (string Button, bool Add)> AddedAbilitiesByAbilityId { get; set; } = new Dictionary<string, (string Button, bool Add)>();
-
-        /// <summary>
-        /// Gets or sets the abilities that are not part of the HeroAbilArray, but instead are available by CButton id.
-        /// </summary>
-        public HashSet<string> AddedAbilitiesByButtonId { get; set; } = new HashSet<string>();
+        /// <remarks>
+        /// ButtonId and its parent value are needed to get the correct button data since there could be more than one.
+        /// </remarks>
+        public HashSet<(string ButtonId, string ParentValue)> AddedAbilityByButtonId { get; set; } = new HashSet<(string ButtonId, string ParentValue)>();
     }
 }

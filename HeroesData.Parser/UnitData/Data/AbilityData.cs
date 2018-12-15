@@ -43,7 +43,7 @@ namespace HeroesData.Parser.UnitData.Data
                 return;
 
             // check for the HeroAbilArray button value, we may need to override it
-            if (!string.IsNullOrEmpty(tooltipName) && HeroOverride.NewButtonValueByHeroAbilArrayButton.TryGetValue(tooltipName, out string setButtonValue))
+            if (!string.IsNullOrEmpty(referenceName) && HeroOverride.ButtonNameOverrideByAbilityId.TryGetValue(referenceName, out string setButtonValue))
                 tooltipName = setButtonValue;
 
             // set the ability properties
@@ -104,12 +104,12 @@ namespace HeroesData.Parser.UnitData.Data
 
                 hero.Abilities.Add(ability.ReferenceNameId, ability);
             }
-            else if (HeroOverride.AddedAbilitiesByAbilityId.TryGetValue(ability.ReferenceNameId, out var addedAbility))
+            else if (HeroOverride.AddedAbilityByAbilityId.TryGetValue(ability.ReferenceNameId, out var addedAbility))
             {
                 // overridden add ability
-                if (addedAbility.Add)
+                if (addedAbility.IsAdded)
                 {
-                    ability.ReferenceNameId = addedAbility.Button;
+                    ability.ReferenceNameId = addedAbility.ButtonName;
 
                     // attempt to re-add
                     if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
@@ -118,31 +118,36 @@ namespace HeroesData.Parser.UnitData.Data
             }
         }
 
-        public void SetLinkedAbility(Hero hero, string idValue, string elementName)
+        /// <summary>
+        /// For adding additional abilities that are from the AbilArray element.
+        /// </summary>
+        /// <param name="hero"></param>
+        /// <param name="id"></param>
+        /// <param name="elementName"></param>
+        public void SetLinkedAbility(Hero hero, string id, string elementName)
         {
+            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(elementName))
+                return;
+
             Ability ability = new Ability();
             hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
 
-            XElement abilityElement = GameData.XmlGameData.Root.Elements(elementName).FirstOrDefault(x => x.Attribute("id")?.Value == idValue);
+            XElement abilityElement = GameData.XmlGameData.Root.Elements(elementName).FirstOrDefault(x => x.Attribute("id")?.Value == id);
 
             if (abilityElement == null)
-                throw new ParseException($"{nameof(SetLinkedAbility)}: Additional link ability element not found - <{elementName} id=\"{idValue}\">");
+                throw new ParseException($"{nameof(SetLinkedAbility)}: Additional link ability element not found - <{elementName} id=\"{id}\">");
 
-            string linkName = abilityElement.Attribute("id")?.Value;
-            if (linkName == null)
-                return;
+            ability.ReferenceNameId = id;
+            ability.FullTooltipNameId = id;
 
-            ability.ReferenceNameId = linkName;
-            ability.FullTooltipNameId = linkName;
-
-            if (GameData.TryGetGameString(DefaultData.ButtonName.Replace(DefaultData.IdReplacer, linkName), out string abilityName))
+            if (GameData.TryGetGameString(DefaultData.ButtonName.Replace(DefaultData.IdReplacer, id), out string abilityName))
                 ability.Name = abilityName;
 
             XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId);
 
             if (cButtonElement != null)
             {
-                SetTooltipCostData(hero, linkName, ability);
+                SetTooltipCostData(hero, id, ability);
                 SetTooltipDescriptions(ability);
                 SetTooltipOverrideData(cButtonElement, ability);
             }
@@ -156,13 +161,13 @@ namespace HeroesData.Parser.UnitData.Data
         {
             hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
 
-            foreach (string newAbility in HeroOverride.AddedAbilitiesByButtonId)
+            foreach ((string buttonId, string parent) in HeroOverride.AddedAbilityByButtonId)
             {
                 Ability ability = new Ability()
                 {
-                    FullTooltipNameId = newAbility,
-                    ButtonName = newAbility,
-                    ReferenceNameId = newAbility,
+                    FullTooltipNameId = buttonId,
+                    ButtonName = buttonId,
+                    ReferenceNameId = buttonId,
                 };
 
                 // defaults
@@ -170,7 +175,7 @@ namespace HeroesData.Parser.UnitData.Data
                 ability.AbilityType = AbilityType.Active;
 
                 // LastOrDefault, since overrides can happen in later xml files
-                XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").LastOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && !string.IsNullOrEmpty(x.Attribute("parent")?.Value));
+                XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").LastOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == parent);
 
                 SetTooltipCostData(hero, ability.ReferenceNameId, ability);
                 SetTooltipDescriptions(ability);
@@ -207,7 +212,7 @@ namespace HeroesData.Parser.UnitData.Data
 
             // as attributes
             XElement layoutButton = layoutButtons.FirstOrDefault(x => (x.Attribute("Face")?.Value == ability.ButtonName || x.Attribute("Face")?.Value == ability.ReferenceNameId) &&
-                                                                      x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
+                                                                       x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
             if (layoutButton != null)
             {
                 string slot = layoutButton.Attribute("Slot").Value;
@@ -217,9 +222,8 @@ namespace HeroesData.Parser.UnitData.Data
             }
             else // as elements
             {
-                layoutButton = layoutButtons.Where(x => x.HasElements)
-                     .FirstOrDefault(x => (x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName || x.Element("Face")?.Attribute("value")?.Value == ability.ReferenceNameId) &&
-                                     x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
+                layoutButton = layoutButtons.Where(x => x.HasElements).FirstOrDefault(x => (x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName || x.Element("Face")?.Attribute("value")?.Value == ability.ReferenceNameId) &&
+                                                        x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
 
                 if (layoutButton != null)
                 {

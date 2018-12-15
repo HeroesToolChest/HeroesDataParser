@@ -11,9 +11,8 @@
         void IsAddedAbilityTest();
         void IsAddedButtonAbilityTest();
         void IsValidWeaponTest();
-        void LinkedAbilitiesTest();
         void HeroUnitTests();
         void ParentLinkedOverrideTests();
-        void HeroAbilSetTest();
+        void AbilityButtonNameOverrideTest();
     }
 }

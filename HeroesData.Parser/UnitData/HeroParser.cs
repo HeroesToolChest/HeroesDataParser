@@ -136,7 +136,7 @@ namespace HeroesData.Parser.UnitData
                 hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroPartyPanelButtonImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
                 hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroPortrait.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
 
-                hero.MountLinkId = "SummonMount";
+                //hero.MountLinkId = "SummonMount";
 
                 if (HeroOverride.CUnitOverride.Enabled)
                     hero.CUnitId = HeroOverride.CUnitOverride.CUnit;
@@ -169,14 +169,15 @@ namespace HeroesData.Parser.UnitData
 
         private void CHeroData(Hero hero)
         {
-            XElement heroData = GameData.XmlGameData.Root.Elements("CHero").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CHeroId);
-            IEnumerable<XElement> layoutButtons = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value != "TargetHeroDummy").Elements("CardLayouts").Elements("LayoutButtons");
+            XElement heroElement = GameData.XmlGameData.Root.Elements("CHero").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CHeroId);
 
-            if (heroData == null)
+            if (heroElement == null)
                 return;
 
+            IEnumerable<XElement> layoutButtons = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value != "TargetHeroDummy").Elements("CardLayouts").Elements("LayoutButtons");
+
             // loop through all elements and set found elements
-            foreach (XElement element in heroData.Elements())
+            foreach (XElement element in heroElement.Elements())
             {
                 string elementName = element.Name.LocalName.ToUpper();
 
@@ -330,7 +331,7 @@ namespace HeroesData.Parser.UnitData
                 hero.ReleaseDate = DefaultData.AlphaReleaseDate;
 
             // abilities must be gotten before talents
-            foreach (XElement abilArrayElement in heroData.Elements("HeroAbilArray"))
+            foreach (XElement abilArrayElement in heroElement.Elements("HeroAbilArray"))
             {
                 AbilityData.SetAbilityData(hero, abilArrayElement, layoutButtons);
             }
@@ -338,27 +339,42 @@ namespace HeroesData.Parser.UnitData
             AbilityData.AddAdditionalButtonAbilities(hero);
             TalentData.SetButtonTooltipAppenderData(StormHeroBase, hero);
 
-            foreach (XElement talentArrayElement in heroData.Elements("TalentTreeArray"))
+            foreach (XElement talentArrayElement in heroElement.Elements("TalentTreeArray"))
             {
                 TalentData.SetTalentData(hero, talentArrayElement);
             }
-
-            SetAdditionalLinkedAbilities(hero);
         }
 
-        private void CUnitData(Hero hero)
+        private void CUnitData(Hero hero, XElement unitElement = null)
         {
-            XElement heroData = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CUnitId);
+            unitElement = unitElement ?? GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CUnitId);
 
-            if (heroData == null)
+            if (unitElement == null)
                 return;
 
+            // parent lookup
+            string parentValue = unitElement.Attribute("parent")?.Value;
+            if (!string.IsNullOrEmpty(parentValue) && parentValue != DefaultData.CUnitDefaultBaseId)
+            {
+                XElement parentElement = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
+                if (parentElement != null)
+                    CUnitData(hero, parentElement);
+            }
+
             // loop through all elements and set found elements
-            foreach (XElement element in heroData.Elements())
+            foreach (XElement element in unitElement.Elements())
             {
                 string elementName = element.Name.LocalName.ToUpper();
 
-                if (elementName == "LIFEMAX")
+                if (elementName == "ABILARRAY")
+                {
+                    string link = element.Attribute("Link")?.Value;
+
+                    if (link == DefaultData.AbilMountLinkId)
+                        hero.MountLinkId = DefaultData.DefaultSummonMountAbilityId;
+                    // else if (link.EndsWith(DefaultData.DefaultSummonMountAbilityId))
+                }
+                else if (elementName == "LIFEMAX")
                 {
                     hero.Life.LifeMax = double.Parse(element.Attribute("value").Value);
 
@@ -408,28 +424,20 @@ namespace HeroesData.Parser.UnitData
             }
 
             // set weapons
-            WeaponData.SetHeroWeapons(hero, heroData.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
+            WeaponData.SetHeroWeapons(hero, unitElement.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
 
             // set armor
-            ArmorData.SetUnitArmorData(hero, heroData.Element("ArmorLink"));
+            ArmorData.SetUnitArmorData(hero, unitElement.Element("ArmorLink"));
 
             if (hero.Energy.EnergyMax < 1)
                 hero.Energy.EnergyType = string.Empty;
 
-            // set mount link
-            IList<Ability> mountAbilities = hero.PrimaryAbilities(AbilityTier.Mount);
-            string parentAttribute = heroData.Attribute("parent")?.Value;
+            //// set mount link
+            //IList<Ability> mountAbilities = hero.PrimaryAbilities(AbilityTier.Mount);
+            //string parentAttribute = heroData.Attribute("parent")?.Value;
 
-            if (parentAttribute == "StormHeroMountedCustom" && mountAbilities.Count > 0)
-                hero.MountLinkId = mountAbilities.FirstOrDefault()?.ReferenceNameId;
-        }
-
-        private void SetAdditionalLinkedAbilities(Hero hero)
-        {
-            foreach (KeyValuePair<string, string> linkedAbility in HeroOverride.LinkedElementNamesByAbilityId)
-            {
-                AbilityData.SetLinkedAbility(hero, linkedAbility.Key, linkedAbility.Value);
-            }
+            //if (parentAttribute == "StormHeroMountedCustom" && mountAbilities.Count > 0)
+            //    hero.MountLinkId = mountAbilities.FirstOrDefault()?.ReferenceNameId;
         }
 
         private void AddSubHeroCUnits(Hero hero)

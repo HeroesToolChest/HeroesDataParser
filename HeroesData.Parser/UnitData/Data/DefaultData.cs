@@ -29,6 +29,10 @@ namespace HeroesData.Parser.UnitData.Data
 
         public const string DefaultHeroDifficulty = "Easy";
 
+        public const string AbilMountLinkId = "Mount";
+        public const string AbilPortBackToBaseLinkId = "PortBackToBase";
+        public const string DefaultSummonMountAbilityId = "SummonMount";
+
         private readonly GameData GameData;
 
         public DefaultData(GameData gameData)

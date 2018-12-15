@@ -16,14 +16,19 @@
         <AbilityType value="W" />
       </Override>
     </Ability>
+    <Ability id="CarapaceCollection" button="CarapaceCollectionStore">
+      <ButtonName value="CarapaceCollection" />
+    </Ability>
     
     <Ability id="MindControl" add="true" button="MindControlButton" />
 
-    <Button id="IceBlock">
+    <Button id="IceBlock" parent="StormButtonParent">
       <Override>
         <ParentLink value="Symbiote" />
       </Override>
-    </Button>
+    </Button>   
+    <Button id="AbathurBigAbaSlapSwing" parent="StormButtonParent"></Button>
+    <Button id="AbathurBigAbaMeteorLocust" parent="StormButtonParent"></Button>
     
     <Talent id="UpgradeSpikeAbilityThingy">
       <Override>
@@ -46,15 +51,6 @@
         <LoadingScreenPortraitFileName value="someImage.dds" />
       </Override>
     </Portrait>
-
-    <HeroAbilArray button="CarapaceCollectionStore">
-      <Set value="CarapaceCollection" />
-    </HeroAbilArray>
-    
-    <LinkedAbilities>
-      <Ability id="AbathurBigAbaSlapSwing" element="CAbilEffectTarget" />
-      <Ability id="AbathurBigAbaMeteorLocust" element="CAbilEffectTarget" />
-    </LinkedAbilities>
   
     <HeroUnit id="LittleLoco">
       <EnergyType value="None" />
@@ -80,9 +76,11 @@
         <AbilityType value="What" />
       </Override>
     </Ability>
-
-    <Button id="IceBlock"></Button>
+    <Ability id="SnapCollection" button="SnapCollectionStore">
+    </Ability>
     
+    <Button id="IceBlock"></Button>
+
     <Talent id="UpgradeZapiptyZap">
       <Override>
         <AbilityType value="Z" />
@@ -95,21 +93,12 @@
         <Damage value="" />
       </Override>
     </Weapon>
-
-    <HeroAbilArray button="SnapCollectionStore">
-      <Set value="" />
-    </HeroAbilArray>
     
     <Portrait>
       <Override>
         <PartyPanelPortraitFileName value="testimage.dds" />
       </Override>
     </Portrait>
-
-    <LinkedAbilities>
-      <Ability element="CAbilEffectTarget" />
-      <Ability id="AbathurBigAbaMeteorLocust" />
-    </LinkedAbilities>
   
     <HeroUnit id="">
       <EnergyType value="None" />
@@ -169,19 +158,11 @@
       <Override>
       </Override>
     </Weapon>
-
-    <HeroAbilArray button="">
-      <Set value="" />
-    </HeroAbilArray>
     
     <Portrait>
       <Override>
       </Override>
     </Portrait>
-
-    <LinkedAbilities>
-      <Ability id="" element="" />
-      <Ability id="" element="" />
-    </LinkedAbilities>
+    
   </CHero>
 </HeroOverrides>
