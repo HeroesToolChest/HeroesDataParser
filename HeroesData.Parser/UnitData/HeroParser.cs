@@ -172,8 +172,6 @@ namespace HeroesData.Parser.UnitData
             if (heroElement == null)
                 return;
 
-            IEnumerable<XElement> layoutButtons = GameData.XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value != "TargetHeroDummy").Elements("CardLayouts").Elements("LayoutButtons");
-
             // loop through all elements and set found elements
             foreach (XElement element in heroElement.Elements())
             {
@@ -331,7 +329,7 @@ namespace HeroesData.Parser.UnitData
             // abilities must be gotten before talents
             foreach (XElement abilArrayElement in heroElement.Elements("HeroAbilArray"))
             {
-                AbilityData.SetAbilityData(hero, abilArrayElement, layoutButtons);
+                AbilityData.SetAbilityData(hero, abilArrayElement);
             }
 
             AbilityData.AddAdditionalButtonAbilities(hero);

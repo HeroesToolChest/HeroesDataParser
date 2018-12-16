@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
@@ -46,6 +47,11 @@ namespace HeroesData.Loader.XmlGameData
         /// </summary>
         public int? HotsBuild { get; }
 
+        /// <summary>
+        /// Gets all the LayoutButton elements.
+        /// </summary>
+        public IEnumerable<XElement> LayoutButtonElementData { get; private set; }
+
         protected string ModsFolderPath { get; }
 
         protected string CoreStormModDirectoryName { get; } = "core.stormmod";
@@ -84,7 +90,8 @@ namespace HeroesData.Loader.XmlGameData
             HeroesDataLocalizedDataPath = Path.Combine(ModsFolderPath, HeroesDataStormModDirectoryName, GameStringLocalization, LocalizedDataName);
 
             LoadFiles();
-            GetLevelScalingData();
+            SetLevelScalingData();
+            SetLayoutButtonElementData();
 
             IsXmlGameDataLoaded = true;
         }
@@ -164,34 +171,6 @@ namespace HeroesData.Loader.XmlGameData
             LoadHeroesMapMods();
         }
 
-        private void GetLevelScalingData()
-        {
-            if (IsXmlGameDataLoaded)
-                return;
-
-            IEnumerable<XElement> levelScalingArrays = XmlGameData.Root.Descendants("LevelScalingArray");
-
-            foreach (XElement scalingArray in levelScalingArrays)
-            {
-                foreach (XElement modification in scalingArray.Elements("Modifications"))
-                {
-                    string catalog = modification.Element("Catalog")?.Attribute("value")?.Value;
-                    string entry = modification.Element("Entry")?.Attribute("value")?.Value;
-                    string field = modification.Element("Field")?.Attribute("value")?.Value;
-                    string value = modification.Element("Value")?.Attribute("value")?.Value;
-
-                    if (string.IsNullOrEmpty(value))
-                        continue;
-
-                    // add data without index
-                    if (field.Contains("]"))
-                        ScaleValueByLookupId[(catalog, entry, Regex.Replace(field, @"\[.*?\]", string.Empty))] = double.Parse(value);
-
-                    ScaleValueByLookupId[(catalog, entry, field)] = double.Parse(value);
-                }
-            }
-        }
-
         private void ReadTextFile(StreamReader reader)
         {
             while (!reader.EndOfStream)
@@ -226,6 +205,39 @@ namespace HeroesData.Loader.XmlGameData
 
             if (!string.IsNullOrEmpty(gamelink) && mapGamestrings.TryGetValue($"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}[Override]Generic Instance_Award Name", out string instanceAwardName))
                 GameStringById[$"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}{gamelink}"] = instanceAwardName;
+        }
+
+        private void SetLevelScalingData()
+        {
+            if (IsXmlGameDataLoaded)
+                return;
+
+            IEnumerable<XElement> levelScalingArrays = XmlGameData.Root.Descendants("LevelScalingArray");
+
+            foreach (XElement scalingArray in levelScalingArrays)
+            {
+                foreach (XElement modification in scalingArray.Elements("Modifications"))
+                {
+                    string catalog = modification.Element("Catalog")?.Attribute("value")?.Value;
+                    string entry = modification.Element("Entry")?.Attribute("value")?.Value;
+                    string field = modification.Element("Field")?.Attribute("value")?.Value;
+                    string value = modification.Element("Value")?.Attribute("value")?.Value;
+
+                    if (string.IsNullOrEmpty(value))
+                        continue;
+
+                    // add data without index
+                    if (field.Contains("]"))
+                        ScaleValueByLookupId[(catalog, entry, Regex.Replace(field, @"\[.*?\]", string.Empty))] = double.Parse(value);
+
+                    ScaleValueByLookupId[(catalog, entry, field)] = double.Parse(value);
+                }
+            }
+        }
+
+        private void SetLayoutButtonElementData()
+        {
+            LayoutButtonElementData = XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value != "TargetHeroDummy").Elements("CardLayouts").Elements("LayoutButtons");
         }
     }
 }

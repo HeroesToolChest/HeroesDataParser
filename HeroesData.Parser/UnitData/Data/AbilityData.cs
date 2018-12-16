@@ -16,7 +16,7 @@ namespace HeroesData.Parser.UnitData.Data
         {
         }
 
-        public void SetAbilityData(Hero hero, XElement abilityElement, IEnumerable<XElement> layoutButtons)
+        public void SetAbilityData(Hero hero, XElement abilityElement)
         {
             hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
 
@@ -94,7 +94,7 @@ namespace HeroesData.Parser.UnitData.Data
                 SetTalentIdUpgrades(cButtonElement, ability);
             }
 
-            SetAbilityType(hero, ability, layoutButtons);
+            SetAbilityType(hero, ability);
 
             // add ability
             if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
@@ -189,11 +189,8 @@ namespace HeroesData.Parser.UnitData.Data
             }
         }
 
-        private void SetAbilityType(Hero hero, Ability ability, IEnumerable<XElement> layoutButtons)
+        private void SetAbilityType(Hero hero, Ability ability)
         {
-            if (layoutButtons == null)
-                return;
-
             if (ability.Tier == AbilityTier.Heroic)
             {
                 ability.AbilityType = AbilityType.Heroic;
@@ -211,8 +208,7 @@ namespace HeroesData.Parser.UnitData.Data
             }
 
             // as attributes
-            XElement layoutButton = layoutButtons.FirstOrDefault(x => (x.Attribute("Face")?.Value == ability.ButtonName || x.Attribute("Face")?.Value == ability.ReferenceNameId) &&
-                                                                       x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
+            XElement layoutButton = GameData.LayoutButtonElementData.FirstOrDefault(x => (x.Attribute("Face")?.Value == ability.ButtonName || x.Attribute("Face")?.Value == ability.ReferenceNameId) && x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
             if (layoutButton != null)
             {
                 string slot = layoutButton.Attribute("Slot").Value;
@@ -222,7 +218,7 @@ namespace HeroesData.Parser.UnitData.Data
             }
             else // as elements
             {
-                layoutButton = layoutButtons.Where(x => x.HasElements).FirstOrDefault(x => (x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName || x.Element("Face")?.Attribute("value")?.Value == ability.ReferenceNameId) &&
+                layoutButton = GameData.LayoutButtonElementData.Where(x => x.HasElements).FirstOrDefault(x => (x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName || x.Element("Face")?.Attribute("value")?.Value == ability.ReferenceNameId) &&
                                                         x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
 
                 if (layoutButton != null)
