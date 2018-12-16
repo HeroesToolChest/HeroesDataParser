@@ -22,10 +22,13 @@ namespace HeroesData.Loader.XmlGameData
         }
 
         /// <summary>
-        /// Gets the number of xml files that were to added.
+        /// Gets the number of xml files that were added.
         /// </summary>
         public int XmlFileCount { get; protected set; } = 0;
 
+        /// <summary>
+        /// Gets the number of text files that were added.
+        /// </summary>
         public int TextFileCount { get; protected set; } = 0;
 
         /// <summary>

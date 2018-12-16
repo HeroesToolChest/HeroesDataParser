@@ -478,7 +478,7 @@ namespace HeroesData
         {
             var time = new Stopwatch();
 
-            Console.WriteLine($"Loading xml files...");
+            Console.WriteLine($"Loading xml and text files...");
 
             time.Start();
             try
@@ -503,6 +503,7 @@ namespace HeroesData
             time.Stop();
 
             Console.WriteLine($"{GameData.XmlFileCount,6} xml files loaded");
+            Console.WriteLine($"{GameData.TextFileCount,6} text files loaded");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
         }
