@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides>
-  <CHero id="_StormHero">
+  <CHero id="_stormHero">
     <Button id="PortBackToBase" parent="StormButtonParent">
       <Override>
         <AbilityTier value="Hearth" />
