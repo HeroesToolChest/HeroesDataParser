@@ -19,7 +19,7 @@ namespace HeroesData.Parser.UnitData.Overrides
 
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<Talent>> propertyOverrides)
         {
-            if (propertyName == "AbilityType")
+            if (propertyName == nameof(Talent.AbilityType))
             {
                 propertyOverrides.Add(propertyName, (talent) =>
                 {
@@ -27,6 +27,16 @@ namespace HeroesData.Parser.UnitData.Overrides
                         talent.AbilityType = abilityType;
                     else
                         talent.AbilityType = AbilityType.Q;
+                });
+            }
+            else if (propertyName == nameof(Talent.AbilityTalentLinkIds))
+            {
+                propertyOverrides.Add(propertyName, (talent) =>
+                {
+                    if (propertyName.StartsWith("-"))
+                        talent.AbilityTalentLinkIds.Remove(propertyValue.Substring(1, propertyValue.Length));
+                    else
+                        talent.AbilityTalentLinkIds.Add(propertyValue);
                 });
             }
         }

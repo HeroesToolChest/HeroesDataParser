@@ -273,7 +273,7 @@ namespace HeroesData.Parser.UnitData.Overrides
 
                         if (!string.IsNullOrEmpty(button) && !string.IsNullOrEmpty(newButtonName))
                         {
-                            heroOverride.ButtonNameOverrideByAbilityId.Add(abilityId, newButtonName);
+                            heroOverride.ButtonNameOverrideByAbilityButtonId.Add((abilityId, button), newButtonName);
                         }
 
                         // override

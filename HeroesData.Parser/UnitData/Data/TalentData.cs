@@ -94,14 +94,14 @@ namespace HeroesData.Parser.UnitData.Data
             {
                 XElement buttonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ButtonName);
                 if (buttonElement != null)
-                    abilityByButtonElements.Add(ability.ButtonName, (buttonElement, ability));
+                    abilityByButtonElements[ability.ButtonName] = (buttonElement, ability);
             }
 
             foreach (Ability ability in hero.Abilities.Values)
             {
                 XElement buttonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ButtonName);
                 if (buttonElement != null)
-                    abilityByButtonElements.Add(ability.ButtonName, (buttonElement, ability));
+                    abilityByButtonElements[ability.ButtonName] = (buttonElement, ability);
             }
 
             foreach (var abilityElement in abilityByButtonElements)

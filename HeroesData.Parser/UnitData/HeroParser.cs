@@ -136,8 +136,6 @@ namespace HeroesData.Parser.UnitData
                 hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroPartyPanelButtonImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
                 hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroPortrait.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
 
-                //hero.MountLinkId = "SummonMount";
-
                 if (HeroOverride.CUnitOverride.Enabled)
                     hero.CUnitId = HeroOverride.CUnitOverride.CUnit;
             }
@@ -372,7 +370,6 @@ namespace HeroesData.Parser.UnitData
 
                     if (link == DefaultData.AbilMountLinkId)
                         hero.MountLinkId = DefaultData.DefaultSummonMountAbilityId;
-                    // else if (link.EndsWith(DefaultData.DefaultSummonMountAbilityId))
                 }
                 else if (elementName == "LIFEMAX")
                 {
@@ -432,12 +429,12 @@ namespace HeroesData.Parser.UnitData
             if (hero.Energy.EnergyMax < 1)
                 hero.Energy.EnergyType = string.Empty;
 
-            //// set mount link
-            //IList<Ability> mountAbilities = hero.PrimaryAbilities(AbilityTier.Mount);
-            //string parentAttribute = heroData.Attribute("parent")?.Value;
+            // set mount link if hero has a custom mount ability
+            IList<Ability> mountAbilities = hero.PrimaryAbilities(AbilityTier.Mount);
+            string parentAttribute = unitElement.Attribute("parent")?.Value;
 
-            //if (parentAttribute == "StormHeroMountedCustom" && mountAbilities.Count > 0)
-            //    hero.MountLinkId = mountAbilities.FirstOrDefault()?.ReferenceNameId;
+            if (parentAttribute == "StormHeroMountedCustom" && mountAbilities.Count > 0)
+                hero.MountLinkId = mountAbilities.FirstOrDefault()?.ReferenceNameId;
         }
 
         private void AddSubHeroCUnits(Hero hero)

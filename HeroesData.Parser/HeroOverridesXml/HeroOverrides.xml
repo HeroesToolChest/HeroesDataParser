@@ -242,7 +242,15 @@
         <ParentLink value="LucioCrossfadeActivateHealingBoost" />
       </Override>
     </Ability>
-    <Ability id="LucioCrossfade" button="LucioCrossfadeActivateHealingBoost" add="true" />
+    <Ability id="LucioCrossfade" button="LucioCrossfadeActivateHealingBoost" add="true">
+    </Ability>
+  </CHero>
+  <CHero id="Malthael">
+    <Talent id="MalthaelOnAPaleHorse">
+      <Override>
+        <AbilityTalentLinkIds value="SummonMount" />
+      </Override>
+    </Talent>
   </CHero>
   <CHero id="Orphea">
     <Portrait>
@@ -256,18 +264,21 @@
     <Button id="RagnarosBigRagMoltenSwing" parent="StormButtonParentTrait">
       <Override>
         <ParentLink value="RagnarosBigRag" />
+        <AbilityTier value="Basic" />
         <AbilityType value="Q" />
       </Override>
     </Button>
     <Button id="RagnarosBigRagMeteorShower" parent="StormButtonParent">
       <Override>
         <ParentLink value="RagnarosBigRag" />
+        <AbilityTier value="Basic" />
         <AbilityType value="W" />
       </Override>
     </Button>
     <Button id="RagnarosBigRagExplosiveRune" parent="StormButtonParent">
       <Override>
         <ParentLink value="RagnarosBigRag" />
+        <AbilityTier value="Basic" />
         <AbilityType value="E" />
       </Override>
     </Button>
@@ -335,5 +346,13 @@
         <ParentLink value="WitchDoctorGargantuan" />
       </Override>
     </Ability>
+  </CHero>
+  <CHero id="Yrel">
+    <Talent id="YrelDivineSteed">
+      <Override>
+        <AbilityTalentLinkIds value="-YrelDivineSteedSummonMount" />
+        <AbilityTalentLinkIds value="SummonMount" />
+      </Override>
+    </Talent>
   </CHero>
 </HeroOverrides>

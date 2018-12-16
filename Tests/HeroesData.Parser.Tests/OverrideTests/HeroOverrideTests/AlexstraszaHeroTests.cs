@@ -110,7 +110,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void AbilityButtonNameOverrideTest()
         {
-            Assert.IsTrue(HeroOverride.ButtonNameOverrideByAbilityId.Count == 0);
+            Assert.IsTrue(HeroOverride.ButtonNameOverrideByAbilityButtonId.Count == 0);
         }
     }
 }

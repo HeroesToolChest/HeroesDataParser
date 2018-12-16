@@ -87,7 +87,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void AbilityButtonNameOverrideTest()
         {
-            Assert.IsFalse(HeroOverride.ButtonNameOverrideByAbilityId.ContainsKey("SnapCollectionStore"));
+            Assert.IsFalse(HeroOverride.ButtonNameOverrideByAbilityButtonId.ContainsKey(("SnapCollection", "SnapCollectionStore")));
         }
     }
 }

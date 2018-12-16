@@ -102,7 +102,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void AbilityButtonNameOverrideTest()
         {
-            Assert.AreEqual("CarapaceCollection", HeroOverride.ButtonNameOverrideByAbilityId["CarapaceCollection"]);
+            Assert.AreEqual("CarapaceCollection", HeroOverride.ButtonNameOverrideByAbilityButtonId[("CarapaceCollection", "CarapaceCollectionStore")]);
         }
     }
 }

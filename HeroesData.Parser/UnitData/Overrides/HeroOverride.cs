@@ -11,7 +11,7 @@ namespace HeroesData.Parser.UnitData.Overrides
         /// </summary>
         /// <remarks>If the ability has the ShowInHeroSelect as true, it is valid.
         /// If not, setting this boolean to true will make it a valid ability.
-        /// Setting the boolean to false, the ability will be ignored and not parsed.
+        /// Setting the boolean to false, the ability will be ignored and not be parsed.
         /// </remarks>
         public Dictionary<string, bool> IsValidAbilityByAbilityId { get; set; } = new Dictionary<string, bool>();
 
@@ -20,7 +20,7 @@ namespace HeroesData.Parser.UnitData.Overrides
         /// </summary>
         /// <remarks>
         /// To be used for abilities that have ShowInHeroSelect as false and are Abil name duplicates.
-        /// This should all the ability to be added in with its button name as the ability id.
+        /// This should allow the ability to be added in with its button name as the ability id.
         /// </remarks>
         public Dictionary<string, (string ButtonName, bool IsAdded)> AddedAbilityByAbilityId { get; set; } = new Dictionary<string, (string ButtonName, bool IsAdded)>();
 
@@ -29,8 +29,9 @@ namespace HeroesData.Parser.UnitData.Overrides
         /// </summary>
         /// <remarks>
         /// To be used for abilities that need to have their button value changed to a different value for the purpose of tooltips.
+        /// Key is the abil and button value. Value is the new button value.
         /// </remarks>
-        public Dictionary<string, string> ButtonNameOverrideByAbilityId { get; set; } = new Dictionary<string, string>();
+        public Dictionary<(string AbilityId, string ButtonId), string> ButtonNameOverrideByAbilityButtonId { get; set; } = new Dictionary<(string AbilityId, string ButtonId), string>();
 
         /// <summary>
         /// Gets or sets a hashset of additional hero units.

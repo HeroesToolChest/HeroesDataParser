@@ -27,6 +27,10 @@
     <EnergyRegenRate value="3" />
     <ShieldRegenDelay value="10" />
   </CUnit>
+  <CUnit default="1" id="StormHeroMounted" parent="StormHero">
+    <AbilArray Link="Mount" />
+    <AbilArray Link="Dismount" />
+  </CUnit>
   <CUnit default="1" id="StormHeroMountedCustom" parent="StormHero">
   </CUnit>
 </Catalog>

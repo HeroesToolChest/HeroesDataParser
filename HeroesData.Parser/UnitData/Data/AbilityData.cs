@@ -43,7 +43,7 @@ namespace HeroesData.Parser.UnitData.Data
                 return;
 
             // check for the HeroAbilArray button value, we may need to override it
-            if (!string.IsNullOrEmpty(referenceName) && HeroOverride.ButtonNameOverrideByAbilityId.TryGetValue(referenceName, out string setButtonValue))
+            if (!string.IsNullOrEmpty(referenceName) && HeroOverride.ButtonNameOverrideByAbilityButtonId.TryGetValue((referenceName, tooltipName), out string setButtonValue))
                 tooltipName = setButtonValue;
 
             // set the ability properties
