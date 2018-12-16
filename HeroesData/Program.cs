@@ -561,17 +561,18 @@ namespace HeroesData
             DefaultData defaultData = new DefaultData(GameData);
             defaultData.Load();
 
-            // parse the base hero data first
+            // get the base hero first
             HeroParser heroBaseDataParser = new HeroParser(GameData, defaultData, OverrideData)
             {
                 HotsBuild = HotsBuild,
                 Localization = localization,
             };
 
-            // add it to parsedHeroes
+            // parse the base hero and add it to parsedHeroes
             Hero baseHeroData = heroBaseDataParser.ParseBaseHero();
             parsedHeroes.GetOrAdd(baseHeroData.CHeroId, baseHeroData);
 
+            // parse all the heroes
             Console.Write($"\r{currentCount,6} / {unitParser.CHeroIds.Count} total heroes");
             Parallel.ForEach(unitParser.CHeroIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, cHeroId =>
             {
@@ -607,7 +608,7 @@ namespace HeroesData
                 }
             }
 
-            Console.WriteLine($"{parsedHeroes.Count,6} successfully parsed heroes");
+            Console.WriteLine($"{parsedHeroes.Count - 1,6} successfully parsed heroes"); // minus 1 to account for base hero
 
             if (failedParsedHeroes.Count > 0)
             {
