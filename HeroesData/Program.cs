@@ -219,8 +219,7 @@ namespace HeroesData
                         Console.WriteLine($"[{localization.GetFriendlyName()}]");
                         Console.ResetColor();
 
-                        GameData.GameStringLocalization = localization.GetFriendlyName();
-                        GameData.LoadGamestringFiles();
+                        ReintializeGameData(localization);
 
                         // parse gamestrings
                         ParseGameStrings(localization);
@@ -707,6 +706,22 @@ namespace HeroesData
             Console.WriteLine();
 
             return awardParser.GetParsedMatchAwards();
+        }
+
+        private void ReintializeGameData(Localization localization)
+        {
+            GameData.GameStringLocalization = localization.GetFriendlyName();
+
+            try
+            {
+                GameData.LoadGamestringFiles();
+            }
+            catch (Exception ex) when (ex is DirectoryNotFoundException || ex is FileNotFoundException)
+            {
+                WriteExceptionLog($"gamestrings_{localization.ToString().ToLower()}", ex);
+
+                throw new Exception("Error: Gamestrings could not be loaded. Check if localization is installed in the game client.");
+            }
         }
 
         private void WriteInvalidGameStrings(List<string> invalidGameStrings, Localization localization)
