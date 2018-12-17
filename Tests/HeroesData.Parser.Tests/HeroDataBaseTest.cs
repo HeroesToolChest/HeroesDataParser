@@ -52,7 +52,7 @@ namespace HeroesData.Parser.Tests
         private void LoadTestData()
         {
             GameData = new FileGameData(ModsTestFolder);
-            GameData.Load();
+            GameData.LoadAllData();
 
             GameStringParser = new GameStringParser(GameData);
             ParseGameStrings();

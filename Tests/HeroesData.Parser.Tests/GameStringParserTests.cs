@@ -39,7 +39,7 @@ namespace HeroesData.Parser.Tests
         public GameStringParserTests()
         {
             GameData = new FileGameData(ModsTestFolder);
-            GameData.Load();
+            GameData.LoadAllData();
 
             GameStringParser = new GameStringParser(GameData);
             PreParse();

@@ -25,7 +25,6 @@ namespace HeroesData
 
         private GameData GameData;
         private OverrideData OverrideData;
-        private GameStringParser GameStringParser;
 
         private string StoragePath = Environment.CurrentDirectory;
         private string OutputDirectory = string.Empty;
@@ -211,7 +210,6 @@ namespace HeroesData
                 PreInitialize();
                 InitializeGameData();
                 InitializeOverrideData();
-                GameStringParser = new GameStringParser(GameData, HotsBuild);
 
                 foreach (Localization localization in Localizations)
                 {
@@ -222,9 +220,10 @@ namespace HeroesData
                         Console.ResetColor();
 
                         GameData.GameStringLocalization = localization.GetFriendlyName();
+                        GameData.LoadGamestringFiles();
 
                         // parse gamestrings
-                        ParseGameStrings(GameStringParser, localization);
+                        ParseGameStrings(localization);
 
                         // parse heroes
                         parsedHeroes = ParseHeroes(localization);
@@ -485,7 +484,7 @@ namespace HeroesData
                 else if (StorageMode == StorageMode.CASC)
                     GameData = new CASCGameData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
 
-                GameData.Load();
+                GameData.LoadXmlFiles();
             }
             catch (DirectoryNotFoundException ex)
             {
@@ -541,10 +540,12 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        private void ParseGameStrings(GameStringParser gameStringParser, Localization localization)
+        private void ParseGameStrings(Localization localization)
         {
             var time = new Stopwatch();
             List<string> failedGameStrings = new List<string>();
+            GameStringParser gameStringParser = new GameStringParser(GameData, HotsBuild);
+
             int currentCount = 0;
             int failedCount = 0;
 

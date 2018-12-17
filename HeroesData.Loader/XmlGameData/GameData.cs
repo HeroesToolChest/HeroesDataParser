@@ -83,25 +83,37 @@ namespace HeroesData.Loader.XmlGameData
         protected string CoreLocalizedDataPath { get; set; }
         protected string HeroesDataLocalizedDataPath { get; set; }
 
-        protected bool IsXmlGameDataLoaded { get; private set; } = false;
+        protected bool LoadXmlFilesEnabled { get; private set; }
+        protected bool LoadTextFilesOnlyEnabled { get; private set; }
 
         /// <summary>
-        /// Loads the xml game data if not already loaded and the gamestring files.
+        /// Load only the xml files.
         /// </summary>
-        public void Load()
+        public void LoadXmlFiles()
         {
-            CoreBaseDataDirectoryPath = Path.Combine(ModsFolderPath, CoreStormModDirectoryName, BaseStormDataDirectoryName);
-            HeroesDataBaseDataDirectoryPath = Path.Combine(ModsFolderPath, HeroesDataStormModDirectoryName, BaseStormDataDirectoryName);
-            HeroesMapModsDirectoryPath = Path.Combine(ModsFolderPath, HeroesMapModsDirectoryName, BattlegroundMapModsDirectoryName);
+            LoadXmlFilesEnabled = true;
+            LoadTextFilesOnlyEnabled = false;
+            Load();
+        }
 
-            CoreLocalizedDataPath = Path.Combine(ModsFolderPath, CoreStormModDirectoryName, GameStringLocalization, LocalizedDataName);
-            HeroesDataLocalizedDataPath = Path.Combine(ModsFolderPath, HeroesDataStormModDirectoryName, GameStringLocalization, LocalizedDataName);
+        /// <summary>
+        /// Load only the gamestring files.
+        /// </summary>
+        public void LoadGamestringFiles()
+        {
+            LoadTextFilesOnlyEnabled = true;
+            LoadXmlFilesEnabled = false;
+            Load();
+        }
 
-            LoadFiles();
-            SetLevelScalingData();
-            SetLayoutButtonElementData();
-
-            IsXmlGameDataLoaded = true;
+        /// <summary>
+        /// Load both xml and gamestring files.
+        /// </summary>
+        public void LoadAllData()
+        {
+            LoadXmlFilesEnabled = true;
+            LoadTextFilesOnlyEnabled = true;
+            Load();
         }
 
         /// <summary>
@@ -190,6 +202,20 @@ namespace HeroesData.Loader.XmlGameData
             }
         }
 
+        private void Load()
+        {
+            CoreBaseDataDirectoryPath = Path.Combine(ModsFolderPath, CoreStormModDirectoryName, BaseStormDataDirectoryName);
+            HeroesDataBaseDataDirectoryPath = Path.Combine(ModsFolderPath, HeroesDataStormModDirectoryName, BaseStormDataDirectoryName);
+            HeroesMapModsDirectoryPath = Path.Combine(ModsFolderPath, HeroesMapModsDirectoryName, BattlegroundMapModsDirectoryName);
+
+            CoreLocalizedDataPath = Path.Combine(ModsFolderPath, CoreStormModDirectoryName, GameStringLocalization, LocalizedDataName);
+            HeroesDataLocalizedDataPath = Path.Combine(ModsFolderPath, HeroesDataStormModDirectoryName, GameStringLocalization, LocalizedDataName);
+
+            LoadFiles();
+            SetLevelScalingData();
+            SetLayoutButtonElementData();
+        }
+
         private void LoadFiles()
         {
             LoadCoreStormMod(); // must come first
@@ -236,7 +262,7 @@ namespace HeroesData.Loader.XmlGameData
 
         private void SetLevelScalingData()
         {
-            if (IsXmlGameDataLoaded)
+            if (!LoadXmlFilesEnabled)
                 return;
 
             IEnumerable<XElement> levelScalingArrays = XmlGameData.Root.Descendants("LevelScalingArray");
