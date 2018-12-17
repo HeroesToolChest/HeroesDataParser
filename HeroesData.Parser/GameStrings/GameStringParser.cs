@@ -45,8 +45,10 @@ namespace HeroesData.Parser.GameStrings
         public bool TryParseRawTooltip(string key, string tooltip, out string parsedTooltip)
         {
             parsedTooltip = string.Empty;
-            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(tooltip))
+            if (string.IsNullOrEmpty(key))
                 return false;
+            else if (string.IsNullOrEmpty(tooltip))
+                return true;
 
             try
             {
