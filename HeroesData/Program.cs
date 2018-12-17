@@ -35,9 +35,6 @@ namespace HeroesData
         private bool Defaults = true;
         private bool CreateXml = true;
         private bool CreateJson = true;
-        private bool ShowInvalidFullTooltips = false;
-        private bool ShowInvalidShortTooltips = false;
-        private bool ShowInvalidHeroTooltips = false;
         private bool ShowHeroWarnings = false;
         private bool ExtractImagePortraits = false;
         private bool ExtractImageTalents = false;
@@ -77,9 +74,6 @@ namespace HeroesData
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output.", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output.", CommandOptionType.NoValue);
             CommandOption localizedTextOption = app.Option("--localized-text", "Extract localized gamestrings from the XML and JSON file(s) into a text file.", CommandOptionType.NoValue);
-            CommandOption invalidFullOption = app.Option("--invalid-full", "Display all invalid full tooltips.", CommandOptionType.NoValue);
-            CommandOption invalidShortOption = app.Option("--invalid-short", "Display all invalid short tooltips.", CommandOptionType.NoValue);
-            CommandOption invalidHeroOption = app.Option("--invalid-hero", "Display all invalid hero tooltips.", CommandOptionType.NoValue);
             CommandOption heroWarningsOption = app.Option("--hero-warnings", "Display all hero warnings.", CommandOptionType.NoValue);
             CommandOption excludeAwardParseOption = app.Option("--exclude-awards", "Exclude match award parsing.", CommandOptionType.NoValue);
             CommandOption minifyOption = app.Option("--minify", "Create .min file(s) along with current output file(s).", CommandOptionType.NoValue);
@@ -163,9 +157,6 @@ namespace HeroesData
 
                 program.CreateXml = xmlOutputOption.HasValue() ? true : false;
                 program.CreateJson = jsonOutputOption.HasValue() ? true : false;
-                program.ShowInvalidFullTooltips = invalidFullOption.HasValue() ? true : false;
-                program.ShowInvalidShortTooltips = invalidShortOption.HasValue() ? true : false;
-                program.ShowInvalidHeroTooltips = invalidHeroOption.HasValue() ? true : false;
                 program.ShowHeroWarnings = heroWarningsOption.HasValue() ? true : false;
                 program.IsFileSplit = setFileSplitOption.HasValue() ? true : false;
                 program.IsLocalizedText = localizedTextOption.HasValue() ? true : false;
@@ -233,7 +224,7 @@ namespace HeroesData
                         GameData.GameStringLocalization = localization.GetFriendlyName();
 
                         // parse gamestrings
-                        ParseGameStrings(GameStringParser);
+                        ParseGameStrings(GameStringParser, localization);
 
                         // parse heroes
                         parsedHeroes = ParseHeroes(localization);
@@ -550,7 +541,7 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        private void ParseGameStrings(GameStringParser gameStringParser)
+        private void ParseGameStrings(GameStringParser gameStringParser, Localization localization)
         {
             var time = new Stopwatch();
             List<string> failedGameStrings = new List<string>();
@@ -582,7 +573,10 @@ namespace HeroesData
             time.Stop();
 
             if (failedCount > 0)
+            {
+                Task.Run(() => WriteInvalidGameStrings(failedGameStrings, localization));
                 Console.ForegroundColor = ConsoleColor.Yellow;
+            }
 
             Console.WriteLine($"{GameData.GameStringCount - failedCount,6} successfully parsed gamestrings");
 
@@ -714,22 +708,15 @@ namespace HeroesData
             return awardParser.GetParsedMatchAwards();
         }
 
-        private void OutputInvalidTooltips(SortedDictionary<string, string> tooltips, string headerMessage)
+        private void WriteInvalidGameStrings(List<string> invalidGameStrings, Localization localization)
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine($"{tooltips.Count} {headerMessage}");
-
-            foreach (KeyValuePair<string, string> item in tooltips)
+            using (StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"InvalidGamestrings_{localization.ToString().ToLower()}.txt"), false))
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write($"{item.Key}");
-                Console.Write("=");
-                Console.ResetColor();
-                Console.WriteLine($"{item.Value}");
+                foreach (string gamestring in invalidGameStrings)
+                {
+                    writer.WriteLine(gamestring);
+                }
             }
-
-            Console.ResetColor();
-            Console.WriteLine();
         }
 
         private void WriteExceptionLog(string fileName, Exception ex)
