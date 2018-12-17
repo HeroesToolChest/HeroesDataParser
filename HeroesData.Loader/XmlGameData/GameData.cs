@@ -23,6 +23,14 @@ namespace HeroesData.Loader.XmlGameData
         }
 
         /// <summary>
+        /// Gets the number of gamestrings.
+        /// </summary>
+        public int GameStringCount
+        {
+            get { return GameStringById.Count; }
+        }
+
+        /// <summary>
         /// Gets the number of xml files that were added.
         /// </summary>
         public int XmlFileCount { get; protected set; } = 0;
@@ -136,6 +144,25 @@ namespace HeroesData.Loader.XmlGameData
                 return false;
         }
 
+        /// <summary>
+        /// Returns a collection of all game string ids.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetGameStringIds()
+        {
+            return GameStringById.Keys.ToList();
+        }
+
+        /// <summary>
+        /// Adds a gamestring. If a gamestring exists, it will be overridden.
+        /// </summary>
+        /// <param name="id">The id of the string.</param>
+        /// <param name="value">The value of the string.</param>
+        public void AddGameString(string id, string value)
+        {
+            GameStringById[id] = value;
+        }
+
         protected abstract void LoadCoreStormMod();
         protected abstract void LoadHeroesDataStormMod();
         protected abstract void LoadHeroesMapMods();
@@ -179,7 +206,7 @@ namespace HeroesData.Loader.XmlGameData
 
                 string[] splitLine = line.Split(new char[] { '=' }, 2);
                 if (splitLine.Length == 2)
-                    GameStringById[splitLine[0]] = splitLine[1];
+                    AddGameString(splitLine[0], splitLine[1]);
             }
         }
 
@@ -204,7 +231,7 @@ namespace HeroesData.Loader.XmlGameData
             }
 
             if (!string.IsNullOrEmpty(gamelink) && mapGamestrings.TryGetValue($"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}[Override]Generic Instance_Award Name", out string instanceAwardName))
-                GameStringById[$"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}{gamelink}"] = instanceAwardName;
+                AddGameString($"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}{gamelink}", instanceAwardName);
         }
 
         private void SetLevelScalingData()

@@ -2,7 +2,6 @@
 using HeroesData.Helpers;
 using HeroesData.Loader;
 using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.GameStrings;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -125,7 +124,7 @@ namespace HeroesData.Parser.MatchAwards
             matchAward.ScoreScreenImageFileName = matchAward.ScoreScreenImageFileNameOriginal.ToLower();
             matchAward.MVPScreenImageFileName = $"storm_ui_mvp_{awardSpecialName}_%color%.dds".ToLower();
 
-            if (GameData.TryGetParsedGameString($"{MapGameStringPrefixes.ScoreValueTooltipPrefix}{gameLink}", out string description))
+            if (GameData.TryGetGameString($"{MapGameStringPrefixes.ScoreValueTooltipPrefix}{gameLink}", out string description))
                 matchAward.Description = new TooltipDescription(description);
 
             MatchAwards[matchAward.ShortName] = matchAward;

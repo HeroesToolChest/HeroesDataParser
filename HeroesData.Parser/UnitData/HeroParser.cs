@@ -56,7 +56,7 @@ namespace HeroesData.Parser.UnitData
             Hero hero = new Hero
             {
                 Name = GameData.GetGameString(DefaultData.HeroName.Replace(DefaultData.IdReplacer, cHeroId)),
-                Description = new TooltipDescription(GameData.GetParsedGameString(DefaultData.HeroDescription.Replace(DefaultData.IdReplacer, cHeroId)), Localization),
+                Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroDescription.Replace(DefaultData.IdReplacer, cHeroId)), Localization),
                 CHeroId = cHeroId,
             };
 

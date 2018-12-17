@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.MatchAwards;
 using HeroesData.Parser.UnitData;
 using HeroesData.Parser.UnitData.Data;
@@ -17,6 +18,7 @@ namespace HeroesData.Parser.Tests
 
         private GameData GameData;
         private DefaultData DefaultData;
+        private GameStringParser GameStringParser;
         private OverrideData OverrideData;
 
         public HeroDataBaseTest()
@@ -51,6 +53,10 @@ namespace HeroesData.Parser.Tests
         {
             GameData = new FileGameData(ModsTestFolder);
             GameData.Load();
+
+            GameStringParser = new GameStringParser(GameData);
+            ParseGameStrings();
+
             DefaultData = new DefaultData(GameData);
             DefaultData.Load();
 
@@ -72,6 +78,15 @@ namespace HeroesData.Parser.Tests
             HeroUther = heroDataParser.Parse("Uther");
             HeroDryad = heroDataParser.Parse("Dryad");
             HeroTestHero = heroDataParser.Parse("TestHero");
+        }
+
+        private void ParseGameStrings()
+        {
+            foreach (string id in GameData.GetGameStringIds())
+            {
+                if (GameStringParser.TryParseRawTooltip(id, GameData.GetGameString(id), out string parsedGamestring))
+                    GameData.AddGameString(id, parsedGamestring);
+            }
         }
     }
 }

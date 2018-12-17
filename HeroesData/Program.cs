@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using HeroesData.Commands;
 using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.MatchAwards;
 using HeroesData.Parser.UnitData;
 using HeroesData.Parser.UnitData.Data;
@@ -24,6 +25,7 @@ namespace HeroesData
 
         private GameData GameData;
         private OverrideData OverrideData;
+        private GameStringParser GameStringParser;
 
         private string StoragePath = Environment.CurrentDirectory;
         private string OutputDirectory = string.Empty;
@@ -218,6 +220,7 @@ namespace HeroesData
                 PreInitialize();
                 InitializeGameData();
                 InitializeOverrideData();
+                GameStringParser = new GameStringParser(GameData, HotsBuild);
 
                 foreach (Localization localization in Localizations)
                 {
@@ -228,6 +231,9 @@ namespace HeroesData
                         Console.ResetColor();
 
                         GameData.GameStringLocalization = localization.GetFriendlyName();
+
+                        // parse gamestrings
+                        ParseGameStrings(GameStringParser);
 
                         // parse heroes
                         parsedHeroes = ParseHeroes(localization);
@@ -539,6 +545,47 @@ namespace HeroesData
             }
 
             Console.WriteLine($"Loaded {OverrideData.HeroDataOverrideXmlFile}");
+            Console.ResetColor();
+            Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
+            Console.WriteLine();
+        }
+
+        private void ParseGameStrings(GameStringParser gameStringParser)
+        {
+            var time = new Stopwatch();
+            List<string> failedGameStrings = new List<string>();
+            int currentCount = 0;
+            int failedCount = 0;
+
+            Console.WriteLine($"Parsing gamestrings...");
+
+            time.Start();
+
+            Console.Write($"\r{currentCount,6} / {GameData.GameStringCount} total gamestrings");
+
+            Parallel.ForEach(GameData.GetGameStringIds(), new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, gamestringId =>
+            {
+                if (gameStringParser.TryParseRawTooltip(gamestringId, GameData.GetGameString(gamestringId), out string parsedGamestring))
+                {
+                    GameData.AddGameString(gamestringId, parsedGamestring);
+                }
+                else
+                {
+                    failedGameStrings.Add($"{gamestringId}={GameData.GetGameString(gamestringId)}");
+                    Interlocked.Increment(ref failedCount);
+                }
+
+                Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {GameData.GameStringCount} total gamestrings");
+            });
+
+            Console.WriteLine();
+            time.Stop();
+
+            if (failedCount > 0)
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
+            Console.WriteLine($"{GameData.GameStringCount - failedCount,6} successfully parsed gamestrings");
+
             Console.ResetColor();
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
