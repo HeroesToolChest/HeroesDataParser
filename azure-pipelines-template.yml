@@ -36,17 +36,20 @@ jobs:
         testResultsFiles: '**/*.trx'
         
     - ${{ if eq(parameters.artifacts, 'true') }}:
-      - script: dotnet publish -c release -o .\bin\publish\any\
+      - powershell: dotnet publish -c release -o .\bin\publish\any\
         displayName: Publish release [fdd]
         
-      - script: dotnet pack .\HeroesData\HeroesData.csproj -c release --no-build -o .\bin\nupkg\any\
+      - powershell: dotnet pack .\HeroesData\HeroesData.csproj -c release --no-build -o .\bin\nupkg\any\
         displayName: Nuget pack [fdd]
-
-      - script: dotnet publish -c release --self-contained -r win-x64 -o .\bin\publish\win-x64\
+ 
+      - powershell: (get-content HeroesData.csproj).Replace('<PackAsTool>true</PackAsTool>','<PackAsTool>false</PackAsTool>') | out-file HeroesData_self.csproj
+        displayName: SCD Prep
+        
+      - powershell: dotnet publish .\HeroesData\HeroesData_self.csproj -c release --self-contained -r win-x64 -o .\bin\publish\win-x64\
         displayName: Publish release [win-x64]
     
-      - script: dotnet publish -c release --self-contained -r osx-x64 -o .\bin\publish\osx-x64\
+      - powershell: dotnet publish .\HeroesData\HeroesData_self.csproj -c release --self-contained -r osx-x64 -o .\bin\publish\osx-x64\
         displayName: Publish release [osx-x64]
         
-      - script: dotnet publish -c release --self-contained -r linux-x64 -o .\bin\publish\linux-x64\
+      - powershell: dotnet publish .\HeroesData\HeroesData_self.csproj -c release --self-contained -r linux-x64 -o .\bin\publish\linux-x64\
         displayName: Publish release linux-x64
