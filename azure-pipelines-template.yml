@@ -39,7 +39,7 @@ jobs:
       - powershell: dotnet publish -c release -o .\bin\publish\any\
         displayName: Publish release [fdd]
         
-      - powershell: dotnet pack HeroesData.csproj -c release --no-build -o .\bin\nupkg\any\
+      - powershell: dotnet pack HeroesData.csproj -c release -o .\bin\nupkg\any\
         displayName: Nuget pack [fdd]
  
       - powershell: (get-content HeroesData.csproj).Replace('<PackAsTool>true</PackAsTool>','<PackAsTool>false</PackAsTool>') | out-file HeroesData_self.csproj
