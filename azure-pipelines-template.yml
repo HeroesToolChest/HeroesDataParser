@@ -9,8 +9,11 @@ jobs:
   - job: ${{ parameters.name }}
     pool: ${{ parameters.pool }}
     variables:
-      config_debug: debug
-      config_release: release
+      - group: secret
+      - name: config_debug
+        value: debug
+      - name: config_release
+        value: release
     strategy:
       matrix:
         Build_Debug:
@@ -35,21 +38,58 @@ jobs:
         testRunner: VSTest
         testResultsFiles: '**/*.trx'
         
-    - ${{ if eq(parameters.artifacts, 'true') }}:
-      - powershell: dotnet publish -c release -o .\bin\publish\any\
-        displayName: Publish release [fdd]
+    - ${{ if eq(parameters.artifacts, 'true') and eq($(configuration), 'release' }}:
+      - powershell: dotnet publish HeroesData\HeroesData.csproj -c release -o HeroesData\bin\publish\any\
+        displayName: Publish release [fdd-any]
         
-      - powershell: dotnet pack HeroesData\HeroesData.csproj -c release --no-build -o .\bin\nupkg\any\
-        displayName: Nuget pack [fdd]
- 
+      - powershell: dotnet pack HeroesData\HeroesData.csproj -c release --no-build -o HeroesData\bin\nupkg\any\       
+        displayName: Nuget pack [fdd-any]
+        
+      - task: DownloadSecureFile@1
+        displayName: Download cert
+        inputs:
+          secureFile: certificate
+        
+      - powershell: nuget sign HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg -CertificatePath $env:DOWNLOADSECUREFILE_SECUREFILEPATH -CertificatePassword $(cert_password) -Timestamper http://timestamp.digicert.com
+        displayName: Sign nuget pack
+        
       - powershell: (get-content HeroesData\HeroesData.csproj).Replace('<PackAsTool>true</PackAsTool>','<PackAsTool>false</PackAsTool>') | out-file HeroesData\HeroesData_self.csproj
         displayName: SCD Prep
         
-      - powershell: dotnet publish HeroesData\HeroesData_self.csproj -c release --self-contained -r win-x64 -o .\bin\publish\win-x64\
-        displayName: Publish release [win-x64]
+      - powershell: dotnet publish HeroesData\HeroesData_self.csproj -c release --self-contained -r win-x64 -o HeroesData\bin\publish\win-x64\
+        displayName: Publish release [scd-win-x64]
     
-      - powershell: dotnet publish HeroesData\HeroesData_self.csproj -c release --self-contained -r osx-x64 -o .\bin\publish\osx-x64\
-        displayName: Publish release [osx-x64]
+      - powershell: dotnet publish HeroesData\HeroesData_self.csproj -c release --self-contained -r osx-x64 -o HeroesData\bin\publish\osx-x64\
+        displayName: Publish release [scd-osx-x64]
         
-      - powershell: dotnet publish HeroesData\HeroesData_self.csproj -c release --self-contained -r linux-x64 -o .\bin\publish\linux-x64\
-        displayName: Publish release [linux-x64]
+      - powershell: dotnet publish HeroesData\HeroesData_self.csproj -c release --self-contained -r linux-x64 -o HeroesData\bin\publish\linux-x64\
+        displayName: Publish release [scd-linux-x64]
+        
+      - task: PublishPipelineArtifact@0
+        inputs:
+          displayName: Publish Artifact [fdd]
+          artifactName: 'HeroesDataParser-fdd-any'
+          targetPath: 'HeroesData\bin\publish\any\'
+          
+      - task: PublishPipelineArtifact@0
+        inputs:
+          displayName: Publish Artifact [scd-win-x64]
+          artifactName: 'HeroesDataParser-scd-win-x64'
+          targetPath: 'HeroesData\bin\publish\win-x64\'
+          
+      - task: PublishPipelineArtifact@0
+        inputs:
+          displayName: Publish Artifact [scd-osx-x64]
+          artifactName: 'HeroesDataParser-scd-osx-x64'
+          targetPath: 'HeroesData\bin\publish\osx-x64\'
+          
+      - task: PublishPipelineArtifact@0
+        inputs:
+          displayName: Publish Artifact [scd-linux-x64]
+          artifactName: 'HeroesDataParser-scd-linux-x64'
+          targetPath: 'HeroesData\bin\publish\linux-x64\'
+          
+      - task: PublishPipelineArtifact@0
+        inputs:
+          displayName: Publish Artifact [nuget-pack-fdd-any]
+          targetPath: 'HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg'
