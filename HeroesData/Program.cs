@@ -66,23 +66,23 @@ namespace HeroesData
 
             ReadCommand.Add(app).SetCommand();
 
-            CommandOption storagePathOption = app.Option("-s|--storagePath <filePath>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory", CommandOptionType.SingleValue);
-            CommandOption setMaxDegreeParallismOption = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use", CommandOptionType.SingleValue);
-            CommandOption extractIconsOption = app.Option("-e|--extract <value>", $"Extracts images, available only in -s|--storagePath mode using Hots directory", CommandOptionType.MultipleValue);
-            CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Set the description output type (0 - 6) - Default 0", CommandOptionType.SingleValue);
-            CommandOption setBuildOption = app.Option("-b|--build <number>", "Set the override build file", CommandOptionType.SingleValue);
-            CommandOption setOutputDirectoryOption = app.Option("-o|--outputDirectory <filePath>", "Set the output directory", CommandOptionType.SingleValue);
-            CommandOption setGameStringLocalizations = app.Option("-l|--localization <locale>", "Set the gamestring localization(s) - Default: enUS", CommandOptionType.MultipleValue);
-            CommandOption setFileSplitOption = app.Option("-f|--fileSplit", "Split the XML and JSON file(s) into multiple files", CommandOptionType.NoValue);
-            CommandOption xmlOutputOption = app.Option("--xml", "Create xml output", CommandOptionType.NoValue);
-            CommandOption jsonOutputOption = app.Option("--json", "Create json output", CommandOptionType.NoValue);
-            CommandOption localizedTextOption = app.Option("--localizedText", "Extract localized gamestrings from the XML and JSON file(s) into a text file", CommandOptionType.NoValue);
-            CommandOption invalidFullOption = app.Option("--invalidFull", "Show all invalid full tooltips", CommandOptionType.NoValue);
-            CommandOption invalidShortOption = app.Option("--invalidShort", "Show all invalid short tooltips", CommandOptionType.NoValue);
-            CommandOption invalidHeroOption = app.Option("--invalidHero", "Show all invalid hero tooltips", CommandOptionType.NoValue);
-            CommandOption heroWarningsOption = app.Option("--heroWarnings", "Show all hero warnings", CommandOptionType.NoValue);
-            CommandOption excludeAwardParseOption = app.Option("--excludeAwards", "Exclude match award parsing", CommandOptionType.NoValue);
-            CommandOption minifyOption = app.Option("--minify", "Create .min file(s) along with current output file(s)", CommandOptionType.NoValue);
+            CommandOption storagePathOption = app.Option("-s|--storage-path <filePath>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.", CommandOptionType.SingleValue);
+            CommandOption setMaxDegreeParallismOption = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use.", CommandOptionType.SingleValue);
+            CommandOption extractIconsOption = app.Option("-e|--extract <value>", $"Extracts images, available only in -s|--storage-path mode using the Hots directory.", CommandOptionType.MultipleValue);
+            CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Set the description output type (0 - 6) - Default 0.", CommandOptionType.SingleValue);
+            CommandOption setBuildOption = app.Option("-b|--build <number>", "Set the override build file.", CommandOptionType.SingleValue);
+            CommandOption setOutputDirectoryOption = app.Option("-o|--output-directory <filePath>", "Set the output directory.", CommandOptionType.SingleValue);
+            CommandOption setGameStringLocalizations = app.Option("-l|--localization <locale>", "Set the gamestring localization(s) - Default: enUS.", CommandOptionType.MultipleValue);
+            CommandOption setFileSplitOption = app.Option("-f|--file-split", "Split the XML and JSON file(s) into multiple files.", CommandOptionType.NoValue);
+            CommandOption xmlOutputOption = app.Option("--xml", "Create xml output.", CommandOptionType.NoValue);
+            CommandOption jsonOutputOption = app.Option("--json", "Create json output.", CommandOptionType.NoValue);
+            CommandOption localizedTextOption = app.Option("--localized-text", "Extract localized gamestrings from the XML and JSON file(s) into a text file.", CommandOptionType.NoValue);
+            CommandOption invalidFullOption = app.Option("--invalid-full", "Display all invalid full tooltips.", CommandOptionType.NoValue);
+            CommandOption invalidShortOption = app.Option("--invalid-short", "Display all invalid short tooltips.", CommandOptionType.NoValue);
+            CommandOption invalidHeroOption = app.Option("--invalid-hero", "Display all invalid hero tooltips.", CommandOptionType.NoValue);
+            CommandOption heroWarningsOption = app.Option("--hero-warnings", "Display all hero warnings.", CommandOptionType.NoValue);
+            CommandOption excludeAwardParseOption = app.Option("--exclude-awards", "Exclude match award parsing.", CommandOptionType.NoValue);
+            CommandOption minifyOption = app.Option("--minify", "Create .min file(s) along with current output file(s).", CommandOptionType.NoValue);
 
             app.OnExecute(() =>
             {
