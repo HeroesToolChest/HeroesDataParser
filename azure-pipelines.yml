@@ -38,8 +38,16 @@ jobs:
       inputs:
         secureFile: certificate
 
-    - powershell: nuget sign HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg -CertificatePath $env:DOWNLOADSECUREFILE_SECUREFILEPATH -CertificatePassword $(cert_password) -Timestamper http://timestamp.digicert.com
+    - task: DotNetCoreCLI@2
       displayName: Sign nuget pack
+      inputs:
+        command: custom
+        projects: HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg
+        custom: sign
+        arguments: -CertificatePath $env:DOWNLOADSECUREFILE_SECUREFILEPATH -CertificatePassword $(cert_password) -Timestamper http://timestamp.digicert.com
+
+    # - powershell: nuget sign HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg -CertificatePath $env:DOWNLOADSECUREFILE_SECUREFILEPATH -CertificatePassword $(cert_password) -Timestamper http://timestamp.digicert.com
+    #   displayName: Sign nuget pack
 
     - powershell: (get-content HeroesData\HeroesData.csproj).Replace('<PackAsTool>true</PackAsTool>','<PackAsTool>false</PackAsTool>') | out-file HeroesData\HeroesData_self.csproj
       displayName: SCD Prep
