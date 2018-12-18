@@ -24,6 +24,8 @@ jobs:
     - Windows
   pool:
     vmImage: 'vs2017-win2016'
+  variables:
+    - group: secret
   steps:
     - powershell: dotnet publish HeroesData\HeroesData.csproj -c release -o HeroesData\bin\publish\any\
       displayName: Publish release [fdd-any]
