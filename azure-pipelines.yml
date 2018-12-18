@@ -42,8 +42,7 @@ jobs:
       displayName: Sign nuget pack
       inputs:
         command: custom
-        projects: HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg
-        custom: sign
+        custom: sign HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg
         arguments: -CertificatePath $env:DOWNLOADSECUREFILE_SECUREFILEPATH -CertificatePassword $(cert_password) -Timestamper http://timestamp.digicert.com
 
     # - powershell: nuget sign HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg -CertificatePath $env:DOWNLOADSECUREFILE_SECUREFILEPATH -CertificatePassword $(cert_password) -Timestamper http://timestamp.digicert.com
