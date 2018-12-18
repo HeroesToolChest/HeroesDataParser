@@ -1,15 +1,11 @@
 parameters:
   name: ''
   pool: ''
-  artifacts: false
-  deploy-nuget: false
-  deploy-github: false
 
 jobs:
   - job: ${{ parameters.name }}
     pool: ${{ parameters.pool }}
     variables:
-      - group: secret
       - name: config_debug
         value: debug
       - name: config_release
