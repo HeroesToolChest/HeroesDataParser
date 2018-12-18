@@ -38,7 +38,7 @@ jobs:
         testRunner: VSTest
         testResultsFiles: '**/*.trx'
         
-    - ${{ if and(eq(parameters.artifacts, 'true'), eq(variables.CONFIGURATION, 'release')) }}:
+    - ${{ if and(eq(parameters.artifacts, 'true'), eq(VARIABLES_CONFIGURATION, 'release')) }}:
       - powershell: dotnet publish HeroesData\HeroesData.csproj -c release -o HeroesData\bin\publish\any\
         displayName: Publish release [fdd-any]
         
