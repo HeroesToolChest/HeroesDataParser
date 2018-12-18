@@ -17,9 +17,9 @@ jobs:
     strategy:
       matrix:
         Build_Debug:
-          configuration: $(config_debug)
+          CONFIGURATION: $(config_debug)
         Build_Release:
-          configuration: $(config_release)
+          CONFIGURATION: $(config_release)
     steps:
     - task: DotNetCoreInstaller@0
       displayName: dotnet installer 2.2.100
@@ -38,7 +38,7 @@ jobs:
         testRunner: VSTest
         testResultsFiles: '**/*.trx'
         
-    - ${{ if and(eq(parameters.artifacts, 'true'), eq(variables.configuration, release)) }}:
+    - ${{ if and(eq(parameters.artifacts, 'true'), eq(variables.CONFIGURATION, 'release')) }}:
       - powershell: dotnet publish HeroesData\HeroesData.csproj -c release -o HeroesData\bin\publish\any\
         displayName: Publish release [fdd-any]
         
