@@ -13,12 +13,7 @@
         <AbilityType value="B" />
       </Override>
     </Button>
-    <Button id="SummonMount" parent="StormButtonParent">
-      <Override>
-        <AbilityTier value="Mount" />
-        <AbilityType value="Z" />
-      </Override>
-    </Button>
+    <Button id="SummonMount" parent="StormButtonParent"></Button>
   </CHero>
   <CHero id="Abathur">
     <HeroUnit id="AbathurSymbiote"></HeroUnit>
@@ -264,22 +259,16 @@
     <Button id="RagnarosBigRagMoltenSwing" parent="StormButtonParentTrait">
       <Override>
         <ParentLink value="RagnarosBigRag" />
-        <AbilityTier value="Basic" />
-        <AbilityType value="Q" />
       </Override>
     </Button>
     <Button id="RagnarosBigRagMeteorShower" parent="StormButtonParent">
       <Override>
         <ParentLink value="RagnarosBigRag" />
-        <AbilityTier value="Basic" />
-        <AbilityType value="W" />
       </Override>
     </Button>
     <Button id="RagnarosBigRagExplosiveRune" parent="StormButtonParent">
       <Override>
         <ParentLink value="RagnarosBigRag" />
-        <AbilityTier value="Basic" />
-        <AbilityType value="E" />
       </Override>
     </Button>
     <HeroUnit id="RagnarosBigRag"></HeroUnit>

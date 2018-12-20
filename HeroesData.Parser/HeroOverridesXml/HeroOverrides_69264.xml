@@ -1,5 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides>
+  <CHero id="_stormHero">
+    <Button id="PortBackToBase" parent="StormButtonParent">
+      <Override>
+        <AbilityTier value="Hearth" />
+        <AbilityType value="B" />
+      </Override>
+    </Button>
+    <Button id="PortBackToBaseNoMana" parent="StormButtonParent">
+      <Override>
+        <AbilityTier value="Hearth" />
+        <AbilityType value="B" />
+      </Override>
+    </Button>
+    <Button id="SummonMount" parent="StormButtonParent"></Button>
+  </CHero>
   <CHero id="Abathur">
     <HeroUnit id="AbathurSymbiote"></HeroUnit>
   </CHero>
@@ -60,9 +75,10 @@
   </CHero>
   <CHero id="Dehaka">
     <!--This points to the collection which the tooltip is different from the ingame tooltip-->
-    <HeroAbilArray button="DehakaEssenceCollectionStore">
-      <Set value="DehakaEssenceCollection" /> <!--set it to the ingame tooltip-->
-    </HeroAbilArray>
+    <Ability id="DehakaEssenceCollection" button="DehakaEssenceCollectionStore">
+      <!--set it to the ingame tooltip-->
+      <ButtonName value="DehakaEssenceCollection" />
+    </Ability>			  
   </CHero>
   <CHero id="DVa">
     <CUnit value="HeroDVaMech" />
@@ -104,9 +120,9 @@
         <ParentLink value="FenixPhaseBomb" />
       </Override>
     </Ability>
-    <HeroAbilArray button="FenixWeaponModes">
-      <Set value="FenixPhaseBomb" />
-    </HeroAbilArray>
+    <Ability id="FenixPhaseBomb" button="FenixWeaponModes">
+      <ButtonName value="FenixPhaseBomb" />
+    </Ability>
   </CHero>
   <CHero id="Gall">
     <Ability id="GallShove">
@@ -201,41 +217,32 @@
     <Weapon id="HeroErikSlingshot" valid="true" />
   </CHero>
   <CHero id="Lucio">
-    <Ability id="LucioCrossfade" valid="true">
+    <Ability id="LucioCrossfade" valid="true" button="LucioCrossfadeShop">
+      <ButtonName value="LucioCrossfadeActivateSpeedBoost" />
       <Override>
         <ParentLink value="LucioCrossfadeActivateHealingBoost" />
       </Override>
     </Ability>
-    <Ability id="LucioCrossfade" button="LucioCrossfadeActivateHealingBoost" add="true"></Ability>
-    <HeroAbilArray button="LucioCrossfadeShop">
-      <Set value="LucioCrossfadeActivateSpeedBoost" />
-    </HeroAbilArray>
+    <Ability id="LucioCrossfade" button="LucioCrossfadeActivateHealingBoost" add="true">
+    </Ability>
   </CHero>
   <CHero id="Ragnaros">
-    <!--Molten Core abilities-->
-    <LinkedAbilities>
-      <Ability id="RagnarosBigRagMoltenSwing" element="CAbilEffectTarget" />
-      <Ability id="RagnarosBigRagMeteorShower" element="CAbilEffectTarget" />
-      <Ability id="RagnarosBigRagExplosiveRune" element="CAbilEffectTarget" />
-    </LinkedAbilities>
-    <Ability id="RagnarosBigRagMoltenSwing" valid="true">
+    <!--Molten Core abilities-->			 
+    <Button id="RagnarosBigRagMoltenSwing" parent="StormButtonParentTrait">												 
       <Override>
         <ParentLink value="RagnarosBigRag" />
-        <AbilityType value="Q" />
       </Override>
-    </Ability>
-    <Ability id="RagnarosBigRagMeteorShower" valid="true">
+    </Button>
+    <Button id="RagnarosBigRagMeteorShower" parent="StormButtonParent">
       <Override>
         <ParentLink value="RagnarosBigRag" />
-        <AbilityType value="W" />
       </Override>
-    </Ability>
-    <Ability id="RagnarosBigRagExplosiveRune" valid="true">
+    </Button>
+    <Button id="RagnarosBigRagExplosiveRune" parent="StormButtonParent">
       <Override>
         <ParentLink value="RagnarosBigRag" />
-        <AbilityType value="E" />
       </Override>
-    </Ability>
+    </Button>
     <HeroUnit id="RagnarosBigRag"></HeroUnit>
   </CHero>
   <CHero id="Rexxar">
