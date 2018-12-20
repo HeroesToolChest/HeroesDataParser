@@ -170,13 +170,14 @@ namespace HeroesData.Parser.UnitData.Data
                     ReferenceNameId = buttonId,
                 };
 
-                // defaults
+                // default
                 ability.Tier = AbilityTier.Activable;
-                ability.AbilityType = AbilityType.Active;
 
                 // LastOrDefault, since overrides can happen in later xml files
                 XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").LastOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == parent);
 
+                SetAbilityType(hero, ability);
+                SetAbilityTierFromAbilityType(hero, ability);
                 SetTooltipCostData(hero, ability.ReferenceNameId, ability);
                 SetTooltipDescriptions(ability);
                 SetTooltipOverrideData(cButtonElement, ability);
@@ -204,6 +205,11 @@ namespace HeroesData.Parser.UnitData.Data
             else if (ability.Tier == AbilityTier.Trait)
             {
                 ability.AbilityType = AbilityType.Trait;
+                return;
+            }
+            else if (ability.Tier == AbilityTier.Hearth)
+            {
+                ability.AbilityType = AbilityType.B;
                 return;
             }
 
@@ -245,6 +251,8 @@ namespace HeroesData.Parser.UnitData.Data
                 ability.AbilityType = AbilityType.Z;
             else if (slot.ToUpper().StartsWith("HEROIC"))
                 ability.AbilityType = AbilityType.Heroic;
+            else if (slot.ToUpper().StartsWith("HEARTH"))
+                ability.AbilityType = AbilityType.B;
             else
                 throw new ParseException($"Unknown slot type ({type}) for ability type: {slot} - Hero(CUnit): {hero.CUnitId} - Ability: {ability.ReferenceNameId}");
         }
@@ -260,6 +268,22 @@ namespace HeroesData.Parser.UnitData.Data
                     ability.TalentIdUpgrades.Add(talentId);
                 }
             }
+        }
+
+        private void SetAbilityTierFromAbilityType(Hero hero, Ability ability)
+        {
+            if (ability.AbilityType == AbilityType.Q || ability.AbilityType == AbilityType.W || ability.AbilityType == AbilityType.E)
+                ability.Tier = AbilityTier.Basic;
+            else if (ability.AbilityType == AbilityType.Heroic)
+                ability.Tier = AbilityTier.Heroic;
+            else if (ability.AbilityType == AbilityType.Z)
+                ability.Tier = AbilityTier.Mount;
+            else if (ability.AbilityType == AbilityType.Trait)
+                ability.Tier = AbilityTier.Trait;
+            else if (ability.AbilityType == AbilityType.B)
+                ability.Tier = AbilityTier.Hearth;
+            else if (ability.AbilityType == AbilityType.Active)
+                ability.Tier = AbilityTier.Activable;
         }
     }
 }
