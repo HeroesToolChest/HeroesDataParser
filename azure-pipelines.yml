@@ -27,65 +27,86 @@ jobs:
   variables:
     - group: secret
   steps:
-    - powershell: dotnet publish HeroesData\HeroesData.csproj -c release -o HeroesData\bin\publish\any\
-      displayName: Publish release [fdd-any]
-
-    - powershell: dotnet pack HeroesData\HeroesData.csproj -c release --no-build -o HeroesData\bin\nupkg\any\       
-      displayName: Nuget pack [fdd-any]
-
     - task: DownloadSecureFile@1
       displayName: Download cert
       inputs:
         secureFile: certificate
 
-    - task: DotNetCoreCLI@2
+    - task: DotNetCoreInstaller@0
+      displayName: dotnet installer 2.2.100
+      inputs:
+        version: '2.2.100'
+
+    - task: NuGetToolInstaller@0
+      displayName: nuget installer 4.8.1
+      inputs:
+        versionSpec: '4.8.1' 
+              
+    - powershell: dotnet publish HeroesData\HeroesData.csproj -c release -o .\bin\publish\any\
+      displayName: Publish release [fdd-any]
+
+    - powershell: dotnet pack HeroesData\HeroesData.csproj -c release --no-build -o .\bin\nupkg\any\       
+      displayName: Nuget pack [fdd-any]
+
+    - task: NuGetCommand@2
       displayName: Sign nuget pack
       inputs:
-        command: custom
-        custom: sign HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg
-        arguments: -CertificatePath $env:DOWNLOADSECUREFILE_SECUREFILEPATH -CertificatePassword $(cert_password) -Timestamper http://timestamp.digicert.com
-
-    # - powershell: nuget sign HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg -CertificatePath $env:DOWNLOADSECUREFILE_SECUREFILEPATH -CertificatePassword $(cert_password) -Timestamper http://timestamp.digicert.com
-    #   displayName: Sign nuget pack
+        command: 'custom'
+        arguments: 'sign HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg -CertificatePath $(Agent.TempDirectory)\certificate -CertificatePassword $(cert_password) -Timestamper http://timestamp.digicert.com'
 
     - powershell: (get-content HeroesData\HeroesData.csproj).Replace('<PackAsTool>true</PackAsTool>','<PackAsTool>false</PackAsTool>') | out-file HeroesData\HeroesData_self.csproj
       displayName: SCD Prep
 
-    - powershell: dotnet publish HeroesData\HeroesData_self.csproj -c release --self-contained -r win-x64 -o HeroesData\bin\publish\win-x64\
+    - powershell: dotnet publish HeroesData\HeroesData_self.csproj -c release --self-contained -r win-x64 -o .\bin\publish\win-x64\
       displayName: Publish release [scd-win-x64]
 
-    - powershell: dotnet publish HeroesData\HeroesData_self.csproj -c release --self-contained -r osx-x64 -o HeroesData\bin\publish\osx-x64\
+    - powershell: dotnet publish HeroesData\HeroesData_self.csproj -c release --self-contained -r osx-x64 -o .\bin\publish\osx-x64\
       displayName: Publish release [scd-osx-x64]
 
-    - powershell: dotnet publish HeroesData\HeroesData_self.csproj -c release --self-contained -r linux-x64 -o HeroesData\bin\publish\linux-x64\
+    - powershell: dotnet publish HeroesData\HeroesData_self.csproj -c release --self-contained -r linux-x64 -o .\bin\publish\linux-x64\
       displayName: Publish release [scd-linux-x64]
+  
+    - task: ArchiveFiles@2
+      displayName: Archive [fdd-any]
+      inputs:
+        archiveType: zip
+        rootFolderOrFile: 'HeroesData\bin\publish\any\'
+        includeRootFolder: false
+        archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser-fdd-any.zip'
+
+    - task: ArchiveFiles@2
+      displayName: Archive [scd-win-x64]
+      inputs:
+        archiveType: zip
+        rootFolderOrFile: 'HeroesData\bin\publish\win-x64\'
+        includeRootFolder: false
+        archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser-scd-win-x64.zip'
+
+    - task: ArchiveFiles@2
+      displayName: Archive [scd-osx-x64]
+      inputs:
+        archiveType: zip
+        rootFolderOrFile: 'HeroesData\bin\publish\osx-x64\'
+        includeRootFolder: false
+        archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser-scd-osx-x64.zip'
+
+    - task: ArchiveFiles@2
+      displayName: Archive [scd-linux-x64]
+      inputs:
+        archiveType: zip
+        rootFolderOrFile: 'HeroesData\bin\publish\linux-x64\'
+        includeRootFolder: false
+        archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser-scd-linux-x64.zip'
+
+    - task: PublishBuildArtifacts@1
+      displayName: Artifacts-Zip
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)\'
+        artifactName: 'Zip-Files'
         
-    - task: PublishPipelineArtifact@0
+    - task: PublishBuildArtifacts@1
+      displayName: Artifact [nuget-fdd-any]
       inputs:
-        displayName: Publish Artifact [fdd]
-        artifactName: 'HeroesDataParser-fdd-any'
-        targetPath: 'HeroesData\bin\publish\any\'
-
-    - task: PublishPipelineArtifact@0
-      inputs:
-        displayName: Publish Artifact [scd-win-x64]
-        artifactName: 'HeroesDataParser-scd-win-x64'
-        targetPath: 'HeroesData\bin\publish\win-x64\'
-
-    - task: PublishPipelineArtifact@0
-      inputs:
-        displayName: Publish Artifact [scd-osx-x64]
-        artifactName: 'HeroesDataParser-scd-osx-x64'
-        targetPath: 'HeroesData\bin\publish\osx-x64\'
-
-    - task: PublishPipelineArtifact@0
-      inputs:
-        displayName: Publish Artifact [scd-linux-x64]
-        artifactName: 'HeroesDataParser-scd-linux-x64'
-        targetPath: 'HeroesData\bin\publish\linux-x64\'
-
-    - task: PublishPipelineArtifact@0
-      inputs:
-        displayName: Publish Artifact [nuget-pack-fdd-any]
-        targetPath: 'HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg'
-      
+        pathtoPublish: 'HeroesData\bin\nupkg\any\'
+        artifactName: 'HeroesDataParser-nuget-fdd-any'
+  
