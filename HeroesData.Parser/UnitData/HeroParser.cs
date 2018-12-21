@@ -124,6 +124,7 @@ namespace HeroesData.Parser.UnitData
             hero.Energy.EnergyMax = DefaultData.UnitEnergyMax;
             hero.Energy.EnergyRegenerationRate = DefaultData.UnitEnergyRegenRate;
             hero.Difficulty = GameData.GetGameString(DefaultData.Difficulty.Replace(DefaultData.IdReplacer, DefaultData.DefaultHeroDifficulty)).Trim();
+            hero.HearthLinkId = DefaultData.DefaultPortBackToBaseAbilityId;
 
             if (hero.CHeroId != null)
             {
@@ -415,6 +416,22 @@ namespace HeroesData.Parser.UnitData
                 else if (elementName == "SIGHT")
                 {
                     hero.Sight = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "CARDLAYOUTS")
+                {
+                    foreach (XElement cardLayoutElement in element.Elements())
+                    {
+                        string cardLayoutElementName = cardLayoutElement.Name.LocalName.ToUpper();
+
+                        if (cardLayoutElementName == "LAYOUTBUTTONS")
+                        {
+                            string cardLayoutFace = cardLayoutElement.Attribute("Face")?.Value;
+                            string cardLayoutAbilCmd = cardLayoutElement.Attribute("AbilCmd")?.Value;
+
+                            if (cardLayoutFace == "PortBackToBaseNoMana" && cardLayoutAbilCmd.StartsWith(DefaultData.AbilPortBackToBaseLinkId))
+                                hero.HearthLinkId = cardLayoutFace;
+                        }
+                    }
                 }
             }
 

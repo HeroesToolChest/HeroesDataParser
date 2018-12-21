@@ -32,6 +32,7 @@ namespace HeroesData.Parser.UnitData.Data
         public const string AbilMountLinkId = "Mount";
         public const string AbilPortBackToBaseLinkId = "PortBackToBase";
         public const string DefaultSummonMountAbilityId = "SummonMount";
+        public const string DefaultPortBackToBaseAbilityId = "PortBackToBase";
 
         private readonly GameData GameData;
 

@@ -123,6 +123,7 @@ namespace HeroesData.FileWriter.Writer
                 string.IsNullOrEmpty(hero.Type) || IsLocalizedText ? null : new XAttribute("type", hero.Type),
                 hero.Rarity.HasValue ? new XAttribute("rarity", hero.Rarity.Value) : null,
                 string.IsNullOrEmpty(hero.MountLinkId) ? null : new XElement("MountLinkId", hero.MountLinkId),
+                string.IsNullOrEmpty(hero.HearthLinkId) ? null : new XElement("HearthLinkId", hero.HearthLinkId),
                 string.IsNullOrEmpty(hero.Description?.RawDescription) || IsLocalizedText ? null : new XElement("Description", GetTooltip(hero.Description, FileSettings.Description)),
                 HeroPortraits(hero),
                 UnitLife(hero),

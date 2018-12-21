@@ -10,6 +10,7 @@
     "speed": 4.3984,
     "rarity": "Legendary",
     "mountLinkId": "SummonMount",
+    "hearthLinkId": "PortBackToBase",
     "portraits": {
       "heroSelect": "storm_ui_ingame_heroselect_btn_alarak.png",
       "leaderboard": "storm_ui_ingame_hero_leaderboard_alarak.png",

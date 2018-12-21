@@ -13,6 +13,7 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.AreEqual(HeroFranchise.Starcraft, HeroAbathur.Franchise);
             Assert.AreEqual(HeroGender.Neutral, HeroAbathur.Gender);
             Assert.AreEqual("storm_ui_ingame_heroselect_btn_infestor.dds", HeroAbathur.HeroPortrait.HeroSelectPortraitFileName);
+            Assert.AreEqual("PortBackToBaseNoMana", HeroAbathur.HearthLinkId);
         }
 
         [TestMethod]

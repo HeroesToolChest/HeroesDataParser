@@ -166,6 +166,8 @@ namespace HeroesData.FileWriter.Writer
                 heroObject.Add("rarity", hero.Rarity.Value.ToString());
             if (!string.IsNullOrEmpty(hero.MountLinkId))
                 heroObject.Add("mountLinkId", hero.MountLinkId);
+            if (!string.IsNullOrEmpty(hero.MountLinkId))
+                heroObject.Add("hearthLinkId", hero.HearthLinkId);
             if (!string.IsNullOrEmpty(hero.Description?.RawDescription) && !IsLocalizedText)
                 heroObject.Add("description", GetTooltip(hero.Description, FileSettings.Description));
 
