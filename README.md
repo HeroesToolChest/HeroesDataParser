@@ -1,5 +1,5 @@
 # Heroes Data Parser
-[![Build status](https://ci.appveyor.com/api/projects/status/g3linacec0a4kqkn/branch/master?svg=true)](https://ci.appveyor.com/project/koliva8245/heroesdataparser/branch/master)  [![Build Status](https://travis-ci.org/koliva8245/HeroesDataParser.svg?branch=master)](https://travis-ci.org/koliva8245/HeroesDataParser) [![Release](https://img.shields.io/github/release/koliva8245/HeroesDataParser.svg)](https://github.com/koliva8245/HeroesDataParser/releases/latest)
+[![Build Status](https://dev.azure.com/kevinkoliva/Heroes%20of%20the%20Storm%20Projects/_apis/build/status/koliva8245.HeroesDataParser?branchName=master)](https://dev.azure.com/kevinkoliva/Heroes%20of%20the%20Storm%20Projects/_build/latest?definitionId=1?branchName=master) [![Release](https://img.shields.io/github/release/koliva8245/HeroesDataParser.svg)](https://github.com/koliva8245/HeroesDataParser/releases/latest)
 
 Heroes Data Parser is a .NET Core command line tool that extracts Heroes of the Storm game data into XML and JSON files. Extracts hero data along with all abilities, talents, and their respective portraits and icons.
 
@@ -10,14 +10,14 @@ Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some m
 
 ## Installation
 ### Supported Operating Systems
-- Windows 7 SP1 (x86 and x64) and later
+- Windows 7 SP1 (x64) and later
 - Linux (x64)
-- macOS 10.12 and later versions
+- macOS 10.12 (x64) and later versions
 
 ***
 
 ### Dotnet Global Tool (Recommended)
-Download and install the [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/windows) or newer. 
+Download and install the [.NET Core 2.2 SDK](https://www.microsoft.com/net/download/windows) or newer. 
 
 Once installed, run the following command:
 ```
@@ -32,7 +32,7 @@ dotnet tool update --global HeroesDataParser
 ***
 
 ### Zip File Download - Framework-Dependent
-Download and install the [.NET Core 2.1 Runtime or SDK](https://www.microsoft.com/net/download/windows) or newer. 
+Download and install the [.NET Core 2.2 Runtime or SDK](https://www.microsoft.com/net/download/windows) or newer. 
 
 Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page.
 
@@ -62,25 +62,22 @@ Heroes Data Parser (VERSION)
 Usage:  [options] [command]
 
 Options:
-  -?|-h|--help                     Show help information
-  -v|--version                     Show version information
-  -s|--storagePath <filePath>      The 'Heroes of the Storm' directory or an already extracted 'mods' directory
-  -t|--threads <amount>            Limits the maximum amount of threads to use
-  -e|--extract <value>             Extracts images, available only in -s|--storagePath mode using Hots directory
-  -d|--description <value>         Set the description output type (0 - 6) - Default 0
-  -b|--build <number>              Set the override build file
-  -o|--outputDirectory <filePath>  Set the output directory
-  -l|--localization <locale>       Set the gamestring localization(s) - Default: enUS
-  -f|--fileSplit                   Split the XML and JSON file(s) into multiple files
-  --xml                            Create xml output
-  --json                           Create json output
-  --localizedText                  Extract localized gamestrings from the XML and JSON file(s) into a text file
-  --invalidFull                    Show all invalid full tooltips
-  --invalidShort                   Show all invalid short tooltips
-  --invalidHero                    Show all invalid hero tooltips
-  --heroWarnings                   Show all hero warnings
-  --excludeAwards                  Exclude match award parsing
-  --minify                         Create .min file(s) along with current output file(s)
+  -?|-h|--help                      Show help information
+  -v|--version                      Show version information
+  -s|--storage-path <filePath>      The 'Heroes of the Storm' directory or an already extracted 'mods' directory.
+  -t|--threads <amount>             Limits the maximum amount of threads to use.
+  -e|--extract <value>              Extracts images, available only in -s|--storage-path mode using the Hots directory.
+  -d|--description <value>          Set the description output type (0 - 6) - Default 0.
+  -b|--build <number>               Set the override build file.
+  -o|--output-directory <filePath>  Set the output directory.
+  -l|--localization <locale>        Set the gamestring localization(s) - Default: enUS.
+  -f|--file-split                   Split the XML and JSON file(s) into multiple files.
+  --xml                             Create xml output.
+  --json                            Create json output.
+  --localized-text                  Extract localized gamestrings from the XML and JSON file(s) into a text file.
+  --hero-warnings                   Display all hero warnings.
+  --exclude-awards                  Exclude match award parsing.
+  --minify                          Create .min file(s) along with current output file(s).
 
 Commands:
   read
@@ -97,12 +94,12 @@ dotnet heroes-data -s 'D:\Games\Heroes of the Storm Public Test' --xml --json
 Please be aware of the hero warnings, especially on a build with a new hero or re-worked hero.  
 All the warnings do not need to be fixed, they are shown for awareness.  
 **Tooltip strings that fail to parse will show up __empty__** in the xml or json files and thus will be a valid warning.  
-Hero warnings can be shown to the console using the option `--heroWarnings`.  
+Hero warnings can be shown to the console using the option `--hero-warnings`.  
 Ignored warnings are in `VerifyIgnore.txt`.  
 Ignored warnings only work for english strings.  
 
 ## Options
-### Storage Path (-s|--storagePath)
+### Storage Path (-s|--storage-path)
 There are two types of paths that can be provided for this option. One is the directory path of the `Heroes of the Storm` directory and the other is an already extracted `mods` directory containing the following file structure:  
 **Note:** `enus.stormdata` is for the localization
 
@@ -213,7 +210,7 @@ The extracted images are located at `<OUTPUT-DIRECTORY>/images/`
 `all` - performs `portraits`, `abilityTalents`, and `awards`
 
 Notes:
-- This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storagePath` option
+- This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storage-path` option
 - Files are extracted in `.png` format
 
 Example selecting multiple extractions
@@ -246,7 +243,7 @@ Example selecting multiple locales
 
 ***
 
-### Localized Text (--localizedText)
+### Localized Text (--localized-text)
 Strings that are localized are removed from the XML and JSON file(s) and are instead put into a text file to allow easy swapping between localizations. The file(s) are sorted alphabetically and each line can be read in as a key-value pair (split on `=`). 
 
 The gamestring text file(s) are located at `<OUTPUT-DIRECTORY>/gamestrings/`
@@ -276,9 +273,9 @@ The format of the strings in the text file are the following:
 ### Read
 ```
 Options:
-  -?|-h|--help              Show help information
-  -f|--fileName <filename>  The filename of the file to read and display on the console
-  -v|--validFiles           Show all available files to read
+  -?|-h|--help               Show help information
+  -f|--file-name <filename>  The filename of the file to read and display on the console.
+  -v|--valid-files           Show all available files to read.
 ```
 
 ## Advanced Features
@@ -334,7 +331,7 @@ For more advanced file configurations, edit the file `WriterConfig.xml`.  Option
 ## Developing
 To build and compile the code, it is recommended to use the latest version of Visual Studio 2017.
 
-Another option is to download and install the [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/windows) or newer. 
+Another option is to download and install the [.NET Core 2.2 SDK](https://www.microsoft.com/net/download/windows) or newer. 
 
 ## License
 [MIT license](/LICENSE)
