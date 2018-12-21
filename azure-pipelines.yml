@@ -1,6 +1,3 @@
-trigger: 
-  batch: true
-
 jobs:
 - template: azure-pipelines-template.yml
   parameters:
