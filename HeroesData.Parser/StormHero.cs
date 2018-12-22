@@ -2,7 +2,7 @@
 {
     public class StormHero
     {
-        public const string CUnitId = "_stormHero";
-        public const string CHeroId = "_stormHero";
+        public const string CUnitId = "_stormhero";
+        public const string CHeroId = "_stormhero";
     }
 }
