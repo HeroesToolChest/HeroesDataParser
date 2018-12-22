@@ -71,7 +71,8 @@ namespace HeroesData.Loader.XmlGameData
         protected string LocalizedDataName { get; set; } = "localizeddata";
 
         protected string GameDataStringName { get; } = "gamedata";
-
+        protected string HeroInteractionsStringName { get; } = "herointeractions";
+        protected string ConveyorBeltsStringName { get; } = "conveyorbelts";
         protected string GameDataXmlFile { get; } = "gamedata.xml";
         protected string IncludesXmlFile { get; } = "includes.xml";
         protected string GameStringFile { get; } = "gamestrings.txt";

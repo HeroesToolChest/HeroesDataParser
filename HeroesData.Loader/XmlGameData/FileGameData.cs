@@ -101,8 +101,16 @@ namespace HeroesData.Loader.XmlGameData
 
                         if (LoadTextFilesOnlyEnabled)
                         {
-                            ParseTextFile(Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile));
-                            TextFileCount++;
+                            try
+                            {
+                                ParseTextFile(Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile));
+                                TextFileCount++;
+                            }
+                            catch (FileNotFoundException)
+                            {
+                                if (!valuePath.Contains(HeroInteractionsStringName))
+                                    throw;
+                            }
                         }
                     }
                 }
@@ -130,8 +138,16 @@ namespace HeroesData.Loader.XmlGameData
 
                 if (LoadTextFilesOnlyEnabled)
                 {
-                    ParseTextFile(Path.Combine(HeroesMapModsDirectoryPath, mapFolderName, GameStringLocalization, LocalizedDataName, GameStringFile), true);
-                    TextFileCount++;
+                    try
+                    {
+                        ParseTextFile(Path.Combine(HeroesMapModsDirectoryPath, mapFolderName, GameStringLocalization, LocalizedDataName, GameStringFile), true);
+                        TextFileCount++;
+                    }
+                    catch (FileNotFoundException)
+                    {
+                        if (!mapFolderName.Contains(ConveyorBeltsStringName))
+                            throw;
+                    }
                 }
             }
         }

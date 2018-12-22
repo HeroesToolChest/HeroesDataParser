@@ -122,8 +122,16 @@ namespace HeroesData.Loader.XmlGameData
 
                         if (LoadTextFilesOnlyEnabled)
                         {
-                            ParseTextFile(CASCHandlerData.OpenFile(Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile)));
-                            TextFileCount++;
+                            try
+                            {
+                                ParseTextFile(CASCHandlerData.OpenFile(Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile)));
+                                TextFileCount++;
+                            }
+                            catch (FileNotFoundException)
+                            {
+                                if (!valuePath.Contains(HeroInteractionsStringName))
+                                    throw;
+                            }
                         }
                     }
                 }
@@ -156,8 +164,16 @@ namespace HeroesData.Loader.XmlGameData
 
                 if (LoadTextFilesOnlyEnabled)
                 {
-                    ParseTextFile(CASCHandlerData.OpenFile(Path.Combine(HeroesMapModsDirectoryPath, mapFolder.Value.Name, GameStringLocalization, LocalizedDataName, GameStringFile)), true);
-                    TextFileCount++;
+                    try
+                    {
+                        ParseTextFile(CASCHandlerData.OpenFile(Path.Combine(HeroesMapModsDirectoryPath, mapFolder.Value.Name, GameStringLocalization, LocalizedDataName, GameStringFile)), true);
+                        TextFileCount++;
+                    }
+                    catch (FileNotFoundException)
+                    {
+                        if (!mapFolder.Value.Name.Contains(ConveyorBeltsStringName))
+                            throw;
+                    }
                 }
             }
         }
