@@ -41,7 +41,7 @@ Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [
 ### Zip File Download - Self-Contained
 No runtime or SDK is required.
 
-Download and extract the latest `HeroesDataParser.*-scd-*.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
+Download and extract the latest `HeroesDataParser.*-scd-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
 This zip file contains everything that is needed to run the dotnet core app without .NET Core being installed, so the zip file is quite large.
 
