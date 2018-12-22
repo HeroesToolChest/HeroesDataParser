@@ -337,7 +337,7 @@ namespace HeroesData.Parser.UnitData.Data
                         if (!text.StartsWith(GameData.GetGameString(DefaultData.StringCooldownColon)))
                             text = $"{GameData.GetGameString(DefaultData.StringCooldownColon)}{text}";
 
-                        abilityTalentBase.Tooltip.Cooldown.CooldownTooltip = new TooltipDescription(text);
+                        abilityTalentBase.Tooltip.Cooldown.CooldownTooltip = new TooltipDescription(DescriptionValidator.Validate(text));
                     }
                 }
                 else if (elementName == "TOOLTIPFLAGS")

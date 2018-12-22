@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CAbilEffectTarget id="JunkratRocketRide">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="JunkratRocketRideInitialSet" />
+    <Cost>
+      <Cooldown TimeUse="100" />
+    </Cost>
+    <InterruptCost>
+      <Cooldown Operation="Set" TimeUse="10" />
+    </InterruptCost>
+    <Arc value="360" />
+    <CastIntroTime value="1.25" />
+    <ShowProgressArray index="Cast" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="JunkratRocketRide" Requirements="Ultimate2Unlocked" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Range value="10" />
+    <CursorEffect value="JunkratRocketRideExplosionSearch" />
+    <Activity value="Button/Name/JunkratRocketRide" />
+    <CursorRangeFlags index="ClampMin" value="1" />
+    <CursorRangeFlags index="ClampMax" value="1" />
+    <InterruptArray index="Cast" value="1" />
+    <InterruptEffect index="Cast" value="JunkratRocketRideDummyInterrupt" />
+    <InterruptEffect index="Interrupt" value="JunkratRocketRideDummyInterrupt" />
+  </CAbilEffectTarget>
+  <CButton id="JunkratRocketRide" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_junkrat_rocket_ride.dds" />
+    <TooltipAppender Validator="JunkratHasTalentRocketRidePuckishScamp" Face="JunkratPuckishScampRocketRideTalent" />
+    <TooltipCooldownOverrideText value="Button/TooltipCooldownOverride/JunkratRocketRide" />
+  </CButton>
+  <CTalent id="JunkratRocketRide">
+    <Face value="JunkratRocketRide" />
+    <Abil value="JunkratRocketRide" />
+    <RankArray>
+      <BehaviorArray value="Ultimate2Unlocked" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CHero id="Junkrat">
+    <AIComplexityTier value="Mid" />
+    <AttributeId value="Junk" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <HeroAbilArray Abil="JunkratRocketRide" Button="JunkratRocketRide">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <DefaultMount value="HorseCommon" />
+    <Universe value="Overwatch" />
+    <UniverseIcon value="Assets\Textures\ui_glues_store_gameicon_ow.dds" />
+    <SkinArray value="JunkratFallen" />
+    <SkinArray value="JunkratWCAV" />
+    <ProductId value="27749" />
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroJunkrat" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroJunkrat" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroJunkrat" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratHeroWeaponRangedTargetDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratHeroWeaponRangedExplosionDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratTotalMayhemDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="JunkratFragLauncher">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratFragLauncherExplosionDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="JunkratConcussionMine">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratConcussionMineDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="JunkratConcussionMine" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="JunkratConcussionMine" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="JunkratSteelTrap">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratSteelTrapDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="JunkratSteelTrap" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="JunkratSteelTrap" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="JunkratRIPTire">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratRIPTireDamageInner" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratRIPTireDamageMid" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratRIPTireDamageOuter" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="JunkratRIPTire" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="JunkratRIPTire" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="JunkratRocketRide">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratRocketRideExplosionDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <Difficulty value="Medium" />
+    <Ratings>
+      <Damage value="7" />
+      <Utility value="8" />
+      <Survivability value="5" />
+      <Complexity value="6" />
+    </Ratings>
+    <Rarity value="Legendary" />
+    <ReleaseDate Month="10" Day="17" Year="2017" />
+  </CHero>
+  <CUnit id="HeroJunkrat" parent="StormHeroMounted">
+    <LifeStart value="1350" />
+    <LifeMax value="1350" />
+    <CardLayouts index="0">
+      <LayoutButtons index="6" Face="JunkratRocketRideUnsummonMount" Type="AbilCmd" AbilCmd="JunkratRocketRideDismount,Execute" Slot="Mount" />
+      <LayoutButtons Face="JunkratRocketRide" Type="AbilCmd" AbilCmd="JunkratRocketRide,Execute" Slot="Heroic" />
+      <LayoutButtons Face="JunkratDetonateRIPTire" Type="AbilCmd" AbilCmd="JunkratDetonateRIPTire,Execute" Slot="Heroic" />
+      <LayoutButtons Face="JunkratRIPTire" Type="AbilCmd" AbilCmd="JunkratRIPTire,Execute" Slot="Heroic" />
+      <LayoutButtons Face="SummonMount" Type="AbilCmd" AbilCmd="Mount,Execute" Slot="Mount" />
+      <LayoutButtons Face="JunkratConcussionMine" Type="AbilCmd" AbilCmd="JunkratConcussionMine,Execute" Slot="Ability2" />
+      <LayoutButtons Face="JunkratDetonateMine" Type="AbilCmd" AbilCmd="JunkratDetonateMine,Execute" Slot="Trait" />
+      <LayoutButtons Face="JunkratTotalMayhem" Type="Passive" Slot="Trait" />
+      <LayoutButtons Face="JunkratSteelTrap" Type="AbilCmd" AbilCmd="JunkratSteelTrap,Execute" Slot="Ability3" />
+      <LayoutButtons Face="JunkratRIPTireJump" Type="AbilCmd" AbilCmd="JunkratRIPTireJump,Execute" Slot="Ability1" />
+      <LayoutButtons Face="JunkratFragLauncher" Type="AbilCmd" AbilCmd="JunkratFragLauncher,Execute" Slot="Ability1" />
+    </CardLayouts>
+    <LifeRegenRate value="2.8125" />
+  </CUnit>
+</Catalog>

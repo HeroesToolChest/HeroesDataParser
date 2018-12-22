@@ -279,7 +279,10 @@ namespace HeroesData.Parser.GameStrings
             regex = new Regex("\".*?\"");
             MatchCollection match = regex.Matches(playerMatches[0].ToString());
 
-            player = int.Parse(match[0].ToString().Trim('"'));
+            if (int.TryParse(match[0].ToString().Trim('"'), out int playerNum))
+                player = playerNum;
+            else
+                player = null;
 
             // remove player text
             pathPart = pathPart.Replace(playerMatches[0].ToString(), string.Empty);
