@@ -113,16 +113,22 @@ namespace HeroesData.Parser.UnitData.Data
                 foreach (XElement tooltipAppenderElement in tooltipAppenderElements)
                 {
                     string validatorId = tooltipAppenderElement.Attribute("Validator").Value;
+                    string faceId = tooltipAppenderElement.Attribute("Face")?.Value;
 
-                    XElement validatorPlayerTalentElement = GameData.XmlGameData.Root.Elements("CValidatorPlayerTalent").FirstOrDefault(x => x.Attribute("id")?.Value == validatorId);
-                    if (validatorPlayerTalentElement != null)
+                    // check if face value exists as a button
+                    if (!string.IsNullOrEmpty(faceId) && GameData.XmlGameData.Root.Elements("CButton").Any(x => x.Attribute("id")?.Value == faceId))
                     {
-                        string talentReferenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value;
+                        // validator value check
+                        XElement validatorPlayerTalentElement = GameData.XmlGameData.Root.Elements("CValidatorPlayerTalent").FirstOrDefault(x => x.Attribute("id")?.Value == validatorId);
+                        if (validatorPlayerTalentElement != null)
+                        {
+                            string talentReferenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value;
 
-                        if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
-                            AbilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(ability.ReferenceNameId);
-                        else
-                            AbilityTalentIdsByTalentIdUpgrade.Add(talentReferenceNameId, new HashSet<string>() { ability.ReferenceNameId });
+                            if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
+                                AbilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(ability.ReferenceNameId);
+                            else
+                                AbilityTalentIdsByTalentIdUpgrade.Add(talentReferenceNameId, new HashSet<string>() { ability.ReferenceNameId });
+                        }
                     }
                 }
             }
