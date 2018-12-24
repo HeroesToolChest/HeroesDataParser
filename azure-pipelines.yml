@@ -71,7 +71,7 @@ jobs:
     - powershell: dotnet publish HeroesData\HeroesData_self.csproj -c release --self-contained -r linux-x64 -o .\bin\publish\linux-x64\
       displayName: Publish release [scd-linux-x64]
  
-     - task: ArchiveFiles@2
+   - task: ArchiveFiles@2
       displayName: Archive [fdd-any]
       inputs:
         archiveType: zip
