@@ -55,6 +55,8 @@ dotnet-heroes-data -h
 If one of the zip files was downloaded, run one of the following commands from the extracted directory:
 ```
 dotnet heroesdata.dll -h
+
+// only for scd
 ./heroesdata -h
 ```
 Output of the -h option
