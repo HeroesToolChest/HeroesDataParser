@@ -52,9 +52,10 @@ If installed as a global tool, the app can be run with one of the following comm
 dotnet heroes-data -h
 dotnet-heroes-data -h
 ```
-If one of the zip files was downloaded, run the following command from the extracted directory:
+If one of the zip files was downloaded, run one of the following commands from the extracted directory:
 ```
-dotnet heroesdata.dll -h
+dotnet HeroesData.dll -h
+./HeroesData -h
 ```
 Output of the -h option
 ```
