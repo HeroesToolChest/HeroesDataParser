@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CHero id="Thrall">
+    <AIComplexityTier value="Low" />
+    <AttributeId value="Thra" />
+    <Melee value="1" />
+    <HeroTierAchievementId value="5216701565556648437" />
+    <ReleaseDate Day="13" Year="2015" />
+    <ProductId value="11235" />
+    <HeroAbilArray Abil="ThrallFrostwolfsGrace" Button="ThrallFrostwolfResilienceSurgeOfHealing">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="ThrallFrostwolfResilience">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <TalentTreeArray Talent="ThrallMasteryManaTide" Tier="2" Column="3" />
+    <TalentTreeArray Talent="ThrallMasteryFrostwolfsGrace" Tier="5" Column="2" />
+  </CHero>
+  <CUnit id="HeroThrall" parent="StormHeroMounted">
+    <LifeStart value="1876" />
+    <LifeMax value="1876" />
+  </CUnit>
+
+  <CButton id="ThrallFrostwolfResilience" parent="StormButtonParentTrait">
+    <TooltipAppender Validator="ThrallHasManaTide" Face="ThrallManaTideTalent" />
+    <TooltipAppender Validator="ThrallHasFrostwolfsGrace" Face="ThrallFrostwolfResilienceSurgeOfHealing" />
+    <Icon value="Assets\Textures\storm_ui_icon_thrall_frostwolfresilience.dds" />
+  </CButton>
+  <CButton id="ThrallFrostwolfResilienceSurgeOfHealing" parent="StormButtonParentTrait">
+    <TooltipAppender Validator="ThrallHasManaTide" Face="ThrallManaTideTalent" />
+    <TooltipAppender Validator="ThrallHasFrostwolfsGrace" Face="ThrallFrostwolfResilienceSurgeOfHealing" />
+    <Icon value="Assets\Textures\storm_ui_icon_thrall_frostwolfresilience.dds" />
+  </CButton>
+  <CButton id="ThrallManaTideTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_thrall_frostwolfresilience.dds" />
+  </CButton>
+  
+  <CValidatorPlayerTalent id="ThrallHasManaTide">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="ThrallMasteryManaTide" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="ThrallHasFrostwolfsGrace">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="ThrallMasteryFrostwolfsGrace" />
+  </CValidatorPlayerTalent>
+
+  <CTalent id="ThrallMasteryManaTide">
+    <Face value="ThrallManaTideTalent" />
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="ThrallMasteryFrostwolfsGrace">
+    <Face value="ThrallFrostwolfResilienceSurgeOfHealing" />
+    <RankArray>
+      <BehaviorArray value="ThrallFrostwolfsGraceCarry" />
+    </RankArray>
+    <Trait value="1" />
+    <Abil value="ThrallFrostwolfsGrace" />
+    <Active value="1" />
+  </CTalent>
+</Catalog>

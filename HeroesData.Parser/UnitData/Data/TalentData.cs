@@ -1,7 +1,9 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser.Exceptions;
 using HeroesData.Parser.UnitData.Overrides;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -49,12 +51,16 @@ namespace HeroesData.Parser.UnitData.Data
                 talent.Tier = TalentTier.Old;
 
             XElement cTalentElement = GameData.XmlGameData.Root.Elements("CTalent").FirstOrDefault(x => x.Attribute("id")?.Value == referenceName);
+            if (cTalentElement == null)
+                throw new ParseException($"{nameof(cTalentElement)} is null, could not find the CTalent id name of {nameof(referenceName)}");
 
             // desc name
             XElement talentFaceElement = cTalentElement.Element("Face");
             if (talentFaceElement != null)
             {
                 talent.FullTooltipNameId = talentFaceElement.Attribute("value").Value;
+
+                SetAbilityType(hero, talent, cTalentElement);
 
                 XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == talent.FullTooltipNameId);
                 if (cButtonElement != null)
@@ -75,10 +81,13 @@ namespace HeroesData.Parser.UnitData.Data
                     // if not active, it shouldn't have a cooldown
                     if (talentActiveElement == null)
                         talent.Tooltip.Cooldown.CooldownTooltip = null;
+
+                    if (!(talent.AbilityType == AbilityType.Heroic && talent.IsActive))
+                        AddTooltipAppenderAbilityTalentId(cButtonElement, talent.ReferenceNameId);
+
+                    SetAbilityTalentLinkIds(hero, talent, cTalentElement);
                 }
 
-                SetAbilityType(hero, talent, cTalentElement);
-                SetAbilityTalentLinkIds(hero, talent, cTalentElement);
                 hero.Talents.Add(referenceName, talent);
             }
         }
@@ -88,49 +97,30 @@ namespace HeroesData.Parser.UnitData.Data
         /// </summary>
         public void SetButtonTooltipAppenderData(Hero stormHeroBase, Hero hero)
         {
-            Dictionary<string, (XElement, Ability)> abilityByButtonElements = new Dictionary<string, (XElement, Ability)>();
+            Dictionary<string, (XElement, AbilityTalentBase)> abilityTalentsByButtonElements = new Dictionary<string, (XElement, AbilityTalentBase)>();
 
+            // storm hero abilities
             foreach (Ability ability in stormHeroBase.Abilities.Values)
             {
                 XElement buttonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ButtonName);
                 if (buttonElement != null)
-                    abilityByButtonElements[ability.ButtonName] = (buttonElement, ability);
+                    abilityTalentsByButtonElements[ability.ButtonName] = (buttonElement, ability);
             }
 
+            // hero's abilities
             foreach (Ability ability in hero.Abilities.Values)
             {
                 XElement buttonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ButtonName);
                 if (buttonElement != null)
-                    abilityByButtonElements[ability.ButtonName] = (buttonElement, ability);
+                    abilityTalentsByButtonElements[ability.ButtonName] = (buttonElement, ability);
             }
 
-            foreach (var abilityElement in abilityByButtonElements)
+            foreach (var abilityElement in abilityTalentsByButtonElements)
             {
                 string buttonName = abilityElement.Key;
-                (XElement buttonElement, Ability ability) = abilityElement.Value;
+                (XElement buttonElement, AbilityTalentBase abilityTalent) = abilityElement.Value;
 
-                IEnumerable<XElement> tooltipAppenderElements = buttonElement.Elements("TooltipAppender").Where(x => !string.IsNullOrEmpty(x.Attribute("Validator")?.Value));
-                foreach (XElement tooltipAppenderElement in tooltipAppenderElements)
-                {
-                    string validatorId = tooltipAppenderElement.Attribute("Validator").Value;
-                    string faceId = tooltipAppenderElement.Attribute("Face")?.Value;
-
-                    // check if face value exists as a button
-                    if (!string.IsNullOrEmpty(faceId) && GameData.XmlGameData.Root.Elements("CButton").Any(x => x.Attribute("id")?.Value == faceId))
-                    {
-                        // validator value check
-                        XElement validatorPlayerTalentElement = GameData.XmlGameData.Root.Elements("CValidatorPlayerTalent").FirstOrDefault(x => x.Attribute("id")?.Value == validatorId);
-                        if (validatorPlayerTalentElement != null)
-                        {
-                            string talentReferenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value;
-
-                            if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
-                                AbilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(ability.ReferenceNameId);
-                            else
-                                AbilityTalentIdsByTalentIdUpgrade.Add(talentReferenceNameId, new HashSet<string>() { ability.ReferenceNameId });
-                        }
-                    }
-                }
+                AddTooltipAppenderAbilityTalentId(buttonElement, abilityTalent.ReferenceNameId);
             }
         }
 
@@ -171,7 +161,11 @@ namespace HeroesData.Parser.UnitData.Data
         {
             if (AbilityTalentIdsByTalentIdUpgrade.TryGetValue(talent.ReferenceNameId, out HashSet<string> abilityTalentIds))
             {
-                talent.AbilityTalentLinkIds = abilityTalentIds;
+                talent.AbilityTalentLinkIds = new HashSet<string>(abilityTalentIds);
+
+                // remove own self talent referenceNameId from abilityTalentLinkIds unless it is an id of an ability
+                if (!hero.Abilities.ContainsKey(talent.ReferenceNameId))
+                    talent.AbilityTalentLinkIds.Remove(talent.ReferenceNameId);
             }
 
             if (talent.AbilityType == AbilityType.Heroic)
@@ -189,6 +183,32 @@ namespace HeroesData.Parser.UnitData.Data
                         string abilValue = talentAbilElement.Attribute("value").Value;
                         if (!string.IsNullOrEmpty(abilValue))
                             talent.AbilityTalentLinkIds.Add(abilValue);
+                    }
+                }
+            }
+        }
+
+        private void AddTooltipAppenderAbilityTalentId(XElement buttonElement, string abilityTalentId)
+        {
+            IEnumerable<XElement> tooltipAppenderElements = buttonElement.Elements("TooltipAppender").Where(x => !string.IsNullOrEmpty(x.Attribute("Validator")?.Value));
+            foreach (XElement tooltipAppenderElement in tooltipAppenderElements)
+            {
+                string validatorId = tooltipAppenderElement.Attribute("Validator").Value;
+                string faceId = tooltipAppenderElement.Attribute("Face")?.Value;
+
+                // check if face value exists as a button
+                if (!string.IsNullOrEmpty(faceId) && GameData.XmlGameData.Root.Elements("CButton").Any(x => x.Attribute("id")?.Value == faceId))
+                {
+                    // validator value check
+                    XElement validatorPlayerTalentElement = GameData.XmlGameData.Root.Elements("CValidatorPlayerTalent").FirstOrDefault(x => x.Attribute("id")?.Value == validatorId);
+                    if (validatorPlayerTalentElement != null)
+                    {
+                        string talentReferenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value;
+
+                        if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
+                            AbilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(abilityTalentId);
+                        else
+                            AbilityTalentIdsByTalentIdUpgrade.Add(talentReferenceNameId, new HashSet<string>(StringComparer.OrdinalIgnoreCase) { abilityTalentId });
                     }
                 }
             }

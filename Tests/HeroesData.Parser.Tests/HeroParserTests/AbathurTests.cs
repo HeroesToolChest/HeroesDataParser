@@ -1,4 +1,5 @@
 ﻿using Heroes.Models;
+using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
@@ -27,6 +28,15 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.AreEqual("Symbiote", unit.Name);
             Assert.AreEqual(0.0117, unit.Speed);
             Assert.AreEqual(4, unit.Sight);
+        }
+
+        [TestMethod]
+        public void AbilityTalentLinkIdsTests()
+        {
+            Talent talent = HeroAbathur.Talents["AbathurVolatileMutation"];
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 2);
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("AbathurUltimateEvolution"));
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("AbathurEvolveMonstrosity"));
         }
     }
 }

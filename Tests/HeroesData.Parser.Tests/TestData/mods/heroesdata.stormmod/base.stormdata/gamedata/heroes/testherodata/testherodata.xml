@@ -13,13 +13,17 @@
     <!--talents-->
     <TalentTreeArray Talent="TestHeroBattleRage" Tier="1" Column="1" />
     <TalentTreeArray Talent="TestHeroDismantle" Tier="1" Column="2" />  
-    <TalentTreeArray Talent="TestHeroFastAttack" Tier="1" Column="3" />  
+    <TalentTreeArray Talent="TestHeroFastAttack" Tier="1" Column="3" />
+    <TalentTreeArray Talent="TestHeroArmorUpBodyCheck" Tier="1" Column="3" />
     <TalentTreeArray Talent="TestHeroSpawnLocusts" Tier="2" Column="1" />  
     <TalentTreeArray Talent="TestHeroHighlord" Tier="2" Column="2" />
     <TalentTreeArray Talent="TestHeroMasteredStab" Tier="2" Column="3" />
     <TalentTreeArray Talent="TestHeroMekaFall" Tier="2" Column="4" />
     <TalentTreeArray Talent="TestHeroTimeOut" Tier="3" Column="1" />
     <TalentTreeArray Talent="TestHeroTheWill" Tier="3" Column="2" />
+    <TalentTreeArray Talent="TestHeroBodyCheckBruteForce" Tier="3" Column="3">
+      <PrerequisiteTalentArray value="TestHeroArmorUpBodyCheck" />
+    </TalentTreeArray>
     
     <Universe value="Warcraft" />
     <ProductId value="10115" />
@@ -268,7 +272,20 @@
       <Cooldown TimeUse="1" />
     </Cost>
   </CAbilEffectInstant>
-
+  <CAbilEffectTarget id="TestHeroArmorUpBodyCheck">
+    <Cost>
+      <Charge>
+        <CountMax value="1" />
+        <CountStart value="1" />
+        <CountUse value="1" />
+        <HideCount value="1" />
+        <TimeUse value="16" />
+      </Charge>
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="GarroshArmorUpBodyCheck" />
+  </CAbilEffectTarget>
+  
   <!--buttons-->
   <CButton id="TestHeroBigBoom" parent="StormButtonParent">
     <Name value="Button/Name/TestHeroBigBoomSelectButton" />
@@ -342,6 +359,15 @@
     <TooltipFlags index="ShowUsage" value="0" />
     <TooltipCooldownOverrideText value="WillofTestHeroCooldownOverride" />
   </CButton>
+  <CButton id="TestHeroArmorUpBodyCheck" parent="StormButtonParent">
+    <TooltipAppender Validator="TestHeroHasBodyCheckBruteForceTalent" Face="TestHeroBodyCheckBruteForce" />
+    <TooltipAppender Validator="TestHeroHasArmorUpInnerRageTalent" Face="TestHeroArmorUpInnerRage" />
+    <TooltipCooldownOverrideText value="TestHeroBodyCheckCooldown" />
+    <Icon value="Assets\Textures\storm_ui_icon_garrosh_slam.dds" />
+  </CButton>
+  <CButton id="TestHeroBodyCheckBruteForce" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_garrosh_slam.dds" />
+  </CButton>
   
   <!--talent-->
   <CTalent id="TestHeroBattleRage">
@@ -384,4 +410,38 @@
     <Face value="TestHeroTheWill" />
     <Abil value="TestHeroTheWill" />
   </CTalent>
+  <CTalent id="TestHeroArmorUpBodyCheck">
+    <Face value="TestHeroArmorUpBodyCheck" />
+    <Abil value="TestHeroArmorUpBodyCheck" />
+    <RankArray>
+      <BehaviorArray value="TestHeroArmorUpBodyCheckCarryBehavior" />
+      <BehaviorArray value="TestHeroBodyCheckItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="TestHeroBodyCheckBruteForce">
+    <Face value="TestHeroBodyCheckBruteForce" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="TestHeroBodyCheckBruteForceApplyHealReduction" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="TestHeroArmorUpBodyCheck" />
+  </CTalent>
+  
+  <!--validators-->
+  <CValidatorPlayerTalent id="TestHeroHasBodyCheckBruteForceTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="TestHeroBodyCheckBruteForce" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="TestHeroHasArmorUpInnerRageTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="TestHeroArmorUpInnerRage" />
+  </CValidatorPlayerTalent>
 </Catalog>

@@ -50,6 +50,19 @@
     <RoleScoreValueOverride value="Support" />
     <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_infestor.dds" />
     <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_SC2.dds" />
+    <TalentTreeArray Talent="AbathurHeroicAbilityUltimateEvolution" Tier="4" Column="1" />
+    <TalentTreeArray Talent="AbathurHeroicAbilityEvolveMonstrosity" Tier="4" Column="2" />
+    <TalentTreeArray Talent="AbathurVolatileMutation" Tier="6" Column="4" />
+    <HeroAbilArray Abil="AbathurUltimateEvolution" Button="AbathurUltimateEvolution">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AbathurEvolveMonstrosity" Button="AbathurEvolveMonstrosityHotbar">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
     <LevelScalingArray Ability="AbathurSpawnLocusts">
       <Modifications>
         <Catalog value="Unit" />
@@ -386,4 +399,56 @@
     </CardLayouts>
     <Radius value="0" />
   </CUnit>
+  
+  <CButton id="AbathurUltimateEvolution" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_ultimateevolution.dds" />
+    <TooltipAppender Validator="AbathurHasVolatileMutation" Face="AbathurVolatileMutationTalent" />
+    <TooltipAppender Validator="AbathurHasUltimateEvolutionEvolutionaryLink" Face="AbathurUltimateEvolutionEvolutionaryLinkTalent" />
+  </CButton>
+  <CButton id="AbathurEvolveMonstrosityHotbar" parent="StormButtonParent">
+    <TooltipAppender Validator="AbathurHasVolatileMutation" Face="AbathurVolatileMutationTalent" />
+    <TooltipAppender Validator="AbathurHasMonstrosityEvolutionComplete" Face="AbathurMonstrosityEvolutionCompleteTalent" />
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_evolvemonstrosity.dds" />
+  </CButton>
+  <CButton id="AbathurVolatileMutationTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_volatilemutation.dds" />
+  </CButton>
+  
+  <CValidatorPlayerTalent id="AbathurHasVolatileMutation">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurVolatileMutation" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AbathurHasUltimateEvolutionEvolutionaryLink">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurUltimateEvolutionEvolutionaryLink" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AbathurHasMonstrosityEvolutionComplete">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurMasteryEvolutionComplete" />
+  </CValidatorPlayerTalent>
+
+  <CTalent id="AbathurHeroicAbilityUltimateEvolution">
+    <Face value="AbathurUltimateEvolution" />
+    <RankArray>
+      <BehaviorArray value="Ultimate1Unlocked" />
+    </RankArray>
+    <Active value="1" />
+    <Abil value="AbathurUltimateEvolution" />
+  </CTalent>
+  <CTalent id="AbathurHeroicAbilityEvolveMonstrosity">
+    <Face value="AbathurEvolveMonstrosityHotbar" />
+    <RankArray>
+      <BehaviorArray value="Ultimate2Unlocked" />
+      <BehaviorArray value="AbathurEvolveMonstrosityTrackingBehavior" />
+    </RankArray>
+    <Active value="1" />
+    <Abil value="AbathurEvolveMonstrosity" />
+  </CTalent>
+  <CTalent id="AbathurVolatileMutation">
+    <Face value="AbathurVolatileMutationTalent" />
+    <Abil value="AbathurEvolveMonstrosity" />
+  </CTalent>
 </Catalog>

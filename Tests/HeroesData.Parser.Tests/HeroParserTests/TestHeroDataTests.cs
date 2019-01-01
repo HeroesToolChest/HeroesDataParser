@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.HeroParserTests
 {
@@ -194,6 +195,17 @@ namespace HeroesData.Parser.Tests.HeroParserTests
         {
             Talent talent = HeroTestHero.Talents["TestHeroTheWill"];
             Assert.IsNull(talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
+        }
+
+        [TestMethod]
+        public void AbilityTalentLinkIdsForTalentActivableAbilitiesTest()
+        {
+            Talent talentNoLinks = HeroTestHero.Talents["TestHeroArmorUpBodyCheck"];
+            Assert.IsTrue(talentNoLinks.AbilityTalentLinkIds.Count == 0);
+
+            Talent talentHasLinks = HeroTestHero.Talents["TestHeroBodyCheckBruteForce"];
+            Assert.IsTrue(talentHasLinks.AbilityTalentLinkIds.Count == 1);
+            Assert.AreEqual("TestHeroArmorUpBodyCheck", talentHasLinks.AbilityTalentLinkIds.ToList()[0]);
         }
     }
 }
