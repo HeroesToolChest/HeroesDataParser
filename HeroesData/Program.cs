@@ -62,13 +62,13 @@ namespace HeroesData
 
             ReadCommand.Add(app).SetCommand();
 
-            CommandOption storagePathOption = app.Option("-s|--storage-path <filePath>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.", CommandOptionType.SingleValue);
-            CommandOption setMaxDegreeParallismOption = app.Option("-t|--threads <amount>", "Limits the maximum amount of threads to use.", CommandOptionType.SingleValue);
-            CommandOption extractIconsOption = app.Option("-e|--extract <value>", $"Extracts images, available only in -s|--storage-path mode using the Hots directory.", CommandOptionType.MultipleValue);
-            CommandOption setDescriptionOption = app.Option("-d|--description <value>", "Set the description output type (0 - 6) - Default 0.", CommandOptionType.SingleValue);
+            CommandOption storagePathOption = app.Option("-s|--storage-path <FILEPATH>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.", CommandOptionType.SingleValue);
+            CommandOption setMaxDegreeParallismOption = app.Option("-t|--threads <NUMBER>", "Limits the maximum amount of threads to use.", CommandOptionType.SingleValue);
+            CommandOption extractIconsOption = app.Option("-e|--extract <VALUE>", $"Extracts images, available only in -s|--storage-path mode using the Hots directory.", CommandOptionType.MultipleValue);
+            CommandOption setDescriptionOption = app.Option("-d|--description <VALUE>", "Set the description output type (0 - 6) - Default 0.", CommandOptionType.SingleValue);
             CommandOption setBuildOption = app.Option("-b|--build <number>", "Set the override build file.", CommandOptionType.SingleValue);
-            CommandOption setOutputDirectoryOption = app.Option("-o|--output-directory <filePath>", "Set the output directory.", CommandOptionType.SingleValue);
-            CommandOption setGameStringLocalizations = app.Option("-l|--localization <locale>", "Set the gamestring localization(s) - Default: enUS.", CommandOptionType.MultipleValue);
+            CommandOption setOutputDirectoryOption = app.Option("-o|--output-directory <FILEPATH>", "Set the output directory.", CommandOptionType.SingleValue);
+            CommandOption setGameStringLocalizations = app.Option("-l|--localization <LOCALE>", "Set the gamestring localization(s) - Default: enUS.", CommandOptionType.MultipleValue);
             CommandOption setFileSplitOption = app.Option("-f|--file-split", "Split the XML and JSON file(s) into multiple files.", CommandOptionType.NoValue);
             CommandOption xmlOutputOption = app.Option("--xml", "Create xml output.", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = app.Option("--json", "Create json output.", CommandOptionType.NoValue);
@@ -473,7 +473,7 @@ namespace HeroesData
         {
             var time = new Stopwatch();
 
-            Console.WriteLine($"Loading xml and text files...");
+            Console.WriteLine($"Loading xml and files...");
 
             time.Start();
             try
@@ -498,7 +498,6 @@ namespace HeroesData
             time.Stop();
 
             Console.WriteLine($"{GameData.XmlFileCount,6} xml files loaded");
-            Console.WriteLine($"{GameData.TextFileCount,6} text files loaded");
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
         }
@@ -507,7 +506,7 @@ namespace HeroesData
         {
             var time = new Stopwatch();
 
-            Console.WriteLine($"Loading OverrideData...");
+            Console.WriteLine($"Loading override data...");
 
             time.Start();
 
@@ -714,7 +713,20 @@ namespace HeroesData
 
             try
             {
+                var time = new Stopwatch();
+
+                time.Start();
+
                 GameData.LoadGamestringFiles();
+
+                Console.WriteLine("Loading text files...");
+                Console.WriteLine($"{GameData.TextFileCount,6} text files loaded");
+
+                time.Stop();
+
+                Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
+
+                Console.WriteLine();
             }
             catch (Exception ex) when (ex is DirectoryNotFoundException || ex is FileNotFoundException)
             {
