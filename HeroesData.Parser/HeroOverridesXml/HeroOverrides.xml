@@ -13,6 +13,12 @@
         <AbilityType value="B" />
       </Override>
     </Button>
+    <Button id="HearthstoneBrew" parent="StormButtonParent">
+      <Override>
+        <AbilityTier value="Hearth" />
+        <AbilityType value="B" />
+      </Override>
+    </Button>
     <Button id="SummonMount" parent="StormButtonParent"></Button>
   </CHero>
   <CHero id="Abathur">

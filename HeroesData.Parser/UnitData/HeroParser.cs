@@ -436,8 +436,11 @@ namespace HeroesData.Parser.UnitData
                             string cardLayoutFace = cardLayoutElement.Attribute("Face")?.Value;
                             string cardLayoutAbilCmd = cardLayoutElement.Attribute("AbilCmd")?.Value;
 
-                            if (cardLayoutFace == DefaultData.DefaultHearthNoManaAbilityId && cardLayoutAbilCmd.StartsWith(DefaultData.DefaultHearthAbilityId))
-                                hero.HearthLinkId = cardLayoutFace;
+                            if (!string.IsNullOrEmpty(cardLayoutFace) && !string.IsNullOrEmpty(cardLayoutAbilCmd))
+                            {
+                                if (cardLayoutFace.StartsWith(DefaultData.DefaultHearthAbilityId) && cardLayoutAbilCmd.StartsWith(DefaultData.DefaultHearthAbilityId))
+                                    hero.HearthLinkId = cardLayoutFace;
+                            }
                         }
                     }
                 }
