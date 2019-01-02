@@ -106,6 +106,14 @@ namespace HeroesData.Parser.UnitData
             ApplyOverrides(StormHeroBase, HeroOverride);
             MoveParentLinkedAbilities(StormHeroBase);
 
+            IList<Ability> hearthAbilties = StormHeroBase.PrimaryAbilities(AbilityTier.Hearth);
+            IList<Ability> mountAbilties = StormHeroBase.PrimaryAbilities(AbilityTier.Mount);
+
+            // based on the _stormhero data in HeroOverrides.xml
+            DefaultData.DefaultHearthAbilityId = hearthAbilties[0].ReferenceNameId;
+            DefaultData.DefaultHearthNoManaAbilityId = hearthAbilties[1].ReferenceNameId;
+            DefaultData.DefaultSummonMountAbilityId = mountAbilties[0].ReferenceNameId;
+
             return StormHeroBase;
         }
 
@@ -124,7 +132,7 @@ namespace HeroesData.Parser.UnitData
             hero.Energy.EnergyMax = DefaultData.UnitEnergyMax;
             hero.Energy.EnergyRegenerationRate = DefaultData.UnitEnergyRegenRate;
             hero.Difficulty = GameData.GetGameString(DefaultData.Difficulty.Replace(DefaultData.IdReplacer, DefaultData.DefaultHeroDifficulty)).Trim();
-            hero.HearthLinkId = DefaultData.DefaultPortBackToBaseAbilityId;
+            hero.HearthLinkId = DefaultData.DefaultHearthAbilityId;
 
             if (hero.CHeroId != null)
             {
@@ -428,7 +436,7 @@ namespace HeroesData.Parser.UnitData
                             string cardLayoutFace = cardLayoutElement.Attribute("Face")?.Value;
                             string cardLayoutAbilCmd = cardLayoutElement.Attribute("AbilCmd")?.Value;
 
-                            if (cardLayoutFace == "PortBackToBaseNoMana" && cardLayoutAbilCmd.StartsWith(DefaultData.AbilPortBackToBaseLinkId))
+                            if (cardLayoutFace == DefaultData.DefaultHearthNoManaAbilityId && cardLayoutAbilCmd.StartsWith(DefaultData.DefaultHearthAbilityId))
                                 hero.HearthLinkId = cardLayoutFace;
                         }
                     }
