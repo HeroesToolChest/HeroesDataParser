@@ -115,8 +115,7 @@ mods/
    |--enus.stormdata/localizeddata/
       |--gamestrings.txt
 |--heroesdata.stormmod/
-   |--base.stormdata/gamedata/
-      |--heroes/
+   |--base.stormdata/
          |--(ALL FILES)
    |--enus.stormdata/localizeddata/
       |--gamestrings.txt
@@ -129,7 +128,7 @@ Or a simpler way, extract these directories and file (keep the directory paths)
 
 `mods/core.stormmod/base.stormdata/gamedata/`  
 `mods/core.stormmod/enus.stormdata/localizeddata/gamestrings.txt`  
-`mods/heroesdata.stormmod/base.stormdata/gamedata/`   
+`mods/heroesdata.stormmod/base.stormdata/`   
 `mods/heroesdata.stormmod/enus.stormdata/localizeddata/gamestrings.txt`  
 `mods/heroesmapmods/battlegroundmapmods/`  
 `mods/heromods/`
