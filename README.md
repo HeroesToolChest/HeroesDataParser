@@ -72,7 +72,7 @@ Options:
   -t|--threads <NUMBER>             Limits the maximum amount of threads to use.
   -e|--extract <VALUE>              Extracts images, available only in -s|--storage-path mode using the Hots directory.
   -d|--description <VALUE>          Set the description output type (0 - 6) - Default 0.
-  -b|--build <number>               Set the override build file.
+  -b|--build <NUMBER>               Set the override build file.
   -o|--output-directory <FILEPATH>  Set the output directory.
   -l|--localization <LOCALE>        Set the gamestring localization(s) - Default: enUS.
   -f|--file-split                   Split the XML and JSON file(s) into multiple files.
