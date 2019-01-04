@@ -176,6 +176,9 @@ namespace HeroesData.Parser.UnitData.Data
                 // LastOrDefault, since overrides can happen in later xml files
                 XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").LastOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == parent);
 
+                if (cButtonElement == null)
+                    throw new ParseException($"Could not find the following element <CButton id=\"{ability.FullTooltipNameId}\" parent=\"{parent}\">");
+
                 SetAbilityType(hero, ability);
                 SetAbilityTierFromAbilityType(hero, ability);
                 SetTooltipCostData(hero, ability.ReferenceNameId, ability);
