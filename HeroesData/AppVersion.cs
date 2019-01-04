@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Diagnostics;
 using System.Reflection;
 
 namespace HeroesData
@@ -7,8 +7,7 @@ namespace HeroesData
     {
         public static string GetVersion()
         {
-            Version version = Assembly.GetExecutingAssembly().GetName().Version;
-            return $"{version.Major}.{version.Minor}.{version.Build}";
+            return FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
         }
     }
 }
