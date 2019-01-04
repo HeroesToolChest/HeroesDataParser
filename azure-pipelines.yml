@@ -53,13 +53,24 @@ jobs:
       inputs:
         command: 'custom'
         arguments: 'sign HeroesData\bin\nupkg\any\HeroesDataParser.*.nupkg -CertificatePath $(Agent.TempDirectory)\certificate -CertificatePassword $(cert_password) -Timestamper http://timestamp.digicert.com'
-
+        
+    - powershell: |
+        $csproj = get-content HeroesData\HeroesData.csproj
+        $s = $csproj | select-string -pattern "<Version>"
+        $s -match "<Version>(?<content>.*)</Version>"
+        $version = $matches['content'] + "-build.$(Build.BuildNumber)"
+        $csproj.replace($s, "<Version>$version</Version>") | out-file HeroesData\HeroesData.csproj
+        echo "Version - $version"
+      displayName: Non-master version build number
+      condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
+      
     - powershell: |
         (get-content HeroesData\HeroesData.csproj).Replace('<PackAsTool>true</PackAsTool>','<PackAsTool>false</PackAsTool>') | out-file HeroesData\HeroesData.csproj
         $s = get-content HeroesData\heroesdata.csproj | select-string -pattern "<PackageVersion>"
         $s -match "<PackageVersion>(?<content>.*)</PackageVersion>"
-        $m = $matches['content']
+        $m = $matches['content']        
         echo "##vso[task.setvariable variable=version]$m"
+        echo "Package version - $m"
       displayName: SCD Prep
 
     - powershell: dotnet publish HeroesData\heroesdata.csproj -c release --self-contained -r win-x64 -o .\bin\publish\win-x64\
