@@ -30,9 +30,6 @@ namespace HeroesData.Parser.UnitData.Data
         public const string DefaultHeroDifficulty = "Easy";
 
         public const string AbilMountLinkId = "Mount";
-        public const string AbilPortBackToBaseLinkId = "PortBackToBase";
-        public const string DefaultSummonMountAbilityId = "SummonMount";
-        public const string DefaultPortBackToBaseAbilityId = "PortBackToBase";
 
         private readonly GameData GameData;
 
@@ -42,12 +39,27 @@ namespace HeroesData.Parser.UnitData.Data
         }
 
         /// <summary>
-        /// Get the default hero name text. Contains ##id##. Use with CHero id.
+        /// Gets or sets the default summon mount ability id name.
+        /// </summary>
+        public string DefaultSummonMountAbilityId { get; set; } = "SummonMount";
+
+        /// <summary>
+        /// Gets or sets the default hearth ability id name.
+        /// </summary>
+        public string DefaultHearthAbilityId { get; set; } = "PortBackToBase";
+
+        /// <summary>
+        /// Gets or sets the default hearth no mana ability id name.
+        /// </summary>
+        public string DefaultHearthNoManaAbilityId { get; set; } = "PortBackToBaseNoMana";
+
+        /// <summary>
+        /// Gets the default hero name text. Contains ##id##. Use with CHero id.
         /// </summary>
         public string HeroName { get; private set; }
 
         /// <summary>
-        /// Get the default unit name text. Contains ##id##. Use with CUnit id.
+        /// Gets the default unit name text. Contains ##id##. Use with CUnit id.
         /// </summary>
         public string UnitName { get; private set; }
 

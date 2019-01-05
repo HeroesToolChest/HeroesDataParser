@@ -11,4 +11,5 @@
   <Id name="Period" part="last" value="1" />
   <Id name="CooldownTimeUse" part="last" value="1" />
   <Id name="Modifier" part="last" value="0" />
+  <Id name="ExpireDelay" part="last" value="0" />
 </GameStringValues>

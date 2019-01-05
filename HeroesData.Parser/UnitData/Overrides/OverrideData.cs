@@ -11,7 +11,7 @@ namespace HeroesData.Parser.UnitData.Overrides
     {
         private readonly GameData GameData;
         private readonly int? HotsBuild;
-        private readonly string HeroOverridesDirectoryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "HeroOverridesXml");
+        private readonly string HeroOverridesDirectoryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "herooverrides");
 
         private Dictionary<string, HeroOverride> HeroOverridesByCHeroId = new Dictionary<string, HeroOverride>();
 
@@ -39,7 +39,7 @@ namespace HeroesData.Parser.UnitData.Overrides
         /// <summary>
         /// Gets the file name of the Override file.
         /// </summary>
-        public string HeroDataOverrideXmlFile { get; private set; } = "HeroOverrides.xml";
+        public string HeroDataOverrideXmlFile { get; private set; } = "hero-overrides.xml";
 
         /// <summary>
         /// Gets the total number of overrides.

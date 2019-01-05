@@ -221,7 +221,7 @@ namespace HeroesData.Parser.UnitData.Data
             if (layoutButton != null)
             {
                 string slot = layoutButton.Attribute("Slot").Value;
-                SetAbilityTypeFromSlot(slot, hero, ability, "attribute");
+                SetAbilityTypeFromSlot(slot, hero, ability);
 
                 return;
             }
@@ -233,7 +233,7 @@ namespace HeroesData.Parser.UnitData.Data
                 if (layoutButton != null)
                 {
                     string slot = layoutButton.Element("Slot").Attribute("value").Value;
-                    SetAbilityTypeFromSlot(slot, hero, ability, "element");
+                    SetAbilityTypeFromSlot(slot, hero, ability);
 
                     return;
                 }
@@ -242,7 +242,7 @@ namespace HeroesData.Parser.UnitData.Data
             ability.AbilityType = AbilityType.Active;
         }
 
-        private void SetAbilityTypeFromSlot(string slot, Hero hero, Ability ability, string type)
+        private void SetAbilityTypeFromSlot(string slot, Hero hero, Ability ability)
         {
             if (slot.ToUpper().StartsWith("ABILITY1"))
                 ability.AbilityType = AbilityType.Q;
@@ -257,7 +257,7 @@ namespace HeroesData.Parser.UnitData.Data
             else if (slot.ToUpper().StartsWith("HEARTH"))
                 ability.AbilityType = AbilityType.B;
             else
-                throw new ParseException($"Unknown slot type ({type}) for ability type: {slot} - Hero(CUnit): {hero.CUnitId} - Ability: {ability.ReferenceNameId}");
+                throw new ParseException($"Unknown slot type ({slot}) for ability type: {ability.AbilityType} - Hero(CUnit): {hero.CUnitId} - Ability: {ability.ReferenceNameId}");
         }
 
         private void SetTalentIdUpgrades(XElement buttonElement, Ability ability)

@@ -111,7 +111,7 @@ namespace HeroesData.Parser.Tests.OverrideTests
         public void LoadOverrideOnlyGameDataTest()
         {
             OverrideData overrideData = OverrideData.Load(GameData);
-            Assert.AreEqual("HeroOverrides.xml", overrideData.HeroDataOverrideXmlFile);
+            Assert.AreEqual("hero-overrides.xml", overrideData.HeroDataOverrideXmlFile);
         }
     }
 }
