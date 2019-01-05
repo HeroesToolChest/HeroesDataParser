@@ -56,17 +56,19 @@ jobs:
         
     - powershell: |
         $csproj = get-content HeroesData\HeroesData.csproj
-        $s = $csproj | select-string -pattern "<Version>"
-        $s -match "<Version>(?<content>.*)</Version>"
+        $sv = $csproj | select-string -pattern "<Version>"
+        $spv = $csproj | select-string -pattern "<PackageVersion>"
+        $sv -match "<Version>(?<content>.*)</Version>"
         $version = $matches['content'] + "-build.$(Build.BuildNumber)"
-        $csproj.replace($s, "<Version>$version</Version>") | out-file HeroesData\HeroesData.csproj
+        $csproj.replace($sv, "<Version>$version</Version>") | out-file HeroesData\HeroesData.csproj
+        $csproj.replace($spv, "<PackageVersion>$version</PackageVersion>") | out-file HeroesData\HeroesData.csproj
         echo "Version - $version"
       displayName: Non-master version build number
       condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
       
     - powershell: |
         (get-content HeroesData\HeroesData.csproj).Replace('<PackAsTool>true</PackAsTool>','<PackAsTool>false</PackAsTool>') | out-file HeroesData\HeroesData.csproj
-        $s = get-content HeroesData\heroesdata.csproj | select-string -pattern "<PackageVersion>"
+        $s = get-content HeroesData\HeroesData.csproj | select-string -pattern "<PackageVersion>"
         $s -match "<PackageVersion>(?<content>.*)</PackageVersion>"
         $m = $matches['content']        
         echo "##vso[task.setvariable variable=version]$m"
