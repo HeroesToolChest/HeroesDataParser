@@ -22,13 +22,13 @@
     <None Update="GameStringValues.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="HeroOverridesXml\HeroOverrides_71138.xml">
+    <None Update="herooverrides\hero-overrides_71138.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="HeroOverridesXml\HeroOverrides_69264.xml">
+    <None Update="herooverrides\hero-overrides_69264.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="HeroOverridesXml\HeroOverrides.xml">
+    <None Update="herooverrides\hero-overrides.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="VerifyIgnore.txt">

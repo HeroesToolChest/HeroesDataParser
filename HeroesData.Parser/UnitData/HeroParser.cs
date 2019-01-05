@@ -109,7 +109,7 @@ namespace HeroesData.Parser.UnitData
             IList<Ability> hearthAbilties = StormHeroBase.PrimaryAbilities(AbilityTier.Hearth);
             IList<Ability> mountAbilties = StormHeroBase.PrimaryAbilities(AbilityTier.Mount);
 
-            // based on the _stormhero data in HeroOverrides.xml
+            // based on the _stormhero data in hero-overrides.xml
             DefaultData.DefaultHearthAbilityId = hearthAbilties[0].ReferenceNameId;
             DefaultData.DefaultHearthNoManaAbilityId = hearthAbilties[1].ReferenceNameId;
             DefaultData.DefaultSummonMountAbilityId = mountAbilties[0].ReferenceNameId;
