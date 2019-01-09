@@ -4,6 +4,11 @@
     <MountLinkId>SummonMount</MountLinkId>
     <HearthLinkId>PortBackToBase</HearthLinkId>
     <Description>A Tank who specializes against Mages thanks in part to his innate Spell Armor.  20 Spell Armor</Description>
+    <Descriptors>
+      <Descriptor>EnergyImportant</Descriptor>
+      <Descriptor>WaveClearer</Descriptor>
+      <Descriptor>Overconfident</Descriptor>
+    </Descriptors>
     <Life>
       <Amount scale="0.04">1900</Amount>
       <RegenRate scale="0.04">3.957</RegenRate>

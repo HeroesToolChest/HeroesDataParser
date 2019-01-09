@@ -15,6 +15,11 @@
     "mountLinkId": "SummonMount",
     "hearthLinkId": "PortBackToBase",
     "description": "A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/>20 Spell Armor",
+    "descriptors": [
+      "EnergyImportant",
+      "WaveClearer",
+      "Overconfident"
+    ],
     "life": {
       "amount": 1900.0,
       "scale": 0.04,

@@ -130,6 +130,7 @@ namespace HeroesData.FileWriter.Tests
                 MountLinkId = "SummonMount",
                 HearthLinkId = "PortBackToBase",
                 Description = new TooltipDescription("A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/><img path=\"@UI / StormTalentInTextArmorIcon\" alignment=\"uppermiddle\" color=\"e12bfc\" width=\"20\" height=\"22\"/><c val=\"#TooltipNumbers\">20 Spell Armor</c>"),
+                HeroDescriptors = new List<string> { "EnergyImportant", "WaveClearer", "Overconfident" },
                 HeroPortrait = new HeroPortrait()
                 {
                     HeroSelectPortraitFileName = "storm_ui_ingame_heroselect_btn_alarak.png",

@@ -21,5 +21,17 @@ namespace HeroesData.Parser.Tests.HeroParserTests
             Assert.AreEqual("Meteor Shower", ability.Name);
             Assert.AreEqual(AbilityType.W, ability.AbilityType);
         }
+
+        [TestMethod]
+        public void HeroDescriptorsTests()
+        {
+            Assert.AreEqual(5, HeroRagnaros.HeroDescriptors.Count);
+
+            Assert.IsTrue(HeroRagnaros.HeroDescriptors.Contains("EnergyImportant"));
+            Assert.IsTrue(HeroRagnaros.HeroDescriptors.Contains("Escaper"));
+            Assert.IsTrue(HeroRagnaros.HeroDescriptors.Contains("Overconfident"));
+            Assert.IsTrue(HeroRagnaros.HeroDescriptors.Contains("RoleCaster"));
+            Assert.IsTrue(HeroRagnaros.HeroDescriptors.Contains("WaveClearer"));
+        }
     }
 }

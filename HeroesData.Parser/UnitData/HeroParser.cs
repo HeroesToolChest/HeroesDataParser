@@ -444,6 +444,13 @@ namespace HeroesData.Parser.UnitData
                         }
                     }
                 }
+                else if (elementName == "HEROPLAYSTYLEFLAGS")
+                {
+                    string descriptor = element.Attribute("index").Value;
+
+                    if (element.Attribute("value")?.Value == "1")
+                        hero.HeroDescriptors.Add(descriptor);
+                }
             }
 
             // set weapons

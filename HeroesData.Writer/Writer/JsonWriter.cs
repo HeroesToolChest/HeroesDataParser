@@ -170,6 +170,8 @@ namespace HeroesData.FileWriter.Writer
                 heroObject.Add("hearthLinkId", hero.HearthLinkId);
             if (!string.IsNullOrEmpty(hero.Description?.RawDescription) && !IsLocalizedText)
                 heroObject.Add("description", GetTooltip(hero.Description, FileSettings.Description));
+            if (hero.HeroDescriptors.Count > 0)
+                heroObject.Add(new JProperty("descriptors", hero.HeroDescriptors));
 
             JProperty portraits = HeroPortraits(hero);
             if (portraits != null)
