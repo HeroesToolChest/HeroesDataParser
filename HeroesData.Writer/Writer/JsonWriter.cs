@@ -190,7 +190,7 @@ namespace HeroesData.FileWriter.Writer
                 heroObject.Add(armor);
 
             if (hero.Roles?.Count > 0 && !IsLocalizedText)
-                heroObject.Add(new JProperty("roles", new JArray(from r in hero.Roles select new JValue(r.ToString()))));
+                heroObject.Add(new JProperty("roles", hero.Roles));
 
             JProperty ratings = HeroRatings(hero);
             if (ratings != null)
