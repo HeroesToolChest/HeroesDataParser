@@ -256,8 +256,10 @@ namespace HeroesData.Parser.UnitData.Data
                 ability.AbilityType = AbilityType.Heroic;
             else if (slot.ToUpper().StartsWith("HEARTH"))
                 ability.AbilityType = AbilityType.B;
+            else if (slot.ToUpper().StartsWith("TRAIT"))
+                ability.AbilityType = AbilityType.Trait;
             else
-                throw new ParseException($"Unknown slot type ({slot}) for ability type: {ability.AbilityType} - Hero(CUnit): {hero.CUnitId} - Ability: {ability.ReferenceNameId}");
+                throw new ParseException($"Unknown slot type ({slot}) - Hero(CUnit): {hero.CUnitId} - Ability: {ability.ReferenceNameId}");
         }
 
         private void SetTalentIdUpgrades(XElement buttonElement, Ability ability)

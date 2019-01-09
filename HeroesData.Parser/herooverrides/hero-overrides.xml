@@ -103,7 +103,12 @@
       <Override>
         <AbilityType value="E" />
       </Override>
-    </Talent>  
+    </Talent>
+    <Button id="DVaPilotPilotMode" parent="StormButtonParent">
+      <Override>
+        <ParentLink value="HeroDVaPilot" />
+      </Override>
+    </Button>
     <HeroUnit id="HeroDVaPilot"></HeroUnit>
   </CHero>
   <CHero id="Dryad" name="Lunara" alt="Lunara">
