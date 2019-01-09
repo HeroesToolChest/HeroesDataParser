@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CHero id="Mephisto">
+    <AttributeId value="MEPH" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <CollectionCategory value="Damage" />
+    <HeroAbilArray Abil="MephistoShadeOfMephisto" Button="MephistoShadeOfMephisto">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <TalentTreeArray Talent="MephistoShadeOfMephistoGhastlyArmor" Tier="3" Column="1" />
+    <TalentTreeArray Talent="MephistoShadeOfMephistoShadeLord" Tier="7" Column="4" />
+  </CHero>
+  <CUnit id="HeroMephisto" parent="StormHeroMounted">
+    <LifeStart value="1968" />
+    <LifeMax value="1968" />
+    <LifeRegenRate value="4.1015" />
+    <AbilArray Link="MephistoSkullMissile" />
+    <AbilArray Link="MephistoLightningNova" />
+    <AbilArray Link="MephistoShadeOfMephisto" />
+    <AbilArray Link="MephistoConsumeSouls" />
+    <AbilArray Link="MephistoDuranceOfHate" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="MephistoDummyVisualBehavior" />
+    <BehaviorArray Link="MephistoShadeOfMephistoUnitTracker" />
+    <BehaviorArray Link="MephistoSkullMissileLightningReactionSkullMissileSearchBehavior" />
+    <WeaponArray Link="MephistoHeroWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="MephistoConsumeSouls" Type="AbilCmd" AbilCmd="MephistoConsumeSouls,Execute" Slot="Heroic" />
+      <LayoutButtons Face="MephistoDuranceOfHate" Type="AbilCmd" AbilCmd="MephistoDuranceOfHate,Execute" Slot="Heroic" />
+      <LayoutButtons Face="MephistoSkullMissile" Type="AbilCmd" AbilCmd="MephistoSkullMissile,Execute" Slot="Ability1" />
+      <LayoutButtons Face="MephistoShadeOfMephisto" Type="AbilCmd" AbilCmd="MephistoShadeOfMephisto,Execute" Slot="Ability3" />
+      <LayoutButtons Face="MephistoLordOfHatred" Type="Passive" Slot="Trait" />
+      <LayoutButtons Face="MephistoLightningNova" Type="AbilCmd" AbilCmd="MephistoLightningNova,Execute" Slot="Ability2" />
+    </CardLayouts>
+    <Radius value="0.75" />
+    <InnerRadius value="0.75" />
+    <InitializerFunction value="libHMEP_gf_HeroMephistoIncrementHeroCountFunction" />
+    <DestructionFunction value="libHMEP_gf_HeroMephistoDecrementHeroCountFunction" />
+    <AIThinkTree value="AI\Mephisto.aitree" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="Roamer" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+  </CUnit>
+
+  <CButton id="MephistoShadeOfMephisto" parent="StormButtonParent">
+    <TooltipAppender Validator="MephistoShadeOfMephistoGhastlyArmorOrShadeLordHasTalentCombine" Face="MephistoShadeOfMephistoGhastlyArmor" />
+    <TooltipAppender Validator="MephistoShadeOfMephistoShadeLordHasTalent" Face="MephistoShadeOfMephistoShadeLord" />
+    <Icon value="Assets\Textures\storm_ui_icon_mephisto_shade.dds" />
+  </CButton>
+  <CButton id="MephistoShadeOfMephistoGhastlyArmor" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_mephisto_shade.dds" />
+  </CButton>
+  <CButton id="MephistoShadeOfMephistoShadeLord" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_mephisto_shade.dds" />
+  </CButton>
+
+  <CTalent id="MephistoShadeOfMephistoGhastlyArmor">
+    <Face value="MephistoShadeOfMephistoGhastlyArmor" />
+    <Abil value="MephistoShadeOfMephisto" />
+  </CTalent>
+  <CTalent id="MephistoShadeOfMephistoShadeLord">
+    <Face value="MephistoShadeOfMephistoShadeLord" />
+    <Abil value="MephistoShadeOfMephistoShadeLord" />
+    <RankArray>
+      <BehaviorArray value="MephistoShadeOfMephistoShadeLordItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  
+  <CValidatorCombine id="MephistoShadeOfMephistoGhastlyArmorOrShadeLordHasTalentCombine">
+    <CombineArray value="MephistoShadeOfMephistoGhastlyArmorHasTalent" />
+    <CombineArray value="MephistoShadeOfMephistoShadeLordHasTalent" />
+  </CValidatorCombine>
+
+  <CValidatorPlayerTalent id="MephistoShadeOfMephistoGhastlyArmorHasTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="MephistoShadeOfMephistoGhastlyArmor" />
+  </CValidatorPlayerTalent>
+</Catalog>

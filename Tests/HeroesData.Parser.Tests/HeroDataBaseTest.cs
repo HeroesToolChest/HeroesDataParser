@@ -34,6 +34,7 @@ namespace HeroesData.Parser.Tests
             MatchAwardParser.Parse();
         }
 
+        protected Hero HeroMephisto { get; set; }
         protected Hero HeroThrall { get; set; }
         protected Hero HeroJunkrat { get; set; }
         protected Hero HeroSonya { get; set; }
@@ -68,6 +69,7 @@ namespace HeroesData.Parser.Tests
         private void ParseHeroes()
         {
             HeroParser heroDataParser = new HeroParser(GameData, DefaultData, OverrideData);
+            HeroMephisto = heroDataParser.Parse("Mephisto");
             HeroThrall = heroDataParser.Parse("Thrall");
             HeroJunkrat = heroDataParser.Parse("Junkrat");
             HeroSonya = heroDataParser.Parse("Barbarian");

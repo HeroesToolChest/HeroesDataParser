@@ -199,18 +199,41 @@ namespace HeroesData.Parser.UnitData.Data
                 // check if face value exists as a button
                 if (!string.IsNullOrEmpty(faceId) && GameData.XmlGameData.Root.Elements("CButton").Any(x => x.Attribute("id")?.Value == faceId))
                 {
-                    // validator value check
-                    XElement validatorPlayerTalentElement = GameData.XmlGameData.Root.Elements("CValidatorPlayerTalent").FirstOrDefault(x => x.Attribute("id")?.Value == validatorId);
-                    if (validatorPlayerTalentElement != null)
+                    // check if its a combined validator
+                    XElement validatorCombineElement = GameData.XmlGameData.Root.Elements("CValidatorCombine").FirstOrDefault(x => x.Attribute("id")?.Value == validatorId);
+                    if (validatorCombineElement != null)
                     {
-                        string talentReferenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value;
-
-                        if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
-                            AbilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(abilityTalentId);
-                        else
-                            AbilityTalentIdsByTalentIdUpgrade.Add(talentReferenceNameId, new HashSet<string>(StringComparer.OrdinalIgnoreCase) { abilityTalentId });
+                        foreach (XElement element in validatorCombineElement.Elements())
+                        {
+                            if (element.Name.LocalName == "CombineArray")
+                            {
+                                string validator = element.Attribute("value")?.Value;
+                                if (!string.IsNullOrEmpty(validator))
+                                {
+                                    ValidatorPlayerTalentCheck(validator, abilityTalentId);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ValidatorPlayerTalentCheck(validatorId, abilityTalentId);
                     }
                 }
+            }
+        }
+
+        private void ValidatorPlayerTalentCheck(string validatorId, string abilityTalentId)
+        {
+            XElement validatorPlayerTalentElement = GameData.XmlGameData.Root.Elements("CValidatorPlayerTalent").FirstOrDefault(x => x.Attribute("id")?.Value == validatorId);
+            if (validatorPlayerTalentElement != null)
+            {
+                string talentReferenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value;
+
+                if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
+                    AbilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(abilityTalentId);
+                else
+                    AbilityTalentIdsByTalentIdUpgrade.Add(talentReferenceNameId, new HashSet<string>(StringComparer.OrdinalIgnoreCase) { abilityTalentId });
             }
         }
     }
