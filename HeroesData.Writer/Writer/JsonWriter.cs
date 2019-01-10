@@ -242,6 +242,8 @@ namespace HeroesData.FileWriter.Writer
                 heroObject.Add("type", unit.Type);
             if (!string.IsNullOrEmpty(unit.Description?.RawDescription) && !IsLocalizedText)
                 heroObject.Add("description", GetTooltip(unit.Description, FileSettings.Description));
+            if (unit.HeroDescriptors.Count > 0)
+                heroObject.Add(new JProperty("descriptors", unit.HeroDescriptors));
 
             JProperty life = UnitLife(unit);
             if (life != null)

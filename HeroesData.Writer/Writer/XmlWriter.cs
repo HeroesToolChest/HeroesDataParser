@@ -154,6 +154,7 @@ namespace HeroesData.FileWriter.Writer
                 unit.Speed > 0 ? new XAttribute("speed", unit.Speed) : null,
                 string.IsNullOrEmpty(unit.Type) || IsLocalizedText ? null : new XAttribute("type", unit.Type),
                 string.IsNullOrEmpty(unit.Description?.RawDescription) || IsLocalizedText ? null : new XElement("Description", GetTooltip(unit.Description, FileSettings.Description)),
+                unit.HeroDescriptors.Count > 0 ? new XElement("Descriptors", unit.HeroDescriptors.Select(d => new XElement("Descriptor", d))) : null,
                 UnitLife(unit),
                 UnitArmor(unit),
                 UnitEnergy(unit),
