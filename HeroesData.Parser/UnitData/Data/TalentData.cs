@@ -102,7 +102,7 @@ namespace HeroesData.Parser.UnitData.Data
             // storm hero abilities
             foreach (Ability ability in stormHeroBase.Abilities.Values)
             {
-                XElement buttonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ButtonName);
+                XElement buttonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ButtonName || x.Attribute("id")?.Value == ability.ReferenceNameId);
                 if (buttonElement != null)
                     abilityTalentsByButtonElements[ability.ButtonName] = (buttonElement, ability);
             }
@@ -110,7 +110,10 @@ namespace HeroesData.Parser.UnitData.Data
             // hero's abilities
             foreach (Ability ability in hero.Abilities.Values)
             {
-                XElement buttonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ButtonName);
+                XElement buttonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ReferenceNameId);
+                if (buttonElement == null)
+                    buttonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ButtonName);
+
                 if (buttonElement != null)
                     abilityTalentsByButtonElements[ability.ButtonName] = (buttonElement, ability);
             }

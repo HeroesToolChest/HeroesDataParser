@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CHero id="Tracer">
+    <AttributeId value="Tra0" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <CollectionCategory value="Damage" />
+    <HeroAbilArray Abil="TracerBlink" Button="TracerBlinkHeroSelect">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="UsesCharges" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <TalentTreeArray Talent="TracerJumper" Tier="3" Column="1" />
+  </CHero>
+  <CUnit id="HeroTracer" parent="StormHeroMounted">
+    <BehaviorArray Link="TracerReloadController" />
+  </CUnit>
+
+  <CButton id="TracerBlinkHeroSelect" parent="StormButtonParentTrait">
+    <TooltipVitalName index="Energy" value="" />
+    <Icon value="Assets\Textures\storm_ui_icon_tracer_blink.dds" />
+  </CButton>
+  <CButton id="TracerBlink" parent="StormButtonParentTrait">
+    <TooltipAppender Validator="TracerHasJumperTalent" Face="TracerJumper" />
+    <TooltipVitalName index="Energy" value="" />
+    <Icon value="Assets\Textures\storm_ui_icon_tracer_blink_empty.dds" />
+  </CButton>
+  <CButton id="TracerJumper" parent="StormButtonParentTrait">
+    <TooltipVitalName index="Energy" value="" />
+    <Icon value="Assets\Textures\storm_ui_icon_tracer_blink_b.dds" />
+    <HotkeyAlias value="TracerReload" />
+  </CButton>
+  
+  <CTalent id="TracerJumper">
+    <Face value="TracerJumper" />
+    <Abil value="TracerBlink" />
+    <RankArray>
+      <BehaviorArray value="JumperInitialBehavior" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Entry value="TracerBlink" />
+        <Field value="Cost[0].Charge.CountMax" />
+        <FieldIsInteger value="1" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="StringReplacement" />
+        <Catalog value="Button" />
+        <Entry value="TracerBlink" />
+        <Field value="Icon" />
+        <StringReplacement value="Assets\Textures\storm_ui_icon_tracer_blink_b_empty.dds" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Entry value="TracerBlink" />
+        <Field value="Cost[0].Charge.TimeUse" />
+        <Value value="2.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  
+  <CValidatorPlayerTalent id="TracerHasJumperTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="TracerJumper" />
+  </CValidatorPlayerTalent>
+</Catalog>
