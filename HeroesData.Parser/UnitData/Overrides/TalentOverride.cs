@@ -39,6 +39,16 @@ namespace HeroesData.Parser.UnitData.Overrides
                         talent.AbilityTalentLinkIds.Add(propertyValue);
                 });
             }
+            else if (propertyName == nameof(Talent.IsActive))
+            {
+                propertyOverrides.Add(propertyName, (talent) =>
+                {
+                    if (bool.TryParse(propertyValue, out bool result))
+                        talent.IsActive = result;
+                    else
+                        talent.IsActive = false;
+                });
+            }
         }
     }
 }

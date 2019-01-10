@@ -48,7 +48,13 @@
     </Ability>
     <HeroUnit id="HeroAlexstraszaDragon"></HeroUnit>
   </CHero>
-  <CHero id="Amazon" alt="d2amazonf"/>
+  <CHero id="Amazon" alt="d2amazonf">
+    <Talent id="AmazonSurgeOfLight">
+      <Override>
+        <IsActive value="true" />
+      </Override>
+    </Talent>
+  </CHero>
   <CHero id="Chen">
     <!--Storm, Earth, and Fire abilities tied to Heroic ability StormEarthFire-->
     <Ability id="ChenStorm" valid="true">
