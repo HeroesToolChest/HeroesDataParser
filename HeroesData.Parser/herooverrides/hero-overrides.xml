@@ -337,6 +337,10 @@
         <ParentLink value="UtherEternalDevotion" />
       </Override>
     </Ability>
+    <!--trait - remove the store version-->
+    <Ability referenceNameId="UtherDevotionEternalVanguardShop" remove="true" />
+    <!--trait - adds the ingame version-->
+    <Button id="UtherEternalDevotion" parent="StormButtonParentTrait"></Button>
   </CHero>
   <CHero id="Valeera">
     <!--Stealth abilities-->
