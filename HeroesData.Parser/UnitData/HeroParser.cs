@@ -80,6 +80,7 @@ namespace HeroesData.Parser.UnitData
             ApplyOverrides(hero, HeroOverride);
             MoveParentLinkedAbilities(hero);
             MoveParentLinkedWeapons(hero);
+            RemoveAbilityTalents(hero, HeroOverride);
 
             return hero;
         }
@@ -592,6 +593,15 @@ namespace HeroesData.Parser.UnitData
                         propertyOverride.Value(hero.HeroPortrait);
                     }
                 }
+            }
+        }
+
+        private void RemoveAbilityTalents(Hero hero, HeroOverride heroOverride)
+        {
+            foreach (KeyValuePair<string, bool> removedAbility in heroOverride.RemovedAbilityByAbilityReferenceNameId)
+            {
+                if (removedAbility.Value)
+                    hero.Abilities.Remove(removedAbility.Key);
             }
         }
 

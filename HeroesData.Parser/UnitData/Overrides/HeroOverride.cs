@@ -9,7 +9,8 @@ namespace HeroesData.Parser.UnitData.Overrides
         /// <summary>
         /// Gets or sets abilities that are valid in the HeroAbilArray or to be invalidated.
         /// </summary>
-        /// <remarks>If the ability has the ShowInHeroSelect as true, it is valid.
+        /// <remarks>
+        /// If the ability has the ShowInHeroSelect as true, it is valid.
         /// If not, setting this boolean to true will make it a valid ability.
         /// Setting the boolean to false, the ability will be ignored and not be parsed.
         /// </remarks>
@@ -42,5 +43,13 @@ namespace HeroesData.Parser.UnitData.Overrides
         /// Gets or sets the property override action methods for talents by talent id.
         /// </summary>
         public Dictionary<string, Dictionary<string, Action<Talent>>> PropertyTalentOverrideMethodByTalentId { get; set; } = new Dictionary<string, Dictionary<string, Action<Talent>>>();
+
+        /// <summary>
+        /// Gets or sets the abilities that should be removed.
+        /// </summary>
+        /// <remarks>
+        /// Used for removing abilities by their referenceNameId.
+        /// </remarks>
+        public Dictionary<string, bool> RemovedAbilityByAbilityReferenceNameId { get; set; } = new Dictionary<string, bool>();
     }
 }

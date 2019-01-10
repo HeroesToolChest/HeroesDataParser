@@ -214,6 +214,10 @@
         <ParentLink value="LostVikingsLongboatRaidNewer" />
       </Override>
     </Ability>
+    <!--trait - remove the store version-->
+    <Ability referenceNameId="LostVikingsVikingHoardHeroSelect" remove="true" />
+    <!--trait - adds the ingame version-->
+    <Button id="LostVikingsVikingHoardTalent" parent="StormButtonParent"></Button>
     <HeroUnit id="HeroBaleog">
       <ParentLink value="LostVikings" />
     </HeroUnit>

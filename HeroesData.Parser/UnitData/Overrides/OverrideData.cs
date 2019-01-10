@@ -206,10 +206,13 @@ namespace HeroesData.Parser.UnitData.Overrides
 
             string cHeroId = heroElement.Attribute("id").Value;
 
-            foreach (var dataElement in heroElement.Elements())
+            foreach (XElement dataElement in heroElement.Elements())
             {
                 string elementName = dataElement.Name.LocalName;
                 string valueAttribute = dataElement.Attribute("value")?.Value;
+
+                XElement overrideElement = null;
+
                 switch (elementName)
                 {
                     case "Name":
@@ -248,38 +251,53 @@ namespace HeroesData.Parser.UnitData.Overrides
                         string valid = dataElement.Attribute("valid")?.Value;
                         string add = dataElement.Attribute("add")?.Value;
                         string button = dataElement.Attribute("button")?.Value;
+                        string referenceNameId = dataElement.Attribute("referenceNameId")?.Value;
+                        string remove = dataElement.Attribute("remove")?.Value;
                         string newButtonName = dataElement.Element("ButtonName")?.Attribute("value")?.Value;
 
-                        if (string.IsNullOrEmpty(abilityId))
-                            continue;
-
-                        // valid
-                        if (bool.TryParse(valid, out bool result))
+                        if (!string.IsNullOrEmpty(abilityId))
                         {
-                            heroOverride.IsValidAbilityByAbilityId.Add(abilityId, result);
+                            // valid
+                            if (bool.TryParse(valid, out bool validResult))
+                            {
+                                heroOverride.IsValidAbilityByAbilityId.Add(abilityId, validResult);
 
-                            if (!result)
+                                if (!validResult)
+                                    continue;
+                            }
+
+                            // add
+                            if (bool.TryParse(add, out bool addResult))
+                            {
+                                heroOverride.AddedAbilityByAbilityId.Add(abilityId, (button, addResult));
+
+                                if (!addResult)
+                                    continue;
+                            }
+
+                            if (!string.IsNullOrEmpty(button) && !string.IsNullOrEmpty(newButtonName))
+                            {
+                                heroOverride.ButtonNameOverrideByAbilityButtonId.Add((abilityId, button), newButtonName);
+                            }
+
+                            // override
+                            overrideElement = dataElement.Element("Override");
+                            if (overrideElement != null)
+                                abilityOverride.SetOverride(abilityId, overrideElement, heroOverride.PropertyAbilityOverrideMethodByAbilityId);
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(referenceNameId) && !string.IsNullOrEmpty(remove))
+                            {
+                                if (bool.TryParse(remove, out bool removeResult))
+                                {
+                                    heroOverride.RemovedAbilityByAbilityReferenceNameId.Add(referenceNameId, removeResult);
+                                }
+
                                 continue;
+                            }
                         }
 
-                        // add
-                        if (bool.TryParse(add, out result))
-                        {
-                            heroOverride.AddedAbilityByAbilityId.Add(abilityId, (button, result));
-
-                            if (!result)
-                                continue;
-                        }
-
-                        if (!string.IsNullOrEmpty(button) && !string.IsNullOrEmpty(newButtonName))
-                        {
-                            heroOverride.ButtonNameOverrideByAbilityButtonId.Add((abilityId, button), newButtonName);
-                        }
-
-                        // override
-                        XElement overrideElement = dataElement.Element("Override");
-                        if (overrideElement != null)
-                            abilityOverride.SetOverride(abilityId, overrideElement, heroOverride.PropertyAbilityOverrideMethodByAbilityId);
                         break;
                     case "Button":
                         string buttonId = dataElement.Attribute("id")?.Value;
@@ -319,11 +337,11 @@ namespace HeroesData.Parser.UnitData.Overrides
                         if (string.IsNullOrEmpty(weaponId))
                             continue;
 
-                        if (bool.TryParse(valid, out result))
+                        if (bool.TryParse(valid, out bool weaponValidresult))
                         {
-                            heroOverride.IsValidWeaponByWeaponId.Add(weaponId, result);
+                            heroOverride.IsValidWeaponByWeaponId.Add(weaponId, weaponValidresult);
 
-                            if (!result)
+                            if (!weaponValidresult)
                                 continue;
                         }
 
