@@ -4,5 +4,6 @@
     {
         string TalentName { get; }
         void AbilityTypeOverrideTest();
+        void IsActiveOverrideTest();
     }
 }

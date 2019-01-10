@@ -23,5 +23,11 @@ namespace HeroesData.Parser.Tests.OverrideTests.TalentOverrideTests
         {
             Assert.AreEqual(AbilityType.Z, TestTalent.AbilityType);
         }
+
+        [TestMethod]
+        public void IsActiveOverrideTest()
+        {
+            Assert.AreEqual(false, TestTalent.IsActive);
+        }
     }
 }

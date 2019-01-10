@@ -25,6 +25,12 @@ namespace HeroesData.Parser.Tests.OverrideTests.TalentOverrideTests
         }
 
         [TestMethod]
+        public void IsActiveOverrideTest()
+        {
+            Assert.AreEqual(true, TestTalent.IsActive);
+        }
+
+        [TestMethod]
         public void TalentAbilityTalentLinkIdsTest()
         {
             Assert.AreEqual(1, TestTalent.AbilityTalentLinkIds.Count);

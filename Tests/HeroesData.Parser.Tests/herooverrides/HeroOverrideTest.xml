@@ -33,6 +33,7 @@
         <AbilityType value="W" />
         <AbilityTalentLinkIds value="-Nonexistant" />
         <AbilityTalentLinkIds value="Slug" />
+        <IsActive value="true" />
       </Override>
     </Talent>
     
@@ -84,6 +85,7 @@
     <Talent id="UpgradeZapiptyZap">
       <Override>
         <AbilityType value="Z" />
+        <IsActive value="trues" />
       </Override>
     </Talent>
 
