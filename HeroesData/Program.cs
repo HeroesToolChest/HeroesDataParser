@@ -1,11 +1,11 @@
 ﻿using Heroes.Models;
 using HeroesData.Commands;
 using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
-using HeroesData.Parser.MatchAwards;
-using HeroesData.Parser.UnitData;
-using HeroesData.Parser.UnitData.Data;
-using HeroesData.Parser.UnitData.Overrides;
+using HeroesData.Parser.HeroData;
+using HeroesData.Parser.HeroData.Overrides;
+using HeroesData.Parser.MatchAwardData;
 using Microsoft.Extensions.CommandLineUtils;
 using System;
 using System.Collections.Concurrent;
@@ -680,7 +680,10 @@ namespace HeroesData
             Console.WriteLine($"Parsing award data...");
 
             time.Start();
-            MatchAwardParser awardParser = new MatchAwardParser(GameData, HotsBuild);
+            MatchAwardParser awardParser = new MatchAwardParser(GameData)
+            {
+                HotsBuild = HotsBuild,
+            };
 
             try
             {

@@ -3,7 +3,7 @@ using Heroes.Models.AbilityTalents;
 using System;
 using System.Collections.Generic;
 
-namespace HeroesData.Parser.UnitData.Overrides
+namespace HeroesData.Parser.HeroData.Overrides
 {
     public class UnitOverride
     {

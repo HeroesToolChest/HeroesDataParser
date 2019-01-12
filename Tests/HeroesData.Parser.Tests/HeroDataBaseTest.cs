@@ -1,10 +1,9 @@
 ﻿using Heroes.Models;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.GameStrings;
-using HeroesData.Parser.MatchAwards;
-using HeroesData.Parser.UnitData;
-using HeroesData.Parser.UnitData.Data;
-using HeroesData.Parser.UnitData.Overrides;
+using HeroesData.Parser.HeroData;
+using HeroesData.Parser.HeroData.Overrides;
+using HeroesData.Parser.MatchAwardData;
 using System.Globalization;
 using System.IO;
 using System.Reflection;

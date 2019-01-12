@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.UnitData.Data
+namespace HeroesData.Parser
 {
     public class DefaultData
     {

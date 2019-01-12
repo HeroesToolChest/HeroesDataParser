@@ -8,11 +8,10 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.MatchAwards
+namespace HeroesData.Parser.MatchAwardData
 {
     public class MatchAwardParser
     {
-        private readonly int? HotsBuild;
         private readonly GameData GameData;
 
         private readonly Dictionary<string, MatchAward> MatchAwards = new Dictionary<string, MatchAward>();
@@ -24,11 +23,10 @@ namespace HeroesData.Parser.MatchAwards
             GameData = gameData;
         }
 
-        public MatchAwardParser(GameData gameData, int? hotsBuild)
-        {
-            GameData = gameData;
-            HotsBuild = hotsBuild;
-        }
+        /// <summary>
+        /// Gets or sets the hots build number.
+        /// </summary>
+        public int? HotsBuild { get; set; }
 
         /// <summary>
         /// Returns all parsed match awards.

@@ -1,5 +1,5 @@
 ﻿using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.UnitData.Overrides;
+using HeroesData.Parser.HeroData.Overrides;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 

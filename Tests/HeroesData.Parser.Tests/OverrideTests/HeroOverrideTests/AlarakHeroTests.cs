@@ -1,4 +1,4 @@
-﻿using HeroesData.Parser.UnitData.Overrides;
+﻿using HeroesData.Parser.HeroData.Overrides;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest

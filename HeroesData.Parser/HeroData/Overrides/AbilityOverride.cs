@@ -3,7 +3,7 @@ using HeroesData.Loader.XmlGameData;
 using System;
 using System.Collections.Generic;
 
-namespace HeroesData.Parser.UnitData.Overrides
+namespace HeroesData.Parser.HeroData.Overrides
 {
     public class AbilityOverride : PropertyOverrideBase<Ability>
     {
