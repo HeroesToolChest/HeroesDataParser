@@ -12,7 +12,7 @@ namespace HeroesData.Parser.Tests
         [TestMethod]
         public void MatchAwardListTests()
         {
-            List<MatchAward> matchAwards = MatchAwardParser.GetParsedMatchAwards().ToList();
+            List<MatchAward> matchAwards = MatchAwardParser.Parse().ToList();
 
             Assert.AreEqual(6, matchAwards.Count);
 

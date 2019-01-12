@@ -117,6 +117,32 @@ namespace HeroesData.Parser.HeroData
             return StormHeroBase;
         }
 
+        /// <summary>
+        /// Returns a sorted set of CHero names.
+        /// </summary>
+        /// <returns></returns>
+        public SortedSet<string> GetCHeroNames()
+        {
+            SortedSet<string> names = new SortedSet<string>();
+
+            // CHero
+            IEnumerable<XElement> cHeroElements = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
+
+            // get all heroes
+            foreach (XElement hero in cHeroElements)
+            {
+                string id = hero.Attribute("id").Value;
+                XElement attributIdValue = hero.Elements("AttributeId").FirstOrDefault(x => x.Attribute("value") != null);
+
+                if (attributIdValue == null || id == "TestHero" || id == "Random")
+                    continue;
+
+                names.Add(id);
+            }
+
+            return names;
+        }
+
         private void SetDefaultValues(Hero hero)
         {
             hero.Type = GameData.GetGameString(DefaultData.StringRanged).Trim();

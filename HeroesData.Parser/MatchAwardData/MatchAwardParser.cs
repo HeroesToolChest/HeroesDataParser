@@ -14,10 +14,6 @@ namespace HeroesData.Parser.MatchAwardData
     {
         private readonly GameData GameData;
 
-        private readonly Dictionary<string, MatchAward> MatchAwards = new Dictionary<string, MatchAward>();
-
-        private int ParsedCount = 0;
-
         public MatchAwardParser(GameData gameData)
         {
             GameData = gameData;
@@ -29,27 +25,9 @@ namespace HeroesData.Parser.MatchAwardData
         public int? HotsBuild { get; set; }
 
         /// <summary>
-        /// Returns all parsed match awards.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<MatchAward> GetParsedMatchAwards()
-        {
-            return MatchAwards.Values;
-        }
-
-        /// <summary>
-        /// Returns the total count of parsed awards.
-        /// </summary>
-        /// <returns></returns>
-        public int Count()
-        {
-            return ParsedCount;
-        }
-
-        /// <summary>
         /// Parse all match awards.
         /// </summary>
-        public void Parse()
+        public IEnumerable<MatchAward> Parse()
         {
             XElement matchAwardsGeneral = GameData.XmlGameData.Root.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward");
             IEnumerable<XElement> matchAwardsMapSpecific = GameData.XmlGameData.Root.Elements("CUser").Where(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward");
@@ -66,15 +44,16 @@ namespace HeroesData.Parser.MatchAwardData
 
                 string gameLink = awardInstance.Element("GameLink").Attribute("GameLink").Value;
 
-                ParseAward(instanceId, gameLink);
+                yield return ParseAward(instanceId, gameLink);
             }
 
             // manually add mvp award
-            ParseAward("[Override]Generic Instance", "EndOfMatchAwardMVPBoolean");
-            MatchAwards.Last().Value.MVPScreenImageFileNameOriginal = "storm_ui_mvp_icon.dds";
+            MatchAward mvpAward = ParseAward("[Override]Generic Instance", "EndOfMatchAwardMVPBoolean");
+            mvpAward.MVPScreenImageFileNameOriginal = "storm_ui_mvp_icon.dds";
+            yield return mvpAward;
         }
 
-        private void ParseAward(string instanceId, string gameLink)
+        private MatchAward ParseAward(string instanceId, string gameLink)
         {
             // get the name
             if (GameData.TryGetGameString($"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}{gameLink}", out string awardNameText))
@@ -125,8 +104,7 @@ namespace HeroesData.Parser.MatchAwardData
             if (GameData.TryGetGameString($"{MapGameStringPrefixes.ScoreValueTooltipPrefix}{gameLink}", out string description))
                 matchAward.Description = new TooltipDescription(description);
 
-            MatchAwards[matchAward.ShortName] = matchAward;
-            ParsedCount++;
+            return matchAward;
         }
 
         private string GetNameFromGenderRule(string name)
