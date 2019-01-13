@@ -358,6 +358,8 @@ namespace HeroesData.FileWriter.Writer
             LocalizedGameString.AddUnitDifficulty(hero.ShortName, hero.Difficulty);
             LocalizedGameString.AddUnitType(hero.ShortName, hero.Type);
             LocalizedGameString.AddUnitDescription(hero.ShortName, GetTooltip(hero.Description, FileSettings.Description));
+            LocalizedGameString.AddHeroTitle(hero.ShortName, hero.Title);
+            LocalizedGameString.AddHeroSearchText(hero.ShortName, hero.Title);
 
             if (hero.Roles != null && hero.Roles.Count > 0)
                 LocalizedGameString.AddUnitRole(hero.ShortName, string.Join(",", hero.Roles));

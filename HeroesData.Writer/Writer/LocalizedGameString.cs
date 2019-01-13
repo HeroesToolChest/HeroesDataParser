@@ -46,6 +46,22 @@ namespace HeroesData.FileWriter.Writer
             GameStrings.Add($"unit/description/{key}={value}");
         }
 
+        public void AddHeroTitle(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings.Add($"unit/title/{key}={value}");
+        }
+
+        public void AddHeroSearchText(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings.Add($"unit/searchtext/{key}={value}");
+        }
+
         public void AddAbilityTalentName(string key, string value)
         {
             if (string.IsNullOrEmpty(key))

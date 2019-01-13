@@ -149,7 +149,7 @@ namespace HeroesData.Parser.HeroData
             hero.Radius = DefaultData.UnitRadius;
             hero.Speed = DefaultData.UnitSpeed;
             hero.Sight = DefaultData.UnitSight;
-            hero.ReleaseDate = DefaultData.ReleaseDate;
+            hero.ReleaseDate = DefaultData.HeroReleaseDate;
             hero.Gender = HeroGender.Male;
             hero.Franchise = HeroFranchise.Unknown;
             hero.Life.LifeMax = DefaultData.UnitLifeMax;
@@ -170,6 +170,14 @@ namespace HeroesData.Parser.HeroData
                 hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroLoadingScreenImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
                 hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroPartyPanelButtonImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
                 hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroPortrait.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
+
+                hero.InfoText = GameData.GetGameString(DefaultData.HeroInfoText.Replace(DefaultData.IdReplacer, hero.CHeroId));
+                hero.Title = GameData.GetGameString(DefaultData.HeroTitle.Replace(DefaultData.IdReplacer, hero.CHeroId));
+
+                hero.SearchText = GameData.GetGameString(DefaultData.HeroAlternateNameSearchText.Replace(DefaultData.IdReplacer, hero.CHeroId));
+                if (!string.IsNullOrEmpty(hero.SearchText) && hero.SearchText.Last() != ' ')
+                    hero.SearchText += " ";
+                hero.SearchText += GameData.GetGameString(DefaultData.HeroAdditionalSearchText.Replace(DefaultData.IdReplacer, hero.CHeroId));
 
                 if (HeroOverride.CUnitOverride.Enabled)
                     hero.CUnitId = HeroOverride.CUnitOverride.CUnit;
@@ -285,13 +293,13 @@ namespace HeroesData.Parser.HeroData
                 else if (elementName == "RELEASEDATE")
                 {
                     if (!int.TryParse(element.Attribute("Day")?.Value, out int day))
-                        day = DefaultData.ReleaseDate.Day;
+                        day = DefaultData.HeroReleaseDate.Day;
 
                     if (!int.TryParse(element.Attribute("Month")?.Value, out int month))
-                        month = DefaultData.ReleaseDate.Month;
+                        month = DefaultData.HeroReleaseDate.Month;
 
                     if (!int.TryParse(element.Attribute("Year")?.Value, out int year))
-                        year = DefaultData.ReleaseDate.Year;
+                        year = DefaultData.HeroReleaseDate.Year;
 
                     hero.ReleaseDate = new DateTime(year, month, day);
                 }
@@ -356,10 +364,17 @@ namespace HeroesData.Parser.HeroData
                 {
                     hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(element.Attribute("value")?.Value)).ToLower();
                 }
+                else if (elementName == "ADDITIONALSEARCHTEXT" || elementName == "ALTERNATENAMESEARCHTEXT")
+                {
+                    if (!string.IsNullOrEmpty(hero.SearchText) && hero.SearchText.Last() != ' ')
+                        hero.SearchText += " ";
+
+                    hero.SearchText += element.Attribute("value")?.Value;
+                }
             }
 
-            if (hero.ReleaseDate == DefaultData.ReleaseDate)
-                hero.ReleaseDate = DefaultData.AlphaReleaseDate;
+            if (hero.ReleaseDate == DefaultData.HeroReleaseDate)
+                hero.ReleaseDate = DefaultData.HeroAlphaReleaseDate;
 
             // abilities must be gotten before talents
             foreach (XElement abilArrayElement in heroElement.Elements("HeroAbilArray"))

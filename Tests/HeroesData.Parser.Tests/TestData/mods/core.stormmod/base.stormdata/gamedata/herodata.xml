@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <Catalog>
     <CHero default="1">
-        <Name value="Hero/Name/##id##"/>
-        <SortName value="Hero/SortName/##id##"/>
-        <Model value="##id##"/>
-        <Description value="Hero/Description/##id##"/>
-        <InfoText value="Hero/Info/##id##"/>
-        <Title value="Hero/Title/##id##"/>
-        <RequiredRewardArray value="##id##"/>
-        <Portrait value="Assets\Textures\UI_targetportrait_Hero_##id##.dds"/>
-        <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_##id##.dds"/>
-        <PartyPanelButtonImage value="Assets\Textures\storm_ui_ingame_partypanel_btn_##id##.dds"/>
-        <PartyFrameImage value="Assets\Textures\storm_ui_ingame_partyframe_##id##.dds"/>
-        <LeaderboardImage value="Assets\Textures\UI_targetportrait_Hero_##id##.dds"/>
-        <LoadingScreenImage value="Assets\Textures\storm_ui_ingame_hero_loadingscreen_##id##.dds"/>
-        <ScoreScreenImage value="Assets\Textures\storm_ui_ingame_hero_leaderboard_##id##.dds"/>
-        <DraftScreenLargeImage value="Assets/Textures/storm_ui_glues_draft_banner_##id##.dds"/>
-        <DraftScreenLargeImageBackground value="Assets/Textures/storm_ui_glues_draft_banner_glow_##id##.dds"/>
-        <DraftScreenPortrait value="Assets/Textures/storm_ui_glues_draft_portrait_##id##.dds"/>
-        <DraftScreenPortraitBackground value="Assets/Textures/storm_ui_glues_draft_portrait_bg_##id##.dds"/>
-        <HyperlinkId value="##id##"/>
-        <ReleaseDate>
-            <Month value="1"/>
-            <Day value="1"/>
-            <Year value="2014"/>
-        </ReleaseDate>
+      <Name value="Hero/Name/##id##"/>
+      <SortName value="Hero/SortName/##id##"/>
+      <Flags index="AllowAIRandomSelection" value="1"/>
+      <Flags index="AllowHumanRandomSelection" value="1"/>
+      <Model value="##id##"/>
+      <Description value="Hero/Description/##id##"/>
+      <InfoText value="Hero/Info/##id##"/>
+      <Title value="Hero/Title/##id##"/>
+      <RequiredRewardArray value="##id##"/>
+      <Portrait value="Assets\Textures\UI_targetportrait_Hero_##id##.dds"/>
+      <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_##id##.dds"/>
+      <PartyPanelButtonImage value="Assets\Textures\storm_ui_ingame_partypanel_btn_##id##.dds"/>
+      <PartyFrameImage value="Assets\Textures\storm_ui_ingame_partyframe_##id##.dds"/>
+      <LeaderboardImage value="Assets\Textures\UI_targetportrait_Hero_##id##.dds"/>
+      <LoadingScreenImage value="Assets\Textures\storm_ui_ingame_hero_loadingscreen_##id##.dds"/>
+      <ScoreScreenImage value="Assets\Textures\storm_ui_ingame_hero_leaderboard_##id##.dds"/>
+      <VariationIcon value="Assets/Textures/ui_glues_heroselect_skin_##id##.dds"/>
+      <CollectionIcon value="Assets\Textures\UI_targetportrait_Hero_##id##.dds"/>
+      <DraftScreenLargeImage value="Assets/Textures/storm_ui_glues_draft_banner_##id##.dds"/>
+      <DraftScreenLargeImageBackground value="Assets/Textures/storm_ui_glues_draft_banner_glow_##id##.dds"/>
+      <DraftScreenPortrait value="Assets/Textures/storm_ui_glues_draft_portrait_##id##.dds"/>
+      <DraftScreenPortraitBackground value="Assets/Textures/storm_ui_glues_draft_portrait_bg_##id##.dds"/>
+      <ImageFacing value="Mid"/>
+      <AdditionalSearchText value="Hero/AdditionalSearchText/##id##"/>
+      <AlternateNameSearchText value="Hero/AlternateNameSearchText/##id##"/>
+      <HyperlinkId value="##id##"/>
+      <ReleaseDate>
+        <Month value="1"/>
+        <Day value="1"/>
+        <Year value="2014"/>
+      </ReleaseDate>
+      <PurchaseWarningCondition value="Always"/>
+      <VODefinition value="##id##"/>
     </CHero>
 </Catalog>

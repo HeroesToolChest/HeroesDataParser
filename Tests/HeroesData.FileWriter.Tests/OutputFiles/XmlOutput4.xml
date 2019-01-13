@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Heroes>
-  <Alarak name="Alarak" cHeroId="HeroAlarak" cUnitId="Alar" difficulty="Hard" franchise="Starcraft" gender="Male" radius="0.875" releaseDate="2016-09-13" sight="12" speed="4.3984" type="Melee" rarity="Legendary">
+  <Alarak name="Alarak" cHeroId="HeroAlarak" cUnitId="Alar" difficulty="Hard" franchise="Starcraft" gender="Male" title="Highlord" radius="0.875" releaseDate="2016-09-13" sight="12" speed="4.3984" type="Melee" rarity="Legendary">
     <MountLinkId>SummonMount</MountLinkId>
     <HearthLinkId>PortBackToBase</HearthLinkId>
+    <SearchText>Alarak highlord protoss</SearchText>
     <Description>A Tank who specializes against Mages thanks in part to his innate Spell Armor.&lt;n/&gt;&lt;n/&gt;20 Spell Armor</Description>
     <Descriptors>
       <Descriptor>EnergyImportant</Descriptor>

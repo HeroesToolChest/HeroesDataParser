@@ -131,12 +131,12 @@ namespace HeroesData.Parser
         /// <summary>
         /// Gets the default release date value.
         /// </summary>
-        public DateTime ReleaseDate { get; private set; }
+        public DateTime HeroReleaseDate { get; private set; }
 
         /// <summary>
         /// Gets the alpha release date of 2014/3/13.
         /// </summary>
-        public DateTime AlphaReleaseDate { get; private set; } = new DateTime(2014, 3, 13);
+        public DateTime HeroAlphaReleaseDate { get; private set; } = new DateTime(2014, 3, 13);
 
         /// <summary>
         /// Gets the unit text. Contains ##id##. Used to get the cUnitId.
@@ -147,6 +147,26 @@ namespace HeroesData.Parser
         /// Gets the default hero role text. Contains ##id##.
         /// </summary>
         public string HeroRoleName { get; private set; }
+
+        /// <summary>
+        /// Gets the default hero information text. Contains ##id##.
+        /// </summary>
+        public string HeroInfoText { get; private set; }
+
+        /// <summary>
+        /// Gets the default hero title. Contains ##id##.
+        /// </summary>
+        public string HeroTitle { get; private set; }
+
+        /// <summary>
+        /// Gets the default additional search text. Contains ##id##.
+        /// </summary>
+        public string HeroAdditionalSearchText { get; private set; }
+
+        /// <summary>
+        /// Gets the default alternamte name search text. Contains ##id##.
+        /// </summary>
+        public string HeroAlternateNameSearchText { get; private set; }
 
         /// <summary>
         /// Gets the default button name text. Contains ##id##.
@@ -391,7 +411,7 @@ namespace HeroesData.Parser
                     if (!int.TryParse(element.Element("Day").Value, out int day))
                         day = 1;
 
-                    ReleaseDate = new DateTime(year, month, day);
+                    HeroReleaseDate = new DateTime(year, month, day);
                 }
                 else if (elementName == "UNIT")
                 {
@@ -400,6 +420,22 @@ namespace HeroesData.Parser
                 else if (elementName == "HYPERLINKID")
                 {
                     HeroHyperlinkId = element.Attribute("value").Value;
+                }
+                else if (elementName == "INFOTEXT")
+                {
+                    HeroInfoText = element.Attribute("value").Value;
+                }
+                else if (elementName == "TITLE")
+                {
+                    HeroTitle = element.Attribute("value").Value;
+                }
+                else if (elementName == "ADDITIONALSEARCHTEXT")
+                {
+                    HeroAdditionalSearchText = element.Attribute("value").Value;
+                }
+                else if (elementName == "ALTERNATENAMESEARCHTEXT")
+                {
+                    HeroAlternateNameSearchText = element.Attribute("value").Value;
                 }
             }
         }

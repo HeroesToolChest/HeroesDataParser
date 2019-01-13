@@ -352,3 +352,8 @@ Abil/Name/ArthasDeathCoil=Death Coil
 Button/Name/ArthasDeathCoil=Death Coil
 Button/SimpleDisplayText/ArthasDeathCoil=Deals damage to a target or heal Arthas
 Button/Tooltip/ArthasDeathCoil=Deals damage to target enemy.
+
+Hero/Info/Abathur=Abathur, the Evolution Master of Kerrigan's Swarm, works ceaselessly to improve the zerg from the genetic level up. His hate for chaos and imperfection almost rivals his hatred of pronouns.
+Hero/Title/Abathur=Evolution Master
+Hero/AdditionalSearchText/Abathur=Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug
+Hero/AlternateNameSearchText/Abathur=Abathur

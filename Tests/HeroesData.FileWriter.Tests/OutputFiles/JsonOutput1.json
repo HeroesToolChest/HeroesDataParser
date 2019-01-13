@@ -6,6 +6,7 @@
     "difficulty": "Hard",
     "franchise": "Starcraft",
     "gender": "Male",
+    "title": "Highlord",
     "radius": 0.875,
     "releaseDate": "2016-09-13",
     "sight": 12.0,
@@ -14,6 +15,7 @@
     "rarity": "Legendary",
     "mountLinkId": "SummonMount",
     "hearthLinkId": "PortBackToBase",
+    "searchText": "Alarak highlord protoss",
     "description": "A Tank who specializes against Mages thanks in part to his innate Spell Armor.  20 Spell Armor",
     "descriptors": [
       "EnergyImportant",

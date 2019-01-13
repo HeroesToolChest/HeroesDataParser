@@ -101,6 +101,12 @@ namespace HeroesData.Parser
                 if (string.IsNullOrEmpty(hero.MountLinkId))
                     AddWarning($"{nameof(hero.MountLinkId)} is null or emtpy");
 
+                if (string.IsNullOrEmpty(hero.Title))
+                    AddWarning($"{nameof(hero.Title)} is null or emtpy");
+
+                if (string.IsNullOrEmpty(hero.SearchText))
+                    AddWarning($"{nameof(hero.SearchText)} is null or emtpy");
+
                 VerifyWeapons(hero);
 
                 if (hero.Weapons.Count < 1)

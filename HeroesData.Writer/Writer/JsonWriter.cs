@@ -150,6 +150,8 @@ namespace HeroesData.FileWriter.Writer
 
             if (hero.Gender.HasValue)
                 heroObject.Add("gender", hero.Gender.Value.ToString());
+            if (!IsLocalizedText && !string.IsNullOrEmpty(hero.Title))
+                heroObject.Add("title", hero.Title);
             if (hero.InnerRadius > 0)
                 heroObject.Add("innerRadius", hero.InnerRadius);
             if (hero.Radius > 0)
@@ -168,6 +170,8 @@ namespace HeroesData.FileWriter.Writer
                 heroObject.Add("mountLinkId", hero.MountLinkId);
             if (!string.IsNullOrEmpty(hero.MountLinkId))
                 heroObject.Add("hearthLinkId", hero.HearthLinkId);
+            if (!IsLocalizedText && !string.IsNullOrEmpty(hero.SearchText))
+                heroObject.Add("searchText", hero.SearchText);
             if (!string.IsNullOrEmpty(hero.Description?.RawDescription) && !IsLocalizedText)
                 heroObject.Add("description", GetTooltip(hero.Description, FileSettings.Description));
             if (hero.HeroDescriptors.Count > 0)
