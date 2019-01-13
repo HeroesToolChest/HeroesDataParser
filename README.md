@@ -262,6 +262,8 @@ The format of the strings in the text file are the following:
 - `unit/type/[hero.shortname]=[value]`
 - `unit/role/[hero.shortname]=[value] (comma delimited if more than 1 role)`
 - `unit/description/[hero.shortname]=[value]`
+- `unit/title/[hero.shortname]=[value]`
+- `unit/searchtext/[hero.shortname]=[value]`
 - `abiltalent/name/[nameId]=[value]`
 - `tooltip/life/[nameId]=[value]`
 - `tooltip/energy/[nameId]=[value]`
@@ -283,25 +285,25 @@ Options:
 
 ## Advanced Features
 ### Mods suffix directory
-The `mods` directory may have a `_<build number>` suffix in its name. The build number determines the hero overrides file to load. If the overrides file does not exist and the build number is greater than the highest overrides file then it will load the default overrides file `HeroesOverrides.xml` otherwise it will load next **lowest** overrides file.
+The `mods` directory may have a `_<build number>` suffix in its name. The build number determines the hero overrides file to load. If the overrides file does not exist and the build number is greater than the highest overrides file then it will load the default overrides file `hero-overrides.xml` otherwise it will load next **lowest** overrides file.
 
 Example:
 ```
 directory to load: mods_13500
 
 HeroOverrides files:
-HeroOverrides.xml
-HeroOverrides_12000.xml
-HeroOverrides_13000.xml <--- will be loaded
-HeroOverrides_14000.xml
+hero-overrides.xml
+hero-overrides_12000.xml
+hero-overrides_13000.xml <--- will be loaded
+hero-overrides_14000.xml
 
 directory to load: mods_14100
 
 HeroOverrides files:
-HeroOverrides.xml <--- will be loaded
-HeroOverrides_12000.xml
-HeroOverrides_13000.xml 
-HeroOverrides_14000.xml
+hero-overrides.xml <--- will be loaded
+hero-overrides_12000.xml
+hero-overrides_13000.xml 
+hero-overrides_14000.xml
 ```
 
 ***
