@@ -178,6 +178,7 @@ namespace HeroesData.Parser.HeroData
                 if (!string.IsNullOrEmpty(hero.SearchText) && hero.SearchText.Last() != ' ')
                     hero.SearchText += " ";
                 hero.SearchText += GameData.GetGameString(DefaultData.HeroAdditionalSearchText.Replace(DefaultData.IdReplacer, hero.CHeroId));
+                hero.SearchText = hero.SearchText.Trim();
 
                 if (HeroOverride.CUnitOverride.Enabled)
                     hero.CUnitId = HeroOverride.CUnitOverride.CUnit;
@@ -369,7 +370,7 @@ namespace HeroesData.Parser.HeroData
                     if (!string.IsNullOrEmpty(hero.SearchText) && hero.SearchText.Last() != ' ')
                         hero.SearchText += " ";
 
-                    hero.SearchText += element.Attribute("value")?.Value;
+                    hero.SearchText += element.Attribute("value")?.Value.Trim();
                 }
             }
 
