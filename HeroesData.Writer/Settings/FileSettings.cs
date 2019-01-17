@@ -2,21 +2,18 @@
 {
     internal class FileSettings
     {
-        public bool IsWriterEnabled { get; set; }
-        public bool IsFileSplit { get; set; }
-        public int Description { get; set; }
-        public int ShortTooltip { get; set; }
-        public int FullTooltip { get; set; }
-        public string ImageExtension { get; set; }
-        public bool IncludeWeapons { get; set; }
-        public bool IncludeAbilities { get; set; }
-        public bool IncludeSubAbilities { get; set; }
-        public bool IncludeTalents { get; set; }
-        public bool IncludeHeroUnits { get; set; }
-        public bool HeroSelectPortrait { get; set; }
-        public bool LeaderboardPortrait { get; set; }
-        public bool LoadingPortraitPortrait { get; set; }
-        public bool PartyPanelPortrait { get; set; }
-        public bool TargetPortrait { get; set; }
+        public bool IsFileSplit { get; set; } = false;
+        public int DescriptionType { get; set; } = 5;
+        public string ImageExtension { get; set; } = ".png";
+        public bool IncludeWeapons { get; set; } = true;
+        public bool IncludeAbilities { get; set; } = true;
+        public bool IncludeSubAbilities { get; set; } = true;
+        public bool IncludeTalents { get; set; } = true;
+        public bool IncludeHeroUnits { get; set; } = true;
+        public bool HeroSelectPortrait { get; set; } = true;
+        public bool LeaderboardPortrait { get; set; } = true;
+        public bool LoadingPortraitPortrait { get; set; } = true;
+        public bool PartyPanelPortrait { get; set; } = true;
+        public bool TargetPortrait { get; set; } = true;
     }
 }

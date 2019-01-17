@@ -5,6 +5,8 @@
     <CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
 
     <IsPackable>false</IsPackable>
+
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   
   <ItemGroup>
@@ -26,9 +28,15 @@
     <None Update="Configs\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="OutputFiles\**\*">
+    <None Update="HeroData\OutputFiles\**\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="MatchAwardData\OutputFiles\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <Folder Include="HeroSkinData\" />
+  </ItemGroup>
 </Project>

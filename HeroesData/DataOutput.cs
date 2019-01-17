@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.FileWriter;
+using HeroesData.FileWriter.Writer;
 using HeroesData.Parser;
 using System;
 using System.Collections.Generic;
@@ -102,79 +103,92 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        public void CreateOutput(int? hotsBuild)
+        public void Create(int? hotsBuild)
         {
-            bool anyCreated = false; // did we create any output at all?
+            //bool anyCreated = false; // did we create any output at all?
 
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write($"Creating output ({Localization.ToString().ToLower()})...");
+            //Console.ForegroundColor = ConsoleColor.Cyan;
+            //Console.Write($"Creating output ({Localization.ToString().ToLower()})...");
 
-            FileOutput fileOutput = new FileOutput(hotsBuild)
-            {
-                DescriptionType = DescriptionType,
-                FileSplit = IsFileSplit,
-                OutputDirectory = OutputDirectory,
-                Localization = Localization.ToString().ToLower(),
-                IsLocalizedText = IsLocalizedText,
-                ParsedHeroes = ParsedHeroData.OrderBy(x => x.ShortName),
-                ParsedAwards = ParsedMatchAwardData?.OrderBy(x => x.ShortName),
-                CreateMinifiedFiles = CreateMinifiedFiles,
-            };
+            //FileOutputOptions options = new FileOutputOptions()
+            //{
+            //    DescriptionType = DescriptionType,
+            //    IsFileSplit = IsFileSplit,
+            //    IsLocalizedText = IsLocalizedText,
+            //    IsMinifiedFiles = CreateMinifiedFiles,
+            //    OutputDirectory = OutputDirectory,
+            //    Localization = Localization,
+            //};
 
-            Console.WriteLine(fileOutput.OutputDirectory);
-            Console.ResetColor();
+            //FileOutput fileOutput = new FileOutput(hotsBuild, options);
+            //fileOutput.Create(ParsedHeroData, FileOutputType.Json);
 
-            if (Defaults)
-            {
-                if (fileOutput.IsXmlEnabled)
-                {
-                    Console.Write("Writing xml file(s)...");
-                    fileOutput.CreateXml();
-                    anyCreated = true;
-                    Console.WriteLine("Done.");
-                }
+            //FileOutput fileOutput = new FileOutput(hotsBuild)
+            //{
+            //    DescriptionType = DescriptionType,
+            //    FileSplit = IsFileSplit,
+            //    OutputDirectory = OutputDirectory,
+            //    Localization = Localization.ToString().ToLower(),
+            //    IsLocalizedText = IsLocalizedText,
+            //    ParsedHeroes = ParsedHeroData.OrderBy(x => x.ShortName),
+            //    ParsedAwards = ParsedMatchAwardData?.OrderBy(x => x.ShortName),
+            //    CreateMinifiedFiles = CreateMinifiedFiles,
+            //};
 
-                if (fileOutput.IsJsonEnabled)
-                {
-                    Console.Write("Writing json file(s)...");
-                    fileOutput.CreateJson();
-                    anyCreated = true;
-                    Console.WriteLine("Done.");
-                }
-            }
-            else
-            {
-                if (CreateXml)
-                {
-                    Console.Write("Writing xml file(s)...");
-                    fileOutput.CreateXml(CreateXml, IsLocalizedText);
-                    anyCreated = true;
-                    Console.WriteLine("Done.");
-                }
+            //Console.WriteLine(fileOutput.OutputDirectory);
+            //Console.ResetColor();
 
-                if (CreateJson)
-                {
-                    Console.Write("Writing json file(s)...");
+            //if (Defaults)
+            //{
+            //    if (fileOutput.IsXmlEnabled)
+            //    {
+            //        Console.Write("Writing xml file(s)...");
+            //        //fileOutput.CreateXml();
+            //        anyCreated = true;
+            //        Console.WriteLine("Done.");
+            //    }
 
-                    if (CreateXml)
-                        fileOutput.CreateJson(CreateJson, false); // only need to create it once
-                    else
-                        fileOutput.CreateJson(CreateJson, IsLocalizedText);
+            //    if (fileOutput.IsJsonEnabled)
+            //    {
+            //        Console.Write("Writing json file(s)...");
+            //        //fileOutput.CreateJson();
+            //        anyCreated = true;
+            //        Console.WriteLine("Done.");
+            //    }
+            //}
+            //else
+            //{
+            //    if (CreateXml)
+            //    {
+            //        Console.Write("Writing xml file(s)...");
+            //        //fileOutput.CreateXml(CreateXml, IsLocalizedText);
+            //        anyCreated = true;
+            //        Console.WriteLine("Done.");
+            //    }
 
-                    anyCreated = true;
-                    Console.WriteLine("Done.");
-                }
-            }
+            //    if (CreateJson)
+            //    {
+            //        Console.Write("Writing json file(s)...");
 
-            if (!anyCreated)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("No writers were enabled!");
-                Console.WriteLine("No output was created.");
-                Console.ResetColor();
-            }
+            //        //if (CreateXml)
+            //        //    fileOutput.CreateJson(CreateJson, false); // only need to create it once
+            //        //else
+            //        //    fileOutput.CreateJson(CreateJson, IsLocalizedText);
 
-            Console.WriteLine();
+            //        anyCreated = true;
+            //        Console.WriteLine("Done.");
+            //    }
+            //}
+
+            //if (!anyCreated)
+            //{
+            //    Console.ForegroundColor = ConsoleColor.Yellow;
+            //    Console.WriteLine("No writers were enabled!");
+            //    Console.WriteLine("No output was created.");
+            //    Console.ResetColor();
+            //}
+
+            //Console.WriteLine();
         }
     }
 }

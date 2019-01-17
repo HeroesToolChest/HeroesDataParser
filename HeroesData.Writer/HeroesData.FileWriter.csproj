@@ -25,4 +25,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Writer\HeroSkinData\" />
+  </ItemGroup>
+
 </Project>

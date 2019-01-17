@@ -111,7 +111,11 @@ namespace HeroesData
                         };
 
                         dataOutput.Verify();
-                        dataOutput.CreateOutput(HotsBuild);
+
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write($"Creating output ({localization.ToString().ToLowerInvariant()})...");
+
+                        dataOutput.Create(HotsBuild);
 
                         totalLocaleSuccess++;
                     }

@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Heroes>
+  <Alexstrasza name="Alexstrasza" cHeroId="Alexstrasza" cUnitId="HeroAlexstrasza" attributeId="Alex" difficulty="Medium" franchise="Warcraft" gender="Female" innerRadius="0.75" radius="0.75" releaseDate="2017-11-14" sight="12" speed="4.3984" type="Ranged" rarity="Legendary">
+    <Description>A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities.</Description>
+    <Ratings complexity="0" damage="0" survivability="0" utility="0" />
+    <Abilities />
+    <SubAbilities>
+      <TychusOdinNoHealth>
+        <Basic>
+          <TychusOdinAnnihilate name="Annihilate" shortTooltipId="TychusCommandeerOdinAnnihilate" fullTooltipId="TychusCommandeerOdinAnnihilate" abilityType="Q">
+            <Icon>storm_ui_icon_tychus_annihilate.png</Icon>
+            <FullTooltip>Burrow to the target location, dealing &lt;c val="#TooltipNumbers"&gt;96~~0.04~~&lt;/c&gt; damage and briefly stunning enemies in a small area upon surfacing, slowing them by &lt;c val="#TooltipNumbers"&gt;25%&lt;/c&gt; for &lt;c val="#TooltipNumbers"&gt;2.5&lt;/c&gt; seconds.&lt;n/&gt;&lt;n/&gt;Burrow Charge can be reactivated to surface early.</FullTooltip>
+          </TychusOdinAnnihilate>
+        </Basic>
+      </TychusOdinNoHealth>
+      <HeroAlexstraszaDragon>
+        <Heroic>
+          <SubAbilHeroic name="SubAbilHeroic" abilityType="Heroic">
+            <Icon />
+          </SubAbilHeroic>
+        </Heroic>
+        <Trait>
+          <SubAbilTrait name="SubAbilTrait" abilityType="Trait">
+            <Icon />
+          </SubAbilTrait>
+        </Trait>
+        <Mount>
+          <SubAbilMount name="SubAbilMount" abilityType="Z">
+            <Icon />
+          </SubAbilMount>
+        </Mount>
+        <Activable>
+          <SubAbilActivable name="SubAbilActivable" abilityType="Active">
+            <Icon />
+          </SubAbilActivable>
+        </Activable>
+      </HeroAlexstraszaDragon>
+    </SubAbilities>
+    <HeroUnits>
+      <HeroAlexstraszaDragon>
+        <AlexstraszaDragon name="Alexstrasza" cUnitId="HeroAlexstraszaDragon" innerRadius="1" radius="1.25" sight="12" speed="4.3984">
+          <Life>
+            <Amount scale="0.04">1787</Amount>
+            <RegenRate scale="0.04">3.7226</RegenRate>
+          </Life>
+          <Armor>
+            <Physical>5</Physical>
+            <Spell>30</Spell>
+          </Armor>
+          <Abilities>
+            <Basic>
+              <AlexstraszaBreathOfLife name="Breath of Life" shortTooltipId="AlexstraszaBreathOfLife" fullTooltipId="AlexstraszaBreathOfLife" abilityType="Q">
+                <Icon>storm_ui_icon_alexstrasza_breath_of_life.png</Icon>
+                <LifeTooltip>15%</LifeTooltip>
+                <Charges consume="1" initial="3" isHidden="false" recastCooldown="2">3</Charges>
+                <CooldownTooltip>3 seconds</CooldownTooltip>
+              </AlexstraszaBreathOfLife>
+            </Basic>
+            <Heroic>
+              <DragonAbilHeroic name="DragonAbilHeroic" abilityType="Heroic">
+                <Icon />
+              </DragonAbilHeroic>
+            </Heroic>
+            <Trait>
+              <DragonAbilTrait name="DragonAbilTrait" abilityType="Trait">
+                <Icon />
+                <FullTooltip>Burrow to the target location, dealing &lt;c val="#TooltipNumbers"&gt;96~~0.04~~&lt;/c&gt; damage and briefly stunning enemies in a small area upon surfacing, slowing them by &lt;c val="#TooltipNumbers"&gt;25%&lt;/c&gt; for &lt;c val="#TooltipNumbers"&gt;2.5&lt;/c&gt; seconds.&lt;n/&gt;&lt;n/&gt;Burrow Charge can be reactivated to surface early.</FullTooltip>
+              </DragonAbilTrait>
+            </Trait>
+            <Mount>
+              <DragonAbilMount name="DragonAbilMount" abilityType="Z">
+                <Icon />
+              </DragonAbilMount>
+            </Mount>
+            <Activable>
+              <DragonAbilActivable name="DragonAbilActivable" abilityType="Trait">
+                <Icon />
+              </DragonAbilActivable>
+            </Activable>
+          </Abilities>
+        </AlexstraszaDragon>
+      </HeroAlexstraszaDragon>
+    </HeroUnits>
+  </Alexstrasza>
+</Heroes>

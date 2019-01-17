@@ -52,12 +52,6 @@ namespace HeroesData.FileWriter
         {
             XElement writerElement = Configuration.Root.Element(elementName);
 
-            string enabled = writerElement.Attribute("enabled")?.Value;
-            if (bool.TryParse(enabled, out bool enabledValue))
-                fileSettings.IsWriterEnabled = enabledValue;
-            else
-                fileSettings.IsWriterEnabled = false;
-
             string fileSplit = writerElement.Element("FileSplit")?.Value;
             if (bool.TryParse(fileSplit, out bool fileSplitValue))
                 fileSettings.IsFileSplit = fileSplitValue;
@@ -66,21 +60,21 @@ namespace HeroesData.FileWriter
 
             string description = writerElement.Element("Description")?.Value;
             if (int.TryParse(description, out int descriptionValue))
-                fileSettings.Description = descriptionValue;
+                fileSettings.DescriptionType = descriptionValue;
             else
-                fileSettings.Description = 0;
+                fileSettings.DescriptionType = 0;
 
             string shortTooltip = writerElement.Element("ShortTooltip")?.Value;
             if (int.TryParse(shortTooltip, out int shortTooltipValue))
-                fileSettings.ShortTooltip = shortTooltipValue;
+                fileSettings.DescriptionType = shortTooltipValue;
             else
-                fileSettings.ShortTooltip = 0;
+                fileSettings.DescriptionType = 0;
 
             string fullTooltip = writerElement.Element("FullTooltip")?.Value;
             if (int.TryParse(fullTooltip, out int fullTooltipValue))
-                fileSettings.FullTooltip = fullTooltipValue;
+                fileSettings.DescriptionType = fullTooltipValue;
             else
-                fileSettings.FullTooltip = 0;
+                fileSettings.DescriptionType = 0;
 
             string imageExtension = writerElement.Element("ImageExtension")?.Value;
             if (!string.IsNullOrEmpty(imageExtension))

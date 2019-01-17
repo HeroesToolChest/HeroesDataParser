@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Awards>
+  <Bulwark name="Bulwark" tag="AwBK">
+    <MVPScreenIcon>image_bulwark.png</MVPScreenIcon>
+    <ScoreScreenIcon>image_scorescreen_bulwark.png</ScoreScreenIcon>
+    <Description>Highest damage soaked</Description>
+  </Bulwark>
+  <Killer name="Killer" tag="AwKL">
+    <MVPScreenIcon>image_killer.png</MVPScreenIcon>
+    <ScoreScreenIcon>image_scorescreen_killer.png</ScoreScreenIcon>
+    <Description>Most Kills</Description>
+  </Killer>
+</Awards>
