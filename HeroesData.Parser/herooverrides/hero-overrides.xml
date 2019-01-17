@@ -341,6 +341,11 @@
     <Ability referenceNameId="UtherDevotionEternalVanguardShop" remove="true" />
     <!--trait - adds the ingame version-->
     <Button id="UtherEternalDevotion" parent="StormButtonParentTrait"></Button>
+    <Ability id="UtherEternalDevotion">
+      <Override>
+        <CooldownTooltip value="" />
+      </Override>
+    </Ability>
   </CHero>
   <CHero id="Valeera">
     <!--Stealth abilities-->
