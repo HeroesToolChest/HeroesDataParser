@@ -10,7 +10,7 @@ using System.Xml.Linq;
 namespace HeroesData.FileWriter.Writer
 {
     internal abstract class WriterBase<T, TType> : IWriter<T>, IWritable
-        where T : INameable
+        where T : IExtractable
         where TType : class
     {
         private readonly string DataName;

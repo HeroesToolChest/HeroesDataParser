@@ -120,6 +120,7 @@ namespace HeroesData.FileWriter
         }
 
         public void Create<T>(IEnumerable<T> items, FileOutputType fileOutputType)
+            where T : IExtractable
         {
             if (Writers[fileOutputType].TryGetValue(typeof(T).Name, out IWritable writable))
             {

@@ -9,7 +9,7 @@ namespace HeroesData.FileWriter.Tests
 {
     [TestClass]
     public abstract class FileOutputTestBase<T>
-        where T : INameable
+        where T : IExtractable
     {
         public FileOutputTestBase(string dataName)
         {
