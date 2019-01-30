@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HeroesData.FileWriter.Writer
+namespace HeroesData.FileWriter.Writers
 {
     internal interface IWriter<T>
     {

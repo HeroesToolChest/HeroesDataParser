@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml.Linq;
 
-namespace HeroesData.FileWriter.Writer.MatchAwardData
+namespace HeroesData.FileWriter.Writers.MatchAwardData
 {
     internal class MatchAwardDataXmlWriter : MatchAwardDataWriter<XElement, XElement>
     {

@@ -3,7 +3,7 @@ using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
 using System.Linq;
 
-namespace HeroesData.FileWriter.Writer.HeroData
+namespace HeroesData.FileWriter.Writers.HeroData
 {
     internal abstract class HeroDataWriter<T, TU> : WriterBase<Hero, T>
         where T : class

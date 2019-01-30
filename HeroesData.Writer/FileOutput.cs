@@ -1,8 +1,8 @@
 ﻿using Heroes.Models;
 using HeroesData.FileWriter.Settings;
-using HeroesData.FileWriter.Writer;
-using HeroesData.FileWriter.Writer.HeroData;
-using HeroesData.FileWriter.Writer.MatchAwardData;
+using HeroesData.FileWriter.Writers;
+using HeroesData.FileWriter.Writers.HeroData;
+using HeroesData.FileWriter.Writers.MatchAwardData;
 using System.Collections.Generic;
 
 namespace HeroesData.FileWriter

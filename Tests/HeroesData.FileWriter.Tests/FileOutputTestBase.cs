@@ -1,5 +1,5 @@
 ﻿using Heroes.Models;
-using HeroesData.FileWriter.Writer;
+using HeroesData.FileWriter.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 ﻿using Heroes.Models;
 
-namespace HeroesData.FileWriter.Writer.MatchAwardData
+namespace HeroesData.FileWriter.Writers.MatchAwardData
 {
     internal abstract class MatchAwardDataWriter<T, TU> : WriterBase<MatchAward, T>
         where T : class

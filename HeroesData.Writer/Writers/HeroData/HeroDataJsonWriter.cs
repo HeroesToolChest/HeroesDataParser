@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace HeroesData.FileWriter.Writer.HeroData
+namespace HeroesData.FileWriter.Writers.HeroData
 {
     internal class HeroDataJsonWriter : HeroDataWriter<JProperty, JObject>
     {

@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.FileWriter.Writer
+namespace HeroesData.FileWriter.Writers
 {
     internal abstract class WriterBase<T, TType> : IWriter<T>, IWritable
         where T : IExtractable

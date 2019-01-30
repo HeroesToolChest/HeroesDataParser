@@ -68,7 +68,7 @@ namespace HeroesData.Parser.Tests
 
         private void ParseHeroes()
         {
-            HeroParser heroDataParser = new HeroParser(GameData, DefaultData, OverrideData);
+            HeroDataParser heroDataParser = new HeroDataParser(GameData, DefaultData, OverrideData);
             HeroTracer = heroDataParser.Parse("Tracer");
             HeroMephisto = heroDataParser.Parse("Mephisto");
             HeroThrall = heroDataParser.Parse("Thrall");

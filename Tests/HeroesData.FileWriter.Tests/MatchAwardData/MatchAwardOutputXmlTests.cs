@@ -1,4 +1,4 @@
-﻿using HeroesData.FileWriter.Writer;
+﻿using HeroesData.FileWriter.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.FileWriter.Tests.MatchAwardData

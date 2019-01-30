@@ -8,7 +8,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace HeroesData.FileWriter.Writer.HeroData
+namespace HeroesData.FileWriter.Writers.HeroData
 {
     internal class HeroDataXmlWriter : HeroDataWriter<XElement, XElement>
     {

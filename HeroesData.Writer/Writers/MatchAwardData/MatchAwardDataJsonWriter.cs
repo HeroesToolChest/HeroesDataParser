@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System.IO;
 
-namespace HeroesData.FileWriter.Writer.MatchAwardData
+namespace HeroesData.FileWriter.Writers.MatchAwardData
 {
     internal class MatchAwardDataJsonWriter : MatchAwardDataWriter<JProperty, JObject>
     {
