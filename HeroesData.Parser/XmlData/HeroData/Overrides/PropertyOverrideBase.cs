@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.HeroData.Overrides
+namespace HeroesData.Parser.XmlData.HeroData.Overrides
 {
     public abstract class PropertyOverrideBase<T>
         where T : class

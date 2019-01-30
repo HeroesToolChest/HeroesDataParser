@@ -2,14 +2,14 @@
 using Heroes.Models.AbilityTalents;
 using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.HeroData.Overrides;
+using HeroesData.Parser.XmlData.HeroData.Overrides;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.HeroData
+namespace HeroesData.Parser.XmlData.HeroData
 {
     public class AbilityTalentData
     {

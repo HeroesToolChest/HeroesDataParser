@@ -1,5 +1,5 @@
 ﻿using Heroes.Models;
-using HeroesData.Parser.MatchAwardData;
+using HeroesData.Parser.XmlData.MatchAwardData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;

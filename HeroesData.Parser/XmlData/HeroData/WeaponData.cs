@@ -1,11 +1,11 @@
 ﻿using Heroes.Models;
 using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.HeroData.Overrides;
+using HeroesData.Parser.XmlData.HeroData.Overrides;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.HeroData
+namespace HeroesData.Parser.XmlData.HeroData
 {
     public class WeaponData
     {

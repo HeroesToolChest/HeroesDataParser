@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace HeroesData.Parser.HeroData.Overrides
+namespace HeroesData.Parser.XmlData.HeroData.Overrides
 {
     public class HeroOverride : UnitOverride
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.HeroData.Overrides
+namespace HeroesData.Parser.XmlData.HeroData.Overrides
 {
     public class OverrideData
     {

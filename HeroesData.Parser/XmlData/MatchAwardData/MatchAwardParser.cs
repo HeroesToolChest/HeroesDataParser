@@ -8,9 +8,9 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.MatchAwardData
+namespace HeroesData.Parser.XmlData.MatchAwardData
 {
-    public class MatchAwardParser
+    public class MatchAwardParser : IParsableXmlData
     {
         private readonly GameData GameData;
 
