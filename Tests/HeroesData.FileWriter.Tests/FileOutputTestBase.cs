@@ -185,9 +185,9 @@ namespace HeroesData.FileWriter.Tests
             else
             {
                 if (!isMinified)
-                    return Path.Combine(DefaultOutputDirectory, $"{BaseSplitFileSuffix}{LocalizationFileName}", DefaultDataNameSuffix);
+                    return Path.Combine(DefaultOutputDirectory, $"{BaseSplitFileSuffix}-{LocalizationFileName}", DefaultDataNameSuffix);
                 else
-                    return Path.Combine(DefaultOutputDirectory, $"{BaseSplitFileSuffix}{LocalizationFileName}.min", DefaultDataNameSuffix);
+                    return Path.Combine(DefaultOutputDirectory, $"{BaseSplitFileSuffix}-{LocalizationFileName}.min", DefaultDataNameSuffix);
             }
         }
 

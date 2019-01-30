@@ -25,7 +25,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
             FileOutput fileOutput = new FileOutput(options);
             fileOutput.Create(TestData, FileOutputType);
 
-            string directory = GetSplitFilePath(BuildNumber, false);
+            string directory = GetSplitFilePath(null, false);
             Assert.IsTrue(Directory.Exists(directory));
 
             CompareFile(Path.Combine(directory, $"Alarak.{FileOutputTypeFileName}"), $"Alarak.{FileOutputTypeFileName}");
