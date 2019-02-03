@@ -6,9 +6,9 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>dotnet-heroes-data</ToolCommandName>
     <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
-    <Version>3.1.0</Version>
-    <PackageVersion>3.1.0</PackageVersion>
-    <Copyright>Copyright © 2018 Kevin Oliva</Copyright>
+    <Version>3.2.1</Version>
+    <PackageVersion>3.2.1</PackageVersion>
+    <Copyright>Copyright © 2018 - 2019 Kevin Oliva</Copyright>
     <Authors>Kevin Oliva</Authors>
     <PackageId>HeroesDataParser</PackageId>
     <Product>HeroesDataParser</Product>
