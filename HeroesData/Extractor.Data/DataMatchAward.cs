@@ -1,11 +1,11 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser.XmlData;
 
-namespace HeroesData.Data
+namespace HeroesData.Extractor.Data
 {
-    public class MatchAwardData : ExtractableData<MatchAward, MatchAwardParser>, IData
+    public class DataMatchAward : DataExtractorBase<MatchAward, MatchAwardParser>, IData
     {
-        public MatchAwardData(MatchAwardParser parser)
+        public DataMatchAward(MatchAwardParser parser)
             : base(parser)
         {
         }

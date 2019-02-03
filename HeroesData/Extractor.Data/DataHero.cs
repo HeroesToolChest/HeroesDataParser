@@ -8,11 +8,11 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HeroesData.Data
+namespace HeroesData.Extractor.Data
 {
-    public class HeroData : ExtractableData<Hero, HeroDataParser>, IData
+    public class DataHero : DataExtractorBase<Hero, HeroDataParser>, IData
     {
-        public HeroData(HeroDataParser parser)
+        public DataHero(HeroDataParser parser)
             : base(parser)
         {
         }

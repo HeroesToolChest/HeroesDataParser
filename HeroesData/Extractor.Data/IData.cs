@@ -1,4 +1,4 @@
-﻿namespace HeroesData.Data
+﻿namespace HeroesData.Extractor.Data
 {
     public interface IData
     {

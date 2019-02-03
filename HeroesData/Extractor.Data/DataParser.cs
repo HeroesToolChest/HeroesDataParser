@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace HeroesData.Data
+namespace HeroesData.Extractor.Data
 {
     internal class DataParser
     {

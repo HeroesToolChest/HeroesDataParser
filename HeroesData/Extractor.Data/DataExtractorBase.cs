@@ -9,16 +9,16 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HeroesData.Data
+namespace HeroesData.Extractor.Data
 {
-    public abstract class ExtractableData<T, TParsable>
+    public abstract class DataExtractorBase<T, TParsable>
         where T : IExtractable
         where TParsable : IParsableXmlData<T>
     {
         private string ValidationWarningId = "Unknown";
         private HashSet<string> ValidationWarnings = new HashSet<string>();
 
-        public ExtractableData(TParsable parser)
+        public DataExtractorBase(TParsable parser)
         {
             Parser = parser;
         }

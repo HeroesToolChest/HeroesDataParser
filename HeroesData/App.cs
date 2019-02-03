@@ -1,5 +1,5 @@
 ﻿using Heroes.Models;
-using HeroesData.Data;
+using HeroesData.Extractor.Data;
 using HeroesData.FileWriter;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser;
@@ -172,7 +172,7 @@ namespace HeroesData
 
                 if (StorageMode == StorageMode.CASC)
                 {
-                    Extractor extractor = new Extractor(CASCHotsStorage.CASCHandler, StorageMode)
+                    Extractor_delete extractor = new Extractor_delete(CASCHotsStorage.CASCHandler, StorageMode)
                     {
                         ExtractImageAbilities = ExtractImageAbilities,
                         ExtractImageAbilityTalents = ExtractImageAbilityTalents,
@@ -575,8 +575,8 @@ namespace HeroesData
 
         private void SetUpParsers()
         {
-            HeroData heroData = new HeroData(new HeroDataParser(GameData, DefaultData, OverrideData));
-            MatchAwardData matchAwardData = new MatchAwardData(new MatchAwardParser(GameData));
+            DataHero heroData = new DataHero(new HeroDataParser(GameData, DefaultData, OverrideData));
+            DataMatchAward matchAwardData = new DataMatchAward(new MatchAwardParser(GameData));
 
             DataParsers.Add(new DataParser()
             {
