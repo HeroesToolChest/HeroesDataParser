@@ -8,9 +8,9 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.XmlData.MatchAwardData
+namespace HeroesData.Parser.XmlData
 {
-    public class MatchAwardParser : IParsableXmlData
+    public class MatchAwardParser : IParsableXmlData<MatchAward>
     {
         private readonly GameData GameData;
 
@@ -19,15 +19,36 @@ namespace HeroesData.Parser.XmlData.MatchAwardData
             GameData = gameData;
         }
 
-        /// <summary>
-        /// Gets or sets the hots build number.
-        /// </summary>
         public int? HotsBuild { get; set; }
 
-        /// <summary>
-        /// Parse all match awards.
-        /// </summary>
-        public IEnumerable<MatchAward> Parse()
+        public Localization Localization { get; set; }
+
+        public int TotalParseable
+        {
+            get
+            {
+                int count = 0;
+                XElement matchAwardsGeneral = GameData.XmlGameData.Root.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward");
+                IEnumerable<XElement> matchAwardsMapSpecific = GameData.XmlGameData.Root.Elements("CUser").Where(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward");
+
+                // combine both
+                IEnumerable<XElement> mapAwardsInstances = matchAwardsMapSpecific.Elements("Instances").Concat(matchAwardsGeneral.Elements("Instances"));
+
+                foreach (XElement awardInstance in mapAwardsInstances)
+                {
+                    string instanceId = awardInstance.Attribute("Id")?.Value;
+
+                    if (instanceId == "[Default]" || !awardInstance.HasElements)
+                        continue;
+
+                    count++;
+                }
+
+                return count;
+            }
+        }
+
+        public IEnumerable<MatchAward> Parse(Localization localization)
         {
             XElement matchAwardsGeneral = GameData.XmlGameData.Root.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward");
             IEnumerable<XElement> matchAwardsMapSpecific = GameData.XmlGameData.Root.Elements("CUser").Where(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward");

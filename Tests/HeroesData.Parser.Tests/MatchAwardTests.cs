@@ -1,5 +1,4 @@
 ﻿using Heroes.Models;
-using HeroesData.Parser.XmlData.MatchAwardData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,7 @@ namespace HeroesData.Parser.Tests
         [TestMethod]
         public void MatchAwardListTests()
         {
-            List<MatchAward> matchAwards = MatchAwardParser.Parse().ToList();
+            List<MatchAward> matchAwards = MatchAwardParser.Parse(Localization.ENUS).ToList();
 
             Assert.AreEqual(6, matchAwards.Count);
 

@@ -1,9 +1,8 @@
 ﻿using Heroes.Models;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.GameStrings;
-using HeroesData.Parser.XmlData.HeroData;
+using HeroesData.Parser.XmlData;
 using HeroesData.Parser.XmlData.HeroData.Overrides;
-using HeroesData.Parser.XmlData.MatchAwardData;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -30,7 +29,7 @@ namespace HeroesData.Parser.Tests
             ParseHeroes();
 
             MatchAwardParser = new MatchAwardParser(GameData);
-            MatchAwardParser.Parse();
+            MatchAwardParser.Parse(Localization.ENUS);
         }
 
         protected Hero HeroTracer { get; set; }
@@ -69,22 +68,22 @@ namespace HeroesData.Parser.Tests
         private void ParseHeroes()
         {
             HeroDataParser heroDataParser = new HeroDataParser(GameData, DefaultData, OverrideData);
-            HeroTracer = heroDataParser.Parse("Tracer");
-            HeroMephisto = heroDataParser.Parse("Mephisto");
-            HeroThrall = heroDataParser.Parse("Thrall");
-            HeroJunkrat = heroDataParser.Parse("Junkrat");
-            HeroSonya = heroDataParser.Parse("Barbarian");
-            HeroRagnaros = heroDataParser.Parse("Ragnaros");
-            HeroGreymane = heroDataParser.Parse("Greymane");
-            HeroArthas = heroDataParser.Parse("Arthas");
-            HeroAbathur = heroDataParser.Parse("Abathur");
-            HeroFalstad = heroDataParser.Parse("Falstad");
-            HeroAuriel = heroDataParser.Parse("Auriel");
-            HeroZarya = heroDataParser.Parse("Zarya");
-            HeroMedic = heroDataParser.Parse("Medic");
-            HeroUther = heroDataParser.Parse("Uther");
-            HeroDryad = heroDataParser.Parse("Dryad");
-            HeroTestHero = heroDataParser.Parse("TestHero");
+            HeroTracer = heroDataParser.ParseHero("Tracer");
+            HeroMephisto = heroDataParser.ParseHero("Mephisto");
+            HeroThrall = heroDataParser.ParseHero("Thrall");
+            HeroJunkrat = heroDataParser.ParseHero("Junkrat");
+            HeroSonya = heroDataParser.ParseHero("Barbarian");
+            HeroRagnaros = heroDataParser.ParseHero("Ragnaros");
+            HeroGreymane = heroDataParser.ParseHero("Greymane");
+            HeroArthas = heroDataParser.ParseHero("Arthas");
+            HeroAbathur = heroDataParser.ParseHero("Abathur");
+            HeroFalstad = heroDataParser.ParseHero("Falstad");
+            HeroAuriel = heroDataParser.ParseHero("Auriel");
+            HeroZarya = heroDataParser.ParseHero("Zarya");
+            HeroMedic = heroDataParser.ParseHero("Medic");
+            HeroUther = heroDataParser.ParseHero("Uther");
+            HeroDryad = heroDataParser.ParseHero("Dryad");
+            HeroTestHero = heroDataParser.ParseHero("TestHero");
         }
 
         private void ParseGameStrings()

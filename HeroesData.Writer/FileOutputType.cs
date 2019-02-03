@@ -1,4 +1,4 @@
-﻿namespace HeroesData.FileWriter.Writers
+﻿namespace HeroesData.FileWriter
 {
     public enum FileOutputType
     {

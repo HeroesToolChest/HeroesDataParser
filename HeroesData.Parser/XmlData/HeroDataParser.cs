@@ -2,6 +2,7 @@
 using Heroes.Models.AbilityTalents;
 using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser.XmlData.HeroData;
 using HeroesData.Parser.XmlData.HeroData.Overrides;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.XmlData.HeroData
+namespace HeroesData.Parser.XmlData
 {
-    public class HeroDataParser : IParsableXmlData
+    public class HeroDataParser : IParsableXmlData<Hero>
     {
         private readonly GameData GameData;
         private readonly DefaultData DefaultData;
@@ -45,12 +46,53 @@ namespace HeroesData.Parser.XmlData.HeroData
         /// </summary>
         public Hero StormHeroBase { get; set; } = new Hero();
 
+        public int TotalParseable
+        {
+            get
+            {
+                int count = 0;
+
+                // CHero
+                IEnumerable<XElement> cHeroElements = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
+
+                foreach (XElement hero in cHeroElements)
+                {
+                    string id = hero.Attribute("id").Value;
+                    XElement attributIdValue = hero.Elements("AttributeId").FirstOrDefault(x => x.Attribute("value") != null);
+
+                    if (attributIdValue == null || id == "TestHero" || id == "Random")
+                        continue;
+
+                    count++;
+                }
+
+                return count;
+            }
+        }
+
+        public IEnumerable<Hero> Parse(Localization localization)
+        {
+            // CHero
+            IEnumerable<XElement> cHeroElements = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
+
+            foreach (XElement hero in cHeroElements)
+            {
+                string id = hero.Attribute("id").Value;
+                XElement attributIdValue = hero.Elements("AttributeId").FirstOrDefault(x => x.Attribute("value") != null);
+
+                if (attributIdValue == null || id == "TestHero" || id == "Random")
+                    continue;
+
+                yield return ParseHero(id);
+            }
+        }
+
         /// <summary>
         /// Parses the hero's game data.
         /// </summary>
         /// <param name="cHeroId">The id value of the CHero element.</param>
         /// <returns></returns>
-        public Hero Parse(string cHeroId)
+        public Hero ParseHero(string cHeroId)
         {
             Hero hero = new Hero
             {
@@ -115,32 +157,6 @@ namespace HeroesData.Parser.XmlData.HeroData
             DefaultData.DefaultSummonMountAbilityId = mountAbilties[0].ReferenceNameId;
 
             return StormHeroBase;
-        }
-
-        /// <summary>
-        /// Returns a sorted set of CHero names.
-        /// </summary>
-        /// <returns></returns>
-        public SortedSet<string> GetCHeroNames()
-        {
-            SortedSet<string> names = new SortedSet<string>();
-
-            // CHero
-            IEnumerable<XElement> cHeroElements = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
-
-            // get all heroes
-            foreach (XElement hero in cHeroElements)
-            {
-                string id = hero.Attribute("id").Value;
-                XElement attributIdValue = hero.Elements("AttributeId").FirstOrDefault(x => x.Attribute("value") != null);
-
-                if (attributIdValue == null || id == "TestHero" || id == "Random")
-                    continue;
-
-                names.Add(id);
-            }
-
-            return names;
         }
 
         private void SetDefaultValues(Hero hero)

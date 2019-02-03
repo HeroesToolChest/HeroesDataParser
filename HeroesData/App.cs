@@ -1,8 +1,11 @@
 ﻿using Heroes.Models;
+using HeroesData.Data;
+using HeroesData.FileWriter;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
-using HeroesData.Parser.HeroData.Overrides;
+using HeroesData.Parser.XmlData;
+using HeroesData.Parser.XmlData.HeroData.Overrides;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,41 +15,32 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using static HeroesData.ParseData;
 
 namespace HeroesData
 {
-    internal static class App
+    internal class App
     {
+        private List<DataParser> DataParsers = new List<DataParser>();
+
         /// <summary>
         /// Gets the product version of the application.
         /// </summary>
-        public static string Version => FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
+        public static string Version { get; } = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
 
         /// <summary>
         /// Gets the assembly path.
         /// </summary>
-        public static string AssemblyPath => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-        public static GameData GameData { get; set; }
-        public static DefaultData DefaultData { get; set; }
-        public static OverrideData OverrideData { get; set; }
-
-        public static string StoragePath { get; set; } = Environment.CurrentDirectory;
-        public static string OutputDirectory { get; set; } = string.Empty;
-        public static StorageMode StorageMode { get; set; } = StorageMode.None;
-        public static CASCHotsStorage CASCHotsStorage { get; set; } = null;
-        public static List<Localization> Localizations { get; set; } = new List<Localization>();
+        public static string AssemblyPath { get; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static bool Defaults { get; set; } = true;
         public static bool CreateXml { get; set; } = true;
         public static bool CreateJson { get; set; } = true;
-        public static bool ShowHeroWarnings { get; set; } = false;
+        public static bool ShowValidationWarnings { get; set; } = false;
         public static bool ExtractImagePortraits { get; set; } = false;
         public static bool ExtractImageTalents { get; set; } = false;
         public static bool ExtractImageAbilities { get; set; } = false;
         public static bool ExtractImageAbilityTalents { get; set; } = false;
-        public static bool ExtractMatchAwards { get; set; } = false;
+        public static bool ExtractMatchAwards { get; set; } = true;
         public static bool IsFileSplit { get; set; } = false;
         public static bool IsLocalizedText { get; set; } = false;
         public static bool ExcludeAwardParsing { get; set; } = false;
@@ -55,8 +49,37 @@ namespace HeroesData
         public static int? OverrideBuild { get; set; } = null;
         public static int MaxParallelism { get; set; } = -1;
         public static int DescriptionType { get; set; } = 0;
+        public static string StoragePath { get; set; } = Environment.CurrentDirectory;
+        public static string OutputDirectory { get; set; } = string.Empty;
 
-        public static void Run()
+        public static HashSet<string> ValidationIgnoreLines { get; } = new HashSet<string>();
+
+        public GameData GameData { get; set; }
+        public DefaultData DefaultData { get; set; }
+        public OverrideData OverrideData { get; set; }
+
+        public StorageMode StorageMode { get; set; } = StorageMode.None;
+        public CASCHotsStorage CASCHotsStorage { get; set; } = null;
+        public List<Localization> Localizations { get; set; } = new List<Localization>();
+
+        /// <summary>
+        /// Gets the file path of the verification ignore file.
+        /// </summary>
+        private static string VerifyIgnoreFilePath => Path.Combine(AssemblyPath, "verifyignore.txt");
+
+        public static void WriteExceptionLog(string fileName, Exception ex)
+        {
+            using (StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"Exception_{fileName}_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.txt"), false))
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    writer.Write(ex.Message);
+
+                if (!string.IsNullOrEmpty(ex.StackTrace))
+                    writer.Write(ex.StackTrace);
+            }
+        }
+
+        public void Run()
         {
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine($"Heroes Data Parser ({Version})");
@@ -64,10 +87,10 @@ namespace HeroesData
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine();
 
-            IEnumerable<Hero> parsedHeroes = null;
-            IEnumerable<MatchAward> parsedMatchAwards = null;
-
             int totalLocaleSuccess = 0;
+
+            SetUpParsers();
+            SetupValidationIgnoreFile();
 
             try
             {
@@ -75,10 +98,26 @@ namespace HeroesData
                 InitializeGameData();
                 InitializeOverrideData();
 
+                // set the options for the writers
+                FileOutputOptions options = new FileOutputOptions()
+                {
+                    DescriptionType = DescriptionType,
+                    IsFileSplit = IsFileSplit,
+                    IsLocalizedText = IsLocalizedText,
+                    IsMinifiedFiles = CreateMinFiles,
+                    OutputDirectory = OutputDirectory,
+                };
+
                 foreach (Localization localization in Localizations)
                 {
+                    IEnumerable<IExtractable> items = null;
+
+                    options.Localization = localization;
+
                     try
                     {
+                        FileOutput fileOutput = new FileOutput(HotsBuild, options);
+
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.WriteLine($"[{localization.GetFriendlyName()}]");
                         Console.ResetColor();
@@ -88,34 +127,35 @@ namespace HeroesData
                         // parse gamestrings
                         ParseGameStrings(localization);
 
-                        // parse heroes
-                        parsedHeroes = ParseHeroes(localization);
-
-                        // parse awards
-                        if (!ExcludeAwardParsing)
-                            parsedMatchAwards = ParseMatchAwards();
-
-                        DataOutput dataOutput = new DataOutput(localization)
+                        // parse data
+                        DataParse((parser) =>
                         {
-                            CreateJson = CreateJson,
-                            CreateXml = CreateXml,
-                            Defaults = Defaults,
-                            DescriptionType = DescriptionType,
-                            IsFileSplit = IsFileSplit,
-                            IsLocalizedText = IsLocalizedText,
-                            OutputDirectory = OutputDirectory,
-                            ParsedHeroData = parsedHeroes,
-                            ParsedMatchAwardData = parsedMatchAwards,
-                            ShowHeroWarnings = ShowHeroWarnings,
-                            CreateMinifiedFiles = CreateMinFiles,
-                        };
+                            items = parser.Parse(localization);
+                        });
 
-                        dataOutput.Verify();
+                        // validate
+                        DataParse((parser) =>
+                        {
+                            parser.Validate(localization);
+                        });
 
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.Write($"Creating output ({localization.ToString().ToLowerInvariant()})...");
+                        // write
+                        DataParse((parser) =>
+                        {
+                            if (CreateJson)
+                            {
+                                Console.Write("Writing json file(s)...");
+                                fileOutput.Create(items, FileOutputType.Json);
+                                Console.WriteLine("Done.");
+                            }
 
-                        dataOutput.Create(HotsBuild);
+                            if (CreateXml)
+                            {
+                                Console.Write("Writing xml file(s)...");
+                                fileOutput.Create(items, FileOutputType.Xml);
+                                Console.WriteLine("Done.");
+                            }
+                        });
 
                         totalLocaleSuccess++;
                     }
@@ -140,8 +180,6 @@ namespace HeroesData
                         ExtractImageTalents = ExtractImageTalents,
                         ExtractMatchAwards = ExtractMatchAwards,
                         OutputDirectory = OutputDirectory,
-                        ParsedHeroData = parsedHeroes,
-                        ParsedMatchAwardData = parsedMatchAwards,
                     };
 
                     extractor.ExtractFiles(OutputDirectory);
@@ -171,26 +209,14 @@ namespace HeroesData
             }
         }
 
-        public static void SetCurrentCulture()
+        public void SetCurrentCulture()
         {
             CultureInfo cultureInfo = new CultureInfo("en-US");
             CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
         }
 
-        public static void WriteExceptionLog(string fileName, Exception ex)
-        {
-            using (StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"Exception_{fileName}_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.txt"), false))
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                    writer.Write(ex.Message);
-
-                if (!string.IsNullOrEmpty(ex.StackTrace))
-                    writer.Write(ex.StackTrace);
-            }
-        }
-
-        private static void PreInitialize()
+        private void PreInitialize()
         {
             DetectStoragePathType();
             Console.Write($"Localization(s): ");
@@ -240,7 +266,7 @@ namespace HeroesData
             }
         }
 
-        private static void InitializeGameData()
+        private void InitializeGameData()
         {
             Stopwatch time = new Stopwatch();
 
@@ -276,7 +302,7 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        private static void InitializeOverrideData()
+        private void InitializeOverrideData()
         {
             Stopwatch time = new Stopwatch();
 
@@ -312,7 +338,7 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        private static void ParseGameStrings(Localization localization)
+        private void ParseGameStrings(Localization localization)
         {
             int currentCount = 0;
             int failedCount = 0;
@@ -363,7 +389,7 @@ namespace HeroesData
         /// <summary>
         /// Determine the type of storage, Hots folder or mods extracted.
         /// </summary>
-        private static void DetectStoragePathType()
+        private void DetectStoragePathType()
         {
             string modsPath = StoragePath;
             string hotsPath = StoragePath;
@@ -412,7 +438,7 @@ namespace HeroesData
         /// <summary>
         /// Attempts to get the build number from the mods folder.
         /// </summary>
-        private static void GetModsDirectoryBuild()
+        private void GetModsDirectoryBuild()
         {
             string lastDirectory = StoragePath.Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
             if (!string.IsNullOrEmpty(lastDirectory) && int.TryParse(lastDirectory.Split('_').LastOrDefault(), out int value))
@@ -431,7 +457,7 @@ namespace HeroesData
         /// Checks for multiple mods folders with a number suffix, selects the highest one and sets the storage path.
         /// </summary>
         /// <returns></returns>
-        private static bool IsMultiModsDirectory()
+        private bool IsMultiModsDirectory()
         {
             string[] directories = Directory.GetDirectories(StoragePath, "mods_*", SearchOption.TopDirectoryOnly);
 
@@ -476,7 +502,7 @@ namespace HeroesData
             return false;
         }
 
-        private static void LoadGameStrings(Localization localization)
+        private void LoadGameStrings(Localization localization)
         {
             Stopwatch time = new Stopwatch();
 
@@ -505,7 +531,7 @@ namespace HeroesData
             }
         }
 
-        private static void WriteInvalidGameStrings(List<string> invalidGameStrings, Localization localization)
+        private void WriteInvalidGameStrings(List<string> invalidGameStrings, Localization localization)
         {
             using (StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"InvalidGamestrings_{localization.ToString().ToLower()}.txt"), false))
             {
@@ -514,6 +540,56 @@ namespace HeroesData
                     writer.WriteLine(gamestring);
                 }
             }
+        }
+
+        private void SetupValidationIgnoreFile()
+        {
+            if (File.Exists(VerifyIgnoreFilePath))
+            {
+                using (StreamReader reader = new StreamReader(VerifyIgnoreFilePath))
+                {
+                    string line = string.Empty;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        line = line.Trim();
+
+                        if (!string.IsNullOrEmpty(line) && !line.StartsWith("#"))
+                        {
+                            ValidationIgnoreLines.Add(line);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DataParse(Action<DataParser> action)
+        {
+            foreach (DataParser parser in DataParsers)
+            {
+                if (parser.IsEnabled)
+                {
+                    action(parser);
+                }
+            }
+        }
+
+        private void SetUpParsers()
+        {
+            HeroData heroData = new HeroData(new HeroDataParser(GameData, DefaultData, OverrideData));
+            MatchAwardData matchAwardData = new MatchAwardData(new MatchAwardParser(GameData));
+
+            DataParsers.Add(new DataParser()
+            {
+                IsEnabled = true,
+                Parse = (localization) => heroData.Parse(localization),
+                Validate = (localization) => heroData.Validate(localization),
+            });
+            DataParsers.Add(new DataParser()
+            {
+                IsEnabled = true,
+                Parse = (localization) => matchAwardData.Parse(localization),
+                Validate = (localization) => heroData.Validate(localization),
+            });
         }
     }
 }

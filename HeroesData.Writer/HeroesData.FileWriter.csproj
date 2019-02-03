@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Writers\HeroSkinData\**" />
+    <EmbeddedResource Remove="Writers\HeroSkinData\**" />
+    <None Remove="Writers\HeroSkinData\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.1-beta.61">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -23,10 +29,6 @@
     <None Update="WriterConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Writers\HeroSkinData\" />
   </ItemGroup>
 
 </Project>

@@ -36,4 +36,10 @@
     <ProjectReference Include="..\HeroesData.Writer\HeroesData.FileWriter.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="verifyignore.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

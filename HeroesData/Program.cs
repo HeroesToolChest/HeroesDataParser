@@ -14,33 +14,34 @@ namespace HeroesData
 
         internal static void Main(string[] args)
         {
-            App.SetCurrentCulture();
+            App app = new App();
+            app.SetCurrentCulture();
 
-            CommandLineApplication app = new CommandLineApplication(true)
+            CommandLineApplication commandLineApplication = new CommandLineApplication(true)
             {
                 Description = "Extract Heroes of the Storm game data into XML and JSON format",
             };
-            app.HelpOption("-?|-h|--help");
-            app.VersionOption("-v|--version", $"Heroes Data Parser ({App.Version})");
+            commandLineApplication.HelpOption("-?|-h|--help");
+            commandLineApplication.VersionOption("-v|--version", $"Heroes Data Parser ({App.Version})");
 
-            ReadCommand.Add(app).SetCommand();
+            ReadCommand.Add(commandLineApplication).SetCommand();
 
-            CommandOption storagePathOption = app.Option("-s|--storage-path <FILEPATH>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.", CommandOptionType.SingleValue);
-            CommandOption setMaxDegreeParallismOption = app.Option("-t|--threads <NUMBER>", "Limits the maximum amount of threads to use.", CommandOptionType.SingleValue);
-            CommandOption extractIconsOption = app.Option("-e|--extract <VALUE>", $"Extracts images, available only in -s|--storage-path mode using the Hots directory.", CommandOptionType.MultipleValue);
-            CommandOption setDescriptionOption = app.Option("-d|--description <VALUE>", "Set the description output type (0 - 6) - Default 0.", CommandOptionType.SingleValue);
-            CommandOption setBuildOption = app.Option("-b|--build <number>", "Set the override build file.", CommandOptionType.SingleValue);
-            CommandOption setOutputDirectoryOption = app.Option("-o|--output-directory <FILEPATH>", "Set the output directory.", CommandOptionType.SingleValue);
-            CommandOption setGameStringLocalizations = app.Option("-l|--localization <LOCALE>", "Set the gamestring localization(s) - Default: enUS.", CommandOptionType.MultipleValue);
-            CommandOption setFileSplitOption = app.Option("-f|--file-split", "Split the XML and JSON file(s) into multiple files.", CommandOptionType.NoValue);
-            CommandOption xmlOutputOption = app.Option("--xml", "Create xml output.", CommandOptionType.NoValue);
-            CommandOption jsonOutputOption = app.Option("--json", "Create json output.", CommandOptionType.NoValue);
-            CommandOption localizedTextOption = app.Option("--localized-text", "Extract localized gamestrings from the XML and JSON file(s) into a text file.", CommandOptionType.NoValue);
-            CommandOption heroWarningsOption = app.Option("--hero-warnings", "Display all hero warnings.", CommandOptionType.NoValue);
-            CommandOption excludeAwardParseOption = app.Option("--exclude-awards", "Exclude match award parsing.", CommandOptionType.NoValue);
-            CommandOption minifyOption = app.Option("--minify", "Create .min file(s) along with current output file(s).", CommandOptionType.NoValue);
+            CommandOption storagePathOption = commandLineApplication.Option("-s|--storage-path <FILEPATH>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.", CommandOptionType.SingleValue);
+            CommandOption setMaxDegreeParallismOption = commandLineApplication.Option("-t|--threads <NUMBER>", "Limits the maximum amount of threads to use.", CommandOptionType.SingleValue);
+            CommandOption extractIconsOption = commandLineApplication.Option("-e|--extract <VALUE>", $"Extracts images, available only in -s|--storage-path mode using the Hots directory.", CommandOptionType.MultipleValue);
+            CommandOption setDescriptionOption = commandLineApplication.Option("-d|--description <VALUE>", "Sets the description output type (0 - 6) - Default 0.", CommandOptionType.SingleValue);
+            CommandOption setBuildOption = commandLineApplication.Option("-b|--build <number>", "Sets the override build file.", CommandOptionType.SingleValue);
+            CommandOption setOutputDirectoryOption = commandLineApplication.Option("-o|--output-directory <FILEPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
+            CommandOption setGameStringLocalizations = commandLineApplication.Option("-l|--localization <LOCALE>", "Sets the gamestring localization(s) - Default: enUS.", CommandOptionType.MultipleValue);
+            CommandOption setFileSplitOption = commandLineApplication.Option("-f|--file-split", "Splits the XML and JSON file(s) into multiple files.", CommandOptionType.NoValue);
+            CommandOption xmlOutputOption = commandLineApplication.Option("--xml", "Creates xml output.", CommandOptionType.NoValue);
+            CommandOption jsonOutputOption = commandLineApplication.Option("--json", "Creates json output.", CommandOptionType.NoValue);
+            CommandOption localizedTextOption = commandLineApplication.Option("--localized-text", "Extracts localized gamestrings from the XML and JSON file(s) into a text file.", CommandOptionType.NoValue);
+            CommandOption validationWarningsOption = commandLineApplication.Option("--warnings", "Displays all validation warnings.", CommandOptionType.NoValue);
+            CommandOption excludeAwardParseOption = commandLineApplication.Option("--exclude-awards", "Excludes match award parsing.", CommandOptionType.NoValue);
+            CommandOption minifyOption = commandLineApplication.Option("--minify", "Creates .min file(s) along with current output file(s).", CommandOptionType.NoValue);
 
-            app.OnExecute(() =>
+            commandLineApplication.OnExecute(() =>
             {
                 App.Defaults = false;
 
@@ -97,7 +98,7 @@ namespace HeroesData
                     {
                         if (Enum.TryParse(locale, true, out Localization localization))
                         {
-                            App.Localizations.Add(localization);
+                            app.Localizations.Add(localization);
                         }
                         else
                         {
@@ -111,17 +112,17 @@ namespace HeroesData
                 }
                 else
                 {
-                    App.Localizations.Add(Localization.ENUS);
+                    app.Localizations.Add(Localization.ENUS);
                 }
 
                 App.CreateXml = xmlOutputOption.HasValue() ? true : false;
                 App.CreateJson = jsonOutputOption.HasValue() ? true : false;
-                App.ShowHeroWarnings = heroWarningsOption.HasValue() ? true : false;
+                App.ShowValidationWarnings = validationWarningsOption.HasValue() ? true : false;
                 App.IsFileSplit = setFileSplitOption.HasValue() ? true : false;
                 App.IsLocalizedText = localizedTextOption.HasValue() ? true : false;
                 App.ExcludeAwardParsing = excludeAwardParseOption.HasValue() ? true : false;
                 App.CreateMinFiles = minifyOption.HasValue() ? true : false;
-                App.Run();
+                app.Run();
                 Console.ResetColor();
 
                 return 0;
@@ -131,7 +132,7 @@ namespace HeroesData
             {
                 try
                 {
-                    app.Execute(args);
+                    commandLineApplication.Execute(args);
                 }
                 catch (CommandParsingException)
                 {
@@ -141,7 +142,7 @@ namespace HeroesData
             else // defaults
             {
                 App.Defaults = true;
-                App.Run();
+                app.Run();
             }
 
             Console.ResetColor();
