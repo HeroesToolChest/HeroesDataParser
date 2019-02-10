@@ -19,7 +19,7 @@
     <ProjectReference Include="..\HeroesData.Loader\HeroesData.Loader.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="GameStringValues.xml">
+    <None Update="parserhelper.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="dataoverrides\hero-overrides.xml">

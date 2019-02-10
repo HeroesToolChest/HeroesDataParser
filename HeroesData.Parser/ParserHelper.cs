@@ -5,25 +5,28 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser.GameStrings
 {
-    internal class GameStringValues
+    /// <summary>
+    /// Used to parse xml elements that don't exist. Gives default values for missing elements and values.
+    /// </summary>
+    internal class ParserHelper
     {
         private readonly int? HotsBuild;
 
-        private GameStringValues()
+        private ParserHelper()
         {
             Initialize();
         }
 
-        private GameStringValues(int? hotsBuild)
+        private ParserHelper(int? hotsBuild)
         {
             HotsBuild = hotsBuild;
             Initialize();
         }
 
         /// <summary>
-        /// Gets the file name of the GameStringValues file.
+        /// Gets the file name of the helper file.
         /// </summary>
-        public string GameStringValuesXmlFile { get; private set; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "GameStringValues.xml");
+        public string HelperXmlFile { get; private set; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "parserhelper.xml");
 
         /// <summary>
         /// Gets a lists of values for selected parts of a path.
@@ -31,17 +34,17 @@ namespace HeroesData.Parser.GameStrings
         public List<(string Name, string PartIndex, string Value)> PartValueByPartName { get; } = new List<(string Name, string PartIndex, string Value)>();
 
         /// <summary>
-        /// Loads the GameStringValues xml file data.
+        /// Loads the helper xml file data.
         /// </summary>
         /// <returns></returns>
-        public static GameStringValues Load()
+        public static ParserHelper Load()
         {
-            return new GameStringValues();
+            return new ParserHelper();
         }
 
-        public static GameStringValues Load(int? hotsBuild)
+        public static ParserHelper Load(int? hotsBuild)
         {
-            return new GameStringValues(hotsBuild);
+            return new ParserHelper(hotsBuild);
         }
 
         private void Initialize()
@@ -63,28 +66,16 @@ namespace HeroesData.Parser.GameStrings
 
         private XDocument LoadGameStringFile()
         {
-            if (HotsBuild.HasValue)
+            if (File.Exists(HelperXmlFile))
             {
-                string file = $"{Path.GetFileNameWithoutExtension(GameStringValuesXmlFile)}_{HotsBuild}.xml";
-
-                if (File.Exists(file))
-                {
-                    GameStringValuesXmlFile = file;
-                    return XDocument.Load(file);
-                }
-            }
-
-            // default load
-            if (File.Exists(GameStringValuesXmlFile))
-            {
-                return XDocument.Load(GameStringValuesXmlFile);
+                return XDocument.Load(HelperXmlFile);
             }
             else
             {
                 if (HotsBuild.HasValue)
-                    throw new FileNotFoundException($"File not found: {GameStringValuesXmlFile} or {Path.GetFileNameWithoutExtension(GameStringValuesXmlFile)}_{HotsBuild}.xml");
+                    throw new FileNotFoundException($"File not found: {HelperXmlFile} or {Path.GetFileNameWithoutExtension(HelperXmlFile)}_{HotsBuild}.xml");
                 else
-                    throw new FileNotFoundException($"File not found: {GameStringValuesXmlFile}");
+                    throw new FileNotFoundException($"File not found: {HelperXmlFile}");
             }
         }
     }

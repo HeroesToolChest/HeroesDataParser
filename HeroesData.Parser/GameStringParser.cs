@@ -15,7 +15,7 @@ namespace HeroesData.Parser.GameStrings
     {
         private readonly int? HotsBuild;
         private readonly GameData GameData;
-        private readonly GameStringValues GameStringValues;
+        private readonly ParserHelper ParserHelper;
 
         private readonly DataTable DataTable = new DataTable();
 
@@ -24,7 +24,7 @@ namespace HeroesData.Parser.GameStrings
         public GameStringParser(GameData gameData)
         {
             GameData = gameData;
-            GameStringValues = GameStringValues.Load();
+            ParserHelper = ParserHelper.Load();
             SetValidElementNames();
         }
 
@@ -32,7 +32,7 @@ namespace HeroesData.Parser.GameStrings
         {
             GameData = gameData;
             HotsBuild = hotsBuild;
-            GameStringValues = GameStringValues.Load(hotsBuild);
+            ParserHelper = ParserHelper.Load(hotsBuild);
             SetValidElementNames();
         }
 
@@ -376,7 +376,7 @@ namespace HeroesData.Parser.GameStrings
             if (string.IsNullOrEmpty(value))
             {
                 // check each part value to see if we can find one
-                foreach (var (name, partIndex, partValue) in GameStringValues.PartValueByPartName)
+                foreach (var (name, partIndex, partValue) in ParserHelper.PartValueByPartName)
                 {
                     if (partIndex == "last" && parts.Last() == name)
                     {

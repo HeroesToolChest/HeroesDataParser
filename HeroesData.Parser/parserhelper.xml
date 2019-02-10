@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<GameStringValues>
+<ParserHelper>
   <Id name="AttributeFactor[Heroic]" part="last" value="0" />
   <Id name="AttributeFactor[Structure]" part="last" value="0" />
   <Id name="ModifyFraction" part="last" value="1" />
@@ -12,4 +12,4 @@
   <Id name="CooldownTimeUse" part="last" value="1" />
   <Id name="Modifier" part="last" value="0" />
   <Id name="ExpireDelay" part="last" value="0" />
-</GameStringValues>
+</ParserHelper>
