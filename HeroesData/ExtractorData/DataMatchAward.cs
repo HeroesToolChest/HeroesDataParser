@@ -1,7 +1,7 @@
 ﻿using Heroes.Models;
-using HeroesData.Parser.XmlData;
+using HeroesData.Parser;
 
-namespace HeroesData.Extractor.Data
+namespace HeroesData.ExtractorData
 {
     public class DataMatchAward : DataExtractorBase<MatchAward, MatchAwardParser>, IData
     {

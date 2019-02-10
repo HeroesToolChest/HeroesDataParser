@@ -9,11 +9,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HeroesData.Extractor.Data
+namespace HeroesData.ExtractorData
 {
     public abstract class DataExtractorBase<T, TParsable>
         where T : IExtractable
-        where TParsable : IParsableXmlData<T>
+        where TParsable : IParser<T>
     {
         private string ValidationWarningId = "Unknown";
         private HashSet<string> ValidationWarnings = new HashSet<string>();
@@ -58,14 +58,16 @@ namespace HeroesData.Extractor.Data
 
             int currentCount = 0;
 
-            Console.Write($"\r{currentCount,6}");
+            IList<string[]> items = Parser.Items;
+
+            Console.Write($"\r{currentCount,6} / {items.Count} total {Name}");
 
             try
             {
-                Parallel.ForEach(Parser.Parse(localization), new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, item =>
+                Parallel.ForEach(items, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, item =>
                 {
-                    ParsedData.GetOrAdd(item.ShortName, item);
-                    Console.Write($"\r{Interlocked.Increment(ref currentCount),6} {Name}");
+                    ParsedData.GetOrAdd(string.Join(" ", item), Parser.Parse(item));
+                    Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {items.Count} total {Name}");
                 });
             }
             catch (Exception ex)
@@ -75,7 +77,7 @@ namespace HeroesData.Extractor.Data
                 App.WriteExceptionLog($"{Name.Where(x => !char.IsWhiteSpace(x))}", ex);
 
                 Console.WriteLine();
-                Console.WriteLine($"Failed to {Name} [Check logs for details]");
+                Console.WriteLine($"Failed to parse {Name} [Check logs for details]");
                 Console.WriteLine();
 
                 Console.ResetColor();

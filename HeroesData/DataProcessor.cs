@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 
-namespace HeroesData.Extractor.Data
+namespace HeroesData
 {
-    internal class DataParser
+    internal class DataProcessor
     {
         public bool IsEnabled { get; set; }
 
         public Func<Localization, IEnumerable<IExtractable>> Parse { get; set; }
         public Action<Localization> Validate { get; set; }
+        public Action<IEnumerable<IExtractable>> Extract { get; set; }
     }
 }

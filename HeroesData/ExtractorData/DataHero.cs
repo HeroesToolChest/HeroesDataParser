@@ -1,14 +1,14 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
+using HeroesData.Helpers;
 using HeroesData.Parser;
-using HeroesData.Parser.XmlData;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HeroesData.Extractor.Data
+namespace HeroesData.ExtractorData
 {
     public class DataHero : DataExtractorBase<Hero, HeroDataParser>, IData
     {
@@ -36,21 +36,23 @@ namespace HeroesData.Extractor.Data
             Parser.ParseBaseHero();
             ParsedData.GetOrAdd(Parser.StormHeroBase.CHeroId, Parser.StormHeroBase);
 
+            IList<string[]> heroes = Parser.Items;
+
             // parse all the heroes
-            Console.Write($"\r{currentCount,6} / {Parser.TotalParseable} total {Name}");
-            Parallel.ForEach(Parser.Parse(localization), new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, parsedHero =>
+            Console.Write($"\r{currentCount,6} / {heroes.Count} total {Name}");
+            Parallel.ForEach(heroes, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, hero =>
             {
                 try
                 {
-                    ParsedData.GetOrAdd(parsedHero.CHeroId, parsedHero);
+                    ParsedData.GetOrAdd(hero[0], Parser.Parse(hero));
                 }
                 catch (Exception ex)
                 {
-                    failedParsedHeroes.Add((parsedHero.CHeroId, ex));
+                    failedParsedHeroes.Add((hero[0], ex));
                 }
                 finally
                 {
-                    Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {Parser.TotalParseable} total {Name}");
+                    Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {heroes.Count} total {Name}");
                 }
             });
 

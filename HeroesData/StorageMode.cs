@@ -1,6 +1,6 @@
 ﻿namespace HeroesData
 {
-    internal enum StorageMode
+    public enum StorageMode
     {
         None,
         Mods,

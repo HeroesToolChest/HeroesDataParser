@@ -1,11 +1,11 @@
 ﻿using Heroes.Models;
-using HeroesData.Extractor.Data;
+using HeroesData.ExtractorData;
+using HeroesData.ExtractorFiles;
 using HeroesData.FileWriter;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
-using HeroesData.Parser.XmlData;
-using HeroesData.Parser.XmlData.HeroData.Overrides;
+using HeroesData.Parser.Overrides;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,7 +20,7 @@ namespace HeroesData
 {
     internal class App
     {
-        private List<DataParser> DataParsers = new List<DataParser>();
+        private List<DataProcessor> DataProcessors = new List<DataProcessor>();
 
         /// <summary>
         /// Gets the product version of the application.
@@ -56,7 +56,7 @@ namespace HeroesData
 
         public GameData GameData { get; set; }
         public DefaultData DefaultData { get; set; }
-        public OverrideData OverrideData { get; set; }
+        public XmlDataOverriders XmlDataOverriders { get; set; }
 
         public StorageMode StorageMode { get; set; } = StorageMode.None;
         public CASCHotsStorage CASCHotsStorage { get; set; } = null;
@@ -89,14 +89,14 @@ namespace HeroesData
 
             int totalLocaleSuccess = 0;
 
-            SetUpParsers();
-            SetupValidationIgnoreFile();
-
             try
             {
                 PreInitialize();
                 InitializeGameData();
                 InitializeOverrideData();
+
+                SetUpDataProcessors();
+                SetupValidationIgnoreFile();
 
                 // set the options for the writers
                 FileOutputOptions options = new FileOutputOptions()
@@ -128,19 +128,19 @@ namespace HeroesData
                         ParseGameStrings(localization);
 
                         // parse data
-                        DataParse((parser) =>
+                        DataProcessor((parser) =>
                         {
                             items = parser.Parse(localization);
                         });
 
                         // validate
-                        DataParse((parser) =>
+                        DataProcessor((parser) =>
                         {
                             parser.Validate(localization);
                         });
 
                         // write
-                        DataParse((parser) =>
+                        DataProcessor((parser) =>
                         {
                             if (CreateJson)
                             {
@@ -157,6 +157,11 @@ namespace HeroesData
                             }
                         });
 
+                        DataProcessor((parser) =>
+                        {
+                            parser?.Extract(items);
+                        });
+
                         totalLocaleSuccess++;
                     }
                     catch (Exception ex)
@@ -168,21 +173,6 @@ namespace HeroesData
                         Console.WriteLine();
                         Console.ResetColor();
                     }
-                }
-
-                if (StorageMode == StorageMode.CASC)
-                {
-                    Extractor_delete extractor = new Extractor_delete(CASCHotsStorage.CASCHandler, StorageMode)
-                    {
-                        ExtractImageAbilities = ExtractImageAbilities,
-                        ExtractImageAbilityTalents = ExtractImageAbilityTalents,
-                        ExtractImagePortraits = ExtractImagePortraits,
-                        ExtractImageTalents = ExtractImageTalents,
-                        ExtractMatchAwards = ExtractMatchAwards,
-                        OutputDirectory = OutputDirectory,
-                    };
-
-                    extractor.ExtractFiles(OutputDirectory);
                 }
 
                 if (totalLocaleSuccess == Localizations.Count)
@@ -224,17 +214,6 @@ namespace HeroesData
             Console.WriteLine();
             Console.WriteLine();
             Console.ResetColor();
-
-            if (!CreateXml && !CreateJson)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("No writers are enabled!");
-                Console.WriteLine("Please include the option(s) --xml or --json");
-                Console.WriteLine();
-                Console.ResetColor();
-
-                Environment.Exit(0);
-            }
 
             if (StorageMode == StorageMode.CASC)
             {
@@ -306,34 +285,38 @@ namespace HeroesData
         {
             Stopwatch time = new Stopwatch();
 
-            Console.WriteLine($"Loading override data...");
+            Console.WriteLine($"Loading data overriders...");
 
             time.Start();
 
             if (OverrideBuild.HasValue)
-                OverrideData = OverrideData.Load(GameData, OverrideBuild.Value);
+                XmlDataOverriders = XmlDataOverriders.Load(GameData, OverrideBuild.Value);
             else if (HotsBuild.HasValue)
-                OverrideData = OverrideData.Load(GameData, HotsBuild.Value);
+                XmlDataOverriders = XmlDataOverriders.Load(GameData, HotsBuild.Value);
             else
-                OverrideData = OverrideData.Load(GameData);
+                XmlDataOverriders = XmlDataOverriders.Load(GameData);
 
-            if (int.TryParse(Path.GetFileNameWithoutExtension(OverrideData.HeroDataOverrideXmlFile).Split('_').LastOrDefault(), out int loadedBuild))
+            foreach (string overrideFileNames in XmlDataOverriders.LoadedFileNames)
             {
-                if ((StorageMode == StorageMode.Mods && HotsBuild.HasValue && HotsBuild.Value != loadedBuild) ||
-                    (StorageMode == StorageMode.CASC && HotsBuild.HasValue && HotsBuild.Value != loadedBuild))
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                else
+                if (int.TryParse(Path.GetFileNameWithoutExtension(overrideFileNames).Split('_').LastOrDefault(), out int loadedOverrideBuild))
+                {
+                    if ((StorageMode == StorageMode.Mods && HotsBuild.HasValue && HotsBuild.Value != loadedOverrideBuild) ||
+                        (StorageMode == StorageMode.CASC && HotsBuild.HasValue && HotsBuild.Value != loadedOverrideBuild))
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    else
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                }
+                else // default override
+                {
                     Console.ForegroundColor = ConsoleColor.Cyan;
-            }
-            else // default override
-            {
-                Console.ForegroundColor = ConsoleColor.Cyan;
+                }
+
+                Console.WriteLine($"Loaded {overrideFileNames}");
+                Console.ResetColor();
             }
 
             time.Stop();
 
-            Console.WriteLine($"Loaded {OverrideData.HeroDataOverrideXmlFile}");
-            Console.ResetColor();
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
         }
@@ -562,33 +545,38 @@ namespace HeroesData
             }
         }
 
-        private void DataParse(Action<DataParser> action)
+        private void DataProcessor(Action<DataProcessor> action)
         {
-            foreach (DataParser parser in DataParsers)
+            foreach (DataProcessor processor in DataProcessors)
             {
-                if (parser.IsEnabled)
+                if (processor.IsEnabled)
                 {
-                    action(parser);
+                    action(processor);
                 }
             }
         }
 
-        private void SetUpParsers()
+        private void SetUpDataProcessors()
         {
-            DataHero heroData = new DataHero(new HeroDataParser(GameData, DefaultData, OverrideData));
-            DataMatchAward matchAwardData = new DataMatchAward(new MatchAwardParser(GameData));
+            DataHero dataHero = new DataHero(new HeroDataParser(GameData, DefaultData, (HeroOverrideLoader)XmlDataOverriders.GetOverrider(typeof(HeroDataParser))));
+            DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(GameData));
 
-            DataParsers.Add(new DataParser()
+            FilesHero filesHero = new FilesHero(CASCHotsStorage?.CASCHandler, StorageMode);
+            FilesMatchAward filesMatchAward = new FilesMatchAward(CASCHotsStorage?.CASCHandler, StorageMode);
+
+            DataProcessors.Add(new DataProcessor()
             {
                 IsEnabled = true,
-                Parse = (localization) => heroData.Parse(localization),
-                Validate = (localization) => heroData.Validate(localization),
+                Parse = (localization) => dataHero.Parse(localization),
+                Validate = (localization) => dataHero.Validate(localization),
+                Extract = (data) => filesHero.ExtractFiles(data),
             });
-            DataParsers.Add(new DataParser()
+            DataProcessors.Add(new DataProcessor()
             {
                 IsEnabled = true,
-                Parse = (localization) => matchAwardData.Parse(localization),
-                Validate = (localization) => heroData.Validate(localization),
+                Parse = (localization) => dataMatchAward.Parse(localization),
+                Validate = (localization) => dataMatchAward.Validate(localization),
+                Extract = (data) => filesMatchAward.ExtractFiles(data),
             });
         }
     }
