@@ -2,17 +2,17 @@
 using Heroes.Models.AbilityTalents;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Exceptions;
-using HeroesData.Parser.XmlData.HeroData.Overrides;
+using HeroesData.Parser.Overrides.DataOverrides;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.XmlData.HeroData
+namespace HeroesData.Parser.XmlData
 {
     public class AbilityData : AbilityTalentData
     {
-        public AbilityData(GameData gameData, DefaultData defaultData, HeroOverride heroOverride, Localization localization)
-            : base(gameData, defaultData, heroOverride, localization)
+        public AbilityData(GameData gameData, DefaultData defaultData, HeroDataOverride heroDataOverride, Localization localization)
+            : base(gameData, defaultData, heroDataOverride, localization)
         {
         }
 
@@ -29,7 +29,7 @@ namespace HeroesData.Parser.XmlData.HeroData
 
             Ability ability = new Ability();
 
-            if (!string.IsNullOrEmpty(referenceName) && HeroOverride.IsValidAbilityByAbilityId.TryGetValue(referenceName, out bool validAbility))
+            if (!string.IsNullOrEmpty(referenceName) && HeroDataOverride.IsValidAbilityByAbilityId.TryGetValue(referenceName, out bool validAbility))
             {
                 if (!validAbility)
                     return;
@@ -43,7 +43,7 @@ namespace HeroesData.Parser.XmlData.HeroData
                 return;
 
             // check for the HeroAbilArray button value, we may need to override it
-            if (!string.IsNullOrEmpty(referenceName) && HeroOverride.ButtonNameOverrideByAbilityButtonId.TryGetValue((referenceName, tooltipName), out string setButtonValue))
+            if (!string.IsNullOrEmpty(referenceName) && HeroDataOverride.ButtonNameOverrideByAbilityButtonId.TryGetValue((referenceName, tooltipName), out string setButtonValue))
                 tooltipName = setButtonValue;
 
             // set the ability properties
@@ -104,7 +104,7 @@ namespace HeroesData.Parser.XmlData.HeroData
 
                 hero.Abilities.Add(ability.ReferenceNameId, ability);
             }
-            else if (HeroOverride.AddedAbilityByAbilityId.TryGetValue(ability.ReferenceNameId, out var addedAbility))
+            else if (HeroDataOverride.AddedAbilityByAbilityId.TryGetValue(ability.ReferenceNameId, out var addedAbility))
             {
                 // overridden add ability
                 if (addedAbility.IsAdded)
@@ -161,7 +161,7 @@ namespace HeroesData.Parser.XmlData.HeroData
         {
             hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
 
-            foreach ((string buttonId, string parent) in HeroOverride.AddedAbilityByButtonId)
+            foreach ((string buttonId, string parent) in HeroDataOverride.AddedAbilityByButtonId)
             {
                 Ability ability = new Ability()
                 {

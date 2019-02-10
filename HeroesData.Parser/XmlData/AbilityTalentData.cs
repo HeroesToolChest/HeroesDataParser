@@ -2,27 +2,27 @@
 using Heroes.Models.AbilityTalents;
 using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.XmlData.HeroData.Overrides;
+using HeroesData.Parser.Overrides.DataOverrides;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.XmlData.HeroData
+namespace HeroesData.Parser.XmlData
 {
     public class AbilityTalentData
     {
-        public AbilityTalentData(GameData gameData, DefaultData defaultData, HeroOverride heroOverride, Localization localization)
+        public AbilityTalentData(GameData gameData, DefaultData defaultData, HeroDataOverride heroDataOverride, Localization localization)
         {
             GameData = gameData;
             DefaultData = defaultData;
-            HeroOverride = heroOverride;
+            HeroDataOverride = heroDataOverride;
             Localization = localization;
         }
 
         protected GameData GameData { get; }
-        protected HeroOverride HeroOverride { get; }
+        protected HeroDataOverride HeroDataOverride { get; }
         protected Localization Localization { get; }
         protected DefaultData DefaultData { get; }
 

@@ -3,16 +3,16 @@ using HeroesData.Loader.XmlGameData;
 using System;
 using System.Collections.Generic;
 
-namespace HeroesData.Parser.XmlData.HeroData.Overrides
+namespace HeroesData.Parser.Overrides.PropertyOverrides
 {
-    public class PortraitOverride : PropertyOverrideBase<HeroPortrait>
+    internal class PortraitPropertyOverride : PropertyOverrideBase<HeroPortrait>
     {
-        public PortraitOverride(GameData gameData)
+        public PortraitPropertyOverride(GameData gameData)
             : base(gameData)
         {
         }
 
-        public PortraitOverride(GameData gameData, int? hotsBuild)
+        public PortraitPropertyOverride(GameData gameData, int? hotsBuild)
             : base(gameData, hotsBuild)
         {
         }

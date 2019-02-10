@@ -1,23 +1,23 @@
 ﻿using Heroes.Models;
 using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.XmlData.HeroData.Overrides;
+using HeroesData.Parser.Overrides.DataOverrides;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.XmlData.HeroData
+namespace HeroesData.Parser.XmlData
 {
     public class WeaponData
     {
         private readonly GameData GameData;
         private readonly DefaultData DefaultData;
-        private readonly HeroOverride HeroOverride;
+        private readonly UnitDataOverride UnitDataOverride;
 
-        public WeaponData(GameData gameData, DefaultData defaultData, HeroOverride heroOverride)
+        public WeaponData(GameData gameData, DefaultData defaultData, UnitDataOverride unitDataOverride)
         {
             GameData = gameData;
             DefaultData = defaultData;
-            HeroOverride = heroOverride;
+            UnitDataOverride = unitDataOverride;
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace HeroesData.Parser.XmlData.HeroData
 
             foreach (string weaponNameId in weaponsIds)
             {
-                if (HeroOverride.IsValidWeaponByWeaponId.TryGetValue(weaponNameId, out bool validWeapon))
+                if (UnitDataOverride.IsValidWeaponByWeaponId.TryGetValue(weaponNameId, out bool validWeapon))
                 {
                     if (!validWeapon)
                         continue;

@@ -2,57 +2,50 @@
 using Heroes.Models.AbilityTalents;
 using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.XmlData.HeroData;
-using HeroesData.Parser.XmlData.HeroData.Overrides;
+using HeroesData.Parser.Overrides;
+using HeroesData.Parser.Overrides.DataOverrides;
+using HeroesData.Parser.XmlData;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.XmlData
+namespace HeroesData.Parser
 {
-    public class HeroDataParser : IParsableXmlData<Hero>
+    public class HeroDataParser : ParserBase, IParser<Hero>
     {
-        private readonly GameData GameData;
         private readonly DefaultData DefaultData;
-        private readonly OverrideData OverrideData;
+        private readonly HeroOverrideLoader HeroOverrideLoader;
 
-        private HeroOverride HeroOverride;
+        private HeroDataOverride HeroDataOverride;
         private WeaponData WeaponData;
         private ArmorData ArmorData;
         private AbilityData AbilityData;
         private TalentData TalentData;
 
-        public HeroDataParser(GameData gameData, DefaultData defaultData, OverrideData overrideData)
+        public HeroDataParser(GameData gameData, DefaultData defaultData, HeroOverrideLoader heroOverrideLoader)
+            : base (gameData)
         {
-            GameData = gameData;
             DefaultData = defaultData;
-            OverrideData = overrideData;
+            HeroOverrideLoader = heroOverrideLoader;
         }
-
-        /// <summary>
-        /// Gets or sets the hots build number.
-        /// </summary>
-        public int? HotsBuild { get; set; }
-
-        /// <summary>
-        /// Gets or sets the localization.
-        /// </summary>
-        public Localization Localization { get; set; }
 
         /// <summary>
         /// Gets or sets the base hero data.
         /// </summary>
         public Hero StormHeroBase { get; set; } = new Hero();
 
-        public int TotalParseable
+        /// <summary>
+        /// Returns a collection of all the parsable ids. Allows multiple ids.
+        /// </summary>
+        /// <returns></returns>
+        public IList<string[]> Items
         {
             get
             {
-                int count = 0;
+                List<string[]> items = new List<string[]>();
 
-                // CHero
                 IEnumerable<XElement> cHeroElements = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
 
                 foreach (XElement hero in cHeroElements)
@@ -63,50 +56,37 @@ namespace HeroesData.Parser.XmlData
                     if (attributIdValue == null || id == "TestHero" || id == "Random")
                         continue;
 
-                    count++;
+                    items.Add(new string[] { id });
                 }
 
-                return count;
-            }
-        }
-
-        public IEnumerable<Hero> Parse(Localization localization)
-        {
-            // CHero
-            IEnumerable<XElement> cHeroElements = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
-
-            foreach (XElement hero in cHeroElements)
-            {
-                string id = hero.Attribute("id").Value;
-                XElement attributIdValue = hero.Elements("AttributeId").FirstOrDefault(x => x.Attribute("value") != null);
-
-                if (attributIdValue == null || id == "TestHero" || id == "Random")
-                    continue;
-
-                yield return ParseHero(id);
+                return items;
             }
         }
 
         /// <summary>
-        /// Parses the hero's game data.
+        /// Returns the parsed game data from the given ids. Multiple ids may be used to identity one item.
         /// </summary>
-        /// <param name="cHeroId">The id value of the CHero element.</param>
+        /// <param name="id">The ids of the item to parse.</param>
         /// <returns></returns>
-        public Hero ParseHero(string cHeroId)
+        public Hero Parse(params string[] ids)
         {
+            string heroId = ids.FirstOrDefault();
+            if (string.IsNullOrEmpty(heroId))
+                return null;
+
             Hero hero = new Hero
             {
-                Name = GameData.GetGameString(DefaultData.HeroName.Replace(DefaultData.IdReplacer, cHeroId)),
-                Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroDescription.Replace(DefaultData.IdReplacer, cHeroId)), Localization),
-                CHeroId = cHeroId,
+                Name = GameData.GetGameString(DefaultData.HeroName.Replace(DefaultData.IdReplacer, heroId)),
+                Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroDescription.Replace(DefaultData.IdReplacer, heroId)), Localization),
+                CHeroId = heroId,
             };
 
-            HeroOverride = OverrideData.HeroOverride(cHeroId) ?? new HeroOverride();
+            HeroDataOverride = HeroOverrideLoader.GetOverride(heroId) ?? new HeroDataOverride();
 
-            WeaponData = new WeaponData(GameData, DefaultData, HeroOverride);
+            WeaponData = new WeaponData(GameData, DefaultData, HeroDataOverride);
             ArmorData = new ArmorData(GameData);
-            AbilityData = new AbilityData(GameData, DefaultData, HeroOverride, Localization);
-            TalentData = new TalentData(GameData, DefaultData, HeroOverride, Localization);
+            AbilityData = new AbilityData(GameData, DefaultData, HeroDataOverride, Localization);
+            TalentData = new TalentData(GameData, DefaultData, HeroDataOverride, Localization);
 
             SetDefaultValues(hero);
             CActorData(hero);
@@ -118,10 +98,10 @@ namespace HeroesData.Parser.XmlData
 
             FinalizeDataChecks(hero);
 
-            ApplyOverrides(hero, HeroOverride);
+            ApplyOverrides(hero, HeroDataOverride);
             MoveParentLinkedAbilities(hero);
             MoveParentLinkedWeapons(hero);
-            RemoveAbilityTalents(hero, HeroOverride);
+            RemoveAbilityTalents(hero, HeroDataOverride);
 
             return hero;
         }
@@ -140,12 +120,12 @@ namespace HeroesData.Parser.XmlData
                 Ratings = null,
             };
 
-            HeroOverride = OverrideData.HeroOverride(StormHeroBase.CHeroId) ?? new HeroOverride();
-            AbilityData = new AbilityData(GameData, DefaultData, HeroOverride, Localization);
+            HeroDataOverride = HeroOverrideLoader.GetOverride(StormHeroBase.CHeroId) ?? new HeroDataOverride();
+            AbilityData = new AbilityData(GameData, DefaultData, HeroDataOverride, Localization);
 
             SetBaseHeroData(StormHeroBase);
 
-            ApplyOverrides(StormHeroBase, HeroOverride);
+            ApplyOverrides(StormHeroBase, HeroDataOverride);
             MoveParentLinkedAbilities(StormHeroBase);
 
             IList<Ability> hearthAbilties = StormHeroBase.PrimaryAbilities(AbilityTier.Hearth);
@@ -196,8 +176,8 @@ namespace HeroesData.Parser.XmlData
                 hero.SearchText += GameData.GetGameString(DefaultData.HeroAdditionalSearchText.Replace(DefaultData.IdReplacer, hero.CHeroId));
                 hero.SearchText = hero.SearchText.Trim();
 
-                if (HeroOverride.CUnitOverride.Enabled)
-                    hero.CUnitId = HeroOverride.CUnitOverride.CUnit;
+                if (HeroDataOverride.CUnitOverride.Enabled)
+                    hero.CUnitId = HeroDataOverride.CUnitOverride.CUnit;
             }
         }
 
@@ -530,7 +510,7 @@ namespace HeroesData.Parser.XmlData
 
         private void AddSubHeroCUnits(Hero hero)
         {
-            foreach (string cUnitId in HeroOverride.HeroUnits)
+            foreach (string cUnitId in HeroDataOverride.HeroUnits)
             {
                 if (!GameData.TryGetGameString(DefaultData.UnitName.Replace(DefaultData.IdReplacer, cUnitId), out string name))
                 {
@@ -557,9 +537,9 @@ namespace HeroesData.Parser.XmlData
                     FinalizeDataChecks(heroUnit);
                 }
 
-                HeroOverride heroOverride = OverrideData.HeroOverride(cUnitId);
-                if (heroOverride != null)
-                    ApplyOverrides(heroUnit, heroOverride);
+                HeroDataOverride heroDataOverride = HeroOverrideLoader.GetOverride(cUnitId);
+                if (heroDataOverride != null)
+                    ApplyOverrides(heroUnit, heroDataOverride);
 
                 hero.HeroUnits.Add(heroUnit);
             }
@@ -576,29 +556,29 @@ namespace HeroesData.Parser.XmlData
                 hero.Life.LifeMax = 0;
         }
 
-        private void ApplyOverrides(Hero hero, HeroOverride heroOverride)
+        private void ApplyOverrides(Hero hero, HeroDataOverride heroDataOverride)
         {
-            if (heroOverride.NameOverride.Enabled)
-                hero.Name = heroOverride.NameOverride.Name;
+            if (heroDataOverride.NameOverride.Enabled)
+                hero.Name = heroDataOverride.NameOverride.Name;
 
-            if (heroOverride.ShortNameOverride.Enabled)
-                hero.ShortName = heroOverride.ShortNameOverride.ShortName;
+            if (heroDataOverride.ShortNameOverride.Enabled)
+                hero.ShortName = heroDataOverride.ShortNameOverride.ShortName;
 
-            if (heroOverride.EnergyTypeOverride.Enabled)
-                hero.Energy.EnergyType = heroOverride.EnergyTypeOverride.EnergyType;
+            if (heroDataOverride.EnergyTypeOverride.Enabled)
+                hero.Energy.EnergyType = heroDataOverride.EnergyTypeOverride.EnergyType;
 
-            if (heroOverride.EnergyOverride.Enabled)
-                hero.Energy.EnergyMax = heroOverride.EnergyOverride.Energy;
+            if (heroDataOverride.EnergyOverride.Enabled)
+                hero.Energy.EnergyMax = heroDataOverride.EnergyOverride.Energy;
 
-            if (heroOverride.ParentLinkOverride.Enabled)
-                hero.ParentLink = heroOverride.ParentLinkOverride.ParentLink;
+            if (heroDataOverride.ParentLinkOverride.Enabled)
+                hero.ParentLink = heroDataOverride.ParentLinkOverride.ParentLink;
 
             // abilities
             if (hero.Abilities != null)
             {
                 foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
                 {
-                    if (heroOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
+                    if (heroDataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
                     {
                         foreach (var propertyOverride in valueOverrideMethods)
                         {
@@ -614,7 +594,7 @@ namespace HeroesData.Parser.XmlData
             {
                 foreach (KeyValuePair<string, Talent> talents in hero.Talents)
                 {
-                    if (heroOverride.PropertyTalentOverrideMethodByTalentId.TryGetValue(talents.Key, out Dictionary<string, Action<Talent>> valueOverrideMethods))
+                    if (heroDataOverride.PropertyTalentOverrideMethodByTalentId.TryGetValue(talents.Key, out Dictionary<string, Action<Talent>> valueOverrideMethods))
                     {
                         foreach (var propertyOverride in valueOverrideMethods)
                         {
@@ -630,7 +610,7 @@ namespace HeroesData.Parser.XmlData
             {
                 foreach (UnitWeapon weapon in hero.Weapons)
                 {
-                    if (heroOverride.PropertyWeaponOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<UnitWeapon>> valueOverrideMethods))
+                    if (heroDataOverride.PropertyWeaponOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<UnitWeapon>> valueOverrideMethods))
                     {
                         foreach (var propertyOverride in valueOverrideMethods)
                         {
@@ -643,7 +623,7 @@ namespace HeroesData.Parser.XmlData
 
             if (hero.HeroPortrait != null)
             {
-                if (heroOverride.PropertyPortraitOverrideMethodByCHeroId.TryGetValue(hero.CHeroId, out Dictionary<string, Action<HeroPortrait>> valueOverrideMethods))
+                if (heroDataOverride.PropertyPortraitOverrideMethodByCHeroId.TryGetValue(hero.CHeroId, out Dictionary<string, Action<HeroPortrait>> valueOverrideMethods))
                 {
                     foreach (var propertyOverride in valueOverrideMethods)
                     {
@@ -653,9 +633,9 @@ namespace HeroesData.Parser.XmlData
             }
         }
 
-        private void RemoveAbilityTalents(Hero hero, HeroOverride heroOverride)
+        private void RemoveAbilityTalents(Hero hero, HeroDataOverride heroDataOverride)
         {
-            foreach (KeyValuePair<string, bool> removedAbility in heroOverride.RemovedAbilityByAbilityReferenceNameId)
+            foreach (KeyValuePair<string, bool> removedAbility in heroDataOverride.RemovedAbilityByAbilityReferenceNameId)
             {
                 if (removedAbility.Value)
                     hero.Abilities.Remove(removedAbility.Key);

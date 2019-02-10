@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace HeroesData.Parser.XmlData.HeroData.Overrides
+namespace HeroesData.Parser.Overrides.DataOverrides
 {
-    public class HeroOverride : UnitOverride
+    public class HeroDataOverride : UnitDataOverride
     {
         /// <summary>
         /// Gets or sets abilities that are valid in the HeroAbilArray or to be invalidated.

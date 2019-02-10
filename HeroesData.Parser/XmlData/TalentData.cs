@@ -2,20 +2,20 @@
 using Heroes.Models.AbilityTalents;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Exceptions;
-using HeroesData.Parser.XmlData.HeroData.Overrides;
+using HeroesData.Parser.Overrides.DataOverrides;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.XmlData.HeroData
+namespace HeroesData.Parser.XmlData
 {
     public class TalentData : AbilityTalentData
     {
         private Dictionary<string, HashSet<string>> AbilityTalentIdsByTalentIdUpgrade = new Dictionary<string, HashSet<string>>();
 
-        public TalentData(GameData gameData, DefaultData defaultData, HeroOverride heroOverride, Localization localization)
-            : base(gameData, defaultData, heroOverride, localization)
+        public TalentData(GameData gameData, DefaultData defaultData, HeroDataOverride heroDataOverride, Localization localization)
+            : base(gameData, defaultData, heroDataOverride, localization)
         {
         }
 

@@ -3,7 +3,7 @@ using HeroesData.Loader.XmlGameData;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.XmlData.HeroData
+namespace HeroesData.Parser.XmlData
 {
     public class ArmorData
     {

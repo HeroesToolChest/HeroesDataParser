@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace HeroesData.Parser.XmlData.HeroData.Overrides
+namespace HeroesData.Parser.Overrides.PropertyOverrides
 {
-    public abstract class PropertyOverrideBase<T>
+    internal abstract class PropertyOverrideBase<T>
         where T : class
     {
         private readonly GameData GameData;

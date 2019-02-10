@@ -3,16 +3,16 @@ using HeroesData.Loader.XmlGameData;
 using System;
 using System.Collections.Generic;
 
-namespace HeroesData.Parser.XmlData.HeroData.Overrides
+namespace HeroesData.Parser.Overrides.PropertyOverrides
 {
-    public class AbilityOverride : PropertyOverrideBase<Ability>
+    internal class AbilityPropertyOverride : PropertyOverrideBase<Ability>
     {
-        public AbilityOverride(GameData gameData)
+        public AbilityPropertyOverride(GameData gameData)
             : base(gameData)
         {
         }
 
-        public AbilityOverride(GameData gameData, int? hotsBuild)
+        public AbilityPropertyOverride(GameData gameData, int? hotsBuild)
             : base(gameData, hotsBuild)
         {
         }

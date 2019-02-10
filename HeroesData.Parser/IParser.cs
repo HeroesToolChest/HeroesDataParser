@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace HeroesData.Parser
 {
-    public interface IParsableXmlData<T>
+    public interface IParser<T>
         where T : IExtractable
     {
         /// <summary>
-        /// Returns the total number of parseable items.
+        /// Returns a collection of all the parsable ids. Allows multiple ids.
         /// </summary>
         /// <returns></returns>
-        int TotalParseable { get; }
+        IList<string[]> Items { get; }
 
         /// <summary>
         /// Gets or sets the hots build number.
@@ -23,11 +23,10 @@ namespace HeroesData.Parser
         Localization Localization { get; set; }
 
         /// <summary>
-        /// Returns a collection of parsed data.
+        /// Returns the parsed game data from the given ids. Multiple ids may be used to identity one item.
         /// </summary>
-        /// <param name="localization"></param>
-        /// <remarks>Parsing is yielded.</remarks>
+        /// <param name="id">The ids of the item to parse.</param>
         /// <returns></returns>
-        IEnumerable<T> Parse(Localization localization);
+        T Parse(params string[] ids);
     }
 }

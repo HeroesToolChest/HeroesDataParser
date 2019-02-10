@@ -3,9 +3,9 @@ using Heroes.Models.AbilityTalents;
 using System;
 using System.Collections.Generic;
 
-namespace HeroesData.Parser.XmlData.HeroData.Overrides
+namespace HeroesData.Parser.Overrides.DataOverrides
 {
-    public class UnitOverride
+    public class UnitDataOverride : IDataOverride
     {
         /// <summary>
         /// Gets or sets the real name.

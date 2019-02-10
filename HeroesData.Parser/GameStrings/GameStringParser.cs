@@ -1,4 +1,5 @@
 ﻿using Heroes.Models;
+using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Exceptions;
 using System;
@@ -168,7 +169,7 @@ namespace HeroesData.Parser.GameStrings
                     mathPath = mathPath.Replace(scalingText, string.Empty);
                 }
 
-                double number = MathEval.CalculatePathEquation(mathPath.Trim('/'));
+                double number = HeroesMathEval.CalculatePathEquation(mathPath.Trim('/'));
 
                 if (precision.HasValue)
                     parts[i] = Math.Round(number, precision.Value).ToString();
@@ -238,7 +239,7 @@ namespace HeroesData.Parser.GameStrings
                 dRef = dRef.Replace(scalingText, string.Empty);
             }
 
-            double number = MathEval.CalculatePathEquation(dRef);
+            double number = HeroesMathEval.CalculatePathEquation(dRef);
 
             if (precision.HasValue)
                 return Math.Round(number, precision.Value);
