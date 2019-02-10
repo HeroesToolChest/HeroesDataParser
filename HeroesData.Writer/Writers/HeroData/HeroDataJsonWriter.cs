@@ -1,7 +1,7 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
-using HeroesData.Parser;
+using HeroesData.Helpers;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
