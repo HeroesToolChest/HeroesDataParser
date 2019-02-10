@@ -14,7 +14,6 @@ namespace HeroesData.ExtractorFiles
         private readonly SortedSet<string> Abilities = new SortedSet<string>();
         private readonly SortedSet<string> AbilityTalents = new SortedSet<string>();
 
-        private readonly string ImagesDirectory = "images";
         private readonly string PortraitsDirectory = "portraits";
         private readonly string AbilitiesDirectory = "abilities";
         private readonly string TalentsDirectory = "talents";
