@@ -6,6 +6,7 @@ using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.Overrides;
+using HeroesData.Parser.XmlData;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
