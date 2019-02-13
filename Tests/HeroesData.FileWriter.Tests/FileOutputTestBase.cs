@@ -113,8 +113,8 @@ namespace HeroesData.FileWriter.Tests
             FileOutput fileOutput = new FileOutput(GamestringsBuildNumber, options);
             fileOutput.Create(TestData, FileOutputType);
 
-            CompareFile(Path.Combine(BaseOutputDirectory, $"{BaseGamestringsDirectory}-{GamestringsBuildNumber}", $"{BaseGamestringsDirectory}_{GamestringsBuildNumber}_{Localization}.txt"), $"{BaseGamestringsDirectory}_11111.txt");
-            CompareFile(Path.Combine(DefaultOutputDirectory, $"{DefaultDataNameSuffix}_{GamestringsBuildNumber}_{Localization}.{FileOutputTypeFileName}"), $"{FileOutputType.ToString()}GameStringLocalized.{FileOutputTypeFileName}");
+            CompareFile(Path.Combine(BaseOutputDirectory, $"{BaseGamestringsDirectory}-{GamestringsBuildNumber}", $"{BaseGamestringsDirectory}_{GamestringsBuildNumber}_{LocalizationFileName}.txt"), $"{BaseGamestringsDirectory}_11111.txt");
+            CompareFile(Path.Combine(DefaultOutputDirectory, $"{DefaultDataNameSuffix}_{GamestringsBuildNumber}_{LocalizationFileName}.{FileOutputTypeFileName}"), $"{FileOutputType.ToString()}GameStringLocalized.{FileOutputTypeFileName}");
         }
 
         protected abstract void SetTestData();
