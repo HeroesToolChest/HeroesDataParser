@@ -200,7 +200,7 @@ namespace HeroesData.FileWriter.Tests
             FileOutput fileOutput = new FileOutput(options.DescriptionType, options);
             fileOutput.Create(TestData, FileOutputType);
 
-            CompareFile(GetFilePath(options.DescriptionType, false), $"{FileOutputType.ToString()}Output{options.DescriptionType}.{FileOutputTypeFileName}");
+            CompareFile(GetFilePath(options.DescriptionType, false), $"{FileOutputTypeFileName}output{options.DescriptionType}.{FileOutputTypeFileName}");
         }
     }
 }
