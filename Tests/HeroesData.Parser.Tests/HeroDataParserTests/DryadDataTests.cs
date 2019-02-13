@@ -1,10 +1,10 @@
 ﻿using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HeroesData.Parser.Tests.HeroParserTests
+namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
     [TestClass]
-    public class DryadDataTests : HeroDataBaseTest
+    public class DryadDataTests : HeroDataParserBaseTest
     {
         [TestMethod]
         public void AbilityMountNoCooldownUntilTalentUpgradeTest()

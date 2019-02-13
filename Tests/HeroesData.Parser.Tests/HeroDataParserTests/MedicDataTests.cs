@@ -1,10 +1,10 @@
 ﻿using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HeroesData.Parser.Tests.HeroParserTests
+namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
     [TestClass]
-    public class MedicDataTests : HeroDataBaseTest
+    public class MedicDataTests : HeroDataParserBaseTest
     {
         [TestMethod]
         public void AbilityTests()

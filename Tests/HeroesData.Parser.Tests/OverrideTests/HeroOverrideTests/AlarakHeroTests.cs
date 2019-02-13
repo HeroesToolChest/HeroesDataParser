@@ -1,4 +1,4 @@
-﻿using HeroesData.Parser.XmlData.HeroData.Overrides;
+﻿using HeroesData.Parser.Overrides.PropertyOverrides;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
@@ -18,76 +18,76 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void CUnitOverrideTest()
         {
-            Assert.IsFalse(HeroOverride.CUnitOverride.Enabled);
+            Assert.IsFalse(HeroDataOverride.CUnitOverride.Enabled);
         }
 
         [TestMethod]
         public void EnergyOverrideTest()
         {
-            Assert.IsTrue(HeroOverride.EnergyOverride.Enabled);
-            Assert.AreEqual(0, HeroOverride.EnergyOverride.Energy);
+            Assert.IsTrue(HeroDataOverride.EnergyOverride.Enabled);
+            Assert.AreEqual(0, HeroDataOverride.EnergyOverride.Energy);
         }
 
         [TestMethod]
         public void EnergyTypeOverrideTest()
         {
-            Assert.IsTrue(HeroOverride.EnergyTypeOverride.Enabled);
-            Assert.AreEqual("Ammo", HeroOverride.EnergyTypeOverride.EnergyType);
+            Assert.IsTrue(HeroDataOverride.EnergyTypeOverride.Enabled);
+            Assert.AreEqual("Ammo", HeroDataOverride.EnergyTypeOverride.EnergyType);
         }
 
         [TestMethod]
         public void IsAddedAbilityTest()
         {
-            Assert.IsTrue(HeroOverride.AddedAbilityByAbilityId.Count == 0);
+            Assert.IsTrue(HeroDataOverride.AddedAbilityByAbilityId.Count == 0);
         }
 
         [TestMethod]
         public void IsValidAbilityTest()
         {
-            Assert.IsTrue(HeroOverride.IsValidAbilityByAbilityId.Count == 0);
+            Assert.IsTrue(HeroDataOverride.IsValidAbilityByAbilityId.Count == 0);
         }
 
         [TestMethod]
         public void IsAddedButtonAbilityTest()
         {
-            Assert.IsTrue(HeroOverride.AddedAbilityByButtonId.Contains(("IceBlock", string.Empty)));
+            Assert.IsTrue(HeroDataOverride.AddedAbilityByButtonId.Contains(("IceBlock", string.Empty)));
         }
 
         [TestMethod]
         public void IsValidWeaponTest()
         {
-            Assert.IsTrue(HeroOverride.IsValidWeaponByWeaponId.Count == 0);
+            Assert.IsTrue(HeroDataOverride.IsValidWeaponByWeaponId.Count == 0);
         }
 
         [TestMethod]
         public void NameOverrideTest()
         {
-            Assert.IsFalse(HeroOverride.NameOverride.Enabled);
+            Assert.IsFalse(HeroDataOverride.NameOverride.Enabled);
         }
 
         [TestMethod]
         public void ShortNameOverrideTest()
         {
-            Assert.IsFalse(HeroOverride.ShortNameOverride.Enabled);
+            Assert.IsFalse(HeroDataOverride.ShortNameOverride.Enabled);
         }
 
         [TestMethod]
         public void HeroUnitTests()
         {
-            Assert.IsTrue(HeroOverride.HeroUnits.Count == 0);
+            Assert.IsTrue(HeroDataOverride.HeroUnits.Count == 0);
         }
 
         [TestMethod]
         public void ParentLinkedOverrideTests()
         {
-            Assert.IsTrue(HeroOverride.ParentLinkOverride.Enabled);
-            Assert.AreEqual(string.Empty, HeroOverride.ParentLinkOverride.ParentLink);
+            Assert.IsTrue(HeroDataOverride.ParentLinkOverride.Enabled);
+            Assert.AreEqual(string.Empty, HeroDataOverride.ParentLinkOverride.ParentLink);
         }
 
         [TestMethod]
         public void AbilityButtonNameOverrideTest()
         {
-            Assert.IsFalse(HeroOverride.ButtonNameOverrideByAbilityButtonId.ContainsKey(("SnapCollection", "SnapCollectionStore")));
+            Assert.IsFalse(HeroDataOverride.ButtonNameOverrideByAbilityButtonId.ContainsKey(("SnapCollection", "SnapCollectionStore")));
         }
     }
 }

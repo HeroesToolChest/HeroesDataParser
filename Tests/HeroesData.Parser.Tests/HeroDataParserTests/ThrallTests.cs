@@ -1,10 +1,10 @@
 ﻿using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HeroesData.Parser.Tests.HeroParserTests
+namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
     [TestClass]
-    public class ThrallTests : HeroDataBaseTest
+    public class ThrallTests : HeroDataParserBaseTest
     {
         [TestMethod]
         public void AbilityTalentLinkIdsTests()

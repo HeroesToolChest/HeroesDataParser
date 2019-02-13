@@ -56,7 +56,7 @@ namespace HeroesData.Parser
         }
 
         /// <summary>
-        /// Returns the parsed game data from the given ids. Multiple ids may be used to identity one item.
+        /// Returns the parsed game data from the given ids. Multiple ids may be used to identify one item.
         /// </summary>
         /// <param name="id">The ids of the item to parse.</param>
         /// <returns></returns>

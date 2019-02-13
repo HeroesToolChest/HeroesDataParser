@@ -9,20 +9,23 @@ namespace HeroesData.Parser.Overrides
     {
         private readonly GameData GameData;
         private readonly int? HotsBuild;
+        private readonly string OverrideFileNameSuffix;
 
         private readonly Dictionary<Type, IOverrideLoader> Overrides = new Dictionary<Type, IOverrideLoader>();
 
-        private XmlDataOverriders(GameData gameData)
+        private XmlDataOverriders(GameData gameData, string overrideFileNameSuffix)
         {
             GameData = gameData;
+            OverrideFileNameSuffix = overrideFileNameSuffix;
 
             Initialize();
         }
 
-        private XmlDataOverriders(GameData gameData, int? hotsBuild)
+        private XmlDataOverriders(GameData gameData, int? hotsBuild, string overrideFileNameSuffix)
         {
             GameData = gameData;
             HotsBuild = hotsBuild;
+            OverrideFileNameSuffix = overrideFileNameSuffix;
 
             Initialize();
         }
@@ -44,7 +47,29 @@ namespace HeroesData.Parser.Overrides
         /// <returns></returns>
         public static XmlDataOverriders Load(GameData gameData)
         {
-            return new XmlDataOverriders(gameData);
+            return new XmlDataOverriders(gameData, null);
+        }
+
+        /// <summary>
+        /// Sets and loads all the override data.
+        /// </summary>
+        /// <param name="gameData">GameData.</param>
+        /// <param name="overrideFileNameSuffix">Sets the suffix of the override file name to load. The suffix is the part after the first hypen. It does not have to include the file extension.</param>
+        /// <returns></returns>
+        public static XmlDataOverriders Load(GameData gameData, string overrideFileNameSuffix)
+        {
+            return new XmlDataOverriders(gameData, overrideFileNameSuffix);
+        }
+
+        /// <summary>
+        /// Sets and loads all the override data.
+        /// </summary>
+        /// <param name="gameData">GameData.</param>
+        /// <param name="hotsBuild">The override build version to load.</param>
+        /// <returns></returns>
+        public static XmlDataOverriders Load(GameData gameData, int? hotsBuild)
+        {
+            return new XmlDataOverriders(gameData, hotsBuild, null);
         }
 
         /// <summary>
@@ -52,10 +77,11 @@ namespace HeroesData.Parser.Overrides
         /// </summary>
         /// <param name="gameData">GameData.</param>
         /// <param name="hotsBuild">The override build version to load.</param>
+        /// <param name="overrideFileNameSuffix">Sets the suffix of the override file name to load. The suffix is the part after the first hypen. It does not have to include the file extension.</param>
         /// <returns></returns>
-        public static XmlDataOverriders Load(GameData gameData, int? hotsBuild)
+        public static XmlDataOverriders Load(GameData gameData, int? hotsBuild, string overrideFileNameSuffix)
         {
-            return new XmlDataOverriders(gameData, hotsBuild);
+            return new XmlDataOverriders(gameData, hotsBuild, overrideFileNameSuffix);
         }
 
         /// <summary>
@@ -80,14 +106,13 @@ namespace HeroesData.Parser.Overrides
         private void SetDataOverrides()
         {
             Overrides.Add(typeof(HeroDataParser), new HeroOverrideLoader(GameData, HotsBuild));
-            Overrides.Add(typeof(MatchAwardParser), new MatchAwardOverrideLoader(GameData, HotsBuild));
         }
 
         private void LoadOverrides()
         {
             foreach (var overrider in Overrides)
             {
-                overrider.Value.Load();
+                overrider.Value.Load(OverrideFileNameSuffix);
             }
         }
     }

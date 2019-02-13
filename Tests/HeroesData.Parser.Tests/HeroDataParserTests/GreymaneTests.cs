@@ -1,10 +1,10 @@
 ﻿using Heroes.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HeroesData.Parser.Tests.HeroParserTests
+namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
     [TestClass]
-    public class GreymaneTests : HeroDataBaseTest
+    public class GreymaneTests : HeroDataParserBaseTest
     {
         [TestMethod]
         public void WeaponTests()

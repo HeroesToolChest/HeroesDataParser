@@ -20,19 +20,33 @@ namespace HeroesData.Parser.Overrides
             HotsBuild = hotsBuild;
         }
 
+        /// <summary>
+        /// The loaded override file name (includes path).
+        /// </summary>
         public string LoadedOverrideFileName { get; private set; }
 
-        protected Dictionary<string, T> DataOverridesById { get; } = new Dictionary<string, T>();
+        /// <summary>
+        /// Returns the amount of data overrides loaded from override file.
+        /// </summary>
+        public int Count => DataOverridesById.Count;
+
+        protected Dictionary<string, T> DataOverridesById { get; private set; }
         protected string DataOverridesDirectoryPath { get; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "dataoverrides");
 
         protected GameData GameData { get; }
         protected int? HotsBuild { get; }
 
-        protected virtual string OverrideFileName { get; } = "overrides.xml";
+        protected virtual string OverrideFileName { get; private set; } = "overrides.xml";
         protected abstract string OverrideElementName { get; }
 
+        /// <summary>
+        /// Loads the override file.
+        /// </summary>
+        /// <exception cref="FileNotFoundException"></exception>
         public void Load()
         {
+            DataOverridesById = new Dictionary<string, T>();
+
             LoadBuildNumberOverrideFiles();
 
             XDocument dataOverrideDocument = LoadOverrideFile();
@@ -45,12 +59,33 @@ namespace HeroesData.Parser.Overrides
         }
 
         /// <summary>
+        /// Loads the override file.
+        /// </summary>
+        /// <param name="overrideFileNameSuffix">Sets the suffix of the override file name to load. The suffix is the part after the first hypen. It does not have to include the file extension.</param>
+        /// <exception cref="FileNotFoundException"></exception>
+        public void Load(string overrideFileNameSuffix)
+        {
+            if (!string.IsNullOrEmpty(overrideFileNameSuffix))
+            {
+                if (!Path.HasExtension(overrideFileNameSuffix))
+                    overrideFileNameSuffix = overrideFileNameSuffix + ".xml";
+
+                OverrideFileName = overrideFileNameSuffix;
+            }
+
+            Load();
+        }
+
+        /// <summary>
         /// Gets an override object from a given id. Returns null if none found.
         /// </summary>
         /// <param name="id">The id the override object.</param>
         /// <returns></returns>
         public T GetOverride(string id)
         {
+            if (DataOverridesById == null)
+                throw new NullReferenceException("The Load() method needs to be called before this method can be used.");
+
             if (DataOverridesById.TryGetValue(id, out T overrideData))
                 return overrideData;
             else
@@ -82,7 +117,7 @@ namespace HeroesData.Parser.Overrides
                         }
                         else // load next lowest
                         {
-                            LoadedOverrideFileName = OverrideFileNamesByBuild.Aggregate((x, y) => Math.Abs(x.Key - HotsBuild.Value) < Math.Abs(y.Key - HotsBuild.Value) ? x : y).Value;
+                            LoadedOverrideFileName = OverrideFileNamesByBuild.Aggregate((x, y) => Math.Abs(x.Key - HotsBuild.Value) <= Math.Abs(y.Key - HotsBuild.Value) ? x : y).Value;
                         }
 
                         return XDocument.Load(LoadedOverrideFileName);
@@ -92,12 +127,12 @@ namespace HeroesData.Parser.Overrides
                 // default load
                 if (File.Exists(Path.Combine(DataOverridesDirectoryPath, OverrideFileName)))
                 {
-                    LoadedOverrideFileName = OverrideFileName;
+                    LoadedOverrideFileName = Path.Combine(DataOverridesDirectoryPath, OverrideFileName);
 
                     return XDocument.Load(Path.Combine(DataOverridesDirectoryPath, OverrideFileName));
                 }
 
-                return null;
+                throw new FileNotFoundException();
             }
             catch (FileNotFoundException)
             {
