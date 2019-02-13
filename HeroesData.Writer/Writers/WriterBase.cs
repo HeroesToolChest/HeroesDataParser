@@ -213,7 +213,7 @@ namespace HeroesData.FileWriter.Writers
                     JObject jObject = new JObject(MainElement(item));
 
                     // has formatting
-                    using (StreamWriter file = File.CreateText(Path.Combine(SplitDirectory, DataName, $"{item.ShortName}.{FileOutputType.ToString().ToLowerInvariant()}")))
+                    using (StreamWriter file = File.CreateText(Path.Combine(SplitDirectory, DataName, $"{item.ShortName.ToLower()}.{FileOutputType.ToString().ToLowerInvariant()}")))
                     using (JsonTextWriter writer = new JsonTextWriter(file))
                     {
                         writer.Formatting = Formatting.Indented;
@@ -223,7 +223,7 @@ namespace HeroesData.FileWriter.Writers
                     if (IsMinifiedFiles)
                     {
                         // no formatting
-                        using (StreamWriter file = File.CreateText(Path.Combine(SplitMinifiedDirectory, DataName, $"{item.ShortName}.min.{FileOutputType.ToString().ToLowerInvariant()}")))
+                        using (StreamWriter file = File.CreateText(Path.Combine(SplitMinifiedDirectory, DataName, $"{item.ShortName.ToLower()}.min.{FileOutputType.ToString().ToLowerInvariant()}")))
                         using (JsonTextWriter writer = new JsonTextWriter(file))
                         {
                             writer.Formatting = Formatting.None;
@@ -238,11 +238,11 @@ namespace HeroesData.FileWriter.Writers
                 {
                     XDocument xmlDoc = new XDocument(new XElement(RootNodeName, MainElement(item)));
 
-                    xmlDoc.Save(Path.Combine(SplitDirectory, DataName, $"{item.ShortName}.{FileOutputType.ToString().ToLowerInvariant()}"));
+                    xmlDoc.Save(Path.Combine(SplitDirectory, DataName, $"{item.ShortName.ToLower()}.{FileOutputType.ToString().ToLowerInvariant()}"));
 
                     if (IsMinifiedFiles)
                     {
-                        xmlDoc.Save(Path.Combine(SplitMinifiedDirectory, DataName, $"{item.ShortName}.min.{FileOutputType.ToString().ToLowerInvariant()}"), SaveOptions.DisableFormatting);
+                        xmlDoc.Save(Path.Combine(SplitMinifiedDirectory, DataName, $"{item.ShortName.ToLower()}.min.{FileOutputType.ToString().ToLowerInvariant()}"), SaveOptions.DisableFormatting);
                     }
                 }
             }
