@@ -28,8 +28,8 @@ namespace HeroesData.FileWriter.Tests.HeroData
             string directory = GetSplitFilePath(null, false);
             Assert.IsTrue(Directory.Exists(directory));
 
-            CompareFile(Path.Combine(directory, $"Alarak.{FileOutputTypeFileName}"), $"Alarak.{FileOutputTypeFileName}");
-            CompareFile(Path.Combine(directory, $"Alexstrasza.{FileOutputTypeFileName}"), $"Alexstrasza.{FileOutputTypeFileName}");
+            CompareFile(Path.Combine(directory, $"alarak.{FileOutputTypeFileName}"), $"alarak.{FileOutputTypeFileName}");
+            CompareFile(Path.Combine(directory, $"alexstrasza.{FileOutputTypeFileName}"), $"alexstrasza.{FileOutputTypeFileName}");
         }
 
         public virtual void WriterFileSplitHasBuildNumberTest()
@@ -45,8 +45,8 @@ namespace HeroesData.FileWriter.Tests.HeroData
             string directory = GetSplitFilePath(BuildNumber, false);
             Assert.IsTrue(Directory.Exists(directory));
 
-            CompareFile(Path.Combine(directory, $"Alarak.{FileOutputTypeFileName}"), $"Alarak.{FileOutputTypeFileName}");
-            CompareFile(Path.Combine(directory, $"Alexstrasza.{FileOutputTypeFileName}"), $"Alexstrasza.{FileOutputTypeFileName}");
+            CompareFile(Path.Combine(directory, $"alarak.{FileOutputTypeFileName}"), $"alarak.{FileOutputTypeFileName}");
+            CompareFile(Path.Combine(directory, $"alexstrasza.{FileOutputTypeFileName}"), $"alexstrasza.{FileOutputTypeFileName}");
         }
 
         public virtual void WriterFileSplitMinifiedHasBuildNumberTest()
@@ -63,8 +63,8 @@ namespace HeroesData.FileWriter.Tests.HeroData
             string directory = GetSplitFilePath(SplitMinifiedBuildNumber, true);
             Assert.IsTrue(Directory.Exists(directory));
 
-            Assert.IsTrue(File.Exists(Path.Combine(directory, $"Alarak.min.{FileOutputTypeFileName}")));
-            Assert.IsTrue(File.Exists(Path.Combine(directory, $"Alexstrasza.min.{FileOutputTypeFileName}")));
+            Assert.IsTrue(File.Exists(Path.Combine(directory, $"alarak.min.{FileOutputTypeFileName}")));
+            Assert.IsTrue(File.Exists(Path.Combine(directory, $"alexstrasza.min.{FileOutputTypeFileName}")));
         }
 
         protected override void SetTestData()
