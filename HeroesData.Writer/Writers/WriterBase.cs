@@ -18,7 +18,7 @@ namespace HeroesData.FileWriter.Writers
 
         protected WriterBase(string dataName, FileOutputType fileOutputType)
         {
-            DataName = dataName;
+            DataName = dataName.ToLowerInvariant();
             FileOutputType = fileOutputType;
         }
 

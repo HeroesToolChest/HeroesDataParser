@@ -10,7 +10,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         where TU : class
     {
         protected HeroDataWriter(FileOutputType fileOutputType)
-            : base(nameof(HeroData).ToLowerInvariant(), fileOutputType)
+            : base(nameof(HeroData), fileOutputType)
         {
         }
 
