@@ -14,7 +14,7 @@ namespace HeroesData.FileWriter.Tests
         {
             SetTestData();
 
-            DefaultDataNameSuffix = dataName.ToLowerInvariant();
+            DefaultDataNameSuffix = dataName.ToLower();
             OutputTestOutputDirectory = Path.Combine(dataName, BaseTestOutputDirectory);
         }
 
@@ -26,8 +26,8 @@ namespace HeroesData.FileWriter.Tests
         protected string BaseGamestringsDirectory => "gamestrings";
         protected string BaseSplitFileSuffix => "splitfiles";
         protected string BaseTestOutputDirectory => "OutputFiles";
-        protected string FileOutputTypeFileName => FileOutputType.ToString().ToLowerInvariant();
-        protected string LocalizationFileName => Localization.ToString().ToLowerInvariant();
+        protected string FileOutputTypeFileName => FileOutputType.ToString().ToLower();
+        protected string LocalizationFileName => Localization.ToString().ToLower();
         protected string DefaultOutputDirectory => Path.Combine(BaseOutputDirectory, FileOutputTypeFileName);
         protected Localization Localization => Localization.ENUS;
 
