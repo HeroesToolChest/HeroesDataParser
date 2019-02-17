@@ -9,7 +9,7 @@ namespace HeroesData.FileWriter
         /// <summary>
         /// Gets or sets the tooltip description type.
         /// </summary>
-        public int? DescriptionType { get; set; } = null;
+        public DescriptionType? DescriptionType { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the file split option.

@@ -194,13 +194,13 @@ namespace HeroesData.FileWriter.Tests
         {
             FileOutputOptions options = new FileOutputOptions()
             {
-                DescriptionType = descriptionType,
+                DescriptionType = (DescriptionType)descriptionType,
             };
 
-            FileOutput fileOutput = new FileOutput(options.DescriptionType, options);
+            FileOutput fileOutput = new FileOutput(descriptionType, options);
             fileOutput.Create(TestData, FileOutputType);
 
-            CompareFile(GetFilePath(options.DescriptionType, false), $"{FileOutputTypeFileName}output{options.DescriptionType}.{FileOutputTypeFileName}");
+            CompareFile(GetFilePath(descriptionType, false), $"{FileOutputTypeFileName}output{descriptionType}.{FileOutputTypeFileName}");
         }
     }
 }

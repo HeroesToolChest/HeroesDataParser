@@ -1,4 +1,6 @@
-﻿using HeroesData.FileWriter.Settings;
+﻿using Heroes.Models;
+using HeroesData.FileWriter.Settings;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
@@ -59,19 +61,19 @@ namespace HeroesData.FileWriter
                 fileSettings.IsFileSplit = false;
 
             string description = writerElement.Element("Description")?.Value;
-            if (int.TryParse(description, out int descriptionValue))
+            if (Enum.TryParse(description, out DescriptionType descriptionValue))
                 fileSettings.DescriptionType = descriptionValue;
             else
                 fileSettings.DescriptionType = 0;
 
             string shortTooltip = writerElement.Element("ShortTooltip")?.Value;
-            if (int.TryParse(shortTooltip, out int shortTooltipValue))
+            if (Enum.TryParse(shortTooltip, out DescriptionType shortTooltipValue))
                 fileSettings.DescriptionType = shortTooltipValue;
             else
                 fileSettings.DescriptionType = 0;
 
             string fullTooltip = writerElement.Element("FullTooltip")?.Value;
-            if (int.TryParse(fullTooltip, out int fullTooltipValue))
+            if (Enum.TryParse(fullTooltip, out DescriptionType fullTooltipValue))
                 fileSettings.DescriptionType = fullTooltipValue;
             else
                 fileSettings.DescriptionType = 0;

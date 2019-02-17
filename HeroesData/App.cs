@@ -49,7 +49,7 @@ namespace HeroesData
         public static int? HotsBuild { get; set; } = null;
         public static int? OverrideBuild { get; set; } = null;
         public static int MaxParallelism { get; set; } = -1;
-        public static int DescriptionType { get; set; } = 0;
+        public static DescriptionType DescriptionType { get; set; } = 0;
         public static string StoragePath { get; set; } = Environment.CurrentDirectory;
         public static string OutputDirectory { get; set; } = string.Empty;
 

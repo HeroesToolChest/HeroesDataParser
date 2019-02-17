@@ -53,8 +53,8 @@ namespace HeroesData
                 if (setMaxDegreeParallismOption.HasValue() && int.TryParse(setMaxDegreeParallismOption.Value(), out int result))
                     App.MaxParallelism = result;
 
-                if (setDescriptionOption.HasValue() && int.TryParse(setDescriptionOption.Value(), out result))
-                    App.DescriptionType = result;
+                if (setDescriptionOption.HasValue() && Enum.TryParse(setDescriptionOption.Value(), out DescriptionType resultType))
+                    App.DescriptionType = resultType;
 
                 if (setBuildOption.HasValue() && int.TryParse(setBuildOption.Value(), out result))
                     App.OverrideBuild = result;

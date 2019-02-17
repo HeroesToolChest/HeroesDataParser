@@ -1,9 +1,11 @@
-﻿namespace HeroesData.FileWriter.Settings
+﻿using Heroes.Models;
+
+namespace HeroesData.FileWriter.Settings
 {
     internal class FileSettings
     {
         public bool IsFileSplit { get; set; } = false;
-        public int DescriptionType { get; set; } = 5;
+        public DescriptionType DescriptionType { get; set; } = DescriptionType.ColoredText;
         public string ImageExtension { get; set; } = ".png";
         public bool IncludeWeapons { get; set; } = true;
         public bool IncludeAbilities { get; set; } = true;

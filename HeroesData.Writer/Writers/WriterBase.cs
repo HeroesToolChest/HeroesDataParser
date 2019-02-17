@@ -104,22 +104,22 @@ namespace HeroesData.FileWriter.Writers
 
         protected abstract TType MainElement(T t);
 
-        protected string GetTooltip(TooltipDescription tooltipDescription, int setting)
+        protected string GetTooltip(TooltipDescription tooltipDescription, DescriptionType descriptionType)
         {
             if (tooltipDescription == null)
                 return string.Empty;
 
-            if (setting == 0)
+            if (descriptionType == DescriptionType.RawDescription)
                 return tooltipDescription.RawDescription;
-            else if (setting == 1)
+            else if (descriptionType == DescriptionType.PlainText)
                 return tooltipDescription.PlainText;
-            else if (setting == 2)
+            else if (descriptionType == DescriptionType.PlainTextWithNewlines)
                 return tooltipDescription.PlainTextWithNewlines;
-            else if (setting == 3)
+            else if (descriptionType == DescriptionType.PlainTextWithScaling)
                 return tooltipDescription.PlainTextWithScaling;
-            else if (setting == 4)
+            else if (descriptionType == DescriptionType.PlainTextWithScalingWithNewlines)
                 return tooltipDescription.PlainTextWithScalingWithNewlines;
-            else if (setting == 6)
+            else if (descriptionType == DescriptionType.ColoredTextWithScaling)
                 return tooltipDescription.ColoredTextWithScaling;
             else
                 return tooltipDescription.ColoredText;
