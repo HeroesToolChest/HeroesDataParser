@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "HeroesData": {
-      "commandName": "Project",
-      "commandLineArgs": "-s \"F:\\heroes\\heroes_71449\\mods\""
-    }
-  }
-}
