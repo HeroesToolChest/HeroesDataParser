@@ -8,11 +8,11 @@ using System.Reflection;
 
 namespace HeroesData
 {
-    internal class Program
+    public class Program
     {
         private static readonly string AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-        internal static void Main(string[] args)
+        public static void Main(string[] args)
         {
             App app = new App();
             app.SetCurrentCulture();
@@ -128,7 +128,7 @@ namespace HeroesData
                 return 0;
             });
 
-            if (args.Length > 0)
+            if (args != null && args.Length > 0)
             {
                 try
                 {

@@ -34,8 +34,8 @@ namespace HeroesData
         public static string AssemblyPath { get; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static bool Defaults { get; set; } = true;
-        public static bool CreateXml { get; set; } = true;
-        public static bool CreateJson { get; set; } = true;
+        public static bool CreateXml { get; set; } = false;
+        public static bool CreateJson { get; set; } = false;
         public static bool ShowValidationWarnings { get; set; } = false;
         public static bool ExtractImagePortraits { get; set; } = false;
         public static bool ExtractImageTalents { get; set; } = false;
@@ -232,6 +232,7 @@ namespace HeroesData
 
         private void PreInitialize()
         {
+            OutputTypeCheck();
             DetectStoragePathType();
             Console.Write($"Localization(s): ");
             Localizations.ForEach(locale => { Console.Write($"{locale.ToString().ToLower()} "); });
@@ -391,6 +392,21 @@ namespace HeroesData
             Console.ResetColor();
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
+        }
+
+        private void OutputTypeCheck()
+        {
+            if (!CreateJson && !CreateXml)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("******************************************************");
+                Console.WriteLine("*** WARNING - No output file types have been set!  ***");
+                Console.WriteLine("*** Specify at least one of the following options: ***");
+                Console.WriteLine("*** --json --xml                                   ***");
+                Console.WriteLine("******************************************************");
+                Console.WriteLine();
+                Console.ResetColor();
+            }
         }
 
         /// <summary>
