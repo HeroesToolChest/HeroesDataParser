@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HeroesData.Parser
 {
-    public interface IParser<T>
+    public interface IParser<T, TU>
         where T : IExtractable
     {
         /// <summary>
@@ -28,5 +28,11 @@ namespace HeroesData.Parser
         /// <param name="id">The ids of the item to parse.</param>
         /// <returns></returns>
         T Parse(params string[] ids);
+
+        /// <summary>
+        /// Gets a new instance of the object.
+        /// </summary>
+        /// <returns></returns>
+        TU GetInstance();
     }
 }

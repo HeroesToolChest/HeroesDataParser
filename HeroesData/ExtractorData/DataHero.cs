@@ -45,7 +45,7 @@ namespace HeroesData.ExtractorData
             {
                 try
                 {
-                    ParsedData.GetOrAdd(hero[0], Parser.Parse(hero));
+                    ParsedData.GetOrAdd(hero[0], Parser.GetInstance().Parse(hero));
                 }
                 catch (Exception ex)
                 {

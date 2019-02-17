@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser
 {
-    public class HeroDataParser : ParserBase, IParser<Hero>
+    public class HeroDataParser : ParserBase, IParser<Hero, HeroDataParser>
     {
         private readonly DefaultData DefaultData;
         private readonly HeroOverrideLoader HeroOverrideLoader;
@@ -137,6 +137,11 @@ namespace HeroesData.Parser
             DefaultData.DefaultSummonMountAbilityId = mountAbilties[0].ReferenceNameId;
 
             return StormHeroBase;
+        }
+
+        public HeroDataParser GetInstance()
+        {
+            return new HeroDataParser(GameData, DefaultData, HeroOverrideLoader);
         }
 
         private void SetDefaultValues(Hero hero)

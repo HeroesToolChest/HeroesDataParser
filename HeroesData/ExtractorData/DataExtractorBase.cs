@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace HeroesData.ExtractorData
 {
-    public abstract class DataExtractorBase<T, TParsable>
+    public abstract class DataExtractorBase<T, TParser>
         where T : IExtractable
-        where TParsable : IParser<T>
+        where TParser : IParser<T, TParser>
     {
         private string ValidationWarningId = "Unknown";
         private HashSet<string> ValidationWarnings = new HashSet<string>();
 
-        public DataExtractorBase(TParsable parser)
+        public DataExtractorBase(TParser parser)
         {
             Parser = parser;
         }
@@ -46,7 +46,7 @@ namespace HeroesData.ExtractorData
 
         protected ConcurrentDictionary<string, T> ParsedData { get; } = new ConcurrentDictionary<string, T>();
 
-        protected TParsable Parser { get; }
+        protected TParser Parser { get; }
 
         /// <summary>
         /// Parses the items and returns a collection in ascending order.
@@ -71,7 +71,7 @@ namespace HeroesData.ExtractorData
             {
                 Parallel.ForEach(items, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, item =>
                 {
-                    ParsedData.GetOrAdd(string.Join(" ", item), Parser.Parse(item));
+                    ParsedData.GetOrAdd(string.Join(" ", item), Parser.GetInstance().Parse(item));
                     Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {items.Count} total {Name}");
                 });
             }

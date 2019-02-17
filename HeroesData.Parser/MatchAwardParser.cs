@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser
 {
-    public class MatchAwardParser : ParserBase, IParser<MatchAward>
+    public class MatchAwardParser : ParserBase, IParser<MatchAward, MatchAwardParser>
     {
         private readonly string MVPGameLinkId = "EndOfMatchAwardMVPBoolean";
 
@@ -121,6 +121,11 @@ namespace HeroesData.Parser
                 matchAward.MVPScreenImageFileNameOriginal = "storm_ui_mvp_icon.dds";
 
             return matchAward;
+        }
+
+        public MatchAwardParser GetInstance()
+        {
+            return new MatchAwardParser(GameData);
         }
 
         private string GetNameFromGenderRule(string name)

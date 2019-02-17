@@ -3,7 +3,7 @@ using HeroesData.Loader.XmlGameData;
 
 namespace HeroesData.Parser
 {
-    public class ParserBase
+    public abstract class ParserBase
     {
         public ParserBase(GameData gameData)
         {
