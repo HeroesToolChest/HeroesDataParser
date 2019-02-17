@@ -18,7 +18,7 @@ namespace HeroesData.ExtractorFiles
 
         protected CASCHandler CASCHandler { get; }
         protected StorageMode StorageMode { get; }
-        protected string ExtractDirectory { get; } = Path.Combine(App.OutputDirectory, "image");
+        protected string ExtractDirectory { get; } = Path.Combine(App.OutputDirectory, "images");
         protected string CASCTexturesPath { get; } = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "assets", "textures");
 
         public void ExtractFiles(IEnumerable<T> data)
