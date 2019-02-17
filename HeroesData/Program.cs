@@ -68,21 +68,24 @@ namespace HeroesData
                 {
                     if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ALL"))
                     {
-                        App.ExtractImagePortraits = true;
-                        App.ExtractImageAbilityTalents = true;
-                        App.ExtractMatchAwards = true;
+                        App.ExtractFileOption = ExtractFileOption.Portraits | ExtractFileOption.AbilityTalents | ExtractFileOption.MatchAwards;
+                    }
+                    else
+                    {
+                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "PORTRAITS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "PORTRAIT"))
+                            App.ExtractFileOption |= ExtractFileOption.Portraits;
+                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "TALENTS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "TALENT"))
+                            App.ExtractFileOption |= ExtractFileOption.Talents;
+                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITIES") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITY"))
+                            App.ExtractFileOption |= ExtractFileOption.Abilities;
+                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITYTALENTS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITYTALENT"))
+                            App.ExtractFileOption |= ExtractFileOption.AbilityTalents;
+                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "AWARDS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "MATCHAWARDS"))
+                            App.ExtractFileOption |= ExtractFileOption.MatchAwards;
                     }
 
-                    if (extractIconsOption.Values.Exists(x => x.ToUpper() == "PORTRAITS"))
-                        App.ExtractImagePortraits = true;
-                    if (extractIconsOption.Values.Exists(x => x.ToUpper() == "TALENTS"))
-                        App.ExtractImageTalents = true;
-                    if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITIES"))
-                        App.ExtractImageAbilities = true;
-                    if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITYTALENTS"))
-                        App.ExtractImageAbilityTalents = true;
-                    if (extractIconsOption.Values.Exists(x => x.ToUpper() == "AWARDS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "MATCHAWARDS"))
-                        App.ExtractMatchAwards = true;
+                    if (App.ExtractFileOption != ExtractFileOption.None)
+                        App.ExtractFileOption &= ~ExtractFileOption.None;
                 }
 
                 if (setGameStringLocalizations.HasValue())

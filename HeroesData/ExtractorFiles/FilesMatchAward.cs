@@ -29,7 +29,7 @@ namespace HeroesData.ExtractorFiles
 
         protected override void ExtractFiles()
         {
-            if (App.ExtractMatchAwards)
+            if (App.ExtractFileOption.HasFlag(ExtractFileOption.MatchAwards))
                 ExtractMatchAwardIcons();
         }
 

@@ -47,18 +47,18 @@ namespace HeroesData.ExtractorFiles
 
         protected override void ExtractFiles()
         {
-            if (App.ExtractImagePortraits)
+            if (App.ExtractFileOption.HasFlag(ExtractFileOption.Portraits))
                 ExtractPortraits();
 
-            if (App.ExtractImageAbilityTalents)
+            if (App.ExtractFileOption.HasFlag(ExtractFileOption.AbilityTalents))
             {
                 ExtractAbilityTalentIcons();
             }
             else
             {
-                if (App.ExtractImageTalents)
+                if (App.ExtractFileOption.HasFlag(ExtractFileOption.Talents))
                     ExtractTalentIcons();
-                if (App.ExtractImageAbilities)
+                if (App.ExtractFileOption.HasFlag(ExtractFileOption.Abilities))
                     ExtractAbilityIcons();
             }
         }

@@ -37,11 +37,7 @@ namespace HeroesData
         public static bool CreateXml { get; set; } = false;
         public static bool CreateJson { get; set; } = false;
         public static bool ShowValidationWarnings { get; set; } = false;
-        public static bool ExtractImagePortraits { get; set; } = false;
-        public static bool ExtractImageTalents { get; set; } = false;
-        public static bool ExtractImageAbilities { get; set; } = false;
-        public static bool ExtractImageAbilityTalents { get; set; } = false;
-        public static bool ExtractMatchAwards { get; set; } = true;
+        public static ExtractFileOption ExtractFileOption { get; set; } = ExtractFileOption.None;
         public static bool IsFileSplit { get; set; } = false;
         public static bool IsLocalizedText { get; set; } = false;
         public static bool ExcludeAwardParsing { get; set; } = false;
@@ -178,13 +174,16 @@ namespace HeroesData
 
                         Console.WriteLine();
 
-                        Console.WriteLine("Extracting files...");
-                        DataProcessor((parser) =>
+                        if (ExtractFileOption != ExtractFileOption.None)
                         {
-                            parser?.Extract(parser.ParsedItems);
-                        });
+                            Console.WriteLine("Extracting files...");
+                            DataProcessor((parser) =>
+                            {
+                                parser?.Extract(parser.ParsedItems);
+                            });
 
-                        Console.WriteLine();
+                            Console.WriteLine();
+                        }
 
                         totalLocaleSuccess++;
                     }
