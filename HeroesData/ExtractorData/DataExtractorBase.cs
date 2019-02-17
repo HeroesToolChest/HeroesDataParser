@@ -39,14 +39,14 @@ namespace HeroesData.ExtractorData
         /// </summary>
         public int WarningsIgnoredCount { get; private set; } = 0;
 
-        protected ConcurrentDictionary<string, T> ParsedData { get; } = new ConcurrentDictionary<string, T>();
-
-        protected TParsable Parser { get; }
-
         /// <summary>
         /// Type of data that is being parsed.
         /// </summary>
-        protected abstract string Name { get; }
+        public abstract string Name { get; }
+
+        protected ConcurrentDictionary<string, T> ParsedData { get; } = new ConcurrentDictionary<string, T>();
+
+        protected TParsable Parser { get; }
 
         public virtual IEnumerable<T> Parse(Localization localization)
         {
@@ -136,8 +136,19 @@ namespace HeroesData.ExtractorData
                 }
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write($"{Warnings.Count} warnings");
+                Console.Write($"[{Name}] {Warnings.Count} warnings");
             }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write($"[{Name}] {Warnings.Count} warnings");
+            }
+
+            if (WarningsIgnoredCount > 0)
+                Console.Write($" ({WarningsIgnoredCount} ignored)");
+
+            Console.WriteLine();
+            Console.ResetColor();
         }
 
         protected abstract void Validation(T t);

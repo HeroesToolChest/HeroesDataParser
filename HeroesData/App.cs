@@ -111,8 +111,6 @@ namespace HeroesData
 
                 foreach (Localization localization in Localizations)
                 {
-                    IEnumerable<IExtractable> items = null;
-
                     options.Localization = localization;
 
                     try
@@ -131,44 +129,69 @@ namespace HeroesData
                         // parse data
                         DataProcessor((parser) =>
                         {
-                            items = parser.Parse(localization);
+                            parser.ParsedItems = parser.Parse(localization);
                         });
 
                         // validate
+                        Console.WriteLine("Validating data...");
                         DataProcessor((parser) =>
                         {
                             parser.Validate(localization);
                         });
+
+                        Console.WriteLine();
 
                         // write
                         DataProcessor((parser) =>
                         {
                             if (CreateJson)
                             {
-                                Console.Write("Writing json file(s)...");
-                                fileOutput.Create(items, FileOutputType.Json);
-                                Console.WriteLine("Done.");
+                                Console.Write($"[{parser.Name}] Writing json file(s)...");
+
+                                if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Json))
+                                {
+                                    Console.WriteLine("Done.");
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Failed.");
+                                }
                             }
 
                             if (CreateXml)
                             {
-                                Console.Write("Writing xml file(s)...");
-                                fileOutput.Create(items, FileOutputType.Xml);
-                                Console.WriteLine("Done.");
+                                Console.Write($"[{parser.Name}] Writing xml file(s)...");
+                                if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Xml))
+                                {
+                                    Console.WriteLine("Done.");
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Failed.");
+                                }
                             }
+
+                            Console.ResetColor();
                         });
 
+                        Console.WriteLine();
+
+                        Console.WriteLine("Extracting files...");
                         DataProcessor((parser) =>
                         {
-                            parser?.Extract(items);
+                            parser?.Extract(parser.ParsedItems);
                         });
+
+                        Console.WriteLine();
 
                         totalLocaleSuccess++;
                     }
                     catch (Exception ex)
                     {
                         // catch and display error and continue on
-                        Task.Run(() => WriteExceptionLog("Error", ex));
+                        WriteExceptionLog("Error", ex);
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(ex.Message);
                         Console.WriteLine();
@@ -188,7 +211,7 @@ namespace HeroesData
             }
             catch (Exception ex) // catch everything
             {
-                Task.Run(() => WriteExceptionLog("Error", ex));
+                WriteExceptionLog("Error", ex);
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine();
@@ -237,7 +260,7 @@ namespace HeroesData
                 }
                 catch (Exception ex)
                 {
-                    Task.Run(() => WriteExceptionLog("hots", ex));
+                    WriteExceptionLog("hots", ex);
                     throw new CASCException("Error: Could not load the Heroes of the Storm data. Check if game is installed correctly.");
                 }
 
@@ -297,9 +320,9 @@ namespace HeroesData
             else
                 XmlDataOverriders = XmlDataOverriders.Load(GameData);
 
-            foreach (string overrideFileNames in XmlDataOverriders.LoadedFileNames)
+            foreach (string overrideFileName in XmlDataOverriders.LoadedFileNames)
             {
-                if (int.TryParse(Path.GetFileNameWithoutExtension(overrideFileNames).Split('_').LastOrDefault(), out int loadedOverrideBuild))
+                if (int.TryParse(Path.GetFileNameWithoutExtension(overrideFileName).Split('_').LastOrDefault(), out int loadedOverrideBuild))
                 {
                     if ((StorageMode == StorageMode.Mods && HotsBuild.HasValue && HotsBuild.Value != loadedOverrideBuild) ||
                         (StorageMode == StorageMode.CASC && HotsBuild.HasValue && HotsBuild.Value != loadedOverrideBuild))
@@ -312,7 +335,7 @@ namespace HeroesData
                     Console.ForegroundColor = ConsoleColor.Cyan;
                 }
 
-                Console.WriteLine($"Loaded {overrideFileNames}");
+                Console.WriteLine($"Loaded {Path.GetFileName(overrideFileName)}");
                 Console.ResetColor();
             }
 
@@ -509,7 +532,7 @@ namespace HeroesData
             }
             catch (Exception ex) when (ex is DirectoryNotFoundException || ex is FileNotFoundException)
             {
-                Task.Run(() => WriteExceptionLog($"gamestrings_{localization.ToString().ToLower()}", ex));
+                WriteExceptionLog($"gamestrings_{localization.ToString().ToLower()}", ex);
 
                 throw new Exception("Error: Gamestrings could not be loaded. Check if localization is installed in the game client.");
             }
@@ -568,6 +591,7 @@ namespace HeroesData
             DataProcessors.Add(new DataProcessor()
             {
                 IsEnabled = true,
+                Name = dataHero.Name,
                 Parse = (localization) => dataHero.Parse(localization),
                 Validate = (localization) => dataHero.Validate(localization),
                 Extract = (data) => filesHero.ExtractFiles(data),
@@ -575,6 +599,7 @@ namespace HeroesData
             DataProcessors.Add(new DataProcessor()
             {
                 IsEnabled = true,
+                Name = dataMatchAward.Name,
                 Parse = (localization) => dataMatchAward.Parse(localization),
                 Validate = (localization) => dataMatchAward.Validate(localization),
                 Extract = (data) => filesMatchAward.ExtractFiles(data),

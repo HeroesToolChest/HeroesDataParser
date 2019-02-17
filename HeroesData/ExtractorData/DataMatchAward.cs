@@ -10,7 +10,7 @@ namespace HeroesData.ExtractorData
         {
         }
 
-        protected override string Name => "awards";
+        public override string Name => "awards";
 
         protected override void Validation(MatchAward matchAward)
         {

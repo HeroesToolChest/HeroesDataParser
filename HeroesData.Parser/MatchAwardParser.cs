@@ -12,7 +12,6 @@ namespace HeroesData.Parser
 {
     public class MatchAwardParser : ParserBase, IParser<MatchAward>
     {
-        private readonly string MVPInstanceId = "[Override]Generic Instance";
         private readonly string MVPGameLinkId = "EndOfMatchAwardMVPBoolean";
 
         public MatchAwardParser(GameData gameData)
@@ -49,7 +48,7 @@ namespace HeroesData.Parser
                 }
 
                 // manually add mvp award
-                items.Add(new string[] { MVPInstanceId, MVPGameLinkId });
+                items.Add(new string[] { "[Override]Generic Instance", MVPGameLinkId });
 
                 return items;
             }
@@ -118,7 +117,7 @@ namespace HeroesData.Parser
                 matchAward.Description = new TooltipDescription(description);
 
             // mvp award only
-            if (instanceId == MVPInstanceId && gameLink == MVPGameLinkId)
+            if (instanceId == "MVP" && gameLink == MVPGameLinkId)
                 matchAward.MVPScreenImageFileNameOriginal = "storm_ui_mvp_icon.dds";
 
             return matchAward;

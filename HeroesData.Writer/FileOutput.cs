@@ -119,7 +119,14 @@ namespace HeroesData.FileWriter
             Initialize();
         }
 
-        public void Create<T>(IEnumerable<T> items, FileOutputType fileOutputType)
+        /// <summary>
+        /// Creates the output files.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items">The parsed items to be used for the creation of the output.</param>
+        /// <param name="fileOutputType">The file type.</param>
+        /// <returns></returns>
+        public bool Create<T>(IEnumerable<T> items, FileOutputType fileOutputType)
             where T : IExtractable
         {
             if (Writers[fileOutputType].TryGetValue(typeof(T).Name, out IWritable writable))
@@ -129,7 +136,6 @@ namespace HeroesData.FileWriter
                 writable.IsMinifiedFiles = FileOutputOptions.IsMinifiedFiles;
                 writable.Localization = FileOutputOptions.Localization;
                 writable.HotsBuild = HotsBuild;
-
                 writable.FileSettings = new FileSettings
                 {
                     IsFileSplit = FileOutputOptions.IsFileSplit ?? false,
@@ -137,7 +143,11 @@ namespace HeroesData.FileWriter
                 };
 
                 ((IWriter<T>)writable).CreateOutput(items);
+
+                return true;
             }
+
+            return false;
         }
 
         private void Initialize()

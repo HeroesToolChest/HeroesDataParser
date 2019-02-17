@@ -17,7 +17,7 @@ namespace HeroesData.ExtractorData
         {
         }
 
-        protected override string Name => "heroes";
+        public override string Name => "heroes";
 
         public override IEnumerable<Hero> Parse(Localization localization)
         {

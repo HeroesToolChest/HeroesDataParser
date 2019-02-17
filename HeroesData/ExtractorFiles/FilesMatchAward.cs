@@ -81,7 +81,9 @@ namespace HeroesData.ExtractorFiles
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine($"CASC file not found: {fileName}");
+                    Console.ResetColor();
                 }
             }
             catch (Exception ex)
@@ -119,7 +121,9 @@ namespace HeroesData.ExtractorFiles
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine($"CASC file not found: {fileName}");
+                    Console.ResetColor();
                 }
             }
             catch (Exception ex)
