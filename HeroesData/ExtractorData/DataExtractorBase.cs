@@ -48,6 +48,11 @@ namespace HeroesData.ExtractorData
 
         protected TParsable Parser { get; }
 
+        /// <summary>
+        /// Parses the items and returns a collection in ascending order.
+        /// </summary>
+        /// <param name="localization"></param>
+        /// <returns></returns>
         public virtual IEnumerable<T> Parse(Localization localization)
         {
             Stopwatch time = new Stopwatch();
@@ -90,7 +95,7 @@ namespace HeroesData.ExtractorData
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
 
-            return ParsedData.Values;
+            return ParsedData.Values.OrderBy(x => x.ShortName);
         }
 
         /// <summary>
