@@ -26,9 +26,9 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (!string.IsNullOrEmpty(hero.Name) && !IsLocalizedText)
                 heroObject.Add("name", hero.Name);
             if (!string.IsNullOrEmpty(hero.CHeroId) && hero.CHeroId != StormHero.CHeroId)
-                heroObject.Add("cHeroId", hero.CHeroId);
+                heroObject.Add("heroId", hero.CHeroId);
             if (!string.IsNullOrEmpty(hero.CUnitId) && hero.CHeroId != StormHero.CHeroId)
-                heroObject.Add("cUnitId", hero.CUnitId);
+                heroObject.Add("unitId", hero.CUnitId);
             if (!string.IsNullOrEmpty(hero.AttributeId))
                 heroObject.Add("attributeId", hero.AttributeId);
 
@@ -123,7 +123,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (!string.IsNullOrEmpty(unit.Name) && !IsLocalizedText)
                 heroObject.Add("name", unit.Name);
             if (!string.IsNullOrEmpty(unit.CUnitId))
-                heroObject.Add("cUnitId", unit.CUnitId);
+                heroObject.Add("unitId", unit.CUnitId);
             if (unit.InnerRadius > 0)
                 heroObject.Add("innerRadius", unit.InnerRadius);
             if (unit.Radius > 0)

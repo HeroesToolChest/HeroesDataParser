@@ -1,8 +1,8 @@
 {
   "Alarak": {
     "name": "Alarak",
-    "cHeroId": "HeroAlarak",
-    "cUnitId": "Alar",
+    "heroId": "HeroAlarak",
+    "unitId": "Alar",
     "difficulty": "Hard",
     "franchise": "Starcraft",
     "gender": "Male",

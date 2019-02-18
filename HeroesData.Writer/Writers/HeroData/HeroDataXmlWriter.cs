@@ -26,8 +26,8 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return new XElement(
                 hero.ShortName,
                 string.IsNullOrEmpty(hero.Name) || IsLocalizedText ? null : new XAttribute("name", hero.Name),
-                string.IsNullOrEmpty(hero.CHeroId) || hero.CHeroId == StormHero.CHeroId ? null : new XAttribute("cHeroId", hero.CHeroId),
-                string.IsNullOrEmpty(hero.CUnitId) || hero.CHeroId == StormHero.CHeroId ? null : new XAttribute("cUnitId", hero.CUnitId),
+                string.IsNullOrEmpty(hero.CHeroId) || hero.CHeroId == StormHero.CHeroId ? null : new XAttribute("heroId", hero.CHeroId),
+                string.IsNullOrEmpty(hero.CUnitId) || hero.CHeroId == StormHero.CHeroId ? null : new XAttribute("unitId", hero.CUnitId),
                 string.IsNullOrEmpty(hero.AttributeId) ? null : new XAttribute("attributeId", hero.AttributeId),
                 string.IsNullOrEmpty(hero.Difficulty) || IsLocalizedText ? null : new XAttribute("difficulty", hero.Difficulty),
                 hero.CHeroId != StormHero.CHeroId ? new XAttribute("franchise", hero.Franchise) : null,
@@ -66,7 +66,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return new XElement(
                 unit.ShortName,
                 string.IsNullOrEmpty(unit.Name) || IsLocalizedText ? null : new XAttribute("name", unit.Name),
-                string.IsNullOrEmpty(unit.CUnitId) ? null : new XAttribute("cUnitId", unit.CUnitId),
+                string.IsNullOrEmpty(unit.CUnitId) ? null : new XAttribute("unitId", unit.CUnitId),
                 unit.InnerRadius > 0 ? new XAttribute("innerRadius", unit.InnerRadius) : null,
                 unit.Radius > 0 ? new XAttribute("radius", unit.Radius) : null,
                 unit.Sight > 0 ? new XAttribute("sight", unit.Sight) : null,

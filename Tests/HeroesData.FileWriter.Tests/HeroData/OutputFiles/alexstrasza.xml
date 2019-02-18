@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Heroes>
-  <Alexstrasza name="Alexstrasza" cHeroId="Alexstrasza" cUnitId="HeroAlexstrasza" attributeId="Alex" difficulty="Medium" franchise="Warcraft" gender="Female" innerRadius="0.75" radius="0.75" releaseDate="2017-11-14" sight="12" speed="4.3984" type="Ranged" rarity="Legendary">
+  <Alexstrasza name="Alexstrasza" heroId="Alexstrasza" unitId="HeroAlexstrasza" attributeId="Alex" difficulty="Medium" franchise="Warcraft" gender="Female" innerRadius="0.75" radius="0.75" releaseDate="2017-11-14" sight="12" speed="4.3984" type="Ranged" rarity="Legendary">
     <Description>A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities.</Description>
     <Ratings complexity="0" damage="0" survivability="0" utility="0" />
     <Abilities />
@@ -38,7 +38,7 @@
     </SubAbilities>
     <HeroUnits>
       <HeroAlexstraszaDragon>
-        <AlexstraszaDragon name="Alexstrasza" cUnitId="HeroAlexstraszaDragon" innerRadius="1" radius="1.25" sight="12" speed="4.3984">
+        <AlexstraszaDragon name="Alexstrasza" unitId="HeroAlexstraszaDragon" innerRadius="1" radius="1.25" sight="12" speed="4.3984">
           <Life>
             <Amount scale="0.04">1787</Amount>
             <RegenRate scale="0.04">3.7226</RegenRate>
