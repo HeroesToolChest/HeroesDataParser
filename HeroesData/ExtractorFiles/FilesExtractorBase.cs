@@ -20,6 +20,7 @@ namespace HeroesData.ExtractorFiles
         protected StorageMode StorageMode { get; }
         protected string ExtractDirectory { get; } = Path.Combine(App.OutputDirectory, "images");
         protected string CASCTexturesPath { get; } = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "assets", "textures");
+        protected List<string> FailedFileMessages { get; } = new List<string>();
 
         public void ExtractFiles(IEnumerable<T> data)
         {
@@ -32,6 +33,7 @@ namespace HeroesData.ExtractorFiles
             }
 
             ExtractFiles();
+            DisplayFailedExtractedFiles();
         }
 
         public void ExtractFiles(IEnumerable<IExtractable> data)
@@ -45,51 +47,60 @@ namespace HeroesData.ExtractorFiles
             }
 
             ExtractFiles();
+            DisplayFailedExtractedFiles();
         }
 
         protected abstract void LoadFileData(T t);
         protected abstract void ExtractFiles();
 
         /// <summary>
-        /// Extracts a file.
+        /// Extracts a file. Returns true if successful.
         /// </summary>
         /// <param name="path">The path to extract the file to.</param>
         /// <param name="fileName">The name of the file to extract.</param>
-        protected void ExtractImageFile(string path, string fileName)
+        protected bool ExtractImageFile(string path, string fileName)
         {
             if (CASCHandler == null)
-                return;
+                return false;
 
             if (Path.GetExtension(fileName) != ".dds")
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine();
-                Console.WriteLine($"Could not extract image file {fileName} - is not a .dds file!");
-                Console.ResetColor();
-                return;
+                FailedFileMessages.Add($"Could not extract image file {fileName} - is not a .dds file!");
+                return false;
             }
-
-            Directory.CreateDirectory(path);
 
             try
             {
+                Directory.CreateDirectory(path);
+
                 string cascFilepath = Path.Combine(CASCTexturesPath, fileName);
                 if (CASCHandler.FileExists(cascFilepath))
                 {
                     DDSImage image = new DDSImage(CASCHandler.OpenFile(cascFilepath));
                     image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(fileName)}.png"));
+
+                    return true;
                 }
                 else
                 {
-                    Console.WriteLine($"CASC file not found: {fileName}");
+                    FailedFileMessages.Add($"CASC file not found: {fileName}");
                 }
             }
             catch (Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine();
-                Console.WriteLine($"Error extracting file: {fileName}");
-                Console.WriteLine($"--> {ex.Message}");
+                FailedFileMessages.Add($"Error extracting file: {fileName}");
+                FailedFileMessages.Add($"--> {ex.Message}");
+            }
+
+            return false;
+        }
+
+        private void DisplayFailedExtractedFiles()
+        {
+            foreach (string failedFileMessages in FailedFileMessages)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(failedFileMessages);
                 Console.ResetColor();
             }
         }

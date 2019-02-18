@@ -92,16 +92,20 @@ namespace HeroesData.ExtractorFiles
             if (Portraits == null)
                 return;
 
-            Console.Write("Extracting portrait files...");
+            int count = 0;
+            Console.Write($"Extracting portrait files...{count}/{Portraits.Count}");
 
             string extractFilePath = Path.Combine(ExtractDirectory, PortraitsDirectory);
 
             foreach (string portrait in Portraits)
             {
-                ExtractImageFile(extractFilePath, portrait);
+                if (ExtractImageFile(extractFilePath, portrait))
+                    count++;
+
+                Console.Write($"\rExtracting portrait files...{count}/{Portraits.Count}");
             }
 
-            Console.WriteLine("Done.");
+            Console.WriteLine(" Done.");
         }
 
         /// <summary>
@@ -112,16 +116,20 @@ namespace HeroesData.ExtractorFiles
             if (Abilities == null)
                 return;
 
-            Console.Write("Extracting ability icon files...");
+            int count = 0;
+            Console.Write($"Extracting ability icon files...{count}/{Abilities.Count}");
 
             string extractFilePath = Path.Combine(ExtractDirectory, AbilitiesDirectory);
 
             foreach (string ability in Abilities)
             {
-                ExtractImageFile(extractFilePath, ability);
+                if (ExtractImageFile(extractFilePath, ability))
+                    count++;
+
+                Console.Write($"\rExtracting ability icon files...{count}/{Abilities.Count}");
             }
 
-            Console.WriteLine("Done.");
+            Console.WriteLine(" Done.");
         }
 
         /// <summary>
@@ -132,16 +140,20 @@ namespace HeroesData.ExtractorFiles
             if (Talents == null)
                 return;
 
-            Console.Write("Extracting talent icon files...");
+            int count = 0;
+            Console.Write($"Extracting talent icon files...{count}/{Talents.Count}");
 
             string extractFilePath = Path.Combine(ExtractDirectory, TalentsDirectory);
 
             foreach (string talent in Talents)
             {
-                ExtractImageFile(extractFilePath, talent);
+                if (ExtractImageFile(extractFilePath, talent))
+                    count++;
+
+                Console.Write($"\rExtracting talent icon files...{count}/{Talents.Count}");
             }
 
-            Console.WriteLine("Done.");
+            Console.WriteLine(" Done.");
         }
 
         /// <summary>
@@ -152,16 +164,20 @@ namespace HeroesData.ExtractorFiles
             if (AbilityTalents == null)
                 return;
 
-            Console.Write("Extracting abilityTalent icon files...");
+            int count = 0;
+            Console.Write($"Extracting abilityTalent icon files...{count}/{AbilityTalents.Count}");
 
             string extractFilePath = Path.Combine(ExtractDirectory, AbilityTalentsDirectory);
 
             foreach (string abilityTalent in AbilityTalents)
             {
-                ExtractImageFile(extractFilePath, abilityTalent);
+                if (ExtractImageFile(extractFilePath, abilityTalent))
+                    count++;
+
+                Console.Write($"\rExtracting abilityTalent icon files...{count}/{AbilityTalents.Count}");
             }
 
-            Console.WriteLine("Done.");
+            Console.WriteLine(" Done.");
         }
     }
 }

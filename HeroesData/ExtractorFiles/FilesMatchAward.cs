@@ -38,7 +38,8 @@ namespace HeroesData.ExtractorFiles
             if (Awards == null || Awards.Count < 1)
                 return;
 
-            Console.Write("Extracting match award icon files...");
+            int count = 0;
+            Console.Write($"Extracting match award icon files...{count}/{Awards.Count}");
 
             string extractFilePath = Path.Combine(ExtractDirectory, MatchAwardsDirectory);
 
@@ -46,16 +47,21 @@ namespace HeroesData.ExtractorFiles
             {
                 if (originalName.StartsWith("storm_ui_mvp_icons_rewards_") || originalName == "storm_ui_mvp_icon.dds")
                 {
-                    ExtractMVPAwardFile(extractFilePath, originalName, newName);
+                    if (ExtractMVPAwardFile(extractFilePath, originalName, newName))
+                        count++;
+
+                    Console.Write($"\rExtracting match award icon files...{count}/{Awards.Count}");
                 }
                 else
                 {
-                    ExtractScoreAwardFile(extractFilePath, originalName, newName, "red");
-                    ExtractScoreAwardFile(extractFilePath, originalName, newName, "blue");
+                    if (ExtractScoreAwardFile(extractFilePath, originalName, newName, "red") && ExtractScoreAwardFile(extractFilePath, originalName, newName, "blue"))
+                        count++;
+
+                    Console.Write($"\rExtracting match award icon files...{count}/{Awards.Count}");
                 }
             }
 
-            Console.WriteLine("Done.");
+            Console.WriteLine(" Done.");
         }
 
         /// <summary>
@@ -65,12 +71,12 @@ namespace HeroesData.ExtractorFiles
         /// <param name="fileName">The name of the file to extract.</param>
         /// <param name="newFileName">The new file name of the award.</param>
         /// <param name="color">The color of the award.</param>
-        private void ExtractScoreAwardFile(string path, string fileName, string newFileName, string color)
+        private bool ExtractScoreAwardFile(string path, string fileName, string newFileName, string color)
         {
-            Directory.CreateDirectory(path);
-
             try
             {
+                Directory.CreateDirectory(path);
+
                 fileName = fileName.Replace("%team%", color);
                 string cascFilepath = Path.Combine(CASCTexturesPath, fileName);
                 if (CASCHandler.FileExists(cascFilepath))
@@ -78,22 +84,21 @@ namespace HeroesData.ExtractorFiles
                     DDSImage image = new DDSImage(CASCHandler.OpenFile(cascFilepath));
 
                     image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%team%", color))}.png"));
+
+                    return true;
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"CASC file not found: {fileName}");
-                    Console.ResetColor();
+                    FailedFileMessages.Add($"CASC file not found: {fileName}");
                 }
             }
             catch (Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine();
-                Console.WriteLine($"Error extracting file: {fileName}");
-                Console.WriteLine($"--> {ex.Message}");
-                Console.ResetColor();
+                FailedFileMessages.Add($"Error extracting file: {fileName}");
+                FailedFileMessages.Add($"--> {ex.Message}");
             }
+
+            return false;
         }
 
         /// <summary>
@@ -102,12 +107,12 @@ namespace HeroesData.ExtractorFiles
         /// <param name="path">The path to extract the file to.</param>
         /// <param name="fileName">The name of the file to extract.</param>
         /// <param name="newFileName">The new file name of the award.</param>
-        private void ExtractMVPAwardFile(string path, string fileName, string newFileName)
+        private bool ExtractMVPAwardFile(string path, string fileName, string newFileName)
         {
-            Directory.CreateDirectory(path);
-
             try
             {
+                Directory.CreateDirectory(path);
+
                 string cascFilepath = Path.Combine(CASCTexturesPath, fileName);
                 if (CASCHandler.FileExists(cascFilepath))
                 {
@@ -118,22 +123,21 @@ namespace HeroesData.ExtractorFiles
                     image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "blue"))}.png"), new Point(0, 0), new Size(newWidth, image.Height));
                     image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "red"))}.png"), new Point(newWidth, 0), new Size(newWidth, image.Height));
                     image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "gold"))}.png"), new Point(newWidth * 2, 0), new Size(newWidth, image.Height));
+
+                    return true;
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"CASC file not found: {fileName}");
-                    Console.ResetColor();
+                    FailedFileMessages.Add($"CASC file not found: {fileName}");
                 }
             }
             catch (Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine();
-                Console.WriteLine($"Error extracting file: {fileName}");
-                Console.WriteLine($"--> {ex.Message}");
-                Console.ResetColor();
+                FailedFileMessages.Add($"Error extracting file: {fileName}");
+                FailedFileMessages.Add($"--> {ex.Message}");
             }
+
+            return false;
         }
     }
 }
