@@ -108,6 +108,7 @@ namespace HeroesData.FileWriter.Tests
             FileOutputOptions options = new FileOutputOptions()
             {
                 IsLocalizedText = true,
+                DescriptionType = DescriptionType.RawDescription,
             };
 
             FileOutput fileOutput = new FileOutput(GamestringsBuildNumber, options);

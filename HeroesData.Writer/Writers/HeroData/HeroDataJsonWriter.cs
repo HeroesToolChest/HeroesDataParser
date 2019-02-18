@@ -18,12 +18,12 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected override JProperty MainElement(Hero hero)
         {
-            if (IsLocalizedText)
+            if (FileOutputOptions.IsLocalizedText)
                 AddLocalizedGameString(hero);
 
             JObject heroObject = new JObject();
 
-            if (!string.IsNullOrEmpty(hero.Name) && !IsLocalizedText)
+            if (!string.IsNullOrEmpty(hero.Name) && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add("name", hero.Name);
             if (!string.IsNullOrEmpty(hero.CHeroId) && hero.CHeroId != StormHero.CHeroId)
                 heroObject.Add("heroId", hero.CHeroId);
@@ -32,7 +32,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (!string.IsNullOrEmpty(hero.AttributeId))
                 heroObject.Add("attributeId", hero.AttributeId);
 
-            if (!IsLocalizedText && !string.IsNullOrEmpty(hero.Difficulty))
+            if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(hero.Difficulty))
                 heroObject.Add("difficulty", hero.Difficulty);
 
             if (hero.CHeroId != StormHero.CHeroId)
@@ -40,7 +40,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
             if (hero.Gender.HasValue)
                 heroObject.Add("gender", hero.Gender.Value.ToString());
-            if (!IsLocalizedText && !string.IsNullOrEmpty(hero.Title))
+            if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(hero.Title))
                 heroObject.Add("title", hero.Title);
             if (hero.InnerRadius > 0)
                 heroObject.Add("innerRadius", hero.InnerRadius);
@@ -52,7 +52,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 heroObject.Add("sight", hero.Sight);
             if (hero.Speed > 0)
                 heroObject.Add("speed", hero.Speed);
-            if (!string.IsNullOrEmpty(hero.Type) && !IsLocalizedText)
+            if (!string.IsNullOrEmpty(hero.Type) && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add("type", hero.Type);
             if (hero.Rarity.HasValue)
                 heroObject.Add("rarity", hero.Rarity.Value.ToString());
@@ -60,10 +60,10 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 heroObject.Add("mountLinkId", hero.MountLinkId);
             if (!string.IsNullOrEmpty(hero.MountLinkId))
                 heroObject.Add("hearthLinkId", hero.HearthLinkId);
-            if (!IsLocalizedText && !string.IsNullOrEmpty(hero.SearchText))
+            if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(hero.SearchText))
                 heroObject.Add("searchText", hero.SearchText);
-            if (!string.IsNullOrEmpty(hero.Description?.RawDescription) && !IsLocalizedText)
-                heroObject.Add("description", GetTooltip(hero.Description, FileSettings.DescriptionType));
+            if (!string.IsNullOrEmpty(hero.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
+                heroObject.Add("description", GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
             if (hero.HeroDescriptors.Count > 0)
                 heroObject.Add(new JProperty("descriptors", hero.HeroDescriptors));
 
@@ -83,7 +83,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (armor != null)
                 heroObject.Add(armor);
 
-            if (hero.Roles?.Count > 0 && !IsLocalizedText)
+            if (hero.Roles?.Count > 0 && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add(new JProperty("roles", hero.Roles));
 
             JProperty ratings = HeroRatings(hero);
@@ -115,12 +115,12 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected override JProperty UnitElement(Unit unit)
         {
-            if (IsLocalizedText)
+            if (FileOutputOptions.IsLocalizedText)
                 AddLocalizedGameString(unit);
 
             JObject heroObject = new JObject();
 
-            if (!string.IsNullOrEmpty(unit.Name) && !IsLocalizedText)
+            if (!string.IsNullOrEmpty(unit.Name) && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add("name", unit.Name);
             if (!string.IsNullOrEmpty(unit.CUnitId))
                 heroObject.Add("unitId", unit.CUnitId);
@@ -132,10 +132,10 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 heroObject.Add("sight", unit.Sight);
             if (unit.Speed > 0)
                 heroObject.Add("speed", unit.Speed);
-            if (!string.IsNullOrEmpty(unit.Type) && !IsLocalizedText)
+            if (!string.IsNullOrEmpty(unit.Type) && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add("type", unit.Type);
-            if (!string.IsNullOrEmpty(unit.Description?.RawDescription) && !IsLocalizedText)
-                heroObject.Add("description", GetTooltip(unit.Description, FileSettings.DescriptionType));
+            if (!string.IsNullOrEmpty(unit.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
+                heroObject.Add("description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
             if (unit.HeroDescriptors.Count > 0)
                 heroObject.Add(new JProperty("descriptors", unit.HeroDescriptors));
 
@@ -348,22 +348,22 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected override JProperty GetAbilityTalentCooldownObject(TooltipCooldown tooltipCooldown)
         {
-            return new JProperty("cooldownTooltip", GetTooltip(tooltipCooldown.CooldownTooltip, FileSettings.DescriptionType));
+            return new JProperty("cooldownTooltip", GetTooltip(tooltipCooldown.CooldownTooltip, FileOutputOptions.DescriptionType));
         }
 
         protected override JProperty GetAbilityTalentEnergyCostObject(TooltipEnergy tooltipEnergy)
         {
-            return new JProperty("energyTooltip", GetTooltip(tooltipEnergy.EnergyTooltip, FileSettings.DescriptionType));
+            return new JProperty("energyTooltip", GetTooltip(tooltipEnergy.EnergyTooltip, FileOutputOptions.DescriptionType));
         }
 
         protected override JProperty GetAbilityTalentLifeCostObject(TooltipLife tooltipLife)
         {
-            return new JProperty("lifeTooltip", GetTooltip(tooltipLife.LifeCostTooltip, FileSettings.DescriptionType));
+            return new JProperty("lifeTooltip", GetTooltip(tooltipLife.LifeCostTooltip, FileOutputOptions.DescriptionType));
         }
 
         protected override JObject AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)
         {
-            if (IsLocalizedText)
+            if (FileOutputOptions.IsLocalizedText)
                 AddLocalizedGameString(abilityTalentBase);
 
             JObject info = new JObject
@@ -371,7 +371,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 { "nameId", abilityTalentBase.ReferenceNameId },
             };
 
-            if (!IsLocalizedText)
+            if (!FileOutputOptions.IsLocalizedText)
                 info.Add("name", abilityTalentBase.Name);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.ShortTooltipNameId))
@@ -380,7 +380,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (!string.IsNullOrEmpty(abilityTalentBase.FullTooltipNameId))
                 info.Add("fullTooltipId", abilityTalentBase.FullTooltipNameId);
 
-            info.Add("icon", Path.ChangeExtension(abilityTalentBase.IconFileName, FileSettings.ImageExtension));
+            info.Add("icon", Path.ChangeExtension(abilityTalentBase.IconFileName, ".png"));
 
             if (abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.HasValue)
                 info.Add("toggleCooldown", abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.Value);
@@ -401,11 +401,11 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (cooldown != null)
                 info.Add(cooldown);
 
-            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.ShortTooltip?.RawDescription) && !IsLocalizedText)
-                info.Add("shortTooltip", GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileSettings.DescriptionType));
+            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.ShortTooltip?.RawDescription) && !FileOutputOptions.IsLocalizedText)
+                info.Add("shortTooltip", GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileOutputOptions.DescriptionType));
 
-            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription) && !IsLocalizedText)
-                info.Add("fullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileSettings.DescriptionType));
+            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription) && !FileOutputOptions.IsLocalizedText)
+                info.Add("fullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileOutputOptions.DescriptionType));
 
             info.Add("abilityType", abilityTalentBase.AbilityType.ToString());
 
@@ -612,16 +612,16 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             JObject portrait = new JObject();
 
-            if (FileSettings.HeroSelectPortrait && !string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName))
-                portrait.Add("heroSelect", Path.ChangeExtension(hero.HeroPortrait.HeroSelectPortraitFileName, FileSettings.ImageExtension));
-            if (FileSettings.LeaderboardPortrait && !string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName))
-                portrait.Add("leaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName, FileSettings.ImageExtension));
-            if (FileSettings.LoadingPortraitPortrait && !string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName))
-                portrait.Add("loading", Path.ChangeExtension(hero.HeroPortrait.LoadingScreenPortraitFileName, FileSettings.ImageExtension));
-            if (FileSettings.PartyPanelPortrait && !string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName))
-                portrait.Add("partyPanel", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName, FileSettings.ImageExtension));
-            if (FileSettings.TargetPortrait && !string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
-                portrait.Add("target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName, FileSettings.ImageExtension));
+            if (!string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName))
+                portrait.Add("heroSelect", Path.ChangeExtension(hero.HeroPortrait.HeroSelectPortraitFileName, ImageExtension));
+            if (!string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName))
+                portrait.Add("leaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName, ImageExtension));
+            if (!string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName))
+                portrait.Add("loading", Path.ChangeExtension(hero.HeroPortrait.LoadingScreenPortraitFileName, ImageExtension));
+            if (!string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName))
+                portrait.Add("partyPanel", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName, ImageExtension));
+            if (!string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
+                portrait.Add("target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName, ImageExtension));
 
             return new JProperty("portraits", portrait);
         }

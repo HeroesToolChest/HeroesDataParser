@@ -24,9 +24,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Update="Configs\**\*">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="HeroData\OutputFiles\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

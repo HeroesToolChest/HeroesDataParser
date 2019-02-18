@@ -14,16 +14,16 @@ namespace HeroesData.FileWriter.Writers.MatchAwardData
 
         protected override XElement MainElement(MatchAward matchAward)
         {
-            if (IsLocalizedText)
+            if (FileOutputOptions.IsLocalizedText)
                 AddLocalizedGameString(matchAward);
 
             return new XElement(
                 matchAward.ShortName,
-                string.IsNullOrEmpty(matchAward.Name) || IsLocalizedText ? null : new XAttribute("name", matchAward.Name),
+                string.IsNullOrEmpty(matchAward.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", matchAward.Name),
                 new XAttribute("tag", matchAward.Tag),
-                new XElement("MVPScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName, FileSettings.ImageExtension)),
-                new XElement("ScoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName, FileSettings.ImageExtension)),
-                IsLocalizedText ? null : new XElement("Description", GetTooltip(matchAward.Description, FileSettings.DescriptionType)));
+                new XElement("MVPScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName, ImageExtension)),
+                new XElement("ScoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName, ImageExtension)),
+                FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(matchAward.Description, FileOutputOptions.DescriptionType)));
         }
     }
 }

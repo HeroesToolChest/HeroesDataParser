@@ -13,20 +13,20 @@ namespace HeroesData.FileWriter.Writers.MatchAwardData
 
         protected override JProperty MainElement(MatchAward matchAward)
         {
-            if (IsLocalizedText)
+            if (FileOutputOptions.IsLocalizedText)
                 AddLocalizedGameString(matchAward);
 
             JObject matchAwardObject = new JObject();
 
-            if (!string.IsNullOrEmpty(matchAward.Name) && !IsLocalizedText)
+            if (!string.IsNullOrEmpty(matchAward.Name) && !FileOutputOptions.IsLocalizedText)
                 matchAwardObject.Add("name", matchAward.Name);
 
             matchAwardObject.Add("tag", matchAward.Tag);
-            matchAwardObject.Add("mvpScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName, FileSettings.ImageExtension));
-            matchAwardObject.Add("scoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName, FileSettings.ImageExtension));
+            matchAwardObject.Add("mvpScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName, ImageExtension));
+            matchAwardObject.Add("scoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName, ImageExtension));
 
-            if (!IsLocalizedText)
-                matchAwardObject.Add("description", GetTooltip(matchAward.Description, FileSettings.DescriptionType));
+            if (!FileOutputOptions.IsLocalizedText)
+                matchAwardObject.Add("description", GetTooltip(matchAward.Description, FileOutputOptions.DescriptionType));
 
             return new JProperty(matchAward.ShortName, matchAwardObject);
         }

@@ -9,12 +9,12 @@ namespace HeroesData.FileWriter
         /// <summary>
         /// Gets or sets the tooltip description type.
         /// </summary>
-        public DescriptionType? DescriptionType { get; set; } = null;
+        public DescriptionType DescriptionType { get; set; } = DescriptionType.ColoredText;
 
         /// <summary>
         /// Gets or sets the file split option.
         /// </summary>
-        public bool? IsFileSplit { get; set; } = null;
+        public bool IsFileSplit { get; set; } = false;
 
         /// <summary>
         /// Gets or sets if localized text is removed from the XML and JSON files.

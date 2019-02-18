@@ -37,7 +37,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             LocalizedGameString.AddUnitName(unit.ShortName, unit.Name);
             LocalizedGameString.AddUnitType(unit.ShortName, unit.Type);
 
-            string unitDescription = GetTooltip(unit.Description, FileSettings.DescriptionType);
+            string unitDescription = GetTooltip(unit.Description, FileOutputOptions.DescriptionType);
             if (!string.IsNullOrEmpty(unitDescription))
                 LocalizedGameString.AddUnitDescription(unit.ShortName, unitDescription);
         }
@@ -47,7 +47,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             LocalizedGameString.AddUnitName(hero.ShortName, hero.Name);
             LocalizedGameString.AddUnitDifficulty(hero.ShortName, hero.Difficulty);
             LocalizedGameString.AddUnitType(hero.ShortName, hero.Type);
-            LocalizedGameString.AddUnitDescription(hero.ShortName, GetTooltip(hero.Description, FileSettings.DescriptionType));
+            LocalizedGameString.AddUnitDescription(hero.ShortName, GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
             LocalizedGameString.AddHeroTitle(hero.ShortName, hero.Title);
             LocalizedGameString.AddHeroSearchText(hero.ShortName, hero.Title);
 
@@ -60,24 +60,21 @@ namespace HeroesData.FileWriter.Writers.HeroData
             LocalizedGameString.AddAbilityTalentName(abilityTalentBase.ReferenceNameId, abilityTalentBase.Name);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Life?.LifeCostTooltip?.RawDescription))
-                LocalizedGameString.AddAbilityTalentLifeTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Life.LifeCostTooltip, FileSettings.DescriptionType));
+                LocalizedGameString.AddAbilityTalentLifeTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Life.LifeCostTooltip, FileOutputOptions.DescriptionType));
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Energy?.EnergyTooltip?.RawDescription))
-                LocalizedGameString.AddAbilityTalentEnergyTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Energy.EnergyTooltip, FileSettings.DescriptionType));
+                LocalizedGameString.AddAbilityTalentEnergyTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Energy.EnergyTooltip, FileOutputOptions.DescriptionType));
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Cooldown?.CooldownTooltip?.RawDescription))
-                LocalizedGameString.AddAbilityTalentCooldownTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Cooldown.CooldownTooltip, FileSettings.DescriptionType));
+                LocalizedGameString.AddAbilityTalentCooldownTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Cooldown.CooldownTooltip, FileOutputOptions.DescriptionType));
 
-            LocalizedGameString.AddAbilityTalentShortTooltip(abilityTalentBase.ShortTooltipNameId, GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileSettings.DescriptionType));
-            LocalizedGameString.AddAbilityTalentFullTooltip(abilityTalentBase.FullTooltipNameId, GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileSettings.DescriptionType));
+            LocalizedGameString.AddAbilityTalentShortTooltip(abilityTalentBase.ShortTooltipNameId, GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileOutputOptions.DescriptionType));
+            LocalizedGameString.AddAbilityTalentFullTooltip(abilityTalentBase.FullTooltipNameId, GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileOutputOptions.DescriptionType));
         }
 
         protected T HeroPortraits(Hero hero)
         {
-            if ((FileSettings.HeroSelectPortrait || FileSettings.LeaderboardPortrait ||
-                FileSettings.LoadingPortraitPortrait || FileSettings.PartyPanelPortrait ||
-                FileSettings.TargetPortrait) &&
-                (!string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName) || !string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName) ||
+            if ((!string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName) || !string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName) ||
                 !string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName) || !string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName) ||
                 !string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName)) && hero.HeroPortrait != null)
             {
@@ -129,7 +126,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T UnitWeapons(Unit unit)
         {
-            if (FileSettings.IncludeWeapons && unit.Weapons?.Count > 0)
+            if (unit.Weapons?.Count > 0)
             {
                 return GetWeaponsObject(unit);
             }
@@ -139,7 +136,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T UnitAbilities(Unit unit, bool isSubAbilities)
         {
-            if (FileSettings.IncludeAbilities && unit.Abilities?.Count > 0)
+            if (unit.Abilities?.Count > 0)
             {
                 return GetAbilitiesObject(unit, isSubAbilities);
             }
@@ -149,7 +146,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T UnitSubAbilities(Unit unit)
         {
-            if (FileSettings.IncludeSubAbilities && unit.Abilities?.Count > 0)
+            if (unit.Abilities?.Count > 0)
             {
                 ILookup<string, Ability> linkedAbilities = unit.ParentLinkedAbilities();
                 if (linkedAbilities.Count > 0)
@@ -163,7 +160,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T UnitAbilityTalentLifeCost(TooltipLife tooltipLife)
         {
-            if (!string.IsNullOrEmpty(tooltipLife?.LifeCostTooltip?.RawDescription) && !IsLocalizedText)
+            if (!string.IsNullOrEmpty(tooltipLife?.LifeCostTooltip?.RawDescription) && !FileOutputOptions.IsLocalizedText)
             {
                 return GetAbilityTalentLifeCostObject(tooltipLife);
             }
@@ -173,7 +170,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T UnitAbilityTalentEnergyCost(TooltipEnergy tooltipEnergy)
         {
-            if (!string.IsNullOrEmpty(tooltipEnergy?.EnergyTooltip?.RawDescription) && !IsLocalizedText)
+            if (!string.IsNullOrEmpty(tooltipEnergy?.EnergyTooltip?.RawDescription) && !FileOutputOptions.IsLocalizedText)
             {
                 return GetAbilityTalentEnergyCostObject(tooltipEnergy);
             }
@@ -183,7 +180,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T UnitAbilityTalentCooldown(TooltipCooldown tooltipCooldown)
         {
-            if (!string.IsNullOrEmpty(tooltipCooldown?.CooldownTooltip?.RawDescription) && !IsLocalizedText)
+            if (!string.IsNullOrEmpty(tooltipCooldown?.CooldownTooltip?.RawDescription) && !FileOutputOptions.IsLocalizedText)
             {
                 return GetAbilityTalentCooldownObject(tooltipCooldown);
             }
@@ -203,7 +200,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T HeroTalents(Hero hero)
         {
-            if (FileSettings.IncludeTalents && hero.Talents?.Count > 0)
+            if (hero.Talents?.Count > 0)
             {
                 return GetTalentsObject(hero);
             }
@@ -213,7 +210,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T Units(Hero hero)
         {
-            if (FileSettings.IncludeHeroUnits && hero.HeroUnits?.Count > 0)
+            if (hero.HeroUnits?.Count > 0)
             {
                 return GetUnitsObject(hero);
             }

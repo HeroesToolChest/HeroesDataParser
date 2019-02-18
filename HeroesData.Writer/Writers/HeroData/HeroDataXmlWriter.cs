@@ -20,36 +20,36 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected override XElement MainElement(Hero hero)
         {
-            if (IsLocalizedText)
+            if (FileOutputOptions.IsLocalizedText)
                 AddLocalizedGameString(hero);
 
             return new XElement(
                 hero.ShortName,
-                string.IsNullOrEmpty(hero.Name) || IsLocalizedText ? null : new XAttribute("name", hero.Name),
+                string.IsNullOrEmpty(hero.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", hero.Name),
                 string.IsNullOrEmpty(hero.CHeroId) || hero.CHeroId == StormHero.CHeroId ? null : new XAttribute("heroId", hero.CHeroId),
                 string.IsNullOrEmpty(hero.CUnitId) || hero.CHeroId == StormHero.CHeroId ? null : new XAttribute("unitId", hero.CUnitId),
                 string.IsNullOrEmpty(hero.AttributeId) ? null : new XAttribute("attributeId", hero.AttributeId),
-                string.IsNullOrEmpty(hero.Difficulty) || IsLocalizedText ? null : new XAttribute("difficulty", hero.Difficulty),
+                string.IsNullOrEmpty(hero.Difficulty) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("difficulty", hero.Difficulty),
                 hero.CHeroId != StormHero.CHeroId ? new XAttribute("franchise", hero.Franchise) : null,
                 hero.Gender.HasValue ? new XAttribute("gender", hero.Gender.Value) : null,
-                string.IsNullOrEmpty(hero.Title) || IsLocalizedText ? null : new XAttribute("title", hero.Title),
+                string.IsNullOrEmpty(hero.Title) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("title", hero.Title),
                 hero.InnerRadius > 0 ? new XAttribute("innerRadius", hero.InnerRadius) : null,
                 hero.Radius > 0 ? new XAttribute("radius", hero.Radius) : null,
                 hero.ReleaseDate.HasValue ? new XAttribute("releaseDate", hero.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
                 hero.Sight > 0 ? new XAttribute("sight", hero.Sight) : null,
                 hero.Speed > 0 ? new XAttribute("speed", hero.Speed) : null,
-                string.IsNullOrEmpty(hero.Type) || IsLocalizedText ? null : new XAttribute("type", hero.Type),
+                string.IsNullOrEmpty(hero.Type) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("type", hero.Type),
                 hero.Rarity.HasValue ? new XAttribute("rarity", hero.Rarity.Value) : null,
                 string.IsNullOrEmpty(hero.MountLinkId) ? null : new XElement("MountLinkId", hero.MountLinkId),
                 string.IsNullOrEmpty(hero.HearthLinkId) ? null : new XElement("HearthLinkId", hero.HearthLinkId),
-                string.IsNullOrEmpty(hero.SearchText) || IsLocalizedText ? null : new XElement("SearchText", hero.SearchText),
-                string.IsNullOrEmpty(hero.Description?.RawDescription) || IsLocalizedText ? null : new XElement("Description", GetTooltip(hero.Description, FileSettings.DescriptionType)),
+                string.IsNullOrEmpty(hero.SearchText) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", hero.SearchText),
+                string.IsNullOrEmpty(hero.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(hero.Description, FileOutputOptions.DescriptionType)),
                 hero.HeroDescriptors.Count > 0 ? new XElement("Descriptors", hero.HeroDescriptors.Select(d => new XElement("Descriptor", d))) : null,
                 HeroPortraits(hero),
                 UnitLife(hero),
                 UnitEnergy(hero),
                 UnitArmor(hero),
-                hero.Roles?.Count > 0 && !IsLocalizedText ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
+                hero.Roles?.Count > 0 && !FileOutputOptions.IsLocalizedText ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
                 HeroRatings(hero),
                 UnitWeapons(hero),
                 UnitAbilities(hero, false),
@@ -60,19 +60,19 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected override XElement UnitElement(Unit unit)
         {
-            if (IsLocalizedText)
+            if (FileOutputOptions.IsLocalizedText)
                 AddLocalizedGameString(unit);
 
             return new XElement(
                 unit.ShortName,
-                string.IsNullOrEmpty(unit.Name) || IsLocalizedText ? null : new XAttribute("name", unit.Name),
+                string.IsNullOrEmpty(unit.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", unit.Name),
                 string.IsNullOrEmpty(unit.CUnitId) ? null : new XAttribute("unitId", unit.CUnitId),
                 unit.InnerRadius > 0 ? new XAttribute("innerRadius", unit.InnerRadius) : null,
                 unit.Radius > 0 ? new XAttribute("radius", unit.Radius) : null,
                 unit.Sight > 0 ? new XAttribute("sight", unit.Sight) : null,
                 unit.Speed > 0 ? new XAttribute("speed", unit.Speed) : null,
-                string.IsNullOrEmpty(unit.Type) || IsLocalizedText ? null : new XAttribute("type", unit.Type),
-                string.IsNullOrEmpty(unit.Description?.RawDescription) || IsLocalizedText ? null : new XElement("Description", GetTooltip(unit.Description, FileSettings.DescriptionType)),
+                string.IsNullOrEmpty(unit.Type) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("type", unit.Type),
+                string.IsNullOrEmpty(unit.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType)),
                 unit.HeroDescriptors.Count > 0 ? new XElement("Descriptors", unit.HeroDescriptors.Select(d => new XElement("Descriptor", d))) : null,
                 UnitLife(unit),
                 UnitArmor(unit),
@@ -177,7 +177,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected override XElement AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)
         {
-            if (IsLocalizedText)
+            if (FileOutputOptions.IsLocalizedText)
                 AddLocalizedGameString(abilityTalentBase);
 
             return new XElement(
@@ -188,14 +188,14 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 new XAttribute("abilityType", abilityTalentBase.AbilityType.ToString()),
                 abilityTalentBase.IsActive ? new XAttribute("isActive", abilityTalentBase.IsActive) : null,
                 abilityTalentBase.IsQuest ? new XAttribute("isQuest", abilityTalentBase.IsQuest) : null,
-                new XElement("Icon", Path.ChangeExtension(abilityTalentBase.IconFileName, FileSettings.ImageExtension)),
+                new XElement("Icon", Path.ChangeExtension(abilityTalentBase.IconFileName, ImageExtension)),
                 abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.HasValue ? new XElement("ToggleCooldown", abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.Value) : null,
                 UnitAbilityTalentLifeCost(abilityTalentBase.Tooltip.Life),
                 UnitAbilityTalentEnergyCost(abilityTalentBase.Tooltip.Energy),
                 UnitAbilityTalentCharges(abilityTalentBase.Tooltip.Charges),
                 UnitAbilityTalentCooldown(abilityTalentBase.Tooltip.Cooldown),
-                string.IsNullOrEmpty(abilityTalentBase.Tooltip.ShortTooltip?.RawDescription) || IsLocalizedText ? null : new XElement("ShortTooltip", GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileSettings.DescriptionType)),
-                string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription) || IsLocalizedText ? null : new XElement("FullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileSettings.DescriptionType)));
+                string.IsNullOrEmpty(abilityTalentBase.Tooltip.ShortTooltip?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("ShortTooltip", GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileOutputOptions.DescriptionType)),
+                string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("FullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileOutputOptions.DescriptionType)));
         }
 
         protected override XElement TalentInfoElement(Talent talent)
@@ -214,21 +214,21 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             return new XElement(
                 "LifeTooltip",
-                GetTooltip(tooltipLife.LifeCostTooltip, FileSettings.DescriptionType));
+                GetTooltip(tooltipLife.LifeCostTooltip, FileOutputOptions.DescriptionType));
         }
 
         protected override XElement GetAbilityTalentEnergyCostObject(TooltipEnergy tooltipEnergy)
         {
             return new XElement(
                 "EnergyTooltip",
-                GetTooltip(tooltipEnergy.EnergyTooltip, FileSettings.DescriptionType));
+                GetTooltip(tooltipEnergy.EnergyTooltip, FileOutputOptions.DescriptionType));
         }
 
         protected override XElement GetAbilityTalentCooldownObject(TooltipCooldown tooltipCooldown)
         {
             return new XElement(
                 "CooldownTooltip",
-                GetTooltip(tooltipCooldown.CooldownTooltip, FileSettings.DescriptionType));
+                GetTooltip(tooltipCooldown.CooldownTooltip, FileOutputOptions.DescriptionType));
         }
 
         protected override XElement GetAbilityTalentChargesObject(TooltipCharges tooltipCharges)
@@ -257,11 +257,11 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             return new XElement(
                 "Portraits",
-                FileSettings.HeroSelectPortrait ? new XElement("HeroSelect", Path.ChangeExtension(hero.HeroPortrait.HeroSelectPortraitFileName, FileSettings.ImageExtension)) : null,
-                FileSettings.LeaderboardPortrait ? new XElement("Leaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName, FileSettings.ImageExtension)) : null,
-                FileSettings.LoadingPortraitPortrait ? new XElement("Loading", Path.ChangeExtension(hero.HeroPortrait.LoadingScreenPortraitFileName, FileSettings.ImageExtension)) : null,
-                FileSettings.PartyPanelPortrait ? new XElement("PartyFrame", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName, FileSettings.ImageExtension)) : null,
-                FileSettings.TargetPortrait ? new XElement("Target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName, FileSettings.ImageExtension)) : null);
+                new XElement("HeroSelect", Path.ChangeExtension(hero.HeroPortrait.HeroSelectPortraitFileName, ImageExtension)),
+                new XElement("Leaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName, ImageExtension)),
+                new XElement("Loading", Path.ChangeExtension(hero.HeroPortrait.LoadingScreenPortraitFileName, ImageExtension)),
+                new XElement("PartyFrame", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName, ImageExtension)),
+                new XElement("Target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName, ImageExtension)));
         }
     }
 }

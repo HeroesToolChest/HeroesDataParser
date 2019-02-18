@@ -19,10 +19,4 @@
     <ProjectReference Include="..\HeroesData.Parser\HeroesData.Parser.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="WriterConfig.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

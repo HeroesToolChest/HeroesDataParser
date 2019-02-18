@@ -20,6 +20,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
             FileOutputOptions options = new FileOutputOptions()
             {
                 IsFileSplit = true,
+                DescriptionType = DescriptionType.RawDescription,
             };
 
             FileOutput fileOutput = new FileOutput(options);
@@ -37,6 +38,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
             FileOutputOptions options = new FileOutputOptions()
             {
                 IsFileSplit = true,
+                DescriptionType = DescriptionType.RawDescription,
             };
 
             FileOutput fileOutput = new FileOutput(BuildNumber, options);

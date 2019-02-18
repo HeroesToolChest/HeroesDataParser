@@ -1,5 +1,4 @@
 ﻿using Heroes.Models;
-using HeroesData.FileWriter.Settings;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
@@ -22,27 +21,7 @@ namespace HeroesData.FileWriter.Writers
             FileOutputType = fileOutputType;
         }
 
-        /// <summary>
-        /// Gets or sets the FileSettings.
-        /// </summary>
-        public FileSettings FileSettings { get; set; }
-
-        /// <summary>
-        /// Gets or sets the base directory for the output files and directories.
-        /// </summary>
-        public string BaseDirectory { get; set; }
-
-        /// <summary>
-        /// Gets or sets the localization.
-        /// </summary>
-        public Localization Localization { get; set; } = Localization.ENUS;
-
-        /// <summary>
-        /// Gets or sets if the localized text is enabled.
-        /// </summary>
-        public bool IsLocalizedText { get; set; } = false;
-
-        public bool IsMinifiedFiles { get; set; } = false;
+        public FileOutputOptions FileOutputOptions { get; set; }
 
         public int? HotsBuild { get; set; }
 
@@ -55,11 +34,12 @@ namespace HeroesData.FileWriter.Writers
         protected string RootNodeName { get; set; }
         protected string GameStringDirectory { get; private set; }
         protected string GameStringTextFileName { get; private set; }
+        protected string ImageExtension => ".png";
 
         /// <summary>
         /// Gets or sets the directory for the created output files.
         /// </summary>
-        protected string OutputDirectory => Path.Combine(BaseDirectory, FileOutputType.ToString().ToLower());
+        protected string OutputDirectory => Path.Combine(FileOutputOptions.OutputDirectory, FileOutputType.ToString().ToLower());
 
         public void CreateOutput(IEnumerable<T> items)
         {
@@ -68,11 +48,11 @@ namespace HeroesData.FileWriter.Writers
 
             Directory.CreateDirectory(OutputDirectory);
 
-            if (FileSettings.IsFileSplit)
+            if (FileOutputOptions.IsFileSplit)
             {
                 Directory.CreateDirectory(SplitDirectory);
 
-                if (IsMinifiedFiles)
+                if (FileOutputOptions.IsMinifiedFiles)
                     Directory.CreateDirectory(SplitMinifiedDirectory);
 
                 CreateOutputSplitFiles(items);
@@ -83,17 +63,17 @@ namespace HeroesData.FileWriter.Writers
             }
 
             // text file creation for localized text file
-            if (IsLocalizedText)
+            if (FileOutputOptions.IsLocalizedText)
             {
                 if (HotsBuild.HasValue)
                 {
-                    GameStringDirectory = Path.Combine(BaseDirectory, $"gamestrings-{HotsBuild.Value}");
-                    GameStringTextFileName = $"gamestrings_{HotsBuild.Value}_{Localization.ToString().ToLower()}.txt";
+                    GameStringDirectory = Path.Combine(FileOutputOptions.OutputDirectory, $"gamestrings-{HotsBuild.Value}");
+                    GameStringTextFileName = $"gamestrings_{HotsBuild.Value}_{FileOutputOptions.Localization.ToString().ToLower()}.txt";
                 }
                 else
                 {
-                    GameStringDirectory = Path.Combine(BaseDirectory, $"gamestrings");
-                    GameStringTextFileName = $"gamestrings_{Localization.ToString().ToLower()}.txt";
+                    GameStringDirectory = Path.Combine(FileOutputOptions.OutputDirectory, $"gamestrings");
+                    GameStringTextFileName = $"gamestrings_{FileOutputOptions.Localization.ToString().ToLower()}.txt";
                 }
 
                 Directory.CreateDirectory(GameStringDirectory);
@@ -129,29 +109,29 @@ namespace HeroesData.FileWriter.Writers
         {
             if (HotsBuild.HasValue)
             {
-                SingleFileName = $"{DataName}_{HotsBuild.Value}_{Localization.ToString().ToLower()}.{FileOutputType.ToString().ToLower()}";
-                MinifiedSingleFileName = $"{DataName}_{HotsBuild.Value}_{Localization.ToString().ToLower()}.min.{FileOutputType.ToString().ToLower()}";
+                SingleFileName = $"{DataName}_{HotsBuild.Value}_{FileOutputOptions.Localization.ToString().ToLower()}.{FileOutputType.ToString().ToLower()}";
+                MinifiedSingleFileName = $"{DataName}_{HotsBuild.Value}_{FileOutputOptions.Localization.ToString().ToLower()}.min.{FileOutputType.ToString().ToLower()}";
             }
             else
             {
-                SingleFileName = $"{DataName}_{Localization.ToString().ToLower()}.{FileOutputType.ToString().ToLower()}";
-                MinifiedSingleFileName = $"{DataName}_{Localization.ToString().ToLower()}.min.{FileOutputType.ToString().ToLower()}";
+                SingleFileName = $"{DataName}_{FileOutputOptions.Localization.ToString().ToLower()}.{FileOutputType.ToString().ToLower()}";
+                MinifiedSingleFileName = $"{DataName}_{FileOutputOptions.Localization.ToString().ToLower()}.min.{FileOutputType.ToString().ToLower()}";
             }
         }
 
         private void SetFileSplitDirectory()
         {
-            if (FileSettings.IsFileSplit)
+            if (FileOutputOptions.IsFileSplit)
             {
                 if (HotsBuild.HasValue)
                 {
-                    SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-{Localization.ToString().ToLower()}");
-                    SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-{Localization.ToString().ToLower()}.min");
+                    SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-{FileOutputOptions.Localization.ToString().ToLower()}");
+                    SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-{FileOutputOptions.Localization.ToString().ToLower()}.min");
                 }
                 else
                 {
-                    SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-{Localization.ToString().ToLower()}");
-                    SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-{Localization.ToString().ToLower()}");
+                    SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-{FileOutputOptions.Localization.ToString().ToLower()}");
+                    SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-{FileOutputOptions.Localization.ToString().ToLower()}");
                 }
             }
         }
@@ -174,7 +154,7 @@ namespace HeroesData.FileWriter.Writers
                 }
 
                 // no formatting
-                if (IsMinifiedFiles)
+                if (FileOutputOptions.IsMinifiedFiles)
                 {
                     using (StreamWriter file = File.CreateText(Path.Combine(OutputDirectory, MinifiedSingleFileName)))
                     using (JsonTextWriter writer = new JsonTextWriter(file))
@@ -189,7 +169,7 @@ namespace HeroesData.FileWriter.Writers
                 XDocument xmlDoc = new XDocument(new XElement(RootNodeName, items.Select(item => MainElement(item))));
                 xmlDoc.Save(Path.Combine(OutputDirectory, SingleFileName));
 
-                if (IsMinifiedFiles)
+                if (FileOutputOptions.IsMinifiedFiles)
                 {
                     xmlDoc.Save(Path.Combine(OutputDirectory, MinifiedSingleFileName), SaveOptions.DisableFormatting);
                 }
@@ -203,7 +183,7 @@ namespace HeroesData.FileWriter.Writers
 
             Directory.CreateDirectory(Path.Combine(SplitDirectory, DataName));
 
-            if (IsMinifiedFiles)
+            if (FileOutputOptions.IsMinifiedFiles)
                 Directory.CreateDirectory(Path.Combine(SplitMinifiedDirectory, DataName));
 
             if (FileOutputType == FileOutputType.Json)
@@ -220,7 +200,7 @@ namespace HeroesData.FileWriter.Writers
                         jObject.WriteTo(writer);
                     }
 
-                    if (IsMinifiedFiles)
+                    if (FileOutputOptions.IsMinifiedFiles)
                     {
                         // no formatting
                         using (StreamWriter file = File.CreateText(Path.Combine(SplitMinifiedDirectory, DataName, $"{item.ShortName.ToLower()}.min.{FileOutputType.ToString().ToLower()}")))
@@ -240,7 +220,7 @@ namespace HeroesData.FileWriter.Writers
 
                     xmlDoc.Save(Path.Combine(SplitDirectory, DataName, $"{item.ShortName.ToLower()}.{FileOutputType.ToString().ToLower()}"));
 
-                    if (IsMinifiedFiles)
+                    if (FileOutputOptions.IsMinifiedFiles)
                     {
                         xmlDoc.Save(Path.Combine(SplitMinifiedDirectory, DataName, $"{item.ShortName.ToLower()}.min.{FileOutputType.ToString().ToLower()}"), SaveOptions.DisableFormatting);
                     }

@@ -1,5 +1,4 @@
 ﻿using Heroes.Models;
-using HeroesData.FileWriter.Settings;
 using HeroesData.FileWriter.Writers;
 using HeroesData.FileWriter.Writers.HeroData;
 using HeroesData.FileWriter.Writers.MatchAwardData;
@@ -9,8 +8,7 @@ namespace HeroesData.FileWriter
 {
     public class FileOutput
     {
-        private readonly FileConfiguration FileConfiguration; // config file
-        private readonly FileOutputOptions FileOutputOptions; // cli
+        private readonly FileOutputOptions FileOutputOptions;
         private readonly int? HotsBuild;
 
         private Dictionary<FileOutputType, Dictionary<string, IWritable>> Writers = new Dictionary<FileOutputType, Dictionary<string, IWritable>>();
@@ -20,19 +18,6 @@ namespace HeroesData.FileWriter
         /// </summary>
         public FileOutput()
         {
-            FileConfiguration = FileConfiguration.Load();
-            FileOutputOptions = new FileOutputOptions();
-
-            Initialize();
-        }
-
-        /// <summary>
-        /// Creates the output files.
-        /// </summary>
-        /// <param name="configFileName">The file name of the xml configuration file.</param>
-        public FileOutput(string configFileName)
-        {
-            FileConfiguration = FileConfiguration.Load(configFileName);
             FileOutputOptions = new FileOutputOptions();
 
             Initialize();
@@ -44,21 +29,6 @@ namespace HeroesData.FileWriter
         /// <param name="hotsBuild">The hots build number.</param>
         public FileOutput(int? hotsBuild)
         {
-            FileConfiguration = FileConfiguration.Load();
-            HotsBuild = hotsBuild;
-            FileOutputOptions = new FileOutputOptions();
-
-            Initialize();
-        }
-
-        /// <summary>
-        /// Creates the output files.
-        /// </summary>
-        /// <param name="hotsBuild">The hots build number.</param>
-        /// <param name="configFileName">The file name of the xml configuration file.</param>
-        public FileOutput(int? hotsBuild, string configFileName)
-        {
-            FileConfiguration = FileConfiguration.Load(configFileName);
             HotsBuild = hotsBuild;
             FileOutputOptions = new FileOutputOptions();
 
@@ -71,7 +41,6 @@ namespace HeroesData.FileWriter
         /// <param name="fileOutputOptions">Configuration options that can be set from the CLI.</param>
         public FileOutput(FileOutputOptions fileOutputOptions)
         {
-            FileConfiguration = FileConfiguration.Load();
             FileOutputOptions = fileOutputOptions;
 
             Initialize();
@@ -84,7 +53,6 @@ namespace HeroesData.FileWriter
         /// <param name="fileOutputOptions">Configuration options that can be set from the CLI.</param>
         public FileOutput(string configFileName, FileOutputOptions fileOutputOptions)
         {
-            FileConfiguration = FileConfiguration.Load(configFileName);
             FileOutputOptions = fileOutputOptions;
 
             Initialize();
@@ -97,22 +65,6 @@ namespace HeroesData.FileWriter
         /// <param name="fileOutputOptions">Configuration options that can be set from the CLI.</param>
         public FileOutput(int? hotsBuild, FileOutputOptions fileOutputOptions)
         {
-            FileConfiguration = FileConfiguration.Load();
-            HotsBuild = hotsBuild;
-            FileOutputOptions = fileOutputOptions;
-
-            Initialize();
-        }
-
-        /// <summary>
-        /// Creates the output files.
-        /// </summary>
-        /// <param name="hotsBuild">The hots build number.</param>
-        /// <param name="configFileName">The file name of the xml configuration file.</param>
-        /// <param name="fileOutputOptions">Configuration options that can be set from the CLI.</param>
-        public FileOutput(int? hotsBuild, string configFileName, FileOutputOptions fileOutputOptions)
-        {
-            FileConfiguration = FileConfiguration.Load(configFileName);
             HotsBuild = hotsBuild;
             FileOutputOptions = fileOutputOptions;
 
@@ -131,16 +83,8 @@ namespace HeroesData.FileWriter
         {
             if (Writers[fileOutputType].TryGetValue(typeof(T).Name, out IWritable writable))
             {
-                writable.BaseDirectory = FileOutputOptions.OutputDirectory;
-                writable.IsLocalizedText = FileOutputOptions.IsLocalizedText;
-                writable.IsMinifiedFiles = FileOutputOptions.IsMinifiedFiles;
-                writable.Localization = FileOutputOptions.Localization;
+                writable.FileOutputOptions = FileOutputOptions;
                 writable.HotsBuild = HotsBuild;
-                writable.FileSettings = new FileSettings
-                {
-                    IsFileSplit = FileOutputOptions.IsFileSplit ?? false,
-                    DescriptionType = FileOutputOptions.DescriptionType ?? 0,
-                };
 
                 ((IWriter<T>)writable).CreateOutput(items);
 

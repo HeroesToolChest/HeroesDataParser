@@ -14,7 +14,7 @@ namespace HeroesData.FileWriter.Writers.MatchAwardData
         protected void AddLocalizedGameString(MatchAward matchAward)
         {
             LocalizedGameString.AddMatchAwardName(matchAward.ShortName, matchAward.Name);
-            LocalizedGameString.AddMatchAwardDescription(matchAward.ShortName, GetTooltip(matchAward.Description, FileSettings.DescriptionType));
+            LocalizedGameString.AddMatchAwardDescription(matchAward.ShortName, GetTooltip(matchAward.Description, FileOutputOptions.DescriptionType));
         }
     }
 }
