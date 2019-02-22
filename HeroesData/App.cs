@@ -176,11 +176,20 @@ namespace HeroesData
 
                         if (ExtractFileOption != ExtractFileOption.None)
                         {
-                            Console.WriteLine("Extracting files...");
-                            DataProcessor((parser) =>
+                            if (StorageMode == StorageMode.CASC)
                             {
-                                parser?.Extract(parser.ParsedItems);
-                            });
+                                Console.WriteLine("Extracting files...");
+                                DataProcessor((parser) =>
+                                {
+                                    parser?.Extract(parser.ParsedItems);
+                                });
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine("Unable to perform file extraction: Only available in CASC mode.");
+                                Console.ResetColor();
+                            }
 
                             Console.WriteLine();
                         }
