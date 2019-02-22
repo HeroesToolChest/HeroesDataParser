@@ -77,8 +77,7 @@ namespace HeroesData.FileWriter.Writers
                 }
 
                 Directory.CreateDirectory(GameStringDirectory);
-                DeleteExistingGameStringFile();
-                CreateGameStringFile();
+                UpdateGameStringFile();
             }
         }
 
@@ -228,21 +227,26 @@ namespace HeroesData.FileWriter.Writers
             }
         }
 
-        private void DeleteExistingGameStringFile()
+        private void UpdateGameStringFile()
         {
             string filePath = Path.Combine(GameStringDirectory, GameStringTextFileName);
+
+            // load current existing
             if (File.Exists(filePath))
             {
-                File.Delete(filePath);
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        LocalizedGameString.GameStrings.Add(reader.ReadLine());
+                    }
+                }
             }
-        }
 
-        private void CreateGameStringFile()
-        {
             List<string> gameStrings = LocalizedGameString.GameStrings.ToList();
             gameStrings.Sort();
 
-            using (StreamWriter writer = new StreamWriter(Path.Combine(GameStringDirectory, GameStringTextFileName)))
+            using (StreamWriter writer = new StreamWriter(Path.Combine(GameStringDirectory, GameStringTextFileName), false))
             {
                 foreach (string item in gameStrings)
                 {

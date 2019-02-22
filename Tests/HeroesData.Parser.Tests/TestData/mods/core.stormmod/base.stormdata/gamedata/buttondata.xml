@@ -12,4 +12,15 @@
   <CButton default="1" id="StormButtonParentFury" parent="StormButtonParent">
     <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Fury" />
   </CButton>
+  <CButton id="Hearthstone" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_miscrune_1.dds" />
+  </CButton>
+  <CButton id="HearthstoneNoMana" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_miscrune_1.dds" />
+    <HotkeyAlias value="Hearthstone" />
+  </CButton>
+  <CButton id="HearthstoneBrew" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_miscrune_1.dds" />
+    <HotkeyAlias value="Hearthstone" />
+  </CButton>
 </Catalog>

@@ -1,6 +1,4 @@
-﻿using Heroes.Models;
-
-namespace HeroesData.FileWriter.Writers
+﻿namespace HeroesData.FileWriter.Writers
 {
     internal interface IWritable
     {

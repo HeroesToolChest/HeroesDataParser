@@ -149,8 +149,6 @@ namespace HeroesData
             }
 
             Console.ResetColor();
-
-            Environment.Exit(0);
         }
     }
 }

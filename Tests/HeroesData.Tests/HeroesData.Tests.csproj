@@ -19,9 +19,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\dds-reader\DDSReader\DDSReader\DDSReader.csproj" />
+    <ProjectReference Include="..\..\HeroesData\HeroesData.csproj" />
+    <ProjectReference Include="..\HeroesData.Parser.Tests\HeroesData.Parser.Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="dataoverrides\hero-overrides.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="storm_ui_icon_nova_orbitalstrike.dds">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
