@@ -25,7 +25,7 @@ namespace HeroesData.FileWriter.Writers
 
         public int? HotsBuild { get; set; }
 
-        public LocalizedGameString LocalizedGameString { get; } = new LocalizedGameString();
+        public GameStringWriter GameStringWriter { get; } = new GameStringWriter();
 
         protected string SingleFileName { get; private set; }
         protected string MinifiedSingleFileName { get; private set; }
@@ -77,7 +77,8 @@ namespace HeroesData.FileWriter.Writers
                 }
 
                 Directory.CreateDirectory(GameStringDirectory);
-                UpdateGameStringFile();
+                GameStringWriter.Update(GameStringDirectory, GameStringTextFileName);
+                GameStringWriter.Write(GameStringDirectory, GameStringTextFileName);
             }
         }
 
@@ -223,34 +224,6 @@ namespace HeroesData.FileWriter.Writers
                     {
                         xmlDoc.Save(Path.Combine(SplitMinifiedDirectory, DataName, $"{item.ShortName.ToLower()}.min.{FileOutputType.ToString().ToLower()}"), SaveOptions.DisableFormatting);
                     }
-                }
-            }
-        }
-
-        private void UpdateGameStringFile()
-        {
-            string filePath = Path.Combine(GameStringDirectory, GameStringTextFileName);
-
-            // load current existing
-            if (File.Exists(filePath))
-            {
-                using (StreamReader reader = new StreamReader(filePath))
-                {
-                    while (!reader.EndOfStream)
-                    {
-                        LocalizedGameString.GameStrings.Add(reader.ReadLine());
-                    }
-                }
-            }
-
-            List<string> gameStrings = LocalizedGameString.GameStrings.ToList();
-            gameStrings.Sort();
-
-            using (StreamWriter writer = new StreamWriter(Path.Combine(GameStringDirectory, GameStringTextFileName), false))
-            {
-                foreach (string item in gameStrings)
-                {
-                    writer.WriteLine(item);
                 }
             }
         }

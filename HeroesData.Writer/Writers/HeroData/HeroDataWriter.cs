@@ -34,42 +34,42 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected void AddLocalizedGameString(Unit unit)
         {
-            LocalizedGameString.AddUnitName(unit.ShortName, unit.Name);
-            LocalizedGameString.AddUnitType(unit.ShortName, unit.Type);
+            GameStringWriter.AddUnitName(unit.ShortName, unit.Name);
+            GameStringWriter.AddUnitType(unit.ShortName, unit.Type);
 
             string unitDescription = GetTooltip(unit.Description, FileOutputOptions.DescriptionType);
             if (!string.IsNullOrEmpty(unitDescription))
-                LocalizedGameString.AddUnitDescription(unit.ShortName, unitDescription);
+                GameStringWriter.AddUnitDescription(unit.ShortName, unitDescription);
         }
 
         protected void AddLocalizedGameString(Hero hero)
         {
-            LocalizedGameString.AddUnitName(hero.ShortName, hero.Name);
-            LocalizedGameString.AddUnitDifficulty(hero.ShortName, hero.Difficulty);
-            LocalizedGameString.AddUnitType(hero.ShortName, hero.Type);
-            LocalizedGameString.AddUnitDescription(hero.ShortName, GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
-            LocalizedGameString.AddHeroTitle(hero.ShortName, hero.Title);
-            LocalizedGameString.AddHeroSearchText(hero.ShortName, hero.Title);
+            GameStringWriter.AddUnitName(hero.ShortName, hero.Name);
+            GameStringWriter.AddUnitDifficulty(hero.ShortName, hero.Difficulty);
+            GameStringWriter.AddUnitType(hero.ShortName, hero.Type);
+            GameStringWriter.AddUnitDescription(hero.ShortName, GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
+            GameStringWriter.AddHeroTitle(hero.ShortName, hero.Title);
+            GameStringWriter.AddHeroSearchText(hero.ShortName, hero.Title);
 
             if (hero.Roles != null && hero.Roles.Count > 0)
-                LocalizedGameString.AddUnitRole(hero.ShortName, string.Join(",", hero.Roles));
+                GameStringWriter.AddUnitRole(hero.ShortName, string.Join(",", hero.Roles));
         }
 
         protected void AddLocalizedGameString(AbilityTalentBase abilityTalentBase)
         {
-            LocalizedGameString.AddAbilityTalentName(abilityTalentBase.ReferenceNameId, abilityTalentBase.Name);
+            GameStringWriter.AddAbilityTalentName(abilityTalentBase.ReferenceNameId, abilityTalentBase.Name);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Life?.LifeCostTooltip?.RawDescription))
-                LocalizedGameString.AddAbilityTalentLifeTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Life.LifeCostTooltip, FileOutputOptions.DescriptionType));
+                GameStringWriter.AddAbilityTalentLifeTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Life.LifeCostTooltip, FileOutputOptions.DescriptionType));
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Energy?.EnergyTooltip?.RawDescription))
-                LocalizedGameString.AddAbilityTalentEnergyTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Energy.EnergyTooltip, FileOutputOptions.DescriptionType));
+                GameStringWriter.AddAbilityTalentEnergyTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Energy.EnergyTooltip, FileOutputOptions.DescriptionType));
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Cooldown?.CooldownTooltip?.RawDescription))
-                LocalizedGameString.AddAbilityTalentCooldownTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Cooldown.CooldownTooltip, FileOutputOptions.DescriptionType));
+                GameStringWriter.AddAbilityTalentCooldownTooltip(abilityTalentBase.ReferenceNameId, GetTooltip(abilityTalentBase.Tooltip.Cooldown.CooldownTooltip, FileOutputOptions.DescriptionType));
 
-            LocalizedGameString.AddAbilityTalentShortTooltip(abilityTalentBase.ShortTooltipNameId, GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileOutputOptions.DescriptionType));
-            LocalizedGameString.AddAbilityTalentFullTooltip(abilityTalentBase.FullTooltipNameId, GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileOutputOptions.DescriptionType));
+            GameStringWriter.AddAbilityTalentShortTooltip(abilityTalentBase.ShortTooltipNameId, GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileOutputOptions.DescriptionType));
+            GameStringWriter.AddAbilityTalentFullTooltip(abilityTalentBase.FullTooltipNameId, GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileOutputOptions.DescriptionType));
         }
 
         protected T HeroPortraits(Hero hero)

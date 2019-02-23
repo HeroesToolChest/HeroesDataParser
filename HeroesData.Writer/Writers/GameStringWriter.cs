@@ -1,17 +1,57 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace HeroesData.FileWriter.Writers
 {
-    internal class LocalizedGameString
+    internal class GameStringWriter
     {
-        public HashSet<string> GameStrings { get; } = new HashSet<string>();
+        public Dictionary<string, string> GameStrings { get; } = new Dictionary<string, string>();
+
+        public void Update(string gamestringDirectory, string gamestringTextFileName)
+        {
+            string filePath = Path.Combine(gamestringDirectory, gamestringTextFileName);
+
+            // load current existing
+            if (File.Exists(filePath))
+            {
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        string[] line = reader.ReadLine().Split('=');
+                        if (line.Length == 2)
+                            GameStrings[line[0]] = line[1];
+                    }
+                }
+            }
+        }
+
+        public void Write(string gamestringDirectory, string gamestringTextFileName)
+        {
+            List<string> list = new List<string>();
+
+            foreach (var gamestring in GameStrings)
+            {
+                list.Add($"{gamestring.Key}={gamestring.Value}");
+            }
+
+            list.Sort();
+
+            using (StreamWriter writer = new StreamWriter(Path.Combine(gamestringDirectory, gamestringTextFileName), false))
+            {
+                foreach (string item in list)
+                {
+                    writer.WriteLine(item);
+                }
+            }
+        }
 
         public void AddUnitName(string key, string value)
         {
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"unit/name/{key}={value}");
+            GameStrings[$"unit/name/{key}"] = value;
         }
 
         public void AddUnitDifficulty(string key, string value)
@@ -19,7 +59,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"unit/difficulty/{key}={value}");
+            GameStrings[$"unit/difficulty/{key}"] = value;
         }
 
         public void AddUnitType(string key, string value)
@@ -27,7 +67,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"unit/type/{key}={value}");
+            GameStrings[$"unit/type/{key}"] = value;
         }
 
         public void AddUnitRole(string key, string value)
@@ -35,7 +75,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"unit/role/{key}={value}");
+            GameStrings[$"unit/role/{key}"] = value;
         }
 
         public void AddUnitDescription(string key, string value)
@@ -43,7 +83,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"unit/description/{key}={value}");
+            GameStrings[$"unit/description/{key}"] = value;
         }
 
         public void AddHeroTitle(string key, string value)
@@ -51,7 +91,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"unit/title/{key}={value}");
+            GameStrings[$"unit/title/{key}"] = value;
         }
 
         public void AddHeroSearchText(string key, string value)
@@ -59,7 +99,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"unit/searchtext/{key}={value}");
+            GameStrings[$"unit/searchtext/{key}"] = value;
         }
 
         public void AddAbilityTalentName(string key, string value)
@@ -67,7 +107,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"abiltalent/name/{key}={value}");
+            GameStrings[$"abiltalent/name/{key}"] = value;
         }
 
         public void AddAbilityTalentLifeTooltip(string key, string value)
@@ -75,7 +115,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"tooltip/life/{key}={value}");
+            GameStrings[$"tooltip/life/{key}"] = value;
         }
 
         public void AddAbilityTalentEnergyTooltip(string key, string value)
@@ -83,7 +123,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"tooltip/energy/{key}={value}");
+            GameStrings[$"tooltip/energy/{key}"] = value;
         }
 
         public void AddAbilityTalentCooldownTooltip(string key, string value)
@@ -91,7 +131,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"tooltip/cooldown/{key}={value}");
+            GameStrings[$"tooltip/cooldown/{key}"] = value;
         }
 
         public void AddAbilityTalentShortTooltip(string key, string value)
@@ -99,7 +139,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"tooltip/short/{key}={value}");
+            GameStrings[$"tooltip/short/{key}"] = value;
         }
 
         public void AddAbilityTalentFullTooltip(string key, string value)
@@ -107,7 +147,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"tooltip/full/{key}={value}");
+            GameStrings[$"tooltip/full/{key}"] = value;
         }
 
         public void AddMatchAwardName(string key, string value)
@@ -115,7 +155,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"award/name/{key}={value}");
+            GameStrings[$"award/name/{key}"] = value;
         }
 
         public void AddMatchAwardDescription(string key, string value)
@@ -123,7 +163,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key))
                 return;
 
-            GameStrings.Add($"award/description/{key}={value}");
+            GameStrings[$"award/description/{key}"] = value;
         }
     }
 }
