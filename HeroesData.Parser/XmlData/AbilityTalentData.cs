@@ -191,17 +191,17 @@ namespace HeroesData.Parser.XmlData
         /// <param name="abilityTalentBase"></param>
         protected void SetTooltipDescriptions(AbilityTalentBase abilityTalentBase)
         {
-            abilityTalentBase.Name = GameData.GetGameString(DefaultData.ButtonName.Replace(DefaultData.IdReplacer, abilityTalentBase.FullTooltipNameId));
+            abilityTalentBase.Name = GameData.GetGameString(DefaultData.ButtonName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId));
             abilityTalentBase.ShortTooltipNameId = abilityTalentBase.FullTooltipNameId; // default
 
             // full
-            if (GameData.TryGetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, abilityTalentBase.FullTooltipNameId), out string fullDescription))
+            if (GameData.TryGetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId), out string fullDescription))
             {
                 abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription, Localization);
             }
 
             // short
-            if (GameData.TryGetGameString(DefaultData.ButtonSimpleDisplayText.Replace(DefaultData.IdReplacer, abilityTalentBase.FullTooltipNameId), out string shortDescription))
+            if (GameData.TryGetGameString(DefaultData.ButtonSimpleDisplayText.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId), out string shortDescription))
             {
                 abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription, Localization);
             }

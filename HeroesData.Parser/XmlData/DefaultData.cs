@@ -11,7 +11,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Id to be replaced in some strings.
         /// </summary>
-        public const string IdReplacer = "##id##";
+        public const string IdPlaceHolder = "##id##";
 
         public const string ReplacementCharacter = "%1";
 
@@ -286,7 +286,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default difficulty text. Contains ##id##.
         /// </summary>
-        public string Difficulty { get; } = $"UI/HeroUtil/Difficulty/{IdReplacer}";
+        public string Difficulty { get; } = $"UI/HeroUtil/Difficulty/{IdPlaceHolder}";
 
         /// <summary>
         /// Load all default data.

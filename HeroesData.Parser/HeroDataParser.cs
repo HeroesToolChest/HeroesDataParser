@@ -76,8 +76,8 @@ namespace HeroesData.Parser
 
             Hero hero = new Hero
             {
-                Name = GameData.GetGameString(DefaultData.HeroName.Replace(DefaultData.IdReplacer, heroId)),
-                Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroDescription.Replace(DefaultData.IdReplacer, heroId)), Localization),
+                Name = GameData.GetGameString(DefaultData.HeroName.Replace(DefaultData.IdPlaceHolder, heroId)),
+                Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroDescription.Replace(DefaultData.IdPlaceHolder, heroId)), Localization),
                 CHeroId = heroId,
             };
 
@@ -158,27 +158,27 @@ namespace HeroesData.Parser
             hero.Energy.EnergyType = GameData.GetGameString(DefaultData.HeroEnergyTypeManaText);
             hero.Energy.EnergyMax = DefaultData.UnitEnergyMax;
             hero.Energy.EnergyRegenerationRate = DefaultData.UnitEnergyRegenRate;
-            hero.Difficulty = GameData.GetGameString(DefaultData.Difficulty.Replace(DefaultData.IdReplacer, DefaultData.DefaultHeroDifficulty)).Trim();
+            hero.Difficulty = GameData.GetGameString(DefaultData.Difficulty.Replace(DefaultData.IdPlaceHolder, DefaultData.DefaultHeroDifficulty)).Trim();
             hero.HearthLinkId = DefaultData.DefaultHearthAbilityId;
 
             if (hero.CHeroId != null)
             {
-                hero.ShortName = DefaultData.HeroHyperlinkId.Replace(DefaultData.IdReplacer, hero.CHeroId);
-                hero.CUnitId = DefaultData.HeroUnit.Replace(DefaultData.IdReplacer, hero.CHeroId);
+                hero.ShortName = DefaultData.HeroHyperlinkId.Replace(DefaultData.IdPlaceHolder, hero.CHeroId);
+                hero.CUnitId = DefaultData.HeroUnit.Replace(DefaultData.IdPlaceHolder, hero.CHeroId);
 
-                hero.HeroPortrait.HeroSelectPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroSelectScreenButtonImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.LeaderboardPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroLeaderboardImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroLoadingScreenImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroPartyPanelButtonImage.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroPortrait.Replace(DefaultData.IdReplacer, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.HeroSelectPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroSelectScreenButtonImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.LeaderboardPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroLeaderboardImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroLoadingScreenImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroPartyPanelButtonImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroPortrait.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
 
-                hero.InfoText = GameData.GetGameString(DefaultData.HeroInfoText.Replace(DefaultData.IdReplacer, hero.CHeroId));
-                hero.Title = GameData.GetGameString(DefaultData.HeroTitle.Replace(DefaultData.IdReplacer, hero.CHeroId));
+                hero.InfoText = GameData.GetGameString(DefaultData.HeroInfoText.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
+                hero.Title = GameData.GetGameString(DefaultData.HeroTitle.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
 
-                hero.SearchText = GameData.GetGameString(DefaultData.HeroAlternateNameSearchText.Replace(DefaultData.IdReplacer, hero.CHeroId));
+                hero.SearchText = GameData.GetGameString(DefaultData.HeroAlternateNameSearchText.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
                 if (!string.IsNullOrEmpty(hero.SearchText) && hero.SearchText.Last() != ' ')
                     hero.SearchText += " ";
-                hero.SearchText += GameData.GetGameString(DefaultData.HeroAdditionalSearchText.Replace(DefaultData.IdReplacer, hero.CHeroId));
+                hero.SearchText += GameData.GetGameString(DefaultData.HeroAdditionalSearchText.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
                 hero.SearchText = hero.SearchText.Trim();
 
                 if (HeroDataOverride.CUnitOverride.Enabled)
@@ -245,7 +245,7 @@ namespace HeroesData.Parser
 
                     if (!string.IsNullOrEmpty(difficultyValue))
                     {
-                        hero.Difficulty = GameData.GetGameString(DefaultData.Difficulty.Replace(DefaultData.IdReplacer, difficultyValue)).Trim();
+                        hero.Difficulty = GameData.GetGameString(DefaultData.Difficulty.Replace(DefaultData.IdPlaceHolder, difficultyValue)).Trim();
                     }
                 }
                 else if (elementName == "ROLE" || elementName == "ROLESMULTICLASS")
@@ -255,7 +255,7 @@ namespace HeroesData.Parser
                     if (hero.Roles == null)
                         hero.Roles = new List<string>();
 
-                    string role = GameData.GetGameString(DefaultData.HeroRoleName.Replace(DefaultData.IdReplacer, roleValue)).Trim();
+                    string role = GameData.GetGameString(DefaultData.HeroRoleName.Replace(DefaultData.IdPlaceHolder, roleValue)).Trim();
 
                     if (!hero.Roles.Contains(role))
                         hero.Roles.Add(role);
@@ -517,9 +517,9 @@ namespace HeroesData.Parser
         {
             foreach (string cUnitId in HeroDataOverride.HeroUnits)
             {
-                if (!GameData.TryGetGameString(DefaultData.UnitName.Replace(DefaultData.IdReplacer, cUnitId), out string name))
+                if (!GameData.TryGetGameString(DefaultData.UnitName.Replace(DefaultData.IdPlaceHolder, cUnitId), out string name))
                 {
-                    if (!GameData.TryGetGameString(DefaultData.ButtonName.Replace(DefaultData.IdReplacer, cUnitId), out name))
+                    if (!GameData.TryGetGameString(DefaultData.ButtonName.Replace(DefaultData.IdPlaceHolder, cUnitId), out name))
                         name = cUnitId;
                 }
 

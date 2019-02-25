@@ -140,7 +140,7 @@ namespace HeroesData.Parser.XmlData
             ability.ReferenceNameId = id;
             ability.FullTooltipNameId = id;
 
-            if (GameData.TryGetGameString(DefaultData.ButtonName.Replace(DefaultData.IdReplacer, id), out string abilityName))
+            if (GameData.TryGetGameString(DefaultData.ButtonName.Replace(DefaultData.IdPlaceHolder, id), out string abilityName))
                 ability.Name = abilityName;
 
             XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId);

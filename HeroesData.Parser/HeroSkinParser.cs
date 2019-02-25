@@ -82,7 +82,7 @@ namespace HeroesData.Parser
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.HeroSkinInfoText.Replace(DefaultData.IdReplacer, skinElement.Attribute("id")?.Value));
+                string desc = GameData.GetGameString(DefaultData.HeroSkinInfoText.Replace(DefaultData.IdPlaceHolder, skinElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
                     heroSkin.Description = new TooltipDescription(desc);
             }
@@ -148,14 +148,14 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(HeroSkin heroSkin)
         {
-            heroSkin.Name = GameData.GetGameString(DefaultData.HeroSkinName.Replace(DefaultData.IdReplacer, heroSkin.SkinId));
-            heroSkin.SortName = GameData.GetGameString(DefaultData.HeroSkinSortName.Replace(DefaultData.IdReplacer, heroSkin.SkinId));
-            heroSkin.Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroSkinInfoText.Replace(DefaultData.IdReplacer, heroSkin.SkinId)));
-            heroSkin.ShortName = GameData.GetGameString(DefaultData.HeroSkinHyperlinkId.Replace(DefaultData.IdReplacer, heroSkin.SkinId));
+            heroSkin.Name = GameData.GetGameString(DefaultData.HeroSkinName.Replace(DefaultData.IdPlaceHolder, heroSkin.SkinId));
+            heroSkin.SortName = GameData.GetGameString(DefaultData.HeroSkinSortName.Replace(DefaultData.IdPlaceHolder, heroSkin.SkinId));
+            heroSkin.Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroSkinInfoText.Replace(DefaultData.IdPlaceHolder, heroSkin.SkinId)));
+            heroSkin.ShortName = GameData.GetGameString(DefaultData.HeroSkinHyperlinkId.Replace(DefaultData.IdPlaceHolder, heroSkin.SkinId));
             heroSkin.ReleaseDate = DefaultData.HeroReleaseDate;
             heroSkin.Rarity = Rarity.None;
 
-            heroSkin.SearchText = GameData.GetGameString(DefaultData.HeroSkinAdditionalSearchText.Replace(DefaultData.IdReplacer, heroSkin.SkinId));
+            heroSkin.SearchText = GameData.GetGameString(DefaultData.HeroSkinAdditionalSearchText.Replace(DefaultData.IdPlaceHolder, heroSkin.SkinId));
             if (!string.IsNullOrEmpty(heroSkin.SearchText))
                 heroSkin.SearchText = heroSkin.SearchText.Trim();
         }
