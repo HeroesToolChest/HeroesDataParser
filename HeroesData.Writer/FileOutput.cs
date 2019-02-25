@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using HeroesData.FileWriter.Writers;
 using HeroesData.FileWriter.Writers.HeroData;
+using HeroesData.FileWriter.Writers.HeroSkinData;
 using HeroesData.FileWriter.Writers.MatchAwardData;
 using System.Collections.Generic;
 
@@ -103,14 +104,16 @@ namespace HeroesData.FileWriter
         {
             Writers.Add(FileOutputType.Json, new Dictionary<string, IWritable>()
             {
-               { nameof(Hero), new HeroDataJsonWriter() },
-               { nameof(MatchAward), new MatchAwardDataJsonWriter() },
+                { nameof(Hero), new HeroDataJsonWriter() },
+                { nameof(MatchAward), new MatchAwardDataJsonWriter() },
+                { nameof(HeroSkin), new HeroSkinDataJsonWriter() },
             });
 
             Writers.Add(FileOutputType.Xml, new Dictionary<string, IWritable>()
             {
-               { nameof(Hero), new HeroDataXmlWriter() },
-               { nameof(MatchAward), new MatchAwardDataXmlWriter() },
+                { nameof(Hero), new HeroDataXmlWriter() },
+                { nameof(MatchAward), new MatchAwardDataXmlWriter() },
+                { nameof(HeroSkin), new HeroSkinDataXmlWriter() },
             });
         }
     }

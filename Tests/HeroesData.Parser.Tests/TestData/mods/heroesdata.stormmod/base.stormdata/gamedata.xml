@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <Includes>
   <Catalog path="GameData/Heroes/AbathurData/AbathurData.xml" />
+  <Catalog path="GameData/Heroes/AbathurData/AbathurSkinData/2/AbathurBaseData.xml" />
+  <Catalog path="GameData/Heroes/AbathurData/AbathurSkinData/2/AbathurVar1Data.xml" />
+  <Catalog path="GameData/Heroes/AbathurData/AbathurSkinData/3/mechabase.xml" />
+  <Catalog path="GameData/Heroes/AbathurData/AbathurSkinData/3/mechavar1.xml" />
   <Catalog path="GameData/Heroes/AnubarakData/AnubarakData.xml" />
   <Catalog path="GameData/Heroes/ArthasData/ArthasData.xml" />
   <Catalog path="GameData/Heroes/AzmodanData/AzmodanData.xml" />

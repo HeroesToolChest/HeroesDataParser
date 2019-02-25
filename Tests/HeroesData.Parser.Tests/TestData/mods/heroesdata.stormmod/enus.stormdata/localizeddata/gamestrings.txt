@@ -357,3 +357,9 @@ Hero/Info/Abathur=Abathur, the Evolution Master of Kerrigan's Swarm, works cease
 Hero/Title/Abathur=Evolution Master
 Hero/AdditionalSearchText/Abathur=Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug
 Hero/AlternateNameSearchText/Abathur=Abathur
+
+Skin/Name/AbathurBone=Bone Abathur
+Skin/SortName/AbathurBone=1AbathurVar1
+Skin/Info/AbathurBone=Color variant.
+Skin/AdditionalSearchText/AbathurBone=White Pink
+Skin/SortName/AbathurCommonVar1=zxAbathurVar1

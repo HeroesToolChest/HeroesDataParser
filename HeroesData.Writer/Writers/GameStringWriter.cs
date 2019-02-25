@@ -165,5 +165,37 @@ namespace HeroesData.FileWriter.Writers
 
             GameStrings[$"award/description/{key}"] = value;
         }
+
+        public void AddHeroSkinName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"heroskin/name/{key}"] = value;
+        }
+
+        public void AddHeroSkinSortName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"heroskin/sortname/{key}"] = value;
+        }
+
+        public void AddHeroSkinInfo(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"heroskin/info/{key}"] = value;
+        }
+
+        public void AddHeroSkinSearchText(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"heroskin/searchtext/{key}"] = value;
+        }
     }
 }

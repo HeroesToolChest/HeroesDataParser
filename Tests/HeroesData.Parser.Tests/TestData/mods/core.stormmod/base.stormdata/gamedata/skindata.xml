@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CSkin default="1">
+    <Name value="Skin/Name/##id##"/>
+    <SortName value="Skin/SortName/##id##"/>
+    <InfoText value="Skin/Info/##id##"/>
+    <VariationIcon value="Assets/Textures/ui_glues_heroselect_skin_##id##.dds"/>
+    <AdditionalSearchText value="Skin/AdditionalSearchText/##id##"/>
+    <HyperlinkId value="##id##"/>
+    <ReleaseDate>
+      <Month value="3"/>
+      <Day value="1"/>
+      <Year value="2014"/>
+    </ReleaseDate>
+  </CSkin>
+</Catalog>

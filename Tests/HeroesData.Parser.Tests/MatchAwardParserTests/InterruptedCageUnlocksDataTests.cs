@@ -3,7 +3,7 @@
 namespace HeroesData.Parser.Tests.MatchAwardParserTests
 {
     [TestClass]
-    public class InterruptedCageUnlocksDataTests : MatchAwardParserBaseTest
+    public class AbathurBoneDataTests : MatchAwardParserBaseTest
     {
         [TestMethod]
         public void PropertiesTests()

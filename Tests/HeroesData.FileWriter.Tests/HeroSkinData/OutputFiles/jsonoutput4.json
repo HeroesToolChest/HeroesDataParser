@@ -1,0 +1,24 @@
+{
+  "AbathurBone": {
+    "name": "Bone Abathur",
+    "skinId": "AbathurBone",
+    "attributeId": "Aba1",
+    "rarity": "None",
+    "releaseDate": "2014-03-13",
+    "sortName": "xxAbathurBone",
+    "searchText": "White Pink",
+    "description": "Evolution Master of Kerrigan's Swarm",
+    "features": [
+      "ThemedAbilities",
+      "ThemedAnimations"
+    ]
+  },
+  "AbathurMecha": {
+    "name": "Mecha Abathur",
+    "skinId": "AbathurMechaVar1",
+    "attributeId": "Aba2",
+    "rarity": "Legendary",
+    "releaseDate": "2014-03-01",
+    "sortName": "xxyAbathurMecha"
+  }
+}

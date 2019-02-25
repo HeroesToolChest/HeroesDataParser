@@ -196,7 +196,7 @@ namespace HeroesData.Loader.XmlGameData
                 {
                     pathValue = PathExtensions.GetFilePath(pathValue);
 
-                    if (!pathValue.Contains("skindata") && !pathValue.Contains("sounddata"))
+                    if (!pathValue.Contains("sounddata"))
                     {
                         if (gameDataXmlFilePath.Contains(HeroesDataStormModDirectoryName) && pathValue.StartsWith("gamedata/heroes"))
                         {

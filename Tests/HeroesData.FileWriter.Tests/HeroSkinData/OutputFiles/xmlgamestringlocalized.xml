@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HeroSkins>
+  <AbathurBone skinId="AbathurBone" attributeId="Aba1" rarity="Aba1" releaseDate="2014-03-13">
+    <Features>
+      <Feature>ThemedAbilities</Feature>
+      <Feature>ThemedAnimations</Feature>
+    </Features>
+  </AbathurBone>
+  <AbathurMecha skinId="AbathurMechaVar1" attributeId="Aba2" rarity="Aba2" releaseDate="2014-03-01" />
+</HeroSkins>

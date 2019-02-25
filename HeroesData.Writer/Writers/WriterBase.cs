@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -166,7 +167,17 @@ namespace HeroesData.FileWriter.Writers
             }
             else if (FileOutputType == FileOutputType.Xml)
             {
-                XDocument xmlDoc = new XDocument(new XElement(RootNodeName, items.Select(item => MainElement(item))));
+                XDocument xmlDoc = null;
+
+                try
+                {
+                    xmlDoc = new XDocument(new XElement(RootNodeName, items.Select(item => MainElement(item))));
+                }
+                catch (ArgumentNullException)
+                {
+                    throw new ArgumentNullException($"{nameof(RootNodeName)} cannot be null. Needs to be set in the corresponding xml writer class.");
+                }
+
                 xmlDoc.Save(Path.Combine(OutputDirectory, SingleFileName));
 
                 if (FileOutputOptions.IsMinifiedFiles)

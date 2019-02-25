@@ -140,7 +140,7 @@ namespace HeroesData.ExtractorData
             if (hero.Speed <= 0)
                 AddWarning($"{nameof(hero.Speed)} is 0");
 
-            if (hero.Rarity == HeroRarity.None)
+            if (hero.Rarity == Rarity.None)
                 AddWarning($"{nameof(hero.Rarity)} is None");
 
             if (!hero.ReleaseDate.HasValue)

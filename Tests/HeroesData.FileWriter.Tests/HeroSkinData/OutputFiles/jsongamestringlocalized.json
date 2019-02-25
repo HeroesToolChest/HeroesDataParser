@@ -1,0 +1,18 @@
+{
+  "AbathurBone": {
+    "skinId": "AbathurBone",
+    "attributeId": "Aba1",
+    "rarity": "None",
+    "releaseDate": "2014-03-13",
+    "features": [
+      "ThemedAbilities",
+      "ThemedAnimations"
+    ]
+  },
+  "AbathurMecha": {
+    "skinId": "AbathurMechaVar1",
+    "attributeId": "Aba2",
+    "rarity": "Legendary",
+    "releaseDate": "2014-03-01"
+  }
+}

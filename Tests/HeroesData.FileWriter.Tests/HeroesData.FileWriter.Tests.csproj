@@ -30,5 +30,8 @@
     <None Update="MatchAwardData\OutputFiles\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="HeroSkinData\OutputFiles\**\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
