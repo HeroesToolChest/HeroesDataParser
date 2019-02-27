@@ -607,8 +607,9 @@ namespace HeroesData
         private void SetUpDataProcessors()
         {
             DataHero dataHero = new DataHero(new HeroDataParser(GameData, DefaultData, (HeroOverrideLoader)XmlDataOverriders.GetOverrider(typeof(HeroDataParser))));
-            DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(GameData));
+            DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(GameData, DefaultData));
             DataHeroSkin dataHeroSkin = new DataHeroSkin(new HeroSkinParser(GameData, DefaultData));
+            DataMount dataMount = new DataMount(new MountParser(GameData, DefaultData));
 
             FilesHero filesHero = new FilesHero(CASCHotsStorage?.CASCHandler, StorageMode);
             FilesMatchAward filesMatchAward = new FilesMatchAward(CASCHotsStorage?.CASCHandler, StorageMode);
@@ -635,6 +636,13 @@ namespace HeroesData
                 Name = dataHeroSkin.Name,
                 Parse = (localization) => dataHeroSkin.Parse(localization),
                 Validate = (localization) => dataHeroSkin.Validate(localization),
+            });
+            DataProcessors.Add(new DataProcessor()
+            {
+                IsEnabled = true,
+                Name = dataMount.Name,
+                Parse = (localization) => dataMount.Parse(localization),
+                Validate = (localization) => dataMount.Validate(localization),
             });
         }
     }

@@ -1,0 +1,8 @@
+mount/info/CloudNine=A floating cloud
+mount/info/MagicCarpet=A flying magic carpet
+mount/name/CloudNine=Cloud Nine
+mount/name/MagicCarpet=Magic Carpet
+mount/searchtext/CloudNine=Blue
+mount/searchtext/MagicCarpet=Blue
+mount/sortname/CloudNine=99CloudeNine
+mount/sortname/MagicCarpet=xxMagixCarpet

@@ -10,12 +10,9 @@ namespace HeroesData.Parser
 {
     public class HeroSkinParser : ParserBase, IParser<HeroSkin, HeroSkinParser>
     {
-        private readonly DefaultData DefaultData;
-
         public HeroSkinParser(GameData gameData, DefaultData defaultData)
-            : base(gameData)
+            : base(gameData, defaultData)
         {
-            DefaultData = defaultData;
         }
 
         public IList<string[]> Items

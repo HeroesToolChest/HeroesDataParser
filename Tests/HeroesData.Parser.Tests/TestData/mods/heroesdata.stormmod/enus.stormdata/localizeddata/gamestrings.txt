@@ -363,3 +363,10 @@ Skin/SortName/AbathurBone=1AbathurVar1
 Skin/Info/AbathurBone=Color variant.
 Skin/AdditionalSearchText/AbathurBone=White Pink
 Skin/SortName/AbathurCommonVar1=zxAbathurVar1
+
+Mount/AdditionalSearchText/MountCloudVar1=Green
+Mount/Name/MountCloudVar1=Azure Nimbus Cloud
+Mount/Info/MountCloud=The Monkey King is said to be able to somersault through the air and leap across great distances with ease. Now, with this magical cloud, you can too!
+Mount/Name/MountCloud=Nimbus Cloud
+Mount/Name/MountCloudVar1=Jade Nimbus Cloud
+Mount/Name/MountCloudVar2=Azure Nimbus Cloud

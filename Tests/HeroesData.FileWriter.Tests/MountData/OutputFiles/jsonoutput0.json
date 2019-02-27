@@ -1,0 +1,22 @@
+{
+  "CloudNine": {
+    "name": "Cloud Nine",
+    "mountId": "CloudNine",
+    "attributeId": "CN9",
+    "rarity": "Rare",
+    "releaseDate": "2016-05-21",
+    "sortName": "99CloudeNine",
+    "searchText": "Blue",
+    "description": "A floating cloud"
+  },
+  "MagicCarpet": {
+    "name": "Magic Carpet",
+    "mountId": "MagixCarpet",
+    "attributeId": "MC4",
+    "rarity": "Epic",
+    "releaseDate": "2018-04-01",
+    "sortName": "xxMagixCarpet",
+    "searchText": "Blue",
+    "description": "A flying magic carpet"
+  }
+}

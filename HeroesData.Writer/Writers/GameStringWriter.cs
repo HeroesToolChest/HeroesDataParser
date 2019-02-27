@@ -197,5 +197,37 @@ namespace HeroesData.FileWriter.Writers
 
             GameStrings[$"heroskin/searchtext/{key}"] = value;
         }
+
+        public void AddMountName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"mount/name/{key}"] = value;
+        }
+
+        public void AddMountSortName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"mount/sortname/{key}"] = value;
+        }
+
+        public void AddMountInfo(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"mount/info/{key}"] = value;
+        }
+
+        public void AddMountSearchText(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"mount/searchtext/{key}"] = value;
+        }
     }
 }

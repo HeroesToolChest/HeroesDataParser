@@ -1,13 +1,15 @@
 ﻿using Heroes.Models;
 using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser.XmlData;
 
 namespace HeroesData.Parser
 {
     public abstract class ParserBase
     {
-        public ParserBase(GameData gameData)
+        public ParserBase(GameData gameData, DefaultData defaultData)
         {
             GameData = gameData;
+            DefaultData = defaultData;
         }
 
         /// <summary>
@@ -21,5 +23,7 @@ namespace HeroesData.Parser
         public Localization Localization { get; set; }
 
         protected GameData GameData { get; }
+
+        protected DefaultData DefaultData { get; }
     }
 }

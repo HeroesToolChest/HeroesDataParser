@@ -2,6 +2,7 @@
 using HeroesData.Helpers;
 using HeroesData.Loader;
 using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser.XmlData;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,8 +15,8 @@ namespace HeroesData.Parser
     {
         private readonly string MVPGameLinkId = "EndOfMatchAwardMVPBoolean";
 
-        public MatchAwardParser(GameData gameData)
-            : base(gameData)
+        public MatchAwardParser(GameData gameData, DefaultData defaultData)
+            : base(gameData, defaultData)
         {
         }
 
@@ -125,7 +126,7 @@ namespace HeroesData.Parser
 
         public MatchAwardParser GetInstance()
         {
-            return new MatchAwardParser(GameData);
+            return new MatchAwardParser(GameData, DefaultData);
         }
 
         private string GetNameFromGenderRule(string name)

@@ -15,7 +15,6 @@ namespace HeroesData.Parser
 {
     public class HeroDataParser : ParserBase, IParser<Hero, HeroDataParser>
     {
-        private readonly DefaultData DefaultData;
         private readonly HeroOverrideLoader HeroOverrideLoader;
 
         private HeroDataOverride HeroDataOverride;
@@ -25,9 +24,8 @@ namespace HeroesData.Parser
         private TalentData TalentData;
 
         public HeroDataParser(GameData gameData, DefaultData defaultData, HeroOverrideLoader heroOverrideLoader)
-            : base(gameData)
+            : base(gameData, defaultData)
         {
-            DefaultData = defaultData;
             HeroOverrideLoader = heroOverrideLoader;
         }
 
