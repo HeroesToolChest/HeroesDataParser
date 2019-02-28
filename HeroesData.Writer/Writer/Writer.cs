@@ -123,9 +123,9 @@ namespace HeroesData.FileWriter.Writer
         }
 
         protected abstract void CreateSingleFile<TObject>(IEnumerable<TObject> items, string rootNodeName, string singleFileName, string noIndentationName, Func<TObject, T> dataMethod)
-            where TObject : INameable;
+            where TObject : IExtractable;
         protected abstract void CreateMultipleFiles<TObject>(IEnumerable<TObject> items, string rootNodeName, string subDirectory, Func<TObject, T> dataMethod)
-            where TObject : INameable;
+            where TObject : IExtractable;
 
         protected abstract void CreateHeroDataMultipleFiles();
         protected abstract void CreateMatchAwardMultipleFiles();

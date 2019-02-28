@@ -313,10 +313,10 @@ namespace HeroesData.Parser.HeroData
                 }
                 else if (elementName == "RARITY")
                 {
-                    if (Enum.TryParse(element.Attribute("value").Value, out HeroRarity heroRarity))
+                    if (Enum.TryParse(element.Attribute("value").Value, out Rarity heroRarity))
                         hero.Rarity = heroRarity;
                     else
-                        hero.Rarity = HeroRarity.None;
+                        hero.Rarity = Rarity.None;
                 }
                 else if (elementName == "RATINGS")
                 {
