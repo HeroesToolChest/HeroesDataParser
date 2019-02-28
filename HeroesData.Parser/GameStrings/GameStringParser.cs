@@ -482,9 +482,25 @@ namespace HeroesData.Parser.GameStrings
                 {
                     XAttribute attribute = currentElement.Attribute("value");
                     if (attribute == null)
+                    {
                         attribute = currentElement.Attribute("Value");
-                    if (attribute != null)
-                        return attribute.Value;
+                    }
+                    else if (attribute != null)
+                    {
+                        string value = attribute.Value;
+
+                        // check for const value
+                        if (value.StartsWith("$"))
+                        {
+                            XElement constElement = GameData.XmlGameData.Root.Elements("const").Where(x => x.Attribute("id")?.Value == value).FirstOrDefault();
+                            if (constElement != null)
+                            {
+                                return constElement.Attribute("value")?.Value;
+                            }
+                        }
+
+                        return value;
+                    }
                 }
             }
 

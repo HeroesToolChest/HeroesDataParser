@@ -34,6 +34,7 @@ namespace HeroesData.Parser.Tests
         private readonly string ParsedTooltip14 = "Deal <c val=\"#TooltipNumbers\">172~~0.04~~</c> damage to enemies within the target area.";
         private readonly string ParsedTooltip15 = "Zarya's Basic Attack deals <c val=\"#TooltipNumbers\">50%</c> additional damage to enemies in melee range.";
         private readonly string ParsedTooltip16 = "Channel on an allied or destroyed Fort or Keep to replace it with Ragnaros's ultimate form, temporarily gaining new Abilities, having <c val=\"#TooltipNumbers\">3996~~0.04~~</c> Health that burns away over <c val=\"#TooltipNumbers\">18</c> seconds.<n/><n/>Ragnaros returns to his normal form upon losing all Health in Molten Core.";
+        private readonly string ParsedTooltip17 = "Globe of Annihilation deals <c val=\"#TooltipNumbers\">20%</c> more damage to non-Heroic targets.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Quest:</c> After gaining <c val=\"#TooltipNumbers\">200</c> Annihilation, increase the range of All Shall Burn by <c val=\"#TooltipNumbers\">25%</c> and Demon Warriors gain <c val=\"#TooltipNumbers\">20%</c> Attack Speed and Movement Speed.";
 
         public GameStringParserTests()
         {
@@ -82,6 +83,7 @@ namespace HeroesData.Parser.Tests
             Assert.AreEqual(ParsedTooltip14, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "DemonHunterMultishot")));
             Assert.AreEqual(ParsedTooltip15, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "ZaryaWeaponFeelTheHeatTalent")));
             Assert.AreEqual(ParsedTooltip16, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "RagnarosMoltenCore")));
+            Assert.AreEqual(ParsedTooltip17, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdReplacer, "AzmodanGreed")));
         }
 
         private void PreParse()
