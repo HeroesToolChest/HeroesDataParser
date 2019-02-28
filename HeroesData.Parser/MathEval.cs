@@ -11,6 +11,7 @@ namespace HeroesData.Parser
         public static double CalculatePathEquation(string input)
         {
             input = ParenthesisValidator(input);
+            input = SpecificEquationModifier(input);
             input = GetInnerParenthesisValues(input);
 
             // finalize calculations
@@ -134,6 +135,21 @@ namespace HeroesData.Parser
             {
                 input = $"{input})";
                 rightCount++;
+            }
+
+            return input;
+        }
+
+        private static string SpecificEquationModifier(string input)
+        {
+            // MedivhTemporalFlux - build 72481 - change negative to positive
+            var regex = new Regex(@"\-\-\d+\s*\*\-\d+\s*", RegexOptions.IgnorePatternWhitespace);
+            var match = regex.Match(input);
+
+            if (!string.IsNullOrEmpty(match.Value))
+            {
+                if (input.Length > 2 && input.StartsWith("--"))
+                    return input.Remove(0, 1);
             }
 
             return input;
