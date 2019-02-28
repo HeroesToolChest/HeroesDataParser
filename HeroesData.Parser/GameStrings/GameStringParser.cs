@@ -53,6 +53,11 @@ namespace HeroesData.Parser.GameStrings
             try
             {
                 parsedTooltip = ParseTooltipGameStringData(key, tooltip);
+
+                // unable to parse correctly, returns an empty string
+                if (parsedTooltip.Contains("<d ref="))
+                    parsedTooltip = string.Empty;
+
                 return true;
             }
             catch (UnparseableException)
