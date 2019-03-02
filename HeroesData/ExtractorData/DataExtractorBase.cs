@@ -105,7 +105,7 @@ namespace HeroesData.ExtractorData
         {
             foreach (var t in ParsedData)
             {
-                ValidationWarningId = t.Value.HyperlinkId;
+                ValidationWarningId = t.Value.Id;
                 Validation(t.Value);
             }
 
