@@ -17,7 +17,7 @@ namespace HeroesData.Parser.Tests
         private readonly string ModsTestFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestData", "mods");
         private readonly string DataReferenceText1 = "<d ref=\"100*Talent,AnubarakMasteryEpicenterBurrowCharge,AbilityModificationArray[0].Modifications[2].Value\"/>";
         private readonly string Tooltip1 = "Toxic Nests deal <c val=\"#TooltipNumbers\"><d ref=\"(Effect,AbathurToxicNestEnvenomedNestDamage,Amount* [d ref='Behavior,AbathurToxicNestEnvenomedNest,PeriodCount' player='0'/])/Effect,ToxicNestDamage,Amount*100\"/>%</c> more damage over <c val=\"#TooltipNumbers\"><d ref=\"Behavior,AbathurToxicNestEnvenomedNest,Duration\" player=\"0\"/></c> seconds.";
-        private readonly string Tolltip2 = "Zarya's Basic Attack deals <c val=\"#TooltipNumbers\"><d ref=\"(Effect,ZaryaWeaponFeelTheHeatDamage,Amount/Effect,ZaryaWeaponDamage,Amount)-1*10)\" />0%</c> additional damage to enemies in melee range.";
+        private readonly string Tooltip2 = "Zarya's Basic Attack deals <c val=\"#TooltipNumbers\"><d ref=\"(Effect,ZaryaWeaponFeelTheHeatDamage,Amount/Effect,ZaryaWeaponDamage,Amount)-1*10)\" />0%</c> additional damage to enemies in melee range.";
 
         private readonly string ParsedTooltip1 = "Toxic Nests deal <c val=\"#TooltipNumbers\">75%</c> more damage over <c val=\"#TooltipNumbers\">3</c> seconds.";
         private readonly string ParsedTooltip2 = "Shields the assisted ally for <c val=\"#TooltipNumbers\">157~~0.04~~</c>. Lasts for <c val=\"#TooltipNumbers\">8</c> seconds.";
@@ -35,6 +35,7 @@ namespace HeroesData.Parser.Tests
         private readonly string ParsedTooltip14 = "Deal <c val=\"#TooltipNumbers\">172~~0.04~~</c> damage to enemies within the target area.";
         private readonly string ParsedTooltip15 = "Zarya's Basic Attack deals <c val=\"#TooltipNumbers\">50%</c> additional damage to enemies in melee range.";
         private readonly string ParsedTooltip16 = "Channel on an allied or destroyed Fort or Keep to replace it with Ragnaros's ultimate form, temporarily gaining new Abilities, having <c val=\"#TooltipNumbers\">3996~~0.04~~</c> Health that burns away over <c val=\"#TooltipNumbers\">18</c> seconds.<n/><n/>Ragnaros returns to his normal form upon losing all Health in Molten Core.";
+        private readonly string ParsedTooltip17 = "Globe of Annihilation deals <c val=\"#TooltipNumbers\">20%</c> more damage to non-Heroic targets.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Quest:</c> After gaining <c val=\"#TooltipNumbers\">200</c> Annihilation, increase the range of All Shall Burn by <c val=\"#TooltipNumbers\">25%</c> and Demon Warriors gain <c val=\"#TooltipNumbers\">20%</c> Attack Speed and Movement Speed.";
 
         public GameStringParserTests()
         {
@@ -60,7 +61,7 @@ namespace HeroesData.Parser.Tests
             Assert.IsTrue(GameStringParser.TryParseRawTooltip("AbathurToxicNestEnvenomedNestTalent", Tooltip1, out string output));
             Assert.AreEqual("Toxic Nests deal <c val=\"#TooltipNumbers\">75%</c> more damage over <c val=\"#TooltipNumbers\">3</c> seconds.", output);
 
-            Assert.IsTrue(GameStringParser.TryParseRawTooltip("ZaryaWeaponFeelTheHeatTalent", Tolltip2, out output));
+            Assert.IsTrue(GameStringParser.TryParseRawTooltip("ZaryaWeaponFeelTheHeatTalent", Tooltip2, out output));
             Assert.AreEqual("Zarya's Basic Attack deals <c val=\"#TooltipNumbers\">50%</c> additional damage to enemies in melee range.", output);
         }
 
@@ -83,6 +84,7 @@ namespace HeroesData.Parser.Tests
             Assert.AreEqual(ParsedTooltip14, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "DemonHunterMultishot")));
             Assert.AreEqual(ParsedTooltip15, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "ZaryaWeaponFeelTheHeatTalent")));
             Assert.AreEqual(ParsedTooltip16, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "RagnarosMoltenCore")));
+            Assert.AreEqual(ParsedTooltip17, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AzmodanGreed")));
         }
 
         private void PreParse()

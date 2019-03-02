@@ -25,6 +25,7 @@ namespace HeroesData.Parser.Tests
             Assert.AreEqual(100, HeroesMathEval.CalculatePathEquation("(1+0*100)"));
             Assert.AreEqual(60, HeroesMathEval.CalculatePathEquation("((5) + (3) / 5 - 1) * 100"));
             Assert.AreEqual(5, HeroesMathEval.CalculatePathEquation("(30/20)-1*10)")); // missing a (left) parenthesis
+            Assert.AreEqual(9, HeroesMathEval.CalculatePathEquation("--100*-0.09"));
         }
     }
 }

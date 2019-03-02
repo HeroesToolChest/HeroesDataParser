@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
+  <const id="$AzmodanAllShallBurnCastRange" value="6" />
+  <const id="$AzmodanAllShallBurnChannelSlop" value="2.25" />
+  <const id="$AzmodanAllShallBurnChannelRange" value="8.25" />
+  <const id="$AzmodanAllShallBurnChannelRangeGreed" value="9.75" />
+  <const id="$AzmodanAllShallBurnGreedBonusRange" value="1.5" />
   <CEffectDamage id="AzmodanAllShallBurnDamage" parent="StormSpell">
     <DamageModifierSource Value="Caster" />
     <AttributeFactor index="Structure" value="0.25" />
@@ -58,7 +63,48 @@
     <Amount value="65" />
     <SourceButtonFace value="AzmodanDemonicInvasion" />
   </CEffectDamage>
-
+  <CEffectDamage id="AzmodanGlobeOfAnnihilationDamage" parent="StormSpell">
+    <MultiplicativeModifierArray index="Greed" Validator="AzmodanCasterHasGreedTalentandTargetNotHero" Modifier="0.2" />
+    <MultiplicativeModifierArray index="TideOfSin" Validator="AzmodanSourceHasTideOfSinGlobeOfAnnihilationMissileMarker" Modifier="0.5" Crit="1" />
+    <FlatModifierArray index="Globe" Accumulator="AzmodanGlobeOfAnnihilationDamageAccumulator" />
+    <FlatModifierArray index="Pride" Validator="AzmodanHasPrideCarry" Modifier="100" />
+    <Amount value="184" />
+  </CEffectDamage>
+  <CBehaviorTokenCounter id="AzmodanGlobeOfAnnihilationGreedTalentTokenCounter" parent="StormQuestToken">
+    <Face value="AzmodanGreed" />
+    <TokenId value="AzmodanGlobeOfAnnihilationDisplayTokenCounter" />
+    <Max value="200" />
+  </CBehaviorTokenCounter>
+  <CEffectModifyCatalogNumeric id="AzmodanGlobeOfAnnihilationGreedAllShallBurnRangeIncreaseModifyCatalog">
+    <CatalogModifications Reference="Abil,AzmodanAllShallBurn,Range">
+      <Value value="$AzmodanAllShallBurnGreedBonusRange" />
+    </CatalogModifications>
+    <CatalogModifications Reference="Actor,AzmodanAllShallBurnRangeSplat,Scale">
+      <Value value="$AzmodanAllShallBurnGreedBonusRange" />
+    </CatalogModifications>
+    <CatalogModifications Reference="Actor,AzmodanAllShallBurnActiveRange,Range">
+      <Value value="$AzmodanAllShallBurnGreedBonusRange" />
+    </CatalogModifications>
+  </CEffectModifyCatalogNumeric>
+  <CAbilEffectTarget id="AzmodanAllShallBurn">
+    <Cost>
+      <Vital index="Energy" value="40" />
+      <Cooldown TimeUse="6" />
+    </Cost>
+    <TargetFilters value="-;Player,Ally,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="$AzmodanAllShallBurnCastRange" />
+    <RangeSlop value="1.5" />
+    <CastIntroTime value="0.5" />
+    <Arc value="360" />
+  </CAbilEffectTarget>
+  <CBehaviorBuff id="AzmodanGlobeOfAnnihilationGreedMovementSpeed">
+    <Modification>
+      <UnifiedMoveSpeedFactor value="0.2" />
+    </Modification>
+    <BehaviorCategories index="Permanent" value="1" />
+    <BehaviorCategories index="Fast" value="1" />
+  </CBehaviorBuff>
+  
   <LevelScalingArray Ability="AzmodanAllShallBurn">
     <Modifications>
       <Catalog value="Effect" />
