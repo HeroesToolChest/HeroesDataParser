@@ -19,9 +19,9 @@ namespace HeroesData.FileWriter.Writers.HeroSkinData
                 AddLocalizedGameString(heroSkin);
 
             return new XElement(
-                XmlConvert.EncodeName(heroSkin.ShortName),
+                XmlConvert.EncodeName(heroSkin.Id),
                 string.IsNullOrEmpty(heroSkin.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", heroSkin.Name),
-                new XAttribute("skinId", heroSkin.SkinId),
+                new XAttribute("hyperlinkId", heroSkin.HyperlinkId),
                 new XAttribute("attributeId", heroSkin.AttributeId),
                 new XAttribute("rarity", heroSkin.AttributeId),
                 heroSkin.ReleaseDate.HasValue ? new XAttribute("releaseDate", heroSkin.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,

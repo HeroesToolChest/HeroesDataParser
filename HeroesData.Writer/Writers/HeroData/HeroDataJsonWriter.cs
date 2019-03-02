@@ -25,10 +25,10 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
             if (!string.IsNullOrEmpty(hero.Name) && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add("name", hero.Name);
-            if (!string.IsNullOrEmpty(hero.CHeroId) && hero.CHeroId != StormHero.CHeroId)
-                heroObject.Add("heroId", hero.CHeroId);
             if (!string.IsNullOrEmpty(hero.CUnitId) && hero.CHeroId != StormHero.CHeroId)
                 heroObject.Add("unitId", hero.CUnitId);
+            if (!string.IsNullOrEmpty(hero.HyperlinkId) && hero.CHeroId != StormHero.CHeroId)
+                heroObject.Add("hyperlinkId", hero.HyperlinkId);
             if (!string.IsNullOrEmpty(hero.AttributeId))
                 heroObject.Add("attributeId", hero.AttributeId);
 
@@ -110,7 +110,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (units != null)
                 heroObject.Add(units);
 
-            return new JProperty(hero.ShortName, heroObject);
+            return new JProperty(hero.Id, heroObject);
         }
 
         protected override JProperty UnitElement(Unit unit)
@@ -159,7 +159,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (abilities != null)
                 heroObject.Add(abilities);
 
-            return new JProperty(unit.ShortName, heroObject);
+            return new JProperty(unit.HyperlinkId, heroObject);
         }
 
         protected override JProperty GetArmorObject(Unit unit)

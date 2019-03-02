@@ -94,17 +94,18 @@ namespace HeroesData.Parser
                 Tag = scoreValueCustomElement.Element("UniqueTag").Attribute("value")?.Value,
             };
 
-            string shortName = gameLink;
-            if (shortName.StartsWith("EndOfMatchAward"))
-                shortName = shortName.Remove(0, "EndOfMatchAward".Length);
-            if (shortName.EndsWith("Boolean"))
-                shortName = shortName.Substring(0, shortName.IndexOf("Boolean"));
-            if (shortName.StartsWith("0"))
-                shortName = shortName.ReplaceFirst("0", "Zero");
-            if (shortName == "MostAltarDamageDone")
-                shortName = "MostAltarDamage";
+            string id = gameLink;
+            if (id.StartsWith("EndOfMatchAward"))
+                id = id.Remove(0, "EndOfMatchAward".Length);
+            if (id.EndsWith("Boolean"))
+                id = id.Substring(0, id.IndexOf("Boolean"));
+            if (id.StartsWith("0"))
+                id = id.ReplaceFirst("0", "Zero");
+            if (id == "MostAltarDamageDone")
+                id = "MostAltarDamage";
 
-            matchAward.ShortName = shortName;
+            matchAward.Id = id;
+            matchAward.HyperlinkId = gameLink;
 
             // set new image file names for the extraction
             // change it back to the correct spelling

@@ -14,7 +14,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
 
             Unit unit = HeroRagnaros.HeroUnits[0];
             Assert.AreEqual("RagnarosBigRag", unit.CUnitId);
-            Assert.AreEqual("RagnarosBigRag", unit.ShortName);
+            Assert.AreEqual("RagnarosBigRag", unit.HyperlinkId);
             Assert.AreEqual("Ragnaros", unit.Name);
 
             Ability ability = unit.Abilities["RagnarosBigRagMeteorShower"];

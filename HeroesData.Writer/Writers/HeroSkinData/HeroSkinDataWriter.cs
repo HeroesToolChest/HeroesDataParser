@@ -13,10 +13,10 @@ namespace HeroesData.FileWriter.Writers.HeroSkinData
 
         protected void AddLocalizedGameString(HeroSkin heroSkin)
         {
-            GameStringWriter.AddHeroSkinName(heroSkin.ShortName, heroSkin.Name);
-            GameStringWriter.AddHeroSkinSortName(heroSkin.ShortName, heroSkin.SortName);
-            GameStringWriter.AddHeroSkinInfo(heroSkin.ShortName, GetTooltip(heroSkin.Description, FileOutputOptions.DescriptionType));
-            GameStringWriter.AddHeroSkinSearchText(heroSkin.ShortName, heroSkin.SearchText);
+            GameStringWriter.AddHeroSkinName(heroSkin.Id, heroSkin.Name);
+            GameStringWriter.AddHeroSkinSortName(heroSkin.Id, heroSkin.SortName);
+            GameStringWriter.AddHeroSkinInfo(heroSkin.Id, GetTooltip(heroSkin.Description, FileOutputOptions.DescriptionType));
+            GameStringWriter.AddHeroSkinSearchText(heroSkin.Id, heroSkin.SearchText);
         }
     }
 }

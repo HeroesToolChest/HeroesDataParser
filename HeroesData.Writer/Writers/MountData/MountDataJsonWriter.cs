@@ -20,7 +20,7 @@ namespace HeroesData.FileWriter.Writers.MountData
             if (!string.IsNullOrEmpty(mount.Name) && !FileOutputOptions.IsLocalizedText)
                 mountObject.Add("name", mount.Name);
 
-            mountObject.Add("mountId", mount.MountId);
+            mountObject.Add("hyperlinkId", mount.HyperlinkId);
             mountObject.Add("attributeId", mount.AttributeId);
             mountObject.Add("rarity", mount.Rarity.ToString());
 
@@ -36,7 +36,7 @@ namespace HeroesData.FileWriter.Writers.MountData
             if (!string.IsNullOrEmpty(mount.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 mountObject.Add("description", GetTooltip(mount.Description, FileOutputOptions.DescriptionType));
 
-            return new JProperty(mount.ShortName, mountObject);
+            return new JProperty(mount.Id, mountObject);
         }
     }
 }

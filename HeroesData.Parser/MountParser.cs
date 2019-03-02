@@ -52,7 +52,7 @@ namespace HeroesData.Parser
 
             Mount mount = new Mount()
             {
-                MountId = id,
+                Id = id,
             };
 
             SetDefaultValues(mount);
@@ -61,8 +61,8 @@ namespace HeroesData.Parser
             if (mount.ReleaseDate == DefaultData.HeroReleaseDate)
                 mount.ReleaseDate = DefaultData.HeroAlphaReleaseDate;
 
-            if (string.IsNullOrEmpty(mount.ShortName))
-                mount.ShortName = id;
+            if (string.IsNullOrEmpty(mount.HyperlinkId))
+                mount.HyperlinkId = id;
 
             return mount;
         }
@@ -117,7 +117,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    mount.ShortName = element.Attribute("value")?.Value;
+                    mount.HyperlinkId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "RARITY")
                 {
@@ -141,14 +141,14 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(Mount mount)
         {
-            mount.Name = GameData.GetGameString(DefaultData.MountName.Replace(DefaultData.IdPlaceHolder, mount.MountId));
-            mount.SortName = GameData.GetGameString(DefaultData.MountSortName.Replace(DefaultData.IdPlaceHolder, mount.MountId));
-            mount.Description = new TooltipDescription(GameData.GetGameString(DefaultData.MountInfoText.Replace(DefaultData.IdPlaceHolder, mount.MountId)));
-            mount.ShortName = GameData.GetGameString(DefaultData.MountHyperlinkId.Replace(DefaultData.IdPlaceHolder, mount.MountId));
+            mount.Name = GameData.GetGameString(DefaultData.MountName.Replace(DefaultData.IdPlaceHolder, mount.Id));
+            mount.SortName = GameData.GetGameString(DefaultData.MountSortName.Replace(DefaultData.IdPlaceHolder, mount.Id));
+            mount.Description = new TooltipDescription(GameData.GetGameString(DefaultData.MountInfoText.Replace(DefaultData.IdPlaceHolder, mount.Id)));
+            mount.HyperlinkId = GameData.GetGameString(DefaultData.MountHyperlinkId.Replace(DefaultData.IdPlaceHolder, mount.Id));
             mount.ReleaseDate = DefaultData.HeroReleaseDate;
             mount.Rarity = Rarity.None;
 
-            mount.SearchText = GameData.GetGameString(DefaultData.MountAdditionalSearchText.Replace(DefaultData.IdPlaceHolder, mount.MountId));
+            mount.SearchText = GameData.GetGameString(DefaultData.MountAdditionalSearchText.Replace(DefaultData.IdPlaceHolder, mount.Id));
             if (!string.IsNullOrEmpty(mount.SearchText))
                 mount.SearchText = mount.SearchText.Trim();
         }

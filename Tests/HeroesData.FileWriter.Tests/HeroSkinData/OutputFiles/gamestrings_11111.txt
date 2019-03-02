@@ -1,8 +1,8 @@
 heroskin/info/AbathurBone=Evolution Master of Kerrigan's Swarm
-heroskin/info/AbathurMecha=
+heroskin/info/AbathurMechaVar1=
 heroskin/name/AbathurBone=Bone Abathur
-heroskin/name/AbathurMecha=Mecha Abathur
+heroskin/name/AbathurMechaVar1=Mecha Abathur
 heroskin/searchtext/AbathurBone=White Pink
-heroskin/searchtext/AbathurMecha=
+heroskin/searchtext/AbathurMechaVar1=
 heroskin/sortname/AbathurBone=xxAbathurBone
-heroskin/sortname/AbathurMecha=xxyAbathurMecha
+heroskin/sortname/AbathurMechaVar1=xxyAbathurMecha

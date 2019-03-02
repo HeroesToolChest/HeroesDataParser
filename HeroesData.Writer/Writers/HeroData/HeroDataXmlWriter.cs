@@ -24,10 +24,10 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 AddLocalizedGameString(hero);
 
             return new XElement(
-                hero.ShortName,
+                hero.Id,
                 string.IsNullOrEmpty(hero.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", hero.Name),
-                string.IsNullOrEmpty(hero.CHeroId) || hero.CHeroId == StormHero.CHeroId ? null : new XAttribute("heroId", hero.CHeroId),
                 string.IsNullOrEmpty(hero.CUnitId) || hero.CHeroId == StormHero.CHeroId ? null : new XAttribute("unitId", hero.CUnitId),
+                string.IsNullOrEmpty(hero.HyperlinkId) || hero.CHeroId == StormHero.CHeroId ? null : new XAttribute("hyperlinkId", hero.HyperlinkId),
                 string.IsNullOrEmpty(hero.AttributeId) ? null : new XAttribute("attributeId", hero.AttributeId),
                 string.IsNullOrEmpty(hero.Difficulty) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("difficulty", hero.Difficulty),
                 hero.CHeroId != StormHero.CHeroId ? new XAttribute("franchise", hero.Franchise) : null,
@@ -64,7 +64,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 AddLocalizedGameString(unit);
 
             return new XElement(
-                unit.ShortName,
+                unit.HyperlinkId,
                 string.IsNullOrEmpty(unit.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", unit.Name),
                 string.IsNullOrEmpty(unit.CUnitId) ? null : new XAttribute("unitId", unit.CUnitId),
                 unit.InnerRadius > 0 ? new XAttribute("innerRadius", unit.InnerRadius) : null,

@@ -1,8 +1,8 @@
 {
   "Alexstrasza": {
     "name": "Alexstrasza",
-    "heroId": "Alexstrasza",
     "unitId": "HeroAlexstrasza",
+    "hyperlinkId": "AlexstraszaId",
     "attributeId": "Alex",
     "difficulty": "Medium",
     "franchise": "Warcraft",
@@ -75,7 +75,7 @@
     ],
     "heroUnits": [
       {
-        "AlexstraszaDragon": {
+        "AlexstraszaDragonId": {
           "name": "Alexstrasza",
           "unitId": "HeroAlexstraszaDragon",
           "innerRadius": 1.0,

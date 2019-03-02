@@ -15,13 +15,13 @@ namespace HeroesData.FileWriter.Tests.MountData
             Mount mount = new Mount()
             {
                 Name = "Cloud Nine",
-                MountId = "CloudNine",
+                Id = "CloudNine",
                 AttributeId = "CN9",
                 SortName = "99CloudeNine",
                 Rarity = Rarity.Rare,
                 SearchText = "Blue",
                 Description = new TooltipDescription("A floating cloud"),
-                ShortName = "CloudNine",
+                HyperlinkId = "CloudNine",
                 ReleaseDate = new DateTime(2016, 5, 21),
             };
 
@@ -30,13 +30,13 @@ namespace HeroesData.FileWriter.Tests.MountData
             Mount mount2 = new Mount()
             {
                 Name = "Magic Carpet",
-                MountId = "MagixCarpet",
+                Id = "MagixCarpet",
                 AttributeId = "MC4",
                 SortName = "xxMagixCarpet",
                 Rarity = Rarity.Epic,
                 SearchText = "Blue",
                 Description = new TooltipDescription("A flying magic carpet"),
-                ShortName = "MagicCarpet",
+                HyperlinkId = "MagicCarpet",
                 ReleaseDate = new DateTime(2018, 4, 1),
             };
 

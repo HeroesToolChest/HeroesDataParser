@@ -34,25 +34,25 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected void AddLocalizedGameString(Unit unit)
         {
-            GameStringWriter.AddUnitName(unit.ShortName, unit.Name);
-            GameStringWriter.AddUnitType(unit.ShortName, unit.Type);
+            GameStringWriter.AddUnitName(unit.Id, unit.Name);
+            GameStringWriter.AddUnitType(unit.Id, unit.Type);
 
             string unitDescription = GetTooltip(unit.Description, FileOutputOptions.DescriptionType);
             if (!string.IsNullOrEmpty(unitDescription))
-                GameStringWriter.AddUnitDescription(unit.ShortName, unitDescription);
+                GameStringWriter.AddUnitDescription(unit.Id, unitDescription);
         }
 
         protected void AddLocalizedGameString(Hero hero)
         {
-            GameStringWriter.AddUnitName(hero.ShortName, hero.Name);
-            GameStringWriter.AddUnitDifficulty(hero.ShortName, hero.Difficulty);
-            GameStringWriter.AddUnitType(hero.ShortName, hero.Type);
-            GameStringWriter.AddUnitDescription(hero.ShortName, GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
-            GameStringWriter.AddHeroTitle(hero.ShortName, hero.Title);
-            GameStringWriter.AddHeroSearchText(hero.ShortName, hero.Title);
+            GameStringWriter.AddUnitName(hero.Id, hero.Name);
+            GameStringWriter.AddUnitDifficulty(hero.Id, hero.Difficulty);
+            GameStringWriter.AddUnitType(hero.Id, hero.Type);
+            GameStringWriter.AddUnitDescription(hero.Id, GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
+            GameStringWriter.AddHeroTitle(hero.Id, hero.Title);
+            GameStringWriter.AddHeroSearchText(hero.Id, hero.Title);
 
             if (hero.Roles != null && hero.Roles.Count > 0)
-                GameStringWriter.AddUnitRole(hero.ShortName, string.Join(",", hero.Roles));
+                GameStringWriter.AddUnitRole(hero.Id, string.Join(",", hero.Roles));
         }
 
         protected void AddLocalizedGameString(AbilityTalentBase abilityTalentBase)

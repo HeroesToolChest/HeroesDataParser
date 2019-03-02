@@ -1,7 +1,7 @@
 {
   "AbathurBone": {
     "name": "Bone Abathur",
-    "skinId": "AbathurBone",
+    "hyperlinkId": "AbathurBone",
     "attributeId": "Aba1",
     "rarity": "None",
     "releaseDate": "2014-03-13",
@@ -13,9 +13,9 @@
       "ThemedAnimations"
     ]
   },
-  "AbathurMecha": {
+  "AbathurMechaVar1": {
     "name": "Mecha Abathur",
-    "skinId": "AbathurMechaVar1",
+    "hyperlinkId": "AbathurMecha",
     "attributeId": "Aba2",
     "rarity": "Legendary",
     "releaseDate": "2014-03-01",

@@ -16,8 +16,8 @@ namespace HeroesData.FileWriter.Tests.HeroSkinData
             HeroSkin heroSkin = new HeroSkin()
             {
                 Name = "Bone Abathur",
-                SkinId = "AbathurBone",
-                ShortName = "AbathurBone",
+                Id = "AbathurBone",
+                HyperlinkId = "AbathurBone",
                 SortName = "xxAbathurBone",
                 Rarity = Rarity.None,
                 AttributeId = "Aba1",
@@ -32,8 +32,8 @@ namespace HeroesData.FileWriter.Tests.HeroSkinData
             HeroSkin heroSkin2 = new HeroSkin()
             {
                 Name = "Mecha Abathur",
-                SkinId = "AbathurMechaVar1",
-                ShortName = "AbathurMecha",
+                Id = "AbathurMechaVar1",
+                HyperlinkId = "AbathurMecha",
                 SortName = "xxyAbathurMecha",
                 Rarity = Rarity.Legendary,
                 AttributeId = "Aba2",

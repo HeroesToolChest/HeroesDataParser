@@ -1,7 +1,7 @@
 {
   "Alarak": {
-    "heroId": "HeroAlarak",
     "unitId": "Alar",
+    "hyperlinkId": "AlarakId",
     "franchise": "Starcraft",
     "gender": "Male",
     "radius": 0.875,
@@ -195,8 +195,8 @@
     }
   },
   "Alexstrasza": {
-    "heroId": "Alexstrasza",
     "unitId": "HeroAlexstrasza",
+    "hyperlinkId": "AlexstraszaId",
     "attributeId": "Alex",
     "franchise": "Warcraft",
     "gender": "Female",
@@ -260,7 +260,7 @@
     ],
     "heroUnits": [
       {
-        "AlexstraszaDragon": {
+        "AlexstraszaDragonId": {
           "unitId": "HeroAlexstraszaDragon",
           "innerRadius": 1.0,
           "radius": 1.25,

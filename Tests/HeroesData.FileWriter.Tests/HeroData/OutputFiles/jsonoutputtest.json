@@ -1,8 +1,8 @@
-﻿{
+{
   "Alarak": {
     "name": "Alarak",
-    "heroId": "HeroAlarak",
     "unitId": "Alar",
+    "hyperlinkId": "AlarakId",
     "difficulty": "Hard",
     "franchise": "Starcraft",
     "gender": "Male",
@@ -163,7 +163,7 @@
           "nameId": "Level4Talent",
           "name": "Level4Talent",
           "icon": null,
-          "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+          "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
           "abilityType": "Q",
           "sort": 0,
           "abilityTalentLinkIds": [
@@ -240,8 +240,8 @@
   },
   "Alexstrasza": {
     "name": "Alexstrasza",
-    "heroId": "Alexstrasza",
     "unitId": "HeroAlexstrasza",
+    "hyperlinkId": "AlexstraszaId",
     "attributeId": "Alex",
     "difficulty": "Medium",
     "franchise": "Warcraft",
@@ -271,7 +271,7 @@
               "shortTooltipId": "TychusCommandeerOdinAnnihilate",
               "fullTooltipId": "TychusCommandeerOdinAnnihilate",
               "icon": "storm_ui_icon_tychus_annihilate.png",
-              "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+              "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
               "abilityType": "Q"
             }
           ]
@@ -312,9 +312,9 @@
         }
       }
     ],
-    "HeroUnits": [
+    "heroUnits": [
       {
-        "AlexstraszaDragon": {
+        "AlexstraszaDragonId": {
           "name": "Alexstrasza",
           "unitId": "HeroAlexstraszaDragon",
           "innerRadius": 1.0,
@@ -364,7 +364,7 @@
                 "nameId": "DragonAbilTrait",
                 "name": "DragonAbilTrait",
                 "icon": null,
-                "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+                "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
                 "abilityType": "Trait"
               }
             ],

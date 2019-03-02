@@ -27,7 +27,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
 
             Unit unit = HeroAbathur.HeroUnits[0];
             Assert.AreEqual("AbathurSymbiote", unit.CUnitId);
-            Assert.AreEqual("AbathurSymbiote", unit.ShortName);
+            Assert.AreEqual("AbathurSymbiote", unit.HyperlinkId);
             Assert.AreEqual("Symbiote", unit.Name);
             Assert.AreEqual(0.0117, unit.Speed);
             Assert.AreEqual(4, unit.Sight);

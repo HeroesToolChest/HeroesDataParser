@@ -1,7 +1,7 @@
 {
   "CloudNine": {
     "name": "Cloud Nine",
-    "mountId": "CloudNine",
+    "hyperlinkId": "CloudNine",
     "attributeId": "CN9",
     "rarity": "Rare",
     "releaseDate": "2016-05-21",
@@ -9,9 +9,9 @@
     "searchText": "Blue",
     "description": "A floating cloud"
   },
-  "MagicCarpet": {
+  "MagixCarpet": {
     "name": "Magic Carpet",
-    "mountId": "MagixCarpet",
+    "hyperlinkId": "MagicCarpet",
     "attributeId": "MC4",
     "rarity": "Epic",
     "releaseDate": "2018-04-01",

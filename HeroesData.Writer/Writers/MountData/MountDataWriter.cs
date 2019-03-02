@@ -13,10 +13,10 @@ namespace HeroesData.FileWriter.Writers.MountData
 
         protected void AddLocalizedGameString(Mount mount)
         {
-            GameStringWriter.AddMountName(mount.ShortName, mount.Name);
-            GameStringWriter.AddMountSortName(mount.ShortName, mount.SortName);
-            GameStringWriter.AddMountInfo(mount.ShortName, GetTooltip(mount.Description, FileOutputOptions.DescriptionType));
-            GameStringWriter.AddMountSearchText(mount.ShortName, mount.SearchText);
+            GameStringWriter.AddMountName(mount.Id, mount.Name);
+            GameStringWriter.AddMountSortName(mount.Id, mount.SortName);
+            GameStringWriter.AddMountInfo(mount.Id, GetTooltip(mount.Description, FileOutputOptions.DescriptionType));
+            GameStringWriter.AddMountSearchText(mount.Id, mount.SearchText);
         }
     }
 }

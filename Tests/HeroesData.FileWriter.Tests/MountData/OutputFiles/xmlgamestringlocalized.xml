@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mounts>
-  <CloudNine mountId="CloudNine" attributeId="CN9" rarity="Rare" releaseDate="2016-05-21" />
-  <MagicCarpet mountId="MagixCarpet" attributeId="MC4" rarity="Epic" releaseDate="2018-04-01" />
+  <CloudNine hyperlinkId="CloudNine" attributeId="CN9" rarity="Rare" releaseDate="2016-05-21" />
+  <MagixCarpet hyperlinkId="MagicCarpet" attributeId="MC4" rarity="Epic" releaseDate="2018-04-01" />
 </Mounts>

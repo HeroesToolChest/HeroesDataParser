@@ -20,11 +20,11 @@ namespace HeroesData.ExtractorData
             if (matchAward.Name.Contains("_"))
                 AddWarning($"{nameof(matchAward.Name)} contains an underscore, may have a duplicate name");
 
-            if (string.IsNullOrEmpty(matchAward.ShortName))
-                AddWarning($"{nameof(matchAward.ShortName)} is null or empty");
+            if (string.IsNullOrEmpty(matchAward.HyperlinkId))
+                AddWarning($"{nameof(matchAward.HyperlinkId)} is null or empty");
 
-            if (matchAward.ShortName.Contains(","))
-                AddWarning($"{nameof(matchAward.ShortName)} contains a comma, may have a duplicate short name");
+            if (matchAward.HyperlinkId.Contains(","))
+                AddWarning($"{nameof(matchAward.HyperlinkId)} contains a comma, may have a duplicate short name");
 
             if (string.IsNullOrEmpty(matchAward.Tag))
                 AddWarning($"{nameof(matchAward.Tag)} is null or empty");

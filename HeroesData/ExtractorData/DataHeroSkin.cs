@@ -17,11 +17,11 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(heroSkin.Name))
                 AddWarning($"{nameof(heroSkin.Name)} is null or empty");
 
-            if (string.IsNullOrEmpty(heroSkin.SkinId))
-                AddWarning($"{nameof(heroSkin.SkinId)} is null or empty");
+            if (string.IsNullOrEmpty(heroSkin.Id))
+                AddWarning($"{nameof(heroSkin.Id)} is null or empty");
 
-            if (string.IsNullOrEmpty(heroSkin.ShortName))
-                AddWarning($"{nameof(heroSkin.ShortName)} is null or empty");
+            if (string.IsNullOrEmpty(heroSkin.HyperlinkId))
+                AddWarning($"{nameof(heroSkin.HyperlinkId)} is null or empty");
 
             if (string.IsNullOrEmpty(heroSkin.SortName))
                 AddWarning($"{nameof(heroSkin.SortName)} is null or empty");

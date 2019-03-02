@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<MatchAwards>
-  <Bulwark tag="AwBK">
+<Awards>
+  <Bulwark name="Bulwark" gameLink="EndOfMatchBulwark" tag="AwBK">
     <MVPScreenIcon>image_bulwark.png</MVPScreenIcon>
     <ScoreScreenIcon>image_scorescreen_bulwark.png</ScoreScreenIcon>
+    <Description>Highest damage soaked</Description>
   </Bulwark>
-  <Killer tag="AwKL">
+  <Killer name="Killer" gameLink="EndOfMatchKiller" tag="AwKL">
     <MVPScreenIcon>image_killer.png</MVPScreenIcon>
     <ScoreScreenIcon>image_scorescreen_killer.png</ScoreScreenIcon>
+    <Description>Most Kills</Description>
   </Killer>
-</MatchAwards>
+</Awards>

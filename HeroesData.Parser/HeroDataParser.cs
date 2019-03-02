@@ -77,6 +77,7 @@ namespace HeroesData.Parser
                 Name = GameData.GetGameString(DefaultData.HeroName.Replace(DefaultData.IdPlaceHolder, heroId)),
                 Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroDescription.Replace(DefaultData.IdPlaceHolder, heroId)), Localization),
                 CHeroId = heroId,
+                Id = heroId,
             };
 
             HeroDataOverride = HeroOverrideLoader.GetOverride(heroId) ?? new HeroDataOverride();
@@ -112,7 +113,8 @@ namespace HeroesData.Parser
         {
             StormHeroBase = new Hero
             {
-                ShortName = StormHero.CHeroId,
+                Id = StormHero.CHeroId,
+                HyperlinkId = StormHero.CHeroId,
                 CHeroId = StormHero.CHeroId,
                 CUnitId = StormHero.CUnitId,
                 Ratings = null,
@@ -161,7 +163,7 @@ namespace HeroesData.Parser
 
             if (hero.CHeroId != null)
             {
-                hero.ShortName = DefaultData.HeroHyperlinkId.Replace(DefaultData.IdPlaceHolder, hero.CHeroId);
+                hero.HyperlinkId = DefaultData.HeroHyperlinkId.Replace(DefaultData.IdPlaceHolder, hero.CHeroId);
                 hero.CUnitId = DefaultData.HeroUnit.Replace(DefaultData.IdPlaceHolder, hero.CHeroId);
 
                 hero.HeroPortrait.HeroSelectPortraitFileName = Path.GetFileName(PathExtensions.GetFilePath(DefaultData.HeroSelectScreenButtonImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
@@ -222,7 +224,7 @@ namespace HeroesData.Parser
 
                 if (elementName == "HYPERLINKID")
                 {
-                    hero.ShortName = element.Attribute("value")?.Value;
+                    hero.HyperlinkId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "ATTRIBUTEID")
                 {
@@ -523,8 +525,9 @@ namespace HeroesData.Parser
 
                 Hero heroUnit = new Hero
                 {
+                    Id = cUnitId,
                     Name = name,
-                    ShortName = cUnitId.StartsWith("Hero") ? cUnitId.Remove(0, 4) : cUnitId,
+                    HyperlinkId = cUnitId.StartsWith("Hero") ? cUnitId.Remove(0, 4) : cUnitId,
                     CHeroId = null,
                     CUnitId = cUnitId,
                     HeroPortrait = null,
@@ -565,7 +568,7 @@ namespace HeroesData.Parser
                 hero.Name = heroDataOverride.NameOverride.Name;
 
             if (heroDataOverride.ShortNameOverride.Enabled)
-                hero.ShortName = heroDataOverride.ShortNameOverride.ShortName;
+                hero.HyperlinkId = heroDataOverride.ShortNameOverride.ShortName;
 
             if (heroDataOverride.EnergyTypeOverride.Enabled)
                 hero.Energy.EnergyType = heroDataOverride.EnergyTypeOverride.EnergyType;

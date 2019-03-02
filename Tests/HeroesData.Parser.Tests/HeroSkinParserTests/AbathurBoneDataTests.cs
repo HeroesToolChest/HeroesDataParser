@@ -14,7 +14,7 @@ namespace HeroesData.Parser.Tests.HeroSkinParserTests
             Assert.AreEqual("Bone Abathur", AbathurCommonSkin.Name);
             Assert.AreEqual("Abathur, the Evolution Master of Kerrigan's Swarm, works ceaselessly to improve the zerg from the genetic level up. His hate for chaos and imperfection almost rivals his hatred of pronouns.", AbathurCommonSkin.Description.RawDescription);
             Assert.AreEqual("White Pink", AbathurCommonSkin.SearchText);
-            Assert.AreEqual("BoneAbathur", AbathurCommonSkin.ShortName);
+            Assert.AreEqual("BoneAbathur", AbathurCommonSkin.HyperlinkId);
             Assert.AreEqual(new DateTime(2014, 3, 13), AbathurCommonSkin.ReleaseDate);
             Assert.AreEqual(Rarity.None, AbathurCommonSkin.Rarity);
             Assert.AreEqual(0, AbathurCommonSkin.Features.Count);

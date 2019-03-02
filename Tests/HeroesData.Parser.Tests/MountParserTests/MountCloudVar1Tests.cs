@@ -14,7 +14,7 @@ namespace HeroesData.Parser.Tests.MountParserTests
             Assert.AreEqual("Jade Nimbus Cloud", MountCloudVar1.Name);
             Assert.AreEqual("The Monkey King is said to be able to somersault through the air and leap across great distances with ease. Now, with this magical cloud, you can too!", MountCloudVar1.Description.RawDescription);
             Assert.AreEqual("Green", MountCloudVar1.SearchText);
-            Assert.AreEqual("JadeNimbusCloud", MountCloudVar1.ShortName);
+            Assert.AreEqual("JadeNimbusCloud", MountCloudVar1.HyperlinkId);
             Assert.AreEqual(new DateTime(2017, 1, 31), MountCloudVar1.ReleaseDate);
             Assert.AreEqual(Rarity.Legendary, MountCloudVar1.Rarity);
         }

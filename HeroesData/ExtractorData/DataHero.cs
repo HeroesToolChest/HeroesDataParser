@@ -90,7 +90,7 @@ namespace HeroesData.ExtractorData
             Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
             Console.WriteLine();
 
-            return ParsedData.Values.OrderBy(x => x.ShortName);
+            return ParsedData.Values.OrderBy(x => x.HyperlinkId);
         }
 
         protected override void Validation(Hero hero)

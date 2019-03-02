@@ -18,8 +18,9 @@ namespace HeroesData.FileWriter.Writers.MatchAwardData
                 AddLocalizedGameString(matchAward);
 
             return new XElement(
-                matchAward.ShortName,
+                matchAward.Id,
                 string.IsNullOrEmpty(matchAward.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", matchAward.Name),
+                string.IsNullOrEmpty(matchAward.HyperlinkId) ? null : new XAttribute("gameLink", matchAward.HyperlinkId),
                 new XAttribute("tag", matchAward.Tag),
                 new XElement("MVPScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName, ImageExtension)),
                 new XElement("ScoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName, ImageExtension)),

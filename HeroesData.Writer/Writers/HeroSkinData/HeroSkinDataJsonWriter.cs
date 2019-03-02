@@ -20,7 +20,7 @@ namespace HeroesData.FileWriter.Writers.HeroSkinData
             if (!string.IsNullOrEmpty(heroSkin.Name) && !FileOutputOptions.IsLocalizedText)
                 heroSkinObject.Add("name", heroSkin.Name);
 
-            heroSkinObject.Add("skinId", heroSkin.SkinId);
+            heroSkinObject.Add("hyperlinkId", heroSkin.HyperlinkId);
             heroSkinObject.Add("attributeId", heroSkin.AttributeId);
             heroSkinObject.Add("rarity", heroSkin.Rarity.ToString());
 
@@ -39,7 +39,7 @@ namespace HeroesData.FileWriter.Writers.HeroSkinData
             if (heroSkin.Features.Count > 0)
                 heroSkinObject.Add(new JProperty("features", heroSkin.Features));
 
-            return new JProperty(heroSkin.ShortName, heroSkinObject);
+            return new JProperty(heroSkin.Id, heroSkinObject);
         }
     }
 }

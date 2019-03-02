@@ -73,7 +73,8 @@ namespace HeroesData.FileWriter.Tests.HeroData
         {
             Hero alarakHero = new Hero
             {
-                ShortName = "Alarak",
+                Id = "Alarak",
+                HyperlinkId = "AlarakId",
                 Name = "Alarak",
                 CHeroId = "HeroAlarak",
                 CUnitId = "Alar",
@@ -391,7 +392,8 @@ namespace HeroesData.FileWriter.Tests.HeroData
 
             Hero alexstraszaHero = new Hero
             {
-                ShortName = "Alexstrasza",
+                Id = "Alexstrasza",
+                HyperlinkId = "AlexstraszaId",
                 Name = "Alexstrasza",
                 CHeroId = "Alexstrasza",
                 CUnitId = "HeroAlexstrasza",
@@ -489,7 +491,8 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 {
                     new Unit
                     {
-                        ShortName = "AlexstraszaDragon",
+                        Id = "AlexstraszaDragon",
+                        HyperlinkId = "AlexstraszaDragonId",
                         Name = "Alexstrasza",
                         CUnitId = "HeroAlexstraszaDragon",
                         InnerRadius = 1,

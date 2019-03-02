@@ -13,7 +13,8 @@ namespace HeroesData.FileWriter.Tests.MatchAwardData
         {
             MatchAward matchAward = new MatchAward()
             {
-                ShortName = "Bulwark",
+                Id = "Bulwark",
+                HyperlinkId = "EndOfMatchBulwark",
                 Name = "Bulwark",
                 Description = new TooltipDescription("Highest damage soaked"),
                 Tag = "AwBK",
@@ -25,7 +26,8 @@ namespace HeroesData.FileWriter.Tests.MatchAwardData
 
             MatchAward matchAward2 = new MatchAward()
             {
-                ShortName = "Killer",
+                Id = "Killer",
+                HyperlinkId = "EndOfMatchKiller",
                 Name = "Killer",
                 Description = new TooltipDescription("Most Kills"),
                 Tag = "AwKL",

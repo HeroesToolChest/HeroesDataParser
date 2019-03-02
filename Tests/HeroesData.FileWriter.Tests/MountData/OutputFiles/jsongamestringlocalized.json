@@ -1,12 +1,12 @@
 {
   "CloudNine": {
-    "mountId": "CloudNine",
+    "hyperlinkId": "CloudNine",
     "attributeId": "CN9",
     "rarity": "Rare",
     "releaseDate": "2016-05-21"
   },
-  "MagicCarpet": {
-    "mountId": "MagixCarpet",
+  "MagixCarpet": {
+    "hyperlinkId": "MagicCarpet",
     "attributeId": "MC4",
     "rarity": "Epic",
     "releaseDate": "2018-04-01"

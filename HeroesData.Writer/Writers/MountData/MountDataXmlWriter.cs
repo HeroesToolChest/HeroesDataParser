@@ -18,9 +18,9 @@ namespace HeroesData.FileWriter.Writers.MountData
                 AddLocalizedGameString(mount);
 
             return new XElement(
-                XmlConvert.EncodeName(mount.ShortName),
+                XmlConvert.EncodeName(mount.Id),
                 string.IsNullOrEmpty(mount.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", mount.Name),
-                new XAttribute("mountId", mount.MountId),
+                new XAttribute("hyperlinkId", mount.HyperlinkId),
                 new XAttribute("attributeId", mount.AttributeId),
                 new XAttribute("rarity", mount.Rarity),
                 mount.ReleaseDate.HasValue ? new XAttribute("releaseDate", mount.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,

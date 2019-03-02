@@ -21,6 +21,7 @@ namespace HeroesData.FileWriter.Writers.MatchAwardData
             if (!string.IsNullOrEmpty(matchAward.Name) && !FileOutputOptions.IsLocalizedText)
                 matchAwardObject.Add("name", matchAward.Name);
 
+            matchAwardObject.Add("gameLink", matchAward.HyperlinkId);
             matchAwardObject.Add("tag", matchAward.Tag);
             matchAwardObject.Add("mvpScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName, ImageExtension));
             matchAwardObject.Add("scoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName, ImageExtension));
@@ -28,7 +29,7 @@ namespace HeroesData.FileWriter.Writers.MatchAwardData
             if (!FileOutputOptions.IsLocalizedText)
                 matchAwardObject.Add("description", GetTooltip(matchAward.Description, FileOutputOptions.DescriptionType));
 
-            return new JProperty(matchAward.ShortName, matchAwardObject);
+            return new JProperty(matchAward.Id, matchAwardObject);
         }
     }
 }
