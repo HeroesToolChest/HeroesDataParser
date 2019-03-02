@@ -25,3 +25,7 @@
 [LostVikings] LifeRegenerationRateScaling is 0
 [LostVikings] LifeScaling is 0
 [LostVikings] Sight is 0
+
+# ignore SearchText for following data
+[$heroskin] SearchText is null or empty
+[$mount] SearchText is null or empty

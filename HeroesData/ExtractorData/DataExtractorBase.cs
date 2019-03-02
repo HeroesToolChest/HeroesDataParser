@@ -160,9 +160,11 @@ namespace HeroesData.ExtractorData
 
         protected void AddWarning(string message)
         {
+            string genericMessage = $"[${typeof(T).Name.ToLowerInvariant()}] {message}";
+
             message = $"[{ValidationWarningId}] {message}".Trim();
 
-            if (!App.ValidationIgnoreLines.Contains(message))
+            if (!App.ValidationIgnoreLines.Contains(message) && !App.ValidationIgnoreLines.Contains(genericMessage))
                 ValidationWarnings.Add(message);
             else
                 WarningsIgnoredCount++;
