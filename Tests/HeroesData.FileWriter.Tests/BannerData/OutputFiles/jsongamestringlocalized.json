@@ -3,12 +3,15 @@
     "hyperlinkId": "WizardWarbannerId",
     "attributeId": "WWZ",
     "rarity": "Rare",
+    "category": "Warcraft",
+    "event": "Wizards",
     "releaseDate": "2016-05-21"
   },
   "OrcWarbanner": {
     "hyperlinkId": "OrcWarbannerId",
     "attributeId": "OWO",
     "rarity": "Legendary",
+    "category": "Warcraft",
     "releaseDate": "2016-05-21"
   }
 }

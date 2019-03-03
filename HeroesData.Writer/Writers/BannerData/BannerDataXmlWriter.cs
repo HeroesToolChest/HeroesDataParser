@@ -23,6 +23,8 @@ namespace HeroesData.FileWriter.Writers.BannerData
                 new XAttribute("hyperlinkId", banner.HyperlinkId),
                 new XAttribute("attributeId", banner.AttributeId),
                 new XAttribute("rarity", banner.Rarity),
+                new XAttribute("category", banner.CollectionCategory),
+                string.IsNullOrEmpty(banner.EventName) ? null : new XAttribute("event", banner.EventName),
                 banner.ReleaseDate.HasValue ? new XAttribute("releaseDate", banner.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
                 string.IsNullOrEmpty(banner.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", banner.SortName),
                 string.IsNullOrEmpty(banner.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(banner.Description, FileOutputOptions.DescriptionType)));

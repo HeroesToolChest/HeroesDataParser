@@ -23,6 +23,10 @@ namespace HeroesData.FileWriter.Writers.BannerData
             bannerObject.Add("hyperlinkId", banner.HyperlinkId);
             bannerObject.Add("attributeId", banner.AttributeId);
             bannerObject.Add("rarity", banner.Rarity.ToString());
+            bannerObject.Add("category", banner.CollectionCategory);
+
+            if (!string.IsNullOrEmpty(banner.EventName))
+                bannerObject.Add("event", banner.EventName);
 
             if (banner.ReleaseDate.HasValue)
                 bannerObject.Add("releaseDate", banner.ReleaseDate.Value.ToString("yyyy-MM-dd"));

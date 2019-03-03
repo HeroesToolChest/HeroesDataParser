@@ -131,6 +131,14 @@ namespace HeroesData.Parser
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value, out string text))
                         banner.Name = text;
                 }
+                else if (elementName == "COLLECTIONCATEGORY")
+                {
+                    banner.CollectionCategory = element.Attribute("value")?.Value;
+                }
+                else if (elementName == "EVENTNAME")
+                {
+                    banner.EventName = element.Attribute("value")?.Value;
+                }
             }
         }
 

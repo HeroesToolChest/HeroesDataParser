@@ -4,6 +4,7 @@
     "hyperlinkId": "CarbotLiLiId",
     "attributeId": "CLL",
     "rarity": "Rare",
+    "category": null,
     "releaseDate": "2016-05-21",
     "sortName": "33CarbotLiLi",
     "searchText": "Carbot Li LI",
@@ -14,6 +15,7 @@
     "hyperlinkId": "CarbotChenId",
     "attributeId": "CCH",
     "rarity": "Epic",
+    "category": null,
     "releaseDate": "2016-05-21",
     "sortName": "33CarbotChen",
     "searchText": "Carbot Chen"

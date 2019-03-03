@@ -167,16 +167,10 @@ namespace HeroesData.FileWriter.Writers
             }
             else if (FileOutputType == FileOutputType.Xml)
             {
-                XDocument xmlDoc = null;
-
-                try
-                {
-                    xmlDoc = new XDocument(new XElement(RootNodeName, items.Select(item => MainElement(item))));
-                }
-                catch (ArgumentNullException)
-                {
+                if (RootNodeName == null)
                     throw new ArgumentNullException($"{nameof(RootNodeName)} cannot be null. Needs to be set in the corresponding xml writer class.");
-                }
+
+                XDocument xmlDoc = new XDocument(new XElement(RootNodeName, items.Select(item => MainElement(item))));
 
                 xmlDoc.Save(Path.Combine(OutputDirectory, SingleFileName));
 

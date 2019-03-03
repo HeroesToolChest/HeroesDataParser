@@ -16,6 +16,7 @@ namespace HeroesData.Parser.Tests.BannerParserTests
             Assert.AreEqual("AmberWizardWarbanner", AmberWizardWarbanner.HyperlinkId);
             Assert.AreEqual(new DateTime(2014, 3, 13), AmberWizardWarbanner.ReleaseDate);
             Assert.AreEqual(Rarity.Rare, AmberWizardWarbanner.Rarity);
+            Assert.AreEqual("Diablo", AmberWizardWarbanner.CollectionCategory);
         }
     }
 }

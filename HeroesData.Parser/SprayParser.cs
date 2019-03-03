@@ -26,7 +26,7 @@ namespace HeroesData.Parser
                 foreach (XElement sprayElement in cSprayElements)
                 {
                     string id = sprayElement.Attribute("id").Value;
-                    if (sprayElement.Element("AttributeId") != null && id != "Random")
+                    if (sprayElement.Element("AttributeId") != null && id != "RandomSpray")
                         items.Add(new string[] { id });
                 }
 
@@ -135,6 +135,14 @@ namespace HeroesData.Parser
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value, out string text))
                         spray.SearchText = text;
+                }
+                else if (elementName == "COLLECTIONCATEGORY")
+                {
+                    spray.CollectionCategory = element.Attribute("value")?.Value;
+                }
+                else if (elementName == "EVENTNAME")
+                {
+                    spray.EventName = element.Attribute("value")?.Value;
                 }
             }
         }

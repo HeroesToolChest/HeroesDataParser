@@ -23,6 +23,8 @@ namespace HeroesData.FileWriter.Tests.SprayData
                 Description = new TooltipDescription("Carbot spray of Li Li"),
                 HyperlinkId = "CarbotLiLiId",
                 ReleaseDate = new DateTime(2016, 5, 21),
+                CollectionCategory = "HeroStorm",
+                EventName = "Carbot",
             };
 
             TestData.Add(spray);
@@ -37,6 +39,7 @@ namespace HeroesData.FileWriter.Tests.SprayData
                 SearchText = "Carbot Chen",
                 HyperlinkId = "CarbotChenId",
                 ReleaseDate = new DateTime(2016, 5, 21),
+                CollectionCategory = "HeroStorm",
             };
 
             TestData.Add(spray2);

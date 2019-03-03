@@ -23,11 +23,11 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(spray.HyperlinkId))
                 AddWarning($"{nameof(spray.HyperlinkId)} is null or empty");
 
-            if (string.IsNullOrEmpty(spray.HyperlinkId))
-                AddWarning($"{nameof(spray.HyperlinkId)} is null or empty");
-
             if (string.IsNullOrEmpty(spray.AttributeId))
                 AddWarning($"{nameof(spray.AttributeId)} is null or empty");
+
+            if (string.IsNullOrEmpty(spray.CollectionCategory))
+                AddWarning($"{nameof(spray.CollectionCategory)} is null or empty");
 
             if (string.IsNullOrEmpty(spray.SearchText))
                 AddWarning($"{nameof(spray.SearchText)} is null or empty");

@@ -23,11 +23,11 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(banner.HyperlinkId))
                 AddWarning($"{nameof(banner.HyperlinkId)} is null or empty");
 
-            if (string.IsNullOrEmpty(banner.HyperlinkId))
-                AddWarning($"{nameof(banner.HyperlinkId)} is null or empty");
-
             if (string.IsNullOrEmpty(banner.AttributeId))
                 AddWarning($"{nameof(banner.AttributeId)} is null or empty");
+
+            if (string.IsNullOrEmpty(banner.CollectionCategory))
+                AddWarning($"{nameof(banner.CollectionCategory)} is null or empty");
 
             if (string.IsNullOrEmpty(banner.Description?.RawDescription))
                 AddWarning($"{nameof(banner.Description)} is null or empty");

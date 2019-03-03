@@ -22,6 +22,8 @@ namespace HeroesData.FileWriter.Tests.BannerData
                 Description = new TooltipDescription("Magically infused warbanner"),
                 HyperlinkId = "WizardWarbannerId",
                 ReleaseDate = new DateTime(2016, 5, 21),
+                CollectionCategory = "Warcraft",
+                EventName = "Wizards",
             };
 
             TestData.Add(banner);
@@ -36,6 +38,7 @@ namespace HeroesData.FileWriter.Tests.BannerData
                 Description = new TooltipDescription("Orc infused warbanner"),
                 HyperlinkId = "OrcWarbannerId",
                 ReleaseDate = new DateTime(2016, 5, 21),
+                CollectionCategory = "Warcraft",
             };
 
             TestData.Add(banner2);

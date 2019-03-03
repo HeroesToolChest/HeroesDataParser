@@ -18,6 +18,7 @@ namespace HeroesData.Parser.Tests.SprayParserTests
             Assert.AreEqual(new DateTime(2018, 3, 27), CarbotLiLi.ReleaseDate);
             Assert.AreEqual(Rarity.Rare, CarbotLiLi.Rarity);
             Assert.AreEqual("6StaticCarbot", CarbotLiLi.SortName);
+            Assert.AreEqual("HeroStorm", CarbotLiLi.CollectionCategory);
         }
     }
 }

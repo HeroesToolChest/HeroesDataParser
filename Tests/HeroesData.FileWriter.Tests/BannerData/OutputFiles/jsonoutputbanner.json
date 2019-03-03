@@ -4,6 +4,8 @@
     "hyperlinkId": "WizardWarbannerId",
     "attributeId": "WWZ",
     "rarity": "Rare",
+    "category": "Warcraft",
+    "event": "Wizards",
     "releaseDate": "2016-05-21",
     "sortName": "22WizardWarbanner",
     "description": "Magically infused warbanner"
@@ -13,6 +15,7 @@
     "hyperlinkId": "OrcWarbannerId",
     "attributeId": "OWO",
     "rarity": "Legendary",
+    "category": "Warcraft",
     "releaseDate": "2016-05-21",
     "sortName": "11OrcWarbanner",
     "description": "Orc infused warbanner"
