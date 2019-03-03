@@ -375,3 +375,12 @@ Hero/AlternateNameSearchText/Abathur=Abathur
 Button/Name/AzmodanGreed=Greed
 Button/SimpleDisplayText/AzmodanGreed=Increase Globe damage to non-Heroes<n/><c val="#TooltipQuest">Quest:</c> Increase All Shall Burn range
 Button/Tooltip/AzmodanGreed=Globe of Annihilation deals <c val="#TooltipNumbers"><d ref="100*Effect,AzmodanGlobeOfAnnihilationDamage,MultiplicativeModifierArray[Greed].Modifier"player="0"/>%</c> more damage to non-Heroic targets.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Quest:</c> After gaining <c val="#TooltipNumbers"><d ref="Behavior,AzmodanGlobeOfAnnihilationGreedTalentTokenCounter,Max"/></c> Annihilation, increase the range of All Shall Burn by <c val="#TooltipNumbers"><d ref="Effect,AzmodanGlobeOfAnnihilationGreedAllShallBurnRangeIncreaseModifyCatalog,CatalogModifications[0].Value/Abil,AzmodanAllShallBurn,Range*100" player="0"/>%</c> and Demon Warriors gain <c val="#TooltipNumbers"><d ref="Behavior,AzmodanGlobeOfAnnihilationGreedMovementSpeed,Modification.UnifiedMoveSpeedFactor*100"/>%</c> Attack Speed and Movement Speed.
+
+Banner/Description/BannerD3WizardRare=The full power of the wizards is so great that the earth itself trembles at their machinations.
+Banner/Name/BannerD3WizardRare=Wizard Warbanner
+Banner/Name/BannerD3WizardRareVar1=Amber Wizard Warbanner
+Banner/Name/BannerD3WizardRareVar2=Violet Wizard Warbanner
+Banner/SortName/BannerD3WizardRareVar0=3WizRareVar0
+Banner/SortName/BannerD3WizardRareVar1=3WizRareVar
+Banner/Name/BannerD3WizardRareVar1=Amber Wizard Warbanner
+Banner/SortName/BannerD3WizardRareVar1=3WizRareVar1

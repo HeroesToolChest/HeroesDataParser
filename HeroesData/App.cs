@@ -610,6 +610,7 @@ namespace HeroesData
             DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(GameData, DefaultData));
             DataHeroSkin dataHeroSkin = new DataHeroSkin(new HeroSkinParser(GameData, DefaultData));
             DataMount dataMount = new DataMount(new MountParser(GameData, DefaultData));
+            DataBanner dataBanner = new DataBanner(new BannerParser(GameData, DefaultData));
 
             FilesHero filesHero = new FilesHero(CASCHotsStorage?.CASCHandler, StorageMode);
             FilesMatchAward filesMatchAward = new FilesMatchAward(CASCHotsStorage?.CASCHandler, StorageMode);
@@ -622,6 +623,7 @@ namespace HeroesData
                 Validate = (localization) => dataHero.Validate(localization),
                 Extract = (data) => filesHero.ExtractFiles(data),
             });
+
             DataProcessors.Add(new DataProcessor()
             {
                 IsEnabled = true,
@@ -630,6 +632,7 @@ namespace HeroesData
                 Validate = (localization) => dataMatchAward.Validate(localization),
                 Extract = (data) => filesMatchAward.ExtractFiles(data),
             });
+
             DataProcessors.Add(new DataProcessor()
             {
                 IsEnabled = true,
@@ -637,12 +640,21 @@ namespace HeroesData
                 Parse = (localization) => dataHeroSkin.Parse(localization),
                 Validate = (localization) => dataHeroSkin.Validate(localization),
             });
+
             DataProcessors.Add(new DataProcessor()
             {
                 IsEnabled = true,
                 Name = dataMount.Name,
                 Parse = (localization) => dataMount.Parse(localization),
                 Validate = (localization) => dataMount.Validate(localization),
+            });
+
+            DataProcessors.Add(new DataProcessor()
+            {
+                IsEnabled = true,
+                Name = dataBanner.Name,
+                Parse = (localization) => dataBanner.Parse(localization),
+                Validate = (localization) => dataBanner.Validate(localization),
             });
         }
     }

@@ -1,0 +1,14 @@
+{
+  "WizardWarbanner": {
+    "hyperlinkId": "WizardWarbannerId",
+    "attributeId": "WWZ",
+    "rarity": "Rare",
+    "releaseDate": "2016-05-21"
+  },
+  "OrcWarbanner": {
+    "hyperlinkId": "OrcWarbannerId",
+    "attributeId": "OWO",
+    "rarity": "Legendary",
+    "releaseDate": "2016-05-21"
+  }
+}

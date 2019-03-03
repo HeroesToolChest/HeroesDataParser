@@ -170,7 +170,7 @@ namespace HeroesData.Loader.XmlGameData
 
                     if (!pathValue.Contains("sounddata"))
                     {
-                        if (gameDataXmlFilePath.Contains(HeroesDataStormModDirectoryName) && (pathValue.StartsWith("gamedata/heroes") || pathValue.StartsWith("gamedata/mounts")))
+                        if (gameDataXmlFilePath.Contains(HeroesDataStormModDirectoryName) && (pathValue.StartsWith("gamedata/heroes") || pathValue.StartsWith("gamedata/mounts") || pathValue.StartsWith("gamedata/lootbox")))
                         {
                             string xmlFilePath = Path.Combine(HeroesDataBaseDataDirectoryPath, pathValue);
 

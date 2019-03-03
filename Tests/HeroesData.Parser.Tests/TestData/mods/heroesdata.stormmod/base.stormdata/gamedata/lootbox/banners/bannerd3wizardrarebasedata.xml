@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CBanner default="1" id="BannerD3WizardRareBase" parent="BannerCommon">
+    <Model value="BannerD3WizardRare" />
+    <CollectionCategory value="Diablo" />
+    <Description value="Banner/Description/BannerD3WizardRare" />
+  </CBanner>
+</Catalog>

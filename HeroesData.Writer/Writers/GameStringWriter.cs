@@ -229,5 +229,29 @@ namespace HeroesData.FileWriter.Writers
 
             GameStrings[$"mount/searchtext/{key}"] = value;
         }
+
+        public void AddBannerName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"banner/name/{key}"] = value;
+        }
+
+        public void AddBannerSortName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"banner/sortname/{key}"] = value;
+        }
+
+        public void AddBannerDescription(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"banner/description/{key}"] = value;
+        }
     }
 }
