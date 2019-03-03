@@ -34,6 +34,9 @@ namespace HeroesData.ExtractorData
 
             if (!spray.ReleaseDate.HasValue)
                 AddWarning($"{nameof(spray.ReleaseDate)} is null");
+
+            if (spray.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(spray.Rarity)} is unknown");
         }
     }
 }

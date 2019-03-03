@@ -37,6 +37,9 @@ namespace HeroesData.ExtractorData
 
             if (!mount.ReleaseDate.HasValue)
                 AddWarning($"{nameof(mount.ReleaseDate)} is null");
+
+            if (mount.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(mount.Rarity)} is unknown");
         }
     }
 }

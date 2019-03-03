@@ -124,7 +124,7 @@ namespace HeroesData.Parser
                     if (Enum.TryParse(element.Attribute("value").Value, out Rarity heroRarity))
                         spray.Rarity = heroRarity;
                     else
-                        spray.Rarity = Rarity.None;
+                        spray.Rarity = Rarity.Unknown;
                 }
                 else if (elementName == "NAME")
                 {

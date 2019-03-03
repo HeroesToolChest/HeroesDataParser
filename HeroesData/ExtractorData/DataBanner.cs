@@ -34,6 +34,9 @@ namespace HeroesData.ExtractorData
 
             if (!banner.ReleaseDate.HasValue)
                 AddWarning($"{nameof(banner.ReleaseDate)} is null");
+
+            if (banner.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(banner.Rarity)} is unknown");
         }
     }
 }

@@ -124,7 +124,7 @@ namespace HeroesData.Parser
                     if (Enum.TryParse(element.Attribute("value").Value, out Rarity heroRarity))
                         heroSkin.Rarity = heroRarity;
                     else
-                        heroSkin.Rarity = Rarity.None;
+                        heroSkin.Rarity = Rarity.Unknown;
                 }
                 else if (elementName == "FEATUREARRAY")
                 {

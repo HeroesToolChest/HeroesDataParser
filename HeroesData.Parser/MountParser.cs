@@ -124,7 +124,7 @@ namespace HeroesData.Parser
                     if (Enum.TryParse(element.Attribute("value").Value, out Rarity heroRarity))
                         mount.Rarity = heroRarity;
                     else
-                        mount.Rarity = Rarity.None;
+                        mount.Rarity = Rarity.Unknown;
                 }
                 else if (elementName == "NAME")
                 {

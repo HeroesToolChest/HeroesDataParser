@@ -317,7 +317,7 @@ namespace HeroesData.Parser
                     if (Enum.TryParse(element.Attribute("value").Value, out Rarity heroRarity))
                         hero.Rarity = heroRarity;
                     else
-                        hero.Rarity = Rarity.None;
+                        hero.Rarity = Rarity.Unknown;
                 }
                 else if (elementName == "RATINGS")
                 {

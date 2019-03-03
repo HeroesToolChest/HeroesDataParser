@@ -37,6 +37,9 @@ namespace HeroesData.ExtractorData
 
             if (!heroSkin.ReleaseDate.HasValue)
                 AddWarning($"{nameof(heroSkin.ReleaseDate)} is null");
+
+            if (heroSkin.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(heroSkin.Rarity)} is unknown");
         }
     }
 }

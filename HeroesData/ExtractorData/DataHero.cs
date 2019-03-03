@@ -140,8 +140,8 @@ namespace HeroesData.ExtractorData
             if (hero.Speed <= 0)
                 AddWarning($"{nameof(hero.Speed)} is 0");
 
-            if (hero.Rarity == Rarity.None)
-                AddWarning($"{nameof(hero.Rarity)} is None");
+            if (hero.Rarity == Rarity.None || hero.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(hero.Rarity)} is none or unknown");
 
             if (!hero.ReleaseDate.HasValue)
                 AddWarning($"{nameof(hero.ReleaseDate)} is null");
@@ -157,6 +157,9 @@ namespace HeroesData.ExtractorData
 
             if (string.IsNullOrEmpty(hero.SearchText))
                 AddWarning($"{nameof(hero.SearchText)} is null or emtpy");
+
+            if (hero.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(hero.Rarity)} is unknown");
 
             VerifyWeapons(hero);
 
