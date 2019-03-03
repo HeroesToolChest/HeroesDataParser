@@ -23,6 +23,11 @@ namespace HeroesData.FileWriter.Writers.MountData
             mountObject.Add("hyperlinkId", mount.HyperlinkId);
             mountObject.Add("attributeId", mount.AttributeId);
             mountObject.Add("rarity", mount.Rarity.ToString());
+            mountObject.Add("type", mount.MountCategory);
+            mountObject.Add("category", mount.CollectionCategory);
+
+            if (!string.IsNullOrEmpty(mount.EventName))
+                mountObject.Add("event", mount.EventName);
 
             if (mount.ReleaseDate.HasValue)
                 mountObject.Add("releaseDate", mount.ReleaseDate.Value.ToString("yyyy-MM-dd"));

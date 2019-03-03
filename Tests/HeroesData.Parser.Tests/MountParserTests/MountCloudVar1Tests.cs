@@ -17,6 +17,8 @@ namespace HeroesData.Parser.Tests.MountParserTests
             Assert.AreEqual("JadeNimbusCloud", MountCloudVar1.HyperlinkId);
             Assert.AreEqual(new DateTime(2017, 1, 31), MountCloudVar1.ReleaseDate);
             Assert.AreEqual(Rarity.Legendary, MountCloudVar1.Rarity);
+            Assert.AreEqual("Ridesurf", MountCloudVar1.MountCategory);
+            Assert.AreEqual("Magical", MountCloudVar1.CollectionCategory);
         }
     }
 }

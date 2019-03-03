@@ -136,6 +136,18 @@ namespace HeroesData.Parser
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value, out string text))
                         mount.SearchText = text;
                 }
+                else if (elementName == "COLLECTIONCATEGORY")
+                {
+                    mount.CollectionCategory = element.Attribute("value")?.Value;
+                }
+                else if (elementName == "EVENTNAME")
+                {
+                    mount.EventName = element.Attribute("value")?.Value;
+                }
+                else if (elementName == "MOUNTCATEGORY")
+                {
+                    mount.MountCategory = element.Attribute("value")?.Value;
+                }
             }
         }
 

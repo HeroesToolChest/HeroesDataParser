@@ -3,12 +3,17 @@
     "hyperlinkId": "CloudNine",
     "attributeId": "CN9",
     "rarity": "Rare",
+    "type": "Ride",
+    "category": "Magical",
+    "event": "WhimsyDale",
     "releaseDate": "2016-05-21"
   },
   "MagixCarpet": {
     "hyperlinkId": "MagicCarpet",
     "attributeId": "MC4",
     "rarity": "Epic",
+    "type": "Ride",
+    "category": "Magical",
     "releaseDate": "2018-04-01"
   }
 }

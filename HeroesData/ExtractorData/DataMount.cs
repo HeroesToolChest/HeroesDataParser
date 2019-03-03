@@ -23,11 +23,14 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(mount.HyperlinkId))
                 AddWarning($"{nameof(mount.HyperlinkId)} is null or empty");
 
-            if (string.IsNullOrEmpty(mount.HyperlinkId))
-                AddWarning($"{nameof(mount.HyperlinkId)} is null or empty");
-
             if (string.IsNullOrEmpty(mount.AttributeId))
                 AddWarning($"{nameof(mount.AttributeId)} is null or empty");
+
+            if (string.IsNullOrEmpty(mount.MountCategory))
+                AddWarning($"{nameof(mount.MountCategory)} is null or empty");
+
+            if (string.IsNullOrEmpty(mount.CollectionCategory))
+                AddWarning($"{nameof(mount.CollectionCategory)} is null or empty");
 
             if (string.IsNullOrEmpty(mount.Description?.RawDescription))
                 AddWarning($"{nameof(mount.Description)} is null or empty");
