@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CSpray id="SprayStaticCarbotsLili" parent="SprayStaticFluidCommon">
+    <Texture value="Assets/Textures/storm_lootspray_static_carbots_lili.dds"/>
+    <ProductId value="36509"/>
+    <CollectionCategory value="HeroStorm"/>
+    <AttributeId value="Sy8e"/>
+    <ReleaseDate Month="3" Day="27" Year="2018"/>
+    <HyperlinkId value="CarbotLiLi"/>
+    <Rarity value="Rare"/>
+  </CSpray>
+</Catalog>

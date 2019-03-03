@@ -1,0 +1,14 @@
+{
+  "CarbotLiLi": {
+    "hyperlinkId": "CarbotLiLiId",
+    "attributeId": "CLL",
+    "rarity": "Rare",
+    "releaseDate": "2016-05-21"
+  },
+  "CarbotChen": {
+    "hyperlinkId": "CarbotChenId",
+    "attributeId": "CCH",
+    "rarity": "Epic",
+    "releaseDate": "2016-05-21"
+  }
+}

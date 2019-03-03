@@ -26,4 +26,6 @@
   <Catalog path="GameData/LootBox/Banners/bannerd3wizardrarebasedata.xml" />
   <Catalog path="GameData/LootBox/Banners/bannerd3wizardraredata.xml" />
   <Catalog path="GameData/LootBox/Banners/bannerd3wizardrarevar1data.xml" />
+  <Catalog path="GameData/LootBox/Sprays/spraystaticfluidcommondata.xml" />
+  <Catalog path="GameData/LootBox/Sprays/spraystaticcarbotslilidata.xml" />
 </Includes>

@@ -5,6 +5,7 @@ using HeroesData.FileWriter.Writers.HeroData;
 using HeroesData.FileWriter.Writers.HeroSkinData;
 using HeroesData.FileWriter.Writers.MatchAwardData;
 using HeroesData.FileWriter.Writers.MountData;
+using HeroesData.FileWriter.Writers.SprayData;
 using System.Collections.Generic;
 
 namespace HeroesData.FileWriter
@@ -111,6 +112,7 @@ namespace HeroesData.FileWriter
                 { nameof(HeroSkin), new HeroSkinDataJsonWriter() },
                 { nameof(Mount), new MountDataJsonWriter() },
                 { nameof(Banner), new BannerDataJsonWriter() },
+                { nameof(Spray), new SprayDataJsonWriter() },
             });
 
             Writers.Add(FileOutputType.Xml, new Dictionary<string, IWritable>()
@@ -120,6 +122,7 @@ namespace HeroesData.FileWriter
                 { nameof(HeroSkin), new HeroSkinDataXmlWriter() },
                 { nameof(Mount), new MountDataXmlWriter() },
                 { nameof(Banner), new BannerDataXmlWriter() },
+                { nameof(Spray), new SprayDataXmlWriter() },
             });
         }
     }

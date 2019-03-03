@@ -611,6 +611,7 @@ namespace HeroesData
             DataHeroSkin dataHeroSkin = new DataHeroSkin(new HeroSkinParser(GameData, DefaultData));
             DataMount dataMount = new DataMount(new MountParser(GameData, DefaultData));
             DataBanner dataBanner = new DataBanner(new BannerParser(GameData, DefaultData));
+            DataSpray dataSpray = new DataSpray(new SprayParser(GameData, DefaultData));
 
             FilesHero filesHero = new FilesHero(CASCHotsStorage?.CASCHandler, StorageMode);
             FilesMatchAward filesMatchAward = new FilesMatchAward(CASCHotsStorage?.CASCHandler, StorageMode);
@@ -655,6 +656,14 @@ namespace HeroesData
                 Name = dataBanner.Name,
                 Parse = (localization) => dataBanner.Parse(localization),
                 Validate = (localization) => dataBanner.Validate(localization),
+            });
+
+            DataProcessors.Add(new DataProcessor()
+            {
+                IsEnabled = true,
+                Name = dataSpray.Name,
+                Parse = (localization) => dataSpray.Parse(localization),
+                Validate = (localization) => dataSpray.Validate(localization),
             });
         }
     }

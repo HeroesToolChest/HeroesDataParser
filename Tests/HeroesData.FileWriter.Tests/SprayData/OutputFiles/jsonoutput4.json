@@ -1,0 +1,21 @@
+{
+  "CarbotLiLi": {
+    "name": "Carbot Li Li",
+    "hyperlinkId": "CarbotLiLiId",
+    "attributeId": "CLL",
+    "rarity": "Rare",
+    "releaseDate": "2016-05-21",
+    "sortName": "33CarbotLiLi",
+    "searchText": "Carbot Li LI",
+    "description": "Carbot spray of Li Li"
+  },
+  "CarbotChen": {
+    "name": "Carbot Chen",
+    "hyperlinkId": "CarbotChenId",
+    "attributeId": "CCH",
+    "rarity": "Epic",
+    "releaseDate": "2016-05-21",
+    "sortName": "33CarbotChen",
+    "searchText": "Carbot Chen"
+  }
+}

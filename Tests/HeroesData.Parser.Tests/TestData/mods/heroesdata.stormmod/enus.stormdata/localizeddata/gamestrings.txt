@@ -384,3 +384,7 @@ Banner/SortName/BannerD3WizardRareVar0=3WizRareVar0
 Banner/SortName/BannerD3WizardRareVar1=3WizRareVar
 Banner/Name/BannerD3WizardRareVar1=Amber Wizard Warbanner
 Banner/SortName/BannerD3WizardRareVar1=3WizRareVar1
+
+Spray/Name/SprayStaticCarbotsLili=Carbot Li Li
+Spray/SortName/SprayStaticCarbotsLili=6StaticCarbot
+Spray/AdditionalSearchText/SprayStaticCarbotsLili=Carbot Li Li
