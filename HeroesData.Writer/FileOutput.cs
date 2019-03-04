@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.FileWriter.Writers;
+using HeroesData.FileWriter.Writers.AnnouncerData;
 using HeroesData.FileWriter.Writers.BannerData;
 using HeroesData.FileWriter.Writers.HeroData;
 using HeroesData.FileWriter.Writers.HeroSkinData;
@@ -113,6 +114,7 @@ namespace HeroesData.FileWriter
                 { nameof(Mount), new MountDataJsonWriter() },
                 { nameof(Banner), new BannerDataJsonWriter() },
                 { nameof(Spray), new SprayDataJsonWriter() },
+                { nameof(Announcer), new AnnouncerDataJsonWriter() },
             });
 
             Writers.Add(FileOutputType.Xml, new Dictionary<string, IWritable>()
@@ -123,6 +125,7 @@ namespace HeroesData.FileWriter
                 { nameof(Mount), new MountDataXmlWriter() },
                 { nameof(Banner), new BannerDataXmlWriter() },
                 { nameof(Spray), new SprayDataXmlWriter() },
+                { nameof(Announcer), new AnnouncerDataXmlWriter() },
             });
         }
     }

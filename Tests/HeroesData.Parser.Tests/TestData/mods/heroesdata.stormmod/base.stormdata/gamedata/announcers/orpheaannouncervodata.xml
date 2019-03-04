@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CAnnouncerPack id="OrpheaA" parent="StormAnnouncerPackQuick" heroid="Orphea">
+    <Gender value="Female"/>
+    <ProductId value="44231"/>
+    <ReleaseDate Year="2018" Day="13" Month="11"/>
+    <HyperlinkId value="OrpheaAnnouncer"/>
+    <AttributeId value="AORP"/>
+  </CAnnouncerPack>
+</Catalog>

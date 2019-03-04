@@ -181,7 +181,7 @@ namespace HeroesData
                                 Console.WriteLine("Extracting files...");
                                 DataProcessor((parser) =>
                                 {
-                                    parser?.Extract(parser.ParsedItems);
+                                    parser.Extract?.Invoke(parser.ParsedItems);
                                 });
                             }
                             else
@@ -612,9 +612,11 @@ namespace HeroesData
             DataMount dataMount = new DataMount(new MountParser(GameData, DefaultData));
             DataBanner dataBanner = new DataBanner(new BannerParser(GameData, DefaultData));
             DataSpray dataSpray = new DataSpray(new SprayParser(GameData, DefaultData));
+            DataAnnouncer dataAnnouncer = new DataAnnouncer(new AnnouncerParser(GameData, DefaultData));
 
             FilesHero filesHero = new FilesHero(CASCHotsStorage?.CASCHandler, StorageMode);
             FilesMatchAward filesMatchAward = new FilesMatchAward(CASCHotsStorage?.CASCHandler, StorageMode);
+            FilesAnnouncer filesAnnouncer = new FilesAnnouncer(CASCHotsStorage?.CASCHandler, StorageMode);
 
             DataProcessors.Add(new DataProcessor()
             {
@@ -664,6 +666,15 @@ namespace HeroesData
                 Name = dataSpray.Name,
                 Parse = (localization) => dataSpray.Parse(localization),
                 Validate = (localization) => dataSpray.Validate(localization),
+            });
+
+            DataProcessors.Add(new DataProcessor()
+            {
+                IsEnabled = true,
+                Name = dataAnnouncer.Name,
+                Parse = (localization) => dataAnnouncer.Parse(localization),
+                Validate = (localization) => dataAnnouncer.Validate(localization),
+                Extract = (data) => filesAnnouncer.ExtractFiles(data),
             });
         }
     }

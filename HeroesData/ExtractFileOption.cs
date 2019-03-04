@@ -11,5 +11,6 @@ namespace HeroesData
         Abilities = 1 << 2,
         AbilityTalents = 1 << 3,
         MatchAwards = 1 << 4,
+        Announcers = 1 << 5,
     }
 }

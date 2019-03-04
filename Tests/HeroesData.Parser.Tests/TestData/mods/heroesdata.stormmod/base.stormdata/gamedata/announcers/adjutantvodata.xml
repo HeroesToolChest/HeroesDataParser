@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CAnnouncerPack id="Adjutant" parent="StormAnnouncerPackQuick" heroid="AI">
+    <AttributeId value="AADJ"/>
+    <CollectionCategory value="Starcraft"/>
+    <Gender value="Female"/>
+    <ProductId value="36531"/>
+    <ReleaseDate Month="3" Day="27" Year="2018"/>
+    <HyperlinkId value="AdjutantAnnouncer"/>
+    <Rarity value="Legendary"/>
+    <TileTexture value="Assets\Textures\Storm_UI_Announcer_Adjutant.dds"/>
+  </CAnnouncerPack>
+</Catalog>

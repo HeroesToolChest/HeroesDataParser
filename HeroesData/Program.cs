@@ -68,7 +68,7 @@ namespace HeroesData
                 {
                     if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ALL"))
                     {
-                        App.ExtractFileOption = ExtractFileOption.Portraits | ExtractFileOption.AbilityTalents | ExtractFileOption.MatchAwards;
+                        App.ExtractFileOption = ExtractFileOption.Portraits | ExtractFileOption.AbilityTalents | ExtractFileOption.MatchAwards | ExtractFileOption.Announcers;
                     }
                     else
                     {
@@ -82,6 +82,8 @@ namespace HeroesData
                             App.ExtractFileOption |= ExtractFileOption.AbilityTalents;
                         if (extractIconsOption.Values.Exists(x => x.ToUpper() == "AWARDS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "MATCHAWARDS"))
                             App.ExtractFileOption |= ExtractFileOption.MatchAwards;
+                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ANNOUNCERS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ANNOUNCER") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ANOUNCER"))
+                            App.ExtractFileOption |= ExtractFileOption.Announcers;
                     }
 
                     if (App.ExtractFileOption != ExtractFileOption.None)

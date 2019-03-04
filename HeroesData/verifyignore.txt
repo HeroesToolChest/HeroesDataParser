@@ -26,7 +26,10 @@
 [LostVikings] LifeScaling is 0
 [LostVikings] Sight is 0
 
-# ignore SearchText for following data
+# default announcer has no gender
+[NoAnnouncerPack] Gender is null or empty
+
+# ignore for following data
 [$heroskin] SearchText is null or empty
 [$mount] SearchText is null or empty
 [$spray] SearchText is null or empty

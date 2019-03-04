@@ -285,5 +285,29 @@ namespace HeroesData.FileWriter.Writers
 
             GameStrings[$"spray/searchtext/{key}"] = value;
         }
+
+        public void AddAnnouncerName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"announcer/name/{key}"] = value;
+        }
+
+        public void AddAnnouncerSortName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"announcer/sortname/{key}"] = value;
+        }
+
+        public void AddAnnouncerDescription(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"announcer/description/{key}"] = value;
+        }
     }
 }

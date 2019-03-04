@@ -1,0 +1,6 @@
+announcer/description/MurkyA=
+announcer/description/OrpheaA=Orphea Announcer
+announcer/name/MurkyA=Murky
+announcer/name/OrpheaA=Orphea
+announcer/sortname/MurkyA=qqMurkyA
+announcer/sortname/OrpheaA=qqOrpheaA

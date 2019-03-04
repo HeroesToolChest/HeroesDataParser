@@ -388,3 +388,6 @@ Banner/SortName/BannerD3WizardRareVar1=3WizRareVar1
 Spray/Name/SprayStaticCarbotsLili=Carbot Li Li
 Spray/SortName/SprayStaticCarbotsLili=6StaticCarbot
 Spray/AdditionalSearchText/SprayStaticCarbotsLili=Carbot Li Li
+
+AnnouncerPack/Name/Adjutant=Adjutant Announcer
+AnnouncerPack/Name/OrpheaA=Orphea Announcer

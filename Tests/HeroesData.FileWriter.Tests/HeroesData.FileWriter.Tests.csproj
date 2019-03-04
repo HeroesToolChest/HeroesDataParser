@@ -42,5 +42,8 @@
     <None Update="SprayData\OutputFiles\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="AnnouncerData\OutputFiles\**\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

@@ -25,10 +25,7 @@ namespace HeroesData.Loader.XmlGameData
         /// <summary>
         /// Gets the number of gamestrings.
         /// </summary>
-        public int GameStringCount
-        {
-            get { return GameStringById.Count; }
-        }
+        public int GameStringCount => GameStringById.Count;
 
         /// <summary>
         /// Gets the number of xml files that were added.

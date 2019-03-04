@@ -10,9 +10,9 @@ namespace HeroesData.ExtractorFiles
 {
     public class FilesMatchAward : FilesExtractorBase<MatchAward>, IFile
     {
-        private readonly string MatchAwardsDirectory = "matchAwards";
+        private readonly SortedSet<(string OriginalName, string NewName)> Awards = new SortedSet<(string Original, string NewName)>();
 
-        private SortedSet<(string OriginalName, string NewName)> Awards = new SortedSet<(string Original, string NewName)>();
+        private readonly string MatchAwardsDirectory = "matchAwards";
 
         public FilesMatchAward(CASCHandler cascHandler, StorageMode storageMode)
             : base(cascHandler, storageMode)

@@ -1,5 +1,6 @@
 ﻿Hero/Name/HeroJunkrat=Hero Junkrat
 Hero/Name/Junkrat=Junkrat
 
-
 Button/TooltipCooldownOverride/JunkratRocketRide=<d ref="Abil,JunkratRocketRide,Cost.Cooldown.TimeUse" player="-"/> seconds
+
+AnnouncerPack/Name/JunkratA=Junkrat Announcer

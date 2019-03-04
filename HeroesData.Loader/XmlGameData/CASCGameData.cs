@@ -196,23 +196,33 @@ namespace HeroesData.Loader.XmlGameData
                 {
                     pathValue = PathExtensions.GetFilePath(pathValue);
 
-                    if (!pathValue.Contains("sounddata"))
+                    if (pathValue.Contains("gamedata/"))
                     {
-                        if (gameDataXmlFilePath.Contains(HeroesDataStormModDirectoryName) && (pathValue.StartsWith("gamedata/heroes") || pathValue.StartsWith("gamedata/mounts") || pathValue.StartsWith("gamedata/lootbox")))
+                        if (gameDataXmlFilePath.Contains(HeroesDataStormModDirectoryName))
                         {
                             string xmlFilePath = Path.Combine(HeroesDataBaseDataDirectoryPath, pathValue);
-                            cascXml = CASCHandlerData.OpenFile(xmlFilePath);
+                            if (Path.GetExtension(xmlFilePath) == ".xml")
+                            {
+                                if (CASCHandlerData.FileExists(xmlFilePath))
+                                {
+                                    cascXml = CASCHandlerData.OpenFile(xmlFilePath);
 
-                            XmlGameData.Root.Add(XDocument.Load(cascXml).Root.Elements());
-                            XmlFileCount++;
+                                    XmlGameData.Root.Add(XDocument.Load(cascXml).Root.Elements());
+                                    XmlFileCount++;
+                                }
+                            }
                         }
-                        else if (gameDataXmlFilePath.Contains(HeroesModsDiretoryName) && pathValue.StartsWith("gamedata/"))
+                        else
                         {
                             string xmlFilePath = Path.Combine(gameDataXmlFilePath.Replace(GameDataXmlFile, string.Empty), pathValue);
-                            cascXml = CASCHandlerData.OpenFile(xmlFilePath);
 
-                            XmlGameData.Root.Add(XDocument.Load(cascXml).Root.Elements());
-                            XmlFileCount++;
+                            if (Path.GetExtension(xmlFilePath) == ".xml")
+                            {
+                                cascXml = CASCHandlerData.OpenFile(xmlFilePath);
+
+                                XmlGameData.Root.Add(XDocument.Load(cascXml).Root.Elements());
+                                XmlFileCount++;
+                            }
                         }
                     }
                 }

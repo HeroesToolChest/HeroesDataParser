@@ -28,4 +28,6 @@
   <Catalog path="GameData/LootBox/Banners/bannerd3wizardrarevar1data.xml" />
   <Catalog path="GameData/LootBox/Sprays/spraystaticfluidcommondata.xml" />
   <Catalog path="GameData/LootBox/Sprays/spraystaticcarbotslilidata.xml" />
+  <Catalog path="GameData/Announcers/AdjutantVOData.xml" />
+  <Catalog path="GameData/Announcers/OrpheaAnnouncerVOData.xml" />
 </Includes>
