@@ -18,7 +18,6 @@ namespace HeroesData.Parser.Tests.MatchAwardParserTests
         {
             MatchAwardParser matchAwardParser = new MatchAwardParser(GameData, DefaultData);
             Assert.IsTrue(matchAwardParser.Items.Count > 0);
-            Assert.IsTrue(matchAwardParser.Items[0].Length == 2);
         }
 
         private void Parse()

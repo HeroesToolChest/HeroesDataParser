@@ -18,7 +18,6 @@ namespace HeroesData.Parser.Tests.MountParserTests
         {
             MountParser mountParser = new MountParser(GameData, DefaultData);
             Assert.IsTrue(mountParser.Items.Count > 0);
-            Assert.IsTrue(mountParser.Items[0].Length == 1);
         }
 
         private void Parse()

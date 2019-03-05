@@ -24,11 +24,11 @@ namespace HeroesData.Parser
         /// Returns a collection of all the parsable ids. Allows multiple ids.
         /// </summary>
         /// <returns></returns>
-        public IList<string[]> Items
+        public HashSet<string[]> Items
         {
             get
             {
-                List<string[]> items = new List<string[]>();
+                HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
 
                 XElement matchAwardsGeneral = GameData.XmlGameData.Root.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward");
                 IEnumerable<XElement> matchAwardsMapSpecific = GameData.XmlGameData.Root.Elements("CUser").Where(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward");
@@ -74,7 +74,7 @@ namespace HeroesData.Parser
             else if (GameData.TryGetGameString($"{MapGameStringPrefixes.MatchAwardInstanceNamePrefix}{gameLink}", out awardNameText))
                 instanceId = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
 
-            XElement scoreValueCustomElement = GameData.XmlGameData.Root.Elements("CScoreValueCustom").FirstOrDefault(x => x.Attribute("id")?.Value == gameLink);
+            XElement scoreValueCustomElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CScoreValueCustom").Where(x => x.Attribute("id")?.Value == gameLink));
             string scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
 
             // get the name being used in the dds file

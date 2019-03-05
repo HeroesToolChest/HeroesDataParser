@@ -53,7 +53,6 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             HeroDataParser heroDataParser = new HeroDataParser(GameData, DefaultData, HeroOverrideLoader);
             Assert.IsTrue(heroDataParser.Items.Count > 0);
-            Assert.IsTrue(heroDataParser.Items[0].Length == 1);
         }
 
         private void LoadTestData()

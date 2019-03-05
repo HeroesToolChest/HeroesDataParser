@@ -6,6 +6,9 @@
     <AttributeId value="BN15" />
     <HyperlinkId value="AmberWizardWarbanner" />
     <RequiredRewardArray value="AmberWizardWarbanner" />
+    <Rarity value="None" />
+  </CBanner>
+  <CBanner id="BannerD3WizardRareVar1">
     <Rarity value="Rare" />
   </CBanner>
 </Catalog>

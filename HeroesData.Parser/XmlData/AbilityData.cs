@@ -84,7 +84,7 @@ namespace HeroesData.Parser.XmlData
                 ability.Tier = AbilityTier.Basic;
 
             // set button related data
-            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId);
+            XElement cButtonElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId));
 
             if (cButtonElement != null)
             {
@@ -132,7 +132,7 @@ namespace HeroesData.Parser.XmlData
             Ability ability = new Ability();
             hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
 
-            XElement abilityElement = GameData.XmlGameData.Root.Elements(elementName).FirstOrDefault(x => x.Attribute("id")?.Value == id);
+            XElement abilityElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements(elementName).Where(x => x.Attribute("id")?.Value == id));
 
             if (abilityElement == null)
                 throw new ParseException($"{nameof(SetLinkedAbility)}: Additional link ability element not found - <{elementName} id=\"{id}\">");
@@ -143,7 +143,7 @@ namespace HeroesData.Parser.XmlData
             if (GameData.TryGetGameString(DefaultData.ButtonName.Replace(DefaultData.IdPlaceHolder, id), out string abilityName))
                 ability.Name = abilityName;
 
-            XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId);
+            XElement cButtonElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId));
 
             if (cButtonElement != null)
             {
@@ -174,7 +174,7 @@ namespace HeroesData.Parser.XmlData
                 ability.Tier = AbilityTier.Activable;
 
                 // LastOrDefault, since overrides can happen in later xml files
-                XElement cButtonElement = GameData.XmlGameData.Root.Elements("CButton").LastOrDefault(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == parent);
+                XElement cButtonElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == parent));
 
                 if (cButtonElement == null)
                     throw new ParseException($"Could not find the following element <CButton id=\"{ability.FullTooltipNameId}\" parent=\"{parent}\">");

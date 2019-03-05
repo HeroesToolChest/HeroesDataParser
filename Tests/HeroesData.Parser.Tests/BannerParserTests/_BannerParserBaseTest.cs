@@ -18,7 +18,6 @@ namespace HeroesData.Parser.Tests.BannerParserTests
         {
             BannerParser bannerParser = new BannerParser(GameData, DefaultData);
             Assert.IsTrue(bannerParser.Items.Count > 0);
-            Assert.IsTrue(bannerParser.Items[0].Length == 1);
         }
 
         private void Parse()

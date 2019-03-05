@@ -19,7 +19,6 @@ namespace HeroesData.Parser.Tests.HeroSkinParserTests
         {
             HeroSkinParser heroSkinParser = new HeroSkinParser(GameData, DefaultData);
             Assert.IsTrue(heroSkinParser.Items.Count > 0);
-            Assert.IsTrue(heroSkinParser.Items[0].Length == 1);
         }
 
         private void Parse()

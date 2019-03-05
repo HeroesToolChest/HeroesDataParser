@@ -38,11 +38,11 @@ namespace HeroesData.Parser
         /// Returns a collection of all the parsable ids. Allows multiple ids.
         /// </summary>
         /// <returns></returns>
-        public IList<string[]> Items
+        public HashSet<string[]> Items
         {
             get
             {
-                List<string[]> items = new List<string[]>();
+                HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
 
                 IEnumerable<XElement> cHeroElements = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
 

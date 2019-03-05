@@ -10,7 +10,7 @@ namespace HeroesData.Parser
         /// Returns a collection of all the parsable ids. Allows multiple ids.
         /// </summary>
         /// <returns></returns>
-        IList<string[]> Items { get; }
+        HashSet<string[]> Items { get; }
 
         /// <summary>
         /// Gets or sets the hots build number.

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <Catalog>
+  <CAnnouncerPack id="Adjutant" parent="StormAnnouncerPackQuick">
+    <AttributeId value="AADK"/>
+  </CAnnouncerPack>
   <CAnnouncerPack id="Adjutant" parent="StormAnnouncerPackQuick" heroid="AI">
     <AttributeId value="AADJ"/>
     <CollectionCategory value="Starcraft"/>

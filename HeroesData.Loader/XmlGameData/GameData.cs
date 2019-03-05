@@ -173,6 +173,35 @@ namespace HeroesData.Loader.XmlGameData
             GameStringById[id] = value;
         }
 
+        /// <summary>
+        /// Merges the elements in the collection into a single XElement.  The elements get added as the first children to the first element.
+        /// All the attributes of the elements get added to the first element (overriding existing values).
+        /// </summary>
+        /// <param name="elements">The collection of elements.</param>
+        /// <returns></returns>
+        public XElement MergeXmlElements(IEnumerable<XElement> elements)
+        {
+            if (elements == null)
+                return null;
+
+            XElement mergedXElement = elements.FirstOrDefault();
+
+            foreach (XElement element in elements.Skip(1))
+            {
+                if ( element.HasElements)
+                {
+                    mergedXElement.Add(element.Elements());
+                }
+
+                foreach (XAttribute attribute in element.Attributes())
+                {
+                    mergedXElement.SetAttributeValue(attribute.Name, attribute.Value);
+                }
+            }
+
+            return mergedXElement;
+        }
+
         protected abstract void LoadCoreStormMod();
         protected abstract void LoadHeroesDataStormMod();
         protected abstract void LoadHeroesMapMods();

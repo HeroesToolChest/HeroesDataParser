@@ -37,7 +37,7 @@ namespace HeroesData.ExtractorData
             Parser.ParseBaseHero();
             ParsedData.GetOrAdd(Parser.StormHeroBase.CHeroId, Parser.StormHeroBase);
 
-            IList<string[]> heroes = Parser.Items;
+            HashSet<string[]> heroes = Parser.Items;
 
             // parse all the heroes
             Console.Write($"\r{currentCount,6} / {heroes.Count} total {Name}");

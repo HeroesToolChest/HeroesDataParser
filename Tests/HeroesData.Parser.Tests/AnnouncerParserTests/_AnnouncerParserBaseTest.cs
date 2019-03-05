@@ -20,7 +20,6 @@ namespace HeroesData.Parser.Tests.AnnouncerParserTests
         {
             AnnouncerParser announcerParser = new AnnouncerParser(GameData, DefaultData);
             Assert.IsTrue(announcerParser.Items.Count > 0);
-            Assert.IsTrue(announcerParser.Items[0].Length == 1);
         }
 
         private void Parse()

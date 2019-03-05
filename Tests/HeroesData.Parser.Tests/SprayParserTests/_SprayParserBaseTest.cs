@@ -18,7 +18,6 @@ namespace HeroesData.Parser.Tests.SprayParserTests
         {
             SprayParser sprayParser = new SprayParser(GameData, DefaultData);
             Assert.IsTrue(sprayParser.Items.Count > 0);
-            Assert.IsTrue(sprayParser.Items[0].Length == 1);
         }
 
         private void Parse()

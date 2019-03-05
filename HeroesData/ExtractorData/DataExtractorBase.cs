@@ -63,7 +63,7 @@ namespace HeroesData.ExtractorData
 
             int currentCount = 0;
 
-            IList<string[]> items = Parser.Items;
+            HashSet<string[]> items = Parser.Items;
 
             Console.Write($"\r{currentCount,6} / {items.Count} total {Name}");
 
