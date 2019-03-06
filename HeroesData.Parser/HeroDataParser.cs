@@ -44,7 +44,7 @@ namespace HeroesData.Parser
             {
                 HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
 
-                IEnumerable<XElement> cHeroElements = GameData.XmlGameData.Root.Elements("CHero").Where(x => x.Attribute("id") != null);
+                IEnumerable<XElement> cHeroElements = GameData.CHeroElements.Where(x => x.Attribute("id") != null);
 
                 foreach (XElement hero in cHeroElements)
                 {
@@ -212,7 +212,7 @@ namespace HeroesData.Parser
 
         private void CHeroData(Hero hero)
         {
-            XElement heroElement = GameData.XmlGameData.Root.Elements("CHero").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CHeroId);
+            XElement heroElement = GameData.CHeroElements.FirstOrDefault(x => x.Attribute("id")?.Value == hero.CHeroId);
 
             if (heroElement == null)
                 return;
@@ -395,7 +395,7 @@ namespace HeroesData.Parser
 
         private void CUnitData(Hero hero, XElement unitElement = null)
         {
-            unitElement = unitElement ?? GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CUnitId);
+            unitElement = unitElement ?? GameData.CUnitElements.FirstOrDefault(x => x.Attribute("id")?.Value == hero.CUnitId);
 
             if (unitElement == null)
                 return;
@@ -404,7 +404,7 @@ namespace HeroesData.Parser
             string parentValue = unitElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue) && parentValue != DefaultData.CUnitDefaultBaseId)
             {
-                XElement parentElement = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
+                XElement parentElement = GameData.CUnitElements.FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
                 if (parentElement != null)
                     CUnitData(hero, parentElement);
             }
@@ -533,7 +533,7 @@ namespace HeroesData.Parser
                     HeroPortrait = null,
                 };
 
-                XElement cUnitElement = GameData.XmlGameData.Root.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == cUnitId);
+                XElement cUnitElement = GameData.CUnitElements.FirstOrDefault(x => x.Attribute("id")?.Value == cUnitId);
                 if (cUnitElement != null)
                 {
                     SetDefaultValues(heroUnit);

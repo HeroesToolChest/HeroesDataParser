@@ -50,7 +50,7 @@ namespace HeroesData.Parser.XmlData
             else
                 talent.Tier = TalentTier.Old;
 
-            XElement cTalentElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CTalent").Where(x => x.Attribute("id")?.Value == referenceName));
+            XElement cTalentElement = GameData.MergeXmlElements(GameData.CTalentElements.Where(x => x.Attribute("id")?.Value == referenceName));
             if (cTalentElement == null)
                 throw new ParseException($"{nameof(cTalentElement)} is null, could not find the CTalent id name of {nameof(referenceName)}");
 
@@ -62,7 +62,7 @@ namespace HeroesData.Parser.XmlData
 
                 SetAbilityType(hero, talent, cTalentElement);
 
-                XElement cButtonElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == talent.FullTooltipNameId));
+                XElement cButtonElement = GameData.MergeXmlElements(GameData.CButtonElements.Where(x => x.Attribute("id")?.Value == talent.FullTooltipNameId));
                 if (cButtonElement != null)
                 {
                     XElement talentAbilElement = cTalentElement.Elements("Abil").FirstOrDefault();
@@ -102,7 +102,7 @@ namespace HeroesData.Parser.XmlData
             // storm hero abilities
             foreach (Ability ability in stormHeroBase.Abilities.Values)
             {
-                XElement buttonElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ButtonName || x.Attribute("id")?.Value == ability.ReferenceNameId));
+                XElement buttonElement = GameData.MergeXmlElements(GameData.CButtonElements.Where(x => x.Attribute("id")?.Value == ability.ButtonName || x.Attribute("id")?.Value == ability.ReferenceNameId));
                 if (buttonElement != null)
                     abilityTalentsByButtonElements[ability.ButtonName] = (buttonElement, ability);
             }
@@ -110,9 +110,9 @@ namespace HeroesData.Parser.XmlData
             // hero's abilities
             foreach (Ability ability in hero.Abilities.Values)
             {
-                XElement buttonElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ReferenceNameId));
+                XElement buttonElement = GameData.MergeXmlElements(GameData.CButtonElements.Where(x => x.Attribute("id")?.Value == ability.ReferenceNameId));
                 if (buttonElement == null)
-                    buttonElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ButtonName));
+                    buttonElement = GameData.MergeXmlElements(GameData.CButtonElements.Where(x => x.Attribute("id")?.Value == ability.ButtonName));
 
                 if (buttonElement != null)
                     abilityTalentsByButtonElements[ability.ButtonName] = (buttonElement, ability);
@@ -200,10 +200,10 @@ namespace HeroesData.Parser.XmlData
                 string faceId = tooltipAppenderElement.Attribute("Face")?.Value;
 
                 // check if face value exists as a button
-                if (!string.IsNullOrEmpty(faceId) && GameData.XmlGameData.Root.Elements("CButton").Any(x => x.Attribute("id")?.Value == faceId))
+                if (!string.IsNullOrEmpty(faceId) && GameData.CButtonElements.Any(x => x.Attribute("id")?.Value == faceId))
                 {
                     // check if its a combined validator
-                    XElement validatorCombineElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CValidatorCombine").Where(x => x.Attribute("id")?.Value == validatorId));
+                    XElement validatorCombineElement = GameData.MergeXmlElements(GameData.CValidatorCombineElements.Where(x => x.Attribute("id")?.Value == validatorId));
                     if (validatorCombineElement != null)
                     {
                         foreach (XElement element in validatorCombineElement.Elements())
@@ -228,7 +228,7 @@ namespace HeroesData.Parser.XmlData
 
         private void ValidatorPlayerTalentCheck(string validatorId, string abilityTalentId)
         {
-            XElement validatorPlayerTalentElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CValidatorPlayerTalent").Where(x => x.Attribute("id")?.Value == validatorId));
+            XElement validatorPlayerTalentElement = GameData.MergeXmlElements(GameData.CValidatorPlayerTalentElements.Where(x => x.Attribute("id")?.Value == validatorId));
             if (validatorPlayerTalentElement != null)
             {
                 string talentReferenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value;

@@ -384,7 +384,7 @@ namespace HeroesData.Parser.XmlData
             string parentValue = buttonElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue) && parentValue != DefaultData.CButtonDefaultBaseId)
             {
-                XElement parentElement = GameData.XmlGameData.Root.Elements("CButton").FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
+                XElement parentElement = GameData.CButtonElements.FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
                 if (parentElement != null)
                     methodToExecute(parentElement, abilityTalentBase);
             }

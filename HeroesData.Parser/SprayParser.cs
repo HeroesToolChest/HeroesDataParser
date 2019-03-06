@@ -22,7 +22,7 @@ namespace HeroesData.Parser
             {
                 HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
 
-                IEnumerable<XElement> cSprayElements = GameData.XmlGameData.Root.Elements("CSpray").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
+                IEnumerable<XElement> cSprayElements = GameData.CSprayElements.Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
 
                 foreach (XElement sprayElement in cSprayElements)
                 {
@@ -47,7 +47,7 @@ namespace HeroesData.Parser
 
             string id = ids.FirstOrDefault();
 
-            XElement sprayElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CSpray").Where(x => x.Attribute("id")?.Value == id));
+            XElement sprayElement = GameData.MergeXmlElements(GameData.CSprayElements.Where(x => x.Attribute("id")?.Value == id));
             if (sprayElement == null)
                 return null;
 
@@ -74,7 +74,7 @@ namespace HeroesData.Parser
             string parentValue = sprayElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CSpray").Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement parentElement = GameData.MergeXmlElements(GameData.CSprayElements.Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetSprayData(parentElement, spray);
             }

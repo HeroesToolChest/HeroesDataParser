@@ -74,7 +74,7 @@ namespace HeroesData.Parser
             else if (GameData.TryGetGameString($"{MapGameStringPrefixes.MatchAwardInstanceNamePrefix}{gameLink}", out awardNameText))
                 instanceId = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
 
-            XElement scoreValueCustomElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CScoreValueCustom").Where(x => x.Attribute("id")?.Value == gameLink));
+            XElement scoreValueCustomElement = GameData.MergeXmlElements(GameData.CScoreValueCustomElements.Where(x => x.Attribute("id")?.Value == gameLink));
             string scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
 
             // get the name being used in the dds file
