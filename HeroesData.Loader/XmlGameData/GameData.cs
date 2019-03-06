@@ -389,20 +389,20 @@ namespace HeroesData.Loader.XmlGameData
         private void SetPredefinedElements()
         {
             LayoutButtonElements = XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value != "TargetHeroDummy").Elements("CardLayouts").Elements("LayoutButtons");
-            CHeroElements = XmlGameData.Root.Elements("CHero");
-            CUnitElements = XmlGameData.Root.Elements("CUnit");
-            CButtonElements = XmlGameData.Root.Elements("CButton");
-            CArmorElements = XmlGameData.Root.Elements("CArmor");
-            CTalentElements = XmlGameData.Root.Elements("CTalent");
-            CValidatorCombineElements = XmlGameData.Root.Elements("CValidatorCombine");
-            CValidatorPlayerTalentElements = XmlGameData.Root.Elements("CValidatorPlayerTalent");
-            CWeaponLegacyElements = XmlGameData.Root.Elements("CWeaponLegacy");
-            CAnnouncerPackElements = XmlGameData.Root.Elements("CAnnouncerPack");
-            CBannerElements = XmlGameData.Root.Elements("CBanner");
-            CSkinElements = XmlGameData.Root.Elements("CSkin");
-            CScoreValueCustomElements = XmlGameData.Root.Elements("CScoreValueCustom");
-            CMountElements = XmlGameData.Root.Elements("CMount");
-            CSprayElements = XmlGameData.Root.Elements("CSpray");
+            CHeroElements = XmlGameData.Root.Elements("CHero").ToList();
+            CUnitElements = XmlGameData.Root.Elements("CUnit").ToList();
+            CButtonElements = XmlGameData.Root.Elements("CButton").ToList();
+            CArmorElements = XmlGameData.Root.Elements("CArmor").ToList();
+            CTalentElements = XmlGameData.Root.Elements("CTalent").ToList();
+            CValidatorCombineElements = XmlGameData.Root.Elements("CValidatorCombine").ToList();
+            CValidatorPlayerTalentElements = XmlGameData.Root.Elements("CValidatorPlayerTalent").ToList();
+            CWeaponLegacyElements = XmlGameData.Root.Elements("CWeaponLegacy").ToList();
+            CAnnouncerPackElements = XmlGameData.Root.Elements("CAnnouncerPack").ToList();
+            CBannerElements = XmlGameData.Root.Elements("CBanner").ToList();
+            CSkinElements = XmlGameData.Root.Elements("CSkin").ToList();
+            CScoreValueCustomElements = XmlGameData.Root.Elements("CScoreValueCustom").ToList();
+            CMountElements = XmlGameData.Root.Elements("CMount").ToList();
+            CSprayElements = XmlGameData.Root.Elements("CSpray").ToList();
         }
     }
 }
