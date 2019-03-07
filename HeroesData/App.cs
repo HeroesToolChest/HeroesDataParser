@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -76,7 +75,7 @@ namespace HeroesData
             }
         }
 
-        public void Run()
+        public async Task RunAsync()
         {
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine($"Heroes Data Parser ({Version})");
@@ -93,7 +92,7 @@ namespace HeroesData
                 InitializeOverrideData();
 
                 SetUpDataProcessors();
-                SetupValidationIgnoreFile();
+                await SetupValidationIgnoreFileAsync();
 
                 // set the options for the writers
                 FileOutputOptions options = new FileOutputOptions()
@@ -120,7 +119,7 @@ namespace HeroesData
                         LoadGameStrings(localization);
 
                         // parse gamestrings
-                        ParseGameStrings(localization);
+                        await ParseGameStringsAsync(localization);
 
                         // parse data
                         DataProcessor((parser) =>
@@ -255,9 +254,11 @@ namespace HeroesData
                     CASCHotsStorage = CASCHotsStorage.Load(StoragePath);
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    string versionBuild = CASCHotsStorage.CASCHandler.Config.BuildName?.Split('.').LastOrDefault();
 
-                    if (!string.IsNullOrEmpty(versionBuild) && int.TryParse(versionBuild, out int hotsBuild))
+                    ReadOnlySpan<char> buildName = CASCHotsStorage.CASCHandler.Config.BuildName.AsSpan();
+                    int indexOfVersion = buildName.LastIndexOf('.');
+
+                    if (indexOfVersion > -1 && int.TryParse(buildName.Slice(indexOfVersion + 1), out int hotsBuild))
                     {
                         HotsBuild = hotsBuild;
                         Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
@@ -331,10 +332,11 @@ namespace HeroesData
 
             foreach (string overrideFileName in XmlDataOverriders.LoadedFileNames)
             {
-                if (int.TryParse(Path.GetFileNameWithoutExtension(overrideFileName).Split('_').LastOrDefault(), out int loadedOverrideBuild))
+                ReadOnlySpan<char> fileNameNoExtension = Path.GetFileNameWithoutExtension(overrideFileName).AsSpan();
+
+                if (int.TryParse(fileNameNoExtension.Slice(fileNameNoExtension.IndexOf('_') + 1), out int loadedOverrideBuild))
                 {
-                    if ((StorageMode == StorageMode.Mods && HotsBuild.HasValue && HotsBuild.Value != loadedOverrideBuild) ||
-                        (StorageMode == StorageMode.CASC && HotsBuild.HasValue && HotsBuild.Value != loadedOverrideBuild))
+                    if ((StorageMode == StorageMode.Mods && HotsBuild.HasValue && HotsBuild.Value != loadedOverrideBuild) || (StorageMode == StorageMode.CASC && HotsBuild.HasValue && HotsBuild.Value != loadedOverrideBuild))
                         Console.ForegroundColor = ConsoleColor.Yellow;
                     else
                         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -354,7 +356,7 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        private void ParseGameStrings(Localization localization)
+        private async Task ParseGameStringsAsync(Localization localization)
         {
             int currentCount = 0;
             int failedCount = 0;
@@ -391,7 +393,7 @@ namespace HeroesData
 
             if (failedCount > 0)
             {
-                Task.Run(() => WriteInvalidGameStrings(failedGameStrings, localization));
+                await WriteInvalidGameStringsAsync(failedGameStrings, localization);
                 Console.ForegroundColor = ConsoleColor.Yellow;
             }
 
@@ -471,8 +473,11 @@ namespace HeroesData
         /// </summary>
         private void GetModsDirectoryBuild()
         {
-            string lastDirectory = StoragePath.Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
-            if (!string.IsNullOrEmpty(lastDirectory) && int.TryParse(lastDirectory.Split('_').LastOrDefault(), out int value))
+            ReadOnlySpan<char> storagePath = StoragePath.AsSpan();
+            ReadOnlySpan<char> lastDirectory = storagePath.Slice(storagePath.LastIndexOf(Path.DirectorySeparatorChar) + 1);
+            int indexOfBuild = lastDirectory.LastIndexOf('_');
+
+            if (indexOfBuild > -1 && int.TryParse(lastDirectory.Slice(indexOfBuild + 1), out int value))
             {
                 HotsBuild = value;
 
@@ -490,7 +495,7 @@ namespace HeroesData
         /// <returns></returns>
         private bool IsMultiModsDirectory()
         {
-            string[] directories = Directory.GetDirectories(StoragePath, "mods_*", SearchOption.TopDirectoryOnly);
+            ReadOnlySpan<string> directories = Directory.GetDirectories(StoragePath, "mods_*", SearchOption.TopDirectoryOnly).AsSpan();
 
             if (directories.Length < 1)
                 return false;
@@ -499,26 +504,26 @@ namespace HeroesData
             Console.WriteLine("Found 'mods_*' directory(s)");
 
             int max = 0;
-            string selectedDirectory = string.Empty;
-            for (int i = 0; i < directories.Length; i++)
+            ReadOnlySpan<char> selectedDirectory = null;
+
+            foreach (ReadOnlySpan<char> directory in directories)
             {
-                string lastDirectory = directories[i].Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
-                if (!string.IsNullOrEmpty(lastDirectory))
+                ReadOnlySpan<char> lastDirectory = directory.Slice(directory.LastIndexOf(Path.DirectorySeparatorChar) + 1);
+                int indexOfBuild = lastDirectory.LastIndexOf('_');
+
+                if (indexOfBuild > -1 && int.TryParse(lastDirectory.Slice(indexOfBuild + 1), out int value) && value >= max)
                 {
-                    if (int.TryParse(lastDirectory.Split('_').LastOrDefault(), out int value) && value >= max)
-                    {
-                        max = value;
-                        selectedDirectory = lastDirectory;
-                    }
+                    max = value;
+                    selectedDirectory = lastDirectory;
                 }
             }
 
-            if (!string.IsNullOrEmpty(selectedDirectory))
+            if (!selectedDirectory.IsEmpty)
             {
-                StoragePath = Path.Combine(StoragePath, selectedDirectory);
+                StoragePath = Path.Combine(StoragePath, selectedDirectory.ToString());
                 HotsBuild = max;
 
-                Console.WriteLine($"Using {selectedDirectory}");
+                Console.WriteLine($"Using {StoragePath}");
                 Console.WriteLine($"Hots build: {max}");
                 Console.WriteLine();
                 Console.ResetColor();
@@ -562,25 +567,25 @@ namespace HeroesData
             }
         }
 
-        private void WriteInvalidGameStrings(List<string> invalidGameStrings, Localization localization)
+        private async Task WriteInvalidGameStringsAsync(List<string> invalidGameStrings, Localization localization)
         {
             using (StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"InvalidGamestrings_{localization.ToString().ToLower()}.txt"), false))
             {
                 foreach (string gamestring in invalidGameStrings)
                 {
-                    writer.WriteLine(gamestring);
+                    await writer.WriteLineAsync(gamestring);
                 }
             }
         }
 
-        private void SetupValidationIgnoreFile()
+        private async Task SetupValidationIgnoreFileAsync()
         {
             if (File.Exists(VerifyIgnoreFilePath))
             {
                 using (StreamReader reader = new StreamReader(VerifyIgnoreFilePath))
                 {
                     string line = string.Empty;
-                    while ((line = reader.ReadLine()) != null)
+                    while ((line = await reader.ReadLineAsync()) != null)
                     {
                         line = line.Trim();
 
