@@ -176,8 +176,11 @@ namespace HeroesData.Loader.XmlGameData
 
                             if (Path.GetExtension(xmlFilePath) == ".xml")
                             {
-                                XmlGameData.Root.Add(XDocument.Load(xmlFilePath).Root.Elements());
-                                XmlFileCount++;
+                                if (File.Exists(xmlFilePath))
+                                {
+                                    XmlGameData.Root.Add(XDocument.Load(xmlFilePath).Root.Elements());
+                                    XmlFileCount++;
+                                }
                             }
                         }
                         else
