@@ -5,6 +5,8 @@
     <CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
     
     <IsPackable>false</IsPackable>
+    
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
