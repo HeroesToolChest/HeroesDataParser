@@ -75,7 +75,7 @@ namespace HeroesData
             }
         }
 
-        public async Task RunAsync()
+        public void Run()
         {
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine($"Heroes Data Parser ({Version})");
@@ -92,7 +92,7 @@ namespace HeroesData
                 InitializeOverrideData();
 
                 SetUpDataProcessors();
-                await SetupValidationIgnoreFileAsync();
+                SetupValidationIgnoreFile();
 
                 // set the options for the writers
                 FileOutputOptions options = new FileOutputOptions()
@@ -119,7 +119,7 @@ namespace HeroesData
                         LoadGameStrings(localization);
 
                         // parse gamestrings
-                        await ParseGameStringsAsync(localization);
+                        ParseGameStrings(localization);
 
                         // parse data
                         DataProcessor((parser) =>
@@ -356,7 +356,7 @@ namespace HeroesData
             Console.WriteLine();
         }
 
-        private async Task ParseGameStringsAsync(Localization localization)
+        private void ParseGameStrings(Localization localization)
         {
             int currentCount = 0;
             int failedCount = 0;
@@ -393,7 +393,7 @@ namespace HeroesData
 
             if (failedCount > 0)
             {
-                await WriteInvalidGameStringsAsync(failedGameStrings, localization);
+                WriteInvalidGameStrings(failedGameStrings, localization);
                 Console.ForegroundColor = ConsoleColor.Yellow;
             }
 
@@ -567,25 +567,25 @@ namespace HeroesData
             }
         }
 
-        private async Task WriteInvalidGameStringsAsync(List<string> invalidGameStrings, Localization localization)
+        private void WriteInvalidGameStrings(List<string> invalidGameStrings, Localization localization)
         {
             using (StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"InvalidGamestrings_{localization.ToString().ToLower()}.txt"), false))
             {
                 foreach (string gamestring in invalidGameStrings)
                 {
-                    await writer.WriteLineAsync(gamestring);
+                    writer.WriteLine(gamestring);
                 }
             }
         }
 
-        private async Task SetupValidationIgnoreFileAsync()
+        private void SetupValidationIgnoreFile()
         {
             if (File.Exists(VerifyIgnoreFilePath))
             {
                 using (StreamReader reader = new StreamReader(VerifyIgnoreFilePath))
                 {
                     string line = string.Empty;
-                    while ((line = await reader.ReadLineAsync()) != null)
+                    while ((line = reader.ReadLine()) != null)
                     {
                         line = line.Trim();
 
