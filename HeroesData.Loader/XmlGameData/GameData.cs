@@ -279,7 +279,7 @@ namespace HeroesData.Loader.XmlGameData
         protected abstract void LoadHeroesMapMods();
         protected abstract void LoadGameDataXmlContents(string gameDataXmlFilePath);
 
-        protected void ParseTextFile(string filePath, bool isMapFile = false)
+        protected void LoadTextFile(string filePath, bool isMapFile = false)
         {
             using (StreamReader reader = new StreamReader(filePath))
             {
@@ -290,7 +290,7 @@ namespace HeroesData.Loader.XmlGameData
             }
         }
 
-        protected void ParseTextFile(Stream fileStream, bool isMapFile = false)
+        protected void LoadTextFile(Stream fileStream, bool isMapFile = false)
         {
             using (StreamReader reader = new StreamReader(fileStream))
             {
@@ -299,6 +299,23 @@ namespace HeroesData.Loader.XmlGameData
                 else
                     ReadTextFile(reader);
             }
+
+            TextFileCount++;
+        }
+
+        protected void LoadXmlFile(string filePath)
+        {
+            if (Path.GetExtension(filePath) == ".xml")
+            {
+                XmlGameData.Root.Add(XDocument.Load(filePath).Root.Elements());
+                XmlFileCount++;
+            }
+        }
+
+        protected void LoadXmlFile(Stream stream)
+        {
+            XmlGameData.Root.Add(XDocument.Load(stream).Root.Elements());
+            XmlFileCount++;
         }
 
         private void Load()

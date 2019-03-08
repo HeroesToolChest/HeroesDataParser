@@ -43,16 +43,14 @@ namespace HeroesData.Loader.XmlGameData
                     }
                     else
                     {
-                        XmlGameData.Root.Add(XDocument.Load(file).Root.Elements());
-                        XmlFileCount++;
+                        LoadXmlFile(file);
                     }
                 }
             }
 
             if (LoadTextFilesOnlyEnabled)
             {
-                ParseTextFile(Path.Combine(CoreLocalizedDataPath, GameStringFile));
-                TextFileCount++;
+                LoadTextFile(Path.Combine(CoreLocalizedDataPath, GameStringFile));
             }
         }
 
@@ -63,11 +61,7 @@ namespace HeroesData.Loader.XmlGameData
                 // load up xml files in gamedata folder
                 foreach (string file in Directory.GetFiles(Path.Combine(HeroesDataBaseDataDirectoryPath, GameDataStringName)))
                 {
-                    if (Path.GetExtension(file) != ".xml")
-                        continue;
-
-                    XmlGameData.Root.Add(XDocument.Load(file).Root.Elements());
-                    XmlFileCount++;
+                    LoadXmlFile(file);
                 }
 
                 // load up files in gamedata.xml file
@@ -77,8 +71,7 @@ namespace HeroesData.Loader.XmlGameData
             if (LoadTextFilesOnlyEnabled)
             {
                 // load gamestring file
-                ParseTextFile(Path.Combine(HeroesDataLocalizedDataPath, GameStringFile));
-                TextFileCount++;
+                LoadTextFile(Path.Combine(HeroesDataLocalizedDataPath, GameStringFile));
             }
 
             // load up files in includes.xml file - which are the heroes in the heromods folder
@@ -103,8 +96,7 @@ namespace HeroesData.Loader.XmlGameData
                         {
                             try
                             {
-                                ParseTextFile(Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile));
-                                TextFileCount++;
+                                LoadTextFile(Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile));
                             }
                             catch (FileNotFoundException)
                             {
@@ -128,11 +120,7 @@ namespace HeroesData.Loader.XmlGameData
                 {
                     foreach (string xmlFilePath in Directory.GetFiles(xmlMapGameDataPath))
                     {
-                        if (Path.GetExtension(xmlFilePath) == ".xml")
-                        {
-                            XmlGameData.Root.Add(XDocument.Load(xmlFilePath).Root.Elements());
-                            XmlFileCount++;
-                        }
+                        LoadXmlFile(xmlFilePath);
                     }
                 }
 
@@ -140,8 +128,7 @@ namespace HeroesData.Loader.XmlGameData
                 {
                     try
                     {
-                        ParseTextFile(Path.Combine(HeroesMapModsDirectoryPath, mapFolderName, GameStringLocalization, LocalizedDataName, GameStringFile), true);
-                        TextFileCount++;
+                        LoadTextFile(Path.Combine(HeroesMapModsDirectoryPath, mapFolderName, GameStringLocalization, LocalizedDataName, GameStringFile), true);
                     }
                     catch (FileNotFoundException)
                     {
@@ -178,20 +165,14 @@ namespace HeroesData.Loader.XmlGameData
                             {
                                 if (File.Exists(xmlFilePath))
                                 {
-                                    XmlGameData.Root.Add(XDocument.Load(xmlFilePath).Root.Elements());
-                                    XmlFileCount++;
+                                    LoadXmlFile(xmlFilePath);
                                 }
                             }
                         }
                         else
                         {
                             string xmlFilePath = Path.Combine(gameDataXmlFilePath.Replace(GameDataXmlFile, string.Empty), pathValue);
-
-                            if (Path.GetExtension(xmlFilePath) == ".xml")
-                            {
-                                XmlGameData.Root.Add(XDocument.Load(xmlFilePath).Root.Elements());
-                                XmlFileCount++;
-                            }
+                            LoadXmlFile(xmlFilePath);
                         }
                     }
                 }
