@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -326,36 +327,37 @@ namespace HeroesData.Loader.XmlGameData
         {
             while (!reader.EndOfStream)
             {
-                string line = reader.ReadLine();
+                ReadOnlySpan<char> lineSpan = reader.ReadLine().AsSpan();
+                int indexOfSplit = lineSpan.IndexOf('=');
 
-                string[] splitLine = line.Split(new char[] { '=' }, 2);
-                if (splitLine.Length == 2)
-                    AddGameString(splitLine[0], splitLine[1]);
+                if (indexOfSplit > -1)
+                    AddGameString(lineSpan.Slice(0, indexOfSplit).ToString(), lineSpan.Slice(indexOfSplit + 1).ToString());
             }
         }
 
         private void ReadMapFile(StreamReader reader)
         {
-            Dictionary<string, string> mapGamestrings = new Dictionary<string, string>();
-            string gamelink = string.Empty;
+            Dictionary<ReadOnlyMemory<char>, ReadOnlyMemory<char>> mapGamestrings = new Dictionary<ReadOnlyMemory<char>, ReadOnlyMemory<char>>();
+            ReadOnlyMemory<char> gamelink = null;
 
             // load it all up
             while (!reader.EndOfStream)
             {
-                string line = reader.ReadLine();
-                string[] splitLine = line.Split(new char[] { '=' }, 2);
+                ReadOnlyMemory<char> line = reader.ReadLine().AsMemory();
+                int indexOfSplit = line.Span.IndexOf('=');
 
-                if (splitLine.Length == 2)
+                if (indexOfSplit > -1)
                 {
-                    if (splitLine[0].StartsWith("ScoreValue/Name/EndOfMatchAward"))
-                        gamelink = splitLine[0].Split('/')[2]; // get the last part
+                    ReadOnlyMemory<char> id = line.Slice(0, indexOfSplit);
+                    if (id.Span.StartsWith("ScoreValue/Name/EndOfMatchAward"))
+                        gamelink = line.Slice(id.Span.LastIndexOf('/') + 1);
 
-                    mapGamestrings.Add(splitLine[0], splitLine[1]);
+                    mapGamestrings.Add(id, line.Slice(indexOfSplit + 1));
                 }
             }
 
-            if (!string.IsNullOrEmpty(gamelink) && mapGamestrings.TryGetValue($"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}[Override]Generic Instance_Award Name", out string instanceAwardName))
-                AddGameString($"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}{gamelink}", instanceAwardName);
+            if (!gamelink.IsEmpty && mapGamestrings.TryGetValue($"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}[Override]Generic Instance_Award Name".AsMemory(), out ReadOnlyMemory<char> instanceAwardName))
+                AddGameString($"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}{gamelink.ToString()}", instanceAwardName.ToString());
         }
 
         private void SetLevelScalingData()
