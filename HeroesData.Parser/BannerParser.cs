@@ -22,7 +22,7 @@ namespace HeroesData.Parser
             {
                 HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
 
-                IEnumerable<XElement> cBannerElements = GameData.CBannerElements.Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
+                IEnumerable<XElement> cBannerElements = GameData.Elements("CBanner").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
 
                 foreach (XElement bannerElement in cBannerElements)
                 {
@@ -47,7 +47,7 @@ namespace HeroesData.Parser
 
             string id = ids.FirstOrDefault();
 
-            XElement bannerElement = GameData.MergeXmlElements(GameData.CBannerElements.Where(x => x.Attribute("id")?.Value == id));
+            XElement bannerElement = GameData.MergeXmlElements(GameData.Elements("CBanner").Where(x => x.Attribute("id")?.Value == id));
             if (bannerElement == null)
                 return null;
 
@@ -74,7 +74,7 @@ namespace HeroesData.Parser
             string parentValue = bannerElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.CBannerElements.Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CBanner").Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetBannerData(parentElement, banner);
             }

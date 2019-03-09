@@ -70,7 +70,7 @@ namespace HeroesData.Parser.XmlData
             XElement heroicElement = abilityElement.Elements("Flags").FirstOrDefault(x => x.Attribute("index").Value == "Heroic" && x.Attribute("value").Value == "1");
             XElement traitElement = abilityElement.Elements("Flags").FirstOrDefault(x => x.Attribute("index").Value == "Trait" && x.Attribute("value").Value == "1");
             XElement mountElement = abilityElement.Elements("Flags").FirstOrDefault(x => x.Attribute("index").Value == "MountReplacement" && x.Attribute("value").Value == "1");
-            XElement activableElement = GameData.XmlGameData.Root.Elements("CItemAbil").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ReferenceNameId);
+            XElement activableElement = GameData.Elements("CItemAbil").FirstOrDefault(x => x.Attribute("id")?.Value == ability.ReferenceNameId);
 
             if (heroicElement != null)
                 ability.Tier = AbilityTier.Heroic;
@@ -84,7 +84,7 @@ namespace HeroesData.Parser.XmlData
                 ability.Tier = AbilityTier.Basic;
 
             // set button related data
-            XElement cButtonElement = GameData.MergeXmlElements(GameData.CButtonElements.Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId));
+            XElement cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId));
 
             if (cButtonElement != null)
             {
@@ -143,7 +143,7 @@ namespace HeroesData.Parser.XmlData
             if (GameData.TryGetGameString(DefaultData.ButtonName.Replace(DefaultData.IdPlaceHolder, id), out string abilityName))
                 ability.Name = abilityName;
 
-            XElement cButtonElement = GameData.MergeXmlElements(GameData.CButtonElements.Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId));
+            XElement cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId));
 
             if (cButtonElement != null)
             {
@@ -174,7 +174,7 @@ namespace HeroesData.Parser.XmlData
                 ability.Tier = AbilityTier.Activable;
 
                 // LastOrDefault, since overrides can happen in later xml files
-                XElement cButtonElement = GameData.MergeXmlElements(GameData.CButtonElements.Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == parent));
+                XElement cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == parent));
 
                 if (cButtonElement == null)
                     throw new ParseException($"Could not find the following element <CButton id=\"{ability.FullTooltipNameId}\" parent=\"{parent}\">");
@@ -228,7 +228,7 @@ namespace HeroesData.Parser.XmlData
             else // as elements
             {
                 layoutButton = GameData.LayoutButtonElements.Where(x => x.HasElements).FirstOrDefault(x => (x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName || x.Element("Face")?.Attribute("value")?.Value == ability.ReferenceNameId) &&
-                                                        x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
+                                                            x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
 
                 if (layoutButton != null)
                 {

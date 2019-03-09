@@ -25,9 +25,9 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(armorLinkValue))
                 return;
 
-            XElement armorElement = GameData.MergeXmlElements(GameData.CArmorElements.Where(x => x.Attribute("id")?.Value == armorLinkValue));
-            XElement physicalArmorElement = GameData.MergeXmlElements(GameData.CArmorElements.Where(x => x.Attribute("id")?.Value == armorLinkValue));
-            XElement spellArmorElement = GameData.MergeXmlElements(GameData.CArmorElements.Where(x => x.Attribute("id")?.Value == armorLinkValue));
+            XElement armorElement = GameData.MergeXmlElements(GameData.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLinkValue));
+            XElement physicalArmorElement = GameData.MergeXmlElements(GameData.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLinkValue));
+            XElement spellArmorElement = GameData.MergeXmlElements(GameData.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLinkValue));
 
             if (armorElement != null)
             {

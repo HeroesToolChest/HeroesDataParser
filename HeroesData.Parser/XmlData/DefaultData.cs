@@ -420,79 +420,79 @@ namespace HeroesData.Parser.XmlData
         // <CUnit default="1">
         private void LoadCUnitDefault()
         {
-            CUnitElement(GameData.CUnitElements.Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CUnitElement(GameData.Elements("CUnit").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CUnit default="1" id="StormBasicHeroicUnit">
         private void LoadCUnitDefaultStormBasicHeroicUnit()
         {
-            CUnitElement(GameData.CUnitElements.Where(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == "StormBasicHeroicUnit"));
+            CUnitElement(GameData.Elements("CUnit").Where(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == "StormBasicHeroicUnit"));
         }
 
         // <CUnit default="1" id="StormHero" parent="StormBasicHeroicUnit">
         private void LoadCUnitDefaultStormHero()
         {
-            CUnitElement(GameData.CUnitElements.Where(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == CUnitDefaultBaseId));
+            CUnitElement(GameData.Elements("CUnit").Where(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == CUnitDefaultBaseId));
         }
 
         // <CHero default="1">
         private void LoadCHeroDefault()
         {
-            CHeroElement(GameData.CHeroElements.Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CHeroElement(GameData.Elements("CHero").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CHeroRole default="1">
         private void LoadCHeroRoleDefault()
         {
-            CHeroRoleElement(GameData.XmlGameData.Root.Elements("CHeroRole").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CHeroRoleElement(GameData.Elements("CHeroRole").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CButton default="1">
         private void LoadCButtonDefault()
         {
-            CButtonElement(GameData.CButtonElements.Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CButtonElement(GameData.Elements("CButton").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CButton default="1" id="StormButtonParent">
         private void LoadCButtonDefaultStormButtonParent()
         {
-            CButtonElement(GameData.CButtonElements.Where(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == CButtonDefaultBaseId));
+            CButtonElement(GameData.Elements("CButton").Where(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == CButtonDefaultBaseId));
         }
 
         // <CWeapon default="1">
         private void LoadCWeaponDefault()
         {
-            CWeaponElement(GameData.XmlGameData.Root.Elements("CWeapon").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CWeaponElement(GameData.Elements("CWeapon").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CSkin default="1">
         private void LoadCSkinDefault()
         {
-            CSkinElement(GameData.CSkinElements.Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CSkinElement(GameData.Elements("CSkin").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CMount default="1">
         private void LoadCMountDefault()
         {
-            CMountElement(GameData.CMountElements.Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CMountElement(GameData.Elements("CMount").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CBanner default="1">
         private void LoadCBannerDefault()
         {
-            CBannerElement(GameData.CBannerElements.Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CBannerElement(GameData.Elements("CBanner").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CSpray default="1">
         private void LoadCSprayDefault()
         {
-            CSprayElement(GameData.CSprayElements.Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CSprayElement(GameData.Elements("CSpray").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CAnnouncerPack default="1">
         private void LoadCAnnouncerPackDefault()
         {
-            CAnnouncerPackElement(GameData.CAnnouncerPackElements.Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CAnnouncerPackElement(GameData.Elements("CAnnouncerPack").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         private void CUnitElement(IEnumerable<XElement> cUnitElements)

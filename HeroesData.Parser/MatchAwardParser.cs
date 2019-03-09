@@ -30,8 +30,8 @@ namespace HeroesData.Parser
             {
                 HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
 
-                XElement matchAwardsGeneral = GameData.XmlGameData.Root.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward");
-                IEnumerable<XElement> matchAwardsMapSpecific = GameData.XmlGameData.Root.Elements("CUser").Where(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward");
+                XElement matchAwardsGeneral = GameData.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward");
+                IEnumerable<XElement> matchAwardsMapSpecific = GameData.Elements("CUser").Where(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward");
 
                 // combine both
                 IEnumerable<XElement> mapAwardsInstances = matchAwardsMapSpecific.Elements("Instances").Concat(matchAwardsGeneral.Elements("Instances"));
@@ -74,7 +74,7 @@ namespace HeroesData.Parser
             else if (GameData.TryGetGameString($"{MapGameStringPrefixes.MatchAwardInstanceNamePrefix}{gameLink}", out awardNameText))
                 instanceId = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
 
-            XElement scoreValueCustomElement = GameData.MergeXmlElements(GameData.CScoreValueCustomElements.Where(x => x.Attribute("id")?.Value == gameLink));
+            XElement scoreValueCustomElement = GameData.MergeXmlElements(GameData.Elements("CScoreValueCustom").Where(x => x.Attribute("id")?.Value == gameLink));
             string scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
 
             // get the name being used in the dds file

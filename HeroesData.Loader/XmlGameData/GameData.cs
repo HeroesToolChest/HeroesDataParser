@@ -11,6 +11,7 @@ namespace HeroesData.Loader.XmlGameData
     {
         private readonly Dictionary<(string Catalog, string Entry, string Field), double> ScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
         private readonly Dictionary<string, string> GameStringById = new Dictionary<string, string>();
+        private ILookup<string, XElement> ElementsByElementName;
 
         protected GameData(string modsFolderPath)
         {
@@ -39,7 +40,7 @@ namespace HeroesData.Loader.XmlGameData
         public int TextFileCount { get; protected set; } = 0;
 
         /// <summary>
-        /// Gets a XDocument of all the combined xml game data.
+        /// Gets a XDocument of all the combined xml game data. Recommended to use <see cref="Elements(string)"/> for quicker access.
         /// </summary>
         public XDocument XmlGameData { get; protected set; } = new XDocument();
 
@@ -57,77 +58,6 @@ namespace HeroesData.Loader.XmlGameData
         /// Gets all the LayoutButton elements.
         /// </summary>
         public IEnumerable<XElement> LayoutButtonElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CHero elements.
-        /// </summary>
-        public IEnumerable<XElement> CHeroElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CUnit elements.
-        /// </summary>
-        public IEnumerable<XElement> CUnitElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CButton elements.
-        /// </summary>
-        public IEnumerable<XElement> CButtonElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CArmor elements.
-        /// </summary>
-        public IEnumerable<XElement> CArmorElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CTalent elements.
-        /// </summary>
-        public IEnumerable<XElement> CTalentElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CValidatorCombine elements.
-        /// </summary>
-        public IEnumerable<XElement> CValidatorCombineElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CValidatorPlayerTalent elements.
-        /// </summary>
-        public IEnumerable<XElement> CValidatorPlayerTalentElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CWeaponLegacy elements.
-        /// </summary>
-        public IEnumerable<XElement> CWeaponLegacyElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CAnnouncerPack elements.
-        /// </summary>
-        public IEnumerable<XElement> CAnnouncerPackElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CBanner elements.
-        /// </summary>
-        public IEnumerable<XElement> CBannerElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CSkin elements.
-        /// </summary>
-        public IEnumerable<XElement> CSkinElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CScoreValueCustom elements.
-        /// </summary>
-        public IEnumerable<XElement> CScoreValueCustomElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CMount elements.
-        /// </summary>
-        public IEnumerable<XElement> CMountElements { get; private set; }
-
-        /// <summary>
-        /// Gets all the CSpray elements.
-        /// </summary>
-        public IEnumerable<XElement> CSprayElements { get; private set; }
-
 
         protected string ModsFolderPath { get; }
 
@@ -246,7 +176,7 @@ namespace HeroesData.Loader.XmlGameData
         }
 
         /// <summary>
-        /// Merges the elements in the collection into a single XElement.  The elements get added as the first children to the first element.
+        /// Merges the elements in the collection into a single XElement. The elements get added as the first children to the first element.
         /// All the attributes of the elements get added to the first element (overriding existing values).
         /// </summary>
         /// <param name="elements">The collection of elements.</param>
@@ -260,7 +190,7 @@ namespace HeroesData.Loader.XmlGameData
 
             foreach (XElement element in elements.Skip(1))
             {
-                if ( element.HasElements)
+                if (element.HasElements)
                 {
                     mergedXElement.Add(element.Elements());
                 }
@@ -272,6 +202,16 @@ namespace HeroesData.Loader.XmlGameData
             }
 
             return mergedXElement;
+        }
+
+        /// <summary>
+        /// Returns a collection of elements by the element name.
+        /// </summary>
+        /// <param name="elementName"></param>
+        /// <returns></returns>
+        public IEnumerable<XElement> Elements(string elementName)
+        {
+            return ElementsByElementName[elementName];
         }
 
         protected abstract void LoadCoreStormMod();
@@ -408,20 +348,8 @@ namespace HeroesData.Loader.XmlGameData
         private void SetPredefinedElements()
         {
             LayoutButtonElements = XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value != "TargetHeroDummy").Elements("CardLayouts").Elements("LayoutButtons");
-            CHeroElements = XmlGameData.Root.Elements("CHero").ToList();
-            CUnitElements = XmlGameData.Root.Elements("CUnit").ToList();
-            CButtonElements = XmlGameData.Root.Elements("CButton").ToList();
-            CArmorElements = XmlGameData.Root.Elements("CArmor").ToList();
-            CTalentElements = XmlGameData.Root.Elements("CTalent").ToList();
-            CValidatorCombineElements = XmlGameData.Root.Elements("CValidatorCombine").ToList();
-            CValidatorPlayerTalentElements = XmlGameData.Root.Elements("CValidatorPlayerTalent").ToList();
-            CWeaponLegacyElements = XmlGameData.Root.Elements("CWeaponLegacy").ToList();
-            CAnnouncerPackElements = XmlGameData.Root.Elements("CAnnouncerPack").ToList();
-            CBannerElements = XmlGameData.Root.Elements("CBanner").ToList();
-            CSkinElements = XmlGameData.Root.Elements("CSkin").ToList();
-            CScoreValueCustomElements = XmlGameData.Root.Elements("CScoreValueCustom").ToList();
-            CMountElements = XmlGameData.Root.Elements("CMount").ToList();
-            CSprayElements = XmlGameData.Root.Elements("CSpray").ToList();
+
+            ElementsByElementName = XmlGameData.Root.Elements().ToLookup(x => x.Name.LocalName, x => x);
         }
     }
 }

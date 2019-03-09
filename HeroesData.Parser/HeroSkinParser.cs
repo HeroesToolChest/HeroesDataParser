@@ -22,7 +22,7 @@ namespace HeroesData.Parser
             {
                 HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
 
-                IEnumerable<XElement> cSkinElements = GameData.CSkinElements.Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
+                IEnumerable<XElement> cSkinElements = GameData.Elements("CSkin").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
 
                 foreach (XElement skinElement in cSkinElements)
                 {
@@ -47,7 +47,7 @@ namespace HeroesData.Parser
 
             string id = ids.FirstOrDefault();
 
-            XElement skinElement = GameData.MergeXmlElements(GameData.CSkinElements.Where(x => x.Attribute("id")?.Value == id));
+            XElement skinElement = GameData.MergeXmlElements(GameData.Elements("CSkin").Where(x => x.Attribute("id")?.Value == id));
             if (skinElement == null)
                 return null;
 
@@ -74,7 +74,7 @@ namespace HeroesData.Parser
             string parentValue = skinElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.CSkinElements.Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CSkin").Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetSkinData(parentElement, heroSkin);
             }

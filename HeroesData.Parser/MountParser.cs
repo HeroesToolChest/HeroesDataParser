@@ -22,7 +22,7 @@ namespace HeroesData.Parser
             {
                 HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
 
-                IEnumerable<XElement> cMountElements = GameData.CMountElements.Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
+                IEnumerable<XElement> cMountElements = GameData.Elements("CMount").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
 
                 foreach (XElement mountElement in cMountElements)
                 {
@@ -47,7 +47,7 @@ namespace HeroesData.Parser
 
             string id = ids.FirstOrDefault();
 
-            XElement mountElement = GameData.MergeXmlElements(GameData.CMountElements.Where(x => x.Attribute("id")?.Value == id));
+            XElement mountElement = GameData.MergeXmlElements(GameData.Elements("CMount").Where(x => x.Attribute("id")?.Value == id));
             if (mountElement == null)
                 return null;
 
@@ -74,7 +74,7 @@ namespace HeroesData.Parser
             string parentValue = mountElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.CMountElements.Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CMount").Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetMountData(parentElement, mount);
             }
