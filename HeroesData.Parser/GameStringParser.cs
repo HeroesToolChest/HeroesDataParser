@@ -290,10 +290,7 @@ namespace HeroesData.Parser.GameStrings
 
         private string ParseValues(ReadOnlyMemory<char> pathLookup)
         {
-            pathLookup = pathLookup.Slice(8); // get path without the d ref
-            pathLookup = pathLookup.Slice(0, pathLookup.Span.LastIndexOf('/') - 1); // removes ending />
-
-            pathLookup = new ReadOnlyMemory<char>(pathLookup.Span.TrimEnd(' ').TrimEnd('"').ToArray());
+            pathLookup = TrimDRef(pathLookup);
 
             foreach (ReadOnlyMemory<char> arithmeticPath in GetPartBySeperators(pathLookup, new char[] { '/', '*', '+', '-', '(', ')' }))
             {
@@ -319,32 +316,6 @@ namespace HeroesData.Parser.GameStrings
             }
 
             return pathLookup.ToString();
-        }
-
-        private IEnumerable<ReadOnlyMemory<char>> GetPartBySeperators(ReadOnlyMemory<char> pathLookup, ReadOnlyMemory<char> seperators)
-        {
-            ReadOnlyMemory<char> part;
-            int length = 0;
-
-            for (int i = 0; i < pathLookup.Length; i++)
-            {
-                if (seperators.Span.IndexOf(pathLookup.Span[i]) > -1)
-                {
-                    part = pathLookup.Slice(i - length, length);
-                    if (!part.Span.Trim().IsEmpty)
-                        yield return part;
-
-                    length = 0;
-                }
-                else
-                {
-                    length++;
-                }
-            }
-
-            part = pathLookup.Slice(pathLookup.Length - length, length);
-            if (!part.Span.Trim().IsEmpty)
-                yield return part;
         }
 
         private string GetScalingText(string pathLookup)
@@ -536,13 +507,39 @@ namespace HeroesData.Parser.GameStrings
             return scaleValue;
         }
 
+        private IEnumerable<ReadOnlyMemory<char>> GetPartBySeperators(ReadOnlyMemory<char> pathLookup, ReadOnlyMemory<char> seperators)
+        {
+            ReadOnlyMemory<char> part;
+            int length = 0;
+
+            for (int i = 0; i < pathLookup.Length; i++)
+            {
+                if (seperators.Span.IndexOf(pathLookup.Span[i]) > -1)
+                {
+                    part = pathLookup.Slice(i - length, length);
+                    if (!part.Span.Trim().IsEmpty)
+                        yield return part;
+
+                    length = 0;
+                }
+                else
+                {
+                    length++;
+                }
+            }
+
+            part = pathLookup.Slice(pathLookup.Length - length, length);
+            if (!part.Span.Trim().IsEmpty)
+                yield return part;
+        }
+
         private bool IsTimeBasedScaling(ReadOnlyMemory<char> pathLookup)
         {
-            List<ReadOnlyMemory<char>> arithmeticPaths = GetPartBySeperators(pathLookup, new char[] { '/', '*', '+', '-', '(', ')' }).ToList();
+            List<ReadOnlyMemory<char>> arithmeticPaths = GetPartBySeperators(TrimDRef(pathLookup), new char[] { '/', '*', '+', '-', '(', ')' }).ToList();
 
-            for (int i = 0; i + 2 < arithmeticPaths.Count; i++)
+            for (int i = 0; i + 2 <= arithmeticPaths.Count; i++)
             {
-                if (arithmeticPaths.Count >= i + 2 && arithmeticPaths.ElementAt(i).Span.TrimEnd().EndsWith("LifeMax") && arithmeticPaths.ElementAt(i + 1).Span.TrimEnd().EndsWith("LifeRegenRate"))
+                if (arithmeticPaths.Count >= i + 2 && arithmeticPaths[i].Span.TrimEnd().EndsWith("LifeMax") && arithmeticPaths[i + 1].Span.TrimEnd().EndsWith("LifeRegenRate"))
                     return true;
             }
 
@@ -552,6 +549,29 @@ namespace HeroesData.Parser.GameStrings
         private bool IsValidTooltip(ReadOnlySpan<char> key, ReadOnlySpan<char> tooltip)
         {
             return !(key.IsEmpty || tooltip.Contains("$GalaxyVar", StringComparison.OrdinalIgnoreCase) || tooltip.Contains("**TEMP**", StringComparison.OrdinalIgnoreCase));
+        }
+
+        private ReadOnlyMemory<char> TrimDRef(ReadOnlyMemory<char> pathLookup)
+        {
+            pathLookup = pathLookup.Slice(8); // get path without the d ref
+            pathLookup = pathLookup.Slice(0, pathLookup.Span.LastIndexOf('/') - 1); // removes ending />
+
+            int start = 0;
+            int end = pathLookup.Length - 1;
+            char startChar = pathLookup.Span[start];
+            char endChar = pathLookup.Span[end];
+
+            while ((start < end) && (endChar == ' ' || endChar == '"'))
+            {
+                if (endChar == ' ' || endChar == '"')
+                {
+                    end--;
+                }
+
+                endChar = pathLookup.Span[end];
+            }
+
+            return pathLookup.Slice(start, end - start + 1);
         }
 
         private void SetValidElementNames()

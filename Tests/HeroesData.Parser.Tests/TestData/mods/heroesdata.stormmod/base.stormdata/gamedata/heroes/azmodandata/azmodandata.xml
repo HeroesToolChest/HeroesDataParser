@@ -52,15 +52,20 @@
     <FlagArray index="CreateAITreeOnSpawn" value="1" />
     <LifeStart value="750" />
     <LifeMax value="750" />
-    <LifeRegenRate value="-93.75" />
+    <LifeRegenRate value="-75" />
     <Sight value="7" />
+    <AbilArray Link="stop" />
+    <AbilArray Link="attack" />
+    <AbilArray Link="move" />
     <Radius value="0.6875" />
     <InnerRadius value="0.6875" />
+    <DeathTime value="0.25" />
+    <EffectArray index="Death" value="AzmodanDemonicInvasionExplodeSearch" />
   </CUnit>
   <CEffectDamage id="AzmodanDemonicInvasionExplodeDamage" parent="StormSpell">
     <DamageModifierSource Value="Source" />
     <MultiplicativeModifierArray index="Siegebreaker" Validator="AzmodanSiegebreakerTalentCombine" Modifier="0.5" />
-    <Amount value="65" />
+    <Amount value="97.5" />
     <SourceButtonFace value="AzmodanDemonicInvasion" />
   </CEffectDamage>
   <CEffectDamage id="AzmodanGlobeOfAnnihilationDamage" parent="StormSpell">
