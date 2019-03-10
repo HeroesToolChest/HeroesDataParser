@@ -12,6 +12,7 @@ namespace HeroesData.Parser.Tests.MatchAwardParserTests
         }
 
         protected MatchAward InterruptedCageUnlocks { get; set; }
+        protected MatchAward MostAltarDamage { get; set; }
 
         [TestMethod]
         public void GetItemsTest()
@@ -25,6 +26,7 @@ namespace HeroesData.Parser.Tests.MatchAwardParserTests
             MatchAwardParser matchAwardParser = new MatchAwardParser(GameData, DefaultData);
 
             InterruptedCageUnlocks = matchAwardParser.Parse("[Override]Generic Instance", "EndOfMatchAwardMostInterruptedCageUnlocksBoolean");
+            MostAltarDamage = matchAwardParser.Parse("[Override]Generic Instance", "EndOfMatchAwardMostAltarDamageDone");
         }
     }
 }

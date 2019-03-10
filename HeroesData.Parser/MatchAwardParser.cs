@@ -139,7 +139,7 @@ namespace HeroesData.Parser
                 value = value.Slice(0, value.IndexOf("Boolean"));
             if (value[0] == '0')
                 value = ("Zero" + value.Slice(1).ToString()).AsSpan();
-            if (value == "MostAltarDamageDone")
+            if (value.SequenceEqual("MostAltarDamageDone"))
                 value = "MostAltarDamage";
 
             return value;

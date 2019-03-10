@@ -28,36 +28,4 @@
             </Text>
         </Instances>
     </CUser>
-    <CUser id="MapVOEvent">
-        <Instances Id="AP - CampSoon"/>
-        <Instances Id="AP - CampSoonFirst"/>
-        <Instances Id="AP - CampActive"/>
-        <Instances Id="AP - CampActiveFirst"/>
-        <Instances Id="AP - CampCapturedLeft"/>
-        <Instances Id="AP - CampCapturedRight"/>
-        <Instances Id="AP - CampStolenLeft"/>
-        <Instances Id="AP - CampStolenRight"/>
-        <Instances Id="AP - CampRetakenLeft"/>
-        <Instances Id="AP - CampRetakenRight"/>
-        <Instances Id="AP - CampVictoryLeft"/>
-        <Instances Id="AP - CampVictoryRight"/>
-        <Instances Id="AP - CavalrySpawnsLeft"/>
-        <Instances Id="AP - CavalrySpawnsRight"/>
-        <Instances Id="AP - CavalryDeadLeft"/>
-        <Instances Id="AP - CavalryDeadRight"/>
-        <Instances Id="AP - CampVictoryFirstLeft"/>
-        <Instances Id="AP - CampVictoryFirstRight"/>
-        <Instances Id="AP - TopLeftFort"/>
-        <Instances Id="AP - MiddleLeftFort"/>
-        <Instances Id="AP - BottomLeftFort"/>
-        <Instances Id="AP - TopRightFort"/>
-        <Instances Id="AP - MiddleRightFort"/>
-        <Instances Id="AP - BottomRightFort"/>
-        <Instances Id="AP - TopLeftKeep"/>
-        <Instances Id="AP - MiddleLeftKeep"/>
-        <Instances Id="AP - BottomLeftKeep"/>
-        <Instances Id="AP - TopRightKeep"/>
-        <Instances Id="AP - MiddleRightKeep"/>
-        <Instances Id="AP - BottomRightKeep"/>
-    </CUser>
 </Catalog>
