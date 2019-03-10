@@ -214,6 +214,29 @@ namespace HeroesData.Loader.XmlGameData
             return ElementsByElementName[elementName];
         }
 
+        /// <summary>
+        /// Returns a collection of elements by the element name.
+        /// </summary>
+        /// <param name="excludedElements">Element name to include from the collection.</param>
+        /// <param name="attributeId">Value of the attribute id.</param>
+        /// <returns></returns>
+        public IEnumerable<XElement> ElementsIncluded(string[] elements, string attributeId = null)
+        {
+            List<XElement> elementList = new List<XElement>();
+            foreach (IGrouping<string, XElement> item in ElementsByElementName)
+            {
+                if (elements.Contains(item.Key))
+                {
+                    if (!string.IsNullOrEmpty(attributeId))
+                        elementList.AddRange(item.Where(x => x.Attribute("id")?.Value == attributeId));
+                    else
+                        elementList.AddRange(item);
+                }
+            }
+
+            return elementList;
+        }
+
         protected abstract void LoadCoreStormMod();
         protected abstract void LoadHeroesDataStormMod();
         protected abstract void LoadHeroesMapMods();

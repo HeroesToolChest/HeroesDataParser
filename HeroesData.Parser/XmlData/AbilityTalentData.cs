@@ -37,7 +37,7 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(elementId))
                 return;
 
-            IEnumerable<XElement> foundElements = GameData.XmlGameData.Root.Elements().Where(x => (x.Name.LocalName != "CButton" && x.Name.LocalName != "CWeaponLegacy" && x.Name.LocalName != "CTalent") && x.Attribute("id")?.Value == elementId);
+            IEnumerable<XElement> foundElements = GameData.ElementsIncluded(new string[] { "CAbilEffectTarget", "CAbilEffectInstant", "CAbilAugment", "CAbilBehavior" }, elementId);
 
             // look through all elements to find the tooltip info
             foreach (XElement element in foundElements.Elements())

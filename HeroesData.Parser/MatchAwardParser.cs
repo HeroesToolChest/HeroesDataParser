@@ -94,17 +94,7 @@ namespace HeroesData.Parser
                 Tag = scoreValueCustomElement.Element("UniqueTag").Attribute("value")?.Value,
             };
 
-            string id = gameLink;
-            if (id.StartsWith("EndOfMatchAward"))
-                id = id.Remove(0, "EndOfMatchAward".Length);
-            if (id.EndsWith("Boolean"))
-                id = id.Substring(0, id.IndexOf("Boolean"));
-            if (id.StartsWith("0"))
-                id = id.ReplaceFirst("0", "Zero");
-            if (id == "MostAltarDamageDone")
-                id = "MostAltarDamage";
-
-            matchAward.Id = id;
+            matchAward.Id = ModifyId(gameLink).ToString();
             matchAward.HyperlinkId = gameLink;
 
             // set new image file names for the extraction
@@ -139,6 +129,20 @@ namespace HeroesData.Parser
             }
 
             return name;
+        }
+
+        private ReadOnlySpan<char> ModifyId(ReadOnlySpan<char> value)
+        {
+            if (value.StartsWith("EndOfMatchAward"))
+                value = value.Slice("EndOfMatchAward".Length);
+            if (value.EndsWith("Boolean"))
+                value = value.Slice(0, value.IndexOf("Boolean"));
+            if (value[0] == '0')
+                value = ("Zero" + value.Slice(1).ToString()).AsSpan();
+            if (value == "MostAltarDamageDone")
+                value = "MostAltarDamage";
+
+            return value;
         }
     }
 }

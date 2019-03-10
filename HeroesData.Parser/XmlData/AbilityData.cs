@@ -173,7 +173,6 @@ namespace HeroesData.Parser.XmlData
                 // default
                 ability.Tier = AbilityTier.Activable;
 
-                // LastOrDefault, since overrides can happen in later xml files
                 XElement cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == parent));
 
                 if (cButtonElement == null)

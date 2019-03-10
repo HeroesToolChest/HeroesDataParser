@@ -91,10 +91,6 @@ namespace HeroesData.Parser.Tests
         {
             foreach (string id in GameData.GetGameStringIds())
             {
-                if (id == "Button/Tooltip/AzmodanDemonicInvasion")
-                {
-                    string x = "";
-                }
                 if (GameStringParser.TryParseRawTooltip(id, GameData.GetGameString(id), out string parsedGamestring))
                     GameData.AddGameString(id, parsedGamestring);
             }
