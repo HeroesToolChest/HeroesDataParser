@@ -88,6 +88,10 @@ namespace HeroesData.ExtractorData
                 Console.ResetColor();
                 Environment.Exit(1);
             }
+            finally
+            {
+                Console.Write($"\r{currentCount,6} / {items.Count} total {Name}");
+            }
 
             time.Stop();
 
