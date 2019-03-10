@@ -75,7 +75,7 @@ namespace HeroesData
             }
         }
 
-        public void Run()
+        public async Task RunAsync()
         {
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine($"Heroes Data Parser ({Version})");
@@ -137,39 +137,34 @@ namespace HeroesData
                         Console.WriteLine();
 
                         // write
-                        DataProcessor((parser) =>
+                        List<string> failedFiles = new List<string>();
+                        Console.Write("Creating output file(s)...");
+
+                        await DataProcessorAsync(async (parser) =>
                         {
                             if (CreateJson)
                             {
-                                Console.Write($"[{parser.Name}] Writing json file(s)...");
-
-                                if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Json))
-                                {
-                                    Console.WriteLine("Done.");
-                                }
-                                else
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("Failed.");
-                                }
+                                if (!await fileOutput.CreateAsync((dynamic)parser.ParsedItems, FileOutputType.Json))
+                                    failedFiles.Add($"Failed to write {FileOutputType.Json.ToString().ToLower()} {parser.Name}");
                             }
 
                             if (CreateXml)
                             {
-                                Console.Write($"[{parser.Name}] Writing xml file(s)...");
-                                if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Xml))
-                                {
-                                    Console.WriteLine("Done.");
-                                }
-                                else
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("Failed.");
-                                }
+                                if (!await fileOutput.CreateAsync((dynamic)parser.ParsedItems, FileOutputType.Xml))
+                                    failedFiles.Add($"Failed to write {FileOutputType.Xml.ToString().ToLower()} {parser.Name}");
                             }
 
                             Console.ResetColor();
                         });
+
+                        Console.WriteLine("Done.");
+
+                        if (failedFiles.Count > 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            failedFiles.ForEach((x) => Console.WriteLine(x));
+                            Console.ResetColor();
+                        }
 
                         Console.WriteLine();
 
@@ -594,6 +589,17 @@ namespace HeroesData
                             ValidationIgnoreLines.Add(line);
                         }
                     }
+                }
+            }
+        }
+
+        private async Task DataProcessorAsync(Func<DataProcessor, Task> action)
+        {
+            foreach (DataProcessor processor in DataProcessors)
+            {
+                if (processor.IsEnabled)
+                {
+                    await action(processor);
                 }
             }
         }

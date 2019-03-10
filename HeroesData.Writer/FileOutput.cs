@@ -8,6 +8,7 @@ using HeroesData.FileWriter.Writers.MatchAwardData;
 using HeroesData.FileWriter.Writers.MountData;
 using HeroesData.FileWriter.Writers.SprayData;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HeroesData.FileWriter
 {
@@ -83,7 +84,7 @@ namespace HeroesData.FileWriter
         /// <param name="items">The parsed items to be used for the creation of the output.</param>
         /// <param name="fileOutputType">The file type.</param>
         /// <returns></returns>
-        public bool Create<T>(IEnumerable<T> items, FileOutputType fileOutputType)
+        public async Task<bool> CreateAsync<T>(IEnumerable<T> items, FileOutputType fileOutputType)
             where T : IExtractable
         {
             if (Writers[fileOutputType].TryGetValue(typeof(T).Name, out IWritable writable))
@@ -91,7 +92,7 @@ namespace HeroesData.FileWriter
                 writable.FileOutputOptions = FileOutputOptions;
                 writable.HotsBuild = HotsBuild;
 
-                ((IWriter<T>)writable).CreateOutput(items);
+                await ((IWriter<T>)writable).CreateOutputAsync(items);
 
                 return true;
             }

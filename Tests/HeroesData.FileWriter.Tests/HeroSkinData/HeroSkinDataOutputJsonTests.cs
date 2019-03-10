@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 
 namespace HeroesData.FileWriter.Tests.HeroSkinData
 {
@@ -11,69 +12,69 @@ namespace HeroesData.FileWriter.Tests.HeroSkinData
         }
 
         [TestMethod]
-        public override void WriterColoredTextTest()
+        public override async Task WriterColoredTextTestAsync()
         {
-            base.WriterColoredTextTest();
+            await base.WriterColoredTextTestAsync();
         }
 
         [TestMethod]
-        public override void WriterColoredTextWithScalingTest()
+        public override async Task WriterColoredTextWithScalingTestAsync()
         {
-            base.WriterColoredTextWithScalingTest();
+            await base.WriterColoredTextWithScalingTestAsync();
         }
 
         [TestMethod]
-        public override void WriterGameStringLocalizedTests()
+        public override async Task WriterGameStringLocalizedTestsAsync()
         {
-            base.WriterGameStringLocalizedTests();
+            await base.WriterGameStringLocalizedTestsAsync();
         }
 
         [TestMethod]
-        public override void WriterHasBuildNumberTest()
+        public override async Task WriterHasBuildNumberTestAsync()
         {
-            base.WriterHasBuildNumberTest();
+            await base.WriterHasBuildNumberTestAsync();
         }
 
         [TestMethod]
-        public override void WriterMinifiedTest()
+        public override async Task WriterMinifiedTestAsync()
         {
-            base.WriterMinifiedTest();
+            await base.WriterMinifiedTestAsync();
         }
 
         [TestMethod]
-        public override void WriterNoBuildNumberTest()
+        public override async Task WriterNoBuildNumberTestAsync()
         {
-            base.WriterNoBuildNumberTest();
+            await base.WriterNoBuildNumberTestAsync();
         }
 
         [TestMethod]
-        public override void WriterPlainTextTest()
+        public override async Task WriterPlainTextTestAsync()
         {
-            base.WriterPlainTextTest();
+            await base.WriterPlainTextTestAsync();
         }
 
         [TestMethod]
-        public override void WriterPlainTextWithNewLinesTest()
+        public override async Task WriterPlainTextWithNewLinesTestAsync()
         {
-            base.WriterPlainTextWithNewLinesTest();
+            await base.WriterPlainTextWithNewLinesTestAsync();
         }
 
         [TestMethod]
-        public override void WriterPlainTextWithScalingTest()
+        public override async Task WriterPlainTextWithScalingTestAsync()
         {
-            base.WriterPlainTextWithScalingTest();
+            await base.WriterPlainTextWithScalingTestAsync();
         }
 
         [TestMethod]
-        public override void WriterPlainTextWithScalingWithNewlinesTest()
+        public override async Task WriterPlainTextWithScalingWithNewlinesTestAsync()
         {
-            base.WriterPlainTextWithScalingWithNewlinesTest();
+            await base.WriterPlainTextWithScalingWithNewlinesTestAsync();
         }
 
         [TestMethod]
-        public override void WriterRawDescriptionTest()
+        public override async Task WriterRawDescriptionTestAsync()
         {
-            base.WriterRawDescriptionTest();
+            await base.WriterRawDescriptionTestAsync();
         }
     }
 }

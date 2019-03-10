@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace HeroesData.FileWriter.Tests.HeroData
 {
@@ -15,7 +16,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
         {
         }
 
-        public virtual void WriterFileSplitNoBuildNumberTest()
+        public virtual async Task WriterFileSplitNoBuildNumberTestAsync()
         {
             FileOutputOptions options = new FileOutputOptions()
             {
@@ -24,7 +25,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
             };
 
             FileOutput fileOutput = new FileOutput(options);
-            fileOutput.Create(TestData, FileOutputType);
+            await fileOutput.CreateAsync(TestData, FileOutputType);
 
             string directory = GetSplitFilePath(null, false);
             Assert.IsTrue(Directory.Exists(directory));
@@ -33,7 +34,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
             CompareFile(Path.Combine(directory, $"alexstrasza.{FileOutputTypeFileName}"), $"alexstrasza.{FileOutputTypeFileName}");
         }
 
-        public virtual void WriterFileSplitHasBuildNumberTest()
+        public virtual async Task WriterFileSplitHasBuildNumberTestAsync()
         {
             FileOutputOptions options = new FileOutputOptions()
             {
@@ -42,7 +43,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
             };
 
             FileOutput fileOutput = new FileOutput(BuildNumber, options);
-            fileOutput.Create(TestData, FileOutputType);
+            await fileOutput.CreateAsync(TestData, FileOutputType);
 
             string directory = GetSplitFilePath(BuildNumber, false);
             Assert.IsTrue(Directory.Exists(directory));
@@ -51,7 +52,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
             CompareFile(Path.Combine(directory, $"alexstrasza.{FileOutputTypeFileName}"), $"alexstrasza.{FileOutputTypeFileName}");
         }
 
-        public virtual void WriterFileSplitMinifiedHasBuildNumberTest()
+        public virtual async Task WriterFileSplitMinifiedHasBuildNumberTestAsync()
         {
             FileOutputOptions options = new FileOutputOptions()
             {
@@ -60,7 +61,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
             };
 
             FileOutput fileOutput = new FileOutput(SplitMinifiedBuildNumber, options);
-            fileOutput.Create(TestData, FileOutputType);
+            await fileOutput.CreateAsync(TestData, FileOutputType);
 
             string directory = GetSplitFilePath(SplitMinifiedBuildNumber, true);
             Assert.IsTrue(Directory.Exists(directory));
