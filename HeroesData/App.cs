@@ -137,34 +137,42 @@ namespace HeroesData
                         Console.WriteLine();
 
                         // write
-                        List<string> failedFiles = new List<string>();
-                        Console.Write("Creating output file(s)...");
+                        Console.WriteLine("Creating output file(s)...");
 
                         await DataProcessorAsync(async (parser) =>
                         {
                             if (CreateJson)
                             {
-                                if (!await fileOutput.CreateAsync((dynamic)parser.ParsedItems, FileOutputType.Json))
-                                    failedFiles.Add($"Failed to write {FileOutputType.Json.ToString().ToLower()} {parser.Name}");
+                                Console.Write($"{parser.Name} {FileOutputType.Json.ToString().ToLower()}...");
+                                if (await fileOutput.CreateAsync((dynamic)parser.ParsedItems, FileOutputType.Json))
+                                {
+                                    Console.WriteLine($"Done.");
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                    Console.WriteLine($"Failed.");
+                                    Console.ResetColor();
+                                }
                             }
 
                             if (CreateXml)
                             {
-                                if (!await fileOutput.CreateAsync((dynamic)parser.ParsedItems, FileOutputType.Xml))
-                                    failedFiles.Add($"Failed to write {FileOutputType.Xml.ToString().ToLower()} {parser.Name}");
+                                Console.Write($"{parser.Name} {FileOutputType.Xml.ToString().ToLower()}...");
+                                if (await fileOutput.CreateAsync((dynamic)parser.ParsedItems, FileOutputType.Xml))
+                                {
+                                    Console.WriteLine($"Done.");
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                    Console.WriteLine($"Failed.");
+                                    Console.ResetColor();
+                                }
                             }
 
                             Console.ResetColor();
                         });
-
-                        Console.WriteLine("Done.");
-
-                        if (failedFiles.Count > 0)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            failedFiles.ForEach((x) => Console.WriteLine(x));
-                            Console.ResetColor();
-                        }
 
                         Console.WriteLine();
 
