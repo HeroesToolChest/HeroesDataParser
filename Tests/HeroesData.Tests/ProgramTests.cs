@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace HeroesData.Tests
 {
@@ -9,19 +8,19 @@ namespace HeroesData.Tests
     public class ProgramTests
     {
         [TestMethod]
-        public async Task NoWriterSpecifiedNoOutputTestAsync()
+        public void NoWriterSpecifiedNoOutputTestAsync()
         {
-            await Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", "TestOutput1" });
+            Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", "TestOutput1" });
 
             Assert.IsFalse(Directory.Exists("TestOutput1"));
         }
 
         [TestMethod]
-        public async Task JsonWriterOnlyTestAsync()
+        public void JsonWriterOnlyTestAsync()
         {
             string folder = "TestOutputJsonOnly";
 
-            await Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--json" });
+            Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--json" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "herodata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "matchawarddata_enus.json")));
@@ -34,11 +33,11 @@ namespace HeroesData.Tests
         }
 
         [TestMethod]
-        public async Task XmlWriterOnlyTestAsync()
+        public void XmlWriterOnlyTestAsync()
         {
             string folder = "TestOutputXmlOnly";
 
-            await Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml" });
+            Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "herodata_enus.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "matchawarddata_enus.xml")));
@@ -51,11 +50,11 @@ namespace HeroesData.Tests
         }
 
         [TestMethod]
-        public async Task XmlAndJsonWriterTestAsync()
+        public void XmlAndJsonWriterTestAsync()
         {
             string folder = "TestOutputBothXmlJson";
 
-            await Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json" });
+            Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "herodata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "matchawarddata_enus.json")));
@@ -74,11 +73,11 @@ namespace HeroesData.Tests
         }
 
         [TestMethod]
-        public async Task JsonWriterOnlyWithMinifyOptionTestAsync()
+        public void JsonWriterOnlyWithMinifyOptionTestAsync()
         {
             string folder = "TestOutputJsonOnlyWithMinify";
 
-            await Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--json", "--minify" });
+            Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--json", "--minify" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "herodata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "matchawarddata_enus.json")));
@@ -99,11 +98,11 @@ namespace HeroesData.Tests
         }
 
         [TestMethod]
-        public async Task FileSplitOptionTestAsync()
+        public void FileSplitOptionTestAsync()
         {
             string folder = "TestOutputFileSplit";
 
-            await Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--file-split" });
+            Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--file-split" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "herodata", "abathur.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "matchawarddata", "mostdamagetaken.json")));
@@ -122,11 +121,11 @@ namespace HeroesData.Tests
         }
 
         [TestMethod]
-        public async Task FileSplitOptionWithMinifyOptionTestAsync()
+        public void FileSplitOptionWithMinifyOptionTestAsync()
         {
             string folder = "TestOutputFileSplitWithMinify";
 
-            await Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--file-split", "--minify" });
+            Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--file-split", "--minify" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "herodata", "abathur.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "herodata", "abathur.xml")));
@@ -148,11 +147,11 @@ namespace HeroesData.Tests
         }
 
         [TestMethod]
-        public async Task LocalizedTextOptionTestAsync()
+        public void LocalizedTextOptionTestAsync()
         {
             string folder = "TestOutputLocalizedText";
 
-            await Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--localized-text" });
+            Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--localized-text" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "gamestrings", "gamestrings_enus.txt")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "matchawarddata_enus.json")));
@@ -177,11 +176,11 @@ namespace HeroesData.Tests
         }
 
         [TestMethod]
-        public async Task LocalizedTextOptionWithSplitOptionTestAsync()
+        public void LocalizedTextOptionWithSplitOptionTestAsync()
         {
             string folder = "TestOutputLocalizedTextSplit";
 
-            await Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--localized-text", "--file-split" });
+            Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--localized-text", "--file-split" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "gamestrings", "gamestrings_enus.txt")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "herodata", "abathur.json")));

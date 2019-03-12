@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace HeroesData.FileWriter.Tests
 {
@@ -39,23 +38,23 @@ namespace HeroesData.FileWriter.Tests
         protected List<T> TestData { get; set; } = new List<T>();
         protected FileOutputType FileOutputType { get; set; } = FileOutputType.Xml;
 
-        public virtual async Task WriterNoBuildNumberTestAsync()
+        public virtual void WriterNoBuildNumberTest()
         {
             FileOutput fileOutput = new FileOutput();
-            await fileOutput.CreateAsync(TestData, FileOutputType);
+            fileOutput.Create(TestData, FileOutputType);
 
             Assert.IsTrue(File.Exists(GetFilePath(null, false)));
         }
 
-        public virtual async Task WriterHasBuildNumberTestAsync()
+        public virtual void WriterHasBuildNumberTest()
         {
             FileOutput fileOutput = new FileOutput(BuildNumber);
-            await fileOutput.CreateAsync(TestData, FileOutputType);
+            fileOutput.Create(TestData, FileOutputType);
 
             Assert.IsTrue(File.Exists(GetFilePath(BuildNumber, false)));
         }
 
-        public virtual async Task WriterMinifiedTestAsync()
+        public virtual void WriterMinifiedTest()
         {
             FileOutputOptions options = new FileOutputOptions()
             {
@@ -63,48 +62,48 @@ namespace HeroesData.FileWriter.Tests
             };
 
             FileOutput fileOutput = new FileOutput(MinifiedBuildNumber, options);
-            await fileOutput.CreateAsync(TestData, FileOutputType);
+            fileOutput.Create(TestData, FileOutputType);
 
             Assert.IsTrue(File.Exists(GetFilePath(MinifiedBuildNumber, false)));
             Assert.IsTrue(File.Exists(GetFilePath(MinifiedBuildNumber, true)));
         }
 
-        public virtual async Task WriterRawDescriptionTestAsync()
+        public virtual void WriterRawDescriptionTest()
         {
-            await DescriptionTypeTestsAsync(0);
+            DescriptionTypeTests(0);
         }
 
-        public virtual async Task WriterPlainTextTestAsync()
+        public virtual void WriterPlainTextTest()
         {
-            await DescriptionTypeTestsAsync(1);
+            DescriptionTypeTests(1);
         }
 
-        public virtual async Task WriterPlainTextWithNewLinesTestAsync()
+        public virtual void WriterPlainTextWithNewLinesTest()
         {
-            await DescriptionTypeTestsAsync(2);
+            DescriptionTypeTests(2);
         }
 
-        public virtual async Task WriterPlainTextWithScalingTestAsync()
+        public virtual void WriterPlainTextWithScalingTest()
         {
-            await DescriptionTypeTestsAsync(3);
+            DescriptionTypeTests(3);
         }
 
-        public virtual async Task WriterPlainTextWithScalingWithNewlinesTestAsync()
+        public virtual void WriterPlainTextWithScalingWithNewlinesTest()
         {
-            await DescriptionTypeTestsAsync(4);
+            DescriptionTypeTests(4);
         }
 
-        public virtual async Task WriterColoredTextTestAsync()
+        public virtual void WriterColoredTextTest()
         {
-            await DescriptionTypeTestsAsync(5);
+            DescriptionTypeTests(5);
         }
 
-        public virtual async Task WriterColoredTextWithScalingTestAsync()
+        public virtual void WriterColoredTextWithScalingTest()
         {
-            await DescriptionTypeTestsAsync(6);
+            DescriptionTypeTests(6);
         }
 
-        public virtual async Task WriterGameStringLocalizedTestsAsync()
+        public virtual void WriterGameStringLocalizedTests()
         {
             FileOutputOptions options = new FileOutputOptions()
             {
@@ -113,7 +112,7 @@ namespace HeroesData.FileWriter.Tests
             };
 
             FileOutput fileOutput = new FileOutput(GamestringsBuildNumber, options);
-            await fileOutput.CreateAsync(TestData, FileOutputType);
+            fileOutput.Create(TestData, FileOutputType);
 
             CompareFile(Path.Combine(BaseOutputDirectory, $"{BaseGamestringsDirectory}-{GamestringsBuildNumber}", $"{BaseGamestringsDirectory}_{GamestringsBuildNumber}_{LocalizationFileName}.txt"), $"{BaseGamestringsDirectory}_11111.txt");
             CompareFile(Path.Combine(DefaultOutputDirectory, $"{DefaultDataNameSuffix}_{GamestringsBuildNumber}_{LocalizationFileName}.{FileOutputTypeFileName}"), $"{FileOutputTypeFileName}gamestringlocalized.{FileOutputTypeFileName}");
@@ -192,7 +191,7 @@ namespace HeroesData.FileWriter.Tests
             }
         }
 
-        protected async Task DescriptionTypeTestsAsync(int descriptionType)
+        protected void DescriptionTypeTests(int descriptionType)
         {
             FileOutputOptions options = new FileOutputOptions()
             {
@@ -200,7 +199,7 @@ namespace HeroesData.FileWriter.Tests
             };
 
             FileOutput fileOutput = new FileOutput(descriptionType, options);
-            await fileOutput.CreateAsync(TestData, FileOutputType);
+            fileOutput.Create(TestData, FileOutputType);
 
             CompareFile(GetFilePath(descriptionType, false), $"{FileOutputTypeFileName}output{descriptionType}.{FileOutputTypeFileName}");
         }

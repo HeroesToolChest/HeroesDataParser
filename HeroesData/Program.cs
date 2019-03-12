@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace HeroesData
 {
@@ -13,7 +12,7 @@ namespace HeroesData
     {
         private static readonly string AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
             App app = new App();
             app.SetCurrentCulture();
@@ -42,7 +41,7 @@ namespace HeroesData
             CommandOption excludeAwardParseOption = commandLineApplication.Option("--exclude-awards", "Excludes match award parsing.", CommandOptionType.NoValue);
             CommandOption minifyOption = commandLineApplication.Option("--minify", "Creates .min file(s) along with current output file(s).", CommandOptionType.NoValue);
 
-            commandLineApplication.OnExecute(async () =>
+            commandLineApplication.OnExecute(() =>
             {
                 App.Defaults = false;
 
@@ -128,7 +127,7 @@ namespace HeroesData
                 App.IsLocalizedText = localizedTextOption.HasValue() ? true : false;
                 App.ExcludeAwardParsing = excludeAwardParseOption.HasValue() ? true : false;
                 App.CreateMinFiles = minifyOption.HasValue() ? true : false;
-                await app.RunAsync();
+                app.Run();
                 Console.ResetColor();
 
                 return 0;
@@ -148,7 +147,7 @@ namespace HeroesData
             else // defaults
             {
                 App.Defaults = true;
-                await app.RunAsync();
+                app.Run();
             }
 
             Console.ResetColor();
