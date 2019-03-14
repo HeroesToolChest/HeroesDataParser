@@ -29,7 +29,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
 
             List<string> loadedOverrideFileNames = xmlDataOverriders.LoadedFileNames.ToList();
 
-            Assert.AreEqual(1, xmlDataOverriders.Count);
+            Assert.AreEqual(2, xmlDataOverriders.Count);
             Assert.AreEqual("hero-overrides-test.xml", Path.GetFileName(loadedOverrideFileNames[0]));
         }
 
@@ -40,7 +40,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
 
             List<string> loadedOverrideFileNames = xmlDataOverriders.LoadedFileNames.ToList();
 
-            Assert.AreEqual(1, xmlDataOverriders.Count);
+            Assert.AreEqual(2, xmlDataOverriders.Count);
             Assert.AreEqual("hero-overrides-test_12000.xml", Path.GetFileName(loadedOverrideFileNames[0]));
         }
 

@@ -48,7 +48,7 @@ namespace HeroesData.Parser.Overrides
                         break;
                     case "ShortName":
                         if (!string.IsNullOrEmpty(valueAttribute))
-                            heroDataOverride.ShortNameOverride = (true, valueAttribute);
+                            heroDataOverride.HyperlinkIdOverride = (true, valueAttribute);
                         break;
                     case "CUnit":
                         if (!string.IsNullOrEmpty(valueAttribute))

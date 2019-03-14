@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser
 {
-    public class BannerParser : ParserBase, IParser<Banner, BannerParser>
+    public class BannerParser : ParserBase<Banner, BannerDataOverride>, IParser<Banner, BannerParser>
     {
         public BannerParser(GameData gameData, DefaultData defaultData)
             : base(gameData, defaultData)

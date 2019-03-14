@@ -68,7 +68,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void ShortNameOverrideTest()
         {
-            Assert.IsFalse(HeroDataOverride.ShortNameOverride.Enabled);
+            Assert.IsFalse(HeroDataOverride.HyperlinkIdOverride.Enabled);
         }
 
         [TestMethod]

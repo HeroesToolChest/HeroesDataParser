@@ -40,14 +40,14 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         public void NameOverrideTest()
         {
             Assert.IsTrue(HeroDataOverride.NameOverride.Enabled);
-            Assert.AreEqual("Acceptable", HeroDataOverride.NameOverride.Name);
+            Assert.AreEqual("Acceptable", HeroDataOverride.NameOverride.Value);
         }
 
         [TestMethod]
         public void ShortNameOverrideTest()
         {
-            Assert.IsTrue(HeroDataOverride.ShortNameOverride.Enabled);
-            Assert.AreEqual("Funzo", HeroDataOverride.ShortNameOverride.ShortName);
+            Assert.IsTrue(HeroDataOverride.HyperlinkIdOverride.Enabled);
+            Assert.AreEqual("Funzo", HeroDataOverride.HyperlinkIdOverride.Value);
         }
 
         [TestMethod]

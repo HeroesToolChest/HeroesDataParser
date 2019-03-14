@@ -2,6 +2,8 @@
 using HeroesData.Helpers;
 using HeroesData.Loader;
 using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser.Overrides;
+using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
 using System;
 using System.Collections.Generic;
@@ -11,13 +13,17 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser
 {
-    public class MatchAwardParser : ParserBase, IParser<MatchAward, MatchAwardParser>
+    public class MatchAwardParser : ParserBase<MatchAward, MatchAwardDataOverride>, IParser<MatchAward, MatchAwardParser>
     {
+        private readonly MatchAwardOverrideLoader MatchAwardOverrideLoader;
         private readonly string MVPGameLinkId = "EndOfMatchAwardMVPBoolean";
 
-        public MatchAwardParser(GameData gameData, DefaultData defaultData)
+        private MatchAwardDataOverride MatchAwardDataOverride;
+
+        public MatchAwardParser(GameData gameData, DefaultData defaultData, MatchAwardOverrideLoader matchAwardOverrideLoader)
             : base(gameData, defaultData)
         {
+            MatchAwardOverrideLoader = matchAwardOverrideLoader;
         }
 
         /// <summary>
@@ -112,12 +118,16 @@ namespace HeroesData.Parser
             if (instanceId == "MVP" && gameLink == MVPGameLinkId)
                 matchAward.MVPScreenImageFileNameOriginal = "storm_ui_mvp_icon.dds";
 
+            // overrides
+            MatchAwardDataOverride = MatchAwardOverrideLoader.GetOverride(matchAward.Id);
+            ApplyOverrides(matchAward, MatchAwardDataOverride);
+
             return matchAward;
         }
 
         public MatchAwardParser GetInstance()
         {
-            return new MatchAwardParser(GameData, DefaultData);
+            return new MatchAwardParser(GameData, DefaultData, MatchAwardOverrideLoader);
         }
 
         private string GetNameFromGenderRule(string name)
@@ -139,8 +149,6 @@ namespace HeroesData.Parser
                 value = value.Slice(0, value.IndexOf("Boolean"));
             if (value[0] == '0')
                 value = ("Zero" + value.Slice(1).ToString()).AsSpan();
-            if (value.SequenceEqual("MostAltarDamageDone"))
-                value = "MostAltarDamage";
 
             return value;
         }

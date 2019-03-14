@@ -1,6 +1,6 @@
 ﻿namespace HeroesData.Parser.Overrides.DataOverrides
 {
-    public class BannerDataOverride : IDataOverride
+    public class AnnouncerDataOverride : IDataOverride
     {
         /// <summary>
         /// Gets or sets the id.

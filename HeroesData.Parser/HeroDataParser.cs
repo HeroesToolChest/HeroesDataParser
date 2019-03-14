@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser
 {
-    public class HeroDataParser : ParserBase, IParser<Hero, HeroDataParser>
+    public class HeroDataParser : ParserBase<Hero, HeroDataOverride>, IParser<Hero, HeroDataParser>
     {
         private readonly HeroOverrideLoader HeroOverrideLoader;
 
@@ -142,6 +142,83 @@ namespace HeroesData.Parser
         public HeroDataParser GetInstance()
         {
             return new HeroDataParser(GameData, DefaultData, HeroOverrideLoader);
+        }
+
+        protected override void ApplyAdditionalOverrides(Hero hero, HeroDataOverride heroDataOverride)
+        {
+            if (heroDataOverride.NameOverride.Enabled)
+                hero.Name = heroDataOverride.NameOverride.Value;
+
+            if (heroDataOverride.HyperlinkIdOverride.Enabled)
+                hero.HyperlinkId = heroDataOverride.HyperlinkIdOverride.Value;
+
+            if (heroDataOverride.EnergyTypeOverride.Enabled)
+                hero.Energy.EnergyType = heroDataOverride.EnergyTypeOverride.EnergyType;
+
+            if (heroDataOverride.EnergyOverride.Enabled)
+                hero.Energy.EnergyMax = heroDataOverride.EnergyOverride.Energy;
+
+            if (heroDataOverride.ParentLinkOverride.Enabled)
+                hero.ParentLink = heroDataOverride.ParentLinkOverride.ParentLink;
+
+            // abilities
+            if (hero.Abilities != null)
+            {
+                foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
+                {
+                    if (heroDataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
+                    {
+                        foreach (var propertyOverride in valueOverrideMethods)
+                        {
+                            // execute each property override
+                            propertyOverride.Value(ability.Value);
+                        }
+                    }
+                }
+            }
+
+            // talents
+            if (hero.Talents != null)
+            {
+                foreach (KeyValuePair<string, Talent> talents in hero.Talents)
+                {
+                    if (heroDataOverride.PropertyTalentOverrideMethodByTalentId.TryGetValue(talents.Key, out Dictionary<string, Action<Talent>> valueOverrideMethods))
+                    {
+                        foreach (var propertyOverride in valueOverrideMethods)
+                        {
+                            // execute each property override
+                            propertyOverride.Value(talents.Value);
+                        }
+                    }
+                }
+            }
+
+            // weapons
+            if (hero.Weapons != null)
+            {
+                foreach (UnitWeapon weapon in hero.Weapons)
+                {
+                    if (heroDataOverride.PropertyWeaponOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<UnitWeapon>> valueOverrideMethods))
+                    {
+                        foreach (var propertyOverride in valueOverrideMethods)
+                        {
+                            // execute each property override
+                            propertyOverride.Value(weapon);
+                        }
+                    }
+                }
+            }
+
+            if (hero.HeroPortrait != null)
+            {
+                if (heroDataOverride.PropertyPortraitOverrideMethodByCHeroId.TryGetValue(hero.CHeroId, out Dictionary<string, Action<HeroPortrait>> valueOverrideMethods))
+                {
+                    foreach (var propertyOverride in valueOverrideMethods)
+                    {
+                        propertyOverride.Value(hero.HeroPortrait);
+                    }
+                }
+            }
         }
 
         private void SetDefaultValues(Hero hero)
@@ -560,83 +637,6 @@ namespace HeroesData.Parser
         {
             if (hero.Life.LifeMax == 1 && hero.Life.LifeRegenerationRate == 0 && hero.Life.LifeRegenerationRateScaling == 0 && hero.Life.LifeScaling == 0)
                 hero.Life.LifeMax = 0;
-        }
-
-        private void ApplyOverrides(Hero hero, HeroDataOverride heroDataOverride)
-        {
-            if (heroDataOverride.NameOverride.Enabled)
-                hero.Name = heroDataOverride.NameOverride.Name;
-
-            if (heroDataOverride.ShortNameOverride.Enabled)
-                hero.HyperlinkId = heroDataOverride.ShortNameOverride.ShortName;
-
-            if (heroDataOverride.EnergyTypeOverride.Enabled)
-                hero.Energy.EnergyType = heroDataOverride.EnergyTypeOverride.EnergyType;
-
-            if (heroDataOverride.EnergyOverride.Enabled)
-                hero.Energy.EnergyMax = heroDataOverride.EnergyOverride.Energy;
-
-            if (heroDataOverride.ParentLinkOverride.Enabled)
-                hero.ParentLink = heroDataOverride.ParentLinkOverride.ParentLink;
-
-            // abilities
-            if (hero.Abilities != null)
-            {
-                foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
-                {
-                    if (heroDataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
-                    {
-                        foreach (var propertyOverride in valueOverrideMethods)
-                        {
-                            // execute each property override
-                            propertyOverride.Value(ability.Value);
-                        }
-                    }
-                }
-            }
-
-            // talents
-            if (hero.Talents != null)
-            {
-                foreach (KeyValuePair<string, Talent> talents in hero.Talents)
-                {
-                    if (heroDataOverride.PropertyTalentOverrideMethodByTalentId.TryGetValue(talents.Key, out Dictionary<string, Action<Talent>> valueOverrideMethods))
-                    {
-                        foreach (var propertyOverride in valueOverrideMethods)
-                        {
-                            // execute each property override
-                            propertyOverride.Value(talents.Value);
-                        }
-                    }
-                }
-            }
-
-            // weapons
-            if (hero.Weapons != null)
-            {
-                foreach (UnitWeapon weapon in hero.Weapons)
-                {
-                    if (heroDataOverride.PropertyWeaponOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<UnitWeapon>> valueOverrideMethods))
-                    {
-                        foreach (var propertyOverride in valueOverrideMethods)
-                        {
-                            // execute each property override
-                            propertyOverride.Value(weapon);
-                        }
-                    }
-                }
-            }
-
-            if (hero.HeroPortrait != null)
-            {
-                if (heroDataOverride.PropertyPortraitOverrideMethodByCHeroId.TryGetValue(hero.CHeroId, out Dictionary<string, Action<HeroPortrait>> valueOverrideMethods))
-                {
-                    foreach (var propertyOverride in valueOverrideMethods)
-                    {
-                        propertyOverride.Value(hero.HeroPortrait);
-                    }
-                }
-            }
         }
 
         private void RemoveAbilityTalents(Hero hero, HeroDataOverride heroDataOverride)

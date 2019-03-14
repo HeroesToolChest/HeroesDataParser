@@ -612,7 +612,7 @@ namespace HeroesData
         private void SetUpDataProcessors()
         {
             DataHero dataHero = new DataHero(new HeroDataParser(GameData, DefaultData, (HeroOverrideLoader)XmlDataOverriders.GetOverrider(typeof(HeroDataParser))));
-            DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(GameData, DefaultData));
+            DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(GameData, DefaultData, (MatchAwardOverrideLoader)XmlDataOverriders.GetOverrider(typeof(MatchAwardParser))));
             DataHeroSkin dataHeroSkin = new DataHeroSkin(new HeroSkinParser(GameData, DefaultData));
             DataMount dataMount = new DataMount(new MountParser(GameData, DefaultData));
             DataBanner dataBanner = new DataBanner(new BannerParser(GameData, DefaultData));

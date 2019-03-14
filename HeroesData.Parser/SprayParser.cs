@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser
 {
-    public class SprayParser : ParserBase, IParser<Spray, SprayParser>
+    public class SprayParser : ParserBase<Spray, SprayDataOverride>, IParser<Spray, SprayParser>
     {
         public SprayParser(GameData gameData, DefaultData defaultData)
             : base(gameData, defaultData)
