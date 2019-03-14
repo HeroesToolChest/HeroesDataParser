@@ -86,12 +86,6 @@ namespace HeroesData.Parser
             // get the name being used in the dds file
             string awardSpecialName = Path.GetFileName(PathExtensions.GetFilePath(scoreScreenIconFilePath)).Split('_')[4];
 
-            // set some correct names for looking up the icons
-            if (awardSpecialName == "hattrick")
-                awardSpecialName = "hottrick";
-            else if (awardSpecialName == "skull")
-                awardSpecialName = "dominator";
-
             MatchAward matchAward = new MatchAward()
             {
                 Name = instanceId,
@@ -104,19 +98,12 @@ namespace HeroesData.Parser
             matchAward.HyperlinkId = gameLink;
 
             // set new image file names for the extraction
-            // change it back to the correct spelling
-            if (awardSpecialName == "hottrick")
-                awardSpecialName = "hattrick";
-
             matchAward.ScoreScreenImageFileName = matchAward.ScoreScreenImageFileNameOriginal.ToLower();
             matchAward.MVPScreenImageFileName = $"storm_ui_mvp_{awardSpecialName}_%color%.dds".ToLower();
 
+            // set description
             if (GameData.TryGetGameString($"{MapGameStringPrefixes.ScoreValueTooltipPrefix}{gameLink}", out string description))
                 matchAward.Description = new TooltipDescription(description);
-
-            // mvp award only
-            if (instanceId == "MVP" && gameLink == MVPGameLinkId)
-                matchAward.MVPScreenImageFileNameOriginal = "storm_ui_mvp_icon.dds";
 
             // overrides
             MatchAwardDataOverride = MatchAwardOverrideLoader.GetOverride(matchAward.Id);
@@ -128,6 +115,24 @@ namespace HeroesData.Parser
         public MatchAwardParser GetInstance()
         {
             return new MatchAwardParser(GameData, DefaultData, MatchAwardOverrideLoader);
+        }
+
+        protected override void ApplyAdditionalOverrides(MatchAward matchAward, MatchAwardDataOverride dataOverride)
+        {
+            if (dataOverride.MVPScreenImageFileNameOriginalOverride.Enabled)
+                matchAward.MVPScreenImageFileNameOriginal = dataOverride.MVPScreenImageFileNameOriginalOverride.Value;
+
+            if (dataOverride.MVPScreenImageFileNameOverride.Enabled)
+                matchAward.MVPScreenImageFileName = dataOverride.MVPScreenImageFileNameOverride.Value;
+
+            if (dataOverride.ScoreScreenImageFileNameOriginalOverride.Enabled)
+                matchAward.ScoreScreenImageFileNameOriginal = dataOverride.ScoreScreenImageFileNameOriginalOverride.Value;
+
+            if (dataOverride.ScoreScreenImageFileNameOverride.Enabled)
+                matchAward.ScoreScreenImageFileName = dataOverride.ScoreScreenImageFileNameOverride.Value;
+
+            if (dataOverride.DescriptionOverride.Enabled)
+                matchAward.Description = new TooltipDescription(dataOverride.DescriptionOverride.Value);
         }
 
         private string GetNameFromGenderRule(string name)

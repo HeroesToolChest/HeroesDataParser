@@ -38,6 +38,26 @@ namespace HeroesData.Parser.Overrides
                         if (!string.IsNullOrEmpty(valueAttribute))
                             matchAwardDataOverride.IdOverride = (true, valueAttribute);
                         break;
+                    case "MVPScreenImageFileNameOriginal":
+                        if (!string.IsNullOrEmpty(valueAttribute))
+                            matchAwardDataOverride.MVPScreenImageFileNameOriginalOverride = (true, valueAttribute);
+                        break;
+                    case "MVPScreenImageFileName":
+                        if (!string.IsNullOrEmpty(valueAttribute))
+                            matchAwardDataOverride.MVPScreenImageFileNameOverride = (true, valueAttribute);
+                        break;
+                    case "ScoreScreenImageFileNameOriginal":
+                        if (!string.IsNullOrEmpty(valueAttribute))
+                            matchAwardDataOverride.ScoreScreenImageFileNameOriginalOverride = (true, valueAttribute);
+                        break;
+                    case "ScoreScreenImageFileName":
+                        if (!string.IsNullOrEmpty(valueAttribute))
+                            matchAwardDataOverride.ScoreScreenImageFileNameOverride = (true, valueAttribute);
+                        break;
+                    case "Description":
+                        if (!string.IsNullOrEmpty(valueAttribute))
+                            matchAwardDataOverride.DescriptionOverride = (true, valueAttribute);
+                        break;
                 }
             }
 

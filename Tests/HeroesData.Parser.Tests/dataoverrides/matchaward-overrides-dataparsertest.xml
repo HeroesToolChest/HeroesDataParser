@@ -2,5 +2,10 @@
 <MatchAwardOverrides>
   <CAward id="MostAltarDamageDone">
     <Id value="MostAltarDamage"/>
+    <MVPScreenImageFileName value="storm_ui_mvp_test_%color%.dds" />
+    <MVPScreenImageFileNameOriginal value="storm_ui_test_icon.dds" />
+    <ScoreScreenImageFileNameOriginal value="score_screen_image_original.dds" />
+    <ScoreScreenImageFileName value="score_screen_image.dds" />
+    <Description value="Description of most altar damage" />
   </CAward>
 </MatchAwardOverrides>
