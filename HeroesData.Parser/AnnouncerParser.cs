@@ -31,7 +31,7 @@ namespace HeroesData.Parser
                 foreach (XElement announcerPackElement in cAnnouncerPackElements)
                 {
                     string id = announcerPackElement.Attribute("id").Value;
-                    if (announcerPackElement.Element("AttributeId") != null && id != "RandomAnnouncerPack" && id != "Default" && id != "Quality" && id != "Cook")
+                    if (announcerPackElement.Element("AttributeId") != null && id != "RandomAnnouncerPack" && id != "Default" && id != "Quality" && id != "Cook" && id != "GardensNightAnnouncer")
                         items.Add(new string[] { id });
                 }
 
