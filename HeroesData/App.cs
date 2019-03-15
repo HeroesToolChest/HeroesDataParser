@@ -137,6 +137,7 @@ namespace HeroesData
                         Console.WriteLine();
 
                         // write
+                        Console.WriteLine("Creating output file(s)...");
                         DataProcessor((parser) =>
                         {
                             if (CreateJson)
