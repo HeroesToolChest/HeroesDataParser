@@ -5,9 +5,9 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser.Overrides
 {
-    public class SprayOverrideLoader : OverrideLoaderBase<SprayDataOverride>, IOverrideLoader
+    public class PortraitOverrideLoader : OverrideLoaderBase<PortraitDataOverride>, IOverrideLoader
     {
-        public SprayOverrideLoader(GameData gameData, int? hotsBuild)
+        public PortraitOverrideLoader(GameData gameData, int? hotsBuild)
             : base(gameData, hotsBuild)
         {
         }
@@ -16,11 +16,11 @@ namespace HeroesData.Parser.Overrides
         {
             get
             {
-                return $"spray-{base.OverrideFileName}";
+                return $"portrait-{base.OverrideFileName}";
             }
         }
 
-        protected override string OverrideElementName => "CSpray";
+        protected override string OverrideElementName => "CPortraitPack";
 
         protected override void SetOverride(XElement element)
         {

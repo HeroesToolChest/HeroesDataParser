@@ -391,3 +391,7 @@ Spray/AdditionalSearchText/SprayStaticCarbotsLili=Carbot Li Li
 
 AnnouncerPack/Name/Adjutant=Adjutant Announcer
 AnnouncerPack/Name/OrpheaA=Orphea Announcer
+
+Reward/Name/StitchesPortraitSummer=Bikini Stitches Portrait
+Reward/Name/StylizedWrathSonyaPortrait=Legion's Wrath Sonya Portrait
+Reward/Name/DiabloPortraitLegacy2=Lord of Terror Portrait
