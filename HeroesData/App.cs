@@ -623,6 +623,7 @@ namespace HeroesData
             FilesHero filesHero = new FilesHero(CASCHotsStorage?.CASCHandler, StorageMode);
             FilesMatchAward filesMatchAward = new FilesMatchAward(CASCHotsStorage?.CASCHandler, StorageMode);
             FilesAnnouncer filesAnnouncer = new FilesAnnouncer(CASCHotsStorage?.CASCHandler, StorageMode);
+            FilesSpray filesSpray = new FilesSpray(CASCHotsStorage?.CASCHandler, StorageMode);
 
             DataProcessors.Add(new DataProcessor()
             {
@@ -672,6 +673,7 @@ namespace HeroesData
                 Name = dataSpray.Name,
                 Parse = (localization) => dataSpray.Parse(localization),
                 Validate = (localization) => dataSpray.Validate(localization),
+                Extract = (data) => filesSpray.ExtractFiles(data),
             });
 
             DataProcessors.Add(new DataProcessor()

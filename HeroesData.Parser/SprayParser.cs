@@ -5,6 +5,7 @@ using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -145,6 +146,10 @@ namespace HeroesData.Parser
                 else if (elementName == "EVENTNAME")
                 {
                     spray.EventName = element.Attribute("value")?.Value;
+                }
+                else if (elementName == "TEXTURE")
+                {
+                    spray.ImageFileName = Path.GetFileName(PathExtensions.GetFilePath(element.Attribute("value")?.Value)).ToLower();
                 }
             }
         }

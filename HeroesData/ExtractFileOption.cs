@@ -12,5 +12,6 @@ namespace HeroesData
         AbilityTalents = 1 << 3,
         MatchAwards = 1 << 4,
         Announcers = 1 << 5,
+        Sprays = 1 << 6,
     }
 }

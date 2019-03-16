@@ -68,7 +68,7 @@ namespace HeroesData
                 {
                     if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ALL"))
                     {
-                        App.ExtractFileOption = ExtractFileOption.Portraits | ExtractFileOption.AbilityTalents | ExtractFileOption.MatchAwards | ExtractFileOption.Announcers;
+                        App.ExtractFileOption = ExtractFileOption.Portraits | ExtractFileOption.AbilityTalents | ExtractFileOption.MatchAwards | ExtractFileOption.Announcers | ExtractFileOption.Sprays;
                     }
                     else
                     {
@@ -78,12 +78,14 @@ namespace HeroesData
                             App.ExtractFileOption |= ExtractFileOption.Talents;
                         if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITIES") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITY"))
                             App.ExtractFileOption |= ExtractFileOption.Abilities;
-                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITYTALENTS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITYTALENT"))
+                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITYTALENTS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITYTALENT") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILTALENT"))
                             App.ExtractFileOption |= ExtractFileOption.AbilityTalents;
                         if (extractIconsOption.Values.Exists(x => x.ToUpper() == "AWARDS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "MATCHAWARDS"))
                             App.ExtractFileOption |= ExtractFileOption.MatchAwards;
                         if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ANNOUNCERS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ANNOUNCER") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ANOUNCER"))
                             App.ExtractFileOption |= ExtractFileOption.Announcers;
+                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "SPRAYS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "SPRAY"))
+                            App.ExtractFileOption |= ExtractFileOption.Sprays;
                     }
 
                     if (App.ExtractFileOption != ExtractFileOption.None)

@@ -19,6 +19,7 @@ namespace HeroesData.Parser.Tests.SprayParserTests
             Assert.AreEqual(Rarity.Rare, CarbotLiLi.Rarity);
             Assert.AreEqual("6StaticCarbot", CarbotLiLi.SortName);
             Assert.AreEqual("HeroStorm", CarbotLiLi.CollectionCategory);
+            Assert.AreEqual("storm_lootspray_static_carbots_lili.dds", CarbotLiLi.ImageFileName);
         }
     }
 }
