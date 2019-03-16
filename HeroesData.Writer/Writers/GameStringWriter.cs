@@ -309,5 +309,21 @@ namespace HeroesData.FileWriter.Writers
 
             GameStrings[$"announcer/description/{key}"] = value;
         }
+
+        public void AddPortraitName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"portrait/name/{key}"] = value;
+        }
+
+        public void AddPortraitSortName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"portrait/sortname/{key}"] = value;
+        }
     }
 }

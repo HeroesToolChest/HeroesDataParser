@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CPortraitPack default="1" id="FallOfKingsCrestPortraitParent">
+    <EventName value="HallowsEnd" />
+  </CPortraitPack>
+  <CPortraitPack default="1" id="HallowsEndPortraitParent">
+    <EventName value="HallowsEnd" />
+  </CPortraitPack>
+  <CPortraitPack default="1" id="LunarFestivalPortraitParent">
+    <EventName value="LunarFestival" />
+  </CPortraitPack>
+  <CPortraitPack default="1" id="SummerFunPortraitParent">
+    <EventName value="SunsOutGunsOut" />
+  </CPortraitPack>
+  <CPortraitPack default="1" id="SunsOutGunsOutPortraitParent">
+    <EventName value="SunsOutGunsOut" />
+  </CPortraitPack>
+  <CPortraitPack default="1" id="WinterVeilPortraitParent">
+    <EventName value="WinterVeil" />
+  </CPortraitPack>
+  <CPortraitPack default="1" id="Winter18PortraitParent">
+    <EventName value="WinterVeil" />
+  </CPortraitPack>
+
+  <CPortraitPack id="StitchesPortraitSummer" parent="SunsOutGunsOutPortraitParent">
+    <ProductId value="27360" />
+  </CPortraitPack>
+  <CPortraitPack id="StylizedWrathSonyaPortrait">
+    <ProductId value="27353" />
+    <PortraitArray index="0" value="SonyaPortraitLegionWrath" />
+  </CPortraitPack>
+  <CPortraitPack id="LordofTerrorPortrait">
+    <PortraitArray index="0" value="DiabloPortraitLegacy2" />
+    <ProductId value="28885" />
+    <Name value="Reward/Name/DiabloPortraitLegacy2" />
+  </CPortraitPack>
+</Catalog>
