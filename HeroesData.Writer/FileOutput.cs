@@ -8,6 +8,7 @@ using HeroesData.FileWriter.Writers.MatchAwardData;
 using HeroesData.FileWriter.Writers.MountData;
 using HeroesData.FileWriter.Writers.PortraitData;
 using HeroesData.FileWriter.Writers.SprayData;
+using HeroesData.FileWriter.Writers.VoiceLineData;
 using System.Collections.Generic;
 
 namespace HeroesData.FileWriter
@@ -116,6 +117,7 @@ namespace HeroesData.FileWriter
                 { nameof(Banner), new BannerDataJsonWriter() },
                 { nameof(Spray), new SprayDataJsonWriter() },
                 { nameof(Announcer), new AnnouncerDataJsonWriter() },
+                { nameof(VoiceLine), new VoiceLineDataJsonWriter() },
                 { nameof(Portrait), new PortraitDataJsonWriter() },
             });
 
@@ -128,6 +130,7 @@ namespace HeroesData.FileWriter
                 { nameof(Banner), new BannerDataXmlWriter() },
                 { nameof(Spray), new SprayDataXmlWriter() },
                 { nameof(Announcer), new AnnouncerDataXmlWriter() },
+                { nameof(VoiceLine), new VoiceLineDataXmlWriter() },
                 { nameof(Portrait), new PortraitDataXmlWriter() },
             });
         }

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CVoiceLine default="1" id="Abathur_VoiceLine01Common" parent="StormVoiceLine01Common">
+    <?token id="heroid" type="CHeroLink" value="Abathur"?>
+    <AttributeId value="AB01" />
+    <Sound value="AbathurHero_VoiceLineOne" />
+  </CVoiceLine>
+  <CVoiceLine default="1" id="Abathur_VoiceLine02Common" parent="StormVoiceLine02Common">
+    <?token id="heroid" type="CHeroLink" value="Abathur"?>
+    <ProductId value="24036" />
+    <AttributeId value="AB02" />
+    <Sound value="AbathurHero_VoiceLineTwo" />
+  </CVoiceLine>
+  <CVoiceLine id="AbathurBase_VoiceLine01" parent="Abathur_VoiceLine01Common" />
+  <CVoiceLine id="AbathurBase_VoiceLine02" parent="Abathur_VoiceLine02Common" />
+</Catalog>

@@ -29,6 +29,28 @@
 # default announcer has no gender
 [NoAnnouncerPack] Gender is null or empty
 
+# voice lines for dva pilot
+[DVaBase_VoiceLine01_P] AttributeId is null or empty
+[DVaBase_VoiceLine01_P] ImageFileName is null or empty
+[DVaGoliath_VoiceLine04_P] AttributeId is null or empty
+[DVaGoliath_VoiceLine04_P] ImageFileName is null or empty
+[DVaGoliath_VoiceLine02_P] AttributeId is null or empty
+[DVaGoliath_VoiceLine02_P] ImageFileName is null or empty
+[DVaBase_VoiceLine03_P] AttributeId is null or empty
+[DVaBase_VoiceLine03_P] ImageFileName is null or empty
+[DVaBase_VoiceLine05_P] AttributeId is null or empty
+[DVaBase_VoiceLine05_P] ImageFileName is null or empty
+[DVaBase_VoiceLine04_P] AttributeId is null or empty
+[DVaBase_VoiceLine04_P] ImageFileName is null or empty
+[DVaBase_VoiceLine02_P] AttributeId is null or empty
+[DVaBase_VoiceLine02_P] ImageFileName is null or empty
+[DVaGoliath_VoiceLine05_P] AttributeId is null or empty
+[DVaGoliath_VoiceLine05_P] ImageFileName is null or empty
+[DVaGoliath_VoiceLine03_P] AttributeId is null or empty
+[DVaGoliath_VoiceLine03_P] ImageFileName is null or empty
+[DVaGoliath_VoiceLine01_P] AttributeId is null or empty
+[DVaGoliath_VoiceLine01_P] ImageFileName is null or empty
+
 # ignore for following data
 [$heroskin] SearchText is null or empty
 [$mount] SearchText is null or empty

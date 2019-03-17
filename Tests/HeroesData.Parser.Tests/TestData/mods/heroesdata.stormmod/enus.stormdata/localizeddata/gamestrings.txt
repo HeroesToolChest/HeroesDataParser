@@ -395,3 +395,8 @@ AnnouncerPack/Name/OrpheaA=Orphea Announcer
 Reward/Name/StitchesPortraitSummer=Bikini Stitches Portrait
 Reward/Name/StylizedWrathSonyaPortrait=Legion's Wrath Sonya Portrait
 Reward/Name/DiabloPortraitLegacy2=Lord of Terror Portrait
+
+VoiceLine/Name/AbathurBase_VoiceLine01=For the Swarm
+VoiceLine/Name/AbathurBase_VoiceLine02=Poor Essence
+VoiceLine/Name/AbathurMecha_VoiceLine01=For the Swarm
+VoiceLine/Name/AbathurMecha_VoiceLine02=Poor Essence

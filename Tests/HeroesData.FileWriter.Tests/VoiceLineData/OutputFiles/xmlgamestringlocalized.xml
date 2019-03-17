@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VoiceLines>
+  <Common1 hyperlinkId="Common1Id" attributeId="AB01" releaseDate="2016-05-21" />
+  <Common2 hyperlinkId="Common2Id" attributeId="AB02" releaseDate="2014-05-21" />
+</VoiceLines>

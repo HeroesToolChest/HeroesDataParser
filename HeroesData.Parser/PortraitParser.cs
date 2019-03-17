@@ -24,9 +24,9 @@ namespace HeroesData.Parser
 
                 IEnumerable<XElement> cPortraitElements = GameData.Elements("CPortraitPack").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
 
-                foreach (XElement sprayElement in cPortraitElements)
+                foreach (XElement portraitElement in cPortraitElements)
                 {
-                    string id = sprayElement.Attribute("id").Value;
+                    string id = portraitElement.Attribute("id").Value;
                     if (id != "TestPortrait")
                         items.Add(new string[] { id });
                 }

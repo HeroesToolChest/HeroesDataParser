@@ -68,7 +68,7 @@ namespace HeroesData
                 {
                     if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ALL"))
                     {
-                        App.ExtractFileOption = ExtractFileOption.Portraits | ExtractFileOption.AbilityTalents | ExtractFileOption.MatchAwards | ExtractFileOption.Announcers | ExtractFileOption.Sprays;
+                        App.ExtractFileOption = ExtractFileOption.Portraits | ExtractFileOption.AbilityTalents | ExtractFileOption.MatchAwards | ExtractFileOption.Announcers | ExtractFileOption.Sprays | ExtractFileOption.VoiceLines;
                     }
                     else
                     {
@@ -86,6 +86,8 @@ namespace HeroesData
                             App.ExtractFileOption |= ExtractFileOption.Announcers;
                         if (extractIconsOption.Values.Exists(x => x.ToUpper() == "SPRAYS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "SPRAY"))
                             App.ExtractFileOption |= ExtractFileOption.Sprays;
+                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICELINES") || extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICELINE") || extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICE") || extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICES"))
+                            App.ExtractFileOption |= ExtractFileOption.VoiceLines;
                     }
 
                     if (App.ExtractFileOption != ExtractFileOption.None)

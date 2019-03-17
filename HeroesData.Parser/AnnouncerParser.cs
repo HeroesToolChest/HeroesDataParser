@@ -13,8 +13,6 @@ namespace HeroesData.Parser
 {
     public class AnnouncerParser : ParserBase<Announcer, AnnouncerDataOverride>, IParser<Announcer, AnnouncerParser>
     {
-        private readonly string HeroIdPlaceHolder = "##heroid##";
-
         public AnnouncerParser(GameData gameData, DefaultData defaultData)
             : base(gameData, defaultData)
         {
@@ -127,7 +125,7 @@ namespace HeroesData.Parser
                     announcer.HyperlinkId = element.Attribute("value")?.Value;
 
                     if (!string.IsNullOrEmpty(heroId))
-                        announcer.HyperlinkId = announcer.HyperlinkId.Replace(HeroIdPlaceHolder, heroId);
+                        announcer.HyperlinkId = announcer.HyperlinkId.Replace(DefaultData.HeroIdPlaceHolder, heroId);
                 }
                 else if (elementName == "RARITY")
                 {
@@ -150,14 +148,14 @@ namespace HeroesData.Parser
                     announcer.ImageFileName = Path.GetFileName(PathExtensions.GetFilePath(element.Attribute("value")?.Value)).ToLower();
 
                     if (!string.IsNullOrEmpty(heroId))
-                        announcer.ImageFileName = announcer.ImageFileName.Replace(HeroIdPlaceHolder, heroId).ToLower();
+                        announcer.ImageFileName = announcer.ImageFileName.Replace(DefaultData.HeroIdPlaceHolder, heroId).ToLower();
                 }
                 else if (elementName == "HERO")
                 {
                     announcer.Hero = element.Attribute("value")?.Value;
 
                     if (!string.IsNullOrEmpty(heroId))
-                        announcer.Hero = announcer.Hero.Replace(HeroIdPlaceHolder, heroId);
+                        announcer.Hero = announcer.Hero.Replace(DefaultData.HeroIdPlaceHolder, heroId);
                 }
                 else if (elementName == "GENDER")
                 {

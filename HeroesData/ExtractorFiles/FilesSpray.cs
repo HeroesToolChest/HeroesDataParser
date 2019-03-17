@@ -39,9 +39,9 @@ namespace HeroesData.ExtractorFiles
 
             string extractFilePath = Path.Combine(ExtractDirectory, SprayDirectory);
 
-            foreach (string announcer in Sprays)
+            foreach (string spray in Sprays)
             {
-                if (ExtractImageFile(extractFilePath, announcer))
+                if (ExtractImageFile(extractFilePath, spray))
                     count++;
 
                 Console.Write($"\rExtracting spray image files...{count}/{Sprays.Count}");

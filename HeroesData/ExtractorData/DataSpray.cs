@@ -37,6 +37,9 @@ namespace HeroesData.ExtractorData
 
             if (spray.Rarity == Rarity.Unknown)
                 AddWarning($"{nameof(spray.Rarity)} is unknown");
+
+            if (string.IsNullOrEmpty(spray.ImageFileName))
+                AddWarning($"{nameof(spray.ImageFileName)} is null or empty");
         }
     }
 }

@@ -13,6 +13,11 @@ namespace HeroesData.Parser.XmlData
         /// </summary>
         public const string IdPlaceHolder = "##id##";
 
+        /// <summary>
+        /// HeroId to be replaced in some strings.
+        /// </summary>
+        public const string HeroIdPlaceHolder = "##heroid##";
+
         public const string ReplacementCharacter = "%1";
 
         public const string StringRanged = "e_gameUIStringRanged";
@@ -384,6 +389,31 @@ namespace HeroesData.Parser.XmlData
         public DateTime AnnouncerReleaseDate { get; private set; }
 
         /// <summary>
+        /// Gets the default voice line name. Contains ##id##.
+        /// </summary>
+        public string VoiceLineName { get; private set; }
+
+        /// <summary>
+        /// Gets the default voice line name used for sorting. Contains ##id##.
+        /// </summary>
+        public string VoiceLineSortName { get; private set; }
+
+        /// <summary>
+        /// Gets the default voice line description. Contains ##id##.
+        /// </summary>
+        public string VoiceLineDescription { get; private set; }
+
+        /// <summary>
+        /// Gets the default voice line attribute id.
+        /// </summary>
+        public string VoiceLineAttributeId { get; private set; }
+
+        /// <summary>
+        /// Gets the default voice line release date.
+        /// </summary>
+        public DateTime VoiceLineReleaseDate { get; private set; }
+
+        /// <summary>
         /// Gets the default portrait name. Contains ##id##.
         /// </summary>
         public string PortraitName { get; private set; }
@@ -430,6 +460,7 @@ namespace HeroesData.Parser.XmlData
             LoadCBannerDefault();
             LoadCSprayDefault();
             LoadCAnnouncerPackDefault();
+            LoadCVoiceLineDefault();
             LoadCPortraitPackDefault();
         }
 
@@ -509,6 +540,12 @@ namespace HeroesData.Parser.XmlData
         private void LoadCAnnouncerPackDefault()
         {
             CAnnouncerPackElement(GameData.Elements("CAnnouncerPack").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+        }
+
+        // <CVoiceLine default="1">
+        private void LoadCVoiceLineDefault()
+        {
+            CVoiceLineElement(GameData.Elements("CVoiceLine").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CPortraitPack default="1">
@@ -911,6 +948,44 @@ namespace HeroesData.Parser.XmlData
                         day = 1;
 
                     AnnouncerReleaseDate = new DateTime(year, month, day);
+                }
+            }
+        }
+
+        private void CVoiceLineElement(IEnumerable<XElement> cVocieLineElements)
+        {
+            foreach (XElement element in cVocieLineElements.Elements())
+            {
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "NAME")
+                {
+                    VoiceLineName = element.Attribute("value").Value;
+                }
+                else if (elementName == "SORTNAME")
+                {
+                    VoiceLineSortName = element.Attribute("value").Value;
+                }
+                else if (elementName == "DESCRIPTION")
+                {
+                    VoiceLineDescription = element.Attribute("value").Value;
+                }
+                else if (elementName == "RELEASEDATE")
+                {
+                    if (!int.TryParse(element.Element("Year").Attribute("value").Value, out int year))
+                        year = 2014;
+
+                    if (!int.TryParse(element.Element("Month").Attribute("value").Value, out int month))
+                        month = 1;
+
+                    if (!int.TryParse(element.Element("Day").Attribute("value").Value, out int day))
+                        day = 1;
+
+                    VoiceLineReleaseDate = new DateTime(year, month, day);
+                }
+                else if (elementName == "ATTRIBUTEID")
+                {
+                    VoiceLineAttributeId = element.Attribute("value").Value;
                 }
             }
         }

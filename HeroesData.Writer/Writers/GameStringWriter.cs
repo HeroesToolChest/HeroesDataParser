@@ -325,5 +325,29 @@ namespace HeroesData.FileWriter.Writers
 
             GameStrings[$"portrait/sortname/{key}"] = value;
         }
+
+        public void AddVoiceLineName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"voiceline/name/{key}"] = value;
+        }
+
+        public void AddVoiceLineSortName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"voiceline/sortname/{key}"] = value;
+        }
+
+        public void AddVoiceLineDescription(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"voiceline/description/{key}"] = value;
+        }
     }
 }
