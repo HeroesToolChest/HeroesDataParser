@@ -35,8 +35,8 @@
       "regenRate": 3.0
     },
     "armor": {
-      "Physical": 10,
-      "Spell": 5
+      "physical": 10,
+      "spell": 5
     },
     "ratings": {
       "complexity": 8.0,
@@ -273,8 +273,8 @@
             "regenScale": 0.04
           },
           "armor": {
-            "Physical": 5,
-            "Spell": 30
+            "physical": 5,
+            "spell": 30
           },
           "abilities": {
             "basic": [

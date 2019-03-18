@@ -167,8 +167,8 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return new JProperty(
                 "armor",
                 new JObject(
-                    new JProperty("Physical", unit.Armor.PhysicalArmor),
-                    new JProperty("Spell", unit.Armor.SpellArmor)));
+                    new JProperty("physical", unit.Armor.PhysicalArmor),
+                    new JProperty("spell", unit.Armor.SpellArmor)));
         }
 
         protected override JProperty GetLifeObject(Unit unit)

@@ -89,8 +89,8 @@
             "regenScale": 0.04
           },
           "armor": {
-            "Physical": 5,
-            "Spell": 30
+            "physical": 5,
+            "spell": 30
           },
           "abilities": {
             "basic": [
