@@ -1,0 +1,5 @@
+emoticon/alias/lunara_angry=:lunaraangry: :lunaangry:
+emoticon/description/lunara_angry=Use emoticons for lunara
+emoticon/description/lunara_sad=
+emoticon/name/lunara_angry=Lunara Angry
+emoticon/name/lunara_sad=Lunara Sad

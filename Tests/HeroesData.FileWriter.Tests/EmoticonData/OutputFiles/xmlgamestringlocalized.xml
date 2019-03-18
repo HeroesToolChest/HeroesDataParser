@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Emoticon>
+  <lunara_angry>
+    <Aliases>
+      <Alias>:(</Alias>
+      <Alias>(:</Alias>
+    </Aliases>
+    <Hero id="Lunara" skinId="LunaraWitch" />
+    <Image>emoticon_image.png</Image>
+  </lunara_angry>
+  <lunara_sad />
+</Emoticon>

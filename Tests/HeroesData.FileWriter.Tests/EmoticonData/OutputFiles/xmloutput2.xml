@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Emoticon>
+  <lunara_angry expression="Lunara Angry">
+    <Description>Use emoticons for lunara</Description>
+    <LocalizedAliases>
+      <Alias>:lunaraangry:</Alias>
+      <Alias>:lunaangry:</Alias>
+    </LocalizedAliases>
+    <Aliases>
+      <Alias>:(</Alias>
+      <Alias>(:</Alias>
+    </Aliases>
+    <Hero id="Lunara" skinId="LunaraWitch" />
+    <Image>emoticon_image.png</Image>
+  </lunara_angry>
+  <lunara_sad expression="Lunara Sad" />
+</Emoticon>

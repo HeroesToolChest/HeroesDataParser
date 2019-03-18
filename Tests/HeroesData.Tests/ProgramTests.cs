@@ -8,7 +8,7 @@ namespace HeroesData.Tests
     public class ProgramTests
     {
         [TestMethod]
-        public void NoWriterSpecifiedNoOutputTestAsync()
+        public void NoWriterSpecifiedNoOutputTest()
         {
             Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", "TestOutput1" });
 
@@ -16,7 +16,7 @@ namespace HeroesData.Tests
         }
 
         [TestMethod]
-        public void JsonWriterOnlyTestAsync()
+        public void JsonWriterOnlyTest()
         {
             string folder = "TestOutputJsonOnly";
 
@@ -31,11 +31,12 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "announcerdata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "portraitdata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "voicelinedata_enus.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "emoticondata_enus.json")));
             Assert.IsFalse(Directory.Exists(Path.Combine(folder, "xml")));
         }
 
         [TestMethod]
-        public void XmlWriterOnlyTestAsync()
+        public void XmlWriterOnlyTest()
         {
             string folder = "TestOutputXmlOnly";
 
@@ -50,11 +51,12 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "announcerdata_enus.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "portraitdata_enus.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "voicelinedata_enus.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "emoticondata_enus.xml")));
             Assert.IsFalse(Directory.Exists(Path.Combine(folder, "json")));
         }
 
         [TestMethod]
-        public void XmlAndJsonWriterTestAsync()
+        public void XmlAndJsonWriterTest()
         {
             string folder = "TestOutputBothXmlJson";
 
@@ -69,6 +71,7 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "announcerdata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "portraitdata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "voicelinedata_enus.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "emoticondata_enus.json")));
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "herodata_enus.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "matchawarddata_enus.xml")));
@@ -79,10 +82,11 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "announcerdata_enus.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "portraitdata_enus.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "voicelinedata_enus.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "emoticondata_enus.xml")));
         }
 
         [TestMethod]
-        public void JsonWriterOnlyWithMinifyOptionTestAsync()
+        public void JsonWriterOnlyWithMinifyOptionTest()
         {
             string folder = "TestOutputJsonOnlyWithMinify";
 
@@ -97,6 +101,7 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "announcerdata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "portraitdata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "voicelinedata_enus.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "emoticondata_enus.json")));
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "herodata_enus.min.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "matchawarddata_enus.min.json")));
@@ -107,12 +112,13 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "announcerdata_enus.min.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "portraitdata_enus.min.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "voicelinedata_enus.min.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "emoticondata_enus.min.json")));
 
             Assert.IsFalse(Directory.Exists(Path.Combine(folder, "xml")));
         }
 
         [TestMethod]
-        public void FileSplitOptionTestAsync()
+        public void FileSplitOptionTest()
         {
             string folder = "TestOutputFileSplit";
 
@@ -127,6 +133,7 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "announcerdata", "adjutant.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "portraitdata", "stitchesportraitsummer.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "voicelinedata", "abathurmecha_voiceline01.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "emoticondata", "lunara_happy.json")));
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "herodata", "abathur.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "heroskindata", "abathurbone.xml")));
@@ -136,10 +143,11 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "announcerdata", "adjutant.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "portraitdata", "stitchesportraitsummer.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "voicelinedata", "abathurmecha_voiceline01.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "emoticondata", "lunara_happy.xml")));
         }
 
         [TestMethod]
-        public void FileSplitOptionWithMinifyOptionTestAsync()
+        public void FileSplitOptionWithMinifyOptionTest()
         {
             string folder = "TestOutputFileSplitWithMinify";
 
@@ -155,6 +163,7 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "announcerdata", "adjutant.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "portraitdata", "stitchesportraitsummer.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "voicelinedata", "abathurmecha_voiceline01.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "emoticondata", "lunara_happy.json")));
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "herodata", "abathur.min.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "herodata", "abathur.min.xml")));
@@ -166,10 +175,11 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "announcerdata", "adjutant.min.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "portraitdata", "stitchesportraitsummer.min.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "voicelinedata", "abathurmecha_voiceline01.min.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "emoticondata", "lunara_happy.min.json")));
         }
 
         [TestMethod]
-        public void LocalizedTextOptionTestAsync()
+        public void LocalizedTextOptionTest()
         {
             string folder = "TestOutputLocalizedText";
 
@@ -185,6 +195,7 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "announcerdata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "portraitdata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "voicelinedata_enus.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "emoticondata_enus.json")));
 
             List<string> lines = new List<string>();
 
@@ -200,7 +211,7 @@ namespace HeroesData.Tests
         }
 
         [TestMethod]
-        public void LocalizedTextOptionWithSplitOptionTestAsync()
+        public void LocalizedTextOptionWithSplitOptionTest()
         {
             string folder = "TestOutputLocalizedTextSplit";
 
@@ -217,6 +228,7 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "announcerdata", "adjutant.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "portraitdata", "stitchesportraitsummer.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "voicelinedata", "abathurmecha_voiceline01.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "emoticondata", "lunara_happy.json")));
 
             List<string> lines = new List<string>();
 

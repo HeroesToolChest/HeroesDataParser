@@ -9,10 +9,10 @@ namespace HeroesData.ExtractorFiles
 {
     public class FilesHero : FilesExtractorBase<Hero>, IFile
     {
-        private readonly SortedSet<string> Portraits = new SortedSet<string>();
-        private readonly SortedSet<string> Talents = new SortedSet<string>();
-        private readonly SortedSet<string> Abilities = new SortedSet<string>();
-        private readonly SortedSet<string> AbilityTalents = new SortedSet<string>();
+        private readonly HashSet<string> Portraits = new HashSet<string>();
+        private readonly HashSet<string> Talents = new HashSet<string>();
+        private readonly HashSet<string> Abilities = new HashSet<string>();
+        private readonly HashSet<string> AbilityTalents = new HashSet<string>();
 
         private readonly string PortraitsDirectory = "portraits";
         private readonly string AbilitiesDirectory = "abilities";

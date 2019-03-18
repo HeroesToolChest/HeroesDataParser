@@ -621,12 +621,14 @@ namespace HeroesData
             DataAnnouncer dataAnnouncer = new DataAnnouncer(new AnnouncerParser(GameData, DefaultData));
             DataVoiceLine dataVoiceLine = new DataVoiceLine(new VoiceLineParser(GameData, DefaultData));
             DataPortrait dataPortrait = new DataPortrait(new PortraitParser(GameData, DefaultData));
+            DataEmoticon dataEmoticon = new DataEmoticon(new EmoticonParser(GameData, DefaultData));
 
             FilesHero filesHero = new FilesHero(CASCHotsStorage?.CASCHandler, StorageMode);
             FilesMatchAward filesMatchAward = new FilesMatchAward(CASCHotsStorage?.CASCHandler, StorageMode);
             FilesAnnouncer filesAnnouncer = new FilesAnnouncer(CASCHotsStorage?.CASCHandler, StorageMode);
             FilesVoiceLine filesVoiceLine = new FilesVoiceLine(CASCHotsStorage?.CASCHandler, StorageMode);
             FilesSpray filesSpray = new FilesSpray(CASCHotsStorage?.CASCHandler, StorageMode);
+            FilesEmoticon filesEmoticon = new FilesEmoticon(CASCHotsStorage?.CASCHandler, StorageMode);
 
             DataProcessors.Add(new DataProcessor()
             {
@@ -703,6 +705,15 @@ namespace HeroesData
                 Name = dataPortrait.Name,
                 Parse = (localization) => dataPortrait.Parse(localization),
                 Validate = (localization) => dataPortrait.Validate(localization),
+            });
+
+            DataProcessors.Add(new DataProcessor()
+            {
+                IsEnabled = true,
+                Name = dataEmoticon.Name,
+                Parse = (localization) => dataEmoticon.Parse(localization),
+                Validate = (localization) => dataEmoticon.Validate(localization),
+                Extract = (data) => filesEmoticon.ExtractFiles(data),
             });
         }
     }

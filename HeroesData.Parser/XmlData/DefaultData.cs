@@ -429,6 +429,41 @@ namespace HeroesData.Parser.XmlData
         public string PortraitHyperlinkId { get; private set; }
 
         /// <summary>
+        /// Gets the default emoticon localized alias array value. Contains ##id##.
+        /// </summary>
+        public string EmoticonLocalizedAliasArray { get; private set; }
+
+        /// <summary>
+        /// Gets the default emoticon description. Contains ##id##.
+        /// </summary>
+        public string EmoticonDescription { get; private set; }
+
+        /// <summary>
+        /// Gets the default emoticon expression.
+        /// </summary>
+        public string EmoticonExpression { get; private set; }
+
+        /// <summary>
+        /// Gets the default emoticon texture sheet.
+        /// </summary>
+        public string EmoticonTextureSheet { get; private set; }
+
+        /// <summary>
+        /// Gets the default texture sheet image file name. Contains ##id##.
+        /// </summary>
+        public string TextureSheetImage { get; private set; }
+
+        /// <summary>
+        /// Gets the default texture sheet rows.
+        /// </summary>
+        public int TextureSheetRows { get; private set; }
+
+        /// <summary>
+        /// Gets the default texture sheet columns.
+        /// </summary>
+        public int TextureSheetColumns { get; private set; }
+
+        /// <summary>
         /// Gets the default difficulty text. Contains ##id##.
         /// </summary>
         public string Difficulty { get; } = $"UI/HeroUtil/Difficulty/{IdPlaceHolder}";
@@ -462,6 +497,8 @@ namespace HeroesData.Parser.XmlData
             LoadCAnnouncerPackDefault();
             LoadCVoiceLineDefault();
             LoadCPortraitPackDefault();
+            LoadCEmoticonDefault();
+            LoadCTextureSheetDefault();
         }
 
         // <CUnit default="1">
@@ -552,6 +589,18 @@ namespace HeroesData.Parser.XmlData
         private void LoadCPortraitPackDefault()
         {
             CPortraitPackElement(GameData.Elements("CPortraitPack").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+        }
+
+        // <CEmoticon default="1">
+        private void LoadCEmoticonDefault()
+        {
+            CEmoticonElement(GameData.Elements("CEmoticon").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+        }
+
+        // <CTextureSheet default="1">
+        private void LoadCTextureSheetDefault()
+        {
+            CTextureSheetElement(GameData.Elements("CTextureSheet").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         private void CUnitElement(IEnumerable<XElement> cUnitElements)
@@ -1007,6 +1056,54 @@ namespace HeroesData.Parser.XmlData
                 else if (elementName == "HYPERLINKID")
                 {
                     PortraitHyperlinkId = element.Attribute("value").Value;
+                }
+            }
+        }
+
+        private void CEmoticonElement(IEnumerable<XElement> cEmoticonElements)
+        {
+            foreach (XElement element in cEmoticonElements.Elements())
+            {
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "LOCALIZEDALIASARRAY")
+                {
+                    EmoticonLocalizedAliasArray = element.Attribute("value").Value;
+                }
+                else if (elementName == "DESCRIPTION")
+                {
+                    EmoticonDescription = element.Attribute("value").Value;
+                }
+                else if (elementName == "EXPRESSION")
+                {
+                    EmoticonExpression = element.Attribute("value").Value;
+                }
+                else if (elementName == "IMAGE")
+                {
+                    EmoticonTextureSheet = element.Attribute("TextureSheet").Value;
+                }
+            }
+        }
+
+        private void CTextureSheetElement(IEnumerable<XElement> cTextureSheetElements)
+        {
+            foreach (XElement element in cTextureSheetElements.Elements())
+            {
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "IMAGE")
+                {
+                    TextureSheetImage = element.Attribute("value").Value;
+                }
+                else if (elementName == "ROWS")
+                {
+                    if (int.TryParse(element.Attribute("value").Value, out int value))
+                        TextureSheetRows = value;
+                }
+                else if (elementName == "COLUMNS")
+                {
+                    if (int.TryParse(element.Attribute("value").Value, out int value))
+                        TextureSheetColumns = value;
                 }
             }
         }

@@ -68,7 +68,7 @@ namespace HeroesData
                 {
                     if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ALL"))
                     {
-                        App.ExtractFileOption = ExtractFileOption.Portraits | ExtractFileOption.AbilityTalents | ExtractFileOption.MatchAwards | ExtractFileOption.Announcers | ExtractFileOption.Sprays | ExtractFileOption.VoiceLines;
+                        App.ExtractFileOption = ExtractFileOption.Portraits | ExtractFileOption.AbilityTalents | ExtractFileOption.MatchAwards | ExtractFileOption.Announcers | ExtractFileOption.Sprays | ExtractFileOption.VoiceLines | ExtractFileOption.Emoticons;
                     }
                     else
                     {
@@ -87,6 +87,8 @@ namespace HeroesData
                         if (extractIconsOption.Values.Exists(x => x.ToUpper() == "SPRAYS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "SPRAY"))
                             App.ExtractFileOption |= ExtractFileOption.Sprays;
                         if (extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICELINES") || extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICELINE") || extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICE") || extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICES"))
+                            App.ExtractFileOption |= ExtractFileOption.VoiceLines;
+                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "EMOTICONS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "EMOTICON") || extractIconsOption.Values.Exists(x => x.ToUpper() == "EMOTES") || extractIconsOption.Values.Exists(x => x.ToUpper() == "EMOTE"))
                             App.ExtractFileOption |= ExtractFileOption.VoiceLines;
                     }
 

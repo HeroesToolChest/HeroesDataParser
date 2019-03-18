@@ -8,7 +8,7 @@ namespace HeroesData.ExtractorFiles
 {
     public class FilesVoiceLine : FilesExtractorBase<VoiceLine>, IFile
     {
-        private readonly SortedSet<string> VoiceLines = new SortedSet<string>();
+        private readonly HashSet<string> VoiceLines = new HashSet<string>();
 
         private readonly string VoiceDirectory = "voicelines";
 

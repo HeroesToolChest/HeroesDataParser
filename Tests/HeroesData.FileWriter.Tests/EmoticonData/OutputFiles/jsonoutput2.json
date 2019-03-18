@@ -1,0 +1,20 @@
+{
+  "lunara_angry": {
+    "expression": "Lunara Angry",
+    "description": "Use emoticons for lunara",
+    "localizedAliases": [
+      ":lunaraangry:",
+      ":lunaangry:"
+    ],
+    "aliases": [
+      ":(",
+      "(:"
+    ],
+    "heroId": "Lunara",
+    "heroSkinId": "LunaraWitch",
+    "image": "emoticon_image.png"
+  },
+  "lunara_sad": {
+    "expression": "Lunara Sad"
+  }
+}

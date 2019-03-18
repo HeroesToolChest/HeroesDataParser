@@ -8,7 +8,7 @@ namespace HeroesData.ExtractorFiles
 {
     public class FilesAnnouncer : FilesExtractorBase<Announcer>, IFile
     {
-        private readonly SortedSet<string> Announcers = new SortedSet<string>();
+        private readonly HashSet<string> Announcers = new HashSet<string>();
 
         private readonly string AnnouncerDirectory = "announcers";
 

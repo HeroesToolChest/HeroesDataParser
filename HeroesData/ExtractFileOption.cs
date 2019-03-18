@@ -14,5 +14,6 @@ namespace HeroesData
         Announcers = 1 << 5,
         Sprays = 1 << 6,
         VoiceLines = 1 << 7,
+        Emoticons = 1 << 8,
     }
 }

@@ -8,7 +8,7 @@ namespace HeroesData.ExtractorFiles
 {
     public class FilesSpray : FilesExtractorBase<Spray>, IFile
     {
-        private readonly SortedSet<string> Sprays = new SortedSet<string>();
+        private readonly HashSet<string> Sprays = new HashSet<string>();
 
         private readonly string SprayDirectory = "sprays";
 
