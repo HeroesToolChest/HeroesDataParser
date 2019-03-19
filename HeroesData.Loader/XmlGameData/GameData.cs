@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -8,6 +9,8 @@ namespace HeroesData.Loader.XmlGameData
 {
     public abstract class GameData
     {
+        private static DataTable DataTable = new DataTable();
+
         private readonly Dictionary<(string Catalog, string Entry, string Field), double> ScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
         private readonly Dictionary<string, string> GameStringById = new Dictionary<string, string>();
 
@@ -174,6 +177,46 @@ namespace HeroesData.Loader.XmlGameData
         public void AddGameString(string id, string value)
         {
             GameStringById[id] = value;
+        }
+
+        /// <summary>
+        /// Does a lookup up for a const value if one exists otherwise returns the passed value.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public string GetValueFromAttribute(string value)
+        {
+            if (value == "$DVaMechSelfDestructDetonationMinimumAccumulation")
+            {
+                string x = "";
+            }
+            if (string.IsNullOrEmpty(value))
+                return string.Empty;
+
+            if (value.StartsWith("$"))
+            {
+                XElement constElement = XmlGameData.Root.Elements("const").Where(x => x.Attribute("id")?.Value == value).FirstOrDefault();
+                if (constElement != null)
+                {
+                    string attributeValue = constElement.Attribute("value")?.Value;
+                    string isExpression = constElement.Attribute("evaluateAsExpression")?.Value;
+
+                    if (!string.IsNullOrEmpty(isExpression) && isExpression == "1")
+                    {
+                        attributeValue = attributeValue.Trim();
+                        char mathOperator = attributeValue[0];
+
+                        string variables = attributeValue.Substring(1).TrimStart('(').TrimEnd(')');
+                        string[] variablesSplit = variables.Split(' ');
+
+                        return DataTable.Compute($"{GetValueFromAttribute(variablesSplit[0])}{mathOperator}{GetValueFromAttribute(variablesSplit[1])}", string.Empty).ToString();
+                    }
+
+                    return attributeValue;
+                }
+            }
+
+            return value;
         }
 
         protected abstract void LoadCoreStormMod();

@@ -90,15 +90,15 @@ namespace HeroesData.Parser.HeroData
 
                 if (elementName == "RANGE")
                 {
-                    weapon.Range = double.Parse(element.Attribute("value")?.Value);
+                    weapon.Range = double.Parse(GameData.GetValueFromAttribute(element.Attribute("value")?.Value));
                 }
                 else if (elementName == "PERIOD")
                 {
-                    weapon.Period = double.Parse(element.Attribute("value")?.Value);
+                    weapon.Period = double.Parse(GameData.GetValueFromAttribute(element.Attribute("value")?.Value));
                 }
                 else if (elementName == "DISPLAYEFFECT")
                 {
-                    WeaponAddDamage(weapon, element.Attribute("value")?.Value);
+                    WeaponAddDamage(weapon, GameData.GetValueFromAttribute(element.Attribute("value")?.Value));
                 }
             }
 
@@ -115,7 +115,7 @@ namespace HeroesData.Parser.HeroData
                     XElement amountElement = effectDamageElement.Element("Amount");
                     if (amountElement != null)
                     {
-                        weapon.Damage = double.Parse(amountElement.Attribute("value").Value);
+                        weapon.Damage = double.Parse(GameData.GetValueFromAttribute(amountElement.Attribute("value").Value));
                     }
                 }
 

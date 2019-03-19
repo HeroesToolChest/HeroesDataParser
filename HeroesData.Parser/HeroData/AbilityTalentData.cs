@@ -146,7 +146,7 @@ namespace HeroesData.Parser.HeroData
                     XElement cooldownElement = element.Element("Cooldown");
                     if (cooldownElement != null)
                     {
-                        string cooldownValue = cooldownElement.Attribute("TimeUse")?.Value;
+                        string cooldownValue = GameData.GetValueFromAttribute(cooldownElement.Attribute("TimeUse")?.Value);
                         if (!string.IsNullOrEmpty(cooldownValue))
                         {
                             if (abilityTalentBase.Tooltip.Charges.HasCharges)
@@ -172,8 +172,8 @@ namespace HeroesData.Parser.HeroData
                     XElement vitalElement = element.Element("Vital");
                     if (vitalElement != null)
                     {
-                        string vitalIndex = vitalElement.Attribute("index").Value;
-                        string vitalValue = vitalElement.Attribute("value").Value;
+                        string vitalIndex = GameData.GetValueFromAttribute(vitalElement.Attribute("index").Value);
+                        string vitalValue = GameData.GetValueFromAttribute(vitalElement.Attribute("value").Value);
 
                         if (vitalIndex == "Energy")
                         {

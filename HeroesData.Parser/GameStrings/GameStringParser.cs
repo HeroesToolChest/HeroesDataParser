@@ -140,9 +140,10 @@ namespace HeroesData.Parser.GameStrings
                 string pathLookup = parts[i];
 
                 // get precision
-                if (pathLookup.ToLower().Contains("precision=\""))
+                if (pathLookup.ToLower().Contains("precision=\"") || pathLookup.ToLower().Contains("precision = \""))
                 {
                     pathLookup = pathLookup.Replace("Precision=\"", "precision=\"");
+                    pathLookup = pathLookup.Replace("precision = \"", "precision=\"");
                     pathLookup = GetPrecision(pathLookup, out precision);
                 }
 
@@ -462,7 +463,7 @@ namespace HeroesData.Parser.GameStrings
                     }
                     else if (currentElement.Attributes().Any(x => x.Name == parts[i]))
                     {
-                        return currentElement.Attribute(parts[i]).Value;
+                        return GameData.GetValueFromAttribute(currentElement.Attribute(parts[i]).Value);
                     }
                     else
                     {
@@ -492,19 +493,7 @@ namespace HeroesData.Parser.GameStrings
                     }
                     else if (attribute != null)
                     {
-                        string value = attribute.Value;
-
-                        // check for const value
-                        if (value.StartsWith("$"))
-                        {
-                            XElement constElement = GameData.XmlGameData.Root.Elements("const").Where(x => x.Attribute("id")?.Value == value).FirstOrDefault();
-                            if (constElement != null)
-                            {
-                                return constElement.Attribute("value")?.Value;
-                            }
-                        }
-
-                        return value;
+                        return GameData.GetValueFromAttribute(attribute.Value);
                     }
                 }
             }
@@ -538,7 +527,7 @@ namespace HeroesData.Parser.GameStrings
             ElementNames.Add("Talent", new HashSet<string> { "CTalent" });
             ElementNames.Add("Validator", new HashSet<string> { "CValidatorUnitCompareVital", "CValidatorLocationEnumArea", "CValidatorUnitCompareTokenCount", "CValidatorCompareTrackedUnitsCount", "CValidatorUnitCompareDamageTakenTime",
                 "CValidatorUnitCompareBehaviorCount", "CValidatorUnitCompareBehaviorDuration", });
-            ElementNames.Add("Accumulator", new HashSet<string> { "CAccumulatorToken", "CAccumulatorVitals", "CBehaviorTokenCounter", "CAccumulatorTimed", "CAccumulatorDistanceUnitTraveled" });
+            ElementNames.Add("Accumulator", new HashSet<string> { "CAccumulatorToken", "CAccumulatorVitals", "CBehaviorTokenCounter", "CAccumulatorTimed", "CAccumulatorDistanceUnitTraveled", "CAccumulatorDistance", "CAccumulatorTrackedUnitCount" });
             ElementNames.Add("Weapon", new HashSet<string> { "CWeaponLegacy" });
             ElementNames.Add("Actor", new HashSet<string> { "CActorQuad", "CActorRange" });
             ElementNames.Add("Armor", new HashSet<string> { "CArmor" });
