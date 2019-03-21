@@ -212,8 +212,14 @@ namespace HeroesData.ExtractorData
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.ShortTooltip?.RawDescription))
                     AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.ShortTooltip)} is null or empty");
 
+                if (!string.IsNullOrEmpty(talent.Value.Tooltip.ShortTooltip?.RawDescription) && talent.Value.Tooltip.ShortTooltip.RawDescription.Contains("<d ref=\""))
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.ShortTooltip)} could not be parsed");
+
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.RawDescription))
                     AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)} is null or empty");
+
+                if (!string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.RawDescription) && talent.Value.Tooltip.FullTooltip.RawDescription.Contains("<d ref=\""))
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)} could not be parsed");
 
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.PlainText))
                     AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainText)} is null or empty");

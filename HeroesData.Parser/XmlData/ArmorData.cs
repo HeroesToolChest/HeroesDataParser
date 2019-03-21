@@ -52,12 +52,12 @@ namespace HeroesData.Parser.XmlData
             XElement basicElement = armorElement.Element("ArmorSet").Elements("ArmorMitigationTable").FirstOrDefault(x => x.Attribute("index")?.Value == "Basic");
             XElement abilityElement = armorElement.Element("ArmorSet").Elements("ArmorMitigationTable").FirstOrDefault(x => x.Attribute("index")?.Value == "Ability");
 
-            if (basicElement != null && int.TryParse(basicElement.Attribute("value").Value, out int armorValue))
+            if (basicElement != null && int.TryParse(GameData.GetValueFromAttribute(basicElement.Attribute("value").Value), out int armorValue))
             {
                 unit.Armor.PhysicalArmor = armorValue;
             }
 
-            if (abilityElement != null && int.TryParse(abilityElement.Attribute("value").Value, out armorValue))
+            if (abilityElement != null && int.TryParse(GameData.GetValueFromAttribute(abilityElement.Attribute("value").Value), out armorValue))
             {
                 unit.Armor.SpellArmor = armorValue;
             }

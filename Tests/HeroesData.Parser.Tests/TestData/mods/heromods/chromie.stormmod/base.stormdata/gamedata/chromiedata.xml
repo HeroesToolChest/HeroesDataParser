@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <const id="$ChromieBasicAttackRange" value="7" />
+  <const id="$ChromieBasicAttackRangePlusSlop" value="+($ChromieBasicAttackRange 2.125)" evaluateAsExpression="1" />
+  <const id="$ChromieBasicAttackDamage" value="73" />
+  <const id="$ChromieSandBlastOnceAgainTheFirstTimeMaximumTokens" value="40" />
+  <const id="$PastAndFutureMeUnitRadius" value="0.5" />
+  <const id="$ChromieHereAndThereSlopDistance" value="3" />
+  <const id="$ChromieHereAndThereSlopDistanceSplat" value="+($ChromieHereAndThereSlopDistance $PastAndFutureMeUnitRadius)" evaluateAsExpression="1" />
+  <CAbilEffectTarget id="ChromieSandBlast">
+    <AbilityCategories index="TargetAcrossMapPlane" value="1" />
+    <Cost>
+      <Vital index="Energy" value="20" />
+      <Cooldown TimeUse="3" />
+    </Cost>
+    <Range value="500" />
+    <CastIntroTime value="0.5" />
+    <ShowProgressArray index="Cast" value="1" />
+    <ShowProgressArray index="Channel" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <CursorEffect value="ChromieSandBlastMissileScan" />
+    <CursorRangeFlags index="ClampMin" value="1" />
+    <CursorRangeFlags index="ClampMax" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="ChromieSandBlast">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <InterruptEffect index="Cast" value="ChromieSandBlastPastAndFutureMeControllerCreateUnit" />
+  </CAbilEffectTarget>
+  <CUnit id="HeroChromie" parent="StormHeroMounted">
+    <LifeStart value="1390" />
+    <LifeMax value="1390" />
+    <LifeRegenRate value="2.8984" />
+    <Radius value="0.625" />
+    <InnerRadius value="0.625" />
+    <WeaponArray Link="ChromieHeroWeapon" />
+  </CUnit>
+  <CHero id="Chromie">
+    <AttributeId value="Chro" />
+    <Rarity value="Legendary" />
+    <ExpandedRole value="RangedAssassin" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <HeroAbilArray Abil="ChromieSandBlast" Button="ChromieSandBlast">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+  </CHero>
+  <CButton id="ChromieSandBlast" parent="StormButtonParent">
+    <TooltipAppender Validator="ChromieSandBlastHasOnceAgainTheFirstTimeTalent" Face="ChromieSandBlastOnceAgaintheFirstTime" />
+    <TooltipAppender Validator="ChromieSandBlastHasBronzeTalonsTalent" Face="ChromieSandBlastBronzeTalons" />
+    <TooltipAppender Validator="ChromieSandBlastHasGnomeSpeedAheadTalent" Face="ChromieSandBlastGnomeSpeedAhead" />
+    <TooltipAppender Validator="ChromieHasSandBlastShiftingSandsTalent" Face="ChromieSandBlastShiftingSands" />
+    <TooltipAppender Validator="ChromieHasSandBlastFastForwardTalent" Face="ChromieSandBlastFastForward" />
+    <TooltipAppender Validator="ChromieHasSandBlastPiercingSandsTalent" Face="ChromieSandBlastPiercingSands" />
+    <Icon value="Assets\Textures\storm_ui_icon_Chromie_AetherCannon.dds" />
+  </CButton>
+  <CEffectDamage id="ChromieHeroWeaponDamage" parent="StormWeapon">
+    <MultiplicativeModifierArray index="BronzeTalons" Validator="ChromieCreatorHasBronzeTalonsBehavior" Modifier="0.3" Crit="1" />
+    <Amount value="$ChromieBasicAttackDamage" />
+  </CEffectDamage>
+  <CWeaponLegacy id="ChromieHeroWeapon" parent="StormHeroMediumWeapon">
+    <DisplayEffect value="ChromieHeroWeaponDamage" />
+    <MinScanRange value="$ChromieBasicAttackRange" />
+    <Range value="$ChromieBasicAttackRange" />
+    <Period value="1" />
+    <PreswingBeforeAttack value="$ChromieWeaponPreSwing" />
+    <PreswingBetweenAttacks value="$ChromieWeaponPreSwing" />
+    <Effect value="ChromieHeroWeaponInitialSet" />
+  </CWeaponLegacy>
+</Catalog>

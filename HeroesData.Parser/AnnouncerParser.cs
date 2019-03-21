@@ -145,7 +145,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "TILETEXTURE")
                 {
-                    announcer.ImageFileName = Path.GetFileName(PathExtensions.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                    announcer.ImageFileName = Path.GetFileName(PathHelpers.GetFilePath(element.Attribute("value")?.Value)).ToLower();
 
                     if (!string.IsNullOrEmpty(heroId))
                         announcer.ImageFileName = announcer.ImageFileName.Replace(DefaultData.HeroIdPlaceHolder, heroId).ToLower();

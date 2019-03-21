@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
+  <const id="$DVaMechSelfDestructDetonationMaximumDamage" value="1200" />
+  <const id="$DVaMechSelfDestructDetonationMinimumDamage" value="400" />
+  <const id="$DVaMechSelfDestructDetonationRadius" value="10" />
+  <const id="$DVaMechSelfDestructDetonationMinimumAccumulation" value="-($DVaMechSelfDestructDetonationMinimumDamage $DVaMechSelfDestructDetonationMaximumDamage)" evaluateAsExpression="1" />
+  <const id="$DVaMechSelfDestructDetonationDistanceScaler" value="/($DVaMechSelfDestructDetonationMinimumAccumulation $DVaMechSelfDestructDetonationRadius)" evaluateAsExpression="1" />
   <CEffectDamage id="DVaPilotBigShotPewPewPewDamage" parent="StormSpell">
     <Amount value="125" />
   </CEffectDamage>
@@ -20,7 +25,120 @@
     <PeriodicPeriodArray value="0.25" />
     <PeriodicPeriodArray value="0.25" />
   </CEffectCreatePersistent>
+  <CAbilEffectInstant id="DVaMechSelfDestruct">
+    <Cost>
+      <Charge>
+        <CountMax value="100" />
+        <CountUse value="100" />
+        <HideCount value="1" />
+        <Location value="Player" />
+      </Charge>
+      <Cooldown Location="Player" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="DVaMechSelfDestruct" Requirements="DVaMechAbilityUseRequirement" />
+  </CAbilEffectInstant>
+  <CBehaviorBuff id="DVaMechSelfDestructMechDetonationCountdown">
+    <Duration value="4" />
+    <InitialEffect value="DVaMechSelfDestructBehaviorInitialSet" />
+    <FinalEffect value="DVaMechSelfDestructDetonationSet" />
+    <Modification>
+      <StateFlags index="Hallucination" value="1" />
+      <StateFlags index="Benign" value="1" />
+      <StateFlags index="UnitAttrOnImmuneToFriendlyAbilities" value="1" />
+      <StateFlags index="Uncommandable" value="1" />
+      <BehaviorCategoriesDisable index="TemporaryCloak" value="1" />
+      <BehaviorLinkDisableArray value="DVaMechFatalDamageDisabledTimeout" />
+      <BehaviorLinkDisableArray value="AbathurUltimateEvolutionControlBehavior" />
+      <BehaviorLinkDisableArray value="AbathurSymbioteHostBehavior" />
+      <WeaponDisableArray value="DVaMechWeapon" />
+      <TurretDisableArray value="DVaMechWeaponTurret" />
+    </Modification>
+    <DamageResponse>
+      <Chance value="1" />
+      <Priority value="95" />
+      <Fatal value="1" />
+      <RecordBehaviorShieldDamage value="1" />
+      <ModifyFraction value="0" />
+    </DamageResponse>
+  </CBehaviorBuff>
+  <CEffectDamage id="DVaMechSelfDestructDetonationSearchDamage" parent="StormSpell">
+    <ValidatorArray value="noMarkers" />
+    <MultiplicativeModifierArray index="DVaNuclearOptionDamageBonus" Validator="DVaSelfDestructNuclearOptionHasTalent" Modifier="0.7" />
+    <AttributeFactor index="Structure" value="-0.5" />
+    <SourceButtonFace value="DVaMechSelfDestruct" />
+    <FlatModifierArray index="DistanceScaler" Accumulator="DVaSelfDestructDistanceAccumulator" />
+    <Amount value="$DVaMechSelfDestructDetonationMaximumDamage" />
+  </CEffectDamage>
+  <CEffectDamage id="DVaMechSelfDestructDetonationSearchDamage" parent="StormSpell">
+    <ValidatorArray value="noMarkers" />
+    <MultiplicativeModifierArray index="DVaNuclearOptionDamageBonus" Validator="DVaSelfDestructNuclearOptionHasTalent" Modifier="0.7" />
+    <AttributeFactor index="Structure" value="-0.5" />
+    <SourceButtonFace value="DVaMechSelfDestruct" />
+    <FlatModifierArray index="DistanceScaler" Accumulator="DVaSelfDestructDistanceAccumulator" />
+    <Amount value="$DVaMechSelfDestructDetonationMaximumDamage" />
+  </CEffectDamage>
+  <CAccumulatorDistance id="DVaSelfDestructDistanceAccumulator" parent="BaseAccumulator">
+    <MaxAccumulation value="0" />
+    <StartLocation>
+      <Effect value="DVaMechSelfDestructDetonationSearchDamage" />
+      <Value value="SourceUnitOrPoint" />
+      <ProjectionSourceEffect value="DVaMechSelfDestructDetonationSearchDamage" />
+      <ProjectionSourceValue value="SourceUnitOrPoint" />
+      <ProjectionTargetValue value="SourceUnitOrPoint" />
+    </StartLocation>
+    <EndLocation>
+      <Effect value="DVaMechSelfDestructDetonationSearchDamage" />
+      <Value value="TargetUnitOrPoint" />
+      <ProjectionSourceEffect value="DVaMechSelfDestructDetonationSearchDamage" />
+      <ProjectionSourceValue value="TargetUnitOrPoint" />
+      <ProjectionTargetValue value="TargetUnitOrPoint" />
+      <UsesLineDash value="1" />
+    </EndLocation>
+    <ApplicationRule value="Add" />
+    <MinAccumulation value="$DVaMechSelfDestructDetonationMinimumAccumulation" />
+    <Scale value="$DVaMechSelfDestructDetonationDistanceScaler" />
+  </CAccumulatorDistance>
+  <CEffectDamage id="DVaMechSelfDestructDetonationSearchDamage" parent="StormSpell">
+    <ValidatorArray value="noMarkers" />
+    <MultiplicativeModifierArray index="DVaNuclearOptionDamageBonus" Validator="DVaSelfDestructNuclearOptionHasTalent" Modifier="0.7" />
+    <AttributeFactor index="Structure" value="-0.5" />
+    <SourceButtonFace value="DVaMechSelfDestruct" />
+    <FlatModifierArray index="DistanceScaler" Accumulator="DVaSelfDestructDistanceAccumulator" />
+    <Amount value="$DVaMechSelfDestructDetonationMaximumDamage" />
+  </CEffectDamage>
+  
+  <CUnit id="HeroDVaMech" parent="StormHeroMountedCustom">
+    <DeathTime value="1" />
+    <DefaultAcquireLevel value="Passive" />
+    <LifeStart value="2000" />
+    <LifeMax value="2000" />
+    <LifeRegenRate value="4.168" />
+    <EnergyStart value="0" />
+    <EnergyMax value="100" />
+    <EnergyRegenRate value="0" />
+  </CUnit>
 
+  <CHero id="DVa">
+    <AIComplexityTier value="Mid" />
+    <AttributeId value="DVA0" />
+    <Flags index="GoodForModeA" value="1" />
+    <Model value="HeroDVaPilot" />
+    <Unit value="HeroDVaPilot" />
+    <RolesMultiClass value="Warrior" />
+    <RoleScoreValueOverride value="Warrior" />
+    <HeroAbilArray Abil="DVaMechSelfDestruct" Button="DVaMechSelfDestruct">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+  </CHero>
+
+  <CButton id="DVaMechSelfDestruct" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_dva_selfdestruct.dds" />
+    <TooltipAppender Validator="DVaSelfDestructComeMeAtHasTalent" Face="DVaSelfDestructBringItOn" />
+    <TooltipAppender Validator="DVaSelfDestructNuclearOptionHasTalent" Face="DVaSelfDestructNuclearOption" />
+  </CButton>
+  
   <LevelScalingArray Ability="DVaPilotBigShot">
     <Modifications>
       <Catalog value="Effect" />

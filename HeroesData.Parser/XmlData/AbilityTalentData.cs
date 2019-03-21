@@ -59,20 +59,20 @@ namespace HeroesData.Parser.XmlData
                         if (countMaxElement != null || countStartElement != null || countUseElement != null || hideCountElement != null || timeUseElement != null)
                         {
                             if (countMaxElement != null)
-                                abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(countMaxElement.Attribute("value").Value);
+                                abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(GameData.GetValueFromAttribute(countMaxElement.Attribute("value").Value));
 
                             if (countStartElement != null)
-                                abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(countStartElement.Attribute("value").Value);
+                                abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(GameData.GetValueFromAttribute(countStartElement.Attribute("value").Value));
 
                             if (countUseElement != null)
-                                abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(countUseElement.Attribute("value").Value);
+                                abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(GameData.GetValueFromAttribute(countUseElement.Attribute("value").Value));
 
                             if (hideCountElement != null)
-                                abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountElement.Attribute("value").Value) == 1 ? true : false;
+                                abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(GameData.GetValueFromAttribute(hideCountElement.Attribute("value").Value)) == 1 ? true : false;
 
                             if (timeUseElement != null)
                             {
-                                string cooldownValue = timeUseElement.Attribute("value").Value;
+                                string cooldownValue = GameData.GetValueFromAttribute(timeUseElement.Attribute("value").Value);
 
                                 string replaceText = string.Empty;
                                 if (abilityTalentBase.Tooltip.Charges.CountMax.HasValue && abilityTalentBase.Tooltip.Charges.CountMax.Value > 1)
@@ -102,16 +102,16 @@ namespace HeroesData.Parser.XmlData
                             XAttribute hideCountAttribute = chargeElement.Attribute("HideCount");
                             XAttribute timeUseAttribute = chargeElement.Attribute("TimeUse");
                             if (countMaxAttribute != null)
-                                abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(countMaxAttribute.Value);
+                                abilityTalentBase.Tooltip.Charges.CountMax = int.Parse(GameData.GetValueFromAttribute(countMaxAttribute.Value));
 
                             if (countStartAttribute != null)
-                                abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(countStartAttribute.Value);
+                                abilityTalentBase.Tooltip.Charges.CountStart = int.Parse(GameData.GetValueFromAttribute(countStartAttribute.Value));
 
                             if (countUseAttribute != null)
-                                abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(countUseAttribute.Value);
+                                abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(GameData.GetValueFromAttribute(countUseAttribute.Value));
 
                             if (hideCountAttribute != null)
-                                abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(hideCountAttribute.Value) == 1 ? true : false;
+                                abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(GameData.GetValueFromAttribute(hideCountAttribute.Value)) == 1 ? true : false;
 
                             if (timeUseAttribute != null)
                             {
@@ -146,7 +146,7 @@ namespace HeroesData.Parser.XmlData
                     XElement cooldownElement = element.Element("Cooldown");
                     if (cooldownElement != null)
                     {
-                        string cooldownValue = cooldownElement.Attribute("TimeUse")?.Value;
+                        string cooldownValue = GameData.GetValueFromAttribute(cooldownElement.Attribute("TimeUse")?.Value);
                         if (!string.IsNullOrEmpty(cooldownValue))
                         {
                             if (abilityTalentBase.Tooltip.Charges.HasCharges)
@@ -172,8 +172,8 @@ namespace HeroesData.Parser.XmlData
                     XElement vitalElement = element.Element("Vital");
                     if (vitalElement != null)
                     {
-                        string vitalIndex = vitalElement.Attribute("index").Value;
-                        string vitalValue = vitalElement.Attribute("value").Value;
+                        string vitalIndex = GameData.GetValueFromAttribute(vitalElement.Attribute("index").Value);
+                        string vitalValue = GameData.GetValueFromAttribute(vitalElement.Attribute("value").Value);
 
                         if (vitalIndex == "Energy")
                         {
@@ -236,7 +236,7 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "ICON")
                 {
-                    abilityTalentBase.IconFileName = Path.GetFileName(PathExtensions.GetFilePath(element.Attribute("value").Value));
+                    abilityTalentBase.IconFileName = Path.GetFileName(PathHelpers.GetFilePath(element.Attribute("value").Value));
                 }
                 else if (elementName == "TOOLTIP")
                 {
@@ -245,7 +245,7 @@ namespace HeroesData.Parser.XmlData
                     if (GameData.TryGetGameString(fullTooltipValue, out string fullDescription))
                     {
                         abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription, Localization);
-                        abilityTalentBase.FullTooltipNameId = Path.GetFileName(PathExtensions.GetFilePath(fullTooltipValue));
+                        abilityTalentBase.FullTooltipNameId = Path.GetFileName(PathHelpers.GetFilePath(fullTooltipValue));
                     }
                 }
                 else if (elementName == "SIMPLEDISPLAYTEXT")
@@ -255,7 +255,7 @@ namespace HeroesData.Parser.XmlData
                     if (GameData.TryGetGameString(shortTooltipValue, out string shortDescription))
                     {
                         abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription, Localization);
-                        abilityTalentBase.ShortTooltipNameId = Path.GetFileName(PathExtensions.GetFilePath(shortTooltipValue));
+                        abilityTalentBase.ShortTooltipNameId = Path.GetFileName(PathHelpers.GetFilePath(shortTooltipValue));
                     }
                 }
                 else if (elementName == "TOOLTIPVITALNAME")

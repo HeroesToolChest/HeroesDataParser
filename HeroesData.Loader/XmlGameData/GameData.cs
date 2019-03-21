@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HeroesData.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -235,6 +236,42 @@ namespace HeroesData.Loader.XmlGameData
             }
 
             return elementList;
+        }
+
+        /// <summary>
+        /// Does a lookup up for a const value if one exists otherwise returns the passed value.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public string GetValueFromAttribute(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return string.Empty;
+
+            if (value.StartsWith("$"))
+            {
+                XElement constElement = XmlGameData.Root.Elements("const").Where(x => x.Attribute("id")?.Value == value).FirstOrDefault();
+                if (constElement != null)
+                {
+                    string attributeValue = constElement.Attribute("value")?.Value;
+                    string isExpression = constElement.Attribute("evaluateAsExpression")?.Value;
+
+                    if (!string.IsNullOrEmpty(attributeValue) && !string.IsNullOrEmpty(isExpression) && isExpression == "1")
+                    {
+                        ReadOnlySpan<char> attributeValueSpan = attributeValue.AsSpan().Trim();
+                        char mathOperator = attributeValueSpan[0];
+
+                        ReadOnlySpan<char> variables = attributeValueSpan.Slice(1).TrimStart('(').TrimEnd(')');
+                        int indexOfSplit = variables.IndexOf(' ');
+
+                        return HeroesMathEval.CalculatePathEquation($"{GetValueFromAttribute(variables.Slice(0, indexOfSplit).ToString())}{mathOperator}{GetValueFromAttribute(variables.Slice(indexOfSplit + 1).ToString())}").ToString();
+                    }
+
+                    return attributeValue;
+                }
+            }
+
+            return value;
         }
 
         protected abstract void LoadCoreStormMod();

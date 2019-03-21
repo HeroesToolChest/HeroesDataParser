@@ -58,19 +58,19 @@ namespace HeroesData.Parser.GameStrings
                 parsedTooltip = ParseTooltip(key, tooltip);
 
                 // unable to parse correctly, returns an empty string
-                if (parsedTooltip.Contains("<d ref="))
+                if (parsedTooltip.Contains("<d ref=", StringComparison.OrdinalIgnoreCase))
                     parsedTooltip = string.Empty;
 
                 return true;
             }
             catch (UnparseableException)
             {
-                parsedTooltip = null;
+                parsedTooltip = string.Empty;
                 return false;
             }
             catch (Exception)
             {
-                parsedTooltip = null;
+                parsedTooltip = string.Empty;
                 return false;
             }
         }
@@ -88,8 +88,7 @@ namespace HeroesData.Parser.GameStrings
         private string ParseTooltip(string referenceNameId, string tooltip)
         {
             tooltip = Regex.Replace(tooltip, @"<d score=.*?/>", "0");
-            tooltip = tooltip.Replace("<D ref=", "<d ref=");
-            tooltip = tooltip.Replace("<d ref= \"", "<d ref=\"");
+            tooltip = Regex.Replace(tooltip, "<d\\s+ref\\s*=\\s*\"", "<d ref=\"", RegexOptions.IgnoreCase);
 
             if (tooltip.Contains("<d ref="))
             {
@@ -128,27 +127,13 @@ namespace HeroesData.Parser.GameStrings
                         continue;
                 }
 
-                int? precision = null;
-
                 string pathLookup = parts[i];
 
-                // get precision
-                if (pathLookup.Contains("precision=\"", StringComparison.OrdinalIgnoreCase))
-                {
-                    pathLookup = pathLookup.Replace("Precision=\"", "precision=\"");
-                    pathLookup = GetPrecision(pathLookup, out precision);
-                }
+                // get and remove precision
+                pathLookup = GetPrecision(pathLookup, out int? precision);
 
                 // remove the player
-                if (pathLookup.Contains("player=\"", StringComparison.OrdinalIgnoreCase) || pathLookup.Contains("player =\"", StringComparison.OrdinalIgnoreCase))
-                {
-                    if (pathLookup.Contains("player =\"", StringComparison.OrdinalIgnoreCase))
-                        pathLookup = pathLookup.Replace("player =\"", "player=\"");
-                    else
-                        pathLookup = pathLookup.Replace("Player=\"", "player=\"");
-
-                    pathLookup = GetPlayer(pathLookup, out int? player);
-                }
+                pathLookup = GetPlayer(pathLookup, out int? player);
 
                 // perform xml data lookup to find values
                 string mathPath = ParseValues(pathLookup.AsMemory());
@@ -215,12 +200,8 @@ namespace HeroesData.Parser.GameStrings
 
         private double? ParseDataReferenceString(string dRef)
         {
-            int? precision = null;
-
-            if (dRef.ToLower().Contains("precision=\""))
-            {
-                dRef = GetPrecision(dRef, out precision);
-            }
+            dRef = GetPrecision(dRef, out int? precision);
+            dRef = GetPlayer(dRef, out int? player);
 
             dRef = ParseValues(dRef.AsMemory());
 
@@ -247,44 +228,50 @@ namespace HeroesData.Parser.GameStrings
 
         private string GetPrecision(string pathPart, out int? precision)
         {
+            precision = null;
+
             // get the precision string first
-            Regex regex = new Regex("precision=\".*?\"");
+            Regex regex = new Regex("precision\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
             MatchCollection precisionMatches = regex.Matches(pathPart);
 
-            if (precisionMatches.Count != 1)
-                throw new Exception("GetPrecision: invalid matches found");
+            if (precisionMatches.Count > 0)
+            {
+                // now get the value
+                regex = new Regex("\".*?\"");
+                MatchCollection match = regex.Matches(precisionMatches[0].Value);
 
-            // now get the value
-            regex = new Regex("\".*?\"");
-            MatchCollection match = regex.Matches(precisionMatches[0].Value);
+                precision = int.Parse(match[0].Value.AsSpan().Trim('"'));
 
-            precision = int.Parse(match[0].Value.AsSpan().Trim('"'));
+                // remove precision text
+                pathPart = pathPart.Replace(precisionMatches[0].Value, string.Empty);
+            }
 
-            // remove precision text
-            pathPart = pathPart.Replace(precisionMatches[0].Value, string.Empty);
             return pathPart;
         }
 
         private string GetPlayer(string pathPart, out int? player)
         {
+            player = null;
+
             // get the player string first
-            Regex regex = new Regex("player=\".*?\"");
+            Regex regex = new Regex("player\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
             MatchCollection playerMatches = regex.Matches(pathPart);
 
-            if (playerMatches.Count != 1)
-                throw new Exception("GetPlayer: invalid matches found");
+            if (playerMatches.Count > 0)
+            {
+                // now get the value
+                regex = new Regex("\".*?\"");
+                MatchCollection match = regex.Matches(playerMatches[0].Value);
 
-            // now get the value
-            regex = new Regex("\".*?\"");
-            MatchCollection match = regex.Matches(playerMatches[0].Value);
+                if (int.TryParse(match[0].Value.AsSpan().Trim('"'), out int playerNum))
+                    player = playerNum;
+                else
+                    player = null;
 
-            if (int.TryParse(match[0].Value.AsSpan().Trim('"'), out int playerNum))
-                player = playerNum;
-            else
-                player = null;
+                // remove player text
+                pathPart = pathPart.Replace(playerMatches[0].Value, string.Empty);
+            }
 
-            // remove player text
-            pathPart = pathPart.Replace(playerMatches[0].Value, string.Empty);
             return pathPart;
         }
 
@@ -441,7 +428,7 @@ namespace HeroesData.Parser.GameStrings
                     }
                     else if (currentElement.Attributes().Any(x => x.Name == parts[i]))
                     {
-                        return currentElement.Attribute(parts[i]).Value;
+                        return GameData.GetValueFromAttribute(currentElement.Attribute(parts[i]).Value);
                     }
                     else
                     {
@@ -471,19 +458,7 @@ namespace HeroesData.Parser.GameStrings
                     }
                     else if (attribute != null)
                     {
-                        string value = attribute.Value;
-
-                        // check for const value
-                        if (value.StartsWith("$"))
-                        {
-                            XElement constElement = GameData.Elements("const").Where(x => x.Attribute("id")?.Value == value).FirstOrDefault();
-                            if (constElement != null)
-                            {
-                                return constElement.Attribute("value")?.Value;
-                            }
-                        }
-
-                        return value;
+                        return GameData.GetValueFromAttribute(attribute.Value);
                     }
                 }
             }
@@ -584,7 +559,7 @@ namespace HeroesData.Parser.GameStrings
             ElementNames.Add("Talent", new HashSet<string> { "CTalent" });
             ElementNames.Add("Validator", new HashSet<string> { "CValidatorUnitCompareVital", "CValidatorLocationEnumArea", "CValidatorUnitCompareTokenCount", "CValidatorCompareTrackedUnitsCount", "CValidatorUnitCompareDamageTakenTime",
                 "CValidatorUnitCompareBehaviorCount", "CValidatorUnitCompareBehaviorDuration", });
-            ElementNames.Add("Accumulator", new HashSet<string> { "CAccumulatorToken", "CAccumulatorVitals", "CBehaviorTokenCounter", "CAccumulatorTimed", "CAccumulatorDistanceUnitTraveled" });
+            ElementNames.Add("Accumulator", new HashSet<string> { "CAccumulatorToken", "CAccumulatorVitals", "CBehaviorTokenCounter", "CAccumulatorTimed", "CAccumulatorDistanceUnitTraveled", "CAccumulatorDistance", "CAccumulatorTrackedUnitCount" });
             ElementNames.Add("Weapon", new HashSet<string> { "CWeaponLegacy" });
             ElementNames.Add("Actor", new HashSet<string> { "CActorQuad", "CActorRange" });
             ElementNames.Add("Armor", new HashSet<string> { "CArmor" });

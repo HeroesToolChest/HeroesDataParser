@@ -10,9 +10,9 @@ namespace HeroesData.Helpers.Tests
         public void GetWindowsFilePathTest()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                Assert.AreEqual(@"test\to\filePath\", PathExtensions.GetFilePath(@"test\to\filePath\"));
+                Assert.AreEqual(@"test\to\filePath\", PathHelpers.GetFilePath(@"test\to\filePath\"));
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                Assert.AreEqual("test/to/filePath/", PathExtensions.GetFilePath(@"test\to\filePath\"));
+                Assert.AreEqual("test/to/filePath/", PathHelpers.GetFilePath(@"test\to\filePath\"));
         }
     }
 }

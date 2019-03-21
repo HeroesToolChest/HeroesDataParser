@@ -106,7 +106,7 @@ namespace HeroesData.Loader.XmlGameData
                 string valuePath = pathElement.Attribute("value")?.Value?.ToLower();
                 if (!string.IsNullOrEmpty(valuePath))
                 {
-                    valuePath = PathExtensions.GetFilePath(valuePath);
+                    valuePath = PathHelpers.GetFilePath(valuePath);
                     valuePath = valuePath.Remove(0, 5); // remove 'mods/'
 
                     if (valuePath.StartsWith(HeroesModsDiretoryName))
@@ -186,7 +186,7 @@ namespace HeroesData.Loader.XmlGameData
                 string pathValue = catalogElement.Attribute("path")?.Value?.ToLower();
                 if (!string.IsNullOrEmpty(pathValue))
                 {
-                    pathValue = PathExtensions.GetFilePath(pathValue);
+                    pathValue = PathHelpers.GetFilePath(pathValue);
 
                     if (pathValue.Contains("gamedata/"))
                     {

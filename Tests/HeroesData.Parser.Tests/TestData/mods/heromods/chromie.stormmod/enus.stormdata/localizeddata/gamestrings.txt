@@ -1,0 +1,7 @@
+﻿Hero/Description/Chromie=A long range, high burst damage Mage, who requires good timing and setup.
+Hero/Name/Chromie=Chromie
+
+Abil/Name/ChromieSandBlast=Sand Blast
+Button/Name/ChromieSandBlast=Sand Blast
+Button/SimpleDisplayText/ChromieSandBlast=Fire a long range blast that damages an enemy
+Button/Tooltip/ChromieSandBlast=Fire a sand chicken

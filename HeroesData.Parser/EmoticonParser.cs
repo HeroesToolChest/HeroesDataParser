@@ -172,7 +172,7 @@ namespace HeroesData.Parser
 
                 if (elementName == "IMAGE")
                 {
-                    textureSheet.Image = Path.GetFileName(PathExtensions.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                    textureSheet.Image = Path.GetFileName(PathHelpers.GetFilePath(element.Attribute("value")?.Value)).ToLower();
                 }
                 else if (elementName == "ROWS")
                 {
