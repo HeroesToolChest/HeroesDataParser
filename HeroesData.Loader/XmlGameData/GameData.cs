@@ -186,10 +186,6 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public string GetValueFromAttribute(string value)
         {
-            if (value == "$DVaMechSelfDestructDetonationMinimumAccumulation")
-            {
-                string x = "";
-            }
             if (string.IsNullOrEmpty(value))
                 return string.Empty;
 
