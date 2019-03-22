@@ -9,7 +9,7 @@ namespace HeroesData.Parser.Tests.PortraitParserTests
         public void PropertiesTests()
         {
             Assert.AreEqual("Bikini Stitches Portrait", StitchesPortraitSummer.Name);
-            Assert.IsNull(StitchesPortraitSummer.SortName);
+            Assert.IsTrue(string.IsNullOrEmpty(StitchesPortraitSummer.SortName));
             Assert.AreEqual("StitchesPortraitSummer", StitchesPortraitSummer.HyperlinkId);
             Assert.AreEqual("SunsOutGunsOut", StitchesPortraitSummer.EventName);
         }

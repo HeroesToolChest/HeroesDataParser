@@ -113,7 +113,7 @@ namespace HeroesData.ExtractorData
             if (hero.Roles.Contains("Unknown"))
                 AddWarning($"{nameof(hero.Roles)} is Unknown");
 
-            if (string.IsNullOrEmpty(hero.ExpandedRole))
+            if (Parser.HotsBuild.GetValueOrDefault(0) >= 72880 && string.IsNullOrEmpty(hero.ExpandedRole))
                 AddWarning($"{nameof(hero.ExpandedRole)} is null or empty");
 
             if (hero.Abilities.Count < 1)

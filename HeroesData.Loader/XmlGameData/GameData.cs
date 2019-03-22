@@ -140,7 +140,7 @@ namespace HeroesData.Loader.XmlGameData
             if (GameStringById.TryGetValue(id, out string value))
                 return value;
             else
-                return null;
+                return string.Empty;
         }
 
         /// <summary>
