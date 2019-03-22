@@ -6,6 +6,12 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
     public class ChromieTests : HeroDataParserBaseTest
     {
         [TestMethod]
+        public void PropertiesTests()
+        {
+            Assert.AreEqual("Ranged Assassin", HeroChromie.ExpandedRole);
+        }
+
+        [TestMethod]
         public void WeaponTests()
         {
             Assert.AreEqual(73, HeroChromie.Weapons[0].Damage);

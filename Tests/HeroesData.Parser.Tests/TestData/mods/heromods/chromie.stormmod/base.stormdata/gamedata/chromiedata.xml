@@ -46,6 +46,7 @@
       <Flags index="AffectedByCooldownReduction" value="1" />
       <Flags index="AffectedByOverdrive" value="1" />
     </HeroAbilArray>
+    <ExpandedRole value="RangedAssassin" />
   </CHero>
   <CButton id="ChromieSandBlast" parent="StormButtonParent">
     <TooltipAppender Validator="ChromieSandBlastHasOnceAgainTheFirstTimeTalent" Face="ChromieSandBlastOnceAgaintheFirstTime" />

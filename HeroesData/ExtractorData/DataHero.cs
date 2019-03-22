@@ -113,6 +113,9 @@ namespace HeroesData.ExtractorData
             if (hero.Roles.Contains("Unknown"))
                 AddWarning($"{nameof(hero.Roles)} is Unknown");
 
+            if (string.IsNullOrEmpty(hero.ExpandedRole))
+                AddWarning($"{nameof(hero.ExpandedRole)} is null or empty");
+
             if (hero.Abilities.Count < 1)
                 AddWarning("Hero has no abilities");
 

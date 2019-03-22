@@ -120,6 +120,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
                     EnergyRegenerationRate = 3,
                 },
                 Roles = new List<string> { "Assassin", "Warrior" },
+                ExpandedRole = "Melee Assassin",
                 Ratings = new HeroRatings()
                 {
                     Complexity = 8,

@@ -24,6 +24,7 @@
     <HeroAbilArray Abil="AurielSacredSweep" Button="AurielSacredSweep">
       <Flags index="ShowInHeroSelect" value="1" />
     </HeroAbilArray>
+    <ExpandedRole value="Healer" />
   </CHero>
   <CActorUnit id="HeroAuriel" parent="StormHeroBase" unitName="HeroAuriel">
     <VitalNames index="Energy" value="UI/HeroEnergyType/StoredHealing" />

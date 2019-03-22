@@ -53,6 +53,8 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
             if (hero.Roles != null && hero.Roles.Count > 0)
                 GameStringWriter.AddUnitRole(hero.Id, string.Join(",", hero.Roles));
+
+            GameStringWriter.AddUnitExpandedRole(hero.Id, hero.ExpandedRole);
         }
 
         protected void AddLocalizedGameString(AbilityTalentBase abilityTalentBase)

@@ -33,6 +33,7 @@
       <Role>Assassin</Role>
       <Role>Warrior</Role>
     </Roles>
+    <ExpandedRole>Melee Assassin</ExpandedRole>
     <Ratings complexity="8" damage="7" survivability="6" utility="7" />
     <Weapons>
       <HeroWeaponAlarak range="1.5" period="1.2">

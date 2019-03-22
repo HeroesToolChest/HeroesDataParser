@@ -10,6 +10,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void BasicPropertiesTests()
         {
             Assert.AreEqual("SummonMount", HeroAuriel.MountLinkId);
+            Assert.AreEqual("Healer", HeroAuriel.ExpandedRole);
         }
 
         [TestMethod]

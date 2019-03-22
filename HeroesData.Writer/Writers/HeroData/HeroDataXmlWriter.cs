@@ -50,6 +50,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 UnitEnergy(hero),
                 UnitArmor(hero),
                 hero.Roles?.Count > 0 && !FileOutputOptions.IsLocalizedText ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
+                string.IsNullOrEmpty(hero.ExpandedRole) || FileOutputOptions.IsLocalizedText ? null : new XElement("ExpandedRole", hero.ExpandedRole),
                 HeroRatings(hero),
                 UnitWeapons(hero),
                 UnitAbilities(hero, false),
