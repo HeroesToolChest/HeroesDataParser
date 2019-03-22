@@ -288,6 +288,8 @@ namespace HeroesData.Loader.XmlGameData
                 else
                     ReadTextFile(reader);
             }
+
+            TextFileCount++;
         }
 
         protected void LoadTextFile(Stream fileStream, bool isMapFile = false)
