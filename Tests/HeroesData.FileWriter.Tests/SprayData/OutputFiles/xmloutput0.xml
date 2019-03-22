@@ -4,9 +4,11 @@
     <SortName>33CarbotLiLi</SortName>
     <SearchText>Carbot Li LI</SearchText>
     <Description>Carbot spray of Li Li</Description>
+    <Image>carbotspray.png</Image>
   </CarbotLiLi>
   <CarbotChen name="Carbot Chen" hyperlinkId="CarbotChenId" attributeId="CCH" rarity="Epic" category="HeroStorm" releaseDate="2016-05-21">
     <SortName>33CarbotChen</SortName>
     <SearchText>Carbot Chen</SearchText>
+    <Image>carbotspray.png</Image>
   </CarbotChen>
 </Sprays>

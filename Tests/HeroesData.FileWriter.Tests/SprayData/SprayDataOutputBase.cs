@@ -25,6 +25,7 @@ namespace HeroesData.FileWriter.Tests.SprayData
                 ReleaseDate = new DateTime(2016, 5, 21),
                 CollectionCategory = "HeroStorm",
                 EventName = "Carbot",
+                ImageFileName = "carbotspray.png",
             };
 
             TestData.Add(spray);
@@ -40,6 +41,7 @@ namespace HeroesData.FileWriter.Tests.SprayData
                 HyperlinkId = "CarbotChenId",
                 ReleaseDate = new DateTime(2016, 5, 21),
                 CollectionCategory = "HeroStorm",
+                ImageFileName = "carbotspray.png",
             };
 
             TestData.Add(spray2);

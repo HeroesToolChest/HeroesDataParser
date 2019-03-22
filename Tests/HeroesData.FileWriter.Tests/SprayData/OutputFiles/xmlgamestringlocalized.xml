@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Sprays>
-  <CarbotLiLi hyperlinkId="CarbotLiLiId" attributeId="CLL" rarity="Rare" category="HeroStorm" event="Carbot" releaseDate="2016-05-21" />
-  <CarbotChen hyperlinkId="CarbotChenId" attributeId="CCH" rarity="Epic" category="HeroStorm" releaseDate="2016-05-21" />
+  <CarbotLiLi hyperlinkId="CarbotLiLiId" attributeId="CLL" rarity="Rare" category="HeroStorm" event="Carbot" releaseDate="2016-05-21">
+    <Image>carbotspray.png</Image>
+  </CarbotLiLi>
+  <CarbotChen hyperlinkId="CarbotChenId" attributeId="CCH" rarity="Epic" category="HeroStorm" releaseDate="2016-05-21">
+    <Image>carbotspray.png</Image>
+  </CarbotChen>
 </Sprays>

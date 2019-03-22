@@ -40,7 +40,8 @@ namespace HeroesData.FileWriter.Writers.AnnouncerData
             if (!string.IsNullOrEmpty(announcer.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 announcerObject.Add("description", GetTooltip(announcer.Description, FileOutputOptions.DescriptionType));
 
-            announcerObject.Add("image", Path.ChangeExtension(announcer.ImageFileName, ImageExtension));
+            if (!string.IsNullOrEmpty(announcer.ImageFileName))
+                announcerObject.Add("image", Path.ChangeExtension(announcer.ImageFileName, ImageExtension));
 
             return new JProperty(announcer.Id, announcerObject);
         }

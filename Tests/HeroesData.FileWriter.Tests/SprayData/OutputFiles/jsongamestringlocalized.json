@@ -5,13 +5,15 @@
     "rarity": "Rare",
     "category": "HeroStorm",
     "event": "Carbot",
-    "releaseDate": "2016-05-21"
+    "releaseDate": "2016-05-21",
+    "image": "carbotspray.png"
   },
   "CarbotChen": {
     "hyperlinkId": "CarbotChenId",
     "attributeId": "CCH",
     "rarity": "Epic",
     "category": "HeroStorm",
-    "releaseDate": "2016-05-21"
+    "releaseDate": "2016-05-21",
+    "image": "carbotspray.png"
   }
 }

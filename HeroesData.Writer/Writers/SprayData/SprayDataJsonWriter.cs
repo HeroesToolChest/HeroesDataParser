@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace HeroesData.FileWriter.Writers.SprayData
 {
@@ -39,6 +40,9 @@ namespace HeroesData.FileWriter.Writers.SprayData
 
             if (!string.IsNullOrEmpty(spray.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 sprayObject.Add("description", GetTooltip(spray.Description, FileOutputOptions.DescriptionType));
+
+            if (!string.IsNullOrEmpty(spray.ImageFileName))
+                sprayObject.Add("image", Path.ChangeExtension(spray.ImageFileName, ImageExtension));
 
             return new JProperty(spray.Id, sprayObject);
         }

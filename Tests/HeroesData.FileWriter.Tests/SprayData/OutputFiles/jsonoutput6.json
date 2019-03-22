@@ -9,7 +9,8 @@
     "releaseDate": "2016-05-21",
     "sortName": "33CarbotLiLi",
     "searchText": "Carbot Li LI",
-    "description": "Carbot spray of Li Li"
+    "description": "Carbot spray of Li Li",
+    "image": "carbotspray.png"
   },
   "CarbotChen": {
     "name": "Carbot Chen",
@@ -19,6 +20,7 @@
     "category": "HeroStorm",
     "releaseDate": "2016-05-21",
     "sortName": "33CarbotChen",
-    "searchText": "Carbot Chen"
+    "searchText": "Carbot Chen",
+    "image": "carbotspray.png"
   }
 }

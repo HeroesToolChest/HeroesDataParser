@@ -1,4 +1,5 @@
 ﻿using Heroes.Models;
+using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -28,7 +29,8 @@ namespace HeroesData.FileWriter.Writers.SprayData
                 spray.ReleaseDate.HasValue ? new XAttribute("releaseDate", spray.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
                 string.IsNullOrEmpty(spray.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", spray.SortName),
                 string.IsNullOrEmpty(spray.SearchText) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", spray.SearchText),
-                string.IsNullOrEmpty(spray.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(spray.Description, FileOutputOptions.DescriptionType)));
+                string.IsNullOrEmpty(spray.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(spray.Description, FileOutputOptions.DescriptionType)),
+                string.IsNullOrEmpty(spray.ImageFileName) ? null : new XElement("Image", Path.ChangeExtension(spray.ImageFileName, ImageExtension)));
         }
     }
 }
