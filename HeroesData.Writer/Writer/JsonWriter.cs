@@ -196,6 +196,9 @@ namespace HeroesData.FileWriter.Writer
             if (hero.Roles?.Count > 0 && !IsLocalizedText)
                 heroObject.Add(new JProperty("roles", hero.Roles));
 
+            if (!string.IsNullOrEmpty(hero.ExpandedRole) && !IsLocalizedText)
+                heroObject.Add(new JProperty("expandedRole", hero.ExpandedRole));
+
             JProperty ratings = HeroRatings(hero);
             if (ratings != null)
                 heroObject.Add(ratings);

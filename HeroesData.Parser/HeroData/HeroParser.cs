@@ -372,6 +372,12 @@ namespace HeroesData.Parser.HeroData
 
                     hero.SearchText += element.Attribute("value")?.Value.Trim();
                 }
+                else if (elementName == "EXPANDEDROLE")
+                {
+                    string role = element.Attribute("value")?.Value;
+                    if (!string.IsNullOrEmpty(role))
+                        hero.ExpandedRole = GameData.GetGameString(DefaultData.HeroRoleName.Replace(DefaultData.IdReplacer, role)).Trim();
+                }
             }
 
             if (hero.ReleaseDate == DefaultData.HeroReleaseDate)

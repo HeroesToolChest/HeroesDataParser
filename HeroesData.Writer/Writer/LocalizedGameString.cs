@@ -38,6 +38,14 @@ namespace HeroesData.FileWriter.Writer
             GameStrings.Add($"unit/role/{key}={value}");
         }
 
+        public void AddUnitExpandedRole(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings.Add($"unit/expandedRole/{key}={value}");
+        }
+
         public void AddUnitDescription(string key, string value)
         {
             if (string.IsNullOrEmpty(key))

@@ -363,6 +363,8 @@ namespace HeroesData.FileWriter.Writer
 
             if (hero.Roles != null && hero.Roles.Count > 0)
                 LocalizedGameString.AddUnitRole(hero.ShortName, string.Join(",", hero.Roles));
+
+            LocalizedGameString.AddUnitExpandedRole(hero.ShortName, hero.ExpandedRole);
         }
 
         protected void AddMatchAwardGameStrings(MatchAward matchAward)
