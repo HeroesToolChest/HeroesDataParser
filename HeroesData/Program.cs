@@ -4,6 +4,7 @@ using Microsoft.Extensions.CommandLineUtils;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace HeroesData
@@ -11,11 +12,14 @@ namespace HeroesData
     public class Program
     {
         private static readonly string AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        private static readonly Dictionary<ExtractFileOption, List<string>> ExtractValues = new Dictionary<ExtractFileOption, List<string>>();
 
         public static void Main(string[] args)
         {
             App app = new App();
             app.SetCurrentCulture();
+
+            SetExtractValues();
 
             CommandLineApplication commandLineApplication = new CommandLineApplication(true)
             {
@@ -69,28 +73,21 @@ namespace HeroesData
                 {
                     if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ALL"))
                     {
-                        App.ExtractFileOption = ExtractFileOption.Portraits | ExtractFileOption.AbilityTalents | ExtractFileOption.MatchAwards | ExtractFileOption.Announcers | ExtractFileOption.Sprays | ExtractFileOption.VoiceLines | ExtractFileOption.Emoticons;
+                        App.ExtractFileOption = ExtractFileOption.All;
                     }
                     else
                     {
-                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "PORTRAITS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "PORTRAIT"))
-                            App.ExtractFileOption |= ExtractFileOption.Portraits;
-                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "TALENTS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "TALENT"))
-                            App.ExtractFileOption |= ExtractFileOption.Talents;
-                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITIES") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITY"))
-                            App.ExtractFileOption |= ExtractFileOption.Abilities;
-                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITYTALENTS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILITYTALENT") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ABILTALENT"))
-                            App.ExtractFileOption |= ExtractFileOption.AbilityTalents;
-                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "AWARDS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "MATCHAWARDS"))
-                            App.ExtractFileOption |= ExtractFileOption.MatchAwards;
-                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ANNOUNCERS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ANNOUNCER") || extractIconsOption.Values.Exists(x => x.ToUpper() == "ANOUNCER"))
-                            App.ExtractFileOption |= ExtractFileOption.Announcers;
-                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "SPRAYS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "SPRAY"))
-                            App.ExtractFileOption |= ExtractFileOption.Sprays;
-                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICELINES") || extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICELINE") || extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICE") || extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICES"))
-                            App.ExtractFileOption |= ExtractFileOption.VoiceLines;
-                        if (extractIconsOption.Values.Exists(x => x.ToUpper() == "EMOTICONS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "EMOTICON") || extractIconsOption.Values.Exists(x => x.ToUpper() == "EMOTES") || extractIconsOption.Values.Exists(x => x.ToUpper() == "EMOTE"))
-                            App.ExtractFileOption |= ExtractFileOption.Emoticons;
+                        foreach (ExtractFileOption extractFileOption in Enum.GetValues(typeof(ExtractFileOption)))
+                        {
+                            if (extractFileOption == ExtractFileOption.None || extractFileOption == ExtractFileOption.All)
+                                continue;
+
+                            if (ExtractValues.TryGetValue(extractFileOption, out List<string> values))
+                            {
+                                if (extractIconsOption.Values.Intersect(values, StringComparer.OrdinalIgnoreCase).Any())
+                                    App.ExtractFileOption |= extractFileOption;
+                            }
+                        }
                     }
 
                     if (App.ExtractFileOption != ExtractFileOption.None)
@@ -158,6 +155,54 @@ namespace HeroesData
             }
 
             Console.ResetColor();
+        }
+
+        private static void SetExtractValues()
+        {
+            ExtractValues.Add(ExtractFileOption.Portraits, new List<string>()
+            {
+                "PORTRAITS", "PORTRAIT", "PORTRIAT", "PORT",
+            });
+
+            ExtractValues.Add(ExtractFileOption.Talents, new List<string>()
+            {
+                "TALENTS", "TALENT", "TAL",
+            });
+
+            ExtractValues.Add(ExtractFileOption.Abilities, new List<string>()
+            {
+                "ABILITIES", "ABILITY", "ABIL", "ABILITEIS", "ABILITES", "ABILITIS",
+            });
+
+            ExtractValues.Add(ExtractFileOption.AbilityTalents, new List<string>()
+            {
+                "ABILITYTALENTS", "ABILITYTALENT", "ABILTALENT", "ABILTAL",
+            });
+
+            ExtractValues.Add(ExtractFileOption.MatchAwards, new List<string>()
+            {
+                "AWARDS", "MATCHAWARDS", "AWARD", "MATCHAWARD", "MATWARD",
+            });
+
+            ExtractValues.Add(ExtractFileOption.Announcers, new List<string>()
+            {
+                "ANNOUNCERS", "ANNOUNCER", "ANOUNCER", "ANN",
+            });
+
+            ExtractValues.Add(ExtractFileOption.Sprays, new List<string>()
+            {
+                "SPRAYS", "SPRAY",
+            });
+
+            ExtractValues.Add(ExtractFileOption.VoiceLines, new List<string>()
+            {
+                "VOICELINES", "VOICELINE", "VOICE", "VOICES",
+            });
+
+            ExtractValues.Add(ExtractFileOption.Emoticons, new List<string>()
+            {
+                "EMOTICONS", "EMOTICON", "EMOTES", "EMOTE",
+            });
         }
     }
 }
