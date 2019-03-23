@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace HeroesData.FileWriter.Writers
@@ -18,7 +19,7 @@ namespace HeroesData.FileWriter.Writers
                 {
                     while (!reader.EndOfStream)
                     {
-                        string[] line = reader.ReadLine().Split('=');
+                        string[] line = reader.ReadLine().Split('=', 2, StringSplitOptions.RemoveEmptyEntries);
                         if (line.Length == 2)
                             GameStrings[line[0]] = line[1];
                     }
@@ -48,7 +49,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddUnitName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"unit/name/{key}"] = value;
@@ -56,7 +57,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddUnitDifficulty(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"unit/difficulty/{key}"] = value;
@@ -64,7 +65,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddUnitType(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"unit/type/{key}"] = value;
@@ -72,7 +73,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddUnitRole(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"unit/role/{key}"] = value;
@@ -80,7 +81,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddUnitExpandedRole(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"unit/expandedRole/{key}"] = value;
@@ -88,7 +89,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddUnitDescription(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"unit/description/{key}"] = value;
@@ -96,7 +97,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddHeroTitle(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"unit/title/{key}"] = value;
@@ -104,7 +105,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddHeroSearchText(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"unit/searchtext/{key}"] = value;
@@ -112,7 +113,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddAbilityTalentName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"abiltalent/name/{key}"] = value;
@@ -120,7 +121,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddAbilityTalentLifeTooltip(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"tooltip/life/{key}"] = value;
@@ -128,7 +129,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddAbilityTalentEnergyTooltip(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"tooltip/energy/{key}"] = value;
@@ -136,7 +137,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddAbilityTalentCooldownTooltip(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"tooltip/cooldown/{key}"] = value;
@@ -144,7 +145,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddAbilityTalentShortTooltip(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"tooltip/short/{key}"] = value;
@@ -152,7 +153,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddAbilityTalentFullTooltip(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"tooltip/full/{key}"] = value;
@@ -160,7 +161,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddMatchAwardName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"award/name/{key}"] = value;
@@ -168,7 +169,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddMatchAwardDescription(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"award/description/{key}"] = value;
@@ -176,7 +177,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddHeroSkinName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"heroskin/name/{key}"] = value;
@@ -184,7 +185,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddHeroSkinSortName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"heroskin/sortname/{key}"] = value;
@@ -192,7 +193,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddHeroSkinInfo(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"heroskin/info/{key}"] = value;
@@ -200,7 +201,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddHeroSkinSearchText(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"heroskin/searchtext/{key}"] = value;
@@ -208,7 +209,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddMountName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"mount/name/{key}"] = value;
@@ -216,7 +217,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddMountSortName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"mount/sortname/{key}"] = value;
@@ -224,7 +225,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddMountInfo(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"mount/info/{key}"] = value;
@@ -232,7 +233,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddMountSearchText(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"mount/searchtext/{key}"] = value;
@@ -240,7 +241,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddBannerName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"banner/name/{key}"] = value;
@@ -248,7 +249,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddBannerSortName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"banner/sortname/{key}"] = value;
@@ -256,7 +257,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddBannerDescription(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"banner/description/{key}"] = value;
@@ -264,7 +265,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddSprayName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"spray/name/{key}"] = value;
@@ -272,7 +273,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddSpraySortName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"spray/sortname/{key}"] = value;
@@ -280,7 +281,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddSprayDescription(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"spray/description/{key}"] = value;
@@ -288,7 +289,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddSpraySearchText(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"spray/searchtext/{key}"] = value;
@@ -296,7 +297,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddAnnouncerName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"announcer/name/{key}"] = value;
@@ -304,7 +305,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddAnnouncerSortName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"announcer/sortname/{key}"] = value;
@@ -312,7 +313,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddAnnouncerDescription(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"announcer/description/{key}"] = value;
@@ -320,7 +321,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddPortraitName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"portrait/name/{key}"] = value;
@@ -328,7 +329,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddPortraitSortName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"portrait/sortname/{key}"] = value;
@@ -336,7 +337,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddVoiceLineName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"voiceline/name/{key}"] = value;
@@ -344,7 +345,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddVoiceLineSortName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"voiceline/sortname/{key}"] = value;
@@ -352,7 +353,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddVoiceLineDescription(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"voiceline/description/{key}"] = value;
@@ -360,7 +361,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddEmoticonName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"emoticon/name/{key}"] = value;
@@ -368,7 +369,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddEmoticonAlias(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"emoticon/alias/{key}"] = value;
@@ -376,7 +377,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddEmoticonSearchText(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"emoticon/searchtext/{key}"] = value;
@@ -384,7 +385,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddEmoticonDescription(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"emoticon/description/{key}"] = value;
@@ -392,7 +393,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddEmoticonPackName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"emoticonpack/name/{key}"] = value;
@@ -400,7 +401,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddEmoticonPackSortName(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"emoticonpack/sortname/{key}"] = value;
@@ -408,7 +409,7 @@ namespace HeroesData.FileWriter.Writers
 
         public void AddEmoticonPackDescription(string key, string value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"emoticonpack/description/{key}"] = value;

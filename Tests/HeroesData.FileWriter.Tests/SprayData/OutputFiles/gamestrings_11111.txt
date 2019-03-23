@@ -1,4 +1,3 @@
-spray/description/CarbotChen=
 spray/description/CarbotLiLi=Carbot spray of Li Li
 spray/name/CarbotChen=Carbot Chen
 spray/name/CarbotLiLi=Carbot Li Li

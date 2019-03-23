@@ -1,6 +1,4 @@
-voiceline/description/Common1=
 voiceline/description/Common2=some voice talking
 voiceline/name/Common1=Common1
 voiceline/name/Common2=Common2
-voiceline/sortname/Common1=
 voiceline/sortname/Common2=xxCommon2

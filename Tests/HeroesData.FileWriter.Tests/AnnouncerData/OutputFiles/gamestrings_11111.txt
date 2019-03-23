@@ -1,4 +1,3 @@
-announcer/description/MurkyA=
 announcer/description/OrpheaA=Orphea Announcer
 announcer/name/MurkyA=Murky
 announcer/name/OrpheaA=Orphea
