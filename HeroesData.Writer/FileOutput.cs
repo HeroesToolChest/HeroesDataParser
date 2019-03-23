@@ -3,6 +3,7 @@ using HeroesData.FileWriter.Writers;
 using HeroesData.FileWriter.Writers.AnnouncerData;
 using HeroesData.FileWriter.Writers.BannerData;
 using HeroesData.FileWriter.Writers.EmoticonData;
+using HeroesData.FileWriter.Writers.EmoticonPackData;
 using HeroesData.FileWriter.Writers.HeroData;
 using HeroesData.FileWriter.Writers.HeroSkinData;
 using HeroesData.FileWriter.Writers.MatchAwardData;
@@ -121,6 +122,7 @@ namespace HeroesData.FileWriter
                 { nameof(VoiceLine), new VoiceLineDataJsonWriter() },
                 { nameof(Portrait), new PortraitDataJsonWriter() },
                 { nameof(Emoticon), new EmoticonDataJsonWriter() },
+                { nameof(EmoticonPack), new EmoticonPackDataJsonWriter() },
             });
 
             Writers.Add(FileOutputType.Xml, new Dictionary<string, IWritable>()
@@ -135,6 +137,7 @@ namespace HeroesData.FileWriter
                 { nameof(VoiceLine), new VoiceLineDataXmlWriter() },
                 { nameof(Portrait), new PortraitDataXmlWriter() },
                 { nameof(Emoticon), new EmoticonDataXmlWriter() },
+                { nameof(EmoticonPack), new EmoticonPackDataXmlWriter() },
             });
         }
     }

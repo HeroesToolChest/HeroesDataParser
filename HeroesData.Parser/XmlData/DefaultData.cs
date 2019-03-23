@@ -464,6 +464,26 @@ namespace HeroesData.Parser.XmlData
         public int TextureSheetColumns { get; private set; }
 
         /// <summary>
+        /// Gets the default emoticon pack name. Contains ##id##.
+        /// </summary>
+        public string EmoticonPackName { get; private set; }
+
+        /// <summary>
+        /// Gets the default emoticon pack name used for sorting. Contains ##id##.
+        /// </summary>
+        public string EmoticonPackSortName { get; private set; }
+
+        /// <summary>
+        /// Gets the default emoticon pack description. Contains ##id##.
+        /// </summary>
+        public string EmoticonPackDescription { get; private set; }
+
+        /// <summary>
+        /// Gets the default emoticon pack hyperlinkId. Contains ##id##.
+        /// </summary>
+        public string EmoticonPackHyperlinkId { get; private set; }
+
+        /// <summary>
         /// Gets the default difficulty text. Contains ##id##.
         /// </summary>
         public string Difficulty { get; } = $"UI/HeroUtil/Difficulty/{IdPlaceHolder}";
@@ -499,6 +519,7 @@ namespace HeroesData.Parser.XmlData
             LoadCPortraitPackDefault();
             LoadCEmoticonDefault();
             LoadCTextureSheetDefault();
+            LoadCEmoticonPackDefault();
         }
 
         // <CUnit default="1">
@@ -601,6 +622,12 @@ namespace HeroesData.Parser.XmlData
         private void LoadCTextureSheetDefault()
         {
             CTextureSheetElement(GameData.Elements("CTextureSheet").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+        }
+
+        // <CEmoticonPack default="1">
+        private void LoadCEmoticonPackDefault()
+        {
+            CEmoticonPackElement(GameData.Elements("CEmoticonPack").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         private void CUnitElement(IEnumerable<XElement> cUnitElements)
@@ -1001,9 +1028,9 @@ namespace HeroesData.Parser.XmlData
             }
         }
 
-        private void CVoiceLineElement(IEnumerable<XElement> cVocieLineElements)
+        private void CVoiceLineElement(IEnumerable<XElement> cVoiceLineElements)
         {
-            foreach (XElement element in cVocieLineElements.Elements())
+            foreach (XElement element in cVoiceLineElements.Elements())
             {
                 string elementName = element.Name.LocalName.ToUpper();
 
@@ -1104,6 +1131,31 @@ namespace HeroesData.Parser.XmlData
                 {
                     if (int.TryParse(element.Attribute("value").Value, out int value))
                         TextureSheetColumns = value;
+                }
+            }
+        }
+
+        private void CEmoticonPackElement(IEnumerable<XElement> cEmoticonPackElements)
+        {
+            foreach (XElement element in cEmoticonPackElements.Elements())
+            {
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "NAME")
+                {
+                    EmoticonPackName = element.Attribute("value").Value;
+                }
+                else if (elementName == "SORTNAME")
+                {
+                    EmoticonPackSortName = element.Attribute("value").Value;
+                }
+                else if (elementName == "DESCRIPTION")
+                {
+                    EmoticonPackDescription = element.Attribute("value").Value;
+                }
+                else if (elementName == "HYPERLINKID")
+                {
+                    EmoticonPackHyperlinkId = element.Attribute("value").Value;
                 }
             }
         }

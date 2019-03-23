@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EmoticonPack>
+  <OrpheaPack1 hyperlinkId="OrpheaPack1" category="Nexus" event="EvilTower" releaseDate="2018-04-03">
+    <Emoticons>
+      <Emoticon>orphea_sad</Emoticon>
+      <Emoticon>orphea_happy</Emoticon>
+    </Emoticons>
+  </OrpheaPack1>
+  <OrpheaPack2 category="Nexus" releaseDate="2018-04-03" />
+</EmoticonPack>

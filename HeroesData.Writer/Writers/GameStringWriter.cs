@@ -389,5 +389,29 @@ namespace HeroesData.FileWriter.Writers
 
             GameStrings[$"emoticon/description/{key}"] = value;
         }
+
+        public void AddEmoticonPackName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"emoticonpack/name/{key}"] = value;
+        }
+
+        public void AddEmoticonPackSortName(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"emoticonpack/sortname/{key}"] = value;
+        }
+
+        public void AddEmoticonPackDescription(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            GameStrings[$"emoticonpack/description/{key}"] = value;
+        }
     }
 }

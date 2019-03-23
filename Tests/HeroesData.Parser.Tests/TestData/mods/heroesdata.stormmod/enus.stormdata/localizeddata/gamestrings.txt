@@ -404,3 +404,6 @@ VoiceLine/Name/AbathurMecha_VoiceLine02=Poor Essence
 Emoticon/Description/lunara_angry=Lunara Angry :lunaangry:
 Emoticon/Name/ascii_rofl=:D
 Emoticon/Name/ascii_sad=:(
+
+EmoticonPack/Name/JohannaEmoticonPack2=Johanna Pack 2
+EmoticonPack/Name/DeputyVallaPack1=Deputy Valla Pack 1

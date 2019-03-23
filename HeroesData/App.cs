@@ -623,6 +623,7 @@ namespace HeroesData
             DataVoiceLine dataVoiceLine = new DataVoiceLine(new VoiceLineParser(GameData, DefaultData));
             DataPortrait dataPortrait = new DataPortrait(new PortraitParser(GameData, DefaultData));
             DataEmoticon dataEmoticon = new DataEmoticon(new EmoticonParser(GameData, DefaultData));
+            DataEmoticonPack dataEmoticonPack = new DataEmoticonPack(new EmoticonPackParser(GameData, DefaultData));
 
             FilesHero filesHero = new FilesHero(CASCHotsStorage?.CASCHandler, StorageMode);
             FilesMatchAward filesMatchAward = new FilesMatchAward(CASCHotsStorage?.CASCHandler, StorageMode);
@@ -715,6 +716,14 @@ namespace HeroesData
                 Parse = (localization) => dataEmoticon.Parse(localization),
                 Validate = (localization) => dataEmoticon.Validate(localization),
                 Extract = (data) => filesEmoticon.ExtractFiles(data),
+            });
+
+            DataProcessors.Add(new DataProcessor()
+            {
+                IsEnabled = true,
+                Name = dataEmoticonPack.Name,
+                Parse = (localization) => dataEmoticonPack.Parse(localization),
+                Validate = (localization) => dataEmoticonPack.Validate(localization),
             });
         }
     }

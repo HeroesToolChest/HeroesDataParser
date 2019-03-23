@@ -65,7 +65,14 @@
 [abstract_happy] Image is null or empty
 [abstract_rofl] Image is null or empty
 
+# emoticon packs
+[AbstractEmoticonPack] Name is null or empty
+[AbstractEmoticonPack] CollectionCategory is null or empty
+[SapperPackBonus] Name is null or empty
+
 # ignore for following data
 [$heroskin] SearchText is null or empty
 [$mount] SearchText is null or empty
 [$spray] SearchText is null or empty
+[$emoticonpack] EventName is null or empty
+[$emoticonpack] Description is null or empty

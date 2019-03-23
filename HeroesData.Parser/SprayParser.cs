@@ -159,7 +159,7 @@ namespace HeroesData.Parser
             spray.Name = GameData.GetGameString(DefaultData.SprayName.Replace(DefaultData.IdPlaceHolder, spray.Id));
             spray.SortName = GameData.GetGameString(DefaultData.SpraySortName.Replace(DefaultData.IdPlaceHolder, spray.Id));
             spray.Description = new TooltipDescription(GameData.GetGameString(DefaultData.SprayDescription.Replace(DefaultData.IdPlaceHolder, spray.Id)));
-            spray.HyperlinkId = GameData.GetGameString(DefaultData.SprayHyperlinkId.Replace(DefaultData.IdPlaceHolder, spray.Id));
+            spray.HyperlinkId = DefaultData.SprayHyperlinkId.Replace(DefaultData.IdPlaceHolder, spray.Id);
             spray.ReleaseDate = DefaultData.SprayReleaseDate;
             spray.Rarity = Rarity.None;
 

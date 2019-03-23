@@ -150,7 +150,7 @@ namespace HeroesData.Parser
             heroSkin.Name = GameData.GetGameString(DefaultData.HeroSkinName.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));
             heroSkin.SortName = GameData.GetGameString(DefaultData.HeroSkinSortName.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));
             heroSkin.Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroSkinInfoText.Replace(DefaultData.IdPlaceHolder, heroSkin.Id)));
-            heroSkin.HyperlinkId = GameData.GetGameString(DefaultData.HeroSkinHyperlinkId.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));
+            heroSkin.HyperlinkId = DefaultData.HeroSkinHyperlinkId.Replace(DefaultData.IdPlaceHolder, heroSkin.Id);
             heroSkin.ReleaseDate = DefaultData.HeroReleaseDate;
             heroSkin.Rarity = Rarity.None;
 

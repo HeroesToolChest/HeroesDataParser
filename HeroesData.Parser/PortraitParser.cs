@@ -108,7 +108,7 @@ namespace HeroesData.Parser
         {
             portrait.Name = GameData.GetGameString(DefaultData.PortraitName.Replace(DefaultData.IdPlaceHolder, portrait.Id));
             portrait.SortName = GameData.GetGameString(DefaultData.PortraitSortName.Replace(DefaultData.IdPlaceHolder, portrait.Id));
-            portrait.HyperlinkId = GameData.GetGameString(DefaultData.PortraitHyperlinkId.Replace(DefaultData.IdPlaceHolder, portrait.Id));
+            portrait.HyperlinkId = DefaultData.PortraitHyperlinkId.Replace(DefaultData.IdPlaceHolder, portrait.Id);
         }
     }
 }

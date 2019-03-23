@@ -131,7 +131,7 @@ namespace HeroesData.Loader.XmlGameData
         }
 
         /// <summary>
-        /// Gets the gamestring by the gamestring id. If not found returns null.
+        /// Gets the gamestring by the gamestring id. If not found returns an empty string.
         /// </summary>
         /// <param name="id">The string id to look up.</param>
         /// <returns></returns>
