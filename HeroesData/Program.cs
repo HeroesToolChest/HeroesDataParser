@@ -27,19 +27,20 @@ namespace HeroesData
             ReadCommand.Add(commandLineApplication).SetCommand();
 
             CommandOption storagePathOption = commandLineApplication.Option("-s|--storage-path <FILEPATH>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.", CommandOptionType.SingleValue);
-            CommandOption setMaxDegreeParallismOption = commandLineApplication.Option("-t|--threads <NUMBER>", "Limits the maximum amount of threads to use.", CommandOptionType.SingleValue);
-            CommandOption extractIconsOption = commandLineApplication.Option("-e|--extract <VALUE>", $"Extracts images, available only in -s|--storage-path mode using the Hots directory.", CommandOptionType.MultipleValue);
-            CommandOption setDescriptionOption = commandLineApplication.Option("-d|--description <VALUE>", "Sets the description output type (0 - 6) - Default 0.", CommandOptionType.SingleValue);
-            CommandOption setBuildOption = commandLineApplication.Option("-b|--build <number>", "Sets the override build file.", CommandOptionType.SingleValue);
             CommandOption setOutputDirectoryOption = commandLineApplication.Option("-o|--output-directory <FILEPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
+            CommandOption setDescriptionOption = commandLineApplication.Option("-d|--description <VALUE>", "Sets the description output type (0 - 6) - Default 0.", CommandOptionType.SingleValue);
+            CommandOption extractIconsOption = commandLineApplication.Option("-e|--extract <VALUE>", $"Extracts images, available only in -s|--storage-path mode using the Hots directory.", CommandOptionType.MultipleValue);
             CommandOption setGameStringLocalizations = commandLineApplication.Option("-l|--localization <LOCALE>", "Sets the gamestring localization(s) - Default: enUS.", CommandOptionType.MultipleValue);
-            CommandOption setFileSplitOption = commandLineApplication.Option("-f|--file-split", "Splits the XML and JSON file(s) into multiple files.", CommandOptionType.NoValue);
+            CommandOption setBuildOption = commandLineApplication.Option("-b|--build <number>", "Sets the override build file.", CommandOptionType.SingleValue);
+            CommandOption setMaxDegreeParallismOption = commandLineApplication.Option("-t|--threads <NUMBER>", "Limits the maximum amount of threads to use.", CommandOptionType.SingleValue);
+
             CommandOption xmlOutputOption = commandLineApplication.Option("--xml", "Creates xml output.", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = commandLineApplication.Option("--json", "Creates json output.", CommandOptionType.NoValue);
+            CommandOption setFileSplitOption = commandLineApplication.Option("-f|--file-split", "Splits the XML and JSON file(s) into multiple files.", CommandOptionType.NoValue);
             CommandOption localizedTextOption = commandLineApplication.Option("--localized-text", "Extracts localized gamestrings from the XML and JSON file(s) into a text file.", CommandOptionType.NoValue);
+            CommandOption minifyOption = commandLineApplication.Option("--minify", "Creates .min file(s) along with current output file(s).", CommandOptionType.NoValue);
             CommandOption validationWarningsOption = commandLineApplication.Option("--warnings", "Displays all validation warnings.", CommandOptionType.NoValue);
             CommandOption excludeAwardParseOption = commandLineApplication.Option("--exclude-awards", "Excludes match award parsing.", CommandOptionType.NoValue);
-            CommandOption minifyOption = commandLineApplication.Option("--minify", "Creates .min file(s) along with current output file(s).", CommandOptionType.NoValue);
 
             commandLineApplication.OnExecute(() =>
             {
