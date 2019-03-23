@@ -138,7 +138,9 @@ namespace HeroesData
 
                         // write
                         Console.WriteLine("Creating output file(s)...");
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine($"Directory: {options.OutputDirectory}");
+                        Console.ResetColor();
                         DataProcessor((parser) =>
                         {
                             if (CreateJson)
