@@ -89,7 +89,7 @@ namespace HeroesData
                         if (extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICELINES") || extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICELINE") || extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICE") || extractIconsOption.Values.Exists(x => x.ToUpper() == "VOICES"))
                             App.ExtractFileOption |= ExtractFileOption.VoiceLines;
                         if (extractIconsOption.Values.Exists(x => x.ToUpper() == "EMOTICONS") || extractIconsOption.Values.Exists(x => x.ToUpper() == "EMOTICON") || extractIconsOption.Values.Exists(x => x.ToUpper() == "EMOTES") || extractIconsOption.Values.Exists(x => x.ToUpper() == "EMOTE"))
-                            App.ExtractFileOption |= ExtractFileOption.VoiceLines;
+                            App.ExtractFileOption |= ExtractFileOption.Emoticons;
                     }
 
                     if (App.ExtractFileOption != ExtractFileOption.None)
