@@ -115,35 +115,6 @@ namespace HeroesData.ExtractorData
 
             if (Warnings.Count > 0)
             {
-                List<string> nonTooltips = new List<string>(Warnings.Where(x => !x.ToLower().Contains("tooltip")));
-                List<string> tooltips = new List<string>(Warnings.Where(x => x.ToLower().Contains("tooltip")));
-
-                using (StreamWriter writer = new StreamWriter(Path.Combine(App.AssemblyPath, $"VerificationCheck_{Name}_{localization.ToString().ToLower()}.txt"), false))
-                {
-                    if (nonTooltips.Count > 0)
-                    {
-                        nonTooltips.ForEach((warning) =>
-                        {
-                            writer.WriteLine(warning);
-                            if (App.ShowValidationWarnings)
-                                Console.WriteLine(warning);
-                        });
-                    }
-
-                    if (tooltips.Count > 0)
-                    {
-                        writer.WriteLine();
-                        tooltips.ForEach((warning) =>
-                        {
-                            writer.WriteLine(warning);
-                            if (App.ShowValidationWarnings)
-                                Console.WriteLine(warning);
-                        });
-                    }
-
-                    writer.WriteLine($"{Environment.NewLine}{Warnings.Count} warnings ({WarningsIgnoredCount} ignored)");
-                }
-
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write($"[{Name}] {Warnings.Count} warnings");
             }
@@ -158,6 +129,46 @@ namespace HeroesData.ExtractorData
 
             Console.WriteLine();
             Console.ResetColor();
+
+            if (Warnings.Count > 0)
+            {
+                List<string> nonTooltips = new List<string>(Warnings.Where(x => !x.ToLower().Contains("tooltip")));
+                List<string> tooltips = new List<string>(Warnings.Where(x => x.ToLower().Contains("tooltip")));
+
+                using (StreamWriter writer = new StreamWriter(Path.Combine(App.AssemblyPath, $"VerificationCheck_{Name}_{localization.ToString().ToLower()}.txt"), false))
+                {
+                    if (nonTooltips.Count > 0)
+                    {
+                        nonTooltips.ForEach((warning) =>
+                        {
+                            writer.WriteLine(warning);
+                            if (App.ShowValidationWarnings)
+                                Console.WriteLine($"|- {warning}");
+                        });
+                    }
+
+                    if (tooltips.Count > 0)
+                    {
+                        writer.WriteLine();
+                        tooltips.ForEach((warning) =>
+                        {
+                            writer.WriteLine(warning);
+                            if (App.ShowValidationWarnings)
+                                Console.WriteLine($"|- {warning}");
+                        });
+                    }
+
+                    writer.WriteLine($"{Environment.NewLine}{Warnings.Count} warnings ({WarningsIgnoredCount} ignored)");
+
+                    if (App.ShowValidationWarnings)
+                        Console.WriteLine();
+                }
+            }
+            else if (App.ShowValidationWarnings)
+            {
+                Console.WriteLine("|-  (None)");
+                Console.WriteLine();
+            }
         }
 
         protected abstract void Validation(T t);

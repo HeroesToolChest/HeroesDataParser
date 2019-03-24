@@ -36,7 +36,7 @@ namespace HeroesData
         public static bool CreateXml { get; set; } = false;
         public static bool CreateJson { get; set; } = false;
         public static bool ShowValidationWarnings { get; set; } = false;
-        public static ExtractDataOption ExtractDataOption { get; set; } = ExtractDataOption.HeroData;
+        public static ExtractDataOption ExtractDataOption { get; set; } = ExtractDataOption.None;
         public static ExtractImageOption ExtractFileOption { get; set; } = ExtractImageOption.None;
         public static bool IsFileSplit { get; set; } = false;
         public static bool IsLocalizedText { get; set; } = false;
@@ -134,7 +134,8 @@ namespace HeroesData
                             parser.Validate(localization);
                         });
 
-                        Console.WriteLine();
+                        if (!ShowValidationWarnings)
+                            Console.WriteLine();
 
                         // write
                         Console.WriteLine("Creating output file(s)...");
