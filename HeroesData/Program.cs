@@ -267,7 +267,6 @@ namespace HeroesData
             {
                 "ABILITYTALENTS", "ABILITYTALENT", "ABILTALENT", "ABILTAL",
             });
-
         }
     }
 }

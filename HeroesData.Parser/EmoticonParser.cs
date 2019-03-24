@@ -139,6 +139,8 @@ namespace HeroesData.Parser
                     string textureSheet = element.Attribute("TextureSheet")?.Value;
                     string width = element.Attribute("Width")?.Value;
                     string index = element.Attribute("Index")?.Value;
+                    string count = element.Attribute("Count")?.Value;
+                    string durationPerFrame = element.Attribute("DurationPerFrame")?.Value;
 
                     if (!string.IsNullOrEmpty(textureSheet))
                     {
@@ -151,6 +153,12 @@ namespace HeroesData.Parser
 
                     if (!string.IsNullOrEmpty(index))
                         emoticon.Image.Index = int.Parse(index);
+
+                    if (!string.IsNullOrEmpty(count))
+                        emoticon.Image.Count = int.Parse(count);
+
+                    if (!string.IsNullOrEmpty(durationPerFrame))
+                        emoticon.Image.DurationPerFrame = int.Parse(durationPerFrame);
                 }
             }
         }
@@ -194,6 +202,8 @@ namespace HeroesData.Parser
 
             emoticon.Image.Index = 0;
             emoticon.Image.Width = 0;
+            emoticon.Image.Count = null;
+            emoticon.Image.DurationPerFrame = null;
         }
     }
 }

@@ -64,12 +64,21 @@ namespace HeroesData.ExtractorFiles
                 {
                     DDSImage image = new DDSImage(CASCHandler.OpenFile(cascFilepath));
 
-                    int xPos = (emoticon.Image.Index % emoticon.TextureSheet.Columns) * ImageMaxWidth;
-                    int yPos = (emoticon.Image.Index / emoticon.TextureSheet.Columns) * ImageMaxHeight;
+                    if (emoticon.Image.Count.HasValue) // gif
+                    {
+                        image.SaveAsGif(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(emoticon.TextureSheet.Image)}.gif"), new Size(emoticon.Image.Width, ImageMaxHeight), new Size(ImageMaxWidth, ImageMaxHeight), emoticon.Image.Count.Value, emoticon.Image.DurationPerFrame.Value);
 
-                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(emoticon.Image.FileName)}.png"), new Point(xPos, yPos), new Size(emoticon.Image.Width, ImageMaxHeight));
+                        return true;
+                    }
+                    else // png
+                    {
+                        int xPos = (emoticon.Image.Index % emoticon.TextureSheet.Columns) * ImageMaxWidth;
+                        int yPos = (emoticon.Image.Index / emoticon.TextureSheet.Columns) * ImageMaxHeight;
 
-                    return true;
+                        image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(emoticon.Image.FileName)}.png"), new Point(xPos, yPos), new Size(emoticon.Image.Width, ImageMaxHeight));
+
+                        return true;
+                    }
                 }
                 else
                 {
