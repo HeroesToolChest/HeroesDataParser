@@ -19,7 +19,7 @@ namespace HeroesData.ExtractorFiles
 
         protected override void ExtractFiles()
         {
-            if (App.ExtractFileOption.HasFlag(ExtractFileOption.VoiceLines))
+            if (App.ExtractFileOption.HasFlag(ExtractImageOption.VoiceLine))
                 ExtractVoiceLineImages();
         }
 

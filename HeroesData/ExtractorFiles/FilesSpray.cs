@@ -19,7 +19,7 @@ namespace HeroesData.ExtractorFiles
 
         protected override void ExtractFiles()
         {
-            if (App.ExtractFileOption.HasFlag(ExtractFileOption.Sprays))
+            if (App.ExtractFileOption.HasFlag(ExtractImageOption.Spray))
                 ExtractSprayImages();
         }
 

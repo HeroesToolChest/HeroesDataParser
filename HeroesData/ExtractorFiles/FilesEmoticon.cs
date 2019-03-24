@@ -23,7 +23,7 @@ namespace HeroesData.ExtractorFiles
 
         protected override void ExtractFiles()
         {
-            if (App.ExtractFileOption.HasFlag(ExtractFileOption.Emoticons))
+            if (App.ExtractFileOption.HasFlag(ExtractImageOption.Emoticon))
                 ExtractEmoticonImages();
         }
 

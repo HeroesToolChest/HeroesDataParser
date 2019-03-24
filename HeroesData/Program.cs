@@ -11,15 +11,18 @@ namespace HeroesData
 {
     public class Program
     {
-        private static readonly string AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        private static readonly Dictionary<ExtractFileOption, List<string>> ExtractValues = new Dictionary<ExtractFileOption, List<string>>();
+        private readonly string AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        private readonly Dictionary<ExtractDataOption, List<string>> ExtractDataValues = new Dictionary<ExtractDataOption, List<string>>();
+        private readonly Dictionary<ExtractImageOption, List<string>> ExtractImageValues = new Dictionary<ExtractImageOption, List<string>>();
 
         public static void Main(string[] args)
         {
             App app = new App();
+            Program program = new Program();
+
             app.SetCurrentCulture();
 
-            SetExtractValues();
+            program.SetExtractValues();
 
             CommandLineApplication commandLineApplication = new CommandLineApplication(true)
             {
@@ -32,19 +35,19 @@ namespace HeroesData
 
             CommandOption storagePathOption = commandLineApplication.Option("-s|--storage-path <FILEPATH>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.", CommandOptionType.SingleValue);
             CommandOption setOutputDirectoryOption = commandLineApplication.Option("-o|--output-directory <FILEPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
-            CommandOption setDescriptionOption = commandLineApplication.Option("-d|--description <VALUE>", "Sets the description output type (0 - 6) - Default 0.", CommandOptionType.SingleValue);
-            CommandOption extractIconsOption = commandLineApplication.Option("-e|--extract <VALUE>", $"Extracts images, available only in -s|--storage-path mode using the Hots directory.", CommandOptionType.MultipleValue);
+            CommandOption setDescriptionOption = commandLineApplication.Option("-d|--description <VALUE>", "Sets the description output type (0 - 6) - Default: 0.", CommandOptionType.SingleValue);
+            CommandOption extractDataFilesOption = commandLineApplication.Option("-e|--extract-data <VALUE>", $"Extracts data files - Default: herodata.", CommandOptionType.MultipleValue);
+            CommandOption extractImageFilesOption = commandLineApplication.Option("-i|--extract-images <VALUE>", $"Extracts image files, only available using the Heroes of the Storm game directory.", CommandOptionType.MultipleValue);
             CommandOption setGameStringLocalizations = commandLineApplication.Option("-l|--localization <LOCALE>", "Sets the gamestring localization(s) - Default: enUS.", CommandOptionType.MultipleValue);
-            CommandOption setBuildOption = commandLineApplication.Option("-b|--build <number>", "Sets the override build file.", CommandOptionType.SingleValue);
+            CommandOption setBuildOption = commandLineApplication.Option("-b|--build <NUMBER>", "Sets the override build file.", CommandOptionType.SingleValue);
             CommandOption setMaxDegreeParallismOption = commandLineApplication.Option("-t|--threads <NUMBER>", "Limits the maximum amount of threads to use.", CommandOptionType.SingleValue);
 
             CommandOption xmlOutputOption = commandLineApplication.Option("--xml", "Creates xml output.", CommandOptionType.NoValue);
             CommandOption jsonOutputOption = commandLineApplication.Option("--json", "Creates json output.", CommandOptionType.NoValue);
-            CommandOption setFileSplitOption = commandLineApplication.Option("-f|--file-split", "Splits the XML and JSON file(s) into multiple files.", CommandOptionType.NoValue);
+            CommandOption setFileSplitOption = commandLineApplication.Option("--file-split", "Splits the XML and JSON file(s) into multiple files.", CommandOptionType.NoValue);
             CommandOption localizedTextOption = commandLineApplication.Option("--localized-text", "Extracts localized gamestrings from the XML and JSON file(s) into a text file.", CommandOptionType.NoValue);
             CommandOption minifyOption = commandLineApplication.Option("--minify", "Creates .min file(s) along with current output file(s).", CommandOptionType.NoValue);
             CommandOption validationWarningsOption = commandLineApplication.Option("--warnings", "Displays all validation warnings.", CommandOptionType.NoValue);
-            CommandOption excludeAwardParseOption = commandLineApplication.Option("--exclude-awards", "Excludes match award parsing.", CommandOptionType.NoValue);
 
             commandLineApplication.OnExecute(() =>
             {
@@ -67,31 +70,64 @@ namespace HeroesData
                 if (setOutputDirectoryOption.HasValue())
                     App.OutputDirectory = setOutputDirectoryOption.Value();
                 else
-                    App.OutputDirectory = Path.Combine(AssemblyPath, "output");
+                    App.OutputDirectory = Path.Combine(program.AssemblyPath, "output");
 
-                if (extractIconsOption.HasValue() && storagePathOption.HasValue())
+                // data file extraction
+                if (extractDataFilesOption.HasValue())
                 {
-                    if (extractIconsOption.Values.Exists(x => x.ToUpper() == "ALL"))
+                    if (extractDataFilesOption.Values.Exists(x => x.ToUpper() == "ALL"))
                     {
-                        App.ExtractFileOption = ExtractFileOption.All;
+                        App.ExtractDataOption = ExtractDataOption.All;
                     }
                     else
                     {
-                        foreach (ExtractFileOption extractFileOption in Enum.GetValues(typeof(ExtractFileOption)))
+                        foreach (ExtractDataOption extractDataOption in Enum.GetValues(typeof(ExtractDataOption)))
                         {
-                            if (extractFileOption == ExtractFileOption.None || extractFileOption == ExtractFileOption.All)
+                            if (extractDataOption == ExtractDataOption.None || extractDataOption == ExtractDataOption.All)
                                 continue;
 
-                            if (ExtractValues.TryGetValue(extractFileOption, out List<string> values))
+                            if (program.ExtractDataValues.TryGetValue(extractDataOption, out List<string> values))
                             {
-                                if (extractIconsOption.Values.Intersect(values, StringComparer.OrdinalIgnoreCase).Any())
+                                if (extractDataFilesOption.Values.Intersect(values, StringComparer.OrdinalIgnoreCase).Any())
+                                    App.ExtractDataOption |= extractDataOption;
+                            }
+                        }
+                    }
+
+                    // none is default as defined in App
+                    if (App.ExtractDataOption != ExtractDataOption.None)
+                        App.ExtractDataOption &= ~ExtractDataOption.None;
+                }
+                else
+                {
+                    App.ExtractDataOption = ExtractDataOption.HeroData;
+                }
+
+                // image file extraction
+                if (extractImageFilesOption.HasValue() && storagePathOption.HasValue())
+                {
+                    if (extractImageFilesOption.Values.Exists(x => x.ToUpper() == "ALL"))
+                    {
+                        App.ExtractFileOption = ExtractImageOption.All;
+                    }
+                    else
+                    {
+                        foreach (ExtractImageOption extractFileOption in Enum.GetValues(typeof(ExtractImageOption)))
+                        {
+                            if (extractFileOption == ExtractImageOption.None || extractFileOption == ExtractImageOption.All)
+                                continue;
+
+                            if (program.ExtractImageValues.TryGetValue(extractFileOption, out List<string> values))
+                            {
+                                if (extractImageFilesOption.Values.Intersect(values, StringComparer.OrdinalIgnoreCase).Any())
                                     App.ExtractFileOption |= extractFileOption;
                             }
                         }
                     }
 
-                    if (App.ExtractFileOption != ExtractFileOption.None)
-                        App.ExtractFileOption &= ~ExtractFileOption.None;
+                    // none is default as defined in App
+                    if (App.ExtractFileOption != ExtractImageOption.None)
+                        App.ExtractFileOption &= ~ExtractImageOption.None;
                 }
 
                 if (setGameStringLocalizations.HasValue())
@@ -129,7 +165,6 @@ namespace HeroesData
                 App.ShowValidationWarnings = validationWarningsOption.HasValue() ? true : false;
                 App.IsFileSplit = setFileSplitOption.HasValue() ? true : false;
                 App.IsLocalizedText = localizedTextOption.HasValue() ? true : false;
-                App.ExcludeAwardParsing = excludeAwardParseOption.HasValue() ? true : false;
                 App.CreateMinFiles = minifyOption.HasValue() ? true : false;
                 app.Run();
                 Console.ResetColor();
@@ -157,52 +192,82 @@ namespace HeroesData
             Console.ResetColor();
         }
 
-        private static void SetExtractValues()
+        private void SetExtractValues()
         {
-            ExtractValues.Add(ExtractFileOption.Portraits, new List<string>()
+            // common
+            List<string> matchAwards = new List<string>()
+            {
+                "MATCHAWARDS", "MATCHAWARD", "AWARDS", "AWARD", "MATWARD",
+            };
+            List<string> sprays = new List<string>()
+            {
+                "SPRAYS", "SPRAY",
+            };
+            List<string> announcers = new List<string>()
+            {
+                "ANNOUNCERS", "ANNOUNCER", "ANOUNCER", "ANN",
+            };
+            List<string> voiceLines = new List<string>()
+            {
+                "VOICELINES", "VOICELINE", "VOICES", "VOICES",
+            };
+            List<string> portrait = new List<string>()
             {
                 "PORTRAITS", "PORTRAIT", "PORTRIAT", "PORT",
+            };
+            List<string> emoticons = new List<string>()
+            {
+                "EMOTICONS", "EMOTICON", "EMOTES", "EMOTE",
+            };
+
+            // data
+            ExtractDataValues.Add(ExtractDataOption.MatchAward, matchAwards);
+            ExtractDataValues.Add(ExtractDataOption.Spray, sprays);
+            ExtractDataValues.Add(ExtractDataOption.Announcer, announcers);
+            ExtractDataValues.Add(ExtractDataOption.VoiceLine, voiceLines);
+            ExtractDataValues.Add(ExtractDataOption.Portrait, portrait);
+            ExtractDataValues.Add(ExtractDataOption.Emoticon, emoticons);
+            ExtractDataValues.Add(ExtractDataOption.HeroData, new List<string>()
+            {
+                "HERODATA", "HEROES", "HEROESDATA",
+            });
+            ExtractDataValues.Add(ExtractDataOption.HeroSkin, new List<string>()
+            {
+                "HEROSKINS", "HEROSKIN", "SKINS", "AWARD",
+            });
+            ExtractDataValues.Add(ExtractDataOption.Mount, new List<string>()
+            {
+                "MOUNTS", "MOUNTS",
+            });
+            ExtractDataValues.Add(ExtractDataOption.Banner, new List<string>()
+            {
+                "BANNERS", "BANNER",
+            });
+            ExtractDataValues.Add(ExtractDataOption.EmoticonPack, new List<string>()
+            {
+                "EMOTICONPACKS", "EMOTICONPACK", "EMOTEPACKS", "EMOTEPACK",
             });
 
-            ExtractValues.Add(ExtractFileOption.Talents, new List<string>()
+            // images
+            ExtractImageValues.Add(ExtractImageOption.MatchAward, matchAwards);
+            ExtractImageValues.Add(ExtractImageOption.Announcer, announcers);
+            ExtractImageValues.Add(ExtractImageOption.Spray, sprays);
+            ExtractImageValues.Add(ExtractImageOption.VoiceLine, voiceLines);
+            ExtractImageValues.Add(ExtractImageOption.Emoticon, emoticons);
+            ExtractImageValues.Add(ExtractImageOption.Portrait, portrait);
+            ExtractImageValues.Add(ExtractImageOption.Talent, new List<string>()
             {
                 "TALENTS", "TALENT", "TAL",
             });
-
-            ExtractValues.Add(ExtractFileOption.Abilities, new List<string>()
+            ExtractImageValues.Add(ExtractImageOption.Ability, new List<string>()
             {
                 "ABILITIES", "ABILITY", "ABIL", "ABILITEIS", "ABILITES", "ABILITIS",
             });
-
-            ExtractValues.Add(ExtractFileOption.AbilityTalents, new List<string>()
+            ExtractImageValues.Add(ExtractImageOption.AbilityTalent, new List<string>()
             {
                 "ABILITYTALENTS", "ABILITYTALENT", "ABILTALENT", "ABILTAL",
             });
 
-            ExtractValues.Add(ExtractFileOption.MatchAwards, new List<string>()
-            {
-                "AWARDS", "MATCHAWARDS", "AWARD", "MATCHAWARD", "MATWARD",
-            });
-
-            ExtractValues.Add(ExtractFileOption.Announcers, new List<string>()
-            {
-                "ANNOUNCERS", "ANNOUNCER", "ANOUNCER", "ANN",
-            });
-
-            ExtractValues.Add(ExtractFileOption.Sprays, new List<string>()
-            {
-                "SPRAYS", "SPRAY",
-            });
-
-            ExtractValues.Add(ExtractFileOption.VoiceLines, new List<string>()
-            {
-                "VOICELINES", "VOICELINE", "VOICE", "VOICES",
-            });
-
-            ExtractValues.Add(ExtractFileOption.Emoticons, new List<string>()
-            {
-                "EMOTICONS", "EMOTICON", "EMOTES", "EMOTE",
-            });
         }
     }
 }

@@ -36,10 +36,10 @@ namespace HeroesData
         public static bool CreateXml { get; set; } = false;
         public static bool CreateJson { get; set; } = false;
         public static bool ShowValidationWarnings { get; set; } = false;
-        public static ExtractFileOption ExtractFileOption { get; set; } = ExtractFileOption.None;
+        public static ExtractDataOption ExtractDataOption { get; set; } = ExtractDataOption.HeroData;
+        public static ExtractImageOption ExtractFileOption { get; set; } = ExtractImageOption.None;
         public static bool IsFileSplit { get; set; } = false;
         public static bool IsLocalizedText { get; set; } = false;
-        public static bool ExcludeAwardParsing { get; set; } = false;
         public static bool CreateMinFiles { get; set; } = false;
         public static int? HotsBuild { get; set; } = null;
         public static int? OverrideBuild { get; set; } = null;
@@ -177,7 +177,7 @@ namespace HeroesData
 
                         Console.WriteLine();
 
-                        if (ExtractFileOption != ExtractFileOption.None)
+                        if (ExtractFileOption != ExtractImageOption.None)
                         {
                             if (StorageMode == StorageMode.CASC)
                             {
@@ -190,7 +190,7 @@ namespace HeroesData
                             else
                             {
                                 Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.WriteLine("Unable to perform file extraction: Only available in CASC mode.");
+                                Console.WriteLine("Unable to perform file extraction: Only available using the Heroes of the Storm game directory.");
                                 Console.ResetColor();
                             }
 
@@ -636,7 +636,7 @@ namespace HeroesData
 
             DataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = true,
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.HeroData),
                 Name = dataHero.Name,
                 Parse = (localization) => dataHero.Parse(localization),
                 Validate = (localization) => dataHero.Validate(localization),
@@ -645,7 +645,7 @@ namespace HeroesData
 
             DataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = true,
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.MatchAward),
                 Name = dataMatchAward.Name,
                 Parse = (localization) => dataMatchAward.Parse(localization),
                 Validate = (localization) => dataMatchAward.Validate(localization),
@@ -654,7 +654,7 @@ namespace HeroesData
 
             DataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = true,
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.HeroSkin),
                 Name = dataHeroSkin.Name,
                 Parse = (localization) => dataHeroSkin.Parse(localization),
                 Validate = (localization) => dataHeroSkin.Validate(localization),
@@ -662,7 +662,7 @@ namespace HeroesData
 
             DataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = true,
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Mount),
                 Name = dataMount.Name,
                 Parse = (localization) => dataMount.Parse(localization),
                 Validate = (localization) => dataMount.Validate(localization),
@@ -670,7 +670,7 @@ namespace HeroesData
 
             DataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = true,
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Banner),
                 Name = dataBanner.Name,
                 Parse = (localization) => dataBanner.Parse(localization),
                 Validate = (localization) => dataBanner.Validate(localization),
@@ -678,7 +678,7 @@ namespace HeroesData
 
             DataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = true,
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Spray),
                 Name = dataSpray.Name,
                 Parse = (localization) => dataSpray.Parse(localization),
                 Validate = (localization) => dataSpray.Validate(localization),
@@ -687,7 +687,7 @@ namespace HeroesData
 
             DataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = true,
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Announcer),
                 Name = dataAnnouncer.Name,
                 Parse = (localization) => dataAnnouncer.Parse(localization),
                 Validate = (localization) => dataAnnouncer.Validate(localization),
@@ -696,7 +696,7 @@ namespace HeroesData
 
             DataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = true,
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.VoiceLine),
                 Name = dataVoiceLine.Name,
                 Parse = (localization) => dataVoiceLine.Parse(localization),
                 Validate = (localization) => dataVoiceLine.Validate(localization),
@@ -705,7 +705,7 @@ namespace HeroesData
 
             DataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = true,
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Portrait),
                 Name = dataPortrait.Name,
                 Parse = (localization) => dataPortrait.Parse(localization),
                 Validate = (localization) => dataPortrait.Validate(localization),
@@ -713,7 +713,7 @@ namespace HeroesData
 
             DataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = true,
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Emoticon),
                 Name = dataEmoticon.Name,
                 Parse = (localization) => dataEmoticon.Parse(localization),
                 Validate = (localization) => dataEmoticon.Validate(localization),
@@ -722,7 +722,7 @@ namespace HeroesData
 
             DataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = true,
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.EmoticonPack),
                 Name = dataEmoticonPack.Name,
                 Parse = (localization) => dataEmoticonPack.Parse(localization),
                 Validate = (localization) => dataEmoticonPack.Validate(localization),

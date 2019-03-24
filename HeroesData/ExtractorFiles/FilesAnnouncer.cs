@@ -19,7 +19,7 @@ namespace HeroesData.ExtractorFiles
 
         protected override void ExtractFiles()
         {
-            if (App.ExtractFileOption.HasFlag(ExtractFileOption.Announcers))
+            if (App.ExtractFileOption.HasFlag(ExtractImageOption.Announcer))
                 ExtractAnnouncerImages();
         }
 
