@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Heroes.Models", "Heroes.Mod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Tests", "Tests\HeroesData.Tests\HeroesData.Tests.csproj", "{5692921D-094A-493B-9576-D7E6F9C150E5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDSReader", "dds-reader\DDSReader\DDSReader\DDSReader.csproj", "{D16AD6F4-C6F3-4DE4-AFF3-F545661C42A2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Loader", "HeroesData.Loader\HeroesData.Loader.csproj", "{089EF759-1E76-4F9F-83BE-5EB3C1229B8D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Helpers", "HeroesData.Helpers\HeroesData.Helpers.csproj", "{0EDB675F-0249-4B0C-A73A-8EDD0D6D145B}"
@@ -67,10 +65,6 @@ Global
 		{5692921D-094A-493B-9576-D7E6F9C150E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5692921D-094A-493B-9576-D7E6F9C150E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5692921D-094A-493B-9576-D7E6F9C150E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D16AD6F4-C6F3-4DE4-AFF3-F545661C42A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D16AD6F4-C6F3-4DE4-AFF3-F545661C42A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D16AD6F4-C6F3-4DE4-AFF3-F545661C42A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D16AD6F4-C6F3-4DE4-AFF3-F545661C42A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{089EF759-1E76-4F9F-83BE-5EB3C1229B8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{089EF759-1E76-4F9F-83BE-5EB3C1229B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{089EF759-1E76-4F9F-83BE-5EB3C1229B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU

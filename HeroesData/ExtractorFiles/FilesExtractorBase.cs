@@ -1,5 +1,4 @@
 ﻿using CASCLib;
-using DDSReader;
 using Heroes.Models;
 using System;
 using System.Collections.Generic;

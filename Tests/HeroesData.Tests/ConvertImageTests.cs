@@ -1,4 +1,3 @@
-using DDSReader;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SixLabors.ImageSharp;
 using SixLabors.Primitives;
