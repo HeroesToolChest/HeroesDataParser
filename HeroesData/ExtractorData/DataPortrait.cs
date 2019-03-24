@@ -15,13 +15,13 @@ namespace HeroesData.ExtractorData
         protected override void Validation(Portrait portrait)
         {
             if (string.IsNullOrEmpty(portrait.Name))
-                AddWarning($"{nameof(portrait.Name)} is null or empty");
+                AddWarning($"{nameof(portrait.Name)} is empty");
 
             if (string.IsNullOrEmpty(portrait.Id))
-                AddWarning($"{nameof(portrait.Id)} is null or empty");
+                AddWarning($"{nameof(portrait.Id)} is empty");
 
             if (string.IsNullOrEmpty(portrait.HyperlinkId))
-                AddWarning($"{nameof(portrait.HyperlinkId)} is null or empty");
+                AddWarning($"{nameof(portrait.HyperlinkId)} is empty");
         }
     }
 }

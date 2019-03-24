@@ -99,10 +99,10 @@ namespace HeroesData.ExtractorData
                 return;
 
             if (string.IsNullOrEmpty(hero.AttributeId))
-                AddWarning($"{nameof(hero.AttributeId)} is null or empty");
+                AddWarning($"{nameof(hero.AttributeId)} is empty");
 
             if (string.IsNullOrEmpty(hero.Description?.RawDescription))
-                AddWarning($"{nameof(hero.Description)} is null or empty");
+                AddWarning($"{nameof(hero.Description)} is empty");
 
             if (string.IsNullOrEmpty(hero.Difficulty))
                 AddWarning($"{nameof(hero.Difficulty)} is Unknown");
@@ -114,7 +114,7 @@ namespace HeroesData.ExtractorData
                 AddWarning($"{nameof(hero.Roles)} is Unknown");
 
             if (Parser.HotsBuild.GetValueOrDefault(0) >= 72880 && string.IsNullOrEmpty(hero.ExpandedRole))
-                AddWarning($"{nameof(hero.ExpandedRole)} is null or empty");
+                AddWarning($"{nameof(hero.ExpandedRole)} is empty");
 
             if (hero.Abilities.Count < 1)
                 AddWarning("Hero has no abilities");
@@ -181,66 +181,66 @@ namespace HeroesData.ExtractorData
 
             // hero portraits
             if (string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName))
-                AddWarning($"[{nameof(hero.HeroPortrait.HeroSelectPortraitFileName)}]  is null or empty");
+                AddWarning($"[{nameof(hero.HeroPortrait.HeroSelectPortraitFileName)}]  is empty");
 
             if (string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName))
-                AddWarning($"[{nameof(hero.HeroPortrait.LeaderboardPortraitFileName)}]  is null or empty");
+                AddWarning($"[{nameof(hero.HeroPortrait.LeaderboardPortraitFileName)}]  is empty");
 
             if (string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName))
-                AddWarning($"[{nameof(hero.HeroPortrait.LoadingScreenPortraitFileName)}]  is null or empty");
+                AddWarning($"[{nameof(hero.HeroPortrait.LoadingScreenPortraitFileName)}]  is empty");
 
             if (string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName))
-                AddWarning($"[{nameof(hero.HeroPortrait.PartyPanelPortraitFileName)}]  is null or empty");
+                AddWarning($"[{nameof(hero.HeroPortrait.PartyPanelPortraitFileName)}]  is empty");
 
             if (string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
-                AddWarning($"[{nameof(hero.HeroPortrait.TargetPortraitFileName)}]  is null or empty");
+                AddWarning($"[{nameof(hero.HeroPortrait.TargetPortraitFileName)}]  is empty");
 
             foreach (var talent in hero.Talents)
             {
                 if (string.IsNullOrEmpty(talent.Value.IconFileName))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.IconFileName)} is null or empty");
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.IconFileName)} is empty");
 
                 if (string.IsNullOrEmpty(talent.Value.Name))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Name)} is null or empty");
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Name)} is empty");
 
                 if (string.IsNullOrEmpty(talent.Value.ReferenceNameId))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.ReferenceNameId)} is null or empty");
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.ReferenceNameId)} is empty");
 
                 if (string.IsNullOrEmpty(talent.Value.FullTooltipNameId))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.FullTooltipNameId)} is null or empty");
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.FullTooltipNameId)} is empty");
 
                 if (string.IsNullOrEmpty(talent.Value.ShortTooltipNameId))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.ShortTooltipNameId)} is null or empty");
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.ShortTooltipNameId)} is empty");
 
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.ShortTooltip?.RawDescription))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.ShortTooltip)} is null or empty");
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.ShortTooltip)} is empty");
 
                 if (!string.IsNullOrEmpty(talent.Value.Tooltip.ShortTooltip?.RawDescription) && talent.Value.Tooltip.ShortTooltip.RawDescription.Contains("<d ref=\""))
                     AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.ShortTooltip)} could not be parsed");
 
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.RawDescription))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)} is null or empty");
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)} is empty");
 
                 if (!string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.RawDescription) && talent.Value.Tooltip.FullTooltip.RawDescription.Contains("<d ref=\""))
                     AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)} could not be parsed");
 
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.PlainText))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainText)} is null or empty");
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainText)} is empty");
 
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.PlainTextWithNewlines))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainTextWithScaling)} is null or empty");
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainTextWithScaling)} is empty");
 
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.PlainTextWithScaling))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainTextWithScaling)} is null or empty");
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainTextWithScaling)} is empty");
 
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.PlainTextWithScalingWithNewlines))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainTextWithScalingWithNewlines)} is null or empty");
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainTextWithScalingWithNewlines)} is empty");
 
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.ColoredText))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.ColoredText)} is null or empty");
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.ColoredText)} is empty");
 
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.ColoredTextWithScaling))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.ColoredTextWithScaling)} is null or empty");
+                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.ColoredTextWithScaling)} is empty");
 
                 if (talent.Value.Tooltip.Cooldown?.CooldownTooltip != null)
                 {
@@ -312,25 +312,25 @@ namespace HeroesData.ExtractorData
             foreach (var ability in unit.Abilities)
             {
                 if (string.IsNullOrEmpty(ability.Value.IconFileName))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.IconFileName)} is null or empty");
+                    AddWarning($"[{ability.Key}] {nameof(ability.Value.IconFileName)} is empty");
 
                 if (string.IsNullOrEmpty(ability.Value.Name))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.Name)} is null or empty");
+                    AddWarning($"[{ability.Key}] {nameof(ability.Value.Name)} is empty");
 
                 if (string.IsNullOrEmpty(ability.Value.ReferenceNameId))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.ReferenceNameId)} is null or empty");
+                    AddWarning($"[{ability.Key}] {nameof(ability.Value.ReferenceNameId)} is empty");
 
                 if (string.IsNullOrEmpty(ability.Value.FullTooltipNameId))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.FullTooltipNameId)} is null or empty");
+                    AddWarning($"[{ability.Key}] {nameof(ability.Value.FullTooltipNameId)} is empty");
 
                 if (string.IsNullOrEmpty(ability.Value.ShortTooltipNameId))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.ShortTooltipNameId)} is null or empty");
+                    AddWarning($"[{ability.Key}] {nameof(ability.Value.ShortTooltipNameId)} is empty");
 
                 if (string.IsNullOrEmpty(ability.Value.Tooltip.ShortTooltip?.RawDescription))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.ShortTooltip)} is null or empty");
+                    AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.ShortTooltip)} is empty");
 
                 if (string.IsNullOrEmpty(ability.Value.Tooltip.FullTooltip?.RawDescription))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltip)} is null or empty");
+                    AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltip)} is empty");
 
                 if (!string.IsNullOrEmpty(ability.Value.Tooltip.Cooldown?.CooldownTooltip?.RawDescription))
                 {

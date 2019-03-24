@@ -27,52 +27,52 @@
 [LostVikings] Sight is 0
 
 # default announcer has no gender
-[NoAnnouncerPack] Gender is null or empty
+[NoAnnouncerPack] Gender is empty
 
 # voice lines for dva pilot
-[DVaBase_VoiceLine01_P] AttributeId is null or empty
-[DVaBase_VoiceLine01_P] ImageFileName is null or empty
-[DVaGoliath_VoiceLine04_P] AttributeId is null or empty
-[DVaGoliath_VoiceLine04_P] ImageFileName is null or empty
-[DVaGoliath_VoiceLine02_P] AttributeId is null or empty
-[DVaGoliath_VoiceLine02_P] ImageFileName is null or empty
-[DVaBase_VoiceLine03_P] AttributeId is null or empty
-[DVaBase_VoiceLine03_P] ImageFileName is null or empty
-[DVaBase_VoiceLine05_P] AttributeId is null or empty
-[DVaBase_VoiceLine05_P] ImageFileName is null or empty
-[DVaBase_VoiceLine04_P] AttributeId is null or empty
-[DVaBase_VoiceLine04_P] ImageFileName is null or empty
-[DVaBase_VoiceLine02_P] AttributeId is null or empty
-[DVaBase_VoiceLine02_P] ImageFileName is null or empty
-[DVaGoliath_VoiceLine05_P] AttributeId is null or empty
-[DVaGoliath_VoiceLine05_P] ImageFileName is null or empty
-[DVaGoliath_VoiceLine03_P] AttributeId is null or empty
-[DVaGoliath_VoiceLine03_P] ImageFileName is null or empty
-[DVaGoliath_VoiceLine01_P] AttributeId is null or empty
-[DVaGoliath_VoiceLine01_P] ImageFileName is null or empty
+[DVaBase_VoiceLine01_P] AttributeId is empty
+[DVaBase_VoiceLine01_P] ImageFileName is empty
+[DVaGoliath_VoiceLine04_P] AttributeId is empty
+[DVaGoliath_VoiceLine04_P] ImageFileName is empty
+[DVaGoliath_VoiceLine02_P] AttributeId is empty
+[DVaGoliath_VoiceLine02_P] ImageFileName is empty
+[DVaBase_VoiceLine03_P] AttributeId is empty
+[DVaBase_VoiceLine03_P] ImageFileName is empty
+[DVaBase_VoiceLine05_P] AttributeId is empty
+[DVaBase_VoiceLine05_P] ImageFileName is empty
+[DVaBase_VoiceLine04_P] AttributeId is empty
+[DVaBase_VoiceLine04_P] ImageFileName is empty
+[DVaBase_VoiceLine02_P] AttributeId is empty
+[DVaBase_VoiceLine02_P] ImageFileName is empty
+[DVaGoliath_VoiceLine05_P] AttributeId is empty
+[DVaGoliath_VoiceLine05_P] ImageFileName is empty
+[DVaGoliath_VoiceLine03_P] AttributeId is empty
+[DVaGoliath_VoiceLine03_P] ImageFileName is empty
+[DVaGoliath_VoiceLine01_P] AttributeId is empty
+[DVaGoliath_VoiceLine01_P] ImageFileName is empty
 
 # abstract emoticons do not have images
-[abstract_cool] Image is null or empty
-[abstract_silly] Image is null or empty
-[abstract_cool_casesensitive] Image is null or empty
-[abstract_rofl_casesensitive] Image is null or empty
-[abstract_inlove] Image is null or empty
-[abstract_embarrassed] Image is null or empty
-[abstract_surprised] Image is null or empty
-[abstract_sad] Image is null or empty
-[abstract_angry] Image is null or empty
-[abstract_speechless] Image is null or empty
-[abstract_happy] Image is null or empty
-[abstract_rofl] Image is null or empty
+[abstract_cool] Image is empty
+[abstract_silly] Image is empty
+[abstract_cool_casesensitive] Image is empty
+[abstract_rofl_casesensitive] Image is empty
+[abstract_inlove] Image is empty
+[abstract_embarrassed] Image is empty
+[abstract_surprised] Image is empty
+[abstract_sad] Image is empty
+[abstract_angry] Image is empty
+[abstract_speechless] Image is empty
+[abstract_happy] Image is empty
+[abstract_rofl] Image is empty
 
 # emoticon packs
-[AbstractEmoticonPack] Name is null or empty
-[AbstractEmoticonPack] CollectionCategory is null or empty
-[SapperPackBonus] Name is null or empty
+[AbstractEmoticonPack] Name is empty
+[AbstractEmoticonPack] CollectionCategory is empty
+[SapperPackBonus] Name is empty
 
 # ignore for following data
-[$heroskin] SearchText is null or empty
-[$mount] SearchText is null or empty
-[$spray] SearchText is null or empty
-[$emoticonpack] EventName is null or empty
-[$emoticonpack] Description is null or empty
+[$heroskin] SearchText is empty
+[$mount] SearchText is empty
+[$spray] SearchText is empty
+[$emoticonpack] EventName is empty
+[$emoticonpack] Description is empty

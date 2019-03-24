@@ -15,28 +15,28 @@ namespace HeroesData.ExtractorData
         protected override void Validation(Mount mount)
         {
             if (string.IsNullOrEmpty(mount.Name))
-                AddWarning($"{nameof(mount.Name)} is null or empty");
+                AddWarning($"{nameof(mount.Name)} is empty");
 
             if (string.IsNullOrEmpty(mount.Id))
-                AddWarning($"{nameof(mount.Id)} is null or empty");
+                AddWarning($"{nameof(mount.Id)} is empty");
 
             if (string.IsNullOrEmpty(mount.HyperlinkId))
-                AddWarning($"{nameof(mount.HyperlinkId)} is null or empty");
+                AddWarning($"{nameof(mount.HyperlinkId)} is empty");
 
             if (string.IsNullOrEmpty(mount.AttributeId))
-                AddWarning($"{nameof(mount.AttributeId)} is null or empty");
+                AddWarning($"{nameof(mount.AttributeId)} is empty");
 
             if (string.IsNullOrEmpty(mount.MountCategory))
-                AddWarning($"{nameof(mount.MountCategory)} is null or empty");
+                AddWarning($"{nameof(mount.MountCategory)} is empty");
 
             if (string.IsNullOrEmpty(mount.CollectionCategory))
-                AddWarning($"{nameof(mount.CollectionCategory)} is null or empty");
+                AddWarning($"{nameof(mount.CollectionCategory)} is empty");
 
             if (string.IsNullOrEmpty(mount.Description?.RawDescription))
-                AddWarning($"{nameof(mount.Description)} is null or empty");
+                AddWarning($"{nameof(mount.Description)} is empty");
 
             if (string.IsNullOrEmpty(mount.SearchText))
-                AddWarning($"{nameof(mount.SearchText)} is null or empty");
+                AddWarning($"{nameof(mount.SearchText)} is empty");
 
             if (!mount.ReleaseDate.HasValue)
                 AddWarning($"{nameof(mount.ReleaseDate)} is null");

@@ -15,25 +15,25 @@ namespace HeroesData.ExtractorData
         protected override void Validation(HeroSkin heroSkin)
         {
             if (string.IsNullOrEmpty(heroSkin.Name))
-                AddWarning($"{nameof(heroSkin.Name)} is null or empty");
+                AddWarning($"{nameof(heroSkin.Name)} is empty");
 
             if (string.IsNullOrEmpty(heroSkin.Id))
-                AddWarning($"{nameof(heroSkin.Id)} is null or empty");
+                AddWarning($"{nameof(heroSkin.Id)} is empty");
 
             if (string.IsNullOrEmpty(heroSkin.HyperlinkId))
-                AddWarning($"{nameof(heroSkin.HyperlinkId)} is null or empty");
+                AddWarning($"{nameof(heroSkin.HyperlinkId)} is empty");
 
             if (string.IsNullOrEmpty(heroSkin.SortName))
-                AddWarning($"{nameof(heroSkin.SortName)} is null or empty");
+                AddWarning($"{nameof(heroSkin.SortName)} is empty");
 
             if (string.IsNullOrEmpty(heroSkin.AttributeId))
-                AddWarning($"{nameof(heroSkin.AttributeId)} is null or empty");
+                AddWarning($"{nameof(heroSkin.AttributeId)} is empty");
 
             if (string.IsNullOrEmpty(heroSkin.Description?.RawDescription))
-                AddWarning($"{nameof(heroSkin.Description)} is null or empty");
+                AddWarning($"{nameof(heroSkin.Description)} is empty");
 
             if (string.IsNullOrEmpty(heroSkin.SearchText))
-                AddWarning($"{nameof(heroSkin.SearchText)} is null or empty");
+                AddWarning($"{nameof(heroSkin.SearchText)} is empty");
 
             if (!heroSkin.ReleaseDate.HasValue)
                 AddWarning($"{nameof(heroSkin.ReleaseDate)} is null");

@@ -15,22 +15,22 @@ namespace HeroesData.ExtractorData
         protected override void Validation(Spray spray)
         {
             if (string.IsNullOrEmpty(spray.Name))
-                AddWarning($"{nameof(spray.Name)} is null or empty");
+                AddWarning($"{nameof(spray.Name)} is empty");
 
             if (string.IsNullOrEmpty(spray.Id))
-                AddWarning($"{nameof(spray.Id)} is null or empty");
+                AddWarning($"{nameof(spray.Id)} is empty");
 
             if (string.IsNullOrEmpty(spray.HyperlinkId))
-                AddWarning($"{nameof(spray.HyperlinkId)} is null or empty");
+                AddWarning($"{nameof(spray.HyperlinkId)} is empty");
 
             if (string.IsNullOrEmpty(spray.AttributeId))
-                AddWarning($"{nameof(spray.AttributeId)} is null or empty");
+                AddWarning($"{nameof(spray.AttributeId)} is empty");
 
             if (string.IsNullOrEmpty(spray.CollectionCategory))
-                AddWarning($"{nameof(spray.CollectionCategory)} is null or empty");
+                AddWarning($"{nameof(spray.CollectionCategory)} is empty");
 
             if (string.IsNullOrEmpty(spray.SearchText))
-                AddWarning($"{nameof(spray.SearchText)} is null or empty");
+                AddWarning($"{nameof(spray.SearchText)} is empty");
 
             if (!spray.ReleaseDate.HasValue)
                 AddWarning($"{nameof(spray.ReleaseDate)} is null");
@@ -39,7 +39,7 @@ namespace HeroesData.ExtractorData
                 AddWarning($"{nameof(spray.Rarity)} is unknown");
 
             if (string.IsNullOrEmpty(spray.ImageFileName))
-                AddWarning($"{nameof(spray.ImageFileName)} is null or empty");
+                AddWarning($"{nameof(spray.ImageFileName)} is empty");
         }
     }
 }

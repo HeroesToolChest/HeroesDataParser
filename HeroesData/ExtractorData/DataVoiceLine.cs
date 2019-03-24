@@ -15,19 +15,19 @@ namespace HeroesData.ExtractorData
         protected override void Validation(VoiceLine voiceLine)
         {
             if (string.IsNullOrEmpty(voiceLine.Name))
-                AddWarning($"{nameof(voiceLine.Name)} is null or empty");
+                AddWarning($"{nameof(voiceLine.Name)} is empty");
 
             if (string.IsNullOrEmpty(voiceLine.Id))
-                AddWarning($"{nameof(voiceLine.Id)} is null or empty");
+                AddWarning($"{nameof(voiceLine.Id)} is empty");
 
             if (string.IsNullOrEmpty(voiceLine.AttributeId))
-                AddWarning($"{nameof(voiceLine.AttributeId)} is null or empty");
+                AddWarning($"{nameof(voiceLine.AttributeId)} is empty");
 
             if (!voiceLine.ReleaseDate.HasValue)
                 AddWarning($"{nameof(voiceLine.ReleaseDate)} is null");
 
             if (string.IsNullOrEmpty(voiceLine.ImageFileName))
-                AddWarning($"{nameof(voiceLine.ImageFileName)} is null or empty");
+                AddWarning($"{nameof(voiceLine.ImageFileName)} is empty");
         }
     }
 }
