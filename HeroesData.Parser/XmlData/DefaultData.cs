@@ -369,6 +369,16 @@ namespace HeroesData.Parser.XmlData
         public DateTime SprayReleaseDate { get; private set; }
 
         /// <summary>
+        /// Gets the default spray animation count.
+        /// </summary>
+        public int SprayAnimationCount { get; private set; }
+
+        /// <summary>
+        /// Gets the default spray animation duration.
+        /// </summary>
+        public int SprayAnimationDuration { get; private set; }
+
+        /// <summary>
         /// Gets the default announcer name. Contains ##id##.
         /// </summary>
         public string AnnouncerName { get; private set; }
@@ -990,6 +1000,14 @@ namespace HeroesData.Parser.XmlData
                 else if (elementName == "HYPERLINKID")
                 {
                     SprayHyperlinkId = element.Attribute("value").Value;
+                }
+                else if (elementName == "ANIMCOUNT")
+                {
+                    SprayAnimationCount = int.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "ANIMDURATION")
+                {
+                    SprayAnimationDuration = int.Parse(element.Attribute("value").Value);
                 }
             }
         }

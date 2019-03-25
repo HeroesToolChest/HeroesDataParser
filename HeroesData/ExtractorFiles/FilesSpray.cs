@@ -1,5 +1,6 @@
 ﻿using CASCLib;
 using Heroes.Models;
+using SixLabors.Primitives;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,8 +9,9 @@ namespace HeroesData.ExtractorFiles
 {
     public class FilesSpray : FilesExtractorBase<Spray>, IFile
     {
-        private readonly HashSet<string> Sprays = new HashSet<string>();
-
+        private readonly int ImageMaxHeight = 256;
+        private readonly int ImageMaxWidth = 256;
+        private readonly HashSet<Spray> Sprays = new HashSet<Spray>();
         private readonly string SprayDirectory = "sprays";
 
         public FilesSpray(CASCHandler cascHandler, StorageMode storageMode)
@@ -26,7 +28,7 @@ namespace HeroesData.ExtractorFiles
         protected override void LoadFileData(Spray spray)
         {
             if (!string.IsNullOrEmpty(spray.ImageFileName))
-                Sprays.Add(spray.ImageFileName.ToLower());
+                Sprays.Add(spray);
         }
 
         private void ExtractSprayImages()
@@ -39,10 +41,19 @@ namespace HeroesData.ExtractorFiles
 
             string extractFilePath = Path.Combine(ExtractDirectory, SprayDirectory);
 
-            foreach (string spray in Sprays)
+            foreach (Spray spray in Sprays)
             {
-                if (ExtractImageFile(extractFilePath, spray))
-                    count++;
+                string filePath = Path.Combine(extractFilePath, spray.ImageFileName.ToLower());
+                if (spray.AnimationCount > 0)
+                {
+                    if (ExtractAnimatedImageFile(filePath, new Size(ImageMaxWidth, ImageMaxHeight), new Size(ImageMaxWidth, ImageMaxHeight), spray.AnimationCount, spray.AnimationDuration / 2))
+                        count++;
+                }
+                else
+                {
+                    if (ExtractStaticImageFile(filePath))
+                        count++;
+                }
 
                 Console.Write($"\rExtracting spray image files...{count}/{Sprays.Count}");
             }

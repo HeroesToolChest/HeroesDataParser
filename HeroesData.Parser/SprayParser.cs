@@ -151,6 +151,14 @@ namespace HeroesData.Parser
                 {
                     spray.ImageFileName = Path.GetFileName(PathHelpers.GetFilePath(element.Attribute("value")?.Value)).ToLower();
                 }
+                else if (elementName == "ANIMCOUNT")
+                {
+                    spray.AnimationCount = int.Parse(element.Attribute("value")?.Value);
+                }
+                else if (elementName == "ANIMDURATION")
+                {
+                    spray.AnimationDuration = int.Parse(element.Attribute("value")?.Value);
+                }
             }
         }
 
@@ -162,6 +170,8 @@ namespace HeroesData.Parser
             spray.HyperlinkId = DefaultData.SprayHyperlinkId.Replace(DefaultData.IdPlaceHolder, spray.Id);
             spray.ReleaseDate = DefaultData.SprayReleaseDate;
             spray.Rarity = Rarity.None;
+            spray.AnimationCount = DefaultData.SprayAnimationCount;
+            spray.AnimationDuration = DefaultData.SprayAnimationDuration;
 
             spray.SearchText = GameData.GetGameString(DefaultData.SprayAdditionalSearchText.Replace(DefaultData.IdPlaceHolder, spray.Id));
             if (!string.IsNullOrEmpty(spray.SearchText))

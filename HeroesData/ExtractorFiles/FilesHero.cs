@@ -99,7 +99,7 @@ namespace HeroesData.ExtractorFiles
 
             foreach (string portrait in Portraits)
             {
-                if (ExtractImageFile(extractFilePath, portrait))
+                if (ExtractStaticImageFile(Path.Combine(extractFilePath, portrait)))
                     count++;
 
                 Console.Write($"\rExtracting portrait files...{count}/{Portraits.Count}");
@@ -123,7 +123,7 @@ namespace HeroesData.ExtractorFiles
 
             foreach (string ability in Abilities)
             {
-                if (ExtractImageFile(extractFilePath, ability))
+                if (ExtractStaticImageFile(Path.Combine(extractFilePath, ability)))
                     count++;
 
                 Console.Write($"\rExtracting ability icon files...{count}/{Abilities.Count}");
@@ -147,7 +147,7 @@ namespace HeroesData.ExtractorFiles
 
             foreach (string talent in Talents)
             {
-                if (ExtractImageFile(extractFilePath, talent))
+                if (ExtractStaticImageFile(Path.Combine(extractFilePath, talent)))
                     count++;
 
                 Console.Write($"\rExtracting talent icon files...{count}/{Talents.Count}");
@@ -171,7 +171,7 @@ namespace HeroesData.ExtractorFiles
 
             foreach (string abilityTalent in AbilityTalents)
             {
-                if (ExtractImageFile(extractFilePath, abilityTalent))
+                if (ExtractStaticImageFile(Path.Combine(extractFilePath, abilityTalent)))
                     count++;
 
                 Console.Write($"\rExtracting abilityTalent icon files...{count}/{AbilityTalents.Count}");

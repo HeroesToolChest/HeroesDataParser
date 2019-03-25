@@ -5,6 +5,7 @@ using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Processing.Processors.Quantization;
 using SixLabors.Primitives;
 using System;
 using System.IO;
@@ -67,9 +68,9 @@ namespace HeroesData
         /// </summary>
         /// <param name="file">The file path the image will be written to.</param>
         /// <param name="size">The size of the new image.</param>
-        /// <param name="maxSize"></param>
-        /// <param name="frames"></param>
-        /// <param name="frameDelay"></param>
+        /// <param name="maxSize">The maximum size from the base image. Not the base image size.</param>
+        /// <param name="frames">The amount of frames.</param>
+        /// <param name="frameDelay">The delay of each frame.</param>
         public void SaveAsGif(string file, Size size, Size maxSize, int frames, int frameDelay)
         {
             if (Path.GetExtension(file) != ".gif")

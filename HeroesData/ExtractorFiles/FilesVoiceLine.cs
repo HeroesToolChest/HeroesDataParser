@@ -41,7 +41,7 @@ namespace HeroesData.ExtractorFiles
 
             foreach (string voiceline in VoiceLines)
             {
-                if (ExtractImageFile(extractFilePath, voiceline))
+                if (ExtractStaticImageFile(Path.Combine(extractFilePath, voiceline)))
                     count++;
 
                 Console.Write($"\rExtracting voiceline image files...{count}/{VoiceLines.Count}");

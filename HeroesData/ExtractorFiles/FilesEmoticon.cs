@@ -12,7 +12,6 @@ namespace HeroesData.ExtractorFiles
         private readonly int ImageMaxHeight = 32;
         private readonly int ImageMaxWidth = 40;
         private readonly HashSet<Emoticon> Emoticons = new HashSet<Emoticon>();
-
         private readonly string EmoticonDirectory = "emoticons";
 
         public FilesEmoticon(CASCHandler cascHandler, StorageMode storageMode)
@@ -44,54 +43,24 @@ namespace HeroesData.ExtractorFiles
 
             foreach (Emoticon emoticon in Emoticons)
             {
-                if (ExtractIndividualEmoticonImage(extractFilePath, emoticon.TextureSheet.Image.ToLower(), emoticon))
-                    count++;
+                if (emoticon.Image.Count.HasValue)
+                {
+                    if (ExtractAnimatedImageFile(Path.Combine(extractFilePath, emoticon.TextureSheet.Image.ToLower()), new Size(emoticon.Image.Width, ImageMaxHeight), new Size(ImageMaxWidth, ImageMaxHeight), emoticon.Image.Count.Value, emoticon.Image.DurationPerFrame.Value))
+                        count++;
+                }
+                else
+                {
+                    int xPos = (emoticon.Image.Index % emoticon.TextureSheet.Columns) * ImageMaxWidth;
+                    int yPos = (emoticon.Image.Index / emoticon.TextureSheet.Columns) * ImageMaxHeight;
+
+                    if (ExtractStaticImageFile(Path.Combine(extractFilePath, emoticon.Image.FileName.ToLower()), emoticon.TextureSheet.Image.ToLower(), new Point(xPos, yPos), new Size(emoticon.Image.Width, ImageMaxHeight)))
+                        count++;
+                }
 
                 Console.Write($"\rExtracting emoticon image files...{count}/{Emoticons.Count}");
             }
 
             Console.WriteLine(" Done.");
-        }
-
-        private bool ExtractIndividualEmoticonImage(string path, string textureSheetFileName, Emoticon emoticon)
-        {
-            try
-            {
-                Directory.CreateDirectory(path);
-
-                string cascFilepath = Path.Combine(CASCTexturesPath, textureSheetFileName);
-                if (CASCHandler.FileExists(cascFilepath))
-                {
-                    DDSImage image = new DDSImage(CASCHandler.OpenFile(cascFilepath));
-
-                    if (emoticon.Image.Count.HasValue) // gif
-                    {
-                        image.SaveAsGif(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(emoticon.TextureSheet.Image)}.gif"), new Size(emoticon.Image.Width, ImageMaxHeight), new Size(ImageMaxWidth, ImageMaxHeight), emoticon.Image.Count.Value, emoticon.Image.DurationPerFrame.Value);
-
-                        return true;
-                    }
-                    else // png
-                    {
-                        int xPos = (emoticon.Image.Index % emoticon.TextureSheet.Columns) * ImageMaxWidth;
-                        int yPos = (emoticon.Image.Index / emoticon.TextureSheet.Columns) * ImageMaxHeight;
-
-                        image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(emoticon.Image.FileName)}.png"), new Point(xPos, yPos), new Size(emoticon.Image.Width, ImageMaxHeight));
-
-                        return true;
-                    }
-                }
-                else
-                {
-                    FailedFileMessages.Add($"CASC file not found: {textureSheetFileName}");
-                }
-            }
-            catch (Exception ex)
-            {
-                FailedFileMessages.Add($"Error extracting file: {textureSheetFileName}");
-                FailedFileMessages.Add($"--> {ex.Message}");
-            }
-
-            return false;
         }
     }
 }

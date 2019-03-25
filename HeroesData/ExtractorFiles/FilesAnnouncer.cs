@@ -41,7 +41,7 @@ namespace HeroesData.ExtractorFiles
 
             foreach (string announcer in Announcers)
             {
-                if (ExtractImageFile(extractFilePath, announcer))
+                if (ExtractStaticImageFile(Path.Combine(extractFilePath, announcer)))
                     count++;
 
                 Console.Write($"\rExtracting announcer image files...{count}/{Announcers.Count}");
