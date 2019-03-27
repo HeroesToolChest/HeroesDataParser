@@ -55,8 +55,11 @@ namespace HeroesData.Parser.GameStrings
                 parsedTooltip = ParseTooltipGameStringData(key, tooltip);
 
                 // unable to parse correctly, returns an empty string
-                if (parsedTooltip.Contains("<d ref="))
+                if (string.IsNullOrEmpty(parsedTooltip) || parsedTooltip.Contains("<d "))
+                {
                     parsedTooltip = string.Empty;
+                    return false;
+                }
 
                 return true;
             }
@@ -98,14 +101,14 @@ namespace HeroesData.Parser.GameStrings
             if (tooltip.Contains("<d ref= \""))
                 tooltip = tooltip.Replace("<d ref= \"", "<d ref=\"");
 
-            if (tooltip.Contains("<d ref="))
+            if (tooltip.Contains("<d ref=") || tooltip.Contains("<d const="))
             {
                 while (tooltip.Contains("[d ref="))
                 {
                     tooltip = ParseGameString(referenceNameId, tooltip, "(\\[d ref=\".*?/\\])", true);
                 }
 
-                return ParseGameString(referenceNameId, tooltip, "(<d ref=\".*?/>)", false);
+                return ParseGameString(referenceNameId, tooltip, "(<d ref=\".*?/>|<d const=\".*?/>)", false);
             }
             else // no values to look up
             {
@@ -131,7 +134,7 @@ namespace HeroesData.Parser.GameStrings
                 }
                 else
                 {
-                    if (!parts[i].Contains("<d ref="))
+                    if (!parts[i].Contains("<d ref=") && !parts[i].Contains("<d const="))
                         continue;
                 }
 
@@ -324,7 +327,10 @@ namespace HeroesData.Parser.GameStrings
 
         private string[] GetArithmeticPaths(ref string pathLookup)
         {
-            pathLookup = pathLookup.Substring(8); // get path without the d ref
+            if (pathLookup.StartsWith("<d ref") || pathLookup.StartsWith("[d ref"))
+                pathLookup = pathLookup.Substring(8); // get path without the d ref
+            else if (pathLookup.StartsWith("<d const"))
+                pathLookup = pathLookup.Substring(10);
             pathLookup = pathLookup.Remove(pathLookup.LastIndexOf('/') - 1).TrimEnd(' ').TrimEnd('"'); // removes ending />
 
             // check for math operators
@@ -373,7 +379,12 @@ namespace HeroesData.Parser.GameStrings
         private string ReadData(List<string> parts, List<string> scalingParts, out double? scaling)
         {
             scaling = null;
-            string value = ReadGameData(parts, null);
+            string value = string.Empty;
+
+            if (parts[0].StartsWith("$"))
+                value = GameData.GetValueFromAttribute(parts[0]);
+            else
+                value = ReadGameData(parts, null);
 
             if (scalingParts.Count == 3)
                 scaling = GetScalingInfo(scalingParts[0], scalingParts[1], scalingParts[2]);
