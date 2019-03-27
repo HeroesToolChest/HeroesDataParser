@@ -18,6 +18,9 @@ namespace HeroesData.Parser.Tests
         private readonly string DataReferenceText1 = "<d ref=\"100*Talent,AnubarakMasteryEpicenterBurrowCharge,AbilityModificationArray[0].Modifications[2].Value\"/>";
         private readonly string Tooltip1 = "Toxic Nests deal <c val=\"#TooltipNumbers\"><d ref=\"(Effect,AbathurToxicNestEnvenomedNestDamage,Amount* [d ref='Behavior,AbathurToxicNestEnvenomedNest,PeriodCount' player='0'/])/Effect,ToxicNestDamage,Amount*100\"/>%</c> more damage over <c val=\"#TooltipNumbers\"><d ref=\"Behavior,AbathurToxicNestEnvenomedNest,Duration\" player=\"0\"/></c> seconds.";
         private readonly string Tooltip2 = "Zarya's Basic Attack deals <c val=\"#TooltipNumbers\"><d ref=\"(Effect,ZaryaWeaponFeelTheHeatDamage,Amount/Effect,ZaryaWeaponDamage,Amount)-1*10)\" />0%</c> additional damage to enemies in melee range.";
+        private readonly string Tooltip3 = "Yrel sanctifies the ground around her, gaining <c val=\"#TooltipNumbers\"><d const=\"$YrelSacredGroundArmorBonus\" precision=\"2\"/></c> Armor until she leaves the area.";
+
+        private readonly string FailedTooltip1 = "Surround Yrel in a barrier for <c val=\"#TooltipNumbers\"><d const=\"$YrelArdentDefenderDamageTrackerDuration\" precision=\"2\"/></c> seconds, absorbing all damage taken and healing her for <c val=\"#TooltipNumbers\"><d ref=\"Effect,YrelArdentDefenderDamageConversionScaleDummyModifyUnit,XP*100\" player=\"0\" precision=\"2\"/>%</c> of the damage received.";
 
         private readonly string ParsedTooltip1 = "Toxic Nests deal <c val=\"#TooltipNumbers\">75%</c> more damage over <c val=\"#TooltipNumbers\">3</c> seconds.";
         private readonly string ParsedTooltip2 = "Shields the assisted ally for <c val=\"#TooltipNumbers\">157~~0.04~~</c>. Lasts for <c val=\"#TooltipNumbers\">8</c> seconds.";
@@ -64,6 +67,12 @@ namespace HeroesData.Parser.Tests
 
             Assert.IsTrue(GameStringParser.TryParseRawTooltip("ZaryaWeaponFeelTheHeatTalent", Tooltip2, out output));
             Assert.AreEqual("Zarya's Basic Attack deals <c val=\"#TooltipNumbers\">50%</c> additional damage to enemies in melee range.", output);
+
+            Assert.IsFalse(GameStringParser.TryParseRawTooltip("YrelArdentDefender", FailedTooltip1, out output));
+            Assert.AreEqual(string.Empty, output);
+
+            Assert.IsTrue(GameStringParser.TryParseRawTooltip("YrelSacredGround", Tooltip3, out output));
+            Assert.AreEqual("Yrel sanctifies the ground around her, gaining <c val=\"#TooltipNumbers\">40</c> Armor until she leaves the area.", output);
         }
 
         [TestMethod]

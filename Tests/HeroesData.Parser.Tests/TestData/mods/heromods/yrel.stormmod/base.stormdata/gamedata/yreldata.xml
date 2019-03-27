@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <const id="$YrelSacredGroundArmorBonus" value="40" />
+  <CUnit id="HeroYrel" parent="StormHeroMountedCustom">
+    <LifeStart value="2678" />
+    <LifeMax value="2678" />
+    <LifeRegenRate value="5.418" />
+  </CUnit>
+  <CHero id="Yrel">
+    <AttributeId value="YREL" />
+  </CHero>
+  <CEffectModifyUnit id="YrelArdentDefenderDamageConversionScaleDummyModifyUnit">
+    <XP value="0.5" />
+  </CEffectModifyUnit>
+</Catalog>

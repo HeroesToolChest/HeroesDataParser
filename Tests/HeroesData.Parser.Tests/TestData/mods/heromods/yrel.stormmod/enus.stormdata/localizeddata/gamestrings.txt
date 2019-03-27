@@ -1,0 +1,1 @@
+﻿Button/Tooltip/YrelSacredGround=Yrel sanctifies the ground around her, gaining <c val="#TooltipNumbers"><d const="$YrelSacredGroundArmorBonus" precision="2"/></c> Armor until she leaves the area.

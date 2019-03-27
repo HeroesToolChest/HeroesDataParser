@@ -215,13 +215,13 @@ namespace HeroesData.ExtractorData
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.ShortTooltip?.RawDescription))
                     AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.ShortTooltip)} is empty");
 
-                if (!string.IsNullOrEmpty(talent.Value.Tooltip.ShortTooltip?.RawDescription) && talent.Value.Tooltip.ShortTooltip.RawDescription.Contains("<d ref=\""))
+                if (!string.IsNullOrEmpty(talent.Value.Tooltip.ShortTooltip?.RawDescription) && (talent.Value.Tooltip.ShortTooltip.RawDescription.Contains("<d ref=\"") || talent.Value.Tooltip.ShortTooltip.RawDescription.Contains("<d const=\"")))
                     AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.ShortTooltip)} could not be parsed");
 
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.RawDescription))
                     AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)} is empty");
 
-                if (!string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.RawDescription) && talent.Value.Tooltip.FullTooltip.RawDescription.Contains("<d ref=\""))
+                if (!string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.RawDescription) && (talent.Value.Tooltip.FullTooltip.RawDescription.Contains("<d ref=\"") || talent.Value.Tooltip.FullTooltip.RawDescription.Contains("<d const=\"")))
                     AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)} could not be parsed");
 
                 if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.PlainText))

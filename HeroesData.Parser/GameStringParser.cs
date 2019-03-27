@@ -58,8 +58,11 @@ namespace HeroesData.Parser.GameStrings
                 parsedTooltip = ParseTooltip(key, tooltip);
 
                 // unable to parse correctly, returns an empty string
-                if (parsedTooltip.Contains("<d ref=", StringComparison.OrdinalIgnoreCase))
+                if (string.IsNullOrEmpty(parsedTooltip) || parsedTooltip.Contains("<d ", StringComparison.OrdinalIgnoreCase))
+                {
                     parsedTooltip = string.Empty;
+                    return false;
+                }
 
                 return true;
             }
@@ -89,15 +92,16 @@ namespace HeroesData.Parser.GameStrings
         {
             tooltip = Regex.Replace(tooltip, @"<d score=.*?/>", "0");
             tooltip = Regex.Replace(tooltip, "<d\\s+ref\\s*=\\s*\"", "<d ref=\"", RegexOptions.IgnoreCase);
+            tooltip = Regex.Replace(tooltip, "<d\\s+const\\s*=\\s*\"", "<d const=\"", RegexOptions.IgnoreCase);
 
-            if (tooltip.Contains("<d ref="))
+            if (tooltip.Contains("<d ref=", StringComparison.OrdinalIgnoreCase) || tooltip.Contains("<d const=", StringComparison.OrdinalIgnoreCase))
             {
-                while (tooltip.Contains("[d ref="))
+                while (tooltip.Contains("[d ref=", StringComparison.OrdinalIgnoreCase))
                 {
                     tooltip = ParseGameString(referenceNameId, tooltip, "(\\[d ref=\".*?/\\])", true);
                 }
 
-                return ParseGameString(referenceNameId, tooltip, "(<d ref=\".*?/>)", false);
+                return ParseGameString(referenceNameId, tooltip, "(<d ref=\".*?/>|<d const=\".*?/>)", false);
             }
             else // no values to look up
             {
@@ -105,14 +109,14 @@ namespace HeroesData.Parser.GameStrings
             }
         }
 
-        private string ParseGameString(string referenceNameId, string tooltip, string spliter, bool nestedTooltip)
+        private string ParseGameString(string referenceNameId, string tooltip, string splitter, bool nestedTooltip)
         {
             if (nestedTooltip)
             {
                 tooltip = tooltip.Replace("'", "\"");
             }
 
-            string[] parts = Regex.Split(tooltip, spliter);
+            string[] parts = Regex.Split(tooltip, splitter);
 
             for (int i = 0; i < parts.Length; i++)
             {
@@ -123,7 +127,7 @@ namespace HeroesData.Parser.GameStrings
                 }
                 else
                 {
-                    if (!parts[i].Contains("<d ref="))
+                    if (!parts[i].Contains("<d ref=") && !parts[i].Contains("<d const="))
                         continue;
                 }
 
@@ -277,7 +281,7 @@ namespace HeroesData.Parser.GameStrings
 
         private string ParseValues(ReadOnlyMemory<char> pathLookup)
         {
-            pathLookup = TrimDRef(pathLookup);
+            pathLookup = TrimDataReference(pathLookup);
 
             foreach (ReadOnlyMemory<char> arithmeticPath in GetPartBySeperators(pathLookup, new char[] { '/', '*', '+', '-', '(', ')' }))
             {
@@ -334,7 +338,12 @@ namespace HeroesData.Parser.GameStrings
         private string ReadData(List<string> parts, List<string> scalingParts, out double? scaling)
         {
             scaling = null;
-            string value = ReadGameData(parts, null);
+            string value = string.Empty;
+
+            if (parts[0].StartsWith("$"))
+                value = GameData.GetValueFromAttribute(parts[0]);
+            else
+                value = ReadGameData(parts, null);
 
             if (scalingParts.Count == 3)
                 scaling = GetScalingInfo(scalingParts[0], scalingParts[1], scalingParts[2]);
@@ -510,7 +519,7 @@ namespace HeroesData.Parser.GameStrings
 
         private bool IsTimeBasedScaling(ReadOnlyMemory<char> pathLookup)
         {
-            List<ReadOnlyMemory<char>> arithmeticPaths = GetPartBySeperators(TrimDRef(pathLookup), new char[] { '/', '*', '+', '-', '(', ')' }).ToList();
+            List<ReadOnlyMemory<char>> arithmeticPaths = GetPartBySeperators(TrimDataReference(pathLookup), new char[] { '/', '*', '+', '-', '(', ')' }).ToList();
 
             for (int i = 0; i + 2 <= arithmeticPaths.Count; i++)
             {
@@ -526,9 +535,13 @@ namespace HeroesData.Parser.GameStrings
             return !(key.IsEmpty || tooltip.Contains("$GalaxyVar", StringComparison.OrdinalIgnoreCase) || tooltip.Contains("**TEMP**", StringComparison.OrdinalIgnoreCase));
         }
 
-        private ReadOnlyMemory<char> TrimDRef(ReadOnlyMemory<char> pathLookup)
+        private ReadOnlyMemory<char> TrimDataReference(ReadOnlyMemory<char> pathLookup)
         {
-            pathLookup = pathLookup.Slice(8); // get path without the d ref
+            if (pathLookup.Span.StartsWith("<d ref", StringComparison.OrdinalIgnoreCase) || pathLookup.Span.StartsWith("[d ref", StringComparison.OrdinalIgnoreCase))
+                pathLookup = pathLookup.Slice(8);
+            else if (pathLookup.Span.StartsWith("<d const", StringComparison.OrdinalIgnoreCase))
+                pathLookup = pathLookup.Slice(10);
+
             pathLookup = pathLookup.Slice(0, pathLookup.Span.LastIndexOf('/') - 1); // removes ending />
 
             int start = 0;
