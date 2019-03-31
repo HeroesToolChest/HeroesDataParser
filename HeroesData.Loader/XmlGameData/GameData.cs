@@ -193,7 +193,7 @@ namespace HeroesData.Loader.XmlGameData
         }
 
         /// <summary>
-        /// Merges the elements in the collection into a single XElement. The elements get added as the first children to the first element.
+        /// Merges the elements in the collection into a single XElement. The elements get added as the last children to the first element.
         /// All the attributes of the elements get added to the first element (overriding existing values).
         /// </summary>
         /// <param name="elements">The collection of elements.</param>

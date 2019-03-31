@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Helpers", "Heroe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Helpers.Tests", "Tests\HeroesData.Helpers.Tests\HeroesData.Helpers.Tests.csproj", "{175BD2B9-AB4C-47FA-B695-9DABCC9D5471}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Loader.Tests", "Tests\HeroesData.Loader.Tests\HeroesData.Loader.Tests.csproj", "{EAF41EF4-C733-4D0A-8B24-BFA5F547D623}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{175BD2B9-AB4C-47FA-B695-9DABCC9D5471}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{175BD2B9-AB4C-47FA-B695-9DABCC9D5471}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{175BD2B9-AB4C-47FA-B695-9DABCC9D5471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAF41EF4-C733-4D0A-8B24-BFA5F547D623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAF41EF4-C733-4D0A-8B24-BFA5F547D623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAF41EF4-C733-4D0A-8B24-BFA5F547D623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAF41EF4-C733-4D0A-8B24-BFA5F547D623}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{71D38A71-AB19-468A-8F19-F7949D8F908D} = {344D38AE-FCDC-45D8-84B3-B7AC075EB76B}
 		{5692921D-094A-493B-9576-D7E6F9C150E5} = {344D38AE-FCDC-45D8-84B3-B7AC075EB76B}
 		{175BD2B9-AB4C-47FA-B695-9DABCC9D5471} = {344D38AE-FCDC-45D8-84B3-B7AC075EB76B}
+		{EAF41EF4-C733-4D0A-8B24-BFA5F547D623} = {344D38AE-FCDC-45D8-84B3-B7AC075EB76B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6BC537F-9CC6-441B-AE64-F0EFF0A467C5}
