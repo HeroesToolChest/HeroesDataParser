@@ -11,12 +11,24 @@ namespace HeroesData.FileWriter.Writers.SprayData
         {
         }
 
+        protected abstract T GetAnimationObject(Spray spray);
+
         protected void AddLocalizedGameString(Spray spray)
         {
             GameStringWriter.AddSprayName(spray.Id, spray.Name);
             GameStringWriter.AddSpraySortName(spray.Id, spray.SortName);
             GameStringWriter.AddSprayDescription(spray.Id, GetTooltip(spray.Description, FileOutputOptions.DescriptionType));
             GameStringWriter.AddSpraySearchText(spray.Id, spray.SearchText);
+        }
+
+        protected T AnimationObject(Spray spray)
+        {
+            if (spray.AnimationCount > 0)
+            {
+                return GetAnimationObject(spray);
+            }
+
+            return null;
         }
     }
 }

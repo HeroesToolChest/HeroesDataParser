@@ -30,7 +30,17 @@ namespace HeroesData.FileWriter.Writers.SprayData
                 string.IsNullOrEmpty(spray.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", spray.SortName),
                 string.IsNullOrEmpty(spray.SearchText) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", spray.SearchText),
                 string.IsNullOrEmpty(spray.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(spray.Description, FileOutputOptions.DescriptionType)),
-                string.IsNullOrEmpty(spray.ImageFileName) ? null : new XElement("Image", Path.ChangeExtension(spray.ImageFileName, ImageExtension)));
+                string.IsNullOrEmpty(spray.ImageFileName) ? null : new XElement("Image", spray.AnimationCount < 1 ? Path.ChangeExtension(spray.ImageFileName, StaticImageExtension) : Path.ChangeExtension(spray.ImageFileName, AnimatedImageExtension)),
+                AnimationObject(spray));
+        }
+
+        protected override XElement GetAnimationObject(Spray spray)
+        {
+            return new XElement(
+                "Animation",
+                new XElement("Texture", Path.ChangeExtension(spray.ImageFileName, StaticImageExtension)),
+                new XElement("Frames", spray.AnimationCount),
+                new XElement("Duration", spray.AnimationDuration));
         }
     }
 }

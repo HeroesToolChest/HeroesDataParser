@@ -6,7 +6,12 @@
     "category": "HeroStorm",
     "event": "Carbot",
     "releaseDate": "2016-05-21",
-    "image": "carbotspray.png"
+    "image": "carbotspray.gif",
+    "animation": {
+      "texture": "carbotspray.png",
+      "frames": 5,
+      "duration": 100
+    }
   },
   "CarbotChen": {
     "hyperlinkId": "CarbotChenId",

@@ -10,7 +10,12 @@
     "sortName": "33CarbotLiLi",
     "searchText": "Carbot Li LI",
     "description": "Carbot spray of Li Li",
-    "image": "carbotspray.png"
+    "image": "carbotspray.gif",
+    "animation": {
+      "texture": "carbotspray.png",
+      "frames": 5,
+      "duration": 100
+    }
   },
   "CarbotChen": {
     "name": "Carbot Chen",

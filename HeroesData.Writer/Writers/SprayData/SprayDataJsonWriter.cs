@@ -42,9 +42,28 @@ namespace HeroesData.FileWriter.Writers.SprayData
                 sprayObject.Add("description", GetTooltip(spray.Description, FileOutputOptions.DescriptionType));
 
             if (!string.IsNullOrEmpty(spray.ImageFileName))
-                sprayObject.Add("image", Path.ChangeExtension(spray.ImageFileName, ImageExtension));
+            {
+                if (spray.AnimationCount < 1)
+                    sprayObject.Add("image", Path.ChangeExtension(spray.ImageFileName, StaticImageExtension));
+                else
+                    sprayObject.Add("image", Path.ChangeExtension(spray.ImageFileName, AnimatedImageExtension));
+            }
+
+            JProperty animation = AnimationObject(spray);
+            if (animation != null)
+                sprayObject.Add(animation);
 
             return new JProperty(spray.Id, sprayObject);
+        }
+
+        protected override JProperty GetAnimationObject(Spray spray)
+        {
+            return new JProperty(
+                "animation",
+                new JObject(
+                    new JProperty("texture", Path.ChangeExtension(spray.ImageFileName, StaticImageExtension)),
+                    new JProperty("frames", spray.AnimationCount),
+                    new JProperty("duration", spray.AnimationDuration)));
         }
     }
 }

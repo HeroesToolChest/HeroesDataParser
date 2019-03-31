@@ -43,17 +43,19 @@ namespace HeroesData.ExtractorFiles
 
             foreach (Spray spray in Sprays)
             {
+                bool success = false;
                 string filePath = Path.Combine(extractFilePath, spray.ImageFileName.ToLower());
-                if (spray.AnimationCount > 0)
+
+                if (ExtractStaticImageFile(filePath))
+                    success = true;
+
+                if (success && spray.AnimationCount > 0)
                 {
-                    if (ExtractAnimatedImageFile(filePath, new Size(ImageMaxWidth, ImageMaxHeight), new Size(ImageMaxWidth, ImageMaxHeight), spray.AnimationCount, spray.AnimationDuration / 2))
-                        count++;
+                    success = ExtractAnimatedImageFile(filePath, new Size(ImageMaxWidth, ImageMaxHeight), new Size(ImageMaxWidth, ImageMaxHeight), spray.AnimationCount, spray.AnimationDuration / 2);
                 }
-                else
-                {
-                    if (ExtractStaticImageFile(filePath))
-                        count++;
-                }
+
+                if (success)
+                    count++;
 
                 Console.Write($"\rExtracting spray image files...{count}/{Sprays.Count}");
             }

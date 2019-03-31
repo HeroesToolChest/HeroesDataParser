@@ -48,7 +48,12 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
             }
 
             if (!string.IsNullOrEmpty(emoticon.Image.FileName))
-                emoticonObject.Add("image", Path.ChangeExtension(emoticon.Image.FileName, ImageExtension));
+            {
+                if (!emoticon.Image.Count.HasValue)
+                    emoticonObject.Add("image", Path.ChangeExtension(emoticon.Image.FileName, StaticImageExtension));
+                else
+                    emoticonObject.Add("image", Path.ChangeExtension(emoticon.Image.FileName, AnimatedImageExtension));
+            }
 
             return new JProperty(emoticon.Id, emoticonObject);
         }

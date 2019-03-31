@@ -616,15 +616,15 @@ namespace HeroesData.FileWriter.Writers.HeroData
             JObject portrait = new JObject();
 
             if (!string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName))
-                portrait.Add("heroSelect", Path.ChangeExtension(hero.HeroPortrait.HeroSelectPortraitFileName, ImageExtension));
+                portrait.Add("heroSelect", Path.ChangeExtension(hero.HeroPortrait.HeroSelectPortraitFileName, StaticImageExtension));
             if (!string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName))
-                portrait.Add("leaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName, ImageExtension));
+                portrait.Add("leaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName, StaticImageExtension));
             if (!string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName))
-                portrait.Add("loading", Path.ChangeExtension(hero.HeroPortrait.LoadingScreenPortraitFileName, ImageExtension));
+                portrait.Add("loading", Path.ChangeExtension(hero.HeroPortrait.LoadingScreenPortraitFileName, StaticImageExtension));
             if (!string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName))
-                portrait.Add("partyPanel", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName, ImageExtension));
+                portrait.Add("partyPanel", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName, StaticImageExtension));
             if (!string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
-                portrait.Add("target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName, ImageExtension));
+                portrait.Add("target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName, StaticImageExtension));
 
             return new JProperty("portraits", portrait);
         }

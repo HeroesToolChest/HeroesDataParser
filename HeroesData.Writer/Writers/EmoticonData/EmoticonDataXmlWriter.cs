@@ -29,7 +29,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
                 emoticon.LocalizedAliases != null && emoticon.LocalizedAliases.Count > 0 && !FileOutputOptions.IsLocalizedText ? new XElement("LocalizedAliases", emoticon.LocalizedAliases.Select(x => new XElement("Alias", x))) : null,
                 emoticon.UniversalAliases != null && emoticon.UniversalAliases.Count > 0 ? new XElement("Aliases", emoticon.UniversalAliases.Select(x => new XElement("Alias", x))) : null,
                 HeroElement(emoticon),
-                string.IsNullOrEmpty(emoticon.Image.FileName) ? null : new XElement("Image", Path.ChangeExtension(emoticon.Image.FileName, ImageExtension)));
+                string.IsNullOrEmpty(emoticon.Image.FileName) ? null : new XElement("Image", !emoticon.Image.Count.HasValue ? Path.ChangeExtension(emoticon.Image.FileName, StaticImageExtension) : Path.ChangeExtension(emoticon.Image.FileName, AnimatedImageExtension)));
         }
 
         protected override XElement GetHeroElement(Emoticon emoticon)

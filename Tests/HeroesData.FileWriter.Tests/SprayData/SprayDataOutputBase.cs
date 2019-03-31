@@ -26,6 +26,8 @@ namespace HeroesData.FileWriter.Tests.SprayData
                 CollectionCategory = "HeroStorm",
                 EventName = "Carbot",
                 ImageFileName = "carbotspray.png",
+                AnimationCount = 5,
+                AnimationDuration = 100,
             };
 
             TestData.Add(spray);

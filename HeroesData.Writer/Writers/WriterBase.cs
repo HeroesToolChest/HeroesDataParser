@@ -35,7 +35,8 @@ namespace HeroesData.FileWriter.Writers
         protected string RootNodeName { get; set; }
         protected string GameStringDirectory { get; private set; }
         protected string GameStringTextFileName { get; private set; }
-        protected string ImageExtension => ".png";
+        protected string StaticImageExtension => ".png";
+        protected string AnimatedImageExtension => ".gif";
 
         /// <summary>
         /// Gets or sets the directory for the created output files.
