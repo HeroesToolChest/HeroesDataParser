@@ -12,6 +12,7 @@ namespace HeroesData.Loader.XmlGameData
     {
         private readonly Dictionary<(string Catalog, string Entry, string Field), double> ScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
         private readonly Dictionary<string, string> GameStringById = new Dictionary<string, string>();
+
         private ILookup<string, XElement> ElementsByElementName;
 
         protected GameData(string modsFolderPath)
@@ -59,6 +60,21 @@ namespace HeroesData.Loader.XmlGameData
         /// Gets all the LayoutButton elements.
         /// </summary>
         public IEnumerable<XElement> LayoutButtonElements { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the value of the cache.
+        /// </summary>
+        public bool IsCacheEnabled { get; set; } = false;
+
+        /// <summary>
+        /// Gets the cached xml file paths.
+        /// </summary>
+        public List<string> XmlCachedFilePaths { get; } = new List<string>();
+
+        /// <summary>
+        /// Gets the cached text file paths.
+        /// </summary>
+        public List<string> TextCachedFilePaths { get; } = new List<string>();
 
         protected string ModsFolderPath { get; }
 
@@ -292,7 +308,7 @@ namespace HeroesData.Loader.XmlGameData
             TextFileCount++;
         }
 
-        protected void LoadTextFile(Stream fileStream, bool isMapFile = false)
+        protected void LoadTextFile(Stream fileStream, string filePath, bool isMapFile = false)
         {
             using (StreamReader reader = new StreamReader(fileStream))
             {
@@ -300,6 +316,11 @@ namespace HeroesData.Loader.XmlGameData
                     ReadMapFile(reader);
                 else
                     ReadTextFile(reader);
+
+                if (IsCacheEnabled)
+                {
+                    TextCachedFilePaths.Add(filePath);
+                }
             }
 
             TextFileCount++;
@@ -314,10 +335,16 @@ namespace HeroesData.Loader.XmlGameData
             }
         }
 
-        protected void LoadXmlFile(Stream stream)
+        protected void LoadXmlFile(Stream stream, string filePath)
         {
-            XmlGameData.Root.Add(XDocument.Load(stream).Root.Elements());
+            XDocument document = XDocument.Load(stream);
+            XmlGameData.Root.Add(document.Root.Elements());
             XmlFileCount++;
+
+            if (IsCacheEnabled)
+            {
+                XmlCachedFilePaths.Add(filePath);
+            }
         }
 
         private void Load()

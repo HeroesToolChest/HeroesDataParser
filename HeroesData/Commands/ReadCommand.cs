@@ -2,20 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 
 namespace HeroesData.Commands
 {
-    internal class ReadCommand : ICommand
+    internal class ReadCommand : CommandBase, ICommand
     {
-        private readonly string AppPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         private readonly HashSet<string> ValidFileExtensions = new HashSet<string>();
-        private readonly CommandLineApplication CommandLineApplication;
 
         private ReadCommand(CommandLineApplication app)
+            : base(app)
         {
-            CommandLineApplication = app;
-
             ValidFileExtensions.Add(".txt");
             ValidFileExtensions.Add(".xml");
             ValidFileExtensions.Add(".json");
