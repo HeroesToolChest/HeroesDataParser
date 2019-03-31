@@ -21,10 +21,14 @@ namespace HeroesData.FileWriter.Tests.EmoticonData
                 HeroSkinId = "LunaraWitch",
             };
             emoticon.Image.FileName = "emoticon_image.png";
+            emoticon.Image.Count = 2;
+            emoticon.Image.DurationPerFrame = 1000;
+            emoticon.Image.Width = 34;
             emoticon.LocalizedAliases.Add(":lunaraangry:");
             emoticon.LocalizedAliases.Add(":lunaangry:");
             emoticon.UniversalAliases.Add(":(");
             emoticon.UniversalAliases.Add("(:");
+            emoticon.TextureSheet.Image = "emoticon_image_texture.png";
 
             TestData.Add(emoticon);
 

@@ -55,6 +55,10 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
                     emoticonObject.Add("image", Path.ChangeExtension(emoticon.Image.FileName, AnimatedImageExtension));
             }
 
+            JProperty animation = AnimationObject(emoticon);
+            if (animation != null)
+                emoticonObject.Add(animation);
+
             return new JProperty(emoticon.Id, emoticonObject);
         }
 
@@ -69,6 +73,17 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
                 jObject.Add(new JProperty("skinId", emoticon.HeroSkinId));
 
             return new JProperty("hero", jObject);
+        }
+
+        protected override JProperty GetAnimationObject(Emoticon emoticon)
+        {
+            return new JProperty(
+                "animation",
+                new JObject(
+                    new JProperty("texture", Path.ChangeExtension(emoticon.TextureSheet.Image, StaticImageExtension)),
+                    new JProperty("frames", emoticon.Image.Count),
+                    new JProperty("duration", emoticon.Image.DurationPerFrame),
+                    new JProperty("width", emoticon.Image.Width)));
         }
     }
 }

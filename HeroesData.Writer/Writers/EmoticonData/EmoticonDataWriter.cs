@@ -12,6 +12,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
         }
 
         protected abstract T GetHeroElement(Emoticon emoticon);
+        protected abstract T GetAnimationObject(Emoticon emoticon);
 
         protected void AddLocalizedGameString(Emoticon emoticon)
         {
@@ -30,6 +31,16 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
             if (!string.IsNullOrEmpty(emoticon.HeroId))
             {
                 return GetHeroElement(emoticon);
+            }
+
+            return null;
+        }
+
+        protected T AnimationObject(Emoticon emoticon)
+        {
+            if (emoticon.Image.Count.HasValue)
+            {
+                return GetAnimationObject(emoticon);
             }
 
             return null;

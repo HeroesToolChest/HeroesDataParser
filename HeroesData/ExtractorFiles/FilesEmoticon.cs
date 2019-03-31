@@ -45,8 +45,11 @@ namespace HeroesData.ExtractorFiles
             {
                 if (emoticon.Image.Count.HasValue)
                 {
-                    if (ExtractAnimatedImageFile(Path.Combine(extractFilePath, emoticon.TextureSheet.Image.ToLower()), new Size(emoticon.Image.Width, ImageMaxHeight), new Size(ImageMaxWidth, ImageMaxHeight), emoticon.Image.Count.Value, emoticon.Image.DurationPerFrame.Value))
+                    if (ExtractAnimatedImageFile(Path.Combine(extractFilePath, emoticon.TextureSheet.Image.ToLower()), new Size(emoticon.Image.Width, ImageMaxHeight), new Size(ImageMaxWidth, ImageMaxHeight), emoticon.Image.Count.Value, emoticon.Image.DurationPerFrame.Value) &&
+                        ExtractStaticImageFile(Path.Combine(extractFilePath, emoticon.TextureSheet.Image.ToLower())))
+                    {
                         count++;
+                    }
                 }
                 else
                 {

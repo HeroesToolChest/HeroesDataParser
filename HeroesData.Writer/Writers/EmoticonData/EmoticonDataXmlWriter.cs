@@ -29,7 +29,8 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
                 emoticon.LocalizedAliases != null && emoticon.LocalizedAliases.Count > 0 && !FileOutputOptions.IsLocalizedText ? new XElement("LocalizedAliases", emoticon.LocalizedAliases.Select(x => new XElement("Alias", x))) : null,
                 emoticon.UniversalAliases != null && emoticon.UniversalAliases.Count > 0 ? new XElement("Aliases", emoticon.UniversalAliases.Select(x => new XElement("Alias", x))) : null,
                 HeroElement(emoticon),
-                string.IsNullOrEmpty(emoticon.Image.FileName) ? null : new XElement("Image", !emoticon.Image.Count.HasValue ? Path.ChangeExtension(emoticon.Image.FileName, StaticImageExtension) : Path.ChangeExtension(emoticon.Image.FileName, AnimatedImageExtension)));
+                string.IsNullOrEmpty(emoticon.Image.FileName) ? null : new XElement("Image", !emoticon.Image.Count.HasValue ? Path.ChangeExtension(emoticon.Image.FileName, StaticImageExtension) : Path.ChangeExtension(emoticon.Image.FileName, AnimatedImageExtension)),
+                AnimationObject(emoticon));
         }
 
         protected override XElement GetHeroElement(Emoticon emoticon)
@@ -38,6 +39,16 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
                 "Hero",
                 new XAttribute("id", emoticon.HeroId),
                 string.IsNullOrEmpty(emoticon.HeroSkinId) ? null : new XAttribute("skinId", emoticon.HeroSkinId));
+        }
+
+        protected override XElement GetAnimationObject(Emoticon emoticon)
+        {
+            return new XElement(
+                "Animation",
+                new XElement("Texture", Path.ChangeExtension(emoticon.TextureSheet.Image, StaticImageExtension)),
+                new XElement("Frames", emoticon.Image.Count),
+                new XElement("Duration", emoticon.Image.DurationPerFrame),
+                new XElement("Width", emoticon.Image.Width));
         }
     }
 }
