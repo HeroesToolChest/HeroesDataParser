@@ -316,7 +316,7 @@ namespace HeroesData
             time.Stop();
 
             Console.WriteLine($"{GameData.XmlFileCount,6} xml files loaded");
-            Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
+            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
             Console.WriteLine();
         }
 
@@ -357,7 +357,7 @@ namespace HeroesData
 
             time.Stop();
 
-            Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
+            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
             Console.WriteLine();
         }
 
@@ -405,7 +405,7 @@ namespace HeroesData
             Console.WriteLine($"{GameData.GameStringCount - failedCount,6} successfully parsed gamestrings");
 
             Console.ResetColor();
-            Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
+            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
             Console.WriteLine();
         }
 
@@ -560,7 +560,7 @@ namespace HeroesData
 
                 time.Stop();
 
-                Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
+                Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
 
                 Console.WriteLine();
             }

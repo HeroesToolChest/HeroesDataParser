@@ -68,7 +68,7 @@ namespace HeroesData
                 DrawProgressBar(100, 100, 72, '#');
 
                 Console.WriteLine();
-                Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
+                Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
                 Console.WriteLine();
 
                 ResetEvent.Set();

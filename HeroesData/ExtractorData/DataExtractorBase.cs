@@ -96,7 +96,7 @@ namespace HeroesData.ExtractorData
             time.Stop();
 
             Console.WriteLine();
-            Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
+            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
             Console.WriteLine();
 
             return ParsedData.Values.OrderBy(x => x.Id);
