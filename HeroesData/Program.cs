@@ -40,7 +40,7 @@ namespace HeroesData
             CommandOption extractDataFilesOption = commandLineApplication.Option("-e|--extract-data <VALUE>", $"Extracts data files - Default: herodata.", CommandOptionType.MultipleValue);
             CommandOption extractImageFilesOption = commandLineApplication.Option("-i|--extract-images <VALUE>", $"Extracts image files, only available using the Heroes of the Storm game directory.", CommandOptionType.MultipleValue);
             CommandOption setGameStringLocalizations = commandLineApplication.Option("-l|--localization <LOCALE>", "Sets the gamestring localization(s) - Default: enUS.", CommandOptionType.MultipleValue);
-            CommandOption setBuildOption = commandLineApplication.Option("-b|--build <NUMBER>", "Sets the override build file.", CommandOptionType.SingleValue);
+            CommandOption setBuildOption = commandLineApplication.Option("-b|--build <NUMBER>", "Sets the override build file(s).", CommandOptionType.SingleValue);
             CommandOption setMaxDegreeParallismOption = commandLineApplication.Option("-t|--threads <NUMBER>", "Limits the maximum amount of threads to use.", CommandOptionType.SingleValue);
 
             CommandOption xmlOutputOption = commandLineApplication.Option("--xml", "Creates xml output.", CommandOptionType.NoValue);
@@ -212,10 +212,6 @@ namespace HeroesData
             {
                 "VOICELINES", "VOICELINE", "VOICES", "VOICES",
             };
-            List<string> portrait = new List<string>()
-            {
-                "PORTRAITS", "PORTRAIT", "PORTRIAT", "PORT",
-            };
             List<string> emoticons = new List<string>()
             {
                 "EMOTICONS", "EMOTICON", "EMOTES", "EMOTE",
@@ -226,7 +222,6 @@ namespace HeroesData
             ExtractDataValues.Add(ExtractDataOption.Spray, sprays);
             ExtractDataValues.Add(ExtractDataOption.Announcer, announcers);
             ExtractDataValues.Add(ExtractDataOption.VoiceLine, voiceLines);
-            ExtractDataValues.Add(ExtractDataOption.Portrait, portrait);
             ExtractDataValues.Add(ExtractDataOption.Emoticon, emoticons);
             ExtractDataValues.Add(ExtractDataOption.HeroData, new List<string>()
             {
@@ -248,6 +243,10 @@ namespace HeroesData
             {
                 "EMOTICONPACKS", "EMOTICONPACK", "EMOTEPACKS", "EMOTEPACK",
             });
+            ExtractDataValues.Add(ExtractDataOption.Portrait, new List<string>()
+            {
+                "PORTRAITS", "PORTRAIT", "PORTRIAT", "PORT",
+            });
 
             // images
             ExtractImageValues.Add(ExtractImageOption.MatchAward, matchAwards);
@@ -255,7 +254,6 @@ namespace HeroesData
             ExtractImageValues.Add(ExtractImageOption.Spray, sprays);
             ExtractImageValues.Add(ExtractImageOption.VoiceLine, voiceLines);
             ExtractImageValues.Add(ExtractImageOption.Emoticon, emoticons);
-            ExtractImageValues.Add(ExtractImageOption.Portrait, portrait);
             ExtractImageValues.Add(ExtractImageOption.Talent, new List<string>()
             {
                 "TALENTS", "TALENT", "TAL",
@@ -267,6 +265,10 @@ namespace HeroesData
             ExtractImageValues.Add(ExtractImageOption.AbilityTalent, new List<string>()
             {
                 "ABILITYTALENTS", "ABILITYTALENT", "ABILTALENT", "ABILTAL",
+            });
+            ExtractImageValues.Add(ExtractImageOption.HeroPortrait, new List<string>()
+            {
+                "HEROPORTRAITS", "HEROPORTRAIT", "HP",
             });
         }
     }

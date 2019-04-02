@@ -14,10 +14,10 @@ namespace HeroesData.ExtractorFiles
         private readonly HashSet<string> Abilities = new HashSet<string>();
         private readonly HashSet<string> AbilityTalents = new HashSet<string>();
 
-        private readonly string PortraitsDirectory = "portraits";
+        private readonly string PortraitsDirectory = "heroportraits";
         private readonly string AbilitiesDirectory = "abilities";
         private readonly string TalentsDirectory = "talents";
-        private readonly string AbilityTalentsDirectory = "abilityTalents";
+        private readonly string AbilityTalentsDirectory = "abilitytalents";
 
         public FilesHero(CASCHandler cascHandler, StorageMode storageMode)
             : base(cascHandler, storageMode)
@@ -47,7 +47,7 @@ namespace HeroesData.ExtractorFiles
 
         protected override void ExtractFiles()
         {
-            if (App.ExtractFileOption.HasFlag(ExtractImageOption.Portrait))
+            if (App.ExtractFileOption.HasFlag(ExtractImageOption.HeroPortrait))
                 ExtractPortraits();
 
             if (App.ExtractFileOption.HasFlag(ExtractImageOption.AbilityTalent))

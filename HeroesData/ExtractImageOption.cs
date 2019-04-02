@@ -6,7 +6,7 @@ namespace HeroesData
     public enum ExtractImageOption
     {
         None = 0,
-        Portrait = 1 << 0,
+        HeroPortrait = 1 << 0,
         Talent = 1 << 1,
         Ability = 1 << 2,
         AbilityTalent = 1 << 3,
