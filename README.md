@@ -11,7 +11,7 @@ Also extracts the following:
  - Banners
  - Sprays (includes images)
  - Announcers (includes images)
- - Voicelines (includes images)
+ - Voice Lines (includes images)
  - Portraits
  - Emoticons (includes images)
  - Emoticon Packs
@@ -99,7 +99,7 @@ Commands:
 Use " [command] --help" for more information about a command.
 ```
 
-Example command to create xml and json files from the `Heroes of the Storm` directory. Since no `-o|--outputDirectory` option is set, it defaults to the directory of HDP.
+Example command to create xml and json files from the `Heroes of the Storm` directory. Since no `-o|--outputDirectory` option is set, it defaults to the install directory.
 ```
 dotnet heroes-data -s 'D:\Games\Heroes of the Storm Public Test' --xml --json
 ```
@@ -112,7 +112,7 @@ Ignored warnings are in `verifyignore.txt`.
 Ignored warnings only work for a majority of english strings.  
 
 ## Options
-### Storage Path (-s|--storage-path <FILEPATH>) 
+### Storage Path (-s|--storage-path) 
 There are two types of paths that can be provided for this option. One is the directory path of the `Heroes of the Storm` directory and the other is an already extracted `mods` directory.
 
 The `extract` command is available to use to extract the mods directory and all required files.
@@ -122,6 +122,7 @@ The `mods` directory can also have a build suffix in its name. [More info](https
 ***
 
 ### Output Directory (-o|--output-directory)
+If this option is not provided, it will default to the install directory under the directory `output`.
  
 ***
  
@@ -189,30 +190,56 @@ Fires a laser that deals <c val=\"#TooltipNumbers\">200 (+4% per level)</c> dama
 ***
 
 ### Extract Data (-e|--extract-data)
-Extracts portraits and abilityTalent icons that have been referenced for a hero in the xml and json file(s). Multiple are allowed.
+Extracts the data files. Multiple are allowed. Default is `herodata`.  
 
-The extracted images are located at `<OUTPUT-DIRECTORY>/images/`
+Extracts to `<OUTPUT-DIRECTORY>/<json and/or xml>`  
 
-`portraits` - extracts hero portraits (HeroSelect, Leaderboard, Loading, PartyPanel, and Target portraits)  
-`abilities` - extracts ability icons  
-`talents` - extracts talent icons  
-`abilityTalents` - extracts both ability and talent icons into the same directory  
-`awards` - extracts match award icons  
-`all` - performs `portraits`, `abilityTalents`, and `awards`
+`all` - extracts all data files  
+`herodata` - extracts hero data  
+`matchawards` - extracts match awards  
+`heroskins` - extracts hero skins  
+`banners` - extracts banners  
+`sprays` - extracts sprays  
+`announcers` - extracts announcers  
+`voicelines` - extracts voicelines  
+`portraits` - extracts portraits  
+`emoticons` - extracts emojis  
+`emoticonpacks` - extracts the emoji packs  
 
-Notes:
-- This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storage-path` option
-- Files are extracted in `.png` format
-
-Example selecting multiple extractions
+Example seleting multiple data extractions
 ```
--e abilities -e talents
+-e herodata -e sprays -e emoticons
 ```
-
 ***
 
 ### Extract Images (-i|--extract-images)
+Extracts the images that were referenced in the xml or json file(s) from the `-e|--extract-data` option. Multiple are allowed.  
 
+Extracts to `<OUTPUT-DIRECTORY>/images/<image-type>`  
+
+`all` - extracts all images files  
+`heroportraits` - extracts hero portrait images (HeroSelect, Leaderboard, Loading, PartyPanel, and Target portraits)  
+`abilities` - extracts ability icons  
+`talents` - extracts talent icons  
+`abilitytalents` - extracts both ability and talent icons into the same directory  
+`matchawards` - extracts match award icons  
+`sprays` - extracts spray images  
+`announcers` - extracts announcer images  
+`voicelines` - extracts voiceline images  
+`emoticons` - extracts emoji icons  
+
+Notes:
+- This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storage-path` option
+- Static image files are extracted in `.png` format
+- Animated image files are extracted in `.gif` format
+  - Sprays and emoticons are the only ones with animated images
+- Due to the quality limitations of gifs, the texture files used for the creation of the gifs are also extracted in `.png` format
+- Information about creating the animations can be found in the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki/Animated-Images)
+
+Example selecting multiple image extractions
+```
+-i abilities -i talents -i sprays
+```
 ***
 
 ### Localization (-l|--localization)
