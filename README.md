@@ -5,7 +5,16 @@
 Heroes Data Parser is a .NET Core command line tool that extracts Heroes of the Storm game data into XML and JSON files. Extracts hero data along with all abilities, talents, and their respective portraits and icons.
 
 Also extracts the following:
- - Match Awards
+ - Match Awards (includes images)
+ - Hero Skins
+ - Mounts
+ - Banners
+ - Sprays (includes images)
+ - Announcers (includes images)
+ - Voice Lines (includes images)
+ - Portraits
+ - Emoticons (includes images)
+ - Emoticon Packs
  
 Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some more information and examples of XML and JSON output.
 
@@ -69,74 +78,54 @@ Options:
   -?|-h|--help                      Show help information
   -v|--version                      Show version information
   -s|--storage-path <FILEPATH>      The 'Heroes of the Storm' directory or an already extracted 'mods' directory.
+  -o|--output-directory <FILEPATH>  Sets the output directory.
+  -d|--description <VALUE>          Sets the description output type (0 - 6) - Default: 0.
+  -e|--extract-data <VALUE>         Extracts data files - Default: herodata.
+  -i|--extract-images <VALUE>       Extracts image files, only available using the Heroes of the Storm game directory.
+  -l|--localization <LOCALE>        Sets the gamestring localization(s) - Default: enUS.
+  -b|--build <NUMBER>               Sets the override build file(s).
   -t|--threads <NUMBER>             Limits the maximum amount of threads to use.
-  -e|--extract <VALUE>              Extracts images, available only in -s|--storage-path mode using the Hots directory.
-  -d|--description <VALUE>          Set the description output type (0 - 6) - Default 0.
-  -b|--build <NUMBER>               Set the override build file.
-  -o|--output-directory <FILEPATH>  Set the output directory.
-  -l|--localization <LOCALE>        Set the gamestring localization(s) - Default: enUS.
-  -f|--file-split                   Split the XML and JSON file(s) into multiple files.
-  --xml                             Create xml output.
-  --json                            Create json output.
-  --localized-text                  Extract localized gamestrings from the XML and JSON file(s) into a text file.
-  --hero-warnings                   Display all hero warnings.
-  --exclude-awards                  Exclude match award parsing.
-  --minify                          Create .min file(s) along with current output file(s).
+  --xml                             Creates xml output.
+  --json                            Creates json output.
+  --file-split                      Splits the XML and JSON file(s) into multiple files.
+  --localized-text                  Extracts localized gamestrings from the XML and JSON file(s) into a text file.
+  --minify                          Creates .min file(s) along with current output file(s).
+  --warnings                        Displays all validation warnings.
 
 Commands:
+  extract
   read
 
 Use " [command] --help" for more information about a command.
 ```
 
-Example command to create xml and json files from the `Heroes of the Storm` directory. Since no `-o|--outputDirectory` option is set, it defaults to the directory of HDP.
+Example command to create xml and json files from the `Heroes of the Storm` directory. Since no `-o|--outputDirectory` option is set, it defaults to the install directory.
 ```
 dotnet heroes-data -s 'D:\Games\Heroes of the Storm Public Test' --xml --json
 ```
 
-## Hero Warnings
-Please be aware of the hero warnings, especially on a build with a new hero or re-worked hero.  
+## Validation Warnings
 All the warnings do not need to be fixed, they are shown for awareness.  
 **Tooltip strings that fail to parse will show up __empty__** in the xml or json files and thus will be a valid warning.  
-Hero warnings can be shown to the console using the option `--hero-warnings`.  
-Ignored warnings are in `VerifyIgnore.txt`.  
-Ignored warnings only work for english strings.  
+Warnings can be shown to the console using the option `--warnings`.  
+Ignored warnings are in `verifyignore.txt`.  
+Ignored warnings only work for a majority of english strings.  
 
 ## Options
-### Storage Path (-s|--storage-path)
-There are two types of paths that can be provided for this option. One is the directory path of the `Heroes of the Storm` directory and the other is an already extracted `mods` directory containing the following file structure:  
-**Note:** `enus.stormdata` is for the localization
+### Storage Path (-s|--storage-path) 
+There are two types of paths that can be provided for this option. One is the directory path of the `Heroes of the Storm` directory and the other is an already extracted `mods` directory.
 
-```
-mods/
-|--core.stormmod/
-   |--base.stormdata/gamedata/
-      |--(ALL FILES)
-   |--enus.stormdata/localizeddata/
-      |--gamestrings.txt
-|--heroesdata.stormmod/
-   |--base.stormdata/
-         |--(ALL FILES)
-   |--enus.stormdata/localizeddata/
-      |--gamestrings.txt
-|--heroesmapmods/battlegroundmapmods/
-   |--(ALL FILES)
-|--heromods/
-   |--(ALL FILES)
-```
-Or a simpler way, extract these directories and file (keep the directory paths)
-
-`mods/core.stormmod/base.stormdata/gamedata/`  
-`mods/core.stormmod/enus.stormdata/localizeddata/gamestrings.txt`  
-`mods/heroesdata.stormmod/base.stormdata/`   
-`mods/heroesdata.stormmod/enus.stormdata/localizeddata/gamestrings.txt`  
-`mods/heroesmapmods/battlegroundmapmods/`  
-`mods/heromods/`
+The `extract` command is available to use to extract the mods directory and all required files.
 
 The `mods` directory can also have a build suffix in its name. [More info](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
 
 ***
 
+### Output Directory (-o|--output-directory)
+If this option is not provided, it will default to the install directory under the directory `output`.
+ 
+***
+ 
 ### Description (-d|--description)
 Sets the description/tooltip output type (0 - 6)
 
@@ -200,30 +189,60 @@ Fires a laser that deals <c val=\"#TooltipNumbers\">200 (+4% per level)</c> dama
 
 ***
 
-### Extract (-e|--extract)
-Extracts portraits and abilityTalent icons that have been referenced for a hero in the xml and json file(s). Multiple are allowed.
+### Extract Data (-e|--extract-data)
+Extracts the data files. Multiple are allowed. Default is `herodata`.  
 
-The extracted images are located at `<OUTPUT-DIRECTORY>/images/`
+Extracts to `<OUTPUT-DIRECTORY>/<json and/or xml>`  
 
-`portraits` - extracts hero portraits (HeroSelect, Leaderboard, Loading, PartyPanel, and Target portraits)  
+`all` - extracts all data files  
+`herodata` - extracts hero data  
+`matchawards` - extracts match awards  
+`heroskins` - extracts hero skins  
+`banners` - extracts banners  
+`sprays` - extracts sprays  
+`announcers` - extracts announcers  
+`voicelines` - extracts voicelines  
+`portraits` - extracts portraits  
+`emoticons` - extracts emojis  
+`emoticonpacks` - extracts the emoji packs  
+
+Example seleting multiple data extractions
+```
+-e herodata -e sprays -e emoticons
+```
+***
+
+### Extract Images (-i|--extract-images)
+Extracts the images that were referenced in the xml or json file(s) from the `-e|--extract-data` option. Multiple are allowed.  
+
+Extracts to `<OUTPUT-DIRECTORY>/images/<image-type>`  
+
+`all` - extracts all images files  
+`heroportraits` - extracts hero portrait images (HeroSelect, Leaderboard, Loading, PartyPanel, and Target portraits)  
 `abilities` - extracts ability icons  
 `talents` - extracts talent icons  
-`abilityTalents` - extracts both ability and talent icons into the same directory  
-`awards` - extracts match award icons  
-`all` - performs `portraits`, `abilityTalents`, and `awards`
+`abilitytalents` - extracts both ability and talent icons into the same directory  
+`matchawards` - extracts match award icons  
+`sprays` - extracts spray images  
+`announcers` - extracts announcer images  
+`voicelines` - extracts voiceline images  
+`emoticons` - extracts emoji icons  
 
 Notes:
 - This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storage-path` option
-- Files are extracted in `.png` format
+- Static image files are extracted in `.png` format
+- Animated image files are extracted in `.gif` format
+  - Sprays and emoticons are the only ones with animated images
+- Due to the quality limitations of gifs, the texture files used for the creation of the gifs are also extracted in `.png` format
+- Information about creating the animations can be found in the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki/Animated-Images)
 
-Example selecting multiple extractions
+Example selecting multiple image extractions
 ```
--e abilities -e talents
+-i abilities -i talents -i sprays
 ```
-
 ***
 
-### Game String Localization (-l|--localization)
+### Localization (-l|--localization)
 Sets the game string localization (descriptions/tooltips). Multiple are allowed, use `all` to select all. The application will parse all game strings and hero data for each locale selected.
 
 `enUS` - English (Default)  
@@ -329,9 +348,6 @@ Setting `modFolders` as the storage path will have the `mods_22388` directory pa
 When using a `Heroes of the Storm` directory, it will load the equivalent hero overrides file, just like in the [mods suffix directory](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
 
 ***
-
-### Advanced File Configuration
-For more advanced file configurations, edit the file `WriterConfig.xml`.  Options in the console override the options in the config file. Typically this file should not be modified at all.
 
 ## Developing
 To build and compile the code, it is recommended to use the latest version of Visual Studio 2017.
