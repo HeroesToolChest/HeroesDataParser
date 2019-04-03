@@ -350,9 +350,9 @@ When using a `Heroes of the Storm` directory, it will load the equivalent hero o
 ***
 
 ## Developing
-To build and compile the code, it is recommended to use the latest version of Visual Studio 2017.
+To build and compile the code, it is recommended to use the latest version of [Visual Studio 2019 or Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
 
-Another option is to download and install the [.NET Core 2.2 SDK](https://www.microsoft.com/net/download/windows) or newer. 
+Another option is to use the dotnet CLI tools from the [.NET Core 2.2 SDK](https://www.microsoft.com/net/download/windows). 
 
 ## License
 [MIT license](/LICENSE)
