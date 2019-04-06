@@ -16,5 +16,7 @@ namespace HeroesData
         VoiceLine = 1 << 7,
         Emoticon = 1 << 8,
         All = ~(~0 << 9),
+
+        HeroData = HeroPortrait | Talent | Ability | AbilityTalent,
     }
 }

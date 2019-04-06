@@ -196,6 +196,10 @@ namespace HeroesData
         private void SetExtractValues()
         {
             // common
+            List<string> heroData = new List<string>()
+            {
+                "HERODATA", "HEROES", "HEROESDATA",
+            };
             List<string> matchAwards = new List<string>()
             {
                 "MATCHAWARDS", "MATCHAWARD", "AWARDS", "AWARD", "MATWARD",
@@ -218,15 +222,12 @@ namespace HeroesData
             };
 
             // data
+            ExtractDataValues.Add(ExtractDataOption.HeroData, heroData);
             ExtractDataValues.Add(ExtractDataOption.MatchAward, matchAwards);
             ExtractDataValues.Add(ExtractDataOption.Spray, sprays);
             ExtractDataValues.Add(ExtractDataOption.Announcer, announcers);
             ExtractDataValues.Add(ExtractDataOption.VoiceLine, voiceLines);
             ExtractDataValues.Add(ExtractDataOption.Emoticon, emoticons);
-            ExtractDataValues.Add(ExtractDataOption.HeroData, new List<string>()
-            {
-                "HERODATA", "HEROES", "HEROESDATA",
-            });
             ExtractDataValues.Add(ExtractDataOption.HeroSkin, new List<string>()
             {
                 "HEROSKINS", "HEROSKIN", "SKINS", "AWARD",
@@ -249,6 +250,7 @@ namespace HeroesData
             });
 
             // images
+            ExtractImageValues.Add(ExtractImageOption.HeroData, heroData);
             ExtractImageValues.Add(ExtractImageOption.MatchAward, matchAwards);
             ExtractImageValues.Add(ExtractImageOption.Announcer, announcers);
             ExtractImageValues.Add(ExtractImageOption.Spray, sprays);
