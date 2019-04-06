@@ -5,16 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace HeroesData.ExtractorFiles
+namespace HeroesData.ExtractorImage
 {
-    public class FilesSpray : FilesExtractorBase<Spray>, IFile
+    public class ImageSpray : ImageExtractorBase<Spray>, IImage
     {
         private readonly int ImageMaxHeight = 256;
         private readonly int ImageMaxWidth = 256;
         private readonly HashSet<Spray> Sprays = new HashSet<Spray>();
         private readonly string SprayDirectory = "sprays";
 
-        public FilesSpray(CASCHandler cascHandler, StorageMode storageMode)
+        public ImageSpray(CASCHandler cascHandler, StorageMode storageMode)
             : base(cascHandler, storageMode)
         {
         }

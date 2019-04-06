@@ -5,15 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace HeroesData.ExtractorFiles
+namespace HeroesData.ExtractorImage
 {
-    public class FilesMatchAward : FilesExtractorBase<MatchAward>, IFile
+    public class ImageMatchAward : ImageExtractorBase<MatchAward>, IImage
     {
         private readonly HashSet<(string OriginalName, string NewName)> Awards = new HashSet<(string Original, string NewName)>();
 
         private readonly string MatchAwardsDirectory = "matchAwards";
 
-        public FilesMatchAward(CASCHandler cascHandler, StorageMode storageMode)
+        public ImageMatchAward(CASCHandler cascHandler, StorageMode storageMode)
             : base(cascHandler, storageMode)
         {
         }

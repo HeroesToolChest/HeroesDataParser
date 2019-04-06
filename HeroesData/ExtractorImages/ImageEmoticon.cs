@@ -5,16 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace HeroesData.ExtractorFiles
+namespace HeroesData.ExtractorImage
 {
-    public class FilesEmoticon : FilesExtractorBase<Emoticon>, IFile
+    public class ImageEmoticon : ImageExtractorBase<Emoticon>, IImage
     {
         private readonly int ImageMaxHeight = 32;
         private readonly int ImageMaxWidth = 40;
         private readonly HashSet<Emoticon> Emoticons = new HashSet<Emoticon>();
         private readonly string EmoticonDirectory = "emoticons";
 
-        public FilesEmoticon(CASCHandler cascHandler, StorageMode storageMode)
+        public ImageEmoticon(CASCHandler cascHandler, StorageMode storageMode)
             : base(cascHandler, storageMode)
         {
         }

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace HeroesData.ExtractorFiles
+namespace HeroesData.ExtractorImage
 {
-    public class FilesHero : FilesExtractorBase<Hero>, IFile
+    public class ImageHero : ImageExtractorBase<Hero>, IImage
     {
         private readonly HashSet<string> Portraits = new HashSet<string>();
         private readonly HashSet<string> Talents = new HashSet<string>();
@@ -19,7 +19,7 @@ namespace HeroesData.ExtractorFiles
         private readonly string TalentsDirectory = "talents";
         private readonly string AbilityTalentsDirectory = "abilitytalents";
 
-        public FilesHero(CASCHandler cascHandler, StorageMode storageMode)
+        public ImageHero(CASCHandler cascHandler, StorageMode storageMode)
             : base(cascHandler, storageMode)
         {
         }

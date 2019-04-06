@@ -5,12 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace HeroesData.ExtractorFiles
+namespace HeroesData.ExtractorImage
 {
-    public abstract class FilesExtractorBase<T>
+    public abstract class ImageExtractorBase<T>
         where T : IExtractable
     {
-        public FilesExtractorBase(CASCHandler cascHandler, StorageMode storageMode)
+        public ImageExtractorBase(CASCHandler cascHandler, StorageMode storageMode)
         {
             CASCHandler = cascHandler;
             StorageMode = storageMode;

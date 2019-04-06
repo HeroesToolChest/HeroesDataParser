@@ -15,23 +15,12 @@ namespace HeroesData.ExtractorData
         where T : IExtractable
         where TParser : IParser<T, TParser>
     {
+        private readonly HashSet<string> ValidationWarnings = new HashSet<string>();
         private string ValidationWarningId = "Unknown";
-        private HashSet<string> ValidationWarnings = new HashSet<string>();
 
         public DataExtractorBase(TParser parser)
         {
             Parser = parser;
-        }
-
-        /// <summary>
-        /// Gets a list of validation warnings.
-        /// </summary>
-        public List<string> Warnings
-        {
-            get
-            {
-                return ValidationWarnings.ToList();
-            }
         }
 
         /// <summary>
@@ -113,15 +102,15 @@ namespace HeroesData.ExtractorData
                 Validation(t.Value);
             }
 
-            if (Warnings.Count > 0)
+            if (ValidationWarnings.Count > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write($"[{Name}] {Warnings.Count} warnings");
+                Console.Write($"[{Name}] {ValidationWarnings.Count} warnings");
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write($"[{Name}] {Warnings.Count} warnings");
+                Console.Write($"[{Name}] {ValidationWarnings.Count} warnings");
             }
 
             if (WarningsIgnoredCount > 0)
@@ -130,10 +119,10 @@ namespace HeroesData.ExtractorData
             Console.WriteLine();
             Console.ResetColor();
 
-            if (Warnings.Count > 0)
+            if (ValidationWarnings.Count > 0)
             {
-                List<string> nonTooltips = new List<string>(Warnings.Where(x => !x.ToLower().Contains("tooltip")));
-                List<string> tooltips = new List<string>(Warnings.Where(x => x.ToLower().Contains("tooltip")));
+                List<string> nonTooltips = new List<string>(ValidationWarnings.Where(x => !x.ToLower().Contains("tooltip")));
+                List<string> tooltips = new List<string>(ValidationWarnings.Where(x => x.ToLower().Contains("tooltip")));
 
                 using (StreamWriter writer = new StreamWriter(Path.Combine(App.AssemblyPath, $"VerificationCheck_{Name}_{localization.ToString().ToLower()}.txt"), false))
                 {
@@ -158,7 +147,7 @@ namespace HeroesData.ExtractorData
                         });
                     }
 
-                    writer.WriteLine($"{Environment.NewLine}{Warnings.Count} warnings ({WarningsIgnoredCount} ignored)");
+                    writer.WriteLine($"{Environment.NewLine}{ValidationWarnings.Count} warnings ({WarningsIgnoredCount} ignored)");
 
                     if (App.ShowValidationWarnings)
                         Console.WriteLine();

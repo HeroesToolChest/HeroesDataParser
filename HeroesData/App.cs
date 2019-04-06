@@ -1,6 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.ExtractorData;
-using HeroesData.ExtractorFiles;
+using HeroesData.ExtractorImage;
 using HeroesData.FileWriter;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser;
@@ -628,12 +628,12 @@ namespace HeroesData
             DataEmoticon dataEmoticon = new DataEmoticon(new EmoticonParser(GameData, DefaultData));
             DataEmoticonPack dataEmoticonPack = new DataEmoticonPack(new EmoticonPackParser(GameData, DefaultData));
 
-            FilesHero filesHero = new FilesHero(CASCHotsStorage?.CASCHandler, StorageMode);
-            FilesMatchAward filesMatchAward = new FilesMatchAward(CASCHotsStorage?.CASCHandler, StorageMode);
-            FilesAnnouncer filesAnnouncer = new FilesAnnouncer(CASCHotsStorage?.CASCHandler, StorageMode);
-            FilesVoiceLine filesVoiceLine = new FilesVoiceLine(CASCHotsStorage?.CASCHandler, StorageMode);
-            FilesSpray filesSpray = new FilesSpray(CASCHotsStorage?.CASCHandler, StorageMode);
-            FilesEmoticon filesEmoticon = new FilesEmoticon(CASCHotsStorage?.CASCHandler, StorageMode);
+            ImageHero filesHero = new ImageHero(CASCHotsStorage?.CASCHandler, StorageMode);
+            ImageMatchAward filesMatchAward = new ImageMatchAward(CASCHotsStorage?.CASCHandler, StorageMode);
+            ImageAnnouncer filesAnnouncer = new ImageAnnouncer(CASCHotsStorage?.CASCHandler, StorageMode);
+            ImageVoiceLine filesVoiceLine = new ImageVoiceLine(CASCHotsStorage?.CASCHandler, StorageMode);
+            ImageSpray filesSpray = new ImageSpray(CASCHotsStorage?.CASCHandler, StorageMode);
+            ImageEmoticon filesEmoticon = new ImageEmoticon(CASCHotsStorage?.CASCHandler, StorageMode);
 
             DataProcessors.Add(new DataProcessor()
             {

@@ -4,15 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace HeroesData.ExtractorFiles
+namespace HeroesData.ExtractorImage
 {
-    public class FilesAnnouncer : FilesExtractorBase<Announcer>, IFile
+    public class ImageAnnouncer : ImageExtractorBase<Announcer>, IImage
     {
         private readonly HashSet<string> Announcers = new HashSet<string>();
 
         private readonly string AnnouncerDirectory = "announcers";
 
-        public FilesAnnouncer(CASCHandler cascHandler, StorageMode storageMode)
+        public ImageAnnouncer(CASCHandler cascHandler, StorageMode storageMode)
             : base(cascHandler, storageMode)
         {
         }

@@ -4,15 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace HeroesData.ExtractorFiles
+namespace HeroesData.ExtractorImage
 {
-    public class FilesVoiceLine : FilesExtractorBase<VoiceLine>, IFile
+    public class ImageVoiceLine : ImageExtractorBase<VoiceLine>, IImage
     {
         private readonly HashSet<string> VoiceLines = new HashSet<string>();
 
         private readonly string VoiceDirectory = "voicelines";
 
-        public FilesVoiceLine(CASCHandler cascHandler, StorageMode storageMode)
+        public ImageVoiceLine(CASCHandler cascHandler, StorageMode storageMode)
             : base(cascHandler, storageMode)
         {
         }
