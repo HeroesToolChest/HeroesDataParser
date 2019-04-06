@@ -12,8 +12,8 @@ namespace HeroesData.ExtractorImage
 
         private readonly string AnnouncerDirectory = "announcers";
 
-        public ImageAnnouncer(CASCHandler cascHandler, StorageMode storageMode)
-            : base(cascHandler, storageMode)
+        public ImageAnnouncer(CASCHandler cascHandler, string modsFolderPath)
+            : base(cascHandler, modsFolderPath)
         {
         }
 

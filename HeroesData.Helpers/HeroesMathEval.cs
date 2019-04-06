@@ -6,7 +6,7 @@ namespace HeroesData.Helpers
 {
     public static class HeroesMathEval
     {
-        private static DataTable DataTable = new DataTable();
+        private static readonly DataTable DataTable = new DataTable();
 
         public static double CalculatePathEquation(string input)
         {
@@ -54,8 +54,7 @@ namespace HeroesData.Helpers
 
             while (parts.Length > 2)
             {
-                string toBeComputed = string.Empty;
-
+                string toBeComputed;
                 if (parts[0] == "-") // first is negative number
                 {
                     toBeComputed = parts[0] + parts[1] + parts[2];

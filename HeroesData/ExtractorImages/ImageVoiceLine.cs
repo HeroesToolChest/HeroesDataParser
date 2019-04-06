@@ -12,8 +12,8 @@ namespace HeroesData.ExtractorImage
 
         private readonly string VoiceDirectory = "voicelines";
 
-        public ImageVoiceLine(CASCHandler cascHandler, StorageMode storageMode)
-            : base(cascHandler, storageMode)
+        public ImageVoiceLine(CASCHandler cascHandler, string modsFolderPath)
+            : base(cascHandler, modsFolderPath)
         {
         }
 

@@ -14,8 +14,8 @@ namespace HeroesData.ExtractorImage
         private readonly HashSet<Emoticon> Emoticons = new HashSet<Emoticon>();
         private readonly string EmoticonDirectory = "emoticons";
 
-        public ImageEmoticon(CASCHandler cascHandler, StorageMode storageMode)
-            : base(cascHandler, storageMode)
+        public ImageEmoticon(CASCHandler cascHandler, string modsFolderPath)
+            : base(cascHandler, modsFolderPath)
         {
         }
 

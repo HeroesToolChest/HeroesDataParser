@@ -10,36 +10,28 @@ namespace HeroesData.ExtractorImage
     public abstract class ImageExtractorBase<T>
         where T : IExtractable
     {
-        public ImageExtractorBase(CASCHandler cascHandler, StorageMode storageMode)
+        public ImageExtractorBase(CASCHandler cascHandler, string modsFolderPath)
         {
             CASCHandler = cascHandler;
-            StorageMode = storageMode;
+            ModsFolderPath = modsFolderPath;
         }
 
         protected CASCHandler CASCHandler { get; }
-        protected StorageMode StorageMode { get; }
+        protected StorageMode StorageMode { get; private set; }
+        protected string ModsFolderPath { get; }
         protected string ExtractDirectory { get; } = Path.Combine(App.OutputDirectory, "images");
-        protected string CASCTexturesPath { get; } = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "assets", "textures");
+        protected string TexturesPath { get; } = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "assets", "textures");
         protected List<string> FailedFileMessages { get; } = new List<string>();
-
-        public void ExtractFiles(IEnumerable<T> data)
-        {
-            if (CASCHandler == null || data == null || StorageMode != StorageMode.CASC || string.IsNullOrEmpty(App.OutputDirectory))
-                return;
-
-            foreach (T t in data)
-            {
-                LoadFileData(t);
-            }
-
-            ExtractFiles();
-            DisplayFailedExtractedFiles();
-        }
 
         public void ExtractFiles(IEnumerable<IExtractable> data)
         {
-            if (CASCHandler == null || data == null || StorageMode != StorageMode.CASC || string.IsNullOrEmpty(App.OutputDirectory))
+            if (string.IsNullOrEmpty(App.OutputDirectory) || data == null)
                 return;
+
+            if (CASCHandler != null)
+                StorageMode = StorageMode.CASC;
+            else if (CASCHandler == null && !string.IsNullOrEmpty(ModsFolderPath))
+                StorageMode = StorageMode.Mods;
 
             foreach (T t in data)
             {
@@ -63,17 +55,20 @@ namespace HeroesData.ExtractorImage
 
             return ExtractImageFile(filePath, () =>
             {
-                string cascFilepath = Path.Combine(CASCTexturesPath, fileName);
-                if (CASCHandler.FileExists(cascFilepath))
+                string textureFilepath = Path.Combine(TexturesPath, fileName);
+                if (FileExists(textureFilepath))
                 {
-                    DDSImage image = new DDSImage(CASCHandler.OpenFile(cascFilepath));
-                    image.Save(Path.ChangeExtension(filePath, "png"));
+                    using (Stream stream = OpenFile(textureFilepath))
+                    {
+                        DDSImage image = new DDSImage(stream);
+                        image.Save(Path.ChangeExtension(filePath, "png"));
 
-                    return true;
+                        return true;
+                    }
                 }
                 else
                 {
-                    FailedFileMessages.Add($"CASC file not found: {fileName}");
+                    FailedFileMessages.Add($"File not found: {fileName}");
                     return false;
                 }
             });
@@ -91,17 +86,20 @@ namespace HeroesData.ExtractorImage
         {
             return ExtractImageFile(filePath, () =>
             {
-                string cascFilepath = Path.Combine(CASCTexturesPath, fileName);
-                if (CASCHandler.FileExists(cascFilepath))
+                string textureFilepath = Path.Combine(TexturesPath, fileName);
+                if (FileExists(textureFilepath))
                 {
-                    DDSImage image = new DDSImage(CASCHandler.OpenFile(cascFilepath));
-                    image.Save(Path.ChangeExtension(filePath, "png"), point, size);
+                    using (Stream stream = OpenFile(textureFilepath))
+                    {
+                        DDSImage image = new DDSImage(stream);
+                        image.Save(Path.ChangeExtension(filePath, "png"), point, size);
 
-                    return true;
+                        return true;
+                    }
                 }
                 else
                 {
-                    FailedFileMessages.Add($"CASC file not found: {fileName}");
+                    FailedFileMessages.Add($"File not found: {fileName}");
                     return false;
                 }
             });
@@ -122,27 +120,47 @@ namespace HeroesData.ExtractorImage
 
             return ExtractImageFile(filePath, () =>
             {
-                string cascFilepath = Path.Combine(CASCTexturesPath, fileName);
-                if (CASCHandler.FileExists(cascFilepath))
+                string textureFilepath = Path.Combine(TexturesPath, fileName);
+                if (FileExists(textureFilepath))
                 {
-                    DDSImage image = new DDSImage(CASCHandler.OpenFile(cascFilepath));
-                    image.SaveAsGif(Path.ChangeExtension(filePath, "gif"), size, maxSize, frames, frameDelay);
+                    using (Stream stream = OpenFile(textureFilepath))
+                    {
+                        DDSImage image = new DDSImage(stream);
+                        image.SaveAsGif(Path.ChangeExtension(filePath, "gif"), size, maxSize, frames, frameDelay);
 
-                    return true;
+                        return true;
+                    }
                 }
                 else
                 {
-                    FailedFileMessages.Add($"CASC file not found: {fileName}");
+                    FailedFileMessages.Add($"File not found: {fileName}");
                     return false;
                 }
             });
         }
 
+        protected bool FileExists(string filePath)
+        {
+            if (StorageMode == StorageMode.CASC)
+                return CASCHandler.FileExists(filePath);
+            else if (StorageMode == StorageMode.Mods)
+                return File.Exists(Path.Combine(ModsFolderPath, filePath.Substring(5)));
+            else
+                return false;
+        }
+
+        protected Stream OpenFile(string filePath)
+        {
+            if (StorageMode == StorageMode.CASC)
+                return CASCHandler.OpenFile(filePath);
+            else if (StorageMode == StorageMode.Mods)
+                return File.Open(Path.Combine(ModsFolderPath, filePath.Substring(5)), FileMode.Open);
+            else
+                return null;
+        }
+
         private bool ExtractImageFile(string filePath, Func<bool> extractImage)
         {
-            if (CASCHandler == null)
-                return false;
-
             string fileName = Path.GetFileName(filePath);
 
             if (Path.GetExtension(fileName) != ".dds")

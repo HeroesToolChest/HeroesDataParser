@@ -20,7 +20,7 @@ namespace HeroesData
 {
     internal class App
     {
-        private List<DataProcessor> DataProcessors = new List<DataProcessor>();
+        private readonly List<DataProcessor> DataProcessors = new List<DataProcessor>();
 
         /// <summary>
         /// Gets the product version of the application.
@@ -180,20 +180,11 @@ namespace HeroesData
 
                         if (ExtractFileOption != ExtractImageOption.None)
                         {
-                            if (StorageMode == StorageMode.CASC)
+                            Console.WriteLine("Extracting files...");
+                            DataProcessor((parser) =>
                             {
-                                Console.WriteLine("Extracting files...");
-                                DataProcessor((parser) =>
-                                {
-                                    parser.Extract?.Invoke(parser.ParsedItems);
-                                });
-                            }
-                            else
-                            {
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.WriteLine("Unable to perform file extraction: Only available using the Heroes of the Storm game directory.");
-                                Console.ResetColor();
-                            }
+                                parser.Extract?.Invoke(parser.ParsedItems);
+                            });
 
                             Console.WriteLine();
                         }
@@ -628,12 +619,12 @@ namespace HeroesData
             DataEmoticon dataEmoticon = new DataEmoticon(new EmoticonParser(GameData, DefaultData));
             DataEmoticonPack dataEmoticonPack = new DataEmoticonPack(new EmoticonPackParser(GameData, DefaultData));
 
-            ImageHero filesHero = new ImageHero(CASCHotsStorage?.CASCHandler, StorageMode);
-            ImageMatchAward filesMatchAward = new ImageMatchAward(CASCHotsStorage?.CASCHandler, StorageMode);
-            ImageAnnouncer filesAnnouncer = new ImageAnnouncer(CASCHotsStorage?.CASCHandler, StorageMode);
-            ImageVoiceLine filesVoiceLine = new ImageVoiceLine(CASCHotsStorage?.CASCHandler, StorageMode);
-            ImageSpray filesSpray = new ImageSpray(CASCHotsStorage?.CASCHandler, StorageMode);
-            ImageEmoticon filesEmoticon = new ImageEmoticon(CASCHotsStorage?.CASCHandler, StorageMode);
+            ImageHero filesHero = new ImageHero(CASCHotsStorage?.CASCHandler, StoragePath);
+            ImageMatchAward filesMatchAward = new ImageMatchAward(CASCHotsStorage?.CASCHandler, StoragePath);
+            ImageAnnouncer filesAnnouncer = new ImageAnnouncer(CASCHotsStorage?.CASCHandler, StoragePath);
+            ImageVoiceLine filesVoiceLine = new ImageVoiceLine(CASCHotsStorage?.CASCHandler, StoragePath);
+            ImageSpray filesSpray = new ImageSpray(CASCHotsStorage?.CASCHandler, StoragePath);
+            ImageEmoticon filesEmoticon = new ImageEmoticon(CASCHotsStorage?.CASCHandler, StoragePath);
 
             DataProcessors.Add(new DataProcessor()
             {
