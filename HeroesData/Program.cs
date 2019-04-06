@@ -111,6 +111,10 @@ namespace HeroesData
                     {
                         App.ExtractFileOption = ExtractImageOption.All;
                     }
+                    else if (extractImageFilesOption.Values.Exists(x => x.ToUpper() == "ALL-SPLIT" || x.ToUpper() == "ALLSPLIT"))
+                    {
+                        App.ExtractFileOption = ExtractImageOption.AllSplit;
+                    }
                     else
                     {
                         foreach (ExtractImageOption extractFileOption in Enum.GetValues(typeof(ExtractImageOption)))
@@ -198,7 +202,7 @@ namespace HeroesData
             // common
             List<string> heroData = new List<string>()
             {
-                "HERODATA", "HEROES", "HEROESDATA",
+                "HERODATA", "HEROES", "HEROESDATA", "HERO",
             };
             List<string> matchAwards = new List<string>()
             {
@@ -271,6 +275,10 @@ namespace HeroesData
             ExtractImageValues.Add(ExtractImageOption.HeroPortrait, new List<string>()
             {
                 "HEROPORTRAITS", "HEROPORTRAIT", "HP",
+            });
+            ExtractImageValues.Add(ExtractImageOption.HeroDataSplit, new List<string>()
+            {
+                "HERODATASPLIT", "HEROESSPLIT", "HEROESDATASPLIT", "HEROSPLIT", "HERODATA-SPLIT", "HEROES-SPLIT", "HEROESDATA-SPLIT", "HERO-SPLIT",
             });
         }
     }

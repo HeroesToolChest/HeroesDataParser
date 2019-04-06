@@ -17,6 +17,8 @@ namespace HeroesData
         Emoticon = 1 << 8,
         All = ~(~0 << 9),
 
-        HeroData = HeroPortrait | Talent | Ability | AbilityTalent,
+        HeroData = HeroPortrait | AbilityTalent,
+        HeroDataSplit = HeroPortrait | Ability | Talent,
+        AllSplit = All & ~AbilityTalent,
     }
 }
