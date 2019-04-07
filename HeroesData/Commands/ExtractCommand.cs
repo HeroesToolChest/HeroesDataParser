@@ -37,6 +37,7 @@ namespace HeroesData.Commands
             CommandLineApplication.Command("extract", config =>
             {
                 config.HelpOption("-?|-h|--help");
+                config.Description = "Extracts all required files from the `Heroes of the Storm` directory.";
 
                 CommandArgument storagePathArgument = config.Argument("storage-path", "The 'Heroes of the Storm' directory");
 
