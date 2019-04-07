@@ -38,16 +38,17 @@ namespace HeroesData.Commands
             {
                 config.HelpOption("-?|-h|--help");
 
-                CommandOption storagePathOption = config.Option("-s|--storage-path <FILEPATH>", "The 'Heroes of the Storm' directory", CommandOptionType.SingleValue);
+                CommandArgument storagePathArgument = config.Argument("storage-path", "The 'Heroes of the Storm' directory");
+
                 CommandOption setOutputDirectoryOption = config.Option("-o|--output-directory <FILEPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
                 CommandOption texturesOption = config.Option("--textures", "Includes extracting all textures (.dds).", CommandOptionType.NoValue);
 
                 config.OnExecute(() =>
                 {
-                    if (!storagePathOption.HasValue())
-                        Console.WriteLine("-s|--storage-path needs to specify a path");
+                    if (ValidatePath(storagePathArgument.Value))
+                        StoragePath = storagePathArgument.Value;
                     else
-                        StoragePath = storagePathOption.Value();
+                        return 0;
 
                     if (setOutputDirectoryOption.HasValue())
                         OutputDirectory = setOutputDirectoryOption.Value();
@@ -63,6 +64,27 @@ namespace HeroesData.Commands
                     return 0;
                 });
             });
+        }
+
+        private bool ValidatePath(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("'storage-path' argument needs to specify a path");
+                Console.ResetColor();
+                return false;
+            }
+
+            if (!Directory.Exists(Path.Combine(path, "HeroesData")) && !File.Exists(Path.Combine(path, ".build.info")))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Path provided is not a valid `Heroes of the Storm` directory");
+                Console.ResetColor();
+                return false;
+            }
+
+            return true;
         }
 
         private void LoadCASCStorage()
