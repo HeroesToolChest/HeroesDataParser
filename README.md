@@ -41,33 +41,46 @@ dotnet tool update --global HeroesDataParser
 
 ***
 
-### Zip File Download - Framework-Dependent
+### Zip File Download - Framework-Dependent Deployment
+
 Download and install the [.NET Core 2.2 Runtime or SDK](https://www.microsoft.com/net/download/windows) or newer. 
 
 Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page.
 
 ***
 
-### Zip File Download - Self-Contained
+### Zip File Download - Framework-Dependent Executable
+Download and install the [.NET Core 2.2 Runtime or SDK](https://www.microsoft.com/net/download/windows) or newer. 
+
+Download and extract the latest `HeroesDataParser.*-fde-<OS>-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
+
+***
+
+### Zip File Download - Self-Contained Deployment
 No runtime or SDK is required.
 
-Download and extract the latest `HeroesDataParser.*-scd-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
+Download and extract the latest `HeroesDataParser.*-scd-<OS>-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
 This zip file contains everything that is needed to run the dotnet core app without .NET Core being installed, so the zip file is quite large.
 
 ## Usage
-If installed as a global tool, the app can be run with one of the following commands:
+If installed as a Dotnet Global Tool, the app can be run with one of the following commands:
 ```
 dotnet heroes-data -h
 dotnet-heroes-data -h
 ```
-If one of the zip files was downloaded, run one of the following commands from the extracted directory:
+
+If installed as a Framework-Dependent Deployment, run the following command from the extracted directory:
 ```
 dotnet heroesdata.dll -h
-
-// only for scd
-./heroesdata -h
 ```
+
+If installed as a Framework-Dependent Executable or Self-Contained Deployment, run one of the following commands from the extracted directory:
+```
+./heroesdata -h
+dotnet heroesdata.dll -h
+```
+
 Output of the -h option
 ```
 Heroes Data Parser (VERSION)
