@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Emoticon>
+<Emoticons>
   <lunara_angry>
     <Aliases>
       <Alias>:(</Alias>
@@ -15,4 +15,4 @@
     </Animation>
   </lunara_angry>
   <lunara_sad />
-</Emoticon>
+</Emoticons>

@@ -10,7 +10,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonPackData
         public EmoticonPackDataXmlWriter()
             : base(FileOutputType.Xml)
         {
-            RootNodeName = "EmoticonPack";
+            RootNodeName = "EmoticonPacks";
         }
 
         protected override XElement MainElement(EmoticonPack emoticonPack)

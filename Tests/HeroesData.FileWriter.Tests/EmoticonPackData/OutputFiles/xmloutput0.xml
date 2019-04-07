@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<EmoticonPack>
+<EmoticonPacks>
   <OrpheaPack1 name="Orphea Pack 1" hyperlinkId="OrpheaPack1" category="Nexus" event="EvilTower" releaseDate="2018-04-03">
     <SortName>xxOrpheaPack1</SortName>
     <Description>Emoticon pack for Orphea</Description>
@@ -9,4 +9,4 @@
     </Emoticons>
   </OrpheaPack1>
   <OrpheaPack2 name="Orphea Pack 2" category="Nexus" releaseDate="2018-04-03" />
-</EmoticonPack>
+</EmoticonPacks>

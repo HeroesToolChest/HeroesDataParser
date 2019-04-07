@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Emoticon>
+<Emoticons>
   <lunara_angry expression="Lunara Angry">
     <Description>Use emoticons for lunara</Description>
     <LocalizedAliases>
@@ -20,4 +20,4 @@
     </Animation>
   </lunara_angry>
   <lunara_sad expression="Lunara Sad" />
-</Emoticon>
+</Emoticons>

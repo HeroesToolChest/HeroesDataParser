@@ -11,7 +11,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
         public EmoticonDataXmlWriter()
             : base(FileOutputType.Xml)
         {
-            RootNodeName = "Emoticon";
+            RootNodeName = "Emoticons";
         }
 
         protected override XElement MainElement(Emoticon emoticon)
