@@ -49,7 +49,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             GameStringWriter.AddUnitType(hero.Id, hero.Type);
             GameStringWriter.AddUnitDescription(hero.Id, GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
             GameStringWriter.AddHeroTitle(hero.Id, hero.Title);
-            GameStringWriter.AddHeroSearchText(hero.Id, hero.Title);
+            GameStringWriter.AddHeroSearchText(hero.Id, hero.SearchText);
 
             if (hero.Roles != null && hero.Roles.Count > 0)
                 GameStringWriter.AddUnitRole(hero.Id, string.Join(",", hero.Roles));
