@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace HeroesData.Commands
 {
@@ -173,22 +172,6 @@ namespace HeroesData.Commands
             }
 
             Console.WriteLine($"\r{count,6}/{files.Count} {fileType}");
-        }
-
-        private Task ExtractFile(string filePath)
-        {
-            if (CASCHotsStorage.CASCHandler.FileExists(filePath))
-            {
-                CASCHotsStorage.CASCHandler.SaveFileTo(filePath, OutputDirectory);
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"File path could not be found for extraction: {filePath}");
-                Console.ResetColor();
-            }
-
-            return Task.CompletedTask;
         }
 
         private void DeleteExistingDirectory(string directory)
