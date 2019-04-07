@@ -128,7 +128,7 @@ Ignored warnings only work for a majority of english strings.
 ### Storage Path (-s|--storage-path) 
 There are two types of paths that can be provided for this option. One is the `Heroes of the Storm` directory and the other is an already extracted `mods` directory.
 
-If this option is not provided, it will look for the `Heroes of the Storm` files in the current directory or an extracted 'mods' directory.
+If this option is not provided, it will look for the `Heroes of the Storm` files in the current directory or an extracted `mods` directory.
 
 The `extract` command is available to use to extract the mods directory and all required files.
 
@@ -323,7 +323,7 @@ The format of the strings in the text file are the following:
 - `spray/sortname/[Id]=[value]`
 - `tooltip/cooldown/[nameId]=[value]`
 - `tooltip/energy/[nameId]=[value]`
-- `tooltip/full/[fullTooltipId]=[value]
+- `tooltip/full/[fullTooltipId]=[value]`
 - `tooltip/life/[nameId]=[value]`
 - `tooltip/short/[shortTooltipId]=[value]`
 - `unit/description/[Id]=[value]`
