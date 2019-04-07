@@ -41,33 +41,46 @@ dotnet tool update --global HeroesDataParser
 
 ***
 
-### Zip File Download - Framework-Dependent
+### Zip File Download - Framework-Dependent Deployment
+
 Download and install the [.NET Core 2.2 Runtime or SDK](https://www.microsoft.com/net/download/windows) or newer. 
 
 Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page.
 
 ***
 
-### Zip File Download - Self-Contained
+### Zip File Download - Framework-Dependent Executable
+Download and install the [.NET Core 2.2 Runtime or SDK](https://www.microsoft.com/net/download/windows) or newer. 
+
+Download and extract the latest `HeroesDataParser.*-fde-<OS>-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
+
+***
+
+### Zip File Download - Self-Contained Deployment
 No runtime or SDK is required.
 
-Download and extract the latest `HeroesDataParser.*-scd-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
+Download and extract the latest `HeroesDataParser.*-scd-<OS>-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
 This zip file contains everything that is needed to run the dotnet core app without .NET Core being installed, so the zip file is quite large.
 
 ## Usage
-If installed as a global tool, the app can be run with one of the following commands:
+If installed as a Dotnet Global Tool, the app can be run with one of the following commands:
 ```
 dotnet heroes-data -h
 dotnet-heroes-data -h
 ```
-If one of the zip files was downloaded, run one of the following commands from the extracted directory:
+
+If installed as a Framework-Dependent Deployment, run the following command from the extracted directory:
 ```
 dotnet heroesdata.dll -h
-
-// only for scd
-./heroesdata -h
 ```
+
+If installed as a Framework-Dependent Executable or Self-Contained Deployment, run one of the following commands from the extracted directory:
+```
+./heroesdata -h
+dotnet heroesdata.dll -h
+```
+
 Output of the -h option
 ```
 Heroes Data Parser (VERSION)
@@ -113,7 +126,9 @@ Ignored warnings only work for a majority of english strings.
 
 ## Options
 ### Storage Path (-s|--storage-path) 
-There are two types of paths that can be provided for this option. One is the directory path of the `Heroes of the Storm` directory and the other is an already extracted `mods` directory.
+There are two types of paths that can be provided for this option. One is the `Heroes of the Storm` directory and the other is an already extracted `mods` directory.
+
+If this option is not provided, it will look for the `Heroes of the Storm` files in the current directory or an extracted 'mods' directory.
 
 The `extract` command is available to use to extract the mods directory and all required files.
 
@@ -127,7 +142,9 @@ If this option is not provided, it will default to the install directory under t
 ***
  
 ### Description (-d|--description)
-Sets the description/tooltip output type (0 - 6)
+Sets the description/tooltip output type (0 - 6).  
+ - Default is 0 and is the recommended choice as it can be parsed to suit multiple verbiage
+ - 5 is the other recommended choice, as it is the ingame verbiage
 
 Some of these may require parsing for a readable output. Visit the [wiki page](https://github.com/koliva8245/HeroesDataParser/wiki/Parsing-Descriptions) for parsing tips.
 
@@ -221,20 +238,23 @@ Extracts to `<OUTPUT-DIRECTORY>/images/<image-type>`
 `heroportraits` - extracts hero portrait images (HeroSelect, Leaderboard, Loading, PartyPanel, and Target portraits)  
 `abilities` - extracts ability icons  
 `talents` - extracts talent icons  
-`abilitytalents` - extracts both ability and talent icons into the same directory  
+`abilitytalents` - extracts both ability and talent icons into the same directory (overrides `abilities` and `talents` choices)  
 `matchawards` - extracts match award icons  
 `sprays` - extracts spray images  
 `announcers` - extracts announcer images  
 `voicelines` - extracts voiceline images  
-`emoticons` - extracts emoji icons  
+`emoticons` - extracts emoji icons
+
+`all-split` - sets all options except for `abilityTalents`  
+`herodata` - sets `heroportraits`, `abilitytalents`  
+`herodata-split` - sets `heroportraits`, `abilities`, `talents`
 
 Notes:
-- This option only works if a `Heroes of the Storm` directory path is provided for the `-s|--storage-path` option
 - Static image files are extracted in `.png` format
 - Animated image files are extracted in `.gif` format
   - Sprays and emoticons are the only ones with animated images
 - Due to the quality limitations of gifs, the texture files used for the creation of the gifs are also extracted in `.png` format
-- Information about creating the animations can be found in the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki/Animated-Images)
+  - Information about creating animations can be found in the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki/Animated-Images)
 
 Example selecting multiple image extractions
 ```
@@ -243,7 +263,7 @@ Example selecting multiple image extractions
 ***
 
 ### Localization (-l|--localization)
-Sets the game string localization (descriptions/tooltips). Multiple are allowed, use `all` to select all. The application will parse all game strings and hero data for each locale selected.
+Sets the game string localization (descriptions/tooltips). Multiple are allowed, use `all` to select all. The application will parse all game strings for each locale selected.
 
 `enUS` - English (Default)  
 `deDE` - German  
@@ -270,28 +290,54 @@ Strings that are localized are removed from the XML and JSON file(s) and are ins
 
 The gamestring text file(s) are located at `<OUTPUT-DIRECTORY>/gamestrings/`
 
-The following are all localized strings that are removed:
-- Hero/Unit: `name`, `difficulty`, `type`, `role`, `description`
-- Ability/Talent: `name`, `lifeTooltip`, `energyTooltip`, `cooldownTooltip`, `shortTooltip`, `fullTooltip`
-- MatchAwards: `name`, `description`
-
 The format of the strings in the text file are the following:
-- `unit/name/[hero.shortname]=[value]`
-- `unit/difficulty/[hero.shortname]=[value]`
-- `unit/type/[hero.shortname]=[value]`
-- `unit/role/[hero.shortname]=[value] (comma delimited if more than 1 role)`
-- `unit/description/[hero.shortname]=[value]`
-- `unit/title/[hero.shortname]=[value]`
-- `unit/searchtext/[hero.shortname]=[value]`
 - `abiltalent/name/[nameId]=[value]`
-- `tooltip/life/[nameId]=[value]`
-- `tooltip/energy/[nameId]=[value]`
+- `announcer/name/[Id]=[value]`
+- `announcer/description/[Id]=[value]`
+- `announcer/sortname/[Id]=[value]`
+- `award/name/[Id]=[value]`
+- `award/description/[Id]=[value]`
+- `banner/name/[Id]=[value]`
+- `banner/description/[Id]=[value]`
+- `banner/sortname/[Id]=[value]`
+- `emoticon/alias/[Id]=[value]`
+- `emoticon/description/[Id]=[value]`
+- `emoticon/name/[Id]=[value]`
+- `emoticon/searchtext/[Id]=[value]`
+- `emoticonpack/description/[Id]=[value]`
+- `emoticonpack/name/[Id]=[value]`
+- `emoticonpack/sortname/[Id]=[value]`
+- `heroskin/info/[Id]=[value]`
+- `heroskin/name/[Id]=[value]`
+- `heroskin/searchtext/[Id]=[value]`
+- `heroskin/sortname/[Id]=[value]`
+- `mount/info/[Id]=[value]`
+- `mount/name/[Id]=[value]`
+- `mount/searchtext/[Id]=[value]`
+- `mount/sortname/[Id]=[value]`
+- `portrait/name/[Id]=[value]`
+- `portrait/sortname/[Id]=[value]`
+- `spray/description/[Id]=[value]`
+- `spray/name/[Id]=[value]`
+- `spray/searchtext/[Id]=[value]`
+- `spray/sortname/[Id]=[value]`
 - `tooltip/cooldown/[nameId]=[value]`
+- `tooltip/energy/[nameId]=[value]`
+- `tooltip/full/[fullTooltipId]=[value]
+- `tooltip/life/[nameId]=[value]`
 - `tooltip/short/[shortTooltipId]=[value]`
-- `tooltip/full/[fullTooltipId]=[value]`
-- `award/name/[shortname]=[value]`
-- `award/description/[shortname]=[value]`
-
+- `unit/description/[Id]=[value]`
+- `unit/difficulty/[Id]=[value]`
+- `unit/expandedRole/[Id]=[value]`
+- `unit/name/[Id]=[value]`
+- `unit/role/[Id]=[value] (comma delimited if more than 1 role)`
+- `unit/searchtext/[Id]=[value]`
+- `unit/title/[Id]=[value]`
+- `unit/type/[Id]=[value]`
+- `voiceline/description/[Id]=[value]`
+- `voiceline/name/[Id]=[value]`
+- `voiceline/sortname/[Id]=[value]`
+- `voiceline/sortname/[Id]=[value]`
 
 ## Commands
 ### Read
@@ -302,23 +348,38 @@ Options:
   -v|--valid-files           Show all available files to read.
 ```
 
+***
+
+### Extract
+```
+Usage:  extract [options]
+
+Options:
+  -?|-h|--help                      Show help information
+  -s|--storage-path <FILEPATH>      The 'Heroes of the Storm' directory
+  -o|--output-directory <FILEPATH>  Sets the output directory.
+  --textures                        Includes extracting all textures (.dds).
+```
+
+This command allows extracting all the required files and text files from the `Heroes of the Storm` game files.  Extracting all the texture files is optional.
+
 ## Advanced Features
 ### Mods suffix directory
-The `mods` directory may have a `_<build number>` suffix in its name. The build number determines the hero overrides file to load. If the overrides file does not exist and the build number is greater than the highest overrides file then it will load the default overrides file `hero-overrides.xml` otherwise it will load next **lowest** overrides file.
+The `mods` directory may have a `_<build number>` suffix in its name. The build number determines the overrides file(s) to load. If the overrides file does not exist and the build number is greater than the highest overrides file then it will load the default overrides file otherwise it will load next **lowest** overrides file.
 
 Example:
 ```
 directory to load: mods_13500
 
-HeroOverrides files:
+hero overrides files:
 hero-overrides.xml
-hero-overrides_12000.xml
+hero-overrides_12000.xmls
 hero-overrides_13000.xml <--- will be loaded
 hero-overrides_14000.xml
 
 directory to load: mods_14100
 
-HeroOverrides files:
+hero overrides files:
 hero-overrides.xml <--- will be loaded
 hero-overrides_12000.xml
 hero-overrides_13000.xml 
@@ -328,7 +389,7 @@ hero-overrides_14000.xml
 ***
 
 ### Multi-mods directory
-You can have multiple mods directories with the suffix `_<build number>` in the same directory.  If you select the parent directory as the storage path, the highest build number suffix diretory will be parsed.
+There can be multiple mods directories with the suffix `_<build number>` in the same directory.  If the selected parent directory is the storage path, the highest build number suffix diretory will be parsed.
 
 For example, with this directory:
 ```
@@ -345,14 +406,18 @@ Setting `modFolders` as the storage path will have the `mods_22388` directory pa
 ***
 
 ### CASC HeroOverrides loading
-When using a `Heroes of the Storm` directory, it will load the equivalent hero overrides file, just like in the [mods suffix directory](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
+When using a `Heroes of the Storm` directory, it will load the equivalent overrides file based on the build version, just like in the [mods suffix directory](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
 
 ***
 
 ## Developing
-To build and compile the code, it is recommended to use the latest version of Visual Studio 2017.
+To build and compile the code, it is recommended to use the latest version of [Visual Studio 2019 or Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
 
-Another option is to download and install the [.NET Core 2.2 SDK](https://www.microsoft.com/net/download/windows) or newer. 
+Another option is to use the dotnet CLI tools from the [.NET Core 2.2 SDK](https://www.microsoft.com/net/download/windows).
+
+The main project is `HeroesData.csproj` and the main entry point is `Program.cs`.
+
+Both the `CASCLibCore.csproj` and `Heroes.Models.csproj` projects are submodules. Any code changes should be commited to those respective repositories.
 
 ## License
 [MIT license](/LICENSE)
