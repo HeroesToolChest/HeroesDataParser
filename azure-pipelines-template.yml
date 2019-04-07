@@ -18,9 +18,9 @@ jobs:
           CONFIGURATION: $(config_release)
     steps:
     - task: DotNetCoreInstaller@0
-      displayName: dotnet installer 2.2.100
+      displayName: dotnet installer 2.2.202
       inputs:
-        version: '2.2.100'
+        version: '2.2.202'
         
     - script: dotnet build -c $(configuration)
       displayName: Build
