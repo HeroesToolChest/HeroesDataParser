@@ -31,6 +31,7 @@ namespace HeroesData
             commandLineApplication.HelpOption("-?|-h|--help");
             commandLineApplication.VersionOption("-v|--version", $"Heroes Data Parser ({App.Version})");
 
+            ListCommand.Add(commandLineApplication).SetCommand();
             ReadCommand.Add(commandLineApplication).SetCommand();
             ExtractCommand.Add(commandLineApplication).SetCommand();
 
