@@ -27,20 +27,22 @@ namespace HeroesData.Commands
             CommandLineApplication.Command("read", config =>
             {
                 config.HelpOption("-?|-h|--help");
+                config.Description = "Reads a .txt, .xml, or .json file and displays its contents on screen.";
 
-                CommandOption fileNameOption = config.Option("-f|--file-name <FILENAME>", "The filename of the file to read and display on the console.", CommandOptionType.SingleValue);
-                CommandOption validFilesOption = config.Option("-v|--valid-files", "Show all available files to read.", CommandOptionType.NoValue);
+                CommandArgument filePathArgument = config.Argument("file-name", "The filename or relative file path to read and display on the console. Must be a .txt, .xml, or .json file.");
 
                 config.OnExecute(() =>
                 {
-                    if (fileNameOption.HasValue())
-                        ReadFile(fileNameOption.Value());
+                    if (string.IsNullOrEmpty(filePathArgument.Value))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Must provide a file name.");
+                        Console.ResetColor();
 
-                    if (validFilesOption.HasValue())
-                        ValidFiles();
+                        return 0;
+                    }
 
-                    if (!fileNameOption.HasValue() && !validFilesOption.HasValue())
-                        config.ShowHelp();
+                    ReadFile(filePathArgument.Value);
 
                     return 0;
                 });
@@ -65,7 +67,6 @@ namespace HeroesData.Commands
 
                 Console.ResetColor();
                 Console.WriteLine();
-                Console.WriteLine();
 
                 return;
             }
@@ -89,28 +90,15 @@ namespace HeroesData.Commands
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("===EOF===");
                 Console.ResetColor();
-                Console.WriteLine();
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"File not found at {filePath}");
                 Console.ResetColor();
-                Console.WriteLine();
             }
         }
 
-        private void ValidFiles()
-        {
-            foreach (string filePath in Directory.EnumerateFiles(AppPath))
-            {
-                if (ValidFileExtensions.Contains(Path.GetExtension(filePath)))
-                {
-                    Console.WriteLine(filePath.Replace(AppPath, string.Empty).TrimStart('\\', '/'));
-                }
-            }
 
-            Console.WriteLine();
-        }
     }
 }
