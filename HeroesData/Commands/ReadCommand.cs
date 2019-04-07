@@ -98,7 +98,5 @@ namespace HeroesData.Commands
                 Console.ResetColor();
             }
         }
-
-
     }
 }
