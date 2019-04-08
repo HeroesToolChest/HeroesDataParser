@@ -34,6 +34,7 @@ namespace HeroesData
             ListCommand.Add(commandLineApplication).SetCommand();
             ReadCommand.Add(commandLineApplication).SetCommand();
             ExtractCommand.Add(commandLineApplication).SetCommand();
+            ImageCommand.Add(commandLineApplication).SetCommand();
 
             CommandOption storagePathOption = commandLineApplication.Option("-s|--storage-path <FILEPATH>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.", CommandOptionType.SingleValue);
             CommandOption setOutputDirectoryOption = commandLineApplication.Option("-o|--output-directory <FILEPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
@@ -166,12 +167,12 @@ namespace HeroesData
                     app.Localizations.Add(Localization.ENUS);
                 }
 
-                App.CreateXml = xmlOutputOption.HasValue() ? true : false;
-                App.CreateJson = jsonOutputOption.HasValue() ? true : false;
-                App.ShowValidationWarnings = validationWarningsOption.HasValue() ? true : false;
-                App.IsFileSplit = setFileSplitOption.HasValue() ? true : false;
-                App.IsLocalizedText = localizedTextOption.HasValue() ? true : false;
-                App.CreateMinFiles = minifyOption.HasValue() ? true : false;
+                App.CreateXml = xmlOutputOption.HasValue();
+                App.CreateJson = jsonOutputOption.HasValue();
+                App.ShowValidationWarnings = validationWarningsOption.HasValue();
+                App.IsFileSplit = setFileSplitOption.HasValue();
+                App.IsLocalizedText = localizedTextOption.HasValue();
+                App.CreateMinFiles = minifyOption.HasValue();
                 app.Run();
                 Console.ResetColor();
 
