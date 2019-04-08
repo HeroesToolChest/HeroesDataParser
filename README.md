@@ -94,7 +94,7 @@ Options:
   -o|--output-directory <FILEPATH>  Sets the output directory.
   -d|--description <VALUE>          Sets the description output type (0 - 6) - Default: 0.
   -e|--extract-data <VALUE>         Extracts data files - Default: herodata.
-  -i|--extract-images <VALUE>       Extracts image files, only available using the Heroes of the Storm game directory.
+  -i|--extract-images <VALUE>       Extracts image files.
   -l|--localization <LOCALE>        Sets the gamestring localization(s) - Default: enUS.
   -b|--build <NUMBER>               Sets the override build file(s).
   -t|--threads <NUMBER>             Limits the maximum amount of threads to use.
