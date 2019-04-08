@@ -2,12 +2,14 @@
 - Questions, bugs, issues, features/requests are welcomed
 
 Helpful things to include
-- Version of HeroesData
+- Version of Heroes Data Parser
 - Operating system and version
 - Method of installation
   - dotnet global tool
-  - framework dependent (fdd)
+  - framework dependent deployment (fdd)
+  - framework dependent executable (fde)
   - self-contained (scd)
+- Any error messages or logs (found in the install directory - NOT the debug.log)
 
 ## Pull requests
 - Submit to the `develop` branch
