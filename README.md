@@ -106,15 +106,17 @@ Options:
   --warnings                        Displays all validation warnings.
 
 Commands:
-  extract
-  read
+  extract  Extracts all required files from the `Heroes of the Storm` directory.
+  image    Performs image processing.
+  list     Displays .txt, .xml, and .json files in the local directory.
+  read     Reads a .txt, .xml, or .json file and displays its contents on screen.
 
 Use " [command] --help" for more information about a command.
 ```
 
-Example command to create xml and json files from the `Heroes of the Storm` directory. Since no `-o|--outputDirectory` option is set, it defaults to the install directory.
+Example command to create xml and json files from the `Heroes of the Storm` directory. Since no `-o|--outputDirectory` option is set, it defaults to the local directory.
 ```
-dotnet heroes-data -s 'D:\Games\Heroes of the Storm Public Test' --xml --json
+dotnet heroes-data -s 'D:\Games\Heroes of the Storm' --xml --json
 ```
 
 ## Validation Warnings
@@ -128,7 +130,7 @@ Ignored warnings only work for a majority of english strings.
 ### Storage Path (-s|--storage-path) 
 There are two types of paths that can be provided for this option. One is the `Heroes of the Storm` directory and the other is an already extracted `mods` directory.
 
-If this option is not provided, it will look for the `Heroes of the Storm` files in the current directory or an extracted `mods` directory.
+If this option is not provided, it will look for the `Heroes of the Storm` files in the local directory or an extracted `mods` directory.
 
 The `extract` command is available to use to extract the mods directory and all required files.
 
@@ -209,7 +211,7 @@ Fires a laser that deals <c val=\"#TooltipNumbers\">200 (+4% per level)</c> dama
 ### Extract Data (-e|--extract-data)
 Extracts the data files. Multiple are allowed. Default is `herodata`.  
 
-Extracts to `<OUTPUT-DIRECTORY>/<json and/or xml>`  
+Extracts to `<OUTPUT-DIRECTORY>/<json and/or xml>`.
 
 `all` - extracts all data files  
 `herodata` - extracts hero data  
@@ -223,7 +225,7 @@ Extracts to `<OUTPUT-DIRECTORY>/<json and/or xml>`
 `emoticons` - extracts emojis  
 `emoticonpacks` - extracts the emoji packs  
 
-Example seleting multiple data extractions
+Example seleting multiple data extractions.
 ```
 -e herodata -e sprays -e emoticons
 ```
@@ -256,7 +258,7 @@ Notes:
 - Due to the quality limitations of gifs, the texture files used for the creation of the gifs are also extracted in `.png` format
   - Information about creating animations can be found in the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki/Animated-Images)
 
-Example selecting multiple image extractions
+Example selecting multiple image extractions.
 ```
 -i abilities -i talents -i sprays
 ```
@@ -278,7 +280,7 @@ Sets the game string localization (descriptions/tooltips). Multiple are allowed,
 `zhCN` - Chinese  
 `zhTW` - Chinese (TW)  
 
-Example selecting multiple locales
+Example selecting multiple locales.
 ```
 -l enus -l dede -l kokr
 ```
@@ -340,28 +342,93 @@ The format of the strings in the text file are the following:
 - `voiceline/sortname/[Id]=[value]`
 
 ## Commands
-### Read
-```
-Options:
-  -?|-h|--help               Show help information
-  -f|--file-name <filename>  The filename of the file to read and display on the console.
-  -v|--valid-files           Show all available files to read.
-```
-
-***
-
 ### Extract
 ```
-Usage:  extract [options]
+Usage:  extract [arguments] [options]
+
+Arguments:
+  storage-path  The 'Heroes of the Storm' directory
 
 Options:
   -?|-h|--help                      Show help information
-  -s|--storage-path <FILEPATH>      The 'Heroes of the Storm' directory
   -o|--output-directory <FILEPATH>  Sets the output directory.
   --textures                        Includes extracting all textures (.dds).
 ```
 
-This command allows extracting all the required files and text files from the `Heroes of the Storm` game files.  Extracting all the texture files is optional.
+Extracts all required files from the `Heroes of the Storm` directory which can be used for the `-s|--storage-path` option.  
+
+If the `-o|--output-directory` is not set, the local directory will be used. A `mods` directory will be created as the base directory.
+
+Example command that will extract all required files including the textures.
+```
+extract 'D:\Games\Heroes of the Storm' --textures
+```
+
+***
+
+### Image
+```
+Usage:  image [arguments] [options]
+
+Arguments:
+  file-name  The filename, file path, or directory containing the images to process.
+
+Options:
+  -?|-h|--help                      Show help information
+  --width <VALUE>                   Sets the new width.
+  --height <VALUE>                  Sets the new height.
+  --png-compress                    Sets an png image bit depth to 8 bits
+  -o|--output-directory <FILEPATH>  Sets the output directory.
+```
+
+Performs image processing to a single file or multiple files in a directory.
+
+By default, if the `-o|--output-directory` option is not set the new processed images will be saved in the local directory, overriding the existing image.
+
+Example commands. First command compresses a single image.  Second command resizes all images in the `.\Images` subdirectory and saves them in the `.\Images\New` subdirectory.
+```
+image storm_ui_icon_abathur_spawnlocust.png --png-compress
+image '.\Images' -o '.\Images\New' --width 64 --length 64
+```
+***
+
+### List
+```
+Usage:  list [options]
+
+Options:
+  -?|-h|--help         Show help information
+  -f|--files           Displays all files.
+  -d|--directories     Displays all directories.
+  -s| --set-directory  Sets a relative directory to display
+```
+
+Displays `.txt`, `.xml`, and `.json` in the local directory.  Use the option `-s|--set-directory` to view subdirectories.
+
+Example command that displays all files and directories.
+```
+list -f -d
+```
+
+***
+
+### Read
+```
+Usage:  read [arguments] [options]
+
+Arguments:
+  file-name  The filename or relative file path to read and display on the console. Must be a .txt, .xml, or .json file.
+
+Options:
+  -?|-h|--help  Show help information
+```
+
+Reads a `.txt`, `.xml`, or `.json` file and displays its contents on screen.
+
+Example command that reads and displays the `parserhelper.xml` file.
+```
+read .\parserhelper.xml
+```
 
 ## Advanced Features
 ### Mods suffix directory
