@@ -214,7 +214,7 @@ Extracts the data files. Multiple are allowed. Default is `herodata`.
 Extracts to `<OUTPUT-DIRECTORY>/<json and/or xml>`.
 
 `all` - extracts all data files  
-`herodata` - extracts hero data  
+`herodata` - extracts hero data    
 `matchawards` - extracts match awards  
 `heroskins` - extracts hero skins  
 `banners` - extracts banners  
@@ -265,8 +265,9 @@ Example selecting multiple image extractions.
 ***
 
 ### Localization (-l|--localization)
-Sets the game string localization (descriptions/tooltips). Multiple are allowed, use `all` to select all. The application will parse all game strings for each locale selected.
+Sets the game string localization (descriptions/tooltips) parsing. Multiple are allowed, default is `enUS`.
 
+`all` - selects all locales  
 `enUS` - English (Default)  
 `deDE` - German  
 `esES` - Spanish (EU)  
@@ -339,7 +340,6 @@ The format of the strings in the text file are the following:
 - `voiceline/description/[Id]=[value]`
 - `voiceline/name/[Id]=[value]`
 - `voiceline/sortname/[Id]=[value]`
-- `voiceline/sortname/[Id]=[value]`
 
 ## Commands
 ### Extract
@@ -381,7 +381,7 @@ Options:
   -o|--output-directory <FILEPATH>  Sets the output directory.
 ```
 
-Performs image processing to a single file or multiple files in a directory.
+Performs image processing (`.png`, `.jpg`, or `.gif`) to a single file or multiple files in a directory.
 
 By default, if the `-o|--output-directory` option is not set the new processed images will be saved in the local directory, overriding the existing image.
 
@@ -473,7 +473,7 @@ Setting `modFolders` as the storage path will have the `mods_22388` directory pa
 ***
 
 ### CASC HeroOverrides loading
-When using a `Heroes of the Storm` directory, it will load the equivalent overrides file based on the build version, just like in the [mods suffix directory](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
+When using a `Heroes of the Storm` directory, it will load the equivalent overrides file(s) based on the build version, just like in the [mods suffix directory](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
 
 ***
 
