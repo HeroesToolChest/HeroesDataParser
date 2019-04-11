@@ -41,11 +41,11 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(announcer.Gender))
                 AddWarning($"{nameof(announcer.Gender)} is empty");
 
-            if (string.IsNullOrEmpty(announcer.Hero))
-                AddWarning($"{nameof(announcer.Hero)} is empty");
+            if (string.IsNullOrEmpty(announcer.HeroId))
+                AddWarning($"{nameof(announcer.HeroId)} is empty");
 
-            if (!string.IsNullOrEmpty(announcer.Hero) && announcer.Hero.Contains("##heroid##"))
-                AddWarning($"{nameof(announcer.Hero)} ##heroid## not found");
+            if (!string.IsNullOrEmpty(announcer.HeroId) && announcer.HeroId.Contains("##heroid##"))
+                AddWarning($"{nameof(announcer.HeroId)} ##heroid## not found");
 
             if (string.IsNullOrEmpty(announcer.ImageFileName))
                 AddWarning($"{nameof(announcer.ImageFileName)} is empty");

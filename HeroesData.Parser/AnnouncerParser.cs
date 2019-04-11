@@ -152,10 +152,10 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "HERO")
                 {
-                    announcer.Hero = element.Attribute("value")?.Value;
+                    announcer.HeroId = element.Attribute("value")?.Value;
 
                     if (!string.IsNullOrEmpty(heroId))
-                        announcer.Hero = announcer.Hero.Replace(DefaultData.HeroIdPlaceHolder, heroId);
+                        announcer.HeroId = announcer.HeroId.Replace(DefaultData.HeroIdPlaceHolder, heroId);
                 }
                 else if (elementName == "GENDER")
                 {

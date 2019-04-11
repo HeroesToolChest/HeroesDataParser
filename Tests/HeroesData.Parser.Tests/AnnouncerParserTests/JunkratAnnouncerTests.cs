@@ -17,7 +17,7 @@ namespace HeroesData.Parser.Tests.AnnouncerParserTests
             Assert.AreEqual(new DateTime(2017, 10, 17), JunkratAnnouncer.ReleaseDate);
             Assert.AreEqual(Rarity.Legendary, JunkratAnnouncer.Rarity);
             Assert.AreEqual("Overwatch", JunkratAnnouncer.CollectionCategory);
-            Assert.AreEqual("Junkrat", JunkratAnnouncer.Hero);
+            Assert.AreEqual("Junkrat", JunkratAnnouncer.HeroId);
             Assert.AreEqual("Male", JunkratAnnouncer.Gender);
             Assert.AreEqual("storm_ui_announcer_junkrat.dds", JunkratAnnouncer.ImageFileName);
         }

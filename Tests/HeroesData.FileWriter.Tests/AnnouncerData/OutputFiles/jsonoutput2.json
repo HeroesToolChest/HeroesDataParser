@@ -6,7 +6,7 @@
     "rarity": "Rare",
     "category": "Realm",
     "gender": "Female",
-    "hero": "Orphea",
+    "heroId": "Orphea",
     "releaseDate": "2016-05-21",
     "sortName": "qqOrpheaA",
     "description": "Orphea Announcer",
@@ -19,7 +19,7 @@
     "rarity": "Rare",
     "category": "Warcraft",
     "gender": "Male",
-    "hero": "Murkey",
+    "heroId": "Murkey",
     "releaseDate": "2016-05-21",
     "sortName": "qqMurkyA",
     "image": "announcer_murkey.png"

@@ -24,7 +24,7 @@ namespace HeroesData.FileWriter.Tests.AnnouncerData
                 ReleaseDate = new DateTime(2016, 5, 21),
                 CollectionCategory = "Realm",
                 Gender = "Female",
-                Hero = "Orphea",
+                HeroId = "Orphea",
                 ImageFileName = "announcer_orphea.dds",
             };
 
@@ -41,7 +41,7 @@ namespace HeroesData.FileWriter.Tests.AnnouncerData
                 ReleaseDate = new DateTime(2016, 5, 21),
                 CollectionCategory = "Warcraft",
                 Gender = "Male",
-                Hero = "Murkey",
+                HeroId = "Murkey",
                 ImageFileName = "announcer_murkey.dds",
             };
 

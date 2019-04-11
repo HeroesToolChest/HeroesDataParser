@@ -17,7 +17,7 @@ namespace HeroesData.Parser.Tests.AnnouncerParserTests
             Assert.AreEqual(new DateTime(2018, 11, 13), OrpheaAnnouncer.ReleaseDate);
             Assert.AreEqual(Rarity.Epic, OrpheaAnnouncer.Rarity);
             Assert.AreEqual("Default", OrpheaAnnouncer.CollectionCategory);
-            Assert.AreEqual("Orphea", OrpheaAnnouncer.Hero);
+            Assert.AreEqual("Orphea", OrpheaAnnouncer.HeroId);
             Assert.AreEqual("Female", OrpheaAnnouncer.Gender);
             Assert.AreEqual("storm_ui_announcer_orphea.dds", OrpheaAnnouncer.ImageFileName);
         }

@@ -17,7 +17,7 @@ namespace HeroesData.Parser.Tests.AnnouncerParserTests
             Assert.AreEqual(new DateTime(2018, 3, 27), AdjutantAnnouncer.ReleaseDate);
             Assert.AreEqual(Rarity.Legendary, AdjutantAnnouncer.Rarity);
             Assert.AreEqual("Starcraft", AdjutantAnnouncer.CollectionCategory);
-            Assert.AreEqual("AI", AdjutantAnnouncer.Hero);
+            Assert.AreEqual("AI", AdjutantAnnouncer.HeroId);
             Assert.AreEqual("Female", AdjutantAnnouncer.Gender);
             Assert.AreEqual("storm_ui_announcer_adjutant.dds", AdjutantAnnouncer.ImageFileName);
         }

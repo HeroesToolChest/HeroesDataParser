@@ -26,7 +26,7 @@ namespace HeroesData.FileWriter.Writers.AnnouncerData
                 new XAttribute("rarity", announcer.Rarity),
                 new XAttribute("category", announcer.CollectionCategory),
                 string.IsNullOrEmpty(announcer.Gender) ? null : new XAttribute("gender", announcer.Gender),
-                new XAttribute("hero", announcer.Hero),
+                new XAttribute("heroId", announcer.HeroId),
                 announcer.ReleaseDate.HasValue ? new XAttribute("releaseDate", announcer.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
                 string.IsNullOrEmpty(announcer.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", announcer.SortName),
                 string.IsNullOrEmpty(announcer.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(announcer.Description, FileOutputOptions.DescriptionType)),

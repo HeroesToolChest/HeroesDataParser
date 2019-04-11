@@ -29,7 +29,7 @@ namespace HeroesData.FileWriter.Writers.AnnouncerData
             if (!string.IsNullOrEmpty(announcer.Gender))
                 announcerObject.Add("gender", announcer.Gender);
 
-            announcerObject.Add("hero", announcer.Hero);
+            announcerObject.Add("heroId", announcer.HeroId);
 
             if (announcer.ReleaseDate.HasValue)
                 announcerObject.Add("releaseDate", announcer.ReleaseDate.Value.ToString("yyyy-MM-dd"));
