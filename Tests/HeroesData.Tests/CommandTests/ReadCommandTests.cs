@@ -21,7 +21,7 @@ namespace HeroesData.Tests.CommandTests
 
                 List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
-                Assert.AreEqual("CommandTests\\Test.txt", lines[0].Split(' ')[0]);
+                Assert.AreEqual($"CommandTests{Path.DirectorySeparatorChar}Test.txt", lines[0].Split(' ')[0]);
                 Assert.AreEqual("TestLine", lines[2]);
             }
         }
