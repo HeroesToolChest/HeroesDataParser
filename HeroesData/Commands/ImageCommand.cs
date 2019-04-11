@@ -54,7 +54,7 @@ namespace HeroesData.Commands
                         return 0;
                     }
 
-                    if (dimensionWidthOption.HasValue() && !int.TryParse(dimensionWidthOption.Value(), out Width) && Width < 0)
+                    if (dimensionWidthOption.HasValue() && (!int.TryParse(dimensionWidthOption.Value(), out Width) || Width <= 0))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid width. Must be an integer greater than 0.");
@@ -63,7 +63,7 @@ namespace HeroesData.Commands
                         return 0;
                     }
 
-                    if (dimensionHeightOption.HasValue() && !int.TryParse(dimensionHeightOption.Value(), out Height) && Height < 0)
+                    if (dimensionHeightOption.HasValue() && (!int.TryParse(dimensionHeightOption.Value(), out Height) || Height <= 0))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid height. Must be an integer greater than 0.");
@@ -82,22 +82,19 @@ namespace HeroesData.Commands
                         int count = 0;
                         foreach (string file in Directory.EnumerateFiles(filePathArgument.Value.TrimEnd(Path.DirectorySeparatorChar)))
                         {
-                            if (Path.GetExtension(file) == ".gif" || Path.GetExtension(file) == ".png" || Path.GetExtension(file) == ".jpeg")
+                            if (ProcessImage(file))
                             {
-                                if (ImageProcess(file))
-                                {
-                                    count++;
-                                    Console.Write($"\rProcessed {count}");
-                                }
+                                count++;
+                                Console.Write($"\rProcessed {count}");
                             }
                         }
                     }
                     else if (File.Exists(filePathArgument.Value))
                     {
-                        if (ImageProcess(filePathArgument.Value))
-                        {
+                        if (ProcessImage(filePathArgument.Value))
                             Console.WriteLine("Image processed.");
-                        }
+                        else
+                            Console.WriteLine("Image did not get processed.");
                     }
                     else
                     {
@@ -111,51 +108,55 @@ namespace HeroesData.Commands
             });
         }
 
-        private bool ImageProcess(string filePath)
+        private bool ProcessImage(string filePath)
         {
             string newFilePath = filePath;
             string fileType = Path.GetExtension(newFilePath);
-            try
+
+            if (fileType == ".png" || fileType == ".gif")
             {
-                using (Image<Rgba32> image = Image.Load(filePath))
+                try
                 {
-                    if (Width == DefaultWidth)
-                        Width = image.Width;
-
-                    if (Height == DefaultHeight)
-                        Height = image.Height;
-
-                    image.Mutate(x => x.Resize(Width, Height));
-
-                    if (!string.IsNullOrEmpty(OutputDirectory))
+                    using (Image<Rgba32> image = Image.Load(filePath))
                     {
-                        Directory.CreateDirectory(OutputDirectory);
-                        newFilePath = Path.Combine(OutputDirectory, Path.GetFileName(filePath));
-                    }
+                        if (Width == DefaultWidth)
+                            Width = image.Width;
 
-                    if (fileType == ".png" && Compress)
-                    {
-                        image.Save(newFilePath, new PngEncoder()
+                        if (Height == DefaultHeight)
+                            Height = image.Height;
+
+                        image.Mutate(x => x.Resize(Width, Height));
+
+                        if (!string.IsNullOrEmpty(OutputDirectory))
                         {
-                            BitDepth = PngBitDepth.Bit8,
-                            ColorType = PngColorType.Palette,
-                        });
+                            Directory.CreateDirectory(OutputDirectory);
+                            newFilePath = Path.Combine(OutputDirectory, Path.GetFileName(filePath));
+                        }
 
-                        return true;
-                    }
-                    else
-                    {
-                        image.Save(newFilePath);
+                        if (fileType == ".png" && Compress)
+                        {
+                            image.Save(newFilePath, new PngEncoder()
+                            {
+                                BitDepth = PngBitDepth.Bit8,
+                                ColorType = PngColorType.Palette,
+                            });
 
-                        return true;
+                            return true;
+                        }
+                        else
+                        {
+                            image.Save(newFilePath);
+
+                            return true;
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"{Path.GetFileName(newFilePath)} Unable to process image -> {ex.Message}");
-                Console.ResetColor();
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"{Path.GetFileName(newFilePath)} Unable to process image -> {ex.Message}");
+                    Console.ResetColor();
+                }
             }
 
             return false;
