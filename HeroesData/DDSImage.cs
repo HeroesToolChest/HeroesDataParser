@@ -140,8 +140,8 @@ namespace HeroesData
                 {
                     for (int i = 0; i < frames; i++)
                     {
-                        int xPos = (i % (image.Bounds().Right / maxSize.Width)) * maxSize.Width;
-                        int yPos = (i / (image.Bounds().Right / maxSize.Width)) * maxSize.Height;
+                        int xPos = (i % (image.Width / maxSize.Width)) * maxSize.Width;
+                        int yPos = (i / (image.Width / maxSize.Width)) * maxSize.Height;
 
                         using (Image<T> imagePart = image.Clone())
                         {
