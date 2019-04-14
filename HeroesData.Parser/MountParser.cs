@@ -60,8 +60,8 @@ namespace HeroesData.Parser
             SetDefaultValues(mount);
             SetMountData(mountElement, mount);
 
-            if (mount.ReleaseDate == DefaultData.HeroReleaseDate)
-                mount.ReleaseDate = DefaultData.HeroAlphaReleaseDate;
+            if (mount.ReleaseDate == DefaultData.HeroData.HeroReleaseDate)
+                mount.ReleaseDate = DefaultData.HeroData.HeroAlphaReleaseDate;
 
             if (string.IsNullOrEmpty(mount.HyperlinkId))
                 mount.HyperlinkId = id;

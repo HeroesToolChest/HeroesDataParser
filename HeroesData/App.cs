@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using HeroesData.ExtractorData;
 using HeroesData.ExtractorImage;
+using HeroesData.ExtractorImages;
 using HeroesData.FileWriter;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser;
@@ -608,6 +609,7 @@ namespace HeroesData
         private void SetUpDataProcessors()
         {
             DataHero dataHero = new DataHero(new HeroDataParser(GameData, DefaultData, (HeroOverrideLoader)XmlDataOverriders.GetOverrider(typeof(HeroDataParser))));
+            DataUnit dataUnit = new DataUnit(new UnitParser(GameData, DefaultData, (UnitOverrideLoader)XmlDataOverriders.GetOverrider(typeof(UnitParser))));
             DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(GameData, DefaultData, (MatchAwardOverrideLoader)XmlDataOverriders.GetOverrider(typeof(MatchAwardParser))));
             DataHeroSkin dataHeroSkin = new DataHeroSkin(new HeroSkinParser(GameData, DefaultData));
             DataMount dataMount = new DataMount(new MountParser(GameData, DefaultData));
@@ -620,6 +622,7 @@ namespace HeroesData
             DataEmoticonPack dataEmoticonPack = new DataEmoticonPack(new EmoticonPackParser(GameData, DefaultData));
 
             ImageHero filesHero = new ImageHero(CASCHotsStorage?.CASCHandler, StoragePath);
+            ImageUnit filesUnit = new ImageUnit(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageMatchAward filesMatchAward = new ImageMatchAward(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageAnnouncer filesAnnouncer = new ImageAnnouncer(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageVoiceLine filesVoiceLine = new ImageVoiceLine(CASCHotsStorage?.CASCHandler, StoragePath);
@@ -633,6 +636,15 @@ namespace HeroesData
                 Parse = (localization) => dataHero.Parse(localization),
                 Validate = (localization) => dataHero.Validate(localization),
                 Extract = (data) => filesHero.ExtractFiles(data),
+            });
+
+            DataProcessors.Add(new DataProcessor()
+            {
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Unit),
+                Name = dataUnit.Name,
+                Parse = (localization) => dataUnit.Parse(localization),
+                Validate = (localization) => dataUnit.Validate(localization),
+                Extract = (data) => filesUnit.ExtractFiles(data),
             });
 
             DataProcessors.Add(new DataProcessor()

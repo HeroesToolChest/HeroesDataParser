@@ -61,8 +61,8 @@ namespace HeroesData.Parser
             SetDefaultValues(announcer);
             SetAnnouncerData(announcerPackElement, announcer);
 
-            if (announcer.ReleaseDate == DefaultData.HeroReleaseDate)
-                announcer.ReleaseDate = DefaultData.HeroAlphaReleaseDate;
+            if (announcer.ReleaseDate == DefaultData.HeroData.HeroReleaseDate)
+                announcer.ReleaseDate = DefaultData.HeroData.HeroAlphaReleaseDate;
 
             if (string.IsNullOrEmpty(announcer.HyperlinkId))
                 announcer.HyperlinkId = id;

@@ -61,8 +61,8 @@ namespace HeroesData.Parser
             SetDefaultValues(spray);
             SetSprayData(sprayElement, spray);
 
-            if (spray.ReleaseDate == DefaultData.HeroReleaseDate)
-                spray.ReleaseDate = DefaultData.HeroAlphaReleaseDate;
+            if (spray.ReleaseDate == DefaultData.HeroData.HeroReleaseDate)
+                spray.ReleaseDate = DefaultData.HeroData.HeroAlphaReleaseDate;
 
             if (string.IsNullOrEmpty(spray.HyperlinkId))
                 spray.HyperlinkId = id;

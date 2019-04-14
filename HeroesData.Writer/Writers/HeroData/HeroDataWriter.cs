@@ -35,7 +35,6 @@ namespace HeroesData.FileWriter.Writers.HeroData
         protected void AddLocalizedGameString(Unit unit)
         {
             GameStringWriter.AddUnitName(unit.Id, unit.Name);
-            GameStringWriter.AddUnitType(unit.Id, unit.Type);
 
             string unitDescription = GetTooltip(unit.Description, FileOutputOptions.DescriptionType);
             if (!string.IsNullOrEmpty(unitDescription))
@@ -88,7 +87,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T UnitArmor(Unit unit)
         {
-            if (unit.Armor != null)
+            if (unit.Armor != null && unit.Armor.PhysicalArmor > 0 && unit.Armor.SpellArmor > 0)
             {
                 return GetArmorObject(unit);
             }

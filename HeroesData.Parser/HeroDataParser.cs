@@ -74,8 +74,8 @@ namespace HeroesData.Parser
 
             Hero hero = new Hero
             {
-                Name = GameData.GetGameString(DefaultData.HeroName.Replace(DefaultData.IdPlaceHolder, heroId)),
-                Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroDescription.Replace(DefaultData.IdPlaceHolder, heroId)), Localization),
+                Name = GameData.GetGameString(DefaultData.HeroData.HeroName.Replace(DefaultData.IdPlaceHolder, heroId)),
+                Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroData.HeroDescription.Replace(DefaultData.IdPlaceHolder, heroId)), Localization),
                 CHeroId = heroId,
                 Id = heroId,
             };
@@ -132,9 +132,9 @@ namespace HeroesData.Parser
             IList<Ability> mountAbilties = StormHeroBase.PrimaryAbilities(AbilityTier.Mount);
 
             // based on the _stormhero data in hero-overrides.xml
-            DefaultData.DefaultHearthAbilityId = hearthAbilties[0].ReferenceNameId;
-            DefaultData.DefaultHearthNoManaAbilityId = hearthAbilties[1].ReferenceNameId;
-            DefaultData.DefaultSummonMountAbilityId = mountAbilties[0].ReferenceNameId;
+            DefaultData.HeroData.DefaultHearthAbilityId = hearthAbilties[0].ReferenceNameId;
+            DefaultData.HeroData.DefaultHearthNoManaAbilityId = hearthAbilties[1].ReferenceNameId;
+            DefaultData.HeroData.DefaultSummonMountAbilityId = mountAbilties[0].ReferenceNameId;
 
             return StormHeroBase;
         }
@@ -224,38 +224,38 @@ namespace HeroesData.Parser
         private void SetDefaultValues(Hero hero)
         {
             hero.Type = GameData.GetGameString(DefaultData.StringRanged).Trim();
-            hero.Radius = DefaultData.UnitRadius;
-            hero.Speed = DefaultData.UnitSpeed;
-            hero.Sight = DefaultData.UnitSight;
-            hero.ReleaseDate = DefaultData.HeroReleaseDate;
+            hero.Radius = DefaultData.HeroData.UnitRadius;
+            hero.Speed = DefaultData.HeroData.UnitSpeed;
+            hero.Sight = DefaultData.HeroData.UnitSight;
+            hero.ReleaseDate = DefaultData.HeroData.HeroReleaseDate;
             hero.Gender = HeroGender.Male;
             hero.Franchise = HeroFranchise.Unknown;
-            hero.Life.LifeMax = DefaultData.UnitLifeMax;
+            hero.Life.LifeMax = DefaultData.HeroData.UnitLifeMax;
             hero.Life.LifeRegenerationRate = 0;
             hero.Energy.EnergyType = GameData.GetGameString(DefaultData.HeroEnergyTypeManaText);
-            hero.Energy.EnergyMax = DefaultData.UnitEnergyMax;
-            hero.Energy.EnergyRegenerationRate = DefaultData.UnitEnergyRegenRate;
+            hero.Energy.EnergyMax = DefaultData.HeroData.UnitEnergyMax;
+            hero.Energy.EnergyRegenerationRate = DefaultData.HeroData.UnitEnergyRegenRate;
             hero.Difficulty = GameData.GetGameString(DefaultData.Difficulty.Replace(DefaultData.IdPlaceHolder, DefaultData.DefaultHeroDifficulty)).Trim();
-            hero.HearthLinkId = DefaultData.DefaultHearthAbilityId;
+            hero.HearthLinkId = DefaultData.HeroData.DefaultHearthAbilityId;
 
             if (hero.CHeroId != null)
             {
-                hero.HyperlinkId = DefaultData.HeroHyperlinkId.Replace(DefaultData.IdPlaceHolder, hero.CHeroId);
-                hero.CUnitId = DefaultData.HeroUnit.Replace(DefaultData.IdPlaceHolder, hero.CHeroId);
+                hero.HyperlinkId = DefaultData.HeroData.HeroHyperlinkId.Replace(DefaultData.IdPlaceHolder, hero.CHeroId);
+                hero.CUnitId = DefaultData.HeroData.HeroUnit.Replace(DefaultData.IdPlaceHolder, hero.CHeroId);
 
-                hero.HeroPortrait.HeroSelectPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroSelectScreenButtonImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.LeaderboardPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroLeaderboardImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroLoadingScreenImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroPartyPanelButtonImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroPortrait.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.HeroSelectPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroData.HeroSelectScreenButtonImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.LeaderboardPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroData.HeroLeaderboardImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroData.HeroLoadingScreenImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroData.HeroPartyPanelButtonImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroData.HeroPortrait.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
 
-                hero.InfoText = GameData.GetGameString(DefaultData.HeroInfoText.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
-                hero.Title = GameData.GetGameString(DefaultData.HeroTitle.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
+                hero.InfoText = GameData.GetGameString(DefaultData.HeroData.HeroInfoText.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
+                hero.Title = GameData.GetGameString(DefaultData.HeroData.HeroTitle.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
 
-                hero.SearchText = GameData.GetGameString(DefaultData.HeroAlternateNameSearchText.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
+                hero.SearchText = GameData.GetGameString(DefaultData.HeroData.HeroAlternateNameSearchText.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
                 if (!string.IsNullOrEmpty(hero.SearchText) && hero.SearchText.Last() != ' ')
                     hero.SearchText += " ";
-                hero.SearchText += GameData.GetGameString(DefaultData.HeroAdditionalSearchText.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
+                hero.SearchText += GameData.GetGameString(DefaultData.HeroData.HeroAdditionalSearchText.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
                 hero.SearchText = hero.SearchText.Trim();
 
                 if (HeroDataOverride.CUnitOverride.Enabled)
@@ -332,7 +332,7 @@ namespace HeroesData.Parser
                     if (hero.Roles == null)
                         hero.Roles = new List<string>();
 
-                    string role = GameData.GetGameString(DefaultData.HeroRoleName.Replace(DefaultData.IdPlaceHolder, roleValue)).Trim();
+                    string role = GameData.GetGameString(DefaultData.HeroData.HeroRoleName.Replace(DefaultData.IdPlaceHolder, roleValue)).Trim();
 
                     if (!hero.Roles.Contains(role))
                         hero.Roles.Add(role);
@@ -372,13 +372,13 @@ namespace HeroesData.Parser
                 else if (elementName == "RELEASEDATE")
                 {
                     if (!int.TryParse(element.Attribute("Day")?.Value, out int day))
-                        day = DefaultData.HeroReleaseDate.Day;
+                        day = DefaultData.HeroData.HeroReleaseDate.Day;
 
                     if (!int.TryParse(element.Attribute("Month")?.Value, out int month))
-                        month = DefaultData.HeroReleaseDate.Month;
+                        month = DefaultData.HeroData.HeroReleaseDate.Month;
 
                     if (!int.TryParse(element.Attribute("Year")?.Value, out int year))
-                        year = DefaultData.HeroReleaseDate.Year;
+                        year = DefaultData.HeroData.HeroReleaseDate.Year;
 
                     hero.ReleaseDate = new DateTime(year, month, day);
                 }
@@ -455,12 +455,12 @@ namespace HeroesData.Parser
                     string role = element.Attribute("value")?.Value;
 
                     if (!string.IsNullOrEmpty(role))
-                        hero.ExpandedRole = GameData.GetGameString(DefaultData.HeroRoleName.Replace(DefaultData.IdPlaceHolder, role)).Trim();
+                        hero.ExpandedRole = GameData.GetGameString(DefaultData.HeroData.HeroRoleName.Replace(DefaultData.IdPlaceHolder, role)).Trim();
                 }
             }
 
-            if (hero.ReleaseDate == DefaultData.HeroReleaseDate)
-                hero.ReleaseDate = DefaultData.HeroAlphaReleaseDate;
+            if (hero.ReleaseDate == DefaultData.HeroData.HeroReleaseDate)
+                hero.ReleaseDate = DefaultData.HeroData.HeroAlphaReleaseDate;
 
             // abilities must be gotten before talents
             foreach (XElement abilArrayElement in heroElement.Elements("HeroAbilArray"))
@@ -486,7 +486,7 @@ namespace HeroesData.Parser
 
             // parent lookup
             string parentValue = unitElement.Attribute("parent")?.Value;
-            if (!string.IsNullOrEmpty(parentValue) && parentValue != DefaultData.CUnitDefaultBaseId)
+            if (!string.IsNullOrEmpty(parentValue) && parentValue != DefaultDataHero.CUnitDefaultBaseId)
             {
                 XElement parentElement = GameData.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
                 if (parentElement != null)
@@ -503,7 +503,7 @@ namespace HeroesData.Parser
                     string link = element.Attribute("Link")?.Value;
 
                     if (link == DefaultData.AbilMountLinkId)
-                        hero.MountLinkId = DefaultData.DefaultSummonMountAbilityId;
+                        hero.MountLinkId = DefaultData.HeroData.DefaultSummonMountAbilityId;
                 }
                 else if (elementName == "LIFEMAX")
                 {
@@ -565,7 +565,7 @@ namespace HeroesData.Parser
 
                             if (!string.IsNullOrEmpty(cardLayoutFace) && !string.IsNullOrEmpty(cardLayoutAbilCmd))
                             {
-                                if (cardLayoutFace.StartsWith(DefaultData.DefaultHearthAbilityId) && cardLayoutAbilCmd.StartsWith(DefaultData.DefaultHearthAbilityId))
+                                if (cardLayoutFace.StartsWith(DefaultData.HeroData.DefaultHearthAbilityId) && cardLayoutAbilCmd.StartsWith(DefaultData.HeroData.DefaultHearthAbilityId))
                                     hero.HearthLinkId = cardLayoutFace;
                             }
                         }
@@ -581,7 +581,7 @@ namespace HeroesData.Parser
             }
 
             // set weapons
-            WeaponData.SetHeroWeapons(hero, unitElement.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
+            WeaponData.AddHeroWeapons(hero, unitElement.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
 
             // set armor
             ArmorData.SetUnitArmorData(hero, unitElement.Element("ArmorLink"));
@@ -601,7 +601,7 @@ namespace HeroesData.Parser
         {
             foreach (string cUnitId in HeroDataOverride.HeroUnits)
             {
-                if (!GameData.TryGetGameString(DefaultData.UnitName.Replace(DefaultData.IdPlaceHolder, cUnitId), out string name))
+                if (!GameData.TryGetGameString(DefaultData.HeroData.UnitName.Replace(DefaultData.IdPlaceHolder, cUnitId), out string name))
                 {
                     if (!GameData.TryGetGameString(DefaultData.ButtonName.Replace(DefaultData.IdPlaceHolder, cUnitId), out name))
                         name = cUnitId;

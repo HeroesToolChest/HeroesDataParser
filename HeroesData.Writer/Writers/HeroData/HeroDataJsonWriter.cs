@@ -135,8 +135,6 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 heroObject.Add("sight", unit.Sight);
             if (unit.Speed > 0)
                 heroObject.Add("speed", unit.Speed);
-            if (!string.IsNullOrEmpty(unit.Type) && !FileOutputOptions.IsLocalizedText)
-                heroObject.Add("type", unit.Type);
             if (!string.IsNullOrEmpty(unit.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add("description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
             if (unit.HeroDescriptors.Count > 0)

@@ -206,6 +206,10 @@ namespace HeroesData
             {
                 "HERODATA", "HEROES", "HEROESDATA", "HERO",
             };
+            List<string> unitData = new List<string>()
+            {
+                "UNIT", "UNITS",
+            };
             List<string> matchAwards = new List<string>()
             {
                 "MATCHAWARDS", "MATCHAWARD", "AWARDS", "AWARD", "MATWARD",
@@ -229,6 +233,7 @@ namespace HeroesData
 
             // data
             ExtractDataValues.Add(ExtractDataOption.HeroData, heroData);
+            ExtractDataValues.Add(ExtractDataOption.Unit, unitData);
             ExtractDataValues.Add(ExtractDataOption.MatchAward, matchAwards);
             ExtractDataValues.Add(ExtractDataOption.Spray, sprays);
             ExtractDataValues.Add(ExtractDataOption.Announcer, announcers);
@@ -257,6 +262,7 @@ namespace HeroesData
 
             // images
             ExtractImageValues.Add(ExtractImageOption.HeroData, heroData);
+            ExtractImageValues.Add(ExtractImageOption.Unit, unitData);
             ExtractImageValues.Add(ExtractImageOption.MatchAward, matchAwards);
             ExtractImageValues.Add(ExtractImageOption.Announcer, announcers);
             ExtractImageValues.Add(ExtractImageOption.Spray, sprays);

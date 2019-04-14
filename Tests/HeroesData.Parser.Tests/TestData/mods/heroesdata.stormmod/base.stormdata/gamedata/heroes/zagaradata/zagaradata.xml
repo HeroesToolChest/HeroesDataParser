@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CHero id="Zagara" parent="LegacyVOHero">
+    <AIComplexityTier value="Mid" />
+    <AttributeId value="Zaga" />
+    <Role value="Specialist" />
+    <Difficulty value="Medium" />
+    <HeroTierAchievementId value="5216701565565183636" />
+    <Gender value="Female" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_SC2.dds" />
+    <ProductId value="10129" />
+    <LevelScalingArray Ability="ZagaraSummonHydralisk">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ZagaraHunterKillerHydraliskTransfusionCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ZagaraHunterKillerHydraliskTransfusionGroovedSpinesCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ZagaraHydraliskMeleeDamage" />
+        <Field value="Amount" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ZagaraHydraliskRangedDamage" />
+        <Field value="Amount" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="ZagaraHydralisk" />
+        <Field value="LifeMax" />
+        <Value value="0.045000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="ZagaraHydralisk" />
+        <Field value="LifeStart" />
+        <Value value="0.045000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ZagaraMutaliskWeaponDamage1" />
+        <Field value="Amount" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ZagaraMutaliskWeaponDamage2" />
+        <Field value="Amount" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ZagaraMutaliskWeaponDamage3" />
+        <Field value="Amount" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="ZagaraMutalisk" />
+        <Field value="LifeMax" />
+        <Value value="0.045000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="ZagaraMutalisk" />
+        <Field value="LifeStart" />
+        <Value value="0.045000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ZagaraHydraliskGroovedSpinesMeleeDamage" />
+        <Field value="Amount" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ZagaraHydraliskGroovedSpinesRangedDamage" />
+        <Field value="Amount" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+  </CHero>
+  <CUnit id="ZagaraHydralisk" parent="StormSummonActive">
+    <LifeStart value="450" />
+    <LifeMax value="450" />
+    <Speed value="4" />
+    <SpeedMultiplierCreep value="1.2" />
+    <Sight value="9" />
+    <AbilArray Link="stop" />
+    <AbilArray Link="attack" />
+    <AbilArray Link="move" />
+    <BehaviorArray Link="ZagaraHydraliskTimedLife" />
+    <BehaviorArray Link="ShrubProximityDetector" />
+    <WeaponArray Link="ZagaraHydraliskMelee" />
+    <WeaponArray Link="ZagaraHydraliskRanged" />
+    <CardLayouts>
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="stop,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="move,HoldPos" Slot="Hold" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Cancel" />
+      <LayoutButtons Face="MovePatrol" Type="AbilCmd" AbilCmd="move,Patrol" Slot="Hearth" />
+    </CardLayouts>
+    <Radius value="0.625" />
+    <InnerRadius value="0.375" />
+    <CargoSize value="2" />
+    <SubgroupPriority value="9" />
+    <TauntDuration index="Cheer" value="5" />
+    <TauntDuration index="Dance" value="5" />
+    <AIThinkTree value="AI/SummonedMinionAttackOwnerTarget.aitree" />
+  </CUnit>
+  <CActorUnit id="ZagaraHydralisk" parent="StormMinionStandard" unitName="ZagaraHydralisk">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Zagara_Hydralisk.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CEffectDamage id="ZagaraHydraliskMeleeDamage" parent="StormSummonedUnitWeapon">
+    <Amount value="71" />
+  </CEffectDamage>
+  <CEffectDamage id="ZagaraHydraliskRangedDamage" parent="StormSummonedUnitWeapon">
+    <Amount value="71" />
+  </CEffectDamage>
+  <CWeaponLegacy id="ZagaraHydraliskMelee">
+    <Options index="Hidden" value="1" />
+    <Options index="Melee" value="1" />
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-zerg-missileattacks-level3.dds" />
+    <DisplayEffect value="ZagaraHydraliskMeleeDamage" />
+    <TargetFilters value="Visible;Self,Player,Ally,Neutral,Missile,Stasis,Dead,Hidden,Invulnerable" />
+    <MinScanRange value="6.5" />
+    <Range value="0.5" />
+    <RangeSlop value="2.125" />
+    <Cost>
+      <Cooldown Link="Weapon/ZagaraHydraliskRanged" />
+    </Cost>
+    <Period value="1" />
+    <DamagePoint value="0.125" />
+    <Backswing value="0" />
+    <Effect value="ZagaraHydraliskMeleeImpactSwitch" />
+    <RandomDelayMin value="0" />
+    <RandomDelayMax value="0" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ZagaraHydraliskRanged">
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-zerg-missileattacks-level3.dds" />
+    <DisplayEffect value="ZagaraHydraliskRangedDamage" />
+    <TargetFilters value="Visible;Self,Player,Ally,Neutral,Missile,Stasis,Dead,Hidden,Invulnerable" />
+    <MinScanRange value="6.5" />
+    <Range value="5.5" />
+    <RangeSlop value="2.125" />
+    <MinimumRange value="0.5" />
+    <Period value="1" />
+    <DamagePoint value="0.125" />
+    <Backswing value="0" />
+    <Effect value="ZagaraHydraliskLaunchMissile" />
+    <RandomDelayMin value="0" />
+    <RandomDelayMax value="0" />
+  </CWeaponLegacy>
+</Catalog>

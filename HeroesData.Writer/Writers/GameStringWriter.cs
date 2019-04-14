@@ -95,6 +95,14 @@ namespace HeroesData.FileWriter.Writers
             GameStrings[$"unit/description/{key}"] = value;
         }
 
+        public void AddUnitDamageType(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"unit/damagetype/{key}"] = value;
+        }
+
         public void AddHeroTitle(string key, string value)
         {
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))

@@ -407,3 +407,8 @@ Emoticon/Name/ascii_sad=:(
 
 EmoticonPack/Name/JohannaEmoticonPack2=Johanna Pack 2
 EmoticonPack/Name/DeputyVallaPack1=Deputy Valla Pack 1
+
+Unit/Name/ZagaraHydralisk=Hydralisk
+Weapon/Name/ZagaraHydraliskMelee=Hydralisk Melee
+
+Unit/Name/TownCannonTowerL2=Cannon Tower

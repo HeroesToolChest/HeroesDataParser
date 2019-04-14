@@ -60,8 +60,8 @@ namespace HeroesData.Parser
             SetDefaultValues(banner);
             SetBannerData(bannerElement, banner);
 
-            if (banner.ReleaseDate == DefaultData.HeroReleaseDate)
-                banner.ReleaseDate = DefaultData.HeroAlphaReleaseDate;
+            if (banner.ReleaseDate == DefaultData.HeroData.HeroReleaseDate)
+                banner.ReleaseDate = DefaultData.HeroData.HeroAlphaReleaseDate;
 
             if (string.IsNullOrEmpty(banner.HyperlinkId))
                 banner.HyperlinkId = id;

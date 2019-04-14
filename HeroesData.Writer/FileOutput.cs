@@ -10,6 +10,7 @@ using HeroesData.FileWriter.Writers.MatchAwardData;
 using HeroesData.FileWriter.Writers.MountData;
 using HeroesData.FileWriter.Writers.PortraitData;
 using HeroesData.FileWriter.Writers.SprayData;
+using HeroesData.FileWriter.Writers.UnitData;
 using HeroesData.FileWriter.Writers.VoiceLineData;
 using System.Collections.Generic;
 
@@ -20,7 +21,7 @@ namespace HeroesData.FileWriter
         private readonly FileOutputOptions FileOutputOptions;
         private readonly int? HotsBuild;
 
-        private Dictionary<FileOutputType, Dictionary<string, IWritable>> Writers = new Dictionary<FileOutputType, Dictionary<string, IWritable>>();
+        private readonly Dictionary<FileOutputType, Dictionary<string, IWritable>> Writers = new Dictionary<FileOutputType, Dictionary<string, IWritable>>();
 
         /// <summary>
         /// Creates the output files.
@@ -49,18 +50,6 @@ namespace HeroesData.FileWriter
         /// </summary>
         /// <param name="fileOutputOptions">Configuration options that can be set from the CLI.</param>
         public FileOutput(FileOutputOptions fileOutputOptions)
-        {
-            FileOutputOptions = fileOutputOptions;
-
-            Initialize();
-        }
-
-        /// <summary>
-        /// Creates the output files.
-        /// </summary>
-        /// <param name="configFileName">The file name of the xml configuration file.</param>
-        /// <param name="fileOutputOptions">Configuration options that can be set from the CLI.</param>
-        public FileOutput(string configFileName, FileOutputOptions fileOutputOptions)
         {
             FileOutputOptions = fileOutputOptions;
 
@@ -113,6 +102,7 @@ namespace HeroesData.FileWriter
             Writers.Add(FileOutputType.Json, new Dictionary<string, IWritable>()
             {
                 { nameof(Hero), new HeroDataJsonWriter() },
+                { nameof(Unit), new UnitDataJsonWriter() },
                 { nameof(MatchAward), new MatchAwardDataJsonWriter() },
                 { nameof(HeroSkin), new HeroSkinDataJsonWriter() },
                 { nameof(Mount), new MountDataJsonWriter() },
@@ -128,6 +118,7 @@ namespace HeroesData.FileWriter
             Writers.Add(FileOutputType.Xml, new Dictionary<string, IWritable>()
             {
                 { nameof(Hero), new HeroDataXmlWriter() },
+                { nameof(Unit), new UnitDataXmlWriter() },
                 { nameof(MatchAward), new MatchAwardDataXmlWriter() },
                 { nameof(HeroSkin), new HeroSkinDataXmlWriter() },
                 { nameof(Mount), new MountDataXmlWriter() },

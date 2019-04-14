@@ -60,8 +60,8 @@ namespace HeroesData.Parser
             SetDefaultValues(heroSkin);
             SetSkinData(skinElement, heroSkin);
 
-            if (heroSkin.ReleaseDate == DefaultData.HeroReleaseDate)
-                heroSkin.ReleaseDate = DefaultData.HeroAlphaReleaseDate;
+            if (heroSkin.ReleaseDate == DefaultData.HeroData.HeroReleaseDate)
+                heroSkin.ReleaseDate = DefaultData.HeroData.HeroAlphaReleaseDate;
 
             if (string.IsNullOrEmpty(heroSkin.HyperlinkId))
                 heroSkin.HyperlinkId = id;
@@ -151,7 +151,7 @@ namespace HeroesData.Parser
             heroSkin.SortName = GameData.GetGameString(DefaultData.HeroSkinSortName.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));
             heroSkin.Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroSkinInfoText.Replace(DefaultData.IdPlaceHolder, heroSkin.Id)));
             heroSkin.HyperlinkId = DefaultData.HeroSkinHyperlinkId.Replace(DefaultData.IdPlaceHolder, heroSkin.Id);
-            heroSkin.ReleaseDate = DefaultData.HeroReleaseDate;
+            heroSkin.ReleaseDate = DefaultData.HeroData.HeroReleaseDate;
             heroSkin.Rarity = Rarity.None;
 
             heroSkin.SearchText = GameData.GetGameString(DefaultData.HeroSkinAdditionalSearchText.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));

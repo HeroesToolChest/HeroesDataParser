@@ -106,6 +106,7 @@ namespace HeroesData.Parser.Overrides
         private void SetDataOverrides()
         {
             Overrides.Add(typeof(HeroDataParser), new HeroOverrideLoader(GameData, HotsBuild));
+            Overrides.Add(typeof(UnitParser), new UnitOverrideLoader(GameData, HotsBuild));
             Overrides.Add(typeof(MatchAwardParser), new MatchAwardOverrideLoader(GameData, HotsBuild));
         }
 

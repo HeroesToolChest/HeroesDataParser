@@ -72,7 +72,6 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 unit.Radius > 0 ? new XAttribute("radius", unit.Radius) : null,
                 unit.Sight > 0 ? new XAttribute("sight", unit.Sight) : null,
                 unit.Speed > 0 ? new XAttribute("speed", unit.Speed) : null,
-                string.IsNullOrEmpty(unit.Type) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("type", unit.Type),
                 string.IsNullOrEmpty(unit.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType)),
                 unit.HeroDescriptors.Count > 0 ? new XElement("Descriptors", unit.HeroDescriptors.Select(d => new XElement("Descriptor", d))) : null,
                 UnitLife(unit),

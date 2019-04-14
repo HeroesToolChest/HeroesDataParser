@@ -61,8 +61,8 @@ namespace HeroesData.Parser
             SetDefaultValues(voiceLine);
             SetVoiceLineData(voiceLineElement, voiceLine);
 
-            if (voiceLine.ReleaseDate == DefaultData.HeroReleaseDate)
-                voiceLine.ReleaseDate = DefaultData.HeroAlphaReleaseDate;
+            if (voiceLine.ReleaseDate == DefaultData.HeroData.HeroReleaseDate)
+                voiceLine.ReleaseDate = DefaultData.HeroData.HeroAlphaReleaseDate;
 
             if (string.IsNullOrEmpty(voiceLine.HyperlinkId))
                 voiceLine.HyperlinkId = id;

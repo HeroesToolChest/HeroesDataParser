@@ -47,10 +47,8 @@ namespace HeroesData.Parser.XmlData
 
         private void UnitArmorAddValue(XElement armorElement, Unit unit)
         {
-            unit.Armor = unit.Armor ?? new UnitArmor();
-
-            XElement basicElement = armorElement.Elements("ArmorSet").LastOrDefault().Elements("ArmorMitigationTable").FirstOrDefault(x => x.Attribute("index")?.Value == "Basic");
-            XElement abilityElement = armorElement.Elements("ArmorSet").LastOrDefault().Elements("ArmorMitigationTable").FirstOrDefault(x => x.Attribute("index")?.Value == "Ability");
+            XElement basicElement = armorElement.Elements("ArmorSet").LastOrDefault()?.Elements("ArmorMitigationTable").FirstOrDefault(x => x.Attribute("index")?.Value == "Basic");
+            XElement abilityElement = armorElement.Elements("ArmorSet").LastOrDefault()?.Elements("ArmorMitigationTable").FirstOrDefault(x => x.Attribute("index")?.Value == "Ability");
 
             if (basicElement != null && int.TryParse(GameData.GetValueFromAttribute(basicElement.Attribute("value").Value), out int armorValue))
             {

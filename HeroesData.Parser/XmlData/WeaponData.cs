@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -13,6 +14,12 @@ namespace HeroesData.Parser.XmlData
         private readonly DefaultData DefaultData;
         private readonly UnitDataOverride UnitDataOverride;
 
+        public WeaponData(GameData gameData, DefaultData defaultData)
+        {
+            GameData = gameData;
+            DefaultData = defaultData;
+        }
+
         public WeaponData(GameData gameData, DefaultData defaultData, UnitDataOverride unitDataOverride)
         {
             GameData = gameData;
@@ -21,15 +28,45 @@ namespace HeroesData.Parser.XmlData
         }
 
         /// <summary>
-        /// Sets the hero weapon data.
+        /// Add the hero weapon data.
         /// </summary>
         /// <param name="hero"></param>
         /// <param name="weaponElements"></param>
-        public void SetHeroWeapons(Hero hero, IEnumerable<XElement> weaponElements)
+        public void AddHeroWeapons(Hero hero, IEnumerable<XElement> weaponElements)
         {
             if (weaponElements == null)
                 return;
 
+            AddWeapons(weaponElements, (isValidWeapon, weaponsIds, weaponNameId) =>
+            {
+                if (isValidWeapon || weaponsIds.Count == 1 || weaponNameId.Contains("HeroWeapon") || weaponNameId == hero.CUnitId || weaponNameId == $"{hero.CHeroId}Weapon" || weaponNameId == $"{hero.CHeroId}WeaponMelee")
+                {
+                    AddWeapons(hero, weaponNameId);
+                }
+            });
+        }
+
+        /// <summary>
+        /// Add the unit weapon data.
+        /// </summary>
+        /// <param name="hero"></param>
+        /// <param name="weaponElements"></param>
+        public void AddUnitWeapons(Unit unit, IEnumerable<XElement> weaponElements)
+        {
+            if (weaponElements == null)
+                return;
+
+            AddWeapons(weaponElements, (isValidWeapon, weaponsIds, weaponNameId) =>
+            {
+                if (isValidWeapon || weaponsIds.Count > 0)
+                {
+                    AddWeapons(unit, weaponNameId);
+                }
+            });
+        }
+
+        private void AddWeapons(IEnumerable<XElement> weaponElements, Action<bool, List<string>, string> addWeapons)
+        {
             List<string> weaponsIds = new List<string>();
             foreach (XElement weaponElement in weaponElements)
             {
@@ -40,36 +77,38 @@ namespace HeroesData.Parser.XmlData
 
             foreach (string weaponNameId in weaponsIds)
             {
-                if (UnitDataOverride.IsValidWeaponByWeaponId.TryGetValue(weaponNameId, out bool validWeapon))
+                if (UnitDataOverride != null && UnitDataOverride.IsValidWeaponByWeaponId.TryGetValue(weaponNameId, out bool isValidWeapon))
                 {
-                    if (!validWeapon)
+                    if (!isValidWeapon)
                         continue;
                 }
                 else
                 {
-                    validWeapon = false;
+                    isValidWeapon = false;
                 }
 
-                if (validWeapon || weaponsIds.Count == 1 || weaponNameId.Contains("HeroWeapon") || weaponNameId == hero.CUnitId || weaponNameId == $"{hero.CHeroId}Weapon" || weaponNameId == $"{hero.CHeroId}WeaponMelee")
-                {
-                    // defaults
-                    UnitWeapon weapon = new UnitWeapon
-                    {
-                        WeaponNameId = weaponNameId,
-                        Name = GameData.GetGameString(DefaultData.WeaponName.Replace(DefaultData.IdPlaceHolder, weaponNameId)),
-                        Period = DefaultData.WeaponPeriod,
-                        Range = DefaultData.WeaponRange,
-                    };
-
-                    WeaponAddDamage(weapon, DefaultData.WeaponDisplayEffect.Replace(DefaultData.IdPlaceHolder, weapon.WeaponNameId));
-
-                    XElement weaponLegacy = GameData.MergeXmlElements(GameData.Elements("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == weaponNameId));
-                    if (weaponLegacy != null)
-                        weapon = SetWeaponData(weaponLegacy, weapon);
-
-                    hero.Weapons.Add(weapon);
-                }
+                addWeapons(isValidWeapon, weaponsIds, weaponNameId);
             }
+        }
+
+        private void AddWeapons(Unit unit, string weaponNameId)
+        {
+            // defaults
+            UnitWeapon weapon = new UnitWeapon
+            {
+                WeaponNameId = weaponNameId,
+                Name = GameData.GetGameString(DefaultData.WeaponName.Replace(DefaultData.IdPlaceHolder, weaponNameId)),
+                Period = DefaultData.WeaponPeriod,
+                Range = DefaultData.WeaponRange,
+            };
+
+            WeaponAddDamage(weapon, DefaultData.WeaponDisplayEffect.Replace(DefaultData.IdPlaceHolder, weapon.WeaponNameId));
+
+            XElement weaponLegacy = GameData.MergeXmlElements(GameData.Elements("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == weaponNameId));
+            if (weaponLegacy != null)
+                weapon = SetWeaponData(weaponLegacy, weapon);
+
+            unit.Weapons.Add(weapon);
         }
 
         private UnitWeapon SetWeaponData(XElement weaponElement, UnitWeapon weapon)

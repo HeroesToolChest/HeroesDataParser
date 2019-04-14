@@ -111,13 +111,13 @@ namespace HeroesData.Parser
                 else if (elementName == "RELEASEDATE")
                 {
                     if (!int.TryParse(element.Attribute("Day")?.Value, out int day))
-                        day = DefaultData.HeroAlphaReleaseDate.Day;
+                        day = DefaultData.HeroData.HeroAlphaReleaseDate.Day;
 
                     if (!int.TryParse(element.Attribute("Month")?.Value, out int month))
-                        month = DefaultData.HeroAlphaReleaseDate.Month;
+                        month = DefaultData.HeroData.HeroAlphaReleaseDate.Month;
 
                     if (!int.TryParse(element.Attribute("Year")?.Value, out int year))
-                        year = DefaultData.HeroAlphaReleaseDate.Year;
+                        year = DefaultData.HeroData.HeroAlphaReleaseDate.Year;
 
                     emoticonPack.ReleaseDate = new DateTime(year, month, day);
                 }

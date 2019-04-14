@@ -23,6 +23,7 @@ namespace HeroesData.Tests
             Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--json", "-e", "all" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "herodata_enus.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "unitdata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "matchawarddata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "heroskindata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "mountdata_enus.json")));
@@ -44,6 +45,7 @@ namespace HeroesData.Tests
             Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "-e", "all" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "herodata_enus.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "unitdata_enus.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "matchawarddata_enus.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "heroskindata_enus.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "mountdata_enus.xml")));
@@ -65,6 +67,7 @@ namespace HeroesData.Tests
             Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "-e", "all" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "herodata_enus.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "unitdata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "matchawarddata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "heroskindata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "mountdata_enus.json")));
@@ -77,6 +80,7 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "emoticonpackdata_enus.json")));
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "herodata_enus.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "unitdata_enus.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "matchawarddata_enus.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "heroskindata_enus.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "mountdata_enus.xml")));
@@ -97,6 +101,7 @@ namespace HeroesData.Tests
             Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--json", "--minify", "-e", "all" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "herodata_enus.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "unitdata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "matchawarddata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "heroskindata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "mountdata_enus.json")));
@@ -109,6 +114,7 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "emoticonpackdata_enus.json")));
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "herodata_enus.min.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "unitdata_enus.min.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "matchawarddata_enus.min.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "heroskindata_enus.min.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "mountdata_enus.min.json")));
@@ -131,6 +137,7 @@ namespace HeroesData.Tests
             Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--file-split", "-e", "all" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "herodata", "abathur.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "unitdata", "zagarahydralisk.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "matchawarddata", "mostdamagetaken.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "heroskindata", "abathurbone.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "mountdata", "mountcloudvar1.json")));
@@ -143,6 +150,7 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "emoticonpackdata", "deputyvallapack1.json")));
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "herodata", "abathur.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "unitdata", "zagarahydralisk.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "heroskindata", "abathurbone.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "mountdata", "mountcloudvar1.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "bannerdata", "bannerd3wizardrarevar1.xml")));
@@ -163,6 +171,7 @@ namespace HeroesData.Tests
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "herodata", "abathur.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "herodata", "abathur.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "unitdata", "zagarahydralisk.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "matchawarddata", "mostdamagetaken.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "heroskindata", "abathurbone.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "mountdata", "mountcloudvar1.json")));
@@ -176,6 +185,7 @@ namespace HeroesData.Tests
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "herodata", "abathur.min.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "herodata", "abathur.min.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "unitdata", "zagarahydralisk.min.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "matchawarddata", "mostdamagetaken.min.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "heroskindata", "abathurbone.min.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "mountdata", "mountcloudvar1.min.json")));
@@ -196,8 +206,9 @@ namespace HeroesData.Tests
             Program.Main(new string[] { "-s", Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--localized-text", "-e", "all" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "gamestrings", "gamestrings_enus.txt")));
-            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "matchawarddata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "herodata_enus.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "matchawarddata_enus.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "unitdata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "heroskindata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "mountdata_enus.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "bannerdata_enus.json")));
@@ -231,6 +242,7 @@ namespace HeroesData.Tests
             Assert.IsTrue(File.Exists(Path.Combine(folder, "gamestrings", "gamestrings_enus.txt")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "herodata", "abathur.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "splitfiles-enus", "herodata", "abathur.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "unitdata", "zagarahydralisk.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "matchawarddata", "mostdamagetaken.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "heroskindata", "abathurbone.json")));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "mountdata", "mountcloudvar1.json")));
