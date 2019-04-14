@@ -177,7 +177,7 @@ namespace HeroesData.Loader.XmlGameData
         /// Returns a collection of all game string ids.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<string> GetGameStringIds()
+        public IList<string> GetGameStringIds()
         {
             return GameStringById.Keys.ToList();
         }

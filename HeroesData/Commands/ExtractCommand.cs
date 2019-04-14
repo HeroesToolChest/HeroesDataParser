@@ -7,15 +7,18 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Xml.Linq;
 
 namespace HeroesData.Commands
 {
     internal class ExtractCommand : CommandBase, ICommand
     {
         private readonly string CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "assets", "textures");
+        private readonly string CASCTexturesPathNoMods = Path.Combine("heroes.stormmod", "base.stormassets", "assets", "textures");
 
         private string StoragePath;
         private string OutputDirectory;
+        private bool MergeExtraction;
         private bool TextureExtraction;
         private int HotsBuild;
         private CASCHotsStorage CASCHotsStorage;
@@ -41,6 +44,7 @@ namespace HeroesData.Commands
                 CommandArgument storagePathArgument = config.Argument("storage-path", "The 'Heroes of the Storm' directory");
 
                 CommandOption setOutputDirectoryOption = config.Option("-o|--output-directory <FILEPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
+                CommandOption mergeOption = config.Option("--merge", "Test", CommandOptionType.NoValue);
                 CommandOption texturesOption = config.Option("--textures", "Includes extracting all textures (.dds).", CommandOptionType.NoValue);
 
                 config.OnExecute(() =>
@@ -53,10 +57,15 @@ namespace HeroesData.Commands
                     if (setOutputDirectoryOption.HasValue())
                         OutputDirectory = setOutputDirectoryOption.Value();
 
-                    TextureExtraction = texturesOption.HasValue() ? true : false;
+                    MergeExtraction = mergeOption.HasValue();
+                    TextureExtraction = texturesOption.HasValue();
 
                     LoadCASCStorage();
-                    ExtractGameData();
+
+                    if (MergeExtraction)
+                        ExtractMergedGameData();
+                    else
+                        ExtractGameData();
 
                     Console.ResetColor();
                     Console.WriteLine();
@@ -144,6 +153,67 @@ namespace HeroesData.Commands
             if (Directory.Exists(defaultDirectory))
             {
                 Directory.Move(defaultDirectory, modsHotsBuildDirectory);
+            }
+
+            time.Stop();
+
+            Console.WriteLine($"Extraction took {time.Elapsed.TotalSeconds} seconds");
+        }
+
+        private void ExtractMergedGameData()
+        {
+            Console.Write("Loading game data...");
+            GameData gameData = new CASCGameData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
+
+            gameData.LoadXmlFiles();
+
+            // load up gamestrings
+            foreach (Localization localization in GetLocalizations())
+            {
+                gameData.GameStringLocalization = localization.GetFriendlyName();
+                gameData.LoadGamestringFiles();
+            }
+
+            Console.WriteLine("Done.");
+
+            // existing directory checks
+            string texturesDirectory = Path.Combine(OutputDirectory, CASCTexturesPath);
+            string modsHotsBuildTexturesDirectory = Path.Combine(OutputDirectory, $"mods_{HotsBuild}", CASCTexturesPathNoMods);
+
+            if (TextureExtraction)
+            {
+                DeleteExistingDirectory(texturesDirectory);
+                DeleteExistingDirectory(modsHotsBuildTexturesDirectory);
+            }
+
+            Stopwatch time = new Stopwatch();
+            time.Start();
+
+            Console.WriteLine();
+            Console.WriteLine("Extracting files...");
+
+            gameData.XmlGameData.Save(Path.Combine(OutputDirectory, "xmlgamedata.xml"), SaveOptions.None);
+
+            Console.WriteLine("xmlgamedata.xml");
+
+            using (StreamWriter writer = new StreamWriter(Path.Combine(OutputDirectory, "allgamestrings.txt"), false))
+            {
+                foreach (string line in gameData.GetGameStringIds())
+                {
+                    writer.WriteLine($"{line}={gameData.GetGameString(line)}");
+                }
+            }
+
+            Console.WriteLine("allgamestrings.txt");
+
+            if (TextureExtraction)
+            {
+                ExtractFiles(GetTextureFiles(), "texture files");
+
+                if (Directory.Exists(texturesDirectory))
+                {
+                    Directory.Move(texturesDirectory, modsHotsBuildTexturesDirectory);
+                }
             }
 
             time.Stop();
