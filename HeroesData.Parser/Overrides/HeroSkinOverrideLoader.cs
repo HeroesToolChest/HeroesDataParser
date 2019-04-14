@@ -12,13 +12,7 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
-        protected override string OverrideFileName
-        {
-            get
-            {
-                return $"heroskin-{base.OverrideFileName}";
-            }
-        }
+        protected override string OverrideFileName => $"heroskin-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CSkin";
 

@@ -12,13 +12,7 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
-        protected override string OverrideFileName
-        {
-            get
-            {
-                return $"voiceline-{base.OverrideFileName}";
-            }
-        }
+        protected override string OverrideFileName => $"voiceline-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CVoiceLine";
 

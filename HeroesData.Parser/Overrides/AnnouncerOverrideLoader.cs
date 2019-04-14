@@ -12,13 +12,7 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
-        protected override string OverrideFileName
-        {
-            get
-            {
-                return $"announcer-{base.OverrideFileName}";
-            }
-        }
+        protected override string OverrideFileName => $"announcer-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CAnnouncerPack";
 

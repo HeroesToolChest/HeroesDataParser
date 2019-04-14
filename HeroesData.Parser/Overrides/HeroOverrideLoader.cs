@@ -12,13 +12,7 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
-        protected override string OverrideFileName
-        {
-            get
-            {
-                return $"hero-{base.OverrideFileName}";
-            }
-        }
+        protected override string OverrideFileName => $"hero-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CHero";
 

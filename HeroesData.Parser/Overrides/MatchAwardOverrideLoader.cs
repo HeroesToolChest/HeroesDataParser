@@ -11,13 +11,7 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
-        protected override string OverrideFileName
-        {
-            get
-            {
-                return $"matchaward-{base.OverrideFileName}";
-            }
-        }
+        protected override string OverrideFileName => $"matchaward-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CAward";
 

@@ -12,13 +12,7 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
-        protected override string OverrideFileName
-        {
-            get
-            {
-                return $"mount-{base.OverrideFileName}";
-            }
-        }
+        protected override string OverrideFileName => $"mount-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CMount";
 

@@ -12,13 +12,7 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
-        protected override string OverrideFileName
-        {
-            get
-            {
-                return $"portrait-{base.OverrideFileName}";
-            }
-        }
+        protected override string OverrideFileName => $"portrait-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CPortraitPack";
 

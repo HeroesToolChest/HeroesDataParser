@@ -12,13 +12,7 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
-        protected override string OverrideFileName
-        {
-            get
-            {
-                return $"spray-{base.OverrideFileName}";
-            }
-        }
+        protected override string OverrideFileName => $"spray-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CSpray";
 

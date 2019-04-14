@@ -12,13 +12,7 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
-        protected override string OverrideFileName
-        {
-            get
-            {
-                return $"emoticonpack-{base.OverrideFileName}";
-            }
-        }
+        protected override string OverrideFileName => $"emoticonpack-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CEmoticonPack";
 

@@ -12,13 +12,7 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
-        protected override string OverrideFileName
-        {
-            get
-            {
-                return $"banner-{base.OverrideFileName}";
-            }
-        }
+        protected override string OverrideFileName => $"banner-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CBanner";
 
