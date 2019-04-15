@@ -40,7 +40,7 @@ namespace HeroesData.Parser.Overrides
                         if (!string.IsNullOrEmpty(valueAttribute))
                             heroDataOverride.NameOverride = (true, valueAttribute);
                         break;
-                    case "ShortName":
+                    case "HyperlinkId":
                         if (!string.IsNullOrEmpty(valueAttribute))
                             heroDataOverride.HyperlinkIdOverride = (true, valueAttribute);
                         break;

@@ -1,4 +1,5 @@
-﻿using Heroes.Models.AbilityTalents;
+﻿using Heroes.Models;
+using Heroes.Models.AbilityTalents;
 using System;
 using System.Collections.Generic;
 
@@ -43,6 +44,11 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         /// Gets or sets the property override action methods for talents by talent id.
         /// </summary>
         public Dictionary<string, Dictionary<string, Action<Talent>>> PropertyTalentOverrideMethodByTalentId { get; set; } = new Dictionary<string, Dictionary<string, Action<Talent>>>();
+
+        /// <summary>
+        /// Gets or sets the property override action methods for portraits by cHero id.
+        /// </summary>
+        public Dictionary<string, Dictionary<string, Action<HeroPortrait>>> PropertyPortraitOverrideMethodByCHeroId { get; set; } = new Dictionary<string, Dictionary<string, Action<HeroPortrait>>>();
 
         /// <summary>
         /// Gets or sets the abilities that should be removed.

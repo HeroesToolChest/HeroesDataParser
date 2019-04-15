@@ -44,7 +44,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         }
 
         [TestMethod]
-        public void ShortNameOverrideTest()
+        public void HyperlinkIdOverrideTest()
         {
             Assert.IsTrue(HeroDataOverride.HyperlinkIdOverride.Enabled);
             Assert.AreEqual("Funzo", HeroDataOverride.HyperlinkIdOverride.Value);

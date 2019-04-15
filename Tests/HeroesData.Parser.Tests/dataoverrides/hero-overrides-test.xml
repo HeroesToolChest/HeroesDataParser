@@ -3,7 +3,7 @@
   <!--Successful values-->
   <CHero id="Abathur" alt="SupremeBeing">
     <Name value="Acceptable" />
-    <ShortName value="Funzo" />
+    <HyperlinkId value="Funzo" />
     <CUnit value="HeroAbathur" />
     <EnergyType value="Charge" />
     <Energy value="100" />
@@ -64,7 +64,7 @@
   <!--Bad/Incorrect/Empty values-->
   <CHero id="Alarak" alt="Karala">
     <Name value="" />
-    <ShortName value="" />
+    <HyperlinkId value="" />
     <CUnit />
     <EnergyType value="Ammo" />
     <Energy value="Ten" />

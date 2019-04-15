@@ -3,7 +3,7 @@
     public interface IHeroOverride
     {
         void NameOverrideTest();
-        void ShortNameOverrideTest();
+        void HyperlinkIdOverrideTest();
         void CUnitOverrideTest();
         void EnergyTypeOverrideTest();
         void EnergyOverrideTest();

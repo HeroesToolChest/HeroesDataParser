@@ -38,11 +38,6 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         public Dictionary<string, Dictionary<string, Action<UnitWeapon>>> PropertyWeaponOverrideMethodByWeaponId { get; set; } = new Dictionary<string, Dictionary<string, Action<UnitWeapon>>>();
 
         /// <summary>
-        /// Gets or sets the property override action methods for portraits by cHero id.
-        /// </summary>
-        public Dictionary<string, Dictionary<string, Action<HeroPortrait>>> PropertyPortraitOverrideMethodByCHeroId { get; set; } = new Dictionary<string, Dictionary<string, Action<HeroPortrait>>>();
-
-        /// <summary>
         /// Gets or sets weapons that are valid or to be invalidated.
         /// </summary>
         public Dictionary<string, bool> IsValidWeaponByWeaponId { get; set; } = new Dictionary<string, bool>();
