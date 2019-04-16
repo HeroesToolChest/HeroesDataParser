@@ -121,22 +121,22 @@ namespace HeroesData.FileWriter.Writers.HeroData
             {
                 return new XElement(
                     "Abilities",
-                    unit.SubAbilities(AbilityTier.Basic)?.Count > 0 ? new XElement("Basic", unit.SubAbilities(AbilityTier.Basic).Select(basic => AbilityTalentInfoElement(basic))) : null,
+                    unit.SubAbilities(AbilityTier.Basic)?.Count > 0 ? new XElement("Basic", unit.SubAbilities(AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(basic => AbilityTalentInfoElement(basic))) : null,
                     unit.SubAbilities(AbilityTier.Heroic)?.Count > 0 ? new XElement("Heroic", unit.SubAbilities(AbilityTier.Heroic).Select(heroic => AbilityTalentInfoElement(heroic))) : null,
                     unit.SubAbilities(AbilityTier.Trait)?.Count > 0 ? new XElement("Trait", unit.SubAbilities(AbilityTier.Trait).Select(trait => AbilityTalentInfoElement(trait))) : null,
                     unit.SubAbilities(AbilityTier.Mount)?.Count > 0 ? new XElement("Mount", unit.SubAbilities(AbilityTier.Mount).Select(mount => AbilityTalentInfoElement(mount))) : null,
-                    unit.SubAbilities(AbilityTier.Activable)?.Count > 0 ? new XElement("Activable", unit.SubAbilities(AbilityTier.Activable).Select(activable => AbilityTalentInfoElement(activable))) : null,
+                    unit.SubAbilities(AbilityTier.Activable)?.Count > 0 ? new XElement("Activable", unit.SubAbilities(AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(activable => AbilityTalentInfoElement(activable))) : null,
                     unit.SubAbilities(AbilityTier.Hearth)?.Count > 0 ? new XElement("Hearth", unit.SubAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null);
             }
             else
             {
                 return new XElement(
                     "Abilities",
-                    unit.PrimaryAbilities(AbilityTier.Basic)?.Count > 0 ? new XElement("Basic", unit.PrimaryAbilities(AbilityTier.Basic).Select(basic => AbilityTalentInfoElement(basic))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Basic)?.Count > 0 ? new XElement("Basic", unit.PrimaryAbilities(AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(basic => AbilityTalentInfoElement(basic))) : null,
                     unit.PrimaryAbilities(AbilityTier.Heroic)?.Count > 0 ? new XElement("Heroic", unit.PrimaryAbilities(AbilityTier.Heroic).Select(heroic => AbilityTalentInfoElement(heroic))) : null,
                     unit.PrimaryAbilities(AbilityTier.Trait)?.Count > 0 ? new XElement("Trait", unit.PrimaryAbilities(AbilityTier.Trait).Select(trait => AbilityTalentInfoElement(trait))) : null,
                     unit.PrimaryAbilities(AbilityTier.Mount)?.Count > 0 ? new XElement("Mount", unit.PrimaryAbilities(AbilityTier.Mount).Select(mount => AbilityTalentInfoElement(mount))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Activable)?.Count > 0 ? new XElement("Activable", unit.PrimaryAbilities(AbilityTier.Activable).Select(activable => AbilityTalentInfoElement(activable))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Activable)?.Count > 0 ? new XElement("Activable", unit.PrimaryAbilities(AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(activable => AbilityTalentInfoElement(activable))) : null,
                     unit.PrimaryAbilities(AbilityTier.Hearth)?.Count > 0 ? new XElement("Hearth", unit.PrimaryAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null);
             }
         }
@@ -147,11 +147,11 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 "SubAbilities",
                 linkedAbilities.Select(parent => new XElement(
                     parent.Key,
-                    parent.Where(x => x.Tier == AbilityTier.Basic).Count() > 0 ? new XElement("Basic", parent.Where(x => x.Tier == AbilityTier.Basic).Select(ability => AbilityTalentInfoElement(ability))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Basic).Count() > 0 ? new XElement("Basic", parent.Where(x => x.Tier == AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(ability => AbilityTalentInfoElement(ability))) : null,
                     parent.Where(x => x.Tier == AbilityTier.Heroic).Count() > 0 ? new XElement("Heroic", parent.Where(x => x.Tier == AbilityTier.Heroic).Select(ability => AbilityTalentInfoElement(ability))) : null,
                     parent.Where(x => x.Tier == AbilityTier.Trait).Count() > 0 ? new XElement("Trait", parent.Where(x => x.Tier == AbilityTier.Trait).Select(ability => AbilityTalentInfoElement(ability))) : null,
                     parent.Where(x => x.Tier == AbilityTier.Mount).Count() > 0 ? new XElement("Mount", parent.Where(x => x.Tier == AbilityTier.Mount).Select(ability => AbilityTalentInfoElement(ability))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Activable).Count() > 0 ? new XElement("Activable", parent.Where(x => x.Tier == AbilityTier.Activable).Select(ability => AbilityTalentInfoElement(ability))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Activable).Count() > 0 ? new XElement("Activable", parent.Where(x => x.Tier == AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(ability => AbilityTalentInfoElement(ability))) : null,
                     parent.Where(x => x.Tier == AbilityTier.Hearth).Count() > 0 ? new XElement("Hearth", parent.Where(x => x.Tier == AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null)));
         }
 

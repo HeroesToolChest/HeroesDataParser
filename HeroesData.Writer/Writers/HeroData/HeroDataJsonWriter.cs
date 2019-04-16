@@ -206,6 +206,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                         "basic",
                         new JArray(
                             from abil in basicAbilities
+                            orderby abil.AbilityType ascending
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
@@ -268,6 +269,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                         "basic",
                         new JArray(
                             from abil in basicAbilities
+                            orderby abil.AbilityType ascending
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
