@@ -44,7 +44,7 @@ namespace HeroesData.Commands
                 CommandArgument storagePathArgument = config.Argument("storage-path", "The 'Heroes of the Storm' directory");
 
                 CommandOption setOutputDirectoryOption = config.Option("-o|--output-directory <FILEPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
-                CommandOption mergeOption = config.Option("--merge", "Test", CommandOptionType.NoValue);
+                CommandOption mergeOption = config.Option("--xml-merge", "Extracts the xml files as one file.", CommandOptionType.NoValue);
                 CommandOption texturesOption = config.Option("--textures", "Includes extracting all textures (.dds).", CommandOptionType.NoValue);
 
                 config.OnExecute(() =>
@@ -56,6 +56,8 @@ namespace HeroesData.Commands
 
                     if (setOutputDirectoryOption.HasValue())
                         OutputDirectory = setOutputDirectoryOption.Value();
+                    else
+                        OutputDirectory = Path.Combine(OutputDirectory, "output");
 
                     MergeExtraction = mergeOption.HasValue();
                     TextureExtraction = texturesOption.HasValue();
@@ -163,7 +165,10 @@ namespace HeroesData.Commands
         private void ExtractMergedGameData()
         {
             Console.Write("Loading game data...");
-            GameData gameData = new CASCGameData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
+            GameData gameData = new CASCGameData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild)
+            {
+                IsCacheEnabled = true,
+            };
 
             gameData.LoadXmlFiles();
 
@@ -196,15 +201,7 @@ namespace HeroesData.Commands
 
             Console.WriteLine("xmlgamedata.xml");
 
-            using (StreamWriter writer = new StreamWriter(Path.Combine(OutputDirectory, "allgamestrings.txt"), false))
-            {
-                foreach (string line in gameData.GetGameStringIds())
-                {
-                    writer.WriteLine($"{line}={gameData.GetGameString(line)}");
-                }
-            }
-
-            Console.WriteLine("allgamestrings.txt");
+            ExtractFiles(gameData.TextCachedFilePaths, "text files");
 
             if (TextureExtraction)
             {
