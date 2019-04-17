@@ -5,6 +5,7 @@
 Heroes Data Parser is a .NET Core command line tool that extracts Heroes of the Storm game data into XML and JSON files. Extracts hero data along with all abilities, talents, and their respective portraits and icons.
 
 Also extracts the following:
+ - Units (includes images)  
  - Match Awards (includes images)
  - Hero Skins
  - Mounts
@@ -214,7 +215,8 @@ Extracts the data files. Multiple are allowed. Default is `herodata`.
 Extracts to `<OUTPUT-DIRECTORY>/<json and/or xml>`.
 
 `all` - extracts all data files  
-`herodata` - extracts hero data    
+`herodata` - extracts hero data  
+`units` - extracts unit data  
 `matchawards` - extracts match awards  
 `heroskins` - extracts hero skins  
 `banners` - extracts banners  
@@ -241,6 +243,7 @@ Extracts to `<OUTPUT-DIRECTORY>/images/<image-type>`
 `abilities` - extracts ability icons  
 `talents` - extracts talent icons  
 `abilitytalents` - extracts both ability and talent icons into the same directory (overrides `abilities` and `talents` choices)  
+`units` - extracts unit icons  
 `matchawards` - extracts match award icons  
 `sprays` - extracts spray images  
 `announcers` - extracts announcer images  
@@ -291,7 +294,9 @@ Example selecting multiple locales.
 ### Localized Text (--localized-text)
 Strings that are localized are removed from the XML and JSON file(s) and are instead put into a text file to allow easy swapping between localizations. The file(s) are sorted alphabetically and each line can be read in as a key-value pair (split on `=`). 
 
-The gamestring text file(s) are located at `<OUTPUT-DIRECTORY>/gamestrings/`
+The gamestring text file(s) are located at `<OUTPUT-DIRECTORY>/gamestrings/`.
+
+Both heroes and units use the `units/...` prefix string.
 
 The format of the strings in the text file are the following:
 - `abiltalent/name/[nameId]=[value]`
@@ -331,7 +336,8 @@ The format of the strings in the text file are the following:
 - `tooltip/short/[shortTooltipId]=[value]`
 - `unit/description/[Id]=[value]`
 - `unit/difficulty/[Id]=[value]`
-- `unit/expandedRole/[Id]=[value]`
+- `unit/expandedrole/[Id]=[value]`
+- `unit/damagetype/[Id]=[value]`
 - `unit/name/[Id]=[value]`
 - `unit/role/[Id]=[value] (comma delimited if more than 1 role)`
 - `unit/searchtext/[Id]=[value]`
@@ -352,6 +358,7 @@ Arguments:
 Options:
   -?|-h|--help                      Show help information
   -o|--output-directory <FILEPATH>  Sets the output directory.
+  --xml-merge                       Extracts the xml files as one file.
   --textures                        Includes extracting all textures (.dds).
 ```
 
