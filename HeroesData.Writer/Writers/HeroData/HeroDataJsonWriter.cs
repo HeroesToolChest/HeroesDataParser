@@ -247,6 +247,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                         "activable",
                         new JArray(
                             from abil in activableAbilities
+                            orderby abil.AbilityType ascending
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
@@ -310,6 +311,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                         "activable",
                         new JArray(
                             from abil in activableAbilities
+                            orderby abil.AbilityType ascending
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
