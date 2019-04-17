@@ -71,7 +71,8 @@ namespace HeroesData.ExtractorData
                 App.WriteExceptionLog($"{Name.Where(x => !char.IsWhiteSpace(x))}", ex);
 
                 Console.WriteLine();
-                Console.WriteLine($"Failed to parse {Name} [Check logs for details]");
+                Console.WriteLine($"Failed to parse {Name}");
+                Console.WriteLine(ex);
                 Console.WriteLine();
 
                 Console.ResetColor();

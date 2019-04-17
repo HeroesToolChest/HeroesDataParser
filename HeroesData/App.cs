@@ -217,9 +217,7 @@ namespace HeroesData
             {
                 WriteExceptionLog("Error", ex);
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ex.Message);
-                Console.WriteLine();
-                Console.WriteLine("Check error logs for details");
+                Console.WriteLine(ex);
                 Console.WriteLine();
 
                 Console.ResetColor();
