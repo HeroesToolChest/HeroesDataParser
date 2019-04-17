@@ -84,7 +84,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
-            GameStrings[$"unit/expandedRole/{key}"] = value;
+            GameStrings[$"unit/expandedrole/{key}"] = value;
         }
 
         public void AddUnitDescription(string key, string value)
