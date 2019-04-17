@@ -139,9 +139,9 @@ namespace HeroesData.Parser.XmlData
             CUnitElement(GameData.Elements("CUnit").Where(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == CUnitDefaultBaseId));
         }
 
-        private void CHeroElement(IEnumerable<XElement> cHeroElements)
+        private void CHeroElement(IEnumerable<XElement> elements)
         {
-            foreach (XElement element in cHeroElements.Elements())
+            foreach (XElement element in elements.Elements())
             {
                 string elementName = element.Name.LocalName.ToUpper();
 
@@ -213,9 +213,9 @@ namespace HeroesData.Parser.XmlData
             }
         }
 
-        private void CHeroRoleElement(IEnumerable<XElement> cHeroRoleElements)
+        private void CHeroRoleElement(IEnumerable<XElement> elements)
         {
-            foreach (XElement element in cHeroRoleElements.Elements())
+            foreach (XElement element in elements.Elements())
             {
                 string elementName = element.Name.LocalName.ToUpper();
 

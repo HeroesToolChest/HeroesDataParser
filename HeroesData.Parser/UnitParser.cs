@@ -21,6 +21,7 @@ namespace HeroesData.Parser
         private UnitDataOverride UnitDataOverride;
         private WeaponData WeaponData;
         private ArmorData ArmorData;
+        private AbilityData AbilityData;
 
         public UnitParser(GameData gameData, DefaultData defaultData, UnitOverrideLoader unitOverrideLoader)
             : base(gameData, defaultData)
@@ -77,6 +78,7 @@ namespace HeroesData.Parser
 
             WeaponData = new WeaponData(GameData, DefaultData);
             ArmorData = new ArmorData(GameData);
+            AbilityData = new AbilityData(GameData, DefaultData, UnitDataOverride, Localization);
 
             SetDefaultValues(unit);
             CActorData(unit);
@@ -170,6 +172,10 @@ namespace HeroesData.Parser
                 else if (elementName == "UNITDAMAGETYPE")
                 {
                     unit.DamageType = element.Attribute("value").Value;
+                }
+                else if (elementName == "ABILARRAY")
+                {
+                    AbilityData.AddUnitAbility(unit, element);
                 }
             }
 

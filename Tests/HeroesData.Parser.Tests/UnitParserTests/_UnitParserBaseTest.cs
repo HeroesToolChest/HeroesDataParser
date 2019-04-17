@@ -19,6 +19,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
 
         protected Unit ZagaraHydralisk { get; set; }
         protected Unit TownCannonTowerL2 { get; set; }
+        protected Unit VolskayaVehicle { get; set; }
 
         [TestMethod]
         public void GetItemsTest()
@@ -38,6 +39,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             UnitParser unitParser = new UnitParser(GameData, DefaultData, UnitOverrideLoader);
             ZagaraHydralisk = unitParser.Parse("ZagaraHydralisk");
             TownCannonTowerL2 = unitParser.Parse("TownCannonTowerL2");
+            VolskayaVehicle = unitParser.Parse("VolskayaVehicle");
         }
     }
 }

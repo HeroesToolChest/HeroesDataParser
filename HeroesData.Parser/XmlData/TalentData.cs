@@ -12,14 +12,14 @@ namespace HeroesData.Parser.XmlData
 {
     public class TalentData : AbilityTalentData
     {
-        private Dictionary<string, HashSet<string>> AbilityTalentIdsByTalentIdUpgrade = new Dictionary<string, HashSet<string>>();
+        private readonly Dictionary<string, HashSet<string>> AbilityTalentIdsByTalentIdUpgrade = new Dictionary<string, HashSet<string>>();
 
         public TalentData(GameData gameData, DefaultData defaultData, HeroDataOverride heroDataOverride, Localization localization)
             : base(gameData, defaultData, heroDataOverride, localization)
         {
         }
 
-        public void SetTalentData(Hero hero, XElement talentElement)
+        public void AddTalent(Hero hero, XElement talentElement)
         {
             hero.Talents = hero.Talents ?? new Dictionary<string, Talent>();
 
@@ -72,7 +72,7 @@ namespace HeroesData.Parser.XmlData
                         string effectId = talentAbilElement.Attribute("value").Value;
 
                         if (talentActiveElement.Attribute("value").Value == "1")
-                            SetTooltipCostData(hero, effectId, talent);
+                            SetTooltipCostData(effectId, talent);
                     }
 
                     SetTooltipDescriptions(talent);

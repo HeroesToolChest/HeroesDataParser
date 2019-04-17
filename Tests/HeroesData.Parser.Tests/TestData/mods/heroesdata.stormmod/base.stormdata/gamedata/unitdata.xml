@@ -722,4 +722,54 @@
     <AIThinkTree value="AI/BaseTowerThinkTree.aitree" />
     <Sight value="10" />
   </CUnit>
+
+  <CButton id="VolskayaVehicleTShield" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\storm_ui_icon_volskayarobot_tshield.dds" />
+  </CButton>
+  <CButton id="VolskayaVehicleRocketFist" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_volskayarobot_rocketfist.dds" />
+  </CButton>
+  
+  <!--volskaya objective award-->
+  <CUnit id="VolskayaVehicle" parent="StormVehicle">
+    <Race value="Zerg" />
+    <FogVisibility value="Visible" />
+    <Collide index="Colossus" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <LifeStart value="10450" />
+    <LifeMax value="10450" />
+    <EnergyStart value="32" />
+    <EnergyMax value="32" />
+    <EnergyRegenRate value="0" />
+    <StationaryTurningRate value="599.9414" />
+    <TurningRate value="599.9414" />
+    <VisionHeight value="5" />
+    <AbilArray Link="VolskayaVehicleSeismicCannon" />
+    <AbilArray Link="VolskayaVehicleFistSlam" />
+    <AbilArray Link="VolskayaVehicleTShield" />
+    <AbilArray Link="VolskayaVehicleRocketFist" />
+    <AbilArray Link="VolskayaVehicleHover" />
+    <AbilArray Link="VehicleGenericSwapVehicle" />
+    <AbilArray Link="LeaveVehicle" />
+    <AbilArray Link="VolskayaVehicleCharge" />
+    <AbilArray Link="VolskayaVehicleChargeApproach" />
+    <AbilArray Link="VolskayaVehicleStructureChargeApproach" />
+    <AbilArray Link="VolskayaVehicleCoreChargeApproach" />
+    <BehaviorArray Link="VolskayaVehicleBehavior" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="VolskayaVehicleCharge" Type="AbilCmd" AbilCmd="VolskayaVehicleCharge,Execute" Slot="Ability1" />
+      <LayoutButtons Face="VolskayaVehicleRocketFist" Type="AbilCmd" AbilCmd="VolskayaVehicleRocketFist,Execute" Slot="Ability2" />
+      <LayoutButtons Face="VolskayaVehicleTShield" Type="AbilCmd" AbilCmd="VolskayaVehicleTShield,Execute" Slot="Ability3" />
+      <LayoutButtons Face="VolskayaVehicleLeaveVehicle" Type="AbilCmd" AbilCmd="LeaveVehicle,Execute" Slot="Trait" />
+      <LayoutButtons Face="VehicleGenericSwapVehicle" Type="AbilCmd" AbilCmd="VehicleGenericSwapVehicle,Execute" Slot="Heroic" />
+      <LayoutButtons Face="VolskayaVehicleFighterFlight" Type="AbilCmd" AbilCmd="VolskayaVehicleFighterFlight,Execute" Slot="Mount" />
+    </CardLayouts>
+    <Radius value="1.5" />
+    <AIBaseThreat value="3" />
+    <AIThinkTree value="AI/VolskayaRobotPilot.aitree" />
+    <AlliedPushPriority value="15" />
+    <TauntDoesntStopUnit index="Tease" value="1" />
+    <PlaneArray index="Ground" value="1" />
+    <PlaneArray index="Air" value="1" />
+  </CUnit>
 </Catalog>

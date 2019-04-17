@@ -46,6 +46,8 @@ namespace HeroesData.Parser.XmlData
 
         public DefaultDataUnit UnitData { get; private set; }
 
+        public DefaultDataAbil AbilData { get; private set; }
+
         /// <summary>
         /// Gets the default button name text. Contains ##id##.
         /// </summary>
@@ -382,6 +384,7 @@ namespace HeroesData.Parser.XmlData
 
             HeroData = new DefaultDataHero(GameData);
             UnitData = new DefaultDataUnit(GameData);
+            AbilData = new DefaultDataAbil(GameData);
 
             LoadCButtonDefault();
             LoadCButtonDefaultStormButtonParent();

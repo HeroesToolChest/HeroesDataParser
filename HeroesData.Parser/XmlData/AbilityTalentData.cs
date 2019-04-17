@@ -18,10 +18,20 @@ namespace HeroesData.Parser.XmlData
             GameData = gameData;
             DefaultData = defaultData;
             HeroDataOverride = heroDataOverride;
+            UnitDataOverride = heroDataOverride;
+            Localization = localization;
+        }
+
+        public AbilityTalentData(GameData gameData, DefaultData defaultData, UnitDataOverride unitDataOverride, Localization localization)
+        {
+            GameData = gameData;
+            DefaultData = defaultData;
+            UnitDataOverride = unitDataOverride;
             Localization = localization;
         }
 
         protected GameData GameData { get; }
+        protected UnitDataOverride UnitDataOverride { get; }
         protected HeroDataOverride HeroDataOverride { get; }
         protected Localization Localization { get; }
         protected DefaultData DefaultData { get; }
@@ -29,10 +39,9 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Set the tooltips cost data.
         /// </summary>
-        /// <param name="hero"></param>
         /// <param name="elementId"></param>
         /// <param name="abilityTalentBase"></param>
-        protected void SetTooltipCostData(Hero hero, string elementId, AbilityTalentBase abilityTalentBase)
+        protected void SetTooltipCostData(string elementId, AbilityTalentBase abilityTalentBase)
         {
             if (string.IsNullOrEmpty(elementId))
                 return;
@@ -192,6 +201,10 @@ namespace HeroesData.Parser.XmlData
         protected void SetTooltipDescriptions(AbilityTalentBase abilityTalentBase)
         {
             abilityTalentBase.Name = GameData.GetGameString(DefaultData.ButtonName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId));
+
+            if (string.IsNullOrEmpty(abilityTalentBase.Name))
+                abilityTalentBase.Name = GameData.GetGameString(DefaultData.AbilData.ButtonName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId));
+
             abilityTalentBase.ShortTooltipNameId = abilityTalentBase.FullTooltipNameId; // default
 
             // full

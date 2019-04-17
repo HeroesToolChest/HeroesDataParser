@@ -67,9 +67,9 @@ namespace HeroesData.Parser.XmlData
             CUnitElement(GameData.Elements("CUnit").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
-        protected void CUnitElement(IEnumerable<XElement> cUnitElements)
+        protected void CUnitElement(IEnumerable<XElement> elements)
         {
-            foreach (XElement element in cUnitElements.Elements())
+            foreach (XElement element in elements.Elements())
             {
                 string elementName = element.Name.LocalName.ToUpper();
 

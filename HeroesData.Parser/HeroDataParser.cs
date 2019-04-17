@@ -465,15 +465,15 @@ namespace HeroesData.Parser
             // abilities must be gotten before talents
             foreach (XElement abilArrayElement in heroElement.Elements("HeroAbilArray"))
             {
-                AbilityData.SetAbilityData(hero, abilArrayElement);
+                AbilityData.AddHeroAbility(hero, abilArrayElement);
             }
 
-            AbilityData.AddAdditionalButtonAbilities(hero);
+            AbilityData.AddOverrideButtonAbilities(hero);
             TalentData.SetButtonTooltipAppenderData(StormHeroBase, hero);
 
             foreach (XElement talentArrayElement in heroElement.Elements("TalentTreeArray"))
             {
-                TalentData.SetTalentData(hero, talentArrayElement);
+                TalentData.AddTalent(hero, talentArrayElement);
             }
         }
 
@@ -637,7 +637,7 @@ namespace HeroesData.Parser
 
         private void SetBaseHeroData(Hero hero)
         {
-            AbilityData.AddAdditionalButtonAbilities(hero);
+            AbilityData.AddOverrideButtonAbilities(hero);
         }
 
         private void FinalizeDataChecks(Hero hero)
