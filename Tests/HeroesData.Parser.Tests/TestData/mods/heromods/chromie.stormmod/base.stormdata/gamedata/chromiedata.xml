@@ -48,6 +48,55 @@
     </HeroAbilArray>
     <ExpandedRole value="RangedAssassin" />
   </CHero>
+  <CAbilEffectTarget id="ChromieSandBlast">
+    <AbilityCategories index="TargetAcrossMapPlane" value="1" />
+    <Activity value="Abil/Activity/ChromieSandBlast" />
+    <PrepEffect value="ChromieSandBlastPrepSet" />
+    <Effect value="ChromieSandBlastInitialSet" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RangeUseCasterRadius" value="0" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TargetVectorLock" value="1" />
+    <Cost>
+      <Vital index="Energy" value="20" />
+      <Cooldown TimeUse="3" />
+    </Cost>
+    <Range value="500" />
+    <CastIntroTime value="0.5" />
+    <ShowProgressArray index="Cast" value="1" />
+    <ShowProgressArray index="Channel" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <CursorEffect value="ChromieSandBlastMissileScan" />
+    <CursorRangeFlags index="ClampMin" value="1" />
+    <CursorRangeFlags index="ClampMax" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="ChromieSandBlast">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <InterruptEffect index="Cast" value="ChromieSandBlastPastAndFutureMeControllerCreateUnit" />
+  </CAbilEffectTarget>
+  <CValidatorLocationCompareRange id="ChromieFastForwardDistanceCheck">
+    <Compare value="GT" />
+    <Range value="7.5" />
+    <Value Value="OriginPoint" />
+  </CValidatorLocationCompareRange>
+  <CEffectLaunchMissile id="ChromieSandBlastLaunchMissile">
+    <ImpactLocation>
+      <Value value="TargetPoint" />
+      <ProjectionSourceValue value="OriginPoint" />
+      <ProjectionTargetValue value="TargetPoint" />
+      <UsesLineDash value="1" />
+      <LineDashType value="AllowedInUnpathable" />
+      <ProjectionDistanceScale value="15" />
+    </ImpactLocation>
+  </CEffectLaunchMissile>
+  <CEffectModifyUnit id="ChromieSandBlastFastForwardCooldownReduction">
+    <ValidatorArray value="ChromieFastForwardCombine" />
+    <ValidatorArray value="TargetIsHero" />
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="ChromieSandBlast,Execute" CooldownOperation="Min" CooldownTimeUse="0.5" />
+  </CEffectModifyUnit>
   <CButton id="ChromieSandBlast" parent="StormButtonParent">
     <TooltipAppender Validator="ChromieSandBlastHasOnceAgainTheFirstTimeTalent" Face="ChromieSandBlastOnceAgaintheFirstTime" />
     <TooltipAppender Validator="ChromieSandBlastHasBronzeTalonsTalent" Face="ChromieSandBlastBronzeTalons" />
@@ -57,6 +106,14 @@
     <TooltipAppender Validator="ChromieHasSandBlastPiercingSandsTalent" Face="ChromieSandBlastPiercingSands" />
     <Icon value="Assets\Textures\storm_ui_icon_Chromie_AetherCannon.dds" />
   </CButton>
+  <CButton id="ChromieSandBlastFastForward">
+    <Icon value="Assets\Textures\storm_ui_icon_Chromie_AetherCannon_A.dds" />
+    <SimpleDisplayText value="Button/SimpleDisplayText/ChromieSandBlastFastForward" />
+  </CButton>
+  <CTalent id="ChromieSandBlastFastForward">
+    <Face value="ChromieSandBlastFastForward" />
+    <Abil value="ChromieSandBlast" />
+  </CTalent>
   <CEffectDamage id="ChromieHeroWeaponDamage" parent="StormWeapon">
     <MultiplicativeModifierArray index="BronzeTalons" Validator="ChromieCreatorHasBronzeTalonsBehavior" Modifier="0.3" Crit="1" />
     <Amount value="$ChromieBasicAttackDamage" />
