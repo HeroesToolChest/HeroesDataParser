@@ -81,7 +81,7 @@ namespace HeroesData.Parser
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.BannerDescription.Replace(DefaultData.IdPlaceHolder, bannerElement.Attribute("id")?.Value));
+                string desc = GameData.GetGameString(DefaultData.BannerData.BannerDescription.Replace(DefaultData.IdPlaceHolder, bannerElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
                     banner.Description = new TooltipDescription(desc);
             }
@@ -103,13 +103,13 @@ namespace HeroesData.Parser
                 else if (elementName == "RELEASEDATE")
                 {
                     if (!int.TryParse(element.Attribute("Day")?.Value, out int day))
-                        day = DefaultData.BannerReleaseDate.Day;
+                        day = DefaultData.BannerData.BannerReleaseDate.Day;
 
                     if (!int.TryParse(element.Attribute("Month")?.Value, out int month))
-                        month = DefaultData.BannerReleaseDate.Month;
+                        month = DefaultData.BannerData.BannerReleaseDate.Month;
 
                     if (!int.TryParse(element.Attribute("Year")?.Value, out int year))
-                        year = DefaultData.BannerReleaseDate.Year;
+                        year = DefaultData.BannerData.BannerReleaseDate.Year;
 
                     banner.ReleaseDate = new DateTime(year, month, day);
                 }
@@ -146,10 +146,10 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(Banner banner)
         {
-            banner.Name = GameData.GetGameString(DefaultData.BannerName.Replace(DefaultData.IdPlaceHolder, banner.Id));
-            banner.SortName = GameData.GetGameString(DefaultData.BannerSortName.Replace(DefaultData.IdPlaceHolder, banner.Id));
-            banner.Description = new TooltipDescription(GameData.GetGameString(DefaultData.BannerDescription.Replace(DefaultData.IdPlaceHolder, banner.Id)));
-            banner.ReleaseDate = DefaultData.BannerReleaseDate;
+            banner.Name = GameData.GetGameString(DefaultData.BannerData.BannerName.Replace(DefaultData.IdPlaceHolder, banner.Id));
+            banner.SortName = GameData.GetGameString(DefaultData.BannerData.BannerSortName.Replace(DefaultData.IdPlaceHolder, banner.Id));
+            banner.Description = new TooltipDescription(GameData.GetGameString(DefaultData.BannerData.BannerDescription.Replace(DefaultData.IdPlaceHolder, banner.Id)));
+            banner.ReleaseDate = DefaultData.BannerData.BannerReleaseDate;
             banner.Rarity = Rarity.None;
         }
     }

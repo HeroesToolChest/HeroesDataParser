@@ -39,7 +39,7 @@ namespace HeroesData.FileWriter.Writers
         protected string AnimatedImageExtension => ".gif";
 
         /// <summary>
-        /// Gets or sets the directory for the created output files.
+        /// Gets the directory for the created output files.
         /// </summary>
         protected string OutputDirectory => Path.Combine(FileOutputOptions.OutputDirectory, FileOutputType.ToString().ToLower());
 

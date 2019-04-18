@@ -84,7 +84,7 @@ namespace HeroesData.Parser
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.AnnouncerDescription.Replace(DefaultData.IdPlaceHolder, announcerPackElement.Attribute("id")?.Value));
+                string desc = GameData.GetGameString(DefaultData.AnnouncerData.AnnouncerDescription.Replace(DefaultData.IdPlaceHolder, announcerPackElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
                     announcer.Description = new TooltipDescription(desc);
             }
@@ -106,13 +106,13 @@ namespace HeroesData.Parser
                 else if (elementName == "RELEASEDATE")
                 {
                     if (!int.TryParse(element.Attribute("Day")?.Value, out int day))
-                        day = DefaultData.MountReleaseDate.Day;
+                        day = DefaultData.MountData.MountReleaseDate.Day;
 
                     if (!int.TryParse(element.Attribute("Month")?.Value, out int month))
-                        month = DefaultData.MountReleaseDate.Month;
+                        month = DefaultData.MountData.MountReleaseDate.Month;
 
                     if (!int.TryParse(element.Attribute("Year")?.Value, out int year))
-                        year = DefaultData.MountReleaseDate.Year;
+                        year = DefaultData.MountData.MountReleaseDate.Year;
 
                     announcer.ReleaseDate = new DateTime(year, month, day);
                 }
@@ -166,10 +166,10 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(Announcer announcer)
         {
-            announcer.Name = GameData.GetGameString(DefaultData.AnnouncerName.Replace(DefaultData.IdPlaceHolder, announcer.Id));
-            announcer.SortName = GameData.GetGameString(DefaultData.AnnouncerSortName.Replace(DefaultData.IdPlaceHolder, announcer.Id));
-            announcer.Description = new TooltipDescription(GameData.GetGameString(DefaultData.AnnouncerDescription.Replace(DefaultData.IdPlaceHolder, announcer.Id)));
-            announcer.ReleaseDate = DefaultData.AnnouncerReleaseDate;
+            announcer.Name = GameData.GetGameString(DefaultData.AnnouncerData.AnnouncerName.Replace(DefaultData.IdPlaceHolder, announcer.Id));
+            announcer.SortName = GameData.GetGameString(DefaultData.AnnouncerData.AnnouncerSortName.Replace(DefaultData.IdPlaceHolder, announcer.Id));
+            announcer.Description = new TooltipDescription(GameData.GetGameString(DefaultData.AnnouncerData.AnnouncerDescription.Replace(DefaultData.IdPlaceHolder, announcer.Id)));
+            announcer.ReleaseDate = DefaultData.AnnouncerData.AnnouncerReleaseDate;
             announcer.Rarity = Rarity.None;
         }
     }

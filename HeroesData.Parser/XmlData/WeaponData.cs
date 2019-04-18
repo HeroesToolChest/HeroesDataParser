@@ -97,12 +97,12 @@ namespace HeroesData.Parser.XmlData
             UnitWeapon weapon = new UnitWeapon
             {
                 WeaponNameId = weaponNameId,
-                Name = GameData.GetGameString(DefaultData.WeaponName.Replace(DefaultData.IdPlaceHolder, weaponNameId)),
-                Period = DefaultData.WeaponPeriod,
-                Range = DefaultData.WeaponRange,
+                Name = GameData.GetGameString(DefaultData.WeaponData.WeaponName.Replace(DefaultData.IdPlaceHolder, weaponNameId)),
+                Period = DefaultData.WeaponData.WeaponPeriod,
+                Range = DefaultData.WeaponData.WeaponRange,
             };
 
-            WeaponAddDamage(weapon, DefaultData.WeaponDisplayEffect.Replace(DefaultData.IdPlaceHolder, weapon.WeaponNameId));
+            WeaponAddDamage(weapon, DefaultData.WeaponData.WeaponDisplayEffect.Replace(DefaultData.IdPlaceHolder, weapon.WeaponNameId));
 
             XElement weaponLegacy = GameData.MergeXmlElements(GameData.Elements("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == weaponNameId));
             if (weaponLegacy != null)

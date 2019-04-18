@@ -187,7 +187,7 @@ namespace HeroesData.Parser.XmlData
                         if (vitalIndex == "Energy")
                         {
                             abilityTalentBase.Tooltip.Energy.EnergyValue = double.Parse(vitalValue);
-                            abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(DescriptionValidator.Validate(GameData.GetGameString(DefaultData.ButtonTooltipEnergyVitalName).Replace(DefaultData.ReplacementCharacter, vitalValue)));
+                            abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(DescriptionValidator.Validate(GameData.GetGameString(DefaultData.ButtonData.ButtonTooltipEnergyVitalName).Replace(DefaultData.ReplacementCharacter, vitalValue)));
                         }
                     }
                 }
@@ -200,7 +200,7 @@ namespace HeroesData.Parser.XmlData
         /// <param name="abilityTalentBase"></param>
         protected void SetTooltipDescriptions(AbilityTalentBase abilityTalentBase)
         {
-            abilityTalentBase.Name = GameData.GetGameString(DefaultData.ButtonName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId));
+            abilityTalentBase.Name = GameData.GetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId));
 
             if (string.IsNullOrEmpty(abilityTalentBase.Name))
                 abilityTalentBase.Name = GameData.GetGameString(DefaultData.AbilData.ButtonName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId));
@@ -208,13 +208,13 @@ namespace HeroesData.Parser.XmlData
             abilityTalentBase.ShortTooltipNameId = abilityTalentBase.FullTooltipNameId; // default
 
             // full
-            if (GameData.TryGetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId), out string fullDescription))
+            if (GameData.TryGetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId), out string fullDescription))
             {
                 abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription, Localization);
             }
 
             // short
-            if (GameData.TryGetGameString(DefaultData.ButtonSimpleDisplayText.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId), out string shortDescription))
+            if (GameData.TryGetGameString(DefaultData.ButtonData.ButtonSimpleDisplayText.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId), out string shortDescription))
             {
                 abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription, Localization);
             }
@@ -327,7 +327,7 @@ namespace HeroesData.Parser.XmlData
                             // check if overriding text starts with the energy text
                             if (!new TooltipDescription(DescriptionValidator.Validate(text)).PlainText.StartsWith(defaultEnergyValue))
                             {
-                                if (GameData.TryGetGameString(DefaultData.ButtonTooltipEnergyVitalName, out string energyText)) // default
+                                if (GameData.TryGetGameString(DefaultData.ButtonData.ButtonTooltipEnergyVitalName, out string energyText)) // default
                                 {
                                     overrideTextTemp = text;
                                     text = DescriptionValidator.Validate(energyText.Replace(DefaultData.ReplacementCharacter, text));
@@ -395,7 +395,7 @@ namespace HeroesData.Parser.XmlData
         private void StormButtonParentLookup(XElement buttonElement, AbilityTalentBase abilityTalentBase, Action<XElement, AbilityTalentBase> methodToExecute)
         {
             string parentValue = buttonElement.Attribute("parent")?.Value;
-            if (!string.IsNullOrEmpty(parentValue) && parentValue != DefaultData.CButtonDefaultBaseId)
+            if (!string.IsNullOrEmpty(parentValue) && parentValue != DefaultDataButton.CButtonDefaultBaseId)
             {
                 XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)

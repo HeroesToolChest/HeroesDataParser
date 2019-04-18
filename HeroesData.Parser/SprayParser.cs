@@ -82,7 +82,7 @@ namespace HeroesData.Parser
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.SprayDescription.Replace(DefaultData.IdPlaceHolder, sprayElement.Attribute("id")?.Value));
+                string desc = GameData.GetGameString(DefaultData.SprayData.SprayDescription.Replace(DefaultData.IdPlaceHolder, sprayElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
                     spray.Description = new TooltipDescription(desc);
             }
@@ -104,13 +104,13 @@ namespace HeroesData.Parser
                 else if (elementName == "RELEASEDATE")
                 {
                     if (!int.TryParse(element.Attribute("Day")?.Value, out int day))
-                        day = DefaultData.SprayReleaseDate.Day;
+                        day = DefaultData.SprayData.SprayReleaseDate.Day;
 
                     if (!int.TryParse(element.Attribute("Month")?.Value, out int month))
-                        month = DefaultData.SprayReleaseDate.Month;
+                        month = DefaultData.SprayData.SprayReleaseDate.Month;
 
                     if (!int.TryParse(element.Attribute("Year")?.Value, out int year))
-                        year = DefaultData.SprayReleaseDate.Year;
+                        year = DefaultData.SprayData.SprayReleaseDate.Year;
 
                     spray.ReleaseDate = new DateTime(year, month, day);
                 }
@@ -164,16 +164,16 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(Spray spray)
         {
-            spray.Name = GameData.GetGameString(DefaultData.SprayName.Replace(DefaultData.IdPlaceHolder, spray.Id));
-            spray.SortName = GameData.GetGameString(DefaultData.SpraySortName.Replace(DefaultData.IdPlaceHolder, spray.Id));
-            spray.Description = new TooltipDescription(GameData.GetGameString(DefaultData.SprayDescription.Replace(DefaultData.IdPlaceHolder, spray.Id)));
-            spray.HyperlinkId = DefaultData.SprayHyperlinkId.Replace(DefaultData.IdPlaceHolder, spray.Id);
-            spray.ReleaseDate = DefaultData.SprayReleaseDate;
+            spray.Name = GameData.GetGameString(DefaultData.SprayData.SprayName.Replace(DefaultData.IdPlaceHolder, spray.Id));
+            spray.SortName = GameData.GetGameString(DefaultData.SprayData.SpraySortName.Replace(DefaultData.IdPlaceHolder, spray.Id));
+            spray.Description = new TooltipDescription(GameData.GetGameString(DefaultData.SprayData.SprayDescription.Replace(DefaultData.IdPlaceHolder, spray.Id)));
+            spray.HyperlinkId = DefaultData.SprayData.SprayHyperlinkId.Replace(DefaultData.IdPlaceHolder, spray.Id);
+            spray.ReleaseDate = DefaultData.SprayData.SprayReleaseDate;
             spray.Rarity = Rarity.None;
-            spray.AnimationCount = DefaultData.SprayAnimationCount;
-            spray.AnimationDuration = DefaultData.SprayAnimationDuration;
+            spray.AnimationCount = DefaultData.SprayData.SprayAnimationCount;
+            spray.AnimationDuration = DefaultData.SprayData.SprayAnimationDuration;
 
-            spray.SearchText = GameData.GetGameString(DefaultData.SprayAdditionalSearchText.Replace(DefaultData.IdPlaceHolder, spray.Id));
+            spray.SearchText = GameData.GetGameString(DefaultData.SprayData.SprayAdditionalSearchText.Replace(DefaultData.IdPlaceHolder, spray.Id));
             if (!string.IsNullOrEmpty(spray.SearchText))
                 spray.SearchText = spray.SearchText.Trim();
         }

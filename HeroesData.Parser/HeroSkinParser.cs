@@ -81,7 +81,7 @@ namespace HeroesData.Parser
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.HeroSkinInfoText.Replace(DefaultData.IdPlaceHolder, skinElement.Attribute("id")?.Value));
+                string desc = GameData.GetGameString(DefaultData.HeroSkinData.HeroSkinInfoText.Replace(DefaultData.IdPlaceHolder, skinElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
                     heroSkin.Description = new TooltipDescription(desc);
             }
@@ -103,13 +103,13 @@ namespace HeroesData.Parser
                 else if (elementName == "RELEASEDATE")
                 {
                     if (!int.TryParse(element.Attribute("Day")?.Value, out int day))
-                        day = DefaultData.HeroSkinReleaseDate.Day;
+                        day = DefaultData.HeroSkinData.HeroSkinReleaseDate.Day;
 
                     if (!int.TryParse(element.Attribute("Month")?.Value, out int month))
-                        month = DefaultData.HeroSkinReleaseDate.Month;
+                        month = DefaultData.HeroSkinData.HeroSkinReleaseDate.Month;
 
                     if (!int.TryParse(element.Attribute("Year")?.Value, out int year))
-                        year = DefaultData.HeroSkinReleaseDate.Year;
+                        year = DefaultData.HeroSkinData.HeroSkinReleaseDate.Year;
 
                     heroSkin.ReleaseDate = new DateTime(year, month, day);
                 }
@@ -147,14 +147,14 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(HeroSkin heroSkin)
         {
-            heroSkin.Name = GameData.GetGameString(DefaultData.HeroSkinName.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));
-            heroSkin.SortName = GameData.GetGameString(DefaultData.HeroSkinSortName.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));
-            heroSkin.Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroSkinInfoText.Replace(DefaultData.IdPlaceHolder, heroSkin.Id)));
-            heroSkin.HyperlinkId = DefaultData.HeroSkinHyperlinkId.Replace(DefaultData.IdPlaceHolder, heroSkin.Id);
+            heroSkin.Name = GameData.GetGameString(DefaultData.HeroSkinData.HeroSkinName.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));
+            heroSkin.SortName = GameData.GetGameString(DefaultData.HeroSkinData.HeroSkinSortName.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));
+            heroSkin.Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroSkinData.HeroSkinInfoText.Replace(DefaultData.IdPlaceHolder, heroSkin.Id)));
+            heroSkin.HyperlinkId = DefaultData.HeroSkinData.HeroSkinHyperlinkId.Replace(DefaultData.IdPlaceHolder, heroSkin.Id);
             heroSkin.ReleaseDate = DefaultData.HeroData.HeroReleaseDate;
             heroSkin.Rarity = Rarity.None;
 
-            heroSkin.SearchText = GameData.GetGameString(DefaultData.HeroSkinAdditionalSearchText.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));
+            heroSkin.SearchText = GameData.GetGameString(DefaultData.HeroSkinData.HeroSkinAdditionalSearchText.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));
             if (!string.IsNullOrEmpty(heroSkin.SearchText))
                 heroSkin.SearchText = heroSkin.SearchText.Trim();
         }

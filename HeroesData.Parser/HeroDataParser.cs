@@ -603,7 +603,7 @@ namespace HeroesData.Parser
             {
                 if (!GameData.TryGetGameString(DefaultData.HeroData.UnitName.Replace(DefaultData.IdPlaceHolder, cUnitId), out string name))
                 {
-                    if (!GameData.TryGetGameString(DefaultData.ButtonName.Replace(DefaultData.IdPlaceHolder, cUnitId), out name))
+                    if (!GameData.TryGetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, cUnitId), out name))
                         name = cUnitId;
                 }
 

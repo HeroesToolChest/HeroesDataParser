@@ -78,24 +78,24 @@ namespace HeroesData.Parser.Tests
         [TestMethod]
         public void GetParsedGameStringTests()
         {
-            Assert.AreEqual(ParsedTooltip1, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AbathurToxicNestEnvenomedNestTalent")));
-            Assert.AreEqual(ParsedTooltip2, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AbathurSymbioteCarapace")));
-            Assert.AreEqual(ParsedTooltip3, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AnubarakBurrowChargeEpicenterTalent")));
-            Assert.AreEqual(ParsedTooltip4, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AnubarakHardenCarapaceShedExoskeletonTalent")));
-            Assert.AreEqual(ParsedTooltip5, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AnubarakNerubianArmor")));
-            Assert.AreEqual(ParsedTooltip6, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AzmodanAllShallBurn")));
-            Assert.AreEqual(ParsedTooltip7, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "LostVikingsVikingBribery")));
-            Assert.AreEqual(ParsedTooltip8, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "TyraelElDruinsMightHolyGroundTalent")));
-            Assert.AreEqual(ParsedTooltip9, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "ChenFortifyingBrewBrewmastersBalanceTalent")));
-            Assert.AreEqual(ParsedTooltip10, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "MuradinAvatar")));
-            Assert.AreEqual(ParsedTooltip11, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AzmodanDemonicInvasion")));
-            Assert.AreEqual(ParsedTooltip12, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "DVaBigShotPewPewPew")));
-            Assert.AreEqual(ParsedTooltip13, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "TyraelRighteousness")));
-            Assert.AreEqual(ParsedTooltip14, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "DemonHunterMultishot")));
-            Assert.AreEqual(ParsedTooltip15, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "ZaryaWeaponFeelTheHeatTalent")));
-            Assert.AreEqual(ParsedTooltip16, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "RagnarosMoltenCore")));
-            Assert.AreEqual(ParsedTooltip17, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AzmodanGreed")));
-            Assert.AreEqual(ParsedTooltip18, GameData.GetGameString(DefaultData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "DVaMechSelfDestruct")));
+            Assert.AreEqual(ParsedTooltip1, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AbathurToxicNestEnvenomedNestTalent")));
+            Assert.AreEqual(ParsedTooltip2, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AbathurSymbioteCarapace")));
+            Assert.AreEqual(ParsedTooltip3, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AnubarakBurrowChargeEpicenterTalent")));
+            Assert.AreEqual(ParsedTooltip4, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AnubarakHardenCarapaceShedExoskeletonTalent")));
+            Assert.AreEqual(ParsedTooltip5, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AnubarakNerubianArmor")));
+            Assert.AreEqual(ParsedTooltip6, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AzmodanAllShallBurn")));
+            Assert.AreEqual(ParsedTooltip7, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "LostVikingsVikingBribery")));
+            Assert.AreEqual(ParsedTooltip8, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "TyraelElDruinsMightHolyGroundTalent")));
+            Assert.AreEqual(ParsedTooltip9, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "ChenFortifyingBrewBrewmastersBalanceTalent")));
+            Assert.AreEqual(ParsedTooltip10, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "MuradinAvatar")));
+            Assert.AreEqual(ParsedTooltip11, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AzmodanDemonicInvasion")));
+            Assert.AreEqual(ParsedTooltip12, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "DVaBigShotPewPewPew")));
+            Assert.AreEqual(ParsedTooltip13, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "TyraelRighteousness")));
+            Assert.AreEqual(ParsedTooltip14, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "DemonHunterMultishot")));
+            Assert.AreEqual(ParsedTooltip15, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "ZaryaWeaponFeelTheHeatTalent")));
+            Assert.AreEqual(ParsedTooltip16, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "RagnarosMoltenCore")));
+            Assert.AreEqual(ParsedTooltip17, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AzmodanGreed")));
+            Assert.AreEqual(ParsedTooltip18, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "DVaMechSelfDestruct")));
         }
 
         private void PreParse()

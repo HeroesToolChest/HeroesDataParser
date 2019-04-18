@@ -77,7 +77,7 @@ namespace HeroesData.Parser
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.EmoticonDescription.Replace(DefaultData.IdPlaceHolder, emoticonElement.Attribute("id")?.Value));
+                string desc = GameData.GetGameString(DefaultData.EmoticonData.EmoticonDescription.Replace(DefaultData.IdPlaceHolder, emoticonElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
                     emoticon.Description = new TooltipDescription(desc);
             }
@@ -197,8 +197,8 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(Emoticon emoticon)
         {
-            emoticon.Name = DefaultData.EmoticonExpression;
-            emoticon.Description = new TooltipDescription(GameData.GetGameString(DefaultData.EmoticonDescription.Replace(DefaultData.IdPlaceHolder, emoticon.Id)));
+            emoticon.Name = DefaultData.EmoticonData.EmoticonExpression;
+            emoticon.Description = new TooltipDescription(GameData.GetGameString(DefaultData.EmoticonData.EmoticonDescription.Replace(DefaultData.IdPlaceHolder, emoticon.Id)));
 
             emoticon.Image.Index = 0;
             emoticon.Image.Width = 0;

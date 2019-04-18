@@ -106,9 +106,9 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(Portrait portrait)
         {
-            portrait.Name = GameData.GetGameString(DefaultData.PortraitName.Replace(DefaultData.IdPlaceHolder, portrait.Id));
-            portrait.SortName = GameData.GetGameString(DefaultData.PortraitSortName.Replace(DefaultData.IdPlaceHolder, portrait.Id));
-            portrait.HyperlinkId = DefaultData.PortraitHyperlinkId.Replace(DefaultData.IdPlaceHolder, portrait.Id);
+            portrait.Name = GameData.GetGameString(DefaultData.PortraitPackData.PortraitName.Replace(DefaultData.IdPlaceHolder, portrait.Id));
+            portrait.SortName = GameData.GetGameString(DefaultData.PortraitPackData.PortraitSortName.Replace(DefaultData.IdPlaceHolder, portrait.Id));
+            portrait.HyperlinkId = DefaultData.PortraitPackData.PortraitHyperlinkId.Replace(DefaultData.IdPlaceHolder, portrait.Id);
         }
     }
 }

@@ -94,7 +94,7 @@ namespace HeroesData.Parser
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.VoiceLineDescription.Replace(DefaultData.IdPlaceHolder, voiceLineElement.Attribute("id")?.Value));
+                string desc = GameData.GetGameString(DefaultData.VoiceLineData.VoiceLineDescription.Replace(DefaultData.IdPlaceHolder, voiceLineElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
                     voiceLine.Description = new TooltipDescription(desc);
             }
@@ -116,13 +116,13 @@ namespace HeroesData.Parser
                 else if (elementName == "RELEASEDATE")
                 {
                     if (!int.TryParse(element.Attribute("Day")?.Value, out int day))
-                        day = DefaultData.SprayReleaseDate.Day;
+                        day = DefaultData.VoiceLineData.VoiceLineReleaseDate.Day;
 
                     if (!int.TryParse(element.Attribute("Month")?.Value, out int month))
-                        month = DefaultData.SprayReleaseDate.Month;
+                        month = DefaultData.VoiceLineData.VoiceLineReleaseDate.Month;
 
                     if (!int.TryParse(element.Attribute("Year")?.Value, out int year))
-                        year = DefaultData.SprayReleaseDate.Year;
+                        year = DefaultData.VoiceLineData.VoiceLineReleaseDate.Year;
 
                     voiceLine.ReleaseDate = new DateTime(year, month, day);
                 }
@@ -155,11 +155,11 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(VoiceLine voiceLine)
         {
-            voiceLine.Name = GameData.GetGameString(DefaultData.VoiceLineName.Replace(DefaultData.IdPlaceHolder, voiceLine.Id));
-            voiceLine.SortName = GameData.GetGameString(DefaultData.VoiceLineSortName.Replace(DefaultData.IdPlaceHolder, voiceLine.Id));
-            voiceLine.Description = new TooltipDescription(GameData.GetGameString(DefaultData.VoiceLineDescription.Replace(DefaultData.IdPlaceHolder, voiceLine.Id)));
+            voiceLine.Name = GameData.GetGameString(DefaultData.VoiceLineData.VoiceLineName.Replace(DefaultData.IdPlaceHolder, voiceLine.Id));
+            voiceLine.SortName = GameData.GetGameString(DefaultData.VoiceLineData.VoiceLineSortName.Replace(DefaultData.IdPlaceHolder, voiceLine.Id));
+            voiceLine.Description = new TooltipDescription(GameData.GetGameString(DefaultData.VoiceLineData.VoiceLineDescription.Replace(DefaultData.IdPlaceHolder, voiceLine.Id)));
             voiceLine.HyperlinkId = string.Empty;
-            voiceLine.ReleaseDate = DefaultData.VoiceLineReleaseDate;
+            voiceLine.ReleaseDate = DefaultData.VoiceLineData.VoiceLineReleaseDate;
         }
     }
 }
