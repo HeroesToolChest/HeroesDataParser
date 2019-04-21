@@ -20,6 +20,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         private DefaultData DefaultData;
         private GameStringParser GameStringParser;
         private HeroOverrideLoader HeroOverrideLoader;
+        private Configuration Configuration;
 
         public HeroDataParserBaseTest()
         {
@@ -61,7 +62,10 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             GameData = new FileGameData(ModsTestFolder);
             GameData.LoadAllData();
 
-            GameStringParser = new GameStringParser(GameData);
+            Configuration = new Configuration();
+            Configuration.Load();
+
+            GameStringParser = new GameStringParser(Configuration, GameData);
             ParseGameStrings();
 
             DefaultData = new DefaultData(GameData);

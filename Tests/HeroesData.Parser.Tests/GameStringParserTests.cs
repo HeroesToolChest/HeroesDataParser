@@ -13,6 +13,7 @@ namespace HeroesData.Parser.Tests
         private readonly GameData GameData;
         private readonly DefaultData DefaultData;
         private readonly GameStringParser GameStringParser;
+        private readonly Configuration Configuration;
 
         private readonly string ModsTestFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestData", "mods");
         private readonly string DataReferenceText1 = "<d ref=\"100*Talent,AnubarakMasteryEpicenterBurrowCharge,AbilityModificationArray[0].Modifications[2].Value\"/>";
@@ -47,7 +48,10 @@ namespace HeroesData.Parser.Tests
             GameData = new FileGameData(ModsTestFolder);
             GameData.LoadAllData();
 
-            GameStringParser = new GameStringParser(GameData);
+            Configuration = new Configuration();
+            Configuration.Load();
+
+            GameStringParser = new GameStringParser(Configuration, GameData);
             PreParse();
 
             DefaultData = new DefaultData(GameData);

@@ -23,6 +23,11 @@ namespace HeroesData
     {
         private readonly List<DataProcessor> DataProcessors = new List<DataProcessor>();
 
+        private GameData GameData;
+        private DefaultData DefaultData;
+        private XmlDataOverriders XmlDataOverriders;
+        private Configuration Configuration;
+
         /// <summary>
         /// Gets the product version of the application.
         /// </summary>
@@ -51,12 +56,8 @@ namespace HeroesData
 
         public static HashSet<string> ValidationIgnoreLines { get; } = new HashSet<string>();
 
-        public GameData GameData { get; set; }
-        public DefaultData DefaultData { get; set; }
-        public XmlDataOverriders XmlDataOverriders { get; set; }
-
-        public StorageMode StorageMode { get; set; } = StorageMode.None;
-        public CASCHotsStorage CASCHotsStorage { get; set; } = null;
+        public StorageMode StorageMode { get; private set; } = StorageMode.None;
+        public CASCHotsStorage CASCHotsStorage { get; private set; } = null;
         public List<Localization> Localizations { get; set; } = new List<Localization>();
 
         /// <summary>
@@ -234,6 +235,7 @@ namespace HeroesData
 
         private void PreInitialize()
         {
+            LoadConfiguration();
             OutputTypeCheck();
             DetectStoragePathType();
             Console.Write($"Localization(s): ");
@@ -359,7 +361,7 @@ namespace HeroesData
 
             Stopwatch time = new Stopwatch();
 
-            GameStringParser gameStringParser = new GameStringParser(GameData, HotsBuild);
+            GameStringParser gameStringParser = new GameStringParser(Configuration, GameData, HotsBuild);
 
             Console.WriteLine($"Parsing gamestrings...");
 
@@ -412,6 +414,20 @@ namespace HeroesData
                 Console.WriteLine();
                 Console.ResetColor();
             }
+        }
+
+        private void LoadConfiguration()
+        {
+            Configuration = new Configuration();
+            if (!Configuration.ConfigFileExists())
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"{Configuration.ConfigFileName} not found. Unable to continue.");
+                Console.ResetColor();
+                Environment.Exit(1);
+            }
+
+            Configuration.Load();
         }
 
         /// <summary>

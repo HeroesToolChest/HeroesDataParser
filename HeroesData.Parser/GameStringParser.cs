@@ -4,7 +4,6 @@ using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -15,25 +14,34 @@ namespace HeroesData.Parser.GameStrings
     {
         private readonly int? HotsBuild;
         private readonly GameData GameData;
-        private readonly ParserHelper ParserHelper;
-
-        private readonly DataTable DataTable = new DataTable();
-
-        private Dictionary<string, HashSet<string>> ElementNames = new Dictionary<string, HashSet<string>>();
+        private readonly Configuration Configuration;
 
         public GameStringParser(GameData gameData)
         {
+            Configuration = new Configuration();
             GameData = gameData;
-            ParserHelper = ParserHelper.Load();
-            SetValidElementNames();
+
         }
 
         public GameStringParser(GameData gameData, int? hotsBuild)
         {
+            Configuration = new Configuration();
             GameData = gameData;
             HotsBuild = hotsBuild;
-            ParserHelper = ParserHelper.Load(hotsBuild);
-            SetValidElementNames();
+
+        }
+
+        public GameStringParser(Configuration configuration, GameData gameData)
+        {
+            GameData = gameData;
+            Configuration = configuration;
+        }
+
+        public GameStringParser(Configuration configuration, GameData gameData, int? hotsBuild)
+        {
+            Configuration = configuration;
+            GameData = gameData;
+            HotsBuild = hotsBuild;
         }
 
         /// <summary>
@@ -55,7 +63,7 @@ namespace HeroesData.Parser.GameStrings
 
             try
             {
-                parsedTooltip = ParseTooltip(key, tooltip);
+                parsedTooltip = ParseTooltip(tooltip);
 
                 // unable to parse correctly, returns an empty string
                 if (string.IsNullOrEmpty(parsedTooltip) || parsedTooltip.Contains("<d ", StringComparison.OrdinalIgnoreCase))
@@ -88,7 +96,7 @@ namespace HeroesData.Parser.GameStrings
             return ParseDataReferenceString(dRef);
         }
 
-        private string ParseTooltip(string referenceNameId, string tooltip)
+        private string ParseTooltip(string tooltip)
         {
             tooltip = Regex.Replace(tooltip, @"<d score=.*?/>", "0");
             tooltip = Regex.Replace(tooltip, "<d\\s+ref\\s*=\\s*\"", "<d ref=\"", RegexOptions.IgnoreCase);
@@ -98,10 +106,10 @@ namespace HeroesData.Parser.GameStrings
             {
                 while (tooltip.Contains("[d ref=", StringComparison.OrdinalIgnoreCase))
                 {
-                    tooltip = ParseGameString(referenceNameId, tooltip, "(\\[d ref=\".*?/\\])", true);
+                    tooltip = ParseGameString(tooltip, "(\\[d ref=\".*?/\\])", true);
                 }
 
-                return ParseGameString(referenceNameId, tooltip, "(<d ref=\".*?/>|<d const=\".*?/>)", false);
+                return ParseGameString(tooltip, "(<d ref=\".*?/>|<d const=\".*?/>)", false);
             }
             else // no values to look up
             {
@@ -109,7 +117,7 @@ namespace HeroesData.Parser.GameStrings
             }
         }
 
-        private string ParseGameString(string referenceNameId, string tooltip, string splitter, bool nestedTooltip)
+        private string ParseGameString(string tooltip, string splitter, bool nestedTooltip)
         {
             if (nestedTooltip)
             {
@@ -338,7 +346,7 @@ namespace HeroesData.Parser.GameStrings
         private string ReadData(List<string> parts, List<string> scalingParts, out double? scaling)
         {
             scaling = null;
-            string value = string.Empty;
+            string value;
 
             if (parts[0].StartsWith("$"))
                 value = GameData.GetValueFromAttribute(parts[0]);
@@ -350,18 +358,13 @@ namespace HeroesData.Parser.GameStrings
 
             if (string.IsNullOrEmpty(value))
             {
-                // check each part value to see if we can find one
-                foreach (var (name, partIndex, partValue) in ParserHelper.PartValueByPartName)
+                // see if we can find a default value
+                foreach ((string part, string partValue) in Configuration.GamestringDefaultValues(parts.Last()))
                 {
-                    if (partIndex == "last" && parts.Last() == name)
-                    {
+                    if (part == "last")
                         return partValue;
-                    }
-                    else if (int.TryParse(partIndex, out int partIndexInt))
-                    {
-                        if (parts.Count > partIndexInt && parts[partIndexInt] == name)
-                            return partValue;
-                    }
+                    else if (int.TryParse(part, out int partAsInt) && parts.Count() > partAsInt && parts[partAsInt] == parts.Last())
+                        return partValue;
                 }
             }
 
@@ -373,17 +376,17 @@ namespace HeroesData.Parser.GameStrings
             XElement currentElement = null;
             parent = null;
 
-            if (!ElementNames.ContainsKey(parts[0]))
-                return string.Empty;
-
-            var validElementNames = ElementNames[parts[0]];
-            if (validElementNames.Count < 1)
-                return string.Empty;
-
-            IEnumerable<XElement> elements = GameData.Elements(validElementNames.First()).Where(x => x.Attribute("id")?.Value == parts[1]);
-            for (int i = 1; i < validElementNames.Count(); i++)
+            IEnumerable<string> xmlElementNames = Configuration.GamestringXmlElements(parts[0]);
+            if (xmlElementNames == null || !xmlElementNames.Any())
             {
-                elements = elements.Concat(GameData.Elements(validElementNames.ElementAt(i)).Where(x => x.Attribute("id")?.Value == parts[1]));
+                throw new UnknownXmlElementException($"Element \"{parts[0]}\" not found. Add in config.xml in XmlElementLookup section to proceed with parsing.");
+            }
+
+            IEnumerable<XElement> elements = new List<XElement>();
+
+            foreach (string elementName in xmlElementNames)
+            {
+                elements = elements.Concat(GameData.Elements(elementName).Where(x => x.Attribute("id")?.Value == parts[1]));
             }
 
             elements = elements.Reverse();
@@ -546,7 +549,6 @@ namespace HeroesData.Parser.GameStrings
 
             int start = 0;
             int end = pathLookup.Length - 1;
-            char startChar = pathLookup.Span[start];
             char endChar = pathLookup.Span[end];
 
             while ((start < end) && (endChar == ' ' || endChar == '"'))
@@ -560,22 +562,6 @@ namespace HeroesData.Parser.GameStrings
             }
 
             return pathLookup.Slice(start, end - start + 1);
-        }
-
-        private void SetValidElementNames()
-        {
-            ElementNames.Add("Behavior", new HashSet<string> { "CBehaviorBuff", "CBehaviorTokenCounter", "CBehaviorUnitTracker" });
-            ElementNames.Add("Abil", new HashSet<string> { "CAbilEffectTarget", "CAbilEffectInstant", "CAbilAugment", "CAbilBehavior" });
-            ElementNames.Add("Effect", new HashSet<string> { "CEffectDamage", "CEffectEnumArea", "CEffectCreateHealer", "CEffectModifyUnit", "CEffectCreatePersistent", "CEffectModifyPlayer",
-                "CEffectModifyTokenCount", "CEffectApplyBehavior", "CEffectModifyBehaviorBuffDuration", "CEffectModifyCatalogNumeric", "CEffectLaunchMissile", "CEffectCreateUnit", "CEffectRemoveBehavior", });
-            ElementNames.Add("Unit", new HashSet<string> { "CUnit" });
-            ElementNames.Add("Talent", new HashSet<string> { "CTalent" });
-            ElementNames.Add("Validator", new HashSet<string> { "CValidatorUnitCompareVital", "CValidatorLocationEnumArea", "CValidatorUnitCompareTokenCount", "CValidatorCompareTrackedUnitsCount", "CValidatorUnitCompareDamageTakenTime",
-                "CValidatorUnitCompareBehaviorCount", "CValidatorUnitCompareBehaviorDuration", "CValidatorLocationCompareRange", });
-            ElementNames.Add("Accumulator", new HashSet<string> { "CAccumulatorToken", "CAccumulatorVitals", "CBehaviorTokenCounter", "CAccumulatorTimed", "CAccumulatorDistanceUnitTraveled", "CAccumulatorDistance", "CAccumulatorTrackedUnitCount" });
-            ElementNames.Add("Weapon", new HashSet<string> { "CWeaponLegacy" });
-            ElementNames.Add("Actor", new HashSet<string> { "CActorQuad", "CActorRange" });
-            ElementNames.Add("Armor", new HashSet<string> { "CArmor" });
         }
     }
 }

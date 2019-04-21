@@ -19,10 +19,12 @@
     <ProjectReference Include="..\HeroesData.Loader\HeroesData.Loader.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="parserhelper.xml">
+    <None Update="dataoverrides\*.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="dataoverrides\*.xml">
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="config.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -11,8 +11,8 @@ namespace HeroesData
     {
         private readonly string StoragePath;
 
-        private ManualResetEvent ResetEvent = new ManualResetEvent(false);
-        private BackgroundWorkerEx BackgroundWorker = new BackgroundWorkerEx();
+        private readonly ManualResetEvent ResetEvent = new ManualResetEvent(false);
+        private readonly BackgroundWorkerEx BackgroundWorker = new BackgroundWorkerEx();
 
         private CASCHotsStorage(string storagePath)
         {

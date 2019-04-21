@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  <!--~~~~~~~~~~~~~~~~~TEST FILE~~~~~~~~~~~~~~~~~-->
+  <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  
+  <!--Used for completing game string parsing by providing a default value-->
+  <ParserHelper>
+    <Id name="AttributeFactor[Heroic]" part="last" value="0" />
+    <Id name="AttributeFactor[Structure]" part="last" value="0" />
+    <Id name="ModifyFraction" part="last" value="1" />
+    <Id name="Ratio" part="last" value="1" />
+    <Id name="Count" part="last" value="1" />
+    <Id name="MaxStackCount" part="last" value="1" />
+    <Id name="SpawnCount" part="last" value="1" />
+    <Id name="Scale" part="last" value="1" />
+    <Id name="Period" part="last" value="1" />
+    <Id name="CooldownTimeUse" part="last" value="1" />
+    <Id name="Modifier" part="last" value="0" />
+    <Id name="ExpireDelay" part="last" value="0" />
+  </ParserHelper>
+
+  <!--Gamestring parsing lookup for the correct element based on the type-->
+  <XmlElementLookup>
+    <Type name="Behavior">
+      <Element>CBehaviorBuff</Element>
+      <Element>CBehaviorTokenCounter</Element>
+      <Element>CBehaviorUnitTracker</Element>
+    </Type>
+    <Type name="Abil">
+      <Element>CAbilEffectTarget</Element>
+      <Element>CAbilEffectInstant</Element>
+      <Element>CAbilAugment</Element>
+      <Element>CAbilBehavior</Element>
+    </Type>
+    <Type name="Effect">
+      <Element>CEffectDamage</Element>
+      <Element>CEffectEnumArea</Element>
+      <Element>CEffectCreateHealer</Element>
+      <Element>CEffectModifyUnit</Element>
+      <Element>CEffectCreatePersistent</Element>
+      <Element>CEffectModifyPlayer</Element>
+      <Element>CEffectModifyTokenCount</Element>
+      <Element>CEffectApplyBehavior</Element>
+      <Element>CEffectModifyBehaviorBuffDuration</Element>
+      <Element>CEffectModifyCatalogNumeric</Element>
+      <Element>CEffectLaunchMissile</Element>
+      <Element>CEffectCreateUnit</Element>
+      <Element>CEffectRemoveBehavior</Element>
+    </Type>
+    <Type name="Unit">
+      <Element>CUnit</Element>
+    </Type>
+    <Type name="Talent">
+      <Element>CTalent</Element>
+    </Type>
+    <Type name="Validator">
+      <Element>CValidatorUnitCompareVital</Element>
+      <Element>CValidatorLocationEnumArea</Element>
+      <Element>CValidatorUnitCompareTokenCount</Element>
+      <Element>CValidatorCompareTrackedUnitsCount</Element>
+      <Element>CValidatorUnitCompareDamageTakenTime</Element>
+      <Element>CValidatorUnitCompareBehaviorCount</Element>
+      <Element>CValidatorUnitCompareBehaviorDuration</Element>
+      <Element>CValidatorLocationCompareRange</Element>
+    </Type>
+    <Type name="Accumulator">
+      <Element>CAccumulatorToken</Element>
+      <Element>CAccumulatorVitals</Element>
+      <Element>CAccumulatorTimed</Element>
+      <Element>CAccumulatorDistanceUnitTraveled</Element>
+      <Element>CAccumulatorDistance</Element>
+      <Element>CAccumulatorTrackedUnitCount</Element>
+    </Type>
+    <Type name="Weapon">
+      <Element>CWeaponLegacy</Element>
+    </Type>
+    <Type name="Actor">
+      <Element>CActorQuad</Element>
+      <Element>CActorRange</Element>
+    </Type>
+    <Type name="Armor">
+      <Element>CArmor</Element>
+    </Type>
+  </XmlElementLookup>
+  
+  <!--Adds additional elements when retrieving elements for parsing-->
+  <DataParser>
+    <CUnit id="VolskayaVehicleGunner" />
+    <CUnit id="VolskayaVehicleGunner" />
+    <CUnit id="Chromie" />
+    <CUnit id="Tower" />
+    <CHero id="Tree" />
+    <CHero id="PlasmaRifle" />
+    <CHero id="Infernos" />
+  </DataParser>
+</Configuration>
