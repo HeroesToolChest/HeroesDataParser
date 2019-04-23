@@ -4,6 +4,7 @@ using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -20,7 +21,6 @@ namespace HeroesData.Parser.GameStrings
         {
             Configuration = new Configuration();
             GameData = gameData;
-
         }
 
         public GameStringParser(GameData gameData, int? hotsBuild)
@@ -28,7 +28,6 @@ namespace HeroesData.Parser.GameStrings
             Configuration = new Configuration();
             GameData = gameData;
             HotsBuild = hotsBuild;
-
         }
 
         public GameStringParser(Configuration configuration, GameData gameData)
@@ -64,26 +63,25 @@ namespace HeroesData.Parser.GameStrings
             try
             {
                 parsedTooltip = ParseTooltip(tooltip);
-
-                // unable to parse correctly, returns an empty string
-                if (string.IsNullOrEmpty(parsedTooltip) || parsedTooltip.Contains("<d ", StringComparison.OrdinalIgnoreCase))
-                {
-                    parsedTooltip = string.Empty;
-                    return false;
-                }
-
-                return true;
             }
-            catch (UnparseableException)
+            catch (Exception ex) when (ex is FormatException || ex is SyntaxErrorException || ex is IndexOutOfRangeException)
             {
                 parsedTooltip = string.Empty;
                 return false;
             }
-            catch (Exception)
+            catch (GameStringParseException ex)
+            {
+                throw new GameStringParseException($"Failed to parse {key}. {ex.Message}", ex);
+            }
+
+            // unable to parse correctly, returns an empty string
+            if (string.IsNullOrEmpty(parsedTooltip) || parsedTooltip.Contains("<d ", StringComparison.OrdinalIgnoreCase))
             {
                 parsedTooltip = string.Empty;
                 return false;
             }
+
+            return true;
         }
 
         /// <summary>
@@ -346,12 +344,12 @@ namespace HeroesData.Parser.GameStrings
         private string ReadData(List<string> parts, List<string> scalingParts, out double? scaling)
         {
             scaling = null;
-            string value;
+            string value = string.Empty;
 
             if (parts[0].StartsWith("$"))
                 value = GameData.GetValueFromAttribute(parts[0]);
-            else
-                value = ReadGameData(parts, null);
+            else if (parts.Count > 2)
+                value = ReadXmlGameData(parts, null);
 
             if (scalingParts.Count == 3)
                 scaling = GetScalingInfo(scalingParts[0], scalingParts[1], scalingParts[2]);
@@ -371,7 +369,7 @@ namespace HeroesData.Parser.GameStrings
             return value;
         }
 
-        private string ReadGameData(List<string> parts, XAttribute parent)
+        private string ReadXmlGameData(List<string> parts, XAttribute parent)
         {
             XElement currentElement = null;
             parent = null;
@@ -379,14 +377,28 @@ namespace HeroesData.Parser.GameStrings
             IEnumerable<string> xmlElementNames = Configuration.GamestringXmlElements(parts[0]);
             if (xmlElementNames == null || !xmlElementNames.Any())
             {
-                throw new UnknownXmlElementException($"Element \"{parts[0]}\" not found. Add in config.xml in XmlElementLookup section to proceed with parsing.");
+                IEnumerable<string> foundElements = GameData.XmlGameData.Root.Elements().Where(x => x.Attribute("id")?.Value == parts[1])?.Select(x => x.Name.LocalName);
+                if (foundElements.Any())
+                {
+                    throw new GameStringParseException($"The element type \"{parts[0]}\" was not found in the configuration file. The following elements were found for the missing type: {string.Join(',', foundElements)}." +
+                        $" Try adding these to the config.xml file XmlElementLookup section for the missing type.");
+                }
             }
 
             IEnumerable<XElement> elements = new List<XElement>();
 
             foreach (string elementName in xmlElementNames)
             {
-                elements = elements.Concat(GameData.Elements(elementName).Where(x => x.Attribute("id")?.Value == parts[1]));
+                elements = GameData.Elements(elementName).Where(x => x.Attribute("id")?.Value == parts[1]);
+                if (elements.Any())
+                    break;
+            }
+
+            if (!elements.Any())
+            {
+                IEnumerable<string> elementDifference = GameData.XmlGameData.Root.Elements().Where(x => x.Attribute("id")?.Value == parts[1]).Select(x => x.Name.LocalName).Except(xmlElementNames);
+                if (elementDifference.Any())
+                    throw new GameStringParseException($"No elements were found for the type \"{parts[0]}\". Try adding the following element(s) to the \"{parts[0]}\" type in the config.xml file XmlElementLookup section: {string.Join(',', elementDifference)}.");
             }
 
             elements = elements.Reverse();
@@ -456,7 +468,7 @@ namespace HeroesData.Parser.GameStrings
                     parts[1] = parent.Value;
 
                     // look up the parent in the same file
-                    string value = ReadGameData(parts, parent);
+                    string value = ReadXmlGameData(parts, parent);
                     if (!string.IsNullOrEmpty(value))
                         return value;
                 }

@@ -187,7 +187,7 @@ namespace HeroesData.Parser.XmlData
             XElement abilityElement = GameData.MergeXmlElements(GameData.Elements(elementName).Where(x => x.Attribute("id")?.Value == id));
 
             if (abilityElement == null)
-                throw new ParseException($"{nameof(AddLinkedAbility)}: Additional link ability element not found - <{elementName} id=\"{id}\">");
+                throw new XmlGameDataParseException($"{nameof(AddLinkedAbility)}: Additional link ability element not found - <{elementName} id=\"{id}\">");
 
             ability.ReferenceNameId = id;
             ability.FullTooltipNameId = id;
@@ -232,7 +232,7 @@ namespace HeroesData.Parser.XmlData
                 XElement cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == parent));
 
                 if (cButtonElement == null)
-                    throw new ParseException($"Could not find the following element <CButton id=\"{ability.FullTooltipNameId}\" parent=\"{parent}\">");
+                    throw new XmlGameDataParseException($"Could not find the following element <CButton id=\"{ability.FullTooltipNameId}\" parent=\"{parent}\">");
 
                 SetAbilityType(unit, ability);
 
@@ -315,7 +315,7 @@ namespace HeroesData.Parser.XmlData
             else if (Enum.TryParse(slot, true, out AbilityType abilityType))
                 ability.AbilityType = abilityType;
             else
-                throw new ParseException($"Unknown slot type ({slot}) - CUnit: {unit.CUnitId} - Ability: {ability.ReferenceNameId}");
+                throw new XmlGameDataParseException($"Unknown slot type ({slot}) - CUnit: {unit.CUnitId} - Ability: {ability.ReferenceNameId}");
         }
 
         private void SetTalentIdUpgrades(XElement buttonElement, Ability ability)

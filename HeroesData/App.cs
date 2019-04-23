@@ -5,6 +5,7 @@ using HeroesData.ExtractorImages;
 using HeroesData.FileWriter;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser;
+using HeroesData.Parser.Exceptions;
 using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.Overrides;
 using HeroesData.Parser.XmlData;
@@ -72,8 +73,18 @@ namespace HeroesData
                 if (!string.IsNullOrEmpty(ex.Message))
                     writer.Write(ex.Message);
 
-                if (!string.IsNullOrEmpty(ex.StackTrace))
-                    writer.Write(ex.StackTrace);
+                if (ex is AggregateException)
+                {
+                    foreach (Exception exception in ((AggregateException)ex).InnerExceptions)
+                    {
+                        writer.Write(ex);
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(ex.StackTrace))
+                        writer.Write(ex.StackTrace);
+                }
             }
         }
 
@@ -110,98 +121,86 @@ namespace HeroesData
                 {
                     options.Localization = localization;
 
-                    try
+                    FileOutput fileOutput = new FileOutput(HotsBuild, options);
+
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine($"[{localization.GetFriendlyName()}]");
+                    Console.ResetColor();
+
+                    LoadGameStrings(localization);
+
+                    // parse gamestrings
+                    ParseGameStrings(localization);
+
+                    // parse data
+                    DataProcessor((parser) =>
                     {
-                        FileOutput fileOutput = new FileOutput(HotsBuild, options);
+                        parser.ParsedItems = parser.Parse(localization);
+                    });
 
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.WriteLine($"[{localization.GetFriendlyName()}]");
-                        Console.ResetColor();
+                    // validate
+                    Console.WriteLine("Validating data...");
+                    DataProcessor((parser) =>
+                    {
+                        parser.Validate(localization);
+                    });
 
-                        LoadGameStrings(localization);
-
-                        // parse gamestrings
-                        ParseGameStrings(localization);
-
-                        // parse data
-                        DataProcessor((parser) =>
-                        {
-                            parser.ParsedItems = parser.Parse(localization);
-                        });
-
-                        // validate
-                        Console.WriteLine("Validating data...");
-                        DataProcessor((parser) =>
-                        {
-                            parser.Validate(localization);
-                        });
-
-                        if (!ShowValidationWarnings)
-                            Console.WriteLine();
-
-                        // write
-                        Console.WriteLine("Creating output file(s)...");
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.WriteLine($"Directory: {options.OutputDirectory}");
-                        Console.ResetColor();
-                        DataProcessor((parser) =>
-                        {
-                            if (CreateJson)
-                            {
-                                Console.Write($"[{parser.Name}] Writing json file(s)...");
-
-                                if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Json))
-                                {
-                                    Console.WriteLine("Done.");
-                                }
-                                else
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("Failed.");
-                                }
-                            }
-
-                            if (CreateXml)
-                            {
-                                Console.Write($"[{parser.Name}] Writing xml file(s)...");
-                                if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Xml))
-                                {
-                                    Console.WriteLine("Done.");
-                                }
-                                else
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("Failed.");
-                                }
-                            }
-
-                            Console.ResetColor();
-                        });
-
+                    if (!ShowValidationWarnings)
                         Console.WriteLine();
 
-                        if (ExtractFileOption != ExtractImageOption.None)
+                    // write
+                    Console.WriteLine("Creating output file(s)...");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine($"Directory: {options.OutputDirectory}");
+                    Console.ResetColor();
+                    DataProcessor((parser) =>
+                    {
+                        if (CreateJson)
                         {
-                            Console.WriteLine("Extracting files...");
-                            DataProcessor((parser) =>
-                            {
-                                parser.Extract?.Invoke(parser.ParsedItems);
-                            });
+                            Console.Write($"[{parser.Name}] Writing json file(s)...");
 
-                            Console.WriteLine();
+                            if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Json))
+                            {
+                                Console.WriteLine("Done.");
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Failed.");
+                            }
                         }
 
-                        totalLocaleSuccess++;
-                    }
-                    catch (Exception ex)
-                    {
-                        // catch and display error and continue on
-                        WriteExceptionLog("Error", ex);
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine(ex.Message);
-                        Console.WriteLine();
+                        if (CreateXml)
+                        {
+                            Console.Write($"[{parser.Name}] Writing xml file(s)...");
+                            if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Xml))
+                            {
+                                Console.WriteLine("Done.");
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Failed.");
+                            }
+                        }
+
                         Console.ResetColor();
+                    });
+
+                    Console.WriteLine();
+
+                    if (ExtractFileOption != ExtractImageOption.None)
+                    {
+                        Console.WriteLine("Extracting files...");
+                        DataProcessor((parser) =>
+                        {
+                            parser.Extract?.Invoke(parser.ParsedItems);
+                        });
+
+                        Console.WriteLine();
                     }
+
+                    totalLocaleSuccess++;
                 }
 
                 if (totalLocaleSuccess == Localizations.Count)
@@ -238,6 +237,7 @@ namespace HeroesData
             LoadConfiguration();
             OutputTypeCheck();
             DetectStoragePathType();
+
             Console.Write($"Localization(s): ");
             Localizations.ForEach(locale => { Console.Write($"{locale.ToString().ToLower()} "); });
             Console.WriteLine();
@@ -267,8 +267,8 @@ namespace HeroesData
                 }
                 catch (Exception ex)
                 {
-                    WriteExceptionLog("hots", ex);
-                    throw new CASCException("Error: Could not load the Heroes of the Storm data. Check if game is installed correctly.");
+                    WriteExceptionLog("casc_storage_loader", ex);
+                    ConsoleExceptionMessage("Error: Could not load the Heroes of the Storm data. Check if game is installed correctly.");
                 }
 
                 Console.WriteLine();
@@ -297,12 +297,8 @@ namespace HeroesData
             }
             catch (DirectoryNotFoundException ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ex.Message);
-                Console.WriteLine();
-
-                Console.ResetColor();
-                Environment.Exit(1);
+                WriteExceptionLog("gamedata_loader_", ex);
+                ConsoleExceptionMessage(ex);
             }
 
             time.Stop();
@@ -369,20 +365,37 @@ namespace HeroesData
 
             Console.Write($"\r{currentCount,6} / {GameData.GameStringCount} total gamestrings");
 
-            Parallel.ForEach(GameData.GetGameStringIds(), new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, gamestringId =>
+            try
             {
-                if (gameStringParser.TryParseRawTooltip(gamestringId, GameData.GetGameString(gamestringId), out string parsedGamestring))
+                Parallel.ForEach(GameData.GetGameStringIds(), new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, gamestringId =>
                 {
-                    GameData.AddGameString(gamestringId, parsedGamestring);
-                }
-                else
-                {
-                    failedGameStrings.Add($"{gamestringId}={GameData.GetGameString(gamestringId)}");
-                    Interlocked.Increment(ref failedCount);
-                }
+                    if (gameStringParser.TryParseRawTooltip(gamestringId, GameData.GetGameString(gamestringId), out string parsedGamestring))
+                    {
+                        GameData.AddGameString(gamestringId, parsedGamestring);
+                    }
+                    else
+                    {
+                        failedGameStrings.Add($"{gamestringId}={GameData.GetGameString(gamestringId)}");
+                        Interlocked.Increment(ref failedCount);
+                    }
 
-                Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {GameData.GameStringCount} total gamestrings");
-            });
+                    Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {GameData.GameStringCount} total gamestrings");
+                });
+            }
+            catch (AggregateException ae)
+            {
+                WriteExceptionLog($"gamestrings_{localization.ToString().ToLower()}", ae);
+
+                ae.Handle(ex =>
+                {
+                    if (ex is GameStringParseException)
+                    {
+                        ConsoleExceptionMessage($"{Environment.NewLine}{ex.Message}");
+                    }
+
+                    return ex is GameStringParseException;
+                });
+            }
 
             Console.WriteLine();
 
@@ -572,9 +585,9 @@ namespace HeroesData
             }
             catch (Exception ex) when (ex is DirectoryNotFoundException || ex is FileNotFoundException)
             {
-                WriteExceptionLog($"gamestrings_{localization.ToString().ToLower()}", ex);
+                WriteExceptionLog($"gamestrings_loader_{localization.ToString().ToLower()}", ex);
 
-                throw new Exception("Error: Gamestrings could not be loaded. Check if localization is installed in the game client.");
+                ConsoleExceptionMessage($"Gamestrings could not be loaded. Check if localization is installed in the game client.");
             }
         }
 
@@ -607,6 +620,30 @@ namespace HeroesData
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Writes a message to the console. Will change the text to read and then shutdown the application with exit code 1.
+        /// </summary>
+        /// <param name="message">The message to outptut.</param>
+        private void ConsoleExceptionMessage(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ResetColor();
+            Environment.Exit(1);
+        }
+
+        /// <summary>
+        /// Writes a message to the console. Will change the text to read and then shutdown the application with exit code 1.
+        /// </summary>
+        /// <param name="message">The message to outptut.</param>
+        private void ConsoleExceptionMessage(Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(ex);
+            Console.ResetColor();
+            Environment.Exit(1);
         }
 
         private void DataProcessor(Action<DataProcessor> action)

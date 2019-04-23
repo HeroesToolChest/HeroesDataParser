@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
+  <Shield id="LaserCannon">   
+  </Shield>
   <CBehaviorBuff id="CalldownMULETimedLife">
     <Duration value="40" />
     <FinalEffect value="StormSuicide" />

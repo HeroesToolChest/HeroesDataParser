@@ -52,7 +52,7 @@ namespace HeroesData.Parser.XmlData
 
             XElement cTalentElement = GameData.MergeXmlElements(GameData.Elements("CTalent").Where(x => x.Attribute("id")?.Value == referenceName));
             if (cTalentElement == null)
-                throw new ParseException($"{nameof(cTalentElement)} is null, could not find the CTalent id name of {nameof(referenceName)}");
+                throw new XmlGameDataParseException($"{nameof(cTalentElement)} is null, could not find the CTalent id name of {nameof(referenceName)}");
 
             // desc name
             XElement talentFaceElement = cTalentElement.Element("Face");

@@ -3,14 +3,14 @@
 namespace HeroesData.Parser.Exceptions
 {
     [Serializable]
-    internal class ParseException : Exception
+    internal class XmlGameDataParseException : Exception
     {
-        public ParseException(string message)
+        public XmlGameDataParseException(string message)
             : base(message)
         {
         }
 
-        public ParseException(string message, Exception ex)
+        public XmlGameDataParseException(string message, Exception ex)
             : base(message, ex)
         {
         }

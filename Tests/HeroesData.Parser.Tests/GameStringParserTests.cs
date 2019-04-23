@@ -1,4 +1,5 @@
 ﻿using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser.Exceptions;
 using HeroesData.Parser.GameStrings;
 using HeroesData.Parser.XmlData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,6 +24,9 @@ namespace HeroesData.Parser.Tests
         private readonly string Tooltip4 = "If Sand Blast travels at least <c val=\"#TooltipNumbers\"><d ref=\"Validator,ChromieFastForwardDistanceCheck,Range/Effect,ChromieSandBlastLaunchMissile,ImpactLocation.ProjectionDistanceScale*100\"/>%</c> of its base distance and hits a Hero, its cooldown is reduced to <c val=\"#TooltipNumbers\"><d ref=\"Effect,ChromieSandBlastFastForwardCooldownReduction,Cost[0].CooldownTimeUse\" precision=\"2\"/></c> seconds.";
 
         private readonly string FailedTooltip1 = "Surround Yrel in a barrier for <c val=\"#TooltipNumbers\"><d const=\"$YrelArdentDefenderDamageTrackerDuration\" precision=\"2\"/></c> seconds, absorbing all damage taken and healing her for <c val=\"#TooltipNumbers\"><d ref=\"Effect,YrelArdentDefenderDamageConversionScaleDummyModifyUnit,XP*100\" player=\"0\" precision=\"2\"/>%</c> of the damage received.";
+
+        private readonly string ExceptionTooltip1 = "Fire a laser that deals <d ref=\"Shield,LaserCannon,Amount\"/>.";
+        private readonly string ExceptionTooltip2 = "Fire a laser that deals <d ref=\"Behavior,LaserCannon,Amount\"/>.";
 
         private readonly string ParsedTooltip1 = "Toxic Nests deal <c val=\"#TooltipNumbers\">75%</c> more damage over <c val=\"#TooltipNumbers\">3</c> seconds.";
         private readonly string ParsedTooltip2 = "Shields the assisted ally for <c val=\"#TooltipNumbers\">157~~0.04~~</c>. Lasts for <c val=\"#TooltipNumbers\">8</c> seconds.";
@@ -104,6 +108,20 @@ namespace HeroesData.Parser.Tests
             Assert.AreEqual(ParsedTooltip16, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "RagnarosMoltenCore")));
             Assert.AreEqual(ParsedTooltip17, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "AzmodanGreed")));
             Assert.AreEqual(ParsedTooltip18, GameData.GetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, "DVaMechSelfDestruct")));
+        }
+
+        [TestMethod]
+        public void ExceptionParsingTests()
+        {
+            Assert.ThrowsException<GameStringParseException>(() =>
+            {
+                GameStringParser.TryParseRawTooltip("LaserFighter", ExceptionTooltip1, out string output);
+            });
+
+            Assert.ThrowsException<GameStringParseException>(() =>
+            {
+                GameStringParser.TryParseRawTooltip("LaserFighter", ExceptionTooltip2, out string output);
+            });
         }
 
         private void PreParse()

@@ -11,6 +11,8 @@ namespace HeroesData.Parser.Tests
         private const string TestDataFolder = "TestData";
         private readonly string ModsTestFolder = Path.Combine(TestDataFolder, "mods");
 
+        private Configuration Configuration;
+
         public ParserBase()
         {
             CultureInfo cultureInfo = new CultureInfo("en-US");
@@ -32,7 +34,10 @@ namespace HeroesData.Parser.Tests
             DefaultData = new DefaultData(GameData);
             DefaultData.Load();
 
-            GameStringParser = new GameStringParser(GameData);
+            Configuration = new Configuration();
+            Configuration.Load();
+
+            GameStringParser = new GameStringParser(Configuration, GameData);
             ParseGameStrings();
         }
 
