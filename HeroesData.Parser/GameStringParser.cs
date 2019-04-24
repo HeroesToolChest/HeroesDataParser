@@ -71,7 +71,7 @@ namespace HeroesData.Parser.GameStrings
             }
             catch (GameStringParseException ex)
             {
-                throw new GameStringParseException($"Failed to parse {key}. {ex.Message}", ex);
+                throw new GameStringParseException($"Failed to parse \"{key}\". {ex.Message}", ex);
             }
 
             // unable to parse correctly, returns an empty string
@@ -375,13 +375,13 @@ namespace HeroesData.Parser.GameStrings
             parent = null;
 
             IEnumerable<string> xmlElementNames = Configuration.GamestringXmlElements(parts[0]);
-            if (xmlElementNames == null || !xmlElementNames.Any())
+            if (!xmlElementNames.Any())
             {
-                IEnumerable<string> foundElements = GameData.XmlGameData.Root.Elements().Where(x => x.Attribute("id")?.Value == parts[1])?.Select(x => x.Name.LocalName);
+                IEnumerable<string> foundElements = GameData.XmlGameData.Root.Elements().Where(x => x.Name.LocalName.StartsWith($"C{parts[0]}") && x.Attribute("id")?.Value == parts[1])?.Select(x => x.Name.LocalName);
                 if (foundElements.Any())
                 {
-                    throw new GameStringParseException($"The element type \"{parts[0]}\" was not found in the configuration file. The following elements were found for the missing type: {string.Join(',', foundElements)}." +
-                        $" Try adding these to the config.xml file XmlElementLookup section for the missing type.");
+                    throw new GameStringParseException($"The element type \"{parts[0]}\" was not found in the configuration file. The following elements were found for the missing type for the given id of \"{parts[1]}\": {string.Join(',', foundElements)}." +
+                        $" Try adding some or all of the elements to the config.xml file XmlElementLookup section for the missing type.");
                 }
             }
 
@@ -396,9 +396,9 @@ namespace HeroesData.Parser.GameStrings
 
             if (!elements.Any())
             {
-                IEnumerable<string> elementDifference = GameData.XmlGameData.Root.Elements().Where(x => x.Attribute("id")?.Value == parts[1]).Select(x => x.Name.LocalName).Except(xmlElementNames);
+                IEnumerable<string> elementDifference = GameData.XmlGameData.Root.Elements().Where(x => x.Name.LocalName.StartsWith($"C{parts[0]}") && x.Attribute("id")?.Value == parts[1])?.Select(x => x.Name.LocalName).Except(xmlElementNames);
                 if (elementDifference.Any())
-                    throw new GameStringParseException($"No elements were found for the type \"{parts[0]}\". Try adding the following element(s) to the \"{parts[0]}\" type in the config.xml file XmlElementLookup section: {string.Join(',', elementDifference)}.");
+                    throw new GameStringParseException($"No elements were found for the type \"{parts[0]}\" given the id of \"{parts[1]}\". Try adding some or all of the following element(s) to the \"{parts[0]}\" type in the config.xml file XmlElementLookup section: {string.Join(',', elementDifference)}.");
             }
 
             elements = elements.Reverse();

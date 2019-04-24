@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuration>
-  <!--Used for completing game string parsing by providing a default value-->
+    <!--Adds additional elements when retrieving elements for data parsing-->
+  <DataParser>
+    <CUnit id="VolskayaVehicleGunner" />
+  </DataParser>
+  
+  <!--Used for completing gamestring parsing by providing a default value-->
   <ParserHelper>
     <Id name="AttributeFactor[Heroic]" part="last" value="0" />
     <Id name="AttributeFactor[Structure]" part="last" value="0" />
@@ -18,16 +23,31 @@
 
   <!--Gamestring parsing lookup for the correct element based on the type-->
   <XmlElementLookup>
-    <Type name="Behavior">
-      <Element>CBehaviorBuff</Element>
-      <Element>CBehaviorTokenCounter</Element>
-      <Element>CBehaviorUnitTracker</Element>
-    </Type>
     <Type name="Abil">
       <Element>CAbilAugment</Element>
       <Element>CAbilBehavior</Element>
       <Element>CAbilEffectInstant</Element>
       <Element>CAbilEffectTarget</Element>
+    </Type>
+    <Type name="Accumulator">
+      <Element>CAccumulatorDistance</Element>
+      <Element>CAccumulatorDistanceUnitTraveled</Element>
+      <Element>CAccumulatorTimed</Element>
+      <Element>CAccumulatorToken</Element>
+      <Element>CAccumulatorTrackedUnitCount</Element>
+      <Element>CAccumulatorVitals</Element>
+    </Type>
+    <Type name="Actor">
+      <Element>CActorRange</Element>
+      <Element>CActorQuad</Element>
+    </Type>
+    <Type name="Armor">
+      <Element>CArmor</Element>
+    </Type>
+    <Type name="Behavior">
+      <Element>CBehaviorBuff</Element>
+      <Element>CBehaviorTokenCounter</Element>
+      <Element>CBehaviorUnitTracker</Element>
     </Type>
     <Type name="Effect">
       <Element>CEffectApplyBehavior</Element>
@@ -44,11 +64,17 @@
       <Element>CEffectModifyUnit</Element>
       <Element>CEffectRemoveBehavior</Element>
     </Type>
-    <Type name="Unit">
-      <Element>CUnit</Element>
+    <Type name="Hero">
+      <Element>CHero</Element>
     </Type>
     <Type name="Talent">
       <Element>CTalent</Element>
+    </Type>
+    <Type name="Unit">
+      <Element>CUnit</Element>
+    </Type>
+    <Type name="Upgrade">
+      <Element>CUpgrade</Element>
     </Type>
     <Type name="Validator">
       <Element>CValidatorCompareTrackedUnitsCount</Element>
@@ -60,28 +86,8 @@
       <Element>CValidatorUnitCompareTokenCount</Element>
       <Element>CValidatorUnitCompareVital</Element>
     </Type>
-    <Type name="Accumulator">
-      <Element>CAccumulatorDistance</Element>
-      <Element>CAccumulatorDistanceUnitTraveled</Element>
-      <Element>CAccumulatorTimed</Element>
-      <Element>CAccumulatorToken</Element>
-      <Element>CAccumulatorTrackedUnitCount</Element>
-      <Element>CAccumulatorVitals</Element>
-    </Type>
     <Type name="Weapon">
       <Element>CWeaponLegacy</Element>
     </Type>
-    <Type name="Actor">
-      <Element>CActorRange</Element>
-      <Element>CActorQuad</Element>
-    </Type>
-    <Type name="Armor">
-      <Element>CArmor</Element>
-    </Type>
   </XmlElementLookup>
-  
-  <!--Adds additional elements when retrieving elements for parsing-->
-  <DataParser>
-    <CUnit id="VolskayaVehicleGunner" />
-  </DataParser>
 </Configuration>
