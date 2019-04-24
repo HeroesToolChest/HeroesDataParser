@@ -43,7 +43,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
             if (unit.Attributes.Count > 0)
                 heroObject.Add(new JProperty("attributes", unit.Attributes));
             if (unit.TargetInfoPanelImageFileNames.Count > 0)
-                heroObject.Add(new JProperty("images", unit.TargetInfoPanelImageFileNames.Select(x => Path.ChangeExtension(x, StaticImageExtension))));
+                heroObject.Add(new JProperty("images", unit.TargetInfoPanelImageFileNames.Select(x => Path.ChangeExtension(x?.ToLower(), StaticImageExtension))));
 
             JProperty life = UnitLife(unit);
             if (life != null)
@@ -290,7 +290,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
             if (!string.IsNullOrEmpty(abilityTalentBase.FullTooltipNameId))
                 info.Add("fullTooltipId", abilityTalentBase.FullTooltipNameId);
 
-            info.Add("icon", Path.ChangeExtension(abilityTalentBase.IconFileName, ".png"));
+            info.Add("icon", Path.ChangeExtension(abilityTalentBase.IconFileName?.ToLower(), ".png"));
 
             if (abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.HasValue)
                 info.Add("toggleCooldown", abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.Value);

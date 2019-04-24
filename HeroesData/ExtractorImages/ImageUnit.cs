@@ -30,7 +30,7 @@ namespace HeroesData.ExtractorImages
             {
                 foreach (string imageFileName in unit.TargetInfoPanelImageFileNames)
                 {
-                    Units.Add(imageFileName.ToLower());
+                    Units.Add(imageFileName);
                 }
             }
         }

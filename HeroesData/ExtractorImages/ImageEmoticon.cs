@@ -45,8 +45,8 @@ namespace HeroesData.ExtractorImage
             {
                 if (emoticon.Image.Count.HasValue)
                 {
-                    if (ExtractAnimatedImageFile(Path.Combine(extractFilePath, emoticon.TextureSheet.Image.ToLower()), new Size(emoticon.Image.Width, ImageMaxHeight), new Size(ImageMaxWidth, ImageMaxHeight), emoticon.Image.Count.Value, emoticon.Image.DurationPerFrame.Value) &&
-                        ExtractStaticImageFile(Path.Combine(extractFilePath, emoticon.TextureSheet.Image.ToLower())))
+                    if (ExtractAnimatedImageFile(Path.Combine(extractFilePath, emoticon.TextureSheet.Image), new Size(emoticon.Image.Width, ImageMaxHeight), new Size(ImageMaxWidth, ImageMaxHeight), emoticon.Image.Count.Value, emoticon.Image.DurationPerFrame.Value) &&
+                        ExtractStaticImageFile(Path.Combine(extractFilePath, emoticon.TextureSheet.Image)))
                     {
                         count++;
                     }
@@ -56,7 +56,7 @@ namespace HeroesData.ExtractorImage
                     int xPos = (emoticon.Image.Index % emoticon.TextureSheet.Columns) * ImageMaxWidth;
                     int yPos = (emoticon.Image.Index / emoticon.TextureSheet.Columns) * ImageMaxHeight;
 
-                    if (ExtractStaticImageFile(Path.Combine(extractFilePath, emoticon.Image.FileName.ToLower()), emoticon.TextureSheet.Image.ToLower(), new Point(xPos, yPos), new Size(emoticon.Image.Width, ImageMaxHeight)))
+                    if (ExtractStaticImageFile(Path.Combine(extractFilePath, emoticon.Image.FileName), emoticon.TextureSheet.Image, new Point(xPos, yPos), new Size(emoticon.Image.Width, ImageMaxHeight)))
                         count++;
                 }
 

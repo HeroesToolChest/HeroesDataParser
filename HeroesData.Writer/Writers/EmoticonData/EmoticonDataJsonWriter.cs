@@ -50,9 +50,9 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
             if (!string.IsNullOrEmpty(emoticon.Image.FileName))
             {
                 if (!emoticon.Image.Count.HasValue)
-                    emoticonObject.Add("image", Path.ChangeExtension(emoticon.Image.FileName, StaticImageExtension));
+                    emoticonObject.Add("image", Path.ChangeExtension(emoticon.Image.FileName?.ToLower(), StaticImageExtension));
                 else
-                    emoticonObject.Add("image", Path.ChangeExtension(emoticon.Image.FileName, AnimatedImageExtension));
+                    emoticonObject.Add("image", Path.ChangeExtension(emoticon.Image.FileName?.ToLower(), AnimatedImageExtension));
             }
 
             JProperty animation = AnimationObject(emoticon);
@@ -80,7 +80,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
             return new JProperty(
                 "animation",
                 new JObject(
-                    new JProperty("texture", Path.ChangeExtension(emoticon.TextureSheet.Image, StaticImageExtension)),
+                    new JProperty("texture", Path.ChangeExtension(emoticon.TextureSheet.Image?.ToLower(), StaticImageExtension)),
                     new JProperty("frames", emoticon.Image.Count),
                     new JProperty("duration", emoticon.Image.DurationPerFrame),
                     new JProperty("width", emoticon.Image.Width)));

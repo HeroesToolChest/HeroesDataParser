@@ -61,7 +61,7 @@ namespace HeroesData.ExtractorImage
                     using (Stream stream = OpenFile(textureFilepath))
                     {
                         DDSImage image = new DDSImage(stream);
-                        image.Save(Path.ChangeExtension(filePath, "png"));
+                        image.Save(Path.ChangeExtension(filePath.ToLower(), "png"));
 
                         return true;
                     }
@@ -92,7 +92,7 @@ namespace HeroesData.ExtractorImage
                     using (Stream stream = OpenFile(textureFilepath))
                     {
                         DDSImage image = new DDSImage(stream);
-                        image.Save(Path.ChangeExtension(filePath, "png"), point, size);
+                        image.Save(Path.ChangeExtension(filePath.ToLower(), "png"), point, size);
 
                         return true;
                     }
@@ -126,7 +126,7 @@ namespace HeroesData.ExtractorImage
                     using (Stream stream = OpenFile(textureFilepath))
                     {
                         DDSImage image = new DDSImage(stream);
-                        image.SaveAsGif(Path.ChangeExtension(filePath, "gif"), size, maxSize, frames, frameDelay);
+                        image.SaveAsGif(Path.ChangeExtension(filePath.ToLower(), "gif"), size, maxSize, frames, frameDelay);
 
                         return true;
                     }

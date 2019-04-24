@@ -44,9 +44,9 @@ namespace HeroesData.FileWriter.Writers.SprayData
             if (!string.IsNullOrEmpty(spray.ImageFileName))
             {
                 if (spray.AnimationCount < 1)
-                    sprayObject.Add("image", Path.ChangeExtension(spray.ImageFileName, StaticImageExtension));
+                    sprayObject.Add("image", Path.ChangeExtension(spray.ImageFileName?.ToLower(), StaticImageExtension));
                 else
-                    sprayObject.Add("image", Path.ChangeExtension(spray.ImageFileName, AnimatedImageExtension));
+                    sprayObject.Add("image", Path.ChangeExtension(spray.ImageFileName?.ToLower(), AnimatedImageExtension));
             }
 
             JProperty animation = AnimationObject(spray);
@@ -61,7 +61,7 @@ namespace HeroesData.FileWriter.Writers.SprayData
             return new JProperty(
                 "animation",
                 new JObject(
-                    new JProperty("texture", Path.ChangeExtension(spray.ImageFileName, StaticImageExtension)),
+                    new JProperty("texture", Path.ChangeExtension(spray.ImageFileName?.ToLower(), StaticImageExtension)),
                     new JProperty("frames", spray.AnimationCount),
                     new JProperty("duration", spray.AnimationDuration)));
         }

@@ -21,9 +21,9 @@ namespace HeroesData.ExtractorImage
         protected override void LoadFileData(MatchAward matchAward)
         {
             if (!string.IsNullOrEmpty(matchAward.MVPScreenImageFileNameOriginal))
-                Awards.Add((matchAward.MVPScreenImageFileNameOriginal.ToLower(), matchAward.MVPScreenImageFileName.ToLower()));
+                Awards.Add((matchAward.MVPScreenImageFileNameOriginal, matchAward.MVPScreenImageFileName));
             if (!string.IsNullOrEmpty(matchAward.ScoreScreenImageFileNameOriginal))
-                Awards.Add((matchAward.ScoreScreenImageFileNameOriginal.ToLower(), matchAward.ScoreScreenImageFileName.ToLower()));
+                Awards.Add((matchAward.ScoreScreenImageFileNameOriginal, matchAward.ScoreScreenImageFileName));
         }
 
         protected override void ExtractFiles()

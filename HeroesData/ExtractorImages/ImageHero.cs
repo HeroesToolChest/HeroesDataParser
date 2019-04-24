@@ -27,15 +27,15 @@ namespace HeroesData.ExtractorImage
         protected override void LoadFileData(Hero hero)
         {
             if (!string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName))
-                Portraits.Add(hero.HeroPortrait.HeroSelectPortraitFileName.ToLower());
+                Portraits.Add(hero.HeroPortrait.HeroSelectPortraitFileName);
             if (!string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName))
-                Portraits.Add(hero.HeroPortrait.LeaderboardPortraitFileName.ToLower());
+                Portraits.Add(hero.HeroPortrait.LeaderboardPortraitFileName);
             if (!string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName))
-                Portraits.Add(hero.HeroPortrait.LoadingScreenPortraitFileName.ToLower());
+                Portraits.Add(hero.HeroPortrait.LoadingScreenPortraitFileName);
             if (!string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName))
-                Portraits.Add(hero.HeroPortrait.PartyPanelPortraitFileName.ToLower());
+                Portraits.Add(hero.HeroPortrait.PartyPanelPortraitFileName);
             if (!string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
-                Portraits.Add(hero.HeroPortrait.TargetPortraitFileName.ToLower());
+                Portraits.Add(hero.HeroPortrait.TargetPortraitFileName);
 
             LoadAbilityTalentFiles(hero);
 
@@ -69,8 +69,8 @@ namespace HeroesData.ExtractorImage
             {
                 if (!string.IsNullOrEmpty(abilityIconFileName))
                 {
-                    Abilities.Add(abilityIconFileName.ToLower());
-                    AbilityTalents.Add(abilityIconFileName.ToLower());
+                    Abilities.Add(abilityIconFileName);
+                    AbilityTalents.Add(abilityIconFileName);
                 }
             }
 
@@ -78,8 +78,8 @@ namespace HeroesData.ExtractorImage
             {
                 if (!string.IsNullOrEmpty(talentIconFileName))
                 {
-                    Talents.Add(talentIconFileName.ToLower());
-                    AbilityTalents.Add(talentIconFileName.ToLower());
+                    Talents.Add(talentIconFileName);
+                    AbilityTalents.Add(talentIconFileName);
                 }
             }
         }

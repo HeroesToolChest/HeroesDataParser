@@ -26,7 +26,7 @@ namespace HeroesData.ExtractorImage
         protected override void LoadFileData(VoiceLine voiceLine)
         {
             if (!string.IsNullOrEmpty(voiceLine.ImageFileName))
-                VoiceLines.Add(voiceLine.ImageFileName.ToLower());
+                VoiceLines.Add(voiceLine.ImageFileName);
         }
 
         private void ExtractVoiceLineImages()

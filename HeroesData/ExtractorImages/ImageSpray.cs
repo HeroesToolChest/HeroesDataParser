@@ -44,7 +44,7 @@ namespace HeroesData.ExtractorImage
             foreach (Spray spray in Sprays)
             {
                 bool success = false;
-                string filePath = Path.Combine(extractFilePath, spray.ImageFileName.ToLower());
+                string filePath = Path.Combine(extractFilePath, spray.ImageFileName);
 
                 if (ExtractStaticImageFile(filePath))
                     success = true;

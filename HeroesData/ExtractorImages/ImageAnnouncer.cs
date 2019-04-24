@@ -26,7 +26,7 @@ namespace HeroesData.ExtractorImage
         protected override void LoadFileData(Announcer announcer)
         {
             if (!string.IsNullOrEmpty(announcer.ImageFileName))
-                Announcers.Add(announcer.ImageFileName.ToLower());
+                Announcers.Add(announcer.ImageFileName);
         }
 
         private void ExtractAnnouncerImages()
