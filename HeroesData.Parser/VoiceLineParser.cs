@@ -4,7 +4,6 @@ using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -13,33 +12,16 @@ namespace HeroesData.Parser
 {
     public class VoiceLineParser : ParserBase<VoiceLine, VoiceLineDataOverride>, IParser<VoiceLine, VoiceLineParser>
     {
-        public VoiceLineParser(GameData gameData, DefaultData defaultData)
-            : base(gameData, defaultData)
+        public VoiceLineParser(Configuration configuration, GameData gameData, DefaultData defaultData)
+            : base(configuration, gameData, defaultData)
         {
         }
 
-        public HashSet<string[]> Items
-        {
-            get
-            {
-                HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
-
-                IEnumerable<XElement> cVoiceElements = GameData.Elements("CVoiceLine").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
-
-                foreach (XElement voiceElement in cVoiceElements)
-                {
-                    string id = voiceElement.Attribute("id").Value;
-                    if (id != "RandomVoiceLine")
-                        items.Add(new string[] { id });
-                }
-
-                return items;
-            }
-        }
+        protected override string ElementType => "CVoiceLine";
 
         public VoiceLineParser GetInstance()
         {
-            return new VoiceLineParser(GameData, DefaultData);
+            return new VoiceLineParser(Configuration, GameData, DefaultData);
         }
 
         public VoiceLine Parse(params string[] ids)
@@ -49,7 +31,7 @@ namespace HeroesData.Parser
 
             string id = ids.FirstOrDefault();
 
-            XElement voiceLineElement = GameData.MergeXmlElements(GameData.Elements("CVoiceLine").Where(x => x.Attribute("id")?.Value == id));
+            XElement voiceLineElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (voiceLineElement == null)
                 return null;
 
@@ -70,6 +52,11 @@ namespace HeroesData.Parser
             return voiceLine;
         }
 
+        protected override bool ValidItem(XElement element)
+        {
+            return true;
+        }
+
         private void SetVoiceLineData(XElement voiceLineElement, VoiceLine voiceLine, string heroId = null)
         {
             // parent lookup
@@ -88,7 +75,7 @@ namespace HeroesData.Parser
 
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CVoiceLine").Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetVoiceLineData(parentElement, voiceLine, heroId);
             }

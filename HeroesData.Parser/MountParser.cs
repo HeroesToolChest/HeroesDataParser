@@ -1,10 +1,8 @@
 ﻿using Heroes.Models;
-using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -12,33 +10,16 @@ namespace HeroesData.Parser
 {
     public class MountParser : ParserBase<Mount, MountDataOverride>, IParser<Mount, MountParser>
     {
-        public MountParser(GameData gameData, DefaultData defaultData)
-            : base(gameData, defaultData)
+        public MountParser(Configuration configuration, GameData gameData, DefaultData defaultData)
+            : base(configuration, gameData, defaultData)
         {
         }
 
-        public HashSet<string[]> Items
-        {
-            get
-            {
-                HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
-
-                IEnumerable<XElement> cMountElements = GameData.Elements("CMount").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
-
-                foreach (XElement mountElement in cMountElements)
-                {
-                    string id = mountElement.Attribute("id").Value;
-                    if (mountElement.Element("AttributeId") != null && id != "Random")
-                        items.Add(new string[] { id });
-                }
-
-                return items;
-            }
-        }
+        protected override string ElementType => "CMount";
 
         public MountParser GetInstance()
         {
-            return new MountParser(GameData, DefaultData);
+            return new MountParser(Configuration, GameData, DefaultData);
         }
 
         public Mount Parse(params string[] ids)
@@ -48,7 +29,7 @@ namespace HeroesData.Parser
 
             string id = ids.FirstOrDefault();
 
-            XElement mountElement = GameData.MergeXmlElements(GameData.Elements("CMount").Where(x => x.Attribute("id")?.Value == id));
+            XElement mountElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (mountElement == null)
                 return null;
 
@@ -69,13 +50,18 @@ namespace HeroesData.Parser
             return mount;
         }
 
+        protected override bool ValidItem(XElement element)
+        {
+            return element.Element("AttributeId") != null;
+        }
+
         private void SetMountData(XElement mountElement, Mount mount)
         {
             // parent lookup
             string parentValue = mountElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CMount").Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetMountData(parentElement, mount);
             }

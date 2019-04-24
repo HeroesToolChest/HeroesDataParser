@@ -1,7 +1,11 @@
 ﻿using Heroes.Models;
+using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace HeroesData.Parser
 {
@@ -9,8 +13,9 @@ namespace HeroesData.Parser
         where T : IExtractable
         where TOverride : IDataOverride
     {
-        public ParserBase(GameData gameData, DefaultData defaultData)
+        public ParserBase(Configuration configuration, GameData gameData, DefaultData defaultData)
         {
+            Configuration = configuration;
             GameData = gameData;
             DefaultData = defaultData;
         }
@@ -25,12 +30,35 @@ namespace HeroesData.Parser
         /// </summary>
         public Localization Localization { get; set; }
 
+        public virtual HashSet<string[]> Items
+        {
+            get
+            {
+                HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
+                IEnumerable<XElement> elements = GameData.Elements(ElementType).Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
+
+                foreach (XElement element in elements)
+                {
+                    string id = element.Attribute("id").Value;
+
+                    if ((ValidItem(element) && !Configuration.RemoveDataXmlElementIds(ElementType).Contains(id)) || Configuration.AddDataXmlElementIds(ElementType).Contains(id))
+                        items.Add(new string[] { id });
+                }
+
+                return items;
+            }
+        }
+
+        protected abstract string ElementType { get; }
+
         protected GameData GameData { get; }
 
         protected DefaultData DefaultData { get; }
 
+        protected Configuration Configuration { get; }
+
         /// <summary>
-        /// Applies the additonal overrides. This method is called by <see cref="ApplyOverrides(T, TOverride)"/>.
+        /// Applies the additional overrides. This method is called by <see cref="ApplyOverrides(T, TOverride)"/>.
         /// </summary>
         /// <param name="t"></param>
         /// <param name="dataOverride"></param>
@@ -60,5 +88,7 @@ namespace HeroesData.Parser
 
             ApplyAdditionalOverrides(t, dataOverride);
         }
+
+        protected abstract bool ValidItem(XElement element);
     }
 }

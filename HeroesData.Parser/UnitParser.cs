@@ -23,20 +23,21 @@ namespace HeroesData.Parser
         private ArmorData ArmorData;
         private AbilityData AbilityData;
 
-        public UnitParser(GameData gameData, DefaultData defaultData, UnitOverrideLoader unitOverrideLoader)
-            : base(gameData, defaultData)
+        public UnitParser(Configuration configuration, GameData gameData, DefaultData defaultData, UnitOverrideLoader unitOverrideLoader)
+            : base(configuration, gameData, defaultData)
         {
             UnitOverrideLoader = unitOverrideLoader;
 
             SetValidParents();
         }
 
-        public HashSet<string[]> Items
+        public override HashSet<string[]> Items
         {
             get
             {
                 HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
 
+                List<string> addIds = Configuration.AddDataXmlElementIds("CUnit").ToList();
                 IEnumerable<XElement> cUnitElements = GameData.Elements("CUnit").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
 
                 foreach (XElement unitElement in cUnitElements)
@@ -44,7 +45,7 @@ namespace HeroesData.Parser
                     string id = unitElement.Attribute("id").Value;
                     string parent = unitElement.Attribute("parent")?.Value;
 
-                    if (!string.IsNullOrEmpty(parent) && ValidParents.Contains(parent) && !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal))
+                    if (addIds.Contains(id) || (!string.IsNullOrEmpty(parent) && ValidParents.Contains(parent) && !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal)))
                         items.Add(new string[] { id });
                 }
 
@@ -52,9 +53,11 @@ namespace HeroesData.Parser
             }
         }
 
+        protected override string ElementType => "CUnit";
+
         public UnitParser GetInstance()
         {
-            return new UnitParser(GameData, DefaultData, UnitOverrideLoader);
+            return new UnitParser(Configuration, GameData, DefaultData, UnitOverrideLoader);
         }
 
         public Unit Parse(params string[] ids)
@@ -64,7 +67,7 @@ namespace HeroesData.Parser
 
             string id = ids.FirstOrDefault();
 
-            XElement unitElement = GameData.MergeXmlElements(GameData.Elements("CUnit").Where(x => x.Attribute("id")?.Value == id));
+            XElement unitElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (unitElement == null)
                 return null;
 
@@ -98,9 +101,17 @@ namespace HeroesData.Parser
             base.ApplyAdditionalOverrides(unit, dataOverride);
         }
 
+        protected override bool ValidItem(XElement element)
+        {
+            string id = element.Attribute("id").Value;
+            string parent = element.Attribute("parent")?.Value;
+
+            return !string.IsNullOrEmpty(parent) && ValidParents.Contains(parent) && !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal);
+        }
+
         private void SetUnitData(XElement unitElement, Unit unit)
         {
-            unitElement = unitElement ?? GameData.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == unit.Id);
+            unitElement = unitElement ?? GameData.Elements(ElementType).FirstOrDefault(x => x.Attribute("id")?.Value == unit.Id);
 
             if (unitElement == null)
                 return;
@@ -109,7 +120,7 @@ namespace HeroesData.Parser
             string parentValue = unitElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
+                XElement parentElement = GameData.Elements(ElementType).FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
                 if (parentElement != null)
                     SetUnitData(parentElement, unit);
             }

@@ -91,7 +91,9 @@
     <CUnit id="Chromie" />
     <CUnit id="Tower" />
     <CHero id="Tree" />
-    <CHero id="PlasmaRifle" />
-    <CHero id="Infernos" />
+    <CHero id="PlasmaRifle" value="true" />
+    <CHero id="Infernos" value="" />
+    <CHero id="Infernos2" value="false" />
+    <CHero id="Infernos3" value="false" />
   </DataParser>
 </Configuration>

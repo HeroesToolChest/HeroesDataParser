@@ -45,7 +45,7 @@ namespace HeroesData.Parser.Tests
         [TestMethod]
         public void XmlElementIdsTests()
         {
-            List<string> list = Configuration.DataXmlElementIds("CUnit").ToList();
+            List<string> list = Configuration.AddDataXmlElementIds("CUnit").ToList();
             Assert.IsTrue(list.Contains("VolskayaVehicleGunner"));
             Assert.IsTrue(list.Contains("Chromie"));
             Assert.IsTrue(list.Contains("Tower"));
@@ -53,8 +53,17 @@ namespace HeroesData.Parser.Tests
             Assert.IsFalse(list.Contains("PlasmaRifle"));
             Assert.IsFalse(list.Contains("Infernos"));
 
-            list = Configuration.DataXmlElementIds("CHero").ToList();
+            list = Configuration.AddDataXmlElementIds("CHero").ToList();
             Assert.IsTrue(list.Contains("PlasmaRifle"));
+            Assert.IsTrue(list.Contains("Infernos"));
+            Assert.IsFalse(list.Contains("Infernos2"));
+            Assert.IsFalse(list.Contains("Infernos3"));
+
+            list = Configuration.RemoveDataXmlElementIds("CHero").ToList();
+            Assert.IsFalse(list.Contains("PlasmaRifle"));
+            Assert.IsFalse(list.Contains("Infernos"));
+            Assert.IsTrue(list.Contains("Infernos2"));
+            Assert.IsTrue(list.Contains("Infernos3"));
         }
     }
 }

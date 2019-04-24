@@ -16,13 +16,13 @@ namespace HeroesData.Parser.Tests.MountParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            MountParser mountParser = new MountParser(GameData, DefaultData);
+            MountParser mountParser = new MountParser(Configuration, GameData, DefaultData);
             Assert.IsTrue(mountParser.Items.Count > 0);
         }
 
         private void Parse()
         {
-            MountParser mountParser = new MountParser(GameData, DefaultData);
+            MountParser mountParser = new MountParser(Configuration, GameData, DefaultData);
             MountCloudVar1 = mountParser.Parse("MountCloudVar1");
         }
     }

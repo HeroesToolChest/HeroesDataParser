@@ -1,8 +1,5 @@
 ﻿using Heroes.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HeroesData.Parser.Tests.EmoticonPackParserTests
 {
@@ -20,13 +17,13 @@ namespace HeroesData.Parser.Tests.EmoticonPackParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            EmoticonPackParser emoticonPackParser = new EmoticonPackParser(GameData, DefaultData);
+            EmoticonPackParser emoticonPackParser = new EmoticonPackParser(Configuration, GameData, DefaultData);
             Assert.IsTrue(emoticonPackParser.Items.Count > 0);
         }
 
         private void Parse()
         {
-            EmoticonPackParser emoticonPackParser = new EmoticonPackParser(GameData, DefaultData);
+            EmoticonPackParser emoticonPackParser = new EmoticonPackParser(Configuration, GameData, DefaultData);
             JohannaEmoticonPack2 = emoticonPackParser.Parse("JohannaEmoticonPack2");
             DeputyVallaPack1 = emoticonPackParser.Parse("DeputyVallaPack1");
         }

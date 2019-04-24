@@ -1,8 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuration>
-    <!--Adds additional elements when retrieving elements for data parsing-->
+    <!--Adds/removes additional elements when retrieving elements for data parsing-->
   <DataParser>
+    <CAnnouncerPack id="RandomAnnouncerPack" value="false" />
+    <CAnnouncerPack id="Default" value="false" />
+    <CAnnouncerPack id="Quality" value="false" />
+    <CAnnouncerPack id="Cook" value="false" />
+    <CAnnouncerPack id="GardensNightAnnouncer" value="false" />
+    <CBanner id="RandomBanner" value="false" />
+    <CBanner id="NeutralMercCamp" value="false" />
+    <CMount id="Random" value="false" />
+    <CPortraitPack id="TestPortrait" value="false" />
+    <CSkin id="Random" value="false" />
+    <CSpray id="RandomSpray" value="false" />
     <CUnit id="VolskayaVehicleGunner" />
+    <CVoiceLine id="RandomVoiceLine" value="false" />
   </DataParser>
   
   <!--Used for completing gamestring parsing by providing a default value-->

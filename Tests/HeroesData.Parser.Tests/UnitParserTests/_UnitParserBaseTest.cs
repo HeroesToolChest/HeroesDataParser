@@ -24,7 +24,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            UnitParser unitParser = new UnitParser(GameData, DefaultData, UnitOverrideLoader);
+            UnitParser unitParser = new UnitParser(Configuration, GameData, DefaultData, UnitOverrideLoader);
             Assert.IsTrue(unitParser.Items.Count > 0);
         }
 
@@ -36,7 +36,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
 
         private void Parse()
         {
-            UnitParser unitParser = new UnitParser(GameData, DefaultData, UnitOverrideLoader);
+            UnitParser unitParser = new UnitParser(Configuration, GameData, DefaultData, UnitOverrideLoader);
             ZagaraHydralisk = unitParser.Parse("ZagaraHydralisk");
             TownCannonTowerL2 = unitParser.Parse("TownCannonTowerL2");
             VolskayaVehicle = unitParser.Parse("VolskayaVehicle");

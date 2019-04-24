@@ -10,7 +10,8 @@ namespace HeroesData.Parser
         private readonly Dictionary<string, List<(string, string)>> PartValuesByElementName = new Dictionary<string, List<(string Part, string Value)>>();
         private readonly Dictionary<string, HashSet<string>> XmlElementNameByType = new Dictionary<string, HashSet<string>>();
 
-        private ILookup<string, string> IdByElementName;
+        private ILookup<string, string> AddIdByElementName;
+        private ILookup<string, string> RemoveIdByElementName;
 
         public string ConfigFileName => "config.xml";
 
@@ -58,9 +59,19 @@ namespace HeroesData.Parser
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
-        public IEnumerable<string> DataXmlElementIds(string element)
+        public IEnumerable<string> AddDataXmlElementIds(string element)
         {
-            return IdByElementName[element];
+            return AddIdByElementName[element];
+        }
+
+        /// <summary>
+        /// Gets a collection of id values from the element name. Used for xml parsing when retrieving items.
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        public IEnumerable<string> RemoveDataXmlElementIds(string element)
+        {
+            return RemoveIdByElementName[element];
         }
 
         private void LoadConfigurationFile()
@@ -104,7 +115,8 @@ namespace HeroesData.Parser
             }
 
             // additional valid elements for xml parsing
-            IdByElementName = doc.Root.Element("DataParser").Elements().ToLookup(x => x.Name.LocalName, x => x.Attribute("id")?.Value);
+            AddIdByElementName = doc.Root.Element("DataParser").Elements().Where(x => string.IsNullOrEmpty(x.Attribute("value")?.Value) || x.Attribute("value").Value == "true").ToLookup(x => x.Name.LocalName, x => x.Attribute("id")?.Value);
+            RemoveIdByElementName = doc.Root.Element("DataParser").Elements().Where(x => x.Attribute("value")?.Value == "false").ToLookup(x => x.Name.LocalName, x => x.Attribute("id")?.Value);
         }
     }
 }

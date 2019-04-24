@@ -1,10 +1,8 @@
 ﻿using Heroes.Models;
-using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -12,33 +10,16 @@ namespace HeroesData.Parser
 {
     public class BannerParser : ParserBase<Banner, BannerDataOverride>, IParser<Banner, BannerParser>
     {
-        public BannerParser(GameData gameData, DefaultData defaultData)
-            : base(gameData, defaultData)
+        public BannerParser(Configuration configuration, GameData gameData, DefaultData defaultData)
+            : base(configuration, gameData, defaultData)
         {
         }
 
-        public HashSet<string[]> Items
-        {
-            get
-            {
-                HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
-
-                IEnumerable<XElement> cBannerElements = GameData.Elements("CBanner").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
-
-                foreach (XElement bannerElement in cBannerElements)
-                {
-                    string id = bannerElement.Attribute("id").Value;
-                    if (bannerElement.Element("AttributeId") != null && id != "RandomBanner" && id != "NeutralMercCamp")
-                        items.Add(new string[] { id });
-                }
-
-                return items;
-            }
-        }
+        protected override string ElementType => "CBanner";
 
         public BannerParser GetInstance()
         {
-            return new BannerParser(GameData, DefaultData);
+            return new BannerParser(Configuration, GameData, DefaultData);
         }
 
         public Banner Parse(params string[] ids)
@@ -48,7 +29,7 @@ namespace HeroesData.Parser
 
             string id = ids.FirstOrDefault();
 
-            XElement bannerElement = GameData.MergeXmlElements(GameData.Elements("CBanner").Where(x => x.Attribute("id")?.Value == id));
+            XElement bannerElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (bannerElement == null)
                 return null;
 
@@ -69,13 +50,18 @@ namespace HeroesData.Parser
             return banner;
         }
 
+        protected override bool ValidItem(XElement element)
+        {
+            return element.Element("AttributeId") != null;
+        }
+
         private void SetBannerData(XElement bannerElement, Banner banner)
         {
             // parent lookup
             string parentValue = bannerElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CBanner").Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetBannerData(parentElement, banner);
             }

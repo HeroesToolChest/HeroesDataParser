@@ -1,9 +1,7 @@
 ﻿using Heroes.Models;
-using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -11,33 +9,16 @@ namespace HeroesData.Parser
 {
     public class PortraitParser : ParserBase<Portrait, PortraitDataOverride>, IParser<Portrait, PortraitParser>
     {
-        public PortraitParser(GameData gameData, DefaultData defaultData)
-            : base(gameData, defaultData)
+        public PortraitParser(Configuration configuration, GameData gameData, DefaultData defaultData)
+            : base(configuration, gameData, defaultData)
         {
         }
 
-        public HashSet<string[]> Items
-        {
-            get
-            {
-                HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
-
-                IEnumerable<XElement> cPortraitElements = GameData.Elements("CPortraitPack").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
-
-                foreach (XElement portraitElement in cPortraitElements)
-                {
-                    string id = portraitElement.Attribute("id").Value;
-                    if (id != "TestPortrait")
-                        items.Add(new string[] { id });
-                }
-
-                return items;
-            }
-        }
+        protected override string ElementType => "CPortraitPack";
 
         public PortraitParser GetInstance()
         {
-            return new PortraitParser(GameData, DefaultData);
+            return new PortraitParser(Configuration, GameData, DefaultData);
         }
 
         public Portrait Parse(params string[] ids)
@@ -47,7 +28,7 @@ namespace HeroesData.Parser
 
             string id = ids.FirstOrDefault();
 
-            XElement portraitElement = GameData.MergeXmlElements(GameData.Elements("CPortraitPack").Where(x => x.Attribute("id")?.Value == id));
+            XElement portraitElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (portraitElement == null)
                 return null;
 
@@ -65,13 +46,18 @@ namespace HeroesData.Parser
             return portrait;
         }
 
+        protected override bool ValidItem(XElement element)
+        {
+            return true;
+        }
+
         private void SetPortraitData(XElement portraitElement, Portrait portrait)
         {
             // parent lookup
             string parentValue = portraitElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CPortraitPack").Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetPortraitData(parentElement, portrait);
             }

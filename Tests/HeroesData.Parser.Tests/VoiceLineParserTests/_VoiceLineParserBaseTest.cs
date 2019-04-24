@@ -17,13 +17,13 @@ namespace HeroesData.Parser.Tests.VoiceLineParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            VoiceLineParser voiceLineParser = new VoiceLineParser(GameData, DefaultData);
+            VoiceLineParser voiceLineParser = new VoiceLineParser(Configuration, GameData, DefaultData);
             Assert.IsTrue(voiceLineParser.Items.Count > 0);
         }
 
         private void Parse()
         {
-            VoiceLineParser voiceLineParser = new VoiceLineParser(GameData, DefaultData);
+            VoiceLineParser voiceLineParser = new VoiceLineParser(Configuration, GameData, DefaultData);
             AbathurBase_VoiceLine01 = voiceLineParser.Parse("AbathurBase_VoiceLine01");
             AbathurMecha_VoiceLine01 = voiceLineParser.Parse("AbathurMecha_VoiceLine01");
         }

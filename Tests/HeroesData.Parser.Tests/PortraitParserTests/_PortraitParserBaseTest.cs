@@ -16,13 +16,13 @@ namespace HeroesData.Parser.Tests.PortraitParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            PortraitParser portraitParser = new PortraitParser(GameData, DefaultData);
+            PortraitParser portraitParser = new PortraitParser(Configuration, GameData, DefaultData);
             Assert.IsTrue(portraitParser.Items.Count > 0);
         }
 
         private void Parse()
         {
-            PortraitParser portraitParser = new PortraitParser(GameData, DefaultData);
+            PortraitParser portraitParser = new PortraitParser(Configuration, GameData, DefaultData);
             StitchesPortraitSummer = portraitParser.Parse("StitchesPortraitSummer");
         }
     }

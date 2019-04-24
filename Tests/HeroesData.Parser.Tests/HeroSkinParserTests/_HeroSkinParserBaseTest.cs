@@ -17,13 +17,13 @@ namespace HeroesData.Parser.Tests.HeroSkinParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            HeroSkinParser heroSkinParser = new HeroSkinParser(GameData, DefaultData);
+            HeroSkinParser heroSkinParser = new HeroSkinParser(Configuration, GameData, DefaultData);
             Assert.IsTrue(heroSkinParser.Items.Count > 0);
         }
 
         private void Parse()
         {
-            HeroSkinParser heroSkinParser = new HeroSkinParser(GameData, DefaultData);
+            HeroSkinParser heroSkinParser = new HeroSkinParser(Configuration, GameData, DefaultData);
             AbathurCommonSkin = heroSkinParser.Parse("AbathurBone");
             AbathurMechaVar1Skin = heroSkinParser.Parse("AbathurMechaVar1");
         }

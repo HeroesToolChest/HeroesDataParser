@@ -53,7 +53,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            HeroDataParser heroDataParser = new HeroDataParser(GameData, DefaultData, HeroOverrideLoader);
+            HeroDataParser heroDataParser = new HeroDataParser(Configuration, GameData, DefaultData, HeroOverrideLoader);
             Assert.IsTrue(heroDataParser.Items.Count > 0);
         }
 
@@ -77,7 +77,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
 
         private void Parse()
         {
-            HeroDataParser heroDataParser = new HeroDataParser(GameData, DefaultData, HeroOverrideLoader);
+            HeroDataParser heroDataParser = new HeroDataParser(Configuration, GameData, DefaultData, HeroOverrideLoader);
             HeroChromie = heroDataParser.Parse("Chromie");
             HeroTracer = heroDataParser.Parse("Tracer");
             HeroTracer = heroDataParser.Parse("Tracer");

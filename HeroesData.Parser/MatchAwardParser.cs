@@ -20,8 +20,8 @@ namespace HeroesData.Parser
 
         private MatchAwardDataOverride MatchAwardDataOverride;
 
-        public MatchAwardParser(GameData gameData, DefaultData defaultData, MatchAwardOverrideLoader matchAwardOverrideLoader)
-            : base(gameData, defaultData)
+        public MatchAwardParser(Configuration configuration, GameData gameData, DefaultData defaultData, MatchAwardOverrideLoader matchAwardOverrideLoader)
+            : base(configuration, gameData, defaultData)
         {
             MatchAwardOverrideLoader = matchAwardOverrideLoader;
         }
@@ -30,7 +30,7 @@ namespace HeroesData.Parser
         /// Returns a collection of all the parsable ids. Allows multiple ids.
         /// </summary>
         /// <returns></returns>
-        public HashSet<string[]> Items
+        public override HashSet<string[]> Items
         {
             get
             {
@@ -60,6 +60,8 @@ namespace HeroesData.Parser
                 return items;
             }
         }
+
+        protected override string ElementType => throw new NotImplementedException();
 
         /// <summary>
         /// Returns the parsed game data from the given ids. Multiple ids may be used to identify one item.
@@ -114,7 +116,7 @@ namespace HeroesData.Parser
 
         public MatchAwardParser GetInstance()
         {
-            return new MatchAwardParser(GameData, DefaultData, MatchAwardOverrideLoader);
+            return new MatchAwardParser(Configuration, GameData, DefaultData, MatchAwardOverrideLoader);
         }
 
         protected override void ApplyAdditionalOverrides(MatchAward matchAward, MatchAwardDataOverride dataOverride)
@@ -133,6 +135,11 @@ namespace HeroesData.Parser
 
             if (dataOverride.DescriptionOverride.Enabled)
                 matchAward.Description = new TooltipDescription(dataOverride.DescriptionOverride.Value);
+        }
+
+        protected override bool ValidItem(XElement element)
+        {
+            throw new NotImplementedException();
         }
 
         private string GetNameFromGenderRule(string name)

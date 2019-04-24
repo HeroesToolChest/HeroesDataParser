@@ -4,7 +4,6 @@ using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -13,33 +12,16 @@ namespace HeroesData.Parser
 {
     public class AnnouncerParser : ParserBase<Announcer, AnnouncerDataOverride>, IParser<Announcer, AnnouncerParser>
     {
-        public AnnouncerParser(GameData gameData, DefaultData defaultData)
-            : base(gameData, defaultData)
+        public AnnouncerParser(Configuration configuration, GameData gameData, DefaultData defaultData)
+            : base(configuration, gameData, defaultData)
         {
         }
 
-        public HashSet<string[]> Items
-        {
-            get
-            {
-                HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
-
-                IEnumerable<XElement> cAnnouncerPackElements = GameData.Elements("CAnnouncerPack").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
-
-                foreach (XElement announcerPackElement in cAnnouncerPackElements)
-                {
-                    string id = announcerPackElement.Attribute("id").Value;
-                    if (announcerPackElement.Element("AttributeId") != null && id != "RandomAnnouncerPack" && id != "Default" && id != "Quality" && id != "Cook" && id != "GardensNightAnnouncer")
-                        items.Add(new string[] { id });
-                }
-
-                return items;
-            }
-        }
+        protected override string ElementType => "CAnnouncerPack";
 
         public AnnouncerParser GetInstance()
         {
-            return new AnnouncerParser(GameData, DefaultData);
+            return new AnnouncerParser(Configuration, GameData, DefaultData);
         }
 
         public Announcer Parse(params string[] ids)
@@ -49,7 +31,7 @@ namespace HeroesData.Parser
 
             string id = ids.FirstOrDefault();
 
-            XElement announcerPackElement = GameData.MergeXmlElements(GameData.Elements("CAnnouncerPack").Where(x => x.Attribute("id")?.Value == id));
+            XElement announcerPackElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (announcerPackElement == null)
                 return null;
 
@@ -70,6 +52,11 @@ namespace HeroesData.Parser
             return announcer;
         }
 
+        protected override bool ValidItem(XElement element)
+        {
+            return element.Element("AttributeId") != null;
+        }
+
         private void SetAnnouncerData(XElement announcerPackElement, Announcer announcer, string heroId = null)
         {
             // parent lookup
@@ -78,7 +65,7 @@ namespace HeroesData.Parser
 
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CAnnouncerPack").Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetAnnouncerData(parentElement, announcer, heroIdValue);
             }

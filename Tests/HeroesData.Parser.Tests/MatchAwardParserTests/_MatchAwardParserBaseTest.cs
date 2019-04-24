@@ -23,7 +23,7 @@ namespace HeroesData.Parser.Tests.MatchAwardParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            MatchAwardParser matchAwardParser = new MatchAwardParser(GameData, DefaultData, MatchAwardOverrideLoader);
+            MatchAwardParser matchAwardParser = new MatchAwardParser(Configuration, GameData, DefaultData, MatchAwardOverrideLoader);
             Assert.IsTrue(matchAwardParser.Items.Count > 0);
         }
 
@@ -35,7 +35,7 @@ namespace HeroesData.Parser.Tests.MatchAwardParserTests
 
         private void Parse()
         {
-            MatchAwardParser matchAwardParser = new MatchAwardParser(GameData, DefaultData, MatchAwardOverrideLoader);
+            MatchAwardParser matchAwardParser = new MatchAwardParser(Configuration, GameData, DefaultData, MatchAwardOverrideLoader);
 
             InterruptedCageUnlocks = matchAwardParser.Parse("[Override]Generic Instance", "EndOfMatchAwardMostInterruptedCageUnlocksBoolean");
             MostAltarDamage = matchAwardParser.Parse("[Override]Generic Instance", "EndOfMatchAwardMostAltarDamageDone");

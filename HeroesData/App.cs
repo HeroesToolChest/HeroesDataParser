@@ -659,18 +659,18 @@ namespace HeroesData
 
         private void SetUpDataProcessors()
         {
-            DataHero dataHero = new DataHero(new HeroDataParser(GameData, DefaultData, (HeroOverrideLoader)XmlDataOverriders.GetOverrider(typeof(HeroDataParser))));
-            DataUnit dataUnit = new DataUnit(new UnitParser(GameData, DefaultData, (UnitOverrideLoader)XmlDataOverriders.GetOverrider(typeof(UnitParser))));
-            DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(GameData, DefaultData, (MatchAwardOverrideLoader)XmlDataOverriders.GetOverrider(typeof(MatchAwardParser))));
-            DataHeroSkin dataHeroSkin = new DataHeroSkin(new HeroSkinParser(GameData, DefaultData));
-            DataMount dataMount = new DataMount(new MountParser(GameData, DefaultData));
-            DataBanner dataBanner = new DataBanner(new BannerParser(GameData, DefaultData));
-            DataSpray dataSpray = new DataSpray(new SprayParser(GameData, DefaultData));
-            DataAnnouncer dataAnnouncer = new DataAnnouncer(new AnnouncerParser(GameData, DefaultData));
-            DataVoiceLine dataVoiceLine = new DataVoiceLine(new VoiceLineParser(GameData, DefaultData));
-            DataPortrait dataPortrait = new DataPortrait(new PortraitParser(GameData, DefaultData));
-            DataEmoticon dataEmoticon = new DataEmoticon(new EmoticonParser(GameData, DefaultData));
-            DataEmoticonPack dataEmoticonPack = new DataEmoticonPack(new EmoticonPackParser(GameData, DefaultData));
+            DataHero dataHero = new DataHero(new HeroDataParser(Configuration, GameData, DefaultData, (HeroOverrideLoader)XmlDataOverriders.GetOverrider(typeof(HeroDataParser))));
+            DataUnit dataUnit = new DataUnit(new UnitParser(Configuration, GameData, DefaultData, (UnitOverrideLoader)XmlDataOverriders.GetOverrider(typeof(UnitParser))));
+            DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(Configuration, GameData, DefaultData, (MatchAwardOverrideLoader)XmlDataOverriders.GetOverrider(typeof(MatchAwardParser))));
+            DataHeroSkin dataHeroSkin = new DataHeroSkin(new HeroSkinParser(Configuration, GameData, DefaultData));
+            DataMount dataMount = new DataMount(new MountParser(Configuration, GameData, DefaultData));
+            DataBanner dataBanner = new DataBanner(new BannerParser(Configuration, GameData, DefaultData));
+            DataSpray dataSpray = new DataSpray(new SprayParser(Configuration, GameData, DefaultData));
+            DataAnnouncer dataAnnouncer = new DataAnnouncer(new AnnouncerParser(Configuration, GameData, DefaultData));
+            DataVoiceLine dataVoiceLine = new DataVoiceLine(new VoiceLineParser(Configuration, GameData, DefaultData));
+            DataPortrait dataPortrait = new DataPortrait(new PortraitParser(Configuration, GameData, DefaultData));
+            DataEmoticon dataEmoticon = new DataEmoticon(new EmoticonParser(Configuration, GameData, DefaultData));
+            DataEmoticonPack dataEmoticonPack = new DataEmoticonPack(new EmoticonPackParser(Configuration, GameData, DefaultData));
 
             ImageHero filesHero = new ImageHero(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageUnit filesUnit = new ImageUnit(CASCHotsStorage?.CASCHandler, StoragePath);

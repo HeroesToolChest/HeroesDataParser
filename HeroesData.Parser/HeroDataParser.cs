@@ -23,8 +23,8 @@ namespace HeroesData.Parser
         private AbilityData AbilityData;
         private TalentData TalentData;
 
-        public HeroDataParser(GameData gameData, DefaultData defaultData, HeroOverrideLoader heroOverrideLoader)
-            : base(gameData, defaultData)
+        public HeroDataParser(Configuration configuration, GameData gameData, DefaultData defaultData, HeroOverrideLoader heroOverrideLoader)
+            : base(configuration, gameData, defaultData)
         {
             HeroOverrideLoader = heroOverrideLoader;
         }
@@ -38,7 +38,7 @@ namespace HeroesData.Parser
         /// Returns a collection of all the parsable ids. Allows multiple ids.
         /// </summary>
         /// <returns></returns>
-        public HashSet<string[]> Items
+        public override HashSet<string[]> Items
         {
             get
             {
@@ -60,6 +60,8 @@ namespace HeroesData.Parser
                 return items;
             }
         }
+
+        protected override string ElementType => "CHero";
 
         /// <summary>
         /// Returns the parsed game data from the given ids. Multiple ids may be used to identity one item.
@@ -141,7 +143,7 @@ namespace HeroesData.Parser
 
         public HeroDataParser GetInstance()
         {
-            return new HeroDataParser(GameData, DefaultData, HeroOverrideLoader);
+            return new HeroDataParser(Configuration, GameData, DefaultData, HeroOverrideLoader);
         }
 
         protected override void ApplyAdditionalOverrides(Hero hero, HeroDataOverride heroDataOverride)
@@ -221,6 +223,11 @@ namespace HeroesData.Parser
             }
         }
 
+        protected override bool ValidItem(XElement element)
+        {
+            throw new NotImplementedException();
+        }
+
         private void SetDefaultValues(Hero hero)
         {
             hero.Type = GameData.GetGameString(DefaultData.StringRanged).Trim();
@@ -289,7 +296,7 @@ namespace HeroesData.Parser
 
         private void CHeroData(Hero hero)
         {
-            XElement heroElement = GameData.Elements("CHero").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CHeroId);
+            XElement heroElement = GameData.Elements(ElementType).FirstOrDefault(x => x.Attribute("id")?.Value == hero.CHeroId);
 
             if (heroElement == null)
                 return;

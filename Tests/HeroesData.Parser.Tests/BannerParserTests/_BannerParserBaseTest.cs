@@ -16,13 +16,13 @@ namespace HeroesData.Parser.Tests.BannerParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            BannerParser bannerParser = new BannerParser(GameData, DefaultData);
+            BannerParser bannerParser = new BannerParser(Configuration, GameData, DefaultData);
             Assert.IsTrue(bannerParser.Items.Count > 0);
         }
 
         private void Parse()
         {
-            BannerParser bannerParser = new BannerParser(GameData, DefaultData);
+            BannerParser bannerParser = new BannerParser(Configuration, GameData, DefaultData);
             AmberWizardWarbanner = bannerParser.Parse("BannerD3WizardRareVar1");
         }
     }

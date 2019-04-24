@@ -3,7 +3,6 @@ using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -12,32 +11,16 @@ namespace HeroesData.Parser
 {
     public class EmoticonParser : ParserBase<Emoticon, EmoticonDataOverride>, IParser<Emoticon, EmoticonParser>
     {
-        public EmoticonParser(GameData gameData, DefaultData defaultData)
-            : base(gameData, defaultData)
+        public EmoticonParser(Configuration configuration, GameData gameData, DefaultData defaultData)
+            : base(configuration, gameData, defaultData)
         {
         }
 
-        public HashSet<string[]> Items
-        {
-            get
-            {
-                HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
-
-                IEnumerable<XElement> cEmoticonElements = GameData.Elements("CEmoticon").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
-
-                foreach (XElement emoticonElement in cEmoticonElements)
-                {
-                    string id = emoticonElement.Attribute("id").Value;
-                    items.Add(new string[] { id });
-                }
-
-                return items;
-            }
-        }
+        protected override string ElementType => "CEmoticon";
 
         public EmoticonParser GetInstance()
         {
-            return new EmoticonParser(GameData, DefaultData);
+            return new EmoticonParser(Configuration, GameData, DefaultData);
         }
 
         public Emoticon Parse(params string[] ids)
@@ -47,7 +30,7 @@ namespace HeroesData.Parser
 
             string id = ids.FirstOrDefault();
 
-            XElement emoticonElement = GameData.MergeXmlElements(GameData.Elements("CEmoticon").Where(x => x.Attribute("id")?.Value == id));
+            XElement emoticonElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (emoticonElement == null)
                 return null;
 
@@ -65,13 +48,18 @@ namespace HeroesData.Parser
             return emoticon;
         }
 
+        protected override bool ValidItem(XElement element)
+        {
+            return true;
+        }
+
         private void SetEmoticonData(XElement emoticonElement, Emoticon emoticon)
         {
             // parent lookup
             string parentValue = emoticonElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CEmoticon").Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetEmoticonData(parentElement, emoticon);
             }
