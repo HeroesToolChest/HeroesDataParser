@@ -166,7 +166,7 @@ namespace HeroesData.Loader.XmlGameData
                             string filePath = ((CASCFile)dataFiles.Value).FullName;
                             using (Stream data = CASCHandlerData.OpenFile(((CASCFile)dataFiles.Value).FullName))
                             {
-                                LoadXmlFile(data, filePath);
+                                LoadXmlFile(mapFolder.Value.Name, data, filePath);
                             }
                         }
                     }
@@ -177,7 +177,7 @@ namespace HeroesData.Loader.XmlGameData
                     string filePath = Path.Combine(HeroesMapModsDirectoryPath, mapFolder.Value.Name, GameStringLocalization, LocalizedDataName, GameStringFile);
 
                     if (CASCHandlerData.FileExists(filePath))
-                        LoadTextFile(CASCHandlerData.OpenFile(filePath), filePath, true);
+                        LoadTextFile(mapFolder.Value.Name, CASCHandlerData.OpenFile(filePath), filePath);
                 }
             }
         }

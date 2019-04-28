@@ -13,7 +13,9 @@ namespace HeroesData.Loader.XmlGameData
         private readonly Dictionary<(string Catalog, string Entry, string Field), double> ScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
         private readonly Dictionary<string, string> GameStringById = new Dictionary<string, string>();
 
-        private ILookup<string, XElement> ElementsByElementName;
+        private readonly Dictionary<string, GameData> UniqueGameDataByUniqueName = new Dictionary<string, GameData>();
+
+        private ILookup<string, XElement> XmlGameDataElementsByElementName;
 
         protected GameData(string modsFolderPath)
         {
@@ -29,7 +31,7 @@ namespace HeroesData.Loader.XmlGameData
         /// <summary>
         /// Gets the number of gamestrings.
         /// </summary>
-        public int GameStringCount => GameStringById.Count;
+        public int GameStringCount => GameStringById.Count + UniqueGameDataByUniqueName.Values.Sum(x => x.GameStringCount);
 
         /// <summary>
         /// Gets the number of xml files that were added.
@@ -42,7 +44,7 @@ namespace HeroesData.Loader.XmlGameData
         public int TextFileCount { get; protected set; } = 0;
 
         /// <summary>
-        /// Gets a XDocument of all the combined xml game data. Recommended to use <see cref="Elements(string)"/> for quicker access.
+        /// Gets a XDocument of the xml game data. Recommended to use <see cref="Elements(string)"/> for quicker access.
         /// </summary>
         public XDocument XmlGameData { get; protected set; } = new XDocument();
 
@@ -75,6 +77,16 @@ namespace HeroesData.Loader.XmlGameData
         /// Gets the cached text file paths.
         /// </summary>
         public List<string> TextCachedFilePaths { get; } = new List<string>();
+
+        /// <summary>
+        /// Gets a collection of all game string ids.
+        /// </summary>
+        public IList<string> GameStringIds => GameStringById.Keys.ToList();
+
+        /// <summary>
+        /// Gets a collection of all unique name ids.
+        /// </summary>
+        public IList<string> UniqueIds => UniqueGameDataByUniqueName.Keys.ToList();
 
         protected string ModsFolderPath { get; }
 
@@ -147,7 +159,7 @@ namespace HeroesData.Loader.XmlGameData
         }
 
         /// <summary>
-        /// Gets the gamestring by the gamestring id. If not found returns an empty string.
+        /// Gets the value by the gamestring id. If not found returns an empty string.
         /// </summary>
         /// <param name="id">The string id to look up.</param>
         /// <returns></returns>
@@ -174,15 +186,6 @@ namespace HeroesData.Loader.XmlGameData
         }
 
         /// <summary>
-        /// Returns a collection of all game string ids.
-        /// </summary>
-        /// <returns></returns>
-        public IList<string> GetGameStringIds()
-        {
-            return GameStringById.Keys.ToList();
-        }
-
-        /// <summary>
         /// Adds a gamestring. If a gamestring exists, it will be overridden.
         /// </summary>
         /// <param name="id">The id of the string.</param>
@@ -190,6 +193,33 @@ namespace HeroesData.Loader.XmlGameData
         public void AddGameString(string id, string value)
         {
             GameStringById[id] = value;
+        }
+
+        /// <summary>
+        /// Adds a unique gamestring. If a gamestring exists, it will be overridden.
+        /// </summary>
+        /// <param name="uniqueId">The unique id that pertains to the gamestring.</param>
+        /// <param name="id">The id of the string.</param>
+        /// <param name="value">The value of the string.</param>
+        public void AddUniqueGameString(string uniqueId, string id, string value)
+        {
+            if (UniqueGameDataByUniqueName.TryGetValue(uniqueId, out GameData uniqueGameData))
+                uniqueGameData.GameStringById[id] = value;
+            else
+                UniqueGameDataByUniqueName[uniqueId].GameStringById.Add(id, value);
+        }
+
+        /// <summary>
+        /// Returns unique game data based on the unique id.
+        /// </summary>
+        /// <param name="uniqueId"></param>
+        /// <returns></returns>
+        public GameData GetUniqueGameData(string uniqueId)
+        {
+            if (UniqueGameDataByUniqueName.TryGetValue(uniqueId, out GameData uniqueGameData))
+                return uniqueGameData;
+
+            throw new KeyNotFoundException($"UniqueId not found: {uniqueId}");
         }
 
         /// <summary>
@@ -228,7 +258,7 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public IEnumerable<XElement> Elements(string elementName)
         {
-            return ElementsByElementName[elementName];
+            return XmlGameDataElementsByElementName[elementName];
         }
 
         /// <summary>
@@ -240,7 +270,7 @@ namespace HeroesData.Loader.XmlGameData
         public IEnumerable<XElement> ElementsIncluded(string[] elements, string attributeId = null)
         {
             List<XElement> elementList = new List<XElement>();
-            foreach (IGrouping<string, XElement> item in ElementsByElementName)
+            foreach (IGrouping<string, XElement> item in XmlGameDataElementsByElementName)
             {
                 if (elements.Contains(item.Key))
                 {
@@ -295,27 +325,46 @@ namespace HeroesData.Loader.XmlGameData
         protected abstract void LoadHeroesMapMods();
         protected abstract void LoadGameDataXmlContents(string gameDataXmlFilePath);
 
-        protected void LoadTextFile(string filePath, bool isMapFile = false)
+        protected void LoadTextFile(string filePath)
         {
             using (StreamReader reader = new StreamReader(filePath))
             {
-                if (isMapFile)
-                    ReadMapFile(reader);
-                else
-                    ReadTextFile(reader);
+                ReadTextFile(reader);
             }
 
             TextFileCount++;
         }
 
-        protected void LoadTextFile(Stream fileStream, string filePath, bool isMapFile = false)
+        protected void LoadTextFile(Stream fileStream, string filePath)
         {
             using (StreamReader reader = new StreamReader(fileStream))
             {
-                if (isMapFile)
-                    ReadMapFile(reader);
-                else
-                    ReadTextFile(reader);
+                ReadTextFile(reader);
+
+                if (IsCacheEnabled)
+                {
+                    TextCachedFilePaths.Add(filePath);
+                }
+            }
+
+            TextFileCount++;
+        }
+
+        protected void LoadTextFile(string mapName, string filePath)
+        {
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                ReadMapTextFile(mapName, reader);
+            }
+
+            TextFileCount++;
+        }
+
+        protected void LoadTextFile(string mapName, Stream fileStream, string filePath)
+        {
+            using (StreamReader reader = new StreamReader(fileStream))
+            {
+                ReadMapTextFile(mapName, reader);
 
                 if (IsCacheEnabled)
                 {
@@ -347,6 +396,34 @@ namespace HeroesData.Loader.XmlGameData
             }
         }
 
+        protected void LoadXmlFile(string mapName, string filePath)
+        {
+            if (Path.GetExtension(filePath) == ".xml")
+            {
+                if (UniqueGameDataByUniqueName.TryGetValue(mapName, out GameData mapGameData))
+                    mapGameData.XmlGameData.Root.Add(XDocument.Load(filePath).Root.Elements());
+                else
+                    UniqueGameDataByUniqueName.Add(mapName, new FileGameData(ModsFolderPath, HotsBuild) { XmlGameData = XDocument.Load(filePath) });
+
+                XmlFileCount++;
+            }
+        }
+
+        protected void LoadXmlFile(string mapName, Stream stream, string filePath)
+        {
+            if (UniqueGameDataByUniqueName.TryGetValue(mapName, out GameData mapGameData))
+                mapGameData.XmlGameData.Root.Add(XDocument.Load(stream).Root.Elements());
+            else
+                UniqueGameDataByUniqueName.Add(mapName, new FileGameData(ModsFolderPath, HotsBuild) { XmlGameData = XDocument.Load(stream) });
+
+            XmlFileCount++;
+
+            if (IsCacheEnabled)
+            {
+                XmlCachedFilePaths.Add(filePath);
+            }
+        }
+
         private void Load()
         {
             CoreBaseDataDirectoryPath = Path.Combine(ModsFolderPath, CoreStormModDirectoryName, BaseStormDataDirectoryName);
@@ -357,8 +434,15 @@ namespace HeroesData.Loader.XmlGameData
             HeroesDataLocalizedDataPath = Path.Combine(ModsFolderPath, HeroesDataStormModDirectoryName, GameStringLocalization, LocalizedDataName);
 
             LoadFiles();
+
             SetLevelScalingData();
             SetPredefinedElements();
+
+            foreach (GameData mapGameData in UniqueGameDataByUniqueName.Values)
+            {
+                mapGameData.SetLevelScalingData();
+                mapGameData.SetPredefinedElements();
+            }
         }
 
         private void LoadFiles()
@@ -381,29 +465,16 @@ namespace HeroesData.Loader.XmlGameData
             }
         }
 
-        private void ReadMapFile(StreamReader reader)
+        private void ReadMapTextFile(string mapName, StreamReader reader)
         {
-            Dictionary<ReadOnlyMemory<char>, ReadOnlyMemory<char>> mapGamestrings = new Dictionary<ReadOnlyMemory<char>, ReadOnlyMemory<char>>();
-            ReadOnlyMemory<char> gamelink = null;
-
-            // load it all up
             while (!reader.EndOfStream)
             {
-                ReadOnlyMemory<char> line = reader.ReadLine().AsMemory();
-                int indexOfSplit = line.Span.IndexOf('=');
+                ReadOnlySpan<char> lineSpan = reader.ReadLine().AsSpan();
+                int indexOfSplit = lineSpan.IndexOf('=');
 
                 if (indexOfSplit > -1)
-                {
-                    ReadOnlyMemory<char> id = line.Slice(0, indexOfSplit);
-                    if (id.Span.StartsWith("ScoreValue/Name/EndOfMatchAward"))
-                        gamelink = line.Slice(id.Span.LastIndexOf('/') + 1);
-
-                    mapGamestrings.Add(id, line.Slice(indexOfSplit + 1));
-                }
+                    AddUniqueGameString(mapName, lineSpan.Slice(0, indexOfSplit).ToString(), lineSpan.Slice(indexOfSplit + 1).ToString());
             }
-
-            if (!gamelink.IsEmpty && mapGamestrings.TryGetValue($"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}[Override]Generic Instance_Award Name".AsMemory(), out ReadOnlyMemory<char> instanceAwardName))
-                AddGameString($"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}{gamelink.ToString()}", instanceAwardName.ToString());
         }
 
         private void SetLevelScalingData()
@@ -438,7 +509,7 @@ namespace HeroesData.Loader.XmlGameData
         {
             LayoutButtonElements = XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value != "TargetHeroDummy").Elements("CardLayouts").Elements("LayoutButtons");
 
-            ElementsByElementName = XmlGameData.Root.Elements().ToLookup(x => x.Name.LocalName, x => x);
+            XmlGameDataElementsByElementName = XmlGameData.Root.Elements().ToLookup(x => x.Name.LocalName, x => x);
         }
     }
 }

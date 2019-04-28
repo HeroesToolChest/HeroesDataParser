@@ -1,6 +1,5 @@
 ﻿using Heroes.Models;
 using HeroesData.Helpers;
-using HeroesData.Loader;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides;
 using HeroesData.Parser.Overrides.DataOverrides;
@@ -15,6 +14,11 @@ namespace HeroesData.Parser
 {
     public class MatchAwardParser : ParserBase<MatchAward, MatchAwardDataOverride>, IParser<MatchAward, MatchAwardParser>
     {
+        private readonly string GeneralMapName = "general";
+        private readonly string AwardNameId = "UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Award Name";
+        private readonly string AwardNamePrefix = "ScoreValue/Name/";
+        private readonly string AwardDescriptionPrefix = "ScoreValue/Tooltip/";
+
         private readonly MatchAwardOverrideLoader MatchAwardOverrideLoader;
         private readonly string MVPGameLinkId = "EndOfMatchAwardMVPBoolean";
 
@@ -36,26 +40,44 @@ namespace HeroesData.Parser
             {
                 HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
 
-                XElement matchAwardsGeneral = GameData.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward");
-                IEnumerable<XElement> matchAwardsMapSpecific = GameData.Elements("CUser").Where(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward");
+                // general map gamelinks
+                IEnumerable<XElement> matchAwards = GameData.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward").Elements("Instances");
+                IEnumerable<XElement> matchAwardsSpecific = GameData.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward").Elements("Instances");
 
-                // combine both
-                IEnumerable<XElement> mapAwardsInstances = matchAwardsMapSpecific.Elements("Instances").Concat(matchAwardsGeneral.Elements("Instances"));
+                matchAwards = matchAwards.Concat(matchAwardsSpecific);
 
-                foreach (XElement awardInstance in mapAwardsInstances)
+                foreach (XElement awardInstance in matchAwards)
                 {
                     string instanceId = awardInstance.Attribute("Id")?.Value;
 
                     if (instanceId == "[Default]" || !awardInstance.HasElements)
                         continue;
 
-                    string gameLink = awardInstance.Element("GameLink").Attribute("GameLink").Value;
+                    items.Add(new string[] { GeneralMapName, awardInstance.Element("GameLink").Attribute("GameLink").Value });
+                }
 
-                    items.Add(new string[] { instanceId, gameLink });
+                // map specific gamelinks
+                List<XElement> matchAwardsMapSpecific = new List<XElement>();
+                foreach (string mapName in GameData.UniqueIds)
+                {
+                    if (Configuration.RemoveDataXmlElementIds("MapStormmod").Contains(mapName))
+                        continue;
+
+                    matchAwards = GameData.GetUniqueGameData(mapName).Elements("CUser").Where(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward");
+
+                    foreach (XElement awardInstance in matchAwards.Elements("Instances"))
+                    {
+                        string instanceId = awardInstance.Attribute("Id")?.Value;
+
+                        if (instanceId == "[Default]" || !awardInstance.HasElements)
+                            continue;
+
+                        items.Add(new string[] { mapName, awardInstance.Element("GameLink")?.Attribute("GameLink")?.Value });
+                    }
                 }
 
                 // manually add mvp award
-                items.Add(new string[] { "[Override]Generic Instance", MVPGameLinkId });
+                items.Add(new string[] { GeneralMapName, MVPGameLinkId });
 
                 return items;
             }
@@ -73,14 +95,21 @@ namespace HeroesData.Parser
             if (ids == null || ids.Count() != 2)
                 return null;
 
-            string instanceId = ids[0];
+            string mapName = ids[0];
             string gameLink = ids[1];
 
             // get the name
-            if (GameData.TryGetGameString($"{MapGameStringPrefixes.MatchAwardMapSpecificInstanceNamePrefix}{gameLink}", out string awardNameText))
-                instanceId = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
-            else if (GameData.TryGetGameString($"{MapGameStringPrefixes.MatchAwardInstanceNamePrefix}{gameLink}", out awardNameText))
-                instanceId = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
+            string awardName = string.Empty;
+
+            if (mapName != GeneralMapName)
+            {
+                GameData mapGameData = GameData.GetUniqueGameData(mapName);
+                if (mapGameData.TryGetGameString(AwardNameId, out string mapAwardNameText))
+                    awardName = GetNameFromGenderRule(new TooltipDescription(mapAwardNameText).PlainText);
+            }
+
+            if (string.IsNullOrEmpty(awardName) && GameData.TryGetGameString($"{AwardNamePrefix}{gameLink}", out string awardNameText))
+                awardName = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
 
             XElement scoreValueCustomElement = GameData.MergeXmlElements(GameData.Elements("CScoreValueCustom").Where(x => x.Attribute("id")?.Value == gameLink));
             string scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
@@ -90,7 +119,7 @@ namespace HeroesData.Parser
 
             MatchAward matchAward = new MatchAward()
             {
-                Name = instanceId,
+                Name = awardName,
                 ScoreScreenImageFileNameOriginal = Path.GetFileName(PathHelpers.GetFilePath(scoreScreenIconFilePath)),
                 MVPScreenImageFileNameOriginal = $"storm_ui_mvp_icons_rewards_{awardSpecialName}.dds",
                 Tag = scoreValueCustomElement.Element("UniqueTag").Attribute("value")?.Value,
@@ -104,7 +133,7 @@ namespace HeroesData.Parser
             matchAward.MVPScreenImageFileName = $"storm_ui_mvp_{awardSpecialName}_%color%.dds".ToLower();
 
             // set description
-            if (GameData.TryGetGameString($"{MapGameStringPrefixes.ScoreValueTooltipPrefix}{gameLink}", out string description))
+            if (GameData.TryGetGameString($"{AwardDescriptionPrefix}{gameLink}", out string description))
                 matchAward.Description = new TooltipDescription(description);
 
             // overrides

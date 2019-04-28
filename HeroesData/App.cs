@@ -367,7 +367,7 @@ namespace HeroesData
 
             try
             {
-                Parallel.ForEach(GameData.GetGameStringIds(), new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, gamestringId =>
+                Parallel.ForEach(GameData.GameStringIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, gamestringId =>
                 {
                     if (gameStringParser.TryParseRawTooltip(gamestringId, GameData.GetGameString(gamestringId), out string parsedGamestring))
                     {
@@ -381,6 +381,26 @@ namespace HeroesData
 
                     Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {GameData.GameStringCount} total gamestrings");
                 });
+
+                // map specific data
+                foreach (string mapName in GameData.UniqueIds)
+                {
+                    GameData mapGameData = GameData.GetUniqueGameData(mapName);
+                    Parallel.ForEach(mapGameData.GameStringIds, new ParallelOptions { MaxDegreeOfParallelism = 1 }, gamestringId =>
+                    {
+                        if (gameStringParser.TryParseRawTooltip(gamestringId, mapGameData.GetGameString(gamestringId), out string parsedGamestring))
+                        {
+                            GameData.AddUniqueGameString(mapName, gamestringId, parsedGamestring);
+                        }
+                        else
+                        {
+                            failedGameStrings.Add($"[{mapName}]:{gamestringId}={GameData.GetGameString(gamestringId)}");
+                            Interlocked.Increment(ref failedCount);
+                        }
+
+                        Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {GameData.GameStringCount} total gamestrings");
+                    });
+                }
             }
             catch (AggregateException ae)
             {

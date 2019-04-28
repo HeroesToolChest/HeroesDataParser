@@ -126,7 +126,7 @@ namespace HeroesData.Parser.Tests
 
         private void PreParse()
         {
-            foreach (string id in GameData.GetGameStringIds())
+            foreach (string id in GameData.GameStringIds)
             {
                 if (GameStringParser.TryParseRawTooltip(id, GameData.GetGameString(id), out string parsedGamestring))
                     GameData.AddGameString(id, parsedGamestring);

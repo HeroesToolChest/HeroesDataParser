@@ -120,7 +120,7 @@ namespace HeroesData.Loader.XmlGameData
                 {
                     foreach (string xmlFilePath in Directory.GetFiles(xmlMapGameDataPath))
                     {
-                        LoadXmlFile(xmlFilePath);
+                        LoadXmlFile(mapFolderName, xmlFilePath);
                     }
                 }
 
@@ -128,7 +128,7 @@ namespace HeroesData.Loader.XmlGameData
                 {
                     try
                     {
-                        LoadTextFile(Path.Combine(HeroesMapModsDirectoryPath, mapFolderName, GameStringLocalization, LocalizedDataName, GameStringFile), true);
+                        LoadTextFile(mapFolderName, Path.Combine(HeroesMapModsDirectoryPath, mapFolderName, GameStringLocalization, LocalizedDataName, GameStringFile));
                     }
                     catch (FileNotFoundException)
                     {
