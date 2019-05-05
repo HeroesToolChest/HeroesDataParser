@@ -5,9 +5,7 @@
       <Attribute>att1</Attribute>
       <Attribute>att2</Attribute>
     </Attributes>
-    <Images>
-      <Image>image_minion_archer.png</Image>
-    </Images>
+    <Image>image_minion_archer.png</Image>
     <Life>
       <Amount scale="0">500</Amount>
       <RegenRate scale="0">0</RegenRate>
@@ -19,10 +17,7 @@
     </Weapons>
   </MinionArcher>
   <MinionFootman hyperlinkId="MinionFootman" innerRadius="1.125" radius="1.111" sight="6" speed="4">
-    <Images>
-      <Image>image_minion_archer.png</Image>
-      <Image>image_ranged.png</Image>
-    </Images>
+    <Image>image_minion_archer.png</Image>
     <Life>
       <Amount scale="0">900</Amount>
       <RegenRate scale="0">0</RegenRate>

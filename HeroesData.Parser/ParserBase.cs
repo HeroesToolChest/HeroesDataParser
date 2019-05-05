@@ -51,11 +51,26 @@ namespace HeroesData.Parser
 
         protected abstract string ElementType { get; }
 
+        /// <summary>
+        /// Default name for general items.
+        /// </summary>
+        protected string GeneralMapName => string.Empty;
+
         protected GameData GameData { get; }
 
         protected DefaultData DefaultData { get; }
 
         protected Configuration Configuration { get; }
+
+        public void LoadMapData(string mapId)
+        {
+            GameData.AppendGameData(GameData.GetMapGameData(mapId));
+        }
+
+        public void RestoreGameData()
+        {
+            GameData.RestoreGameData();
+        }
 
         /// <summary>
         /// Applies the additional overrides. This method is called by <see cref="ApplyOverrides(T, TOverride)"/>.
@@ -89,6 +104,9 @@ namespace HeroesData.Parser
             ApplyAdditionalOverrides(t, dataOverride);
         }
 
-        protected abstract bool ValidItem(XElement element);
+        protected virtual bool ValidItem(XElement element)
+        {
+            return true;
+        }
     }
 }

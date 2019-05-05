@@ -34,5 +34,15 @@ namespace HeroesData.Parser
         /// </summary>
         /// <returns></returns>
         TU GetInstance();
+
+        /// <summary>
+        /// Loads the specific map data.
+        /// </summary>
+        void LoadMapData(string mapId);
+
+        /// <summary>
+        /// Restores the game data to the original data.
+        /// </summary>
+        void RestoreGameData();
     }
 }

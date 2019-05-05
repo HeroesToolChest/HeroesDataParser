@@ -9,9 +9,7 @@
       "att1",
       "att2"
     ],
-    "images": [
-      "image_minion_archer.png"
-    ],
+    "image": "image_minion_archer.png",
     "life": {
       "amount": 500.0,
       "scale": 0.0,
@@ -34,10 +32,7 @@
     "radius": 1.111,
     "sight": 6.0,
     "speed": 4.0,
-    "images": [
-      "image_minion_archer.png",
-      "image_ranged.png"
-    ],
+    "image": "image_minion_archer.png",
     "life": {
       "amount": 900.0,
       "scale": 0.0,

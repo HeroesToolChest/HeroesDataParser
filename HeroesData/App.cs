@@ -353,6 +353,7 @@ namespace HeroesData
         {
             int currentCount = 0;
             int failedCount = 0;
+            int totalGameStrings = GameData.GameStringCount + GameData.GameStringMapCount;
             List<string> failedGameStrings = new List<string>();
 
             Stopwatch time = new Stopwatch();
@@ -363,7 +364,7 @@ namespace HeroesData
 
             time.Start();
 
-            Console.Write($"\r{currentCount,6} / {GameData.GameStringCount} total gamestrings");
+            Console.Write($"\r{currentCount,6} / {totalGameStrings} total gamestrings");
 
             try
             {
@@ -379,18 +380,18 @@ namespace HeroesData
                         Interlocked.Increment(ref failedCount);
                     }
 
-                    Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {GameData.GameStringCount} total gamestrings");
+                    Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {totalGameStrings} total gamestrings");
                 });
 
                 // map specific data
-                foreach (string mapName in GameData.UniqueIds)
+                foreach (string mapName in GameData.MapIds)
                 {
-                    GameData mapGameData = GameData.GetUniqueGameData(mapName);
-                    Parallel.ForEach(mapGameData.GameStringIds, new ParallelOptions { MaxDegreeOfParallelism = 1 }, gamestringId =>
+                    GameData mapGameData = GameData.GetMapGameData(mapName);
+                    Parallel.ForEach(mapGameData.GameStringIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, gamestringId =>
                     {
                         if (gameStringParser.TryParseRawTooltip(gamestringId, mapGameData.GetGameString(gamestringId), out string parsedGamestring))
                         {
-                            GameData.AddUniqueGameString(mapName, gamestringId, parsedGamestring);
+                            GameData.AddMapGameString(mapName, gamestringId, parsedGamestring);
                         }
                         else
                         {
@@ -398,7 +399,7 @@ namespace HeroesData
                             Interlocked.Increment(ref failedCount);
                         }
 
-                        Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {GameData.GameStringCount} total gamestrings");
+                        Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {totalGameStrings} total gamestrings");
                     });
                 }
             }
@@ -427,7 +428,7 @@ namespace HeroesData
                 Console.ForegroundColor = ConsoleColor.Yellow;
             }
 
-            Console.WriteLine($"{GameData.GameStringCount - failedCount,6} successfully parsed gamestrings");
+            Console.WriteLine($"{totalGameStrings - failedCount,6} successfully parsed gamestrings");
 
             Console.ResetColor();
             Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");

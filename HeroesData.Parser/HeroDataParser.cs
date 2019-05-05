@@ -223,11 +223,6 @@ namespace HeroesData.Parser
             }
         }
 
-        protected override bool ValidItem(XElement element)
-        {
-            throw new NotImplementedException();
-        }
-
         private void SetDefaultValues(Hero hero)
         {
             hero.Type = GameData.GetGameString(DefaultData.StringRanged).Trim();

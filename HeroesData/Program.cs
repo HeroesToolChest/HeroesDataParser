@@ -241,7 +241,7 @@ namespace HeroesData
             ExtractDataValues.Add(ExtractDataOption.Emoticon, emoticons);
             ExtractDataValues.Add(ExtractDataOption.HeroSkin, new List<string>()
             {
-                "HEROSKINS", "HEROSKIN", "SKINS", "AWARD",
+                "HEROSKINS", "HEROSKIN", "SKINS",
             });
             ExtractDataValues.Add(ExtractDataOption.Mount, new List<string>()
             {

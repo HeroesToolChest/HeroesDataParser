@@ -415,3 +415,8 @@ Unit/Name/TownCannonTowerL2=Cannon Tower
 
 Button/Name/VolskayaVehicleTShield=T Shield
 Button/Tooltip/VolskayaVehicleTShield=Gives shields to allies
+
+Abil/Name/KerriganRavage=Ravage
+Button/Name/KerriganRavage=Ravage
+Button/SimpleDisplayText/KerriganRavage=Leap to an enemy and deal damage
+Button/Tooltip/KerriganRavage=Leap to a target, dealing

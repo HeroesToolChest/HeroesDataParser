@@ -14,7 +14,6 @@ namespace HeroesData.Parser
 {
     public class MatchAwardParser : ParserBase<MatchAward, MatchAwardDataOverride>, IParser<MatchAward, MatchAwardParser>
     {
-        private readonly string GeneralMapName = "general";
         private readonly string AwardNameId = "UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Award Name";
         private readonly string AwardNamePrefix = "ScoreValue/Name/";
         private readonly string AwardDescriptionPrefix = "ScoreValue/Tooltip/";
@@ -41,43 +40,29 @@ namespace HeroesData.Parser
                 HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
 
                 // general map gamelinks
-                IEnumerable<XElement> matchAwards = GameData.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward").Elements("Instances");
-                IEnumerable<XElement> matchAwardsSpecific = GameData.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward").Elements("Instances");
+                IEnumerable<XElement> matchAwards = GameData.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward")?.Elements("Instances");
+                IEnumerable<XElement> matchAwardsSpecific = GameData.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward")?.Elements("Instances");
 
-                matchAwards = matchAwards.Concat(matchAwardsSpecific);
+                if (matchAwards == null && matchAwardsSpecific != null)
+                    matchAwards = matchAwardsSpecific;
+                else if (matchAwards != null && matchAwardsSpecific != null)
+                    matchAwards = matchAwards.Concat(matchAwardsSpecific);
 
-                foreach (XElement awardInstance in matchAwards)
-                {
-                    string instanceId = awardInstance.Attribute("Id")?.Value;
-
-                    if (instanceId == "[Default]" || !awardInstance.HasElements)
-                        continue;
-
-                    items.Add(new string[] { GeneralMapName, awardInstance.Element("GameLink").Attribute("GameLink").Value });
-                }
+                AddItems(GeneralMapName, matchAwards, items);
 
                 // map specific gamelinks
-                List<XElement> matchAwardsMapSpecific = new List<XElement>();
-                foreach (string mapName in GameData.UniqueIds)
+                foreach (string mapName in GameData.MapIds)
                 {
                     if (Configuration.RemoveDataXmlElementIds("MapStormmod").Contains(mapName))
                         continue;
 
-                    matchAwards = GameData.GetUniqueGameData(mapName).Elements("CUser").Where(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward");
+                    matchAwards = GameData.GetMapGameData(mapName).Elements("CUser").Where(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward");
 
-                    foreach (XElement awardInstance in matchAwards.Elements("Instances"))
-                    {
-                        string instanceId = awardInstance.Attribute("Id")?.Value;
-
-                        if (instanceId == "[Default]" || !awardInstance.HasElements)
-                            continue;
-
-                        items.Add(new string[] { mapName, awardInstance.Element("GameLink")?.Attribute("GameLink")?.Value });
-                    }
+                    AddItems(mapName, matchAwards.Elements("Instances"), items);
                 }
 
                 // manually add mvp award
-                items.Add(new string[] { GeneralMapName, MVPGameLinkId });
+                items.Add(new string[] { MVPGameLinkId });
 
                 return items;
             }
@@ -92,23 +77,21 @@ namespace HeroesData.Parser
         /// <returns></returns>
         public MatchAward Parse(params string[] ids)
         {
-            if (ids == null || ids.Count() != 2)
+            if (ids == null)
                 return null;
 
-            string mapName = ids[0];
-            string gameLink = ids[1];
+            string gameLink = ids[0];
+            string mapNameId = string.Empty;
+
+            if (ids.Length == 2)
+                mapNameId = ids[1];
 
             // get the name
             string awardName = string.Empty;
 
-            if (mapName != GeneralMapName)
-            {
-                GameData mapGameData = GameData.GetUniqueGameData(mapName);
-                if (mapGameData.TryGetGameString(AwardNameId, out string mapAwardNameText))
-                    awardName = GetNameFromGenderRule(new TooltipDescription(mapAwardNameText).PlainText);
-            }
-
-            if (string.IsNullOrEmpty(awardName) && GameData.TryGetGameString($"{AwardNamePrefix}{gameLink}", out string awardNameText))
+            if (GameData.TryGetGameString($"{AwardNameId}", out string awardNameText))
+                awardName = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
+            else if (GameData.TryGetGameString($"{AwardNamePrefix}{gameLink}", out awardNameText))
                 awardName = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
 
             XElement scoreValueCustomElement = GameData.MergeXmlElements(GameData.Elements("CScoreValueCustom").Where(x => x.Attribute("id")?.Value == gameLink));
@@ -166,11 +149,6 @@ namespace HeroesData.Parser
                 matchAward.Description = new TooltipDescription(dataOverride.DescriptionOverride.Value);
         }
 
-        protected override bool ValidItem(XElement element)
-        {
-            throw new NotImplementedException();
-        }
-
         private string GetNameFromGenderRule(string name)
         {
             string[] parts = name.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -192,6 +170,22 @@ namespace HeroesData.Parser
                 value = ("Zero" + value.Slice(1).ToString()).AsSpan();
 
             return value;
+        }
+
+        private void AddItems(string mapName, IEnumerable<XElement> elements, HashSet<string[]> items)
+        {
+            foreach (XElement element in elements)
+            {
+                string instanceId = element.Attribute("Id")?.Value;
+
+                if (instanceId == "[Default]" || !element.HasElements)
+                    continue;
+
+                if (string.IsNullOrEmpty(mapName))
+                    items.Add(new string[] { element.Element("GameLink")?.Attribute("GameLink")?.Value });
+                else
+                    items.Add(new string[] { element.Element("GameLink")?.Attribute("GameLink")?.Value, mapName });
+            }
         }
     }
 }

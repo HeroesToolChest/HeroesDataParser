@@ -26,13 +26,8 @@ namespace HeroesData.ExtractorImages
 
         protected override void LoadFileData(Unit unit)
         {
-            if (unit.TargetInfoPanelImageFileNames.Count > 0)
-            {
-                foreach (string imageFileName in unit.TargetInfoPanelImageFileNames)
-                {
-                    Units.Add(imageFileName);
-                }
-            }
+            if (!string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName))
+                Units.Add(unit.TargetInfoPanelImageFileName);
         }
 
         private void ExtractUnitImages()

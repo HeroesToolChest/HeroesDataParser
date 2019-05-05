@@ -5,6 +5,9 @@ UI/MapLoadingScreen/TowersofDoom/Description3=Destroy your enemy's Towers to bri
 UI/MapLoadingScreen/TowersofDoom/Title1=Protected Cores
 UI/MapLoadingScreen/TowersofDoom/Title2=Activate Altars
 UI/MapLoadingScreen/TowersofDoom/Title3=Claim Bell Towers
+ScoreResult/Name/AltarDamageDone=Altar Damage Done
+ScoreValue/Name/AltarDamageDone=Altar Damage Done
+ScoreValue/Name/EndOfMatchAwardMostAltarDamageDone=Most Altar Damage Done
 UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Award Name=<lang rule="gender" word="~HeroName~">Cannoneer</lang>
 UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Description=~AwardValue~% Core Damage Done
 UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Tooltip Text=~TooltipAmount~ Core Damage Done

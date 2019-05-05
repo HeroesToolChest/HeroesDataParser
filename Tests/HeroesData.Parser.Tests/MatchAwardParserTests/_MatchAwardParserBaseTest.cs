@@ -37,8 +37,8 @@ namespace HeroesData.Parser.Tests.MatchAwardParserTests
         {
             MatchAwardParser matchAwardParser = new MatchAwardParser(Configuration, GameData, DefaultData, MatchAwardOverrideLoader);
 
-            InterruptedCageUnlocks = matchAwardParser.Parse("alteracpass.stormmod", "EndOfMatchAwardMostInterruptedCageUnlocksBoolean");
-            MostAltarDamage = matchAwardParser.Parse("towersofdoom.stormmod", "EndOfMatchAwardMostAltarDamageDone");
+            InterruptedCageUnlocks = matchAwardParser.Parse("EndOfMatchAwardMostInterruptedCageUnlocksBoolean", "alteracpass.stormmod");
+            MostAltarDamage = matchAwardParser.Parse("EndOfMatchAwardMostAltarDamageDone", "towersofdoom.stormmod");
         }
     }
 }

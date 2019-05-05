@@ -107,6 +107,9 @@ namespace HeroesData.Parser.XmlData
 
             SetAbilityType(hero, ability);
 
+            if (AbilityType.Misc.HasFlag(ability.AbilityType))
+                return;
+
             // add ability
             if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
             {
@@ -156,8 +159,7 @@ namespace HeroesData.Parser.XmlData
 
             SetAbilityType(unit, ability);
 
-            if (ability.AbilityType == AbilityType.Interact || ability.AbilityType == AbilityType.Interact || ability.AbilityType == AbilityType.Cancel ||
-                ability.AbilityType == AbilityType.Stop || ability.AbilityType == AbilityType.Hold || ability.AbilityType == AbilityType.ForceMove)
+            if (AbilityType.Misc.HasFlag(ability.AbilityType))
                 return;
 
             SetAbilityTierFromAbilityType(ability);
@@ -270,24 +272,38 @@ namespace HeroesData.Parser.XmlData
                 return;
             }
 
-            // as attributes
-            XElement layoutButton = GameData.LayoutButtonElements.FirstOrDefault(x => (x.Attribute("Face")?.Value == ability.ButtonName || x.Attribute("Face")?.Value == ability.ReferenceNameId) && x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
+            // check the face attribute
+            XElement layoutButton = GameData.LayoutButtonElements.FirstOrDefault(x => (x.Attribute("Face")?.Value == ability.ButtonName || x.Attribute("Face")?.Value == ability.ReferenceNameId) &&
+                x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
+
+            // check the abilcmd attribute
+            if (layoutButton == null)
+            {
+                layoutButton = GameData.LayoutButtonElements.FirstOrDefault(x => !string.IsNullOrEmpty(x.Attribute("AbilCmd")?.Value) && (x.Attribute("AbilCmd").Value.StartsWith(ability.ButtonName) ||
+                    x.Attribute("AbilCmd").Value.StartsWith(ability.ReferenceNameId)) && x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
+            }
+
             if (layoutButton != null)
             {
-                string slot = layoutButton.Attribute("Slot").Value;
-                SetAbilityTypeFromSlot(slot, unit, ability);
-
+                SetAbilityTypeFromSlot(layoutButton.Attribute("Slot").Value, unit, ability);
                 return;
             }
-            else // as elements
+            else // was not found for attribute check as elements
             {
+                // check the face element value
                 layoutButton = GameData.LayoutButtonElements.Where(x => x.HasElements).FirstOrDefault(x => (x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName || x.Element("Face")?.Attribute("value")?.Value == ability.ReferenceNameId) &&
-                                                            x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
+                    x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
+
+                // check the abilcmd element value
+                if (layoutButton == null)
+                {
+                    layoutButton = GameData.LayoutButtonElements.Where(x => x.HasElements).FirstOrDefault(x => (!string.IsNullOrEmpty(x.Element("AbilCmd")?.Attribute("value")?.Value) && (x.Element("AbilCmd").Attribute("value").Value.StartsWith(ability.ButtonName) || x.Element("AbilCmd").Attribute("value").Value.StartsWith(ability.ReferenceNameId)) &&
+                        x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth"));
+                }
 
                 if (layoutButton != null)
                 {
-                    string slot = layoutButton.Element("Slot").Attribute("value").Value;
-                    SetAbilityTypeFromSlot(slot, unit, ability);
+                    SetAbilityTypeFromSlot(layoutButton.Element("Slot").Attribute("value").Value, unit, ability);
 
                     return;
                 }

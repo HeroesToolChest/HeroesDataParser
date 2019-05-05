@@ -68,7 +68,7 @@ namespace HeroesData.Parser.Overrides
             if (!string.IsNullOrEmpty(overrideFileNameSuffix))
             {
                 if (!Path.HasExtension(overrideFileNameSuffix))
-                    overrideFileNameSuffix = overrideFileNameSuffix + ".xml";
+                    overrideFileNameSuffix += ".xml";
 
                 OverrideFileName = overrideFileNameSuffix;
             }

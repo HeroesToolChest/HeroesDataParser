@@ -54,15 +54,38 @@ namespace HeroesData.ExtractorData
 
             HashSet<string[]> items = Parser.Items;
 
+            IEnumerable<string[]> generalItems = Parser.Items.Where(x => x.Length == 1);
+            IEnumerable<string[]> mapItems = Parser.Items.Where(x => x.Length > 1);
+
             Console.Write($"\r{currentCount,6} / {items.Count} total {Name}");
 
             try
             {
-                Parallel.ForEach(items, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, item =>
+                Parallel.ForEach(generalItems, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, item =>
                 {
                     ParsedData.GetOrAdd(string.Join(" ", item), Parser.GetInstance().Parse(item));
                     Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {items.Count} total {Name}");
                 });
+
+                // check if there are any
+                if (mapItems.Any())
+                {
+                    // group them up by the map name id
+                    IEnumerable<IGrouping<string, string[]>> mapItemsGroup = mapItems.GroupBy(x => x.ElementAtOrDefault(1));
+
+                    foreach (IGrouping<string, string[]> mapItemGroup in mapItemsGroup)
+                    {
+                        Parser.LoadMapData(mapItemGroup.Key);
+
+                        Parallel.ForEach(mapItemGroup, new ParallelOptions { MaxDegreeOfParallelism = 1 }, mapItem =>
+                        {
+                            ParsedData.GetOrAdd(string.Join(" ", mapItem), Parser.GetInstance().Parse(mapItem));
+                            Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {items.Count} total {Name}");
+                        });
+
+                        Parser.RestoreGameData();
+                    }
+                }
             }
             catch (Exception ex)
             {

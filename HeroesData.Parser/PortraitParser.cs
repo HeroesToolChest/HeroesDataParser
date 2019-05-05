@@ -46,11 +46,6 @@ namespace HeroesData.Parser
             return portrait;
         }
 
-        protected override bool ValidItem(XElement element)
-        {
-            return true;
-        }
-
         private void SetPortraitData(XElement portraitElement, Portrait portrait)
         {
             // parent lookup

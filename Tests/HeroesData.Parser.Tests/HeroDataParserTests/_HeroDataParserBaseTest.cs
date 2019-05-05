@@ -32,6 +32,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Parse();
         }
 
+        protected Hero HeroKerrigan { get; set; }
         protected Hero HeroChromie { get; set; }
         protected Hero HeroTracer { get; set; }
         protected Hero HeroMephisto { get; set; }
@@ -78,6 +79,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         private void Parse()
         {
             HeroDataParser heroDataParser = new HeroDataParser(Configuration, GameData, DefaultData, HeroOverrideLoader);
+            HeroKerrigan = heroDataParser.Parse("Kerrigan");
             HeroChromie = heroDataParser.Parse("Chromie");
             HeroTracer = heroDataParser.Parse("Tracer");
             HeroTracer = heroDataParser.Parse("Tracer");
@@ -100,7 +102,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
 
         private void ParseGameStrings()
         {
-            foreach (string id in GameData.GetGameStringIds())
+            foreach (string id in GameData.GameStringIds)
             {
                 if (GameStringParser.TryParseRawTooltip(id, GameData.GetGameString(id), out string parsedGamestring))
                     GameData.AddGameString(id, parsedGamestring);

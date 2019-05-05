@@ -20,6 +20,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         protected Unit ZagaraHydralisk { get; set; }
         protected Unit TownCannonTowerL2 { get; set; }
         protected Unit VolskayaVehicle { get; set; }
+        protected Unit AllianceCavalry { get; set; }
 
         [TestMethod]
         public void GetItemsTest()
@@ -40,6 +41,15 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             ZagaraHydralisk = unitParser.Parse("ZagaraHydralisk");
             TownCannonTowerL2 = unitParser.Parse("TownCannonTowerL2");
             VolskayaVehicle = unitParser.Parse("VolskayaVehicle");
+
+            ParseAlteracPassData(unitParser);
+        }
+
+        private void ParseAlteracPassData(UnitParser unitParser)
+        {
+            GameData.AppendGameData(GameData.GetMapGameData("alteracpass.stormmod"));
+            AllianceCavalry = unitParser.Parse("AllianceCavalry", "alteracpass.stormmod");
+            GameData.RestoreGameData();
         }
     }
 }

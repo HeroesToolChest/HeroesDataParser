@@ -23,7 +23,6 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.AreEqual(1, TownCannonTowerL2.Radius);
             Assert.AreEqual(10, TownCannonTowerL2.Sight);
             Assert.AreEqual(0, TownCannonTowerL2.Speed);
-            Assert.IsTrue(TownCannonTowerL2.TargetInfoPanelImageFileNames.Count == 3);
         }
 
         [TestMethod]

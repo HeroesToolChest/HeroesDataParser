@@ -25,7 +25,7 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 Radius = 1.111,
                 Sight = 6,
                 Speed = 4,
-                TargetInfoPanelImageFileNames = new HashSet<string>() { "image_minion_archer.dds" },
+                TargetInfoPanelImageFileName = "image_minion_archer.dds",
             };
             unit.Life.LifeMax = 500;
             unit.Weapons.Add(new UnitWeapon()
@@ -51,7 +51,7 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 Radius = 1.111,
                 Sight = 6,
                 Speed = 4,
-                TargetInfoPanelImageFileNames = new HashSet<string>() { "image_minion_archer.dds", "image_ranged.dds" },
+                TargetInfoPanelImageFileName = "image_minion_archer.dds",
             };
             unit2.Life.LifeMax = 900;
             unit2.Weapons.Add(new UnitWeapon()

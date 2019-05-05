@@ -48,11 +48,6 @@ namespace HeroesData.Parser
             return emoticon;
         }
 
-        protected override bool ValidItem(XElement element)
-        {
-            return true;
-        }
-
         private void SetEmoticonData(XElement emoticonElement, Emoticon emoticon)
         {
             // parent lookup

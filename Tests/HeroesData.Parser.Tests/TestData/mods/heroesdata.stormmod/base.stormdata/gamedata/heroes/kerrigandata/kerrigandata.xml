@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CHero id="Kerrigan" parent="LegacyVOHero">
+    <AIComplexityTier value="Low" />
+    <Difficulty value="Hard" />
+    <AttributeId value="Kerr" />
+    <ProductId value="10116" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <HeroAbilArray Abil="KerriganRavage" Button="KerriganRavage">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+  </CHero>
+  <CUnit id="HeroKerrigan" parent="StormHeroMounted">
+    <LifeStart value="1764" />
+    <LifeMax value="1764" />
+    <LifeRegenRate value="3.6757" />
+    <InnerRadius value="0.6875" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="KerriganUltraliskIssueAttackOrder" Type="AbilCmd" AbilCmd="KerriganSummonUltraliskIssueOrder,Execute" Slot="Heroic" />
+      <LayoutButtons Face="KerriganSummonUltralisk" Type="AbilCmd" AbilCmd="KerriganSummonUltralisk,Execute" Slot="Heroic" />
+      <LayoutButtons Face="KerriganMaelstrom" Type="AbilCmd" AbilCmd="KerriganMaelstrom,Execute" Slot="Heroic" />
+      <LayoutButtons Face="KerriganRavageWeaponCooldown" Type="AbilCmd" AbilCmd="KerriganRavageWeaponCooldown,255" Slot="Interact" />
+      <LayoutButtons Face="KerriganRavage" Type="AbilCmd" AbilCmd="KerriganRavage,Execute" Slot="Ability1" />
+      <LayoutButtons Face="KerriganImpalingBlades" Type="AbilCmd" AbilCmd="KerriganImpalingBlades,Execute" Slot="Ability2" />
+      <LayoutButtons Face="KerriganPrimalGrasp" Type="AbilCmd" AbilCmd="KerriganPrimalGrasp,Execute" Slot="Ability3" />
+      <LayoutButtons Face="KerriganAssimilation" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+  </CUnit>
+  <CButton id="KerriganRavage" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_kerrigan_ravage.dds" />
+  </CButton>
+</Catalog>
