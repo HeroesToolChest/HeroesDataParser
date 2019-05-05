@@ -16,7 +16,7 @@ namespace HeroesData.Parser
     {
         private readonly UnitOverrideLoader UnitOverrideLoader;
 
-        private readonly HashSet<string> InValidParents = new HashSet<string>();
+        private readonly HashSet<string> ValidParents = new HashSet<string>();
 
         private UnitDataOverride UnitDataOverride;
         private WeaponData WeaponData;
@@ -28,7 +28,7 @@ namespace HeroesData.Parser
         {
             UnitOverrideLoader = unitOverrideLoader;
 
-            SetInvalidValidParents();
+            SetValidParents();
         }
 
         public override HashSet<string[]> Items
@@ -101,10 +101,10 @@ namespace HeroesData.Parser
             ArmorData = new ArmorData(GameData);
             AbilityData = new AbilityData(GameData, DefaultData, UnitDataOverride, Localization);
 
-            SetDefaultValues(GameData, unit);
-            CActorData(GameData, unit);
+            SetDefaultValues(unit);
+            CActorData(unit);
 
-            SetUnitData(GameData, unitElement, unit);
+            SetUnitData(unitElement, unit);
 
             // set the hyperlinkId to id if it doesn't have one
             if (string.IsNullOrEmpty(unit.HyperlinkId))
@@ -129,12 +129,12 @@ namespace HeroesData.Parser
             string id = element.Attribute("id").Value;
             string parent = element.Attribute("parent")?.Value;
 
-            return !string.IsNullOrEmpty(parent) && InValidParents.Contains(parent) && !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal);
+            return !string.IsNullOrEmpty(parent) && ValidParents.Contains(parent) && !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal);
         }
 
-        private void SetUnitData(GameData gameData, XElement unitElement, Unit unit)
+        private void SetUnitData(XElement unitElement, Unit unit)
         {
-            unitElement = unitElement ?? gameData.Elements(ElementType).FirstOrDefault(x => x.Attribute("id")?.Value == unit.Id);
+            unitElement = unitElement ?? GameData.Elements(ElementType).FirstOrDefault(x => x.Attribute("id")?.Value == unit.Id);
 
             if (unitElement == null)
                 return;
@@ -143,9 +143,9 @@ namespace HeroesData.Parser
             string parentValue = unitElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = gameData.Elements(ElementType).FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
+                XElement parentElement = GameData.Elements(ElementType).FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
                 if (parentElement != null)
-                    SetUnitData(gameData, parentElement, unit);
+                    SetUnitData(parentElement, unit);
             }
 
             // loop through all elements and set found elements
@@ -157,7 +157,7 @@ namespace HeroesData.Parser
                 {
                     unit.Life.LifeMax = double.Parse(element.Attribute("value").Value);
 
-                    double? scaleValue = gameData.GetScaleValue(("Unit", unit.CUnitId, "LifeMax"));
+                    double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, "LifeMax"));
                     if (scaleValue.HasValue)
                         unit.Life.LifeScaling = scaleValue.Value;
                 }
@@ -165,7 +165,7 @@ namespace HeroesData.Parser
                 {
                     unit.Life.LifeRegenerationRate = double.Parse(element.Attribute("value").Value);
 
-                    double? scaleValue = gameData.GetScaleValue(("Unit", unit.CUnitId, "LifeRegenRate"));
+                    double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, "LifeRegenRate"));
                     if (scaleValue.HasValue)
                         unit.Life.LifeRegenerationRateScaling = scaleValue.Value;
                 }
@@ -223,25 +223,25 @@ namespace HeroesData.Parser
                 unit.Energy.EnergyType = string.Empty;
         }
 
-        private void SetDefaultValues(GameData gameData, Unit unit)
+        private void SetDefaultValues(Unit unit)
         {
             unit.Radius = DefaultData.UnitData.UnitRadius;
             unit.Speed = DefaultData.UnitData.UnitSpeed;
             unit.Sight = DefaultData.UnitData.UnitSight;
             unit.Life.LifeMax = DefaultData.UnitData.UnitLifeMax;
             unit.Life.LifeRegenerationRate = 0;
-            unit.Energy.EnergyType = gameData.GetGameString(DefaultData.HeroEnergyTypeManaText);
+            unit.Energy.EnergyType = GameData.GetGameString(DefaultData.HeroEnergyTypeManaText);
             unit.Energy.EnergyMax = DefaultData.UnitData.UnitEnergyMax;
             unit.Energy.EnergyRegenerationRate = DefaultData.UnitData.UnitEnergyRegenRate;
             unit.Attributes = new HashSet<string>(DefaultData.UnitData.UnitAttributes);
             unit.DamageType = DefaultData.UnitData.UnitDamageType;
-            unit.Name = gameData.GetGameString(DefaultData.UnitData.UnitName.Replace(DefaultData.IdPlaceHolder, unit.Id)).Trim();
+            unit.Name = GameData.GetGameString(DefaultData.UnitData.UnitName.Replace(DefaultData.IdPlaceHolder, unit.Id)).Trim();
         }
 
         // used to acquire the unit's target info panel image
-        private void CActorData(GameData gameData, Unit unit)
+        private void CActorData(Unit unit)
         {
-            IEnumerable<XElement> actorUnitElement = gameData.Elements("CActorUnit").Where(x => x.Attribute("id")?.Value == unit.CUnitId);
+            IEnumerable<XElement> actorUnitElement = GameData.Elements("CActorUnit").Where(x => x.Attribute("id")?.Value == unit.CUnitId);
 
             if (actorUnitElement == null || !actorUnitElement.Any())
                 return;
@@ -263,25 +263,53 @@ namespace HeroesData.Parser
                 string id = element.Attribute("id").Value;
                 string parent = element.Attribute("parent")?.Value;
 
-                if (addIds.Contains(id) || (!string.IsNullOrEmpty(parent) && !InValidParents.Contains(parent) && !removeIds.Contains(id) &&
-                    !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) &&
-                    !id.Contains("BLUR", StringComparison.Ordinal) &&
-                    !id.StartsWith("Hero", StringComparison.Ordinal)))
+                if (addIds.Contains(id))
                 {
-                    if (string.IsNullOrEmpty(mapName))
-                        items.Add(new string[] { id });
+                    AddItem(items, id, mapName);
+                    continue;
+                }
+
+                while (!string.IsNullOrEmpty(parent))
+                {
+                    if (ValidParents.Contains(parent))
+                        break;
+
+                    XElement parentElement = GameData.Elements(ElementType, mapName).FirstOrDefault(x => x.Attribute("id")?.Value == parent);
+                    if (parentElement != null)
+                        parent = parentElement.Attribute("parent")?.Value;
                     else
-                        items.Add(new string[] { id, mapName });
+                        parent = string.Empty;
+                }
+
+                if (string.IsNullOrEmpty(parent))
+                    continue;
+
+                if (!removeIds.Contains(id) &&
+                    !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal) && !id.StartsWith("Hero", StringComparison.Ordinal) &&
+                    !id.EndsWith("missile", StringComparison.OrdinalIgnoreCase))
+                {
+                    AddItem(items, id, mapName);
                 }
             }
         }
 
-        private void SetInvalidValidParents()
+        private void AddItem(HashSet<string[]> items, string id, string mapName)
         {
-            InValidParents.Add("StormHeroMountedCustom");
-            InValidParents.Add("StormHero");
-            InValidParents.Add("StormHeroMounted");
-            InValidParents.Add("StormBasicHeroicUnit");
+            if (string.IsNullOrEmpty(mapName))
+                items.Add(new string[] { id });
+            else
+                items.Add(new string[] { id, mapName });
+        }
+
+        private void SetValidParents()
+        {
+            ValidParents.Add("StormBaseTownStructure");
+            ValidParents.Add("StormVehicle");
+            ValidParents.Add("StormMinorUnit");
+            ValidParents.Add("StormMercBase");
+            ValidParents.Add("StormBossMercBase");
+            ValidParents.Add("StormMonsterMinorBase");
+            ValidParents.Add("StormMonsterMajorBase");            
         }
     }
 }

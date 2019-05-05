@@ -335,6 +335,29 @@ namespace HeroesData.Loader.XmlGameData
         }
 
         /// <summary>
+        /// Returns a collection of elements by the element name. If not found, returns an empty collection.
+        /// </summary>
+        /// <param name="elementName">The element to look up.</param>
+        /// <param name="mapNameId">The map name id.</param>
+        /// <returns></returns>
+        public IEnumerable<XElement> Elements(string elementName, string mapNameId)
+        {
+            List<XElement> values = new List<XElement>();
+
+            if (!string.IsNullOrEmpty(mapNameId))
+            {
+                GameData mapGameData = GetMapGameData(mapNameId);
+                if (mapGameData.XmlGameDataElementsByElementName.TryGetValue(elementName, out List<XElement> mapValues))
+                    values.AddRange(mapValues);
+            }
+
+            if (XmlGameDataElementsByElementName.TryGetValue(elementName, out List<XElement> genericValues))
+                values.AddRange(genericValues);
+
+            return values;
+        }
+
+        /// <summary>
         /// Returns a collection of elements by the element name.
         /// </summary>
         /// <param name="excludedElements">Element name to include from the collection.</param>

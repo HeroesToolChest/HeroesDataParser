@@ -65,9 +65,9 @@ namespace HeroesData.Parser.XmlData
             });
         }
 
-        private void AddWeapons(IEnumerable<XElement> weaponElements, Action<bool, List<string>, string> addWeapons)
+        private void AddWeapons(IEnumerable<XElement> weaponElements, Action<bool, HashSet<string>, string> addWeapons)
         {
-            List<string> weaponsIds = new List<string>();
+            HashSet<string> weaponsIds = new HashSet<string>();
             foreach (XElement weaponElement in weaponElements)
             {
                 string weaponNameId = weaponElement.Attribute("Link")?.Value;
