@@ -1,4 +1,5 @@
 ﻿using Heroes.Models;
+using Heroes.Models.AbilityTalents;
 using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides;
@@ -87,14 +88,14 @@ namespace HeroesData.Parser
             if (unitElement == null)
                 return null;
 
-            if (mapNameId == GeneralMapName) // default
+            if (mapNameId != GeneralMapName) // map specific unit
             {
-                UnitDataOverride = UnitOverrideLoader.GetOverride(unit.Id);
-            }
-            else // map specific unit
-            {
-                UnitDataOverride = UnitOverrideLoader.GetOverride($"{mapNameId}-{id}");
+                UnitDataOverride = UnitOverrideLoader.GetOverride($"{mapNameId}-{id}") ?? new UnitDataOverride();
                 unit.MapName = mapNameId;
+            }
+            else // generic
+            {
+                UnitDataOverride = UnitOverrideLoader.GetOverride(unit.Id) ?? new UnitDataOverride();
             }
 
             WeaponData = new WeaponData(GameData, DefaultData);
@@ -121,6 +122,22 @@ namespace HeroesData.Parser
 
         protected override void ApplyAdditionalOverrides(Unit unit, UnitDataOverride dataOverride)
         {
+            // abilities
+            if (unit.Abilities != null)
+            {
+                foreach (KeyValuePair<string, Ability> ability in unit.Abilities)
+                {
+                    if (dataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
+                    {
+                        foreach (KeyValuePair<string, Action<Ability>> propertyOverride in valueOverrideMethods)
+                        {
+                            // execute each property override
+                            propertyOverride.Value(ability.Value);
+                        }
+                    }
+                }
+            }
+
             base.ApplyAdditionalOverrides(unit, dataOverride);
         }
 
@@ -212,6 +229,8 @@ namespace HeroesData.Parser
                     AbilityData.AddUnitAbility(unit, element);
                 }
             }
+
+            AbilityData.AddOverrideButtonAbilities(unit);
 
             // set weapons
             WeaponData.AddUnitWeapons(unit, unitElement.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
@@ -309,7 +328,7 @@ namespace HeroesData.Parser
             ValidParents.Add("StormMercBase");
             ValidParents.Add("StormBossMercBase");
             ValidParents.Add("StormMonsterMinorBase");
-            ValidParents.Add("StormMonsterMajorBase");            
+            ValidParents.Add("StormMonsterMajorBase");
         }
     }
 }

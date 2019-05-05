@@ -130,7 +130,11 @@ namespace HeroesData.Parser.Overrides
                         if (parent == null)
                             parent = string.Empty;
 
-                        heroDataOverride.AddedAbilityByButtonId.Add((buttonId, parent));
+                        heroDataOverride.AddedAbilityByButtonId.Add(new AddedButtonAbility()
+                        {
+                            ButtonId = buttonId,
+                            ParentValue = parent,
+                        });
 
                         // override
                         overrideElement = dataElement.Element("Override");

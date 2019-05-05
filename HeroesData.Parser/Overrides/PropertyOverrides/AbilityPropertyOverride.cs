@@ -1,4 +1,5 @@
-﻿using Heroes.Models.AbilityTalents;
+﻿using Heroes.Models;
+using Heroes.Models.AbilityTalents;
 using HeroesData.Loader.XmlGameData;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
             {
                 propertyOverrides.Add(propertyName, (ability) =>
                 {
-                    ability.Tooltip.Cooldown.CooldownTooltip = new Heroes.Models.TooltipDescription(propertyValue);
+                    ability.Tooltip.Cooldown.CooldownTooltip = new TooltipDescription(propertyValue);
                 });
             }
         }

@@ -219,22 +219,29 @@ namespace HeroesData.Parser.XmlData
         {
             unit.Abilities = unit.Abilities ?? new Dictionary<string, Ability>();
 
-            foreach ((string buttonId, string parent) in UnitDataOverride.AddedAbilityByButtonId)
+            foreach (AddedButtonAbility abilityButton in UnitDataOverride.AddedAbilityByButtonId)
             {
                 Ability ability = new Ability()
                 {
-                    FullTooltipNameId = buttonId,
-                    ButtonName = buttonId,
-                    ReferenceNameId = buttonId,
+                    FullTooltipNameId = abilityButton.ButtonId,
+                    ButtonName = abilityButton.ButtonId,
+                    ReferenceNameId = abilityButton.ButtonId,
                 };
+
+                if (!string.IsNullOrEmpty(abilityButton.ReferenceNameId))
+                    ability.ReferenceNameId = abilityButton.ReferenceNameId;
 
                 // default
                 ability.Tier = AbilityTier.Activable;
 
-                XElement cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == parent));
+                XElement cButtonElement = null;
+                if (!string.IsNullOrEmpty(abilityButton.ReferenceNameId))
+                    cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ReferenceNameId && x.Attribute("parent")?.Value == abilityButton.ParentValue));
+
+                cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == abilityButton.ParentValue)) ?? cButtonElement;
 
                 if (cButtonElement == null)
-                    throw new XmlGameDataParseException($"Could not find the following element <CButton id=\"{ability.FullTooltipNameId}\" parent=\"{parent}\">");
+                    throw new XmlGameDataParseException($"Could not find the following element <CButton id=\"{ability.FullTooltipNameId}\" parent=\"{abilityButton.ParentValue}\">");
 
                 SetAbilityType(unit, ability);
 
@@ -243,9 +250,7 @@ namespace HeroesData.Parser.XmlData
                 SetTooltipDescriptions(ability);
                 SetTooltipOverrideData(cButtonElement, ability);
 
-                // add ability
-                if (!unit.Abilities.ContainsKey(ability.ReferenceNameId))
-                    unit.Abilities.Add(ability.ReferenceNameId, ability);
+                unit.Abilities[ability.ReferenceNameId] = ability;
             }
         }
 

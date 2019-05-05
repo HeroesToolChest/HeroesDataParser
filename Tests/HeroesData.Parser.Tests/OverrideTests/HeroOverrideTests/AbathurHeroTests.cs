@@ -68,7 +68,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void IsAddedButtonAbilityTest()
         {
-            Assert.IsTrue(HeroDataOverride.AddedAbilityByButtonId.Contains(("IceBlock", "StormButtonParent")));
+            Assert.IsTrue(HeroDataOverride.AddedAbilityByButtonId.Contains(new AddedButtonAbility() { ButtonId = "IceBlock", ParentValue = "StormButtonParent" }));
         }
 
         [TestMethod]

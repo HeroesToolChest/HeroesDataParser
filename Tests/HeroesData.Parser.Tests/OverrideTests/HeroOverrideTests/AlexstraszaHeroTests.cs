@@ -1,4 +1,4 @@
-﻿using HeroesData.Parser.Overrides.PropertyOverrides;
+﻿using HeroesData.Parser.Overrides.DataOverrides;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
@@ -85,7 +85,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void IsAddedButtonAbilityTest()
         {
-            Assert.IsFalse(HeroDataOverride.AddedAbilityByButtonId.Contains(("IceBlock", string.Empty)));
+            Assert.IsFalse(HeroDataOverride.AddedAbilityByButtonId.Contains(new AddedButtonAbility() { ButtonId = "IceBlock" }));
         }
 
         [TestMethod]

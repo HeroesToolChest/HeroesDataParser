@@ -64,6 +64,7 @@ namespace HeroesData.Parser.Overrides
                     case "Button":
                         string buttonId = dataElement.Attribute("id")?.Value;
                         string parent = dataElement.Attribute("parent")?.Value;
+                        string referenceNameId = dataElement.Attribute("referenceNameId")?.Value;
 
                         if (string.IsNullOrEmpty(buttonId))
                             continue;
@@ -71,7 +72,12 @@ namespace HeroesData.Parser.Overrides
                         if (parent == null)
                             parent = string.Empty;
 
-                        unitDataOverride.AddedAbilityByButtonId.Add((buttonId, parent));
+                        unitDataOverride.AddedAbilityByButtonId.Add(new AddedButtonAbility()
+                        {
+                            ButtonId = buttonId,
+                            ParentValue = parent,
+                            ReferenceNameId = referenceNameId,
+                        });
 
                         // override
                         overrideElement = dataElement.Element("Override");
