@@ -241,19 +241,19 @@ namespace HeroesData.ExtractorData
 
                 if (talent.Value.Tooltip.Cooldown?.CooldownTooltip != null)
                 {
-                    if (char.IsDigit(talent.Value.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
+                    if (!string.IsNullOrEmpty(talent.Value.Tooltip.Cooldown.CooldownTooltip.PlainText) && char.IsDigit(talent.Value.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
                         AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
                 }
 
                 if (talent.Value.Tooltip.Energy?.EnergyTooltip != null)
                 {
-                    if (char.IsDigit(talent.Value.Tooltip.Energy.EnergyTooltip.PlainText[0]))
+                    if (!string.IsNullOrEmpty(talent.Value.Tooltip.Energy.EnergyTooltip.PlainText) && char.IsDigit(talent.Value.Tooltip.Energy.EnergyTooltip.PlainText[0]))
                         AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
                 }
 
                 if (talent.Value.Tooltip.Life?.LifeCostTooltip != null)
                 {
-                    if (char.IsDigit(talent.Value.Tooltip.Life.LifeCostTooltip.PlainText[0]))
+                    if (!string.IsNullOrEmpty(talent.Value.Tooltip.Life.LifeCostTooltip.PlainText) && char.IsDigit(talent.Value.Tooltip.Life.LifeCostTooltip.PlainText[0]))
                         AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
                 }
             }

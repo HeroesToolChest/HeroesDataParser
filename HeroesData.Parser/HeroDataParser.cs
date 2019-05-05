@@ -74,6 +74,11 @@ namespace HeroesData.Parser
             if (string.IsNullOrEmpty(heroId))
                 return null;
 
+            if (heroId=="Auriel")
+            {
+                string x = "";
+            }
+
             Hero hero = new Hero
             {
                 Name = GameData.GetGameString(DefaultData.HeroData.HeroName.Replace(DefaultData.IdPlaceHolder, heroId)),

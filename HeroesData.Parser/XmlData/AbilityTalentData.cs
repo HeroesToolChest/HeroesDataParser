@@ -295,7 +295,10 @@ namespace HeroesData.Parser.XmlData
                             }
                             else if (overrideVitalName.Contains(DefaultData.ReplacementCharacter) && !string.IsNullOrEmpty(abilityTalentBase.Tooltip.Energy.EnergyTooltip.RawDescription) && !overrideTextTemp.StartsWith(defaultEnergyValue))
                             {
-                                abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(DefaultData.ReplacementCharacter, overrideTextTemp)));
+                                if (string.IsNullOrEmpty(overrideTextTemp))
+                                    abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(string.Empty);
+                                else
+                                    abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(DefaultData.ReplacementCharacter, overrideTextTemp)));
                             }
                         }
                     }
