@@ -387,6 +387,8 @@ namespace HeroesData
                 foreach (string mapName in GameData.MapIds)
                 {
                     GameData mapGameData = GameData.GetMapGameData(mapName);
+                    GameData.AppendGameData(mapGameData);
+
                     Parallel.ForEach(mapGameData.GameStringIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, gamestringId =>
                     {
                         if (gameStringParser.TryParseRawTooltip(gamestringId, mapGameData.GetGameString(gamestringId), out string parsedGamestring))
@@ -401,6 +403,8 @@ namespace HeroesData
 
                         Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {totalGameStrings} total gamestrings");
                     });
+
+                    GameData.RestoreGameData();
                 }
             }
             catch (AggregateException ae)
