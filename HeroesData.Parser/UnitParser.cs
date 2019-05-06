@@ -315,14 +315,9 @@ namespace HeroesData.Parser
         private void AddItem(HashSet<string[]> items, string id, string mapName)
         {
             if (string.IsNullOrEmpty(mapName))
-            {
                 items.Add(new string[] { id });
-            }
             else
-            {
-                items.Remove(new string[] { id });
                 items.Add(new string[] { id, mapName });
-            }
         }
 
         private void SetValidParents()

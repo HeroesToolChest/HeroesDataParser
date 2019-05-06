@@ -182,14 +182,9 @@ namespace HeroesData.Parser
                     continue;
 
                 if (string.IsNullOrEmpty(mapName))
-                {
                     items.Add(new string[] { element.Element("GameLink")?.Attribute("GameLink")?.Value });
-                }
                 else
-                {
-                    items.Remove(new string[] { element.Element("GameLink")?.Attribute("GameLink")?.Value });
                     items.Add(new string[] { element.Element("GameLink")?.Attribute("GameLink")?.Value, mapName });
-                }
             }
         }
     }
