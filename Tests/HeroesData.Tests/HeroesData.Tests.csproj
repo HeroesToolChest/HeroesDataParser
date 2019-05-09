@@ -23,22 +23,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="CommandTests\storm_ui_icon_abathur_symbiote.png">
+    <None Update="**/*.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="CommandTests\storm_ui_icon_alarak_telekinesis.png">
+    <None Update="**/*.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="CommandTests\storm_ui_icon_medivh_eagleeye.dds">
+    <None Update="**/*.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="CommandTests\Test.txt">
+    <None Update="**/*.dds">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="dataoverrides\hero-overrides.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="*.dds">
+    <None Update="**/*.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
