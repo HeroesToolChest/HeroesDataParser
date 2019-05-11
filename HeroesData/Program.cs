@@ -36,6 +36,7 @@ namespace HeroesData
             ExtractCommand.Add(commandLineApplication).SetCommand();
             ImageCommand.Add(commandLineApplication).SetCommand();
             QuickCompareCommand.Add(commandLineApplication).SetCommand();
+            V4ConvertCommand.Add(commandLineApplication).SetCommand();
 
             CommandOption storagePathOption = commandLineApplication.Option("-s|--storage-path <FILEPATH>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.", CommandOptionType.SingleValue);
             CommandOption setOutputDirectoryOption = commandLineApplication.Option("-o|--output-directory <FILEPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
