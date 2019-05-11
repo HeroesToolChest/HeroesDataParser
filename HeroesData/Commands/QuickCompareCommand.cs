@@ -127,7 +127,6 @@ namespace HeroesData.Commands
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"DOES NOT EXIST <====> {Path.GetFileName(filePath1)}");
-
             }
             else if (FilesAreEqual(new FileInfo(filePath1), new FileInfo(filePath2)))
             {
