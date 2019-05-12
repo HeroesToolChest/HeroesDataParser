@@ -13,8 +13,8 @@ namespace HeroesData.Commands
 {
     internal class ExtractCommand : CommandBase, ICommand
     {
-        private readonly string CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "assets", "textures");
-        private readonly string CASCTexturesPathNoMods = Path.Combine("heroes.stormmod", "base.stormassets", "assets", "textures");
+        private string CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "assets", "textures");
+        private string CASCTexturesPathNoMods = Path.Combine("heroes.stormmod", "base.stormassets", "assets", "textures");
 
         private string StoragePath;
         private string OutputDirectory;
@@ -112,6 +112,8 @@ namespace HeroesData.Commands
                 Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
                 Console.WriteLine();
             }
+
+            DetectDirectoryCasing();
         }
 
         private void ExtractGameData()
@@ -226,7 +228,7 @@ namespace HeroesData.Commands
             {
                 if (CASCHotsStorage.CASCHandler.FileExists(filePath))
                 {
-                    CASCHotsStorage.CASCHandler.SaveFileTo(filePath, OutputDirectory);
+                    CASCHotsStorage.CASCHandler.SaveFileTo(filePath.ToLower(), OutputDirectory);
                     count++;
                     Console.Write($"\r{count,6}/{files.Count} {fileType}");
                 }
@@ -287,6 +289,15 @@ namespace HeroesData.Commands
             }
 
             return files;
+        }
+
+        private void DetectDirectoryCasing()
+        {
+            if (!CASCHotsStorage.CASCFolderRoot.DirectoryExists(CASCTexturesPath))
+            {
+                CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "Assets", "Textures");
+                CASCTexturesPathNoMods = Path.Combine("heroes.stormmod", "base.stormassets", "Assets", "Textures");
+            }
         }
     }
 }

@@ -280,7 +280,7 @@ namespace HeroesData
         {
             Stopwatch time = new Stopwatch();
 
-            Console.WriteLine($"Loading xml and files...");
+            Console.WriteLine($"Loading xml files...");
 
             time.Start();
             try

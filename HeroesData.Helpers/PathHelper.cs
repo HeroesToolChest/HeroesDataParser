@@ -2,7 +2,7 @@
 
 namespace HeroesData.Helpers
 {
-    public static class PathHelpers
+    public static class PathHelper
     {
         /// <summary>
         /// Modifies a string file path to use the current platform's directory separator character.

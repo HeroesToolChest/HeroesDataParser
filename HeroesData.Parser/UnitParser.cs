@@ -270,7 +270,7 @@ namespace HeroesData.Parser
                 XElement imageElement = groupIconElement.Element("Image");
                 if (imageElement != null)
                 {
-                    unit.TargetInfoPanelImageFileName = Path.GetFileName(PathHelpers.GetFilePath(imageElement.Attribute("value")?.Value)).ToLower();
+                    unit.TargetInfoPanelImageFileName = Path.GetFileName(PathHelper.GetFilePath(imageElement.Attribute("value")?.Value)).ToLower();
                 }
             }
         }

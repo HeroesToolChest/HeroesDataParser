@@ -249,7 +249,7 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "ICON")
                 {
-                    abilityTalentBase.IconFileName = Path.GetFileName(PathHelpers.GetFilePath(element.Attribute("value").Value));
+                    abilityTalentBase.IconFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value").Value));
                 }
                 else if (elementName == "TOOLTIP")
                 {
@@ -258,7 +258,7 @@ namespace HeroesData.Parser.XmlData
                     if (GameData.TryGetGameString(fullTooltipValue, out string fullDescription))
                     {
                         abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription, Localization);
-                        abilityTalentBase.FullTooltipNameId = Path.GetFileName(PathHelpers.GetFilePath(fullTooltipValue));
+                        abilityTalentBase.FullTooltipNameId = Path.GetFileName(PathHelper.GetFilePath(fullTooltipValue));
                     }
                 }
                 else if (elementName == "SIMPLEDISPLAYTEXT")
@@ -268,7 +268,7 @@ namespace HeroesData.Parser.XmlData
                     if (GameData.TryGetGameString(shortTooltipValue, out string shortDescription))
                     {
                         abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription, Localization);
-                        abilityTalentBase.ShortTooltipNameId = Path.GetFileName(PathHelpers.GetFilePath(shortTooltipValue));
+                        abilityTalentBase.ShortTooltipNameId = Path.GetFileName(PathHelper.GetFilePath(shortTooltipValue));
                     }
                 }
                 else if (elementName == "TOOLTIPVITALNAME")

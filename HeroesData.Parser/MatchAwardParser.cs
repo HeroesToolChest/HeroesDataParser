@@ -98,12 +98,12 @@ namespace HeroesData.Parser
             string scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
 
             // get the name being used in the dds file
-            string awardSpecialName = Path.GetFileName(PathHelpers.GetFilePath(scoreScreenIconFilePath)).Split('_')[4];
+            string awardSpecialName = Path.GetFileName(PathHelper.GetFilePath(scoreScreenIconFilePath)).Split('_')[4];
 
             MatchAward matchAward = new MatchAward()
             {
                 Name = awardName,
-                ScoreScreenImageFileNameOriginal = Path.GetFileName(PathHelpers.GetFilePath(scoreScreenIconFilePath)),
+                ScoreScreenImageFileNameOriginal = Path.GetFileName(PathHelper.GetFilePath(scoreScreenIconFilePath)),
                 MVPScreenImageFileNameOriginal = $"storm_ui_mvp_icons_rewards_{awardSpecialName}.dds",
                 Tag = scoreValueCustomElement.Element("UniqueTag").Attribute("value")?.Value,
             };

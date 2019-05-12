@@ -136,7 +136,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "TEXTURE")
                 {
-                    spray.ImageFileName = Path.GetFileName(PathHelpers.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                    spray.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
                 }
                 else if (elementName == "ANIMCOUNT")
                 {

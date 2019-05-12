@@ -132,7 +132,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "TILETEXTURE")
                 {
-                    voiceLine.ImageFileName = Path.GetFileName(PathHelpers.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                    voiceLine.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
 
                     if (!string.IsNullOrEmpty(heroId))
                         voiceLine.ImageFileName = voiceLine.ImageFileName.Replace(DefaultData.HeroIdPlaceHolder, heroId).ToLower();

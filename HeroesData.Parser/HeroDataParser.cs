@@ -245,11 +245,11 @@ namespace HeroesData.Parser
                 hero.HyperlinkId = DefaultData.HeroData.HeroHyperlinkId.Replace(DefaultData.IdPlaceHolder, hero.CHeroId);
                 hero.CUnitId = DefaultData.HeroData.HeroUnit.Replace(DefaultData.IdPlaceHolder, hero.CHeroId);
 
-                hero.HeroPortrait.HeroSelectPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroData.HeroSelectScreenButtonImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.LeaderboardPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroData.HeroLeaderboardImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroData.HeroLoadingScreenImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroData.HeroPartyPanelButtonImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
-                hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(DefaultData.HeroData.HeroPortrait.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.HeroSelectPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(DefaultData.HeroData.HeroSelectScreenButtonImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.LeaderboardPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(DefaultData.HeroData.HeroLeaderboardImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(DefaultData.HeroData.HeroLoadingScreenImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(DefaultData.HeroData.HeroPartyPanelButtonImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(DefaultData.HeroData.HeroPortrait.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
 
                 hero.InfoText = GameData.GetGameString(DefaultData.HeroData.HeroInfoText.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
                 hero.Title = GameData.GetGameString(DefaultData.HeroData.HeroTitle.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
@@ -341,7 +341,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "UNIVERSEICON")
                 {
-                    string iconImage = Path.GetFileName(PathHelpers.GetFilePath(element.Attribute("value").Value)).ToUpper();
+                    string iconImage = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value").Value)).ToUpper();
 
                     if (iconImage == "UI_GLUES_STORE_GAMEICON_SC2.DDS")
                         hero.Franchise = HeroFranchise.Starcraft;
@@ -427,23 +427,23 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "SELECTSCREENBUTTONIMAGE")
                 {
-                    hero.HeroPortrait.HeroSelectPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                    hero.HeroPortrait.HeroSelectPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
                 }
                 else if (elementName == "SCORESCREENIMAGE")
                 {
-                    hero.HeroPortrait.LeaderboardPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                    hero.HeroPortrait.LeaderboardPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
                 }
                 else if (elementName == "LOADINGSCREENIMAGE")
                 {
-                    hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                    hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
                 }
                 else if (elementName == "PARTYPANELBUTTONIMAGE")
                 {
-                    hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                    hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
                 }
                 else if (elementName == "PORTRAIT")
                 {
-                    hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathHelpers.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                    hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
                 }
                 else if (elementName == "ADDITIONALSEARCHTEXT" || elementName == "ALTERNATENAMESEARCHTEXT")
                 {

@@ -107,17 +107,17 @@ namespace HeroesData.Loader.XmlGameData
         protected string CoreStormModDirectoryName { get; } = "core.stormmod";
         protected string HeroesDataStormModDirectoryName { get; } = "heroesdata.stormmod";
         protected string HeroesMapModsDirectoryName { get; } = "heroesmapmods";
-        protected string HeroesModsDiretoryName { get; } = "heromods";
+        protected string HeroesModsDirectoryName { get; } = "heromods";
         protected string BaseStormDataDirectoryName { get; } = "base.stormdata";
         protected string BattlegroundMapModsDirectoryName { get; } = "battlegroundmapmods";
         protected string LocalizedDataName { get; set; } = "localizeddata";
 
-        protected string GameDataStringName { get; } = "gamedata";
+        protected string GameDataStringName { get; set; } = "gamedata";
         protected string HeroInteractionsStringName { get; } = "herointeractions";
         protected string ConveyorBeltsStringName { get; } = "conveyorbelts";
-        protected string GameDataXmlFile { get; } = "gamedata.xml";
-        protected string IncludesXmlFile { get; } = "includes.xml";
-        protected string GameStringFile { get; } = "gamestrings.txt";
+        protected string GameDataXmlFile { get; set; } = "gamedata.xml";
+        protected string IncludesXmlFile { get; set; } = "includes.xml";
+        protected string GameStringFile { get; set; } = "gamestrings.txt";
 
         protected string CoreBaseDataDirectoryPath { get; set; }
         protected string HeroesDataBaseDataDirectoryPath { get; set; }

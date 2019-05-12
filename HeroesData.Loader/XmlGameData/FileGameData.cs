@@ -1,4 +1,5 @@
 ﻿using HeroesData.Helpers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -83,10 +84,10 @@ namespace HeroesData.Loader.XmlGameData
                 string valuePath = pathElement.Attribute("value")?.Value?.ToLower();
                 if (!string.IsNullOrEmpty(valuePath))
                 {
-                    valuePath = PathHelpers.GetFilePath(valuePath);
+                    valuePath = PathHelper.GetFilePath(valuePath);
                     valuePath = valuePath.Remove(0, 5); // remove 'mods/'
 
-                    if (valuePath.StartsWith(HeroesModsDiretoryName))
+                    if (valuePath.StartsWith(HeroesModsDirectoryName, StringComparison.OrdinalIgnoreCase))
                     {
                         string gameDataPath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, GameDataXmlFile);
 
@@ -141,7 +142,7 @@ namespace HeroesData.Loader.XmlGameData
 
         protected override void LoadGameDataXmlContents(string gameDataXmlFilePath)
         {
-            if ((!File.Exists(gameDataXmlFilePath) && gameDataXmlFilePath.Contains("herointeractions.stormmod")) || !LoadXmlFilesEnabled)
+            if ((!File.Exists(gameDataXmlFilePath) && gameDataXmlFilePath.Contains("herointeractions.stormmod", StringComparison.OrdinalIgnoreCase)) || !LoadXmlFilesEnabled)
                 return;
 
             // load up files in gamedata.xml file
@@ -153,9 +154,9 @@ namespace HeroesData.Loader.XmlGameData
                 string pathValue = catalogElement.Attribute("path")?.Value?.ToLower();
                 if (!string.IsNullOrEmpty(pathValue))
                 {
-                    pathValue = PathHelpers.GetFilePath(pathValue);
+                    pathValue = PathHelper.GetFilePath(pathValue);
 
-                    if (pathValue.Contains("gamedata/"))
+                    if (pathValue.Contains($"{GameDataStringName}/", StringComparison.OrdinalIgnoreCase))
                     {
                         if (gameDataXmlFilePath.Contains(HeroesDataStormModDirectoryName))
                         {
