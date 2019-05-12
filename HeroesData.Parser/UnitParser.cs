@@ -115,7 +115,7 @@ namespace HeroesData.Parser
 
             // must be last
             if (unit.IsMapUnique)
-                unit.Id = $"{mapNameId}-{id}";
+                unit.Id = $"{mapNameId.Split('.').First()}-{id}";
 
             return unit;
         }
