@@ -235,7 +235,6 @@ namespace HeroesData
         private void PreInitialize()
         {
             LoadConfiguration();
-            OutputTypeCheck();
             DetectStoragePathType();
 
             Console.Write($"Localization(s): ");
@@ -437,21 +436,6 @@ namespace HeroesData
             Console.ResetColor();
             Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
             Console.WriteLine();
-        }
-
-        private void OutputTypeCheck()
-        {
-            if (!CreateJson && !CreateXml)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("******************************************************");
-                Console.WriteLine("*** WARNING - No output file types have been set!  ***");
-                Console.WriteLine("*** Specify at least one of the following options: ***");
-                Console.WriteLine("*** --json --xml                                   ***");
-                Console.WriteLine("******************************************************");
-                Console.WriteLine();
-                Console.ResetColor();
-            }
         }
 
         private void LoadConfiguration()

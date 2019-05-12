@@ -172,6 +172,14 @@ namespace HeroesData
 
                 App.CreateXml = xmlOutputOption.HasValue();
                 App.CreateJson = jsonOutputOption.HasValue();
+
+                // if both not set, default to both true
+                if (!xmlOutputOption.HasValue() && !jsonOutputOption.HasValue())
+                {
+                    App.CreateXml = true;
+                    App.CreateJson = true;
+                }
+
                 App.ShowValidationWarnings = validationWarningsOption.HasValue();
                 App.IsFileSplit = setFileSplitOption.HasValue();
                 App.IsLocalizedText = localizedTextOption.HasValue();
