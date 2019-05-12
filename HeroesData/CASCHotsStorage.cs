@@ -46,13 +46,12 @@ namespace HeroesData
                 CASCHandler = CASCHandler.OpenStorage(config, BackgroundWorker);
 
                 LocaleFlags locale = LocaleFlags.All;
-                ContentFlags content = (ContentFlags)Enum.Parse(typeof(ContentFlags), "None");
 
                 Console.SetOut(console); // enable output
                 CASCHandler.Root.LoadListFile(Path.Combine(Environment.CurrentDirectory, "listfile.txt"), BackgroundWorker);
 
                 Console.SetOut(TextWriter.Null); // suppress output
-                CASCFolderRoot = CASCHandler.Root.SetFlags(locale, content);
+                CASCFolderRoot = CASCHandler.Root.SetFlags(locale);
             };
 
             BackgroundWorker.ProgressChanged += (_, e) =>
@@ -65,6 +64,7 @@ namespace HeroesData
             {
                 time.Stop();
                 Console.SetOut(console); // enable output
+                Console.Write("\r");
                 DrawProgressBar(100, 100, 72, '#');
 
                 Console.WriteLine();
