@@ -45,9 +45,16 @@ namespace HeroesData.Commands
                     }
 
                     if (!string.IsNullOrEmpty(outputDirectoryOption.Value()))
+                    {
                         OutputDirectory = outputDirectoryOption.Value();
+                    }
                     else
-                        OutputDirectory = Path.Combine(Path.GetDirectoryName(storagePathArgument.Value), "v4-converted");
+                    {
+                        if (Directory.Exists(storagePathArgument.Value))
+                            OutputDirectory = Path.Combine(storagePathArgument.Value, "v4-converted");
+                        else
+                            OutputDirectory = Path.Combine(Path.GetDirectoryName(storagePathArgument.Value), "v4-converted");
+                    }
 
                     if (File.Exists(storagePathArgument.Value))
                     {

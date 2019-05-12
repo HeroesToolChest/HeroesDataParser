@@ -26,7 +26,6 @@ namespace HeroesData.Commands
         private ExtractCommand(CommandLineApplication app)
             : base(app)
         {
-            OutputDirectory = AppPath;
         }
 
         public static ExtractCommand Add(CommandLineApplication app)
@@ -57,7 +56,7 @@ namespace HeroesData.Commands
                     if (setOutputDirectoryOption.HasValue())
                         OutputDirectory = setOutputDirectoryOption.Value();
                     else
-                        OutputDirectory = Path.Combine(OutputDirectory, "output");
+                        OutputDirectory = Path.Combine(storagePathArgument.Value, "output");
 
                     MergeExtraction = mergeOption.HasValue();
                     TextureExtraction = texturesOption.HasValue();
