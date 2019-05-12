@@ -38,7 +38,8 @@ namespace HeroesData
             QuickCompareCommand.Add(commandLineApplication).SetCommand();
             V4ConvertCommand.Add(commandLineApplication).SetCommand();
 
-            CommandOption storagePathOption = commandLineApplication.Option("-s|--storage-path <FILEPATH>", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.", CommandOptionType.SingleValue);
+            CommandArgument storagePathArgument = commandLineApplication.Argument("storage-path", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.");
+
             CommandOption setOutputDirectoryOption = commandLineApplication.Option("-o|--output-directory <FILEPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
             CommandOption setDescriptionOption = commandLineApplication.Option("-d|--description <VALUE>", "Sets the description output type (0 - 6) - Default: 0.", CommandOptionType.SingleValue);
             CommandOption extractDataFilesOption = commandLineApplication.Option("-e|--extract-data <VALUE>", $"Extracts data files - Default: herodata.", CommandOptionType.MultipleValue);
@@ -58,9 +59,9 @@ namespace HeroesData
             {
                 App.Defaults = false;
 
-                if (storagePathOption.HasValue())
+                if (!string.IsNullOrEmpty(storagePathArgument.Value))
                 {
-                    App.StoragePath = storagePathOption.Value();
+                    App.StoragePath = storagePathArgument.Value;
                 }
 
                 if (setMaxDegreeParallismOption.HasValue() && int.TryParse(setMaxDegreeParallismOption.Value(), out int result))
@@ -109,7 +110,7 @@ namespace HeroesData
                 }
 
                 // image file extraction
-                if (extractImageFilesOption.HasValue() && storagePathOption.HasValue())
+                if (extractImageFilesOption.HasValue() && !string.IsNullOrEmpty(storagePathArgument.Value))
                 {
                     if (extractImageFilesOption.Values.Exists(x => x.ToUpper() == "ALL"))
                     {
