@@ -102,7 +102,13 @@ namespace HeroesData.Parser.XmlData
                 Range = DefaultData.WeaponData.WeaponRange,
             };
 
-            WeaponAddDamage(weapon, DefaultData.WeaponData.WeaponDisplayEffect.Replace(DefaultData.IdPlaceHolder, weapon.WeaponNameId));
+            string displayEffectElementValue = DefaultData.WeaponData.WeaponDisplayEffect.Replace(DefaultData.IdPlaceHolder, weapon.WeaponNameId);
+            if (!string.IsNullOrEmpty(displayEffectElementValue))
+            {
+                XElement effectDamageElement = GameData.MergeXmlElements(GameData.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == displayEffectElementValue));
+                if (effectDamageElement != null)
+                    WeaponAddEffectDamage(effectDamageElement, weapon);
+            }
 
             XElement weaponLegacy = GameData.MergeXmlElements(GameData.Elements("CWeaponLegacy").Where(x => x.Attribute("id")?.Value == weaponNameId));
             if (weaponLegacy != null)
@@ -137,31 +143,37 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "DISPLAYEFFECT")
                 {
-                    WeaponAddDamage(weapon, GameData.GetValueFromAttribute(element.Attribute("value")?.Value));
+                    string displayEffectElementValue = element.Attribute("value")?.Value;
+                    if (!string.IsNullOrEmpty(displayEffectElementValue))
+                    {
+                        XElement effectDamageElement = GameData.MergeXmlElements(GameData.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == displayEffectElementValue));
+                        if (effectDamageElement != null)
+                            WeaponAddEffectDamage(effectDamageElement, weapon);
+                    }
                 }
             }
 
             return weapon;
         }
 
-        private void WeaponAddDamage(UnitWeapon weapon, string displayEffectValue)
+        private void WeaponAddEffectDamage(XElement effectDamageElement, UnitWeapon weapon)
         {
-            if (!string.IsNullOrEmpty(displayEffectValue))
+            // parent lookup
+            string parentValue = effectDamageElement.Attribute("parent")?.Value;
+            if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement effectDamageElement = GameData.MergeXmlElements(GameData.XmlGameData.Root.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == displayEffectValue));
-                if (effectDamageElement != null)
-                {
-                    XElement amountElement = effectDamageElement.Element("Amount");
-                    if (amountElement != null)
-                    {
-                        weapon.Damage = double.Parse(GameData.GetValueFromAttribute(amountElement.Attribute("value").Value));
-                    }
-                }
-
-                double? scaleValue = GameData.GetScaleValue(("Effect", displayEffectValue, "Amount"));
-                if (scaleValue.HasValue)
-                    weapon.DamageScaling = scaleValue.Value;
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == parentValue));
+                if (parentElement != null)
+                    WeaponAddEffectDamage(parentElement, weapon);
             }
+
+            XElement amountElement = effectDamageElement.Element("Amount");
+            if (amountElement != null)
+                weapon.Damage = double.Parse(GameData.GetValueFromAttribute(amountElement.Attribute("value").Value));
+
+            double? scaleValue = GameData.GetScaleValue(("Effect", effectDamageElement.Attribute("id")?.Value, "Amount"));
+            if (scaleValue.HasValue)
+                weapon.DamageScaling = scaleValue.Value;
         }
     }
 }

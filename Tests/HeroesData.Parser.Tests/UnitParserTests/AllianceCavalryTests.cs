@@ -40,5 +40,12 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.AreEqual(25, AllianceCavalry.Armor.FirstOrDefault().AbilityArmor);
             Assert.AreEqual(25, AllianceCavalry.Armor.FirstOrDefault().SplashArmor);
         }
+
+        [TestMethod]
+        public void WeaponPropertiesTests()
+        {
+            Assert.AreEqual("AllianceSuperCavalryWeapon", AllianceCavalry.Weapons[0].WeaponNameId);
+            Assert.AreEqual(65, AllianceCavalry.Weapons[0].Damage);
+        }
     }
 }
