@@ -24,8 +24,8 @@ namespace HeroesData.Commands
                 config.HelpOption("-?|-h|--help");
                 config.Description = "Compares two directory contents or files and displays a list of changed files.";
 
-                CommandArgument firstFilePathArgument = config.Argument("first-file-path", "first directory or file path");
-                CommandArgument secondFilePathArgument = config.Argument("second-file-path", "second directory or file path");
+                CommandArgument firstFilePathArgument = config.Argument("first-file-path", "First directory or file path");
+                CommandArgument secondFilePathArgument = config.Argument("second-file-path", "Second directory or file path");
 
                 config.OnExecute(() =>
                 {
