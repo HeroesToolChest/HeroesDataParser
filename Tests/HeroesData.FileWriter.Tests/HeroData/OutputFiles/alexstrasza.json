@@ -89,8 +89,11 @@
             "regenScale": 0.04
           },
           "armor": {
-            "physical": 5,
-            "spell": 30
+            "minion": {
+              "basic": 0,
+              "ability": 50,
+              "splash": 0
+            }
           },
           "abilities": {
             "basic": [

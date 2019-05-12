@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.UnitParserTests
 {
@@ -28,8 +29,8 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void ArmorTests()
         {
-            Assert.AreEqual(0, TownCannonTowerL2.Armor.PhysicalArmor);
-            Assert.AreEqual(0, TownCannonTowerL2.Armor.SpellArmor);
+            Assert.AreEqual(null, TownCannonTowerL2.Armor.FirstOrDefault()?.BasicArmor);
+            Assert.AreEqual(null, TownCannonTowerL2.Armor.FirstOrDefault()?.AbilityArmor);
         }
 
         [TestMethod]

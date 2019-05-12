@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.UnitParserTests
 {
@@ -17,7 +18,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.IsNull(AllianceCavalry.Description?.RawDescription);
             Assert.AreEqual(0, AllianceCavalry.HeroDescriptors.Count);
             Assert.AreEqual("AllianceCavalry", AllianceCavalry.HyperlinkId);
-            Assert.AreEqual("alteracpass.stormmod-AllianceCavalry", AllianceCavalry.Id);
+            Assert.AreEqual("alteracpass-AllianceCavalry", AllianceCavalry.Id);
             Assert.AreEqual(0, AllianceCavalry.InnerRadius);
             Assert.AreEqual("Alliance Cavalry", AllianceCavalry.Name);
             Assert.AreEqual(1.25, AllianceCavalry.Radius);
@@ -34,6 +35,10 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void ArmorPropertiesTests()
         {
+            Assert.AreEqual("Structure", AllianceCavalry.Armor.FirstOrDefault().Type);
+            Assert.AreEqual(25, AllianceCavalry.Armor.FirstOrDefault().BasicArmor);
+            Assert.AreEqual(25, AllianceCavalry.Armor.FirstOrDefault().AbilityArmor);
+            Assert.AreEqual(25, AllianceCavalry.Armor.FirstOrDefault().SplashArmor);
         }
     }
 }

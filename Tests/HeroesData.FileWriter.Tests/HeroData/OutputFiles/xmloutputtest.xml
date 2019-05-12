@@ -26,8 +26,8 @@
       <RegenRate>3</RegenRate>
     </Energy>
     <Armor>
-      <Physical>10</Physical>
-      <Spell>5</Spell>
+      <Hero basic="10" ability="5" splash="15" />
+      <Merc basic="50" ability="25" splash="75" />
     </Armor>
     <Roles>
       <Role>Assassin</Role>

@@ -44,8 +44,7 @@
             <RegenRate scale="0.04">3.7226</RegenRate>
           </Life>
           <Armor>
-            <Physical>5</Physical>
-            <Spell>30</Spell>
+            <Minion basic="0" ability="50" splash="0" />
           </Armor>
           <Abilities>
             <Basic>

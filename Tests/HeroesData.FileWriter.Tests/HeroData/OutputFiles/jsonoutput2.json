@@ -41,8 +41,16 @@
       "regenRate": 3.0
     },
     "armor": {
-      "physical": 10,
-      "spell": 5
+      "hero": {
+        "basic": 10,
+        "ability": 5,
+        "splash": 15
+      },
+      "merc": {
+        "basic": 50,
+        "ability": 25,
+        "splash": 75
+      }
     },
     "roles": [
       "Assassin",
@@ -329,8 +337,11 @@
             "regenScale": 0.04
           },
           "armor": {
-            "physical": 5,
-            "spell": 30
+            "minion": {
+              "basic": 0,
+              "ability": 50,
+              "splash": 0
+            }
           },
           "abilities": {
             "basic": [

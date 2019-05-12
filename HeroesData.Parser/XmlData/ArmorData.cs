@@ -1,5 +1,7 @@
 ﻿using Heroes.Models;
 using HeroesData.Loader.XmlGameData;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -25,39 +27,39 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(armorLinkValue))
                 return;
 
-            XElement armorElement = GameData.MergeXmlElements(GameData.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLinkValue));
-            XElement physicalArmorElement = GameData.MergeXmlElements(GameData.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLinkValue));
-            XElement spellArmorElement = GameData.MergeXmlElements(GameData.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLinkValue));
+            HashSet<UnitArmor> armorList = new HashSet<UnitArmor>();
 
+            XElement armorElement = GameData.MergeXmlElements(GameData.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLinkValue));
             if (armorElement != null)
             {
-                UnitArmorAddValue(armorElement, unit);
-            }
+                foreach (XElement armorSetElement in armorElement.Elements())
+                {
+                    string index = armorSetElement.Attribute("index")?.Value;
+                    if (string.IsNullOrEmpty(index))
+                        continue;
 
-            if (physicalArmorElement != null)
-            {
-                UnitArmorAddValue(physicalArmorElement, unit);
-            }
+                    UnitArmor unitArmor = new UnitArmor();
 
-            if (spellArmorElement != null)
-            {
-                UnitArmorAddValue(spellArmorElement, unit);
-            }
-        }
+                    foreach (XElement armorMitigationTableElement in armorSetElement.Elements("ArmorMitigationTable"))
+                    {
+                        string type = armorMitigationTableElement.Attribute("index")?.Value;
+                        string value = armorMitigationTableElement.Attribute("value")?.Value;
 
-        private void UnitArmorAddValue(XElement armorElement, Unit unit)
-        {
-            XElement basicElement = armorElement.Elements("ArmorSet").LastOrDefault()?.Elements("ArmorMitigationTable").FirstOrDefault(x => x.Attribute("index")?.Value == "Basic");
-            XElement abilityElement = armorElement.Elements("ArmorSet").LastOrDefault()?.Elements("ArmorMitigationTable").FirstOrDefault(x => x.Attribute("index")?.Value == "Ability");
+                        if (type.Equals("basic", StringComparison.OrdinalIgnoreCase) && int.TryParse(value, out int valueInt))
+                            unitArmor.BasicArmor = valueInt;
+                        else if (type.Equals("ability", StringComparison.OrdinalIgnoreCase) && int.TryParse(value, out valueInt))
+                            unitArmor.AbilityArmor = valueInt;
+                        else if (type.Equals("splash", StringComparison.OrdinalIgnoreCase) && int.TryParse(value, out valueInt))
+                            unitArmor.SplashArmor = valueInt;
+                    }
 
-            if (basicElement != null && int.TryParse(GameData.GetValueFromAttribute(basicElement.Attribute("value").Value), out int armorValue))
-            {
-                unit.Armor.PhysicalArmor = armorValue;
-            }
+                    unitArmor.Type = index;
 
-            if (abilityElement != null && int.TryParse(GameData.GetValueFromAttribute(abilityElement.Attribute("value").Value), out armorValue))
-            {
-                unit.Armor.SpellArmor = armorValue;
+                    if (unitArmor.BasicArmor > 0 || unitArmor.AbilityArmor > 0 || unitArmor.SplashArmor > 0)
+                        armorList.Add(unitArmor);
+                }
+
+                unit.Armor = armorList;
             }
         }
     }

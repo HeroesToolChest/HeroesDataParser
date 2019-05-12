@@ -3,6 +3,7 @@ using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
 using HeroesData.Helpers;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -85,8 +86,11 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             return new XElement(
                 "Armor",
-                new XElement("Physical", unit.Armor.PhysicalArmor),
-                new XElement("Spell", unit.Armor.SpellArmor));
+                unit.Armor.Select(armor => new XElement(
+                    CultureInfo.CurrentCulture.TextInfo.ToTitleCase(armor.Type),
+                    new XAttribute("basic", armor.BasicArmor),
+                    new XAttribute("ability", armor.AbilityArmor),
+                    new XAttribute("splash", armor.SplashArmor))));
         }
 
         protected override XElement GetLifeObject(Unit unit)

@@ -24,8 +24,8 @@
       <RegenRate>3</RegenRate>
     </Energy>
     <Armor>
-      <Physical>10</Physical>
-      <Spell>5</Spell>
+      <Hero basic="10" ability="5" splash="15" />
+      <Merc basic="50" ability="25" splash="75" />
     </Armor>
     <Ratings complexity="8" damage="7" survivability="6" utility="7" />
     <Weapons>
@@ -159,8 +159,7 @@
             <RegenRate scale="0.04">3.7226</RegenRate>
           </Life>
           <Armor>
-            <Physical>5</Physical>
-            <Spell>30</Spell>
+            <Minion basic="0" ability="50" splash="0" />
           </Armor>
           <Abilities>
             <Basic>

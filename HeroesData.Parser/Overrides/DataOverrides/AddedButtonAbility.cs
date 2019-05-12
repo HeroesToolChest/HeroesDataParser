@@ -13,8 +13,7 @@
 
         public override bool Equals(object obj)
         {
-            AddedButtonAbility item = obj as AddedButtonAbility;
-            if (item == null)
+            if (!(obj is AddedButtonAbility item))
                 return false;
 
             return ButtonId == item.ButtonId && ParentValue == item.ParentValue;

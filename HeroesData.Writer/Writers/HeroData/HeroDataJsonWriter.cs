@@ -165,11 +165,19 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected override JProperty GetArmorObject(Unit unit)
         {
-            return new JProperty(
-                "armor",
-                new JObject(
-                    new JProperty("physical", unit.Armor.PhysicalArmor),
-                    new JProperty("spell", unit.Armor.SpellArmor)));
+            JObject armorObject = new JObject();
+
+            foreach (UnitArmor armor in unit.Armor)
+            {
+                armorObject.Add(new JProperty(
+                    armor.Type.ToLower(),
+                    new JObject(
+                        new JProperty("basic", armor.BasicArmor),
+                        new JProperty("ability", armor.AbilityArmor),
+                        new JProperty("splash", armor.SplashArmor))));
+            }
+
+            return new JProperty("armor", armorObject);
         }
 
         protected override JProperty GetLifeObject(Unit unit)

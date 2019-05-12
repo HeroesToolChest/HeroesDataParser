@@ -101,10 +101,22 @@ namespace HeroesData.FileWriter.Tests.HeroData
                     PartyPanelPortraitFileName = "storm_ui_ingame_partypanel_btn_alarak.png",
                     TargetPortraitFileName = "ui_targetportrait_hero_alarak.png",
                 },
-                Armor = new UnitArmor()
+                Armor = new List<UnitArmor>
                 {
-                    PhysicalArmor = 10,
-                    SpellArmor = 5,
+                    new UnitArmor()
+                    {
+                        Type = "Hero",
+                        AbilityArmor = 5,
+                        BasicArmor = 10,
+                        SplashArmor = 15,
+                    },
+                    new UnitArmor()
+                    {
+                        Type = "Merc",
+                        AbilityArmor = 25,
+                        BasicArmor = 50,
+                        SplashArmor = 75,
+                    },
                 },
                 Life = new UnitLife
                 {
@@ -507,10 +519,13 @@ namespace HeroesData.FileWriter.Tests.HeroData
                             LifeRegenerationRate = 3.7226,
                             LifeRegenerationRateScaling = 0.04,
                         },
-                        Armor = new UnitArmor
+                        Armor = new List<UnitArmor>
                         {
-                            PhysicalArmor = 5,
-                            SpellArmor = 30,
+                            new UnitArmor
+                            {
+                                Type = "Minion",
+                                AbilityArmor = 50,
+                            },
                         },
                         Abilities = new Dictionary<string, Ability>
                         {
