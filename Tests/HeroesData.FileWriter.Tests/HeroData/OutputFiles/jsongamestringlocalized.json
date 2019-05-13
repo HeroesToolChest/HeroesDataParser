@@ -82,7 +82,6 @@
       "heroic": [
         {
           "nameId": "HeroicAbility",
-          "icon": null,
           "abilityType": "Heroic"
         }
       ],
@@ -98,21 +97,18 @@
       "mount": [
         {
           "nameId": "MountAbility",
-          "icon": null,
           "abilityType": "Z"
         }
       ],
       "activable": [
         {
           "nameId": "ActivableAbility",
-          "icon": null,
           "abilityType": "Active"
         }
       ],
       "hearth": [
         {
           "nameId": "HearthAbility",
-          "icon": null,
           "abilityType": "B"
         }
       ]
@@ -141,7 +137,6 @@
       "level4": [
         {
           "nameId": "Level4Talent",
-          "icon": null,
           "abilityType": "Q",
           "sort": 0,
           "abilityTalentLinkIds": [
@@ -153,7 +148,6 @@
       "level7": [
         {
           "nameId": "Level7Talent",
-          "icon": null,
           "abilityType": "Q",
           "sort": 0
         }
@@ -179,7 +173,6 @@
       "level13": [
         {
           "nameId": "Leve13Talent",
-          "icon": null,
           "abilityType": "W",
           "sort": 0
         }
@@ -187,7 +180,6 @@
       "level16": [
         {
           "nameId": "Level16Talent",
-          "icon": null,
           "abilityType": "W",
           "sort": 0
         }
@@ -195,7 +187,6 @@
       "level20": [
         {
           "nameId": "Level20Talent",
-          "icon": null,
           "abilityType": "W",
           "sort": 0
         }
@@ -238,28 +229,24 @@
           "heroic": [
             {
               "nameId": "SubAbilHeroic",
-              "icon": null,
               "abilityType": "Heroic"
             }
           ],
           "trait": [
             {
               "nameId": "SubAbilTrait",
-              "icon": null,
               "abilityType": "Trait"
             }
           ],
           "mount": [
             {
               "nameId": "SubAbilMount",
-              "icon": null,
               "abilityType": "Z"
             }
           ],
           "activable": [
             {
               "nameId": "SubAbilActivable",
-              "icon": null,
               "abilityType": "Active"
             }
           ]
@@ -307,28 +294,24 @@
             "heroic": [
               {
                 "nameId": "DragonAbilHeroic",
-                "icon": null,
                 "abilityType": "Heroic"
               }
             ],
             "trait": [
               {
                 "nameId": "DragonAbilTrait",
-                "icon": null,
                 "abilityType": "Trait"
               }
             ],
             "mount": [
               {
                 "nameId": "DragonAbilMount",
-                "icon": null,
                 "abilityType": "Z"
               }
             ],
             "activable": [
               {
                 "nameId": "DragonAbilActivable",
-                "icon": null,
                 "abilityType": "Trait"
               }
             ]

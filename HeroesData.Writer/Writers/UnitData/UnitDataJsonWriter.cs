@@ -298,7 +298,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
             if (!string.IsNullOrEmpty(abilityTalentBase.FullTooltipNameId))
                 info.Add("fullTooltipId", abilityTalentBase.FullTooltipNameId);
 
-            info.Add("icon", Path.ChangeExtension(abilityTalentBase.IconFileName?.ToLower(), ".png"));
+            if (!string.IsNullOrEmpty(abilityTalentBase.IconFileName))
+                info.Add("icon", Path.ChangeExtension(abilityTalentBase.IconFileName?.ToLower(), ".png"));
 
             if (abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.HasValue)
                 info.Add("toggleCooldown", abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.Value);

@@ -99,7 +99,6 @@
         {
           "nameId": "HeroicAbility",
           "name": "Heroic",
-          "icon": null,
           "abilityType": "Heroic"
         }
       ],
@@ -119,7 +118,6 @@
         {
           "nameId": "MountAbility",
           "name": "Mount",
-          "icon": null,
           "abilityType": "Z"
         }
       ],
@@ -127,7 +125,6 @@
         {
           "nameId": "ActivableAbility",
           "name": "Activable",
-          "icon": null,
           "abilityType": "Active"
         }
       ],
@@ -135,7 +132,6 @@
         {
           "nameId": "HearthAbility",
           "name": "Hearth",
-          "icon": null,
           "abilityType": "B"
         }
       ]
@@ -171,7 +167,6 @@
         {
           "nameId": "Level4Talent",
           "name": "Level4Talent",
-          "icon": null,
           "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96 (+4% per level)</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
           "abilityType": "Q",
           "sort": 0,
@@ -185,7 +180,6 @@
         {
           "nameId": "Level7Talent",
           "name": "Level4Talent",
-          "icon": null,
           "abilityType": "Q",
           "sort": 0
         }
@@ -222,7 +216,6 @@
         {
           "nameId": "Leve13Talent",
           "name": "Leve13Talent",
-          "icon": null,
           "abilityType": "W",
           "sort": 0
         }
@@ -231,7 +224,6 @@
         {
           "nameId": "Level16Talent",
           "name": "Level16Talent",
-          "icon": null,
           "abilityType": "W",
           "sort": 0
         }
@@ -240,7 +232,6 @@
         {
           "nameId": "Level20Talent",
           "name": "Level20Talent",
-          "icon": null,
           "abilityType": "W",
           "sort": 0
         }
@@ -290,7 +281,6 @@
             {
               "nameId": "SubAbilHeroic",
               "name": "SubAbilHeroic",
-              "icon": null,
               "abilityType": "Heroic"
             }
           ],
@@ -298,7 +288,6 @@
             {
               "nameId": "SubAbilTrait",
               "name": "SubAbilTrait",
-              "icon": null,
               "abilityType": "Trait"
             }
           ],
@@ -306,7 +295,6 @@
             {
               "nameId": "SubAbilMount",
               "name": "SubAbilMount",
-              "icon": null,
               "abilityType": "Z"
             }
           ],
@@ -314,7 +302,6 @@
             {
               "nameId": "SubAbilActivable",
               "name": "SubAbilActivable",
-              "icon": null,
               "abilityType": "Active"
             }
           ]
@@ -367,7 +354,6 @@
               {
                 "nameId": "DragonAbilHeroic",
                 "name": "DragonAbilHeroic",
-                "icon": null,
                 "abilityType": "Heroic"
               }
             ],
@@ -375,7 +361,6 @@
               {
                 "nameId": "DragonAbilTrait",
                 "name": "DragonAbilTrait",
-                "icon": null,
                 "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96 (+4% per level)</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
                 "abilityType": "Trait"
               }
@@ -384,7 +369,6 @@
               {
                 "nameId": "DragonAbilMount",
                 "name": "DragonAbilMount",
-                "icon": null,
                 "abilityType": "Z"
               }
             ],
@@ -392,7 +376,6 @@
               {
                 "nameId": "DragonAbilActivable",
                 "name": "DragonAbilActivable",
-                "icon": null,
                 "abilityType": "Trait"
               }
             ]

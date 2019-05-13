@@ -42,7 +42,6 @@
             {
               "nameId": "SubAbilHeroic",
               "name": "SubAbilHeroic",
-              "icon": null,
               "abilityType": "Heroic"
             }
           ],
@@ -50,7 +49,6 @@
             {
               "nameId": "SubAbilTrait",
               "name": "SubAbilTrait",
-              "icon": null,
               "abilityType": "Trait"
             }
           ],
@@ -58,7 +56,6 @@
             {
               "nameId": "SubAbilMount",
               "name": "SubAbilMount",
-              "icon": null,
               "abilityType": "Z"
             }
           ],
@@ -66,7 +63,6 @@
             {
               "nameId": "SubAbilActivable",
               "name": "SubAbilActivable",
-              "icon": null,
               "abilityType": "Active"
             }
           ]
@@ -119,7 +115,6 @@
               {
                 "nameId": "DragonAbilHeroic",
                 "name": "DragonAbilHeroic",
-                "icon": null,
                 "abilityType": "Heroic"
               }
             ],
@@ -127,7 +122,6 @@
               {
                 "nameId": "DragonAbilTrait",
                 "name": "DragonAbilTrait",
-                "icon": null,
                 "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
                 "abilityType": "Trait"
               }
@@ -136,7 +130,6 @@
               {
                 "nameId": "DragonAbilMount",
                 "name": "DragonAbilMount",
-                "icon": null,
                 "abilityType": "Z"
               }
             ],
@@ -144,7 +137,6 @@
               {
                 "nameId": "DragonAbilActivable",
                 "name": "DragonAbilActivable",
-                "icon": null,
                 "abilityType": "Trait"
               }
             ]

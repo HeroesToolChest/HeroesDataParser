@@ -55,9 +55,7 @@
         </AlarakDiscordStrike>
       </Basic>
       <Heroic>
-        <HeroicAbility name="Heroic" abilityType="Heroic">
-          <Icon />
-        </HeroicAbility>
+        <HeroicAbility name="Heroic" abilityType="Heroic" />
       </Heroic>
       <Trait>
         <AlarakSadismDummyUI name="Sadism" shortTooltipId="AlarakSadismDummyUI" fullTooltipId="AlarakSadismDummyUI" abilityType="Trait">
@@ -67,19 +65,13 @@
         </AlarakSadismDummyUI>
       </Trait>
       <Mount>
-        <MountAbility name="Mount" abilityType="Z">
-          <Icon />
-        </MountAbility>
+        <MountAbility name="Mount" abilityType="Z" />
       </Mount>
       <Activable>
-        <ActivableAbility name="Activable" abilityType="Active">
-          <Icon />
-        </ActivableAbility>
+        <ActivableAbility name="Activable" abilityType="Active" />
       </Activable>
       <Hearth>
-        <HearthAbility name="Hearth" abilityType="B">
-          <Icon />
-        </HearthAbility>
+        <HearthAbility name="Hearth" abilityType="B" />
       </Hearth>
     </Abilities>
     <Talents>
@@ -97,7 +89,6 @@
       </Level1>
       <Level4>
         <Level4Talent name="Level4Talent" abilityType="Q" sort="0">
-          <Icon />
           <FullTooltip>Burrow to the target location, dealing 96 damage and briefly stunning enemies in a small area upon surfacing, slowing them by 25% for 2.5 seconds.  Burrow Charge can be reactivated to surface early.</FullTooltip>
           <AbilityTalentLinkIds>
             <AbilityTalentLinkId>AlarakDiscordStrike</AbilityTalentLinkId>
@@ -106,9 +97,7 @@
         </Level4Talent>
       </Level4>
       <Level7>
-        <Level7Talent name="Level4Talent" abilityType="Q" sort="0">
-          <Icon />
-        </Level7Talent>
+        <Level7Talent name="Level4Talent" abilityType="Q" sort="0" />
       </Level7>
       <Level10>
         <AlarakHeroicAbilityDeadlyCharge name="Deadly Charge" shortTooltipId="AlarakDeadlyCharge" fullTooltipId="AlarakDeadlyCharge" abilityType="Heroic" sort="1">
@@ -127,19 +116,13 @@
         </AlarakHeroicAbilityCounterStrike>
       </Level10>
       <Level13>
-        <Leve13Talent name="Leve13Talent" abilityType="W" sort="0">
-          <Icon />
-        </Leve13Talent>
+        <Leve13Talent name="Leve13Talent" abilityType="W" sort="0" />
       </Level13>
       <Level16>
-        <Level16Talent name="Level16Talent" abilityType="W" sort="0">
-          <Icon />
-        </Level16Talent>
+        <Level16Talent name="Level16Talent" abilityType="W" sort="0" />
       </Level16>
       <Level20>
-        <Level20Talent name="Level20Talent" abilityType="W" sort="0">
-          <Icon />
-        </Level20Talent>
+        <Level20Talent name="Level20Talent" abilityType="W" sort="0" />
       </Level20>
     </Talents>
   </Alarak>
@@ -158,24 +141,16 @@
       </TychusOdinNoHealth>
       <HeroAlexstraszaDragon>
         <Heroic>
-          <SubAbilHeroic name="SubAbilHeroic" abilityType="Heroic">
-            <Icon />
-          </SubAbilHeroic>
+          <SubAbilHeroic name="SubAbilHeroic" abilityType="Heroic" />
         </Heroic>
         <Trait>
-          <SubAbilTrait name="SubAbilTrait" abilityType="Trait">
-            <Icon />
-          </SubAbilTrait>
+          <SubAbilTrait name="SubAbilTrait" abilityType="Trait" />
         </Trait>
         <Mount>
-          <SubAbilMount name="SubAbilMount" abilityType="Z">
-            <Icon />
-          </SubAbilMount>
+          <SubAbilMount name="SubAbilMount" abilityType="Z" />
         </Mount>
         <Activable>
-          <SubAbilActivable name="SubAbilActivable" abilityType="Active">
-            <Icon />
-          </SubAbilActivable>
+          <SubAbilActivable name="SubAbilActivable" abilityType="Active" />
         </Activable>
       </HeroAlexstraszaDragon>
     </SubAbilities>
@@ -199,25 +174,18 @@
               </AlexstraszaBreathOfLife>
             </Basic>
             <Heroic>
-              <DragonAbilHeroic name="DragonAbilHeroic" abilityType="Heroic">
-                <Icon />
-              </DragonAbilHeroic>
+              <DragonAbilHeroic name="DragonAbilHeroic" abilityType="Heroic" />
             </Heroic>
             <Trait>
               <DragonAbilTrait name="DragonAbilTrait" abilityType="Trait">
-                <Icon />
                 <FullTooltip>Burrow to the target location, dealing 96 damage and briefly stunning enemies in a small area upon surfacing, slowing them by 25% for 2.5 seconds.  Burrow Charge can be reactivated to surface early.</FullTooltip>
               </DragonAbilTrait>
             </Trait>
             <Mount>
-              <DragonAbilMount name="DragonAbilMount" abilityType="Z">
-                <Icon />
-              </DragonAbilMount>
+              <DragonAbilMount name="DragonAbilMount" abilityType="Z" />
             </Mount>
             <Activable>
-              <DragonAbilActivable name="DragonAbilActivable" abilityType="Trait">
-                <Icon />
-              </DragonAbilActivable>
+              <DragonAbilActivable name="DragonAbilActivable" abilityType="Trait" />
             </Activable>
           </Abilities>
         </AlexstraszaDragonId>
