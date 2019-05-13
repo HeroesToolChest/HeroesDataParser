@@ -22,7 +22,11 @@
         "range": 6.0,
         "period": 4.0,
         "damage": 56.0,
-        "damageScale": 0.0
+        "damageScale": 0.0,
+        "damageFactor": {
+          "minion": 5.0,
+          "structure": 0.75
+        }
       }
     ]
   },

@@ -338,16 +338,35 @@ namespace HeroesData.FileWriter.Writers.UnitData
 
         protected override JProperty GetWeaponsObject(Unit unit)
         {
-            return new JProperty(
-                "weapons",
-                new JArray(
-                    from w in unit.Weapons
-                    select new JObject(
-                        new JProperty("nameId", w.WeaponNameId),
-                        new JProperty("range", w.Range),
-                        new JProperty("period", w.Period),
-                        new JProperty("damage", w.Damage),
-                        new JProperty("damageScale", w.DamageScaling))));
+            JArray weaponArray = new JArray();
+
+            foreach (UnitWeapon weapon in unit.Weapons)
+            {
+                JObject weaponObject = new JObject
+                {
+                    new JProperty("nameId", weapon.WeaponNameId),
+                    new JProperty("range", weapon.Range),
+                    new JProperty("period", weapon.Period),
+                    new JProperty("damage", weapon.Damage),
+                    new JProperty("damageScale", weapon.DamageScaling),
+                };
+
+                if (weapon.AttributeFactors.Count > 0)
+                {
+                    JObject attributeFactorOjbect = new JObject();
+
+                    foreach (WeaponAttributeFactor item in weapon.AttributeFactors)
+                    {
+                        attributeFactorOjbect.Add(item.Type.ToLower(), item.Value);
+                    }
+
+                    weaponObject.Add("damageFactor", attributeFactorOjbect);
+                }
+
+                weaponArray.Add(weaponObject);
+            }
+
+            return new JProperty("weapons", weaponArray);
         }
     }
 }

@@ -56,7 +56,12 @@ namespace HeroesData.Parser.XmlData
                     unitArmor.Type = index;
 
                     if (unitArmor.BasicArmor > 0 || unitArmor.AbilityArmor > 0 || unitArmor.SplashArmor > 0)
+                    {
+                        if (armorList.Contains(unitArmor))
+                            armorList.Remove(unitArmor);
+
                         armorList.Add(unitArmor);
+                    }
                 }
 
                 unit.Armor = armorList;

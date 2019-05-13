@@ -46,6 +46,9 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             Assert.AreEqual("AllianceSuperCavalryWeapon", AllianceCavalry.Weapons[0].WeaponNameId);
             Assert.AreEqual(65, AllianceCavalry.Weapons[0].Damage);
+
+            Assert.AreEqual("Minion", AllianceCavalry.Weapons[0].AttributeFactors.FirstOrDefault().Type);
+            Assert.AreEqual(1.5, AllianceCavalry.Weapons[0].AttributeFactors.FirstOrDefault().Value);
         }
     }
 }

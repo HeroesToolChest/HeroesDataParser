@@ -35,6 +35,19 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 Period = 4,
                 Range = 6,
                 WeaponNameId = "MinionArcherWeapon",
+                AttributeFactors = new List<WeaponAttributeFactor>()
+                {
+                    new WeaponAttributeFactor()
+                    {
+                         Type = "Minion",
+                         Value = 5,
+                    },
+                    new WeaponAttributeFactor()
+                    {
+                         Type = "Structure",
+                         Value = 0.75,
+                    },
+                },
             });
 
             TestData.Add(unit);

@@ -13,6 +13,10 @@
     <Weapons>
       <MinionArcherWeapon range="6" period="4">
         <Damage scale="0">56</Damage>
+        <DamageFactor>
+          <Minion>5</Minion>
+          <Structure>0.75</Structure>
+        </DamageFactor>
       </MinionArcherWeapon>
     </Weapons>
   </MinionArcher>

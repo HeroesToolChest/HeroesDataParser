@@ -171,6 +171,33 @@ namespace HeroesData.Parser.XmlData
             if (amountElement != null)
                 weapon.Damage = double.Parse(GameData.GetValueFromAttribute(amountElement.Attribute("value").Value));
 
+            IEnumerable<XElement> weaponAttributeElements = effectDamageElement.Elements("AttributeFactor");
+            HashSet<WeaponAttributeFactor> attributeFactorsList = new HashSet<WeaponAttributeFactor>();
+
+            if (weaponAttributeElements.Any())
+            {
+                foreach (XElement attributeFactorElement in effectDamageElement.Elements("AttributeFactor"))
+                {
+                    string index = attributeFactorElement.Attribute("index")?.Value;
+                    string value = attributeFactorElement.Attribute("value")?.Value;
+
+                    WeaponAttributeFactor attributeFactor = new WeaponAttributeFactor();
+
+                    if (!string.IsNullOrEmpty(index) && double.TryParse(value, out double valueDouble))
+                    {
+                        attributeFactor.Type = index;
+                        attributeFactor.Value = valueDouble;
+
+                        if (attributeFactorsList.Contains(attributeFactor))
+                            attributeFactorsList.Remove(attributeFactor);
+
+                        attributeFactorsList.Add(attributeFactor);
+                    }
+                }
+
+                weapon.AttributeFactors = attributeFactorsList;
+            }
+
             double? scaleValue = GameData.GetScaleValue(("Effect", effectDamageElement.Attribute("id")?.Value, "Amount"));
             if (scaleValue.HasValue)
                 weapon.DamageScaling = scaleValue.Value;
