@@ -369,15 +369,14 @@ namespace HeroesData
             {
                 Parallel.ForEach(GameData.GameStringIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, gamestringId =>
                 {
-                    if (gameStringParser.TryParseRawTooltip(gamestringId, GameData.GetGameString(gamestringId), out string parsedGamestring))
-                    {
-                        GameData.AddGameString(gamestringId, parsedGamestring);
-                    }
-                    else
+                    if (!gameStringParser.TryParseRawTooltip(gamestringId, GameData.GetGameString(gamestringId), out string parsedGamestring))
                     {
                         failedGameStrings.Add($"{gamestringId}={GameData.GetGameString(gamestringId)}");
                         Interlocked.Increment(ref failedCount);
                     }
+
+                    // always add
+                    GameData.AddGameString(gamestringId, parsedGamestring);
 
                     Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {totalGameStrings} total gamestrings");
                 });
@@ -390,15 +389,14 @@ namespace HeroesData
 
                     Parallel.ForEach(mapGameData.GameStringIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, gamestringId =>
                     {
-                        if (gameStringParser.TryParseRawTooltip(gamestringId, mapGameData.GetGameString(gamestringId), out string parsedGamestring))
-                        {
-                            GameData.AddMapGameString(mapName, gamestringId, parsedGamestring);
-                        }
-                        else
+                        if (!gameStringParser.TryParseRawTooltip(gamestringId, mapGameData.GetGameString(gamestringId), out string parsedGamestring))
                         {
                             failedGameStrings.Add($"[{mapName}]:{gamestringId}={GameData.GetGameString(gamestringId)}");
                             Interlocked.Increment(ref failedCount);
                         }
+
+                        // always add
+                        GameData.AddMapGameString(mapName, gamestringId, parsedGamestring);
 
                         Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {totalGameStrings} total gamestrings");
                     });
