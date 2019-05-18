@@ -21,6 +21,8 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         protected Unit TownCannonTowerL2 { get; set; }
         protected Unit VolskayaVehicle { get; set; }
         protected Unit AllianceCavalry { get; set; }
+        protected Unit TerranArchangelLaner { get; set; }
+        protected Unit AzmodanDemonLieutenant { get; set; }
 
         [TestMethod]
         public void GetItemsTest()
@@ -38,10 +40,12 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         private void Parse()
         {
             UnitParser unitParser = new UnitParser(Configuration, GameData, DefaultData, UnitOverrideLoader);
+            AzmodanDemonLieutenant = unitParser.Parse("AzmodanDemonLieutenant");
             ZagaraHydralisk = unitParser.Parse("ZagaraHydralisk");
             TownCannonTowerL2 = unitParser.Parse("TownCannonTowerL2");
             VolskayaVehicle = unitParser.Parse("VolskayaVehicle");
 
+            ParseBraxisHoldoutData(unitParser);
             ParseAlteracPassData(unitParser);
         }
 
@@ -49,6 +53,13 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             GameData.AppendGameData(GameData.GetMapGameData("alteracpass.stormmod"));
             AllianceCavalry = unitParser.Parse("AllianceCavalry", "alteracpass.stormmod");
+            GameData.RestoreGameData();
+        }
+
+        private void ParseBraxisHoldoutData(UnitParser unitParser)
+        {
+            GameData.AppendGameData(GameData.GetMapGameData("braxisholdoutdata.stormmod"));
+            TerranArchangelLaner = unitParser.Parse("TerranArchangelLaner", "braxisholdoutdata.stormmod");
             GameData.RestoreGameData();
         }
     }

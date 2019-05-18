@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CEffectCreatePersistent id="BraxisHoldoutSCVChannel" />
+  <CEffectCreatePersistent id="CageAntennaActivateCreatePersistent">
+    <WhichLocation Value="CasterUnit" />
+    <Flags index="PersistUntilDestroyed" value="1" />
+    <InitialEffect value="CageAntennaActivateApplyBehavior" />
+    <FinalEffect value="CageAntennaActivateRemoveBehavior" />
+  </CEffectCreatePersistent>
+  <CEffectApplyBehavior id="CageAntennaActivateApplyBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="CageAntennaActivateActiveBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectDestroyPersistent id="CageAntennaActivateDestroyPersistent">
+    <Effect value="CageAntennaActivateCreatePersistent" />
+    <Count value="1" />
+    <Radius value="0.1" />
+  </CEffectDestroyPersistent>
+  <CEffectRemoveBehavior id="CageAntennaActivateRemoveBehavior">
+    <Count value="1" />
+  </CEffectRemoveBehavior>
+  <CEffectDamage id="CannonTowerL2Damage">
+    <AttributeFactor index="MapCreature" value="0.75" />
+  </CEffectDamage>
+  <CEffectDamage id="CannonTowerL3Damage">
+    <AttributeFactor index="MapCreature" value="0.75" />
+  </CEffectDamage>
+  <CEffectDamage id="KingsCoreWeaponDamage">
+    <AttributeFactor index="MapCreature" value="0.75" />
+  </CEffectDamage>
+  <CEffectApplyBehavior id="MapArrowApplyBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="MapArrowActiveBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectDestroyPersistent id="MapArrowDestroyPersistent">
+    <WhichLocation Value="TargetUnit" />
+    <Effect value="MapArrowPersistent" />
+  </CEffectDestroyPersistent>
+  <CEffectLaunchMissile id="MapArrowLaunchMissile">
+    <LaunchEffect value="MapArrowApplyBehavior" />
+    <AmmoUnit value="MapArrowInvisibleMissile" />
+    <Movers Link="MapArrowMover" />
+  </CEffectLaunchMissile>
+  <CEffectCreatePersistent id="MapArrowPersistent">
+    <WhichLocation Value="TargetUnit" />
+    <Flags index="PersistUntilDestroyed" value="1" />
+    <PeriodicEffectArray value="MapArrowLaunchMissile" />
+    <PeriodicPeriodArray value="0.45" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="DelayRemovalOfZergPathingBehavior">
+    <WhichLocation Value="SourceUnit" />
+    <ExpireDelay value="0.125" />
+    <ExpireEffect value="RemoveZergPathingBehavior" />
+  </CEffectCreatePersistent>
+  <CEffectRemoveBehavior id="RemoveZergPathingBehavior">
+    <WhichUnit Value="Source" />
+    <BehaviorLink value="ZergPathingBehavior" />
+  </CEffectRemoveBehavior>
+  <CEffectLaunchMissile id="TerranArchangelLanerLaunchMissile">
+    <ImpactEffect value="TerranArchangelLanerRangedDamage" />
+    <AmmoUnit value="TerranArchangelDefenderRangedWeapon" />
+  </CEffectLaunchMissile>
+  <CEffectDamage id="TerranArchangelLanerRangedDamage" parent="StormWeapon">
+    <AttributeFactor index="Minion" value="1" />
+    <Amount value="25" />
+  </CEffectDamage>
+  <CEffectSet id="TerranArchangelLanerRangedWeaponSet">
+    <EffectArray value="TerranArchangelLanerLaunchMissile" />
+    <EffectArray value="TerranArchangelLanerRightDummyLaunchMissile" />
+  </CEffectSet>
+  <CEffectLaunchMissile id="TerranArchangelLanerRightDummyLaunchMissile">
+    <ImpactEffect value="TerranArchangelLanerRightDummyPersistent" />
+    <AmmoUnit value="TerranArchangelDefenderRangedWeapon" />
+  </CEffectLaunchMissile>
+  <CEffectCreatePersistent id="TerranArchangelLanerRightDummyPersistent">
+    <WhichLocation Value="TargetUnit" />
+  </CEffectCreatePersistent>
+  <CEffectDamage id="TownHallL2WeaponDamage">
+    <AttributeFactor index="MapCreature" value="0.75" />
+  </CEffectDamage>
+  <CEffectDamage id="TownHallL3WeaponDamage">
+    <AttributeFactor index="MapCreature" value="0.75" />
+  </CEffectDamage>
+  <CEffectDamage id="ZergBanelingSuicide">
+    <ImpactLocation Value="SourceUnit" />
+    <VitalFractionMax index="Life" value="1" />
+  </CEffectDamage>
+  <CEffectApplyBehavior id="ZergInfestMinionInfestationApplyBehavior">
+    <Behavior value="ZergInfestation" />
+    <ValidatorArray index="0" value="IsValidInfestationTarget" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="ZergInfestationStasisApplyBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="ZergInfestationStasis" />
+  </CEffectApplyBehavior>
+  <CEffectCreateHealer id="ZergInfestationHeal">
+    <ImpactUnit Value="Caster" />
+    <PeriodCount value="4" />
+    <PeriodicPeriod value="0.25" />
+    <RechargeVitalRate value="500" />
+  </CEffectCreateHealer>
+  <CEffectModifyUnit id="ZergInfestationModifyUnit">
+    <VitalArray index="Life">
+      <ChangeFraction value="1" />
+    </VitalArray>
+    <ModifyOwnerPlayer Value="Hostile" />
+  </CEffectModifyUnit>
+  <CEffectApplyBehavior id="ZergInfestationInfestedApply">
+    <Behavior value="ZergInfested" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="ZergInfestationSet">
+    <EffectArray value="ZergInfestationInfestedApply" />
+    <EffectArray value="ZergInfestationModifyUnit" />
+  </CEffectSet>
+  <CEffectDamage id="ZergZerglingWeaponDamage" parent="StormWeapon">
+    <Amount value="5" />
+    <AttributeFactor index="Structure" value="-0.1" />
+    <AttributeFactor index="Heroic" value="-0.5" />
+  </CEffectDamage>
+  <CEffectSet id="ZergBanelingSuicideSet">
+    <EffectArray value="ZergBanelingDamage" />
+    <EffectArray value="ZergBanelingSuicide" />
+  </CEffectSet>
+  <CEffectDamage id="ZergBanelingDamage" parent="StormSpell">
+    <ImpactLocation Value="SourcePoint" />
+    <Amount value="55" />
+    <DamageModifierSource Value="Source" />
+    <Death value="Disintegrate" />
+    <AreaArray Fraction="1">
+      <Radius value="2.75" />
+    </AreaArray>
+    <ExcludeArray Value="Outer" />
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Stasis,Dead,Hidden,Invulnerable" />
+    <AttributeFactor index="Structure" value="0.5" />
+  </CEffectDamage>
+  <CEffectDamage id="ZergRoachWeaponDamage" parent="StormWeapon">
+    <Amount value="10" />
+    <AttributeFactor index="Minion" value="1" />
+  </CEffectDamage>
+  <CEffectLaunchMissile id="ZergRoachRangedWeaponLaunchMissile">
+    <ImpactEffect value="ZergRoachWeaponDamage" />
+    <AmmoUnit value="ZergRoachRangedWeapon" />
+    <SharedFlags index="ValidateWeapon" value="0" />
+  </CEffectLaunchMissile>
+  <CEffectLaunchMissile id="ZergHydraliskLaunchMissile">
+    <ValidatorArray index="0" value="TargetNotDead" />
+    <ImpactEffect value="ZergHydraliskRangedDamage" />
+    <SharedFlags index="TravelValidation" value="1" />
+    <SharedFlags index="ValidateWeapon" value="0" />
+    <AmmoUnit value="ZergHydraliskRangedWeapon" />
+  </CEffectLaunchMissile>
+  <CEffectDamage id="ZergHydraliskRangedDamage" parent="StormWeapon">
+    <AttributeFactor index="Structure" value="-0.1" />
+    <AttributeFactor index="Heroic" value="-0.5" />
+    <Amount value="25" />
+  </CEffectDamage>
+  <CEffectDamage id="ZergHydraliskMeleeDamage" parent="ZergHydraliskRangedDamage" />
+  <CEffectDamage id="ZergMutaliskWeaponDamage1" parent="StormWeapon">
+    <Amount value="27" />
+    <AttributeFactor index="Minion" value="0.5" />
+  </CEffectDamage>
+  <CEffectDamage id="ZergMutaliskWeaponDamage2" parent="StormWeapon">
+    <Amount value="10" />
+    <AttributeFactor index="Minion" value="1" />
+  </CEffectDamage>
+  <CEffectDamage id="ZergMutaliskWeaponDamage3" parent="StormWeapon">
+    <Amount value="5" />
+    <AttributeFactor index="Minion" value="1" />
+  </CEffectDamage>
+  <CEffectSet id="ZergMutaliskWeaponImpactSet1">
+    <EffectArray value="ZergMutaliskWeaponDamage1" />
+    <EffectArray value="ZergMutaliskWeaponSearchArea1" />
+  </CEffectSet>
+  <CEffectSet id="ZergMutaliskWeaponImpactSet2">
+    <EffectArray value="ZergMutaliskWeaponDamage2" />
+    <EffectArray value="ZergMutaliskWeaponSearchArea2" />
+  </CEffectSet>
+  <CEffectLaunchMissile id="ZergMutaliskWeaponLaunchMissile1">
+    <ImpactEffect value="ZergMutaliskWeaponImpactSet1" />
+    <AmmoUnit value="ZergMutaliskMissile1" />
+    <SharedFlags index="ValidateWeapon" value="0" />
+  </CEffectLaunchMissile>
+  <CEffectLaunchMissile id="ZergMutaliskWeaponLaunchMissile2">
+    <ValidatorArray index="0" value="noMarkers" />
+    <ImpactEffect value="ZergMutaliskWeaponImpactSet2" />
+    <AmmoUnit value="ZergMutaliskMissile2" />
+    <SharedFlags index="ValidateWeapon" value="0" />
+  </CEffectLaunchMissile>
+  <CEffectLaunchMissile id="ZergMutaliskWeaponLaunchMissile3">
+    <ValidatorArray index="0" value="noMarkers" />
+    <ImpactEffect value="ZergMutaliskWeaponDamage3" />
+    <AmmoUnit value="ZergMutaliskMissile3" />
+    <SharedFlags index="ValidateWeapon" value="0" />
+  </CEffectLaunchMissile>
+  <CEffectEnumArea id="ZergMutaliskWeaponSearchArea1">
+    <ExcludeArray Value="Outer" />
+    <ExcludeArray Value="Target" />
+    <SearchFilters value="Visible;Player,Ally,Neutral,ImmuneToAOE,Missile,Destructible,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="ZergMutaliskWeaponLaunchMissile2">
+      <Radius value="4" />
+    </AreaArray>
+    <MaxCount value="1" />
+  </CEffectEnumArea>
+  <CEffectEnumArea id="ZergMutaliskWeaponSearchArea2">
+    <ExcludeArray Value="Outer" />
+    <ExcludeArray Value="Target" />
+    <SearchFilters value="Visible;Player,Ally,Neutral,ImmuneToAOE,Missile,Destructible,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="ZergMutaliskWeaponLaunchMissile3">
+      <Radius value="4" />
+    </AreaArray>
+    <MaxCount value="1" />
+  </CEffectEnumArea>
+  <CEffectDamage id="ZergGuardianWeaponDamage" parent="StormWeapon">
+    <Amount value="80" />
+    <AttributeFactor index="Structure" value="-0.25" />
+    <AttributeFactor index="Heroic" value="-0.5" />
+  </CEffectDamage>
+  <CEffectSet id="ZergGuardianWeaponImpactSet">
+    <EffectArray value="ZergGuardianWeaponDamage" />
+  </CEffectSet>
+  <CEffectLaunchMissile id="ZergGuardianWeaponLaunchMissile">
+    <ImpactEffect value="ZergGuardianWeaponImpactSet" />
+    <AmmoUnit value="ZergGuardianMissile" />
+    <SharedFlags index="ValidateWeapon" value="0" />
+  </CEffectLaunchMissile>
+  <CEffectDamage id="ZergUltraliskWeaponDamage" parent="StormWeapon">
+    <Amount value="50" />
+    <Death value="Eviscerate" />
+    <AreaArray Fraction="0.5">
+      <Radius value="1.5" />
+    </AreaArray>
+    <ExcludeArray Value="Target" />
+    <SearchFilters value="-;Self,Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Dead,Hidden,Invulnerable" />
+    <AttributeFactor index="Heroic" value="-0.5" />
+  </CEffectDamage>
+  <CEffectLaunchMissile id="TerranArchangelDefenderLaunchMissile">
+    <ImpactEffect value="TerranArchangelDefenderRangedDamage" />
+    <AmmoUnit value="TerranArchangelDefenderRangedWeapon" />
+  </CEffectLaunchMissile>
+  <CEffectDamage id="TerranArchangelDefenderRangedDamage" parent="StormWeapon">
+    <Amount value="15" />
+    <AttributeFactor index="Minion" value="1.5" />
+    <AttributeFactor index="Structure" value="0.5" />
+  </CEffectDamage>
+  <CEffectLaunchMissile id="TerranArchangelDefenderRightDummyLaunchMissile">
+    <ImpactEffect value="TerranArchangelDefenderRightDummyPersistent" />
+    <AmmoUnit value="TerranArchangelDefenderRangedWeapon" />
+  </CEffectLaunchMissile>
+  <CEffectCreatePersistent id="TerranArchangelDefenderRightDummyPersistent">
+    <WhichLocation Value="TargetUnit" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="TerranArchangelDefenderRangedWeaponSet">
+    <EffectArray value="TerranArchangelDefenderLaunchMissile" />
+    <EffectArray value="TerranArchangelDefenderRightDummyLaunchMissile" />
+  </CEffectSet>
+  <CEffectSet id="TerranArchangelDefenderMortarLaunchSet">
+    <EffectArray value="TerranArchangelDefenderMortarWarningPersistent" />
+    <EffectArray value="TerranArchangelDefenderMortarLaunchMissile" />
+  </CEffectSet>
+  <CEffectEnumArea id="TerranArchangelDefenderMortarSearch">
+    <SearchFilters value="Visible;Self,Player,Ally,Neutral,ImmuneToAOE,NoMinionAggro,Structure,Missile,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray MaxCount="1" Effect="TerranArchangelDefenderMortarLaunchSet">
+      <InnerRadius value="3.5" />
+      <Radius value="9" />
+    </AreaArray>
+    <TargetSorts>
+      <SortArray value="TSRandom" />
+      <SortArray value="TSHeroic" />
+      <SortArray value="TSMerc" />
+      <SortArray value="TSMinion" />
+    </TargetSorts>
+  </CEffectEnumArea>
+  <CEffectLaunchMissile id="TerranArchangelDefenderMortarLaunchMissile">
+    <ValidatorArray index="0" value="TargetNotDead" />
+    <ImpactEffect value="TerranArchangelDefenderMortarImpactSearch" />
+    <AmmoUnit value="TerranArchangelDefenderMortar" />
+    <ImpactLocation Value="TargetPoint" />
+  </CEffectLaunchMissile>
+  <CEffectEnumArea id="TerranArchangelDefenderMortarImpactSearch">
+    <SearchFilters value="Visible;Player,Ally,Neutral,ImmuneToAOE,NoMinionAggro,User1,Stasis,Invulnerable" />
+    <AreaArray Effect="TerranArchangelDefenderMortarDamage">
+      <Radius value="1.5" />
+    </AreaArray>
+    <ImpactLocation Value="TargetPoint" />
+  </CEffectEnumArea>
+  <CEffectEnumArea id="TerranArchangelDefenderMortarImpactAINotifySearch">
+    <SearchFilters value="Visible;Player,Ally,Neutral,ImmuneToAOE,NoMinionAggro,User1,Stasis,Invulnerable" />
+    <AreaArray>
+      <Radius value="1" />
+    </AreaArray>
+    <ImpactLocation Value="TargetPoint" />
+  </CEffectEnumArea>
+  <CEffectDamage id="TerranArchangelDefenderMortarDamage" parent="StormWeapon">
+    <Amount value="250" />
+    <AttributeFactor index="Minion" value="1" />
+    <Kind value="Ability" />
+  </CEffectDamage>
+  <CEffectCreatePersistent id="TerranArchangelDefenderMortarWarningPersistent">
+    <OffsetVectorStartLocation Value="TargetPoint" />
+    <ExpireDelay value="1" />
+    <AINotifySettings AreaEffect="TerranArchangelDefenderMortarImpactAINotifySearch">
+      <Flags index="HurtsEnemy" value="1" />
+    </AINotifySettings>
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="TerranArchangelDefenderBulletstormInitialPersistent">
+    <PeriodCount value="3" />
+    <PeriodicEffectArray value="TerranArchangelDefenderBulletstormCreateDamagePersistent" />
+    <PeriodicEffectArray value="TerranArchangelDefenderBulletstormCreateVisualPersistent" />
+    <PeriodicEffectArray value="TerranArchangelDefenderBulletstormCreateAINotifyPersistent" />
+    <PeriodicOffsetArray Y="-1" />
+    <InitialDelay value="0.25" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="TerranArchangelDefenderBulletstormCreateAINotifyPersistent">
+    <PeriodicEffectArray value="TerranArchangelDefenderBulletstormAINotifyEffectSet" />
+    <PeriodCount value="1" />
+    <PeriodicPeriodArray value="0.0625" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="TerranArchangelDefenderBulletstormAINotifyEffectSet">
+    <EffectArray value="TerranArchangelDefenderBulletstormAINotifyEffectOffsetFront" />
+    <EffectArray value="TerranArchangelDefenderBulletstormAINotifyEffectOffsetFront2" />
+    <EffectArray value="TerranArchangelDefenderBulletstormAINotifyEffectOffsetFront3" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="TerranArchangelDefenderBulletstormAINotifyEffectOffsetFront">
+    <InitialEffect value="TerranArchangelDefenderBulletstormAINotifyEffectPersistent" />
+    <InitialOffset Y="-3" />
+    <WhichLocation Value="CasterPoint" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="TerranArchangelDefenderBulletstormAINotifyEffectOffsetFront2">
+    <InitialEffect value="TerranArchangelDefenderBulletstormAINotifyEffectPersistent" />
+    <InitialOffset Y="-8" />
+    <WhichLocation Value="CasterPoint" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="TerranArchangelDefenderBulletstormAINotifyEffectOffsetFront3">
+    <InitialEffect value="TerranArchangelDefenderBulletstormAINotifyEffectPersistent" />
+    <InitialOffset Y="-12" />
+    <WhichLocation Value="CasterPoint" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="TerranArchangelDefenderBulletstormAINotifyEffectOffsetFront4">
+    <InitialEffect value="TerranArchangelDefenderBulletstormAINotifyEffectPersistent" />
+    <InitialOffset Y="-16" />
+    <WhichLocation Value="CasterPoint" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="TerranArchangelDefenderBulletstormAINotifyEffectPersistent">
+    <AINotifySettings AreaEffect="TerranArchangelDefenderBulletstormAINotifyEffectArea">
+      <Flags index="HurtsEnemy" value="1" />
+    </AINotifySettings>
+    <InitialDelay value="4" />
+  </CEffectCreatePersistent>
+  <CEffectEnumArea id="TerranArchangelDefenderBulletstormAINotifyEffectArea">
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Structure,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Procedural="1">
+      <Radius value="2.5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectCreatePersistent id="TerranArchangelDefenderBulletstormCreateDamagePersistent">
+    <PeriodCount value="20" />
+    <PeriodicPeriodArray value="0.125" />
+    <Flags index="Channeled" value="1" />
+    <WhichLocation Value="SourcePoint" />
+    <PeriodicEffectArray value="TerranArchangelDefenderBulletstormDamageSearch" />
+    <PeriodicOffsetArray Y="-9" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="TerranArchangelDefenderBulletstormCreateSelfRevealPersistent">
+    <PeriodCount value="20" />
+    <PeriodicPeriodArray value="0.125" />
+    <Flags index="Channeled" value="1" />
+    <WhichLocation Value="CasterUnit" />
+    <PeriodicEffectArray value="TerranArchangelDefenderBulletStormSelfRevealSearchArea" />
+    <PeriodicOffsetArray Y="-1" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="TerranArchangelDefenderBulletstormCreateVisualPersistent">
+    <PeriodCount value="40" />
+    <PeriodicPeriodArray value="0.0625" />
+    <InitialOffset Y="-15" />
+    <InitialEffect value="TerranArchangelDefenderBulletstormCreateVisualDummy" />
+    <PeriodicEffectArray value="TerranArchangelDefenderBulletstormVisualDummySearch" />
+    <WhichLocation Value="CasterUnit" />
+    <Flags index="Channeled" value="1" />
+    <AINotifySettings AreaEffect="TerranArchangelDefenderBulletstormVisualDummySearch">
+      <Flags index="Disabled" value="1" />
+    </AINotifySettings>
+  </CEffectCreatePersistent>
+  <CEffectEnumArea id="TerranArchangelDefenderBulletstormDamageSearch">
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,User1,Item,Stasis,Invulnerable" />
+    <AreaArray Effect="TerranArchangelDefenderBulletstormImpactLaunchMissile">
+      <RectangleWidth value="4.5" />
+      <RectangleHeight value="16" />
+    </AreaArray>
+    <ImpactLocation Value="TargetPoint" />
+  </CEffectEnumArea>
+  <CEffectApplyBehavior id="TerranArchangelDefenderBulletstormApplyCasterBehavior">
+    <Behavior value="TerranArchangelDefenderBulletstormCasterBehavior" />
+    <WhichUnit Value="Caster" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="TerranArchangelDefenderBulletstormInitialSet">
+    <EffectArray value="TerranArchangelDefenderBulletstormApplyCasterBehavior" />
+    <EffectArray value="TerranArchangelDefenderBulletstormInitialPersistent" />
+    <EffectArray value="TerranArchangelDefenderBulletstormCreateSelfRevealPersistent" />
+    <TargetLocationType value="Point" />
+  </CEffectSet>
+  <CEffectSet id="TerranArchangelDefenderBulletstormPrepareSet">
+    <TargetLocationType value="Point" />
+  </CEffectSet>
+  <CEffectCreateUnit id="TerranArchangelDefenderBulletstormCreateVisualDummy">
+    <WhichLocation Value="TargetPoint" />
+    <CreateFlags index="Placement" value="0" />
+    <CreateFlags index="PlacementIgnoreCliffTest" value="1" />
+    <CreateFlags index="SetFacing" value="1" />
+    <SpawnUnit value="TerranArchangelDefenderBulletstormVisualDummy" />
+  </CEffectCreateUnit>
+  <CEffectEnumArea id="TerranArchangelDefenderBulletstormVisualDummySearch">
+    <AreaArray MaxCount="1" Effect="TerranArchangelDefenderBulletstormVisualMissileLaunchSet">
+      <Radius value="30" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="TerranArchangelDefenderBulletstormVisualMissileLaunchSet">
+    <EffectArray value="TerranArchangelDefenderBulletstormVisualMissileLeft" />
+    <EffectArray value="TerranArchangelDefenderBulletstormVisualMissileRight" />
+    <ValidatorArray value="IsTerranArchangelDefenderBulletstormVisualDummy" />
+  </CEffectSet>
+  <CEffectLaunchMissile id="TerranArchangelDefenderBulletstormVisualMissileLeft">
+    <ImpactEffect value="TerranArchangelDefenderBulletstormVisualMissileLeftDamage" />
+    <AmmoUnit value="TerranArchangelDefenderBulletstormVisualMissile" />
+    <SharedFlags index="ValidateAbil" value="0" />
+    <SharedFlags index="ValidateTeleport" value="0" />
+    <SharedFlags index="ValidateWeapon" value="0" />
+  </CEffectLaunchMissile>
+  <CEffectLaunchMissile id="TerranArchangelDefenderBulletstormVisualMissileRight">
+    <ImpactEffect value="TerranArchangelDefenderBulletstormVisualMissileRightDamage" />
+    <AmmoUnit value="TerranArchangelDefenderBulletstormVisualMissile" />
+    <SharedFlags index="ValidateAbil" value="0" />
+    <SharedFlags index="ValidateTeleport" value="0" />
+    <SharedFlags index="ValidateWeapon" value="0" />
+  </CEffectLaunchMissile>
+  <CEffectDamage id="TerranArchangelDefenderBulletstormVisualMissileLeftDamage" parent="StormWeapon">
+    <ValidatorArray index="0" removed="1" />
+  </CEffectDamage>
+  <CEffectDamage id="TerranArchangelDefenderBulletstormVisualMissileRightDamage" parent="StormWeapon">
+    <ValidatorArray index="0" removed="1" />
+  </CEffectDamage>
+  <CEffectDamage id="TerranArchangelDefenderBulletstormImpactDamage" parent="StormWeapon">
+    <Amount value="65" />
+    <Kind value="Ability" />
+    <SourceButtonFace value="TerranArchangelBulletstorm" />
+  </CEffectDamage>
+  <CEffectLaunchMissile id="TerranArchangelDefenderBulletstormImpactLaunchMissile">
+    <ImpactEffect value="TerranArchangelDefenderBulletstormImpactDamage" />
+    <AmmoUnit value="TerranArchangelDefenderBulletstormVisualMissile" />
+  </CEffectLaunchMissile>
+  <CEffectEnumArea id="TerranArchangelDefenderBulletStormSelfRevealSearchArea">
+    <ImpactLocation Value="TargetPoint" />
+    <SearchFilters value="Heroic;Player,Ally,Neutral" />
+    <AreaArray Arc="124.9694" Effect="TerranArchangelDefenderBulletStormApplySelfReveal">
+      <Radius value="16.5" />
+    </AreaArray>
+    <LaunchLocation Value="CasterUnit" />
+  </CEffectEnumArea>
+  <CEffectApplyBehavior id="TerranArchangelDefenderBulletStormApplySelfReveal">
+    <Behavior value="TerranArchangelDefenderBulletStormSelfRevealer" />
+  </CEffectApplyBehavior>
+  <CEffectEnumArea id="TerranArchangelDefenderBulletstormAISearch">
+    <SearchFilters value="Heroic,Visible;Self,Player,Ally,Neutral,ImmuneToAOE,Structure,Missile,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray MaxCount="1" Effect="TerranArchangelDefenderBulletstormAIIssueOrder">
+      <Radius value="9" />
+    </AreaArray>
+    <ImpactLocation Value="TargetPoint" />
+  </CEffectEnumArea>
+  <CEffectIssueOrder id="TerranArchangelDefenderBulletstormAIIssueOrder">
+    <WhichUnit Value="Caster" />
+    <Abil value="TerranArchangelDefenderBulletstorm" />
+    <Player Value="Caster" />
+    <Target Value="TargetPoint" />
+  </CEffectIssueOrder>
+</Catalog>

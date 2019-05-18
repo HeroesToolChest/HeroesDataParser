@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CCharacter id="Adjutant">
+        <Gender value="Female"/>
+        <Race value="Terran"/>
+    </CCharacter>
+    <CCharacter id="Marine">
+        <Age value="50"/>
+        <Race value="Terran"/>
+        <Voice value="NaturalSoft Peter"/>
+        <Color value="255,0,0,160"/>
+    </CCharacter>
+</Catalog>

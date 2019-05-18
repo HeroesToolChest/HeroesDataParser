@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CUpgrade id="CreepColor">
+        <EffectArray Operation="Set" Reference="GameUI,Dflt,OverrideColors[Hostile].Value[Diffuse]" Value="0.6,0.000000,1,1.000000"/>
+        <EffectArray Operation="Set" Reference="GameUI,Dflt,OverrideColors[Hostile].Value[Emissive]" Value="0.6,0.000000,1,1.000000"/>
+    </CUpgrade>
+</Catalog>

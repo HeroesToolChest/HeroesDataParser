@@ -147,10 +147,12 @@ namespace HeroesData.Parser.XmlData
             if (buttonElement == null)
                 return;
 
+            string buttonId = buttonElement.Attribute("id").Value;
+
             Ability ability = new Ability()
             {
-                FullTooltipNameId = abilLink,
-                ButtonName = abilLink,
+                FullTooltipNameId = string.IsNullOrEmpty(buttonId) ? abilLink : buttonId,
+                ButtonName = string.IsNullOrEmpty(buttonId) ? abilLink : buttonId,
                 ReferenceNameId = abilLink,
             };
 
@@ -277,44 +279,10 @@ namespace HeroesData.Parser.XmlData
                 return;
             }
 
-            // check the face attribute
-            XElement layoutButton = GameData.LayoutButtonElements.FirstOrDefault(x => (x.Attribute("Face")?.Value == ability.ButtonName || x.Attribute("Face")?.Value == ability.ReferenceNameId) &&
-                x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
+            string layoutId = !string.IsNullOrEmpty(ability.ParentLink) ? ability.ParentLink : unit.CUnitId;
 
-            // check the abilcmd attribute
-            if (layoutButton == null)
-            {
-                layoutButton = GameData.LayoutButtonElements.FirstOrDefault(x => !string.IsNullOrEmpty(x.Attribute("AbilCmd")?.Value) && (x.Attribute("AbilCmd").Value.StartsWith(ability.ButtonName) ||
-                    x.Attribute("AbilCmd").Value.StartsWith(ability.ReferenceNameId)) && x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
-            }
-
-            if (layoutButton != null)
-            {
-                SetAbilityTypeFromSlot(layoutButton.Attribute("Slot").Value, unit, ability);
-                return;
-            }
-            else // was not found for attribute check as elements
-            {
-                // check the face element value
-                layoutButton = GameData.LayoutButtonElements.Where(x => x.HasElements).FirstOrDefault(x => (x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName || x.Element("Face")?.Attribute("value")?.Value == ability.ReferenceNameId) &&
-                    x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
-
-                // check the abilcmd element value
-                if (layoutButton == null)
-                {
-                    layoutButton = GameData.LayoutButtonElements.Where(x => x.HasElements).FirstOrDefault(x => (!string.IsNullOrEmpty(x.Element("AbilCmd")?.Attribute("value")?.Value) && (x.Element("AbilCmd").Attribute("value").Value.StartsWith(ability.ButtonName) || x.Element("AbilCmd").Attribute("value").Value.StartsWith(ability.ReferenceNameId)) &&
-                        x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth"));
-                }
-
-                if (layoutButton != null)
-                {
-                    SetAbilityTypeFromSlot(layoutButton.Element("Slot").Attribute("value").Value, unit, ability);
-
-                    return;
-                }
-            }
-
-            ability.AbilityType = AbilityType.Active;
+            if (!SetAbilityTypeFromLayout(unit, ability, GameData.GetLayoutButtonElements(layoutId)) && !SetAbilityTypeFromLayout(unit, ability, GameData.GetLayoutButtonElements()))
+                ability.AbilityType = AbilityType.Active;
         }
 
         private void SetAbilityTypeFromSlot(string slot, Unit unit, Ability ability)
@@ -370,11 +338,13 @@ namespace HeroesData.Parser.XmlData
 
         private XElement GetButtonElement(string buttonId)
         {
+            // search for CButton
             XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == buttonId));
             if (buttonElement != null)
                 return buttonElement;
 
-            XElement abilEffectTargetElement = GameData.MergeXmlElements(GameData.Elements("CAbilEffectTarget").Where(x => x.Attribute("id")?.Value == buttonId));
+            // if not found search for CAbilEffectTarget
+            XElement abilEffectTargetElement = GetCAbilEffectTargetElement(GameData.MergeXmlElements(GameData.Elements("CAbilEffectTarget").Where(x => x.Attribute("id")?.Value == buttonId)));
             if (abilEffectTargetElement != null)
             {
                 string buttonFaceValue = abilEffectTargetElement.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
@@ -387,6 +357,80 @@ namespace HeroesData.Parser.XmlData
             }
 
             return null;
+        }
+
+        private XElement GetCAbilEffectTargetElement(XElement cAbilEffectTargetElement)
+        {
+            if (cAbilEffectTargetElement == null)
+                return null;
+
+            XElement currentElement = new XElement(cAbilEffectTargetElement);
+
+            List<XElement> elementsList = new List<XElement>
+            {
+                cAbilEffectTargetElement,
+            };
+
+            // add all the parent elements to the list
+            string parentValue = currentElement.Attribute("parent")?.Value;
+
+            while (!string.IsNullOrEmpty(parentValue))
+            {
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CAbilEffectTarget").Where(x => x.Attribute("id")?.Value == parentValue));
+                if (parentElement != null)
+                {
+                    elementsList.Add(parentElement);
+                    currentElement = parentElement;
+
+                    parentValue = currentElement.Attribute("parent")?.Value;
+                }
+            }
+
+            // merge them
+            return GameData.MergeXmlElementsNoAttributes(elementsList);
+        }
+
+        // searches the
+        private bool SetAbilityTypeFromLayout(Unit unit, Ability ability, ICollection<XElement> layoutButtonElements)
+        {
+            // check the face attribute
+            XElement layoutButton = layoutButtonElements?.FirstOrDefault(x => (x.Attribute("Face")?.Value == ability.ButtonName || x.Attribute("Face")?.Value == ability.ReferenceNameId) &&
+                x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
+
+            // check the abilcmd attribute
+            if (layoutButton == null)
+            {
+                layoutButton = layoutButtonElements?.FirstOrDefault(x => !string.IsNullOrEmpty(x.Attribute("AbilCmd")?.Value) && (x.Attribute("AbilCmd").Value.StartsWith(ability.ButtonName) ||
+                    x.Attribute("AbilCmd").Value.StartsWith(ability.ReferenceNameId)) && x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
+            }
+
+            if (layoutButton != null)
+            {
+                SetAbilityTypeFromSlot(layoutButton.Attribute("Slot").Value, unit, ability);
+                return true;
+            }
+            else // was not found for attributes check as elements
+            {
+                // check the face element value
+                layoutButton = layoutButtonElements?.Where(x => x.HasElements).FirstOrDefault(x => (x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName || x.Element("Face")?.Attribute("value")?.Value == ability.ReferenceNameId) &&
+                    x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
+
+                // check the abilcmd element value
+                if (layoutButton == null)
+                {
+                    layoutButton = layoutButtonElements?.Where(x => x.HasElements).FirstOrDefault(x => (!string.IsNullOrEmpty(x.Element("AbilCmd")?.Attribute("value")?.Value) && (x.Element("AbilCmd").Attribute("value").Value.StartsWith(ability.ButtonName) || x.Element("AbilCmd").Attribute("value").Value.StartsWith(ability.ReferenceNameId)) &&
+                        x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth"));
+                }
+
+                if (layoutButton != null)
+                {
+                    SetAbilityTypeFromSlot(layoutButton.Element("Slot").Attribute("value").Value, unit, ability);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

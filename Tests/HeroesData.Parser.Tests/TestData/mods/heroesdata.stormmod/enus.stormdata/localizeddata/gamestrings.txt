@@ -420,3 +420,12 @@ Abil/Name/KerriganRavage=Ravage
 Button/Name/KerriganRavage=Ravage
 Button/SimpleDisplayText/KerriganRavage=Leap to an enemy and deal damage
 Button/Tooltip/KerriganRavage=Leap to a target, dealing
+
+Abil/AzmodanDemonLieutenantDemonicSmiteAnnihilation=Demon Lieutenant: <c val="#TooltipNumbers"><d score="AzmodanDemonLieutenantDemonicSmiteAnnihilation" Precision="0"/></c>
+Button/Tooltip/AzmodanDemonLieutenant=Summon a Demon Lieutenant at any allied Mercenary, Minion, or Azmodan Demon. The Lieutenant will cast Demonic Smite every <c val="#TooltipNumbers"><d ref="Abil,AzmodanDemonicSmite,Cost.Cooldown.TimeUse"/></c> seconds, instantly killing an enemy Minion. Lasts <c val="#TooltipNumbers"><d ref="Behavior,AzmodanDemonLieutenantTimedLife,Duration-1"player="0"/></c> seconds.<n/><n/>Usable while Channeling All Shall Burn.
+Button/SimpleDisplayText/AzmodanDemonLieutenant=Azmodan summons a Demon Lieutenant to assist Minions, Mercenaries, and Summons
+Unit/Name/AzmodanDemonLieutenant=Demon Lieutenant
+Abil/Name/AzmodanDemonLieutenant=Demon Lieutenant
+Weapon/Name/AzmodanDemonLieutenantWeapon=Demon Lieutenant Weapon
+Abil/Name/AzmodanDemonicSmite=Demonic Smite
+Button/Tooltip/AzmodanGeneralOfHellDemonicSmiteTalent=Every <c val="#TooltipNumbers"><d ref="Abil,AzmodanDemonicSmite,Cost.Cooldown.TimeUse"precision="2"/></c> seconds, the Demon Lieutenant will blast a non-Heroic unit dealing <c val="#TooltipNumbers"><d ref="Effect,DemonicSmiteDamage,Amount"/></c> damage.

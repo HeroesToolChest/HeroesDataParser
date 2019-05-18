@@ -14,12 +14,14 @@ namespace HeroesData.Loader.XmlGameData
         private Dictionary<string, string> GameStringById = new Dictionary<string, string>();
         private Dictionary<string, GameData> MapGameDataByMapId = new Dictionary<string, GameData>();
         private Dictionary<string, List<XElement>> XmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>();
+        private Dictionary<string, List<XElement>> LayoutButtonElements = new Dictionary<string, List<XElement>>();
 
         // temp variables used for map game data swapping
         private Dictionary<(string Catalog, string Entry, string Field), double> OriginalScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
         private Dictionary<string, string> OriginalGameStringById = new Dictionary<string, string>();
         private Dictionary<string, GameData> OriginalMapGameDataByMapId = new Dictionary<string, GameData>();
         private Dictionary<string, List<XElement>> OriginalXmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>();
+        private Dictionary<string, List<XElement>> OriginalLayoutButtonElements = new Dictionary<string, List<XElement>>();
 
         protected GameData(string modsFolderPath)
         {
@@ -66,11 +68,6 @@ namespace HeroesData.Loader.XmlGameData
         /// Gets the hots build number.
         /// </summary>
         public int? HotsBuild { get; }
-
-        /// <summary>
-        /// Gets all the LayoutButton elements.
-        /// </summary>
-        public ICollection<XElement> LayoutButtonElements { get; private set; }
 
         /// <summary>
         /// Gets or sets the value of the cache.
@@ -130,6 +127,59 @@ namespace HeroesData.Loader.XmlGameData
         protected bool LoadTextFilesOnlyEnabled { get; private set; }
 
         /// <summary>
+        /// Merges the elements in the collection into a single XElement. The elements get added as the last children to the first element.
+        /// All the attributes of the elements get added to the first element (overriding existing values).
+        /// </summary>
+        /// <param name="elements">The collection of elements.</param>
+        /// <returns></returns>
+        public static XElement MergeXmlElements(IEnumerable<XElement> elements)
+        {
+            if (elements == null || !elements.Any())
+                return null;
+
+            XElement mergedXElement = new XElement(elements.FirstOrDefault());
+
+            foreach (XElement element in elements.Skip(1))
+            {
+                if (element.HasElements)
+                {
+                    mergedXElement.Add(element.Elements());
+                }
+
+                foreach (XAttribute attribute in element.Attributes())
+                {
+                    mergedXElement.SetAttributeValue(attribute.Name, attribute.Value);
+                }
+            }
+
+            return mergedXElement;
+        }
+
+        /// <summary>
+        /// Merges the elements in the collection into a single XElement. The elements get added as the last children to the first element.
+        /// Returned element has the attributes of the first element.
+        /// </summary>
+        /// <param name="elements">The collection of elements.</param>
+        /// <returns></returns>
+        public static XElement MergeXmlElementsNoAttributes(IEnumerable<XElement> elements)
+        {
+            if (elements == null || !elements.Any())
+                return null;
+
+            XElement mergedXElement = new XElement(elements.FirstOrDefault());
+
+            foreach (XElement element in elements.Skip(1))
+            {
+                if (element.HasElements)
+                {
+                    mergedXElement.Add(element.Elements());
+                }
+            }
+
+            return mergedXElement;
+        }
+
+        /// <summary>
         /// Appends gamedata to the existing gamedata.
         /// </summary>
         /// <param name="gameData"></param>
@@ -143,6 +193,7 @@ namespace HeroesData.Loader.XmlGameData
             OriginalMapGameDataByMapId = new Dictionary<string, GameData>(MapGameDataByMapId);
             OriginalScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>(ScaleValueByLookupId);
             OriginalXmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>(XmlGameDataElementsByElementName);
+            OriginalLayoutButtonElements = new Dictionary<string, List<XElement>>(LayoutButtonElements);
 
             XmlGameData.Root.Add(gameData.XmlGameData.Root.Elements());
 
@@ -152,8 +203,8 @@ namespace HeroesData.Loader.XmlGameData
             foreach (KeyValuePair<(string Catalog, string Entry, string Field), double> item in gameData.ScaleValueByLookupId)
                 ScaleValueByLookupId[item.Key] = item.Value;
 
-            foreach (XElement item in gameData.LayoutButtonElements)
-                LayoutButtonElements.Add(item);
+            foreach (KeyValuePair<string, List<XElement>> item in gameData.LayoutButtonElements)
+                LayoutButtonElements[item.Key] = item.Value;
 
             foreach (KeyValuePair<string, List<XElement>> item in gameData.XmlGameDataElementsByElementName)
             {
@@ -176,11 +227,13 @@ namespace HeroesData.Loader.XmlGameData
             GameStringById = OriginalGameStringById;
             MapGameDataByMapId = OriginalMapGameDataByMapId;
             XmlGameDataElementsByElementName = OriginalXmlGameDataElementsByElementName;
+            LayoutButtonElements = OriginalLayoutButtonElements;
 
             OriginalGameStringById = null;
             OriginalMapGameDataByMapId = null;
             OriginalScaleValueByLookupId = null;
             OriginalXmlGameDataElementsByElementName = null;
+            OriginalLayoutButtonElements = null;
 
             IsMapGameData = false;
         }
@@ -293,32 +346,39 @@ namespace HeroesData.Loader.XmlGameData
         }
 
         /// <summary>
-        /// Merges the elements in the collection into a single XElement. The elements get added as the last children to the first element.
-        /// All the attributes of the elements get added to the first element (overriding existing values).
+        /// Returns a collection of all layout button elements.
         /// </summary>
-        /// <param name="elements">The collection of elements.</param>
         /// <returns></returns>
-        public XElement MergeXmlElements(IEnumerable<XElement> elements)
+        public ICollection<XElement> GetLayoutButtonElements()
         {
-            if (elements == null || !elements.Any())
+            return LayoutButtonElements.Values.SelectMany(x => x).Distinct().ToList();
+        }
+
+        /// <summary>
+        /// Gets a collection of card layout buttons from a unit id.
+        /// </summary>
+        /// <param name="unitId">The id of the unit.</param>
+        /// <returns></returns>
+        public ICollection<XElement> GetLayoutButtonElements(string unitId)
+        {
+            if (LayoutButtonElements.TryGetValue(unitId, out List<XElement> value))
+                return value;
+            else
                 return null;
+        }
 
-            XElement mergedXElement = new XElement(elements.FirstOrDefault());
-
-            foreach (XElement element in elements.Skip(1))
-            {
-                if (element.HasElements)
-                {
-                    mergedXElement.Add(element.Elements());
-                }
-
-                foreach (XAttribute attribute in element.Attributes())
-                {
-                    mergedXElement.SetAttributeValue(attribute.Name, attribute.Value);
-                }
-            }
-
-            return mergedXElement;
+        /// <summary>
+        /// Trys to get a collection card layout buttons from a unit id.
+        /// </summary>
+        /// <param name="unitId">The id of the unit.</param>
+        /// <param name="value">The returned collection of card layout buttons.</param>
+        /// <returns></returns>
+        public bool TryGetLayoutButtonElements(string unitId, out List<XElement> value)
+        {
+            if (LayoutButtonElements.TryGetValue(unitId, out value))
+                return true;
+            else
+                return false;
         }
 
         /// <summary>
@@ -622,14 +682,26 @@ namespace HeroesData.Loader.XmlGameData
 
         private void SetPredefinedElements()
         {
-            LayoutButtonElements = XmlGameData.Root.Elements("CUnit").Where(x => x.Attribute("id")?.Value != "TargetHeroDummy").Elements("CardLayouts").Elements("LayoutButtons").ToList();
-
             foreach (XElement element in XmlGameData.Root.Elements())
             {
                 if (XmlGameDataElementsByElementName.TryGetValue(element.Name.LocalName, out List<XElement> values))
                     values.Add(element);
                 else
                     XmlGameDataElementsByElementName.Add(element.Name.LocalName, new List<XElement>() { element });
+            }
+
+            IEnumerable<XElement> units = Elements("CUnit").Where(x => !string.IsNullOrEmpty(x.Attribute("id")?.Value) && x.Attribute("id")?.Value != "TargetHeroDummy");
+            foreach (XElement unit in units)
+            {
+                string id = unit.Attribute("id").Value;
+                IEnumerable<XElement> cardLayouts = unit.Elements("CardLayouts");
+                if (cardLayouts != null)
+                {
+                    if (LayoutButtonElements.TryGetValue(id, out List<XElement> values))
+                        values.AddRange(cardLayouts.Elements("LayoutButtons").ToList());
+                    else
+                        LayoutButtonElements.Add(unit.Attribute("id").Value, cardLayouts.Elements("LayoutButtons").ToList());
+                }
             }
         }
     }

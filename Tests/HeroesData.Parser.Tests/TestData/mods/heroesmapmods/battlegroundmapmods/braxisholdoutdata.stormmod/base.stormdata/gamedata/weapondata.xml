@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CWeaponLegacy id="TerranArchangelDefenderRanged">
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-zerg-missileattacks-level3.dds" />
+    <DisplayEffect value="TerranArchangelDefenderRangedDamage" />
+    <TargetFilters value="Visible;Ally,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <MinScanRange value="10" />
+    <RangeSlop value="1.125" />
+    <Period value="0.0625" />
+    <DamagePoint value="0.125" />
+    <Backswing value="0" />
+    <Effect value="TerranArchangelDefenderRangedWeaponSet" />
+    <RandomDelayMin value="0" />
+    <RandomDelayMax value="0" />
+    <AcquireFilters value="Visible;Ally,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AcquireScanFilters value="Visible;Ally,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="4" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="TerranArchangelLanerRanged">
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-zerg-missileattacks-level3.dds" />
+    <DisplayEffect value="TerranArchangelLanerRangedDamage" />
+    <TargetFilters value="Visible;Ally,Heroic,Missile,Item,Stasis,Dead,Hidden,Invulnerable,AITargetableStructure" />
+    <MinScanRange value="10" />
+    <RangeSlop value="1.125" />
+    <Period value="0.0625" />
+    <DamagePoint value="0.125" />
+    <Backswing value="0" />
+    <Effect value="TerranArchangelLanerRangedWeaponSet" />
+    <RandomDelayMin value="0" />
+    <RandomDelayMax value="0" />
+    <AcquireFilters value="Visible;Ally,Heroic,Missile,Item,Stasis,Dead,Hidden,Invulnerable,AITargetableStructure" />
+    <Range value="4" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="TerranArchangelLanerRangedAITargetStructure" parent="TerranArchangelLanerRanged">
+    <TargetFilters value="Visible,AITargetableStructure;Ally,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AcquireFilters value="Visible,AITargetableStructure;Ally,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ZergZerglingWeapon">
+    <Options index="Melee" value="1" />
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-zerg-meleeattacks-level0.dds" />
+    <TargetFilters value="Visible;Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AcquireFilters value="-;Creep,NoMinionAggro,Structure,Heroic" />
+    <Range value="0.5" />
+    <Period value="0.33" />
+    <DamagePoint value="0.125" />
+    <Backswing value="0" />
+    <Effect value="ZergZerglingWeaponDamage" />
+    <DisplayEffect value="ZergZerglingWeaponDamage" />
+    <RandomDelayMin value="0" />
+    <RandomDelayMax value="0" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ZergBanelingWeapon">
+    <Options index="Melee" value="1" />
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-zerg-meleeattacks-level0.dds" />
+    <TargetFilters value="Visible,AITargetableStructure;Ally,Neutral,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AcquireFilters value="Visible,AITargetableStructure;Ally,Neutral,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="0.5" />
+    <Period value="0.5" />
+    <DamagePoint value="0" />
+    <Backswing value="0" />
+    <Effect value="ZergBanelingSuicideSet" />
+    <DisplayEffect value="ZergBanelingDamage" />
+    <RandomDelayMin value="0" />
+    <RandomDelayMax value="0" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ZergRoachMeleeWeapon">
+    <Options index="Melee" value="1" />
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-zerg-meleeattacks-level0.dds" />
+    <DisplayEffect value="ZergRoachWeaponDamage" />
+    <TargetFilters value="Visible;Ally,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AcquireFilters value="Visible;Ally,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <MinScanRange value="8" />
+    <Range value="1.25" />
+    <Period value="1" />
+    <DamagePoint value="0.125" />
+    <Backswing value="0.25" />
+    <Effect value="ZergRoachWeaponDamage" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ZergRoachRangedWeapon">
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-zerg-meleeattacks-level0.dds" />
+    <DisplayEffect value="ZergRoachWeaponDamage" />
+    <TargetFilters value="Visible;Ally,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AcquireFilters value="Visible;Ally,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <MinScanRange value="8" />
+    <Range value="2" />
+    <Period value="1" />
+    <DamagePoint value="0.125" />
+    <Backswing value="0" />
+    <Effect value="ZergRoachRangedWeaponLaunchMissile" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ZergHydraliskMelee">
+    <Options index="Hidden" value="1" />
+    <Options index="Melee" value="1" />
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-zerg-missileattacks-level3.dds" />
+    <DisplayEffect value="ZergHydraliskMeleeDamage" />
+    <TargetFilters value="Visible;Ally,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <MinScanRange value="6.5" />
+    <Range value="0.5" />
+    <RangeSlop value="2.125" />
+    <Cost>
+      <Cooldown Link="Weapon/ZagaraHydraliskRanged" />
+    </Cost>
+    <Period value="1" />
+    <DamagePoint value="0.125" />
+    <Backswing value="0" />
+    <Effect value="ZergHydraliskMeleeDamage" />
+    <RandomDelayMin value="0" />
+    <RandomDelayMax value="0" />
+    <AcquireFilters value="Visible;Ally,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ZergHydraliskRanged">
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-zerg-missileattacks-level3.dds" />
+    <DisplayEffect value="ZergHydraliskRangedDamage" />
+    <TargetFilters value="Visible;Ally,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <MinScanRange value="7" />
+    <RangeSlop value="1.125" />
+    <MinimumRange value="0.5" />
+    <Period value="1" />
+    <DamagePoint value="0.125" />
+    <Backswing value="0" />
+    <Effect value="ZergHydraliskLaunchMissile" />
+    <RandomDelayMin value="0" />
+    <RandomDelayMax value="0" />
+    <AcquireFilters value="Visible;Ally,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="6" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ZergMutaliskWeapon">
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-zerg-missileattacks-level3.dds" />
+    <DisplayEffect value="ZergMutaliskWeaponDamage1" />
+    <TargetFilters value="Visible;Ally,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <MinScanRange value="6.5" />
+    <RangeSlop value="2.125" />
+    <ArcSlop value="45" />
+    <Marker>
+      <MatchFlags index="Id" value="1" />
+    </Marker>
+    <Period value="1" />
+    <DamagePoint value="0.0625" />
+    <Backswing value="0" />
+    <Effect value="ZergMutaliskWeaponLaunchMissile1" />
+    <AllowedMovement value="Slowing" />
+    <RandomDelayMin value="0" />
+    <RandomDelayMax value="0" />
+    <AcquireFilters value="Visible;Ally,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <LegacyOptions index="NoDeceleration" value="1" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ZergGuardianWeapon">
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-zerg-missileattacks-level3.dds" />
+    <DisplayEffect value="ZergGuardianWeaponDamage" />
+    <TargetFilters value="Visible;Ally,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <MinScanRange value="11" />
+    <Range value="10" />
+    <RangeSlop value="2.125" />
+    <ArcSlop value="45" />
+    <Marker>
+      <MatchFlags index="Id" value="1" />
+    </Marker>
+    <Period value="2" />
+    <DamagePoint value="1" />
+    <Backswing value="0" />
+    <Effect value="ZergGuardianWeaponLaunchMissile" />
+    <AllowedMovement value="Slowing" />
+    <RandomDelayMin value="0" />
+    <RandomDelayMax value="0" />
+    <AcquireFilters value="Visible;Ally,NoMinionAggro,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ZergUltraliskWeapon">
+    <Options index="Hidden" value="1" />
+    <Options index="Melee" value="1" />
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-zerg-missileattacks-level3.dds" />
+    <DisplayEffect value="ZergUltraliskWeaponDamage" />
+    <TargetFilters value="Visible;Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AcquireFilters value="-;Creep,NoMinionAggro,Structure,Heroic" />
+    <MinScanRange value="6.5" />
+    <Range value="1.5" />
+    <RangeSlop value="2.125" />
+    <Period value="1.5" />
+    <DamagePoint value="0.25" />
+    <Backswing value="0" />
+    <Effect value="ZergUltraliskWeaponDamage" />
+    <RandomDelayMin value="0" />
+    <RandomDelayMax value="0" />
+    <LegacyOptions index="Uninterruptible" value="1" />
+    <UninterruptibleDelay value="0.125" />
+    <UninterruptibleDuration value="0.125" />
+  </CWeaponLegacy>
+</Catalog>
