@@ -13,6 +13,7 @@ namespace HeroesData.Parser.XmlData
             WeaponData = new WeaponData(GameData, DefaultData, Configuration);
             ArmorData = new ArmorData(GameData);
             AbilityData = new AbilityData(GameData, DefaultData, Configuration);
+            BehaviorData = new BehaviorData(gameData);
         }
 
         public Configuration Configuration { get; }
@@ -28,5 +29,7 @@ namespace HeroesData.Parser.XmlData
         public AbilityData AbilityData { get; }
 
         public TalentData TalentData { get; }
+
+        public BehaviorData BehaviorData { get; }
     }
 }

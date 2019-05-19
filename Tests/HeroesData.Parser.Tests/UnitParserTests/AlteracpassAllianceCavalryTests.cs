@@ -26,6 +26,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.AreEqual(1.25, AlteracpassAllianceCavalry.Radius);
             Assert.AreEqual(8, AlteracpassAllianceCavalry.Sight);
             Assert.AreEqual(5, AlteracpassAllianceCavalry.Speed);
+            Assert.AreEqual("SuperCavalryScaling", AlteracpassAllianceCavalry.ScalingBehaviorLink);
         }
 
         [TestMethod]

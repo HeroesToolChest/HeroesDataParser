@@ -19,6 +19,7 @@ namespace HeroesData.Parser
         private readonly WeaponData WeaponData;
         private readonly ArmorData ArmorData;
         private readonly AbilityData AbilityData;
+        private readonly BehaviorData BehaviorData;
 
         private readonly HashSet<string> ValidParents = new HashSet<string>();
 
@@ -31,6 +32,7 @@ namespace HeroesData.Parser
             WeaponData = xmlDataService.WeaponData;
             ArmorData = xmlDataService.ArmorData;
             AbilityData = xmlDataService.AbilityData;
+            BehaviorData = xmlDataService.BehaviorData;
         }
 
         public override HashSet<string[]> Items
@@ -254,6 +256,12 @@ namespace HeroesData.Parser
                             unit.AddUnitArmor(armor);
                         }
                     }
+                }
+                else if (elementName == "BEHAVIORARRAY")
+                {
+                    string link = BehaviorData.GetScalingBehaviorLink(element);
+                    if (!string.IsNullOrEmpty(link))
+                        unit.ScalingBehaviorLink = link;
                 }
             }
 

@@ -20,52 +20,54 @@ namespace HeroesData.FileWriter.Writers.UnitData
             if (FileOutputOptions.IsLocalizedText)
                 AddLocalizedGameString(unit);
 
-            JObject heroObject = new JObject();
+            JObject unitObject = new JObject();
 
             if (!string.IsNullOrEmpty(unit.Name) && !FileOutputOptions.IsLocalizedText)
-                heroObject.Add("name", unit.Name);
+                unitObject.Add("name", unit.Name);
             if (!string.IsNullOrEmpty(unit.HyperlinkId))
-                heroObject.Add("hyperlinkId", unit.HyperlinkId);
+                unitObject.Add("hyperlinkId", unit.HyperlinkId);
             if (unit.InnerRadius > 0)
-                heroObject.Add("innerRadius", unit.InnerRadius);
+                unitObject.Add("innerRadius", unit.InnerRadius);
             if (unit.Radius > 0)
-                heroObject.Add("radius", unit.Radius);
+                unitObject.Add("radius", unit.Radius);
             if (unit.Sight > 0)
-                heroObject.Add("sight", unit.Sight);
+                unitObject.Add("sight", unit.Sight);
             if (unit.Speed > 0)
-                heroObject.Add("speed", unit.Speed);
+                unitObject.Add("speed", unit.Speed);
             if (!string.IsNullOrEmpty(unit.DamageType) && !FileOutputOptions.IsLocalizedText)
-                heroObject.Add("damageType", unit.DamageType);
+                unitObject.Add("damageType", unit.DamageType);
+            if (!string.IsNullOrEmpty(unit.ScalingBehaviorLink))
+                unitObject.Add(new JProperty("scalingLinkId", unit.ScalingBehaviorLink));
             if (!string.IsNullOrEmpty(unit.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
-                heroObject.Add("description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
+                unitObject.Add("description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
             if (unit.HeroDescriptors.Count > 0)
-                heroObject.Add(new JProperty("descriptors", unit.HeroDescriptors));
+                unitObject.Add(new JProperty("descriptors", unit.HeroDescriptors));
             if (unit.Attributes.Count > 0)
-                heroObject.Add(new JProperty("attributes", unit.Attributes));
+                unitObject.Add(new JProperty("attributes", unit.Attributes));
             if (!string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName))
-                heroObject.Add("image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension));
+                unitObject.Add("image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension));
 
             JProperty life = UnitLife(unit);
             if (life != null)
-                heroObject.Add(life);
+                unitObject.Add(life);
 
             JProperty energy = UnitEnergy(unit);
             if (energy != null)
-                heroObject.Add(energy);
+                unitObject.Add(energy);
 
             JProperty armor = UnitArmor(unit);
             if (armor != null)
-                heroObject.Add(armor);
+                unitObject.Add(armor);
 
             JProperty weapons = UnitWeapons(unit);
             if (weapons != null)
-                heroObject.Add(weapons);
+                unitObject.Add(weapons);
 
             JProperty abilities = UnitAbilities(unit, false);
             if (abilities != null)
-                heroObject.Add(abilities);
+                unitObject.Add(abilities);
 
-            return new JProperty(unit.Id, heroObject);
+            return new JProperty(unit.Id, unitObject);
         }
 
         protected override JProperty GetArmorObject(Unit unit)

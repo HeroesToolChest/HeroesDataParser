@@ -6,6 +6,7 @@ namespace HeroesData.Parser.XmlData
     {
         AbilityData AbilityData { get; }
         ArmorData ArmorData { get; }
+        BehaviorData BehaviorData { get; }
         Configuration Configuration { get; }
         DefaultData DefaultData { get; }
         GameData GameData { get; }

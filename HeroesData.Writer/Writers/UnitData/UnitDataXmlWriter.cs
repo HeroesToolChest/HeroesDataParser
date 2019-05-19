@@ -31,6 +31,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 unit.Sight > 0 ? new XAttribute("sight", unit.Sight) : null,
                 unit.Speed > 0 ? new XAttribute("speed", unit.Speed) : null,
                 string.IsNullOrEmpty(unit.DamageType) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("damageType", unit.DamageType),
+                string.IsNullOrEmpty(unit.ScalingBehaviorLink) ? null : new XElement("ScalingLinkId", unit.ScalingBehaviorLink),
                 string.IsNullOrEmpty(unit.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType)),
                 unit.HeroDescriptors.Count > 0 ? new XElement("Descriptors", unit.HeroDescriptors.Select(d => new XElement("Descriptor", d))) : null,
                 unit.Attributes.Count > 0 ? new XElement("Attributes", unit.Attributes.Select(x => new XElement("Attribute", x))) : null,
