@@ -1,0 +1,869 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CAbilAttack id="PayloadAttack" parent="attack">
+    <AcquireFilters value="-;Player,Ally,Dead,Hidden,Invulnerable" />
+    <Flags index="UpdateTarget" value="1" />
+    <Name value="Abil/Name/PayloadAttack" />
+  </CAbilAttack>
+  <CAbilMove id="PayloadMove" parent="move">
+    <Name value="Abil/Name/PayloadMove" />
+    <OrderArray index="0">
+      <DisplayType value="Move" />
+      <Color value="0,0,255,0" />
+      <Model value="Assets\Units\Test\InvisibleUnit\InvisibleUnit.m3" />
+      <Scale value="4.000000" />
+      <LineTexture value="Assets\Textures\storm_waypointline.dds" />
+    </OrderArray>
+    <OrderArray index="1">
+      <DisplayType value="Move" />
+      <Color value="255,35,125,255" />
+      <Model value="Assets\Units\Test\InvisibleUnit\InvisibleUnit.m3" />
+      <Scale value="4.000000" />
+      <LineTexture value="Assets\Textures\storm_waypointline.dds" />
+    </OrderArray>
+  </CAbilMove>
+  <CActorUnit default="1" id="ControlPointMinimapIconParent" parent="GenericUnitMinimal">
+    <Model value="Invisible" />
+    <MinimapIconIsTeamColored value="1" />
+    <On Terms="ActorCreation" Send="SetShowStatusBar" />
+  </CActorUnit>
+  <CActorTurret id="PayloadAttackCoreTurret">
+    <On Terms="TurretEnable.PayloadAttackCoreTurret" Send="Create" />
+    <On Terms="TurretDisable.PayloadAttackCoreTurret; ValidateUnit Payload_HasNotReachedDestination" Send="Destroy" />
+  </CActorTurret>
+  <CActorMissile id="Payload_AttackMissile" parent="GenericAttackMissile" unitName="Payload_AttackMissile">
+    <ModelFlags index="AutomateGlobalLoops" value="1" />
+    <On Terms="ActorCreation" Send="SetShowStatusBar" />
+    <On Terms="ActorCreation" Send="Create PayloadMissileMinimapIcon" />
+    <On Terms="ActorCreation" Send="Create Doodad_OWHana_Payload_AttackMissile" />
+    <FogVisibility value="Visible" />
+  </CActorMissile>
+  <CActorAction id="Payload_AttackAction" parent="GenericAttack" effectImpact="Payload_AttackDamage" effectLaunch="Payload_AttackLM">
+    <Missile value="Payload_AttackMissile" />
+    <ImpactMap index="None" Model="Payload_AttackImpact" Sound="Doodad_OWHana_Payload_AttackImpact" />
+    <LaunchAssets Model="Payload_AttackLaunch" Sound="Doodad_OWHana_Payload_AttackLaunch" />
+    <ImpactSiteOps Ops="SOpAttachHarness SOpAttachVolumeStandard SOpForwardOriginPointInverted" />
+    <ImpactModel value="AttackCoreImpactActor" />
+  </CActorAction>
+  <CActorSound id="Doodad_OWHana_Payload_AttackLaunch" parent="SoundOneShot">
+    <Layers Sound="Doodad_OWHana_Payload_AttackLaunch_Dist" PlayDelay="90,90" PlayDelaySource="Actor" />
+    <ScopeBearingsTracking value="ForceOn" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_Contested" parent="SoundOneShot">
+    <On Terms="Behavior.Payload_ContestedMonitor.On" Send="Create" />
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_AttackImpact" parent="SoundOneShot">
+    <Layers Sound="Doodad_OWHana_Payload_AttackImpact_Dist" PlayDelay="90,90" PlayDelaySource="Actor" />
+    <ScopeBearingsTracking value="ForceOn" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_AttackImpact_Dist" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+    <On Terms="Effect.Payload_AttackDamage.Start; At Target" Send="Create" />
+    <Host Subject="_Unit" />
+    <Inherits index="Visibility" value="0" />
+  </CActorSound>
+  <CActorUnit id="Payload_Neutral_Warning" parent="ControlPointMinimapIconParent" unitName="Payload_Neutral_Warning">
+    <MinimapIcon value="Assets\Textures\storm_ui_hud_minimap_hanamura_payload_icon.dds" />
+  </CActorUnit>
+  <CActorUnit id="ControlPointMinimapIconA" parent="ControlPointMinimapIconParent" unitName="ControlPointMinimapIconA">
+    <MinimapIcon value="Assets\Textures\storm_ui_hud_volskaya_minimap_obj_a.dds" />
+  </CActorUnit>
+  <CActorUnit id="ControlPointMinimapIconB" parent="ControlPointMinimapIconParent" unitName="ControlPointMinimapIconB">
+    <MinimapIcon value="Assets\Textures\storm_ui_hud_volskaya_minimap_obj_b.dds" />
+  </CActorUnit>
+  <CActorUnit id="ControlPointMinimapIconC" parent="ControlPointMinimapIconParent" unitName="ControlPointMinimapIconC">
+    <MinimapIcon value="Assets\Textures\storm_ui_hud_volskaya_minimap_obj_c.dds" />
+  </CActorUnit>
+  <CActorUnit id="ControlPointMinimapPreviewIconA" parent="ControlPointMinimapIconParent" unitName="ControlPointMinimapPreviewIconA">
+    <MinimapIcon value="Assets\Textures\storm_ui_hud_volskaya_minimap_obj_a.dds" />
+  </CActorUnit>
+  <CActorUnit id="ControlPointMinimapPreviewIconB" parent="ControlPointMinimapIconParent" unitName="ControlPointMinimapPreviewIconB">
+    <MinimapIcon value="Assets\Textures\storm_ui_hud_volskaya_minimap_obj_b.dds" />
+  </CActorUnit>
+  <CActorUnit id="ControlPointMinimapPreviewIconC" parent="ControlPointMinimapIconParent" unitName="ControlPointMinimapPreviewIconC">
+    <MinimapIcon value="Assets\Textures\storm_ui_hud_volskaya_minimap_obj_c.dds" />
+  </CActorUnit>
+  <CActorUnit id="Payload_Neutral" parent="StormMinionBase" unitName="Payload_Neutral">
+    <HighlightTooltip value="Unit/Name/Bogus" />
+    <CustomUnitStatusFrame value="" />
+    <Aliases value="_PayloadNeutral" />
+    <Aliases value="_MMPayloadNeutral" />
+    <Baselines index="Walk" AnimProps="Walk,A" />
+    <On Terms="UnitBirth.##unitName##" Send="AnimPlay Birth Birth NonLooping,DontResetOnUnhide 0.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="UnitBirth.##unitName##" Send="Create Doodad_OWHana_Payload_IdleLoop" />
+    <On Terms="ActorCreation" Send="Create PayloadMinimapIcon" />
+    <On Terms="ActorCreation" Send="Create NeutralPayloadProximityRange" />
+    <On Terms="UnitMovementUpdate.*.Walk" Send="Create Doodad_OWHana_Payload_MoveLoop" />
+    <On Terms="UnitMovementUpdate.*.Stand" Send="Create Doodad_OWHana_Payload_IdleLoop" />
+    <On Terms="UnitMovementUpdate.*.Stand" Target="Doodad_OWHana_Payload_MoveLoop" Send="Destroy" />
+    <On Terms="UnitMovementUpdate.*.Walk" Send="Create Doodad_OWHana_Payload_Start" />
+    <On Terms="UnitMovementUpdate.*.Walk" Send="Create Doodad_OWHana_Payload_Mech" />
+    <On Terms="UnitMovementUpdate.*.Walk" Target="Doodad_OWHana_Payload_IdleLoop" Send="Destroy" />
+    <On Terms="UnitMovementUpdate.*.Stand" Send="Create Doodad_OWHana_Payload_Stop" />
+    <On Terms="UnitMovementUpdate.*.Stand" Send="Create Doodad_OWHana_Payload_Mech" />
+    <On Terms="Behavior.PayloadAllyProximityBehavior1.Off" Send="AnimClear WalkA" />
+    <On Terms="Behavior.PayloadAllyProximityBehavior2.On" Send="AnimPlay WalkB Walk,B PlayForever -1.000000 -1.000000 1.000000 AsTimeScale 0.000000 6" />
+    <On Terms="Behavior.PayloadAllyProximityBehavior2.Off" Send="AnimClear WalkB" />
+    <On Terms="Behavior.PayloadAllyProximityBehavior3.On" Send="AnimPlay WalkC Walk,C PlayForever -1.000000 -1.000000 1.000000 AsTimeScale 0.000000 7" />
+    <On Terms="Behavior.PayloadAllyProximityBehavior3.Off" Send="AnimClear WalkC" />
+    <On Terms="Behavior.PayloadIsContestedBehavior.On" Send="AnimClear WalkA" />
+    <On Terms="Behavior.PayloadIsContestedBehavior.On" Send="Create Doodad_OWHana_Payload_Contested" />
+    <On Terms="Behavior.PayloadIsContestedBehavior.On" Send="AnimClear WalkB" />
+    <On Terms="Behavior.PayloadIsContestedBehavior.On" Send="AnimClear WalkC" />
+    <On Terms="Signal.*.PayloadReachedDestination" Target="NeutralPayloadProximityRange" Send="Destroy" />
+    <On Terms="Signal.*.PayloadReachedDestination" Send="AnimBracketStart Stand Stand,Morph,Start Stand,Morph {} OpeningPlayForever,DontResetOnUnhide 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.PayloadReachedDestination" Send="Create MMPayloadSearch" />
+    <On Terms="Effect.Payload_AttackLM.Start" Send="AnimPlay Spell Spell,A NonLooping,DontResetOnUnhide -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Effect.PayloadReverseCreatePersistent.Start" Send="HostSiteOpsSet ::Host SOpBasicScopeFollow 1 1" />
+    <On Terms="Effect.PayloadReverseModifyUnit.Stop" Send="HostSiteOpsSet ::Host {SOpBasicScopeFollow SOp180}" />
+    <On Terms="Effect.PayloadForwardCreatePersistent.Start" Send="HostSiteOpsSet ::Host SOpBasicScopeFollow 1 1" />
+    <On Terms="Effect.PayloadForwardModifyUnit.Stop" Send="HostSiteOpsSet ::Host SOpBasicScopeFollow" />
+    <On Terms="UnitDeath" Send="Create MMPayloadSearch_PayloadAttackComplete" />
+    <On Terms="UnitDeath" Target="PayloadMinimapIcon" Send="Destroy" />
+    <On Terms="UnitHighlightLocal.*.Start" Target="::User" Send="Signal SetPlacementModelSiteOps" />
+    <On Terms="UnitHighlightLocal.*.Stop" Target="::User" Send="Signal ResetPlacementModelSiteOps" />
+    <On Terms="Effect.Payload_LinkActor.Start; At Target" Send="RefSetFromRequest ::actor.Caster _Unit Caster Find" />
+    <On Terms="Effect.Payload_LinkActor.Start; At Target" Target="::actor.Caster" Send="Signal LinkActor" />
+    <Remove Terms="UnitBirth.*.Normal" Send="AnimPlay Birth Birth 0 0.000000" />
+  </CActorUnit>
+  <CActorRegionCircle id="MMPayloadSearch">
+    <Radius value="10.000000" />
+    <On Terms="ActorCreation" Send="QueryRegion ::Self MMPayloadQuery AgainstCenter" />
+    <On Terms="ActorCreation" Send="TimerSet 1.000000 Die" />
+    <On Terms="TimerExpired; TimerName Die" Send="Destroy" />
+  </CActorRegionCircle>
+  <CActorQueryResponse id="MMPayloadQuery">
+    <Subject Filters="Doodad,Snapshot" Terms="ScopeContains _PayloadTurnIn" />
+    <OnResponse Target="_PayloadTurnIn" Send="Signal Payload" />
+  </CActorQueryResponse>
+  <CActorRegionCircle id="MMPayloadSearch_PayloadAttackComplete">
+    <Radius value="10.000000" />
+    <On Terms="ActorCreation" Send="QueryRegion ::Self MMPayloadQuery_PayloadAttackComplete AgainstCenter" />
+    <On Terms="ActorCreation" Send="TimerSet 1.000000 Die" />
+    <On Terms="TimerExpired; TimerName Die" Send="Destroy" />
+  </CActorRegionCircle>
+  <CActorQueryResponse id="MMPayloadQuery_PayloadAttackComplete">
+    <Subject Filters="Doodad,Snapshot" Terms="ScopeContains _PayloadTurnIn" />
+    <OnResponse Target="_PayloadTurnIn" Send="Signal PayloadDone" />
+  </CActorQueryResponse>
+  <CActorMinimap id="PayloadMinimapIcon" parent="ModelAddition">
+    <Host Subject="_Unit" />
+    <HostSiteOps Ops="SOpBasicScopeFollow SOp270" />
+    <Scale value="0.250000" />
+    <Inherits index="BaseModelScale" value="0" />
+    <Inherits index="CastShadows" value="0" />
+    <Inherits index="CloakEffect" value="0" />
+    <Inherits index="CreepEngulfment" value="0" />
+    <Inherits index="Decal" value="0" />
+    <Inherits index="ModelMaterials" value="0" />
+    <Inherits index="Opacity" value="0" />
+    <Inherits index="Scale" value="0" />
+    <Inherits index="TimeScale" value="0" />
+    <Inherits index="TintColor" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <Inherits index="WarpGroup" value="0" />
+    <FogVisibility value="Visible" />
+  </CActorMinimap>
+  <CActorRange id="NeutralPayloadProximityRange">
+    <Inherits index="TeamColor" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Range value="7.000000" />
+    <Icon value="Assets\Textures\storm_tankradius_active.dds" />
+    <IconArcLength value="5.000000" />
+    <Terms value="Cap 1" />
+    <Host Subject="::Creator" />
+    <FogVisibility value="Dimmed" />
+  </CActorRange>
+  <CAttachMethodPattern id="AMPatternPayloadTurret" />
+  <CBehaviorBuff id="NeutralPayloadDisableAttackTurret">
+    <Modification>
+      <TurretDisableArray value="PayloadAttackCoreTurret" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="PayloadPreventDeathBehavior" />
+  <CBehaviorBuff id="PayloadPauseMovingBehavior" />
+  <CBehaviorBuff id="Payload_AtStartLocation" />
+  <CBehaviorBuff id="Payload_HasChaosProgress" />
+  <CBehaviorBuff id="Payload_HasOrderProgress" />
+  <CBehaviorBuff id="PayloadHasTurret" />
+  <CBehaviorBuff id="Payload_HasTurret" />
+  <CBehaviorBuff id="Payload_PauseMoving" />
+  <CBehaviorBuff id="HeroGenericHeroNearPayload" parent="CarryBehaviorParent">
+    <Modification>
+      <BehaviorLinkDisableArray value="HeroGenericStationaryExtraStealthActive" />
+    </Modification>
+    <DisableValidatorArray value="PayloadNearPayloadBehaviorRangeValidation" />
+    <RemoveValidatorArray value="CasterNotDead" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="Payload_OrderMonitor">
+    <DisableValidatorArray value="Payload_OrderPlayersPresent" />
+    <DisableValidatorArray value="Payload_NoChaosPlayersPresent" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="Payload_ChaosMonitor">
+    <DisableValidatorArray value="Payload_ChaosPlayersPresent" />
+    <DisableValidatorArray value="Payload_NoOrderPlayersPresent" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="Payload_ContestedMonitor">
+    <DisableValidatorArray value="Payload_ChaosPlayersPresent" />
+    <DisableValidatorArray value="Payload_OrderPlayersPresent" />
+    <DisableValidatorArray value="Payload_HasNotReachedDestination" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="Payload_ReachedDestination">
+    <Modification>
+      <BehaviorLinkDisableArray value="Payload_AllyMonitor_1" />
+      <BehaviorLinkDisableArray value="Payload_AllyMonitor_2" />
+      <BehaviorLinkDisableArray value="Payload_AllyMonitor_3" />
+      <BehaviorLinkDisableArray value="PayloadObstaclesInTheWay" />
+      <BehaviorLinkDisableArray value="Payload_ContestedMonitor" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="Payload_UnattendedMonitor">
+    <DisableValidatorArray value="Payload_NoChaosPlayersPresent" />
+    <DisableValidatorArray value="Payload_NoOrderPlayersPresent" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="Payload_AllyMonitor_1">
+    <DisableValidatorArray value="PayloadAllyNearby1" />
+    <Modification>
+      <MoveSpeedMaximum value="1.75" />
+      <MoveSpeedMinimum value="1.75" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="Payload_AllyMonitor_2">
+    <DisableValidatorArray value="PayloadAllyNearby2" />
+    <Modification>
+      <MoveSpeedMaximum value="2.25" />
+      <MoveSpeedMinimum value="2.25" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="Payload_AllyMonitor_3">
+    <DisableValidatorArray value="PayloadAllyNearby3" />
+    <Modification>
+      <MoveSpeedMaximum value="2.5" />
+      <MoveSpeedMinimum value="2.5" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="PayloadBlockedSearchForObstaclesBehavior">
+    <Period value="0.0625" />
+    <PeriodicEffect value="PayloadBlockedObstacleSearchArea" />
+    <DisableValidatorArray value="Payload_HasNotReachedDestination" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="PayloadObstaclesInTheWay">
+    <Period value="0.0625" />
+    <Modification>
+      <StateFlags index="OrdersPaused" value="1" />
+    </Modification>
+    <Duration value="0.125" />
+  </CBehaviorBuff>
+  <CEffectModifyUnit id="PayloadAttackCoreModifyTurretPoint">
+    <ImpactUnit Value="Caster" />
+    <ModifyTurret Turret="PayloadAttackCoreTurret">
+      <Target Value="TargetPoint" />
+      <Flags index="Tracking" value="1" />
+    </ModifyTurret>
+  </CEffectModifyUnit>
+  <CEffectApplyBehavior id="Payload_ApplyOrderActive">
+    <Behavior value="Payload_OrderActive" />
+    <ValidatorArray index="0" value="Payload_NoChaosPlayersPresent" />
+    <WhichUnit Value="Source" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="Payload_ApplyChaosActive">
+    <Behavior value="Payload_ChaosActive" />
+    <ValidatorArray index="0" value="Payload_NoOrderPlayersPresent" />
+    <WhichUnit Value="Source" />
+  </CEffectApplyBehavior>
+  <CEffectCreatePersistent id="PayloadReverseCreatePersistent">
+    <PeriodicEffectArray value="PayloadReverseModifyUnit" />
+    <PeriodicOffsetArray Y="1" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="PayloadForwardCreatePersistent">
+    <WhichLocation Value="SourceUnit" />
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="PayloadForwardModifyUnit" />
+    <PeriodicOffsetArray Y="1" />
+  </CEffectCreatePersistent>
+  <CEffectModifyUnit id="PayloadForwardModifyUnit">
+    <ImpactUnit Value="Source" />
+    <FacingLocation Value="TargetPoint" />
+    <FacingType value="LookAt" />
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="PayloadReverseModifyUnit" />
+  <CEffectLaunchMissile id="Payload_AttackLM">
+    <AmmoUnit value="Payload_AttackMissile" />
+    <Movers Link="Payload_AttackLM" />
+    <ImpactEffect value="Payload_Attack_ImpactArea" />
+    <ImpactLocation Value="TargetPoint" />
+  </CEffectLaunchMissile>
+  <CEffectEnumArea id="Payload_Attack_ImpactArea">
+    <ImpactLocation Value="TargetPoint" />
+    <AreaArray MaxCount="1" Effect="Payload_Attack_ImpactSet">
+      <Radius value="0.5" />
+    </AreaArray>
+    <SearchFilters value="-;Player,Ally" />
+  </CEffectEnumArea>
+  <CEffectSet id="Payload_Attack_ImpactSet">
+    <EffectArray value="Payload_Attack_RemoveStructureTargetStack" />
+    <EffectArray value="Payload_AttackDamage" />
+    <ValidatorArray value="TargetIsNotTownWall" />
+    <ValidatorArray value="TargetNotOnAirPlane" />
+    <ValidatorArray value="TargetIsStructureOrPseudoStructure" />
+    <ValidatorArray value="TargetNotDeadOrSpecialDeathStateOrStasisOrTimeStopped" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="Payload_Attack_RemoveStructureTargetStack">
+    <BehaviorLink value="HanamuraPayloadStructureTarget" />
+    <Count value="1" />
+  </CEffectRemoveBehavior>
+  <CEffectDamage id="Payload_AttackDamage">
+    <Amount value="1800" />
+    <Flags index="NoScaledDealtBonus" value="1" />
+    <Flags index="NoFractionDealtBonus" value="1" />
+    <ValidatorArray value="TargetisAITargetableStructure" />
+  </CEffectDamage>
+  <CEffectModifyUnit id="PayloadAttackCoreModifyTurret" />
+  <CEffectModifyUnit id="PayloadAttackCoreClearTurret">
+    <ImpactUnit Value="Caster" />
+    <ModifyTurret Turret="PayloadAttackCoreTurret">
+      <Target Value="TargetPoint" />
+      <Flags index="Tracking" value="1" />
+    </ModifyTurret>
+  </CEffectModifyUnit>
+  <CModel id="Payload" parent="Unit">
+    <Model value="Assets\Buildings\Storm_Building_OWHana_Payload\Storm_Building_OWHana_Payload.m3" />
+    <Events>
+      <Anim value="Stand,Morph,Start,00" />
+      <Name value="Doodad_OWHana_Payload_Morph" />
+      <Type value="Sound" />
+      <Time value="0.001000" />
+      <Payload value="Doodad_OWHana_Payload_Morph" />
+    </Events>
+    <Events>
+      <Anim value="Death,00" />
+      <Name value="Doodad_OWHana_Payload_Morph_End" />
+      <Type value="Sound" />
+      <Time value="0.000100" />
+      <Payload value="Doodad_OWHana_Payload_Morph_End" />
+    </Events>
+    <Events>
+      <Anim value="Spell,A,00" />
+      <Name value="Doodad_OWHana_Payload_AttackLaunch" />
+      <Type value="Actor" />
+      <Time value="0.001000" />
+      <Payload value="Doodad_OWHana_Payload_AttackLaunch" />
+    </Events>
+    <Events>
+      <Anim value="Spell,A,00" />
+      <Name value="Doodad_OWHana_Payload_AttackLaunch_Dist" />
+      <Type value="Actor" />
+      <Time value="0.120000" />
+      <Payload value="Doodad_OWHana_Payload_AttackLaunch_Dist" />
+    </Events>
+  </CModel>
+  <CModel id="Payload_FloatingTurret" parent="Unit">
+    <Model value="Assets\Units\Mercs\Storm_Merc_OWHana_Turret_Air\Storm_Merc_OWHana_Turret_Air.m3" />
+    <AttachProps Id="Ref_Weapon Left">
+      <Keys index="CustomA" value="0" />
+    </AttachProps>
+    <AttachProps Id="Ref_Weapon Right">
+      <Keys index="CustomA" value="1" />
+    </AttachProps>
+  </CModel>
+  <CModel id="Payload_Neutral" parent="Unit">
+    <Model value="Assets\Buildings\Storm_Building_OWHana_Payload\Storm_Building_OWHana_Payload.m3" />
+    <Events>
+      <Anim value="Stand,Morph,Start,00" />
+      <Name value="Doodad_OWHana_Payload_Morph" />
+      <Type value="Sound" />
+      <Time value="0.001000" />
+      <Payload value="Doodad_OWHana_Payload_Morph" />
+    </Events>
+    <Events>
+      <Anim value="Stand,Morph,Start,00" />
+      <Name value="Doodad_OWHana_Payload_Morph_End" />
+      <Type value="Sound" />
+      <Time value="0.001000" />
+      <Payload value="Doodad_OWHana_Payload_Morph_End" />
+    </Events>
+  </CModel>
+  <CModel id="Payload_AttackLaunch" parent="OneShotSpellFX">
+    <Model value="Assets\Effects\Storm_FX_OWHana_Payload_Cast\Storm_FX_OWHana_Payload_Cast.m3" />
+  </CModel>
+  <CModel id="Payload_AttackImpact" parent="ImpactFX">
+    <Model value="Assets\Effects\Storm_FX_OWHana_Payload_Missile_Impact\Storm_FX_OWHana_Payload_Missile_Impact.m3" />
+  </CModel>
+  <CModel id="Payload_AttackMissile" parent="MissileFX">
+    <Model value="Assets\Effects\Storm_FX_OWHana_Payload_Missile\Storm_FX_OWHana_Payload_Missile.m3" />
+  </CModel>
+  <CModel id="PayloadMinimapIcon" />
+  <CMoverMissile id="Payload_AttackLM">
+    <MotionPhases>
+      <Driver value="Ballistic" />
+      <Acceleration value="3200" />
+      <Gravity value="10" />
+      <YawPitchRoll value="MAX" />
+      <FlightTime value="1.5" />
+    </MotionPhases>
+  </CMoverMissile>
+  <CPing id="OWHanaPayloadWarning" parent="StormAlert">
+    <Sound value="UI_Game_Ping_Payload_Incoming" />
+    <Model value="StormPingWarning" />
+    <Scale value="0.5" />
+  </CPing>
+  <CTurret id="PayloadTurret" parent="FreeRotate">
+    <Fidget TurnAngle="0" />
+    <UseWorldFacing value="1" />
+  </CTurret>
+  <CTurret id="PayloadAttackCoreTurret" parent="FreeRotate">
+    <Fidget TurnAngle="0" />
+  </CTurret>
+  <CUnit default="1" id="ControlPointMinimapIconParent">
+    <FlagArray index="Movable" value="0" />
+    <FlagArray index="Untargetable" value="1" />
+    <FlagArray index="Undetectable" value="1" />
+    <FlagArray index="Invulnerable" value="1" />
+    <FlagArray index="Unstoppable" value="1" />
+    <FlagArray index="Benign" value="1" />
+    <FogVisibility value="Visible" />
+    <Attributes index="ImmuneToAOE" value="1" />
+    <Attributes index="ImmuneToSkillshots" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <Radius value="0" />
+  </CUnit>
+  <CUnit id="Payload_Neutral_Warning" parent="ControlPointMinimapIconParent" />
+  <CUnit id="ControlPointMinimapIconA" parent="ControlPointMinimapIconParent" />
+  <CUnit id="ControlPointMinimapIconB" parent="ControlPointMinimapIconParent" />
+  <CUnit id="ControlPointMinimapIconC" parent="ControlPointMinimapIconParent" />
+  <CUnit id="ControlPointMinimapPreviewIconA" parent="ControlPointMinimapIconParent" />
+  <CUnit id="ControlPointMinimapPreviewIconB" parent="ControlPointMinimapIconParent" />
+  <CUnit id="ControlPointMinimapPreviewIconC" parent="ControlPointMinimapIconParent" />
+  <CUnit id="Payload_Neutral" parent="StormMinorUnit">
+    <BehaviorArray Link="Payload_OrderMonitor" />
+    <BehaviorArray Link="Payload_ChaosMonitor" />
+    <BehaviorArray Link="Payload_ContestedMonitor" />
+    <BehaviorArray Link="Payload_UnattendedMonitor" />
+    <BehaviorArray Link="Payload_AllyMonitor_1" />
+    <BehaviorArray Link="Payload_AllyMonitor_2" />
+    <BehaviorArray Link="Payload_AllyMonitor_3" />
+    <BehaviorArray Link="PayloadBlockedSearchForObstaclesBehavior" />
+    <BehaviorArray Link="NeutralPayloadDisableAttackTurret" />
+    <AbilArray Link="PayloadMove" />
+    <AbilArray Link="stop" />
+    <CardLayouts>
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Trait" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="stop,Stop" Slot="Mount" />
+    </CardLayouts>
+    <StationaryTurningRate value="2879.8242" />
+    <TurningRate value="49.9218" />
+    <Speed value="1" />
+    <DeathTime value="20" />
+    <TurretArray value="PayloadAttackCoreTurret" />
+    <FlagArray index="Unclickable" value="1" />
+    <FlagArray index="Unhighlightable" value="1" />
+    <FlagArray index="Unselectable" value="1" />
+    <FlagArray index="Untargetable" value="1" />
+    <FlagArray index="Invulnerable" value="1" />
+    <FlagArray index="Unstoppable" value="1" />
+    <PushPriority value="9001" />
+    <Radius value="1.5" />
+    <InnerRadius value="1.5" />
+    <AlliedPushPriority value="9001" />
+    <FogVisibility value="Dimmed" />
+    <Collide index="Ground" value="0" />
+    <Collide index="ForceField" value="0" />
+    <Collide index="Pushable" value="1" />
+    <OverlapIndex value="Hero" />
+    <LifeStart value="2000" />
+    <LifeMax value="2000" />
+    <Attributes index="NoMinionAggro" value="1" />
+    <Attributes index="ImmuneToSkillshots" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <LateralAcceleration value="1000" />
+    <EffectArray index="Create" value="ApplyPayloadNearbyBehaviorToAllHeroes" />
+  </CUnit>
+  <CUnit id="Payload_AttackMissile" parent="MISSILE_INVULNERABLE">
+    <Race value="Zerg" />
+    <FogVisibility value="Dimmed" />
+  </CUnit>
+  <CValidatorLocationEnumArea default="1" id="Payload_XAllyNearbyParent">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Validator="TargetIsValidHeroForPayloadOrHasCapturePointAllowedBehavior">
+      <Radius value="8" />
+    </AreaArray>
+    <SearchFilters value="Heroic;Player,Neutral,Enemy,Dead,Summoned" />
+    <Compare value="Eq" />
+  </CValidatorLocationEnumArea>
+  <CValidatorCombine id="OrderPayloadHasAlly1Behavior_OrderProgress">
+    <Type value="And" />
+    <CombineArray value="OrderPayloadHasAlly1Behavior" />
+    <CombineArray value="Payload_HasOrderProgress" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly2Behavior_OrderProgress">
+    <Type value="And" />
+    <CombineArray value="OrderPayloadHasAlly2Behavior" />
+    <CombineArray value="Payload_HasOrderProgress" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly3Behavior_OrderProgress">
+    <Type value="And" />
+    <CombineArray value="OrderPayloadHasAlly3Behavior" />
+    <CombineArray value="Payload_HasOrderProgress" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly1Behavior_ChaosProgress">
+    <Type value="And" />
+    <CombineArray value="OrderPayloadHasAlly1Behavior" />
+    <CombineArray value="Payload_HasChaosProgress" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly2Behavior_ChaosProgress">
+    <Type value="And" />
+    <CombineArray value="OrderPayloadHasAlly2Behavior" />
+    <CombineArray value="Payload_HasChaosProgress" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly3Behavior_ChaosProgress">
+    <Type value="And" />
+    <CombineArray value="OrderPayloadHasAlly3Behavior" />
+    <CombineArray value="Payload_HasChaosProgress" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly1Behavior_OrderProgress">
+    <Type value="And" />
+    <CombineArray value="ChaosPayloadHasAlly1Behavior" />
+    <CombineArray value="Payload_HasOrderProgress" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly2Behavior_OrderProgress">
+    <Type value="And" />
+    <CombineArray value="ChaosPayloadHasAlly2Behavior" />
+    <CombineArray value="Payload_HasOrderProgress" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly3Behavior_OrderProgress">
+    <Type value="And" />
+    <CombineArray value="ChaosPayloadHasAlly3Behavior" />
+    <CombineArray value="Payload_HasOrderProgress" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly1Behavior_ChaosProgress">
+    <Type value="And" />
+    <CombineArray value="ChaosPayloadHasAlly1Behavior" />
+    <CombineArray value="Payload_HasChaosProgress" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly2Behavior_ChaosProgress">
+    <Type value="And" />
+    <CombineArray value="ChaosPayloadHasAlly2Behavior" />
+    <CombineArray value="Payload_HasChaosProgress" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly3Behavior_ChaosProgress">
+    <Type value="And" />
+    <CombineArray value="ChaosPayloadHasAlly3Behavior" />
+    <CombineArray value="Payload_HasChaosProgress" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly1Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_1AllyNearby" />
+    <CombineArray value="CasterIsPlayer11" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly2Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_2AlliesNearby" />
+    <CombineArray value="CasterIsPlayer11" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly3Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_3AlliesNearby" />
+    <CombineArray value="CasterIsPlayer11" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly4Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_4AlliesNearby" />
+    <CombineArray value="CasterIsPlayer11" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly5Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_5AlliesNearby" />
+    <CombineArray value="CasterIsPlayer11" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly6Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_6AlliesNearby" />
+    <CombineArray value="CasterIsPlayer11" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly7Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_7AlliesNearby" />
+    <CombineArray value="CasterIsPlayer11" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly8Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_8AlliesNearby" />
+    <CombineArray value="CasterIsPlayer11" />
+  </CValidatorCombine>
+  <CValidatorCombine id="OrderPayloadHasAlly9BehaviorOrMore">
+    <Type value="And" />
+    <CombineArray value="Payload_9AlliesNearby_Or_More" />
+    <CombineArray value="CasterIsPlayer11" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly1Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_1AllyNearby" />
+    <CombineArray value="CasterIsPlayer12" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly2Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_2AlliesNearby" />
+    <CombineArray value="CasterIsPlayer12" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly3Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_3AlliesNearby" />
+    <CombineArray value="CasterIsPlayer12" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly4Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_4AlliesNearby" />
+    <CombineArray value="CasterIsPlayer12" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly5Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_5AlliesNearby" />
+    <CombineArray value="CasterIsPlayer12" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly6Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_6AlliesNearby" />
+    <CombineArray value="CasterIsPlayer12" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly7Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_7AlliesNearby" />
+    <CombineArray value="CasterIsPlayer12" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly8Behavior">
+    <Type value="And" />
+    <CombineArray value="Payload_8AlliesNearby" />
+    <CombineArray value="CasterIsPlayer12" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayloadHasAlly9BehaviorOrMore">
+    <Type value="And" />
+    <CombineArray value="Payload_9AlliesNearby_Or_More" />
+    <CombineArray value="CasterIsPlayer12" />
+  </CValidatorCombine>
+  <CValidatorUnitHasBehavior id="Payload_Ally1_Active">
+    <WhichUnit Value="Source" />
+    <Behavior value="Payload_AllyMonitor_1" />
+  </CValidatorUnitHasBehavior>
+  <CValidatorUnitHasBehavior id="Payload_Ally2_Active">
+    <WhichUnit Value="Source" />
+    <Behavior value="Payload_AllyMonitor_2" />
+  </CValidatorUnitHasBehavior>
+  <CValidatorUnitHasBehavior id="Payload_Ally3_Active">
+    <WhichUnit Value="Source" />
+    <Behavior value="Payload_AllyMonitor_3" />
+  </CValidatorUnitHasBehavior>
+  <CValidatorCombine id="Payload_OrderMonitor_Combine">
+    <CombineArray value="Payload_OrderPresent_NoChaos" />
+    <CombineArray value="Payload_Order_ReachedDestination" />
+  </CValidatorCombine>
+  <CValidatorCombine id="Payload_ChaosMonitor_Combine">
+    <CombineArray value="Payload_ChaosPresent_NoOrder" />
+    <CombineArray value="Payload_Chaos_ReachedDestination" />
+  </CValidatorCombine>
+  <CValidatorCombine id="Payload_Order_ReachedDestination">
+    <Type value="And" />
+    <CombineArray value="Payload_HasOrderProgress" />
+    <CombineArray value="Payload_ReachedDestination" />
+  </CValidatorCombine>
+  <CValidatorCombine id="Payload_Chaos_ReachedDestination">
+    <Type value="And" />
+    <CombineArray value="Payload_HasChaosProgress" />
+    <CombineArray value="Payload_ReachedDestination" />
+  </CValidatorCombine>
+  <CValidatorCombine id="Payload_OrderPresent_NoChaos">
+    <Type value="And" />
+    <CombineArray value="Payload_OrderPlayersPresent" />
+    <CombineArray value="Payload_NoChaosPlayersPresent" />
+  </CValidatorCombine>
+  <CValidatorCombine id="Payload_ChaosPresent_NoOrder">
+    <Type value="And" />
+    <CombineArray value="Payload_ChaosPlayersPresent" />
+    <CombineArray value="Payload_NoOrderPlayersPresent" />
+  </CValidatorCombine>
+  <CValidatorCombine id="Payload_BothTeamsPresent">
+    <Type value="And" />
+    <CombineArray value="Payload_OrderPlayersPresent" />
+    <CombineArray value="Payload_ChaosPlayersPresent" />
+  </CValidatorCombine>
+  <CValidatorCombine id="Payload_NeitherTeamsPresent">
+    <Type value="And" />
+    <CombineArray value="Payload_NoOrderPlayersPresent" />
+    <CombineArray value="Payload_NoChaosPlayersPresent" />
+  </CValidatorCombine>
+  <CValidatorCombine id="Payload_BothTeamsPresent_And_NotAtDestination">
+    <Type value="And" />
+    <CombineArray value="Payload_OrderPlayersPresent" />
+    <CombineArray value="Payload_ChaosPlayersPresent" />
+    <CombineArray value="Payload_HasNotReachedDestination" />
+  </CValidatorCombine>
+  <CValidatorCombine id="Payload_BothTeamsNotPresent">
+    <Negate value="1" />
+    <CombineArray value="Payload_BothTeamsPresent" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="Payload_Contested">
+    <WhichUnit Value="Source" />
+    <Value value="1" />
+    <Behavior value="Payload_ContestedMonitor" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="Payload_Uncontested">
+    <WhichUnit Value="Source" />
+    <Value value="1" />
+    <Behavior value="Payload_UnattendedMonitor" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="Payload_OrderBehaviorOn">
+    <WhichUnit Value="Source" />
+    <Value value="1" />
+    <Behavior value="Payload_OrderMonitor" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitHasBehavior id="Payload_OrderBehaviorNotOn">
+    <WhichUnit Value="Source" />
+    <OtherUnit Value="Source" />
+    <Behavior value="Payload_OrderMonitor" />
+    <Negate value="1" />
+  </CValidatorUnitHasBehavior>
+  <CValidatorUnitCompareBehaviorCount id="Payload_ChaosBehaviorOn">
+    <WhichUnit Value="Source" />
+    <Value value="1" />
+    <Behavior value="Payload_ChaosMonitor" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitHasBehavior id="Payload_ChaosBehaviorNotOn">
+    <WhichUnit Value="Source" />
+    <Behavior value="Payload_ChaosMonitor" />
+    <Negate value="1" />
+  </CValidatorUnitHasBehavior>
+  <CValidatorUnitCompareBehaviorCount id="Payload_AtStartLocation">
+    <WhichUnit Value="Source" />
+    <Behavior value="Payload_AtStartLocation" />
+    <Value value="1" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="Payload_HasNotReachedDestination">
+    <WhichUnit Value="Source" />
+    <Behavior value="Payload_ReachedDestination" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="Payload_ReachedDestination">
+    <WhichUnit Value="Source" />
+    <Behavior value="Payload_ReachedDestination" />
+    <Value value="1" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="OrderPayload_ReachedDestination">
+    <Type value="And" />
+    <CombineArray value="Payload_ReachedDestination" />
+    <CombineArray value="CasterIsPlayer11" />
+  </CValidatorCombine>
+  <CValidatorCombine id="ChaosPayload_ReachedDestination">
+    <Type value="And" />
+    <CombineArray value="Payload_ReachedDestination" />
+    <CombineArray value="CasterIsPlayer12" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="Payload_HasOrderProgress">
+    <WhichUnit Value="Source" />
+    <Behavior value="Payload_HasOrderProgress" />
+    <Value value="1" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="Payload_HasChaosProgress">
+    <WhichUnit Value="Source" />
+    <Behavior value="Payload_HasChaosProgress" />
+    <Value value="1" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorLocationEnumArea id="Payload_OrderPlayersPresent">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Validator="Payload_TargetIsOnOrderSearchCombine">
+      <Radius value="8" />
+    </AreaArray>
+    <SearchFilters value="Heroic;Structure,Stasis,Dead,Summoned,AITargetableStructure" />
+    <Compare value="GE" />
+    <Count value="1" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="Payload_NoOrderPlayersPresent">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Validator="Payload_TargetIsOnOrderSearchCombine">
+      <Radius value="8" />
+    </AreaArray>
+    <SearchFilters value="Heroic;Structure,Stasis,Dead,Summoned,AITargetableStructure" />
+    <Compare value="Eq" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="Payload_ChaosPlayersPresent">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Validator="Payload_TargetIsOnChaosSearchCombine">
+      <Radius value="8" />
+    </AreaArray>
+    <SearchFilters value="Heroic;Dead,Summoned" />
+    <Compare value="GE" />
+    <Count value="1" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="Payload_NoChaosPlayersPresent">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Validator="Payload_TargetIsOnChaosSearchCombine">
+      <Radius value="8" />
+    </AreaArray>
+    <SearchFilters value="Heroic;Dead,Summoned" />
+    <Compare value="Eq" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="Payload_1AllyNearby" parent="Payload_XAllyNearbyParent">
+    <Count value="1" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="Payload_2AlliesNearby" parent="Payload_XAllyNearbyParent">
+    <Count value="2" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="Payload_3AlliesNearby" parent="Payload_XAllyNearbyParent">
+    <Count value="3" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="Payload_4AlliesNearby" parent="Payload_XAllyNearbyParent">
+    <Count value="4" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="Payload_5AlliesNearby" parent="Payload_XAllyNearbyParent">
+    <Count value="5" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="Payload_6AlliesNearby" parent="Payload_XAllyNearbyParent">
+    <Count value="6" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="Payload_7AlliesNearby" parent="Payload_XAllyNearbyParent">
+    <Count value="7" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="Payload_8AlliesNearby" parent="Payload_XAllyNearbyParent">
+    <Count value="8" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="Payload_9AlliesNearby_Or_More" parent="Payload_XAllyNearbyParent">
+    <Compare value="GE" />
+    <Count value="9" />
+  </CValidatorLocationEnumArea>
+  <CValidatorUnitType id="TargetIsPayload">
+    <Value value="Payload_Neutral" />
+  </CValidatorUnitType>
+  <CValidatorLocationCompareRange id="PayloadNearPayloadBehaviorRangeValidation">
+    <WhichLocation Value="CasterUnit" />
+    <Compare value="LE" />
+    <Range value="7.5" />
+    <Value Value="TargetUnit" />
+    <IncludeTargetRadius value="0" />
+  </CValidatorLocationCompareRange>
+  <CValidatorLocationEnumArea id="PayloadAllyNearby1">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Validator="TargetIsValidHeroForPayloadOrHasCapturePointAllowedBehavior">
+      <Radius value="8" />
+    </AreaArray>
+    <SearchFilters value="Heroic;Player,Neutral,Enemy,Dead,Summoned" />
+    <Compare value="Eq" />
+    <Count value="1" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="PayloadAllyNearby2">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Validator="TargetIsValidHeroForPayloadOrHasCapturePointAllowedBehavior">
+      <Radius value="8" />
+    </AreaArray>
+    <SearchFilters value="Heroic;Player,Neutral,Enemy,Dead,Summoned" />
+    <Compare value="Eq" />
+    <Count value="2" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="PayloadAllyNearby3">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Validator="TargetIsValidHeroForPayloadOrHasCapturePointAllowedBehavior">
+      <Radius value="8" />
+    </AreaArray>
+    <SearchFilters value="Heroic;Player,Neutral,Enemy,Dead,Summoned" />
+    <Compare value="GE" />
+    <Count value="3" />
+  </CValidatorLocationEnumArea>
+</Catalog>

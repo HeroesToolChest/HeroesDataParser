@@ -16,18 +16,21 @@ namespace HeroesData.Parser
     public class UnitParser : ParserBase<Unit, UnitDataOverride>, IParser<Unit, UnitParser>
     {
         private readonly UnitOverrideLoader UnitOverrideLoader;
+        private readonly WeaponData WeaponData;
+        private readonly ArmorData ArmorData;
+        private readonly AbilityData AbilityData;
 
         private readonly HashSet<string> ValidParents = new HashSet<string>();
 
         private UnitDataOverride UnitDataOverride;
-        private WeaponData WeaponData;
-        private ArmorData ArmorData;
-        private AbilityData AbilityData;
 
-        public UnitParser(Configuration configuration, GameData gameData, DefaultData defaultData, UnitOverrideLoader unitOverrideLoader)
-            : base(configuration, gameData, defaultData)
+        public UnitParser(XmlDataType xmlDataType, UnitOverrideLoader unitOverrideLoader)
+            : base(xmlDataType)
         {
             UnitOverrideLoader = unitOverrideLoader;
+            WeaponData = xmlDataType.WeaponData;
+            ArmorData = xmlDataType.ArmorData;
+            AbilityData = xmlDataType.AbilityData;
 
             SetValidParents();
         }
@@ -64,7 +67,7 @@ namespace HeroesData.Parser
 
         public UnitParser GetInstance()
         {
-            return new UnitParser(Configuration, GameData, DefaultData, UnitOverrideLoader);
+            return new UnitParser(XmlDataType, UnitOverrideLoader);
         }
 
         public Unit Parse(params string[] ids)
@@ -98,9 +101,12 @@ namespace HeroesData.Parser
                 UnitDataOverride = UnitOverrideLoader.GetOverride(unit.Id) ?? new UnitDataOverride();
             }
 
-            WeaponData = new WeaponData(GameData, DefaultData);
-            ArmorData = new ArmorData(GameData);
-            AbilityData = new AbilityData(GameData, DefaultData, UnitDataOverride, Localization);
+            AbilityData.Localization = Localization;
+            AbilityData.UnitDataOverride = UnitDataOverride;
+
+            //WeaponData = new WeaponData(GameData, DefaultData);
+            //ArmorData = new ArmorData(GameData);
+            //AbilityData = new AbilityData(GameData, DefaultData, UnitDataOverride, Configuration, Localization);
 
             SetDefaultValues(unit);
             CActorData(unit);
@@ -172,7 +178,7 @@ namespace HeroesData.Parser
 
                 if (elementName == "LIFEMAX")
                 {
-                    unit.Life.LifeMax = double.Parse(element.Attribute("value").Value);
+                    unit.Life.LifeMax = GetDoubleValue(unit.CUnitId, element);
 
                     double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, "LifeMax"));
                     if (scaleValue.HasValue)
@@ -180,7 +186,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "LIFEREGENRATE")
                 {
-                    unit.Life.LifeRegenerationRate = double.Parse(element.Attribute("value").Value);
+                    unit.Life.LifeRegenerationRate = GetDoubleValue(unit.CUnitId, element);
 
                     double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, "LifeRegenRate"));
                     if (scaleValue.HasValue)
@@ -188,27 +194,27 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "RADIUS")
                 {
-                    unit.Radius = double.Parse(element.Attribute("value").Value);
+                    unit.Radius = GetDoubleValue(unit.CUnitId, element);
                 }
                 else if (elementName == "INNERRADIUS")
                 {
-                    unit.InnerRadius = double.Parse(element.Attribute("value").Value);
+                    unit.InnerRadius = GetDoubleValue(unit.CUnitId, element);
                 }
                 else if (elementName == "ENERGYMAX")
                 {
-                    unit.Energy.EnergyMax = double.Parse(element.Attribute("value").Value);
+                    unit.Energy.EnergyMax = GetDoubleValue(unit.CUnitId, element);
                 }
                 else if (elementName == "ENERGYREGENRATE")
                 {
-                    unit.Energy.EnergyRegenerationRate = double.Parse(element.Attribute("value").Value);
+                    unit.Energy.EnergyRegenerationRate = GetDoubleValue(unit.CUnitId, element);
                 }
                 else if (elementName == "SPEED")
                 {
-                    unit.Speed = double.Parse(element.Attribute("value").Value);
+                    unit.Speed = GetDoubleValue(unit.CUnitId, element);
                 }
                 else if (elementName == "SIGHT")
                 {
-                    unit.Sight = double.Parse(element.Attribute("value").Value);
+                    unit.Sight = GetDoubleValue(unit.CUnitId, element);
                 }
                 else if (elementName == "ATTRIBUTES")
                 {
@@ -224,9 +230,19 @@ namespace HeroesData.Parser
                 {
                     unit.DamageType = element.Attribute("value").Value;
                 }
+                else if (elementName == "NAME")
+                {
+                    unit.Name = GameData.GetGameString(element.Attribute("value").Value);
+                }
+                else if (elementName == "DESCRIPTION")
+                {
+                    unit.Description = new TooltipDescription(GameData.GetGameString(element.Attribute("value").Value));
+                }
                 else if (elementName == "ABILARRAY")
                 {
-                    AbilityData.AddUnitAbility(unit, element);
+                    Ability ability = AbilityData.CreateAbility(unit.CUnitId, element);
+                    if (ability != null)
+                        unit.Abilities.TryAdd(ability.ReferenceNameId, ability);
                 }
             }
 
@@ -288,20 +304,20 @@ namespace HeroesData.Parser
                     continue;
                 }
 
-                while (!string.IsNullOrEmpty(parent))
-                {
-                    if (ValidParents.Contains(parent))
-                        break;
+                //while (!string.IsNullOrEmpty(parent))
+                //{
+                //    if (ValidParents.Contains(parent))
+                //        break;
 
-                    XElement parentElement = GameData.Elements(ElementType, mapName).FirstOrDefault(x => x.Attribute("id")?.Value == parent);
-                    if (parentElement != null)
-                        parent = parentElement.Attribute("parent")?.Value;
-                    else
-                        parent = string.Empty;
-                }
+                //    XElement parentElement = GameData.Elements(ElementType, mapName).FirstOrDefault(x => x.Attribute("id")?.Value == parent);
+                //    if (parentElement != null)
+                //        parent = parentElement.Attribute("parent")?.Value;
+                //    else
+                //        parent = string.Empty;
+                //}
 
-                if (string.IsNullOrEmpty(parent))
-                    continue;
+                //if (string.IsNullOrEmpty(parent))
+                //    continue;
 
                 if (!removeIds.Contains(id) &&
                     !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal) && !id.StartsWith("Hero", StringComparison.Ordinal) &&

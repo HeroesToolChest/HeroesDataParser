@@ -12,13 +12,13 @@ namespace HeroesData.Parser.XmlData
 {
     public class AbilityData : AbilityTalentData
     {
-        public AbilityData(GameData gameData, DefaultData defaultData, HeroDataOverride heroDataOverride, Localization localization)
-            : base(gameData, defaultData, heroDataOverride, localization)
+        public AbilityData(GameData gameData, DefaultData defaultData, HeroDataOverride heroDataOverride, Configuration configuration, Localization localization)
+            : base(gameData, defaultData, heroDataOverride, configuration, localization)
         {
         }
 
-        public AbilityData(GameData gameData, DefaultData defaultData, UnitDataOverride unitDataOverride, Localization localization)
-            : base(gameData, defaultData, unitDataOverride, localization)
+        public AbilityData(GameData gameData, DefaultData defaultData, Configuration configuration)
+        : base(gameData, defaultData, configuration)
         {
         }
 
@@ -105,7 +105,7 @@ namespace HeroesData.Parser.XmlData
                 SetTalentIdUpgrades(cButtonElement, ability);
             }
 
-            SetAbilityType(hero, ability);
+           // SetAbilityType(hero, ability);
 
             if (AbilityType.Misc.HasFlag(ability.AbilityType))
                 return;
@@ -133,45 +133,77 @@ namespace HeroesData.Parser.XmlData
         }
 
         /// <summary>
-        /// Adds a unit's ability data from the ability xml element.
+        /// Create an ability.
         /// </summary>
-        /// <param name="unit"></param>
+        /// <param name="unitId">The id of the unit.</param>
         /// <param name="abilityElement">The AbilArray xml element.</param>
-        public void AddUnitAbility(Unit unit, XElement abilityElement)
+        public Ability CreateAbility(string unitId, XElement abilityElement)
         {
             string abilLink = abilityElement.Attribute("Link")?.Value;
             if (string.IsNullOrEmpty(abilLink))
-                return;
-
-            XElement buttonElement = GetButtonElement(abilLink);
-            if (buttonElement == null)
-                return;
-
-            string buttonId = buttonElement.Attribute("id").Value;
+                return null;
 
             Ability ability = new Ability()
             {
-                FullTooltipNameId = string.IsNullOrEmpty(buttonId) ? abilLink : buttonId,
-                ButtonName = string.IsNullOrEmpty(buttonId) ? abilLink : buttonId,
                 ReferenceNameId = abilLink,
             };
+
+            IEnumerable<XElement> abilityElements = GetAbilityElements(abilLink);
+            if (!abilityElements.Any())
+                return null;
+
+            foreach (XElement element in abilityElements)
+            {
+                SetAbilityData(element, ability);
+            }
 
             // default
             ability.Tier = AbilityTier.Activable;
 
-            SetAbilityType(unit, ability);
+            // set the ability type
+            SetAbilityType(unitId, ability);
 
+            // if type is not a type we want, return
             if (AbilityType.Misc.HasFlag(ability.AbilityType))
-                return;
+                return null;
 
             SetAbilityTierFromAbilityType(ability);
-            SetTooltipCostData(ability.ReferenceNameId, ability);
-            SetTooltipDescriptions(ability);
-            SetTooltipOverrideData(buttonElement, ability);
 
-            // add ability
-            if (!unit.Abilities.ContainsKey(ability.ReferenceNameId))
-                unit.Abilities.Add(ability.ReferenceNameId, ability);
+            return ability;
+
+            //// add ability
+            //if (!unit.Abilities.ContainsKey(ability.ReferenceNameId))
+            //    unit.Abilities.Add(ability.ReferenceNameId, ability);
+
+            //XElement buttonElement = GetButtonElement(abilLink);
+            //if (buttonElement == null)
+            //    return;
+
+            //string buttonId = buttonElement.Attribute("id").Value;
+
+            //Ability ability = new Ability()
+            //{
+            //    FullTooltipNameId = string.IsNullOrEmpty(buttonId) ? abilLink : buttonId,
+            //    ButtonName = string.IsNullOrEmpty(buttonId) ? abilLink : buttonId,
+            //    ReferenceNameId = abilLink,
+            //};
+
+            //// default
+            //ability.Tier = AbilityTier.Activable;
+
+            //SetAbilityType(unit, ability);
+
+            //if (AbilityType.Misc.HasFlag(ability.AbilityType))
+            //    return;
+
+            //SetAbilityTierFromAbilityType(ability);
+            //SetTooltipCostData(ability.ReferenceNameId, ability);
+            //SetTooltipDescriptions(ability);
+            //SetTooltipOverrideData(buttonElement, ability);
+
+            //// add ability
+            //if (!unit.Abilities.ContainsKey(ability.ReferenceNameId))
+            //    unit.Abilities.Add(ability.ReferenceNameId, ability);
         }
 
         /// <summary>
@@ -219,44 +251,44 @@ namespace HeroesData.Parser.XmlData
         /// <param name="unit"></param>
         public void AddOverrideButtonAbilities(Unit unit)
         {
-            unit.Abilities = unit.Abilities ?? new Dictionary<string, Ability>();
+            //unit.Abilities = unit.Abilities ?? new Dictionary<string, Ability>();
 
-            foreach (AddedButtonAbility abilityButton in UnitDataOverride.AddedAbilityByButtonId)
-            {
-                Ability ability = new Ability()
-                {
-                    FullTooltipNameId = abilityButton.ButtonId,
-                    ButtonName = abilityButton.ButtonId,
-                    ReferenceNameId = abilityButton.ButtonId,
-                };
+            //foreach (AddedButtonAbility abilityButton in UnitDataOverride.AddedAbilityByButtonId)
+            //{
+            //    Ability ability = new Ability()
+            //    {
+            //        FullTooltipNameId = abilityButton.ButtonId,
+            //        ButtonName = abilityButton.ButtonId,
+            //        ReferenceNameId = abilityButton.ButtonId,
+            //    };
 
-                if (!string.IsNullOrEmpty(abilityButton.ReferenceNameId))
-                    ability.ReferenceNameId = abilityButton.ReferenceNameId;
+            //    if (!string.IsNullOrEmpty(abilityButton.ReferenceNameId))
+            //        ability.ReferenceNameId = abilityButton.ReferenceNameId;
 
-                // default
-                ability.Tier = AbilityTier.Activable;
+            //    // default
+            //    ability.Tier = AbilityTier.Activable;
 
-                XElement cButtonElement = null;
-                if (!string.IsNullOrEmpty(abilityButton.ReferenceNameId))
-                    cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ReferenceNameId && x.Attribute("parent")?.Value == abilityButton.ParentValue));
+            //    XElement cButtonElement = null;
+            //    if (!string.IsNullOrEmpty(abilityButton.ReferenceNameId))
+            //        cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ReferenceNameId && x.Attribute("parent")?.Value == abilityButton.ParentValue));
 
-                cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == abilityButton.ParentValue)) ?? cButtonElement;
+            //    cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == abilityButton.ParentValue)) ?? cButtonElement;
 
-                if (cButtonElement == null)
-                    throw new XmlGameDataParseException($"Could not find the following element <CButton id=\"{ability.FullTooltipNameId}\" parent=\"{abilityButton.ParentValue}\">");
+            //    if (cButtonElement == null)
+            //        throw new XmlGameDataParseException($"Could not find the following element <CButton id=\"{ability.FullTooltipNameId}\" parent=\"{abilityButton.ParentValue}\">");
 
-                SetAbilityType(unit, ability);
+            //    SetAbilityType(unit, ability);
 
-                SetAbilityTierFromAbilityType(ability);
-                SetTooltipCostData(ability.ReferenceNameId, ability);
-                SetTooltipDescriptions(ability);
-                SetTooltipOverrideData(cButtonElement, ability);
+            //    SetAbilityTierFromAbilityType(ability);
+            //    SetTooltipCostData(ability.ReferenceNameId, ability);
+            //    SetTooltipDescriptions(ability);
+            //    SetTooltipOverrideData(cButtonElement, ability);
 
-                unit.Abilities[ability.ReferenceNameId] = ability;
-            }
+            //    unit.Abilities[ability.ReferenceNameId] = ability;
+            //}
         }
 
-        private void SetAbilityType(Unit unit, Ability ability)
+        private void SetAbilityType(string unitId, Ability ability)
         {
             if (ability.Tier == AbilityTier.Heroic)
             {
@@ -279,13 +311,13 @@ namespace HeroesData.Parser.XmlData
                 return;
             }
 
-            string layoutId = !string.IsNullOrEmpty(ability.ParentLink) ? ability.ParentLink : unit.CUnitId;
+            string layoutId = !string.IsNullOrEmpty(ability.ParentLink) ? ability.ParentLink : unitId;
 
-            if (!SetAbilityTypeFromLayout(unit, ability, GameData.GetLayoutButtonElements(layoutId)) && !SetAbilityTypeFromLayout(unit, ability, GameData.GetLayoutButtonElements()))
+            if (!SetAbilityTypeFromLayout(unitId, ability, GameData.GetLayoutButtonElements(layoutId)) && !SetAbilityTypeFromLayout(unitId, ability, GameData.GetLayoutButtonElements()))
                 ability.AbilityType = AbilityType.Active;
         }
 
-        private void SetAbilityTypeFromSlot(string slot, Unit unit, Ability ability)
+        private void SetAbilityTypeFromSlot(string slot, string unitId, Ability ability)
         {
             if (slot.AsSpan().StartsWith("ABILITY1", StringComparison.OrdinalIgnoreCase))
                 ability.AbilityType = AbilityType.Q;
@@ -304,7 +336,7 @@ namespace HeroesData.Parser.XmlData
             else if (Enum.TryParse(slot, true, out AbilityType abilityType))
                 ability.AbilityType = abilityType;
             else
-                throw new XmlGameDataParseException($"Unknown slot type ({slot}) - CUnit: {unit.CUnitId} - Ability: {ability.ReferenceNameId}");
+                throw new XmlGameDataParseException($"Unknown slot type ({slot}) - CUnit: {unitId} - Ability: {ability.ReferenceNameId}");
         }
 
         private void SetTalentIdUpgrades(XElement buttonElement, Ability ability)
@@ -343,7 +375,7 @@ namespace HeroesData.Parser.XmlData
             if (buttonElement != null)
                 return buttonElement;
 
-            // if not found search for CAbilEffectTarget
+            // if not found search for ability elements
             XElement abilEffectTargetElement = GetCAbilEffectTargetElement(GameData.MergeXmlElements(GameData.Elements("CAbilEffectTarget").Where(x => x.Attribute("id")?.Value == buttonId)));
             if (abilEffectTargetElement != null)
             {
@@ -376,6 +408,7 @@ namespace HeroesData.Parser.XmlData
 
             while (!string.IsNullOrEmpty(parentValue))
             {
+                // TODO: dont specify ability cabileffecttarget, check all, possibly from parameter
                 XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CAbilEffectTarget").Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                 {
@@ -390,44 +423,58 @@ namespace HeroesData.Parser.XmlData
             return GameData.MergeXmlElementsNoAttributes(elementsList);
         }
 
-        // searches the
-        private bool SetAbilityTypeFromLayout(Unit unit, Ability ability, ICollection<XElement> layoutButtonElements)
+        private bool SetAbilityTypeFromLayout(string unitId, Ability ability, ICollection<XElement> layoutButtonElements)
         {
             // check the face attribute
-            XElement layoutButton = layoutButtonElements?.FirstOrDefault(x => (x.Attribute("Face")?.Value == ability.ButtonName || x.Attribute("Face")?.Value == ability.ReferenceNameId) &&
+            XElement layoutButton = layoutButtonElements?.FirstOrDefault(x => (x.Attribute("Face")?.Value == ability.ReferenceNameId) &&
                 x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
 
             // check the abilcmd attribute
             if (layoutButton == null)
             {
-                layoutButton = layoutButtonElements?.FirstOrDefault(x => !string.IsNullOrEmpty(x.Attribute("AbilCmd")?.Value) && (x.Attribute("AbilCmd").Value.StartsWith(ability.ButtonName) ||
-                    x.Attribute("AbilCmd").Value.StartsWith(ability.ReferenceNameId)) && x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
+                layoutButton = layoutButtonElements?.FirstOrDefault(x =>
+                {
+                    return IsValidAbilityCommand(x.Attribute("Slot")?.Value, x.Attribute("AbilCmd")?.Value, ability);
+                });
             }
 
             if (layoutButton != null)
             {
-                SetAbilityTypeFromSlot(layoutButton.Attribute("Slot").Value, unit, ability);
+                SetAbilityTypeFromSlot(layoutButton.Attribute("Slot").Value, unitId, ability);
                 return true;
             }
             else // was not found for attributes check as elements
             {
                 // check the face element value
-                layoutButton = layoutButtonElements?.Where(x => x.HasElements).FirstOrDefault(x => (x.Element("Face")?.Attribute("value")?.Value == ability.ButtonName || x.Element("Face")?.Attribute("value")?.Value == ability.ReferenceNameId) &&
+                layoutButton = layoutButtonElements?.Where(x => x.HasElements).FirstOrDefault(x => (x.Element("Face")?.Attribute("value")?.Value == ability.ReferenceNameId) &&
                     x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
 
                 // check the abilcmd element value
                 if (layoutButton == null)
                 {
-                    layoutButton = layoutButtonElements?.Where(x => x.HasElements).FirstOrDefault(x => (!string.IsNullOrEmpty(x.Element("AbilCmd")?.Attribute("value")?.Value) && (x.Element("AbilCmd").Attribute("value").Value.StartsWith(ability.ButtonName) || x.Element("AbilCmd").Attribute("value").Value.StartsWith(ability.ReferenceNameId)) &&
-                        x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth"));
+                    layoutButton = layoutButtonElements?.Where(x => x.HasElements).FirstOrDefault(x =>
+                    {
+                        return IsValidAbilityCommand(x.Element("Slot")?.Attribute("value")?.Value, x.Element("AbilCmd")?.Attribute("value")?.Value, ability);
+                    });
                 }
 
                 if (layoutButton != null)
                 {
-                    SetAbilityTypeFromSlot(layoutButton.Element("Slot").Attribute("value").Value, unit, ability);
+                    SetAbilityTypeFromSlot(layoutButton.Element("Slot").Attribute("value").Value, unitId, ability);
 
                     return true;
                 }
+            }
+
+            return false;
+        }
+
+        private bool IsValidAbilityCommand(string slot, string abilCmd, Ability ability)
+        {
+            if (slot != "Cancel" && slot != "Hearth" && !string.IsNullOrEmpty(abilCmd))
+            {
+                if (abilCmd.StartsWith(ability.ReferenceNameId))
+                    return true;
             }
 
             return false;

@@ -14,8 +14,8 @@ namespace HeroesData.Parser.XmlData
     {
         private readonly Dictionary<string, HashSet<string>> AbilityTalentIdsByTalentIdUpgrade = new Dictionary<string, HashSet<string>>();
 
-        public TalentData(GameData gameData, DefaultData defaultData, HeroDataOverride heroDataOverride, Localization localization)
-            : base(gameData, defaultData, heroDataOverride, localization)
+        public TalentData(GameData gameData, DefaultData defaultData, HeroDataOverride heroDataOverride, Configuration configuration, Localization localization)
+            : base(gameData, defaultData, heroDataOverride, configuration, localization)
         {
         }
 

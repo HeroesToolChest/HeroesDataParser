@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CBehaviorVeterancy id="OverwatchMechanicScaling">
+    <VeterancyLevelArray index="1">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="2">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="3">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="4">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="5">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="6">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="7">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="8">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="9">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="10">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="11">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="12">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="13">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="14">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="15">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="16">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="17">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="18">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="19">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="20">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="21">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="22">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="23">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="24">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="25">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="26">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="27">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="28">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="29">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="30">
+      <Modification KillXPBonus="10" />
+    </VeterancyLevelArray>
+  </CBehaviorVeterancy>
+  <CBehaviorTokenCounter id="AIMapTokenMapControlMercenaryCampVisionTop" parent="StormGenericToken">
+    <Max value="1" />
+  </CBehaviorTokenCounter>
+  <CBehaviorTokenCounter id="AIMapTokenMapControlMercenaryCampVisionBottom" parent="StormGenericToken">
+    <Max value="1" />
+  </CBehaviorTokenCounter>
+  <CBehaviorBuff id="DoesNotGetTargetedByPayload" />
+  <CBehaviorBuff id="HanamuraGate_NoMinionAggro">
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+    <Modification>
+      <StateFlags index="UnitAttrOnNoMinionAggro" value="1" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="HanamuraPayloadStructureTarget">
+    <MaxStackCount value="10" />
+    <RemoveValidatorArray value="TargetNotOnAirPlane" />
+    <RemoveValidatorArray value="CasterNotDead" />
+    <RemoveValidatorArray value="TargetNotStasisOrInvulnerable" />
+    <RemoveValidatorArray value="TargetNotTimeStopped" />
+  </CBehaviorBuff>
+  <CBehaviorVeterancy id="MercenaryDefenderSwordsmanScaling">
+    <VeterancyLevelArray index="2">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="3">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="4">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="5">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="6">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="7">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="8">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="9">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="10">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="11">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="12">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="13">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="14">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="15">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="16">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="17">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="18">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="19">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="20">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="21">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="22">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="23">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="24">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="25">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="26">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="27">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="28">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="29">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="30">
+      <Modification KillXPBonus="15" />
+    </VeterancyLevelArray>
+  </CBehaviorVeterancy>
+  <CBehaviorBuff id="PayloadDisableTurret">
+    <Modification>
+      <TurretDisableArray value="PayloadAttackCoreTurret" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="AllyPayloadPusherBehavior">
+    <DisableValidatorArray value="AlliedPayloadNearby" />
+    <DisableValidatorArray value="TargetNotDeadAndNoSpecialDeathState" />
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+  </CBehaviorBuff>
+</Catalog>

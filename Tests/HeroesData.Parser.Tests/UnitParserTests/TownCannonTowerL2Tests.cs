@@ -15,7 +15,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.IsTrue(TownCannonTowerL2.Attributes.Contains("AITargetableStructure"));
             Assert.AreEqual("TownCannonTowerL2", TownCannonTowerL2.CUnitId);
             Assert.AreEqual("Structure", TownCannonTowerL2.DamageType);
-            Assert.IsNull(TownCannonTowerL2.Description?.RawDescription);
+            Assert.IsNotNull(TownCannonTowerL2.Description?.RawDescription);
             Assert.AreEqual(0, TownCannonTowerL2.HeroDescriptors.Count);
             Assert.AreEqual("TownCannonTowerL2", TownCannonTowerL2.HyperlinkId);
             Assert.AreEqual("TownCannonTowerL2", TownCannonTowerL2.Id);

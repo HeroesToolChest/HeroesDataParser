@@ -19,7 +19,6 @@ namespace HeroesData.Loader.XmlGameData
         // temp variables used for map game data swapping
         private Dictionary<(string Catalog, string Entry, string Field), double> OriginalScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
         private Dictionary<string, string> OriginalGameStringById = new Dictionary<string, string>();
-        private Dictionary<string, GameData> OriginalMapGameDataByMapId = new Dictionary<string, GameData>();
         private Dictionary<string, List<XElement>> OriginalXmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>();
         private Dictionary<string, List<XElement>> OriginalLayoutButtonElements = new Dictionary<string, List<XElement>>();
 
@@ -127,15 +126,19 @@ namespace HeroesData.Loader.XmlGameData
         protected bool LoadTextFilesOnlyEnabled { get; private set; }
 
         /// <summary>
-        /// Merges the elements in the collection into a single XElement. The elements get added as the last children to the first element.
+        /// Merges the elements in the collection into a single XElement.
         /// All the attributes of the elements get added to the first element (overriding existing values).
         /// </summary>
         /// <param name="elements">The collection of elements.</param>
+        /// <param name="append">Add elements as the last children to the first element.</param>
         /// <returns></returns>
-        public static XElement MergeXmlElements(IEnumerable<XElement> elements)
+        public static XElement MergeXmlElements(IEnumerable<XElement> elements, bool append = true)
         {
             if (elements == null || !elements.Any())
                 return null;
+
+            if (!append)
+                elements = elements.Reverse();
 
             XElement mergedXElement = new XElement(elements.FirstOrDefault());
 
@@ -156,15 +159,19 @@ namespace HeroesData.Loader.XmlGameData
         }
 
         /// <summary>
-        /// Merges the elements in the collection into a single XElement. The elements get added as the last children to the first element.
+        /// Merges the elements in the collection into a single XElement.
         /// Returned element has the attributes of the first element.
         /// </summary>
         /// <param name="elements">The collection of elements.</param>
+        /// <param name="append">Add elements as the last children to the first element.</param>
         /// <returns></returns>
-        public static XElement MergeXmlElementsNoAttributes(IEnumerable<XElement> elements)
+        public static XElement MergeXmlElementsNoAttributes(IEnumerable<XElement> elements, bool append = true)
         {
             if (elements == null || !elements.Any())
                 return null;
+
+            if (!append)
+                elements = elements.Reverse();
 
             XElement mergedXElement = new XElement(elements.FirstOrDefault());
 
@@ -190,11 +197,11 @@ namespace HeroesData.Loader.XmlGameData
 
             // make a temp copy so we can restore later
             OriginalGameStringById = new Dictionary<string, string>(GameStringById);
-            OriginalMapGameDataByMapId = new Dictionary<string, GameData>(MapGameDataByMapId);
             OriginalScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>(ScaleValueByLookupId);
-            OriginalXmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>(XmlGameDataElementsByElementName);
-            OriginalLayoutButtonElements = new Dictionary<string, List<XElement>>(LayoutButtonElements);
+            OriginalXmlGameDataElementsByElementName = XmlGameDataElementsByElementName.ToDictionary(x => x.Key, x => x.Value.ToList());
+            OriginalLayoutButtonElements = LayoutButtonElements.ToDictionary(x => x.Key, x => x.Value.ToList());
 
+            // appending all map data together
             XmlGameData.Root.Add(gameData.XmlGameData.Root.Elements());
 
             foreach (KeyValuePair<string, string> gamestrings in gameData.GameStringById)
@@ -225,12 +232,10 @@ namespace HeroesData.Loader.XmlGameData
 
             ScaleValueByLookupId = OriginalScaleValueByLookupId;
             GameStringById = OriginalGameStringById;
-            MapGameDataByMapId = OriginalMapGameDataByMapId;
             XmlGameDataElementsByElementName = OriginalXmlGameDataElementsByElementName;
             LayoutButtonElements = OriginalLayoutButtonElements;
 
             OriginalGameStringById = null;
-            OriginalMapGameDataByMapId = null;
             OriginalScaleValueByLookupId = null;
             OriginalXmlGameDataElementsByElementName = null;
             OriginalLayoutButtonElements = null;
@@ -610,13 +615,16 @@ namespace HeroesData.Loader.XmlGameData
 
             LoadFiles();
 
-            SetLevelScalingData();
-            SetPredefinedElements();
-
-            foreach (GameData mapGameData in MapGameDataByMapId.Values)
+            if (LoadXmlFilesEnabled)
             {
-                mapGameData.SetLevelScalingData();
-                mapGameData.SetPredefinedElements();
+                SetLevelScalingData();
+                SetPredefinedElements();
+
+                foreach (GameData mapGameData in MapGameDataByMapId.Values)
+                {
+                    mapGameData.SetLevelScalingData();
+                    mapGameData.SetPredefinedElements();
+                }
             }
         }
 

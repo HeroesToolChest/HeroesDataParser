@@ -86,8 +86,8 @@ namespace HeroesData.Parser
 
             WeaponData = new WeaponData(GameData, DefaultData, HeroDataOverride);
             ArmorData = new ArmorData(GameData);
-            AbilityData = new AbilityData(GameData, DefaultData, HeroDataOverride, Localization);
-            TalentData = new TalentData(GameData, DefaultData, HeroDataOverride, Localization);
+            AbilityData = new AbilityData(GameData, DefaultData, HeroDataOverride, Configuration, Localization);
+            TalentData = new TalentData(GameData, DefaultData, HeroDataOverride, Configuration, Localization);
 
             SetDefaultValues(hero);
             CActorData(hero);
@@ -123,7 +123,7 @@ namespace HeroesData.Parser
             };
 
             HeroDataOverride = HeroOverrideLoader.GetOverride(StormHeroBase.CHeroId) ?? new HeroDataOverride();
-            AbilityData = new AbilityData(GameData, DefaultData, HeroDataOverride, Localization);
+            AbilityData = new AbilityData(GameData, DefaultData, HeroDataOverride, Configuration, Localization);
 
             SetBaseHeroData(StormHeroBase);
 

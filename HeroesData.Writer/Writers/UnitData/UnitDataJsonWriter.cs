@@ -98,12 +98,17 @@ namespace HeroesData.FileWriter.Writers.UnitData
 
         protected override JProperty GetEnergyObject(Unit unit)
         {
-            return new JProperty(
-                "energy",
-                new JObject(
-                    new JProperty("amount", unit.Energy.EnergyMax),
-                    new JProperty("type", unit.Energy.EnergyType.ToString()),
-                    new JProperty("regenRate", unit.Energy.EnergyRegenerationRate)));
+            JObject energyObject = new JObject
+            {
+                new JProperty("amount", unit.Energy.EnergyMax),
+            };
+
+            if (!string.IsNullOrEmpty(unit.Energy.EnergyType))
+                energyObject.Add(new JProperty("type", unit.Energy.EnergyType));
+
+            energyObject.Add(new JProperty("regenRate", unit.Energy.EnergyRegenerationRate));
+
+            return new JProperty("energy", energyObject);
         }
 
         protected override JProperty GetAbilitiesObject(Unit unit, bool isSubAbilities)

@@ -3,6 +3,7 @@ using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -15,9 +16,14 @@ namespace HeroesData.Parser
     {
         public ParserBase(Configuration configuration, GameData gameData, DefaultData defaultData)
         {
-            Configuration = configuration;
-            GameData = gameData;
-            DefaultData = defaultData;
+            //Configuration = configuration;
+            //GameData = gameData;
+            //DefaultData = defaultData;
+        }
+
+        public ParserBase(XmlDataType xmlDataType)
+        {
+            XmlDataType = xmlDataType;
         }
 
         /// <summary>
@@ -56,11 +62,13 @@ namespace HeroesData.Parser
         /// </summary>
         protected string GeneralMapName => string.Empty;
 
-        protected GameData GameData { get; }
+        protected XmlDataType XmlDataType { get; }
 
-        protected DefaultData DefaultData { get; }
+        protected GameData GameData => XmlDataType.GameData;
 
-        protected Configuration Configuration { get; }
+        protected DefaultData DefaultData => XmlDataType.DefaultData;
+
+        protected Configuration Configuration => XmlDataType.Configuration;
 
         public void LoadMapData(string mapId)
         {
@@ -107,6 +115,14 @@ namespace HeroesData.Parser
         protected virtual bool ValidItem(XElement element)
         {
             return true;
+        }
+
+        protected double GetDoubleValue(string id, XElement element)
+        {
+            if (double.TryParse(GameData.GetValueFromAttribute(element.Attribute("value").Value), out double value))
+                return value;
+            else
+                throw new FormatException($"Invalid value: {id} {element.Attribute("value").Value}");
         }
     }
 }

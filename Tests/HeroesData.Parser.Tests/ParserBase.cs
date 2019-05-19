@@ -24,6 +24,7 @@ namespace HeroesData.Parser.Tests
         protected DefaultData DefaultData { get; set; }
         protected GameStringParser GameStringParser { get; set; }
         protected Configuration Configuration { get; set; }
+        protected XmlDataType XmlDataType { get; set; }
 
         private void LoadTestData()
         {
@@ -38,6 +39,8 @@ namespace HeroesData.Parser.Tests
 
             GameStringParser = new GameStringParser(Configuration, GameData);
             ParseGameStrings();
+
+            XmlDataType = new XmlDataType(Configuration, GameData, DefaultData);
         }
 
         private void ParseGameStrings()

@@ -6,18 +6,18 @@ using System.Linq;
 namespace HeroesData.Parser.Tests.UnitParserTests
 {
     [TestClass]
-    public class TerranArchangelLaner : UnitParserBaseTest
+    public class BraxisHoldoutTerranArchangelLanerTests : UnitParserBaseTest
     {
         [TestMethod]
         public void PropertiesTests()
         {
-            Assert.AreEqual("braxisholdoutdata-TerranArchangelLaner", TerranArchangelLaner.Id);
+            Assert.AreEqual("braxisholdoutdata-TerranArchangelLaner", BraxisHoldoutTerranArchangelLaner.Id);
         }
 
         [TestMethod]
         public void WeaponsTests()
         {
-            UnitWeapon weapon1 = TerranArchangelLaner.Weapons[0];
+            UnitWeapon weapon1 = BraxisHoldoutTerranArchangelLaner.Weapons[0];
 
             Assert.AreEqual(4, weapon1.Range);
             Assert.AreEqual(0.0625, weapon1.Period);
@@ -25,7 +25,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.AreEqual("Minion", weapon1.AttributeFactors.First().Type);
             Assert.AreEqual(1, weapon1.AttributeFactors.First().Value);
 
-            UnitWeapon weapon2 = TerranArchangelLaner.Weapons[0];
+            UnitWeapon weapon2 = BraxisHoldoutTerranArchangelLaner.Weapons[0];
 
             Assert.AreEqual(4, weapon2.Range);
             Assert.AreEqual(0.0625, weapon2.Period);
@@ -37,15 +37,15 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void LifePropertiesTests()
         {
-            Assert.AreEqual(15500, TerranArchangelLaner.Life.LifeMax);
+            Assert.AreEqual(15500, BraxisHoldoutTerranArchangelLaner.Life.LifeMax);
         }
 
         [TestMethod]
         public void AbilitiesTests()
         {
-            Assert.IsTrue(TerranArchangelLaner.Abilities.ContainsKey("TerranArchangelLanerBulletstorm"));
+            Assert.IsTrue(BraxisHoldoutTerranArchangelLaner.Abilities.ContainsKey("TerranArchangelLanerBulletstorm"));
 
-            Ability terranArchangelLanerAbility = TerranArchangelLaner.Abilities["TerranArchangelLanerBulletstorm"];
+            Ability terranArchangelLanerAbility = BraxisHoldoutTerranArchangelLaner.Abilities["TerranArchangelLanerBulletstorm"];
             Assert.AreEqual("Cooldown: 12 seconds", terranArchangelLanerAbility.Tooltip.Cooldown.CooldownTooltip.PlainText);
             Assert.AreEqual("Bulletstorm", terranArchangelLanerAbility.Name);
             Assert.AreEqual("Unleash a hail of bullets in a line", terranArchangelLanerAbility.Tooltip.ShortTooltip.PlainText);

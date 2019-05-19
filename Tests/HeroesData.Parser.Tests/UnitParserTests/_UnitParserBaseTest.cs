@@ -20,14 +20,16 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         protected Unit ZagaraHydralisk { get; set; }
         protected Unit TownCannonTowerL2 { get; set; }
         protected Unit VolskayaVehicle { get; set; }
-        protected Unit AllianceCavalry { get; set; }
-        protected Unit TerranArchangelLaner { get; set; }
+        protected Unit AlteracpassAllianceCavalry { get; set; }
+        protected Unit BraxisHoldoutTerranArchangelLaner { get; set; }
         protected Unit AzmodanDemonLieutenant { get; set; }
+        protected Unit HanamuraMercDefenderSentinel { get; set; }
+        protected Unit MercDefenderSentinel { get; set; }
 
         [TestMethod]
         public void GetItemsTest()
         {
-            UnitParser unitParser = new UnitParser(Configuration, GameData, DefaultData, UnitOverrideLoader);
+            UnitParser unitParser = new UnitParser(XmlDataType, UnitOverrideLoader);
             Assert.IsTrue(unitParser.Items.Count > 0);
         }
 
@@ -39,27 +41,36 @@ namespace HeroesData.Parser.Tests.UnitParserTests
 
         private void Parse()
         {
-            UnitParser unitParser = new UnitParser(Configuration, GameData, DefaultData, UnitOverrideLoader);
+            UnitParser unitParser = new UnitParser(XmlDataType, UnitOverrideLoader);
             AzmodanDemonLieutenant = unitParser.Parse("AzmodanDemonLieutenant");
             ZagaraHydralisk = unitParser.Parse("ZagaraHydralisk");
             TownCannonTowerL2 = unitParser.Parse("TownCannonTowerL2");
             VolskayaVehicle = unitParser.Parse("VolskayaVehicle");
+            MercDefenderSentinel = unitParser.Parse("MercDefenderSentinel");
 
             ParseBraxisHoldoutData(unitParser);
             ParseAlteracPassData(unitParser);
+            ParseHanamura(unitParser);
         }
 
         private void ParseAlteracPassData(UnitParser unitParser)
         {
             GameData.AppendGameData(GameData.GetMapGameData("alteracpass.stormmod"));
-            AllianceCavalry = unitParser.Parse("AllianceCavalry", "alteracpass.stormmod");
+            AlteracpassAllianceCavalry = unitParser.Parse("AllianceCavalry", "alteracpass.stormmod");
             GameData.RestoreGameData();
         }
 
         private void ParseBraxisHoldoutData(UnitParser unitParser)
         {
             GameData.AppendGameData(GameData.GetMapGameData("braxisholdoutdata.stormmod"));
-            TerranArchangelLaner = unitParser.Parse("TerranArchangelLaner", "braxisholdoutdata.stormmod");
+            BraxisHoldoutTerranArchangelLaner = unitParser.Parse("TerranArchangelLaner", "braxisholdoutdata.stormmod");
+            GameData.RestoreGameData();
+        }
+
+        private void ParseHanamura(UnitParser unitParser)
+        {
+            GameData.AppendGameData(GameData.GetMapGameData("hanamura.stormmod"));
+            HanamuraMercDefenderSentinel = unitParser.Parse("MercDefenderSentinel", "hanamura.stormmod");
             GameData.RestoreGameData();
         }
     }

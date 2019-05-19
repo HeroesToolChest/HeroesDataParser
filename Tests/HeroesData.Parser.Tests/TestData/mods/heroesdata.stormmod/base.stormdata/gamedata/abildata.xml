@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CAbilEffectInstant id="VolskayaVehicleTShield">
+    <Effect value="VolskayaVehicleTShieldCastSet" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="VolskayaVehicleTShield" />
+    <Cost>
+      <Cooldown Location="Unit" TimeUse="16" />
+    </Cost>
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <UninterruptibleArray index="Approach" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="VolskayaVehicleRocketFist">
+    <Effect value="VolskayaVehicleRocketFistCastSet" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Range value="500" />
+    <CastIntroTime value="0.125" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="VolskayaVehicleRocketFist">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <CursorEffect value="VolskayaVehicleRocketFistSearchArea" />
+    <Cost>
+      <Cooldown Location="Unit" TimeUse="14" />
+    </Cost>
+    <UninterruptibleArray index="Approach" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+  </CAbilEffectTarget>
+</Catalog>

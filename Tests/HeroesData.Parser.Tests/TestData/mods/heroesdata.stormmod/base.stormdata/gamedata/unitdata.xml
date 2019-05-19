@@ -772,4 +772,56 @@
     <PlaneArray index="Ground" value="1" />
     <PlaneArray index="Air" value="1" />
   </CUnit>
+  <CUnit id="MercDefenderSentinel" parent="StormMercDefenderParent">
+    <Description value="Button/Tooltip/MercMeleeKnight" />
+    <DeathRevealRadius value="2" />
+    <LifeStart value="8000" />
+    <LifeMax value="8000" />
+    <KillXP value="200" />
+    <Speed value="4" />
+    <LateralAcceleration value="46.0625" />
+    <FlagArray index="Unstoppable" value="1" />
+    <TurningRate value="999.8437" />
+    <RepairTime value="0" />
+    <DamageDealtXP value="0" />
+    <DamageTakenXP value="0" />
+    <AbilArray Link="MercenarySentinelHorizontalSlash" />
+    <BehaviorArray Link="MercenaryDefenderSwordsmanScaling" />
+    <BehaviorArray Link="KnightMeleeDamageResponseBehavior" />
+    <BehaviorArray Link="KnightGetHitVOXDamageResponse" />
+    <BehaviorArray Link="MercKnightDeathResponse" />
+    <BehaviorArray Link="JungleCreepUsesPrepAggro" />
+    <BehaviorArray Link="MercenarySwordsmanCastSwordsmansStrike" />
+    <BehaviorArray Link="UnbribableMerc" />
+    <WeaponArray Link="MercDefenderSentinel" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="MercenarySentinelHorizontalSlash" Type="AbilCmd" AbilCmd="MercenarySentinelHorizontalSlash,255" Slot="Ability1" />
+    </CardLayouts>
+    <Radius value="1" />
+    <SeparationRadius value="0.9" />
+    <InnerRadius value="0.5" />
+    <ScoreResult value="" />
+    <SubgroupPriority value="0" />
+    <KillDisplay value="Always" />
+  </CUnit>
+  <CAbilEffectTarget id="MercenarySentinelHorizontalSlash">
+    <Effect value="MercenarySwordsmansStrikeCP" />
+    <Cost>
+      <Cooldown TimeUse="8" />
+    </Cost>
+    <Range value="8" />
+    <RangeSlop value="100" />
+    <ArcSlop value="360" />
+    <CastIntroTime value="1.5" />
+    <UninterruptibleArray index="Prep" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CastOutroTimeEffect value="MercenarySwordsmansStrikeCP" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="MercenarySentinelHorizontalSlash" />
+    <PrepEffect value="MercenarySwordsmansStrikePrepareEffectSet" />
+  </CAbilEffectTarget>
+  <CButton id="MercenarySentinelHorizontalSlash" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_genji_swiftstrike_a.dds" />
+  </CButton>
 </Catalog>

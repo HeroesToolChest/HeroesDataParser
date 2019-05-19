@@ -105,7 +105,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             return new XElement(
                 "Energy",
-                new XElement("Amount", unit.Energy.EnergyMax, new XAttribute("type", unit.Energy.EnergyType)),
+                new XElement("Amount", unit.Energy.EnergyMax, !string.IsNullOrEmpty(unit.Energy.EnergyType) ? new XAttribute("type", unit.Energy.EnergyType) : null),
                 new XElement("RegenRate", unit.Energy.EnergyRegenerationRate));
         }
 

@@ -13,11 +13,9 @@
     <CPortraitPack id="TestPortrait" value="false" />
     <CSkin id="Random" value="false" />
     <CSpray id="RandomSpray" value="false" />
-    <CUnit id="VolskayaVehicleGunner" />
     <CVoiceLine id="RandomVoiceLine" value="false" />
     
     <!--maps-->
-    <MapStormmod id="hanamuradata.stormmod" value="false" />
   </DataParser>
   
   <!--Used for completing gamestring parsing by providing a default value-->

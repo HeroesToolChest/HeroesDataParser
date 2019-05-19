@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CValidatorUnitType id="IsNotAMercSentinelDefender">
+    <Find value="0" />
+    <Value value="MercDefenderSentinel" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsNotAMercSentinelLaner">
+    <Value value="MercLanerSentinel" />
+    <Find value="0" />
+  </CValidatorUnitType>
+  <CValidatorCombine id="TargetIsNotABossUnitCombine">
+    <CombineArray value="IsNotAMercSentinelDefender" />
+    <CombineArray value="IsNotAMercSentinelLaner" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="PayloadTargetDoesNotHaveTurret">
+    <Behavior value="Payload_HasTurret" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="Payload_TargetIsOnOrderSearchCombine">
+    <Type value="And" />
+    <CombineArray value="TargetIsOnOrderTeam" />
+    <CombineArray value="TargetNotSpecialDeathState" />
+    <CombineArray value="TargetNotTimeStopped" />
+    <CombineArray value="TargetIsValidHeroForPayloadOrHasCapturePointAllowedBehavior" />
+  </CValidatorCombine>
+  <CValidatorCombine id="Payload_TargetIsOnChaosSearchCombine">
+    <Type value="And" />
+    <CombineArray value="TargetIsOnChaosTeam" />
+    <CombineArray value="TargetNotSpecialDeathState" />
+    <CombineArray value="TargetNotTimeStopped" />
+    <CombineArray value="TargetIsValidHeroForPayloadOrHasCapturePointAllowedBehavior" />
+  </CValidatorCombine>
+  <CValidatorCombine id="TargetIsPayloadWithoutTurret">
+    <Type value="And" />
+    <CombineArray value="TargetIsPayload" />
+    <CombineArray value="PayloadTargetDoesNotHaveTurret" />
+  </CValidatorCombine>
+  <CValidatorCombine id="TargetIsPointOrTargetIsPayloadWithoutTurret">
+    <CombineArray value="TargetIsPoint" />
+    <CombineArray value="TargetIsPayloadWithoutTurret" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="Payload_NotAtDestination">
+    <WhichUnit Value="Source" />
+    <Behavior value="Payload_ReachedDestination" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="MercenaryHenchman_DoesNotHaveScanDelay">
+    <WhichUnit Value="Source" />
+    <Behavior value="MercenaryHenchman_Blind_ScanDelay" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="PayloadDoesNotHaveReverseOrReverseCountdownBehaviors">
+    <Type value="And" />
+    <CombineArray value="PayloadDoesNotHaveReverseBehavior" />
+    <CombineArray value="PayloadDoesNotHaveReverseCountdownBehavior" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="PayloadHasTurretBehavior">
+    <WhichUnit Value="Source" />
+    <Value value="1" />
+    <Behavior value="PayloadHasTurret" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="PayloadDoesNotHaveTurretBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="PayloadHasTurret" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="PayloadAtDestination">
+    <CombineArray value="PayloadHasAlly1BehaviorAtDestination" />
+    <CombineArray value="PayloadHasAlly2BehaviorAtDestination" />
+    <CombineArray value="PayloadHasAlly3BehaviorAtDestination" />
+  </CValidatorCombine>
+  <CValidatorCombine id="PayloadNotAtDestination">
+    <Type value="And" />
+    <CombineArray value="PayloadHasAlly1BehaviorAtDestination" />
+    <CombineArray value="PayloadHasAlly2BehaviorAtDestination" />
+    <CombineArray value="PayloadHasAlly3BehaviorAtDestination" />
+    <Negate value="1" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="SourceHasBlockedBehavior">
+    <WhichUnit Value="Source" />
+    <Value value="1" />
+    <Behavior value="PayloadObstaclesInTheWay" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="SourceDoesNotHaveBlockedBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="PayloadObstaclesInTheWay" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="PayloadDoesNotHaveObstacleBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="PayloadObstaclesInTheWay" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="PayloadDoesNotHavePauseMovingBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="PayloadPauseMovingBehavior" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="PayloadHasNeitherObstacleNorContestedBehaviors">
+    <Type value="And" />
+    <CombineArray value="PayloadDoesNotHaveObstacleBehavior" />
+    <CombineArray value="PayloadDoesNotHaveContestedBehavior" />
+  </CValidatorCombine>
+  <CValidatorCombine id="PayloadIsContestedOrBlockedViaObstacle">
+    <CombineArray value="PayloadObstacleCombine" />
+    <CombineArray value="PayloadHasAlliesAndEnemiesNearby" />
+  </CValidatorCombine>
+  <CValidatorCombine id="PayloadObstacleCombine">
+    <Type value="And" />
+    <CombineArray value="PayloadObstaclesInTheWay" />
+    <CombineArray value="PayloadIsNotAtStartLocation" />
+  </CValidatorCombine>
+  <CValidatorLocationEnumArea id="PayloadObstaclesInTheWay">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray>
+      <Arc value="180" />
+      <Compare value="GE" />
+      <Count value="1" />
+      <Validator value="ValidObstacleTargets" />
+      <Radius value="5" />
+    </AreaArray>
+    <LaunchLocation Value="CasterUnit" />
+    <SearchFilters value="-;Self,Player,Dead" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="PayloadAlliesNearby">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Compare="GE" Count="1" Validator="TargetIsValidHeroForPayloadOrHasCapturePointAllowedBehavior">
+      <Radius value="8" />
+    </AreaArray>
+    <SearchFilters value="Heroic;Player,Neutral,Enemy,Dead,Summoned" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="AlliedPayloadNearby">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Compare="GE" Count="1" Validator="TargetAlliedPayload">
+      <Radius value="8" />
+    </AreaArray>
+  </CValidatorLocationEnumArea>
+  <CValidatorUnitCompareBehaviorCount id="TargetHasCapturePointAllowedBehavior">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="CapturePointAllowed" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitType id="TargetIsElDruinsMightMasteryPathingBlocker">
+    <Value value="ElDruinsMightMasteryPathingBlocker" />
+  </CValidatorUnitType>
+  <CValidatorCombine id="HanamuraPayloadTargetIsPseudoStructureOrStructure">
+    <CombineArray value="TargetIsPseudoStructure" />
+    <CombineArray value="IsStructureTarget" />
+  </CValidatorCombine>
+  <CValidatorCombine id="TargetAlliedPayload">
+    <Type value="And" />
+    <CombineArray value="TargetIsPayload" />
+    <CombineArray value="TargetIsAlly" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="TargetHasBlockedBehavior">
+    <Value value="1" />
+    <Behavior value="PayloadObstaclesInTheWay" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="PayloadBlockedMoveObstacleBackwardCombine">
+    <CombineArray value="PayloadDoesNotHaveProximityBehaviors" />
+    <CombineArray value="TargetIsPayload" />
+    <Type value="And" />
+  </CValidatorCombine>
+  <CValidatorCombine id="PayloadBlockedMoveObstacleForwardCombine">
+    <CombineArray value="TargetIsPayload" />
+    <CombineArray value="TargetHasBlockedBehavior" />
+    <Type value="And" />
+  </CValidatorCombine>
+  <CValidatorUnitType id="TargetIsSgtHammerConcussiveBlastScrap">
+    <Value value="SgtHammerConcussiveBlastScrap" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="TargetIsSgtHammerConcussiveBlastScrapCenter">
+    <Value value="SgtHammerConcussiveBlastScrapCenter" />
+  </CValidatorUnitType>
+  <CValidatorCombine id="TargetIsValidHeroForPayload">
+    <Type value="And" />
+    <CombineArray value="TargetIsNotHallucinationExceptUltimateEvolution" />
+    <CombineArray value="TargetNotBenign" />
+    <CombineArray value="TargetIsNotAir" />
+  </CValidatorCombine>
+  <CValidatorUnitMover id="TargetIsNotAir">
+    <Value value="Fly" />
+  </CValidatorUnitMover>
+  <CValidatorCombine id="TargetIsValidHeroForPayloadOrHasCapturePointAllowedBehavior">
+    <CombineArray value="TargetIsValidHeroForPayload" />
+    <CombineArray value="TargetHasCapturePointAllowedBehavior" />
+  </CValidatorCombine>
+  <CValidatorUnitFilters id="TargetisAITargetableStructure">
+    <Filters value="AITargetableStructure;-" />
+  </CValidatorUnitFilters>
+  <CValidatorCombine id="ValidObstacleTargets">
+    <CombineArray value="TargetIsPayload" />
+    <CombineArray value="TassadarIsForceWallUnitCombine" />
+    <CombineArray value="IsDevouringMaw" />
+    <CombineArray value="IsZagaraNydusWorm" />
+    <CombineArray value="BarbarianTargetIsArreatCraterUnit" />
+    <CombineArray value="TargetIsSgtHammerConcussiveBlastScrap" />
+    <CombineArray value="TargetIsSgtHammerConcussiveBlastScrapCenter" />
+    <CombineArray value="TargetIsElDruinsMightMasteryPathingBlocker" />
+    <CombineArray value="TargetIsLeoricEntombInvisibleCollision" />
+  </CValidatorCombine>
+</Catalog>
