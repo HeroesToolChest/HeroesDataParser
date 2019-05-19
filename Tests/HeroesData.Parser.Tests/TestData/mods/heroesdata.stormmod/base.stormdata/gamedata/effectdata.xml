@@ -15,4 +15,9 @@
     <Flags index="NoVitalLeechShields" value="1" />
     <Flags index="NoVitalLeechEnergy" value="1" />
   </CEffectDamage>
+  <CEffectDamage id="MercDefenderMeleeKnightDamage" parent="StormWeapon">
+    <ValidatorArray value="NoTankSpecialization" />
+    <AttributeFactor index="Summoned" value="1" />
+    <Amount value="45" />
+  </CEffectDamage>
 </Catalog>

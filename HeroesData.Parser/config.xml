@@ -101,6 +101,7 @@
     </Type>
     <Type name="Weapon">
       <Element>CWeaponLegacy</Element>
+      <Element>CWeaponStrafe</Element>
     </Type>
   </XmlElementLookup>
 </Configuration>

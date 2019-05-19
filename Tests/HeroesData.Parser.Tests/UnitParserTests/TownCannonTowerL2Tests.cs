@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Heroes.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HeroesData.Parser.Tests.UnitParserTests
@@ -45,13 +47,14 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void WeaponTests()
         {
-            Assert.AreEqual(1, TownCannonTowerL2.Weapons.Count);
-            Assert.AreEqual(250, TownCannonTowerL2.Weapons[0].Damage);
-            Assert.AreEqual(0, TownCannonTowerL2.Weapons[0].DamageScaling);
-            Assert.AreEqual(string.Empty, TownCannonTowerL2.Weapons[0].Name);
-            Assert.AreEqual(1, TownCannonTowerL2.Weapons[0].Period);
-            Assert.AreEqual(7.75, TownCannonTowerL2.Weapons[0].Range);
-            Assert.AreEqual("GuardTowerL2Weapon", TownCannonTowerL2.Weapons[0].WeaponNameId);
+            List<UnitWeapon> unitWeapons = TownCannonTowerL2.Weapons.ToList();
+            Assert.AreEqual(1, unitWeapons.Count);
+            Assert.AreEqual(250, unitWeapons[0].Damage);
+            Assert.AreEqual(0, unitWeapons[0].DamageScaling);
+            Assert.AreEqual(string.Empty, unitWeapons[0].Name);
+            Assert.AreEqual(1, unitWeapons[0].Period);
+            Assert.AreEqual(7.75, unitWeapons[0].Range);
+            Assert.AreEqual("GuardTowerL2Weapon", unitWeapons[0].WeaponNameId);
         }
     }
 }

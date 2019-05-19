@@ -17,7 +17,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void WeaponsTests()
         {
-            UnitWeapon weapon1 = BraxisHoldoutTerranArchangelLaner.Weapons[0];
+            UnitWeapon weapon1 = BraxisHoldoutTerranArchangelLaner.Weapons.ToList()[0];
 
             Assert.AreEqual(4, weapon1.Range);
             Assert.AreEqual(0.0625, weapon1.Period);
@@ -25,7 +25,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.AreEqual("Minion", weapon1.AttributeFactors.First().Type);
             Assert.AreEqual(1, weapon1.AttributeFactors.First().Value);
 
-            UnitWeapon weapon2 = BraxisHoldoutTerranArchangelLaner.Weapons[0];
+            UnitWeapon weapon2 = BraxisHoldoutTerranArchangelLaner.Weapons.ToList()[0];
 
             Assert.AreEqual(4, weapon2.Range);
             Assert.AreEqual(0.0625, weapon2.Period);

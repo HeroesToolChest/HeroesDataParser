@@ -15,4 +15,16 @@
     <Range value="7.75" />
     <Effect value="GuardTowerL2LaunchMissile" />
   </CWeaponLegacy>
+  <CWeaponLegacy id="MercDefenderMeleeKnight">
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-terran-infantryweaponslevel0.dds" />
+    <DisplayEffect value="MercDefenderMeleeKnightDamage" />
+    <TargetFilters value="Visible;Neutral,ImmuneToSkillshots,Missile,Item,Stasis,Dead,Hidden" />
+    <MinScanRange value="10" />
+    <Range value="1.25" />
+    <Period value="1.25" />
+    <DamagePoint value="0.2" />
+    <Backswing value="0" />
+    <Effect value="MercDefenderMeleeKnightImpactSet" />
+    <AcquireFilters value="Visible;Neutral,Creep,ImmuneToSkillshots,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+  </CWeaponLegacy>
 </Catalog>

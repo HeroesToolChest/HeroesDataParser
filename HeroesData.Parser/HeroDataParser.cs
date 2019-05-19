@@ -84,7 +84,7 @@ namespace HeroesData.Parser
 
             HeroDataOverride = HeroOverrideLoader.GetOverride(heroId) ?? new HeroDataOverride();
 
-            WeaponData = new WeaponData(GameData, DefaultData, HeroDataOverride);
+            WeaponData = new WeaponData(GameData, DefaultData, HeroDataOverride, Configuration);
             ArmorData = new ArmorData(GameData);
             AbilityData = new AbilityData(GameData, DefaultData, HeroDataOverride, Configuration, Localization);
             TalentData = new TalentData(GameData, DefaultData, HeroDataOverride, Configuration, Localization);
@@ -582,8 +582,8 @@ namespace HeroesData.Parser
                 }
             }
 
-            // set weapons
-            WeaponData.AddHeroWeapons(hero, unitElement.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
+            // TODO: set weapons
+            //WeaponData.AddHeroWeapons(hero, unitElement.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
 
             // set armor
             ArmorData.SetUnitArmorData(hero, unitElement.Element("ArmorLink"));
@@ -681,10 +681,11 @@ namespace HeroesData.Parser
             {
                 foreach (Hero heroUnit in hero.HeroUnits)
                 {
-                    heroUnit.Weapons = linkedWeapons[heroUnit.CUnitId].ToList();
+                    // TODO: Add refactor
+                    //heroUnit.Weapons = linkedWeapons[heroUnit.CUnitId].ToList();
 
-                    foreach (UnitWeapon linkedWeapon in linkedWeapons[heroUnit.CUnitId])
-                        hero.Weapons.Remove(linkedWeapon);
+                    //foreach (UnitWeapon linkedWeapon in linkedWeapons[heroUnit.CUnitId])
+                    //    hero.Weapons.Remove(linkedWeapon);
                 }
             }
         }

@@ -116,13 +116,5 @@ namespace HeroesData.Parser
         {
             return true;
         }
-
-        protected double GetDoubleValue(string id, XElement element)
-        {
-            if (double.TryParse(GameData.GetValueFromAttribute(element.Attribute("value").Value), out double value))
-                return value;
-            else
-                throw new FormatException($"Invalid value: {id} {element.Attribute("value").Value}");
-        }
     }
 }

@@ -255,7 +255,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                     new XAttribute("range", w.Range),
                     new XAttribute("period", w.Period),
                     new XElement("Damage", w.Damage, new XAttribute("scale", w.DamageScaling)),
-                    w.AttributeFactors.Count > 0 ? new XElement("DamageFactor", w.AttributeFactors.Select(x => new XElement(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Type), x.Value))) : null)));
+                    w.AttributeFactors.Any() ? new XElement("DamageFactor", w.AttributeFactors.Select(x => new XElement(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Type), x.Value))) : null)));
         }
 
         protected override XElement GetPortraitObject(Hero hero)

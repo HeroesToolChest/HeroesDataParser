@@ -127,7 +127,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T UnitWeapons(Unit unit)
         {
-            if (unit.Weapons?.Count > 0)
+            if (unit.Weapons.Any())
             {
                 return GetWeaponsObject(unit);
             }

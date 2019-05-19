@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Heroes.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HeroesData.Parser.Tests.UnitParserTests
@@ -44,11 +46,12 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void WeaponPropertiesTests()
         {
-            Assert.AreEqual("AllianceSuperCavalryWeapon", AlteracpassAllianceCavalry.Weapons[0].WeaponNameId);
-            Assert.AreEqual(65, AlteracpassAllianceCavalry.Weapons[0].Damage);
+            List<UnitWeapon> unitWeapons = AlteracpassAllianceCavalry.Weapons.ToList();
+            Assert.AreEqual("AllianceSuperCavalryWeapon", unitWeapons[0].WeaponNameId);
+            Assert.AreEqual(65, unitWeapons[0].Damage);
 
-            Assert.AreEqual("Minion", AlteracpassAllianceCavalry.Weapons[0].AttributeFactors.FirstOrDefault().Type);
-            Assert.AreEqual(1.5, AlteracpassAllianceCavalry.Weapons[0].AttributeFactors.FirstOrDefault().Value);
+            Assert.AreEqual("Minion", unitWeapons[0].AttributeFactors.FirstOrDefault().Type);
+            Assert.AreEqual(1.5, unitWeapons[0].AttributeFactors.FirstOrDefault().Value);
         }
     }
 }

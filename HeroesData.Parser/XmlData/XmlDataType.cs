@@ -10,7 +10,7 @@ namespace HeroesData.Parser.XmlData
             GameData = gameData;
             DefaultData = defaultData;
 
-            WeaponData = new WeaponData(GameData, DefaultData);
+            WeaponData = new WeaponData(GameData, DefaultData, Configuration);
             ArmorData = new ArmorData(GameData);
             AbilityData = new AbilityData(GameData, DefaultData, Configuration);
         }

@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Heroes.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HeroesData.Parser.Tests.UnitParserTests
@@ -44,13 +46,14 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void WeaponTests()
         {
-            Assert.AreEqual(2, ZagaraHydralisk.Weapons.Count);
-            Assert.AreEqual(71, ZagaraHydralisk.Weapons[0].Damage);
-            Assert.AreEqual(0.05, ZagaraHydralisk.Weapons[0].DamageScaling);
-            Assert.AreEqual("Hydralisk Melee", ZagaraHydralisk.Weapons[0].Name);
-            Assert.AreEqual(1, ZagaraHydralisk.Weapons[0].Period);
-            Assert.AreEqual(0.5, ZagaraHydralisk.Weapons[0].Range);
-            Assert.AreEqual("ZagaraHydraliskMelee", ZagaraHydralisk.Weapons[0].WeaponNameId);
+            List<UnitWeapon> unitWeapons = ZagaraHydralisk.Weapons.ToList();
+            Assert.AreEqual(2, unitWeapons.Count);
+            Assert.AreEqual(71, unitWeapons[0].Damage);
+            Assert.AreEqual(0.05, unitWeapons[0].DamageScaling);
+            Assert.AreEqual("Hydralisk Melee", unitWeapons[0].Name);
+            Assert.AreEqual(1, unitWeapons[0].Period);
+            Assert.AreEqual(0.5, unitWeapons[0].Range);
+            Assert.AreEqual("ZagaraHydraliskMelee", unitWeapons[0].WeaponNameId);
         }
     }
 }

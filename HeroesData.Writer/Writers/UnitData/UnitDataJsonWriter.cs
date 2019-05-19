@@ -357,7 +357,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
                     new JProperty("damageScale", weapon.DamageScaling),
                 };
 
-                if (weapon.AttributeFactors.Count > 0)
+                if (weapon.AttributeFactors.Any())
                 {
                     JObject attributeFactorOjbect = new JObject();
 

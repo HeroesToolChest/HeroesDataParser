@@ -163,10 +163,8 @@ namespace HeroesData.ExtractorData
 
             VerifyWeapons(hero);
 
-            if (hero.Weapons.Count < 1)
+            if (!hero.Weapons.Any())
                 AddWarning("has no weapons");
-            else if (hero.Weapons.Count > 1)
-                AddWarning("has more than 1 weapon");
 
             if (hero.PrimaryAbilities(AbilityTier.Basic).Count < 3)
                 AddWarning($"has less than 3 basic abilities");

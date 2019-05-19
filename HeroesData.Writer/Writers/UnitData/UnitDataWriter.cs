@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
+using System.Linq;
 
 namespace HeroesData.FileWriter.Writers.UnitData
 {
@@ -80,7 +81,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
 
         protected T UnitWeapons(Unit unit)
         {
-            if (unit.Weapons?.Count > 0)
+            if (unit.Weapons.Any())
             {
                 return GetWeaponsObject(unit);
             }

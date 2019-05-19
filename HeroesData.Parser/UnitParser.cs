@@ -178,7 +178,7 @@ namespace HeroesData.Parser
 
                 if (elementName == "LIFEMAX")
                 {
-                    unit.Life.LifeMax = GetDoubleValue(unit.CUnitId, element);
+                    unit.Life.LifeMax = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
 
                     double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, "LifeMax"));
                     if (scaleValue.HasValue)
@@ -186,7 +186,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "LIFEREGENRATE")
                 {
-                    unit.Life.LifeRegenerationRate = GetDoubleValue(unit.CUnitId, element);
+                    unit.Life.LifeRegenerationRate = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
 
                     double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, "LifeRegenRate"));
                     if (scaleValue.HasValue)
@@ -194,27 +194,27 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "RADIUS")
                 {
-                    unit.Radius = GetDoubleValue(unit.CUnitId, element);
+                    unit.Radius = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
                 }
                 else if (elementName == "INNERRADIUS")
                 {
-                    unit.InnerRadius = GetDoubleValue(unit.CUnitId, element);
+                    unit.InnerRadius = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
                 }
                 else if (elementName == "ENERGYMAX")
                 {
-                    unit.Energy.EnergyMax = GetDoubleValue(unit.CUnitId, element);
+                    unit.Energy.EnergyMax = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
                 }
                 else if (elementName == "ENERGYREGENRATE")
                 {
-                    unit.Energy.EnergyRegenerationRate = GetDoubleValue(unit.CUnitId, element);
+                    unit.Energy.EnergyRegenerationRate = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
                 }
                 else if (elementName == "SPEED")
                 {
-                    unit.Speed = GetDoubleValue(unit.CUnitId, element);
+                    unit.Speed = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
                 }
                 else if (elementName == "SIGHT")
                 {
-                    unit.Sight = GetDoubleValue(unit.CUnitId, element);
+                    unit.Sight = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
                 }
                 else if (elementName == "ATTRIBUTES")
                 {
@@ -244,12 +244,15 @@ namespace HeroesData.Parser
                     if (ability != null)
                         unit.Abilities.TryAdd(ability.ReferenceNameId, ability);
                 }
+                else if (elementName == "WEAPONARRAY")
+                {
+                    UnitWeapon weapon = WeaponData.CreateWeapon(element);
+                    if (weapon != null)
+                        unit.AddUnitWeapon(weapon);
+                }
             }
 
             AbilityData.AddOverrideButtonAbilities(unit);
-
-            // set weapons
-            WeaponData.AddUnitWeapons(unit, unitElement.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
 
             // set armor
             ArmorData.SetUnitArmorData(unit, unitElement.Element("ArmorLink"));

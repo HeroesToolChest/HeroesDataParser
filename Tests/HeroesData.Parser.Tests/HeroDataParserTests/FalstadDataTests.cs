@@ -1,6 +1,8 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
@@ -202,12 +204,13 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void WeaponTests()
         {
-            Assert.AreEqual(1, HeroFalstad.Weapons.Count);
-            Assert.AreEqual("HeroFalstad", HeroFalstad.Weapons[0].WeaponNameId);
-            Assert.AreEqual(5.5, HeroFalstad.Weapons[0].Range);
-            Assert.AreEqual(0.7, HeroFalstad.Weapons[0].Period);
-            Assert.AreEqual(104.0, HeroFalstad.Weapons[0].Damage);
-            Assert.AreEqual(0.04, HeroFalstad.Weapons[0].DamageScaling);
+            List<UnitWeapon> unitWeapons = HeroFalstad.Weapons.ToList();
+            Assert.AreEqual(1, unitWeapons.Count);
+            Assert.AreEqual("HeroFalstad", unitWeapons[0].WeaponNameId);
+            Assert.AreEqual(5.5, unitWeapons[0].Range);
+            Assert.AreEqual(0.7, unitWeapons[0].Period);
+            Assert.AreEqual(104.0, unitWeapons[0].Damage);
+            Assert.AreEqual(0.04, unitWeapons[0].DamageScaling);
         }
     }
 }

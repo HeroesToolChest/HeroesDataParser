@@ -140,25 +140,6 @@ namespace HeroesData.FileWriter.Tests.HeroData
                     Survivability = 6,
                     Utility = 7,
                 },
-                Weapons = new List<UnitWeapon>
-                {
-                    new UnitWeapon
-                    {
-                        WeaponNameId = "HeroWeaponAlarak",
-                        Range = 1.5,
-                        Period = 1.2,
-                        Damage = 140,
-                        DamageScaling = 0.04,
-                    },
-                    new UnitWeapon
-                    {
-                        WeaponNameId = "HeroWeaponDestructionAlarak",
-                        Range = 2,
-                        Period = 1.2,
-                        Damage = 340,
-                        DamageScaling = 0.05,
-                    },
-                },
                 Abilities = new Dictionary<string, Ability>
                 {
                     {
@@ -400,6 +381,22 @@ namespace HeroesData.FileWriter.Tests.HeroData
                     },
                 },
             };
+            alarakHero.AddUnitWeapon(new UnitWeapon
+            {
+                WeaponNameId = "HeroWeaponAlarak",
+                Range = 1.5,
+                Period = 1.2,
+                Damage = 140,
+                DamageScaling = 0.04,
+            });
+            alarakHero.AddUnitWeapon(new UnitWeapon
+            {
+                WeaponNameId = "HeroWeaponDestructionAlarak",
+                Range = 2,
+                Period = 1.2,
+                Damage = 340,
+                DamageScaling = 0.05,
+            });
 
             TestData.Add(alarakHero);
 

@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using System.Linq;
 
 namespace HeroesData.ExtractorData
 {
@@ -31,19 +32,19 @@ namespace HeroesData.ExtractorData
 
             VerifyWeapons(unit);
 
-            if (unit.Weapons.Count < 1 && unit.DamageType != "Structure" && !unit.Attributes.Contains("Structure"))
+            if (!unit.Weapons.Any() && unit.DamageType != "Structure" && !unit.Attributes.Contains("Structure"))
                 AddWarning("has no weapons");
-            else if (unit.Weapons.Count > 1)
-                AddWarning("has more than 1 weapon");
 
             VerifyAbilities(unit);
         }
 
         private void VerifyWeapons(Unit unit)
         {
-            foreach (var weapon in unit.Weapons)
+            foreach (UnitWeapon weapon in unit.Weapons)
             {
-                if (unit.DamageType == "Structure" || unit.Attributes.Contains("Structure"))
+                // TODO: add back
+                //if (unit.DamageType == "Structure" || unit.Attributes?.Contains("Structure"))
+                if (unit.DamageType == "Structure")
                     continue;
 
                 if (weapon.Damage <= 0)

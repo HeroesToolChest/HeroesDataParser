@@ -12,6 +12,27 @@ namespace HeroesData.FileWriter.Tests.UnitData
 
         protected override void SetTestData()
         {
+            WeaponAttributeFactor weaponAttributeFactor1 = new WeaponAttributeFactor()
+            {
+                Type = "Minion",
+                Value = 5,
+            };
+            WeaponAttributeFactor weaponAttributeFactor2 = new WeaponAttributeFactor()
+            {
+                Type = "Minion",
+                Value = 5,
+            };
+            UnitWeapon unitWeapon = new UnitWeapon()
+            {
+                Damage = 56,
+                Name = "Minion Archer Weapon",
+                Period = 4,
+                Range = 6,
+                WeaponNameId = "MinionArcherWeapon",
+            };
+            unitWeapon.AddAttributeFactor(weaponAttributeFactor1);
+            unitWeapon.AddAttributeFactor(weaponAttributeFactor2);
+
             Unit unit = new Unit()
             {
                 Name = "Minion Archer",
@@ -28,27 +49,7 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 TargetInfoPanelImageFileName = "image_minion_archer.dds",
             };
             unit.Life.LifeMax = 500;
-            unit.Weapons.Add(new UnitWeapon()
-            {
-                Damage = 56,
-                Name = "Minion Archer Weapon",
-                Period = 4,
-                Range = 6,
-                WeaponNameId = "MinionArcherWeapon",
-                AttributeFactors = new List<WeaponAttributeFactor>()
-                {
-                    new WeaponAttributeFactor()
-                    {
-                         Type = "Minion",
-                         Value = 5,
-                    },
-                    new WeaponAttributeFactor()
-                    {
-                         Type = "Structure",
-                         Value = 0.75,
-                    },
-                },
-            });
+            unit.AddUnitWeapon(unitWeapon);
 
             TestData.Add(unit);
 
@@ -67,7 +68,7 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 TargetInfoPanelImageFileName = "image_minion_archer.dds",
             };
             unit2.Life.LifeMax = 900;
-            unit2.Weapons.Add(new UnitWeapon()
+            unit2.AddUnitWeapon(new UnitWeapon()
             {
                 Damage = 75,
                 Name = "Minion Footman Weapon",
@@ -75,7 +76,7 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 Range = 7,
                 WeaponNameId = "MinionFootmanWeapon",
             });
-            unit2.Weapons.Add(new UnitWeapon()
+            unit2.AddUnitWeapon(new UnitWeapon()
             {
                 Damage = 56,
                 Name = "Minion Archer Weapon",

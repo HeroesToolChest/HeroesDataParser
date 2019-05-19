@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CEffectRemoveBehavior id="CaptureMacGuffinDismountCaster">
+    <Chance value="0" />
+  </CEffectRemoveBehavior>
+  <CEffectRemoveBehavior id="CaptureMacGuffinDismountRehgar">
+    <Chance value="0" />
+  </CEffectRemoveBehavior>
+  <CEffectSet id="MapMechanicInstantUseResponseSetDismountDecloak">
+    <EffectArray value="MapMechanicInstantUseDismountDecloakApplyBehavior" />
+  </CEffectSet>
+  <CEffectSet id="MapMechanicAbilityTargetPrepareSet">
+    <EffectArray value="DismountCasterSet" />
+    <EffectArray value="DecloakCasterSet" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="MapMechanicInstantUseDismountDecloakApplyBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="AbilityUseResponseBehaviorDismountDecloak" />
+    <ValidatorArray value="CasterDoesNotHaveDragonSpiritsBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="CaptureMacGuffinApplyDismountDecloak">
+    <ValidatorArray value="TargetIsNotTurretPickup" />
+    <ValidatorArray value="TargetIsNotDragonSpiritPickup" />
+    <ValidatorArray value="TargetIsNotHealingPulsePickup" />
+  </CEffectSet>
+  <CEffectAbortMissile id="OverwatchBossImprisonAbortMissile" />
+  <CEffectApplyBehavior id="OverwatchBossImprisonApplyBeingExpelledBehavior">
+    <WhichUnit Effect="OverwatchBossImprisonDistanceSwitch" />
+    <Behavior value="OverwatchBossImprisonBeingExpelledBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="OverwatchBossImprisonApplyFinalCasterStun">
+    <WhichUnit Value="Caster" />
+    <Behavior value="OverwatchBossImprisonFinalCasterStun" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="OverwatchBossImprisonApplyMissileMovementSuppressionBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="OverwatchBossImprisonReturnMissileDelayBehaviorDueToBug" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="OverwatchBossImprisonApplyMissileTimedLifeBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="OverwatchBossImprisonMissileTimedLife" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="OverwatchBossImprisonApplyRetractController">
+    <WhichUnit Value="Caster" />
+    <Behavior value="OverwatchBossMissileRetractController" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="OverwatchBossImprisonApplyMissileStasisController">
+    <WhichUnit Value="Source" />
+    <Behavior value="OverwatchBossImprisonMissileStasisController" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="OverwatchBossImprisonApplyRingOfFireAllowedBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="OverwatchBossAllowRingOfFire" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="OverwatchBossImprisonCastSetMelee">
+    <EffectArray value="OverwatchBossImprisonAbortMissile" />
+    <EffectArray value="OverwatchBossImprisonApplyPreImprisonStunBehavior" />
+    <EffectArray value="OverwatchBossModifyRingOfFireCooldown" />
+  </CEffectSet>
+  <CEffectSet id="OverwatchBossImprisonLMFinishSet">
+    <EffectArray value="HeroGenericMissileInterruptLaunchMissile" />
+    <EffectArray value="RemoveImmuneToAbortBehavior" />
+  </CEffectSet>
+  <CEffectSet id="OverwatchBossImprisonLaunchMissileLaunchSet">
+    <EffectArray value="OverwatchBossImprisonApplyMissileTimedLifeBehavior" />
+    <EffectArray value="OverwatchBossImprisonApplyMissileStasisController" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="OverwatchBossImprisonPersistentDestroyCP">
+    <InitialEffect value="OverwatchBossImprisonDestroyChannelPersistent" />
+    <ValidatorArray value="OverwatchBossImprisonTargetDoesNotHavePreImprisonBehavior" />
+    <WhichLocation Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged" Value="CasterUnit" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="OverwatchBossImprisonChannelPersistentFar">
+    <WhichLocation Value="TargetUnit" />
+    <Flags index="Channeled" value="1" />
+    <InitialDelay value="0.4375" />
+    <InitialEffect value="OverwatchBossImprisonCastSetFar" />
+    <ExpireDelay value="15" />
+    <FinalEffect value="OverwatchBossImprisonApplyFinalCasterStun" />
+    <PeriodicValidator value="OverwatchBossImprisonChannelValidatorCombine" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="OverwatchBossImprisonChannelPersistentMelee">
+    <WhichLocation Value="TargetUnit" />
+    <InitialDelay value="0.4375" />
+    <InitialEffect value="OverwatchBossImprisonCastSetMelee" />
+    <PeriodicValidator value="OverwatchBossImprisonChannelValidatorCombine" />
+    <Flags index="Channeled" value="1" />
+    <ExpireDelay value="1.5625" />
+    <FinalEffect value="OverwatchBossImprisonApplyFinalCasterStun" />
+  </CEffectCreatePersistent>
+  <CEffectDestroyPersistent id="OverwatchBossImprisonDestroyChannelPersistent">
+    <WhichLocation Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged" Value="TargetUnit" />
+    <Effect value="OverwatchBossImprisonChannelPersistentFar" />
+  </CEffectDestroyPersistent>
+  <CEffectSet id="OverwatchBossImprisonImpactSetClose">
+    <EffectArray value="OverwatchBossImprisonApplyMissileMovementSuppressionBehavior" />
+    <EffectArray value="OverwatchBossImprisonImpactDummy" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="OverwatchBossImprisonInitialCasterSuppressMovingTurningApplyBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="OverwatchBossImprisonInitialCasterSuppressMovingTurning" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="OverwatchBossImprisonInitialSet">
+    <EffectArray value="OverwatchBossImprisonApplyRingOfFireAllowedBehavior" />
+    <EffectArray value="OverwatchBossModifyRingOfFireCooldown" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="OverwatchBossImprisonLMPersistentFarTarget">
+    <WhichLocation Value="TargetUnit" />
+    <OffsetVectorStartLocation Value="CasterUnit" />
+    <PeriodCount value="2" />
+    <PeriodicEffectArray value="OverwatchBossImprisonLaunchMissileInitialFar" />
+    <PeriodicEffectArray value="OverwatchBossImprisonLaunchMissileInitialFarDummy" />
+    <PeriodicValidator value="OverwatchBossImprisonValidator" />
+  </CEffectCreatePersistent>
+  <CEffectRemoveBehavior id="OverwatchBossImprisonRemoveMovementTurningSuppressionBehavior">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="OverwatchBossImprisonInitialCasterSuppressMovingTurning" />
+  </CEffectRemoveBehavior>
+  <CEffectModifyUnit id="OverwatchBossImprisonRetractDummy">
+    <ImpactUnit Value="Caster" />
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="OverwatchBossImprisonModifyAttackCooldownReset">
+    <ImpactUnit Value="Caster" />
+    <Weapon Weapon="JungleOgreKingDefender" CooldownOperation="Set" />
+  </CEffectModifyUnit>
+  <CEffectSwitch id="OverwatchBossImprisonInitialSwitchMeleeOrRanged">
+    <ValidatorArray value="OverwatchBossImprisonValidator" />
+    <CaseArray Validator="OverwatchBossImprisonRangeLTE2" Effect="OverwatchBossImprisonChannelPersistentMelee" />
+    <CaseArray Validator="OverwatchBossImprisonRangeGT2" Effect="OverwatchBossImprisonChannelPersistentFar" />
+  </CEffectSwitch>
+  <CEffectApplyBehavior id="OverwatchBossImprisonTargetGotCleansedApplyBehavior">
+    <WhichUnit Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged" Value="Caster" />
+    <Behavior value="OverwatchBossImprisonTargetGotCleansedBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectModifyUnit id="OverwatchBossModifyAttackCooldownExtendBy1">
+    <ImpactUnit Value="Caster" />
+    <Weapon Weapon="JungleOgreKingDefender" CooldownOperation="Set" CooldownFraction="1" />
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="OverwatchBossModifyAttackCooldownExtendBy2">
+    <ImpactUnit Value="Caster" />
+    <Weapon Weapon="JungleOgreKingDefender" CooldownOperation="Set" CooldownFraction="2" />
+  </CEffectModifyUnit>
+  <CEffectCreatePersistent id="MercLanerGoblinSapperCoreMortarCreatePersistent">
+    <InitialDelay value="0.4375" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="MercLanerGoblinSapperCoreMortarInitialSet">
+    <EffectArray index="0" value="OverwatchSapperMortarStun" />
+    <EffectArray value="MercLanerGoblinSapperCoreMortarCreatePersistent" />
+  </CEffectSet>
+  <CEffectLaunchMissile id="MercLanerGoblinSapperCoreMortarLaunchMissile">
+    <Movers index="0" Link="MercOWSapperMortarMover" IfRangeLTE="500" />
+  </CEffectLaunchMissile>
+  <CEffectRemoveBehavior id="OverwatchBossRemoveRingOfFireAllowedBehavior">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="OverwatchBossAllowRingOfFire" />
+  </CEffectRemoveBehavior>
+  <CEffectModifyPlayer id="OverwatchMapMechanicUsedApplyUpgrade">
+    <WhichPlayer Value="Caster" />
+  </CEffectModifyPlayer>
+  <CEffectApplyBehavior id="OverwatchSapperMortarStun">
+    <WhichUnit Value="Source" />
+  </CEffectApplyBehavior>
+  <CEffectModifyPlayer id="CaptureMacguffinTargetIsHealingPulseModifyPlayerProperties">
+    <WhichPlayer Value="Caster" />
+    <EffectArray Operation="Set" Reference="Button,MapMechanicAbilityInstant,Icon" Value="Assets\Textures\storm_ui_hud_minimap_hanamura_healing_skill_icon_color.dds" />
+    <EffectArray Operation="Set" Reference="Button,MapMechanicAbilityInstant,Tooltip" Value="Button/Tooltip/HealingPulse" />
+    <EffectArray Operation="Set" Reference="Button,MapMechanicAbilityInstant,Name" Value="Button/Name/HealingPulse" />
+  </CEffectModifyPlayer>
+  <CEffectCreatePersistent id="CaptureMacGuffin">
+    <PeriodCount value="0" />
+    <PeriodicPeriodArray value="0" />
+  </CEffectCreatePersistent>
+  <CEffectModifyPlayer id="CaptureMacguffinTargetIsDragonSpiritsModifyPlayerProperties">
+    <WhichPlayer Value="Caster" />
+    <EffectArray Operation="Set" Reference="Button,MapMechanicAbilityInstant,Icon" Value="Assets\Textures\storm_ui_hud_minimap_hanamura_dragon_skill_icon_color.dds" />
+    <EffectArray Operation="Set" Reference="Button,MapMechanicAbilityInstant,Tooltip" Value="Button/Tooltip/DragonSpirits" />
+    <EffectArray Operation="Set" Reference="Button,MapMechanicAbilityInstant,Name" Value="Button/Name/DragonSpirits" />
+  </CEffectModifyPlayer>
+  <CEffectSwitch id="CaptureMacguffinTargetSwitchDeterminesPlayerProperties">
+    <CaseArray Validator="TargetIsHealingPulsePickup" Effect="CaptureMacguffinTargetIsHealingPulseModifyPlayerProperties" />
+    <CaseArray Validator="TargetIsDragonSpiritPickup" Effect="CaptureMacguffinTargetIsDragonSpiritsModifyPlayerProperties" />
+  </CEffectSwitch>
+  <CEffectApplyBehavior id="DragonSpiritsApplyRevealBehavior">
+    <Behavior value="DragonSpiritReveal" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="DragonSpiritsImpactSet">
+    <EffectArray value="DragonSpiritsApplyRevealBehavior" />
+    <EffectArray value="DragonSpiritsRevealerPersistent" />
+  </CEffectSet>
+  <CEffectSet id="DragonSpiritsCastSet">
+    <EffectArray value="DragonSpiritsSearchArea" />
+    <EffectArray value="DragonSpiritsRemoveRequirementBehavior" />
+    <EffectArray value="RemoveRequirementBehavior" />
+    <EffectArray value="OverwatchMapMechanicUsedApplyUpgrade" />
+  </CEffectSet>
+  <CEffectLaunchMissile id="DragonSpiritsLM">
+    <ImpactEffect value="DragonSpiritsImpactSet" />
+    <SharedFlags index="PointFallback" value="0" />
+    <SharedFlags index="ValidateAbil" value="0" />
+    <SharedFlags index="ValidateTeleport" value="0" />
+    <SharedFlags index="ValidateWeapon" value="0" />
+    <AmmoUnit value="DragonSpirit" />
+    <Movers Link="DragonSpiritsMissileMover" />
+  </CEffectLaunchMissile>
+  <CEffectCreatePersistent id="DragonSpiritsRevealerPersistent">
+    <WhichLocation Value="TargetUnit" />
+    <ExpireDelay value="5" />
+    <RevealRadius value="6" />
+    <RevealFlags index="Unfog" value="1" />
+    <PeriodicValidator value="TargetNotDeadAndNoSpecialDeathState" />
+    <PeriodicPeriodArray value="0.25" />
+  </CEffectCreatePersistent>
+  <CEffectEnumArea id="DragonSpiritsSearchArea">
+    <SearchFilters value="Heroic;Self,Player,Ally,Neutral,Structure,Missile,Item,Dead,Hidden,Benign" />
+    <AreaArray MaxCount="3" Effect="DragonSpiritsLM">
+      <Radius value="500" />
+    </AreaArray>
+    <TargetSorts RequestCount="1" RequestPercentage="1">
+      <SortArray value="TSDistanceFromCaster" />
+    </TargetSorts>
+  </CEffectEnumArea>
+  <CEffectApplyBehavior id="OverwatchBossAbilityScanDelayApplyBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="OverwatchBossAbilityScanDelay" />
+  </CEffectApplyBehavior>
+  <CEffectRemoveBehavior id="OverwatchBossRemoveSearchForCoreBehavior">
+    <WhichUnit Value="Source" />
+    <BehaviorLink value="OverwatchBossSearchForCoreBehavior" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="HealingPulseApplyHoTBehavior">
+    <Behavior value="HealingPulse" />
+  </CEffectApplyBehavior>
+  <CEffectEnumArea id="HealingPulseCastSearch">
+    <SearchFilters value="Heroic;Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="HealingPulseImpactSet">
+      <Radius value="4.5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="HealingPulseCastSet">
+    <EffectArray value="RemoveRequirementBehavior" />
+    <EffectArray value="HealingPulseRemoveRequirementBehavior" />
+    <EffectArray value="HealingPulseCastSearch" />
+    <EffectArray value="OverwatchMapMechanicUsedApplyUpgrade" />
+    <ValidatorArray value="MedivhCasterNotRavenOrHasPathableController" />
+  </CEffectSet>
+  <CEffectSet id="HealingPulseImpactSet">
+    <EffectArray value="HealingPulseApplyHoTBehavior" />
+  </CEffectSet>
+  <CEffectCreateHealer id="HealingPulseCreateHealerLife" parent="StormHealingSpell">
+    <RechargeVitalFraction value="0.0234" />
+    <LaunchUnit Value="Source" />
+    <ImpactUnit Value="Source" />
+    <FloaterCreation value="Suppress" />
+    <SourceButtonFace value="HealingPulse" />
+  </CEffectCreateHealer>
+  <CEffectCreateHealer id="HealingPulseCreateHealerMana" parent="StormHealingSpell">
+    <LaunchUnit Value="Source" />
+    <ImpactUnit Value="Source" />
+    <RechargeVital value="Energy" />
+    <RechargeVitalFraction value="0.0156" />
+    <ValidatorArray value="TargetIsManaUser" />
+    <SourceButtonFace value="HealingPulse" />
+  </CEffectCreateHealer>
+  <CEffectSet id="HealingPulsePercentModifyPeriodicSet">
+    <EffectArray value="HealingPulseCreateHealerLife" />
+    <EffectArray value="HealingPulseCreateHealerMana" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="DragonSpiritsRemoveRequirementBehavior">
+    <ValidatorArray index="0" value="RemoveRequirementBehaviorTargetFilters" />
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="HasMapMechanicInstantAbility2" />
+  </CEffectRemoveBehavior>
+  <CEffectSet id="MercDefenderHealingPulseCastSet">
+    <EffectArray value="MercDefenderHealingPulseSearchArea" />
+  </CEffectSet>
+  <CEffectCreateHealer id="MercDefenderHealingPulseCreateHealer" parent="StormHealingSpell">
+    <RechargeVitalFraction value="0.1" />
+  </CEffectCreateHealer>
+  <CEffectSet id="MercDefenderHealingPulseImpactSet">
+    <EffectArray value="MercDefenderHealingPulseCreateHealer" />
+  </CEffectSet>
+  <CEffectEnumArea id="MercDefenderHealingPulseSearchArea">
+    <SearchFilters value="-;Neutral,Enemy,ImmuneToFriendlyAbilities,Heroic,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="MercDefenderHealingPulseImpactSet">
+      <Radius value="4.5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectRemoveBehavior id="RemoveRequirementBehavior">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="HasMapMechanicInstantAbility" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="MercDefenderHealingPulseAbilityScanDelayApplyBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="MercDefenderHealingPulseAbilityScanDelay" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="OverwatchBossAbilityScanSet">
+    <EffectArray value="OverwatchBossImprisonSearchAreaIssueOrder" />
+  </CEffectSet>
+  <CEffectEnumArea id="OverwatchBossImprisonSearchAreaIssueOrder">
+    <ValidatorArray value="OverwatchBossDragonsDinnerNotOnCooldown" />
+    <LaunchLocation Value="CasterUnit" />
+    <ImpactLocation Value="CasterUnit" />
+    <SearchFilters value="Visible;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,Unstoppable" />
+    <TargetSorts RequestCount="1" RequestPercentage="1">
+      <SortArray value="TSRandom" />
+    </TargetSorts>
+    <AreaArray Arc="180" MaxCount="1" Effect="OverwatchBossImprisonIssueOrder">
+      <Radius value="6" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectApplyBehavior id="OverwatchBossRingOfFireApplyDamageBehavior">
+    <Behavior value="OverwatchBossRingOfFireDamageBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectEnumArea id="OverwatchBossRingOfFireSearchArea">
+    <ValidatorArray value="OverwatchBossRingOfFireNotOnCooldown" />
+    <ImpactLocation Value="SourceUnit" />
+    <SearchFilters value="Heroic,Visible;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray MaxCount="1" Effect="OverwatchBossRingOfFireIssueOrder">
+      <Radius value="9" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectIssueOrder id="OverwatchBossImprisonIssueOrder">
+    <WhichUnit Value="Source" />
+    <Abil value="DragonsDinner" />
+    <Target Value="TargetUnit" />
+  </CEffectIssueOrder>
+  <CEffectEnumArea id="OverwatchBossSearchForCore">
+    <SearchFilters value="Structure;Player,Ally,Neutral" />
+    <AreaArray Effect="OverwatchBossLaunchSelfToCore">
+      <Radius value="7" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectModifyUnit id="OverwatchBossModifyRingOfFireCooldown">
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="RingOfFire,Execute" CooldownOperation="Set" CooldownTimeUse="2" />
+    <Chance value="0" />
+  </CEffectModifyUnit>
+  <CEffectSet id="OverwatchTurretLaunchSetPlayer">
+    <EffectArray value="OverwatchTurretWeaponLaunchMissilePlayer" />
+    <ValidatorArray value="TurretTargetIsNotNeutralOrMerc" />
+  </CEffectSet>
+  <CEffectDamage id="OverwatchTurretWeaponDamagePlayer" parent="StormWeapon">
+    <Amount value="22.5" />
+    <AttributeFactor index="Minion" value="1" />
+    <SourceButtonFace value="MapMechanicAbility" />
+  </CEffectDamage>
+  <CEffectLaunchMissile id="OverwatchTurretWeaponLaunchMissilePlayer">
+    <ValidatorArray index="0" value="TargetNotDead" />
+    <ImpactEffect value="OverwatchTurretWeaponDamagePlayer" />
+    <AmmoUnit value="OverwatchTurretMissile" />
+    <ImpactRange value="0.5" />
+  </CEffectLaunchMissile>
+  <CEffectSet id="YakuzaGetHitVOXDummy" />
+  <CEffectModifyUnit id="BossDamagedImprisonDummy">
+    <ImpactUnit Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged" />
+  </CEffectModifyUnit>
+  <CEffectSet id="KnightMeleeDamageResponseDummy2" />
+  <CEffectDamage id="DefenderMeleeIndividualDamage" parent="StormWeapon">
+    <ValidatorArray value="NoTankSpecialization" />
+    <Amount value="135" />
+  </CEffectDamage>
+  <CEffectEnumArea id="MercDefenderCheckForHealingPulseTargetsSearchArea">
+    <ValidatorArray value="MercDefenderHealingPulseNotOnCooldown" />
+    <LaunchLocation Value="CasterUnit" />
+    <ImpactLocation Value="CasterUnit" />
+    <SearchFilters value="Visible;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="MercDefenderHealingPulseIssueOrder">
+      <Radius value="4" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectIssueOrder id="MercDefenderHealingPulseIssueOrder">
+    <WhichUnit Value="Source" />
+    <Abil value="MercDefenderHealingPulse" />
+  </CEffectIssueOrder>
+  <CEffectSet id="MercDefenderMeleeIndividualImpactSet">
+    <EffectArray value="DefenderMeleeIndividualDamage" />
+    <EffectArray value="MercDefenderMeleeIndividualMercLordDamage" />
+  </CEffectSet>
+  <CEffectDamage id="MercDefenderMeleeIndividualMercLordDamage" parent="StormWeapon">
+    <ValidatorArray value="HasTankSpecialization" />
+    <AttributeFactor index="Heroic" value="-0.35" />
+    <AttributeFactor index="Summoned" value="1" />
+    <Amount value="150" />
+  </CEffectDamage>
+  <CEffectDamage id="MercDefenderMeleeKnightDamage">
+    <Amount value="14" />
+  </CEffectDamage>
+  <CEffectDamage id="MercDefenderMeleeKnightMercLordDamage">
+    <Amount value="15" />
+  </CEffectDamage>
+  <CEffectModifyUnit id="MercKnightDeathResponseDummy2">
+    <ValidatorArray value="IsKnightSorcerer" />
+  </CEffectModifyUnit>
+  <CEffectEnumArea id="MercKnightDeathResponseSearch2">
+    <SearchFilters value="-;Ally,Neutral,Enemy,Item,Dead" />
+    <AreaArray Effect="MercKnightDeathResponseDummy2">
+      <Radius value="8" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectDamage id="OgreKingJungleWeaponDamage">
+    <Amount value="300" />
+  </CEffectDamage>
+  <CEffectSet id="OverwatchBossTrailSearchSet">
+    <EffectArray value="OverwatchBossTrailSearchArea" />
+  </CEffectSet>
+  <CEffectDamage id="OverwatchBossTrailDamage" parent="StormSpell">
+    <Flags index="Kill" value="1" />
+  </CEffectDamage>
+  <CEffectEnumArea id="OverwatchBossTrailSearchArea">
+    <ImpactLocation Value="SourceUnit" />
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Structure,Missile,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Procedural="1" Effect="OverwatchBossTrailImpactSet" />
+    <RevealerParams>
+      <RevealFlags index="Unfog" value="1" />
+    </RevealerParams>
+  </CEffectEnumArea>
+  <CEffectSet id="OverwatchBossTrailImpactSet">
+    <ValidatorArray value="TargetDoesNotHaveOverwatchBossTrailDamageMarker" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="OverwatchBossTrailDamageMarker" />
+    <EffectArray value="OverwatchBossTrailDamageSwitch" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="OverwatchBossTrailDamageMarker" />
+  <CEffectSwitch id="OverwatchBossTrailDamageSwitch">
+    <CaseArray Validator="OverwatchBossTrailInstantKillTarget" Effect="OverwatchBossTrailDamage" />
+  </CEffectSwitch>
+  <CEffectApplyBehavior id="OverwatchBossImprisonApplyCasterExpellingTargetBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="OverwatchBossCasterExpellingImprisonedTargetBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectSwitch id="OverwatchMapMechanicAbilityTargetSwitch">
+    <CaseArray />
+    <CaseDefault value="OverwatchMapMechanicAbilityPointSet" />
+    <TargetLocationType value="UnitOrPoint" />
+    <ValidatorArray value="MedivhCasterNotRavenOrHasPathableController" />
+  </CEffectSwitch>
+  <CEffectApplyBehavior id="OverwatchMechanicApplyTurretFoundBehaviorToCaster">
+    <WhichUnit Effect="OverwatchMechanicFindTurretSearchArea" Value="Caster" />
+    <Behavior value="OverwatchMechanicTurretMonitor" />
+  </CEffectApplyBehavior>
+  <CEffectEnumArea id="OverwatchMechanicFindTurretSearchArea">
+    <SearchFilters value="Creep;Self,Ally,Neutral,Enemy,Dead" />
+    <AreaArray MaxCount="1" Effect="OverwatchMechanicTurretFoundCreatePersistent">
+      <Radius value="5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectCreatePersistent id="OverwatchMechanicRepairCreatePersistent">
+    <ValidatorArray value="TargetLifeLT80Percent" />
+    <WhichLocation Value="TargetUnit" />
+    <Flags index="Channeled" value="1" />
+    <Flags index="PersistUntilDestroyed" value="1" />
+    <PeriodicValidator value="OverwatchMechanicRepairTargetPeriodicValidator" />
+    <PeriodicPeriodArray value="1" />
+    <PeriodicEffectArray value="OverwatchMechanicRepairHeal" />
+    <InitialEffect value="OverwatchMechanicRepairHeal" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="OverwatchMechanicTurretFoundCreatePersistent">
+    <ValidatorArray value="TargetIsTurret" />
+    <ValidatorArray value="MedivhCasterNotRavenOrHasPathableController" />
+    <WhichLocation Value="TargetUnit" />
+    <InitialEffect value="OverwatchMechanicApplyTurretFoundBehaviorToCaster" />
+  </CEffectCreatePersistent>
+  <CEffectDamage id="OverwatchMechanicWeaponDamage" parent="StormWeapon">
+    <Amount value="50" />
+  </CEffectDamage>
+  <CEffectRemoveBehavior id="HealingPulseRemoveRequirementBehavior">
+    <ValidatorArray index="0" value="RemoveRequirementBehaviorTargetFilters" />
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="HasMapMechanicInstantAbility1" />
+  </CEffectRemoveBehavior>
+  <CEffectDamage id="RingOfFireDamage" parent="StormSpell">
+    <LaunchLocation Value="CasterUnit" />
+    <Flags index="NoLeech" value="1" />
+    <Flags index="NoVitalLeechLife" value="1" />
+    <Flags index="NoVitalLeechShields" value="1" />
+    <Flags index="NoVitalLeechEnergy" value="1" />
+    <Amount value="26" />
+  </CEffectDamage>
+  <CEffectApplyBehavior id="OverwatchBossImprisonApplyBeingGrabbedBehavior">
+    <Behavior value="OverwatchBossBeingImprisonedBehavior" />
+    <Flags index="UseDuration" value="1" />
+    <Duration value="10" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="OverwatchBossImprisonApplyPreImprisonStunBehavior">
+    <Behavior value="OverwatchBossPreImprisonmentBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="OverwatchBossImprisonApplyImprisonedBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="OverwatchBossImprisonedBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="OverwatchBossImprisonApplyDamageResponseBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="OverwatchBossImprisonDamageResponse" />
+  </CEffectApplyBehavior>
+  <CEffectRemoveBehavior id="OverwatchBossImprisonRemoveDamageResponseBehavior">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="OverwatchBossImprisonDamageResponse" />
+  </CEffectRemoveBehavior>
+  <CEffectSet id="OverwatchBossImprisonCastSetFar">
+    <EffectArray value="OverwatchBossImprisonLMPersistentFarTarget" />
+    <EffectArray value="OverwatchBossImprisonInitialCasterSuppressMovingTurningApplyBehavior" />
+    <EffectArray value="OverwatchBossModifyRingOfFireCooldown" />
+  </CEffectSet>
+  <CEffectSet id="OverwatchBossImprisonHeroImpactSet">
+    <EffectArray value="OverwatchBossImprisonHeroImpactDummy" />
+    <EffectArray value="OverwatchBossImprisonApplyImprisonedBehavior" />
+    <EffectArray value="OverwatchBossImprisonApplyDamageResponseBehavior" />
+    <ValidatorArray value="OverwatchBossImprisonTargetHasBeingImprisonedBehavior" />
+  </CEffectSet>
+  <CEffectModifyUnit id="OverwatchBossImprisonImpactDummy" />
+  <CEffectModifyUnit id="OverwatchBossImprisonHeroImpactDummy">
+    <ImpactUnit Value="Source" />
+  </CEffectModifyUnit>
+  <CEffectSet id="OverwatchBossImprisonImpactSetFar">
+    <EffectArray value="OverwatchBossImprisonAbortMissile" />
+    <EffectArray value="OverwatchBossImprisonApplyRetractController" />
+    <EffectArray value="OverwatchBossImprisonApplyMissileMovementSuppressionBehavior" />
+    <EffectArray value="OverwatchBossImprisonImpactDummy" />
+    <EffectArray value="DismountDecloakTargetSet" />
+    <EffectArray value="OverwatchBossImprisonApplyPreImprisonStunBehavior" />
+  </CEffectSet>
+  <CEffectSet id="OverwatchBossImprisonLaunchHeroSet">
+    <ValidatorArray value="OverwatchBossImprisonValidator" />
+    <EffectArray value="OverwatchBossImprisonApplyBeingGrabbedBehavior" />
+    <EffectArray value="OverwatchBossImprisonLaunchHeroIn" />
+  </CEffectSet>
+  <CEffectLaunchMissileAdvanced id="OverwatchBossImprisonLaunchHeroIn">
+    <ValidatorArray index="0" value="CasterNotDeadOrStasisOrTimeStopped" />
+    <LaunchLocation Value="TargetUnit" />
+    <ImpactLocation Value="CasterUnit" />
+    <LaunchEffect value="ApplyImmuneToAbortBehavior" />
+    <ImpactEffect value="OverwatchBossImprisonHeroImpactSet" />
+    <FinishEffect value="OverwatchBossImprisonLMFinishSet" />
+    <PeriodicValidator value="OverwatchBossImprisonLaunchHeroInValidator" />
+    <SharedFlags index="PointFallback" value="0" />
+    <SharedFlags index="TravelValidation" value="1" />
+    <SharedFlags index="ValidateAbil" value="0" />
+    <SharedFlags index="ValidateTeleport" value="0" />
+    <SharedFlags index="ValidateWeapon" value="0" />
+    <Movers Link="DragonsDinnerInitialHeroLaunch" />
+    <DeathType value="Unknown" />
+    <ImpactOffset Z="3" />
+  </CEffectLaunchMissileAdvanced>
+  <CEffectLaunchMissileAdvanced id="OverwatchBossImprisonLaunchMissileInitialFar">
+    <ValidatorArray index="0" value="OverwatchBossImprisonValidator" />
+    <ValidatorArray value="TargetNotBenign" />
+    <LaunchEffect value="OverwatchBossImprisonLaunchMissileLaunchSet" />
+    <ImpactEffect value="OverwatchBossImprisonImpactSetFar" />
+    <PeriodicValidator value="OverwatchBossImprisonValidator" />
+    <Flags index="Return" value="1" />
+    <SharedFlags index="TravelValidation" value="1" />
+    <AmmoUnit value="OverwatchBossImprisonMissile" />
+    <ReturnMovers Link="OverwatchBossImprisonReturnMissile" />
+    <Movers Link="OWBossImprisonInitialMissile" />
+    <DeathType value="Unknown" />
+    <FinishEffect value="OverwatchBossImprisonDestroyChannelPersistent" />
+    <InterruptEffect value="OverwatchBossImprisonDestroyChannelPersistent" />
+  </CEffectLaunchMissileAdvanced>
+  <CEffectLaunchMissileAdvanced id="OverwatchBossImprisonLaunchMissileInitialFarDummy" parent="OverwatchBossImprisonLaunchMissileInitialFar">
+    <AmmoUnit value="OverwatchBossImprisonMissileDummy" />
+  </CEffectLaunchMissileAdvanced>
+  <CEffectRemoveBehavior id="OverwatchBossImprisonRemoveBeingGrabbedBehavior">
+    <WhichUnit Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged" />
+    <BehaviorLink value="OverwatchBossBeingImprisonedBehavior" />
+  </CEffectRemoveBehavior>
+  <CEffectTeleport id="OverwatchBossImprisonTeleport">
+    <PlacementAround Value="CasterUnit" />
+    <SourceLocation Value="TargetUnit" />
+  </CEffectTeleport>
+  <CEffectLaunchMissileAdvanced id="OverwatchBossImprisonLaunchTargetOut">
+    <ValidatorArray index="0" value="SourceNotDead" />
+    <ImpactLocation Value="TargetPoint" />
+    <LaunchEffect value="DismountDecloakSourceSet" />
+    <ImpactEffect value="OWBossImprisonDoneDummyPersistent" />
+    <Flags index="Placement" value="1" />
+    <SharedFlags index="ValidateAbil" value="0" />
+    <SharedFlags index="ValidateTeleport" value="0" />
+    <SharedFlags index="ValidateWeapon" value="0" />
+    <PlacementRange value="5" />
+    <Movers Link="DragonsDinnerLaunchTargetOut" />
+    <DeathType value="Unknown" />
+    <FinishEffect value="HeroGenericMissileInterruptLaunchMissile" />
+  </CEffectLaunchMissileAdvanced>
+  <CEffectCreatePersistent id="OverwatchBossImprisonLaunchTargetOutPersistent">
+    <WhichLocation Effect="OverwatchBossImprisonDistanceSwitch" Value="CasterUnit" />
+    <OffsetFacingFallback Effect="OverwatchBossImprisonDistanceSwitch" Value="CasterUnit" />
+    <InitialEffect value="OverwatchBossImprisonLaunchTargetOut" />
+    <InitialOffset Y="-3.5" />
+    <PeriodCount value="2" />
+    <PeriodicEffectArray value="OverwatchBossImprisonApplyBeingExpelledBehavior" />
+    <PeriodicEffectArray value="OverwatchBossImprisonApplyCasterExpellingTargetBehavior" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="RingOfFireCastPersistent">
+    <WhichLocation Value="CasterPoint" />
+    <PeriodCount value="24" />
+    <PeriodicEffectArray value="RingOfFireSearchArea" />
+    <PeriodicPeriodArray value="0.25" />
+    <PeriodicValidator value="CasterNotDead" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="RingOfFireCastSet">
+    <EffectArray value="RingOfFireCastPersistent" />
+    <EffectArray value="OverwatchBossRemoveRingOfFireAllowedBehavior" />
+    <ValidatorArray value="OverwatchBossAllowRingOfFireToBeCast" />
+  </CEffectSet>
+  <CEffectEnumArea id="RingOfFireSearchArea">
+    <ImpactLocation Value="TargetPoint" />
+    <SearchFilters value="-;Self,Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="RingOfFireImpactSet">
+      <InnerRadius value="5.2" />
+      <Radius value="9" />
+    </AreaArray>
+    <RevealerParams Duration="0.75">
+      <RevealFlags index="Unfog" value="1" />
+    </RevealerParams>
+  </CEffectEnumArea>
+  <CEffectSet id="RingOfFireImpactSet">
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="OverwatchBossRingOfFireApplyDamageBehavior" />
+  </CEffectSet>
+  <CEffectSet id="OverwatchTurretLaunchSet">
+    <EffectArray value="OverwatchTurretWeaponLaunchMissile" />
+  </CEffectSet>
+  <CEffectDamage id="OverwatchTurretWeaponDamage" parent="StormWeapon">
+    <Amount value="36" />
+    <SourceButtonFace value="MapMechanicAbility" />
+  </CEffectDamage>
+  <CEffectLaunchMissile id="OverwatchTurretWeaponLaunchMissile">
+    <ValidatorArray index="0" value="TargetNotDead" />
+    <ImpactEffect value="OverwatchTurretWeaponDamage" />
+    <AmmoUnit value="OverwatchTurretMissile" />
+    <ImpactRange value="0.5" />
+  </CEffectLaunchMissile>
+  <CEffectLaunchMissileAdvanced id="OWPickupChestHealingPulseLaunchMissile">
+    <ImpactLocation Value="TargetPoint" />
+    <AmmoUnit value="HealingPulsePickup" />
+    <Movers Link="OWPickupChestItemMover" />
+    <DeathType value="Unknown" />
+    <LaunchOffset Z="1.3" />
+    <Flags index="Placement" value="1" />
+    <PlacementRange value="5" />
+    <LaunchEffect value="OWPickupChestItemCreatedDummyPersistent" />
+  </CEffectLaunchMissileAdvanced>
+  <CEffectLaunchMissileAdvanced id="OWPickupChestDragonSpiritsLaunchMissile">
+    <ImpactLocation Value="TargetPoint" />
+    <AmmoUnit value="DragonSpiritsPickup" />
+    <Movers Link="OWPickupChestItemMover" />
+    <DeathType value="Unknown" />
+    <LaunchOffset Z="1.3" />
+    <Flags index="Placement" value="1" />
+    <PlacementRange value="5" />
+    <LaunchEffect value="OWPickupChestItemCreatedDummyPersistent" />
+  </CEffectLaunchMissileAdvanced>
+  <CEffectLaunchMissileAdvanced id="OWPickupChestTurretLaunchMissile">
+    <ImpactLocation Value="TargetPoint" />
+    <AmmoUnit value="TurretPickup" />
+    <Movers Link="OWPickupChestItemMover" />
+    <DeathType value="Unknown" />
+    <LaunchOffset Z="1.3" />
+    <Flags index="Placement" value="1" />
+    <PlacementRange value="5" />
+    <LaunchEffect value="OWPickupChestItemCreatedDummyPersistent" />
+  </CEffectLaunchMissileAdvanced>
+  <CEffectCreateHealer id="OverwatchMechanicRepairHeal" parent="StormHealingSpell">
+    <RechargeVitalFraction value="0.0546" />
+  </CEffectCreateHealer>
+  <CEffectCreateUnit id="OverwatchMapMechanicTurretAbilityCreateUnit">
+    <WhichLocation Value="TargetPoint" />
+    <CreateFlags index="OffsetByRadius" value="0" />
+    <CreateFlags index="SetFacing" value="1" />
+    <CreateFlags index="NormalizeSpawnOffset" value="0" />
+    <SpawnUnit value="OverwatchTurretPlayer" />
+    <SpawnRange value="10" />
+  </CEffectCreateUnit>
+  <CEffectCreateUnit id="OverwatchMapMechanicBioticEmitterAbilityCreateUnit">
+    <WhichLocation Value="TargetPoint" />
+    <CreateFlags index="OffsetByRadius" value="0" />
+    <CreateFlags index="SetFacing" value="1" />
+    <CreateFlags index="NormalizeSpawnOffset" value="0" />
+    <SpawnUnit value="BioticEmitter" />
+    <SpawnRange value="10" />
+  </CEffectCreateUnit>
+  <CEffectSet id="OverwatchMapMechanicTurretAbilityPointSet">
+    <TargetLocationType value="Point" />
+    <EffectArray value="OverwatchMapMechanicAbilityRemoveBehavior" />
+    <EffectArray value="OverwatchMapMechanicTurretAbilityCreateUnit" />
+    <EffectArray value="OverwatchMapMechanicUsedApplyUpgrade" />
+  </CEffectSet>
+  <CEffectSet id="OverwatchMapMechanicBioticEmitterAbilityPointSet">
+    <TargetLocationType value="Point" />
+    <EffectArray value="OverwatchMapMechanicAbility2RemoveBehavior" />
+    <EffectArray value="OverwatchMapMechanicBioticEmitterAbilityCreateUnit" />
+    <EffectArray value="OverwatchMapMechanicUsedApplyUpgrade" />
+    <ValidatorArray value="TargetPointWalkable" />
+  </CEffectSet>
+  <CEffectSwitch id="SwitchBasedOnCasterBehavior">
+    <CaseArray Validator="CasterHasDragonSpiritsBehavior" Effect="DragonSpiritsCastSet" />
+    <CaseArray Validator="CasterHasHealingPulseBehavior" Effect="HealingPulseCastSet" />
+    <ValidatorArray value="MedivhCasterNotRavenOrHasPathableController" />
+  </CEffectSwitch>
+  <CEffectRemoveBehavior id="OverwatchMapMechanicAbilityRemoveBehavior">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="HasMapMechanicTargetAbility" />
+    <Count value="1" />
+  </CEffectRemoveBehavior>
+  <CEffectRemoveBehavior id="OverwatchMapMechanicAbility2RemoveBehavior">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="HasMapMechanicTargetAbility2" />
+    <Count value="1" />
+  </CEffectRemoveBehavior>
+  <CEffectCreatePersistent id="OWPickupChestItemCreatedDummyPersistent">
+    <WhichLocation Value="SourceUnit" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="OWBossImprisonDoneDummyPersistent">
+    <WhichLocation Value="SourceUnit" />
+  </CEffectCreatePersistent>
+</Catalog>
