@@ -17,13 +17,13 @@ namespace HeroesData.Parser.Tests.EmoticonPackParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            EmoticonPackParser emoticonPackParser = new EmoticonPackParser(Configuration, GameData, DefaultData);
+            EmoticonPackParser emoticonPackParser = new EmoticonPackParser(XmlDataService);
             Assert.IsTrue(emoticonPackParser.Items.Count > 0);
         }
 
         private void Parse()
         {
-            EmoticonPackParser emoticonPackParser = new EmoticonPackParser(Configuration, GameData, DefaultData);
+            EmoticonPackParser emoticonPackParser = new EmoticonPackParser(XmlDataService);
             JohannaEmoticonPack2 = emoticonPackParser.Parse("JohannaEmoticonPack2");
             DeputyVallaPack1 = emoticonPackParser.Parse("DeputyVallaPack1");
         }

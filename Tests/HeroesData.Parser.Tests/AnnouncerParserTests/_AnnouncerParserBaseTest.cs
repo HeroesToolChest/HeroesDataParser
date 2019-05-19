@@ -18,13 +18,13 @@ namespace HeroesData.Parser.Tests.AnnouncerParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            AnnouncerParser announcerParser = new AnnouncerParser(Configuration, GameData, DefaultData);
+            AnnouncerParser announcerParser = new AnnouncerParser(XmlDataService);
             Assert.IsTrue(announcerParser.Items.Count > 0);
         }
 
         private void Parse()
         {
-            AnnouncerParser announcerParser = new AnnouncerParser(Configuration, GameData, DefaultData);
+            AnnouncerParser announcerParser = new AnnouncerParser(XmlDataService);
             AdjutantAnnouncer = announcerParser.Parse("Adjutant");
             OrpheaAnnouncer = announcerParser.Parse("OrpheaA");
             JunkratAnnouncer = announcerParser.Parse("JunkratA");

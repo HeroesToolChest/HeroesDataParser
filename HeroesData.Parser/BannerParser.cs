@@ -10,8 +10,8 @@ namespace HeroesData.Parser
 {
     public class BannerParser : ParserBase<Banner, BannerDataOverride>, IParser<Banner, BannerParser>
     {
-        public BannerParser(Configuration configuration, GameData gameData, DefaultData defaultData)
-            : base(configuration, gameData, defaultData)
+        public BannerParser(IXmlDataService xmlDataService)
+            : base(xmlDataService)
         {
         }
 
@@ -19,7 +19,7 @@ namespace HeroesData.Parser
 
         public BannerParser GetInstance()
         {
-            return new BannerParser(Configuration, GameData, DefaultData);
+            return new BannerParser(XmlDataService);
         }
 
         public Banner Parse(params string[] ids)

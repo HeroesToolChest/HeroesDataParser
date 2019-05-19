@@ -16,13 +16,13 @@ namespace HeroesData.Parser.Tests.SprayParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            SprayParser sprayParser = new SprayParser(Configuration, GameData, DefaultData);
+            SprayParser sprayParser = new SprayParser(XmlDataService);
             Assert.IsTrue(sprayParser.Items.Count > 0);
         }
 
         private void Parse()
         {
-            SprayParser sprayParser = new SprayParser(Configuration, GameData, DefaultData);
+            SprayParser sprayParser = new SprayParser(XmlDataService);
             CarbotLiLi = sprayParser.Parse("SprayStaticCarbotsLili");
         }
     }

@@ -23,8 +23,8 @@ namespace HeroesData.Parser
 
         private MatchAwardDataOverride MatchAwardDataOverride;
 
-        public MatchAwardParser(Configuration configuration, GameData gameData, DefaultData defaultData, MatchAwardOverrideLoader matchAwardOverrideLoader)
-            : base(configuration, gameData, defaultData)
+        public MatchAwardParser(IXmlDataService xmlDataService, MatchAwardOverrideLoader matchAwardOverrideLoader)
+            : base(xmlDataService)
         {
             MatchAwardOverrideLoader = matchAwardOverrideLoader;
         }
@@ -128,7 +128,7 @@ namespace HeroesData.Parser
 
         public MatchAwardParser GetInstance()
         {
-            return new MatchAwardParser(Configuration, GameData, DefaultData, MatchAwardOverrideLoader);
+            return new MatchAwardParser(XmlDataService, MatchAwardOverrideLoader);
         }
 
         protected override void ApplyAdditionalOverrides(MatchAward matchAward, MatchAwardDataOverride dataOverride)

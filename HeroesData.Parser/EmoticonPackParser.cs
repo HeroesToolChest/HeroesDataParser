@@ -11,8 +11,8 @@ namespace HeroesData.Parser
 {
     public class EmoticonPackParser : ParserBase<EmoticonPack, EmoticonPackDataOverride>, IParser<EmoticonPack, EmoticonPackParser>
     {
-        public EmoticonPackParser(Configuration configuration, GameData gameData, DefaultData defaultData)
-            : base(configuration, gameData, defaultData)
+        public EmoticonPackParser(IXmlDataService xmlDataService)
+            : base(xmlDataService)
         {
         }
 
@@ -20,7 +20,7 @@ namespace HeroesData.Parser
 
         public EmoticonPackParser GetInstance()
         {
-            return new EmoticonPackParser(Configuration, GameData, DefaultData);
+            return new EmoticonPackParser(XmlDataService);
         }
 
         public EmoticonPack Parse(params string[] ids)

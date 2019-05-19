@@ -24,13 +24,13 @@ namespace HeroesData.Parser
 
         private UnitDataOverride UnitDataOverride;
 
-        public UnitParser(XmlDataType xmlDataType, UnitOverrideLoader unitOverrideLoader)
-            : base(xmlDataType)
+        public UnitParser(IXmlDataService xmlDataService, UnitOverrideLoader unitOverrideLoader)
+            : base(xmlDataService)
         {
             UnitOverrideLoader = unitOverrideLoader;
-            WeaponData = xmlDataType.WeaponData;
-            ArmorData = xmlDataType.ArmorData;
-            AbilityData = xmlDataType.AbilityData;
+            WeaponData = xmlDataService.WeaponData;
+            ArmorData = xmlDataService.ArmorData;
+            AbilityData = xmlDataService.AbilityData;
         }
 
         public override HashSet<string[]> Items
@@ -65,7 +65,7 @@ namespace HeroesData.Parser
 
         public UnitParser GetInstance()
         {
-            return new UnitParser(XmlDataType, UnitOverrideLoader);
+            return new UnitParser(XmlDataService, UnitOverrideLoader);
         }
 
         public Unit Parse(params string[] ids)

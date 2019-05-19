@@ -16,13 +16,13 @@ namespace HeroesData.Parser.Tests.EmoticonParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            EmoticonParser emoticonParser = new EmoticonParser(Configuration, GameData, DefaultData);
+            EmoticonParser emoticonParser = new EmoticonParser(XmlDataService);
             Assert.IsTrue(emoticonParser.Items.Count > 0);
         }
 
         private void Parse()
         {
-            EmoticonParser emoticonParser = new EmoticonParser(Configuration, GameData, DefaultData);
+            EmoticonParser emoticonParser = new EmoticonParser(XmlDataService);
             LunaraAngry = emoticonParser.Parse("lunara_angry");
         }
     }

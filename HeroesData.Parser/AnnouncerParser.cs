@@ -12,8 +12,8 @@ namespace HeroesData.Parser
 {
     public class AnnouncerParser : ParserBase<Announcer, AnnouncerDataOverride>, IParser<Announcer, AnnouncerParser>
     {
-        public AnnouncerParser(Configuration configuration, GameData gameData, DefaultData defaultData)
-            : base(configuration, gameData, defaultData)
+        public AnnouncerParser(IXmlDataService xmlDataService)
+            : base(xmlDataService)
         {
         }
 
@@ -21,7 +21,7 @@ namespace HeroesData.Parser
 
         public AnnouncerParser GetInstance()
         {
-            return new AnnouncerParser(Configuration, GameData, DefaultData);
+            return new AnnouncerParser(XmlDataService);
         }
 
         public Announcer Parse(params string[] ids)

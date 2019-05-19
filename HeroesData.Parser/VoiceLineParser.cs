@@ -12,8 +12,8 @@ namespace HeroesData.Parser
 {
     public class VoiceLineParser : ParserBase<VoiceLine, VoiceLineDataOverride>, IParser<VoiceLine, VoiceLineParser>
     {
-        public VoiceLineParser(Configuration configuration, GameData gameData, DefaultData defaultData)
-            : base(configuration, gameData, defaultData)
+        public VoiceLineParser(IXmlDataService xmlDataService)
+            : base(xmlDataService)
         {
         }
 
@@ -21,7 +21,7 @@ namespace HeroesData.Parser
 
         public VoiceLineParser GetInstance()
         {
-            return new VoiceLineParser(Configuration, GameData, DefaultData);
+            return new VoiceLineParser(XmlDataService);
         }
 
         public VoiceLine Parse(params string[] ids)

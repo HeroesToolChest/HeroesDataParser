@@ -2,9 +2,9 @@
 
 namespace HeroesData.Parser.XmlData
 {
-    public class XmlDataType
+    public class XmlDataService : IXmlDataService
     {
-        public XmlDataType(Configuration configuration, GameData gameData, DefaultData defaultData)
+        public XmlDataService(Configuration configuration, GameData gameData, DefaultData defaultData)
         {
             Configuration = configuration;
             GameData = gameData;

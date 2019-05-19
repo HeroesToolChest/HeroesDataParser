@@ -30,7 +30,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            UnitParser unitParser = new UnitParser(XmlDataType, UnitOverrideLoader);
+            UnitParser unitParser = new UnitParser(XmlDataService, UnitOverrideLoader);
             Assert.IsTrue(unitParser.Items.Count > 0);
         }
 
@@ -42,7 +42,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
 
         private void Parse()
         {
-            UnitParser unitParser = new UnitParser(XmlDataType, UnitOverrideLoader);
+            UnitParser unitParser = new UnitParser(XmlDataService, UnitOverrideLoader);
             AzmodanDemonLieutenant = unitParser.Parse("AzmodanDemonLieutenant");
             ZagaraHydralisk = unitParser.Parse("ZagaraHydralisk");
             TownCannonTowerL2 = unitParser.Parse("TownCannonTowerL2");

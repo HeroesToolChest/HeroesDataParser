@@ -10,8 +10,8 @@ namespace HeroesData.Parser
 {
     public class MountParser : ParserBase<Mount, MountDataOverride>, IParser<Mount, MountParser>
     {
-        public MountParser(Configuration configuration, GameData gameData, DefaultData defaultData)
-            : base(configuration, gameData, defaultData)
+        public MountParser(IXmlDataService xmlDataService)
+            : base(xmlDataService)
         {
         }
 
@@ -19,7 +19,7 @@ namespace HeroesData.Parser
 
         public MountParser GetInstance()
         {
-            return new MountParser(Configuration, GameData, DefaultData);
+            return new MountParser(XmlDataService);
         }
 
         public Mount Parse(params string[] ids)

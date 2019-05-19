@@ -9,8 +9,8 @@ namespace HeroesData.Parser
 {
     public class PortraitParser : ParserBase<Portrait, PortraitDataOverride>, IParser<Portrait, PortraitParser>
     {
-        public PortraitParser(Configuration configuration, GameData gameData, DefaultData defaultData)
-            : base(configuration, gameData, defaultData)
+        public PortraitParser(IXmlDataService xmlDataService)
+            : base(xmlDataService)
         {
         }
 
@@ -18,7 +18,7 @@ namespace HeroesData.Parser
 
         public PortraitParser GetInstance()
         {
-            return new PortraitParser(Configuration, GameData, DefaultData);
+            return new PortraitParser(XmlDataService);
         }
 
         public Portrait Parse(params string[] ids)

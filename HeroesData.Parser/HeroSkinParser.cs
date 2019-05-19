@@ -10,8 +10,8 @@ namespace HeroesData.Parser
 {
     public class HeroSkinParser : ParserBase<HeroSkin, HeroSkinDataOverride>, IParser<HeroSkin, HeroSkinParser>
     {
-        public HeroSkinParser(Configuration configuration, GameData gameData, DefaultData defaultData)
-            : base(configuration, gameData, defaultData)
+        public HeroSkinParser(IXmlDataService xmlDataService)
+            : base(xmlDataService)
         {
         }
 
@@ -19,7 +19,7 @@ namespace HeroesData.Parser
 
         public HeroSkinParser GetInstance()
         {
-            return new HeroSkinParser(Configuration, GameData, DefaultData);
+            return new HeroSkinParser(XmlDataService);
         }
 
         public HeroSkin Parse(params string[] ids)

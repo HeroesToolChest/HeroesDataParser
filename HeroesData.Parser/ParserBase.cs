@@ -14,6 +14,7 @@ namespace HeroesData.Parser
         where T : IExtractable
         where TOverride : IDataOverride
     {
+        [Obsolete("Dont use")]
         public ParserBase(Configuration configuration, GameData gameData, DefaultData defaultData)
         {
             //Configuration = configuration;
@@ -21,9 +22,9 @@ namespace HeroesData.Parser
             //DefaultData = defaultData;
         }
 
-        public ParserBase(XmlDataType xmlDataType)
+        public ParserBase(IXmlDataService xmlDataService)
         {
-            XmlDataType = xmlDataType;
+            XmlDataService = xmlDataService;
         }
 
         /// <summary>
@@ -62,13 +63,13 @@ namespace HeroesData.Parser
         /// </summary>
         protected string GeneralMapName => string.Empty;
 
-        protected XmlDataType XmlDataType { get; }
+        protected IXmlDataService XmlDataService { get; }
 
-        protected GameData GameData => XmlDataType.GameData;
+        protected GameData GameData => XmlDataService.GameData;
 
-        protected DefaultData DefaultData => XmlDataType.DefaultData;
+        protected DefaultData DefaultData => XmlDataService.DefaultData;
 
-        protected Configuration Configuration => XmlDataType.Configuration;
+        protected Configuration Configuration => XmlDataService.Configuration;
 
         public void LoadMapData(string mapId)
         {

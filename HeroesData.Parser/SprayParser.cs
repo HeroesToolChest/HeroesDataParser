@@ -12,8 +12,8 @@ namespace HeroesData.Parser
 {
     public class SprayParser : ParserBase<Spray, SprayDataOverride>, IParser<Spray, SprayParser>
     {
-        public SprayParser(Configuration configuration, GameData gameData, DefaultData defaultData)
-            : base(configuration, gameData, defaultData)
+        public SprayParser(IXmlDataService xmlDataService)
+            : base(xmlDataService)
         {
         }
 
@@ -21,7 +21,7 @@ namespace HeroesData.Parser
 
         public SprayParser GetInstance()
         {
-            return new SprayParser(Configuration, GameData, DefaultData);
+            return new SprayParser(XmlDataService);
         }
 
         public Spray Parse(params string[] ids)
