@@ -27,7 +27,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonPackData
                 emoticonPack.ReleaseDate.HasValue ? new XAttribute("releaseDate", emoticonPack.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
                 string.IsNullOrEmpty(emoticonPack.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", emoticonPack.SortName),
                 string.IsNullOrEmpty(emoticonPack.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(emoticonPack.Description, FileOutputOptions.DescriptionType)),
-                emoticonPack.EmoticonIds != null && emoticonPack.EmoticonIds.Count > 0 ? new XElement("Emoticons", emoticonPack.EmoticonIds.Select(x => new XElement("Emoticon", x))) : null);
+                emoticonPack.EmoticonIds != null && emoticonPack.EmoticonIds.Any() ? new XElement("Emoticons", emoticonPack.EmoticonIds.Select(x => new XElement("Emoticon", x))) : null);
         }
     }
 }

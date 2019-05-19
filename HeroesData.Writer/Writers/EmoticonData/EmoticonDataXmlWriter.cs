@@ -24,10 +24,10 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
                 string.IsNullOrEmpty(emoticon.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("expression", emoticon.Name),
                 string.IsNullOrEmpty(emoticon.HyperlinkId) ? null : new XAttribute("hyperlinkId", emoticon.HyperlinkId),
                 emoticon.IsAliasCaseSensitive == true ? new XAttribute("caseSensitive", true) : null,
-                (emoticon.SearchTexts == null || emoticon.SearchTexts.Count < 1) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", string.Join(' ', emoticon.SearchTexts)),
+                (emoticon.SearchTexts == null || !emoticon.SearchTexts.Any()) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", string.Join(' ', emoticon.SearchTexts)),
                 string.IsNullOrEmpty(emoticon.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(emoticon.Description, FileOutputOptions.DescriptionType)),
-                emoticon.LocalizedAliases != null && emoticon.LocalizedAliases.Count > 0 && !FileOutputOptions.IsLocalizedText ? new XElement("LocalizedAliases", emoticon.LocalizedAliases.Select(x => new XElement("Alias", x))) : null,
-                emoticon.UniversalAliases != null && emoticon.UniversalAliases.Count > 0 ? new XElement("Aliases", emoticon.UniversalAliases.Select(x => new XElement("Alias", x))) : null,
+                emoticon.LocalizedAliases != null && emoticon.LocalizedAliases.Any() && !FileOutputOptions.IsLocalizedText ? new XElement("LocalizedAliases", emoticon.LocalizedAliases.Select(x => new XElement("Alias", x))) : null,
+                emoticon.UniversalAliases != null && emoticon.UniversalAliases.Any() ? new XElement("Aliases", emoticon.UniversalAliases.Select(x => new XElement("Alias", x))) : null,
                 HeroElement(emoticon),
                 string.IsNullOrEmpty(emoticon.Image.FileName) ? null : new XElement("Image", !emoticon.Image.Count.HasValue ? Path.ChangeExtension(emoticon.Image.FileName?.ToLower(), StaticImageExtension) : Path.ChangeExtension(emoticon.Image.FileName?.ToLower(), AnimatedImageExtension)),
                 AnimationObject(emoticon));

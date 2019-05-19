@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using System.Linq;
 
 namespace HeroesData.ExtractorData
 {
@@ -20,7 +21,7 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(emoticon.Id))
                 AddWarning($"{nameof(emoticon.Id)} is empty");
 
-            if (emoticon.UniversalAliases.Count < 0)
+            if (!emoticon.UniversalAliases.Any())
                 AddWarning($"{nameof(emoticon.UniversalAliases)} does not contain any aliases.");
 
             if (string.IsNullOrEmpty(emoticon.TextureSheet.Image))

@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Linq;
 
 namespace HeroesData.FileWriter.Writers.EmoticonData
 {
@@ -27,16 +28,16 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
             if (emoticon.IsAliasCaseSensitive)
                 emoticonObject.Add("caseSensitive", true);
 
-            if (emoticon.SearchTexts != null && emoticon.SearchTexts.Count > 0 && !FileOutputOptions.IsLocalizedText)
+            if (emoticon.SearchTexts != null && emoticon.SearchTexts.Any() && !FileOutputOptions.IsLocalizedText)
                 emoticonObject.Add("searchText", string.Join(' ', emoticon.SearchTexts));
 
             if (!string.IsNullOrEmpty(emoticon.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 emoticonObject.Add("description", GetTooltip(emoticon.Description, FileOutputOptions.DescriptionType));
 
-            if (emoticon.LocalizedAliases != null && emoticon.LocalizedAliases.Count > 0 && !FileOutputOptions.IsLocalizedText)
+            if (emoticon.LocalizedAliases != null && emoticon.LocalizedAliases.Any() && !FileOutputOptions.IsLocalizedText)
                 emoticonObject.Add(new JProperty("localizedAliases", emoticon.LocalizedAliases));
 
-            if (emoticon.UniversalAliases != null && emoticon.UniversalAliases.Count > 0 && !FileOutputOptions.IsLocalizedText)
+            if (emoticon.UniversalAliases != null && emoticon.UniversalAliases.Any() && !FileOutputOptions.IsLocalizedText)
                 emoticonObject.Add(new JProperty("aliases", emoticon.UniversalAliases));
 
             if (!string.IsNullOrEmpty(emoticon.HeroId))

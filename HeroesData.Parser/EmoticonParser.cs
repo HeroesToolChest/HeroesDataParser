@@ -85,9 +85,9 @@ namespace HeroesData.Parser
                 else if (elementName == "SEARCHTEXTARRAY")
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value, out string text))
-                        emoticon.SearchTexts.Add(text);
+                        emoticon.AddSearchText(text);
                     else
-                        emoticon.SearchTexts.Add(element.Attribute("value")?.Value);
+                        emoticon.AddSearchText(element.Attribute("value")?.Value);
                 }
                 else if (elementName == "FLAGS")
                 {
@@ -106,16 +106,16 @@ namespace HeroesData.Parser
                 else if (elementName == "UNIVERSALALIASARRAY")
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value, out string text))
-                        emoticon.UniversalAliases.Add(text);
+                        emoticon.AddUniversalAlias(text);
                     else
-                        emoticon.UniversalAliases.Add(element.Attribute("value")?.Value);
+                        emoticon.AddUniversalAlias(element.Attribute("value")?.Value);
                 }
                 else if (elementName == "LOCALIZEDALIASARRAY")
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value, out string text))
-                        emoticon.LocalizedAliases.Add(text);
+                        emoticon.AddLocalizedAlias(text);
                     else
-                        emoticon.LocalizedAliases.Add(element.Attribute("value")?.Value);
+                        emoticon.AddLocalizedAlias(element.Attribute("value")?.Value);
                 }
                 else if (elementName == "IMAGE")
                 {

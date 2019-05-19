@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using System.Linq;
 
 namespace HeroesData.ExtractorData
 {
@@ -35,10 +36,10 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(emoticonPack.Description?.RawDescription))
                 AddWarning($"{nameof(emoticonPack.Description)} is empty");
 
-            if (emoticonPack.EmoticonIds == null || emoticonPack.EmoticonIds.Count < 1)
+            if (emoticonPack.EmoticonIds == null || !emoticonPack.EmoticonIds.Any())
                 AddWarning($"{nameof(emoticonPack.EmoticonIds)} is null or does not contain any emoticons");
 
-            if (emoticonPack.EmoticonIds.Count < 0)
+            if (!emoticonPack.EmoticonIds.Any())
                 AddWarning($"{nameof(emoticonPack.EmoticonIds)} does not contain any aliases.");
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.EmoticonPackParserTests
 {
@@ -16,7 +17,7 @@ namespace HeroesData.Parser.Tests.EmoticonPackParserTests
             Assert.AreEqual("SeasonalEvents", DeputyVallaPack1.CollectionCategory);
             Assert.AreEqual("HallowsEnd", DeputyVallaPack1.EventName);
             Assert.AreEqual(new DateTime(2017, 10, 17), DeputyVallaPack1.ReleaseDate);
-            Assert.AreEqual(5, DeputyVallaPack1.EmoticonIds.Count);
+            Assert.AreEqual(5, DeputyVallaPack1.EmoticonIds.Count());
             Assert.IsTrue(DeputyVallaPack1.EmoticonIds.Contains("valla_deputy_sad"));
         }
     }

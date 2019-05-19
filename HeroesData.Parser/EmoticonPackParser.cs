@@ -106,12 +106,10 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "EMOTICONARRAY")
                 {
-                    if (emoticonPack.EmoticonIds == null)
-                        emoticonPack.EmoticonIds = new List<string>();
-
                     string item = element.Attribute("value")?.Value;
+
                     if (!string.IsNullOrEmpty(item))
-                        emoticonPack.EmoticonIds.Add(item);
+                        emoticonPack.AddEmoticonId(item);
                 }
             }
         }

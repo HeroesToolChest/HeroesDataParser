@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace HeroesData.FileWriter.Writers.EmoticonPackData
 {
@@ -38,7 +39,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonPackData
             if (!string.IsNullOrEmpty(emoticonPack.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 emoticonObject.Add("description", GetTooltip(emoticonPack.Description, FileOutputOptions.DescriptionType));
 
-            if (emoticonPack.EmoticonIds != null && emoticonPack.EmoticonIds.Count > 0)
+            if (emoticonPack.EmoticonIds != null && emoticonPack.EmoticonIds.Any())
                 emoticonObject.Add(new JProperty("emoticons", emoticonPack.EmoticonIds));
 
             return new JProperty(emoticonPack.Id, emoticonObject);

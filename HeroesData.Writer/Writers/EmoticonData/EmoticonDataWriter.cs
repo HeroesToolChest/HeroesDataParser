@@ -1,4 +1,5 @@
 ﻿using Heroes.Models;
+using System.Linq;
 
 namespace HeroesData.FileWriter.Writers.EmoticonData
 {
@@ -19,10 +20,10 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
             GameStringWriter.AddEmoticonName(emoticon.Id, emoticon.Name);
             GameStringWriter.AddEmoticonDescription(emoticon.Id, GetTooltip(emoticon.Description, FileOutputOptions.DescriptionType));
 
-            if (emoticon.LocalizedAliases != null && emoticon.LocalizedAliases.Count > 0)
+            if (emoticon.LocalizedAliases != null && emoticon.LocalizedAliases.Any())
                 GameStringWriter.AddEmoticonAlias(emoticon.Id, string.Join(" ", emoticon.LocalizedAliases));
 
-            if (emoticon.SearchTexts != null && emoticon.SearchTexts.Count > 0)
+            if (emoticon.SearchTexts != null && emoticon.SearchTexts.Any())
                 GameStringWriter.AddEmoticonSearchText(emoticon.Id, string.Join(' ', emoticon.SearchTexts));
         }
 
