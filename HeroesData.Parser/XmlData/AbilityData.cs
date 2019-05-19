@@ -136,10 +136,10 @@ namespace HeroesData.Parser.XmlData
         /// Create an ability.
         /// </summary>
         /// <param name="unitId">The id of the unit.</param>
-        /// <param name="abilityElement">The AbilArray xml element.</param>
-        public Ability CreateAbility(string unitId, XElement abilityElement)
+        /// <param name="abilityArrayElement">The AbilArray xml element.</param>
+        public Ability CreateAbility(string unitId, XElement abilityArrayElement)
         {
-            string abilLink = abilityElement.Attribute("Link")?.Value;
+            string abilLink = abilityArrayElement.Attribute("Link")?.Value;
             if (string.IsNullOrEmpty(abilLink))
                 return null;
 

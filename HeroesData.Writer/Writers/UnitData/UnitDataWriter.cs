@@ -51,7 +51,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
 
         protected T UnitArmor(Unit unit)
         {
-            if (unit.Armor != null && unit.Armor.Count > 0)
+            if (unit.Armor != null && unit.Armor.Any())
             {
                 return GetArmorObject(unit);
             }

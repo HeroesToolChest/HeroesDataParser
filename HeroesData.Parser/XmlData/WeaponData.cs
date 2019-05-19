@@ -29,9 +29,9 @@ namespace HeroesData.Parser.XmlData
             Configuration = configuration;
         }
 
-        public UnitWeapon CreateWeapon(XElement weaponElement)
+        public UnitWeapon CreateWeapon(XElement weaponArrayElement)
         {
-            string weaponLink = weaponElement.Attribute("Link")?.Value;
+            string weaponLink = weaponArrayElement.Attribute("Link")?.Value;
             if (string.IsNullOrEmpty(weaponLink))
                 return null;
 

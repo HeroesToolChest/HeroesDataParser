@@ -31,8 +31,6 @@ namespace HeroesData.Parser
             WeaponData = xmlDataType.WeaponData;
             ArmorData = xmlDataType.ArmorData;
             AbilityData = xmlDataType.AbilityData;
-
-            SetValidParents();
         }
 
         public override HashSet<string[]> Items
@@ -103,10 +101,6 @@ namespace HeroesData.Parser
 
             AbilityData.Localization = Localization;
             AbilityData.UnitDataOverride = UnitDataOverride;
-
-            //WeaponData = new WeaponData(GameData, DefaultData);
-            //ArmorData = new ArmorData(GameData);
-            //AbilityData = new AbilityData(GameData, DefaultData, UnitDataOverride, Configuration, Localization);
 
             SetDefaultValues(unit);
             CActorData(unit);
@@ -250,12 +244,21 @@ namespace HeroesData.Parser
                     if (weapon != null)
                         unit.AddUnitWeapon(weapon);
                 }
+                else if (elementName == "ARMORLINK")
+                {
+                    IEnumerable<UnitArmor> armorList = ArmorData.CreateArmorCollection(element);
+                    if (armorList != null)
+                    {
+                        foreach (UnitArmor armor in armorList)
+                        {
+                            unit.AddUnitArmor(armor);
+                        }
+                    }
+                }
             }
 
-            AbilityData.AddOverrideButtonAbilities(unit);
-
-            // set armor
-            ArmorData.SetUnitArmorData(unit, unitElement.Element("ArmorLink"));
+            // TODO: AddOverrideButtonAbilities(unit)
+            //AbilityData.AddOverrideButtonAbilities(unit);
 
             if (unit.Energy.EnergyMax < 1)
                 unit.Energy.EnergyType = string.Empty;
@@ -307,21 +310,6 @@ namespace HeroesData.Parser
                     continue;
                 }
 
-                //while (!string.IsNullOrEmpty(parent))
-                //{
-                //    if (ValidParents.Contains(parent))
-                //        break;
-
-                //    XElement parentElement = GameData.Elements(ElementType, mapName).FirstOrDefault(x => x.Attribute("id")?.Value == parent);
-                //    if (parentElement != null)
-                //        parent = parentElement.Attribute("parent")?.Value;
-                //    else
-                //        parent = string.Empty;
-                //}
-
-                //if (string.IsNullOrEmpty(parent))
-                //    continue;
-
                 if (!removeIds.Contains(id) &&
                     !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal) && !id.StartsWith("Hero", StringComparison.Ordinal) &&
                     !id.EndsWith("missile", StringComparison.OrdinalIgnoreCase))
@@ -337,17 +325,6 @@ namespace HeroesData.Parser
                 items.Add(new string[] { id });
             else
                 items.Add(new string[] { id, mapName });
-        }
-
-        private void SetValidParents()
-        {
-            ValidParents.Add("StormBaseTownStructure");
-            ValidParents.Add("StormVehicle");
-            ValidParents.Add("StormMinorUnit");
-            ValidParents.Add("StormMercBase");
-            ValidParents.Add("StormBossMercBase");
-            ValidParents.Add("StormMonsterMinorBase");
-            ValidParents.Add("StormMonsterMajorBase");
         }
     }
 }

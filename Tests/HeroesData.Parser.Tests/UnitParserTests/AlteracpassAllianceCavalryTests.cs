@@ -37,10 +37,12 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void ArmorPropertiesTests()
         {
-            Assert.AreEqual("Structure", AlteracpassAllianceCavalry.Armor.FirstOrDefault().Type);
-            Assert.AreEqual(25, AlteracpassAllianceCavalry.Armor.FirstOrDefault().BasicArmor);
-            Assert.AreEqual(25, AlteracpassAllianceCavalry.Armor.FirstOrDefault().AbilityArmor);
-            Assert.AreEqual(25, AlteracpassAllianceCavalry.Armor.FirstOrDefault().SplashArmor);
+            List<UnitArmor> unitArmors = AlteracpassAllianceCavalry.Armor.ToList();
+
+            Assert.AreEqual("Structure", unitArmors[0].Type);
+            Assert.AreEqual(25, unitArmors[0].BasicArmor);
+            Assert.AreEqual(25, unitArmors[0].AbilityArmor);
+            Assert.AreEqual(25, unitArmors[0].SplashArmor);
         }
 
         [TestMethod]
