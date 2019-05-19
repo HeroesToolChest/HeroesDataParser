@@ -91,7 +91,6 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 MountLinkId = "SummonMount",
                 HearthLinkId = "PortBackToBase",
                 Description = new TooltipDescription("A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/><img path=\"@UI / StormTalentInTextArmorIcon\" alignment=\"uppermiddle\" color=\"e12bfc\" width=\"20\" height=\"22\"/><c val=\"#TooltipNumbers\">20 Spell Armor</c>"),
-                HeroDescriptors = new List<string> { "EnergyImportant", "WaveClearer", "Overconfident" },
                 SearchText = "Alarak highlord protoss",
                 HeroPortrait = new HeroPortrait()
                 {
@@ -122,94 +121,6 @@ namespace HeroesData.FileWriter.Tests.HeroData
                     Damage = 7,
                     Survivability = 6,
                     Utility = 7,
-                },
-                Abilities = new Dictionary<string, Ability>
-                {
-                    {
-                        "AlarakDiscordStrike",
-                        new Ability
-                        {
-                            ReferenceNameId = "AlarakDiscordStrike",
-                            Name = "Discord Strike",
-                            ShortTooltipNameId = "AlarakDiscordStrike",
-                            FullTooltipNameId = "AlarakDiscordStrike",
-                            IconFileName = "storm_ui_icon_alarak_discordstrike.png",
-                            Tier = AbilityTier.Basic,
-                            Tooltip = new AbilityTalentTooltip()
-                            {
-                                Energy = new TooltipEnergy
-                                {
-                                    EnergyTooltip = new TooltipDescription("45"),
-                                },
-                                Cooldown = new TooltipCooldown()
-                                {
-                                    ToggleCooldown = 2.5,
-                                    CooldownTooltip = new TooltipDescription("8 seconds"),
-                                },
-                                ShortTooltip = new TooltipDescription("Damage and silence enemies in an area"),
-                                FullTooltip = new TooltipDescription("After a <c val=\"#TooltipNumbers\">0.5</c> second delay, enemies in front of Alarak take <c val=\"#TooltipNumbers\">175</c> damage and are silenced for <c val=\"#TooltipNumbers\">1.5</c> seconds."),
-                            },
-                            AbilityType = AbilityType.Q,
-                        }
-                    },
-                    {
-                        "AlarakSadismDummyUI",
-                        new Ability
-                        {
-                            ReferenceNameId = "AlarakSadismDummyUI",
-                            Name = "Sadism",
-                            ShortTooltipNameId = "AlarakSadismDummyUI",
-                            FullTooltipNameId = "AlarakSadismDummyUI",
-                            IconFileName = "storm_ui_icon_alarak_sadism.png",
-                            Tier = AbilityTier.Trait,
-                            Tooltip = new AbilityTalentTooltip()
-                            {
-                                ShortTooltip = new TooltipDescription("Alarak deals increased damage and has increased self-healing against enemy Heroes"),
-                                FullTooltip = new TooltipDescription("Alarak's Ability damage and self-healing are increased by <c val=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Repeatable Quest:</c> Takedowns increase Sadism by <c val=\"#TooltipNumbers\">3%</c>, up to <c val=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death."),
-                            },
-                            AbilityType = AbilityType.Trait,
-                        }
-                    },
-                    {
-                        "HeroicAbility",
-                        new Ability
-                        {
-                            ReferenceNameId = "HeroicAbility",
-                            Name = "Heroic",
-                            Tier = AbilityTier.Heroic,
-                            AbilityType = AbilityType.Heroic,
-                        }
-                    },
-                    {
-                        "MountAbility",
-                        new Ability
-                        {
-                            ReferenceNameId = "MountAbility",
-                            Name = "Mount",
-                            Tier = AbilityTier.Mount,
-                            AbilityType = AbilityType.Z,
-                        }
-                    },
-                    {
-                        "ActivableAbility",
-                        new Ability
-                        {
-                            ReferenceNameId = "ActivableAbility",
-                            Name = "Activable",
-                            Tier = AbilityTier.Activable,
-                            AbilityType = AbilityType.Active,
-                        }
-                    },
-                    {
-                        "HearthAbility",
-                        new Ability
-                        {
-                            ReferenceNameId = "HearthAbility",
-                            Name = "Hearth",
-                            Tier = AbilityTier.Hearth,
-                            AbilityType = AbilityType.B,
-                        }
-                    },
                 },
                 Talents = new Dictionary<string, Talent>
                 {
@@ -395,7 +306,76 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 BasicArmor = 50,
                 SplashArmor = 75,
             });
-
+            alarakHero.AddHeroDescriptor("EnergyImportant");
+            alarakHero.AddHeroDescriptor("WaveClearer");
+            alarakHero.AddHeroDescriptor("Overconfident");
+            alarakHero.AddAbility(new Ability
+            {
+                ReferenceNameId = "AlarakDiscordStrike",
+                Name = "Discord Strike",
+                ShortTooltipNameId = "AlarakDiscordStrike",
+                FullTooltipNameId = "AlarakDiscordStrike",
+                IconFileName = "storm_ui_icon_alarak_discordstrike.png",
+                Tier = AbilityTier.Basic,
+                Tooltip = new AbilityTalentTooltip()
+                {
+                    Energy = new TooltipEnergy
+                    {
+                        EnergyTooltip = new TooltipDescription("45"),
+                    },
+                    Cooldown = new TooltipCooldown()
+                    {
+                        ToggleCooldown = 2.5,
+                        CooldownTooltip = new TooltipDescription("8 seconds"),
+                    },
+                    ShortTooltip = new TooltipDescription("Damage and silence enemies in an area"),
+                    FullTooltip = new TooltipDescription("After a <c val=\"#TooltipNumbers\">0.5</c> second delay, enemies in front of Alarak take <c val=\"#TooltipNumbers\">175</c> damage and are silenced for <c val=\"#TooltipNumbers\">1.5</c> seconds."),
+                },
+                AbilityType = AbilityType.Q,
+            });
+            alarakHero.AddAbility(new Ability
+            {
+                ReferenceNameId = "AlarakSadismDummyUI",
+                Name = "Sadism",
+                ShortTooltipNameId = "AlarakSadismDummyUI",
+                FullTooltipNameId = "AlarakSadismDummyUI",
+                IconFileName = "storm_ui_icon_alarak_sadism.png",
+                Tier = AbilityTier.Trait,
+                Tooltip = new AbilityTalentTooltip()
+                {
+                    ShortTooltip = new TooltipDescription("Alarak deals increased damage and has increased self-healing against enemy Heroes"),
+                    FullTooltip = new TooltipDescription("Alarak's Ability damage and self-healing are increased by <c val=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Repeatable Quest:</c> Takedowns increase Sadism by <c val=\"#TooltipNumbers\">3%</c>, up to <c val=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death."),
+                },
+                AbilityType = AbilityType.Trait,
+            });
+            alarakHero.AddAbility(new Ability
+            {
+                ReferenceNameId = "HeroicAbility",
+                Name = "Heroic",
+                Tier = AbilityTier.Heroic,
+                AbilityType = AbilityType.Heroic,
+            });
+            alarakHero.AddAbility(new Ability
+            {
+                ReferenceNameId = "MountAbility",
+                Name = "Mount",
+                Tier = AbilityTier.Mount,
+                AbilityType = AbilityType.Z,
+            });
+            alarakHero.AddAbility(new Ability
+            {
+                ReferenceNameId = "ActivableAbility",
+                Name = "Activable",
+                Tier = AbilityTier.Activable,
+                AbilityType = AbilityType.Active,
+            });
+            alarakHero.AddAbility(new Ability
+            {
+                ReferenceNameId = "HearthAbility",
+                Name = "Hearth",
+                Tier = AbilityTier.Hearth,
+                AbilityType = AbilityType.B,
+            });
             TestData.Add(alarakHero);
 
             // TODO: Re-add

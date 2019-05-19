@@ -12,7 +12,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void BasicAbilitiesTests()
         {
-            Ability ability = HeroFalstad.Abilities["FalstadHammerang"];
+            Ability ability = HeroFalstad.GetAbility("FalstadHammerang");
             Assert.AreEqual(AbilityTier.Basic, ability.Tier);
             Assert.AreEqual("FalstadHammerang", ability.ReferenceNameId);
             Assert.AreEqual("Hammerang", ability.Name);
@@ -61,7 +61,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void HeroicAbilitiesTests()
         {
-            Ability ability = HeroFalstad.Abilities["FalstadHinterlandBlast"];
+            Ability ability = HeroFalstad.GetAbility("FalstadHinterlandBlast");
             Assert.AreEqual(AbilityTier.Heroic, ability.Tier);
             Assert.AreEqual("FalstadHinterlandBlast", ability.ReferenceNameId);
             Assert.AreEqual("Hinterland Blast", ability.Name);
@@ -91,7 +91,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void MountAbilitiesTests()
         {
-            Ability ability = HeroFalstad.Abilities["FalstadFlight"];
+            Ability ability = HeroFalstad.GetAbility("FalstadFlight");
             Assert.AreEqual(AbilityTier.Mount, ability.Tier);
             Assert.AreEqual("FalstadFlight", ability.ReferenceNameId);
             Assert.AreEqual("Flight", ability.Name);
@@ -185,7 +185,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void TraitAbilitiesTests()
         {
-            Ability ability = HeroFalstad.Abilities["FalstadTailwind"];
+            Ability ability = HeroFalstad.GetAbility("FalstadTailwind");
             Assert.AreEqual(AbilityTier.Trait, ability.Tier);
             Assert.AreEqual("FalstadTailwind", ability.ReferenceNameId);
             Assert.AreEqual("Tailwind", ability.Name);

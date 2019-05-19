@@ -137,7 +137,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T UnitAbilities(Unit unit, bool isSubAbilities)
         {
-            if (unit.Abilities?.Count > 0)
+            if (unit.Abilities.Any())
             {
                 return GetAbilitiesObject(unit, isSubAbilities);
             }
@@ -147,7 +147,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T UnitSubAbilities(Unit unit)
         {
-            if (unit.Abilities?.Count > 0)
+            if (unit.Abilities.Any())
             {
                 ILookup<string, Ability> linkedAbilities = unit.ParentLinkedAbilities();
                 if (linkedAbilities.Count > 0)

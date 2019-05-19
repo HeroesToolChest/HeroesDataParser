@@ -5,6 +5,7 @@
     "radius": 1.111,
     "sight": 6.0,
     "speed": 4.0,
+    "scalingLinkId": "MinionScaling",
     "attributes": [
       "att1",
       "att2"

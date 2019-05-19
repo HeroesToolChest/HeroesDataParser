@@ -27,7 +27,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityNameOverrideTest()
         {
-            Ability ability = HeroTestHero.Abilities["TestHeroBigBoom"];
+            Ability ability = HeroTestHero.GetAbility("TestHeroBigBoom");
             Assert.AreEqual("Big Boomy Boom", ability.Name);
         }
 
@@ -44,7 +44,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityCooldownTest()
         {
-            Ability ability = HeroTestHero.Abilities["TestHeroTheHunt"];
+            Ability ability = HeroTestHero.GetAbility("TestHeroTheHunt");
             Assert.AreEqual("Cooldown: 100 seconds", ability.Tooltip.Cooldown.CooldownTooltip.RawDescription);
         }
 
@@ -58,7 +58,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityTooltipOverrideTest()
         {
-            Ability ability = HeroTestHero.Abilities["TestHeroNerazimDummy"];
+            Ability ability = HeroTestHero.GetAbility("TestHeroNerazimDummy");
             Assert.AreEqual("Nerazim v2", ability.Name);
             Assert.AreEqual("storm_ui_icon_testhero_nerazim.dds", ability.IconFileName);
             Assert.AreEqual("TestHeroNerazimTalent", ability.ShortTooltipNameId);
@@ -70,7 +70,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityIllusionMasterTest()
         {
-            Ability ability = HeroTestHero.Abilities["TestHeroIllusionMaster"];
+            Ability ability = HeroTestHero.GetAbility("TestHeroIllusionMaster");
             Assert.AreEqual("Illusion Master", ability.Name);
             Assert.AreEqual("storm_ui_icon_testhero_illusiondancer.dds", ability.IconFileName);
             Assert.AreEqual("TestHeroIllusionMasterTalent", ability.ShortTooltipNameId);
@@ -82,7 +82,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityTraitAdvancingStrikesTests()
         {
-            Ability ability = HeroTestHero.Abilities["TestHeroAdvancingStrikes"];
+            Ability ability = HeroTestHero.GetAbility("TestHeroAdvancingStrikes");
             Assert.AreEqual("Advancing Strikes", ability.Name);
             Assert.AreEqual("storm_ui_icon_testhero_flowingstrikes.dds", ability.IconFileName);
             Assert.AreEqual("TestHeroAdvancingStrikes", ability.ShortTooltipNameId);
@@ -94,31 +94,31 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityTypesForAbilitiesTests()
         {
-            Ability ability = HeroTestHero.Abilities["TestHeroBigBoom"];
+            Ability ability = HeroTestHero.GetAbility("TestHeroBigBoom");
             Assert.AreEqual(AbilityType.Heroic, ability.AbilityType);
 
-            ability = HeroTestHero.Abilities["TestHeroNerazimDummy"];
+            ability = HeroTestHero.GetAbility("TestHeroNerazimDummy");
             Assert.AreEqual(AbilityType.W, ability.AbilityType);
 
-            ability = HeroTestHero.Abilities["TestHeroIllusionMaster"];
+            ability = HeroTestHero.GetAbility("TestHeroIllusionMaster");
             Assert.AreEqual(AbilityType.Z, ability.AbilityType);
 
-            ability = HeroTestHero.Abilities["TestHeroAdvancingStrikes"];
+            ability = HeroTestHero.GetAbility("TestHeroAdvancingStrikes");
             Assert.AreEqual(AbilityType.Trait, ability.AbilityType);
 
-            ability = HeroTestHero.Abilities["TestHeroActiveAbility"];
+            ability = HeroTestHero.GetAbility("TestHeroActiveAbility");
             Assert.AreEqual(AbilityType.Active, ability.AbilityType);
 
-            ability = HeroTestHero.Abilities["TestUnitStab"];
+            ability = HeroTestHero.GetAbility("TestUnitStab");
             Assert.AreEqual(AbilityType.E, ability.AbilityType);
 
-            ability = HeroTestHero.Abilities["TestUnitCallUnit"];
+            ability = HeroTestHero.GetAbility("TestUnitCallUnit");
             Assert.AreEqual(AbilityType.W, ability.AbilityType);
 
-            ability = HeroTestHero.Abilities["FaerieDragonPolymorph"];
+            ability = HeroTestHero.GetAbility("FaerieDragonPolymorph");
             Assert.AreEqual(AbilityType.W, ability.AbilityType);
 
-            ability = HeroTestHero.Abilities["TestHeroCriticalStrikeDummy"];
+            ability = HeroTestHero.GetAbility("TestHeroCriticalStrikeDummy");
             Assert.AreEqual(AbilityType.W, ability.AbilityType);
         }
 
@@ -163,15 +163,15 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void OverrideTextTests()
         {
-            Ability ability = HeroTestHero.Abilities["TestHeroBigBoom"];
+            Ability ability = HeroTestHero.GetAbility("TestHeroBigBoom");
             Assert.AreEqual("<s val=\"StandardTooltipDetails\">Mana: 10 picks</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
             Assert.AreEqual("Cooldown: 20 per second", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
 
-            ability = HeroTestHero.Abilities["TestHeroBigBoomV2"];
+            ability = HeroTestHero.GetAbility("TestHeroBigBoomV2");
             Assert.AreEqual("<s val=\"StandardTooltipDetails\">Health: </s><s val=\"StandardTooltipDetails\">15%</s>", ability.Tooltip.Life.LifeCostTooltip.RawDescription);
             Assert.AreEqual("<s val=\"StandardTooltipDetails\">Mana: 40</s>", ability.Tooltip.Energy.EnergyTooltip.RawDescription);
 
-            ability = HeroTestHero.Abilities["TestHeroBigBoomV3"];
+            ability = HeroTestHero.GetAbility("TestHeroBigBoomV3");
             Assert.AreEqual("<s val=\"StandardTooltipDetails\">Mana: 3</s>", ability.Tooltip.Energy.EnergyTooltip.RawDescription);
             Assert.AreEqual("Cooldown: 12 Seconds", ability.Tooltip.Cooldown.CooldownTooltip.RawDescription);
         }
@@ -186,7 +186,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityButtonNameOverrideTest()
         {
-            Ability ability = HeroTestHero.Abilities["TestHeroEssenseCollection"];
+            Ability ability = HeroTestHero.GetAbility("TestHeroEssenseCollection");
             Assert.AreEqual("Cooldown: 5 seconds", ability.Tooltip.Cooldown.CooldownTooltip.RawDescription);
         }
 

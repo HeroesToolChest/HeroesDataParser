@@ -91,7 +91,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
 
         protected T UnitAbilities(Unit unit, bool isSubAbilities)
         {
-            if (unit.Abilities?.Count > 0)
+            if (unit.Abilities.Any())
             {
                 return GetAbilitiesObject(unit, isSubAbilities);
             }

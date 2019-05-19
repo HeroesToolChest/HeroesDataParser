@@ -40,9 +40,9 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 unitObject.Add(new JProperty("scalingLinkId", unit.ScalingBehaviorLink));
             if (!string.IsNullOrEmpty(unit.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 unitObject.Add("description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
-            if (unit.HeroDescriptors.Count > 0)
+            if (unit.HeroDescriptors.Any())
                 unitObject.Add(new JProperty("descriptors", unit.HeroDescriptors));
-            if (unit.Attributes.Count > 0)
+            if (unit.Attributes.Any())
                 unitObject.Add(new JProperty("attributes", unit.Attributes));
             if (!string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName))
                 unitObject.Add("image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension));
@@ -119,8 +119,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
 
             if (isSubAbilities)
             {
-                ICollection<Ability> basicAbilities = unit.SubAbilities(AbilityTier.Basic);
-                if (basicAbilities?.Count > 0)
+                IEnumerable<Ability> basicAbilities = unit.SubAbilities(AbilityTier.Basic);
+                if (basicAbilities.Any())
                 {
                     abilityObject.Add(new JProperty(
                         "basic",
@@ -130,8 +130,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
-                ICollection<Ability> heroicAbilities = unit.SubAbilities(AbilityTier.Heroic);
-                if (heroicAbilities?.Count > 0)
+                IEnumerable<Ability> heroicAbilities = unit.SubAbilities(AbilityTier.Heroic);
+                if (heroicAbilities.Any())
                 {
                     abilityObject.Add(new JProperty(
                         "heroic",
@@ -140,8 +140,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
-                ICollection<Ability> traitAbilities = unit.SubAbilities(AbilityTier.Trait);
-                if (traitAbilities?.Count > 0)
+                IEnumerable<Ability> traitAbilities = unit.SubAbilities(AbilityTier.Trait);
+                if (traitAbilities.Any())
                 {
                     abilityObject.Add(new JProperty(
                         "trait",
@@ -150,8 +150,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
-                ICollection<Ability> mountAbilities = unit.SubAbilities(AbilityTier.Mount);
-                if (mountAbilities?.Count > 0)
+                IEnumerable<Ability> mountAbilities = unit.SubAbilities(AbilityTier.Mount);
+                if (mountAbilities.Any())
                 {
                     abilityObject.Add(new JProperty(
                         "mount",
@@ -160,8 +160,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
-                ICollection<Ability> activableAbilities = unit.SubAbilities(AbilityTier.Activable);
-                if (activableAbilities?.Count > 0)
+                IEnumerable<Ability> activableAbilities = unit.SubAbilities(AbilityTier.Activable);
+                if (activableAbilities.Any())
                 {
                     abilityObject.Add(new JProperty(
                         "activable",
@@ -171,8 +171,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
-                ICollection<Ability> hearthAbilities = unit.SubAbilities(AbilityTier.Hearth);
-                if (hearthAbilities?.Count > 0)
+                IEnumerable<Ability> hearthAbilities = unit.SubAbilities(AbilityTier.Hearth);
+                if (hearthAbilities.Any())
                 {
                     abilityObject.Add(new JProperty(
                         "hearth",
@@ -183,8 +183,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
             }
             else
             {
-                ICollection<Ability> basicAbilities = unit.PrimaryAbilities(AbilityTier.Basic);
-                if (basicAbilities?.Count > 0)
+                IEnumerable<Ability> basicAbilities = unit.PrimaryAbilities(AbilityTier.Basic);
+                if (basicAbilities.Any())
                 {
                     abilityObject.Add(new JProperty(
                         "basic",
@@ -194,8 +194,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
-                ICollection<Ability> heroicAbilities = unit.PrimaryAbilities(AbilityTier.Heroic);
-                if (heroicAbilities?.Count > 0)
+                IEnumerable<Ability> heroicAbilities = unit.PrimaryAbilities(AbilityTier.Heroic);
+                if (heroicAbilities.Any())
                 {
                     abilityObject.Add(new JProperty(
                         "heroic",
@@ -204,8 +204,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
-                ICollection<Ability> traitAbilities = unit.PrimaryAbilities(AbilityTier.Trait);
-                if (traitAbilities?.Count > 0)
+                IEnumerable<Ability> traitAbilities = unit.PrimaryAbilities(AbilityTier.Trait);
+                if (traitAbilities.Any())
                 {
                     abilityObject.Add(new JProperty(
                         "trait",
@@ -214,8 +214,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
-                ICollection<Ability> mountAbilities = unit.PrimaryAbilities(AbilityTier.Mount);
-                if (mountAbilities?.Count > 0)
+                IEnumerable<Ability> mountAbilities = unit.PrimaryAbilities(AbilityTier.Mount);
+                if (mountAbilities.Any())
                 {
                     abilityObject.Add(new JProperty(
                         "mount",
@@ -224,8 +224,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
-                ICollection<Ability> activableAbilities = unit.PrimaryAbilities(AbilityTier.Activable);
-                if (activableAbilities?.Count > 0)
+                IEnumerable<Ability> activableAbilities = unit.PrimaryAbilities(AbilityTier.Activable);
+                if (activableAbilities.Any())
                 {
                     abilityObject.Add(new JProperty(
                         "activable",
@@ -235,8 +235,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                             select new JObject(AbilityTalentInfoElement(abil)))));
                 }
 
-                ICollection<Ability> hearthAbilities = unit.PrimaryAbilities(AbilityTier.Hearth);
-                if (hearthAbilities?.Count > 0)
+                IEnumerable<Ability> hearthAbilities = unit.PrimaryAbilities(AbilityTier.Hearth);
+                if (hearthAbilities.Any())
                 {
                     abilityObject.Add(new JProperty(
                         "hearth",

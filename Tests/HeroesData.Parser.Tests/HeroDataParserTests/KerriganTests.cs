@@ -8,7 +8,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityTests()
         {
-            Assert.IsTrue(HeroKerrigan.Abilities.ContainsKey("KerriganRavage"));
+            Assert.IsTrue(HeroKerrigan.ContainsAbility("KerriganRavage"));
         }
     }
 }

@@ -11,14 +11,14 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void AbilityTests()
         {
-            Assert.IsTrue(VolskayaVehicle.Abilities.Count == 2);
+            Assert.IsTrue(VolskayaVehicle.Abilities.Count() == 2);
 
             List<Ability> sortedAbilities = VolskayaVehicle.PrimaryAbilities(AbilityTier.Basic).OrderBy(x => x.AbilityType).ToList();
 
             Assert.AreEqual(AbilityType.W, sortedAbilities[0].AbilityType);
             Assert.AreEqual(AbilityType.E, sortedAbilities[1].AbilityType);
 
-            Ability shield = VolskayaVehicle.Abilities["VolskayaVehicleTShield"];
+            Ability shield = VolskayaVehicle.GetAbility("VolskayaVehicleTShield");
             Assert.AreEqual(AbilityType.E, shield.AbilityType);
             Assert.IsFalse(shield.IsActive);
             Assert.IsFalse(shield.IsQuest);
@@ -28,7 +28,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.AreEqual("Gives shields to allies", shield.Tooltip.FullTooltip.RawDescription);
             Assert.AreEqual("Cooldown: 16 seconds", shield.Tooltip.Cooldown.CooldownTooltip.PlainText);
 
-            Ability fist = VolskayaVehicle.Abilities["VolskayaVehicleRocketFist"];
+            Ability fist = VolskayaVehicle.GetAbility("VolskayaVehicleRocketFist");
             Assert.AreEqual(AbilityType.W, fist.AbilityType);
             Assert.AreEqual(AbilityTier.Basic, fist.Tier);
             Assert.AreEqual("Cooldown: 14 seconds", fist.Tooltip.Cooldown.CooldownTooltip.PlainText);

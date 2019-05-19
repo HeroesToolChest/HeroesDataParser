@@ -100,7 +100,7 @@ namespace HeroesData.Parser.XmlData
             Dictionary<string, (XElement, AbilityTalentBase)> abilityTalentsByButtonElements = new Dictionary<string, (XElement, AbilityTalentBase)>();
 
             // storm hero abilities
-            foreach (Ability ability in stormHeroBase.Abilities.Values)
+            foreach (Ability ability in stormHeroBase.Abilities)
             {
                 XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ButtonName || x.Attribute("id")?.Value == ability.ReferenceNameId));
                 if (buttonElement != null)
@@ -108,7 +108,7 @@ namespace HeroesData.Parser.XmlData
             }
 
             // hero's abilities
-            foreach (Ability ability in hero.Abilities.Values)
+            foreach (Ability ability in hero.Abilities)
             {
                 XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ReferenceNameId));
                 if (buttonElement == null)
@@ -141,7 +141,7 @@ namespace HeroesData.Parser.XmlData
             else if (talentAbilElement != null)
             {
                 string abilValue = talentAbilElement.Attribute("value").Value;
-                if (hero.Abilities.TryGetValue(abilValue, out Ability ability))
+                if (hero.TryGetAbility(abilValue, out Ability ability))
                     talent.AbilityType = ability.AbilityType;
                 else if (abilValue == "Mount")
                     talent.AbilityType = AbilityType.Z;
@@ -167,7 +167,7 @@ namespace HeroesData.Parser.XmlData
                 talent.AbilityTalentLinkIds = new HashSet<string>(abilityTalentIds);
 
                 // remove own self talent referenceNameId from abilityTalentLinkIds unless it is an id of an ability
-                if (!hero.Abilities.ContainsKey(talent.ReferenceNameId))
+                if (!hero.ContainsAbility(talent.ReferenceNameId))
                     talent.AbilityTalentLinkIds.Remove(talent.ReferenceNameId);
             }
 

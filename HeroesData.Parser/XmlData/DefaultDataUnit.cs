@@ -7,6 +7,8 @@ namespace HeroesData.Parser.XmlData
 {
     public class DefaultDataUnit
     {
+        private readonly HashSet<string> UnitAttributeList = new HashSet<string>();
+
         public DefaultDataUnit(GameData gameData)
         {
             GameData = gameData;
@@ -50,9 +52,9 @@ namespace HeroesData.Parser.XmlData
         public double UnitEnergyRegenRate { get; private set; }
 
         /// <summary>
-        /// Gets the default attributes.
+        /// Gets a collection of the default attributes.
         /// </summary>
-        public ICollection<string> UnitAttributes { get; private set; } = new List<string>();
+        public IEnumerable<string> UnitAttributes => UnitAttributeList;
 
         /// <summary>
         /// Gets the default damage type.
@@ -104,7 +106,9 @@ namespace HeroesData.Parser.XmlData
                 else if (elementName == "ATTRIBUTES")
                 {
                     if (element.Attribute("value")?.Value == "1")
-                        UnitAttributes.Add(element.Attribute("index").Value);
+                        UnitAttributeList.Add(element.Attribute("index").Value);
+                    else if (element.Attribute("value")?.Value == "0")
+                        UnitAttributeList.Remove(element.Attribute("index").Value);
                 }
                 else if (elementName == "UNITDAMAGETYPE")
                 {

@@ -19,8 +19,8 @@ namespace HeroesData.FileWriter.Tests.UnitData
             };
             WeaponAttributeFactor weaponAttributeFactor2 = new WeaponAttributeFactor()
             {
-                Type = "Minion",
-                Value = 5,
+                Type = "Structure",
+                Value = 0.75,
             };
             UnitWeapon unitWeapon = new UnitWeapon()
             {
@@ -39,7 +39,6 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 Id = "MinionArcher",
                 Description = new TooltipDescription(string.Empty),
                 HyperlinkId = "MinionArcher",
-                Attributes = new HashSet<string>() { "att1", "att2" },
                 CUnitId = "MinionArcher",
                 DamageType = "Minion",
                 InnerRadius = 1.125,
@@ -51,6 +50,8 @@ namespace HeroesData.FileWriter.Tests.UnitData
             };
             unit.Life.LifeMax = 500;
             unit.AddUnitWeapon(unitWeapon);
+            unit.AddAttribute("att1");
+            unit.AddAttribute("att2");
 
             TestData.Add(unit);
 

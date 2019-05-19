@@ -29,8 +29,6 @@ namespace HeroesData.Parser.XmlData
         /// <param name="abilityElement">The HeroAbilArray xml element.</param>
         public void AddHeroAbility(Hero hero, XElement abilityElement)
         {
-            hero.Abilities = hero.Abilities ?? new Dictionary<string, Ability>();
-
             string referenceName = abilityElement.Attribute("Abil")?.Value;
             string tooltipName = abilityElement.Attribute("Button")?.Value;
             string parentLink = abilityElement.Attribute("Unit")?.Value;
@@ -111,25 +109,25 @@ namespace HeroesData.Parser.XmlData
                 return;
 
             // add ability
-            if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
-            {
-                if (hero.Abilities.Count >= 3 && ability.AbilityType == AbilityType.Active)
-                    ability.Tier = AbilityTier.Activable;
+            //if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
+            //{
+            //    if (hero.Abilities.Count >= 3 && ability.AbilityType == AbilityType.Active)
+            //        ability.Tier = AbilityTier.Activable;
 
-                hero.Abilities.Add(ability.ReferenceNameId, ability);
-            }
-            else if (HeroDataOverride.AddedAbilityByAbilityId.TryGetValue(ability.ReferenceNameId, out var addedAbility))
-            {
-                // overridden add ability
-                if (addedAbility.IsAdded)
-                {
-                    ability.ReferenceNameId = addedAbility.ButtonName;
+            //    hero.Abilities.Add(ability.ReferenceNameId, ability);
+            //}
+            //else if (HeroDataOverride.AddedAbilityByAbilityId.TryGetValue(ability.ReferenceNameId, out var addedAbility))
+            //{
+            //    // overridden add ability
+            //    if (addedAbility.IsAdded)
+            //    {
+            //        ability.ReferenceNameId = addedAbility.ButtonName;
 
-                    // attempt to re-add
-                    if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
-                        hero.Abilities.Add(ability.ReferenceNameId, ability);
-                }
-            }
+            //        // attempt to re-add
+            //        if (!hero.Abilities.ContainsKey(ability.ReferenceNameId))
+            //            hero.Abilities.Add(ability.ReferenceNameId, ability);
+            //    }
+            //}
         }
 
         /// <summary>
@@ -218,7 +216,7 @@ namespace HeroesData.Parser.XmlData
                 return;
 
             Ability ability = new Ability();
-            unit.Abilities = unit.Abilities ?? new Dictionary<string, Ability>();
+            //unit.Abilities = unit.Abilities ?? new Dictionary<string, Ability>();
 
             XElement abilityElement = GameData.MergeXmlElements(GameData.Elements(elementName).Where(x => x.Attribute("id")?.Value == id));
 
@@ -240,9 +238,9 @@ namespace HeroesData.Parser.XmlData
                 SetTooltipOverrideData(cButtonElement, ability);
             }
 
-            // add to abilities
-            if (!unit.Abilities.ContainsKey(ability.ReferenceNameId))
-                unit.Abilities.Add(ability.ReferenceNameId, ability);
+            //// add to abilities
+            //if (!unit.Abilities.ContainsKey(ability.ReferenceNameId))
+            //    unit.Abilities.Add(ability.ReferenceNameId, ability);
         }
 
         /// <summary>
@@ -347,7 +345,7 @@ namespace HeroesData.Parser.XmlData
 
                 if (!string.IsNullOrEmpty(talentId))
                 {
-                    ability.TalentIdUpgrades.Add(talentId);
+                    ability.AddTalentIdUpgrade(talentId);
                 }
             }
         }

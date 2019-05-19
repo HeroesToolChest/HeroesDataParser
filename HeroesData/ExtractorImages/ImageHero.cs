@@ -65,7 +65,7 @@ namespace HeroesData.ExtractorImage
 
         private void LoadAbilityTalentFiles(Hero hero)
         {
-            foreach (string abilityIconFileName in hero.Abilities.Select(x => x.Value.IconFileName))
+            foreach (string abilityIconFileName in hero.Abilities.Select(x => x.IconFileName))
             {
                 if (!string.IsNullOrEmpty(abilityIconFileName))
                 {

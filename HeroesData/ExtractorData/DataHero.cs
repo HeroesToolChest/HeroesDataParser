@@ -116,7 +116,7 @@ namespace HeroesData.ExtractorData
             if (Parser.HotsBuild.GetValueOrDefault(0) >= 72880 && string.IsNullOrEmpty(hero.ExpandedRole))
                 AddWarning($"{nameof(hero.ExpandedRole)} is empty");
 
-            if (hero.Abilities.Count < 1)
+            if (!hero.Abilities.Any())
                 AddWarning("Hero has no abilities");
 
             if (hero.Talents.Count < 1)
@@ -166,10 +166,10 @@ namespace HeroesData.ExtractorData
             if (!hero.Weapons.Any())
                 AddWarning("has no weapons");
 
-            if (hero.PrimaryAbilities(AbilityTier.Basic).Count < 3)
+            if (hero.PrimaryAbilities(AbilityTier.Basic).Count() < 3)
                 AddWarning($"has less than 3 basic abilities");
 
-            if (hero.PrimaryAbilities(AbilityTier.Basic).Count > 3)
+            if (hero.PrimaryAbilities(AbilityTier.Basic).Count() > 3)
                 AddWarning($"has more than 3 basic abilities");
 
             VerifyAbilities(hero);
@@ -304,45 +304,45 @@ namespace HeroesData.ExtractorData
 
         private void VerifyAbilities(Unit unit)
         {
-            foreach (var ability in unit.Abilities)
+            foreach (Ability ability in unit.Abilities)
             {
-                if (string.IsNullOrEmpty(ability.Value.IconFileName))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.IconFileName)} is empty");
+                if (string.IsNullOrEmpty(ability.IconFileName))
+                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.IconFileName)} is empty");
 
-                if (string.IsNullOrEmpty(ability.Value.Name))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.Name)} is empty");
+                if (string.IsNullOrEmpty(ability.Name))
+                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Name)} is empty");
 
-                if (string.IsNullOrEmpty(ability.Value.ReferenceNameId))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.ReferenceNameId)} is empty");
+                if (string.IsNullOrEmpty(ability.ReferenceNameId))
+                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.ReferenceNameId)} is empty");
 
-                if (string.IsNullOrEmpty(ability.Value.FullTooltipNameId))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.FullTooltipNameId)} is empty");
+                if (string.IsNullOrEmpty(ability.FullTooltipNameId))
+                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.FullTooltipNameId)} is empty");
 
-                if (string.IsNullOrEmpty(ability.Value.ShortTooltipNameId))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.ShortTooltipNameId)} is empty");
+                if (string.IsNullOrEmpty(ability.ShortTooltipNameId))
+                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.ShortTooltipNameId)} is empty");
 
-                if (string.IsNullOrEmpty(ability.Value.Tooltip.ShortTooltip?.RawDescription))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.ShortTooltip)} is empty");
+                if (string.IsNullOrEmpty(ability.Tooltip.ShortTooltip?.RawDescription))
+                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.ShortTooltip)} is empty");
 
-                if (string.IsNullOrEmpty(ability.Value.Tooltip.FullTooltip?.RawDescription))
-                    AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.FullTooltip)} is empty");
+                if (string.IsNullOrEmpty(ability.Tooltip.FullTooltip?.RawDescription))
+                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.FullTooltip)} is empty");
 
-                if (!string.IsNullOrEmpty(ability.Value.Tooltip.Cooldown?.CooldownTooltip?.RawDescription))
+                if (!string.IsNullOrEmpty(ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription))
                 {
-                    if (char.IsDigit(ability.Value.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
-                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
+                    if (char.IsDigit(ability.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
+                        AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
                 }
 
-                if (!string.IsNullOrEmpty(ability.Value.Tooltip.Energy?.EnergyTooltip?.RawDescription))
+                if (!string.IsNullOrEmpty(ability.Tooltip.Energy?.EnergyTooltip?.RawDescription))
                 {
-                    if (char.IsDigit(ability.Value.Tooltip.Energy.EnergyTooltip.PlainText[0]))
-                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
+                    if (char.IsDigit(ability.Tooltip.Energy.EnergyTooltip.PlainText[0]))
+                        AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
                 }
 
-                if (!string.IsNullOrEmpty(ability.Value.Tooltip.Life?.LifeCostTooltip?.RawDescription))
+                if (!string.IsNullOrEmpty(ability.Tooltip.Life?.LifeCostTooltip?.RawDescription))
                 {
-                    if (char.IsDigit(ability.Value.Tooltip.Life.LifeCostTooltip.PlainText[0]))
-                        AddWarning($"[{ability.Key}] {nameof(ability.Value.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
+                    if (char.IsDigit(ability.Tooltip.Life.LifeCostTooltip.PlainText[0]))
+                        AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
                 }
             }
         }

@@ -9,7 +9,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityTests()
         {
-            Ability ability = HeroSonya.Abilities["BarbarianSeismicSlam"];
+            Ability ability = HeroSonya.GetAbility("BarbarianSeismicSlam");
             Assert.AreEqual("<s val=\"StandardTooltipDetails\">Fury: 25</s>", ability.Tooltip.Energy.EnergyTooltip.RawDescription);
         }
     }

@@ -127,14 +127,14 @@ namespace HeroesData.Parser
             // abilities
             if (unit.Abilities != null)
             {
-                foreach (KeyValuePair<string, Ability> ability in unit.Abilities)
+                foreach (Ability ability in unit.Abilities)
                 {
-                    if (dataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
+                    if (dataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.ReferenceNameId, out Dictionary<string, Action<Ability>> valueOverrideMethods))
                     {
                         foreach (KeyValuePair<string, Action<Ability>> propertyOverride in valueOverrideMethods)
                         {
                             // execute each property override
-                            propertyOverride.Value(ability.Value);
+                            propertyOverride.Value(ability);
                         }
                     }
                 }
@@ -218,9 +218,9 @@ namespace HeroesData.Parser
                     string attribute = element.Attribute("index").Value;
 
                     if (enabled == "0" && unit.Attributes.Contains(attribute))
-                        unit.Attributes.Remove(attribute);
+                        unit.RemoveAttribute(attribute);
                     else if (enabled == "1")
-                        unit.Attributes.Add(attribute);
+                        unit.AddAttribute(attribute);
                 }
                 else if (elementName == "UNITDAMAGETYPE")
                 {
@@ -238,7 +238,7 @@ namespace HeroesData.Parser
                 {
                     Ability ability = AbilityData.CreateAbility(unit.CUnitId, element);
                     if (ability != null)
-                        unit.Abilities.TryAdd(ability.ReferenceNameId, ability);
+                        unit.AddAbility(ability);
                 }
                 else if (elementName == "WEAPONARRAY")
                 {
@@ -282,7 +282,7 @@ namespace HeroesData.Parser
             unit.Energy.EnergyType = GameData.GetGameString(DefaultData.HeroEnergyTypeManaText);
             unit.Energy.EnergyMax = DefaultData.UnitData.UnitEnergyMax;
             unit.Energy.EnergyRegenerationRate = DefaultData.UnitData.UnitEnergyRegenRate;
-            unit.Attributes = new HashSet<string>(DefaultData.UnitData.UnitAttributes);
+            unit.AddRangeAttribute(DefaultData.UnitData.UnitAttributes);
             unit.DamageType = DefaultData.UnitData.UnitDamageType;
             unit.Name = GameData.GetGameString(DefaultData.UnitData.UnitName.Replace(DefaultData.IdPlaceHolder, unit.Id)).Trim();
         }

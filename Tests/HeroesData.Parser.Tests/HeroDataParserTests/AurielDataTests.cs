@@ -37,7 +37,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityEnergyTooltipTextTest()
         {
-            Ability ability = HeroAuriel.Abilities["AurielSacredSweep"];
+            Ability ability = HeroAuriel.GetAbility("AurielSacredSweep");
             Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Energy?.EnergyTooltip?.RawDescription));
         }
     }

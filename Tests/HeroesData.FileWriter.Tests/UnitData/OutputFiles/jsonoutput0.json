@@ -7,6 +7,7 @@
     "sight": 6.0,
     "speed": 4.0,
     "damageType": "Minion",
+    "scalingLinkId": "MinionScaling",
     "attributes": [
       "att1",
       "att2"

@@ -130,8 +130,8 @@ namespace HeroesData.Parser
             ApplyOverrides(StormHeroBase, HeroDataOverride);
             MoveParentLinkedAbilities(StormHeroBase);
 
-            IList<Ability> hearthAbilties = StormHeroBase.PrimaryAbilities(AbilityTier.Hearth);
-            IList<Ability> mountAbilties = StormHeroBase.PrimaryAbilities(AbilityTier.Mount);
+            IList<Ability> hearthAbilties = null; //StormHeroBase.PrimaryAbilities(AbilityTier.Hearth);
+            IList<Ability> mountAbilties = null; //StormHeroBase.PrimaryAbilities(AbilityTier.Mount);
 
             // based on the _stormhero data in hero-overrides.xml
             DefaultData.HeroData.DefaultHearthAbilityId = hearthAbilties[0].ReferenceNameId;
@@ -166,17 +166,17 @@ namespace HeroesData.Parser
             // abilities
             if (hero.Abilities != null)
             {
-                foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
-                {
-                    if (heroDataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
-                    {
-                        foreach (var propertyOverride in valueOverrideMethods)
-                        {
-                            // execute each property override
-                            propertyOverride.Value(ability.Value);
-                        }
-                    }
-                }
+                //foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
+                //{
+                //    if (heroDataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
+                //    {
+                //        foreach (var propertyOverride in valueOverrideMethods)
+                //        {
+                //            // execute each property override
+                //            propertyOverride.Value(ability.Value);
+                //        }
+                //    }
+                //}
             }
 
             // talents
@@ -577,8 +577,8 @@ namespace HeroesData.Parser
                 {
                     string descriptor = element.Attribute("index").Value;
 
-                    if (element.Attribute("value")?.Value == "1")
-                        hero.HeroDescriptors.Add(descriptor);
+                    //if (element.Attribute("value")?.Value == "1")
+                    //    hero.HeroDescriptors.Add(descriptor);
                 }
             }
 
@@ -592,11 +592,11 @@ namespace HeroesData.Parser
                 hero.Energy.EnergyType = string.Empty;
 
             // set mount link if hero has a custom mount ability
-            IList<Ability> mountAbilities = hero.PrimaryAbilities(AbilityTier.Mount);
-            string parentAttribute = unitElement.Attribute("parent")?.Value;
+            //IList<Ability> mountAbilities = hero.PrimaryAbilities(AbilityTier.Mount);
+            //string parentAttribute = unitElement.Attribute("parent")?.Value;
 
-            if (parentAttribute == "StormHeroMountedCustom" && mountAbilities.Count > 0)
-                hero.MountLinkId = mountAbilities.FirstOrDefault()?.ReferenceNameId;
+            //if (parentAttribute == "StormHeroMountedCustom" && mountAbilities.Count > 0)
+            //    hero.MountLinkId = mountAbilities.FirstOrDefault()?.ReferenceNameId;
         }
 
         private void AddSubHeroCUnits(Hero hero)
@@ -652,8 +652,8 @@ namespace HeroesData.Parser
         {
             foreach (KeyValuePair<string, bool> removedAbility in heroDataOverride.RemovedAbilityByAbilityReferenceNameId)
             {
-                if (removedAbility.Value)
-                    hero.Abilities.Remove(removedAbility.Key);
+                //if (removedAbility.Value)
+                //    hero.Abilities.Remove(removedAbility.Key);
             }
         }
 
@@ -666,10 +666,10 @@ namespace HeroesData.Parser
             {
                 foreach (Hero heroUnit in hero.HeroUnits)
                 {
-                    heroUnit.Abilities = linkedAbilities[heroUnit.CUnitId].ToDictionary(x => x.ReferenceNameId, x => x);
+                    //heroUnit.Abilities = linkedAbilities[heroUnit.CUnitId].ToDictionary(x => x.ReferenceNameId, x => x);
 
-                    foreach (Ability linkedAbility in linkedAbilities[heroUnit.CUnitId])
-                        hero.Abilities.Remove(linkedAbility.ReferenceNameId);
+                    //foreach (Ability linkedAbility in linkedAbilities[heroUnit.CUnitId])
+                    //    hero.Abilities.Remove(linkedAbility.ReferenceNameId);
                 }
             }
         }
