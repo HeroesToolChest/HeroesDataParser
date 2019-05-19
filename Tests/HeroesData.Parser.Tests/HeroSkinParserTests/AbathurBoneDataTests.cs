@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.HeroSkinParserTests
 {
@@ -17,7 +18,7 @@ namespace HeroesData.Parser.Tests.HeroSkinParserTests
             Assert.AreEqual("BoneAbathur", AbathurCommonSkin.HyperlinkId);
             Assert.AreEqual(new DateTime(2014, 3, 13), AbathurCommonSkin.ReleaseDate);
             Assert.AreEqual(Rarity.None, AbathurCommonSkin.Rarity);
-            Assert.AreEqual(0, AbathurCommonSkin.Features.Count);
+            Assert.AreEqual(0, AbathurCommonSkin.Features.Count());
         }
     }
 }

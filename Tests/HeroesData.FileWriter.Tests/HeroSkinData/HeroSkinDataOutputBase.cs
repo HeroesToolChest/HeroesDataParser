@@ -1,6 +1,5 @@
 ﻿using Heroes.Models;
 using System;
-using System.Collections.Generic;
 
 namespace HeroesData.FileWriter.Tests.HeroSkinData
 {
@@ -24,8 +23,11 @@ namespace HeroesData.FileWriter.Tests.HeroSkinData
                 Description = new TooltipDescription("Evolution Master of Kerrigan's Swarm"),
                 SearchText = "White Pink",
                 ReleaseDate = new DateTime(2014, 3, 13),
-                Features = new List<string>() { "ThemedAbilities", "ThemedAnimations" },
             };
+
+            heroSkin.AddFeature("ThemedAbilities");
+            heroSkin.AddFeature("ThemedAbilities");
+            heroSkin.AddFeature("ThemedAnimations");
 
             TestData.Add(heroSkin);
 

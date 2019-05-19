@@ -116,7 +116,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "FEATUREARRAY")
                 {
-                    heroSkin.Features.Add(element.Attribute("value")?.Value);
+                    heroSkin.AddFeature(element.Attribute("value")?.Value);
                 }
                 else if (elementName == "NAME")
                 {

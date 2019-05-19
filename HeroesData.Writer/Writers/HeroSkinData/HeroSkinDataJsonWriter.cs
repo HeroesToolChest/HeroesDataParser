@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace HeroesData.FileWriter.Writers.HeroSkinData
 {
@@ -36,7 +37,7 @@ namespace HeroesData.FileWriter.Writers.HeroSkinData
             if (!string.IsNullOrEmpty(heroSkin.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 heroSkinObject.Add("description", GetTooltip(heroSkin.Description, FileOutputOptions.DescriptionType));
 
-            if (heroSkin.Features.Count > 0)
+            if (heroSkin.Features.Any())
                 heroSkinObject.Add(new JProperty("features", heroSkin.Features));
 
             return new JProperty(heroSkin.Id, heroSkinObject);

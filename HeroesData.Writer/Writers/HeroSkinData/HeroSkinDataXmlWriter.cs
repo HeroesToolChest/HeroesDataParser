@@ -28,7 +28,7 @@ namespace HeroesData.FileWriter.Writers.HeroSkinData
                 string.IsNullOrEmpty(heroSkin.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", heroSkin.SortName),
                 string.IsNullOrEmpty(heroSkin.SearchText) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", heroSkin.SearchText),
                 string.IsNullOrEmpty(heroSkin.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(heroSkin.Description, FileOutputOptions.DescriptionType)),
-                heroSkin.Features.Count > 0 ? new XElement("Features", heroSkin.Features.Select(f => new XElement("Feature", f))) : null);
+                heroSkin.Features.Any() ? new XElement("Features", heroSkin.Features.Select(f => new XElement("Feature", f))) : null);
         }
     }
 }
