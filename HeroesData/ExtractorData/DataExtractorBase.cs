@@ -61,7 +61,7 @@ namespace HeroesData.ExtractorData
 
             try
             {
-                Parallel.ForEach(generalItems, new ParallelOptions { MaxDegreeOfParallelism = 1 }, item =>
+                Parallel.ForEach(generalItems, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, item =>
                 {
                     ParsedData.GetOrAdd(string.Join(" ", item), Parser.GetInstance().Parse(item));
                     Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {items.Count} total {Name}");
@@ -77,7 +77,7 @@ namespace HeroesData.ExtractorData
                     {
                         Parser.LoadMapData(mapItemGroup.Key);
 
-                        Parallel.ForEach(mapItemGroup, new ParallelOptions { MaxDegreeOfParallelism = 1 }, mapItem =>
+                        Parallel.ForEach(mapItemGroup, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, mapItem =>
                         {
                             ParsedData.GetOrAdd(string.Join(" ", mapItem), Parser.GetInstance().Parse(mapItem));
                             Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {items.Count} total {Name}");
