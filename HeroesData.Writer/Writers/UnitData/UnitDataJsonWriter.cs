@@ -119,131 +119,31 @@ namespace HeroesData.FileWriter.Writers.UnitData
 
             if (isSubAbilities)
             {
-                IEnumerable<Ability> basicAbilities = unit.SubAbilities(AbilityTier.Basic);
-                if (basicAbilities.Any())
-                {
-                    abilityObject.Add(new JProperty(
-                        "basic",
-                        new JArray(
-                            from abil in basicAbilities
-                            orderby abil.AbilityType ascending
-                            select new JObject(AbilityTalentInfoElement(abil)))));
-                }
-
-                IEnumerable<Ability> heroicAbilities = unit.SubAbilities(AbilityTier.Heroic);
-                if (heroicAbilities.Any())
-                {
-                    abilityObject.Add(new JProperty(
-                        "heroic",
-                        new JArray(
-                            from abil in heroicAbilities
-                            select new JObject(AbilityTalentInfoElement(abil)))));
-                }
-
-                IEnumerable<Ability> traitAbilities = unit.SubAbilities(AbilityTier.Trait);
-                if (traitAbilities.Any())
-                {
-                    abilityObject.Add(new JProperty(
-                        "trait",
-                        new JArray(
-                            from abil in traitAbilities
-                            select new JObject(AbilityTalentInfoElement(abil)))));
-                }
-
-                IEnumerable<Ability> mountAbilities = unit.SubAbilities(AbilityTier.Mount);
-                if (mountAbilities.Any())
-                {
-                    abilityObject.Add(new JProperty(
-                        "mount",
-                        new JArray(
-                            from abil in mountAbilities
-                            select new JObject(AbilityTalentInfoElement(abil)))));
-                }
-
-                IEnumerable<Ability> activableAbilities = unit.SubAbilities(AbilityTier.Activable);
-                if (activableAbilities.Any())
-                {
-                    abilityObject.Add(new JProperty(
-                        "activable",
-                        new JArray(
-                            from abil in activableAbilities
-                            orderby abil.AbilityType ascending
-                            select new JObject(AbilityTalentInfoElement(abil)))));
-                }
-
-                IEnumerable<Ability> hearthAbilities = unit.SubAbilities(AbilityTier.Hearth);
-                if (hearthAbilities.Any())
-                {
-                    abilityObject.Add(new JProperty(
-                        "hearth",
-                        new JArray(
-                            from abil in hearthAbilities
-                            select new JObject(AbilityTalentInfoElement(abil)))));
-                }
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Basic), "basic");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Heroic), "heroic");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Trait), "trait");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Mount), "mount");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Activable), "activable");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Hearth), "hearth");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Taunt), "taunt");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Dance), "dance");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Spray), "spray");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Voice), "voice");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.MapMechanic), "mapMechanic");
             }
             else
             {
-                IEnumerable<Ability> basicAbilities = unit.PrimaryAbilities(AbilityTier.Basic);
-                if (basicAbilities.Any())
-                {
-                    abilityObject.Add(new JProperty(
-                        "basic",
-                        new JArray(
-                            from abil in basicAbilities
-                            orderby abil.AbilityType ascending
-                            select new JObject(AbilityTalentInfoElement(abil)))));
-                }
-
-                IEnumerable<Ability> heroicAbilities = unit.PrimaryAbilities(AbilityTier.Heroic);
-                if (heroicAbilities.Any())
-                {
-                    abilityObject.Add(new JProperty(
-                        "heroic",
-                        new JArray(
-                            from abil in heroicAbilities
-                            select new JObject(AbilityTalentInfoElement(abil)))));
-                }
-
-                IEnumerable<Ability> traitAbilities = unit.PrimaryAbilities(AbilityTier.Trait);
-                if (traitAbilities.Any())
-                {
-                    abilityObject.Add(new JProperty(
-                        "trait",
-                        new JArray(
-                            from abil in traitAbilities
-                            select new JObject(AbilityTalentInfoElement(abil)))));
-                }
-
-                IEnumerable<Ability> mountAbilities = unit.PrimaryAbilities(AbilityTier.Mount);
-                if (mountAbilities.Any())
-                {
-                    abilityObject.Add(new JProperty(
-                        "mount",
-                        new JArray(
-                            from abil in mountAbilities
-                            select new JObject(AbilityTalentInfoElement(abil)))));
-                }
-
-                IEnumerable<Ability> activableAbilities = unit.PrimaryAbilities(AbilityTier.Activable);
-                if (activableAbilities.Any())
-                {
-                    abilityObject.Add(new JProperty(
-                        "activable",
-                        new JArray(
-                            from abil in activableAbilities
-                            orderby abil.AbilityType ascending
-                            select new JObject(AbilityTalentInfoElement(abil)))));
-                }
-
-                IEnumerable<Ability> hearthAbilities = unit.PrimaryAbilities(AbilityTier.Hearth);
-                if (hearthAbilities.Any())
-                {
-                    abilityObject.Add(new JProperty(
-                        "hearth",
-                        new JArray(
-                            from abil in hearthAbilities
-                            select new JObject(AbilityTalentInfoElement(abil)))));
-                }
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Basic), "basic");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Heroic), "heroic");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Trait), "trait");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Mount), "mount");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Activable), "activable");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Hearth), "hearth");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Taunt), "taunt");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Dance), "dance");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Spray), "spray");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Voice), "voice");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.MapMechanic), "mapMechanic");
             }
 
             return new JProperty("abilities", abilityObject);
@@ -375,6 +275,19 @@ namespace HeroesData.FileWriter.Writers.UnitData
             }
 
             return new JProperty("weapons", weaponArray);
+        }
+
+        protected void SetAbilities(JObject abilityObject, IEnumerable<Ability> abilities, string propertyName)
+        {
+            if (abilities.Any())
+            {
+                abilityObject.Add(new JProperty(
+                    propertyName,
+                    new JArray(
+                        from abil in abilities
+                        orderby abil.AbilityType ascending
+                        select new JObject(AbilityTalentInfoElement(abil)))));
+            }
         }
     }
 }

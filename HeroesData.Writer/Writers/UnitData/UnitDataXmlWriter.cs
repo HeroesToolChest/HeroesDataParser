@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -81,7 +82,12 @@ namespace HeroesData.FileWriter.Writers.UnitData
                     unit.SubAbilities(AbilityTier.Trait).Any() ? new XElement("Trait", unit.SubAbilities(AbilityTier.Trait).Select(trait => AbilityTalentInfoElement(trait))) : null,
                     unit.SubAbilities(AbilityTier.Mount).Any() ? new XElement("Mount", unit.SubAbilities(AbilityTier.Mount).Select(mount => AbilityTalentInfoElement(mount))) : null,
                     unit.SubAbilities(AbilityTier.Activable).Any() ? new XElement("Activable", unit.SubAbilities(AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(activable => AbilityTalentInfoElement(activable))) : null,
-                    unit.SubAbilities(AbilityTier.Hearth).Any() ? new XElement("Hearth", unit.SubAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null);
+                    unit.SubAbilities(AbilityTier.Hearth).Any() ? new XElement("Hearth", unit.SubAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null,
+                    unit.SubAbilities(AbilityTier.Taunt).Any() ? new XElement("Taunt", unit.SubAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null,
+                    unit.SubAbilities(AbilityTier.Dance).Any() ? new XElement("Dance", unit.SubAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null,
+                    unit.SubAbilities(AbilityTier.Spray).Any() ? new XElement("Spray", unit.SubAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null,
+                    unit.SubAbilities(AbilityTier.Voice).Any() ? new XElement("Voice", unit.SubAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null,
+                    unit.SubAbilities(AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", unit.SubAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null);
             }
             else
             {
@@ -92,7 +98,12 @@ namespace HeroesData.FileWriter.Writers.UnitData
                     unit.PrimaryAbilities(AbilityTier.Trait).Any() ? new XElement("Trait", unit.PrimaryAbilities(AbilityTier.Trait).Select(trait => AbilityTalentInfoElement(trait))) : null,
                     unit.PrimaryAbilities(AbilityTier.Mount).Any() ? new XElement("Mount", unit.PrimaryAbilities(AbilityTier.Mount).Select(mount => AbilityTalentInfoElement(mount))) : null,
                     unit.PrimaryAbilities(AbilityTier.Activable).Any() ? new XElement("Activable", unit.PrimaryAbilities(AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(activable => AbilityTalentInfoElement(activable))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Hearth).Any() ? new XElement("Hearth", unit.PrimaryAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null);
+                    unit.PrimaryAbilities(AbilityTier.Hearth).Any() ? new XElement("Hearth", unit.PrimaryAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Taunt).Any() ? new XElement("Taunt", unit.SubAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Dance).Any() ? new XElement("Dance", unit.SubAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Spray).Any() ? new XElement("Spray", unit.SubAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Voice).Any() ? new XElement("Voice", unit.SubAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null,
+                    unit.PrimaryAbilities(AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", unit.SubAbilities(AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null);
             }
         }
 
