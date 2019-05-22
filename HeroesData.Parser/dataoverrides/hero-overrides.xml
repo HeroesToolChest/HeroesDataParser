@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides>
-  <CHero id="_stormhero">
+  <Ability type="CAbilEffectInstant" id ="Hearthstone">
+    <Override>
+      <AbilityTier value="Hearth" />
+      <AbilityType value="B" />
+    </Override>
+  </Ability>
+  <!--<CHero id="_stormhero">
     <Button id="Hearthstone" parent="StormButtonParent">
       <Override>
         <AbilityTier value="Hearth" />
@@ -25,7 +31,7 @@
     <HeroUnit id="AbathurSymbiote"></HeroUnit>
   </CHero>
   <CHero id="Alexstrasza">
-    <!--Dragonqueen abilities tied to Dragonqueen form ability-->
+    --><!--Dragonqueen abilities tied to Dragonqueen form ability--><!--
     <Ability id="AlexstraszaBreathOfLife" valid="true">
       <Override>
         <ParentLink value="HeroAlexstraszaDragon" />
@@ -56,7 +62,7 @@
     </Talent>
   </CHero>
   <CHero id="Chen">
-    <!--Storm, Earth, and Fire abilities tied to Heroic ability StormEarthFire-->
+    --><!--Storm, Earth, and Fire abilities tied to Heroic ability StormEarthFire--><!--
     <Ability id="ChenStorm" valid="true">
       <Override>
         <ParentLink value="HeroChenStorm" />
@@ -86,9 +92,9 @@
     </Portrait>
   </CHero>
   <CHero id="Dehaka">
-    <!--This points to the collection which the tooltip is different from the ingame tooltip-->
+    --><!--This points to the collection which the tooltip is different from the ingame tooltip--><!--
     <Ability id="DehakaEssenceCollection" button="DehakaEssenceCollectionStore">
-      <!--set it to the ingame tooltip-->
+      --><!--set it to the ingame tooltip--><!--
       <ButtonName value="DehakaEssenceCollection" />
     </Ability>
   </CHero>
@@ -147,7 +153,7 @@
         <AbilityTier value="Mount" />
       </Override>
     </Ability>
-    <!--Base line activable ability-->
+    --><!--Base line activable ability--><!--
     <Ability id="GallTalentEyeOfKilrogg" valid="true">
       <Override>
         <AbilityTier value="Activable" />
@@ -165,7 +171,7 @@
     </Talent>
   </CHero>
   <CHero id="Greymane" alt="genngreymane">
-    <!--Greymane worgen form abilities-->
+    --><!--Greymane worgen form abilities--><!--
     <Ability id="GreymaneRazorSwipe" valid="true">
       <Override>
         <ParentLink value="GreymaneWorgenForm" />
@@ -200,7 +206,7 @@
     </Button>
   </CHero>
   <CHero id="Leoric">
-    <!--Undying abilities-->
+    --><!--Undying abilities--><!--
     <Ability id="LeoricGhastlySwing" valid="true">
       <Override>
         <ParentLink value="LeoricUndyingTrait" />
@@ -234,9 +240,9 @@
         <ParentLink value="LostVikingsLongboatRaidNewer" />
       </Override>
     </Ability>
-    <!--trait - remove the store version-->
+    --><!--trait - remove the store version--><!--
     <Ability referenceNameId="LostVikingsVikingHoardHeroSelect" remove="true" />
-    <!--trait - adds the ingame version-->
+    --><!--trait - adds the ingame version--><!--
     <Button id="LostVikingsVikingHoardTalent" parent="StormButtonParent"></Button>
     <HeroUnit id="HeroBaleog">
       <ParentLink value="LostVikings" />
@@ -276,13 +282,13 @@
     </Portrait>
     <Talent id="OrpheaInvasiveMiasma">
       <Override>
-        <!--Actually points to OrpheaOverflowingChaosInvasiveMiasma which is granted on selecting this talent-->
+        --><!--Actually points to OrpheaOverflowingChaosInvasiveMiasma which is granted on selecting this talent--><!--
         <AbilityTalentLinkIds value="OrpheaOverflowingChaos" />
       </Override>
     </Talent>
   </CHero>
   <CHero id="Ragnaros">
-    <!--Molten Core abilities-->
+    --><!--Molten Core abilities--><!--
     <Button id="RagnarosBigRagMoltenSwing" parent="StormButtonParentTrait">
       <Override>
         <ParentLink value="RagnarosBigRag" />
@@ -313,7 +319,7 @@
     <Ability id="SamuroCriticalStrike" valid="true"></Ability>
   </CHero>
   <CHero id="Tychus">
-    <!--Odin abilities-->
+    --><!--Odin abilities--><!--
     <Ability id="TychusOdinAnnihilate" valid="true">
       <Override>
         <ParentLink value="TychusOdinNoHealth" />
@@ -331,15 +337,15 @@
     </Ability>
   </CHero>
   <CHero id="Uther">
-    <!--Eternal Devotion ability-->
+    --><!--Eternal Devotion ability--><!--
     <Ability id="UtherFlashofLight" valid="true">
       <Override>
         <ParentLink value="UtherEternalDevotion" />
       </Override>
     </Ability>
-    <!--trait - remove the store version-->
+    --><!--trait - remove the store version--><!--
     <Ability referenceNameId="UtherDevotionEternalVanguardShop" remove="true" />
-    <!--trait - adds the ingame version-->
+    --><!--trait - adds the ingame version--><!--
     <Button id="UtherEternalDevotion" parent="StormButtonParentTrait"></Button>
     <Ability id="UtherEternalDevotion">
       <Override>
@@ -348,7 +354,7 @@
     </Ability>
   </CHero>
   <CHero id="Valeera">
-    <!--Stealth abilities-->
+    --><!--Stealth abilities--><!--
     <Ability id="ValeeraAmbush" valid="true">
       <Override>
         <ParentLink value="ValeeraStealth" />
@@ -379,5 +385,5 @@
         <AbilityTalentLinkIds value="SummonMount" />
       </Override>
     </Talent>
-  </CHero>
+  </CHero>-->
 </HeroOverrides>

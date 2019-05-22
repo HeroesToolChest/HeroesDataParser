@@ -6,7 +6,7 @@ namespace HeroesData.FileWriter.Writers.MountData
         where T : class
         where TU : class
     {
-        public MountDataWriter(FileOutputType fileOutputType)
+        protected MountDataWriter(FileOutputType fileOutputType)
             : base(nameof(MountData), fileOutputType)
         {
         }

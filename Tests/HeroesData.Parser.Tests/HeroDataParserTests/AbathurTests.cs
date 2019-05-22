@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
@@ -23,9 +24,9 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void HeroUnitTests()
         {
-            Assert.AreEqual(1, HeroAbathur.HeroUnits.Count);
+            Assert.AreEqual(1, HeroAbathur.HeroUnits.Count());
 
-            Unit unit = HeroAbathur.HeroUnits[0];
+            Unit unit = HeroAbathur.HeroUnits.ToList()[0];
             Assert.AreEqual("AbathurSymbiote", unit.CUnitId);
             Assert.AreEqual("AbathurSymbiote", unit.HyperlinkId);
             Assert.AreEqual("Symbiote", unit.Name);
@@ -36,7 +37,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityTalentLinkIdsTests()
         {
-            Talent talent = HeroAbathur.Talents["AbathurVolatileMutation"];
+            Talent talent = HeroAbathur.GetTalent("AbathurVolatileMutation");
             Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 2);
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("AbathurUltimateEvolution"));
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("AbathurEvolveMonstrosity"));

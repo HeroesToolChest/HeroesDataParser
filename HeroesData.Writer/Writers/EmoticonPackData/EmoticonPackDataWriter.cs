@@ -6,7 +6,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonPackData
         where T : class
         where TU : class
     {
-        public EmoticonPackDataWriter(FileOutputType fileOutputType)
+        protected EmoticonPackDataWriter(FileOutputType fileOutputType)
             : base(nameof(EmoticonPackData), fileOutputType)
         {
         }

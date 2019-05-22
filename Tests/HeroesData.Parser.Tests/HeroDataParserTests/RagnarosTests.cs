@@ -11,9 +11,9 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void HeroUnitTests()
         {
-            Assert.AreEqual(1, HeroRagnaros.HeroUnits.Count);
+            Assert.AreEqual(1, HeroRagnaros.HeroUnits.Count());
 
-            Unit unit = HeroRagnaros.HeroUnits[0];
+            Unit unit = HeroRagnaros.HeroUnits.ToList()[0];
             Assert.AreEqual("RagnarosBigRag", unit.CUnitId);
             Assert.AreEqual("RagnarosBigRag", unit.HyperlinkId);
             Assert.AreEqual("Ragnaros", unit.Name);

@@ -17,16 +17,22 @@ namespace HeroesData.Parser
     {
         private readonly HeroOverrideLoader HeroOverrideLoader;
 
-        private HeroDataOverride HeroDataOverride;
-        private WeaponData WeaponData;
-        private ArmorData ArmorData;
-        private AbilityData AbilityData;
-        private TalentData TalentData;
+        private readonly WeaponData WeaponData;
+        private readonly ArmorData ArmorData;
+        private readonly AbilityData AbilityData;
+        private readonly TalentData TalentData;
+        private readonly BehaviorData BehaviorData;
 
-        public HeroDataParser(Configuration configuration, GameData gameData, DefaultData defaultData, HeroOverrideLoader heroOverrideLoader)
-            : base(configuration, gameData, defaultData)
+        private HeroDataOverride HeroDataOverride;
+
+        public HeroDataParser(IXmlDataService xmlDataService, HeroOverrideLoader heroOverrideLoader)
+            : base(xmlDataService)
         {
             HeroOverrideLoader = heroOverrideLoader;
+            WeaponData = xmlDataService.WeaponData;
+            ArmorData = xmlDataService.ArmorData;
+            AbilityData = xmlDataService.AbilityData;
+            BehaviorData = xmlDataService.BehaviorData;
         }
 
         /// <summary>
@@ -82,27 +88,29 @@ namespace HeroesData.Parser
                 Id = heroId,
             };
 
+            XElement heroElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == heroId));
+            if (heroElement == null)
+                return null;
+
             HeroDataOverride = HeroOverrideLoader.GetOverride(heroId) ?? new HeroDataOverride();
 
-            WeaponData = new WeaponData(GameData, DefaultData, HeroDataOverride, Configuration);
-            ArmorData = new ArmorData(GameData);
-            AbilityData = new AbilityData(GameData, DefaultData, HeroDataOverride, Configuration, Localization);
-            TalentData = new TalentData(GameData, DefaultData, HeroDataOverride, Configuration, Localization);
+            AbilityData.Localization = Localization;
+            AbilityData.HeroDataOverride = HeroDataOverride;
 
             SetDefaultValues(hero);
             CActorData(hero);
 
-            CHeroData(hero);
-            CUnitData(hero);
+            SetHeroData(heroElement, hero);
+            //CUnitData(hero);
 
-            AddSubHeroCUnits(hero);
+            //AddSubHeroCUnits(hero);
 
-            FinalizeDataChecks(hero);
+            //FinalizeDataChecks(hero);
 
-            ApplyOverrides(hero, HeroDataOverride);
-            MoveParentLinkedAbilities(hero);
-            MoveParentLinkedWeapons(hero);
-            RemoveAbilityTalents(hero, HeroDataOverride);
+            //ApplyOverrides(hero, HeroDataOverride);
+            //MoveParentLinkedAbilities(hero);
+            //MoveParentLinkedWeapons(hero);
+            //RemoveAbilityTalents(hero, HeroDataOverride);
 
             return hero;
         }
@@ -123,7 +131,7 @@ namespace HeroesData.Parser
             };
 
             HeroDataOverride = HeroOverrideLoader.GetOverride(StormHeroBase.CHeroId) ?? new HeroDataOverride();
-            AbilityData = new AbilityData(GameData, DefaultData, HeroDataOverride, Configuration, Localization);
+            AbilityData.HeroDataOverride = HeroDataOverride;
 
             SetBaseHeroData(StormHeroBase);
 
@@ -143,7 +151,7 @@ namespace HeroesData.Parser
 
         public HeroDataParser GetInstance()
         {
-            return new HeroDataParser(Configuration, GameData, DefaultData, HeroOverrideLoader);
+            return new HeroDataParser(XmlDataService, HeroOverrideLoader);
         }
 
         protected override void ApplyAdditionalOverrides(Hero hero, HeroDataOverride heroDataOverride)
@@ -166,6 +174,7 @@ namespace HeroesData.Parser
             // abilities
             if (hero.Abilities != null)
             {
+                // TODO: possibly re-add
                 //foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
                 //{
                 //    if (heroDataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
@@ -180,36 +189,36 @@ namespace HeroesData.Parser
             }
 
             // talents
-            if (hero.Talents != null)
-            {
-                foreach (KeyValuePair<string, Talent> talents in hero.Talents)
-                {
-                    if (heroDataOverride.PropertyTalentOverrideMethodByTalentId.TryGetValue(talents.Key, out Dictionary<string, Action<Talent>> valueOverrideMethods))
-                    {
-                        foreach (var propertyOverride in valueOverrideMethods)
-                        {
-                            // execute each property override
-                            propertyOverride.Value(talents.Value);
-                        }
-                    }
-                }
-            }
+            //if (hero.Talents != null)
+            //{
+            //    foreach (KeyValuePair<string, Talent> talents in hero.Talents)
+            //    {
+            //        if (heroDataOverride.PropertyTalentOverrideMethodByTalentId.TryGetValue(talents.Key, out Dictionary<string, Action<Talent>> valueOverrideMethods))
+            //        {
+            //            foreach (var propertyOverride in valueOverrideMethods)
+            //            {
+            //                // execute each property override
+            //                propertyOverride.Value(talents.Value);
+            //            }
+            //        }
+            //    }
+            //}
 
-            // weapons
-            if (hero.Weapons != null)
-            {
-                foreach (UnitWeapon weapon in hero.Weapons)
-                {
-                    if (heroDataOverride.PropertyWeaponOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<UnitWeapon>> valueOverrideMethods))
-                    {
-                        foreach (var propertyOverride in valueOverrideMethods)
-                        {
-                            // execute each property override
-                            propertyOverride.Value(weapon);
-                        }
-                    }
-                }
-            }
+            //// weapons
+            //if (hero.Weapons != null)
+            //{
+            //    foreach (UnitWeapon weapon in hero.Weapons)
+            //    {
+            //        if (heroDataOverride.PropertyWeaponOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<UnitWeapon>> valueOverrideMethods))
+            //        {
+            //            foreach (var propertyOverride in valueOverrideMethods)
+            //            {
+            //                // execute each property override
+            //                propertyOverride.Value(weapon);
+            //            }
+            //        }
+            //    }
+            //}
 
             if (hero.HeroPortrait != null)
             {
@@ -268,13 +277,13 @@ namespace HeroesData.Parser
         // used to acquire the hero's unique energy type
         private void CActorData(Hero hero)
         {
-            XElement actorUnitElement = GameData.Elements("CActorUnit").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CUnitId);
+            IEnumerable<XElement> actorUnitElements = GameData.Elements("CActorUnit").Where(x => x.Attribute("id")?.Value == hero.CUnitId);
 
-            if (actorUnitElement == null)
+            if (actorUnitElements == null || !actorUnitElements.Any())
                 return;
 
             // find special energy type
-            foreach (XElement vitalName in actorUnitElement.Elements("VitalNames"))
+            foreach (XElement vitalName in actorUnitElements.Elements("VitalNames"))
             {
                 string indexValue = vitalName.Attribute("index")?.Value;
                 string valueValue = vitalName.Attribute("value")?.Value;
@@ -289,12 +298,19 @@ namespace HeroesData.Parser
             }
         }
 
-        private void CHeroData(Hero hero)
+        private void SetHeroData(XElement heroElement, Hero hero)
         {
-            XElement heroElement = GameData.Elements(ElementType).FirstOrDefault(x => x.Attribute("id")?.Value == hero.CHeroId);
-
             if (heroElement == null)
                 return;
+
+            // parent lookup
+            string parentValue = heroElement.Attribute("parent")?.Value;
+            if (!string.IsNullOrEmpty(parentValue))
+            {
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
+                if (parentElement != null)
+                    SetHeroData(parentElement, hero);
+            }
 
             // loop through all elements and set found elements
             foreach (XElement element in heroElement.Elements())
@@ -330,14 +346,14 @@ namespace HeroesData.Parser
                 else if (elementName == "ROLE" || elementName == "ROLESMULTICLASS")
                 {
                     string roleValue = element.Attribute("value")?.Value;
-
-                    if (hero.Roles == null)
-                        hero.Roles = new List<string>();
-
-                    string role = GameData.GetGameString(DefaultData.HeroData.HeroRoleName.Replace(DefaultData.IdPlaceHolder, roleValue)).Trim();
-
-                    if (!hero.Roles.Contains(role))
-                        hero.Roles.Add(role);
+                    if (!string.IsNullOrEmpty(roleValue))
+                    {
+                        string role = GameData.GetGameString(DefaultData.HeroData.HeroRoleName.Replace(DefaultData.IdPlaceHolder, roleValue)).Trim();
+                        if (!string.IsNullOrEmpty(roleValue))
+                        {
+                            hero.AddRole(role);
+                        }
+                    }
                 }
                 else if (elementName == "UNIVERSEICON")
                 {
@@ -464,19 +480,19 @@ namespace HeroesData.Parser
             if (hero.ReleaseDate == DefaultData.HeroData.HeroReleaseDate)
                 hero.ReleaseDate = DefaultData.HeroData.HeroAlphaReleaseDate;
 
-            // abilities must be gotten before talents
-            foreach (XElement abilArrayElement in heroElement.Elements("HeroAbilArray"))
-            {
-                AbilityData.AddHeroAbility(hero, abilArrayElement);
-            }
+            //// abilities must be gotten before talents
+            //foreach (XElement abilArrayElement in heroElement.Elements("HeroAbilArray"))
+            //{
+            //    AbilityData.AddHeroAbility(hero, abilArrayElement);
+            //}
 
-            AbilityData.AddOverrideButtonAbilities(hero);
-            TalentData.SetButtonTooltipAppenderData(StormHeroBase, hero);
+            ////AbilityData.CreateOverrideButtonAbility(hero);
+            //TalentData.SetButtonTooltipAppenderData(StormHeroBase, hero);
 
-            foreach (XElement talentArrayElement in heroElement.Elements("TalentTreeArray"))
-            {
-                TalentData.AddTalent(hero, talentArrayElement);
-            }
+            //foreach (XElement talentArrayElement in heroElement.Elements("TalentTreeArray"))
+            //{
+            //    TalentData.AddTalent(hero, talentArrayElement);
+            //}
         }
 
         private void CUnitData(Hero hero, XElement unitElement = null)
@@ -601,45 +617,49 @@ namespace HeroesData.Parser
 
         private void AddSubHeroCUnits(Hero hero)
         {
-            foreach (string cUnitId in HeroDataOverride.HeroUnits)
-            {
-                if (!GameData.TryGetGameString(DefaultData.HeroData.UnitName.Replace(DefaultData.IdPlaceHolder, cUnitId), out string name))
-                {
-                    if (!GameData.TryGetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, cUnitId), out name))
-                        name = cUnitId;
-                }
+            //foreach (string cUnitId in HeroDataOverride.HeroUnits)
+            //{
+            //    if (!GameData.TryGetGameString(DefaultData.HeroData.UnitName.Replace(DefaultData.IdPlaceHolder, cUnitId), out string name))
+            //    {
+            //        if (!GameData.TryGetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, cUnitId), out name))
+            //            name = cUnitId;
+            //    }
 
-                Hero heroUnit = new Hero
-                {
-                    Id = cUnitId,
-                    Name = name,
-                    HyperlinkId = cUnitId.StartsWith("Hero") ? cUnitId.Remove(0, 4) : cUnitId,
-                    CHeroId = null,
-                    CUnitId = cUnitId,
-                    HeroPortrait = null,
-                };
+            //    Hero heroUnit = new Hero
+            //    {
+            //        Id = cUnitId,
+            //        Name = name,
+            //        HyperlinkId = cUnitId.StartsWith("Hero") ? cUnitId.Remove(0, 4) : cUnitId,
+            //        CHeroId = null,
+            //        CUnitId = cUnitId,
+            //        HeroPortrait = null,
+            //    };
 
-                XElement cUnitElement = GameData.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == cUnitId);
-                if (cUnitElement != null)
-                {
-                    SetDefaultValues(heroUnit);
-                    CActorData(heroUnit);
-                    CUnitData(heroUnit);
+            //    XElement cUnitElement = GameData.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == cUnitId);
+            //    if (cUnitElement != null)
+            //    {
+            //        SetDefaultValues(heroUnit);
+            //        CActorData(heroUnit);
+            //        CUnitData(heroUnit);
 
-                    FinalizeDataChecks(heroUnit);
-                }
+            //        FinalizeDataChecks(heroUnit);
+            //    }
 
-                HeroDataOverride heroDataOverride = HeroOverrideLoader.GetOverride(cUnitId);
-                if (heroDataOverride != null)
-                    ApplyOverrides(heroUnit, heroDataOverride);
+            //    HeroDataOverride heroDataOverride = HeroOverrideLoader.GetOverride(cUnitId);
+            //    if (heroDataOverride != null)
+            //        ApplyOverrides(heroUnit, heroDataOverride);
 
-                hero.HeroUnits.Add(heroUnit);
-            }
+            //    hero.HeroUnits.Add(heroUnit);
+            //}
         }
 
         private void SetBaseHeroData(Hero hero)
         {
-            AbilityData.AddOverrideButtonAbilities(hero);
+            foreach (AddedButtonAbility abilityButton in HeroDataOverride.AddedAbilityByButtonId)
+            {
+
+            }
+            //AbilityData.CreateOverrideButtonAbility(hero);
         }
 
         private void FinalizeDataChecks(Hero hero)

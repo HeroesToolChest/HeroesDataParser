@@ -9,11 +9,11 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityTalentLinkIdsTests()
         {
-            Talent talent = HeroThrall.Talents["ThrallMasteryManaTide"];
+            Talent talent = HeroThrall.GetTalent("ThrallMasteryManaTide");
             Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 1);
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("ThrallFrostwolfResilience"));
 
-            talent = HeroThrall.Talents["ThrallMasteryFrostwolfsGrace"];
+            talent = HeroThrall.GetTalent("ThrallMasteryFrostwolfsGrace");
             Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 1);
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("ThrallFrostwolfResilience"));
         }

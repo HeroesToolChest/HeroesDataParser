@@ -34,14 +34,16 @@ namespace HeroesData.ExtractorData
             Parser.Localization = localization;
 
             // parse the base hero and add it to parsedHeroes
-            Parser.ParseBaseHero();
-            ParsedData.GetOrAdd(Parser.StormHeroBase.CHeroId, Parser.StormHeroBase);
+            // TODO: possibly re-add base hero
+            //Parser.ParseBaseHero();
+            //ParsedData.GetOrAdd(Parser.StormHeroBase.CHeroId, Parser.StormHeroBase);
 
             HashSet<string[]> heroes = Parser.Items;
 
             // parse all the heroes
             Console.Write($"\r{currentCount,6} / {heroes.Count} total {Name}");
-            Parallel.ForEach(heroes, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, hero =>
+            // TODO: re-add max parallelism
+            Parallel.ForEach(heroes, new ParallelOptions { MaxDegreeOfParallelism = 1 }, hero =>
             {
                 try
                 {
@@ -119,7 +121,7 @@ namespace HeroesData.ExtractorData
             if (!hero.Abilities.Any())
                 AddWarning("Hero has no abilities");
 
-            if (hero.Talents.Count < 1)
+            if (!hero.Talents.Any())
                 AddWarning("Hero has no talents");
 
             if (hero.Life.LifeMax <= 0)
@@ -190,73 +192,73 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
                 AddWarning($"[{nameof(hero.HeroPortrait.TargetPortraitFileName)}]  is empty");
 
-            foreach (var talent in hero.Talents)
+            foreach (Talent talent in hero.Talents)
             {
-                if (string.IsNullOrEmpty(talent.Value.IconFileName))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.IconFileName)} is empty");
+                if (string.IsNullOrEmpty(talent.IconFileName))
+                    AddWarning($"[{talent}] {nameof(talent.IconFileName)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Value.Name))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Name)} is empty");
+                if (string.IsNullOrEmpty(talent.Name))
+                    AddWarning($"[{talent}] {nameof(talent.Name)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Value.ReferenceNameId))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.ReferenceNameId)} is empty");
+                if (string.IsNullOrEmpty(talent.ReferenceNameId))
+                    AddWarning($"[{talent}] {nameof(talent.ReferenceNameId)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Value.FullTooltipNameId))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.FullTooltipNameId)} is empty");
+                if (string.IsNullOrEmpty(talent.FullTooltipNameId))
+                    AddWarning($"[{talent}] {nameof(talent.FullTooltipNameId)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Value.ShortTooltipNameId))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.ShortTooltipNameId)} is empty");
+                if (string.IsNullOrEmpty(talent.ShortTooltipNameId))
+                    AddWarning($"[{talent}] {nameof(talent.ShortTooltipNameId)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Value.Tooltip.ShortTooltip?.RawDescription))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.ShortTooltip)} is empty");
+                if (string.IsNullOrEmpty(talent.Tooltip.ShortTooltip?.RawDescription))
+                    AddWarning($"[{talent}] {nameof(talent.Tooltip.ShortTooltip)} is empty");
 
-                if (!string.IsNullOrEmpty(talent.Value.Tooltip.ShortTooltip?.RawDescription) && (talent.Value.Tooltip.ShortTooltip.RawDescription.Contains("<d ref=\"") || talent.Value.Tooltip.ShortTooltip.RawDescription.Contains("<d const=\"")))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.ShortTooltip)} could not be parsed");
+                if (!string.IsNullOrEmpty(talent.Tooltip.ShortTooltip?.RawDescription) && (talent.Tooltip.ShortTooltip.RawDescription.Contains("<d ref=\"") || talent.Tooltip.ShortTooltip.RawDescription.Contains("<d const=\"")))
+                    AddWarning($"[{talent}] {nameof(talent.Tooltip.ShortTooltip)} could not be parsed");
 
-                if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.RawDescription))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)} is empty");
+                if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.RawDescription))
+                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)} is empty");
 
-                if (!string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.RawDescription) && (talent.Value.Tooltip.FullTooltip.RawDescription.Contains("<d ref=\"") || talent.Value.Tooltip.FullTooltip.RawDescription.Contains("<d const=\"")))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)} could not be parsed");
+                if (!string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.RawDescription) && (talent.Tooltip.FullTooltip.RawDescription.Contains("<d ref=\"") || talent.Tooltip.FullTooltip.RawDescription.Contains("<d const=\"")))
+                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)} could not be parsed");
 
-                if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.PlainText))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainText)} is empty");
+                if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.PlainText))
+                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.PlainText)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.PlainTextWithNewlines))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainTextWithScaling)} is empty");
+                if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.PlainTextWithNewlines))
+                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.PlainTextWithScaling)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.PlainTextWithScaling))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainTextWithScaling)} is empty");
+                if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.PlainTextWithScaling))
+                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.PlainTextWithScaling)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.PlainTextWithScalingWithNewlines))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.PlainTextWithScalingWithNewlines)} is empty");
+                if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.PlainTextWithScalingWithNewlines))
+                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.PlainTextWithScalingWithNewlines)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.ColoredText))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.ColoredText)} is empty");
+                if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.ColoredText))
+                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.ColoredText)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Value.Tooltip.FullTooltip?.ColoredTextWithScaling))
-                    AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.FullTooltip)}.{nameof(talent.Value.Tooltip.FullTooltip.ColoredTextWithScaling)} is empty");
+                if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.ColoredTextWithScaling))
+                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.ColoredTextWithScaling)} is empty");
 
-                if (talent.Value.Tooltip.Cooldown?.CooldownTooltip != null)
+                if (talent.Tooltip.Cooldown?.CooldownTooltip != null)
                 {
-                    if (!string.IsNullOrEmpty(talent.Value.Tooltip.Cooldown.CooldownTooltip.PlainText) && char.IsDigit(talent.Value.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
-                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
+                    if (!string.IsNullOrEmpty(talent.Tooltip.Cooldown.CooldownTooltip.PlainText) && char.IsDigit(talent.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
                 }
 
-                if (talent.Value.Tooltip.Energy?.EnergyTooltip != null)
+                if (talent.Tooltip.Energy?.EnergyTooltip != null)
                 {
-                    if (!string.IsNullOrEmpty(talent.Value.Tooltip.Energy.EnergyTooltip.PlainText) && char.IsDigit(talent.Value.Tooltip.Energy.EnergyTooltip.PlainText[0]))
-                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
+                    if (!string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyTooltip.PlainText) && char.IsDigit(talent.Tooltip.Energy.EnergyTooltip.PlainText[0]))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
                 }
 
-                if (talent.Value.Tooltip.Life?.LifeCostTooltip != null)
+                if (talent.Tooltip.Life?.LifeCostTooltip != null)
                 {
-                    if (!string.IsNullOrEmpty(talent.Value.Tooltip.Life.LifeCostTooltip.PlainText) && char.IsDigit(talent.Value.Tooltip.Life.LifeCostTooltip.PlainText[0]))
-                        AddWarning($"[{talent.Key}] {nameof(talent.Value.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
+                    if (!string.IsNullOrEmpty(talent.Tooltip.Life.LifeCostTooltip.PlainText) && char.IsDigit(talent.Tooltip.Life.LifeCostTooltip.PlainText[0]))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
                 }
             }
 
-            if (hero.HeroUnits.Count > 0)
+            if (hero.HeroUnits.Any())
             {
                 foreach (Unit additionalUnit in hero.HeroUnits)
                 {

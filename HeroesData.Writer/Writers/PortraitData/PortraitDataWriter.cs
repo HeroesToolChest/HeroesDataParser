@@ -6,8 +6,8 @@ namespace HeroesData.FileWriter.Writers.PortraitData
         where T : class
         where TU : class
     {
-        public PortraitDataWriter(FileOutputType fileOutputType)
-    : base(nameof(PortraitData), fileOutputType)
+        protected PortraitDataWriter(FileOutputType fileOutputType)
+            : base(nameof(PortraitData), fileOutputType)
         {
         }
 

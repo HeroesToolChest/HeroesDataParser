@@ -16,7 +16,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void TalentTests()
         {
-            Talent talent = HeroMedic.Talents["MedicCellularReactor"];
+            Talent talent = HeroMedic.GetTalent("MedicCellularReactor");
             Assert.AreEqual("Cooldown: 45 seconds", talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
             Assert.AreEqual("Consueme energy to heal", talent.Tooltip.FullTooltip.RawDescription);
             Assert.IsTrue(string.IsNullOrEmpty(talent.Tooltip?.Energy?.EnergyTooltip?.RawDescription));

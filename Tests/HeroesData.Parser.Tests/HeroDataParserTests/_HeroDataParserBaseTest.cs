@@ -21,6 +21,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         private GameStringParser GameStringParser;
         private HeroOverrideLoader HeroOverrideLoader;
         private Configuration Configuration;
+        private IXmlDataService XmlDataService;
 
         public HeroDataParserBaseTest()
         {
@@ -54,7 +55,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            HeroDataParser heroDataParser = new HeroDataParser(Configuration, GameData, DefaultData, HeroOverrideLoader);
+            HeroDataParser heroDataParser = new HeroDataParser(XmlDataService, HeroOverrideLoader);
             Assert.IsTrue(heroDataParser.Items.Count > 0);
         }
 
@@ -74,11 +75,13 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
 
             XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(GameData, OverrideFileNameSuffix);
             HeroOverrideLoader = (HeroOverrideLoader)xmlDataOverriders.GetOverrider(typeof(HeroDataParser));
+
+            XmlDataService = new XmlDataService(Configuration, GameData, DefaultData);
         }
 
         private void Parse()
         {
-            HeroDataParser heroDataParser = new HeroDataParser(Configuration, GameData, DefaultData, HeroOverrideLoader);
+            HeroDataParser heroDataParser = new HeroDataParser(XmlDataService, HeroOverrideLoader);
             HeroKerrigan = heroDataParser.Parse("Kerrigan");
             HeroChromie = heroDataParser.Parse("Chromie");
             HeroTracer = heroDataParser.Parse("Tracer");

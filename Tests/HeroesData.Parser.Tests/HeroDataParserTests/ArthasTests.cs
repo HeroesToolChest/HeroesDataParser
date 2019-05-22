@@ -23,7 +23,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void TalentTests()
         {
-            Talent talent = HeroArthas.Talents["ArthasAntiMagicShell"];
+            Talent talent = HeroArthas.GetTalent("ArthasAntiMagicShell");
             Assert.IsTrue(!string.IsNullOrEmpty(talent.Tooltip?.FullTooltip?.RawDescription));
             Assert.IsTrue(!string.IsNullOrEmpty(talent.Tooltip?.ShortTooltip?.RawDescription));
         }

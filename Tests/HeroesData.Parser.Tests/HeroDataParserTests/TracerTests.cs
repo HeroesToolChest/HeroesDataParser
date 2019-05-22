@@ -9,7 +9,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityTalentLinkIdsTests()
         {
-            Talent talent = HeroTracer.Talents["TracerJumper"];
+            Talent talent = HeroTracer.GetTalent("TracerJumper");
             Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 1);
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("TracerBlink"));
         }

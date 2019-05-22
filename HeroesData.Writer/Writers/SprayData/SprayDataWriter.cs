@@ -6,7 +6,7 @@ namespace HeroesData.FileWriter.Writers.SprayData
         where T : class
         where TU : class
     {
-        public SprayDataWriter(FileOutputType fileOutputType)
+        protected SprayDataWriter(FileOutputType fileOutputType)
             : base(nameof(SprayData), fileOutputType)
         {
         }

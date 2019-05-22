@@ -21,8 +21,6 @@ namespace HeroesData.Parser.XmlData
 
         public void AddTalent(Hero hero, XElement talentElement)
         {
-            hero.Talents = hero.Talents ?? new Dictionary<string, Talent>();
-
             string referenceName = talentElement.Attribute("Talent").Value;
             string tier = talentElement.Attribute("Tier").Value;
             string column = talentElement.Attribute("Column").Value;
@@ -88,7 +86,7 @@ namespace HeroesData.Parser.XmlData
                     SetAbilityTalentLinkIds(hero, talent, cTalentElement);
                 }
 
-                hero.Talents.Add(referenceName, talent);
+                hero.AddTalent(talent);
             }
         }
 

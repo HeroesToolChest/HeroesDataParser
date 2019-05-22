@@ -1,5 +1,6 @@
 ﻿using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
@@ -30,8 +31,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void RolesTests()
         {
-            Assert.AreEqual(1, HeroAuriel.Roles.Count);
-            Assert.AreEqual("Support", HeroAuriel.Roles[0]);
+            Assert.AreEqual(1, HeroAuriel.Roles.Count());
+            Assert.AreEqual("Support", HeroAuriel.Roles.ToList()[0]);
         }
 
         [TestMethod]

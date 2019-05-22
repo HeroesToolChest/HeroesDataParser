@@ -6,7 +6,7 @@ namespace HeroesData.FileWriter.Writers.VoiceLineData
         where T : class
         where TU : class
     {
-        public VoiceLineDataWriter(FileOutputType fileOutputType)
+        protected VoiceLineDataWriter(FileOutputType fileOutputType)
             : base(nameof(VoiceLineData), fileOutputType)
         {
         }

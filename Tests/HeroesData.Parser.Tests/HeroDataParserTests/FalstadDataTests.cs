@@ -129,15 +129,15 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void RolesTests()
         {
-            Assert.AreEqual(1, HeroFalstad.Roles.Count);
-            Assert.AreEqual("Assassin", HeroFalstad.Roles[0]);
+            Assert.AreEqual(1, HeroFalstad.Roles.Count());
+            Assert.AreEqual("Assassin", HeroFalstad.Roles.ToList()[0]);
         }
 
         [TestMethod]
         public void TalentTests()
         {
             // Secret Weapon
-            Talent talent = HeroFalstad.Talents["FalstadMasteryHammerangSecretWeapon"];
+            Talent talent = HeroFalstad.GetTalent("FalstadMasteryHammerangSecretWeapon");
             Assert.AreEqual(TalentTier.Level7, talent.Tier);
             Assert.AreEqual("FalstadMasteryHammerangSecretWeapon", talent.ReferenceNameId);
             Assert.AreEqual("Secret Weapon", talent.Name);
@@ -157,7 +157,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("FalstadHammerang"));
 
             // Wingman
-            talent = HeroFalstad.Talents["FalstadWingman"];
+            talent = HeroFalstad.GetTalent("FalstadWingman");
             Assert.AreEqual(TalentTier.Level1, talent.Tier);
             Assert.AreEqual("FalstadWingman", talent.ReferenceNameId);
             Assert.AreEqual("Wingman", talent.Name);
@@ -176,7 +176,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.IsNull(talent.Tooltip.Charges.IsHideCount);
 
             // Hinterland Blast
-            talent = HeroFalstad.Talents["FalstadHeroicAbilityHinterlandBlast"];
+            talent = HeroFalstad.GetTalent("FalstadHeroicAbilityHinterlandBlast");
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("FalstadHinterlandBlast"));
             Assert.IsTrue(talent.IsActive);
             Assert.AreEqual(AbilityType.Heroic, talent.AbilityType);

@@ -153,8 +153,6 @@ namespace HeroesData.Parser
 
         private void SetUnitData(XElement unitElement, Unit unit)
         {
-            unitElement = unitElement ?? GameData.Elements(ElementType).FirstOrDefault(x => x.Attribute("id")?.Value == unit.Id);
-
             if (unitElement == null)
                 return;
 
@@ -162,7 +160,7 @@ namespace HeroesData.Parser
             string parentValue = unitElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.Elements(ElementType).FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetUnitData(parentElement, unit);
             }
@@ -290,12 +288,12 @@ namespace HeroesData.Parser
         // used to acquire the unit's target info panel image
         private void CActorData(Unit unit)
         {
-            IEnumerable<XElement> actorUnitElement = GameData.Elements("CActorUnit").Where(x => x.Attribute("id")?.Value == unit.CUnitId);
+            IEnumerable<XElement> actorUnitElements = GameData.Elements("CActorUnit").Where(x => x.Attribute("id")?.Value == unit.CUnitId);
 
-            if (actorUnitElement == null || !actorUnitElement.Any())
+            if (actorUnitElements == null || !actorUnitElements.Any())
                 return;
 
-            foreach (XElement groupIconElement in actorUnitElement.Elements("GroupIcon"))
+            foreach (XElement groupIconElement in actorUnitElements.Elements("GroupIcon"))
             {
                 XElement imageElement = groupIconElement.Element("Image");
                 if (imageElement != null)

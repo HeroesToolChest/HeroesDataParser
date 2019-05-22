@@ -16,14 +16,14 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void TalentCooldownTest()
         {
-            Talent talent = HeroDryad.Talents["DryadGallopingGait"];
+            Talent talent = HeroDryad.GetTalent("DryadGallopingGait");
             Assert.AreEqual("Cooldown: 30 seconds", talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
         }
 
         [TestMethod]
         public void AbilityTalentLinkIdTest()
         {
-            Talent talent = HeroDryad.Talents["DryadHippityHop"];
+            Talent talent = HeroDryad.GetTalent("DryadHippityHop");
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("DryadGallopingGait"));
         }
     }

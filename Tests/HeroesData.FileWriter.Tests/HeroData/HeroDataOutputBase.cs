@@ -113,7 +113,6 @@ namespace HeroesData.FileWriter.Tests.HeroData
                     EnergyType = "Mana",
                     EnergyRegenerationRate = 3,
                 },
-                Roles = new List<string> { "Assassin", "Warrior" },
                 ExpandedRole = "Melee Assassin",
                 Ratings = new HeroRatings()
                 {
@@ -122,159 +121,8 @@ namespace HeroesData.FileWriter.Tests.HeroData
                     Survivability = 6,
                     Utility = 7,
                 },
-                Talents = new Dictionary<string, Talent>
-                {
-                    {
-                        "AlarakSustainingPower",
-                        new Talent
-                        {
-                            ReferenceNameId = "AlarakSustainingPower",
-                            Name = "Sustaining Power",
-                            ShortTooltipNameId = "AlarakSustainingPower",
-                            FullTooltipNameId = "AlarakSustainingPower",
-                            IconFileName = "storm_ui_icon_alarak_lightningsurge_a.png",
-                            Tooltip = new AbilityTalentTooltip()
-                            {
-                                ShortTooltip = new TooltipDescription("Increase Lightning Surge healing"),
-                                FullTooltip = new TooltipDescription("Increase the healing received from damaging Heroes with Lightning Surge by <c val=\"#TooltipNumbers\">40%</c>."),
-                            },
-                            Column = 1,
-                            Tier = TalentTier.Level1,
-                            AbilityType = AbilityType.Q,
-                            IsActive = true,
-                            IsQuest = true,
-                        }
-                    },
-                    {
-                        "AlarakExtendedLightning",
-                        new Talent
-                        {
-                            ReferenceNameId = "AlarakExtendedLightning",
-                            Name = "Extended Lightning",
-                            ShortTooltipNameId = "AlarakExtendedLightning",
-                            FullTooltipNameId = "AlarakExtendedLightning",
-                            IconFileName = "storm_ui_icon_alarak_lightningsurge.png",
-                            Tooltip = new AbilityTalentTooltip()
-                            {
-                                ShortTooltip = new TooltipDescription("<c val=\"#TooltipQuest\">Quest:</c> Reduce Sadism, empower Lightning Surge"),
-                                FullTooltip = new TooltipDescription("Reduce Sadism by <c val=\"#TooltipNumbers\">10%</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Quest:</c> Hit Heroes with the center of Lightning Surge.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">5</c> Heroes, increase Lightning Surge's range by <c val=\"#TooltipNumbers\">20%</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">15</c> Heroes, Lightning Surge's center also Slows enemies by <c val=\"#TooltipNumbers\">40%</c> for <c val=\"#TooltipNumbers\">2</c> seconds.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"#TooltipNumbers\">3</c> Heroes with the center of a single cast, increase Sadism by <c val=\"#TooltipNumbers\">10%</c> and instantly gain all other Rewards."),
-                            },
-                            Column = 2,
-                            Tier = TalentTier.Level1,
-                            AbilityType = AbilityType.Q,
-                        }
-                    },
-                    {
-                        "Level4Talent",
-                        new Talent
-                        {
-                            ReferenceNameId = "Level4Talent",
-                            Name = "Level4Talent",
-                            Tier = TalentTier.Level4,
-                            Tooltip = new AbilityTalentTooltip()
-                            {
-                                FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
-                            },
-                            AbilityType = AbilityType.Q,
-                            AbilityTalentLinkIds = new HashSet<string>() { "AlarakDiscordStrike", "AlarakExtendedLightning" },
-                        }
-                    },
-                    {
-                        "Level7Talent",
-                        new Talent
-                        {
-                            ReferenceNameId = "Level7Talent",
-                            Name = "Level4Talent",
-                            Tier = TalentTier.Level7,
-                            AbilityType = AbilityType.Q,
-                        }
-                    },
-                    {
-                        "AlarakHeroicAbilityDeadlyCharge",
-                        new Talent
-                        {
-                            ReferenceNameId = "AlarakHeroicAbilityDeadlyCharge",
-                            Name = "Deadly Charge",
-                            ShortTooltipNameId = "AlarakDeadlyCharge",
-                            FullTooltipNameId = "AlarakDeadlyCharge",
-                            IconFileName = "storm_ui_icon_alarak_recklesscharge.png",
-                            Tooltip = new AbilityTalentTooltip()
-                            {
-                                Cooldown = new TooltipCooldown()
-                                {
-                                    CooldownTooltip = new TooltipDescription("45"),
-                                },
-                                Energy = new TooltipEnergy()
-                                {
-                                    EnergyTooltip = new TooltipDescription("8"),
-                                },
-                                ShortTooltip = new TooltipDescription("Channel to charge a long distance"),
-                                FullTooltip = new TooltipDescription("After channeling, Alarak charges forward dealing <c val=\"#TooltipNumbers\">200</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"#TooltipNumbers\">1.6</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling."),
-                            },
-                            Column = 1,
-                            Tier = TalentTier.Level10,
-                            AbilityType = AbilityType.Heroic,
-                        }
-                    },
-                    {
-                        "AlarakHeroicAbilityCounterStrike",
-                        new Talent
-                        {
-                            ReferenceNameId = "AlarakHeroicAbilityCounterStrike",
-                            Name = "Counter-Strike",
-                            ShortTooltipNameId = "AlarakCounterStrikeTargeted",
-                            FullTooltipNameId = "AlarakCounterStrikeTargeted",
-                            IconFileName = "storm_ui_icon_alarak_counterstrike.png",
-                            Tooltip = new AbilityTalentTooltip()
-                            {
-                                Energy = new TooltipEnergy()
-                                {
-                                    EnergyTooltip = new TooltipDescription("50"),
-                                },
-                                Cooldown = new TooltipCooldown()
-                                {
-                                    CooldownTooltip = new TooltipDescription("30 seconds"),
-                                },
-                                ShortTooltip = new TooltipDescription("Prevents damage to deal damage in a large area"),
-                                FullTooltip = new TooltipDescription("Alarak targets an area and channels for <c val=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"#TooltipNumbers\">275</c> damage."),
-                            },
-                            Column = 2,
-                            Tier = TalentTier.Level10,
-                            AbilityType = AbilityType.Heroic,
-                        }
-                    },
-                    {
-                        "Leve13Talent",
-                        new Talent
-                        {
-                            ReferenceNameId = "Leve13Talent",
-                            Name = "Leve13Talent",
-                            Tier = TalentTier.Level13,
-                            AbilityType = AbilityType.W,
-                        }
-                    },
-                    {
-                        "Level16Talent",
-                        new Talent
-                        {
-                            ReferenceNameId = "Level16Talent",
-                            Name = "Level16Talent",
-                            Tier = TalentTier.Level16,
-                            AbilityType = AbilityType.W,
-                        }
-                    },
-                    {
-                        "Level20Talent",
-                        new Talent
-                        {
-                            ReferenceNameId = "Level20Talent",
-                            Name = "Level20Talent",
-                            Tier = TalentTier.Level20,
-                            AbilityType = AbilityType.W,
-                        }
-                    },
-                },
             };
+
             alarakHero.AddUnitWeapon(new UnitWeapon
             {
                 WeaponNameId = "HeroWeaponAlarak",
@@ -376,6 +224,115 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 Tier = AbilityTier.Hearth,
                 AbilityType = AbilityType.B,
             });
+            alarakHero.AddRole("Assassin");
+            alarakHero.AddRole("Warrior");
+            alarakHero.AddTalent(new Talent
+            {
+                ReferenceNameId = "AlarakSustainingPower",
+                Name = "Sustaining Power",
+                ShortTooltipNameId = "AlarakSustainingPower",
+                FullTooltipNameId = "AlarakSustainingPower",
+                IconFileName = "storm_ui_icon_alarak_lightningsurge_a.png",
+                Tooltip = new AbilityTalentTooltip()
+                {
+                    ShortTooltip = new TooltipDescription("Increase Lightning Surge healing"),
+                    FullTooltip = new TooltipDescription("Increase the healing received from damaging Heroes with Lightning Surge by <c val=\"#TooltipNumbers\">40%</c>."),
+                },
+                Column = 1,
+                Tier = TalentTier.Level1,
+                AbilityType = AbilityType.Q,
+                IsActive = true,
+                IsQuest = true,
+            });
+            alarakHero.AddTalent(new Talent
+            {
+                ReferenceNameId = "Level4Talent",
+                Name = "Level4Talent",
+                Tier = TalentTier.Level4,
+                Tooltip = new AbilityTalentTooltip()
+                {
+                    FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
+                },
+                AbilityType = AbilityType.Q,
+                AbilityTalentLinkIds = new HashSet<string>() { "AlarakDiscordStrike", "AlarakExtendedLightning" },
+            });
+            alarakHero.AddTalent(new Talent
+            {
+                ReferenceNameId = "Level7Talent",
+                Name = "Level4Talent",
+                Tier = TalentTier.Level7,
+                AbilityType = AbilityType.Q,
+            });
+            alarakHero.AddTalent(new Talent
+            {
+                ReferenceNameId = "AlarakHeroicAbilityDeadlyCharge",
+                Name = "Deadly Charge",
+                ShortTooltipNameId = "AlarakDeadlyCharge",
+                FullTooltipNameId = "AlarakDeadlyCharge",
+                IconFileName = "storm_ui_icon_alarak_recklesscharge.png",
+                Tooltip = new AbilityTalentTooltip()
+                {
+                    Cooldown = new TooltipCooldown()
+                    {
+                        CooldownTooltip = new TooltipDescription("45"),
+                    },
+                    Energy = new TooltipEnergy()
+                    {
+                        EnergyTooltip = new TooltipDescription("8"),
+                    },
+                    ShortTooltip = new TooltipDescription("Channel to charge a long distance"),
+                    FullTooltip = new TooltipDescription("After channeling, Alarak charges forward dealing <c val=\"#TooltipNumbers\">200</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"#TooltipNumbers\">1.6</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling."),
+                },
+                Column = 1,
+                Tier = TalentTier.Level10,
+                AbilityType = AbilityType.Heroic,
+            });
+            alarakHero.AddTalent(new Talent
+            {
+                ReferenceNameId = "AlarakHeroicAbilityCounterStrike",
+                Name = "Counter-Strike",
+                ShortTooltipNameId = "AlarakCounterStrikeTargeted",
+                FullTooltipNameId = "AlarakCounterStrikeTargeted",
+                IconFileName = "storm_ui_icon_alarak_counterstrike.png",
+                Tooltip = new AbilityTalentTooltip()
+                {
+                    Energy = new TooltipEnergy()
+                    {
+                        EnergyTooltip = new TooltipDescription("50"),
+                    },
+                    Cooldown = new TooltipCooldown()
+                    {
+                        CooldownTooltip = new TooltipDescription("30 seconds"),
+                    },
+                    ShortTooltip = new TooltipDescription("Prevents damage to deal damage in a large area"),
+                    FullTooltip = new TooltipDescription("Alarak targets an area and channels for <c val=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"#TooltipNumbers\">275</c> damage."),
+                },
+                Column = 2,
+                Tier = TalentTier.Level10,
+                AbilityType = AbilityType.Heroic,
+            });
+            alarakHero.AddTalent(new Talent
+            {
+                ReferenceNameId = "Leve13Talent",
+                Name = "Leve13Talent",
+                Tier = TalentTier.Level13,
+                AbilityType = AbilityType.W,
+            });
+            alarakHero.AddTalent(new Talent
+            {
+                ReferenceNameId = "Level16Talent",
+                Name = "Level16Talent",
+                Tier = TalentTier.Level16,
+                AbilityType = AbilityType.W,
+            });
+            alarakHero.AddTalent(new Talent
+            {
+                ReferenceNameId = "Level20Talent",
+                Name = "Level20Talent",
+                Tier = TalentTier.Level20,
+                AbilityType = AbilityType.W,
+            });
+
             TestData.Add(alarakHero);
 
             // TODO: Re-add

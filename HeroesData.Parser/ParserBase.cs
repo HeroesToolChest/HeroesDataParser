@@ -14,14 +14,6 @@ namespace HeroesData.Parser
         where T : IExtractable
         where TOverride : IDataOverride
     {
-        [Obsolete("Dont use")]
-        public ParserBase(Configuration configuration, GameData gameData, DefaultData defaultData)
-        {
-            //Configuration = configuration;
-            //GameData = gameData;
-            //DefaultData = defaultData;
-        }
-
         public ParserBase(IXmlDataService xmlDataService)
         {
             XmlDataService = xmlDataService;

@@ -1,7 +1,6 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;

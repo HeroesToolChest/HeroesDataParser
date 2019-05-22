@@ -32,11 +32,12 @@ namespace HeroesData.Parser.XmlData
 
         public Localization Localization { get; set; }
         public UnitDataOverride UnitDataOverride { get; set; }
+        public HeroDataOverride HeroDataOverride { get; set; }
 
         protected GameData GameData { get; }
-        protected HeroDataOverride HeroDataOverride { get; }
         protected DefaultData DefaultData { get; }
         protected Configuration Configuration { get; }
+
 
         /// <summary>
         /// Returns a collection of all ability elements.

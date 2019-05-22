@@ -12,11 +12,6 @@ namespace HeroesData.Parser.XmlData
 {
     public class AbilityData : AbilityTalentData
     {
-        public AbilityData(GameData gameData, DefaultData defaultData, HeroDataOverride heroDataOverride, Configuration configuration, Localization localization)
-            : base(gameData, defaultData, heroDataOverride, configuration, localization)
-        {
-        }
-
         public AbilityData(GameData gameData, DefaultData defaultData, Configuration configuration)
         : base(gameData, defaultData, configuration)
         {
@@ -247,43 +242,40 @@ namespace HeroesData.Parser.XmlData
         /// Adds additional abilities from the overrides file.
         /// </summary>
         /// <param name="unit"></param>
-        public void AddOverrideButtonAbilities(Unit unit)
+        public Ability CreateOverrideButtonAbility(AddedButtonAbility addedButtonAbility)
         {
-            //unit.Abilities = unit.Abilities ?? new Dictionary<string, Ability>();
+            Ability ability = new Ability()
+            {
+                FullTooltipNameId = addedButtonAbility.ButtonId,
+                ButtonName = addedButtonAbility.ButtonId,
+                ReferenceNameId = addedButtonAbility.ButtonId,
+            };
 
-            //foreach (AddedButtonAbility abilityButton in UnitDataOverride.AddedAbilityByButtonId)
-            //{
-            //    Ability ability = new Ability()
-            //    {
-            //        FullTooltipNameId = abilityButton.ButtonId,
-            //        ButtonName = abilityButton.ButtonId,
-            //        ReferenceNameId = abilityButton.ButtonId,
-            //    };
+            if (!string.IsNullOrEmpty(addedButtonAbility.ReferenceNameId))
+                ability.ReferenceNameId = addedButtonAbility.ReferenceNameId;
 
-            //    if (!string.IsNullOrEmpty(abilityButton.ReferenceNameId))
-            //        ability.ReferenceNameId = abilityButton.ReferenceNameId;
+            // default
+            ability.Tier = AbilityTier.Activable;
 
-            //    // default
-            //    ability.Tier = AbilityTier.Activable;
+            XElement cButtonElement = null;
+            if (!string.IsNullOrEmpty(addedButtonAbility.ReferenceNameId))
+                cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ReferenceNameId && x.Attribute("parent")?.Value == addedButtonAbility.ParentValue));
 
-            //    XElement cButtonElement = null;
-            //    if (!string.IsNullOrEmpty(abilityButton.ReferenceNameId))
-            //        cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ReferenceNameId && x.Attribute("parent")?.Value == abilityButton.ParentValue));
+            cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == addedButtonAbility.ParentValue)) ?? cButtonElement;
 
-            //    cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.FullTooltipNameId && x.Attribute("parent")?.Value == abilityButton.ParentValue)) ?? cButtonElement;
+            if (cButtonElement == null)
+                throw new XmlGameDataParseException($"Could not find the following element <CButton id=\"{ability.FullTooltipNameId}\" parent=\"{addedButtonAbility.ParentValue}\">");
 
-            //    if (cButtonElement == null)
-            //        throw new XmlGameDataParseException($"Could not find the following element <CButton id=\"{ability.FullTooltipNameId}\" parent=\"{abilityButton.ParentValue}\">");
+            //SetAbilityType(unit, ability);
 
-            //    SetAbilityType(unit, ability);
+            SetAbilityTierFromAbilityType(ability);
+            SetTooltipCostData(ability.ReferenceNameId, ability);
+            SetTooltipDescriptions(ability);
+            SetTooltipOverrideData(cButtonElement, ability);
 
-            //    SetAbilityTierFromAbilityType(ability);
-            //    SetTooltipCostData(ability.ReferenceNameId, ability);
-            //    SetTooltipDescriptions(ability);
-            //    SetTooltipOverrideData(cButtonElement, ability);
+            //unit.Abilities[ability.ReferenceNameId] = ability;
 
-            //    unit.Abilities[ability.ReferenceNameId] = ability;
-            //}
+            return null;
         }
 
         private void SetAbilityType(string unitId, Ability ability)
@@ -364,6 +356,16 @@ namespace HeroesData.Parser.XmlData
                 ability.Tier = AbilityTier.Hearth;
             else if (ability.AbilityType == AbilityType.Active)
                 ability.Tier = AbilityTier.Activable;
+            else if (ability.AbilityType == AbilityType.Taunt)
+                ability.Tier = AbilityTier.Taunt;
+            else if (ability.AbilityType == AbilityType.Dance)
+                ability.Tier = AbilityTier.Dance;
+            else if (ability.AbilityType == AbilityType.Spray)
+                ability.Tier = AbilityTier.Spray;
+            else if (ability.AbilityType == AbilityType.Voice)
+                ability.Tier = AbilityTier.Voice;
+            else if (ability.AbilityType == AbilityType.MapMechanic)
+                ability.Tier = AbilityTier.MapMechanic;
         }
 
         private XElement GetButtonElement(string buttonId)

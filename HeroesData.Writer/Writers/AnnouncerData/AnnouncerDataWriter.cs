@@ -6,7 +6,7 @@ namespace HeroesData.FileWriter.Writers.AnnouncerData
         where T : class
         where TU : class
     {
-        public AnnouncerDataWriter(FileOutputType fileOutputType)
+        protected AnnouncerDataWriter(FileOutputType fileOutputType)
             : base(nameof(AnnouncerData), fileOutputType)
         {
         }

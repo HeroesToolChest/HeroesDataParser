@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace HeroesData.FileWriter.Writers.HeroData
 {
-    internal class HeroDataXmlWriter : HeroDataWriter<XElement, XElement>
+    internal class HeroDataXmlWriter : HeroDataWriter<XElement, XElement, Hero>
     {
         public HeroDataXmlWriter()
             : base(FileOutputType.Xml)
@@ -50,36 +50,13 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 UnitLife(hero),
                 UnitEnergy(hero),
                 UnitArmor(hero),
-                hero.Roles?.Count > 0 && !FileOutputOptions.IsLocalizedText ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
+                hero.Roles.Any() && !FileOutputOptions.IsLocalizedText ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
                 string.IsNullOrEmpty(hero.ExpandedRole) || FileOutputOptions.IsLocalizedText ? null : new XElement("ExpandedRole", hero.ExpandedRole),
                 HeroRatings(hero),
                 UnitWeapons(hero),
                 UnitAbilities(hero, false),
-                UnitSubAbilities(hero),
-                HeroTalents(hero),
-                Units(hero));
-        }
-
-        protected override XElement UnitElement(Unit unit)
-        {
-            if (FileOutputOptions.IsLocalizedText)
-                AddLocalizedGameString(unit);
-
-            return new XElement(
-                unit.HyperlinkId,
-                string.IsNullOrEmpty(unit.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", unit.Name),
-                string.IsNullOrEmpty(unit.CUnitId) ? null : new XAttribute("unitId", unit.CUnitId),
-                unit.InnerRadius > 0 ? new XAttribute("innerRadius", unit.InnerRadius) : null,
-                unit.Radius > 0 ? new XAttribute("radius", unit.Radius) : null,
-                unit.Sight > 0 ? new XAttribute("sight", unit.Sight) : null,
-                unit.Speed > 0 ? new XAttribute("speed", unit.Speed) : null,
-                string.IsNullOrEmpty(unit.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType)),
-                unit.HeroDescriptors.Any() ? new XElement("Descriptors", unit.HeroDescriptors.Select(d => new XElement("Descriptor", d))) : null,
-                UnitLife(unit),
-                UnitArmor(unit),
-                UnitEnergy(unit),
-                UnitWeapons(unit),
-                UnitAbilities(unit, true));
+                //UnitSubAbilities(hero),
+                HeroTalents(hero));
         }
 
         protected override XElement GetArmorObject(Unit unit)
@@ -145,19 +122,19 @@ namespace HeroesData.FileWriter.Writers.HeroData
             }
         }
 
-        protected override XElement GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities)
-        {
-            return new XElement(
-                "SubAbilities",
-                linkedAbilities.Select(parent => new XElement(
-                    parent.Key,
-                    parent.Where(x => x.Tier == AbilityTier.Basic).Count() > 0 ? new XElement("Basic", parent.Where(x => x.Tier == AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(ability => AbilityTalentInfoElement(ability))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Heroic).Count() > 0 ? new XElement("Heroic", parent.Where(x => x.Tier == AbilityTier.Heroic).Select(ability => AbilityTalentInfoElement(ability))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Trait).Count() > 0 ? new XElement("Trait", parent.Where(x => x.Tier == AbilityTier.Trait).Select(ability => AbilityTalentInfoElement(ability))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Mount).Count() > 0 ? new XElement("Mount", parent.Where(x => x.Tier == AbilityTier.Mount).Select(ability => AbilityTalentInfoElement(ability))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Activable).Count() > 0 ? new XElement("Activable", parent.Where(x => x.Tier == AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(ability => AbilityTalentInfoElement(ability))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Hearth).Count() > 0 ? new XElement("Hearth", parent.Where(x => x.Tier == AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null)));
-        }
+        //protected override XElement GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities)
+        //{
+        //    return new XElement(
+        //        "SubAbilities",
+        //        linkedAbilities.Select(parent => new XElement(
+        //            parent.Key,
+        //            parent.Where(x => x.Tier == AbilityTier.Basic).Count() > 0 ? new XElement("Basic", parent.Where(x => x.Tier == AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(ability => AbilityTalentInfoElement(ability))) : null,
+        //            parent.Where(x => x.Tier == AbilityTier.Heroic).Count() > 0 ? new XElement("Heroic", parent.Where(x => x.Tier == AbilityTier.Heroic).Select(ability => AbilityTalentInfoElement(ability))) : null,
+        //            parent.Where(x => x.Tier == AbilityTier.Trait).Count() > 0 ? new XElement("Trait", parent.Where(x => x.Tier == AbilityTier.Trait).Select(ability => AbilityTalentInfoElement(ability))) : null,
+        //            parent.Where(x => x.Tier == AbilityTier.Mount).Count() > 0 ? new XElement("Mount", parent.Where(x => x.Tier == AbilityTier.Mount).Select(ability => AbilityTalentInfoElement(ability))) : null,
+        //            parent.Where(x => x.Tier == AbilityTier.Activable).Count() > 0 ? new XElement("Activable", parent.Where(x => x.Tier == AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(ability => AbilityTalentInfoElement(ability))) : null,
+        //            parent.Where(x => x.Tier == AbilityTier.Hearth).Count() > 0 ? new XElement("Hearth", parent.Where(x => x.Tier == AbilityTier.Hearth).Select(hearth => AbilityTalentInfoElement(hearth))) : null)));
+        //}
 
         protected override XElement GetTalentsObject(Hero hero)
         {
@@ -170,13 +147,6 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 new XElement("Level13", hero.TierTalents(TalentTier.Level13).Select(level13 => TalentInfoElement(level13))),
                 new XElement("Level16", hero.TierTalents(TalentTier.Level16).Select(level16 => TalentInfoElement(level16))),
                 new XElement("Level20", hero.TierTalents(TalentTier.Level20).Select(level20 => TalentInfoElement(level20))));
-        }
-
-        protected override XElement GetUnitsObject(Hero hero)
-        {
-            return new XElement(
-                "HeroUnits",
-                hero.HeroUnits.Select(heroUnit => new XElement(heroUnit.CUnitId, UnitElement(heroUnit))));
         }
 
         protected override XElement AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)

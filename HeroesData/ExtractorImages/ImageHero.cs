@@ -74,7 +74,7 @@ namespace HeroesData.ExtractorImage
                 }
             }
 
-            foreach (string talentIconFileName in hero.Talents.Select(x => x.Value.IconFileName))
+            foreach (string talentIconFileName in hero.Talents.Select(x => x.IconFileName))
             {
                 if (!string.IsNullOrEmpty(talentIconFileName))
                 {
