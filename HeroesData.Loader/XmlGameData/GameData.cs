@@ -10,9 +10,10 @@ namespace HeroesData.Loader.XmlGameData
 {
     public abstract class GameData
     {
+        private readonly Dictionary<string, GameData> MapGameDataByMapId = new Dictionary<string, GameData>();
+
         private Dictionary<(string Catalog, string Entry, string Field), double> ScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
         private Dictionary<string, string> GameStringById = new Dictionary<string, string>();
-        private Dictionary<string, GameData> MapGameDataByMapId = new Dictionary<string, GameData>();
         private Dictionary<string, List<XElement>> XmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>();
         private Dictionary<string, List<XElement>> LayoutButtonElements = new Dictionary<string, List<XElement>>();
 
@@ -211,7 +212,12 @@ namespace HeroesData.Loader.XmlGameData
                 ScaleValueByLookupId[item.Key] = item.Value;
 
             foreach (KeyValuePair<string, List<XElement>> item in gameData.LayoutButtonElements)
-                LayoutButtonElements[item.Key] = item.Value;
+            {
+                if (LayoutButtonElements.TryGetValue(item.Key, out List<XElement> elementList))
+                    elementList.AddRange(item.Value);
+                else
+                    LayoutButtonElements.Add(item.Key, item.Value);
+            }
 
             foreach (KeyValuePair<string, List<XElement>> item in gameData.XmlGameDataElementsByElementName)
             {

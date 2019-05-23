@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CUpgrade id="VolskayaVehicleUpgrade">
+        <EffectArray Reference="Effect,VolskayaVehicleChargeDamage,Amount" Value="14"/>
+        <EffectArray Reference="Effect,VolskayaVehicleRocketFistDamage,Amount" Value="15"/>
+        <EffectArray Reference="Behavior,VolskayaVehicleTShield,DamageResponse.ModifyLimit" Value="50"/>
+        <MaxLevel value="60"/>
+    </CUpgrade>
+    <CUpgrade id="VolskayaVehicleGunnerUpgrade">
+        <EffectArray Reference="Effect,VolskayaVehicleParticleCannonDamage,Amount" Value="19"/>
+        <EffectArray Reference="Effect,VolskayaVehicleSkyLaserInitialDamage,Amount" Value="6"/>
+        <EffectArray Reference="Effect,VolskayaVehicleSkyLaserSecondaryDamage,Amount" Value="38"/>
+        <EffectArray Reference="Effect,VolskayaVehicleTacticalStrikesDamage,Amount" Value="3.8"/>
+        <MaxLevel value="60"/>
+    </CUpgrade>
+</Catalog>

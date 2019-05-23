@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CWeaponLegacy id="VolskayaVehiclePilot" parent="StormHeroMediumWeapon">
+        <Icon value="Assets\Textures\storm_temp_btn-upgrade-terran-infantryweaponslevel3.dds"/>
+        <DisplayEffect value="VolskayaVehicleWeaponDamage"/>
+        <Effect value="VolskayaVehicleWeaponSet"/>
+        <MinScanRange value="0"/>
+        <Range value="2"/>
+        <Period value="1.25"/>
+    </CWeaponLegacy>
+</Catalog>

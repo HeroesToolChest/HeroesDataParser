@@ -26,6 +26,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         protected Unit HanamuraMercDefenderSentinel { get; set; }
         protected Unit MercDefenderSentinel { get; set; }
         protected Unit OverwatchDataMercDefenderMeleeBruiser { get; set; }
+        protected Unit VolskayaDataVolskayaVehicleGunner { get; set; }
 
         [TestMethod]
         public void GetItemsTest()
@@ -53,6 +54,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             ParseAlteracPassData(unitParser);
             ParseHanamura(unitParser);
             ParseOverwatchData(unitParser);
+            ParseVolskayaData(unitParser);
         }
 
         private void ParseAlteracPassData(UnitParser unitParser)
@@ -80,6 +82,13 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             GameData.AppendGameData(GameData.GetMapGameData("overwatchdata.stormmod"));
             OverwatchDataMercDefenderMeleeBruiser = unitParser.Parse("MercDefenderMeleeBruiser", "overwatchdata.stormmod");
+            GameData.RestoreGameData();
+        }
+
+        private void ParseVolskayaData(UnitParser unitParser)
+        {
+            GameData.AppendGameData(GameData.GetMapGameData("volskayadata.stormmod"));
+            VolskayaDataVolskayaVehicleGunner = unitParser.Parse("VolskayaVehicleGunner", "volskayadata.stormmod");
             GameData.RestoreGameData();
         }
     }

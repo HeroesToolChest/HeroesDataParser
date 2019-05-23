@@ -34,4 +34,7 @@
   <Catalog path="GameData/LootBox/Sprays/spraystaticcarbotslilidata.xml" />
   <Catalog path="GameData/Announcers/AdjutantVOData.xml" />
   <Catalog path="GameData/Announcers/OrpheaAnnouncerVOData.xml" />
+  <Catalog path="GameData/Maps/healthpackgenerator.xml" />
+  <Catalog path="GameData/Maps/protectors.xml" />
+  <Catalog path="GameData/Maps/vehicles.xml" />
 </Includes>

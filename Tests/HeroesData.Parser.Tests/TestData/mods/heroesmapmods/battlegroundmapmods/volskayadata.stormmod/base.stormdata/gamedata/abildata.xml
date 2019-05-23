@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CAbilEffectInstant id="LeaveVehicle">
+        <Cost>
+            <Cooldown TimeUse="10"/>
+        </Cost>
+    </CAbilEffectInstant>
+    <CAbilEffectInstant id="VehicleGenericSwapVehicle">
+        <Activity value="Abil/Activity/VolskayaVehicleSwap"/>
+    </CAbilEffectInstant>
+    <CAbilEffectTarget id="UseVehicle">
+        <CmdButtonArray index="Execute" Requirements="UseVolskayaVehicleRequirement"/>
+        <RangeSlop value="6"/>
+    </CAbilEffectTarget>
+    <CAbilEffectInstant id="VolskayaVehicleSwap">
+        <Activity value="Abil/Activity/VolskayaVehicleSwap"/>
+        <Effect value="VolskayaVehicleSwapSet"/>
+        <Cost>
+            <Cooldown Location="Player" TimeUse="10"/>
+        </Cost>
+        <CastIntroTime value="1"/>
+        <ShowProgressArray index="Cast" value="1"/>
+        <CmdButtonArray index="Execute" DefaultButtonFace="VolskayaVehicleSwap" Requirements="VolskayaVehicleSwapRequirement"/>
+    </CAbilEffectInstant>
+</Catalog>

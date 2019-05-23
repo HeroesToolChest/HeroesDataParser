@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CEffectCreatePersistent id="Doodad_Volskaya_CapturePoint_Active"/>
+    <CEffectCreatePersistent id="Event_Volskaya_Vehicle_Enter_End"/>
+    <CEffectCreatePersistent id="Event_Volskaya_Vehicle_Exit_End"/>
+    <CEffectLaunchMissile id="MercSiegeTrooperLanerWeaponLaunchMissile">
+        <LaunchOffset Y="0"/>
+    </CEffectLaunchMissile>
+    <CEffectSwitch id="OverwatchMapMechanicAbilityTargetSwitch">
+        <TargetLocationType value="Point"/>
+    </CEffectSwitch>
+    <CEffectSet id="UseVehicleCastCompleteSet">
+        <EffectArray index="1" value="UseVehicleRemoveDragonStun"/>
+        <EffectArray index="2" value="VehicleGenericUseVehicleApplyCasterBehaviorImmediatelyApplied"/>
+        <EffectArray index="3" value="KaelthasPhoenixRebirthVehicleUseSet"/>
+        <ValidatorArray index="0" value="VolskayaVehicleValidatorCombine"/>
+    </CEffectSet>
+    <CEffectSet id="VolskayaVehicleParticleCannonInitiatedPeriodicSet">
+        <OrphanFromEffectChain value="1"/>
+        <EffectArray value="VolskayaVehicleParticleCannonChannelTokenAdd"/>
+        <EffectArray value="VolskayaVehicleParticleCannonInitiatedModifyCatalogNumeric"/>
+    </CEffectSet>
+    <CEffectModifyTokenCount id="VolskayaVehicleParticleCannonChannelTokenAdd" parent="BaseEffectModifyTokenCount">
+        <TokenId value="VolskayaVehicleParticleCannonChannelToken"/>
+    </CEffectModifyTokenCount>
+    <CEffectModifyTokenCount id="VolskayaVehicleParticleCannonChannelTokenReset" parent="BaseEffectModifyTokenCount">
+        <TokenId value="VolskayaVehicleParticleCannonChannelToken"/>
+        <Operation value="Set"/>
+        <Value value="0"/>
+    </CEffectModifyTokenCount>
+    <CEffectRemoveBehavior id="VolskayaVehicleRemoveCanSwapBehavior">
+        <BehaviorLink value="VehicleGenericCanSwap"/>
+        <ValidatorArray value="VehicleGenericUseVehicleTargetIsOccupied"/>
+        <ValidatorArray value="VehicleGenericTargetCanSwap"/>
+    </CEffectRemoveBehavior>
+    <CEffectEnumArea id="UseVehicleSearchForAttachedVehicle">
+        <TargetSorts RequestCount="1" RequestPercentage="1">
+            <SortArray value="TSDistance"/>
+        </TargetSorts>
+        <AreaArray MaxCount="1" Effect="UseVehicle_AttachedVehicle_ApplyVehicleOccupiedBehavior">
+            <Radius value="1"/>
+        </AreaArray>
+        <ValidatorArray value="VehicleGenericUseVehicleTargetIsOccupied"/>
+    </CEffectEnumArea>
+    <CEffectApplyBehavior id="UseVehicle_AttachedVehicle_ApplyVehicleOccupiedBehavior" parent="UseVehicleApplyVehicleBehavior">
+        <ValidatorArray value="VehicleGenericTargetIsUnoccupied"/>
+        <ValidatorArray value="VehicleGenericTargetIsAttachedVehicle"/>
+    </CEffectApplyBehavior>
+    <CEffectCancelOrder id="VolskayaVehicleChargeClearOrder">
+        <WhichUnit Value="Caster"/>
+        <AbilCmd value="VolskayaVehicleChargeApproach,Execute"/>
+        <Flags index="Queued" value="1"/>
+        <Flags index="Uninterruptible" value="1"/>
+    </CEffectCancelOrder>
+    <CEffectSet id="VolskayaVehicleChargeClearOrdersSet">
+        <EffectArray value="VolskayaVehicleChargeClearOrder"/>
+        <EffectArray value="VolskayaVehicleChargeCoreClearOrder"/>
+        <EffectArray value="VolskayaVehicleChargeStructureClearOrder"/>
+    </CEffectSet>
+    <CEffectCancelOrder id="VolskayaVehicleChargeCoreClearOrder">
+        <WhichUnit Value="Caster"/>
+        <AbilCmd value="VolskayaVehicleCoreChargeApproach,Execute"/>
+        <Flags index="Queued" value="1"/>
+        <Flags index="Uninterruptible" value="1"/>
+    </CEffectCancelOrder>
+    <CEffectCancelOrder id="VolskayaVehicleChargeStructureClearOrder">
+        <WhichUnit Value="Caster"/>
+        <AbilCmd value="VolskayaVehicleStructureChargeApproach,Execute"/>
+        <Flags index="Queued" value="1"/>
+        <Flags index="Uninterruptible" value="1"/>
+    </CEffectCancelOrder>
+    <CEffectDamage id="VolskayaVehicleBirthImpactDamage" parent="StormSpell">
+        <Amount value="200"/>
+    </CEffectDamage>
+    <CEffectEnumArea id="VolskayaVehicleBirthSearchArea">
+        <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Item,Stasis,Dead,Invulnerable"/>
+        <AreaArray Effect="VolskayaVehicleBirthImpactDamage">
+            <Radius value="3"/>
+        </AreaArray>
+    </CEffectEnumArea>
+    <CEffectSet id="VolskayaVehicleChargeImpactUnitSet">
+        <EffectArray value="VolskayaVehicleChargeDamage"/>
+        <EffectArray value="VolskayaVehicleChargeDidNotWhiffApplyBehavior"/>
+    </CEffectSet>
+    <CEffectSwitch id="VolskayaVehicleChargeSwitch">
+        <CaseArray Validator="IsCore" Effect="VolskayaVehicleChargeIssueCoreApproachOrder"/>
+        <CaseArray Validator="IsStructureTarget" Effect="VolskayaVehicleChargeIssueStructureApproachOrder"/>
+        <CaseDefault value="VolskayaVehicleChargeIssueApproachOrder"/>
+    </CEffectSwitch>
+    <CEffectCreatePersistent id="VolskayaVehicleChargeDummyPersistent">
+        <PeriodicValidator value="CasterNotDead"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="LeaveVehicleSet">
+        <EffectArray index="1" value="VolskayaVehicleLeaveVehicleRemovePilotOccupiedBehavior"/>
+        <EffectArray value="VolskayaVehicleLeaveVehicleSearchForPilot"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="VolskayaRocketFistApplyStructureDisable">
+        <Behavior value="VolskayaVehicleRocketFistStructureDebuff"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="VolskayaVehicleChargeApplyPrepareBehaviorSet">
+        <EffectArray value="VolskayaVehicleChargeApplyChargeUnstoppableBehavior"/>
+        <EffectArray value="VolskayaVehicleChargeDummyPersistent"/>
+    </CEffectSet>
+    <CEffectIssueOrder id="VolskayaVehicleChargeIssueApproachOrder">
+        <ValidatorArray value="CasterNotDeadAndTargetNotDead"/>
+        <WhichUnit Value="Caster"/>
+        <Abil value="VolskayaVehicleChargeApproach"/>
+        <CmdFlags index="Preempt" value="1"/>
+        <Target Value="TargetPoint"/>
+    </CEffectIssueOrder>
+    <CEffectIssueOrder id="VolskayaVehicleChargeIssueStructureApproachOrder" parent="VolskayaVehicleChargeIssueApproachOrder">
+        <Abil value="VolskayaVehicleStructureChargeApproach"/>
+    </CEffectIssueOrder>
+    <CEffectIssueOrder id="VolskayaVehicleChargeIssueCoreApproachOrder" parent="VolskayaVehicleChargeIssueApproachOrder">
+        <Abil value="VolskayaVehicleCoreChargeApproach"/>
+    </CEffectIssueOrder>
+    <CEffectSet id="VolskayaVehicleChargeCastSet">
+        <EffectArray value="VolskayaVehicleChargeSwitch"/>
+        <EffectArray value="VolskayaVehicleChargeApplyChargeBehavior"/>
+        <ValidatorArray value="CasterNotDead"/>
+        <ValidatorArray value="VehicleGenericCasterNotSwappingAndNotLeaving"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="VolskayaVehicleChargeApplyChargeBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="VolskayaVehicleChargeBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="VolskayaVehicleApplyChargeRampMSBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="VolskayaVehicleChargeRampMSBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="VolskayaVehicleChargeApplyChargeUnstoppableBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="VolskayaVehicleChargeUnstoppableBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="VolskayaVehicleChargeDidNotWhiffApplyBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="VolskayaVehicleChargeDidNotWhiff"/>
+    </CEffectApplyBehavior>
+    <CEffectRemoveBehavior id="VolskayaVehicleChargeRemoveChargeUnstoppableBehavior">
+        <WhichUnit Value="Caster"/>
+        <BehaviorLink value="VolskayaVehicleChargeUnstoppableBehavior"/>
+    </CEffectRemoveBehavior>
+    <CEffectRemoveBehavior id="VolskayaVehicleChargeRemoveTargetWarning">
+        <BehaviorLink value="VolskayaVehicleChargeTargetReveal"/>
+    </CEffectRemoveBehavior>
+    <CEffectModifyUnit id="VolskayaVehicleChargeModifyMainWeaponCooldown">
+        <ImpactUnit Value="Caster"/>
+        <Weapon Weapon="VolskayaVehiclePilot" CooldownOperation="Set" CooldownFraction="1"/>
+    </CEffectModifyUnit>
+    <CEffectRemoveBehavior id="VolskayaVehicleChargeRemoveChargeBehavior">
+        <WhichUnit Value="Caster"/>
+        <BehaviorLink value="VolskayaVehicleChargeBehavior"/>
+    </CEffectRemoveBehavior>
+    <CEffectEnumArea id="VolskayaVehicleChargeSearchArea">
+        <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable"/>
+        <AreaArray Effect="VolskayaVehicleChargeImpactUnitSet">
+            <Radius value="2"/>
+        </AreaArray>
+        <RevealerParams Duration="1" ShapeExpansion="1">
+            <RevealFlags index="Unfog" value="1"/>
+        </RevealerParams>
+    </CEffectEnumArea>
+    <CEffectSet id="VolskayaVehicleChargeImpactSet">
+        <EffectArray value="VolskayaVehicleChargeRemoveChargeBehavior"/>
+        <EffectArray value="VolskayaVehicleChargeRemoveChargeUnstoppableBehavior"/>
+        <EffectArray value="VolskayaVehicleChargeModifyMainWeaponCooldown"/>
+        <EffectArray value="VolskayaVehicleChargeSearchArea"/>
+        <EffectArray value="CameraShakeHeavyCasterDummySet"/>
+        <TargetLocationType value="UnitOrPoint"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="VolskayaVehicleApplyVehicleTimedLife">
+        <Behavior value="VehicleDragonTimedLife"/>
+        <Flags index="UseDuration" value="1"/>
+        <Duration value="150"/>
+    </CEffectApplyBehavior>
+    <CEffectCreatePersistent id="VolskayaVehicleLinkPersistent"/>
+    <CEffectApplyBehavior id="VolskayaVehicleApplyEnergyBombardmentActiveBehaviorGunner">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="VolskayaVehicleEnergyBombardmentActiveGunner"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="VolskayaVehicleRocketFistApplyTravelValidation">
+        <WhichUnit Value="Source"/>
+        <Behavior value="VolskayaVehicleRocketFistTravelMonitor"/>
+    </CEffectApplyBehavior>
+    <CEffectCreatePersistent id="VolskayaVehicleSkyLaserMoveUnitSpawnPersistent">
+        <WhichLocation Value="TargetUnit"/>
+        <PeriodCount value="4"/>
+        <PeriodicEffectArray value="VolskayaVehicleTurretSkyLaserSearchForPilotInitial"/>
+        <PeriodicEffectArray value="VolskayaVehicleSkyLaserBeamInitializer"/>
+        <PeriodicEffectArray value="VolskayaVehicleSkyLaserIssueMoveOrder"/>
+        <PeriodicEffectArray value="VolskayaVehicleSkyLaserInitialSearchPersistent"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0.0625"/>
+        <PeriodicPeriodArray value="0.125"/>
+        <PeriodicPeriodArray value="0"/>
+    </CEffectCreatePersistent>
+    <CEffectDamage id="VolskayaVehicleParticleCannonDamage" parent="StormSpell">
+        <Amount value="190"/>
+    </CEffectDamage>
+    <CEffectSet id="VolskayaVehicleParticleCannonInitiateCastSet">
+        <EffectArray value="VolskayaVehicleTurretParticleCannonSearchForPilotInitial"/>
+        <EffectArray value="VolskayaVehicleParticleCannonModifyCooldown"/>
+        <EffectArray value="VolskayaVehicleParticleCannonInitiatedApplyInitiatedBehavior"/>
+        <EffectArray value="VolskayaVehicleParticleCannonChannelTokenReset"/>
+        <ValidatorArray value="CasterNotDead"/>
+        <ValidatorArray value="VehicleGenericCasterNotSwappingAndNotLeaving"/>
+    </CEffectSet>
+    <CEffectLaunchMissile id="VolskayaVehicleParticleCannonLaunchMissile">
+        <ImpactLocation Value="TargetPoint"/>
+        <AmmoUnit value="VolskayaVehicleParticleCannonMissile"/>
+        <Movers Link="VolskayaVehicleParticleCannon"/>
+        <ImpactEffect value="VolskayaVehicleParticleCannonSearchArea"/>
+    </CEffectLaunchMissile>
+    <CEffectModifyUnit id="VolskayaVehicleParticleCannonModifyCooldown">
+        <ImpactUnit Value="Caster"/>
+        <Cost Abil="VolskayaVehicleActivateParticleCannon,Execute" CooldownOperation="Set" CooldownTimeUse="0.5"/>
+    </CEffectModifyUnit>
+    <CEffectModifyUnit id="VolskayaVehicleInitiateParticleCannonModifyCooldown">
+        <ImpactUnit Value="Caster"/>
+        <Cost Abil="VolskayaVehicleInitiateParticleCannon,Execute" CooldownOperation="Set" CooldownTimeUse="4"/>
+    </CEffectModifyUnit>
+    <CEffectSet id="VolskayaVehicleParticleCannonActivateCastSet">
+        <EffectArray value="VolskayaVehicleTurretParticleCannonSearchForPilotSecondary"/>
+        <EffectArray value="VolskayaVehicleParticleCannonRemoveInitiatedBehavior"/>
+        <EffectArray value="VolskayaVehicleParticleCannonRemoveRangeControllerBehavior"/>
+        <EffectArray value="VolskayaVehicleParticleCannonInitiatedModifyPlayerPropertiesSetToDefault"/>
+        <EffectArray value="VolskayaVehicleParticleCannonLaunchMissile"/>
+        <EffectArray value="VolskayaVehicleInitiateParticleCannonModifyCooldown"/>
+        <TargetLocationType value="Point"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="VolskayaVehicleParticleCannonInitiatedApplyInitiatedBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="VolskayaVehicleParticleCannonInitiated"/>
+    </CEffectApplyBehavior>
+    <CEffectModifyCatalogNumeric id="VolskayaVehicleParticleCannonInitiatedModifyCatalogNumeric">
+        <CatalogModifications Operation="Set" Reference="Abil,VolskayaVehicleActivateParticleCannon,Range">
+            <Value value="0">
+                <AccumulatorArray value="VolskayaVehicleParticleCannonRangeAccumulator"/>
+            </Value>
+        </CatalogModifications>
+    </CEffectModifyCatalogNumeric>
+    <CEffectRemoveBehavior id="VolskayaVehicleParticleCannonRemoveInitiatedBehavior">
+        <WhichUnit Value="Caster"/>
+        <BehaviorLink value="VolskayaVehicleParticleCannonInitiated"/>
+    </CEffectRemoveBehavior>
+    <CEffectEnumArea id="VolskayaVehicleParticleCannonSearchArea">
+        <AreaArray Effect="VolskayaVehicleParticleCannonDamage">
+            <Radius value="2.5"/>
+        </AreaArray>
+        <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Stasis,Dead,Hidden,Invulnerable"/>
+        <RevealerParams Duration="0.75" ShapeExpansion="0.75">
+            <RevealFlags index="Unfog" value="1"/>
+        </RevealerParams>
+    </CEffectEnumArea>
+    <CEffectCreatePersistent id="VolskayaVehicleParticleCannonCreatePersistent">
+        <ExpireDelay value="0.5"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="VolskayaVehicleRocketFistImpactSetMinions">
+        <EffectArray value="Kill"/>
+    </CEffectSet>
+    <CEffectSet id="VolskayaVehicleRocketFistImpactSetStructure">
+        <EffectArray value="VolskayaVehicleRocketFistDestroySearchPersistent"/>
+        <EffectArray value="ApplyAbilityImpactReveal"/>
+        <EffectArray value="SuicideRemove"/>
+        <EffectArray value="VolskayaVehicleRocketFistDamage"/>
+        <EffectArray value="VolskayaRocketFistApplyStructureDisable"/>
+    </CEffectSet>
+    <CEffectModifyUnit id="VolskayaVehicleRocketFistInitialBehaviorDummyEffect"/>
+    <CEffectSet id="VolskayaVehicleRocketFistSearchSet">
+        <EffectArray value="VolskayaVehicleRocketFistSearchArea"/>
+        <EffectArray value="VolskayaVehicleRocketFistSearchAreaMinions"/>
+        <TargetLocationType value="Point"/>
+    </CEffectSet>
+    <CEffectSwitch id="VolskayaVehicleRocketFistTargetSwitch">
+        <CaseArray Validator="TargetIsHero" Effect="VolskayaVehicleRocketFistImpactSetHero"/>
+        <CaseArray Validator="TargetIsMinionAndNotMercLaner" Effect="VolskayaVehicleRocketFistImpactSetMinions"/>
+        <CaseArray Validator="IsEnemyStructure" Effect="VolskayaVehicleRocketFistImpactSetStructure"/>
+    </CEffectSwitch>
+    <CEffectSet id="VolskayaVehicleSkyLaserBeamInitializer">
+        <TargetLocationType value="Point"/>
+    </CEffectSet>
+    <CEffectCreateUnit id="VolskayaVehicleSkyLaserCreateMovingUnit">
+        <WhichLocation Value="FocusPoint"/>
+        <SpawnEffect value="VolskayaVehicleSkyLaserMoveUnitSpawnPersistent"/>
+        <SpawnUnit value="VolskayaVehicleSkyLaserMoverUnit"/>
+    </CEffectCreateUnit>
+    <CEffectSet id="VolskayaVehicleSkyLaserInitialPersistentExpireSet">
+        <EffectArray value="VolskayaVehicleSkyLaserKillSpawnedUnit"/>
+        <EffectArray value="VolskayaVehicleTurretSkyLaserSearchForPilotSecondary"/>
+    </CEffectSet>
+    <CEffectIssueOrder id="VolskayaVehicleSkyLaserIssueMoveOrder">
+        <Abil value="move"/>
+        <Target Value="VectorPoint"/>
+    </CEffectIssueOrder>
+    <CEffectDamage id="VolskayaVehicleSkyLaserKillSpawnedUnit" parent="SuicideRemove">
+        <ImpactLocation Effect="VolskayaVehicleSkyLaserMoveUnitSpawnPersistent" Value="TargetUnit"/>
+    </CEffectDamage>
+    <CEffectEnumArea id="VolskayaVehicleTurretParticleCannonSearchForPilotInitial">
+        <AreaArray MaxCount="1" Effect="VolskayaVehicleTurretParticleCannonPilotFoundSetInitial">
+            <Radius value="1"/>
+        </AreaArray>
+    </CEffectEnumArea>
+    <CEffectSet id="VolskayaVehicleTurretParticleCannonPilotFoundSetInitial">
+        <ValidatorArray value="TargetIsPilot"/>
+        <EffectArray value="VolskayaVehicleTurretRemoveMouseCursorTrackingBehavior"/>
+        <EffectArray value="VolskayaVehicleTurretMakeTurretResetFacing"/>
+    </CEffectSet>
+    <CEffectSet id="VolskayaVehicleTurretParticleCannonPilotFoundSetSecondary">
+        <ValidatorArray value="TargetIsPilot"/>
+        <EffectArray value="VolskayaVehicleTurretApplyMouseCursorTrackingBehavior"/>
+    </CEffectSet>
+    <CEffectEnumArea id="VolskayaVehicleTurretParticleCannonSearchForPilotSecondary">
+        <AreaArray MaxCount="1" Effect="VolskayaVehicleTurretParticleCannonPilotFoundSetSecondary">
+            <Radius value="1"/>
+        </AreaArray>
+        <ImpactLocation Value="CasterUnitOrPoint"/>
+    </CEffectEnumArea>
+    <CEffectModifyUnit id="VolskayaVehicleTurretSkyLaserSetTurretFacingInitial">
+        <ValidatorArray value="TargetIsPilot"/>
+        <ModifyTurret Turret="VolskayaVehicleMainTurret">
+            <Target Effect="VolskayaVehicleSkyLaserMoveUnitSpawnPersistent" Value="TargetUnit"/>
+            <Flags index="Tracking" value="1"/>
+        </ModifyTurret>
+    </CEffectModifyUnit>
+    <CEffectSet id="VolskayaVehicleTurretSkyLaserPilotFoundSetInitial">
+        <ValidatorArray value="TargetIsPilot"/>
+        <EffectArray value="VolskayaVehicleTurretRemoveMouseCursorTrackingBehavior"/>
+        <EffectArray value="VolskayaVehicleTurretSkyLaserSetTurretFacingInitial"/>
+    </CEffectSet>
+    <CEffectSet id="VolskayaVehicleTurretSkyLaserPilotFoundSetSecondary">
+        <ValidatorArray value="TargetIsPilot"/>
+        <EffectArray value="VolskayaVehicleTurretApplyMouseCursorTrackingBehavior"/>
+    </CEffectSet>
+    <CEffectEnumArea id="VolskayaVehicleTurretSkyLaserSearchForPilotInitial">
+        <ImpactLocation Value="CasterUnit"/>
+        <AreaArray MaxCount="1" Effect="VolskayaVehicleTurretSkyLaserPilotFoundSetInitial">
+            <Radius value="1"/>
+        </AreaArray>
+    </CEffectEnumArea>
+    <CEffectEnumArea id="VolskayaVehicleTurretSkyLaserSearchForPilotSecondary">
+        <ImpactLocation Value="CasterUnit"/>
+        <AreaArray MaxCount="1" Effect="VolskayaVehicleTurretSkyLaserPilotFoundSetSecondary">
+            <Radius value="1"/>
+        </AreaArray>
+    </CEffectEnumArea>
+    <CEffectApplyBehavior id="VolskayaVehicleTacticalStrikesApplyAbilitySuppressionBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="VolskayaVehicleTacticalStrikesSuppressAbilitiesBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectModifyUnit id="VolskayaVehicleMakeTurretFaceGunnerMouseCursor">
+        <ModifyTurret Turret="VolskayaVehicleMainTurret">
+            <Target Value="MousePoint"/>
+            <Flags index="Tracking" value="1"/>
+        </ModifyTurret>
+    </CEffectModifyUnit>
+    <CEffectModifyUnit id="VolskayaVehicleMakeTurretFaceGunnerTargetPoint">
+        <ModifyTurret Turret="VolskayaVehicleMainTurret">
+            <Target Effect="VolskayaVehicleTacticalStrikesInitialSet" Value="TargetPoint"/>
+            <Flags index="Tracking" value="1"/>
+        </ModifyTurret>
+    </CEffectModifyUnit>
+    <CEffectModifyUnit id="VolskayaVehicleTurretMakeTurretResetFacing">
+        <ModifyTurret Action="ClearTarget" Turret="VolskayaVehicleMainTurret"/>
+    </CEffectModifyUnit>
+    <CEffectApplyBehavior id="VolskayaVehicleTurretApplyMouseCursorTrackingBehavior">
+        <ValidatorArray index="0" value="TargetIsPilot"/>
+        <Behavior value="VolskayaVehicleTurretTrackingBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectRemoveBehavior id="VolskayaVehicleTurretRemoveMouseCursorTrackingBehavior">
+        <ValidatorArray index="0" value="TargetIsPilot"/>
+        <BehaviorLink value="VolskayaVehicleTurretTrackingBehavior"/>
+    </CEffectRemoveBehavior>
+    <CEffectEnumArea id="VolskayaVehiclesTacticalStrikesSearchForPilotEnd">
+        <ImpactLocation Value="CasterUnit"/>
+        <AreaArray MaxCount="1" Effect="VolskayaVehicleTacticalStrikesPilotFoundSetEnd">
+            <Radius value="1"/>
+        </AreaArray>
+        <SearchFilters value="-;Enemy"/>
+    </CEffectEnumArea>
+    <CEffectModifyUnit id="VolskayaVehicleTacticalStrikesModifyCooldown">
+        <ImpactUnit Value="Caster"/>
+        <Cost Abil="VolskayaVehicleTacticalStrikes,Execute" CooldownOperation="Set" CooldownTimeUse="0.5"/>
+    </CEffectModifyUnit>
+    <CEffectModifyUnit id="VolskayaVehicleTacticalStrikesCancelModifyCooldown">
+        <ImpactUnit Value="Caster"/>
+        <Cost Abil="VolskayaVehicleTacticalStrikesDeactivate,Execute" CooldownOperation="Set" CooldownTimeUse="0.5"/>
+    </CEffectModifyUnit>
+    <CEffectRemoveBehavior id="VolskayaVehicleTacticalStrikesRemoveAbilitySuppressionBehavior">
+        <WhichUnit Value="Caster"/>
+        <BehaviorLink value="VolskayaVehicleTacticalStrikesSuppressAbilitiesBehavior"/>
+    </CEffectRemoveBehavior>
+    <CEffectDamage id="VolskayaVehicleTacticalStrikesDamage" parent="StormSpell">
+        <Amount value="38"/>
+        <AttributeFactor index="Structure" value="-0.5"/>
+    </CEffectDamage>
+    <CEffectSet id="VolskayaVehicleTacticalStrikesImpactSet">
+        <EffectArray value="VolskayaVehicleTacticalStrikesDamage"/>
+        <EffectArray value="ApplyAbilityImpactReveal"/>
+    </CEffectSet>
+    <CEffectCreatePersistent id="VolskayaVehicleTacticalStrikesImpactPersistent">
+        <InitialEffect value="VolskayaVehicleTacticalStrikesSearchArea"/>
+    </CEffectCreatePersistent>
+    <CEffectLaunchMissile id="VolskayaVehicleTacticalStrikesLM">
+        <ImpactLocation Effect="VolskayaVehicleTacticalStrikesPersistent" Value="TargetPoint"/>
+        <ImpactEffect value="VolskayaVehicleTacticalStrikesImpactPersistent"/>
+        <AmmoUnit value="VolskayaVehicleTacticalStrikesMissile"/>
+        <Movers Link="VolskayaVehicleTacticalStrikes"/>
+        <LaunchLocation Effect="VolskayaVehicleTacticalStrikesPersistent" Value="CasterUnit"/>
+    </CEffectLaunchMissile>
+    <CEffectCreatePersistent id="VolskayaVehicleTacticalStrikesPersistent">
+        <PeriodicEffectArray value="VolskayaVehicleTacticalStrikesPersistentSet"/>
+        <PeriodicPeriodArray value="0.125"/>
+        <InitialEffect value="VolskayaVehicleTacticalStrikesPersistentSet_Initial"/>
+        <Flags index="PersistUntilDestroyed" value="1"/>
+        <PeriodicValidator value="CasterHasTacticalStrikesBehaviorAndHasEnergy"/>
+        <FinalEffect value="VolskayaVehiclesTacticalStrikesSearchForPilotEnd"/>
+    </CEffectCreatePersistent>
+    <CEffectModifyUnit id="VolskayaVehicleTacticalStrikesModifyEnergy">
+        <ImpactUnit Value="Caster"/>
+        <VitalArray index="Energy">
+            <Change value="-1"/>
+        </VitalArray>
+    </CEffectModifyUnit>
+    <CEffectSet id="VolskayaVehicleTacticalStrikesInitialSet">
+        <EffectArray value="VolskayaVehicleTacticalStrikesPersistent"/>
+        <EffectArray value="VolskayaVehicleTacticalStrikesCancelModifyCooldown"/>
+        <TargetLocationType value="Point"/>
+        <ValidatorArray value="CasterNotDead"/>
+        <ValidatorArray value="CasterHasEnergy"/>
+        <ValidatorArray value="VehicleGenericCasterNotSwappingAndNotLeaving"/>
+    </CEffectSet>
+    <CEffectSet id="VolskayaVehicleTacticalStrikesPersistentSet_Initial">
+        <EffectArray value="VolskayaVehicleTacticalStrikesApplyAbilitySuppressionBehavior"/>
+        <EffectArray value="VolskayaVehicleTacticalStrikesPersistentSet"/>
+        <TargetLocationType value="UnitOrPoint"/>
+        <ValidatorArray value="CasterHasEnergy"/>
+    </CEffectSet>
+    <CEffectSet id="VolskayaVehicleTacticalStrikesPersistentSet">
+        <EffectArray value="VolskayaVehicleTacticalStrikesLM"/>
+        <EffectArray value="VolskayaVehicleTacticalStrikesModifyEnergy"/>
+        <TargetLocationType value="UnitOrPoint"/>
+        <ValidatorArray value="CasterNotTimeStopped"/>
+    </CEffectSet>
+    <CEffectDestroyPersistent id="VolskayaVehicleDestroyTacticalStrikesPersistent">
+        <Effect value="VolskayaVehicleTacticalStrikesPersistent"/>
+    </CEffectDestroyPersistent>
+    <CEffectSet id="VolskayaVehicleTacticalStrikesDeactivateSet">
+        <EffectArray value="VolskayaVehicleDestroyTacticalStrikesPersistent"/>
+        <EffectArray value="VolskayaVehicleTacticalStrikesRemoveAbilitySuppressionBehavior"/>
+        <EffectArray value="VolskayaVehicleTacticalStrikesModifyCooldown"/>
+    </CEffectSet>
+    <CEffectEnumArea id="VolskayaVehicleTacticalStrikesSearchArea">
+        <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Stasis,Dead,Hidden,Invulnerable"/>
+        <TargetSorts RequestCount="1" RequestPercentage="1">
+            <SortArray value="TSDistanceFromTacticalStrikes"/>
+        </TargetSorts>
+        <AreaArray Effect="VolskayaVehicleTacticalStrikesImpactSet">
+            <Radius value="0.333"/>
+        </AreaArray>
+        <RevealerParams Duration="0.75" ShapeExpansion="0.75">
+            <RevealFlags index="Unfog" value="1"/>
+        </RevealerParams>
+    </CEffectEnumArea>
+    <CEffectDamage id="VolskayaVehicleWeaponDamage" parent="StormWeapon">
+        <Amount value="140"/>
+        <AttributeFactor index="Structure" value="0.5"/>
+    </CEffectDamage>
+    <CEffectSet id="VolskayaVehicleWeaponSet">
+        <EffectArray value="UniversalWeaponLaunchSet"/>
+        <EffectArray value="VolskayaVehicleWeaponDamage"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="VolskayaVehicleApplyGunnerLinkBehavior">
+        <Behavior value="VolskayaVehicleGunnerLinkBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="VolskayaVehicleLeaveVehicleRemovePilotOccupiedBehavior">
+        <ValidatorArray value="CasterIsPilot"/>
+        <EffectArray value="VolskayaVehicleSwapVehicleRemovePilotOccupiedBehavior"/>
+    </CEffectSet>
+    <CEffectEnumArea id="VolskayaVehicleLeaveVehicleSearchForPilot">
+        <ValidatorArray value="CasterIsGunner"/>
+        <TargetSorts RequestCount="1" RequestPercentage="1">
+            <SortArray value="TSDistance"/>
+        </TargetSorts>
+        <AreaArray MaxCount="1" Effect="VolskayaVehicleSwapVehicleRemoveGunnerOccupiedBehavior">
+            <Radius value="1"/>
+        </AreaArray>
+    </CEffectEnumArea>
+    <CEffectModifyUnit id="VolskayaVehicleSwapModifyCooldownTarget">
+        <Cost Abil="VolskayaVehicleSwap,Execute" CooldownOperation="Set" CooldownTimeUse="5"/>
+        <ImpactUnit Value="Origin"/>
+    </CEffectModifyUnit>
+    <CEffectApplyBehavior id="VolskayaVehicleRocketFistApplyRootBehavior">
+        <WhichUnit Effect="VolskayaVehicleRocketFistImpactSetHero"/>
+        <Behavior value="VolskayaVehicleRocketFistRoot"/>
+        <ValidatorArray index="0" value="TargetNotUnstoppable"/>
+        <ValidatorArray value="TargetNotDeadAndNoSpecialDeathState"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="VolskayaVehicleRocketFistApplyTimedLifeBehavior">
+        <WhichUnit Effect="VolskayaVehicleRocketFistSpawnSet"/>
+        <Behavior value="VolskayaVehicleRocketFistTimedLife"/>
+    </CEffectApplyBehavior>
+    <CEffectDestroyPersistent id="VolskayaVehicleRocketFistDestroySearchPersistent">
+        <WhichLocation Value="OriginPoint"/>
+        <Effect value="VolskayaVehicleRocketFistSearchPersistent"/>
+    </CEffectDestroyPersistent>
+    <CEffectCreatePersistent id="UseVehiclePersistent">
+        <PeriodCount value="8"/>
+        <ValidatorArray index="1" value="VolskayaVehicleValidatorCombine"/>
+        <PeriodicValidator value="VolskayaVehicleValidatorCombine"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="VolskayaVehicleRocketFistCastSet">
+        <EffectArray value="VolskayaVehicleRocketFistInitialPersistent"/>
+        <TargetLocationType value="Point"/>
+        <ValidatorArray value="CasterNotDead"/>
+        <ValidatorArray value="VehicleGenericCasterNotSwappingAndNotLeaving"/>
+    </CEffectSet>
+    <CEffectSet id="VolskayaVehicleRocketFistImpactSetHero">
+        <EffectArray value="VolskayaVehicleRocketFistDestroySearchPersistent"/>
+        <EffectArray value="SuicideRemove"/>
+        <EffectArray value="VolskayaVehicleRocketFistDamage"/>
+        <EffectArray value="ApplyAbilityImpactReveal"/>
+        <EffectArray value="VolskayaVehicleRocketFistApplyRootBehavior"/>
+    </CEffectSet>
+    <CEffectApplyForce id="VolskayaVehicleRocketFistHeroImpactApplyForce">
+        <WhichLocation>
+            <Value value="TargetUnitOrPoint"/>
+            <ProjectionMultiplier value="1"/>
+            <ProjectionSourceEffect value="VolskayaVehicleRocketFistLaunchMissile"/>
+            <ProjectionSourceValue value="OriginPoint"/>
+            <ProjectionTargetEffect value="VolskayaVehicleRocketFistLaunchMissile"/>
+            <ProjectionTargetValue value="TargetPoint"/>
+            <UsesLineDash value="1"/>
+            <LineDashType value="CollideOnFirstUnpathable"/>
+        </WhichLocation>
+        <Amount value="100"/>
+        <MassFraction value="0"/>
+        <ValidatorArray value="VolskayaVehicleRocketFistPushValidation"/>
+    </CEffectApplyForce>
+    <CEffectDamage id="VolskayaVehicleRocketFistDamage" parent="StormSpell">
+        <Amount value="150"/>
+    </CEffectDamage>
+    <CEffectCreatePersistent id="VolskayaVehicleRocketFistInitialPersistent">
+        <WhichLocation Value="CasterPoint"/>
+        <PeriodCount value="1"/>
+        <PeriodicEffectArray value="VolskayaVehicleRocketFistLaunchMissile"/>
+        <PeriodicOffsetArray Y="-16"/>
+    </CEffectCreatePersistent>
+    <CEffectLaunchMissile id="VolskayaVehicleRocketFistLaunchMissile">
+        <AmmoUnit value="VolskayaVehicleRocketFistMissile"/>
+        <ValidatorArray index="0" value="CasterNotDead"/>
+        <Marker>
+            <MatchFlags index="Id" value="1"/>
+        </Marker>
+        <ImpactLocation>
+            <Value value="TargetPoint"/>
+            <ProjectionMultiplier value="1"/>
+            <ProjectionSourceValue value="OriginPoint"/>
+            <ProjectionTargetValue value="TargetPoint"/>
+            <UsesLineDash value="1"/>
+            <LineDashType value="AllowedInUnpathable"/>
+            <ProjectionDistanceScale value="16"/>
+        </ImpactLocation>
+        <SharedFlags index="2D" value="1"/>
+        <SharedFlags index="DynamicSearchArea" value="1"/>
+        <SharedFlags index="DisableArriveOnLaunch" value="1"/>
+        <DeathType value="Timeout"/>
+        <SearchEffect value="VolskayaVehicleRocketFistPeriodicSet"/>
+        <LaunchEffect value="VolskayaVehicleRocketFistApplyTravelValidation"/>
+    </CEffectLaunchMissile>
+    <CEffectSet id="VolskayaVehicleRocketFistPeriodicSet">
+        <EffectArray value="VolskayaVehicleRocketFistSearchArea"/>
+        <EffectArray value="VoskayaVehicleRocketFistRemoveTravelStack"/>
+    </CEffectSet>
+    <CEffectRemoveBehavior id="VolskayaVehicleRocketFistRemoveTravelBehavior">
+        <WhichUnit Value="Source"/>
+        <BehaviorLink value="VolskayaVehicleRocketFistTravelBehavior"/>
+    </CEffectRemoveBehavior>
+    <CEffectEnumArea id="VolskayaVehicleRocketFistSearchArea">
+        <AreaArray MaxCount="1" Effect="VolskayaVehicleRocketFistTargetSwitch">
+            <RectangleWidth value="1.5"/>
+            <RectangleHeight value="1"/>
+        </AreaArray>
+        <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable"/>
+        <RevealerParams Duration="1" ShapeExpansion="1">
+            <RevealFlags index="Unfog" value="1"/>
+        </RevealerParams>
+        <ImpactLocation Value="TargetPoint"/>
+    </CEffectEnumArea>
+    <CEffectCreatePersistent id="VolskayaVehicleRocketFistSearchPersistent">
+        <WhichLocation Effect="VolskayaVehicleRocketFistCastSet" Value="OriginPoint"/>
+        <PeriodCount value="19"/>
+        <PeriodicEffectArray value="VolskayaVehicleRocketFistSearchSet"/>
+        <PeriodicOffsetArray Y="-0.5"/>
+        <PeriodicOffsetArray Y="-1.5"/>
+        <PeriodicOffsetArray Y="-2.5"/>
+        <PeriodicOffsetArray Y="-3.5"/>
+        <PeriodicOffsetArray Y="-4.5"/>
+        <PeriodicOffsetArray Y="-5.5"/>
+        <PeriodicOffsetArray Y="-5.5"/>
+        <PeriodicOffsetArray Y="-6.5"/>
+        <PeriodicOffsetArray Y="-7.5"/>
+        <PeriodicOffsetArray Y="-8.5"/>
+        <PeriodicOffsetArray Y="-9.5"/>
+        <PeriodicOffsetArray Y="-10.5"/>
+        <PeriodicOffsetArray Y="-11.5"/>
+        <PeriodicOffsetArray Y="-11.5"/>
+        <PeriodicOffsetArray Y="-12.5"/>
+        <PeriodicOffsetArray Y="-13.5"/>
+        <PeriodicOffsetArray Y="-14.5"/>
+        <PeriodicOffsetArray Y="-14.5"/>
+        <PeriodicOffsetArray Y="-15.5"/>
+        <PeriodicPeriodArray value="0.0625"/>
+        <OffsetVectorEndLocation Effect="VolskayaVehicleRocketFistLaunchMissile"/>
+        <InitialDelay value="0.0625"/>
+    </CEffectCreatePersistent>
+    <CEffectCreatePersistent id="VolskayaVehicleSwapPersistentChangePilotToGunner">
+        <WhichLocation Value="CasterUnit"/>
+    </CEffectCreatePersistent>
+    <CEffectCreatePersistent id="VolskayaVehicleSwapPersistentChangeGunnerToPilot">
+        <WhichLocation Value="TargetUnit"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="VolskayaVehicleSwapSet">
+        <EffectArray value="VolskayaVehicleSwapSearchForGunnerVehicle"/>
+        <EffectArray value="VolskayaVehicleSwapSearchForPilotVehicle"/>
+    </CEffectSet>
+    <CEffectSet id="VolskayaVehicleSwapSetChangePilotToGunner">
+        <EffectArray value="VolskayaVehicleSwapPersistentChangePilotToGunner"/>
+        <EffectArray value="VolskayaVehicleSwapVehicleApplyGunnerOccupiedBehavior"/>
+        <EffectArray value="VolskayaVehicleSwapVehicleRemovePilotOccupiedBehavior"/>
+        <EffectArray value="VolskayaVehicleSwapModifyCooldownTarget"/>
+        <ValidatorArray value="CasterDoesNotHaveGunnerBehavior"/>
+        <ValidatorArray value="CasterIsPilot"/>
+        <ValidatorArray value="TargetIsGunner"/>
+    </CEffectSet>
+    <CEffectSet id="VolskayaVehicleSwapSetChangeGunnerToPilot">
+        <EffectArray value="VolskayaVehicleSwapPersistentChangeGunnerToPilot"/>
+        <EffectArray value="VolskayaVehicleSwapVehicleApplyPilotOccupiedBehavior"/>
+        <EffectArray value="VolskayaVehicleSwapVehicleRemoveGunnerOccupiedBehavior"/>
+        <EffectArray value="VolskayaVehicleSwapModifyCooldownTarget"/>
+        <ValidatorArray value="TargetDoesNotHavePilotBehavior"/>
+        <ValidatorArray value="CasterIsGunner"/>
+        <ValidatorArray value="TargetIsPilot"/>
+    </CEffectSet>
+    <CEffectEnumArea id="VolskayaVehicleSwapSearchForGunnerVehicle">
+        <ValidatorArray value="CasterIsPilot"/>
+        <TargetSorts RequestCount="1" RequestPercentage="1">
+            <SortArray value="TSDistance"/>
+        </TargetSorts>
+        <AreaArray MaxCount="1" Effect="VolskayaVehicleSwapSetChangePilotToGunner">
+            <Radius value="1"/>
+        </AreaArray>
+    </CEffectEnumArea>
+    <CEffectEnumArea id="VolskayaVehicleSwapSearchForPilotVehicle">
+        <TargetSorts RequestCount="1" RequestPercentage="1">
+            <SortArray value="TSDistance"/>
+        </TargetSorts>
+        <AreaArray MaxCount="1" Effect="VolskayaVehicleSwapSetChangeGunnerToPilot">
+            <Radius value="1"/>
+        </AreaArray>
+        <ValidatorArray value="CasterIsGunner"/>
+    </CEffectEnumArea>
+    <CEffectApplyBehavior id="VolskayaVehicleSwapVehicleApplyGunnerOccupiedBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="VolskayaVehicleGunnerOccupied"/>
+    </CEffectApplyBehavior>
+    <CEffectRemoveBehavior id="VolskayaVehicleSwapVehicleRemoveGunnerOccupiedBehavior">
+        <BehaviorLink value="VolskayaVehicleGunnerOccupied"/>
+        <ValidatorArray index="0" value="TargetIsVolskayaVehicle"/>
+    </CEffectRemoveBehavior>
+    <CEffectRemoveBehavior id="VolskayaVehicleSwapVehicleRemovePilotOccupiedBehavior">
+        <WhichUnit Value="Caster"/>
+        <BehaviorLink value="VolskayaVehiclePilotOccupied"/>
+    </CEffectRemoveBehavior>
+    <CEffectApplyBehavior id="VolskayaVehicleTShieldApplyBehavior">
+        <Behavior value="VolskayaVehicleTShield"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="VolskayaVehicleTShieldImpactSet">
+        <ValidatorArray value="noMarkers"/>
+        <EffectArray value="VolskayaVehicleTShieldApplyBehavior"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="VolskayaVehicleTShieldApplySelfBehavior">
+        <Behavior value="VolskayaVehicleTShieldArmor"/>
+        <WhichUnit Value="Caster"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="VolskayaVehicleTShieldNeuralLinkedApplySelfBehavior">
+        <Behavior value="VolskayaVehicleTShieldArmorNeuralLinked"/>
+        <WhichUnit Value="Caster"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="VolskayaVehicleTShieldCastSet">
+        <EffectArray value="VolskayaVehicleTShieldApplySelfBehavior"/>
+        <EffectArray value="VolskayaVehicleTShieldNeuralLinkedApplySelfBehavior"/>
+        <EffectArray value="VolskayaVehicleTShieldCreateSearchPersistent"/>
+        <ValidatorArray value="CasterNotDead"/>
+        <ValidatorArray value="VehicleGenericCasterNotSwappingAndNotLeaving"/>
+    </CEffectSet>
+    <CEffectCreatePersistent id="VolskayaVehicleTShieldCreateSearchPersistent">
+        <WhichLocation Value="CasterPoint"/>
+        <InitialDelay value="0.125"/>
+        <PeriodCount value="6"/>
+        <PeriodicEffectArray value="VolskayaVehicleTShieldSearch"/>
+        <PeriodicPeriodArray value="0.0625"/>
+        <Marker>
+            <MatchFlags index="Id" value="1"/>
+        </Marker>
+    </CEffectCreatePersistent>
+    <CEffectEnumArea id="VolskayaVehicleTShieldSearch">
+        <SearchFilters value="Heroic;Self,Neutral,Enemy,ImmuneToFriendlyAbilities,Dead,Benign"/>
+        <AreaArray RadiusBonus="1" Effect="VolskayaVehicleTShieldImpactSet">
+            <Radius value="1"/>
+        </AreaArray>
+    </CEffectEnumArea>
+    <CEffectDamage id="VolskayaVehicleChargeDamage" parent="StormSpell">
+        <AttributeFactor index="Creep" value="4"/>
+        <AttributeFactor index="Minion" value="4"/>
+        <AttributeFactor index="Merc" value="4"/>
+        <AttributeFactor index="Structure" value="4"/>
+        <AttributeFactor index="Summoned" value="4"/>
+        <Amount value="140"/>
+    </CEffectDamage>
+    <CEffectSet id="VolskayaVehicleSkyLaserCastSet">
+        <EffectArray value="VolskayaVehicleSkyLaserCreateMovingUnit"/>
+        <EffectArray value="VolskayaVehicleSkyLaserSoundPersistent"/>
+        <TargetLocationType value="Point"/>
+        <ValidatorArray value="CasterNotDead"/>
+        <ValidatorArray value="VehicleGenericCasterNotSwappingAndNotLeaving"/>
+    </CEffectSet>
+    <CEffectSet id="VolskayaVehicleSkyLaserInitialBeamEndPoint">
+        <TargetLocationType value="Point"/>
+        <EffectArray value="VolskayaVehicleSkyLaserInitialBeamEndPointOffset"/>
+    </CEffectSet>
+    <CEffectDamage id="VolskayaVehicleSkyLaserInitialDamage" parent="StormSpell">
+        <Amount value="60"/>
+        <ValidatorArray value="noMarkers"/>
+    </CEffectDamage>
+    <CEffectEnumArea id="VolskayaVehicleSkyLaserSecondarySearchArea">
+        <LaunchLocation Effect="VolskayaVehicleSkyLaserCastSet" Value="VectorPoint"/>
+        <SearchFilters value="-;Self,Player,Ally,ImmuneToAOE,Item,Stasis,Dead,Invulnerable"/>
+        <AreaArray Effect="VolskayaVehicleSkyLaserSecondaryDamage">
+            <RectangleWidth value="1.25"/>
+            <RectangleHeight value="1"/>
+        </AreaArray>
+        <RevealerParams Duration="0.75" ShapeExpansion="1">
+            <RevealFlags index="Unfog" value="1"/>
+        </RevealerParams>
+    </CEffectEnumArea>
+    <CEffectSet id="VolskayaVehicleSkyLaserSecondaryBeamEndPoint">
+        <TargetLocationType value="Point"/>
+    </CEffectSet>
+    <CEffectCreatePersistent id="VolskayaVehicleSkyLaserInitialSearchPersistent">
+        <Marker>
+            <MatchFlags index="Id" value="1"/>
+        </Marker>
+        <WhichLocation Effect="VolskayaVehicleSkyLaserCastSet"/>
+        <OffsetVectorStartLocation Effect="VolskayaVehicleSkyLaserCastSet" Value="TargetPoint"/>
+        <OffsetVectorEndLocation Effect="VolskayaVehicleSkyLaserCastSet" Value="VectorPoint"/>
+        <PeriodCount value="23"/>
+        <PeriodicEffectArray value="VolskayaVehicleSkyLaserInitialSearchArea"/>
+        <PeriodicOffsetArray Y="-0.5"/>
+        <PeriodicOffsetArray Y="-1"/>
+        <PeriodicOffsetArray Y="-1.5"/>
+        <PeriodicOffsetArray Y="-2"/>
+        <PeriodicOffsetArray Y="-2.5"/>
+        <PeriodicOffsetArray Y="-3"/>
+        <PeriodicOffsetArray Y="-3.5"/>
+        <PeriodicOffsetArray Y="-4"/>
+        <PeriodicOffsetArray Y="-4.5"/>
+        <PeriodicOffsetArray Y="-5"/>
+        <PeriodicOffsetArray Y="-5.5"/>
+        <PeriodicOffsetArray Y="-6"/>
+        <PeriodicOffsetArray Y="-6.5"/>
+        <PeriodicOffsetArray Y="-7"/>
+        <PeriodicOffsetArray Y="-7.5"/>
+        <PeriodicOffsetArray Y="-8"/>
+        <PeriodicOffsetArray Y="-8.5"/>
+        <PeriodicOffsetArray Y="-9"/>
+        <PeriodicOffsetArray Y="-9.5"/>
+        <PeriodicOffsetArray Y="-10"/>
+        <PeriodicOffsetArray Y="-10.5"/>
+        <PeriodicOffsetArray Y="-11"/>
+        <PeriodicOffsetArray Y="-11.5"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0.0625"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0.0625"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0.0625"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0.0625"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0.0625"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0.0625"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0.0625"/>
+        <PeriodicPeriodArray value="0"/>
+        <PeriodicPeriodArray value="0"/>
+        <InitialEffect value="VolskayaVehicleSkyLaserInitialBeamEndPoint"/>
+        <InitialOffset Y="-12"/>
+        <ExpireEffect value="VolskayaVehicleSkyLaserSecondarySearchPersistent"/>
+        <FinalEffect value="VolskayaVehicleSkyLaserInitialPersistentExpireSet"/>
+    </CEffectCreatePersistent>
+    <CEffectDamage id="VolskayaVehicleSkyLaserSecondaryDamage" parent="StormSpell">
+        <Amount value="380"/>
+        <ValidatorArray value="noMarkers"/>
+    </CEffectDamage>
+    <CEffectCreatePersistent id="VolskayaVehicleSkyLaserSecondarySearchPersistent">
+        <Marker>
+            <MatchFlags index="Id" value="1"/>
+        </Marker>
+        <WhichLocation Effect="VolskayaVehicleSkyLaserCastSet"/>
+        <OffsetVectorStartLocation Effect="VolskayaVehicleSkyLaserCastSet" Value="TargetPoint"/>
+        <OffsetVectorEndLocation Effect="VolskayaVehicleSkyLaserCastSet" Value="VectorPoint"/>
+        <InitialDelay value="1"/>
+        <PeriodCount value="23"/>
+        <PeriodicEffectArray value="VolskayaVehicleSkyLaserSecondarySearchArea"/>
+        <PeriodicOffsetArray Y="-0.5"/>
+        <PeriodicOffsetArray Y="-1"/>
+        <PeriodicOffsetArray Y="-1.5"/>
+        <PeriodicOffsetArray Y="-2"/>
+        <PeriodicOffsetArray Y="-2.5"/>
+        <PeriodicOffsetArray Y="-3"/>
+        <PeriodicOffsetArray Y="-3.5"/>
+        <PeriodicOffsetArray Y="-4"/>
+        <PeriodicOffsetArray Y="-4.5"/>
+        <PeriodicOffsetArray Y="-5"/>
+        <PeriodicOffsetArray Y="-5.5"/>
+        <PeriodicOffsetArray Y="-6"/>
+        <PeriodicOffsetArray Y="-6.5"/>
+        <PeriodicOffsetArray Y="-7"/>
+        <PeriodicOffsetArray Y="-7.5"/>
+        <PeriodicOffsetArray Y="-8"/>
+        <PeriodicOffsetArray Y="-8.5"/>
+        <PeriodicOffsetArray Y="-9"/>
+        <PeriodicOffsetArray Y="-9.5"/>
+        <PeriodicOffsetArray Y="-10"/>
+        <PeriodicOffsetArray Y="-10.5"/>
+        <PeriodicOffsetArray Y="-11"/>
+        <PeriodicOffsetArray Y="-11.5"/>
+        <InitialEffect value="VolskayaVehicleSkyLaserSecondaryBeamEndPoint"/>
+        <InitialOffset Y="-12"/>
+        <ExpireEffect value="CameraShakeMediumCasterDummySet"/>
+    </CEffectCreatePersistent>
+    <CEffectCreatePersistent id="VolskayaVehicleSkyLaserSoundPersistent">
+        <WhichLocation Effect="VolskayaVehicleSkyLaserCastSet"/>
+        <OffsetVectorStartLocation Effect="VolskayaVehicleSkyLaserCastSet" Value="TargetPoint"/>
+        <OffsetVectorEndLocation Effect="VolskayaVehicleSkyLaserCastSet" Value="VectorPoint"/>
+        <InitialEffect value="VolskayaVehicleSkyLaserSoundDummy"/>
+        <InitialOffset Y="-6"/>
+    </CEffectCreatePersistent>
+    <CEffectCreatePersistent id="VolskayaVehicleSkyLaserSoundDummy">
+        <ExpireDelay value="1.5625"/>
+    </CEffectCreatePersistent>
+    <CEffectCreatePersistent id="VolskayaVehicleSkyLaserInitialBeamEndPointOffset">
+        <WhichLocation Effect="VolskayaVehicleSkyLaserCastSet"/>
+        <OffsetVectorStartLocation Effect="VolskayaVehicleSkyLaserCastSet" Value="TargetPoint"/>
+        <OffsetVectorEndLocation Effect="VolskayaVehicleSkyLaserCastSet" Value="VectorPoint"/>
+    </CEffectCreatePersistent>
+    <CEffectEnumArea id="VolskayaVehicleSkyLaserInitialSearchArea">
+        <LaunchLocation Effect="VolskayaVehicleSkyLaserCastSet" Value="VectorPoint"/>
+        <SearchFilters value="-;Self,Player,Ally,ImmuneToAOE,Item,Stasis,Dead,Invulnerable"/>
+        <AreaArray Effect="VolskayaVehicleSkyLaserInitialDamage">
+            <RectangleWidth value="0.5"/>
+            <RectangleHeight value="1"/>
+        </AreaArray>
+        <RevealerParams Duration="0.75" ShapeExpansion="1">
+            <RevealFlags index="Unfog" value="1"/>
+        </RevealerParams>
+    </CEffectEnumArea>
+    <CEffectTeleport id="VolskayaVehicleTeleport">
+        <WhichUnit Value="Caster"/>
+        <PlacementAround Value="TargetUnit"/>
+        <TargetLocation Value="TargetUnit"/>
+    </CEffectTeleport>
+    <CEffectCreatePersistent id="VolskayaVehicleTeleportPersistent">
+        <WhichLocation Value="TargetUnit"/>
+        <Flags index="PersistUntilDestroyed" value="1"/>
+        <PeriodicEffectArray value="VolskayaVehicleTeleport"/>
+        <PeriodicPeriodArray value="0.0625"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="VolskayaVehicleUseVehicleApplyGunnerAndPilotOccupiedBehavior">
+        <EffectArray value="VolskayaVehicleUseVehicleApplyGunnerOccupiedBehavior"/>
+        <EffectArray value="VolskayaVehicleUseVehicleApplyPilotOccupiedBehavior"/>
+        <ValidatorArray value="SourceNotHallucination"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="VolskayaVehicleUseVehicleApplyGunnerOccupiedBehavior">
+        <ValidatorArray index="0" value="TargetHasPilotBehavior"/>
+        <Behavior value="VolskayaVehicleGunnerOccupied"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="VolskayaVehicleUseVehicleApplyPilotOccupiedBehavior">
+        <ValidatorArray index="0" value="TargetDoesNotHavePilotBehavior"/>
+        <Behavior value="VolskayaVehiclePilotOccupied"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="VolskayaVehicleSwapVehicleApplyPilotOccupiedBehavior">
+        <Behavior value="VolskayaVehiclePilotOccupied"/>
+    </CEffectApplyBehavior>
+    <CEffectEnumArea id="VolskayaVehiclesTacticalStrikesSearchForPilot">
+        <ImpactLocation Value="CasterUnit"/>
+        <AreaArray MaxCount="1" Effect="VolskayaVehicleTacticalStrikesPilotFoundSetStart">
+            <Radius value="1"/>
+        </AreaArray>
+        <SearchFilters value="-;Enemy"/>
+    </CEffectEnumArea>
+    <CEffectApplyBehavior id="VolskayaVehicleTurretApplyTargetPointTrackingBehavior">
+        <ValidatorArray index="0" value="TargetIsPilot"/>
+        <Behavior value="VolskayaVehicleTurretTrackingBehaviorTargetPoint"/>
+    </CEffectApplyBehavior>
+    <CEffectRemoveBehavior id="VolskayaVehicleTurretRemoveTargetPointTrackingBehavior">
+        <ValidatorArray index="0" value="TargetIsPilot"/>
+        <BehaviorLink value="VolskayaVehicleTurretTrackingBehaviorTargetPoint"/>
+    </CEffectRemoveBehavior>
+    <CEffectSet id="VolskayaVehicleTacticalStrikesPilotFoundSetStart">
+        <ValidatorArray value="TargetIsPilot"/>
+        <EffectArray value="VolskayaVehicleTurretRemoveMouseCursorTrackingBehavior"/>
+        <EffectArray value="VolskayaVehicleTurretApplyTargetPointTrackingBehavior"/>
+    </CEffectSet>
+    <CEffectSet id="VolskayaVehicleTacticalStrikesPilotFoundSetEnd">
+        <ValidatorArray value="TargetIsPilot"/>
+        <EffectArray value="VolskayaVehicleTurretRemoveTargetPointTrackingBehavior"/>
+        <EffectArray value="VolskayaVehicleTurretApplyMouseCursorTrackingBehavior"/>
+    </CEffectSet>
+    <CEffectModifyTokenCount id="VoskayaVehicleRocketFistRemoveTravelStack" parent="BaseEffectModifyTokenCount">
+        <WhichUnit Value="Source"/>
+        <ContextUnit Value="Source"/>
+        <TokenId value="VolskayaVehicleRocketFistTravelMonitor"/>
+        <Value value="-1"/>
+    </CEffectModifyTokenCount>
+</Catalog>
