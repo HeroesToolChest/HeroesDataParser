@@ -29,4 +29,28 @@
       </Modifications>
     </AbilityModificationArray>
   </CTalent>
+  <CTalent id="GenericTalentFollowThrough">
+    <Face value="GenericFollowThroughTalent" />
+    <RankArray>
+      <BehaviorArray value="TalentBucketFollowThroughCarryBehavior" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="GenericTalentNexusBlades">
+    <Face value="NexusBladesTalent" />
+    <RankArray>
+      <BehaviorArray value="NexusBladesCarryBehavior" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="GenericTalentSpellShield">
+    <Face value="GenericSpellShieldTalent" />
+    <Abil value="HeroGenericSpellShield" />
+    <RankArray>
+      <BehaviorArray value="SpellShieldPrimed" />
+      <BehaviorArray value="SpellShieldItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="HeroGenericExecutionerPassive">
+    <Face value="GenericExecutionerTalent" />
+  </CTalent>
 </Catalog>

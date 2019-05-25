@@ -11,12 +11,12 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void AbilityTests()
         {
-            Assert.IsTrue(VolskayaVehicle.Abilities.Count() == 2);
+            Assert.IsTrue(VolskayaVehicle.Abilities.Count() >= 2);
 
             List<Ability> sortedAbilities = VolskayaVehicle.PrimaryAbilities(AbilityTier.Basic).OrderBy(x => x.AbilityType).ToList();
 
-            Assert.AreEqual(AbilityType.W, sortedAbilities[0].AbilityType);
-            Assert.AreEqual(AbilityType.E, sortedAbilities[1].AbilityType);
+            Assert.AreEqual(AbilityType.W, sortedAbilities[1].AbilityType);
+            Assert.AreEqual(AbilityType.E, sortedAbilities[2].AbilityType);
 
             Ability shield = VolskayaVehicle.GetAbility("VolskayaVehicleTShield");
             Assert.AreEqual(AbilityType.E, shield.AbilityType);

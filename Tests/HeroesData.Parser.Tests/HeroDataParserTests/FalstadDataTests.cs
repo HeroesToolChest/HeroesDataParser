@@ -21,7 +21,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual("storm_ui_icon_falstad_hammerang.dds", ability.IconFileName);
             Assert.AreEqual(AbilityType.Q, ability.AbilityType);
 
-            Assert.AreEqual("<s val=\"StandardTooltipDetails\">Mana: 70</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
+            Assert.AreEqual("<s val=\"StandardTooltipDetails\">Mana: 60</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
             Assert.AreEqual("Cooldown: 10 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
             Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Life.LifeCostTooltip?.RawDescription));
             Assert.IsNull(ability.Tooltip.Charges.CountMax);
@@ -40,8 +40,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual("Medium", HeroFalstad.Difficulty);
             Assert.AreEqual(HeroFranchise.Warcraft, HeroFalstad.Franchise);
             Assert.AreEqual(HeroGender.Male, HeroFalstad.Gender);
-            Assert.AreEqual(0.9375, HeroFalstad.InnerRadius);
-            Assert.AreEqual(0.9375, HeroFalstad.Radius);
+            Assert.AreEqual(0.8125, HeroFalstad.InnerRadius);
+            Assert.AreEqual(0.8125, HeroFalstad.Radius);
             Assert.AreEqual("2014-03-13", HeroFalstad.ReleaseDate.Value.ToString("yyyy-MM-dd"));
             Assert.AreEqual(12.0, HeroFalstad.Sight);
             Assert.AreEqual(4.3984, HeroFalstad.Speed);
@@ -100,7 +100,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual("storm_ui_icon_falstad_mount.dds", ability.IconFileName);
 
             Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyTooltip?.RawDescription));
-            Assert.AreEqual("Cooldown: 55 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
+            Assert.AreEqual("Cooldown: 75 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
             Assert.IsNull(ability.Tooltip.Charges.CountMax);
 
             Assert.AreEqual("Instead of mounting, Falstad can fly a great distance over terrain", ability.Tooltip.ShortTooltip.RawDescription);
@@ -185,16 +185,16 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void TraitAbilitiesTests()
         {
-            Ability ability = HeroFalstad.GetAbility("FalstadTailwind");
+            Ability ability = HeroFalstad.GetAbility("FalstadTailwindCooldownDisplay");
             Assert.AreEqual(AbilityTier.Trait, ability.Tier);
-            Assert.AreEqual("FalstadTailwind", ability.ReferenceNameId);
+            Assert.AreEqual("FalstadTailwindCooldownDisplay", ability.ReferenceNameId);
             Assert.AreEqual("Tailwind", ability.Name);
             Assert.AreEqual("FalstadTailwind", ability.ShortTooltipNameId);
             Assert.AreEqual("FalstadTailwind", ability.FullTooltipNameId);
             Assert.AreEqual("storm_ui_icon_falstad_tailwind.dds", ability.IconFileName);
 
             Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyTooltip?.RawDescription));
-            Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription));
+            Assert.AreEqual("Cooldown: 6 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
             Assert.IsNull(ability.Tooltip.Charges.CountMax);
 
             Assert.AreEqual("After not taking damage for a brief period, gain increased Movement Speed", ability.Tooltip.ShortTooltip.RawDescription);

@@ -13,16 +13,6 @@ namespace HeroesData.Parser.XmlData
 {
     public class AbilityTalentData
     {
-        public AbilityTalentData(GameData gameData, DefaultData defaultData, HeroDataOverride heroDataOverride, Configuration configuration, Localization localization)
-        {
-            GameData = gameData;
-            DefaultData = defaultData;
-            HeroDataOverride = heroDataOverride;
-            UnitDataOverride = heroDataOverride;
-            Configuration = configuration;
-            Localization = localization;
-        }
-
         public AbilityTalentData(GameData gameData, DefaultData defaultData, Configuration configuration)
         {
             GameData = gameData;
@@ -37,7 +27,6 @@ namespace HeroesData.Parser.XmlData
         protected GameData GameData { get; }
         protected DefaultData DefaultData { get; }
         protected Configuration Configuration { get; }
-
 
         /// <summary>
         /// Returns a collection of all ability elements.
@@ -57,7 +46,7 @@ namespace HeroesData.Parser.XmlData
         /// </summary>
         /// <param name="abilityElement">The ability element.</param>
         /// <param name="abilityTalentBase"></param>
-        protected void SetAbilityData(XElement abilityElement, AbilityTalentBase abilityTalentBase)
+        protected void SetAbilityTalentData(XElement abilityElement, AbilityTalentBase abilityTalentBase)
         {
             if (abilityElement == null || abilityTalentBase == null)
                 return;
@@ -68,7 +57,7 @@ namespace HeroesData.Parser.XmlData
             {
                 XElement parentElement = GameData.MergeXmlElements(GameData.Elements(abilityElement.Name.LocalName).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
-                    SetAbilityData(parentElement, abilityTalentBase);
+                    SetAbilityTalentData(parentElement, abilityTalentBase);
             }
 
             // look through all elements to set all the data
@@ -215,14 +204,25 @@ namespace HeroesData.Parser.XmlData
                         }
                     }
                 }
+                else if (elementName == "EFFECT")
+                {
+                    string effect = element.Attribute("value")?.Value;
+                    if (!string.IsNullOrEmpty(effect))
+                    {
 
-                if (elementName == "CMDBUTTONARRAY")
+                    }
+                }
+                else if (elementName == "CMDBUTTONARRAY")
                 {
                     string defaultButtonFace = element.Attribute("DefaultButtonFace")?.Value;
+                    string requirements = element.Attribute("Requirements")?.Value;
+
                     if (!string.IsNullOrEmpty(defaultButtonFace))
                     {
-                        abilityTalentBase.ShortTooltipNameId = defaultButtonFace;
-                        abilityTalentBase.FullTooltipNameId = defaultButtonFace;
+                        if (string.IsNullOrEmpty(abilityTalentBase.ShortTooltipNameId))
+                            abilityTalentBase.ShortTooltipNameId = defaultButtonFace;
+                        if (string.IsNullOrEmpty(abilityTalentBase.FullTooltipNameId))
+                            abilityTalentBase.FullTooltipNameId = defaultButtonFace;
 
                         XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton")?.Where(x => x.Attribute("id")?.Value == defaultButtonFace), false);
                         if (buttonElement != null)
@@ -230,11 +230,16 @@ namespace HeroesData.Parser.XmlData
                             SetButtonData(buttonElement, abilityTalentBase);
                         }
                     }
+
+                    if (!string.IsNullOrEmpty(requirements))
+                    {
+                        // TODO: subability or requirement? (DryadHasGallopingGaitCarry)
+                    }
                 }
             }
         }
 
-        private void SetButtonData(XElement buttonElement, AbilityTalentBase abilityTalentBase)
+        protected void SetButtonData(XElement buttonElement, AbilityTalentBase abilityTalentBase)
         {
             if (buttonElement == null || abilityTalentBase == null)
                 return;

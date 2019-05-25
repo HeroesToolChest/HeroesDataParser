@@ -14,7 +14,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("MephistoShadeOfMephisto"));
 
             talent = HeroMephisto.GetTalent("MephistoShadeOfMephistoShadeLord");
-            Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 0);
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 1);
         }
     }
 }

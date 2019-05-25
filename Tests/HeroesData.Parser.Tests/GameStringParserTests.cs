@@ -29,7 +29,7 @@ namespace HeroesData.Parser.Tests
         private readonly string ExceptionTooltip2 = "Fire a laser that deals <d ref=\"Behavior,LaserCannon,Amount\"/>.";
 
         private readonly string ParsedTooltip1 = "Toxic Nests deal <c val=\"#TooltipNumbers\">75%</c> more damage over <c val=\"#TooltipNumbers\">3</c> seconds.";
-        private readonly string ParsedTooltip2 = "Shields the assisted ally for <c val=\"#TooltipNumbers\">157~~0.04~~</c>. Lasts for <c val=\"#TooltipNumbers\">8</c> seconds.";
+        private readonly string ParsedTooltip2 = "Shields the assisted ally for <c val=\"#TooltipNumbers\">150~~0.04~~</c>. Lasts for <c val=\"#TooltipNumbers\">6</c> seconds.";
         private readonly string ParsedTooltip3 = "Increases Burrow Charge impact area by <c val=\"#TooltipNumbers\">60%</c> and lowers the cooldown by <c val=\"#TooltipNumbers\">1.25</c> seconds for each Hero hit.";
         private readonly string ParsedTooltip4 = "Harden Carapace grants <c val=\"#TooltipNumbers\">30%</c> increased Movement Speed for <c val=\"#TooltipNumbers\">3</c> seconds.";
         private readonly string ParsedTooltip5 = "Every <c val=\"#TooltipNumbers\">12</c> seconds, gain <c val=\"#TooltipNumbers\">30</c> Spell Armor against the next enemy Ability and subsequent Abilities for <c val=\"#TooltipNumbers\">1.5</c> seconds, reducing the damage taken by <c val=\"#TooltipNumbers\">30%</c>.";

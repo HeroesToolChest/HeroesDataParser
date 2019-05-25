@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
@@ -9,7 +10,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void WeaponTests()
         {
-            var weapons = HeroGreymane.Weapons;
+            IEnumerable<UnitWeapon> weapons = HeroGreymane.Weapons;
 
             foreach (UnitWeapon weapon in weapons)
             {

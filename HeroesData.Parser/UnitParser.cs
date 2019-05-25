@@ -285,7 +285,6 @@ namespace HeroesData.Parser
             unit.Name = GameData.GetGameString(DefaultData.UnitData.UnitName.Replace(DefaultData.IdPlaceHolder, unit.Id)).Trim();
         }
 
-        // used to acquire the unit's target info panel image
         private void CActorData(Unit unit)
         {
             IEnumerable<XElement> actorUnitElements = GameData.Elements("CActorUnit").Where(x => x.Attribute("id")?.Value == unit.CUnitId);
@@ -293,12 +292,30 @@ namespace HeroesData.Parser
             if (actorUnitElements == null || !actorUnitElements.Any())
                 return;
 
-            foreach (XElement groupIconElement in actorUnitElements.Elements("GroupIcon"))
+            foreach (XElement element in actorUnitElements.Elements())
             {
-                XElement imageElement = groupIconElement.Element("Image");
-                if (imageElement != null)
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "GROUPICON")
                 {
-                    unit.TargetInfoPanelImageFileName = Path.GetFileName(PathHelper.GetFilePath(imageElement.Attribute("value")?.Value)).ToLower();
+                    XElement imageElement = element.Element("Image");
+                    if (imageElement != null)
+                    {
+                        unit.TargetInfoPanelImageFileName = Path.GetFileName(PathHelper.GetFilePath(imageElement.Attribute("value")?.Value)).ToLower();
+                    }
+                }
+                else if (elementName == "VITALNAMES")
+                {
+                    string indexValue = element.Attribute("index")?.Value;
+                    string valueValue = element.Attribute("value")?.Value;
+
+                    if (!string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(valueValue) && indexValue == "Energy")
+                    {
+                        if (GameData.TryGetGameString(valueValue, out string energyType))
+                        {
+                            unit.Energy.EnergyType = energyType;
+                        }
+                    }
                 }
             }
         }

@@ -14,16 +14,22 @@ namespace HeroesData.Parser.XmlData
     {
         private readonly Dictionary<string, HashSet<string>> AbilityTalentIdsByTalentIdUpgrade = new Dictionary<string, HashSet<string>>();
 
-        public TalentData(GameData gameData, DefaultData defaultData, HeroDataOverride heroDataOverride, Configuration configuration, Localization localization)
-            : base(gameData, defaultData, heroDataOverride, configuration, localization)
+        public TalentData(GameData gameData, DefaultData defaultData, Configuration configuration)
+            : base(gameData, defaultData, configuration)
         {
         }
 
-        public void AddTalent(Hero hero, XElement talentElement)
+        public Talent CreateTalent(Hero hero, XElement talentArrayElement)
         {
-            string referenceName = talentElement.Attribute("Talent").Value;
-            string tier = talentElement.Attribute("Tier").Value;
-            string column = talentElement.Attribute("Column").Value;
+            if (hero == null || talentArrayElement == null)
+                return null;
+
+            string referenceName = talentArrayElement.Attribute("Talent")?.Value;
+            string tier = talentArrayElement.Attribute("Tier")?.Value;
+            string column = talentArrayElement.Attribute("Column")?.Value;
+
+            if (string.IsNullOrEmpty(referenceName) || string.IsNullOrEmpty(tier) || string.IsNullOrEmpty(column))
+                return null;
 
             Talent talent = new Talent
             {
@@ -31,94 +37,131 @@ namespace HeroesData.Parser.XmlData
                 Column = int.Parse(column),
             };
 
-            if (tier == "1")
-                talent.Tier = TalentTier.Level1;
-            else if (tier == "2")
-                talent.Tier = TalentTier.Level4;
-            else if (tier == "3")
-                talent.Tier = TalentTier.Level7;
-            else if (tier == "4")
-                talent.Tier = TalentTier.Level10;
-            else if (tier == "5")
-                talent.Tier = TalentTier.Level13;
-            else if (tier == "6")
-                talent.Tier = TalentTier.Level16;
-            else if (tier == "7")
-                talent.Tier = TalentTier.Level20;
-            else
-                talent.Tier = TalentTier.Old;
+            XElement talentElement = GameData.MergeXmlElements(GameData.Elements("CTalent").Where(x => x.Attribute("id")?.Value == referenceName));
+            if (talentElement == null)
+                throw new XmlGameDataParseException($"{nameof(talentElement)} is null, could not find the CTalent id name of {referenceName}");
 
-            XElement cTalentElement = GameData.MergeXmlElements(GameData.Elements("CTalent").Where(x => x.Attribute("id")?.Value == referenceName));
-            if (cTalentElement == null)
-                throw new XmlGameDataParseException($"{nameof(cTalentElement)} is null, could not find the CTalent id name of {nameof(referenceName)}");
+            SetTalentData(talentElement, talent, hero);
+            SetTalentTier(tier, talent);
 
-            // desc name
-            XElement talentFaceElement = cTalentElement.Element("Face");
-            if (talentFaceElement != null)
+            SetAbilityTalentLinkIds(hero, talent, talentElement);
+
+            // if not active, talent should not have a cooldown, energy, or life
+            if (!talent.IsActive)
             {
-                talent.FullTooltipNameId = talentFaceElement.Attribute("value").Value;
-
-                SetAbilityType(hero, talent, cTalentElement);
-
-                XElement cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == talent.FullTooltipNameId));
-                if (cButtonElement != null)
-                {
-                    XElement talentAbilElement = cTalentElement.Elements("Abil").FirstOrDefault();
-                    XElement talentActiveElement = cTalentElement.Elements("Active").FirstOrDefault();
-                    if (talentAbilElement != null && talentActiveElement != null)
-                    {
-                        string effectId = talentAbilElement.Attribute("value").Value;
-
-                        if (talentActiveElement.Attribute("value").Value == "1")
-                            SetTooltipCostData(effectId, talent);
-                    }
-
-                    SetTooltipDescriptions(talent);
-                    SetTooltipOverrideData(cButtonElement, talent);
-
-                    // if not active, it shouldn't have a cooldown
-                    if (talentActiveElement == null)
-                        talent.Tooltip.Cooldown.CooldownTooltip = null;
-
-                    if (!(talent.AbilityType == AbilityType.Heroic && talent.IsActive))
-                        AddTooltipAppenderAbilityTalentId(cButtonElement, talent.ReferenceNameId);
-
-                    SetAbilityTalentLinkIds(hero, talent, cTalentElement);
-                }
-
-                hero.AddTalent(talent);
+                talent.Tooltip.Cooldown.CooldownTooltip = null;
+                talent.Tooltip.Energy.EnergyTooltip = null;
+                talent.Tooltip.Life.LifeCostTooltip = null;
             }
+
+            return talent;
         }
 
+        //public void AddTalent(Hero hero, XElement talentElement)
+        //{
+        //    string referenceName = talentElement.Attribute("Talent").Value;
+        //    string tier = talentElement.Attribute("Tier").Value;
+        //    string column = talentElement.Attribute("Column").Value;
+
+        //    Talent talent = new Talent
+        //    {
+        //        ReferenceNameId = referenceName,
+        //        Column = int.Parse(column),
+        //    };
+
+        //    if (tier == "1")
+        //        talent.Tier = TalentTier.Level1;
+        //    else if (tier == "2")
+        //        talent.Tier = TalentTier.Level4;
+        //    else if (tier == "3")
+        //        talent.Tier = TalentTier.Level7;
+        //    else if (tier == "4")
+        //        talent.Tier = TalentTier.Level10;
+        //    else if (tier == "5")
+        //        talent.Tier = TalentTier.Level13;
+        //    else if (tier == "6")
+        //        talent.Tier = TalentTier.Level16;
+        //    else if (tier == "7")
+        //        talent.Tier = TalentTier.Level20;
+        //    else
+        //        talent.Tier = TalentTier.Old;
+
+        //    XElement cTalentElement = GameData.MergeXmlElements(GameData.Elements("CTalent").Where(x => x.Attribute("id")?.Value == referenceName));
+        //    if (cTalentElement == null)
+        //        throw new XmlGameDataParseException($"{nameof(cTalentElement)} is null, could not find the CTalent id name of {nameof(referenceName)}");
+
+        //    // desc name
+        //    XElement talentFaceElement = cTalentElement.Element("Face");
+        //    if (talentFaceElement != null)
+        //    {
+        //        talent.FullTooltipNameId = talentFaceElement.Attribute("value").Value;
+
+        //        SetAbilityType(hero, talent, cTalentElement);
+
+        //        XElement cButtonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == talent.FullTooltipNameId));
+        //        if (cButtonElement != null)
+        //        {
+        //            XElement talentAbilElement = cTalentElement.Elements("Abil").FirstOrDefault();
+        //            XElement talentActiveElement = cTalentElement.Elements("Active").FirstOrDefault();
+        //            if (talentAbilElement != null && talentActiveElement != null)
+        //            {
+        //                string effectId = talentAbilElement.Attribute("value").Value;
+
+        //                if (talentActiveElement.Attribute("value").Value == "1")
+        //                    SetTooltipCostData(effectId, talent);
+        //            }
+
+        //            //SetTooltipDescriptions(talent);
+        //            //SetTooltipOverrideData(cButtonElement, talent);
+
+        //            // if not active, it shouldn't have a cooldown
+        //            if (talentActiveElement == null)
+        //                talent.Tooltip.Cooldown.CooldownTooltip = null;
+
+        //            if (!(talent.AbilityType == AbilityType.Heroic && talent.IsActive))
+        //                AddTooltipAppenderAbilityTalentId(cButtonElement, talent.ReferenceNameId);
+
+        //            SetAbilityTalentLinkIds(hero, talent, cTalentElement);
+        //        }
+
+        //        hero.AddTalent(talent);
+        //    }
+        //}
+
         /// <summary>
-        /// Acquire TooltipAppender data for abilityTalentLinkIds.
+        /// Acquire TooltipAppender data for abilityTalentLinkIds. This should be called after abilities are parsed and before talents are parsed.
         /// </summary>
-        public void SetButtonTooltipAppenderData(Hero stormHeroBase, Hero hero)
+        public void SetButtonTooltipAppenderData(Hero hero)
         {
             Dictionary<string, (XElement, AbilityTalentBase)> abilityTalentsByButtonElements = new Dictionary<string, (XElement, AbilityTalentBase)>();
 
+            // TODO: Add base abilities back?
             // storm hero abilities
-            foreach (Ability ability in stormHeroBase.Abilities)
-            {
-                XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ButtonName || x.Attribute("id")?.Value == ability.ReferenceNameId));
-                if (buttonElement != null)
-                    abilityTalentsByButtonElements[ability.ButtonName] = (buttonElement, ability);
-            }
+            //foreach (Ability ability in stormHeroBase.Abilities)
+            //{
+            //    XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ButtonName || x.Attribute("id")?.Value == ability.ReferenceNameId));
+            //    if (buttonElement != null)
+            //        abilityTalentsByButtonElements[ability.ButtonName] = (buttonElement, ability);
+            //}
 
             // hero's abilities
             foreach (Ability ability in hero.Abilities)
             {
-                XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ReferenceNameId));
-                if (buttonElement == null)
-                    buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.ButtonName));
+                // we need to get the cbutton id name
+                XElement abilityElement = GameData.MergeXmlElementsNoAttributes(GetAbilityElements(ability.ReferenceNameId), false);
+                string faceValue = abilityElement?.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
 
-                if (buttonElement != null)
-                    abilityTalentsByButtonElements[ability.ButtonName] = (buttonElement, ability);
+                if (!string.IsNullOrEmpty(faceValue))
+                {
+                    XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
+
+                    if (buttonElement != null)
+                        abilityTalentsByButtonElements[ability.ReferenceNameId] = (buttonElement, ability);
+                }
             }
 
-            foreach (var abilityElement in abilityTalentsByButtonElements)
+            foreach (KeyValuePair<string, (XElement, AbilityTalentBase)> abilityElement in abilityTalentsByButtonElements)
             {
-                string buttonName = abilityElement.Key;
                 (XElement buttonElement, AbilityTalentBase abilityTalent) = abilityElement.Value;
 
                 AddTooltipAppenderAbilityTalentId(buttonElement, abilityTalent.ReferenceNameId);
@@ -236,6 +279,114 @@ namespace HeroesData.Parser.XmlData
                 else
                     AbilityTalentIdsByTalentIdUpgrade.Add(talentReferenceNameId, new HashSet<string>(StringComparer.OrdinalIgnoreCase) { abilityTalentId });
             }
+        }
+
+        private void SetTalentTier(string tier, Talent talent)
+        {
+            if (tier == "1")
+                talent.Tier = TalentTier.Level1;
+            else if (tier == "2")
+                talent.Tier = TalentTier.Level4;
+            else if (tier == "3")
+                talent.Tier = TalentTier.Level7;
+            else if (tier == "4")
+                talent.Tier = TalentTier.Level10;
+            else if (tier == "5")
+                talent.Tier = TalentTier.Level13;
+            else if (tier == "6")
+                talent.Tier = TalentTier.Level16;
+            else if (tier == "7")
+                talent.Tier = TalentTier.Level20;
+            else
+                talent.Tier = TalentTier.Old;
+        }
+
+        private void SetTalentData(XElement talentElement, Talent talent, Hero hero)
+        {
+            if (talentElement == null || talentElement == null)
+                return;
+
+            // parent lookup
+            string parentValue = talentElement.Attribute("parent")?.Value;
+            if (!string.IsNullOrEmpty(parentValue))
+            {
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(talentElement.Name.LocalName).Where(x => x.Attribute("id")?.Value == parentValue));
+                if (parentElement != null)
+                    SetTalentData(parentElement, talent, hero);
+            }
+
+            bool hasAbil = false;
+            if (talentElement.Element("Abil") != null)
+                hasAbil = true;
+
+            XElement buttonElement = null;
+
+            foreach (XElement element in talentElement.Elements())
+            {
+                string elementName = element.Name.LocalName.ToUpper();
+
+                if (elementName == "FACE")
+                {
+                    string faceValue = element.Attribute("value")?.Value;
+
+                    if (!string.IsNullOrEmpty(faceValue))
+                    {
+                        talent.FullTooltipNameId = faceValue;
+                        talent.ShortTooltipNameId = faceValue;
+
+                        buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
+                        if (buttonElement != null && !hasAbil)
+                        {
+                            SetButtonData(buttonElement, talent);
+                        }
+                    }
+                }
+                else if (elementName == "TRAIT")
+                {
+                    string traitValue = element.Attribute("value")?.Value;
+                    if (!string.IsNullOrEmpty(traitValue) && traitValue == "1")
+                        talent.AbilityType = AbilityType.Trait;
+                }
+                else if (elementName == "ABIL")
+                {
+                    string abilValue = element.Attribute("value")?.Value;
+                    if (!string.IsNullOrEmpty(abilValue))
+                    {
+                        if (hero.TryGetAbility(abilValue, out Ability ability))
+                            talent.AbilityType = ability.AbilityType;
+                        else if (abilValue == "Mount")
+                            talent.AbilityType = AbilityType.Z;
+                        else
+                            talent.AbilityType = AbilityType.Active;
+
+                        IEnumerable<XElement> abilityElements = GetAbilityElements(abilValue);
+                        if (abilityElements.Any())
+                        {
+                            foreach (XElement abilityElement in abilityElements)
+                            {
+                                SetAbilityTalentData(abilityElement, talent);
+                            }
+                        }
+                    }
+                }
+                else if (elementName == "ACTIVE")
+                {
+                    string activeValue = element.Attribute("value")?.Value;
+
+                    if (!string.IsNullOrEmpty(activeValue) && activeValue == "1")
+                        talent.IsActive = true;
+                }
+                else if (elementName == "QUESTDATA")
+                {
+                    string stackBehaviorValue = element.Attribute("StackBehavior")?.Value;
+
+                    if (!string.IsNullOrEmpty(stackBehaviorValue))
+                        talent.IsQuest = true;
+                }
+            }
+
+            if (buttonElement != null && !(talent.AbilityType == AbilityType.Heroic && talent.IsActive))
+                AddTooltipAppenderAbilityTalentId(buttonElement, talent.ReferenceNameId);
         }
     }
 }

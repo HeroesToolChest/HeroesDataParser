@@ -32,6 +32,7 @@ namespace HeroesData.Parser
             WeaponData = xmlDataService.WeaponData;
             ArmorData = xmlDataService.ArmorData;
             AbilityData = xmlDataService.AbilityData;
+            TalentData = xmlDataService.TalentData;
             BehaviorData = xmlDataService.BehaviorData;
         }
 
@@ -100,8 +101,9 @@ namespace HeroesData.Parser
             SetDefaultValues(hero);
             CActorData(hero);
 
+            SetUnitData(hero);
             SetHeroData(heroElement, hero);
-            //CUnitData(hero);
+
 
             //AddSubHeroCUnits(hero);
 
@@ -283,16 +285,21 @@ namespace HeroesData.Parser
                 return;
 
             // find special energy type
-            foreach (XElement vitalName in actorUnitElements.Elements("VitalNames"))
+            foreach (XElement element in actorUnitElements.Elements())
             {
-                string indexValue = vitalName.Attribute("index")?.Value;
-                string valueValue = vitalName.Attribute("value")?.Value;
+                string elementName = element.Name.LocalName.ToUpper();
 
-                if (indexValue == "Energy")
+                if (elementName == "VITALNAMES")
                 {
-                    if (GameData.TryGetGameString(valueValue, out string energyType))
+                    string indexValue = element.Attribute("index")?.Value;
+                    string valueValue = element.Attribute("value")?.Value;
+
+                    if (!string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(valueValue) && indexValue == "Energy")
                     {
-                        hero.Energy.EnergyType = energyType;
+                        if (GameData.TryGetGameString(valueValue, out string energyType))
+                        {
+                            hero.Energy.EnergyType = energyType;
+                        }
                     }
                 }
             }
@@ -302,6 +309,8 @@ namespace HeroesData.Parser
         {
             if (heroElement == null)
                 return;
+
+            TalentData.SetButtonTooltipAppenderData(hero);
 
             // parent lookup
             string parentValue = heroElement.Attribute("parent")?.Value;
@@ -475,6 +484,12 @@ namespace HeroesData.Parser
                     if (!string.IsNullOrEmpty(role))
                         hero.ExpandedRole = GameData.GetGameString(DefaultData.HeroData.HeroRoleName.Replace(DefaultData.IdPlaceHolder, role)).Trim();
                 }
+                else if (elementName == "TALENTTREEARRAY")
+                {
+                    Talent talent = TalentData.CreateTalent(hero, element);
+                    if (talent != null)
+                        hero.AddTalent(talent);
+                }
             }
 
             if (hero.ReleaseDate == DefaultData.HeroData.HeroReleaseDate)
@@ -495,7 +510,7 @@ namespace HeroesData.Parser
             //}
         }
 
-        private void CUnitData(Hero hero, XElement unitElement = null)
+        private void SetUnitData(Hero hero, XElement unitElement = null)
         {
             unitElement = unitElement ?? GameData.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == hero.CUnitId);
 
@@ -508,7 +523,7 @@ namespace HeroesData.Parser
             {
                 XElement parentElement = GameData.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == parentValue);
                 if (parentElement != null)
-                    CUnitData(hero, parentElement);
+                    SetUnitData(hero, parentElement);
             }
 
             // loop through all elements and set found elements
@@ -516,16 +531,16 @@ namespace HeroesData.Parser
             {
                 string elementName = element.Name.LocalName.ToUpper();
 
-                if (elementName == "ABILARRAY")
-                {
-                    string link = element.Attribute("Link")?.Value;
+                //if (elementName == "ABILARRAY")
+                //{
+                //    string link = element.Attribute("Link")?.Value;
 
-                    if (link == DefaultData.AbilMountLinkId)
-                        hero.MountLinkId = DefaultData.HeroData.DefaultSummonMountAbilityId;
-                }
-                else if (elementName == "LIFEMAX")
+                //    if (link == DefaultData.AbilMountLinkId)
+                //        hero.MountLinkId = DefaultData.HeroData.DefaultSummonMountAbilityId;
+                //}
+                if (elementName == "LIFEMAX")
                 {
-                    hero.Life.LifeMax = double.Parse(element.Attribute("value").Value);
+                    hero.Life.LifeMax = XmlParse.GetDoubleValue(hero.CUnitId, element, GameData);
 
                     double? scaleValue = GameData.GetScaleValue(("Unit", hero.CUnitId, "LifeMax"));
                     if (scaleValue.HasValue)
@@ -533,7 +548,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "LIFEREGENRATE")
                 {
-                    hero.Life.LifeRegenerationRate = double.Parse(element.Attribute("value").Value);
+                    hero.Life.LifeRegenerationRate = XmlParse.GetDoubleValue(hero.CUnitId, element, GameData);
 
                     double? scaleValue = GameData.GetScaleValue(("Unit", hero.CUnitId, "LifeRegenRate"));
                     if (scaleValue.HasValue)
@@ -541,19 +556,49 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "RADIUS")
                 {
-                    hero.Radius = double.Parse(element.Attribute("value").Value);
+                    hero.Radius = XmlParse.GetDoubleValue(hero.CUnitId, element, GameData);
                 }
                 else if (elementName == "INNERRADIUS")
                 {
-                    hero.InnerRadius = double.Parse(element.Attribute("value").Value);
+                    hero.InnerRadius = XmlParse.GetDoubleValue(hero.CUnitId, element, GameData);
                 }
                 else if (elementName == "ENERGYMAX")
                 {
-                    hero.Energy.EnergyMax = double.Parse(element.Attribute("value").Value);
+                    hero.Energy.EnergyMax = XmlParse.GetDoubleValue(hero.CUnitId, element, GameData);
                 }
                 else if (elementName == "ENERGYREGENRATE")
                 {
-                    hero.Energy.EnergyRegenerationRate = double.Parse(element.Attribute("value").Value);
+                    hero.Energy.EnergyRegenerationRate = XmlParse.GetDoubleValue(hero.CUnitId, element, GameData);
+                }
+                else if (elementName == "SPEED")
+                {
+                    hero.Speed = XmlParse.GetDoubleValue(hero.CUnitId, element, GameData);
+                }
+                else if (elementName == "SIGHT")
+                {
+                    hero.Sight = XmlParse.GetDoubleValue(hero.CUnitId, element, GameData);
+                }
+                else if (elementName == "ATTRIBUTES")
+                {
+                    string enabled = element.Attribute("value")?.Value;
+                    string attribute = element.Attribute("index").Value;
+
+                    if (enabled == "0" && hero.Attributes.Contains(attribute))
+                        hero.RemoveAttribute(attribute);
+                    else if (enabled == "1")
+                        hero.AddAttribute(attribute);
+                }
+                else if (elementName == "UNITDAMAGETYPE")
+                {
+                    hero.DamageType = element.Attribute("value").Value;
+                }
+                else if (elementName == "NAME")
+                {
+                    hero.Name = GameData.GetGameString(element.Attribute("value").Value);
+                }
+                else if (elementName == "DESCRIPTION")
+                {
+                    hero.Description = new TooltipDescription(GameData.GetGameString(element.Attribute("value").Value));
                 }
                 else if (elementName == "GENDER")
                 {
@@ -562,47 +607,62 @@ namespace HeroesData.Parser
                     else
                         hero.Gender = HeroGender.Neutral;
                 }
-                else if (elementName == "SPEED")
+                else if (elementName == "ABILARRAY")
                 {
-                    hero.Speed = double.Parse(element.Attribute("value").Value);
+                    Ability ability = AbilityData.CreateAbility(hero.CUnitId, element);
+                    if (ability != null)
+                        hero.AddAbility(ability);
                 }
-                else if (elementName == "SIGHT")
+                else if (elementName == "WEAPONARRAY")
                 {
-                    hero.Sight = double.Parse(element.Attribute("value").Value);
+                    UnitWeapon weapon = WeaponData.CreateWeapon(element);
+                    if (weapon != null)
+                        hero.AddUnitWeapon(weapon);
                 }
-                else if (elementName == "CARDLAYOUTS")
+                else if (elementName == "ARMORLINK")
                 {
-                    foreach (XElement cardLayoutElement in element.Elements())
+                    IEnumerable<UnitArmor> armorList = ArmorData.CreateArmorCollection(element);
+                    if (armorList != null)
                     {
-                        string cardLayoutElementName = cardLayoutElement.Name.LocalName.ToUpper();
-
-                        if (cardLayoutElementName == "LAYOUTBUTTONS")
+                        foreach (UnitArmor armor in armorList)
                         {
-                            string cardLayoutFace = cardLayoutElement.Attribute("Face")?.Value;
-                            string cardLayoutAbilCmd = cardLayoutElement.Attribute("AbilCmd")?.Value;
-
-                            if (!string.IsNullOrEmpty(cardLayoutFace) && !string.IsNullOrEmpty(cardLayoutAbilCmd))
-                            {
-                                if (cardLayoutFace.StartsWith(DefaultData.HeroData.DefaultHearthAbilityId) && cardLayoutAbilCmd.StartsWith(DefaultData.HeroData.DefaultHearthAbilityId))
-                                    hero.HearthLinkId = cardLayoutFace;
-                            }
+                            hero.AddUnitArmor(armor);
                         }
                     }
+                }
+                else if (elementName == "BEHAVIORARRAY")
+                {
+                    string link = BehaviorData.GetScalingBehaviorLink(element);
+                    if (!string.IsNullOrEmpty(link))
+                        hero.ScalingBehaviorLink = link;
                 }
                 else if (elementName == "HEROPLAYSTYLEFLAGS")
                 {
                     string descriptor = element.Attribute("index").Value;
 
-                    //if (element.Attribute("value")?.Value == "1")
-                    //    hero.HeroDescriptors.Add(descriptor);
+                    if (element.Attribute("value")?.Value == "1")
+                        hero.AddHeroDescriptor(descriptor);
                 }
+                //else if (elementName == "CARDLAYOUTS")
+                //{
+                //    foreach (XElement cardLayoutElement in element.Elements())
+                //    {
+                //        string cardLayoutElementName = cardLayoutElement.Name.LocalName.ToUpper();
+
+                //        if (cardLayoutElementName == "LAYOUTBUTTONS")
+                //        {
+                //            string cardLayoutFace = cardLayoutElement.Attribute("Face")?.Value;
+                //            string cardLayoutAbilCmd = cardLayoutElement.Attribute("AbilCmd")?.Value;
+
+                //            if (!string.IsNullOrEmpty(cardLayoutFace) && !string.IsNullOrEmpty(cardLayoutAbilCmd))
+                //            {
+                //                if (cardLayoutFace.StartsWith(DefaultData.HeroData.DefaultHearthAbilityId) && cardLayoutAbilCmd.StartsWith(DefaultData.HeroData.DefaultHearthAbilityId))
+                //                    hero.HearthLinkId = cardLayoutFace;
+                //            }
+                //        }
+                //    }
+                //}
             }
-
-            // TODO: set weapons
-            //WeaponData.AddHeroWeapons(hero, unitElement.Elements("WeaponArray").Where(x => x.Attribute("Link") != null));
-
-            // set armor
-            ArmorData.SetUnitArmorData(hero, unitElement.Element("ArmorLink"));
 
             if (hero.Energy.EnergyMax < 1)
                 hero.Energy.EnergyType = string.Empty;

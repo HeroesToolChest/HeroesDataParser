@@ -11,7 +11,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroJunkrat.GetAbility("JunkratRocketRide");
 
-            Assert.AreEqual("Cooldown: 100 seconds", ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
+            Assert.AreEqual("Cooldown: 75 seconds", ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
         }
     }
 }

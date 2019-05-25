@@ -1,5 +1,103 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="us-ascii"?>
 <Catalog>
+  <CAbilEffectInstant id="BarbarianStridingGiant">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="BarbarianWrathOfTheBerserkerApplyStridingGiantTalentUnstoppableBuff" />
+    <Cost>
+      <Cooldown TimeUse="30" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianStridingGiantActive" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="BarbarianNervesOfSteel">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="BarbarianNervesOfSteelApplyBuff" />
+    <Flags index="NoDeceleration" value="1" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="60" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianNervesOfSteel">
+      <Flags index="AllowSelfCast" value="1" />
+    </CmdButtonArray>
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="BarbarianBattleRage">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="BarbarianBattleRageCastSet" />
+    <Cost>
+      <Charge>
+        <CountMax value="2" />
+        <CountUse value="1" />
+        <Location value="Player" />
+        <TimeUse value="30" />
+      </Charge>
+      <Cooldown Location="Player" TimeUse="8" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianBattleRage" Requirements="AbathurHasNoStrainBuffs" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="BarbarianCancelLeapArreatCrater">
+    <Effect value="BarbarianLeapArreatCraterDestroySet" />
+    <Cost>
+      <Cooldown TimeUse="1.5" />
+    </Cost>
+    <CmdButtonArray index="Execute" AutoQueueId="" DefaultButtonFace="BarbarianLeapArreatCraterCancel" Requirements="BarbarianLeapArreatCraterActive" />
+    <Flags index="Transient" value="1" />
+    <ParentAbil value="BarbarianLeap" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="BarbarianCancelWrathoftheBerserker">
+    <Effect value="BarbarianWrathoftheBerserkerCancelWrathoftheBerserker" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <CmdButtonArray index="Execute" AutoQueueId="" DefaultButtonFace="BarbarianWrathoftheBerserkerCancel" Requirements="BarbarianWrathoftheBerserkerActive" />
+    <ParentAbil value="BarbarianWrathoftheBerserker" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="BarbarianShotofFury">
+    <Effect value="BarbarianShotOfFurySet" />
+    <Cost>
+      <Cooldown TimeUse="40" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianFuryShotOfFury" Requirements="BarbarianHasShotofFury" />
+    <PrepEffect value="DecloakCasterSet" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="BarbarianAncientSpear">
+    <Effect value="BarbarianAncientSpearInitialPersistent" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TargetVectorLock" value="1" />
+    <Cost>
+      <Cooldown TimeUse="13" />
+    </Cost>
+    <TargetFilters value="-;Player,Ally,Missile,Stasis,Hidden,Invulnerable" />
+    <Range value="500" />
+    <Arc value="360" />
+    <CastIntroTime value="0.15" />
+    <CursorEffect value="BarbarianAncientSpearMissileScan" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianAncientSpear">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="BarbarianWrathoftheBerserker">
+    <Effect value="BarbarianWrathOfTheBerserkerInitialSet" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown TimeUse="60" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianWrathoftheBerserker" Requirements="Ultimate2Unlocked" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="BarbarianWhirlwindCancel">
+    <Effect value="BarbarianWhirlwindDestroyPersistent" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown TimeUse="0.75" />
+    </Cost>
+    <CmdButtonArray index="Execute" AutoQueueId="" DefaultButtonFace="BarbarianWhirlwindCancel" Requirements="BarbarianWhirlwindActive" />
+    <ParentAbil value="BarbarianWhirlwind" />
+  </CAbilEffectInstant>
   <CAbilEffectTarget id="BarbarianSeismicSlam">
     <Effect value="BarbarianSeismicSlamSet" />
     <Cost>
@@ -21,54 +119,975 @@
     <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
     <Flags index="ClearLastMoveTarget" value="1" />
   </CAbilEffectTarget>
-  <CAbilEffectInstant id="BarbarianWhirlwindCancel">
-    <Effect value="BarbarianWhirlwindDestroyPersistent" />
-    <Flags index="Transient" value="1" />
+  <CAbilEffectTarget id="BarbarianLeap">
+    <Effect value="BarbarianLeapDistanceSwitch" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="NoDeceleration" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
     <Cost>
-      <Cooldown TimeUse="0.75" />
+      <Cooldown Link="Abil/BarbarianLeapAttack" TimeUse="70" />
     </Cost>
-    <CmdButtonArray index="Execute" AutoQueueId="" DefaultButtonFace="BarbarianWhirlwindCancel" Requirements="BarbarianWhirlwindActive" />
-    <ParentAbil value="BarbarianWhirlwind" />
+    <Range value="10" />
+    <Arc value="360" />
+    <UninterruptibleArray index="Approach" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CursorEffect value="BarbarianLeapSearchArea" />
+    <CursorRangeFlags index="ClampMin" value="1" />
+    <CursorRangeFlags index="ClampMax" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianLeap" Requirements="Ultimate1Unlocked" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="BarbarianWhirlwind">
+    <Effect value="BarbarianWhirlwindCreatePersistent" />
+    <Cost>
+      <Vital index="Energy" value="40" />
+      <Cooldown TimeUse="5" />
+    </Cost>
+    <ShowProgressArray index="Cast" value="1" />
+    <CancelableArray index="Channel" value="1" />
+    <PauseableArray index="Cast" value="0" />
+    <PauseableArray index="Finish" value="0" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianWhirlwind" />
+    <PrepEffect value="DismountDecloakCasterSet" />
   </CAbilEffectInstant>
-  <CHero id="Barbarian" parent="LegacyVOHero">
-    <AIComplexityTier value="Mid" />
-    <AttributeId value="Barb" />
-    <ProductId value="10198" />
-    <Melee value="1" />
-    <RolesMultiClass value="Warrior" />
-    <CollectionCategory value="Warrior" />
-    <RoleScoreValueOverride value="Warrior" />
-    <HeroAbilArray Abil="BarbarianSeismicSlam" Button="BarbarianSeismicSlam">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="BarbarianWhirlwind" Button="BarbarianWhirlwind">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-    </HeroAbilArray>
-  </CHero>
-  <CUnit id="HeroBarbarian" parent="StormHeroMounted">
-    <LifeStart value="2341" />
-    <LifeMax value="2341" />
-    <LifeRegenRate value="4.879" />
-    <WeaponArray Link="HeroBarbarian" />
-    <CardLayouts index="0">
-      <LayoutButtons Face="BarbarianLeap" Type="AbilCmd" AbilCmd="BarbarianLeap,Execute" Slot="Heroic" />
-      <LayoutButtons Face="BarbarianWrathoftheBerserker" Type="AbilCmd" AbilCmd="BarbarianWrathoftheBerserker,Execute" Slot="Heroic" />
-      <LayoutButtons Face="PortBackToBaseNoMana" Type="AbilCmd" AbilCmd="PortBackToBase,Execute" Slot="Hearth" />
-      <LayoutButtons Face="BarbarianAncientSpear" Type="AbilCmd" AbilCmd="BarbarianAncientSpear,Execute" Slot="Ability1" />
-      <LayoutButtons Face="BarbarianSeismicSlam" Type="AbilCmd" AbilCmd="BarbarianSeismicSlam,Execute" Slot="Ability2" />
-      <LayoutButtons Face="BarbarianWhirlwindCancel" Type="AbilCmd" AbilCmd="BarbarianWhirlwindCancel,Execute" Slot="Ability3" />
-      <LayoutButtons Face="BarbarianWhirlwind" Type="AbilCmd" AbilCmd="BarbarianWhirlwind,Execute" Slot="Ability3" />
-      <LayoutButtons Face="BarbarianFuryShotOfFury" Type="AbilCmd" AbilCmd="BarbarianShotofFury,Execute" Slot="Trait" />
-      <LayoutButtons Face="BarbarianFury" Type="Passive" Slot="Trait" />
-    </CardLayouts>
-  </CUnit>
-  <CButton id="BarbarianSeismicSlam" parent="StormButtonParentFury">
+  <CAbilEffectInstant id="BarbarianIgnorePain">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="BarbarianIgnorePainApplyBuff" />
+    <Flags index="NoDeceleration" value="1" />
+    <Cost>
+      <Cooldown TimeUse="60" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianIgnorePain">
+      <Flags index="AllowSelfCast" value="1" />
+    </CmdButtonArray>
+  </CAbilEffectInstant>
+  <CActorSound id="BarbarianFootstep" parent="SoundOneShot">
+    <Sound value="Barbarian_Footstep_Mv" />
+  </CActorSound>
+  <CActorSound id="BarbarianFerociousHealingCastSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianFerociousHealingSet.Start" Send="Create" />
+    <On Terms="Effect.BarbarianBattleRageCastSet.Start" Send="Create" />
+    <Sound value="Barbarian_Ferocious_Healing_Cast" />
+  </CActorSound>
+  <CActorSound id="BarbarianFerociousHealingClangSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianFerociousHealingSet.Start" Send="Create" />
+    <On Terms="Effect.BarbarianBattleRageCastSet.Start" Send="Create" />
+    <Sound value="Barbarian_Ferocious_Healing_Clang" />
+  </CActorSound>
+  <CActorSound id="BarbarianFerociousHealingVoxSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianFerociousHealingSet.Start" Send="Create" />
+    <On Terms="Effect.BarbarianBattleRageCastSet.Start" Send="Create" />
+    <Sound value="Barbarian_Ferocious_Healing_Vox" />
+  </CActorSound>
+  <CActorSound id="BarbarianSeismicSlamCastSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianSeismicSlamDamage.Start" Send="Create" />
+    <Sound value="BarbarianSeismicSlamCast" />
+  </CActorSound>
+  <CActorSound id="BarbarianF_SeismicSlam_Vox" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianSeismicSlamDamage.Start" Send="Create" />
+    <Sound value="Barb_Fem_SeismicSlam_Vox" />
+  </CActorSound>
+  <CActorSound id="BarbarianSeismicSlamImpactSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianSeismicSlamDamage.Start; At Caster" Send="Create" />
+    <On Terms="Effect.BarbarianSeismicSlamDummySet.Start; At Caster" Send="Create" />
+    <Sound value="BarbarianSeismicSlamImpact" />
+  </CActorSound>
+  <CActorSound id="BarbarianSeismicSlamShatteredGroundGroundImpactSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianSeismicSlamSecondarySearch.Start; At Effect" Send="Create" />
+    <Sound value="BarbarianSeismicSlamShatteredGroundGroundImpact" />
+  </CActorSound>
+  <CActorSound id="BarbarianSeismicSlamDebrisSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianSeismicSlamSecondarySearch.Start; At Effect" Send="Create" />
+    <Sound value="BarbarianSeismicSlamDebris" />
+  </CActorSound>
+  <CActorSound id="BarbarianWhirlwindGustCastSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianWhirlwindDustDevilsCreatePersistent.Start; At Effect" Send="Create" />
+    <Sound value="Barbarian_Whirlwind_Gust_Cast" />
+  </CActorSound>
+  <CActorSound id="BarbarianWhirlwindCastSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianWhirlwindCreatePersistent.Start; At Caster" Send="Create" />
+    <Sound value="BarbarianWhirlwindCast" />
+  </CActorSound>
+  <CActorSound id="BarbarianWhirlwindLoopSound" parent="SoundContinuous">
+    <On Terms="Effect.BarbarianWhirlwindCreatePersistent.Start; At Caster" Send="Create" />
+    <On Terms="Effect.BarbarianWhirlwindCreatePersistent.Stop" Send="Destroy Immediate" />
+    <Sound value="BarbarianWhirlwindLoop" />
+  </CActorSound>
+  <CActorSound id="BarbarianWhirlwindEndSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianWhirlwindCreatePersistent.Stop" Send="Create" />
+    <Sound value="BarbarianWhirlwindEnd" />
+  </CActorSound>
+  <CActorSound id="BarbarianWhirlwindImpactSound" parent="HeroAttackImpactSoundOneShot">
+    <On Terms="Effect.BarbarianWhirlwindDamageSet.Start; At Target" Send="Create" />
+    <Sound value="BarbarianWhirlwindImpact" />
+  </CActorSound>
+  <CActorSound id="Barbarian_Whirlwind_Fast_Whoosh" parent="SoundOneShot" />
+  <CActorSound id="Barbarian_Whirlwind_Big_Whoosh" parent="SoundOneShot" />
+  <CActorSound id="Barbarian_Whirlwind_Slow_Whoosh" parent="SoundOneShot" />
+  <CActorSound id="Barbarian_Chain_Retract" parent="SoundOneShot" />
+  <CActorSound id="BarbarianAncientSpearImpactSound" parent="SoundOneShot">
+    <Sound value="Barbarian_Spear_Impact" />
+  </CActorSound>
+  <CActorSound id="BarbarianAncientSpearPullBackSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianAncientSpearMissedMissile.Start; At Target" Send="Create" />
+    <On Terms="Effect.BarbarianAncientSpearLaunchBarbarian.Start; At Caster" Send="Create" />
+    <On Terms="Effect.BarbarianAncientSpearLaunchBarbarian.Stop; At Caster" Send="Destroy" />
+    <Sound value="Barbarian_Spear_Pull" />
+  </CActorSound>
+  <CActorSound id="Barbarian_Spear_Mastery_Pull" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianAncientSpearMysticalSpearLaunchBarbarian.Start" Send="Create" />
+    <Layers Sound="Barbarian_Spear_Mastery_Impact" />
+    <Layers Sound="Barbarian_Spear_Mastery_Pull_Zip" />
+  </CActorSound>
+  <CActorSound id="BarbarianAncientSpearShingSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianAncientSpearInitialPersistent.Start; At Caster" Send="Create" />
+    <On Terms="Effect.BarbarianAncientSpearInitialPersistent.Stop" Send="Destroy" />
+    <Sound value="Barbarian_Spear_Cast_Shing" />
+  </CActorSound>
+  <CActorSound id="BarbarianAncientSpearWhooshSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianAncientSpearMissedMissile.Start; At Target" Send="Create" />
+    <On Terms="Effect.BarbarianAncientSpearLaunchBarbarian.Start; At Caster" Send="Create" />
+    <Sound value="Barbarian_Spear_Whoosh" />
+  </CActorSound>
+  <CActorSound id="BarbarianLeapInitialYellSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianLeapLaunchMissile.Start; At Caster" Send="Create" />
+    <On Terms="Behavior.BarbarianLeapMinDistanceBehavior.On" Send="Create" />
+    <Host Subject="_Unit" />
+    <Sound value="Barb_Fem_Leap_Vox" />
+  </CActorSound>
+  <CActorSound id="BarbarianLeapInitialLaunchSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianLeapLaunchMissile.Start; At Caster" Send="Create" />
+    <On Terms="Behavior.BarbarianLeapMinDistanceBehavior.On" Send="Create" />
+    <Host Subject="_Unit" />
+    <Sound value="Barbarian_Leap_Launch" />
+  </CActorSound>
+  <CActorSound id="BarbarianLeapLandYellSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianLeapLandingSet.Start" Send="Create" />
+    <Sound value="Barb_Fem_LeapImpact_Vox" />
+  </CActorSound>
+  <CActorSound id="BarbarianLeapLandImpactSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianLeapLandingSet.Start" Send="Create" />
+    <Sound value="BarbarianLeapLandImpact" />
+  </CActorSound>
+  <CActorSound id="Barbarian_Leap_Crater_On" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianLeapArreatCraterDummyPersistent.Start" Send="Create" />
+    <Layers Sound="Barbarian_Leap_Crater_On_Sweetener" />
+  </CActorSound>
+  <CActorSound id="Barbarian_Leap_Crater_Off" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianLeapArreatCraterDummyPersistent.Stop" Send="Create" />
+    <Layers Sound="Barbarian_Leap_Crater_Off_Sweetener" />
+  </CActorSound>
+  <CActorSound id="BarbarianWrathoftheBerserkerYellSound" parent="SoundOneShot">
+    <On Terms="Behavior.BarbarianWrathoftheBerserkerBase.On" Send="Create" />
+    <Sound value="Barb_Fem_WrathoftheBerserker_Vox" />
+  </CActorSound>
+  <CActorSound id="Barbarian_WrathoftheBerserker_End" parent="SoundOneShot">
+    <On Terms="Behavior.BarbarianWrathoftheBerserkerBase.Off" Send="Create" />
+  </CActorSound>
+  <CActorSound id="Barbarian50FuryYellSound" parent="SoundOneShot">
+    <On Terms="Behavior.BarbarianFuryLifestealBuffLarge.On" Send="Create" />
+    <Sound value="Barb_Fem_BattleCry_Vox" />
+  </CActorSound>
+  <CActorSound id="Barbarian50FuryImpactSound" parent="SoundOneShot">
+    <On Terms="Behavior.BarbarianFuryLifestealBuffLarge.On" Send="Create" />
+    <Sound value="BarbarianFuryImpact" />
+  </CActorSound>
+  <CActorSound id="BarbarianShotofFuryCastSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianShotOfFurySet.Start" Send="Create" />
+    <Sound value="Barbarian_Shot_Of_Fury_Cast" />
+  </CActorSound>
+  <CActorSound id="BarbarianShotofFuryClangSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianShotOfFurySet.Start" Send="Create" />
+    <Sound value="Barbarian_Shot_Of_Fury_Clang" />
+  </CActorSound>
+  <CActorSound id="BarbarianShotofFuryVoxSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianShotOfFurySet.Start" Send="Create" />
+    <Sound value="Barbarian_Shot_Of_Fury_Vox" />
+  </CActorSound>
+  <CActorPortrait id="BarbarianPortrait" />
+  <CActorModel id="BarbarianPortraitAddition" />
+  <CActorModel id="BarbarianToughAsNailsBlockImpactModel" parent="StormModelAnimationStyleOneShot">
+    <Flags index="VisionTestCenterOnly" value="1" />
+    <On Terms="Effect.BarbarianToughAsNailsDummyDamage.Start; At Source" Send="Create" />
+    <Host Subject="_Unit" />
+    <HostSiteOps Ops="SOpAttachCenter SOpForwardTargetPoint" HoldRotation="1" />
+    <Model value="BarbarianToughAsNailsBlockImpact" />
+    <AutoScaleFactor value="1.000000" />
+  </CActorModel>
+  <CActorSimple id="BarbarianLeapUnstoppable" parent="StormUnstoppable">
+    <On Terms="Behavior.BarbarianLeap.On" Send="Create" />
+    <On Terms="Behavior.BarbarianLeap.Off" Send="Destroy" />
+  </CActorSimple>
+  <CActorSound id="BarbarianSeismicSlamVOX" parent="SoundOneShot">
+    <On Terms="Abil.BarbarianSeismicSlam.SourceCastStart" Send="Create" />
+    <Sound value="Barbarian_VOX_CastingB" />
+  </CActorSound>
+  <CActorSiteOpForward id="SOpForwardAncientSpear">
+    <Forward Y="-5.000000" />
+  </CActorSiteOpForward>
+  <CActorSound id="BarbarianAncientSpearRetractSound" parent="SoundOneShot">
+    <Sound value="Barbarian_Chain_Retract" />
+  </CActorSound>
+  <CActorSound id="HeroBarbarianTauntVO" parent="SoundOneShot">
+    <Sound value="Barbarian_Taunt" />
+  </CActorSound>
+  <CActorSound id="BarbarianAncientSpearMysticalSpearTalentPullSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianAncientSpearMysticalSpearLaunchBarbarian.Start" Send="Create" />
+    <Sound value="Barbarian_Spear_Mastery_Pull" />
+    <Layers Sound="Barbarian_Spear_Mastery_Impact" />
+    <Layers Sound="Barbarian_Spear_Mastery_Pull_Zip" />
+  </CActorSound>
+  <CActorSound id="HeroBarbarianTauntUEVO" parent="SoundOneShot">
+    <Sound value="Barbarian_Taunt_Evo" />
+  </CActorSound>
+  <CActorSound id="BarbarianToughAsNailsBlockSound" parent="SoundOneShot">
+    <Filter index="All" value="1" />
+    <VisibleToAtCreation index="Source" value="1" />
+    <VisibleToAtCreation index="Target" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <On Terms="Effect.BarbarianToughAsNailsDummyDamage.Start; At Caster" Send="Create" />
+    <Host Subject="_Unit" />
+    <Sound value="Talent_Block_BlockAttack" />
+  </CActorSound>
+  <CActorSound id="BarbarianWrathOfTheBerserkerStridingGiantTalentCastSound" parent="SoundOneShot">
+    <On Terms="Abil.BarbarianStridingGiant.SourceCastStart" Send="Create" />
+    <Sound value="BarbarianWrathOfTheBerserkerJuggernautTalentCastSound" />
+  </CActorSound>
+  <CActorModel id="BarbarianToughAsNailsBlockBuffModel" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Behavior.BarbarianToughAsNailsChargedArmorBehavior.On" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenterSoft" HoldRotation="1" />
+    <Model value="BlockBuff" />
+    <AutoScaleFactor value="1.000000" />
+  </CActorModel>
+  <CActorSound id="BarbarianSeismicSlamSecondaryGroundImpactSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianSeismicSlamSecondarySearch.Start; At Effect" Send="Create" />
+    <Sound value="BarbarianSeismicSlamShatteredGroundGroundImpact" />
+  </CActorSound>
+  <CActorPortrait id="BarbarianSkinWrathFemalePortrait" parent="StormCompositePortrait" />
+  <CActorSound id="BarbarianBattleRageCastSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianBattleRageCastSet.Start" Send="Create" />
+    <Sound value="Barbarian_Ferocious_Healing_Cast" />
+  </CActorSound>
+  <CActorSound id="BarbarianBattleRageClangSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianBattleRageCastSet.Start" Send="Create" />
+    <Sound value="Barbarian_Ferocious_Healing_Clang" />
+  </CActorSound>
+  <CActorSound id="BarbarianBattleRageVoxSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianBattleRageCastSet.Start" Send="Create" />
+    <Sound value="Barbarian_Ferocious_Healing_Vox" />
+  </CActorSound>
+  <CActorModel id="BarbarianSkinWrathFemalePortraitAddition" parent="StormCompositePortraitAddition" />
+  <CActorSound id="BarbarianLeapArreatCraterTalentOnSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianLeapArreatCraterDummyPersistent.Start" Send="Create" />
+    <Sound value="Barbarian_Leap_Crater_On" />
+    <Layers Sound="Barbarian_Leap_Crater_On_Sweetener" />
+  </CActorSound>
+  <CActorSound id="BarbarianLeapArreatCraterTalentOffSound" parent="SoundOneShot">
+    <On Terms="Effect.BarbarianLeapArreatCraterDummyPersistent.Stop" Send="Create" />
+    <Sound value="Barbarian_Leap_Crater_Off" />
+    <Layers Sound="Barbarian_Leap_Crater_Off_Sweetener" />
+  </CActorSound>
+  <CActorSound id="BarbarianWrathOfTheBerserkerEndSound" parent="SoundOneShot">
+    <On Terms="Behavior.BarbarianWrathoftheBerserkerBase.Off" Send="Create" />
+    <Sound value="Barbarian_WrathoftheBerserker_End" />
+  </CActorSound>
+  <CActorSound id="BarbarianWrathOfTheBerserkerCastSound" parent="SoundContinuous">
+    <On Terms="Behavior.BarbarianWrathoftheBerserkerBase.On" Send="Create" />
+    <On Terms="Behavior.BarbarianWrathoftheBerserkerBase.Off" Send="Destroy" />
+    <Sound value="BarbarianWrathoftheBerserkerLoop" />
+    <Layers Sound="Barbarian_WrathoftheBerserker_Cast" />
+    <Layers Sound="Barbarian_WrathoftheBerserker_Sweetener" />
+  </CActorSound>
+  <CActorSound id="BarbarianWhirlwindFastWhooshSound" parent="SoundOneShot">
+    <Sound value="Barbarian_Whirlwind_Fast_Whoosh" />
+  </CActorSound>
+  <CActorSound id="BarbarianWhirlwindBigWhooshSound" parent="SoundOneShot">
+    <Sound value="Barbarian_Whirlwind_Big_Whoosh" />
+  </CActorSound>
+  <CActorSound id="BarbarianWhirlwindSlowWooshSound" parent="SoundOneShot">
+    <Sound value="Barbarian_Whirlwind_Slow_Whoosh" />
+  </CActorSound>
+  <CActorModel id="BarbarianShotOfFuryCastModel" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.BarbarianFerociousHealingSet.Start" Send="Create" />
+    <On Terms="Effect.BarbarianBattleRageCastSet.Start" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenter SOp2DRotation" />
+    <Model value="BarbarianShotofFuryCast" />
+  </CActorModel>
+  <CActorModel id="BarbarianAttackWeaponSwoosh" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Abil.attack.ReadyStop" Send="Destroy" />
+  </CActorModel>
+  <CActorModel id="BarbarianAttackWeaponSwoosh1" parent="StormModelAnimationStyleOneShotUnit">
+    <Remove Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death ContentPlayOnce" />
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD Birth,A Stand Death ContentPlayOnce" />
+    <On Terms="Abil.attack.ReadyStop" Send="Destroy" />
+    <Model value="BarbarianAttackWeaponSwoosh" />
+  </CActorModel>
+  <CActorModel id="BarbarianAttackWeaponSwoosh2" parent="StormModelAnimationStyleOneShotUnit">
+    <Remove Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death ContentPlayOnce" />
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD Birth,B Stand Death ContentPlayOnce" />
+    <On Terms="Abil.attack.ReadyStop" Send="Destroy" />
+    <Model value="BarbarianAttackWeaponSwoosh" />
+  </CActorModel>
+  <CActorForceCylinder id="BarbarianSeismicSlamCylinder">
+    <On Terms="Effect.BarbarianSeismicSlamSecondarySearch.Start" Send="Create" />
+    <HostSiteOps Ops="SOpTargetPoint" />
+    <Duration value="0.150000" />
+    <Magnitude value="30.000000" />
+    <HostEndSiteOps Ops="SOpTargetPoint SOpHigherBy3" />
+    <Radius value="1.500000" />
+  </CActorForceCylinder>
+  <CActorForceSphere id="BarbarianWhirlwindSphere">
+    <On Terms="Effect.BarbarianWhirlwindSearchArea.Start" Send="Create" />
+    <HostSiteOps Ops="SOpTargetPoint" />
+    <Duration value="0.250000" />
+    <Magnitude value="40.000000" />
+    <Radius value="2.500000" />
+  </CActorForceSphere>
+  <CActorModel id="BarbarianShotofFuryCast" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.BarbarianShotOfFurySet.Start" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenter" HoldRotation="1" />
+  </CActorModel>
+  <CActorModel id="BarbarianWhirlwindModel" parent="StormModelAnimationStyleContinuousUnit">
+    <Inherits index="Visibility" value="0" />
+    <On Terms="Effect.BarbarianWhirlwindCreatePersistent.Start; At Caster" Send="Create" />
+    <On Terms="Effect.BarbarianWhirlwindCreatePersistent.Stop" Send="Destroy" />
+    <On Terms="StatusOn.*.TimeStopPaused" Send="AnimSetPausedAll" />
+    <On Terms="StatusOff.*.TimeStopPaused" Send="AnimSetPausedAll 0" />
+    <HostSiteOps Ops="SOpAttachOriginSoft" HoldRotation="1" />
+  </CActorModel>
+  <CActorSound id="PulledSoundHeroBarbarian" parent="SoundOneShot">
+    <Sound value="Barbarian_VOX_Pulled" />
+  </CActorSound>
+  <CActorRange id="BarbarianWhirlwindRange" parent="StormRangeAbilPlusSplat" abil="BarbarianWhirlwind" />
+  <CActorSplat id="BarbarianWhirlwindRangeSplat" parent="StormRangeSplat">
+    <Scale value="2.500000" />
+  </CActorSplat>
+  <CActorModel id="BarbarianSeismicSlamSecondaryImpactModel" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.BarbarianSeismicSlamSecondaryDamage.Start; At Target" Send="Create" />
+    <On Terms="Effect.BarbarianSeismicSlamSecondaryShatteredGroundDamage.Start; At Target" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenter" HoldRotation="1" />
+    <Model value="BarbarianSeismicSlamShatteredGroundSecondaryImpact" />
+    <Scale value="0.750000" />
+  </CActorModel>
+  <CActorModel id="BarbarianWhirlwindImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <Inherits index="Scale" value="1" />
+    <On Terms="Effect.BarbarianWhirlwindDamageSet.Start; At Target" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenter" HoldRotation="1" />
+  </CActorModel>
+  <CActorRange id="BarbarianSeismicSlamRange" parent="StormRangeAbilPlusSplat" abil="BarbarianSeismicSlam" />
+  <CActorForceSphere id="BarbarianAncientSpearMissileScanForceSphere">
+    <On Terms="Effect.BarbarianAncientSpearMissileScan.Start" Send="Create" />
+    <HostSiteOps Ops="SOpTargetPoint" />
+    <Duration value="0.250000" />
+    <Magnitude value="40.000000" />
+    <Radius value="1.250000" />
+  </CActorForceSphere>
+  <CActorSplat id="BarbarianSeismicSlamRangeSplat" parent="StormRangeSplat">
+    <Scale value="2.250000" />
+  </CActorSplat>
+  <CActorModel id="BarbarianSeismicSlamSecondaryGroundImpactModel" parent="StormModelAnimationStyleOneShot">
+    <On Terms="Effect.BarbarianSeismicSlamSecondarySearch.Start; At Effect" Send="Create" />
+    <HostSiteOps Ops="SOpForwardCasterPoint SOp180" />
+    <Model value="BarbarianSeismicSlamShatteredGroundGroundImpact" />
+  </CActorModel>
+  <CActorForceCylinder id="BarbarianLeapForceCylinder">
+    <On Terms="Effect.BarbarianLeapSearchArea.Start" Send="Create" />
+    <HostSiteOps Ops="SOpTargetPoint" />
+    <Duration value="0.150000" />
+    <Magnitude value="75.000000" />
+    <HostEndSiteOps Ops="SOpTargetPoint SOpHigherBy3" />
+    <Radius value="3.000000" />
+  </CActorForceCylinder>
+  <CActorAction id="BarbarianAttack" parent="MeleeHeroAttack" effectAttack="BarbarianHeroWeaponDamage">
+    <ImpactMap index="None" Sound="BarbarianAttackImpactUnit" />
+    <ImpactMap index="Rock" Sound="Barbarian_AttackImpact_Building" />
+  </CActorAction>
+  <CActorModel id="BarbarianSeismicSlamCastFX" parent="StormModelAnimationStyleOneShotUnit" />
+  <CActorUnit id="HeroBarbarian" parent="StormHeroBasePredictive" unitName="HeroBarbarian">
+    <On Terms="ActorCreation" Send="AnimPlay DefaultFace DefaultFace PlayForever" />
+    <On Terms="Abil.BarbarianSeismicSlam.SourceCastStart" Send="AnimPlay Spell Spell,A DontResetOnUnhide -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.BarbarianSeismicSlam.SourceCastStart" Send="Create BarbarianSeismicSlamCastFX" />
+    <On Terms="Effect.BarbarianWhirlwindCreatePersistent.Start" Send="AnimPlay Channel Spell,B AssetDrivenLooping" />
+    <On Terms="Effect.BarbarianWhirlwindCreatePersistent.Start" Send="HostSiteOpsSet ::Host {SOpBasicScopeFollow SOpTipability} 0 1" />
+    <On Terms="Effect.BarbarianWhirlwindCreatePersistent.Stop" Send="AnimClear Channel" />
+    <On Terms="Effect.BarbarianWhirlwindCreatePersistent.Stop" Send="HostSiteOpsSet ::Host {SOpBasicScopeFollow SOpTipability}" />
+    <On Terms="Abil.BarbarianBattleCry.SourceCastStart" Send="AnimPlay Spell Spell,C 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Effect.LeapNoMovementDelayPersistent.Start" Send="AnimPlay Spell Spell,D,One 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Behavior.BarbarianLeap.On" Send="AnimBracketStart Spell Spell,D,Start Spell,D Spell,D,End" />
+    <On Terms="Behavior.BarbarianLeap.Off" Send="AnimBracketStop Spell" />
+    <On Terms="Abil.BarbarianWrathoftheBerserker.SourceCastStart" Send="AnimPlay Spell Spell,C 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.BarbarianBattleCry.SourceCastStart; AnimPlaying Channel" Send="AnimClear WorkStand" />
+    <On Terms="ModelEvent.*.FootprintLeft" Send="Create BarbarianFootstep" />
+    <On Terms="ModelEvent.*.FootprintRight" Send="Create BarbarianFootstep" />
+    <On Terms="Abil.BarbarianAncientSpear.SourceCastStart" Send="AnimPlay Spell Spell,E DontResetOnUnhide -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Effect.BarbarianAncientSpearInitialPersistent.Stop" Send="AnimClear Channel" />
+    <On Terms="Behavior.BarbarianAncientSpearSelfBuff.On" Send="AnimPlay Spell Spell,F" />
+    <On Terms="Behavior.BarbarianAncientSpearSelfBuff.Off" Send="AnimClear Spell" />
+    <On Terms="Effect.BarbarianAncientSpearSelfBuffFinalEffect.Start; IsStatus AncientSpearShouldSwing 1" Send="AnimPlay Spell Spell,F,End" />
+    <On Terms="Effect.BarbarianAncientSpearSelfBuffFinalEffect.Start" Send="StatusSet AncientSpearShouldSwing 0" />
+    <On Terms="Effect.BarbarianAncientSpearMysticalSpearCreatePersistent.Start" Send="StatusSet AncientSpearShouldSwing 0" />
+    <On Terms="Effect.BarbarianLeapMinDistanceLandingDummy.Stop" Send="AnimPlay Spell Spell,D,End 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Behavior.BarbarianWrathoftheBerserkerBase.On" Send="SetScale 1.150000 0.250000" />
+    <On Terms="Behavior.BarbarianWrathoftheBerserkerBase.Off" Send="SetScale 1.000000 0.250000" />
+    <On Terms="Abil.BarbarianShotofFury.SourceCastStart" Send="AnimPlay Spell Spell,Omni" />
+    <On Terms="Abil.BarbarianBattleRage.SourceCastStart; !AnimPlaying Spell" Send="AnimPlay Spell Spell,Omni" />
+    <On Terms="Abil.BarbarianNervesOfSteel.SourceCastStart; !AnimPlaying Spell" Send="AnimPlay Spell Spell,Omni" />
+    <On Terms="Abil.BarbarianIgnorePain.SourceCastStart; !AnimPlaying Spell" Send="AnimPlay Spell Spell,Omni" />
+    <On Terms="Behavior.BarbarianWhirlwindRandomSoundController.On" Send="StatusSet WWSoundTimer 1" />
+    <On Terms="Behavior.BarbarianWhirlwindRandomSoundController.On" Send="StatusSet WWSound 0" />
+    <On Terms="Behavior.BarbarianWhirlwindRandomSoundController.On; ValidatePlayer HasBarbarianMasteryLifeFunnelWhirlwind" Send="StatusSet WWSound 2" />
+    <On Terms="Effect.BarbarianWhirlwindRandomSoundController.Start; At Caster" Send="StatusDecrement WWSoundTimer" />
+    <On Terms="Effect.BarbarianWhirlwindRandomSoundController.Start; At Caster; PassChance 33.000000" Send="StatusDecrement WWSoundTimer" />
+    <On Terms="Effect.BarbarianWhirlwindRandomSoundController.Start; At Caster; PassChance 33.000000" Send="StatusDecrement WWSoundTimer" />
+    <On Terms="StatusOff.*.WWSoundTimer; IsStatus WWSound 2" Send="Create Barbarian_Whirlwind_Fast_Whoosh" />
+    <On Terms="StatusOff.*.WWSoundTimer" Send="StatusSet WWSoundTimer 5" />
+    <On Terms="AnimPlay; AnimPlaying Dance Dance" Target="BarbarianWrathOfTheBerserkerLeftHandModel" Send="SetVisibility" />
+    <On Terms="AnimDone; AnimName Dance" Target="BarbarianWrathOfTheBerserkerLeftHandModel" Send="SetVisibility 1" />
+    <On Terms="AnimPlay; AnimPlaying Spell Dance" Target="BarbarianWrathOfTheBerserkerLeftHandModel" Send="SetVisibility" />
+    <On Terms="AnimClear; AnimName Spell" Target="BarbarianWrathOfTheBerserkerLeftHandModel" Send="SetVisibility 1" />
+    <On Terms="Effect.BarbarianAncientSpearImpactSet.Start" Send="StatusSet AncientSpearShouldSwing 1" />
+    <On Terms="ModelEvent; ModelEventName Barbarian_Attack_00" Send="Create BarbarianAttackWeaponSwoosh" />
+    <On Terms="ModelEvent; ModelEventName Barbarian_Attack_01" Send="Create BarbarianAttackWeaponSwoosh1" />
+    <On Terms="ModelEvent; ModelEventName Barbarian_Attack_02" Send="Create BarbarianAttackWeaponSwoosh2" />
+    <On Terms="Abil.BarbarianStridingGiant.SourceCastStart; !AnimPlaying Spell" Send="AnimPlay Spell Spell,Omni" />
+    <DeathArray index="Normal" SoundLink="HeroBarbarian_Death" VoiceLink="Barbarian_Death" />
+    <PortraitActor value="BarbarianPortrait" />
+    <PortraitModel value="BarbarianPortrait" />
+    <AbilSoundArray AbilCmd="BarbarianAncientSpear,Execute" Sound="Barbarian_VOX_CastingA" />
+    <AbilSoundArray AbilCmd="BarbarianSeismicSlam,Execute" Sound="StormNoSound" />
+    <AbilSoundArray AbilCmd="BarbarianWhirlwind,Execute" Sound="StormNoSound" />
+    <AbilSoundArray AbilCmd="BarbarianLeap,Execute" Sound="StormNoSound" />
+    <AbilSoundArray AbilCmd="BarbarianWrathoftheBerserker,Execute" Sound="Barbarian_Ultimate2Used" />
+    <ErrorArray Error="NotEnoughEnergy" Text="Error/NotEnoughFury" Sound="Barbarian_LowMana" />
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_partyframe_barbarian.dds" />
+    </GroupIcon>
+    <HeroIcon value="Assets\Textures\ui_targetportrait_hero_barbarian.dds" />
+    <MinimapIcon value="Assets\Textures\storm_ui_minimapicon_heros_femalebarbarian.dds" />
+    <SoundArray index="Ready" value="Barbarian_Revive" />
+    <SoundArray index="Yes" value="Barbarian_Yes" />
+    <SoundArray index="Attack" value="Barbarian_Attack" />
+    <SoundArray index="Pissed" value="Barbarian_Pissed" />
+    <UnitIcon value="Assets\Textures\ui_targetportrait_hero_barbarian.dds" />
+    <Wireframe>
+      <Image value="Assets\Textures\ui_targetportrait_hero_barbarian.dds" />
+    </Wireframe>
+    <VitalNames index="Energy" value="UI/HeroEnergyType/Fury" />
+    <MinimapIconBackgroundScale value="0.950000" />
+    <CustomUnitStatusFrame value="UnitStatus/HeroUnitStatusFrameOrangeEnergy" />
+    <Preload value="BarbarianLeapGroundImpact" />
+  </CActorUnit>
+  <CActorModel id="HeroBarbarianDeathRagdoll" parent="StormHeroDeathRagdoll" />
+  <CActorModel id="BarbarianWrathOfTheBerserkerLeftHandModel" parent="StormModelAddition">
+    <Aliases value="_TimeStopAffectedActor" />
+    <Inherits index="Visibility" value="1" />
+    <On Terms="Behavior.BarbarianWrathoftheBerserkerBase.On" Send="Create" />
+    <On Terms="Behavior.BarbarianWrathoftheBerserkerBase.Off" Send="Destroy" />
+    <On Terms="StatusOn.*.TimeStopPaused" Send="AnimSetPausedAll" />
+    <On Terms="StatusOff.*.TimeStopPaused" Send="AnimSetPausedAll 0" />
+    <Host Subject="_Unit" />
+    <HostSiteOps Ops="SOpAttachWeaponLeft" />
+    <Model value="BarbarianWrathoftheBerserkerModelLH" />
+    <ModelFlags index="AllowHitTest" value="0" />
+  </CActorModel>
+  <CActorModel id="BarbarianWrathOfTheBerserkerRightHandModel" parent="StormModelAddition">
+    <Aliases value="_TimeStopAffectedActor" />
+    <Inherits index="Visibility" value="1" />
+    <On Terms="Behavior.BarbarianWrathoftheBerserkerBase.On" Send="Create" />
+    <On Terms="Behavior.BarbarianWrathoftheBerserkerBase.Off" Send="Destroy" />
+    <On Terms="StatusOn.*.TimeStopPaused" Send="AnimSetPausedAll" />
+    <On Terms="StatusOff.*.TimeStopPaused" Send="AnimSetPausedAll 0" />
+    <Host Subject="_Unit" />
+    <HostSiteOps Ops="SOpAttachWeaponRight" />
+    <Model value="BarbarianWrathoftheBerserkerModelRH" />
+    <ModelFlags index="AllowHitTest" value="0" />
+  </CActorModel>
+  <CActorModel id="BarbarianAncientSpearPoisonDamage" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.BarbarianAncientSpearMasteryPoisonDamage.Start; At Source" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenter" />
+  </CActorModel>
+  <CActorRange id="BarbarianLeapRange" parent="StormRangeAbilPlusSplat" abil="BarbarianLeap" />
+  <CActorSplat id="BarbarianLeapRangeSplat" parent="StormRangeSplat">
+    <Scale value="11.100000" />
+  </CActorSplat>
+  <CActorQuad id="BarbarianAncientSpearGuide" parent="StormGuideVisualQuadDownClosestFantasy" abil="BarbarianAncientSpear">
+    <Height value="8.420000" />
+    <Width value="1.250000" />
+  </CActorQuad>
+  <CActorModel id="BarbarianAncientSpearTentacle">
+    <Inherits index="CloakEffect" value="1" />
+    <On Terms="Effect.BarbarianAncientSpearLaunchMissile.Start; At Caster" Send="Create" />
+    <On Terms="ActorCreation" Send="StatusSet PlayRetractSound 0" />
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Work,A" />
+    <On Terms="Effect.BarbarianAncientSpearMissedMissile.Start" Send="AnimBracketStop BSD" />
+    <On Terms="AnimBracketState.*.AfterClosing; AnimName BSD" Send="Destroy" />
+    <On Terms="Effect.BarbarianAncientSpearDestroyInitialPersistent.Start" Send="Destroy" />
+    <On Terms="Abil.BarbarianAncientSpear.SourceChannelStop; ValidateUnit CasterNotSilenced" Send="Destroy" />
+    <On Terms="Abil.BarbarianAncientSpear.SourceChannelStop; ValidateUnit CasterIsTaunted" Send="Destroy" />
+    <On Terms="ActorOrphan" Send="Destroy" />
+    <On Terms="UnitDeathCustomize" Send="Destroy" />
+    <On Terms="ModelEvent; ModelEventName PlayRetractSound" Send="StatusSet PlayRetractSound 1" />
+    <On Terms="AnimBracketStop; IsStatus PlayRetractSound 1" Send="Create Barbarian_Chain_Retract" />
+    <On Terms="Effect.BarbarianAncientSpearDamage.Start" Send="Create BarbarianAncientSpearLinkImpactSite" />
+    <On Terms="Effect.BarbarianAncientSpearDamage.Start" Send="RefSetFromRequest StitchesMissileLink BarbarianAncientSpearLinkImpactSite" />
+    <On Terms="Effect.BarbarianAncientSpearDestroyTentacleDummy.Start; ValidateUnit TargetIsTimeStopped" Send="Destroy" />
+    <On Terms="Abil.BarbarianAncientSpear.SourceChannelStop; ValidateUnit CasterIsPolymorphed" Send="Destroy" />
+    <On Terms="Abil.BarbarianAncientSpear.SourceChannelStop; ValidateUnit CasterIsSilenced" Send="TimerSet 0.250000 DestroyDelay" />
+    <On Terms="TimerExpired; TimerName DestroyDelay" Send="Destroy" />
+    <Host Subject="_Selectable" />
+    <HostSiteOps Ops="SOpAttachHandLeft" />
+    <HostedAttaches Name="StitchesMissileLink">
+      <AttachQuery Methods="Weapon" />
+    </HostedAttaches>
+    <ModelFlags index="AllowHitTest" value="0" />
+    <ModelFlags index="AutomateGlobalLoops" value="1" />
+  </CActorModel>
+  <CActorSplat id="BarbarianLeapCursorSplat" parent="StormGuideVisualCircle" abil="BarbarianLeap">
+    <Model value="BarbarianLeapCursorSplat" />
+  </CActorSplat>
+  <CActorModel id="BarbarianLeapGroundImpact" parent="StormModelAnimationStyleOneShot">
+    <On Terms="Effect.BarbarianLeapLandingSet.Start" Send="Create" />
+    <Host Scope="Effect" />
+  </CActorModel>
+  <CActorModel id="BarbarianLeapImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <Inherits index="BaseModelScale" value="1" />
+    <Inherits index="Scale" value="1" />
+    <On Terms="Effect.BarbarianLeapDamage.Start; At Target" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenter" HoldPosition="1" HoldRotation="1" />
+    <AutoScaleFactor value="1.000000" />
+  </CActorModel>
+  <CActorAction id="BarbarianAncientSpearAttack" parent="GenericAttackPointStorm" effectImpact="BarbarianAncientSpearMissedMissile" effectLaunch="BarbarianAncientSpearLaunchMissile">
+    <LaunchAttachQuery Methods="AMFilterHandLeft" />
+    <LaunchAssets Sound="Barbarian_Spear_Launch" />
+    <ImpactPointSiteOps Ops="SOpTargetPointStationary SOpForwardAncientSpear SOpShadow BarbarianAncientSpearOffset" />
+    <ShieldFlashType value="None" />
+  </CActorAction>
+  <CActorSiteOpLocalOffset id="BarbarianAncientSpearOffset">
+    <LocalOffset Z="1.750000" />
+  </CActorSiteOpLocalOffset>
+  <CActorModel id="BarbarianAncientSpearImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.BarbarianAncientSpearDamage.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="Create BarbarianAncientSpearImpactSound" />
+    <HostSiteOps Ops="SOpAttachCenter" HoldRotation="1" />
+  </CActorModel>
+  <CActorUnit id="BarbarianLeapArreatCraterTalentCollisionUnit" parent="StormMinionStandard" unitName="BarbarianLeapArreatCraterCollision">
+    <Model value="Invisible" />
+    <BuildModel value="Invisible" />
+    <PlacementModel value="Invisible" />
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_hero_icon_placeholder.dds" />
+    </GroupIcon>
+    <HighlightTooltip value="Unit/Name/ConcussiveBlastScrap" />
+    <UnitIcon value="Assets\Textures\storm_btn_d3_witchdoctor_wallofzombies.dds" />
+    <Wireframe>
+      <Image value="Assets\Textures\storm_ui_ingame_hero_icon_placeholder.dds" />
+    </Wireframe>
+  </CActorUnit>
+  <CActorSite id="BarbarianAncientSpearLinkImpactSite">
+    <HostSiteOps Ops="SOpTargetUnit SOpAttachCenter SOpForwardLaunchGuideInverted" />
+  </CActorSite>
+  <CActorModel id="BarbarianLeapArreatCraterCast" parent="StormModelAnimationStyleContinuous">
+    <On Terms="Effect.BarbarianLeapArreatCraterDummyPersistent.Start" Send="Create" />
+    <On Terms="Effect.BarbarianLeapArreatCraterDummyPersistent.Stop" Send="AnimBracketStop BSD" />
+    <HostSiteOps Ops="SOpTargetPointStationary SOpShadow" />
+    <Model value="BarbarianLeapCraterImpact" />
+    <HostedAttaches Name="Seg0">
+      <AttachQuery Methods="Hardpoint 0" />
+      <HostSiteOps Ops="SOpShadow" />
+    </HostedAttaches>
+    <HostedAttaches Name="Seg1">
+      <AttachQuery Methods="Hardpoint 1" />
+      <HostSiteOps Ops="SOpShadow" />
+    </HostedAttaches>
+    <HostedAttaches Name="Seg2">
+      <AttachQuery Methods="Hardpoint 2" />
+      <HostSiteOps Ops="SOpShadow" />
+    </HostedAttaches>
+    <HostedAttaches Name="Seg3">
+      <AttachQuery Methods="Hardpoint 3" />
+      <HostSiteOps Ops="SOpShadow" />
+    </HostedAttaches>
+    <HostedAttaches Name="Seg4">
+      <AttachQuery Methods="Hardpoint 4" />
+      <HostSiteOps Ops="SOpShadow" />
+    </HostedAttaches>
+    <HostedAttaches Name="Seg5">
+      <AttachQuery Methods="Hardpoint 5" />
+      <HostSiteOps Ops="SOpShadow" />
+    </HostedAttaches>
+  </CActorModel>
+  <CActorMissile id="BarbarianAncientSpearMissedReturnMissile" parent="StormMissileWithDeath" unitName="BarbarianAncientSpearReturnMissile">
+    <Supporter>
+      <Subject value="BarbarianAncientSpearTentacle" />
+      <Scope value="Caster" />
+      <Actor value="Find" />
+      <Effect value="BarbarianAncientSpearLaunchMissile" />
+    </Supporter>
+    <On Terms="MotionPhaseStart; MotionPhase" Target="::Supporter" Send="RefSet StitchesMissileLink ::Self" />
+    <HostSiteOps Ops="SOpAttachCenter SOpForwardCasterPointInverted" HoldRotation="1" />
+    <Model value="Invisible" />
+  </CActorMissile>
+  <CActorMissile id="BarbarianAncientSpearAttackMissile" parent="StormMissileWithDeath" unitName="BarbarianAncientSpearMissile">
+    <Supporter>
+      <Subject value="BarbarianAncientSpearTentacle" />
+      <Scope value="Caster" />
+      <Actor value="Find" />
+      <Effect value="BarbarianAncientSpearLaunchMissile" />
+    </Supporter>
+    <On Terms="MotionPhaseStart; MotionPhase" Target="::Supporter" Send="RefSet StitchesMissileLink ::Self" />
+    <Model value="Invisible" />
+  </CActorMissile>
+  <CBehaviorAbility id="BarbarianBattleRageItem">
+    <Buttons Face="BarbarianBattleRage" Type="AbilCmd" AbilCmd="BarbarianBattleRage,Execute" />
+  </CBehaviorAbility>
+  <CBehaviorAbility id="BarbarianIgnorePainItem">
+    <Buttons Face="BarbarianIgnorePain" Type="AbilCmd" AbilCmd="BarbarianIgnorePain,Execute" />
+  </CBehaviorAbility>
+  <CBehaviorAbility id="BarbarianNervesOfSteelItem">
+    <Buttons Face="BarbarianNervesOfSteel" Type="AbilCmd" AbilCmd="BarbarianNervesOfSteel,Execute" />
+  </CBehaviorAbility>
+  <CBehaviorAbility id="BarbarianWrathOfTheBerserkerStridingGiantItem">
+    <Buttons Face="BarbarianStridingGiantActive" Type="AbilCmd" AbilCmd="BarbarianStridingGiant,Execute" />
+  </CBehaviorAbility>
+  <CBehaviorBuff id="SonyaFuryCarry" parent="CarryBehaviorParent">
+    <DamageResponse Chance="1" Handled="BarbarianRegen2Fury" Priority="96" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianToughAsNailsCarry" parent="CarryBehaviorParent">
+    <DisableValidatorArray value="BarbarianHasFuryBuff" />
+    <PeriodicEffect value="BarbarianToughAsNailsCarryPeriodicSet" />
+    <Period value="0.0625" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianRampageCarry" parent="CarryBehaviorParent">
+    <Modification>
+      <DamageDealtFraction index="Basic" value="0.25" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianWrathOfTheBerserkerStridingGiantTalentHealthBuff">
+    <BehaviorCategories index="BuffTempMaxHealth" value="1" />
+    <DisableValidatorArray value="BarbarianHasWrathoftheBerserker" />
+    <Modification>
+      <VitalMaxFractionArray index="Life" value="0.1" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianWrathOfTheBerserkerStridingGiantTalentUnstoppableBuff" parent="StormUnstoppableParent">
+    <Duration value="2" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianSeismicSlamShotOfFuryTalentBuff">
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+    <DamageResponse Chance="1" Handled="BarbarianSeismicSlamShotOfFuryTalentDamageResponseSet" Location="Attacker">
+      <RequireEffectArray value="BarbarianHeroWeaponDamage" />
+      <ValidatorArray value="CasterNotBlindedAndTargetNotEvading" />
+      <Kind index="Splash" value="0" />
+      <Kind index="Ability" value="0" />
+    </DamageResponse>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianNervesOfSteel" parent="StormShield">
+    <Duration value="3" />
+    <DamageResponse>
+      <ModifyLimitVitalMaxFractionArray index="Life" value="0.25" />
+    </DamageResponse>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianAncientSpearCompositeSpearTalentArmor" parent="StormArmor">
+    <Duration value="4" />
+    <ArmorModification>
+      <AllArmorBonus value="25" />
+    </ArmorModification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianWarPaintCarry" parent="CarryBehaviorParent">
+    <Face value="BarbarianFuryWarPaintTalent" />
+    <Modification>
+      <VitalDamageLeechArray index="Life">
+        <KindArray index="Basic" value="0.3" />
+      </VitalDamageLeechArray>
+      <VitalDamageLeechScoreArray Value="SelfHealing" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianFuryTraitMoveSpeedBuff" parent="StormSprint">
+    <Face value="BarbarianFury" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_sonya_fury.dds" />
+    <BuffFlags index="UpdateDurationWhileDisabled" value="1" />
+    <Duration value="4" />
+    <Modification>
+      <UnifiedMoveSpeedFactor value="0.1" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianLeapArreatCraterDummyBehavior">
+    <BuffFlags index="UpdateDurationWhileDisabled" value="1" />
+    <Duration value="5" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianLeapArreatCraterTimedLife" parent="StormTimedLife">
+    <Duration value="5" />
+    <ExpireEffect value="StormSuicide" />
+    <Modification>
+      <StateFlags index="Benign" value="1" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianAncientSpearMasteryPoison" parent="StormDot">
+    <Duration value="6" />
+    <Period value="1" />
+    <PeriodCount value="6" />
+    <PeriodicEffect value="BarbarianAncientSpearMasteryPoisonDamage" />
+    <PeriodicDisplayEffect value="BarbarianAncientSpearMasteryPoisonDamage" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianAncientSpearSelfBuff">
+    <BuffFlags index="UpdateDurationWhileDisabled" value="1" />
+    <Duration value="0.5" />
+    <FinalEffect value="BarbarianAncientSpearSelfBuffFinalEffect" />
+    <RemoveValidatorArray value="CasterNotDazedOrDeadOrPolymorphedOrRootedOrStasisOrStunnedExceptTimeStop" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianAncientSpearStun" parent="StormStun">
+    <Duration value="0.75" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianSeismicSlamSuppressionBehavior">
+    <BuffFlags index="UpdateDurationWhileDisabled" value="1" />
+    <Duration value="0.25" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianWrathoftheBerserkerSuppressionBehavior">
+    <BuffFlags index="UpdateDurationWhileDisabled" value="1" />
+    <Duration value="0.25" />
+  </CBehaviorBuff>
+  <CBehaviorTokenCounter id="BarbarianFuriousBlowsTokenCounter" parent="StormGenericToken">
+    <Face value="BarbarianSeismicSlamFuriousBlowTalent" />
+    <Alignment value="Positive" />
+    <MinStackCountDisplayed value="1" />
+    <ConditionalEvents CompareValue="4">
+      <Event Effect="BarbarianSeismicSlamFuriousBlowTalentModifyPlayer" ValidRange="4,4" />
+    </ConditionalEvents>
+    <ConditionalEvents CompareValue="1">
+      <Event Effect="BarbarianSeismicSlamFuriousBlowTalentResetPlayer" ValidRange="1,1" />
+    </ConditionalEvents>
+    <Min value="1" />
+    <Max value="4" />
+  </CBehaviorTokenCounter>
+  <CBehaviorBuff id="BarbarianLeapMinDistanceBehavior">
+    <BuffFlags index="UpdateDurationWhileDisabled" value="1" />
+    <Duration value="0.2" />
+    <FinalEffect value="BarbarianLeapMinDistanceLandingDummy" />
+    <Modification>
+      <Height value="6" />
+      <HeightTime index="Start" value="0.2" />
+      <HeightTime index="Stop" value="0.125" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianShotofFuryCarryBehavior">
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianWrathoftheBerserkerBase">
+    <Alignment value="Positive" />
+    <InfoFlags index="AlwaysUseGameText" value="1" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_sonya_wrathoftheberserker.dds" />
+    <BehaviorCategories index="Restorable" value="1" />
+    <BehaviorCategories index="BuffAutoattackDPS" value="1" />
+    <DisplayDuration index="Ally" value="1" />
+    <DisplayDuration index="Enemy" value="1" />
+    <DisplayPriority value="1001" />
+    <Duration value="15" />
+    <Modification>
+      <DamageDealtFraction index="Basic" value="0.4" />
+      <DamageDealtFraction index="Ability" value="0.4" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianLeap" parent="StormUnstoppableParent">
+    <Duration value="5" />
+    <BuffFlags index="Channeled" value="1" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianLeapStun" parent="StormStun">
+    <Duration value="1.25" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianWhirlwindChannel">
+    <Alignment value="Positive" />
+    <InfoFlags index="AlwaysUseGameText" value="1" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_sonya_whirlwind.dds" />
+    <BehaviorCategories index="Restorable" value="1" />
+    <RemoveValidatorArray value="CasterDoesNotHaveInCargo" />
+    <RemoveValidatorArray value="CasterNotStasisExceptTimeStop" />
+    <Duration value="3" />
+    <Period value="0.5" />
+    <PeriodCount value="8" />
+    <InitialEffect value="BarbarianWhirlwindInitialBehaviorSet" />
+    <PeriodicEffect value="BarbarianWhirlwindSearchArea" />
+    <FinalEffect value="BarbarianWhirlwindFinalSet" />
+    <Modification>
+      <StateFlags index="SuppressAttack" value="1" />
+      <StateFlags index="SuppressCloak" value="1" />
+      <StateFlags index="SuppressCollision" value="1" />
+      <AbilLinkDisableArray value="BarbarianSeismicSlam" />
+      <AbilLinkDisableArray value="BarbarianLeap" />
+      <AbilLinkDisableArray value="BarbarianWrathoftheBerserker" />
+      <AbilLinkDisableArray value="BarbarianAncientSpear" />
+      <AbilLinkDisableArray value="Mount" />
+      <AbilLinkDisableArray value="Hearthstone" />
+      <AbilLinkDisableArray value="FountainDrink" />
+      <AbilLinkDisableArray value="CaptureMacGuffin" />
+      <AbilLinkDisableArray value="CaptureMacGuffinTwo" />
+      <AbilLinkDisableArray value="UseVehicle" />
+      <AbilLinkDisableArray value="SmartCommandUnitInteraction" />
+      <AbilLinkDisableArray value="MapMechanicAbilityTarget" />
+      <AbilLinkDisableArray value="MapMechanicAbilityTarget2" />
+      <WeaponArray Link="HeroBarbarianWhirlwindDummy" />
+      <WeaponDisableArray value="HeroBarbarian" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianWhirlwindRandomSoundController">
+    <Duration value="4" />
+    <Period value="0.1" />
+    <PeriodicEffect value="BarbarianWhirlwindRandomSoundController" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianIgnorePain" parent="StormArmor">
+    <Alignment value="Positive" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_Talent_Resistance.dds" />
+    <BehaviorCategories index="BuffResistant" value="1" />
+    <Duration value="4" />
+    <ArmorModification>
+      <AllArmorBonus value="60" />
+    </ArmorModification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianToughAsNailsChargedCountdown">
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+    <Duration value="15.9375" />
+    <FinalEffect value="BarbarianToughAsNailsApplyArmor" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianToughAsNailsChargedArmorBehavior" parent="StormArmor">
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+    <RemoveValidatorArray value="BarbarianHasToughAsNailsTalentSource" />
+    <MaxStackCount value="3" />
+    <ArmorModification>
+      <ArmorSet index="Hero">
+        <ArmorMitigationTable index="Basic" value="60" />
+      </ArmorSet>
+    </ArmorModification>
+    <DisableValidatorArray value="BarbarianHasGTE1ChargeOfToughAsNails" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="BarbarianToughAsNailsCharged" parent="CarryBehaviorParent">
+    <Face value="BarbarianToughAsNails" />
+    <Alignment value="Positive" />
+    <InfoFlags index="Hidden" value="0" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_talent_block.dds" />
+    <SortIndex value="10" />
+    <BuffFlags index="RemoveDamageResponseExhausted" value="0" />
+    <Period value="0.0625" />
+    <InitialEffect value="BarbarianToughAsNailsApplyBlockCountdown" />
+    <PeriodicEffect value="BarbarianToughAsNailsApplyBlockCountdown" />
+    <DamageResponse>
+      <Chance value="1" />
+      <Handled value="BarbarianToughAsNailsRemoveSet" />
+      <TargetFilters value="Heroic;Structure" />
+      <Priority value="55" />
+      <Cost>
+        <Charge>
+          <CountMax value="3" />
+          <CountUse value="1" />
+          <Location value="Player" />
+          <TimeStart value="16" />
+          <TimeUse value="16" />
+        </Charge>
+      </Cost>
+      <Kind index="Ability" value="0" />
+      <ProvideCategories index="Proc" value="1" />
+    </DamageResponse>
+  </CBehaviorBuff>
+  <CButton id="BarbarianToughAsNails" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_block.dds" />
+  </CButton>
+  <CButton id="BarbarianRampage" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_autoattack_damage.dds" />
+  </CButton>
+  <CButton id="BarbarianStridingGiant" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_wrathoftheberserker.dds" />
+  </CButton>
+  <CButton id="BarbarianStridingGiantActive" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_wrathoftheberserker_b.dds" />
+    <HotkeyAlias value="BarbarianStridingGiant" />
+  </CButton>
+  <CButton id="BarbarianNervesOfSteel" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_nervesofsteel.dds" />
+  </CButton>
+  <CButton id="BarbarianGiantSlammer" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_sonya_seismicslam.dds" />
-    <TooltipAppender Validator="HasBarbarianMasteryFuriousBlowSeismicSlam" Face="BarbarianSeismicSlamFuriousBlowTalent" />
-    <TooltipAppender Validator="HasBarbarianMasteryShatteredGroundSeismicSlam" Face="BarbarianSeismicSlamShatteredGroundTalent" />
-    <TooltipAppender Validator="BarbarianHasGiantSlammerTalent" Face="BarbarianGiantSlammer" />
+  </CButton>
+  <CButton id="BarbarianBattleRage" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_mercenarylord.dds" />
+  </CButton>
+  <CButton id="BarbarianRuthless" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_whirlwind.dds" />
+  </CButton>
+  <CButton id="BarbarianHurricaneWhirlwindTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_whirlwind.dds" />
+  </CButton>
+  <CButton id="BarbarianFuryWarPaintTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_autoattack_heal.dds" />
+  </CButton>
+  <CButton id="BarbarianWrathoftheBerserkerCancel" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
+  </CButton>
+  <CButton id="BarbarianLeapArreatCraterCancel" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
+  </CButton>
+  <CButton id="BarbarianFuryNoEscapeTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_fury.dds" />
+  </CButton>
+  <CButton id="BarbarianFuryFerociousHealing" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_ferocioushealing.dds" />
+  </CButton>
+  <CButton id="BarbarianLeapArreatCraterTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_leap.dds" />
+  </CButton>
+  <CButton id="BarbarianAncientSpearMysticalSpearTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_ancientspear.dds" />
+  </CButton>
+  <CButton id="BarbarianAncientSpearPoisonedSpearTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_ancientspear.dds" />
+  </CButton>
+  <CButton id="BarbarianAncientSpearCompositeSpearTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_ancientspear.dds" />
+  </CButton>
+  <CButton id="BarbarianWhirlwindLifeFunnelTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_whirlwind.dds" />
+  </CButton>
+  <CButton id="BarbarianSeismicSlamShatteredGroundTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_seismicslam.dds" />
+  </CButton>
+  <CButton id="BarbarianSeismicSlamFuriousBlowTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_seismicslam.dds" />
+  </CButton>
+  <CButton id="BarbarianFuryShotOfFury" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_fury.dds" />
+    <TooltipAppender Validator="HasBarbarianCombatStyleWarPaint" Face="BarbarianFuryWarPaintTalent" />
+    <TooltipAppender Validator="HasBarbarianCombatStyleShotofFury" Face="BarbarianFuryShotOfFuryTalent" />
+    <TooltipAppender Validator="HasBarbarianCombatStyleNoEscape" Face="BarbarianFuryNoEscapeTalent" />
+    <Tooltip value="Button/Tooltip/BarbarianFury" />
+  </CButton>
+  <CButton id="BarbarianFuryShotOfFuryTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_fury.dds" />
+  </CButton>
+  <CButton id="BarbarianAncientSpear" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_ancientspear.dds" />
+    <TooltipAppender Validator="HasBarbarianMasteryPoisonedSpearAncientSpear" Face="BarbarianAncientSpearPoisonedSpearTalent" />
+    <TooltipAppender Validator="HasBarbarianMasteryMysticalSpearAncientSpear" Face="BarbarianAncientSpearMysticalSpearTalent" />
+    <TooltipAppender Validator="HasBarbarianMasteryCompositeSpearAncientSpear" Face="BarbarianAncientSpearCompositeSpearTalent" />
+  </CButton>
+  <CButton id="BarbarianWrathoftheBerserker" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_wrathoftheberserker.dds" />
+    <TooltipAppender Validator="BarbarianHasStridingGiantTalent" Face="BarbarianStridingGiant" />
+  </CButton>
+  <CButton id="BarbarianFury" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_fury.dds" />
+    <TooltipAppender Validator="HasBarbarianCombatStyleWarPaint" Face="BarbarianFuryWarPaintTalent" />
+    <TooltipAppender Validator="HasBarbarianCombatStyleShotofFury" Face="BarbarianFuryShotOfFuryTalent" />
+    <TooltipAppender Validator="HasBarbarianCombatStyleNoEscape" Face="BarbarianFuryNoEscapeTalent" />
+  </CButton>
+  <CButton id="BarbarianWhirlwindCancel" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
   </CButton>
   <CButton id="BarbarianWhirlwind" parent="StormButtonParentFury">
     <Icon value="Assets\Textures\storm_ui_icon_sonya_whirlwind.dds" />
@@ -77,4 +1096,1864 @@
     <TooltipAppender Validator="BarbarianHasRuthlessTalent" Face="BarbarianRuthless" />
     <TooltipCooldownOverrideText value="Button/CooldownOverride/BarbarianWhirlwind" />
   </CButton>
+  <CButton id="BarbarianLeap" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_leap.dds" />
+    <TooltipAppender Validator="HasBarbarianMasteryArreatCraterLeap" Face="BarbarianLeapArreatCraterTalent" />
+  </CButton>
+  <CButton id="BarbarianSeismicSlam" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_seismicslam.dds" />
+    <TooltipAppender Validator="HasBarbarianMasteryFuriousBlowSeismicSlam" Face="BarbarianSeismicSlamFuriousBlowTalent" />
+    <TooltipAppender Validator="HasBarbarianMasteryShatteredGroundSeismicSlam" Face="BarbarianSeismicSlamShatteredGroundTalent" />
+    <TooltipAppender Validator="BarbarianHasGiantSlammerTalent" Face="BarbarianGiantSlammer" />
+  </CButton>
+  <CButton id="BarbarianIgnorePain" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_ignorepain.dds" />
+  </CButton>
+  <CEffectDamage id="BarbarianHeroWeaponGiantSlammerTalentProcDamage" parent="StormSpellPercentDamage">
+    <ValidatorArray value="TargetIsHero" />
+    <ValidatorArray value="TargetNotInvulnerable" />
+    <ValidatorArray value="BarbarianHasGiantSlammerTalent" />
+    <ValidatorArray value="CasterNotBlindedAndTargetNotEvading" />
+    <VitalFractionMax index="Life" value="0.0124" />
+    <LeechFraction index="Life" value="1" />
+  </CEffectDamage>
+  <CEffectModifyUnit id="BarbarianAncientSpearMysticalSpearTalentModifyCooldown">
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="BarbarianAncientSpear,Execute" CooldownOperation="Add" CooldownTimeUse="-5" />
+  </CEffectModifyUnit>
+  <CEffectCreatePersistent id="BarbarianToughAsNailsChargedBehaviorInitialDelayPersistent">
+    <WhichLocation Value="TargetUnit" />
+    <InitialDelay value="0.0625" />
+    <FinalEffect value="BarbarianToughAsNailsInitialApply3StacksArmor" />
+  </CEffectCreatePersistent>
+  <CEffectApplyBehavior id="BarbarianToughAsNailsInitialApply3StacksArmor">
+    <WhichUnit Value="Source" />
+    <Behavior value="BarbarianToughAsNailsChargedArmorBehavior" />
+    <Chance value="0" />
+    <Count value="3" />
+  </CEffectApplyBehavior>
+  <CEffectDamage id="BarbarianWhirlwindRuthlessTalentDamage" parent="StormSpell">
+    <ValidatorArray value="BarbarianRuthlessTalentValidatorCombine" />
+    <Amount value="25.2" />
+  </CEffectDamage>
+  <CEffectApplyBehavior id="BarbarianSeismicSlamApplyShotOfFuryTalentBuff">
+    <ValidatorArray index="0" value="HasBarbarianCombatStyleShotofFury" />
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarbarianSeismicSlamShotOfFuryTalentBuff" />
+  </CEffectApplyBehavior>
+  <CEffectRemoveBehavior id="BarbarianSeismicSlamRemoveShotOfFuryTalentBuff">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="BarbarianSeismicSlamShotOfFuryTalentBuff" />
+    <Count value="1" />
+  </CEffectRemoveBehavior>
+  <CEffectSet id="BarbarianSeismicSlamShotOfFuryTalentDamageResponseSet">
+    <EffectArray value="BarbarianSeismicSlamRemoveShotOfFuryTalentBuff" />
+  </CEffectSet>
+  <CEffectSet id="BarbarianToughAsNailsCarryPeriodicSet">
+    <EffectArray value="BarbarianToughAsNailsModifyPlayer" />
+    <EffectArray value="BarbarianToughAsNailsModifyCountdownDuration" />
+  </CEffectSet>
+  <CEffectModifyBehaviorBuffDuration id="BarbarianToughAsNailsModifyCountdownDuration">
+    <Behavior value="BarbarianToughAsNailsChargedCountdown" />
+    <Value value="-0.125" />
+  </CEffectModifyBehaviorBuffDuration>
+  <CEffectModifyPlayer id="BarbarianToughAsNailsModifyPlayer">
+    <Cost>
+      <Charge>
+        <CountMax value="3" />
+        <Link value="Behavior/BarbarianToughAsNailsCharged" />
+        <Location value="Player" />
+        <TimeUse value="-0.125" />
+      </Charge>
+    </Cost>
+  </CEffectModifyPlayer>
+  <CEffectSet id="BarbarianToughAsNailsRemoveSet">
+    <EffectArray value="BlockDummyDamage" />
+    <EffectArray value="BarbarianToughAsNailsDummyDamage" />
+    <EffectArray value="BarbarianToughAsNailsDummyDamageTarget" />
+    <EffectArray value="BarbarianToughAsNailsRemoveArmor" />
+  </CEffectSet>
+  <CEffectDamage id="BarbarianToughAsNailsDummyDamageTarget">
+    <LaunchLocation Value="CasterUnit" />
+    <ImpactLocation Value="TargetUnit" />
+    <Flags index="NoFractionDealtBonus" value="1" />
+    <Flags index="NoBehaviorResponse" value="1" />
+    <Flags index="NoDamageTimerReset" value="1" />
+  </CEffectDamage>
+  <CEffectDamage id="BarbarianToughAsNailsDummyDamage">
+    <ImpactLocation Value="TargetUnit" />
+    <Flags index="NoFractionDealtBonus" value="1" />
+    <Flags index="NoBehaviorResponse" value="1" />
+    <Flags index="NoDamageTimerReset" value="1" />
+  </CEffectDamage>
+  <CEffectApplyBehavior id="BarbarianToughAsNailsApplyBlockCountdown">
+    <ValidatorArray index="0" value="BarbarianToughAsNailsApplyCombine" />
+    <WhichUnit Value="Source" />
+    <Behavior value="BarbarianToughAsNailsChargedCountdown" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="BarbarianToughAsNailsApplyArmor">
+    <WhichUnit Value="Source" />
+    <Behavior value="BarbarianToughAsNailsChargedArmorBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectRemoveBehavior id="BarbarianToughAsNailsRemoveArmor">
+    <WhichUnit Value="Source" />
+    <BehaviorLink value="BarbarianToughAsNailsChargedArmorBehavior" />
+    <Count value="1" />
+  </CEffectRemoveBehavior>
+  <CEffectModifyUnit id="BarbarianHeroWeaponRampageTalentModifyUnit">
+    <ValidatorArray value="CasterNotBlindedAndTargetNotEvading" />
+    <ValidatorArray value="BarbarianHasRampageTalent" />
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="BarbarianAncientSpear,Execute" CooldownOperation="Add" CooldownTimeUse="-0.5" />
+  </CEffectModifyUnit>
+  <CEffectApplyBehavior id="BarbarianWrathOfTheBerserkerApplyStridingGiantTalentUnstoppableBuff">
+    <ValidatorArray index="0" value="BarbarianHasWrathoftheBerserker" />
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarbarianWrathOfTheBerserkerStridingGiantTalentUnstoppableBuff" />
+  </CEffectApplyBehavior>
+  <CEffectDamage id="BarbarianSeismicSlamGiantSlammerTalentProcDamage" parent="StormSpellPercentDamage">
+    <ValidatorArray value="BarbarianHasGiantSlammerTalent" />
+    <ValidatorArray value="TargetIsHero" />
+    <VitalFractionMax index="Life" value="0.0124" />
+    <LeechFraction index="Life" value="1" />
+  </CEffectDamage>
+  <CEffectModifyPlayer id="BarbarianSeismicSlamFuriousBlowTalentResetPlayer">
+    <EffectArray Operation="Set" Reference="Abil,BarbarianSeismicSlam,Cost.Vital[Energy]" Value="25" />
+  </CEffectModifyPlayer>
+  <CEffectSwitch id="BarbarianSeismicSlamFuriousBlowTalentSwitch">
+    <ValidatorArray value="HasBarbarianMasteryFuriousBlowSeismicSlam" />
+    <CaseArray Validator="BarbarianHasGTE4FuriousBlowToken" Effect="BarbarianSeismicSlamFuriousBlowsTalentResetToken" />
+    <CaseDefault value="BarbarianSeismicSlamFuriousBlowsTalentModifyToken" />
+  </CEffectSwitch>
+  <CEffectModifyTokenCount id="BarbarianSeismicSlamFuriousBlowsTalentModifyToken" parent="BaseEffectModifyTokenCount">
+    <ValidatorArray value="HasBarbarianMasteryFuriousBlowSeismicSlam" />
+    <TokenId value="BarbarianFuriousBlowsTokenCounter" />
+  </CEffectModifyTokenCount>
+  <CEffectModifyTokenCount id="BarbarianSeismicSlamFuriousBlowsTalentResetToken" parent="BaseEffectModifyTokenCount">
+    <CollationId value="BarbarianSeismicSlamFuriousBlowsTalentModifyToken" />
+    <TokenId value="BarbarianFuriousBlowsTokenCounter" />
+    <Operation value="Set" />
+    <ValidatorArray value="BarbarianHasGTE4FuriousBlowToken" />
+    <ContextUnit Value="Caster" />
+  </CEffectModifyTokenCount>
+  <CEffectApplyBehavior id="BarbarianNervesOfSteelApplyBuff">
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarbarianNervesOfSteel" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="BarbarianAncientSpearApplyCompositeSpearTalentArmor">
+    <ValidatorArray index="0" value="HasBarbarianMasteryCompositeSpearAncientSpear" />
+    <ValidatorArray value="TargetIsHero" />
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarbarianAncientSpearCompositeSpearTalentArmor" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="BarbarianAncientSpearImpactTalentSet">
+    <EffectArray value="BarbarianAncientSpearApplyMasteryPoison" />
+    <EffectArray value="BarbarianAncientSpearApplyCompositeSpearTalentArmor" />
+  </CEffectSet>
+  <CEffectCreateHealer id="BarbarianBattleRageCreateHealer" parent="StormSelfOnlyHealingSpellPercent">
+    <ImpactUnit Value="Caster" />
+    <RechargeVitalFraction value="0.1" />
+  </CEffectCreateHealer>
+  <CEffectSet id="BarbarianBattleRageCastSet">
+    <ValidatorArray value="CasterLifeNotFull" />
+    <EffectArray value="BarbarianBattleRageCreateHealer" />
+  </CEffectSet>
+  <CEffectSet id="BarbarianSeismicSlamImpactTalentSet">
+    <EffectArray value="BarbarianDeflectApplyBehavior" />
+    <EffectArray value="BarbarianSeismicSlamApplyShotOfFuryTalentBuff" />
+    <EffectArray value="BarbarianSeismicSlamGiantSlammerTalentProcDamage" />
+  </CEffectSet>
+  <CEffectModifyUnit id="BarbarianAncientSpearSelfBuffFinalEffect">
+    <ValidatorArray value="BarbarianAncientSpearTargetWithinMeleeRange" />
+    <ImpactUnit Value="Caster" />
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="BarbarianLeapArreatCraterApplyCancelCooldown">
+    <ValidatorArray value="HasBarbarianMasteryArreatCraterLeap" />
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="BarbarianCancelLeapArreatCrater,Execute" CooldownOperation="Set" CooldownTimeUse="1" />
+  </CEffectModifyUnit>
+  <CEffectSwitch id="BarbarianSeismicSlamFuriousBlowModifyPlayerSwitch">
+    <CaseDefault value="BarbarianSeismicSlamFuriousBlowTalentModifyPlayer" />
+  </CEffectSwitch>
+  <CEffectModifyPlayer id="BarbarianSeismicSlamFuriousBlowTalentModifyPlayer">
+    <EffectArray Operation="Set" Reference="Abil,BarbarianSeismicSlam,Cost.Vital[Energy]" Value="0" />
+  </CEffectModifyPlayer>
+  <CEffectRemoveBehavior id="BarbarianWhirlwindHurricaneTalentRemoveCC">
+    <ValidatorArray index="0" value="HasBarbarianMasteryHurricaneWhirlwind" />
+    <WhichUnit Value="Caster" />
+    <BehaviorCategories index="Slow" value="1" />
+    <BehaviorCategories index="DebuffRoot" value="1" />
+  </CEffectRemoveBehavior>
+  <CEffectSwitch id="BarbarianAncientSpearLaunchBarbarianSwitch">
+    <CaseArray Validator="BarbarianAncientSpearTargetWithinMeleeRange" Effect="BarbarianAncientSpearMeleeRangeDelayPersistent" />
+    <CaseDefault value="BarbarianAncientSpearLaunchBarbarian" />
+    <ValidatorArray value="CasterNotRooted" />
+  </CEffectSwitch>
+  <CEffectCreatePersistent id="BarbarianAncientSpearMeleeRangeDelayPersistent">
+    <WhichLocation Value="TargetUnit" />
+    <ExpireDelay value="0.0625" />
+    <ExpireEffect value="BarbarianAncientSpearTravelImpactSet" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="BarbarianAncientSpearAttackPersistent">
+    <WhichLocation Value="TargetUnit" />
+    <InitialDelay value="0.0625" />
+    <FinalEffect value="BarbarianHeroWeaponSet" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="BarbarianAncientSpearInitialPersistentFinalSet">
+    <EffectArray value="BarbarianFuryTraitApplyMoveSpeedBuff" />
+    <EffectArray value="BarbarianAncientSpearApplyFollowThroughBehavior" />
+  </CEffectSet>
+  <CEffectModifyUnit id="BarbarianAncientSpearDestroyTentacleDummy" />
+  <CEffectSet id="BarbarianAncientSpearMissileDestructionSet">
+    <EffectArray value="BarbarianAncientSpearMissedMissile" />
+    <EffectArray value="BarbarianAncientSpearDestroyMissileScanPersistent" />
+  </CEffectSet>
+  <CEffectModifyUnit id="BarbarianAncientSpearModifyWeaponCooldown">
+    <ImpactUnit Value="Caster" />
+    <Weapon Weapon="HeroBarbarian" CooldownOperation="Set" CooldownFraction="1" />
+  </CEffectModifyUnit>
+  <CEffectRedirectMissile id="BarbarianAncientSpearReDirectBarbarian">
+    <WhichUnit Value="Source" />
+    <ImpactLocation Value="TargetUnit" />
+  </CEffectRedirectMissile>
+  <CEffectModifyUnit id="BarbarianSeismicSlamModifyWeaponCooldown">
+    <ImpactUnit Value="Caster" />
+    <Weapon Weapon="HeroBarbarian" CooldownOperation="Max" />
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="BarbarianRegen2FuryRegenAngerManagementFury">
+    <ImpactUnit Value="Source" />
+    <VitalArray index="Energy">
+      <Change value="4" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectSwitch id="BarbarianRegen2FuryRegenFurySwitch">
+    <CaseArray Validator="BarbarianWrathoftheBerserkerAngerManagementFuryGainValidatorComine" Effect="BarbarianRegen2FuryRegenAngerManagementFury" />
+    <CaseDefault value="BarbarianRegen2Fury" />
+  </CEffectSwitch>
+  <CEffectModifyUnit id="BarbarianFuryBasicAttackModifyUnit">
+    <ImpactUnit Value="Source" />
+    <VitalArray index="Energy">
+      <Change value="6" />
+    </VitalArray>
+    <ValidatorArray value="CasterNotBlindedAndTargetNotEvading" />
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="BarbarianFuryBasicAttackAngerManagementTalentModifyUnit">
+    <ImpactUnit Value="Source" />
+    <VitalArray index="Energy">
+      <Change value="12" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectSwitch id="BarbarianRegen6FuryRegenFurySwitch">
+    <CaseArray Validator="BarbarianWrathoftheBerserkerAngerManagementFuryGainValidatorComine" Effect="BarbarianFuryBasicAttackAngerManagementTalentModifyUnit" />
+    <CaseDefault value="BarbarianFuryBasicAttackModifyUnit" />
+  </CEffectSwitch>
+  <CEffectModifyUnit id="BarbarianShotOfFuryRegenFuryModifyUnit">
+    <ImpactUnit Value="Caster" />
+    <VitalArray index="Energy">
+      <Change value="50" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectSet id="BarbarianWhirlwindFinalSet">
+    <EffectArray value="BarbarianWhirlwindRemoveRandomSoundControllerBehavior" />
+    <EffectArray value="BarbarianWhirlwindModifyCooldown" />
+    <EffectArray value="BarbarianWhirlwindRemoveChannelBehavior" />
+    <EffectArray value="BarbarianWhirlwindDestroyPersistent" />
+  </CEffectSet>
+  <CEffectDamage id="BarbarianWhirlwindHeroDamage" parent="StormSpell">
+    <Amount value="63" />
+    <LeechFraction index="Life" value="0.75" />
+  </CEffectDamage>
+  <CEffectSwitch id="BarbarianWhirlwindHeroDamageSwitch">
+    <CaseArray Validator="TargetIsHero" Effect="BarbarianWhirlwindHeroDamage" />
+    <CaseDefault value="BarbarianWhirlwindDamage" />
+  </CEffectSwitch>
+  <CEffectModifyUnit id="BarbarianWhirlwindModifyCooldown">
+    <ImpactUnit Value="Source" />
+    <Cost Abil="BarbarianWhirlwind,Execute" CooldownOperation="Set" CooldownTimeUse="5" />
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="BarbarianAncientSpearRegenFuryModifyUnit">
+    <ImpactUnit Value="Caster" />
+    <VitalArray index="Energy">
+      <Change value="40" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectSwitch id="BarbarianAncientSpearMysticalSpearTargetSwitch">
+    <CaseArray Validator="BarbarianAncientSpearPlacementValid" Effect="BarbarianAncientSpearMysticalSpearTargetNotUnstoppable" />
+    <CaseDefault value="BarbarianAncientSpearMissedMissile" />
+    <TargetLocationType value="UnitOrPoint" />
+  </CEffectSwitch>
+  <CEffectModifyUnit id="BarbarianShotOfFuryModifyEnergyInitial">
+    <ImpactUnit Value="Caster" />
+    <VitalArray index="Energy">
+      <Change value="-50" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectApplyBehavior id="BarbarianFuryTraitApplyMoveSpeedBuff">
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarbarianFuryTraitMoveSpeedBuff" />
+  </CEffectApplyBehavior>
+  <CEffectSwitch id="BarbarianSeismicSlamSecondaryDamageSwitch">
+    <CaseArray Validator="HasBarbarianMasteryShatteredGroundSeismicSlam" Effect="BarbarianSeismicSlamSecondaryShatteredGroundDamage" />
+    <CaseDefault value="BarbarianSeismicSlamSecondaryDamage" />
+  </CEffectSwitch>
+  <CEffectDamage id="BarbarianSeismicSlamSecondaryShatteredGroundDamage" parent="StormSpell">
+    <ValidatorArray value="DoesNotHaveBarbarianBashSuppression" />
+    <ImpactLocation Value="TargetUnit" />
+    <Amount value="176" />
+    <MultiplicativeModifierArray index="BattleRage" Validator="BarbarianTargetIsMercenaryandCasterHasBattleRage" Modifier="0.25" />
+  </CEffectDamage>
+  <CEffectSet id="BarbarianSeismicSlamSecondarySet">
+    <EffectArray value="BarbarianSeismicSlamSecondaryCleavePersistent" />
+    <EffectArray value="BarbarianSeismicSlamCameraShakeCasterSwitch" />
+    <EffectArray value="BarbarianSeismicSlamCameraShakeTargetSwitch" />
+    <EffectArray value="BarbarianFuryTraitApplyMoveSpeedBuff" />
+  </CEffectSet>
+  <CEffectDamage id="BarbarianSeismicSlamShatteredGroundDummy">
+    <Chance value="0" />
+  </CEffectDamage>
+  <CEffectApplyBehavior id="BarbarianLeapArreatCraterApplyDummyBehavior">
+    <ValidatorArray index="0" value="HasBarbarianMasteryArreatCraterLeap" />
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarbarianLeapArreatCraterDummyBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectEnumArea id="BarbarianLeapArreatCraterCancelSearch">
+    <LaunchLocation Value="CasterUnit" />
+    <SearchFilters value="-;Ally,Neutral,Enemy" />
+    <AreaArray Effect="BarbarianLeapArreatCraterDestroyCollisionUnits">
+      <Radius value="200" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectDamage id="BarbarianLeapArreatCraterDestroyCollisionUnits" parent="StormSuicideParent">
+    <ValidatorArray value="BarbarianTargetIsArreatCraterUnit" />
+    <ImpactLocation Value="TargetUnit" />
+  </CEffectDamage>
+  <CEffectDestroyPersistent id="BarbarianLeapArreatCraterDestroyDummyPersistent">
+    <Effect value="BarbarianLeapArreatCraterDummyPersistent" />
+    <Count value="1" />
+    <Radius value="20" />
+  </CEffectDestroyPersistent>
+  <CEffectSet id="BarbarianLeapArreatCraterDestroySet">
+    <EffectArray value="BarbarianLeapArreatCraterCancelSearch" />
+    <EffectArray value="BarbarianLeapArreatCraterRemoveLeapDummyBehavior" />
+    <EffectArray value="BarbarianLeapArreatCraterDestroyDummyPersistent" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="BarbarianLeapArreatCraterRemoveLeapDummyBehavior">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="BarbarianLeapArreatCraterDummyBehavior" />
+  </CEffectRemoveBehavior>
+  <CEffectSet id="BarbarianShotOfFurySet">
+    <EffectArray value="BarbarianShotOfFuryRegenFuryModifyUnit" />
+  </CEffectSet>
+  <CEffectSet id="BarbarianWhirlwindInitialBehaviorSet">
+    <EffectArray value="BarbarianWhirlwindSearchArea" />
+    <EffectArray value="BarbarianWhirlwindApplyRandomSoundControllerBehavior" />
+    <EffectArray value="BarbarianWhirlwindSkewerTalentRemoveBuff" />
+  </CEffectSet>
+  <CEffectDamage id="BarbarianAncientSpearDummyDamage" parent="StormSpell">
+    <Amount value="160" />
+  </CEffectDamage>
+  <CEffectCreatePersistent id="BarbarianLeapArreatCraterDummyPersistent">
+    <ExpireDelay value="5" />
+    <InitialEffect value="BarbarianLeapArreatCraterApplyCancelCooldown" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="BarbarianLeapArreatCraterPeristent">
+    <OffsetFacingFallback Value="TargetPoint" />
+    <ExpireDelay value="5" />
+    <PeriodCount value="40" />
+    <PeriodicEffectArray value="BarbarianLeapArreatCraterCreateUnit" />
+    <PeriodicOffsetArray X="3.25" />
+    <PeriodicOffsetArray X="3.21" Y="0.5083" />
+    <PeriodicOffsetArray X="3.0908" Y="1.0043" />
+    <PeriodicOffsetArray X="2.8957" Y="1.4755" />
+    <PeriodicOffsetArray X="2.6293" Y="1.9104" />
+    <PeriodicOffsetArray X="2.298" Y="2.298" />
+    <PeriodicOffsetArray X="1.9104" Y="2.6293" />
+    <PeriodicOffsetArray X="1.4755" Y="2.8957" />
+    <PeriodicOffsetArray X="1.0043" Y="3.0908" />
+    <PeriodicOffsetArray X="0.5083" Y="3.21" />
+    <PeriodicOffsetArray Y="3.25" />
+    <PeriodicOffsetArray X="-0.5083" Y="3.21" />
+    <PeriodicOffsetArray X="-1.0043" Y="3.0908" />
+    <PeriodicOffsetArray X="-1.4755" Y="2.8957" />
+    <PeriodicOffsetArray X="-1.9104" Y="2.6293" />
+    <PeriodicOffsetArray X="-2.298" Y="2.298" />
+    <PeriodicOffsetArray X="-2.6293" Y="1.9104" />
+    <PeriodicOffsetArray X="-2.8957" Y="1.4755" />
+    <PeriodicOffsetArray X="-3.0908" Y="1.0043" />
+    <PeriodicOffsetArray X="-3.21" Y="0.5083" />
+    <PeriodicOffsetArray X="-3.25" />
+    <PeriodicOffsetArray X="-3.21" Y="-0.5083" />
+    <PeriodicOffsetArray X="-3.0908" Y="-1.0043" />
+    <PeriodicOffsetArray X="-2.8957" Y="-1.4755" />
+    <PeriodicOffsetArray X="-2.6293" Y="-1.9104" />
+    <PeriodicOffsetArray X="-2.298" Y="-2.298" />
+    <PeriodicOffsetArray X="-1.9104" Y="-2.6293" />
+    <PeriodicOffsetArray X="-1.4755" Y="-2.8957" />
+    <PeriodicOffsetArray X="-1.0043" Y="-3.0908" />
+    <PeriodicOffsetArray X="-0.5083" Y="-3.21" />
+    <PeriodicOffsetArray Y="-3.25" />
+    <PeriodicOffsetArray X="0.5083" Y="-3.21" />
+    <PeriodicOffsetArray X="1.0043" Y="-3.0908" />
+    <PeriodicOffsetArray X="1.4755" Y="-2.8957" />
+    <PeriodicOffsetArray X="1.9104" Y="-2.6293" />
+    <PeriodicOffsetArray X="2.298" Y="-2.298" />
+    <PeriodicOffsetArray X="2.6293" Y="-1.9104" />
+    <PeriodicOffsetArray X="2.8957" Y="-1.4755" />
+    <PeriodicOffsetArray X="3.0908" Y="-1.0043" />
+    <PeriodicOffsetArray X="3.21" Y="-0.5083" />
+    <PeriodicPeriodArray value="0" />
+    <Chance value="0" />
+    <InitialEffect value="BarbarianLeapArreatCraterDummyPersistent" />
+  </CEffectCreatePersistent>
+  <CEffectCreateUnit id="BarbarianLeapArreatCraterCreateUnit">
+    <WhichLocation Value="TargetPoint" />
+    <CreateFlags index="Placement" value="0" />
+    <CreateFlags index="PlacementIgnoreBlockers" value="1" />
+    <CreateFlags index="PlacementIgnoreCliffTest" value="1" />
+    <SpawnUnit value="BarbarianLeapArreatCraterCollision" />
+    <SpawnRange value="0.5" />
+  </CEffectCreateUnit>
+  <CEffectApplyBehavior id="BarbarianAncientSpearApplyMasteryPoison">
+    <Chance value="0" />
+    <Behavior value="BarbarianAncientSpearMasteryPoison" />
+    <ValidatorArray index="0" value="TargetNotDead" />
+  </CEffectApplyBehavior>
+  <CEffectDamage id="BarbarianAncientSpearMasteryPoisonDamage" parent="StormSpellDot">
+    <Amount value="28.83" />
+    <MultiplicativeModifierArray index="BattleRage" Validator="BarbarianTargetIsMercenaryandCasterHasBattleRage" Modifier="0.25" />
+  </CEffectDamage>
+  <CEffectSwitch id="BarbarianAncientSpearMissileImpactSwitch">
+    <CaseArray Validator="HasBarbarianMasteryMysticalSpearAncientSpear" Effect="BarbarianAncientSpearMysticalSpearImpactSet" />
+    <CaseDefault value="BarbarianAncientSpearMissedMissile" />
+  </CEffectSwitch>
+  <CEffectSet id="BarbarianAncientSpearMysticalSpearImpactSet">
+    <EffectArray value="BarbarianAncientSpearDestroyMissileScanPersistent" />
+    <EffectArray value="BarbarianAncientSpearMysticalSpearTargetSwitch" />
+    <EffectArray value="SuicideRemove" />
+  </CEffectSet>
+  <CEffectLaunchMissileAdvanced id="BarbarianAncientSpearMysticalSpearLaunchBarbarian" parent="StormLaunchUnitTargetPointValidated">
+    <LaunchLocation Value="CasterUnit" />
+    <ImpactEffect value="BarbarianAncientSpearMysticalSpearTravelImpactSet" />
+    <FinishEffect value="HeroGenericMissileInterruptLaunchMissileSource" />
+    <Flags index="PlacementOriginSideOfFootprints" value="1" />
+    <PlacementRange value="3" />
+    <Movers Link="BarbarianAncientSpearBarbarianMissile" />
+  </CEffectLaunchMissileAdvanced>
+  <CEffectSet id="BarbarianAncientSpearMysticalSpearTargetNotUnstoppable">
+    <EffectArray value="BarbarianAncientSpearApplyStun" />
+    <EffectArray value="BarbarianAncientSpearApplySelfBuff" />
+    <EffectArray value="BarbarianAncientSpearMysticalSpearCreatePersistent" />
+    <EffectArray value="CameraShakeLightCasterDummySet" />
+  </CEffectSet>
+  <CEffectSet id="BarbarianAncientSpearMysticalSpearTravelImpactSet">
+    <EffectArray value="BarbarianAncientSpearDestroyInitialPersistent" />
+    <EffectArray value="BarbarianAncientSpearRemoveSelfBuff" />
+    <EffectArray value="BarbarianAncientSpearMysticalSpearTalentModifyCooldown" />
+  </CEffectSet>
+  <CEffectSwitch id="BarbarianSeismicSlamCameraShakeCasterSwitch">
+    <CaseArray Validator="HasBarbarianFuriousBlowBehavior" Effect="CameraShakeMediumCasterDummySet" />
+    <CaseDefault value="CameraShakeLightCasterDummySet" />
+  </CEffectSwitch>
+  <CEffectSwitch id="BarbarianSeismicSlamCameraShakeTargetSwitch">
+    <CaseArray Validator="HasBarbarianFuriousBlowBehavior" Effect="CameraShakeMediumTauntingTotemSet" />
+    <CaseDefault value="CameraShakeLightTauntingTotemSet" />
+  </CEffectSwitch>
+  <CEffectDamage id="BarbarianSeismicSlamSecondaryDamage" parent="StormSpell">
+    <ValidatorArray value="DoesNotHaveBarbarianBashSuppression" />
+    <ImpactLocation Value="TargetUnit" />
+    <Amount value="44" />
+    <MultiplicativeModifierArray index="BattleRage" Validator="BarbarianTargetIsMercenaryandCasterHasBattleRage" Modifier="0.25" />
+  </CEffectDamage>
+  <CEffectSet id="BarbarianSeismicSlamDummySet" />
+  <CEffectCreatePersistent id="BarbarianSeismicSlamSecondaryCleavePersistent">
+    <OffsetVectorStartLocation Value="CasterPoint" />
+    <InitialEffect value="BarbarianSeismicSlamSecondarySearch" />
+    <PeriodCount value="2" />
+    <PeriodicEffectArray value="BarbarianSeismicSlamSecondarySearch" />
+    <PeriodicOffsetArray Y="-2" />
+    <PeriodicOffsetArray Y="-4" />
+    <PeriodicOffsetArray Y="-6" />
+    <PeriodicOffsetArray Y="-8" />
+    <PeriodicPeriodArray value="0.15" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="BarbarianSeismicSlamSecondaryImpactSet">
+    <EffectArray value="BarbarianSeismicSlamSecondaryDamageSwitch" />
+    <EffectArray value="BarbarianSeismicSlamGiantSlammerTalentProcDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <ValidatorArray value="noMarkers" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="BarbarianAncientSpearMysticalSpearCreatePersistent">
+    <ExpireDelay value="1.25" />
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="BarbarianAncientSpearMysticalSpearLaunchBarbarian" />
+    <PeriodicOffsetArray />
+    <PeriodicPeriodArray value="0" />
+  </CEffectCreatePersistent>
+  <CEffectCreateHealer id="BarbarianShotOfFuryHealer">
+    <ImpactUnit Value="Caster" />
+    <RechargeVital value="Energy" />
+    <RechargeVitalRate value="50" />
+  </CEffectCreateHealer>
+  <CEffectApplyBehavior id="BarbarianWrathOfTheBerserkerApplySuppressionBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarbarianWrathoftheBerserkerSuppressionBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="BarbarianAncientSpearApplySelfBuff">
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarbarianAncientSpearSelfBuff" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="BarbarianAncientSpearApplyStun">
+    <Behavior value="BarbarianAncientSpearStun" />
+    <ValidatorArray index="0" value="NotStructureTarget" />
+    <ValidatorArray value="TargetNotDeadOrUnstoppable" />
+  </CEffectApplyBehavior>
+  <CEffectDamage id="BarbarianAncientSpearDamage" parent="StormSpell">
+    <Amount value="173" />
+    <MultiplicativeModifierArray index="BattleRage" Validator="BarbarianTargetIsMercenaryandCasterHasBattleRage" Modifier="0.25" />
+  </CEffectDamage>
+  <CEffectDestroyPersistent id="BarbarianAncientSpearDestroyInitialPersistent">
+    <WhichLocation Value="OriginUnit" />
+    <Effect value="BarbarianAncientSpearInitialPersistent" />
+  </CEffectDestroyPersistent>
+  <CEffectDestroyPersistent id="BarbarianAncientSpearDestroyMissileScanPersistent">
+    <WhichLocation Value="SourcePoint" />
+    <Effect value="BarbarianAncientSpearMissileScanPersistent" />
+    <Count value="1" />
+    <Radius value="0.25" />
+  </CEffectDestroyPersistent>
+  <CEffectSet id="BarbarianAncientSpearImpactSet">
+    <EffectArray value="OverrideAttackTarget" />
+    <EffectArray value="BarbarianAncientSpearDestroyMissileScanPersistent" />
+    <EffectArray value="BarbarianAncientSpearTargetSwitch" />
+    <EffectArray value="BarbarianAncientSpearRegenFuryModifyUnit" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="BarbarianAncientSpearImpactTalentSet" />
+    <EffectArray value="SuicideRemove" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="BarbarianAncientSpearInitialPersistent">
+    <WhichLocation Value="CasterPoint" />
+    <Flags index="Channeled" value="1" />
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="BarbarianAncientSpearLaunchMissile" />
+    <PeriodicOffsetArray Y="-6.5" />
+    <PeriodicPeriodArray value="0" />
+    <FinalEffect value="BarbarianAncientSpearInitialPersistentFinalSet" />
+    <InitialEffect value="BarbarianAncientSpearModifyWeaponCooldown" />
+  </CEffectCreatePersistent>
+  <CEffectLaunchMissileAdvanced id="BarbarianAncientSpearLaunchBarbarian" parent="StormLaunchUnitTargetUnitValidated">
+    <LaunchLocation Value="CasterUnit" />
+    <ImpactEffect value="BarbarianAncientSpearTravelImpactSet" />
+    <FinishEffect value="HeroGenericMissileInterruptLaunchMissileSource" />
+    <SharedFlags index="ValidateAbil" value="0" />
+    <Flags index="Placement" value="1" />
+    <Flags index="PlacementOriginSideOfFootprints" value="1" />
+    <PlacementRange value="5" />
+    <Movers Link="BarbarianAncientSpearBarbarianMissile" />
+  </CEffectLaunchMissileAdvanced>
+  <CEffectLaunchMissile id="BarbarianAncientSpearLaunchMissile">
+    <ValidatorArray index="0" value="CasterNotDead" />
+    <ImpactLocation Value="TargetPoint" />
+    <LaunchOffset Y="-1" />
+    <LaunchEffect value="BarbarianAncientSpearMissileScanPersistent" />
+    <ImpactEffect value="BarbarianAncientSpearMissileImpactSwitch" />
+    <SharedFlags index="2D" value="1" />
+    <SharedFlags index="Channeled" value="1" />
+    <SharedFlags index="TravelValidation" value="1" />
+    <AmmoUnit value="BarbarianAncientSpearMissile" />
+    <ImpactRange value="0.125" />
+    <Movers Link="BarbarianAncientSpearMissile" />
+    <InterruptEffect value="BarbarianAncientSpearMissedMissile" />
+    <PeriodicValidator value="CasterNotDeadOrStunned" />
+  </CEffectLaunchMissile>
+  <CEffectLaunchMissile id="BarbarianAncientSpearMissedMissile">
+    <ImpactLocation Effect="BarbarianAncientSpearInitialPersistent" Value="CasterUnit" />
+    <ImpactEffect value="BarbarianAncientSpearDestroyInitialPersistent" />
+    <AmmoUnit value="BarbarianAncientSpearReturnMissile" />
+    <Movers Link="BarbarianAncientSpearReturnMissile" />
+  </CEffectLaunchMissile>
+  <CEffectEnumArea id="BarbarianAncientSpearMissileScan">
+    <LaunchLocation Effect="BarbarianAncientSpearInitialPersistent" Value="OriginPoint" />
+    <ImpactLocation Value="SourceUnit" />
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToSkillshots,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray MaxCount="1" Effect="BarbarianAncientSpearImpactSet">
+      <RectangleWidth value="1.25" />
+      <RectangleHeight value="2.5" />
+    </AreaArray>
+    <AreaRelativeOffset Y="-0.8" />
+    <RevealerParams Duration="0.75" ShapeExpansion="1">
+      <RevealFlags index="Unfog" value="1" />
+    </RevealerParams>
+    <MaxCount value="1" />
+  </CEffectEnumArea>
+  <CEffectCreatePersistent id="BarbarianAncientSpearMissileScanPersistent">
+    <WhichLocation Value="SourceUnit" />
+    <PeriodCount value="39" />
+    <PeriodicValidator value="BarbarianAncientSpearPeriodicValidatorCombine" />
+    <PeriodicEffectArray value="BarbarianAncientSpearMissileScan" />
+    <PeriodicPeriodArray value="0.05" />
+  </CEffectCreatePersistent>
+  <CEffectRemoveBehavior id="BarbarianAncientSpearRemoveSelfBuff">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="BarbarianAncientSpearSelfBuff" />
+  </CEffectRemoveBehavior>
+  <CEffectRemoveBehavior id="BarbarianAncientSpearRemoveStun">
+    <BehaviorLink value="BarbarianAncientSpearStun" />
+  </CEffectRemoveBehavior>
+  <CEffectEnumArea id="BarbarianAncientSpearSearchHero">
+    <LaunchLocation Effect="BarbarianAncientSpearInitialPersistent" Value="OriginPoint" />
+    <ImpactLocation Value="SourceUnit" />
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToSkillshots,Missile,Item,Stasis,Dead,Hidden" />
+    <TargetSorts RequestCount="1" RequestPercentage="1">
+      <SortArray value="TSHeroic" />
+    </TargetSorts>
+    <AreaArray MaxCount="1" Effect="BarbarianAncientSpearImpactSet">
+      <RectangleWidth value="1.25" />
+      <RectangleHeight value="2.25" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="BarbarianAncientSpearTargetIsNotUnstoppable">
+    <EffectArray value="BarbarianAncientSpearApplyStun" />
+    <EffectArray value="BarbarianAncientSpearApplySelfBuff" />
+    <EffectArray value="BarbarianAncientSpearLaunchBarbarianSwitch" />
+    <EffectArray value="BarbarianAncientSpearDamage" />
+    <EffectArray value="CameraShakeLightTauntingTotemSet" />
+    <EffectArray value="CameraShakeLightCasterDummySet" />
+  </CEffectSet>
+  <CEffectSet id="BarbarianAncientSpearTargetIsUnstoppable">
+    <EffectArray value="BarbarianAncientSpearDamage" />
+    <EffectArray value="BarbarianAncientSpearMissedMissile" />
+  </CEffectSet>
+  <CEffectSwitch id="BarbarianAncientSpearTargetSwitch">
+    <CaseArray Validator="BarbarianAncientSpearTargetIsStructureAndInMeleeRange" Effect="BarbarianAncientSpearTargetIsUnstoppable" />
+    <CaseDefault value="BarbarianAncientSpearTargetIsNotUnstoppable" />
+  </CEffectSwitch>
+  <CEffectCreatePersistent id="BarbarianLeapMinDistanceLandingDummy">
+    <WhichLocation Value="CasterUnit" />
+  </CEffectCreatePersistent>
+  <CEffectApplyBehavior id="BarbarianLeapNoMovementApplyBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarbarianLeapMinDistanceBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectModifyUnit id="BarbarianRegen8Fury">
+    <Marker Link="Effect/BarbarianRegen1Fury" />
+    <ImpactUnit Value="Source" />
+    <VitalArray index="Energy">
+      <Change value="8" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectSwitch id="BarbarianLeapDistanceSwitch">
+    <CaseArray Validator="LeapMinimumDistance" Effect="LeapNoMovementDelayPersistent" />
+    <CaseDefault value="BarbarianLeapInitialSet" />
+    <TargetLocationType value="Point" />
+    <ValidatorArray value="CasterNotRooted" />
+  </CEffectSwitch>
+  <CEffectSet id="BarbarianLeapNoMovementSet">
+    <ValidatorArray value="CasterNotDead" />
+    <EffectArray value="BarbarianLeapLandingSet" />
+    <TargetLocationType value="Point" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="LeapNoMovementDelayPersistent">
+    <WhichLocation Value="CasterUnit" />
+    <ExpireDelay value="0.3125" />
+    <ExpireEffect value="BarbarianLeapNoMovementSet" />
+    <InitialEffect value="BarbarianLeapNoMovementApplyBehavior" />
+    <Flags index="Channeled" value="1" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="BarbarianAncientSpearTravelImpactSet">
+    <EffectArray value="BarbarianAncientSpearDestroyInitialPersistent" />
+    <EffectArray value="BarbarianAncientSpearRemoveSelfBuff" />
+    <EffectArray value="BarbarianAncientSpearRemoveStun" />
+    <EffectArray value="BarbarianAncientSpearModifyWeaponCooldown" />
+    <EffectArray value="BarbarianAncientSpearAttackPersistent" />
+    <EffectArray value="BarbarianAncientSpearCompositeSpearTalentApplyStun" />
+  </CEffectSet>
+  <CEffectEnumArea id="BarbarianSeismicSlamSecondarySearch">
+    <ImpactLocation Value="TargetPoint" />
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="BarbarianSeismicSlamSecondaryImpactSet">
+      <RectangleWidth value="3" />
+      <RectangleHeight value="2" />
+    </AreaArray>
+    <RevealerParams Duration="0.75" ShapeExpansion="1">
+      <RevealFlags index="Unfog" value="1" />
+    </RevealerParams>
+    <LaunchLocation Value="OriginUnit" />
+  </CEffectEnumArea>
+  <CEffectSet id="BarbarianSeismicSlamSet">
+    <EffectArray value="BarbarianSeismicSlamDamage" />
+    <EffectArray value="BarbarianSeismicSlamFuriousBlowTalentSwitch" />
+    <EffectArray value="BarbarianSeismicSlamModifyWeaponCooldown" />
+    <EffectArray value="BarbarianSeismicSlamDummySet" />
+    <EffectArray value="BarbarianSeismicSlamIssueAttackOrder" />
+    <EffectArray value="BarbarianSeismicSlamSecondarySet" />
+    <EffectArray value="BarbarianSeismicSlamImpactTalentSet" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <Marker>
+      <MatchFlags index="Id" value="1" />
+    </Marker>
+  </CEffectSet>
+  <CEffectSwitch id="BarbarianWhirlwindDamageSwitch">
+    <CaseArray Validator="HasBarbarianBattleCry" Effect="BarbarianWhirlwindSpecialBattleCryDamage" />
+    <CaseDefault value="BarbarianWhirlwindDamage" />
+  </CEffectSwitch>
+  <CEffectSet id="BarbarianWhirlwindDummySet" />
+  <CEffectModifyUnit id="BarbarianRegen4Fury">
+    <Marker Link="Effect/BarbarianRegen1Fury" />
+    <ImpactUnit Value="Source" />
+    <VitalArray index="Energy">
+      <Change value="4" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectSet id="BarbarianWhirlwindDamageSet">
+    <EffectArray value="BarbarianWhirlwindHeroDamageSwitch" />
+    <EffectArray value="BarbarianWhirlwindHamstringSpiralApplySlow" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="BarbarianWhirlwindRuthlessTalentDamage" />
+  </CEffectSet>
+  <CEffectSet id="BarbarianLeapImpactSet">
+    <EffectArray value="BarbarianLeapApplyStunBehavior" />
+    <EffectArray value="BarbarianLeapDamage" />
+    <EffectArray value="CameraShakeMediumTauntingTotemSet" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="BarbarianWrathOfTheBerserkerApplyBehaviorBase">
+    <Behavior value="BarbarianWrathoftheBerserkerBase" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="BarbarianWrathOfTheBerserkerInitialSet">
+    <EffectArray value="BarbarianWrathOfTheBerserkerApplyBehaviorBase" />
+    <EffectArray value="BarbarianWrathOfTheBerserkerApplySuppressionBehavior" />
+    <EffectArray value="BarbarianFuryTraitApplyMoveSpeedBuff" />
+  </CEffectSet>
+  <CEffectModifyUnit id="BarbarianRegen2Fury">
+    <Marker Link="Effect/BarbarianRegen1Fury" />
+    <ImpactUnit Value="Source" />
+    <VitalArray index="Energy">
+      <Change value="2" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectSwitch id="BarbarianRegenFuryDamageDealtSwitch">
+    <CaseArray Validator="BarbarianHasAnimosity" Effect="BarbarianRegen8Fury" />
+    <CaseDefault value="BarbarianRegen4Fury" />
+  </CEffectSwitch>
+  <CEffectSwitch id="BarbarianRegenFuryDamageTakenSwitch">
+    <CaseArray Validator="BarbarianHasAnimosity" Effect="BarbarianRegen2Fury" />
+    <CaseDefault value="BarbarianRegen1Fury" />
+  </CEffectSwitch>
+  <CEffectApplyBehavior id="BarbarianLeapApplyJumpBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarbarianLeap" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="BarbarianLeapLandingSet">
+    <EffectArray value="BarbarianLeapSearchArea" />
+    <EffectArray value="BarbarianLeapRemoveJumpBehavior" />
+    <EffectArray value="BarbarianLeapArreatCraterPeristent" />
+    <EffectArray value="BarbarianLeapArreatCraterApplyDummyBehavior" />
+    <EffectArray value="CameraShakeHeavyCasterDummySet" />
+    <EffectArray value="BarbarianFuryTraitApplyMoveSpeedBuff" />
+    <TargetLocationType value="Point" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="BarbarianLeapApplyStunBehavior">
+    <Behavior value="BarbarianLeapStun" />
+  </CEffectApplyBehavior>
+  <CEffectDamage id="BarbarianLeapDamage" parent="StormSpell">
+    <Amount value="135" />
+    <MultiplicativeModifierArray index="BattleRage" Validator="BarbarianTargetIsMercenaryandCasterHasBattleRage" Modifier="0.25" />
+  </CEffectDamage>
+  <CEffectLaunchMissileAdvanced id="BarbarianLeapLaunchMissile" parent="StormLaunchUnitTargetPointValidated">
+    <LaunchLocation Value="CasterUnit" />
+    <ImpactEffect value="BarbarianLeapLandingSet" />
+    <Movers Link="BarbarianLeapMissile" IfRangeLTE="500" />
+  </CEffectLaunchMissileAdvanced>
+  <CEffectModifyUnit id="BarbarianLeapRegenFury">
+    <ImpactUnit Value="Caster" />
+    <VitalArray index="Energy">
+      <Change value="20" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectRemoveBehavior id="BarbarianLeapRemoveJumpBehavior">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="BarbarianLeap" />
+  </CEffectRemoveBehavior>
+  <CEffectSet id="BarbarianLeapInitialSet">
+    <ValidatorArray value="CasterNotRooted" />
+    <ValidatorArray value="CasterNotDead" />
+    <EffectArray value="BarbarianLeapApplyJumpBehavior" />
+    <TargetLocationType value="Point" />
+  </CEffectSet>
+  <CEffectEnumArea id="BarbarianLeapSearchArea">
+    <ImpactLocation Value="TargetPoint" />
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="BarbarianLeapImpactSet">
+      <Radius value="3" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+    <RevealerParams HeightMap="Ground" Duration="0.5" ShapeExpansion="0.5">
+      <RevealFlags index="Unfog" value="1" />
+    </RevealerParams>
+  </CEffectEnumArea>
+  <CEffectModifyUnit id="BarbarianWhirlwindCancelModifyCooldown">
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="BarbarianWhirlwindCancel,Execute" CooldownOperation="Set" CooldownTimeUse="1" />
+  </CEffectModifyUnit>
+  <CEffectSet id="BarbarianWhirlwindInitialSet">
+    <EffectArray value="BarbarianWhirlwindApplySkewerTalentBuff" />
+    <EffectArray value="BarbarianWhirlwindApplyChannelBehavior" />
+    <EffectArray value="BarbarianWhirlwindCancelModifyCooldown" />
+    <EffectArray value="BarbarianFuryTraitApplyMoveSpeedBuff" />
+    <EffectArray value="BarbarianWhirlwindHurricaneTalentRemoveCC" />
+    <EffectArray value="BarbarianDeflectApplyWhirlwindBehavior" />
+  </CEffectSet>
+  <CEffectDamage id="BarbarianSeismicSlamDamage" parent="StormSpell">
+    <ImpactLocation Value="TargetUnit" />
+    <Amount value="176" />
+    <MultiplicativeModifierArray index="FuriousBlows" Validator="BarbarianHasGTE4FuriousBlowToken" Modifier="0.5" Crit="1" />
+    <MultiplicativeModifierArray index="BattleRage" Validator="BarbarianTargetIsMercenaryandCasterHasBattleRage" Modifier="0.25" />
+  </CEffectDamage>
+  <CEffectCreatePersistent id="BarbarianWhirlwindCreatePersistent">
+    <ValidatorArray value="CasterNotDeadOrSilencedOrStunnedExceptTimeStop" />
+    <ValidatorArray value="DoesNotHaveBarbarianWhirlwind" />
+    <WhichLocation Value="CasterUnit" />
+    <InitialEffect value="BarbarianWhirlwindInitialSet" />
+    <FinalEffect value="BarbarianWhirlwindRemoveChannelBehavior" />
+    <PeriodCount value="6" />
+    <PeriodicValidator value="CasterNotDeadOrSilencedOrStunnedExceptTimeStop" />
+    <PeriodicEffectArray value="BarbarianWhirlwindDummySet" />
+    <PeriodicPeriodArray value="0.5" />
+    <RevealRadius value="3" />
+    <RevealFlags index="Unfog" value="1" />
+    <TimeScaleSource Value="Caster" />
+    <AINotifySettings AreaEffect="BarbarianWhirlwindSearchArea">
+      <Flags index="HurtsEnemy" value="1" />
+    </AINotifySettings>
+  </CEffectCreatePersistent>
+  <CEffectIssueOrder id="BarbarianSeismicSlamIssueAttackOrder">
+    <WhichUnit Value="Caster" />
+    <Abil value="attack" />
+    <Player Value="Caster" />
+    <Target Value="TargetUnit" />
+    <CmdFlags index="Preempt" value="1" />
+    <ValidatorArray value="CasterHasLE1Orders" />
+  </CEffectIssueOrder>
+  <CEffectModifyUnit id="BarbarianRegen1Fury">
+    <ImpactUnit Value="Source" />
+    <VitalArray index="Energy">
+      <Change value="1" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectDamage id="BarbarianWhirlwindDamage" parent="StormSpell">
+    <Amount value="63" />
+    <LeechFraction index="Life" value="0.25" />
+    <MultiplicativeModifierArray index="BattleRage" Validator="BarbarianTargetIsMercenaryandCasterHasBattleRage" Modifier="0.25" />
+  </CEffectDamage>
+  <CEffectDestroyPersistent id="BarbarianWhirlwindDestroyPersistent">
+    <Effect value="BarbarianWhirlwindCreatePersistent" />
+    <Count value="1" />
+  </CEffectDestroyPersistent>
+  <CEffectRemoveBehavior id="BarbarianWhirlwindRemoveChannelBehavior">
+    <WhichUnit Value="Source" />
+    <BehaviorLink value="BarbarianWhirlwindChannel" />
+  </CEffectRemoveBehavior>
+  <CEffectEnumArea id="BarbarianWhirlwindSearchArea">
+    <ImpactLocation Value="TargetUnit" />
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="BarbarianWhirlwindDamageSet">
+      <Radius value="2.5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectApplyBehavior id="BarbarianWhirlwindApplyChannelBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="BarbarianWhirlwindChannel" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="BarbarianWhirlwindApplyRandomSoundControllerBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="BarbarianWhirlwindRandomSoundController" />
+  </CEffectApplyBehavior>
+  <CEffectRemoveBehavior id="BarbarianWhirlwindRemoveRandomSoundControllerBehavior">
+    <WhichUnit Value="Source" />
+    <BehaviorLink value="BarbarianWhirlwindRandomSoundController" />
+  </CEffectRemoveBehavior>
+  <CEffectModifyUnit id="BarbarianWhirlwindRandomSoundController">
+    <ImpactUnit Value="Source" />
+  </CEffectModifyUnit>
+  <CEffectDamage id="BarbarianHeroWeaponDamage" parent="StormWeapon">
+    <MultiplicativeModifierArray index="ShotOfFury" Validator="BarbarianCasterHasShotOfFuryTalentBuff" Modifier="0.4" Crit="1" />
+    <MultiplicativeModifierArray index="BattleRage" Validator="BarbarianTargetIsMercenaryandCasterHasBattleRage" Modifier="0.25" />
+    <FlatModifierArray index="BoonOfBulKathos" Validator="BarbarianHasBoonOfBulKathosTalent" Accumulator="BarbarianBoonOfBulKathosDamageAccumulator" />
+    <SeenAs value="Normal" />
+    <Amount value="84" />
+    <SourceButtonFace value="Attack" />
+  </CEffectDamage>
+  <CEffectSet id="BarbarianHeroWeaponSet">
+    <EffectArray value="UniversalWeaponLaunchSet" />
+    <EffectArray value="BarbarianHeroWeaponDamage" />
+    <EffectArray value="BarbarianHeroWeaponGiantSlammerTalentProcDamage" />
+    <EffectArray value="BarbarianFuryBasicAttackModifyUnit" />
+    <EffectArray value="BarbarianHeroWeaponRampageTalentModifyUnit" />
+    <EffectArray value="UniversalWeaponImpact" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="BarbarianIgnorePainApplyBuff">
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarbarianIgnorePain" />
+  </CEffectApplyBehavior>
+  <CHero id="Barbarian" parent="LegacyVOHero">
+    <AIComplexityTier value="Mid" />
+    <AttributeId value="Barb" />
+    <ProductId value="10198" />
+    <Melee value="1" />
+    <RolesMultiClass value="Warrior" />
+    <RoleScoreValueOverride value="Warrior" />
+    <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_femalebarbarian.dds" />
+    <ScoreScreenImage value="Assets\Textures\storm_ui_ingame_hero_leaderboard_femalebarbarian.dds" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_D3.dds" />
+    <HyperlinkId value="Sonya" />
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Orange_Dark.dds" />
+    <ImageFacing value="Left" />
+    <SkinArray value="SonyaUltimate" />
+    <SkinArray value="BarbarianWrathFemale" />
+    <SkinArray value="SuperSonya" />
+    <SkinArray value="BarbarianLegionFemale" />
+    <SkinArray value="BarbarianDeathKnightFemale" />
+    <SkinArray value="BarbarianSummer18" />
+    <SkinArray value="BarbarianDeathKnightFemaleVar5" />
+    <DefaultMount value="BattleBeast" />
+    <VariationArray value="BarbarianBlue" />
+    <VariationArray value="BarbarianRed" />
+    <VariationArray value="BarbarianBaseVar3" />
+    <VariationArray value="BarbarianBaseVar4" />
+    <IntroCutsceneSize value="Medium" />
+    <TalentTreeArray Talent="BarbarianFuriousBlow" Tier="1" Column="1" />
+    <TalentTreeArray Talent="BarbarianWarPaint" Tier="1" Column="2" />
+    <TalentTreeArray Talent="BarbarianToughAsNails" Tier="1" Column="3" />
+    <TalentTreeArray Talent="BarbarianShatteredGround" Tier="2" Column="1" />
+    <TalentTreeArray Talent="BarbarianHurricane" Tier="2" Column="2" />
+    <TalentTreeArray Talent="BarbarianShotOfFury" Tier="2" Column="3" />
+    <TalentTreeArray Talent="BarbarianPoisonedSpear" Tier="3" Column="1" />
+    <TalentTreeArray Talent="BarbarianLifeFunnel" Tier="3" Column="2" />
+    <TalentTreeArray Talent="BarbarianBattleRage" Tier="3" Column="3" />
+    <TalentTreeArray Talent="BarbarianHeroicAbilityLeap" Tier="4" Column="1" />
+    <TalentTreeArray Talent="BarbarianHeroicAbilityWrathoftheBerserker" Tier="4" Column="2" />
+    <TalentTreeArray Talent="BarbarianMysticalSpear" Tier="5" Column="1" />
+    <TalentTreeArray Talent="BarbarianRuthless" Tier="5" Column="2" />
+    <TalentTreeArray Talent="BarbarianNoEscape" Tier="5" Column="3" />
+    <TalentTreeArray Talent="BarbarianGiantSlammer" Tier="6" Column="1" />
+    <TalentTreeArray Talent="BarbarianRampage" Tier="6" Column="2" />
+    <TalentTreeArray Talent="BarbarianNervesOfSteel" Tier="6" Column="3" />
+    <TalentTreeArray Talent="BarbarianArreatCrater" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="BarbarianHeroicAbilityLeap" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="BarbarianStridingGiant" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="BarbarianHeroicAbilityWrathoftheBerserker" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="BarbarianCompositeSpear" Tier="7" Column="3" />
+    <TalentTreeArray Talent="BarbarianIgnorePain" Tier="7" Column="4" />
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="BarbarianWarPaint" />
+      <TalentsArray value="BarbarianHurricane" />
+      <TalentsArray value="BarbarianPoisonedSpear" />
+      <TalentsArray value="BarbarianHeroicAbilityWrathoftheBerserker" />
+      <TalentsArray value="BarbarianMysticalSpear" />
+      <TalentsArray value="BarbarianNervesOfSteel" />
+      <TalentsArray value="BarbarianIgnorePain" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="BarbarianFuriousBlow" />
+      <TalentsArray value="BarbarianShatteredGround" />
+      <TalentsArray value="BarbarianLifeFunnel" />
+      <TalentsArray value="BarbarianHeroicAbilityWrathoftheBerserker" />
+      <TalentsArray value="BarbarianMysticalSpear" />
+      <TalentsArray value="BarbarianGiantSlammer" />
+      <TalentsArray value="BarbarianIgnorePain" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="BarbarianToughAsNails" />
+      <TalentsArray value="BarbarianShatteredGround" />
+      <TalentsArray value="BarbarianLifeFunnel" />
+      <TalentsArray value="BarbarianHeroicAbilityLeap" />
+      <TalentsArray value="BarbarianRuthless" />
+      <TalentsArray value="BarbarianNervesOfSteel" />
+      <TalentsArray value="BarbarianIgnorePain" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="BarbarianWarPaint" />
+      <TalentsArray value="BarbarianHurricane" />
+      <TalentsArray value="BarbarianPoisonedSpear" />
+      <TalentsArray value="BarbarianHeroicAbilityLeap" />
+      <TalentsArray value="BarbarianMysticalSpear" />
+      <TalentsArray value="BarbarianRampage" />
+      <TalentsArray value="BarbarianIgnorePain" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="BarbarianToughAsNails" />
+      <TalentsArray value="BarbarianHurricane" />
+      <TalentsArray value="BarbarianLifeFunnel" />
+      <TalentsArray value="BarbarianHeroicAbilityLeap" />
+      <TalentsArray value="BarbarianNoEscape" />
+      <TalentsArray value="BarbarianRampage" />
+      <TalentsArray value="BarbarianCompositeSpear" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="BarbarianFuriousBlow" />
+      <TalentsArray value="BarbarianHurricane" />
+      <TalentsArray value="BarbarianBattleRage" />
+      <TalentsArray value="BarbarianHeroicAbilityWrathoftheBerserker" />
+      <TalentsArray value="BarbarianRuthless" />
+      <TalentsArray value="BarbarianRampage" />
+      <TalentsArray value="BarbarianStridingGiant" />
+    </TalentAIBuildsArray>
+    <VOArray index="Cheer" value="Barbarian_VOX_Cheer" />
+    <VOArray index="MatchEnd" value="Barbarian_MatchEnd" />
+    <VOArray index="PingCapture" value="Barbarian_Ping_Capture" />
+    <VOArray index="PingCollect" value="Barbarian_Ping_Collect" />
+    <VOArray index="PingDefendStructure" value="Barbarian_Ping_DefendStructure" />
+    <VOArray index="PingDefendThing" value="Barbarian_Ping_DefendThing" />
+    <VOArray index="PingDestroyStructure" value="Barbarian_Ping_DestroyStructure" />
+    <VOArray index="PingDestroyThing" value="Barbarian_Ping_DestroyThing" />
+    <VOArray index="PingTransport" value="Barbarian_Ping_Transport" />
+    <VOArray index="PingTurnIn" value="Barbarian_Ping_TurnIn" />
+    <Difficulty value="Medium" />
+    <HeroTierAchievementId value="5216701565563773679" />
+    <Gender value="Female" />
+    <Universe value="Diablo" />
+    <LevelScalingArray Ability="BarbarianWhirlwind">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianWhirlwindDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianWhirlwindHeroDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianWhirlwindRuthlessTalentDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="BarbarianLeap">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianLeapDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="BarbarianAncientSpear">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianAncientSpearDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianAncientSpearDummyDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianAncientSpearMasteryPoisonDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="BarbarianSeismicSlam">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianSeismicSlamDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianSeismicSlamSecondaryDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianSeismicSlamSecondaryShatteredGroundDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianHeroWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroBarbarian" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroBarbarian" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroBarbarian" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <HeroAbilArray Abil="BarbarianAncientSpear" Button="BarbarianAncientSpear">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="BarbarianSeismicSlam" Button="BarbarianSeismicSlam">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="BarbarianWhirlwind" Button="BarbarianWhirlwind">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="BarbarianLeap" Button="BarbarianLeap">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="BarbarianWrathoftheBerserker" Button="BarbarianWrathoftheBerserker">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="BarbarianFury">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="BarbarianShotofFury">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <Flags index="GoodForModeA" value="1" />
+    <Flags index="GoodForModeB" value="1" />
+    <Ratings>
+      <Damage value="7" />
+      <Utility value="5" />
+      <Survivability value="6" />
+      <Complexity value="5" />
+    </Ratings>
+    <VoiceLineArray value="BarbarianBase_VoiceLine01" />
+    <VoiceLineArray value="BarbarianBase_VoiceLine02" />
+    <VoiceLineArray value="BarbarianBase_VoiceLine03" />
+    <VoiceLineArray value="BarbarianBase_VoiceLine04" />
+    <VoiceLineArray value="BarbarianBase_VoiceLine05" />
+    <HeroSpecificUIArray Location="ConsoleUICommandCardStatus" DescName="Sonya/BarbarianCommandCardFrame" />
+    <HeroSpecificUIArray Location="CommandButton05Status" DescName="Sonya/BarbarianFuryButtonOverride" />
+    <Rarity value="Epic" />
+    <ReleaseDate Month="3" Day="13" />
+    <ExpandedRole value="Bruiser" />
+  </CHero>
+  <CMoverMissile id="BarbarianAncientSpearMissile">
+    <MotionPhases>
+      <Driver value="Guidance" />
+      <Acceleration value="-5" />
+      <Speed value="25" />
+      <MinSpeed value="5" />
+      <MaxSpeed value="25" />
+      <ArrivalTestType value="2D" />
+      <Timeout value="5" />
+      <ThrowBandYaw value="-360,-360,-360,-360" />
+      <ThrowBandPitch value="-360,-360,-360,-360" />
+      <YawPitchRoll value="5759.6484" />
+    </MotionPhases>
+  </CMoverMissile>
+  <CMoverMissile id="BarbarianAncientSpearBarbarianMissile">
+    <MotionPhases>
+      <Driver value="Guidance" />
+      <Acceleration value="-5" />
+      <Speed value="25" />
+      <MinSpeed value="5" />
+      <MaxSpeed value="25" />
+      <ArrivalTestType value="2D" />
+      <Timeout value="5" />
+      <ThrowBandYaw value="-360,-360,-360,-360" />
+      <ThrowBandPitch value="-360,-360,-360,-360" />
+      <YawPitchRoll value="5759.6484" />
+    </MotionPhases>
+  </CMoverMissile>
+  <CMoverMissile id="BarbarianAncientSpearReturnMissile">
+    <MotionPhases>
+      <Driver value="Guidance" />
+      <Speed value="50" />
+      <MaxSpeed value="50" />
+      <ArrivalTestType value="3D" />
+      <Timeout value="5" />
+      <ThrowBandYaw value="-360,-360,-360,-360" />
+      <ThrowBandPitch value="-360,-360,-360,-360" />
+      <YawPitchRoll value="5759.6484" />
+    </MotionPhases>
+  </CMoverMissile>
+  <CMoverMissile id="BarbarianLeapMissile">
+    <MotionPhases>
+      <Driver value="AdaptableParabola" />
+      <Acceleration value="8" />
+      <MinSpeed value="36" />
+      <MaxSpeed value="40" />
+      <Clearance value="0" />
+      <ActorTracking value="Actual" />
+      <Outro value="-0.5,-0.2" />
+      <ThrowBandYaw value="-360,-360,-360,-360" />
+      <ThrowBandPitch value="-360,-360,-360,-360" />
+      <AdaptableParabolaIsUpright value="1" />
+      <AdaptableParabolaClearance value="7" />
+      <AdaptableParabolaDistances index="Launch" value="1" />
+      <AdaptableParabolaDistances index="PreApex" value="0.5" />
+      <AdaptableParabolaDistances index="PostApex" value="0.5" />
+      <AdaptableParabolaDistances index="Land" value="1" />
+      <AdaptableParabolaAccels index="Launch" value="0" />
+      <AdaptableParabolaAccels index="Ascent" value="0" />
+      <AdaptableParabolaAccels index="Apex" value="0" />
+      <AdaptableParabolaAccels index="Descent" value="0" />
+      <AdaptableParabolaAccels index="Land" value="0" />
+    </MotionPhases>
+    <MotionPhases>
+      <Driver value="Guidance" />
+      <Acceleration value="3200" />
+      <MaxSpeed value="30" />
+      <YawPitchRoll value="MAX" />
+    </MotionPhases>
+  </CMoverMissile>
+  <CRequirement id="BarbarianHasShotofFury" />
+  <CRequirement id="BarbarianLeapArreatCraterActive" />
+  <CRequirement id="BarbarianWrathoftheBerserkerActive" />
+  <CRequirement id="BarbarianWhirlwindActive">
+    <NodeArray index="Show" Link="CountBehaviorBarbarianWhirlwindChannelCompleteOnlyTechTreeCheat" />
+  </CRequirement>
+  <CRequirementCountBehavior id="CountBehaviorBarbarianLeapArreatCraterDummyBehaviorCompleteOnlyTechTreeCheat">
+    <Tooltip value="" />
+    <Count Link="BarbarianLeapArreatCraterDummyBehavior" State="CompleteOnly" />
+  </CRequirementCountBehavior>
+  <CRequirementCountBehavior id="CountBehaviorBarbarianShotofFuryCarryBehaviorCompleteOnlyTechTreeCheat">
+    <Tooltip value="" />
+    <Count Link="BarbarianShotofFuryCarryBehavior" State="CompleteOnly" />
+  </CRequirementCountBehavior>
+  <CRequirementCountBehavior id="CountBehaviorBarbarianWrathoftheBerserkerBaseCompleteOnlyTechTreeCheat">
+    <Tooltip value="" />
+    <Count Link="BarbarianWrathoftheBerserkerBase" State="CompleteOnly" />
+  </CRequirementCountBehavior>
+  <CRequirementCountBehavior id="CountBehaviorBarbarianWhirlwindChannelCompleteOnlyTechTreeCheat">
+    <Tooltip value="" />
+    <Count Link="BarbarianWhirlwindChannel" State="CompleteOnly" />
+  </CRequirementCountBehavior>
+  <CRewardHero id="Barbarian">
+    <License value="10195" />
+  </CRewardHero>
+  <CTalent id="BarbarianToughAsNails">
+    <Face value="BarbarianToughAsNails" />
+    <RankArray>
+      <BehaviorArray value="BarbarianToughAsNailsCharged" />
+      <BehaviorArray value="BarbarianToughAsNailsCarry" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="BarbarianRampage">
+    <Face value="BarbarianRampage" />
+    <RankArray>
+      <BehaviorArray value="BarbarianRampageCarry" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="BarbarianStridingGiant">
+    <Face value="BarbarianStridingGiant" />
+    <Abil value="BarbarianWrathoftheBerserker" />
+    <RankArray>
+      <BehaviorArray value="BarbarianWrathOfTheBerserkerStridingGiantTalentHealthBuff" />
+      <BehaviorArray value="BarbarianWrathOfTheBerserkerStridingGiantItem" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="BarbarianNervesOfSteel">
+    <Face value="BarbarianNervesOfSteel" />
+    <Abil value="BarbarianNervesOfSteel" />
+    <RankArray>
+      <BehaviorArray value="BarbarianNervesOfSteelItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="BarbarianIgnorePain">
+    <Face value="BarbarianIgnorePain" />
+    <Abil value="BarbarianIgnorePain" />
+    <RankArray>
+      <BehaviorArray value="BarbarianIgnorePainItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="BarbarianGiantSlammer">
+    <Face value="BarbarianGiantSlammer" />
+    <Abil value="BarbarianSeismicSlam" />
+  </CTalent>
+  <CTalent id="BarbarianBattleRage">
+    <Face value="BarbarianBattleRage" />
+    <Abil value="BarbarianBattleRage" />
+    <RankArray>
+      <BehaviorArray value="BarbarianBattleRageItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="BarbarianRuthless">
+    <Face value="BarbarianRuthless" />
+    <Abil value="BarbarianWhirlwind" />
+  </CTalent>
+  <CTalent id="BarbarianNoEscape">
+    <Face value="BarbarianFuryNoEscapeTalent" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="BarbarianFuryTraitMoveSpeedBuff" />
+        <Field value="Modification.UnifiedMoveSpeedFactor" />
+        <Value value="0.100000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="BarbarianArreatCrater">
+    <Face value="BarbarianLeapArreatCraterTalent" />
+    <Abil value="BarbarianLeap" />
+    <AbilityModificationArray ModifyAbil="BarbarianLeap" TooltipAddendum="Talent/Barbarian/Leap/ArreatCrater">
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="BarbarianLeapArreatCraterPeristent" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Entry value="BarbarianLeap" />
+        <Field value="Cost.Cooldown.TimeUse" />
+        <Value value="-20.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="BarbarianCompositeSpear">
+    <Face value="BarbarianAncientSpearCompositeSpearTalent" />
+    <Abil value="BarbarianAncientSpear" />
+    <AbilityModificationArray ModifyAbil="BarbarianAncientSpear">
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="BarbarianAncientSpearInitialPersistent" />
+        <Field value="PeriodicOffsetArray[0]" />
+        <Value value="-3.250000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Actor" />
+        <Entry value="BarbarianAncientSpearGuide" />
+        <Field value="Height" />
+        <Value value="3.250000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="BarbarianHurricane">
+    <Face value="BarbarianHurricaneWhirlwindTalent" />
+    <Abil value="BarbarianWhirlwind" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="BarbarianWhirlwindModifyCooldown" />
+        <Field value="Cost[0].CooldownTimeUse" />
+        <Value value="-2.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Entry value="BarbarianWhirlwind" />
+        <Field value="Cost.Cooldown.TimeUse" />
+        <Value value="-2.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="BarbarianFuriousBlow">
+    <Face value="BarbarianSeismicSlamFuriousBlowTalent" />
+    <Abil value="BarbarianSeismicSlam" />
+    <RankArray>
+      <BehaviorArray value="BarbarianFuriousBlowsTokenCounter" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="BarbarianMysticalSpear">
+    <Face value="BarbarianAncientSpearMysticalSpearTalent" />
+    <Abil value="BarbarianAncientSpear" />
+    <AbilityModificationArray />
+  </CTalent>
+  <CTalent id="BarbarianPoisonedSpear">
+    <Face value="BarbarianAncientSpearPoisonedSpearTalent" />
+    <Abil value="BarbarianAncientSpear" />
+    <AbilityModificationArray ModifyAbil="BarbarianAncientSpear">
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="BarbarianAncientSpearApplyMasteryPoison" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="BarbarianShatteredGround">
+    <Face value="BarbarianSeismicSlamShatteredGroundTalent" />
+    <Abil value="BarbarianSeismicSlam" />
+    <RankArray />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="BarbarianSeismicSlamSecondaryCleavePersistent" />
+        <Field value="PeriodCount" />
+        <FieldIsInteger value="1" />
+        <Value value="2.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="BarbarianWarPaint">
+    <Face value="BarbarianFuryWarPaintTalent" />
+    <RankArray>
+      <BehaviorArray value="BarbarianWarPaintCarry" />
+    </RankArray>
+    <AbilityModificationArray />
+  </CTalent>
+  <CTalent id="BarbarianLifeFunnel">
+    <Face value="BarbarianWhirlwindLifeFunnelTalent" />
+    <Abil value="BarbarianWhirlwind" />
+    <AbilityModificationArray ModifyAbil="BarbarianWhirlwind" TooltipAddendum="Talent/Barbarian/Whirlwind/LifeFunnel">
+      <Modifications>
+        <Type value="CatalogReplacement" />
+        <Catalog value="Sound" />
+        <Entry value="BarbarianWhirlwindLoop" />
+        <StringReplacement value="Barbarian_Whirlwind_Fast_Loop" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="BarbarianWhirlwindDamage" />
+        <Field value="LeechFraction[Life]" />
+        <Value value="0.100000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="BarbarianWhirlwindHeroDamage" />
+        <Field value="LeechFraction[Life]" />
+        <Value value="0.300000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="BarbarianShotOfFury">
+    <Face value="BarbarianFuryShotOfFuryTalent" />
+    <Abil value="BarbarianShotofFury" />
+    <RankArray>
+      <BehaviorArray value="BarbarianShotofFuryCarryBehavior" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="BarbarianHeroicAbilityLeap">
+    <Face value="BarbarianLeap" />
+    <Abil value="BarbarianLeap" />
+    <RankArray>
+      <BehaviorArray value="Ultimate1Unlocked" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="BarbarianHeroicAbilityWrathoftheBerserker">
+    <Face value="BarbarianWrathoftheBerserker" />
+    <Abil value="BarbarianWrathoftheBerserker" />
+    <RankArray>
+      <BehaviorArray value="Ultimate2Unlocked" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CUnit id="BarbarianLeapArreatCraterCollision" parent="StormPathingBlockerUnit">
+    <Sight value="2" />
+    <BehaviorArray Link="BarbarianLeapArreatCraterTimedLife" />
+    <BehaviorArray Link="IsPathingBlockerUnit" />
+    <Radius value="0.625" />
+  </CUnit>
+  <CUnit id="BarbarianAncientSpearMissile" parent="MISSILE_INVULNERABLE" />
+  <CUnit id="BarbarianAncientSpearReturnMissile" parent="MISSILE_INVULNERABLE" />
+  <CUnit id="HeroBarbarian" parent="StormHeroMounted">
+    <LifeStart value="2341" />
+    <LifeMax value="2341" />
+    <LifeRegenRate value="4.879" />
+    <AbilArray Link="BarbarianShotofFury" />
+    <AbilArray Link="BarbarianSeismicSlam" />
+    <AbilArray Link="BarbarianAncientSpear" />
+    <AbilArray Link="BarbarianCancelLeapArreatCrater" />
+    <AbilArray Link="BarbarianLeap" />
+    <AbilArray Link="BarbarianWhirlwind" />
+    <AbilArray Link="BarbarianWhirlwindCancel" />
+    <AbilArray Link="BarbarianWrathoftheBerserker" />
+    <AbilArray Link="BarbarianFerociousHealing" />
+    <BehaviorArray Link="BarbarianFuryManagementBuff" />
+    <BehaviorArray Link="SonyaFuryCarry" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="HeroGeneric0EnergyOnRespawn" />
+    <WeaponArray Link="HeroBarbarian" />
+    <CardLayouts index="0">
+      <LayoutButtons index="1" Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons index="2" Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons index="3" Face="Stop" Type="AbilCmd" AbilCmd="HoldFire,Stop" Slot="Stop" />
+      <LayoutButtons index="4" Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="HoldFire,HoldFire" Slot="Hold" />
+      <LayoutButtons index="5" Face="SummonMount" Type="AbilCmd" AbilCmd="Mount,Execute" Slot="Mount" />
+      <LayoutButtons index="6" Face="UnsummonMount" Type="AbilCmd" AbilCmd="Dismount,Execute" Slot="Mount" />
+      <LayoutButtons index="7" Face="Cancel" Type="CancelTargetMode" AbilCmd="" Slot="Cancel" />
+      <LayoutButtons index="8" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrink,Execute" Slot="Interact" />
+      <LayoutButtons index="9" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrinkOnCooldown,Execute" Slot="Interact" />
+      <LayoutButtons index="10" Face="CaptureMacGuffin" Type="AbilCmd" AbilCmd="CaptureMacGuffin,Execute" Slot="Interact" />
+      <LayoutButtons index="11" Face="SmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="SmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons index="12" Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Cancel" />
+      <LayoutButtons index="13" Face="BarbarianLeapArreatCraterCancel" Type="AbilCmd" AbilCmd="BarbarianCancelLeapArreatCrater,Execute" Slot="Heroic" />
+      <LayoutButtons Face="BarbarianLeap" Type="AbilCmd" AbilCmd="BarbarianLeap,Execute" Slot="Heroic" />
+      <LayoutButtons Face="BarbarianWrathoftheBerserker" Type="AbilCmd" AbilCmd="BarbarianWrathoftheBerserker,Execute" Slot="Heroic" />
+      <LayoutButtons Face="HearthstoneNoMana" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="BarbarianAncientSpear" Type="AbilCmd" AbilCmd="BarbarianAncientSpear,Execute" Slot="Ability1" />
+      <LayoutButtons Face="BarbarianSeismicSlam" Type="AbilCmd" AbilCmd="BarbarianSeismicSlam,Execute" Slot="Ability2" />
+      <LayoutButtons Face="BarbarianWhirlwindCancel" Type="AbilCmd" AbilCmd="BarbarianWhirlwindCancel,Execute" Slot="Ability3" />
+      <LayoutButtons Face="BarbarianWhirlwind" Type="AbilCmd" AbilCmd="BarbarianWhirlwind,Execute" Slot="Ability3" />
+      <LayoutButtons Face="BarbarianFuryShotOfFury" Type="AbilCmd" AbilCmd="BarbarianShotofFury,Execute" Slot="Trait" />
+      <LayoutButtons Face="BarbarianFury" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.75" />
+    <InnerRadius value="0.75" />
+    <AIThinkTree value="AI/Barbarian.aitree" />
+    <EnergyStart value="0" />
+    <EnergyMax value="100" />
+    <EnergyRegenRate value="0" />
+    <Gender value="Female" />
+    <InitializerFunction value="libGDHL_gf_HeroBarbarianIncrementHeroCountFunction" />
+    <DestructionFunction value="libGDHL_gf_HeroBarbarianDecrementHeroCountFunction" />
+    <AIBaseThreat value="1.1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="MercKiller" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <HeroPlaystyleFlags index="SoloLaner" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+  </CUnit>
+  <CValidatorUnitCompareChargeUsed id="BarbarianHasGTE1ChargeOfToughAsNails">
+    <WhichUnit Value="Target" />
+    <Compare value="LT" />
+    <ChargeLink value="Behavior/BarbarianToughAsNailsCharged" />
+    <Location value="Player" />
+    <Behavior value="BarbarianToughAsNailsCharged" />
+    <Value value="3" />
+  </CValidatorUnitCompareChargeUsed>
+  <CValidatorCombine id="BarbarianRuthlessTalentValidatorCombine">
+    <Type value="And" />
+    <CombineArray value="BarbarianHasRuthlessTalent" />
+    <CombineArray value="TargetLifeLT33Percent" />
+    <CombineArray value="TargetIsHero" />
+  </CValidatorCombine>
+  <CValidatorLocationCompareRange id="LeapMinimumDistance">
+    <Compare value="LT" />
+    <Range value="0.65" />
+  </CValidatorLocationCompareRange>
+  <CValidatorUnitType id="CasterIsBarbarian">
+    <WhichUnit Value="Caster" />
+    <Value value="HeroBarbarian" />
+  </CValidatorUnitType>
+  <CValidatorUnitCompareBehaviorCount id="TargetDoesNotHaveBashBehavior">
+    <Behavior value="BarbarianSeismicSlamBehavior" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitType id="NotBarbarian">
+    <Value value="HeroBarbarian" />
+    <Find value="0" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="SourceIsBarbarian">
+    <Value value="HeroBarbarian" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitType>
+  <CValidatorUnitCompareBehaviorCount id="BarbarianHasFuryBuff">
+    <Compare value="GT" />
+    <Behavior value="BarbarianFuryTraitMoveSpeedBuff" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorPlayerTalent id="BarbarianHasToughAsNailsTalentSource">
+    <WhichPlayer Value="Source" />
+    <Find value="1" />
+    <Value value="BarbarianToughAsNails" />
+  </CValidatorPlayerTalent>
+  <CValidatorCombine id="BarbarianToughAsNailsApplyCombine">
+    <Type value="And" />
+    <CombineArray value="BarbarianSourceDoesNotHaveToughAsNailsChargedCountdownBehavior" />
+    <CombineArray value="BarbarianSourceHasLessThan3ToughAsNailsChargedArmorBehavior" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="BarbarianSourceDoesNotHaveToughAsNailsChargedCountdownBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="BarbarianToughAsNailsChargedCountdown" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="BarbarianSourceHasLessThan3ToughAsNailsChargedArmorBehavior">
+    <WhichUnit Value="Source" />
+    <Compare value="LT" />
+    <Value value="3" />
+    <Behavior value="BarbarianToughAsNailsChargedArmorBehavior" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="BarbarianDoesNotHaveDeflectWhirlwindBuff">
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarbarianDeflectWhirlwind" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorPlayerTalent id="BarbarianHasStridingGiantTalent">
+    <Find value="1" />
+    <Value value="BarbarianStridingGiant" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="BarbarianHasRampageTalent">
+    <Find value="1" />
+    <Value value="BarbarianRampage" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitCompareBehaviorCount id="BarbarianCasterHasShotOfFuryTalentBuff">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="BarbarianSeismicSlamShotOfFuryTalentBuff" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareTokenCount id="BarbarianHasGTE4FuriousBlowToken">
+    <WhichUnit Value="Caster" />
+    <Compare value="GE" />
+    <Value value="4" />
+    <TokenId value="BarbarianFuriousBlowsTokenCounter" />
+  </CValidatorUnitCompareTokenCount>
+  <CValidatorPlayerTalent id="BarbarianHasNervesOfSteelTalent">
+    <Find value="1" />
+    <Value value="BarbarianNervesOfSteel" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="BarbarianHasBoonOfBulKathosTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianBoonOfBulKathos" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="BarbarianHasGiantSlammerTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianGiantSlammer" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="BarbarianHasDeflectTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianDeflect" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="BarbarianHasBattleRageTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianBattleRage" />
+  </CValidatorPlayerTalent>
+  <CValidatorCombine id="BarbarianTargetIsMercenaryandCasterHasBattleRage">
+    <Type value="And" />
+    <CombineArray value="BarbarianHasBattleRageTalent" />
+    <CombineArray value="TargetIsMercLanerorDefender" />
+    <CombineArray value="TargetIsNotAMonster" />
+  </CValidatorCombine>
+  <CValidatorPlayerTalent id="BarbarianHasRuthlessTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianRuthless" />
+  </CValidatorPlayerTalent>
+  <CValidatorCombine id="BarbarianAncientSpearPeriodicValidatorCombine">
+    <Type value="And" />
+    <CombineArray value="CasterNotStunned" />
+    <CombineArray value="CasterNotPolymorphed" />
+    <CombineArray value="CasterNotDeadOrStasisExceptTimeStop" />
+  </CValidatorCombine>
+  <CValidatorLocationPlacement id="BarbarianAncientSpearPlacementValid">
+    <Range value="3" />
+    <Unit value="HeroBarbarian" />
+  </CValidatorLocationPlacement>
+  <CValidatorUnitOrderQueue id="BarbarianHasSeismicSlamOrderInProgress">
+    <AbilLink value="BarbarianSeismicSlam" />
+  </CValidatorUnitOrderQueue>
+  <CValidatorUnitCompareBehaviorCount id="BarbarianHasWrathoftheBerserker">
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+    <Behavior value="BarbarianWrathoftheBerserkerBase" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorPlayerTalent id="HasBarbarianMasteryHurricaneWhirlwind">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianHurricane" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitCompareBehaviorCount id="NotBarbarianLeaping">
+    <ResultFailed value="Error,Error\NotHooked" />
+    <Behavior value="BarbarianLeap" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorLocationCompareRange id="BarbarianAncientSpearTargetWithinMeleeRange">
+    <WhichLocation Effect="BarbarianAncientSpearImpactSet" Value="TargetUnit" />
+    <Compare value="LE" />
+    <Range value="0.5" />
+    <Value Effect="BarbarianAncientSpearImpactSet" />
+  </CValidatorLocationCompareRange>
+  <CValidatorUnitType id="BarbarianTargetIsArreatCraterUnit">
+    <Value value="BarbarianLeapArreatCraterCollision" />
+  </CValidatorUnitType>
+  <CValidatorUnitCompareBehaviorCount id="UnitisanAncientSpearMissile">
+    <Value value="1" />
+    <Behavior value="BarbarianAncientSpearSelfBuff" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="BarbarianHasMysticalSpearCarryBehavior">
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+    <Behavior value="BarbarianAncientSpearMysticalSpearTalentCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HasBarbarianFuriousBlowBehavior">
+    <Behavior value="BarbarianFuriousBlowsTokenCounter" />
+    <Value value="1" />
+    <WhichUnit Value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="DoesNotHaveBarbarianLeapStun">
+    <Behavior value="BarbarianLeapStun" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="DoesNotHaveBarbarianBashSuppression">
+    <Behavior value="BarbarianSeismicSlamSuppressionBehavior" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="DoesNotHaveBarbarianWhirlwind">
+    <Behavior value="BarbarianWhirlwindChannel" />
+    <WhichUnit Value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HasBarbarianWhirlwind">
+    <Behavior value="BarbarianWhirlwindChannel" />
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HasBarbarianSpecialBattleCry">
+    <Behavior value="BarbarianBattleCrySpecialWhirlwindBuff" />
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HasBarbarianBattleCry">
+    <Behavior value="BarbarianBattleCryBuffBonus1" />
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="BarbarianAncientSpearTargetIsStructureAndInMeleeRange">
+    <CombineArray value="IsStructureTarget" />
+    <CombineArray value="BarbarianAncientSpearTargetWithinMeleeRange" />
+    <Type value="And" />
+  </CValidatorCombine>
+  <CValidatorPlayerTalent id="HasBarbarianCombatStyleShotofFury">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianShotOfFury" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasBarbarianCombatStyleFerociousHealing">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianCombatStyleFerociousHealing" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasBarbarianCombatStyleWarPaint">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianWarPaint" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasBarbarianCombatStyleNoEscape">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianNoEscape" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasBarbarianMasteryAngerManagementWrathoftheBerserker">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianMasteryAngerManagementWrathoftheBerserker" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="DoesNotHaveBarbarianMasteryAngerManagementWrathoftheBerserker">
+    <WhichPlayer Value="Caster" />
+    <Value value="BarbarianMasteryAngerManagementWrathoftheBerserker" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasBarbarianMasteryArreatCraterLeap">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianArreatCrater" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasBarbarianMasteryCompositeSpearAncientSpear">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianCompositeSpear" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="DoesNotHaveBarbarianMasteryCompositeSpearAncientSpear">
+    <WhichPlayer Value="Caster" />
+    <Value value="BarbarianCompositeSpear" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasBarbarianMasteryFuriousBlowSeismicSlam">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianFuriousBlow" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasBarbarianMasteryMysticalSpearAncientSpear">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianMysticalSpear" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasBarbarianMasteryPoisonedSpearAncientSpear">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianPoisonedSpear" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasBarbarianMasteryShatteredGroundSeismicSlam">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianShatteredGround" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasBarbarianMasteryLifeFunnelWhirlwind">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="BarbarianLifeFunnel" />
+  </CValidatorPlayerTalent>
+  <CWeaponLegacy id="HeroBarbarian" parent="StormHeroMediumWeapon">
+    <Options index="Melee" value="1" />
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-protoss-groundweaponslevel3.dds" />
+    <DisplayEffect value="BarbarianHeroWeaponDamage" />
+    <MinScanRange value="4" />
+    <Range value="1.5" />
+    <Period value="0.8" />
+    <Effect value="BarbarianHeroWeaponSet" />
+    <PreswingBeforeAttack value="0.2" />
+    <PreswingBetweenAttacks value="0.25" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="HeroBarbarianWhirlwindDummy" parent="StormHeroMediumWeapon">
+    <Options index="Melee" value="1" />
+    <Options index="ContinuousScan" value="0" />
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-protoss-groundweaponslevel3.dds" />
+    <DisplayEffect value="BarbarianHeroWeaponDamage" />
+    <MinScanRange value="0" />
+    <Range value="0.1" />
+    <Period value="0.8" />
+    <Effect value="BarbarianHeroWeaponSet" />
+    <PreswingBeforeAttack value="0.2" />
+    <PreswingBetweenAttacks value="0.25" />
+    <RangeSlop value="0.5" />
+  </CWeaponLegacy>
 </Catalog>

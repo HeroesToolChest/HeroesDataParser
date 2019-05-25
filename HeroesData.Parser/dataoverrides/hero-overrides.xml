@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides>
-  <Ability type="CAbilEffectInstant" id ="Hearthstone">
+  <!--<Ability type="CAbilEffectInstant" id ="Hearthstone">
     <Override>
       <AbilityTier value="Hearth" />
       <AbilityType value="B" />
     </Override>
-  </Ability>
+  </Ability>-->
   <!--<CHero id="_stormhero">
     <Button id="Hearthstone" parent="StormButtonParent">
       <Override>

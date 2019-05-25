@@ -1,36 +1,1029 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="us-ascii"?>
 <Catalog>
-  <CUnit id="HeroUther" parent="StormHeroMounted">
-    <LifeStart value="2156" />
-    <LifeMax value="2156" />
-    <LifeRegenRate value="4.4921" />
-  </CUnit>
-  <CHero id="Uther" parent="LegacyVOHero">
-    <AttributeId value="Uthe" />
-    <Role value="Support" />
-    <RolesMultiClass value="Support" />
-    <CollectionCategory value="Support" />
-    <RoleScoreValueOverride value="Support" />
-    <RoleScoreValueOverride value="Warrior" />
-    <TalentTreeArray Talent="UtherMasteryBenediction" Tier="6" Column="3" />
-    <HeroAbilArray Abil="UtherHolyLight" Button="UtherHolyLight">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-  </CHero>
-  <CAbilEffectTarget id="UtherHolyLight">
+  <CAbilEffectInstant id="UtherHolyLightArmorOfFaithCooldownDisplay">
+    <Effect value="UtherHolyLightArmorOfFaithCooldownDisplayDummyEffect" />
+    <Flags index="ValidateButtonState" value="0" />
     <Cost>
-      <Vital index="Energy" value="90" />
-      <Cooldown Location="Unit" TimeUse="12" />
+      <Cooldown Location="Player" TimeUse="20" />
     </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherEternalDevotionArmorOfFaithTalent" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="UtherHandOfProtection">
+    <OrderArray index="0" Model="Assets\UI\Feedback\WayPointConfirm\WayPointConfirm.m3" LineTexture="Assets\Textures\Storm_WayPointLine.dds" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="TalentCleanseCastSet" />
+    <Flags index="BestUnit" value="0" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="90" />
+    </Cost>
+    <CancelCost>
+      <Cooldown Location="Player" />
+    </CancelCost>
+    <TargetFilters value="Heroic;Self,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Stasis,Summoned" />
+    <Range value="10" />
+    <Arc value="360" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherHandOfProtection" />
   </CAbilEffectTarget>
   <CAbilEffectInstant id="UtherBenediction">
+    <Effect value="BenedictionApplyBehavior" />
+    <Flags index="DeferCooldown" value="1" />
+    <Flags index="Transient" value="1" />
     <Cost>
       <Cooldown Location="Player" TimeUse="0.5" />
     </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherBenedictionHotbar">
+      <Flags index="AllowMinimap" value="0" />
+    </CmdButtonArray>
   </CAbilEffectInstant>
-  <CButton id="UtherHolyLight" parent="StormButtonParent">
+  <CAbilEffectInstant id="UtherEternalDevotion">
+    <Effect value="UtherEternalDevotionCooldownDisplayDummy" />
+    <Cost>
+      <Cooldown TimeUse="180" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherEternalDevotion" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="UtherFlashofLight">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="FlashofLightSet" />
+    <Cost>
+      <Cooldown TimeUse="1.5" />
+    </Cost>
+    <TargetFilters value="-;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+    <Range value="7" />
+    <Arc value="360" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherFlashofLight" Requirements="UtherHasSpiritActive">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <ParentAbil value="UtherHolyLight" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="UtherHolyShock">
+    <Effect value="UtherHolyShockSet" />
+    <Cost>
+      <Vital index="Energy" value="80" />
+      <Charge Link="Abil/UtherHolyLight" />
+      <Cooldown Link="Abil/UtherHolyLight" TimeUse="12" />
+    </Cost>
+    <TargetFilters value="Visible;Missile,Item,Stasis,Dead" />
+    <Range value="8" />
+    <Arc value="360" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherHolyLight" Requirements="UtherNoSpiritActiveAndHasHolyLightHolyShock" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <SharedFlags index="ShowAbilityNameAsQuickCastReference" value="1" />
+    <ParentAbil value="UtherHolyLight" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="UtherDivineStorm">
+    <Effect value="DivineStormStunCastSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Cost>
+      <Vital index="Energy" value="80" />
+      <Cooldown TimeUse="80" />
+    </Cost>
+    <CastIntroTime value="0.1" />
+    <FinishTime value="0.1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherDivineStorm" Requirements="UtherNoSpiritActiveUltimate2" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="UtherHammerOfJustice">
+    <Effect value="HammerOfJusticeSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Cost>
+      <Vital index="Energy" value="40" />
+      <Cooldown TimeUse="8" />
+    </Cost>
+    <TargetFilters value="-;Player,Ally,Neutral,Structure,Missile,Item,Dead,Hidden,Invulnerable" />
+    <Range value="3" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherHammerofJustice" Requirements="UtherNoSpiritActive">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <SetLastTarget value="Attack" />
+    <Arc value="360" />
+    <CastIntroTime value="0.15" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <RangeSlop value="1.5" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="UtherDivineIntervention">
+    <Effect value="DivineInterventionSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Cost>
+      <Vital index="Energy" value="80" />
+      <Cooldown TimeUse="90" />
+    </Cost>
+    <TargetFilters value="Heroic;Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hallucination" />
+    <Range value="10" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherDivineShield" Requirements="UtherNoSpiritActiveUltimate1" />
+    <Arc value="360" />
+    <FinishTime value="0.3" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="UtherHolyLight">
+    <Effect value="UtherHolyLightSet" />
+    <Cost>
+      <Vital index="Energy" value="80" />
+      <Cooldown TimeUse="12" />
+    </Cost>
+    <TargetFilters value="Heroic;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+    <Range value="7" />
+    <Arc value="360" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherHolyLight" Requirements="UtherNoSpiritActiveAndNoHolyLightHolyShock" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="UtherHolyRadiance">
+    <Effect value="HolyRadianceCreatePersistent" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TargetVectorLock" value="1" />
+    <Cost>
+      <Vital index="Energy" value="70" />
+      <Cooldown TimeUse="12" />
+    </Cost>
+    <Range value="500" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CursorEffect value="HolyRadianceCursorSearch" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherHolyRadiance" Requirements="UtherNoSpiritActive">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <CastIntroTime value="0.15" />
+    <Arc value="360" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+  </CAbilEffectTarget>
+  <CAccumulatorToken id="UtherHolyFireAccumulator" parent="BaseAccumulator">
+    <MaxAccumulation value="0.6" />
+    <ApplicationRule value="Add" />
+    <TokenId value="UtherHolyFireToken" />
+    <Scale value="0.2" />
+  </CAccumulatorToken>
+  <CActorSplat id="UtherHandOfProtectionRangeSplat" parent="StormRangeSplat">
+    <Scale value="11.000000" />
+  </CActorSplat>
+  <CActorRange id="UtherHandOfProtectionRange" parent="StormRangeAbilPlusSplat" abil="UtherHandOfProtection" />
+  <CActorModel id="UtherBeaconOfLightHealImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <Terms value="Cap 1" />
+    <On Terms="Effect.UtherBeaconOfLightCreateHealer.Start; At Target" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenter" />
+  </CActorModel>
+  <CActorSound id="UtherDivineInterventionCastSoundSelfTargetSelf" parent="SoundOneShot">
+    <Filter index="All" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <VisibleToAtCreation index="Source" value="1" />
+    <VisibleToAtCreation index="Target" value="1" />
+    <On Terms="Effect.DivineInterventionApplyBehaviorInvulnerable.Start; At Target; ValidateEffect IsSelf" Send="Create" />
+    <Sound value="Uther_DivineShield_Cast_PLR" />
+  </CActorSound>
+  <CActorSound id="UtherDivineInterventionCastSoundSelfTargetOthers" parent="SoundOneShot">
+    <Filter index="All" value="1" />
+    <VisibleToAtCreation index="TargetAlly" value="1" />
+    <VisibleToAtCreation index="TargetNeutral" value="1" />
+    <VisibleToAtCreation index="TargetEnemy" value="1" />
+    <On Terms="Effect.DivineInterventionApplyBehaviorInvulnerable.Start; At Target; ValidateEffect IsSelf" Send="Create" />
+    <Sound value="Uther_DivineShield_Cast" />
+  </CActorSound>
+  <CActorSound id="UtherDivineInterventionLoopSoundSelfTargetSelf" parent="SoundContinuous">
+    <Filter index="All" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <VisibleToAtCreation index="Source" value="1" />
+    <VisibleToAtCreation index="Target" value="1" />
+    <On Terms="Effect.DivineInterventionApplyBehaviorInvulnerable.Start; At Target; ValidateEffect IsSelf" Send="Create" />
+    <On Terms="Behavior.DivineInterventionInvulnerable.Off" Send="Destroy" />
+    <Sound value="Uther_DivineShield_Loop_PLR" />
+  </CActorSound>
+  <CActorSound id="UtherDivineInterventionLoopSoundSelfTargetOthers" parent="SoundContinuous">
+    <Filter index="All" value="1" />
+    <VisibleToAtCreation index="TargetAlly" value="1" />
+    <VisibleToAtCreation index="TargetNeutral" value="1" />
+    <VisibleToAtCreation index="TargetEnemy" value="1" />
+    <On Terms="Effect.DivineInterventionApplyBehaviorInvulnerable.Start; At Target; ValidateEffect IsSelf" Send="Create" />
+    <On Terms="Behavior.DivineInterventionInvulnerable.Off" Send="Destroy" />
+    <On Terms="ActorDestruction" Send="Create UtherDivineInterventionEndSound" />
+    <Sound value="Uther_DivineShield_Loop" />
+  </CActorSound>
+  <CActorSound id="HeroUtherTauntVO" parent="SoundOneShot">
+    <Sound value="Uther_Taunt" />
+  </CActorSound>
+  <CActorSound id="HeroUtherTauntUEVO" parent="SoundOneShot">
+    <Sound value="Uther_Taunt_Evo" />
+  </CActorSound>
+  <CActorSound id="UtherHammerOfJusticeVOX" parent="SoundOneShot">
+    <On Terms="Abil.UtherHammerOfJustice.SourceCastStart" Send="Create" />
+    <Sound value="Uther_VOX_CastingC" />
+  </CActorSound>
+  <CActorUnit id="HeroUther" parent="StormHeroBasePredictive" unitName="HeroUther">
+    <Remove Terms="UnitDeathCustomize" Send="DeathCustomize RagdollBasic" />
+    <Remove Terms="UnitDeath" Send="Create HeroDeathFX" />
+    <On Terms="UnitDeath" Send="Create HeroUtherDeathModel" />
+    <On Terms="Abil.UtherFlashofLight.SourcePrecast; !HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherFlashofLight.SourcePrecast; !HasStatus Precast" Send="AnimPlay Spell Spell,A" />
+    <On Terms="Abil.UtherFlashofLight.SourcePrecast; !HasStatus Precast" Send="StatusSet Precast 1" />
+    <On Terms="Abil.UtherFlashofLight.SourceCastStart; HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherFlashofLight.SourceCastStart" Send="AnimPlay Spell Spell,A 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.UtherFlashofLight.SourceCastStart" Send="AnimSetTime Spell 1.000000" />
+    <On Terms="Abil.UtherFlashofLight.SourceCastStart; HasStatus Precast" Send="StatusSet Precast 0" />
+    <On Terms="Abil.UtherHolyLight.SourcePrecast; !HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherHolyLight.SourcePrecast; !HasStatus Precast" Send="AnimPlay Spell Spell,A" />
+    <On Terms="Abil.UtherHolyLight.SourcePrecast; !HasStatus Precast" Send="StatusSet Precast 1" />
+    <On Terms="Abil.UtherHolyLight.SourceCastStart; HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherHolyLight.SourceCastStart" Send="AnimPlay Spell Spell,A 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.UtherHolyLight.SourceCastStart" Send="AnimSetTime Spell 1.000000" />
+    <On Terms="Abil.UtherHolyLight.SourceCastStart; HasStatus Precast" Send="StatusSet Precast 0" />
+    <On Terms="Abil.UtherHolyShock.SourcePrecast; !HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherHolyShock.SourcePrecast; !HasStatus Precast" Send="AnimPlay Spell Spell,A" />
+    <On Terms="Abil.UtherHolyShock.SourcePrecast; !HasStatus Precast" Send="StatusSet Precast 1" />
+    <On Terms="Abil.UtherHolyShock.SourceCastStart; HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherHolyShock.SourceCastStart" Send="AnimPlay Spell Spell,A 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.UtherHolyShock.SourceCastStart" Send="AnimSetTime Spell 1.000000" />
+    <On Terms="Abil.UtherHolyShock.SourceCastStart; HasStatus Precast" Send="StatusSet Precast 0" />
+    <On Terms="Abil.UtherHammerOfJustice.SourcePrecast; !HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherHammerOfJustice.SourcePrecast; !HasStatus Precast" Send="AnimPlay Spell Spell,C" />
+    <On Terms="Abil.UtherHammerOfJustice.SourcePrecast; !HasStatus Precast" Send="StatusSet Precast 1" />
+    <On Terms="Abil.UtherHammerOfJustice.SourceCastStart; HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherHammerOfJustice.SourceCastStart" Send="AnimPlay Spell Spell,C 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.UtherHammerOfJustice.SourceCastStart" Send="AnimSetTime Spell 1.000000" />
+    <On Terms="Abil.UtherHammerOfJustice.SourceCastStart; HasStatus Precast" Send="StatusSet Precast 0" />
+    <On Terms="Abil.UtherHolyRadiance.SourcePrecast; !HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherHolyRadiance.SourcePrecast; !HasStatus Precast" Send="AnimPlay Spell Spell,B" />
+    <On Terms="Abil.UtherHolyRadiance.SourcePrecast; !HasStatus Precast" Send="StatusSet Precast 1" />
+    <On Terms="Abil.UtherHolyRadiance.SourceCastStart; HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherHolyRadiance.SourceCastStart" Send="AnimPlay Spell Spell,B 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.UtherHolyRadiance.SourceCastStart" Send="AnimSetTime Spell 1.000000" />
+    <On Terms="Abil.UtherHolyRadiance.SourceCastStart; HasStatus Precast" Send="StatusSet Precast 0" />
+    <On Terms="Effect.UtherWaveOfLightRestoreSet.Start; At Caster" Send="Create Storm_Effect_GenericMana_Impact" />
+    <On Terms="Abil.UtherDivineIntervention.SourcePrecast; !HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherDivineIntervention.SourcePrecast; !HasStatus Precast" Send="AnimPlay Spell Spell,D" />
+    <On Terms="Abil.UtherDivineIntervention.SourcePrecast; !HasStatus Precast" Send="StatusSet Precast 1" />
+    <On Terms="Abil.UtherDivineIntervention.SourceCastStart; HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherDivineIntervention.SourceCastStart" Send="AnimPlay Spell Spell,D 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.UtherDivineIntervention.SourceCastStart" Send="AnimSetTime Spell 1.000000" />
+    <On Terms="Abil.UtherDivineIntervention.SourceCastStart; HasStatus Precast" Send="StatusSet Precast 0" />
+    <On Terms="Abil.UtherDivineStorm.SourcePrecast; !HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherDivineStorm.SourcePrecast; !HasStatus Precast" Send="AnimPlay Spell Spell,D" />
+    <On Terms="Abil.UtherDivineStorm.SourcePrecast; !HasStatus Precast" Send="StatusSet Precast 1" />
+    <On Terms="Abil.UtherDivineStorm.SourceCastStart; HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.UtherDivineStorm.SourceCastStart" Send="AnimPlay Spell Spell,D 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.UtherDivineStorm.SourceCastStart" Send="AnimSetTime Spell 1.000000" />
+    <On Terms="Abil.UtherDivineStorm.SourceCastStart; HasStatus Precast" Send="StatusSet Precast 0" />
+    <On Terms="Behavior.DivineStormCaster.On" Send="AnimBracketStart Storm Morph,Start Morph Morph,End" />
+    <On Terms="Behavior.DivineStormCaster.Off" Send="AnimBracketStop Storm" />
+    <On Terms="Effect.HammerOfTheLightbringerModifyUnit.Start; At Caster" Target="Storm_Effect_GenericMana_Impact" Send="Destroy Immediate" />
+    <On Terms="Effect.HammerOfTheLightbringerModifyUnit.Start; At Caster" Send="Create Storm_Effect_GenericMana_Impact" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="ModelMaterialApply UtherSpiritOfRedemptionGlaze" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="Create HeroUtherEternalDevotionBirth" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="PhysicsTerminate" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="TimerSet 0.250000 MutePhysics" />
+    <On Terms="TimerExpired; TimerName MutePhysics" Send="PhysicsInitialize" />
+    <On Terms="Behavior.SpiritOfRedemptionSpiritFormBuff.On" Send="StatusIncrement StatusBarHide" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="SetShowStatusBar" />
+    <On Terms="Behavior.SpiritOfRedemptionSpiritFormBuff.Off" Send="StatusDecrement StatusBarHide" />
+    <On Terms="Effect.RedemptionProcSet.Start; At Caster" Send="StatusDecrement StatusBarHide" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On; ValidateUnit RedemptionAvailableCombine" Send="Create RedemptionVisualModel" />
+    <On Terms="Behavior.SpiritOfRedemptionSpiritFormBuff.On" Send="TimerSet 9.000000 RedemptionBuffFX" />
+    <On Terms="TimerExpired; TimerName RedemptionBuffFX" Target="RedemptionVisualModel" Send="AnimBracketStop BSD" />
+    <On Terms="TimerExpired; TimerName RedemptionBuffFX" Target="UtherSpiritOfRedemptionGlaze" Send="AnimBracketStop BSD" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On; CanApplyActionPhysics RagdollBasic" Send="Create StormHeroDeathRagdollFake HeroUtherDeathRagdoll" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="AnimClear Attack" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="AnimClear Spell" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="AnimPlay Spell Spell,E 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Behavior.SpiritOfRedemptionSpiritFormBuff.Off" Send="Signal UtherRevived" />
+    <On Terms="Signal.*.UtherRevived" Send="AnimBracketStart GL_BSD GLbirth GLstand GLdeath" />
+    <On Terms="ActorCreation; ModelName UtherSkinMedic" Send="AnimGroupApply One" />
+    <On Terms="ActorCreation; ModelName UtherSkinMedicArgent" Send="AnimGroupApply One" />
+    <On Terms="ActorCreation; ModelName UtherSkinMedicBlood" Send="AnimGroupApply One" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="StatusSet PreTargetingTint 0" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="RefClear ::Host" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="HostSiteOpsSet ::Host SOpBasicScopeFollow" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="AnimGroupRemove Ride" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="AnimGroupRemove Ridebeast" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="AnimGroupRemove Ridebike" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="AnimGroupRemove Ridesurf" />
+    <On Terms="ActorCreation; ModelName UtherSkinMedic" Send="Create UtherMedicWeaponFX" />
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Target="UtherMedicWeaponFX" Send="AnimBracketStop BSD" />
+    <On Terms="UnitDeath" Target="UtherMedicWeaponFX" Send="AnimBracketStop BSD" />
+    <On Terms="Abil.UtherBenediction.SourceCastStart; !AnimPlaying Spell" Send="AnimPlay Spell Spell,Omni" />
+    <PortraitActor value="UtherPortrait" />
+    <PortraitModel value="UtherPortrait" />
+    <AbilSoundArray AbilCmd="UtherHolyLight,Execute" Sound="StormNoSound" />
+    <AbilSoundArray AbilCmd="UtherHolyRadiance,Execute" Sound="Uther_VOX_CastingB" />
+    <AbilSoundArray AbilCmd="UtherHammerOfJustice,Execute" Sound="StormNoSound" />
+    <AbilSoundArray AbilCmd="UtherDivineIntervention,Execute" Sound="Uther_Ultimate1Used" />
+    <AbilSoundArray AbilCmd="UtherDivineStorm,Execute" Sound="Uther_Ultimate2Used" />
+    <ErrorArray Error="NotEnoughEnergy" Sound="Uther_LowMana" />
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_partyframe_uther.dds" />
+    </GroupIcon>
+    <HeroIcon value="Assets\Textures\ui_targetportrait_hero_uther.dds" />
+    <MinimapIcon value="Assets\Textures\storm_ui_minimapicon_uther.dds" />
+    <SoundArray index="Ready" value="Uther_Revive" />
+    <SoundArray index="Yes" value="Uther_Yes" />
+    <SoundArray index="Attack" value="Uther_Attack" />
+    <SoundArray index="Pissed" value="Uther_Pissed" />
+    <UnitIcon value="Assets\Textures\ui_targetportrait_hero_uther.dds" />
+    <Wireframe>
+      <Image value="Assets\Textures\ui_targetportrait_hero_uther.dds" />
+    </Wireframe>
+    <MinimapIconBackgroundScale value="0.950000" />
+  </CActorUnit>
+  <CActorPortrait id="UtherPortrait" parent="StormCompositePortrait" />
+  <CActorPortrait id="UtherSkinMedicPortrait" parent="StormCompositePortrait" />
+  <CActorModel id="UtherSkinMedicPortraitAddition" parent="StormCompositePortraitAddition" />
+  <CActorPortrait id="UtherSkinLumberjackPortrait" parent="StormCompositePortrait" />
+  <CActorModel id="UtherSkinLumberjackPortraitAddition" parent="StormCompositePortraitAddition" />
+  <CActorSplat id="UtherFlashofLightRangeSplat" parent="StormRangeSplat">
+    <Scale value="7.750000" />
+  </CActorSplat>
+  <CActorSound id="UtherFlashofLightSound" parent="SoundOneShot">
+    <On Terms="Effect.FlashofLightCreateHealer.Start; At Target" Send="Create" />
+    <Sound value="Uther_FlashofLight_Cast" />
+  </CActorSound>
+  <CActorSound id="UtherHolyFireBuffSound" parent="SoundOneShot">
+    <On Terms="Behavior.UtherHolyFireSearchBuff.On" Send="Create" />
+    <Sound value="Uther_HolyFire_Active" />
+  </CActorSound>
+  <CActorSound id="BenedictionCastSound" parent="SoundOneShot">
+    <On Terms="Effect.BenedictionApplyBehavior.Start; At Caster" Send="Create" />
+    <Sound value="Uther_Benediction_Cast" />
+  </CActorSound>
+  <CActorSound id="UtherSpiritOfRedemptionStartSoundPLR" parent="SoundOneShot">
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="Create" />
+    <Sound value="Uther_SpiritRedemption_Start_PLR" />
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+  </CActorSound>
+  <CActorSound id="UtherSpiritOfRedemptionStartSound" parent="SoundOneShot">
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="Create" />
+    <Sound value="Uther_SpiritRedemption_Start" />
+  </CActorSound>
+  <CActorSound id="UtherSpiritOfRedemptionLoopSound" parent="SoundContinuous">
+    <On Terms="Behavior.UtherEternalVanguardRezDelay.On" Send="Create" />
+    <On Terms="Behavior.SpiritOfRedemptionSpiritFormBuff.Off" Send="Destroy" />
+    <Sound value="Uther_SpiritRedemption_Loop" />
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+  </CActorSound>
+  <CActorSplat id="UtherHolyLightRangeSplat" parent="StormRangeSplat">
+    <Scale value="7.750000" />
+  </CActorSplat>
+  <CActorSplat id="UtherHolyShockRangeSplat" parent="StormRangeSplat">
+    <Scale value="8.750000" />
+  </CActorSplat>
+  <CActorSound id="UtherHolyLightSound" parent="SoundOneShot">
+    <On Terms="Effect.UtherHolyLightHealSwitch.Start; At Target" Send="Create" />
+    <Sound value="Uther_HolyLight_Impact" />
+  </CActorSound>
+  <CActorSplat id="UtherHammerOfJusticeRangeSplat" parent="StormRangeSplat">
+    <Scale value="3.750000" />
+  </CActorSplat>
+  <CActorSound id="UtherHammerOfJusticeImpactSound" parent="SoundOneShot">
+    <On Terms="Effect.HammerOfJusticeApplyBehavior.Start; At Caster" Send="Create" />
+    <Sound value="Uther_HammerJustice_Impact" />
+    <Host Scope="Target" Actor="Find" Effect="HammerOfJusticeApplyBehavior" />
+  </CActorSound>
+  <CActorSound id="UtherHolyRadianceSound" parent="SoundOneShot">
+    <On Terms="Abil.UtherHolyRadiance.SourceCastStart" Send="Create" />
+    <Sound value="Uther_HolyRadiance_Cast" />
+    <Layers Sound="Uther_HolyRadiance_Cast_B" />
+    <Layers />
+  </CActorSound>
+  <CActorSound id="UtherHolyRadianceAttackMissileSound" parent="SoundOneShot">
+    <Sound value="Uther_HolyRadiance_Projectile" />
+    <Host Subject="::Creator" />
+  </CActorSound>
+  <CActorSound id="UtherHolyRadianceHealSound" parent="SoundOneShot">
+    <On Terms="Effect.HolyRadianceCreateHealer.Start; At Target" Send="Create" />
+    <Sound value="Uther_HolyRadiance_Heal_Impact" />
+  </CActorSound>
+  <CActorSound id="UtherHolyRadianceDamageSound" parent="HeroAttackImpactSoundOneShot">
+    <On Terms="Effect.HolyRadianceEnemyDamage.Start; At Target" Send="Create" />
+    <Sound value="Uther_HolyRadiance_Damage_Impact" />
+  </CActorSound>
+  <CActorSiteOpLocalOffset id="UtherHolyRadianceBeamOffset">
+    <LocalOffset Z="1.000000" />
+  </CActorSiteOpLocalOffset>
+  <CActorSite id="UtherHolyRadianceImpactSite">
+    <HostSiteOps Ops="SOpTargetPointStationary" />
+    <On Terms="Effect.HolyRadianceLaunchMissile.Start" Send="Create" />
+    <On Terms="ActorCreation" Send="Create UtherHolyRadianceBeam" />
+  </CActorSite>
+  <CActorSplat id="UtherDivineInterventionRangeSplat" parent="StormRangeSplat">
+    <Scale value="10.750000" />
+  </CActorSplat>
+  <CActorSound id="UtherDivineInterventionCastSoundNotSelfTarget" parent="SoundOneShot">
+    <On Terms="Effect.DivineInterventionApplyBehaviorInvulnerable.Start; At Target; ValidateEffect IsNotSelf" Send="Create" />
+    <Sound value="Uther_DivineShield_Cast" />
+  </CActorSound>
+  <CActorSound id="UtherDivineInterventionLoopSoundNotSelfTarget" parent="SoundContinuous">
+    <On Terms="Effect.DivineInterventionApplyBehaviorInvulnerable.Start; At Target; ValidateEffect IsNotSelf" Send="Create" />
+    <On Terms="Behavior.DivineInterventionInvulnerable.Off" Send="Destroy" />
+    <On Terms="ActorDestruction" Send="Create UtherDivineInterventionEndSound" />
+    <Sound value="Uther_DivineShield_Loop" />
+  </CActorSound>
+  <CActorSound id="UtherDivineInterventionEndSound" parent="SoundOneShot">
+    <Sound value="Uther_DivineShield_End" />
+  </CActorSound>
+  <CActorSplat id="UtherDivineStormRangeSplat" parent="StormRangeSplat">
+    <Scale value="3.500000" />
+  </CActorSplat>
+  <CActorSound id="UtherDivineStormCastSound" parent="SoundOneShot">
+    <On Terms="Effect.DivineStormApplyCasterBehavior.Start" Send="Create" />
+    <Sound value="Uther_DivineStorm_Cast" />
+  </CActorSound>
+  <CActorSound id="UtherDivineStormImpactSound" parent="HeroAttackImpactSoundOneShot">
+    <On Terms="Effect.DivineStormDamage.Start" Send="Create" />
+    <Sound value="Uther_DivineStorm_Impact" />
+  </CActorSound>
+  <CActorSound id="UtherDivineStormLoopSound" parent="SoundContinuous">
+    <On Terms="Behavior.DivineStormCaster.On" Send="Create" />
+    <On Terms="Behavior.DivineStormCaster.Off" Send="Destroy" />
+    <Sound value="Uther_DivineStorm_Loop" />
+  </CActorSound>
+  <CActorSound id="UtherDivineStormEndSound" parent="SoundOneShot">
+    <On Terms="Behavior.DivineStormCaster.Off" Send="Create" />
+    <Sound value="Uther_DivineStorm_End" />
+  </CActorSound>
+  <CActorSound id="DivineStormSound" parent="SoundOneShot">
+    <On Terms="Effect.DivineStormStunSearch.Start" Send="Create" />
+    <Sound value="Uther_DivineStorm_Launch" />
+  </CActorSound>
+  <CActorSound id="PulledSoundHeroUther" parent="SoundOneShot">
+    <Sound value="Uther_VOX_Pulled" />
+  </CActorSound>
+  <CActorPortrait id="UtherSkinUltimatePortrait" parent="StormCompositePortrait" />
+  <CActorModelMaterial id="UtherSpiritOfRedemptionGlaze" parent="StormModelAnimationStyleContinuous" />
+  <CActorModel id="HeroUtherEternalDevotionBirth" parent="StormModelAnimationStyleOneShot" />
+  <CActorModel id="UtherBlessedChampionPulse" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.BlessedChampionSearch.Start; At Target" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenter" />
+    <AutoScaleFactor value="1.000000" />
+  </CActorModel>
+  <CActorModel id="HeroUtherDeathModel" parent="StormModelNoAnims">
+    <ModelFlags index="AllowHitTest" value="0" />
+    <ModelFlags index="SuppressMissingAttachErrors" value="1" />
+    <ModelFlags index="UpdateVisibility" value="0" />
+    <ModelFlags index="UseSyncSeed" value="1" />
+    <Host Subject="::Creator" />
+    <Inherits index="BaseModelScale" value="1" />
+    <Inherits index="CastShadows" value="1" />
+    <Inherits index="CreepEngulfment" value="1" />
+    <Inherits index="Scale" value="1" />
+    <Inherits index="TeamColor" value="1" />
+    <Inherits index="TintColor" value="1" />
+    <Aliases value="_DeathModel" />
+    <Macros value="DeadAnimationMacro" />
+    <On Terms="ActorCreation" Send="RefClear ::Host" />
+    <On Terms="ActorCreation" Send="AnimPlay Death Death" />
+    <On Terms="AnimDone; AnimName Death" Send="Destroy" />
+    <Model value="UtherSpiritOfRedemption" />
+  </CActorModel>
+  <CActorModel id="UtherPortraitAddition" parent="StormCompositePortraitAddition" />
+  <CActorPortrait id="UtherSkinUltimatePortraitAddition" parent="StormCompositePortraitAddition" />
+  <CActorModel id="HeroUtherDeathRagdoll" parent="StormHeroDeathRagdoll" />
+  <CActorRange id="UtherBlessedChampionRange">
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <Inherits index="TeamColor" value="1" />
+    <On Terms="Behavior.UtherBlessedChampion.On" Send="Create" />
+    <On Terms="Behavior.UtherBlessedChampion.Off" Send="Destroy" />
+    <Range value="5.200000" />
+    <IconArcLength value="5.000000" />
+    <Icon value="Assets\Textures\storm_fx_uther_base_blessedchampion_range.dds" />
+  </CActorRange>
+  <CActorModel id="UtherFlashofLightImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.FlashofLightCreateHealer.Start; At Target" Send="Create" />
+  </CActorModel>
+  <CActorRange id="UtherFlashofLightRange" parent="StormRangeAbilPlusSplat" abil="UtherFlashofLight" />
+  <CActorModel id="UtherHolyFireBuff" parent="StormModelAddition">
+    <Inherits index="BaseModelScale" value="0" />
+    <Inherits index="Scale" value="0" />
+    <Macros value="RemovePolymorphMacroEffects" />
+    <On Terms="Behavior.UtherHolyFireSearchBuff.On" Send="Create" />
+    <On Terms="Behavior.UtherHolyFireSearchBuff.Off" Send="AnimBracketStop BSD" />
+    <HostSiteOps Ops="SOpAttachOriginSoft" HoldRotation="1" />
+    <Model value="HolyFireBuff" />
+    <ModelFlags index="AllowHitTest" value="0" />
+  </CActorModel>
+  <CActorModel id="UtherHolyFireDamage" parent="StormModelAnimationStyleOneShotUnit">
+    <Inherits index="BaseModelScale" value="1" />
+    <Inherits index="Scale" value="1" />
+    <On Terms="ActorCreation" Send="Create TalentBurningRageImpactSound" />
+    <On Terms="Effect.HolyFireDamage.Start; At Target" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenter" />
+    <Model value="HolyFireDamage" />
+    <AutoScaleFactor value="1.000000" />
+  </CActorModel>
+  <CActorModel id="RedemptionVisualModel" parent="StormModelAnimationStyleContinuousUnit">
+    <Host Subject="_Hero" />
+    <HostSiteOps Ops="SOpAttachCenter" HoldRotation="1" />
+  </CActorModel>
+  <CActorModel id="BenedictionCast" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.BenedictionApplyBehavior.Start" Send="Create" />
+    <HostSiteOps Ops="SOpAttachOverhead" />
+  </CActorModel>
+  <CActorAction id="UtherAttack" parent="MeleeHeroAttack" effectAttack="UtherWeaponDamage">
+    <ImpactMap index="None" Sound="Uther_AttackImpact_Unit" />
+    <ImpactMap index="Rock" Sound="Uther_AttackImpact_Building" />
+    <ImpactMap index="Metal" Sound="Uther_AttackImpact_Large_Metal" />
+    <ImpactMap index="Wood" Sound="Uther_AttackImpact_Wood" />
+  </CActorAction>
+  <CActorModel id="UtherBlessedChampionImpactModel" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.BlessedChampionCreateHealer.Start; At Target" Send="Create" />
+    <HostSiteOps HoldRotation="1" />
+  </CActorModel>
+  <CActorRange id="UtherHolyLightRange" parent="StormRangeAbilPlusSplat" abil="UtherHolyLight" />
+  <CActorRange id="UtherHolyShockRange" parent="StormRangeAbilPlusSplat" abil="UtherHolyShock" />
+  <CActorModel id="UtherHolyLightImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.UtherHolyLightHealSet; At Target" Send="Create" />
+    <On Terms="Effect.EternalDevotionApplySelfArmorSet; At Caster" Send="Create" />
+  </CActorModel>
+  <CActorBeamSimple id="HolyShockBeam" parent="BeamSimpleAnimationStyleOneShot">
+    <On Terms="Effect.HolyShockEnemySet.Start" Send="Create" />
+    <HostLaunch Subject="_Unit" Scope="Caster" Actor="Find" />
+    <HostLaunchSiteOps Ops="SOpAttachCenter" HoldPosition="1" HoldRotation="1" />
+    <HostImpact Subject="_Unit" Scope="Target" Actor="Find" />
+    <HostImpactSiteOps Ops="SOpAttachCenter" />
+  </CActorBeamSimple>
+  <CActorForceSphere id="UtherHolyShockAttackForce">
+    <Receiver Subject="::Main" />
+    <Host Subject="_ImpactGuide" />
+    <HostSiteOps Ops="SOpForwardCasterCenterInverted" />
+    <Field value="Directional" />
+    <Magnitude value="45.000000,14.000000" />
+    <Radius value="1.000000,0.500000" />
+    <Duration value="0.300000" />
+    <Direction value="Forward" />
+  </CActorForceSphere>
+  <CActorAction id="UtherHolyShockAttack" parent="GenericAttackStorm" effectAttack="HolyShockDummyEffect">
+    <ImpactMap index="None" Model="UtherHolyShockImpact" Sound="Uther_HolyShock_Impact" />
+    <ForceCommencementFrom value="HolyShockDummyEffect" />
+    <ImpactPhysics Name="UtherHolyShockAttackImpact" MatchKeys="Basic" Physics="UtherHolyShockAttackForce" />
+    <ImpactSiteOps Ops="SOpAttachCenterSoft" />
+    <ShieldFlashType value="Full" />
+  </CActorAction>
+  <CActorRange id="UtherHammerOfJusticeRange" parent="StormRangeAbilPlusSplat" abil="UtherHammerOfJustice" />
+  <CActorModel id="UtherHammerOfJusticeImpactModel" parent="StormModelAnimationStyleOneShot">
+    <HostSiteOps Ops="SOpTargetUnit" HoldRotation="1" />
+    <On Terms="Effect.HammerOfJusticeSet.Start" Send="Create" />
+  </CActorModel>
+  <CActorModel id="UtherHammerOfJusticeCast" parent="StormModelAnimationStyleOneShot">
+    <On Terms="Effect.HammerOfJusticeSet.Start; At Caster" Send="Create" />
+    <Host Subject="_Unit" />
+    <HostSiteOps Ops="SOpAttachWeapon" />
+  </CActorModel>
+  <CActorForceSphere id="UtherHammerOfJusticeAttackForce">
+    <Receiver Subject="::Main" />
+    <Host Subject="_ImpactGuide" />
+    <HostSiteOps Ops="SOpForwardCasterCenterInverted" />
+    <Field value="Directional" />
+    <Magnitude value="80.000000,14.000000" />
+    <Radius value="1.000000,0.500000" />
+    <Duration value="0.300000" />
+    <Direction value="Forward" />
+  </CActorForceSphere>
+  <CActorAction id="UtherHammerOfJusticeAttack" parent="GenericAttackStorm" effectAttack="HammerOfJusticeDamage">
+    <ImpactPhysics Name="UtherHammerOfJusticeAttackImpact" MatchKeys="Basic" Physics="UtherHammerOfJusticeAttackForce" />
+    <ActionFlags index="ImpactSuppressUnitSound" value="1" />
+  </CActorAction>
+  <CActorQuad id="UtherHolyRadianceGuide" parent="StormGuideVisualQuadDownFantasy" abil="UtherHolyRadiance">
+    <Height value="11.250000" />
+    <Width value="2.500000" />
+    <LaunchHeight value="3.000000" />
+    <CenterHeight value="3.000000" />
+    <ImpactHeight value="3.000000" />
+  </CActorQuad>
+  <CActorModel id="UtherHolyRadianceHealImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.HolyRadianceCreateHealer.Start; At Target" Send="Create" />
+    <AutoScaleFactor value="1.000000" />
+  </CActorModel>
+  <CActorAction id="UtherHolyRadianceDamageImpactAction" parent="RangedHeroAttack" effectAttack="HolyRadianceEnemyDamage">
+    <ImpactMap index="None" Model="UtherHolyRadianceDamageImpact" />
+  </CActorAction>
+  <CActorMissile id="UtherHolyRadianceAttackMissile" parent="GenericAttackMissile" unitName="UtherHolyRadianceMissile">
+    <Remove Terms="UnitBirth" Send="AnimBracketStart Lifetime Birth Stand" />
+    <On Terms="UnitBirth" Send="AnimBracketStart BSD Birth Stand Death" />
+    <On Terms="ActorCreation" Send="Create UtherHolyRadianceAttackMissileSound" />
+    <On Terms="ActorDestruction" Target="UtherHolyRadianceAttackMissileSound" Send="Destroy" />
+    <On Terms="MotionPhaseStart; MotionPhase 1" Send="AnimBracketStop BSD" />
+    <Macros value="GlobalLoopMacro" />
+  </CActorMissile>
+  <CActorAction id="UtherHolyRadianceAttack" parent="GenericAttackPointStorm" effectImpact="HolyRadianceDummy" effectLaunch="HolyRadianceLaunchMissile">
+    <LaunchAttachQuery Methods="AMFilterWeaponLeft" />
+    <ImpactPointSiteOps Ops="SOpTargetPointStationary SOpShadow UtherHolyRadianceBeamOffset" />
+    <ShieldFlashType value="None" />
+    <ForceCommencementFrom value="HolyRadianceLaunchMissile" />
+  </CActorAction>
+  <CActorBeamSimple id="UtherHolyRadianceBeam" parent="BeamSimpleAnimationStyleContinuous">
+    <HostLaunch Subject="_Unit" />
+    <HostLaunchSiteOps Ops="SOpAttachHarnessStationary SOpAttachWeaponLeft" HoldPosition="1" />
+    <HostImpact Subject="::Creator" />
+    <HostImpactSiteOps Ops="SOpTargetPointStationary SOpShadow UtherHolyRadianceBeamOffset" />
+    <Macros value="GlobalLoopMacro" />
+    <On Terms="ActorCreation" Send="TimerSet 0.750000 BeamDeathDelay" />
+    <On Terms="TimerExpired; TimerName BeamDeathDelay" Send="AnimBracketStop BSD" />
+  </CActorBeamSimple>
+  <CActorForceConeRoundedEnd id="UtherHolyRadianceMissileForce">
+    <Host Subject="_Missile" />
+    <HostSiteOps Ops="SOpMoveBackBy2" HoldPosition="1" HoldRotation="1" />
+    <HostEnd Subject="_Missile" />
+    <HostEndSiteOps Ops="SOpMoveBy2 SOpMoveUpByDot5" HoldPosition="1" HoldRotation="1" />
+    <Magnitude value="15.000000,10.000000" />
+    <Duration value="0.150000" />
+    <Angle value="50.000000" />
+    <On Terms="Effect.HolyRadianceEnemySearch.Start" Send="Create" />
+    <ForceFlags index="FallOff" value="0" />
+  </CActorForceConeRoundedEnd>
+  <CActorRange id="UtherDivineInterventionRange" parent="StormRangeAbilPlusSplat" abil="UtherDivineIntervention" />
+  <CActorModel id="UtherDivineInterventionBuff" parent="StormModelAddition">
+    <Host Subject="_Unit" />
+    <HostSiteOps Ops="SOpAttachCenter" HoldRotation="1" />
+    <AutoScaleFactor value="1.000000" />
+    <On Terms="Behavior.DivineInterventionInvulnerable.On" Send="Create" />
+    <On Terms="Behavior.DivineInterventionInvulnerable.Off" Send="AnimBracketStop BSD" />
+    <Macros value="GlobalLoopMacroMore" />
+    <Inherits index="Visibility" value="1" />
+  </CActorModel>
+  <CActorRange id="UtherDivineStormRange" parent="StormRangeAbilPlusSplat" abil="UtherDivineStorm" />
+  <CActorModel id="UtherDivineStormCaster" parent="StormModelAnimationStyleContinuous">
+    <On Terms="Behavior.DivineStormCaster.On" Send="Create" />
+    <On Terms="Behavior.DivineStormCaster.Off" Send="AnimBracketStop BSD" />
+    <HostSiteOps Ops="SOpAttachCenter" HoldRotation="1" />
+  </CActorModel>
+  <CActorModel id="UtherDivineStormImpact" parent="StormModelAnimationStyleOneShot">
+    <On Terms="Effect.DivineStormStunDamage.Start; At Target" Send="Create" />
+  </CActorModel>
+  <CActorModel id="UtherDivineStormWings" parent="StormModelAddition">
+    <On Terms="Behavior.DivineStormCaster.On" Send="Create" />
+    <On Terms="Behavior.DivineStormCaster.Off" Send="AnimBracketStop BSD" />
+    <Host Subject="_Unit" />
+    <HostSiteOps Ops="SOpAttachCenterSoft" />
+  </CActorModel>
+  <CActorModel id="DivineStormModel" parent="StormModelAnimationStyleContinuousUnit">
+    <Flags index="SuppressSaveLoad" value="1" />
+    <On Terms="Behavior.DivineStormDummyBehavior.On" Send="Create" />
+    <On Terms="Behavior.DivineStormDummyBehavior.Off" Send="AnimBracketStop BSD" />
+    <HostSiteOps Ops="SOpAttachCenterSoft" HoldPosition="1" HoldRotation="1" />
+    <Scale value="1.400000" />
+    <Inherits index="Visibility" value="0" />
+  </CActorModel>
+  <CActorForceSphere id="UtherDivineStormForce">
+    <On Terms="Effect.DivineStormStunSearch.Stop; At Caster" Send="Create" />
+    <Host Subject="SOpTargetPoint SOpSplashDamagePositionVariance" />
+    <Duration value="0.150000" />
+    <Magnitude value="90.000000" />
+    <Radius value="3.000000" />
+  </CActorForceSphere>
+  <CBehaviorBuff id="UtherDivineInterventionMovementSpeed" parent="StormSprint">
+    <Modification>
+      <UnifiedMoveSpeedFactor value="0.2" />
+    </Modification>
+    <RemoveValidatorArray value="UtherTargetHasDivineShieldInvulnerable" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherHolyLightArmorOfFaithCooldown">
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+    <Duration value="20" />
+  </CBehaviorBuff>
+  <CBehaviorAbility id="UtherHolyLightArmorOfFaithItem">
+    <Buttons Face="UtherEternalDevotionArmorOfFaithTalent" Type="AbilCmd" AbilCmd="UtherHolyLightArmorOfFaithCooldownDisplay,Execute" />
+  </CBehaviorAbility>
+  <CBehaviorAbility id="UtherBenedictionItem">
+    <Face value="UtherBenedictionHotbar" />
+    <Buttons Face="UtherBenedictionHotbar" Type="AbilCmd" AbilCmd="UtherBenediction,Execute" />
+  </CBehaviorAbility>
+  <CBehaviorAbility id="UtherHandOfProtectionItem">
+    <Face value="UtherHandOfProtection" />
+    <Buttons Face="UtherHandOfProtection" Type="AbilCmd" AbilCmd="UtherHandOfProtection,Execute" />
+  </CBehaviorAbility>
+  <CBehaviorBuff id="UtherEternalDevotionDivineProtectionArmor" parent="StormArmor">
+    <Alignment value="Positive" />
+    <BehaviorCategories index="BuffResistant" value="1" />
+    <Duration value="2" />
+    <DamageResponse Handled="UtherHolyLightSilverTouchModifyArmorToken" TargetFilters="Heroic;-" Priority="65" />
+    <ArmorModification>
+      <AllArmorBonus value="50" />
+    </ArmorModification>
+  </CBehaviorBuff>
+  <CBehaviorTokenCounter id="UtherHolyRadianceWaveofLightQuestTokenBehavior" parent="StormQuestToken">
+    <Face value="UtherHolyRadianceWaveOfLightQuestToken" />
+    <TokenId value="WaveOfLightQuestToken" />
+    <AtMaxEvents index="0" EventId="QuestComplete" Effect="UtherHolyRadianceSilverTouchArmorDurationIncreaseModifyCatalog" />
+    <Max value="60" />
+    <SortIndex value="10" />
+  </CBehaviorTokenCounter>
+  <CBehaviorTokenCounter id="UtherHolyLightSilverTouchArmor" parent="StormQuestToken">
+    <Face value="UtherHolyLightSilverTouchQuestToken" />
+    <TokenId value="UtherSilverTouchArmorQuestToken" />
+    <AtMaxEvents index="0" EventId="QuestComplete" Effect="UtherHolyLightSilverTouchQuestCompleteSet" />
+    <Max value="80" />
+    <ConditionalEvents Compare="GE" CompareValue="40">
+      <Event EventId="QuestMilestone" Effect="UtherHolyLightSilverTouchModifyCost" />
+    </ConditionalEvents>
+  </CBehaviorTokenCounter>
+  <CBehaviorBuff id="UtherHolyLightArmorOfFaithCooldownBuff">
+    <Duration value="6" />
+    <Period value="0.125" />
+    <PeriodicEffect value="UtherHolyLightArmorOfFaithModifyUnit" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherHolyRadianceTyrsDeliveranceAmplifiedHealing">
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+    <Duration value="6" />
+    <Modification>
+      <HealTakenAdditiveMultiplier index="Life" value="0.4" />
+      <VitalRegenMultiplier index="Life" value="0.4" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherHammerOfTheLightbringerComplete" parent="CarryBehaviorParent">
+    <RemoveValidatorArray value="UtherHasHammerOfTheLightbringer" />
+  </CBehaviorBuff>
+  <CBehaviorTokenCounter id="UtherHammerOfTheLightbringerQuestTokenBehavior" parent="StormQuestToken">
+    <Face value="UtherHammerOfJusticeHammerOfTheLightbringer" />
+    <TokenId value="HammerOfTheLightbringerQuestToken" />
+    <AtMaxEvents index="0" EventId="QuestComplete" Effect="UtherHammerOfTheLightbringerApplyCarryBehavior" />
+    <Max value="75" />
+    <SortIndex value="10" />
+  </CBehaviorTokenCounter>
+  <CBehaviorBuff id="UtherHammerOfJusticeWellMetSlow" parent="StormSlowParent">
+    <Duration value="3" />
+    <Modification>
+      <UnifiedMoveSpeedFactor value="-0.25" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherHammerOfJusticeWellMetDamageReduction" parent="StormDamageReduction">
+    <BehaviorCategories index="DebuffAbilityPower" value="1" />
+    <BehaviorCategories index="DebuffAutoattackDPS" value="1" />
+    <Duration value="3" />
+    <Modification>
+      <DamageDealtFraction index="Basic" value="-0.25" />
+      <DamageDealtFraction index="Ability" value="-0.25" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherEternalDevotionGuardianOfAncientKingsArmor" parent="StormArmor">
+    <Alignment value="Positive" />
+    <BehaviorCategories index="BuffResistant" value="1" />
+    <Duration value="2" />
+    <DamageResponse Handled="UtherHolyLightSilverTouchModifyArmorToken" TargetFilters="Heroic;-" Priority="65" />
+    <ArmorModification>
+      <AllArmorBonus value="50" />
+    </ArmorModification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherHammerOfJusticePursuitOfJusticeMovementSpeed" parent="StormSprint">
+    <InfoIcon value="Assets\Textures\storm_ui_icon_uther_hammerofjustice.dds" />
+    <BuffFlags index="UpdateDurationWhileDisabled" value="1" />
+    <Duration value="3" />
+    <Modification>
+      <UnifiedMoveSpeedFactor value="0.25" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherHolyFireStack">
+    <BuffFlags index="RefreshStack" value="1" />
+    <Duration value="3" />
+    <InitialEffect value="UtherHolyFireIncrementTokenCount" />
+    <RefreshEffect value="UtherHolyFireIncrementTokenCount" />
+    <FinalEffect value="UtherHolyFireResetTokenCount" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherHolyLightHolyShockTalentMarker">
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherEternalDevotionArmor" parent="StormArmor">
+    <Alignment value="Positive" />
+    <BehaviorCategories index="BuffResistant" value="1" />
+    <Duration value="2" />
+    <ArmorModification>
+      <AllArmorBonus value="25" />
+    </ArmorModification>
+    <DisableValidatorArray value="TargetDoesNotHaveUtherEternalDevotionGuardianOfAncientKingsArmorBehavior" />
+    <DamageResponse Handled="UtherHolyLightSilverTouchModifyArmorToken" TargetFilters="Heroic;-" Priority="65" />
+    <BuffFlags index="UpdateDurationWhileDisabled" value="1" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherRedemptionReadyBehavior" parent="CarryBehaviorParent">
+    <BehaviorCategories index="Permanent" value="1" />
+    <Cost>
+      <Cooldown Link="Abil/UtherEternalDevotion" Location="Unit" TimeUse="180" />
+    </Cost>
+    <Face value="UtherEternalDevotion" />
+    <Period value="0.125" />
+    <DisableValidatorArray value="UtherRedemptionNotOnCooldown" />
+    <PeriodicEffect value="UtherPlaceholderEffect" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="RedemptionCarryBehavior" parent="CarryBehaviorParent">
+    <InitialEffect value="UtherRedemptionApplyAlreadyDeadBehavior" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherRedemptionAlreadyDead">
+    <RemoveValidatorArray value="NoSpiritFormBuffUtherTargetNegate" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="RedemptionCooldown">
+    <Alignment value="Negative" />
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+    <InfoIcon value="Assets\Textures\storm_temp_war3_btndevotion.dds" />
+    <Duration value="180" />
+    <Modification>
+      <BehaviorLinkDisableArray value="RedemptionCarryBehavior" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherBenedictionBuff">
+    <Alignment value="Positive" />
+    <InfoIcon value="Assets\Textures\storm_btn_d3_monk_blindingflash.dds" />
+    <InitialEffect value="BenedictionInitialSet" />
+    <FinalEffect value="BenedictionFinalSet" />
+    <RemoveValidatorArray value="NoSpiritFormBuffNormal" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherBlessedChampion">
+    <Alignment value="Positive" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_uther_holylight.dds" />
+    <Duration value="5" />
+    <InfoFlags index="Hidden" value="0" />
+    <SortIndex value="100" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherHolyFireSearchBuff">
+    <Alignment value="Positive" />
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+    <InfoIcon value="Assets\Textures\storm_btn_d3ros_crusader_wrath.dds" />
+    <DisableValidatorArray value="NotMounted" />
+    <DisableValidatorArray value="CasterNotStasis" />
+    <DisableValidatorArray value="SourceNotDead" />
+    <DisableValidatorArray value="NoTyraelDeathExplosionBehavior" />
+    <DisableValidatorArray value="NotCloaked" />
+    <DisableValidatorArray value="NoSpiritFormBuffUtherTarget" />
+    <Period value="1" />
+    <PeriodicEffect value="HolyFireSearch" />
+    <Face value="UtherHolyFireTalent" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherHardenedFocus">
+    <Alignment value="Positive" />
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_Talent_HardenedFocus.dds" />
+    <DisableValidatorArray value="TargetLifeGT80Percent" />
+    <Period value="0.25" />
+    <PeriodicEffect value="UtherHardenedFocusModifyCooldowns" />
+    <InfoFlags index="Hidden" value="0" />
+    <SortIndex value="100" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="WaveofLightStacks">
+    <BuffFlags index="RefreshStack" value="1" />
+    <MaxStackCount value="5" />
+    <Duration value="1" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="HolyRadianceHealAmplification">
+    <Duration value="0.0625" />
+    <Modification>
+      <HealTakenAdditiveMultiplier index="Life" value="1" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherHolyLightSuppressionBehavior">
+    <BuffFlags index="UpdateDurationWhileDisabled" value="1" />
+    <Duration value="0.3" />
+    <Modification>
+      <AbilClassDisableArray index="CAbilEffectInstant" value="1" />
+      <AbilClassDisableArray index="CAbilEffectTarget" value="1" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherHolyLightMasteryCarryBehavior" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="DivineStormDummyBehavior">
+    <Duration value="1.5" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="DivineStormStun" parent="StormStun">
+    <Duration value="1.75" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="SpiritOfRedemptionSpiritFormBuff" parent="StormSpecialDeathState">
+    <InfoFlags index="AlwaysUseGameText" value="1" />
+    <InfoIcon value="Assets\Textures\storm_btn_d3_monk_breathofheaven.dds" />
+    <Duration value="8" />
+    <InitialEffect value="DivineStormRemoveCasterBehavior" />
+    <ExpireEffect value="RedemptionSwitch" />
+    <BehaviorCategories index="Restorable" value="1" />
+    <DisplayDuration index="Neutral" value="0" />
+    <Modification>
+      <ModifyFlags index="DisableAbils" value="1" />
+      <StateFlags index="SuppressCollision" value="0" />
+      <AbilLinkEnableArray value="move" />
+      <AbilLinkEnableArray value="UtherFlashofLight" />
+      <WeaponDisableArray value="HeroUther" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherEternalVanguard">
+    <Alignment value="Positive" />
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+    <InfoIcon value="Assets\Textures\storm_btn_d3_monk_breathofheaven.dds" />
+    <DisplayDuration index="Self" value="1" />
+    <RemoveValidatorArray value="TargetDoesNotHaveAbathurUltimateEvolutionControl" />
+    <DamageResponse>
+      <Chance value="1" />
+      <Handled value="SpiritofRedemptionApplyRezDelayBehavior" />
+      <Priority value="12" />
+      <Fatal value="1" />
+      <RecordBehaviorShieldDamage value="1" />
+      <ModifyFraction value="0" />
+      <ModifyMinimumDamage value="1" />
+    </DamageResponse>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherEternalVanguardRezDelay" parent="StormStasisIceBlock">
+    <BehaviorCategories index="SpecialDeathState" value="1" />
+    <Duration value="1" />
+    <ExpireEffect value="SpiritOfRedemptionSet" />
+    <Modification>
+      <ModifyFlags index="SuppressMoving" value="0" />
+      <StateFlags index="Passive" value="1" />
+      <StateFlags index="SuppressCollision" value="1" />
+      <StateFlags index="SuppressLifeRegen" value="1" />
+      <StateFlags index="SuppressEnergyRegen" value="1" />
+      <MoveSpeedMaximum value="0" />
+      <AbilClassDisableArray index="CAbilMove" value="1" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherHammerOfTheLightbringer">
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+    <DamageResponse Chance="1" Handled="HammerOfTheLightbringerModifyUnit" Location="Attacker">
+      <ValidatorArray value="TargetNotEvading" />
+      <Kind index="Ability" value="0" />
+    </DamageResponse>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="HammerOfJustice" parent="StormStun">
+    <Duration value="1" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="HolyRadianceMissileScan">
+    <Period value="0.0625" />
+    <PeriodicEffect value="HolyRadianceSearchPersistent" />
+    <InitialEffect value="HolyRadianceSearchPersistent" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="DivineInterventionInvulnerable" parent="StormInvulnerable">
+    <Duration value="3" />
+  </CBehaviorBuff>
+  <CBehaviorTokenCounter id="UtherHolyFireToken" parent="StormGenericToken">
+    <Max value="3" />
+    <Face value="UtherHolyFireTalent" />
+  </CBehaviorTokenCounter>
+  <CButton id="UtherDevotionEternalVanguardShop" parent="StormButtonParentTrait">
+    <TooltipFlags index="ShowHotkey" value="0" />
+    <Icon value="Assets\Textures\storm_ui_icon_uther_eternaldevotion.dds" />
+    <UseHotkeyLabel value="0" />
+  </CButton>
+  <CButton id="UtherHolyRadianceWaveOfLightQuestToken" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_holyradiance.dds" />
+    <HotkeyAlias value="UtherHammerOfJusticeHammerOfTheLightbringer" />
+  </CButton>
+  <CButton id="UtherHolyLightSilverTouchQuestToken" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_holylight.dds" />
+    <HotkeyAlias value="UtherHammerOfJusticeHammerOfTheLightbringer" />
+  </CButton>
+  <CButton id="UtherHolyLightSilverTouch" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_holylight.dds" />
+    <HotkeyAlias value="UtherHolyLightHolyShockTalent" />
+  </CButton>
+  <CButton id="UtherHammerOfJusticeHammerOfTheLightbringer" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_autoattack_mana.dds" />
+  </CButton>
+  <CButton id="UtherEternalDevotionArmorOfFaithTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_holylight.dds" />
+    <HotkeyAlias value="UtherRedemptionTalent" />
+    <UseHotkeyLabel value="0" />
+  </CButton>
+  <CButton id="UtherHolyRadianceTyrsDeliveranceTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_holyradiance.dds" />
+    <HotkeyAlias value="UtherRedemptionTalent" />
+  </CButton>
+  <CButton id="UtherEternalDevotionDivineProtectionTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_eternaldevotion_a.dds" />
+    <HotkeyAlias value="UtherRedemptionTalent" />
+  </CButton>
+  <CButton id="UtherHammerOfJusticeWellMetTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_hammerofjustice.dds" />
+  </CButton>
+  <CButton id="UtherHandOfProtection" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_cleanse.dds" />
+  </CButton>
+  <CButton id="UtherEternalDevotionGuardianOfAncientKingsTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_eternaldevotion.dds" />
+    <HotkeyAlias value="UtherRedemptionTalent" />
+  </CButton>
+  <CButton id="UtherHammerOfJusticePursuitOfJusticeTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_hammerofjustice.dds" />
+    <HotkeyAlias value="UtherHammerofJusticeFistofJusticeTalent" />
+  </CButton>
+  <CButton id="UtherBeaconOfLight" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_uther_holylight.dds" />
   </CButton>
   <CButton id="UtherBenedictionHotbar" parent="StormButtonParent">
@@ -38,10 +1031,2123 @@
     <TooltipCooldownOverrideText value="Benediction Cool Down" />
     <TooltipFlags index="ShowUsage" value="0" />
   </CButton>
+  <CButton id="UtherEternalDevotionHammerOfTheLightbringerTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_autoattack_mana.dds" />
+  </CButton>
+  <CButton id="UtherFlashofLight" parent="StormButtonParent">
+    <TooltipAppender Validator="HasUtherReach" Face="UtherHolyLightReachTalent" />
+    <Icon value="Assets\Textures\storm_ui_icon_uther_flashoflight.dds" />
+  </CButton>
+  <CButton id="UtherEternalDevotionBlessedChampionTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_holylight.dds" />
+  </CButton>
+  <CButton id="UtherHolyFireTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_holyfire.dds" />
+  </CButton>
+  <CButton id="UtherRedemptionTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_eternaldevotion.dds" />
+  </CButton>
+  <CButton id="UtherDivineStormDivineHurricaneTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_divinestorm.dds" />
+  </CButton>
+  <CButton id="UtherDivineShieldBulwarkOfLightTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_divineshield.dds" />
+  </CButton>
+  <CButton id="UtherHolyRadianceWaveofLightTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_holyradiance.dds" />
+  </CButton>
+  <CButton id="UtherHolyLightHolyShockTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_holylight.dds" />
+  </CButton>
+  <CButton id="UtherEternalDevotion" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_eternaldevotion.dds" />
+    <HotkeyAlias value="UtherPassiveBuffWeapon" />
+    <TooltipAppender Validator="UtherHasHammeroftheLightbringer" Face="UtherEternalDevotionHammerOfTheLightbringerTalent" />
+    <TooltipAppender Validator="UtherHasHolyFire" Face="UtherHolyFireTalent" />
+    <TooltipAppender Validator="UtherHasTalentGuardianOfAncientKings" Face="UtherEternalDevotionGuardianOfAncientKingsTalent" />
+    <TooltipAppender Validator="HasUtherRedemption" Face="UtherRedemptionTalent" />
+    <TooltipAppender Validator="UtherHasTalentDivineProtection" Face="UtherEternalDevotionDivineProtectionTalent" />
+    <UseHotkeyLabel value="0" />
+    <TooltipFlags index="ShowHotkey" value="0" />
+  </CButton>
+  <CButton id="UtherDivineShield" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_divineshield.dds" />
+    <TooltipAppender Validator="HasUtherBulwarkOfLight" Face="UtherDivineShieldBulwarkOfLightTalent" />
+    <TooltipCooldownOverrideText value="Button/CooldownOverride/UtherDivineShield" />
+  </CButton>
+  <CButton id="UtherDivineStorm" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_divinestorm.dds" />
+    <TooltipAppender Validator="HasUtherDivineHurricane" Face="UtherDivineStormDivineHurricaneTalent" />
+    <TooltipCooldownOverrideText value="Button/CooldownOverride/UtherDivineStorm" />
+  </CButton>
+  <CButton id="UtherHammerofJustice" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_hammerofjustice.dds" />
+    <TooltipAppender Validator="UtherHasHammerOfTheLightbringer" Face="UtherEternalDevotionHammerOfTheLightbringerTalent" />
+    <TooltipAppender Validator="HasUtherPursuitOfJustice" Face="UtherHammerOfJusticePursuitOfJusticeTalent" />
+    <TooltipAppender Validator="HasUtherWellMet" Face="UtherHammerOfJusticeWellMetTalent" />
+  </CButton>
+  <CButton id="UtherHolyLight" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_holylight.dds" />
+    <TooltipAppender Validator="HasUtherSilverTouch" Face="UtherHolyLightSilverTouch" />
+    <TooltipAppender Validator="HasUtherHolyShock" Face="UtherHolyLightHolyShockTalent" />
+    <TooltipAppender Validator="UtherHasBlessedChampion" Face="UtherEternalDevotionBlessedChampionTalent" />
+    <TooltipAppender Validator="UtherHasTalentArmorOfFaith" Face="UtherEternalDevotionArmorOfFaithTalent" />
+    <TooltipAppender Validator="HasUtherBeaconOfLight" Face="UtherBeaconOfLight" />
+  </CButton>
+  <CButton id="UtherHolyRadiance" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_holyradiance.dds" />
+    <TooltipAppender Validator="HasUtherWaveofLight" Face="UtherHolyRadianceWaveofLightTalent" />
+    <TooltipAppender Validator="UtherHasTalentTyrsDeliverance" Face="UtherHolyRadianceTyrsDeliveranceTalent" />
+  </CButton>
+  <CCharacter id="Uther">
+    <Name value="Character/Name/HeroSupport1" />
+    <Age value="50" />
+    <Race value="Unknown" />
+    <Attitude value="Character/Attitude/HeroSupport1" />
+    <Timbre value="Character/Timbre/HeroSupport1" />
+    <Dialect value="Character/Dialect/HeroSupport1" />
+    <VoiceRef value="Character/VoiceRef/HeroSupport1" />
+    <Description value="Character/Description/HeroSupport1" />
+    <Image value="Assets\Textures\ui_targetportrait_hero_uther.dds" />
+    <Voice value="NaturalVoice Paul" />
+    <Color value="255,0,0,255" />
+    <Variations Model="UtherPortrait" Actor="UtherPortrait">
+      <DefaultCategories value="Default" />
+      <DefaultCategories value="ConversationType:Mission" />
+    </Variations>
+    <Unit value="HeroUther" />
+  </CCharacter>
+  <CEffectApplyBehavior id="DivineInterventionApplyBehaviorMovementSpeed">
+    <ValidatorArray index="0" value="TargetNotDead" />
+    <Behavior value="UtherDivineInterventionMovementSpeed" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="UtherHolyLightArmorOfFaithApplyCooldownBehavior">
+    <Behavior value="UtherHolyLightArmorOfFaithCooldown" />
+  </CEffectApplyBehavior>
+  <CEffectModifyUnit id="UtherHolyLightArmorOfFaithCooldownDisplayDummyEffect">
+    <ValidatorArray value="AlwaysReturnsFalse" />
+  </CEffectModifyUnit>
+  <CEffectCreateHealer id="UtherHolyLightArmorOfFaithManaRestoration" parent="StormManaRestore">
+    <RechargeVitalRate value="90" />
+  </CEffectCreateHealer>
+  <CEffectModifyPlayer id="UtherHolyLightArmorOfFaithModifyPlayerCooldown">
+    <Cost>
+      <Cooldown Link="Abil/UtherHolyLightArmorOfFaithCooldownDisplay" Location="Player" TimeUse="20" />
+    </Cost>
+  </CEffectModifyPlayer>
+  <CEffectSet id="UtherHolyLightArmorOfFaithProcSet">
+    <EffectArray value="UtherHolyLightArmorOfFaithApplyBuff" />
+    <EffectArray value="UtherHolyLightArmorOfFaithApplyCooldownBehavior" />
+    <EffectArray value="UtherHolyLightArmorOfFaithModifyPlayerCooldown" />
+    <EffectArray value="UtherHolyLightArmorOfFaithManaRestoration" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="DivineInterventionApplyBehaviorCaster">
+    <Chance value="0" />
+    <Behavior value="DivineInterventionInvulnerable" />
+    <ValidatorArray index="0" value="TargetNotDead" />
+    <WhichUnit Value="Caster" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="SpiritofRedemptionApplyRezDelayBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherEternalVanguardRezDelay" />
+    <ValidatorArray index="0" value="NoEternalDevotionRezDelay" />
+  </CEffectApplyBehavior>
+  <CEffectSwitch id="UtherHolyLightTargetHealSwitch">
+    <CaseArray Validator="TargetLifeFull" Effect="UtherHolyLightBlessedChampionTalentTargetHealDummy" />
+    <CaseDefault value="HolyLightCreateHealer" />
+  </CEffectSwitch>
+  <CEffectModifyUnit id="UtherHolyLightBlessedChampionTalentTargetHealDummy" />
+  <CEffectSet id="UtherHolyLightSilverTouchQuestCompleteSet">
+    <EffectArray value="UtherHolyLightSilverTouchModifyCost" />
+    <EffectArray value="UtherHolyLightSilverTouchModifyRange" />
+  </CEffectSet>
+  <CEffectSwitch id="EternalDevotionApplySelfArmorSwitch">
+    <CaseArray Validator="UtherHasTalentGuardianOfAncientKingsAndCasterIsStunnedOrRootedOrSilencedORCasterHasUtherEternalDevotionGuardianOfAncientKingsArmorBehaviorandUtherHasTalentDivineProtectionCombine" Effect="UtherEternalDevotionApplySelfArmorBuffGuardianOfAncientKings" />
+    <CaseDefault value="UtherEternalDevotionApplySelfArmorBuff" />
+  </CEffectSwitch>
+  <CEffectSet id="EternalDevotionApplySelfArmorSet">
+    <ValidatorArray value="IsNotSelf" />
+    <EffectArray value="UtherEternalDevotionApplySelfArmorBuffDivineProtection" />
+    <EffectArray value="EternalDevotionApplySelfArmorSwitch" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="UtherEternalDevotionApplySelfArmorBuff">
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherEternalDevotionArmor" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="UtherEternalDevotionApplySelfArmorBuffGuardianOfAncientKings">
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherEternalDevotionGuardianOfAncientKingsArmor" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="UtherEternalDevotionApplyTargetArmorBuffDivineProtection">
+    <ValidatorArray index="0" value="TargetHasUtherEternalDevotionORGuardianOfAncientKingsArmorBehaviorsANDUtherHasTalentDivineProtection" />
+    <Behavior value="UtherEternalDevotionDivineProtectionArmor" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="EternalDevotionApplyTargetArmorSet">
+    <ValidatorArray value="TargetIsNotEnemy" />
+    <ValidatorArray value="TargetIsHero" />
+    <EffectArray value="UtherEternalDevotionApplyTargetArmorBuffDivineProtection" />
+    <EffectArray value="EternalDevotionApplyTargetArmorSwitch" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="UtherEternalDevotionApplySelfArmorBuffDivineProtection">
+    <ValidatorArray index="0" value="CasterHasUtherEternalDevotionORGuardianOfAncientKingsArmorBehaviorsANDUtherHasTalentDivineProtection" />
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherEternalDevotionDivineProtectionArmor" />
+  </CEffectApplyBehavior>
+  <CEffectModifyTokenCount id="UtherHolyRadianceWaveofLightModifyToken" parent="BaseEffectModifyTokenCount">
+    <ValidatorArray value="TargetIsHero" />
+    <ValidatorArray value="UtherCasterHasLTMaxWaveOfLightTokens" />
+    <EffectCategory index="Quest" value="1" />
+    <TokenId value="WaveOfLightQuestToken" />
+  </CEffectModifyTokenCount>
+  <CEffectModifyTokenCount id="UtherHolyLightSilverTouchModifyArmorToken" parent="BaseEffectModifyTokenCount">
+    <ValidatorArray value="UtherCasterHasLTMaxSilverTouchArmorTokens" />
+    <ValidatorArray value="HasUtherSilverTouch" />
+    <EffectCategory index="Quest" value="1" />
+    <TokenId value="UtherSilverTouchArmorQuestToken" />
+  </CEffectModifyTokenCount>
+  <CEffectModifyCatalogNumeric id="UtherHolyLightSilverTouchModifyRange">
+    <CatalogModifications Reference="Abil,UtherHolyLight,Range[0]">
+      <Value value="3.5" />
+    </CatalogModifications>
+    <CatalogModifications Reference="Abil,UtherHolyShock,Range[0]">
+      <Value value="3.5" />
+    </CatalogModifications>
+    <CatalogModifications Reference="Actor,UtherHolyLightRangeSplat,Scale">
+      <Value value="3.5" />
+    </CatalogModifications>
+    <CatalogModifications Reference="Actor,UtherHolyShockRangeSplat,Scale">
+      <Value value="3.5" />
+    </CatalogModifications>
+  </CEffectModifyCatalogNumeric>
+  <CEffectModifyCatalogNumeric id="UtherHolyLightSilverTouchModifyCost">
+    <CatalogModifications Reference="Abil,UtherHolyLight,Cost[0].Vital[Energy]">
+      <Value value="-20" />
+    </CatalogModifications>
+    <CatalogModifications Reference="Abil,UtherHolyShock,Cost[0].Vital[Energy]">
+      <Value value="-20" />
+    </CatalogModifications>
+  </CEffectModifyCatalogNumeric>
+  <CEffectApplyBehavior id="UtherHolyLightArmorOfFaithApplyBuff">
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherHolyLightArmorOfFaithCooldownBuff" />
+  </CEffectApplyBehavior>
+  <CEffectModifyUnit id="UtherHolyLightArmorOfFaithModifyUnit">
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="UtherHolyLight,Execute" CooldownOperation="Add" CooldownTimeUse="-0.25" />
+  </CEffectModifyUnit>
+  <CEffectModifyCatalogNumeric id="UtherHolyRadianceSilverTouchArmorDurationIncreaseModifyCatalog">
+    <CatalogModifications Operation="Set" Reference="Behavior,UtherEternalDevotionArmor,Duration">
+      <Value value="2.5" />
+    </CatalogModifications>
+    <CatalogModifications Operation="Set" Reference="Behavior,UtherEternalDevotionGuardianOfAncientKingsArmor,Duration">
+      <Value value="2.5" />
+    </CatalogModifications>
+    <CatalogModifications Operation="Set" Reference="Behavior,UtherEternalDevotionDivineProtectionArmor,Duration">
+      <Value value="2.5" />
+    </CatalogModifications>
+  </CEffectModifyCatalogNumeric>
+  <CEffectModifyPlayer id="UtherHandOfProtectionModifyPlayer">
+    <ValidatorArray value="HasUtherHandOfProtection" />
+    <ValidatorArray value="CasterNotBlindedAndTargetNotEvading" />
+    <WhichPlayer Value="Caster" />
+    <Cost Abil="UtherHandOfProtection">
+      <Cooldown>
+        <Link value="Abil/UtherHandOfProtection" />
+        <Location value="Player" />
+        <Operation value="Add" />
+        <TimeUse value="-5" />
+      </Cooldown>
+    </Cost>
+  </CEffectModifyPlayer>
+  <CEffectApplyBehavior id="UtherEternalDevotionTyrsDeliveranceApplyBehavior">
+    <ValidatorArray index="0" value="UtherHasTalentTyrsDeliverance" />
+    <Behavior value="UtherHolyRadianceTyrsDeliveranceAmplifiedHealing" />
+  </CEffectApplyBehavior>
+  <CEffectRemoveBehavior id="UtherEternalDevotionTyrsDeliveranceRemoveBehavior">
+    <BehaviorLink value="UtherHolyRadianceTyrsDeliveranceAmplifiedHealing" />
+  </CEffectRemoveBehavior>
+  <CEffectSet id="UtherHammerOfJusticeHammerOfTheLightbringerSet">
+    <ValidatorArray value="UtherHasHammerOfTheLightbringer" />
+    <EffectArray value="HammerOfTheLightbringerModifyUnit" />
+    <EffectArray value="UtherHammerOfJusticeHammerOfTheLightbringerModifyCooldown" />
+    <EffectArray value="UtherHammerOfTheLightbringerModifyToken" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="UtherHammerOfTheLightbringerApplyCarryBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherHammerOfTheLightbringerComplete" />
+  </CEffectApplyBehavior>
+  <CEffectModifyPlayer id="UtherHolyLightHolyEfficiencyModifyHolyLightCost">
+    <EffectArray Reference="Abil,UtherHolyLight,Cost.Vital[Energy]" Value="-20" />
+    <EffectArray Reference="Abil,UtherHolyShock,Cost.Vital[Energy]" Value="-20" />
+  </CEffectModifyPlayer>
+  <CEffectModifyTokenCount id="UtherHammerOfTheLightbringerModifyToken" parent="BaseEffectModifyTokenCount">
+    <TokenId value="HammerOfTheLightbringerQuestToken" />
+    <EffectCategory index="Quest" value="1" />
+    <ValidatorArray value="UtherCasterHasLTMaxHammerOfTheLightbringerTokens" />
+  </CEffectModifyTokenCount>
+  <CEffectSet id="UtherHammerOfJusticeTalentSet">
+    <EffectArray value="UtherHammerOfJusticePursuitOfJusticeApplyBehavior" />
+    <EffectArray value="UtherHammerOfJusticeWellMetSet" />
+    <EffectArray value="BenedictionRemoveBehavior" />
+  </CEffectSet>
+  <CEffectSet id="UtherHammerOfJusticeWellMetSet">
+    <ValidatorArray value="TargetIsHero" />
+    <ValidatorArray value="CasterNotStasis" />
+    <ValidatorArray value="HasUtherWellMet" />
+    <EffectArray value="UtherHammerOfJusticeWellMetApplySlowBehavior" />
+    <EffectArray value="UtherHammerOfJusticeWellMetDamageReductionApplyBehavior" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="UtherHammerOfJusticeWellMetDamageReductionApplyBehavior">
+    <Behavior value="UtherHammerOfJusticeWellMetDamageReduction" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="UtherHammerOfJusticeWellMetApplySlowBehavior" parent="StormSlowApply">
+    <Behavior value="UtherHammerOfJusticeWellMetSlow" />
+  </CEffectApplyBehavior>
+  <CEffectModifyUnit id="UtherHolyLightBlessedChampionTalentSelfHealDummy">
+    <ImpactUnit Value="Caster" />
+  </CEffectModifyUnit>
+  <CEffectSwitch id="UtherHolyLightBlessedChampionTalentSelfHealSwitch">
+    <CaseArray Validator="UtherCasterHasBlessedChampionTalentandLifeFull" Effect="UtherHolyLightBlessedChampionTalentSelfHealDummy" />
+    <CaseArray Validator="TargetIsSelf" Effect="UtherHolyLightBlessedChampionTalentSelfHealDummy" />
+    <CaseDefault value="HolyLightCreateSelfHealer" />
+  </CEffectSwitch>
+  <CEffectSwitch id="EternalDevotionApplyTargetArmorSwitch">
+    <CaseArray Validator="UtherHasTalentGuardianOfAncientKingsAndTargetIsStunnedOrRootedOrSilencedORTargetHasUtherEternalDevotionGuardianOfAncientKingsArmorBehaviorandUtherHasTalentDivineProtectionCombine" Effect="UtherEternalDevotionApplyTargetArmorBuffGuardianOfAncientKings" />
+    <CaseDefault value="UtherEternalDevotionApplyTargetArmorBuff" />
+    <ValidatorArray value="TargetIsHero" />
+  </CEffectSwitch>
+  <CEffectCreatePersistent id="HolyShockManaRetrunPersistent">
+    <WhichLocation Value="CasterUnit" />
+    <InitialDelay value="0.0625" />
+    <InitialEffect value="HolyLightHolyShockManaReturn" />
+  </CEffectCreatePersistent>
+  <CEffectCreateHealer id="HolyLightHolyShockManaReturn" parent="StormManaRestore">
+    <ImpactUnit Value="Caster" />
+    <RechargeVitalRate value="45" />
+  </CEffectCreateHealer>
+  <CEffectApplyBehavior id="UtherEternalDevotionApplyTargetArmorBuffGuardianOfAncientKings">
+    <Behavior value="UtherEternalDevotionGuardianOfAncientKingsArmor" />
+  </CEffectApplyBehavior>
+  <CEffectCreateHealer id="HolyLightCreateSelfHealer" parent="StormSelfOnlyHealingSpell">
+    <ValidatorArray value="IsNotSelf" />
+    <ImpactUnit Value="Caster" />
+    <RechargeVitalRate value="181" />
+    <MultiplicativeModifierArray index="BeaconOfLight" Validator="UtherHasBeaconOfLightAndLT50Health" Modifier="2" Crit="1" />
+    <AmountScoreArray Validator="CasterHasLTMaxSilverTouchHealingTokensandSilverTouch" Value="UtherHolyLightSilverTouch" />
+    <CritValidatorArray value="UtherHasBeaconOfLightAndLT50Health" />
+  </CEffectCreateHealer>
+  <CEffectApplyBehavior id="UtherHammerOfJusticePursuitOfJusticeApplyBehavior">
+    <ValidatorArray index="0" value="HasUtherPursuitOfJustice" />
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherHammerOfJusticePursuitOfJusticeMovementSpeed" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="UtherHolyLightHealSet">
+    <EffectArray value="UtherHolyLightHealSwitch" />
+    <EffectArray value="UtherHolyLightBlessedChampionTalentSelfHealSwitch" />
+  </CEffectSet>
+  <CEffectModifyTokenCount id="UtherHolyFireIncrementTokenCount">
+    <TokenId value="UtherHolyFireToken" />
+    <Value value="1" />
+  </CEffectModifyTokenCount>
+  <CEffectModifyTokenCount id="UtherHolyFireResetTokenCount">
+    <TokenId value="UtherHolyFireToken" />
+    <Operation value="Set" />
+  </CEffectModifyTokenCount>
+  <CEffectSet id="UtherHolyRadianceEnemySet">
+    <ValidatorArray value="noMarkers" />
+    <EffectArray value="HolyRadianceEnemyDamage" />
+    <EffectArray value="UtherHolyRadianceWaveofLightTalentProcSet" />
+  </CEffectSet>
+  <CEffectSet id="UtherHolyRadianceLaunchSet">
+    <EffectArray value="HolyRadianceApplySearchBehavior" />
+  </CEffectSet>
+  <CEffectModifyUnit id="UtherHolyRadianceAllyDummyHeal">
+    <ValidatorArray value="noMarkers" />
+    <ValidatorArray value="NotVehicle" />
+  </CEffectModifyUnit>
+  <CEffectSet id="UtherHolyLightHolyShockTalentProcSet">
+    <EffectArray value="UtherHolyLightHolyShockTalentProcCreateHealer" />
+    <EffectArray value="UtherHolyLightRemoveHolyShockMarker" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="UtherHolyLightRemoveHolyShockMarker">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="UtherHolyLightHolyShockTalentMarker" />
+    <Count value="1" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="UtherHolyFireApplyStack">
+    <ValidatorArray index="0" value="UtherHasHolyFire" />
+    <ValidatorArray value="CasterNotBlindedAndTargetNotEvading" />
+    <ValidatorArray value="TargetIsHero" />
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherHolyFireStack" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="UtherHolyRadianceWaveofLightTalentApplyStackBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherHolyRadianceWaveofLightTalentQuestStack" />
+  </CEffectApplyBehavior>
+  <CEffectRemoveBehavior id="UtherHolyRadianceWaveofLightTalentRemoveStacks">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="UtherHolyRadianceWaveofLightTalentQuestStack" />
+    <Count value="25" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="UtherHolyLightApplyHolyShockTalentMarker">
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherHolyLightHolyShockTalentMarker" />
+  </CEffectApplyBehavior>
+  <CEffectSwitch id="UtherHolyLightHealSwitch">
+    <ValidatorArray value="NotStructureTarget" />
+    <CaseArray Validator="UtherHasHolyLightHolyShockTalentMarkerCaster" Effect="UtherHolyLightHolyShockTalentProcSet" />
+    <CaseDefault value="UtherHolyLightTargetHealSwitch" />
+  </CEffectSwitch>
+  <CEffectApplyBehavior id="UtherEternalDevotionApplyTargetArmorBuff">
+    <Behavior value="UtherEternalDevotionArmor" />
+  </CEffectApplyBehavior>
+  <CEffectCreateHealer id="UtherHolyLightHolyShockTalentProcCreateHealer" parent="StormHealingSpell">
+    <ValidatorArray value="NotStructureTarget" />
+    <RechargeVitalRate value="640.5" />
+  </CEffectCreateHealer>
+  <CEffectCreateHealer id="UtherBeaconOfLightCreateHealer">
+    <RechargeVitalRate value="1" />
+  </CEffectCreateHealer>
+  <CEffectApplyBehavior id="BenedictionApplyBehavior">
+    <ValidatorArray index="0" value="DoesNotHaveBenediction" />
+    <Behavior value="UtherBenedictionBuff" />
+  </CEffectApplyBehavior>
+  <CEffectCreatePersistent id="BenedictionCreateCooldownPersistent">
+    <WhichLocation Value="TargetUnit" />
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="BenedictionInitialCooldownModifyPlayer" />
+    <PeriodicPeriodArray value="0.0625" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="BenedictionCreateDelayPersistent">
+    <WhichLocation Value="CasterUnit" />
+    <InitialDelay value="0.0625" />
+    <InitialEffect value="BenedictionRemoveBehavior" />
+  </CEffectCreatePersistent>
+  <CEffectModifyPlayer id="BenedictionExpirationModifyPlayer">
+    <EffectArray Reference="Abil,UtherHammerOfJustice,Cost[0].Cooldown.TimeUse" Value="9.937500" />
+    <EffectArray Reference="Abil,UtherHammerOfJustice,Cost[0].Vital[Energy]" Value="50" />
+    <EffectArray Reference="Abil,UtherHolyLight,Cost[0].Cooldown.TimeUse" Value="10.000000" />
+    <EffectArray Reference="Abil,UtherHolyLight,Cost[0].Vital[Energy]" Value="50" />
+    <EffectArray Reference="Abil,UtherHolyRadiance,Cost[0].Cooldown.TimeUse" Value="10.000000" />
+    <EffectArray Reference="Abil,UtherHolyRadiance,Cost[0].Vital[Energy]" Value="50" />
+    <EffectArray Reference="Abil,UtherHolyShock,Cost[0].Cooldown.TimeUse" Value="10.000000" />
+    <EffectArray Reference="Abil,UtherHolyShock,Cost[0].Vital[Energy]" Value="50" />
+    <Cost>
+      <Cooldown>
+        <Link value="Abil/UtherBenediction" />
+        <Location value="Player" />
+        <Operation value="Set" />
+        <TimeUse value="60" />
+      </Cooldown>
+    </Cost>
+  </CEffectModifyPlayer>
+  <CEffectSet id="BenedictionFinalSet">
+    <EffectArray value="BenedictionExpirationModifyPlayer" />
+  </CEffectSet>
+  <CEffectModifyPlayer id="BenedictionInitialCooldownModifyPlayer">
+    <Cost>
+      <Cooldown>
+        <Link value="Abil/UtherBenediction" />
+        <Location value="Player" />
+        <Operation value="Set" />
+        <TimeUse value="0.5" />
+      </Cooldown>
+    </Cost>
+  </CEffectModifyPlayer>
+  <CEffectModifyPlayer id="BenedictionInitialModifyPlayer">
+    <EffectArray Operation="Subtract" Reference="Abil,UtherHammerOfJustice,Cost[0].Cooldown.TimeUse" Value="9.937500" />
+    <EffectArray Operation="Subtract" Reference="Abil,UtherHammerOfJustice,Cost[0].Vital[Energy]" Value="50" />
+    <EffectArray Operation="Subtract" Reference="Abil,UtherHolyLight,Cost[0].Cooldown.TimeUse" Value="10.000000" />
+    <EffectArray Operation="Subtract" Reference="Abil,UtherHolyLight,Cost[0].Vital[Energy]" Value="50" />
+    <EffectArray Operation="Subtract" Reference="Abil,UtherHolyRadiance,Cost[0].Cooldown.TimeUse" Value="10.000000" />
+    <EffectArray Operation="Subtract" Reference="Abil,UtherHolyRadiance,Cost[0].Vital[Energy]" Value="50" />
+    <EffectArray Operation="Subtract" Reference="Abil,UtherHolyShock,Cost[0].Cooldown.TimeUse" Value="10.000000" />
+    <EffectArray Operation="Subtract" Reference="Abil,UtherHolyShock,Cost[0].Vital[Energy]" Value="50" />
+  </CEffectModifyPlayer>
+  <CEffectSet id="BenedictionInitialSet">
+    <EffectArray value="BenedictionInitialModifyPlayer" />
+  </CEffectSet>
+  <CEffectEnumArea id="BenedictionItemSearch">
+    <SearchFilters value="Item;Neutral,Enemy" />
+    <AreaArray Effect="BenedictionStartCooldown">
+      <Radius value="1" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectRemoveBehavior id="BenedictionRemoveBehavior">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="UtherBenedictionBuff" />
+  </CEffectRemoveBehavior>
+  <CEffectModifyUnit id="BenedictionSetCooldown">
+    <Cost Abil="UtherBenediction,Execute" CooldownOperation="Set" CooldownTimeUse="0.5" />
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="BenedictionStartCooldown">
+    <Cost Abil="UtherBenediction,Execute" CooldownOperation="Add" CooldownTimeUse="60">
+      <Fraction Cooldown="1" />
+    </Cost>
+  </CEffectModifyUnit>
+  <CEffectCreateHealer id="FlashofLightCreateHealer" parent="StormHealingSpell">
+    <ValidatorArray value="NotStructureTarget" />
+    <RechargeVitalRate value="230" />
+  </CEffectCreateHealer>
+  <CEffectSet id="FlashofLightSet">
+    <EffectArray value="FlashofLightCreateHealer" />
+    <EffectArray value="EternalDevotionApplyTargetArmorSet" />
+  </CEffectSet>
+  <CEffectDamage id="HolyFireDamage" parent="StormSpell">
+    <LaunchLocation Value="CasterUnit" />
+    <Flags index="NoLeech" value="1" />
+    <Flags index="NoFractionDealtBonus" value="1" />
+    <Flags index="NoVitalLeechLife" value="1" />
+    <Flags index="NoVitalLeechShields" value="1" />
+    <Flags index="NoVitalLeechEnergy" value="1" />
+    <Amount value="13" />
+    <MultiplicativeModifierArray index="UtherHolyFire" Accumulator="UtherHolyFireAccumulator" />
+    <DamageModifierSource Value="Source" />
+  </CEffectDamage>
+  <CEffectCreatePersistent id="HolyFirePersistentRevealer">
+    <WhichLocation Value="TargetUnit" />
+    <ExpireDelay value="1" />
+    <RevealRadius value="1" />
+    <RevealFlags index="Unfog" value="1" />
+  </CEffectCreatePersistent>
+  <CEffectEnumArea id="HolyFireSearch">
+    <ImpactLocation Value="SourceUnit" />
+    <SearchFilters value="-;Self,Player,Ally,Neutral,ImmuneToAOE,Missile,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="HolyFireimpactSet">
+      <Radius value="2.5" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="HolyFireimpactSet">
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="HolyFireDamage" />
+    <ValidatorArray value="NoJungleBenignTarget" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="HolyLightApplyBlessedChampionMastery">
+    <Chance value="0" />
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherBlessedChampion" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="HolyLightBlessedChampionMasteryProcSet">
+    <ValidatorArray value="HasBlessedChampionCaster" />
+    <ValidatorArray value="CasterNotBlindedAndTargetNotEvading" />
+    <EffectArray value="BlessedChampionSearch" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="HolyLightRemoveBlessedChampionMastery">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="UtherBlessedChampion" />
+    <Count value="1" />
+  </CEffectRemoveBehavior>
+  <CEffectCreatePersistent id="HolyShockCooldownReductionPersistent">
+    <WhichLocation Value="CasterUnit" />
+    <InitialDelay value="0.0625" />
+    <InitialEffect value="HolyShockModifyCooldown" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="HolyShockEnemySet">
+    <EffectArray value="HolyShockDummyEffect" />
+    <EffectArray value="HolyShockDamage" />
+    <EffectArray value="HolyShockCooldownReductionPersistent" />
+    <EffectArray value="HolyShockManaRetrunPersistent" />
+    <EffectArray value="UtherHolyLightHolyEfficiencyModifyTokenSelfHeal" />
+    <EffectArray value="UtherHolyLightBlessedChampionTalentSelfHealSwitch" />
+    <EffectArray value="UtherHolyLightSilverTouchModifyHealingToken" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  <CEffectModifyUnit id="HolyShockModifyCooldown">
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="UtherHolyShock,Execute" CooldownOperation="Add" CooldownTimeUse="-6" />
+  </CEffectModifyUnit>
+  <CEffectApplyBehavior id="RedemptionApplyCooldown">
+    <Behavior value="RedemptionCooldown" />
+  </CEffectApplyBehavior>
+  <CEffectCreatePersistent id="RedemptionCreateCooldownDelay">
+    <WhichLocation Value="TargetUnit" />
+    <InitialDelay value="0.0625" />
+    <InitialEffect value="RedemptionApplyCooldown" />
+  </CEffectCreatePersistent>
+  <CEffectCreateHealer id="RedemptionCreateEnergyHealer">
+    <RechargeVital value="Energy" />
+    <RechargeVitalFraction value="1" />
+  </CEffectCreateHealer>
+  <CEffectSet id="RedemptionProcSet">
+    <EffectArray value="HeroGenericRemoveDeadBehaviorSource" />
+    <EffectArray value="RedemptionCreateEnergyHealer" />
+    <EffectArray value="UtherRedemptionSetHealthDummyMax" />
+    <EffectArray value="RedemptionSetHealth" />
+    <EffectArray value="RedemptionCreateCooldownDelay" />
+    <EffectArray value="UtherRedemptionApplyDisplayCooldown" />
+  </CEffectSet>
+  <CEffectModifyUnit id="RedemptionSetHealth">
+    <VitalArray index="Life">
+      <ChangeFraction value="-0.5" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectSwitch id="RedemptionSwitch">
+    <CaseArray Validator="RedemptionAvailableCombine" Effect="RedemptionProcSet" />
+    <CaseDefault value="StormSuicide" />
+  </CEffectSwitch>
+  <CEffectCreatePersistent id="UtherHolyRadianceWaveofLightMasteryDelayPersistent">
+    <WhichLocation Value="CasterUnit" />
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="UtherWaveOfLightRestoreSet" />
+    <PeriodicPeriodArray value="0.0625" />
+  </CEffectCreatePersistent>
+  <CEffectModifyUnit id="HolyShockDummyEffect" />
+  <CEffectSet id="UtherEternalDevotionCooldownDisplayDummy">
+    <ValidatorArray value="AlwaysReturnsFalse" />
+  </CEffectSet>
+  <CEffectIssueOrder id="UtherHammerofJusticeIssueAttackOrder">
+    <WhichUnit Value="Caster" />
+    <Abil value="attack" />
+    <CmdFlags index="Queued" value="1" />
+    <Target Value="TargetUnit" />
+    <ValidatorArray value="CasterHasLE1Orders" />
+  </CEffectIssueOrder>
+  <CEffectModifyUnit id="UtherRedemptionApplyDisplayCooldown">
+    <ImpactUnit Value="Source" />
+    <Cost Abil="UtherEternalDevotion,Execute" CooldownOperation="Set">
+      <Fraction Cooldown="1" />
+    </Cost>
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="UtherRedemptionSetHealthDummyMax">
+    <VitalArray index="Life">
+      <ChangeFraction value="1" />
+    </VitalArray>
+    <FloaterCreation value="Suppress" />
+  </CEffectModifyUnit>
+  <CEffectSet id="BlessedChampionDummySet" />
+  <CEffectModifyUnit id="UtherHardenedFocusModifyCooldowns">
+    <Cost Abil="UtherHammerOfJustice,Execute" CooldownOperation="Add" CooldownTimeUse="-0.125" />
+    <Cost Abil="UtherHolyLight,Execute" CooldownOperation="Add" CooldownTimeUse="-0.125" />
+    <Cost Abil="UtherHolyRadiance,Execute" CooldownOperation="Add" CooldownTimeUse="-0.125" />
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="HolyLightModifyUnitRefundCD">
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="UtherHolyLight,Execute" CooldownOperation="Set">
+      <Fraction Cooldown="0.25" />
+    </Cost>
+  </CEffectModifyUnit>
+  <CEffectCreatePersistent id="HolyLightCreatePersistent">
+    <Chance value="0" />
+    <WhichLocation Value="CasterUnit" />
+    <InitialDelay value="0.0625" />
+    <InitialEffect value="HolyLightModifyUnitSet" />
+  </CEffectCreatePersistent>
+  <CEffectModifyUnit id="HolyShockModifyUnitRefundCD">
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="UtherHolyShock,Execute" CooldownOperation="Set">
+      <Fraction Cooldown="0.25" />
+    </Cost>
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="HolyLightModifyUnitRefundEnergy">
+    <Cost Abil="UtherHolyLight,Execute">
+      <Fraction>
+        <Vital index="Energy" value="-0.75" />
+      </Fraction>
+    </Cost>
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="HolyShockModifyUnitRefundEnergy">
+    <Marker Link="Effect/HolyLightModifyUnitRefundEnergy" />
+    <Cost Abil="UtherHolyShock,Execute">
+      <Fraction>
+        <Vital index="Energy" value="-0.5" />
+      </Fraction>
+    </Cost>
+  </CEffectModifyUnit>
+  <CEffectSet id="HolyLightModifyUnitSet">
+    <ValidatorArray value="HolyLightTargetIsMinion" />
+    <EffectArray value="HolyLightModifyUnitRefundCD" />
+    <EffectArray value="HolyLightModifyUnitRefundEnergy" />
+  </CEffectSet>
+  <CEffectModifyUnit id="UtherHammerOfJusticeHammerOfTheLightbringerModifyCooldown">
+    <ValidatorArray value="HasHammerOfTheLightbringerComplete" />
+    <ValidatorArray value="CasterNotBlindedAndTargetNotEvading" />
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="UtherHammerOfJustice,Execute" CooldownOperation="Add" CooldownTimeUse="-1.5" />
+  </CEffectModifyUnit>
+  <CEffectCreatePersistent id="HolyShockCreatePersistent">
+    <Chance value="0" />
+    <WhichLocation Value="CasterUnit" />
+    <InitialDelay value="0.0625" />
+    <InitialEffect value="HolyShockModifyUnitSet" />
+    <ValidatorArray value="TargetIsNotEnemy" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="HolyShockModifyUnitSet">
+    <ValidatorArray value="HolyShockTargetIsMinion" />
+    <ValidatorArray value="TargetIsNotEnemy" />
+    <EffectArray value="HolyShockModifyUnitRefundCD" />
+    <EffectArray value="HolyShockModifyUnitRefundEnergy" />
+  </CEffectSet>
+  <CEffectCreateHealer id="HammerOfTheLightbringerModifyUnit" parent="StormManaRestore">
+    <ImpactUnit Value="Caster" />
+    <RechargeVitalFraction value="0.015" />
+  </CEffectCreateHealer>
+  <CEffectSet id="HammerOfTheLightbringerDummySet">
+    <ValidatorArray value="UtherHasHammerOfTheLightbringer" />
+  </CEffectSet>
+  <CEffectSet id="UtherHolyLightSet">
+    <EffectArray value="UtherHolyLightHealSet" />
+    <EffectArray value="EternalDevotionApplyTargetArmorSet" />
+    <EffectArray value="EternalDevotionApplySelfArmorSet" />
+    <EffectArray value="UtherHolyLightModifyWeaponCooldown" />
+    <EffectArray value="HolyLightApplyBlessedChampionMastery" />
+    <EffectArray value="BenedictionRemoveBehavior" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="UtherHolyLightApplySuppressionBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherHolyLightSuppressionBehavior" />
+    <Chance value="0" />
+  </CEffectApplyBehavior>
+  <CEffectModifyUnit id="UtherHolyLightModifyWeaponCooldown">
+    <ImpactUnit Value="Caster" />
+    <Weapon Weapon="HeroUther" CooldownOperation="Max" CooldownAmount="0.5" />
+  </CEffectModifyUnit>
+  <CEffectSet id="UtherHolyShockSet">
+    <EffectArray value="HolyShockSwitch" />
+    <EffectArray value="EternalDevotionApplyTargetArmorSet" />
+    <EffectArray value="EternalDevotionApplySelfArmorSet" />
+    <EffectArray value="UtherHolyLightModifyWeaponCooldown" />
+    <EffectArray value="HolyLightApplyBlessedChampionMastery" />
+    <EffectArray value="BenedictionRemoveBehavior" />
+    <ValidatorArray value="UtherHolyShockTargetCombine" />
+  </CEffectSet>
+  <CEffectSet id="UtherHolyRadianceWaveofLightTalentProcSet">
+    <ValidatorArray value="TargetLifeNotFullOrIsEnemy" />
+    <ValidatorArray value="TargetIsHero" />
+    <Chance value="0" />
+    <EffectArray value="UtherHolyRadianceWaveofLightMasteryDelayPersistent" />
+    <EffectArray value="UtherHolyRadianceWaveofLightModifyToken" />
+  </CEffectSet>
+  <CEffectCreateHealer id="DivineStormStunCreateHealer" parent="StormHealingSpell">
+    <ImpactUnit Value="Caster" />
+    <RechargeVitalRate value="98" />
+    <Chance value="0" />
+  </CEffectCreateHealer>
+  <CEffectSet id="UtherWaveOfLightRestoreSet">
+    <EffectArray value="WaveofLightModifyUnit" />
+    <EffectArray value="UtherWaveofLightRestoreMana" />
+  </CEffectSet>
+  <CEffectModifyUnit id="WaveofLightModifyUnit">
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="UtherHolyRadiance,Execute" CooldownOperation="Add" CooldownTimeUse="-1" />
+  </CEffectModifyUnit>
+  <CEffectCreateHealer id="UtherWaveofLightRestoreMana" parent="StormManaRestore">
+    <ImpactUnit Value="Caster" />
+    <RechargeVitalRate value="5" />
+  </CEffectCreateHealer>
+  <CEffectApplyBehavior id="WaveofLightStackApplyBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="WaveofLightStacks" />
+  </CEffectApplyBehavior>
+  <CEffectDamage id="HolyShockDamage" parent="StormSpell">
+    <Amount value="181" />
+    <SourceButtonFace value="UtherHolyLightHolyShockTalent" />
+  </CEffectDamage>
+  <CEffectSwitch id="HolyShockSwitch">
+    <CaseArray Validator="TargetIsEnemy" Effect="HolyShockEnemySet" />
+    <CaseDefault value="UtherHolyLightHealSet" />
+  </CEffectSwitch>
+  <CEffectCreatePersistent id="DivineStormCreatePersistent">
+    <ExpireDelay value="1" />
+    <RevealRadius value="4" />
+    <RevealFlags index="Unfog" value="1" />
+  </CEffectCreatePersistent>
+  <CEffectCreateHealer id="HolyLightCreateHealer" parent="StormHealingSpell">
+    <ValidatorArray value="NotStructureTarget" />
+    <RechargeVitalRate value="362" />
+    <AmountScoreArray Validator="CasterHasLTMaxSilverTouchHealingTokensandSilverTouchandTargetIsHero" Value="UtherHolyLightSilverTouch" />
+  </CEffectCreateHealer>
+  <CEffectApplyBehavior id="DivineStormStunApplyBehavior">
+    <Behavior value="DivineStormStun" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="DivineStormStunApplyDummyBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="DivineStormDummyBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="DivineStormStunCastSet">
+    <EffectArray value="DivineStormStunSearch" />
+    <EffectArray value="DivineStormStunApplyDummyBehavior" />
+    <EffectArray value="CameraShakeMediumCasterDummySet" />
+  </CEffectSet>
+  <CEffectModifyUnit id="DivineStormStunModifyUnit">
+    <ImpactUnit Value="Caster" />
+    <VitalArray index="Life">
+      <Change value="15" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectDamage id="DivineStormStunDamage" parent="StormSpell">
+    <Amount value="170" />
+  </CEffectDamage>
+  <CEffectEnumArea id="DivineStormStunSearch">
+    <ImpactLocation Value="CasterPoint" />
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="DivineStormStunSet">
+      <Radius value="3.5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="DivineStormStunSet">
+    <EffectArray value="DivineStormStunDamage" />
+    <EffectArray value="DivineStormStunApplyBehavior" />
+    <EffectArray value="DivineStormStunCreateHealer" />
+    <EffectArray value="DivineStormCreatePersistent" />
+    <EffectArray value="CameraShakeLightTauntingTotemSet" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="SpiritOfRedemptionImprovedApplyCasterBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="SpiritOfRedemptionSpiritFormBuffImproved" />
+  </CEffectApplyBehavior>
+  <CEffectRemoveBehavior id="SpiritOfRedemptionImprovedRemoveCasterBehavior">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="SpiritOfRedemptionSpiritFormBuffImproved" />
+    <Count value="1" />
+  </CEffectRemoveBehavior>
+  <CEffectSet id="UtherHolyRadianceAllySet">
+    <ValidatorArray value="noMarkers" />
+    <ValidatorArray value="TargetIsMinionNotMercLanerORTargetIsHero" />
+    <EffectArray value="UtherHolyRadianceWaveofLightTalentProcSet" />
+    <EffectArray value="HolyRadianceCreateHealer" />
+    <EffectArray value="UtherEternalDevotionTyrsDeliveranceApplyBehavior" />
+    <EffectArray value="EternalDevotionApplyTargetArmorSet" />
+  </CEffectSet>
+  <CEffectSet id="UtherPassiveBuffWeaponSet">
+    <EffectArray value="UtherPassiveBuffWeaponDamage" />
+    <EffectArray value="UtherSpiritofRedemptionModifyUnit" />
+  </CEffectSet>
+  <CEffectDamage id="HolyRadianceEnemyDummyDamage" parent="StormSpell" />
+  <CEffectRemoveBehavior id="DivineStormRemoveCasterBehavior">
+    <BehaviorLink value="DivineStormCaster" />
+    <Count value="1" />
+  </CEffectRemoveBehavior>
+  <CEffectRemoveBehavior id="SpiritOfRedemptionRemoveCasterBehavior">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="SpiritOfRedemptionSpiritFormBuff" />
+    <Count value="1" />
+  </CEffectRemoveBehavior>
+  <CEffectSet id="SpiritOfRedemptionSet">
+    <EffectArray value="SpiritOfRedemptionHeal" />
+    <EffectArray value="SpiritOfRedemptionApplyCasterBehavior" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="SpiritOfRedemptionApplyCasterBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="SpiritOfRedemptionSpiritFormBuff" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="UtherRedemptionApplyAlreadyDeadBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherRedemptionAlreadyDead" />
+  </CEffectApplyBehavior>
+  <CEffectModifyUnit id="SpiritOfRedemptionHeal">
+    <ImpactUnit Value="Caster" />
+    <VitalArray index="Life">
+      <ChangeFraction value="1" />
+    </VitalArray>
+    <Chance value="0" />
+  </CEffectModifyUnit>
+  <CEffectDamage id="UtherPassiveBuffWeaponDamage" parent="StormWeapon">
+    <Amount value="38" />
+  </CEffectDamage>
+  <CEffectDamage id="HammerOfTheLightbringerHealAreaDummy" />
+  <CEffectEnumArea id="BlessedChampionSearch">
+    <SearchFilters value="-;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+    <AreaArray Effect="BlessedChampionCreateHealer">
+      <Radius value="6.5" />
+    </AreaArray>
+    <ImpactLocation Value="SourceUnit" />
+  </CEffectEnumArea>
+  <CEffectCreateHealer id="BlessedChampionCreateHealer" parent="StormHealingSpell">
+    <ValidatorArray value="TargetLifeNotFull" />
+    <ValidatorArray value="IsHeroAndNotVehicle" />
+    <RechargeVitalRate value="1" />
+    <SourceButtonFace value="UtherEternalDevotionBlessedChampionTalent" />
+  </CEffectCreateHealer>
+  <CEffectSet id="JusticarsGavelWeaponSet">
+    <EffectArray value="UtherSpiritofRedemptionModifyUnit" />
+  </CEffectSet>
+  <CEffectDamage id="DivineStormDamage" parent="StormSpell">
+    <Amount value="170" />
+  </CEffectDamage>
+  <CEffectSet id="UtherWeaponSet">
+    <EffectArray value="UniversalWeaponLaunchSet" />
+    <EffectArray value="UniversalWeaponImpact" />
+    <EffectArray value="UtherWeaponDamage" />
+    <EffectArray value="UtherHammerOfJusticeHammerOfTheLightbringerSet" />
+    <EffectArray value="HolyLightBlessedChampionMasteryProcSet" />
+    <EffectArray value="UtherHolyFireApplyStack" />
+    <EffectArray value="UtherHandOfProtectionModifyPlayer" />
+  </CEffectSet>
+  <CEffectModifyUnit id="UtherSpiritofRedemptionModifyUnit">
+    <ImpactUnit Value="Caster" />
+  </CEffectModifyUnit>
+  <CEffectSet id="DivineInterventionSet">
+    <EffectArray value="DivineInterventionApplyBehaviorInvulnerable" />
+    <EffectArray value="DivineInterventionApplyBehaviorMovementSpeed" />
+  </CEffectSet>
+  <CEffectEnumArea id="HolyRadianceCursorSearch">
+    <SearchFilters value="-;Self,Neutral,ImmuneToAOE,Worker,Missile,Item,Stasis,Dead" />
+    <AreaArray Effect="HolyRadianceEnemyDamage">
+      <Radius value="1.5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectApplyBehavior id="DivineInterventionApplyBehaviorInvulnerable">
+    <ValidatorArray index="0" value="TargetNotDead" />
+    <Behavior value="DivineInterventionInvulnerable" />
+  </CEffectApplyBehavior>
+  <CEffectCreateHealer id="HolyRadianceCreateHealer" parent="StormHealingSpell">
+    <RechargeVitalRate value="177" />
+  </CEffectCreateHealer>
+  <CEffectApplyBehavior id="HammerOfJusticeApplyBehavior">
+    <Behavior value="HammerOfJustice" />
+  </CEffectApplyBehavior>
+  <CEffectDamage id="HammerOfJusticeDamage" parent="StormSpell">
+    <Amount value="109" />
+    <ValidatorArray value="UtherDoesNotHaveDenseWeightstoneCarryBehavior" />
+  </CEffectDamage>
+  <CEffectSet id="HammerOfJusticeSet">
+    <EffectArray value="HammerOfJusticeApplyBehavior" />
+    <EffectArray value="HammerOfJusticeDamage" />
+    <EffectArray value="UtherHammerofJusticeIssueAttackOrder" />
+    <EffectArray value="UtherHammerOfJusticeTalentSet" />
+    <EffectArray value="CameraShakeLightTauntingTotemSet" />
+    <EffectArray value="CameraShakeMediumCasterDummySet" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="HolyRadianceCreatePersistent">
+    <WhichLocation Value="CasterPoint" />
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="HolyRadianceLaunchMissile" />
+    <PeriodicOffsetArray Y="-10" />
+    <PeriodicPeriodArray value="0" />
+    <Marker>
+      <MatchFlags index="Id" value="1" />
+    </Marker>
+    <InitialEffect value="BenedictionRemoveBehavior" />
+  </CEffectCreatePersistent>
+  <CEffectLaunchMissile id="HolyRadianceLaunchMissile">
+    <ImpactEffect value="HolyRadianceDummy" />
+    <AmmoUnit value="UtherHolyRadianceMissile" />
+    <ImpactLocation Value="TargetPoint" />
+    <LaunchOffset Y="-2" />
+    <LaunchEffect value="UtherHolyRadianceLaunchSet" />
+  </CEffectLaunchMissile>
+  <CEffectSet id="HolyRadianceDummy">
+    <TargetLocationType value="Point" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="HolyRadianceApplySearchBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="HolyRadianceMissileScan" />
+  </CEffectApplyBehavior>
+  <CEffectDamage id="HolyRadianceEnemyDamage" parent="StormSpell">
+    <Amount value="177" />
+  </CEffectDamage>
+  <CEffectEnumArea id="HolyRadianceEnemySearch">
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Invulnerable" />
+    <AreaArray Effect="UtherHolyRadianceEnemySet">
+      <RectangleWidth value="2.5" />
+      <RectangleHeight value="2.5" />
+    </AreaArray>
+    <LaunchLocation Value="OriginPoint" />
+  </CEffectEnumArea>
+  <CEffectEnumArea id="HolyRadianceAllySearch">
+    <SearchFilters value="-;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+    <AreaArray Effect="UtherHolyRadianceAllySet">
+      <RectangleWidth value="2.5" />
+      <RectangleHeight value="2.5" />
+    </AreaArray>
+    <LaunchLocation Value="OriginPoint" />
+    <TargetSorts RequestCount="1" RequestPercentage="1">
+      <SortArray value="TSDistanceFromCaster" />
+    </TargetSorts>
+  </CEffectEnumArea>
+  <CEffectSet id="HolyRadianceSearchSet">
+    <EffectArray value="HolyRadianceAllySearch" />
+    <EffectArray value="HolyRadianceEnemySearch" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="HolyRadianceSearchPersistent">
+    <WhichLocation Value="SourcePoint" />
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="HolyRadianceSearchSet" />
+    <PeriodicOffsetArray Y="0.125" />
+    <PeriodicPeriodArray value="0" />
+    <ExpireDelay value="0.2" />
+    <RevealRadius value="2.4" />
+    <RevealFlags index="Unfog" value="1" />
+    <OffsetVectorStartLocation Value="OriginPoint" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="HolyRadianceInitialSearchSet">
+    <EffectArray value="HolyRadianceAllyInitialSearch" />
+    <EffectArray value="HolyRadianceEnemyInitialSearch" />
+  </CEffectSet>
+  <CEffectEnumArea id="HolyRadianceEnemyInitialSearch">
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Structure,Missile,Item,Stasis,Dead,Invulnerable" />
+    <AreaArray Arc="90" MaxCount="1" Effect="HolyRadianceEnemyDamage">
+      <Radius value="0.625" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="HolyRadianceAllyInitialSearch">
+    <SearchFilters value="-;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+    <AreaArray Arc="90" MaxCount="1" Effect="UtherHolyRadianceAllySet">
+      <Radius value="0.625" />
+    </AreaArray>
+    <LaunchLocation Value="CasterUnit" />
+  </CEffectEnumArea>
+  <CEffectLaunchMissile id="UtherWeaponAirLaunchMissile">
+    <ImpactEffect value="UtherWeaponSet" />
+    <AmmoUnit value="UtherWeaponAir" />
+    <ValidatorArray index="0" value="TargetNotDead" />
+    <SharedFlags index="TravelValidation" value="1" />
+  </CEffectLaunchMissile>
+  <CEffectDamage id="UtherWeaponDamage" parent="StormWeapon">
+    <Amount value="75" />
+  </CEffectDamage>
+  <CHero id="Uther" parent="LegacyVOHero">
+    <AIComplexityTier value="Low" />
+    <AttributeId value="Uthe" />
+    <ProductId value="10126" />
+    <Role value="Support" />
+    <RolesMultiClass value="Support" />
+    <RoleScoreValueOverride value="Support" />
+    <RoleScoreValueOverride value="Warrior" />
+    <Flags index="ExcludeFromMapIntro" value="1" />
+    <Flags index="GoodForModeA" value="1" />
+    <Melee value="1" />
+    <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_uther.dds" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_Wow.dds" />
+    <VariationIcon value="Assets\Textures\ui_glues_swatch_blue.dds" />
+    <ImageFacing value="Right" />
+    <IntroCutsceneSize value="Medium" />
+    <TalentTreeArray Talent="UtherHolyLightSilverTouch" Tier="1" Column="1" />
+    <TalentTreeArray Talent="UtherMasteryWaveofLightHolyRadiance" Tier="1" Column="2" />
+    <TalentTreeArray Talent="UtherCombatStyleHammerOfTheLightbringer" Tier="1" Column="3" />
+    <TalentTreeArray Talent="UtherMasteryHolyShock" Tier="2" Column="1" />
+    <TalentTreeArray Talent="UtherHammerOfJusticePursuitOfJustice" Tier="2" Column="2" />
+    <TalentTreeArray Talent="UtherHolyFire" Tier="2" Column="3" />
+    <TalentTreeArray Talent="UtherEternalDevotionArmorOfFaith" Tier="3" Column="1" />
+    <TalentTreeArray Talent="UtherEternalDevotionGuardianOfAncientKings" Tier="3" Column="2" />
+    <TalentTreeArray Talent="UtherHandOfProtection" Tier="3" Column="3" />
+    <TalentTreeArray Talent="UtherHeroicAbilityDivineShield" Tier="4" Column="1" />
+    <TalentTreeArray Talent="UtherHeroicAbilityDivineStorm" Tier="4" Column="2" />
+    <TalentTreeArray Talent="UtherMasteryBlessedChampion" Tier="5" Column="1" />
+    <TalentTreeArray Talent="UtherHammerOfJusticeWellMet" Tier="5" Column="2" />
+    <TalentTreeArray Talent="GenericTalentSpellShield" Tier="5" Column="3" />
+    <TalentTreeArray Talent="UtherBeaconOfLight" Tier="6" Column="1" />
+    <TalentTreeArray Talent="UtherHolyRadianceTyrsDeliverance" Tier="6" Column="2" />
+    <TalentTreeArray Talent="UtherMasteryBenediction" Tier="6" Column="3" />
+    <TalentTreeArray Talent="UtherMasteryBulwarkOfLightDivineShield" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="UtherHeroicAbilityDivineShield" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="UtherMasteryDivineHurricaneDivineStorm" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="UtherHeroicAbilityDivineStorm" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="UtherMasteryRedemption" Tier="7" Column="3" />
+    <TalentTreeArray Talent="UtherEternalDevotionDivineProtection" Tier="7" Column="4" />
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="UtherHolyLightSilverTouch" />
+      <TalentsArray value="UtherMasteryHolyShock" />
+      <TalentsArray value="UtherEternalDevotionArmorOfFaith" />
+      <TalentsArray value="UtherHeroicAbilityDivineShield" />
+      <TalentsArray value="UtherMasteryBlessedChampion" />
+      <TalentsArray value="UtherMasteryBenediction" />
+      <TalentsArray value="UtherEternalDevotionDivineProtection" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="UtherMasteryWaveofLightHolyRadiance" />
+      <TalentsArray value="UtherHolyFire" />
+      <TalentsArray value="UtherHandOfProtection" />
+      <TalentsArray value="UtherHeroicAbilityDivineShield" />
+      <TalentsArray value="UtherHammerOfJusticeWellMet" />
+      <TalentsArray value="UtherMasteryBenediction" />
+      <TalentsArray value="UtherEternalDevotionDivineProtection" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray BuildType="Damage" ChanceToPick="16">
+      <TalentsArray value="UtherCombatStyleHammerOfTheLightbringer" />
+      <TalentsArray value="UtherHolyFire" />
+      <TalentsArray value="UtherHandOfProtection" />
+      <TalentsArray value="UtherHeroicAbilityDivineShield" />
+      <TalentsArray value="UtherHammerOfJusticeWellMet" />
+      <TalentsArray value="UtherBeaconOfLight" />
+      <TalentsArray value="UtherMasteryRedemption" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="UtherCombatStyleHammerOfTheLightbringer" />
+      <TalentsArray value="UtherHolyFire" />
+      <TalentsArray value="UtherEternalDevotionArmorOfFaith" />
+      <TalentsArray value="UtherHeroicAbilityDivineStorm" />
+      <TalentsArray value="UtherHammerOfJusticeWellMet" />
+      <TalentsArray value="UtherMasteryBenediction" />
+      <TalentsArray value="UtherMasteryRedemption" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="UtherMasteryWaveofLightHolyRadiance" />
+      <TalentsArray value="UtherHammerOfJusticePursuitOfJustice" />
+      <TalentsArray value="UtherEternalDevotionGuardianOfAncientKings" />
+      <TalentsArray value="UtherHeroicAbilityDivineStorm" />
+      <TalentsArray value="GenericTalentSpellShield" />
+      <TalentsArray value="UtherHolyRadianceTyrsDeliverance" />
+      <TalentsArray value="UtherMasteryDivineHurricaneDivineStorm" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="UtherMasteryWaveofLightHolyRadiance" />
+      <TalentsArray value="UtherHammerOfJusticePursuitOfJustice" />
+      <TalentsArray value="UtherEternalDevotionArmorOfFaith" />
+      <TalentsArray value="UtherHeroicAbilityDivineShield" />
+      <TalentsArray value="UtherMasteryBlessedChampion" />
+      <TalentsArray value="UtherBeaconOfLight" />
+      <TalentsArray value="UtherMasteryBulwarkOfLightDivineShield" />
+    </TalentAIBuildsArray>
+    <SkinArray value="UtherUltimate" />
+    <SkinArray value="UtherLumberjack" />
+    <SkinArray value="UtherMedic" />
+    <SkinArray value="UtherJudgement" />
+    <SkinArray value="UtherSulfuron" />
+    <DefaultMount value="HorseCommon" />
+    <VariationArray value="UtherSilverHand" />
+    <VariationArray value="UtherBlackHand" />
+    <HeroTierAchievementId value="5216701565553145047" />
+    <Universe value="Warcraft" />
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="HolyFireDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="FlashofLightCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroUther" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroUther" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroUther" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="UtherWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications Catalog="Behavior" Entry="UtherEternalDevotionArmor" Field="Duration" />
+      <Modifications Catalog="Behavior" Entry="UtherEternalDevotionGuardianOfAncientKingsArmor" Field="Duration" />
+      <Modifications Catalog="Behavior" Entry="UtherEternalDevotionDivineProtectionArmor" Field="Duration" />
+    </LevelScalingArray>
+    <LevelScalingArray Ability="UtherHolyLight">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="HolyLightCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="HolyLightCreateSelfHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="HolyShockDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications Entry="UtherHolyLight" Field="Cost[0].Vital" />
+      <Modifications Entry="UtherHolyShock" Field="Cost[0].Vital" />
+    </LevelScalingArray>
+    <LevelScalingArray Ability="UtherHolyRadiance">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="HolyRadianceCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="HolyRadianceEnemyDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="UtherHammerOfJustice">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="HammerOfJusticeDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="UtherDivineStorm">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DivineStormStunDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DivineStormStunCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <VOArray index="Cheer" value="Uther_VOX_Cheer" />
+    <VOArray index="GetHit" value="Uther_VOX_GetHitSmall" />
+    <VOArray index="MatchEnd" value="Uther_MatchEnd" />
+    <VOArray index="PingCapture" value="Uther_Ping_Capture" />
+    <VOArray index="PingCollect" value="Uther_Ping_Collect" />
+    <VOArray index="PingDefendStructure" value="Uther_Ping_DefendStructure" />
+    <VOArray index="PingDefendThing" value="Uther_Ping_DefendThing" />
+    <VOArray index="PingDestroyStructure" value="Uther_Ping_DestroyStructure" />
+    <VOArray index="PingDestroyThing" value="Uther_Ping_DestroyThing" />
+    <VOArray index="PingTransport" value="Uther_Ping_Transport" />
+    <VOArray index="PingTurnIn" value="Uther_Ping_TurnIn" />
+    <HeroAbilArray Abil="UtherHolyLight" Button="UtherHolyLight">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="UtherHolyShock" Button="UtherHolyLight">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="UtherFlashofLight" Button="UtherFlashofLight">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="UtherHolyRadiance" Button="UtherHolyRadiance">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="UtherHammerOfJustice" Button="UtherHammerofJustice">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="UtherDivineIntervention" Button="UtherDivineShield">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="UtherDivineStorm" Button="UtherDivineStorm">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="UtherEternalDevotion">
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="UtherDevotionEternalVanguardShop">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="UtherHandOfProtection" Button="UtherHandOfProtection">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="UtherHolyLightArmorOfFaithCooldownDisplay" Button="UtherEternalDevotionArmorOfFaithTalent">
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <Ratings>
+      <Damage value="3" />
+      <Utility value="9" />
+      <Survivability value="7" />
+      <Complexity value="2" />
+    </Ratings>
+    <VoiceLineArray value="UtherBase_VoiceLine01" />
+    <VoiceLineArray value="UtherBase_VoiceLine02" />
+    <VoiceLineArray value="UtherBase_VoiceLine03" />
+    <VoiceLineArray value="UtherBase_VoiceLine04" />
+    <VoiceLineArray value="UtherBase_VoiceLine05" />
+    <Rarity value="Epic" />
+    <ReleaseDate Month="3" Day="13" />
+    <ExpandedRole value="Healer" />
+  </CHero>
+  <CMoverMissile id="UtherHolyRadianceMissile">
+    <MotionPhases>
+      <Driver value="Guidance" />
+      <Acceleration value="-10" />
+      <Speed value="20" />
+      <MinSpeed value="8" />
+      <MaxSpeed value="20" />
+      <Outro value="-3,-2.5" />
+      <YawPitchRoll value="MAX" />
+    </MotionPhases>
+    <MotionPhases Driver="Guidance" MaxSpeed="16" YawPitchRoll="MAX" />
+  </CMoverMissile>
+  <CRequirement id="UtherHasSpiritActive">
+    <NodeArray index="Show" Link="OrAndCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit1AndCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit1" />
+  </CRequirement>
+  <CRequirement id="UtherNoSpiritActive">
+    <NodeArray index="Show" Link="AndEqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0" />
+  </CRequirement>
+  <CRequirement id="UtherNoSpiritActiveAndNoHolyLightHolyShock">
+    <NodeArray index="Use" Link="AndEqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0EqCountBehaviorUtherHolyLightMasteryCarryBehaviorCompleteOnly0" />
+    <NodeArray index="Show" Link="AndEqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0EqCountBehaviorUtherHolyLightMasteryCarryBehaviorCompleteOnly0" />
+  </CRequirement>
+  <CRequirement id="UtherNoSpiritActiveAndHasHolyLightHolyShock">
+    <NodeArray index="Use" Link="AndEqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0EqCountBehaviorUtherHolyLightMasteryCarryBehaviorCompleteOnly1" />
+    <NodeArray index="Show" Link="AndEqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0EqCountBehaviorUtherHolyLightMasteryCarryBehaviorCompleteOnly1" />
+  </CRequirement>
+  <CRequirement id="UtherNoSpiritActiveUltimate1">
+    <NodeArray index="Use" Link="AndEqCountBehaviorUltimate1UnlockedInProgressOrBetterAtUnit1EqCountBehaviorHeroGenericPregameAbilitySuppressionCompleteOnlyAtUnit0" />
+    <NodeArray index="Show" Link="AndEqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0EqCountBehaviorUltimate1UnlockedInProgressOrBetterAtUnit1" />
+  </CRequirement>
+  <CRequirement id="UtherNoSpiritActiveUltimate2">
+    <NodeArray index="Use" Link="AndEqCountBehaviorUltimate2UnlockedInProgressOrBetterAtUnit1EqCountBehaviorHeroGenericPregameAbilitySuppressionCompleteOnlyAtUnit0" />
+    <NodeArray index="Show" Link="AndEqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0EqCountBehaviorUltimate2UnlockedInProgressOrBetterAtUnit1" />
+  </CRequirement>
+  <CRequirementAnd id="AndEqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0EqCountBehaviorUtherHolyLightMasteryCarryBehaviorCompleteOnly0">
+    <OperandArray value="EqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0" />
+    <OperandArray value="EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0" />
+    <OperandArray value="EqCountBehaviorUtherHolyLightMasteryCarryBehaviorCompleteOnly0" />
+  </CRequirementAnd>
+  <CRequirementAnd id="AndEqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0EqCountBehaviorUtherHolyLightMasteryCarryBehaviorCompleteOnly1">
+    <OperandArray value="EqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0" />
+    <OperandArray value="EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0" />
+    <OperandArray value="EqCountBehaviorUtherHolyLightMasteryCarryBehaviorCompleteOnly1" />
+  </CRequirementAnd>
+  <CRequirementCountBehavior id="CountBehaviorUtherHolyLightMasteryCarryBehaviorCompleteOnly">
+    <Flags index="TechTreeCheat" value="0" />
+    <Count Link="UtherHolyLightMasteryCarryBehavior" State="CompleteOnly" />
+  </CRequirementCountBehavior>
+  <CRequirementEq id="EqCountBehaviorUtherHolyLightMasteryCarryBehaviorCompleteOnly0">
+    <OperandArray index="0" value="CountBehaviorUtherHolyLightMasteryCarryBehaviorCompleteOnly" />
+    <OperandArray index="1" value="0" />
+  </CRequirementEq>
+  <CRequirementEq id="EqCountBehaviorUtherHolyLightMasteryCarryBehaviorCompleteOnly1">
+    <OperandArray index="0" value="CountBehaviorUtherHolyLightMasteryCarryBehaviorCompleteOnly" />
+    <OperandArray index="1" value="1" />
+  </CRequirementEq>
+  <CRequirementAnd id="AndCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit1">
+    <Tooltip value="" />
+    <OperandArray value="CountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit" />
+    <OperandArray value="1" />
+  </CRequirementAnd>
+  <CRequirementAnd id="AndCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit1">
+    <Tooltip value="" />
+    <OperandArray value="CountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit" />
+    <OperandArray value="1" />
+  </CRequirementAnd>
+  <CRequirementAnd id="AndEqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0">
+    <Tooltip value="" />
+    <OperandArray value="EqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0" />
+    <OperandArray value="EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0" />
+  </CRequirementAnd>
+  <CRequirementAnd id="AndEqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0EqCountBehaviorUltimate1UnlockedInProgressOrBetterAtUnit1">
+    <Tooltip value="" />
+    <OperandArray value="EqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0" />
+    <OperandArray value="EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0" />
+    <OperandArray value="EqCountBehaviorUltimate1UnlockedInProgressOrBetterAtUnit1" />
+  </CRequirementAnd>
+  <CRequirementAnd id="AndEqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0EqCountBehaviorUltimate2UnlockedInProgressOrBetterAtUnit1">
+    <Tooltip value="" />
+    <OperandArray value="EqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0" />
+    <OperandArray value="EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0" />
+    <OperandArray value="EqCountBehaviorUltimate2UnlockedInProgressOrBetterAtUnit1" />
+  </CRequirementAnd>
+  <CRequirementCountBehavior id="CountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit">
+    <Flags index="TechTreeCheat" value="0" />
+    <Tooltip value="" />
+    <Count Link="SpiritOfRedemptionSpiritFormBuffImproved" State="InProgressOrBetterAtUnit" />
+  </CRequirementCountBehavior>
+  <CRequirementCountBehavior id="CountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit">
+    <Flags index="TechTreeCheat" value="0" />
+    <Tooltip value="" />
+    <Count Link="SpiritOfRedemptionSpiritFormBuff" State="InProgressOrBetterAtUnit" />
+  </CRequirementCountBehavior>
+  <CRequirementEq id="EqCountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit0">
+    <Tooltip value="" />
+    <OperandArray index="0" value="CountBehaviorSpiritOfRedemptionSpiritFormBuffImprovedInProgressOrBetterAtUnit" />
+    <OperandArray index="1" value="0" />
+  </CRequirementEq>
+  <CRequirementEq id="EqCountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit0">
+    <Tooltip value="" />
+    <OperandArray index="0" value="CountBehaviorSpiritOfRedemptionSpiritFormBuffInProgressOrBetterAtUnit" />
+    <OperandArray index="1" value="0" />
+  </CRequirementEq>
+  <CRewardHero id="Uther">
+    <License value="10123" />
+  </CRewardHero>
+  <CScoreValueCustom id="UtherHolyLightSilverTouch" parent="BaseScoreValue">
+    <Type value="Fixed" />
+  </CScoreValueCustom>
+  <CTalent id="UtherHandOfProtection">
+    <Face value="UtherHandOfProtection" />
+    <Abil value="UtherHandOfProtection" />
+    <RankArray>
+      <BehaviorArray value="UtherHandOfProtectionItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="UtherEternalDevotionArmorOfFaith">
+    <Face value="UtherEternalDevotionArmorOfFaithTalent" />
+    <Trait value="1" />
+    <Abil value="UtherHolyLight" />
+    <RankArray>
+      <BehaviorArray value="UtherHolyLightArmorOfFaithItem" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="UtherBeaconOfLight">
+    <Face value="UtherBeaconOfLight" />
+    <Abil value="UtherHolyLight" />
+  </CTalent>
+  <CTalent id="UtherEternalDevotionGuardianOfAncientKings">
+    <Face value="UtherEternalDevotionGuardianOfAncientKingsTalent" />
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="UtherEternalDevotionDivineProtection">
+    <Face value="UtherEternalDevotionDivineProtectionTalent" />
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="UtherHammerOfJusticePursuitOfJustice">
+    <Face value="UtherHammerOfJusticePursuitOfJusticeTalent" />
+    <Abil value="UtherHammerOfJustice" />
+  </CTalent>
+  <CTalent id="UtherHammerOfJusticeWellMet">
+    <Face value="UtherHammerOfJusticeWellMetTalent" />
+    <Abil value="UtherHammerOfJustice" />
+  </CTalent>
+  <CTalent id="UtherHolyRadianceTyrsDeliverance">
+    <Face value="UtherHolyRadianceTyrsDeliveranceTalent" />
+    <Abil value="UtherHolyRadiance" />
+  </CTalent>
+  <CTalent id="UtherHolyLightSilverTouch">
+    <Face value="UtherHolyLightSilverTouch" />
+    <Abil value="UtherHolyLight" />
+    <RankArray>
+      <BehaviorArray value="UtherHolyLightSilverTouchArmor" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications Type="FlatModification" Entry="UtherHolyLight" Field="Cost[0].Vital[Energy]" />
+      <Modifications Type="FlatModification" Entry="UtherHolyShock" Field="Cost[0].Vital[Energy]" />
+      <Modifications Type="FlatModification" Entry="UtherHolyLight" Field="Range" />
+      <Modifications Type="FlatModification" Entry="UtherHolyShock" Field="Range" />
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="UtherEternalDevotionArmor" />
+        <Field value="DamageResponse.Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="UtherEternalDevotionGuardianOfAncientKingsArmor" />
+        <Field value="DamageResponse.Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="UtherEternalDevotionDivineProtectionArmor" />
+        <Field value="DamageResponse.Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <QuestData StackBehavior="UtherHolyLightSilverTouchArmor" TargetCount="80" />
+  </CTalent>
+  <CTalent id="UtherHardenedFocus">
+    <Face value="GenericHardenedFocusTalent" />
+    <RankArray>
+      <BehaviorArray value="UtherHardenedFocus" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="UtherHolyFire">
+    <Face value="UtherHolyFireTalent" />
+    <RankArray>
+      <BehaviorArray value="UtherHolyFireSearchBuff" />
+      <BehaviorArray value="UtherHolyFireToken" />
+    </RankArray>
+  </CTalent>
   <CTalent id="UtherMasteryBenediction">
     <Face value="UtherBenedictionHotbar" />
     <Abil value="UtherBenediction" />
-    <RankArray Item="UtherBenedictionItem" />
+    <RankArray>
+      <BehaviorArray value="UtherBenedictionItem" />
+    </RankArray>
     <Active value="1" />
   </CTalent>
+  <CTalent id="UtherMasteryBlessedChampion">
+    <Face value="UtherEternalDevotionBlessedChampionTalent" />
+    <Abil value="UtherHolyLight" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="HolyLightApplyBlessedChampionMastery" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="UtherCombatStyleHammerOfTheLightbringer">
+    <Face value="UtherEternalDevotionHammerOfTheLightbringerTalent" />
+    <RankArray>
+      <BehaviorArray value="UtherHammerOfTheLightbringerQuestTokenBehavior" />
+    </RankArray>
+    <Abil value="UtherHammerOfJustice" />
+    <QuestData StackBehavior="UtherHammerOfTheLightbringerQuestTokenBehavior" TargetCount="75" />
+  </CTalent>
+  <CTalent id="UtherMasteryBulwarkOfLightDivineShield">
+    <Face value="UtherDivineShieldBulwarkOfLightTalent" />
+    <AbilityModificationArray ModifyAbil="UtherDivineIntervention">
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="DivineInterventionInvulnerable" />
+        <Field value="Duration" />
+        <Value value="2.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Entry value="UtherDivineIntervention" />
+        <Field value="Cost[0].Cooldown.TimeUse" />
+        <Value value="-20.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="UtherDivineIntervention" />
+  </CTalent>
+  <CTalent id="UtherHeroicAbilityDivineStorm">
+    <Face value="UtherDivineStorm" />
+    <Abil value="UtherDivineStorm" />
+    <RankArray>
+      <BehaviorArray value="Ultimate2Unlocked" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="UtherHeroicAbilityDivineShield">
+    <Face value="UtherDivineShield" />
+    <Abil value="UtherDivineIntervention" />
+    <RankArray>
+      <BehaviorArray value="Ultimate1Unlocked" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="UtherMasteryDivineHurricaneDivineStorm">
+    <Face value="UtherDivineStormDivineHurricaneTalent" />
+    <AbilityModificationArray ModifyAbil="UtherDivineStorm">
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="DivineStormStunSearch" />
+        <Field value="AreaArray[0].Radius" />
+        <Value value="1.750000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Actor" />
+        <Entry value="UtherDivineStormRangeSplat" />
+        <Field value="Scale" />
+        <Value value="1.650000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Actor" />
+        <Entry value="DivineStormModel" />
+        <Field value="Scale" />
+        <Value value="0.700000" />
+      </Modifications>
+      <Modifications>
+        <Type value="CatalogReplacement" />
+        <Catalog value="Sound" />
+        <Entry value="Uther_DivineStorm_Launch" />
+        <StringReplacement value="Uther_DivineStorm_DivineHurricane_Launch" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Entry value="UtherDivineStorm" />
+        <Field value="Cost[0].Cooldown.TimeUse" />
+        <Value value="-20.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="UtherDivineStorm" />
+  </CTalent>
+  <CTalent id="UtherMasteryHolyShock">
+    <Face value="UtherHolyLightHolyShockTalent" />
+    <AbilityModificationArray ModifyAbil="UtherHolyLight" />
+    <RankArray>
+      <BehaviorArray value="UtherHolyLightMasteryCarryBehavior" />
+    </RankArray>
+    <Abil value="UtherHolyLight" />
+  </CTalent>
+  <CTalent id="UtherMasteryProtectTheWeakHolyLight">
+    <Face value="UtherHolyLightProtecttheWeakTalent" />
+    <RankArray Face="UtherHolyLightProtecttheWeakTalentSimple" />
+    <AbilityModificationArray ModifyAbil="UtherHolyShock" TooltipAddendum="Talent/Uther/HolyRadiance/WaveOfLight">
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="HolyLightCreatePersistent" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="HolyShockCreatePersistent" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="UtherHolyLight" />
+  </CTalent>
+  <CTalent id="UtherMasteryRedemption">
+    <Face value="UtherRedemptionTalent" />
+    <RankArray>
+      <BehaviorArray value="RedemptionCarryBehavior" />
+    </RankArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="UtherMasteryWaveofLightHolyRadiance">
+    <Face value="UtherHolyRadianceWaveofLightTalent" />
+    <RankArray>
+      <BehaviorArray value="UtherHolyRadianceWaveofLightQuestTokenBehavior" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="UtherHolyRadianceWaveofLightTalentProcSet" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="UtherEternalDevotionArmor" />
+        <Field value="Duration" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="UtherEternalDevotionGuardianOfAncientKingsArmor" />
+        <Field value="Duration" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="UtherEternalDevotionDivineProtectionArmor" />
+        <Field value="Duration" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="UtherHolyRadiance" />
+    <QuestData StackBehavior="UtherHolyRadianceWaveofLightQuestTokenBehavior" TargetCount="60" />
+  </CTalent>
+  <CUnit id="HeroUther" parent="StormHeroMounted">
+    <LifeStart value="2156" />
+    <LifeMax value="2156" />
+    <LifeRegenRate value="4.4921" />
+    <AbilArray Link="UtherHolyLight" />
+    <AbilArray Link="UtherHolyRadiance" />
+    <AbilArray Link="UtherHammerOfJustice" />
+    <AbilArray Link="UtherDivineIntervention" />
+    <AbilArray Link="UtherDivineStorm" />
+    <AbilArray Link="UtherHolyShock" />
+    <AbilArray Link="UtherEternalDevotion" />
+    <AbilArray Link="UtherFlashofLight" />
+    <BehaviorArray Link="UtherEternalVanguard" />
+    <BehaviorArray Link="UtherRedemptionReadyBehavior" />
+    <BehaviorArray Link="ExcellentMana" />
+    <WeaponArray Link="HeroUther" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="UtherDivineShield" Type="AbilCmd" AbilCmd="UtherDivineIntervention,Execute" Slot="Heroic" />
+      <LayoutButtons Face="UtherDivineStorm" Type="AbilCmd" AbilCmd="UtherDivineStorm,Execute" Slot="Heroic" />
+      <LayoutButtons Face="UtherHolyLight" Type="AbilCmd" AbilCmd="UtherHolyLight,Execute" Slot="Ability1" />
+      <LayoutButtons Face="UtherHolyLight" Type="AbilCmd" AbilCmd="UtherHolyShock,Execute" Slot="Ability1" />
+      <LayoutButtons Face="UtherFlashofLight" Type="AbilCmd" AbilCmd="UtherFlashofLight,Execute" Slot="Ability1" />
+      <LayoutButtons Face="UtherHolyLight" Type="AbilCmd" AbilCmd="UtherHolyLight,Execute" Slot="Ability1" />
+      <LayoutButtons Face="UtherHolyRadiance" Type="AbilCmd" AbilCmd="UtherHolyRadiance,Execute" Slot="Ability2" />
+      <LayoutButtons Face="UtherHammerofJustice" Type="AbilCmd" AbilCmd="UtherHammerOfJustice,Execute" Slot="Ability3" />
+      <LayoutButtons Face="UtherEternalDevotion" Type="Passive" Behavior="UtherRedemptionReadyBehavior" Slot="Trait" />
+    </CardLayouts>
+    <InnerRadius value="0.75" />
+    <Radius value="0.75" />
+    <AIEvalFactor value="1.3" />
+    <AIThinkTree value="AI/Uther.aitree" />
+    <InitializerFunction value="libGDHL_gf_HeroUtherIncrementHeroCountFunction" />
+    <DestructionFunction value="libGDHL_gf_HeroUtherDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="AllyHealer" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Helper" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleSupport" value="1" />
+    <HeroPlaystyleFlags index="SelfHealer" value="1" />
+  </CUnit>
+  <CUnit id="UtherHolyRadianceMissile" parent="MISSILE_INVULNERABLE" />
+  <CValidatorUnitCompareBehaviorCount id="UtherTargetHasDivineShieldInvulnerable">
+    <Compare value="GT" />
+    <Behavior value="DivineInterventionInvulnerable" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="DoesNotHaveBenediction">
+    <Behavior value="UtherBenedictionBuff" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="DoesNotHaveRedemptionAlreadyDead">
+    <Behavior value="UtherRedemptionAlreadyDead" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="NoEternalDevotionRezDelay">
+    <Behavior value="UtherEternalVanguardRezDelay" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="NoTargetEternalDevotionRezDelay">
+    <Behavior value="UtherEternalVanguardRezDelay" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HasEneternalDevotionShield">
+    <Behavior value="EternalDevotionShield" />
+    <WhichUnit Value="Source" />
+    <Compare value="GT" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="CasterHasUtherEternalDevotionGuardianOfAncientKingsArmorBehaviorANDUtherHasTalentDivineProtectionCombine">
+    <Type value="And" />
+    <CombineArray value="CasterHasUtherEternalDevotionGuardianOfAncientKingsArmor" />
+    <CombineArray value="UtherHasTalentDivineProtection" />
+  </CValidatorCombine>
+  <CValidatorCombine id="UtherHasTalentGuardianOfAncientKingsAndCasterIsStunnedOrRootedOrSilencedORCasterHasUtherEternalDevotionGuardianOfAncientKingsArmorBehaviorandUtherHasTalentDivineProtectionCombine">
+    <CombineArray value="UtherHasTalentGuardianOfAncientKingsANDCasterIsStunnedOrRootedOrSilenced" />
+    <CombineArray value="CasterHasUtherEternalDevotionGuardianOfAncientKingsArmorBehaviorANDUtherHasTalentDivineProtectionCombine" />
+  </CValidatorCombine>
+  <CValidatorCombine id="UtherHasTalentGuardianOfAncientKingsANDCasterIsStunnedOrRootedOrSilenced">
+    <Type value="And" />
+    <CombineArray value="UtherHasTalentGuardianOfAncientKings" />
+    <CombineArray value="CasterIsRootedOrSilencedOrStunned" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="TargetDoesNotHaveUtherEternalDevotionGuardianOfAncientKingsArmorBehavior">
+    <Compare value="LT" />
+    <Behavior value="UtherEternalDevotionGuardianOfAncientKingsArmor" />
+    <Value value="1" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="CasterHasUtherEternalDevotionArmor">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="UtherEternalDevotionArmor" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="CasterHasUtherEternalDevotionGuardianOfAncientKingsArmor">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="UtherEternalDevotionGuardianOfAncientKingsArmor" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="TargetHasUtherEternalDevotionORGuardianOfAncientKingsArmorBehaviorsANDUtherHasTalentDivineProtection">
+    <Type value="And" />
+    <CombineArray value="TargetHasUtherEternalDevotionORGuardianOfAncientKingsArmorBehaviorsCombine" />
+    <CombineArray value="UtherHasTalentDivineProtection" />
+  </CValidatorCombine>
+  <CValidatorCombine id="CasterHasUtherEternalDevotionORGuardianOfAncientKingsArmorBehaviorsCombine">
+    <CombineArray value="CasterHasUtherEternalDevotionArmor" />
+    <CombineArray value="CasterHasUtherEternalDevotionGuardianOfAncientKingsArmor" />
+  </CValidatorCombine>
+  <CValidatorCombine id="CasterHasUtherEternalDevotionORGuardianOfAncientKingsArmorBehaviorsANDUtherHasTalentDivineProtection">
+    <Type value="And" />
+    <CombineArray value="CasterHasUtherEternalDevotionORGuardianOfAncientKingsArmorBehaviorsCombine" />
+    <CombineArray value="UtherHasTalentDivineProtection" />
+  </CValidatorCombine>
+  <CValidatorCombine id="UtherHasTalentGuardianOfAncientKingsAndTargetIsStunnedOrRootedOrSilencedORTargetHasUtherEternalDevotionGuardianOfAncientKingsArmorBehaviorandUtherHasTalentDivineProtectionCombine">
+    <CombineArray value="UtherHasGuardianOfAncientKingsAndTargetIsStunnedOrRootedOrSilenced" />
+    <CombineArray value="TargetHasUtherEternalDevotionGuardianOfAncientKingsArmorBehaviorANDUtherHasTalentDivineProtectionCombine" />
+  </CValidatorCombine>
+  <CValidatorCombine id="TargetHasUtherEternalDevotionGuardianOfAncientKingsArmorBehaviorANDUtherHasTalentDivineProtectionCombine">
+    <Type value="And" />
+    <CombineArray value="TargetHasUtherEternalDevotionGuardianOfAncientKingsArmor" />
+    <CombineArray value="UtherHasTalentDivineProtection" />
+  </CValidatorCombine>
+  <CValidatorPlayerTalent id="DoesNotHaveUtherDivineProtection">
+    <WhichPlayer Value="Caster" />
+    <Value value="UtherEternalDevotionDivineProtection" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitCompareBehaviorCount id="CasterDoesNotHaveUtherEternalDevotionArmor">
+    <WhichUnit Value="Caster" />
+    <Compare value="LT" />
+    <Value value="1" />
+    <Behavior value="UtherEternalDevotionArmor" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="CasterDoesNotHaveUtherEternalDevotionArmorOrEternalDevotionGuardianOfAncientKingsArmor">
+    <CombineArray value="CasterDoesNotHaveUtherEternalDevotionArmor" />
+    <CombineArray value="CasterDoesNotHaveUtherEternalDevotionGuardianOfAncientKingsArmor" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="TargetHasUtherEternalDevotionGuardianOfAncientKingsArmor">
+    <Compare value="GT" />
+    <Behavior value="UtherEternalDevotionGuardianOfAncientKingsArmor" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="TargetHasUtherEternalDevotionArmor">
+    <Compare value="GT" />
+    <Behavior value="UtherEternalDevotionArmor" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="CasterDoesNotHaveUtherEternalDevotionGuardianOfAncientKingsArmor">
+    <WhichUnit Value="Caster" />
+    <Compare value="LT" />
+    <Value value="1" />
+    <Behavior value="UtherEternalDevotionGuardianOfAncientKingsArmor" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="TargetHasUtherEternalDevotionORGuardianOfAncientKingsArmorBehaviorsCombine">
+    <CombineArray value="TargetHasUtherEternalDevotionArmor" />
+    <CombineArray value="TargetHasUtherEternalDevotionGuardianOfAncientKingsArmor" />
+  </CValidatorCombine>
+  <CValidatorPlayerTalent id="UtherHasTalentArmorOfFaith">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherEternalDevotionArmorOfFaith" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitCompareTokenCount id="UtherCasterHasLTMaxWaveOfLightTokens">
+    <WhichUnit Value="Caster" />
+    <Compare value="LT" />
+    <Value value="60" />
+    <TokenId value="WaveOfLightQuestToken" />
+  </CValidatorUnitCompareTokenCount>
+  <CValidatorPlayerTalent id="HasUtherSilverTouch">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherHolyLightSilverTouch" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitCompareTokenCount id="UtherCasterHasLTMaxSilverTouchArmorTokens">
+    <WhichUnit Value="Caster" />
+    <Compare value="LT" />
+    <Value value="80" />
+    <TokenId value="UtherSilverTouchArmorQuestToken" />
+  </CValidatorUnitCompareTokenCount>
+  <CValidatorUnitCompareTokenCount id="UtherCasterHasMaxSilverTouchArmorTokens">
+    <WhichUnit Value="Caster" />
+    <Compare value="GE" />
+    <Value value="80" />
+    <TokenId value="UtherSilverTouchArmorQuestToken" />
+  </CValidatorUnitCompareTokenCount>
+  <CValidatorPlayerTalent id="UtherHasTalentTyrsDeliverance">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherHolyRadianceTyrsDeliverance" />
+  </CValidatorPlayerTalent>
+  <CValidatorCombine id="TargetLifeNotFullOrIsEnemy">
+    <CombineArray value="TargetLifeNotFull" />
+    <CombineArray value="TargetIsEnemy" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareTokenCount id="UtherCasterHasLTMaxHammerOfTheLightbringerTokens">
+    <WhichUnit Value="Caster" />
+    <Compare value="LT" />
+    <Value value="75" />
+    <TokenId value="HammerOfTheLightbringerQuestToken" />
+  </CValidatorUnitCompareTokenCount>
+  <CValidatorUnitCompareTokenCount id="UtherCasterHasLTMaxHolyEfficiencyTokens">
+    <WhichUnit Value="Caster" />
+    <Compare value="LT" />
+    <Value value="30" />
+    <TokenId value="HolyEfficiencyQuestToken" />
+  </CValidatorUnitCompareTokenCount>
+  <CValidatorPlayerTalent id="HasUtherHandOfProtection">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherHandOfProtection" />
+  </CValidatorPlayerTalent>
+  <CValidatorCombine id="TargetAndCasterLifeNotFull">
+    <Type value="And" />
+    <CombineArray value="TargetLifeNotFull" />
+    <CombineArray value="CasterLifeNotFull" />
+  </CValidatorCombine>
+  <CValidatorCombine id="UtherHasGuardianOfAncientKingsAndTargetIsStunnedOrRootedOrSilenced">
+    <Type value="And" />
+    <CombineArray value="UtherHasTalentGuardianOfAncientKings" />
+    <CombineArray value="TargetIsRootedOrSilencedOrStunned" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="HasHammerOfTheLightbringerComplete">
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+    <Behavior value="UtherHammerOfTheLightbringerComplete" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorPlayerTalent id="HasUtherBeaconOfLight">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherBeaconOfLight" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="UtherHasTalentGuardianOfAncientKings">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherEternalDevotionGuardianOfAncientKings" />
+  </CValidatorPlayerTalent>
+  <CValidatorCombine id="UtherHasBeaconOfLightAndLT50Health">
+    <Type value="And" />
+    <CombineArray value="HasUtherBeaconOfLight" />
+    <CombineArray value="CasterLifeLT50Percent" />
+  </CValidatorCombine>
+  <CValidatorPlayerTalent id="UtherHasTalentDivineProtection">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherEternalDevotionDivineProtection" />
+  </CValidatorPlayerTalent>
+  <CValidatorCombine id="HasUtherDivineProtectionAndTargetIsSelf">
+    <Type value="And" />
+    <CombineArray value="UtherHasTalentDivineProtection" />
+    <CombineArray value="IsSelf" />
+  </CValidatorCombine>
+  <CValidatorPlayerTalent id="HasUtherWellMet">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherHammerOfJusticeWellMet" />
+  </CValidatorPlayerTalent>
+  <CValidatorCombine id="UtherCasterHasBlessedChampionTalentandLifeFull">
+    <Type value="And" />
+    <CombineArray value="UtherHasBlessedChampion" />
+    <CombineArray value="CasterLifeFull" />
+  </CValidatorCombine>
+  <CValidatorPlayerTalent id="HasUtherPursuitOfJustice">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherHammerOfJusticePursuitOfJustice" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitCompareBehaviorCount id="UtherHas1StackHolyFire">
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+    <Behavior value="UtherHolyFireStack" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="UtherHas24StacksWaveofLightTalentQuest">
+    <WhichUnit Value="Caster" />
+    <Value value="24" />
+    <Behavior value="UtherHolyRadianceWaveofLightTalentQuestStack" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="UtherDoesNotHaveWaveofLightTalentQuestCompletion">
+    <WhichUnit Value="Caster" />
+    <Behavior value="UtherHolyRadianceWaveofLightTalentQuestCompletion" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="UtherHas2StackHolyFire">
+    <WhichUnit Value="Caster" />
+    <Value value="2" />
+    <Behavior value="UtherHolyFireStack" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="UtherHas3StackHolyFire">
+    <WhichUnit Value="Caster" />
+    <Value value="3" />
+    <Behavior value="UtherHolyFireStack" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="UtherHasHolyLightHolyShockTalentMarkerCaster">
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+    <Behavior value="UtherHolyLightHolyShockTalentMarker" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorPlayerTalent id="UtherHasRighteousDefenseTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherRighteousDefense" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasHardenedFocusTalentUther">
+    <Find value="1" />
+    <Value value="UtherHardenedFocus" />
+  </CValidatorPlayerTalent>
+  <CValidatorCombine id="NoSpiritFormBuffUtherTargetNegate">
+    <CombineArray value="NoSpiritFormBuffNormal" />
+    <CombineArray value="NoSpiritFormBuffImproved" />
+    <CombineArray value="NoSpiritFormBuffDelay" />
+    <Negate value="1" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="DoesNotHaveRedemptionCarryActiveSource">
+    <WhichUnit Value="Source" />
+    <Behavior value="RedemptionCarryBehavior" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="DoesNotHaveRedemptionCooldown">
+    <Behavior value="RedemptionCooldown" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorPlayerTalent id="DoesNotHaveUtherRedemptionSource">
+    <WhichPlayer Value="Source" />
+    <Value value="UtherMasteryRedemption" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitCompareBehaviorCount id="HasBlessedChampionCaster">
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+    <Behavior value="UtherBlessedChampion" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HasRedemptionCarryActiveSource">
+    <WhichUnit Value="Source" />
+    <Value value="1" />
+    <Behavior value="RedemptionCarryBehavior" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorPlayerTalent id="HasUtherRedemption">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherMasteryRedemption" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasUtherRedemptionSource">
+    <WhichPlayer Value="Source" />
+    <Find value="1" />
+    <Value value="UtherMasteryRedemption" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasUtherRedemptionTarget">
+    <WhichPlayer Value="Target" />
+    <Find value="1" />
+    <Value value="UtherMasteryRedemption" />
+  </CValidatorPlayerTalent>
+  <CValidatorCombine id="RedemptionAvailableCombine">
+    <Type value="And" />
+    <CombineArray value="HasUtherRedemptionTarget" />
+    <CombineArray value="DoesNotHaveRedemptionCooldown" />
+    <CombineArray value="DoesNotHaveRedemptionAlreadyDead" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="CasterHasLessThan5WaveofLightStacks">
+    <WhichUnit Value="Caster" />
+    <Compare value="LT" />
+    <Value value="5" />
+    <Behavior value="WaveofLightStacks" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorPlayerTalent id="UtherHasHolyFire">
+    <Find value="1" />
+    <Value value="UtherHolyFire" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitFilters id="HolyLightTargetIsMinion">
+    <WhichUnit Effect="UtherHolyLightSet" />
+    <Filters value="Minion;-" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="HolyShockTargetIsMinion">
+    <WhichUnit Effect="UtherHolyShockSet" />
+    <Filters value="Minion;-" />
+  </CValidatorUnitFilters>
+  <CValidatorPlayerTalent id="UtherHasHammerOfTheLightbringer">
+    <Find value="1" />
+    <Value value="UtherCombatStyleHammerOfTheLightbringer" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitType id="IsNotUther">
+    <WhichUnit Value="Caster" />
+    <Value value="HeroUther" />
+    <Find value="0" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsUther">
+    <Value value="HeroUther" />
+  </CValidatorUnitType>
+  <CValidatorUnitCompareBehaviorCount id="NoSpiritFormBuffDelay">
+    <Behavior value="UtherEternalVanguardRezDelay" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="NoEternalDevotionCooldown">
+    <Behavior value="EternalDevotionCooldown" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="NoEternalDevotionCooldownImproved">
+    <Behavior value="EternalDevotionCooldownImproved" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="NoSpiritFormBuffNormal">
+    <Behavior value="SpiritOfRedemptionSpiritFormBuff" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="NoSpiritFormBuffImproved">
+    <Behavior value="SpiritOfRedemptionSpiritFormBuffImproved" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="NoSpiritFormBuffUtherTarget">
+    <Type value="And" />
+    <CombineArray value="NoSpiritFormBuffNormal" />
+    <CombineArray value="NoSpiritFormBuffImproved" />
+    <CombineArray value="NoSpiritFormBuffDelay" />
+  </CValidatorCombine>
+  <CValidatorCombine id="NoEternalDevotionCooldownCombine">
+    <Type value="And" />
+    <CombineArray value="NoEternalDevotionCooldown" />
+    <CombineArray value="NoEternalDevotionCooldownImproved" />
+  </CValidatorCombine>
+  <CValidatorCombine id="UtherHolyShockTargetCombine">
+    <CombineArray value="TargetIsHeroANDNotStructureTargetANDTargetNotImmuneToFriendlyAbilities" />
+    <CombineArray value="TargetIsEnemy" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareCooldown id="UtherRedemptionNotOnCooldown">
+    <WhichUnit Value="Source" />
+    <Compare value="LT" />
+    <CooldownLink value="Abil/UtherEternalDevotion" />
+    <Location value="Unit" />
+    <Value value="0.0625" />
+  </CValidatorUnitCompareCooldown>
+  <CValidatorUnitType id="HeroUther">
+    <Value value="HeroUther" />
+  </CValidatorUnitType>
+  <CValidatorPlayerTalent id="HasUtherWaveofLight">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherMasteryWaveofLightHolyRadiance" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasUtherProtectTheWeak">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherMasteryProtectTheWeakHolyLight" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasUtherHolyShock">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherMasteryHolyShock" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasUtherBulwarkOfLight">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherMasteryBulwarkOfLightDivineShield" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="UtherHasBlessedChampion">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherMasteryBlessedChampion" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasUtherDivineHurricane">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="UtherMasteryDivineHurricaneDivineStorm" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="DoesNotHaveUtherHolyDevotion">
+    <WhichPlayer Value="Caster" />
+    <Value value="UtherMasteryHolyDevotion" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitCompareBehaviorCount id="TargetHasUtherEternalDevotionRezDelay">
+    <Compare value="GT" />
+    <Behavior value="UtherEternalVanguardRezDelay" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CWeaponLegacy id="UtherPassiveBuffWeapon" parent="StormHeroMediumWeapon">
+    <Options index="Melee" value="1" />
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-terran-infantryweaponslevel3.dds" />
+    <DisplayEffect value="UtherPassiveBuffWeaponDamage" />
+    <MinScanRange value="4" />
+    <Range value="1" />
+    <Period value="1" />
+    <Effect value="UtherPassiveBuffWeaponSet" />
+    <PreswingBeforeAttack value="0.75" />
+    <PreswingBetweenAttacks value="0.25" />
+    <Cost>
+      <Cooldown Link="Abil/UtherWeaponCooldown" Location="Unit" TimeUse="0.25" />
+    </Cost>
+  </CWeaponLegacy>
+  <CWeaponLegacy id="HeroUther" parent="StormHeroMediumWeapon">
+    <Options index="Melee" value="1" />
+    <Icon value="Assets\Textures\storm_temp_war3_btnorcmeleeuptwo.dds" />
+    <DisplayEffect value="UtherWeaponDamage" />
+    <MinScanRange value="4" />
+    <Range value="1" />
+    <Period value="1" />
+    <Effect value="UtherWeaponSet" />
+    <PreswingBeforeAttack value="0.75" />
+    <PreswingBetweenAttacks value="0.25" />
+  </CWeaponLegacy>
 </Catalog>

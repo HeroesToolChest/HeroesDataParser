@@ -1,30 +1,51 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="us-ascii"?>
 <Catalog>
   <CAbilEffectInstant id="FalstadTailwindCooldownDisplay">
     <Effect value="FalstadTailwindCooldownDisplayDummy" />
     <Cost>
       <Cooldown Location="Player" TimeUse="6" />
     </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="FalstadTailwind" />
     <Flags index="ValidateButtonState" value="0" />
   </CAbilEffectInstant>
   <CAbilEffectTarget id="FalstadWingman">
+    <PrepEffect value="DismountDecloakCasterSet" />
     <Effect value="FalstadWingmanSet" />
     <Cost>
       <Charge CountMax="4" CountUse="1" Link="Abil/TalentBucketBribe" />
       <Cooldown Link="Abil/TalentBucketBribe" TimeUse="0.25" />
     </Cost>
+    <TargetFilters value="Creep;Player,Ally,Structure,User1,Dead,Invulnerable" />
     <Range value="6" />
     <Arc value="360" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="FalstadWingmanHotbar" />
   </CAbilEffectTarget>
   <CAbilEffectTarget id="FalstadFlight">
+    <Activity value="Abil/Activity/FlightActivity" />
+    <Effect value="FalstadFlightPersistent" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
     <Cost>
-      <Cooldown TimeUse="55" />
+      <Cooldown TimeUse="75" />
     </Cost>
     <Range value="75" />
+    <ShowProgressArray index="Cast" value="1" />
+    <ShowProgressArray index="Channel" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CastOutroTimeEffect value="FalstadFlightPersistent" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="FalstadFlight">
+      <Flags index="AllowMinimap" value="1" />
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
     <CastIntroTime value="2" />
     <PrepEffect value="DismountDecloakCasterSet" />
     <Arc value="360" />
     <EffectRange value="0.9375,500" />
+    <AbilityCategories index="Travel" value="1" />
+    <AbilityCategories index="RequiresCastTime" value="1" />
+    <AbilityCategories index="TargetPoint" value="1" />
     <InterruptArray index="Cast" value="1" />
     <InterruptCost>
       <Cooldown Operation="Set" TimeUse="10" />
@@ -37,16 +58,32 @@
       <Cooldown Link="Abil/FalstadHammerangMastery" TimeUse="1" />
     </Cost>
     <Arc value="360" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="FalstadHammerangBOOMerangActive" Requirements="FalstadHasHammerangReturnActive" />
     <ParentAbil value="FalstadHammerang" />
   </CAbilEffectInstant>
   <CAbilEffectTarget id="FalstadHammerang">
+    <CmdButtonArray index="Execute" DefaultButtonFace="FalstadHammerang" Requirements="FalstadHasNoHammerangReturnActive">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
     <Cost>
-      <Vital index="Energy" value="70" />
+      <Vital index="Energy" value="60" />
       <Cooldown TimeUse="10" />
     </Cost>
     <Range value="500" />
+    <Effect value="HammerangInitialSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TargetVectorLock" value="1" />
+    <CursorEffect value="HammerangMissileScan" />
     <CastIntroTime value="0.0625" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
     <Arc value="360" />
+    <PrepEffect value="DismountDecloakCasterSet" />
     <CastOutroTime value="0.125" />
   </CAbilEffectTarget>
   <CAbilEffectTarget id="FalstadBarrelRoll">
@@ -54,20 +91,34 @@
       <Flags index="AllowSelfCast" value="0" />
     </CmdButtonArray>
     <Cost>
-      <Vital index="Energy" value="75" />
-      <Cooldown TimeUse="14" />
+      <Vital index="Energy" value="70" />
+      <Cooldown TimeUse="13" />
     </Cost>
     <Range value="500" />
+    <Effect value="BarrelRollPersistent" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <UninterruptibleArray index="Approach" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <PrepEffect value="DismountDecloakCasterSet" />
     <Arc value="360" />
   </CAbilEffectTarget>
   <CAbilEffectTarget id="FalstadLightningRod">
     <CmdButtonArray index="Execute" DefaultButtonFace="FalstadLightningRod" />
+    <Effect value="FalstadLightningRodInitialSet" />
     <Cost>
-      <Vital index="Energy" value="70" />
-      <Cooldown TimeUse="15" />
+      <Vital index="Energy" value="60" />
+      <Cooldown TimeUse="13" />
     </Cost>
     <Range value="5.5" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <TargetFilters value="Visible;Player,Ally,Neutral,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
     <Arc value="360" />
+    <Flags index="TransientPreferred" value="1" />
+    <Flags index="UninterruptibleTurn" value="0" />
   </CAbilEffectTarget>
   <CAbilEffectTarget id="FalstadMightyGust">
     <CmdButtonArray index="Execute" DefaultButtonFace="FalstadMightyGust" Requirements="Ultimate1Unlocked">
@@ -77,17 +128,29 @@
       <Vital index="Energy" value="70" />
       <Cooldown TimeUse="60" />
     </Cost>
+    <Effect value="FalstadMightyGustInitialSet" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TargetVectorLock" value="1" />
     <Range value="500" />
     <CastIntroTime value="0.25" />
     <FinishTime value="0.25" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <CursorEffect value="FalstadMightyGustMissileScan" />
     <Arc value="360" />
     <MinimumRange value="0.5" />
     <CursorRangeFlags index="ClampMin" value="1" />
   </CAbilEffectTarget>
   <CAbilEffectTarget id="FalstadHinterlandBlast">
+    <Activity value="Abil/Activity/FalstadHinterlandBlast" />
+    <PrepEffect value="FalstadHinterlandBlastInitialSet" />
     <Effect value="HinterlandBlastCastSet" />
     <Flags index="ClearLastMoveTarget" value="1" />
     <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TargetVectorLock" value="1" />
     <Cost>
       <Vital index="Energy" value="100" />
       <Cooldown TimeUse="120" />
@@ -97,8 +160,12 @@
       <Cooldown Operation="Set" TimeUse="10" />
     </InterruptCost>
     <Range value="500" />
-    <Arc value="360" />
+    <ArcSlop value="0" />
     <CastIntroTime value="1" />
+    <ShowProgressArray index="Cast" value="1" />
+    <UninterruptibleArray index="Approach" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <CursorEffect value="HinterlandBlastSearch" />
     <CmdButtonArray index="Execute" DefaultButtonFace="FalstadHinterlandBlast" Requirements="Ultimate2Unlocked">
       <Flags index="AllowSelfCast" value="0" />
     </CmdButtonArray>
@@ -114,6 +181,721 @@
     <TokenId value="FalstadHammerangGatheringStormQuestToken" />
     <Scale value="1.5" />
   </CAccumulatorToken>
+  <CActorSplat id="FalstadWingmanRangeSplat" parent="StormRangeSplat">
+    <Scale value="6.000000" />
+  </CActorSplat>
+  <CActorSound id="FalstadWingmanImpactSound" parent="SoundOneShot">
+    <On Terms="Effect.FalstadWingmanKillEffect.Start; At Target" Send="Create" />
+  </CActorSound>
+  <CActorModel id="FalstadWingmanImpactVisual" parent="StormModelAnimationStyleContinuousUnit">
+    <Remove Terms="ActorOrphan" Send="Destroy" />
+    <On Terms="Effect.FalstadWingmanKillEffect.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="TimerSet 1.500000 {Bribe Timer}" />
+    <On Terms="TimerExpired; TimerName {Bribe Timer}" Send="Destroy" />
+    <HostSiteOps Ops="SOpAttachOverhead" />
+  </CActorModel>
+  <CActorRange id="FalstadWingmanRange" parent="StormRangeAbilPlusSplat" abil="FalstadWingman" />
+  <CActorSound id="HeroFalstadTauntVO" parent="SoundOneShot">
+    <Sound value="Falstad_Taunt" />
+  </CActorSound>
+  <CActorSound id="HeroFalstadTauntUEVO" parent="SoundOneShot">
+    <Sound value="Falstad_Taunt_Evo" />
+  </CActorSound>
+  <CActorSound id="MightyGustWhooshSound" parent="SoundOneShot">
+    <On Terms="Abil.FalstadMightyGust.SourceCastStart" Send="Create" />
+    <Host Subject="_Unit" />
+    <Sound value="Falstad_MightyGust_Whoosh" />
+  </CActorSound>
+  <CActorSound id="FalstadMightyGustWindTunnelImpactSound" parent="SoundOneShot">
+    <On Terms="Behavior.MightyGustWindTunnelMasteryImpactSoundBehavior.On" Send="Create" />
+    <Sound value="Falstad_MightyGust_WindTunnel_Impact" />
+  </CActorSound>
+  <CActorSound id="FalstadMightyGustLaunchSound" parent="SoundOneShot">
+    <On Terms="Effect.FalstadMighytGustLaunchPersistent.Start; At Effect" Send="Create" />
+    <Sound value="Falstad_MightyGust_Launch" />
+  </CActorSound>
+  <CActorSound id="FalstadMightyGustWindTunnelTravelSound" parent="SoundContinuous">
+    <Flags index="SuppressSaveLoad" value="1" />
+    <On Terms="UnitBirth.FalstadMightyGustWindTunnelMissile" Send="Create" />
+    <On Terms="UnitBirth.FalstadMightyGustWindTunnelInitialMissile" Send="Create" />
+    <Sound value="Falstad_MightyGust_WindTunnel_Launch" />
+  </CActorSound>
+  <CActorSound id="MightyGustGriffonYellSound" parent="SoundOneShot">
+    <On Terms="Abil.FalstadMightyGust.SourceCastStart" Send="Create" />
+    <Host Subject="_Unit" />
+    <Sound value="Falstad_MightyGust_GriffonYell" />
+  </CActorSound>
+  <CActorSound id="Falstad_MightyGust_WindTunnel_Grow" parent="SoundOneShot">
+    <On Terms="Effect.FalstadMighytGustWindTunnelGrowSoundDummy.Start; At Effect" Send="Create" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Falstad_Flight_Fly" parent="SoundOneShot">
+    <On Terms="Effect.FalstadFlightInitialSet.Start; At Caster" Send="Create" />
+    <On Terms="Behavior.FalstadFlightAscend.Off" Send="Destroy" />
+    <Host Subject="_Unit" />
+    <HostSiteOps Ops="SOpShadow" />
+    <Layers>
+      <Sound value="Falstad_Flight_Griffon_Vox_Distant" />
+      <PitchSource value="Combine" />
+      <PlayDelaySource value="Combine" />
+      <Volume value="-13.000000,-10.000000" />
+      <VolumeSource value="Combine" />
+    </Layers>
+    <Layers Sound="Falstad_Flight_Fly_Sweetener" />
+  </CActorSound>
+  <CActorSound id="Falstad_Flight_Charge" parent="SoundOneShot">
+    <On Terms="Abil.FalstadFlight.SourceCastStart" Send="Create" />
+    <On Terms="Abil.FalstadFlight.SourceCastStop" Send="Destroy" />
+    <Host Subject="_Unit" />
+    <HostSiteOps Ops="SOpShadow" />
+    <Layers Sound="Falstad_Flight_Charge_Player" />
+    <Layers Sound="Falstad_Flight_Charge_Sweetener_A" />
+    <Layers Sound="Falstad_Flight_Charge_Sweetener_B" />
+  </CActorSound>
+  <CActorModel id="FalstadFlightWarningVisualAllies" parent="StormModelAnimationStyleContinuous">
+    <Inherits index="TeamColor" value="1" />
+    <On Terms="Effect.FlightWarningVisualCreatePersistent.Start; At Effect" Send="Create" />
+    <On Terms="Effect.FlightWarningVisualCreatePersistent.Stop" Send="Destroy" />
+    <Model value="FlightWarningVisual" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+  </CActorModel>
+  <CActorModel id="FalstadFlightWarningVisualEnemies" parent="StormModelAnimationStyleContinuous">
+    <Inherits index="TeamColor" value="1" />
+    <On Terms="Effect.FlightWarningEnemyVisualCreatePersistent.Start; At Effect" Send="Create" />
+    <On Terms="Effect.FlightWarningEnemyVisualCreatePersistent.Stop" Send="Destroy" />
+    <Model value="FlightWarningVisual" />
+    <Filter index="Self" value="1" />
+    <Filter index="Ally" value="1" />
+    <Flags index="VisionTestCenterOnly" value="1" />
+    <ModelFlags index="CloakedUndetectedIsHidden" value="1" />
+  </CActorModel>
+  <CActorModel id="FalstadFlightEffectModel" parent="StormModelNoAnimsUnit">
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death" />
+    <On Terms="AnimBracketState.*.AfterClosing; !AnimBracketExitReason ModelSwap; AnimName BSD" Send="Destroy" />
+    <On Terms="Behavior.FalstadFlightAscend.On" Send="Create" />
+    <On Terms="Behavior.FalstadFlightAscend.Off" Send="AnimBracketStop BSD 0 1.000000 AsTimeScale" />
+    <On Terms="ActorOrphan" Send="Destroy" />
+    <ModelFlags index="AutomateGlobalLoops" value="1" />
+    <ModelFlags index="UseSyncSeed" value="1" />
+  </CActorModel>
+  <CActorSound id="FalstadHammerangGatheringStormImpactSound" parent="HeroAttackImpactSoundOneShot">
+    <On Terms="Effect.HammerangDamage.Start; ValidateEffect GatheringStormCombine; At Effect" Send="Create" />
+    <On Terms="Effect.HammerangReturnDamage.Start; ValidateEffect GatheringStormCombine; At Effect" Send="Create" />
+    <Sound value="Falstad_Hammerang_WildHammer_AttackImpact" />
+  </CActorSound>
+  <CActorUnit id="HeroFalstad" parent="StormHeroBasePredictive" unitName="HeroFalstad">
+    <AnimBlendTime value="0.200000" />
+    <DeathArray index="Normal" SoundLink="Falstad_Death" />
+    <On Terms="ActorCreation" Send="StatusSet Billboarded 1" />
+    <On Terms="Abil.FalstadHammerang.SourceCastStart" Send="AnimPlay Spell Spell,A 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.FalstadBarrelRoll.SourceCastStart" Send="AnimBracketStart WorkSpell Work,Start Work Work,End" />
+    <On Terms="Behavior.BarrelRollCharging.On" Send="AnimPlay Channel Spell,C 0 -1.000000 -1.000000 1.250000 AsTimeScale" />
+    <On Terms="Behavior.BarrelRollCharging.Off" Send="AnimBracketStop WorkSpell" />
+    <On Terms="Behavior.BarrelRollCharging.Off" Send="AnimClear Channel" />
+    <On Terms="Abil.FalstadHinterlandBlast.SourcePrecast; !HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.FalstadHinterlandBlast.SourcePrecast; !HasStatus Precast" Send="AnimPlay Spell Spell,E" />
+    <On Terms="Abil.FalstadHinterlandBlast.SourcePrecast; !HasStatus Precast" Send="StatusSet Precast 1" />
+    <On Terms="Abil.FalstadHinterlandBlast.SourceCastStart; HasStatus Precast" Send="AnimClear Spell" />
+    <On Terms="Abil.FalstadHinterlandBlast.SourceCastStart" Send="AnimPlay Spell Spell,E 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.FalstadHinterlandBlast.SourceCastStart" Send="AnimSetTime Spell 1.000000" />
+    <On Terms="Abil.FalstadHinterlandBlast.SourceCastStart; HasStatus Precast" Send="StatusSet Precast 0" />
+    <On Terms="UnitDeath" Send="AnimClear Channel" />
+    <On Terms="Abil.FalstadFlight.SourceCastStart" Send="AnimPlay Channel Spell,G 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.FalstadFlight.SourceBailStart" Send="AnimClear Channel" />
+    <On Terms="Abil.FalstadFlight.SourceCastStop" Send="AnimClear Channel" />
+    <On Terms="Abil.FalstadFlight.SourceCancel" Send="AnimClear Channel" />
+    <On Terms="Behavior.FalstadLightningRodCasterBehavior.On" Send="AnimPlay Spell Spell,Channel NonLooping -1.000000 -1.000000 2.000000 AsTimeScale" />
+    <On Terms="Abil.FalstadMightyGust.SourceCastStart" Send="AnimPlay Spell Spell,A NonLooping,DontResetOnUnhide -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Effect.FalstadFlightSet.Start" Send="AnimBracketStart Ride Walk,Start,Ride Walk,A,Ride Walk,End,Ride" />
+    <On Terms="Effect.FalstadFlightFinalSet.Start" Send="AnimBracketStop Ride" />
+    <On Terms="Signal.*.ResetHost" Send="RefClear ::Host" />
+    <On Terms="Signal.*.ResetHost" Send="Create FalstadFlyerBillboard" />
+    <On Terms="Signal.*.ResetHost" Send="RefSet ::Host FalstadFlyerBillboard" />
+    <On Terms="Signal.*.ResetHost" Send="HostSiteOpsSet ::Host" />
+    <On Terms="Behavior.BarrelRollRelicBuff.On" Send="AnimGroupApply Ride" />
+    <On Terms="Behavior.BarrelRollRelicBuff.Off" Send="AnimGroupRemove Ride" />
+    <Remove Terms="ActorCreation" Send="RefClear ::Host" />
+    <Remove Terms="ActorCreation" Send="HostSiteOpsSet ::Host {SOpBasicScopeFollow SOpTipability}" />
+    <Host Subject="FalstadFlyerBillboard" Actor="Create" />
+    <UnitIcon value="Assets\Textures\ui_targetportrait_hero_falstad.dds" />
+    <HeroIcon value="Assets\Textures\ui_targetportrait_hero_falstad.dds" />
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_partyframe_falstad.dds" />
+    </GroupIcon>
+    <SoundArray index="Ready" value="Falstad_Revive" />
+    <SoundArray index="Yes" value="Falstad_Yes" />
+    <SoundArray index="Attack" value="Falstad_Attack" />
+    <SoundArray index="Pissed" value="Falstad_Pissed" />
+    <MinimapIcon value="Assets\Textures\storm_ui_minimapicon_gryphon_rider.dds" />
+    <AbilSoundArray AbilCmd="FalstadHammerang,Execute" Sound="Falstad_VOX_CastingA" />
+    <AbilSoundArray AbilCmd="FalstadLightningRod,Execute" Sound="Falstad_VOX_CastingB" />
+    <AbilSoundArray AbilCmd="FalstadBarrelRoll,Execute" Sound="Falstad_VOX_CastingC" />
+    <AbilSoundArray AbilCmd="FalstadHinterlandBlast,Execute" Sound="Falstad_Ultimate1Used" />
+    <AbilSoundArray AbilCmd="FalstadAerialBlitzkrieg,Execute" Sound="Falstad_Ultimate2Used" />
+    <ErrorArray Error="NotEnoughEnergy" Sound="Falstad_LowMana" />
+    <PortraitActor value="FalstadPortrait" />
+    <PortraitModel value="FalstadPortrait" />
+    <MinimapIconBackgroundScale value="0.950000" />
+  </CActorUnit>
+  <CActorModel id="HeroFalstadDeathRagdoll" parent="StormHeroDeathRagdoll" />
+  <CActorModel id="HeroFalstadDeath" parent="HeroDeathModelDEPRECATED" />
+  <CActorSiteOpBankerUnit id="SOpBankerFalstad" parent="SOpBankerUnit">
+    <RollMax value="15.000000" />
+    <RollInActivationAngle value="10.000000" />
+    <RollInArc value="90.000000" />
+    <RollOutDuration value="1.000000" />
+  </CActorSiteOpBankerUnit>
+  <CActorMissile id="HeroFalstadAttackMissile" parent="StormMissileWithDeath" unitName="FalstadMissile" />
+  <CActorAction id="HeroFalstadAttack" parent="RangedHeroAttackMissile" effectImpact="FalstadWeaponDamage" effectLaunch="FalstadWeaponLaunchMissile">
+    <LaunchAssets Sound="Falstad_AttackLaunch" />
+    <ImpactMap index="None" Model="FalstadMissileImpact" Sound="Falstad_AttackImpact" />
+  </CActorAction>
+  <CActorRange id="FalstadFlightRange">
+    <Flags index="SuppressSaveLoad" value="1" />
+    <Inherits index="TeamColor" value="1" />
+    <On Terms="Abil.FalstadFlight.TargetOn" Send="Create" />
+    <On Terms="Abil.FalstadFlight.TargetOff" Send="Destroy" />
+    <On Terms="Abil.FalstadFlight.ButtonHoverOn" Send="Create" />
+    <On Terms="Abil.FalstadFlight.ButtonHoverOff" Send="Destroy" />
+    <HostForProps Subject="PropsHost" />
+    <Range value="71.750000" />
+    <Icon value="Assets\Textures\storm_towerradius.dds" />
+    <RangeFlags index="Minimap" value="1" />
+    <IconArcLength value="5.000000" />
+  </CActorRange>
+  <CActorForceConeRoundedEnd id="FalstadFlightDeathForce">
+    <On Terms="Effect.FalstadFlightApplyDeathForceSet.Start" Send="Create" />
+    <Host Subject="_Unit" />
+    <HostSiteOps Ops="SOpMoveBackBy2" HoldPosition="1" HoldRotation="1" />
+    <Duration value="0.125000" />
+    <Magnitude value="100.000000,10.000000" />
+    <ForceFlags index="FallOff" value="0" />
+    <HostEnd Subject="_Unit" />
+    <HostEndSiteOps Ops="SOpMoveBy2 SOpMoveUpByDot5" HoldPosition="1" HoldRotation="1" />
+    <Angle value="15.000000" />
+  </CActorForceConeRoundedEnd>
+  <CActorSound id="FalstadFlightLaunchVOXSound" parent="SoundOneShot">
+    <Sound value="Falstad_Mount_Fly_GriffonVox" />
+    <On Terms="Effect.FalstadFlightFinalSet.Start" Send="Create" />
+    <HostSiteOps Ops="SOpShadow" />
+    <Host Subject="_Unit" />
+  </CActorSound>
+  <CActorModel id="FalstadFlightIn" parent="StormModelAnimationStyleOneShot">
+    <InheritType value="OneShot" />
+    <On Terms="Behavior.FalstadFlightFinalDisablerBehavior.Off" Send="Create" />
+    <HostSiteOps Ops="SOpAttachOriginHoldPosition" />
+  </CActorModel>
+  <CActorModel id="FalstadFlightOut" parent="StormModelAnimationStyleOneShot">
+    <InheritType value="OneShot" />
+    <On Terms="Effect.FalstadFlightCreateFlyingPersistent.Start; At Source" Send="Create" />
+    <HostSiteOps Ops="SOpAttachOriginHoldPosition" />
+  </CActorModel>
+  <CActorSound id="Falstad_Flight_Launch" parent="SoundOneShot">
+    <On Terms="Effect.FalstadFlightInitialSet.Start" Send="Create" />
+    <HostSiteOps Ops="SOpShadow" />
+    <Host Subject="_Unit" />
+    <Layers Sound="Falstad_Flight_Launch_Sweetener" />
+  </CActorSound>
+  <CActorSound id="Falstad_Flight_Land" parent="SoundOneShot">
+    <On Terms="Behavior.FalstadFlightAscend.Off" Send="Create" />
+    <Host Subject="_Unit" />
+    <HostSiteOps Ops="SOpShadow" />
+    <Layers Sound="Falstad_Flight_Land_Sweetener" />
+  </CActorSound>
+  <CActorSound id="FalstadLightningRodImpactSound" parent="HeroAttackImpactSoundOneShot">
+    <Sound value="Falstad_Thunderstorm_Impact" />
+  </CActorSound>
+  <CActorSiteOpLocalOffset id="FalstadHammerangOffset">
+    <LocalOffset Z="2.500000" />
+  </CActorSiteOpLocalOffset>
+  <CActorQuad id="FalstadHammerangGuideVisual" parent="StormGuideVisualQuadDownFantasy" abil="FalstadHammerang">
+    <Height value="11.000000" />
+    <Width value="1.250000" />
+  </CActorQuad>
+  <CActorMissile id="FalstadHammerangAttackMissile" parent="StormMissileWithDeath" unitName="FalstadHammerangMissile">
+    <Macros value="GlobalLoopMacro" />
+  </CActorMissile>
+  <CActorMissile id="FalstadHammerangAttackReturnMissile" parent="StormMissileWithDeath" unitName="FalstadHammerangReturnMissile">
+    <On Terms="MotionPhaseStart; MotionPhase 1" Send="AnimPlay Death Death PlayForever" />
+    <On Terms="ActorCreation" Send="Create Falstad_Hammerang_Return_Loop" />
+    <On Terms="ActorDestruction" Target="Falstad_Hammerang_Return_Loop" Send="Destroy Immediate" />
+    <Macros value="GlobalLoopMacro" />
+    <DeathArray index="Normal" ModelLink="Invisible" />
+  </CActorMissile>
+  <CActorAction id="FalstadHammerangAttack" parent="GenericAttackPointStorm" effectImpact="HammerangReturnLaunchMissile" effectLaunch="HammerangLaunchMissile">
+    <LaunchAttachQuery Methods="AMFilterWeaponRight" />
+    <ImpactPointSiteOps Ops="SOpTargetPointStationary SOpShadowRespectsBaseHeight FalstadHammerangOffset" />
+    <ImpactMap index="None" Model="" Sound="Falstad_Hammerang_AttackImpact" />
+    <ShieldFlashType value="None" />
+    <Inherits index="Visibility" value="1" />
+    <ForceCommencementFrom value="HammerangLaunchMissile" />
+    <LaunchAssets Sound="Falstad_Hammerang_AttackLaunch" />
+  </CActorAction>
+  <CActorAction id="FalstadHammerangAttackReturn" parent="GenericAttackStorm" effectLaunch="HammerangReturnLaunchMissile">
+    <ImpactSiteOps Ops="SOpAttachWeaponSoft" />
+    <ShieldFlashType value="Full" />
+    <LaunchSiteOps Ops="SOpTargetPointStationary SOpShadow FalstadHammerangOffset" />
+    <LaunchSiteFallback value="" />
+    <LaunchAssets Model="FalstadHammerangNadir" />
+  </CActorAction>
+  <CActorSound id="FalstadHammerangMissleSound" parent="SoundOneShot">
+    <On Terms="UnitBirth.FalstadHammerangMissile" Send="Create" />
+    <Sound value="Falstad_Hammerang_Missile_AttackLaunch" />
+  </CActorSound>
+  <CActorSound id="FalstadHammerangReturnLaunchSound" parent="SoundOneShot">
+    <Sound value="Falstad_Hammerang_Return" />
+    <On Terms="UnitBirth.FalstadHammerangReturnMissile" Send="Create" />
+  </CActorSound>
+  <CActorSound id="FalstadHammerangReturnImpactSound" parent="SoundOneShot">
+    <Sound value="" />
+    <On Terms="Effect.HammerangDummyImpact.Start" Send="Create" />
+  </CActorSound>
+  <CActorModel id="FalstadHammerangMasteryDamageImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <HostSiteOps Ops="SOpAttachCenter" />
+    <On Terms="Effect.FalstadHammerangBOOMerangDamage.Start; At Target" Send="Create" />
+    <Model value="FalstadHammerangMissileImpact" />
+  </CActorModel>
+  <CActorAction id="FalstadHammerangMissileImpactAction" parent="RangedHeroAttack" effectAttack="HammerangImpactSet">
+    <ImpactMap index="None" Model="FalstadHammerangMissileImpact" />
+  </CActorAction>
+  <CActorAction id="FalstadHammerangMissileReturnImpactAction" parent="RangedHeroAttack" effectAttack="HammerangReturnImpactSet">
+    <ImpactMap index="None" Model="FalstadHammerangMissileImpact" />
+  </CActorAction>
+  <CActorSound id="FalstadHammerangMasteryLaunchSound" parent="SoundOneShot">
+    <Sound value="Falstad_Hammerang_Mastery_AttackLaunch" />
+    <InheritType value="Continuous" />
+    <Host Subject="::Creator" />
+  </CActorSound>
+  <CActorModel id="BOOMerangExplosion" parent="StormModelAnimationStyleOneShot">
+    <On Terms="Effect.FalstadHammerangBOOMerangExplosionSearch.Start; At Effect" Send="Create" />
+    <On Terms="Effect.FalstadHammerangBOOMerangExplosionSearch.Start" Send="SetTintColor 45,145,255" />
+    <On Terms="ActorCreation" Send="Create FalstadHammerangMasteryLaunchSound" />
+  </CActorModel>
+  <CActorSound id="FalstadHammerangMissileImpactSound" parent="HeroAttackImpactSoundOneShot">
+    <Sound value="Falstad_Hammerang_AttackImpact2" />
+    <On Terms="Effect.HammerangDamage.Start; At Target" Send="Create" />
+    <On Terms="Effect.FalstadHammerangBOOMerangDamage.Start; At Target" Send="Create" />
+    <On Terms="Effect.HammerangReturnDamage.Start; At Target" Send="Create" />
+  </CActorSound>
+  <CActorForceConeRoundedEnd id="FalstadHammerangForce">
+    <On Terms="Effect.HammerangMissileScan.Start; At Caster" Send="Create" />
+    <On Terms="Effect.HammerangMissileReturnMissileScan.Start; At Caster" Send="Create" />
+    <Host Subject="FalstadHammerangAttackMissile" />
+    <HostSiteOps Ops="SOpShadow" HoldPosition="1" HoldRotation="1" />
+    <Duration value="0.125500" />
+    <Magnitude value="150.000000" />
+    <HostEndSiteOps Ops="SOpMoveBy5Dot5" />
+    <Angle value="35.000000" />
+    <Length value="2.500000" />
+    <ForceFlags index="FallOff" value="0" />
+  </CActorForceConeRoundedEnd>
+  <CActorMissile id="FalstadHammerangAttackReturnMissileSound" parent="GenericAttackMissile" unitName="FalstadHammerangReturnMissileSound">
+    <Model value="Invisible" />
+  </CActorMissile>
+  <CActorSound id="Falstad_Hammerang_Return_Catch" parent="SoundOneShot">
+    <On Terms="Effect.HammerangDummyImpact.Start; At Caster" Send="Create" />
+    <Host Subject="_Unit" />
+    <Sound value="Falstad_Hammerang_Catch" />
+  </CActorSound>
+  <CActorSound id="Falstad_Hammerang_Return_Loop" parent="SoundContinuous">
+    <Host Subject="::Creator" />
+  </CActorSound>
+  <CActorModel id="FalstadCharge" parent="StormModelAnimationStyleContinuousUnit">
+    <On Terms="Effect.ChargePersistent.Start" Send="Create" />
+    <On Terms="Effect.ChargePersistent.Stop" Send="AnimBracketStop BSD" />
+    <HostSiteOps Ops="SOpLightCycleAfterburnerOffset" />
+  </CActorModel>
+  <CActorSound id="FalstadChargeCastSound" parent="SoundOneShot">
+    <On Terms="Effect.ChargePersistent.Start; At Caster" Send="Create" />
+    <Sound value="Falstad_Charge_Cast" />
+  </CActorSound>
+  <CActorModel id="FalstadChargeImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <Inherits index="BaseModelScale" value="1" />
+    <Inherits index="Scale" value="1" />
+    <On Terms="Effect.ChargeDamage.Start; At Target" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenter SOpForwardCasterPoint" HoldRotation="1" />
+    <AutoScaleFactor value="1.000000" />
+  </CActorModel>
+  <CActorSound id="FalstadChargeImpactSound" parent="HeroAttackImpactSoundOneShot">
+    <On Terms="Effect.ChargeDamage.Start; At Target" Send="Create" />
+    <Sound value="Falstad_Charge_Impact" />
+  </CActorSound>
+  <CActorQuad id="FalstadBarrelRollGuide" parent="StormGuideVisualQuadDownClosestFantasy" abil="FalstadBarrelRoll">
+    <Height value="7.000000" />
+    <Width value="1.000000" />
+  </CActorQuad>
+  <CActorSound id="FalstadBarrelRollAfterburnerSound" parent="SoundOneShot">
+    <On Terms="Behavior.BarrelRollRelicBuff.On" Send="Create" />
+    <On Terms="Behavior.BarrelRollRelicBuff.Off" Send="Destroy" />
+    <Sound value="Falstad_BarrelRoll_Afterburner" />
+  </CActorSound>
+  <CActorSound id="FalstadBarrelRollCastSoundAfterburner" parent="SoundOneShot">
+    <On Terms="Behavior.BarrelRollCharging.On; ValidatePlayer HasFalstadAfterburner" Send="Create" />
+    <Sound value="Falstad_BarrelRoll_Afterburner_Cast" />
+  </CActorSound>
+  <CActorModel id="FalstadBarrelRollBuff" parent="StormModelAddition">
+    <On Terms="Behavior.BarrelRollCharging.On" Send="Create" />
+    <On Terms="Behavior.BarrelRollCharging.Off" Send="AnimBracketStop BSD" />
+    <FogVisibility value="Hidden" />
+    <ModelFlags index="AllowHitTest" value="0" />
+    <HostSiteOps Ops="SOpAttachCenterSoft" />
+    <Inherits index="Visibility" value="1" />
+  </CActorModel>
+  <CActorModel id="FalstadBarrelRollAfterburnerBuff" parent="StormMoveSpeedRibbon">
+    <On Terms="Behavior.BarrelRollRelicBuff.On" Send="Create" />
+    <On Terms="Behavior.BarrelRollRelicBuff.Off" Send="AnimBracketStop BSD" />
+    <FogVisibility value="Hidden" />
+    <Model value="FalstadBarrelRollAfterburnerBuff" />
+    <ModelFlags index="AllowHitTest" value="0" />
+    <HostSiteOps Ops="SOpAttachWeapon03" />
+    <Inherits index="Visibility" value="1" />
+  </CActorModel>
+  <CActorModel id="FalstadBarrelRollAfterburnerBuffWeapon02" parent="StormMoveSpeedRibbon">
+    <FogVisibility value="Hidden" />
+    <On Terms="Behavior.BarrelRollRelicBuff.On" Send="Create" />
+    <On Terms="Behavior.BarrelRollRelicBuff.Off" Send="AnimBracketStop BSD" />
+    <HostSiteOps Ops="SOpAttachWeapon02" />
+    <Model value="FalstadBarrelRollAfterburnerBuff" />
+    <ModelFlags index="AllowHitTest" value="0" />
+    <Inherits index="Visibility" value="1" />
+  </CActorModel>
+  <CActorSound id="FalstadBarrelRollCastSound" parent="SoundOneShot">
+    <On Terms="Behavior.BarrelRollCharging.On; ValidateUnit DoesNotHaveFalstadAfterburner" Send="Create" />
+    <Sound value="Falstad_BarrelRoll_Cast" />
+  </CActorSound>
+  <CActorRange id="FalstadLightningRodRangeModel">
+    <On Terms="Effect.FalstadLightningRodInitialSet.Start; At Caster" Send="Create" />
+    <On Terms="Behavior.FalstadLightningRodCasterBehavior.Off" Send="Destroy" />
+    <On Terms="Behavior.Dead.On" Send="Destroy" />
+    <Range value="7.500000" />
+    <Inherits index="CloakEffect" value="1" />
+    <Inherits index="TeamColor" value="1" />
+    <Filter index="All" value="1" />
+    <VisibleToAtCreation index="Source" value="1" />
+    <VisibleToAtCreation index="Target" value="1" />
+    <HostSiteOps Ops="SOpBasicScopeFollow" />
+    <IconArcLength value="5.000000" />
+  </CActorRange>
+  <CActorSound id="FalstadLightningRodLaunchSound" parent="SoundOneShot">
+    <On Terms="Effect.FalstadLightningRodInitialDamage.Start; At Target" Send="Create" />
+    <InheritType value="Continuous" />
+    <Sound value="Falstad_LightningRod_Launch" />
+    <Layers Sound="Falstad_LightningRod_Sweetener" />
+  </CActorSound>
+  <CActorSite id="FalstadLightningRodBeamImpactSiteActive" parent="SiteCenter">
+    <On Terms="Effect.FalstadLightningRodDamage.Start; At Target" Send="Create" />
+    <On Terms="Effect.FalstadLightningRodInitialDamage.Start; At Target" Send="Create" />
+    <On Terms="Effect.FalstadLightningRodDamageThunderstrikes1Stack.Start; At Target" Send="Create" />
+    <On Terms="Effect.FalstadLightningRodDamageThunderstrikes2Stacks.Start; At Target" Send="Create" />
+    <On Terms="Effect.FalstadLightningRodDamageThunderstrikes3Stacks.Start; At Target" Send="Create" />
+    <On Terms="Effect.FalstadLightningRodDamageThunderstrikes4Stacks.Start; At Target" Send="Create" />
+    <On Terms="Effect.FalstadLightningRodDamageThunderstrikes5Stacks.Start; At Target" Send="Create" />
+    <On Terms="Effect.FalstadLightningRodDamageThunderstrikes6Stacks.Start; At Target" Send="Create" />
+    <On Terms="Effect.FalstadLightningRodDamageThunderstrikes7Stacks.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="RefSetFromRequest ::scope.Chain1Launch FalstadLightningRodBeamLaunchSiteActive Implicit Find" />
+    <On Terms="ActorCreation" Send="Create FalstadLightningRodImpactSound" />
+    <On Terms="ActorCreation" Send="Create FalstadLightningRodStrike" />
+  </CActorSite>
+  <CActorSite id="FalstadLightningRodBeamLaunchSiteActive" parent="SiteWeapon">
+    <On Terms="Effect.FalstadLightningRodConductorTargetSearch.Start" Send="Create" />
+    <Host Subject="_Unit" Scope="Caster" Actor="Find" />
+  </CActorSite>
+  <CActorModel id="FalstadLightningRodImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.FalstadLightningRodInitialDamage.Start; At Target" Send="Create" />
+    <ModelFlags index="AutomateGlobalLoops" value="0" />
+    <ModelFlags index="UpdateVisibility" value="0" />
+  </CActorModel>
+  <CActorModel id="FalstadLightningRodDebuff" parent="StormModelAnimationStyleContinuousUnit">
+    <Filter index="All" value="1" />
+    <VisibleTo index="Self" value="1" />
+    <On Terms="Behavior.FalstadLightningRodConductor.On" Send="Create" />
+    <On Terms="Behavior.FalstadLightningRodConductor.Off" Send="AnimBracketStop BSD" />
+    <HostSiteOps Ops="SOpAttachCenterSoft" HoldRotation="1" />
+    <AutoScaleFactor value="1.000000" />
+  </CActorModel>
+  <CActorRange id="FalstadLightningRodRange" parent="StormRangeAbilPlusSplat" abil="FalstadLightningRod" />
+  <CActorSplat id="FalstadLightningRodRangeSplat" parent="StormRangeSplat">
+    <Scale value="6.500000" />
+    <HostSiteOps Ops="SOpBasicScopeFollow" />
+    <HostForProps Subject="PropsHost" />
+  </CActorSplat>
+  <CActorBeamSimple id="FalstadLightningRodStrike">
+    <Flags index="SuppressSaveLoad" value="1" />
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death ContentPlayOnce" />
+    <On Terms="AnimBracketState.*.AfterClosing; AnimName BSD" Send="Destroy" />
+    <HostLaunch Subject="::Creator" />
+    <HostImpact Subject="::scope.Chain1Launch" />
+  </CActorBeamSimple>
+  <CActorModel id="FalstadStaticShieldFX" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="BehaviorLevel.FalstadLightningRodStaticShield.Start; Level 0 GT" Send="Create" />
+    <Model value="FalstadStaticShockFX" />
+    <HostSiteOps Ops="SOpAttachCenter" />
+  </CActorModel>
+  <CActorModel id="FalstadMightyGustCastModel" parent="StormModelAnimationStyleOneShotUnit">
+    <HostSiteOps Ops="SOpAttachOrigin SOpShadow SOpForwardTargetPoint SOp2DRotation SgtHammerConcussiveBlastOffset" />
+    <On Terms="Effect.FalstadMightyGustInitialSet.Start; At Caster" Send="Create" />
+  </CActorModel>
+  <CActorMissile id="FalstadMightyGustInvisibleMissile" parent="StormMissileWithDeathEarly" unitName="FalstadMightyGustMissile">
+    <On Terms="Behavior.FalstadMightyGustMissileDeathEarly.Off" Send="AnimBracketStop BSD" />
+    <DeathArray index="Normal" ModelLink="Invisible" />
+  </CActorMissile>
+  <CActorMissile id="FalstadMightyGustWindTunnelMissile" parent="StormMissileWithDeathEarly" unitName="FalstadMightyGustWindTunnelMissile">
+    <On Terms="Behavior.FalstadMightyGustMissileDeathEarly.Off" Send="AnimBracketStop BSD" />
+    <DeathArray index="Normal" ModelLink="Invisible" />
+  </CActorMissile>
+  <CActorMissile id="FalstadMightyGustWindTunnelInitialMissile" parent="StormMissileWithDeathEarly" unitName="FalstadMightyGustWindTunnelInitialMissile">
+    <On Terms="Behavior.FalstadMightyGustMissileDeathEarly.Off" Send="AnimBracketStop BSD" />
+    <Model value="FalstadMightyGustWindTunnelMissile" />
+    <DeathArray index="Normal" ModelLink="Invisible" />
+  </CActorMissile>
+  <CActorQuad id="FalstadMightyGustGuide" parent="StormGuideVisualQuadDownFantasy" abil="FalstadMightyGust">
+    <Height value="19.500000" />
+    <Width value="8.000000" />
+    <LaunchHeight value="3.000000" />
+    <CenterHeight value="3.000000" />
+    <ImpactHeight value="3.000000" />
+  </CActorQuad>
+  <CActorSound id="FalstadMightyGustMissileTravelSound" parent="SoundContinuous">
+    <On Terms="UnitBirth.FalstadMightyGustMissile" Send="Create" />
+    <Host Subject="_Missile" />
+    <Sound value="Falstad_MightyGust_Missile" />
+  </CActorSound>
+  <CActorSound id="FalstadMightyGustImpactSound" parent="SoundOneShot">
+    <On Terms="Effect.FalstadMightyGustImpactPersistent.Start; At Target" Send="Create" />
+    <Sound value="Falstad_MightyGust_Impact" />
+  </CActorSound>
+  <CActorAction id="FalstadMightyGustAttack" parent="GenericAttackPointStorm" effectImpact="FalstadMightyGustDummyImpact" effectLaunch="FalstadMightyGustLaunchMissile">
+    <ImpactPointSiteOps Ops="SOpTargetPointStationary SOpShadow" />
+    <ShieldFlashType value="None" />
+    <LaunchSiteOps Ops="SOpAttachOrigin SOpMoveDownBy2" />
+    <LaunchAttachQuery Methods="Origin 0" Fallback="Origin" />
+    <Missile value="FalstadMightyGustInvisibleMissile" />
+  </CActorAction>
+  <CActorModel id="FalstadMightyGustImpactModel" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.FalstadMightyGustDamage.Start; At Target" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenter" />
+    <ModelFlags index="AutomateGlobalLoops" value="0" />
+    <ModelFlags index="UpdateVisibility" value="0" />
+    <Scale value="0.750000" />
+  </CActorModel>
+  <CActorModel id="FalstadMightyGustImpactTrail" parent="StormModelAnimationStyleContinuousUnit">
+    <On Terms="Behavior.FalstadMightyGustKnockbackBehavior.On" Send="Create" />
+    <On Terms="Behavior.FalstadMightyGustKnockbackBehavior.Off" Send="Destroy Immediate" />
+    <HostSiteOps Ops="SOpAttachCenterSoft" />
+    <ModelFlags index="AutomateGlobalLoops" value="0" />
+    <ModelFlags index="UpdateVisibility" value="0" />
+  </CActorModel>
+  <CActorModel id="FalstadMightyGustFlailStun" parent="StormFlailStun">
+    <On Terms="Behavior.FalstadMightyGustKnockbackBehavior.On" Send="Create" />
+    <On Terms="Behavior.FalstadMightyGustKnockbackBehavior.Off" Send="AnimBracketStop BSD" />
+  </CActorModel>
+  <CActorQuad id="HinterlandBlastGuide" parent="StormGuideVisualQuadDownFantasy" abil="FalstadHinterlandBlast">
+    <Height value="32.500000" />
+    <Width value="3.000000" />
+    <LaunchHeight value="3.000000" />
+    <CenterHeight value="3.000000" />
+    <ImpactHeight value="3.000000" />
+  </CActorQuad>
+  <CActorModel id="FalstadHinterlandBlastWarningVisibilityShapeModel">
+    <VisibilityShape Shape="FalstadHinterlandsBlastVisibilityQuad" />
+    <On Terms="Effect.HinterlandBlastBeamPersistent.Start; At Caster; ValidateEffect DoesNotHaveFalstadCalloftheWildhammer" Send="Create" />
+    <On Terms="Effect.HinterlandBlastBeamPersistent.Stop" Send="Destroy" />
+    <On Terms="Abil.FalstadHinterlandBlast.SourceCastStop" Send="Destroy" />
+    <On Terms="ActorCreation" Send="Create FalstadHinterlandBlastWarning" />
+    <On Terms="ActorCreation" Send="Create HinterlandBlastChargeUp" />
+    <On Terms="ActorCreation" Send="TimerSet 0.062500 Warning" />
+    <On Terms="ActorDestruction" Target="HinterlandBlastWarningBeamAttackBeam" Send="Destroy" />
+    <On Terms="ActorDestruction" Target="FalstadHinterlandBlastWarning" Send="Signal CreatorDestroyed" />
+    <On Terms="TimerExpired; TimerName Warning" Send="Create HinterlandBlastWarningBeamAttackBeam" />
+    <HostSiteOps Ops="SOpCasterPoint SOpForwardTargetPoint" />
+    <Model value="Invisible" />
+  </CActorModel>
+  <CActorModel id="FalstadHinterlandBlastWarningCallOfTheWildhammerTalentVisibilityShapeModel">
+    <VisibilityShape Shape="FalstadHinterlandsBlastCallOfTheWildhammerTalentVisibilityQuad" />
+    <On Terms="Effect.HinterlandBlastBeamPersistent.Start; At Caster; ValidateEffect HasFalstadCalloftheWildhammer" Send="Create" />
+    <On Terms="Effect.HinterlandBlastBeamPersistent.Stop" Send="Destroy" />
+    <On Terms="Abil.FalstadHinterlandBlast.SourceCastStop" Send="Destroy" />
+    <On Terms="ActorCreation" Send="Create FalstadHinterlandBlastWarning" />
+    <On Terms="ActorCreation" Send="Create HinterlandBlastChargeUp" />
+    <On Terms="ActorCreation" Send="TimerSet 0.062500 Warning" />
+    <On Terms="ActorDestruction" Target="HinterlandBlastWarningBeamAttackBeamUpgraded" Send="Destroy" />
+    <On Terms="ActorDestruction" Target="FalstadHinterlandBlastWarning" Send="Signal CreatorDestroyed" />
+    <On Terms="TimerExpired; TimerName Warning" Send="Create HinterlandBlastWarningBeamAttackBeamUpgraded" />
+    <HostSiteOps Ops="SOpCasterPoint SOpForwardTargetPoint" />
+    <Model value="Invisible" />
+  </CActorModel>
+  <CActorModel id="FalstadHinterlandBlastWarning">
+    <Aliases value="_TimeStopAffectedActor" />
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD Birth Build Death" />
+    <On Terms="Signal.*.CreatorDestroyed" Send="Destroy Immediate" />
+    <On Terms="ActorOrphan" Send="AnimBracketStop BSD" />
+    <On Terms="AnimBracketState.*.AfterClosing; AnimName BSD" Send="Destroy" />
+    <On Terms="StatusOn.*.TimeStopPaused" Send="AnimSetPausedAll" />
+    <On Terms="StatusOff.*.TimeStopPaused" Send="AnimSetPausedAll 0" />
+    <On Terms="ActorCreation; ValidatePlayer HasFalstadCalloftheWildhammer" Send="SetScale 1.000000,2.000000,1.000000" />
+    <Inherits index="Visibility" value="1" />
+  </CActorModel>
+  <CActorModel id="FalstadHinterlandBlastWarningStationary">
+    <On Terms="ActorCreation" Send="AnimPlay Death Death" />
+    <On Terms="AnimDone; AnimName Death" Send="Destroy" />
+    <On Terms="ActorCreation; ValidatePlayer HasFalstadCalloftheWildhammer" Send="SetScale 1.000000,2.000000,1.000000" />
+    <Inherits index="Visibility" value="1" />
+    <HostSiteOps HoldPosition="1" HoldRotation="1" />
+    <Model value="FalstadHinterlandBlastWarning" />
+  </CActorModel>
+  <CActorBeamSimple id="HinterlandBlastWarningBeamAttackBeam">
+    <Aliases value="_TimeStopAffectedActor" />
+    <Model value="HinterlandBlastWarningBeam" />
+    <HostLaunch Subject="_Unit" />
+    <HostLaunchSiteOps Ops="SOpAttachOrigin" />
+    <HostImpact Subject="_Unit" />
+    <HostImpactSiteOps Ops="SOpAttachOrigin SOpHinterland_Base SOpShadow SOpMoveUpBy2" />
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD Birth Build Death ContentPlayOnce,OpeningPlayForever" />
+    <On Terms="ActorOrphan" Send="AnimBracketStop BSD" />
+    <On Terms="AnimBracketState.*.AfterClosing; AnimName BSD" Send="Destroy" />
+    <On Terms="Abil.FalstadHinterlandBlast.SourceCastStop" Send="HostSiteOpsSet ::HostImpact {SOpAttachOrigin SOpHinterland_Base SOpShadow SOpMoveUpBy2} 1 1" />
+    <On Terms="StatusOn.*.TimeStopPaused" Send="AnimSetPausedAll" />
+    <On Terms="StatusOff.*.TimeStopPaused" Send="AnimSetPausedAll 0" />
+    <ModelFlags index="AutomateGlobalLoops" value="1" />
+    <HostForProps Subject="::Creator" />
+    <Inherits index="Visibility" value="1" />
+    <Host Subject="_Unit" />
+  </CActorBeamSimple>
+  <CActorBeamSimple id="HinterlandBlastWarningBeamAttackBeamUpgraded">
+    <Aliases value="_TimeStopAffectedActor" />
+    <Model value="HinterlandBlastWarningBeam" />
+    <HostLaunch Subject="_Unit" />
+    <HostLaunchSiteOps Ops="SOpAttachOrigin" />
+    <HostImpact Subject="_Unit" />
+    <HostImpactSiteOps Ops="SOpAttachOrigin SOpHinterland_Upgraded SOpShadow SOpMoveUpBy2" />
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD Birth Build Death ContentPlayOnce,OpeningPlayForever" />
+    <On Terms="ActorOrphan" Send="AnimBracketStop BSD" />
+    <On Terms="AnimBracketState.*.AfterClosing; AnimName BSD" Send="Destroy" />
+    <On Terms="Abil.FalstadHinterlandBlast.SourceCastStop" Send="HostSiteOpsSet ::HostImpact {SOpAttachOrigin SOpHinterland_Upgraded SOpShadow SOpMoveUpBy2} 1 1" />
+    <On Terms="StatusOn.*.TimeStopPaused" Send="AnimSetPausedAll" />
+    <On Terms="StatusOff.*.TimeStopPaused" Send="AnimSetPausedAll 0" />
+    <ModelFlags index="AutomateGlobalLoops" value="1" />
+    <HostForProps Subject="::Creator" />
+    <Inherits index="Visibility" value="1" />
+    <Host Subject="_Unit" />
+  </CActorBeamSimple>
+  <CActorBeamSimple id="HinterlandBlastBeamAttackBeam">
+    <On Terms="ActorCreation" Send="Create HinterlandBlastLaunchSound" />
+    <On Terms="ActorCreation" Send="AnimPlay Death Death" />
+    <On Terms="AnimDone; AnimName Death" Send="Destroy" />
+    <On Terms="Effect.FalstadHinterlandBlastModifyUnitCCInterruption.Start" Send="Destroy" />
+    <On Terms="ActorDestruction" Target="::Creator" Send="Destroy" />
+    <Flags index="SuppressSaveLoad" value="1" />
+    <Model value="HinterlandBlastBeam" />
+    <Macros value="GlobalLoopMacro" />
+    <HostImpactSiteOps Ops="SOpAttachOriginStationary SOpHinterland_Base SOpShadow SOpMoveUpBy2" HoldPosition="1" HoldRotation="1" />
+    <HostLaunch Subject="_Unit" />
+    <HostLaunchSiteOps Ops="SOpAttachOriginStationary SOpMoveForwardBy1 SOpMoveForwardBy1" HoldPosition="1" HoldRotation="1" />
+    <HostImpact Subject="_Unit" />
+    <HostForProps Subject="::Creator" />
+    <Inherits index="Visibility" value="1" />
+  </CActorBeamSimple>
+  <CActorBeamSimple id="HinterlandBlastBeamAttackBeamUpgraded">
+    <On Terms="ActorCreation" Send="Create HinterlandBlastLaunchSound" />
+    <On Terms="ActorCreation" Send="AnimPlay Death Death" />
+    <On Terms="AnimDone; AnimName Death" Send="Destroy" />
+    <On Terms="Effect.FalstadHinterlandBlastModifyUnitCCInterruption.Start" Send="Destroy" />
+    <On Terms="ActorDestruction" Target="::Creator" Send="Destroy" />
+    <Flags index="SuppressSaveLoad" value="1" />
+    <Model value="HinterlandBlastBeam" />
+    <Macros value="GlobalLoopMacro" />
+    <HostImpactSiteOps Ops="SOpAttachOriginStationary SOpHinterland_Upgraded SOpShadow SOpMoveUpBy2" HoldPosition="1" HoldRotation="1" />
+    <HostLaunch Subject="_Unit" />
+    <HostLaunchSiteOps Ops="SOpAttachOriginStationary SOpMoveForwardBy1 SOpMoveForwardBy1" HoldPosition="1" HoldRotation="1" />
+    <HostImpact Subject="_Unit" />
+    <HostForProps Subject="::Creator" />
+    <Inherits index="Visibility" value="1" />
+  </CActorBeamSimple>
+  <CActorSiteOpLocalOffset id="SOpHinterland_Upgraded">
+    <LocalOffset Y="-61.500000" />
+  </CActorSiteOpLocalOffset>
+  <CActorSiteOpLocalOffset id="SOpHinterland_Base">
+    <LocalOffset Y="-30.000000" />
+  </CActorSiteOpLocalOffset>
+  <CActorSound id="HinterlandBlastImpactSound" parent="HeroAttackImpactSoundOneShot">
+    <On Terms="Effect.HinterlandBlastDamage.Start; At Target" Send="Create" />
+    <On Terms="Effect.HinterlandBlastDamageCalloftheWildhammer.Start; At Target" Send="Create" />
+    <Sound value="Falstad_ShockAwe_Impact" />
+  </CActorSound>
+  <CActorModel id="HinterlandBlastImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <HostSiteOps Ops="SOpAttachCenter" HoldPosition="1" HoldRotation="1" />
+    <Flags index="SuppressCreationErrors" value="1" />
+    <On Terms="Effect.HinterlandBlastDamage.Start; At Target" Send="Create" />
+    <On Terms="Effect.HinterlandBlastDamageCalloftheWildhammer.Start; At Target" Send="Create" />
+  </CActorModel>
+  <CActorSound id="HinterlandBlastChargeUp" parent="SoundOneShot">
+    <Sound value="Falstad_ShockAwe_PreCast" />
+    <Layers Sound="Falstad_ShockAwe_PreCast_Sweetener" />
+    <HostForProps Subject="::Creator" />
+  </CActorSound>
+  <CActorSound id="HinterlandBlastLaunchSound" parent="SoundOneShot">
+    <Sound value="Falstad_ShockAwe_Cast" />
+    <HostForProps Subject="::Creator" />
+  </CActorSound>
+  <CActorModel id="FalstadHinterlandBlastVisibilityShapeModel">
+    <On Terms="Effect.HinterlandBlastBeamDummy.Start; ValidatePlayer DoesNotHaveFalstadCalloftheWildhammer" Send="Create" />
+    <On Terms="ActorCreation" Send="Create HinterlandBlastLaunchSound" />
+    <On Terms="ActorCreation" Send="Create HinterlandBlastBeamAttackBeam" />
+    <On Terms="ActorCreation" Send="Create FalstadHinterlandBlastWarningStationary" />
+    <HostSiteOps Ops="SOpCasterPoint SOpForwardTargetPoint" HoldPosition="1" HoldRotation="1" />
+    <Model value="Invisible" />
+    <VisibilityShape Shape="FalstadHinterlandsBlastVisibilityQuad" />
+  </CActorModel>
+  <CActorModel id="FalstadHinterlandBlastVisibilityShapeModelUpgraded">
+    <On Terms="Effect.HinterlandBlastBeamDummy.Start; ValidatePlayer HasFalstadCalloftheWildhammer" Send="Create" />
+    <On Terms="ActorCreation" Send="Create HinterlandBlastLaunchSound" />
+    <On Terms="ActorCreation" Send="Create HinterlandBlastBeamAttackBeamUpgraded" />
+    <On Terms="ActorCreation" Send="Create FalstadHinterlandBlastWarningStationary" />
+    <HostSiteOps Ops="SOpCasterPoint SOpForwardTargetPoint" HoldPosition="1" HoldRotation="1" />
+    <Model value="Invisible" />
+    <VisibilityShape Shape="FalstadHinterlandsBlastCallOfTheWildhammerTalentVisibilityQuad" />
+  </CActorModel>
+  <CActorRange id="HinterlandBlastRange">
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <On Terms="Abil.FalstadHinterlandBlast.TargetOn; ValidateUnit DoesNotHaveFalstadCalloftheWildhammer" Send="Create" />
+    <On Terms="Abil.FalstadHinterlandBlast.TargetOff" Send="Destroy" />
+    <Range value="33.000000" />
+    <Icon value="Assets\Textures\blank.dds" />
+    <RangeFlags index="Minimap" value="1" />
+    <IconArcLength value="5.000000" />
+  </CActorRange>
+  <CActorRange id="CalloftheWildhammerRange">
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <On Terms="Abil.FalstadHinterlandBlast.TargetOn; ValidateUnit HasFalstadCalloftheWildhammer" Send="Create" />
+    <On Terms="Abil.FalstadHinterlandBlast.TargetOff" Send="Destroy" />
+    <Range value="66.000000" />
+    <Icon value="Assets\Textures\blank.dds" />
+    <RangeFlags index="Minimap" value="1" />
+    <IconArcLength value="5.000000" />
+  </CActorRange>
+  <CActorModel id="PreparationBuff" parent="StormModelAddition">
+    <FogVisibility value="Hidden" />
+    <On Terms="Behavior.FalstadPreparationAerialBlitzkrieg.On" Send="Create" />
+    <On Terms="Behavior.FalstadPreparationAerialBlitzkrieg.Off" Send="AnimBracketStop BSD" />
+    <HostSiteOps Ops="SOpAttachCenterSoft" />
+    <Model value="FalstadBarrelRollBuff" />
+    <ModelFlags index="AllowHitTest" value="0" />
+  </CActorModel>
+  <CActorSiteBillboard id="FalstadFlyerBillboard" parent="FlyerBillboard">
+    <HostSiteOps Ops="SOpBankerFalstad" />
+    <TowardsCameraDistance value="3.000000" />
+  </CActorSiteBillboard>
+  <CActorSound id="PulledSoundHeroFalstad" parent="SoundOneShot">
+    <Sound value="Falstad_VOX_Pulled" />
+  </CActorSound>
+  <CBehaviorAbility id="FalstadWingmanItem">
+    <Buttons Face="FalstadWingmanHotbar" Type="AbilCmd" AbilCmd="FalstadWingman,Execute" />
+  </CBehaviorAbility>
   <CBehaviorTokenCounter id="FalstadWingmanDamageTokenCounter" parent="StormGenericToken">
     <InfoFlags index="Hidden" value="1" />
     <TokenId value="FalstadWingmanDamageToken" />
@@ -140,7 +922,7 @@
       <VitalDamageLeechArray index="Life">
         <KindArray index="Basic" value="0.2" />
       </VitalDamageLeechArray>
-      <VitalDamageLeechScoreArray Validator="TargetIsHero" Value="SelfHealing" />
+      <VitalDamageLeechScoreArray Value="SelfHealing" />
     </Modification>
     <DamageResponse>
       <Cost>
@@ -169,26 +951,28 @@
     <Modification>
       <UnifiedMoveSpeedFactor value="0.15" />
     </Modification>
-    <DamageResponse Chance="1" Handled="TailwindApplyDisabler" Priority="126" />
+    <DamageResponse Chance="1" Handled="TailwindApplyDisabler" Priority="96" />
     <Period value="0.25" />
     <PeriodicEffect value="FalstadFlowRiderModifyCooldowns" />
     <DisableValidatorArray value="FalstadTailwindNotOnCooldown" />
     <DisableValidatorArray value="SourceNotDead" />
   </CBehaviorBuff>
   <CBehaviorBuff id="FalstadTailwindDisabler" parent="CarryBehaviorParent">
-    <DamageResponse Chance="1" Handled="FalstadTailwindApplyCooldown" Priority="126" />
+    <DamageResponse Chance="1" Handled="FalstadTailwindApplyCooldown" Priority="96" />
   </CBehaviorBuff>
   <CBehaviorBuff id="FalstadFlightAscend">
     <Duration value="10" />
     <Modification>
       <StateFlags index="Unstoppable" value="1" />
       <StateFlags index="Untargetable" value="1" />
-      <AbilLinkDisableArray value="PortBackToBase" />
+      <AbilLinkDisableArray value="Hearthstone" />
       <AbilLinkDisableArray value="CaptureMacGuffin" />
       <AbilLinkDisableArray value="CaptureMacGuffinTwo" />
     </Modification>
-    <DamageResponse Chance="1" Fatal="1" Handled="FalstadFlightApplyDeathForceSet" />
+    <DamageResponse Chance="1" Handled="FalstadFlightApplyDeathForceSet" Fatal="1" />
     <FinalEffect value="FalstadFlightDestroySearchPersistent" />
+    <BehaviorCategories index="ImmuneToAllyDisplacement" value="1" />
+    <BehaviorCategories index="ImmuneToEnemyDisplacement" value="1" />
   </CBehaviorBuff>
   <CBehaviorBuff id="FalstadFlightDisablerBehavior">
     <RemoveValidatorArray value="TargetNotPushPull" />
@@ -196,7 +980,7 @@
     <Duration value="3" />
     <FinalEffect value="FalstadFlightDestroyPersistent" />
     <Modification>
-      <AbilLinkDisableArray value="PortBackToBase" />
+      <AbilLinkDisableArray value="Hearthstone" />
       <AbilLinkDisableArray value="CaptureMacGuffin" />
       <AbilLinkDisableArray value="CaptureMacGuffinTwo" />
     </Modification>
@@ -207,7 +991,7 @@
     <Duration value="0.75" />
     <FinalEffect value="FalstadFlightDestroyPersistent" />
     <Modification>
-      <AbilLinkDisableArray value="PortBackToBase" />
+      <AbilLinkDisableArray value="Hearthstone" />
       <AbilLinkDisableArray value="CaptureMacGuffin" />
       <AbilLinkDisableArray value="CaptureMacGuffinTwo" />
     </Modification>
@@ -232,6 +1016,9 @@
     <Period value="1" />
     <PeriodicEffect value="FalstadLightningRodConductorTargetSearch" />
     <FinalEffect value="FalstadLightningRodApplyThunderstrikesRemoveDelay" />
+    <AINotifySettings AreaEffect="FalstadLightningRodConductorTargetSearch">
+      <Flags index="Disabled" value="1" />
+    </AINotifySettings>
   </CBehaviorBuff>
   <CBehaviorBuff id="FalstadLightningRodCasterConfirmBehavior">
     <Duration value="1.125" />
@@ -350,6 +1137,9 @@
     <PeriodicEffect value="HammerangReturnScanSet" />
     <Duration value="2.5" />
     <FinalEffect value="StormSuicide" />
+    <AINotifySettings AreaEffect="HammerangMissileReturnScan">
+      <Flags index="Disabled" value="1" />
+    </AINotifySettings>
   </CBehaviorBuff>
   <CBehaviorBuff id="HammerangRelic1stHitDebuff">
     <Duration value="3" />
@@ -455,6 +1245,8 @@
   <CButton id="FalstadTailwind" parent="StormButtonParentTrait">
     <UseHotkeyLabel value="0" />
     <Icon value="Assets\Textures\storm_ui_icon_falstad_tailwind.dds" />
+    <TooltipAppender Validator="HasFalstadMasteryBarrelRollFlowRider" Face="FalstadFlowRiderTalent" />
+    <TooltipAppender Validator="HasFalstadAerieGusts" Face="FalstadTailwindAerieGustsTalent" />
     <TooltipFlags index="ShowHotkey" value="0" />
   </CButton>
   <CButton id="FalstadTailwindStormhammerTalent" parent="StormButtonParent">
@@ -470,6 +1262,10 @@
   </CButton>
   <CButton id="FalstadLightningRod" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_falstad_lightningrod.dds" />
+    <TooltipAppender Validator="FalstadHasWingman" Face="FalstadWingmanHotbarTalent" />
+    <TooltipAppender Validator="HasFalstadLightningRodChargedUp" Face="FalstadChargedUpTalent" />
+    <TooltipAppender Validator="HasFalstadMasteryLightningRodThunderstrikes" Face="FalstadThunderstrikesTalent" />
+    <TooltipAppender Validator="HasFalstadMasteryLightningRodStaticShield" Face="FalstadStaticShieldTalent" />
   </CButton>
   <CButton id="FalstadMightyGust" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_falstad_mightygust.dds" />
@@ -498,6 +1294,9 @@
   </CButton>
   <CButton id="FalstadBarrelRoll" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_falstad_barrelroll.dds" />
+    <TooltipAppender Validator="HasFalstadUpdraft" Face="FalstadBarrelRollUpdraftTalent" />
+    <TooltipAppender Validator="HasFalstadMasteryBarrelRollFreeRoll" Face="FalstadFreeRollTalent" />
+    <TooltipAppender Validator="HasFalstadAfterburner" Face="FalstadBarrelRollAfterburnerTalent" />
   </CButton>
   <CButton id="FalstadChargedUpTalent" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_falstad_lightningrod.dds" />
@@ -524,11 +1323,10 @@
     <Age value="40" />
     <Unit value="HeroFalstad" />
   </CCharacter>
-  <CEffectCreateHealer id="FalstadHammerangGatheringStormCreateManaHealer">
+  <CEffectCreateHealer id="FalstadHammerangGatheringStormCreateManaHealer" parent="StormManaRestore">
     <ValidatorArray value="TargetIsHero" />
     <ValidatorArray value="FalstadHasGatheringStorm" />
     <ImpactUnit Value="Caster" />
-    <RechargeVital value="Energy" />
     <RechargeVitalRate value="10" />
   </CEffectCreateHealer>
   <CEffectSet id="HinterlandBlastCastSet">
@@ -688,6 +1486,7 @@
     <EffectArray value="HinterlandBlastInitialPersistent" />
     <EffectArray value="FalstadBarrelRollFreeRollRemoveBehavior" />
     <EffectArray value="DismountDecloakCasterSet" />
+    <EffectArray value="AbilityPrepareEffectSuppressTurningApplyBehavior" />
     <TargetLocationType value="Point" />
   </CEffectSet>
   <CEffectCreatePersistent id="HinterlandBlastInitialPersistent">
@@ -819,6 +1618,16 @@
     <SearchFlags index="OffsetAreaByAngle" value="0" />
     <ValidatorArray value="CasterNotStasis" />
   </CEffectEnumArea>
+  <CEffectSwitch id="FalstadLightningRodDamageSwitch">
+    <CaseArray Validator="FalstadCasterHasLightningRodThunderstrikes7Stacks" Effect="FalstadLightningRodDamageThunderstrikes7Stacks" />
+    <CaseArray Validator="FalstadCasterHasLightningRodThunderstrikes6Stacks" Effect="FalstadLightningRodDamageThunderstrikes6Stacks" />
+    <CaseArray Validator="FalstadCasterHasLightningRodThunderstrikes5Stacks" Effect="FalstadLightningRodDamageThunderstrikes5Stacks" />
+    <CaseArray Validator="FalstadCasterHasLightningRodThunderstrikes4Stacks" Effect="FalstadLightningRodDamageThunderstrikes4Stacks" />
+    <CaseArray Validator="FalstadCasterHasLightningRodThunderstrikes3Stacks" Effect="FalstadLightningRodDamageThunderstrikes3Stacks" />
+    <CaseArray Validator="FalstadCasterHasLightningRodThunderstrikes2Stacks" Effect="FalstadLightningRodDamageThunderstrikes2Stacks" />
+    <CaseArray Validator="FalstadCasterHasLightningRodThunderstrikes1Stack" Effect="FalstadLightningRodDamageThunderstrikes1Stack" />
+    <CaseDefault value="FalstadLightningRodDamage" />
+  </CEffectSwitch>
   <CEffectDamage id="FalstadLightningRodDamageThunderstrikes1Stack" parent="StormSpell">
     <Amount value="90">
       <AccumulatorArray value="FalstadWingmanAccumulator" />
@@ -854,11 +1663,30 @@
       <AccumulatorArray value="FalstadWingmanAccumulator" />
     </Amount>
   </CEffectDamage>
+  <CEffectSet id="FalstadLightningRodImpactSet">
+    <ValidatorArray value="FalstadTargetHasLightningRodConductor" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="FalstadLightningRodDamageSwitch" />
+    <EffectArray value="FalstadLightningRodApplyThunderstrikesDelay" />
+    <EffectArray value="FalstadLightningRodApplyStaticShield" />
+    <EffectArray value="FalstadLightningRodPersistentRevealer" />
+    <EffectArray value="FalstadLightningRodApplyCasterConfirmBehavior" />
+    <EffectArray value="FalstadLightningRodApplyTargetConfirmBehavior" />
+  </CEffectSet>
   <CEffectDamage id="FalstadLightningRodInitialDamage" parent="StormSpell">
     <Amount value="107">
       <AccumulatorArray value="FalstadWingmanAccumulator" />
     </Amount>
   </CEffectDamage>
+  <CEffectSet id="FalstadLightningRodInitialSet">
+    <EffectArray value="FalstadLightningRodApplyConductorBehavior" />
+    <EffectArray value="FalstadLightningRodApplyCasterBehavior" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="FalstadLightningRodInitialDamage" />
+    <EffectArray value="FalstadLightningRodIssueAttackOrder" />
+    <EffectArray value="FalstadLightningRodInitialSetSecondary" />
+    <EffectArray value="FalstadLightningRodApplyThunderstrikesDelay" />
+  </CEffectSet>
   <CEffectDamage id="FalstadLightningRodDamage" parent="StormSpell">
     <Amount value="75">
       <AccumulatorArray value="FalstadWingmanAccumulator" />
@@ -952,11 +1780,36 @@
     <WhichUnit Effect="FalstadMightyGustWindTunnelImpactPersistent" />
     <Amount value="-10" />
   </CEffectApplyForce>
+  <CEffectSet id="FalstadMightyGustWindTunnelImpactSet">
+    <ValidatorArray value="TargetNotUnstoppable" />
+    <EffectArray value="DismountDecloakTargetSet" />
+    <EffectArray value="FalstadMightyGustWindTunnelApplyKnockbackBehavior" />
+    <EffectArray value="FalstadMightyGustWindTunnelImpactPersistent" />
+    <EffectArray value="MightyGustApplyWindTunnelMasteryImpactSoundBehavior" />
+  </CEffectSet>
   <CEffectCreatePersistent id="FalstadMightyGustWindTunnelKnockbackPersistent">
     <PeriodCount value="1" />
     <PeriodicEffectArray value="FalstadMightyGustWindTunnelKnockbackApplyForce" />
     <PeriodicPeriodArray value="0.0625" />
   </CEffectCreatePersistent>
+  <CEffectLaunchMissile id="FalstadMightyGustWindTunnelLaunchMissile">
+    <LaunchLocation Effect="FalstadMighytGustLaunchPersistent" Value="OriginPoint" />
+    <ImpactLocation Value="TargetPoint" />
+    <LaunchEffect value="FalstadMIghtyGustWindTunnelLaunchSet" />
+    <ImpactEffect value="FalstadMightyGustDummyImpact" />
+    <AmmoUnit value="FalstadMightyGustWindTunnelMissile" />
+    <Movers Link="FalstadMightyGustMissile" />
+    <LaunchOffset Y="2" />
+  </CEffectLaunchMissile>
+  <CEffectLaunchMissile id="FalstadMightyGustWindTunnelLaunchInitialMissile">
+    <LaunchLocation Effect="FalstadMighytGustLaunchPersistent" Value="OriginPoint" />
+    <ImpactLocation Value="TargetPoint" />
+    <LaunchEffect value="FalstadMIghtyGustWindTunnelLaunchSet" />
+    <ImpactEffect value="FalstadMightyGustDummyImpact" />
+    <AmmoUnit value="FalstadMightyGustWindTunnelInitialMissile" />
+    <Movers Link="FalstadMightyGustMissile" />
+    <LaunchOffset Y="2" />
+  </CEffectLaunchMissile>
   <CEffectEnumArea id="FalstadMightyGustWindTunnelMissileScan">
     <LaunchLocation Value="OriginPoint" />
     <SearchFilters value="-;Self,Player,Ally,Neutral,NoMinionAggro,Missile,Item,Stasis,Dead,Invulnerable" />
@@ -1046,6 +1899,30 @@
   <CEffectCreatePersistent id="FalstadMightyGustOffsetPersistent">
     <ExpireDelay value="7" />
   </CEffectCreatePersistent>
+  <CEffectSet id="FalstadMightyGustInitialSet">
+    <TargetLocationType value="Point" />
+    <EffectArray value="FalstadMighytGustLaunchPersistent" />
+    <EffectArray value="FalstadMighytGustWindTunnelGrowSoundDummyOffsetPersistent" />
+    <EffectArray value="FalstadBarrelRollFreeRollRemoveBehavior" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="FalstadFlightApplyAscendBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="FalstadFlightAscend" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="FalstadFlightFinalSet">
+    <EffectArray value="FalstadFlightRemoveAscentBehavior" />
+    <EffectArray value="FalstadFlightDestroySearchPersistent" />
+    <EffectArray value="FlightRemoveCloakCheckerSuppressor" />
+    <EffectArray value="FlightRemoveCloakChecker" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="FalstadFlightApplyDisablerBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="FalstadFlightDisablerBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="FalstadFlightApplyFinalDisablerBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="FalstadFlightFinalDisablerBehavior" />
+  </CEffectApplyBehavior>
   <CEffectModifyUnit id="FalstadFalstadFlightAscendHeight">
     <ImpactUnit Value="Caster" />
     <Height value="6" />
@@ -1085,6 +1962,32 @@
     <CaseArray Validator="HasFalstadMasteryFlightEpicMount" Effect="FalstadFlightLaunchEpicMountMissile" />
     <CaseDefault value="FalstadFlightLaunchMissile" />
   </CEffectSwitch>
+  <CEffectLaunchMissileAdvanced id="FalstadFlightLaunchEpicMountMissile">
+    <LaunchLocation Value="CasterUnit" />
+    <ImpactLocation Effect="FalstadFlightPersistent" Value="TargetPoint" />
+    <ImpactOffset Z="2" />
+    <LaunchEffect value="FlightWarningVisualCreatePersistent" />
+    <Movers Link="FalstadFlightEpicMountMissile" />
+    <DeathType value="Unknown" />
+    <ImpactEffect value="FalstadFlightFinalSet" />
+  </CEffectLaunchMissileAdvanced>
+  <CEffectLaunchMissileAdvanced id="FalstadFlightLaunchMissile">
+    <LaunchLocation Value="CasterUnit" />
+    <ImpactLocation Effect="FalstadFlightPersistent" Value="TargetPoint" />
+    <ImpactOffset Z="2" />
+    <Movers Link="FalstadFlightMissile" />
+    <DeathType value="Unknown" />
+    <LaunchEffect value="FlightLaunchSet" />
+    <ImpactEffect value="FalstadFlightFinalSet" />
+  </CEffectLaunchMissileAdvanced>
+  <CEffectApplyBehavior id="TailwindApplyDisabler">
+    <WhichUnit Value="Caster" />
+    <Behavior value="FalstadTailwindDisabler" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="FalstadTailwindDisablerDurationUpdateSet">
+    <EffectArray value="FalstadTailwindDisablerDurationUpdate" />
+    <EffectArray value="FalstadTailwindApplyCooldown" />
+  </CEffectSet>
   <CEffectModifyBehaviorBuffDuration id="FalstadTailwindDisablerDurationUpdate">
     <Behavior value="FalstadTailwindDisabler" />
     <Operation value="Set" />
@@ -1121,6 +2024,13 @@
       <Radius value="2.5" />
     </AreaArray>
   </CEffectEnumArea>
+  <CEffectSet id="FalstadHammerangBOOMerangActiveSet">
+    <ValidatorArray value="FalstadTargetIsHammerangorHammerangReturn" />
+    <EffectArray value="FalstadHammerangBOOMerangExplosionSearch" />
+    <EffectArray value="FalstadHammerangBOOMerangRemoveControllerBehavior" />
+    <EffectArray value="CameraShakeMediumCasterDummySet" />
+    <EffectArray value="CameraShakeLightTauntingTotemSet" />
+  </CEffectSet>
   <CEffectRemoveBehavior id="FalstadHammerangBOOMerangRemoveControllerBehavior">
     <WhichUnit Value="Caster" />
     <BehaviorLink value="FalstadHammerangBOOMerangController" />
@@ -1136,13 +2046,202 @@
     <EffectArray value="FalstadHinterlandBlastModifyCooldown" />
     <ValidatorArray value="noMarkers" />
   </CEffectSet>
+  <CEffectApplyBehavior id="BarrelRollRelicApplyBehavior">
+    <Chance value="0" />
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarrelRollRelicBuff" />
+    <Count value="4" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="BarrelRollRelicApplyDecrementBehavior">
+    <Behavior value="AfterburnerDecrementController" />
+  </CEffectApplyBehavior>
+  <CEffectRemoveBehavior id="BarrelRollRelicRemoveBehavior">
+    <BehaviorLink value="BarrelRollRelicBuff" />
+    <Count value="1" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="HammerangReturnApplyMissileScan">
+    <WhichUnit Value="Source" />
+    <Behavior value="HammerangReturnMissileScan" />
+  </CEffectApplyBehavior>
   <CEffectDamage id="HammerangReturnDamage" parent="StormSpell">
     <Amount value="121" />
     <FlatModifierArray index="FalstadHammerangGatheringStorm" Accumulator="FalstadHammerangGatheringStormAccumulator" />
   </CEffectDamage>
+  <CEffectCreatePersistent id="HammerangReturnImpactCreatePersistentReveal">
+    <ExpireDelay value="0.33" />
+    <RevealRadius value="2.625" />
+    <RevealFlags index="Unfog" value="1" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="HammerangReturnImpactSet">
+    <ValidatorArray value="noMarkers" />
+    <EffectArray value="HammerangApplyBehavior" />
+    <EffectArray value="HammerangReturnDamageSet" />
+    <EffectArray value="HammerangRelicRemove1stHitBehavior" />
+    <EffectArray value="FalstadHammerangGatheringStormCreateManaHealer" />
+    <EffectArray value="RemoveGatheringStormBehavior" />
+  </CEffectSet>
+  <CEffectEnumArea id="HammerangMissileReturnScan">
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="HammerangReturnImpactSet">
+      <Radius value="0.65" />
+    </AreaArray>
+    <LaunchLocation Value="OriginUnit" />
+  </CEffectEnumArea>
+  <CEffectEnumArea id="HammerangMissileReturnScanInitial">
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Arc="90" Effect="HammerangReturnImpactSet">
+      <Radius value="0.625" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="HammerangReturnScanSet">
+    <EffectArray value="HammerangMissileReturnScan" />
+    <EffectArray value="HammerangReturnImpactCreatePersistentReveal" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="HammerangImpactCreatePersistentReveal">
+    <ExpireDelay value="0.33" />
+    <RevealRadius value="2.625" />
+    <RevealFlags index="Unfog" value="1" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="HinterlandBlastSearchSet">
+    <EffectArray value="HinterlandBlastSearch" />
+    <EffectArray value="CameraShakeHeavyCasterDummySet" />
+    <TargetLocationType value="Point" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="HinterlandBlastBeamPersistent">
+    <PeriodCount value="1" />
+    <PeriodicPeriodArray value="1" />
+    <TimeScaleSource Value="Caster" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="FalstadAttackImpactSet">
+    <EffectArray value="UniversalWeaponImpact" />
+    <EffectArray value="FalstadWeaponDamage" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="HinterlandBlastPersistent">
+    <Marker>
+      <MatchFlags index="Id" value="1" />
+    </Marker>
+    <WhichLocation Value="CasterUnit" />
+    <OffsetVectorStartLocation Value="CasterUnit" />
+    <InitialEffect value="HinterlandBlastBeamDummy" />
+    <InitialOffset Y="-32" />
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="HinterlandBlastSearchSet" />
+    <PeriodicOffsetArray Y="-16.25" />
+    <PeriodicOffsetArray Y="-48.25" />
+    <TimeScaleSource Value="Caster" />
+  </CEffectCreatePersistent>
+  <CEffectApplyBehavior id="BarrelRollApplyChargingBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarrelRollCharging" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="BarrelRollApplyShieldBehavior">
+    <WhichUnit Value="Caster" />
+    <Behavior value="BarrelRoll" />
+    <ValidatorArray index="0" removed="1" />
+  </CEffectApplyBehavior>
+  <CEffectRemoveBehavior id="BarrelRollRemoveChargingBehavior">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="BarrelRollCharging" />
+  </CEffectRemoveBehavior>
+  <CEffectCreatePersistent id="BarrelRollPersistent">
+    <WhichLocation Value="CasterPoint" />
+    <OffsetVectorStartLocation Value="CasterPoint" />
+    <InitialEffect value="FalstadBarrelRollPersistentInitialSet" />
+    <Flags index="Channeled" value="1" />
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="FalstadBarrelRollLaunchMissile" />
+    <PeriodicOffsetArray Y="-8" />
+    <ValidatorArray value="CasterNotRooted" />
+  </CEffectCreatePersistent>
   <CEffectDamage id="FalstadWeaponDamage" parent="StormWeapon">
     <Amount value="104" />
   </CEffectDamage>
+  <CEffectSet id="FalstadWeaponLaunchMissileSet">
+    <EffectArray value="UniversalWeaponLaunchSet" />
+    <EffectArray value="FalstadWeaponLaunchMissile" />
+  </CEffectSet>
+  <CEffectLaunchMissile id="FalstadWeaponLaunchMissile">
+    <ImpactEffect value="FalstadAttackImpactSet" />
+    <AmmoUnit value="FalstadMissile" />
+    <ValidatorArray index="0" value="TargetNotDead" />
+    <SharedFlags index="TravelValidation" value="1" />
+    <SharedFlags index="ValidateWeapon" value="0" />
+  </CEffectLaunchMissile>
+  <CEffectCreatePersistent id="HammerangCreatePersistent">
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="HammerangLaunchMissile" />
+    <PeriodicOffsetArray Y="-10" />
+    <PeriodicPeriodArray value="0" />
+    <WhichLocation Value="CasterPoint" />
+    <ExpireDelay value="0.2" />
+    <InitialEffect value="FalstadHammerangBOOMerangApplyControllerBehavior" />
+  </CEffectCreatePersistent>
+  <CEffectCreatePersistent id="HammerangReturnCreatePersistent">
+    <PeriodCount value="2" />
+    <PeriodicEffectArray value="HammerangReturnLaunchMissile" />
+    <PeriodicEffectArray value="FalstadHammerangReturnLaunchMissileSound" />
+    <PeriodicPeriodArray value="0" />
+    <PeriodicPeriodArray value="0" />
+    <WhichLocation Effect="HammerangLaunchMissile" />
+    <ExpireDelay value="0.2" />
+  </CEffectCreatePersistent>
+  <CEffectLaunchMissile id="HammerangLaunchMissile">
+    <ImpactEffect value="HammerangReturnCreatePersistent" />
+    <AmmoUnit value="FalstadHammerangMissile" />
+    <ImpactLocation Value="TargetPoint" />
+    <LaunchOffset Y="-1" />
+    <LaunchEffect value="HammerangApplyMissileScan" />
+    <Marker>
+      <MatchFlags index="Id" value="1" />
+    </Marker>
+    <ValidatorArray index="0" value="CasterNotDead" />
+    <SharedFlags index="TravelValidation" value="1" />
+  </CEffectLaunchMissile>
+  <CEffectLaunchMissile id="HammerangReturnLaunchMissile">
+    <AmmoUnit value="FalstadHammerangReturnMissile" />
+    <ImpactLocation Effect="HammerangReturnCreatePersistent" Value="CasterUnit" />
+    <LaunchLocation Effect="HammerangReturnCreatePersistent" Value="TargetPoint" />
+    <LaunchEffect value="HammerangReturnApplyMissileScan" />
+    <ImpactEffect value="FalstadHammerangRemoveSecretWeaponBehavior" />
+    <Marker>
+      <MatchFlags index="Id" value="1" />
+    </Marker>
+    <ValidatorArray index="0" value="CasterNotDead" />
+    <SharedFlags index="ValidateTeleport" value="0" />
+    <LaunchOffset Y="0.35" />
+    <ImpactRange value="0.5" />
+  </CEffectLaunchMissile>
+  <CEffectApplyBehavior id="HammerangApplyMissileScan">
+    <WhichUnit Value="Source" />
+    <Behavior value="HammerangMissileScan" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="HammerangDummyImpact" />
+  <CEffectEnumArea id="HammerangMissileScanInitial">
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Arc="90" Effect="HammerangImpactSet">
+      <Radius value="0.625" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="HammerangScanSet">
+    <EffectArray value="HammerangMissileScan" />
+    <EffectArray value="HammerangImpactCreatePersistentReveal" />
+  </CEffectSet>
+  <CEffectEnumArea id="HammerangMissileScan">
+    <LaunchLocation Effect="HammerangCreatePersistent" Value="OriginPoint" />
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="HammerangImpactSet">
+      <RectangleWidth value="1.25" />
+      <RectangleHeight value="2.1" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="HammerangImpactSet">
+    <EffectArray value="HammerangApplyBehavior" />
+    <EffectArray value="HammerangDamageSet" />
+    <EffectArray value="FalstadHammerangGatheringStormCreateManaHealer" />
+    <EffectArray value="RemoveGatheringStormBehavior" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <ValidatorArray value="noMarkers" />
+  </CEffectSet>
   <CEffectApplyBehavior id="HammerangApplyBehavior">
     <Behavior value="HammerangSlow" />
     <ValidatorArray index="0" value="TargetNotUnstoppable" />
@@ -1161,10 +2260,10 @@
       <RevealFlags index="Unfog" value="1" />
     </RevealerParams>
   </CEffectEnumArea>
+  <CEffectDamage id="HinterlandBlastBeamDummy" />
   <CEffectDamage id="HinterlandBlastDamage" parent="StormSpell">
     <Amount value="475" />
     <ValidatorArray value="noMarkers" />
-    <DamageModifierSource Value="Caster" />
     <MultiplicativeModifierArray index="FalstadCallOfTheWildhammer" Validator="HasFalstadCalloftheWildhammer" Modifier="0.25" />
   </CEffectDamage>
   <CHero id="Falstad" parent="LegacyVOHero">
@@ -1172,10 +2271,22 @@
     <AttributeId value="Fals" />
     <Role value="Damage" />
     <RolesMultiClass value="Damage" />
-    <CollectionCategory value="Damage" />
+    <Flags index="Flyer" value="1" />
+    <Flags index="UsesMount" value="0" />
+    <Flags index="ExcludeFromMapIntro" value="1" />
+    <Flags index="GoodForModeA" value="1" />
+    <Flags index="GoodForModeB" value="1" />
     <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_gryphon_rider.dds" />
     <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_Wow.dds" />
     <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Orange_Bright.dds" />
+    <ImageFacing value="Left" />
+    <IntroCutsceneSize value="Medium" />
+    <SkinArray value="FalstadUltimate" />
+    <SkinArray value="FalstadStormLord" />
+    <SkinArray value="FalstadPirate" />
+    <VariationArray value="FalstadDarkIron" />
+    <VariationArray value="FalstadNordic" />
+    <VariationArray value="FalstadBaseVar3" />
     <TalentTreeArray Talent="FalstadHammerangGatheringStorm" Tier="1" Column="1" />
     <TalentTreeArray Talent="GenericTalentSeasonedMarksman" Tier="1" Column="2" />
     <TalentTreeArray Talent="FalstadWingman" Tier="1" Column="3" />
@@ -1201,6 +2312,61 @@
     </TalentTreeArray>
     <TalentTreeArray Talent="GenericTalentNexusFrenzy" Tier="7" Column="3" />
     <TalentTreeArray Talent="FalstadMasteryFlightEpicMount" Tier="7" Column="4" />
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="FalstadHammerangGatheringStorm" />
+      <TalentsArray value="FalstadMasteryLightningRodStaticShield" />
+      <TalentsArray value="FalstadMasteryLightningRodChargedUp" />
+      <TalentsArray value="FalstadHeroicAbilityHinterlandBlast" />
+      <TalentsArray value="FalstadMasteryLightningRodThunderstrikes" />
+      <TalentsArray value="FalstadMasteryCripplingHammerHammerang" />
+      <TalentsArray value="FalstadMasteryFlightEpicMount" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="GenericTalentSeasonedMarksman" />
+      <TalentsArray value="FalstadTalentHammerGains" />
+      <TalentsArray value="FalstadMasteryHammerangSecretWeapon" />
+      <TalentsArray value="FalstadHeroicAbilityMightyGust" />
+      <TalentsArray value="GenericTalentGiantKiller" />
+      <TalentsArray value="FalstadMasteryCripplingHammerHammerang" />
+      <TalentsArray value="FalstadMasteryFlightEpicMount" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="FalstadHammerangGatheringStorm" />
+      <TalentsArray value="FalstadMasteryLightningRodStaticShield" />
+      <TalentsArray value="FalstadMasteryHammerangSecretWeapon" />
+      <TalentsArray value="FalstadHeroicAbilityMightyGust" />
+      <TalentsArray value="FalstadMasteryBarrelRollFlowRider" />
+      <TalentsArray value="FalstadMasteryCripplingHammerHammerang" />
+      <TalentsArray value="FalstadMasteryFlightEpicMount" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="GenericTalentSeasonedMarksman" />
+      <TalentsArray value="FalstadMasteryUpdraftBarrelRoll" />
+      <TalentsArray value="FalstadHammerangBOOMerang" />
+      <TalentsArray value="FalstadHeroicAbilityHinterlandBlast" />
+      <TalentsArray value="GenericTalentGiantKiller" />
+      <TalentsArray value="FalstadMasteryAfterburner" />
+      <TalentsArray value="FalstadMasteryFlightEpicMount" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="GenericTalentSeasonedMarksman" />
+      <TalentsArray value="FalstadMasteryUpdraftBarrelRoll" />
+      <TalentsArray value="FalstadHammerangBOOMerang" />
+      <TalentsArray value="FalstadHeroicAbilityHinterlandBlast" />
+      <TalentsArray value="FalstadMasteryBarrelRollFlowRider" />
+      <TalentsArray value="FalstadMasteryAerieGustsTailwind" />
+      <TalentsArray value="FalstadMasteryCalloftheWildhammerHinterlandBlast" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="FalstadHammerangGatheringStorm" />
+      <TalentsArray value="FalstadMasteryLightningRodStaticShield" />
+      <TalentsArray value="FalstadMasteryLightningRodChargedUp" />
+      <TalentsArray value="FalstadHeroicAbilityMightyGust" />
+      <TalentsArray value="FalstadMasteryBarrelRollFlowRider" />
+      <TalentsArray value="FalstadMasteryAerieGustsTailwind" />
+      <TalentsArray value="FalstadMasteryMightyGustWindTunnel" />
+    </TalentAIBuildsArray>
+    <HeroTierAchievementId value="5216701565552938003" />
     <Universe value="Warcraft" />
     <ProductId value="10115" />
     <LevelScalingArray>
@@ -1353,6 +2519,17 @@
         <AffectedByOverdrive value="1" />
       </Modifications>
     </LevelScalingArray>
+    <VOArray index="Cheer" value="Falstad_VOX_Cheer" />
+    <VOArray index="GetHit" value="Falstad_VOX_GetHitSmall" />
+    <VOArray index="MatchEnd" value="Falstad_MatchEnd" />
+    <VOArray index="PingCapture" value="Falstad_Ping_Capture" />
+    <VOArray index="PingCollect" value="Falstad_Ping_Collect" />
+    <VOArray index="PingDefendStructure" value="Falstad_Ping_DefendStructure" />
+    <VOArray index="PingDefendThing" value="Falstad_Ping_DefendThing" />
+    <VOArray index="PingDestroyStructure" value="Falstad_Ping_DestroyStructure" />
+    <VOArray index="PingDestroyThing" value="Falstad_Ping_DestroyThing" />
+    <VOArray index="PingTransport" value="Falstad_Ping_Transport" />
+    <VOArray index="PingTurnIn" value="Falstad_Ping_TurnIn" />
     <HeroAbilArray Abil="FalstadHammerang" Button="FalstadHammerang">
       <Flags index="ShowInHeroSelect" value="1" />
       <Flags index="AffectedByCooldownReduction" value="1" />
@@ -1394,15 +2571,162 @@
       <Survivability value="4" />
       <Complexity value="5" />
     </Ratings>
+    <VoiceLineArray value="FalstadBase_VoiceLine01" />
+    <VoiceLineArray value="FalstadBase_VoiceLine02" />
+    <VoiceLineArray value="FalstadBase_VoiceLine03" />
+    <VoiceLineArray value="FalstadBase_VoiceLine04" />
+    <VoiceLineArray value="FalstadBase_VoiceLine05" />
     <Rarity value="Epic" />
+    <ExpandedRole value="RangedAssassin" />
   </CHero>
+  <CMoverMissile id="FalstadMightyGustMissile">
+    <MotionPhases>
+      <Driver value="Guidance" />
+      <Speed value="32" />
+      <MinSpeed value="32" />
+      <MaxSpeed value="32" />
+      <Outro value="-3,-2.5" />
+      <YawPitchRoll value="MAX" />
+    </MotionPhases>
+    <MotionPhases Driver="Guidance" MaxSpeed="16" YawPitchRoll="MAX" />
+  </CMoverMissile>
+  <CMoverMissile id="FalstadFlightEpicMountMissile">
+    <MotionPhases>
+      <Driver value="AdaptableParabola" />
+      <Speed value="37.5" />
+      <MinSpeed value="37.5" />
+      <MaxSpeed value="37.5" />
+      <AdaptableParabolaIsUpright value="1" />
+      <AdaptableParabolaClearance value="7,-1" />
+    </MotionPhases>
+  </CMoverMissile>
+  <CMoverMissile id="FalstadBarrelRollMissile">
+    <MotionPhases>
+      <Driver value="Guidance" />
+      <Acceleration value="-28" />
+      <Speed value="24" />
+      <MinSpeed value="12" />
+      <MaxSpeed value="24" />
+      <IgnoresClearanceChecks value="1" />
+      <ThrowBandYaw value="-360,-360,-360,-360" />
+      <ThrowBandPitch value="-360,-360,-360,-360" />
+      <YawPitchRoll value="5759.6484" />
+    </MotionPhases>
+    <RotationIgnoredByUnit value="1" />
+  </CMoverMissile>
+  <CMoverMissile id="FalstadFlightMissile">
+    <MotionPhases>
+      <Driver value="AdaptableParabola" />
+      <Acceleration value="9000" />
+      <MinSpeed value="25" />
+      <MaxSpeed value="25" />
+      <AdaptableParabolaIsUpright value="1" />
+      <AdaptableParabolaClearance value="7,-1" />
+    </MotionPhases>
+  </CMoverMissile>
+  <CMoverMissile id="FalstadHammerangReturnMissile">
+    <MotionPhases>
+      <Driver value="Guidance" />
+      <Speed value="10" />
+      <MaxSpeed value="10" />
+      <IgnoresClearanceChecks value="1" />
+      <Outro value="-2.5,-2" />
+      <ThrowBandYaw value="-360,-360,-360,-360" />
+      <ThrowBandPitch value="-360,-360,-360,-360" />
+      <YawPitchRoll value="5759.6484" />
+    </MotionPhases>
+    <MotionPhases>
+      <Driver value="Guidance" />
+      <Speed value="9" />
+      <MaxSpeed value="9" />
+      <IgnoresClearanceChecks value="1" />
+      <ThrowBandYaw value="-360,-360,-360,-360" />
+      <ThrowBandPitch value="-360,-360,-360,-360" />
+      <YawPitchRoll value="5759.6484" />
+    </MotionPhases>
+  </CMoverMissile>
+  <CMoverMissile id="FalstadHammerangMissile">
+    <MotionPhases>
+      <Driver value="Guidance" />
+      <Speed value="11" />
+      <MaxSpeed value="11" />
+      <IgnoresClearanceChecks value="1" />
+      <ThrowBandYaw value="-360,-360,-360,-360" />
+      <ThrowBandPitch value="-360,-360,-360,-360" />
+      <YawPitchRoll value="5759.6484" />
+    </MotionPhases>
+  </CMoverMissile>
+  <CRequirement id="FalstadHasNoHammerangReturnActive">
+    <NodeArray index="Show" Link="EqCountBehaviorFalstadHammerangBOOMerangControllerCompleteOnlyAtUnit0" />
+  </CRequirement>
+  <CRequirement id="FalstadHasHammerangReturnActive">
+    <NodeArray index="Use" Link="EqCountBehaviorFalstadHammerangBOOMerangControllerCompleteOnlyAtUnit1" />
+  </CRequirement>
+  <CRequirement id="FalstadHasPassive">
+    <NodeArray index="Show" Link="EqCountBehaviorFalstadPassiveBuffWeaponQueuedOrBetterAtUnit0" />
+  </CRequirement>
+  <CRequirement id="FalstadHasPassiveImproved">
+    <NodeArray index="Show" Link="EqCountBehaviorFalstadPassiveBuffWeaponQueuedOrBetterAtUnit1" />
+  </CRequirement>
+  <CRequirementCountBehavior id="CountBehaviorHammerangMasteryControllerCompleteOnlyAtUnit">
+    <Flags index="TechTreeCheat" value="0" />
+    <Tooltip value="" />
+    <Count Link="FalstadHammerangBOOMerangController" State="CompleteOnlyAtUnit" />
+  </CRequirementCountBehavior>
+  <CRequirementEq id="EqCountBehaviorHammerangMasteryControllerCompleteOnlyAtUnit0">
+    <Tooltip value="" />
+    <OperandArray index="0" value="CountBehaviorHammerangMasteryControllerCompleteOnlyAtUnit" />
+    <OperandArray index="1" value="0" />
+  </CRequirementEq>
+  <CRequirementEq id="EqCountBehaviorHammerangMasteryControllerCompleteOnlyAtUnit1">
+    <Tooltip value="" />
+    <OperandArray index="0" value="CountBehaviorHammerangMasteryControllerCompleteOnlyAtUnit" />
+    <OperandArray index="1" value="1" />
+  </CRequirementEq>
+  <CRequirementCountBehavior id="CountBehaviorFalstadHammerangBOOMerangControllerCompleteOnlyAtUnit">
+    <Flags index="TechTreeCheat" value="0" />
+    <Count Link="FalstadHammerangBOOMerangController" State="CompleteOnlyAtUnit" />
+  </CRequirementCountBehavior>
+  <CRequirementCountBehavior id="CountBehaviorFalstadPassiveBuffWeaponQueuedOrBetterAtUnit">
+    <Flags index="TechTreeCheat" value="0" />
+    <Tooltip value="" />
+    <Count Link="FalstadPassiveBuffWeapon" State="QueuedOrBetterAtUnit" />
+  </CRequirementCountBehavior>
+  <CRequirementEq id="EqCountBehaviorFalstadHammerangBOOMerangControllerCompleteOnlyAtUnit0">
+    <OperandArray index="0" value="CountBehaviorFalstadHammerangBOOMerangControllerCompleteOnlyAtUnit" />
+    <OperandArray index="1" value="0" />
+  </CRequirementEq>
+  <CRequirementEq id="EqCountBehaviorFalstadHammerangBOOMerangControllerCompleteOnlyAtUnit1">
+    <OperandArray index="0" value="CountBehaviorFalstadHammerangBOOMerangControllerCompleteOnlyAtUnit" />
+    <OperandArray index="1" value="1" />
+  </CRequirementEq>
+  <CRequirementEq id="EqCountBehaviorFalstadPassiveBuffWeaponQueuedOrBetterAtUnit0">
+    <Tooltip value="" />
+    <OperandArray index="0" value="CountBehaviorFalstadPassiveBuffWeaponQueuedOrBetterAtUnit" />
+    <OperandArray index="1" value="0" />
+  </CRequirementEq>
+  <CRequirementEq id="EqCountBehaviorFalstadPassiveBuffWeaponQueuedOrBetterAtUnit1">
+    <Tooltip value="" />
+    <OperandArray index="0" value="CountBehaviorFalstadPassiveBuffWeaponQueuedOrBetterAtUnit" />
+    <OperandArray index="1" value="1" />
+  </CRequirementEq>
+  <CRewardHero id="Falstad">
+    <License value="10112" />
+  </CRewardHero>
+  <CShapeQuad id="FalstadHinterlandsBlastVisibilityQuad">
+    <Quad value="-1,-32.5,1,1" />
+  </CShapeQuad>
+  <CShapeQuad id="FalstadHinterlandsBlastCallOfTheWildhammerTalentVisibilityQuad">
+    <Quad value="-1,-65,1,1" />
+  </CShapeQuad>
   <CTalent id="FalstadWingman">
     <Face value="FalstadWingmanHotbarTalent" />
     <Abil value="FalstadWingman" />
-    <RankArray Item="FalstadWingman">
+    <RankArray>
       <BehaviorArray value="FalstadWingmanTokenCounter" />
       <BehaviorArray value="FalstadWingmanDamageTokenCounter" />
       <BehaviorArray value="TalentBribeTalentCarry" />
+      <BehaviorArray value="FalstadWingmanItem" />
     </RankArray>
     <Active value="1" />
     <AbilityModificationArray>
@@ -1480,7 +2804,7 @@
         <Type value="FlatModification" />
         <Entry value="FalstadFlight" />
         <Field value="Cost[0].Cooldown.TimeUse" />
-        <Value value="-25.000000" />
+        <Value value="-40.000000" />
       </Modifications>
       <Modifications>
         <Type value="FlatModification" />
@@ -1792,16 +3116,8 @@
     </AbilityModificationArray>
     <Abil value="FalstadBarrelRoll" />
   </CTalent>
-  <CValidatorPlayerTalent id="HasFalstadMasteryHammerangSecretWeapon">
-    <WhichPlayer Value="Caster" />
-    <Find value="1" />
-    <Value value="FalstadMasteryHammerangSecretWeapon" />
-  </CValidatorPlayerTalent>
-  <CUnit id="FalstadWingman">
-    <LifeStart value="10" />
-    <LifeMax value="10" />
-    <Sight value="2.5" />
-    <MinimapRadius value="0" />
+  <CUnit id="FalstadHammerangReturnMissileSound" parent="MISSILE_INVULNERABLE">
+    <Mover value="FalstadHammerangReturnMissile" />
   </CUnit>
   <CUnit id="HeroFalstad" parent="StormHeroMountedCustom">
     <LifeStart value="1365" />
@@ -1816,10 +3132,6 @@
     <AbilArray Link="FalstadFlight" />
     <AbilArray Link="FalstadTailwindCooldownDisplay" />
     <WeaponArray Link="HeroFalstad" />
-    <Radius value="0.9375" />
-    <InnerRadius value="0.9375" />
-    <AIThinkTree value="AI/Falstad.aitree" />
-    <LifeRegenRate value="2.8437" />
     <CardLayouts index="0">
       <LayoutButtons Face="FalstadMightyGust" Type="AbilCmd" AbilCmd="FalstadMightyGust,Execute" Slot="Heroic" />
       <LayoutButtons Face="FalstadHinterlandBlast" Type="AbilCmd" AbilCmd="FalstadHinterlandBlast,Execute" Slot="Heroic" />
@@ -1830,7 +3142,349 @@
       <LayoutButtons Face="FalstadBarrelRoll" Type="AbilCmd" AbilCmd="FalstadBarrelRoll,Execute" Slot="Ability3" />
       <LayoutButtons Face="FalstadTailwind" Type="AbilCmd" AbilCmd="FalstadTailwindCooldownDisplay,Execute" Slot="Trait" />
     </CardLayouts>
+    <Radius value="0.8125" />
+    <InnerRadius value="0.8125" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="FalstadTailwind" />
+    <BehaviorArray Link="FalstadTailwindDisabler" />
+    <AIThinkTree value="AI/Falstad.aitree" />
+    <LifeRegenRate value="2.8437" />
+    <Height value="2" />
+    <AIEvalFactor value="1.2" />
+    <InitializerFunction value="libGDHL_gf_HeroFalstadIncrementHeroCountFunction" />
+    <DestructionFunction value="libGDHL_gf_HeroFalstadDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
   </CUnit>
+  <CUnit id="FalstadMightyGustMissile" parent="MISSILE_INVULNERABLE" />
+  <CUnit id="FalstadMightyGustWindTunnelMissile" parent="MISSILE_INVULNERABLE" />
+  <CUnit id="FalstadMightyGustWindTunnelInitialMissile" parent="MISSILE_INVULNERABLE" />
+  <CUnit id="FalstadHammerangReturnMissile" parent="MISSILE_INVULNERABLE" />
+  <CUnit id="FalstadMissile" parent="MISSILE_INVULNERABLE">
+    <Mover value="HeroMissileSpeed25" />
+  </CUnit>
+  <CUnit id="FalstadHammerangMissile" parent="MISSILE_INVULNERABLE" />
+  <CValidatorUnitOrderQueue id="CasterCastingFalstadHinterlandBlast">
+    <AbilLink value="FalstadHinterlandBlast" />
+  </CValidatorUnitOrderQueue>
+  <CValidatorCombine id="RemoveSuppressTurningBehavior">
+    <CombineArray value="CasterCastingFalstadHinterlandBlast" />
+  </CValidatorCombine>
+  <CValidatorPlayerTalent id="FalstadHasWingman">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadWingman" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitCompareBehaviorCount id="HasMightyGustKnockbackBehavior">
+    <Value value="1" />
+    <Behavior value="FalstadMightyGustKnockbackBehavior" />
+    <WhichUnit Effect="FalstadMightyGustImpactSet" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="DoesNotHaveMightyGustWindTunnelMasterySoundBehavior">
+    <Behavior value="MightyGustWindTunnelMasteryImpactSoundBehavior" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="CasterHasSecretWeaponandNotBlindedandTargetNotEvading">
+    <Type value="And" />
+    <CombineArray value="CasterNotBlindedAndTargetNotEvading" />
+    <CombineArray value="FalstadCasterHasHammerangSecretWeapon" />
+  </CValidatorCombine>
+  <CValidatorCombine id="FlightEnemyVisualPeriodicCombine">
+    <Type value="And" />
+    <CombineArray value="HasFlightBehavior" />
+    <CombineArray value="CasterIsNotCloaked" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="FalstadTargetHasLightningRodConductor">
+    <Value value="1" />
+    <Behavior value="FalstadLightningRodConductor" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="FalstadCasterHasBarrelRollFreeRoll">
+    <Behavior value="FalstadBarrelRollFreeRoll" />
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="FalstadCasterHasHammerangSecretWeapon">
+    <Behavior value="FalstadSecretWeapon" />
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="FalstadTargetDoesNotHaveMightyGustKnockback">
+    <Behavior value="FalstadMightyGustKnockbackBehavior" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="FalstadCasterHasLightningRodThunderstrikes1Stack">
+    <Behavior value="FalstadLightningRodThunderstrikesStacking" />
+    <Value value="1" />
+    <WhichUnit Value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="FalstadCasterHasLightningRodThunderstrikes2Stacks">
+    <Behavior value="FalstadLightningRodThunderstrikesStacking" />
+    <Value value="2" />
+    <WhichUnit Value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="FalstadCasterHasLightningRodThunderstrikes3Stacks">
+    <Behavior value="FalstadLightningRodThunderstrikesStacking" />
+    <Value value="3" />
+    <WhichUnit Value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="FalstadCasterHasLightningRodThunderstrikes4Stacks">
+    <Behavior value="FalstadLightningRodThunderstrikesStacking" />
+    <Value value="4" />
+    <WhichUnit Value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="FalstadCasterHasLightningRodThunderstrikes5Stacks">
+    <Behavior value="FalstadLightningRodThunderstrikesStacking" />
+    <Value value="5" />
+    <WhichUnit Value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="FalstadCasterHasLightningRodThunderstrikes6Stacks">
+    <Behavior value="FalstadLightningRodThunderstrikesStacking" />
+    <Value value="6" />
+    <WhichUnit Value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="FalstadCasterHasLightningRodThunderstrikes7Stacks">
+    <Behavior value="FalstadLightningRodThunderstrikesStacking" />
+    <Value value="7" />
+    <WhichUnit Value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="FalstadHammerangTargetHasSlow">
+    <Behavior value="HammerangSlow" />
+    <Value value="1" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorPlayerTalent id="HasFalstadLightningRodChargedUp">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryLightningRodChargedUp" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadMasteryHammerangPowerThrow">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryHammerangPowerThrow" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadMasteryBarrelRollFreeRoll">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryBarrelRollFreeRoll" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadMasteryHammerangSecretWeapon">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryHammerangSecretWeapon" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadMasteryLightningRodThunderstrikes">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryLightningRodThunderstrikes" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadMasteryLightningRodStaticShield">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryLightningRodStaticShield" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadMasteryBarrelRollFlowRider">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryBarrelRollFlowRider" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadMasteryFlightEpicMount">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryFlightEpicMount" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadMasteryMightyGustWindTunnel">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryMightyGustWindTunnel" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitType id="FalstadTargetIsHammerangMissile">
+    <Value value="FalstadHammerangMissile" />
+  </CValidatorUnitType>
+  <CValidatorCombine id="FalstadTargetIsHammerangorHammerangReturn">
+    <CombineArray value="FalstadTargetIsHammerangMissile" />
+    <CombineArray value="FalstadTargetisHammerangReturnMissile" />
+  </CValidatorCombine>
+  <CValidatorUnitType id="FalstadTargetisHammerangReturnMissile">
+    <Value value="FalstadHammerangReturnMissile" />
+  </CValidatorUnitType>
+  <CValidatorUnitCompareBehaviorCount id="HasFlightBehavior">
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+    <Behavior value="FalstadFlightAscend" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitOrderQueue id="IsCastingFlight">
+    <AbilLink value="FalstadFlight" />
+  </CValidatorUnitOrderQueue>
+  <CValidatorCombine id="GatheringStormCombine">
+    <Type value="And" />
+    <CombineArray value="FalstadHasGatheringStorm" />
+    <CombineArray value="TargetIsHero" />
+  </CValidatorCombine>
+  <CValidatorCombine id="FalstadFlightValidatorCombine">
+    <Type value="And" />
+    <CombineArray value="CasterNotStunned" />
+    <CombineArray value="CasterNotSilenced" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="NoBarrelRoll">
+    <Behavior value="BarrelRollCharging" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="FalstadHammerangTypeCombine">
+    <CombineArray value="IsFalstadHammerangMissile" />
+    <CombineArray value="IsFalstadHammerangReturnMissile" />
+  </CValidatorCombine>
+  <CValidatorUnitType id="IsFalstad">
+    <Value value="HeroFalstad" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsTargetFalstad">
+    <Value value="HeroFalstad" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsFalstadHammerangMissile">
+    <Value value="FalstadHammerangMissile" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsFalstadHammerangReturnMissile">
+    <Value value="FalstadHammerangReturnMissile" />
+  </CValidatorUnitType>
+  <CValidatorUnitCompareBehaviorCount id="HasThunderstormMarkedDebuff">
+    <Value value="1" />
+    <Behavior value="ThunderstormMarkedDebuff" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorLocationEnumArea id="HammerangMissileOut">
+    <AreaArray Compare="GT" Count="0" Validator="FalstadHammerangTypeCombine">
+      <Radius value="20" />
+    </AreaArray>
+    <SearchFilters value="Missile;Ally,Neutral,Enemy" />
+  </CValidatorLocationEnumArea>
+  <CValidatorUnitCompareBehaviorCount id="HasFalstadThunderstormAvailiblityController">
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+    <Behavior value="ThunderstormAvailabilityController" />
+    <ResultFailed value="Error,Error/FalstadThunderstormAvailable" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="GatheringStormBehaviorOn">
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+    <Behavior value="FalstadHammerangGatheringStorm" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="FalstadHasPassiveWeaponBuff">
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+    <Behavior value="FalstadPassiveBuffWeapon" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareCooldown id="FalstadTailwindNotOnCooldown">
+    <CooldownLink value="Abil/FalstadTailwindCooldownDisplay" />
+    <Location value="Player" />
+    <Ability value="FalstadTailwindCooldownDisplay" />
+    <WhichUnit Value="Caster" />
+  </CValidatorUnitCompareCooldown>
+  <CValidatorUnitType id="IsNotTargetFalstad">
+    <Value value="HeroFalstad" />
+    <Find value="0" />
+  </CValidatorUnitType>
+  <CValidatorUnitCompareBehaviorCount id="HasFalstadHammerangBOOMerangController">
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+    <Behavior value="FalstadHammerangBOOMerangController" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HasBarrelRoll">
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+    <Behavior value="BarrelRollCharging" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HasHammerangRelic1stHitDebuff">
+    <Value value="1" />
+    <Behavior value="HammerangRelic1stHitDebuff" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="HasBarrelRollAndNotDeadAndTargetNotClose">
+    <Type value="And" />
+    <CombineArray value="HasBarrelRoll" />
+    <CombineArray value="CasterNotDead" />
+    <CombineArray value="ChargeTargetNotClose" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="HasSwoop">
+    <WhichUnit Value="Caster" />
+    <Value value="1" />
+    <Behavior value="ChargeCharging" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="HasSwoopAndNotDeadAndTargetNotCloseAndTargetInRangeAndTargetVisible">
+    <Type value="And" />
+    <CombineArray value="HasSwoop" />
+    <CombineArray value="CasterNotDead" />
+    <CombineArray value="SwoopTargetNotClose" />
+    <CombineArray value="SwoopTargetInRange" />
+    <CombineArray value="TargetIsVisible" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="FalstadDoesNotHaveFlightAscend">
+    <Behavior value="FalstadFlightAscend" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorLocationCompareRange id="SwoopTargetInRange">
+    <WhichLocation Value="TargetUnit" />
+    <Compare value="LE" />
+    <Range value="7" />
+  </CValidatorLocationCompareRange>
+  <CValidatorLocationCompareRange id="SwoopTargetNotClose">
+    <WhichLocation Value="TargetUnit" />
+    <Compare value="GT" />
+    <Range value="0.125" />
+    <Value Value="CasterPoint" />
+  </CValidatorLocationCompareRange>
+  <CValidatorPlayerTalent id="HasFalstadUpdraft">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryUpdraftBarrelRoll" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadDogFight">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryDogFightBarrelRoll" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadZap">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryZapThunderstorm" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadGatheringStorm">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryGatheringStormHammerangMastery" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadBoomerang">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadHammerangBOOMerang" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadCripplingHammer">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryCripplingHammerHammerang" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="FalstadHasGatheringStorm">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadHammerangGatheringStorm" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadAerieGusts">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryAerieGustsTailwind" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadAfterburner">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryAfterburner" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="DoesNotHaveFalstadAfterburner">
+    <WhichPlayer Value="Caster" />
+    <Value value="FalstadMasteryAfterburner" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasFalstadCalloftheWildhammer">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="FalstadMasteryCalloftheWildhammerHinterlandBlast" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="DoesNotHaveFalstadCalloftheWildhammer">
+    <WhichPlayer Value="Caster" />
+    <Value value="FalstadMasteryCalloftheWildhammerHinterlandBlast" />
+  </CValidatorPlayerTalent>
   <CWeaponLegacy id="FalstadStormhammerWeapon">
     <Options index="ContinuousScan" value="1" />
     <Options index="HoldFileInShrubs" value="1" />
