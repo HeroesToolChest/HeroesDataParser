@@ -248,7 +248,6 @@ namespace HeroesData.Parser
             hero.Energy.EnergyMax = DefaultData.HeroData.UnitEnergyMax;
             hero.Energy.EnergyRegenerationRate = DefaultData.HeroData.UnitEnergyRegenRate;
             hero.Difficulty = GameData.GetGameString(DefaultData.Difficulty.Replace(DefaultData.IdPlaceHolder, DefaultData.DefaultHeroDifficulty)).Trim();
-            hero.HearthLinkId = DefaultData.HeroData.DefaultHearthAbilityId;
 
             if (hero.CHeroId != null)
             {

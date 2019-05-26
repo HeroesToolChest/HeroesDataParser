@@ -8,7 +8,7 @@ namespace HeroesData.Parser.XmlData
 {
     public class DefaultDataHero : DefaultDataUnit
     {
-        public const string CUnitDefaultBaseId = "StormHero";
+        public const string CUnitDefaultBaseId = "StormBasicHeroicUnit";
 
         public DefaultDataHero(GameData gameData)
             : base(gameData)
