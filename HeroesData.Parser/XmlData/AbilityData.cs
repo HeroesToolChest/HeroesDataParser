@@ -317,7 +317,9 @@ namespace HeroesData.Parser.XmlData
 
         private void SetAbilityTypeFromSlot(string slot, string unitId, Ability ability)
         {
-            if (slot.AsSpan().StartsWith("ABILITY1", StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(slot))
+                ability.AbilityType = AbilityType.Attack;
+            else if (slot.AsSpan().StartsWith("ABILITY1", StringComparison.OrdinalIgnoreCase))
                 ability.AbilityType = AbilityType.Q;
             else if (slot.AsSpan().StartsWith("ABILITY2", StringComparison.OrdinalIgnoreCase))
                 ability.AbilityType = AbilityType.W;
@@ -448,7 +450,7 @@ namespace HeroesData.Parser.XmlData
 
             if (layoutButton != null)
             {
-                SetAbilityTypeFromSlot(layoutButton.Attribute("Slot").Value, unitId, ability);
+                SetAbilityTypeFromSlot(layoutButton.Attribute("Slot")?.Value, unitId, ability);
                 return true;
             }
             else // was not found for attributes check as elements
@@ -468,7 +470,7 @@ namespace HeroesData.Parser.XmlData
 
                 if (layoutButton != null)
                 {
-                    SetAbilityTypeFromSlot(layoutButton.Element("Slot").Attribute("value").Value, unitId, ability);
+                    SetAbilityTypeFromSlot(layoutButton.Element("Slot").Attribute("value")?.Value, unitId, ability);
 
                     return true;
                 }
