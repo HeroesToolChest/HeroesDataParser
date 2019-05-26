@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -50,6 +51,9 @@ namespace HeroesData.Parser.XmlData
             foreach (XElement element in weaponElements)
             {
                 SetWeaponData(element, weapon);
+
+                if (string.IsNullOrEmpty(weapon.WeaponNameId))
+                    return null;
             }
 
             return weapon;
@@ -154,7 +158,7 @@ namespace HeroesData.Parser.XmlData
         //    unit.Weapons.Add(weapon);
         //}
 
-        private UnitWeapon SetWeaponData(XElement weaponElement, UnitWeapon weapon)
+        private void SetWeaponData(XElement weaponElement, UnitWeapon weapon)
         {
             // parent lookup
             string parentValue = weaponElement.Attribute("parent")?.Value;
@@ -164,6 +168,9 @@ namespace HeroesData.Parser.XmlData
                 if (parentElement != null)
                     SetWeaponData(parentElement, weapon);
             }
+
+            if (weapon == null)
+                return;
 
             // loop through all elements and set found elements
             foreach (XElement element in weaponElement.Elements())
@@ -188,9 +195,17 @@ namespace HeroesData.Parser.XmlData
                             WeaponAddEffectDamage(effectDamageElement, weapon);
                     }
                 }
+                else if (elementName == "OPTIONS")
+                {
+                    string indexValue = element.Attribute("index")?.Value;
+                    string value = element.Attribute("value")?.Value;
+                    if (!string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(value) && indexValue.Equals("disabled", StringComparison.OrdinalIgnoreCase) && value == "1")
+                    {
+                        weapon.WeaponNameId = string.Empty;
+                        return;
+                    }
+                }
             }
-
-            return weapon;
         }
 
         private void WeaponAddEffectDamage(XElement effectDamageElement, UnitWeapon weapon)
