@@ -18,5 +18,11 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual(73, HeroChromie.Weapons.ToList()[0].Damage);
             Assert.AreEqual(7, HeroChromie.Weapons.ToList()[0].Range);
         }
+
+        [TestMethod]
+        public void UnitTests()
+        {
+            Assert.AreEqual(2, HeroChromie.Units.Count());
+        }
     }
 }

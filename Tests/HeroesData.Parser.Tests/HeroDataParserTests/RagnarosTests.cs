@@ -1,6 +1,4 @@
-﻿using Heroes.Models;
-using Heroes.Models.AbilityTalents;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
@@ -9,18 +7,12 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
     public class RagnarosTests : HeroDataParserBaseTest
     {
         [TestMethod]
-        public void HeroUnitTests()
+        public void UnitTests()
         {
-            Assert.AreEqual(1, HeroRagnaros.HeroUnits.Count());
+            Assert.AreEqual(1, HeroRagnaros.Units.Count());
 
-            Unit unit = HeroRagnaros.HeroUnits.ToList()[0];
-            Assert.AreEqual("RagnarosBigRag", unit.CUnitId);
-            Assert.AreEqual("RagnarosBigRag", unit.HyperlinkId);
-            Assert.AreEqual("Ragnaros", unit.Name);
-
-            Ability ability = unit.GetAbility("RagnarosBigRagMeteorShower");
-            Assert.AreEqual("Meteor Shower", ability.Name);
-            Assert.AreEqual(AbilityType.W, ability.AbilityType);
+            string unit = HeroRagnaros.Units.ToList()[0];
+            Assert.AreEqual("RagnarosBigRag", unit);
         }
 
         [TestMethod]

@@ -64,7 +64,7 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(weaponElementId))
                 return new List<XElement>();
 
-            return GameData.ElementsIncluded(Configuration.GamestringXmlElements("Weapon").ToArray(), weaponElementId);
+            return GameData.ElementsIncluded(Configuration.GamestringXmlElements("Weapon"), weaponElementId);
         }
 
         ///// <summary>

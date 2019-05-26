@@ -41,6 +41,7 @@
       <Element>CAbilBehavior</Element>
       <Element>CAbilEffectInstant</Element>
       <Element>CAbilEffectTarget</Element>
+      <Element>CAbilMorph</Element>
     </Type>
     <Type name="Accumulator">
       <Element>CAccumulatorDistance</Element>
@@ -64,18 +65,30 @@
     </Type>
     <Type name="Effect">
       <Element>CEffectApplyBehavior</Element>
+      <Element>CEffectApplyForce</Element>
       <Element>CEffectCreateHealer</Element>
       <Element>CEffectCreatePersistent</Element>
       <Element>CEffectCreateUnit</Element>
       <Element>CEffectDamage</Element>
+      <Element>CEffectDestroyPersistent</Element>
       <Element>CEffectEnumArea</Element>
+      <Element>CEffectEnumMagazine</Element>
+      <Element>CEffectEnumTransport</Element>
+      <Element>CEffectIssueOrder</Element>
       <Element>CEffectLaunchMissile</Element>
       <Element>CEffectModifyBehaviorBuffDuration</Element>
       <Element>CEffectModifyCatalogNumeric</Element>
       <Element>CEffectModifyPlayer</Element>
       <Element>CEffectModifyTokenCount</Element>
       <Element>CEffectModifyUnit</Element>
+      <Element>CEffectReleaseMagazine</Element>
       <Element>CEffectRemoveBehavior</Element>
+      <Element>CEffectSet</Element>
+      <Element>CEffectSwitch</Element>
+      <Element>CEffectTeleport</Element>
+      <Element>CEffectTransferBehavior</Element>
+      <Element>CEffectUseCalldown</Element>
+      <Element>CEffectUseMagazine</Element>
     </Type>
     <Type name="Hero">
       <Element>CHero</Element>

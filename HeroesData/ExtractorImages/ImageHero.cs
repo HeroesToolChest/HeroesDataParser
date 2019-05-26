@@ -38,11 +38,6 @@ namespace HeroesData.ExtractorImage
                 Portraits.Add(hero.HeroPortrait.TargetPortraitFileName);
 
             LoadAbilityTalentFiles(hero);
-
-            foreach (Hero heroUnit in hero.HeroUnits)
-            {
-                LoadAbilityTalentFiles(heroUnit);
-            }
         }
 
         protected override void ExtractFiles()

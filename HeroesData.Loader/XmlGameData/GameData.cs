@@ -431,25 +431,26 @@ namespace HeroesData.Loader.XmlGameData
         /// <summary>
         /// Returns a collection of elements by the element name.
         /// </summary>
-        /// <param name="excludedElements">Element name to include from the collection.</param>
-        /// <param name="attributeId">Value of the attribute id.</param>
+        /// <param name="elements">A collection of element names to include from the collection.</param>
+        /// <param name="attributeIdValue">The value of the attribute id.</param>
         /// <returns></returns>
-        public IEnumerable<XElement> ElementsIncluded(string[] elements, string attributeId = null)
+        public IEnumerable<XElement> ElementsIncluded(IEnumerable<string> elements, string attributeIdValue = null)
         {
-            List<XElement> elementList = new List<XElement>();
+            List<string> elementsList = elements.ToList();
+            List<XElement> foundElementList = new List<XElement>();
 
             foreach (KeyValuePair<string, List<XElement>> item in XmlGameDataElementsByElementName)
             {
-                if (elements.Contains(item.Key))
+                if (elementsList.Contains(item.Key))
                 {
-                    if (!string.IsNullOrEmpty(attributeId))
-                        elementList.AddRange(item.Value.Where(x => x.Attribute("id")?.Value == attributeId));
+                    if (!string.IsNullOrEmpty(attributeIdValue))
+                        foundElementList.AddRange(item.Value.Where(x => x.Attribute("id")?.Value == attributeIdValue));
                     else
-                        elementList.AddRange(item.Value);
+                        foundElementList.AddRange(item.Value);
                 }
             }
 
-            return elementList;
+            return foundElementList;
         }
 
         /// <summary>

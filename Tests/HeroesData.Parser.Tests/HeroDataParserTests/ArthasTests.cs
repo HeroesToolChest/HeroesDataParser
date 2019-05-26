@@ -1,5 +1,6 @@
 ﻿using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
@@ -26,6 +27,12 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Talent talent = HeroArthas.GetTalent("ArthasAntiMagicShell");
             Assert.IsTrue(!string.IsNullOrEmpty(talent.Tooltip?.FullTooltip?.RawDescription));
             Assert.IsTrue(!string.IsNullOrEmpty(talent.Tooltip?.ShortTooltip?.RawDescription));
+        }
+
+        [TestMethod]
+        public void UnitTests()
+        {
+            Assert.AreEqual(1, HeroArthas.Units.Count());
         }
     }
 }

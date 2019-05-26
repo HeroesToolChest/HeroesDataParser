@@ -138,7 +138,6 @@ namespace HeroesData.Parser
             SetBaseHeroData(StormHeroBase);
 
             ApplyOverrides(StormHeroBase, HeroDataOverride);
-            MoveParentLinkedAbilities(StormHeroBase);
 
             IList<Ability> hearthAbilties = null; //StormHeroBase.PrimaryAbilities(AbilityTier.Hearth);
             IList<Ability> mountAbilties = null; //StormHeroBase.PrimaryAbilities(AbilityTier.Mount);
@@ -611,7 +610,14 @@ namespace HeroesData.Parser
                 {
                     Ability ability = AbilityData.CreateAbility(hero.CUnitId, element);
                     if (ability != null)
+                    {
                         hero.AddAbility(ability);
+
+                        foreach (string unit in ability.CreatedUnits)
+                        {
+                            hero.AddUnit(unit);
+                        }
+                    }
                 }
                 else if (elementName == "WEAPONARRAY")
                 {
@@ -734,39 +740,6 @@ namespace HeroesData.Parser
             {
                 //if (removedAbility.Value)
                 //    hero.Abilities.Remove(removedAbility.Key);
-            }
-        }
-
-        // moves the parent linked abilites to the respective herounit
-        private void MoveParentLinkedAbilities(Hero hero)
-        {
-            // move sub abilities to hero unit abilites
-            ILookup<string, Ability> linkedAbilities = hero.ParentLinkedAbilities();
-            if (linkedAbilities?.Count > 0)
-            {
-                foreach (Hero heroUnit in hero.HeroUnits)
-                {
-                    //heroUnit.Abilities = linkedAbilities[heroUnit.CUnitId].ToDictionary(x => x.ReferenceNameId, x => x);
-
-                    //foreach (Ability linkedAbility in linkedAbilities[heroUnit.CUnitId])
-                    //    hero.Abilities.Remove(linkedAbility.ReferenceNameId);
-                }
-            }
-        }
-
-        private void MoveParentLinkedWeapons(Hero hero)
-        {
-            ILookup<string, UnitWeapon> linkedWeapons = hero.ParentLinkedWeapons();
-            if (linkedWeapons?.Count > 0)
-            {
-                foreach (Hero heroUnit in hero.HeroUnits)
-                {
-                    // TODO: Add refactor
-                    //heroUnit.Weapons = linkedWeapons[heroUnit.CUnitId].ToList();
-
-                    //foreach (UnitWeapon linkedWeapon in linkedWeapons[heroUnit.CUnitId])
-                    //    hero.Weapons.Remove(linkedWeapon);
-                }
             }
         }
     }

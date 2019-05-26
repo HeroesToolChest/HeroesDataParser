@@ -1,6 +1,8 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
@@ -26,6 +28,14 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 2);
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("AbathurUltimateEvolution"));
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("AbathurEvolveMonstrosity"));
+        }
+
+        [TestMethod]
+        public void UnitsTests()
+        {
+            List<string> units = HeroAbathur.Units.ToList();
+
+            Assert.AreEqual(5, units.Count);
         }
     }
 }

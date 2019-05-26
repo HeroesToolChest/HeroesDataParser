@@ -236,7 +236,14 @@ namespace HeroesData.Parser
                 {
                     Ability ability = AbilityData.CreateAbility(unit.CUnitId, element);
                     if (ability != null)
+                    {
                         unit.AddAbility(ability);
+
+                        foreach (string createUnit in ability.CreatedUnits)
+                        {
+                            unit.AddUnit(createUnit);
+                        }
+                    }
                 }
                 else if (elementName == "WEAPONARRAY")
                 {

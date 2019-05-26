@@ -38,7 +38,7 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(abilElementId))
                 return new List<XElement>();
 
-            return GameData.ElementsIncluded(Configuration.GamestringXmlElements("Abil").ToArray(), abilElementId);
+            return GameData.ElementsIncluded(Configuration.GamestringXmlElements("Abil"), abilElementId);
         }
 
         /// <summary>
@@ -71,15 +71,23 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "EFFECT")
                 {
-                    string effect = element.Attribute("value")?.Value;
-                    if (!string.IsNullOrEmpty(effect))
-                    {
-
-                    }
+                    SetEffectData(element, abilityTalentBase);
                 }
                 else if (elementName == "CMDBUTTONARRAY")
                 {
                     SetCmdButtonArrayData(element, abilityTalentBase);
+                }
+                else if (elementName == "PRODUCEDUNITARRAY")
+                {
+                    string elementValue = element.Attribute("value")?.Value;
+
+                    if (!string.IsNullOrEmpty(elementValue))
+                    {
+                        if (GameData.Elements("CUnit").Where(x => x.Attribute("id")?.Value == elementValue).Any())
+                        {
+                            abilityTalentBase.AddCreatedUnit(elementValue);
+                        }
+                    }
                 }
             }
         }
@@ -648,6 +656,52 @@ namespace HeroesData.Parser.XmlData
                 //   < RankArray >
                 // < BehaviorArray value = "DryadGallopingGaitCarry" />
                 //</ RankArray >
+            }
+        }
+
+        private void SetEffectData(XElement effectElement, AbilityTalentBase abilityTalentBase)
+        {
+            string effectValue = effectElement.Attribute("value")?.Value;
+            if (!string.IsNullOrEmpty(effectValue))
+            {
+                // see if we can find a create unit
+                XElement effectTypeElement = GameData.MergeXmlElements(GameData.ElementsIncluded(Configuration.GamestringXmlElements("Effect"), effectValue));
+                if (effectTypeElement != null)
+                {
+                    foreach (XElement element in effectTypeElement.Elements())
+                    {
+                        string elementName = element.Name.LocalName.ToUpper();
+
+                        if (elementName == "EFFECTARRAY" || elementName == "CASEDEFAULT" || elementName == "PRODUCEDUNITARRAY")
+                        {
+                            FindCreateUnit(element.Attribute("value")?.Value, abilityTalentBase);
+                        }
+                        else if (elementName == "CASEARRAY")
+                        {
+                            FindCreateUnit(element.Attribute("Effect")?.Value, abilityTalentBase);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void FindCreateUnit(string effectId, AbilityTalentBase abilityTalentBase)
+        {
+            if (!string.IsNullOrEmpty(effectId))
+            {
+                // find CEffectCreateUnit
+                XElement effectCreateUnitElement = GameData.MergeXmlElements(GameData.Elements("CEffectCreateUnit").Where(x => x.Attribute("id")?.Value == effectId), false);
+                if (effectCreateUnitElement != null)
+                {
+                    string spawnUnitValue = effectCreateUnitElement.Element("SpawnUnit")?.Attribute("value")?.Value;
+                    if (!string.IsNullOrEmpty(spawnUnitValue))
+                    {
+                        if (GameData.Elements("CUnit").Where(x => x.Attribute("id")?.Value == spawnUnitValue).Any())
+                        {
+                            abilityTalentBase.AddCreatedUnit(spawnUnitValue);
+                        }
+                    }
+                }
             }
         }
     }
