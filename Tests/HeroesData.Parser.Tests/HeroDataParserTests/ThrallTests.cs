@@ -13,10 +13,12 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Talent talent = HeroThrall.GetTalent("ThrallMasteryManaTide");
             Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 1);
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("ThrallFrostwolfResilience"));
+            Assert.AreEqual(AbilityType.Trait, talent.AbilityType);
 
             talent = HeroThrall.GetTalent("ThrallMasteryFrostwolfsGrace");
             Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 1);
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("ThrallFrostwolfResilience"));
+            Assert.AreEqual(AbilityType.Trait, talent.AbilityType);
         }
     }
 }

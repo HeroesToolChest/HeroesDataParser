@@ -9,7 +9,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityMountNoCooldownUntilTalentUpgradeTest()
         {
-            Ability ability = HeroDryad.GetAbility("DryadGallopingGait");
+            Ability ability = HeroDryad.GetAbility("DryadDryadsSwiftness");
             Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription));
         }
 
@@ -24,7 +24,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void AbilityTalentLinkIdTest()
         {
             Talent talent = HeroDryad.GetTalent("DryadHippityHop");
-            Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("DryadGallopingGait"));
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("DryadDryadsSwiftness"));
+            Assert.AreEqual(AbilityType.Z, talent.AbilityType);
         }
     }
 }

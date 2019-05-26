@@ -151,13 +151,13 @@ namespace HeroesData.Parser.XmlData
                 XElement abilityElement = GameData.MergeXmlElementsNoAttributes(GetAbilityElements(ability.ReferenceNameId), false);
                 string faceValue = abilityElement?.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
 
-                if (!string.IsNullOrEmpty(faceValue))
-                {
-                    XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
+                if (string.IsNullOrEmpty(faceValue))
+                    faceValue = ability.ReferenceNameId;
 
-                    if (buttonElement != null)
-                        abilityTalentsByButtonElements[ability.ReferenceNameId] = (buttonElement, ability);
-                }
+                XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
+
+                if (buttonElement != null)
+                    abilityTalentsByButtonElements[ability.ReferenceNameId] = (buttonElement, ability);
             }
 
             foreach (KeyValuePair<string, (XElement, AbilityTalentBase)> abilityElement in abilityTalentsByButtonElements)
@@ -356,15 +356,17 @@ namespace HeroesData.Parser.XmlData
                             talent.AbilityType = ability.AbilityType;
                         else if (abilValue == "Mount")
                             talent.AbilityType = AbilityType.Z;
-                        else
-                            talent.AbilityType = AbilityType.Active;
 
                         IEnumerable<XElement> abilityElements = GetAbilityElements(abilValue);
-                        if (abilityElements.Any())
+                        foreach (XElement abilityElement in abilityElements)
                         {
-                            foreach (XElement abilityElement in abilityElements)
+                            SetAbilityTalentData(abilityElement, talent);
+
+                            if (talent.AbilityType == AbilityType.Unknown)
                             {
-                                SetAbilityTalentData(abilityElement, talent);
+                                string defaultButtonFace = abilityElement.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
+                                if (!string.IsNullOrEmpty(defaultButtonFace) && hero.TryGetAbility(defaultButtonFace, out ability))
+                                    talent.AbilityType = ability.AbilityType;
                             }
                         }
                     }
@@ -374,7 +376,12 @@ namespace HeroesData.Parser.XmlData
                     string activeValue = element.Attribute("value")?.Value;
 
                     if (!string.IsNullOrEmpty(activeValue) && activeValue == "1")
+                    {
                         talent.IsActive = true;
+
+                        if (talent.AbilityType == AbilityType.Unknown)
+                            talent.AbilityType = AbilityType.Active;
+                    }
                 }
                 else if (elementName == "QUESTDATA")
                 {

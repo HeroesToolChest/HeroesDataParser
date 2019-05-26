@@ -88,15 +88,15 @@ namespace HeroesData.Parser.XmlData
                 ability.Tier = AbilityTier.Basic;
 
             // set button related data
-            XElement cButtonElement = GetButtonElement(ability.FullTooltipNameId);
+            //XElement cButtonElement = GetButtonElement(ability.FullTooltipNameId);
 
-            if (cButtonElement != null)
-            {
-                SetTooltipCostData(ability.ReferenceNameId, ability);
-                SetTooltipDescriptions(ability);
-                SetTooltipOverrideData(cButtonElement, ability);
-                SetTalentIdUpgrades(cButtonElement, ability);
-            }
+            //if (cButtonElement != null)
+            //{
+            //    SetTooltipCostData(ability.ReferenceNameId, ability);
+            //    SetTooltipDescriptions(ability);
+            //    SetTooltipOverrideData(cButtonElement, ability);
+            //    SetTalentIdUpgrades(cButtonElement, ability);
+            //}
 
            // SetAbilityType(hero, ability);
 
@@ -136,18 +136,26 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(abilLink) || string.IsNullOrEmpty(unitId))
                 return null;
 
-            Ability ability = new Ability()
-            {
-                ReferenceNameId = abilLink,
-            };
+            Ability ability = new Ability();
 
-            IEnumerable<XElement> abilityElements = GetAbilityElements(abilLink);
-            if (!abilityElements.Any())
-                return null;
-
-            foreach (XElement element in abilityElements)
+            string passiveButtonId = CheckAbilityPassive(unitId, abilLink);
+            if (string.IsNullOrEmpty(passiveButtonId))
             {
-                SetAbilityTalentData(element, ability);
+                ability.ReferenceNameId = abilLink;
+
+                foreach (XElement element in GetAbilityElements(abilLink))
+                {
+                    SetAbilityTalentData(element, ability);
+                }
+            }
+            else
+            {
+                ability.ReferenceNameId = passiveButtonId;
+
+                XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == passiveButtonId));
+
+                if (buttonElement != null)
+                    SetButtonData(buttonElement, ability);
             }
 
             // default
@@ -469,9 +477,45 @@ namespace HeroesData.Parser.XmlData
             return false;
         }
 
+        private string CheckAbilityPassive(string unitId, string abilId)
+        {
+            if (GameData.TryGetLayoutButtonElements(unitId, out List<XElement> layoutButtons))
+            {
+                // find current
+                XElement abilLayoutButton = layoutButtons.FirstOrDefault(x =>
+                {
+                    string abilCmdValue = x.Attribute("AbilCmd")?.Value;
+                    if (!string.IsNullOrEmpty(abilCmdValue) && abilCmdValue.StartsWith(abilId))
+                        return true;
+                    else
+                        return false;
+                });
+
+                if (abilLayoutButton != null)
+                {
+                    // get the face value and slot
+                    string faceValue = abilLayoutButton.Attribute("Face")?.Value;
+                    string slotValue = abilLayoutButton.Attribute("Slot")?.Value;
+
+                    if (!string.IsNullOrEmpty(faceValue) && !string.IsNullOrEmpty(slotValue))
+                    {
+                        // try to find a passive layout button
+                        XElement passiveButtonElement = layoutButtons.FirstOrDefault(x => x.Attribute("Face")?.Value == faceValue && x.Attribute("Slot")?.Value == slotValue && x.Attribute("Type")?.Value == "Passive");
+                        if (passiveButtonElement != null)
+                        {
+                            return passiveButtonElement.Attribute("Face").Value;
+                        }
+                    }
+                }
+            }
+
+            return string.Empty;
+        }
+
+        // detect if the ability is one we want to keep
         private bool IsValidAbilityCommand(string slot, string abilCmd, Ability ability)
         {
-            if (slot != "Cancel" && slot != "Hearth" && !string.IsNullOrEmpty(abilCmd))
+            if (slot != "Cancel" && !string.IsNullOrEmpty(abilCmd))
             {
                 if (abilCmd.StartsWith(ability.ReferenceNameId))
                     return true;
