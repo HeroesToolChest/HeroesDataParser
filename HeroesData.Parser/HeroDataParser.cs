@@ -37,6 +37,7 @@ namespace HeroesData.Parser
 
             WeaponData.IsHeroParsing = true;
             AbilityData.IsAbilityTypeFilterEnabled = true;
+            AbilityData.IsAbilityTierFilterEnabled = true;
         }
 
         /// <summary>

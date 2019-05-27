@@ -18,6 +18,7 @@ namespace HeroesData.Parser.XmlData
         }
 
         public bool IsAbilityTypeFilterEnabled { get; set; } = false;
+        public bool IsAbilityTierFilterEnabled { get; set; } = false;
 
         /// <summary>
         /// Adds hero's ability data from the ability xml element.
@@ -179,6 +180,10 @@ namespace HeroesData.Parser.XmlData
 
             // set the ability tier
             SetAbilityTierFromAbilityType(ability);
+
+            // filter ability tiers
+            if ((IsAbilityTierFilterEnabled && AbilityTier.Misc.HasFlag(ability.Tier)) || (IsAbilityTierFilterEnabled && ability.Tier == AbilityTier.MapMechanic))
+                return null;
 
             // if no reference id, return null
             if (string.IsNullOrEmpty(ability.ReferenceNameId))
