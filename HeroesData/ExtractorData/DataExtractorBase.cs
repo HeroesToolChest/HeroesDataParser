@@ -192,7 +192,7 @@ namespace HeroesData.ExtractorData
 
             message = $"[{ValidationWarningId}] {message}".Trim();
 
-            if (!App.ValidationIgnoreLines.Contains(message) && !App.ValidationIgnoreLines.Contains(genericMessage))
+            if (!string.IsNullOrEmpty(message) && !App.ValidationIgnoreLines.Contains(message) && !App.ValidationIgnoreLines.Contains(genericMessage))
                 ValidationWarnings.Add(message);
             else
                 WarningsIgnoredCount++;

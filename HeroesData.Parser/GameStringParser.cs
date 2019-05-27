@@ -13,6 +13,8 @@ namespace HeroesData.Parser.GameStrings
 {
     public class GameStringParser
     {
+        public const string FailedParsed = "(╯°□°）╯︵ ┻━┻ [Failed to parse]";
+
         private readonly int? HotsBuild;
         private readonly GameData GameData;
         private readonly Configuration Configuration;
@@ -66,7 +68,7 @@ namespace HeroesData.Parser.GameStrings
             }
             catch (Exception ex) when (ex is FormatException || ex is SyntaxErrorException || ex is IndexOutOfRangeException)
             {
-                parsedTooltip = string.Empty;
+                parsedTooltip = FailedParsed;
                 return false;
             }
             catch (GameStringParseException ex)
@@ -77,7 +79,7 @@ namespace HeroesData.Parser.GameStrings
             // unable to parse correctly, returns an empty string
             if (string.IsNullOrEmpty(parsedTooltip) || parsedTooltip.Contains("<d ", StringComparison.OrdinalIgnoreCase))
             {
-                parsedTooltip = string.Empty;
+                parsedTooltip = FailedParsed;
                 return false;
             }
 
