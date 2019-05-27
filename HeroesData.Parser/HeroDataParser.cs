@@ -36,6 +36,7 @@ namespace HeroesData.Parser
             BehaviorData = xmlDataService.BehaviorData;
 
             WeaponData.IsHeroParsing = true;
+            AbilityData.IsAbilityTypeFilterEnabled = true;
         }
 
         /// <summary>
@@ -609,16 +610,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "ABILARRAY")
                 {
-                    Ability ability = AbilityData.CreateAbility(hero.CUnitId, element);
-                    if (ability != null)
-                    {
-                        hero.AddAbility(ability);
-
-                        foreach (string unit in ability.CreatedUnits)
-                        {
-                            hero.AddUnit(unit);
-                        }
-                    }
+                    AddCreatedAbility(hero, element.Attribute("Link")?.Value);
                 }
                 else if (elementName == "WEAPONARRAY")
                 {
@@ -650,6 +642,26 @@ namespace HeroesData.Parser
                     if (element.Attribute("value")?.Value == "1")
                         hero.AddHeroDescriptor(descriptor);
                 }
+                else if (elementName == "CARDLAYOUTS")
+                {
+                    foreach (XElement cardLayoutElement in element.Elements())
+                    {
+                        string cardLayoutElementName = cardLayoutElement.Name.LocalName.ToUpper();
+
+                        if (cardLayoutElementName == "LAYOUTBUTTONS")
+                        {
+                            string passiveValue = cardLayoutElement.Attribute("Type")?.Value;
+                            string abilCmdValue = cardLayoutElement.Attribute("AbilCmd")?.Value;
+                            string requirementsValue = cardLayoutElement.Attribute("Requirements")?.Value;
+
+                            if (abilCmdValue.AsSpan().IsEmpty && passiveValue.AsSpan().Equals("passive", StringComparison.OrdinalIgnoreCase) && !requirementsValue.AsSpan().Equals("UltimateNotUnlocked", StringComparison.OrdinalIgnoreCase))
+                            {
+                                AddCreatedAbility(hero, cardLayoutElement.Attribute("Face")?.Value);
+                            }
+                        }
+                    }
+                }
+
                 //else if (elementName == "CARDLAYOUTS")
                 //{
                 //    foreach (XElement cardLayoutElement in element.Elements())
@@ -741,6 +753,20 @@ namespace HeroesData.Parser
             {
                 //if (removedAbility.Value)
                 //    hero.Abilities.Remove(removedAbility.Key);
+            }
+        }
+
+        private void AddCreatedAbility(Hero hero, string abilityId)
+        {
+            Ability ability = AbilityData.CreateAbility(hero.CUnitId, abilityId);
+            if (ability != null)
+            {
+                hero.AddAbility(ability);
+
+                foreach (string createUnit in ability.CreatedUnits)
+                {
+                    hero.AddUnit(createUnit);
+                }
             }
         }
     }

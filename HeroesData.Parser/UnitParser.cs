@@ -234,16 +234,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "ABILARRAY")
                 {
-                    Ability ability = AbilityData.CreateAbility(unit.CUnitId, element);
-                    if (ability != null)
-                    {
-                        unit.AddAbility(ability);
-
-                        foreach (string createUnit in ability.CreatedUnits)
-                        {
-                            unit.AddUnit(createUnit);
-                        }
-                    }
+                    AddCreatedAbility(unit, element.Attribute("Link")?.Value);
                 }
                 else if (elementName == "WEAPONARRAY")
                 {
@@ -267,6 +258,25 @@ namespace HeroesData.Parser
                     string link = BehaviorData.GetScalingBehaviorLink(element);
                     if (!string.IsNullOrEmpty(link))
                         unit.ScalingBehaviorLink = link;
+                }
+                else if (elementName == "CARDLAYOUTS")
+                {
+                    foreach (XElement cardLayoutElement in element.Elements())
+                    {
+                        string cardLayoutElementName = cardLayoutElement.Name.LocalName.ToUpper();
+
+                        if (cardLayoutElementName == "LAYOUTBUTTONS")
+                        {
+                            string passiveValue = cardLayoutElement.Attribute("Type")?.Value;
+                            string abilCmdValue = cardLayoutElement.Attribute("AbilCmd")?.Value;
+                            string requirementsValue = cardLayoutElement.Attribute("Requirements")?.Value;
+
+                            if (abilCmdValue.AsSpan().IsEmpty && passiveValue.AsSpan().Equals("passive", StringComparison.OrdinalIgnoreCase) && !requirementsValue.AsSpan().Equals("UltimateNotUnlocked", StringComparison.OrdinalIgnoreCase))
+                            {
+                                AddCreatedAbility(unit, cardLayoutElement.Attribute("Face")?.Value);
+                            }
+                        }
+                    }
                 }
             }
 
@@ -355,6 +365,20 @@ namespace HeroesData.Parser
                 items.Add(new string[] { id });
             else
                 items.Add(new string[] { id, mapName });
+        }
+
+        private void AddCreatedAbility(Unit unit, string abilityId)
+        {
+            Ability ability = AbilityData.CreateAbility(unit.CUnitId, abilityId);
+            if (ability != null)
+            {
+                unit.AddAbility(ability);
+
+                foreach (string createUnit in ability.CreatedUnits)
+                {
+                    unit.AddUnit(createUnit);
+                }
+            }
         }
     }
 }

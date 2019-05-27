@@ -131,37 +131,37 @@ namespace HeroesData.Parser.XmlData
         /// Create an ability.
         /// </summary>
         /// <param name="unitId">The id of the unit.</param>
-        /// <param name="abilityArrayElement">The AbilArray xml element.</param>
-        public Ability CreateAbility(string unitId, XElement abilityArrayElement)
+        /// <param name="abilityId">The ability id.</param>
+        public Ability CreateAbility(string unitId, string abilityId)
         {
-            string abilLink = abilityArrayElement?.Attribute("Link")?.Value;
-            if (string.IsNullOrEmpty(abilLink) || string.IsNullOrEmpty(unitId))
+            if (string.IsNullOrEmpty(abilityId))
                 return null;
 
             // abilities that we don't want
-            if (abilLink == "move" || abilLink == "stop" || abilLink == "attack" || abilLink == "Queue5Storm")
+            if (abilityId == "move" || abilityId == "stop" || abilityId == "attack" || abilityId == "Queue5Storm")
                 return null;
 
-            Ability ability = new Ability();
-
             // check if there's a passive ability associated with the current ability
-            string passiveButtonId = CheckAbilityPassive(unitId, abilLink);
-            if (string.IsNullOrEmpty(passiveButtonId))
+            if (HasPassiveAbility(unitId, abilityId))
+                return null;
+
+            IEnumerable<XElement> abilityElements = GetAbilityElements(abilityId);
+
+            Ability ability = new Ability
             {
-                IEnumerable<XElement> abilityElements = GetAbilityElements(abilLink);
-                if (!abilityElements.Any())
-                    return null;
+                ReferenceNameId = abilityId,
+            };
 
-                ability.ReferenceNameId = abilLink;
-
+            if (abilityElements.Any())
+            {
                 foreach (XElement element in abilityElements)
+                {
                     SetAbilityTalentData(element, ability);
+                }
             }
-            else // has passive ability
+            else
             {
-                ability.ReferenceNameId = passiveButtonId;
-
-                XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == passiveButtonId));
+                XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == abilityId));
 
                 if (buttonElement != null)
                     SetButtonData(buttonElement, ability);
@@ -177,6 +177,7 @@ namespace HeroesData.Parser.XmlData
             if (IsAbilityTypeFilterEnabled && AbilityType.Misc.HasFlag(ability.AbilityType) && ability.AbilityType != AbilityType.Unknown)
                 return null;
 
+            // set the ability tier
             SetAbilityTierFromAbilityType(ability);
 
             // if no reference id, return null
@@ -187,7 +188,6 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.ReferenceNameId), out string value))
                 ability.Name = value;
 
-            // TODO: RexxarUnleashTheBoarsUnit not appearing in output
             return ability;
         }
 
@@ -467,7 +467,9 @@ namespace HeroesData.Parser.XmlData
             return false;
         }
 
-        private string CheckAbilityPassive(string unitId, string abilId)
+        // check to see if there is a passive ability layout button associated with the current ability.
+        // if there is, then we can ignore the current ability
+        private bool HasPassiveAbility(string unitId, string abilId)
         {
             if (GameData.TryGetLayoutButtonElements(unitId, out List<XElement> layoutButtons))
             {
@@ -489,13 +491,13 @@ namespace HeroesData.Parser.XmlData
                         XElement passiveButtonElement = layoutButtons.FirstOrDefault(x => x.Attribute("Face")?.Value == faceValue && x.Attribute("Slot")?.Value == slotValue && x.Attribute("Type")?.Value == "Passive");
                         if (passiveButtonElement != null)
                         {
-                            return passiveButtonElement.Attribute("Face").Value;
+                            return true;
                         }
                     }
                 }
             }
 
-            return string.Empty;
+            return false;
         }
 
         // detect if the ability is one we want to keep

@@ -21,5 +21,11 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
                 }
             }
         }
+
+        [TestMethod]
+        public void PassiveAbilityExistsTests()
+        {
+            Assert.IsTrue(HeroGreymane.ContainsAbility("GreymaneWorgenForm"));
+        }
     }
 }
