@@ -172,6 +172,8 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Spray), "spray");
                 SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Voice), "voice");
                 SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.MapMechanic), "mapMechanic");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Interact), "interact");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Action), "action");
                 SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Unknown), "unknown");
             }
             else
@@ -187,6 +189,8 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Spray), "spray");
                 SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Voice), "voice");
                 SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.MapMechanic), "mapMechanic");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Interact), "interact");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Action), "action");
                 SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Unknown), "unknown");
             }
 

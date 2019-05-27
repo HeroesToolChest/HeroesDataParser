@@ -17,6 +17,8 @@ namespace HeroesData.Parser.XmlData
         {
         }
 
+        public bool IsAbilityTypeFilterEnabled { get; set; } = false;
+
         /// <summary>
         /// Adds hero's ability data from the ability xml element.
         /// </summary>
@@ -172,7 +174,7 @@ namespace HeroesData.Parser.XmlData
             SetAbilityType(unitId, ability);
 
             // if type is not a type we want, return
-            if (AbilityType.Misc.HasFlag(ability.AbilityType) && ability.AbilityType != AbilityType.Unknown)
+            if (IsAbilityTypeFilterEnabled && AbilityType.Misc.HasFlag(ability.AbilityType) && ability.AbilityType != AbilityType.Unknown)
                 return null;
 
             SetAbilityTierFromAbilityType(ability);
@@ -185,6 +187,7 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.ReferenceNameId), out string value))
                 ability.Name = value;
 
+            // TODO: RexxarUnleashTheBoarsUnit not appearing in output
             return ability;
         }
 
@@ -357,6 +360,12 @@ namespace HeroesData.Parser.XmlData
                 ability.Tier = AbilityTier.Voice;
             else if (ability.AbilityType == AbilityType.MapMechanic)
                 ability.Tier = AbilityTier.MapMechanic;
+            else if (ability.AbilityType == AbilityType.Interact)
+                ability.Tier = AbilityTier.Interact;
+            else if (ability.AbilityType == AbilityType.Attack || ability.AbilityType == AbilityType.Stop || ability.AbilityType == AbilityType.Hold || ability.AbilityType == AbilityType.Cancel | ability.AbilityType == AbilityType.ForceMove)
+                ability.Tier = AbilityTier.Action;
+            else
+                ability.Tier = AbilityTier.Unknown;
         }
 
         private XElement GetButtonElement(string buttonId)
@@ -497,7 +506,7 @@ namespace HeroesData.Parser.XmlData
             int index = abilCmdSpan.IndexOf(',');
 
             if (index > 0)
-                firstPartAbilCmdSpan = abilCmdSpan.Slice(0, abilCmdSpan.IndexOf(','));
+                firstPartAbilCmdSpan = abilCmdSpan.Slice(0, index);
             else
                 firstPartAbilCmdSpan = abilCmdSpan;
 

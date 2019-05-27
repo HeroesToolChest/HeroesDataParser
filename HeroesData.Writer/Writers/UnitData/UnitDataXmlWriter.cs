@@ -87,6 +87,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                     unit.SubAbilities(AbilityTier.Spray).Any() ? new XElement("Spray", unit.SubAbilities(AbilityTier.Spray).Select(x => AbilityTalentInfoElement(x))) : null,
                     unit.SubAbilities(AbilityTier.Voice).Any() ? new XElement("Voice", unit.SubAbilities(AbilityTier.Voice).Select(x => AbilityTalentInfoElement(x))) : null,
                     unit.SubAbilities(AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", unit.SubAbilities(AbilityTier.MapMechanic).Select(x => AbilityTalentInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Interact).Any() ? new XElement("Interact", unit.SubAbilities(AbilityTier.Interact).Select(x => AbilityTalentInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Action).Any() ? new XElement("Action", unit.SubAbilities(AbilityTier.Action).Select(x => AbilityTalentInfoElement(x))) : null,
                     unit.SubAbilities(AbilityTier.Unknown).Any() ? new XElement("Unknown", unit.SubAbilities(AbilityTier.Unknown).Select(x => AbilityTalentInfoElement(x))) : null);
             }
             else
@@ -104,6 +106,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                     unit.PrimaryAbilities(AbilityTier.Spray).Any() ? new XElement("Spray", unit.SubAbilities(AbilityTier.Spray).Select(x => AbilityTalentInfoElement(x))) : null,
                     unit.PrimaryAbilities(AbilityTier.Voice).Any() ? new XElement("Voice", unit.SubAbilities(AbilityTier.Voice).Select(x => AbilityTalentInfoElement(x))) : null,
                     unit.PrimaryAbilities(AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", unit.SubAbilities(AbilityTier.MapMechanic).Select(x => AbilityTalentInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Interact).Any() ? new XElement("Interact", unit.SubAbilities(AbilityTier.Interact).Select(x => AbilityTalentInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Action).Any() ? new XElement("Action", unit.SubAbilities(AbilityTier.Action).Select(x => AbilityTalentInfoElement(x))) : null,
                     unit.PrimaryAbilities(AbilityTier.Unknown).Any() ? new XElement("Unknown", unit.SubAbilities(AbilityTier.Unknown).Select(x => AbilityTalentInfoElement(x))) : null);
             }
         }
