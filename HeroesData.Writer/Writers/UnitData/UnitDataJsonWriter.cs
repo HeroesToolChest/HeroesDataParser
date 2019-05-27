@@ -44,6 +44,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 unitObject.Add(new JProperty("descriptors", unit.HeroDescriptors));
             if (unit.Attributes.Any())
                 unitObject.Add(new JProperty("attributes", unit.Attributes));
+            if (unit.Units.Any())
+                unitObject.Add(new JProperty("units", unit.Units));
             if (!string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName))
                 unitObject.Add("image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension));
 

@@ -56,16 +56,20 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 heroObject.Add("type", hero.Type);
             if (hero.Rarity.HasValue)
                 heroObject.Add("rarity", hero.Rarity.Value.ToString());
-            if (!string.IsNullOrEmpty(hero.MountLinkId))
-                heroObject.Add("mountLinkId", hero.MountLinkId);
-            if (!string.IsNullOrEmpty(hero.MountLinkId))
-                heroObject.Add("hearthLinkId", hero.HearthLinkId);
+            //if (!string.IsNullOrEmpty(hero.MountLinkId))
+            //    heroObject.Add("mountLinkId", hero.MountLinkId);
+            //if (!string.IsNullOrEmpty(hero.MountLinkId))
+            //    heroObject.Add("hearthLinkId", hero.HearthLinkId);
+            if (!string.IsNullOrEmpty(hero.ScalingBehaviorLink))
+                heroObject.Add(new JProperty("scalingLinkId", hero.ScalingBehaviorLink));
             if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(hero.SearchText))
                 heroObject.Add("searchText", hero.SearchText);
             if (!string.IsNullOrEmpty(hero.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add("description", GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
             if (hero.HeroDescriptors.Any())
                 heroObject.Add(new JProperty("descriptors", hero.HeroDescriptors));
+            if (hero.Units.Any())
+                heroObject.Add(new JProperty("units", hero.Units));
 
             JProperty portraits = HeroPortraits(hero);
             if (portraits != null)

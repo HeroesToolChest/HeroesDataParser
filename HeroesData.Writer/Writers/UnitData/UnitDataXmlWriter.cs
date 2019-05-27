@@ -35,6 +35,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 string.IsNullOrEmpty(unit.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType)),
                 unit.HeroDescriptors.Any() ? new XElement("Descriptors", unit.HeroDescriptors.Select(d => new XElement("Descriptor", d))) : null,
                 unit.Attributes.Any() ? new XElement("Attributes", unit.Attributes.Select(x => new XElement("Attribute", x))) : null,
+                unit.Units.Any() ? new XElement("Units", unit.Units.Select(x => new XElement("Unit", x))) : null,
                 string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName) ? null : new XElement("Image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension)),
                 UnitLife(unit),
                 UnitEnergy(unit),

@@ -138,7 +138,7 @@ namespace HeroesData.Parser.XmlData
                 return null;
 
             // abilities that we don't want
-            if (abilityId == "move" || abilityId == "stop" || abilityId == "attack" || abilityId == "Queue5Storm")
+            if (abilityId == "move" || abilityId == "stop" || abilityId == "attack" || abilityId == "Queue5Storm" || abilityId == "Que1Passive")
                 return null;
 
             // check if there's a passive ability associated with the current ability
