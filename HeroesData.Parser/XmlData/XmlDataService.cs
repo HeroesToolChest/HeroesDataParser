@@ -15,7 +15,6 @@ namespace HeroesData.Parser.XmlData
             AbilityData = new AbilityData(GameData, DefaultData, Configuration);
             TalentData = new TalentData(GameData, DefaultData, Configuration);
             BehaviorData = new BehaviorData(gameData);
-            EffectData = new EffectData(gameData);
         }
 
         public Configuration Configuration { get; }
@@ -34,6 +33,9 @@ namespace HeroesData.Parser.XmlData
 
         public BehaviorData BehaviorData { get; }
 
-        public EffectData EffectData { get; }
+        public XmlDataService GetInstance()
+        {
+            return new XmlDataService(Configuration, GameData, DefaultData);
+        }
     }
 }

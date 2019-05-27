@@ -38,10 +38,13 @@
   <XmlElementLookup>
     <Type name="Abil">
       <Element>CAbilAugment</Element>
+      <Element>CAbilAttack</Element>
       <Element>CAbilBehavior</Element>
       <Element>CAbilEffectInstant</Element>
       <Element>CAbilEffectTarget</Element>
       <Element>CAbilMorph</Element>
+      <Element>CAbilMove</Element>
+      <Element>CAbilStop</Element>
     </Type>
     <Type name="Accumulator">
       <Element>CAccumulatorDistance</Element>

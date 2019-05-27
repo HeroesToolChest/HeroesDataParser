@@ -463,3 +463,5 @@ Button/Name/ThrallWindRush=Wind Rush
 Button/Name/ThrallWindStalker=Wind Stalker
 Button/Name/ThrallWindStalkerToken=Wind Stalker
 Button/Name/ThrallWorldbreakerTalent=Worldbreaker
+
+Button/Name/Hearthstone=Hearthstone

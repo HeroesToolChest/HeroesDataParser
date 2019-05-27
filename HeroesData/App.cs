@@ -668,18 +668,18 @@ namespace HeroesData
         {
             IXmlDataService xmlDataService = new XmlDataService(Configuration, GameData, DefaultData);
 
-            DataHero dataHero = new DataHero(new HeroDataParser(xmlDataService, (HeroOverrideLoader)XmlDataOverriders.GetOverrider(typeof(HeroDataParser))));
-            DataUnit dataUnit = new DataUnit(new UnitParser(xmlDataService, (UnitOverrideLoader)XmlDataOverriders.GetOverrider(typeof(UnitParser))));
-            DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(xmlDataService, (MatchAwardOverrideLoader)XmlDataOverriders.GetOverrider(typeof(MatchAwardParser))));
-            DataHeroSkin dataHeroSkin = new DataHeroSkin(new HeroSkinParser(xmlDataService));
-            DataMount dataMount = new DataMount(new MountParser(xmlDataService));
-            DataBanner dataBanner = new DataBanner(new BannerParser(xmlDataService));
-            DataSpray dataSpray = new DataSpray(new SprayParser(xmlDataService));
-            DataAnnouncer dataAnnouncer = new DataAnnouncer(new AnnouncerParser(xmlDataService));
-            DataVoiceLine dataVoiceLine = new DataVoiceLine(new VoiceLineParser(xmlDataService));
-            DataPortrait dataPortrait = new DataPortrait(new PortraitParser(xmlDataService));
-            DataEmoticon dataEmoticon = new DataEmoticon(new EmoticonParser(xmlDataService));
-            DataEmoticonPack dataEmoticonPack = new DataEmoticonPack(new EmoticonPackParser(xmlDataService));
+            DataHero dataHero = new DataHero(new HeroDataParser(xmlDataService.GetInstance(), (HeroOverrideLoader)XmlDataOverriders.GetOverrider(typeof(HeroDataParser))));
+            DataUnit dataUnit = new DataUnit(new UnitParser(xmlDataService.GetInstance(), (UnitOverrideLoader)XmlDataOverriders.GetOverrider(typeof(UnitParser))));
+            DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(xmlDataService.GetInstance(), (MatchAwardOverrideLoader)XmlDataOverriders.GetOverrider(typeof(MatchAwardParser))));
+            DataHeroSkin dataHeroSkin = new DataHeroSkin(new HeroSkinParser(xmlDataService.GetInstance()));
+            DataMount dataMount = new DataMount(new MountParser(xmlDataService.GetInstance()));
+            DataBanner dataBanner = new DataBanner(new BannerParser(xmlDataService.GetInstance()));
+            DataSpray dataSpray = new DataSpray(new SprayParser(xmlDataService.GetInstance()));
+            DataAnnouncer dataAnnouncer = new DataAnnouncer(new AnnouncerParser(xmlDataService.GetInstance()));
+            DataVoiceLine dataVoiceLine = new DataVoiceLine(new VoiceLineParser(xmlDataService.GetInstance()));
+            DataPortrait dataPortrait = new DataPortrait(new PortraitParser(xmlDataService.GetInstance()));
+            DataEmoticon dataEmoticon = new DataEmoticon(new EmoticonParser(xmlDataService.GetInstance()));
+            DataEmoticonPack dataEmoticonPack = new DataEmoticonPack(new EmoticonPackParser(xmlDataService.GetInstance()));
 
             ImageHero filesHero = new ImageHero(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageUnit filesUnit = new ImageUnit(CASCHotsStorage?.CASCHandler, StoragePath);

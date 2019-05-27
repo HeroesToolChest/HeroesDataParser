@@ -26,6 +26,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             // ability button is pointed to demon lieutenant
             Assert.AreEqual("Demon Lieutenant", ability1.Name);
             Assert.AreEqual("Cooldown: 7 seconds", ability1.Tooltip.Cooldown.CooldownTooltip.PlainText);
+            Assert.AreEqual(AbilityType.Unknown, ability1.AbilityType);
         }
     }
 }

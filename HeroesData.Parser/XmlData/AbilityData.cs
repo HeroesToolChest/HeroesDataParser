@@ -136,19 +136,26 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(abilLink) || string.IsNullOrEmpty(unitId))
                 return null;
 
+            // abilities that we don't want
+            if (abilLink == "move" || abilLink == "stop" || abilLink == "attack" || abilLink == "Queue5Storm")
+                return null;
+
             Ability ability = new Ability();
 
+            // check if there's a passive ability associated with the current ability
             string passiveButtonId = CheckAbilityPassive(unitId, abilLink);
             if (string.IsNullOrEmpty(passiveButtonId))
             {
+                IEnumerable<XElement> abilityElements = GetAbilityElements(abilLink);
+                if (!abilityElements.Any())
+                    return null;
+
                 ability.ReferenceNameId = abilLink;
 
-                foreach (XElement element in GetAbilityElements(abilLink))
-                {
+                foreach (XElement element in abilityElements)
                     SetAbilityTalentData(element, ability);
-                }
             }
-            else
+            else // has passive ability
             {
                 ability.ReferenceNameId = passiveButtonId;
 
@@ -159,52 +166,26 @@ namespace HeroesData.Parser.XmlData
             }
 
             // default
-            ability.Tier = AbilityTier.Activable;
+            ability.Tier = AbilityTier.Unknown;
 
             // set the ability type
             SetAbilityType(unitId, ability);
 
             // if type is not a type we want, return
-            if (AbilityType.Misc.HasFlag(ability.AbilityType))
+            if (AbilityType.Misc.HasFlag(ability.AbilityType) && ability.AbilityType != AbilityType.Unknown)
                 return null;
 
             SetAbilityTierFromAbilityType(ability);
 
+            // if no reference id, return null
+            if (string.IsNullOrEmpty(ability.ReferenceNameId))
+                return null;
+
+            // if no name was set, then use the ability name
+            if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.ReferenceNameId), out string value))
+                ability.Name = value;
+
             return ability;
-
-            //// add ability
-            //if (!unit.Abilities.ContainsKey(ability.ReferenceNameId))
-            //    unit.Abilities.Add(ability.ReferenceNameId, ability);
-
-            //XElement buttonElement = GetButtonElement(abilLink);
-            //if (buttonElement == null)
-            //    return;
-
-            //string buttonId = buttonElement.Attribute("id").Value;
-
-            //Ability ability = new Ability()
-            //{
-            //    FullTooltipNameId = string.IsNullOrEmpty(buttonId) ? abilLink : buttonId,
-            //    ButtonName = string.IsNullOrEmpty(buttonId) ? abilLink : buttonId,
-            //    ReferenceNameId = abilLink,
-            //};
-
-            //// default
-            //ability.Tier = AbilityTier.Activable;
-
-            //SetAbilityType(unit, ability);
-
-            //if (AbilityType.Misc.HasFlag(ability.AbilityType))
-            //    return;
-
-            //SetAbilityTierFromAbilityType(ability);
-            //SetTooltipCostData(ability.ReferenceNameId, ability);
-            //SetTooltipDescriptions(ability);
-            //SetTooltipOverrideData(buttonElement, ability);
-
-            //// add ability
-            //if (!unit.Abilities.ContainsKey(ability.ReferenceNameId))
-            //    unit.Abilities.Add(ability.ReferenceNameId, ability);
         }
 
         /// <summary>
@@ -312,7 +293,7 @@ namespace HeroesData.Parser.XmlData
             string layoutId = !string.IsNullOrEmpty(ability.ParentLink) ? ability.ParentLink : unitId;
 
             if (!SetAbilityTypeFromLayout(unitId, ability, GameData.GetLayoutButtonElements(layoutId)) && !SetAbilityTypeFromLayout(unitId, ability, GameData.GetLayoutButtonElements()))
-                ability.AbilityType = AbilityType.Active;
+                ability.AbilityType = AbilityType.Unknown;
         }
 
         private void SetAbilityTypeFromSlot(string slot, string unitId, Ability ability)
@@ -436,15 +417,14 @@ namespace HeroesData.Parser.XmlData
         private bool SetAbilityTypeFromLayout(string unitId, Ability ability, ICollection<XElement> layoutButtonElements)
         {
             // check the face attribute
-            XElement layoutButton = layoutButtonElements?.FirstOrDefault(x => (x.Attribute("Face")?.Value == ability.ReferenceNameId) &&
-                x.Attribute("Slot")?.Value != "Cancel" && x.Attribute("Slot")?.Value != "Hearth");
+            XElement layoutButton = layoutButtonElements?.FirstOrDefault(x => (x.Attribute("Face")?.Value == ability.ReferenceNameId));
 
             // check the abilcmd attribute
             if (layoutButton == null)
             {
                 layoutButton = layoutButtonElements?.FirstOrDefault(x =>
                 {
-                    return IsValidAbilityCommand(x.Attribute("Slot")?.Value, x.Attribute("AbilCmd")?.Value, ability);
+                    return IsValidAbilityCommand(x.Attribute("AbilCmd")?.Value, ability.ReferenceNameId);
                 });
             }
 
@@ -456,15 +436,14 @@ namespace HeroesData.Parser.XmlData
             else // was not found for attributes check as elements
             {
                 // check the face element value
-                layoutButton = layoutButtonElements?.Where(x => x.HasElements).FirstOrDefault(x => (x.Element("Face")?.Attribute("value")?.Value == ability.ReferenceNameId) &&
-                    x.Element("Slot")?.Attribute("value")?.Value != "Cancel" && x.Element("Slot")?.Attribute("value")?.Value != "Hearth");
+                layoutButton = layoutButtonElements?.Where(x => x.HasElements).FirstOrDefault(x => (x.Element("Face")?.Attribute("value")?.Value == ability.ReferenceNameId));
 
                 // check the abilcmd element value
                 if (layoutButton == null)
                 {
                     layoutButton = layoutButtonElements?.Where(x => x.HasElements).FirstOrDefault(x =>
                     {
-                        return IsValidAbilityCommand(x.Element("Slot")?.Attribute("value")?.Value, x.Element("AbilCmd")?.Attribute("value")?.Value, ability);
+                        return IsValidAbilityCommand(x.Element("AbilCmd")?.Attribute("value")?.Value, ability.ReferenceNameId);
                     });
                 }
 
@@ -486,11 +465,7 @@ namespace HeroesData.Parser.XmlData
                 // find current
                 XElement abilLayoutButton = layoutButtons.FirstOrDefault(x =>
                 {
-                    string abilCmdValue = x.Attribute("AbilCmd")?.Value;
-                    if (!string.IsNullOrEmpty(abilCmdValue) && abilCmdValue.StartsWith(abilId))
-                        return true;
-                    else
-                        return false;
+                    return IsValidAbilityCommand(x.Attribute("AbilCmd")?.Value, abilId);
                 });
 
                 if (abilLayoutButton != null)
@@ -515,15 +490,18 @@ namespace HeroesData.Parser.XmlData
         }
 
         // detect if the ability is one we want to keep
-        private bool IsValidAbilityCommand(string slot, string abilCmd, Ability ability)
+        private bool IsValidAbilityCommand(string abilCmd, string abilityId)
         {
-            if (slot != "Cancel" && !string.IsNullOrEmpty(abilCmd))
-            {
-                if (abilCmd.StartsWith(ability.ReferenceNameId))
-                    return true;
-            }
+            ReadOnlySpan<char> abilCmdSpan = abilCmd.AsSpan();
+            ReadOnlySpan<char> firstPartAbilCmdSpan;
+            int index = abilCmdSpan.IndexOf(',');
 
-            return false;
+            if (index > 0)
+                firstPartAbilCmdSpan = abilCmdSpan.Slice(0, abilCmdSpan.IndexOf(','));
+            else
+                firstPartAbilCmdSpan = abilCmdSpan;
+
+            return firstPartAbilCmdSpan.Equals(abilityId, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

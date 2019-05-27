@@ -34,6 +34,8 @@ namespace HeroesData.Parser
             AbilityData = xmlDataService.AbilityData;
             TalentData = xmlDataService.TalentData;
             BehaviorData = xmlDataService.BehaviorData;
+
+            WeaponData.IsHeroParsing = true;
         }
 
         /// <summary>

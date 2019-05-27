@@ -28,10 +28,14 @@
       <Element>CBehaviorUnitTracker</Element>
     </Type>
     <Type name="Abil">
-      <Element>CAbilEffectTarget</Element>
-      <Element>CAbilEffectInstant</Element>
       <Element>CAbilAugment</Element>
+      <Element>CAbilAttack</Element>
       <Element>CAbilBehavior</Element>
+      <Element>CAbilEffectInstant</Element>
+      <Element>CAbilEffectTarget</Element>
+      <Element>CAbilMorph</Element>
+      <Element>CAbilMove</Element>
+      <Element>CAbilStop</Element>
     </Type>
     <Type name="Effect">
       <Element>CEffectApplyBehavior</Element>

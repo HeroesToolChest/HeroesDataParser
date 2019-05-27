@@ -60,6 +60,9 @@ namespace HeroesData.Parser.XmlData
                     SetAbilityTalentData(parentElement, abilityTalentBase);
             }
 
+            if (parentValue == "attack")
+                abilityTalentBase.ReferenceNameId = string.Empty;
+
             // look through all elements to set all the data
             foreach (XElement element in abilityElement.Elements())
             {
@@ -88,6 +91,11 @@ namespace HeroesData.Parser.XmlData
                             abilityTalentBase.AddCreatedUnit(elementValue);
                         }
                     }
+                }
+                else if (elementName == "NAME") // ability name
+                {
+                    if (string.IsNullOrEmpty(abilityTalentBase.Name) && GameData.TryGetGameString(element.Attribute("value")?.Value, out string value))
+                        abilityTalentBase.Name = value;
                 }
             }
         }
@@ -277,7 +285,7 @@ namespace HeroesData.Parser.XmlData
             abilityTalentBase.Name = GameData.GetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId));
 
             if (string.IsNullOrEmpty(abilityTalentBase.Name))
-                abilityTalentBase.Name = GameData.GetGameString(DefaultData.AbilData.ButtonName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId));
+                abilityTalentBase.Name = GameData.GetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId));
 
             abilityTalentBase.ShortTooltipNameId = abilityTalentBase.FullTooltipNameId; // default
 
@@ -612,6 +620,11 @@ namespace HeroesData.Parser.XmlData
         {
             string defaultButtonFace = cmdButtonArrayElement.Attribute("DefaultButtonFace")?.Value;
             string requirements = cmdButtonArrayElement.Attribute("Requirements")?.Value;
+
+            if (string.IsNullOrEmpty(defaultButtonFace))
+                defaultButtonFace = cmdButtonArrayElement.Element("DefaultButtonFace")?.Attribute("value")?.Value;
+            if (string.IsNullOrEmpty(requirements))
+                requirements = cmdButtonArrayElement.Element("Requirements")?.Attribute("value")?.Value;
 
             if (!string.IsNullOrEmpty(defaultButtonFace))
             {

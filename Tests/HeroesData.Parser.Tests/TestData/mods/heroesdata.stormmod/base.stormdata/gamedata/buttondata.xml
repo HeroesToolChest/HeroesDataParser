@@ -64,4 +64,7 @@
   <CButton id="GenericExecutionerTalent" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_talent_autoattack_damage.dds" />
   </CButton>
+  <CButton id="Hearthstone" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_miscrune_1.dds" />
+  </CButton>
 </Catalog>

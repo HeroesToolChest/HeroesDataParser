@@ -172,6 +172,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Spray), "spray");
                 SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Voice), "voice");
                 SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.MapMechanic), "mapMechanic");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Unknown), "unknown");
             }
             else
             {
@@ -186,6 +187,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Spray), "spray");
                 SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Voice), "voice");
                 SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.MapMechanic), "mapMechanic");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Unknown), "unknown");
             }
 
             return new JProperty("abilities", abilityObject);
@@ -238,7 +240,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 { "nameId", abilityTalentBase.ReferenceNameId },
             };
 
-            if (!FileOutputOptions.IsLocalizedText)
+            if (!string.IsNullOrEmpty(abilityTalentBase.Name) && !FileOutputOptions.IsLocalizedText)
                 info.Add("name", abilityTalentBase.Name);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.ShortTooltipNameId))

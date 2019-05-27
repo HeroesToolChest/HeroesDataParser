@@ -17,16 +17,19 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Parse();
         }
 
+        protected Unit DVaMechPlacementDummy { get; set; }
+        protected Unit AlexstraszaLifeblossomGiftOfLife { get; set; }
         protected Unit ZagaraHydralisk { get; set; }
         protected Unit TownCannonTowerL2 { get; set; }
         protected Unit VolskayaVehicle { get; set; }
-        protected Unit AlteracpassAllianceCavalry { get; set; }
         protected Unit BraxisHoldoutTerranArchangelLaner { get; set; }
         protected Unit AzmodanDemonLieutenant { get; set; }
         protected Unit HanamuraMercDefenderSentinel { get; set; }
         protected Unit MercDefenderSentinel { get; set; }
         protected Unit OverwatchDataMercDefenderMeleeBruiser { get; set; }
         protected Unit VolskayaDataVolskayaVehicleGunner { get; set; }
+        protected Unit AlteracpassAllianceCavalry { get; set; }
+        protected Unit AlteracpassCapturedSoldier { get; set; }
 
         [TestMethod]
         public void GetItemsTest()
@@ -44,6 +47,8 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         private void Parse()
         {
             UnitParser unitParser = new UnitParser(XmlDataService, UnitOverrideLoader);
+            DVaMechPlacementDummy = unitParser.Parse("DVaMechPlacementDummy");
+            AlexstraszaLifeblossomGiftOfLife = unitParser.Parse("AlexstraszaLifeblossomGiftOfLife");
             AzmodanDemonLieutenant = unitParser.Parse("AzmodanDemonLieutenant");
             ZagaraHydralisk = unitParser.Parse("ZagaraHydralisk");
             TownCannonTowerL2 = unitParser.Parse("TownCannonTowerL2");
@@ -60,6 +65,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         private void ParseAlteracPassData(UnitParser unitParser)
         {
             GameData.AppendGameData(GameData.GetMapGameData("alteracpass.stormmod"));
+            AlteracpassCapturedSoldier = unitParser.Parse("CapturedSoldier", "alteracpass.stormmod");
             AlteracpassAllianceCavalry = unitParser.Parse("AllianceCavalry", "alteracpass.stormmod");
             GameData.RestoreGameData();
         }

@@ -30,6 +30,11 @@ namespace HeroesData.Parser.XmlData
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Gets or sets if the parsing is for hero units.
+        /// </summary>
+        public bool IsHeroParsing { get; set; } = false;
+
         public UnitWeapon CreateWeapon(XElement weaponArrayElement)
         {
             string weaponLink = weaponArrayElement.Attribute("Link")?.Value;
@@ -199,7 +204,7 @@ namespace HeroesData.Parser.XmlData
                 {
                     string indexValue = element.Attribute("index")?.Value;
                     string value = element.Attribute("value")?.Value;
-                    if (!string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(value) && indexValue.Equals("disabled", StringComparison.OrdinalIgnoreCase) && value == "1")
+                    if (IsHeroParsing && !string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(value) && indexValue.Equals("disabled", StringComparison.OrdinalIgnoreCase) && value == "1")
                     {
                         weapon.WeaponNameId = string.Empty;
                         return;

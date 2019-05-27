@@ -17,9 +17,9 @@ namespace HeroesData.Parser.XmlData
         }
 
         /// <summary>
-        /// Gets the default button name text. Contains ##id##.
+        /// Gets the default abil name text. Contains ##id##.
         /// </summary>
-        public string ButtonName { get; private set; }
+        public string AbilName { get; private set; }
 
         // <CAbil default="1">
         protected void LoadCAbilDefault()
@@ -35,7 +35,7 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "NAME")
                 {
-                    ButtonName = element.Attribute("value").Value;
+                    AbilName = element.Attribute("value").Value;
                 }
             }
         }
