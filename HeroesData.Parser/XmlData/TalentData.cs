@@ -4,6 +4,7 @@ using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Exceptions;
 using HeroesData.Parser.Overrides.DataOverrides;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -12,7 +13,7 @@ namespace HeroesData.Parser.XmlData
 {
     public class TalentData : AbilityTalentData
     {
-        private readonly Dictionary<string, HashSet<string>> AbilityTalentIdsByTalentIdUpgrade = new Dictionary<string, HashSet<string>>();
+        private readonly ConcurrentDictionary<string, HashSet<string>> AbilityTalentIdsByTalentIdUpgrade = new ConcurrentDictionary<string, HashSet<string>>();
 
         public TalentData(GameData gameData, DefaultData defaultData, Configuration configuration)
             : base(gameData, defaultData, configuration)
@@ -277,7 +278,7 @@ namespace HeroesData.Parser.XmlData
                 if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
                     AbilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(abilityTalentId);
                 else
-                    AbilityTalentIdsByTalentIdUpgrade.Add(talentReferenceNameId, new HashSet<string>(StringComparer.OrdinalIgnoreCase) { abilityTalentId });
+                    AbilityTalentIdsByTalentIdUpgrade.TryAdd(talentReferenceNameId, new HashSet<string>(StringComparer.OrdinalIgnoreCase) { abilityTalentId });
             }
         }
 
@@ -344,7 +345,7 @@ namespace HeroesData.Parser.XmlData
                 else if (elementName == "TRAIT")
                 {
                     string traitValue = element.Attribute("value")?.Value;
-                    if (!string.IsNullOrEmpty(traitValue) && traitValue == "1")
+                    if (traitValue == "1")
                         talent.AbilityType = AbilityType.Trait;
                 }
                 else if (elementName == "ABIL")
@@ -375,7 +376,7 @@ namespace HeroesData.Parser.XmlData
                 {
                     string activeValue = element.Attribute("value")?.Value;
 
-                    if (!string.IsNullOrEmpty(activeValue) && activeValue == "1")
+                    if (activeValue == "1")
                     {
                         talent.IsActive = true;
 

@@ -301,21 +301,23 @@ namespace HeroesData.Parser.XmlData
 
         private void SetAbilityTypeFromSlot(string slot, string unitId, Ability ability)
         {
-            if (string.IsNullOrEmpty(slot))
+            ReadOnlySpan<char> slotSpan = slot.AsSpan();
+
+            if (slotSpan.IsEmpty)
                 ability.AbilityType = AbilityType.Attack;
-            else if (slot.AsSpan().StartsWith("ABILITY1", StringComparison.OrdinalIgnoreCase))
+            else if (slotSpan.StartsWith("ABILITY1", StringComparison.OrdinalIgnoreCase))
                 ability.AbilityType = AbilityType.Q;
-            else if (slot.AsSpan().StartsWith("ABILITY2", StringComparison.OrdinalIgnoreCase))
+            else if (slotSpan.StartsWith("ABILITY2", StringComparison.OrdinalIgnoreCase))
                 ability.AbilityType = AbilityType.W;
-            else if (slot.AsSpan().StartsWith("ABILITY3", StringComparison.OrdinalIgnoreCase))
+            else if (slotSpan.StartsWith("ABILITY3", StringComparison.OrdinalIgnoreCase))
                 ability.AbilityType = AbilityType.E;
-            else if (slot.AsSpan().StartsWith("MOUNT", StringComparison.OrdinalIgnoreCase))
+            else if (slotSpan.StartsWith("MOUNT", StringComparison.OrdinalIgnoreCase))
                 ability.AbilityType = AbilityType.Z;
-            else if (slot.AsSpan().StartsWith("HEROIC", StringComparison.OrdinalIgnoreCase))
+            else if (slotSpan.StartsWith("HEROIC", StringComparison.OrdinalIgnoreCase))
                 ability.AbilityType = AbilityType.Heroic;
-            else if (slot.AsSpan().StartsWith("HEARTH", StringComparison.OrdinalIgnoreCase))
+            else if (slotSpan.StartsWith("HEARTH", StringComparison.OrdinalIgnoreCase))
                 ability.AbilityType = AbilityType.B;
-            else if (slot.AsSpan().StartsWith("TRAIT", StringComparison.OrdinalIgnoreCase))
+            else if (slotSpan.StartsWith("TRAIT", StringComparison.OrdinalIgnoreCase))
                 ability.AbilityType = AbilityType.Trait;
             else if (Enum.TryParse(slot, true, out AbilityType abilityType))
                 ability.AbilityType = abilityType;

@@ -42,8 +42,7 @@ namespace HeroesData.ExtractorData
 
             // parse all the heroes
             Console.Write($"\r{currentCount,6} / {heroes.Count} total {Name}");
-            // TODO: re-add max parallelism
-            Parallel.ForEach(heroes, new ParallelOptions { MaxDegreeOfParallelism = 1 }, hero =>
+            Parallel.ForEach(heroes, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, hero =>
             {
                 try
                 {
