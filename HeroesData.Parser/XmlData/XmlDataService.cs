@@ -9,12 +9,6 @@ namespace HeroesData.Parser.XmlData
             Configuration = configuration;
             GameData = gameData;
             DefaultData = defaultData;
-
-            WeaponData = new WeaponData(GameData, DefaultData, Configuration);
-            ArmorData = new ArmorData(GameData);
-            AbilityData = new AbilityData(GameData, DefaultData, Configuration);
-            TalentData = new TalentData(GameData, DefaultData, Configuration);
-            BehaviorData = new BehaviorData(gameData);
         }
 
         public Configuration Configuration { get; }
@@ -23,15 +17,35 @@ namespace HeroesData.Parser.XmlData
 
         public DefaultData DefaultData { get; }
 
-        public WeaponData WeaponData { get; }
+        /// <summary>
+        /// Gets a new instance of <see cref="WeaponData"/>.
+        /// </summary>
+        public WeaponData WeaponData => new WeaponData(GameData, DefaultData, Configuration);
 
-        public ArmorData ArmorData { get; }
+        /// <summary>
+        /// Gets a new instance of <see cref="ArmorData"/>.
+        /// </summary>
+        public ArmorData ArmorData => new ArmorData(GameData);
 
-        public AbilityData AbilityData { get; }
+        /// <summary>
+        /// Gets a new instance of <see cref="AbilityData"/>.
+        /// </summary>
+        public AbilityData AbilityData => new AbilityData(GameData, DefaultData, Configuration);
 
-        public TalentData TalentData { get; }
+        /// <summary>
+        /// Gets a new instance of <see cref="TalentData"/>.
+        /// </summary>
+        public TalentData TalentData => new TalentData(GameData, DefaultData, Configuration);
 
-        public BehaviorData BehaviorData { get; }
+        /// <summary>
+        /// Gets a new instance of <see cref="BehaviorData"/>.
+        /// </summary>
+        public BehaviorData BehaviorData => new BehaviorData(GameData);
+
+        /// <summary>
+        /// Gets a new instance of <see cref="UnitData"/>.
+        /// </summary>
+        public UnitData UnitData => new UnitData(GameData, DefaultData, Configuration, WeaponData, ArmorData, AbilityData, BehaviorData);
 
         public XmlDataService GetInstance()
         {

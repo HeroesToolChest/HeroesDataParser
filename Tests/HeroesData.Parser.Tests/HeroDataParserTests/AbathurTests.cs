@@ -14,7 +14,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Assert.AreEqual(0, HeroAbathur.Energy.EnergyMax);
             Assert.AreEqual(HeroFranchise.Starcraft, HeroAbathur.Franchise);
-            Assert.AreEqual(HeroGender.Neutral, HeroAbathur.Gender);
+            Assert.AreEqual(UnitGender.Neutral, HeroAbathur.Gender);
             Assert.AreEqual("storm_ui_ingame_heroselect_btn_infestor.dds", HeroAbathur.HeroPortrait.HeroSelectPortraitFileName);
             Assert.AreEqual("Abathur, the Evolution Master of Kerrigan's Swarm, works ceaselessly to improve the zerg from the genetic level up. His hate for chaos and imperfection almost rivals his hatred of pronouns.", HeroAbathur.InfoText);
             Assert.AreEqual("Evolution Master", HeroAbathur.Title);
@@ -36,6 +36,13 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             List<string> units = HeroAbathur.Units.ToList();
 
             Assert.AreEqual(5, units.Count);
+        }
+
+        [TestMethod]
+        public void TalentTests()
+        {
+            Talent talent = HeroAbathur.GetTalent("AbathurMasteryPressurizedGlands");
+            Assert.AreEqual(AbilityType.W, talent.AbilityType);
         }
     }
 }

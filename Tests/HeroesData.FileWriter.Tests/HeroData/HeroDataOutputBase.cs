@@ -80,7 +80,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 CUnitId = "Alar",
                 Difficulty = "Hard",
                 Franchise = HeroFranchise.Starcraft,
-                Gender = HeroGender.Male,
+                Gender = UnitGender.Male,
                 Title = "Highlord",
                 Radius = 0.875,
                 ReleaseDate = new DateTime(2016, 9, 13),

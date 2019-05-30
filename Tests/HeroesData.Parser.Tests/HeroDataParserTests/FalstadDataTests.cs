@@ -39,7 +39,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual("Fals", HeroFalstad.AttributeId);
             Assert.AreEqual("Medium", HeroFalstad.Difficulty);
             Assert.AreEqual(HeroFranchise.Warcraft, HeroFalstad.Franchise);
-            Assert.AreEqual(HeroGender.Male, HeroFalstad.Gender);
+            Assert.AreEqual(UnitGender.Male, HeroFalstad.Gender);
             Assert.AreEqual(0.8125, HeroFalstad.InnerRadius);
             Assert.AreEqual(0.8125, HeroFalstad.Radius);
             Assert.AreEqual("2014-03-13", HeroFalstad.ReleaseDate.Value.ToString("yyyy-MM-dd"));

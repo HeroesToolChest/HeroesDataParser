@@ -15,6 +15,9 @@ namespace HeroesData.Parser
         /// <returns></returns>
         public static double GetDoubleValue(string id, XElement element, GameData gameData)
         {
+            if (element == null || gameData == null)
+                throw new ArgumentNullException();
+
             if (double.TryParse(gameData.GetValueFromAttribute(element.Attribute("value").Value), out double value))
                 return value;
             else

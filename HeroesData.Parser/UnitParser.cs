@@ -16,10 +16,7 @@ namespace HeroesData.Parser
     public class UnitParser : ParserBase<Unit, UnitDataOverride>, IParser<Unit, UnitParser>
     {
         private readonly UnitOverrideLoader UnitOverrideLoader;
-        private readonly WeaponData WeaponData;
-        private readonly ArmorData ArmorData;
-        private readonly AbilityData AbilityData;
-        private readonly BehaviorData BehaviorData;
+        private readonly UnitData UnitData;
 
         private readonly HashSet<string> ValidParents = new HashSet<string>();
 
@@ -29,10 +26,9 @@ namespace HeroesData.Parser
             : base(xmlDataService)
         {
             UnitOverrideLoader = unitOverrideLoader;
-            WeaponData = xmlDataService.WeaponData;
-            ArmorData = xmlDataService.ArmorData;
-            AbilityData = xmlDataService.AbilityData;
-            BehaviorData = xmlDataService.BehaviorData;
+            UnitData = xmlDataService.UnitData;
+
+            UnitData.Localization = Localization;
         }
 
         public override HashSet<string[]> Items
@@ -41,10 +37,10 @@ namespace HeroesData.Parser
             {
                 HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
 
-                List<string> addIds = Configuration.AddDataXmlElementIds("CUnit").ToList();
-                List<string> removeIds = Configuration.RemoveDataXmlElementIds("CUnit").ToList();
+                List<string> addIds = Configuration.AddDataXmlElementIds(ElementType).ToList();
+                List<string> removeIds = Configuration.RemoveDataXmlElementIds(ElementType).ToList();
 
-                IEnumerable<XElement> cUnitElements = GameData.Elements("CUnit").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
+                IEnumerable<XElement> cUnitElements = GameData.Elements(ElementType).Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
 
                 AddItems(GeneralMapName, cUnitElements, items, addIds, removeIds);
 
@@ -54,7 +50,7 @@ namespace HeroesData.Parser
                     if (Configuration.RemoveDataXmlElementIds("MapStormmod").Contains(mapName))
                         continue;
 
-                    cUnitElements = GameData.GetMapGameData(mapName).Elements("CUnit").Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
+                    cUnitElements = GameData.GetMapGameData(mapName).Elements(ElementType).Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
 
                     AddItems(mapName, cUnitElements, items, addIds, removeIds);
                 }
@@ -87,10 +83,6 @@ namespace HeroesData.Parser
                 CUnitId = id,
             };
 
-            XElement unitElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
-            if (unitElement == null)
-                return null;
-
             if (mapNameId != GeneralMapName) // map specific unit
             {
                 UnitDataOverride = UnitOverrideLoader.GetOverride($"{mapNameId}-{id}") ?? new UnitDataOverride();
@@ -101,13 +93,10 @@ namespace HeroesData.Parser
                 UnitDataOverride = UnitOverrideLoader.GetOverride(unit.Id) ?? new UnitDataOverride();
             }
 
-            AbilityData.Localization = Localization;
-            AbilityData.UnitDataOverride = UnitDataOverride;
-
             SetDefaultValues(unit);
             CActorData(unit);
 
-            SetUnitData(unitElement, unit);
+            UnitData.SetUnitData(unit);
 
             // set the hyperlinkId to id if it doesn't have one
             if (string.IsNullOrEmpty(unit.HyperlinkId))
@@ -149,142 +138,6 @@ namespace HeroesData.Parser
             string parent = element.Attribute("parent")?.Value;
 
             return !string.IsNullOrEmpty(parent) && ValidParents.Contains(parent) && !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal);
-        }
-
-        private void SetUnitData(XElement unitElement, Unit unit)
-        {
-            if (unitElement == null)
-                return;
-
-            // parent lookup
-            string parentValue = unitElement.Attribute("parent")?.Value;
-            if (!string.IsNullOrEmpty(parentValue))
-            {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
-                if (parentElement != null)
-                    SetUnitData(parentElement, unit);
-            }
-
-            // loop through all elements and set found elements
-            foreach (XElement element in unitElement.Elements())
-            {
-                string elementName = element.Name.LocalName.ToUpper();
-
-                if (elementName == "LIFEMAX")
-                {
-                    unit.Life.LifeMax = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
-
-                    double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, "LifeMax"));
-                    if (scaleValue.HasValue)
-                        unit.Life.LifeScaling = scaleValue.Value;
-                }
-                else if (elementName == "LIFEREGENRATE")
-                {
-                    unit.Life.LifeRegenerationRate = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
-
-                    double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, "LifeRegenRate"));
-                    if (scaleValue.HasValue)
-                        unit.Life.LifeRegenerationRateScaling = scaleValue.Value;
-                }
-                else if (elementName == "RADIUS")
-                {
-                    unit.Radius = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
-                }
-                else if (elementName == "INNERRADIUS")
-                {
-                    unit.InnerRadius = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
-                }
-                else if (elementName == "ENERGYMAX")
-                {
-                    unit.Energy.EnergyMax = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
-                }
-                else if (elementName == "ENERGYREGENRATE")
-                {
-                    unit.Energy.EnergyRegenerationRate = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
-                }
-                else if (elementName == "SPEED")
-                {
-                    unit.Speed = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
-                }
-                else if (elementName == "SIGHT")
-                {
-                    unit.Sight = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
-                }
-                else if (elementName == "ATTRIBUTES")
-                {
-                    string enabled = element.Attribute("value")?.Value;
-                    string attribute = element.Attribute("index").Value;
-
-                    if (enabled == "0" && unit.Attributes.Contains(attribute))
-                        unit.RemoveAttribute(attribute);
-                    else if (enabled == "1")
-                        unit.AddAttribute(attribute);
-                }
-                else if (elementName == "UNITDAMAGETYPE")
-                {
-                    unit.DamageType = element.Attribute("value").Value;
-                }
-                else if (elementName == "NAME")
-                {
-                    unit.Name = GameData.GetGameString(element.Attribute("value").Value);
-                }
-                else if (elementName == "DESCRIPTION")
-                {
-                    unit.Description = new TooltipDescription(GameData.GetGameString(element.Attribute("value").Value));
-                }
-                else if (elementName == "ABILARRAY")
-                {
-                    AddCreatedAbility(unit, element.Attribute("Link")?.Value);
-                }
-                else if (elementName == "WEAPONARRAY")
-                {
-                    UnitWeapon weapon = WeaponData.CreateWeapon(element);
-                    if (weapon != null)
-                        unit.AddUnitWeapon(weapon);
-                }
-                else if (elementName == "ARMORLINK")
-                {
-                    IEnumerable<UnitArmor> armorList = ArmorData.CreateArmorCollection(element);
-                    if (armorList != null)
-                    {
-                        foreach (UnitArmor armor in armorList)
-                        {
-                            unit.AddUnitArmor(armor);
-                        }
-                    }
-                }
-                else if (elementName == "BEHAVIORARRAY")
-                {
-                    string link = BehaviorData.GetScalingBehaviorLink(element);
-                    if (!string.IsNullOrEmpty(link))
-                        unit.ScalingBehaviorLink = link;
-                }
-                else if (elementName == "CARDLAYOUTS")
-                {
-                    foreach (XElement cardLayoutElement in element.Elements())
-                    {
-                        string cardLayoutElementName = cardLayoutElement.Name.LocalName.ToUpper();
-
-                        if (cardLayoutElementName == "LAYOUTBUTTONS")
-                        {
-                            string passiveValue = cardLayoutElement.Attribute("Type")?.Value;
-                            string abilCmdValue = cardLayoutElement.Attribute("AbilCmd")?.Value;
-                            string requirementsValue = cardLayoutElement.Attribute("Requirements")?.Value;
-
-                            if (abilCmdValue.AsSpan().IsEmpty && passiveValue.AsSpan().Equals("passive", StringComparison.OrdinalIgnoreCase) && !requirementsValue.AsSpan().Equals("UltimateNotUnlocked", StringComparison.OrdinalIgnoreCase))
-                            {
-                                AddCreatedAbility(unit, cardLayoutElement.Attribute("Face")?.Value);
-                            }
-                        }
-                    }
-                }
-            }
-
-            // TODO: AddOverrideButtonAbilities(unit)
-            //AbilityData.AddOverrideButtonAbilities(unit);
-
-            if (unit.Energy.EnergyMax < 1)
-                unit.Energy.EnergyType = string.Empty;
         }
 
         private void SetDefaultValues(Unit unit)
@@ -365,20 +218,6 @@ namespace HeroesData.Parser
                 items.Add(new string[] { id });
             else
                 items.Add(new string[] { id, mapName });
-        }
-
-        private void AddCreatedAbility(Unit unit, string abilityId)
-        {
-            Ability ability = AbilityData.CreateAbility(unit.CUnitId, abilityId);
-            if (ability != null)
-            {
-                unit.AddAbility(ability);
-
-                foreach (string createUnit in ability.CreatedUnits)
-                {
-                    unit.AddUnit(createUnit);
-                }
-            }
         }
     }
 }

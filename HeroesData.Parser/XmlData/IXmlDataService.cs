@@ -12,6 +12,7 @@ namespace HeroesData.Parser.XmlData
         GameData GameData { get; }
         TalentData TalentData { get; }
         WeaponData WeaponData { get; }
+        UnitData UnitData { get; }
 
         XmlDataService GetInstance();
     }

@@ -4,7 +4,6 @@ using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Exceptions;
 using HeroesData.Parser.Overrides.DataOverrides;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -13,7 +12,7 @@ namespace HeroesData.Parser.XmlData
 {
     public class TalentData : AbilityTalentData
     {
-        private readonly ConcurrentDictionary<string, HashSet<string>> AbilityTalentIdsByTalentIdUpgrade = new ConcurrentDictionary<string, HashSet<string>>();
+        private readonly Dictionary<string, HashSet<string>> AbilityTalentIdsByTalentIdUpgrade = new Dictionary<string, HashSet<string>>();
 
         public TalentData(GameData gameData, DefaultData defaultData, Configuration configuration)
             : base(gameData, defaultData, configuration)
