@@ -11,7 +11,6 @@ namespace HeroesData.Parser.XmlData
     public class UnitData
     {
         private readonly GameData GameData;
-        private readonly DefaultData DefaultData;
         private readonly Configuration Configuration;
         private readonly WeaponData WeaponData;
         private readonly ArmorData ArmorData;
@@ -20,20 +19,26 @@ namespace HeroesData.Parser.XmlData
 
         private readonly string ElementType = "CUnit";
 
+        private readonly HashSet<string> BasicAbilities;
+
+        private XmlArrayElement AbilitiesArray;
+        private XmlArrayElement CardLayoutButtons;
+
         private Localization _localization = Localization.ENUS;
         private bool _isHeroParsing = false;
         private bool _isAbilityTypeFilterEnabled = false;
         private bool _isAbilityTierFilterEnabled = false;
 
-        public UnitData(GameData gameData, DefaultData defaultData, Configuration configuration, WeaponData weaponData, ArmorData armorData, AbilityData abilityData, BehaviorData behaviorData)
+        public UnitData(GameData gameData, Configuration configuration, WeaponData weaponData, ArmorData armorData, AbilityData abilityData, BehaviorData behaviorData)
         {
             GameData = gameData;
-            DefaultData = defaultData;
             Configuration = configuration;
             WeaponData = weaponData;
             ArmorData = armorData;
             AbilityData = abilityData;
             BehaviorData = behaviorData;
+
+            BasicAbilities = Configuration.UnitDataExtraAbilities.ToHashSet();
         }
 
         public Localization Localization
@@ -76,9 +81,21 @@ namespace HeroesData.Parser.XmlData
             }
         }
 
-        public void SetUnitData(Unit unit, XElement unitElement = null)
+        /// <summary>
+        /// Sets the unit data.
+        /// </summary>
+        /// <param name="unit"></param>
+        public void SetUnitData(Unit unit)
+        {
+            SetData(unit);
+            SetAbilities(unit);
+        }
+
+        private void SetData(Unit unit, XElement unitElement = null)
         {
             unitElement = unitElement ?? GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == unit.CUnitId));
+            AbilitiesArray = AbilitiesArray ?? new XmlArrayElement();
+            CardLayoutButtons = CardLayoutButtons ?? new XmlArrayElement();
 
             if (unitElement == null)
                 return;
@@ -92,7 +109,7 @@ namespace HeroesData.Parser.XmlData
             {
                 XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
-                    SetUnitData(unit, parentElement);
+                    SetData(unit, parentElement);
             }
 
             // loop through all elements and set found elements
@@ -169,10 +186,6 @@ namespace HeroesData.Parser.XmlData
                     else
                         unit.Gender = UnitGender.Neutral;
                 }
-                else if (elementName == "ABILARRAY")
-                {
-                    AddCreatedAbility(unit, element.Attribute("Link")?.Value);
-                }
                 else if (elementName == "WEAPONARRAY")
                 {
                     UnitWeapon weapon = WeaponData.CreateWeapon(element);
@@ -203,6 +216,10 @@ namespace HeroesData.Parser.XmlData
                     if (element.Attribute("value")?.Value == "1")
                         unit.AddHeroDescriptor(descriptor);
                 }
+                else if (elementName == "ABILARRAY")
+                {
+                    AbilitiesArray.AddElement(element);
+                }
                 else if (elementName == "CARDLAYOUTS")
                 {
                     foreach (XElement cardLayoutElement in element.Elements())
@@ -211,26 +228,7 @@ namespace HeroesData.Parser.XmlData
 
                         if (cardLayoutElementName == "LAYOUTBUTTONS")
                         {
-                            string indexValue = cardLayoutElement.Attribute("index")?.Value;
-                            string faceValue = cardLayoutElement.Attribute("Face")?.Value;
-                            string passiveValue = cardLayoutElement.Attribute("Type")?.Value;
-                            string abilCmdValue = cardLayoutElement.Attribute("AbilCmd")?.Value;
-                            string requirementsValue = cardLayoutElement.Attribute("Requirements")?.Value;
-
-                            //if (string.IsNullOrEmpty(indexValue))
-                            //{
-                            //    LayoutButtonFaceByIndex.Add(CardLayoutButtonIndex, faceValue);
-                            //    CardLayoutButtonIndex++;
-                            //}
-                            //else
-                            //{
-
-                            //}
-
-                            //if (abilCmdValue.AsSpan().IsEmpty && passiveValue.AsSpan().Equals("passive", StringComparison.OrdinalIgnoreCase) && !requirementsValue.AsSpan().Equals("UltimateNotUnlocked", StringComparison.OrdinalIgnoreCase))
-                            //{
-                            //    AddCreatedAbility(unit, faceValue);
-                            //}
+                            CardLayoutButtons.AddElement(cardLayoutElement);
                         }
                     }
                 }
@@ -240,17 +238,52 @@ namespace HeroesData.Parser.XmlData
                 unit.Energy.EnergyType = string.Empty;
         }
 
-        private void AddCreatedAbility(Unit unit, string abilityId)
+        private void SetAbilities(Unit unit)
         {
-            Ability ability = AbilityData.CreateAbility(unit.CUnitId, abilityId);
+            if (AbilitiesArray == null || CardLayoutButtons == null)
+                throw new ArgumentNullException("Call SetUnitData() first to set up the abilities and card layout button collections");
+
+            foreach (XElement element in CardLayoutButtons.Elements)
+            {
+                string indexValue = element.Attribute("index")?.Value;
+                string faceValue = element.Attribute("Face")?.Value;
+                string passiveValue = element.Attribute("Type")?.Value;
+                string abilCmdValue = element.Attribute("AbilCmd")?.Value;
+                string requirementsValue = element.Attribute("Requirements")?.Value;
+
+                if (BasicAbilities.Contains(faceValue, StringComparer.OrdinalIgnoreCase))
+                    continue;
+
+                AddCreatedAbility(unit, element);
+            }
+
+            foreach (XElement element in AbilitiesArray.Elements)
+            {
+                string linkValue = element.Attribute("Link")?.Value;
+                if (!string.IsNullOrEmpty(linkValue) && !BasicAbilities.Contains(linkValue, StringComparer.OrdinalIgnoreCase) && !unit.ContainsAbility(linkValue))
+                    AddCreatedAbility(unit, linkValue);
+            }
+        }
+
+        private void AddCreatedAbility(Unit unit, string abilLinkValue)
+        {
+            AddAbility(unit, AbilityData.CreateAbility(unit.CUnitId, abilLinkValue));
+        }
+
+        private void AddCreatedAbility(Unit unit, XElement layoutButtonElement)
+        {
+            AddAbility(unit, AbilityData.CreateAbility(unit.CUnitId, layoutButtonElement));
+        }
+
+        private void AddAbility(Unit unit, Ability ability)
+        {
             if (ability != null)
             {
-                unit.AddAbility(ability);
+                if (!BasicAbilities.Contains(ability.ReferenceNameId, StringComparer.OrdinalIgnoreCase))
+                    unit.AddAbility(ability);
 
                 foreach (string createUnit in ability.CreatedUnits)
-                {
                     unit.AddUnit(createUnit);
-                }
             }
         }
     }

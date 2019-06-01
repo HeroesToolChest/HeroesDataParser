@@ -49,7 +49,7 @@ namespace HeroesData.Parser.XmlData
         protected void SetAbilityTalentData(XElement abilityElement, AbilityTalentBase abilityTalentBase)
         {
             if (abilityElement == null || abilityTalentBase == null)
-                return;
+                throw new ArgumentNullException();
 
             // parent lookup
             string parentValue = abilityElement.Attribute("parent")?.Value;
@@ -103,7 +103,7 @@ namespace HeroesData.Parser.XmlData
         protected void SetButtonData(XElement buttonElement, AbilityTalentBase abilityTalentBase)
         {
             if (buttonElement == null || abilityTalentBase == null)
-                return;
+                throw new ArgumentNullException();
 
             string parentValue = buttonElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue) && parentValue != DefaultDataButton.CButtonDefaultBaseId)
@@ -615,12 +615,12 @@ namespace HeroesData.Parser.XmlData
             }
         }
 
-        // returns the defaultbuttonface value
         private void SetCmdButtonArrayData(XElement cmdButtonArrayElement, AbilityTalentBase abilityTalentBase)
         {
             string defaultButtonFace = cmdButtonArrayElement.Attribute("DefaultButtonFace")?.Value;
             string requirements = cmdButtonArrayElement.Attribute("Requirements")?.Value;
 
+            // if they are emtpy still, check as elements
             if (string.IsNullOrEmpty(defaultButtonFace))
                 defaultButtonFace = cmdButtonArrayElement.Element("DefaultButtonFace")?.Attribute("value")?.Value;
             if (string.IsNullOrEmpty(requirements))

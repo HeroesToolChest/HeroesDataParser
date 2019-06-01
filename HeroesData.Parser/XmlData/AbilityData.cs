@@ -129,50 +129,77 @@ namespace HeroesData.Parser.XmlData
         }
 
         /// <summary>
-        /// Create an ability.
+        /// Creates an ability from the layout button element.
         /// </summary>
-        /// <param name="unitId">The id of the unit.</param>
-        /// <param name="abilityId">The ability id.</param>
-        public Ability CreateAbility(string unitId, string abilityId)
+        /// <param name="unitId"></param>
+        /// <param name="layoutButtonElement"></param>
+        /// <returns></returns>
+        public Ability CreateAbility(string unitId, XElement layoutButtonElement)
         {
-            if (string.IsNullOrEmpty(abilityId))
+            if (string.IsNullOrEmpty(unitId) || layoutButtonElement == null)
+                throw new ArgumentNullException();
+
+            Ability ability = new Ability();
+
+            string faceValue = layoutButtonElement.Attribute("Face")?.Value; // button id
+            string typeValue = layoutButtonElement.Attribute("Type")?.Value;
+            string abilCmdValue = layoutButtonElement.Attribute("AbilCmd")?.Value; // the ability command
+            string requirementsValue = layoutButtonElement.Attribute("Requirements")?.Value;
+            string slotValue = layoutButtonElement.Attribute("Slot")?.Value;
+
+            if (string.IsNullOrEmpty(faceValue))
                 return null;
 
-            // abilities that we don't want
-            if (abilityId == "move" || abilityId == "stop" || abilityId == "attack" || abilityId == "Queue5Storm" || abilityId == "Que1Passive")
-                return null;
+            // default button id values
+            ability.FullTooltipNameId = faceValue;
+            ability.ShortTooltipNameId = faceValue;
 
-            // check if there's a passive ability associated with the current ability
-            if (HasPassiveAbility(unitId, abilityId))
-                return null;
+            // default tier
+            ability.Tier = AbilityTier.Unknown;
 
-            IEnumerable<XElement> abilityElements = GetAbilityElements(abilityId);
-
-            Ability ability = new Ability
+            if (typeValue.AsSpan().Equals("Passive", StringComparison.OrdinalIgnoreCase)) // passive "ability"
             {
-                ReferenceNameId = abilityId,
-            };
+                ability.ReferenceNameId = faceValue;
+                ability.IsPassive = true;
 
-            if (abilityElements.Any())
+                XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
+                if (buttonElement != null)
+                    SetButtonData(buttonElement, ability);
+            }
+            else if (typeValue.AsSpan().Equals("CancelTargetMode", StringComparison.OrdinalIgnoreCase))
             {
-                foreach (XElement element in abilityElements)
+                return null;
+            }
+            else if (!string.IsNullOrEmpty(abilCmdValue)) // non-passive
+            {
+                int index = abilCmdValue.IndexOf(',');
+                string abilityId;
+                if (index > 0)
+                    abilityId = abilCmdValue.Substring(0, index);
+                else
+                    abilityId = abilCmdValue;
+
+                ability.ReferenceNameId = abilityId;
+
+                // find all abilities and loop through them
+                foreach (XElement element in GetAbilityElements(abilityId))
                 {
                     SetAbilityTalentData(element, ability);
                 }
             }
+            else if (string.IsNullOrEmpty(abilCmdValue))
+            {
+                // doesn't have an abilcmd value set, so this is just a dummy button that doesn't do anything
+                // most likely still has an ability set in the ability array but wasn't set for the abilcmd value
+                return null;
+            }
             else
             {
-                XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == abilityId));
-
-                if (buttonElement != null)
-                    SetButtonData(buttonElement, ability);
+                throw new XmlGameDataParseException($"Could not create ability for {unitId}, no abilCmdValue: faceValue: {faceValue} - typeValue: {typeValue}");
             }
 
-            // default
-            ability.Tier = AbilityTier.Unknown;
-
             // set the ability type
-            SetAbilityType(unitId, ability);
+            SetAbilityTypeFromSlot(slotValue, unitId, ability);
 
             // if type is not a type we want, return
             if (IsAbilityTypeFilterEnabled && AbilityType.Misc.HasFlag(ability.AbilityType) && ability.AbilityType != AbilityType.Unknown)
@@ -195,6 +222,111 @@ namespace HeroesData.Parser.XmlData
 
             return ability;
         }
+
+        /// <summary>
+        /// Creates an ability from the abil link value. This ability does not have a command card layout button.
+        /// </summary>
+        /// <param name="unitId"></param>
+        /// <param name="abilityId"></param>
+        /// <returns></returns>
+        public Ability CreateAbility(string unitId, string abilityId)
+        {
+            if (string.IsNullOrEmpty(unitId) || string.IsNullOrEmpty(abilityId))
+                throw new ArgumentNullException();
+
+            Ability ability = new Ability()
+            {
+                ReferenceNameId = abilityId,
+            };
+
+            // find all abilities and loop through them
+            foreach (XElement element in GetAbilityElements(abilityId))
+            {
+                SetAbilityTalentData(element, ability);
+            }
+
+            // default
+            ability.Tier = AbilityTier.Hidden;
+            ability.AbilityType = AbilityType.Hidden;
+
+            // if no reference id, return null
+            if (string.IsNullOrEmpty(ability.ReferenceNameId))
+                return null;
+
+            // if no name was set, then use the ability name
+            if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.ReferenceNameId), out string value))
+                ability.Name = value;
+
+            return ability;
+        }
+
+        ///// <summary>
+        ///// Create an ability.
+        ///// </summary>
+        ///// <param name="unitId">The id of the unit.</param>
+        ///// <param name="abilityId">The ability id.</param>
+        //public Ability CreateAbility(string unitId, string abilityId)
+        //{
+        //    if (string.IsNullOrEmpty(abilityId))
+        //        return null;
+
+        //    // abilities that we don't want
+        //    if (abilityId == "move" || abilityId == "stop" || abilityId == "attack" || abilityId == "Queue5Storm" || abilityId == "Que1Passive")
+        //        return null;
+
+        //    // check if there's a passive ability associated with the current ability
+        //    if (HasPassiveAbility(unitId, abilityId))
+        //        return null;
+
+        //    IEnumerable<XElement> abilityElements = GetAbilityElements(abilityId);
+
+        //    Ability ability = new Ability
+        //    {
+        //        ReferenceNameId = abilityId,
+        //    };
+
+        //    if (abilityElements.Any())
+        //    {
+        //        foreach (XElement element in abilityElements)
+        //        {
+        //            SetAbilityTalentData(element, ability);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == abilityId));
+
+        //        if (buttonElement != null)
+        //            SetButtonData(buttonElement, ability);
+        //    }
+
+        //    // default
+        //    ability.Tier = AbilityTier.Unknown;
+
+        //    // set the ability type
+        //    SetAbilityType(unitId, ability);
+
+        //    // if type is not a type we want, return
+        //    if (IsAbilityTypeFilterEnabled && AbilityType.Misc.HasFlag(ability.AbilityType) && ability.AbilityType != AbilityType.Unknown)
+        //        return null;
+
+        //    // set the ability tier
+        //    SetAbilityTierFromAbilityType(ability);
+
+        //    // filter ability tiers
+        //    if ((IsAbilityTierFilterEnabled && AbilityTier.Misc.HasFlag(ability.Tier)) || (IsAbilityTierFilterEnabled && ability.Tier == AbilityTier.MapMechanic))
+        //        return null;
+
+        //    // if no reference id, return null
+        //    if (string.IsNullOrEmpty(ability.ReferenceNameId))
+        //        return null;
+
+        //    // if no name was set, then use the ability name
+        //    if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.ReferenceNameId), out string value))
+        //        ability.Name = value;
+
+        //    return ability;
+        //}
 
         /// <summary>
         /// For adding additional abilities that are from the AbilArray element.
@@ -275,33 +407,16 @@ namespace HeroesData.Parser.XmlData
             return null;
         }
 
-        private void SetAbilityType(string unitId, Ability ability)
+        private void SetAbilityType(string slotValue, Ability ability)
         {
-            if (ability.Tier == AbilityTier.Heroic)
-            {
-                ability.AbilityType = AbilityType.Heroic;
-                return;
-            }
-            else if (ability.Tier == AbilityTier.Mount)
-            {
-                ability.AbilityType = AbilityType.Z;
-                return;
-            }
-            else if (ability.Tier == AbilityTier.Trait)
-            {
-                ability.AbilityType = AbilityType.Trait;
-                return;
-            }
-            else if (ability.Tier == AbilityTier.Hearth)
-            {
-                ability.AbilityType = AbilityType.B;
-                return;
-            }
+            //if (Enum.TryParse(slotValue, true, out AbilityType  )
 
-            string layoutId = !string.IsNullOrEmpty(ability.ParentLink) ? ability.ParentLink : unitId;
 
-            if (!SetAbilityTypeFromLayout(unitId, ability, GameData.GetLayoutButtonElements(layoutId)) && !SetAbilityTypeFromLayout(unitId, ability, GameData.GetLayoutButtonElements()))
-                ability.AbilityType = AbilityType.Unknown;
+
+            //string layoutId = !string.IsNullOrEmpty(ability.ParentLink) ? ability.ParentLink : unitId;
+
+            //if (!SetAbilityTypeFromLayout(unitId, ability, GameData.GetLayoutButtonElements(layoutId)) && !SetAbilityTypeFromLayout(unitId, ability, GameData.GetLayoutButtonElements()))
+            //    ability.AbilityType = AbilityType.Unknown;
         }
 
         private void SetAbilityTypeFromSlot(string slot, string unitId, Ability ability)

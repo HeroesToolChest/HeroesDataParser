@@ -116,6 +116,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                     unit.SubAbilities(AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", unit.SubAbilities(AbilityTier.MapMechanic).Select(x => AbilityTalentInfoElement(x))) : null,
                     unit.SubAbilities(AbilityTier.Interact).Any() ? new XElement("Interact", unit.SubAbilities(AbilityTier.Interact).Select(x => AbilityTalentInfoElement(x))) : null,
                     unit.SubAbilities(AbilityTier.Action).Any() ? new XElement("Action", unit.SubAbilities(AbilityTier.Action).Select(x => AbilityTalentInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Hidden).Any() ? new XElement("Hidden", unit.SubAbilities(AbilityTier.Hidden).Select(x => AbilityTalentInfoElement(x))) : null,
                     unit.SubAbilities(AbilityTier.Unknown).Any() ? new XElement("Unknown", unit.SubAbilities(AbilityTier.Unknown).Select(x => AbilityTalentInfoElement(x))) : null);
             }
             else
@@ -135,6 +136,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                     unit.PrimaryAbilities(AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", unit.SubAbilities(AbilityTier.MapMechanic).Select(x => AbilityTalentInfoElement(x))) : null,
                     unit.PrimaryAbilities(AbilityTier.Interact).Any() ? new XElement("Interact", unit.SubAbilities(AbilityTier.Interact).Select(x => AbilityTalentInfoElement(x))) : null,
                     unit.PrimaryAbilities(AbilityTier.Action).Any() ? new XElement("Action", unit.SubAbilities(AbilityTier.Action).Select(x => AbilityTalentInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Hidden).Any() ? new XElement("Hidden", unit.SubAbilities(AbilityTier.Hidden).Select(x => AbilityTalentInfoElement(x))) : null,
                     unit.PrimaryAbilities(AbilityTier.Unknown).Any() ? new XElement("Unknown", unit.SubAbilities(AbilityTier.Unknown).Select(x => AbilityTalentInfoElement(x))) : null);
             }
         }
@@ -178,6 +180,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 string.IsNullOrEmpty(abilityTalentBase.FullTooltipNameId) ? null : new XAttribute("fullTooltipId", abilityTalentBase.FullTooltipNameId),
                 new XAttribute("abilityType", abilityTalentBase.AbilityType.ToString()),
                 abilityTalentBase.IsActive ? new XAttribute("isActive", abilityTalentBase.IsActive) : null,
+                abilityTalentBase.IsPassive ? new XAttribute("isPassive", abilityTalentBase.IsPassive) : null,
                 abilityTalentBase.IsQuest ? new XAttribute("isQuest", abilityTalentBase.IsQuest) : null,
                 string.IsNullOrEmpty(abilityTalentBase.IconFileName) ? null : new XElement("Icon", Path.ChangeExtension(abilityTalentBase.IconFileName?.ToLower(), StaticImageExtension)),
                 abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.HasValue ? new XElement("ToggleCooldown", abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.Value) : null,

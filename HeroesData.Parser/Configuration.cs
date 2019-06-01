@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using HeroesData.Parser.Exceptions;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -9,6 +11,7 @@ namespace HeroesData.Parser
     {
         private readonly Dictionary<string, List<(string, string)>> PartValuesByElementName = new Dictionary<string, List<(string Part, string Value)>>();
         private readonly Dictionary<string, HashSet<string>> XmlElementNameByType = new Dictionary<string, HashSet<string>>();
+        private readonly HashSet<string> UnitDataAbilities = new HashSet<string>();
 
         private ILookup<string, string> AddIdByElementName;
         private ILookup<string, string> RemoveIdByElementName;
@@ -16,11 +19,24 @@ namespace HeroesData.Parser
         public string ConfigFileName => "config.xml";
 
         /// <summary>
+        /// Gets a collection of extra unit data abilities that should be ignore when parsing unit data.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> UnitDataExtraAbilities => UnitDataAbilities;
+
+        /// <summary>
         /// Loads the configuration file.
         /// </summary>
         public void Load()
         {
-            LoadConfigurationFile();
+            try
+            {
+                LoadConfigurationFile();
+            }
+            catch (NullReferenceException ex)
+            {
+                throw new ConfigurationException("Error while loading the configuration file.", ex);
+            }
         }
 
         public bool ConfigFileExists()
@@ -29,7 +45,7 @@ namespace HeroesData.Parser
         }
 
         /// <summary>
-        /// Gets a collection of gamestring default values consisting of a part and value.
+        /// Returns a collection of gamestring default values consisting of a part and value.
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
@@ -42,7 +58,7 @@ namespace HeroesData.Parser
         }
 
         /// <summary>
-        /// Gets a collection of elements if the element if found. Returns null if none found. Used for xml gamestring parsing.
+        /// Returns a collection of elements if the element if found. Returns null if none found. Used for xml gamestring parsing.
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -55,7 +71,7 @@ namespace HeroesData.Parser
         }
 
         /// <summary>
-        /// Gets a collection of id values from the element name. Used for xml parsing when retrieving items.
+        /// Returns a collection of id values from the element name. Used for xml parsing when retrieving items.
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
@@ -65,7 +81,7 @@ namespace HeroesData.Parser
         }
 
         /// <summary>
-        /// Gets a collection of id values from the element name. Used for xml parsing when retrieving items.
+        /// Returns a collection of id values from the element name. Used for xml parsing when retrieving items.
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
@@ -112,6 +128,14 @@ namespace HeroesData.Parser
                 }
 
                 XmlElementNameByType.Add(name, elements);
+            }
+
+            // extra abilities
+            foreach (XElement abilityId in doc.Root.Element("UnitDataExtraAbilities").Elements())
+            {
+                string value = abilityId.Value;
+                if (!string.IsNullOrEmpty(value))
+                    UnitDataAbilities.Add(value);
             }
 
             // additional valid elements for xml parsing

@@ -17,6 +17,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Parse();
         }
 
+        protected Unit AbathurLocustNestPlaceholderDummy { get; set; }
         protected Unit DVaMechPlacementDummy { get; set; }
         protected Unit AlexstraszaLifeblossomGiftOfLife { get; set; }
         protected Unit ZagaraHydralisk { get; set; }
@@ -30,6 +31,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         protected Unit VolskayaDataVolskayaVehicleGunner { get; set; }
         protected Unit AlteracpassAllianceCavalry { get; set; }
         protected Unit AlteracpassCapturedSoldier { get; set; }
+        protected Unit AlteracpassAlteracCoreBossParent { get; set; }
 
         [TestMethod]
         public void GetItemsTest()
@@ -47,6 +49,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         private void Parse()
         {
             UnitParser unitParser = new UnitParser(XmlDataService, UnitOverrideLoader);
+            AbathurLocustNestPlaceholderDummy = unitParser.Parse("AbathurLocustNestPlaceholderDummy");
             DVaMechPlacementDummy = unitParser.Parse("DVaMechPlacementDummy");
             AlexstraszaLifeblossomGiftOfLife = unitParser.Parse("AlexstraszaLifeblossomGiftOfLife");
             AzmodanDemonLieutenant = unitParser.Parse("AzmodanDemonLieutenant");
@@ -67,6 +70,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             GameData.AppendGameData(GameData.GetMapGameData("alteracpass.stormmod"));
             AlteracpassCapturedSoldier = unitParser.Parse("CapturedSoldier", "alteracpass.stormmod");
             AlteracpassAllianceCavalry = unitParser.Parse("AllianceCavalry", "alteracpass.stormmod");
+            AlteracpassAlteracCoreBossParent = unitParser.Parse("AlteracCoreBossParent", "alteracpass.stormmod");
             GameData.RestoreGameData();
         }
 

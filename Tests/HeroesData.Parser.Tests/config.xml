@@ -99,7 +99,7 @@
       <Element>CArmor</Element>
     </Type>
   </XmlElementLookup>
-  
+
   <!--Adds additional elements when retrieving elements for parsing-->
   <DataParser>
     <CUnit id="VolskayaVehicleGunner" />
@@ -112,4 +112,16 @@
     <CHero id="Infernos2" value="false" />
     <CHero id="Infernos3" value="false" />
   </DataParser>
+  
+  <!--Extra abilities to ignore when parsing abilities for unit data-->
+  <UnitDataExtraAbilities>
+    <Id>LockedHeroicAbility</Id>
+    <Id>stop</Id>
+    <Id>move</Id>
+    <Id>MoveHoldPosition</Id>
+    <Id>Attack</Id>
+    <Id>MovePatrol</Id>
+    <Id>Queue5Storm</Id>
+    <Id>Que1Passive</Id>
+  </UnitDataExtraAbilities>
 </Configuration>

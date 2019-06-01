@@ -120,4 +120,16 @@
       <Element>CWeaponStrafe</Element>
     </Type>
   </XmlElementLookup>
+
+  <!--Extra abilities to ignore when parsing abilities for unit data-->
+  <UnitDataExtraAbilities>
+    <Id>LockedHeroicAbility</Id>
+    <Id>stop</Id>
+    <Id>move</Id>
+    <Id>MoveHoldPosition</Id>
+    <Id>Attack</Id>
+    <Id>MovePatrol</Id>
+    <Id>Queue5Storm</Id>
+    <Id>Que1Passive</Id>
+  </UnitDataExtraAbilities>
 </Configuration>

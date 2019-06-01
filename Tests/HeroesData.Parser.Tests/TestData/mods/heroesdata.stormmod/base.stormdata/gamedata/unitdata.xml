@@ -824,4 +824,80 @@
   <CButton id="MercenarySentinelHorizontalSlash" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_genji_swiftstrike_a.dds" />
   </CButton>
+  <CUnit id="KingsCore">
+    <DefaultAcquireLevel value="None" />
+    <DeathRevealRadius value="3" />
+    <FlagArray index="CreateVisible" value="1" />
+    <FlagArray index="Unclickable" value="0" />
+    <FlagArray index="Unhighlightable" value="0" />
+    <FlagArray index="UseLineOfSight" value="1" />
+    <FlagArray index="TownCamera" value="1" />
+    <FlagArray index="DoNotAcquire" value="1" />
+    <FlagArray index="Unstoppable" value="1" />
+    <FlagArray index="CreateAITreeOnSpawn" value="1" />
+    <FlagArray index="TownStructureCore" value="1" />
+    <FogVisibility value="Dimmed" />
+    <PlaneArray index="Ground" value="1" />
+    <Response value="Nothing" />
+    <Attributes index="Structure" value="1" />
+    <Attributes index="AITargetableStructure" value="1" />
+    <LifeStart value="14000" />
+    <LifeMax value="14000" />
+    <ShieldRegenDelay value="8" />
+    <ShieldRegenRate value="100" />
+    <Sight value="11" />
+    <AttackTargetPriority value="10" />
+    <AbilArray Link="stop" />
+    <AbilArray Link="attack" />
+    <BehaviorArray Link="CoreDetection" />
+    <BehaviorArray Link="PalaceDamageResponseController" />
+    <BehaviorArray Link="CoreScaling" />
+    <BehaviorArray Link="BuildingLightDamage" />
+    <BehaviorArray Link="BuildingHeavyDamage" />
+    <BehaviorArray Link="CoreInvulnerability" />
+    <BehaviorArray Link="ImmunetoSylvanasBlackArrowStructureDebuff" />
+    <BehaviorArray Link="AITokenHeroesAlive" />
+    <BehaviorArray Link="AITokenHeroesDead" />
+    <BehaviorArray Link="AITokenTeamLevel" />
+    <BehaviorArray Link="AITokenTeamLevelInverted" />
+    <BehaviorArray Link="AITokenTeamLevelAdvantage" />
+    <BehaviorArray Link="AITokenTeamTalentAdvantage" />
+    <BehaviorArray Link="AITokenLaneTotalPowerLane1" />
+    <BehaviorArray Link="AITokenLaneTotalPowerLane2" />
+    <BehaviorArray Link="AITokenLaneTotalPowerLane3" />
+    <BehaviorArray Link="AITokenLaneFortsKeepsAliveLane1" />
+    <BehaviorArray Link="AITokenLaneFortsKeepsAliveLane2" />
+    <BehaviorArray Link="AITokenLaneFortsKeepsAliveLane3" />
+    <BehaviorArray Link="AITokenLaneFortsKeepsDeadLane1" />
+    <BehaviorArray Link="AITokenLaneFortsKeepsDeadLane2" />
+    <BehaviorArray Link="AITokenLaneFortsKeepsDeadLane3" />
+    <BehaviorArray Link="AIMapTokenMapRewardActive" />
+    <BehaviorArray Link="AIMapTokenMapEventProgress" />
+    <BehaviorArray Link="AIMapTokenMapEventCarriedPotential" />
+    <BehaviorArray Link="AIMapTokenMapEventCarriedPotentialisSufficient" />
+    <BehaviorArray Link="AIMapTokenMapEventActive" />
+    <BehaviorArray Link="AIMapTokenNonEventMapValue" />
+    <BehaviorArray Link="AIMapTokenNoMapEventAndNoWarning" />
+    <WeaponArray Link="KingsCore" Turret="KingsCore" />
+    <CardLayouts>
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="stop,Stop" Slot="Stop" />
+      <LayoutButtons Face="Detector" Type="Passive" Slot="Stop" />
+      <LayoutButtons Face="AttackBuilding" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Cancel" />
+    </CardLayouts>
+    <Radius value="4" />
+    <SeparationRadius value="2" />
+    <Footprint value="Footprint6x6ContourWithNotches" />
+    <PlacementFootprint value="Footprint6x6ContourWithNotches" />
+    <ScoreResult value="BuildOrder" />
+    <SubgroupPriority value="2" />
+    <MinimapRadius value="2.5" />
+    <GlossaryPriority value="10" />
+    <ShieldsStart value="7000" />
+    <ShieldsMax value="7000" />
+    <Collide index="Structure" value="1" />
+    <AIThreatCalculation value="IgnoreEnergy" />
+    <AIBaseThreat value="10" />
+    <UnitDamageType value="Structure" />
+    <AIThinkTree value="AI/BaseTowerThinkTree.aitree" />
+  </CUnit>
 </Catalog>

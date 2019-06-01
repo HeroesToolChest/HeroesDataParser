@@ -16,7 +16,6 @@ namespace HeroesData.Parser
     public class UnitParser : ParserBase<Unit, UnitDataOverride>, IParser<Unit, UnitParser>
     {
         private readonly UnitOverrideLoader UnitOverrideLoader;
-        private readonly UnitData UnitData;
 
         private readonly HashSet<string> ValidParents = new HashSet<string>();
 
@@ -26,9 +25,6 @@ namespace HeroesData.Parser
             : base(xmlDataService)
         {
             UnitOverrideLoader = unitOverrideLoader;
-            UnitData = xmlDataService.UnitData;
-
-            UnitData.Localization = Localization;
         }
 
         public override HashSet<string[]> Items
@@ -71,6 +67,9 @@ namespace HeroesData.Parser
             if (ids == null)
                 return null;
 
+            UnitData unitData = XmlDataService.UnitData;
+            unitData.Localization = Localization;
+
             string id = ids[0];
             string mapNameId = string.Empty;
 
@@ -96,7 +95,7 @@ namespace HeroesData.Parser
             SetDefaultValues(unit);
             CActorData(unit);
 
-            UnitData.SetUnitData(unit);
+            unitData.SetUnitData(unit);
 
             // set the hyperlinkId to id if it doesn't have one
             if (string.IsNullOrEmpty(unit.HyperlinkId))

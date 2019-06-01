@@ -178,6 +178,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.MapMechanic), "mapMechanic");
                 SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Interact), "interact");
                 SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Action), "action");
+                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Hidden), "hidden");
                 SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Unknown), "unknown");
             }
             else
@@ -195,6 +196,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.MapMechanic), "mapMechanic");
                 SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Interact), "interact");
                 SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Action), "action");
+                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Hidden), "hidden");
                 SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Unknown), "unknown");
             }
 
@@ -289,6 +291,9 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
             if (abilityTalentBase.IsActive)
                 info.Add("isActive", abilityTalentBase.IsActive);
+
+            if (abilityTalentBase.IsPassive)
+                info.Add("isPassive", abilityTalentBase.IsPassive);
 
             if (abilityTalentBase.IsQuest)
                 info.Add("isQuest", abilityTalentBase.IsQuest);
