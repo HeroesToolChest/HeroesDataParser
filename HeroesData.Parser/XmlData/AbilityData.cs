@@ -147,7 +147,7 @@ namespace HeroesData.Parser.XmlData
             string requirementsValue = layoutButtonElement.Attribute("Requirements")?.Value;
             string slotValue = layoutButtonElement.Attribute("Slot")?.Value;
 
-            if (string.IsNullOrEmpty(faceValue))
+            if (string.IsNullOrEmpty(faceValue) || slotValue == "Hidden2")
                 return null;
 
             // default button id values

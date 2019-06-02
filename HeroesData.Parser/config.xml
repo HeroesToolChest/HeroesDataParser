@@ -96,6 +96,19 @@
     <Type name="Hero">
       <Element>CHero</Element>
     </Type>
+    <Type name="RequirementNode">
+      <Element>CRequirementAllowUnit</Element>
+      <Element>CRequirementAnd</Element>
+      <Element>CRequirementCountBehavior</Element>
+      <Element>CRequirementCountUnit</Element>
+      <Element>CRequirementCountUpgrade</Element>
+      <Element>CRequirementEq</Element>
+      <Element>CRequirementGT</Element>
+      <Element>CRequirementGTE</Element>
+      <Element>CRequirementLT</Element>
+      <Element>CRequirementNot</Element>
+      <Element>CRequirementOr</Element>
+    </Type>
     <Type name="Talent">
       <Element>CTalent</Element>
     </Type>

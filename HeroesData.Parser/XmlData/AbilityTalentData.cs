@@ -2,6 +2,7 @@
 using Heroes.Models.AbilityTalents;
 using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser.Exceptions;
 using HeroesData.Parser.Overrides.DataOverrides;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace HeroesData.Parser.XmlData
         public Localization Localization { get; set; }
         public UnitDataOverride UnitDataOverride { get; set; }
         public HeroDataOverride HeroDataOverride { get; set; }
+
+        public bool IsAbilityParsing { get; set; } = false;
 
         protected GameData GameData { get; }
         protected DefaultData DefaultData { get; }
@@ -96,6 +99,12 @@ namespace HeroesData.Parser.XmlData
                 {
                     if (string.IsNullOrEmpty(abilityTalentBase.Name) && GameData.TryGetGameString(element.Attribute("value")?.Value, out string value))
                         abilityTalentBase.Name = value;
+                }
+                else if (elementName == "PARENTABIL")
+                {
+                    string parentAbility = element.Attribute("value")?.Value;
+                    if (!string.IsNullOrEmpty(parentAbility))
+                        abilityTalentBase.ParentLink = parentAbility;
                 }
             }
         }
@@ -618,13 +627,16 @@ namespace HeroesData.Parser.XmlData
         private void SetCmdButtonArrayData(XElement cmdButtonArrayElement, AbilityTalentBase abilityTalentBase)
         {
             string defaultButtonFace = cmdButtonArrayElement.Attribute("DefaultButtonFace")?.Value;
-            string requirements = cmdButtonArrayElement.Attribute("Requirements")?.Value;
+            string requirement = cmdButtonArrayElement.Attribute("Requirements")?.Value;
+            string showValidator = cmdButtonArrayElement.Attribute("ShowValidator")?.Value;
 
             // if they are emtpy still, check as elements
             if (string.IsNullOrEmpty(defaultButtonFace))
                 defaultButtonFace = cmdButtonArrayElement.Element("DefaultButtonFace")?.Attribute("value")?.Value;
-            if (string.IsNullOrEmpty(requirements))
-                requirements = cmdButtonArrayElement.Element("Requirements")?.Attribute("value")?.Value;
+            if (string.IsNullOrEmpty(requirement))
+                requirement = cmdButtonArrayElement.Element("Requirements")?.Attribute("value")?.Value;
+            if (string.IsNullOrEmpty(showValidator))
+                requirement = cmdButtonArrayElement.Element("ShowValidator")?.Attribute("value")?.Value;
 
             if (!string.IsNullOrEmpty(defaultButtonFace))
             {
@@ -640,9 +652,12 @@ namespace HeroesData.Parser.XmlData
                 }
             }
 
-            if (!string.IsNullOrEmpty(requirements))
+            if (!string.IsNullOrEmpty(requirement))
             {
-                XElement requirementElement = GameData.MergeXmlElements(GameData.Elements("CRequirement").Where(x => x.Attribute("id")?.Value == requirements));
+                if (requirement == "HeroHasNoDeadBehaviorAndNotInBase")
+                    return;
+
+                XElement requirementElement = GameData.MergeXmlElements(GameData.Elements("CRequirement").Where(x => x.Attribute("id")?.Value == requirement));
                 if (requirementElement != null)
                 {
                     foreach (XElement element in requirementElement.Elements())
@@ -654,22 +669,38 @@ namespace HeroesData.Parser.XmlData
                             string indexValue = element.Attribute("index")?.Value;
                             string linkValue = element.Attribute("Link")?.Value;
 
-                            if (!string.IsNullOrEmpty(indexValue) && indexValue.Equals("show", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(linkValue))
+                            if (linkValue == "EqCountBehaviorHeroGenericPregameAbilitySuppressionCompleteOnlyAtUnit0")
+                                return;
+
+                            if (linkValue == "0")
                             {
-                                // is requirement
+                                abilityTalentBase.ReferenceNameId = string.Empty;
+                                return;
+                            }
+
+                            if (IsAbilityParsing && !string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(linkValue) && (indexValue.Equals("Show", StringComparison.OrdinalIgnoreCase) || indexValue.Equals("Use", StringComparison.OrdinalIgnoreCase)))
+                            {
+                                IEnumerable<XElement> requirementNodes = GameData.ElementsIncluded(Configuration.GamestringXmlElements("RequirementNode"), linkValue);
+                                if (!requirementNodes.Any())
+                                    throw new XmlGameDataParseException($"Could not find any 'RequirementNode' elements with the link value of {linkValue} for the requirement {requirement}");
+
+                                foreach (XElement requirementNodeElement in requirementNodes)
+                                {
+                                    if (!ParseRequirementNodeElement(requirementNodeElement))
+                                        abilityTalentBase.ReferenceNameId = string.Empty;
+                                }
                             }
                         }
                     }
                 }
-                // TODO: subability or requirement? (DryadHasGallopingGaitCarry)
-                // EqCountBehaviorDryadGallopingGaitCarryCompleteOnlyAtUnit1
-                // DryadGallopingGaitCarry
-
-                // talent = DryadGallopingGait applys
-                //   < RankArray >
-                // < BehaviorArray value = "DryadGallopingGaitCarry" />
-                //</ RankArray >
             }
+
+            // TODO: validator needed?
+            //if (!string.IsNullOrEmpty(showValidator))
+            //{
+            //    abilityTalentBase.ReferenceNameId = string.Empty;
+            //    return;
+            //}
         }
 
         private void SetEffectData(XElement effectElement, AbilityTalentBase abilityTalentBase)
@@ -716,6 +747,41 @@ namespace HeroesData.Parser.XmlData
                     }
                 }
             }
+        }
+
+        private bool ParseRequirementNodeElement(XElement requirementNodeElement)
+        {
+            string elementName = requirementNodeElement.Name.LocalName;
+            if (elementName == "CRequirementEq" || elementName == "CRequirementGTE")
+            {
+                List<XElement> operandArray = requirementNodeElement.Elements("OperandArray").ToList();
+
+                IEnumerable<XElement> requirementNodes = GameData.ElementsIncluded(Configuration.GamestringXmlElements("RequirementNode"), operandArray[0].Attribute("value")?.Value);
+                string value = operandArray[1].Attribute("value")?.Value;
+
+                foreach (XElement requirementNode in requirementNodes)
+                {
+                    bool result = ParseRequirementNodeElement(requirementNode);
+                    if (result && value == "1")
+                        return true;
+                    else if (!result && value == "0")
+                        return true;
+                    else if (!result && value == "1")
+                        return false;
+                }
+            }
+            else if (elementName == "CRequirementCountBehavior")
+            {
+                string stateValue = requirementNodeElement.Element("Count").Attribute("State")?.Value;
+                if (stateValue == "QueuedOrBetterAtUnit")
+                    return true;
+                else if (stateValue == "CompleteOnlyAtUnit")
+                    return false;
+                else if (stateValue == "InProgressOrBetterAtUnit")
+                    return false;
+            }
+
+            return false;
         }
     }
 }

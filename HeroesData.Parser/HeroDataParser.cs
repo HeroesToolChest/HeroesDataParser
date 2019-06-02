@@ -15,9 +15,7 @@ namespace HeroesData.Parser
 {
     public class HeroDataParser : ParserBase<Hero, HeroDataOverride>, IParser<Hero, HeroDataParser>
     {
-        private readonly Dictionary<int, string> LayoutButtonFaceByIndex = new Dictionary<int, string>();
         private readonly HeroOverrideLoader HeroOverrideLoader;
-        private readonly UnitData UnitData;
 
         //private readonly WeaponData WeaponData;
         //private readonly ArmorData ArmorData;
@@ -31,12 +29,6 @@ namespace HeroesData.Parser
             : base(xmlDataService)
         {
             HeroOverrideLoader = heroOverrideLoader;
-            UnitData = xmlDataService.UnitData;
-
-            UnitData.IsAbilityTierFilterEnabled = true;
-            UnitData.IsAbilityTypeFilterEnabled = true;
-            UnitData.IsHeroParsing = true;
-            UnitData.Localization = Localization;
 
             //WeaponData = xmlDataService.WeaponData;
             //ArmorData = xmlDataService.ArmorData;
@@ -94,6 +86,12 @@ namespace HeroesData.Parser
             if (string.IsNullOrEmpty(heroId))
                 return null;
 
+            UnitData unitData = XmlDataService.UnitData;
+            unitData.IsAbilityTierFilterEnabled = true;
+            unitData.IsAbilityTypeFilterEnabled = true;
+            unitData.IsHeroParsing = true;
+            unitData.Localization = Localization;
+
             Hero hero = new Hero
             {
                 Name = GameData.GetGameString(DefaultData.HeroData.HeroName.Replace(DefaultData.IdPlaceHolder, heroId)),
@@ -102,6 +100,10 @@ namespace HeroesData.Parser
                 Id = heroId,
             };
 
+            if (hero.CHeroId == "Alarak")
+            {
+                string x = "";
+            }
             XElement heroElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == heroId));
             if (heroElement == null)
                 return null;
@@ -111,8 +113,9 @@ namespace HeroesData.Parser
             SetDefaultValues(hero);
             CActorData(hero);
 
-
-            UnitData.SetUnitData(hero);
+            unitData.IsAbilityParsing = true;
+            unitData.SetUnitData(hero);
+            unitData.IsAbilityParsing = false;
 
             SetHeroData(heroElement, hero);
 

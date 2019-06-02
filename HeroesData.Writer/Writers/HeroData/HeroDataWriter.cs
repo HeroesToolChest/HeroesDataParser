@@ -27,7 +27,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         protected abstract T GetRatingsObject(Hero hero);
         protected abstract T GetWeaponsObject(Unit unit);
         protected abstract T GetAbilitiesObject(Unit unit, bool isUnitAbilities);
-        //protected abstract T GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities);
+        protected abstract T GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities);
         protected abstract T GetTalentsObject(Hero hero);
         protected abstract TU AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase);
         protected abstract TU TalentInfoElement(Talent talent);
@@ -136,9 +136,10 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
+        // TODO: isSubAilities was used for unitdata, is it still needed
         protected virtual T UnitAbilities(Unit unit, bool isSubAbilities)
         {
-            if (unit.Abilities.Any())
+            if (unit.PrimaryAbilities().Any())
             {
                 return GetAbilitiesObject(unit, isSubAbilities);
             }
@@ -146,20 +147,19 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        // TODO: subability
-        //protected T UnitSubAbilities(Unit unit)
-        //{
-        //    if (unit.Abilities.Any())
-        //    {
-        //        ILookup<string, Ability> linkedAbilities = unit.ParentLinkedAbilities();
-        //        if (linkedAbilities.Count > 0)
-        //        {
-        //            return GetSubAbilitiesObject(linkedAbilities);
-        //        }
-        //    }
+        protected T UnitSubAbilities(Unit unit)
+        {
+            if (unit.SubAbilities().Any())
+            {
+                ILookup<string, Ability> linkedAbilities = unit.ParentLinkedAbilities();
+                if (linkedAbilities.Count > 0)
+                {
+                    return GetSubAbilitiesObject(linkedAbilities);
+                }
+            }
 
-        //    return null;
-        //}
+            return null;
+        }
 
         protected virtual T UnitAbilityTalentLifeCost(TooltipLife tooltipLife)
         {

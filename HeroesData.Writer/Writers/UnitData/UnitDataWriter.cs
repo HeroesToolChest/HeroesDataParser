@@ -2,6 +2,7 @@
 using Heroes.Models.AbilityTalents;
 using HeroesData.FileWriter.Writers.HeroData;
 using System;
+using System.Linq;
 
 namespace HeroesData.FileWriter.Writers.UnitData
 {
@@ -36,10 +37,10 @@ namespace HeroesData.FileWriter.Writers.UnitData
             throw new NotImplementedException();
         }
 
-        //protected override T GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        protected override T GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities)
+        {
+            throw new NotImplementedException();
+        }
 
         protected override T GetTalentsObject(Hero hero)
         {

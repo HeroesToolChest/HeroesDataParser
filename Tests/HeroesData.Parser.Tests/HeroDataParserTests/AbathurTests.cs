@@ -22,6 +22,20 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         }
 
         [TestMethod]
+        public void HeroicAbilitiesTests()
+        {
+            Assert.IsTrue(HeroAbathur.ContainsAbility("AbathurUltimateEvolution"));
+            Assert.IsTrue(HeroAbathur.ContainsAbility("AbathurEvolveMonstrosity"));
+        }
+
+        [TestMethod]
+        public void HeroicAbilitySubAbilityTest()
+        {
+            // AbathurEvolveMonstrosityActiveSymbiote
+            Assert.AreEqual(1, HeroAbathur.SubAbilities(AbilityTier.Heroic).Count());
+        }
+
+        [TestMethod]
         public void AbilityTalentLinkIdsTests()
         {
             Talent talent = HeroAbathur.GetTalent("AbathurVolatileMutation");

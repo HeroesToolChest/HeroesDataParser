@@ -18,7 +18,6 @@ namespace HeroesData.Parser.XmlData
         private readonly BehaviorData BehaviorData;
 
         private readonly string ElementType = "CUnit";
-
         private readonly HashSet<string> BasicAbilities;
 
         private XmlArrayElement AbilitiesArray;
@@ -28,6 +27,7 @@ namespace HeroesData.Parser.XmlData
         private bool _isHeroParsing = false;
         private bool _isAbilityTypeFilterEnabled = false;
         private bool _isAbilityTierFilterEnabled = false;
+        private bool _isAbilityParsing = false;
 
         public UnitData(GameData gameData, Configuration configuration, WeaponData weaponData, ArmorData armorData, AbilityData abilityData, BehaviorData behaviorData)
         {
@@ -78,6 +78,16 @@ namespace HeroesData.Parser.XmlData
             {
                 _isAbilityTierFilterEnabled = value;
                 AbilityData.IsAbilityTierFilterEnabled = value;
+            }
+        }
+
+        public bool IsAbilityParsing
+        {
+            get => _isAbilityParsing;
+            set
+            {
+                _isAbilityParsing = value;
+                AbilityData.IsAbilityParsing = value;
             }
         }
 
@@ -241,7 +251,7 @@ namespace HeroesData.Parser.XmlData
         private void SetAbilities(Unit unit)
         {
             if (AbilitiesArray == null || CardLayoutButtons == null)
-                throw new ArgumentNullException("Call SetUnitData() first to set up the abilities and card layout button collections");
+                throw new ArgumentNullException("Call SetData() first to set up the abilities and card layout button collections");
 
             foreach (XElement element in CardLayoutButtons.Elements)
             {

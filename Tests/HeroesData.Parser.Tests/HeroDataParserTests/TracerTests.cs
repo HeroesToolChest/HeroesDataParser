@@ -13,5 +13,11 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 1);
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("TracerBlink"));
         }
+
+        [TestMethod]
+        public void TracerBlinkAbilityTest()
+        {
+            Assert.IsTrue(HeroTracer.ContainsAbility("TracerBlink"));
+        }
     }
 }

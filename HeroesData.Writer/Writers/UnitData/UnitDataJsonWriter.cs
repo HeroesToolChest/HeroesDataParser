@@ -41,11 +41,11 @@ namespace HeroesData.FileWriter.Writers.UnitData
             if (!string.IsNullOrEmpty(unit.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 unitObject.Add("description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
             if (unit.HeroDescriptors.Any())
-                unitObject.Add(new JProperty("descriptors", unit.HeroDescriptors));
+                unitObject.Add(new JProperty("descriptors", unit.HeroDescriptors.OrderBy(x => x)));
             if (unit.Attributes.Any())
-                unitObject.Add(new JProperty("attributes", unit.Attributes));
+                unitObject.Add(new JProperty("attributes", unit.Attributes.OrderBy(x => x)));
             if (unit.Units.Any())
-                unitObject.Add(new JProperty("units", unit.Units));
+                unitObject.Add(new JProperty("units", unit.Units.OrderBy(x => x)));
             if (!string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName))
                 unitObject.Add("image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension));
 
@@ -68,6 +68,10 @@ namespace HeroesData.FileWriter.Writers.UnitData
             JProperty abilities = UnitAbilities(unit, false);
             if (abilities != null)
                 unitObject.Add(abilities);
+
+            JProperty subAbilities = UnitSubAbilities(unit);
+            if (subAbilities != null)
+                unitObject.Add(subAbilities);
 
             return new JProperty(unit.Id, unitObject);
         }
@@ -288,6 +292,37 @@ namespace HeroesData.FileWriter.Writers.UnitData
             }
 
             return new JProperty("weapons", weaponArray);
+        }
+
+        protected override JProperty GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities)
+        {
+            JObject parentLinkObject = new JObject();
+
+            IEnumerable<string> parentLinks = linkedAbilities.Select(x => x.Key);
+            foreach (string parent in parentLinks)
+            {
+                JObject abilities = new JObject();
+
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Basic), "basic");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Heroic), "heroic");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Trait), "trait");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Mount), "mount");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Activable), "activable");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Hearth), "hearth");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Taunt), "taunt");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Dance), "dance");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Spray), "spray");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Voice), "voice");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.MapMechanic), "mapMechanic");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Interact), "interact");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Action), "action");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Hidden), "hidden");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Unknown), "unknown");
+
+                parentLinkObject.Add(new JProperty(parent, abilities));
+            }
+
+            return new JProperty("subAbilities", new JArray(new JObject(parentLinkObject)));
         }
 
         protected void SetAbilities(JObject abilityObject, IEnumerable<Ability> abilities, string propertyName)

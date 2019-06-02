@@ -64,6 +64,18 @@
       <Element>CEffectUseCalldown</Element>
       <Element>CEffectUseMagazine</Element>
     </Type>
+    <Type name="RequirementNode">
+      <Element>CRequirementAllowUnit</Element>
+      <Element>CRequirementAnd</Element>
+      <Element>CRequirementCountBehavior</Element>
+      <Element>CRequirementCountUnit</Element>
+      <Element>CRequirementCountUpgrade</Element>
+      <Element>CRequirementEq</Element>
+      <Element>CRequirementGT</Element>
+      <Element>CRequirementLT</Element>
+      <Element>CRequirementNot</Element>
+      <Element>CRequirementOr</Element>
+    </Type>
     <Type name="Unit">
       <Element>CUnit</Element>
     </Type>

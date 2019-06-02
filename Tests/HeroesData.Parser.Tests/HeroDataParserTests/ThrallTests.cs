@@ -20,5 +20,19 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("ThrallFrostwolfResilience"));
             Assert.AreEqual(AbilityType.Trait, talent.AbilityType);
         }
+
+        [TestMethod]
+        public void AbilitiesListTests()
+        {
+            Assert.IsTrue(HeroThrall.ContainsAbility("ThrallSundering"));
+            Assert.IsTrue(HeroThrall.ContainsAbility("ThrallEarthquake"));
+            Assert.IsTrue(HeroThrall.ContainsAbility("ThrallChainLightning"));
+            Assert.IsTrue(HeroThrall.ContainsAbility("ThrallFeralSpirit"));
+            Assert.IsTrue(HeroThrall.ContainsAbility("ThrallWindfury"));
+            Assert.IsTrue(HeroThrall.ContainsAbility("ThrallFrostwolfResilience"));
+
+            Assert.IsFalse(HeroThrall.ContainsAbility("ThrallCancelSundering"));
+            Assert.IsFalse(HeroThrall.ContainsAbility("ThrallFrostwolfsGrace"));
+        }
     }
 }

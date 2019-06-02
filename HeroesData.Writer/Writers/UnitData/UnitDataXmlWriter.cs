@@ -33,15 +33,16 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 string.IsNullOrEmpty(unit.DamageType) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("damageType", unit.DamageType),
                 string.IsNullOrEmpty(unit.ScalingBehaviorLink) ? null : new XElement("ScalingLinkId", unit.ScalingBehaviorLink),
                 string.IsNullOrEmpty(unit.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType)),
-                unit.HeroDescriptors.Any() ? new XElement("Descriptors", unit.HeroDescriptors.Select(d => new XElement("Descriptor", d))) : null,
-                unit.Attributes.Any() ? new XElement("Attributes", unit.Attributes.Select(x => new XElement("Attribute", x))) : null,
-                unit.Units.Any() ? new XElement("Units", unit.Units.Select(x => new XElement("Unit", x))) : null,
+                unit.HeroDescriptors.Any() ? new XElement("Descriptors", unit.HeroDescriptors.OrderBy(x => x).Select(d => new XElement("Descriptor", d))) : null,
+                unit.Attributes.Any() ? new XElement("Attributes", unit.Attributes.OrderBy(x => x).Select(x => new XElement("Attribute", x))) : null,
+                unit.Units.Any() ? new XElement("Units", unit.Units.OrderBy(x => x).Select(x => new XElement("Unit", x))) : null,
                 string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName) ? null : new XElement("Image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension)),
                 UnitLife(unit),
                 UnitEnergy(unit),
                 UnitArmor(unit),
                 UnitWeapons(unit),
-                UnitAbilities(unit, false));
+                UnitAbilities(unit, false),
+                UnitSubAbilities(unit));
         }
 
         protected override XElement GetArmorObject(Unit unit)
@@ -115,6 +116,28 @@ namespace HeroesData.FileWriter.Writers.UnitData
             }
         }
 
+        protected override XElement GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities)
+        {
+            return new XElement(
+                "SubAbilities",
+                linkedAbilities.Select(parent => new XElement(
+                    parent.Key,
+                    parent.Where(x => x.Tier == AbilityTier.Basic).Any() ? new XElement("Basic", parent.Where(x => x.Tier == AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Heroic).Any() ? new XElement("Heroic", parent.Where(x => x.Tier == AbilityTier.Heroic).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Trait).Any() ? new XElement("Trait", parent.Where(x => x.Tier == AbilityTier.Trait).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Mount).Any() ? new XElement("Mount", parent.Where(x => x.Tier == AbilityTier.Mount).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Activable).Any() ? new XElement("Activable", parent.Where(x => x.Tier == AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Hearth).Any() ? new XElement("Hearth", parent.Where(x => x.Tier == AbilityTier.Hearth).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Taunt).Any() ? new XElement("Taunt", parent.Where(x => x.Tier == AbilityTier.Taunt).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Dance).Any() ? new XElement("Dance", parent.Where(x => x.Tier == AbilityTier.Dance).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Spray).Any() ? new XElement("Spray", parent.Where(x => x.Tier == AbilityTier.Spray).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Voice).Any() ? new XElement("Voice", parent.Where(x => x.Tier == AbilityTier.Voice).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", parent.Where(x => x.Tier == AbilityTier.MapMechanic).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Interact).Any() ? new XElement("Interact", parent.Where(x => x.Tier == AbilityTier.Interact).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Hidden).Any() ? new XElement("Hidden", parent.Where(x => x.Tier == AbilityTier.Hidden).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Action).Any() ? new XElement("Action", parent.Where(x => x.Tier == AbilityTier.Action).Select(x => AbilityTalentInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Unknown).Any() ? new XElement("Unknown", parent.Where(x => x.Tier == AbilityTier.Unknown).Select(x => AbilityTalentInfoElement(x))) : null)));
+        }
         protected override XElement AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)
         {
             if (FileOutputOptions.IsLocalizedText)
