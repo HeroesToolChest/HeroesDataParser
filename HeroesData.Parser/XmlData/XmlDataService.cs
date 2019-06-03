@@ -38,14 +38,9 @@ namespace HeroesData.Parser.XmlData
         public TalentData TalentData => new TalentData(GameData, DefaultData, Configuration);
 
         /// <summary>
-        /// Gets a new instance of <see cref="BehaviorData"/>.
-        /// </summary>
-        public BehaviorData BehaviorData => new BehaviorData(GameData);
-
-        /// <summary>
         /// Gets a new instance of <see cref="UnitData"/>.
         /// </summary>
-        public UnitData UnitData => new UnitData(GameData, Configuration, WeaponData, ArmorData, AbilityData, BehaviorData);
+        public UnitData UnitData => new UnitData(GameData, Configuration, WeaponData, ArmorData, AbilityData);
 
         public XmlDataService GetInstance()
         {

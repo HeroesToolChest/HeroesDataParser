@@ -113,10 +113,7 @@ namespace HeroesData.Parser
             SetDefaultValues(hero);
             CActorData(hero);
 
-            unitData.IsAbilityParsing = true;
             unitData.SetUnitData(hero);
-            unitData.IsAbilityParsing = false;
-
             SetHeroData(heroElement, hero);
 
 

@@ -162,7 +162,9 @@ namespace HeroesData.ExtractorData
 
                     if (tooltips.Count > 0)
                     {
-                        writer.WriteLine();
+                        if (nonTooltips.Count > 0)
+                            writer.WriteLine();
+
                         tooltips.ForEach((warning) =>
                         {
                             writer.WriteLine(warning);

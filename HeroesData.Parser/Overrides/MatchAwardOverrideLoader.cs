@@ -1,13 +1,12 @@
-﻿using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.Overrides.DataOverrides;
+﻿using HeroesData.Parser.Overrides.DataOverrides;
 using System.Xml.Linq;
 
 namespace HeroesData.Parser.Overrides
 {
     public class MatchAwardOverrideLoader : OverrideLoaderBase<MatchAwardDataOverride>, IOverrideLoader
     {
-        public MatchAwardOverrideLoader(GameData gameData, int? hotsBuild)
-            : base(gameData, hotsBuild)
+        public MatchAwardOverrideLoader(int? hotsBuild)
+            : base(hotsBuild)
         {
         }
 

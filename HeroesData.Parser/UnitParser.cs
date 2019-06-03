@@ -17,8 +17,6 @@ namespace HeroesData.Parser
     {
         private readonly UnitOverrideLoader UnitOverrideLoader;
 
-        private readonly HashSet<string> ValidParents = new HashSet<string>();
-
         private UnitDataOverride UnitDataOverride;
 
         public UnitParser(IXmlDataService xmlDataService, UnitOverrideLoader unitOverrideLoader)
@@ -112,21 +110,14 @@ namespace HeroesData.Parser
 
         protected override void ApplyAdditionalOverrides(Unit unit, UnitDataOverride dataOverride)
         {
+            if (unit == null)
+                throw new ArgumentNullException(nameof(unit));
+            if (dataOverride == null)
+                throw new ArgumentNullException(nameof(dataOverride));
+
             // abilities
             if (unit.Abilities != null)
-            {
-                foreach (Ability ability in unit.Abilities)
-                {
-                    if (dataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.ReferenceNameId, out Dictionary<string, Action<Ability>> valueOverrideMethods))
-                    {
-                        foreach (KeyValuePair<string, Action<Ability>> propertyOverride in valueOverrideMethods)
-                        {
-                            // execute each property override
-                            propertyOverride.Value(ability);
-                        }
-                    }
-                }
-            }
+                dataOverride.ExecuteAbilityOverrides(unit.Abilities);
 
             base.ApplyAdditionalOverrides(unit, dataOverride);
         }
@@ -136,7 +127,7 @@ namespace HeroesData.Parser
             string id = element.Attribute("id").Value;
             string parent = element.Attribute("parent")?.Value;
 
-            return !string.IsNullOrEmpty(parent) && ValidParents.Contains(parent) && !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal);
+            return !string.IsNullOrEmpty(parent) && !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal);
         }
 
         private void SetDefaultValues(Unit unit)

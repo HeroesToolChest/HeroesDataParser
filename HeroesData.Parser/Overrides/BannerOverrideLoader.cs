@@ -1,5 +1,4 @@
-﻿using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.Overrides.DataOverrides;
+﻿using HeroesData.Parser.Overrides.DataOverrides;
 using System;
 using System.Xml.Linq;
 
@@ -7,8 +6,8 @@ namespace HeroesData.Parser.Overrides
 {
     public class BannerOverrideLoader : OverrideLoaderBase<BannerDataOverride>, IOverrideLoader
     {
-        public BannerOverrideLoader(GameData gameData, int? hotsBuild)
-            : base(gameData, hotsBuild)
+        public BannerOverrideLoader(int? hotsBuild)
+            : base(hotsBuild)
         {
         }
 

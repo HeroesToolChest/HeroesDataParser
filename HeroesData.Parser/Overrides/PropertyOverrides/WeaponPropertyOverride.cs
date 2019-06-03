@@ -1,5 +1,4 @@
 ﻿using Heroes.Models;
-using HeroesData.Loader.XmlGameData;
 using System;
 using System.Collections.Generic;
 
@@ -7,16 +6,6 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
 {
     internal class WeaponPropertyOverride : PropertyOverrideBase<UnitWeapon>
     {
-        public WeaponPropertyOverride(GameData gameData)
-            : base(gameData)
-        {
-        }
-
-        public WeaponPropertyOverride(GameData gameData, int? hotsBuild)
-            : base(gameData, hotsBuild)
-        {
-        }
-
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<UnitWeapon>> propertyOverrides)
         {
             if (propertyName == nameof(UnitWeapon.ParentLink))
@@ -34,7 +23,7 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                     if (string.IsNullOrEmpty(propertyValue))
                         return;
 
-                    weapon.Range = GetValue(propertyValue);
+                    weapon.Range = GetDoubleValue(propertyValue);
                 });
             }
             else if (propertyName == nameof(UnitWeapon.Damage))
@@ -44,7 +33,7 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                     if (string.IsNullOrEmpty(propertyValue))
                         return;
 
-                    weapon.Damage = GetValue(propertyValue);
+                    weapon.Damage = GetDoubleValue(propertyValue);
                 });
             }
         }

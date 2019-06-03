@@ -2,7 +2,6 @@
 using Heroes.Models.AbilityTalents;
 using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.Exceptions;
 using HeroesData.Parser.Overrides.DataOverrides;
 using System;
 using System.Collections.Generic;
@@ -24,8 +23,6 @@ namespace HeroesData.Parser.XmlData
         public Localization Localization { get; set; }
         public UnitDataOverride UnitDataOverride { get; set; }
         public HeroDataOverride HeroDataOverride { get; set; }
-
-        public bool IsAbilityParsing { get; set; } = false;
 
         protected GameData GameData { get; }
         protected DefaultData DefaultData { get; }
@@ -636,7 +633,7 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(requirement))
                 requirement = cmdButtonArrayElement.Element("Requirements")?.Attribute("value")?.Value;
             if (string.IsNullOrEmpty(showValidator))
-                requirement = cmdButtonArrayElement.Element("ShowValidator")?.Attribute("value")?.Value;
+                showValidator = cmdButtonArrayElement.Element("ShowValidator")?.Attribute("value")?.Value;
 
             if (!string.IsNullOrEmpty(defaultButtonFace))
             {
@@ -656,6 +653,12 @@ namespace HeroesData.Parser.XmlData
             {
                 if (requirement == "HeroHasNoDeadBehaviorAndNotInBase")
                     return;
+
+                if (requirement == "IsMounted")
+                {
+                    abilityTalentBase.ParentLink = "Mount"; // ability id of the standard Mount ability
+                    return;
+                }
 
                 XElement requirementElement = GameData.MergeXmlElements(GameData.Elements("CRequirement").Where(x => x.Attribute("id")?.Value == requirement));
                 if (requirementElement != null)
@@ -678,29 +681,36 @@ namespace HeroesData.Parser.XmlData
                                 return;
                             }
 
-                            if (IsAbilityParsing && !string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(linkValue) && (indexValue.Equals("Show", StringComparison.OrdinalIgnoreCase) || indexValue.Equals("Use", StringComparison.OrdinalIgnoreCase)))
-                            {
-                                IEnumerable<XElement> requirementNodes = GameData.ElementsIncluded(Configuration.GamestringXmlElements("RequirementNode"), linkValue);
-                                if (!requirementNodes.Any())
-                                    throw new XmlGameDataParseException($"Could not find any 'RequirementNode' elements with the link value of {linkValue} for the requirement {requirement}");
+                            //if (!string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(linkValue) && (indexValue.Equals("Show", StringComparison.OrdinalIgnoreCase) || indexValue.Equals("Use", StringComparison.OrdinalIgnoreCase)))
+                            //{
+                            //    IEnumerable<XElement> requirementNodes = GameData.ElementsIncluded(Configuration.GamestringXmlElements("RequirementNode"), linkValue);
+                            //    if (!requirementNodes.Any())
+                            //        throw new XmlGameDataParseException($"Could not find any 'RequirementNode' elements with the link value of {linkValue} for the requirement {requirement}");
 
-                                foreach (XElement requirementNodeElement in requirementNodes)
-                                {
-                                    if (!ParseRequirementNodeElement(requirementNodeElement))
-                                        abilityTalentBase.ReferenceNameId = string.Empty;
-                                }
-                            }
+                            //    foreach (XElement requirementNodeElement in requirementNodes)
+                            //    {
+                            //        if (!ParseRequirementNodeElement(requirementNodeElement, out string parentAbility))
+                            //        {
+                            //            // check if its an ability
+                            //            if (GameData.ElementsIncluded(Configuration.GamestringXmlElements("Abil"), parentAbility).Any())
+                            //            {
+                            //                abilityTalentBase.ParentLink = parentAbility;
+                            //            }
+                            //            else
+                            //            {
+                            //                IEnumerable<XElement> behaviorElements = GameData.ElementsIncluded(Configuration.GamestringXmlElements("Behavior"), parentAbility);
+                            //                foreach (XElement behaviorElement in behaviorElements)
+                            //                {
+                            //                    abilityTalentBase.ParentLink = FindParentLinkFromBehavior(behaviorElement, abilityTalentBase.ReferenceNameId);
+                            //                }
+                            //            }
+                            //        }
+                            //    }
+                            //}
                         }
                     }
                 }
             }
-
-            // TODO: validator needed?
-            //if (!string.IsNullOrEmpty(showValidator))
-            //{
-            //    abilityTalentBase.ReferenceNameId = string.Empty;
-            //    return;
-            //}
         }
 
         private void SetEffectData(XElement effectElement, AbilityTalentBase abilityTalentBase)
@@ -749,39 +759,70 @@ namespace HeroesData.Parser.XmlData
             }
         }
 
-        private bool ParseRequirementNodeElement(XElement requirementNodeElement)
-        {
-            string elementName = requirementNodeElement.Name.LocalName;
-            if (elementName == "CRequirementEq" || elementName == "CRequirementGTE")
-            {
-                List<XElement> operandArray = requirementNodeElement.Elements("OperandArray").ToList();
+        //private bool ParseRequirementNodeElement(XElement requirementNodeElement, out string parentAbility)
+        //{
+        //    string elementName = requirementNodeElement.Name.LocalName;
+        //    if (elementName == "CRequirementEq" || elementName == "CRequirementGTE")
+        //    {
+        //        List<XElement> operandArray = requirementNodeElement.Elements("OperandArray").ToList();
 
-                IEnumerable<XElement> requirementNodes = GameData.ElementsIncluded(Configuration.GamestringXmlElements("RequirementNode"), operandArray[0].Attribute("value")?.Value);
-                string value = operandArray[1].Attribute("value")?.Value;
+        //        IEnumerable<XElement> requirementNodes = GameData.ElementsIncluded(Configuration.GamestringXmlElements("RequirementNode"), operandArray[0].Attribute("value")?.Value);
+        //        string value = operandArray[1].Attribute("value")?.Value;
 
-                foreach (XElement requirementNode in requirementNodes)
-                {
-                    bool result = ParseRequirementNodeElement(requirementNode);
-                    if (result && value == "1")
-                        return true;
-                    else if (!result && value == "0")
-                        return true;
-                    else if (!result && value == "1")
-                        return false;
-                }
-            }
-            else if (elementName == "CRequirementCountBehavior")
-            {
-                string stateValue = requirementNodeElement.Element("Count").Attribute("State")?.Value;
-                if (stateValue == "QueuedOrBetterAtUnit")
-                    return true;
-                else if (stateValue == "CompleteOnlyAtUnit")
-                    return false;
-                else if (stateValue == "InProgressOrBetterAtUnit")
-                    return false;
-            }
+        //        foreach (XElement requirementNode in requirementNodes)
+        //        {
+        //            bool result = ParseRequirementNodeElement(requirementNode, out parentAbility);
+        //            if (result && value == "1")
+        //                return true;
+        //            else if (!result && value == "0")
+        //                return true;
+        //            else if (!result && value == "1")
+        //                return false;
+        //        }
+        //    }
+        //    else if (elementName == "CRequirementCountBehavior")
+        //    {
+        //        XElement countElement = requirementNodeElement.Element("Count");
 
-            return false;
-        }
+        //        string stateValue = countElement.Attribute("State")?.Value;
+        //        parentAbility = countElement.Attribute("Link")?.Value;
+
+        //        if (stateValue == "QueuedOrBetterAtUnit")
+        //            return true;
+        //        else if (stateValue == "CompleteOnlyAtUnit")
+        //            return false;
+        //        else if (stateValue == "InProgressOrBetterAtUnit")
+        //            return false;
+        //    }
+
+        //    parentAbility = string.Empty;
+        //    return false;
+        //}
+
+        //private string FindParentLinkFromBehavior(XElement behaviorElement, string selfAbilityId)
+        //{
+        //    if (behaviorElement == null)
+        //        throw new ArgumentNullException(nameof(behaviorElement));
+        //    if (selfAbilityId == null)
+        //        throw new ArgumentNullException(nameof(selfAbilityId));
+
+        //    XElement modificationElement = behaviorElement.Element("Modification");
+        //    if (modificationElement != null)
+        //    {
+        //        foreach (XElement element in modificationElement.Elements())
+        //        {
+        //            string elementName = element.Name.LocalName.ToUpper();
+
+        //            if (elementName == "ABILLINKENABLEARRAY")
+        //            {
+        //                string abilValue = element.Attribute("value")?.Value;
+        //                if (selfAbilityId == abilValue && GameData.ElementsIncluded(Configuration.GamestringXmlElements("Abil"), abilValue).Any())
+        //                    return abilValue;
+        //            }
+        //        }
+        //    }
+
+        //    return string.Empty;
+        //}
     }
 }

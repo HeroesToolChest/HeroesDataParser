@@ -1,5 +1,4 @@
-﻿using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.Overrides.DataOverrides;
+﻿using HeroesData.Parser.Overrides.DataOverrides;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,11 +11,11 @@ namespace HeroesData.Parser.Overrides
     public abstract class OverrideLoaderBase<T>
         where T : class, IDataOverride
     {
+        private readonly int? HotsBuild;
         private readonly SortedDictionary<int, string> OverrideFileNamesByBuild = new SortedDictionary<int, string>(); // includes path
 
-        public OverrideLoaderBase(GameData gameData, int? hotsBuild)
+        public OverrideLoaderBase(int? hotsBuild)
         {
-            GameData = gameData;
             HotsBuild = hotsBuild;
         }
 
@@ -32,10 +31,6 @@ namespace HeroesData.Parser.Overrides
 
         protected Dictionary<string, T> DataOverridesById { get; private set; }
         protected string DataOverridesDirectoryPath { get; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "dataoverrides");
-
-        protected GameData GameData { get; }
-        protected int? HotsBuild { get; }
-
         protected virtual string OverrideFileName { get; private set; } = "overrides.xml";
         protected abstract string OverrideElementName { get; }
 
@@ -85,6 +80,9 @@ namespace HeroesData.Parser.Overrides
         {
             if (DataOverridesById == null)
                 throw new NullReferenceException("The Load() method needs to be called before this method can be used.");
+
+            if (id.Contains(".stormmod"))
+                id = id.Replace(".stormmod", string.Empty);
 
             if (DataOverridesById.TryGetValue(id, out T overrideData))
                 return overrideData;

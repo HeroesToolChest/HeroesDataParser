@@ -1,3 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <UnitOverrides>
+  <!--***************************************-->
+  <!--TEST TEST TEST TEST TEST TEST TEST TEST-->
+  <!--***************************************-->
+  
+  <CUnit id="VolskayaVehicleGunner">
+    <Ability id="VolskayaVehicleActivateParticleCannon">
+      <Override>
+        <ParentLink value="VolskayaVehicleInitiateParticleCannon" />
+      </Override>
+    </Ability>
+    <Ability id="VolskayaVehicleTacticalStrikesDeactivate">
+      <Override>
+        <ParentLink value="VolskayaVehicleTacticalStrikes" />
+      </Override>
+    </Ability>
+  </CUnit>
+  <CUnit id="volskayadata-VolskayaVehicleGunner">
+    <Ability id="VolskayaVehicleActivateParticleCannon">
+      <Override>
+        <ParentLink value="VolskayaVehicleInitiateParticleCannon" />
+      </Override>
+    </Ability>
+    <Ability id="VolskayaVehicleTacticalStrikesDeactivate">
+      <Override>
+        <ParentLink value="VolskayaVehicleTacticalStrikes" />
+      </Override>
+    </Ability>
+  </CUnit>
 </UnitOverrides>

@@ -3,6 +3,7 @@ using Heroes.Models.AbilityTalents;
 using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HeroesData.ExtractorData
@@ -44,6 +45,9 @@ namespace HeroesData.ExtractorData
             {
                 VerifyTooltipDescription(unit);
             }
+
+            VerifyAbilitiesCount(unit.PrimaryAbilities().ToList());
+            VerifyAbilitiesCount(unit.SubAbilities().ToList());
 
             VerifyWeapons(unit);
         }
@@ -94,6 +98,30 @@ namespace HeroesData.ExtractorData
                         AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
                 }
             }
+        }
+
+        private void VerifyAbilitiesCount(List<Ability> abilitiesList)
+        {
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Q).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.Q} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.W).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.W} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.E).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.E} abilabilityities");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Heroic).Count() > 2)
+                AddWarning($"has more than 2 {AbilityType.Heroic} abilities");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Z).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.Z} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.B).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.B} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Trait).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.Trait} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Taunt).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.Taunt} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Spray).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.Spray} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Dance).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.Dance} ability");
         }
 
         private void VerifyTooltipDescription(Unit unit)

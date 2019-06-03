@@ -1,5 +1,4 @@
 ﻿using Heroes.Models.AbilityTalents;
-using HeroesData.Loader.XmlGameData;
 using System;
 using System.Collections.Generic;
 
@@ -7,16 +6,6 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
 {
     internal class TalentPropertyOverride : PropertyOverrideBase<Talent>
     {
-        public TalentPropertyOverride(GameData gameData)
-            : base(gameData)
-        {
-        }
-
-        public TalentPropertyOverride(GameData gameData, int? hotsBuild)
-            : base(gameData, hotsBuild)
-        {
-        }
-
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<Talent>> propertyOverrides)
         {
             if (propertyName == nameof(Talent.AbilityType))

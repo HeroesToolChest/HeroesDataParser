@@ -15,7 +15,6 @@ namespace HeroesData.Parser.XmlData
         private readonly WeaponData WeaponData;
         private readonly ArmorData ArmorData;
         private readonly AbilityData AbilityData;
-        private readonly BehaviorData BehaviorData;
 
         private readonly string ElementType = "CUnit";
         private readonly HashSet<string> BasicAbilities;
@@ -29,14 +28,13 @@ namespace HeroesData.Parser.XmlData
         private bool _isAbilityTierFilterEnabled = false;
         private bool _isAbilityParsing = false;
 
-        public UnitData(GameData gameData, Configuration configuration, WeaponData weaponData, ArmorData armorData, AbilityData abilityData, BehaviorData behaviorData)
+        public UnitData(GameData gameData, Configuration configuration, WeaponData weaponData, ArmorData armorData, AbilityData abilityData)
         {
             GameData = gameData;
             Configuration = configuration;
             WeaponData = weaponData;
             ArmorData = armorData;
             AbilityData = abilityData;
-            BehaviorData = behaviorData;
 
             BasicAbilities = Configuration.UnitDataExtraAbilities.ToHashSet();
         }
@@ -78,16 +76,6 @@ namespace HeroesData.Parser.XmlData
             {
                 _isAbilityTierFilterEnabled = value;
                 AbilityData.IsAbilityTierFilterEnabled = value;
-            }
-        }
-
-        public bool IsAbilityParsing
-        {
-            get => _isAbilityParsing;
-            set
-            {
-                _isAbilityParsing = value;
-                AbilityData.IsAbilityParsing = value;
             }
         }
 
@@ -215,7 +203,7 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "BEHAVIORARRAY")
                 {
-                    string link = BehaviorData.GetScalingBehaviorLink(element);
+                    string link = GetScalingBehaviorLink(element);
                     if (!string.IsNullOrEmpty(link))
                         unit.ScalingBehaviorLink = link;
                 }
@@ -295,6 +283,19 @@ namespace HeroesData.Parser.XmlData
                 foreach (string createUnit in ability.CreatedUnits)
                     unit.AddUnit(createUnit);
             }
+        }
+
+        private string GetScalingBehaviorLink(XElement behaviorArrayElement)
+        {
+            string behaviorLink = behaviorArrayElement.Attribute("Link")?.Value;
+            if (string.IsNullOrEmpty(behaviorLink))
+                return string.Empty;
+
+            XElement behaviorVeterancyElement = GameData.MergeXmlElements(GameData.Elements("CBehaviorVeterancy").Where(x => x.Attribute("id")?.Value == behaviorLink));
+            if (behaviorVeterancyElement != null)
+                return behaviorLink;
+
+            return string.Empty;
         }
     }
 }
