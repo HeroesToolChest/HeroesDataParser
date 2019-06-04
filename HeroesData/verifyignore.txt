@@ -1,5 +1,6 @@
 ﻿## Validation messages to ignore
 
+# hero data -------------------------------------------------------
 # unit has no health or energy
 [Abathur] [Symbiote] Energy > 0 and EnergyType is NONE
 [Abathur] [Symbiote] Life is 0
@@ -25,6 +26,24 @@
 [LostVikings] LifeRegenerationRateScaling is 0
 [LostVikings] LifeScaling is 0
 [LostVikings] Sight is 0
+
+# -----------------------------------------------------------------
+
+# unit data -------------------------------------------------------
+[BaleogsGravestone] has more than 1 Q ability
+[BaleogsGravestone] has more than 1 W ability
+[BaleogsGravestone] has more than 1 E abilities
+[OlafsGravestone] has more than 1 Q ability
+[OlafsGravestone] has more than 1 W ability
+[OlafsGravestone] has more than 1 E abilities
+[LostVikingsGravestone] has more than 1 Q ability
+[LostVikingsGravestone] has more than 1 W ability
+[LostVikingsGravestone] has more than 1 E abilities
+[EriksGravestone] has more than 1 Q ability
+[EriksGravestone] has more than 1 W ability
+[EriksGravestone] has more than 1 E abilities
+
+# -----------------------------------------------------------------
 
 # default announcer has no gender
 [NoAnnouncerPack] Gender is empty
