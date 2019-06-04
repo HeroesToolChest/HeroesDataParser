@@ -28,6 +28,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         protected Unit HanamuraMercDefenderSentinel { get; set; }
         protected Unit MercDefenderSentinel { get; set; }
         protected Unit OverwatchDataMercDefenderMeleeBruiser { get; set; }
+        protected Unit OverwatchDataJungleGraveGolemDefender { get; set; }
         protected Unit VolskayaDataVolskayaVehicleGunner { get; set; }
         protected Unit AlteracpassAllianceCavalry { get; set; }
         protected Unit AlteracpassCapturedSoldier { get; set; }
@@ -92,6 +93,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             GameData.AppendGameData(GameData.GetMapGameData("overwatchdata.stormmod"));
             OverwatchDataMercDefenderMeleeBruiser = unitParser.Parse("MercDefenderMeleeBruiser", "overwatchdata.stormmod");
+            OverwatchDataJungleGraveGolemDefender = unitParser.Parse("JungleGraveGolemDefender", "overwatchdata.stormmod");
             GameData.RestoreGameData();
         }
 

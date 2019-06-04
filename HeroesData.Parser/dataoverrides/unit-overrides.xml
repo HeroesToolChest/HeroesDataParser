@@ -1,5 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <UnitOverrides>
+  <!--These abilities seem to be incorrectly not overriden by the new abilities-->
+  <!--Setting abilityType to Hidden to signify that their being overlapped by the new abilities-->
+  <CUnit id="overwatchdata-JungleGraveGolemDefender">
+    <Ability id="UnderworldBossRoots">
+      <Override>
+        <AbilityType value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="UnderworldBossStun">
+      <Override>
+        <AbilityType value="Hidden" />
+      </Override>
+    </Ability>
+  </CUnit>
+  
   <CUnit id="VolskayaVehicleGunner">
     <Ability id="VolskayaVehicleActivateParticleCannon">
       <Override>

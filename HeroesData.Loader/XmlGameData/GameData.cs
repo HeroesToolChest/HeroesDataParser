@@ -133,8 +133,14 @@ namespace HeroesData.Loader.XmlGameData
         /// <param name="elements">The collection of elements.</param>
         /// <param name="append">Add elements as the last children to the first element.</param>
         /// <returns></returns>
+        /// <remarks>
+        /// When append is true, the returned XElement object should be looped through, this allows the later items
+        /// in the collection to override the earlier items.
+        /// When append is false, the Element() method should be used on the returned XElement object instead. This allows the
+        /// newer items to be used while ignore the older items.</remarks>
         public static XElement MergeXmlElements(IEnumerable<XElement> elements, bool append = true)
         {
+            // TODO, needs to be updated
             if (elements == null || !elements.Any())
                 return null;
 

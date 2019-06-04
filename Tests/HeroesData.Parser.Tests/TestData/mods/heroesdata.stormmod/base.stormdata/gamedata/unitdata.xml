@@ -900,4 +900,37 @@
     <UnitDamageType value="Structure" />
     <AIThinkTree value="AI/BaseTowerThinkTree.aitree" />
   </CUnit>
+  <CUnit id="JungleGraveGolemLaner" parent="StormBossMercLanerParent">
+    <LifeStart value="19000" />
+    <LifeMax value="19000" />
+    <AbilArray Link="AbathurAssumingDirectControlCancel" />
+    <AbilArray Link="UnderworldBossStun" />
+    <AbilArray Link="UnderworldBossRoots" />
+    <AbilArray Link="GraveGolemMULEKill" />
+    <BehaviorArray Link="GraveGolemLanerScaling" />
+    <BehaviorArray Link="GraveGolemBindingRootsCastScan" />
+    <BehaviorArray Link="GraveGolemMegaStunCastScan" />
+    <BehaviorArray Link="GraveGolemMULEKillCastScan" />
+    <WeaponArray Link="JungleOgreKingLaner" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="GraveGolemBindingRoots" Type="AbilCmd" AbilCmd="UnderworldBossRoots,Execute" Slot="Ability1" />
+      <LayoutButtons Face="GraveGolemMegaStun" Type="AbilCmd" AbilCmd="UnderworldBossStun,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AbathurSymbioteCancel" Type="AbilCmd" Slot="Heroic" />
+      <LayoutButtons Face="GraveGolemMULEKill" Type="AbilCmd" AbilCmd="GraveGolemMULEKill,Execute" Slot="Trait" />
+    </CardLayouts>
+    <AIThinkTree value="AI\GraveGolemLaner.aitree" />
+  </CUnit>
+  <CUnit id="JungleGraveGolemDefender" parent="StormBossMercDefenderParent">
+    <LifeStart value="16000" />
+    <LifeMax value="16000" />
+    <AbilArray Link="UnderworldBossRoots" />
+    <AbilArray Link="UnderworldBossStun" />
+    <BehaviorArray Link="GraveGolemDefenderScaling" />
+    <WeaponArray Link="JungleOgreKingDefender" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="GraveGolemBindingRoots" Type="AbilCmd" AbilCmd="UnderworldBossRoots,Execute" Slot="Ability1" />
+      <LayoutButtons Face="GraveGolemMegaStun" Type="AbilCmd" AbilCmd="UnderworldBossStun,Execute" Slot="Ability2" />
+    </CardLayouts>
+    <KillXP value="750" />
+  </CUnit>
 </Catalog>

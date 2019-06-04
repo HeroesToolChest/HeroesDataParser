@@ -28,4 +28,16 @@
       </Override>
     </Ability>
   </CUnit>
+  <CUnit id="overwatchdata-JungleGraveGolemDefender">
+    <Ability id="UnderworldBossRoots">
+      <Override>
+        <AbilityType value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="UnderworldBossStun">
+      <Override>
+        <AbilityType value="Hidden" />
+      </Override>
+    </Ability>
+  </CUnit>
 </UnitOverrides>
