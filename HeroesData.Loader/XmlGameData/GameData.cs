@@ -200,6 +200,11 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public void AppendGameData(GameData gameData)
         {
+            if (gameData == null)
+            {
+                throw new ArgumentNullException(nameof(gameData));
+            }
+
             IsMapGameData = true;
 
             // make a temp copy so we can restore later
@@ -305,6 +310,11 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public string GetGameString(string id)
         {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
             if (GameStringById.TryGetValue(id, out string value))
                 return value;
             else
@@ -319,6 +329,11 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public bool TryGetGameString(string id, out string value)
         {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
             if (GameStringById.TryGetValue(id, out value))
                 return true;
             else
@@ -332,7 +347,10 @@ namespace HeroesData.Loader.XmlGameData
         /// <param name="value">The value of the string.</param>
         public void AddGameString(string id, string value)
         {
-            GameStringById[id] = value;
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentException("Argument should not be empty or null", nameof(id));
+
+            GameStringById[id] = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         /// <summary>
@@ -343,6 +361,17 @@ namespace HeroesData.Loader.XmlGameData
         /// <param name="value">The value of the string.</param>
         public void AddMapGameString(string mapId, string id, string value)
         {
+            if (string.IsNullOrEmpty(mapId))
+            {
+                throw new ArgumentException("Argument should not be empty or null", nameof(mapId));
+            }
+
+            if (id == null)
+                throw new ArgumentNullException(nameof(id));
+
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
             if (MapGameDataByMapId.TryGetValue(mapId, out GameData mapGameData))
                 mapGameData.GameStringById[id] = value;
             else
@@ -356,6 +385,11 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public GameData GetMapGameData(string mapId)
         {
+            if (string.IsNullOrEmpty(mapId))
+            {
+                throw new ArgumentException("Argument should not be empty or null", nameof(mapId));
+            }
+
             if (MapGameDataByMapId.TryGetValue(mapId, out GameData mapGameData))
                 return mapGameData;
 
@@ -378,6 +412,11 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public ICollection<XElement> GetLayoutButtonElements(string unitId)
         {
+            if (string.IsNullOrEmpty(unitId))
+            {
+                throw new ArgumentException("Argument should not be empty or null", nameof(unitId));
+            }
+
             if (LayoutButtonElements.TryGetValue(unitId, out List<XElement> value))
                 return value;
             else
@@ -392,6 +431,11 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public bool TryGetLayoutButtonElements(string unitId, out List<XElement> value)
         {
+            if (string.IsNullOrEmpty(unitId))
+            {
+                throw new ArgumentException("Argument should not be empty or null", nameof(unitId));
+            }
+
             if (LayoutButtonElements.TryGetValue(unitId, out value))
                 return true;
             else
@@ -405,6 +449,11 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public IEnumerable<XElement> Elements(string elementName)
         {
+            if (string.IsNullOrEmpty(elementName))
+            {
+                throw new ArgumentException("Argument should not be empty or null", nameof(elementName));
+            }
+
             if (XmlGameDataElementsByElementName.TryGetValue(elementName, out List<XElement> values))
                 return values;
 
@@ -419,6 +468,11 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public IEnumerable<XElement> Elements(string elementName, string mapNameId)
         {
+            if (string.IsNullOrEmpty(elementName))
+            {
+                throw new ArgumentException("Argument should not be empty or null", nameof(elementName));
+            }
+
             List<XElement> values = new List<XElement>();
 
             if (!string.IsNullOrEmpty(mapNameId))
@@ -442,6 +496,11 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public IEnumerable<XElement> ElementsIncluded(IEnumerable<string> elements, string attributeIdValue = null)
         {
+            if (elements == null)
+            {
+                throw new ArgumentNullException(nameof(elements));
+            }
+
             List<string> elementsList = elements.ToList();
             List<XElement> foundElementList = new List<XElement>();
 
