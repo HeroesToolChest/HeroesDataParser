@@ -2,6 +2,7 @@
 using Heroes.Models.AbilityTalents;
 using HeroesData.Helpers;
 using HeroesData.Parser;
+using HeroesData.Parser.GameStrings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -144,6 +145,9 @@ namespace HeroesData.ExtractorData
             if (hero.Rarity == Rarity.None || hero.Rarity == Rarity.Unknown)
                 AddWarning($"{nameof(hero.Rarity)} is none or unknown");
 
+            if (string.IsNullOrEmpty(hero.ScalingBehaviorLink))
+                AddWarning($"{nameof(hero.ScalingBehaviorLink)} is null or empty");
+
             if (!hero.ReleaseDate.HasValue)
                 AddWarning($"{nameof(hero.ReleaseDate)} is null");
 
@@ -174,6 +178,8 @@ namespace HeroesData.ExtractorData
                 AddWarning($"has more than 3 basic abilities");
 
             VerifyAbilities(hero);
+            VerifyAbilitiesCount(hero.PrimaryAbilities().ToList());
+            VerifyAbilitiesCount(hero.SubAbilities().ToList());
 
             // hero portraits
             if (string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName))
@@ -295,30 +301,60 @@ namespace HeroesData.ExtractorData
                 if (string.IsNullOrEmpty(ability.ShortTooltipNameId))
                     AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.ShortTooltipNameId)} is empty");
 
-                if (string.IsNullOrEmpty(ability.Tooltip.ShortTooltip?.RawDescription))
-                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.ShortTooltip)} is empty");
+                if (ability.Tooltip.ShortTooltip?.RawDescription == GameStringParser.FailedParsed)
+                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.ShortTooltip)} failed to parse correctly");
 
-                if (string.IsNullOrEmpty(ability.Tooltip.FullTooltip?.RawDescription))
-                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.FullTooltip)} is empty");
+                if (ability.Tooltip.FullTooltip?.RawDescription == GameStringParser.FailedParsed)
+                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.FullTooltip)} failed to parse correctly");
 
                 if (!string.IsNullOrEmpty(ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription))
                 {
-                    if (char.IsDigit(ability.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
+                    if (ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription == GameStringParser.FailedParsed)
+                        AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} failed to parse correctly");
+                    else if (char.IsDigit(ability.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
                         AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
                 }
 
                 if (!string.IsNullOrEmpty(ability.Tooltip.Energy?.EnergyTooltip?.RawDescription))
                 {
-                    if (char.IsDigit(ability.Tooltip.Energy.EnergyTooltip.PlainText[0]))
+                    if (ability.Tooltip.Energy.EnergyTooltip?.RawDescription == GameStringParser.FailedParsed)
+                        AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} failed to parse correctly");
+                    else if (char.IsDigit(ability.Tooltip.Energy.EnergyTooltip.PlainText[0]))
                         AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
                 }
 
                 if (!string.IsNullOrEmpty(ability.Tooltip.Life?.LifeCostTooltip?.RawDescription))
                 {
-                    if (char.IsDigit(ability.Tooltip.Life.LifeCostTooltip.PlainText[0]))
+                    if (ability.Tooltip.Life.LifeCostTooltip?.RawDescription == GameStringParser.FailedParsed)
+                        AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} failed to parse correctly");
+                    else if (char.IsDigit(ability.Tooltip.Life.LifeCostTooltip.PlainText[0]))
                         AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
                 }
             }
+        }
+
+        private void VerifyAbilitiesCount(List<Ability> abilitiesList)
+        {
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Q).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.Q} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.W).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.W} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.E).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.E} abilities");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Heroic).Count() > 2)
+                AddWarning($"has more than 2 {AbilityType.Heroic} abilities");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Z).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.Z} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.B).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.B} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Trait).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.Trait} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Taunt).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.Taunt} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Spray).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.Spray} ability");
+            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Dance).Count() > 1)
+                AddWarning($"has more than 1 {AbilityType.Dance} ability");
         }
     }
 }
