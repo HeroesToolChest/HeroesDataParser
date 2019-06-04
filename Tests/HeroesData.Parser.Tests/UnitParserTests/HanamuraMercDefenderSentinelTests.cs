@@ -10,6 +10,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             Assert.AreEqual("hanamura-MercDefenderSentinel", HanamuraMercDefenderSentinel.Id);
             Assert.AreEqual(6500, HanamuraMercDefenderSentinel.Life.LifeMax);
+            Assert.AreEqual(530, HanamuraMercDefenderSentinel.KillXP);
         }
     }
 }

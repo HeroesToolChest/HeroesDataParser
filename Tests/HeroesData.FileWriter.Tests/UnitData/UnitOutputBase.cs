@@ -1,5 +1,4 @@
 ﻿using Heroes.Models;
-using System.Collections.Generic;
 
 namespace HeroesData.FileWriter.Tests.UnitData
 {
@@ -47,6 +46,7 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 Speed = 4,
                 TargetInfoPanelImageFileName = "image_minion_archer.dds",
                 ScalingBehaviorLink = "MinionScaling",
+                KillXP = 210,
             };
             unit.Life.LifeMax = 500;
             unit.AddUnitWeapon(unitWeapon);

@@ -34,6 +34,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 unitObject.Add("sight", unit.Sight);
             if (unit.Speed > 0)
                 unitObject.Add("speed", unit.Speed);
+            if (unit.KillXP > 0)
+                unitObject.Add("killXP", unit.KillXP);
             if (!string.IsNullOrEmpty(unit.DamageType) && !FileOutputOptions.IsLocalizedText)
                 unitObject.Add("damageType", unit.DamageType);
             if (!string.IsNullOrEmpty(unit.ScalingBehaviorLink))

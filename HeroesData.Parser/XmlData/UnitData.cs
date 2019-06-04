@@ -26,7 +26,6 @@ namespace HeroesData.Parser.XmlData
         private bool _isHeroParsing = false;
         private bool _isAbilityTypeFilterEnabled = false;
         private bool _isAbilityTierFilterEnabled = false;
-        private bool _isAbilityParsing = false;
 
         public UnitData(GameData gameData, Configuration configuration, WeaponData weaponData, ArmorData armorData, AbilityData abilityData)
         {
@@ -213,6 +212,10 @@ namespace HeroesData.Parser.XmlData
 
                     if (element.Attribute("value")?.Value == "1")
                         unit.AddHeroDescriptor(descriptor);
+                }
+                else if (elementName == "KILLXP")
+                {
+                    unit.KillXP = XmlParse.GetIntValue(unit.CUnitId, element, GameData);
                 }
                 else if (elementName == "ABILARRAY")
                 {

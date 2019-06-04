@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Units>
-  <MinionArcher name="Minion Archer" hyperlinkId="MinionArcher" innerRadius="1.125" radius="1.111" sight="6" speed="4" damageType="Minion">
+  <MinionArcher name="Minion Archer" hyperlinkId="MinionArcher" innerRadius="1.125" radius="1.111" sight="6" speed="4" killXP="210" damageType="Minion">
     <ScalingLinkId>MinionScaling</ScalingLinkId>
     <Attributes>
       <Attribute>att1</Attribute>

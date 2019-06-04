@@ -30,6 +30,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 unit.Radius > 0 ? new XAttribute("radius", unit.Radius) : null,
                 unit.Sight > 0 ? new XAttribute("sight", unit.Sight) : null,
                 unit.Speed > 0 ? new XAttribute("speed", unit.Speed) : null,
+                unit.KillXP > 0 ? new XAttribute("killXP", unit.KillXP) : null,
                 string.IsNullOrEmpty(unit.DamageType) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("damageType", unit.DamageType),
                 string.IsNullOrEmpty(unit.ScalingBehaviorLink) ? null : new XElement("ScalingLinkId", unit.ScalingBehaviorLink),
                 string.IsNullOrEmpty(unit.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType)),
