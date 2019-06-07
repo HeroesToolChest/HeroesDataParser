@@ -44,14 +44,8 @@ namespace HeroesData.Parser.Tests.OverrideTests
 
         protected void LoadOverrideIntoTestAbility(string abilityName)
         {
-            if (HeroDataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(abilityName, out Dictionary<string, Action<Ability>> valueOverrideMethods))
-            {
-                foreach (var propertyOverride in valueOverrideMethods)
-                {
-                    // execute each property override
-                    propertyOverride.Value(TestAbility);
-                }
-            }
+            TestAbility.ReferenceNameId = abilityName;
+            HeroDataOverride.ExecuteAbilityOverrides(new List<Ability> { TestAbility });
         }
 
         protected void LoadOverrideIntoTestTalent(string talentName)

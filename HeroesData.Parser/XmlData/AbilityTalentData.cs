@@ -48,8 +48,10 @@ namespace HeroesData.Parser.XmlData
         /// <param name="abilityTalentBase"></param>
         protected void SetAbilityTalentData(XElement abilityElement, AbilityTalentBase abilityTalentBase)
         {
-            if (abilityElement == null || abilityTalentBase == null)
-                throw new ArgumentNullException();
+            if (abilityElement == null)
+                throw new ArgumentNullException(nameof(abilityElement));
+            if (abilityTalentBase == null)
+                throw new ArgumentNullException(nameof(abilityTalentBase));
 
             // parent lookup
             string parentValue = abilityElement.Attribute("parent")?.Value;
@@ -108,8 +110,10 @@ namespace HeroesData.Parser.XmlData
 
         protected void SetButtonData(XElement buttonElement, AbilityTalentBase abilityTalentBase)
         {
-            if (buttonElement == null || abilityTalentBase == null)
-                throw new ArgumentNullException();
+            if (buttonElement == null)
+                throw new ArgumentNullException(nameof(buttonElement));
+            if (abilityTalentBase == null)
+                throw new ArgumentNullException(nameof(abilityTalentBase));
 
             string parentValue = buttonElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue) && parentValue != DefaultDataButton.CButtonDefaultBaseId)
@@ -120,7 +124,7 @@ namespace HeroesData.Parser.XmlData
             }
 
             SetTooltipDescriptions(abilityTalentBase);
-            SetTooltipOverrideData(buttonElement, abilityTalentBase);
+            SetTooltipData(buttonElement, abilityTalentBase);
         }
 
         /// <summary>
@@ -288,6 +292,11 @@ namespace HeroesData.Parser.XmlData
         /// <param name="abilityTalentBase"></param>
         protected void SetTooltipDescriptions(AbilityTalentBase abilityTalentBase)
         {
+            if (abilityTalentBase == null)
+            {
+                throw new ArgumentNullException(nameof(abilityTalentBase));
+            }
+
             abilityTalentBase.Name = GameData.GetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.FullTooltipNameId));
 
             if (string.IsNullOrEmpty(abilityTalentBase.Name))
@@ -309,11 +318,16 @@ namespace HeroesData.Parser.XmlData
         }
 
         /// <summary>
-        /// Set all overrides found in the button element.
+        /// Set all element data found in the button element.
         /// </summary>
         /// <param name="abilityTalentBase"></param>
-        protected void SetTooltipOverrideData(XElement buttonElement, AbilityTalentBase abilityTalentBase)
+        protected void SetTooltipData(XElement buttonElement, AbilityTalentBase abilityTalentBase)
         {
+            if (buttonElement == null)
+                throw new ArgumentNullException(nameof(buttonElement));
+            if (abilityTalentBase == null)
+                throw new ArgumentNullException(nameof(abilityTalentBase));
+
             string defaultEnergyValue = GameData.GetGameString(DefaultData.HeroEnergyTypeManaText);
 
             // "UI/Tooltip/Abil/<Type>
@@ -443,6 +457,36 @@ namespace HeroesData.Parser.XmlData
                         abilityTalentBase.Tooltip.Cooldown.CooldownTooltip = new TooltipDescription(DescriptionValidator.Validate(text));
                     }
                 }
+                //else if (elementName == "TOOLTIPAPPENDER")
+                //{
+                //    string validatorId = element.Attribute("Validator").Value;
+                //    string faceId = element.Attribute("Face")?.Value;
+
+                //    // check if face value exists as a button
+                //    if (!string.IsNullOrEmpty(faceId) && GameData.Elements("CButton").Any(x => x.Attribute("id")?.Value == faceId))
+                //    {
+                //        // check if it's a combined validator
+                //        XElement validatorCombineElement = GameData.MergeXmlElements(GameData.Elements("CValidatorCombine").Where(x => x.Attribute("id")?.Value == validatorId));
+                //        if (validatorCombineElement != null)
+                //        {
+                //            foreach (XElement validatorCombine in validatorCombineElement.Elements())
+                //            {
+                //                if (validatorCombine.Name.LocalName == "CombineArray")
+                //                {
+                //                    string validator = validatorCombine.Attribute("value")?.Value;
+                //                    if (!string.IsNullOrEmpty(validator))
+                //                    {
+                //                        ValidatorPlayerTalentCheck(validator, abilityTalentId);
+                //                    }
+                //                }
+                //            }
+                //        }
+                //        else
+                //        {
+                //            ValidatorPlayerTalentCheck(validatorId, abilityTalentId);
+                //        }
+                //    }
+                //}
                 else if (elementName == "TOOLTIPFLAGS")
                 {
                     string index = element.Attribute("index").Value;
@@ -484,6 +528,11 @@ namespace HeroesData.Parser.XmlData
 
         private void SetCostData(XElement costElement, AbilityTalentBase abilityTalentBase)
         {
+            if (costElement == null)
+                throw new ArgumentNullException(nameof(costElement));
+            if (abilityTalentBase == null)
+                throw new ArgumentNullException(nameof(abilityTalentBase));
+
             XElement chargeElement = costElement.Element("Charge");
             if (chargeElement != null)
             {
@@ -623,6 +672,11 @@ namespace HeroesData.Parser.XmlData
 
         private void SetCmdButtonArrayData(XElement cmdButtonArrayElement, AbilityTalentBase abilityTalentBase)
         {
+            if (cmdButtonArrayElement == null)
+                throw new ArgumentNullException(nameof(cmdButtonArrayElement));
+            if (abilityTalentBase == null)
+                throw new ArgumentNullException(nameof(abilityTalentBase));
+
             string defaultButtonFace = cmdButtonArrayElement.Attribute("DefaultButtonFace")?.Value;
             string requirement = cmdButtonArrayElement.Attribute("Requirements")?.Value;
             string showValidator = cmdButtonArrayElement.Attribute("ShowValidator")?.Value;
@@ -715,6 +769,11 @@ namespace HeroesData.Parser.XmlData
 
         private void SetEffectData(XElement effectElement, AbilityTalentBase abilityTalentBase)
         {
+            if (effectElement == null)
+                throw new ArgumentNullException(nameof(effectElement));
+            if (abilityTalentBase == null)
+                throw new ArgumentNullException(nameof(abilityTalentBase));
+
             string effectValue = effectElement.Attribute("value")?.Value;
             if (!string.IsNullOrEmpty(effectValue))
             {
@@ -741,6 +800,11 @@ namespace HeroesData.Parser.XmlData
 
         private void FindCreateUnit(string effectId, AbilityTalentBase abilityTalentBase)
         {
+            if (abilityTalentBase == null)
+            {
+                throw new ArgumentNullException(nameof(abilityTalentBase));
+            }
+
             if (!string.IsNullOrEmpty(effectId))
             {
                 // find CEffectCreateUnit
@@ -758,6 +822,20 @@ namespace HeroesData.Parser.XmlData
                 }
             }
         }
+
+        //private void ValidatorPlayerTalentCheck(string validatorId, string abilityTalentId)
+        //{
+        //    XElement validatorPlayerTalentElement = GameData.MergeXmlElements(GameData.Elements("CValidatorPlayerTalent").Where(x => x.Attribute("id")?.Value == validatorId));
+        //    if (validatorPlayerTalentElement != null)
+        //    {
+        //        string talentReferenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value;
+
+        //        if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
+        //            AbilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(abilityTalentId);
+        //        else
+        //            AbilityTalentIdsByTalentIdUpgrade.TryAdd(talentReferenceNameId, new HashSet<string>(StringComparer.OrdinalIgnoreCase) { abilityTalentId });
+        //    }
+        //}
 
         //private bool ParseRequirementNodeElement(XElement requirementNodeElement, out string parentAbility)
         //{

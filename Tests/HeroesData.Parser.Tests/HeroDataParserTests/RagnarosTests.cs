@@ -11,7 +11,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Assert.AreEqual(1, HeroRagnaros.Units.Count());
 
-            string unit = HeroRagnaros.Units.ToList()[0];
+            string unit = HeroRagnaros.UnitIds.ToList()[0];
             Assert.AreEqual("RagnarosBigRag", unit);
         }
 

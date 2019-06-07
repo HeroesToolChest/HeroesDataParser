@@ -1,35 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides>
-  <!--<Ability type="CAbilEffectInstant" id ="Hearthstone">
-    <Override>
-      <AbilityTier value="Hearth" />
-      <AbilityType value="B" />
-    </Override>
-  </Ability>-->
-  <!--<CHero id="_stormhero">
-    <Button id="Hearthstone" parent="StormButtonParent">
-      <Override>
-        <AbilityTier value="Hearth" />
-        <AbilityType value="B" />
-      </Override>
-    </Button>
-    <Button id="HearthstoneNoMana" parent="StormButtonParent">
-      <Override>
-        <AbilityTier value="Hearth" />
-        <AbilityType value="B" />
-      </Override>
-    </Button>
-    <Button id="HearthstoneBrew" parent="StormButtonParent">
-      <Override>
-        <AbilityTier value="Hearth" />
-        <AbilityType value="B" />
-      </Override>
-    </Button>
-    <Button id="SummonMount" parent="StormButtonParent"></Button>
-  </CHero>
   <CHero id="Abathur">
     <HeroUnit id="AbathurSymbiote"></HeroUnit>
   </CHero>
+  <!--
+
   <CHero id="Alexstrasza">
     --><!--Dragonqueen abilities tied to Dragonqueen form ability--><!--
     <Ability id="AlexstraszaBreathOfLife" valid="true">

@@ -136,8 +136,10 @@ namespace HeroesData.Parser.XmlData
         /// <returns></returns>
         public Ability CreateAbility(string unitId, XElement layoutButtonElement)
         {
-            if (string.IsNullOrEmpty(unitId) || layoutButtonElement == null)
-                throw new ArgumentNullException();
+            if (string.IsNullOrEmpty(unitId))
+                throw new ArgumentException("Argument cannot be null or empty", nameof(unitId));
+            if (layoutButtonElement == null)
+                throw new ArgumentNullException(nameof(layoutButtonElement));
 
             Ability ability = new Ability();
 
@@ -231,8 +233,10 @@ namespace HeroesData.Parser.XmlData
         /// <returns></returns>
         public Ability CreateAbility(string unitId, string abilityId)
         {
-            if (string.IsNullOrEmpty(unitId) || string.IsNullOrEmpty(abilityId))
-                throw new ArgumentNullException();
+            if (string.IsNullOrEmpty(unitId))
+                throw new ArgumentException("Argument cannot be null or empty", nameof(unitId));
+            if (string.IsNullOrEmpty(abilityId))
+                throw new ArgumentException("Argument cannot be null or empty", nameof(abilityId));
 
             Ability ability = new Ability()
             {
@@ -359,7 +363,7 @@ namespace HeroesData.Parser.XmlData
             {
                 SetTooltipCostData(id, ability);
                 SetTooltipDescriptions(ability);
-                SetTooltipOverrideData(cButtonElement, ability);
+                SetTooltipData(cButtonElement, ability);
             }
 
             //// add to abilities
@@ -400,7 +404,7 @@ namespace HeroesData.Parser.XmlData
             SetAbilityTierFromAbilityType(ability);
             SetTooltipCostData(ability.ReferenceNameId, ability);
             SetTooltipDescriptions(ability);
-            SetTooltipOverrideData(cButtonElement, ability);
+            SetTooltipData(cButtonElement, ability);
 
             //unit.Abilities[ability.ReferenceNameId] = ability;
 
@@ -421,6 +425,11 @@ namespace HeroesData.Parser.XmlData
 
         private void SetAbilityTypeFromSlot(string slot, string unitId, Ability ability)
         {
+            if (ability == null)
+            {
+                throw new ArgumentNullException(nameof(ability));
+            }
+
             ReadOnlySpan<char> slotSpan = slot.AsSpan();
 
             if (slotSpan.IsEmpty)
@@ -460,6 +469,11 @@ namespace HeroesData.Parser.XmlData
 
         private void SetAbilityTierFromAbilityType(Ability ability)
         {
+            if (ability == null)
+            {
+                throw new ArgumentNullException(nameof(ability));
+            }
+
             if (ability.AbilityType == AbilityType.Q || ability.AbilityType == AbilityType.W || ability.AbilityType == AbilityType.E)
                 ability.Tier = AbilityTier.Basic;
             else if (ability.AbilityType == AbilityType.Heroic)

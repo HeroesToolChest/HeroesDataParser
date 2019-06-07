@@ -22,7 +22,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void UnitTests()
         {
-            Assert.AreEqual(2, HeroChromie.Units.Count());
+            Assert.AreEqual(2, HeroChromie.UnitIds.Count());
         }
     }
 }

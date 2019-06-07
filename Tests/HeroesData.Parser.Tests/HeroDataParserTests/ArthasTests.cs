@@ -32,7 +32,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void UnitTests()
         {
-            Assert.AreEqual(1, HeroArthas.Units.Count());
+            Assert.AreEqual(1, HeroArthas.UnitIds.Count());
         }
     }
 }

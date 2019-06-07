@@ -39,7 +39,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void AbilityTalentLinkIdsTests()
         {
             Talent talent = HeroAbathur.GetTalent("AbathurVolatileMutation");
-            Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 2);
+            Assert.IsTrue(talent.AbilityTalentLinkIdsCount == 2);
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("AbathurUltimateEvolution"));
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("AbathurEvolveMonstrosity"));
         }
@@ -47,9 +47,9 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void UnitsTests()
         {
-            List<string> units = HeroAbathur.Units.ToList();
+            List<string> units = HeroAbathur.UnitIds.ToList();
 
-            Assert.AreEqual(5, units.Count);
+            Assert.AreEqual(6, units.Count);
         }
 
         [TestMethod]

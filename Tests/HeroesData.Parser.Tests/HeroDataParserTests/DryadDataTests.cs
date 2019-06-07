@@ -24,7 +24,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void AbilityTalentLinkIdTest()
         {
             Talent talent = HeroDryad.GetTalent("DryadHippityHop");
-            Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("DryadDryadsSwiftness"));
+            Assert.IsTrue(talent.ContainsAbilityTalentLinkId("DryadDryadsSwiftness"));
             Assert.AreEqual(AbilityType.Z, talent.AbilityType);
         }
     }

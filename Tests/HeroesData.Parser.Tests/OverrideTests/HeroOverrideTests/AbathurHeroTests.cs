@@ -81,7 +81,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void HeroUnitTests()
         {
-            Assert.IsTrue(HeroDataOverride.HeroUnits.Contains("LittleLoco"));
+            Assert.IsTrue(HeroDataOverride.ContainsHeroUnit("LittleLoco"));
 
             HeroDataOverride heroUnitOverride = HeroOverrideLoader.GetOverride("LittleLoco");
 

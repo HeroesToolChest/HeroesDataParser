@@ -42,12 +42,12 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 unitObject.Add(new JProperty("scalingLinkId", unit.ScalingBehaviorLink));
             if (!string.IsNullOrEmpty(unit.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 unitObject.Add("description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
-            if (unit.HeroDescriptors.Any())
+            if (unit.HeroDescriptorsCount > 0)
                 unitObject.Add(new JProperty("descriptors", unit.HeroDescriptors.OrderBy(x => x)));
-            if (unit.Attributes.Any())
+            if (unit.AttributesCount > 0)
                 unitObject.Add(new JProperty("attributes", unit.Attributes.OrderBy(x => x)));
-            if (unit.Units.Any())
-                unitObject.Add(new JProperty("units", unit.Units.OrderBy(x => x)));
+            if (unit.UnitIdsCount > 0)
+                unitObject.Add(new JProperty("units", unit.UnitIds.OrderBy(x => x)));
             if (!string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName))
                 unitObject.Add("image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension));
 
@@ -336,8 +336,15 @@ namespace HeroesData.FileWriter.Writers.UnitData
                     new JArray(
                         from abil in abilities
                         orderby abil.AbilityType ascending
-                        select new JObject(AbilityTalentInfoElement(abil)))));
+                        select new JObject(AbilityInfoElement(abil)))));
             }
+        }
+
+        protected override JObject AbilityInfoElement(Ability ability)
+        {
+            JObject jObject = AbilityTalentInfoElement(ability);
+
+            return jObject;
         }
     }
 }

@@ -62,10 +62,10 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 heroObject.Add("searchText", hero.SearchText);
             if (!string.IsNullOrEmpty(hero.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add("description", GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
-            if (hero.HeroDescriptors.Any())
+            if (hero.HeroDescriptorsCount > 0)
                 heroObject.Add(new JProperty("descriptors", hero.HeroDescriptors.OrderBy(x => x)));
-            if (hero.Units.Any())
-                heroObject.Add(new JProperty("units", hero.Units.OrderBy(x => x)));
+            if (hero.UnitIdsCount > 0)
+                heroObject.Add(new JProperty("units", hero.UnitIds.OrderBy(x => x)));
 
             JProperty portraits = HeroPortraits(hero);
             if (portraits != null)
@@ -83,7 +83,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (armor != null)
                 heroObject.Add(armor);
 
-            if (hero.Roles.Any() && !FileOutputOptions.IsLocalizedText)
+            if (hero.RolesCount > 0 && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add(new JProperty("roles", hero.Roles));
 
             if (!string.IsNullOrEmpty(hero.ExpandedRole) && !FileOutputOptions.IsLocalizedText)
@@ -336,13 +336,19 @@ namespace HeroesData.FileWriter.Writers.HeroData
                     new JProperty("utility", hero.Ratings.Utility)));
         }
 
+        protected override JObject AbilityInfoElement(Ability ability)
+        {
+            JObject jObject = AbilityTalentInfoElement(ability);
+
+            return jObject;
+        }
+
         protected override JObject TalentInfoElement(Talent talent)
         {
             JObject jObject = AbilityTalentInfoElement(talent);
             jObject.Add(new JProperty("sort", talent.Column));
 
-            List<string> abilityTalentLinkIds = talent.AbilityTalentLinkIds?.ToList();
-            if (abilityTalentLinkIds?.Count > 0)
+            if (talent.AbilityTalentLinkIdsCount > 0)
                 jObject.Add(new JProperty("abilityTalentLinkIds", talent.AbilityTalentLinkIds));
 
             return jObject;
@@ -421,9 +427,9 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 abilityObject.Add(new JProperty(
                     propertyName,
                     new JArray(
-                        from abil in abilities
-                        orderby abil.AbilityType ascending
-                        select new JObject(AbilityTalentInfoElement(abil)))));
+                        from ability in abilities
+                        orderby ability.AbilityType ascending
+                        select new JObject(AbilityInfoElement(ability)))));
             }
         }
 

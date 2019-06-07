@@ -11,13 +11,13 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             // TODO: grace is talent, should be the passive ability
             Talent talent = HeroThrall.GetTalent("ThrallMasteryManaTide");
-            Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 1);
-            Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("ThrallFrostwolfResilience"));
+            Assert.IsTrue(talent.AbilityTalentLinkIdsCount == 1);
+            Assert.IsTrue(talent.ContainsAbilityTalentLinkId("ThrallFrostwolfResilience"));
             Assert.AreEqual(AbilityType.Trait, talent.AbilityType);
 
             talent = HeroThrall.GetTalent("ThrallMasteryFrostwolfsGrace");
-            Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 1);
-            Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("ThrallFrostwolfResilience"));
+            Assert.IsTrue(talent.AbilityTalentLinkIdsCount == 1);
+            Assert.IsTrue(talent.ContainsAbilityTalentLinkId("ThrallFrostwolfResilience"));
             Assert.AreEqual(AbilityType.Trait, talent.AbilityType);
         }
 
@@ -31,8 +31,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.IsTrue(HeroThrall.ContainsAbility("ThrallWindfury"));
             Assert.IsTrue(HeroThrall.ContainsAbility("ThrallFrostwolfResilience"));
 
-            Assert.IsFalse(HeroThrall.ContainsAbility("ThrallCancelSundering"));
-            Assert.IsFalse(HeroThrall.ContainsAbility("ThrallFrostwolfsGrace"));
+            Assert.IsTrue(HeroThrall.ContainsAbility("ThrallCancelSundering"));
+            Assert.IsTrue(HeroThrall.ContainsAbility("ThrallFrostwolfsGrace"));
         }
     }
 }

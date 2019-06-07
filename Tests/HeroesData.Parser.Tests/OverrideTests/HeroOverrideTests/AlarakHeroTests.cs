@@ -74,7 +74,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void HeroUnitTests()
         {
-            Assert.IsTrue(HeroDataOverride.HeroUnits.Count == 0);
+            Assert.IsTrue(HeroDataOverride.HeroUnitsCount == 0);
         }
 
         [TestMethod]

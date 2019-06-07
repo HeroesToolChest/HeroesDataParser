@@ -7,6 +7,8 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 {
     public class HeroDataOverride : UnitDataOverride, IDataOverride
     {
+        private HashSet<string> HeroUnitsList = new HashSet<string>();
+
         /// <summary>
         /// Gets or sets abilities that are valid in the HeroAbilArray or to be invalidated.
         /// </summary>
@@ -36,9 +38,14 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         public Dictionary<(string AbilityId, string ButtonId), string> ButtonNameOverrideByAbilityButtonId { get; set; } = new Dictionary<(string AbilityId, string ButtonId), string>();
 
         /// <summary>
-        /// Gets or sets a hashset of additional hero units.
+        /// Gets a collection of hero units.
         /// </summary>
-        public HashSet<string> HeroUnits { get; set; } = new HashSet<string>();
+        public IEnumerable<string> HeroUnits => HeroUnitsList;
+
+        /// <summary>
+        /// Gets the amount of hero units.
+        /// </summary>
+        public int HeroUnitsCount => HeroUnitsList.Count;
 
         /// <summary>
         /// Gets or sets the property override action methods for talents by talent id.
@@ -57,5 +64,34 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         /// Used for removing abilities by their referenceNameId.
         /// </remarks>
         public Dictionary<string, bool> RemovedAbilityByAbilityReferenceNameId { get; set; } = new Dictionary<string, bool>();
+
+        /// <summary>
+        /// Adds a hero unit id.
+        /// </summary>
+        /// <param name="heroUnitId">The hero unit that is associated with the hero.</param>
+        public void AddHeroUnit(string heroUnitId)
+        {
+            if (string.IsNullOrEmpty(heroUnitId))
+            {
+                throw new ArgumentException("Argument cannot be null or empty", nameof(heroUnitId));
+            }
+
+            HeroUnitsList.Add(heroUnitId);
+        }
+
+        /// <summary>
+        /// Returns the value of whether the hero unit id exists.
+        /// </summary>
+        /// <param name="heroUnitId">The hero unit that is associated with the hero.</param>
+        /// <returns></returns>
+        public bool ContainsHeroUnit(string heroUnitId)
+        {
+            if (string.IsNullOrEmpty(heroUnitId))
+            {
+                throw new ArgumentException("Argument cannot be null or empty", nameof(heroUnitId));
+            }
+
+            return HeroUnitsList.Contains(heroUnitId);
+        }
     }
 }

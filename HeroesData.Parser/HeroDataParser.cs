@@ -100,10 +100,6 @@ namespace HeroesData.Parser
                 Id = heroId,
             };
 
-            if (hero.CHeroId == "Alarak")
-            {
-                string x = "";
-            }
             XElement heroElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == heroId));
             if (heroElement == null)
                 return null;
@@ -113,11 +109,17 @@ namespace HeroesData.Parser
             SetDefaultValues(hero);
             CActorData(hero);
 
+            // adds from overrides, parses for abilities
+            AddHeroUnits(hero, unitData);
+
+            // parses the hero's unit data; abilities
+            // this must come after AddHeroUnits to correctly set the abilityTalentLinks for the talents
             unitData.SetUnitData(hero);
+
+            // parses the hero's hero data; talents
             SetHeroData(heroElement, hero);
 
 
-            //AddSubHeroCUnits(hero);
 
             //FinalizeDataChecks(hero);
 
@@ -505,58 +507,72 @@ namespace HeroesData.Parser
 
             if (hero.ReleaseDate == DefaultData.HeroData.HeroReleaseDate)
                 hero.ReleaseDate = DefaultData.HeroData.HeroAlphaReleaseDate;
-
-            //// abilities must be gotten before talents
-            //foreach (XElement abilArrayElement in heroElement.Elements("HeroAbilArray"))
-            //{
-            //    AbilityData.AddHeroAbility(hero, abilArrayElement);
-            //}
-
-            ////AbilityData.CreateOverrideButtonAbility(hero);
-            //TalentData.SetButtonTooltipAppenderData(StormHeroBase, hero);
-
-            //foreach (XElement talentArrayElement in heroElement.Elements("TalentTreeArray"))
-            //{
-            //    TalentData.AddTalent(hero, talentArrayElement);
-            //}
         }
 
-        private void AddSubHeroCUnits(Hero hero)
+        private void AddHeroUnits(Hero hero, UnitData unitData)
         {
-            //foreach (string cUnitId in HeroDataOverride.HeroUnits)
-            //{
-            //    if (!GameData.TryGetGameString(DefaultData.HeroData.UnitName.Replace(DefaultData.IdPlaceHolder, cUnitId), out string name))
-            //    {
-            //        if (!GameData.TryGetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, cUnitId), out name))
-            //            name = cUnitId;
-            //    }
+            foreach (string heroUnit in HeroDataOverride.HeroUnits)
+            {
+                //if (!GameData.TryGetGameString(DefaultData.HeroData.UnitName.Replace(DefaultData.IdPlaceHolder, heroUnit), out string name))
+                //{
+                //    if (!GameData.TryGetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, heroUnit), out name))
+                //        name = heroUnit;
+                //}
 
-            //    Hero heroUnit = new Hero
-            //    {
-            //        Id = cUnitId,
-            //        Name = name,
-            //        HyperlinkId = cUnitId.StartsWith("Hero") ? cUnitId.Remove(0, 4) : cUnitId,
-            //        CHeroId = null,
-            //        CUnitId = cUnitId,
-            //        HeroPortrait = null,
-            //    };
+                Unit unit = new Unit
+                {
+                    Id = heroUnit,
+                    CUnitId = heroUnit,
+                };
 
-            //    XElement cUnitElement = GameData.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == cUnitId);
-            //    if (cUnitElement != null)
-            //    {
-            //        SetDefaultValues(heroUnit);
-            //        CActorData(heroUnit);
-            //        CUnitData(heroUnit);
+                unitData.SetUnitData(unit);
 
-            //        FinalizeDataChecks(heroUnit);
-            //    }
+                hero.AddUnit(unit);
+                hero.AddUnitId(heroUnit);
 
-            //    HeroDataOverride heroDataOverride = HeroOverrideLoader.GetOverride(cUnitId);
-            //    if (heroDataOverride != null)
-            //        ApplyOverrides(heroUnit, heroDataOverride);
+                //XElement unitElement = GameData.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == heroUnit);
+                //if (unitElement == null)
+                //    continue;
 
-            //    hero.HeroUnits.Add(heroUnit);
-            //}
+                //SetDefaultValues(heroUnit);
+                //CActorData(heroUnit);
+                //CUnitData(heroUnit);
+
+                //FinalizeDataChecks(heroUnit);
+
+
+                //HeroDataOverride heroDataOverride = HeroOverrideLoader.GetOverride(heroUnit);
+                //if (heroDataOverride != null)
+                //    ApplyOverrides(heroUnit, heroDataOverride);
+
+                //unit.HeroUnits.Add(heroUnit);
+
+                //Hero subHeroUnit = new Hero
+                //{
+                //    Id = heroUnit,
+                //    Name = name,
+                //    HyperlinkId = heroUnit.StartsWith("Hero") ? heroUnit.Remove(0, 4) : heroUnit,
+                //    CHeroId = null,
+                //    CUnitId = heroUnit,
+                //    HeroPortrait = null,
+                //};
+
+                //XElement cUnitElement = GameData.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == heroUnit);
+                //if (cUnitElement != null)
+                //{
+                //    SetDefaultValues(heroUnit);
+                //    CActorData(heroUnit);
+                //    CUnitData(heroUnit);
+
+                //    FinalizeDataChecks(heroUnit);
+                //}
+
+                //HeroDataOverride heroDataOverride = HeroOverrideLoader.GetOverride(heroUnit);
+                //if (heroDataOverride != null)
+                //    ApplyOverrides(heroUnit, heroDataOverride);
+
+                //subHeroUnit.HeroUnits.Add(heroUnit);
+            }
         }
 
         private void SetBaseHeroData(Hero hero)

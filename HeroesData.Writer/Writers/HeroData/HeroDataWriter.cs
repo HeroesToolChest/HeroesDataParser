@@ -30,6 +30,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         protected abstract T GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities);
         protected abstract T GetTalentsObject(Hero hero);
         protected abstract TU AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase);
+        protected abstract TU AbilityInfoElement(Ability ability);
         protected abstract TU TalentInfoElement(Talent talent);
         protected abstract T GetAbilityTalentLifeCostObject(TooltipLife tooltipLife);
         protected abstract T GetAbilityTalentEnergyCostObject(TooltipEnergy tooltipEnergy);
@@ -51,7 +52,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             GameStringWriter.AddHeroTitle(hero.Id, hero.Title);
             GameStringWriter.AddHeroSearchText(hero.Id, hero.SearchText);
 
-            if (hero.Roles.Any())
+            if (hero.RolesCount > 0)
                 GameStringWriter.AddUnitRole(hero.Id, string.Join(",", hero.Roles));
 
             GameStringWriter.AddUnitExpandedRole(hero.Id, hero.ExpandedRole);
@@ -88,7 +89,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected virtual T UnitArmor(Unit unit)
         {
-            if (unit.Armor.Any())
+            if (unit.ArmorCount > 0)
             {
                 return GetArmorObject(unit);
             }
@@ -128,7 +129,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected virtual T UnitWeapons(Unit unit)
         {
-            if (unit.Weapons.Any())
+            if (unit.WeaponsCount > 0)
             {
                 return GetWeaponsObject(unit);
             }
@@ -203,7 +204,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T HeroTalents(Hero hero)
         {
-            if (hero.Talents.Any())
+            if (hero.TalentsCount > 0)
             {
                 return GetTalentsObject(hero);
             }

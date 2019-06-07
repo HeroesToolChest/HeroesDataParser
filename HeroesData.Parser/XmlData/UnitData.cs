@@ -84,6 +84,8 @@ namespace HeroesData.Parser.XmlData
         /// <param name="unit"></param>
         public void SetUnitData(Unit unit)
         {
+            AbilitiesArray = new XmlArrayElement();
+            CardLayoutButtons =  new XmlArrayElement();
             SetData(unit);
             SetAbilities(unit);
         }
@@ -91,8 +93,8 @@ namespace HeroesData.Parser.XmlData
         private void SetData(Unit unit, XElement unitElement = null)
         {
             unitElement = unitElement ?? GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == unit.CUnitId));
-            AbilitiesArray = AbilitiesArray ?? new XmlArrayElement();
-            CardLayoutButtons = CardLayoutButtons ?? new XmlArrayElement();
+            //AbilitiesArray = AbilitiesArray ?? new XmlArrayElement();
+            //CardLayoutButtons = CardLayoutButtons ?? new XmlArrayElement();
 
             if (unitElement == null)
                 return;
@@ -284,7 +286,7 @@ namespace HeroesData.Parser.XmlData
                     unit.AddAbility(ability);
 
                 foreach (string createUnit in ability.CreatedUnits)
-                    unit.AddUnit(createUnit);
+                    unit.AddUnitId(createUnit);
             }
         }
 

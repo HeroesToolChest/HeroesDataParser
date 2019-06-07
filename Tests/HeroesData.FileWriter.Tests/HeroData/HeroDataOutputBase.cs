@@ -3,7 +3,6 @@ using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace HeroesData.FileWriter.Tests.HeroData
@@ -254,7 +253,6 @@ namespace HeroesData.FileWriter.Tests.HeroData
                     FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
                 },
                 AbilityType = AbilityType.Q,
-                AbilityTalentLinkIds = new HashSet<string>() { "AlarakDiscordStrike", "AlarakExtendedLightning" },
             });
             alarakHero.AddTalent(new Talent
             {

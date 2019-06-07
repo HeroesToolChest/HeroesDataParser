@@ -34,9 +34,9 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 string.IsNullOrEmpty(unit.DamageType) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("damageType", unit.DamageType),
                 string.IsNullOrEmpty(unit.ScalingBehaviorLink) ? null : new XElement("ScalingLinkId", unit.ScalingBehaviorLink),
                 string.IsNullOrEmpty(unit.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType)),
-                unit.HeroDescriptors.Any() ? new XElement("Descriptors", unit.HeroDescriptors.OrderBy(x => x).Select(d => new XElement("Descriptor", d))) : null,
-                unit.Attributes.Any() ? new XElement("Attributes", unit.Attributes.OrderBy(x => x).Select(x => new XElement("Attribute", x))) : null,
-                unit.Units.Any() ? new XElement("Units", unit.Units.OrderBy(x => x).Select(x => new XElement("Unit", x))) : null,
+                unit.HeroDescriptorsCount > 0 ? new XElement("Descriptors", unit.HeroDescriptors.OrderBy(x => x).Select(d => new XElement("Descriptor", d))) : null,
+                unit.AttributesCount > 0 ? new XElement("Attributes", unit.Attributes.OrderBy(x => x).Select(x => new XElement("Attribute", x))) : null,
+                unit.UnitIdsCount > 0 ? new XElement("Units", unit.UnitIds.OrderBy(x => x).Select(x => new XElement("Unit", x))) : null,
                 string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName) ? null : new XElement("Image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension)),
                 UnitLife(unit),
                 UnitEnergy(unit),
@@ -79,41 +79,41 @@ namespace HeroesData.FileWriter.Writers.UnitData
             {
                 return new XElement(
                     "Abilities",
-                    unit.SubAbilities(AbilityTier.Basic).Any() ? new XElement("Basic", unit.SubAbilities(AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.Heroic).Any() ? new XElement("Heroic", unit.SubAbilities(AbilityTier.Heroic).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.Trait).Any() ? new XElement("Trait", unit.SubAbilities(AbilityTier.Trait).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.Mount).Any() ? new XElement("Mount", unit.SubAbilities(AbilityTier.Mount).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.Activable).Any() ? new XElement("Activable", unit.SubAbilities(AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.Hearth).Any() ? new XElement("Hearth", unit.SubAbilities(AbilityTier.Hearth).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.Taunt).Any() ? new XElement("Taunt", unit.SubAbilities(AbilityTier.Taunt).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.Dance).Any() ? new XElement("Dance", unit.SubAbilities(AbilityTier.Dance).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.Spray).Any() ? new XElement("Spray", unit.SubAbilities(AbilityTier.Spray).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.Voice).Any() ? new XElement("Voice", unit.SubAbilities(AbilityTier.Voice).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", unit.SubAbilities(AbilityTier.MapMechanic).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.Interact).Any() ? new XElement("Interact", unit.SubAbilities(AbilityTier.Interact).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.Action).Any() ? new XElement("Action", unit.SubAbilities(AbilityTier.Action).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.Hidden).Any() ? new XElement("Hidden", unit.SubAbilities(AbilityTier.Hidden).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.SubAbilities(AbilityTier.Unknown).Any() ? new XElement("Unknown", unit.SubAbilities(AbilityTier.Unknown).Select(x => AbilityTalentInfoElement(x))) : null);
+                    unit.SubAbilities(AbilityTier.Basic).Any() ? new XElement("Basic", unit.SubAbilities(AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Heroic).Any() ? new XElement("Heroic", unit.SubAbilities(AbilityTier.Heroic).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Trait).Any() ? new XElement("Trait", unit.SubAbilities(AbilityTier.Trait).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Mount).Any() ? new XElement("Mount", unit.SubAbilities(AbilityTier.Mount).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Activable).Any() ? new XElement("Activable", unit.SubAbilities(AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Hearth).Any() ? new XElement("Hearth", unit.SubAbilities(AbilityTier.Hearth).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Taunt).Any() ? new XElement("Taunt", unit.SubAbilities(AbilityTier.Taunt).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Dance).Any() ? new XElement("Dance", unit.SubAbilities(AbilityTier.Dance).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Spray).Any() ? new XElement("Spray", unit.SubAbilities(AbilityTier.Spray).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Voice).Any() ? new XElement("Voice", unit.SubAbilities(AbilityTier.Voice).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", unit.SubAbilities(AbilityTier.MapMechanic).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Interact).Any() ? new XElement("Interact", unit.SubAbilities(AbilityTier.Interact).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Action).Any() ? new XElement("Action", unit.SubAbilities(AbilityTier.Action).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Hidden).Any() ? new XElement("Hidden", unit.SubAbilities(AbilityTier.Hidden).Select(x => AbilityInfoElement(x))) : null,
+                    unit.SubAbilities(AbilityTier.Unknown).Any() ? new XElement("Unknown", unit.SubAbilities(AbilityTier.Unknown).Select(x => AbilityInfoElement(x))) : null);
             }
             else
             {
                 return new XElement(
                     "Abilities",
-                    unit.PrimaryAbilities(AbilityTier.Basic).Any() ? new XElement("Basic", unit.PrimaryAbilities(AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Heroic).Any() ? new XElement("Heroic", unit.PrimaryAbilities(AbilityTier.Heroic).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Trait).Any() ? new XElement("Trait", unit.PrimaryAbilities(AbilityTier.Trait).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Mount).Any() ? new XElement("Mount", unit.PrimaryAbilities(AbilityTier.Mount).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Activable).Any() ? new XElement("Activable", unit.PrimaryAbilities(AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Hearth).Any() ? new XElement("Hearth", unit.PrimaryAbilities(AbilityTier.Hearth).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Taunt).Any() ? new XElement("Taunt", unit.SubAbilities(AbilityTier.Taunt).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Dance).Any() ? new XElement("Dance", unit.SubAbilities(AbilityTier.Dance).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Spray).Any() ? new XElement("Spray", unit.SubAbilities(AbilityTier.Spray).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Voice).Any() ? new XElement("Voice", unit.SubAbilities(AbilityTier.Voice).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", unit.SubAbilities(AbilityTier.MapMechanic).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Interact).Any() ? new XElement("Interact", unit.SubAbilities(AbilityTier.Interact).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Action).Any() ? new XElement("Action", unit.SubAbilities(AbilityTier.Action).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Hidden).Any() ? new XElement("Hidden", unit.SubAbilities(AbilityTier.Hidden).Select(x => AbilityTalentInfoElement(x))) : null,
-                    unit.PrimaryAbilities(AbilityTier.Unknown).Any() ? new XElement("Unknown", unit.SubAbilities(AbilityTier.Unknown).Select(x => AbilityTalentInfoElement(x))) : null);
+                    unit.PrimaryAbilities(AbilityTier.Basic).Any() ? new XElement("Basic", unit.PrimaryAbilities(AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Heroic).Any() ? new XElement("Heroic", unit.PrimaryAbilities(AbilityTier.Heroic).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Trait).Any() ? new XElement("Trait", unit.PrimaryAbilities(AbilityTier.Trait).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Mount).Any() ? new XElement("Mount", unit.PrimaryAbilities(AbilityTier.Mount).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Activable).Any() ? new XElement("Activable", unit.PrimaryAbilities(AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Hearth).Any() ? new XElement("Hearth", unit.PrimaryAbilities(AbilityTier.Hearth).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Taunt).Any() ? new XElement("Taunt", unit.SubAbilities(AbilityTier.Taunt).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Dance).Any() ? new XElement("Dance", unit.SubAbilities(AbilityTier.Dance).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Spray).Any() ? new XElement("Spray", unit.SubAbilities(AbilityTier.Spray).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Voice).Any() ? new XElement("Voice", unit.SubAbilities(AbilityTier.Voice).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", unit.SubAbilities(AbilityTier.MapMechanic).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Interact).Any() ? new XElement("Interact", unit.SubAbilities(AbilityTier.Interact).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Action).Any() ? new XElement("Action", unit.SubAbilities(AbilityTier.Action).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Hidden).Any() ? new XElement("Hidden", unit.SubAbilities(AbilityTier.Hidden).Select(x => AbilityInfoElement(x))) : null,
+                    unit.PrimaryAbilities(AbilityTier.Unknown).Any() ? new XElement("Unknown", unit.SubAbilities(AbilityTier.Unknown).Select(x => AbilityInfoElement(x))) : null);
             }
         }
 
@@ -123,21 +123,21 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 "SubAbilities",
                 linkedAbilities.Select(parent => new XElement(
                     parent.Key,
-                    parent.Where(x => x.Tier == AbilityTier.Basic).Any() ? new XElement("Basic", parent.Where(x => x.Tier == AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Heroic).Any() ? new XElement("Heroic", parent.Where(x => x.Tier == AbilityTier.Heroic).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Trait).Any() ? new XElement("Trait", parent.Where(x => x.Tier == AbilityTier.Trait).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Mount).Any() ? new XElement("Mount", parent.Where(x => x.Tier == AbilityTier.Mount).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Activable).Any() ? new XElement("Activable", parent.Where(x => x.Tier == AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Hearth).Any() ? new XElement("Hearth", parent.Where(x => x.Tier == AbilityTier.Hearth).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Taunt).Any() ? new XElement("Taunt", parent.Where(x => x.Tier == AbilityTier.Taunt).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Dance).Any() ? new XElement("Dance", parent.Where(x => x.Tier == AbilityTier.Dance).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Spray).Any() ? new XElement("Spray", parent.Where(x => x.Tier == AbilityTier.Spray).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Voice).Any() ? new XElement("Voice", parent.Where(x => x.Tier == AbilityTier.Voice).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", parent.Where(x => x.Tier == AbilityTier.MapMechanic).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Interact).Any() ? new XElement("Interact", parent.Where(x => x.Tier == AbilityTier.Interact).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Hidden).Any() ? new XElement("Hidden", parent.Where(x => x.Tier == AbilityTier.Hidden).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Action).Any() ? new XElement("Action", parent.Where(x => x.Tier == AbilityTier.Action).Select(x => AbilityTalentInfoElement(x))) : null,
-                    parent.Where(x => x.Tier == AbilityTier.Unknown).Any() ? new XElement("Unknown", parent.Where(x => x.Tier == AbilityTier.Unknown).Select(x => AbilityTalentInfoElement(x))) : null)));
+                    parent.Where(x => x.Tier == AbilityTier.Basic).Any() ? new XElement("Basic", parent.Where(x => x.Tier == AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Heroic).Any() ? new XElement("Heroic", parent.Where(x => x.Tier == AbilityTier.Heroic).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Trait).Any() ? new XElement("Trait", parent.Where(x => x.Tier == AbilityTier.Trait).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Mount).Any() ? new XElement("Mount", parent.Where(x => x.Tier == AbilityTier.Mount).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Activable).Any() ? new XElement("Activable", parent.Where(x => x.Tier == AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Hearth).Any() ? new XElement("Hearth", parent.Where(x => x.Tier == AbilityTier.Hearth).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Taunt).Any() ? new XElement("Taunt", parent.Where(x => x.Tier == AbilityTier.Taunt).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Dance).Any() ? new XElement("Dance", parent.Where(x => x.Tier == AbilityTier.Dance).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Spray).Any() ? new XElement("Spray", parent.Where(x => x.Tier == AbilityTier.Spray).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Voice).Any() ? new XElement("Voice", parent.Where(x => x.Tier == AbilityTier.Voice).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", parent.Where(x => x.Tier == AbilityTier.MapMechanic).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Interact).Any() ? new XElement("Interact", parent.Where(x => x.Tier == AbilityTier.Interact).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Hidden).Any() ? new XElement("Hidden", parent.Where(x => x.Tier == AbilityTier.Hidden).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Action).Any() ? new XElement("Action", parent.Where(x => x.Tier == AbilityTier.Action).Select(x => AbilityInfoElement(x))) : null,
+                    parent.Where(x => x.Tier == AbilityTier.Unknown).Any() ? new XElement("Unknown", parent.Where(x => x.Tier == AbilityTier.Unknown).Select(x => AbilityInfoElement(x))) : null)));
         }
         protected override XElement AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)
         {
@@ -205,6 +205,13 @@ namespace HeroesData.FileWriter.Writers.UnitData
                     new XAttribute("period", w.Period),
                     new XElement("Damage", w.Damage, new XAttribute("scale", w.DamageScaling)),
                     w.AttributeFactors.Any() ? new XElement("DamageFactor", w.AttributeFactors.Select(x => new XElement(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Type), x.Value))) : null)));
+        }
+
+        protected override XElement AbilityInfoElement(Ability ability)
+        {
+            XElement element = AbilityTalentInfoElement(ability);
+
+            return element;
         }
     }
 }

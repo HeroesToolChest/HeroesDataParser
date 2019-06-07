@@ -23,9 +23,9 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                 propertyOverrides.Add(propertyName, (talent) =>
                 {
                     if (propertyName.StartsWith("-"))
-                        talent.AbilityTalentLinkIds.Remove(propertyValue.Substring(1, propertyValue.Length));
+                        talent.RemoveAbilityTalentLinkId(propertyValue.Substring(1, propertyValue.Length));
                     else
-                        talent.AbilityTalentLinkIds.Add(propertyValue);
+                        talent.AddAbilityTalentLinkId(propertyValue);
                 });
             }
             else if (propertyName == nameof(Talent.IsActive))
