@@ -12,7 +12,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void BasicAbilitiesTests()
         {
-            Ability ability = HeroFalstad.GetAbility("FalstadHammerang");
+            Ability ability = HeroFalstad.GetAbilities("FalstadHammerang").First();
             Assert.AreEqual(AbilityTier.Basic, ability.Tier);
             Assert.AreEqual("FalstadHammerang", ability.ReferenceNameId);
             Assert.AreEqual("Hammerang", ability.Name);
@@ -61,7 +61,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void HeroicAbilitiesTests()
         {
-            Ability ability = HeroFalstad.GetAbility("FalstadHinterlandBlast");
+            Ability ability = HeroFalstad.GetAbilities("FalstadHinterlandBlast").First();
             Assert.AreEqual(AbilityTier.Heroic, ability.Tier);
             Assert.AreEqual("FalstadHinterlandBlast", ability.ReferenceNameId);
             Assert.AreEqual("Hinterland Blast", ability.Name);
@@ -91,7 +91,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void MountAbilitiesTests()
         {
-            Ability ability = HeroFalstad.GetAbility("FalstadFlight");
+            Ability ability = HeroFalstad.GetAbilities("FalstadFlight").First();
             Assert.AreEqual(AbilityTier.Mount, ability.Tier);
             Assert.AreEqual("FalstadFlight", ability.ReferenceNameId);
             Assert.AreEqual("Flight", ability.Name);
@@ -185,7 +185,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void TraitAbilitiesTests()
         {
-            Ability ability = HeroFalstad.GetAbility("FalstadTailwindCooldownDisplay");
+            Ability ability = HeroFalstad.GetAbilities("FalstadTailwindCooldownDisplay").First();
             Assert.AreEqual(AbilityTier.Trait, ability.Tier);
             Assert.AreEqual("FalstadTailwindCooldownDisplay", ability.ReferenceNameId);
             Assert.AreEqual("Tailwind", ability.Name);

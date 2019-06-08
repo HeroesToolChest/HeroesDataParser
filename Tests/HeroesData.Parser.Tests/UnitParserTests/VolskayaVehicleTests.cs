@@ -18,7 +18,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.AreEqual(AbilityType.W, sortedAbilities[1].AbilityType);
             Assert.AreEqual(AbilityType.E, sortedAbilities[2].AbilityType);
 
-            Ability shield = VolskayaVehicle.GetAbility("VolskayaVehicleTShield");
+            Ability shield = VolskayaVehicle.GetAbilities("VolskayaVehicleTShield").First();
             Assert.AreEqual(AbilityType.E, shield.AbilityType);
             Assert.IsFalse(shield.IsActive);
             Assert.IsFalse(shield.IsQuest);
@@ -28,7 +28,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.AreEqual("Gives shields to allies", shield.Tooltip.FullTooltip.RawDescription);
             Assert.AreEqual("Cooldown: 16 seconds", shield.Tooltip.Cooldown.CooldownTooltip.PlainText);
 
-            Ability fist = VolskayaVehicle.GetAbility("VolskayaVehicleRocketFist");
+            Ability fist = VolskayaVehicle.GetAbilities("VolskayaVehicleRocketFist").First();
             Assert.AreEqual(AbilityType.W, fist.AbilityType);
             Assert.AreEqual(AbilityTier.Basic, fist.Tier);
             Assert.AreEqual("Cooldown: 14 seconds", fist.Tooltip.Cooldown.CooldownTooltip.PlainText);

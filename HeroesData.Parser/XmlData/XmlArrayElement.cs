@@ -23,8 +23,8 @@ namespace HeroesData.Parser.XmlData
         /// <param name="element">The <see cref="XElement"/> to be added.</param>
         public void AddElement(XElement element)
         {
-            string indexValue = element.Attribute("index")?.Value;
-            string removedValue = element.Attribute("removed")?.Value;
+            string indexValue = element.Attribute("index")?.Value ?? element.Element("index")?.Attribute("value")?.Value;
+            string removedValue = element.Attribute("removed")?.Value ?? element.Element("removed")?.Attribute("value")?.Value;
 
             if (int.TryParse(indexValue, out int indexResult) && string.IsNullOrEmpty(removedValue))
             {

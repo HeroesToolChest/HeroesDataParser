@@ -1,0 +1,147 @@
+﻿Abil/Name/ImperiusAngelicArmaments=Imperius - Angelic Armaments
+Abil/Name/ImperiusAngelicArmamentsLaunchMissiles=Imperius - Angelic Armaments (Launch Missiles)
+Abil/Name/ImperiusCelestialCharge=Imperius - Celestial Charge
+Abil/Name/ImperiusHolyFervor=Imperius - Holy Fervor
+Abil/Name/ImperiusImpervious=Imperius - Impervious
+Abil/Name/ImperiusMoltenArmor=Imperius - Molten Armor
+Abil/Name/ImperiusSolarionsFire=Imperius - Solarion's Fire
+Abil/Name/ImperiusValorousPursuit=Imperius - Valorous Pursuit
+Abil/Name/ImperiusWrathOfTheAngiris=Imperius - Wrath Of The Angiris
+AnnouncerPack/Name/ImperiusA=Imperius Announcer
+Behavior/Name/ImperiusCelestialChargeCasterChannelBuff=Celestial Charge
+Behavior/Name/ImperiusCelestialChargeChannelBehavior=Celestial Charge
+Behavior/Name/ImperiusHolyFervorAttackCounterBuff=Holy Fervor
+Behavior/Name/ImperiusSolarionsFireBulwarkOfFlameBuff=Bulwark of Flame
+Behavior/Name/ImperiusWrathOfTheAngirisCasterRemovedStasis=Wrath of the Angiris
+Behavior/Name/ImperiusWrathOfTheAngirisTargetRemovedStasis=Wrath of the Angiris
+Behavior/Tooltip/ImperiusCelestialChargeChannelBehavior=Celestial Charge
+Button/Name/ImperiusAngelicArmaments=Angelic Armaments
+Button/Name/ImperiusAngelicArmamentsHeavenlyHost=Heavenly Host
+Button/Name/ImperiusAngelicArmamentsLaunchMissiles=Angelic Armaments (Launch Missiles)
+Button/Name/ImperiusAngelicArmamentsMissileCharges=Angelic Armaments (Fire Missiles)
+Button/Name/ImperiusCelestialCharge=Celestial Charge
+Button/Name/ImperiusCelestialChargeFlashOfAnger=Flash of Anger
+Button/Name/ImperiusCelestialChargeImpalingLight=Impaling Light
+Button/Name/ImperiusCelestialChargeImpalingLightQuestToken=Impaling Light
+Button/Name/ImperiusCelestialChargePatheticMortals=Pathetic Mortals
+Button/Name/ImperiusCelestialSwiftness=Celestial Swiftness
+Button/Name/ImperiusHolyFervor=Holy Fervor
+Button/Name/ImperiusImpervious=Impervious
+Button/Name/ImperiusMoltenArmor=Molten Armor
+Button/Name/ImperiusMoltenArmorDivineRage=Divine Rage
+Button/Name/ImperiusMoltenArmorHeatOfBattle=Heat of Battle
+Button/Name/ImperiusMoltenArmorMeltingTouch=Melting Touch
+Button/Name/ImperiusMoltenArmorSovereignArmor=Sovereign Armor
+Button/Name/ImperiusMoltenArmorUnshakableFaith=Unshakable Faith
+Button/Name/ImperiusSolarionsFire=Solarion's Fire
+Button/Name/ImperiusSolarionsFireBlazeOfGlory=Blaze of Glory
+Button/Name/ImperiusSolarionsFireBulwarkOfFlame=Bulwark of Flame
+Button/Name/ImperiusSolarionsFireConsumingFlame=Consuming Flame
+Button/Name/ImperiusValorousBrand=Valorous Brand
+Button/Name/ImperiusValorousBrandBattleHunger=Battle Hunger
+Button/Name/ImperiusValorousBrandBurnTheImpure=Burn the Impure
+Button/Name/ImperiusValorousPursuit=Valorous Pursuit
+Button/Name/ImperiusWrathOfTheAngiris=Wrath of the Angiris
+Button/Name/ImperiusWrathOfTheAngirisUnrelentingDescent=Unrelenting Descent
+Button/SimpleDisplayText/ImperiusAngelicArmaments=Gain a large Shield, reactivate to damage
+Button/SimpleDisplayText/ImperiusAngelicArmamentsHeavenlyHost=Allied Heroes gain a weaponized Shield
+Button/SimpleDisplayText/ImperiusCelestialCharge=Charge forward and Stun enemies
+Button/SimpleDisplayText/ImperiusCelestialChargeFlashOfAnger=Solarion's Fire can deal damage in an area
+Button/SimpleDisplayText/ImperiusCelestialChargeImpalingLight=<c val="#TooltipQuest">Quest:</c> Lower Celestial Charge cooldown
+Button/SimpleDisplayText/ImperiusCelestialChargePatheticMortals=Celestial Charge reduces damage
+Button/SimpleDisplayText/ImperiusCelestialSwiftness=Celestial Charge grants Attack and Move Speed
+Button/SimpleDisplayText/ImperiusHolyFervor=Activate to gain cleaving Basic Attacks
+Button/SimpleDisplayText/ImperiusImpervious=Activate to gain Unstoppable and Spell Armor
+Button/SimpleDisplayText/ImperiusMoltenArmor=Burn nearby enemies and heal for damage dealt
+Button/SimpleDisplayText/ImperiusMoltenArmorDivineRage=Molten Armor striking Heroes reduces cooldown
+Button/SimpleDisplayText/ImperiusMoltenArmorHeatOfBattle=Molten Armor heals more at low Health
+Button/SimpleDisplayText/ImperiusMoltenArmorMeltingTouch=Molten Armor marks lower Armor
+Button/SimpleDisplayText/ImperiusMoltenArmorSovereignArmor=Molten Armor grants Armor
+Button/SimpleDisplayText/ImperiusMoltenArmorUnshakableFaith=Molten Armor removes Roots and Slows
+Button/SimpleDisplayText/ImperiusSolarionsFire=Damage and Slow enemies in a line
+Button/SimpleDisplayText/ImperiusSolarionsFireBlazeOfGlory=Solarion's Fire creates a delayed explosion
+Button/SimpleDisplayText/ImperiusSolarionsFireBulwarkOfFlame=Solarion's Fire grants Physical Armor
+Button/SimpleDisplayText/ImperiusSolarionsFireConsumingFlame=Increase Solarion's Fire Slow, center damage
+Button/SimpleDisplayText/ImperiusValorousBrand=Basic Abilities mark enemy Heroes, increasing Basic Attack damage
+Button/SimpleDisplayText/ImperiusValorousBrandBattleHunger=Valorous Brand heals
+Button/SimpleDisplayText/ImperiusValorousBrandBurnTheImpure=Valorous Brand marks deal bonus damage
+Button/SimpleDisplayText/ImperiusValorousPursuit=Teleport to enemies marked by Valorous Brand
+Button/SimpleDisplayText/ImperiusWrathOfTheAngiris=Ascend with an enemy into the Heavens
+Button/SimpleDisplayText/ImperiusWrathOfTheAngirisUnrelentingDescent=Valorous Brand reduces the cooldown
+Button/Tooltip/ImperiusAngelicArmaments=Summon a ring of blazing swords that grants <c val="#TooltipNumbers"><d ref="Behavior,ImperiusAngelicArmamentsShieldBehavior,DamageResponse.ModifyLimit"/></c> Shield for <c val="#TooltipNumbers"><d ref="Behavior,ImperiusAngelicArmamentsShieldBehavior,Duration" precision="2" player="0"/></c> seconds.</n></n>If the Shield lasts the full duration, this ability can be reactivated within <c val="#TooltipNumbers"><d ref="Behavior,ImperiusAngelicArmamentsCasterBehavior,Duration-Behavior,ImperiusAngelicArmamentsShieldBehavior,Duration" precision="2" player="0"/></c> seconds to launch <c val="#TooltipNumbers"><d ref="Effect,ImperiusAngelicArmamentsInitialPersistent,PeriodCount"/></c> swords toward an area, each dealing <c val="#TooltipNumbers"><d ref="Effect,ImperiusAngelicArmamentsMissileDamage,Amount"/></c> damage to the first enemy hit.
+Button/Tooltip/ImperiusAngelicArmamentsHeavenlyHost=Nearby allied Heroes gain <c val="#TooltipNumbers"><d ref="Behavior,ImperiusAngelicArmamentsHeavenlyHostShield,DamageResponse.ModifyLimit"/></c> Shield for <c val="#TooltipNumbers"><d ref="Behavior,ImperiusAngelicArmamentsHeavenlyHostShield,Duration" precision="2" player="0"/></c> seconds.<n/><n/>If the Shield lasts the full duration, fire a sword at the nearest enemy Hero, dealing <c val="#TooltipNumbers"><d ref="Effect,ImperiusAngelicArmamentsHeavenlyHostDamage,Amount"/></c> damage.
+Button/Tooltip/ImperiusCelestialCharge=Lunge towards a targeted direction and stab, dealing <c val="#TooltipNumbers"><d ref="Effect,ImperiusCelestialChargePreImpactDamage,Amount"/></c> damage. If an enemy Hero is hit, Channel to Stun for <c val="#TooltipNumbers"><d ref="Behavior,ImperiusCelestialChargeChannelStunDebuff,Duration" precision="2" player="0"/></c> second and deal <c val="#TooltipNumbers"><d ref="Effect,ImperiusCelestialChargePostImpactDamage,Amount"/></c> additional damage when it fully finishes.
+Button/Tooltip/ImperiusCelestialChargeFlashOfAnger=Hitting a Hero marked by Solarion's Fire with Celestial Charge deals <c val="#TooltipNumbers"><d ref="Effect,ImperiusCelestialChargeFlashOfAngerDamage,Amount"/></c> damage around the target.
+Button/Tooltip/ImperiusCelestialChargeImpalingLight=Celestial Charge deals <c val="#TooltipNumbers"><d ref="Effect,ImperiusCelestialChargePostImpactDamage,MultiplicativeModifierArray[ImpalingLightBase].Modifier*100" precision="2" player="0"/>%</c> increased damage.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Quest:</c> Stun multiple enemy Heroes with a single Celestial Charge.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Reward:</c> After Stunning <c val="#TooltipNumbers"><d ref="Validator,ImperiusCelestialChargeImpalingLightStunTokenCasterHasTier1Threshold,Value" precision="2" player="0"/></c> Heroes, permanently reduce the cooldown by <c val="#TooltipNumbers"><d ref="Effect,ImperiusCelestialChargeImpalingLightModifyCooldown,EffectArray[0].Value" precision="2" player="0"/></c> seconds.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Reward:</c> After Stunning <c val="#TooltipNumbers"><d ref="Validator,ImperiusCelestialChargeImpalingLightStunTokenCasterHasTier2Threshold,Value" precision="2" player="0"/></c> Heroes, permanently reduce the cooldown by an additional <c val="#TooltipNumbers"><d ref="Effect,ImperiusCelestialChargeImpalingLightModifyCooldown,EffectArray[0].Value" precision="2" player="0"/></c> seconds.
+Button/Tooltip/ImperiusCelestialChargeImpalingLightQuestToken=<c val="#TooltipQuest">Stun <d ref="Validator,ImperiusCelestialChargeImpalingLightStunTokenCasterHasTier1Threshold,Value" precision="2" player="0"/> Heroes: <c val="#TooltipNumbers" validator="ImperiusCelestialChargeImpalingLightMasterQuestTokenCasterDoesNotHaveTier1Threshold"><d ref="$BehaviorStackCount:ImperiusCelestialChargeImpalingLightTier1DummyToken$"/>/<d ref="Behavior,ImperiusCelestialChargeImpalingLightTier1DummyToken,Max"/></c></c><n/><c val="#TooltipQuest">Stun <d ref="Validator,ImperiusCelestialChargeImpalingLightStunTokenCasterHasTier2Threshold,Value" precision="2" player="0"/> Heroes: <c val="#TooltipNumbers" validator="ImperiusCelestialChargeImpalingLightMasterQuestTokenCasterDoesNotHaveTier2Threshold"><d ref="$BehaviorStackCount:ImperiusCelestialChargeImpalingLightTier2DummyToken$"/>/<d ref="Behavior,ImperiusCelestialChargeImpalingLightTier2DummyToken,Max"/></c></c>
+Button/Tooltip/ImperiusCelestialChargePatheticMortals=Stunning enemy Heroes with Celestial Charge reduces their damage by <c val="#TooltipNumbers"><d ref="Behavior,ImperiusCelestialChargePatheticMortalsDamageReduction,Modification.DamageDealtFraction[Ability]*(-100)" precision="2" player="0"/>%</c> for <c val="#TooltipNumbers"><d ref="Behavior,ImperiusCelestialChargePatheticMortalsDamageReduction,Duration" precision="2" player="0"/></c> seconds.
+Button/Tooltip/ImperiusCelestialSwiftness=Stunning an enemy Hero with Celestial Charge grants <c val="#TooltipNumbers"><d ref="Behavior,ImperiusCelestialChargeCelestialSwiftnessAttackSpeedBuff,Modification.AdditiveAttackSpeedFactor*100" precision="2" player="0"/>%</c> Attack Speed and <c val="#TooltipNumbers"><d ref="Behavior,ImperiusCelestialChargeCelestialSwiftnessMovementSpeedBuff,Modification.UnifiedMoveSpeedFactor*100" precision="2" player="0"/>%</c> Movement Speed for <c val="#TooltipNumbers"><d ref="Behavior,ImperiusCelestialChargeCelestialSwiftnessAttackSpeedBuff,Duration" precision="2" player="0"/></c> seconds.
+Button/Tooltip/ImperiusHolyFervor=Activate to cause the next <c val="#TooltipNumbers"><d ref="Effect,ImperiusHolyFervorAttackCounterBuffApplyBehavior,Count" player="0"/></c> Basic Attacks to cleave for <c val="#TooltipNumbers"><d ref="Effect,ImperiusWeaponDamage,Amount*(Effect,ImperiusWeaponDamage,MultiplicativeModifierArray[HolyFervor].Modifier+1)"/></c> damage.
+Button/Tooltip/ImperiusImpervious=Activate to become Unstoppable and gain <c val="#TooltipNumbers"><d ref="Behavior,ImperiusImperviousSpellArmor,ArmorModification.ArmorSet[Hero].ArmorMitigationTable[Ability]"/></c> Spell Armor for <c val="#TooltipNumbers"><d ref="Behavior,ImperiusImperviousDurationController,Duration" precision="2" player="0"/></c> seconds. Hitting Heroes with the center of Solarion's Fire reduces this cooldown by <c val="#TooltipNumbers"><d ref="Effect,ImperiusImperviousCooldownModifyUnit,Cost[0].CooldownTimeUse*(-1)" precision="2" player="0"/></c> seconds.
+Button/Tooltip/ImperiusMoltenArmor=Shroud Imperius in flames for <c val="#TooltipNumbers"><d ref="Behavior,ImperiusMoltenArmorCasterBehavior,Duration"/></c> seconds, striking a nearby enemy for <c val="#TooltipNumbers"><d ref="Effect,ImperiusMoltenArmorDamage,Amount"/></c> damage every <c val="#TooltipNumbers"><d ref="Behavior,ImperiusMoltenArmorCasterBehavior,Period" precision="2" player="0"/></c> seconds. Imperius heals for <c val="#TooltipNumbers"><d ref="100 * Effect,ImperiusMoltenArmorDamage,LeechFraction[Life]" player="0"/>%</c> of the damage dealt, with healing doubled versus Heroes.
+Button/Tooltip/ImperiusMoltenArmorDivineRage=Striking an enemy Hero with Molten Armor reduces its cooldown by <c val="#TooltipNumbers"><d ref="Effect,ImperiusMoltenArmorDivineRageCooldownModifyUnit,Cost[0].CooldownTimeUse*(-1)" precision="3" player="0"/></c> seconds.
+Button/Tooltip/ImperiusMoltenArmorHeatOfBattle=Molten Armor heals <c val="#TooltipNumbers"><d ref="100*Effect,ImperiusMoltenArmorDamage,LeechFlatModifierArray[ImperiusMoltenArmorHeatOfBattle].Modifier" precision="2" player="0"/>%</c> more while Imperius is below <c val="#TooltipNumbers"><c val="#TooltipNumbers"><d ref="Validator,ImperiusMoltenArmorHeatOfBattleCasterHasLifeThreshold,Value*100" precision="2" player="0"/></c>%</c> Health.
+Button/Tooltip/ImperiusMoltenArmorMeltingTouch=Consuming a Molten Armor mark reduces the target's Armor by <c val="#TooltipNumbers"><d ref="Behavior,ImperiusMoltenArmorMeltingTouchDebuff,ArmorModification.AllArmorBonus*(-1)" precision="2" player="0"/></c> for <c val="#TooltipNumbers"><d ref="Behavior,ImperiusMoltenArmorMeltingTouchDebuff,Duration" precision="2" player="0"/></c> seconds.
+Button/Tooltip/ImperiusMoltenArmorSovereignArmor=Molten Armor grants <c val="#TooltipNumbers"><d ref="Behavior,ImperiusMoltenArmorSovereignArmorBuff,ArmorModification.AllArmorBonus" precision="2" player="0"/></c> Armor for <c val="#TooltipNumbers"><d ref="Behavior,ImperiusMoltenArmorSovereignArmorBuff,Duration" precision="2" player="0"/></c> seconds.
+Button/Tooltip/ImperiusMoltenArmorUnshakableFaith=Activating Molten Armor removes Roots and Slows and heals Imperius for <c val="#TooltipNumbers"><d ref="Effect,ImperiusMoltenArmorUnshakableFaithCreateHealer,RechargeVitalRate"/></c>.
+Button/Tooltip/ImperiusSolarionsFire=Release a fiery wave that deals <c val="#TooltipNumbers"><d ref="Effect,ImperiusSolarionsFireDamageOuter,Amount"/></c> damage. Enemies hit by the center take <c val="#TooltipNumbers"><d ref="Effect,ImperiusSolarionsFireDamageCenter,Amount - Effect,ImperiusSolarionsFireDamageOuter,Amount"/></c> bonus damage and are Slowed by <c val="#TooltipNumbers"><d ref="Behavior,ImperiusSolarionsFireSlow,.Modification.UnifiedMoveSpeedFactor*(-100)" player="0"/>%</c></c> for <c val="#TooltipNumbers"><d ref="Behavior,ImperiusSolarionsFireSlow,Duration" precision="2" player="0"/></c> seconds.
+Button/Tooltip/ImperiusSolarionsFireBlazeOfGlory=Solarion's Fire leaves a line of scorched earth along its center, exploding after <c val="#TooltipNumbers"><d ref="Effect,ImperiusSolarionsFireBlazeOfGloryExplosionPersistent,PeriodicPeriodArray[0]"/></c> seconds and dealing <c val="#TooltipNumbers"><d ref="Effect,ImperiusSolarionsFireBlazeOfGloryExplosionDamage,Amount"/></c> damage.
+Button/Tooltip/ImperiusSolarionsFireBulwarkOfFlame=Hitting a Hero with Solarion's Fire grants <c val="#TooltipNumbers"><d ref="Behavior,ImperiusSolarionsFireBulwarkOfFlameBuff,ArmorModification.ArmorSet[Hero].ArmorMitigationTable[Basic]" player="0"/></c> Physical Armor against the next <c val="#TooltipNumbers"><d ref="Effect,ImperiusSolarionsFireBulwarkOfFlameBuffApplyBehavior,Count" player="0"/></c> enemy Hero Basic Attacks. Stores up to <c val="#TooltipNumbers"><d ref="Behavior,ImperiusSolarionsFireBulwarkOfFlameBuff,MaxStackCount" player="0"/></c> charges.
+Button/Tooltip/ImperiusSolarionsFireConsumingFlame=Increase the center damage of Solarion's Fire by <c val="#TooltipNumbers"><d ref="Effect,ImperiusSolarionsFireDamageCenter,FlatModifierArray[ConsumingFlame].Modifier"/></c> and its Slow amount by <c val="#TooltipNumbers"><d ref="-100*Talent,ImperiusSolarionsFireConsumingFlame,AbilityModificationArray[0].Modifications[0].Value"Precision="2"/>%</c>.
+Button/Tooltip/ImperiusValorousBrand=Each Basic Ability marks enemy Heroes hit for <c val="#TooltipNumbers"><d ref="Behavior,ImperiusValorousBrandCelestialChargeComboPointBehavior,Duration" precision="2" player="0"/></c> seconds. Basic Attacks consume the target's marks, dealing <c val="#TooltipNumbers"><d ref="100*Effect,ImperiusWeaponDamage,MultiplicativeModifierArray[ValorousBrandCelestialCharge].Modifier" precision="2" player="0"/>%</c> bonus damage per mark.
+Button/Tooltip/ImperiusValorousBrandBattleHunger=Heal for <c val="#TooltipNumbers"><d ref="Effect,ImperiusValorousBrandBattleHungerCreateHealer,RechargeVitalRate"/></c> Health for every Valorous Brand mark consumed.
+Button/Tooltip/ImperiusValorousBrandBurnTheImpure=Consuming a Valorous Brand mark deals bonus damage equal to <c val="#TooltipNumbers"><d ref="100*Effect,ImperiusValorousBrandBurnTheImpureDamage,VitalFractionMax[Life]" precision="2"/>%</c> of the Hero's maximum Health.
+Button/Tooltip/ImperiusValorousPursuit=Activate to teleport to an enemy that has been marked by Valorous Brand and gain <c val="#TooltipNumbers"><d ref="Behavior,ImperiusValorousPursuitArmorBuff,ArmorModification.AllArmorBonus" precision="2" player="0"/></c> Armor for <c val="#TooltipNumbers"><d ref="Behavior,ImperiusValorousPursuitArmorBuff,Duration"/></c> seconds.
+Button/Tooltip/ImperiusWrathOfTheAngiris=After <c val="#TooltipNumbers"><d ref="Abil,ImperiusWrathOfTheAngiris,CastIntroTime" precision="2" player="0"/></c> seconds, charge in the target direction, lifting the first enemy Hero hit into the Heavens. While in the air, Imperius can steer the landing location by moving.<n/><n/>After <c val="#TooltipNumbers"><d ref="Behavior,ImperiusWrathOfTheAngirisCasterRemovedStasis,Duration" precision="2" player="0"/></c> seconds, slam the target into the ground, dealing <c val="#TooltipNumbers"><d ref="Effect,ImperiusWrathOfTheAngirisDamage,Amount"/></c> damage and Stunning them for <c val="#TooltipNumbers"><d ref="Behavior,ImperiusWrathOfTheAngirisStun,Duration"/></c> second.
+Button/Tooltip/ImperiusWrathOfTheAngirisUnrelentingDescent=Consuming a Valorous Brand reduces the cooldown of Wrath of the Angiris by <c val="#TooltipNumbers"><d ref="Effect,ImperiusWrathOfTheAngirisUnrelentingDescentCooldownModifyUnit,Cost[0].CooldownTimeUse*(-1)" precision="3" player="0"/></c> seconds.
+Button/TooltipCooldownOverride/ImperiusAngelicArmaments=<d ref="Abil,ImperiusAngelicArmaments,Cost.Cooldown.TimeUse" player="0"/> seconds
+DocInfo/Name=Imperius Hero Mod
+Hero/AdditionalSearchText/Imperius=Angel Archangel Diablo 3 III D3 Diablo3
+Hero/AlternateNameSearchText/Imperius=Imperious Impirius
+Hero/Description/Imperius=An all-in Bruiser that leads the charge with strong initiation and single target damage.
+Hero/Info/Imperius=Leader of the Angiris Council and Aspect of Valor, Imperius has valiantly led the armies of the High Heavens to innumerous victories over the demons of the Burning Hells. While his methods are exact and severe, there is no greater defender of righteousness in the entirety of creation.
+Hero/Name/Imperius=Imperius
+Hero/Title/Imperius=Archangel of Valor
+Param/Expression/lib_HIMP_611DA780=ImperiusPoint: ~A~,~B~<n/>TargetPoint: ~C~,~D~<n/>AlignmentPoint: ~E~,~F~
+Reward/Name/ImperiusPortraitBase=Imperius Portrait
+Reward/Name/ImperiusPortraitMastery=Imperius Mastery Portrait
+Shape/Name/ImperiusCelestialChargeFlashOfAngerShape=Imperius - Celestial Charge - Flash Of Anger (Shape)
+Shape/Name/ImperiusHolyFervorShape=Imperius - Holy Fervor (Shape)
+Shape/Name/ImperiusMoltenArmorShape=Imperius - Molten Armor (Shape)
+Skin/AdditionalSearchText/ImperiusDemonic19=Red Gray Grey
+Skin/AdditionalSearchText/ImperiusDemonic19Var1=Purple Gray Grey
+Skin/AdditionalSearchText/ImperiusDemonic19Var2=Green
+Skin/AdditionalSearchText/ImperiusVar1=Gold Blue
+Skin/AdditionalSearchText/ImperiusVar2=Blue
+Skin/AdditionalSearchText/ImperiusVar3=White Red
+Skin/AdditionalSearchText/ImperiusVar4=Red Gold
+Skin/Info/ImperiusDemonic19=The Lord of Wrath is said to be the greatest warrior in the Burning Hells. His limitless anger is nearly uncontainable: an unholy inferno that would see all life consumed by its profane flame.
+Skin/Name/ImperiusDemonic19=Demonic Imperius
+Skin/Name/ImperiusDemonic19Var1=Abyssal Demonic Imperius
+Skin/Name/ImperiusDemonic19Var2=Vile Demonic Imperius
+Skin/Name/ImperiusVar1=Knight-Captain Imperius
+Skin/Name/ImperiusVar2=Skyborne Imperius
+Skin/Name/ImperiusVar3=Vindicator Imperius
+Skin/Name/ImperiusVar4=Indomitable Imperius
+Skin/SortName/ImperiusBaseCommonVar1=zzImperiusBaseVar1
+Skin/SortName/ImperiusBaseCommonVar2=zzImperiusBaseVar2
+Skin/SortName/ImperiusBaseCommonVar3=zzImperiusBaseVar3
+Skin/SortName/ImperiusDemonic19CommonVar0=DemonicVar0
+Skin/SortName/ImperiusDemonic19CommonVar1=DemonicVar1
+UI/ScreenHome/Imperius/Tile1=New Hero: Imperius
+Unit/Name/HeroImperius=Imperius
+Unit/Name/ImperiusAngelicArmamentsHeavenlyHostMissile=Imperius - Angelic Armaments - Heavenly Host (Missile)
+Unit/Name/ImperiusAngelicArmamentsMissile=Imperius - Angelic Armaments (Missile)
+Unit/Name/ImperiusSolarionsFireMissileUnit=Imperius - Solarions Fire (Missile Unit)
+Unit/Name/ImperiusWrathOfTheAngirisCursorUnit=Imperius - Wrath Of The Angiris (Cursor Unit)
+VoiceLine/Name/ImperiusBase_VoiceLine01=Silence!
+VoiceLine/Name/ImperiusBase_VoiceLine02=Must I Do Everything?
+VoiceLine/Name/ImperiusBase_VoiceLine03=Valor Will Be Victorious
+VoiceLine/Name/ImperiusBase_VoiceLine04=Solarion Burns
+VoiceLine/Name/ImperiusBase_VoiceLine05=Sacrilege!
+VoiceLine/Name/ImperiusDemonic19_VoiceLine01=Silence!
+VoiceLine/Name/ImperiusDemonic19_VoiceLine02=Must I Do Everything?
+VoiceLine/Name/ImperiusDemonic19_VoiceLine03=Wrath is Unending
+VoiceLine/Name/ImperiusDemonic19_VoiceLine04=Solarion Burns
+VoiceLine/Name/ImperiusDemonic19_VoiceLine05=Sacrelige!
+Weapon/Name/ImperiusHeroWeapon=Imperius - Hero Weapon

@@ -1,5 +1,6 @@
 ﻿using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
@@ -9,7 +10,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityMountNoCooldownUntilTalentUpgradeTest()
         {
-            Ability ability = HeroDryad.GetAbility("DryadDryadsSwiftness");
+            Ability ability = HeroDryad.GetAbilities("DryadDryadsSwiftness").First();
             Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription));
         }
 

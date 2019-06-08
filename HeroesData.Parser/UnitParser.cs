@@ -114,7 +114,6 @@ namespace HeroesData.Parser
             if (dataOverride == null)
                 throw new ArgumentNullException(nameof(dataOverride));
 
-            // abilities
             if (unit.Abilities != null)
                 dataOverride.ExecuteAbilityOverrides(unit.Abilities);
 

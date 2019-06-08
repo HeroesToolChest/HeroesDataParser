@@ -58,5 +58,16 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Talent talent = HeroAbathur.GetTalent("AbathurMasteryPressurizedGlands");
             Assert.AreEqual(AbilityType.W, talent.AbilityType);
         }
+
+        [TestMethod]
+        public void CallDownMuleTests()
+        {
+            Talent talent = HeroAbathur.GetTalent("GenericTalentCalldownMULE");
+
+            Assert.IsTrue(!string.IsNullOrEmpty(talent.Tooltip?.ShortTooltip?.RawDescription));
+            Assert.IsTrue(!string.IsNullOrEmpty(talent.Tooltip?.FullTooltip?.RawDescription));
+            Assert.IsTrue(!string.IsNullOrEmpty(talent.Name));
+            Assert.IsTrue(!string.IsNullOrEmpty(talent.IconFileName));
+        }
     }
 }

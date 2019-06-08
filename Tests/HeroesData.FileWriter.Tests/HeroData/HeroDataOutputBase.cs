@@ -87,8 +87,6 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 Speed = 4.3984,
                 Type = "Melee",
                 Rarity = Rarity.Legendary,
-                MountLinkId = "SummonMount",
-                HearthLinkId = "PortBackToBase",
                 Description = new TooltipDescription("A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/><img path=\"@UI / StormTalentInTextArmorIcon\" alignment=\"uppermiddle\" color=\"e12bfc\" width=\"20\" height=\"22\"/><c val=\"#TooltipNumbers\">20 Spell Armor</c>"),
                 SearchText = "Alarak highlord protoss",
                 HeroPortrait = new HeroPortrait()

@@ -1,0 +1,240 @@
+﻿Abil/MedivhInvisibility/Activity=
+Abil/MedivhLeyLineSeal/Activity=Casting
+Abil/MedivhLeyLineSealMedivhCheats/Activity=
+Abil/MedivhPortalMasteryCooldownOverride=16 seconds
+Abil/MedivhSealFate/Activity=Casting
+Abil/MedivhTransformRaven/Activity=Raven Form
+Abil/Name/MedivhArcaneBrilliance=Arcane Brilliance
+Abil/Name/MedivhArcaneRift=Arcane Rift
+Abil/Name/MedivhDustOfAppearance=Dust Of Appearance
+Abil/Name/MedivhDustofDisappearance=Dust of Disappearance
+Abil/Name/MedivhForceOfWill=Force Of Will
+Abil/Name/MedivhLeyLineSeal=Ley Line Seal
+Abil/Name/MedivhLeyLineSealMedivhCheats=Ley Line Seal Medivh Cheats!
+Abil/Name/MedivhPolyBomb=Poly Bomb
+Abil/Name/MedivhPortal=Portal
+Abil/Name/MedivhPortal1=Portal 1
+Abil/Name/MedivhPortal2=Portal 2
+Abil/Name/MedivhPortalCancel=Portal Cancel
+Abil/Name/MedivhPortalInstant=Portal Instant
+Abil/Name/MedivhPortalMastery=Portal Mastery
+Abil/Name/MedivhTransformRaven=Raven Form
+Abil/Name/MedivhTransformRavenBirdsEyeView=Raven Form Bird's Eye View
+Abil/Name/MedivhTransformRavenFountain=Raven Form Fountain
+Abil/Name/MedivhTransformRavenGuardianMorph=Raven Form Guardian Morph
+Abil/Name/MedivhTransformRavenLand=Raven Form Land
+Abil/Name/MedivhTransformRavenMorph=Raven Form Morph
+Abil/TooltipCooldownOverrideText/MedivhRavenForm=4 seconds
+Behavior/Name/MedivhDustofDisappearanceCloak=Dust of Disappearance 
+Behavior/Name/MedivhLeyLineSealMedivhCheatsController=Medivh Cheats!
+Behavior/Name/MedivhPortalEnter=Entering Portal
+Behavior/Name/MedivhTransformRavenExpiring=Transform: Raven Expiring
+Behavior/Name/MedivhTwistOfFateMinionLifeLeech=Twist Of Fate Minion Life Leech
+Behavior/Name/UnknownBehavior=Unknown Behavior
+Button/Name/MedivhArcaneBrilliance=Arcane Brilliance
+Button/Name/MedivhArcaneRift=Arcane Rift
+Button/Name/MedivhArcaneRiftArcaneCharge=Arcane Charge
+Button/Name/MedivhArcaneRiftGuardianOfTirisfal=Guardian of Tirisfal
+Button/Name/MedivhArcaneRiftManaAdept=Mana Adept
+Button/Name/MedivhArcaneRiftTheMastersTouchQuestToken=Arcane Rift
+Button/Name/MedivhDustOfAppearance=Dust of Appearance
+Button/Name/MedivhDustofDisappearance=Dust of Disappearance
+Button/Name/MedivhForceOfWill=Force of Will
+Button/Name/MedivhForceOfWillArcaneExplosion=Arcane Explosion
+Button/Name/MedivhForceOfWillCircleOfProtection=Circle of Protection
+Button/Name/MedivhForceOfWillEnduringWill=Enduring Will
+Button/Name/MedivhForceOfWillReabsorption=Reabsorption
+Button/Name/MedivhForceofMagic=Force of Magic
+Button/Name/MedivhForceofMagicToken=Force of Magic
+Button/Name/MedivhLeyLineSeal=Ley Line Seal
+Button/Name/MedivhLeyLineSealMedivhCheats=Medivh Cheats!
+Button/Name/MedivhLeyLineSealRedirect=Redirect Ley Line Seal
+Button/Name/MedivhMysticAssault=Mystic Assault
+Button/Name/MedivhPolyBomb=Poly Bomb
+Button/Name/MedivhPolyBombGlyphOfPolyBomb=Glyph Of Poly Bomb
+Button/Name/MedivhPortal=Portal
+Button/Name/MedivhPortal2=Portal
+Button/Name/MedivhPortalAstralProjection=Astral Projection
+Button/Name/MedivhPortalCancel=Cancel Portal
+Button/Name/MedivhPortalInstant=Portal
+Button/Name/MedivhPortalMageArmor=Mage Armor
+Button/Name/MedivhPortalPortalMastery=Portal
+Button/Name/MedivhPortalPortalMasteryTalent=Portal Mastery
+Button/Name/MedivhPortalQuickening=Quickening
+Button/Name/MedivhPortalRavenFamiliar=Raven Familiar
+Button/Name/MedivhPortalStablePortal=Stable Portal
+Button/Name/MedivhRavenForm=Raven Form
+Button/Name/MedivhTemporalFlux=Temporal Flux
+Button/Name/MedivhTransformRaven=Raven Form
+Button/Name/MedivhTransformRavenBirdsEyeView=Bird's Eye View
+Button/Name/MedivhTransformRavenGuardianMorph=Transform: Raven Guardian Morph
+Button/Name/MedivhTransformRavenLand=Cancel Raven Form
+Button/Name/MedivhTransformRavenMorph=Transform: Raven Morph
+Button/Name/MedivhTransformRavenRavensIntellect=Raven’s Intellect
+Button/Name/MedivhTransformRavenWindsOfCelerity=Winds of Celerity
+Button/Name/UnknownButton=Unknown Button
+Button/SimpleDisplayText/MedivhArcaneBrilliance=Grant Spell Power and Mana to allies
+Button/SimpleDisplayText/MedivhArcaneRift=Launch an arcane bolt that damages enemies in a line
+Button/SimpleDisplayText/MedivhArcaneRiftArcaneCharge=Arcane Rift deals more damage after hitting a Hero
+Button/SimpleDisplayText/MedivhArcaneRiftGuardianOfTirisfal=Arcane Rift kills Minions instantly
+Button/SimpleDisplayText/MedivhArcaneRiftManaAdept=Increases Arcane Rift Mana refund
+Button/SimpleDisplayText/MedivhArcaneRiftTheMastersTouchQuestToken=<img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Quest:</c> Hit <c val="#TooltipNumbers"><d ref="Behavior,MedivhArcaneRiftTheMastersTouchQuestToken,Max"/></c> enemy Heroes with Arcane Rift without dying.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Reward:</c> Permanently increase the damage dealt by <c val="#TooltipNumbers"><d ref="Effect,MedivhArcaneRiftDamage,FlatModifierArray[MastersTouchDamage].Modifier"/></c> and cooldown reduction for hitting a Hero by <c val="#TooltipNumbers"><d ref="Effect,MedivhArcaneRiftTheMastersTouchQuestCompleteModifyPlayer,EffectArray[0].Value" precision="1"/></c> second.
+Button/SimpleDisplayText/MedivhDustOfAppearance=Activate to reveal nearby Heroes
+Button/SimpleDisplayText/MedivhDustofDisappearance=Stealth an allied Hero
+Button/SimpleDisplayText/MedivhForceOfWill=Protect an allied Hero from damage
+Button/SimpleDisplayText/MedivhForceOfWillArcaneExplosion=Force of Will deals area damage
+Button/SimpleDisplayText/MedivhForceOfWillCircleOfProtection=Force of Will applies to allies near target
+Button/SimpleDisplayText/MedivhForceOfWillEnduringWill=Preventing damage reduces Force of Will cooldown
+Button/SimpleDisplayText/MedivhForceOfWillReabsorption=Increase Force of Will healing
+Button/SimpleDisplayText/MedivhForceofMagic=Force of Will can grant Spell Power
+Button/SimpleDisplayText/MedivhForceofMagicToken=Force of Will can grant Spell Power
+Button/SimpleDisplayText/MedivhLeyLineSeal=Unleash a wave that Time Stops enemy Heroes
+Button/SimpleDisplayText/MedivhLeyLineSealMedivhCheats=Ley Line Seal can be redirected while active
+Button/SimpleDisplayText/MedivhMysticAssault=Arcane Rift empowers Basic Attacks
+Button/SimpleDisplayText/MedivhPolyBomb=Polymorph a Hero that spreads to other Heroes
+Button/SimpleDisplayText/MedivhPolyBombGlyphOfPolyBomb=Poly Bomb spreads faster and farther
+Button/SimpleDisplayText/MedivhPortal=Create a portal that allies can pass through
+Button/SimpleDisplayText/MedivhPortal2=Create a portal that allies can pass through
+Button/SimpleDisplayText/MedivhPortalAstralProjection=Increases Portal range
+Button/SimpleDisplayText/MedivhPortalInstant=Create a portal that allies can pass through
+Button/SimpleDisplayText/MedivhPortalMageArmor=Using a Portal grants Armor
+Button/SimpleDisplayText/MedivhPortalPortalMastery=Create a portal that allies can pass through
+Button/SimpleDisplayText/MedivhPortalPortalMasteryTalent=Place both Portal locations
+Button/SimpleDisplayText/MedivhPortalQuickening=Reduces Portal cooldown
+Button/SimpleDisplayText/MedivhPortalRavenFamiliar=Using a Portal grants a Raven Familiar
+Button/SimpleDisplayText/MedivhPortalStablePortal=Increases Portal uptime
+Button/SimpleDisplayText/MedivhRavenForm=Transform into a raven
+Button/SimpleDisplayText/MedivhTemporalFlux=Arcane Rift reduces Heroic cooldown
+Button/SimpleDisplayText/MedivhTransformRaven=Transform into a raven
+Button/SimpleDisplayText/MedivhTransformRavenBirdsEyeView=Increases Raven Form vision range
+Button/SimpleDisplayText/MedivhTransformRavenRavensIntellect=Raven Form increases Health and Mana Regen
+Button/SimpleDisplayText/MedivhTransformRavenWindsOfCelerity=Increases Raven Form Movement Speed
+Button/Tooltip/MedivhArcaneBrilliance=Activate to instantly restore <c val="#TooltipNumbers"><d ref="Effect,MedivhArcaneBrillianceManaRestore,RechargeVitalRate"/></c> mana to all nearby allied Heroes and grant them <c val="#TooltipNumbers"><d ref="Behavior,MedivhArcaneBrilliance,Modification.DamageDealtFraction[Ability]*100"/>%</c> Spell Power for <c val="#TooltipNumbers"><d ref="Behavior,MedivhArcaneBrilliance,Duration"/></c> seconds.
+Button/Tooltip/MedivhArcaneRift=Launch a rift that deals <c val="#TooltipNumbers"><d ref="Effect,MedivhArcaneRiftDamage,Amount"/></c> damage to enemies in its path. If an enemy Hero is hit, reduce its cooldown by <c val="#TooltipNumbers"><d ref="Effect,MedivhArcaneRiftCooldownReduction,Cost[0].CooldownTimeUse*(-1)" precision="1" player="0"/></c> seconds and refund <c val="#TooltipNumbers"><d ref="Effect,MedivhArcaneRiftManaRefund,RechargeVitalRate" player="0"/></c> Mana.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Quest:</c> Hit <c val="#TooltipNumbers"><d ref="Behavior,MedivhArcaneRiftTheMastersTouchQuestToken,Max"/></c> enemy Heroes with Arcane Rift without dying.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Reward:</c> Permanently increase the damage dealt by <c val="#TooltipNumbers"><d ref="Effect,MedivhArcaneRiftDamage,FlatModifierArray[MastersTouchDamage].Modifier"/></c> and cooldown reduction for hitting a Hero by <c val="#TooltipNumbers"><d ref="Effect,MedivhArcaneRiftTheMastersTouchQuestCompleteModifyPlayer,EffectArray[0].Value" precision="1"/></c> second.
+Button/Tooltip/MedivhArcaneRiftArcaneCharge=When Arcane Rift damages an enemy Hero, the next Arcane Rift deals <c val="#TooltipNumbers"><d ref="100*Effect,MedivhArcaneRiftDamage,MultiplicativeModifierArray[MedivhArcaneCharge].Modifier"/>%</c> more damage.
+Button/Tooltip/MedivhArcaneRiftGuardianOfTirisfal=Minions and Catapults hit by Arcane Rift are instantly killed.
+Button/Tooltip/MedivhArcaneRiftManaAdept=Increases Arcane Rift's Mana refund for hitting enemy Heroes by <c val="#TooltipNumbers"><d ref="Talent,MedivhArcaneRiftManaAdept,AbilityModificationArray[0].Modifications[0].Value/Effect,MedivhArcaneRiftManaRefund,RechargeVitalRate*100" player="0"/>%</c>.
+Button/Tooltip/MedivhArcaneRiftTheMastersTouchQuestToken=<c val="#TooltipQuest">Heroes hit:</c> <c val="#TooltipNumbers" validator="True"><d ref="$BehaviorStackCount:MedivhArcaneRiftTheMastersTouchQuestToken$"/>/<d ref="Behavior,MedivhArcaneRiftTheMastersTouchQuestToken,Max"/></c>
+Button/Tooltip/MedivhDustOfAppearance=Activate to greatly increase sight range for <c val="#TooltipNumbers"><d ref="Effect,MedivhDustOfAppearanceCreatePersistent,PeriodCount*Effect,MedivhDustOfAppearanceCreatePersistent,PeriodicPeriodArray[0]"/></c> seconds and reveal enemy Heroes in the area for <c val="#TooltipNumbers"><d ref="Behavior,MedivhDustOfAppearance,Duration"/></c> seconds. Does not cancel Raven Form.<n/><n/><c val="#AbilityPassive">Passive:</c> Increase Medivh's sight range while in Raven Form by <c val="#TooltipNumbers"><d ref="100*Behavior,MedivhDustOfAppearanceCarry,Modification.SightBonus/Unit,HeroMedivhRaven,Sight"player="0"/>%</c>.
+Button/Tooltip/MedivhDustofDisappearance=Stealth an allied Hero for <c val="#TooltipNumbers"><d ref="Behavior,MedivhDustofDisappearanceCloak,Duration"/></c> seconds. Remaining stationary for at least <c val="#TooltipNumbers"><d ref="Behavior,HeroGenericStationaryExtraStealthCountdown,Duration" precision="1"/></c> seconds while Stealthed grants Invisible.<n/><n/>Stores up to <c val="#TooltipNumbers">2</c> charges.
+Button/Tooltip/MedivhForceOfWill=Protect an allied Hero from all damage for <c val="#TooltipNumbers"><d ref="Behavior,MedivhForceOfWill,Duration" player="0" precision="2"/></c> seconds.  Upon expiration, Force of Will heals the target for <c val="#TooltipNumbers">20%</c> of the damage it absorbed.
+Button/Tooltip/MedivhForceOfWillArcaneExplosion=When Force of Will expires, it deals <c val="#TooltipNumbers"><d ref="Effect,MedivhForceOfWillArcaneExplosionDamage,Amount"/></c> damage to nearby enemies, plus <c val="#TooltipNumbers"><d ref="100*Accumulator,MedivhArcaneExplosionDamageAccumulator,Scale"/>%</c> of the damage it prevented, up to <c val="#TooltipNumbers"><d ref="Accumulator,MedivhArcaneExplosionDamageAccumulator,MaxAccumulation"/></c> additional damage.
+Button/Tooltip/MedivhForceOfWillCircleOfProtection=Force of Will also applies to allies near the target, but its cooldown is increased by <c val="#TooltipNumbers"><d ref="Talent,MedivhForceOfWillCircleOfProtection,AbilityModificationArray[0].Modifications[1].Value"/></c> seconds.
+Button/Tooltip/MedivhForceOfWillEnduringWill=Preventing at least <c val="#TooltipNumbers"><d ref="Effect,MedivhForceOfWillEnduringWillTalentDummyTokenThreshold,Value"/></c> damage with Force of Will reduces its cooldown to <c val="#TooltipNumbers"><d ref="Effect,MedivhForceOfWillEnduringWillTalentModifyCooldown,Cost[0].CooldownTimeUse"Precision="2"/></c> seconds.
+Button/Tooltip/MedivhForceOfWillReabsorption=Increase the amount of healing from Force of Will to <c val="#TooltipNumbers"><d ref="100*(Accumulator,MedivhForceOfWillHealingAccumulator,Scale+Talent,MedivhForceOfWillReabsorption,AbilityModificationArray[0].Modifications[0].Value)"Player="0"/>%</c> of the damage it absorbed.
+Button/Tooltip/MedivhForceofMagic=Preventing at least <c val="#TooltipNumbers"><d ref="Effect,MedivhForceOfWillEnduringWillTalentDummyTokenThreshold,Value"/></c> damage with a single cast of Force of Will grants <c val="#TooltipNumbers"><d ref="100*Behavior,MedivhForceOfWillForceofMagicTalentStack,Modification.DamageDealtFraction[Ability]"/>%</c> Spell Power for <c val="#TooltipNumbers"><d ref="Behavior,MedivhForceOfWillForceofMagicTalentStack,Duration"/></c> seconds. Stacks up to <c val="#TooltipNumbers"><d ref="Behavior,MedivhForceOfWillForceofMagicTalentStack,MaxStackCount"/></c> times.
+Button/Tooltip/MedivhForceofMagicToken=Spell Power Gained <c val="#TooltipNumbers"><d ref="100*$BehaviorStackCount:MedivhForceOfWillForceofMagicTalentStack$*Behavior,MedivhForceOfWillForceofMagicTalentStack,Modification.DamageDealtFraction"/>%</c>
+Button/Tooltip/MedivhLeyLineSeal=After <c val="#TooltipNumbers"><d ref="Abil,MedivhLeyLineSeal,CastIntroTime[0]" precision="1"/></C> seconds, unleash a wave of energy that places enemy Heroes in Time Stop for <c val="#TooltipNumbers"><d ref="Behavior,MedivhLeyLineSealStasis,Duration"/></C> seconds.
+Button/Tooltip/MedivhLeyLineSealMedivhCheats=Increase the duration of the Time Stop by <c val="#TooltipNumbers"><d ref="Talent,MedivhLeyLineSealMedivhCheats,AbilityModificationArray[0].Modifications[2].Value/Behavior,MedivhLeyLineSealStasis,Duration*100" player="0"/>%</c> and gain the ability to redirect the wave once while it's active.
+Button/Tooltip/MedivhLeyLineSealRedirect=Redirect the energy wave to a new location.
+Button/Tooltip/MedivhMysticAssault=If Arcane Rift hits an enemy Hero, Medivh's next Basic Attack within <c val="#TooltipNumbers"><d ref="Behavior,MedivhMysticAssaultDamageBonus,Duration"/></c> seconds deals <c val="#TooltipNumbers"><d ref="100*Effect,MedivhWeaponDamage,MultiplicativeModifierArray[MysticAssaultBonus].Modifier"/>%</c> more damage and heals for <c val="#TooltipNumbers"><d ref="100*Effect,MedivhWeaponDamage,LeechFraction[Life]"/>%</c> of the damage dealt.
+Button/Tooltip/MedivhPolyBomb=Polymorph an enemy Hero for <c val="#TooltipNumbers"><d ref="Behavior,MedivhPolyBomb,Duration" precision="1" player="0"/></c> seconds, Silencing them and making them unable to attack. On expiration, Poly Bomb spreads to other nearby enemy Heroes.
+Button/Tooltip/MedivhPolyBombGlyphOfPolyBomb=Poly Bomb explodes <c val="#TooltipNumbers"><d ref="Talent,MedivhPolyBombGlyphOfPolyBomb,AbilityModificationArray[0].Modifications[0].Value*(-1)"/></c> second sooner and the spread radius is increased by <c val="#TooltipNumbers"><d ref="Talent,MedivhPolyBombGlyphOfPolyBomb,AbilityModificationArray[0].Modifications[1].Value/Effect,MedivhPolyBombSpreadSearchArea,AreaArray[0].Radius*100" player="0"/>%</c>.
+Button/Tooltip/MedivhPortal=Create a set of portals between Medivh and the target location, allowing allies to teleport between both. The portals last <c val="#TooltipNumbers"><d ref="Behavior,MedivhPortalTimedLife,Duration" player="0"/></c> seconds.
+Button/Tooltip/MedivhPortal2=Create a set of portals between Medivh and the target location, allowing allies to teleport between both. The portals last <c val="#TooltipNumbers"><d ref="Behavior,MedivhPortalTimedLife,Duration" player="0"/></c> seconds.
+Button/Tooltip/MedivhPortalAstralProjection=Increases Portal cast range by <c val="#TooltipNumbers"><d ref="Talent,MedivhPortalAstralProjection,AbilityModificationArray[0].Modifications[1].Value/Abil,MedivhPortal1,Range[0]*100" player="0"/>%</c>.
+Button/Tooltip/MedivhPortalCancel=Destroy current Portal.
+Button/Tooltip/MedivhPortalInstant=Create a set of portals between Medivh and the target location, allowing allies to teleport between both. The portals last <c val="#TooltipNumbers"><d ref="Behavior,MedivhPortalTimedLife,Duration" player="0"/></c> seconds.
+Button/Tooltip/MedivhPortalMageArmor=The first time an ally uses a Portal, they gain <c val="#TooltipNumbers"><d ref="Behavior,MedivhPortalMageArmor,ArmorModification.AllArmorBonus"/></c> Armor for <c val="#TooltipNumbers"><d ref="Behavior,MedivhPortalMageArmor,Duration"/></c> seconds, reducing their damage taken by <c val="#TooltipNumbers"><d ref="Behavior,MedivhPortalMageArmor,ArmorModification.AllArmorBonus"/>%</c>.
+Button/Tooltip/MedivhPortalPortalMastery=Create a Portal entrance or exit at the targeted location. <n/><n/><c val="#ColorCreamYellow">Activate Medivh's Trait to cancel an unlinked Portal</c>.
+Button/Tooltip/MedivhPortalPortalMasteryTalent=Medivh can manually place both Portal locations and it no longer breaks Raven Form. <n/><n/><c val="#ColorCreamYellow">Activate Medivh's Trait to cancel an unlinked Portal</c>.
+Button/Tooltip/MedivhPortalQuickening=Reduces Portal cooldown by <c val="#TooltipNumbers"><d ref="Talent,MedivhPortalQuickening,AbilityModificationArray[0].Modifications[0].Value/Abil,MedivhPortal2,Cost[0].Cooldown.TimeUse*(-100)" player="0"/>%</c>.
+Button/Tooltip/MedivhPortalRavenFamiliar=A Raven Familiar joins allies each time they use a Portal. The Raven will dive at the ally's next Basic Attack against a Hero within <c val="#TooltipNumbers"><d ref="Behavior,MedivhPortalRavenFamiliarOwner,Duration"/></c> seconds, dealing <c val="#TooltipNumbers"><d ref="Effect,MedivhPortalRavenFamiliarImpactDamage,Amount"/></c> damage and Slowing them by <c val="#TooltipNumbers"><d ref="-100*Behavior,MedivhPortalRavenFamiliarTalentSlow,Modification.UnifiedMoveSpeedFactor"/>%</c> for <c val="#TooltipNumbers"><d ref="Behavior,MedivhPortalRavenFamiliarTalentSlow,Duration"Precision="2"/></c> seconds.
+Button/Tooltip/MedivhPortalStablePortal=Decrease Portal cooldown by <c val="#TooltipNumbers"><d ref="-100*Talent,MedivhPortalStablePortal,AbilityModificationArray[0].Modifications[3].Value/Abil,MedivhPortalInstant,Cost.Cooldown.TimeUse"precision="2"player="0"/>%</c> and increase Portal duration by <c val="#TooltipNumbers"><d ref="Talent,MedivhPortalStablePortal,AbilityModificationArray[0].Modifications[0].Value/Behavior,MedivhPortalTimedLife,Duration*100" player="0"/>%</c>.
+Button/Tooltip/MedivhRavenForm=Instead of mounting, Medivh can transform into a raven, increasing Movement Speed by <c val="#TooltipNumbers"><d ref="Behavior,MedivhTransformRaven,Modification.UnifiedMoveSpeedFactor*100" player="0"/>%</c>. While transformed, Medivh can see and fly over all terrain and is immune to all effects.
+Button/Tooltip/MedivhTemporalFlux=Basic Attacks reduce Medivh's Heroic Ability cooldown by <c val="#TooltipNumbers"><d ref="-100*Effect,MedivhTemporalFluxCooldownModifierAutoAttack,Cost[0].Fraction.Cooldown"/>%</c>. Each enemy Hero hit by Arcane Rift reduces Medivh's Heroic Ability cooldown by <c val="#TooltipNumbers"><d ref="--100*Effect,MedivhTemporalFluxCooldownModifierArcaneRift,Cost[0].Fraction.Cooldown"/>%</c>.
+Button/Tooltip/MedivhTransformRaven=Transform into a raven, increasing Movement Speed by <c val="#TooltipNumbers"><d ref="Behavior,MedivhTransformRaven,Modification.UnifiedMoveSpeedFactor*100" player="0"/>%</c>. While transformed, Medivh can see and fly over terrain and is immune to all effects.
+Button/Tooltip/MedivhTransformRavenBirdsEyeView=Permanently increase Raven Form's vision range by <c val="#TooltipNumbers">25%</c>. Activate to increase this bonus to <c val="#TooltipNumbers"><d ref="Behavior,MedivhTransformRavenBirdsEyeView,Modification.SightBonus/Unit,HeroMedivhRaven,Sight*100" player="0"/>%</c> for <c val="#TooltipNumbers"><d ref="Behavior,MedivhTransformRavenBirdsEyeView,Duration"/></c> seconds.
+Button/Tooltip/MedivhTransformRavenLand=Cancel Raven Form.
+Button/Tooltip/MedivhTransformRavenRavensIntellect=Raven Form increases Medivh's Mana and Health Regeneration by <c val="#TooltipNumbers"><d ref="Talent,MedivhTransformRavenRavensIntellect,AbilityModificationArray[0].Modifications[0].Value*100"/>%</c>.
+Button/Tooltip/MedivhTransformRavenWindsOfCelerity=Increases Raven Form's Movement Speed bonus by <c val="#TooltipNumbers"><d ref="Talent,MedivhTransformRavenWindsOfCelerity,AbilityModificationArray[0].Modifications[0].Value/Behavior,MedivhTransformRaven,Modification.UnifiedMoveSpeedFactor*100" player="0"/>%</c>.
+Button/TooltipAppender/LockedUntilGameStarts=<n/><n/><c val="FF0000">LOCKED UNTIL GAME STARTS.</c>
+Button/TooltipAppender/MedivhArcaneRiftTheMastersTouch=<n/><c val="#TooltipQuest">Current Progress:</c> <c val="#TooltipNumbers"><d ref="$BehaviorTokenCount:MedivhArcaneRiftTheMastersTouchQuestToken$"/>/<c val="#TooltipNumbers"><d ref="Behavior,MedivhArcaneRiftTheMastersTouchQuestToken,Max"/></c>
+Button/TooltipAppender/MedivhArcaneRiftTheMastersTouchComplete=<c val="#TooltipQuest">QUEST COMPLETE!</c>
+DocInfo/Name=Medivh Hero Mod
+Hero/AdditionalSearchText/Medivh=Prophet War1 I WC1 Warcraft1 Warcraft3 Warcraft III WC3 War3 3 Reign of Chaos RoC WoW World of Warcraft Burning Crusade BC Hearthstone HS
+Hero/AlternateNameSearchText/Medivh=Midivh
+Hero/Description/Medivh=A Support who can negate burst damage and allow his allies to teleport.
+Hero/Info/Medivh=Under the demon lord Sargeras's influence, Medivh opened the Dark Portal and unleashed the Horde upon Azeroth. To atone for this sin, he rallied a new generation of heroes to stand against the Burning Legion. Now, he takes his place amongst legends.
+Hero/Name/Medivh=Medivh
+Hero/Name/UnknownHero=Unknown Hero
+Hero/Title/Medivh=The Last Guardian
+Kinetic/Name/MedivhPortalRavenFamiliarFacing=Portal Raven Familiar Facing
+Kinetic/Name/MedivhPortalRavenFamiliarFollow=Portal Raven Familiar Follow
+Kinetic/Name/MedivhPortalRavenFamiliarOrbit=Portal Raven Familiar Orbit
+Kinetic/Name/MedivhPortalRavenFamiliarOrbiter=Portal Raven Familiar Orbiter
+Kinetic/Name/MedivhPortalRavenFamiliarSet=Portal Raven Familiar Set
+Kinetic/Name/MedivhPortalRavenFamiliarSpin=Portal Raven Familiar Spin
+Kinetic/Name/MedivhPortalRavenFamiliarTranslate=Portal Raven Familiar Translate
+Param/Value/lib_HMDV_028E66AC=Medivh AI - Find Portal Pair function was called by an erroneous player (<1 or >10) No Unit Group was returned. Please notify Tech Design.
+Param/Value/lib_HMDV_AF3771D2=Medivh Increment: 
+Param/Value/lib_HMDV_C69061B6=%num% Absorbed
+Param/Value/lib_HMDV_D1AB6E23=Medivh Decrement: 
+Param/Value/lib_HMDV_EB9E6C70=%num% Absorbed
+Portal Cancel Hide Mana=
+Portal Cancel Mana Hide=
+Portal Cooldown Override=16 seconds
+Portal Mana Cost Override=65
+Reward/Description/MedivhBasic=You have unlocked Medivh's hero portrait for use in your profile.
+Reward/Description/MedivhEpic=You have unlocked the Medivh master portrait.
+Reward/DescriptionUnearned/MedivhBasic=Unlock Medivh's hero portrait for use in your profile.
+Reward/DescriptionUnearned/MedivhEpic=Unlock the Medivh master portrait.
+Reward/Name/Medivh=Medivh
+Reward/Name/MedivhBasic=Medivh Portrait
+Reward/Name/MedivhEpic=Medivh Mastery Portrait
+Skin/AdditionalSearchText/MedivhBaseVar1=Red
+Skin/AdditionalSearchText/MedivhBaseVar2=Green
+Skin/AdditionalSearchText/MedivhBaseVar3=Black Purple
+Skin/AdditionalSearchText/MedivhBaseVar4=Black Red
+Skin/AdditionalSearchText/MedivhKnightOwl=Knight Owl Medivh Super Blue Silver
+Skin/AdditionalSearchText/MedivhKnightOwlVar1=Orange
+Skin/AdditionalSearchText/MedivhKnightOwlVar2=Purple
+Skin/AdditionalSearchText/MedivhKnightOwlVar3=Green
+Skin/AdditionalSearchText/MedivhUltimate=Master Medivh Red Brown
+Skin/AdditionalSearchText/MedivhUltimateCommon=Green Brown
+Skin/AdditionalSearchText/MedivhUltimateVar1=Master White Blue
+Skin/AdditionalSearchText/MedivhUltimateVar2=Black Purple
+Skin/Info/MedivhKnightOwl=The Prophets of Kharazania forsaw the Eternal Empire's invasion, but their warning came too late. Medivh, the last Knight Owl, has sworn to prevent the Earth from suffering a similar fate.
+Skin/Info/MedivhKnightOwlCommon=The Prophets of Kharazania forsaw the Eternal Empire's invasion, but their warning came too late. Medivh, the last Knight Owl, has sworn to prevent the Earth from suffering a similar fate.
+Skin/Info/MedivhUltimate=For ages, Atiesh has been passed down from one Guardian of Tirisfal to the next. Medivh has attuned himself to Atiesh like none before him, and the line between Greatstaff and Guardian has begun to blur.
+Skin/Info/MedivhUltimateCommon=For ages, Atiesh has been passed down from one Guardian of Tirisfal to the next. With the power of the Nexus, Medivh has attuned himself to the staff like none before him.
+Skin/Name/MedivhBaseCommon=Base
+Skin/Name/MedivhBaseVar1=Fire Medivh
+Skin/Name/MedivhBaseVar2=Nature Medivh
+Skin/Name/MedivhBaseVar3=Arcane Medivh
+Skin/Name/MedivhBaseVar4=Dark Medivh
+Skin/Name/MedivhKnightOwl=Knight Owl Medivh
+Skin/Name/MedivhKnightOwlCommon=Knight Owl Medivh
+Skin/Name/MedivhKnightOwlVar1=Citrine Knight Owl Medivh
+Skin/Name/MedivhKnightOwlVar2=Amethyst Knight Owl Medivh
+Skin/Name/MedivhKnightOwlVar3=Emerald Knight Owl Medivh
+Skin/Name/MedivhUltimate=Magus Medivh
+Skin/Name/MedivhUltimateCommon=Magus Medivh
+Skin/Name/MedivhUltimateVar1=Magus Medivh the White
+Skin/Name/MedivhUltimateVar2=Magus Medivh the Black
+Skin/Name/MedivhUltimateVar3=Magus Medivh the Green
+Skin/SortName/MedivhBaseCommonVar0=zzMedivhVar0
+Skin/SortName/MedivhBaseCommonVar1=zxMedivhVar1
+Skin/SortName/MedivhSuperCommonVar0=SuperVar0
+Skin/SortName/MedivhSuperCommonVar1=SuperVar1
+Skin/SortName/MedivhUltimateCommonVar0=zUltimateVar0
+Skin/SortName/MedivhUltimateCommonVar1=zUltimateVar1
+Unit/Name/HeroMedivh=Medivh
+Unit/Name/HeroMedivhRaven=Medivh
+Unit/Name/MedivhArcaneRiftMissile=Arcane Rift Missile
+Unit/Name/MedivhLeyLineSealMissile=Ley Line Seal Missile
+Unit/Name/MedivhPortal=Medivh Portal
+Unit/Name/MedivhPortalCreation=Portal Creation
+Unit/Name/MedivhPortalPlacementMarker=Portal Placement Marker
+Unit/Name/MedivhPortalRavenFamiliar=Portal Raven Familiar
+Unit/Name/MedivhPortalRealUnit=Portal
+Unit/Name/MedivhTransformRavenBirdsEyeViewItem=Transform: Raven Bird's Eye View Item
+Unit/Name/MedivhWeaponProjectile=Weapon Projectile
+Unit/Name/UnknownUnit=Unknown Unit
+VoiceLine/Name/MedivhBase_VoiceLine01=For Azeroth!
+VoiceLine/Name/MedivhBase_VoiceLine02=Let the Games Begin
+VoiceLine/Name/MedivhBase_VoiceLine03=Destiny Is at Hand
+VoiceLine/Name/MedivhBase_VoiceLine04=Excelsior
+VoiceLine/Name/MedivhBase_VoiceLine05=Your Fate Is Sealed
+Weapon/Name/MedivhHeroWeapon=Hero Weapon
+Weapon/Name/UnknownWeapon=Unknown Weapon

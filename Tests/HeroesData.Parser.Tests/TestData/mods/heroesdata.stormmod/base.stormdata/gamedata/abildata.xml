@@ -62,4 +62,18 @@
     <ProgressButtonArray index="Channel" value="CaptureMacGuffinTwo" />
     <CmdButtonArray index="Execute" DefaultButtonFace="CaptureMacGuffinTwo" />
   </CAbilEffectTarget>
+  <CBehaviorAbility id="GenericCalldownMule">
+    <Buttons Face="GenericCalldownMule" Type="AbilCmd" AbilCmd="TalentBucketCalldownMule,Execute" />
+  </CBehaviorAbility>
+  <CAbilEffectTarget id="TalentBucketCalldownMule">
+    <Effect value="CalldownMULEDummySet" />
+    <Cost>
+      <Cooldown TimeUse="60" />
+    </Cost>
+    <Range value="500" />
+    <Arc value="360" />
+    <CmdButtonArray index="Execute">
+      <Flags index="AllowMinimap" value="1" />
+    </CmdButtonArray>
+  </CAbilEffectTarget>
 </Catalog>

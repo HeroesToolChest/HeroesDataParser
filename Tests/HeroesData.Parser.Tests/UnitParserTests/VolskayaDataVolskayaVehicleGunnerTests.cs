@@ -11,9 +11,16 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void AbilitiesTests()
         {
-            Assert.IsTrue(VolskayaDataVolskayaVehicleGunner.TryGetAbility("VolskayaVehicleInitiateParticleCannon", out Ability ability));
+            Assert.IsTrue(VolskayaDataVolskayaVehicleGunner.TryGetAbilities("VolskayaVehicleInitiateParticleCannon", out IEnumerable<Ability> ability));
 
-            Assert.AreEqual(AbilityType.Q, ability.AbilityType);
+            Assert.AreEqual(AbilityType.Q, ability.First().AbilityType);
+        }
+
+        [TestMethod]
+        public void AbilityTraitTest()
+        {
+            Ability ability = VolskayaDataVolskayaVehicleGunner.GetAbilities("LeaveVehicle").ToList().FirstOrDefault();
+            Assert.AreEqual("storm_ui_icon_volskayarobot_leavevehicle.dds", ability.IconFileName);
         }
 
         [TestMethod]

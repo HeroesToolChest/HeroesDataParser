@@ -3197,6 +3197,7 @@
     <TalentTreeArray Talent="AbathurMasteryProlificDispersal" Tier="2" Column="3" />
     <TalentTreeArray Talent="AbathurMasteryVileNestsToxicNest" Tier="3" Column="1" />
     <TalentTreeArray Talent="AbathurSymbioteCarapaceNetworkedCarapace" Tier="3" Column="2" />
+    <TalentTreeArray Talent="GenericTalentCalldownMULE" Tier="3" Column="3" />
     <TalentTreeArray Talent="AbathurHeroicAbilityUltimateEvolution" Tier="4" Column="1" />
     <TalentTreeArray Talent="AbathurHeroicAbilityEvolveMonstrosity" Tier="4" Column="2" />
     <TalentTreeArray Talent="AbathurMasterySpatialEfficiency" Tier="5" Column="1" />

@@ -1,5 +1,6 @@
 ﻿using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.UnitParserTests
 {
@@ -21,7 +22,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void AbilitiesTests()
         {
-            Ability ability1 = AzmodanDemonLieutenant.GetAbility("AzmodanDemonicSmite");
+            Ability ability1 = AzmodanDemonLieutenant.GetAbilities("AzmodanDemonicSmite").First();
 
             // ability button is pointed to demon lieutenant
             Assert.AreEqual("Demon Lieutenant", ability1.Name);

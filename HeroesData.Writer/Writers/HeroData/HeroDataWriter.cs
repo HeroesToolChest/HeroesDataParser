@@ -26,7 +26,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         protected abstract T GetEnergyObject(Unit unit);
         protected abstract T GetRatingsObject(Hero hero);
         protected abstract T GetWeaponsObject(Unit unit);
-        protected abstract T GetAbilitiesObject(Unit unit, bool isUnitAbilities);
+        protected abstract T GetAbilitiesObject(Unit unit);
         protected abstract T GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities);
         protected abstract T GetTalentsObject(Hero hero);
         protected abstract TU AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase);
@@ -137,12 +137,11 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        // TODO: isSubAilities was used for unitdata, is it still needed
-        protected virtual T UnitAbilities(Unit unit, bool isSubAbilities)
+        protected virtual T UnitAbilities(Unit unit)
         {
             if (unit.PrimaryAbilities().Any())
             {
-                return GetAbilitiesObject(unit, isSubAbilities);
+                return GetAbilitiesObject(unit);
             }
 
             return null;

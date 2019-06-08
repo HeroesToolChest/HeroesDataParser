@@ -58,20 +58,20 @@ namespace HeroesData.Parser.XmlData
             {
                 ability.ReferenceNameId = referenceName;
                 ability.FullTooltipNameId = tooltipName;
-                ability.ButtonName = tooltipName;
+                //ability.ButtonName = tooltipName;
             }
             else if (!string.IsNullOrEmpty(referenceName) && string.IsNullOrEmpty(tooltipName)) // is a secondary ability
             {
                 ability.ReferenceNameId = referenceName;
                 ability.ParentLink = parentLink;
                 ability.FullTooltipNameId = referenceName;
-                ability.ButtonName = referenceName;
+                //ability.ButtonName = referenceName;
             }
             else
             {
                 ability.ReferenceNameId = tooltipName;
                 ability.FullTooltipNameId = tooltipName;
-                ability.ButtonName = tooltipName;
+                //ability.ButtonName = tooltipName;
             }
 
             XElement heroicElement = abilityElement.Elements("Flags").FirstOrDefault(x => x.Attribute("index").Value == "Heroic" && x.Attribute("value").Value == "1");
@@ -143,13 +143,13 @@ namespace HeroesData.Parser.XmlData
 
             Ability ability = new Ability();
 
-            string faceValue = layoutButtonElement.Attribute("Face")?.Value; // button id
-            string typeValue = layoutButtonElement.Attribute("Type")?.Value;
-            string abilCmdValue = layoutButtonElement.Attribute("AbilCmd")?.Value; // the ability command
-            string requirementsValue = layoutButtonElement.Attribute("Requirements")?.Value;
-            string slotValue = layoutButtonElement.Attribute("Slot")?.Value;
+            string faceValue = layoutButtonElement.Attribute("Face")?.Value ?? layoutButtonElement.Element("Face")?.Attribute("value")?.Value; // button id
+            string typeValue = layoutButtonElement.Attribute("Type")?.Value ?? layoutButtonElement.Element("Type")?.Attribute("value")?.Value;
+            string abilCmdValue = layoutButtonElement.Attribute("AbilCmd")?.Value ?? layoutButtonElement.Element("AbilCmd")?.Attribute("value")?.Value; // ability command
+            string requirementsValue = layoutButtonElement.Attribute("Requirements")?.Value ?? layoutButtonElement.Element("Requirements")?.Attribute("value")?.Value;
+            string slotValue = layoutButtonElement.Attribute("Slot")?.Value ?? layoutButtonElement.Element("Slot")?.Attribute("value")?.Value;
 
-            if (string.IsNullOrEmpty(faceValue) || slotValue == "Hidden2")
+            if (string.IsNullOrEmpty(faceValue) || slotValue == "Hidden1" || slotValue == "Hidden2" || slotValue == "Hidden3" || requirementsValue == "UltimateNotUnlocked")
                 return null;
 
             // default button id values
@@ -380,7 +380,7 @@ namespace HeroesData.Parser.XmlData
             Ability ability = new Ability()
             {
                 FullTooltipNameId = addedButtonAbility.ButtonId,
-                ButtonName = addedButtonAbility.ButtonId,
+                //ButtonName = addedButtonAbility.ButtonId,
                 ReferenceNameId = addedButtonAbility.ButtonId,
             };
 

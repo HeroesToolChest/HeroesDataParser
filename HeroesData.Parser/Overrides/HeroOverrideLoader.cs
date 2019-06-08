@@ -19,7 +19,7 @@ namespace HeroesData.Parser.Overrides
         {
             HeroDataOverride heroDataOverride = new HeroDataOverride();
 
-            //AbilityPropertyOverride abilityOverride = null;// = new AbilityPropertyOverride(GameData, HotsBuild);
+            AbilityPropertyOverride abilityOverride = new AbilityPropertyOverride();
             //TalentPropertyOverride talentOverride = null;// new TalentPropertyOverride(GameData, HotsBuild);
             //WeaponPropertyOverride weaponOverride = null;// new WeaponPropertyOverride(GameData, HotsBuild);
             //PortraitPropertyOverride portraitOverride = null;// new PortraitPropertyOverride(GameData, HotsBuild);
@@ -35,6 +35,22 @@ namespace HeroesData.Parser.Overrides
 
                 switch (elementName)
                 {
+                    case "CUnit":
+                        if (!string.IsNullOrEmpty(valueAttribute))
+                            heroDataOverride.CUnitOverride = (true, valueAttribute);
+                        break;
+                    case "Ability":
+                        string abilityId = dataElement.Attribute("id")?.Value;
+
+                        if (!string.IsNullOrEmpty(abilityId))
+                        {
+                            XElement overrideElement = dataElement.Element("Override");
+
+                            if (overrideElement != null)
+                                abilityOverride.SetOverride(abilityId, overrideElement, heroDataOverride.PropertyAbilityOverrideMethodByAbilityId);
+                        }
+
+                        break;
                     case "HeroUnit":
                         string heroUnitId = dataElement.Attribute("id")?.Value;
 
@@ -202,12 +218,10 @@ namespace HeroesData.Parser.Overrides
                         //            break;
                         //    }
                         //}
-
                 }
-
-                if (!DataOverridesById.ContainsKey(heroId))
-                    DataOverridesById.Add(heroId, heroDataOverride);
             }
+
+            DataOverridesById[heroId] = heroDataOverride;
         }
 
         //private void AddHeroUnits(string elementId, XElement element, HeroDataOverride heroDataOverride)

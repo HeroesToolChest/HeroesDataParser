@@ -17,7 +17,7 @@ namespace HeroesData.Parser.XmlData
         private readonly AbilityData AbilityData;
 
         private readonly string ElementType = "CUnit";
-        private readonly HashSet<string> BasicAbilities;
+        private readonly HashSet<string> IgnorableBasicAbilities;
 
         private XmlArrayElement AbilitiesArray;
         private XmlArrayElement CardLayoutButtons;
@@ -35,7 +35,7 @@ namespace HeroesData.Parser.XmlData
             ArmorData = armorData;
             AbilityData = abilityData;
 
-            BasicAbilities = Configuration.UnitDataExtraAbilities.ToHashSet();
+            IgnorableBasicAbilities = Configuration.UnitDataExtraAbilities.ToHashSet();
         }
 
         public Localization Localization
@@ -85,7 +85,8 @@ namespace HeroesData.Parser.XmlData
         public void SetUnitData(Unit unit)
         {
             AbilitiesArray = new XmlArrayElement();
-            CardLayoutButtons =  new XmlArrayElement();
+            CardLayoutButtons = new XmlArrayElement();
+
             SetData(unit);
             SetAbilities(unit);
         }
@@ -248,13 +249,9 @@ namespace HeroesData.Parser.XmlData
 
             foreach (XElement element in CardLayoutButtons.Elements)
             {
-                string indexValue = element.Attribute("index")?.Value;
-                string faceValue = element.Attribute("Face")?.Value;
-                string passiveValue = element.Attribute("Type")?.Value;
-                string abilCmdValue = element.Attribute("AbilCmd")?.Value;
-                string requirementsValue = element.Attribute("Requirements")?.Value;
+                string faceValue = element.Attribute("Face")?.Value ?? element.Element("Face")?.Attribute("value")?.Value;
 
-                if (BasicAbilities.Contains(faceValue, StringComparer.OrdinalIgnoreCase))
+                if (IgnorableBasicAbilities.Contains(faceValue, StringComparer.OrdinalIgnoreCase))
                     continue;
 
                 AddCreatedAbility(unit, element);
@@ -263,7 +260,7 @@ namespace HeroesData.Parser.XmlData
             foreach (XElement element in AbilitiesArray.Elements)
             {
                 string linkValue = element.Attribute("Link")?.Value;
-                if (!string.IsNullOrEmpty(linkValue) && !BasicAbilities.Contains(linkValue, StringComparer.OrdinalIgnoreCase) && !unit.ContainsAbility(linkValue))
+                if (!string.IsNullOrEmpty(linkValue) && !IgnorableBasicAbilities.Contains(linkValue, StringComparer.OrdinalIgnoreCase) && !unit.ContainsAbility(linkValue))
                     AddCreatedAbility(unit, linkValue);
             }
         }
@@ -282,7 +279,7 @@ namespace HeroesData.Parser.XmlData
         {
             if (ability != null)
             {
-                if (!BasicAbilities.Contains(ability.ReferenceNameId, StringComparer.OrdinalIgnoreCase))
+                if (!IgnorableBasicAbilities.Contains(ability.ReferenceNameId, StringComparer.OrdinalIgnoreCase))
                     unit.AddAbility(ability);
 
                 foreach (string createUnit in ability.CreatedUnits)

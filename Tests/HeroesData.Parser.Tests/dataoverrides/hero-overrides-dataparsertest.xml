@@ -3,8 +3,19 @@
   <!--***************************************-->
   <!--TEST TEST TEST TEST TEST TEST TEST TEST-->
   <!--***************************************-->
-  
+
   <CHero id="Abathur">
+    <HeroUnit id="AbathurSymbiote"></HeroUnit>
+  </CHero>
+  <CHero id="Thrall">
+    <Ability id="ThrallFrostwolfsGrace">
+      <Override>
+        <ParentLink value="ThrallMasteryFrostwolfsGrace" />
+      </Override>
+    </Ability>
+  </CHero>
+  
+  <!--<CHero id="Abathur">
     <HeroUnit id="AbathurSymbiote"></HeroUnit>
   </CHero>
   <CHero id="Falstad">
@@ -33,7 +44,7 @@
     </Ability>
   </CHero>
   <CHero id="Ragnaros">
-    <!--Molten Core abilities-->
+    --><!--Molten Core abilities--><!--
     <Button id="RagnarosBigRagMoltenSwing" parent="StormButtonParentTrait">
       <Override>
         <ParentLink value="RagnarosBigRag" />
@@ -53,5 +64,5 @@
       </Override>
     </Button>
     <HeroUnit id="RagnarosBigRag"></HeroUnit>
-  </CHero>
+  </CHero>-->
 </HeroOverrides>

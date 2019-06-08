@@ -3,6 +3,609 @@
   <CHero id="Abathur">
     <HeroUnit id="AbathurSymbiote"></HeroUnit>
   </CHero>
+  <CHero id="Alarak">
+    <Ability id="AlarakDeadlyChargeExecute">
+      <Override>
+        <ParentLink value="AlarakDeadlyChargeActivate" />
+      </Override>
+    </Ability>
+    <Ability id="AlarakDeadlyChargeExecute2ndHeroic">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="AlarakDeadlyChargeActivate2ndHeroic">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="AlarakCounterStrikeTargeted2ndHeroic">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Ana">
+    <!--Old abilityTalent -->
+    <Ability id="AnaHealingDartDetachableBoxMagazine">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="AnaEyeOfHorusAttack">
+      <Override>
+        <ParentLink value="AnaEyeOfHorusActivate" />
+      </Override>
+    </Ability>
+    <Ability id="AnaEyeOfHorusAttackDummy">
+      <Override>
+        <ParentLink value="AnaEyeOfHorusActivate" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Anubarak">
+    <!--For cooldown display only-->
+    <Ability id="AnubarakLegionOfBeetlesVisual">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Artanis">
+    <Ability id="ArtanisTwinBladesPrimed">
+      <Override>
+        <ParentLink value="ArtanisTwinBlades" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Arthas">
+    <Ability id="ArthasArmyOfTheDeadSacrifice">
+      <Override>
+        <ParentLink value="ArthasArmyOfTheDead" />
+      </Override>
+    </Ability>
+    <Ability id="ArthasFrostmourneHungersPrimed">
+      <Override>
+        <ParentLink value="ArthasFrostmourneHungers" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Azmodan">
+    <Ability id="AzmodanTideOfSinPassive">
+      <Override>
+        <ParentLink value="AzmodanTideOfSin" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Barbarian">
+    <Ability id="BarbarianShotofFury">
+      <Override>
+        <ParentLink value="BarbarianShotOfFury" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Butcher">
+    <!--Unknown-->
+    <Ability id="ButcherRuthlessOnslaughtCharge">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Chen">
+    <Ability id="ChenStorm">
+      <Override>
+        <ParentLink value="ChenStormEarthFire" />
+      </Override>
+    </Ability>
+    <Ability id="ChenEarth">
+      <Override>
+        <ParentLink value="ChenStormEarthFire" />
+      </Override>
+    </Ability>
+    <Ability id="ChenFire">
+      <Override>
+        <ParentLink value="ChenStormEarthFire" />
+      </Override>
+    </Ability>
+    <Ability id="ChenFirePassive">
+      <Override>
+        <ParentLink value="ChenElementalConduit" />
+      </Override>
+    </Ability>
+    <Ability id="ChenStormEarthFireElementalConduitDummy">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Cho">
+    <Ability id="ChoOgreHidePassive">
+      <Override>
+        <ParentLink value="ChoOgreHide" />
+      </Override>
+    </Ability>
+  </CHero>  
+  <CHero id="Chromie">
+    <Ability id="ChromieSlowingSandsCancel">
+      <Override>
+        <ParentLink value="ChromieSlowingSands" />
+      </Override>
+    </Ability>
+    <Ability id="ChromieTimeTrapDetonate">
+      <Override>
+        <ParentLink value="ChromieTimeTrap" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Deckard">
+    <Ability id="DeckardStayAWhileAndListenCancel">
+      <Override>
+        <ParentLink value="DeckardStayAWhileAndListen" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Dehaka">
+    <Ability id="DehakaCancelBurrow">
+      <Override>
+        <ParentLink value="DehakaBurrow" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="DVa">
+    <CUnit value="HeroDVaMech" />
+    <HeroUnit id="HeroDVaPilot"></HeroUnit>
+    <Ability id="DVaBoostersOff">
+      <Override>
+        <ParentLink value="DVaBoostersOn" />
+      </Override>
+    </Ability>
+    <Ability id="DVaMechDefenseMatrixOff">
+      <Override>
+        <ParentLink value="DVaMechDefenseMatrixOn" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Gall">
+    <Ability id="GallTwistingNetherActivated">
+      <Override>
+        <ParentLink value="GallTwistingNether" />
+      </Override>
+    </Ability>
+    <Ability id="GallOgreRagePassive">
+      <Override>
+        <ParentLink value="GallOgreRage" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Genji">
+    <Ability id="GenjiDragonbladeAttack">
+      <Override>
+        <ParentLink value="GenjiDragonblade" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Fenix">
+    <Ability id="FenixRepeaterCannon">
+      <Override>
+        <ParentLink value="FenixPhaseBomb" />
+      </Override>
+    </Ability>
+    <!--For cooldown display only-->
+    <Ability id="FenixShieldCapacitorVisual">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Greymane">
+    <Ability id="GreymaneRazorSwipe">
+      <Override>
+        <ParentLink value="GreymaneWorgenForm" />
+      </Override>
+    </Ability>
+    <Ability id="GreymaneInnerBeastActive">
+      <Override>
+        <ParentLink value="GreymaneInnerBeast" />
+      </Override>
+    </Ability>
+    <Ability id="GreymaneDisengage">
+      <Override>
+        <ParentLink value="GreymaneWorgenForm" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Guldan">
+    <Ability id="GuldanDrainLifeCancel">
+      <Override>
+        <ParentLink value="GuldanDrainLife" />
+      </Override>
+    </Ability>
+    <Ability id="GuldanRainOfDestructionCancel">
+      <Override>
+        <ParentLink value="GuldanRainOfDestruction" />
+      </Override>
+    </Ability>
+    <Ability id="GreymaneDisengage">
+      <Override>
+        <ParentLink value="GreymaneWorgenForm" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Illidan">
+    <!--Old abilityTalent-->
+    <Ability id="IllidanThrillOfBattle">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Imperius">
+    <Ability id="ImperiusAngelicArmamentsLaunchMissiles">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Junkrat">
+    <Ability id="JunkratRIPTireJump">
+      <Override>
+        <ParentLink value="JunkratRIPTire" />
+      </Override>
+    </Ability>
+    <Ability id="JunkratDetonateRIPTire">
+      <Override>
+        <ParentLink value="JunkratRIPTire" />
+      </Override>
+    </Ability>
+    <Ability id="JunkratDetonateMine">
+      <Override>
+        <ParentLink value="JunkratConcussionMine" />
+      </Override>
+    </Ability>
+    <!--Only available after using RocketRide and spawning-->
+    <Ability id="JunkratRocketRideDismount">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="LiLi">
+    <Ability id="LiLiSafetySprint">
+      <Override>
+        <ParentLink value="LiLiMasteryFastFeetSafetySprint" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="LostVikings">
+    <CUnit value="HeroLostVikingsController" />
+    <HeroUnit id="HeroBaleog"></HeroUnit>
+    <HeroUnit id="HeroErik"></HeroUnit>
+    <HeroUnit id="HeroOlaf"></HeroUnit>
+  </CHero>
+  <CHero id="Kaelthas">
+    <Ability id="KaelthasVerdantSpheresActive">
+      <Override>
+        <ParentLink value="KaelthasVerdantSpheres" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="KelThuzad">
+    <Ability id="KelThuzadChainsLink">
+      <Override>
+        <ParentLink value="KelThuzadChains" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="MalGanis">
+    <Ability id="MalGanisFelClawsThird">
+      <Override>
+        <ParentLink value="MalGanisFelClawsSecond" />
+      </Override>
+    </Ability>
+    <Ability id="MalGanisFelClawsSecond">
+      <Override>
+        <ParentLink value="MalGanisFelClawsFirst" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Maiev">
+    <Ability id="MaievUmbralBindPrimed">
+      <Override>
+        <ParentLink value="MaievUmbralBind" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Medivh">
+    <!--Only available when at the hall of storms-->
+    <Ability id="MedivhTransformRavenFountain">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Monk">
+    <Ability id="MonkDeadlyReachActive">
+      <Override>
+        <AbilityTier value="MonkDeadlyReach" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Muradin">
+    <Ability id="Stoneform">
+      <Override>
+        <ParentLink value="MuradinMasteryPassiveStoneform" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Murky">
+    <Ability id="MurkyCancelMarchoftheMurlocs">
+      <Override>
+        <ParentLink value="MurkyMarchoftheMurlocs" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Necromancer">
+    <Ability id="NecromancerCursedStrikesPassive">
+      <Override>
+        <ParentLink value="NecromancerCursedStrikes" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Nova">
+    <!--For cooldown display only-->
+    <Ability id="NovaCloakCooldownDisplay">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Orphea">
+    <Ability id="OrpheaOverflowingChaosInvasiveMiasma">
+      <Override>
+        <ParentLink value="OrpheaInvasiveMiasma" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Ragnaros">
+    <HeroUnit id="RagnarosBigRag"></HeroUnit>
+    <Ability id="RagnarosEmpowerSulfurasActive">
+      <Override>
+        <ParentLink value="RagnarosEmpowerSulfuras" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Samuro">
+    <Ability id="SamuroCriticalStrikeDummy">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <!--Shop only-->
+    <Ability id="SamuroIllusionMasterDummyShopAbility">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Stukov">
+    <Ability id="StukovLurkingArmCancel">
+      <Override>
+        <ParentLink value="StukovLurkingArm" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Sylvanas">
+    <Ability id="SylvanasHauntingWaveWindrunnerTalent">
+      <Override>
+        <ParentLink value="SylvanasTalentWindrunnerHauntingWave" />
+      </Override>
+    </Ability>
+    <Ability id="SylvanasHauntingWaveActivateWindrunnerTalent">
+      <Override>
+        <ParentLink value="SylvanasHauntingWaveWindrunnerTalent" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Tassadar">
+    <Ability id="TassadarCancelDimensionalShift">
+      <Override>
+        <ParentLink value="TassadarDimensionalShift" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Thrall">
+    <Ability id="ThrallFrostwolfsGrace">
+      <Override>
+        <ParentLink value="ThrallMasteryFrostwolfsGrace" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Tychus">
+    <Ability id="TychusOdinAnnihilate">
+      <Override>
+        <ParentLink value="TychusOdinNoHealth" />
+      </Override>
+    </Ability>
+    <Ability id="TychusOdinRagnarokMissilesTargeted">
+      <Override>
+        <ParentLink value="TychusOdinNoHealth" />
+      </Override>
+    </Ability>
+    <Ability id="TychusOdinThrusters">
+      <Override>
+        <ParentLink value="TychusOdinNoHealth" />
+      </Override>
+    </Ability>
+    <Ability id="TychusRunAndGunOverkill">
+      <Override>
+        <ParentLink value="TychusOverkillTargeted" />
+      </Override>
+    </Ability>
+    <Ability id="TychusMinigunActive">
+      <Override>
+        <ParentLink value="TychusMinigun" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Uther">
+    <Ability id="UtherHolyShock">
+      <Override>
+        <ParentLink value="UtherMasteryHolyShock" />
+      </Override>
+    </Ability>
+    <Ability id="UtherFlashofLight">
+      <Override>
+        <ParentLink value="UtherEternalDevotion" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Valeera">
+    <Ability id="ValeeraAmbush">
+      <Override>
+        <ParentLink value="ValeeraStealth" />
+      </Override>
+    </Ability>
+    <Ability id="ValeeraCheapShot">
+      <Override>
+        <ParentLink value="ValeeraStealth" />
+      </Override>
+    </Ability>
+    <Ability id="ValeeraGarrote">
+      <Override>
+        <ParentLink value="ValeeraStealth" />
+      </Override>
+    </Ability>
+    <Ability id="ValeeraCancelStealth">
+      <Override>
+        <ParentLink value="ValeeraStealth" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Varian">
+    <Ability id="VarianHeroicStrikeActive">
+      <Override>
+        <ParentLink value="VarianHeroicStrike" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="WitchDoctor">
+    <Ability id="WitchDoctorGargantuanStomp">
+      <Override>
+        <ParentLink value="WitchDoctorGargantuan" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Wizard">
+    <Ability id="WizardArchonPurePowerDisintegrate">
+      <Override>
+        <ParentLink value="WizardArchonPurePower" />
+      </Override>
+    </Ability>
+    <Ability id="WizardArchonPurePowerDisintegrateCancel">
+      <Override>
+        <ParentLink value="WizardArchonPurePowerDisintegrate" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Whitemane">
+    <Ability id="WhitemaneInquisitionCancel">
+      <Override>
+        <ParentLink value="WhitemaneInquisition" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Yrel">
+    <Ability id="YrelVindicationCast">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="YrelRighteousHammerChannel">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="YrelAvengingWrathChannel">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="YrelRighteousHammerDivinePurpose">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="YrelAvengingWrathDivinePurpose">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="YrelDivinePurposeActive">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="YrelDivineSteedSummonMount">
+      <Override>
+        <ParentLink value="YrelDivineSteed" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Zagara">
+    <Ability id="ZagaraPassiveUI">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="ZagaraPassiveUIImproved">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Zeratul">
+    <Ability id="ZeratulCleaveMightOfTheNerazim">
+      <Override>
+        <ParentLink value="ZeratulMightOfTheNerazimDummy" />
+      </Override>
+    </Ability>
+    <Ability id="ZeratulSingularitySpikeMightOfTheNerazim">
+      <Override>
+        <ParentLink value="ZeratulMightOfTheNerazimDummy" />
+      </Override>
+    </Ability>
+    <Ability id="ZeratulBlinkMightOfTheNerazim">
+      <Override>
+        <ParentLink value="ZeratulMightOfTheNerazimDummy" />
+      </Override>
+    </Ability>
+    <!--Old ability-->
+    <Ability id="ZeratulShadowAssault">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <!--For cooldown display only-->
+    <Ability id="ZeratulCloakCooldownDisplay">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Zuljin">
+    <Ability id="ZuljinRegenerationForestMedicine">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="ZuljinCancelBerserker">
+      <Override>
+        <ParentLink value="ZuljinBerserker" />
+      </Override>
+    </Ability>
+  </CHero>
+
   <!--
 
   <CHero id="Alexstrasza">

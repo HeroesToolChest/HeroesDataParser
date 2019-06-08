@@ -140,7 +140,6 @@ namespace HeroesData.Loader.XmlGameData
         /// newer items to be used while ignore the older items.</remarks>
         public static XElement MergeXmlElements(IEnumerable<XElement> elements, bool append = true)
         {
-            // TODO, needs to be updated
             if (elements == null || !elements.Any())
                 return null;
 

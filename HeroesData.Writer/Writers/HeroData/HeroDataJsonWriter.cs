@@ -97,7 +97,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (weapons != null)
                 heroObject.Add(weapons);
 
-            JProperty abilities = UnitAbilities(hero, false);
+            JProperty abilities = UnitAbilities(hero);
             if (abilities != null)
                 heroObject.Add(abilities);
 
@@ -155,44 +155,24 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return new JProperty("energy", energyObject);
         }
 
-        protected override JProperty GetAbilitiesObject(Unit unit, bool isSubAbilities)
+        protected override JProperty GetAbilitiesObject(Unit unit)
         {
             JObject abilityObject = new JObject();
 
-            if (isSubAbilities)
-            {
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Basic), "basic");
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Heroic), "heroic");
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Trait), "trait");
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Mount), "mount");
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Activable), "activable");
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Hearth), "hearth");
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Taunt), "taunt");
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Dance), "dance");
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Spray), "spray");
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Voice), "voice");
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.MapMechanic), "mapMechanic");
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Interact), "interact");
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Action), "action");
-                SetAbilities(abilityObject, unit.SubAbilities(AbilityTier.Unknown), "unknown");
-            }
-            else
-            {
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Basic), "basic");
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Heroic), "heroic");
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Trait), "trait");
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Mount), "mount");
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Activable), "activable");
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Hearth), "hearth");
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Taunt), "taunt");
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Dance), "dance");
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Spray), "spray");
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Voice), "voice");
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.MapMechanic), "mapMechanic");
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Interact), "interact");
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Action), "action");
-                SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Unknown), "unknown");
-            }
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Basic), "basic");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Heroic), "heroic");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Trait), "trait");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Mount), "mount");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Activable), "activable");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Hearth), "hearth");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Taunt), "taunt");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Dance), "dance");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Spray), "spray");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Voice), "voice");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.MapMechanic), "mapMechanic");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Interact), "interact");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Action), "action");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTier.Unknown), "unknown");
 
             return new JProperty("abilities", abilityObject);
         }
@@ -319,10 +299,14 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Action), "action");
                 SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Unknown), "unknown");
 
-                parentLinkObject.Add(new JProperty(parent, abilities));
+                if (abilities.Count > 0)
+                    parentLinkObject.Add(new JProperty(parent, abilities));
             }
 
-            return new JProperty("subAbilities", new JArray(new JObject(parentLinkObject)));
+            if (parentLinkObject.Count > 0)
+                return new JProperty("subAbilities", new JArray(new JObject(parentLinkObject)));
+
+            return null;
         }
 
         protected override JProperty GetRatingsObject(Hero hero)

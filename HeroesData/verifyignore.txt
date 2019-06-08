@@ -2,30 +2,30 @@
 
 # hero data -------------------------------------------------------
 # unit has no health or energy
-[Abathur] [Symbiote] Energy > 0 and EnergyType is NONE
-[Abathur] [Symbiote] Life is 0
-[Abathur] [Symbiote] LifeRegenerationRateScaling is 0
-[Abathur] [Symbiote] LifeScaling is 0
+#[Abathur] [Symbiote] Energy > 0 and EnergyType is NONE
+#[Abathur] [Symbiote] Life is 0
+#[Abathur] [Symbiote] LifeRegenerationRateScaling is 0
+#[Abathur] [Symbiote] LifeScaling is 0
 
 # same as human form
-[Greymane] [Curse of the Worgen] Life is 0
-[Greymane] [Curse of the Worgen] LifeRegenerationRateScaling is 0
-[Greymane] [Curse of the Worgen] LifeScaling is 0
-[Greymane] [Curse of the Worgen] Sight is 0
-[Greymane] [Curse of the Worgen] Speed is 0
+#[Greymane] [Curse of the Worgen] Life is 0
+#[Greymane] [Curse of the Worgen] LifeRegenerationRateScaling is 0
+#[Greymane] [Curse of the Worgen] LifeScaling is 0
+#[Greymane] [Curse of the Worgen] Sight is 0
+#[Greymane] [Curse of the Worgen] Speed is 0
 
 # unit has no health or energy
-[Gall] has no weapons
-[Gall] Life is 0
-[Gall] LifeRegenerationRateScaling is 0
-[Gall] LifeScaling is 0
+#[Gall] has no weapons
+#[Gall] Life is 0
+#[Gall] LifeRegenerationRateScaling is 0
+#[Gall] LifeScaling is 0
 
 # this is the vikings controller, each viking has their own weapons and life
-[LostVikings] has no weapons
-[LostVikings] Life is 0
-[LostVikings] LifeRegenerationRateScaling is 0
-[LostVikings] LifeScaling is 0
-[LostVikings] Sight is 0
+#[LostVikings] has no weapons
+#[LostVikings] Life is 0
+#[LostVikings] LifeRegenerationRateScaling is 0
+#[LostVikings] LifeScaling is 0
+#[LostVikings] Sight is 0
 
 # -----------------------------------------------------------------
 

@@ -53,4 +53,12 @@
   <CTalent id="HeroGenericExecutionerPassive">
     <Face value="GenericExecutionerTalent" />
   </CTalent>
+  <CTalent id="GenericTalentCalldownMULE">
+    <Face value="GenericCalldownMule" />
+    <Abil value="TalentBucketCalldownMule" />
+    <RankArray>
+      <BehaviorArray value="GenericCalldownMule" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
 </Catalog>

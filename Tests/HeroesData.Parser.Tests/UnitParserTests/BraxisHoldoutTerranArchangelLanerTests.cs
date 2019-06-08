@@ -45,7 +45,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             Assert.IsTrue(BraxisHoldoutTerranArchangelLaner.ContainsAbility("TerranArchangelLanerBulletstorm"));
 
-            Ability terranArchangelLanerAbility = BraxisHoldoutTerranArchangelLaner.GetAbility("TerranArchangelLanerBulletstorm");
+            Ability terranArchangelLanerAbility = BraxisHoldoutTerranArchangelLaner.GetAbilities("TerranArchangelLanerBulletstorm").First();
             Assert.AreEqual("Cooldown: 12 seconds", terranArchangelLanerAbility.Tooltip.Cooldown.CooldownTooltip.PlainText);
             Assert.AreEqual("Bulletstorm", terranArchangelLanerAbility.Name);
             Assert.AreEqual("Unleash a hail of bullets in a line", terranArchangelLanerAbility.Tooltip.ShortTooltip.PlainText);

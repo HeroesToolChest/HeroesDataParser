@@ -465,3 +465,7 @@ Button/Name/ThrallWindStalkerToken=Wind Stalker
 Button/Name/ThrallWorldbreakerTalent=Worldbreaker
 
 Button/Name/Hearthstone=Hearthstone
+
+Button/Tooltip/GenericCalldownMule=Activate to calldown a Mule that repairs Structures, one at a time, near target
+Button/Name/GenericCalldownMule=Calldown: MULE
+Button/SimpleDisplayText/GenericCalldownMule=Activate to heal Structures

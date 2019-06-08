@@ -1,0 +1,272 @@
+﻿18seconds=18 seconds
+Abil/Name/SamuroBladeStormDummy=Bladestorm Dummy
+Abil/Name/SamuroBladestorm=Bladestorm
+Abil/Name/SamuroBladestormCancel=Bladestorm Cancel
+Abil/Name/SamuroBladestormCancel2=Bladestorm Cancel Copy
+Abil/Name/SamuroCriticalStrike=Critical Strike
+Abil/Name/SamuroCriticalStrike2=SamuroCriticalStrike (Unnamed) Copy
+Abil/Name/SamuroCriticalStrikeDummy=Critical Strike Dummy
+Abil/Name/SamuroIllusionMaster=Illusion Master
+Abil/Name/SamuroIllusionMasterDummy=Illusion Master
+Abil/Name/SamuroIllusionMasterDummyShopAbility=Illusion Master (Dummy Shop Ability)
+Abil/Name/SamuroIllusionMasterImageSelfCast=Illusion Master Image Self Cast
+Abil/Name/SamuroIllusionMasterToggleAI=Illusion Master Toggle AI
+Abil/Name/SamuroMirrorImage=Mirror Image
+Abil/Name/SamuroSplitForm=Split Form
+Abil/Name/SamuroWeaponCooldown=Weapon Cooldown
+Abil/Name/SamuroWindwalk=Wind Walk
+Behavior/Name/SamuroBladestorm=Bladestorm
+Behavior/Name/SamuroCloakDisableController=Samuro Cloak Disable Controller
+Behavior/Name/SamuroDeathSelectionDummyBehavior=Samuro Death Selection Dummy Behavior
+Behavior/Name/SamuroMirrorImageIncreasedIncomingDamageBehavior=SamuroMirrorImageIncreasedIncomingDamageBehavior
+Behavior/Name/SamuroMirrorImageMirageSpellBlock=Mirage
+Behavior/Name/SamuroMirrorImageReducedOutgoingDamageBehavior=SamuroMirrorImageReducedOutgoingDamageBehavior
+Behavior/Name/SamuroSplitFormMirageSpellBlock=Mirage Spell Block
+Behavior/Name/SamuroWeaponCriticalStrikeBehavior=Samuro Weapon Critical Strike Behavior
+Behavior/Name/SamuroWindwalkHoldFireBehavior=Samuro Windwalk Hold Fire Behavior
+Behavior/Tooltip/SamuroCloakDisableController=Unit cannot be seen without detection.
+Behavior/Tooltip/SamuroMirrorImageMirageSpellBlock=Reduce the next source of Spell Damage by <c val="#TooltipNumbers"><d ref="Behavior,SamuroMirrorImageMirageSpellBlock,ArmorModification.ArmorSet.ArmorMitigationTable"/>%</c>.
+Behavior/Tooltip/SamuroSplitFormMirageSpellBlock=Blocks a single enemy Ability, reducing it's damage by 50%.
+Button/Name/IllusionMasterImageSelfCast=Illusion Master
+Button/Name/SamuroAdvancingStrikes=Image Transmission
+Button/Name/SamuroBlademastersPursuitTalent=Blademaster’s Pursuit
+Button/Name/SamuroBladestorm=Bladestorm
+Button/Name/SamuroBurningBlade=Burning Blade
+Button/Name/SamuroCancelBladestorm=Bladestorm Cancel
+Button/Name/SamuroCriticalStrike=Critical Strike
+Button/Name/SamuroCrushingBlows=Crushing Blows
+Button/Name/SamuroDanceOfDeathTalent=Dance Of Death
+Button/Name/SamuroDeflectionTalent=Deflection
+Button/Name/SamuroHarshWinds=Harsh Winds
+Button/Name/SamuroIllusionMaster=Illusion Master
+Button/Name/SamuroIllusionMasterTalent=Illusion Master
+Button/Name/SamuroIllusionMasterToggleAIOff=AI Enabled
+Button/Name/SamuroIllusionMasterToggleAIOn=AI Disabled
+Button/Name/SamuroImageAIDsiabled=Image AI Disabled
+Button/Name/SamuroImageAIEnabled=Image AI Enabled
+Button/Name/SamuroImageDancer=Image Dancer
+Button/Name/SamuroImageSwap=Image Swap
+Button/Name/SamuroImageTransmissionDummyShopAbility=Image Transmission
+Button/Name/SamuroMercilessStrikes=Merciless Strikes
+Button/Name/SamuroMirage=Mirage
+Button/Name/SamuroMirrorImage=Mirror Image
+Button/Name/SamuroMirrorImageEnduringLegacyTalent=Enduring Legacy
+Button/Name/SamuroMirroredSteelTalent=Mirrored Steel
+Button/Name/SamuroOneWithTheWindTalent=One With The Wind
+Button/Name/SamuroOverpoweringBlow=Crushing Blows
+Button/Name/SamuroPhantomsStrikeTalent=Phantom Pain
+Button/Name/SamuroPressTheAttack=Press the Attack
+Button/Name/SamuroSelectAll=Select All
+Button/Name/SamuroSelectMirrorImages=Select Mirror Image
+Button/Name/SamuroSelectSamuroPrime=Select Samuro
+Button/Name/SamuroShukuchiTalent=Shukuchi
+Button/Name/SamuroSplitForm=Mirror Image
+Button/Name/SamuroThreeBladeStyleTalent=Three Blade Style
+Button/Name/SamuroWayOfIllusion=Way of Illusion
+Button/Name/SamuroWayOfIllusionComplete=Way of Illusion Complete
+Button/Name/SamuroWayOfIllusionQuestToken=Way of Illusion
+Button/Name/SamuroWayOfTheWind=Way of the Wind
+Button/Name/SamuroWayOfTheWindQuestToken=Way of the Wind
+Button/Name/SamuroWayoftheBlade=Way of the Blade
+Button/Name/SamuroWeaponCooldown=Weapon Cooldown
+Button/Name/SamuroWindStrider=Wind Strider
+Button/Name/SamuroWindwalk=Wind Walk
+Button/Name/WindwalkKawarimiTalent=Kawarimi
+Button/SimpleDisplayText/IllusionMasterImageSelfCast=Switch places with Samuro
+Button/SimpleDisplayText/SamuroAdvancingStrikes=Increase Movement Speed when attacking Heroes
+Button/SimpleDisplayText/SamuroBlademastersPursuitTalent=Increase Advancing Strikes Move Speed, duration
+Button/SimpleDisplayText/SamuroBladestorm=Cause a Bladestorm of destructive force
+Button/SimpleDisplayText/SamuroBurningBlade=Critical Strike deals area damage
+Button/SimpleDisplayText/SamuroCriticalStrike=Critically Strike for increased damage.
+Button/SimpleDisplayText/SamuroDanceOfDeathTalent=Images use Bladestorm
+Button/SimpleDisplayText/SamuroDeflectionTalent=Advancing Strikes grants Physical Armor
+Button/SimpleDisplayText/SamuroHarshWinds=Attacks from Wind Walk increase damage
+Button/SimpleDisplayText/SamuroIllusionMasterTalent=Mirror Images can be controlled
+Button/SimpleDisplayText/SamuroImageAIDsiabled=Select Samuro Prime
+Button/SimpleDisplayText/SamuroImageAIEnabled=Select Samuro Prime
+Button/SimpleDisplayText/SamuroImageDancer=You can control Mirror Images separately or as a group
+Button/SimpleDisplayText/SamuroImageSwap=Swap positions with target Mirror Image.
+Button/SimpleDisplayText/SamuroImageTransmissionDummyShopAbility=Increase Movement Speed when attacking Heroes
+Button/SimpleDisplayText/SamuroMercilessStrikes=Critically Strike always happens on disabled targets
+Button/SimpleDisplayText/SamuroMirage=Mirror Image grants Spell Armor
+Button/SimpleDisplayText/SamuroMirrorImage=Create Mirror Images to confuse and attack enemies
+Button/SimpleDisplayText/SamuroMirroredSteelTalent=Basic Attacks reduce Mirror Image cooldown
+Button/SimpleDisplayText/SamuroOneWithTheWindTalent=Gain Armor during Wind Walk
+Button/SimpleDisplayText/SamuroOverpoweringBlow=Critical Strike gains an additional charge
+Button/SimpleDisplayText/SamuroPhantomsStrikeTalent=Images increase Critical Strike damage
+Button/SimpleDisplayText/SamuroPressTheAttack=Advancing Strikes increases Attack Speed
+Button/SimpleDisplayText/SamuroSelectAll=Select All
+Button/SimpleDisplayText/SamuroSelectMirrorImages=Select Mirror Image
+Button/SimpleDisplayText/SamuroSelectSamuroPrime=Select Samuro
+Button/SimpleDisplayText/SamuroShukuchiTalent=Wind Walk teleports a short distance
+Button/SimpleDisplayText/SamuroSplitForm=Create two Mirror Images instantly.
+Button/SimpleDisplayText/SamuroThreeBladeStyleTalent=Images have increased Health and Duration
+Button/SimpleDisplayText/SamuroWayOfIllusion=<c val="#TooltipQuest">Quest:</c> Image Critical Strikes empower Basic Attacks
+Button/SimpleDisplayText/SamuroWayOfIllusionComplete=<c val="#TooltipQuest">Quest:</c> Increase Basic Attack damage
+Button/SimpleDisplayText/SamuroWayOfTheWind=Wind Walk grants extra Move Speed
+Button/SimpleDisplayText/SamuroWayoftheBlade=Critical Strike happens more often
+Button/SimpleDisplayText/SamuroWindStrider=Greatly reduce Wind Walk cooldown
+Button/SimpleDisplayText/SamuroWindwalk=Become Stealthed and gain Movement Speed
+Button/SimpleDisplayText/WindwalkKawarimiTalent=Wind Walk creates an Image
+Button/Tooltip/IllusionMasterImageSelfCast=Switch places with Samuro.
+Button/Tooltip/SamuroAdvancingStrikes=Activate to switch places with a target Mirror Image, removing most negative effects from Samuro and the Mirror Image.<n/><n/><s val="StandardTooltipHeader">Advancing Strikes</s><n/><n/>Basic Attacks against enemy Heroes increase Samuro's Movement Speed by <c val="#TooltipNumbers"><d ref="Behavior,SamuroAdvancingStrikesMoveSpeedBuff,Modification.UnifiedMoveSpeedFactor*100" precision="2" player="0"/>%</c> for <c val="#TooltipNumbers"><d ref="Behavior,SamuroAdvancingStrikesMoveSpeedBuff,Duration"player="0"/></c> seconds.
+Button/Tooltip/SamuroBlademastersPursuitTalent=Advancing Strikes grants an additional <c val="#TooltipNumbers"><d ref="Talent,SamuroBlademastersPursuit,AbilityModificationArray[0].Modifications[0].Value*100" precision="2" player="0"/>%</c> Movement Speed for Samuro and his Mirror Images, and its duration is increased by <c val="#TooltipNumbers"><d ref="Talent,SamuroBlademastersPursuit,AbilityModificationArray[0].Modifications[1].Value" precision="2" player="0"/></c> seconds.
+Button/Tooltip/SamuroBladestorm=Cause a Bladestorm of destructive force around Samuro for <c val="#TooltipNumbers"><d ref="Behavior,SamuroBladestorm,Duration" player="0"/></c> seconds, making him Unstoppable and dealing <c val="#TooltipNumbers"><d ref="Effect,SamuroBladestormDamage,Amount*5"/></c> damage per second to nearby enemies.
+Button/Tooltip/SamuroBurningBlade=Critical Strikes from Samuro and Mirror Images deal an additional <c val="#TooltipNumbers"><d ref="Effect,SamuroCriticalStrikeBurningBladeSplashDamage,Amount / Effect,SamuroWeaponDamage,Amount * 100"/>%</c> of their Basic Attack damage as Spell Damage to the target and nearby enemies.
+Button/Tooltip/SamuroCancelBladestorm=<s val="StandardTooltip">Cancel Bladestorm.
+Button/Tooltip/SamuroCriticalStrike=Samuro's next Basic Attack within <c val="#TooltipNumbers"><d ref="Behavior,SamuroCriticalStrikeActivated,Duration"/></c> seconds will be a Critical Strike, dealing <c val="#TooltipNumbers">50%</c> increased damage. This also applies to Images, and does not break Wind Walk.<n/><n/><c val="#AbilityPassive">Passive:</c> Samuro and his Images deal a Critical Strike on every <c val="#TooltipNumbers">4th</c> Basic Attack.
+Button/Tooltip/SamuroDanceOfDeathTalent=Mirror Images use Bladestorm when Samuro does, but for <c val="#TooltipNumbers"><d ref="100*Effect,SamuroBladestormMirrorImageDamage,Amount/Effect,SamuroBladestormDamage,Amount"/>%</c> damage.
+Button/Tooltip/SamuroDeflectionTalent=Advancing Strikes grants Samuro and his Mirror Images <c val="#TooltipNumbers"><d ref="Behavior,SamuroAdvancingStrikesDeflectionBlock,ArmorModification.ArmorSet[Hero].ArmorMitigationTable[Basic]"/></c> Physical Armor.
+Button/Tooltip/SamuroFiveFacesOfDeathTalentSimple=<s val="TalentChoiceNameLabel">Five Faces of Death</s><n/><s val="TalentChoiceDescriptionLabel">Create a Mirror Image next to each enemy Hero
+Button/Tooltip/SamuroHarshWinds=Attacking a Hero during Wind Walk causes them to take <c val="#TooltipNumbers"><d ref="100 * Behavior,SamuroWindwalkHarshWindsVulnerabilityBehavior,DamageResponse.ModifyFraction - 100" precision="1"/>%</c> increased damage from Samuro for <c val="#TooltipNumbers"><d ref="Behavior,SamuroWindwalkHarshWindsVulnerabilityBehavior,Duration" precision="1"/></c> seconds.
+Button/Tooltip/SamuroIllusionMaster=
+Button/Tooltip/SamuroIllusionMasterTalent=Mirror Images can be controlled individually or as a group and their damage is increased by <c val="#TooltipNumbers"><d ref="100*Effect,SamuroMirrorImageWeaponDamage,MultiplicativeModifierArray[IllusionMaster].Modifier"/>%</c>. <n/><n/><c val="#AbilityPassive">Passive:</c> Image Transmission's cooldown is reduced to <c val="#TooltipNumbers"><d ref="Abil,SamuroIllusionMaster,Cost.Cooldown.TimeUse+Talent,SamuroHeroicAbilityIllusionMaster,AbilityModificationArray[0].Modifications[0].Value"player="0"/></c> seconds.
+Button/Tooltip/SamuroIllusionMasterToggleAIOff=When AI is Enabled, Images will first complete any orders you give them, and then automatically look for enemies to attack.<n/><n/>Click this button to Disable AI.
+Button/Tooltip/SamuroIllusionMasterToggleAIOn=When AI is Disabled, Images will only move or take other actions when you order them to do so.<n/><n/>Click this button to Enable AI.
+Button/Tooltip/SamuroImageAIDsiabled=When AI is Disabled, Images will only move or take other actions when you order them to do so. Click this button to Enable or Disable AI.
+Button/Tooltip/SamuroImageAIEnabled=When AI is Enabled, Images will first complete any orders you give them, and then automatically look for nearby enemies to attack. Click this button to Enable or Disable AI.
+Button/Tooltip/SamuroImageDancer=Passive: You can control Mirror Images separately or as a group.<n/><n/>Swap positions with target Mirror Image.
+Button/Tooltip/SamuroImageSwap=Passive: Images can be controlled separately. </n></n>Active: Swap positions with target Mirror Image.
+Button/Tooltip/SamuroImageTransmissionDummyShopAbility=Activate to switch places with a target Mirror Image, removing most negative effects from Samuro and the Mirror Image.<n/><n/><s val="StandardTooltipHeader">Advancing Strikes</s><n/><n/>Basic Attacks against enemy Heroes increase Samuro's Movement Speed by <c val="#TooltipNumbers"><d ref="Behavior,SamuroAdvancingStrikesMoveSpeedBuff,Modification.UnifiedMoveSpeedFactor*100" precision="2" player="0"/>%</c> for <c val="#TooltipNumbers"><d ref="Behavior,SamuroAdvancingStrikesMoveSpeedBuff,Duration"player="0"/></c> seconds.
+Button/Tooltip/SamuroMercilessStrikes=Samuro's Basic Attacks against Stunned, Rooted, or Slowed enemies are always Critical Strikes.
+Button/Tooltip/SamuroMirage=Mirror Image grants Samuro and his Images <c val="#TooltipNumbers"><d ref="Behavior,SamuroMirrorImageMirageSpellBlock,ArmorModification.ArmorSet[Hero].ArmorMitigationTable[Ability]"/></c> Spell Armor against the next <c val="#TooltipNumbers"><d ref="Effect,SamuroMirrorImageMirageSpellBlockApplyCaster,Count"/></c> sources of Spell damage, reducing their damage by <c val="#TooltipNumbers"><d ref="Behavior,SamuroMirrorImageMirageSpellBlock,ArmorModification.ArmorSet[Hero].ArmorMitigationTable[Ability]"/>%</c>.
+Button/Tooltip/SamuroMirrorImage=Teleport a short distance in the direction of the mouse cursor, creating <c val="#TooltipNumbers">2</c> Mirror Images for <c val="#TooltipNumbers"><d ref="Behavior,SamuroMirrorImageTimedLife,Duration" player="0"/></c> seconds with <c val="#TooltipNumbers">100%</c> of Samuro's current Health that Basic Attack enemies for <c val="#TooltipNumbers"><d ref="Effect,SamuroMirrorImageWeaponDamage,Amount"/></c> damage. Whenever an Image takes damage, it deals that amount of damage to itself, effectively doubling the damage it takes.<n/><n/>Maximum <c val="#TooltipNumbers">2</c> Mirror Images can be active at at time. Using Mirror Image removes most negative effects from Samuro.
+Button/Tooltip/SamuroMirroredSteelTalent=Samuro's Basic Attacks against Heroes reduce the cooldown of Mirror Image by <c val="#TooltipNumbers"><d ref="-1*Effect,SamuroMirrorImageMirroredSteelWeaponImpactReduceCooldown,Cost[0].CooldownTimeUse" precision="2"/></c> second.
+Button/Tooltip/SamuroOneWithTheWindTalent=While Samuro has Wind Walk and for <c val="#TooltipNumbers"><d ref="Behavior,SamuroWindwalkOneWithTheWindPostStealthBuff,Duration"/></c> seconds after breaking it, both he and his Mirror Images gain <c val="#TooltipNumbers"><d ref="Behavior,SamuroWindwalkOneWithTheWindBlock,ArmorModification.AllArmorBonus"/></c> Armor, taking <c val="#TooltipNumbers"><d ref="Behavior,SamuroWindwalkOneWithTheWindBlock,ArmorModification.AllArmorBonus"/>%</c> reduced damage from all sources.
+Button/Tooltip/SamuroOverpoweringBlow=Critical Strike now has <c val="#TooltipNumbers">2</c> charges. Samuro's Basic Attacks against Heroes reduce the cooldown of Critical Strike by <c val="#TooltipNumbers"><d ref="-Effect,SamuroCriticalStrikeCrushingBlowTalentModifyCooldown,Cost[0].ChargeTimeUse" precision="2"/></c> seconds.
+Button/Tooltip/SamuroPhantomsStrikeTalent=Samuro's Critical Strikes deal an additional <c val="#TooltipNumbers"><d ref="100*Effect,SamuroCriticalStrikePhantomPainSubtractDamageModifyEffect,EffectArray[0].Value"/>%</c> of his Basic Attack damage for each Mirror Image that is active.
+Button/Tooltip/SamuroPressTheAttack=While Advancing Strikes is active, Samuro and his Mirror Images gain <c val="#TooltipNumbers"><d ref="Behavior,SamuroAdvancingStrikesPressTheAttackAttackSpeedBuff,Modification.AdditiveAttackSpeedFactor*100" precision="2"/>%</c> Attack Speed every time they Basic Attack, up to <c val="#TooltipNumbers"><d ref="100*Behavior,SamuroAdvancingStrikesPressTheAttackAttackSpeedBuff,Modification.AdditiveAttackSpeedFactor*Behavior,SamuroAdvancingStrikesPressTheAttackAttackSpeedBuff,MaxStackCount"/>%</c>.
+Button/Tooltip/SamuroSelectAll=<s val="StandardTooltipHeader">Select All</s><n/><n/>Issue orders to Samuro and all Mirror Images.
+Button/Tooltip/SamuroSelectMirrorImages=<s val="StandardTooltipHeader">Select Mirror Image</s><n/><n/>Issue orders to a single Mirror Image.
+Button/Tooltip/SamuroSelectSamuroPrime=<s val="StandardTooltipHeader">Select Samuro</s><n/><n/>Issue orders to Samuro only.
+Button/Tooltip/SamuroShukuchiTalent=Wind Walk teleports Samuro a short distance in the direction he's currently facing.
+Button/Tooltip/SamuroSplitForm=Create <c val="#TooltipNumbers">2</c> Mirror Images which deal <c val="#TooltipNumbers">30%</c> of your damage and have <c val="#TooltipNumbers">50%</c> of your max health. Images last up to <c val="#TooltipNumbers"><d ref="Behavior,SamuroMirrorImageTimedLife,Duration"/></c> seconds, and you can only have two Images active at a time. </n>You and the Images will attack the nearest enemy.
+Button/Tooltip/SamuroThreeBladeStyleTalent=Samuro's Mirror Images no longer take additional damage, effecively increasing their health by <c val="#TooltipNumbers">50%</c> and their duration is increased to <c val="#TooltipNumbers"><d ref="Behavior,SamuroMirrorImageTimedLife,Duration+Talent,SamuroThreeBladeStyle,AbilityModificationArray[0].Modifications[0].Value" player="0"/></c> seconds.
+Button/Tooltip/SamuroWayOfIllusion=<img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest"> Quest:</c> Every time a Mirror Image Critically Strikes a Hero, Samuro gains <c val="#TooltipNumbers"><d ref="Accumulator,SamuroMirrorImageWayOfIllusionAttackDamageAccumulator,Scale" precision="2"/></c> Attack Damage, up to <c val="#TooltipNumbers"><d ref="Behavior,SamuroMirrorImageWayOfIllusionQuestToken,Max*Accumulator,SamuroMirrorImageWayOfIllusionAttackDamageAccumulator,Scale"/></c>.<n/></n><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Reward:</c> After hitting <c val="#TooltipNumbers"><d ref="Behavior,SamuroMirrorImageWayOfIllusionQuestToken,Max"/></c> Heroes, Samuro gains an additional <c val="#TooltipNumbers"><d ref="Effect,SamuroMirrorImageWayOfIllusionQuestCompleteModifyPlayer,EffectArray[0].Value"/></c> Attack Damage.
+Button/Tooltip/SamuroWayOfIllusionQuestToken=<c val="#TooltipQuest">Critical Strikes: <c val="#TooltipNumbers" validator="True"><d ref="$BehaviorTokenCount:SamuroMirrorImageWayOfIllusionQuestToken$"/>/<d ref="Behavior,SamuroMirrorImageWayOfIllusionQuestToken,Max"/></c><n/>Bonus Damage: <c val="#TooltipNumbers" validator="True"><d ref="$BehaviorTokenCount:SamuroMirrorImageWayOfIllusionQuestToken$*(Accumulator,SamuroMirrorImageWayOfIllusionAttackDamageAccumulator,Scale)" precision="2"/></c></c>
+Button/Tooltip/SamuroWayOfTheWind=Gain <c val="#TooltipNumbers"><d ref="100*Behavior,SamuroWindWalkWayOfTheWindTalentBuff,Modification.UnifiedMoveSpeedFactor"/>%</c> Movement Speed for <c val="#TooltipNumbers"><d ref="Behavior,SamuroWindWalkWayOfTheWindTalentBuff,Duration"/></c> seconds after entering or exiting Wind Walk.  Samuro's Critical Strikes reduce the cooldown of Windwalk by <c val="#TooltipNumbers"><d ref="-Effect,SamuroWindWalkWayOfTheWindModifyCooldown,Cost[0].CooldownTimeUse"Precision="2"/></c> seconds.
+Button/Tooltip/SamuroWayOfTheWindQuestToken=<c val="#TooltipQuest">Heroes hit: <c val="#TooltipNumbers" validator="True"><d ref="$BehaviorTokenCount:SamuroWindWalkWayOfTheWindQuestToken$"/>/<d ref="Behavior,SamuroWindWalkWayOfTheWindQuestToken,Max"/></c><n/>Bonus Movement Speed: <c val="#TooltipNumbers" validator="True"><d ref="$BehaviorTokenCount:SamuroWindWalkWayOfTheWindQuestToken$*(Accumulator,SamuroWindWalkWayOfTheWindMoveSpeedAccumulator,Scale*100+0.01)" precision="2"/>%</c></c>
+Button/Tooltip/SamuroWayoftheBlade=Critical Strike now happens for Samuro and his Mirror Images every <c val="#TooltipNumbers">3rd</c> Basic Attack.  Samuro's Critical Strikes against enemy Heroes reduce their Physical Armor by <c val="#TooltipNumbers"><d ref="-Behavior,SamuroCriticalStrikeWayOfTheBladePhysicalArmorDebuff,ArmorModification.ArmorSet[Hero].ArmorMitigationTable[Basic]"/></c> for <c val="#TooltipNumbers"><d ref="Behavior,SamuroCriticalStrikeWayOfTheBladePhysicalArmorDebuff,Duration"Precision="2"/></c> seconds.
+Button/Tooltip/SamuroWindStrider=Wind Walk's cooldown is reduced by <c val="#TooltipNumbers"><d ref="-1*Talent,SamuroWindStrider,AbilityModificationArray[0].Modifications[0].Value"/></c> seconds.
+Button/Tooltip/SamuroWindwalk=Grant Samuro Stealth for up to <c val="#TooltipNumbers"><d ref="Behavior,SamuroWindwalkCloak,Duration"/></c> seconds or until he attacks, uses an Ability, or takes damage.<n/><n/>While Stealthed, Samuro's Movement Speed is increased by <c val="#TooltipNumbers"><d ref="Behavior,SamuroWindwalkMoveSpeedBuff,Modification.UnifiedMoveSpeedFactor*100" precision="1" player="0"/>%</c> and he can pass through other units. Remaining stationary for at least <c val="#TooltipNumbers"><d ref="Behavior,HeroGenericStationaryExtraStealthCountdown,Duration" precision="1"/></c> seconds while Stealthed grants Invisible.<n/><n/>Samuro is Unrevealable for the first <c val="#TooltipNumbers">1</c> second of Wind Walk.
+Button/Tooltip/WindwalkKawarimiTalent=Wind Walk creates a Mirror Image at Samuro's location that will continue whatever he was doing.
+Button/TooltipAppender/SamuroMirrorImageBladesThirst=<n/><n/><s val="StandardTooltipUpgrade">[Blade's Thirst]</s> <s val="StandardTooltip">Takedowns refresh the cooldown of Mirror Image.</s>
+Button/TooltipAppender/SamuroMirrorImageBlessedBlade=<n/><n/><s val="StandardTooltipUpgrade">[Blessed Blade]</s> <s val="StandardTooltip">Images are created every <s val="StandardTooltipDetails">4th</s> attack.</s>
+Button/TooltipAppender/SamuroMirrorImageEnduringLegacy=<n/><n/><s val="StandardTooltipUpgrade">[Enduring Legacy]</s> <s val="StandardTooltip">Mirror Images last <s val="StandardTooltipDetails">4</s> seconds longer.</s>
+Button/TooltipAppender/SamuroMirrorImageSimulacrum=<n/><n/><s val="StandardTooltipUpgrade">[Simulacrum]</s> <s val="StandardTooltip">Mirror Images only take <s val="StandardTooltipDetails">200%</s> damage.</s>
+Button/TooltipAppender/SamuroSamuraiSpiritTheSpiritIsWilling=<n/><n/><s val="StandardTooltipUpgrade">[The Spirit is Willing]</s> <s val="StandardTooltip">The cooldown of Samurai Spirit is reduced by <s val="StandardTooltipDetails">3</s> seconds.</s>
+Button/TooltipAppender/SamuroWanderingBladeQuickStroll=<n/><n/><s val="StandardTooltipUpgrade">[Quick Stroll]</s> <s val="StandardTooltip">The bonus Attack Speed from Wandering Blade is increased by <s val="StandardTooltipDetails">100%</s>.</s>
+Button/TooltipAppender/SamuroWanderingBladeTheWellTraveledBlade=<n/><n/><s val="StandardTooltipUpgrade">[The Well-Traveled Blade]</s> <s val="StandardTooltip">Cleave attacks deal full damage in a larger area.</s>
+Button/TooltipAppender/SamuroWayOfIllusion=<n/><c val="#TooltipQuest">Critical Strikes: <c val="#TooltipNumbers"><d ref="$BehaviorTokenCount:SamuroMirrorImageWayOfIllusionQuestToken$"/>/<d ref="Behavior,SamuroMirrorImageWayOfIllusionQuestToken,Max"/></c><n/>Bonus Damage: <c val="#TooltipNumbers"><d ref="$BehaviorTokenCount:SamuroMirrorImageWayOfIllusionQuestToken$*(Accumulator,SamuroMirrorImageWayOfIllusionAttackDamageAccumulator,Scale)" precision="1"/></c></c>
+Button/TooltipAppender/SamuroWayOfIllusionComplete=<n/><c val="#TooltipQuest">QUEST COMPLETE!<n/>Bonus Damage: <c val="#TooltipNumbers"><d ref="Behavior,SamuroMirrorImageWayOfIllusionQuestToken,Max*(Accumulator,SamuroMirrorImageWayOfIllusionAttackDamageAccumulator,Scale)+Effect,SamuroMirrorImageWayOfIllusionQuestCompleteModifyPlayer,EffectArray[0].Value"/></c></c>
+Button/TooltipAppender/SamuroWindWalkMeditation=<n/><n/><s val="StandardTooltipUpgrade">[Meditation]</s> <s val="StandardTooltip">Become Stealthed if you stand still for 3 seconds. This Stealth will break on Movement.</s>
+Button/TooltipAppender/SamuroWindWalkMirrorEdge=<n/><n/><s val="StandardTooltipUpgrade">[Mirror Edge]</s> <s val="StandardTooltip">Attacking from Wind Walk creates a Mirror Image.</s>
+Button/TooltipAppender/SamuroWindWalkPilgrimage=<n/><n/><s val="StandardTooltipUpgrade">[Pilgrimage]</s> <s val="StandardTooltip">Heal for <s val="StandardTooltipDetails">3%</s> of your Maximum Health a second while Stealthed.</s>
+Button/TooltipAppender/SamuroWindWalkWindsDoppel=<n/><n/><s val="StandardTooltipUpgrade">[Wind's Doppel]</s> <s val="StandardTooltip">Using Wind Walk creates a Mirror Image.</s>
+Button/TooltipAppender/SamuroWindwalkWayOfTheWind=<n/><c val="#TooltipQuest">Heroes hit: <c val="#TooltipNumbers"><d ref="$BehaviorTokenCount:SamuroWindWalkWayOfTheWindQuestToken$"/>/<d ref="Behavior,SamuroWindWalkWayOfTheWindQuestToken,Max"/></c><n/>Bonus Movement Speed: <c val="#TooltipNumbers"><d ref="$BehaviorTokenCount:SamuroWindWalkWayOfTheWindQuestToken$*(Accumulator,SamuroWindWalkWayOfTheWindMoveSpeedAccumulator,Scale*100+0.01)" precision="2"/>%</c></c>
+Button/TooltipAppender/SamuroWindwalkWayOfTheWindComplete=<n/><c val="#TooltipQuest">QUEST COMPLETE!<n/>Bonus Movement Speed: <c val="#TooltipNumbers"><d ref="$BehaviorTokenCount:SamuroWindWalkWayOfTheWindQuestToken$*(Accumulator,SamuroWindWalkWayOfTheWindMoveSpeedAccumulator,Scale*100+0.01)" precision="2"/>%</c></c>
+DocInfo/Name=Samuro Hero Mod
+Hero/AdditionalSearchText/Samuro=Orc Blademaster Horde Warcraft III 3 War3 Warcraft3 WC3 Frozen Throne FT WoW
+Hero/AlternateNameSearchText/Samuro=Samuro
+Hero/Description/Samuro=A stealthed Assassin that's great at capturing Mercenary camps and is difficult to kill.
+Hero/Info/Samuro=Samuro, the last remaining blademaster to wear the banner of the Burning Blade, is on a warrior's pilgrimage in search of vengeance and redemption for his fallen clan. It will be a long journey, but he has sworn an oath to restore his clan's honor.
+Hero/Name/Samuro=Samuro
+Hero/Title/Samuro=The Blademaster
+Mount/AdditionalSearchText/MountPigFel=Hellboar Felboar
+Mount/Info/MountCloud=The Monkey King is said to be able to somersault through the air and leap across great distances with ease. Now, with this magical cloud, you can too!
+Mount/Info/MountPigFel=The Hellboars of Hellfire Penninsula are known for their vicious temperament. Only the Hellblade Wanderer, Samuro, was ever known to tame one.
+Mount/Name/MountCloud=Nimbus Cloud
+Mount/Name/MountCloudVar1=Jade Nimbus Cloud
+Mount/Name/MountCloudVar2=Azure Nimbus Cloud
+Mount/Name/MountPigFel=Hellboar
+Mount/Name/MountPigFelVar1=Fellboar
+Mount/Name/MountPigFelVar2=Shadowmoon Hellboar
+Param/Value/lib_HSAM_08C24BA5=Illusion Master
+Param/Value/lib_HSAM_33AACC90=Samuro Decrement: 
+Param/Value/lib_HSAM_4C4DEFE8=setting Idle
+Param/Value/lib_HSAM_66B32A2E=Samuro increment
+Param/Value/lib_HSAM_7332526A=BLADESTORM
+Param/Value/lib_HSAM_862251A8=Restarting AI.
+Param/Value/lib_HSAM_8D5474E5=unit deselected
+Param/Value/lib_HSAM_9AABE3D2=setting leashing
+Param/Value/lib_HSAM_C2EF74D0=setting aggro
+Param/Value/lib_HSAM_CAA08137=unit selected
+Param/Value/lib_HSAM_E1430356=bleep blop
+Param/Value/lib_HSAM_F7055C80=setting leashing
+Reward/Description/SamuroBasic=You have unlocked Samuro's hero portrait for use in your profile.
+Reward/Description/SamuroEpic=You have unlocked Samuro's master portrait.
+Reward/DescriptionUnearned/SamuroBasic=Unlock Samuro's hero portrait for use in your profile.
+Reward/DescriptionUnearned/SamuroEpic=Unlock Samuro's master portrait.
+Reward/Name/Samuro=Samuro
+Reward/Name/SamuroBasic=Samuro Portrait
+Reward/Name/SamuroEpic=Samuro Mastery Portrait
+SamuroCriticalStrikeCooldown=<c val="#TooltipNumbers"><d ref="Abil,SamuroCriticalStrike,Cost.Charge.TimeUse"/> seconds</c>
+SamuroIllusionMaster=10 seconds
+SamuroIllusionMasterTalent=10 seconds
+SamuroImageTransmission=25 seconds
+Skin/AdditionalSearchText/SamuroBaseVar1=White Grey Gray
+Skin/AdditionalSearchText/SamuroBaseVar2=Brown
+Skin/AdditionalSearchText/SamuroFel=Hellblade Samuro Altered Fate Red Gold
+Skin/AdditionalSearchText/SamuroFelVar1=Green Red
+Skin/AdditionalSearchText/SamuroFelVar2=Grey Gray Purple Blue
+Skin/AdditionalSearchText/SamuroFelVar3=white brown bronze copper
+Skin/AdditionalSearchText/SamuroMonkey=Red Gold
+Skin/AdditionalSearchText/SamuroMonkeyVar1=Green
+Skin/AdditionalSearchText/SamuroMonkeyVar2=Orange
+Skin/AdditionalSearchText/SamuroMonkeyVar3=Dark Blue
+Skin/AdditionalSearchText/SamuroMonkeyVar4=Gold
+Skin/AdditionalSearchText/SamuroMonkeyVar5=Purple Green
+Skin/AdditionalSearchText/SamuroUltimate=Master Samuro Green Red
+Skin/AdditionalSearchText/SamuroUltimateVar1=Master White Silver Blue
+Skin/AdditionalSearchText/SamuroUltimateVar2=Master Orange
+Skin/AdditionalSearchText/SamuroUltimateVar3=gold green grey gray
+Skin/AdditionalSearchText/SamuroUltimateVar4=orange red brown
+Skin/Info/SamuroFel=The Blackrock chieftain is dead and the Doomhammer has been stolen. Samuro may have failed to protect his master, but he has sworn to exact vengeance upon the Warlord of the Ashwolf clan.
+Skin/Info/SamuroMonkey=The Legend of the Monkey King has spread wide, across both earthly and heavenly realms alike. It is no wonder his incredible fighting spirit was drawn to the conflicted lands of the Nexus.
+Skin/Info/SamuroUltimate=There are no clans in the New Horde, but Samuro will not abandon the Burning Blade. Adorned in his family's ancestral armor, he will fight under both banners until his clan's honor is restored.
+Skin/Name/SamuroBaseCommon=Base
+Skin/Name/SamuroBaseVar1=Warsong Samuro
+Skin/Name/SamuroBaseVar2=Shattered Hand Samuro
+Skin/Name/SamuroBaseVar3=Dark Hand Samuro
+Skin/Name/SamuroFel=Hellblade Samuro
+Skin/Name/SamuroFelVar1=Felblade Samuro
+Skin/Name/SamuroFelVar2=Shadowmoon Hellblade Samuro
+Skin/Name/SamuroFelVar3=Warsong Hellblade Samuro
+Skin/Name/SamuroMonkey=Monkey King Samuro
+Skin/Name/SamuroMonkeyVar1=Jade Monkey King Samuro
+Skin/Name/SamuroMonkeyVar2=Super Monkey King Samuro
+Skin/Name/SamuroMonkeyVar3=Midnight Monkey King Samuro
+Skin/Name/SamuroMonkeyVar4=Golden Monkey King Samuro
+Skin/Name/SamuroMonkeyVar5=Genius Monkey King Samuro
+Skin/Name/SamuroUltimate=Burning Blade Samuro
+Skin/Name/SamuroUltimateVar1=Pallid Burning Blade Samuro
+Skin/Name/SamuroUltimateVar2=Amber Burning Blade Samuro
+Skin/Name/SamuroUltimateVar3=Fel Burning Blade Samuro
+Skin/Name/SamuroUltimateVar4=Draenor Burning Blade Samuro
+Skin/SortName/SamuroBaseCommonVar0=zzSamuroVar0
+Skin/SortName/SamuroBaseCommonVar1=zxSamuroVar1
+Skin/SortName/SamuroHellCommonVar0=HellVar0
+Skin/SortName/SamuroHellCommonVar1=HellVar1
+Skin/SortName/SamuroMonkeyCommonVar0=MonkeyVar0
+Skin/SortName/SamuroMonkeyCommonVar1=MonkeyVar1
+Skin/SortName/SamuroUltimateCommonVar0=zUltimateVar0
+Skin/SortName/SamuroUltimateCommonVar1=zUltimateVar1
+Unit/Name/HeroBlademaster=Samuro
+Unit/Name/HeroSamuro=Samuro
+Unit/Name/SamuroMirrorImage=Samuro
+VoiceLine/Name/SamuroBase_VoiceLine01=Taste My Blade!
+VoiceLine/Name/SamuroBase_VoiceLine02=You Fought Well...
+VoiceLine/Name/SamuroBase_VoiceLine03=My Blade Is Sated
+VoiceLine/Name/SamuroBase_VoiceLine04=Disrespect Is Not Tolerated
+VoiceLine/Name/SamuroBase_VoiceLine05=I Do Not Fear Death
+VoiceLine/Name/SamuroHellblade_VoiceLine01=Taste My Blade!
+VoiceLine/Name/SamuroHellblade_VoiceLine02=You Fought Well...
+VoiceLine/Name/SamuroHellblade_VoiceLine03=My Blade Is Sated
+VoiceLine/Name/SamuroHellblade_VoiceLine04=Disrespect Is Not Tolerated
+VoiceLine/Name/SamuroHellblade_VoiceLine05=I Do Not Fear Death
+VoiceLine/Name/SamuroMonkeyking_VoiceLine01=Under My Protection
+VoiceLine/Name/SamuroMonkeyking_VoiceLine02=You're Making Me Angry!
+VoiceLine/Name/SamuroMonkeyking_VoiceLine03=Impressive, Am I Not?
+VoiceLine/Name/SamuroMonkeyking_VoiceLine04=Finally, Some Entertainment
+VoiceLine/Name/SamuroMonkeyking_VoiceLine05=Who's Next?
+Weapon/Name/SamuroWeapon2=SamuroWeapon (Unnamed) Copy

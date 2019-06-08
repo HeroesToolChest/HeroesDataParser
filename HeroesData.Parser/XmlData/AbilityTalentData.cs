@@ -65,6 +65,8 @@ namespace HeroesData.Parser.XmlData
             if (parentValue == "attack")
                 abilityTalentBase.ReferenceNameId = string.Empty;
 
+            Action setCmdButtonArrayDataAction = null;
+
             // look through all elements to set all the data
             foreach (XElement element in abilityElement.Elements())
             {
@@ -80,7 +82,12 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "CMDBUTTONARRAY")
                 {
-                    SetCmdButtonArrayData(element, abilityTalentBase);
+                    string index = element.Attribute("index")?.Value;
+
+                    // only set if index is execute
+                    // cancel is also an available index, but it doesn't seem to be used in HOTS
+                    if (index.Equals("Execute", StringComparison.OrdinalIgnoreCase))
+                        setCmdButtonArrayDataAction = () => SetCmdButtonArrayData(element, abilityTalentBase);
                 }
                 else if (elementName == "PRODUCEDUNITARRAY")
                 {
@@ -106,6 +113,9 @@ namespace HeroesData.Parser.XmlData
                         abilityTalentBase.ParentLink = parentAbility;
                 }
             }
+
+            // must execute the cmdButtonArrayData last
+            setCmdButtonArrayDataAction?.Invoke();
         }
 
         protected void SetButtonData(XElement buttonElement, AbilityTalentBase abilityTalentBase)
@@ -686,21 +696,17 @@ namespace HeroesData.Parser.XmlData
                 defaultButtonFace = cmdButtonArrayElement.Element("DefaultButtonFace")?.Attribute("value")?.Value;
             if (string.IsNullOrEmpty(requirement))
                 requirement = cmdButtonArrayElement.Element("Requirements")?.Attribute("value")?.Value;
-            if (string.IsNullOrEmpty(showValidator))
-                showValidator = cmdButtonArrayElement.Element("ShowValidator")?.Attribute("value")?.Value;
 
-            if (!string.IsNullOrEmpty(defaultButtonFace))
+            if (string.IsNullOrEmpty(abilityTalentBase.ShortTooltipNameId))
+                abilityTalentBase.ShortTooltipNameId = defaultButtonFace;
+            if (string.IsNullOrEmpty(abilityTalentBase.FullTooltipNameId))
+                abilityTalentBase.FullTooltipNameId = defaultButtonFace;
+
+            // check only the face value (fullTooltipNameId), we could also check the defaultButtonFace but it was chosen not to
+            XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton")?.Where(x => x.Attribute("id")?.Value == abilityTalentBase.FullTooltipNameId), false);
+            if (buttonElement != null)
             {
-                if (string.IsNullOrEmpty(abilityTalentBase.ShortTooltipNameId))
-                    abilityTalentBase.ShortTooltipNameId = defaultButtonFace;
-                if (string.IsNullOrEmpty(abilityTalentBase.FullTooltipNameId))
-                    abilityTalentBase.FullTooltipNameId = defaultButtonFace;
-
-                XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton")?.Where(x => x.Attribute("id")?.Value == defaultButtonFace), false);
-                if (buttonElement != null)
-                {
-                    SetButtonData(buttonElement, abilityTalentBase);
-                }
+                SetButtonData(buttonElement, abilityTalentBase);
             }
 
             if (!string.IsNullOrEmpty(requirement))

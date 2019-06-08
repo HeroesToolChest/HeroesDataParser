@@ -1,5 +1,6 @@
 ﻿using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.UnitParserTests
 {
@@ -9,7 +10,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void HearthStoneAbilityTests()
         {
-            Ability ability = DVaMechPlacementDummy.GetAbility("Hearthstone");
+            Ability ability = DVaMechPlacementDummy.GetAbilities("Hearthstone").First();
 
             Assert.AreEqual("Hearthstone", ability.Name);
             Assert.AreEqual("Hearthstone", ability.ShortTooltipNameId);

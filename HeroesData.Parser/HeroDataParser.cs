@@ -119,11 +119,12 @@ namespace HeroesData.Parser
             // parses the hero's hero data; talents
             SetHeroData(heroElement, hero);
 
-
-
             //FinalizeDataChecks(hero);
 
-            //ApplyOverrides(hero, HeroDataOverride);
+            ApplyOverrides(hero, HeroDataOverride);
+
+            ClearActiveTypeTalentsAndAbilities(hero);
+
             //MoveParentLinkedAbilities(hero);
             //MoveParentLinkedWeapons(hero);
             //RemoveAbilityTalents(hero, HeroDataOverride);
@@ -170,39 +171,43 @@ namespace HeroesData.Parser
             return new HeroDataParser(XmlDataService, HeroOverrideLoader);
         }
 
-        protected override void ApplyAdditionalOverrides(Hero hero, HeroDataOverride heroDataOverride)
+        protected override void ApplyAdditionalOverrides(Hero hero, HeroDataOverride dataOverride)
         {
-            if (heroDataOverride.NameOverride.Enabled)
-                hero.Name = heroDataOverride.NameOverride.Value;
+            //if (dataOverride.NameOverride.Enabled)
+            //    hero.Name = dataOverride.NameOverride.Value;
 
-            if (heroDataOverride.HyperlinkIdOverride.Enabled)
-                hero.HyperlinkId = heroDataOverride.HyperlinkIdOverride.Value;
+            //if (dataOverride.HyperlinkIdOverride.Enabled)
+            //    hero.HyperlinkId = dataOverride.HyperlinkIdOverride.Value;
 
-            if (heroDataOverride.EnergyTypeOverride.Enabled)
-                hero.Energy.EnergyType = heroDataOverride.EnergyTypeOverride.EnergyType;
+            //if (dataOverride.EnergyTypeOverride.Enabled)
+            //    hero.Energy.EnergyType = dataOverride.EnergyTypeOverride.EnergyType;
 
-            if (heroDataOverride.EnergyOverride.Enabled)
-                hero.Energy.EnergyMax = heroDataOverride.EnergyOverride.Energy;
+            //if (dataOverride.EnergyOverride.Enabled)
+            //    hero.Energy.EnergyMax = dataOverride.EnergyOverride.Energy;
 
-            if (heroDataOverride.ParentLinkOverride.Enabled)
-                hero.ParentLink = heroDataOverride.ParentLinkOverride.ParentLink;
+            //if (dataOverride.ParentLinkOverride.Enabled)
+            //    hero.ParentLink = dataOverride.ParentLinkOverride.ParentLink;
+
+            if (hero.Abilities != null)
+                dataOverride.ExecuteAbilityOverrides(hero.Abilities);
+
 
             // abilities
-            if (hero.Abilities != null)
-            {
-                // TODO: possibly re-add
-                //foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
-                //{
-                //    if (heroDataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
-                //    {
-                //        foreach (var propertyOverride in valueOverrideMethods)
-                //        {
-                //            // execute each property override
-                //            propertyOverride.Value(ability.Value);
-                //        }
-                //    }
-                //}
-            }
+            //if (hero.Abilities != null)
+            //{
+            //    // TODO: possibly re-add
+            //    //foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
+            //    //{
+            //    //    if (heroDataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
+            //    //    {
+            //    //        foreach (var propertyOverride in valueOverrideMethods)
+            //    //        {
+            //    //            // execute each property override
+            //    //            propertyOverride.Value(ability.Value);
+            //    //        }
+            //    //    }
+            //    //}
+            //}
 
             // talents
             //if (hero.Talents != null)
@@ -236,16 +241,16 @@ namespace HeroesData.Parser
             //    }
             //}
 
-            if (hero.HeroPortrait != null)
-            {
-                if (heroDataOverride.PropertyPortraitOverrideMethodByCHeroId.TryGetValue(hero.CHeroId, out Dictionary<string, Action<HeroPortrait>> valueOverrideMethods))
-                {
-                    foreach (var propertyOverride in valueOverrideMethods)
-                    {
-                        propertyOverride.Value(hero.HeroPortrait);
-                    }
-                }
-            }
+            //if (hero.HeroPortrait != null)
+            //{
+            //    if (heroDataOverride.PropertyPortraitOverrideMethodByCHeroId.TryGetValue(hero.CHeroId, out Dictionary<string, Action<HeroPortrait>> valueOverrideMethods))
+            //    {
+            //        foreach (var propertyOverride in valueOverrideMethods)
+            //        {
+            //            propertyOverride.Value(hero.HeroPortrait);
+            //        }
+            //    }
+            //}
         }
 
         private void SetDefaultValues(Hero hero)
@@ -501,12 +506,42 @@ namespace HeroesData.Parser
                 {
                     Talent talent = TalentData.CreateTalent(hero, element);
                     if (talent != null)
+                    {
                         hero.AddTalent(talent);
+
+                        // makes the abilities that are granted from talents subabilities to that talent
+                        if ((talent.AbilityType != AbilityType.Heroic || talent.Tier == TalentTier.Level20) && hero.TryGetAbilities(talent.ReferenceNameId, out IEnumerable<Ability> abilities))
+                        {
+                            foreach (Ability ability in abilities)
+                                ability.ParentLink = talent.ReferenceNameId;
+                        }
+                    }
                 }
             }
 
             if (hero.ReleaseDate == DefaultData.HeroData.HeroReleaseDate)
                 hero.ReleaseDate = DefaultData.HeroData.HeroAlphaReleaseDate;
+        }
+
+        private void ClearActiveTypeTalentsAndAbilities(Hero hero)
+        {
+            foreach (Talent talent in hero.Talents)
+            {
+                // validate all abilityTalentLinkIds
+                HashSet<string> validatedIds = new HashSet<string>();
+                foreach (string abilityTalentLinkId in talent.AbilityTalentLinkIds)
+                {
+                    if (hero.ContainsAbility(abilityTalentLinkId) || hero.ContainsTalent(abilityTalentLinkId) || hero.Units.Select(x => x.ContainsAbility(abilityTalentLinkId)).Any())
+                        validatedIds.Add(abilityTalentLinkId);
+                }
+
+                talent.ClearAbilityTalentLinkIds();
+
+                foreach (string validatedId in validatedIds)
+                {
+                    talent.AddAbilityTalentLinkId(validatedId);
+                }
+            }
         }
 
         private void AddHeroUnits(Hero hero, UnitData unitData)
