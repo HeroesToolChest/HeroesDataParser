@@ -28,8 +28,8 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             List<Ability> elements = VolskayaDataVolskayaVehicleGunner.SubAbilities(AbilityTier.Basic).ToList();
 
-            Assert.AreEqual("VolskayaVehicleActivateParticleCannon", elements[0].ReferenceNameId);
-            Assert.AreEqual("VolskayaVehicleTacticalStrikesDeactivate", elements[1].ReferenceNameId);
+            Assert.AreEqual("VolskayaVehicleActivateParticleCannon", elements[0].ReferenceId);
+            Assert.AreEqual("VolskayaVehicleTacticalStrikesDeactivate", elements[1].ReferenceId);
         }
     }
 }

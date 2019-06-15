@@ -12,8 +12,8 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         public void AbilitiesTests()
         {
             List<Ability> basicAbilities = OverwatchDataJungleGraveGolemDefender.PrimaryAbilities(AbilityTier.Basic).ToList();
-            Assert.AreEqual("DragonsDinner", basicAbilities[0].ReferenceNameId);
-            Assert.AreEqual("RingOfFire", basicAbilities[1].ReferenceNameId);
+            Assert.AreEqual("DragonsDinner", basicAbilities[0].ReferenceId);
+            Assert.AreEqual("RingOfFire", basicAbilities[1].ReferenceId);
 
             Assert.IsTrue(basicAbilities.Count >= 2);
         }

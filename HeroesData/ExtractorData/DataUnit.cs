@@ -71,37 +71,37 @@ namespace HeroesData.ExtractorData
         {
             foreach (Ability ability in unit.Abilities)
             {
-                if (string.IsNullOrEmpty(ability.ReferenceNameId))
-                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.ReferenceNameId)} is empty");
+                if (string.IsNullOrEmpty(ability.ReferenceId))
+                    AddWarning($"[{ability.ReferenceId}] {nameof(ability.ReferenceId)} is empty");
 
                 if (ability.Tooltip.ShortTooltip?.RawDescription == GameStringParser.FailedParsed)
-                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.ShortTooltip)} failed to parse correctly");
+                    AddWarning($"[{ability.ReferenceId}] {nameof(ability.Tooltip.ShortTooltip)} failed to parse correctly");
 
                 if (ability.Tooltip.FullTooltip?.RawDescription == GameStringParser.FailedParsed)
-                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.FullTooltip)} failed to parse correctly");
+                    AddWarning($"[{ability.ReferenceId}] {nameof(ability.Tooltip.FullTooltip)} failed to parse correctly");
 
                 if (!string.IsNullOrEmpty(ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription))
                 {
                     if (ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription == GameStringParser.FailedParsed)
-                        AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} failed to parse correctly");
+                        AddWarning($"[{ability.ReferenceId}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} failed to parse correctly");
                     else if (char.IsDigit(ability.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
-                        AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
+                        AddWarning($"[{ability.ReferenceId}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
                 }
 
                 if (!string.IsNullOrEmpty(ability.Tooltip.Energy?.EnergyTooltip?.RawDescription))
                 {
                     if (ability.Tooltip.Energy.EnergyTooltip?.RawDescription == GameStringParser.FailedParsed)
-                        AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} failed to parse correctly");
+                        AddWarning($"[{ability.ReferenceId}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} failed to parse correctly");
                     else if (char.IsDigit(ability.Tooltip.Energy.EnergyTooltip.PlainText[0]))
-                        AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
+                        AddWarning($"[{ability.ReferenceId}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
                 }
 
                 if (!string.IsNullOrEmpty(ability.Tooltip.Life?.LifeCostTooltip?.RawDescription))
                 {
                     if (ability.Tooltip.Life.LifeCostTooltip?.RawDescription == GameStringParser.FailedParsed)
-                        AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} failed to parse correctly");
+                        AddWarning($"[{ability.ReferenceId}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} failed to parse correctly");
                     else if (char.IsDigit(ability.Tooltip.Life.LifeCostTooltip.PlainText[0]))
-                        AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
+                        AddWarning($"[{ability.ReferenceId}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
                 }
             }
         }
@@ -135,10 +135,10 @@ namespace HeroesData.ExtractorData
             foreach (Ability ability in unit.Abilities)
             {
                 if (ability.Tooltip.ShortTooltip?.RawDescription == GameStringParser.FailedParsed)
-                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.ShortTooltip)} failed to parse correctly");
+                    AddWarning($"[{ability.ReferenceId}] {nameof(ability.Tooltip.ShortTooltip)} failed to parse correctly");
 
                 if (ability.Tooltip.FullTooltip?.RawDescription == GameStringParser.FailedParsed)
-                    AddWarning($"[{ability.ReferenceNameId}] {nameof(ability.Tooltip.FullTooltip)} failed to parse correctly");
+                    AddWarning($"[{ability.ReferenceId}] {nameof(ability.Tooltip.FullTooltip)} failed to parse correctly");
             }
         }
     }

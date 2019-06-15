@@ -188,17 +188,14 @@ namespace HeroesData.FileWriter.Writers.UnitData
 
             JObject info = new JObject
             {
-                { "nameId", abilityTalentBase.ReferenceNameId },
+                { "nameId", abilityTalentBase.ReferenceId },
             };
+
+            if (!string.IsNullOrEmpty(abilityTalentBase.ButtonId))
+                info.Add("buttonId", abilityTalentBase.ButtonId);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Name) && !FileOutputOptions.IsLocalizedText)
                 info.Add("name", abilityTalentBase.Name);
-
-            if (!string.IsNullOrEmpty(abilityTalentBase.ShortTooltipNameId))
-                info.Add("shortTooltipId", abilityTalentBase.ShortTooltipNameId);
-
-            if (!string.IsNullOrEmpty(abilityTalentBase.FullTooltipNameId))
-                info.Add("fullTooltipId", abilityTalentBase.FullTooltipNameId);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.IconFileName))
                 info.Add("icon", Path.ChangeExtension(abilityTalentBase.IconFileName?.ToLower(), ".png"));

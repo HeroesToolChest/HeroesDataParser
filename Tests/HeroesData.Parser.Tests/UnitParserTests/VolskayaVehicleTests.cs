@@ -19,11 +19,11 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.AreEqual(AbilityType.E, sortedAbilities[2].AbilityType);
 
             Ability shield = VolskayaVehicle.GetAbilities("VolskayaVehicleTShield").First();
+            Assert.AreEqual("VolskayaVehicleTShield", shield.ButtonId);
             Assert.AreEqual(AbilityType.E, shield.AbilityType);
             Assert.IsFalse(shield.IsActive);
             Assert.IsFalse(shield.IsQuest);
             Assert.AreEqual(AbilityTier.Basic, shield.Tier);
-            Assert.AreEqual("VolskayaVehicleTShield", shield.FullTooltipNameId);
             Assert.AreEqual("storm_ui_icon_volskayarobot_tshield.dds", shield.IconFileName);
             Assert.AreEqual("Gives shields to allies", shield.Tooltip.FullTooltip.RawDescription);
             Assert.AreEqual("Cooldown: 16 seconds", shield.Tooltip.Cooldown.CooldownTooltip.PlainText);

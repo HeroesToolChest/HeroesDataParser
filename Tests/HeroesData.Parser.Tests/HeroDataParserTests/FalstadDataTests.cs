@@ -14,10 +14,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroFalstad.GetAbilities("FalstadHammerang").First();
             Assert.AreEqual(AbilityTier.Basic, ability.Tier);
-            Assert.AreEqual("FalstadHammerang", ability.ReferenceNameId);
+            Assert.AreEqual("FalstadHammerang", ability.ReferenceId);
             Assert.AreEqual("Hammerang", ability.Name);
-            Assert.AreEqual("FalstadHammerang", ability.ShortTooltipNameId);
-            Assert.AreEqual("FalstadHammerang", ability.FullTooltipNameId);
             Assert.AreEqual("storm_ui_icon_falstad_hammerang.dds", ability.IconFileName);
             Assert.AreEqual(AbilityType.Q, ability.AbilityType);
 
@@ -63,10 +61,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroFalstad.GetAbilities("FalstadHinterlandBlast").First();
             Assert.AreEqual(AbilityTier.Heroic, ability.Tier);
-            Assert.AreEqual("FalstadHinterlandBlast", ability.ReferenceNameId);
+            Assert.AreEqual("FalstadHinterlandBlast", ability.ReferenceId);
             Assert.AreEqual("Hinterland Blast", ability.Name);
-            Assert.AreEqual("FalstadHinterlandBlast", ability.ShortTooltipNameId);
-            Assert.AreEqual("FalstadHinterlandBlast", ability.FullTooltipNameId);
             Assert.AreEqual("storm_ui_icon_falstad_hinterlandblast.dds", ability.IconFileName);
 
             Assert.AreEqual("<s val=\"StandardTooltipDetails\">Mana: 100</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
@@ -93,10 +89,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroFalstad.GetAbilities("FalstadFlight").First();
             Assert.AreEqual(AbilityTier.Mount, ability.Tier);
-            Assert.AreEqual("FalstadFlight", ability.ReferenceNameId);
+            Assert.AreEqual("FalstadFlight", ability.ReferenceId);
             Assert.AreEqual("Flight", ability.Name);
-            Assert.AreEqual("FalstadFlight", ability.ShortTooltipNameId);
-            Assert.AreEqual("FalstadFlight", ability.FullTooltipNameId);
             Assert.AreEqual("storm_ui_icon_falstad_mount.dds", ability.IconFileName);
 
             Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyTooltip?.RawDescription));
@@ -139,10 +133,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             // Secret Weapon
             Talent talent = HeroFalstad.GetTalent("FalstadMasteryHammerangSecretWeapon");
             Assert.AreEqual(TalentTier.Level7, talent.Tier);
-            Assert.AreEqual("FalstadMasteryHammerangSecretWeapon", talent.ReferenceNameId);
+            Assert.AreEqual("FalstadMasteryHammerangSecretWeapon", talent.ReferenceId);
             Assert.AreEqual("Secret Weapon", talent.Name);
-            Assert.AreEqual("FalstadSecretWeaponTalent", talent.ShortTooltipNameId);
-            Assert.AreEqual("FalstadSecretWeaponTalent", talent.FullTooltipNameId);
             Assert.AreEqual("storm_ui_icon_falstad_hammerang.dds", talent.IconFileName);
             Assert.AreEqual(AbilityType.Q, talent.AbilityType);
 
@@ -159,10 +151,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             // Wingman
             talent = HeroFalstad.GetTalent("FalstadWingman");
             Assert.AreEqual(TalentTier.Level1, talent.Tier);
-            Assert.AreEqual("FalstadWingman", talent.ReferenceNameId);
+            Assert.AreEqual("FalstadWingman", talent.ReferenceId);
             Assert.AreEqual("Wingman", talent.Name);
-            Assert.AreEqual("FalstadWingmanHotbarTalent", talent.ShortTooltipNameId);
-            Assert.AreEqual("FalstadWingmanHotbarTalent", talent.FullTooltipNameId);
             Assert.AreEqual("storm_ui_icon_talent_bribe.dds", talent.IconFileName);
             Assert.AreEqual(AbilityType.Active, talent.AbilityType);
             Assert.IsTrue(talent.IsActive);
@@ -187,10 +177,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroFalstad.GetAbilities("FalstadTailwindCooldownDisplay").First();
             Assert.AreEqual(AbilityTier.Trait, ability.Tier);
-            Assert.AreEqual("FalstadTailwindCooldownDisplay", ability.ReferenceNameId);
+            Assert.AreEqual("FalstadTailwindCooldownDisplay", ability.ReferenceId);
             Assert.AreEqual("Tailwind", ability.Name);
-            Assert.AreEqual("FalstadTailwind", ability.ShortTooltipNameId);
-            Assert.AreEqual("FalstadTailwind", ability.FullTooltipNameId);
             Assert.AreEqual("storm_ui_icon_falstad_tailwind.dds", ability.IconFileName);
 
             Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Energy.EnergyTooltip?.RawDescription));

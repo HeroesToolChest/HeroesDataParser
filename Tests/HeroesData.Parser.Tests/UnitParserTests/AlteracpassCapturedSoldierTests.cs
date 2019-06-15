@@ -9,8 +9,8 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void AbilitiesTests()
         {
-            Assert.IsTrue(AlteracpassCapturedSoldier.ContainsAbility("CapturedSoldierDummyAttack"));
-            Assert.AreEqual(1, AlteracpassCapturedSoldier.Abilities.Count());
+            Assert.IsFalse(AlteracpassCapturedSoldier.ContainsAbility("CapturedSoldierDummyAttack"));
+            Assert.AreEqual(0, AlteracpassCapturedSoldier.Abilities.Count());
         }
     }
 }

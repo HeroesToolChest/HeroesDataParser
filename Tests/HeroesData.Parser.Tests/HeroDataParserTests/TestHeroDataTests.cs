@@ -60,8 +60,6 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Ability ability = HeroTestHero.GetAbilities("TestHeroNerazimDummy").First();
             Assert.AreEqual("Nerazim v2", ability.Name);
             Assert.AreEqual("storm_ui_icon_testhero_nerazim.dds", ability.IconFileName);
-            Assert.AreEqual("TestHeroNerazimTalent", ability.ShortTooltipNameId);
-            Assert.AreEqual("TestHeroNerazimTalent", ability.FullTooltipNameId);
             Assert.AreEqual("Gain an extra ability", ability.Tooltip.ShortTooltip.RawDescription);
             Assert.AreEqual("Gain an extra ability three times", ability.Tooltip.FullTooltip.RawDescription);
         }
@@ -72,8 +70,6 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Ability ability = HeroTestHero.GetAbilities("TestHeroIllusionMaster").First();
             Assert.AreEqual("Illusion Master", ability.Name);
             Assert.AreEqual("storm_ui_icon_testhero_illusiondancer.dds", ability.IconFileName);
-            Assert.AreEqual("TestHeroIllusionMasterTalent", ability.ShortTooltipNameId);
-            Assert.AreEqual("TestHeroIllusionMasterTalent", ability.FullTooltipNameId);
             Assert.AreEqual("Disappear", ability.Tooltip.ShortTooltip.RawDescription);
             Assert.AreEqual("Disappear and out of sight", ability.Tooltip.FullTooltip.RawDescription);
         }
@@ -84,8 +80,6 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Ability ability = HeroTestHero.GetAbilities("TestHeroAdvancingStrikes").First();
             Assert.AreEqual("Advancing Strikes", ability.Name);
             Assert.AreEqual("storm_ui_icon_testhero_flowingstrikes.dds", ability.IconFileName);
-            Assert.AreEqual("TestHeroAdvancingStrikes", ability.ShortTooltipNameId);
-            Assert.AreEqual("TestHeroAdvancingStrikes", ability.FullTooltipNameId);
             Assert.AreEqual("Slash Slash", ability.Tooltip.ShortTooltip.RawDescription);
             Assert.AreEqual("More slashes, more damage", ability.Tooltip.FullTooltip.RawDescription);
         }

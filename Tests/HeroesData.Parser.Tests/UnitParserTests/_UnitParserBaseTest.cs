@@ -17,6 +17,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Parse();
         }
 
+        protected Unit RagnarosBigRag { get; set; }
         protected Unit AbathurLocustNestPlaceholderDummy { get; set; }
         protected Unit DVaMechPlacementDummy { get; set; }
         protected Unit AlexstraszaLifeblossomGiftOfLife { get; set; }
@@ -50,6 +51,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         private void Parse()
         {
             UnitParser unitParser = new UnitParser(XmlDataService, UnitOverrideLoader);
+            RagnarosBigRag = unitParser.Parse("RagnarosBigRag");
             AbathurLocustNestPlaceholderDummy = unitParser.Parse("AbathurLocustNestPlaceholderDummy");
             DVaMechPlacementDummy = unitParser.Parse("DVaMechPlacementDummy");
             AlexstraszaLifeblossomGiftOfLife = unitParser.Parse("AlexstraszaLifeblossomGiftOfLife");

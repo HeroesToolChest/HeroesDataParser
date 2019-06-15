@@ -510,10 +510,10 @@ namespace HeroesData.Parser
                         hero.AddTalent(talent);
 
                         // makes the abilities that are granted from talents subabilities to that talent
-                        if ((talent.AbilityType != AbilityType.Heroic || talent.Tier == TalentTier.Level20) && hero.TryGetAbilities(talent.ReferenceNameId, out IEnumerable<Ability> abilities))
+                        if ((talent.AbilityType != AbilityType.Heroic || talent.Tier == TalentTier.Level20) && hero.TryGetAbilities(talent.ReferenceId, out IEnumerable<Ability> abilities))
                         {
                             foreach (Ability ability in abilities)
-                                ability.ParentLink = talent.ReferenceNameId;
+                                ability.ParentLink = talent.ReferenceId;
                         }
                     }
                 }

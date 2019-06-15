@@ -156,10 +156,9 @@ namespace HeroesData.FileWriter.Tests.HeroData
             alarakHero.AddHeroDescriptor("Overconfident");
             alarakHero.AddAbility(new Ability
             {
-                ReferenceNameId = "AlarakDiscordStrike",
+                ReferenceId = "AlarakDiscordStrike",
+                ButtonId = "AlarakDiscordStrike",
                 Name = "Discord Strike",
-                ShortTooltipNameId = "AlarakDiscordStrike",
-                FullTooltipNameId = "AlarakDiscordStrike",
                 IconFileName = "storm_ui_icon_alarak_discordstrike.png",
                 Tier = AbilityTier.Basic,
                 Tooltip = new AbilityTalentTooltip()
@@ -180,10 +179,9 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alarakHero.AddAbility(new Ability
             {
-                ReferenceNameId = "AlarakSadismDummyUI",
+                ReferenceId = "AlarakSadismDummyUI",
                 Name = "Sadism",
-                ShortTooltipNameId = "AlarakSadismDummyUI",
-                FullTooltipNameId = "AlarakSadismDummyUI",
+                ButtonId = "AlarakSadismDummyUI",
                 IconFileName = "storm_ui_icon_alarak_sadism.png",
                 Tier = AbilityTier.Trait,
                 Tooltip = new AbilityTalentTooltip()
@@ -195,28 +193,32 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alarakHero.AddAbility(new Ability
             {
-                ReferenceNameId = "HeroicAbility",
+                ReferenceId = "HeroicAbility",
+                ButtonId = "HeroicAbility",
                 Name = "Heroic",
                 Tier = AbilityTier.Heroic,
                 AbilityType = AbilityType.Heroic,
             });
             alarakHero.AddAbility(new Ability
             {
-                ReferenceNameId = "MountAbility",
+                ReferenceId = "MountAbility",
+                ButtonId = "MountAbility",
                 Name = "Mount",
                 Tier = AbilityTier.Mount,
                 AbilityType = AbilityType.Z,
             });
             alarakHero.AddAbility(new Ability
             {
-                ReferenceNameId = "ActivableAbility",
+                ReferenceId = "ActivableAbility",
+                ButtonId = "ActivableAbility",
                 Name = "Activable",
                 Tier = AbilityTier.Activable,
                 AbilityType = AbilityType.Active,
             });
             alarakHero.AddAbility(new Ability
             {
-                ReferenceNameId = "HearthAbility",
+                ReferenceId = "HearthAbility",
+                ButtonId = "HearthAbility",
                 Name = "Hearth",
                 Tier = AbilityTier.Hearth,
                 AbilityType = AbilityType.B,
@@ -225,10 +227,9 @@ namespace HeroesData.FileWriter.Tests.HeroData
             alarakHero.AddRole("Warrior");
             alarakHero.AddTalent(new Talent
             {
-                ReferenceNameId = "AlarakSustainingPower",
+                ReferenceId = "AlarakSustainingPower",
                 Name = "Sustaining Power",
-                ShortTooltipNameId = "AlarakSustainingPower",
-                FullTooltipNameId = "AlarakSustainingPower",
+                ButtonId = "AlarakSustainingPower",
                 IconFileName = "storm_ui_icon_alarak_lightningsurge_a.png",
                 Tooltip = new AbilityTalentTooltip()
                 {
@@ -243,7 +244,8 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceNameId = "Level4Talent",
+                ReferenceId = "Level4Talent",
+                ButtonId = "Level4Talent",
                 Name = "Level4Talent",
                 Tier = TalentTier.Level4,
                 Tooltip = new AbilityTalentTooltip()
@@ -254,17 +256,17 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceNameId = "Level7Talent",
+                ReferenceId = "Level7Talent",
+                ButtonId = "Level7Talent",
                 Name = "Level4Talent",
                 Tier = TalentTier.Level7,
                 AbilityType = AbilityType.Q,
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceNameId = "AlarakHeroicAbilityDeadlyCharge",
+                ReferenceId = "AlarakHeroicAbilityDeadlyCharge",
+                ButtonId = "AlarakHeroicAbilityDeadlyCharge",
                 Name = "Deadly Charge",
-                ShortTooltipNameId = "AlarakDeadlyCharge",
-                FullTooltipNameId = "AlarakDeadlyCharge",
                 IconFileName = "storm_ui_icon_alarak_recklesscharge.png",
                 Tooltip = new AbilityTalentTooltip()
                 {
@@ -285,10 +287,9 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceNameId = "AlarakHeroicAbilityCounterStrike",
+                ReferenceId = "AlarakHeroicAbilityCounterStrike",
                 Name = "Counter-Strike",
-                ShortTooltipNameId = "AlarakCounterStrikeTargeted",
-                FullTooltipNameId = "AlarakCounterStrikeTargeted",
+                ButtonId = "AlarakCounterStrikeTargeted",
                 IconFileName = "storm_ui_icon_alarak_counterstrike.png",
                 Tooltip = new AbilityTalentTooltip()
                 {
@@ -309,21 +310,24 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceNameId = "Leve13Talent",
+                ReferenceId = "Leve13Talent",
+                ButtonId = "Leve13Talent",
                 Name = "Leve13Talent",
                 Tier = TalentTier.Level13,
                 AbilityType = AbilityType.W,
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceNameId = "Level16Talent",
+                ReferenceId = "Level16Talent",
+                ButtonId = "Level16Talent",
                 Name = "Level16Talent",
                 Tier = TalentTier.Level16,
                 AbilityType = AbilityType.W,
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceNameId = "Level20Talent",
+                ReferenceId = "Level20Talent",
+                ButtonId = "Level20Talent",
                 Name = "Level20Talent",
                 Tier = TalentTier.Level20,
                 AbilityType = AbilityType.W,

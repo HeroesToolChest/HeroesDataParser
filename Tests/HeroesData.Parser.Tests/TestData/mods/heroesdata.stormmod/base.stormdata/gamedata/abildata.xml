@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <Catalog>
+  <CAbilEffectTarget id="Taunt">
+    <Effect value="taunt" />
+    <Range value="10" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="Taunt" />
+  </CAbilEffectTarget>
+  <CAbilStop id="stop">
+    <CmdButtonArray index="HoldFire" DefaultButtonFace="HoldFireSpecial" />
+  </CAbilStop>
+  <CAbilStop id="HoldFire">
+    <Flags index="HoldFire" value="1" />
+    <CmdButtonArray index="Stop" DefaultButtonFace="StopSpecial" />
+    <CmdButtonArray index="Cheer" DefaultButtonFace="" />
+    <CmdButtonArray index="Dance" DefaultButtonFace="" />
+  </CAbilStop>
+  <CAbilMove id="move">
+    <FleeRange value="5" />
+    <FleeTime value="5" />
+    <MinPatrolDistance value="1" />
+  </CAbilMove>
+  <CAbilStop id="stop">
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <CmdButtonArray index="Tease" DefaultButtonFace="Tease" />
+  </CAbilStop>
   <CAbilEffectInstant id="VolskayaVehicleTShield">
     <Effect value="VolskayaVehicleTShieldCastSet" />
     <CmdButtonArray index="Execute" DefaultButtonFace="VolskayaVehicleTShield" />

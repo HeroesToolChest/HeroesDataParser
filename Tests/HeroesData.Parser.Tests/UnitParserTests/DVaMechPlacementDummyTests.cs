@@ -13,8 +13,6 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Ability ability = DVaMechPlacementDummy.GetAbilities("Hearthstone").First();
 
             Assert.AreEqual("Hearthstone", ability.Name);
-            Assert.AreEqual("Hearthstone", ability.ShortTooltipNameId);
-            Assert.AreEqual("Hearthstone", ability.FullTooltipNameId);
             Assert.AreEqual(AbilityType.B, ability.AbilityType);
         }
 

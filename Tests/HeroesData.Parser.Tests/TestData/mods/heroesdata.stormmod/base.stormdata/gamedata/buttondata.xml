@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <Catalog>
+  <CButton id="Stop">
+    <Icon value="Assets\Textures\btn-command-stop.dds" />
+    <AlertIcon value="Assets\Textures\btn-command-stop.dds" />
+    <TintRacially value="1" />
+    <Universal value="1" />
+  </CButton>
+  <CButton id="Dance">
+    <Icon value="Assets\Textures\btn-command-stop.dds" />
+    <AlertIcon value="Assets\Textures\btn-command-stop.dds" />
+    <TintRacially value="1" />
+    <Universal value="1" />
+  </CButton>
   <CButton default="1" id="StormButtonParent">
       <TooltipFlags index="ShowTime" value="0"/>
       <TooltipFlags index="ShowRequirements" value="0"/>

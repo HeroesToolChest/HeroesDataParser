@@ -251,8 +251,8 @@ namespace HeroesData.Parser.XmlData
             {
                 string faceValue = element.Attribute("Face")?.Value ?? element.Element("Face")?.Attribute("value")?.Value;
 
-                if (IgnorableBasicAbilities.Contains(faceValue, StringComparer.OrdinalIgnoreCase))
-                    continue;
+                //if (IgnorableBasicAbilities.Contains(faceValue, StringComparer.OrdinalIgnoreCase))
+                //    continue;
 
                 AddCreatedAbility(unit, element);
             }
@@ -279,7 +279,7 @@ namespace HeroesData.Parser.XmlData
         {
             if (ability != null)
             {
-                if (!IgnorableBasicAbilities.Contains(ability.ReferenceNameId, StringComparer.OrdinalIgnoreCase))
+                if (!IgnorableBasicAbilities.Contains(ability.ReferenceId, StringComparer.OrdinalIgnoreCase))
                     unit.AddAbility(ability);
 
                 foreach (string createUnit in ability.CreatedUnits)
