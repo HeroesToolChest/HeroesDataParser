@@ -35,13 +35,18 @@ namespace HeroesData.Parser.Overrides
                 {
                     case "Ability":
                         string abilityId = dataElement.Attribute("id")?.Value;
+                        string buttonId = dataElement.Attribute("buttonId")?.Value;
 
                         if (!string.IsNullOrEmpty(abilityId))
                         {
                             XElement overrideElement = dataElement.Element("Override");
 
+                            string elementId = abilityId;
+                            if (!string.IsNullOrEmpty(buttonId))
+                                elementId = $"{abilityId}{buttonId}";
+
                             if (overrideElement != null)
-                                abilityOverride.SetOverride(abilityId, overrideElement, unitDataOverride.PropertyAbilityOverrideMethodByAbilityId);
+                                abilityOverride.SetOverride(elementId, overrideElement, unitDataOverride.PropertyAbilityOverrideMethodByAbilityId);
                         }
 
                         break;

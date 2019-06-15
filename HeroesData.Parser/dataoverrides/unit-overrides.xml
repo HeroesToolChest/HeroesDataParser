@@ -14,7 +14,20 @@
       </Override>
     </Ability>
   </CUnit>
-  
+  <CUnit id="RagnarosBigRag">
+    <Ability id="RagnarosBigRagReturnMoltenCore" buttonId="RagnarosBigRagCancelReturnMoltenCore">
+      <Override>
+        <ParentLink value="RagnarosBigRagReturnMoltenCore" buttonId="RagnarosBigRagReturnMoltenCore" />
+      </Override>
+    </Ability>
+  </CUnit>
+  <CUnit id="SamuroMirrorImage">
+    <Ability id="SamuroBladestormCancel">
+      <Override>
+        <ParentLink value="SamuroBladeStormDummy" />
+      </Override>
+    </Ability>
+  </CUnit>
   <CUnit id="VolskayaVehicleGunner">
     <Ability id="VolskayaVehicleActivateParticleCannon">
       <Override>

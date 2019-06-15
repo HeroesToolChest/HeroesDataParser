@@ -64,13 +64,18 @@ namespace HeroesData.Parser.Overrides.DataOverrides
             foreach (Ability ability in abilities)
             {
                 if (PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.ReferenceId, out Dictionary<string, Action<Ability>> valueOverrideMethods))
-                {
-                    foreach (KeyValuePair<string, Action<Ability>> propertyOverride in valueOverrideMethods)
-                    {
-                        // execute each property override
-                        propertyOverride.Value(ability);
-                    }
-                }
+                    ApplyAbilityOverrides(ability, valueOverrideMethods);
+                else if (PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.ReferenceId + ability.ButtonId, out valueOverrideMethods))
+                    ApplyAbilityOverrides(ability, valueOverrideMethods);
+            }
+        }
+
+        private static void ApplyAbilityOverrides(Ability ability, Dictionary<string, Action<Ability>> valueOverrideMethods)
+        {
+            foreach (KeyValuePair<string, Action<Ability>> propertyOverride in valueOverrideMethods)
+            {
+                // execute each property override
+                propertyOverride.Value(ability);
             }
         }
     }
