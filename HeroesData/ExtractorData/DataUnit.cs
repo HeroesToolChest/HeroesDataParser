@@ -71,9 +71,6 @@ namespace HeroesData.ExtractorData
         {
             foreach (Ability ability in unit.Abilities)
             {
-                if (string.IsNullOrEmpty(ability.ReferenceId))
-                    AddWarning($"[{ability.ReferenceId}] {nameof(ability.ReferenceId)} is empty");
-
                 if (ability.Tooltip.ShortTooltip?.RawDescription == GameStringParser.FailedParsed)
                     AddWarning($"[{ability.ReferenceId}] {nameof(ability.Tooltip.ShortTooltip)} failed to parse correctly");
 

@@ -90,7 +90,10 @@ namespace HeroesData.Parser.XmlData
             {
                 (XElement buttonElement, AbilityTalentBase abilityTalent) = abilityElement.Value;
 
-                AddTooltipAppenderAbilityTalentId(buttonElement, abilityTalent.ButtonId);
+                if (!string.IsNullOrEmpty(abilityTalent.ReferenceId))
+                    AddTooltipAppenderAbilityTalentId(buttonElement, abilityTalent.ReferenceId);
+                else
+                    AddTooltipAppenderAbilityTalentId(buttonElement, abilityTalent.ButtonId);
             }
         }
 
@@ -324,7 +327,12 @@ namespace HeroesData.Parser.XmlData
                 talent.AbilityType = AbilityType.Active;
 
             if (buttonElement != null && !(talent.AbilityType == AbilityType.Heroic && talent.IsActive))
-                AddTooltipAppenderAbilityTalentId(buttonElement, talent.ReferenceId);
+            {
+                if (!string.IsNullOrEmpty(talent.ReferenceId))
+                    AddTooltipAppenderAbilityTalentId(buttonElement, talent.ReferenceId);
+                else
+                    AddTooltipAppenderAbilityTalentId(buttonElement, talent.ButtonId);
+            }
         }
 
         private void FindAbilityTalentButtonElements(Dictionary<string, (XElement, AbilityTalentBase)> abilityTalentsByButtonElements, Ability ability)
@@ -334,8 +342,16 @@ namespace HeroesData.Parser.XmlData
             if (ability == null)
                 throw new ArgumentNullException(nameof(ability));
 
-            XElement abilityElement = GameData.MergeXmlElementsNoAttributes(GetAbilityElements(ability.ReferenceId), false);
-            string faceValue = abilityElement?.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
+            string id = string.Empty;
+            if (!string.IsNullOrEmpty(ability.ReferenceId))
+                id = ability.ReferenceId;
+            else if (ability.IsPassive)
+                id = ability.ButtonId;
+            else
+                return;
+
+            XElement abilityElement = GameData.MergeXmlElementsNoAttributes(GetAbilityElements(id), false);
+            string faceValue = abilityElement?.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value ?? abilityElement?.Element("CmdButtonArray")?.Element("DefaultButtonFace")?.Attribute("value")?.Value;
 
             if (string.IsNullOrEmpty(faceValue))
                 faceValue = ability.ButtonId;
@@ -343,7 +359,7 @@ namespace HeroesData.Parser.XmlData
             XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
 
             if (buttonElement != null)
-                abilityTalentsByButtonElements[ability.ButtonId] = (buttonElement, ability);
+                abilityTalentsByButtonElements[id] = (buttonElement, ability);
         }
     }
 }

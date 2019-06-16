@@ -168,7 +168,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 AddLocalizedGameString(abilityTalentBase);
 
             return new XElement(
-                XmlConvert.EncodeName(abilityTalentBase.ReferenceId),
+                !string.IsNullOrEmpty(abilityTalentBase.ReferenceId) ? XmlConvert.EncodeName(abilityTalentBase.ReferenceId) : XmlConvert.EncodeName($"(Passive){abilityTalentBase.ButtonId}"),
                 string.IsNullOrEmpty(abilityTalentBase.ButtonId) ? null : new XAttribute("buttonId", abilityTalentBase.ButtonId),
                 string.IsNullOrEmpty(abilityTalentBase.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", abilityTalentBase.Name),
                 new XAttribute("abilityType", abilityTalentBase.AbilityType.ToString()),

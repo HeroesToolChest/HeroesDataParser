@@ -57,6 +57,9 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Talent talent = HeroAbathur.GetTalent("AbathurMasteryPressurizedGlands");
             Assert.AreEqual(AbilityType.W, talent.AbilityType);
+
+            Talent talent2 = HeroAbathur.GetTalent("AbathurCombatStyleSurvivalInstincts");
+            Assert.AreEqual("AbathurSpawnLocusts", talent2.AbilityTalentLinkIds.ToList()[0]);
         }
 
         [TestMethod]

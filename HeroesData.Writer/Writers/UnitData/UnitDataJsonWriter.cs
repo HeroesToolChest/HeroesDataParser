@@ -186,10 +186,12 @@ namespace HeroesData.FileWriter.Writers.UnitData
             if (FileOutputOptions.IsLocalizedText)
                 AddLocalizedGameString(abilityTalentBase);
 
-            JObject info = new JObject
-            {
-                { "nameId", abilityTalentBase.ReferenceId },
-            };
+            JObject info = new JObject();
+
+            if (!string.IsNullOrEmpty(abilityTalentBase.ReferenceId))
+                info.Add("nameId", abilityTalentBase.ReferenceId);
+            else
+                info.Add("nameId", $"(Passive){abilityTalentBase.ButtonId}");
 
             if (!string.IsNullOrEmpty(abilityTalentBase.ButtonId))
                 info.Add("buttonId", abilityTalentBase.ButtonId);

@@ -47,7 +47,7 @@ namespace HeroesData.Parser.XmlData
             // default tier
             ability.Tier = AbilityTier.Unknown;
 
-            if (typeValue.AsSpan().Equals("Passive", StringComparison.OrdinalIgnoreCase)) // passive "ability"
+            if (typeValue.AsSpan().Equals("Passive", StringComparison.OrdinalIgnoreCase)) // passive "ability", actually just a dummy button
             {
                 ability.ButtonId = faceValue;
                 ability.IsPassive = true;
@@ -97,8 +97,8 @@ namespace HeroesData.Parser.XmlData
             if ((IsAbilityTierFilterEnabled && AbilityTier.Misc.HasFlag(ability.Tier)) || (IsAbilityTierFilterEnabled && ability.Tier == AbilityTier.MapMechanic))
                 return null;
 
-            // if no ability id, return null
-            if (string.IsNullOrEmpty(ability.ReferenceId))
+            // if no ability id and it is not a passive ability, return null
+            if (string.IsNullOrEmpty(ability.ReferenceId) && !ability.IsPassive)
                 return null;
 
             // if no name was set, then use the ability name

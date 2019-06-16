@@ -14,7 +14,14 @@
       </Override>
     </Ability>
   </CHero>
-  
+  <CHero id="Ragnaros">
+    <HeroUnit id="RagnarosBigRag"></HeroUnit>
+    <Ability id="RagnarosEmpowerSulfurasActive">
+      <Override>
+        <ParentLink value="RagnarosEmpowerSulfuras" />
+      </Override>
+    </Ability>
+  </CHero>
   <!--<CHero id="Abathur">
     <HeroUnit id="AbathurSymbiote"></HeroUnit>
   </CHero>

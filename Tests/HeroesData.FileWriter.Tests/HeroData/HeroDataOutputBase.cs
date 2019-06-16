@@ -335,220 +335,158 @@ namespace HeroesData.FileWriter.Tests.HeroData
 
             TestData.Add(alarakHero);
 
-            // TODO: Re-add
-            //Hero alexstraszaHero = new Hero
-            //{
-            //    Id = "Alexstrasza",
-            //    HyperlinkId = "AlexstraszaId",
-            //    Name = "Alexstrasza",
-            //    CHeroId = "Alexstrasza",
-            //    CUnitId = "HeroAlexstrasza",
-            //    AttributeId = "Alex",
-            //    Difficulty = "Medium",
-            //    Franchise = HeroFranchise.Warcraft,
-            //    Gender = HeroGender.Female,
-            //    InnerRadius = 0.75,
-            //    Radius = 0.75,
-            //    ReleaseDate = new DateTime(2017, 11, 14),
-            //    Sight = 12,
-            //    Speed = 4.3984,
-            //    Type = "Ranged",
-            //    Rarity = Rarity.Legendary,
-            //    Description = new TooltipDescription("A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities."),
-            //    Life = new UnitLife
-            //    {
-            //        LifeMax = -1,
-            //        LifeScaling = 0.04,
-            //        LifeRegenerationRate = 3.957,
-            //        LifeRegenerationRateScaling = 0.04,
-            //    },
-            //    Energy = new UnitEnergy
-            //    {
-            //        EnergyMax = -1,
-            //        EnergyType = "Mana",
-            //        EnergyRegenerationRate = 3,
-            //    },
-            //    Abilities = new Dictionary<string, Ability>
-            //    {
-            //        {
-            //            "TychusOdinAnnihilate",
-            //            new Ability()
-            //            {
-            //                ReferenceNameId = "TychusOdinAnnihilate",
-            //                Name = "Annihilate",
-            //                ShortTooltipNameId = "TychusCommandeerOdinAnnihilate",
-            //                FullTooltipNameId = "TychusCommandeerOdinAnnihilate",
-            //                IconFileName = "storm_ui_icon_tychus_annihilate.png",
-            //                Tier = AbilityTier.Basic,
-            //                ParentLink = "TychusOdinNoHealth",
-            //                Tooltip = new AbilityTalentTooltip()
-            //                {
-            //                     FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
-            //                },
-            //                AbilityType = AbilityType.Q,
-            //            }
-            //        },
-            //        {
-            //            "SubAbilHeroic",
-            //            new Ability
-            //            {
-            //                ReferenceNameId = "SubAbilHeroic",
-            //                Name = "SubAbilHeroic",
-            //                Tier = AbilityTier.Heroic,
-            //                ParentLink = "HeroAlexstraszaDragon",
-            //                AbilityType = AbilityType.Heroic,
-            //            }
-            //        },
-            //        {
-            //            "SubAbilMount",
-            //            new Ability
-            //            {
-            //                ReferenceNameId = "SubAbilMount",
-            //                Name = "SubAbilMount",
-            //                Tier = AbilityTier.Mount,
-            //                ParentLink = "HeroAlexstraszaDragon",
-            //                AbilityType = AbilityType.Z,
-            //            }
-            //        },
-            //        {
-            //            "SubAbilTrait",
-            //            new Ability
-            //            {
-            //                ReferenceNameId = "SubAbilTrait",
-            //                Name = "SubAbilTrait",
-            //                Tier = AbilityTier.Trait,
-            //                ParentLink = "HeroAlexstraszaDragon",
-            //                AbilityType = AbilityType.Trait,
-            //            }
-            //        },
-            //        {
-            //            "SubAbilActivable",
-            //            new Ability
-            //            {
-            //                ReferenceNameId = "SubAbilActivable",
-            //                Name = "SubAbilActivable",
-            //                Tier = AbilityTier.Activable,
-            //                ParentLink = "HeroAlexstraszaDragon",
-            //                AbilityType = AbilityType.Active,
-            //            }
-            //        },
-            //    },
-            //    HeroUnits = new List<Unit>
-            //    {
-            //        new Unit
-            //        {
-            //            Id = "AlexstraszaDragon",
-            //            HyperlinkId = "AlexstraszaDragonId",
-            //            Name = "Alexstrasza",
-            //            CUnitId = "HeroAlexstraszaDragon",
-            //            InnerRadius = 1,
-            //            Radius = 1.25,
-            //            Sight = 12,
-            //            Speed = 4.3984,
-            //            Life = new UnitLife
-            //            {
-            //                LifeMax = 1787,
-            //                LifeScaling = 0.04,
-            //                LifeRegenerationRate = 3.7226,
-            //                LifeRegenerationRateScaling = 0.04,
-            //            },
-            //            Armor = new List<UnitArmor>
-            //            {
-            //                new UnitArmor
-            //                {
-            //                    Type = "Minion",
-            //                    AbilityArmor = 50,
-            //                },
-            //            },
-            //            Abilities = new Dictionary<string, Ability>
-            //            {
-            //                {
-            //                    "AlexstraszaBreathOfLife",
-            //                    new Ability
-            //                    {
-            //                        ReferenceNameId = "AlexstraszaBreathOfLife",
-            //                        Name = "Breath of Life",
-            //                        ShortTooltipNameId = "AlexstraszaBreathOfLife",
-            //                        FullTooltipNameId = "AlexstraszaBreathOfLife",
-            //                        IconFileName = "storm_ui_icon_alexstrasza_breath_of_life.png",
-            //                        Tier = AbilityTier.Basic,
-            //                        ParentLink = "HeroAlexstraszaDragon",
-            //                        Tooltip = new AbilityTalentTooltip()
-            //                        {
-            //                            Cooldown = new TooltipCooldown()
-            //                            {
-            //                                CooldownTooltip = new TooltipDescription("3 seconds"),
-            //                            },
-            //                            Life = new TooltipLife()
-            //                            {
-            //                                LifeCostTooltip = new TooltipDescription("15%"),
-            //                            },
-            //                            Charges = new TooltipCharges()
-            //                            {
-            //                                CountMax = 3,
-            //                                CountStart = 3,
-            //                                CountUse = 1,
-            //                                IsHideCount = false,
-            //                                RecastCooldown = 2,
-            //                            },
-            //                        },
-            //                        AbilityType = AbilityType.Q,
-            //                    }
-            //                },
-            //                {
-            //                    "DragonAbilHeroic",
-            //                    new Ability
-            //                    {
-            //                        ReferenceNameId = "DragonAbilHeroic",
-            //                        Name = "DragonAbilHeroic",
-            //                        Tier = AbilityTier.Heroic,
-            //                        ParentLink = "HeroAlexstraszaDragon",
-            //                        AbilityType = AbilityType.Heroic,
-            //                    }
-            //                },
-            //                {
-            //                    "DragonAbilMount",
-            //                    new Ability
-            //                    {
-            //                        ReferenceNameId = "DragonAbilMount",
-            //                        Name = "DragonAbilMount",
-            //                        Tier = AbilityTier.Mount,
-            //                        ParentLink = "HeroAlexstraszaDragon",
-            //                        AbilityType = AbilityType.Z,
-            //                    }
-            //                },
-            //                {
-            //                    "DragonAbilTrait",
-            //                    new Ability
-            //                    {
-            //                        ReferenceNameId = "DragonAbilTrait",
-            //                        Name = "DragonAbilTrait",
-            //                        Tier = AbilityTier.Trait,
-            //                        ParentLink = "HeroAlexstraszaDragon",
-            //                        Tooltip = new AbilityTalentTooltip()
-            //                        {
-            //                             FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
-            //                        },
-            //                        AbilityType = AbilityType.Trait,
-            //                    }
-            //                },
-            //                {
-            //                    "DragonAbilActivable",
-            //                    new Ability
-            //                    {
-            //                        ReferenceNameId = "DragonAbilActivable",
-            //                        Name = "DragonAbilActivable",
-            //                        Tier = AbilityTier.Activable,
-            //                        ParentLink = "HeroAlexstraszaDragon",
-            //                        AbilityType = AbilityType.Trait,
-            //                    }
-            //                },
-            //            },
-            //        },
-            //    },
-            //};
+            Hero alexstraszaHero = new Hero
+            {
+                Id = "Alexstrasza",
+                HyperlinkId = "AlexstraszaId",
+                Name = "Alexstrasza",
+                CHeroId = "Alexstrasza",
+                CUnitId = "HeroAlexstrasza",
+                AttributeId = "Alex",
+                Difficulty = "Medium",
+                Franchise = HeroFranchise.Warcraft,
+                Gender = UnitGender.Female,
+                InnerRadius = 0.75,
+                Radius = 0.75,
+                ReleaseDate = new DateTime(2017, 11, 14),
+                Sight = 12,
+                Speed = 4.3984,
+                Type = "Ranged",
+                Rarity = Rarity.Legendary,
+                Description = new TooltipDescription("A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities."),
+                Life = new UnitLife
+                {
+                    LifeMax = -1,
+                    LifeScaling = 0.04,
+                    LifeRegenerationRate = 3.957,
+                    LifeRegenerationRateScaling = 0.04,
+                },
+                Energy = new UnitEnergy
+                {
+                    EnergyMax = -1,
+                    EnergyType = "Mana",
+                    EnergyRegenerationRate = 3,
+                },
+            };
+            alexstraszaHero.AddAbility(new Ability()
+            {
+                ReferenceId = "TychusOdinAnnihilate",
+                ButtonId = "TychusOdinAnnihilate",
+                Name = "Annihilate",
+                IconFileName = "storm_ui_icon_tychus_annihilate.png",
+                Tier = AbilityTier.Basic,
+                ParentLink = "TychusOdinNoHealth",
+                Tooltip = new AbilityTalentTooltip()
+                {
+                    FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
+                },
+                AbilityType = AbilityType.Q,
+            });
+            alexstraszaHero.AddAbility(new Ability
+            {
+                ReferenceId = "SubAbilHeroic",
+                ButtonId = "SubAbilHeroic",
+                Name = "SubAbilHeroic",
+                Tier = AbilityTier.Heroic,
+                ParentLink = "HeroAlexstraszaDragon",
+                AbilityType = AbilityType.Heroic,
+            });
+            alexstraszaHero.AddAbility(new Ability
+            {
+                ReferenceId = "SubAbilMount",
+                ButtonId = "SubAbilMount",
+                Name = "SubAbilMount",
+                Tier = AbilityTier.Mount,
+                ParentLink = "HeroAlexstraszaDragon",
+                AbilityType = AbilityType.Z,
+            });
+            alexstraszaHero.AddAbility(new Ability
+            {
+                ReferenceId = "SubAbilTrait",
+                ButtonId = "SubAbilTrait",
+                Name = "SubAbilTrait",
+                Tier = AbilityTier.Trait,
+                ParentLink = "HeroAlexstraszaDragon",
+                AbilityType = AbilityType.Trait,
+            });
+            alexstraszaHero.AddAbility(new Ability
+            {
+                ReferenceId = "SubAbilActivable",
+                ButtonId = "SubAbilActivable",
+                Name = "SubAbilActivable",
+                Tier = AbilityTier.Activable,
+                ParentLink = "HeroAlexstraszaDragon",
+                AbilityType = AbilityType.Active,
+            });
 
-            //TestData.Add(alexstraszaHero);
+            Unit alexHeroUnit = new Unit
+            {
+                Id = "AlexstraszaDragon",
+                HyperlinkId = "AlexstraszaDragonId",
+                Name = "Alexstrasza",
+                CUnitId = "HeroAlexstraszaDragon",
+                InnerRadius = 1,
+                Radius = 1.25,
+                Sight = 12,
+                Speed = 4.3984,
+                Life = new UnitLife
+                {
+                    LifeMax = 1787,
+                    LifeScaling = 0.04,
+                    LifeRegenerationRate = 3.7226,
+                    LifeRegenerationRateScaling = 0.04,
+                },
+            };
+
+            alexHeroUnit.AddUnitArmor(new UnitArmor
+            {
+                Type = "Minion",
+                AbilityArmor = 50,
+            });
+            alexHeroUnit.AddAbility(new Ability
+            {
+                ReferenceId = "DragonAbilHeroic",
+                ButtonId = "DragonAbilHeroic",
+                Name = "DragonAbilHeroic",
+                Tier = AbilityTier.Heroic,
+                ParentLink = "HeroAlexstraszaDragon",
+                AbilityType = AbilityType.Heroic,
+            });
+            alexHeroUnit.AddAbility(new Ability
+            {
+                ReferenceId = "DragonAbilMount",
+                ButtonId = "DragonAbilMount",
+                Name = "DragonAbilMount",
+                Tier = AbilityTier.Mount,
+                ParentLink = "HeroAlexstraszaDragon",
+                AbilityType = AbilityType.Z,
+            });
+            alexHeroUnit.AddAbility(new Ability
+            {
+                ReferenceId = "DragonAbilTrait",
+                ButtonId = "DragonAbilTrait",
+                Name = "DragonAbilTrait",
+                Tier = AbilityTier.Trait,
+                ParentLink = "HeroAlexstraszaDragon",
+                Tooltip = new AbilityTalentTooltip()
+                {
+                    FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
+                },
+                AbilityType = AbilityType.Trait,
+            });
+            alexHeroUnit.AddAbility(new Ability
+            {
+                ReferenceId = "DragonAbilActivable",
+                ButtonId = "DragonAbilActivable",
+                Name = "DragonAbilActivable",
+                Tier = AbilityTier.Activable,
+                ParentLink = "HeroAlexstraszaDragon",
+                AbilityType = AbilityType.Trait,
+            });
+
+            alexstraszaHero.AddUnit(alexHeroUnit);
+
+            TestData.Add(alexstraszaHero);
         }
     }
 }

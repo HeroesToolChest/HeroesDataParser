@@ -300,8 +300,8 @@ namespace HeroesData.ExtractorData
                 if (string.IsNullOrEmpty(ability.Name))
                     AddWarning($"[{ability.ReferenceId}] {nameof(ability.Name)} is empty");
 
-                if (string.IsNullOrEmpty(ability.ReferenceId))
-                    AddWarning($"[{ability.ReferenceId}] {nameof(ability.ReferenceId)} is empty");
+                if (string.IsNullOrEmpty(ability.ButtonId))
+                    AddWarning($"[{ability.ButtonId}] {nameof(ability.ButtonId)} is empty");
 
                 if (ability.Tooltip.ShortTooltip?.RawDescription == GameStringParser.FailedParsed)
                     AddWarning($"[{ability.ReferenceId}] {nameof(ability.Tooltip.ShortTooltip)} failed to parse correctly");
