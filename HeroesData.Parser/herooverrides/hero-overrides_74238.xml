@@ -57,11 +57,6 @@
   </CHero>
   <CHero id="Chen">
     <!--Storm, Earth, and Fire abilities tied to Heroic ability StormEarthFire-->
-    <Ability id="ChenBreathOfFire" valid="true">
-      <Override>
-        <ParentLink value="ChenKegSmash" />
-      </Override>
-    </Ability>
     <Ability id="ChenStorm" valid="true">
       <Override>
         <ParentLink value="HeroChenStorm" />

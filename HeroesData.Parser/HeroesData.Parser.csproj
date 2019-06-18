@@ -22,6 +22,9 @@
     <None Update="GameStringValues.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="herooverrides\hero-overrides_74238.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="herooverrides\hero-overrides_71138.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
