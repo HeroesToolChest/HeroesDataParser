@@ -1,6 +1,5 @@
 ﻿using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
@@ -10,7 +9,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void ImperiusAngelicArmamentsLaunchMissilesAbilityTest()
         {
-            Ability ability = HeroImperius.GetAbilities("ImperiusAngelicArmamentsLaunchMissiles").First();
+            Ability ability = HeroImperius.GetAbility("ImperiusAngelicArmamentsLaunchMissiles");
 
             Assert.AreEqual(0.0625, ability.Tooltip.Cooldown.ToggleCooldown);
             Assert.AreEqual(AbilityType.Heroic, ability.AbilityType);

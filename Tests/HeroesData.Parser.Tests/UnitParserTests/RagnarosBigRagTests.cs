@@ -11,16 +11,19 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void TraitAbilities()
         {
-            List<Ability> abilities = RagnarosBigRag.GetAbilities("RagnarosBigRagReturnMoltenCore").ToList();
-            Assert.AreEqual(2, abilities.Count);
-
+            List<Ability> abilities = RagnarosBigRag.GetAbilities(new AbilityTalentId("RagnarosBigRagReturnMoltenCore", "RagnarosBigRagReturnMoltenCore")).ToList();
+            Assert.AreEqual(1, abilities.Count);
             Ability ability1 = abilities[0];
-            Ability ability2 = abilities[1];
 
-            Assert.AreEqual("RagnarosBigRagReturnMoltenCore", ability1.ButtonId);
+            List<Ability> abilities2 = RagnarosBigRag.GetAbilities(new AbilityTalentId("RagnarosBigRagReturnMoltenCore", "RagnarosBigRagCancelReturnMoltenCore")).ToList();
+            Assert.AreEqual(1, abilities2.Count);
+
+            Ability ability2 = abilities2[0];
+
+            Assert.AreEqual("RagnarosBigRagReturnMoltenCore", ability1.AbilityTalentId.ButtonId);
             Assert.AreEqual("storm_ui_icon_ragnaros_return.dds", ability1.IconFileName);
 
-            Assert.AreEqual("RagnarosBigRagCancelReturnMoltenCore", ability2.ButtonId);
+            Assert.AreEqual("RagnarosBigRagCancelReturnMoltenCore", ability2.AbilityTalentId.ButtonId);
             Assert.AreEqual("hud_btn_bg_ability_cancel.dds", ability2.IconFileName);
         }
     }

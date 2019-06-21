@@ -279,7 +279,7 @@ namespace HeroesData.Parser.XmlData
         {
             if (ability != null)
             {
-                if (!IgnorableBasicAbilities.Contains(ability.ReferenceId, StringComparer.OrdinalIgnoreCase))
+                if (!IgnorableBasicAbilities.Contains(ability.AbilityTalentId.ReferenceId, StringComparer.OrdinalIgnoreCase))
                     unit.AddAbility(ability);
 
                 foreach (string createUnit in ability.CreatedUnits)

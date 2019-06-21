@@ -42,14 +42,14 @@ namespace HeroesData.Parser.XmlData
                 return null;
 
             // default button id values
-            ability.ButtonId = faceValue;
+            ability.AbilityTalentId = new AbilityTalentId(string.Empty, faceValue);
 
             // default tier
             ability.Tier = AbilityTier.Unknown;
 
             if (typeValue.AsSpan().Equals("Passive", StringComparison.OrdinalIgnoreCase)) // passive "ability", actually just a dummy button
             {
-                ability.ButtonId = faceValue;
+                ability.AbilityTalentId.ButtonId = faceValue;
                 ability.IsPassive = true;
 
                 XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
@@ -64,7 +64,7 @@ namespace HeroesData.Parser.XmlData
             {
                 var (abilityId, index) = AbilCmdSplit(abilCmdValue);
 
-                ability.ReferenceId = abilityId;
+                ability.AbilityTalentId.ReferenceId = abilityId;
 
                 // find all abilities and loop through them
                 foreach (XElement element in GetAbilityElements(abilityId))
@@ -98,12 +98,18 @@ namespace HeroesData.Parser.XmlData
                 return null;
 
             // if no ability id and it is not a passive ability, return null
-            if (string.IsNullOrEmpty(ability.ReferenceId) && !ability.IsPassive)
+            if (string.IsNullOrEmpty(ability.AbilityTalentId.ReferenceId) && !ability.IsPassive)
                 return null;
+            else if (string.IsNullOrEmpty(ability.AbilityTalentId.ReferenceId) && ability.IsPassive)
+                ability.AbilityTalentId.ReferenceId = ability.AbilityTalentId.ButtonId;
 
             // if no name was set, then use the ability name
-            if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.ReferenceId), out string value))
+            if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string value))
                 ability.Name = value;
+
+            // remove any locked heroic abilities
+            if (ability.Name == "Locked Ability" || (ability.Name == "Heroic Ability" && ability.AbilityTalentId.ButtonId == "LockedHeroicAbility" && ability.AbilityType == AbilityType.Heroic && ability.IsPassive))
+                return null;
 
             return ability;
         }
@@ -123,7 +129,7 @@ namespace HeroesData.Parser.XmlData
 
             Ability ability = new Ability()
             {
-                ReferenceId = abilityId,
+                AbilityTalentId = new AbilityTalentId(abilityId, string.Empty),
             };
 
             // find all abilities and loop through them
@@ -133,7 +139,7 @@ namespace HeroesData.Parser.XmlData
             }
 
             // if no reference id, return null
-            if (string.IsNullOrEmpty(ability.ReferenceId))
+            if (string.IsNullOrEmpty(ability.AbilityTalentId.ReferenceId))
                 return null;
 
             // default
@@ -141,7 +147,7 @@ namespace HeroesData.Parser.XmlData
             ability.AbilityType = AbilityType.Hidden;
 
             // if no name was set, then use the ability name
-            if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.ReferenceId), out string value))
+            if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string value))
                 ability.Name = value;
 
             return ability;
@@ -175,7 +181,7 @@ namespace HeroesData.Parser.XmlData
             else if (Enum.TryParse(slot, true, out AbilityType abilityType))
                 ability.AbilityType = abilityType;
             else
-                throw new XmlGameDataParseException($"Unknown slot type ({slot}) - CUnit: {unitId} - AbilityId: {ability.ReferenceId} - ButtonId: {ability.ButtonId}");
+                throw new XmlGameDataParseException($"Unknown slot type ({slot}) - CUnit: {unitId} - Id: {ability.AbilityTalentId.Id}");
         }
 
         private void SetAbilityTierFromAbilityType(Ability ability)

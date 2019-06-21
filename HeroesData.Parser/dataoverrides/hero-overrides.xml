@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides>
   <CHero id="Abathur">
-    <HeroUnit id="AbathurSymbiote"></HeroUnit>
+    <HeroUnit id="AbathurSymbiote" />
   </CHero>
   <CHero id="Alarak">
     <Ability id="AlarakDeadlyChargeExecute">
@@ -37,9 +37,24 @@
         <ParentLink value="AnaEyeOfHorusActivate" />
       </Override>
     </Ability>
+    <Ability id="AnaEyeOfHorusCancel">
+      <Override>
+        <ParentLink value="AnaEyeOfHorusActivate" />
+      </Override>
+    </Ability>
     <Ability id="AnaEyeOfHorusAttackDummy">
       <Override>
         <ParentLink value="AnaEyeOfHorusActivate" />
+      </Override>
+    </Ability>
+    <Ability id="AnaAimDownSightsDeactivate">
+      <Override>
+        <ParentLink value="AnaAimDownSightsActivate" />
+      </Override>
+    </Ability>
+    <Ability id="AnaTraitShrikeSniper(Passive)" buttonId="AnaTraitShrikeSniper">
+      <Override>
+        <AbilityTier value="Hidden" />
       </Override>
     </Ability>
   </CHero>
@@ -154,7 +169,7 @@
   </CHero>
   <CHero id="DVa">
     <CUnit value="HeroDVaMech" />
-    <HeroUnit id="HeroDVaPilot"></HeroUnit>
+    <HeroUnit id="HeroDVaPilot" />
     <Ability id="DVaBoostersOff">
       <Override>
         <ParentLink value="DVaBoostersOn" />
@@ -163,6 +178,11 @@
     <Ability id="DVaMechDefenseMatrixOff">
       <Override>
         <ParentLink value="DVaMechDefenseMatrixOn" />
+      </Override>
+    </Ability>
+    <Ability id="DVaMechBunnyHopHeroic" buttonId="DVaBunnyHopOff">
+      <Override>
+        <ParentLink value="DVaMechBunnyHopHeroic" />
       </Override>
     </Ability>
   </CHero>
@@ -239,6 +259,16 @@
         <AbilityTier value="Hidden" />
       </Override>
     </Ability>
+    <Ability id="IllidanMetamorphosisMountCustom">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="IllidanMetamorphosisDismountCustom">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
   </CHero>
   <CHero id="Imperius">
     <Ability id="ImperiusAngelicArmamentsLaunchMissiles">
@@ -279,9 +309,21 @@
   </CHero>
   <CHero id="LostVikings">
     <CUnit value="HeroLostVikingsController" />
-    <HeroUnit id="HeroBaleog"></HeroUnit>
-    <HeroUnit id="HeroErik"></HeroUnit>
-    <HeroUnit id="HeroOlaf"></HeroUnit>
+    <HeroUnit id="HeroBaleog" />
+    <HeroUnit id="HeroErik" />
+    <HeroUnit id="HeroOlaf" />
+  </CHero>
+  <CHero id="Lucio">
+    <Ability id="LucioCrossfade" buttonId="LucioCrossfadeActivateSpeedBoost">
+      <Override>
+        <ParentLink value="LucioCrossfade" />
+      </Override>
+    </Ability>
+    <Ability id="LucioWallRide">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
   </CHero>
   <CHero id="Kaelthas">
     <Ability id="KaelthasVerdantSpheresActive">
@@ -325,9 +367,9 @@
     </Ability>
   </CHero>
   <CHero id="Monk">
-    <Ability id="MonkDeadlyReachActive">
+    <Ability id="MonkDeadlyReachActive(Passive)" buttonId="MonkDeadlyReachActive">
       <Override>
-        <AbilityTier value="MonkDeadlyReach" />
+        <ParentLink value="MonkDeadlyReach" />
       </Override>
     </Ability>
   </CHero>
@@ -346,6 +388,11 @@
     </Ability>
   </CHero>
   <CHero id="Necromancer">
+    <Ability id="NecromancerSpectralScythe(Passive)" buttonId="NecromancerSpectralScythe">
+      <Override>
+        <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
     <Ability id="NecromancerCursedStrikesPassive">
       <Override>
         <ParentLink value="NecromancerCursedStrikes" />
@@ -368,7 +415,7 @@
     </Ability>
   </CHero>
   <CHero id="Ragnaros">
-    <HeroUnit id="RagnarosBigRag"></HeroUnit>
+    <HeroUnit id="RagnarosBigRag" />
     <Ability id="RagnarosEmpowerSulfurasActive">
       <Override>
         <ParentLink value="RagnarosEmpowerSulfuras" />
@@ -385,6 +432,11 @@
     <Ability id="SamuroIllusionMasterDummyShopAbility">
       <Override>
         <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="SamuroBladestormCancel">
+      <Override>
+        <ParentLink value="SamuroBladeStormDummy" />
       </Override>
     </Ability>
   </CHero>
@@ -411,6 +463,11 @@
     <Ability id="TassadarCancelDimensionalShift">
       <Override>
         <ParentLink value="TassadarDimensionalShift" />
+      </Override>
+    </Ability>
+    <Ability id="TassadarArchon(Passive)" buttonId="TassadarArchon">
+      <Override>
+        <ParentLink value="TassadarArchon" />
       </Override>
     </Ability>
   </CHero>

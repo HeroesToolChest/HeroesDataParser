@@ -43,7 +43,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         /// <summary>
         /// Gets or sets the property override action methods for abilities by the ability id.
         /// </summary>
-        internal Dictionary<string, Dictionary<string, Action<Ability>>> PropertyAbilityOverrideMethodByAbilityId { get; } = new Dictionary<string, Dictionary<string, Action<Ability>>>();
+        internal Dictionary<AbilityTalentId, Dictionary<string, Action<Ability>>> PropertyAbilityOverrideMethodByAbilityId { get; } = new Dictionary<AbilityTalentId, Dictionary<string, Action<Ability>>>();
 
         /// <summary>
         /// Gets or sets the property override action methods for weapons by the weapon id.
@@ -63,9 +63,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 
             foreach (Ability ability in abilities)
             {
-                if (PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.ReferenceId, out Dictionary<string, Action<Ability>> valueOverrideMethods))
-                    ApplyAbilityOverrides(ability, valueOverrideMethods);
-                else if (PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.ReferenceId + ability.ButtonId, out valueOverrideMethods))
+                if (PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.AbilityTalentId, out Dictionary<string, Action<Ability>> valueOverrideMethods))
                     ApplyAbilityOverrides(ability, valueOverrideMethods);
             }
         }

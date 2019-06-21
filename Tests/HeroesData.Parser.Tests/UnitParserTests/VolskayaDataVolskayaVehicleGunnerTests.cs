@@ -11,15 +11,15 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void AbilitiesTests()
         {
-            Assert.IsTrue(VolskayaDataVolskayaVehicleGunner.TryGetAbilities("VolskayaVehicleInitiateParticleCannon", out IEnumerable<Ability> ability));
+            Assert.IsTrue(VolskayaDataVolskayaVehicleGunner.TryGetAbility("VolskayaVehicleInitiateParticleCannon", out Ability ability));
 
-            Assert.AreEqual(AbilityType.Q, ability.First().AbilityType);
+            Assert.AreEqual(AbilityType.Q, ability.AbilityType);
         }
 
         [TestMethod]
         public void AbilityTraitTest()
         {
-            Ability ability = VolskayaDataVolskayaVehicleGunner.GetAbilities("LeaveVehicle").ToList().FirstOrDefault();
+            Ability ability = VolskayaDataVolskayaVehicleGunner.GetAbility("LeaveVehicle");
             Assert.AreEqual("storm_ui_icon_volskayarobot_leavevehicle.dds", ability.IconFileName);
         }
 
@@ -28,8 +28,8 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             List<Ability> elements = VolskayaDataVolskayaVehicleGunner.SubAbilities(AbilityTier.Basic).ToList();
 
-            Assert.AreEqual("VolskayaVehicleActivateParticleCannon", elements[0].ReferenceId);
-            Assert.AreEqual("VolskayaVehicleTacticalStrikesDeactivate", elements[1].ReferenceId);
+            Assert.AreEqual("VolskayaVehicleActivateParticleCannon", elements[0].AbilityTalentId.ReferenceId);
+            Assert.AreEqual("VolskayaVehicleTacticalStrikesDeactivate", elements[1].AbilityTalentId.ReferenceId);
         }
     }
 }

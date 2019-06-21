@@ -1,4 +1,5 @@
-﻿using HeroesData.Parser.Overrides.DataOverrides;
+﻿using Heroes.Models.AbilityTalents;
+using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.Overrides.PropertyOverrides;
 using System.Xml.Linq;
 
@@ -34,19 +35,15 @@ namespace HeroesData.Parser.Overrides
                 switch (elementName)
                 {
                     case "Ability":
-                        string abilityId = dataElement.Attribute("id")?.Value;
-                        string buttonId = dataElement.Attribute("buttonId")?.Value;
+                        string abilityId = dataElement.Attribute("id")?.Value ?? string.Empty;
+                        string buttonId = dataElement.Attribute("button")?.Value ?? string.Empty;
 
                         if (!string.IsNullOrEmpty(abilityId))
                         {
                             XElement overrideElement = dataElement.Element("Override");
 
-                            string elementId = abilityId;
-                            if (!string.IsNullOrEmpty(buttonId))
-                                elementId = $"{abilityId}{buttonId}";
-
                             if (overrideElement != null)
-                                abilityOverride.SetOverride(elementId, overrideElement, unitDataOverride.PropertyAbilityOverrideMethodByAbilityId);
+                                abilityOverride.SetOverride(new AbilityTalentId(abilityId, buttonId), overrideElement, unitDataOverride.PropertyAbilityOverrideMethodByAbilityId);
                         }
 
                         break;

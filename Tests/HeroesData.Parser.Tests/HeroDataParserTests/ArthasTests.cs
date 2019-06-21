@@ -16,7 +16,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityTests()
         {
-            Ability ability = HeroArthas.GetAbilities("ArthasDeathCoil").First();
+            Ability ability = HeroArthas.GetAbility("ArthasDeathCoil");
             Assert.IsTrue(!string.IsNullOrEmpty(ability.Tooltip?.FullTooltip?.RawDescription));
             Assert.IsTrue(!string.IsNullOrEmpty(ability.Tooltip?.ShortTooltip?.RawDescription));
         }

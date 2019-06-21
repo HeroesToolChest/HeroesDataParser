@@ -27,7 +27,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         protected abstract T GetRatingsObject(Hero hero);
         protected abstract T GetWeaponsObject(Unit unit);
         protected abstract T GetAbilitiesObject(Unit unit);
-        protected abstract T GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities);
+        protected abstract T GetSubAbilitiesObject(ILookup<AbilityTalentId, Ability> linkedAbilities);
         protected abstract T GetTalentsObject(Hero hero);
         protected abstract TU AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase);
         protected abstract TU AbilityInfoElement(Ability ability);
@@ -60,16 +60,16 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected virtual void AddLocalizedGameString(AbilityTalentBase abilityTalentBase)
         {
-            GameStringWriter.AddAbilityTalentName(abilityTalentBase.ReferenceId, abilityTalentBase.Name);
+            GameStringWriter.AddAbilityTalentName(abilityTalentBase.AbilityTalentId.ReferenceId, abilityTalentBase.Name);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Life?.LifeCostTooltip?.RawDescription))
-                GameStringWriter.AddAbilityTalentLifeTooltip(abilityTalentBase.ReferenceId, GetTooltip(abilityTalentBase.Tooltip.Life.LifeCostTooltip, FileOutputOptions.DescriptionType));
+                GameStringWriter.AddAbilityTalentLifeTooltip(abilityTalentBase.AbilityTalentId.ReferenceId, GetTooltip(abilityTalentBase.Tooltip.Life.LifeCostTooltip, FileOutputOptions.DescriptionType));
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Energy?.EnergyTooltip?.RawDescription))
-                GameStringWriter.AddAbilityTalentEnergyTooltip(abilityTalentBase.ReferenceId, GetTooltip(abilityTalentBase.Tooltip.Energy.EnergyTooltip, FileOutputOptions.DescriptionType));
+                GameStringWriter.AddAbilityTalentEnergyTooltip(abilityTalentBase.AbilityTalentId.ReferenceId, GetTooltip(abilityTalentBase.Tooltip.Energy.EnergyTooltip, FileOutputOptions.DescriptionType));
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Cooldown?.CooldownTooltip?.RawDescription))
-                GameStringWriter.AddAbilityTalentCooldownTooltip(abilityTalentBase.ReferenceId, GetTooltip(abilityTalentBase.Tooltip.Cooldown.CooldownTooltip, FileOutputOptions.DescriptionType));
+                GameStringWriter.AddAbilityTalentCooldownTooltip(abilityTalentBase.AbilityTalentId.ReferenceId, GetTooltip(abilityTalentBase.Tooltip.Cooldown.CooldownTooltip, FileOutputOptions.DescriptionType));
         }
 
         protected T HeroPortraits(Hero hero)
@@ -148,7 +148,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             if (unit.SubAbilities().Any())
             {
-                ILookup<string, Ability> linkedAbilities = unit.ParentLinkedAbilities();
+                ILookup<AbilityTalentId, Ability> linkedAbilities = unit.ParentLinkedAbilities();
                 if (linkedAbilities.Count > 0)
                 {
                     return GetSubAbilitiesObject(linkedAbilities);

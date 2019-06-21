@@ -63,8 +63,9 @@ namespace HeroesData.Parser.XmlData
                     SetAbilityTalentData(parentElement, abilityTalentBase, index);
             }
 
+            // don't want these
             if (parentValue == "attack" || abilityElement.Name.LocalName == "CAbilAttack")
-                abilityTalentBase.ReferenceId = string.Empty;
+                abilityTalentBase.AbilityTalentId.ReferenceId = string.Empty;
 
             Action setCmdButtonArrayDataAction = null;
 
@@ -118,7 +119,7 @@ namespace HeroesData.Parser.XmlData
                 {
                     string parentAbility = element.Attribute("value")?.Value;
                     if (!string.IsNullOrEmpty(parentAbility))
-                        abilityTalentBase.ParentLink = parentAbility;
+                        abilityTalentBase.ParentLink = new AbilityTalentId(parentAbility, parentAbility);
                 }
             }
 
@@ -156,19 +157,19 @@ namespace HeroesData.Parser.XmlData
                 throw new ArgumentNullException(nameof(abilityTalentBase));
             }
 
-            abilityTalentBase.Name = GameData.GetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.ButtonId));
+            abilityTalentBase.Name = GameData.GetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.AbilityTalentId.ButtonId));
 
             if (string.IsNullOrEmpty(abilityTalentBase.Name))
-                abilityTalentBase.Name = GameData.GetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.ButtonId));
+                abilityTalentBase.Name = GameData.GetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.AbilityTalentId.ButtonId));
 
             // full
-            if (GameData.TryGetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.ButtonId), out string fullDescription))
+            if (GameData.TryGetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.AbilityTalentId.ButtonId), out string fullDescription))
             {
                 abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription, Localization);
             }
 
             // short
-            if (GameData.TryGetGameString(DefaultData.ButtonData.ButtonSimpleDisplayText.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.ButtonId), out string shortDescription))
+            if (GameData.TryGetGameString(DefaultData.ButtonData.ButtonSimpleDisplayText.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.AbilityTalentId.ButtonId), out string shortDescription))
             {
                 abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription, Localization);
             }
@@ -535,11 +536,11 @@ namespace HeroesData.Parser.XmlData
             string defaultButtonFace = cmdButtonArrayElement.Attribute("DefaultButtonFace")?.Value ?? cmdButtonArrayElement.Element("DefaultButtonFace")?.Attribute("value")?.Value;
             string requirement = cmdButtonArrayElement.Attribute("Requirements")?.Value ?? cmdButtonArrayElement.Element("Requirements")?.Attribute("value")?.Value;
 
-            if (string.IsNullOrEmpty(abilityTalentBase.ButtonId))
-                abilityTalentBase.ButtonId = defaultButtonFace;
+            if (string.IsNullOrEmpty(abilityTalentBase.AbilityTalentId.ButtonId))
+                abilityTalentBase.AbilityTalentId.ButtonId = defaultButtonFace;
 
             // check only the face value (fullTooltipNameId), we could also check the defaultButtonFace but it was chosen not to
-            XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton")?.Where(x => x.Attribute("id")?.Value == abilityTalentBase.ButtonId), false);
+            XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton")?.Where(x => x.Attribute("id")?.Value == abilityTalentBase.AbilityTalentId.ButtonId), false);
             if (buttonElement != null)
             {
                 SetButtonData(buttonElement, abilityTalentBase);
@@ -552,7 +553,7 @@ namespace HeroesData.Parser.XmlData
 
                 if (requirement == "IsMounted")
                 {
-                    abilityTalentBase.ParentLink = "Mount"; // ability id of the standard Mount ability
+                    abilityTalentBase.ParentLink = new AbilityTalentId("Mount", "SummonMount"); // ability id of the standard Mount ability
                     return;
                 }
 
@@ -573,7 +574,7 @@ namespace HeroesData.Parser.XmlData
 
                             if (linkValue == "0")
                             {
-                                abilityTalentBase.ReferenceId = string.Empty;
+                                abilityTalentBase.AbilityTalentId.ReferenceId = string.Empty;
                                 return;
                             }
 

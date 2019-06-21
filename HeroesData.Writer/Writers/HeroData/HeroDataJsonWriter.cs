@@ -219,15 +219,13 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (FileOutputOptions.IsLocalizedText)
                 AddLocalizedGameString(abilityTalentBase);
 
-            JObject info = new JObject();
+            JObject info = new JObject
+            {
+                { "nameId", abilityTalentBase.AbilityTalentId.ReferenceId },
+            };
 
-            if (!string.IsNullOrEmpty(abilityTalentBase.ReferenceId))
-                info.Add("nameId", abilityTalentBase.ReferenceId);
-            else
-                info.Add("nameId", $"(Passive){abilityTalentBase.ButtonId}");
-
-            if (!string.IsNullOrEmpty(abilityTalentBase.ButtonId))
-                info.Add("buttonId", abilityTalentBase.ButtonId);
+            if (!string.IsNullOrEmpty(abilityTalentBase.AbilityTalentId.ButtonId))
+                info.Add("buttonId", abilityTalentBase.AbilityTalentId.ButtonId);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Name) && !FileOutputOptions.IsLocalizedText)
                 info.Add("name", abilityTalentBase.Name);
@@ -274,12 +272,12 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return info;
         }
 
-        protected override JProperty GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities)
+        protected override JProperty GetSubAbilitiesObject(ILookup<AbilityTalentId, Ability> linkedAbilities)
         {
             JObject parentLinkObject = new JObject();
 
-            IEnumerable<string> parentLinks = linkedAbilities.Select(x => x.Key);
-            foreach (string parent in parentLinks)
+            IEnumerable<AbilityTalentId> parentLinks = linkedAbilities.Select(x => x.Key);
+            foreach (AbilityTalentId parent in parentLinks)
             {
                 JObject abilities = new JObject();
 
@@ -299,7 +297,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Unknown), "unknown");
 
                 if (abilities.Count > 0)
-                    parentLinkObject.Add(new JProperty(parent, abilities));
+                    parentLinkObject.Add(new JProperty(parent.ReferenceId, abilities));
             }
 
             if (parentLinkObject.Count > 0)

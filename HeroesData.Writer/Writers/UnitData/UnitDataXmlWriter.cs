@@ -95,14 +95,14 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 unit.PrimaryAbilities(AbilityTier.Unknown).Any() ? new XElement("Unknown", unit.PrimaryAbilities(AbilityTier.Unknown).Select(x => AbilityInfoElement(x))) : null);
         }
 
-        protected override XElement GetSubAbilitiesObject(ILookup<string, Ability> linkedAbilities)
+        protected override XElement GetSubAbilitiesObject(ILookup<AbilityTalentId, Ability> linkedAbilities)
         {
             XElement parentLinkElement = new XElement("SubAbilities");
 
-            IEnumerable<string> parentLinks = linkedAbilities.Select(x => x.Key);
-            foreach (string parent in parentLinks)
+            IEnumerable<AbilityTalentId> parentLinks = linkedAbilities.Select(x => x.Key);
+            foreach (AbilityTalentId parent in parentLinks)
             {
-                XElement abilities = new XElement(parent);
+                XElement abilities = new XElement(parent.ReferenceId);
 
                 abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Basic).Any() ? new XElement("Basic", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
                 abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Heroic).Any() ? new XElement("Heroic", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Heroic).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
@@ -136,8 +136,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 AddLocalizedGameString(abilityTalentBase);
 
             return new XElement(
-                !string.IsNullOrEmpty(abilityTalentBase.ReferenceId) ? XmlConvert.EncodeName(abilityTalentBase.ReferenceId) : XmlConvert.EncodeName($"(Passive){abilityTalentBase.ButtonId}"),
-                string.IsNullOrEmpty(abilityTalentBase.ButtonId) ? null : new XAttribute("buttonId", abilityTalentBase.ButtonId),
+                XmlConvert.EncodeName(abilityTalentBase.AbilityTalentId.ReferenceId),
+                string.IsNullOrEmpty(abilityTalentBase.AbilityTalentId.ButtonId) ? null : new XAttribute("buttonId", abilityTalentBase.AbilityTalentId.ButtonId),
                 string.IsNullOrEmpty(abilityTalentBase.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", abilityTalentBase.Name),
                 new XAttribute("abilityType", abilityTalentBase.AbilityType.ToString()),
                 abilityTalentBase.IsActive ? new XAttribute("isActive", abilityTalentBase.IsActive) : null,

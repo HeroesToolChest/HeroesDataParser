@@ -156,8 +156,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
             alarakHero.AddHeroDescriptor("Overconfident");
             alarakHero.AddAbility(new Ability
             {
-                ReferenceId = "AlarakDiscordStrike",
-                ButtonId = "AlarakDiscordStrike",
+                AbilityTalentId = new AbilityTalentId("AlarakDiscordStrike", "AlarakDiscordStrike"),
                 Name = "Discord Strike",
                 IconFileName = "storm_ui_icon_alarak_discordstrike.png",
                 Tier = AbilityTier.Basic,
@@ -179,9 +178,8 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alarakHero.AddAbility(new Ability
             {
-                ReferenceId = "AlarakSadismDummyUI",
+                AbilityTalentId = new AbilityTalentId("AlarakSadismDummyUI", "AlarakSadismDummyUI"),
                 Name = "Sadism",
-                ButtonId = "AlarakSadismDummyUI",
                 IconFileName = "storm_ui_icon_alarak_sadism.png",
                 Tier = AbilityTier.Trait,
                 Tooltip = new AbilityTalentTooltip()
@@ -193,32 +191,28 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alarakHero.AddAbility(new Ability
             {
-                ReferenceId = "HeroicAbility",
-                ButtonId = "HeroicAbility",
+                AbilityTalentId = new AbilityTalentId("HeroicAbility", "HeroicAbility"),
                 Name = "Heroic",
                 Tier = AbilityTier.Heroic,
                 AbilityType = AbilityType.Heroic,
             });
             alarakHero.AddAbility(new Ability
             {
-                ReferenceId = "MountAbility",
-                ButtonId = "MountAbility",
+                AbilityTalentId = new AbilityTalentId("MountAbility", "MountAbility"),
                 Name = "Mount",
                 Tier = AbilityTier.Mount,
                 AbilityType = AbilityType.Z,
             });
             alarakHero.AddAbility(new Ability
             {
-                ReferenceId = "ActivableAbility",
-                ButtonId = "ActivableAbility",
+                AbilityTalentId = new AbilityTalentId("ActivableAbility", "ActivableAbility"),
                 Name = "Activable",
                 Tier = AbilityTier.Activable,
                 AbilityType = AbilityType.Active,
             });
             alarakHero.AddAbility(new Ability
             {
-                ReferenceId = "HearthAbility",
-                ButtonId = "HearthAbility",
+                AbilityTalentId = new AbilityTalentId("HearthAbility", "HearthAbility"),
                 Name = "Hearth",
                 Tier = AbilityTier.Hearth,
                 AbilityType = AbilityType.B,
@@ -227,9 +221,8 @@ namespace HeroesData.FileWriter.Tests.HeroData
             alarakHero.AddRole("Warrior");
             alarakHero.AddTalent(new Talent
             {
-                ReferenceId = "AlarakSustainingPower",
+                AbilityTalentId = new AbilityTalentId("AlarakSustainingPower", "ButtonId"),
                 Name = "Sustaining Power",
-                ButtonId = "AlarakSustainingPower",
                 IconFileName = "storm_ui_icon_alarak_lightningsurge_a.png",
                 Tooltip = new AbilityTalentTooltip()
                 {
@@ -244,8 +237,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceId = "Level4Talent",
-                ButtonId = "Level4Talent",
+                AbilityTalentId = new AbilityTalentId("Level4Talent", "Level4Talent"),
                 Name = "Level4Talent",
                 Tier = TalentTier.Level4,
                 Tooltip = new AbilityTalentTooltip()
@@ -256,16 +248,14 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceId = "Level7Talent",
-                ButtonId = "Level7Talent",
+                AbilityTalentId = new AbilityTalentId("Level7Talent", "Level7Talent"),
                 Name = "Level4Talent",
                 Tier = TalentTier.Level7,
                 AbilityType = AbilityType.Q,
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceId = "AlarakHeroicAbilityDeadlyCharge",
-                ButtonId = "AlarakHeroicAbilityDeadlyCharge",
+                AbilityTalentId = new AbilityTalentId("AlarakHeroicAbilityDeadlyCharge", "AlarakHeroicAbilityDeadlyCharge"),
                 Name = "Deadly Charge",
                 IconFileName = "storm_ui_icon_alarak_recklesscharge.png",
                 Tooltip = new AbilityTalentTooltip()
@@ -287,9 +277,8 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceId = "AlarakHeroicAbilityCounterStrike",
+                AbilityTalentId = new AbilityTalentId("AlarakHeroicAbilityCounterStrike", "AlarakCounterStrikeTargeted"),
                 Name = "Counter-Strike",
-                ButtonId = "AlarakCounterStrikeTargeted",
                 IconFileName = "storm_ui_icon_alarak_counterstrike.png",
                 Tooltip = new AbilityTalentTooltip()
                 {
@@ -310,24 +299,21 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceId = "Leve13Talent",
-                ButtonId = "Leve13Talent",
+                AbilityTalentId = new AbilityTalentId("Leve13Talent", "Leve13Talent"),
                 Name = "Leve13Talent",
                 Tier = TalentTier.Level13,
                 AbilityType = AbilityType.W,
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceId = "Level16Talent",
-                ButtonId = "Level16Talent",
+                AbilityTalentId = new AbilityTalentId("Level16Talent", "Level16Talent"),
                 Name = "Level16Talent",
                 Tier = TalentTier.Level16,
                 AbilityType = AbilityType.W,
             });
             alarakHero.AddTalent(new Talent
             {
-                ReferenceId = "Level20Talent",
-                ButtonId = "Level20Talent",
+                AbilityTalentId = new AbilityTalentId("Level20Talent", "Level20Talent"),
                 Name = "Level20Talent",
                 Tier = TalentTier.Level20,
                 AbilityType = AbilityType.W,
@@ -370,12 +356,10 @@ namespace HeroesData.FileWriter.Tests.HeroData
             };
             alexstraszaHero.AddAbility(new Ability()
             {
-                ReferenceId = "TychusOdinAnnihilate",
-                ButtonId = "TychusOdinAnnihilate",
+                AbilityTalentId = new AbilityTalentId("TychusOdinAnnihilate", "TychusOdinAnnihilate"),
                 Name = "Annihilate",
                 IconFileName = "storm_ui_icon_tychus_annihilate.png",
                 Tier = AbilityTier.Basic,
-                ParentLink = "TychusOdinNoHealth",
                 Tooltip = new AbilityTalentTooltip()
                 {
                     FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
@@ -384,38 +368,31 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alexstraszaHero.AddAbility(new Ability
             {
-                ReferenceId = "SubAbilHeroic",
-                ButtonId = "SubAbilHeroic",
+                AbilityTalentId = new AbilityTalentId("SubAbilHeroic", "SubAbilHeroic"),
                 Name = "SubAbilHeroic",
                 Tier = AbilityTier.Heroic,
-                ParentLink = "HeroAlexstraszaDragon",
+
                 AbilityType = AbilityType.Heroic,
             });
             alexstraszaHero.AddAbility(new Ability
             {
-                ReferenceId = "SubAbilMount",
-                ButtonId = "SubAbilMount",
+                AbilityTalentId = new AbilityTalentId("SubAbilMount", "SubAbilMount"),
                 Name = "SubAbilMount",
                 Tier = AbilityTier.Mount,
-                ParentLink = "HeroAlexstraszaDragon",
                 AbilityType = AbilityType.Z,
             });
             alexstraszaHero.AddAbility(new Ability
             {
-                ReferenceId = "SubAbilTrait",
-                ButtonId = "SubAbilTrait",
+                AbilityTalentId = new AbilityTalentId("SubAbilTrait", "SubAbilTrait"),
                 Name = "SubAbilTrait",
                 Tier = AbilityTier.Trait,
-                ParentLink = "HeroAlexstraszaDragon",
                 AbilityType = AbilityType.Trait,
             });
             alexstraszaHero.AddAbility(new Ability
             {
-                ReferenceId = "SubAbilActivable",
-                ButtonId = "SubAbilActivable",
+                AbilityTalentId = new AbilityTalentId("SubAbilActivable", "SubAbilActivable"),
                 Name = "SubAbilActivable",
                 Tier = AbilityTier.Activable,
-                ParentLink = "HeroAlexstraszaDragon",
                 AbilityType = AbilityType.Active,
             });
 
@@ -445,29 +422,25 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alexHeroUnit.AddAbility(new Ability
             {
-                ReferenceId = "DragonAbilHeroic",
-                ButtonId = "DragonAbilHeroic",
+                AbilityTalentId = new AbilityTalentId("DragonAbilHeroic", "DragonAbilHeroic"),
                 Name = "DragonAbilHeroic",
                 Tier = AbilityTier.Heroic,
-                ParentLink = "HeroAlexstraszaDragon",
+                ParentLink = new AbilityTalentId("SubAbilHeroic", "SubAbilHeroic"),
                 AbilityType = AbilityType.Heroic,
             });
             alexHeroUnit.AddAbility(new Ability
             {
-                ReferenceId = "DragonAbilMount",
-                ButtonId = "DragonAbilMount",
+                AbilityTalentId = new AbilityTalentId("DragonAbilMount", "DragonAbilMount"),
                 Name = "DragonAbilMount",
                 Tier = AbilityTier.Mount,
-                ParentLink = "HeroAlexstraszaDragon",
+                ParentLink = new AbilityTalentId("SubAbilMount", "SubAbilMount"),
                 AbilityType = AbilityType.Z,
             });
             alexHeroUnit.AddAbility(new Ability
             {
-                ReferenceId = "DragonAbilTrait",
-                ButtonId = "DragonAbilTrait",
+                AbilityTalentId = new AbilityTalentId("DragonAbilTrait", "DragonAbilTrait"),
                 Name = "DragonAbilTrait",
                 Tier = AbilityTier.Trait,
-                ParentLink = "HeroAlexstraszaDragon",
                 Tooltip = new AbilityTalentTooltip()
                 {
                     FullTooltip = new TooltipDescription("Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early."),
@@ -476,11 +449,9 @@ namespace HeroesData.FileWriter.Tests.HeroData
             });
             alexHeroUnit.AddAbility(new Ability
             {
-                ReferenceId = "DragonAbilActivable",
-                ButtonId = "DragonAbilActivable",
+                AbilityTalentId = new AbilityTalentId("DragonAbilActivable", "DragonAbilActivable"),
                 Name = "DragonAbilActivable",
                 Tier = AbilityTier.Activable,
-                ParentLink = "HeroAlexstraszaDragon",
                 AbilityType = AbilityType.Trait,
             });
 

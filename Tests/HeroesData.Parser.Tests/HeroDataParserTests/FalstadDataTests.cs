@@ -12,9 +12,9 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void BasicAbilitiesTests()
         {
-            Ability ability = HeroFalstad.GetAbilities("FalstadHammerang").First();
+            Ability ability = HeroFalstad.GetAbility("FalstadHammerang");
             Assert.AreEqual(AbilityTier.Basic, ability.Tier);
-            Assert.AreEqual("FalstadHammerang", ability.ReferenceId);
+            Assert.AreEqual("FalstadHammerang", ability.AbilityTalentId.ReferenceId);
             Assert.AreEqual("Hammerang", ability.Name);
             Assert.AreEqual("storm_ui_icon_falstad_hammerang.dds", ability.IconFileName);
             Assert.AreEqual(AbilityType.Q, ability.AbilityType);
@@ -59,9 +59,9 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void HeroicAbilitiesTests()
         {
-            Ability ability = HeroFalstad.GetAbilities("FalstadHinterlandBlast").First();
+            Ability ability = HeroFalstad.GetAbility("FalstadHinterlandBlast");
             Assert.AreEqual(AbilityTier.Heroic, ability.Tier);
-            Assert.AreEqual("FalstadHinterlandBlast", ability.ReferenceId);
+            Assert.AreEqual("FalstadHinterlandBlast", ability.AbilityTalentId.ReferenceId);
             Assert.AreEqual("Hinterland Blast", ability.Name);
             Assert.AreEqual("storm_ui_icon_falstad_hinterlandblast.dds", ability.IconFileName);
 
@@ -87,9 +87,9 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void MountAbilitiesTests()
         {
-            Ability ability = HeroFalstad.GetAbilities("FalstadFlight").First();
+            Ability ability = HeroFalstad.GetAbility("FalstadFlight");
             Assert.AreEqual(AbilityTier.Mount, ability.Tier);
-            Assert.AreEqual("FalstadFlight", ability.ReferenceId);
+            Assert.AreEqual("FalstadFlight", ability.AbilityTalentId.ReferenceId);
             Assert.AreEqual("Flight", ability.Name);
             Assert.AreEqual("storm_ui_icon_falstad_mount.dds", ability.IconFileName);
 
@@ -133,7 +133,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             // Secret Weapon
             Talent talent = HeroFalstad.GetTalent("FalstadMasteryHammerangSecretWeapon");
             Assert.AreEqual(TalentTier.Level7, talent.Tier);
-            Assert.AreEqual("FalstadMasteryHammerangSecretWeapon", talent.ReferenceId);
+            Assert.AreEqual("FalstadMasteryHammerangSecretWeapon", talent.AbilityTalentId.ReferenceId);
             Assert.AreEqual("Secret Weapon", talent.Name);
             Assert.AreEqual("storm_ui_icon_falstad_hammerang.dds", talent.IconFileName);
             Assert.AreEqual(AbilityType.Q, talent.AbilityType);
@@ -151,7 +151,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             // Wingman
             talent = HeroFalstad.GetTalent("FalstadWingman");
             Assert.AreEqual(TalentTier.Level1, talent.Tier);
-            Assert.AreEqual("FalstadWingman", talent.ReferenceId);
+            Assert.AreEqual("FalstadWingman", talent.AbilityTalentId.ReferenceId);
             Assert.AreEqual("Wingman", talent.Name);
             Assert.AreEqual("storm_ui_icon_talent_bribe.dds", talent.IconFileName);
             Assert.AreEqual(AbilityType.Active, talent.AbilityType);
@@ -175,9 +175,9 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void TraitAbilitiesTests()
         {
-            Ability ability = HeroFalstad.GetAbilities("FalstadTailwindCooldownDisplay").First();
+            Ability ability = HeroFalstad.GetAbility("FalstadTailwindCooldownDisplay");
             Assert.AreEqual(AbilityTier.Trait, ability.Tier);
-            Assert.AreEqual("FalstadTailwindCooldownDisplay", ability.ReferenceId);
+            Assert.AreEqual("FalstadTailwindCooldownDisplay", ability.AbilityTalentId.ReferenceId);
             Assert.AreEqual("Tailwind", ability.Name);
             Assert.AreEqual("storm_ui_icon_falstad_tailwind.dds", ability.IconFileName);
 

@@ -10,7 +10,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityMountNoCooldownUntilTalentUpgradeTest()
         {
-            Ability ability = HeroDryad.GetAbilities("DryadDryadsSwiftness").First();
+            Ability ability = HeroDryad.GetAbility("DryadDryadsSwiftness");
             Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription));
         }
 
