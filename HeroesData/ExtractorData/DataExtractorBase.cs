@@ -143,7 +143,7 @@ namespace HeroesData.ExtractorData
             Console.WriteLine();
             Console.ResetColor();
 
-            if (ValidationWarnings.Count > 0)
+            if (ValidationWarnings.Count > 0 || WarningsIgnoredCount > 0)
             {
                 List<string> nonTooltips = new List<string>(ValidationWarnings.Where(x => !x.ToLower().Contains("tooltip")));
                 List<string> tooltips = new List<string>(ValidationWarnings.Where(x => x.ToLower().Contains("tooltip")));
