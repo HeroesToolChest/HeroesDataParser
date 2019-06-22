@@ -42,7 +42,7 @@ namespace HeroesData.Parser.Overrides
                         break;
                     case "Ability":
                         string abilityId = dataElement.Attribute("id")?.Value ?? string.Empty;
-                        string buttonId = dataElement.Attribute("button")?.Value ?? string.Empty;
+                        string buttonId = dataElement.Attribute("button")?.Value ?? abilityId;
 
                         if (!string.IsNullOrEmpty(abilityId))
                         {

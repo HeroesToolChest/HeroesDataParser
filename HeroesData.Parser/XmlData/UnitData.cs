@@ -94,9 +94,6 @@ namespace HeroesData.Parser.XmlData
         private void SetData(Unit unit, XElement unitElement = null)
         {
             unitElement = unitElement ?? GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == unit.CUnitId));
-            //AbilitiesArray = AbilitiesArray ?? new XmlArrayElement();
-            //CardLayoutButtons = CardLayoutButtons ?? new XmlArrayElement();
-
             if (unitElement == null)
                 return;
 

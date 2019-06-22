@@ -1,4 +1,5 @@
 ﻿using Heroes.Models;
+using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,15 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.AreEqual(1, unitWeapons[0].Period);
             Assert.AreEqual(7.75, unitWeapons[0].Range);
             Assert.AreEqual("GuardTowerL2Weapon", unitWeapons[0].WeaponNameId);
+        }
+
+        [TestMethod]
+        public void DetectorAbilityActionTest()
+        {
+            Ability ability = TownCannonTowerL2.GetAbility("Detector");
+            Assert.AreEqual("Detector", ability.AbilityTalentId.ButtonId);
+            Assert.AreEqual(AbilityType.Stop, ability.AbilityType);
+            Assert.IsTrue(ability.IsPassive);
         }
     }
 }

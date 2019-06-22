@@ -13,14 +13,16 @@
 [LostVikings] LifeRegenerationRateScaling is 0
 [LostVikings] LifeScaling is 0
 [LostVikings] Sight is 0
+[LostVikings] has less than 3 basic abilities
 
 # has three heroic abilities
 [Varian] has more than 2 Heroic abilities
 
 # has three heroic subabilities
-[Zeratul] has more than 2 Heroic subabilities for ZeratulMightOfTheNerazimDummy
+[Zeratul] has more than 2 Heroic subabilities for ZeratulMightOfTheNerazimDummy|ZeratulMightOfTheNerazimPassive
 
 # --unit data--
+# vikings
 [LostVikingsGravestone] has more than 1 Q ability
 [LostVikingsGravestone] has more than 1 W ability
 [BaleogsGravestone] has more than 1 Q ability
@@ -29,6 +31,23 @@
 [OlafsGravestone] has more than 1 W ability
 [EriksGravestone] has more than 1 Q ability
 [EriksGravestone] has more than 1 W ability
+
+# failed parsing - out of date data references
+[tombofthespiderqueen-JungleGraveGolemLaner] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[overwatchdata-JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[starcraft-TerranRaven] [TerranRavenSeekerMissile|TerranRavenSeekerMissile] FullTooltip failed to parse correctly
+[UnderworldBoss] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[gardenofterrordata-JunglePlantHorror] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[starcraft-TerranRavenDefender] [TerranRavenSeekerMissile|TerranRavenSeekerMissile] FullTooltip failed to parse correctly
+[gardenofterror-GardenTerror] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[JungleGraveGolemLaner] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[tombofthespiderqueen-JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[braxisholdoutdata-TerranArchangelDefender] [TerranArchangelDefenderBulletstorm|TerranArchangelBulletstorm] FullTooltip failed to parse correctly
+[hauntedmines-UnderworldSummonedBoss] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[UnderworldSummonedBoss] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[infernalshrinesdata-MercPunisherLaner] [MercPunisherLanerFixate|MercPunisherLanerFixate] FullTooltip failed to parse correctly
+[braxisholdoutdata-TerranArchangelLaner] [TerranArchangelLanerBulletstorm|TerranArchangelBulletstorm] FullTooltip failed to parse correctly
 
 # default announcer has no gender
 [NoAnnouncerPack] Gender is empty
