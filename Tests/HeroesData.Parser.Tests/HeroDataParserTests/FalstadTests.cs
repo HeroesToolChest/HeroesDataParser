@@ -7,7 +7,7 @@ using System.Linq;
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
     [TestClass]
-    public class FalstadDataTests : HeroDataParserBaseTest
+    public class FalstadTests : HeroDataParserBaseTest
     {
         [TestMethod]
         public void BasicAbilitiesTests()

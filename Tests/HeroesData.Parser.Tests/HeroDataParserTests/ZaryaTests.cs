@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
     [TestClass]
-    public class ZaryaDataTests : HeroDataParserBaseTest
+    public class ZaryaTests : HeroDataParserBaseTest
     {
         [TestMethod]
         public void EnergyTests()

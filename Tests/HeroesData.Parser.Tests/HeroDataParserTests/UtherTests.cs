@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
     [TestClass]
-    public class UtherDataTests : HeroDataParserBaseTest
+    public class UtherTests : HeroDataParserBaseTest
     {
         [TestMethod]
         public void TalentCooldownTextOverrideShowUsageOff()

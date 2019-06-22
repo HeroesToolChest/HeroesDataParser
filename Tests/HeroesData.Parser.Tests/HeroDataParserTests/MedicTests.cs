@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
     [TestClass]
-    public class MedicDataTests : HeroDataParserBaseTest
+    public class MedicTests : HeroDataParserBaseTest
     {
         [TestMethod]
         public void AbilityTests()
