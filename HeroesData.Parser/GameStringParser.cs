@@ -62,6 +62,11 @@ namespace HeroesData.Parser.GameStrings
             if (string.IsNullOrEmpty(tooltip))
                 return true;
 
+
+            if (key == "Button/Tooltip/MurkyOctoGrabAndASharkTooTalent" || tooltip == "Button/Tooltip/AbathurToxicNestEnvenomedNestTalent")
+            {
+                string x = "";
+            }
             try
             {
                 parsedTooltip = ParseTooltip(tooltip);
@@ -145,7 +150,7 @@ namespace HeroesData.Parser.GameStrings
                 pathLookup = GetPrecision(pathLookup, out int? precision);
 
                 // remove the player
-                pathLookup = GetPlayer(pathLookup, out int? player);
+                pathLookup = GetPlayer(pathLookup, out _);
 
                 // perform xml data lookup to find values
                 string mathPath = ParseValues(pathLookup.AsMemory());
@@ -155,8 +160,8 @@ namespace HeroesData.Parser.GameStrings
                     return string.Empty;
                 }
 
-                // extract the scaling
-                string scalingText = GetScalingText(mathPath);
+                // extract the scaling and the amount
+                string scalingText = GetScalingText(mathPath, out int numOfScalingTexts);
 
                 if (!string.IsNullOrEmpty(scalingText))
                 {
@@ -172,22 +177,21 @@ namespace HeroesData.Parser.GameStrings
 
                 if (!string.IsNullOrEmpty(scalingText))
                 {
-                    // only add the scaling text if the next part does not start with a % sign or is time based
-                    if (i + 1 < parts.Length)
+                    // only add the scaling in certain cases
+                    if (numOfScalingTexts == 1 || (numOfScalingTexts > 1 && !mathPath.Contains('/')))
                     {
                         ReadOnlySpan<char> nextPart = parts[i + 1];
-                        nextPart = nextPart.Trim();
+                        nextPart = nextPart.TrimStart();
 
-                        if (nextPart.StartsWith("</c>"))
-                            nextPart = nextPart.Slice("</c>".Length).TrimStart();
-                        if (nextPart.StartsWith("<n/>"))
-                            nextPart = nextPart.Slice("<n/>".Length).TrimStart();
-                        if (!(nextPart.StartsWith("%") || nextPart.StartsWith("0%") || IsTimeBasedScaling(pathLookup.AsMemory())))
+                        if (nextPart.StartsWith("%"))
+                        {
+                            parts[i] += $"%{scalingText}";
+                            parts[i + 1] = parts[i + 1].ReplaceFirst("%", string.Empty);
+                        }
+                        else
+                        {
                             parts[i] += $"{scalingText}";
-                    }
-                    else
-                    {
-                        parts[i] += $"{scalingText}";
+                        }
                     }
                 }
             }
@@ -213,7 +217,7 @@ namespace HeroesData.Parser.GameStrings
         private double? ParseDataReferenceString(string dRef)
         {
             dRef = GetPrecision(dRef, out int? precision);
-            dRef = GetPlayer(dRef, out int? player);
+            dRef = GetPlayer(dRef, out _);
 
             dRef = ParseValues(dRef.AsMemory());
 
@@ -223,7 +227,7 @@ namespace HeroesData.Parser.GameStrings
             }
 
             // extract the scaling
-            string scalingText = GetScalingText(dRef);
+            string scalingText = GetScalingText(dRef, out _);
 
             if (!string.IsNullOrEmpty(scalingText))
             {
@@ -317,14 +321,18 @@ namespace HeroesData.Parser.GameStrings
             return pathLookup.ToString();
         }
 
-        private string GetScalingText(string pathLookup)
+        private string GetScalingText(string pathLookup, out int count)
         {
+            count = 0;
+
             // get scaling string
             Regex regex = new Regex("~~.*?~~");
             MatchCollection playerMatches = regex.Matches(pathLookup);
 
             if (playerMatches.Count < 1)
                 return string.Empty;
+            else
+                count = playerMatches.Count;
 
             return playerMatches[0].Value;
         }
@@ -532,19 +540,6 @@ namespace HeroesData.Parser.GameStrings
             part = pathLookup.Slice(pathLookup.Length - length, length);
             if (!part.Span.Trim().IsEmpty)
                 yield return part;
-        }
-
-        private bool IsTimeBasedScaling(ReadOnlyMemory<char> pathLookup)
-        {
-            List<ReadOnlyMemory<char>> arithmeticPaths = GetPartBySeperators(TrimDataReference(pathLookup), new char[] { '/', '*', '+', '-', '(', ')' }).ToList();
-
-            for (int i = 0; i + 2 <= arithmeticPaths.Count; i++)
-            {
-                if (arithmeticPaths.Count >= i + 2 && arithmeticPaths[i].Span.TrimEnd().EndsWith("LifeMax") && arithmeticPaths[i + 1].Span.TrimEnd().EndsWith("LifeRegenRate"))
-                    return true;
-            }
-
-            return false;
         }
 
         private bool IsValidTooltip(ReadOnlySpan<char> key, ReadOnlySpan<char> tooltip)

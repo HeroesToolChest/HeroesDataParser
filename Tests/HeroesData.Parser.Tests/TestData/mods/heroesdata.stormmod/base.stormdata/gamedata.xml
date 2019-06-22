@@ -24,7 +24,8 @@
   <Catalog path="GameData/Heroes/ThrallData/ThrallData.xml" />
   <Catalog path="GameData/Heroes/ZagaraData/ZagaraData.xml" />
   <Catalog path="GameData/Heroes/KerriganData/KerriganData.xml" />
-  <Catalog path="GameData/Heroes/Genndata/GennData.xml" />
+  <Catalog path="GameData/Heroes/GennData/GennData.xml" />
+  <Catalog path="GameData/Heroes/MurkyData/MurkyData.xml" />
   <Catalog path="GameData/Mounts/MountCloudData/Mount_Ridesurf_CloudData.xml" />
   <Catalog path="GameData/Mounts/MountCloudData/Mount_Ridesurf_CloudVar1Data.xml" />
   <Catalog path="GameData/LootBox/Banners/bannercommondata.xml" />
