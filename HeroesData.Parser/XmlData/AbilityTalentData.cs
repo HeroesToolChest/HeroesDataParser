@@ -150,7 +150,7 @@ namespace HeroesData.Parser.XmlData
                     SetButtonData(parentElement, abilityTalentBase);
             }
 
-            SetTooltipDescriptions(abilityTalentBase);
+            SetTooltipDescriptions(buttonElement, abilityTalentBase);
             SetTooltipData(buttonElement, abilityTalentBase);
         }
 
@@ -158,26 +158,30 @@ namespace HeroesData.Parser.XmlData
         /// Set the tooltip descriptions.
         /// </summary>
         /// <param name="abilityTalentBase"></param>
-        protected void SetTooltipDescriptions(AbilityTalentBase abilityTalentBase)
+        protected void SetTooltipDescriptions(XElement buttonElement, AbilityTalentBase abilityTalentBase)
         {
+            if (buttonElement == null)
+                throw new ArgumentNullException(nameof(buttonElement));
             if (abilityTalentBase == null)
-            {
                 throw new ArgumentNullException(nameof(abilityTalentBase));
-            }
 
-            abilityTalentBase.Name = GameData.GetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.AbilityTalentId.ButtonId));
+            string buttonId = buttonElement.Attribute("id")?.Value;
+
+            string name = GameData.GetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, buttonId));
+            if (!string.IsNullOrEmpty(name))
+                abilityTalentBase.Name = name;
 
             if (string.IsNullOrEmpty(abilityTalentBase.Name))
-                abilityTalentBase.Name = GameData.GetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.AbilityTalentId.ButtonId));
+                abilityTalentBase.Name = GameData.GetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, buttonId));
 
             // full
-            if (GameData.TryGetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.AbilityTalentId.ButtonId), out string fullDescription))
+            if (GameData.TryGetGameString(DefaultData.ButtonData.ButtonTooltip.Replace(DefaultData.IdPlaceHolder, buttonId), out string fullDescription))
             {
                 abilityTalentBase.Tooltip.FullTooltip = new TooltipDescription(fullDescription, Localization);
             }
 
             // short
-            if (GameData.TryGetGameString(DefaultData.ButtonData.ButtonSimpleDisplayText.Replace(DefaultData.IdPlaceHolder, abilityTalentBase.AbilityTalentId.ButtonId), out string shortDescription))
+            if (GameData.TryGetGameString(DefaultData.ButtonData.ButtonSimpleDisplayText.Replace(DefaultData.IdPlaceHolder, buttonId), out string shortDescription))
             {
                 abilityTalentBase.Tooltip.ShortTooltip = new TooltipDescription(shortDescription, Localization);
             }

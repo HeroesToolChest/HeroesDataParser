@@ -15,7 +15,6 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual(AbilityType.Heroic, ability.AbilityType);
             Assert.AreEqual("Angelic Armaments (Launch Missiles)", ability.Name);
             Assert.AreEqual("storm_ui_icon_imperius_r1_activate.dds", ability.IconFileName);
-            Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.FullTooltip?.RawDescription));
         }
     }
 }
