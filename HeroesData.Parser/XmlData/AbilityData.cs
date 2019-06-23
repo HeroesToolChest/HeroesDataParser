@@ -22,8 +22,9 @@ namespace HeroesData.Parser.XmlData
         /// </summary>
         /// <param name="unitId"></param>
         /// <param name="layoutButtonElement"></param>
+        /// <param name="isBehaviorAbility"></param>
         /// <returns></returns>
-        public Ability CreateAbility(string unitId, XElement layoutButtonElement)
+        public Ability CreateAbility(string unitId, XElement layoutButtonElement, bool isBehaviorAbility = false)
         {
             if (string.IsNullOrEmpty(unitId))
                 throw new ArgumentException("Argument cannot be null or empty", nameof(unitId));
@@ -84,7 +85,7 @@ namespace HeroesData.Parser.XmlData
             }
 
             // set the ability type
-            SetAbilityTypeFromSlot(slotValue, unitId, ability);
+            SetAbilityTypeFromSlot(slotValue, unitId, ability, isBehaviorAbility);
 
             // if type is not a type we want, return
             if (IsAbilityTypeFilterEnabled && AbilityType.Misc.HasFlag(ability.AbilityType) && ability.AbilityType != AbilityType.Unknown)
@@ -94,7 +95,7 @@ namespace HeroesData.Parser.XmlData
             SetAbilityTierFromAbilityType(ability);
 
             // filter ability tiers
-            if ((IsAbilityTierFilterEnabled && AbilityTier.Misc.HasFlag(ability.Tier)) || (IsAbilityTierFilterEnabled && ability.Tier == AbilityTier.MapMechanic))
+            if (IsAbilityTierFilterEnabled && (ability.Tier == AbilityTier.MapMechanic || ability.Tier == AbilityTier.Interact))
                 return null;
 
             // if no ability id and it is not a passive ability, return null
@@ -153,7 +154,7 @@ namespace HeroesData.Parser.XmlData
             return ability;
         }
 
-        private void SetAbilityTypeFromSlot(string slot, string unitId, Ability ability)
+        private void SetAbilityTypeFromSlot(string slot, string unitId, Ability ability, bool isBehaviorAbility)
         {
             if (ability == null)
             {
@@ -162,8 +163,10 @@ namespace HeroesData.Parser.XmlData
 
             ReadOnlySpan<char> slotSpan = slot.AsSpan();
 
-            if (slotSpan.IsEmpty)
+            if (slotSpan.IsEmpty && !isBehaviorAbility)
                 ability.AbilityType = AbilityType.Attack;
+            else if (slotSpan.IsEmpty && isBehaviorAbility)
+                ability.AbilityType = AbilityType.Active;
             else if (slotSpan.StartsWith("ABILITY1", StringComparison.OrdinalIgnoreCase))
                 ability.AbilityType = AbilityType.Q;
             else if (slotSpan.StartsWith("ABILITY2", StringComparison.OrdinalIgnoreCase))

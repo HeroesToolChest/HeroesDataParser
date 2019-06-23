@@ -21,6 +21,7 @@ namespace HeroesData.Parser.XmlData
 
         private XmlArrayElement AbilitiesArray;
         private XmlArrayElement WeaponsArray;
+        private XmlArrayElement BehaviorArray;
         private XmlArrayElement CardLayoutButtons;
 
         private Localization _localization = Localization.ENUS;
@@ -87,11 +88,13 @@ namespace HeroesData.Parser.XmlData
         {
             AbilitiesArray = new XmlArrayElement();
             WeaponsArray = new XmlArrayElement();
+            BehaviorArray = new XmlArrayElement();
             CardLayoutButtons = new XmlArrayElement();
 
             SetData(unit);
             SetAbilities(unit);
             SetWeapons(unit);
+            SetBehaviors(unit);
         }
 
         private void SetData(Unit unit, XElement unitElement = null)
@@ -203,9 +206,7 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "BEHAVIORARRAY")
                 {
-                    string link = GetScalingBehaviorLink(element);
-                    if (!string.IsNullOrEmpty(link))
-                        unit.ScalingBehaviorLink = link;
+                    BehaviorArray.AddElement(element);
                 }
                 else if (elementName == "HEROPLAYSTYLEFLAGS")
                 {
@@ -247,11 +248,6 @@ namespace HeroesData.Parser.XmlData
 
             foreach (XElement element in CardLayoutButtons.Elements)
             {
-                string faceValue = element.Attribute("Face")?.Value ?? element.Element("Face")?.Attribute("value")?.Value;
-
-                //if (IgnorableBasicAbilities.Contains(faceValue, StringComparer.OrdinalIgnoreCase))
-                //    continue;
-
                 AddCreatedAbility(unit, element);
             }
 
@@ -265,7 +261,7 @@ namespace HeroesData.Parser.XmlData
 
         private void SetWeapons(Unit unit)
         {
-            if (AbilitiesArray == null || CardLayoutButtons == null)
+            if (AbilitiesArray == null)
                 throw new ArgumentNullException("Call SetData() first to set up the weapons collections");
 
             foreach (XElement element in WeaponsArray.Elements)
@@ -273,6 +269,20 @@ namespace HeroesData.Parser.XmlData
                 UnitWeapon weapon = WeaponData.CreateWeapon(element);
                 if (weapon != null)
                     unit.AddUnitWeapon(weapon);
+            }
+        }
+
+        private void SetBehaviors(Unit unit)
+        {
+            if (BehaviorArray == null)
+                throw new ArgumentNullException("Call SetData() first to set up the behavior collections");
+
+            foreach (XElement element in BehaviorArray.Elements)
+            {
+                string linkValue = element.Attribute("Link")?.Value;
+
+                if (!string.IsNullOrEmpty(linkValue))
+                    ParseBehaviorLink(linkValue, unit);
             }
         }
 
@@ -298,17 +308,28 @@ namespace HeroesData.Parser.XmlData
             }
         }
 
-        private string GetScalingBehaviorLink(XElement behaviorArrayElement)
+        private void ParseBehaviorLink(string linkValue, Unit unit)
         {
-            string behaviorLink = behaviorArrayElement.Attribute("Link")?.Value;
-            if (string.IsNullOrEmpty(behaviorLink))
-                return string.Empty;
+            if (string.IsNullOrEmpty(linkValue))
+                throw new ArgumentException("Argument cannot be null or empty", nameof(linkValue));
 
-            XElement behaviorVeterancyElement = GameData.MergeXmlElements(GameData.Elements("CBehaviorVeterancy").Where(x => x.Attribute("id")?.Value == behaviorLink));
+            XElement behaviorVeterancyElement = GameData.MergeXmlElements(GameData.Elements("CBehaviorVeterancy").Where(x => x.Attribute("id")?.Value == linkValue));
             if (behaviorVeterancyElement != null)
-                return behaviorLink;
+            {
+                unit.ScalingBehaviorLink = linkValue;
+                return;
+            }
 
-            return string.Empty;
+            XElement behaviorAbilityElement = GameData.MergeXmlElements(GameData.Elements("CBehaviorAbility").Where(x => x.Attribute("id")?.Value == linkValue));
+            if (behaviorAbilityElement != null)
+            {
+                foreach (XElement buttonElement in behaviorAbilityElement.Elements("Buttons"))
+                {
+                    AddAbility(unit, AbilityData.CreateAbility(unit.CUnitId, buttonElement, true));
+                }
+
+                return;
+            }
         }
     }
 }
