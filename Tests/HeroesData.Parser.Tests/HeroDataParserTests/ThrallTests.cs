@@ -34,5 +34,12 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.IsTrue(HeroThrall.ContainsAbility("ThrallCancelSundering"));
             Assert.IsTrue(HeroThrall.ContainsAbility("ThrallFrostwolfsGrace"));
         }
+
+        [TestMethod]
+        public void ThrallMasteryGraceOfAirTalentAbilityTypeTest()
+        {
+            Talent talent = HeroThrall.GetTalent("ThrallMasteryGraceOfAir");
+            Assert.AreEqual(AbilityType.E, talent.AbilityType);
+        }
     }
 }

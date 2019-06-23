@@ -229,88 +229,105 @@ namespace HeroesData.Parser.XmlData
             XElement buttonElement = null;
             XElement abilElement = talentElement.Element("Abil");
 
+            Action setFaceAction = null;
+            Action setAbilAction = null;
+            Action setTraitAction = null;
+            Action setActiveAction = null;
+
             foreach (XElement element in talentElement.Elements())
             {
                 string elementName = element.Name.LocalName.ToUpper();
 
                 if (elementName == "FACE")
                 {
-                    string faceValue = element.Attribute("value")?.Value;
-
-                    if (!string.IsNullOrEmpty(faceValue))
+                    setFaceAction = () =>
                     {
-                        talent.AbilityTalentId.ButtonId = faceValue;
+                        string faceValue = element.Attribute("value")?.Value;
 
-                        buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
-                        if (buttonElement != null)
+                        if (!string.IsNullOrEmpty(faceValue))
                         {
-                            SetButtonData(buttonElement, talent);
+                            talent.AbilityTalentId.ButtonId = faceValue;
+
+                            buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
+                            if (buttonElement != null)
+                            {
+                                SetButtonData(buttonElement, talent);
+                            }
                         }
-                    }
+                    };
                 }
                 else if (elementName == "TRAIT")
                 {
-                    string traitValue = element.Attribute("value")?.Value;
-                    if (traitValue == "1")
-                        talent.AbilityType = AbilityType.Trait;
+                    setTraitAction = () =>
+                    {
+                        string traitValue = element.Attribute("value")?.Value;
+                        if (traitValue == "1" && (talent.AbilityType == AbilityType.Unknown || talent.AbilityType == AbilityType.Hidden))
+                            talent.AbilityType = AbilityType.Trait;
+                    };
                 }
                 else if (elementName == "ABIL")
                 {
-                    string abilValue = element.Attribute("value")?.Value;
-                    if (!string.IsNullOrEmpty(abilValue))
+                    setAbilAction = () =>
                     {
-                        if (hero.TryGetAbility(abilValue, out Ability ability))
+                        string abilValue = element.Attribute("value")?.Value;
+                        if (!string.IsNullOrEmpty(abilValue))
                         {
-                            talent.AbilityType = ability.AbilityType;
-                        }
-                        else if (abilValue == "Mount")
-                        {
-                            talent.AbilityType = AbilityType.Z;
-                        }
-                        else
-                        {
-                            foreach (Unit heroUnit in hero.Units)
+                            if (hero.TryGetAbility(abilValue, out Ability ability))
                             {
-                                if (heroUnit.TryGetAbility(abilValue, out ability))
-                                {
-                                    talent.AbilityType = ability.AbilityType;
-                                    break;
-                                }
+                                talent.AbilityType = ability.AbilityType;
                             }
-                        }
-
-                        IEnumerable<XElement> abilityElements = GetAbilityElements(abilValue);
-                        if (abilityElements.Any())
-                        {
-                            foreach (XElement abilityElement in abilityElements)
+                            else if (abilValue == "Mount")
                             {
-                                SetAbilityTalentData(abilityElement, talent, string.Empty);
-
-                                if (talent.AbilityType == AbilityType.Unknown)
+                                talent.AbilityType = AbilityType.Z;
+                            }
+                            else
+                            {
+                                foreach (Unit heroUnit in hero.Units)
                                 {
-                                    string defaultButtonFace = abilityElement.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
-                                    if (!string.IsNullOrEmpty(defaultButtonFace) && hero.TryGetAbility(defaultButtonFace, out ability))
+                                    if (heroUnit.TryGetAbility(abilValue, out ability))
+                                    {
                                         talent.AbilityType = ability.AbilityType;
+                                        break;
+                                    }
                                 }
                             }
+
+                            IEnumerable<XElement> abilityElements = GetAbilityElements(abilValue);
+                            if (abilityElements.Any())
+                            {
+                                foreach (XElement abilityElement in abilityElements)
+                                {
+                                    SetAbilityTalentData(abilityElement, talent, string.Empty);
+
+                                    if (talent.AbilityType == AbilityType.Unknown)
+                                    {
+                                        string defaultButtonFace = abilityElement.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
+                                        if (!string.IsNullOrEmpty(defaultButtonFace) && hero.TryGetAbility(defaultButtonFace, out ability))
+                                            talent.AbilityType = ability.AbilityType;
+                                    }
+                                }
+                            }
+                            else if (buttonElement != null) // probably not an ability
+                            {
+                                SetButtonData(buttonElement, talent);
+                            }
                         }
-                        else if (buttonElement != null) // probably not an ability
-                        {
-                            SetButtonData(buttonElement, talent);
-                        }
-                    }
+                    };
                 }
                 else if (elementName == "ACTIVE")
                 {
-                    string activeValue = element.Attribute("value")?.Value;
-
-                    if (activeValue == "1")
+                    setActiveAction = () =>
                     {
-                        talent.IsActive = true;
+                        string activeValue = element.Attribute("value")?.Value;
 
-                        if (talent.AbilityType == AbilityType.Unknown || talent.AbilityType == AbilityType.Hidden)
-                            talent.AbilityType = AbilityType.Active;
-                    }
+                        if (activeValue == "1" )
+                        {
+                            talent.IsActive = true;
+
+                            if (talent.AbilityType == AbilityType.Unknown || talent.AbilityType == AbilityType.Hidden)
+                                talent.AbilityType = AbilityType.Active;
+                        }
+                    };
                 }
                 else if (elementName == "QUESTDATA")
                 {
@@ -320,6 +337,11 @@ namespace HeroesData.Parser.XmlData
                         talent.IsQuest = true;
                 }
             }
+
+            setFaceAction?.Invoke();
+            setAbilAction?.Invoke();
+            setTraitAction?.Invoke();
+            setActiveAction?.Invoke();
 
             if ((talent.AbilityType == AbilityType.Unknown || talent.AbilityType == AbilityType.Hidden) && abilElement == null)
                 talent.AbilityType = AbilityType.Passive;

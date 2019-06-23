@@ -62,11 +62,6 @@ namespace HeroesData.Parser.GameStrings
             if (string.IsNullOrEmpty(tooltip))
                 return true;
 
-
-            if (key == "Button/Tooltip/MurkyOctoGrabAndASharkTooTalent" || tooltip == "Button/Tooltip/AbathurToxicNestEnvenomedNestTalent")
-            {
-                string x = "";
-            }
             try
             {
                 parsedTooltip = ParseTooltip(tooltip);
