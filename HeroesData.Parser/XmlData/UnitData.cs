@@ -20,6 +20,7 @@ namespace HeroesData.Parser.XmlData
         private readonly HashSet<string> IgnorableBasicAbilities;
 
         private XmlArrayElement AbilitiesArray;
+        private XmlArrayElement WeaponsArray;
         private XmlArrayElement CardLayoutButtons;
 
         private Localization _localization = Localization.ENUS;
@@ -85,10 +86,12 @@ namespace HeroesData.Parser.XmlData
         public void SetUnitData(Unit unit)
         {
             AbilitiesArray = new XmlArrayElement();
+            WeaponsArray = new XmlArrayElement();
             CardLayoutButtons = new XmlArrayElement();
 
             SetData(unit);
             SetAbilities(unit);
+            SetWeapons(unit);
         }
 
         private void SetData(Unit unit, XElement unitElement = null)
@@ -185,9 +188,7 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "WEAPONARRAY")
                 {
-                    UnitWeapon weapon = WeaponData.CreateWeapon(element);
-                    if (weapon != null)
-                        unit.AddUnitWeapon(weapon);
+                    WeaponsArray.AddElement(element);
                 }
                 else if (elementName == "ARMORLINK")
                 {
@@ -259,6 +260,19 @@ namespace HeroesData.Parser.XmlData
                 string linkValue = element.Attribute("Link")?.Value;
                 if (!string.IsNullOrEmpty(linkValue) && !IgnorableBasicAbilities.Contains(linkValue, StringComparer.OrdinalIgnoreCase) && !unit.ContainsAbility(linkValue))
                     AddCreatedAbility(unit, linkValue);
+            }
+        }
+
+        private void SetWeapons(Unit unit)
+        {
+            if (AbilitiesArray == null || CardLayoutButtons == null)
+                throw new ArgumentNullException("Call SetData() first to set up the weapons collections");
+
+            foreach (XElement element in WeaponsArray.Elements)
+            {
+                UnitWeapon weapon = WeaponData.CreateWeapon(element);
+                if (weapon != null)
+                    unit.AddUnitWeapon(weapon);
             }
         }
 
