@@ -74,8 +74,8 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void IsValidWeaponTest()
         {
-            Assert.IsTrue(HeroDataOverride.ContainsValidWeapon("SlapSlap"));
-            Assert.IsTrue(HeroDataOverride.IsValidWeapon("SlapSlap"));
+            Assert.IsTrue(HeroDataOverride.ContainsAddedWeapon("SlapSlap"));
+            Assert.IsTrue(HeroDataOverride.IsAddedWeapon("SlapSlap"));
         }
 
         [TestMethod]

@@ -184,13 +184,13 @@ namespace HeroesData.Parser
 
             if (hero.Abilities != null)
             {
-                foreach (AbilityTalentId validAbility in dataOverride.ValidAbilities)
+                foreach (AbilityTalentId addedAbility in dataOverride.AddedAbilities)
                 {
-                    Ability ability = XmlDataService.AbilityData.CreateAbility(hero.CUnitId, validAbility);
+                    Ability ability = XmlDataService.AbilityData.CreateAbility(hero.CUnitId, addedAbility);
 
                     if (ability != null)
                     {
-                        if (dataOverride.IsValidAbility(validAbility))
+                        if (dataOverride.IsAddedAbility(addedAbility))
                             hero.AddAbility(ability);
                         else
                             hero.RemoveAbility(ability);
@@ -210,13 +210,13 @@ namespace HeroesData.Parser
 
             if (hero.Weapons != null)
             {
-                foreach (string validWeapon in dataOverride.ValidWeapons)
+                foreach (string addedWeapon in dataOverride.AddedWeapons)
                 {
-                    UnitWeapon weapon = XmlDataService.WeaponData.CreateWeapon(validWeapon);
+                    UnitWeapon weapon = XmlDataService.WeaponData.CreateWeapon(addedWeapon);
 
                     if (weapon != null)
                     {
-                        if (dataOverride.IsValidWeapon(validWeapon))
+                        if (dataOverride.IsAddedWeapon(addedWeapon))
                             hero.AddUnitWeapon(weapon);
                         else
                             hero.RemoveUnitWeapon(weapon);

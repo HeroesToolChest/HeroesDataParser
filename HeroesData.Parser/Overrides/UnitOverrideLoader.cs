@@ -24,6 +24,15 @@ namespace HeroesData.Parser.Overrides
             WeaponPropertyOverride weaponOverride = new WeaponPropertyOverride();
 
             string unitId = element.Attribute("id").Value;
+            string isAddedUnit = element.Attribute("value")?.Value;
+
+            if (bool.TryParse(isAddedUnit, out bool unitAddedResult))
+            {
+                unitDataOverride.AddAddedUnit(unitId, unitAddedResult);
+
+                if (!unitAddedResult)
+                    return;
+            }
 
             foreach (XElement dataElement in element.Elements())
             {
@@ -74,7 +83,7 @@ namespace HeroesData.Parser.Overrides
 
                         if (bool.TryParse(validAbility, out bool abilityValidResult))
                         {
-                            unitDataOverride.AddValidAbility(new AbilityTalentId(abilityId, buttonAbilityId), abilityValidResult);
+                            unitDataOverride.AddAddedAbility(new AbilityTalentId(abilityId, buttonAbilityId), abilityValidResult);
 
                             if (!abilityValidResult)
                                 continue;
@@ -98,7 +107,7 @@ namespace HeroesData.Parser.Overrides
 
                         if (bool.TryParse(valid, out bool weaponValidResult))
                         {
-                            unitDataOverride.AddValidWeapon(weaponId, weaponValidResult);
+                            unitDataOverride.AddAddedWeapon(weaponId, weaponValidResult);
 
                             if (!weaponValidResult)
                                 continue;

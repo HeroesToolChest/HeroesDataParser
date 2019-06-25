@@ -7,8 +7,9 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 {
     public class UnitDataOverride : DataOverrideBase, IDataOverride
     {
-        private readonly Dictionary<string, bool> IsValidWeaponByWeaponId = new Dictionary<string, bool>();
-        private readonly Dictionary<AbilityTalentId, bool> IsValidAbilityByAbilityId = new Dictionary<AbilityTalentId, bool>();
+        private readonly Dictionary<string, bool> IsAddedWeaponByWeaponId = new Dictionary<string, bool>();
+        private readonly Dictionary<AbilityTalentId, bool> IsAddedAbilityByAbilityId = new Dictionary<AbilityTalentId, bool>();
+        private readonly Dictionary<string, bool> IsAddedUnitByUnitId = new Dictionary<string, bool>();
 
         /// <summary>
         /// Gets or sets the CUnit name.
@@ -31,24 +32,34 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         public (bool Enabled, string ParentLink) ParentLinkOverride { get; set; } = (false, string.Empty);
 
         /// <summary>
-        /// Gets the amount of isValid weapons.
+        /// Gets the amount of added weapons.
         /// </summary>
-        public int ValidWeaponsCount => IsValidWeaponByWeaponId.Count;
+        public int AddedWeaponsCount => IsAddedWeaponByWeaponId.Count;
 
         /// <summary>
-        /// Gets a collection of isValid weapons.
+        /// Gets a collection of addded weapons.
         /// </summary>
-        public IEnumerable<string> ValidWeapons => IsValidWeaponByWeaponId.Keys;
+        public IEnumerable<string> AddedWeapons => IsAddedWeaponByWeaponId.Keys;
 
         /// <summary>
-        /// Gets the amount of isValid abilities.
+        /// Gets the amount of added abilities.
         /// </summary>
-        public int ValidAbilitiesCount => IsValidAbilityByAbilityId.Count;
+        public int AddedAbilitiesCount => IsAddedAbilityByAbilityId.Count;
 
         /// <summary>
-        /// Gets a collection of isValid abilities.
+        /// Gets a collection of added abilities.
         /// </summary>
-        public IEnumerable<AbilityTalentId> ValidAbilities => IsValidAbilityByAbilityId.Keys;
+        public IEnumerable<AbilityTalentId> AddedAbilities => IsAddedAbilityByAbilityId.Keys;
+
+        /// <summary>
+        /// Gets the amount of added units.
+        /// </summary>
+        public int AddedUnitCount => IsAddedUnitByUnitId.Count;
+
+        /// <summary>
+        /// Gets a collection of added units.
+        /// </summary>
+        public IEnumerable<string> AddedUnits => IsAddedUnitByUnitId.Keys;
 
         /// <summary>
         /// Gets or sets the additional abilities available by their button ids.
@@ -68,57 +79,85 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         /// </summary>
         internal Dictionary<string, Dictionary<string, Action<UnitWeapon>>> PropertyWeaponOverrideMethodByWeaponId { get; } = new Dictionary<string, Dictionary<string, Action<UnitWeapon>>>();
 
-        public void AddValidWeapon(string weaponId, bool isValid)
+        public void AddAddedWeapon(string weaponId, bool isAdded)
         {
             if (weaponId == null)
             {
                 throw new ArgumentNullException(nameof(weaponId));
             }
 
-            IsValidWeaponByWeaponId.Add(weaponId, isValid);
+            IsAddedWeaponByWeaponId.Add(weaponId, isAdded);
         }
 
-        public bool ContainsValidWeapon(string weaponId)
+        public bool ContainsAddedWeapon(string weaponId)
         {
             if (weaponId == null)
             {
                 throw new ArgumentNullException(nameof(weaponId));
             }
 
-            return IsValidWeaponByWeaponId.ContainsKey(weaponId);
+            return IsAddedWeaponByWeaponId.ContainsKey(weaponId);
         }
 
-        public bool IsValidWeapon(string weaponId)
+        public bool IsAddedWeapon(string weaponId)
         {
-            if (IsValidWeaponByWeaponId.TryGetValue(weaponId, out bool value))
+            if (IsAddedWeaponByWeaponId.TryGetValue(weaponId, out bool value))
                 return value;
             else
                 return false;
         }
 
-        public void AddValidAbility(AbilityTalentId abilityTalentId, bool isValid)
+        public void AddAddedAbility(AbilityTalentId abilityTalentId, bool isAdded)
         {
             if (abilityTalentId == null)
             {
                 throw new ArgumentNullException(nameof(abilityTalentId));
             }
 
-            IsValidAbilityByAbilityId.Add(abilityTalentId, isValid);
+            IsAddedAbilityByAbilityId.Add(abilityTalentId, isAdded);
         }
 
-        public bool ContainsValidAbility(AbilityTalentId abilityTalentId)
+        public bool ContainsAddedAbility(AbilityTalentId abilityTalentId)
         {
             if (abilityTalentId == null)
             {
                 throw new ArgumentNullException(nameof(abilityTalentId));
             }
 
-            return IsValidAbilityByAbilityId.ContainsKey(abilityTalentId);
+            return IsAddedAbilityByAbilityId.ContainsKey(abilityTalentId);
         }
 
-        public bool IsValidAbility(AbilityTalentId abilityTalentId)
+        public bool IsAddedAbility(AbilityTalentId abilityTalentId)
         {
-            if (IsValidAbilityByAbilityId.TryGetValue(abilityTalentId, out bool value))
+            if (IsAddedAbilityByAbilityId.TryGetValue(abilityTalentId, out bool value))
+                return value;
+            else
+                return false;
+        }
+
+        public void AddAddedUnit(string unitId, bool isAdded)
+        {
+            if (unitId == null)
+            {
+                throw new ArgumentNullException(nameof(unitId));
+            }
+
+            IsAddedUnitByUnitId.Add(unitId, isAdded);
+        }
+
+        public bool ContainsAddedUnit(string unitId)
+        {
+            if (unitId == null)
+            {
+                throw new ArgumentNullException(nameof(unitId));
+            }
+
+            return IsAddedUnitByUnitId.ContainsKey(unitId);
+        }
+
+        public bool IsAddedUnit(string unitId)
+        {
+            if (IsAddedUnitByUnitId.TryGetValue(unitId, out bool value))
                 return value;
             else
                 return false;

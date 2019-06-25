@@ -72,13 +72,13 @@ namespace HeroesData.Parser.Overrides
                     case "Ability":
                         string abilityId = dataElement.Attribute("id")?.Value ?? string.Empty;
                         string buttonAbilityId = dataElement.Attribute("button")?.Value ?? abilityId;
-                        string validAbility = dataElement.Attribute("valid")?.Value;
+                        string addedAbility = dataElement.Attribute("add")?.Value;
 
-                        if (bool.TryParse(validAbility, out bool abilityValidResult))
+                        if (bool.TryParse(addedAbility, out bool abilityAddedResult))
                         {
-                            heroDataOverride.AddValidAbility(new AbilityTalentId(abilityId, buttonAbilityId), abilityValidResult);
+                            heroDataOverride.AddAddedAbility(new AbilityTalentId(abilityId, buttonAbilityId), abilityAddedResult);
 
-                            if (!abilityValidResult)
+                            if (!abilityAddedResult)
                                 continue;
                         }
 
@@ -126,7 +126,7 @@ namespace HeroesData.Parser.Overrides
 
                         if (bool.TryParse(validWeapon, out bool weaponValidResult))
                         {
-                            heroDataOverride.AddValidWeapon(weaponId, weaponValidResult);
+                            heroDataOverride.AddAddedWeapon(weaponId, weaponValidResult);
 
                             if (!weaponValidResult)
                                 continue;

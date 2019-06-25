@@ -56,7 +56,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void IsValidWeaponTest()
         {
-            Assert.IsTrue(HeroDataOverride.ValidWeaponsCount == 0);
+            Assert.IsTrue(HeroDataOverride.AddedWeaponsCount == 0);
         }
 
         [TestMethod]
