@@ -154,6 +154,43 @@ namespace HeroesData.Parser.XmlData
             return ability;
         }
 
+        /// <summary>
+        /// Creates an ability from a <see cref="AbilityTalentId"/>.
+        /// </summary>
+        /// <param name="unitId"></param>
+        /// <param name="abilityTalentId"></param>
+        /// <returns></returns>
+        public Ability CreateAbility(string unitId, AbilityTalentId abilityTalentId)
+        {
+            if (string.IsNullOrEmpty(unitId))
+                throw new ArgumentException("Argument cannot be null or empty", nameof(unitId));
+            if (abilityTalentId == null)
+                throw new ArgumentNullException(nameof(abilityTalentId));
+
+            Ability ability = new Ability
+            {
+                AbilityTalentId = abilityTalentId,
+                Tier = AbilityTier.Activable,
+                AbilityType = AbilityType.Active,
+            };
+
+            // find all abilities and loop through them
+            foreach (XElement element in GetAbilityElements(ability.AbilityTalentId.ReferenceId))
+            {
+                SetAbilityTalentData(element, ability, string.Empty);
+            }
+
+            XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == abilityTalentId.ButtonId));
+            if (buttonElement != null)
+                SetButtonData(buttonElement, ability);
+
+            // if no name was set, then use the ability name
+            if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string value))
+                ability.Name = value;
+
+            return ability;
+        }
+
         private void SetAbilityTypeFromSlot(string slot, string unitId, Ability ability, bool isBehaviorAbility)
         {
             if (ability == null)

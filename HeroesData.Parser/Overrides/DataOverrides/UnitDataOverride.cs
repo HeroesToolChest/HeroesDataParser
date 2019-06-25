@@ -7,6 +7,9 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 {
     public class UnitDataOverride : DataOverrideBase, IDataOverride
     {
+        private readonly Dictionary<string, bool> IsValidWeaponByWeaponId = new Dictionary<string, bool>();
+        private readonly Dictionary<AbilityTalentId, bool> IsValidAbilityByAbilityId = new Dictionary<AbilityTalentId, bool>();
+
         /// <summary>
         /// Gets or sets the CUnit name.
         /// </summary>
@@ -28,9 +31,24 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         public (bool Enabled, string ParentLink) ParentLinkOverride { get; set; } = (false, string.Empty);
 
         /// <summary>
-        /// Gets or sets weapons that are valid or to be invalidated.
+        /// Gets the amount of isValid weapons.
         /// </summary>
-        public Dictionary<string, bool> IsValidWeaponByWeaponId { get; set; } = new Dictionary<string, bool>();
+        public int ValidWeaponsCount => IsValidWeaponByWeaponId.Count;
+
+        /// <summary>
+        /// Gets a collection of isValid weapons.
+        /// </summary>
+        public IEnumerable<string> ValidWeapons => IsValidWeaponByWeaponId.Keys;
+
+        /// <summary>
+        /// Gets the amount of isValid abilities.
+        /// </summary>
+        public int ValidAbilitiesCount => IsValidAbilityByAbilityId.Count;
+
+        /// <summary>
+        /// Gets a collection of isValid abilities.
+        /// </summary>
+        public IEnumerable<AbilityTalentId> ValidAbilities => IsValidAbilityByAbilityId.Keys;
 
         /// <summary>
         /// Gets or sets the additional abilities available by their button ids.
@@ -41,19 +59,75 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         public HashSet<AddedButtonAbility> AddedAbilityByButtonId { get; set; } = new HashSet<AddedButtonAbility>();
 
         /// <summary>
-        /// Gets or sets the property override action methods for abilities by the ability id.
+        /// Gets the property override action methods for abilities by the ability id.
         /// </summary>
         internal Dictionary<AbilityTalentId, Dictionary<string, Action<Ability>>> PropertyAbilityOverrideMethodByAbilityId { get; } = new Dictionary<AbilityTalentId, Dictionary<string, Action<Ability>>>();
 
         /// <summary>
-        /// Gets or sets the property override action methods for weapons by the weapon id.
+        /// Gets the property override action methods for weapons by the weapon id.
         /// </summary>
-        public Dictionary<string, Dictionary<string, Action<UnitWeapon>>> PropertyWeaponOverrideMethodByWeaponId { get; } = new Dictionary<string, Dictionary<string, Action<UnitWeapon>>>();
+        internal Dictionary<string, Dictionary<string, Action<UnitWeapon>>> PropertyWeaponOverrideMethodByWeaponId { get; } = new Dictionary<string, Dictionary<string, Action<UnitWeapon>>>();
+
+        public void AddValidWeapon(string weaponId, bool isValid)
+        {
+            if (weaponId == null)
+            {
+                throw new ArgumentNullException(nameof(weaponId));
+            }
+
+            IsValidWeaponByWeaponId.Add(weaponId, isValid);
+        }
+
+        public bool ContainsValidWeapon(string weaponId)
+        {
+            if (weaponId == null)
+            {
+                throw new ArgumentNullException(nameof(weaponId));
+            }
+
+            return IsValidWeaponByWeaponId.ContainsKey(weaponId);
+        }
+
+        public bool IsValidWeapon(string weaponId)
+        {
+            if (IsValidWeaponByWeaponId.TryGetValue(weaponId, out bool value))
+                return value;
+            else
+                return false;
+        }
+
+        public void AddValidAbility(AbilityTalentId abilityTalentId, bool isValid)
+        {
+            if (abilityTalentId == null)
+            {
+                throw new ArgumentNullException(nameof(abilityTalentId));
+            }
+
+            IsValidAbilityByAbilityId.Add(abilityTalentId, isValid);
+        }
+
+        public bool ContainsValidAbility(AbilityTalentId abilityTalentId)
+        {
+            if (abilityTalentId == null)
+            {
+                throw new ArgumentNullException(nameof(abilityTalentId));
+            }
+
+            return IsValidAbilityByAbilityId.ContainsKey(abilityTalentId);
+        }
+
+        public bool IsValidAbility(AbilityTalentId abilityTalentId)
+        {
+            if (IsValidAbilityByAbilityId.TryGetValue(abilityTalentId, out bool value))
+                return value;
+            else
+                return false;
+        }
 
         /// <summary>
         /// Performs all the ability overrides.
         /// </summary>
-        /// <param name="abilities">Collection of abitities to check for overrides.</param>
+        /// <param name="abilities">Collection of abilities to check for overrides.</param>
         public void ExecuteAbilityOverrides(IEnumerable<Ability> abilities)
         {
             if (abilities == null)
@@ -64,16 +138,36 @@ namespace HeroesData.Parser.Overrides.DataOverrides
             foreach (Ability ability in abilities)
             {
                 if (PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.AbilityTalentId, out Dictionary<string, Action<Ability>> valueOverrideMethods))
-                    ApplyAbilityOverrides(ability, valueOverrideMethods);
+                {
+                    foreach (KeyValuePair<string, Action<Ability>> propertyOverride in valueOverrideMethods)
+                    {
+                        // execute each property override
+                        propertyOverride.Value(ability);
+                    }
+                }
             }
         }
 
-        private static void ApplyAbilityOverrides(Ability ability, Dictionary<string, Action<Ability>> valueOverrideMethods)
+        /// <summary>
+        /// Performs all the weapon overrides.
+        /// </summary>
+        /// <param name="weapons">Collection of weapons to check for overrides.</param>
+        public void ExecuteWeaponOverrides(IEnumerable<UnitWeapon> weapons)
         {
-            foreach (KeyValuePair<string, Action<Ability>> propertyOverride in valueOverrideMethods)
+            if (weapons == null)
             {
-                // execute each property override
-                propertyOverride.Value(ability);
+                throw new ArgumentNullException(nameof(weapons));
+            }
+
+            foreach (UnitWeapon weapon in weapons)
+            {
+                if (PropertyWeaponOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<UnitWeapon>> valueOverrideMethods))
+                {
+                    foreach (KeyValuePair<string, Action<UnitWeapon>> propertyOverride in valueOverrideMethods)
+                    {
+                        propertyOverride.Value(weapon);
+                    }
+                }
             }
         }
     }

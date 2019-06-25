@@ -48,14 +48,14 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         public int HeroUnitsCount => HeroUnitsList.Count;
 
         /// <summary>
-        /// Gets or sets the property override action methods for talents by talent id.
+        /// Gets the property override action methods for talents by talent id.
         /// </summary>
-        public Dictionary<string, Dictionary<string, Action<Talent>>> PropertyTalentOverrideMethodByTalentId { get; set; } = new Dictionary<string, Dictionary<string, Action<Talent>>>();
+        internal Dictionary<AbilityTalentId, Dictionary<string, Action<Talent>>> PropertyTalentOverrideMethodByTalentId { get; } = new Dictionary<AbilityTalentId, Dictionary<string, Action<Talent>>>();
 
         /// <summary>
-        /// Gets or sets the property override action methods for portraits by cHero id.
+        /// Gets the property override action methods for portraits by cHero id.
         /// </summary>
-        public Dictionary<string, Dictionary<string, Action<HeroPortrait>>> PropertyPortraitOverrideMethodByCHeroId { get; set; } = new Dictionary<string, Dictionary<string, Action<HeroPortrait>>>();
+        internal Dictionary<string, Dictionary<string, Action<HeroPortrait>>> PropertyPortraitOverrideMethodByHeroId { get; } = new Dictionary<string, Dictionary<string, Action<HeroPortrait>>>();
 
         /// <summary>
         /// Gets or sets the abilities that should be removed.
@@ -92,6 +92,55 @@ namespace HeroesData.Parser.Overrides.DataOverrides
             }
 
             return HeroUnitsList.Contains(heroUnitId);
+        }
+
+        /// <summary>
+        /// Performs all the talent overrides.
+        /// </summary>
+        /// <param name="talents">Collection of talents to check for overrides.</param>
+        public void ExecuteTalentOverrides(IEnumerable<Talent> talents)
+        {
+            if (talents == null)
+            {
+                throw new ArgumentNullException(nameof(talents));
+            }
+
+            foreach (Talent talent in talents)
+            {
+                if (PropertyTalentOverrideMethodByTalentId.TryGetValue(talent.AbilityTalentId, out Dictionary<string, Action<Talent>> valueOverrideMethods))
+                {
+                    foreach (KeyValuePair<string, Action<Talent>> propertyOverride in valueOverrideMethods)
+                    {
+                        // execute each property override
+                        propertyOverride.Value(talent);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Peforms all portrait overrides.
+        /// </summary>
+        /// <param name="hero"></param>
+        public void ExecutePortraitOverrides(string heroId, HeroPortrait heroPortrait)
+        {
+            if (heroId == null)
+            {
+                throw new ArgumentNullException(nameof(heroId));
+            }
+
+            if (heroPortrait == null)
+            {
+                throw new ArgumentNullException(nameof(heroPortrait));
+            }
+
+            if (PropertyPortraitOverrideMethodByHeroId.TryGetValue(heroId, out Dictionary<string, Action<HeroPortrait>> valueOverrideMethods))
+            {
+                foreach (KeyValuePair<string, Action<HeroPortrait>> propertyOverride in valueOverrideMethods)
+                {
+                    propertyOverride.Value(heroPortrait);
+                }
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace HeroesData.Parser.Overrides.PropertyOverrides
 {
-    internal class AbilityPropertyOverride : PropertyOverrideBase<Ability>
+    internal class AbilityPropertyOverride : PropertyOverrideBase<Ability, AbilityTalentId>
     {
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<Ability>> propertyOverrides)
         {

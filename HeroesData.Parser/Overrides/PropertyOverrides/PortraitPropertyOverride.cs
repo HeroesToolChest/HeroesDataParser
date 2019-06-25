@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace HeroesData.Parser.Overrides.PropertyOverrides
 {
-    internal class PortraitPropertyOverride : PropertyOverrideBase<HeroPortrait>
+    internal class PortraitPropertyOverride : PropertyOverrideBase<HeroPortrait, string>
     {
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<HeroPortrait>> propertyOverrides)
         {

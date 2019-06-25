@@ -1,4 +1,5 @@
 ﻿using Heroes.Models;
+using Heroes.Models.AbilityTalents;
 using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides;
@@ -115,7 +116,40 @@ namespace HeroesData.Parser
                 throw new ArgumentNullException(nameof(dataOverride));
 
             if (unit.Abilities != null)
+            {
+                foreach (AbilityTalentId validAbility in dataOverride.ValidAbilities)
+                {
+                    Ability ability = XmlDataService.AbilityData.CreateAbility(unit.CUnitId, validAbility.ReferenceId);
+
+                    if (ability != null)
+                    {
+                        if (dataOverride.IsValidAbility(validAbility))
+                            unit.AddAbility(ability);
+                        else
+                            unit.RemoveAbility(ability);
+                    }
+                }
+
                 dataOverride.ExecuteAbilityOverrides(unit.Abilities);
+            }
+
+            if (unit.Weapons != null)
+            {
+                foreach (string validWeapon in dataOverride.ValidWeapons)
+                {
+                    UnitWeapon weapon = XmlDataService.WeaponData.CreateWeapon(validWeapon);
+
+                    if (weapon != null)
+                    {
+                        if (dataOverride.IsValidWeapon(validWeapon))
+                            unit.AddUnitWeapon(weapon);
+                        else
+                            unit.RemoveUnitWeapon(weapon);
+                    }
+                }
+
+                dataOverride.ExecuteWeaponOverrides(unit.Weapons);
+            }
 
             base.ApplyAdditionalOverrides(unit, dataOverride);
         }

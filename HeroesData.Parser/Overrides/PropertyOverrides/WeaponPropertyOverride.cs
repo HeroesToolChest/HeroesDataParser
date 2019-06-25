@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace HeroesData.Parser.Overrides.PropertyOverrides
 {
-    internal class WeaponPropertyOverride : PropertyOverrideBase<UnitWeapon>
+    internal class WeaponPropertyOverride : PropertyOverrideBase<UnitWeapon, string>
     {
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<UnitWeapon>> propertyOverrides)
         {

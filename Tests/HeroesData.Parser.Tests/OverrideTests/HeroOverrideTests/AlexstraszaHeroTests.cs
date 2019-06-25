@@ -64,8 +64,8 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void IsNotValidWeaponTest()
         {
-            Assert.IsTrue(HeroDataOverride.IsValidWeaponByWeaponId.ContainsKey("Ffffwwwwaaa-2.0"));
-            Assert.IsFalse(HeroDataOverride.IsValidWeaponByWeaponId["Ffffwwwwaaa-2.0"]);
+            Assert.IsTrue(HeroDataOverride.ContainsValidWeapon("Ffffwwwwaaa-2.0"));
+            Assert.IsFalse(HeroDataOverride.IsValidWeapon("Ffffwwwwaaa-2.0"));
         }
 
         [TestMethod]
@@ -91,7 +91,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void IsValidWeaponTest()
         {
-            Assert.IsFalse(HeroDataOverride.IsValidWeaponByWeaponId.ContainsKey("Ffffwwwwaaa"));
+            Assert.IsFalse(HeroDataOverride.ContainsValidWeapon("Ffffwwwwaaa"));
         }
 
         [TestMethod]

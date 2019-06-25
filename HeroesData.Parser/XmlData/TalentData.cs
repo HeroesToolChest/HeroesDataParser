@@ -233,6 +233,7 @@ namespace HeroesData.Parser.XmlData
             Action setAbilAction = null;
             Action setTraitAction = null;
             Action setActiveAction = null;
+            Action setRankArrayAction = null;
 
             foreach (XElement element in talentElement.Elements())
             {
@@ -320,7 +321,7 @@ namespace HeroesData.Parser.XmlData
                     {
                         string activeValue = element.Attribute("value")?.Value;
 
-                        if (activeValue == "1" )
+                        if (activeValue == "1")
                         {
                             talent.IsActive = true;
 
@@ -336,12 +337,27 @@ namespace HeroesData.Parser.XmlData
                     if (!string.IsNullOrEmpty(stackBehaviorValue))
                         talent.IsQuest = true;
                 }
+                else if (elementName == "RANKARRAY")
+                {
+                    setRankArrayAction = () =>
+                    {
+                        foreach (XElement rankArrayElement in element.Elements())
+                        {
+                            string rankArrayElementName = element.Name.LocalName.ToUpper();
+
+                            if (rankArrayElementName == "BEHAVIORARRAY")
+                            {
+                            }
+                        }
+                    };
+                }
             }
 
             setFaceAction?.Invoke();
             setAbilAction?.Invoke();
             setTraitAction?.Invoke();
             setActiveAction?.Invoke();
+            setRankArrayAction?.Invoke();
 
             if ((talent.AbilityType == AbilityType.Unknown || talent.AbilityType == AbilityType.Hidden) && abilElement == null)
                 talent.AbilityType = AbilityType.Passive;

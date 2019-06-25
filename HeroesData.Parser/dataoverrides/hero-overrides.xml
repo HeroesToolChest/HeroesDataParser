@@ -25,6 +25,9 @@
       </Override>
     </Ability>
   </CHero>
+  <CHero id="Alexstrasza">
+      <CUnit id="HeroAlexstraszaDragon" />
+  </CHero>
   <CHero id="Ana">
     <!--Old abilityTalent -->
     <Ability id="AnaHealingDartDetachableBoxMagazine" button="AnaHealingDart">
@@ -220,6 +223,7 @@
     </Ability>
   </CHero>
   <CHero id="Greymane">
+    <HeroUnit id="GreymaneWorgen" />
     <Ability id="GreymaneRazorSwipe">
       <Override>
         <ParentLink value="GreymaneWorgenForm" />
@@ -270,6 +274,13 @@
     <Ability id="ImperiusAngelicArmamentsLaunchMissiles">
       <Override>
         <AbilityTier value="Hidden" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Jaina">
+    <Ability id="ImprovedIceBlock" button="JainaImprovedIceBlockHotbar" valid="true">
+      <Override>
+        <ParentLink value="JainaTraitFrostbite" />
       </Override>
     </Ability>
   </CHero>
@@ -329,6 +340,11 @@
         <ParentLink value="KelThuzadChains" />
       </Override>
     </Ability>
+    <Ability id="KelThuzadGlacialSpike">
+      <Override>
+        <ParentLink value="KelThuzadMasterOfTheColdDark" />
+      </Override>
+    </Ability>
   </CHero>
   <CHero id="MalGanis">
     <Ability id="MalGanisFelClawsThird">
@@ -384,6 +400,21 @@
         <ParentLink value="NecromancerCursedStrikes" />
       </Override>
     </Ability>
+    <Ability id="NecromancerBoneArmor">
+      <Override>
+        <ParentLink value="NecromancerTalentBoneArmorShade, NecromancerBoneArmorShade" />
+      </Override>
+    </Ability>
+    <Ability id="NecromancerBoneArmor" button="NecromancerBoneArmorAbilBacklash">
+      <Override>
+        <ParentLink value="NecromancerTalentBoneArmorBacklash, NecromancerBoneArmorBacklash" />
+      </Override>
+    </Ability>
+    <Ability id="NecromancerBoneArmor" button="NecromancerBoneArmorAbilShackler">
+      <Override>
+        <ParentLink value="NecromancerTalentBoneArmorShackler, NecromancerBoneArmorShackler" />
+      </Override>
+    </Ability>
   </CHero>
   <CHero id="Nova">
     <!--For cooldown display only-->
@@ -394,6 +425,11 @@
     </Ability>
   </CHero>
   <CHero id="Orphea">
+    <Portrait>
+      <Override>
+        <TargetPortraitFileName value="ui_targetportrait_hero_orphea.dds" />
+      </Override>
+    </Portrait>
     <Ability id="OrpheaOverflowingChaosInvasiveMiasma">
       <Override>
         <ParentLink value="OrpheaInvasiveMiasma" />

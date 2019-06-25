@@ -123,7 +123,7 @@ namespace HeroesData.Parser
 
             ApplyOverrides(hero, HeroDataOverride);
 
-            ClearActiveTypeTalentsAndAbilities(hero);
+            ValidateAbilityTalentLinkIds(hero);
 
             //MoveParentLinkedAbilities(hero);
             //MoveParentLinkedWeapons(hero);
@@ -173,84 +173,58 @@ namespace HeroesData.Parser
 
         protected override void ApplyAdditionalOverrides(Hero hero, HeroDataOverride dataOverride)
         {
-            //if (dataOverride.NameOverride.Enabled)
-            //    hero.Name = dataOverride.NameOverride.Value;
+            if (dataOverride.EnergyTypeOverride.Enabled)
+                hero.Energy.EnergyType = dataOverride.EnergyTypeOverride.EnergyType;
 
-            //if (dataOverride.HyperlinkIdOverride.Enabled)
-            //    hero.HyperlinkId = dataOverride.HyperlinkIdOverride.Value;
+            if (dataOverride.EnergyOverride.Enabled)
+                hero.Energy.EnergyMax = dataOverride.EnergyOverride.Energy;
 
-            //if (dataOverride.EnergyTypeOverride.Enabled)
-            //    hero.Energy.EnergyType = dataOverride.EnergyTypeOverride.EnergyType;
-
-            //if (dataOverride.EnergyOverride.Enabled)
-            //    hero.Energy.EnergyMax = dataOverride.EnergyOverride.Energy;
-
-            //if (dataOverride.ParentLinkOverride.Enabled)
-            //    hero.ParentLink = dataOverride.ParentLinkOverride.ParentLink;
+            if (dataOverride.ParentLinkOverride.Enabled)
+                hero.ParentLink = dataOverride.ParentLinkOverride.ParentLink;
 
             if (hero.Abilities != null)
+            {
+                foreach (AbilityTalentId validAbility in dataOverride.ValidAbilities)
+                {
+                    Ability ability = XmlDataService.AbilityData.CreateAbility(hero.CUnitId, validAbility);
+
+                    if (ability != null)
+                    {
+                        if (dataOverride.IsValidAbility(validAbility))
+                            hero.AddAbility(ability);
+                        else
+                            hero.RemoveAbility(ability);
+                    }
+                }
+
                 dataOverride.ExecuteAbilityOverrides(hero.Abilities);
+            }
 
+            if (hero.HeroPortrait != null)
+                dataOverride.ExecutePortraitOverrides(hero.CHeroId, hero.HeroPortrait);
 
-            // abilities
-            //if (hero.Abilities != null)
-            //{
-            //    // TODO: possibly re-add
-            //    //foreach (KeyValuePair<string, Ability> ability in hero.Abilities)
-            //    //{
-            //    //    if (heroDataOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.Key, out Dictionary<string, Action<Ability>> valueOverrideMethods))
-            //    //    {
-            //    //        foreach (var propertyOverride in valueOverrideMethods)
-            //    //        {
-            //    //            // execute each property override
-            //    //            propertyOverride.Value(ability.Value);
-            //    //        }
-            //    //    }
-            //    //}
-            //}
+            if (hero.Talents != null)
+            {
+                dataOverride.ExecuteTalentOverrides(hero.Talents);
+            }
 
-            // talents
-            //if (hero.Talents != null)
-            //{
-            //    foreach (KeyValuePair<string, Talent> talents in hero.Talents)
-            //    {
-            //        if (heroDataOverride.PropertyTalentOverrideMethodByTalentId.TryGetValue(talents.Key, out Dictionary<string, Action<Talent>> valueOverrideMethods))
-            //        {
-            //            foreach (var propertyOverride in valueOverrideMethods)
-            //            {
-            //                // execute each property override
-            //                propertyOverride.Value(talents.Value);
-            //            }
-            //        }
-            //    }
-            //}
+            if (hero.Weapons != null)
+            {
+                foreach (string validWeapon in dataOverride.ValidWeapons)
+                {
+                    UnitWeapon weapon = XmlDataService.WeaponData.CreateWeapon(validWeapon);
 
-            //// weapons
-            //if (hero.Weapons != null)
-            //{
-            //    foreach (UnitWeapon weapon in hero.Weapons)
-            //    {
-            //        if (heroDataOverride.PropertyWeaponOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<UnitWeapon>> valueOverrideMethods))
-            //        {
-            //            foreach (var propertyOverride in valueOverrideMethods)
-            //            {
-            //                // execute each property override
-            //                propertyOverride.Value(weapon);
-            //            }
-            //        }
-            //    }
-            //}
+                    if (weapon != null)
+                    {
+                        if (dataOverride.IsValidWeapon(validWeapon))
+                            hero.AddUnitWeapon(weapon);
+                        else
+                            hero.RemoveUnitWeapon(weapon);
+                    }
+                }
 
-            //if (hero.HeroPortrait != null)
-            //{
-            //    if (heroDataOverride.PropertyPortraitOverrideMethodByCHeroId.TryGetValue(hero.CHeroId, out Dictionary<string, Action<HeroPortrait>> valueOverrideMethods))
-            //    {
-            //        foreach (var propertyOverride in valueOverrideMethods)
-            //        {
-            //            propertyOverride.Value(hero.HeroPortrait);
-            //        }
-            //    }
-            //}
+                dataOverride.ExecuteWeaponOverrides(hero.Weapons);
+            }
         }
 
         private void SetDefaultValues(Hero hero)
@@ -522,7 +496,7 @@ namespace HeroesData.Parser
                 hero.ReleaseDate = DefaultData.HeroData.HeroAlphaReleaseDate;
         }
 
-        private void ClearActiveTypeTalentsAndAbilities(Hero hero)
+        private void ValidateAbilityTalentLinkIds (Hero hero)
         {
             foreach (Talent talent in hero.Talents)
             {

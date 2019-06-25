@@ -21,104 +21,93 @@ namespace HeroesData.Parser.Overrides
             UnitDataOverride unitDataOverride = new UnitDataOverride();
 
             AbilityPropertyOverride abilityOverride = new AbilityPropertyOverride();
-            //WeaponPropertyOverride weaponOverride = new WeaponPropertyOverride(GameData, HotsBuild);
+            WeaponPropertyOverride weaponOverride = new WeaponPropertyOverride();
 
             string unitId = element.Attribute("id").Value;
 
             foreach (XElement dataElement in element.Elements())
             {
                 string elementName = dataElement.Name.LocalName;
-                //string valueAttribute = dataElement.Attribute("value")?.Value;
+                string valueAttribute = dataElement.Attribute("value")?.Value;
 
-                //XElement overrideElement = null;
+                XElement overrideElement = null;
 
                 switch (elementName)
                 {
-                    case "Ability":
-                        string abilityId = dataElement.Attribute("id")?.Value ?? string.Empty;
-                        string buttonId = dataElement.Attribute("button")?.Value ?? abilityId;
-
-                        if (!string.IsNullOrEmpty(abilityId))
+                    case "Name":
+                        if (!string.IsNullOrEmpty(valueAttribute))
+                            unitDataOverride.NameOverride = (true, valueAttribute);
+                        break;
+                    case "HyperlinkId":
+                        if (!string.IsNullOrEmpty(valueAttribute))
+                            unitDataOverride.HyperlinkIdOverride = (true, valueAttribute);
+                        break;
+                    case "CUnit":
+                        if (!string.IsNullOrEmpty(valueAttribute))
+                            unitDataOverride.CUnitOverride = (true, valueAttribute);
+                        break;
+                    case "EnergyType":
+                        unitDataOverride.EnergyTypeOverride = (true, valueAttribute);
+                        break;
+                    case "Energy":
+                        string energyValue = valueAttribute;
+                        if (int.TryParse(energyValue, out int value))
                         {
-                            XElement overrideElement = dataElement.Element("Override");
+                            if (value < 0)
+                                value = 0;
 
-                            if (overrideElement != null)
-                                abilityOverride.SetOverride(new AbilityTalentId(abilityId, buttonId), overrideElement, unitDataOverride.PropertyAbilityOverrideMethodByAbilityId);
+                            unitDataOverride.EnergyOverride = (true, value);
+                        }
+                        else
+                        {
+                            unitDataOverride.EnergyOverride = (true, 0);
                         }
 
                         break;
-                    //case "Name":
-                    //    if (!string.IsNullOrEmpty(valueAttribute))
-                    //        unitDataOverride.NameOverride = (true, valueAttribute);
-                    //    break;
-                    //case "HyperlinkId":
-                    //    if (!string.IsNullOrEmpty(valueAttribute))
-                    //        unitDataOverride.HyperlinkIdOverride = (true, valueAttribute);
-                    //    break;
-                    //case "EnergyType":
-                    //    string energyType = valueAttribute;
-                    //    unitDataOverride.EnergyTypeOverride = (true, energyType);
-                    //    break;
-                    //case "Energy":
-                    //    string energyValue = valueAttribute;
-                    //    if (int.TryParse(energyValue, out int value))
-                    //    {
-                    //        if (value < 0)
-                    //            value = 0;
+                    case "ParentLink":
+                        unitDataOverride.ParentLinkOverride = (true, valueAttribute);
+                        break;
+                    case "Ability":
+                        string abilityId = dataElement.Attribute("id")?.Value ?? string.Empty;
+                        string buttonAbilityId = dataElement.Attribute("button")?.Value ?? abilityId;
+                        string validAbility = dataElement.Attribute("valid")?.Value;
 
-                    //        unitDataOverride.EnergyOverride = (true, value);
-                    //    }
-                    //    else
-                    //    {
-                    //        unitDataOverride.EnergyOverride = (true, 0);
-                    //    }
+                        if (bool.TryParse(validAbility, out bool abilityValidResult))
+                        {
+                            unitDataOverride.AddValidAbility(new AbilityTalentId(abilityId, buttonAbilityId), abilityValidResult);
 
-                    //    break;
-                    //case "Button":
-                    //    string buttonId = dataElement.Attribute("id")?.Value;
-                    //    string parent = dataElement.Attribute("parent")?.Value;
-                    //    string referenceNameId = dataElement.Attribute("referenceNameId")?.Value;
+                            if (!abilityValidResult)
+                                continue;
+                        }
 
-                    //    if (string.IsNullOrEmpty(buttonId))
-                    //        continue;
+                        if (!string.IsNullOrEmpty(abilityId))
+                        {
+                            overrideElement = dataElement.Element("Override");
 
-                    //    if (parent == null)
-                    //        parent = string.Empty;
+                            if (overrideElement != null)
+                                abilityOverride.SetOverride(new AbilityTalentId(abilityId, buttonAbilityId), overrideElement, unitDataOverride.PropertyAbilityOverrideMethodByAbilityId);
+                        }
 
-                    //    unitDataOverride.AddedAbilityByButtonId.Add(new AddedButtonAbility()
-                    //    {
-                    //        ButtonId = buttonId,
-                    //        ParentValue = parent,
-                    //        ReferenceNameId = referenceNameId,
-                    //    });
+                        break;
+                    case "Weapon":
+                        string weaponId = dataElement.Attribute("id")?.Value;
+                        string valid = dataElement.Attribute("valid")?.Value;
 
-                    //    // override
-                    //    overrideElement = dataElement.Element("Override");
-                    //    if (overrideElement != null)
-                    //        abilityOverride.SetOverride(buttonId, overrideElement, unitDataOverride.PropertyAbilityOverrideMethodByAbilityId);
-                    //    break;
-                    //case "Weapon":
-                    //    string weaponId = dataElement.Attribute("id")?.Value;
-                    //    string valid = dataElement.Attribute("valid")?.Value;
+                        if (string.IsNullOrEmpty(weaponId))
+                            continue;
 
-                    //    if (string.IsNullOrEmpty(weaponId))
-                    //        continue;
+                        if (bool.TryParse(valid, out bool weaponValidResult))
+                        {
+                            unitDataOverride.AddValidWeapon(weaponId, weaponValidResult);
 
-                    //    if (bool.TryParse(valid, out bool weaponValidresult))
-                    //    {
-                    //        unitDataOverride.IsValidWeaponByWeaponId.Add(weaponId, weaponValidresult);
+                            if (!weaponValidResult)
+                                continue;
+                        }
 
-                    //        if (!weaponValidresult)
-                    //            continue;
-                    //    }
-
-                    //    overrideElement = dataElement.Element("Override");
-                    //    if (overrideElement != null)
-                    //        weaponOverride.SetOverride(weaponId, overrideElement, unitDataOverride.PropertyWeaponOverrideMethodByWeaponId);
-                    //    break;
-                    //case "ParentLink":
-                    //    unitDataOverride.ParentLinkOverride = (true, dataElement.Attribute("value")?.Value);
-                    //    break;
+                        overrideElement = dataElement.Element("Override");
+                        if (overrideElement != null)
+                            weaponOverride.SetOverride(weaponId, overrideElement, unitDataOverride.PropertyWeaponOverrideMethodByWeaponId);
+                        break;
                 }
             }
 

@@ -261,14 +261,18 @@ namespace HeroesData.Parser.XmlData
 
         private void SetWeapons(Unit unit)
         {
-            if (AbilitiesArray == null)
+            if (WeaponsArray == null)
                 throw new ArgumentNullException("Call SetData() first to set up the weapons collections");
 
             foreach (XElement element in WeaponsArray.Elements)
             {
-                UnitWeapon weapon = WeaponData.CreateWeapon(element);
-                if (weapon != null)
-                    unit.AddUnitWeapon(weapon);
+                string weaponLink = element.Attribute("Link")?.Value;
+                if (!string.IsNullOrEmpty(weaponLink))
+                {
+                    UnitWeapon weapon = WeaponData.CreateWeapon(weaponLink);
+                    if (weapon != null)
+                        unit.AddUnitWeapon(weapon);
+                }
             }
         }
 

@@ -1,6 +1,5 @@
 ﻿using Heroes.Models;
 using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.Overrides.DataOverrides;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,6 @@ namespace HeroesData.Parser.XmlData
     {
         private readonly GameData GameData;
         private readonly DefaultData DefaultData;
-        private readonly UnitDataOverride UnitDataOverride;
         private readonly Configuration Configuration;
 
         public WeaponData(GameData gameData, DefaultData defaultData, Configuration configuration)
@@ -22,24 +20,17 @@ namespace HeroesData.Parser.XmlData
             Configuration = configuration;
         }
 
-        public WeaponData(GameData gameData, DefaultData defaultData, UnitDataOverride unitDataOverride, Configuration configuration)
-        {
-            GameData = gameData;
-            DefaultData = defaultData;
-            UnitDataOverride = unitDataOverride;
-            Configuration = configuration;
-        }
-
         /// <summary>
         /// Gets or sets if the parsing is for hero units.
         /// </summary>
         public bool IsHeroParsing { get; set; } = false;
 
-        public UnitWeapon CreateWeapon(XElement weaponArrayElement)
+        public UnitWeapon CreateWeapon(string weaponLink)
         {
-            string weaponLink = weaponArrayElement.Attribute("Link")?.Value;
             if (string.IsNullOrEmpty(weaponLink))
-                return null;
+            {
+                throw new ArgumentException("Argument cannot be null or emtpy", nameof(weaponLink));
+            }
 
             UnitWeapon weapon = new UnitWeapon()
             {
