@@ -10,7 +10,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void UnitTests()
         {
-            Assert.AreEqual(1, HeroRagnaros.Units.Count());
+            Assert.AreEqual(1, HeroRagnaros.HeroUnitCount);
 
             string unit = HeroRagnaros.UnitIds.ToList()[0];
             Assert.AreEqual("RagnarosBigRag", unit);

@@ -9,6 +9,12 @@ namespace HeroesData.Parser.Tests.UnitParserTests
     public class VolskayaDataVolskayaVehicleGunnerTests : UnitParserBaseTest
     {
         [TestMethod]
+        public void EnergyTests()
+        {
+            Assert.AreEqual("Energy", VolskayaDataVolskayaVehicleGunner.Energy.EnergyType);
+        }
+
+        [TestMethod]
         public void AbilitiesTests()
         {
             Assert.IsTrue(VolskayaDataVolskayaVehicleGunner.TryGetAbility("VolskayaVehicleInitiateParticleCannon", out Ability ability));

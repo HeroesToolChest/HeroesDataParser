@@ -26,7 +26,7 @@
     </Ability>
   </CHero>
   <CHero id="Alexstrasza">
-      <CUnit id="HeroAlexstraszaDragon" />
+    <HeroUnit id="HeroAlexstraszaDragon" />
   </CHero>
   <CHero id="Ana">
     <!--Old abilityTalent -->
@@ -137,6 +137,9 @@
         <AbilityTier value="Hidden" />
       </Override>
     </Ability>
+    <HeroUnit id="HeroChenStorm" />
+    <HeroUnit id="HeroChenEarth" />
+    <HeroUnit id="HeroChenFire" />
   </CHero>
   <CHero id="Cho">
     <Ability id="ChoOgreHidePassive">
@@ -173,7 +176,6 @@
   </CHero>
   <CHero id="DVa">
     <CUnit value="HeroDVaMech" />
-    <HeroUnit id="HeroDVaPilot" />
     <Ability id="DVaBoostersOff" button="DVaMechCancelBoosters">
       <Override>
         <ParentLink value="DVaBoostersOn,DVaMechBoosters" />
@@ -189,6 +191,44 @@
         <ParentLink value="DVaMechBunnyHopHeroic,DVaBunnyHopOn" />
       </Override>
     </Ability>
+    <HeroUnit id="HeroDVaPilot">
+      <!--Hide all the meka abilities-->
+      <Ability id="DVaPilotRemoteBoostersOff" button="DVaMechCancelBoosters">
+        <Override>
+          <AbilityTier value="Hidden" />
+        </Override>
+      </Ability>
+      <Ability id="DVaBoostersOn" button="DVaMechBoosters">
+        <Override>
+          <AbilityTier value="Hidden" />
+        </Override>
+      </Ability>
+      <Ability id="DVaMechDefenseMatrixOn" button="DVaMechDefenseMatrix">
+        <Override>
+          <AbilityTier value="Hidden" />
+        </Override>
+      </Ability>
+      <Ability id="DVaMechSelfDestruct">
+        <Override>
+          <AbilityTier value="Hidden" />
+        </Override>
+      </Ability>
+      <Ability id="DVaMechBunnyHopHeroic" button="DVaBunnyHopOn">
+        <Override>
+          <AbilityTier value="Hidden" />
+        </Override>
+      </Ability>
+      <Ability id="DVaMechMechMode">
+        <Override>
+          <AbilityTier value="Hidden" />
+        </Override>
+      </Ability>
+      <Ability id="DVaPilotCallMechMEKAfall" button="DVaPilotCallMech">
+        <Override>
+          <ParentLink value="DVaPilotCallMechMEKAfall,DVaPilotCallMechMEKAfallTalent" />
+        </Override>
+      </Ability>
+    </HeroUnit>
   </CHero>
   <CHero id="Gall">
     <Ability id="GallTwistingNetherActivated">
@@ -223,7 +263,6 @@
     </Ability>
   </CHero>
   <CHero id="Greymane">
-    <HeroUnit id="GreymaneWorgen" />
     <Ability id="GreymaneRazorSwipe">
       <Override>
         <ParentLink value="GreymaneWorgenForm" />
@@ -316,9 +355,28 @@
   </CHero>
   <CHero id="LostVikings">
     <CUnit value="HeroLostVikingsController" />
-    <HeroUnit id="HeroBaleog" />
-    <HeroUnit id="HeroErik" />
-    <HeroUnit id="HeroOlaf" />
+    <HeroUnit id="HeroLostVikingsController" remove="true" />
+    <HeroUnit id="HeroBaleog">
+      <Ability id="LostVikingsLongboatRaidMortar" button="LostVikingsMortar">
+        <Override>
+          <ParentLink value="LostVikingsLongboatRaidNewer,LostVikingsLongboatRaid" />
+        </Override>
+      </Ability>
+    </HeroUnit>
+    <HeroUnit id="HeroErik">
+      <Ability id="LostVikingsLongboatRaidMortar" button="LostVikingsMortar">
+        <Override>
+          <ParentLink value="LostVikingsLongboatRaidNewer,LostVikingsLongboatRaid" />
+        </Override>
+      </Ability>
+    </HeroUnit>
+    <HeroUnit id="HeroOlaf">
+      <Ability id="LostVikingsLongboatRaidMortar" button="LostVikingsMortar">
+        <Override>
+          <ParentLink value="LostVikingsLongboatRaidNewer,LostVikingsLongboatRaid" />
+        </Override>
+      </Ability>
+    </HeroUnit>
   </CHero>
   <CHero id="Lucio">
     <Ability id="LucioCrossfade" button="LucioCrossfadeActivateSpeedBoost">
@@ -437,12 +495,21 @@
     </Ability>
   </CHero>
   <CHero id="Ragnaros">
-    <HeroUnit id="RagnarosBigRag" />
+    <HeroUnit id="RagnarosBigRag">
+      <Ability id="RagnarosBigRagReturnMoltenCore" button="RagnarosBigRagCancelReturnMoltenCore">
+        <Override>
+          <ParentLink value="RagnarosBigRagReturnMoltenCore" />
+        </Override>
+      </Ability>
+    </HeroUnit>
     <Ability id="RagnarosEmpowerSulfurasActive">
       <Override>
         <ParentLink value="RagnarosEmpowerSulfuras" />
       </Override>
     </Ability>
+  </CHero>
+  <CHero id="Rexxar">
+    <HeroUnit id="RexxarMisha" />
   </CHero>
   <CHero id="Samuro">
     <Ability id="SamuroCriticalStrikeDummy" button="SamuroCriticalStrike">

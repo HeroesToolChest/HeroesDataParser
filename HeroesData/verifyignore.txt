@@ -14,6 +14,8 @@
 [LostVikings] LifeScaling is 0
 [LostVikings] Sight is 0
 [LostVikings] has less than 3 basic abilities
+[LostVikings] has more than 1 Q ability
+[LostVikings] has more than 1 W ability
 
 # has three heroic abilities
 [Varian] has more than 2 Heroic abilities

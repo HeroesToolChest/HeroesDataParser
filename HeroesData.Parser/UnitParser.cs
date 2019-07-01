@@ -90,9 +90,6 @@ namespace HeroesData.Parser
                 UnitDataOverride = UnitOverrideLoader.GetOverride(unit.Id) ?? new UnitDataOverride();
             }
 
-            SetDefaultValues(unit);
-            CActorData(unit);
-
             unitData.SetUnitData(unit);
 
             // set the hyperlinkId to id if it doesn't have one
@@ -162,56 +159,6 @@ namespace HeroesData.Parser
             return !string.IsNullOrEmpty(parent) && !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal);
         }
 
-        private void SetDefaultValues(Unit unit)
-        {
-            unit.Radius = DefaultData.UnitData.UnitRadius;
-            unit.Speed = DefaultData.UnitData.UnitSpeed;
-            unit.Sight = DefaultData.UnitData.UnitSight;
-            unit.Life.LifeMax = DefaultData.UnitData.UnitLifeMax;
-            unit.Life.LifeRegenerationRate = 0;
-            unit.Energy.EnergyType = GameData.GetGameString(DefaultData.HeroEnergyTypeManaText);
-            unit.Energy.EnergyMax = DefaultData.UnitData.UnitEnergyMax;
-            unit.Energy.EnergyRegenerationRate = DefaultData.UnitData.UnitEnergyRegenRate;
-            unit.AddRangeAttribute(DefaultData.UnitData.UnitAttributes);
-            unit.DamageType = DefaultData.UnitData.UnitDamageType;
-            unit.Name = GameData.GetGameString(DefaultData.UnitData.UnitName.Replace(DefaultData.IdPlaceHolder, unit.Id)).Trim();
-        }
-
-        private void CActorData(Unit unit)
-        {
-            IEnumerable<XElement> actorUnitElements = GameData.Elements("CActorUnit").Where(x => x.Attribute("id")?.Value == unit.CUnitId);
-
-            if (actorUnitElements == null || !actorUnitElements.Any())
-                return;
-
-            foreach (XElement element in actorUnitElements.Elements())
-            {
-                string elementName = element.Name.LocalName.ToUpper();
-
-                if (elementName == "GROUPICON")
-                {
-                    XElement imageElement = element.Element("Image");
-                    if (imageElement != null)
-                    {
-                        unit.TargetInfoPanelImageFileName = Path.GetFileName(PathHelper.GetFilePath(imageElement.Attribute("value")?.Value)).ToLower();
-                    }
-                }
-                else if (elementName == "VITALNAMES")
-                {
-                    string indexValue = element.Attribute("index")?.Value;
-                    string valueValue = element.Attribute("value")?.Value;
-
-                    if (!string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(valueValue) && indexValue == "Energy")
-                    {
-                        if (GameData.TryGetGameString(valueValue, out string energyType))
-                        {
-                            unit.Energy.EnergyType = energyType;
-                        }
-                    }
-                }
-            }
-        }
-
         private void AddItems(string mapName, IEnumerable<XElement> elements, HashSet<string[]> items, List<string> addIds, List<string> removeIds)
         {
             foreach (XElement element in elements)
@@ -219,13 +166,19 @@ namespace HeroesData.Parser
                 string id = element.Attribute("id").Value;
                 string parent = element.Attribute("parent")?.Value;
 
-                if (addIds.Contains(id))
+                string idCheck = string.Empty;
+                if (string.IsNullOrEmpty(mapName))
+                    idCheck = id;
+                else
+                    idCheck = $"{mapName}-{id}";
+
+                if (addIds.Contains(idCheck))
                 {
                     AddItem(items, id, mapName);
                     continue;
                 }
 
-                if (!removeIds.Contains(id) &&
+                if (!removeIds.Contains(idCheck) &&
                     !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal) && !id.StartsWith("Hero", StringComparison.Ordinal) &&
                     !id.EndsWith("missile", StringComparison.OrdinalIgnoreCase))
                 {

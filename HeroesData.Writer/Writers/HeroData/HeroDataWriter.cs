@@ -20,6 +20,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
         }
 
+        protected abstract T UnitElement(Unit unit);
         protected abstract T GetPortraitObject(Hero hero);
         protected abstract T GetArmorObject(Unit unit);
         protected abstract T GetLifeObject(Unit unit);
@@ -29,6 +30,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         protected abstract T GetAbilitiesObject(Unit unit);
         protected abstract T GetSubAbilitiesObject(ILookup<AbilityTalentId, Ability> linkedAbilities);
         protected abstract T GetTalentsObject(Hero hero);
+        protected abstract T GetUnitsObject(Hero hero);
         protected abstract TU AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase);
         protected abstract TU AbilityInfoElement(Ability ability);
         protected abstract TU TalentInfoElement(Talent talent);
@@ -203,6 +205,16 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (hero.TalentsCount > 0)
             {
                 return GetTalentsObject(hero);
+            }
+
+            return null;
+        }
+
+        protected T Units(Hero hero)
+        {
+            if (hero.HeroUnitCount > 0)
+            {
+                return GetUnitsObject(hero);
             }
 
             return null;

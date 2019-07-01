@@ -24,15 +24,6 @@ namespace HeroesData.Parser.Overrides
             WeaponPropertyOverride weaponOverride = new WeaponPropertyOverride();
 
             string unitId = element.Attribute("id").Value;
-            string isAddedUnit = element.Attribute("value")?.Value;
-
-            if (bool.TryParse(isAddedUnit, out bool unitAddedResult))
-            {
-                unitDataOverride.AddAddedUnit(unitId, unitAddedResult);
-
-                if (!unitAddedResult)
-                    return;
-            }
 
             foreach (XElement dataElement in element.Elements())
             {

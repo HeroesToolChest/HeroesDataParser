@@ -7,7 +7,8 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 {
     public class HeroDataOverride : UnitDataOverride, IDataOverride
     {
-        private HashSet<string> HeroUnitsList = new HashSet<string>();
+        private readonly HashSet<string> HeroUnitsList = new HashSet<string>();
+        private readonly HashSet<string> HeroUnitsRemovedList = new HashSet<string>();
 
         /// <summary>
         /// Gets or sets abilities that are valid in the HeroAbilArray or to be invalidated.
@@ -92,6 +93,35 @@ namespace HeroesData.Parser.Overrides.DataOverrides
             }
 
             return HeroUnitsList.Contains(heroUnitId);
+        }
+
+        /// <summary>
+        /// Addes a hero unit id to the hero unit remove list.
+        /// </summary>
+        /// <param name="heroUnitId">The hero unit that is associated with the hero.</param>
+        public void AddRemovedHeroUnit(string heroUnitId)
+        {
+            if (string.IsNullOrEmpty(heroUnitId))
+            {
+                throw new ArgumentException("Argument cannot be null or empty", nameof(heroUnitId));
+            }
+
+            HeroUnitsRemovedList.Add(heroUnitId);
+        }
+
+        /// <summary>
+        /// Returns the value of whether the hero unit id exists in the removed list.
+        /// </summary>
+        /// <param name="heroUnitId">The hero unit that is associated with the hero.</param>
+        /// <returns></returns>
+        public bool ContainsRemovedHeroUnit(string heroUnitId)
+        {
+            if (string.IsNullOrEmpty(heroUnitId))
+            {
+                throw new ArgumentException("Argument cannot be null or empty", nameof(heroUnitId));
+            }
+
+            return HeroUnitsRemovedList.Contains(heroUnitId);
         }
 
         /// <summary>

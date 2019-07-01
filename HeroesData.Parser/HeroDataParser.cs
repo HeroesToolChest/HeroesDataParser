@@ -109,19 +109,27 @@ namespace HeroesData.Parser
             SetDefaultValues(hero);
             CActorData(hero);
 
+            // must be done first to any find any units.
+            FindUnits(heroElement, hero);
+
             // adds from overrides, parses for abilities
             AddHeroUnits(hero, unitData);
 
             // parses the hero's unit data; abilities
             // this must come after AddHeroUnits to correctly set the abilityTalentLinks for the talents
-            unitData.SetUnitData(hero);
+            unitData.SetUnitData(hero, true);
 
             // parses the hero's hero data; talents
             SetHeroData(heroElement, hero);
 
-            //FinalizeDataChecks(hero);
+            ClearHeroUnitsFromUnitIds(hero);
 
+            // execute all overrides
             ApplyOverrides(hero, HeroDataOverride);
+            foreach (Hero heroUnit in hero.HeroUnits)
+            {
+                ApplyOverrides(heroUnit, HeroOverrideLoader.GetOverride(heroUnit.CHeroId) ?? new HeroDataOverride());
+            }
 
             ValidateAbilityTalentLinkIds(hero);
 
@@ -292,6 +300,14 @@ namespace HeroesData.Parser
                         {
                             hero.Energy.EnergyType = energyType;
                         }
+                    }
+                }
+                else if (elementName == "UNITBUTTON" || elementName == "UNITBUTTONMULTIPLE")
+                {
+                    string value = element.Attribute("value")?.Value;
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        HeroDataOverride.AddAddedAbility(new AbilityTalentId(value, value), true);
                     }
                 }
             }
@@ -496,6 +512,26 @@ namespace HeroesData.Parser
                 hero.ReleaseDate = DefaultData.HeroData.HeroAlphaReleaseDate;
         }
 
+        private void FindUnits(XElement heroElement, Hero hero)
+        {
+            if (heroElement == null)
+                return;
+
+            // parent lookup
+            string parentValue = heroElement.Attribute("parent")?.Value;
+            if (!string.IsNullOrEmpty(parentValue))
+            {
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
+                if (parentElement != null)
+                    SetHeroData(parentElement, hero);
+            }
+
+            string unit = heroElement.Element("Unit")?.Attribute("value")?.Value;
+
+            if (!string.IsNullOrEmpty(unit) && !HeroDataOverride.ContainsRemovedHeroUnit(unit))
+                HeroDataOverride.AddHeroUnit(unit);
+        }
+
         private void ValidateAbilityTalentLinkIds (Hero hero)
         {
             foreach (Talent talent in hero.Talents)
@@ -504,7 +540,7 @@ namespace HeroesData.Parser
                 HashSet<string> validatedIds = new HashSet<string>();
                 foreach (string abilityTalentLinkId in talent.AbilityTalentLinkIds)
                 {
-                    if (hero.ContainsAbility(abilityTalentLinkId) || hero.ContainsTalent(abilityTalentLinkId) || hero.Units.Select(x => x.ContainsAbility(abilityTalentLinkId)).Any())
+                    if (hero.ContainsAbility(abilityTalentLinkId) || hero.ContainsTalent(abilityTalentLinkId) || hero.HeroUnits.Select(x => x.ContainsAbility(abilityTalentLinkId)).Any())
                         validatedIds.Add(abilityTalentLinkId);
                 }
 
@@ -521,22 +557,29 @@ namespace HeroesData.Parser
         {
             foreach (string heroUnit in HeroDataOverride.HeroUnits)
             {
+                if (string.IsNullOrEmpty(heroUnit))
+                    continue;
+
                 //if (!GameData.TryGetGameString(DefaultData.HeroData.UnitName.Replace(DefaultData.IdPlaceHolder, heroUnit), out string name))
                 //{
                 //    if (!GameData.TryGetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, heroUnit), out name))
                 //        name = heroUnit;
                 //}
 
-                Unit unit = new Unit
+                Hero newHeroUnit = new Hero
                 {
                     Id = heroUnit,
                     CUnitId = heroUnit,
+                    CHeroId = heroUnit,
                 };
 
-                unitData.SetUnitData(unit);
+                unitData.SetUnitData(newHeroUnit);
 
-                hero.AddUnit(unit);
-                hero.AddUnitId(heroUnit);
+                // set the hyperlinkId to id if it doesn't have one
+                if (string.IsNullOrEmpty(newHeroUnit.HyperlinkId))
+                    newHeroUnit.HyperlinkId = newHeroUnit.Id;
+
+                hero.AddHeroUnit(newHeroUnit);
 
                 //XElement unitElement = GameData.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == heroUnit);
                 //if (unitElement == null)
@@ -580,6 +623,14 @@ namespace HeroesData.Parser
                 //    ApplyOverrides(heroUnit, heroDataOverride);
 
                 //subHeroUnit.HeroUnits.Add(heroUnit);
+            }
+        }
+
+        private void ClearHeroUnitsFromUnitIds(Hero hero)
+        {
+            foreach (Hero heroUnit in hero.HeroUnits)
+            {
+                hero.RemoveUnitId(heroUnit.CUnitId);
             }
         }
 

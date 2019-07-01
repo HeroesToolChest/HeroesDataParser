@@ -9,7 +9,6 @@ namespace HeroesData.Parser.Overrides.DataOverrides
     {
         private readonly Dictionary<string, bool> IsAddedWeaponByWeaponId = new Dictionary<string, bool>();
         private readonly Dictionary<AbilityTalentId, bool> IsAddedAbilityByAbilityId = new Dictionary<AbilityTalentId, bool>();
-        private readonly Dictionary<string, bool> IsAddedUnitByUnitId = new Dictionary<string, bool>();
 
         /// <summary>
         /// Gets or sets the CUnit name.
@@ -50,16 +49,6 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         /// Gets a collection of added abilities.
         /// </summary>
         public IEnumerable<AbilityTalentId> AddedAbilities => IsAddedAbilityByAbilityId.Keys;
-
-        /// <summary>
-        /// Gets the amount of added units.
-        /// </summary>
-        public int AddedUnitCount => IsAddedUnitByUnitId.Count;
-
-        /// <summary>
-        /// Gets a collection of added units.
-        /// </summary>
-        public IEnumerable<string> AddedUnits => IsAddedUnitByUnitId.Keys;
 
         /// <summary>
         /// Gets or sets the additional abilities available by their button ids.
@@ -130,34 +119,6 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         public bool IsAddedAbility(AbilityTalentId abilityTalentId)
         {
             if (IsAddedAbilityByAbilityId.TryGetValue(abilityTalentId, out bool value))
-                return value;
-            else
-                return false;
-        }
-
-        public void AddAddedUnit(string unitId, bool isAdded)
-        {
-            if (unitId == null)
-            {
-                throw new ArgumentNullException(nameof(unitId));
-            }
-
-            IsAddedUnitByUnitId.Add(unitId, isAdded);
-        }
-
-        public bool ContainsAddedUnit(string unitId)
-        {
-            if (unitId == null)
-            {
-                throw new ArgumentNullException(nameof(unitId));
-            }
-
-            return IsAddedUnitByUnitId.ContainsKey(unitId);
-        }
-
-        public bool IsAddedUnit(string unitId)
-        {
-            if (IsAddedUnitByUnitId.TryGetValue(unitId, out bool value))
                 return value;
             else
                 return false;

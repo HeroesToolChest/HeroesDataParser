@@ -110,11 +110,22 @@ namespace HeroesData.Parser.Overrides
                         break;
                     case "HeroUnit":
                         string heroUnitId = dataElement.Attribute("id")?.Value;
+                        string removeHeroUnit = dataElement.Attribute("remove")?.Value;
+
+                        if (bool.TryParse(removeHeroUnit, out bool heroUnitRemoveResult))
+                        {
+                            if (heroUnitRemoveResult)
+                            {
+                                heroDataOverride.AddRemovedHeroUnit(heroUnitId);
+                                continue;
+                            }
+                        }
 
                         if (string.IsNullOrEmpty(heroUnitId))
                             continue;
 
                         heroDataOverride.AddHeroUnit(heroUnitId);
+                        SetOverride(dataElement);
 
                         break;
                     case "Weapon":

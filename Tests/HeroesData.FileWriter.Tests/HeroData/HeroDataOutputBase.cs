@@ -396,7 +396,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 AbilityType = AbilityType.Active,
             });
 
-            Unit alexHeroUnit = new Unit
+            Hero alexHeroUnit = new Hero
             {
                 Id = "AlexstraszaDragon",
                 HyperlinkId = "AlexstraszaDragonId",
@@ -455,7 +455,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 AbilityType = AbilityType.Trait,
             });
 
-            alexstraszaHero.AddUnit(alexHeroUnit);
+            alexstraszaHero.AddHeroUnit(alexHeroUnit);
 
             TestData.Add(alexstraszaHero);
         }

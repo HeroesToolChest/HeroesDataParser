@@ -1,7 +1,6 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
-using HeroesData.Helpers;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
@@ -25,9 +24,9 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
             if (!string.IsNullOrEmpty(hero.Name) && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add("name", hero.Name);
-            if (!string.IsNullOrEmpty(hero.CUnitId) && hero.CHeroId != StormHero.CHeroId)
+            if (!string.IsNullOrEmpty(hero.CUnitId))
                 heroObject.Add("unitId", hero.CUnitId);
-            if (!string.IsNullOrEmpty(hero.HyperlinkId) && hero.CHeroId != StormHero.CHeroId)
+            if (!string.IsNullOrEmpty(hero.HyperlinkId))
                 heroObject.Add("hyperlinkId", hero.HyperlinkId);
             if (!string.IsNullOrEmpty(hero.AttributeId))
                 heroObject.Add("attributeId", hero.AttributeId);
@@ -35,8 +34,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(hero.Difficulty))
                 heroObject.Add("difficulty", hero.Difficulty);
 
-            if (hero.CHeroId != StormHero.CHeroId)
-                heroObject.Add("franchise", hero.Franchise.ToString());
+            heroObject.Add("franchise", hero.Franchise.ToString());
 
             if (hero.Gender.HasValue)
                 heroObject.Add("gender", hero.Gender.Value.ToString());
@@ -109,7 +107,72 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (talents != null)
                 heroObject.Add(talents);
 
+            JProperty units = Units(hero);
+            if (units != null)
+                heroObject.Add(units);
+
             return new JProperty(hero.Id, heroObject);
+        }
+
+        protected override JProperty UnitElement(Unit unit)
+        {
+            if (FileOutputOptions.IsLocalizedText)
+                AddLocalizedGameString(unit);
+
+            JObject unitObject = new JObject();
+
+            if (!string.IsNullOrEmpty(unit.Name) && !FileOutputOptions.IsLocalizedText)
+                unitObject.Add("name", unit.Name);
+            if (!string.IsNullOrEmpty(unit.HyperlinkId))
+                unitObject.Add("hyperlinkId", unit.HyperlinkId);
+            if (unit.InnerRadius > 0)
+                unitObject.Add("innerRadius", unit.InnerRadius);
+            if (unit.Radius > 0)
+                unitObject.Add("radius", unit.Radius);
+            if (unit.Sight > 0)
+                unitObject.Add("sight", unit.Sight);
+            if (unit.Speed > 0)
+                unitObject.Add("speed", unit.Speed);
+            if (unit.KillXP > 0)
+                unitObject.Add("killXP", unit.KillXP);
+            if (!string.IsNullOrEmpty(unit.DamageType) && !FileOutputOptions.IsLocalizedText)
+                unitObject.Add("damageType", unit.DamageType);
+            if (!string.IsNullOrEmpty(unit.ScalingBehaviorLink))
+                unitObject.Add(new JProperty("scalingLinkId", unit.ScalingBehaviorLink));
+            if (!string.IsNullOrEmpty(unit.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
+                unitObject.Add("description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
+            if (unit.HeroDescriptorsCount > 0)
+                unitObject.Add(new JProperty("descriptors", unit.HeroDescriptors.OrderBy(x => x)));;
+            if (unit.UnitIdsCount > 0)
+                unitObject.Add(new JProperty("units", unit.UnitIds.OrderBy(x => x)));
+            if (!string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName))
+                unitObject.Add("image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension));
+
+            JProperty life = UnitLife(unit);
+            if (life != null)
+                unitObject.Add(life);
+
+            JProperty energy = UnitEnergy(unit);
+            if (energy != null)
+                unitObject.Add(energy);
+
+            JProperty armor = UnitArmor(unit);
+            if (armor != null)
+                unitObject.Add(armor);
+
+            JProperty weapons = UnitWeapons(unit);
+            if (weapons != null)
+                unitObject.Add(weapons);
+
+            JProperty abilities = UnitAbilities(unit);
+            if (abilities != null)
+                unitObject.Add(abilities);
+
+            JProperty subAbilities = UnitSubAbilities(unit);
+            if (subAbilities != null)
+                unitObject.Add(subAbilities);
+
+            return new JProperty(unit.Id, unitObject);
         }
 
         protected override JProperty GetArmorObject(Unit unit)
@@ -399,6 +462,15 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 portrait.Add("target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName?.ToLower(), StaticImageExtension));
 
             return new JProperty("portraits", portrait);
+        }
+
+        protected override JProperty GetUnitsObject(Hero hero)
+        {
+            return new JProperty(
+                "heroUnits",
+                new JArray(
+                    from heroUnit in hero.HeroUnits
+                    select new JObject(UnitElement(heroUnit))));
         }
 
         protected void SetAbilities(JObject abilityObject, IEnumerable<Ability> abilities, string propertyName)

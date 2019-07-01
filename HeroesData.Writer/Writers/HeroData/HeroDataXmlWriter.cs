@@ -1,7 +1,6 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
-using HeroesData.Helpers;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -27,11 +26,11 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return new XElement(
                 hero.Id,
                 string.IsNullOrEmpty(hero.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", hero.Name),
-                string.IsNullOrEmpty(hero.CUnitId) || hero.CHeroId == StormHero.CHeroId ? null : new XAttribute("unitId", hero.CUnitId),
-                string.IsNullOrEmpty(hero.HyperlinkId) || hero.CHeroId == StormHero.CHeroId ? null : new XAttribute("hyperlinkId", hero.HyperlinkId),
+                string.IsNullOrEmpty(hero.CUnitId) ? null : new XAttribute("unitId", hero.CUnitId),
+                string.IsNullOrEmpty(hero.HyperlinkId) ? null : new XAttribute("hyperlinkId", hero.HyperlinkId),
                 string.IsNullOrEmpty(hero.AttributeId) ? null : new XAttribute("attributeId", hero.AttributeId),
                 string.IsNullOrEmpty(hero.Difficulty) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("difficulty", hero.Difficulty),
-                hero.CHeroId != StormHero.CHeroId ? new XAttribute("franchise", hero.Franchise) : null,
+                new XAttribute("franchise", hero.Franchise),
                 hero.Gender.HasValue ? new XAttribute("gender", hero.Gender.Value) : null,
                 string.IsNullOrEmpty(hero.Title) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("title", hero.Title),
                 hero.InnerRadius > 0 ? new XAttribute("innerRadius", hero.InnerRadius) : null,
@@ -56,6 +55,35 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 UnitAbilities(hero),
                 UnitSubAbilities(hero),
                 HeroTalents(hero));
+        }
+
+        protected override XElement UnitElement(Unit unit)
+        {
+            if (FileOutputOptions.IsLocalizedText)
+                AddLocalizedGameString(unit);
+
+            return new XElement(
+                unit.Id,
+                string.IsNullOrEmpty(unit.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", unit.Name),
+                string.IsNullOrEmpty(unit.HyperlinkId) ? null : new XAttribute("hyperlinkId", unit.HyperlinkId),
+                unit.InnerRadius > 0 ? new XAttribute("innerRadius", unit.InnerRadius) : null,
+                unit.Radius > 0 ? new XAttribute("radius", unit.Radius) : null,
+                unit.Sight > 0 ? new XAttribute("sight", unit.Sight) : null,
+                unit.Speed > 0 ? new XAttribute("speed", unit.Speed) : null,
+                unit.KillXP > 0 ? new XAttribute("killXP", unit.KillXP) : null,
+                string.IsNullOrEmpty(unit.DamageType) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("damageType", unit.DamageType),
+                string.IsNullOrEmpty(unit.ScalingBehaviorLink) ? null : new XElement("ScalingLinkId", unit.ScalingBehaviorLink),
+                string.IsNullOrEmpty(unit.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType)),
+                unit.HeroDescriptorsCount > 0 ? new XElement("Descriptors", unit.HeroDescriptors.OrderBy(x => x).Select(d => new XElement("Descriptor", d))) : null,
+                unit.AttributesCount > 0 ? new XElement("Attributes", unit.Attributes.OrderBy(x => x).Select(x => new XElement("Attribute", x))) : null,
+                unit.UnitIdsCount > 0 ? new XElement("Units", unit.UnitIds.OrderBy(x => x).Select(x => new XElement("Unit", x))) : null,
+                string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName) ? null : new XElement("Image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension)),
+                UnitLife(unit),
+                UnitEnergy(unit),
+                UnitArmor(unit),
+                UnitWeapons(unit),
+                UnitAbilities(unit),
+                UnitSubAbilities(unit));
         }
 
         protected override XElement GetArmorObject(Unit unit)
@@ -147,6 +175,13 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 return parentLinkElement;
             else
                 return null;
+        }
+
+        protected override XElement GetUnitsObject(Hero hero)
+        {
+            return new XElement(
+                "HeroUnits",
+                hero.HeroUnits.Select(heroUnit => new XElement(heroUnit.CUnitId, UnitElement(heroUnit))));
         }
 
         protected override XElement GetTalentsObject(Hero hero)

@@ -78,7 +78,7 @@ namespace HeroesData.Parser.XmlData
             }
 
             // the hero's units
-            foreach (Unit heroUnit in hero.Units)
+            foreach (Hero heroUnit in hero.HeroUnits)
             {
                 foreach (Ability ability in heroUnit.Abilities)
                 {
@@ -283,7 +283,7 @@ namespace HeroesData.Parser.XmlData
                             }
                             else
                             {
-                                foreach (Unit heroUnit in hero.Units)
+                                foreach (Hero heroUnit in hero.HeroUnits)
                                 {
                                     if (heroUnit.TryGetAbility(abilValue, out ability))
                                     {

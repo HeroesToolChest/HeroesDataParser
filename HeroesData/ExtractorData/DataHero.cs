@@ -1,6 +1,5 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
-using HeroesData.Helpers;
 using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
 using System;
@@ -34,11 +33,6 @@ namespace HeroesData.ExtractorData
             Parser.HotsBuild = App.HotsBuild;
             Parser.Localization = localization;
 
-            // parse the base hero and add it to parsedHeroes
-            // TODO: possibly re-add base hero
-            //Parser.ParseBaseHero();
-            //ParsedData.GetOrAdd(Parser.StormHeroBase.CHeroId, Parser.StormHeroBase);
-
             HashSet<string[]> heroes = Parser.Items;
 
             // parse all the heroes
@@ -71,7 +65,7 @@ namespace HeroesData.ExtractorData
                 }
             }
 
-            Console.WriteLine($"{ParsedData.Count - 1,6} successfully parsed {Name}"); // minus 1 to account for base hero
+            Console.WriteLine($"{ParsedData.Count,6} successfully parsed {Name}");
 
             if (failedParsedHeroes.Count > 0)
             {
@@ -97,9 +91,6 @@ namespace HeroesData.ExtractorData
 
         protected override void Validation(Hero hero)
         {
-            if (hero.CHeroId == StormHero.CHeroId)
-                return;
-
             if (string.IsNullOrEmpty(hero.AttributeId))
                 AddWarning($"{nameof(hero.AttributeId)} is empty");
 
@@ -263,6 +254,13 @@ namespace HeroesData.ExtractorData
                     AddWarning($"[{talent.AbilityTalentId.Id}] is of type Unknown");
                 else if (talent.AbilityType == AbilityType.Hidden)
                     AddWarning($"[{talent.AbilityTalentId.Id}] is of type Hidden");
+            }
+
+            foreach (Hero heroUnit in hero.HeroUnits)
+            {
+                VerifyAbilities(heroUnit);
+                VerifyAbilitiesCount(heroUnit.PrimaryAbilities().ToList());
+                VerifySubAbilitiesCount(heroUnit.SubAbilities().ToList());
             }
         }
 
