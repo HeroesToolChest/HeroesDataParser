@@ -51,27 +51,6 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         }
 
         [TestMethod]
-        public void IsValidAbilityTest()
-        {
-            Assert.IsTrue(HeroDataOverride.IsValidAbilityByAbilityId.ContainsKey("SpikeAbilityThingy"));
-            Assert.IsTrue(HeroDataOverride.IsValidAbilityByAbilityId["SpikeAbilityThingy"]);
-        }
-
-        [TestMethod]
-        public void IsAddedAbilityTest()
-        {
-            Assert.IsTrue(HeroDataOverride.AddedAbilityByAbilityId.ContainsKey("MindControl"));
-            Assert.IsTrue(HeroDataOverride.AddedAbilityByAbilityId["MindControl"].IsAdded);
-            Assert.AreEqual("MindControlButton", HeroDataOverride.AddedAbilityByAbilityId["MindControl"].ButtonName);
-        }
-
-        [TestMethod]
-        public void IsAddedButtonAbilityTest()
-        {
-            Assert.IsTrue(HeroDataOverride.AddedAbilityByButtonId.Contains(new AddedButtonAbility() { ButtonId = "IceBlock", ParentValue = "StormButtonParent" }));
-        }
-
-        [TestMethod]
         public void IsValidWeaponTest()
         {
             Assert.IsTrue(HeroDataOverride.ContainsAddedWeapon("SlapSlap"));
@@ -97,12 +76,6 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         {
             Assert.IsTrue(HeroDataOverride.ParentLinkOverride.Enabled);
             Assert.AreEqual("TheSwarm", HeroDataOverride.ParentLinkOverride.ParentLink);
-        }
-
-        [TestMethod]
-        public void AbilityButtonNameOverrideTest()
-        {
-            Assert.AreEqual("CarapaceCollection", HeroDataOverride.ButtonNameOverrideByAbilityButtonId[("CarapaceCollection", "CarapaceCollectionStore")]);
         }
     }
 }

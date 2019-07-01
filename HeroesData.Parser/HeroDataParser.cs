@@ -16,12 +16,7 @@ namespace HeroesData.Parser
     public class HeroDataParser : ParserBase<Hero, HeroDataOverride>, IParser<Hero, HeroDataParser>
     {
         private readonly HeroOverrideLoader HeroOverrideLoader;
-
-        //private readonly WeaponData WeaponData;
-        //private readonly ArmorData ArmorData;
-        //private readonly AbilityData AbilityData;
         private readonly TalentData TalentData;
-        //private readonly BehaviorData BehaviorData;
 
         private HeroDataOverride HeroDataOverride;
 
@@ -29,16 +24,7 @@ namespace HeroesData.Parser
             : base(xmlDataService)
         {
             HeroOverrideLoader = heroOverrideLoader;
-
-            //WeaponData = xmlDataService.WeaponData;
-            //ArmorData = xmlDataService.ArmorData;
-            //AbilityData = xmlDataService.AbilityData;
             TalentData = xmlDataService.TalentData;
-            //BehaviorData = xmlDataService.BehaviorData;
-
-            //WeaponData.IsHeroParsing = true;
-            //AbilityData.IsAbilityTypeFilterEnabled = true;
-            //AbilityData.IsAbilityTierFilterEnabled = true;
         }
 
         /// <summary>
@@ -133,45 +119,7 @@ namespace HeroesData.Parser
 
             ValidateAbilityTalentLinkIds(hero);
 
-            //MoveParentLinkedAbilities(hero);
-            //MoveParentLinkedWeapons(hero);
-            //RemoveAbilityTalents(hero, HeroDataOverride);
-
             return hero;
-        }
-
-        /// <summary>
-        /// Parses the base hero data.
-        /// </summary>
-        /// <returns></returns>
-        public Hero ParseBaseHero()
-        {
-            //StormHeroBase = new Hero
-            //{
-            //    Id = StormHero.CHeroId,
-            //    HyperlinkId = StormHero.CHeroId,
-            //    CHeroId = StormHero.CHeroId,
-            //    CUnitId = StormHero.CUnitId,
-            //    Ratings = null,
-            //};
-
-            //HeroDataOverride = HeroOverrideLoader.GetOverride(StormHeroBase.CHeroId) ?? new HeroDataOverride();
-            //AbilityData.HeroDataOverride = HeroDataOverride;
-
-            //SetBaseHeroData(StormHeroBase);
-
-            //ApplyOverrides(StormHeroBase, HeroDataOverride);
-
-            //IList<Ability> hearthAbilties = null; //StormHeroBase.PrimaryAbilities(AbilityTier.Hearth);
-            //IList<Ability> mountAbilties = null; //StormHeroBase.PrimaryAbilities(AbilityTier.Mount);
-
-            //// based on the _stormhero data in hero-overrides.xml
-            //DefaultData.HeroData.DefaultHearthAbilityId = hearthAbilties[0].ReferenceNameId;
-            //DefaultData.HeroData.DefaultHearthNoManaAbilityId = hearthAbilties[1].ReferenceNameId;
-            //DefaultData.HeroData.DefaultSummonMountAbilityId = mountAbilties[0].ReferenceNameId;
-
-            //return StormHeroBase;
-            return null;
         }
 
         public HeroDataParser GetInstance()
@@ -532,7 +480,7 @@ namespace HeroesData.Parser
                 HeroDataOverride.AddHeroUnit(unit);
         }
 
-        private void ValidateAbilityTalentLinkIds (Hero hero)
+        private void ValidateAbilityTalentLinkIds(Hero hero)
         {
             foreach (Talent talent in hero.Talents)
             {
@@ -560,12 +508,6 @@ namespace HeroesData.Parser
                 if (string.IsNullOrEmpty(heroUnit))
                     continue;
 
-                //if (!GameData.TryGetGameString(DefaultData.HeroData.UnitName.Replace(DefaultData.IdPlaceHolder, heroUnit), out string name))
-                //{
-                //    if (!GameData.TryGetGameString(DefaultData.ButtonData.ButtonName.Replace(DefaultData.IdPlaceHolder, heroUnit), out name))
-                //        name = heroUnit;
-                //}
-
                 Hero newHeroUnit = new Hero
                 {
                     Id = heroUnit,
@@ -580,49 +522,6 @@ namespace HeroesData.Parser
                     newHeroUnit.HyperlinkId = newHeroUnit.Id;
 
                 hero.AddHeroUnit(newHeroUnit);
-
-                //XElement unitElement = GameData.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == heroUnit);
-                //if (unitElement == null)
-                //    continue;
-
-                //SetDefaultValues(heroUnit);
-                //CActorData(heroUnit);
-                //CUnitData(heroUnit);
-
-                //FinalizeDataChecks(heroUnit);
-
-
-                //HeroDataOverride heroDataOverride = HeroOverrideLoader.GetOverride(heroUnit);
-                //if (heroDataOverride != null)
-                //    ApplyOverrides(heroUnit, heroDataOverride);
-
-                //unit.HeroUnits.Add(heroUnit);
-
-                //Hero subHeroUnit = new Hero
-                //{
-                //    Id = heroUnit,
-                //    Name = name,
-                //    HyperlinkId = heroUnit.StartsWith("Hero") ? heroUnit.Remove(0, 4) : heroUnit,
-                //    CHeroId = null,
-                //    CUnitId = heroUnit,
-                //    HeroPortrait = null,
-                //};
-
-                //XElement cUnitElement = GameData.Elements("CUnit").FirstOrDefault(x => x.Attribute("id")?.Value == heroUnit);
-                //if (cUnitElement != null)
-                //{
-                //    SetDefaultValues(heroUnit);
-                //    CActorData(heroUnit);
-                //    CUnitData(heroUnit);
-
-                //    FinalizeDataChecks(heroUnit);
-                //}
-
-                //HeroDataOverride heroDataOverride = HeroOverrideLoader.GetOverride(heroUnit);
-                //if (heroDataOverride != null)
-                //    ApplyOverrides(heroUnit, heroDataOverride);
-
-                //subHeroUnit.HeroUnits.Add(heroUnit);
             }
         }
 
@@ -631,30 +530,6 @@ namespace HeroesData.Parser
             foreach (Hero heroUnit in hero.HeroUnits)
             {
                 hero.RemoveUnitId(heroUnit.CUnitId);
-            }
-        }
-
-        private void SetBaseHeroData(Hero hero)
-        {
-            foreach (AddedButtonAbility abilityButton in HeroDataOverride.AddedAbilityByButtonId)
-            {
-
-            }
-            //AbilityData.CreateOverrideButtonAbility(hero);
-        }
-
-        private void FinalizeDataChecks(Hero hero)
-        {
-            if (hero.Life.LifeMax == 1 && hero.Life.LifeRegenerationRate == 0 && hero.Life.LifeRegenerationRateScaling == 0 && hero.Life.LifeScaling == 0)
-                hero.Life.LifeMax = 0;
-        }
-
-        private void RemoveAbilityTalents(Hero hero, HeroDataOverride heroDataOverride)
-        {
-            foreach (KeyValuePair<string, bool> removedAbility in heroDataOverride.RemovedAbilityByAbilityReferenceNameId)
-            {
-                //if (removedAbility.Value)
-                //    hero.Abilities.Remove(removedAbility.Key);
             }
         }
     }

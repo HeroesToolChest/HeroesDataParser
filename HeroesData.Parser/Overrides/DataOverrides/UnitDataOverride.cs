@@ -51,14 +51,6 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         public IEnumerable<AbilityTalentId> AddedAbilities => IsAddedAbilityByAbilityId.Keys;
 
         /// <summary>
-        /// Gets or sets the additional abilities available by their button ids.
-        /// </summary>
-        /// <remarks>
-        /// ButtonId and its parent value are needed to get the correct button data since there could be more than one. ReferenceNameId is used to override the existing id.
-        /// </remarks>
-        public HashSet<AddedButtonAbility> AddedAbilityByButtonId { get; set; } = new HashSet<AddedButtonAbility>();
-
-        /// <summary>
         /// Gets the property override action methods for abilities by the ability id.
         /// </summary>
         internal Dictionary<AbilityTalentId, Dictionary<string, Action<Ability>>> PropertyAbilityOverrideMethodByAbilityId { get; } = new Dictionary<AbilityTalentId, Dictionary<string, Action<Ability>>>();

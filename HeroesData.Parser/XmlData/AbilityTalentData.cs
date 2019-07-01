@@ -201,13 +201,10 @@ namespace HeroesData.Parser.XmlData
             string defaultEnergyValue = GameData.GetGameString(DefaultData.HeroEnergyTypeManaText);
 
             // "UI/Tooltip/Abil/<Type>
-            string vitalEnergyValueTextTemp = string.Empty;
-            string vitalLifeValueTextTemp = string.Empty;
+            string vitalEnergyValueTextTemp;
+            string vitalLifeValueTextTemp;
 
             string overrideTextTemp = string.Empty;
-
-            //// parent lookup
-            //StormButtonParentLookup(cButtonElement, abilityTalentBase, SetTooltipOverrideData);
 
             // look through each element to set overrides
             foreach (XElement element in buttonElement.Elements())
@@ -325,36 +322,6 @@ namespace HeroesData.Parser.XmlData
                         abilityTalentBase.Tooltip.Cooldown.CooldownTooltip = new TooltipDescription(DescriptionValidator.Validate(text));
                     }
                 }
-                //else if (elementName == "TOOLTIPAPPENDER")
-                //{
-                //    string validatorId = element.Attribute("Validator").Value;
-                //    string faceId = element.Attribute("Face")?.Value;
-
-                //    // check if face value exists as a button
-                //    if (!string.IsNullOrEmpty(faceId) && GameData.Elements("CButton").Any(x => x.Attribute("id")?.Value == faceId))
-                //    {
-                //        // check if it's a combined validator
-                //        XElement validatorCombineElement = GameData.MergeXmlElements(GameData.Elements("CValidatorCombine").Where(x => x.Attribute("id")?.Value == validatorId));
-                //        if (validatorCombineElement != null)
-                //        {
-                //            foreach (XElement validatorCombine in validatorCombineElement.Elements())
-                //            {
-                //                if (validatorCombine.Name.LocalName == "CombineArray")
-                //                {
-                //                    string validator = validatorCombine.Attribute("value")?.Value;
-                //                    if (!string.IsNullOrEmpty(validator))
-                //                    {
-                //                        ValidatorPlayerTalentCheck(validator, abilityTalentId);
-                //                    }
-                //                }
-                //            }
-                //        }
-                //        else
-                //        {
-                //            ValidatorPlayerTalentCheck(validatorId, abilityTalentId);
-                //        }
-                //    }
-                //}
                 else if (elementName == "TOOLTIPFLAGS")
                 {
                     string index = element.Attribute("index").Value;
@@ -589,33 +556,6 @@ namespace HeroesData.Parser.XmlData
                                 abilityTalentBase.AbilityTalentId.ReferenceId = string.Empty;
                                 return;
                             }
-
-                            //if (!string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(linkValue) && (indexValue.Equals("Show", StringComparison.OrdinalIgnoreCase) || indexValue.Equals("Use", StringComparison.OrdinalIgnoreCase)))
-                            //{
-                            //    IEnumerable<XElement> requirementNodes = GameData.ElementsIncluded(Configuration.GamestringXmlElements("RequirementNode"), linkValue);
-                            //    if (!requirementNodes.Any())
-                            //        throw new XmlGameDataParseException($"Could not find any 'RequirementNode' elements with the link value of {linkValue} for the requirement {requirement}");
-
-                            //    foreach (XElement requirementNodeElement in requirementNodes)
-                            //    {
-                            //        if (!ParseRequirementNodeElement(requirementNodeElement, out string parentAbility))
-                            //        {
-                            //            // check if its an ability
-                            //            if (GameData.ElementsIncluded(Configuration.GamestringXmlElements("Abil"), parentAbility).Any())
-                            //            {
-                            //                abilityTalentBase.ParentLink = parentAbility;
-                            //            }
-                            //            else
-                            //            {
-                            //                IEnumerable<XElement> behaviorElements = GameData.ElementsIncluded(Configuration.GamestringXmlElements("Behavior"), parentAbility);
-                            //                foreach (XElement behaviorElement in behaviorElements)
-                            //                {
-                            //                    abilityTalentBase.ParentLink = FindParentLinkFromBehavior(behaviorElement, abilityTalentBase.ReferenceNameId);
-                            //                }
-                            //            }
-                            //        }
-                            //    }
-                            //}
                         }
                     }
                 }
@@ -677,85 +617,5 @@ namespace HeroesData.Parser.XmlData
                 }
             }
         }
-
-        //private void ValidatorPlayerTalentCheck(string validatorId, string abilityTalentId)
-        //{
-        //    XElement validatorPlayerTalentElement = GameData.MergeXmlElements(GameData.Elements("CValidatorPlayerTalent").Where(x => x.Attribute("id")?.Value == validatorId));
-        //    if (validatorPlayerTalentElement != null)
-        //    {
-        //        string talentReferenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value;
-
-        //        if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
-        //            AbilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(abilityTalentId);
-        //        else
-        //            AbilityTalentIdsByTalentIdUpgrade.TryAdd(talentReferenceNameId, new HashSet<string>(StringComparer.OrdinalIgnoreCase) { abilityTalentId });
-        //    }
-        //}
-
-        //private bool ParseRequirementNodeElement(XElement requirementNodeElement, out string parentAbility)
-        //{
-        //    string elementName = requirementNodeElement.Name.LocalName;
-        //    if (elementName == "CRequirementEq" || elementName == "CRequirementGTE")
-        //    {
-        //        List<XElement> operandArray = requirementNodeElement.Elements("OperandArray").ToList();
-
-        //        IEnumerable<XElement> requirementNodes = GameData.ElementsIncluded(Configuration.GamestringXmlElements("RequirementNode"), operandArray[0].Attribute("value")?.Value);
-        //        string value = operandArray[1].Attribute("value")?.Value;
-
-        //        foreach (XElement requirementNode in requirementNodes)
-        //        {
-        //            bool result = ParseRequirementNodeElement(requirementNode, out parentAbility);
-        //            if (result && value == "1")
-        //                return true;
-        //            else if (!result && value == "0")
-        //                return true;
-        //            else if (!result && value == "1")
-        //                return false;
-        //        }
-        //    }
-        //    else if (elementName == "CRequirementCountBehavior")
-        //    {
-        //        XElement countElement = requirementNodeElement.Element("Count");
-
-        //        string stateValue = countElement.Attribute("State")?.Value;
-        //        parentAbility = countElement.Attribute("Link")?.Value;
-
-        //        if (stateValue == "QueuedOrBetterAtUnit")
-        //            return true;
-        //        else if (stateValue == "CompleteOnlyAtUnit")
-        //            return false;
-        //        else if (stateValue == "InProgressOrBetterAtUnit")
-        //            return false;
-        //    }
-
-        //    parentAbility = string.Empty;
-        //    return false;
-        //}
-
-        //private string FindParentLinkFromBehavior(XElement behaviorElement, string selfAbilityId)
-        //{
-        //    if (behaviorElement == null)
-        //        throw new ArgumentNullException(nameof(behaviorElement));
-        //    if (selfAbilityId == null)
-        //        throw new ArgumentNullException(nameof(selfAbilityId));
-
-        //    XElement modificationElement = behaviorElement.Element("Modification");
-        //    if (modificationElement != null)
-        //    {
-        //        foreach (XElement element in modificationElement.Elements())
-        //        {
-        //            string elementName = element.Name.LocalName.ToUpper();
-
-        //            if (elementName == "ABILLINKENABLEARRAY")
-        //            {
-        //                string abilValue = element.Attribute("value")?.Value;
-        //                if (selfAbilityId == abilValue && GameData.ElementsIncluded(Configuration.GamestringXmlElements("Abil"), abilValue).Any())
-        //                    return abilValue;
-        //            }
-        //        }
-        //    }
-
-        //    return string.Empty;
-        //}
     }
 }

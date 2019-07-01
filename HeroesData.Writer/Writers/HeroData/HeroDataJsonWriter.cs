@@ -142,7 +142,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (!string.IsNullOrEmpty(unit.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 unitObject.Add("description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
             if (unit.HeroDescriptorsCount > 0)
-                unitObject.Add(new JProperty("descriptors", unit.HeroDescriptors.OrderBy(x => x)));;
+                unitObject.Add(new JProperty("descriptors", unit.HeroDescriptors.OrderBy(x => x)));
             if (unit.UnitIdsCount > 0)
                 unitObject.Add(new JProperty("units", unit.UnitIds.OrderBy(x => x)));
             if (!string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName))

@@ -51,6 +51,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
         {
             throw new NotImplementedException();
         }
+
         protected override T GetUnitsObject(Hero hero)
         {
             throw new NotImplementedException();

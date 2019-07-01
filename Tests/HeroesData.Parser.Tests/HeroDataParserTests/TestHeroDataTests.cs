@@ -40,7 +40,6 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual("Charge Cooldown: 40 seconds", talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
         }
 
-
         [TestMethod]
         public void IsActiveIsQuestForTalentsTests()
         {

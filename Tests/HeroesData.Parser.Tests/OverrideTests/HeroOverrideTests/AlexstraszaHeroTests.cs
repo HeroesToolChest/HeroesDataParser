@@ -48,44 +48,10 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         }
 
         [TestMethod]
-        public void IsNotValidAbilityTest()
-        {
-            Assert.IsTrue(HeroDataOverride.IsValidAbilityByAbilityId.ContainsKey("AVeryLargeSword"));
-            Assert.IsFalse(HeroDataOverride.IsValidAbilityByAbilityId["AVeryLargeSword"]);
-        }
-
-        [TestMethod]
-        public void IsNotAddedAbilityTest()
-        {
-            Assert.IsTrue(HeroDataOverride.AddedAbilityByAbilityId.ContainsKey("FireBreath"));
-            Assert.IsFalse(HeroDataOverride.AddedAbilityByAbilityId["FireBreath"].IsAdded);
-        }
-
-        [TestMethod]
         public void IsNotValidWeaponTest()
         {
             Assert.IsTrue(HeroDataOverride.ContainsAddedWeapon("Ffffwwwwaaa-2.0"));
             Assert.IsFalse(HeroDataOverride.IsAddedWeapon("Ffffwwwwaaa-2.0"));
-        }
-
-        [TestMethod]
-        public void IsValidAbilityTest()
-        {
-            Assert.IsTrue(HeroDataOverride.IsValidAbilityByAbilityId.ContainsKey("AVeryLargeSword"));
-            Assert.IsFalse(HeroDataOverride.IsValidAbilityByAbilityId["AVeryLargeSword"]);
-        }
-
-        [TestMethod]
-        public void IsAddedAbilityTest()
-        {
-            Assert.IsTrue(HeroDataOverride.AddedAbilityByAbilityId.ContainsKey("FireBreath"));
-            Assert.IsFalse(HeroDataOverride.AddedAbilityByAbilityId["FireBreath"].IsAdded);
-        }
-
-        [TestMethod]
-        public void IsAddedButtonAbilityTest()
-        {
-            Assert.IsFalse(HeroDataOverride.AddedAbilityByButtonId.Contains(new AddedButtonAbility() { ButtonId = "IceBlock" }));
         }
 
         [TestMethod]
@@ -105,12 +71,6 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         {
             Assert.IsFalse(HeroDataOverride.ParentLinkOverride.Enabled);
             Assert.AreEqual(string.Empty, HeroDataOverride.ParentLinkOverride.ParentLink);
-        }
-
-        [TestMethod]
-        public void AbilityButtonNameOverrideTest()
-        {
-            Assert.IsTrue(HeroDataOverride.ButtonNameOverrideByAbilityButtonId.Count == 0);
         }
     }
 }

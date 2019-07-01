@@ -36,24 +36,6 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         }
 
         [TestMethod]
-        public void IsAddedAbilityTest()
-        {
-            Assert.IsTrue(HeroDataOverride.AddedAbilityByAbilityId.Count == 0);
-        }
-
-        [TestMethod]
-        public void IsValidAbilityTest()
-        {
-            Assert.IsTrue(HeroDataOverride.IsValidAbilityByAbilityId.Count == 0);
-        }
-
-        [TestMethod]
-        public void IsAddedButtonAbilityTest()
-        {
-            Assert.IsTrue(HeroDataOverride.AddedAbilityByButtonId.Contains(new AddedButtonAbility() { ButtonId = "IceBlock" }));
-        }
-
-        [TestMethod]
         public void IsValidWeaponTest()
         {
             Assert.IsTrue(HeroDataOverride.AddedWeaponsCount == 0);
@@ -82,12 +64,6 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         {
             Assert.IsTrue(HeroDataOverride.ParentLinkOverride.Enabled);
             Assert.AreEqual(string.Empty, HeroDataOverride.ParentLinkOverride.ParentLink);
-        }
-
-        [TestMethod]
-        public void AbilityButtonNameOverrideTest()
-        {
-            Assert.IsFalse(HeroDataOverride.ButtonNameOverrideByAbilityButtonId.ContainsKey(("SnapCollection", "SnapCollectionStore")));
         }
     }
 }
