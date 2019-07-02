@@ -93,7 +93,7 @@ namespace HeroesData.Parser.Overrides
                         break;
                     case "Talent":
                         string talentId = dataElement.Attribute("id")?.Value;
-                        string buttonTalentId = dataElement.Attribute("button")?.Value;
+                        string buttonTalentId = dataElement.Attribute("button")?.Value ?? talentId;
 
                         if (string.IsNullOrEmpty(talentId))
                             continue;

@@ -43,13 +43,13 @@ namespace HeroesData.Parser.Tests.OverrideTests
 
         protected void LoadOverrideIntoTestAbility(string abilityName)
         {
-            TestAbility.AbilityTalentId.ReferenceId = abilityName;
+            TestAbility.AbilityTalentId = new AbilityTalentId(abilityName, abilityName);
             HeroDataOverride.ExecuteAbilityOverrides(new List<Ability> { TestAbility });
         }
 
         protected void LoadOverrideIntoTestTalent(string talentName)
         {
-            TestTalent.AbilityTalentId.ReferenceId = talentName;
+            TestTalent.AbilityTalentId = new AbilityTalentId(talentName, talentName);
             HeroDataOverride.ExecuteTalentOverrides(new List<Talent> { TestTalent });
         }
 

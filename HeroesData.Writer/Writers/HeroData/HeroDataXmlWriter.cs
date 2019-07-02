@@ -54,7 +54,8 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 UnitWeapons(hero),
                 UnitAbilities(hero),
                 UnitSubAbilities(hero),
-                HeroTalents(hero));
+                HeroTalents(hero),
+                Units(hero));
         }
 
         protected override XElement UnitElement(Unit unit)

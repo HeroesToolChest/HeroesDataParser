@@ -21,59 +21,55 @@
       "survivability": 0.0,
       "utility": 0.0
     },
-    "abilities": {},
-    "subAbilities": [
-      {
-        "TychusOdinNoHealth": {
-          "basic": [
-            {
-              "nameId": "TychusOdinAnnihilate",
-              "name": "Annihilate",
-              "shortTooltipId": "TychusCommandeerOdinAnnihilate",
-              "fullTooltipId": "TychusCommandeerOdinAnnihilate",
-              "icon": "storm_ui_icon_tychus_annihilate.png",
-              "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
-              "abilityType": "Q"
-            }
-          ]
-        },
-        "HeroAlexstraszaDragon": {
-          "heroic": [
-            {
-              "nameId": "SubAbilHeroic",
-              "name": "SubAbilHeroic",
-              "abilityType": "Heroic"
-            }
-          ],
-          "trait": [
-            {
-              "nameId": "SubAbilTrait",
-              "name": "SubAbilTrait",
-              "abilityType": "Trait"
-            }
-          ],
-          "mount": [
-            {
-              "nameId": "SubAbilMount",
-              "name": "SubAbilMount",
-              "abilityType": "Z"
-            }
-          ],
-          "activable": [
-            {
-              "nameId": "SubAbilActivable",
-              "name": "SubAbilActivable",
-              "abilityType": "Active"
-            }
-          ]
+    "abilities": {
+      "basic": [
+        {
+          "nameId": "TychusOdinAnnihilate",
+          "buttonId": "TychusOdinAnnihilate",
+          "name": "Annihilate",
+          "icon": "storm_ui_icon_tychus_annihilate.png",
+          "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+          "abilityType": "Q"
         }
-      }
-    ],
+      ],
+      "heroic": [
+        {
+          "nameId": "SubAbilHeroic",
+          "buttonId": "SubAbilHeroic",
+          "name": "SubAbilHeroic",
+          "abilityType": "Heroic"
+        }
+      ],
+      "trait": [
+        {
+          "nameId": "SubAbilTrait",
+          "buttonId": "SubAbilTrait",
+          "name": "SubAbilTrait",
+          "abilityType": "Trait"
+        }
+      ],
+      "mount": [
+        {
+          "nameId": "SubAbilMount",
+          "buttonId": "SubAbilMount",
+          "name": "SubAbilMount",
+          "abilityType": "Z"
+        }
+      ],
+      "activable": [
+        {
+          "nameId": "SubAbilActivable",
+          "buttonId": "SubAbilActivable",
+          "name": "SubAbilActivable",
+          "abilityType": "Active"
+        }
+      ]
+    },
     "heroUnits": [
       {
-        "AlexstraszaDragonId": {
+        "AlexstraszaDragon": {
           "name": "Alexstrasza",
-          "unitId": "HeroAlexstraszaDragon",
+          "hyperlinkId": "AlexstraszaDragonId",
           "innerRadius": 1.0,
           "radius": 1.25,
           "sight": 12.0,
@@ -92,55 +88,48 @@
             }
           },
           "abilities": {
-            "basic": [
-              {
-                "nameId": "AlexstraszaBreathOfLife",
-                "name": "Breath of Life",
-                "shortTooltipId": "AlexstraszaBreathOfLife",
-                "fullTooltipId": "AlexstraszaBreathOfLife",
-                "icon": "storm_ui_icon_alexstrasza_breath_of_life.png",
-                "lifeTooltip": "15%",
-                "charges": {
-                  "countMax": 3,
-                  "countUse": 1,
-                  "countStart": 3,
-                  "hideCount": false,
-                  "recastCooldown": 2.0
-                },
-                "cooldownTooltip": "3 seconds",
-                "abilityType": "Q"
-              }
-            ],
-            "heroic": [
-              {
-                "nameId": "DragonAbilHeroic",
-                "name": "DragonAbilHeroic",
-                "abilityType": "Heroic"
-              }
-            ],
             "trait": [
               {
                 "nameId": "DragonAbilTrait",
+                "buttonId": "DragonAbilTrait",
                 "name": "DragonAbilTrait",
                 "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
                 "abilityType": "Trait"
               }
             ],
-            "mount": [
-              {
-                "nameId": "DragonAbilMount",
-                "name": "DragonAbilMount",
-                "abilityType": "Z"
-              }
-            ],
             "activable": [
               {
                 "nameId": "DragonAbilActivable",
+                "buttonId": "DragonAbilActivable",
                 "name": "DragonAbilActivable",
                 "abilityType": "Trait"
               }
             ]
-          }
+          },
+          "subAbilities": [
+            {
+              "SubAbilHeroic": {
+                "heroic": [
+                  {
+                    "nameId": "DragonAbilHeroic",
+                    "buttonId": "DragonAbilHeroic",
+                    "name": "DragonAbilHeroic",
+                    "abilityType": "Heroic"
+                  }
+                ]
+              },
+              "SubAbilMount": {
+                "mount": [
+                  {
+                    "nameId": "DragonAbilMount",
+                    "buttonId": "DragonAbilMount",
+                    "name": "DragonAbilMount",
+                    "abilityType": "Z"
+                  }
+                ]
+              }
+            }
+          ]
         }
       }
     ]

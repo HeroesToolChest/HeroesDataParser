@@ -1,14 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Heroes>
   <Alarak name="Alarak" unitId="Alar" hyperlinkId="AlarakId" difficulty="Hard" franchise="Starcraft" gender="Male" title="Highlord" radius="0.875" releaseDate="2016-09-13" sight="12" speed="4.3984" type="Melee" rarity="Legendary">
-    <MountLinkId>SummonMount</MountLinkId>
-    <HearthLinkId>PortBackToBase</HearthLinkId>
     <SearchText>Alarak highlord protoss</SearchText>
     <Description>A Tank who specializes against Mages thanks in part to his innate Spell Armor.  20 Spell Armor</Description>
     <Descriptors>
       <Descriptor>EnergyImportant</Descriptor>
-      <Descriptor>WaveClearer</Descriptor>
       <Descriptor>Overconfident</Descriptor>
+      <Descriptor>WaveClearer</Descriptor>
     </Descriptors>
     <Portraits>
       <HeroSelect>storm_ui_ingame_heroselect_btn_alarak.png</HeroSelect>
@@ -45,7 +43,7 @@
     </Weapons>
     <Abilities>
       <Basic>
-        <AlarakDiscordStrike name="Discord Strike" shortTooltipId="AlarakDiscordStrike" fullTooltipId="AlarakDiscordStrike" abilityType="Q">
+        <AlarakDiscordStrike buttonId="AlarakDiscordStrike" name="Discord Strike" abilityType="Q">
           <Icon>storm_ui_icon_alarak_discordstrike.png</Icon>
           <ToggleCooldown>2.5</ToggleCooldown>
           <EnergyTooltip>45</EnergyTooltip>
@@ -55,59 +53,50 @@
         </AlarakDiscordStrike>
       </Basic>
       <Heroic>
-        <HeroicAbility name="Heroic" abilityType="Heroic" />
+        <HeroicAbility buttonId="HeroicAbility" name="Heroic" abilityType="Heroic" />
       </Heroic>
       <Trait>
-        <AlarakSadismDummyUI name="Sadism" shortTooltipId="AlarakSadismDummyUI" fullTooltipId="AlarakSadismDummyUI" abilityType="Trait">
+        <AlarakSadismDummyUI buttonId="AlarakSadismDummyUI" name="Sadism" abilityType="Trait">
           <Icon>storm_ui_icon_alarak_sadism.png</Icon>
           <ShortTooltip>Alarak deals increased damage and has increased self-healing against enemy Heroes</ShortTooltip>
           <FullTooltip>Alarak's Ability damage and self-healing are increased by 100% against enemy Heroes.  Repeatable Quest: Takedowns increase Sadism by 3%, up to 30%. Sadism gained from Takedowns is lost on death.</FullTooltip>
         </AlarakSadismDummyUI>
       </Trait>
       <Mount>
-        <MountAbility name="Mount" abilityType="Z" />
+        <MountAbility buttonId="MountAbility" name="Mount" abilityType="Z" />
       </Mount>
       <Activable>
-        <ActivableAbility name="Activable" abilityType="Active" />
+        <ActivableAbility buttonId="ActivableAbility" name="Activable" abilityType="Active" />
       </Activable>
       <Hearth>
-        <HearthAbility name="Hearth" abilityType="B" />
+        <HearthAbility buttonId="HearthAbility" name="Hearth" abilityType="B" />
       </Hearth>
     </Abilities>
     <Talents>
       <Level1>
-        <AlarakSustainingPower name="Sustaining Power" shortTooltipId="AlarakSustainingPower" fullTooltipId="AlarakSustainingPower" abilityType="Q" isActive="true" isQuest="true" sort="1">
+        <AlarakSustainingPower buttonId="ButtonId" name="Sustaining Power" abilityType="Q" isActive="true" isQuest="true" sort="1">
           <Icon>storm_ui_icon_alarak_lightningsurge_a.png</Icon>
           <ShortTooltip>Increase Lightning Surge healing</ShortTooltip>
           <FullTooltip>Increase the healing received from damaging Heroes with Lightning Surge by 40%.</FullTooltip>
         </AlarakSustainingPower>
-        <AlarakExtendedLightning name="Extended Lightning" shortTooltipId="AlarakExtendedLightning" fullTooltipId="AlarakExtendedLightning" abilityType="Q" sort="2">
-          <Icon>storm_ui_icon_alarak_lightningsurge.png</Icon>
-          <ShortTooltip>Quest: Reduce Sadism, empower Lightning Surge</ShortTooltip>
-          <FullTooltip>Reduce Sadism by 10%.  Quest: Hit Heroes with the center of Lightning Surge.  Reward: After hitting 5 Heroes, increase Lightning Surge's range by 20%.  Reward: After hitting 15 Heroes, Lightning Surge's center also Slows enemies by 40% for 2 seconds.  Reward: After hitting 3 Heroes with the center of a single cast, increase Sadism by 10% and instantly gain all other Rewards.</FullTooltip>
-        </AlarakExtendedLightning>
       </Level1>
       <Level4>
-        <Level4Talent name="Level4Talent" abilityType="Q" sort="0">
+        <Level4Talent buttonId="Level4Talent" name="Level4Talent" abilityType="Q" sort="0">
           <FullTooltip>Burrow to the target location, dealing 96 (+4% per level) damage and briefly stunning enemies in a small area upon surfacing, slowing them by 25% for 2.5 seconds.  Burrow Charge can be reactivated to surface early.</FullTooltip>
-          <AbilityTalentLinkIds>
-            <AbilityTalentLinkId>AlarakDiscordStrike</AbilityTalentLinkId>
-            <AbilityTalentLinkId>AlarakExtendedLightning</AbilityTalentLinkId>
-          </AbilityTalentLinkIds>
         </Level4Talent>
       </Level4>
       <Level7>
-        <Level7Talent name="Level4Talent" abilityType="Q" sort="0" />
+        <Level7Talent buttonId="Level7Talent" name="Level4Talent" abilityType="Q" sort="0" />
       </Level7>
       <Level10>
-        <AlarakHeroicAbilityDeadlyCharge name="Deadly Charge" shortTooltipId="AlarakDeadlyCharge" fullTooltipId="AlarakDeadlyCharge" abilityType="Heroic" sort="1">
+        <AlarakHeroicAbilityDeadlyCharge buttonId="AlarakHeroicAbilityDeadlyCharge" name="Deadly Charge" abilityType="Heroic" sort="1">
           <Icon>storm_ui_icon_alarak_recklesscharge.png</Icon>
           <EnergyTooltip>8</EnergyTooltip>
           <CooldownTooltip>45</CooldownTooltip>
           <ShortTooltip>Channel to charge a long distance</ShortTooltip>
           <FullTooltip>After channeling, Alarak charges forward dealing 200 damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to 1.6 seconds.  Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.</FullTooltip>
         </AlarakHeroicAbilityDeadlyCharge>
-        <AlarakHeroicAbilityCounterStrike name="Counter-Strike" shortTooltipId="AlarakCounterStrikeTargeted" fullTooltipId="AlarakCounterStrikeTargeted" abilityType="Heroic" sort="2">
+        <AlarakHeroicAbilityCounterStrike buttonId="AlarakCounterStrikeTargeted" name="Counter-Strike" abilityType="Heroic" sort="2">
           <Icon>storm_ui_icon_alarak_counterstrike.png</Icon>
           <EnergyTooltip>50</EnergyTooltip>
           <CooldownTooltip>30 seconds</CooldownTooltip>
@@ -116,47 +105,42 @@
         </AlarakHeroicAbilityCounterStrike>
       </Level10>
       <Level13>
-        <Leve13Talent name="Leve13Talent" abilityType="W" sort="0" />
+        <Leve13Talent buttonId="Leve13Talent" name="Leve13Talent" abilityType="W" sort="0" />
       </Level13>
       <Level16>
-        <Level16Talent name="Level16Talent" abilityType="W" sort="0" />
+        <Level16Talent buttonId="Level16Talent" name="Level16Talent" abilityType="W" sort="0" />
       </Level16>
       <Level20>
-        <Level20Talent name="Level20Talent" abilityType="W" sort="0" />
+        <Level20Talent buttonId="Level20Talent" name="Level20Talent" abilityType="W" sort="0" />
       </Level20>
     </Talents>
   </Alarak>
   <Alexstrasza name="Alexstrasza" unitId="HeroAlexstrasza" hyperlinkId="AlexstraszaId" attributeId="Alex" difficulty="Medium" franchise="Warcraft" gender="Female" innerRadius="0.75" radius="0.75" releaseDate="2017-11-14" sight="12" speed="4.3984" type="Ranged" rarity="Legendary">
     <Description>A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities.</Description>
     <Ratings complexity="0" damage="0" survivability="0" utility="0" />
-    <Abilities />
-    <SubAbilities>
-      <TychusOdinNoHealth>
-        <Basic>
-          <TychusOdinAnnihilate name="Annihilate" shortTooltipId="TychusCommandeerOdinAnnihilate" fullTooltipId="TychusCommandeerOdinAnnihilate" abilityType="Q">
-            <Icon>storm_ui_icon_tychus_annihilate.png</Icon>
-            <FullTooltip>Burrow to the target location, dealing 96 (+4% per level) damage and briefly stunning enemies in a small area upon surfacing, slowing them by 25% for 2.5 seconds.  Burrow Charge can be reactivated to surface early.</FullTooltip>
-          </TychusOdinAnnihilate>
-        </Basic>
-      </TychusOdinNoHealth>
-      <HeroAlexstraszaDragon>
-        <Heroic>
-          <SubAbilHeroic name="SubAbilHeroic" abilityType="Heroic" />
-        </Heroic>
-        <Trait>
-          <SubAbilTrait name="SubAbilTrait" abilityType="Trait" />
-        </Trait>
-        <Mount>
-          <SubAbilMount name="SubAbilMount" abilityType="Z" />
-        </Mount>
-        <Activable>
-          <SubAbilActivable name="SubAbilActivable" abilityType="Active" />
-        </Activable>
-      </HeroAlexstraszaDragon>
-    </SubAbilities>
+    <Abilities>
+      <Basic>
+        <TychusOdinAnnihilate buttonId="TychusOdinAnnihilate" name="Annihilate" abilityType="Q">
+          <Icon>storm_ui_icon_tychus_annihilate.png</Icon>
+          <FullTooltip>Burrow to the target location, dealing 96 (+4% per level) damage and briefly stunning enemies in a small area upon surfacing, slowing them by 25% for 2.5 seconds.  Burrow Charge can be reactivated to surface early.</FullTooltip>
+        </TychusOdinAnnihilate>
+      </Basic>
+      <Heroic>
+        <SubAbilHeroic buttonId="SubAbilHeroic" name="SubAbilHeroic" abilityType="Heroic" />
+      </Heroic>
+      <Trait>
+        <SubAbilTrait buttonId="SubAbilTrait" name="SubAbilTrait" abilityType="Trait" />
+      </Trait>
+      <Mount>
+        <SubAbilMount buttonId="SubAbilMount" name="SubAbilMount" abilityType="Z" />
+      </Mount>
+      <Activable>
+        <SubAbilActivable buttonId="SubAbilActivable" name="SubAbilActivable" abilityType="Active" />
+      </Activable>
+    </Abilities>
     <HeroUnits>
       <HeroAlexstraszaDragon>
-        <AlexstraszaDragonId name="Alexstrasza" unitId="HeroAlexstraszaDragon" innerRadius="1" radius="1.25" sight="12" speed="4.3984">
+        <AlexstraszaDragon name="Alexstrasza" hyperlinkId="AlexstraszaDragonId" innerRadius="1" radius="1.25" sight="12" speed="4.3984">
           <Life>
             <Amount scale="0.04">1787</Amount>
             <RegenRate scale="0.04">3.7226</RegenRate>
@@ -165,30 +149,28 @@
             <Minion basic="0" ability="50" splash="0" />
           </Armor>
           <Abilities>
-            <Basic>
-              <AlexstraszaBreathOfLife name="Breath of Life" shortTooltipId="AlexstraszaBreathOfLife" fullTooltipId="AlexstraszaBreathOfLife" abilityType="Q">
-                <Icon>storm_ui_icon_alexstrasza_breath_of_life.png</Icon>
-                <LifeTooltip>15%</LifeTooltip>
-                <Charges consume="1" initial="3" isHidden="false" recastCooldown="2">3</Charges>
-                <CooldownTooltip>3 seconds</CooldownTooltip>
-              </AlexstraszaBreathOfLife>
-            </Basic>
-            <Heroic>
-              <DragonAbilHeroic name="DragonAbilHeroic" abilityType="Heroic" />
-            </Heroic>
             <Trait>
-              <DragonAbilTrait name="DragonAbilTrait" abilityType="Trait">
+              <DragonAbilTrait buttonId="DragonAbilTrait" name="DragonAbilTrait" abilityType="Trait">
                 <FullTooltip>Burrow to the target location, dealing 96 (+4% per level) damage and briefly stunning enemies in a small area upon surfacing, slowing them by 25% for 2.5 seconds.  Burrow Charge can be reactivated to surface early.</FullTooltip>
               </DragonAbilTrait>
             </Trait>
-            <Mount>
-              <DragonAbilMount name="DragonAbilMount" abilityType="Z" />
-            </Mount>
             <Activable>
-              <DragonAbilActivable name="DragonAbilActivable" abilityType="Trait" />
+              <DragonAbilActivable buttonId="DragonAbilActivable" name="DragonAbilActivable" abilityType="Trait" />
             </Activable>
           </Abilities>
-        </AlexstraszaDragonId>
+          <SubAbilities>
+            <SubAbilHeroic>
+              <Heroic>
+                <DragonAbilHeroic buttonId="DragonAbilHeroic" name="DragonAbilHeroic" abilityType="Heroic" />
+              </Heroic>
+            </SubAbilHeroic>
+            <SubAbilMount>
+              <Mount>
+                <DragonAbilMount buttonId="DragonAbilMount" name="DragonAbilMount" abilityType="Z" />
+              </Mount>
+            </SubAbilMount>
+          </SubAbilities>
+        </AlexstraszaDragon>
       </HeroAlexstraszaDragon>
     </HeroUnits>
   </Alexstrasza>

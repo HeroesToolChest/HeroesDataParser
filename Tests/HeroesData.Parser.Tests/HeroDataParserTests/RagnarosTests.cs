@@ -8,15 +8,6 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
     public class RagnarosTests : HeroDataParserBaseTest
     {
         [TestMethod]
-        public void UnitTests()
-        {
-            Assert.AreEqual(1, HeroRagnaros.HeroUnitCount);
-
-            string unit = HeroRagnaros.UnitIds.ToList()[0];
-            Assert.AreEqual("RagnarosBigRag", unit);
-        }
-
-        [TestMethod]
         public void HeroDescriptorsTests()
         {
             Assert.AreEqual(5, HeroRagnaros.HeroDescriptors.Count());

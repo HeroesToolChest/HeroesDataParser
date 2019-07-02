@@ -13,14 +13,12 @@
     "speed": 4.3984,
     "type": "Melee",
     "rarity": "Legendary",
-    "mountLinkId": "SummonMount",
-    "hearthLinkId": "PortBackToBase",
     "searchText": "Alarak highlord protoss",
     "description": "A Tank who specializes against Mages thanks in part to his innate Spell Armor.  20 Spell Armor",
     "descriptors": [
       "EnergyImportant",
-      "WaveClearer",
-      "Overconfident"
+      "Overconfident",
+      "WaveClearer"
     ],
     "portraits": {
       "heroSelect": "storm_ui_ingame_heroselect_btn_alarak.png",
@@ -83,9 +81,8 @@
       "basic": [
         {
           "nameId": "AlarakDiscordStrike",
+          "buttonId": "AlarakDiscordStrike",
           "name": "Discord Strike",
-          "shortTooltipId": "AlarakDiscordStrike",
-          "fullTooltipId": "AlarakDiscordStrike",
           "icon": "storm_ui_icon_alarak_discordstrike.png",
           "toggleCooldown": 2.5,
           "energyTooltip": "45",
@@ -98,6 +95,7 @@
       "heroic": [
         {
           "nameId": "HeroicAbility",
+          "buttonId": "HeroicAbility",
           "name": "Heroic",
           "abilityType": "Heroic"
         }
@@ -105,9 +103,8 @@
       "trait": [
         {
           "nameId": "AlarakSadismDummyUI",
+          "buttonId": "AlarakSadismDummyUI",
           "name": "Sadism",
-          "shortTooltipId": "AlarakSadismDummyUI",
-          "fullTooltipId": "AlarakSadismDummyUI",
           "icon": "storm_ui_icon_alarak_sadism.png",
           "shortTooltip": "Alarak deals increased damage and has increased self-healing against enemy Heroes",
           "fullTooltip": "Alarak's Ability damage and self-healing are increased by 100% against enemy Heroes.  Repeatable Quest: Takedowns increase Sadism by 3%, up to 30%. Sadism gained from Takedowns is lost on death.",
@@ -117,6 +114,7 @@
       "mount": [
         {
           "nameId": "MountAbility",
+          "buttonId": "MountAbility",
           "name": "Mount",
           "abilityType": "Z"
         }
@@ -124,6 +122,7 @@
       "activable": [
         {
           "nameId": "ActivableAbility",
+          "buttonId": "ActivableAbility",
           "name": "Activable",
           "abilityType": "Active"
         }
@@ -131,6 +130,7 @@
       "hearth": [
         {
           "nameId": "HearthAbility",
+          "buttonId": "HearthAbility",
           "name": "Hearth",
           "abilityType": "B"
         }
@@ -140,9 +140,8 @@
       "level1": [
         {
           "nameId": "AlarakSustainingPower",
+          "buttonId": "ButtonId",
           "name": "Sustaining Power",
-          "shortTooltipId": "AlarakSustainingPower",
-          "fullTooltipId": "AlarakSustainingPower",
           "icon": "storm_ui_icon_alarak_lightningsurge_a.png",
           "shortTooltip": "Increase Lightning Surge healing",
           "fullTooltip": "Increase the healing received from damaging Heroes with Lightning Surge by 40%.",
@@ -150,35 +149,22 @@
           "isActive": true,
           "isQuest": true,
           "sort": 1
-        },
-        {
-          "nameId": "AlarakExtendedLightning",
-          "name": "Extended Lightning",
-          "shortTooltipId": "AlarakExtendedLightning",
-          "fullTooltipId": "AlarakExtendedLightning",
-          "icon": "storm_ui_icon_alarak_lightningsurge.png",
-          "shortTooltip": "Quest: Reduce Sadism, empower Lightning Surge",
-          "fullTooltip": "Reduce Sadism by 10%.  Quest: Hit Heroes with the center of Lightning Surge.  Reward: After hitting 5 Heroes, increase Lightning Surge's range by 20%.  Reward: After hitting 15 Heroes, Lightning Surge's center also Slows enemies by 40% for 2 seconds.  Reward: After hitting 3 Heroes with the center of a single cast, increase Sadism by 10% and instantly gain all other Rewards.",
-          "abilityType": "Q",
-          "sort": 2
         }
       ],
       "level4": [
         {
           "nameId": "Level4Talent",
+          "buttonId": "Level4Talent",
           "name": "Level4Talent",
           "fullTooltip": "Burrow to the target location, dealing 96 damage and briefly stunning enemies in a small area upon surfacing, slowing them by 25% for 2.5 seconds.  Burrow Charge can be reactivated to surface early.",
           "abilityType": "Q",
-          "sort": 0,
-          "abilityTalentLinkIds": [
-            "AlarakDiscordStrike",
-            "AlarakExtendedLightning"
-          ]
+          "sort": 0
         }
       ],
       "level7": [
         {
           "nameId": "Level7Talent",
+          "buttonId": "Level7Talent",
           "name": "Level4Talent",
           "abilityType": "Q",
           "sort": 0
@@ -187,9 +173,8 @@
       "level10": [
         {
           "nameId": "AlarakHeroicAbilityDeadlyCharge",
+          "buttonId": "AlarakHeroicAbilityDeadlyCharge",
           "name": "Deadly Charge",
-          "shortTooltipId": "AlarakDeadlyCharge",
-          "fullTooltipId": "AlarakDeadlyCharge",
           "icon": "storm_ui_icon_alarak_recklesscharge.png",
           "energyTooltip": "8",
           "cooldownTooltip": "45",
@@ -200,9 +185,8 @@
         },
         {
           "nameId": "AlarakHeroicAbilityCounterStrike",
+          "buttonId": "AlarakCounterStrikeTargeted",
           "name": "Counter-Strike",
-          "shortTooltipId": "AlarakCounterStrikeTargeted",
-          "fullTooltipId": "AlarakCounterStrikeTargeted",
           "icon": "storm_ui_icon_alarak_counterstrike.png",
           "energyTooltip": "50",
           "cooldownTooltip": "30 seconds",
@@ -215,6 +199,7 @@
       "level13": [
         {
           "nameId": "Leve13Talent",
+          "buttonId": "Leve13Talent",
           "name": "Leve13Talent",
           "abilityType": "W",
           "sort": 0
@@ -223,6 +208,7 @@
       "level16": [
         {
           "nameId": "Level16Talent",
+          "buttonId": "Level16Talent",
           "name": "Level16Talent",
           "abilityType": "W",
           "sort": 0
@@ -231,6 +217,7 @@
       "level20": [
         {
           "nameId": "Level20Talent",
+          "buttonId": "Level20Talent",
           "name": "Level20Talent",
           "abilityType": "W",
           "sort": 0
@@ -260,59 +247,55 @@
       "survivability": 0.0,
       "utility": 0.0
     },
-    "abilities": {},
-    "subAbilities": [
-      {
-        "TychusOdinNoHealth": {
-          "basic": [
-            {
-              "nameId": "TychusOdinAnnihilate",
-              "name": "Annihilate",
-              "shortTooltipId": "TychusCommandeerOdinAnnihilate",
-              "fullTooltipId": "TychusCommandeerOdinAnnihilate",
-              "icon": "storm_ui_icon_tychus_annihilate.png",
-              "fullTooltip": "Burrow to the target location, dealing 96 damage and briefly stunning enemies in a small area upon surfacing, slowing them by 25% for 2.5 seconds.  Burrow Charge can be reactivated to surface early.",
-              "abilityType": "Q"
-            }
-          ]
-        },
-        "HeroAlexstraszaDragon": {
-          "heroic": [
-            {
-              "nameId": "SubAbilHeroic",
-              "name": "SubAbilHeroic",
-              "abilityType": "Heroic"
-            }
-          ],
-          "trait": [
-            {
-              "nameId": "SubAbilTrait",
-              "name": "SubAbilTrait",
-              "abilityType": "Trait"
-            }
-          ],
-          "mount": [
-            {
-              "nameId": "SubAbilMount",
-              "name": "SubAbilMount",
-              "abilityType": "Z"
-            }
-          ],
-          "activable": [
-            {
-              "nameId": "SubAbilActivable",
-              "name": "SubAbilActivable",
-              "abilityType": "Active"
-            }
-          ]
+    "abilities": {
+      "basic": [
+        {
+          "nameId": "TychusOdinAnnihilate",
+          "buttonId": "TychusOdinAnnihilate",
+          "name": "Annihilate",
+          "icon": "storm_ui_icon_tychus_annihilate.png",
+          "fullTooltip": "Burrow to the target location, dealing 96 damage and briefly stunning enemies in a small area upon surfacing, slowing them by 25% for 2.5 seconds.  Burrow Charge can be reactivated to surface early.",
+          "abilityType": "Q"
         }
-      }
-    ],
+      ],
+      "heroic": [
+        {
+          "nameId": "SubAbilHeroic",
+          "buttonId": "SubAbilHeroic",
+          "name": "SubAbilHeroic",
+          "abilityType": "Heroic"
+        }
+      ],
+      "trait": [
+        {
+          "nameId": "SubAbilTrait",
+          "buttonId": "SubAbilTrait",
+          "name": "SubAbilTrait",
+          "abilityType": "Trait"
+        }
+      ],
+      "mount": [
+        {
+          "nameId": "SubAbilMount",
+          "buttonId": "SubAbilMount",
+          "name": "SubAbilMount",
+          "abilityType": "Z"
+        }
+      ],
+      "activable": [
+        {
+          "nameId": "SubAbilActivable",
+          "buttonId": "SubAbilActivable",
+          "name": "SubAbilActivable",
+          "abilityType": "Active"
+        }
+      ]
+    },
     "heroUnits": [
       {
-        "AlexstraszaDragonId": {
+        "AlexstraszaDragon": {
           "name": "Alexstrasza",
-          "unitId": "HeroAlexstraszaDragon",
+          "hyperlinkId": "AlexstraszaDragonId",
           "innerRadius": 1.0,
           "radius": 1.25,
           "sight": 12.0,
@@ -331,55 +314,48 @@
             }
           },
           "abilities": {
-            "basic": [
-              {
-                "nameId": "AlexstraszaBreathOfLife",
-                "name": "Breath of Life",
-                "shortTooltipId": "AlexstraszaBreathOfLife",
-                "fullTooltipId": "AlexstraszaBreathOfLife",
-                "icon": "storm_ui_icon_alexstrasza_breath_of_life.png",
-                "lifeTooltip": "15%",
-                "charges": {
-                  "countMax": 3,
-                  "countUse": 1,
-                  "countStart": 3,
-                  "hideCount": false,
-                  "recastCooldown": 2.0
-                },
-                "cooldownTooltip": "3 seconds",
-                "abilityType": "Q"
-              }
-            ],
-            "heroic": [
-              {
-                "nameId": "DragonAbilHeroic",
-                "name": "DragonAbilHeroic",
-                "abilityType": "Heroic"
-              }
-            ],
             "trait": [
               {
                 "nameId": "DragonAbilTrait",
+                "buttonId": "DragonAbilTrait",
                 "name": "DragonAbilTrait",
                 "fullTooltip": "Burrow to the target location, dealing 96 damage and briefly stunning enemies in a small area upon surfacing, slowing them by 25% for 2.5 seconds.  Burrow Charge can be reactivated to surface early.",
                 "abilityType": "Trait"
               }
             ],
-            "mount": [
-              {
-                "nameId": "DragonAbilMount",
-                "name": "DragonAbilMount",
-                "abilityType": "Z"
-              }
-            ],
             "activable": [
               {
                 "nameId": "DragonAbilActivable",
+                "buttonId": "DragonAbilActivable",
                 "name": "DragonAbilActivable",
                 "abilityType": "Trait"
               }
             ]
-          }
+          },
+          "subAbilities": [
+            {
+              "SubAbilHeroic": {
+                "heroic": [
+                  {
+                    "nameId": "DragonAbilHeroic",
+                    "buttonId": "DragonAbilHeroic",
+                    "name": "DragonAbilHeroic",
+                    "abilityType": "Heroic"
+                  }
+                ]
+              },
+              "SubAbilMount": {
+                "mount": [
+                  {
+                    "nameId": "DragonAbilMount",
+                    "buttonId": "DragonAbilMount",
+                    "name": "DragonAbilMount",
+                    "abilityType": "Z"
+                  }
+                ]
+              }
+            }
+          ]
         }
       }
     ]

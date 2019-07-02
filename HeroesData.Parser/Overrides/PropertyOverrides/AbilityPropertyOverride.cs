@@ -13,11 +13,14 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
             {
                 propertyOverrides.Add(propertyName, (ability) =>
                 {
-                    string[] split = propertyValue.Split(',', 2);
-                    if (split.Length == 2)
-                        ability.ParentLink = new AbilityTalentId(split[0], split[1]);
-                    else
-                        ability.ParentLink = new AbilityTalentId(propertyValue, propertyValue);
+                    if (!string.IsNullOrEmpty(propertyValue))
+                    {
+                        string[] split = propertyValue.Split(',', 2);
+                        if (split.Length == 2)
+                            ability.ParentLink = new AbilityTalentId(split[0], split[1]);
+                        else
+                            ability.ParentLink = new AbilityTalentId(propertyValue, propertyValue);
+                    }
                 });
             }
             else if (propertyName == "AbilityTier")

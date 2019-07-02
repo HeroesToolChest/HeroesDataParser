@@ -49,7 +49,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             List<string> units = HeroAbathur.UnitIds.ToList();
 
-            Assert.AreEqual(6, units.Count);
+            Assert.AreEqual(5, units.Count);
         }
 
         [TestMethod]

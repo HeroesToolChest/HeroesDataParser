@@ -9,12 +9,10 @@
     "sight": 12.0,
     "speed": 4.3984,
     "rarity": "Legendary",
-    "mountLinkId": "SummonMount",
-    "hearthLinkId": "PortBackToBase",
     "descriptors": [
       "EnergyImportant",
-      "WaveClearer",
-      "Overconfident"
+      "Overconfident",
+      "WaveClearer"
     ],
     "portraits": {
       "heroSelect": "storm_ui_ingame_heroselect_btn_alarak.png",
@@ -72,8 +70,7 @@
       "basic": [
         {
           "nameId": "AlarakDiscordStrike",
-          "shortTooltipId": "AlarakDiscordStrike",
-          "fullTooltipId": "AlarakDiscordStrike",
+          "buttonId": "AlarakDiscordStrike",
           "icon": "storm_ui_icon_alarak_discordstrike.png",
           "toggleCooldown": 2.5,
           "abilityType": "Q"
@@ -82,14 +79,14 @@
       "heroic": [
         {
           "nameId": "HeroicAbility",
+          "buttonId": "HeroicAbility",
           "abilityType": "Heroic"
         }
       ],
       "trait": [
         {
           "nameId": "AlarakSadismDummyUI",
-          "shortTooltipId": "AlarakSadismDummyUI",
-          "fullTooltipId": "AlarakSadismDummyUI",
+          "buttonId": "AlarakSadismDummyUI",
           "icon": "storm_ui_icon_alarak_sadism.png",
           "abilityType": "Trait"
         }
@@ -97,18 +94,21 @@
       "mount": [
         {
           "nameId": "MountAbility",
+          "buttonId": "MountAbility",
           "abilityType": "Z"
         }
       ],
       "activable": [
         {
           "nameId": "ActivableAbility",
+          "buttonId": "ActivableAbility",
           "abilityType": "Active"
         }
       ],
       "hearth": [
         {
           "nameId": "HearthAbility",
+          "buttonId": "HearthAbility",
           "abilityType": "B"
         }
       ]
@@ -117,37 +117,26 @@
       "level1": [
         {
           "nameId": "AlarakSustainingPower",
-          "shortTooltipId": "AlarakSustainingPower",
-          "fullTooltipId": "AlarakSustainingPower",
+          "buttonId": "ButtonId",
           "icon": "storm_ui_icon_alarak_lightningsurge_a.png",
           "abilityType": "Q",
           "isActive": true,
           "isQuest": true,
           "sort": 1
-        },
-        {
-          "nameId": "AlarakExtendedLightning",
-          "shortTooltipId": "AlarakExtendedLightning",
-          "fullTooltipId": "AlarakExtendedLightning",
-          "icon": "storm_ui_icon_alarak_lightningsurge.png",
-          "abilityType": "Q",
-          "sort": 2
         }
       ],
       "level4": [
         {
           "nameId": "Level4Talent",
+          "buttonId": "Level4Talent",
           "abilityType": "Q",
-          "sort": 0,
-          "abilityTalentLinkIds": [
-            "AlarakDiscordStrike",
-            "AlarakExtendedLightning"
-          ]
+          "sort": 0
         }
       ],
       "level7": [
         {
           "nameId": "Level7Talent",
+          "buttonId": "Level7Talent",
           "abilityType": "Q",
           "sort": 0
         }
@@ -155,16 +144,14 @@
       "level10": [
         {
           "nameId": "AlarakHeroicAbilityDeadlyCharge",
-          "shortTooltipId": "AlarakDeadlyCharge",
-          "fullTooltipId": "AlarakDeadlyCharge",
+          "buttonId": "AlarakHeroicAbilityDeadlyCharge",
           "icon": "storm_ui_icon_alarak_recklesscharge.png",
           "abilityType": "Heroic",
           "sort": 1
         },
         {
           "nameId": "AlarakHeroicAbilityCounterStrike",
-          "shortTooltipId": "AlarakCounterStrikeTargeted",
-          "fullTooltipId": "AlarakCounterStrikeTargeted",
+          "buttonId": "AlarakCounterStrikeTargeted",
           "icon": "storm_ui_icon_alarak_counterstrike.png",
           "abilityType": "Heroic",
           "sort": 2
@@ -173,6 +160,7 @@
       "level13": [
         {
           "nameId": "Leve13Talent",
+          "buttonId": "Leve13Talent",
           "abilityType": "W",
           "sort": 0
         }
@@ -180,6 +168,7 @@
       "level16": [
         {
           "nameId": "Level16Talent",
+          "buttonId": "Level16Talent",
           "abilityType": "W",
           "sort": 0
         }
@@ -187,6 +176,7 @@
       "level20": [
         {
           "nameId": "Level20Talent",
+          "buttonId": "Level20Talent",
           "abilityType": "W",
           "sort": 0
         }
@@ -211,52 +201,48 @@
       "survivability": 0.0,
       "utility": 0.0
     },
-    "abilities": {},
-    "subAbilities": [
-      {
-        "TychusOdinNoHealth": {
-          "basic": [
-            {
-              "nameId": "TychusOdinAnnihilate",
-              "shortTooltipId": "TychusCommandeerOdinAnnihilate",
-              "fullTooltipId": "TychusCommandeerOdinAnnihilate",
-              "icon": "storm_ui_icon_tychus_annihilate.png",
-              "abilityType": "Q"
-            }
-          ]
-        },
-        "HeroAlexstraszaDragon": {
-          "heroic": [
-            {
-              "nameId": "SubAbilHeroic",
-              "abilityType": "Heroic"
-            }
-          ],
-          "trait": [
-            {
-              "nameId": "SubAbilTrait",
-              "abilityType": "Trait"
-            }
-          ],
-          "mount": [
-            {
-              "nameId": "SubAbilMount",
-              "abilityType": "Z"
-            }
-          ],
-          "activable": [
-            {
-              "nameId": "SubAbilActivable",
-              "abilityType": "Active"
-            }
-          ]
+    "abilities": {
+      "basic": [
+        {
+          "nameId": "TychusOdinAnnihilate",
+          "buttonId": "TychusOdinAnnihilate",
+          "icon": "storm_ui_icon_tychus_annihilate.png",
+          "abilityType": "Q"
         }
-      }
-    ],
+      ],
+      "heroic": [
+        {
+          "nameId": "SubAbilHeroic",
+          "buttonId": "SubAbilHeroic",
+          "abilityType": "Heroic"
+        }
+      ],
+      "trait": [
+        {
+          "nameId": "SubAbilTrait",
+          "buttonId": "SubAbilTrait",
+          "abilityType": "Trait"
+        }
+      ],
+      "mount": [
+        {
+          "nameId": "SubAbilMount",
+          "buttonId": "SubAbilMount",
+          "abilityType": "Z"
+        }
+      ],
+      "activable": [
+        {
+          "nameId": "SubAbilActivable",
+          "buttonId": "SubAbilActivable",
+          "abilityType": "Active"
+        }
+      ]
+    },
     "heroUnits": [
       {
-        "AlexstraszaDragonId": {
-          "unitId": "HeroAlexstraszaDragon",
+        "AlexstraszaDragon": {
+          "hyperlinkId": "AlexstraszaDragonId",
           "innerRadius": 1.0,
           "radius": 1.25,
           "sight": 12.0,
@@ -275,47 +261,43 @@
             }
           },
           "abilities": {
-            "basic": [
-              {
-                "nameId": "AlexstraszaBreathOfLife",
-                "shortTooltipId": "AlexstraszaBreathOfLife",
-                "fullTooltipId": "AlexstraszaBreathOfLife",
-                "icon": "storm_ui_icon_alexstrasza_breath_of_life.png",
-                "charges": {
-                  "countMax": 3,
-                  "countUse": 1,
-                  "countStart": 3,
-                  "hideCount": false,
-                  "recastCooldown": 2.0
-                },
-                "abilityType": "Q"
-              }
-            ],
-            "heroic": [
-              {
-                "nameId": "DragonAbilHeroic",
-                "abilityType": "Heroic"
-              }
-            ],
             "trait": [
               {
                 "nameId": "DragonAbilTrait",
+                "buttonId": "DragonAbilTrait",
                 "abilityType": "Trait"
-              }
-            ],
-            "mount": [
-              {
-                "nameId": "DragonAbilMount",
-                "abilityType": "Z"
               }
             ],
             "activable": [
               {
                 "nameId": "DragonAbilActivable",
+                "buttonId": "DragonAbilActivable",
                 "abilityType": "Trait"
               }
             ]
-          }
+          },
+          "subAbilities": [
+            {
+              "SubAbilHeroic": {
+                "heroic": [
+                  {
+                    "nameId": "DragonAbilHeroic",
+                    "buttonId": "DragonAbilHeroic",
+                    "abilityType": "Heroic"
+                  }
+                ]
+              },
+              "SubAbilMount": {
+                "mount": [
+                  {
+                    "nameId": "DragonAbilMount",
+                    "buttonId": "DragonAbilMount",
+                    "abilityType": "Z"
+                  }
+                ]
+              }
+            }
+          ]
         }
       }
     ]

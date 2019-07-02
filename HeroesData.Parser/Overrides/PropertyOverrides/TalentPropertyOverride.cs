@@ -15,7 +15,7 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                     if (Enum.TryParse(propertyValue, out AbilityType abilityType))
                         talent.AbilityType = abilityType;
                     else
-                        talent.AbilityType = AbilityType.Q;
+                        talent.AbilityType = AbilityType.Unknown;
                 });
             }
             else if (propertyName == nameof(Talent.AbilityTalentLinkIds))

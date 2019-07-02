@@ -27,7 +27,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.AbilityOverrideTests
         [TestMethod]
         public void AbilityTierOverrideTest()
         {
-            Assert.AreEqual(AbilityTier.Basic, TestAbility.Tier);
+            Assert.AreEqual(AbilityTier.Unknown, TestAbility.Tier);
         }
 
         [TestMethod]
