@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CASCExplorer\CascLibCore\CascLibCore.csproj" />
+    <ProjectReference Include="..\CASCExplorer\CascLib\CascLib\CascLib.csproj" />
     <ProjectReference Include="..\Heroes.Models\Heroes.Models\Heroes.Models.csproj" />
     <ProjectReference Include="..\HeroesData.Loader\HeroesData.Loader.csproj" />
     <ProjectReference Include="..\HeroesData.Parser\HeroesData.Parser.csproj" />

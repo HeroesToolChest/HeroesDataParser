@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CASCExplorer\CascLibCore\CascLibCore.csproj" />
+    <ProjectReference Include="..\CASCExplorer\CascLib\CascLib\CascLib.csproj" />
     <ProjectReference Include="..\HeroesData.Helpers\HeroesData.Helpers.csproj" />
   </ItemGroup>
 
