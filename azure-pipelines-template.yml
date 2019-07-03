@@ -6,21 +6,19 @@ jobs:
   - job: ${{ parameters.name }}
     pool: ${{ parameters.pool }}
     variables:
-      - name: config_debug
-        value: debug
-      - name: config_release
-        value: release
+      config_debug: debug
+      config_release: release
     strategy:
       matrix:
         Build_Debug:
-          CONFIGURATION: $(config_debug)
+          configuration: $(config_debug)
         Build_Release:
-          CONFIGURATION: $(config_release)
+          configuration: $(config_release)
     steps:
     - task: DotNetCoreInstaller@0
       displayName: dotnet installer 2.2.202
       inputs:
-        version: '2.2.202'
+        version: '2.2.202
         
     - script: dotnet build -c $(configuration)
       displayName: Build
