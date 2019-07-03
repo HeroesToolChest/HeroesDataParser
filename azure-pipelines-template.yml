@@ -20,7 +20,14 @@ jobs:
       inputs:
         version: '2.2.202'
         
-    - script: dotnet build -c $(configuration)
+    - powershell: |
+      $cascexplorer = get-content CASCExplorer\CascLib\CascLib\CascLib.csproj
+      $framework = $cascexplorer | select-string -pattern "<TargetFrameworks>"
+      $framework -match "<TargetFrameworks>(?<content>.*)</TargetFrameworks>"
+      $new = $matches['content'] -replace ".*;"
+      $cascexplorer.replace($framework, "<TargetFrameworks>$new</TargetFrameworks>") | out-file CASCExplorer\CascLib\CascLib\CascLib.csproj
+      
+    - script: dotnet build -c $(configuration)    
       displayName: Build
  
     - script: dotnet test -c $(configuration) --no-build --logger trx --collect "Code coverage"
