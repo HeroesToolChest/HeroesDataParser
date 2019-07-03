@@ -18,7 +18,7 @@ jobs:
     - task: DotNetCoreInstaller@0
       displayName: dotnet installer 2.2.202
       inputs:
-        version: '2.2.202
+        version: '2.2.202'
         
     - script: dotnet build -c $(configuration)
       displayName: Build
