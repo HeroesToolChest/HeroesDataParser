@@ -28,11 +28,6 @@ namespace HeroesData.Parser
         }
 
         /// <summary>
-        /// Gets or sets the base hero data.
-        /// </summary>
-        public Hero StormHeroBase { get; set; } = new Hero();
-
-        /// <summary>
         /// Returns a collection of all the parsable ids. Allows multiple ids.
         /// </summary>
         /// <returns></returns>
