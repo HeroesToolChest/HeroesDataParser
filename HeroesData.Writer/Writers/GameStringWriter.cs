@@ -132,7 +132,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
-            GameStrings[$"tooltip/life/{key}"] = value;
+            GameStrings[$"abiltalent/life/{key}"] = value;
         }
 
         public void AddAbilityTalentEnergyTooltip(string key, string value)
@@ -140,7 +140,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
-            GameStrings[$"tooltip/energy/{key}"] = value;
+            GameStrings[$"abiltalent/energy/{key}"] = value;
         }
 
         public void AddAbilityTalentCooldownTooltip(string key, string value)
@@ -148,7 +148,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
-            GameStrings[$"tooltip/cooldown/{key}"] = value;
+            GameStrings[$"abiltalent/cooldown/{key}"] = value;
         }
 
         public void AddAbilityTalentShortTooltip(string key, string value)
@@ -156,7 +156,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
-            GameStrings[$"tooltip/short/{key}"] = value;
+            GameStrings[$"abiltalent/short/{key}"] = value;
         }
 
         public void AddAbilityTalentFullTooltip(string key, string value)
@@ -164,7 +164,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
-            GameStrings[$"tooltip/full/{key}"] = value;
+            GameStrings[$"abiltalent/full/{key}"] = value;
         }
 
         public void AddMatchAwardName(string key, string value)

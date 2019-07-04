@@ -62,16 +62,22 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected virtual void AddLocalizedGameString(AbilityTalentBase abilityTalentBase)
         {
-            GameStringWriter.AddAbilityTalentName(abilityTalentBase.AbilityTalentId.ReferenceId, abilityTalentBase.Name);
+            GameStringWriter.AddAbilityTalentName(abilityTalentBase.AbilityTalentId.Id, abilityTalentBase.Name);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Life?.LifeCostTooltip?.RawDescription))
-                GameStringWriter.AddAbilityTalentLifeTooltip(abilityTalentBase.AbilityTalentId.ReferenceId, GetTooltip(abilityTalentBase.Tooltip.Life.LifeCostTooltip, FileOutputOptions.DescriptionType));
+                GameStringWriter.AddAbilityTalentLifeTooltip(abilityTalentBase.AbilityTalentId.Id, GetTooltip(abilityTalentBase.Tooltip.Life.LifeCostTooltip, FileOutputOptions.DescriptionType));
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Energy?.EnergyTooltip?.RawDescription))
-                GameStringWriter.AddAbilityTalentEnergyTooltip(abilityTalentBase.AbilityTalentId.ReferenceId, GetTooltip(abilityTalentBase.Tooltip.Energy.EnergyTooltip, FileOutputOptions.DescriptionType));
+                GameStringWriter.AddAbilityTalentEnergyTooltip(abilityTalentBase.AbilityTalentId.Id, GetTooltip(abilityTalentBase.Tooltip.Energy.EnergyTooltip, FileOutputOptions.DescriptionType));
 
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.Cooldown?.CooldownTooltip?.RawDescription))
-                GameStringWriter.AddAbilityTalentCooldownTooltip(abilityTalentBase.AbilityTalentId.ReferenceId, GetTooltip(abilityTalentBase.Tooltip.Cooldown.CooldownTooltip, FileOutputOptions.DescriptionType));
+                GameStringWriter.AddAbilityTalentCooldownTooltip(abilityTalentBase.AbilityTalentId.Id, GetTooltip(abilityTalentBase.Tooltip.Cooldown.CooldownTooltip, FileOutputOptions.DescriptionType));
+
+            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.ShortTooltip?.RawDescription))
+                GameStringWriter.AddAbilityTalentShortTooltip(abilityTalentBase.AbilityTalentId.Id, GetTooltip(abilityTalentBase.Tooltip.ShortTooltip, FileOutputOptions.DescriptionType));
+
+            if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip?.FullTooltip?.RawDescription))
+                GameStringWriter.AddAbilityTalentFullTooltip(abilityTalentBase.AbilityTalentId.Id, GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileOutputOptions.DescriptionType));
         }
 
         protected T HeroPortraits(Hero hero)
