@@ -112,6 +112,11 @@
     </Ability>
   </CHero>
   <CHero id="Chen">
+    <Ability id="ChenBreathOfFire">
+      <Override>
+        <ParentLink value="ChenKegSmash" />
+      </Override>
+    </Ability>
     <Ability id="ChenStorm">
       <Override>
         <ParentLink value="ChenStormEarthFire" />
@@ -125,16 +130,6 @@
     <Ability id="ChenFire">
       <Override>
         <ParentLink value="ChenStormEarthFire" />
-      </Override>
-    </Ability>
-    <Ability id="ChenFirePassive">
-      <Override>
-        <ParentLink value="ChenElementalConduit,ChenStormEarthFireElementalConduitTalent" />
-      </Override>
-    </Ability>
-    <Ability id="ChenStormEarthFireElementalConduitDummy" button="ChenStormEarthFireElementalConduitTalent">
-      <Override>
-        <AbilityTier value="Hidden" />
       </Override>
     </Ability>
     <HeroUnit id="HeroChenStorm" />
