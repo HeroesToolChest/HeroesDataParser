@@ -299,7 +299,12 @@ The gamestring text file(s) are located at `<OUTPUT-DIRECTORY>/gamestrings/`.
 Both heroes and units use the `units/...` prefix string.
 
 The format of the strings in the text file are the following:
-- `abiltalent/name/[nameId]=[value]`
+- `abiltalent/cooldown/[nameId|buttonId]=[value]`
+- `abiltalent/energy/[nameId|buttonId]=[value]`
+- `abiltalent/full/[nameId|buttonId]=[value]`
+- `abiltalent/life/[nameId|buttonId]=[value]`
+- `abiltalent/name/[nameId|buttonId]=[value]`
+- `abiltalent/short/[nameId|buttonId]=[value]`
 - `announcer/name/[Id]=[value]`
 - `announcer/description/[Id]=[value]`
 - `announcer/sortname/[Id]=[value]`
@@ -329,11 +334,6 @@ The format of the strings in the text file are the following:
 - `spray/name/[Id]=[value]`
 - `spray/searchtext/[Id]=[value]`
 - `spray/sortname/[Id]=[value]`
-- `tooltip/cooldown/[nameId]=[value]`
-- `tooltip/energy/[nameId]=[value]`
-- `tooltip/full/[fullTooltipId]=[value]`
-- `tooltip/life/[nameId]=[value]`
-- `tooltip/short/[shortTooltipId]=[value]`
 - `unit/description/[Id]=[value]`
 - `unit/difficulty/[Id]=[value]`
 - `unit/expandedrole/[Id]=[value]`
@@ -358,13 +358,15 @@ Arguments:
 Options:
   -?|-h|--help                      Show help information
   -o|--output-directory <FILEPATH>  Sets the output directory.
-  --xml-merge                       Extracts the xml files as one file.
+  --xml-merge                       Extracts the xml files as one file, excludes the map files.
   --textures                        Includes extracting all textures (.dds).
 ```
 
 Extracts all required files from the `Heroes of the Storm` directory which can be used for the `-s|--storage-path` option.  
 
-If the `-o|--output-directory` is not set, the local directory will be used. A `mods` directory will be created as the base directory.
+If the `-o|--output-directory` is not set, the local directory will be used.
+
+A `mods` directory will always be created as the base directory.
 
 Example command that will extract all required files including the textures.
 ```
@@ -491,7 +493,7 @@ Another option is to use the dotnet CLI tools from the [.NET Core 2.2 SDK](https
 
 The main project is `HeroesData.csproj` and the main entry point is `Program.cs`.
 
-Both the `CASCLibCore.csproj` and `Heroes.Models.csproj` projects are submodules. Any code changes should be commited to those respective repositories.
+Both the `CASCLib.csproj` and `Heroes.Models.csproj` projects are submodules. Any code changes should be commited to those respective repositories.
 
 ## License
 [MIT license](/LICENSE)
