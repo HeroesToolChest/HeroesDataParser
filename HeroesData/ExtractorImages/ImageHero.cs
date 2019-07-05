@@ -36,6 +36,17 @@ namespace HeroesData.ExtractorImage
                 Portraits.Add(hero.HeroPortrait.PartyPanelPortraitFileName);
             if (!string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
                 Portraits.Add(hero.HeroPortrait.TargetPortraitFileName);
+            if (!string.IsNullOrEmpty(hero.HeroPortrait.DraftScreenFileName))
+                Portraits.Add(hero.HeroPortrait.DraftScreenFileName);
+            if (!string.IsNullOrEmpty(hero.HeroPortrait.MiniMapIconFileName))
+                Portraits.Add(hero.HeroPortrait.MiniMapIconFileName);
+            if (hero.HeroPortrait.PartyFrameFileName.Count > 0)
+            {
+                foreach (string partyFrame in hero.HeroPortrait.PartyFrameFileName)
+                {
+                    Portraits.Add(partyFrame);
+                }
+            }
 
             LoadAbilityTalentFiles(hero);
         }

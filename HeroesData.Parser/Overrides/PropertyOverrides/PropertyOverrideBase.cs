@@ -22,7 +22,12 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                 if (!string.IsNullOrEmpty(property.Value))
                     propertyValue = property.Value;
 
-                // remove existing property override - duplicates will override previous
+                // remove existing non-array property override - duplicates will override previous
+                if (propertyName.EndsWith("Array"))
+                {
+                    propertyName += propertyValue;
+                }
+
                 if (propertyOverrides.ContainsKey(propertyName))
                     propertyOverrides.Remove(propertyName);
 

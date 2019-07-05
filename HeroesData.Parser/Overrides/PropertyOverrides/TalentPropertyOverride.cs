@@ -22,8 +22,8 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
             {
                 propertyOverrides.Add(propertyName, (talent) =>
                 {
-                    if (propertyName.StartsWith("-"))
-                        talent.RemoveAbilityTalentLinkId(propertyValue.Substring(1, propertyValue.Length));
+                    if (propertyName.StartsWith('-'))
+                        talent.RemoveAbilityTalentLinkId(propertyValue.Substring(1));
                     else
                         talent.AddAbilityTalentLinkId(propertyValue);
                 });

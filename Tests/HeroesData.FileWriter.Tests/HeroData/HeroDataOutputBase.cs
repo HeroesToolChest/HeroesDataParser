@@ -3,6 +3,7 @@ using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace HeroesData.FileWriter.Tests.HeroData
@@ -96,6 +97,9 @@ namespace HeroesData.FileWriter.Tests.HeroData
                     LoadingScreenPortraitFileName = "storm_ui_ingame_hero_loadingscreen_alarak.png",
                     PartyPanelPortraitFileName = "storm_ui_ingame_partypanel_btn_alarak.png",
                     TargetPortraitFileName = "ui_targetportrait_hero_alarak.png",
+                    PartyFrameFileName = new List<string> { "partyframe.png", "partyFrame2.png" },
+                    DraftScreenFileName = "draftscreen.png",
+                    MiniMapIconFileName = "minimap.png",
                 },
                 Life = new UnitLife
                 {

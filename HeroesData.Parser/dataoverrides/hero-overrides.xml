@@ -350,6 +350,14 @@
   </CHero>
   <CHero id="LostVikings">
     <CUnit value="HeroLostVikingsController" />
+    <Portrait>
+      <Override>
+        <PartyFrameFileNameArray value="storm_ui_ingame_partyframe_lostvikings_baelog.dds" />
+        <PartyFrameFileNameArray value="storm_ui_ingame_partyframe_lostvikings_eric.dds" />
+        <PartyFrameFileNameArray value="storm_ui_ingame_partyframe_lostvikings_olaf.dds" />
+        <PartyFrameFileNameArray value="-storm_ui_ingame_partyframe_lostvikings.dds" />
+      </Override>
+    </Portrait>
     <HeroUnit id="HeroLostVikingsController" remove="true" />
     <HeroUnit id="HeroBaleog">
       <Ability id="LostVikingsLongboatRaidMortar" button="LostVikingsMortar">
@@ -504,6 +512,11 @@
     </Ability>
   </CHero>
   <CHero id="Rexxar">
+    <Portrait>
+      <Override>
+        <PartyFrameFileNameArray value="storm_ui_ingame_partyframe_rexxar_misha.dds" />
+      </Override>
+    </Portrait>
     <HeroUnit id="RexxarMisha" />
   </CHero>
   <CHero id="Samuro">

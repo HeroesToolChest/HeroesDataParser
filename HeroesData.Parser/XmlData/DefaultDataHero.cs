@@ -71,6 +71,16 @@ namespace HeroesData.Parser.XmlData
         public string HeroLoadingScreenImage { get; private set; }
 
         /// <summary>
+        /// Gets the default party frame text. Contains ##id##. Use with CHero id.
+        /// </summary>
+        public string HeroPartyFrameImage { get; private set; }
+
+        /// <summary>
+        /// Gets the default draft screen text. Contains ##id##. Use with CHero id.
+        /// </summary>
+        public string HeroDraftScreenImage { get; private set; }
+
+        /// <summary>
         /// Gets the default hyperlink id text. Used for shortname. Contains ##id##. Use with CHero id.
         /// </summary>
         public string HeroHyperlinkId { get; private set; }
@@ -161,17 +171,25 @@ namespace HeroesData.Parser.XmlData
                 {
                     HeroSelectScreenButtonImage = element.Attribute("value").Value;
                 }
-                else if (elementName == "SCORESCREENIMAGE")
+                else if (elementName == "PARTYPANELBUTTONIMAGE")
                 {
-                    HeroLeaderboardImage = element.Attribute("value").Value;
+                    HeroPartyPanelButtonImage = element.Attribute("value").Value;
+                }
+                else if (elementName == "PARTYFRAMEIMAGE")
+                {
+                    HeroPartyFrameImage = element.Attribute("value").Value;
                 }
                 else if (elementName == "LOADINGSCREENIMAGE")
                 {
                     HeroLoadingScreenImage = element.Attribute("value").Value;
                 }
-                else if (elementName == "PARTYPANELBUTTONIMAGE")
+                else if (elementName == "SCORESCREENIMAGE")
                 {
-                    HeroPartyPanelButtonImage = element.Attribute("value").Value;
+                    HeroLeaderboardImage = element.Attribute("value").Value;
+                }
+                else if (elementName == "DRAFTSCREENPORTRAIT")
+                {
+                    HeroDraftScreenImage = element.Attribute("value").Value;
                 }
                 else if (elementName == "RELEASEDATE")
                 {

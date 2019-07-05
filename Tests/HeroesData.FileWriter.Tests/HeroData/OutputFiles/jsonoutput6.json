@@ -25,7 +25,13 @@
       "leaderboard": "storm_ui_ingame_hero_leaderboard_alarak.png",
       "loading": "storm_ui_ingame_hero_loadingscreen_alarak.png",
       "partyPanel": "storm_ui_ingame_partypanel_btn_alarak.png",
-      "target": "ui_targetportrait_hero_alarak.png"
+      "target": "ui_targetportrait_hero_alarak.png",
+      "draftScreen": "draftscreen.png",
+      "minimap": "minimap.png",
+      "partyFrames": [
+        "partyframe.png",
+        "partyframe2.png"
+      ]
     },
     "life": {
       "amount": 1900.0,

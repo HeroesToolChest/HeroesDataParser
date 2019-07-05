@@ -460,6 +460,12 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 portrait.Add("partyPanel", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName?.ToLower(), StaticImageExtension));
             if (!string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
                 portrait.Add("target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName?.ToLower(), StaticImageExtension));
+            if (!string.IsNullOrEmpty(hero.HeroPortrait.DraftScreenFileName))
+                portrait.Add("draftScreen", Path.ChangeExtension(hero.HeroPortrait.DraftScreenFileName?.ToLower(), StaticImageExtension));
+            if (!string.IsNullOrEmpty(hero.HeroPortrait.MiniMapIconFileName))
+                portrait.Add("minimap", Path.ChangeExtension(hero.HeroPortrait.MiniMapIconFileName?.ToLower(), StaticImageExtension));
+            if (hero.HeroPortrait.PartyFrameFileName.Count > 0)
+                portrait.Add("partyFrames", new JArray(hero.HeroPortrait.PartyFrameFileName.Select(x => Path.ChangeExtension(x.ToLower(), StaticImageExtension))));
 
             return new JProperty("portraits", portrait);
         }

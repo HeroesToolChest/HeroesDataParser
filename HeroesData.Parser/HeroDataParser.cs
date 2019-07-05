@@ -204,6 +204,8 @@ namespace HeroesData.Parser
                 hero.HeroPortrait.LoadingScreenPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(DefaultData.HeroData.HeroLoadingScreenImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
                 hero.HeroPortrait.PartyPanelPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(DefaultData.HeroData.HeroPartyPanelButtonImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
                 hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(DefaultData.HeroData.HeroPortrait.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
+                hero.HeroPortrait.PartyFrameFileName.Add(Path.GetFileName(PathHelper.GetFilePath(DefaultData.HeroData.HeroPartyFrameImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower());
+                hero.HeroPortrait.DraftScreenFileName = Path.GetFileName(PathHelper.GetFilePath(DefaultData.HeroData.HeroDraftScreenImage.Replace(DefaultData.IdPlaceHolder, hero.CHeroId))).ToLower();
 
                 hero.InfoText = GameData.GetGameString(DefaultData.HeroData.HeroInfoText.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
                 hero.Title = GameData.GetGameString(DefaultData.HeroData.HeroTitle.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
@@ -252,6 +254,10 @@ namespace HeroesData.Parser
                     {
                         HeroDataOverride.AddAddedAbility(new AbilityTalentId(value, value), true);
                     }
+                }
+                else if (elementName == "MINIMAPICON")
+                {
+                    hero.HeroPortrait.MiniMapIconFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
                 }
             }
         }
@@ -420,6 +426,14 @@ namespace HeroesData.Parser
                 else if (elementName == "PORTRAIT")
                 {
                     hero.HeroPortrait.TargetPortraitFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                }
+                else if (elementName == "PARTYFRAMEIMAGE")
+                {
+                    hero.HeroPortrait.PartyFrameFileName.Add(Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower());
+                }
+                else if (elementName == "DRAFTSCREENPORTRAIT")
+                {
+                    hero.HeroPortrait.DraftScreenFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
                 }
                 else if (elementName == "ADDITIONALSEARCHTEXT" || elementName == "ALTERNATENAMESEARCHTEXT")
                 {

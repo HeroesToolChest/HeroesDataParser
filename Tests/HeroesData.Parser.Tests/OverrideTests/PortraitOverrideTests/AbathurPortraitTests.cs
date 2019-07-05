@@ -28,6 +28,12 @@ namespace HeroesData.Parser.Tests.OverrideTests.PortraitOverrideTests
         }
 
         [TestMethod]
+        public void PartyFrameOverrideTests()
+        {
+            Assert.AreEqual(2, TestPortrait.PartyFrameFileName.Count);
+        }
+
+        [TestMethod]
         public void LoadingScreenPortraitOverrideTest()
         {
             Assert.AreEqual("someImage.dds", TestPortrait.LoadingScreenPortraitFileName);

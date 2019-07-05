@@ -291,7 +291,10 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 new XElement("Leaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName?.ToLower(), StaticImageExtension)),
                 new XElement("Loading", Path.ChangeExtension(hero.HeroPortrait.LoadingScreenPortraitFileName?.ToLower(), StaticImageExtension)),
                 new XElement("PartyFrame", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName?.ToLower(), StaticImageExtension)),
-                new XElement("Target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName?.ToLower(), StaticImageExtension)));
+                new XElement("Target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName?.ToLower(), StaticImageExtension)),
+                new XElement("DraftScreen", Path.ChangeExtension(hero.HeroPortrait.DraftScreenFileName?.ToLower(), StaticImageExtension)),
+                new XElement("Minimap", Path.ChangeExtension(hero.HeroPortrait.MiniMapIconFileName?.ToLower(), StaticImageExtension)),
+                new XElement("PartyFrames", hero.HeroPortrait.PartyFrameFileName.Select(x => new XElement("PartyFrame", Path.ChangeExtension(x.ToLower(), StaticImageExtension)))));
         }
     }
 }
