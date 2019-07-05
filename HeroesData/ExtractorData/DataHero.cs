@@ -182,6 +182,15 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
                 AddWarning($"[{nameof(hero.HeroPortrait.TargetPortraitFileName)}]  is empty");
 
+            if (string.IsNullOrEmpty(hero.HeroPortrait.DraftScreenFileName))
+                AddWarning($"[{nameof(hero.HeroPortrait.DraftScreenFileName)}]  is empty");
+
+            if (string.IsNullOrEmpty(hero.HeroPortrait.MiniMapIconFileName))
+                AddWarning($"[{nameof(hero.HeroPortrait.MiniMapIconFileName)}]  is empty");
+
+            if (hero.HeroPortrait.PartyFrameFileName.Count < 1)
+                AddWarning($"[{nameof(hero.HeroPortrait.PartyFrameFileName)}]  is empty");
+
             foreach (Talent talent in hero.Talents)
             {
                 if (string.IsNullOrEmpty(talent.IconFileName))
