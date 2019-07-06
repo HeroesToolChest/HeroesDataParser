@@ -198,6 +198,9 @@ namespace HeroesData.Parser
             hero.Life.LifeRegenerationRate = 0;
             hero.Energy.EnergyMax = DefaultData.HeroData.UnitEnergyMax;
             hero.Energy.EnergyRegenerationRate = DefaultData.HeroData.UnitEnergyRegenRate;
+            hero.Shield.ShieldMax = DefaultData.HeroData.UnitShieldMax;
+            hero.Shield.ShieldRegenerationRate = DefaultData.HeroData.UnitShieldRegenRate;
+            hero.Shield.ShieldRegenerationDelay = DefaultData.HeroData.UnitShieldRegenDelay;
             hero.Difficulty = GameData.GetGameString(DefaultData.Difficulty.Replace(DefaultData.IdPlaceHolder, DefaultData.DefaultHeroDifficulty)).Trim();
 
             if (hero.CHeroId != null)
@@ -248,22 +251,17 @@ namespace HeroesData.Parser
 
                 if (elementName == "VITALNAMES")
                 {
-                    string indexValue = element.Attribute("index")?.Value;
+                    string indexValue = element.Attribute("index")?.Value?.ToUpper();
                     string valueValue = element.Attribute("value")?.Value;
 
-                    if (!string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(valueValue))
+                    if (!string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(valueValue) && GameData.TryGetGameString(valueValue, out string valueType))
                     {
-                        if (indexValue == "Energy")
-                        {
-                            if (GameData.TryGetGameString(valueValue, out string energyType))
-                                hero.Energy.EnergyType = energyType;
-                        }
-                        else if (indexValue == "Life")
-                        {
-                        }
-                        else if (indexValue == "Shields")
-                        {
-                        }
+                        if (indexValue == "ENERGY")
+                            hero.Energy.EnergyType = valueType;
+                        else if (indexValue == "LIFE")
+                            hero.Life.LifeType = valueType;
+                        else if (indexValue == "SHIELDS")
+                            hero.Shield.ShieldType = valueType;
                     }
                 }
                 else if (elementName == "UNITBUTTON" || elementName == "UNITBUTTONMULTIPLE")

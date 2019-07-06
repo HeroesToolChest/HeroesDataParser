@@ -114,6 +114,15 @@ namespace HeroesData.FileWriter.Tests.HeroData
                     EnergyType = "Mana",
                     EnergyRegenerationRate = 3,
                 },
+                Shield = new UnitShield
+                {
+                    ShieldMax = 300,
+                    ShieldRegenerationDelay = 4.5,
+                    ShieldRegenerationRate = 10,
+                    ShieldRegenerationRateScaling = 0.04,
+                    ShieldScaling = 0.04,
+                    ShieldType = "Shield",
+                },
                 ExpandedRole = "Melee Assassin",
                 Ratings = new HeroRatings()
                 {

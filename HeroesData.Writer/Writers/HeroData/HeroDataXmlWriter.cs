@@ -46,6 +46,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 hero.UnitIdsCount > 0 ? new XElement("Units", hero.UnitIds.OrderBy(x => x).Select(x => new XElement("Unit", x))) : null,
                 HeroPortraits(hero),
                 UnitLife(hero),
+                UnitShield(hero),
                 UnitEnergy(hero),
                 UnitArmor(hero),
                 hero.RolesCount > 0 && !FileOutputOptions.IsLocalizedText ? new XElement("Roles", hero.Roles.Select(r => new XElement("Role", r))) : null,
@@ -112,6 +113,14 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 "Energy",
                 new XElement("Amount", unit.Energy.EnergyMax, !string.IsNullOrEmpty(unit.Energy.EnergyType) ? new XAttribute("type", unit.Energy.EnergyType) : null),
                 new XElement("RegenRate", unit.Energy.EnergyRegenerationRate));
+        }
+
+        protected override XElement GetShieldObject(Unit unit)
+        {
+            return new XElement(
+                "Shield",
+                new XElement("Amount", unit.Shield.ShieldMax, new XAttribute("scale", unit.Shield.ShieldScaling), !string.IsNullOrEmpty(unit.Shield.ShieldType) ? new XAttribute("type", unit.Shield.ShieldType) : null, new XAttribute("regenDelay", unit.Shield.ShieldRegenerationDelay)),
+                new XElement("RegenRate", unit.Shield.ShieldRegenerationRate, new XAttribute("scale", unit.Shield.ShieldRegenerationRateScaling)));
         }
 
         protected override XElement GetRatingsObject(Hero hero)

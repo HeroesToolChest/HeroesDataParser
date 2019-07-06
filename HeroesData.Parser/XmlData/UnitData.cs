@@ -155,7 +155,7 @@ namespace HeroesData.Parser.XmlData
                 {
                     unit.Life.LifeMax = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
 
-                    double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, "LifeMax"));
+                    double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, element.Name.LocalName));
                     if (scaleValue.HasValue)
                         unit.Life.LifeScaling = scaleValue.Value;
                 }
@@ -163,9 +163,29 @@ namespace HeroesData.Parser.XmlData
                 {
                     unit.Life.LifeRegenerationRate = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
 
-                    double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, "LifeRegenRate"));
+                    double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, element.Name.LocalName));
                     if (scaleValue.HasValue)
                         unit.Life.LifeRegenerationRateScaling = scaleValue.Value;
+                }
+                else if (elementName == "SHIELDSMAX")
+                {
+                    unit.Shield.ShieldMax = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
+
+                    double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, element.Name.LocalName));
+                    if (scaleValue.HasValue)
+                        unit.Shield.ShieldScaling = scaleValue.Value;
+                }
+                else if (elementName == "SHIELDREGENDELAY")
+                {
+                    unit.Shield.ShieldRegenerationDelay = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
+                }
+                else if (elementName == "SHIELDREGENRATE")
+                {
+                    unit.Shield.ShieldRegenerationRate = XmlParse.GetDoubleValue(unit.CUnitId, element, GameData);
+
+                    double? scaleValue = GameData.GetScaleValue(("Unit", unit.CUnitId, element.Name.LocalName));
+                    if (scaleValue.HasValue)
+                        unit.Shield.ShieldRegenerationRateScaling = scaleValue.Value;
                 }
                 else if (elementName == "RADIUS")
                 {

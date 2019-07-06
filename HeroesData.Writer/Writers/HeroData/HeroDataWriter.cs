@@ -25,6 +25,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         protected abstract T GetArmorObject(Unit unit);
         protected abstract T GetLifeObject(Unit unit);
         protected abstract T GetEnergyObject(Unit unit);
+        protected abstract T GetShieldObject(Unit unit);
         protected abstract T GetRatingsObject(Hero hero);
         protected abstract T GetWeaponsObject(Unit unit);
         protected abstract T GetAbilitiesObject(Unit unit);
@@ -117,6 +118,16 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (unit.Energy.EnergyMax > 0)
             {
                 return GetEnergyObject(unit);
+            }
+
+            return null;
+        }
+
+        protected virtual T UnitShield(Unit unit)
+        {
+            if (unit.Shield.ShieldMax > 0)
+            {
+                return GetShieldObject(unit);
             }
 
             return null;

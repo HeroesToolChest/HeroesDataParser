@@ -52,6 +52,21 @@ namespace HeroesData.Parser.XmlData
         public double UnitEnergyRegenRate { get; private set; }
 
         /// <summary>
+        /// Gets the default shield value.
+        /// </summary>
+        public double UnitShieldMax { get; private set; }
+
+        /// <summary>
+        /// Gets the default shield regeneration rate.
+        /// </summary>
+        public double UnitShieldRegenRate { get; private set; }
+
+        /// <summary>
+        /// Gets the default shield regeneration delay.
+        /// </summary>
+        public double UnitShieldRegenDelay { get; private set; }
+
+        /// <summary>
         /// Gets a collection of the default attributes.
         /// </summary>
         public IEnumerable<string> UnitAttributes => UnitAttributeList;
@@ -113,6 +128,18 @@ namespace HeroesData.Parser.XmlData
                 else if (elementName == "UNITDAMAGETYPE")
                 {
                     UnitDamageType = element.Attribute("value").Value;
+                }
+                else if (elementName == "SHIELDSMAX")
+                {
+                    UnitShieldMax = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "SHIELDREGENRATE")
+                {
+                    UnitShieldRegenRate = double.Parse(element.Attribute("value").Value);
+                }
+                else if (elementName == "SHIELDREGENDELAY")
+                {
+                    UnitShieldRegenDelay = double.Parse(element.Attribute("value").Value);
                 }
             }
         }

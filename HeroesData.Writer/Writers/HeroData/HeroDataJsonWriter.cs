@@ -73,6 +73,10 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (life != null)
                 heroObject.Add(life);
 
+            JProperty shield = UnitShield(hero);
+            if (shield != null)
+                heroObject.Add(shield);
+
             JProperty energy = UnitEnergy(hero);
             if (energy != null)
                 heroObject.Add(energy);
@@ -152,6 +156,10 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (life != null)
                 unitObject.Add(life);
 
+            JProperty shield = UnitShield(unit);
+            if (shield != null)
+                unitObject.Add(shield);
+
             JProperty energy = UnitEnergy(unit);
             if (energy != null)
                 unitObject.Add(energy);
@@ -216,6 +224,24 @@ namespace HeroesData.FileWriter.Writers.HeroData
             energyObject.Add(new JProperty("regenRate", unit.Energy.EnergyRegenerationRate));
 
             return new JProperty("energy", energyObject);
+        }
+
+        protected override JProperty GetShieldObject(Unit unit)
+        {
+            JObject shieldObject = new JObject
+            {
+                new JProperty("amount", unit.Shield.ShieldMax),
+                new JProperty("scale", unit.Shield.ShieldScaling),
+            };
+
+            if (!string.IsNullOrEmpty(unit.Shield.ShieldType))
+                shieldObject.Add(new JProperty("type", unit.Shield.ShieldType));
+
+            shieldObject.Add(new JProperty("regenDelay", unit.Shield.ShieldRegenerationDelay));
+            shieldObject.Add(new JProperty("regenRate", unit.Shield.ShieldRegenerationRate));
+            shieldObject.Add(new JProperty("regenScale", unit.Shield.ShieldRegenerationRateScaling));
+
+            return new JProperty("shield", shieldObject);
         }
 
         protected override JProperty GetAbilitiesObject(Unit unit)

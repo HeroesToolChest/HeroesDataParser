@@ -25,6 +25,10 @@
       <Amount scale="0.04">1900</Amount>
       <RegenRate scale="0.04">3.957</RegenRate>
     </Life>
+    <Shield>
+      <Amount scale="0.04" type="Shield" regenDelay="4.5">300</Amount>
+      <RegenRate scale="0.04">10</RegenRate>
+    </Shield>
     <Energy>
       <Amount type="Mana">500</Amount>
       <RegenRate>3</RegenRate>
