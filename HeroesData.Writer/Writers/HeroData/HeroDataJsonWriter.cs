@@ -202,13 +202,19 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected override JProperty GetLifeObject(Unit unit)
         {
-            return new JProperty(
-                "life",
-                new JObject(
-                    new JProperty("amount", unit.Life.LifeMax),
-                    new JProperty("scale", unit.Life.LifeScaling),
-                    new JProperty("regenRate", unit.Life.LifeRegenerationRate),
-                    new JProperty("regenScale", unit.Life.LifeRegenerationRateScaling)));
+            JObject lifeObject = new JObject
+            {
+                new JProperty("amount", unit.Life.LifeMax),
+                new JProperty("scale", unit.Life.LifeScaling),
+            };
+
+            if (!string.IsNullOrEmpty(unit.Life.LifeType))
+                lifeObject.Add(new JProperty("type", unit.Life.LifeType));
+
+            lifeObject.Add(new JProperty("regenRate", unit.Life.LifeRegenerationRate));
+            lifeObject.Add(new JProperty("regenScale", unit.Life.LifeRegenerationRateScaling));
+
+            return new JProperty("life", lifeObject);
         }
 
         protected override JProperty GetEnergyObject(Unit unit)

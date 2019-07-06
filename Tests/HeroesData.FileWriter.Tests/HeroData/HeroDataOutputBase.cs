@@ -107,6 +107,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
                     LifeScaling = 0.04,
                     LifeRegenerationRate = 3.957,
                     LifeRegenerationRateScaling = 0.04,
+                    LifeType = "Life",
                 },
                 Energy = new UnitEnergy
                 {

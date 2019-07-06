@@ -20,7 +20,7 @@
       </PartyFrames>
     </Portraits>
     <Life>
-      <Amount scale="0.04">1900</Amount>
+      <Amount scale="0.04" type="Life">1900</Amount>
       <RegenRate scale="0.04">3.957</RegenRate>
     </Life>
     <Shield>

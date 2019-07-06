@@ -472,3 +472,5 @@ Button/SimpleDisplayText/GenericCalldownMule=Activate to heal Structures
 
 Button/Tooltip/MurkyOctoGrab=Murky becomes Unstoppable and Stuns target enemy Hero for <c val="#TooltipNumbers"><d ref="Behavior,OctoGrabStun,Duration" player="0"/></c> seconds while he hits them for <c val="#TooltipNumbers"><d ref="Effect,OctoGrabPokeDamage,Amount"/></c> damage a second.
 Button/Tooltip/MurkyOctoGrabAndASharkTooTalent=Increase the damage of Octo-Grab by <c val="#TooltipNumbers"><d ref="Effect,OctoGrabPokeMasteryDamage,Amount * 100"/>%</c>.
+
+UI/HeroLife=Health

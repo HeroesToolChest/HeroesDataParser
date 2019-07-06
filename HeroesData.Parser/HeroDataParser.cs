@@ -254,14 +254,16 @@ namespace HeroesData.Parser
                     string indexValue = element.Attribute("index")?.Value?.ToUpper();
                     string valueValue = element.Attribute("value")?.Value;
 
-                    if (!string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(valueValue) && GameData.TryGetGameString(valueValue, out string valueType))
+                    if (!string.IsNullOrEmpty(indexValue) && valueValue != null)
                     {
+                        string type = GameData.GetGameString(valueValue);
+
                         if (indexValue == "ENERGY")
-                            hero.Energy.EnergyType = valueType;
+                            hero.Energy.EnergyType = type;
                         else if (indexValue == "LIFE")
-                            hero.Life.LifeType = valueType;
+                            hero.Life.LifeType = type;
                         else if (indexValue == "SHIELDS")
-                            hero.Shield.ShieldType = valueType;
+                            hero.Shield.ShieldType = type;
                     }
                 }
                 else if (elementName == "UNITBUTTON" || elementName == "UNITBUTTONMULTIPLE")
@@ -497,7 +499,7 @@ namespace HeroesData.Parser
             {
                 XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
-                    SetHeroData(parentElement, hero);
+                    FindUnits(parentElement, hero);
             }
 
             string unit = heroElement.Element("Unit")?.Attribute("value")?.Value;
@@ -541,6 +543,11 @@ namespace HeroesData.Parser
                     CHeroId = heroUnit,
                 };
 
+                XElement actorElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("id")?.Value == hero.CUnitId));
+                if (actorElement == null)
+                    return;
+
+                SetActorData(actorElement, newHeroUnit);
                 unitData.SetUnitData(newHeroUnit);
 
                 // set the hyperlinkId to id if it doesn't have one

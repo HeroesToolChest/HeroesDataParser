@@ -16,4 +16,6 @@
   <CActorUnit default="1" id="StormHeroBasePredictive" parent="StormHeroBase">
     <Macros value="AttackPredictionMacro" />
   </CActorUnit>
+  <CActorUnit default="1" id="StormHeroStandard" parent="StormHeroBase">
+  </CActorUnit>
 </Catalog>

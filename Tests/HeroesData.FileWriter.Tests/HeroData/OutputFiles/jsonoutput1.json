@@ -36,6 +36,7 @@
     "life": {
       "amount": 1900.0,
       "scale": 0.04,
+      "type": "Life",
       "regenRate": 3.957,
       "regenScale": 0.04
     },
