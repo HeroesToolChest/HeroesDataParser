@@ -2,6 +2,7 @@
 using Heroes.Models.AbilityTalents;
 using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
+using HeroesData.Parser.Overrides.DataOverrides;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,6 +21,7 @@ namespace HeroesData.Parser.XmlData
         private readonly AbilityData AbilityData;
 
         private readonly string ElementType = "CUnit";
+        private readonly string CActorUnit = "CActorUnit";
         private readonly HashSet<string> IgnorableBasicAbilities;
 
         private XmlArrayElement AbilitiesArray;
@@ -27,7 +29,7 @@ namespace HeroesData.Parser.XmlData
         private XmlArrayElement BehaviorArray;
         private XmlArrayElement CardLayoutButtons;
 
-        private HashSet<string> AdditionalActorAbilities;
+        private HashSet<AbilityTalentId> AdditionalActorAbilities;
 
         private Localization _localization = Localization.ENUS;
         private bool _isHeroParsing = false;
@@ -90,18 +92,29 @@ namespace HeroesData.Parser.XmlData
         /// Sets the unit data.
         /// </summary>
         /// <param name="unit"></param>
-        public void SetUnitData(Unit unit, bool isHero = false)
+        /// <param name="unitDataOverride"></param>
+        /// <param name="isHero"></param>
+        public void SetUnitData(Unit unit, UnitDataOverride unitDataOverride = null, bool isHero = false)
         {
             AbilitiesArray = new XmlArrayElement();
             WeaponsArray = new XmlArrayElement();
             BehaviorArray = new XmlArrayElement();
             CardLayoutButtons = new XmlArrayElement();
-            AdditionalActorAbilities = new HashSet<string>();
+            AdditionalActorAbilities = new HashSet<AbilityTalentId>();
 
             if (!isHero)
                 SetDefaultValues(unit);
 
-            CActorData(unit);
+            XElement actorElement = null;
+            XElement unitNameActorUnitElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("unitName")?.Value == unit.CUnitId));
+            if (unitNameActorUnitElement != null)
+                actorElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("id")?.Value == unitNameActorUnitElement.Attribute("id")?.Value));
+            else
+                actorElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("id")?.Value == unit.CUnitId));
+
+            if (actorElement != null)
+                SetActorData(actorElement, unit, unitDataOverride);
+
             SetData(unit);
             SetAbilities(unit);
             SetWeapons(unit);
@@ -289,45 +302,59 @@ namespace HeroesData.Parser.XmlData
             }
         }
 
-        private void CActorData(Unit unit)
+        private void SetActorData(XElement actorElement, Unit unit, UnitDataOverride unitDataOverride)
         {
-            IEnumerable<XElement> actorUnitElements = GameData.Elements("CActorUnit").Where(x => x.Attribute("id")?.Value == unit.CUnitId);
-
-            if (actorUnitElements == null || !actorUnitElements.Any())
+            if (actorElement == null || unit == null)
                 return;
 
-            foreach (XElement element in actorUnitElements.Elements())
+            // parent lookup
+            string parentValue = actorElement.Attribute("parent")?.Value;
+            if (!string.IsNullOrEmpty(parentValue) && parentValue != "StormUnitBase")
+            {
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("id")?.Value == parentValue));
+                if (parentElement != null)
+                    SetActorData(parentElement, unit, unitDataOverride);
+            }
+
+            // find special energy type
+            foreach (XElement element in actorElement.Elements())
             {
                 string elementName = element.Name.LocalName.ToUpper();
 
-                if (elementName == "GROUPICON")
+                if (elementName == "VITALNAMES")
                 {
-                    XElement imageElement = element.Element("Image");
-                    if (imageElement != null)
-                    {
-                        unit.TargetInfoPanelImageFileName = Path.GetFileName(PathHelper.GetFilePath(imageElement.Attribute("value")?.Value)).ToLower();
-                    }
-                }
-                else if (elementName == "VITALNAMES")
-                {
-                    string indexValue = element.Attribute("index")?.Value;
+                    string indexValue = element.Attribute("index")?.Value?.ToUpper();
                     string valueValue = element.Attribute("value")?.Value;
 
-                    if (!string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(valueValue) && indexValue == "Energy")
+                    if (!string.IsNullOrEmpty(indexValue) && valueValue != null)
                     {
-                        if (GameData.TryGetGameString(valueValue, out string energyType))
-                        {
-                            unit.Energy.EnergyType = energyType;
-                        }
+                        string type = GameData.GetGameString(valueValue);
+
+                        if (indexValue == "ENERGY")
+                            unit.Energy.EnergyType = type;
+                        else if (indexValue == "LIFE")
+                            unit.Life.LifeType = type;
+                        else if (indexValue == "SHIELDS")
+                            unit.Shield.ShieldType = type;
                     }
                 }
-                else if (elementName == "UNITBUTTON" || elementName == "UnitButtonMultiple")
+                else if (elementName == "UNITBUTTON" || elementName == "UNITBUTTONMULTIPLE")
                 {
                     string value = element.Attribute("value")?.Value;
-                    if (!string.IsNullOrEmpty(value))
+                    if (!string.IsNullOrEmpty(value) && unitDataOverride != null)
                     {
-                        AdditionalActorAbilities.Add(value);
+                        AdditionalActorAbilities.Add(new AbilityTalentId(value, value));
                     }
+                }
+                else if (elementName == "GROUPICON")
+                {
+                    string imageValue = element.Element("Image")?.Attribute("value")?.Value;
+                    if (!string.IsNullOrEmpty(imageValue))
+                        unit.UnitPortrait.TargetInfoPanelFileName = Path.GetFileName(PathHelper.GetFilePath(imageValue)).ToLower();
+                }
+                else if (elementName == "MINIMAPICON")
+                {
+                    unit.UnitPortrait.MiniMapIconFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
                 }
             }
         }
@@ -349,9 +376,9 @@ namespace HeroesData.Parser.XmlData
                     AddCreatedAbility(unit, linkValue);
             }
 
-            foreach (string addedAbility in AdditionalActorAbilities)
+            foreach (AbilityTalentId addedAbility in AdditionalActorAbilities)
             {
-                AddCreatedAbility(unit, new AbilityTalentId(addedAbility, addedAbility));
+                AddCreatedAbility(unit, addedAbility);
             }
         }
 

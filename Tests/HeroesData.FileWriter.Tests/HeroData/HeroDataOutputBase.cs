@@ -99,7 +99,11 @@ namespace HeroesData.FileWriter.Tests.HeroData
                     TargetPortraitFileName = "ui_targetportrait_hero_alarak.png",
                     PartyFrameFileName = new List<string> { "partyframe.png", "partyFrame2.png" },
                     DraftScreenFileName = "draftscreen.png",
+                },
+                UnitPortrait = new UnitPortrait()
+                {
                     MiniMapIconFileName = "minimap.png",
+                    TargetInfoPanelFileName = "targetInfo.png",
                 },
                 Life = new UnitLife
                 {
@@ -426,6 +430,11 @@ namespace HeroesData.FileWriter.Tests.HeroData
                     LifeScaling = 0.04,
                     LifeRegenerationRate = 3.7226,
                     LifeRegenerationRateScaling = 0.04,
+                },
+                UnitPortrait = new UnitPortrait()
+                {
+                    MiniMapIconFileName = "minimap.png",
+                    TargetInfoPanelFileName = "targetInfo.png",
                 },
             };
 

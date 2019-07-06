@@ -38,8 +38,10 @@ namespace HeroesData.ExtractorImage
                 Portraits.Add(hero.HeroPortrait.TargetPortraitFileName);
             if (!string.IsNullOrEmpty(hero.HeroPortrait.DraftScreenFileName))
                 Portraits.Add(hero.HeroPortrait.DraftScreenFileName);
-            if (!string.IsNullOrEmpty(hero.HeroPortrait.MiniMapIconFileName))
-                Portraits.Add(hero.HeroPortrait.MiniMapIconFileName);
+            if (!string.IsNullOrEmpty(hero.UnitPortrait.MiniMapIconFileName))
+                Portraits.Add(hero.UnitPortrait.MiniMapIconFileName);
+            if (!string.IsNullOrEmpty(hero.UnitPortrait.TargetInfoPanelFileName))
+                Portraits.Add(hero.UnitPortrait.TargetInfoPanelFileName);
             if (hero.HeroPortrait.PartyFrameFileName.Count > 0)
             {
                 foreach (string partyFrame in hero.HeroPortrait.PartyFrameFileName)

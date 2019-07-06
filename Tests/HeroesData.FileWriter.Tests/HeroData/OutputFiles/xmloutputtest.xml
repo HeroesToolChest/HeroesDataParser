@@ -15,11 +15,12 @@
       <PartyFrame>storm_ui_ingame_partypanel_btn_alarak.png</PartyFrame>
       <Target>ui_targetportrait_hero_alarak.png</Target>
       <DraftScreen>draftscreen.png</DraftScreen>
-      <Minimap>minimap.png</Minimap>
       <PartyFrames>
         <PartyFrame>partyframe.png</PartyFrame>
         <PartyFrame>partyframe2.png</PartyFrame>
       </PartyFrames>
+      <Minimap>minimap.png</Minimap>
+      <TargetInfo>targetinfo.png</TargetInfo>
     </Portraits>
     <Life>
       <Amount scale="0.04" type="Life">1900</Amount>
@@ -151,6 +152,10 @@
     <HeroUnits>
       <HeroAlexstraszaDragon>
         <AlexstraszaDragon name="Alexstrasza" hyperlinkId="AlexstraszaDragonId" innerRadius="1" radius="1.25" sight="12" speed="4.3984">
+          <Portraits>
+            <TargetInfo>targetinfo.png</TargetInfo>
+            <Minimap>minimap.png</Minimap>
+          </Portraits>
           <Life>
             <Amount scale="0.04">1787</Amount>
             <RegenRate scale="0.04">3.7226</RegenRate>

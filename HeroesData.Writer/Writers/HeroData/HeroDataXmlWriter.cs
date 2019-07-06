@@ -79,7 +79,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 unit.HeroDescriptorsCount > 0 ? new XElement("Descriptors", unit.HeroDescriptors.OrderBy(x => x).Select(d => new XElement("Descriptor", d))) : null,
                 unit.AttributesCount > 0 ? new XElement("Attributes", unit.Attributes.OrderBy(x => x).Select(x => new XElement("Attribute", x))) : null,
                 unit.UnitIdsCount > 0 ? new XElement("Units", unit.UnitIds.OrderBy(x => x).Select(x => new XElement("Unit", x))) : null,
-                string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName) ? null : new XElement("Image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension)),
+                UnitPortraits(unit),
                 UnitLife(unit),
                 UnitEnergy(unit),
                 UnitArmor(unit),
@@ -302,8 +302,17 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 new XElement("PartyFrame", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName?.ToLower(), StaticImageExtension)),
                 new XElement("Target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName?.ToLower(), StaticImageExtension)),
                 new XElement("DraftScreen", Path.ChangeExtension(hero.HeroPortrait.DraftScreenFileName?.ToLower(), StaticImageExtension)),
-                new XElement("Minimap", Path.ChangeExtension(hero.HeroPortrait.MiniMapIconFileName?.ToLower(), StaticImageExtension)),
-                new XElement("PartyFrames", hero.HeroPortrait.PartyFrameFileName.Select(x => new XElement("PartyFrame", Path.ChangeExtension(x.ToLower(), StaticImageExtension)))));
+                new XElement("PartyFrames", hero.HeroPortrait.PartyFrameFileName.Select(x => new XElement("PartyFrame", Path.ChangeExtension(x.ToLower(), StaticImageExtension)))),
+                new XElement("Minimap", Path.ChangeExtension(hero.UnitPortrait.MiniMapIconFileName?.ToLower(), StaticImageExtension)),
+                new XElement("TargetInfo", Path.ChangeExtension(hero.UnitPortrait.TargetInfoPanelFileName?.ToLower(), StaticImageExtension)));
+        }
+
+        protected override XElement GetUnitPortraitObject(Unit unit)
+        {
+            return new XElement(
+                "Portraits",
+                string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName) ? null : new XElement("TargetInfo", Path.ChangeExtension(unit.UnitPortrait.TargetInfoPanelFileName?.ToLower(), StaticImageExtension)),
+                string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName) ? null : new XElement("Minimap", Path.ChangeExtension(unit.UnitPortrait.MiniMapIconFileName?.ToLower(), StaticImageExtension)));
         }
     }
 }

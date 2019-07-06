@@ -44,9 +44,12 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 Radius = 1.111,
                 Sight = 6,
                 Speed = 4,
-                TargetInfoPanelImageFileName = "image_minion_archer.dds",
                 ScalingBehaviorLink = "MinionScaling",
                 KillXP = 210,
+                UnitPortrait = new UnitPortrait()
+                {
+                     TargetInfoPanelFileName = "targetInfo.png",
+                },
             };
             unit.Life.LifeMax = 500;
             unit.AddUnitWeapon(unitWeapon);
@@ -67,7 +70,6 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 Radius = 1.111,
                 Sight = 6,
                 Speed = 4,
-                TargetInfoPanelImageFileName = "image_minion_archer.dds",
             };
             unit2.Life.LifeMax = 900;
             unit2.AddUnitWeapon(new UnitWeapon()

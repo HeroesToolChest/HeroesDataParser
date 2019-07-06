@@ -95,7 +95,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
                 throw new ArgumentNullException(nameof(abilityTalentId));
             }
 
-            IsAddedAbilityByAbilityId.Add(abilityTalentId, isAdded);
+            IsAddedAbilityByAbilityId.TryAdd(abilityTalentId, isAdded);
         }
 
         public bool ContainsAddedAbility(AbilityTalentId abilityTalentId)

@@ -15,8 +15,6 @@ namespace HeroesData.Parser
 {
     public class HeroDataParser : ParserBase<Hero, HeroDataOverride>, IParser<Hero, HeroDataParser>
     {
-        private readonly string CActorUnit = "CActorUnit";
-
         private readonly HeroOverrideLoader HeroOverrideLoader;
         private readonly TalentData TalentData;
 
@@ -91,12 +89,6 @@ namespace HeroesData.Parser
 
             SetDefaultValues(hero);
 
-            XElement actorElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("id")?.Value == hero.CUnitId));
-            if (actorElement == null)
-                return null;
-
-            SetActorData(actorElement, hero);
-
             // must be done first to any find any units.
             FindUnits(heroElement, hero);
 
@@ -105,7 +97,7 @@ namespace HeroesData.Parser
 
             // parses the hero's unit data; abilities
             // this must come after AddHeroUnits to correctly set the abilityTalentLinks for the talents
-            unitData.SetUnitData(hero, true);
+            unitData.SetUnitData(hero, HeroDataOverride, true);
 
             // parses the hero's hero data; talents
             SetHeroData(heroElement, hero);
@@ -227,57 +219,6 @@ namespace HeroesData.Parser
 
                 if (HeroDataOverride.CUnitOverride.Enabled)
                     hero.CUnitId = HeroDataOverride.CUnitOverride.CUnit;
-            }
-        }
-
-        private void SetActorData(XElement actorElement, Hero hero)
-        {
-            if (actorElement == null || hero == null)
-                return;
-
-            // parent lookup
-            string parentValue = actorElement.Attribute("parent")?.Value;
-            if (!string.IsNullOrEmpty(parentValue) && parentValue != "StormUnitBase")
-            {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("id")?.Value == parentValue));
-                if (parentElement != null)
-                    SetActorData(parentElement, hero);
-            }
-
-            // find special energy type
-            foreach (XElement element in actorElement.Elements())
-            {
-                string elementName = element.Name.LocalName.ToUpper();
-
-                if (elementName == "VITALNAMES")
-                {
-                    string indexValue = element.Attribute("index")?.Value?.ToUpper();
-                    string valueValue = element.Attribute("value")?.Value;
-
-                    if (!string.IsNullOrEmpty(indexValue) && valueValue != null)
-                    {
-                        string type = GameData.GetGameString(valueValue);
-
-                        if (indexValue == "ENERGY")
-                            hero.Energy.EnergyType = type;
-                        else if (indexValue == "LIFE")
-                            hero.Life.LifeType = type;
-                        else if (indexValue == "SHIELDS")
-                            hero.Shield.ShieldType = type;
-                    }
-                }
-                else if (elementName == "UNITBUTTON" || elementName == "UNITBUTTONMULTIPLE")
-                {
-                    string value = element.Attribute("value")?.Value;
-                    if (!string.IsNullOrEmpty(value))
-                    {
-                        HeroDataOverride.AddAddedAbility(new AbilityTalentId(value, value), true);
-                    }
-                }
-                else if (elementName == "MINIMAPICON")
-                {
-                    hero.HeroPortrait.MiniMapIconFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
-                }
             }
         }
 
@@ -543,12 +484,7 @@ namespace HeroesData.Parser
                     CHeroId = heroUnit,
                 };
 
-                XElement actorElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("id")?.Value == hero.CUnitId));
-                if (actorElement == null)
-                    return;
-
-                SetActorData(actorElement, newHeroUnit);
-                unitData.SetUnitData(newHeroUnit);
+                unitData.SetUnitData(newHeroUnit, HeroOverrideLoader.GetOverride(newHeroUnit.CHeroId) ?? new HeroDataOverride());
 
                 // set the hyperlinkId to id if it doesn't have one
                 if (string.IsNullOrEmpty(newHeroUnit.HyperlinkId))

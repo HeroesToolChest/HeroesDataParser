@@ -74,6 +74,10 @@
           "radius": 1.25,
           "sight": 12.0,
           "speed": 4.3984,
+          "portraits": {
+            "targetInfo": "targetinfo.png",
+            "minimap": "minimap.png"
+          },
           "life": {
             "amount": 1787.0,
             "scale": 0.04,

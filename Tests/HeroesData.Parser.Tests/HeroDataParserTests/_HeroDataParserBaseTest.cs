@@ -101,7 +101,6 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             HeroKerrigan = heroDataParser.Parse("Kerrigan");
             HeroChromie = heroDataParser.Parse("Chromie");
             HeroTracer = heroDataParser.Parse("Tracer");
-            HeroTracer = heroDataParser.Parse("Tracer");
             HeroMephisto = heroDataParser.Parse("Mephisto");
             HeroThrall = heroDataParser.Parse("Thrall");
             HeroJunkrat = heroDataParser.Parse("Junkrat");

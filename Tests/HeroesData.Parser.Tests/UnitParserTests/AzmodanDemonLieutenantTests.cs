@@ -15,7 +15,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.AreEqual(0.75, AzmodanDemonLieutenant.Radius);
             Assert.AreEqual(0.75, AzmodanDemonLieutenant.InnerRadius);
             Assert.AreEqual("Summon", AzmodanDemonLieutenant.DamageType);
-            Assert.AreEqual("storm_ui_ingame_targetinfopanel_unit_azmodan_demonlieutenant.dds", AzmodanDemonLieutenant.TargetInfoPanelImageFileName);
+            Assert.AreEqual("storm_ui_ingame_targetinfopanel_unit_azmodan_demonlieutenant.dds", AzmodanDemonLieutenant.UnitPortrait.TargetInfoPanelFileName);
         }
 
         [TestMethod]

@@ -24,7 +24,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.AreEqual(0.625, ZagaraHydralisk.Radius);
             Assert.AreEqual(9, ZagaraHydralisk.Sight);
             Assert.AreEqual(4, ZagaraHydralisk.Speed);
-            Assert.AreEqual("storm_ui_ingame_targetinfopanel_unit_zagara_hydralisk.dds", ZagaraHydralisk.TargetInfoPanelImageFileName);
+            Assert.AreEqual("storm_ui_ingame_targetinfopanel_unit_zagara_hydralisk.dds", ZagaraHydralisk.UnitPortrait.TargetInfoPanelFileName);
         }
 
         [TestMethod]

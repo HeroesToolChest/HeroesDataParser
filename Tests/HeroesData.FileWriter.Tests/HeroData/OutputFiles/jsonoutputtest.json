@@ -27,11 +27,12 @@
       "partyPanel": "storm_ui_ingame_partypanel_btn_alarak.png",
       "target": "ui_targetportrait_hero_alarak.png",
       "draftScreen": "draftscreen.png",
-      "minimap": "minimap.png",
       "partyFrames": [
         "partyframe.png",
         "partyframe2.png"
-      ]
+      ],
+      "minimap": "minimap.png",
+      "targetInfo": "targetinfo.png"
     },
     "life": {
       "amount": 1900.0,
@@ -171,7 +172,7 @@
           "nameId": "Level4Talent",
           "buttonId": "Level4Talent",
           "name": "Level4Talent",
-          "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+          "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96 (+4% per level)</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
           "abilityType": "Q",
           "sort": 0
         }
@@ -269,7 +270,7 @@
           "buttonId": "TychusOdinAnnihilate",
           "name": "Annihilate",
           "icon": "storm_ui_icon_tychus_annihilate.png",
-          "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+          "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96 (+4% per level)</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
           "abilityType": "Q"
         }
       ],
@@ -315,6 +316,10 @@
           "radius": 1.25,
           "sight": 12.0,
           "speed": 4.3984,
+          "portraits": {
+            "targetInfo": "targetinfo.png",
+            "minimap": "minimap.png"
+          },
           "life": {
             "amount": 1787.0,
             "scale": 0.04,
@@ -334,7 +339,7 @@
                 "nameId": "DragonAbilTrait",
                 "buttonId": "DragonAbilTrait",
                 "name": "DragonAbilTrait",
-                "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+                "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96 (+4% per level)</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
                 "abilityType": "Trait"
               }
             ],

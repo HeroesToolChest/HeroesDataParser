@@ -89,7 +89,7 @@ namespace HeroesData.Parser
                 UnitDataOverride = UnitOverrideLoader.GetOverride(unit.Id) ?? new UnitDataOverride();
             }
 
-            unitData.SetUnitData(unit);
+            unitData.SetUnitData(unit, UnitDataOverride);
 
             // set the hyperlinkId to id if it doesn't have one
             if (string.IsNullOrEmpty(unit.HyperlinkId))

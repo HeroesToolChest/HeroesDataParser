@@ -38,7 +38,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 unit.HeroDescriptorsCount > 0 ? new XElement("Descriptors", unit.HeroDescriptors.OrderBy(x => x).Select(d => new XElement("Descriptor", d))) : null,
                 unit.AttributesCount > 0 ? new XElement("Attributes", unit.Attributes.OrderBy(x => x).Select(x => new XElement("Attribute", x))) : null,
                 unit.UnitIdsCount > 0 ? new XElement("Units", unit.UnitIds.OrderBy(x => x).Select(x => new XElement("Unit", x))) : null,
-                string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName) ? null : new XElement("Image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension)),
+                UnitPortraits(unit),
                 UnitLife(unit),
                 UnitShield(unit),
                 UnitEnergy(unit),
@@ -211,6 +211,14 @@ namespace HeroesData.FileWriter.Writers.UnitData
             XElement element = AbilityTalentInfoElement(ability);
 
             return element;
+        }
+
+        protected override XElement GetUnitPortraitObject(Unit unit)
+        {
+            return new XElement(
+                "Portraits",
+                string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName) ? null : new XElement("TargetInfo", Path.ChangeExtension(unit.UnitPortrait.TargetInfoPanelFileName?.ToLower(), StaticImageExtension)),
+                string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName) ? null : new XElement("Minimap", Path.ChangeExtension(unit.UnitPortrait.MiniMapIconFileName?.ToLower(), StaticImageExtension)));
         }
     }
 }

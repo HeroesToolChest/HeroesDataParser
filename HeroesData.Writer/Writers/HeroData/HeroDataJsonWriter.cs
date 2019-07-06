@@ -149,8 +149,10 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 unitObject.Add(new JProperty("descriptors", unit.HeroDescriptors.OrderBy(x => x)));
             if (unit.UnitIdsCount > 0)
                 unitObject.Add(new JProperty("units", unit.UnitIds.OrderBy(x => x)));
-            if (!string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName))
-                unitObject.Add("image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension));
+
+            JProperty portraits = UnitPortraits(unit);
+            if (portraits != null)
+                unitObject.Add(portraits);
 
             JProperty life = UnitLife(unit);
             if (life != null)
@@ -494,10 +496,13 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 portrait.Add("target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName?.ToLower(), StaticImageExtension));
             if (!string.IsNullOrEmpty(hero.HeroPortrait.DraftScreenFileName))
                 portrait.Add("draftScreen", Path.ChangeExtension(hero.HeroPortrait.DraftScreenFileName?.ToLower(), StaticImageExtension));
-            if (!string.IsNullOrEmpty(hero.HeroPortrait.MiniMapIconFileName))
-                portrait.Add("minimap", Path.ChangeExtension(hero.HeroPortrait.MiniMapIconFileName?.ToLower(), StaticImageExtension));
             if (hero.HeroPortrait.PartyFrameFileName.Count > 0)
                 portrait.Add("partyFrames", new JArray(hero.HeroPortrait.PartyFrameFileName.Select(x => Path.ChangeExtension(x.ToLower(), StaticImageExtension))));
+
+            if (!string.IsNullOrEmpty(hero.UnitPortrait.MiniMapIconFileName))
+                portrait.Add("minimap", Path.ChangeExtension(hero.UnitPortrait.MiniMapIconFileName?.ToLower(), StaticImageExtension));
+            if (!string.IsNullOrEmpty(hero.UnitPortrait.TargetInfoPanelFileName))
+                portrait.Add("targetInfo", Path.ChangeExtension(hero.UnitPortrait.TargetInfoPanelFileName?.ToLower(), StaticImageExtension));
 
             return new JProperty("portraits", portrait);
         }
@@ -535,6 +540,18 @@ namespace HeroesData.FileWriter.Writers.HeroData
                         orderby talent.Column ascending
                         select new JObject(TalentInfoElement(talent)))));
             }
+        }
+
+        protected override JProperty GetUnitPortraitObject(Unit unit)
+        {
+            JObject portrait = new JObject();
+
+            if (!string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName))
+                portrait.Add("targetInfo", Path.ChangeExtension(unit.UnitPortrait.TargetInfoPanelFileName?.ToLower(), StaticImageExtension));
+            if (!string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName))
+                portrait.Add("minimap", Path.ChangeExtension(unit.UnitPortrait.MiniMapIconFileName?.ToLower(), StaticImageExtension));
+
+            return new JProperty("portraits", portrait);
         }
     }
 }

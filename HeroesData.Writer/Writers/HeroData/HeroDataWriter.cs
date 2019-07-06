@@ -22,6 +22,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected abstract T UnitElement(Unit unit);
         protected abstract T GetPortraitObject(Hero hero);
+        protected abstract T GetUnitPortraitObject(Unit unit);
         protected abstract T GetArmorObject(Unit unit);
         protected abstract T GetLifeObject(Unit unit);
         protected abstract T GetEnergyObject(Unit unit);
@@ -85,9 +86,21 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             if ((!string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName) || !string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName) ||
                 !string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName) || !string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName) ||
-                !string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName)) && hero.HeroPortrait != null)
+                !string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName) || !string.IsNullOrEmpty(hero.HeroPortrait.DraftScreenFileName) ||
+                hero.HeroPortrait.PartyFrameFileName.Count > 0 || !string.IsNullOrEmpty(hero.UnitPortrait.MiniMapIconFileName) ||
+                !string.IsNullOrEmpty(hero.UnitPortrait.TargetInfoPanelFileName)) && hero.HeroPortrait != null)
             {
                 return GetPortraitObject(hero);
+            }
+
+            return null;
+        }
+
+        protected T UnitPortraits(Unit unit)
+        {
+            if ((!string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName) || !string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName)) && unit.UnitPortrait != null)
+            {
+                return GetUnitPortraitObject(unit);
             }
 
             return null;

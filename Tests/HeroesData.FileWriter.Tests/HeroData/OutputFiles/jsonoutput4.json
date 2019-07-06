@@ -27,11 +27,12 @@
       "partyPanel": "storm_ui_ingame_partypanel_btn_alarak.png",
       "target": "ui_targetportrait_hero_alarak.png",
       "draftScreen": "draftscreen.png",
-      "minimap": "minimap.png",
       "partyFrames": [
         "partyframe.png",
         "partyframe2.png"
-      ]
+      ],
+      "minimap": "minimap.png",
+      "targetInfo": "targetinfo.png"
     },
     "life": {
       "amount": 1900.0,
@@ -315,6 +316,10 @@
           "radius": 1.25,
           "sight": 12.0,
           "speed": 4.3984,
+          "portraits": {
+            "targetInfo": "targetinfo.png",
+            "minimap": "minimap.png"
+          },
           "life": {
             "amount": 1787.0,
             "scale": 0.04,

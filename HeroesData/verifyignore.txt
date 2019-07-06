@@ -33,6 +33,7 @@
 [OlafsGravestone] has more than 1 W ability
 [EriksGravestone] has more than 1 Q ability
 [EriksGravestone] has more than 1 W ability
+[LostVikings] [TargetInfoPanelFileName]  is empty
 
 # failed parsing - out of date data references
 [tombofthespiderqueen-JungleGraveGolemLaner] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly

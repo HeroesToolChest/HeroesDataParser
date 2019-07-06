@@ -48,8 +48,10 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 unitObject.Add(new JProperty("attributes", unit.Attributes.OrderBy(x => x)));
             if (unit.UnitIdsCount > 0)
                 unitObject.Add(new JProperty("units", unit.UnitIds.OrderBy(x => x)));
-            if (!string.IsNullOrEmpty(unit.TargetInfoPanelImageFileName))
-                unitObject.Add("image", Path.ChangeExtension(unit.TargetInfoPanelImageFileName?.ToLower(), StaticImageExtension));
+
+            JProperty portraits = UnitPortraits(unit);
+            if (portraits != null)
+                unitObject.Add(portraits);
 
             JProperty life = UnitLife(unit);
             if (life != null)
@@ -353,6 +355,18 @@ namespace HeroesData.FileWriter.Writers.UnitData
             JObject jObject = AbilityTalentInfoElement(ability);
 
             return jObject;
+        }
+
+        protected override JProperty GetUnitPortraitObject(Unit unit)
+        {
+            JObject portrait = new JObject();
+
+            if (!string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName))
+                portrait.Add("targetInfo", Path.ChangeExtension(unit.UnitPortrait.TargetInfoPanelFileName?.ToLower(), StaticImageExtension));
+            if (!string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName))
+                portrait.Add("minimap", Path.ChangeExtension(unit.UnitPortrait.MiniMapIconFileName?.ToLower(), StaticImageExtension));
+
+            return new JProperty("portraits", portrait);
         }
     }
 }

@@ -26,6 +26,10 @@
     <HeroUnits>
       <HeroAlexstraszaDragon>
         <AlexstraszaDragon name="Alexstrasza" hyperlinkId="AlexstraszaDragonId" innerRadius="1" radius="1.25" sight="12" speed="4.3984">
+          <Portraits>
+            <TargetInfo>targetinfo.png</TargetInfo>
+            <Minimap>minimap.png</Minimap>
+          </Portraits>
           <Life>
             <Amount scale="0.04">1787</Amount>
             <RegenRate scale="0.04">3.7226</RegenRate>

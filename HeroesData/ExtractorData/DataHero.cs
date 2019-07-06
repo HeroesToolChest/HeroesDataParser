@@ -185,8 +185,11 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(hero.HeroPortrait.DraftScreenFileName))
                 AddWarning($"[{nameof(hero.HeroPortrait.DraftScreenFileName)}]  is empty");
 
-            if (string.IsNullOrEmpty(hero.HeroPortrait.MiniMapIconFileName))
-                AddWarning($"[{nameof(hero.HeroPortrait.MiniMapIconFileName)}]  is empty");
+            if (string.IsNullOrEmpty(hero.UnitPortrait.MiniMapIconFileName))
+                AddWarning($"[{nameof(hero.UnitPortrait.MiniMapIconFileName)}]  is empty");
+
+            if (string.IsNullOrEmpty(hero.UnitPortrait.TargetInfoPanelFileName))
+                AddWarning($"[{nameof(hero.UnitPortrait.TargetInfoPanelFileName)}]  is empty");
 
             if (hero.HeroPortrait.PartyFrameFileName.Count < 1)
                 AddWarning($"[{nameof(hero.HeroPortrait.PartyFrameFileName)}]  is empty");
