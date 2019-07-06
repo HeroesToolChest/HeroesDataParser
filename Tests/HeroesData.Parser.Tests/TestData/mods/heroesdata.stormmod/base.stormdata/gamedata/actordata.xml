@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CActorUnit default="1" id="StormHeroBase" parent="StormUnitBase">
+    <Aliases value="AnimOverrideReceiverStand" />
+    <Aliases value="_Hero" />
+    <CopySource value="" />
+    <HostForProps Subject="PropsHost" />
+    <VarianceWindowStand value="0.000000" />
+    <VarianceWindowWalk value="0.000000" />
+    <VitalNames index="Life" value="UI/HeroLife" />
+    <VitalNames index="Shields" value="UI/HeroShields" />
+    <VitalNames index="Energy" value="UI/HeroEnergyType/Mana" />
+    <MinimapIconType value="Hero" />
+    <MinimapUnitStatusFrame value="MinimapUnitStatus/MinimapHeroIcon" />
+  </CActorUnit>
+  <CActorUnit default="1" id="StormHeroBasePredictive" parent="StormHeroBase">
+    <Macros value="AttackPredictionMacro" />
+  </CActorUnit>
+</Catalog>

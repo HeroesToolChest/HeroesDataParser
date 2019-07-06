@@ -15,6 +15,8 @@ namespace HeroesData.Parser
 {
     public class HeroDataParser : ParserBase<Hero, HeroDataOverride>, IParser<Hero, HeroDataParser>
     {
+        private readonly string CActorUnit = "CActorUnit";
+
         private readonly HeroOverrideLoader HeroOverrideLoader;
         private readonly TalentData TalentData;
 
@@ -81,14 +83,19 @@ namespace HeroesData.Parser
                 Id = heroId,
             };
 
+            HeroDataOverride = HeroOverrideLoader.GetOverride(heroId) ?? new HeroDataOverride();
+
             XElement heroElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == heroId));
             if (heroElement == null)
                 return null;
 
-            HeroDataOverride = HeroOverrideLoader.GetOverride(heroId) ?? new HeroDataOverride();
-
             SetDefaultValues(hero);
-            CActorData(hero);
+
+            XElement actorElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("id")?.Value == hero.CUnitId));
+            if (actorElement == null)
+                return null;
+
+            SetActorData(actorElement, hero);
 
             // must be done first to any find any units.
             FindUnits(heroElement, hero);
@@ -189,7 +196,6 @@ namespace HeroesData.Parser
             hero.Franchise = HeroFranchise.Unknown;
             hero.Life.LifeMax = DefaultData.HeroData.UnitLifeMax;
             hero.Life.LifeRegenerationRate = 0;
-            hero.Energy.EnergyType = GameData.GetGameString(DefaultData.HeroEnergyTypeManaText);
             hero.Energy.EnergyMax = DefaultData.HeroData.UnitEnergyMax;
             hero.Energy.EnergyRegenerationRate = DefaultData.HeroData.UnitEnergyRegenRate;
             hero.Difficulty = GameData.GetGameString(DefaultData.Difficulty.Replace(DefaultData.IdPlaceHolder, DefaultData.DefaultHeroDifficulty)).Trim();
@@ -221,16 +227,22 @@ namespace HeroesData.Parser
             }
         }
 
-        // used to acquire the hero's unique energy type
-        private void CActorData(Hero hero)
+        private void SetActorData(XElement actorElement, Hero hero)
         {
-            IEnumerable<XElement> actorUnitElements = GameData.Elements("CActorUnit").Where(x => x.Attribute("id")?.Value == hero.CUnitId);
-
-            if (actorUnitElements == null || !actorUnitElements.Any())
+            if (actorElement == null || hero == null)
                 return;
 
+            // parent lookup
+            string parentValue = actorElement.Attribute("parent")?.Value;
+            if (!string.IsNullOrEmpty(parentValue) && parentValue != "StormUnitBase")
+            {
+                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("id")?.Value == parentValue));
+                if (parentElement != null)
+                    SetActorData(parentElement, hero);
+            }
+
             // find special energy type
-            foreach (XElement element in actorUnitElements.Elements())
+            foreach (XElement element in actorElement.Elements())
             {
                 string elementName = element.Name.LocalName.ToUpper();
 
@@ -239,11 +251,18 @@ namespace HeroesData.Parser
                     string indexValue = element.Attribute("index")?.Value;
                     string valueValue = element.Attribute("value")?.Value;
 
-                    if (!string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(valueValue) && indexValue == "Energy")
+                    if (!string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(valueValue))
                     {
-                        if (GameData.TryGetGameString(valueValue, out string energyType))
+                        if (indexValue == "Energy")
                         {
-                            hero.Energy.EnergyType = energyType;
+                            if (GameData.TryGetGameString(valueValue, out string energyType))
+                                hero.Energy.EnergyType = energyType;
+                        }
+                        else if (indexValue == "Life")
+                        {
+                        }
+                        else if (indexValue == "Shields")
+                        {
                         }
                     }
                 }
@@ -264,7 +283,7 @@ namespace HeroesData.Parser
 
         private void SetHeroData(XElement heroElement, Hero hero)
         {
-            if (heroElement == null)
+            if (heroElement == null || hero == null)
                 return;
 
             TalentData.SetButtonTooltipAppenderData(hero);
