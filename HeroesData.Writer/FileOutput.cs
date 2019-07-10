@@ -1,7 +1,9 @@
 ﻿using Heroes.Models;
+using Heroes.Models.Veterancy;
 using HeroesData.FileWriter.Writers;
 using HeroesData.FileWriter.Writers.AnnouncerData;
 using HeroesData.FileWriter.Writers.BannerData;
+using HeroesData.FileWriter.Writers.BehaviorVeterancyData;
 using HeroesData.FileWriter.Writers.EmoticonData;
 using HeroesData.FileWriter.Writers.EmoticonPackData;
 using HeroesData.FileWriter.Writers.HeroData;
@@ -113,6 +115,7 @@ namespace HeroesData.FileWriter
                 { nameof(Portrait), new PortraitDataJsonWriter() },
                 { nameof(Emoticon), new EmoticonDataJsonWriter() },
                 { nameof(EmoticonPack), new EmoticonPackDataJsonWriter() },
+                { nameof(BehaviorVeterancy), new BehaviorVeterancyDataJsonWriter() },
             });
 
             Writers.Add(FileOutputType.Xml, new Dictionary<string, IWritable>()
@@ -129,6 +132,7 @@ namespace HeroesData.FileWriter
                 { nameof(Portrait), new PortraitDataXmlWriter() },
                 { nameof(Emoticon), new EmoticonDataXmlWriter() },
                 { nameof(EmoticonPack), new EmoticonPackDataXmlWriter() },
+                { nameof(BehaviorVeterancy), new BehaviorVeterancyDataXmlWriter() },
             });
         }
     }

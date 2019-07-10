@@ -256,7 +256,7 @@ namespace HeroesData
             });
             ExtractDataValues.Add(ExtractDataOption.Mount, new List<string>()
             {
-                "MOUNTS", "MOUNTS",
+                "MOUNTS", "MOUNT",
             });
             ExtractDataValues.Add(ExtractDataOption.Banner, new List<string>()
             {
@@ -269,6 +269,10 @@ namespace HeroesData
             ExtractDataValues.Add(ExtractDataOption.Portrait, new List<string>()
             {
                 "PORTRAITS", "PORTRAIT", "PORTRIAT", "PORT",
+            });
+            ExtractDataValues.Add(ExtractDataOption.Veterancy, new List<string>()
+            {
+                "VETERANCY", "VET", "VETERENCY", "SCALE", "SCALING", "SCALES",
             });
 
             // images

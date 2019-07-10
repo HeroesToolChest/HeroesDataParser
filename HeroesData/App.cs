@@ -680,6 +680,7 @@ namespace HeroesData
             DataPortrait dataPortrait = new DataPortrait(new PortraitParser(xmlDataService.GetInstance()));
             DataEmoticon dataEmoticon = new DataEmoticon(new EmoticonParser(xmlDataService.GetInstance()));
             DataEmoticonPack dataEmoticonPack = new DataEmoticonPack(new EmoticonPackParser(xmlDataService.GetInstance()));
+            DataBehaviorVeterancy dataBehaviorVeterancy = new DataBehaviorVeterancy(new BehaviorVeterancyParser(xmlDataService.GetInstance()));
 
             ImageHero filesHero = new ImageHero(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageUnit filesUnit = new ImageUnit(CASCHotsStorage?.CASCHandler, StoragePath);
@@ -790,6 +791,14 @@ namespace HeroesData
                 Name = dataEmoticonPack.Name,
                 Parse = (localization) => dataEmoticonPack.Parse(localization),
                 Validate = (localization) => dataEmoticonPack.Validate(localization),
+            });
+
+            DataProcessors.Add(new DataProcessor()
+            {
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Veterancy),
+                Name = dataBehaviorVeterancy.Name,
+                Parse = (localization) => dataBehaviorVeterancy.Parse(localization),
+                Validate = (localization) => dataBehaviorVeterancy.Validate(localization),
             });
         }
     }

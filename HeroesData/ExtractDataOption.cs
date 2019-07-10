@@ -18,6 +18,7 @@ namespace HeroesData
         Portrait = 1 << 9,
         Emoticon = 1 << 10,
         EmoticonPack = 1 << 11,
-        All = ~(~0 << 12),
+        Veterancy = 1 << 12,
+        All = ~(~0 << 13),
     }
 }

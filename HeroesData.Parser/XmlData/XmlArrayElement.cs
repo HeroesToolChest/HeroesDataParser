@@ -26,8 +26,17 @@ namespace HeroesData.Parser.XmlData
             string indexValue = element.Attribute("index")?.Value ?? element.Element("index")?.Attribute("value")?.Value;
             string removedValue = element.Attribute("removed")?.Value ?? element.Element("removed")?.Attribute("value")?.Value;
 
-            if (int.TryParse(indexValue, out int indexResult) && string.IsNullOrEmpty(removedValue))
+            if (int.TryParse(indexValue, out int indexResult) && XElementByIndex.TryGetValue(indexResult, out XElement existingElement) && string.IsNullOrEmpty(removedValue))
             {
+                foreach (XAttribute attribute in existingElement.Attributes())
+                {
+                    XAttribute currentAttribute = element.Attribute(attribute.Name.LocalName);
+                    if (currentAttribute == null)
+                        element.Add(attribute);
+                    else
+                        element.SetAttributeValue(attribute.Name.LocalName, currentAttribute.Value);
+                }
+
                 XElementByIndex[indexResult] = element;
             }
             else if (int.TryParse(removedValue, out int removedResult) && removedResult == 1)

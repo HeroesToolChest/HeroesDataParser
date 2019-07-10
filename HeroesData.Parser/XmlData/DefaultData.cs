@@ -64,6 +64,8 @@ namespace HeroesData.Parser.XmlData
 
         public DefaultDataEmoticonPack EmoticonPackData { get; private set; }
 
+        public DefaultDataBehaviorVeterancy BehaviorVeterancyData { get; private set; }
+
         /// <summary>
         /// Gets the default difficulty text. Contains ##id##.
         /// </summary>
@@ -94,6 +96,8 @@ namespace HeroesData.Parser.XmlData
             PortraitPackData = new DefaultDataPortraitPack(GameData);
             EmoticonData = new DefaultDataEmoticon(GameData);
             EmoticonPackData = new DefaultDataEmoticonPack(GameData);
+
+            BehaviorVeterancyData = new DefaultDataBehaviorVeterancy(GameData);
         }
     }
 }
