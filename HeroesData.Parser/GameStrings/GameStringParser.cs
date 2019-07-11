@@ -138,28 +138,13 @@ namespace HeroesData.Parser.GameStrings
                         continue;
                 }
 
-                int? precision = null;
-
                 string pathLookup = parts[i];
 
                 // get precision
-                if (pathLookup.ToLower().Contains("precision=\"") || pathLookup.ToLower().Contains("precision = \""))
-                {
-                    pathLookup = pathLookup.Replace("Precision=\"", "precision=\"");
-                    pathLookup = pathLookup.Replace("precision = \"", "precision=\"");
-                    pathLookup = GetPrecision(pathLookup, out precision);
-                }
+                pathLookup = GetPrecision(pathLookup, out int? precision);
 
                 // remove the player
-                if (pathLookup.ToLower().Contains("player=\"") || pathLookup.ToLower().Contains("player =\""))
-                {
-                    if (pathLookup.ToLower().Contains("player =\""))
-                        pathLookup = pathLookup.Replace("player =\"", "player=\"");
-                    else
-                        pathLookup = pathLookup.Replace("Player=\"", "player=\"");
-
-                    pathLookup = GetPlayer(pathLookup, out int? player);
-                }
+                pathLookup = GetPlayer(pathLookup, out int? _);
 
                 // perform xml data lookup to find values
                 string mathPath = ParseValues(pathLookup);
@@ -257,44 +242,50 @@ namespace HeroesData.Parser.GameStrings
 
         private string GetPrecision(string pathPart, out int? precision)
         {
+            precision = null;
+
             // get the precision string first
-            Regex regex = new Regex("precision=\".*?\"");
+            Regex regex = new Regex("precision\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
             MatchCollection precisionMatches = regex.Matches(pathPart);
 
-            if (precisionMatches.Count != 1)
-                throw new Exception("GetPrecision: invalid matches found");
+            if (precisionMatches.Count > 0)
+            {
+                // now get the value
+                regex = new Regex("\".*?\"");
+                MatchCollection match = regex.Matches(precisionMatches[0].Value);
 
-            // now get the value
-            regex = new Regex("\".*?\"");
-            MatchCollection match = regex.Matches(precisionMatches[0].ToString());
+                precision = int.Parse(match[0].Value.Trim('"'));
 
-            precision = int.Parse(match[0].ToString().Trim('"'));
+                // remove precision text
+                pathPart = pathPart.Replace(precisionMatches[0].Value, string.Empty);
+            }
 
-            // remove precision text
-            pathPart = pathPart.Replace(precisionMatches[0].ToString(), string.Empty);
             return pathPart;
         }
 
         private string GetPlayer(string pathPart, out int? player)
         {
+            player = null;
+
             // get the player string first
-            Regex regex = new Regex("player=\".*?\"");
+            Regex regex = new Regex("player\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
             MatchCollection playerMatches = regex.Matches(pathPart);
 
-            if (playerMatches.Count != 1)
-                throw new Exception("GetPlayer: invalid matches found");
+            if (playerMatches.Count > 0)
+            {
+                // now get the value
+                regex = new Regex("\".*?\"");
+                MatchCollection match = regex.Matches(playerMatches[0].Value);
 
-            // now get the value
-            regex = new Regex("\".*?\"");
-            MatchCollection match = regex.Matches(playerMatches[0].ToString());
+                if (int.TryParse(match[0].Value.Trim('"'), out int playerNum))
+                    player = playerNum;
+                else
+                    player = null;
 
-            if (int.TryParse(match[0].ToString().Trim('"'), out int playerNum))
-                player = playerNum;
-            else
-                player = null;
+                // remove player text
+                pathPart = pathPart.Replace(playerMatches[0].Value, string.Empty);
+            }
 
-            // remove player text
-            pathPart = pathPart.Replace(playerMatches[0].ToString(), string.Empty);
             return pathPart;
         }
 
