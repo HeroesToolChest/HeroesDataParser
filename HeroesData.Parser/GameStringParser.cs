@@ -109,11 +109,11 @@ namespace HeroesData.Parser.GameStrings
                     tooltip = ParseGameString(tooltip, "(\\[d ref=\".*?/\\])", true);
                 }
 
-                return ParseGameString(tooltip, "(<d ref=\".*?/>|<d const=\".*?/>)", false);
+                return ReplaceCValVariables(ParseGameString(tooltip, "(<d ref=\".*?/>|<d const=\".*?/>)", false));
             }
             else // no values to look up
             {
-                return tooltip;
+                return ReplaceCValVariables(tooltip);
             }
         }
 
@@ -284,6 +284,27 @@ namespace HeroesData.Parser.GameStrings
             }
 
             return pathPart;
+        }
+
+        private string ReplaceCValVariables(string tooltip)
+        {
+            Regex regex = new Regex("\\sval=\"#.*?\"", RegexOptions.IgnoreCase);
+            MatchCollection valMatches = regex.Matches(tooltip);
+
+            foreach (Match item in valMatches.Distinct(new MatchComparer()))
+            {
+                Regex regexValue = new Regex("\".*?\"");
+                MatchCollection valueMatch = regexValue.Matches(item.Value);
+
+                string hexValue = GameData.GetStormStyleHexValueFromName(valueMatch[0].Value.Trim('"'));
+
+                if (!string.IsNullOrEmpty(hexValue))
+                {
+                    tooltip = tooltip.Replace(valueMatch[0].Value, $"\"#{hexValue}\"");
+                }
+            }
+
+            return tooltip;
         }
 
         private string ParseValues(ReadOnlyMemory<char> pathLookup)

@@ -83,6 +83,12 @@ namespace HeroesData.Loader.XmlGameData
                 string filePath = Path.Combine(CoreLocalizedDataPath, GameStringFile);
                 LoadTextFile(CASCHandlerData.OpenFile(filePath), filePath);
             }
+
+            string fontStylesFilePath = Path.Combine(CoreBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile);
+            LoadStormStyleFile(CASCHandlerData.OpenFile(fontStylesFilePath));
+
+            if (IsCacheEnabled)
+                StormStyleCachedFilePath.Add(fontStylesFilePath);
         }
 
         protected override void LoadHeroesDataStormMod()
@@ -155,6 +161,12 @@ namespace HeroesData.Loader.XmlGameData
                     }
                 }
             }
+
+            string fontStylesFilePath = Path.Combine(HeroesDataBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile);
+            LoadStormStyleFile(CASCHandlerData.OpenFile(fontStylesFilePath));
+
+            if (IsCacheEnabled)
+                StormStyleCachedFilePath.Add(fontStylesFilePath);
         }
 
         protected override void LoadHeroesMapMods()
@@ -259,9 +271,11 @@ namespace HeroesData.Loader.XmlGameData
             {
                 LocalizedDataName = "LocalizedData";
                 GameDataStringName = "GameData";
+                UIDirectoryStringName = "UI";
                 GameDataXmlFile = "GameData.xml";
                 IncludesXmlFile = "Includes.xml";
                 GameStringFile = "GameStrings.txt";
+                FontStyleFile = "FontStyles.StormStyle";
             }
         }
     }

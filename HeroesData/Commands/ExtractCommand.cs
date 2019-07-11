@@ -147,6 +147,7 @@ namespace HeroesData.Commands
             Console.WriteLine("Extracting files...");
             ExtractFiles(gameData.XmlCachedFilePaths, "xml files");
             ExtractFiles(gameData.TextCachedFilePaths, "text files");
+            ExtractFiles(gameData.StormStyleCachedFilePath, "storm style files");
 
             if (TextureExtraction)
             {
@@ -155,7 +156,17 @@ namespace HeroesData.Commands
 
             if (Directory.Exists(defaultDirectory))
             {
-                Directory.Move(defaultDirectory, modsHotsBuildDirectory);
+                try
+                {
+                    Directory.Move(defaultDirectory, modsHotsBuildDirectory);
+                }
+                catch (IOException ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"An error occured -> {ex.Message}");
+                    Console.WriteLine($"Manually delete the existing directory at {modsHotsBuildDirectory} and try again");
+                    Console.ResetColor();
+                }
             }
 
             time.Stop();

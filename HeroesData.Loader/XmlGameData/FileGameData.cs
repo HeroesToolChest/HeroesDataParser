@@ -53,6 +53,8 @@ namespace HeroesData.Loader.XmlGameData
             {
                 LoadTextFile(Path.Combine(CoreLocalizedDataPath, GameStringFile));
             }
+
+            LoadStormStyleFile(Path.Combine(CoreBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile));
         }
 
         protected override void LoadHeroesDataStormMod()
@@ -108,6 +110,8 @@ namespace HeroesData.Loader.XmlGameData
                     }
                 }
             }
+
+            LoadStormStyleFile(Path.Combine(CoreBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile));
         }
 
         protected override void LoadHeroesMapMods()

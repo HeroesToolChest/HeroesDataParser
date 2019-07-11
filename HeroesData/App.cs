@@ -303,6 +303,7 @@ namespace HeroesData
             time.Stop();
 
             Console.WriteLine($"{GameData.XmlFileCount,6} xml files loaded");
+            Console.WriteLine($"{GameData.StormStyleCount,6} storm style files loaded");
             Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
             Console.WriteLine();
         }

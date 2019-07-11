@@ -11,6 +11,7 @@ namespace HeroesData.Loader.XmlGameData
     public abstract class GameData
     {
         private readonly Dictionary<string, GameData> MapGameDataByMapId = new Dictionary<string, GameData>();
+        private readonly Dictionary<string, string> StormStyleHexColorValueByName = new Dictionary<string, string>();
 
         private Dictionary<(string Catalog, string Entry, string Field), double> ScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
         private Dictionary<string, string> GameStringById = new Dictionary<string, string>();
@@ -55,9 +56,19 @@ namespace HeroesData.Loader.XmlGameData
         public int TextFileCount { get; protected set; } = 0;
 
         /// <summary>
+        /// Gets the number of storm style files that were added.
+        /// </summary>
+        public int StormStyleCount { get; protected set; } = 0;
+
+        /// <summary>
         /// Gets a XDocument of the xml game data. Recommended to use <see cref="Elements(string)"/> for quicker access.
         /// </summary>
         public XDocument XmlGameData { get; protected set; } = new XDocument();
+
+        /// <summary>
+        /// Gets a XDocument of the xml storm style data.
+        /// </summary>
+        public XDocument XmlStormStyleData { get; protected set; } = new XDocument();
 
         /// <summary>
         /// Gets or sets the game localization. Must be in the stormdata format.
@@ -85,6 +96,11 @@ namespace HeroesData.Loader.XmlGameData
         public List<string> TextCachedFilePaths { get; } = new List<string>();
 
         /// <summary>
+        /// Gets the cached storm style file paths.
+        /// </summary>
+        public List<string> StormStyleCachedFilePath { get; } = new List<string>();
+
+        /// <summary>
         /// Gets a collection of all game string ids.
         /// </summary>
         public IList<string> GameStringIds => GameStringById.Keys.ToList();
@@ -93,6 +109,11 @@ namespace HeroesData.Loader.XmlGameData
         /// Gets a collection of all map ids.
         /// </summary>
         public IList<string> MapIds => MapGameDataByMapId.Keys.ToList();
+
+        /// <summary>
+        /// Gets a collection of all the storm style names.
+        /// </summary>
+        public IList<string> StormStyleNames => StormStyleHexColorValueByName.Keys.ToList();
 
         /// <summary>
         /// Gets the value of the current state of the game data.
@@ -110,11 +131,13 @@ namespace HeroesData.Loader.XmlGameData
         protected string LocalizedDataName { get; set; } = "localizeddata";
 
         protected string GameDataStringName { get; set; } = "gamedata";
+        protected string UIDirectoryStringName { get; set; } = "ui";
         protected string HeroInteractionsStringName { get; } = "herointeractions";
         protected string ConveyorBeltsStringName { get; } = "conveyorbelts";
         protected string GameDataXmlFile { get; set; } = "gamedata.xml";
         protected string IncludesXmlFile { get; set; } = "includes.xml";
         protected string GameStringFile { get; set; } = "gamestrings.txt";
+        protected string FontStyleFile { get; set; } = "fontstyles.stormstyle";
 
         protected string CoreBaseDataDirectoryPath { get; set; }
         protected string HeroesDataBaseDataDirectoryPath { get; set; }
@@ -553,6 +576,22 @@ namespace HeroesData.Loader.XmlGameData
             return value;
         }
 
+        /// <summary>
+        /// Gets the hex value from the name. Value is NOT prefixed with '#'.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public string GetStormStyleHexValueFromName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return string.Empty;
+
+            if (StormStyleHexColorValueByName.TryGetValue(name.TrimStart('#'), out string value))
+                return value;
+            else
+                return string.Empty;
+        }
+
         protected abstract void LoadCoreStormMod();
         protected abstract void LoadHeroesDataStormMod();
         protected abstract void LoadHeroesMapMods();
@@ -675,6 +714,36 @@ namespace HeroesData.Loader.XmlGameData
             }
         }
 
+        protected void LoadStormStyleFile(string filePath)
+        {
+            if (Path.GetExtension(filePath).Equals(".stormstyle", StringComparison.OrdinalIgnoreCase))
+            {
+                if (XmlStormStyleData.LastNode == null)
+                    XmlStormStyleData = XDocument.Load(filePath);
+                else
+                    XmlStormStyleData.Root.Add(XDocument.Load(filePath).Root.Elements());
+
+                StormStyleCount++;
+
+                if (IsCacheEnabled)
+                {
+                    StormStyleCachedFilePath.Add(filePath);
+                }
+            }
+        }
+
+        protected void LoadStormStyleFile(Stream stream)
+        {
+            XDocument document = XDocument.Load(stream);
+
+            if (XmlStormStyleData.LastNode == null)
+                XmlStormStyleData = document;
+            else
+                XmlStormStyleData.Root.Add(document.Root.Elements());
+
+            StormStyleCount++;
+        }
+
         private void Load()
         {
             CoreBaseDataDirectoryPath = Path.Combine(ModsFolderPath, CoreStormModDirectoryName, BaseStormDataDirectoryName);
@@ -697,6 +766,8 @@ namespace HeroesData.Loader.XmlGameData
                     mapGameData.SetPredefinedElements();
                 }
             }
+
+            SetFontStyles();
         }
 
         private void LoadFiles()
@@ -780,6 +851,20 @@ namespace HeroesData.Loader.XmlGameData
                         values.AddRange(cardLayouts.Elements("LayoutButtons").ToList());
                     else
                         LayoutButtonElements.Add(unit.Attribute("id").Value, cardLayouts.Elements("LayoutButtons").ToList());
+                }
+            }
+        }
+
+        private void SetFontStyles()
+        {
+            foreach (XElement element in XmlStormStyleData.Root.Elements("Constant"))
+            {
+                string name = element.Attribute("name")?.Value;
+                string val = element.Attribute("val")?.Value;
+
+                if (!string.IsNullOrEmpty(name))
+                {
+                    StormStyleHexColorValueByName[name] = val;
                 }
             }
         }
