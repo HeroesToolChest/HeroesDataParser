@@ -37,8 +37,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="TestData\mods\core.stormmod\base.stormdata\ui\" />
-  </ItemGroup>
-
 </Project>
