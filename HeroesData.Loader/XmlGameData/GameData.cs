@@ -10,6 +10,10 @@ namespace HeroesData.Loader.XmlGameData
 {
     public abstract class GameData
     {
+        private readonly HashSet<string> XmlCachedFilePathsList = new HashSet<string>();
+        private readonly HashSet<string> TextCachedFilePathsList = new HashSet<string>();
+        private readonly HashSet<string> StormStyleCachedFilePathList = new HashSet<string>();
+
         private readonly Dictionary<string, GameData> MapGameDataByMapId = new Dictionary<string, GameData>();
         private readonly Dictionary<string, string> StormStyleHexColorValueByName = new Dictionary<string, string>();
 
@@ -88,17 +92,32 @@ namespace HeroesData.Loader.XmlGameData
         /// <summary>
         /// Gets the cached xml file paths.
         /// </summary>
-        public List<string> XmlCachedFilePaths { get; } = new List<string>();
+        public IEnumerable<string> XmlCachedFilePaths => XmlCachedFilePathsList;
 
         /// <summary>
         /// Gets the cached text file paths.
         /// </summary>
-        public List<string> TextCachedFilePaths { get; } = new List<string>();
+        public IEnumerable<string> TextCachedFilePaths => TextCachedFilePathsList;
 
         /// <summary>
         /// Gets the cached storm style file paths.
         /// </summary>
-        public List<string> StormStyleCachedFilePath { get; } = new List<string>();
+        public IEnumerable<string> StormStyleCachedFilePath => StormStyleCachedFilePathList;
+
+        /// <summary>
+        /// Gets the amount of xml cached file paths.
+        /// </summary>
+        public int XmlCachedFilePathCount => XmlCachedFilePathsList.Count;
+
+        /// <summary>
+        /// Gets the amount of text cached file paths.
+        /// </summary>
+        public int TextCachedFilePathCount => TextCachedFilePathsList.Count;
+
+        /// <summary>
+        /// Gets the amount of storm stye file paths.
+        /// </summary>
+        public int StormStyleCachedFilePathCount => StormStyleCachedFilePathList.Count;
 
         /// <summary>
         /// Gets a collection of all game string ids.
@@ -592,6 +611,21 @@ namespace HeroesData.Loader.XmlGameData
                 return string.Empty;
         }
 
+        public bool AddXmlCachedFilePath(string filePath)
+        {
+            return XmlCachedFilePathsList.Add(filePath);
+        }
+
+        public bool AddTextCachedFilePath(string filePath)
+        {
+            return TextCachedFilePathsList.Add(filePath);
+        }
+
+        public bool AddStormStyleCachedFilePath(string filePath)
+        {
+            return StormStyleCachedFilePathList.Add(filePath);
+        }
+
         protected abstract void LoadCoreStormMod();
         protected abstract void LoadHeroesDataStormMod();
         protected abstract void LoadHeroesMapMods();
@@ -615,7 +649,7 @@ namespace HeroesData.Loader.XmlGameData
 
                 if (IsCacheEnabled)
                 {
-                    TextCachedFilePaths.Add(filePath);
+                    AddTextCachedFilePath(filePath);
                 }
             }
 
@@ -640,7 +674,7 @@ namespace HeroesData.Loader.XmlGameData
 
                 if (IsCacheEnabled)
                 {
-                    TextCachedFilePaths.Add(filePath);
+                    AddTextCachedFilePath(filePath);
                 }
             }
 
@@ -664,7 +698,7 @@ namespace HeroesData.Loader.XmlGameData
 
             if (IsCacheEnabled)
             {
-                XmlCachedFilePaths.Add(filePath);
+                AddXmlCachedFilePath(filePath);
             }
         }
 
@@ -710,7 +744,7 @@ namespace HeroesData.Loader.XmlGameData
 
             if (IsCacheEnabled)
             {
-                XmlCachedFilePaths.Add(filePath);
+                AddXmlCachedFilePath(filePath);
             }
         }
 
@@ -727,7 +761,7 @@ namespace HeroesData.Loader.XmlGameData
 
                 if (IsCacheEnabled)
                 {
-                    StormStyleCachedFilePath.Add(filePath);
+                    AddStormStyleCachedFilePath(filePath);
                 }
             }
         }

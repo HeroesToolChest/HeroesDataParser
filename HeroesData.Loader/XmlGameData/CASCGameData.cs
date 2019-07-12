@@ -67,7 +67,7 @@ namespace HeroesData.Loader.XmlGameData
 
                             if (IsCacheEnabled)
                             {
-                                XmlCachedFilePaths.Add(filePath);
+                                AddXmlCachedFilePath(filePath);
                             }
                         }
                         else
@@ -88,7 +88,7 @@ namespace HeroesData.Loader.XmlGameData
             LoadStormStyleFile(CASCHandlerData.OpenFile(fontStylesFilePath));
 
             if (IsCacheEnabled)
-                StormStyleCachedFilePath.Add(fontStylesFilePath);
+                AddStormStyleCachedFilePath(fontStylesFilePath);
         }
 
         protected override void LoadHeroesDataStormMod()
@@ -130,7 +130,7 @@ namespace HeroesData.Loader.XmlGameData
             {
                 if (IsCacheEnabled)
                 {
-                    XmlCachedFilePaths.Add(Path.Combine(HeroesDataBaseDataDirectoryPath, IncludesXmlFile));
+                    AddXmlCachedFilePath(Path.Combine(HeroesDataBaseDataDirectoryPath, IncludesXmlFile));
                 }
 
                 XDocument gameDataXml = XDocument.Load(cascXmlStream);
@@ -166,7 +166,7 @@ namespace HeroesData.Loader.XmlGameData
             LoadStormStyleFile(CASCHandlerData.OpenFile(fontStylesFilePath));
 
             if (IsCacheEnabled)
-                StormStyleCachedFilePath.Add(fontStylesFilePath);
+                AddStormStyleCachedFilePath(fontStylesFilePath);
         }
 
         protected override void LoadHeroesMapMods()
@@ -215,7 +215,7 @@ namespace HeroesData.Loader.XmlGameData
 
             if (IsCacheEnabled)
             {
-                XmlCachedFilePaths.Add(gameDataXmlFilePath);
+                AddXmlCachedFilePath(gameDataXmlFilePath);
             }
 
             // load up files in gamedata.xml file

@@ -31,8 +31,8 @@ namespace HeroesData.Loader.Tests
         {
             Assert.IsTrue(GameData.XmlFileCount > 0);
             Assert.IsTrue(GameData.TextFileCount == 0);
-            Assert.IsTrue(GameData.XmlCachedFilePaths.Count == 0);
-            Assert.IsTrue(GameData.TextCachedFilePaths.Count == 0);
+            Assert.IsTrue(GameData.XmlCachedFilePathCount == 0);
+            Assert.IsTrue(GameData.TextCachedFilePathCount == 0);
             Assert.IsTrue(GameData.GameStringCount == 0);
             Assert.IsFalse(GameData.IsCacheEnabled);
             Assert.IsNull(GameData.HotsBuild);

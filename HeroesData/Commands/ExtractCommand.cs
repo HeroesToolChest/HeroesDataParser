@@ -43,7 +43,7 @@ namespace HeroesData.Commands
                 CommandArgument storagePathArgument = config.Argument("storage-path", "The 'Heroes of the Storm' directory");
 
                 CommandOption setOutputDirectoryOption = config.Option("-o|--output-directory <FILEPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
-                CommandOption mergeOption = config.Option("--xml-merge", "Extracts the xml files as one file.", CommandOptionType.NoValue);
+                CommandOption mergeOption = config.Option("--xml-merge", "Extracts the xml files as one file (excludes map files).", CommandOptionType.NoValue);
                 CommandOption texturesOption = config.Option("--textures", "Includes extracting all textures (.dds).", CommandOptionType.NoValue);
 
                 config.OnExecute(() =>
@@ -145,13 +145,14 @@ namespace HeroesData.Commands
 
             Console.WriteLine();
             Console.WriteLine("Extracting files...");
-            ExtractFiles(gameData.XmlCachedFilePaths, "xml files");
-            ExtractFiles(gameData.TextCachedFilePaths, "text files");
-            ExtractFiles(gameData.StormStyleCachedFilePath, "storm style files");
+            ExtractFiles(gameData.XmlCachedFilePaths, gameData.XmlCachedFilePathCount, "xml files");
+            ExtractFiles(gameData.TextCachedFilePaths, gameData.TextCachedFilePathCount, "text files");
+            ExtractFiles(gameData.StormStyleCachedFilePath, gameData.StormStyleCachedFilePathCount, "storm style files");
 
             if (TextureExtraction)
             {
-                ExtractFiles(GetTextureFiles(), "texture files");
+                List<string> textFilesList = GetTextureFiles();
+                ExtractFiles(textFilesList, textFilesList.Count, "texture files");
             }
 
             if (Directory.Exists(defaultDirectory))
@@ -213,11 +214,12 @@ namespace HeroesData.Commands
 
             Console.WriteLine("xmlgamedata.xml");
 
-            ExtractFiles(gameData.TextCachedFilePaths, "text files");
+            ExtractFiles(gameData.TextCachedFilePaths, gameData.TextCachedFilePathCount, "text files");
 
             if (TextureExtraction)
             {
-                ExtractFiles(GetTextureFiles(), "texture files");
+                List<string> textFilesList = GetTextureFiles();
+                ExtractFiles(textFilesList, textFilesList.Count, "texture files");
 
                 if (Directory.Exists(texturesDirectory))
                 {
@@ -230,7 +232,7 @@ namespace HeroesData.Commands
             Console.WriteLine($"Extraction took {time.Elapsed.TotalSeconds} seconds");
         }
 
-        private void ExtractFiles(List<string> files, string fileType)
+        private void ExtractFiles(IEnumerable<string> files, int amount, string fileType)
         {
             int count = 0;
 
@@ -240,7 +242,7 @@ namespace HeroesData.Commands
                 {
                     CASCHotsStorage.CASCHandler.SaveFileTo(filePath.ToLower(), OutputDirectory);
                     count++;
-                    Console.Write($"\r{count,6}/{files.Count} {fileType}");
+                    Console.Write($"\r{count,6}/{amount} {fileType}");
                 }
                 else
                 {
@@ -250,7 +252,7 @@ namespace HeroesData.Commands
                 }
             }
 
-            Console.WriteLine($"\r{count,6}/{files.Count} {fileType}");
+            Console.WriteLine($"\r{count,6}/{amount} {fileType}");
         }
 
         private void DeleteExistingDirectory(string directory)
