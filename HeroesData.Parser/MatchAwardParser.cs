@@ -53,9 +53,6 @@ namespace HeroesData.Parser
                 // map specific gamelinks
                 foreach (string mapName in GameData.MapIds)
                 {
-                    if (Configuration.RemoveDataXmlElementIds("MapStormmod").Contains(mapName))
-                        continue;
-
                     matchAwards = GameData.GetMapGameData(mapName).Elements("CUser").Where(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward");
 
                     AddItems(mapName, matchAwards.Elements("Instances"), items);
@@ -181,10 +178,12 @@ namespace HeroesData.Parser
                 if (instanceId == "[Default]" || !element.HasElements)
                     continue;
 
+                string id = element.Element("GameLink")?.Attribute("GameLink")?.Value;
+
                 if (string.IsNullOrEmpty(mapName))
-                    items.Add(new string[] { element.Element("GameLink")?.Attribute("GameLink")?.Value });
+                    items.Add(new string[] { id });
                 else
-                    items.Add(new string[] { element.Element("GameLink")?.Attribute("GameLink")?.Value, mapName });
+                    items.Add(new string[] { id, mapName });
             }
         }
     }

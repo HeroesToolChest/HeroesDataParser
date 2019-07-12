@@ -14,8 +14,6 @@
     <CSkin id="Random" value="false" />
     <CSpray id="RandomSpray" value="false" />
     <CVoiceLine id="RandomVoiceLine" value="false" />
-    
-    <!--maps-->
   </DataParser>
   
   <!--Used for completing gamestring parsing by providing a default value-->

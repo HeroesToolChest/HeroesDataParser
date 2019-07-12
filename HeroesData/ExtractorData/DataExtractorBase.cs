@@ -63,7 +63,8 @@ namespace HeroesData.ExtractorData
             {
                 Parallel.ForEach(generalItems, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, item =>
                 {
-                    ParsedData.GetOrAdd(string.Join(" ", item), Parser.GetInstance().Parse(item));
+                    T parsedItem = Parser.GetInstance().Parse(item);
+                    ParsedData.GetOrAdd(parsedItem.Id, parsedItem);
                     Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {items.Count} total {Name}");
                 });
 
@@ -79,7 +80,8 @@ namespace HeroesData.ExtractorData
 
                         Parallel.ForEach(mapItemGroup, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, mapItem =>
                         {
-                            ParsedData.GetOrAdd(string.Join(" ", mapItem), Parser.GetInstance().Parse(mapItem));
+                            T parsedMapItem = Parser.GetInstance().Parse(mapItem);
+                            ParsedData.GetOrAdd(parsedMapItem.Id, parsedMapItem);
                             Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {items.Count} total {Name}");
                         });
 
