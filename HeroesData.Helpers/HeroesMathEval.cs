@@ -22,8 +22,7 @@ namespace HeroesData.Helpers
 
         private static string GetInnerParenthesisValues(string input)
         {
-            var regex = new Regex(@"\(([^()]+|(?<Level>\()|(?<-Level>\)))+(?(Level)(?!))\)", RegexOptions.IgnorePatternWhitespace);
-            var matches = regex.Matches(input);
+            MatchCollection matches = Regex.Matches(input, @"\(([^()]+|(?<Level>\()|(?<-Level>\)))+(?(Level)(?!))\)", RegexOptions.IgnorePatternWhitespace);
 
             foreach (Match match in matches)
             {
@@ -142,8 +141,7 @@ namespace HeroesData.Helpers
         private static string SpecificEquationModifier(string input)
         {
             // MedivhTemporalFlux - build 72481 - change negative to positive
-            var regex = new Regex(@"\-\-\d+\s*\*\-\d+\s*", RegexOptions.IgnorePatternWhitespace);
-            var match = regex.Match(input);
+            Match match = Regex.Match(input, @"\-\-\d+\s*\*\-\d+\s*", RegexOptions.IgnorePatternWhitespace);
 
             if (!string.IsNullOrEmpty(match.Value))
             {

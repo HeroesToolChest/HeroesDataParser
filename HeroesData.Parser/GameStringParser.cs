@@ -198,9 +198,8 @@ namespace HeroesData.Parser.GameStrings
             else
             {
                 string joinDesc = string.Join(string.Empty, parts);
-                Regex regex = new Regex(@"[a-z]+""[a-z]+");
 
-                foreach (Match match in regex.Matches(joinDesc))
+                foreach (Match match in Regex.Matches(joinDesc, @"[a-z]+""[a-z]+"))
                 {
                     joinDesc = joinDesc.Replace(match.Value, match.Value.Replace("\"", "'"));
                 }
@@ -242,14 +241,12 @@ namespace HeroesData.Parser.GameStrings
             precision = null;
 
             // get the precision string first
-            Regex regex = new Regex("precision\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
-            MatchCollection precisionMatches = regex.Matches(pathPart);
+            MatchCollection precisionMatches = Regex.Matches(pathPart, "precision\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
 
             if (precisionMatches.Count > 0)
             {
                 // now get the value
-                regex = new Regex("\".*?\"");
-                MatchCollection match = regex.Matches(precisionMatches[0].Value);
+                MatchCollection match = Regex.Matches(precisionMatches[0].Value, "\".*?\"");
 
                 precision = int.Parse(match[0].Value.AsSpan().Trim('"'));
 
@@ -265,14 +262,12 @@ namespace HeroesData.Parser.GameStrings
             player = null;
 
             // get the player string first
-            Regex regex = new Regex("player\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
-            MatchCollection playerMatches = regex.Matches(pathPart);
+            MatchCollection playerMatches = Regex.Matches(pathPart, "player\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
 
             if (playerMatches.Count > 0)
             {
                 // now get the value
-                regex = new Regex("\".*?\"");
-                MatchCollection match = regex.Matches(playerMatches[0].Value);
+                MatchCollection match = Regex.Matches(playerMatches[0].Value, "\".*?\"");
 
                 if (int.TryParse(match[0].Value.AsSpan().Trim('"'), out int playerNum))
                     player = playerNum;
@@ -288,13 +283,11 @@ namespace HeroesData.Parser.GameStrings
 
         private string ReplaceCValVariables(string tooltip)
         {
-            Regex regex = new Regex("\\sval=\"#.*?\"", RegexOptions.IgnoreCase);
-            MatchCollection valMatches = regex.Matches(tooltip);
+            MatchCollection valMatches = Regex.Matches(tooltip, "\\sval=\"#.*?\"", RegexOptions.IgnoreCase);
 
             foreach (Match item in valMatches.Distinct(new MatchComparer()))
             {
-                Regex regexValue = new Regex("\".*?\"");
-                MatchCollection valueMatch = regexValue.Matches(item.Value);
+                MatchCollection valueMatch = Regex.Matches(item.Value, "\".*?\"");
 
                 string hexValue = GameData.GetStormStyleHexValueFromName(valueMatch[0].Value.Trim('"'));
 
@@ -342,8 +335,7 @@ namespace HeroesData.Parser.GameStrings
             count = 0;
 
             // get scaling string
-            Regex regex = new Regex("~~.*?~~");
-            MatchCollection playerMatches = regex.Matches(pathLookup);
+            MatchCollection playerMatches = Regex.Matches(pathLookup, "~~.*?~~");
 
             if (playerMatches.Count < 1)
                 return string.Empty;
