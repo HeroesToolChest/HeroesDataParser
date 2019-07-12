@@ -29,9 +29,6 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(spray.CollectionCategory))
                 AddWarning($"{nameof(spray.CollectionCategory)} is empty");
 
-            if (string.IsNullOrEmpty(spray.SearchText))
-                AddWarning($"{nameof(spray.SearchText)} is empty");
-
             if (!spray.ReleaseDate.HasValue)
                 AddWarning($"{nameof(spray.ReleaseDate)} is null");
 

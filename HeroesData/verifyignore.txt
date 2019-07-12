@@ -91,14 +91,15 @@
 [abstract_happy] Image is empty
 [abstract_rofl] Image is empty
 
+[stukov_army18] Does not contain any aliases.
+
 # emoticon packs
 [AbstractEmoticonPack] Name is empty
 [AbstractEmoticonPack] CollectionCategory is empty
 [SapperPackBonus] Name is empty
 
 # ignore for following data
-[$heroskin] SearchText is empty
-[$mount] SearchText is empty
-[$spray] SearchText is empty
-[$emoticonpack] EventName is empty
-[$emoticonpack] Description is empty
+[$heroskin] Name is empty
+[$heroskin] SortName is empty
+[$mount] Name is empty
+[$mount] SortName is empty

@@ -21,8 +21,8 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(emoticon.Id))
                 AddWarning($"{nameof(emoticon.Id)} is empty");
 
-            if (!emoticon.UniversalAliases.Any())
-                AddWarning($"{nameof(emoticon.UniversalAliases)} does not contain any aliases.");
+            if (!emoticon.LocalizedAliases.Any() && !emoticon.UniversalAliases.Any())
+                AddWarning("Does not contain any aliases.");
 
             if (string.IsNullOrEmpty(emoticon.TextureSheet.Image))
                 AddWarning($"{nameof(emoticon.TextureSheet.Image)} is empty");

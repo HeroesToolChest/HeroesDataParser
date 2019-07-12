@@ -27,14 +27,8 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(emoticonPack.CollectionCategory))
                 AddWarning($"{nameof(emoticonPack.CollectionCategory)} is empty");
 
-            if (string.IsNullOrEmpty(emoticonPack.EventName))
-                AddWarning($"{nameof(emoticonPack.EventName)} is empty");
-
             if (!emoticonPack.ReleaseDate.HasValue)
                 AddWarning($"{nameof(emoticonPack.ReleaseDate)} is null");
-
-            if (string.IsNullOrEmpty(emoticonPack.Description?.RawDescription))
-                AddWarning($"{nameof(emoticonPack.Description)} is empty");
 
             if (emoticonPack.EmoticonIds == null || !emoticonPack.EmoticonIds.Any())
                 AddWarning($"{nameof(emoticonPack.EmoticonIds)} is null or does not contain any emoticons");

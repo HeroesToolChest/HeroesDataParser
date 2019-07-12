@@ -32,11 +32,8 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(mount.CollectionCategory))
                 AddWarning($"{nameof(mount.CollectionCategory)} is empty");
 
-            if (string.IsNullOrEmpty(mount.Description?.RawDescription))
+            if (string.IsNullOrEmpty(mount.Description?.RawDescription) && mount.Rarity == Rarity.None && mount.MountCategory == "Unique")
                 AddWarning($"{nameof(mount.Description)} is empty");
-
-            if (string.IsNullOrEmpty(mount.SearchText))
-                AddWarning($"{nameof(mount.SearchText)} is empty");
 
             if (!mount.ReleaseDate.HasValue)
                 AddWarning($"{nameof(mount.ReleaseDate)} is null");

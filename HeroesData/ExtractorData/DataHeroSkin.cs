@@ -32,9 +32,6 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(heroSkin.Description?.RawDescription))
                 AddWarning($"{nameof(heroSkin.Description)} is empty");
 
-            if (string.IsNullOrEmpty(heroSkin.SearchText))
-                AddWarning($"{nameof(heroSkin.SearchText)} is empty");
-
             if (!heroSkin.ReleaseDate.HasValue)
                 AddWarning($"{nameof(heroSkin.ReleaseDate)} is null");
 
