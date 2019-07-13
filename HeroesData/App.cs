@@ -167,6 +167,7 @@ namespace HeroesData
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("Failed.");
+                                Console.ResetColor();
                             }
                         }
 
@@ -181,6 +182,7 @@ namespace HeroesData
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("Failed.");
+                                Console.ResetColor();
                             }
                         }
 

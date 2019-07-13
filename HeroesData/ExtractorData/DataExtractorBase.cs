@@ -16,6 +16,7 @@ namespace HeroesData.ExtractorData
         where TParser : IParser<T, TParser>
     {
         private readonly HashSet<string> ValidationWarnings = new HashSet<string>();
+
         private string ValidationWarningId = "Unknown";
 
         public DataExtractorBase(TParser parser)
@@ -122,6 +123,9 @@ namespace HeroesData.ExtractorData
         /// </summary>
         public void Validate(Localization localization)
         {
+            ValidationWarnings.Clear();
+            WarningsIgnoredCount = 0;
+
             foreach (var t in ParsedData)
             {
                 ValidationWarningId = t.Value.Id;

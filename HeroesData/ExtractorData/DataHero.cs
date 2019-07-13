@@ -25,6 +25,7 @@ namespace HeroesData.ExtractorData
             Stopwatch time = new Stopwatch();
             var failedParsedHeroes = new List<(string CHeroId, Exception Exception)>();
             int currentCount = 0;
+            ParsedData.Clear();
 
             Console.WriteLine($"Parsing {Name}...");
 
