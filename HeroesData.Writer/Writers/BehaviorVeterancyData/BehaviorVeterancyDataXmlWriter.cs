@@ -11,7 +11,7 @@ namespace HeroesData.FileWriter.Writers.BehaviorVeterancyData
         public BehaviorVeterancyDataXmlWriter()
             : base(FileOutputType.Xml)
         {
-            RootNodeName = "Veterancies";
+            RootNodeName = "BehaviorVeterancies";
         }
 
         protected override XElement MainElement(BehaviorVeterancy behaviorVeterancy)
