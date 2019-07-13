@@ -22,7 +22,6 @@ namespace HeroesData.Parser.XmlData
 
         private readonly string ElementType = "CUnit";
         private readonly string CActorUnit = "CActorUnit";
-        private readonly HashSet<string> IgnorableBasicAbilities;
 
         private XmlArrayElement AbilitiesArray;
         private XmlArrayElement WeaponsArray;
@@ -44,8 +43,6 @@ namespace HeroesData.Parser.XmlData
             WeaponData = weaponData;
             ArmorData = armorData;
             AbilityData = abilityData;
-
-            IgnorableBasicAbilities = Configuration.UnitDataExtraAbilities.ToHashSet();
         }
 
         public Localization Localization
@@ -349,12 +346,24 @@ namespace HeroesData.Parser.XmlData
                 else if (elementName == "GROUPICON")
                 {
                     string imageValue = element.Element("Image")?.Attribute("value")?.Value;
+
                     if (!string.IsNullOrEmpty(imageValue))
-                        unit.UnitPortrait.TargetInfoPanelFileName = Path.GetFileName(PathHelper.GetFilePath(imageValue)).ToLower();
+                    {
+                        string fileName = Path.GetFileName(PathHelper.GetFilePath(imageValue)).ToLower();
+                        if (!Configuration.ContainsDeadImageFileName(fileName))
+                            unit.UnitPortrait.TargetInfoPanelFileName = fileName;
+                    }
                 }
                 else if (elementName == "MINIMAPICON")
                 {
-                    unit.UnitPortrait.MiniMapIconFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                    string imageValue = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value));
+
+                    if (!string.IsNullOrEmpty(imageValue))
+                    {
+                        string fileName = Path.GetFileName(PathHelper.GetFilePath(imageValue)).ToLower();
+                        if (!Configuration.ContainsDeadImageFileName(fileName))
+                            unit.UnitPortrait.MiniMapIconFileName = fileName;
+                    }
                 }
             }
         }
@@ -372,7 +381,7 @@ namespace HeroesData.Parser.XmlData
             foreach (XElement element in AbilitiesArray.Elements)
             {
                 string linkValue = element.Attribute("Link")?.Value;
-                if (!string.IsNullOrEmpty(linkValue) && !IgnorableBasicAbilities.Contains(linkValue, StringComparer.OrdinalIgnoreCase) && !unit.ContainsAbility(linkValue))
+                if (!string.IsNullOrEmpty(linkValue) && !Configuration.ContainsIgnorableExtraAbility(linkValue) && !unit.ContainsAbility(linkValue))
                     AddCreatedAbility(unit, linkValue);
             }
 
@@ -432,7 +441,7 @@ namespace HeroesData.Parser.XmlData
         {
             if (ability != null)
             {
-                if (!IgnorableBasicAbilities.Contains(ability.AbilityTalentId.ReferenceId, StringComparer.OrdinalIgnoreCase))
+                if (!Configuration.ContainsIgnorableExtraAbility(ability.AbilityTalentId.ReferenceId))
                     unit.AddAbility(ability);
 
                 foreach (string createUnit in ability.CreatedUnits)

@@ -11,7 +11,8 @@ namespace HeroesData.Parser
     {
         private readonly Dictionary<string, List<(string, string)>> PartValuesByElementName = new Dictionary<string, List<(string Part, string Value)>>();
         private readonly Dictionary<string, HashSet<string>> XmlElementNameByType = new Dictionary<string, HashSet<string>>();
-        private readonly HashSet<string> UnitDataAbilities = new HashSet<string>();
+        private readonly HashSet<string> UnitDataAbilities = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private readonly HashSet<string> DeadImageFileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         private ILookup<string, string> AddIdByElementName;
         private ILookup<string, string> RemoveIdByElementName;
@@ -23,6 +24,12 @@ namespace HeroesData.Parser
         /// </summary>
         /// <returns></returns>
         public IEnumerable<string> UnitDataExtraAbilities => UnitDataAbilities;
+
+        /// <summary>
+        /// Gets a collection of image file names that do not exist.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> NonExistingImageFileNames => DeadImageFileNames;
 
         /// <summary>
         /// Loads the configuration file.
@@ -90,6 +97,26 @@ namespace HeroesData.Parser
             return RemoveIdByElementName[element];
         }
 
+        /// <summary>
+        /// Returns true if the ability id was found.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool ContainsIgnorableExtraAbility(string value)
+        {
+            return UnitDataAbilities.Contains(value);
+        }
+
+        /// <summary>
+        /// Returns true if the iamge file name was found.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool ContainsDeadImageFileName(string value)
+        {
+            return DeadImageFileNames.Contains(value);
+        }
+
         private void LoadConfigurationFile()
         {
             XDocument doc = XDocument.Load(ConfigFileName);
@@ -131,11 +158,19 @@ namespace HeroesData.Parser
             }
 
             // extra abilities
-            foreach (XElement abilityId in doc.Root.Element("UnitDataExtraAbilities").Elements())
+            foreach (XElement abilityIdElement in doc.Root.Element("UnitDataExtraAbilities").Elements())
             {
-                string value = abilityId.Value;
+                string value = abilityIdElement.Value;
                 if (!string.IsNullOrEmpty(value))
                     UnitDataAbilities.Add(value);
+            }
+
+            // dead image file names
+            foreach (XElement fileNameXelement in doc.Root.Element("NonExistingImageFileNames").Elements())
+            {
+                string value = fileNameXelement.Value;
+                if (!string.IsNullOrEmpty(value))
+                    DeadImageFileNames.Add(value);
             }
 
             // additional valid elements for xml parsing

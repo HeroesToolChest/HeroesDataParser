@@ -143,4 +143,21 @@
     <Id>Queue5Storm</Id>
     <Id>Que1Passive</Id>
   </UnitDataExtraAbilities>
+
+  <!--Image files that do not exist-->
+  <NonExistingImageFileNames>
+    <File>wireframe-zerg-roach.dds</File>
+    <File>hud_icon_teammapmechanic_tribute.dds</File>
+    <File>storm_ui_minimapicon_gardenseed_bw.dds</File>
+    <File>hud_icon_teammapmechanic_skull.dds</File>
+    <File>wireframe-critter-ursadakfemale.dds</File>
+    <File>wireframe-general-circleofpower-terran.dds</File>
+    <File>wireframe-general-destructiblerocks-6x6.dds</File>
+    <File>wireframe-critter-dog.dds</File>
+    <File>wireframe-zerg-baneling.dds</File>
+    
+    <!--Unsupported pixel format (R5g5b5a1)-->
+    <File>storm_ui_minimapicon_core_fill.dds</File>
+    <File>storm_ui_minimap_lavawave.dds</File>
+  </NonExistingImageFileNames>
 </Configuration>
