@@ -130,14 +130,16 @@ namespace HeroesData.Commands
             }
             else if (FilesAreEqual(new FileInfo(filePath1), new FileInfo(filePath2)))
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"{Path.GetFileName(filePath2)} <==SAME==> {Path.GetFileName(filePath1)}");
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"{Path.GetFileName(filePath2)} <!=NOT=!> {Path.GetFileName(filePath1)}");
-                Console.ResetColor();
             }
+
+            Console.ResetColor();
         }
 
         private bool FilesAreEqual(FileInfo first, FileInfo second)
