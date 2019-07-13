@@ -16,6 +16,7 @@ Also extracts the following:
  - Portraits
  - Emoticons (includes images)
  - Emoticon Packs
+ - Veterancy data
  
 Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some more information and examples of XML and JSON output.
 
@@ -86,16 +87,18 @@ Output of the -h option
 ```
 Heroes Data Parser (VERSION)
 
-Usage:  [options] [command]
+Usage:  [arguments] [options] [command]
+
+Arguments:
+  storage-path  The 'Heroes of the Storm' directory or an already extracted 'mods' directory.
 
 Options:
   -?|-h|--help                      Show help information
   -v|--version                      Show version information
-  -s|--storage-path <FILEPATH>      The 'Heroes of the Storm' directory or an already extracted 'mods' directory.
   -o|--output-directory <FILEPATH>  Sets the output directory.
   -d|--description <VALUE>          Sets the description output type (0 - 6) - Default: 0.
   -e|--extract-data <VALUE>         Extracts data files - Default: herodata.
-  -i|--extract-images <VALUE>       Extracts image files.
+  -i|--extract-images <VALUE>       Extracts image files, only available using the Heroes of the Storm game directory.
   -l|--localization <LOCALE>        Sets the gamestring localization(s) - Default: enUS.
   -b|--build <NUMBER>               Sets the override build file(s).
   -t|--threads <NUMBER>             Limits the maximum amount of threads to use.
@@ -107,22 +110,24 @@ Options:
   --warnings                        Displays all validation warnings.
 
 Commands:
-  extract  Extracts all required files from the `Heroes of the Storm` directory.
-  image    Performs image processing.
-  list     Displays .txt, .xml, and .json files in the local directory.
-  read     Reads a .txt, .xml, or .json file and displays its contents on screen.
+  extract        Extracts all required files from the `Heroes of the Storm` directory.
+  image          Performs image processing.
+  list           Displays .txt, .xml, and .json files in the local directory.
+  quick-compare  Compares two directory contents or files and displays a list of changed files.
+  read           Reads a .txt, .xml, or .json file and displays its contents on screen.
+  v4-convert     Converts a pre-4.0 heroesdata json or xml file to the version 4 format.
 
 Use " [command] --help" for more information about a command.
 ```
 
-Example command to create xml and json files from the `Heroes of the Storm` directory. Since no `-o|--outputDirectory` option is set, it defaults to the local directory.
+Example command to create xml and json files from the `Heroes of the Storm` directory. Since no `-o|--output-directory` option is set, it defaults to the local directory.
 ```
-dotnet heroes-data -s 'D:\Games\Heroes of the Storm' --xml --json
+dotnet heroesdata.dll 'D:\Heroes of the Storm' -e hero
 ```
 
 ## Validation Warnings
 All the warnings do not need to be fixed, they are shown for awareness.  
-**Tooltip strings that fail to parse will show up __empty__** in the xml or json files and thus will be a valid warning.  
+Tooltip strings that fail to parse will show up as `(╯°□°）╯︵ ┻━┻ [Failed to parse]` in the xml or json files and thus will be a valid warning.  
 Warnings can be shown to the console using the option `--warnings`.  
 Ignored warnings are in `verifyignore.txt`.  
 Ignored warnings only work for a majority of english strings.  
@@ -226,6 +231,7 @@ Extracts to `<OUTPUT-DIRECTORY>/<json and/or xml>`.
 `portraits` - extracts portraits  
 `emoticons` - extracts emojis  
 `emoticonpacks` - extracts the emoji packs  
+`veterancy` - extracts veterancy data
 
 Example seleting multiple data extractions.
 ```
