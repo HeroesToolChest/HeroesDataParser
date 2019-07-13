@@ -191,18 +191,18 @@ namespace HeroesData
 
                     Console.WriteLine();
 
-                    if (ExtractFileOption != ExtractImageOption.None)
-                    {
-                        Console.WriteLine("Extracting files...");
-                        DataProcessor((parser) =>
-                        {
-                            parser.Extract?.Invoke(parser.ParsedItems);
-                        });
-
-                        Console.WriteLine();
-                    }
-
                     totalLocaleSuccess++;
+                }
+
+                if (ExtractFileOption != ExtractImageOption.None)
+                {
+                    Console.WriteLine("Extracting files...");
+                    DataProcessor((parser) =>
+                    {
+                        parser.Extract?.Invoke(parser.ParsedItems);
+                    });
+
+                    Console.WriteLine();
                 }
 
                 if (totalLocaleSuccess == Localizations.Count)
