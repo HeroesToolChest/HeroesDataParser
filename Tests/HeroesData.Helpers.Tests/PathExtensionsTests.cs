@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace HeroesData.Helpers.Tests
@@ -19,8 +20,8 @@ namespace HeroesData.Helpers.Tests
         [TestMethod]
         public void FileNameToLowerTest()
         {
-            string expectedName = @"this\is\a\path\orphea_portrait.dds";
-            string fileName = @"this\is\a\path\Orphea_Portrait.dds";
+            string expectedName = Path.Combine("this", "is", "a", "path", "orphea_portrait.dds");
+            string fileName = Path.Combine("this", "is", "a", "path", "Orphea_Portrait.dds");
             PathHelper.FileNameToLower(fileName.AsMemory());
 
             Assert.AreEqual(expectedName, fileName);
