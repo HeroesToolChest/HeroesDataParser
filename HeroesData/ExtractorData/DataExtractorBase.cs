@@ -46,6 +46,7 @@ namespace HeroesData.ExtractorData
         public virtual IEnumerable<T> Parse(Localization localization)
         {
             Stopwatch time = new Stopwatch();
+            ParsedData.Clear();
 
             Console.WriteLine($"Parsing {Name} data...");
 
