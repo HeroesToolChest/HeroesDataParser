@@ -101,9 +101,9 @@ namespace HeroesData.Loader.XmlGameData
                             {
                                 LoadTextFile(Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile));
                             }
-                            catch (FileNotFoundException)
+                            catch (Exception ex) when (ex is FileNotFoundException || ex is DirectoryNotFoundException)
                             {
-                                if (!valuePath.Contains(HeroInteractionsStringName))
+                                if (!valuePath.Contains(HeroInteractionsStringName, StringComparison.OrdinalIgnoreCase))
                                     throw;
                             }
                         }
@@ -135,9 +135,9 @@ namespace HeroesData.Loader.XmlGameData
                     {
                         LoadTextFile(mapFolderName, Path.Combine(HeroesMapModsDirectoryPath, mapFolderName, GameStringLocalization, LocalizedDataName, GameStringFile));
                     }
-                    catch (FileNotFoundException)
+                    catch (Exception ex) when (ex is FileNotFoundException || ex is DirectoryNotFoundException)
                     {
-                        if (!mapFolderName.Contains(ConveyorBeltsStringName))
+                        if (!mapFolderName.Contains(ConveyorBeltsStringName, StringComparison.OrdinalIgnoreCase))
                             throw;
                     }
                 }

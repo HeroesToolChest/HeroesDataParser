@@ -595,7 +595,10 @@ namespace HeroesData
             {
                 WriteExceptionLog($"gamestrings_loader_{localization.ToString().ToLower()}", ex);
 
-                ConsoleExceptionMessage($"Gamestrings could not be loaded. Check if localization is installed in the game client.");
+                if (StorageMode == StorageMode.CASC)
+                    ConsoleExceptionMessage($"Gamestrings could not be loaded. Check if localization is installed in the game client.");
+                else
+                    ConsoleExceptionMessage($"Gamestrings could not be loaded. {ex.Message}.");
             }
         }
 
