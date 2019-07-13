@@ -427,6 +427,27 @@ list -f -d
 
 ***
 
+### Quick-Compare
+```
+Usage:  quick-compare [arguments] [options]
+
+Arguments:
+  first-file-path   First directory or file path
+  second-file-path  Second directory or file path
+
+Options:
+  -?|-h|--help  Show help information
+```
+
+Displays if the file(s) are the same or have been modified.
+
+Example command
+```
+quick-compare '.\file.txt' '.\file2.txt'
+```
+
+***
+
 ### Read
 ```
 Usage:  read [arguments] [options]
@@ -443,6 +464,26 @@ Reads a `.txt`, `.xml`, or `.json` file and displays its contents on screen.
 Example command that reads and displays the `parserhelper.xml` file.
 ```
 read .\parserhelper.xml
+```
+
+***
+
+### V4-Convert
+```
+Usage:  v4-convert [arguments] [options]
+
+Arguments:
+  file-path  The filepath of the file or directory to convert
+
+Options:
+  -?|-h|--help            Show help information
+  -o|--output <FILEPATH>  Output directory to save the converted files to.
+```
+Converts a pre-version 4 hero-data xml or json into the version 4 format. This does not add any data.  It simply modifies the shortname, CHeroId, and CUnitId.
+
+Example command
+```
+v4-convert '.\hero-data.xml'
 ```
 
 ## Advanced Features
