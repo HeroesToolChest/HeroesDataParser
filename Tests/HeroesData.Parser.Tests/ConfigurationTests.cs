@@ -65,5 +65,19 @@ namespace HeroesData.Parser.Tests
             Assert.IsTrue(list.Contains("Infernos2"));
             Assert.IsTrue(list.Contains("Infernos3"));
         }
+
+        [TestMethod]
+        public void ContainsDeadImageFileNameTests()
+        {
+            Assert.IsTrue(Configuration.ContainsDeadImageFileName("hud_icon_teammapmechanic_tribute.dds"));
+            Assert.IsFalse(Configuration.ContainsDeadImageFileName("asdf.dds"));
+        }
+
+        [TestMethod]
+        public void ContainsIgnorableExtraAbilityTests()
+        {
+            Assert.IsTrue(Configuration.ContainsIgnorableExtraAbility("Attack"));
+            Assert.IsFalse(Configuration.ContainsIgnorableExtraAbility("asdf"));
+        }
     }
 }
