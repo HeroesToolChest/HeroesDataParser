@@ -1,5 +1,6 @@
 ﻿using CASCLib;
 using Heroes.Models;
+using HeroesData.Helpers;
 using SixLabors.Primitives;
 using System;
 using System.Collections.Generic;
@@ -61,7 +62,9 @@ namespace HeroesData.ExtractorImage
                     using (Stream stream = OpenFile(textureFilepath))
                     {
                         DDSImage image = new DDSImage(stream);
-                        image.Save(Path.ChangeExtension(filePath.ToLower(), "png"));
+                        PathHelper.FileNameToLower(filePath.AsMemory());
+
+                        image.Save(Path.ChangeExtension(filePath, "png"));
 
                         return true;
                     }
@@ -92,7 +95,9 @@ namespace HeroesData.ExtractorImage
                     using (Stream stream = OpenFile(textureFilepath))
                     {
                         DDSImage image = new DDSImage(stream);
-                        image.Save(Path.ChangeExtension(filePath.ToLower(), "png"), point, size);
+                        PathHelper.FileNameToLower(filePath.AsMemory());
+
+                        image.Save(Path.ChangeExtension(filePath, "png"), point, size);
 
                         return true;
                     }
@@ -126,7 +131,9 @@ namespace HeroesData.ExtractorImage
                     using (Stream stream = OpenFile(textureFilepath))
                     {
                         DDSImage image = new DDSImage(stream);
-                        image.SaveAsGif(Path.ChangeExtension(filePath.ToLower(), "gif"), size, maxSize, frames, frameDelay);
+                        PathHelper.FileNameToLower(filePath.AsMemory());
+
+                        image.SaveAsGif(Path.ChangeExtension(filePath, "gif"), size, maxSize, frames, frameDelay);
 
                         return true;
                     }

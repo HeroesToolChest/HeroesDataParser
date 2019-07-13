@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Runtime.InteropServices;
 
 namespace HeroesData.Helpers.Tests
@@ -13,6 +14,16 @@ namespace HeroesData.Helpers.Tests
                 Assert.AreEqual(@"test\to\filePath\", PathHelper.GetFilePath(@"test\to\filePath\"));
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 Assert.AreEqual("test/to/filePath/", PathHelper.GetFilePath(@"test\to\filePath\"));
+        }
+
+        [TestMethod]
+        public void FileNameToLowerTest()
+        {
+            string expectedName = @"this\is\a\path\orphea_portrait.dds";
+            string fileName = @"this\is\a\path\Orphea_Portrait.dds";
+            PathHelper.FileNameToLower(fileName.AsMemory());
+
+            Assert.AreEqual(expectedName, fileName);
         }
     }
 }
