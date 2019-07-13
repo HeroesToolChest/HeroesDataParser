@@ -108,8 +108,11 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string value))
                 ability.Name = value;
 
-            // remove any locked heroic abilities
-            if (ability.Name == "Locked Ability" || (ability.Name == "Heroic Ability" && ability.AbilityTalentId.ButtonId == "LockedHeroicAbility" && ability.AbilityType == AbilityType.Heroic && ability.IsPassive))
+            // remove any locked abilities
+            if (ability.AbilityTalentId.ReferenceId.EndsWith("LockedAbilityQ", true, null) ||
+                ability.AbilityTalentId.ReferenceId.EndsWith("LockedAbilityW", true, null) ||
+                ability.AbilityTalentId.ReferenceId.EndsWith("LockedAbilityE", true, null) ||
+                (ability.AbilityTalentId.ButtonId == "LockedHeroicAbility" && ability.AbilityType == AbilityType.Heroic && ability.IsPassive))
                 return null;
 
             return ability;
