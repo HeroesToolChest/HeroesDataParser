@@ -127,7 +127,7 @@ dotnet heroesdata.dll 'D:\Heroes of the Storm' -e hero
 
 ## Validation Warnings
 All the warnings do not need to be fixed, they are shown for awareness.  
-Tooltip strings that fail to parse will show up as `(╯°□°）╯︵ ┻━┻ [Failed to parse]` in the xml or json files and thus will be a valid warning.  
+Tooltip strings that fail to parse will show up as `(╯°□°）╯︵ ┻━┻ [Failed to parse]` in the xml or json files.  
 Warnings can be shown to the console using the option `--warnings`.  
 Ignored warnings are in `verifyignore.txt`.  
 Ignored warnings only work for a majority of english strings.  
