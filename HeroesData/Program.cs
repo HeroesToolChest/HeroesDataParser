@@ -59,6 +59,15 @@ namespace HeroesData
             {
                 App.Defaults = false;
 
+                if (extractImageFilesOption.HasValue() && !extractDataFilesOption.HasValue())
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("You need to set the -e|--extract-data option");
+                    Console.ResetColor();
+
+                    return 1;
+                }
+
                 if (!string.IsNullOrEmpty(storagePathArgument.Value))
                 {
                     App.StoragePath = storagePathArgument.Value;
