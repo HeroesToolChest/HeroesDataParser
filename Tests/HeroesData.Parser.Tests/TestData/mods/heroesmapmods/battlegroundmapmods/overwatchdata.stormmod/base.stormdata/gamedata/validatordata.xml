@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CValidatorUnitCompareBehaviorCount id="CasterHasHealingPulseBehavior">
+        <WhichUnit Value="Caster"/>
+        <Compare value="GE"/>
+        <Value value="1"/>
+        <Behavior value="HasMapMechanicInstantAbility1"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="CasterHasDragonSpiritsBehavior">
+        <WhichUnit Value="Caster"/>
+        <Compare value="GE"/>
+        <Value value="1"/>
+        <Behavior value="HasMapMechanicInstantAbility2"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="CasterDoesNotHaveDragonSpiritsBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="HasMapMechanicInstantAbility2"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="CasterHasMapMechanicInstantAbility">
+        <WhichUnit Value="Caster"/>
+        <Compare value="GT"/>
+        <Behavior value="HasMapMechanicInstantAbility"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="CasterHasMapMechanicStack">
+        <WhichUnit Value="Caster"/>
+        <Compare value="GT"/>
+        <Behavior value="HasMapMechanicTargetAbility"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitType id="IsNotAMercSupportCampVolskaya">
+        <Value value="MercDefenderMeleeIndividual"/>
+        <Find value="0"/>
+    </CValidatorUnitType>
+    <CValidatorCombine id="TargetIsNotABossUnitCombine">
+        <CombineArray value="IsNotAMercSupportCampVolskaya"/>
+    </CValidatorCombine>
+    <CValidatorUnitCompareBehaviorCount id="SourceHasMapMechanicStack">
+        <WhichUnit Value="Source"/>
+        <Compare value="GT"/>
+        <Behavior value="HasMapMechanicTargetAbility"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="CasterHasMapMechanicTurretItem">
+        <WhichUnit Value="Caster"/>
+        <Compare value="GT"/>
+        <Behavior value="HasMapMechanicTurretItem"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorCombine id="CasterNotCarryingMapMechanic">
+        <Type value="And"/>
+        <CombineArray value="CasterHasMapMechanicStack"/>
+        <CombineArray value="CasterHasMapMechanicInstantAbility"/>
+        <Negate value="1"/>
+    </CValidatorCombine>
+    <CValidatorCombine id="CasterNotDeadOrStasisOrTimeStopped">
+        <Type value="And"/>
+        <CombineArray value="CasterNotDeadOrStasis"/>
+        <CombineArray value="CasterNotTimeStopped"/>
+    </CValidatorCombine>
+    <CValidatorCombine id="OverwatchBossImprisonChannelValidatorCombine">
+        <Type value="And"/>
+        <CombineArray value="OverwatchBossImprisonValidator"/>
+        <CombineArray value="OverwatchBossImprisonTargetIsCloseToCaster"/>
+    </CValidatorCombine>
+    <CValidatorUnitCompareBehaviorCount id="OverwatchBossAllowRingOfFireToBeCast">
+        <WhichUnit Value="Caster"/>
+        <Value value="1"/>
+        <Behavior value="OverwatchBossAllowRingOfFire"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="OverwatchBossHasRetractMissileController">
+        <WhichUnit Value="Caster"/>
+        <Compare value="GE"/>
+        <Value value="1"/>
+        <Behavior value="OverwatchBossMissileRetractController"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="OverwatchBossImprisonTargetHasBeingImprisonedBehavior">
+        <WhichUnit Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged"/>
+        <Value value="1"/>
+        <Behavior value="OverwatchBossBeingImprisonedBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="OverwatchBossImprisonTargetDoesNotHaveImprisonedBehavior">
+        <WhichUnit Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged"/>
+        <Behavior value="OverwatchBossImprisonedBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="OverwatchBossImprisonCasterDoesNotHaveTargetCleansedBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="OverwatchBossImprisonTargetGotCleansedBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorCombine id="OverwatchBossImprisonValidator">
+        <Type value="And"/>
+        <CombineArray value="OverwatchBossImprisonTargetNotDeadBenignUnstoppableStasisorInvulnerable"/>
+        <CombineArray value="OverwatchBossTargetNotTimeStopped"/>
+    </CValidatorCombine>
+    <CValidatorCombine id="OverwatchBossImprisonLaunchHeroInValidator">
+        <Type value="And"/>
+        <CombineArray value="OverwatchBossImprisonValidator"/>
+        <CombineArray value="OverwatchBossImprisonTargetHasBeingImprisonedBehavior"/>
+        <CombineArray value="OverwatchBossImprisonCasterDoesNotHaveTargetCleansedBehavior"/>
+    </CValidatorCombine>
+    <CValidatorLocationCompareRange id="OverwatchBossImprisonTargetIsCloseToCaster">
+        <WhichLocation Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged" Value="TargetUnit"/>
+        <Compare value="LE"/>
+        <Range value="12"/>
+        <Value Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged"/>
+    </CValidatorLocationCompareRange>
+    <CValidatorUnitCompareBehaviorCount id="OverwatchBossImprisonTargetDoesNotHavePreImprisonBehavior">
+        <Behavior value="OverwatchBossPreImprisonmentBehavior"/>
+        <WhichUnit Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="OverwatchBossOriginIsTimeStopped" parent="CasterNotTimeStopped">
+        <WhichUnit Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged"/>
+        <Compare value="GT"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="OverwatchBossOriginNotTimeStopped" parent="CasterNotTimeStopped">
+        <WhichUnit Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareCooldown id="OverwatchBossDragonsDinnerNotOnCooldown">
+        <WhichUnit Value="Caster"/>
+        <Compare value="LE"/>
+        <CooldownLink value="Abil/DragonsDinner"/>
+        <Location value="Unit"/>
+        <Ability value="DragonsDinner"/>
+    </CValidatorUnitCompareCooldown>
+    <CValidatorUnitCompareCooldown id="MercDefenderHealingPulseNotOnCooldown">
+        <WhichUnit Value="Caster"/>
+        <Compare value="LE"/>
+        <CooldownLink value="Abil/MercDefenderHealingPulse"/>
+        <Location value="Unit"/>
+        <Ability value="MercDefenderHealingPulse"/>
+    </CValidatorUnitCompareCooldown>
+    <CValidatorUnitCompareCooldown id="OverwatchBossDragonsDinnerIsOnCooldown">
+        <WhichUnit Value="Caster"/>
+        <Compare value="GT"/>
+        <CooldownLink value="Abil/DragonsDinner"/>
+        <Location value="Unit"/>
+        <Ability value="DragonsDinner"/>
+        <Value value="6"/>
+    </CValidatorUnitCompareCooldown>
+    <CValidatorLocationCompareRange id="OverwatchBossImprisonRangeGT2">
+        <Compare value="GT"/>
+        <Range value="3"/>
+        <WhichLocation Value="TargetUnit"/>
+        <Value Value="OriginPoint"/>
+    </CValidatorLocationCompareRange>
+    <CValidatorLocationCompareRange id="OverwatchBossImprisonRangeLTE2">
+        <Compare value="LE"/>
+        <Range value="3"/>
+        <WhichLocation Value="TargetUnit"/>
+        <Value Value="OriginPoint"/>
+    </CValidatorLocationCompareRange>
+    <CValidatorUnitCompareBehaviorCount id="OverwatchBossImprisonTargetDoesNotHaveBeingEatenBehavior">
+        <WhichUnit Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged"/>
+        <Behavior value="OverwatchBossBeingImprisonedBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="OverwatchBossTargetNotTimeStopped" parent="CasterNotTimeStopped">
+        <WhichUnit Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged" Value="Target"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitFilters id="OverwatchBossTargetNotBenign">
+        <Filters value="-;Benign"/>
+        <WhichUnit Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged"/>
+    </CValidatorUnitFilters>
+    <CValidatorUnitFilters id="OverwatchBossTrailInstantKillTarget">
+        <Filters value="Minion;Player,Ally,Neutral,Merc,MapBoss,MapCreature"/>
+    </CValidatorUnitFilters>
+    <CValidatorCombine id="OverwatchMechanicRepairTargetPeriodicValidator">
+        <Type value="And"/>
+        <CombineArray value="TargetLifeNotFull"/>
+        <CombineArray value="TargetNotDead"/>
+    </CValidatorCombine>
+    <CValidatorUnitCompareVital id="OverwatchMechanicTurretLifeNotFull" parent="CasterLifeNotFull">
+        <ResultFailed value="Error,Error/LifeNotFull"/>
+        <WhichUnit Effect="OverwatchMechanicTurretFoundCreatePersistent" Value="Target"/>
+    </CValidatorUnitCompareVital>
+    <CValidatorUnitCompareBehaviorCount id="OverwatchBossDoesNotHaveDelayScanBehavior">
+        <WhichUnit Value="Source"/>
+        <Behavior value="OverwatchBossAbilityScanDelay"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="MercDefenderDoesNotHaveHealingPulseDelayScanBehavior">
+        <WhichUnit Value="Source"/>
+        <Behavior value="MercDefenderHealingPulseAbilityScanDelay"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareVital id="OverwatchMechanicTurretLifeLT80" parent="CasterLifeLT80Percent">
+        <WhichUnit Effect="OverwatchMechanicTurretFoundCreatePersistent" Value="Target"/>
+    </CValidatorUnitCompareVital>
+    <CValidatorUnitMover id="OverwatchImprisonTargetUsingGroundMover">
+        <WhichUnit Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged"/>
+        <Value value="Ground"/>
+        <Find value="1"/>
+    </CValidatorUnitMover>
+    <CValidatorUnitFilters id="TargetIsNotNeutral">
+        <Filters value="-;Neutral"/>
+    </CValidatorUnitFilters>
+    <CValidatorUnitType id="TargetIsNotTurretPickup">
+        <Value value="TurretPickup"/>
+        <Find value="0"/>
+    </CValidatorUnitType>
+    <CValidatorUnitType id="TargetIsNotDragonSpiritPickup">
+        <Value value="DragonSpiritsPickup"/>
+        <Find value="0"/>
+    </CValidatorUnitType>
+    <CValidatorUnitType id="TargetIsNotHealingPulsePickup">
+        <Value value="HealingPulsePickup"/>
+        <Find value="0"/>
+    </CValidatorUnitType>
+    <CValidatorUnitType id="TargetIsTurret">
+        <Value value="OverwatchTurret"/>
+    </CValidatorUnitType>
+    <CValidatorUnitCompareBehaviorCount id="TargetDoesNotHaveHanamuraBossTrailDamageMarker">
+        <Behavior value="HanamuraBossTrailDamageMarker"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitType id="TargetIsHealingPulsePickup">
+        <Value value="HealingPulsePickup"/>
+    </CValidatorUnitType>
+    <CValidatorUnitType id="TargetIsTurretPickup">
+        <Value value="TurretPickup"/>
+    </CValidatorUnitType>
+    <CValidatorUnitType id="TargetIsDragonSpiritPickup">
+        <Value value="DragonSpiritsPickup"/>
+    </CValidatorUnitType>
+    <CValidatorUnitCompareVital id="TargetLifeLT80Percent">
+        <Compare value="LT"/>
+        <Type value="Fraction"/>
+        <Value value="0.8"/>
+    </CValidatorUnitCompareVital>
+    <CValidatorUnitFilters id="OverwatchBossImprisonTargetNotDeadBenignUnstoppableStasisorInvulnerable">
+        <WhichUnit Effect="OverwatchBossImprisonInitialSwitchMeleeOrRanged"/>
+        <Filters value="-;Stasis,Dead,Invulnerable,Benign,Unstoppable"/>
+    </CValidatorUnitFilters>
+    <CValidatorCombine id="TurretTargetIsNotNeutralOrMerc">
+        <CombineArray value="TargetIsNotNeutral"/>
+        <CombineArray value="TargetIsMercLaner"/>
+        <CombineArray value="TargetIsMercDefender"/>
+    </CValidatorCombine>
+</Catalog>

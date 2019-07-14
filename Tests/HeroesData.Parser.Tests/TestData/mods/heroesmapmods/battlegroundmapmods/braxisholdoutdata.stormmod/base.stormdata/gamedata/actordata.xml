@@ -1,0 +1,1442 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CActorModel id="SCVCarriedMinerals" parent="StormModelAnimationStyleContinuousUnit">
+    <Host Subject="::Creator" />
+    <HostSiteOps Ops="SOpAttachWeaponRight" />
+  </CActorModel>
+  <CActorSiteOpLocalOffset id="SOpMoveUpByDot22">
+    <LocalOffset Z="0.220000" />
+  </CActorSiteOpLocalOffset>
+  <CActorRegionGame id="HoldoutBeamLoopRegion">
+    <On Terms="ActorCreation" Send="Create HoldoutBeamLoopSoundRegion" />
+    <On Terms="CameraProximityUpdate" Target="HoldoutBeamLoopSoundRegion" Send="SetPosition" />
+    <On Terms="Signal.*.StopSound" Target="HoldoutBeamLoopSoundRegion" Send="Signal StopSound" />
+    <On Terms="Signal.*.StopSound" Send="Destroy" />
+    <FogVisibility value="Visible" />
+  </CActorRegionGame>
+  <CActorSound id="HoldoutBeamLoopSoundRegion" parent="SoundOneShot">
+    <Sound value="Event_BraxisHoldout_BeaconBeam_Loop" />
+    <Flags index="SuppressCreationErrors" value="1" />
+    <On Terms="Signal.*.StopSound" Send="Destroy" />
+    <Host Subject="::Creator" />
+    <Supporter Subject="::Creator" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorModel id="ArchangelDefenderDeathActor" parent="UnitDeathModelWithDeathMotionGround">
+    <On Terms="ActorCreation" Send="AnimPlay Infested Death,Custom PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+  </CActorModel>
+  <CActorModel id="ArchangelDefenderDeathActorLowQuality" parent="UnitDeathModelUnscaled">
+    <On Terms="ActorCreation" Send="AnimPlay Infested Death,Custom PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+  </CActorModel>
+  <CActorSound id="GoliathAggroSound">
+    <Sound value="SC2_Merc_Goliath_NeuralParasiteAttack" />
+  </CActorSound>
+  <CActorSound id="GoliathReadySound">
+    <Sound value="SC2_Merc_Goliath_Goliath_Ready" />
+  </CActorSound>
+  <CActorSound id="HellbatAggroSound">
+    <Sound value="SC2_Merc_Hellbat_NeuralParasite" />
+  </CActorSound>
+  <CActorSound id="HellbatReadySound">
+    <Sound value="SC2_Merc_Hellbat_Ready" />
+  </CActorSound>
+  <CActorDoodad id="Storm_Doodad_SCBraxis_Shafts_Infested">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <Aliases value="_CreepEngulfable" />
+    <CreepHeightClass value="Default" />
+    <CreepRateGrow value="Grow" />
+    <CreepRateShrink value="Shrink" />
+  </CActorDoodad>
+  <CActorRegionQuad id="TerranArchangelDefenderBulletstormQuadDown" parent="StormGuideRegion">
+    <Inherits index="TeamColor" value="1" />
+    <FogVisibility value="Hidden" />
+    <Remove Terms="RegionSubject.*.AddedFirst" Target="_GuideVisual" Send="ClearTintColor 0.100000 BaseTint" />
+    <Remove Terms="RegionSubject.*.AddedFirst" Target="_GuideVisual" Send="SetTintColor 0,255,0 0.100000 OneShot Active" />
+    <Remove Terms="RegionSubject.*.RemovedLast" Target="_GuideVisual" Send="SetTintColor 225,160,25 0.000000 OneShot BaseTint" />
+    <Remove Terms="RegionSubject.*.RemovedLast" Target="_GuideVisual" Send="ClearTintColor 0.100000 Active" />
+    <On Terms="ActorCreation" Send="QueryPersistent StormGuideRegionAdd StormGuideRegionRemove AgainstRadiusGame" />
+    <HostSiteOps Ops="SOp2DRotation" />
+    <RegionFlags index="UseEffectRange" value="1" />
+  </CActorRegionQuad>
+  <CActorQuad id="TerranArchangelDefenderBulletstormWarning" parent="StormGuideVisualQuadSciFi">
+    <Inherits index="TeamColor" value="1" />
+    <FogVisibility value="Hidden" />
+    <On index="0" Terms="Abil.Guide" Send="Create" />
+    <On Terms="ActorCreation" Send="Create TerranArchangelDefenderBulletstormQuadDown" />
+    <HostSiteOps Ops="SOpAttachOrigin" />
+    <Quad value="-0.500000,-1.000000,0.500000,0.000000" />
+    <Height value="18.000000" />
+    <Width value="6.000000" />
+  </CActorQuad>
+  <CActorUnit id="HoldingPenPathingBlocker" parent="PathingBlocker" unitName="HoldingPenPathingBlocker">
+    <EditorCategories value="DoodadType:Blocker" />
+    <EditorModel value="HeroRaynor" />
+  </CActorUnit>
+  <CActorModel id="TerranArchangelDefenderBulletstormWarningSplat" parent="StormModelAnimationStyleContinuousUnit">
+    <Macros index="0" removed="1" />
+    <Macros index="1" removed="1" />
+    <Inherits index="CloakEffect" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <On Terms="Effect.TerranArchangelDefenderBulletstormPrepareSet.Start; At Caster" Send="Create" />
+    <On Terms="Effect.TerranArchangelDefenderBulletstormCreateVisualPersistent.Stop" Send="Destroy" />
+    <HostSiteOps Ops="SOpAttachOrigin SOpMoveForwardByDot5" />
+    <Scale value="1.500000,1.400000,1.000000" />
+    <VisibilityShape Shape="TerranArchangelDefenderBulletstormWarningSplat" />
+  </CActorModel>
+  <CActorAction id="TerranArchangelLanerRangedAttack" parent="GenericAttackStorm" effectImpact="TerranArchangelLanerRangedDamage" effectLaunch="TerranArchangelLanerLaunchMissile">
+    <LaunchSiteOps Ops="SOpAttachWeaponLeft" />
+    <LaunchAttachQuery Methods="AMFilterWeaponLeft" />
+    <LaunchAssets Model="TerranArchangelDefenderAttackLaunch" Sound="" />
+    <LaunchModel value="ArchangelAttackLaunchModel" />
+    <LaunchSound value="" />
+    <Missile value="TerranArchangelDefenderRangedAttackMissile" />
+    <ImpactMap index="None" Model="TerranArchangelDefenderAttackImpact" Sound="Merc_Archangel_AttackImpact" />
+    <ImpactMap index="Rock" Model="TerranArchangelDefenderAttackImpact" Sound="Merc_Archangel_AttackImpact" />
+    <ActionFlags index="ImpactSuppressUnitSound" value="1" />
+  </CActorAction>
+  <CActorAction id="TerranArchangelLanerRightDummyRangedAttack" parent="GenericAttackStorm" effectImpact="TerranArchangelLanerRightDummyPersistent" effectLaunch="TerranArchangelLanerRightDummyLaunchMissile">
+    <LaunchSiteOps Ops="SOpAttachWeaponRight" />
+    <LaunchAttachQuery Methods="AMFilterWeaponRight" />
+    <LaunchAssets Model="TerranArchangelDefenderAttackLaunch" Sound="" />
+    <LaunchModel value="ArchangelAttackLaunchModel" />
+    <LaunchSound value="" />
+    <Missile value="TerranArchangelDefenderRangedAttackMissile" />
+    <ImpactMap index="None" Model="TerranArchangelDefenderAttackImpact" Sound="Merc_Archangel_AttackImpact" />
+    <ImpactMap index="Rock" Model="TerranArchangelDefenderAttackImpact" Sound="Merc_Archangel_AttackImpact" />
+    <ActionFlags index="ImpactSuppressUnitSound" value="1" />
+  </CActorAction>
+  <CActorUnit id="ZergPathDummy" parent="GenericUnitMinimal" unitName="ZergPathDummy">
+    <Model value="Invisible" />
+    <HighlightTooltip value="Unit/Name/Bogus" />
+  </CActorUnit>
+  <CActorSound id="ZerglingAttackImpactSound" parent="HeroAttackImpactSoundOneShot">
+    <On Terms="Effect.ZergZerglingWeaponDamage.Start; At Effect" Send="Create" />
+    <Sound value="Event_BraxisHoldout_Zergling_Attack_Impact" />
+  </CActorSound>
+  <CActorModel id="SamuroShowdownFXAttachment" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="ActorCreation" Send="AnimPlay Spell Spell PlayForever" />
+    <On Terms="ActorCreation" Send="AnimPlay Birth Birth" />
+    <On Terms="ActorCreation" Send="Create Doodad_SamuroShowdownMachine_Start" />
+    <On Terms="ActorCreation" Send="Create Doodad_SamuroShowdownMachine_Loop" />
+    <On Terms="AnimDone; AnimName Birth" Send="AnimPlay StandA Stand" />
+    <On Terms="AnimDone; AnimName StandA" Send="AnimPlay StandB Stand" />
+    <On Terms="AnimDone; AnimName StandB" Send="AnimPlay StandC Stand" />
+    <On Terms="AnimDone; AnimName StandC" Send="AnimPlay Death Death" />
+    <On Terms="AnimDone; AnimName StandC" Send="Create Doodad_SamuroShowdownMachine_End" />
+    <On Terms="AnimDone; AnimName Death" Target="::Creator" Send="Signal FXDone" />
+    <On Terms="AnimDone; AnimName Death" Send="Destroy" />
+    <On Terms="AnimDone; AnimName Death" Target="Doodad_SamuroShowdownMachine_Loop" Send="Destroy" />
+    <Remove Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death ContentPlayOnce" />
+    <HostSiteOps Ops="SOpAttachCenter" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorUnit id="SamuroShowdownMachine" parent="GenericUnitStandard" unitName="SamuroShowdownMachine">
+    <On Terms="ActorCreation" Send="SetShowStatusBar" />
+    <On Terms="ActorCreation" Send="StatusSet TurnedOn 0" />
+    <On Terms="Behavior.ArcadeMachineClickDelay.On; IsStatus TurnedOn 0" Send="Create SamuroShowdownFXAttachment" />
+    <On Terms="Signal.*.FXDone" Target="Doodad_SamuroShowdownMachine_Loop" Send="Destroy" />
+    <On Terms="Behavior.ArcadeMachineClickDelay.On; IsStatus TurnedOn 0" Send="AnimBracketStart Morph Stand,Morph,Start Stand,Morph Stand,Morph,End" />
+    <On Terms="Behavior.ArcadeMachineClickDelay.On; IsStatus TurnedOn 0" Send="StatusIncrement TurnedOn" />
+    <On Terms="Signal.*.FXDone" Send="AnimBracketStop Morph" />
+    <On Terms="Signal.*.FXDone" Send="TimerSet 1.000000 TurnOff" />
+    <On Terms="TimerExpired; TimerName TurnOff" Send="StatusDecrement TurnedOn" />
+    <On Terms="TimerExpired; TimerName TurnOff" Target="Doodad_SamuroShowdownMachine_Loop" Send="Destroy" />
+    <MinimapIconScale value="0.000000" />
+    <StatusBarFlags index="Shields" value="0" />
+    <StatusBarFlags index="Life" value="0" />
+    <StatusBarFlags index="Energy" value="0" />
+    <StatusBarFlags index="Cargo" value="0" />
+    <StatusBarFlags index="Progress" value="0" />
+    <StatusBarFlags index="Duration" value="0" />
+    <StatusBarFlags index="Magazine" value="0" />
+    <StatusBarFlags index="Custom" value="0" />
+  </CActorUnit>
+  <CActorModel id="ArchangelBirthModelAddition" parent="ModelAnimationStyleContinuous">
+    <Model value="TerranArchangel" />
+    <On Terms="ActorCreation" Send="SetPlayerId 15" />
+    <On Terms="ActorCreation" Send="AnimPlay Infested Stand,Work PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="ActorCreation" Send="AnimPlay Birth Birth,A 0 0.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="ActorCreation" Send="TimerSet 7.062500 Transition" />
+    <On Terms="TimerExpired; TimerName Transition" Send="Create ElevatorUnhideArchangelRegion" />
+    <On Terms="TimerExpired; TimerName Transition" Send="Destroy Immediate" />
+    <Host Subject="::Creator" />
+    <HostSiteOps Ops="SOp45 SOp180 SOpMoveUpByDot22" />
+  </CActorModel>
+  <CActorSound id="Doodad_SamuroShowdownMachine_End" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Doodad_SamuroShowdownMachine_Loop" parent="SoundContinuous">
+    <Host Subject="::Creator" />
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Doodad_SamuroShowdownMachine_Start" parent="SoundOneShot">
+    <Host Subject="::Creator" />
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorUnit id="ArchangelElevatorPathingBlocker" parent="PathingBlocker" unitName="ArchangelElevatorPathingBlocker">
+    <EditorCategories value="DoodadType:Blocker" />
+    <EditorModel value="HeroRaynor" />
+  </CActorUnit>
+  <CActorBeamSimple id="CageAntennaActiveBeam" parent="BeamSimpleAnimationStyleContinuous">
+    <FogVisibility value="Visible" />
+    <On Terms="Effect.CageAntennaActivateCreatePersistent.Start" Send="Create" />
+    <On Terms="Effect.CageAntennaActivateCreatePersistent.Stop; FromEffectTreeDescendant" Send="AnimBracketStop BSD" />
+    <On Terms="Effect.CageAntennaActivateCreatePersistent.Stop; FromEffectTreeDescendant" Target="::HostLaunch" Send="Create StormSCBraxisCaptureCageChannelEndSound" />
+    <On Terms="Effect.CageAntennaActivateCreatePersistent.Stop; FromEffectTreeDescendant" Target="::HostImpact" Send="Create StormSCBraxisCaptureCageChannelEndSound" />
+    <On Terms="ActorCreation" Send="SetOpacity" />
+    <On Terms="ActorCreation" Send="SetOpacity 1.000000 0.500000" />
+    <Model value="GardensObeliskBeam" />
+    <HostLaunch Subject="_Unit" Scope="Caster" Actor="Find" />
+    <HostLaunchSiteOps Ops="SOpAttachHardPoint" />
+    <HostImpact Subject="_Unit" Scope="Target" Actor="Find" />
+    <HostImpactSiteOps Ops="SOpAttachHardPoint" />
+  </CActorBeamSimple>
+  <CActorUnit id="TerranRavenDefender">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Merc_Bruiser_Raven.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TerranRaven">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_WarheadJunction_Merc_Bruiser_Raven.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TerranGoliath">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_WarheadJunction_Merc_Bruiser_Goliath.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TerranHellbatDefender">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Merc_Siege.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TerranHellbat">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_WarheadJunction_Merc_Siege.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="FootmanMinion">
+    <WalkAnimMoveSpeed value="3.25" />
+  </CActorUnit>
+  <CActorUnit id="InvisibleBossPathingLine" parent="StormMinionStandard" unitName="InvisibleBossPathingLine">
+    <Model value="Invisible" />
+  </CActorUnit>
+  <CActorMissile id="MapArrowInvisibleMissile" parent="GenericAttackMissile" unitName="MapArrowInvisibleMissile">
+    <Model value="Invisible" />
+    <On Terms="ActorCreation" Send="Create Storm_Doodad_SCBraxis_MapArrow" />
+    <On Terms="ActorOrphan" Target="Storm_Doodad_SCBraxis_MapArrow" Send="Destroy" />
+    <Inherits index="CastShadows" value="1" />
+    <Inherits index="TeamColor" value="1" />
+  </CActorMissile>
+  <CActorUnit id="BraxisHoldoutSCV" parent="StormMinionStandard" unitName="BraxisHoldoutSCV">
+    <On Terms="ActorCreation" Send="SetShowStatusBar" />
+    <On Terms="ActorCreation" Send="AnimPlay Spell Stand,Work PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="ActorCreation" Send="SetMinimapVisibility" />
+    <On Terms="Signal.*.Mine" Send="AnimPlay Spell Stand,Work PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="UnitMovementUpdate.*.Stand" Send="AnimPlay Spell Stand,Work PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="UnitMovementUpdate.*.Walk" Send="AnimClear Spell" />
+    <On Terms="ActorCreation" Send="StatusSet CarryingMineral 0" />
+    <On Terms="UnitMovementUpdate.*.Walk; IsStatus CarryingMineral 0" Send="StatusSet CarryingMineral 1" />
+    <On Terms="UnitMovementUpdate.*.Stand; IsStatus CarryingMineral 1" Target="SCVCarriedMinerals" Send="Destroy" />
+    <On Terms="UnitMovementUpdate.*.Stand; IsStatus CarryingMineral 2" Send="StatusSet CarryingMineral 0" />
+    <On Terms="UnitMovementUpdate.*.Stand; IsStatus CarryingMineral 1" Send="StatusSet CarryingMineral 2" />
+    <On Terms="StatusOn.*.CarryingMineral" Send="Create SCVCarriedMinerals" />
+  </CActorUnit>
+  <CActorDoodad id="Storm_Doodad_SCBraxis_CageDecal">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_SCBraxis_CageDecals">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_SCBraxis_Factory">
+    <FogVisibility value="Dimmed" />
+  </CActorDoodad>
+  <CActorMinimap id="Storm_Doodad_SCBraxis_MapArrow">
+    <FogVisibility value="Visible" />
+    <Host Subject="_Unit" />
+    <Scale value="0.100000" />
+    <HostSiteOps Ops="SOpBasicScopeFollow" />
+    <Inherits index="TeamColor" value="1" />
+    <On Terms="ActorCreation" Send="AnimPlay Stand Stand PlayForever" />
+    <On Terms="ActorOrphan" Send="Destroy" />
+  </CActorMinimap>
+  <CActorSound id="Doodad_Core_Build_Start" parent="SoundOneShot" />
+  <CActorUnit id="KingsCore">
+    <On Terms="ActorCreation; PlayerId 11 11" Send="Create SCBraxisCoreBirthAdditionA" />
+    <On Terms="ActorCreation; PlayerId 12 12" Send="Create SCBraxisCoreBirthAdditionB" />
+    <On Terms="Signal.*.CoreBuild" Target="SCBraxisCoreBirthAdditionA" Send="AnimBracketStop BSD 0 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.CoreBuild" Target="SCBraxisCoreBirthAdditionB" Send="AnimBracketStop BSD 0 1.000000 AsTimeScale" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Core.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownTownHallL2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Fort.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownTownHallL3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Keep.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownMoonwellL2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Moonwell.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownMoonwellL3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Moonwell.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownCannonTowerL2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Tower_0.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownCannonTowerL3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Tower_1.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL215BRUL">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL215BLURBRVisionBlocked">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL315BRULBLVisionBlocked">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL315BRULTRVisionBlocked">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL3BRULTRVisionBlocked">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL3BLURBRVisionBlocked">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL3VerticalLeftVisionBlocked">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial4L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial5L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial7L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial9L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial16L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial17L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial19L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial2L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial3L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial4L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial5L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial6L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial8L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial14L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial15L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial16L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial17L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial18L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial20L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial21L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorModel id="SCBraxisCoreBirthAdditionA" parent="StormModelAnimationStyleOneShotUnit">
+    <FogVisibility value="Dimmed" />
+    <Remove Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death ContentPlayOnce" />
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD {} Stand,Work,A Stand,Work,End,A ClosingFull 1.000000 AsTimeScale" />
+    <Model value="SCBraxisCoreBirthAddition" />
+    <Inherits index="TeamColor" value="1" />
+  </CActorModel>
+  <CActorModel id="SCBraxisCoreBirthAdditionB" parent="StormModelAnimationStyleOneShotUnit">
+    <FogVisibility value="Dimmed" />
+    <Remove Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death ContentPlayOnce" />
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD {} Stand,Work,B Stand,Work,End,B ClosingFull 1.000000 AsTimeScale" />
+    <On Terms="ActorCreation" Send="TextureSelectById Pilot_Decal_Flash" />
+    <Model value="SCBraxisCoreBirthAddition" />
+    <Inherits index="TeamColor" value="1" />
+  </CActorModel>
+  <CActorSound id="UI_Game_Ping_BraxisHoldout_BeaconsComplete_Ally" parent="SoundOneShot">
+    <Filter index="Enemy" value="1" />
+  </CActorSound>
+  <CActorSound id="UI_Game_Ping_BraxisHoldout_BeaconsComplete_Enemy" parent="SoundOneShot">
+    <Filter index="Ally" value="1" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisCaptureCageLoopSound" parent="SoundContinuous">
+    <Sound value="Event_BraxisHoldout_HoldingPen_Loop" />
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisCaptureCageVoxLoopSound" parent="SoundContinuous">
+    <Sound value="Event_BraxisHoldout_HoldingPen_Vox_Loop" />
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisCaptureCageBeamSound" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Sound value="Event_BraxisHoldout_BeaconBeam_Channel" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <On Terms="Effect.CageAntennaActivateCreatePersistent.Start; At Target" Send="Create" />
+    <On Terms="Effect.CageAntennaActivateCreatePersistent.Stop" Send="Destroy" />
+    <HostSiteOps Ops="SOpAttachHardPoint" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisAntennaBeamSound" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Sound value="Event_BraxisHoldout_BeaconBeam_Channel" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <On Terms="Effect.CageAntennaActivateCreatePersistent.Start; At Caster" Send="Create" />
+    <On Terms="Effect.CageAntennaActivateCreatePersistent.Stop" Send="Destroy" />
+    <HostSiteOps Ops="SOpAttachHardPoint" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisCaptureCageChannelEndSound" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <Sound value="Event_BraxisHoldout_BeaconBeam_End" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_BraxisHoldout_HoldingPen_ReleaseVox_Distant" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="::Creator" />
+    <HostSiteOps Ops="SOpMoveForwardBy11" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisCaptureCageCloseSound" parent="SoundOneShot">
+    <Host Subject="::Creator" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <HostSiteOps Ops="SOpMoveForwardBy11" />
+    <Sound value="Event_BraxisHoldout_HoldingPen_Close" />
+    <Layers Sound="Event_BraxisHoldout_HoldingPen_GateGroan" />
+    <Layers Sound="UI_Game_Ping_BraxisHoldout_Transmission" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisEventStartSound" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="::Creator" />
+    <Sound value="" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisEventEndSound" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="::Creator" />
+    <Sound value="Event_BraxisHoldout_EventEnd" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorDoodad id="Storm_Doodad_SCBraxis_Cables">
+    <FogVisibility value="Visible" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <On Terms="Signal.*.Up; !AnimPlaying Up" Send="AnimPlay Up Stand,Morph,Start PlayForever" />
+    <On Terms="Signal.*.Down; !AnimPlaying Down" Send="AnimPlay Down Stand,Morph,End PlayForever" />
+    <On Terms="Signal.*.Captured; !AnimPlaying Captured" Send="AnimPlay Captured Stand,Morph PlayForever -1.000000 -1.000000 -1.000000 AsAutomatic 0.000000 5" />
+    <On Terms="Signal.*.Captured" Send="StatusSet TeamColor 1" />
+    <On Terms="Signal.*.Deactivate" Send="AnimClear Up" />
+    <On Terms="Signal.*.Deactivate" Send="AnimClear Down" />
+    <On Terms="Signal.*.Deactivate" Send="AnimClear Captured" />
+    <On Terms="Signal.*.Deactivate" Send="TimerSet 0.250000 Deactivate" />
+    <On Terms="TimerExpired; TimerName Deactivate; IsStatus TeamColor 1" Send="ClearTeamColor" />
+    <On Terms="TimerExpired; TimerName Deactivate" Send="StatusSet TeamColor 0" />
+    <Aliases value="_CreepEngulfable" />
+    <CreepHeightClass value="Default" />
+    <CreepRateGrow value="Grow" />
+    <CreepRateShrink value="Shrink" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_SCBraxis_CaptureCable">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <On Terms="Signal.*.Up" Send="StatusSet Active 1" />
+    <On Terms="Signal.*.Down" Send="StatusSet Active 1" />
+    <On Terms="Signal.*.Up" Send="AnimClear MorphEnd" />
+    <On Terms="Signal.*.Down" Send="AnimClear MorphEnd" />
+    <On Terms="Signal.*.Up" Send="AnimPlay UpStart Stand,Morph,Start 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.Down" Send="AnimPlay DownStart Stand,Morph,Start 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="AnimDone.*.Complete; AnimName DownStart" Send="AnimPlay Down Stand,Work PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="AnimDone.*.Complete; AnimName UpStart" Send="AnimPlay Up Stand,Morph PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.Order" Send="SetPlayerId 11" />
+    <On Terms="Signal.*.Chaos" Send="SetPlayerId 12" />
+    <On Terms="Signal.*.Off; IsStatus Active 1" Send="AnimClear Up" />
+    <On Terms="Signal.*.Off; IsStatus Active 1" Send="AnimClear Down" />
+    <On Terms="Signal.*.Off; IsStatus Active 1" Send="AnimClear DownStart" />
+    <On Terms="Signal.*.Off; IsStatus Active 1" Send="AnimClear UpStart" />
+    <On Terms="Signal.*.Off; IsStatus Active 1" Send="AnimPlay MorphEnd Stand,Morph,End 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.Off; IsStatus Active 1" Send="StatusSet Active 0" />
+    <FogVisibility value="Visible" />
+    <Aliases value="_CreepEngulfable" />
+    <CreepHeightClass value="Default" />
+    <CreepRateGrow value="Grow" />
+    <CreepRateShrink value="Shrink" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_SCBraxis_RoadArrow">
+    <On Terms="Signal.*.OwnerOrder" Send="SetPlayerId 11" />
+    <On Terms="Signal.*.OwnerChaos" Send="SetPlayerId 12" />
+    <On Terms="Signal.*.OwnerOrder" Send="AnimPlay Morph Stand,Morph PlayForever" />
+    <On Terms="Signal.*.OwnerChaos" Send="AnimPlay Morph Stand,Morph PlayForever" />
+    <On Terms="Signal.*.Reset" Send="AnimClear Morph" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_SCBraxis_Switch">
+    <FogVisibility value="Visible" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <On Terms="Signal.*.OneCaptured; IsStatus OneActive 0" Send="AnimPlay OneCaptured Stand,Morph,Start" />
+    <On Terms="Signal.*.OneCaptured" Send="StatusSet Active 1" />
+    <On Terms="Signal.*.OneCaptured" Send="StatusSet OneActive 1" />
+    <On Terms="Signal.*.OneCaptured" Send="AnimGroupApply Morph" />
+    <On Terms="Signal.*.TwoCaptured; IsStatus TwoActive 0" Send="AnimClear OneCaptured" />
+    <On Terms="Signal.*.TwoCaptured; IsStatus TwoActive 0" Send="AnimPlay TwoCaptured Stand,Morph,A" />
+    <On Terms="Signal.*.TwoCaptured; IsStatus TwoActive 0" Send="StatusSet TwoActive 1" />
+    <On Terms="AnimDone.*.Complete; AnimName TwoCaptured" Send="AnimGroupApply B" />
+    <On Terms="Signal.*.Deactivate; AnimPlaying OneCaptured" Send="AnimClear OneCaptured" />
+    <On Terms="Signal.*.Deactivate; AnimPlaying TwoCaptured" Send="AnimClear TwoCaptured" />
+    <On Terms="Signal.*.Deactivate" Send="StatusSet OneActive 0" />
+    <On Terms="Signal.*.Deactivate" Send="AnimGroupRemove Morph" />
+    <On Terms="Signal.*.Deactivate" Send="AnimGroupRemove B" />
+    <On Terms="Signal.*.Deactivate; IsStatus Active 1; !AnimPlaying End" Send="AnimPlay End Stand,Morph,End DontResetOnUnhide -1.000000 0.000000 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.Deactivate; IsStatus Active 1; AnimPlaying End" Send="StatusSet Active 0" />
+    <On Terms="AnimDone.*.Complete; AnimName End" Send="ClearTeamColor" />
+    <On Terms="Signal.*.SingleShrine" Send="StatusSet TwoCaptured 0" />
+    <On Terms="Signal.*.SingleShrine" Send="StatusSet TwoActive 0" />
+    <On Terms="Signal.*.SingleShrine" Send="AnimClear TwoCaptured" />
+    <On Terms="Signal.*.SingleShrine" Send="AnimGroupRemove B" />
+    <ModelFlags index="AnimationsDontResetOnUnhide" value="1" />
+  </CActorDoodad>
+  <CActorUnit id="TerranGoliathDefender">
+    <DeathArray index="Normal" SoundLink="SC2_Merc_Goliath_NeuralParasiteDeath" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Merc_Bruiser_Goliath.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorModel id="ZergBanelingMovementTrail" parent="StormModelAnimationStyleContinuousUnit">
+    <HostSiteOps Ops="SOpAttachHardPoint" />
+    <On Terms="ActorCreation" Send="SetVisibility" />
+  </CActorModel>
+  <CActorUnit id="ZergGuardian" parent="StormMinionStandard" unitName="ZergGuardian">
+    <On Terms="ActorCreation" Send="AnimPlay Birth Birth 0 0.000000" />
+    <On Terms="ActorCreation" Send="StatusSet Billboarded 1" />
+    <On Terms="WeaponStart.*.AttackStart" Send="Create ZergGuardianAttackLaunch" />
+    <On Terms="WeaponStart.*.AttackStart" Send="Create ZergGuardianAttackVOX" />
+    <On Terms="WeaponStart.*.AttackStart" Send="Create Event_BraxisHoldout_Guardian_AttackCharge" />
+    <On Terms="WeaponStart.*.AttackStart" Send="AnimPlay Spell Spell,Cover" />
+    <On Terms="Effect.ZergGuardianWeaponLaunchMissile.Start" Target="ZergGuardianAttackLaunch" Send="AnimBracketStop BSD" />
+    <On Terms="UnitMovementUpdate.*.Walk" Target="ZergGuardianAttackLaunch" Send="Destroy" />
+    <On Terms="UnitDeath" Send="Create ZergGuardianDeathVOX" />
+    <On Terms="Signal.*.ResetHost" Send="RefClear ::Host" />
+    <On Terms="Signal.*.ResetHost" Send="Create ZergGuardianBillboard" />
+    <On Terms="Signal.*.ResetHost" Send="RefSet ::Host ZergGuardianBillboard" />
+    <On Terms="Signal.*.ResetHost" Send="HostSiteOpsSet ::Host" />
+    <DeathActorModel value="UnitDeathModel" />
+    <DeathArray index="Normal" ModelLink="ZergGuardianDeath" SoundLink="Event_BraxisHoldout_Guardian_Death" />
+    <CustomUnitStatusFrame value="UnitStatus/SuperCreepUnitStatusFrameTemplate" />
+    <Host Subject="ZergGuardianBillboard" Actor="Create" />
+    <MinimapIconIsTeamColored value="1" />
+    <MinimapIcon value="Assets\Textures\blank.dds" />
+    <MinimapRenderPriority value="Merc" />
+    <UnitFlags index="ShowBlobShadow" value="0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Monsters_Guardian.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorAction id="ZergGuardianAttack" parent="GenericAttack" effectImpact="ZergGuardianWeaponImpactSet" effectLaunch="ZergGuardianWeaponLaunchMissile">
+    <LaunchAssets Model="" Sound="Event_BraxisHoldout_Guardian_AttackLaunch" />
+    <ImpactMap index="None" Sound="Event_BraxisHoldout_Guardian_AttackImpact" />
+    <LaunchAttachQuery Methods="AMFilterWeapon" />
+    <LaunchSiteOps Ops="SOpAttachWeapon" />
+  </CActorAction>
+  <CActorMissile id="ZergGuardianAttackMissile" parent="StormMissileWithDeath" unitName="ZergGuardianMissile">
+    <On Terms="ActorCreation" Send="Create ZergGuardianAttackMissileLoopSound" />
+    <On Terms="UnitDeath" Target="ZergGuardianAttackMissileLoopSound" Send="Destroy" />
+  </CActorMissile>
+  <CActorSound id="ZergGuardianAttackMissileLoopSound" parent="SoundContinuous">
+    <Host Subject="::Creator" />
+    <Sound value="Event_BraxisHoldout_Guardian_AttackMissile" />
+  </CActorSound>
+  <CActorSound id="ZergGuardianAttackVOX" parent="SoundOneShot">
+    <Host Subject="::Creator" />
+    <Sound value="Event_BraxisHoldout_Guardian_Vox_Attack" />
+  </CActorSound>
+  <CActorSound id="Event_BraxisHoldout_Guardian_AttackCharge" parent="SoundOneShot">
+    <Host Subject="::Creator" />
+  </CActorSound>
+  <CActorSound id="Event_BraxisHoldout_Hydralisk_Vox_Death" parent="SoundOneShot">
+    <Host Subject="::Creator" />
+  </CActorSound>
+  <CActorUnit id="ZergHydralisk" parent="StormMinionStandard" unitName="ZergHydralisk">
+    <Macros value="UnloadDropAnim" />
+    <Remove Terms="UnitDeathCustomize" Send="DeathCustomize RagdollBasic" />
+    <On Terms="ActorCreation" Send="AnimPlay UnBurrow Unburrow DontResetOnUnhide" />
+    <On Terms="ActorCreation" Send="Create ZergHydraliskUnburrowedSplat" />
+    <On Terms="Signal.*.Burrow" Send="AnimClear Attack" />
+    <On Terms="Signal.*.Burrow" Send="AnimClear Walk" />
+    <On Terms="Signal.*.Burrow" Send="AnimClear Unburrow" />
+    <On Terms="Signal.*.Burrow" Send="AnimPlay Burrow Burrow 0 0.000000 0.000000 1.000000 AsDuration" />
+    <On Terms="Signal.*.Burrow" Send="Create ZergHydraliskBurrowedSplat" />
+    <On Terms="Abil.attack.ReadyStart" Send="AnimGroupApply Ready" />
+    <On Terms="WeaponStart.ZergHydraliskMelee.AttackStart" Send="AnimPlay AttackCover Attack,Cover" />
+    <On Terms="WeaponStart.ZergHydraliskRanged.AttackStart" Send="AnimPlay Attack Attack" />
+    <On Terms="Abil.attack.ReadyStop" Send="AnimGroupRemove Ready" />
+    <On Terms="UnitMovementUpdate.*.Walk; AnimPlaying Attack" Send="AnimClear Attack" />
+    <On Terms="UnitMovementUpdate.*.Walk; AnimPlaying Unburrow" Send="AnimClear Unburrow" />
+    <On Terms="UnitBirth" Send="AnimPlay Burrow Unburrow" />
+    <On Terms="UnitBirth" Send="Create ZergHydraliskUnburrowSound" />
+    <On Terms="UnitDeathCustomize; !Death Timeout" Send="DeathCustomize RagdollBasic" />
+    <On Terms="WeaponStart.*.AttackStart" Send="Create ZergHydraliskAttackVOX" />
+    <On Terms="UnitMovementUpdate.*.Stand" Send="TimerSet 3.000000 IdleCheck" />
+    <On Terms="UnitMovementUpdate.*.Walk" Send="TimerKill IdleCheck" />
+    <On Terms="UnitDeath" Send="Create Event_BraxisHoldout_Hydralisk_Vox_Death" />
+    <DeathArray index="Normal" ModelLink="ZergHydraliskDeath" SoundLink="Event_BraxisHoldout_Hydralisk_Death" />
+    <ImpactSound value="Pet_Large_Dry_Impact" />
+    <WalkAnimMoveSpeed value="2.086" />
+    <MinimapIcon value="Assets\Textures\blank.dds" />
+    <MinimapIconIsTeamColored value="1" />
+    <MinimapRenderPriority value="Merc" />
+    <SoundArray index="Movement" value="Event_BraxisHoldout_Hydralisk_Movement" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Monsters_Hydralisk.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorSound id="ZergHydraliskIdleVOX" parent="SoundOneShot">
+    <Host Subject="::Creator" />
+    <Sound value="Event_BraxisHoldout_Hydralisk_Vox_Movement" />
+  </CActorSound>
+  <CActorSound id="ZergHydraliskAttackVOX" parent="SoundOneShot">
+    <Host Subject="::Creator" />
+    <Sound value="Event_BraxisHoldout_Hydralisk_Vox_Attack" />
+  </CActorSound>
+  <CActorSound id="ZergGuardianDeathVOX" parent="SoundOneShot">
+    <Host Subject="::Creator" />
+    <Sound value="Event_BraxisHoldout_Guardian_Vox_Death" />
+  </CActorSound>
+  <CActorUnit id="ZergUltralisk" parent="StormMinionStandard" unitName="ZergUltralisk">
+    <Macros value="UnloadDropAnim" />
+    <Remove Terms="WeaponStart.*.AttackStart" Send="AnimPlay Attack Attack" />
+    <Remove Terms="WeaponStart.*.AttackStart; AnimPlaying Birth" Send="AnimClear Birth" />
+    <On Terms="ActorCreation" Send="StatusSet WeaponNext 0" />
+    <On Terms="WeaponStart.*.AttackStart" Send="StatusIncrement WeaponNext" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus WeaponNext 3" Send="StatusSet WeaponNext 0" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus WeaponNext 0" Send="AnimClear AttackMid" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus WeaponNext 0" Send="AnimPlay AttackLeft Attack,01" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus WeaponNext 1" Send="AnimClear AttackLeft" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus WeaponNext 1" Send="AnimPlay AttackRight Attack,00" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus WeaponNext 2" Send="AnimClear AttackRight" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus WeaponNext 2" Send="AnimPlay AttackMid Attack,02" />
+    <On Terms="Effect.ZergUltraliskWeaponDamage.Start; At Caster; IsStatus WeaponNext 2" Send="Create ZergUltraliskAttackMid" />
+    <On Terms="Effect.ZergUltraliskWeaponDamage.Start; At Caster; IsStatus WeaponNext 0" Send="Create ZergUltraliskAttackLeft" />
+    <On Terms="Effect.ZergUltraliskWeaponDamage.Start; At Caster; IsStatus WeaponNext 1" Send="Create ZergUltraliskAttackRight" />
+    <On Terms="Signal.*.Burrow" Send="AnimClear Attack" />
+    <On Terms="Signal.*.Burrow" Send="AnimClear Walk" />
+    <On Terms="Signal.*.Burrow" Send="AnimClear Unburrow" />
+    <On Terms="Signal.*.Burrow" Send="AnimPlay Burrow Burrow 0 0.000000 0.000000 1.000000 AsDuration" />
+    <On Terms="WeaponStart.ZergUltraliskWeapon.AttackStart; AnimPlaying Unburrow" Send="AnimClear Unburrow" />
+    <On Terms="UnitMovementUpdate.*.Walk; AnimPlaying Attack" Send="AnimClear Attack" />
+    <On Terms="UnitMovementUpdate.*.Walk; AnimPlaying Unburrow" Send="AnimClear Unburrow" />
+    <On Terms="UnitBirth" Send="AnimPlay Birth Birth" />
+    <On Terms="UnitDeath; HasStatus Released" Send="Create ZergUltraliskDeathVOX" />
+    <DeathArray index="Normal" ModelLink="ZergUltraliskDeath" SoundLink="Event_BraxisHoldout_Ultralisk_Death" />
+    <WalkAnimMoveSpeed value="4" />
+    <CustomUnitStatusFrame value="UnitStatus/SuperCreepUnitStatusFrameTemplate" />
+    <MinimapIcon value="Assets\Textures\blank.dds" />
+    <MinimapIconIsTeamColored value="1" />
+    <MinimapRenderPriority value="Merc" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Monsters_Ultralisk.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorSound id="ZergUltraliskDeathVOX" parent="SoundOneShot">
+    <Host Subject="::Creator" />
+    <Sound value="Event_BraxisHoldout_Ultralisk_Vox_Death" />
+  </CActorSound>
+  <CActorModel id="ZergInfestation" parent="StormModelAnimationStyleContinuous">
+    <On Terms="Behavior.ZergInfested.On" Send="Create" />
+    <On Terms="Behavior.ZergInfested.Off" Send="AnimBracketStop BSD" />
+    <On Terms="ActorCreation" Target="_Unit" Send="SetShowStatusBar" />
+    <On Terms="ActorCreation" Send="TimerSet 0.062500 StatusBar" />
+    <On Terms="TimerExpired; TimerName StatusBar" Target="_Unit" Send="SetShowStatusBar 1" />
+    <On Terms="ActorCreation" Send="AnimPlay Birth Birth,00 PlayForever,VariationMatch" />
+    <On Terms="ActorCreation" Send="SetTintColor 160,160,160" />
+    <On Terms="ActorCreation" Target="_Unit" Send="SetTintColor 160,160,160" />
+    <HostSiteOps Ops="SOpAttachHead" />
+    <Host Subject="_Unit" />
+  </CActorModel>
+  <CActorModel id="ZergInfestationStasis" parent="StormModelAnimationStyleContinuous">
+    <On Terms="Behavior.ZergInfestationStasis.On" Send="Create" />
+    <On Terms="Behavior.ZergInfestationStasis.Off" Send="AnimBracketStop BSD" />
+    <On Terms="ActorCreation" Send="AnimSetTimeScaleGlobal 2.000000 Stand" />
+    <On Terms="AnimBracketState.*.AfterClosing; !AnimBracketExitReason ModelSwap; AnimName BSD" Send="AnimClearTimeScaleGlobal Stand" />
+  </CActorModel>
+  <CActorDoodad id="Storm_Doodad_SCBraxis_CentralElevator">
+    <RandomScaleRange value="1.000000,1.000000" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <On Terms="ActorCreation" Send="StatusSet Closed 0" />
+    <On Terms="Signal.*.Up; IsStatus Closed 0" Send="AnimPlay SpellStart Stand,Work,Start 0 0.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.Up; IsStatus Closed 0" Send="Create ArchangelBirthModelAddition" />
+    <On Terms="Signal.*.Up; IsStatus Closed 0" Send="StatusSet Closed 1" />
+    <On Terms="AnimDone.*.Complete; AnimName SpellStart" Send="AnimPlay Spell Stand,Work PlayForever 0.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.Down" Send="AnimClear Spell" />
+    <On Terms="Signal.*.Down" Send="AnimPlay SpellEnd Stand,Work,End" />
+    <On Terms="AnimDone.*.Complete; AnimName SpellEnd" Send="AnimSetTime ::Baseline" />
+    <On Terms="Signal.*.Down" Send="StatusSet Closed 0" />
+    <Flags index="SuppressSaveLoad" value="0" />
+  </CActorDoodad>
+  <CActorSound id="Doodad_CentralElevator_Up" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorRegionCircle id="ElevatorUnhideArchangelRegion">
+    <Radius value="2.000000" />
+    <On Terms="ActorCreation" Send="QueryRegion ::Self ElevatorUnhideArchangelRegionQuery" />
+    <On Terms="ActorCreation" Send="Destroy" />
+  </CActorRegionCircle>
+  <CActorQueryResponse id="ElevatorUnhideArchangelRegionQuery">
+    <Subject Filters="Unit" Terms="ScopeContains _Archangel" />
+    <OnResponse Target="_Archangel" Send="Signal ElevatorTransition" />
+  </CActorQueryResponse>
+  <CActorUnit id="ZergHiveControlBeacon" parent="GenericUnitStandard" unitName="ZergHiveControlBeacon">
+    <BarOffset value="0" />
+    <UnitFlags index="ShowBlobShadow" value="0" />
+    <UnitFlags index="SuppressDefaultStatusBar" value="1" />
+    <CustomUnitStatusFrame value="UnitStatus/CaptureBeaconSingleNotchUnitStatusFrame" />
+    <Aliases value="_WatchTowerPillar" />
+    <On Terms="Signal.*.OwnerOrder" Send="AnimPlay Spell Spell" />
+    <On Terms="Signal.*.OwnerChaos" Send="AnimPlay Spell Spell" />
+    <On Terms="Signal.*.Show" Send="SetVisibility 1" />
+    <On Terms="Signal.*.Hide" Send="SetVisibility" />
+    <MinimapUnitStatusFrame value="HoldOut/RadarWaves" />
+    <MinimapIconIsTeamColored value="1" />
+    <MinimapIconScale value="0.800000" />
+  </CActorUnit>
+  <CActorModel id="ZergGroundFX" parent="StormModelAnimationStyleContinuous" />
+  <CActorDoodad id="Storm_Doodad_SCBraxis_CaptureSlab">
+    <On Terms="Signal.*.EventStart; IsStatus Activated 0" Send="AnimBracketStart Morph Stand,Morph,Start Stand,Morph Stand,Morph,End DontResetOnUnhide 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.EventStart; IsStatus Activated 0" Send="Create StormSCBraxisEventStartSound" />
+    <On Terms="Signal.*.EventStart; IsStatus Activated 0" Send="SetPlayerId" />
+    <On Terms="Signal.*.EventStart; IsStatus Activated 0" Send="StatusSet Activated 1" />
+    <On Terms="Signal.*.BeaconCapturedOrder" Send="SetPlayerId 11" />
+    <On Terms="Signal.*.BeaconCapturedChaos" Send="SetPlayerId 12" />
+    <On Terms="Signal.*.BeaconCapturedNeutral" Send="SetPlayerId" />
+    <On Terms="Signal.*.BeaconCapturedOrder" Send="Create StormSCBraxisBeaconControlPositiveSound" />
+    <On Terms="Signal.*.BeaconCapturedNeutral" Send="Create StormSCBraxisBeaconControlNeutralSound" />
+    <On Terms="Signal.*.BeaconCapturedChaos" Send="Create StormSCBraxisBeaconControlNegativeSound" />
+    <On Terms="Signal.*.BothBeaconsCaptured" Send="AnimBracketStart Work Stand,Work,Start Stand,Work Stand,Work,End DontResetOnUnhide 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.BothBeaconsNoLongerCaptured" Send="AnimBracketStop Work" />
+    <On Terms="Signal.*.EventStop" Send="StatusSet Activated 0" />
+    <On Terms="Signal.*.StageDone" Send="AnimBracketStop Work Instant" />
+    <On Terms="Signal.*.StageDone" Send="AnimBracketStop Morph" />
+    <On Terms="Signal.*.EventDoneResetOwnership" Send="TimerSet 3.000000 ResetToNeutral" />
+    <On Terms="TimerExpired; TimerName ResetToNeutral" Send="Signal BeaconCapturedNeutral" />
+    <ModelFlags index="AnimationsDontResetOnUnhide" value="1" />
+  </CActorDoodad>
+  <CActorSound id="StormSCBraxisBeaconBeamActivatedAllySound" parent="SoundOneShot">
+    <Filter index="Enemy" value="1" />
+    <Sound value="Event_BraxisHoldout_BeaconBeam_Activated_Ally" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisBeaconBeamActivatedEnemySound" parent="SoundOneShot">
+    <Filter index="Self" value="1" />
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Sound value="Event_BraxisHoldout_BeaconBeam_Activated_Enemy" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisBeaconControlNegativeSound" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Sound value="Event_BraxisHoldout_BeaconControl_Negative" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisBeaconControlNeutralSound" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Sound value="Event_BraxisHoldout_BeaconControl_Neutral" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisBeaconControlPositiveSound" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Sound value="Event_BraxisHoldout_BeaconControl_Positive" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisBeaconControlPlayerSound" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Sound value="Event_BraxisHoldout_BeaconControl_PLR" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+  </CActorSound>
+  <CActorSound id="StormSCBraxisEventAlarmSound" parent="SoundOneShot">
+    <Sound value="Event_BraxisHoldout_Alarm_Loop" />
+  </CActorSound>
+  <CActorSound id="Event_BraxisHoldout_EventStart" parent="SoundOneShot" />
+  <CActorSound id="Event_BraxisHoldout_HoldingPen_Release_Strong" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Host Subject="::Creator" />
+    <HostSiteOps Ops="SOpMoveForwardBy11" />
+  </CActorSound>
+  <CActorSound id="Event_BraxisHoldout_HoldingPen_Release_Weak" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Host Subject="::Creator" />
+    <HostSiteOps Ops="SOpMoveForwardBy11" />
+  </CActorSound>
+  <CActorUnit id="StormSCBraxisCaptureAntenna" parent="StormMinionBase" unitName="StormSCBraxisCaptureAntenna">
+    <On Terms="ActorCreation" Send="SetMinimapVisibility" />
+    <On Terms="ActorCreation" Send="SetShowStatusBar" />
+    <On Terms="Signal.*.EventStart" Send="AnimPlay MorphStart Stand,Morph,Start" />
+    <On Terms="AnimDone.*.Complete; AnimName MorphStart" Send="AnimPlay Active Morph PlayForever" />
+    <On Terms="Signal.*.LeftUp" Send="AnimBracketStart Morph Morph,Left,Up,Start Morph,Left,Up Morph,Left,Up,End 0 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.LeftDown" Send="AnimBracketStart Morph Morph,Left,Down,Start Morph,Left,Down Morph,Left,Down,End 0 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.RightUp" Send="AnimBracketStart Morph Morph,Right,Up,Start Morph,Right,Up Morph,Right,Up,End 0 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.RightDown" Send="AnimBracketStart Morph Morph,Right,Down,Start Morph,Right,Down Morph,Right,Down,End 0 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.BothBeaconsNoLongerCaptured" Send="AnimBracketStop Morph 0 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.EventDone" Send="StatusSet EventDone 1" />
+    <On Terms="Signal.*.EventDone" Send="AnimClear Active" />
+    <On Terms="Signal.*.EventDone; !AnimPlaying Morph" Send="AnimPlay MorphEnd Stand,Morph,End" />
+    <On Terms="AnimBracketState.*.AfterClosing; !AnimBracketExitReason ModelSwap; AnimName Morph; IsStatus EventDone 1" Send="AnimPlay MorphEnd Stand,Morph,End" />
+    <On Terms="AnimDone.*.Complete; AnimName MorphEnd" Send="StatusSet EventDone 0" />
+  </CActorUnit>
+  <CActorUnit id="StormSCBraxisCaptureCage" parent="StormMinionBase" unitName="StormSCBraxisCaptureCage">
+    <On Terms="ActorCreation" Send="SetMinimapVisibility 1" />
+    <On Terms="ActorCreation" Send="SetShowStatusBar" />
+    <On Terms="ActorCreation" Send="Create StormSCBraxisCaptureCageLoopSound" />
+    <On Terms="Signal.*.Open" Target="StormSCBraxisCaptureCageLoopSound" Send="Destroy" />
+    <On Terms="Signal.*.Open" Send="AnimPlay Open Stand,Morph PlayForever,DontResetOnUnhide -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.Open" Send="Create Event_BraxisHoldout_HoldingPen_ReleaseVox_Distant" />
+    <On Terms="Signal.*.Open" Send="Create UI_Game_Ping_BraxisHoldout_BeaconsComplete_Ally" />
+    <On Terms="Signal.*.Open" Send="Create UI_Game_Ping_BraxisHoldout_BeaconsComplete_Enemy" />
+    <On Terms="Signal.*.OpenSoundWinningTeam" Send="Create Event_BraxisHoldout_EventStart" />
+    <On Terms="Signal.*.OpenSoundWinningTeam" Send="Create Event_BraxisHoldout_HoldingPen_Release_Strong" />
+    <On Terms="Signal.*.OpenSoundLosingTeam" Send="Create Event_BraxisHoldout_HoldingPen_Release_Weak" />
+    <On Terms="Signal.*.OpenRightGate" Send="AnimPlay OpenRightGate Cover,A,Start PlayForever,NonLooping,DontResetOnUnhide -1.000000 0.000000 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.OpenLeftGate" Send="AnimPlay OpenLeftGate Cover,B,Start PlayForever,NonLooping,DontResetOnUnhide -1.000000 0.000000 1.000000 AsTimeScale" />
+    <On Terms="AnimDone.*.Complete; AnimName OpenRightGate" Send="StatusSet RightGateOpen 1" />
+    <On Terms="AnimDone.*.Complete; AnimName OpenLeftGate" Send="StatusSet LeftGateOpen 1" />
+    <On Terms="Signal.*.Close" Send="AnimClear Open 0.000000" />
+    <On Terms="Signal.*.Close" Send="AnimPlay Close Stand,Morph,End DontResetOnUnhide 0.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.Close" Send="Create StormSCBraxisCaptureCageLoopSound" />
+    <On Terms="Signal.*.Close" Send="Create StormSCBraxisCaptureCageCloseSound" />
+    <On Terms="Signal.*.Close" Send="Signal CloseLeftGate" />
+    <On Terms="Signal.*.Close" Send="Signal CloseRightGate" />
+    <On Terms="Signal.*.CloseRightGate; IsStatus RightGateOpen 1" Send="AnimClear OpenRightGate" />
+    <On Terms="Signal.*.CloseLeftGate; IsStatus LeftGateOpen 1" Send="AnimClear OpenLeftGate" />
+    <On Terms="Signal.*.CloseRightGate; IsStatus RightGateOpen 1" Send="AnimPlay RightGateClose Cover,A,End DontResetOnUnhide 0.000000 0.000000 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.CloseLeftGate; IsStatus LeftGateOpen 1" Send="AnimPlay LeftGateClose Cover,B,End DontResetOnUnhide 0.000000 0.000000 1.000000 AsTimeScale" />
+    <On Terms="AnimDone.*.Complete; AnimName RightGateClose" Send="StatusSet RightGateClose 0" />
+    <On Terms="AnimDone.*.Complete; AnimName LeftGateClose" Send="StatusSet LeftGateClose 0" />
+    <On Terms="Effect.CageAntennaActivateCreatePersistent.Start" Send="AnimBracketStart Light Stand,Work,Start Stand,Work Stand,Work,End 0 1.000000 AsTimeScale" />
+    <On Terms="Effect.CageAntennaActivateCreatePersistent.Stop" Send="AnimBracketStop Light" />
+    <On Terms="Signal.*.BothBeaconsCaptured" Send="Create StormSCBraxisEventAlarmSound" />
+    <On Terms="Signal.*.BothBeaconsNoLongerCaptured" Target="StormSCBraxisEventAlarmSound" Send="Destroy" />
+    <On Terms="Signal.*.BothBeaconsCaptured" Send="Create StormSCBraxisBeaconBeamActivatedAllySound" />
+    <On Terms="Signal.*.BothBeaconsCaptured" Send="Create StormSCBraxisBeaconBeamActivatedEnemySound" />
+    <FogVisibility value="Visible" />
+    <MinimapUnitStatusFrame value="HoldOut/HoldingPen" />
+    <MinimapIconIsTeamColored value="1" />
+  </CActorUnit>
+  <CActorSimple id="ZergStasisVisualSimple">
+    <On Terms="Behavior.ZergStasisBehavior.On" Send="Create" />
+    <On Terms="Behavior.ZergStasisBehavior.Off" Send="Destroy" />
+    <On Terms="ActorCreation" Target="_Unit" Send="SetShowStatusBar" />
+    <On Terms="Behavior.ZergStasisBehavior.Off" Target="_Unit" Send="SetShowStatusBar 1" />
+  </CActorSimple>
+  <CActorUnit id="RegenGlobeGenerator">
+    <On Terms="Signal.*.RegenGlobeDurationRefreshed" Send="TimerSet 42.500000 GeneratingGlobe" />
+    <On Terms="Behavior.GenerateRegenGlobe.On" Send="TimerSet 42.500000 GeneratingGlobe" />
+    <On Terms="TimerExpired; TimerName GeneratingGlobe" Send="AnimBracketStart Spell Stand,Morph,Start Stand,Morph Stand,Morph,End 0 1.000000 AsTimeScale" />
+    <On Terms="Effect.GenerateRegenGlobeAddBehaviortoGenerator.Start" Send="AnimBracketStop Spell 0 1.000000 AsTimeScale" />
+  </CActorUnit>
+  <CActorSound id="ZergZerglingAttackVOX" parent="SoundOneShot">
+    <Host Subject="::Creator" />
+    <Sound value="Event_BraxisHoldout_Zergling_Vox_Attack" />
+  </CActorSound>
+  <CActorUnit id="ZergZergling" parent="StormMinionStandard" unitName="ZergZergling">
+    <On Terms="ActorCreation" Send="AnimPlay Birth Unburrow 0 0.000000" />
+    <On Terms="WeaponStart.*.AttackStart" Send="Create ZergZerglingAttackVOX" />
+    <On Terms="WeaponStart.*.AttackStart" Send="Create Event_BraxisHoldout_Zergling_Attack_Launch" />
+    <DeathArray index="Normal" ModelLink="ZergZerglingDeath" SoundLink="Event_BraxisHoldout_Zergling_Death" />
+    <WalkAnimMoveSpeed value="5.75" />
+    <MinimapIcon value="Assets\Textures\blank.dds" />
+    <MinimapIconIsTeamColored value="1" />
+    <MinimapRenderPriority value="Merc" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Monsters_Zergling.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorSound id="Event_BraxisHoldout_Zergling_Attack_Launch" parent="SoundOneShot" />
+  <CActorModel id="ArchangelAttackLaunchModel" parent="GenericAttackLaunchModel">
+    <On Terms="ActorCreation" Send="Destroy" />
+  </CActorModel>
+  <CActorSound id="ArchangelMortarImpactSound" parent="SoundOneShot">
+    <On Terms="Effect.TerranArchangelDefenderMortarImpactSearch.Start" Send="Create" />
+    <Sound value="Merc_Archangel_Mortar_Impact" />
+  </CActorSound>
+  <CActorSound id="TerranArchangelAttackImpactSound" parent="SoundOneShot">
+    <Sound value="Merc_Archangel_AttackImpact" />
+  </CActorSound>
+  <CActorSound id="TerranArchangelAttackLaunchEndSound" parent="SoundOneShot">
+    <Sound value="Merc_Archangel_AttackLaunch_End" />
+  </CActorSound>
+  <CActorSound id="TerranArchangelAttackLaunchSound" parent="SoundContinuous">
+    <Sound value="Merc_Archangel_AttackLaunch" />
+    <On Terms="ActorDestruction" Send="Create TerranArchangelAttackLaunchEndSound" />
+  </CActorSound>
+  <CActorSound id="TerranArchangelBulletstormChargeSound" parent="SoundOneShot">
+    <Sound value="Merc_Archangel_BulletStorm_Charge" />
+  </CActorSound>
+  <CActorSound id="TerranArchangelBulletstormEndSound" parent="SoundOneShot">
+    <Sound value="Merc_Archangel_BulletStorm_End" />
+  </CActorSound>
+  <CActorSound id="TerranArchangelBulletstormImpactSound" parent="SoundOneShot">
+    <Sound value="Merc_Archangel_BulletStorm_Impact" />
+    <Terms value="Cap 1" />
+  </CActorSound>
+  <CActorSound id="TerranArchangelBulletstormLaunchSound" parent="SoundContinuous">
+    <Sound value="Merc_Archangel_BulletStorm_Launch" />
+    <Host Subject="_Unit" />
+  </CActorSound>
+  <CActorSound id="ArchangelBulletstormMechStartSound" parent="SoundOneShot">
+    <Sound value="Merc_Archangel_BulletStorm_MechStart" />
+  </CActorSound>
+  <CActorSound id="TerranArchangelIdleSound" parent="SoundContinuous">
+    <Sound value="Merc_Archangel_IdleLoop" />
+    <Terms value="Cap 1" />
+  </CActorSound>
+  <CActorSound id="TerranArchangelLanerSpawnSound" parent="SoundOneShot">
+    <Sound value="Merc_Archangel_Vox_Birth" />
+  </CActorSound>
+  <CActorSound id="TerranArchangelDefenderSpawnSound" parent="SoundOneShot">
+    <Sound value="Merc_Archangel_Vox_Birth" />
+  </CActorSound>
+  <CActorSound id="ArchangelLanerBirthSound" parent="SoundOneShot">
+    <Sound value="Merc_Archangel_Spawn_Laner" />
+  </CActorSound>
+  <CActorSound id="ArchangelDefenderBirthSound" parent="SoundOneShot">
+    <Sound value="Merc_Archangel_Spawn_Defender" />
+  </CActorSound>
+  <CActorSound id="TerranArchangelVoxAttackSound" parent="SoundOneShot">
+    <Sound value="Merc_Archangel_Vox_Attack" />
+  </CActorSound>
+  <CActorSound id="TerranArchangelVoxIdleSound" parent="SoundOneShot">
+    <Sound value="Merc_Archangel_Vox_Idle" />
+  </CActorSound>
+  <CActorUnit id="TerranArchangelDefender" parent="StormCreepStandard" unitName="TerranArchangelDefender">
+    <Aliases value="_Archangel" />
+    <On Terms="ActorCreation" Send="SetVisibility" />
+    <On Terms="ActorCreation" Send="Create ArchangelDefenderBirthSound" />
+    <On Terms="ActorCreation" Send="AnimPlay Infested Stand,Work PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Behavior.JungleMercDefenderBirthInvulnerability.On" Send="SetShowStatusBar" />
+    <On Terms="Behavior.JungleMercDefenderBirthInvulnerability.Off" Send="SetShowStatusBar 1" />
+    <On Terms="Signal.*.ElevatorTransition" Send="SetVisibility 1" />
+    <On Terms="Signal.*.ElevatorTransition; IsStatus NoElevatorBirth 0" Send="AnimPlay BirthSpell Birth,A 0 0.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.ElevatorTransition; IsStatus NoElevatorBirth 0" Send="AnimSetTime BirthSpell 7.062500" />
+    <On Terms="Signal.*.ElevatorTransition" Send="StatusSet Transitioned 1" />
+    <On Terms="Signal.*.FlyingBirth" Send="AnimPlay BirthSpell Birth,B 0 0.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.FlyingBirth" Send="StatusSet NoElevatorBirth 1" />
+    <On Terms="ActorCreation" Send="TimerSet 3.000000 FailSafe" />
+    <On Terms="TimerExpired; TimerName FailSafe; IsStatus Transitioned 0" Send="Create ElevatorUnhideArchangelRegion" />
+    <On Terms="Abil.TerranArchangelDefenderBulletstorm.SourceCastStart" Target="TerranArchangelAttackLaunchSound" Send="Destroy" />
+    <On Terms="Abil.TerranArchangelDefenderBulletstorm.SourceCastStart" Send="Create TerranArchangelBulletstormChargeSound" />
+    <On Terms="Abil.TerranArchangelDefenderBulletstorm.SourceCastStart" Send="Create ArchangelBulletstormMechStartSound" />
+    <On Terms="Abil.TerranArchangelDefenderBulletstorm.SourceCastStart" Send="AnimBracketStart Spell Spell,Channel,Start Spell,Channel Spell,Channel,End OpeningPlayForever 1.000000 AsTimeScale" />
+    <On Terms="Abil.TerranArchangelDefenderBulletstorm.SourceCastStart" Send="TimerSet 0.700000 Bulletstorm" />
+    <On Terms="TimerExpired; TimerName Bulletstorm" Send="AnimPlay SpellAttack Attack PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="TimerExpired; TimerName Bulletstorm" Send="Create TerranArchangelBulletstormLaunchSound" />
+    <On Terms="Abil.TerranArchangelDefenderBulletstorm.SourceFinishStart" Send="AnimBracketStop Spell" />
+    <On Terms="Abil.TerranArchangelDefenderBulletstorm.SourceFinishStart" Send="AnimClear SpellAttack" />
+    <On Terms="Abil.TerranArchangelDefenderBulletstorm.SourceFinishStart" Target="TerranArchangelBulletstormLaunchSound" Send="Destroy" />
+    <On Terms="Abil.TerranArchangelDefenderBulletstorm.SourceFinishStart; AnimPlaying Attack Attack" Send="Create TerranArchangelAttackLaunchSound" />
+    <On Terms="Abil.TerranArchangelDefenderBulletstorm.SourceFinishStart" Send="Create TerranArchangelBulletstormEndSound" />
+    <On Terms="Effect.TerranArchangelDefenderMortarWarningPersistent.Start; At Caster" Send="AnimPlay Mortar Spell 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="WeaponStart.*.AttackStart; !AnimPlaying Attack Attack; ValidateUnit NoJunglePassive" Send="Create TerranArchangelAttackLaunchSound" />
+    <On Terms="WeaponStart.*.AttackStart; !AnimPlaying Attack Attack; ValidateUnit NoJunglePassive" Send="AnimPlay Attack Attack PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.attack.ReadyStop" Send="AnimClear Attack" />
+    <On Terms="UnitMovementUpdate.*.Walk" Target="TerranArchangelAttackLaunchSound" Send="Destroy" />
+    <On Terms="UnitMovementUpdate.*.Walk" Send="AnimClear Attack" />
+    <On Terms="Behavior.JungleCreepPassive.On" Target="TerranArchangelAttackLaunchSound" Send="Destroy" />
+    <On Terms="Behavior.JungleCreepPassive.On" Send="AnimClear Attack" />
+    <On Terms="Behavior.JungleCreepPassive.On" Send="Create TerranArchangelIdleSound" />
+    <On Terms="Behavior.JungleCreepPassive.Off" Send="Create TerranArchangelVoxAttackSound" />
+    <On Terms="Behavior.JungleCreepPassive.Off" Target="TerranArchangelIdleSound" Send="Destroy" />
+    <On Terms="ActorCreation" Send="Create TerranArchangelDefenderSpawnSound" />
+    <Remove Terms="WeaponStart.*.AttackStart" Send="AnimPlay Attack Attack" />
+    <Model value="TerranArchangel" />
+    <BuildModel value="TerranArchangel" />
+    <DeathArray index="Normal" ModelLink="TerranArchangelDeath" SoundLink="Merc_Archangel_Death" VoiceLink="Merc_Archangel_Vox_Death" />
+    <PlacementModel value="TerranArchangel" />
+    <CustomUnitStatusFrame value="UnitStatus/SuperCreepNeutralUnitStatusFrameTemplate" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Boss.dds" />
+    </GroupIcon>
+    <UnitIcon value="Assets\Textures\storm_ui_icon_gamerecap_herokilled_outline.dds" />
+    <ModelFlags index="OutlineOccluder" value="1" />
+    <DeathActorModel value="ArchangelDefenderDeathActor" />
+    <DeathActorModelLow value="ArchangelDefenderDeathActorLowQuality" />
+    <InfoText value="Actor/InfoText/TerranArchangelDefender" />
+  </CActorUnit>
+  <CActorMissile id="TerranArchangelDefenderRangedAttackMissile" parent="StormMissileWithDeathEarly" unitName="TerranArchangelDefenderRangedWeapon">
+    <Model value="TerranArchangelDefenderMissile" />
+  </CActorMissile>
+  <CActorAction id="TerranArchangelDefenderRangedAttack" parent="GenericAttackStorm" effectImpact="TerranArchangelDefenderRangedDamage" effectLaunch="TerranArchangelDefenderLaunchMissile">
+    <ImpactMap index="None" Model="TerranArchangelDefenderAttackImpact" Sound="Merc_Archangel_AttackImpact" />
+    <ImpactMap index="Rock" Model="TerranArchangelDefenderAttackImpact" Sound="Merc_Archangel_AttackImpact" />
+    <LaunchAssets Model="TerranArchangelDefenderAttackLaunch" Sound="" />
+    <LaunchAttachQuery Methods="AMFilterWeaponLeft" />
+    <LaunchSiteOps Ops="SOpAttachWeaponLeft" />
+    <ActionFlags index="ImpactSuppressUnitSound" value="1" />
+    <LaunchSound value="" />
+    <LaunchModel value="ArchangelAttackLaunchModel" />
+  </CActorAction>
+  <CActorAction id="TerranArchangelDefenderRightDummyRangedAttack" parent="GenericAttackStorm" effectImpact="TerranArchangelDefenderRightDummyPersistent" effectLaunch="TerranArchangelDefenderRightDummyLaunchMissile">
+    <ImpactMap index="None" Model="TerranArchangelDefenderAttackImpact" Sound="Merc_Archangel_AttackImpact" />
+    <ImpactMap index="Rock" Model="TerranArchangelDefenderAttackImpact" Sound="Merc_Archangel_AttackImpact" />
+    <LaunchAssets Model="TerranArchangelDefenderAttackLaunch" Sound="" />
+    <LaunchAttachQuery Methods="AMFilterWeaponRight" />
+    <LaunchSiteOps Ops="SOpAttachWeaponRight" />
+    <ActionFlags index="ImpactSuppressUnitSound" value="1" />
+    <Missile value="TerranArchangelDefenderRangedAttackMissile" />
+    <LaunchModel value="ArchangelAttackLaunchModel" />
+    <LaunchSound value="" />
+  </CActorAction>
+  <CActorMissile id="TerranArchangelDefenderMortar" parent="StormMissileWithDeath" unitName="TerranArchangelDefenderMortar" />
+  <CActorAction id="TerranArchangelDefenderMortarAttack" parent="GenericAttackPointStorm" effectImpact="TerranArchangelDefenderMortarImpactSearch" effectLaunch="TerranArchangelDefenderMortarLaunchMissile">
+    <LaunchAttachQuery Methods="AMFilterWeapon00FullMatch" />
+    <LaunchAssets Sound="Merc_Archangel_Mortar_Launch" />
+    <Missile value="TerranArchangelDefenderMortar" />
+  </CActorAction>
+  <CActorModel id="TerranArchangelDefenderMortarWarning" parent="StormModelAnimationStyleContinuous">
+    <On Terms="Effect.TerranArchangelDefenderMortarWarningPersistent.Start" Send="Create" />
+    <On Terms="Effect.TerranArchangelDefenderMortarWarningPersistent.Stop; FromEffectTreeDescendant" Target="::Self" Send="Destroy Immediate" />
+  </CActorModel>
+  <CActorModel id="TerranArchangelDefenderMortarImpact" parent="StormModelAnimationStyleOneShot">
+    <On Terms="Effect.TerranArchangelDefenderMortarImpactSearch.Start" Send="Create" />
+    <HostSiteOps Ops="SOpTargetPointStationary" />
+  </CActorModel>
+  <CActorQuad id="TerranArchangelDefenderBulletstormGuide" parent="StormGuideVisualQuadDownSciFi" abil="TerranArchangelDefenderBulletstorm">
+    <Height value="18.000000" />
+    <Width value="6.000000" />
+  </CActorQuad>
+  <CActorModel id="TerranArchangelDefenderBulletstormGroundFX" parent="StormModelAnimationStyleContinuous">
+    <VisibilityShape Shape="TerranArchangelDefenderBulletstormGroundFX" />
+    <On Terms="Effect.TerranArchangelDefenderBulletstormCreateDamagePersistent.Start" Send="Create" />
+    <On Terms="Effect.TerranArchangelDefenderBulletstormCreateDamagePersistent.Stop" Send="AnimBracketStop BSD" />
+    <HostSiteOps Ops="SOpAttachOrigin SOpForwardTargetPoint" HoldPosition="1" HoldRotation="1" />
+    <ModelFlags index="AllowHitTest" value="0" />
+  </CActorModel>
+  <CActorUnit id="TerranArchangelDefenderBulletstormVisualDummy" parent="StormMinionStandard" unitName="TerranArchangelDefenderBulletstormVisualDummy">
+    <On Terms="ActorCreation" Send="SetOpacity" />
+    <On Terms="ActorCreation" Send="AnimSetPausedAll" />
+    <On Terms="Effect.SuicideTimeout.Start" Send="Destroy" />
+    <Remove Terms="UnitBirth.*.Normal" Send="AnimPlay Birth Birth 0 0.000000" />
+  </CActorUnit>
+  <CActorMissile id="TerranArchangelDefenderBulletstormVisualMissile" parent="StormMissileWithDeathEarly" unitName="TerranArchangelDefenderBulletstormVisualMissile">
+    <On Terms="ActorCreation" Send="TimerSet 0.750000 Death" />
+    <On Terms="TimerExpired; TimerName Death" Send="Destroy Immediate" />
+  </CActorMissile>
+  <CActorAction id="TerranArchangelDefenderBulletstormDamagingAttack" parent="GenericAttackStorm" effectImpact="TerranArchangelDefenderBulletstormImpactDamage" effectLaunch="TerranArchangelDefenderBulletstormImpactLaunchMissile">
+    <LaunchAttachQuery Methods="AMPatternArchangel" />
+    <LaunchAssets Model="Invisible" Sound="" />
+    <Missile value="TerranArchangelDefenderBulletstormVisualMissile" />
+    <ImpactMap index="None" Model="TerranArchangelDefenderAttackImpact" Sound="Merc_Archangel_BulletStorm_Impact" />
+    <ImpactMap index="Rock" Model="TerranArchangelDefenderAttackImpact" Sound="Merc_Archangel_BulletStorm_Impact" />
+    <ActionFlags index="ImpactSuppressUnitSound" value="1" />
+    <LaunchModel value="ArchangelAttackLaunchModel" />
+  </CActorAction>
+  <CActorAction id="TerranArchangelDefenderBulletstormFakeRightAttack" parent="GenericAttackStorm" effectImpact="TerranArchangelDefenderBulletstormVisualMissileRightDamage" effectLaunch="TerranArchangelDefenderBulletstormVisualMissileRight">
+    <LaunchAttachQuery Methods="AMFilterWeaponRight" />
+    <LaunchAssets Model="Invisible" Sound="" />
+    <Missile value="TerranArchangelDefenderBulletstormVisualMissile" />
+    <ImpactMap index="None" Model="TerranArchangelDefenderBulletstormMissileImpactGround" Sound="Merc_Archangel_AttackImpact" />
+    <ImpactMap index="Rock" Model="TerranArchangelDefenderBulletstormMissileImpactGround" Sound="Merc_Archangel_AttackImpact" />
+    <ImpactSiteOps Ops="SOpAttachHarness SOpAttachVolumeStandard SOpForwardCasterPoint" />
+    <LaunchModel value="ArchangelAttackLaunchModel" />
+  </CActorAction>
+  <CActorAction id="TerranArchangelDefenderBulletstormFakeLeftAttack" parent="GenericAttackStorm" effectImpact="TerranArchangelDefenderBulletstormVisualMissileLeftDamage" effectLaunch="TerranArchangelDefenderBulletstormVisualMissileLeft">
+    <LaunchAttachQuery Methods="AMFilterWeaponLeft" />
+    <LaunchAssets Model="Invisible" Sound="" />
+    <Missile value="TerranArchangelDefenderBulletstormVisualMissile" />
+    <ImpactMap index="None" Model="TerranArchangelDefenderBulletstormMissileImpactGround" Sound="Merc_Archangel_AttackImpact" />
+    <ImpactMap index="Rock" Model="TerranArchangelDefenderBulletstormMissileImpactGround" Sound="Merc_Archangel_AttackImpact" />
+    <ImpactSiteOps Ops="SOpAttachHarness SOpAttachVolumeStandard SOpForwardCasterPoint" />
+    <LaunchModel value="ArchangelAttackLaunchModel" />
+  </CActorAction>
+  <CActorUnit id="TerranArchangelLaner" parent="StormCreepStandard" unitName="TerranArchangelLaner">
+    <On Terms="ActorCreation" Send="AnimPlay Birth Birth,B 0 0.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="ActorCreation" Send="Create ArchangelLanerBirthSound" />
+    <On Terms="Behavior.JungleMercDefenderBirthInvulnerability.On" Send="SetShowStatusBar" />
+    <On Terms="Behavior.JungleMercDefenderBirthInvulnerability.Off" Send="SetShowStatusBar 1" />
+    <On Terms="Abil.TerranArchangelLanerBulletstorm.SourceCastStart" Target="TerranArchangelAttackLaunchSound" Send="Destroy" />
+    <On Terms="Abil.TerranArchangelLanerBulletstorm.SourceCastStart" Send="Create TerranArchangelBulletstormChargeSound" />
+    <On Terms="Abil.TerranArchangelLanerBulletstorm.SourceCastStart" Send="Create ArchangelBulletstormMechStartSound" />
+    <On Terms="Abil.TerranArchangelLanerBulletstorm.SourceCastStart" Send="AnimBracketStart Spell Spell,Channel,Start Spell,Channel Spell,Channel,End 0 1.000000 AsTimeScale" />
+    <On Terms="Abil.TerranArchangelLanerBulletstorm.SourceCastStart" Send="TimerSet 0.700000 Bulletstorm" />
+    <On Terms="TimerExpired; TimerName Bulletstorm" Send="AnimPlay SpellAttack Attack PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="TimerExpired; TimerName Bulletstorm" Send="Create TerranArchangelBulletstormLaunchSound" />
+    <On Terms="Abil.TerranArchangelLanerBulletstorm.SourceFinishStart" Send="AnimBracketStop Spell" />
+    <On Terms="Abil.TerranArchangelLanerBulletstorm.SourceFinishStart" Send="AnimClear SpellAttack" />
+    <On Terms="Abil.TerranArchangelLanerBulletstorm.SourceFinishStart" Target="TerranArchangelBulletstormLaunchSound" Send="Destroy" />
+    <On Terms="Abil.TerranArchangelLanerBulletstorm.SourceFinishStart; AnimPlaying Attack Attack" Send="Create TerranArchangelAttackLaunchSound" />
+    <On Terms="Abil.TerranArchangelLanerBulletstorm.SourceFinishStart" Send="Create TerranArchangelBulletstormEndSound" />
+    <On Terms="Effect.TerranArchangelDefenderMortarWarningPersistent.Start; At Caster" Send="AnimPlay Mortar Spell 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="WeaponStart.*.AttackStart; !AnimPlaying Attack Attack" Send="Create TerranArchangelAttackLaunchSound" />
+    <On Terms="WeaponStart.*.AttackStart; !AnimPlaying Attack Attack" Send="AnimPlay Attack Attack PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="UnitMovementUpdate.*.Walk" Target="TerranArchangelAttackLaunchSound" Send="Destroy" />
+    <On Terms="UnitMovementUpdate.*.Walk" Send="AnimClear Attack" />
+    <On Terms="Behavior.JungleCreepPassive.On" Target="TerranArchangelAttackLaunchSound" Send="Destroy" />
+    <On Terms="Behavior.JungleCreepPassive.On" Send="AnimClear Attack" />
+    <On Terms="Behavior.JungleCreepPassive.On" Send="Create TerranArchangelIdleSound" />
+    <On Terms="Behavior.JungleCreepPassive.Off" Send="Create TerranArchangelVoxAttackSound" />
+    <On Terms="Behavior.JungleCreepPassive.Off" Target="TerranArchangelIdleSound" Send="Destroy" />
+    <On Terms="ActorCreation" Send="Create TerranArchangelLanerSpawnSound" />
+    <Remove Terms="WeaponStart.*.AttackStart" Send="AnimPlay Attack Attack" />
+    <Model value="TerranArchangel" />
+    <BuildModel value="TerranArchangel" />
+    <DeathArray index="Normal" ModelLink="TerranArchangelDeath" SoundLink="Merc_Archangel_Death" VoiceLink="Merc_Archangel_Vox_Death" />
+    <PlacementModel value="TerranArchangel" />
+    <CustomUnitStatusFrame value="UnitStatus/SuperCreepUnitStatusFrameTemplate" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Boss.dds" />
+    </GroupIcon>
+    <UnitIcon value="Assets\Textures\storm_ui_icon_gamerecap_herokilled_outline.dds" />
+    <ModelFlags index="OutlineOccluder" value="1" />
+    <MinimapIcon value="Assets\Textures\storm_ui_minimapicon_minesgolem.dds" />
+    <MinimapIconIsTeamColored value="1" />
+    <MinimapIconScale value="0.900000" />
+    <MinimapRenderPriority value="Merc" />
+    <MinimapUseSelectionColor value="0" />
+    <DeathCustoms index="0" SoundLink="Merc_Archangel_Death" VoiceLink="Merc_Archangel_Vox_Death" />
+  </CActorUnit>
+  <CActorModel id="ZergGuardianAttackLaunch" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death ClosingFull,ContentPlayOnce" />
+    <Remove Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death ContentPlayOnce" />
+    <HostSiteOps Ops="SOpAttachWeapon" />
+  </CActorModel>
+  <CActorUnit id="ZergHive" parent="TownBaseStructure" unitName="ZergHive">
+    <On Terms="ActorCreation" Send="SetShowStatusBar" />
+    <On Terms="ActorCreation" Send="AnimPlay StandC Stand,C PlayForever" />
+    <Macros value="PreTargetHaloMacro" />
+    <StatusBarOn index="Progress" value="0" />
+    <DeathActorModel value="UnitDeathModelPersistent" />
+    <DeathActorModelLow value="UnitDeathModelPersistent" />
+    <GroupIcon>
+      <Image value="Assets\Textures\ui_targetportrait_buildings_ravenscourt_manawell.dds" />
+    </GroupIcon>
+    <Wireframe>
+      <Image value="Assets\Textures\ui_targetportrait_buildings_ravenscourt_manawell.dds" />
+    </Wireframe>
+    <BarOffset value="45" />
+    <MinimapIconIsTeamColored value="0" />
+    <MinimapIconScale value="0.800000" />
+  </CActorUnit>
+  <CActorUnit id="ZergNydusWorm" parent="TownBaseStructure" unitName="ZergNydusWorm">
+    <On Terms="ActorCreation" Send="SetShowStatusBar" />
+    <On Terms="ActorCreation" Send="AnimPlay Birth Birth" />
+    <On Terms="Signal.*.Unload" Send="AnimPlay Unload Spell,B" />
+    <On Terms="Signal.*.Unload" Send="TimerSet 1.000000 Unload" />
+    <On Terms="TimerExpired; TimerName Unload" Send="AnimClear Unload" />
+    <On Terms="Behavior.ZergNydusWormExpire.On" Send="AnimPlay Unburrow Unburrow" />
+    <Macros value="PreTargetHaloMacro" />
+    <StatusBarOn index="Progress" value="0" />
+    <DeathActorModel value="UnitDeathModelPersistent" />
+    <DeathActorModelLow value="UnitDeathModelPersistent" />
+    <GroupIcon>
+      <Image value="Assets\Textures\ui_targetportrait_buildings_ravenscourt_manawell.dds" />
+    </GroupIcon>
+    <Wireframe>
+      <Image value="Assets\Textures\ui_targetportrait_buildings_ravenscourt_manawell.dds" />
+    </Wireframe>
+    <BarOffset value="45" />
+    <MinimapIconIsTeamColored value="0" />
+    <MinimapIconScale value="0.800000" />
+  </CActorUnit>
+  <CActorUnit id="ZergBaneling" parent="StormMinionStandard" unitName="ZergBaneling">
+    <On Terms="Abil.Explode.SourceCastStart" Send="StatusSet DeathSuicide 1" />
+    <On Terms="UnitBirth" Send="AnimPlay Birth Birth 0 0.000000" />
+    <On Terms="AnimDone; AnimName Birth" Send="AnimGroupApply Superior" />
+    <On Terms="ActorCreation" Send="Create ZergBanelingMovementTrail" />
+    <On Terms="UnitMovementUpdate.*.Walk" Target="ZergBanelingMovementTrail" Send="SetVisibility 1" />
+    <On Terms="UnitMovementUpdate.*.Stand" Target="ZergBanelingMovementTrail" Send="SetVisibility" />
+    <DeathArray index="Normal" ModelLink="ZergBanelingExplosion" SoundLink="Event_BraxisHoldout_Baneling_Suicide" />
+    <DeathArray index="Timeout" ModelLink="ZergBanelingTimeoutExplosion" SoundLink="Event_BraxisHoldout_Baneling_Suicide" />
+    <WalkAnimMoveSpeed value="3" />
+    <SoundArray index="Movement" value="Event_BraxisHoldout_Baneling_Movement" />
+    <MinimapIconIsTeamColored value="1" />
+    <MinimapIcon value="Assets\Textures\blank.dds" />
+    <MinimapRenderPriority value="Merc" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Braxis_Monsters_Baneling.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="ZergRoach" parent="StormMinionStandard" unitName="ZergRoach">
+    <On Terms="ActorCreation" Send="AnimPlay Birth Birth 0 0.000000" />
+    <On Terms="AbilMorph.*.Finish; MorphTo ZergRoach; MorphFrom RoachEgg" Send="Create" />
+    <On Terms="AbilMorph.*.Finish; MorphTo ZergRoach; MorphFrom RoachEgg" Send="AnimBracketStart BSD Birth,01 Stand Death" />
+    <On Terms="WeaponStart.ZergRoachMeleeWeapon.AttackStart" Send="AnimGroupApply Cover" />
+    <On Terms="WeaponStop.ZergRoachMeleeWeapon.AttackStop" Send="AnimGroupRemove Cover" />
+    <DeathArray index="Normal" ModelLink="ZergRoachDeath" SoundLink="Zagara_Roach_Death" />
+    <DeathArray index="Timeout" AnimProps="Burrow" ModelLink="ZergRoach" SoundLink="Zagara_Roach_Burrow" />
+    <WalkAnimMoveSpeed value="3" />
+    <SoundArray index="Birth" value="Zagara_Roach_Birth" />
+    <ImpactSound value="Pet_Small_Dry_Impact" />
+    <MinimapIconIsTeamColored value="1" />
+    <MinimapIcon value="Assets\Textures\blank.dds" />
+    <MinimapRenderPriority value="Merc" />
+  </CActorUnit>
+  <CActorAction id="ZergRoachRangedAttack" parent="RangedMinionAttackParent" effectImpact="ZergRoachWeaponDamage" effectLaunch="ZergRoachRangedWeaponLaunchMissile">
+    <LaunchAttachQuery Methods="AMFilterWeapon00" />
+    <LaunchAssets Model="ZergRoachAttackLaunch" Sound="Zagara_Roach_AttackLaunch" />
+    <ImpactSiteOps Ops="SOpAttachHarness SOpAttachVolumeStandard" />
+    <ImpactMap index="None" Model="ZergRoachAttackImpact" Sound="Zagara_Roach_AttackImpact" />
+    <ImpactMap index="Rock" Sound="Zagara_Roach_AttackImpact" />
+    <ImpactMap index="Shield" Sound="Zagara_Roach_AttackImpact" />
+    <ImpactModel value="GenericAttackImpactModel" />
+    <ImpactPhysics index="0" removed="1" />
+  </CActorAction>
+  <CActorAction id="ZergRoachMeleeAttack" parent="GenericAttackStorm" effectAttack="ZergRoachWeaponDamage" />
+  <CActorMissile id="ZergRoachRangedAttackMissile" parent="GenericAttackMissile" unitName="ZergRoachRangedWeapon">
+    <Model value="ZergRoachRangedMissile" />
+  </CActorMissile>
+  <CActorModel id="ZergHydraliskDeathRagdoll" parent="StormMinionDeathRagdoll" />
+  <CActorModel id="ZergHydraliskUnburrowedSplat" parent="StormModelAnimationStyleOneShotNoOrphan">
+    <Model value="ZergHydraliskSplat" />
+    <HostSiteOps HoldPosition="1" HoldRotation="1" />
+  </CActorModel>
+  <CActorModel id="ZergHydraliskBurrowedSplat" parent="StormModelAnimationStyleOneShotNoOrphan">
+    <Model value="ZergHydraliskSplat" />
+    <HostSiteOps HoldPosition="1" HoldRotation="1" />
+  </CActorModel>
+  <CActorMissile id="ZergHydraliskRangedAttackMissile" parent="StormMissileWithDeath" unitName="ZergHydraliskRangedWeapon">
+    <Model value="ZergHydraliskMissile" />
+  </CActorMissile>
+  <CActorAction id="ZergHydraliskRangedAttack" parent="GenericAttackStorm" effectImpact="ZergHydraliskRangedDamage" effectLaunch="ZergHydraliskLaunchMissile">
+    <ImpactMap index="None" Model="ZergHydraliskAttackImpact" Sound="Event_BraxisHoldout_Hydralisk_Attack_Impact" />
+    <LaunchAssets Sound="Event_BraxisHoldout_Hydralisk_Attack_Launch" />
+    <LaunchAttachQuery Methods="AMFilterWeaponSetA0" Fallback="Weapon" />
+    <LaunchSiteOps Ops="SOpAttachHarness SOpForwardImpactGuide" />
+    <AcquisitionYawHalfArc value="20.000000" />
+    <AcquisitionPitchHalfArc value="20.000000" />
+    <AccuracyHalfArc value="25.000000" />
+    <ActionFlags index="ImpactSuppressUnitSound" value="1" />
+  </CActorAction>
+  <CActorModel id="ZergHydraliskAttackImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <Host Subject="_Missile" />
+    <HostSiteOps Ops="SOpForwardLaunchGuide SOp2DRotation" HoldPosition="1" HoldRotation="1" />
+  </CActorModel>
+  <CActorAction id="ZergHydraliskMeleeAttack" parent="GenericAttackStorm" effectAttack="ZergHydraliskMeleeDamage">
+    <ShieldFlashType value="Header" />
+    <ImpactMap index="None" Model="" Sound="" />
+    <ImpactMap index="Flesh" ModelReaction="GenericImpactBloodMedium" />
+    <ActionFlags index="ImpactSuppressUnitSound" value="1" />
+  </CActorAction>
+  <CActorSound id="ZergHydraliskMeleeAttackLaunch" parent="SoundOneShot">
+    <Sound value="Zagara_Hydralisk_Melee_AttackLaunch" />
+  </CActorSound>
+  <CActorSound id="ZergHydraliskUnburrowSound" parent="SoundOneShot">
+    <Sound value="Zagara_Hydralisk_Unburrow" />
+  </CActorSound>
+  <CActorUnit id="ZergMutalisk" parent="StormMinionStandard" unitName="ZergMutalisk">
+    <On Terms="ActorCreation" Send="AnimPlay Birth Birth 0 0.000000" />
+    <DeathArray index="Normal" AnimProps="Stand" ModelLink="ZergMutaliskDeath" SoundLink="Zagara_Mutalisk_Death" />
+    <DeathArray index="Timeout" AnimProps="Stand,Cover,Start" ModelLink="ZergMutalisk" />
+    <SoundArray index="Birth" value="Zagara_Mutalisk_Birth" />
+    <ImpactSound value="Pet_Large_Wet_Impact" />
+    <Host Subject="ZergMutaliskFlyerBillboard" Actor="Create" />
+    <MinimapIconIsTeamColored value="1" />
+    <MinimapIcon value="Assets\Textures\blank.dds" />
+    <MinimapRenderPriority value="Merc" />
+  </CActorUnit>
+  <CActorSiteBillboard id="ZergMutaliskFlyerBillboard">
+    <BillboardType value="UseTowardsCameraDistance" />
+    <TowardsCameraDistance value="4.000000" />
+    <HoldRotation value="1" />
+    <UpdateDriveBearings value="1" />
+  </CActorSiteBillboard>
+  <CActorSite id="ZergMutaliskAttackSegment1ImpactSite" parent="GenericAttackImpactSite" />
+  <CActorMissile id="ZergMutaliskAttackSegment1Missile" parent="StormMissileWithDeath" unitName="ZergMutaliskMissile1">
+    <Model value="ZergMutaliskMissile" />
+  </CActorMissile>
+  <CActorAction id="ZergMutaliskAttackSegment1" parent="GenericAttack" effectImpact="ZergMutaliskWeaponImpactSet1" effectLaunch="ZergMutaliskWeaponLaunchMissile1">
+    <ImpactSite value="ZergMutaliskAttackSegment1ImpactSite" />
+    <LaunchAssets Sound="Zagara_Mutalisk_AttackLaunch" />
+    <ImpactMap index="None" Model="ZergMutaliskAttackImpact" Sound="Zagara_Mutalisk_AttackImpact" />
+    <LaunchAttachQuery Methods="AMFilterWeaponBottom" />
+    <ActionFlags index="ImpactSuppressUnitSound" value="1" />
+  </CActorAction>
+  <CActorSite id="ZergMutaliskAttackSegment2ImpactSite" parent="GenericAttackImpactSite" />
+  <CActorMissile id="ZergMutaliskAttackSegment2Missile" parent="StormMissileWithDeath" unitName="ZergMutaliskMissile2">
+    <Model value="ZergMutaliskMissile" />
+  </CActorMissile>
+  <CActorAction id="ZergMutaliskAttackSegment2" parent="GenericAttack" effectImpact="ZergMutaliskWeaponImpactSet2" effectLaunch="ZergMutaliskWeaponLaunchMissile2">
+    <ImpactSite value="ZergMutaliskAttackSegment2ImpactSite" />
+    <LaunchRequest Subject="_ImpactGuide" Actor="Find" />
+    <LaunchAssets Sound="Zagara_Mutalisk_AttackLaunch" />
+    <ImpactMap index="None" Model="ZergMutaliskAttackImpact" Sound="Zagara_Mutalisk_AttackImpact" />
+    <LaunchAttachQuery Methods="AMFilterWeaponBottom" />
+    <ActionFlags index="ImpactSuppressUnitSound" value="1" />
+  </CActorAction>
+  <CActorSite id="ZergMutaliskAttackSegment3ImpactSite" parent="GenericAttackImpactSite" />
+  <CActorMissile id="ZergMutaliskAttackSegment3Missile" parent="StormMissileWithDeath" unitName="ZergMutaliskMissile3">
+    <Model value="ZergMutaliskMissile" />
+  </CActorMissile>
+  <CActorAction id="ZergMutaliskAttackSegment3" parent="GenericAttack" effectImpact="ZergMutaliskWeaponDamage3" effectLaunch="ZergMutaliskWeaponLaunchMissile3">
+    <LaunchRequest Subject="ZergMutaliskAttackSegment2ImpactSite" Actor="Find" />
+    <LaunchAssets Sound="Zagara_Mutalisk_AttackLaunch" />
+    <ImpactMap index="None" Model="ZergMutaliskAttackImpact" Sound="Zagara_Mutalisk_AttackImpact" />
+    <LaunchAttachQuery Methods="AMFilterWeaponBottom" />
+    <ActionFlags index="ImpactSuppressUnitSound" value="1" />
+  </CActorAction>
+  <CActorOverrides id="ZergGuardianAnimationOverrides">
+    <ModelOverrides>
+      <Model value="ZergGuardian" />
+      <Transition From="Walk,00" To="Stand,00" Blend="5.000000" />
+      <Transition From="Walk,01" To="Stand,00" Blend="5.000000" />
+      <Transition From="Stand,00" To="Walk,00" Blend="5.000000" />
+      <Transition From="Stand,00" To="Walk,01" Blend="5.000000" />
+      <Transition From="Spell,Cover,00" To="Stand,00" Blend="5.000000" />
+      <Transition From="Spell,Cover,00" To="Walk,00" Blend="5.000000" />
+      <Transition From="Spell,Cover,00" To="Walk,01" Blend="5.000000" />
+      <Transition From="Walk,00" To="Spell,Cover,00" Blend="5.000000" />
+      <Transition From="Walk,01" To="Spell,Cover,00" Blend="5.000000" />
+      <Transition From="Stand,00" To="Spell,Cover,00" Blend="5.000000" />
+    </ModelOverrides>
+  </CActorOverrides>
+  <CActorSiteBillboard id="ZergGuardianBillboard" parent="FlyerBillboard">
+    <HostSiteOps Ops="SOpBankerZergGuardian" />
+    <TowardsCameraDistance value="6.000000" />
+  </CActorSiteBillboard>
+  <CActorSiteOpBankerUnit id="SOpBankerZergGuardian" parent="SOpBankerUnit">
+    <RollMax value="15.000000" />
+    <RollInActivationAngle value="10.000000" />
+    <RollInArc value="90.000000" />
+    <RollOutDuration value="1.000000" />
+  </CActorSiteOpBankerUnit>
+  <CActorModel id="ZergUltraliskAttackMid" parent="StormModelAnimationStyleOneShot">
+    <On Terms="ActorCreation.ZergUltraliskAttackMid" Send="Create ZergUltraliskAttackRight" />
+    <Model value="ZergUltraliskImpactLeft" />
+    <Host Subject="_Unit" Scope="Target" Actor="Find" />
+    <HostSiteOps Ops="SOpAttachCenter SOpForwardCasterPoint" />
+  </CActorModel>
+  <CActorAction id="ZergUltraliskAttackLeft" parent="GenericAttackStorm">
+    <ImpactSiteOps Ops="SOpAttachCenter SOpForwardCasterPoint" />
+    <ImpactMap index="None" Model="ZergUltraliskImpactLeft" Sound="Event_BraxisHoldout_Ultralisk_Attack_Impact" />
+    <ShieldFlashType value="None" />
+  </CActorAction>
+  <CActorAction id="ZergUltraliskAttackRight" parent="GenericAttackStorm">
+    <ImpactSiteOps Ops="SOpAttachCenter SOpForwardCasterPoint" />
+    <ImpactMap index="None" Model="ZergUltraliskImpactRight" Sound="Event_BraxisHoldout_Ultralisk_Attack_Impact" />
+    <ShieldFlashType value="None" />
+  </CActorAction>
+</Catalog>

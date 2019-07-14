@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CActorModel default="1" id="HanamuraPayloadPathParent" parent="ModelAnimationStyleContinuous">
+    <On Terms="ActorCreation" Send="AnimBracketStartCustomBlend Progress" />
+    <On Terms="ActorCreation" Send="AnimSetPaused Progress" />
+    <On Terms="ActorCreation" Send="AnimSetCompletion Progress 5.000000" />
+    <On Terms="Signal.*.ResetPath" Send="AnimBracketStartCustomBlend Progress" />
+    <On Terms="Signal.*.ResetPath" Send="AnimSetCompletion Progress 4.000000" />
+    <On Terms="AnimBracketState.*.AfterClosing; AnimName Progress; AnimBracketExitReason Complete" Send="AnimBracketStartCustomBlend Progress" />
+    <On Terms="AnimBracketState.*.AfterClosing; AnimName Progress; AnimBracketExitReason Complete" Send="AnimSetPaused Progress" />
+    <On Terms="Signal.*.Invert; !AnimPlaying Inverted" Send="Signal ToggleInvert" />
+    <On Terms="Signal.*.Invert; AnimPlaying Inverted; !HasStatus ToggleLockout" Send="AnimClear Inverted 0.000000" />
+    <On Terms="Signal.*.ToggleInvert" Send="StatusIncrement ToggleLockout" />
+    <On Terms="Signal.*.ToggleInvert" Send="AnimPlay Inverted Cover PlayForever 0.000000 0.000000" />
+    <On Terms="Signal.*.Invert; HasStatus ToggleLockout" Send="StatusDecrement ToggleLockout" />
+    <On Terms="Signal.*.Forward; AnimPlayingProps End; AnimPlaying Inverted" Send="AnimBracketResume Progress" />
+    <On Terms="Signal.*.Backward; AnimPlayingProps Start; AnimPlaying Inverted" Send="AnimBracketStop Progress" />
+    <On Terms="Signal.*.Forward; AnimPlayingProps Start; !AnimPlaying Inverted" Send="AnimBracketStop Progress" />
+    <On Terms="Signal.*.Backward; AnimPlayingProps End; !AnimPlaying Inverted" Send="AnimBracketResume Progress" />
+    <HostSiteOps Ops="SOpMoveUpByDot1 SOpMoveUpByDot1" />
+    <FogVisibility value="Visible" />
+    <Remove Terms="ActorOrphan" Send="Destroy" />
+    <AnimBrackets>
+      <Name value="Progress" />
+      <OpenProps value="Walk,Start" />
+      <CloseProps value="Walk,End" />
+      <TimeVariant value="0.220000" />
+      <TimeType value="AsTimeScaleAbsolute" />
+      <OpenBlendIn value="0.000000" />
+      <OpenBlendOut value="1.000000" />
+      <CloseBlendIn value="1.000000" />
+      <CloseBlendOut value="0.000000" />
+    </AnimBrackets>
+  </CActorModel>
+  <CActorUnit id="FootmanMinion">
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_targetinfopanel_unit_hanamura_minion_melee.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorModel id="HanamuraStructureTarget" parent="StormModelAnimationStyleContinuousUnit">
+    <On Terms="Behavior.HanamuraPayloadStructureTarget.On" Send="Create" />
+    <On Terms="Behavior.HanamuraPayloadStructureTarget.Off" Send="AnimBracketStop BSD" />
+    <On Terms="ActorCreation; ValidateUnit IsCore" Send="SetScale 1.500000" />
+    <On Terms="ActorCreation" Send="Signal TeamColorUpdate" />
+    <On Terms="Signal.*.TeamColorUpdate; HasAllianceTypeWith Enemy ::global.Team1Core" Send="SetTeamColorFrom TeamColor ::global.Team2Core ::Base 300.000000" />
+    <On Terms="Signal.*.TeamColorUpdate; HasAllianceTypeWith Enemy ::global.Team2Core" Send="SetTeamColorFrom TeamColor ::global.Team1Core ::Base 300.000000" />
+    <Model value="HanamuraPayloadStructureTarget" />
+    <HostSiteOps Ops="SOpAttachCenter" />
+  </CActorModel>
+  <CActorModel id="HanamuraStructureTargetImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.Payload_AttackDamage.Start; At Caster" Send="Create" />
+    <On Terms="ActorCreation" Send="SetScale 2.000000" />
+    <On Terms="ActorCreation; PassChance 33.000000" Send="SetScale 2.500000" />
+    <On Terms="ActorCreation; PassChance 33.000000" Send="SetScale 3.000000" />
+    <On Terms="ActorCreation; PassChance 33.000000" Send="AnimSetTimeScaleAbsolute BSD 2.000000" />
+    <On Terms="ActorCreation; PassChance 33.000000" Send="AnimSetTimeScaleAbsolute BSD 0.500000" />
+    <Model value="HanamuraPayloadStructureTargetImpact" />
+    <Scale value="3.000000" />
+    <Terms value="Cap 1" />
+    <HostSiteOps Ops="SOpTargetUnit" HoldPosition="1" HoldRotation="1" />
+  </CActorModel>
+  <CActorUnit id="OverwatchMechanic">
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_targetinfopanel_unit_hanamura_merc_turrethealer.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="OverwatchTurret">
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_targetinfopanel_unit_hanamura_merc_turret.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="OverwatchTurretPlayer">
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_targetinfopanel_unit_hanamura_merc_turret.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="RangedMinion">
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_targetinfopanel_unit_hanamura_minion_ranged.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL3BRULTRVisionBlocked">
+    <On Terms="AnimDone; AnimName Build; ModelName TownGateBirthModel" Send="ModelSwap TownGateL3" />
+    <On Terms="Behavior.BuildingMediumDamage.On" Send="ModelSwap TownGateDamaged" />
+    <On Terms="UnitDeathCustomize" Send="DeathCustomize Variation0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Hanamura_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="CatapultMinion">
+    <DeathArray index="Normal" VoiceLink="" />
+    <ImpactSound value="UnitCatapult_Impact" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Minion_Catapult.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorMissile id="KingsCrestCatapultMinionAttackMissile" parent="StormMissileWithDeath" unitName="CatapultMinionMissile">
+    <Model value="KingsCrestCatapultMinionMissle" />
+    <On Terms="ActorCreation" Send="Create Minion_OWVol_Catapult_Missile" />
+    <On Terms="ActorDestruction" Target="Minion_OWVol_Catapult_Missile" Send="Destroy" />
+  </CActorMissile>
+  <CActorSound id="Minion_OWVol_Catapult_MoveLoop" parent="SoundContinuous">
+    <Sound value="Catapult_MoveLoop" />
+  </CActorSound>
+  <CActorSound id="Minion_OWVol_Catapult_Missile" parent="SoundOneShot">
+    <Sound value="Catapult_Missile" />
+  </CActorSound>
+  <CActorSound id="Minion_OWVol_Catapult_PreLaunch_Pt1" parent="SoundOneShot">
+    <Sound value="Catapult_PreLaunch_Pt1" />
+  </CActorSound>
+  <CActorSound id="Minion_OWVol_Catapult_PreLaunch_Pt2" parent="SoundOneShot">
+    <Sound value="Catapult_PreLaunch_Pt2" />
+  </CActorSound>
+  <CActorSound id="Minion_OWVol_Catapult_AttackLaunch" parent="SoundOneShot">
+    <Sound value="Catapult_Minion_AttackLaunch" />
+  </CActorSound>
+  <CActorSound id="Minion_OWVol_Catapult_Explo" parent="SoundOneShot">
+    <Sound value="Catapult_Minion_Death" />
+  </CActorSound>
+  <CActorUnit id="MercLanerSentinel">
+    <MinimapIconScale value="0.700000" />
+    <DeathArray index="Normal" SoundLink="StormNoSound" VoiceLink="Merc_OWHana_LargeSamurai_Vox_NonDeath" />
+  </CActorUnit>
+  <CActorAction id="KingsCrestCatapultMinionAttack">
+    <LaunchAssets Sound="Minion_OWHana_Sapper_Attack_Ranged_Impact" />
+  </CActorAction>
+  <CActorMinimap id="PayloadMissileImpactMinimapIcon" parent="StormModelAnimationStyleOneShotNoOrphan">
+    <InheritType value="OneShot" />
+    <Inherits index="TeamColor" value="1" />
+    <Host Subject="PayloadMissileMinimapIcon" />
+    <On Terms="ActorCreation" Target="::Creator" Send="Destroy" />
+    <FogVisibility value="Visible" />
+  </CActorMinimap>
+  <CActorModel id="AttackCoreImpactActor" parent="GenericAttackModel">
+    <InheritType value="OneShot" />
+    <Inherits index="TeamColor" value="1" />
+    <HostForProps>
+      <Subject value="_Missile" />
+      <Scope value="Missile" />
+      <Actor value="Find" />
+      <ReachAcrossEffectTrees value="1" />
+    </HostForProps>
+  </CActorModel>
+  <CActorModel id="HanamuraPayloadPath1Order" parent="HanamuraPayloadPathParent">
+    <Model value="HanamuraPayloadPath1" />
+    <On Terms="ActorCreation" Send="SetPlayerId 11" />
+  </CActorModel>
+  <CActorModel id="HanamuraPayloadPath2Order" parent="HanamuraPayloadPathParent">
+    <Model value="HanamuraPayloadPath2" />
+    <On Terms="ActorCreation" Send="SetPlayerId 11" />
+  </CActorModel>
+  <CActorModel id="HanamuraPayloadPath3Order" parent="HanamuraPayloadPathParent">
+    <Model value="HanamuraPayloadPath3" />
+    <On Terms="ActorCreation" Send="SetPlayerId 11" />
+  </CActorModel>
+  <CActorModel id="HanamuraPayloadPath1Chaos" parent="HanamuraPayloadPathParent">
+    <Model value="HanamuraPayloadPath1" />
+    <On Terms="ActorCreation" Send="SetPlayerId 12" />
+  </CActorModel>
+  <CActorModel id="HanamuraPayloadPath2Chaos" parent="HanamuraPayloadPathParent">
+    <Model value="HanamuraPayloadPath2" />
+    <On Terms="ActorCreation" Send="SetPlayerId 12" />
+  </CActorModel>
+  <CActorModel id="HanamuraPayloadPath3Chaos" parent="HanamuraPayloadPathParent">
+    <Model value="HanamuraPayloadPath3" />
+    <On Terms="ActorCreation" Send="SetPlayerId 12" />
+  </CActorModel>
+  <CActorMinimap id="PayloadMissileMinimapIcon" parent="StormModelAnimationStyleContinuousUnit">
+    <Scale value="0.250000" />
+    <FogVisibility value="Visible" />
+    <Host Subject="_Missile" />
+    <On Terms="ActorOrphan" Send="Create PayloadMissileImpactMinimapIcon" />
+    <Remove Terms="ActorOrphan" Send="Destroy" />
+  </CActorMinimap>
+  <CActorTurret id="PayloadTurret">
+    <On Terms="TurretEnable.PayloadTurret" Send="Create" />
+    <PitchQuery Methods="Turret 0" Fallback="Turret" />
+    <YawQuery Methods="Turret 0" Fallback="Turret" />
+  </CActorTurret>
+  <CActorTurret id="PayloadAttackCoreTurret">
+    <On Terms="TurretEnable.PayloadAttackCoreTurret" Send="Create" />
+    <On Terms="TurretDisable.PayloadAttackCoreTurret; ValidateUnit Payload_NotAtDestination" Send="Destroy" />
+    <PitchQuery Methods="TurretZ 0" Fallback="TurretZ" />
+    <YawQuery Methods="TurretZ 0" Fallback="TurretZ" />
+  </CActorTurret>
+  <CActorSiteOpAttach id="SOpAttachTurretNoZ">
+    <AttachQuery Methods="Turret 0" />
+  </CActorSiteOpAttach>
+  <CActorDoodad id="Storm_Building_OWHana_Payload_Entrance">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <Aliases value="_PayloadTurnIn" />
+    <On Terms="Signal.*.Payload" Send="AnimBracketStart Morph Stand,Morph,Start Stand,Morph Stand,Morph,End DontResetOnUnhide 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.PayloadDone" Send="AnimBracketStop Morph" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Building_OWHana_Payload_Exit">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <On Terms="Signal.*.Payload" Send="AnimBracketStart Birth Birth Stand,Alternate Death DontResetOnUnhide 1.000000 AsTimeScale" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_Heaven_Clouds">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorSound id="DoodadOWHanaDoorOpenPt1" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <ScopeBearingsTracking value="ForceOn" />
+    <Sound value="Doodad_OWHana_Door_Open_Pt1" />
+  </CActorSound>
+  <CActorSound id="DoodadOWHanaDoorOpenPt2" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <ScopeBearingsTracking value="ForceOn" />
+    <Sound value="Doodad_OWHana_Door_Open_Pt2" />
+  </CActorSound>
+  <CActorSound id="DoodadOWHanaCoreBirthPt1" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <ScopeBearingsTracking value="ForceOn" />
+    <Sound value="Doodad_OWHana_Core_Birth_Pt1" />
+  </CActorSound>
+  <CActorSound id="DoodadOWHanaCoreBirthPt2" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <ScopeBearingsTracking value="ForceOn" />
+    <Sound value="Doodad_OWHana_Core_Birth_Pt2" />
+  </CActorSound>
+  <CActorSound id="DoodadOWHanaCoreBirthPt3" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <ScopeBearingsTracking value="ForceOn" />
+    <Sound value="Doodad_OWHana_Core_Birth_Pt3" />
+  </CActorSound>
+  <CActorSound id="DoodadOWHanaCoreBirthPt4" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <ScopeBearingsTracking value="ForceOn" />
+    <Sound value="Doodad_OWHana_Core_Birth_Pt4" />
+  </CActorSound>
+  <CActorSound id="DoodadOWHanaCoreBirthPt5" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <ScopeBearingsTracking value="ForceOn" />
+    <Sound value="Doodad_OWHana_Core_Birth_Pt5" />
+  </CActorSound>
+  <CActorSound id="BirdFlyawaySound" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Sound value="Doodad_OWHana_Bird_Flyaway" />
+  </CActorSound>
+  <CActorSound id="BirdFlyawayVoxSound" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Sound value="Doodad_OWHana_Bird_Vox" />
+  </CActorSound>
+  <CActorSound id="CoreFireBraziersSoundLoop">
+    <Sound value="Doodad_OWHana_Core_Stand_Loop" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_MoveLoop" parent="SoundContinuous">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_IdleLoop" parent="SoundContinuous">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_SpawnLoop" parent="SoundContinuous">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Layers Sound="Doodad_OWHana_Payload_SpawnAlarm" PlayDelay="20000,20000" PlayDelaySource="Actor" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_Start" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_Mech" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_Stop" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_Exit_Open" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <ScopeBearingsTracking value="ForceOn" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_Exit_Close" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <On Terms="ActorCreation" Target="Doodad_OWHana_Payload_SpawnLoop" Send="Destroy" />
+    <On Terms="ActorCreation" Target="Doodad_OWHana_Payload_SpawnAlarm" Send="Destroy" />
+    <ScopeBearingsTracking value="ForceOn" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_Entrance_Open" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <ScopeBearingsTracking value="ForceOn" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_Entrance_Close" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <ScopeBearingsTracking value="ForceOn" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_ReverseLoop" parent="SoundContinuous">
+    <On Terms="Behavior.PayloadReverseBehavior.On" Send="Create" />
+    <On Terms="Behavior.PayloadReverseBehavior.Off" Send="Destroy" />
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <ScopeBearingsTracking value="ForceOn" />
+  </CActorSound>
+  <CActorDoodad id="Storm_Doodad_OWHana_Cable">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Catwalks">
+    <Model value="Storm_Doodad_OWHana_Catwalk" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_GrassEdge">
+    <EditorCategories value="DoodadType:Props" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_LanternGlow">
+    <EditorCategories value="DoodadType:Props" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterWall">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_StartingPlatform_Int" parent="Storm_Doodad_KingsCrest_StartingPlatform">
+    <Model value="Storm_Doodad_OWHana_StartingPlatform_Int" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_StartingPlatform_Ext" parent="Storm_Doodad_KingsCrest_StartingPlatform">
+    <Model value="Storm_Doodad_OWHana_StartingPlatform_Ext" />
+    <On index="6" Terms="ActorCreation; ModelVariation 0" Send="Create StartingBaseVortex" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_BossBossCaptureRing">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <Model value="Storm_Doodad_OWHana_BossCaptureRing" />
+    <On Terms="Signal.*.Up" Send="AnimBracketStart Morph Stand,Work,Start Stand,Work Stand,Work,End OpeningPlayForever 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.Down" Send="AnimBracketStop Morph 0 1.000000 AsTimeScale" />
+    <On Terms="ActorCreation" Send="RefSet ::global.PayloadElevator ::Self" />
+    <Aliases value="_CreepEngulfable" />
+    <CreepHeightClass value="Default" />
+    <CreepRateGrow value="Grow" />
+    <CreepRateShrink value="Shrink" />
+    <Footprint value="BridgeFootprint1" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Curbs">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_MercCampRing">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Temple">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Tree_CherryBlossoms">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Trees">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorRange id="PayloadProximityRange">
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <Inherits index="TeamColor" value="1" />
+    <On Terms="Behavior.PayloadNoAlliesNearbyBehavior.On" Send="Create" />
+    <On Terms="Behavior.PayloadNoAlliesNearbyBehavior.Off" Send="Destroy" />
+    <Range value="7.000000" />
+    <Icon value="Assets\Textures\storm_fx_demonhunter_base_strafe_range.dds" />
+    <IconArcLength value="5.000000" />
+    <Terms value="Cap 1" />
+  </CActorRange>
+  <CActorRange id="PayloadProximityRangeSubtle">
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <Inherits index="TeamColor" value="1" />
+    <On Terms="Behavior.PayloadNoAlliesNearbyBehavior.Off" Send="Create" />
+    <On Terms="Behavior.PayloadNoAlliesNearbyBehavior.On" Send="Destroy" />
+    <Range value="7.000000" />
+    <Icon value="Assets\Textures\storm_tankradius_passive.dds" />
+    <IconArcLength value="5.000000" />
+    <Terms value="Cap 1" />
+  </CActorRange>
+  <CActorRange id="PayloadProximityRangeReverse">
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <Inherits index="TeamColor" value="1" />
+    <On Terms="Behavior.PayloadReverseBehavior.On" Send="Create" />
+    <On Terms="Behavior.PayloadReverseBehavior.Off" Send="Destroy" />
+    <Range value="7.000000" />
+    <Icon value="Assets\Textures\storm_fx_demonhunter_base_strafe_range.dds" />
+    <IconArcLength value="5.000000" />
+    <Terms value="Cap 1" />
+  </CActorRange>
+  <CActorSound id="Doodad_OWHana_Payload_Elevator_Rise" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_Elevator_Down" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_BossMissile_Dragon_Fire" parent="SoundOneShot" />
+  <CActorSound id="Doodad_OWHana_BossMissile_Dragon_Missile" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_AttackLaunch" parent="SoundOneShot">
+    <Layers Sound="Doodad_OWHana_Payload_AttackLaunch_Dist" PlayDelay="90,90" PlayDelaySource="Actor" />
+    <ScopeBearingsTracking value="ForceOn" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_AttackImpact" parent="SoundOneShot">
+    <Layers Sound="Doodad_OWHana_Payload_AttackImpact_Dist" PlayDelay="90,90" PlayDelaySource="Actor" />
+    <ScopeBearingsTracking value="ForceOn" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_AttackImpact_Dist" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+    <On Terms="Effect.AttackCoreDamage.Start; At Target" Send="Create" />
+    <Host Subject="_Unit" />
+    <Inherits index="Visibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_Payload_AttackMissile" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Layers Sound="Doodad_OWHana_Payload_AttackMissile_Dist" PlayDelay="90,90" PlayDelaySource="Actor" />
+    <ScopeBearingsTracking value="ForceOn" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWHana_SpawnLoop" parent="SoundContinuous" />
+  <CActorSound id="DoodadOWHanaWaterLoopSound" parent="SoundContinuous">
+    <Sound value="Doodad_OWHana_Water_Loop_02" />
+  </CActorSound>
+  <CActorDoodad id="Storm_Minion_OWHana_Civilian_Lean_A">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Minion_OWHana_Civilian_Lean_B">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Minion_OWHana_Civilian_Lean_C">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Minion_OWHana_Civilian_Sit_A">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Minion_OWHana_Civilian_Sit_B">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Minion_OWHana_Civilian_Sit_C">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Minion_OWHana_Civilian_Sweeping">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_A">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_B">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_C">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <ModelFlags index="OutlineOccluder" value="1" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_D">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <On Terms="ActorCreation; ModelVariation 0" Send="Create SoundEmitterFogged Doodad_OWHana_Water_Loop" />
+    <On Terms="ActorCreation; ModelVariation 2" Send="Create SoundEmitterFogged Doodad_OWHana_Water_Loop" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_E">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_F">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <On Terms="ActorCreation; ModelVariation 0" Send="Create SoundEmitterFogged Doodad_OWHana_Water_Loop" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_G">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_H">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_I">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <On Terms="ActorCreation" Send="Create SoundEmitterFogged Doodad_OWHana_Water_Loop" />
+    <Aliases value="_CreepEngulfable" />
+    <CreepHeightClass value="Default" />
+    <CreepRateGrow value="Grow" />
+    <CreepRateShrink value="Shrink" />
+    <Footprint value="BridgeFootprint1" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_J">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_K">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_L">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_M">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_N">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_O">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_P">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_Jungle_Q">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <On Terms="ActorCreation" Send="Create SoundEmitterFogged Doodad_OWHana_Water_Loop" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_AA">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_BB">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_CC">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_DD">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_EE">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_FF">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_GG">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_HH">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_II">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_JJ">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_KK">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_LL">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_MM">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_NN">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_OO">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_PP">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_QQ">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_RR">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_SS">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_TT">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_UU">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_VV">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_WW">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_XX">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_YY">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_OuterJungle_ZZ">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_ZenGarden_Splat">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWHana_StartingPlatform_Building">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorUnit id="Storm_Building_OWHana_LargeGate_Int" parent="TownGateL3BLURTLVisionBlocked" unitName="Storm_Building_OWHana_LargeGate_Int">
+    <On Terms="UnitBirth.Storm_Building_OWHana_LargeGate_Int" Send="Create" />
+    <On Terms="TimerExpired; TimerName BuildTimer" Send="AnimPlay Build Stand,Morph,Start NonLooping,DontResetOnUnhide -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="AnimDone; AnimName Build" Send="AnimPlay Stand Stand,Morph,End PlayForever,NonLooping,DontResetOnUnhide -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <Remove Terms="Signal.*.PlayBuild" Send="AnimPlay Build Stand,Morph,Start" />
+    <Remove Terms="UnitBirth.TownGateL3BLURTLVisionBlocked" Send="Create" />
+    <Model value="Storm_Building_OWHana_LargeGate_Int" />
+    <BuildModel value="Storm_Building_OWHana_LargeGate_Int" />
+    <EditorModel value="Storm_Building_OWHana_LargeGate_Int" />
+    <PlacementModel value="Storm_Building_OWHana_LargeGate_Int" />
+  </CActorUnit>
+  <CActorUnit id="Storm_Building_OWHana_LargeGate_Ext" parent="TownGateL3BRULBLVisionBlocked" unitName="Storm_Building_OWHana_LargeGate_Ext">
+    <On Terms="UnitBirth.Storm_Building_OWHana_LargeGate_Ext" Send="Create" />
+    <On Terms="TimerExpired; TimerName BuildTimer" Send="AnimPlay Build Stand,Morph,Start NonLooping,DontResetOnUnhide -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="AnimDone; AnimName Build" Send="AnimPlay Stand Stand,Morph,End PlayForever,NonLooping,DontResetOnUnhide -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <Remove Terms="Signal.*.PlayBuild" Send="AnimPlay Build Stand,Morph,Start" />
+    <Remove Terms="UnitBirth.TownGateL3BRULBLVisionBlocked" Send="Create" />
+    <Model value="Storm_Building_OWHana_LargeGate_Ext" />
+    <BuildModel value="Storm_Building_OWHana_LargeGate_Ext" />
+    <EditorModel value="Storm_Building_OWHana_LargeGate_Ext" />
+    <PlacementModel value="Storm_Building_OWHana_LargeGate_Ext" />
+  </CActorUnit>
+  <CActorDoodad id="Storm_Doodad_OWHana_DeadZone">
+    <On Terms="Signal.*.PlayBuild" Send="AnimPlay Birth Birth PlayForever,NonLooping" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Building_OWHana_LargeGate">
+    <On Terms="Signal.*.PlayBuild; !AnimPlaying Spell Stand,Morph,Start" Send="AnimBracketStart Spell Stand,Morph,Start Stand,Morph,End {} ContentNonLooping,OpeningPlayForever 1.000000 AsTimeScale" />
+    <On Terms="ActorCreation" Send="TimerSet 36.000000 OpenTimer" />
+    <On Terms="TimerExpired; TimerName OpenTimer" Send="Signal PlayBuild" />
+  </CActorDoodad>
+  <CActorUnit id="TownGateL3BLURBRVisionBlocked">
+    <On Terms="AnimDone; AnimName Build; ModelName TownGateBirthModel" Send="ModelSwap TownGateL3" />
+    <On Terms="Behavior.BuildingMediumDamage.On" Send="ModelSwap TownGateDamaged" />
+    <On Terms="UnitDeathCustomize" Send="DeathCustomize Variation0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Hanamura_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorModel id="TurretPlacementModel">
+    <On Terms="ActorCreation" Target="::User" Send="Signal PlayerTurretLink" />
+  </CActorModel>
+  <CActorUnit id="ReconCampVisionUnit" parent="GenericUnitStandard" unitName="ReconCampVisionUnit">
+    <On Terms="ActorCreation" Send="Create XelNagaWatchTowerMinimapRangeGame" />
+    <On Terms="ActorCreation" Send="Create XelNagaWatchTowerRangeGame" />
+    <Model value="Invisible" />
+    <MinimapIconType value="Hidden" />
+    <UnitFlags index="ShowBlobShadow" value="0" />
+    <UnitFlags index="SuppressDefaultStatusBar" value="1" />
+  </CActorUnit>
+  <CActorUnit id="WizardMinion">
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_targetinfopanel_unit_hanamura_minion_wizard.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorRange id="XelNagaWatchTowerMinimapRangeGame">
+    <Sight value="ReconCampVisionUnit" />
+  </CActorRange>
+  <CActorRange id="XelNagaWatchTowerRangeGame">
+    <Sight value="ReconCampVisionUnit" />
+    <On Terms="UnitBirth.XelNagaWatchTower" Send="Create" />
+    <Filter index="Ally" value="0" />
+    <Filter index="Neutral" value="0" />
+  </CActorRange>
+</Catalog>

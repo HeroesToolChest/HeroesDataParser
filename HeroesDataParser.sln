@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2005
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{344D38AE-FCDC-45D8-84B3-B7AC075EB76B}"
 EndProject
@@ -13,21 +13,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Parser.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData", "HeroesData\HeroesData.csproj", "{E8EEFFBF-6529-4EDC-8E28-92BE0A17687F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CascLibCore", "CASCExplorer\CascLibCore\CascLibCore.csproj", "{45D3C6CD-6F30-4C90-BC26-AFFE2DC99E4B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.FileWriter.Tests", "Tests\HeroesData.FileWriter.Tests\HeroesData.FileWriter.Tests.csproj", "{71D38A71-AB19-468A-8F19-F7949D8F908D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Heroes.Models", "Heroes.Models\Heroes.Models\Heroes.Models.csproj", "{49FBAD69-C8F6-4154-B268-0AE756F18D92}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Tests", "Tests\HeroesData.Tests\HeroesData.Tests.csproj", "{5692921D-094A-493B-9576-D7E6F9C150E5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDSReader", "dds-reader\DDSReader\DDSReader\DDSReader.csproj", "{D16AD6F4-C6F3-4DE4-AFF3-F545661C42A2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Loader", "HeroesData.Loader\HeroesData.Loader.csproj", "{089EF759-1E76-4F9F-83BE-5EB3C1229B8D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Helpers", "HeroesData.Helpers\HeroesData.Helpers.csproj", "{0EDB675F-0249-4B0C-A73A-8EDD0D6D145B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Helpers.Tests", "Tests\HeroesData.Helpers.Tests\HeroesData.Helpers.Tests.csproj", "{175BD2B9-AB4C-47FA-B695-9DABCC9D5471}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesData.Loader.Tests", "Tests\HeroesData.Loader.Tests\HeroesData.Loader.Tests.csproj", "{EAF41EF4-C733-4D0A-8B24-BFA5F547D623}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CascLib", "CASCExplorer\CascLib\CascLib\CascLib.csproj", "{DC0C9129-37FB-4767-B436-441613D556C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +51,6 @@ Global
 		{E8EEFFBF-6529-4EDC-8E28-92BE0A17687F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8EEFFBF-6529-4EDC-8E28-92BE0A17687F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8EEFFBF-6529-4EDC-8E28-92BE0A17687F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{45D3C6CD-6F30-4C90-BC26-AFFE2DC99E4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{45D3C6CD-6F30-4C90-BC26-AFFE2DC99E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{45D3C6CD-6F30-4C90-BC26-AFFE2DC99E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{45D3C6CD-6F30-4C90-BC26-AFFE2DC99E4B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{71D38A71-AB19-468A-8F19-F7949D8F908D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71D38A71-AB19-468A-8F19-F7949D8F908D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71D38A71-AB19-468A-8F19-F7949D8F908D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,10 +63,6 @@ Global
 		{5692921D-094A-493B-9576-D7E6F9C150E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5692921D-094A-493B-9576-D7E6F9C150E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5692921D-094A-493B-9576-D7E6F9C150E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D16AD6F4-C6F3-4DE4-AFF3-F545661C42A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D16AD6F4-C6F3-4DE4-AFF3-F545661C42A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D16AD6F4-C6F3-4DE4-AFF3-F545661C42A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D16AD6F4-C6F3-4DE4-AFF3-F545661C42A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{089EF759-1E76-4F9F-83BE-5EB3C1229B8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{089EF759-1E76-4F9F-83BE-5EB3C1229B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{089EF759-1E76-4F9F-83BE-5EB3C1229B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -83,6 +75,14 @@ Global
 		{175BD2B9-AB4C-47FA-B695-9DABCC9D5471}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{175BD2B9-AB4C-47FA-B695-9DABCC9D5471}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{175BD2B9-AB4C-47FA-B695-9DABCC9D5471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAF41EF4-C733-4D0A-8B24-BFA5F547D623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAF41EF4-C733-4D0A-8B24-BFA5F547D623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAF41EF4-C733-4D0A-8B24-BFA5F547D623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAF41EF4-C733-4D0A-8B24-BFA5F547D623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC0C9129-37FB-4767-B436-441613D556C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC0C9129-37FB-4767-B436-441613D556C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC0C9129-37FB-4767-B436-441613D556C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC0C9129-37FB-4767-B436-441613D556C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +92,7 @@ Global
 		{71D38A71-AB19-468A-8F19-F7949D8F908D} = {344D38AE-FCDC-45D8-84B3-B7AC075EB76B}
 		{5692921D-094A-493B-9576-D7E6F9C150E5} = {344D38AE-FCDC-45D8-84B3-B7AC075EB76B}
 		{175BD2B9-AB4C-47FA-B695-9DABCC9D5471} = {344D38AE-FCDC-45D8-84B3-B7AC075EB76B}
+		{EAF41EF4-C733-4D0A-8B24-BFA5F547D623} = {344D38AE-FCDC-45D8-84B3-B7AC075EB76B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6BC537F-9CC6-441B-AE64-F0EFF0A467C5}

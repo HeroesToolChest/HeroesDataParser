@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CRequirement id="UseVehicleRequirement">
+        <NodeArray index="Use" Link="EqCountBehaviorGenericVehicleBehaviorOccupiedCompleteOnly0"/>
+        <NodeArray index="Show" Link="EqCountBehaviorGenericVehicleBehaviorOccupiedCompleteOnly0"/>
+    </CRequirement>
+    <CRequirement id="UseVolskayaVehicleRequirement">
+        <NodeArray index="Use" Link="AndEqCountBehaviorVolskayaVehicleGunnerOccupiedCompleteOnly0EqCountBehaviorVolskayaVehiclePilotOccupiedCompleteOnly0"/>
+        <NodeArray index="Show" Link="AndEqCountBehaviorVolskayaVehicleGunnerOccupiedCompleteOnly0EqCountBehaviorVolskayaVehiclePilotOccupiedCompleteOnly0"/>
+    </CRequirement>
+    <CRequirement id="VolskayaVehicleChargeIsPrimed">
+        <NodeArray index="Show" Link="EqCountBehaviorVolskayaVehicleChargeActivatedReadyToChargeCompleteOnlyAtUnit1"/>
+    </CRequirement>
+    <CRequirement id="VolskayaVehicleEnergyBombardmentActivateRequirement">
+        <NodeArray index="Use" Link="EqCountBehaviorVolskayaVehicleEnergyBombardmentActiveGunnerCompleteOnlyAtUnit1"/>
+        <NodeArray index="Show" Link="EqCountBehaviorVolskayaVehicleEnergyBombardmentActiveGunnerCompleteOnlyAtUnit1"/>
+    </CRequirement>
+    <CRequirement id="VolskayaVehicleParticleCannonInitiated">
+        <NodeArray index="Show" Link="EqCountBehaviorVolskayaVehicleParticleCannonInitiatedCompleteOnlyAtUnit1"/>
+    </CRequirement>
+    <CRequirement id="VolskayaVehicleSwapRequirement">
+        <NodeArray index="Use" Link="OrAndEqCountBehaviorVolskayaVehicleGunnerLinkBehaviorCompleteOnlyAtUnit1EqCountBehaviorVolskayaVehicleGunnerCanSwapBehaviorCompleteOnlyAtUnit1AndEqCountBehaviorVolskayaVehicleGunnerLinkBehaviorComplet3966872604"/>
+    </CRequirement>
+    <CRequirement id="VolskayaVehicleTacticalStrikesDeactivateRequirement">
+        <NodeArray index="Use" Link="EqCountBehaviorVolskayaVehicleTacticalStrikesSuppressAbilitiesBehaviorCompleteOnlyAtUnit1"/>
+        <NodeArray index="Show" Link="EqCountBehaviorVolskayaVehicleTacticalStrikesSuppressAbilitiesBehaviorCompleteOnlyAtUnit1"/>
+    </CRequirement>
+</Catalog>

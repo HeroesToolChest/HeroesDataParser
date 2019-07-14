@@ -1,0 +1,45 @@
+﻿Abil/Activity/CaptureMacGuffin=Collecting
+Abil/Name/DragonsDinner=Imprison
+Abil/Name/MapMechanicAbilityTarget=Turret
+Abil/Name/MapMechanicAbilityTarget2=Biotic Emitter
+Abil/Name/MercDefenderHealingPulse=Sentinel - Healing Pulse
+Abil/Name/OverwatchMechanicRepair=Mechanic - Repair
+Abil/Name/RingOfFire=Energy Ring
+Abil/Name/TurretAttack=Turret Attack
+Button/Name/BioticEmitter=Biotic Emitter
+Button/Name/DragonSpirits=Dragon Spirits
+Button/Name/DragonsDinner=Imprison
+Button/Name/HealingPulse=Healing Pulse
+Button/Name/MapMechanicAbility=Turret
+Button/Name/MapMechanicAbility2=Biotic Emitter
+Button/Name/MercDefenderHealingPulse=Sentinel - Healing Pulse
+Button/Name/OverwatchMechanicRepair=Engineer - Repair
+Button/Name/RingOfFire=Energy Ring
+Button/Name/TurretAttack=Turret Attack
+Button/SimpleDisplayText/EnergyRing=Creates an Energy Ring that damages targets within it.
+Button/SimpleDisplayText/HealingPulse=Restore Health and Mana to you and your allies over time.
+Button/SimpleDisplayText/TurretAttack=Damage enemies with Basic Attacks
+Button/Tooltip/BioticEmitter=Create a Biotic Emitter that restores <c val="#TooltipNumbers"><d ref="Effect,BioticEmitterCreateHealerLife,RechargeVitalFraction*100*80"/>%</c> of nearby allied heroes maximum Health and Mana over <c val="#TooltipNumbers"><d ref="Behavior,BioticEmitterTimedLife,Duration"/></c> seconds.
+Button/Tooltip/DragonSpirits=Release three Dragon Spirits that seek out enemy Heroes, found Heroes are revealed for<c val="#TooltipNumbers"> <d ref="Behavior,DragonSpiritReveal,Duration"/></c> seconds. Dragon Spirits are destroyed after finding an enemy Hero or after<c val="#TooltipNumbers"> <d ref="Behavior,DragonSpiritTimedLife,Duration"/> </c>seconds.
+Button/Tooltip/HealingPulse=Restore <c val="#TooltipNumbers"><d ref="Effect,HealingPulseCreateHealerLife,RechargeVitalFraction*100*15"/>%</c> Health and <c val="#TooltipNumbers"><d ref="Effect,HealingPulseCreateHealerMana,RechargeVitalFraction*100*15"/>%</c> Mana to you and your allies over <c val="#TooltipNumbers"><d ref="Behavior,HealingPulse,Duration"/></c> seconds.
+Button/Tooltip/MapMechanicAbility=Place a Turret that rapidly attacks nearby enemies. Turret lasts for <c val="#TooltipNumbers"><d ref="Behavior,TurretPlayerTurretTimedLife,Duration"/></c> seconds, or until Killed. 
+Button/Tooltip/MapMechanicAbility2=Create a Biotic Emitter that restores <c val="#TooltipNumbers"><d ref="Effect,BioticEmitterCreateHealerLife,RechargeVitalFraction*100*80"/>%</c> of nearby allied Heroes' maximum Health and Mana over <c val="#TooltipNumbers"><d ref="Behavior,BioticEmitterTimedLife,Duration"/></c> seconds.
+Button/Tooltip/TurretAttack=Attacks using the Hero's weapon
+DocInfo/DescLong=Completely devoid of any description whatsoever.
+DocInfo/Name=Overwatch Data (Mod)
+PickupOverwatchItem=Pickup Overwatch Item
+Unit/Name/BioticEmitter=Biotic Emitter
+Unit/Name/DragonSpiritsPickup=Dragon Spirits
+Unit/Name/HealingPulsePickup=Healing Pulse
+Unit/Name/HealthPack=Health Pack
+Unit/Name/JungleGraveGolemDefender=Mega Enforcer
+Unit/Name/MercDefenderMeleeBruiser=Henchmen
+Unit/Name/MercDefenderMeleeIndividual=Sentinel
+Unit/Name/MercGoblinSapperLaner=Sapper
+Unit/Name/OverwatchBossImprisonMissile=Overwatch Boss Imprison Missile
+Unit/Name/OverwatchBossImprisonMissileDummy=Overwatch Boss Imprison Missile (Dummy)
+Unit/Name/OverwatchMechanic=Engineer
+Unit/Name/OverwatchTurret=Turret
+Unit/Name/OverwatchTurretPlayer=Turret (Player)
+Unit/Name/TurretPickup=Turret (Pickup)
+Weapon/Name/MercDefenderMeleeIndividualDummyForLookAt=MercDefenderMeleeIndividual (Dummy For Look At)

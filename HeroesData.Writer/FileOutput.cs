@@ -1,188 +1,139 @@
 ﻿using Heroes.Models;
-using HeroesData.FileWriter.Writer;
+using Heroes.Models.Veterancy;
+using HeroesData.FileWriter.Writers;
+using HeroesData.FileWriter.Writers.AnnouncerData;
+using HeroesData.FileWriter.Writers.BannerData;
+using HeroesData.FileWriter.Writers.BehaviorVeterancyData;
+using HeroesData.FileWriter.Writers.EmoticonData;
+using HeroesData.FileWriter.Writers.EmoticonPackData;
+using HeroesData.FileWriter.Writers.HeroData;
+using HeroesData.FileWriter.Writers.HeroSkinData;
+using HeroesData.FileWriter.Writers.MatchAwardData;
+using HeroesData.FileWriter.Writers.MountData;
+using HeroesData.FileWriter.Writers.PortraitData;
+using HeroesData.FileWriter.Writers.SprayData;
+using HeroesData.FileWriter.Writers.UnitData;
+using HeroesData.FileWriter.Writers.VoiceLineData;
 using System.Collections.Generic;
 
 namespace HeroesData.FileWriter
 {
     public class FileOutput
     {
-        private readonly FileConfiguration FileConfiguration;
+        private readonly FileOutputOptions FileOutputOptions;
         private readonly int? HotsBuild;
 
+        private readonly Dictionary<FileOutputType, Dictionary<string, IWritable>> Writers = new Dictionary<FileOutputType, Dictionary<string, IWritable>>();
+
+        /// <summary>
+        /// Creates the output files.
+        /// </summary>
         public FileOutput()
         {
-            FileConfiguration = FileConfiguration.Load();
-            IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
-            IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
+            FileOutputOptions = new FileOutputOptions();
+
+            Initialize();
         }
 
-        public FileOutput(string configFileName)
-        {
-            FileConfiguration = FileConfiguration.Load(configFileName);
-            IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
-            IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
-        }
-
+        /// <summary>
+        /// Creates the output files.
+        /// </summary>
+        /// <param name="hotsBuild">The hots build number.</param>
         public FileOutput(int? hotsBuild)
         {
-            FileConfiguration = FileConfiguration.Load();
-            IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
-            IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
             HotsBuild = hotsBuild;
+            FileOutputOptions = new FileOutputOptions();
+
+            Initialize();
         }
 
-        public FileOutput(int? hotsBuild, string configFileName)
+        /// <summary>
+        /// Creates the output files.
+        /// </summary>
+        /// <param name="fileOutputOptions">Configuration options that can be set from the CLI.</param>
+        public FileOutput(FileOutputOptions fileOutputOptions)
         {
-            FileConfiguration = FileConfiguration.Load(configFileName);
-            IsXmlEnabled = FileConfiguration.XmlFileSettings.IsWriterEnabled;
-            IsJsonEnabled = FileConfiguration.JsonFileSettings.IsWriterEnabled;
+            FileOutputOptions = fileOutputOptions;
+
+            Initialize();
+        }
+
+        /// <summary>
+        /// Creates the output files.
+        /// </summary>
+        /// <param name="hotsBuild">The hots build number.</param>
+        /// <param name="fileOutputOptions">Configuration options that can be set from the CLI.</param>
+        public FileOutput(int? hotsBuild, FileOutputOptions fileOutputOptions)
+        {
             HotsBuild = hotsBuild;
+            FileOutputOptions = fileOutputOptions;
+
+            Initialize();
         }
 
         /// <summary>
-        /// Gets or sets the collection of parsed hero data.
+        /// Creates the output files.
         /// </summary>
-        public IEnumerable<Hero> ParsedHeroes { get; set; }
-
-        /// <summary>
-        /// Gets or sets the collection of parsed match award data.
-        /// </summary>
-        public IEnumerable<MatchAward> ParsedAwards { get; set; }
-
-        /// <summary>
-        /// Gets whether the xml writer is enabled via the file configuration.
-        /// </summary>
-        public bool IsXmlEnabled { get; }
-
-        /// <summary>
-        /// Gets whether the json writer is enabled via the file configuration.
-        /// </summary>
-        public bool IsJsonEnabled { get; }
-
-        /// <summary>
-        /// Gets or sets the file split option.
-        /// </summary>
-        public bool FileSplit { get; set; }
-
-        /// <summary>
-        /// Gets or sets if localized text is removed from the XML and JSON files.
-        /// </summary>
-        public bool IsLocalizedText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the tooltip description type.
-        /// </summary>
-        public int DescriptionType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the localization string.
-        /// </summary>
-        public string Localization { get; set; }
-
-        /// <summary>
-        /// Gets or sets the output directory.
-        /// </summary>
-        public string OutputDirectory { get; set; }
-
-        /// <summary>
-        /// Gets or sets the minify file option.
-        /// </summary>
-        public bool CreateMinifiedFiles { get; set; }
-
-        /// <summary>
-        /// Creates the xml output.
-        /// </summary>
-        public void CreateXml()
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items">The parsed items to be used for the creation of the output.</param>
+        /// <param name="fileOutputType">The file type.</param>
+        /// <returns></returns>
+        public bool Create<T>(IEnumerable<T> items, FileOutputType fileOutputType)
+            where T : IExtractable
         {
-            XmlWriter xmlWriter = new XmlWriter
+            if (Writers[fileOutputType].TryGetValue(typeof(T).Name, out IWritable writable))
             {
-                FileSettings = FileConfiguration.XmlFileSettings,
-                Heroes = ParsedHeroes,
-                HotsBuild = HotsBuild,
-                OutputDirectory = OutputDirectory,
-                Localization = Localization,
-                MatchAwards = ParsedAwards,
-                CreateMinifiedFiles = CreateMinifiedFiles,
-            };
+                writable.FileOutputOptions = FileOutputOptions;
+                writable.HotsBuild = HotsBuild;
 
-            xmlWriter.CreateOutput();
+                ((IWriter<T>)writable).CreateOutput(items);
+
+                return true;
+            }
+
+            return false;
         }
 
-        /// <summary>
-        /// Creates the xml output.
-        /// </summary>
-        /// <param name="isEnabled">If true, xml will be created.</param>
-        /// <param name="createLocalizedTextFile">If true, create a localized text file for gamestrings.</param>
-        public void CreateXml(bool isEnabled, bool createLocalizedTextFile)
+        private void Initialize()
         {
-            FileConfiguration.XmlFileSettings.IsWriterEnabled = isEnabled;
-            FileConfiguration.XmlFileSettings.IsFileSplit = FileSplit;
-            FileConfiguration.XmlFileSettings.Description = DescriptionType;
-            FileConfiguration.XmlFileSettings.ShortTooltip = DescriptionType;
-            FileConfiguration.XmlFileSettings.FullTooltip = DescriptionType;
-
-            XmlWriter xmlWriter = new XmlWriter
-            {
-                FileSettings = FileConfiguration.XmlFileSettings,
-                Heroes = ParsedHeroes,
-                HotsBuild = HotsBuild,
-                OutputDirectory = OutputDirectory,
-                Localization = Localization,
-                IsLocalizedText = IsLocalizedText,
-                CreateLocalizedTextFile = createLocalizedTextFile,
-                MatchAwards = ParsedAwards,
-                CreateMinifiedFiles = CreateMinifiedFiles,
-            };
-
-            xmlWriter.CreateOutput();
+            SetWriters();
         }
 
-        /// <summary>
-        /// Creates the Json output.
-        /// </summary>
-        public void CreateJson()
+        private void SetWriters()
         {
-            JsonWriter jsonWriter = new JsonWriter
+            Writers.Add(FileOutputType.Json, new Dictionary<string, IWritable>()
             {
-                FileSettings = FileConfiguration.JsonFileSettings,
-                Heroes = ParsedHeroes,
-                HotsBuild = HotsBuild,
-                OutputDirectory = OutputDirectory,
-                Localization = Localization,
-                MatchAwards = ParsedAwards,
-                CreateMinifiedFiles = CreateMinifiedFiles,
-            };
+                { nameof(Hero), new HeroDataJsonWriter() },
+                { nameof(Unit), new UnitDataJsonWriter() },
+                { nameof(MatchAward), new MatchAwardDataJsonWriter() },
+                { nameof(HeroSkin), new HeroSkinDataJsonWriter() },
+                { nameof(Mount), new MountDataJsonWriter() },
+                { nameof(Banner), new BannerDataJsonWriter() },
+                { nameof(Spray), new SprayDataJsonWriter() },
+                { nameof(Announcer), new AnnouncerDataJsonWriter() },
+                { nameof(VoiceLine), new VoiceLineDataJsonWriter() },
+                { nameof(Portrait), new PortraitDataJsonWriter() },
+                { nameof(Emoticon), new EmoticonDataJsonWriter() },
+                { nameof(EmoticonPack), new EmoticonPackDataJsonWriter() },
+                { nameof(BehaviorVeterancy), new BehaviorVeterancyDataJsonWriter() },
+            });
 
-            jsonWriter.CreateOutput();
-        }
-
-        /// <summary>
-        /// Creates the Json output.
-        /// </summary>
-        /// <param name="isEnabled">If true, json will be created.</param>
-        /// /// <param name="createLocalizedTextFile">If true, create a localized text file for gamestrings.</param>
-        public void CreateJson(bool isEnabled, bool createLocalizedTextFile)
-        {
-            FileConfiguration.JsonFileSettings.IsWriterEnabled = isEnabled;
-            FileConfiguration.JsonFileSettings.IsFileSplit = FileSplit;
-            FileConfiguration.JsonFileSettings.Description = DescriptionType;
-            FileConfiguration.JsonFileSettings.ShortTooltip = DescriptionType;
-            FileConfiguration.JsonFileSettings.FullTooltip = DescriptionType;
-
-            JsonWriter jsonWriter = new JsonWriter
+            Writers.Add(FileOutputType.Xml, new Dictionary<string, IWritable>()
             {
-                FileSettings = FileConfiguration.JsonFileSettings,
-                Heroes = ParsedHeroes,
-                HotsBuild = HotsBuild,
-                OutputDirectory = OutputDirectory,
-                Localization = Localization,
-                IsLocalizedText = IsLocalizedText,
-                CreateLocalizedTextFile = createLocalizedTextFile,
-                MatchAwards = ParsedAwards,
-                CreateMinifiedFiles = CreateMinifiedFiles,
-            };
-
-            jsonWriter.CreateOutput();
+                { nameof(Hero), new HeroDataXmlWriter() },
+                { nameof(Unit), new UnitDataXmlWriter() },
+                { nameof(MatchAward), new MatchAwardDataXmlWriter() },
+                { nameof(HeroSkin), new HeroSkinDataXmlWriter() },
+                { nameof(Mount), new MountDataXmlWriter() },
+                { nameof(Banner), new BannerDataXmlWriter() },
+                { nameof(Spray), new SprayDataXmlWriter() },
+                { nameof(Announcer), new AnnouncerDataXmlWriter() },
+                { nameof(VoiceLine), new VoiceLineDataXmlWriter() },
+                { nameof(Portrait), new PortraitDataXmlWriter() },
+                { nameof(Emoticon), new EmoticonDataXmlWriter() },
+                { nameof(EmoticonPack), new EmoticonPackDataXmlWriter() },
+                { nameof(BehaviorVeterancy), new BehaviorVeterancyDataXmlWriter() },
+            });
         }
     }
 }

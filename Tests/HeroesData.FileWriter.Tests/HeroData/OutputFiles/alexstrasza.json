@@ -1,0 +1,141 @@
+{
+  "Alexstrasza": {
+    "name": "Alexstrasza",
+    "unitId": "HeroAlexstrasza",
+    "hyperlinkId": "AlexstraszaId",
+    "attributeId": "Alex",
+    "difficulty": "Medium",
+    "franchise": "Warcraft",
+    "gender": "Female",
+    "innerRadius": 0.75,
+    "radius": 0.75,
+    "releaseDate": "2017-11-14",
+    "sight": 12.0,
+    "speed": 4.3984,
+    "type": "Ranged",
+    "rarity": "Legendary",
+    "description": "A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities.",
+    "ratings": {
+      "complexity": 0.0,
+      "damage": 0.0,
+      "survivability": 0.0,
+      "utility": 0.0
+    },
+    "abilities": {
+      "basic": [
+        {
+          "nameId": "TychusOdinAnnihilate",
+          "buttonId": "TychusOdinAnnihilate",
+          "name": "Annihilate",
+          "icon": "storm_ui_icon_tychus_annihilate.png",
+          "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+          "abilityType": "Q"
+        }
+      ],
+      "heroic": [
+        {
+          "nameId": "SubAbilHeroic",
+          "buttonId": "SubAbilHeroic",
+          "name": "SubAbilHeroic",
+          "abilityType": "Heroic"
+        }
+      ],
+      "trait": [
+        {
+          "nameId": "SubAbilTrait",
+          "buttonId": "SubAbilTrait",
+          "name": "SubAbilTrait",
+          "abilityType": "Trait"
+        }
+      ],
+      "mount": [
+        {
+          "nameId": "SubAbilMount",
+          "buttonId": "SubAbilMount",
+          "name": "SubAbilMount",
+          "abilityType": "Z"
+        }
+      ],
+      "activable": [
+        {
+          "nameId": "SubAbilActivable",
+          "buttonId": "SubAbilActivable",
+          "name": "SubAbilActivable",
+          "abilityType": "Active"
+        }
+      ]
+    },
+    "heroUnits": [
+      {
+        "AlexstraszaDragon": {
+          "name": "Alexstrasza",
+          "hyperlinkId": "AlexstraszaDragonId",
+          "innerRadius": 1.0,
+          "radius": 1.25,
+          "sight": 12.0,
+          "speed": 4.3984,
+          "portraits": {
+            "targetInfo": "targetinfo.png",
+            "minimap": "minimap.png"
+          },
+          "life": {
+            "amount": 1787.0,
+            "scale": 0.04,
+            "regenRate": 3.7226,
+            "regenScale": 0.04
+          },
+          "armor": {
+            "minion": {
+              "basic": 0,
+              "ability": 50,
+              "splash": 0
+            }
+          },
+          "abilities": {
+            "trait": [
+              {
+                "nameId": "DragonAbilTrait",
+                "buttonId": "DragonAbilTrait",
+                "name": "DragonAbilTrait",
+                "fullTooltip": "Burrow to the target location, dealing <c val=\"#TooltipNumbers\">96~~0.04~~</c> damage and briefly stunning enemies in a small area upon surfacing, slowing them by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2.5</c> seconds.<n/><n/>Burrow Charge can be reactivated to surface early.",
+                "abilityType": "Trait"
+              }
+            ],
+            "activable": [
+              {
+                "nameId": "DragonAbilActivable",
+                "buttonId": "DragonAbilActivable",
+                "name": "DragonAbilActivable",
+                "abilityType": "Trait"
+              }
+            ]
+          },
+          "subAbilities": [
+            {
+              "SubAbilHeroic": {
+                "heroic": [
+                  {
+                    "nameId": "DragonAbilHeroic",
+                    "buttonId": "DragonAbilHeroic",
+                    "name": "DragonAbilHeroic",
+                    "abilityType": "Heroic"
+                  }
+                ]
+              },
+              "SubAbilMount": {
+                "mount": [
+                  {
+                    "nameId": "DragonAbilMount",
+                    "buttonId": "DragonAbilMount",
+                    "name": "DragonAbilMount",
+                    "abilityType": "Z"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

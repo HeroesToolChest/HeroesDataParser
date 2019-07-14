@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CUser id="AttackWaves">
+        <Fields>
+            <Id value="Attacking Units"/>
+            <Type value="GameLink"/>
+            <GameLinkType value="Unit"/>
+            <Count value="3"/>
+            <EditorColumn value="1"/>
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Fields>
+            <Id value="Count"/>
+            <Type value="Int"/>
+            <Count value="3"/>
+            <EditorColumn value="1"/>
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Fields Id="Difficulty" Type="String" EditorColumn="1">
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Fields Id="Name" Type="String" EditorColumn="1">
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Instances Id="[Default]"/>
+        <Instances Id="Swarm - Easy">
+            <GameLink GameLink="ZergRoach">
+                <Field Id="Attacking Units" Index="2"/>
+            </GameLink>
+            <GameLink GameLink="ZergHydralisk">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <Int Int="1">
+                <Field Id="Count" Index="2"/>
+            </Int>
+            <Int Int="2">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <String String="Swarm">
+                <Field Id="Name"/>
+            </String>
+            <String String="Easy">
+                <Field Id="Difficulty"/>
+            </String>
+        </Instances>
+        <Instances Id="Swarm - Normal">
+            <GameLink GameLink="ZergHydralisk">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <GameLink GameLink="ZergRoach">
+                <Field Id="Attacking Units" Index="2"/>
+            </GameLink>
+            <Int Int="2">
+                <Field Id="Count" Index="2"/>
+            </Int>
+            <Int Int="2">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <String String="Normal">
+                <Field Id="Difficulty"/>
+            </String>
+            <String String="Swarm">
+                <Field Id="Name"/>
+            </String>
+        </Instances>
+        <Instances Id="Swarm - Hard">
+            <GameLink GameLink="ZergMutalisk">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <GameLink GameLink="ZergRoach">
+                <Field Id="Attacking Units" Index="2"/>
+            </GameLink>
+            <Int Int="5">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <Int Int="2">
+                <Field Id="Count" Index="2"/>
+            </Int>
+            <String String="Swarm">
+                <Field Id="Name"/>
+            </String>
+            <String String="Hard">
+                <Field Id="Difficulty"/>
+            </String>
+        </Instances>
+        <Instances Id="Swarm - Brutal">
+            <GameLink GameLink="ZergMutalisk">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <GameLink GameLink="ZergUltralisk">
+                <Field Id="Attacking Units" Index="2"/>
+            </GameLink>
+            <Int Int="1">
+                <Field Id="Count" Index="2"/>
+            </Int>
+            <Int Int="5">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <String String="Swarm">
+                <Field Id="Name"/>
+            </String>
+            <String String="Brutal">
+                <Field Id="Difficulty"/>
+            </String>
+        </Instances>
+        <Instances Id="Swarm - Psi Emitter">
+            <GameLink GameLink="ZergBaneling">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <GameLink GameLink="ZergMutalisk">
+                <Field Id="Attacking Units" Index="2"/>
+            </GameLink>
+            <Int Int="10">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <Int Int="6">
+                <Field Id="Count" Index="2"/>
+            </Int>
+            <String String="Swarm">
+                <Field Id="Name"/>
+            </String>
+            <String String="Psi">
+                <Field Id="Difficulty"/>
+            </String>
+        </Instances>
+        <Instances Id="Mixed - Easy">
+            <GameLink GameLink="ZergRoach">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <GameLink GameLink="ZergHydralisk">
+                <Field Id="Attacking Units" Index="2"/>
+            </GameLink>
+            <Int Int="2">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <Int Int="1">
+                <Field Id="Count" Index="2"/>
+            </Int>
+            <String String="Mixed">
+                <Field Id="Name"/>
+            </String>
+            <String String="Easy">
+                <Field Id="Difficulty"/>
+            </String>
+        </Instances>
+        <Instances Id="Mixed - Normal">
+            <GameLink GameLink="ZergRoach">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <GameLink GameLink="ZergHydralisk">
+                <Field Id="Attacking Units" Index="2"/>
+            </GameLink>
+            <Int Int="3">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <Int Int="1">
+                <Field Id="Count" Index="2"/>
+            </Int>
+            <String String="Normal">
+                <Field Id="Difficulty"/>
+            </String>
+            <String String="Mixed">
+                <Field Id="Name"/>
+            </String>
+        </Instances>
+        <Instances Id="Mixed - Hard">
+            <GameLink GameLink="ZergRoach">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <GameLink GameLink="ZergHydralisk">
+                <Field Id="Attacking Units" Index="2"/>
+            </GameLink>
+            <Int Int="2">
+                <Field Id="Count" Index="2"/>
+            </Int>
+            <Int Int="4">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <String String="Mixed">
+                <Field Id="Name"/>
+            </String>
+            <String String="Hard">
+                <Field Id="Difficulty"/>
+            </String>
+        </Instances>
+        <Instances Id="Mixed - Brutal">
+            <GameLink GameLink="ZergUltralisk">
+                <Field Id="Attacking Units"/>
+            </GameLink>
+            <GameLink GameLink="ZergHydralisk">
+                <Field Id="Attacking Units" Index="2"/>
+            </GameLink>
+            <Int Int="2">
+                <Field Id="Count"/>
+            </Int>
+            <Int Int="3">
+                <Field Id="Count" Index="2"/>
+            </Int>
+            <String String="Brutal">
+                <Field Id="Difficulty"/>
+            </String>
+            <String String="Mixed">
+                <Field Id="Name"/>
+            </String>
+        </Instances>
+        <Instances Id="Mixed - Psi Emitter">
+            <GameLink GameLink="ZergBaneling">
+                <Field Id="Attacking Units"/>
+            </GameLink>
+            <GameLink GameLink="ZergRoach">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <Int Int="10">
+                <Field Id="Count"/>
+            </Int>
+            <Int Int="7">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <String String="Mixed">
+                <Field Id="Name"/>
+            </String>
+            <String String="Psi">
+                <Field Id="Difficulty"/>
+            </String>
+        </Instances>
+        <Instances Id="Fliers - Easy">
+            <GameLink GameLink="ZergMutalisk">
+                <Field Id="Attacking Units"/>
+            </GameLink>
+            <Int Int="3">
+                <Field Id="Count"/>
+            </Int>
+            <String String="Easy">
+                <Field Id="Difficulty"/>
+            </String>
+            <String String="Flier">
+                <Field Id="Name"/>
+            </String>
+        </Instances>
+        <Instances Id="Fliers - Normal">
+            <GameLink GameLink="ZergMutalisk">
+                <Field Id="Attacking Units"/>
+            </GameLink>
+            <Int Int="6">
+                <Field Id="Count"/>
+            </Int>
+            <String String="Flier">
+                <Field Id="Name"/>
+            </String>
+            <String String="Normal">
+                <Field Id="Difficulty"/>
+            </String>
+        </Instances>
+        <Instances Id="Fliers - Hard">
+            <GameLink GameLink="ZergMutalisk">
+                <Field Id="Attacking Units"/>
+            </GameLink>
+            <GameLink GameLink="ZergRoach">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <Int Int="8">
+                <Field Id="Count"/>
+            </Int>
+            <Int Int="2">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <String String="Flier">
+                <Field Id="Name"/>
+            </String>
+            <String String="Hard">
+                <Field Id="Difficulty"/>
+            </String>
+        </Instances>
+        <Instances Id="Fliers - Brutal">
+            <GameLink GameLink="ZergMutalisk">
+                <Field Id="Attacking Units"/>
+            </GameLink>
+            <Int Int="11">
+                <Field Id="Count"/>
+            </Int>
+            <String String="Brutal">
+                <Field Id="Difficulty"/>
+            </String>
+            <String String="Flier">
+                <Field Id="Name"/>
+            </String>
+        </Instances>
+        <Instances Id="Fliers - Psi Emitter">
+            <GameLink GameLink="ZergBaneling">
+                <Field Id="Attacking Units"/>
+            </GameLink>
+            <GameLink GameLink="ZergMutalisk">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <Int Int="10">
+                <Field Id="Count"/>
+            </Int>
+            <Int Int="8">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <String String="Flier">
+                <Field Id="Name"/>
+            </String>
+            <String String="Psi">
+                <Field Id="Difficulty"/>
+            </String>
+        </Instances>
+        <Instances Id="Heavy Hitters - Easy">
+            <GameLink GameLink="ZergRoach">
+                <Field Id="Attacking Units"/>
+            </GameLink>
+            <GameLink GameLink="ZergHydralisk">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <Int Int="3">
+                <Field Id="Count"/>
+            </Int>
+            <String String="Easy">
+                <Field Id="Difficulty"/>
+            </String>
+            <String String="Heavy">
+                <Field Id="Name"/>
+            </String>
+        </Instances>
+        <Instances Id="Heavy Hitters - Normal">
+            <GameLink GameLink="ZergRoach">
+                <Field Id="Attacking Units"/>
+            </GameLink>
+            <GameLink GameLink="ZergHydralisk">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <Int Int="4">
+                <Field Id="Count"/>
+            </Int>
+            <String String="Normal">
+                <Field Id="Difficulty"/>
+            </String>
+            <String String="Heavy">
+                <Field Id="Name"/>
+            </String>
+        </Instances>
+        <Instances Id="Heavy Hitters - Hard">
+            <GameLink GameLink="ZergRoach">
+                <Field Id="Attacking Units"/>
+            </GameLink>
+            <GameLink GameLink="ZergHydralisk">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <GameLink GameLink="ZergUltralisk">
+                <Field Id="Attacking Units" Index="2"/>
+            </GameLink>
+            <Int Int="2">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <Int Int="1">
+                <Field Id="Count" Index="2"/>
+            </Int>
+            <Int Int="2">
+                <Field Id="Count"/>
+            </Int>
+            <String String="Hard">
+                <Field Id="Difficulty"/>
+            </String>
+            <String String="Heavy">
+                <Field Id="Name"/>
+            </String>
+        </Instances>
+        <Instances Id="Heavy Hitters - Brutal">
+            <GameLink GameLink="ZergUltralisk">
+                <Field Id="Attacking Units"/>
+            </GameLink>
+            <GameLink GameLink="ZergHydralisk">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <Int Int="2">
+                <Field Id="Count"/>
+            </Int>
+            <Int Int="3">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <String String="Heavy">
+                <Field Id="Name"/>
+            </String>
+            <String String="Brutal">
+                <Field Id="Difficulty"/>
+            </String>
+        </Instances>
+        <Instances Id="Heavy Hitters - Psi Emitter">
+            <GameLink GameLink="ZergBaneling">
+                <Field Id="Attacking Units" Index="1"/>
+            </GameLink>
+            <GameLink GameLink="ZergUltralisk">
+                <Field Id="Attacking Units" Index="2"/>
+            </GameLink>
+            <Int Int="10">
+                <Field Id="Count" Index="1"/>
+            </Int>
+            <Int Int="1">
+                <Field Id="Count" Index="2"/>
+            </Int>
+            <String String="Psi">
+                <Field Id="Difficulty"/>
+            </String>
+            <String String="Heavy">
+                <Field Id="Name"/>
+            </String>
+        </Instances>
+    </CUser>
+    <CUser id="BeaconWaves">
+        <Fields>
+            <Id value="Wave 2"/>
+            <Type value="Unit"/>
+            <Count value="3"/>
+            <EditorColumn value="1"/>
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Fields>
+            <Id value="Wave 1"/>
+            <Type value="Unit"/>
+            <Count value="3"/>
+            <EditorColumn value="1"/>
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Fields>
+            <Id value="Count 1"/>
+            <Type value="Int"/>
+            <Count value="3"/>
+            <EditorColumn value="1"/>
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Fields>
+            <Id value="Count 2"/>
+            <Type value="Int"/>
+            <Count value="3"/>
+            <EditorColumn value="1"/>
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Fields Id="Comment" Type="Text" EditorColumn="1">
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Instances Id="[Default]"/>
+        <Instances Id="Tier1">
+            <Int Int="9">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="2">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier1_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergZergling">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergZergling">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+        </Instances>
+        <Instances Id="Tier2">
+            <Int Int="8">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="3">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier2_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergZergling">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergZergling">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 2" Index="2"/>
+            </Unit>
+        </Instances>
+        <Instances Id="Tier3">
+            <Int Int="8">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="4">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Int Int="1">
+                <Field Id="Count 1" Index="2"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier3_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergZergling">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergZergling">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 2" Index="2"/>
+            </Unit>
+            <Unit Unit="ZergGuardian">
+                <Field Id="Wave 1" Index="2"/>
+            </Unit>
+        </Instances>
+        <Instances Id="Tier4">
+            <Int Int="5">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Int Int="1">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="1">
+                <Field Id="Count 1" Index="2"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier4_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 2" Index="2"/>
+            </Unit>
+            <Unit Unit="ZergGuardian">
+                <Field Id="Wave 1" Index="2"/>
+            </Unit>
+        </Instances>
+        <Instances Id="Tier5">
+            <Int Int="6">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Int Int="1">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="2">
+                <Field Id="Count 1" Index="2"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier5_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 2" Index="2"/>
+            </Unit>
+            <Unit Unit="ZergGuardian">
+                <Field Id="Wave 1" Index="2"/>
+            </Unit>
+        </Instances>
+        <Instances Id="Tier6">
+            <Int Int="1">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="2">
+                <Field Id="Count 1" Index="2"/>
+            </Int>
+            <Int Int="7">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier6_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 2" Index="2"/>
+            </Unit>
+            <Unit Unit="ZergGuardian">
+                <Field Id="Wave 1" Index="2"/>
+            </Unit>
+        </Instances>
+        <Instances Id="Tier7">
+            <Int Int="2">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="7">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Int Int="3">
+                <Field Id="Count 1" Index="2"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier7_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 2" Index="2"/>
+            </Unit>
+            <Unit Unit="ZergGuardian">
+                <Field Id="Wave 1" Index="2"/>
+            </Unit>
+        </Instances>
+    </CUser>
+    <CUser id="CageWaves">
+        <Fields>
+            <Id value="Wave 2"/>
+            <Type value="Unit"/>
+            <Count value="3"/>
+            <EditorColumn value="1"/>
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Fields>
+            <Id value="Wave 1"/>
+            <Type value="Unit"/>
+            <Count value="3"/>
+            <EditorColumn value="1"/>
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Fields>
+            <Id value="Count 1"/>
+            <Type value="Int"/>
+            <Count value="3"/>
+            <EditorColumn value="1"/>
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Fields>
+            <Id value="Count 2"/>
+            <Type value="Int"/>
+            <Count value="3"/>
+            <EditorColumn value="1"/>
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Fields Id="Comment" Type="Text" EditorColumn="1">
+            <Flags index="Modifiable" value="1"/>
+        </Fields>
+        <Instances Id="[Default]"/>
+        <Instances Id="Tier1">
+            <Int Int="9">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="2">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier1_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergZergling">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergZergling">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+        </Instances>
+        <Instances Id="Tier2">
+            <Int Int="8">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="3">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier2_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergZergling">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergZergling">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 2" Index="2"/>
+            </Unit>
+        </Instances>
+        <Instances Id="Tier3">
+            <Int Int="8">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="4">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Int Int="1">
+                <Field Id="Count 1" Index="2"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier3_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergZergling">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergZergling">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 2" Index="2"/>
+            </Unit>
+            <Unit Unit="ZergGuardian">
+                <Field Id="Wave 1" Index="2"/>
+            </Unit>
+        </Instances>
+        <Instances Id="Tier4">
+            <Int Int="5">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Int Int="1">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="1">
+                <Field Id="Count 1" Index="2"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier4_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 2" Index="2"/>
+            </Unit>
+            <Unit Unit="ZergGuardian">
+                <Field Id="Wave 1" Index="2"/>
+            </Unit>
+        </Instances>
+        <Instances Id="Tier5">
+            <Int Int="6">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Int Int="1">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="2">
+                <Field Id="Count 1" Index="2"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier5_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 2" Index="2"/>
+            </Unit>
+            <Unit Unit="ZergGuardian">
+                <Field Id="Wave 1" Index="2"/>
+            </Unit>
+        </Instances>
+        <Instances Id="Tier6">
+            <Int Int="1">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="2">
+                <Field Id="Count 1" Index="2"/>
+            </Int>
+            <Int Int="7">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier6_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 2" Index="2"/>
+            </Unit>
+            <Unit Unit="ZergGuardian">
+                <Field Id="Wave 1" Index="2"/>
+            </Unit>
+        </Instances>
+        <Instances Id="Tier7">
+            <Int Int="2">
+                <Field Id="Count 1"/>
+            </Int>
+            <Int Int="7">
+                <Field Id="Count 1" Index="1"/>
+            </Int>
+            <Int Int="3">
+                <Field Id="Count 1" Index="2"/>
+            </Int>
+            <Text Text="UserData/BeaconWaves/Tier7_Comment">
+                <Field Id="Comment"/>
+            </Text>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 1"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 1" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergRoach">
+                <Field Id="Wave 2"/>
+            </Unit>
+            <Unit Unit="ZergHydralisk">
+                <Field Id="Wave 2" Index="1"/>
+            </Unit>
+            <Unit Unit="ZergUltralisk">
+                <Field Id="Wave 2" Index="2"/>
+            </Unit>
+            <Unit Unit="ZergGuardian">
+                <Field Id="Wave 1" Index="2"/>
+            </Unit>
+        </Instances>
+    </CUser>
+    <CUser id="EndOfMatchMapSpecificAward">
+        <Instances Id="[Override]Generic Instance">
+            <Fixed Fixed="1498">
+                <Field Id="Base"/>
+            </Fixed>
+            <GameLink GameLink="EndOfMatchAwardMostDamageDoneToZergBoolean">
+                <Field Id="Score Value Boolean"/>
+            </GameLink>
+            <String String="18">
+                <Field Id="Award Badge Index"/>
+            </String>
+            <String String="true">
+                <Field Id="Present as Ratio"/>
+            </String>
+            <Text Text="UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Award Name">
+                <Field Id="Award Name"/>
+            </Text>
+            <Text Text="UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Description">
+                <Field Id="Description"/>
+            </Text>
+            <Text Text="UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Tooltip Text">
+                <Field Id="Tooltip Text"/>
+            </Text>
+        </Instances>
+    </CUser>
+    <CUser id="MapVOEvent">
+        <Instances Id="Holdout - First Beacons Activating"/>
+        <Instances Id="Holdout - Subsequent Beacons Activating"/>
+        <Instances Id="Holdout - First Beacons Active"/>
+        <Instances Id="Holdout - Subsequent Beacons Active"/>
+        <Instances Id="Holdout - Zerg Attacking"/>
+        <Instances Id="Holdout - Zerg Power Not Equal"/>
+        <Instances Id="Holdout - Zerg Power Equal"/>
+        <Instances Id="Holdout - Zerg Dead"/>
+        <Instances Id="Holdout - First Zerg Warning"/>
+        <Instances Id="Holdout - Subsequent Zerg Warnings"/>
+        <Instances Id="Briefing"/>
+    </CUser>
+</Catalog>

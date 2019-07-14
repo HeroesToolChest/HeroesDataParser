@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CMount id="MountCloudVar1" parent="MountCloudCommon">
+    <AttributeId value="CLO1"/>
+    <Model value="MountCloud_Base_01"/>
+    <RequiredRewardArray value="MountCloudVar1"/>
+    <VariationIcon value="Assets\Textures\ui_glues_swatch_green_bright.dds"/>
+    <ProductId value="23785"/>
+    <HyperlinkId value="JadeNimbusCloud"/>
+    <Rarity value="Legendary"/>
+  </CMount>
+</Catalog>

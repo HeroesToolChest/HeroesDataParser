@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CEffectApplyBehavior id="ApplyPayloadNearbyBehavior">
+    <Behavior value="HeroGenericHeroNearPayload" />
+  </CEffectApplyBehavior>
+  <CEffectEnumTrackedUnits id="ApplyPayloadNearbyBehaviorToAllHeroes">
+    <BehaviorLink value="AllHeroicUnitsTrackingBehavior" />
+    <Effect value="ApplyPayloadNearbyBehavior" />
+  </CEffectEnumTrackedUnits>
+  <CEffectDamage id="PayloadDestroyBlocker">
+    <ValidatorArray value="IsZagaraNydusWorm" />
+    <Flags index="Kill" value="1" />
+  </CEffectDamage>
+  <CEffectEnumArea id="PayloadBlockedObstacleSearchArea">
+    <ImpactLocation Value="SourceUnit" />
+    <SearchFilters value="-;Self,Player,Dead" />
+    <AreaArray Effect="PayloadBlockedObstacleFoundSet">
+      <RectangleWidth value="3" />
+      <RectangleHeight value="4" />
+    </AreaArray>
+    <AreaRelativeOffset Y="-2" />
+  </CEffectEnumArea>
+  <CEffectSet id="PayloadBlockedObstacleFoundSet">
+    <ValidatorArray value="ValidObstacleTargets" />
+    <EffectArray value="PayloadDestroyBlocker" />
+    <EffectArray value="PayloadBlockedApplyBlockedBehavior" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="PayloadBlockedApplyBlockedBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="PayloadObstaclesInTheWay" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="ApplyAllyPayloadPusherBehavior">
+    <Behavior value="AllyPayloadPusherBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectLaunchMissile id="AttackCoreLaunchMissile4Seconds">
+    <AmmoUnit value="AttackCoreMissile" />
+    <Movers Link="AttackCoreMissile4" />
+    <ImpactEffect value="AttackCoreDamage" />
+  </CEffectLaunchMissile>
+  <CEffectModifyUnit id="PayloadAndEnemyCoreSyncEffect" />
+  <CEffectIssueOrder id="PayloadIssueStopOrder">
+    <WhichUnit Value="Source" />
+    <Abil value="stop" />
+  </CEffectIssueOrder>
+  <CEffectApplyBehavior id="PayloadReverseApplyPauseMovementBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="PayloadPauseMovingBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectCreatePersistent id="PayloadReverseCreatePersistent">
+    <WhichLocation Value="SourceUnit" />
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="PayloadReverseModifyUnit" />
+    <PeriodicOffsetArray Y="1" />
+  </CEffectCreatePersistent>
+  <CEffectModifyUnit id="PayloadReverseModifyUnit">
+    <ImpactUnit Value="Source" />
+    <FacingLocation Value="TargetPoint" />
+    <FacingType value="LookAt" />
+  </CEffectModifyUnit>
+  <CEffectSet id="PayloadReverseRemovalSet">
+    <EffectArray value="PayloadReverseApplyPauseMovementBehavior" />
+    <EffectArray value="PayloadReverseCreatePersistent" />
+  </CEffectSet>
+  <CEffectModifyUnit id="HanamuraMapMechanicAbilityRefreshHeal">
+    <VitalArray index="Life">
+      <ChangeFraction value="1" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="PayloadAttackCoreModifyTurret">
+    <ImpactUnit Value="Caster" />
+    <ModifyTurret Turret="PayloadAttackCoreTurret">
+      <Target Value="TargetUnit" />
+      <Flags index="Tracking" value="1" />
+    </ModifyTurret>
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="PayloadTurretDummyEffectToMakePlaceholderImage" />
+  <CEffectModifyUnit id="PayloadTurretDummyEffectToDestroyPlaceholderImage" />
+  <CEffectCreatePersistent id="Payload_LinkActor">
+    <WhichLocation Value="TargetUnit" />
+  </CEffectCreatePersistent>
+</Catalog>

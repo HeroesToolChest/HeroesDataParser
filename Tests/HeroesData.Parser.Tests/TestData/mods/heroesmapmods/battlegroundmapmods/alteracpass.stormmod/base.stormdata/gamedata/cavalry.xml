@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CActorUnit id="AllianceSuperCavalry" parent="StormUnitBase" unitName="AllianceCavalry">
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_targetinfopanel_unit_wcav_minion_cavalry_alliance.dds" />
+    </GroupIcon>
+    <BarOffset value="-70" />
+  </CActorUnit>
+  <CActorUnit id="HordeSuperCavalry" parent="StormUnitBase" unitName="HordeCavalry">
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_targetinfopanel_unit_wcav_minion_cavalry_horde.dds" />
+    </GroupIcon>
+    <BarOffset value="-70" />
+  </CActorUnit>
+  <CArmor id="CavalryArmor">
+    <ArmorSet index="Structure">
+      <ArmorMitigationTable index="Splash" value="25" />
+      <ArmorMitigationTable index="Basic" value="25" />
+      <ArmorMitigationTable index="Ability" value="25" />
+    </ArmorSet>
+  </CArmor>
+  <CBehaviorBuff id="CavalryEmpoweredHeroMovementSpeedBuff" parent="StormSprint">
+    <Modification>
+      <UnifiedMoveSpeedFactor value="0.3" />
+    </Modification>
+    <RemoveValidatorArray value="SuperCavalryEmpowerTargetCloseToCaster" />
+    <RemoveValidatorArray value="CasterNotDead" />
+    <RemoveValidatorArray value="TargetNotSpecialDeathState" />
+  </CBehaviorBuff>
+  <CBehaviorVeterancy id="SuperCavalryScaling">
+    <InfoFlags index="Hidden" value="1" />
+    <XPFraction index="Kills" value="0" />
+    <VeterancyLevelArray />
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="11" />
+        <VitalMaxArray index="Life" value="150" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="11" />
+        <VitalMaxArray index="Life" value="150" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="11" />
+        <VitalMaxArray index="Life" value="150" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="11" />
+        <VitalMaxArray index="Life" value="150" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="11" />
+        <VitalMaxArray index="Life" value="150" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="16.5" />
+        <VitalMaxArray index="Life" value="225" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="16.5" />
+        <VitalMaxArray index="Life" value="225" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="16.5" />
+        <VitalMaxArray index="Life" value="225" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="16.5" />
+        <VitalMaxArray index="Life" value="225" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="16.5" />
+        <VitalMaxArray index="Life" value="225" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="22" />
+        <VitalMaxArray index="Life" value="300" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="22" />
+        <VitalMaxArray index="Life" value="300" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="22" />
+        <VitalMaxArray index="Life" value="300" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="22" />
+        <VitalMaxArray index="Life" value="300" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="22" />
+        <VitalMaxArray index="Life" value="300" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="27.5" />
+        <VitalMaxArray index="Life" value="375" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="27.5" />
+        <VitalMaxArray index="Life" value="375" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="27.5" />
+        <VitalMaxArray index="Life" value="375" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="27.5" />
+        <VitalMaxArray index="Life" value="375" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="27.5" />
+        <VitalMaxArray index="Life" value="375" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="33" />
+        <VitalMaxArray index="Life" value="450" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="33" />
+        <VitalMaxArray index="Life" value="450" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="33" />
+        <VitalMaxArray index="Life" value="450" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="33" />
+        <VitalMaxArray index="Life" value="450" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="33" />
+        <VitalMaxArray index="Life" value="450" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="38.5" />
+        <VitalMaxArray index="Life" value="525" />
+      </Modification>
+    </VeterancyLevelArray>
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+  </CBehaviorVeterancy>
+  <CBehaviorBuff id="CavalryEmpoweredBuffCarry">
+    <Alignment value="Positive" />
+    <Period value="0.0625" />
+    <PeriodicEffect value="CavalryEmpoweredMSBuffSearchArea" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="CavalryStructureMinionDamageMitigation">
+    <RemoveValidatorArray value="CasterNotDead" />
+    <DamageResponse Chance="1" ModifyFraction="0.5">
+      <UnitDamageType index="Hero" value="0" />
+      <UnitDamageType index="Merc" value="0" />
+      <UnitDamageType index="Monster" value="0" />
+      <UnitDamageType index="Summon" value="0" />
+    </DamageResponse>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="CavalryEmpoweredHeroDamageDealtBuff" parent="StormDamageIncrease">
+    <Alignment value="Positive" />
+    <BehaviorCategories index="BuffAutoattackDPS" value="1" />
+    <BehaviorCategories index="BuffAbilityPower" value="1" />
+    <Aliases value="RangedDamageCrit" />
+    <Aliases value="CritAliasSpellPower" />
+    <RemoveValidatorArray value="SuperCavalryEmpowerTargetCloseToCaster" />
+    <RemoveValidatorArray value="CasterNotDead" />
+    <RemoveValidatorArray value="TargetNotSpecialDeathState" />
+    <Modification>
+      <DamageDealtFraction index="Splash" value="0.1" />
+      <DamageDealtFraction index="Basic" value="0.1" />
+      <DamageDealtFraction index="Ability" value="0.1" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="CavalryEmpoweredMinionBuff">
+    <Alignment value="Positive" />
+    <BehaviorCategories index="Fast" value="1" />
+    <Modification>
+      <MoveSpeedMinimum value="5" />
+    </Modification>
+    <Duration value="1" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="CavalrySpawnSpeedBoost">
+    <Alignment value="Positive" />
+    <Period value="0.125" />
+    <PeriodicEffect value="CavalrySpawnSpeedBuffSearchArea" />
+    <Modification>
+      <MoveSpeedMinimum value="5.6992" />
+    </Modification>
+    <BehaviorCategories index="Fast" value="1" />
+  </CBehaviorBuff>
+  <CEffectDamage default="1" id="AlteracSuperCavalryWeaponDamage" parent="StormWeapon">
+    <Amount value="65" />
+    <AttributeFactor index="Minion" value="1.5" />
+    <AttributeFactor index="Structure" value="0.75" />
+  </CEffectDamage>
+  <CEffectApplyBehavior id="CavalryEmpowerHeroesApplyMovementSpeedBehavior">
+    <ValidatorArray index="0" value="TargetIsNotABossUnitOrMonsterMinorCombine" />
+    <ValidatorArray value="TargetIsHero" />
+    <Behavior value="CavalryEmpoweredHeroMovementSpeedBuff" />
+  </CEffectApplyBehavior>
+  <CEffectDamage id="AllianceSuperCavalryWeaponDamage" parent="AlteracSuperCavalryWeaponDamage" />
+  <CEffectDamage id="HordeSuperCavalryWeaponDamage" parent="AlteracSuperCavalryWeaponDamage" />
+  <CEffectApplyBehavior id="CavalryEmpoweredApplyMSBuff">
+    <Behavior value="CavalryEmpoweredBuff" />
+  </CEffectApplyBehavior>
+  <CEffectEnumArea id="CavalryEmpoweredMSBuffSearchArea">
+    <LaunchLocation Value="SourcePoint" />
+    <SearchFilters value="-;Neutral,Enemy,ImmuneToAOE,Structure,ImmuneToFriendlyAbilities,Missile,Stasis,Dead" />
+    <AreaArray Effect="CavalryEmpowerBuffSet">
+      <Radius value="5.5" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+    <ValidatorArray value="TargetNotSpecialDeathState" />
+  </CEffectEnumArea>
+  <CEffectEnumArea id="CavalrySpawnSpeedBuffSearchArea">
+    <LaunchLocation Value="SourcePoint" />
+    <SearchFilters value="Minion;Player,Ally,Neutral,ImmuneToAOE,Structure,ImmuneToFriendlyAbilities,Missile,Stasis,Dead" />
+    <AreaArray Effect="CavalrySpawnSpeedBoostRemoveBehavior">
+      <Radius value="5.5" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+    <ValidatorArray value="TargetNotSpecialDeathState" />
+  </CEffectEnumArea>
+  <CEffectApplyBehavior id="CavalryEmpowerHeroesApplyDamageDealtBehavior">
+    <ValidatorArray index="0" value="TargetIsNotABossUnitOrMonsterMinorCombine" />
+    <ValidatorArray value="TargetIsHero" />
+    <Behavior value="CavalryEmpoweredHeroDamageDealtBuff" />
+  </CEffectApplyBehavior>
+  <CEffectRemoveBehavior id="CavalrySpawnSpeedBoostRemoveBehavior">
+    <BehaviorLink value="CavalrySpawnSpeedBoost" />
+    <WhichUnit Value="Source" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="CavalryEmpowerMinionsApplyBehavior">
+    <ValidatorArray index="0" value="TargetIsNotABossUnitOrMonsterMinorCombine" />
+    <ValidatorArray value="IsMinion" />
+    <Behavior value="CavalryEmpoweredMinionBuff" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="CavalryEmpowerBuffSet">
+    <EffectArray value="CavalryEmpowerHeroesApplyDamageDealtBehavior" />
+    <EffectArray value="CavalryEmpowerHeroesApplyMovementSpeedBehavior" />
+    <EffectArray value="CavalryEmpowerMinionsApplyBehavior" />
+    <ValidatorArray value="DoesNotHaveCavalryEmpoweredBuffAlready" />
+  </CEffectSet>
+  <CUnit default="1" id="AlteracSuperCavalryParent" parent="StormMonsterMajorLanerParent">
+    <BehaviorArray Link="SuperCavalryScaling" />
+    <BehaviorArray Link="CavalryEmpoweredBuffCarry" />
+    <BehaviorArray Link="CavalrySpawnSpeedBoost" />
+    <BehaviorArray Link="CavalryStructureMinionDamageMitigation" />
+    <Speed value="5" />
+    <LifeStart value="8000" />
+    <LifeMax value="8000" />
+    <AIThinkTree value="AI/BossLanerAttacksMinions.aitree" />
+    <ArmorLink value="CavalryArmor" />
+    <AbilArray index="1" Link="StormBossAttack" />
+  </CUnit>
+  <CUnit id="AllianceCavalry" parent="AlteracSuperCavalryParent">
+    <WeaponArray Link="AllianceSuperCavalryWeapon" />
+  </CUnit>
+  <CUnit id="HordeCavalry" parent="AlteracSuperCavalryParent">
+    <WeaponArray Link="HordeSuperCavalryWeapon" />
+  </CUnit>
+  <CValidatorUnitType id="IsNotAllianceCavalry">
+    <Value value="AllianceCavalry" />
+    <Find value="0" />
+  </CValidatorUnitType>
+  <CValidatorCombine id="IsNotCavalry">
+    <Type value="And" />
+    <CombineArray value="IsNotHordeCavalry" />
+    <CombineArray value="IsNotAllianceCavalry" />
+  </CValidatorCombine>
+  <CValidatorUnitType id="IsNotHordeCavalry">
+    <Value value="HordeCavalry" />
+    <Find value="0" />
+  </CValidatorUnitType>
+  <CValidatorCombine id="TargetIsNotABossUnitCombine">
+    <CombineArray value="IsNotCavalry" />
+  </CValidatorCombine>
+  <CValidatorLocationCompareRange id="SuperCavalryEmpowerTargetCloseToCaster">
+    <WhichLocation Value="CasterPoint" />
+    <Compare value="LE" />
+    <Range value="6.75" />
+    <Value Effect="CavalryEmpowerBuffSet" Value="TargetUnit" />
+  </CValidatorLocationCompareRange>
+  <CValidatorUnitCompareBehaviorCount id="DoesNotHaveCavalryHeroEmpoweredBuffAlready">
+    <Behavior value="CavalryEmpoweredHeroDamageDealtBuff" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="DoesNotHaveCavalryMinionEmpoweredBuffAlready">
+    <Behavior value="CavalryEmpoweredMinionBuff" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="DoesNotHaveCavalryEmpoweredBuffAlready">
+    <Type value="And" />
+    <CombineArray value="DoesNotHaveCavalryHeroEmpoweredBuffAlready" />
+    <CombineArray value="DoesNotHaveCavalryMinionEmpoweredBuffAlready" />
+  </CValidatorCombine>
+  <CWeaponLegacy id="AlteracSuperCavalryWeapon" parent="StormHeroMediumWeapon">
+    <Range value="1" />
+    <Period value="1" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="AllianceSuperCavalryWeapon" parent="AlteracSuperCavalryWeapon">
+    <Effect value="AllianceSuperCavalryWeaponDamage" />
+    <DisplayEffect value="AllianceSuperCavalryWeaponDamage" />
+    <DamagePoint value="0.4375" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="HordeSuperCavalryWeapon" parent="AlteracSuperCavalryWeapon">
+    <Effect value="HordeSuperCavalryWeaponDamage" />
+    <DisplayEffect value="HordeSuperCavalryWeaponDamage" />
+    <DamagePoint value="0.25" />
+  </CWeaponLegacy>
+</Catalog>

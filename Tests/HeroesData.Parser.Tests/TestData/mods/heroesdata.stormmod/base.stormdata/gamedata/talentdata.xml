@@ -29,4 +29,81 @@
       </Modifications>
     </AbilityModificationArray>
   </CTalent>
+  <CTalent id="GenericTalentFollowThrough">
+    <Face value="GenericFollowThroughTalent" />
+    <RankArray>
+      <BehaviorArray value="TalentBucketFollowThroughCarryBehavior" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="GenericTalentNexusBlades">
+    <Face value="NexusBladesTalent" />
+    <RankArray>
+      <BehaviorArray value="NexusBladesCarryBehavior" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="GenericTalentSpellShield">
+    <Face value="GenericSpellShieldTalent" />
+    <Abil value="HeroGenericSpellShield" />
+    <RankArray>
+      <BehaviorArray value="SpellShieldPrimed" />
+      <BehaviorArray value="SpellShieldItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="HeroGenericExecutionerPassive">
+    <Face value="GenericExecutionerTalent" />
+  </CTalent>
+  <CTalent id="GenericTalentCalldownMULE">
+    <Face value="GenericCalldownMule" />
+    <Abil value="TalentBucketCalldownMule" />
+    <RankArray>
+      <BehaviorArray value="GenericCalldownMule" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="GenericTalentRegenerationMaster">
+    <Face value="GenericRegenerationMasterTalent" />
+    <RankArray>
+      <BehaviorArray value="HeroGenericRegenerationMasterQuestToken" />
+      <BehaviorArray value="RegenerationMaster" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="HeroGenericRegenerationMasterIncrementQuestToken" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="RegenerationMaster" />
+        <Field value="Modification.VitalMaxArray[Life]" />
+      </Modifications>
+    </AbilityModificationArray>
+    <QuestData StackBehavior="HeroGenericRegenerationMasterQuestToken" TargetCount="30" />
+  </CTalent>
+  <CTalent id="GenericTalentBurningRage">
+    <Face value="GenericBurningRageTalent" />
+    <RankArray>
+      <BehaviorArray value="TalentBucketBurningRage" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="GenericTalentHardenedShield">
+    <Face value="HardenedShieldTalent" />
+    <Abil value="TalentHardenedShield" />
+    <RankArray>
+      <BehaviorArray value="HardenedShieldItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="GenericTalentRewind">
+    <Face value="GenericRewindHotbar" />
+    <Abil value="TalentRewind" />
+    <RankArray>
+      <BehaviorArray value="GenericRewindItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
 </Catalog>

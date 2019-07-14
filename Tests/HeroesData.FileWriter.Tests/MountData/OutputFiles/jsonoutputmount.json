@@ -1,0 +1,27 @@
+{
+  "CloudNine": {
+    "name": "Cloud Nine",
+    "hyperlinkId": "CloudNine",
+    "attributeId": "CN9",
+    "rarity": "Rare",
+    "type": "Ride",
+    "category": "Magical",
+    "event": "WhimsyDale",
+    "releaseDate": "2016-05-21",
+    "sortName": "99CloudeNine",
+    "searchText": "Blue",
+    "description": "A floating cloud"
+  },
+  "MagixCarpet": {
+    "name": "Magic Carpet",
+    "hyperlinkId": "MagicCarpet",
+    "attributeId": "MC4",
+    "rarity": "Epic",
+    "type": "Ride",
+    "category": "Magical",
+    "releaseDate": "2018-04-01",
+    "sortName": "xxMagixCarpet",
+    "searchText": "Blue",
+    "description": "A flying magic carpet"
+  }
+}

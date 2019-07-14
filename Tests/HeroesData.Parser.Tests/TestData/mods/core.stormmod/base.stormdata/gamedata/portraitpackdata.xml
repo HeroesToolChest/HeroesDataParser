@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CPortraitPack default="1">
+    <Name value="Reward/Name/##id##"/>
+    <SortName value="Reward/SortName/##id##"/>
+    <LootChestRewardCutsceneFile value="Cutscenes/UI_LootChest_Reward_Portrait.StormCutscene"/>
+    <TextureSlot value="main"/>
+    <PortraitArray value="##id##"/>
+    <HyperlinkId value="##id##"/>
+  </CPortraitPack>
+</Catalog>

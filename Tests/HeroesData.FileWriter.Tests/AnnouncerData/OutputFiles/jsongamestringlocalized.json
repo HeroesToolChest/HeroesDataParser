@@ -1,0 +1,22 @@
+{
+  "OrpheaA": {
+    "hyperlinkId": "OrpheaAId",
+    "attributeId": "OE3",
+    "rarity": "Rare",
+    "category": "Realm",
+    "gender": "Female",
+    "heroId": "Orphea",
+    "releaseDate": "2016-05-21",
+    "image": "announcer_orphea.png"
+  },
+  "MurkyA": {
+    "hyperlinkId": "MurkyAId",
+    "attributeId": "ME3",
+    "rarity": "Rare",
+    "category": "Warcraft",
+    "gender": "Male",
+    "heroId": "Murkey",
+    "releaseDate": "2016-05-21",
+    "image": "announcer_murkey.png"
+  }
+}

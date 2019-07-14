@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UnitOverrides>
+  <!--***************************************-->
+  <!--TEST TEST TEST TEST TEST TEST TEST TEST-->
+  <!--***************************************-->
+
+  <CUnit id="overwatchdata-JungleGraveGolemDefender">
+    <Ability id="UnderworldBossRoots" button="GraveGolemBindingRoots">
+      <Override>
+        <AbilityType value="Hidden" />
+      </Override>
+    </Ability>
+    <Ability id="UnderworldBossStun" button="GraveGolemMegaStun">
+      <Override>
+        <AbilityType value="Hidden" />
+      </Override>
+    </Ability>
+  </CUnit>
+  <CUnit id="RagnarosBigRag">
+    <Ability id="RagnarosBigRagReturnMoltenCore" button="RagnarosBigRagCancelReturnMoltenCore">
+      <Override>
+        <ParentLink value="RagnarosBigRagReturnMoltenCore" />
+      </Override>
+    </Ability>
+  </CUnit>
+  <CUnit id="SamuroMirrorImage">
+    <Ability id="SamuroBladestormCancel">
+      <Override>
+        <ParentLink value="SamuroBladeStormDummy,SamuroBladestorm" />
+      </Override>
+    </Ability>
+  </CUnit>
+  <CUnit id="VolskayaVehicleGunner">
+    <Ability id="VolskayaVehicleActivateParticleCannon" button="VolskayaVehicleActivateParticleCannon">
+      <Override>
+        <ParentLink value="VolskayaVehicleInitiateParticleCannon" />
+      </Override>
+    </Ability>
+    <Ability id="VolskayaVehicleTacticalStrikesDeactivate" button="VolskayaVehicleGatlingCannonCancel">
+      <Override>
+        <ParentLink value="VolskayaVehicleTacticalStrikes" />
+      </Override>
+    </Ability>
+  </CUnit>
+  <CUnit id="volskayadata-VolskayaVehicleGunner">
+    <Ability id="VolskayaVehicleActivateParticleCannon" button="VolskayaVehicleActivateParticleCannon">
+      <Override>
+        <ParentLink value="VolskayaVehicleInitiateParticleCannon" />
+      </Override>
+    </Ability>
+    <Ability id="VolskayaVehicleTacticalStrikesDeactivate" button="VolskayaVehicleGatlingCannonCancel">
+      <Override>
+        <ParentLink value="VolskayaVehicleTacticalStrikes" />
+      </Override>
+    </Ability>
+  </CUnit>
+</UnitOverrides>

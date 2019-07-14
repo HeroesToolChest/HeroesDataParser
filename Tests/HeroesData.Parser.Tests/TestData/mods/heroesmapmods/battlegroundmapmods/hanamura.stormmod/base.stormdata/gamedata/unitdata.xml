@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CUnit id="FootmanMinion">
+        <KillXP value="102"/>
+    </CUnit>
+    <CUnit id="KingsCore">
+        <BehaviorArray Link="AIMapTokenMapControlMercenaryCampVisionTop"/>
+        <BehaviorArray Link="AIMapTokenMapControlMercenaryCampVisionBottom"/>
+    </CUnit>
+    <CUnit id="MercDefenderSentinel">
+        <LifeStart value="6500"/>
+        <LifeMax value="6500"/>
+        <KillXP value="530"/>
+        <BehaviorArray Link="ImmunetoSylvanasBlackArrowStructureDebuff"/>
+    </CUnit>
+    <CUnit id="MercLanerSentinel">
+        <LifeStart value="8000"/>
+        <LifeMax value="8000"/>
+        <BehaviorArray Link="MercenarySamurai_BirthStun"/>
+        <BehaviorArray Link="ImmunetoSylvanasBlackArrow"/>
+    </CUnit>
+    <CUnit id="RangedMinion">
+        <KillXP value="92"/>
+    </CUnit>
+    <CUnit id="WizardMinion">
+        <KillXP value="94"/>
+    </CUnit>
+    <CUnit id="AttackCoreMissile" parent="MISSILE_INVULNERABLE">
+        <Race value="Zerg"/>
+        <Height value="3"/>
+        <FogVisibility value="Dimmed"/>
+    </CUnit>
+    <CUnit id="Storm_Building_OWHana_LargeGate_Int" parent="TownGateL3">
+        <Facing value="45"/>
+        <Footprint value="TownGateFootprintBLURTLVisionBlocked"/>
+        <FlagArray index="Turnable" value="1"/>
+        <FlagArray index="Unhighlightable" value="1"/>
+        <FlagArray index="Untargetable" value="1"/>
+        <FlagArray index="Invulnerable" value="1"/>
+        <BehaviorArray index="0" Link="StatusBarController"/>
+        <BehaviorArray index="1" Link="UnitCannotBePinged"/>
+        <BehaviorArray index="2" removed="1"/>
+        <BehaviorArray index="3" removed="1"/>
+        <BehaviorArray index="4" removed="1"/>
+        <Attributes index="ImmuneToAOE" value="1"/>
+        <Attributes index="NoMinionAggro" value="1"/>
+        <Attributes index="ImmuneToSkillshots" value="1"/>
+        <Attributes index="ImmuneToFriendlyAbilities" value="1"/>
+    </CUnit>
+    <CUnit id="Storm_Building_OWHana_LargeGate_Ext" parent="TownGateL3">
+        <Facing value="135"/>
+        <Footprint value="TownGateFootprintBRULBLVisionBlocked"/>
+        <FlagArray index="Turnable" value="1"/>
+        <FlagArray index="Unhighlightable" value="1"/>
+        <FlagArray index="Untargetable" value="1"/>
+        <FlagArray index="Invulnerable" value="1"/>
+        <BehaviorArray index="0" Link="StatusBarController"/>
+        <BehaviorArray index="1" Link="UnitCannotBePinged"/>
+        <BehaviorArray index="2" removed="1"/>
+        <BehaviorArray index="3" removed="1"/>
+        <BehaviorArray index="4" removed="1"/>
+        <Attributes index="ImmuneToAOE" value="1"/>
+        <Attributes index="NoMinionAggro" value="1"/>
+        <Attributes index="ImmuneToSkillshots" value="1"/>
+        <Attributes index="ImmuneToFriendlyAbilities" value="1"/>
+    </CUnit>
+    <CUnit id="ReconCampVisionUnit">
+        <FlagArray index="Turnable" value="0"/>
+        <FlagArray index="Movable" value="0"/>
+        <FlagArray index="Unselectable" value="1"/>
+        <FlagArray index="Untargetable" value="1"/>
+        <FlagArray index="KillCredit" value="0"/>
+        <FlagArray index="Invulnerable" value="1"/>
+        <FlagArray index="Unstoppable" value="1"/>
+        <FogVisibility value="Dimmed"/>
+        <EditorFlags index="NeutralDefault" value="1"/>
+        <PlaneArray index="Ground" value="1"/>
+        <Collide index="Ground" value="1"/>
+        <Response value="Nothing"/>
+        <Attributes index="ImmuneToAOE" value="1"/>
+        <Attributes index="NoMinionAggro" value="1"/>
+        <Attributes index="ImmuneToSkillshots" value="1"/>
+        <Attributes index="ImmuneToFriendlyAbilities" value="1"/>
+        <Sight value="14"/>
+        <Radius value="0"/>
+        <MinimapRadius value="0"/>
+    </CUnit>
+</Catalog>

@@ -1,0 +1,16 @@
+{
+  "OrpheaPack1": {
+    "hyperlinkId": "OrpheaPack1",
+    "category": "Nexus",
+    "event": "EvilTower",
+    "releaseDate": "2018-04-03",
+    "emoticons": [
+      "orphea_sad",
+      "orphea_happy"
+    ]
+  },
+  "OrpheaPack2": {
+    "category": "Nexus",
+    "releaseDate": "2018-04-03"
+  }
+}

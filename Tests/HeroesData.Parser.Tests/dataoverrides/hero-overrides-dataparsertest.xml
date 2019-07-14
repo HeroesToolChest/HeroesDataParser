@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<HeroOverrides>
+  <!--***************************************-->
+  <!--TEST TEST TEST TEST TEST TEST TEST TEST-->
+  <!--***************************************-->
+
+  <CHero id="Abathur">
+    <HeroUnit id="AbathurSymbiote"></HeroUnit>
+  </CHero>
+  <CHero id="Thrall">
+    <Ability id="ThrallFrostwolfsGrace">
+      <Override>
+        <ParentLink value="ThrallMasteryFrostwolfsGrace" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Alexstrasza">
+    <HeroUnit id="HeroAlexstraszaDragon" />
+  </CHero>
+  <CHero id="Ragnaros">
+    <HeroUnit id="RagnarosBigRag"></HeroUnit>
+    <Ability id="RagnarosEmpowerSulfurasActive">
+      <Override>
+        <ParentLink value="RagnarosEmpowerSulfuras" />
+      </Override>
+    </Ability>
+  </CHero>
+</HeroOverrides>

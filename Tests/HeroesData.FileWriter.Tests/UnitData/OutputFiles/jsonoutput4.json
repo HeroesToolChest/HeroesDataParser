@@ -1,0 +1,70 @@
+{
+  "MinionArcher": {
+    "name": "Minion Archer",
+    "hyperlinkId": "MinionArcher",
+    "innerRadius": 1.125,
+    "radius": 1.111,
+    "sight": 6.0,
+    "speed": 4.0,
+    "killXP": 210,
+    "damageType": "Minion",
+    "scalingLinkId": "MinionScaling",
+    "attributes": [
+      "att1",
+      "att2"
+    ],
+    "portraits": {
+      "targetInfo": "targetinfo.png"
+    },
+    "life": {
+      "amount": 500.0,
+      "scale": 0.0,
+      "regenRate": 0.0,
+      "regenScale": 0.0
+    },
+    "weapons": [
+      {
+        "nameId": "MinionArcherWeapon",
+        "range": 6.0,
+        "period": 4.0,
+        "damage": 56.0,
+        "damageScale": 0.0,
+        "damageFactor": {
+          "minion": 5.0,
+          "structure": 0.75
+        }
+      }
+    ]
+  },
+  "MinionFootman": {
+    "name": "Minion Footman",
+    "hyperlinkId": "MinionFootman",
+    "innerRadius": 1.125,
+    "radius": 1.111,
+    "sight": 6.0,
+    "speed": 4.0,
+    "damageType": "Minion",
+    "life": {
+      "amount": 900.0,
+      "scale": 0.0,
+      "regenRate": 0.0,
+      "regenScale": 0.0
+    },
+    "weapons": [
+      {
+        "nameId": "MinionFootmanWeapon",
+        "range": 7.0,
+        "period": 6.0,
+        "damage": 75.0,
+        "damageScale": 0.0
+      },
+      {
+        "nameId": "MinionArcherWeapon",
+        "range": 6.0,
+        "period": 4.0,
+        "damage": 56.0,
+        "damageScale": 0.0
+      }
+    ]
+  }
+}

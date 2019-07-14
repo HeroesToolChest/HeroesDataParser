@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<HeroOverrides>
+  <CHero id="_stormhero">
+    <Button id="Hearthstone" parent="StormButtonParent">
+      <Override>
+        <AbilityTier value="Hearth" />
+        <AbilityType value="B" />
+      </Override>
+    </Button>
+    <Button id="HearthstoneNoMana" parent="StormButtonParent">
+      <Override>
+        <AbilityTier value="Hearth" />
+        <AbilityType value="B" />
+      </Override>
+    </Button>
+    <Button id="HearthstoneBrew" parent="StormButtonParent">
+      <Override>
+        <AbilityTier value="Hearth" />
+        <AbilityType value="B" />
+      </Override>
+    </Button>
+    <Button id="SummonMount" parent="StormButtonParent"></Button>
+  </CHero>
+</HeroOverrides>

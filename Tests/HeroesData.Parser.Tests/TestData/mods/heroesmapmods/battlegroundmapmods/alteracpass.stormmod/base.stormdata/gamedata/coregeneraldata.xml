@@ -1,0 +1,1780 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CAbilEffectInstant id="AlteracBossWhirlwind">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="AlteracBossWhirlwindCreatePersistent" />
+    <Cost>
+      <Cooldown Location="Unit" TimeUse="12" />
+    </Cost>
+    <ShowProgressArray index="Cast" value="1" />
+    <CancelableArray index="Channel" value="1" />
+    <PauseableArray index="Cast" value="0" />
+    <PauseableArray index="Channel" value="0" />
+    <PauseableArray index="Finish" value="0" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlteracBossWhirlwind" />
+    <CastIntroTime value="0.5" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AlteracBossCharge">
+    <Cost>
+      <Cooldown Location="Unit" TimeUse="6" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlteracBossCharge">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Effect value="AlteracBossChargeInitialSet" />
+    <Range value="7" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <TargetFilters value="Visible;Self,Player,Ally,RawResource,HarvestableResource,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Arc value="360" />
+    <SetLastTarget value="Attack" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlteracBossChargeApproach">
+    <UninterruptibleArray index="Approach" value="1" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="LineMovement" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlteracBossCharge" />
+    <Effect value="AlteracBossChargeApproachImpactSet" />
+    <SetLastTarget value="Attack" />
+    <Range value="1" />
+  </CAbilEffectTarget>
+  <CActorUnit default="1" id="CoreGeneralParent" parent="StormUnitBase">
+    <Aliases value="_Core" />
+    <Macros value="GlobalLoopMacro" />
+    <Macros value="PreTargetHaloMacro" />
+    <Macros value="MULERepairCastleMacro" />
+    <On Terms="UnitHighlightLocal.*.Start" Send="StatusIncrement PreTargetingTint" />
+    <On Terms="UnitHighlightLocal.*.Stop" Send="StatusDecrement PreTargetingTint" />
+    <On Terms="ActorCreation; PlayerId 11 11" Send="RefSet ::global.Team1Core ::Self" />
+    <On Terms="ActorCreation; PlayerId 12 12" Send="RefSet ::global.Team2Core ::Self" />
+    <On Terms="ActorCreation" Send="SetScale 0.800000" />
+    <On Terms="Signal.*.GameStartBirth" Send="Create Storm_Glaze_WCAV_Core_Birth" />
+    <On Terms="Signal.*.GameStartBirth" Send="TimerSet 4.000000 GameStartBirth2" />
+    <On Terms="TimerExpired; TimerName GameStartBirth2" Send="AnimBracketStart GameStartBirth Birth,Start Birth Birth,End" />
+    <On Terms="AnimBracketState.*.AfterOpening; AnimPlayingName GameStartBirth" Send="SetScale 1.500000 4.500000 GameStartBirth" />
+    <On Terms="AnimBracketState.*.AfterOpening; AnimPlayingName GameStartBirth" Send="TimerSet 4.500000 GameStartBirth" />
+    <On Terms="TimerExpired; TimerName GameStartBirth" Send="AnimBracketStop GameStartBirth" />
+    <On Terms="ActorCreation" Send="StatusSet AttackPattern 0" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus AttackPattern 0" Send="AnimPlay Attack Attack,A" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus AttackPattern 1" Send="AnimPlay Attack Attack,B" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus AttackPattern 2" Send="AnimPlay Attack Attack,C" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus AttackPattern 3" Send="AnimPlay Attack Attack,D" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus AttackPattern 4" Send="AnimPlay Attack Attack,E" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus AttackPattern 5" Send="AnimPlay Attack Attack,F" />
+    <On Terms="Effect.KingsCoreWeaponDamage.Start" Send="TimerSet 5.000000 AttackPatternReset" />
+    <On Terms="TimerExpired; TimerName AttackPatternReset" Send="StatusSet AttackPattern 0" />
+    <On Terms="Effect.KingsCoreWeaponDamage.Start; At Caster" Send="StatusIncrement AttackPattern" />
+    <On Terms="Effect.KingsCoreWeaponDamage.Start; At Caster; IsStatus AttackPattern 6" Send="StatusSet AttackPattern 0" />
+    <On Terms="Abil.AlteracBossWhirlwind.SourceCastStart" Send="AnimPlay Spell Spell,A,Start 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Behavior.AlteracBossWhirlwindChannel.On" Send="AnimPlay Spell Spell,A 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Behavior.AlteracBossWhirlwindChannel.On" Send="StatusSet Whirlwind 1" />
+    <On Terms="Behavior.AlteracBossWhirlwindChannel.Off" Send="StatusSet Whirlwind 0" />
+    <On Terms="Abil.AlteracBossCharge.SourceCastStart" Send="AnimClear Attack" />
+    <On Terms="Abil.AlteracBossCharge.SourceCastStart" Send="AnimPlay Spell Spell,B 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.AlteracBossChargeApproach.SourceCastStart" Send="TimerSet 2.000000 ChargeAttackWindow" />
+    <On Terms="Abil.AlteracBossChargeApproach.SourceCastStart" Send="StatusSet AttackPattern 0" />
+    <On Terms="Abil.AlteracBossChargeApproach.SourceCastStart" Send="StatusSet ChargeAttack 1" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus ChargeAttack 1" Send="AnimPlay Spell Spell,B,End" />
+    <On Terms="Effect.KingsCoreWeaponDamage; At Caster; IsStatus ChargeAttack 1" Send="StatusSet ChargeAttack 0" />
+    <On Terms="TimerExpired; TimerName ChargeAttackWindow; IsStatus ChargeAttack 1" Send="StatusSet ChargeAttack 0" />
+    <On Terms="UnitMovementUpdate.*.Walk" Send="AnimClear Attack" />
+    <On Terms="UnitMovementUpdate.*.Walk; IsStatus Whirlwind 0" Send="AnimClear Spell" />
+    <On Terms="UnitDeath" Send="Create Storm_FX_WCAV_Core_Death" />
+    <On Terms="UnitDeathCustomize" Send="ModelMaterialApply Core_General_Glaze" />
+    <ModelFlags index="OutlineOccluder" value="1" />
+    <DeathActorSound value="KingsCoreUnitDeathSound" />
+    <ImpactSound value="BuildingCore_Impact" />
+    <CustomUnitStatusFrame value="AlteracMechanics/CoreUnitStatusFrame" />
+    <HighlightTooltip value="Unit/Name/Bogus" />
+    <MinimapIcon value="Assets\Textures\storm_ui_minimapicon_core_fill.dds" />
+    <MinimapIconIsTeamColored value="1" />
+    <MinimapIconBackground value="Assets\Textures\storm_ui_minimapicon_core_outline.dds" />
+    <MinimapIconType value="Core" />
+    <MinimapUnitStatusFrame value="MinimapUnitStatus/MinimapCoreIcon" />
+    <UnitFlags index="ShowBlobShadow" value="0" />
+    <InfoText value="Alterac/General/TIP/Info" />
+  </CActorUnit>
+  <CActorSound id="Core_AlteracPass_WhirlwindCast" parent="SoundOneShot">
+    <On Terms="Effect.AlteracBossWhirlwindCreatePersistent.Start; At Caster" Send="Create" />
+  </CActorSound>
+  <CActorModel id="AlteracBossWhirlwindImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <Inherits index="Scale" value="1" />
+    <On Terms="Effect.AlteracBossWhirlwindDamageSet.Start; At Target" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenter" HoldRotation="1" />
+  </CActorModel>
+  <CActorSound id="Core_AlteracPass_Horde_WhirlwindImpact" parent="SoundOneShot">
+    <Filter index="All" value="1" />
+    <On Terms="Effect.AlteracBossWhirlwindDamage.Start; At Target; ValidateUnit TargetIsOnOrderTeam" Send="Create" />
+    <VisibleToAtCreation index="TargetAlly" value="1" />
+    <VisibleToAtCreation index="TargetEnemy" value="1" />
+  </CActorSound>
+  <CActorSound id="Core_AlteracPass_Alliance_WhirlwindImpact" parent="SoundOneShot">
+    <Filter index="All" value="1" />
+    <On Terms="Effect.AlteracBossWhirlwindDamage.Start; At Target; ValidateUnit TargetIsOnChaosTeam" Send="Create" />
+    <VisibleToAtCreation index="TargetAlly" value="1" />
+    <VisibleToAtCreation index="TargetEnemy" value="1" />
+  </CActorSound>
+  <CActorSound id="Core_AlteracPass_Horde_WhirlwindImpact_Player" parent="SoundOneShot">
+    <Filter index="All" value="1" />
+    <On Terms="Effect.AlteracBossWhirlwindDamage.Start; At Target; ValidateUnit TargetIsOnOrderTeam" Send="Create" />
+    <VisibleToAtCreation index="Target" value="1" />
+  </CActorSound>
+  <CActorSound id="Core_AlteracPass_Alliance_WhirlwindImpact_Player" parent="SoundOneShot">
+    <Filter index="All" value="1" />
+    <On Terms="Effect.AlteracBossWhirlwindDamage.Start; At Target; ValidateUnit TargetIsOnChaosTeam" Send="Create" />
+    <VisibleToAtCreation index="Target" value="1" />
+  </CActorSound>
+  <CActorSound id="Core_AlteracPass_WhirlwindLoop" parent="SoundContinuous">
+    <On Terms="Effect.AlteracBossWhirlwindCreatePersistent.Start; At Caster" Send="Create" />
+    <On Terms="Effect.AlteracBossWhirlwindCreatePersistent.Stop" Send="Destroy Immediate" />
+  </CActorSound>
+  <CActorModel id="AlteracBossWhirlwindModel" parent="StormModelAnimationStyleContinuousUnit">
+    <Aliases value="_TimeStopAffectedActor" />
+    <Inherits index="Visibility" value="0" />
+    <On Terms="StatusOn.*.TimeStopPaused" Send="AnimSetPausedAll" />
+    <On Terms="StatusOff.*.TimeStopPaused" Send="AnimSetPausedAll 0" />
+    <HostSiteOps Ops="SOpAttachOriginSoft" HoldRotation="1" />
+  </CActorModel>
+  <CActorUnit id="VanndarStormpike" parent="CoreGeneralParent" unitName="VanndarStormpike">
+    <On Terms="Signal.*.GameStartBirth" Send="Create Storm_FX_WCAV_AllianceCore_Birth" />
+    <On Terms="Effect.AlteracBossWhirlwindCreatePersistent.Start; At Caster" Send="Create Storm_FX_WCAV_Alliance_General_WhirlWind" />
+    <On Terms="Effect.AlteracBossWhirlwindCreatePersistent.Stop" Target="Storm_FX_WCAV_Alliance_General_WhirlWind" Send="Destroy" />
+    <On Terms="Behavior.JungleCreepPassive.Off; IsStatus VOXCD 0" Send="Create Vanndar_UnderAttack" />
+    <On Terms="Behavior.JungleCreepPassive.Off" Send="TimerSet 30.000000 UnderAttackVOX" />
+    <On Terms="TimerExpired; TimerName UnderAttackVOX" Send="StatusSet VOXCD 0" />
+    <On Terms="Behavior.JungleCreepPassive.Off; IsStatus VOXCD 0" Send="StatusSet VOXCD 1" />
+    <On Terms="WeaponStart.*.AttackStart" Send="Create Core_AlteracPass_Alliance_Attack_Launch" />
+    <AbilSoundArray AbilCmd="AlteracBossWhirlwind,Execute" Sound="VanndarA_VOX_Whirlwind" />
+    <AbilSoundArray AbilCmd="AlteracBossCharge,Execute" Sound="VanndarA_VOX_Charge" />
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_targetinfopanel_unit_wcav_boss_general_alliance.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorSound id="Vanndar_UnderAttack" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <ScopeBearingsTracking value="ForceOn" />
+    <Sound value="StormNoSound" />
+    <Layers Sound="UI_Game_Ping_CoreUnderAttack_Enemy" />
+    <Layers Sound="Vanndar_UnderAttack" PlayDelay="500,500" PlayDelaySource="Actor" />
+    <Filter index="Enemy" value="1" />
+  </CActorSound>
+  <CActorSound id="Core_AlteracPass_Alliance_Attack_Launch" parent="SoundOneShot" />
+  <CActorSound id="Core_AlteracPass_Alliance_Attack_Impact" parent="SoundOneShot">
+    <On Terms="Effect.KingsCoreWeaponSearch.Start; At Effect; ValidateEffect CasterIsVanndarStormpike" Send="Create" />
+  </CActorSound>
+  <CActorModelMaterial id="Core_General_Glaze" parent="ModelAnimationStyleOneShot">
+    <On index="0" Terms="ActorCreation" Send="AnimBracketStart BSD Stand Stand Stand" />
+  </CActorModelMaterial>
+  <CActorModel id="AlteracBossChargeActive" parent="StormModelAnimationStyleContinuousUnit">
+    <On Terms="Behavior.AlteracBossChargeCharging.On" Send="Create" />
+    <On Terms="Behavior.AlteracBossChargeCharging.Off" Send="AnimBracketStop BSD" />
+    <Model value="AlteracBossChargeModel" />
+    <HostSiteOps Ops="SOpAttachOrigin" />
+  </CActorModel>
+  <CActorSound id="Core_AlteracPass_ChargingSound" parent="SoundOneShot">
+    <On Terms="Behavior.AlteracBossChargeCharging.On" Send="Create" />
+    <On Terms="Behavior.AlteracBossChargeCharging.Off" Send="Destroy" />
+  </CActorSound>
+  <CActorSound id="Core_AlteracPass_ChargeImpact" parent="SoundOneShot">
+    <Filter index="All" value="1" />
+    <On Terms="Effect.AlteracBossChargeDamage.Start; At Target" Send="Create" />
+    <VisibleToAtCreation index="TargetAlly" value="1" />
+    <VisibleToAtCreation index="TargetEnemy" value="1" />
+  </CActorSound>
+  <CActorSound id="Core_AlteracPass_ChargeImpact_Player" parent="SoundOneShot">
+    <Filter index="All" value="1" />
+    <On Terms="Effect.AlteracBossChargeDamage.Start; At Target" Send="Create" />
+    <VisibleToAtCreation index="Target" value="1" />
+  </CActorSound>
+  <CActorUnit id="DrekThar" parent="CoreGeneralParent" unitName="DrekThar">
+    <On Terms="Signal.*.GameStartBirth" Send="Create Storm_FX_WCAV_HordeCore_Birth" />
+    <On Terms="Effect.AlteracBossWhirlwindCreatePersistent.Start; At Caster" Send="Create Storm_FX_WCAV_Horde_General_WhirlWind" />
+    <On Terms="Effect.AlteracBossWhirlwindCreatePersistent.Stop" Target="Storm_FX_WCAV_Horde_General_WhirlWind" Send="Destroy" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus AttackPattern 1" Send="Create Core_AlteracPass_Horde_Attack_Launch_Left" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus AttackPattern 2" Send="Create Core_AlteracPass_Horde_Attack_Launch_Left" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus AttackPattern 4" Send="Create Core_AlteracPass_Horde_Attack_Launch_Left" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus AttackPattern 0" Send="Create Core_AlteracPass_Horde_Attack_Launch_Right" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus AttackPattern 3" Send="Create Core_AlteracPass_Horde_Attack_Launch_Right" />
+    <On Terms="WeaponStart.*.AttackStart; IsStatus AttackPattern 5" Send="Create Core_AlteracPass_Horde_Attack_Launch_Right" />
+    <On Terms="Effect.KingsCoreWeaponSearch.Start; IsStatus AttackPattern 1" Send="Create Core_AlteracPass_Horde_Attack_Impact_Left" />
+    <On Terms="Effect.KingsCoreWeaponSearch.Start; IsStatus AttackPattern 2" Send="Create Core_AlteracPass_Horde_Attack_Impact_Left" />
+    <On Terms="Effect.KingsCoreWeaponSearch.Start; IsStatus AttackPattern 4" Send="Create Core_AlteracPass_Horde_Attack_Impact_Left" />
+    <On Terms="Effect.KingsCoreWeaponSearch.Start; IsStatus AttackPattern 0" Send="Create Core_AlteracPass_Horde_Attack_Impact_Right" />
+    <On Terms="Effect.KingsCoreWeaponSearch.Start; IsStatus AttackPattern 3" Send="Create Core_AlteracPass_Horde_Attack_Impact_Right" />
+    <On Terms="Effect.KingsCoreWeaponSearch.Start; IsStatus AttackPattern 5" Send="Create Core_AlteracPass_Horde_Attack_Impact_Right" />
+    <On Terms="Behavior.JungleCreepPassive.Off; IsStatus VOXCD 0" Send="Create DrekThar_UnderAttack" />
+    <On Terms="Behavior.JungleCreepPassive.Off" Send="TimerSet 30.000000 UnderAttackVOX" />
+    <On Terms="TimerExpired; TimerName UnderAttackVOX" Send="StatusSet VOXCD 0" />
+    <On Terms="Behavior.JungleCreepPassive.Off; IsStatus VOXCD 0" Send="StatusSet VOXCD 1" />
+    <AbilSoundArray AbilCmd="AlteracBossWhirlwind,Execute" Sound="DrekTharA_VOX_Whirlwind" />
+    <AbilSoundArray AbilCmd="AlteracBossCharge,Execute" Sound="DrekTharA_VOX_Charge" />
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_targetinfopanel_unit_wcav_boss_general_horde.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorSound id="DrekThar_UnderAttack" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <ScopeBearingsTracking value="ForceOn" />
+    <Sound value="StormNoSound" />
+    <Layers Sound="UI_Game_Ping_CoreUnderAttack_Enemy" />
+    <Layers Sound="DrekThar_UnderAttack" PlayDelay="500,500" PlayDelaySource="Actor" />
+    <Filter index="Enemy" value="1" />
+  </CActorSound>
+  <CActorSound id="Core_AlteracPass_Horde_Vox_Attack" parent="SoundOneShot" />
+  <CActorSound id="Core_AlteracPass_Horde_Vox_Charge" parent="SoundOneShot" />
+  <CActorSound id="Core_AlteracPass_Horde_Vox_Whirlwind" parent="SoundOneShot" />
+  <CActorSound id="Core_AlteracPass_Alliance_Vox_Attack" parent="SoundOneShot" />
+  <CActorSound id="Core_AlteracPass_Alliance_Vox_Charge" parent="SoundOneShot" />
+  <CActorSound id="Core_AlteracPass_Alliance_Vox_Whirlwind" parent="SoundOneShot" />
+  <CActorSound id="Core_AlteracPass_Horde_Attack_Launch_Left" parent="SoundOneShot" />
+  <CActorSound id="Core_AlteracPass_Horde_Attack_Impact_Left" parent="SoundOneShot" />
+  <CActorSound id="Core_AlteracPass_Horde_Attack_Launch_Right" parent="SoundOneShot" />
+  <CActorSound id="Core_AlteracPass_Horde_Attack_Impact_Right" parent="SoundOneShot" />
+  <CActorModel id="Storm_FX_WCAV_Horde_General_WhirlWind" parent="StormModelAnimationStyleContinuousUnit">
+    <Aliases value="_TimeStopAffectedActor" />
+    <Inherits index="Visibility" value="0" />
+    <On Terms="StatusOn.*.TimeStopPaused" Send="AnimSetPausedAll" />
+    <On Terms="StatusOff.*.TimeStopPaused" Send="AnimSetPausedAll 0" />
+    <HostSiteOps Ops="SOpAttachOriginSoft" HoldRotation="1" />
+  </CActorModel>
+  <CActorModel id="Storm_FX_WCAV_Alliance_General_WhirlWind" parent="StormModelAnimationStyleContinuousUnit">
+    <Aliases value="_TimeStopAffectedActor" />
+    <Inherits index="Visibility" value="0" />
+    <On Terms="StatusOn.*.TimeStopPaused" Send="AnimSetPausedAll" />
+    <On Terms="StatusOff.*.TimeStopPaused" Send="AnimSetPausedAll 0" />
+    <HostSiteOps Ops="SOpAttachOriginSoft" HoldRotation="1" />
+  </CActorModel>
+  <CActorModelMaterial id="Storm_Glaze_WCAV_Core_Birth">
+    <Aliases value="_TimeStopAffectedActor" />
+    <On Terms="StatusOn.*.TimeStopPaused" Send="AnimSetPausedAll" />
+    <On Terms="StatusOff.*.TimeStopPaused" Send="AnimSetPausedAll 0" />
+    <On Terms="ActorCreation" Send="ModelMaterialApplyTo ::Main" />
+    <On Terms="ActorCreation" Send="AnimPlay Stand Stand" />
+    <On Terms="AnimDone; AnimName Stand" Send="Destroy" />
+    <Inherits index="TeamColor" value="1" />
+    <Inherits index="Visibility" value="1" />
+  </CActorModelMaterial>
+  <CActorSound id="Core_AlteracPass_Build" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <ScopeBearingsTracking value="ForceOn" />
+    <Layers Sound="Core_AlteracPass_Build_End_Zaps" PlayDelay="10744,10744" PlayDelaySource="Actor" />
+    <Layers Sound="Core_AlteracPass_Build_End_Zaps" PlayDelay="11694,11694" PlayDelaySource="Actor" />
+    <Layers Sound="Core_AlteracPass_Build_End_Zaps" PlayDelay="12893,12893" PlayDelaySource="Actor" />
+    <Layers Sound="Core_AlteracPass_Build_End_Zaps" PlayDelay="14028,14028" PlayDelaySource="Actor" />
+  </CActorSound>
+  <CActorSound id="Core_AlteracPass_Death" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorModel id="Storm_FX_WCAV_Core_Death" parent="StormModelAnimationStyleOneShotNoOrphan">
+    <FogVisibility value="Dimmed" />
+    <On Terms="ActorCreation" Send="Create Core_AlteracPass_Death" />
+  </CActorModel>
+  <CActorModel id="Storm_FX_WCAV_AllianceCore_Birth" parent="StormModelAnimationStyleOneShotUnit">
+    <FogVisibility value="Dimmed" />
+    <On Terms="ActorCreation" Send="Create Core_AlteracPass_Build" />
+  </CActorModel>
+  <CActorModel id="Storm_FX_WCAV_HordeCore_Birth" parent="StormModelAnimationStyleOneShotUnit">
+    <FogVisibility value="Dimmed" />
+    <On Terms="ActorCreation" Send="Create Core_AlteracPass_Build" />
+  </CActorModel>
+  <CBehaviorBuff id="WarchiefAlive" parent="StormArmorPermanent">
+    <Alignment value="Positive" />
+    <MaxStackCount value="3" />
+    <ArmorModification AllArmorBonus="20" StackCount="3" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="AlteracBossWhirlwindChannel">
+    <Alignment value="Positive" />
+    <InfoFlags index="AlwaysUseGameText" value="1" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_sonya_whirlwind.dds" />
+    <BehaviorCategories index="Restorable" value="1" />
+    <RemoveValidatorArray value="CasterDoesNotHaveInCargo" />
+    <RemoveValidatorArray value="CasterNotStasisExceptTimeStop" />
+    <Duration value="3" />
+    <Period value="0.5" />
+    <InitialEffect value="AlteracBossWhirlwindSearchArea" />
+    <PeriodicEffect value="AlteracBossWhirlwindSearchArea" />
+    <FinalEffect value="AlteracBossWhirlwindFinalSet" />
+    <Modification>
+      <StateFlags index="SuppressAttack" value="1" />
+      <StateFlags index="SuppressCloak" value="1" />
+      <TurnRateMultiplier value="0" />
+      <AbilLinkDisableArray value="AlteracBossCharge" />
+      <WeaponDisableArray value="AlteracBossWeaponParent" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="AlteracBossChargeCharging">
+    <RemoveValidatorArray value="AlteracBossChargeHasOrderCombine" />
+    <RemoveValidatorArray value="CasterNotDeadOrSilencedOrStasisOrStunnedExceptTimeStop" />
+    <RemoveValidatorArray value="AlteracBossChargeTargetRangeValidator" />
+    <RemoveValidatorArray value="CasterNotHoldingFireCombine" />
+    <Duration value="1.5" />
+    <FinalEffect value="AlteracBossChargeClearOrder" />
+    <Modification>
+      <StateFlags index="SuppressCollision" value="1" />
+      <MoveSpeedMinimum value="18" />
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorVeterancy id="CoreScaling">
+    <VeterancyLevelArray index="1">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="2">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="3">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="4">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="5">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="6">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="7">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="8">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="9">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="10">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="11">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="12">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="13">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="14">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="15">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="16">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="17">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="18">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="19">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="20" MinVeterancyXP="1">
+      <Modification>
+        <VitalMaxArray index="Life" value="405" />
+        <VitalMaxArray index="Shields" value="0" />
+        <VitalRegenArray index="Shields" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray MinVeterancyXP="1" />
+    <VeterancyLevelArray>
+      <Modification>
+        <VitalMaxIncreaseAffectsCurrentArray index="Life" value="0" />
+        <VitalMaxIncreaseAffectsCurrentArray index="Shields" value="0" />
+        <VitalMaxIncreaseAffectsCurrentArray index="Energy" value="0" />
+      </Modification>
+    </VeterancyLevelArray>
+  </CBehaviorVeterancy>
+  <CBehaviorBuff id="BossOutOfCombatHeal">
+    <Period value="0.0625" />
+    <PeriodicEffect value="BossOutOfCombatHeal" />
+    <DisableValidatorArray value="HasJunglePassive" />
+    <DisableValidatorArray value="CasterNotHasJungleSoftLeashing" />
+    <DisableValidatorArray value="SourceLifeNotFull" />
+  </CBehaviorBuff>
+  <CButton id="AlteracBossWhirlwind" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_whirlwind.dds" />
+  </CButton>
+  <CButton id="AlteracBossCharge" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_varian_charge.dds" />
+  </CButton>
+  <CEffectDamage id="AlteracBossWhirlwindDamage" parent="StormSpell">
+    <Amount value="220" />
+    <AttributeFactor index="Minion" value="1" />
+    <AttributeFactor index="Structure" value="1" />
+    <AttributeFactor index="Summoned" value="1" />
+  </CEffectDamage>
+  <CEffectEnumArea id="AlteracBossWhirlwindSearchArea">
+    <ImpactLocation Value="TargetUnit" />
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="AlteracBossWhirlwindDamage">
+      <Radius value="3.5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectApplyBehavior id="AlteracBossWhirlwindApplyChannelBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="AlteracBossWhirlwindChannel" />
+  </CEffectApplyBehavior>
+  <CEffectCreatePersistent id="AlteracBossWhirlwindCreatePersistent">
+    <ValidatorArray value="CasterNotDeadOrSilencedOrStunnedExceptTimeStop" />
+    <WhichLocation Value="CasterUnit" />
+    <TimeScaleSource Value="Caster" />
+    <InitialEffect value="AlteracBossWhirlwindInitialSet" />
+    <FinalEffect value="AlteracBossWhirlwindRemoveSet" />
+    <PeriodCount value="6" />
+    <PeriodicValidator value="CasterNotDeadOrSilencedOrStunnedExceptTimeStop" />
+    <PeriodicEffectArray value="AlteracBossWhirlwindDummySet" />
+    <PeriodicPeriodArray value="0.5" />
+    <RevealRadius value="3" />
+    <RevealFlags index="Unfog" value="1" />
+    <AINotifySettings AreaEffect="AlteracBossWhirlwindSearchArea">
+      <Flags index="HurtsEnemy" value="1" />
+    </AINotifySettings>
+  </CEffectCreatePersistent>
+  <CEffectSet id="AlteracBossWhirlwindFinalSet">
+    <EffectArray value="AlteracBossWhirlwindRemoveRandomSoundControllerBehavior" />
+    <EffectArray value="AlteracBossWhirlwindRemoveSet" />
+    <EffectArray value="AlteracBossWhirlwindDestroyPersistent" />
+  </CEffectSet>
+  <CEffectSet id="AlteracBossWhirlwindInitialSet">
+    <EffectArray value="AlteracBossWhirlwindApplyChannelBehavior" />
+  </CEffectSet>
+  <CEffectModifyUnit id="AlteracBossWhirlwindModifyCooldown">
+    <ImpactUnit Value="Source" />
+    <Cost Abil="AlteracBossWhirlwind,Execute" CooldownOperation="Set" CooldownTimeUse="5" />
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="BossOutOfCombatHeal">
+    <VitalArray index="Life">
+      <ChangeFraction value="0.001" />
+    </VitalArray>
+  </CEffectModifyUnit>
+  <CEffectCreatePersistent id="JungleCreepSoftLeashingHealingPersistent">
+    <ValidatorArray value="IsNotAlteracCore" />
+  </CEffectCreatePersistent>
+  <CEffectEnumArea id="CoreDetectionSearchArea">
+    <AreaArray index="0" Effect="CoreDetectionAddDetectedBehavior">
+      <Radius value="10" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="AlteracBossChargeInitialSet">
+    <ValidatorArray value="CasterNotRooted" />
+    <EffectArray value="AlteracBossChargeIssueApproachOrder" />
+    <EffectArray value="AlteracBossChargeApplyCharging" />
+  </CEffectSet>
+  <CEffectIssueOrder id="AlteracBossChargeIssueApproachOrder">
+    <WhichUnit Value="Caster" />
+    <Abil value="AlteracBossChargeApproach" />
+    <CmdFlags index="Preempt" value="1" />
+    <Target Value="TargetUnit" />
+  </CEffectIssueOrder>
+  <CEffectApplyBehavior id="AlteracBossChargeApplyCharging">
+    <WhichUnit Value="Caster" />
+    <Behavior value="AlteracBossChargeCharging" />
+  </CEffectApplyBehavior>
+  <CEffectSet id="AlteracBossChargeApproachImpactSet">
+    <EffectArray value="AlteracBossChargeDamage" />
+  </CEffectSet>
+  <CEffectDamage id="AlteracBossChargeDamage" parent="StormSpell">
+    <Amount value="330" />
+    <AttributeFactor index="Minion" value="1" />
+    <AttributeFactor index="Structure" value="1" />
+    <AttributeFactor index="Summoned" value="1" />
+  </CEffectDamage>
+  <CEffectDamage id="KingsCoreWeaponDamage">
+    <Amount value="330" />
+  </CEffectDamage>
+  <CEffectCancelOrder id="AlteracBossChargeClearOrder">
+    <WhichUnit Value="Caster" />
+    <AbilCmd value="AlteracBossChargeApproach,Execute" />
+    <Flags index="Queued" value="1" />
+    <Flags index="Uninterruptible" value="1" />
+  </CEffectCancelOrder>
+  <CModel id="AlteracBossWhirlwindImpact" parent="OneShotSpellFX">
+    <Model value="Assets\Effects\Storm_Effect_MeleeHero_Weapon_Impact\Storm_Effect_MeleeHero_Weapon_Impact.m3" />
+  </CModel>
+  <CModel id="Core_General_Glaze">
+    <Model value="Assets\Effects\Glaze\Storm_Glaze_WCAV_Core_Death\Storm_Glaze_WCAV_Core_Death.m3" />
+  </CModel>
+  <CModel id="AlteracBossChargeModel" parent="PersistentSpellFX">
+    <Model value="Assets\Effects\Storm_FX_Varian_Base_Charge_TA\Storm_FX_Varian_Base_Charge_TA.m3" />
+    <ScaleMax X="1.500000" Y="1.500000" Z="1.500000" />
+    <ScaleMin X="1.500000" Y="1.500000" Z="1.500000" />
+  </CModel>
+  <CModel id="VanndarStormpike" parent="Unit">
+    <Model value="Assets\Units\Mercs\Storm_Merc_WCAV_Alliance_General\Storm_Merc_WCAV_Alliance_General.m3" />
+    <Events>
+      <Anim value="Spell,A,Start,00" />
+      <Name value="VanndarA_VOX_Whirlwind" />
+      <Type value="Sound" />
+      <Payload value="VanndarA_VOX_Whirlwind" />
+    </Events>
+    <Events>
+      <Anim value="Attack,A,00" />
+      <Name value="VanndarA_VOX_Attack" />
+      <Type value="Sound" />
+      <Payload value="VanndarA_VOX_Attack" />
+    </Events>
+    <Events>
+      <Anim value="Attack,B,00" />
+      <Name value="VanndarA_VOX_Attack" />
+      <Type value="Sound" />
+      <Payload value="VanndarA_VOX_Attack" />
+    </Events>
+    <Events>
+      <Anim value="Attack,C,00" />
+      <Name value="VanndarA_VOX_GetHitLarge" />
+      <Type value="Sound" />
+      <Time value="0.139000" />
+      <Payload value="VanndarA_VOX_GetHitLarge" />
+    </Events>
+    <Events>
+      <Anim value="Attack,E,00" />
+      <Name value="VanndarA_VOX_Attack" />
+      <Type value="Sound" />
+      <Payload value="VanndarA_VOX_Attack" />
+    </Events>
+    <Events>
+      <Anim value="Spell,B,00" />
+      <Name value="VanndarA_VOX_Charge" />
+      <Type value="Sound" />
+      <Payload value="VanndarA_VOX_Charge" />
+    </Events>
+    <Events>
+      <Anim value="Death,00" />
+      <Name value="VanndarA_VOX_Death" />
+      <Type value="Sound" />
+      <Time value="0.728000" />
+      <Payload value="VanndarA_VOX_Death" />
+    </Events>
+    <Events>
+      <Anim value="Walk,00" />
+      <Name value="Core_AlteracPass_Alliance_FS" />
+      <Type value="Sound" />
+      <Time value="0.124000" />
+      <Payload value="Core_AlteracPass_Alliance_FS" />
+    </Events>
+    <Events>
+      <Anim value="Walk,00" />
+      <Name value="Core_AlteracPass_Alliance_FS" />
+      <Type value="Sound" />
+      <Time value="0.606000" />
+      <Payload value="Core_AlteracPass_Alliance_FS" />
+    </Events>
+    <Events>
+      <Anim value="Spell,A,Start,00" />
+      <Name value="Core_AlteracPass_Alliance_FS" />
+      <Type value="Sound" />
+      <Time value="0.213000" />
+      <Payload value="Core_AlteracPass_Alliance_FS" />
+    </Events>
+    <Events>
+      <Anim value="Spell,A,Start,00" />
+      <Name value="Core_AlteracPass_Alliance_FS_Foley" />
+      <Type value="Sound" />
+      <Time value="0.213000" />
+      <Payload value="Core_AlteracPass_Alliance_FS_Foley" />
+    </Events>
+    <Events>
+      <Anim value="Spell,B,End,00" />
+      <Name value="Core_AlteracPass_Alliance_FS" />
+      <Type value="Sound" />
+      <Time value="0.241000" />
+      <Payload value="Core_AlteracPass_Alliance_FS" />
+    </Events>
+    <Events>
+      <Anim value="Spell,B,End,00" />
+      <Name value="Core_AlteracPass_Alliance_FS" />
+      <Type value="Sound" />
+      <Time value="0.668000" />
+      <Payload value="Core_AlteracPass_Alliance_FS" />
+    </Events>
+    <Events>
+      <Anim value="Spell,B,End,00" />
+      <Name value="Core_AlteracPass_Alliance_FS_Foley" />
+      <Type value="Sound" />
+      <Time value="0.668000" />
+      <Payload value="Core_AlteracPass_Alliance_FS_Foley" />
+    </Events>
+    <Radius value="0.650000" />
+  </CModel>
+  <CModel id="DrekThar" parent="Unit">
+    <Model value="Assets\Units\Mercs\Storm_Merc_WCAV_Horde_General\Storm_Merc_WCAV_Horde_General.m3" />
+    <Events>
+      <Anim value="Death,00" />
+      <Name value="DrekTharA_VOX_Death" />
+      <Type value="Sound" />
+      <Time value="0.574000" />
+      <Payload value="DrekTharA_VOX_Death" />
+    </Events>
+    <Events>
+      <Anim value="Spell,A,Start,00" />
+      <Name value="DrekTharA_VOX_Whirlwind" />
+      <Type value="Sound" />
+      <Payload value="DrekTharA_VOX_Whirlwind" />
+    </Events>
+    <Events>
+      <Anim value="Attack,A,00" />
+      <Name value="DrekTharA_VOX_Attack" />
+      <Type value="Sound" />
+      <Time value="0.110000" />
+      <Payload value="DrekTharA_VOX_Attack" />
+    </Events>
+    <Events>
+      <Anim value="Attack,B,00" />
+      <Name value="DrekTharA_VOX_Attack" />
+      <Type value="Sound" />
+      <Time value="0.156000" />
+      <Payload value="DrekTharA_VOX_Attack" />
+    </Events>
+    <Events>
+      <Anim value="Attack,B,00" />
+      <Name value="DrekTharA_VOX_GetHitLarge" />
+      <Type value="Sound" />
+      <Time value="0.159000" />
+      <Payload value="DrekTharA_VOX_GetHitLarge" />
+    </Events>
+    <Events>
+      <Anim value="Attack,C,00" />
+      <Name value="DrekTharA_VOX_GetHitSmall" />
+      <Type value="Sound" />
+      <Time value="0.152000" />
+      <Payload value="DrekTharA_VOX_GetHitSmall" />
+    </Events>
+    <Events>
+      <Anim value="Attack,D,00" />
+      <Name value="DrekTharA_VOX_Attack" />
+      <Type value="Sound" />
+      <Time value="0.176000" />
+      <Payload value="DrekTharA_VOX_Attack" />
+    </Events>
+    <Events>
+      <Anim value="Attack,E,00" />
+      <Name value="DrekTharA_VOX_GetHitSmall" />
+      <Type value="Sound" />
+      <Time value="0.173000" />
+      <Payload value="DrekTharA_VOX_GetHitSmall" />
+    </Events>
+    <Events>
+      <Anim value="Attack,E,00" />
+      <Name value="Core_AlteracPass_Horde_FS_Foley" />
+      <Type value="Sound" />
+      <Time value="0.810000" />
+      <Payload value="Core_AlteracPass_Horde_FS_Foley" />
+    </Events>
+    <Events>
+      <Anim value="Attack,F,00" />
+      <Name value="DrekTharA_VOX_GetHitLarge" />
+      <Type value="Sound" />
+      <Time value="0.105000" />
+      <Payload value="DrekTharA_VOX_GetHitLarge" />
+    </Events>
+    <Events>
+      <Anim value="Spell,B,00" />
+      <Name value="DrekTharA_VOX_Charge" />
+      <Type value="Sound" />
+      <Payload value="DrekTharA_VOX_Charge" />
+    </Events>
+    <Events>
+      <Anim value="Spell,B,End,00" />
+      <Name value="DrekTharA_VOX_Cheer" />
+      <Type value="Sound" />
+      <Payload value="DrekTharA_VOX_Cheer" />
+    </Events>
+    <Events>
+      <Anim value="Spell,B,End,00" />
+      <Name value="Core_AlteracPass_Horde_DualBlade_Swipe" />
+      <Type value="Sound" />
+      <Time value="0.151000" />
+      <Payload value="Core_AlteracPass_Horde_DualBlade_Swipe" />
+    </Events>
+    <Events>
+      <Anim value="Spell,B,End,00" />
+      <Name value="Core_AlteracPass_Horde_DualBlade_Impact" />
+      <Type value="Sound" />
+      <Time value="0.222000" />
+      <Payload value="Core_AlteracPass_Horde_DualBlade_Impact" />
+    </Events>
+    <Events>
+      <Anim value="Walk,00" />
+      <Name value="Core_AlteracPass_Horde_FS" />
+      <Type value="Sound" />
+      <Time value="0.494000" />
+      <Payload value="Core_AlteracPass_Horde_FS" />
+    </Events>
+    <Events>
+      <Anim value="Walk,00" />
+      <Name value="Core_AlteracPass_Horde_FS" />
+      <Type value="Sound" />
+      <Time value="0.001000" />
+      <Payload value="Core_AlteracPass_Horde_FS" />
+    </Events>
+    <Events>
+      <Anim value="Spell,A,Start,00" />
+      <Name value="Core_AlteracPass_Horde_FS" />
+      <Type value="Sound" />
+      <Time value="0.406000" />
+      <Payload value="Core_AlteracPass_Horde_FS" />
+    </Events>
+    <Events>
+      <Anim value="Spell,B,End,00" />
+      <Name value="Core_AlteracPass_Horde_FS" />
+      <Type value="Sound" />
+      <Time value="0.165000" />
+      <Payload value="Core_AlteracPass_Horde_FS" />
+    </Events>
+    <Events>
+      <Anim value="Spell,B,End,00" />
+      <Name value="Core_AlteracPass_Horde_FS" />
+      <Type value="Sound" />
+      <Time value="1.377000" />
+      <Payload value="Core_AlteracPass_Horde_FS" />
+    </Events>
+    <Events>
+      <Anim value="Birth,Start,00" />
+      <Name value="Core_AlteracPass_Horde_FS_Foley" />
+      <Type value="Sound" />
+      <Time value="1.491000" />
+      <Payload value="Core_AlteracPass_Horde_FS_Foley" />
+    </Events>
+    <Events>
+      <Anim value="Birth,End,00" />
+      <Name value="Core_AlteracPass_Horde_FS" />
+      <Type value="Sound" />
+      <Time value="0.603000" />
+      <Payload value="Core_AlteracPass_Horde_FS" />
+    </Events>
+    <Events>
+      <Anim value="Birth,End,00" />
+      <Name value="Core_AlteracPass_Horde_FS_Foley" />
+      <Type value="Sound" />
+      <Time value="0.603000" />
+      <Payload value="Core_AlteracPass_Horde_FS_Foley" />
+    </Events>
+    <Radius value="0.650000" />
+  </CModel>
+  <CModel id="Storm_FX_WCAV_Horde_General_WhirlWind" parent="PersistentSpellFX">
+    <Model value="Assets\Effects\Storm_FX_WCAV_Horde_General_WhirlWind\Storm_FX_WCAV_Horde_General_WhirlWind.m3" />
+  </CModel>
+  <CModel id="Storm_FX_WCAV_Alliance_General_WhirlWind" parent="PersistentSpellFX">
+    <Model value="Assets\Effects\Storm_FX_WCAV_Alliance_General_WhirlWind\Storm_FX_WCAV_Alliance_General_WhirlWind.m3" />
+  </CModel>
+  <CModel id="Storm_FX_WCAV_Core_Death" parent="OneShotSpellFX">
+    <Model value="Assets\Effects\Storm_FX_WCAV_Core_Death\Storm_FX_WCAV_Core_Death.m3" />
+  </CModel>
+  <CModel id="Storm_FX_WCAV_AllianceCore_Birth" parent="OneShotSpellFX">
+    <Model value="Assets\Effects\Storm_FX_WCAV_AllianceCore_Birth\Storm_FX_WCAV_AllianceCore_Birth.m3" />
+  </CModel>
+  <CModel id="Storm_FX_WCAV_HordeCore_Birth" parent="OneShotSpellFX">
+    <Model value="Assets\Effects\Storm_FX_WCAV_HordeCore_Birth\Storm_FX_WCAV_HordeCore_Birth.m3" />
+  </CModel>
+  <CModel id="Storm_Glaze_WCAV_Core_Birth">
+    <Model value="Assets\Effects\Glaze\Storm_Glaze_WCAV_Core_Birth\Storm_Glaze_WCAV_Core_Birth.m3" />
+    <Flags index="FreezeParticlesAndRibbonsOnAnimPause" value="1" />
+  </CModel>
+  <CRequirement id="HasJunglePassiveBehavior">
+    <NodeArray index="Use" Link="AndEqCountBehaviorJungleCreepPassiveCompleteOnlyAtUnit1EqCountBehaviorJungleCreepSoftLeashingCompleteOnlyAtUnit0EqCountBehaviorJungleCreepHardLeashingCompleteOnlyAtUnit0" />
+  </CRequirement>
+  <CRequirementAnd id="AndEqCountBehaviorJungleCreepPassiveCompleteOnlyAtUnit1EqCountBehaviorJungleCreepSoftLeashingCompleteOnlyAtUnit0EqCountBehaviorJungleCreepHardLeashingCompleteOnlyAtUnit0">
+    <OperandArray value="EqCountBehaviorJungleCreepPassiveCompleteOnlyAtUnit1" />
+    <OperandArray value="EqCountBehaviorJungleCreepSoftLeashingCompleteOnlyAtUnit0" />
+    <OperandArray value="EqCountBehaviorJungleCreepHardLeashingCompleteOnlyAtUnit0" />
+  </CRequirementAnd>
+  <CRequirementCountBehavior id="CountBehaviorJungleCreepHardLeashingCompleteOnlyAtUnit">
+    <Flags index="TechTreeCheat" value="0" />
+    <Count Link="JungleCreepHardLeashing" State="CompleteOnlyAtUnit" />
+  </CRequirementCountBehavior>
+  <CRequirementCountBehavior id="CountBehaviorJungleCreepPassiveCompleteOnlyAtUnit">
+    <Flags index="TechTreeCheat" value="0" />
+    <Count Link="JungleCreepPassive" State="CompleteOnlyAtUnit" />
+  </CRequirementCountBehavior>
+  <CRequirementCountBehavior id="CountBehaviorJungleCreepSoftLeashingCompleteOnlyAtUnit">
+    <Flags index="TechTreeCheat" value="0" />
+    <Count Link="JungleCreepSoftLeashing" State="CompleteOnlyAtUnit" />
+  </CRequirementCountBehavior>
+  <CRequirementEq id="EqCountBehaviorJungleCreepHardLeashingCompleteOnlyAtUnit0">
+    <OperandArray index="0" value="CountBehaviorJungleCreepHardLeashingCompleteOnlyAtUnit" />
+    <OperandArray index="1" value="0" />
+  </CRequirementEq>
+  <CRequirementEq id="EqCountBehaviorJungleCreepPassiveCompleteOnlyAtUnit1">
+    <OperandArray index="0" value="CountBehaviorJungleCreepPassiveCompleteOnlyAtUnit" />
+    <OperandArray index="1" value="1" />
+  </CRequirementEq>
+  <CRequirementEq id="EqCountBehaviorJungleCreepSoftLeashingCompleteOnlyAtUnit0">
+    <OperandArray index="0" value="CountBehaviorJungleCreepSoftLeashingCompleteOnlyAtUnit" />
+    <OperandArray index="1" value="0" />
+  </CRequirementEq>
+  <CSound id="Core_AlteracPass_Build_End_Zaps" parent="_BG_Ambience_Object">
+    <AssetArray File="Assets\Sounds\Heroes\Amazon_Base\Amazon_Gen_Lightning_Impacts_01.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Amazon_Base\Amazon_Gen_Lightning_Impacts_02.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Amazon_Base\Amazon_Gen_Lightning_Impacts_03.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Amazon_Base\Amazon_Gen_Lightning_Impacts_04.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\UI\UI_Bnet_HomeScreen_Lightning01.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\UI\UI_Bnet_HomeScreen_Lightning02.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\UI\UI_Bnet_HomeScreen_Lightning03.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\UI\UI_Bnet_HomeScreen_Lightning04.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\UI\UI_Bnet_HomeScreen_Lightning05.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\UI\UI_Bnet_HomeScreen_Lightning06.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\UI\UI_Bnet_HomeScreen_Lightning07.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\UI\UI_Bnet_HomeScreen_Lightning08.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\UI\UI_Bnet_HomeScreen_Lightning09.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\UI\UI_Bnet_HomeScreen_Lightning10.wav" FacialGroup="" />
+    <Flags index="Purgable" value="1" />
+    <Flags index="AllowDuckingInPlayDelay" value="0" />
+    <Category value="Build" />
+    <DupeDestroyCount value="16" />
+    <OffsetFadeIn Volume="-96.000000" />
+    <OffsetFadeIn Time="132" />
+    <PanLevel value="0.700000" />
+    <Pitch value="-5.000000,-4.000000" />
+    <ResourcePriority value="32" />
+    <SustainFade index="1" Time="500" Volume="-96.000000" />
+    <Volume value="-18.000000,-15.000000" />
+    <VolumeRolloffFadeIn index="0" removed="1" />
+    <VolumeRolloffFadeIn index="1" removed="1" />
+    <VolumeRolloffFadeOut index="0" removed="1" />
+    <VolumeRolloffFadeOut index="1" removed="1" />
+    <VolumeRolloffPoints Distance="10.000000" />
+    <VolumeRolloffPoints Distance="25.000000" Volume="-96.000000" />
+    <PlayDelay value="0,50" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Alliance_WhirlwindImpact" parent="_FX_Hero_Spell_Impact">
+    <AssetArray File="Assets\Sounds\Heroes\Tank_Base\Tank_BFG_Impact_Unit01.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Tank_Base\Tank_BFG_Impact_Unit02.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Tank_Base\Tank_BFG_Impact_Unit03.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Tank_Base\Tank_BFG_Impact_Unit04.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Tank_Base\Tank_BFG_Impact_Unit05.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Tank_Base\Tank_BFG_Impact_Unit06.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Tank_Base\Tank_BFG_Impact_Unit07.wav" FacialGroup="" />
+    <CategoryLocal value="Unknown" />
+    <DupeDestroyCount value="10" />
+    <DupeDestroyCountPerPlayer value="10" />
+    <Pitch value="-2.000000,0.000000" />
+    <Volume value="-2.000000,0.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Alliance_WhirlwindImpact_Player" parent="_FX_Hero_Spell_Impact">
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Whirlwind_Impact_Player_01.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Whirlwind_Impact_Player_02.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Whirlwind_Impact_Player_03.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Whirlwind_Impact_Player_04.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Whirlwind_Impact_Player_05.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Whirlwind_Impact_Player_06.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Whirlwind_Impact_Player_07.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Whirlwind_Impact_Player_08.ogg" FacialGroup="" />
+    <CategoryDuckingLocal value="Local_FX_Warning" />
+    <CategoryLocal value="UIMovie" />
+    <DupeDestroyCount value="10" />
+    <DupeDestroyCountPerPlayer value="10" />
+    <Mode value="2D" />
+    <Pitch value="2.000000,3.000000" />
+    <PlayDelay value="0,50" />
+    <SpeakerMix index="Center" value="0.000000" />
+    <SpeakerMix index="BackLeft" value="0.000000" />
+    <SpeakerMix index="BackRight" value="0.000000" />
+    <SpeakerMix index="SideLeft" value="0.000000" />
+    <SpeakerMix index="SideRight" value="0.000000" />
+    <Volume value="-1.000000,-1.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_ChargeImpact_Player" parent="_FX_Hero_Spell_Impact">
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Charge_Impact_01.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Charge_Impact_02.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Charge_Impact_03.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Charge_Impact_04.ogg" FacialGroup="" />
+    <CategoryDuckingLocal value="Local_FX_Warning" />
+    <CategoryLocal value="UIMovie" />
+    <DupeDestroyCount value="10" />
+    <DupeDestroyCountPerPlayer value="10" />
+    <PanLevel value="0.600000" />
+    <Pitch value="-2.000000,0.000000" />
+    <Volume value="1.000000,1.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+    <Mode value="2D" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Horde_WhirlwindImpact_Player" parent="_FX_Hero_Spell_Impact">
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Whirlwind_Impact_Player_01.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Whirlwind_Impact_Player_02.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Whirlwind_Impact_Player_03.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Whirlwind_Impact_Player_04.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Whirlwind_Impact_Player_05.ogg" FacialGroup="" />
+    <CategoryDuckingLocal value="Local_FX_Warning" />
+    <CategoryLocal value="UIMovie" />
+    <DupeDestroyCount value="10" />
+    <DupeDestroyCountPerPlayer value="10" />
+    <Mode value="2D" />
+    <Pitch value="2.000000,3.000000" />
+    <PlayDelay value="0,50" />
+    <SpeakerMix index="Center" value="0.000000" />
+    <SpeakerMix index="BackLeft" value="0.000000" />
+    <SpeakerMix index="BackRight" value="0.000000" />
+    <SpeakerMix index="SideLeft" value="0.000000" />
+    <SpeakerMix index="SideRight" value="0.000000" />
+    <Volume value="-1.000000,-1.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+  </CSound>
+  <CSound id="DrekTharA_VOX_Cheer" parent="_FX_NPC_Combat">
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Cheer01.ogg" FacialGroup="" />
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+  </CSound>
+  <CSound id="DrekTharA_VOX_GetHitLarge" parent="_FX_NPC_Combat">
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_GetHitLarge01.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_GetHitLarge02.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_GetHitLarge03.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_GetHitLarge04.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_GetHitLarge05.ogg" FacialGroup="" />
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+    <Chance value="35" />
+    <DupeWait value="1500,4500" />
+  </CSound>
+  <CSound id="DrekTharA_VOX_GetHitSmall" parent="_FX_NPC_Combat">
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_GetHitSmall01.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_GetHitSmall02.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_GetHitSmall03.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_GetHitSmall04.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_GetHitSmall05.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_GetHitSmall06.ogg" FacialGroup="" />
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+    <Chance value="35" />
+    <DupeWait value="1500,4500" />
+  </CSound>
+  <CSound id="VanndarA_VOX_Cheer" parent="_FX_NPC_Combat">
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Cheer01.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Cheer02.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Cheer03.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Cheer04.ogg" FacialGroup="" />
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+  </CSound>
+  <CSound id="VanndarA_VOX_GetHitLarge" parent="_FX_NPC_Combat">
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitLarge01.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitLarge02.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitLarge03.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitLarge04.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitLarge05.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitLarge06.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitLarge07.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitLarge08.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitLarge09.ogg" FacialGroup="" />
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+    <Pitch value="-2.000000,-2.000000" />
+    <Volume value="-6.000000,-6.000000" />
+    <DupeWait value="1500,4500" />
+  </CSound>
+  <CSound id="VanndarA_VOX_GetHitSmall" parent="_FX_NPC_Combat">
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitSmall02.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitSmall03.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitSmall04.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitSmall05.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitSmall06.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitSmall07.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitSmall08.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_GetHitSmall09.ogg" FacialGroup="" />
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+    <Pitch value="-2.000000,-2.000000" />
+    <Volume value="-6.000000,-6.000000" />
+    <DupeWait value="1500,4500" />
+  </CSound>
+  <CSound id="DrekTharA_VOX_Death" parent="_FX_NPC_Death">
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Death01.wav" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Death02.wav" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Death03.wav" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Death04.wav" FacialGroup="" />
+    <AssetArrayTemplate>
+      <File value="LocalizedData\Sounds\VO\^TemplateParam2^.ogg" />
+      <FacialAnim value="^TemplateParam1^" />
+      <FacialGroup value="^TemplateParam1^" />
+      <FacialFile value="LocalizedData\Sounds\VO\^TemplateParam1^.fxe" />
+    </AssetArrayTemplate>
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+    <Category value="User23" />
+    <CategoryLocal value="User23" />
+    <DupeWait value="5000,8000" />
+    <Mode value="2D" />
+    <OffsetFadeIn Volume="-96.000000" />
+    <OffsetFadeIn Time="419" />
+    <OffsetFadeOut />
+    <OffsetFadeOut Time="2000" Volume="-96.000000" />
+    <SustainFade index="1" Time="2000" />
+    <Volume value="-4.000000,-4.000000" />
+    <VolumeRolloffPoints Distance="4.292000" />
+    <VolumeRolloffPoints Distance="20.000000" Volume="-96.000000" />
+    <SpeakerMix index="Center" value="0.000000" />
+    <SpeakerMix index="BackLeft" value="0.000000" />
+    <SpeakerMix index="BackRight" value="0.000000" />
+    <SpeakerMix index="SideLeft" value="0.000000" />
+    <SpeakerMix index="SideRight" value="0.000000" />
+  </CSound>
+  <CSound id="VanndarA_VOX_Death" parent="_FX_NPC_Death">
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Death01.wav" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Death02.wav" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Death03.wav" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Death04.wav" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Death05.wav" FacialGroup="" />
+    <AssetArrayTemplate>
+      <File value="LocalizedData\Sounds\VO\^TemplateParam2^.ogg" />
+      <FacialAnim value="^TemplateParam1^" />
+      <FacialGroup value="^TemplateParam1^" />
+      <FacialFile value="LocalizedData\Sounds\VO\^TemplateParam1^.fxe" />
+    </AssetArrayTemplate>
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+    <Category value="User23" />
+    <CategoryLocal value="User23" />
+    <DupeWait value="5000,8000" />
+    <Exclusivity value="Hero_Vox" />
+    <Mode value="2D" />
+    <OffsetFadeIn Volume="-96.000000" />
+    <OffsetFadeIn Time="419" />
+    <Volume value="-4.000000,-4.000000" />
+    <VolumeRolloffPoints Distance="4.292000" />
+    <VolumeRolloffPoints Distance="20.000000" Volume="-96.000000" />
+    <SpeakerMix index="Center" value="0.000000" />
+    <SpeakerMix index="BackLeft" value="0.000000" />
+    <SpeakerMix index="BackRight" value="0.000000" />
+    <SpeakerMix index="SideLeft" value="0.000000" />
+    <SpeakerMix index="SideRight" value="0.000000" />
+  </CSound>
+  <CSound id="Doodad_Core_AttackImpact_Player">
+    <CategoryDuckingLocal value="Local_FX_Warning" />
+    <CategoryLocal value="Unknown" />
+    <DupeDestroyCount value="16" />
+    <DupeDestroyCountPerPlayer value="1" />
+    <DupeMuteCount value="1" />
+    <Mode value="3DWorld" />
+    <PanLevel value="0.800000" />
+    <PanLevelNonLocal value="-1.000000" />
+    <SpeakerMix index="Center" value="1.000000" />
+    <SpeakerMix index="BackLeft" value="1.000000" />
+    <SpeakerMix index="BackRight" value="1.000000" />
+    <SpeakerMix index="SideLeft" value="1.000000" />
+    <SpeakerMix index="SideRight" value="1.000000" />
+    <Volume value="-7.000000,-7.000000" />
+    <VolumeRolloffPoints index="1" Distance="10.000000" Volume="0.000000" />
+    <VolumeRolloffPoints index="2" Distance="1000.000000" Volume="-96.000000" />
+    <VolumeRolloffPoints index="3" removed="1" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Death" parent="_FX_Breakables">
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Death_01.wav" FacialGroup="" />
+    <Category value="User23" />
+    <Mode value="2D" />
+    <PanLevel value="0.700000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" Volume="0.000000" />
+    <VolumeRolloffPoints index="1" Distance="40.000000" Volume="-96.000000" />
+  </CSound>
+  <CSound id="DrekTharA_VOX_Attack" parent="_FX_NPC_Combat">
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Attack03.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Attack04.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Attack05.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Attack00.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Attack01.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Attack02.ogg" FacialGroup="" />
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+    <Chance value="50" />
+    <DupeWait value="1500,3000" />
+    <OffsetFadeIn />
+    <OffsetFadeIn Time="255" />
+    <OffsetFadeIn Time="499" Volume="-96.000000" />
+    <OffsetFadeIn Time="1595" Volume="-96.000000" />
+    <Volume value="-4.000000,-4.000000" />
+  </CSound>
+  <CSound id="DrekTharA_VOX_Charge" parent="_FX_NPC_Combat">
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Charge00.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Charge01.ogg" FacialGroup="" />
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+    <Chance value="50" />
+    <DupeWait value="500,1500" />
+  </CSound>
+  <CSound id="DrekTharA_VOX_Whirlwind" parent="_FX_NPC_Combat">
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Whirlwind00.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\DrekTharA_VOX_Whirlwind01.ogg" FacialGroup="" />
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+    <DupeWait value="500,1500" />
+    <Volume value="3.000000,3.000000" />
+  </CSound>
+  <CSound id="VanndarA_VOX_Attack" parent="_FX_NPC_Combat">
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Attack00.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Attack01.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Attack02.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Attack03.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Attack04.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Attack05.ogg" FacialGroup="" />
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+    <Chance value="90" />
+    <DupeWait value="1500,3000" />
+    <Pitch value="-2.000000,-2.000000" />
+    <Volume value="-4.000000,-4.000000" />
+  </CSound>
+  <CSound id="VanndarA_VOX_Charge" parent="_FX_NPC_Combat">
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Charge01.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Charge02.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Charge03.ogg" FacialGroup="" />
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+    <Pitch value="-2.000000,-2.000000" />
+    <Volume value="-3.000000,-3.000000" />
+  </CSound>
+  <CSound id="VanndarA_VOX_Whirlwind" parent="_FX_NPC_Combat">
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Whirlwind01.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Whirlwind02.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\VanndarA_VOX_Whirlwind03.ogg" FacialGroup="" />
+    <Flags index="NeedsUpdate" value="1" />
+    <Flags index="NeedsTTS" value="1" />
+    <Pitch value="-2.000000,-2.000000" />
+    <Volume value="-3.000000,-3.000000" />
+  </CSound>
+  <CSound id="BuildingCore_Impact">
+    <AssetArray index="0" File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh01.wav" FacialGroup="" />
+    <AssetArray index="1" File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh02.wav" FacialGroup="" />
+    <AssetArray index="2" File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh03.wav" FacialGroup="" />
+    <AssetArray index="3" File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh04.wav" FacialGroup="" />
+    <AssetArray index="4" File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh05.wav" FacialGroup="" />
+    <AssetArray index="5" File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh06.wav" FacialGroup="" />
+    <AssetArray index="6" File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh07.wav" FacialGroup="" />
+    <AssetArray index="7" File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh08.wav" FacialGroup="" />
+    <AssetArray index="8" File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh09.wav" FacialGroup="" />
+    <AssetArray index="9" File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh10.wav" FacialGroup="" />
+    <AssetArray index="10" File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh11.wav" FacialGroup="" />
+    <AssetArray index="11" File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh12.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh13.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh14.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh15.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh16.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh17.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh18.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh19.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Impact_FX\Impact_GetHit_Vs_Flesh20.wav" FacialGroup="" />
+    <Volume value="-1.000000,0.000000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Horde_DualBlade_Swipe" parent="_FX_Hero_Spell_Loop">
+    <AssetArray File="Assets\Sounds\Mercs\Overwatch\LargeSamurai\Merc_OW_LargeSamurai_Katana_Launch_10.wav" FacialGroup="" />
+    <CategoryDuckingLocal value="Local_Spell_Instacast" />
+    <CategoryDuckingNonLocal value="NPC_Spell_InstaCast" />
+    <CategoryLocal value="Unknown" />
+    <PanLevel value="0.600000" />
+    <PanLevelNonLocal value="0.600000" />
+    <Pitch value="-1.000000,0.000000" />
+    <Volume value="1.000000,1.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Horde_DualBlade_Impact" parent="_FX_Hero_Spell_Loop">
+    <AssetArray File="Assets\Sounds\Mercs\Overwatch\LargeSamurai\Merc_OW_LargeSamurai_Katana_Impact_01.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Mercs\Overwatch\LargeSamurai\Merc_OW_LargeSamurai_Katana_Impact_02.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Mercs\Overwatch\LargeSamurai\Merc_OW_LargeSamurai_Katana_Impact_03.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Mercs\Overwatch\LargeSamurai\Merc_OW_LargeSamurai_Katana_Impact_04.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Mercs\Overwatch\LargeSamurai\Merc_OW_LargeSamurai_Katana_Impact_05.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Mercs\Overwatch\LargeSamurai\Merc_OW_LargeSamurai_Katana_Impact_06.wav" FacialGroup="" />
+    <CategoryDuckingLocal value="Local_Spell_Instacast" />
+    <CategoryDuckingNonLocal value="NPC_Spell_InstaCast" />
+    <CategoryLocal value="Unknown" />
+    <PanLevel value="0.900000" />
+    <PanLevelNonLocal value="-1.000000" />
+    <Pitch value="-1.000000,0.000000" />
+    <Volume value="1.000000,1.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+    <StopActionArray Sound="Doodad_Core_AttackImpact_Player" UseSustainFadeTime="0" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Horde_FS_Foley" parent="_FX_Hero_Movement">
+    <AssetArray File="Assets\Sounds\UI\UI_Home_Necro\UI_Home_Necro_Foley_Short_Down01.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\UI\UI_Home_Necro\UI_Home_Necro_Foley_Short_Down02.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\UI\UI_Home_Necro\UI_Home_Necro_Foley_Short_Down03.wav" FacialGroup="" />
+    <Flags index="AllowDuckingInPlayDelay" value="0" />
+    <Category value="Movement" />
+    <CategoryLocalAlly value="Movement" />
+    <CategoryLocal value="Unknown" />
+    <PanLevel value="0.800000" />
+    <PanLevelNonLocal value="1.000000" />
+    <Pitch value="-1.500000,1.500000" />
+    <ResourcePriority value="32" />
+    <Volume value="-10.000000,-8.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Alliance_FS_Foley" parent="_FX_Hero_Movement">
+    <AssetArray File="Assets\Sounds\Heroes\Crusader_Base\Crusader_Foley_Shield_05.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Crusader_Base\Crusader_Foley_Shield_06.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Crusader_Base\Crusader_Foley_Shield_07.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Crusader_Base\Crusader_Foley_Shield_08.wav" FacialGroup="" />
+    <Flags index="AllowDuckingInPlayDelay" value="0" />
+    <CategoryLocalAlly value="Movement" />
+    <PanLevel value="0.800000" />
+    <PanLevelNonLocal value="1.000000" />
+    <Pitch value="0.500000,0.500000" />
+    <ResourcePriority value="32" />
+    <Volume value="-11.000000,-10.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+    <Category value="Movement" />
+    <CategoryLocal value="Unknown" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Alliance_FS" parent="_FX_Hero_Movement">
+    <AssetArray File="Assets\Sounds\Heroes\ETC_Base\ETC_FS01.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\ETC_Base\ETC_FS02.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\ETC_Base\ETC_FS03.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\ETC_Base\ETC_FS04.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\ETC_Base\ETC_FS05.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\ETC_Base\ETC_FS06.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\ETC_Base\ETC_FS07.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\ETC_Base\ETC_FS08.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\ETC_Base\ETC_FS09.wav" FacialGroup="" />
+    <Flags index="AllowDuckingInPlayDelay" value="0" />
+    <CategoryLocalAlly value="Movement" />
+    <PanLevel value="0.800000" />
+    <PanLevelNonLocal value="1.000000" />
+    <Pitch value="0.500000,0.500000" />
+    <ResourcePriority value="32" />
+    <Volume value="-11.000000,-10.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+    <Category value="Movement" />
+    <CategoryLocal value="Unknown" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Build" parent="_BG_Ambience_Object">
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Birth_01.ogg" FacialGroup="" />
+    <Flags index="Purgable" value="1" />
+    <Flags index="AllowDuckingInPlayDelay" value="0" />
+    <Category value="Build" />
+    <DupeDestroyCount value="16" />
+    <PanLevel value="0.700000" />
+    <ResourcePriority value="32" />
+    <SustainFade index="1" Time="500" Volume="-96.000000" />
+    <Volume value="-1.000000,-1.000000" />
+    <VolumeRolloffFadeIn index="0" removed="1" />
+    <VolumeRolloffFadeIn index="1" removed="1" />
+    <VolumeRolloffFadeOut index="0" removed="1" />
+    <VolumeRolloffFadeOut index="1" removed="1" />
+    <VolumeRolloffPoints Distance="10.000000" />
+    <VolumeRolloffPoints Distance="25.000000" Volume="-96.000000" />
+    <PlayDelay value="4500,4500" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Horde_FS" parent="_FX_Hero_Movement">
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_01.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_02.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_03.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_04.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_05.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_06.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_07.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_08.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_09.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_10.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_11.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_12.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_13.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_14.wav" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Garrosh_Base\Garrosh_FS_15.wav" FacialGroup="" />
+    <Flags index="AllowDuckingInPlayDelay" value="0" />
+    <Category value="Movement" />
+    <CategoryLocalAlly value="Movement" />
+    <CategoryLocal value="Unknown" />
+    <PanLevel value="0.800000" />
+    <PanLevelNonLocal value="1.000000" />
+    <Pitch value="-1.500000,1.500000" />
+    <ResourcePriority value="32" />
+    <Volume value="-12.000000,-11.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Alliance_Attack_Launch" parent="_FX_Hero_Attack_Launch">
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Launch_01.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Launch_02.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Launch_03.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Launch_04.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Launch_05.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Launch_06.ogg" FacialGroup="" />
+    <Flags index="AllowDuckingInPlayDelay" value="0" />
+    <CategoryDuckingLocal value="Local_Spell_Instacast" />
+    <CategoryDuckingLocalAlly value="NPC_Attack_Launch1" />
+    <CategoryDuckingNonLocal value="NPC_Attack_Launch1" />
+    <CategoryLocal value="Alert" />
+    <Pitch value="-1.500000,-0.500000" />
+    <Volume value="-12.000000,-12.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" Volume="0.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+    <PanLevelNonLocal value="0.800000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Horde_Attack_Impact_Left" parent="_FX_Hero_Attack_Impact">
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Impact_01.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Impact_02.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Impact_03.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Impact_04.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Impact_05.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Impact_06.ogg" FacialGroup="" />
+    <Flags index="AllowDuckingInPlayDelay" value="0" />
+    <CategoryDuckingLocal value="MapEvents_Punch" />
+    <CategoryDuckingLocalAlly value="NPC_Attack_Impact" />
+    <CategoryDuckingNonLocal value="NPC_Attack_Impact" />
+    <CategoryLocal value="Alert" />
+    <PanLevel value="0.800000" />
+    <Pitch value="-1.500000,1.500000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+    <PanLevelNonLocal value="0.800000" />
+    <Volume value="-5.000000,-5.000000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Alliance_Attack_Impact" parent="_FX_Hero_Attack_Impact">
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Impact_01.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Impact_02.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Impact_03.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Impact_04.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Impact_05.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Impact_06.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Impact_07.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Alliance_Attack_Impact_08.ogg" FacialGroup="" />
+    <Flags index="AllowDuckingInPlayDelay" value="0" />
+    <Category value="User38" />
+    <CategoryDuckingLocal value="Explosions" />
+    <CategoryDuckingLocalAlly value="NPC_Attack_Impact" />
+    <CategoryDuckingNonLocal value="NPC_Attack_Impact" />
+    <CategoryLocal value="UIMovie" />
+    <PanLevel value="0.800000" />
+    <Pitch value="-0.500000,0.500000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+    <PanLevelNonLocal value="0.800000" />
+    <Volume value="-4.000000,-4.000000" />
+  </CSound>
+  <CSound id="DrekThar_UnderAttack" parent="AnnouncerVO_Mechanics">
+    <AssetArray File="LocalizedData\Sounds\VO\AlteracValleyVO_DrekThar_194.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\AlteracValleyVO_DrekThar_195.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\AlteracValleyVO_DrekThar_196.ogg" FacialGroup="" />
+    <AssetArrayTemplate>
+      <File value="" />
+      <FacialAnim value="" />
+      <FacialGroup value="" />
+      <FacialFile value="" />
+    </AssetArrayTemplate>
+    <Flags index="Ignorable" value="0" />
+    <Flags index="Purgable" value="1" />
+    <Flags index="Stream" value="0" />
+    <Category value="Voice" />
+    <Exclusivity value="" />
+    <Mode value="3DWorld" />
+    <PanLevel value="0.800000" />
+    <SpeakerMix index="Center" value="1.000000" />
+    <SpeakerMix index="BackLeft" value="1.000000" />
+    <SpeakerMix index="BackRight" value="1.000000" />
+    <SpeakerMix index="SideLeft" value="1.000000" />
+    <SpeakerMix index="SideRight" value="1.000000" />
+    <SustainFade index="1" Time="500" />
+    <VolumeRolloffPoints index="0" removed="1" />
+    <VolumeRolloffPoints index="1" removed="1" />
+    <DupeWait value="4000,4000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Horde_Attack_Impact_Right" parent="_FX_Hero_Attack_Impact">
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Impact_01.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Impact_02.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Impact_03.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Impact_04.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Impact_05.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Impact_06.ogg" FacialGroup="" />
+    <Flags index="AllowDuckingInPlayDelay" value="0" />
+    <CategoryDuckingLocal value="MapEvents_Punch" />
+    <CategoryDuckingLocalAlly value="NPC_Attack_Impact" />
+    <CategoryDuckingNonLocal value="NPC_Attack_Impact" />
+    <CategoryLocal value="Alert" />
+    <PanLevel value="0.800000" />
+    <Pitch value="-1.500000,1.500000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+    <PanLevelNonLocal value="0.800000" />
+    <Volume value="-5.000000,-5.000000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Horde_Attack_Launch_Right" parent="_FX_Hero_Attack_Launch">
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Launch_R_01.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Launch_R_02.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Launch_R_03.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Launch_R_04.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Launch_R_05.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Launch_R_06.ogg" FacialGroup="" />
+    <Flags index="AllowDuckingInPlayDelay" value="0" />
+    <CategoryDuckingLocal value="Local_Spell_Instacast" />
+    <CategoryDuckingLocalAlly value="NPC_Attack_Launch1" />
+    <CategoryDuckingNonLocal value="NPC_Attack_Launch1" />
+    <CategoryLocal value="Alert" />
+    <Pitch value="-3.500000,-0.500000" />
+    <Volume value="-9.000000,-8.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" Volume="0.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+    <PanLevelNonLocal value="0.800000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_ChargingSound" parent="_FX_Hero_Spell_Loop">
+    <AssetArray File="Assets\Sounds\Heroes\Varian_Base\Varian_Charge_Launch_V2_01.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Varian_Base\Varian_Charge_Launch_V2_02.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Varian_Base\Varian_Charge_Launch_V2_03.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Varian_Base\Varian_Charge_Launch_V2_04.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Heroes\Varian_Base\Varian_Charge_Launch_V2_05.ogg" FacialGroup="" />
+    <CategoryDuckingLocal value="Local_Spell_Instacast" />
+    <CategoryDuckingNonLocal value="NPC_Spell_InstaCast" />
+    <CategoryLocal value="Unknown" />
+    <PanLevel value="0.900000" />
+    <PanLevelNonLocal value="-1.000000" />
+    <Pitch value="-1.000000,0.000000" />
+    <Volume value="1.000000,1.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_ChargeImpact" parent="_FX_Hero_Spell_Impact">
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Charge_Impact_01.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Charge_Impact_02.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Charge_Impact_03.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Charge_Impact_04.ogg" FacialGroup="" />
+    <CategoryDuckingLocal value="" />
+    <CategoryLocal value="User30" />
+    <DupeDestroyCount value="10" />
+    <DupeDestroyCountPerPlayer value="10" />
+    <PanLevel value="1.000000" />
+    <Pitch value="-2.000000,0.000000" />
+    <Volume value="-4.000000,-4.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Horde_Attack_Launch_Left" parent="_FX_Hero_Attack_Launch">
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Launch_L_01.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Launch_L_02.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Launch_L_03.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Launch_L_04.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Launch_L_05.ogg" FacialGroup="" />
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Horde_Attack_Launch_L_06.ogg" FacialGroup="" />
+    <Flags index="AllowDuckingInPlayDelay" value="0" />
+    <CategoryDuckingLocal value="Local_Spell_Instacast" />
+    <CategoryDuckingLocalAlly value="NPC_Attack_Launch1" />
+    <CategoryDuckingNonLocal value="NPC_Attack_Launch1" />
+    <CategoryLocal value="Alert" />
+    <Pitch value="-1.500000,0.500000" />
+    <Volume value="-9.000000,-8.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" Volume="0.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+    <PanLevelNonLocal value="0.800000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_WhirlwindCast" parent="_FX_Hero_Spell_Launch">
+    <AssetArray File="Assets\Sounds\Heroes\Fenix_Base\Fenix_Talent_WeaponsPrimed_Impact_Add_01.wav" FacialGroup="" />
+    <Pitch value="-1.500000,1.500000" />
+    <Volume value="-3.000000,-3.000000" />
+    <CategoryLocal value="Unknown" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+    <PanLevel value="0.600000" />
+    <PanLevelNonLocal value="0.600000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_WhirlwindEnd" parent="_FX_Hero_Spell_End">
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Whirlwind_End01.wav" />
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Whirlwind_End02.wav" />
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Whirlwind_End03.wav" Pitch="2.000000,2.000000" />
+    <Pitch value="-1.000000,1.000000" />
+    <Volume value="-14.000000,-12.000000" />
+    <CategoryLocal value="Unknown" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_Horde_WhirlwindImpact" parent="_FX_Hero_Spell_Impact">
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Attack_Impact_Unit01.wav" />
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Attack_Impact_Unit10.wav" />
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Attack_Impact_Unit11.wav" />
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Attack_Impact_Unit12.wav" />
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Attack_Impact_Unit02.wav" />
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Attack_Impact_Unit03.wav" />
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Attack_Impact_Unit04.wav" />
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Attack_Impact_Unit05.wav" />
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Attack_Impact_Unit06.wav" />
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Attack_Impact_Unit07.wav" />
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Attack_Impact_Unit08.wav" />
+    <AssetArray File="Assets\Sounds\Heroes\Barbarian_Base\Barbarian_Attack_Impact_Unit09.wav" />
+    <CategoryLocal value="Unknown" />
+    <DupeDestroyCount value="10" />
+    <DupeDestroyCountPerPlayer value="10" />
+    <Pitch value="-2.000000,0.000000" />
+    <Volume value="-2.000000,0.000000" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+  </CSound>
+  <CSound id="Core_AlteracPass_WhirlwindLoop" parent="_FX_Hero_Spell_Loop">
+    <AssetArray File="Assets\Sounds\Event\AlteracPass\Event_AlteracPass_CoreGeneral_Whirlwind_Loop_01.ogg" FacialGroup="" />
+    <Volume value="-3.000000,-3.000000" />
+    <Category value="User32" />
+    <CategoryLocal value="UIMovie" />
+    <VolumeRolloffPoints index="0" Distance="10.000000" />
+    <VolumeRolloffPoints index="1" Distance="23.000000" Volume="-96.000000" />
+    <CategoryDuckingLocal value="Local_Ult_launch" />
+    <LoopCount value="-1" />
+    <OffsetFadeIn Volume="-96.000000" />
+    <OffsetFadeIn Time="318" />
+    <PanLevel value="0.600000" />
+    <PanLevelNonLocal value="0.500000" />
+    <Pitch value="-2.000000,-2.000000" />
+  </CSound>
+  <CSound id="Vanndar_UnderAttack" parent="AnnouncerVO_Mechanics">
+    <AssetArray File="LocalizedData\Sounds\VO\AlteracValleyVO_Vanndar_193.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\AlteracValleyVO_Vanndar_001.ogg" FacialGroup="" />
+    <AssetArray File="LocalizedData\Sounds\VO\AlteracValleyVO_Vanndar_192.ogg" FacialGroup="" />
+    <AssetArrayTemplate>
+      <File value="" />
+      <FacialAnim value="" />
+      <FacialGroup value="" />
+      <FacialFile value="" />
+    </AssetArrayTemplate>
+    <Flags index="Ignorable" value="0" />
+    <Flags index="Purgable" value="1" />
+    <Flags index="Stream" value="0" />
+    <Category value="Voice" />
+    <Exclusivity value="" />
+    <Mode value="3DWorld" />
+    <PanLevel value="0.800000" />
+    <SpeakerMix index="Center" value="1.000000" />
+    <SpeakerMix index="BackLeft" value="1.000000" />
+    <SpeakerMix index="BackRight" value="1.000000" />
+    <SpeakerMix index="SideLeft" value="1.000000" />
+    <SpeakerMix index="SideRight" value="1.000000" />
+    <SustainFade index="1" Time="500" />
+    <VolumeRolloffPoints index="0" Distance="100.000000" />
+    <VolumeRolloffPoints index="1" Distance="1000.000000" Volume="-96.000000" />
+    <DupeWait value="4000,4000" />
+  </CSound>
+  <CUnit id="AlteracCoreBossParent" parent="KingsCore">
+    <FlagArray index="DoNotAcquire" value="0" />
+    <PushPriority value="5000" />
+    <Collide index="Ground" value="1" />
+    <Collide index="Structure" value="0" />
+    <LifeStart value="20000" />
+    <LifeMax value="20000" />
+    <ShieldsStart value="0" />
+    <ShieldsMax value="0" />
+    <ShieldRegenDelay value="0" />
+    <ShieldRegenRate value="0" />
+    <Speed value="4" />
+    <Acceleration value="1000" />
+    <AbilArray Link="move" />
+    <AbilArray Link="AlteracBossWhirlwind" />
+    <AbilArray Link="AlteracBossCharge" />
+    <AbilArray Link="AlteracBossChargeApproach" />
+    <BehaviorArray Link="BossOutOfCombatHeal" />
+    <WeaponArray index="0" Link="AlteracBossWeaponParent" Turret="" />
+    <CardLayouts index="0">
+      <LayoutButtons index="0" Face="Cancel" Type="CancelTargetMode" AbilCmd="" Slot="Cancel" />
+      <LayoutButtons index="1" Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Cancel" />
+      <LayoutButtons index="2" Face="Stop" Type="AbilCmd" AbilCmd="stop,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="move,HoldPos" Slot="Hold" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons Face="MovePatrol" Type="AbilCmd" AbilCmd="move,Patrol" Slot="Hearth" />
+      <LayoutButtons Face="AlteracBossWhirlwind" Type="AbilCmd" AbilCmd="AlteracBossWhirlwind,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AlteracBossCharge" Type="AbilCmd" AbilCmd="AlteracBossCharge,Execute" Slot="Ability2" />
+    </CardLayouts>
+    <Radius value="1.5" />
+    <SeparationRadius value="1.5" />
+    <Footprint value="" />
+    <PlacementFootprint value="" />
+    <AIThinkTree value="AI/AVBossCore.aitree" />
+    <OverlapIndex value="Hero" />
+    <Name value="Unit/Name/AlteracCoreBossParent" />
+  </CUnit>
+  <CUnit id="VanndarStormpike" parent="AlteracCoreBossParent">
+    <Name value="Unit/Name/VanndarStormpike" />
+    <LeaderAlias value="VanndarStormpike" />
+  </CUnit>
+  <CUnit id="DrekThar" parent="AlteracCoreBossParent">
+    <Name value="Unit/Name/DrekThar" />
+    <LeaderAlias value="DrekThar" />
+  </CUnit>
+  <CValidatorUnitCompareBehaviorCount id="SourceHasWarchiefAliveParent">
+    <Behavior value="WarchiefAlive" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="SourceHas3WarchiefsAlive" parent="SourceHasWarchiefAliveParent">
+    <Value value="3" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="SourceHas2WarchiefsAlive" parent="SourceHasWarchiefAliveParent">
+    <Value value="2" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="SourceHas1WarchiefsAlive" parent="SourceHasWarchiefAliveParent">
+    <Value value="1" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="SourceHas0WarchiefsAlive" parent="SourceHasWarchiefAliveParent" />
+  <CValidatorCombine id="IsNotAlteracCore">
+    <Type value="And" />
+    <CombineArray value="IsNotVanndarStormpike" />
+    <CombineArray value="IsNotDrekThar" />
+  </CValidatorCombine>
+  <CValidatorCombine id="TargetIsNotABossUnitCombine">
+    <CombineArray value="IsNotAlteracCore" />
+  </CValidatorCombine>
+  <CValidatorUnitType id="IsNotVanndarStormpike">
+    <Value value="VanndarStormpike" />
+    <Find value="0" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="TargetIsVanndarStormpike">
+    <Value value="VanndarStormpike" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="CasterIsVanndarStormpike">
+    <Value value="VanndarStormpike" />
+    <WhichUnit Value="Caster" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsNotDrekThar">
+    <Value value="DrekThar" />
+    <Find value="0" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="TargetIsDrekThar">
+    <Value value="DrekThar" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsDrekThar">
+    <Value value="DrekThar" />
+    <WhichUnit Value="Caster" />
+  </CValidatorUnitType>
+  <CValidatorCombine id="IsCore">
+    <CombineArray value="TargetIsVanndarStormpike" />
+    <CombineArray value="TargetIsDrekThar" />
+  </CValidatorCombine>
+  <CValidatorCombine id="NotCore">
+    <CombineArray value="IsNotAlteracCore" />
+  </CValidatorCombine>
+  <CValidatorCombine id="SourceHasJunglePassiveNotSoftLeashing">
+    <Type value="And" />
+    <CombineArray value="HasJunglePassive" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="CasterNotHasJungleSoftLeashing">
+    <WhichUnit Value="Caster" />
+    <Behavior value="JungleCreepSoftLeashingNoHeal" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorLocationCompareRange id="AlteracBossChargeTargetRangeValidator">
+    <WhichLocation Effect="AlteracBossChargeInitialSet" Value="TargetUnit" />
+    <Compare value="LT" />
+    <Range value="12" />
+  </CValidatorLocationCompareRange>
+  <CValidatorCombine id="AlteracBossChargeHasOrderCombine">
+    <CombineArray value="AlteracBossChargeHasOrder" />
+    <CombineArray value="AlteracBossChargeHasApproachOrder" />
+  </CValidatorCombine>
+  <CValidatorUnitOrderQueue id="AlteracBossChargeHasOrder">
+    <AbilLink value="AlteracBossCharge" />
+  </CValidatorUnitOrderQueue>
+  <CValidatorUnitOrderQueue id="AlteracBossChargeHasApproachOrder">
+    <AbilLink value="AlteracBossChargeApproach" />
+  </CValidatorUnitOrderQueue>
+  <CValidatorLocationCompareRange id="CoreDetectionRangeThreshold">
+    <Range value="10" />
+  </CValidatorLocationCompareRange>
+  <CWeaponLegacy id="AlteracBossWeaponParent" parent="StormHeroMediumWeapon">
+    <Options index="Melee" value="1" />
+    <DisplayEffect value="KingsCoreWeaponDamage" />
+    <Range value="2" />
+    <Period value="1" />
+    <Effect value="KingsCoreWeaponImpactSet" />
+    <RangeSlop value="4" />
+  </CWeaponLegacy>
+</Catalog>

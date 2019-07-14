@@ -1,0 +1,219 @@
+﻿Abil/Activity/AlexstraszaCleansingFlame=Cleansing Flame
+Abil/Activity/AlexstraszaDragonqueen=Activating Dragonqueen
+Abil/Alexstrasza/Lifebinder/Activity=Lifebinder
+Abil/Name/AlexstraszaAbundance=Abundance
+Abil/Name/AlexstraszaBlessingOfTheRed=Blessing of the Red
+Abil/Name/AlexstraszaBreathOfLife=Breath of Life
+Abil/Name/AlexstraszaCleansingFlame=Cleansing Flame
+Abil/Name/AlexstraszaCleansingFlameDragonqueen=Cleansing Flame
+Abil/Name/AlexstraszaDragonScales=Dragon Scales
+Abil/Name/AlexstraszaDragonqueen=Dragonqueen
+Abil/Name/AlexstraszaDragonqueen2=Dragonqueen Copy
+Abil/Name/AlexstraszaDragonqueenDragonMorph=Dragonqueen
+Abil/Name/AlexstraszaDragonqueenHumanoidMorph=Dragonqueen
+Abil/Name/AlexstraszaFlameBuffet=Flame Buffet
+Abil/Name/AlexstraszaGiftOfLife=Gift of Life
+Abil/Name/AlexstraszaLifeUnbound=Life Unbound
+Abil/Name/AlexstraszaLifebinder=Life-Binder
+Abil/Name/AlexstraszaLifeblossomGiftOfLifePickupAttack=Lifeblossom (Pickup Attack)
+Abil/Name/AlexstraszaPacify=Pacify
+Abil/Name/AlexstraszaPreservation=Preservation
+Abil/Name/AlexstraszaRitualOfLifeLifebinderActivate=Lifebinder (Activate)
+Abil/Name/AlexstraszaWingBuffet=Wing Buffet
+AnnouncerPack/Name/AlexstraszaA=Alexstrasza Announcer
+Behavior/Name/AlexstraszaCleansingFlameChannelDummy=Cleansing Flame
+Behavior/Name/AlexstraszaCleansingFlameOverlayDummy=Cleansing Flame
+Behavior/Name/AlexstraszaDragonScalesArmorCarry=Dragon Scales (Armor Carry)
+Behavior/Name/AlexstraszaDragonScalesArmorProc=Dragon Scales (Armor Proc)
+Behavior/Name/AlexstraszaDragonqueen=Dragonqueen
+Behavior/Name/AlexstraszaExuberance=Exuberance
+Button/Name/AlexstraszaAbundance=Abundance
+Button/Name/AlexstraszaAncientFlameFlameBuffet=Ancient Flame
+Button/Name/AlexstraszaBlessingOfTheRed=Blessing of the Red
+Button/Name/AlexstraszaBreathOfLife=Breath of Life
+Button/Name/AlexstraszaCircleOfLifeAbundance=Circle of Life
+Button/Name/AlexstraszaCircleOfLifeAbundanceQuestToken=Circle of Life
+Button/Name/AlexstraszaCleansingFlame=Cleansing Flame
+Button/Name/AlexstraszaCleansingFlameDragonqueen=Cleansing Flame
+Button/Name/AlexstraszaDraconicDisciplineDragonqueen=Draconic Discipline
+Button/Name/AlexstraszaDragonScales=Dragon Scales
+Button/Name/AlexstraszaDragonqueen=Dragonqueen
+Button/Name/AlexstraszaDragonqueenDragonFormPassive=Dragonqueen
+Button/Name/AlexstraszaExuberance=Exuberance
+Button/Name/AlexstraszaFireWithinFlameBuffet=Fire Within
+Button/Name/AlexstraszaFlameBuffet=Flame Buffet
+Button/Name/AlexstraszaFlamesOfFuryFlameBuffet=Flames of Fury
+Button/Name/AlexstraszaFlamesOfFuryFlameBuffetQuestToken=Flames of Fury
+Button/Name/AlexstraszaGiftOfLife=Gift of Life
+Button/Name/AlexstraszaHeatExhaustionFlameBuffet=Heat Exhaustion
+Button/Name/AlexstraszaLifeUnbound=Life Unbound
+Button/Name/AlexstraszaLifebinder=Life-Binder
+Button/Name/AlexstraszaLifeblossomeGiftOfLife=Lifeblossom
+Button/Name/AlexstraszaLiveAndLetLiveGiftOfLife=Live and Let Live
+Button/Name/AlexstraszaOnRubyWingsCleansingFlame=On Ruby Wings
+Button/Name/AlexstraszaOverprotectiveAbundance=Overprotective
+Button/Name/AlexstraszaPacify=Pacify
+Button/Name/AlexstraszaPreservation=Preservation
+Button/Name/AlexstraszaRitualOfLifeLifebinder=Ritual of Life
+Button/Name/AlexstraszaSurgeOfVitalityAbundance=Surge of Vitality
+Button/Name/AlexstraszaToughLoveGiftOfLife=Tough Love
+Button/Name/AlexstraszaVerdantFlourishAbundance=Verdant Flourish
+Button/Name/AlexstraszaWingBuffet=Wing Buffet
+Button/SimpleDisplayText/AlexstraszaAbundance=Heal allied Heroes in an area
+Button/SimpleDisplayText/AlexstraszaAncientFlameFlameBuffet=Dragonqueen Attacks apply Flame Buffet
+Button/SimpleDisplayText/AlexstraszaBlessingOfTheRed=Grant bonus Health to an ally
+Button/SimpleDisplayText/AlexstraszaBreathOfLife=Heal an allied Hero
+Button/SimpleDisplayText/AlexstraszaCircleOfLifeAbundance=<c val="#TooltipQuest">Quest:</c> Regen Globes empower Abundance
+Button/SimpleDisplayText/AlexstraszaCleansingFlame=Rain healing and damaging fire from the sky
+Button/SimpleDisplayText/AlexstraszaCleansingFlameDragonqueen=Rain healing and damaging fire from the sky
+Button/SimpleDisplayText/AlexstraszaDraconicDisciplineDragonqueen=Increase Dragonqueen duration
+Button/SimpleDisplayText/AlexstraszaDragonScales=Gain Armor while disabled
+Button/SimpleDisplayText/AlexstraszaDragonqueen=Transform into a dragon aspect with empowered Abilities
+Button/SimpleDisplayText/AlexstraszaDragonqueenDragonFormPassive=Transform into a dragon aspect with empowered Abilities
+Button/SimpleDisplayText/AlexstraszaExuberance=High Health grants Move Speed
+Button/SimpleDisplayText/AlexstraszaFireWithinFlameBuffet=Flame Buffet restores Health
+Button/SimpleDisplayText/AlexstraszaFlameBuffet=Launch a fireball that ignites enemies and can Slow them
+Button/SimpleDisplayText/AlexstraszaFlamesOfFuryFlameBuffet=<c val="#TooltipQuest">Quest:</c> Flame Buffet reduces Dragonqueen cooldown
+Button/SimpleDisplayText/AlexstraszaGiftOfLife=Give a portion of Health to an allied Hero
+Button/SimpleDisplayText/AlexstraszaHeatExhaustionFlameBuffet=Increase Flame Buffet Slow
+Button/SimpleDisplayText/AlexstraszaLifeUnbound=Heal an ally and damage enemies
+Button/SimpleDisplayText/AlexstraszaLifebinder=Link Alexstrasza's Health with an ally
+Button/SimpleDisplayText/AlexstraszaLifeblossomeGiftOfLife=Gift of Life creates a Lifeblossom at high Health
+Button/SimpleDisplayText/AlexstraszaLiveAndLetLiveGiftOfLife=High Health reduces Gift of Life cooldown
+Button/SimpleDisplayText/AlexstraszaOnRubyWingsCleansingFlame=Cleansing Flame can activate Dragonqueen
+Button/SimpleDisplayText/AlexstraszaOverprotectiveAbundance=Abundance grants Shields
+Button/SimpleDisplayText/AlexstraszaPacify=Slow an enemy Hero and reduce their damage
+Button/SimpleDisplayText/AlexstraszaPreservation=Heal allied Heroes in an area
+Button/SimpleDisplayText/AlexstraszaRitualOfLifeLifebinder=Life-Binder activates multiple times
+Button/SimpleDisplayText/AlexstraszaSurgeOfVitalityAbundance=Abundance grants Move Speed
+Button/SimpleDisplayText/AlexstraszaToughLoveGiftOfLife=Gift of Life grants Armor at high Health
+Button/SimpleDisplayText/AlexstraszaVerdantFlourishAbundance=Regen Globe and Abundance healing increased
+Button/SimpleDisplayText/AlexstraszaWingBuffet=Damage, Knockback, and Slow enemies
+Button/Tooltip/AlexstraszaAbundance=Plant a seed of healing that blooms after <c val="#TooltipNumbers"><d ref="(Effect,AlexstraszaAbundanceCreatePersistent,PeriodCount) * Effect,AlexstraszaAbundanceCreatePersistent,PeriodicPeriodArray[0]" precision="2"/></c> seconds, healing nearby allied Heroes for <c val="#TooltipNumbers"><d ref="100 * Effect,AlexstraszaAbundanceCreateHealer,RechargeVitalFraction" player="0"/>%</c> of their maximum Health.<n/><n/><c val="#ColorViolet">Dragonqueen: Preservation</c><n/>Heal area and amount greatly increased.
+Button/Tooltip/AlexstraszaAncientFlameFlameBuffet=While Dragonqueen is active, Alexstrasza's Basic Attacks apply Flame Buffet, but her Attack Speed is reduced by <c val="#TooltipNumbers"><d ref="100 * (1 - (Weapon,AlexstraszaDragonConeWeapon,Period / (Weapon,AlexstraszaDragonConeWeapon,Period + Talent,AlexstraszaAncientFlameFlameBuffet,AbilityModificationArray[0].Modifications[1].Value)))" precision="0"/>%</c>.
+Button/Tooltip/AlexstraszaBlessingOfTheRed=Activate to grant an allied Hero <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaBlessingOfTheRed,Modification.VitalMaxArray[Life]"/></c> bonus maximum Health until they die.<n/><n/>Cannot be used on Alexstrasza, or on a Hero who already has Blessing of the Red.
+Button/Tooltip/AlexstraszaBreathOfLife=Heal an allied Hero for <c val="#TooltipNumbers"><d ref="100*Accumulator,AlexstraszaBreathOfLifeHealAccumulator,Ratio"/>%</c> of Alexstrasza's current Health.
+Button/Tooltip/AlexstraszaCircleOfLifeAbundance=<img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Quest:</c> Collect Regeneration Globes.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Reward:</c> After collecting <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaCircleOfLifeAbundanceQuestToken,ConditionalEvents[0].CompareValue"/></c> Regeneration Globes, Abundance heals for an additional <c val="#TooltipNumbers"><d ref="100 * Effect,AlexstraszaCircleOfLifeModifyAbundanceHealing,CatalogModifications[0].Value"/>%</c> maximum Health.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Reward:</c> After collecting <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaCircleOfLifeAbundanceQuestToken,Max"/></c> Regeneration Globes, Abundance's healing burst creates a Regeneration Globe.
+Button/Tooltip/AlexstraszaCircleOfLifeAbundanceQuestToken=<c val="#TooltipQuest">Regen Globes Gathered: </c><c val="#TooltipNumbers" validator="True"><d ref="$BehaviorStackCount:AlexstraszaCircleOfLifeAbundanceQuestToken$"/>/<d ref="Behavior,AlexstraszaCircleOfLifeAbundanceQuestToken,Max"/></c>
+Button/Tooltip/AlexstraszaCleansingFlame=After <c val="#TooltipNumbers"><d ref="Abil,AlexstraszaCleansingFlame,CastIntroTime" precision="2"/></c> seconds, take to the sky and drop <c val="#TooltipNumbers">5</c> fireballs over <c val="#TooltipNumbers"><d ref="5 * Effect,AlexstraszaCleansingFlameFireballPersistent,PeriodicPeriodArray[1]" player="0"/></c> seconds at the position of the mouse cursor. Fireballs deal <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaCleansingFlameFireballDamage,Amount * Effect,AlexstraszaCleansingFlameFireballSearchPersistent,PeriodCount"/></c> damage to enemies and heal allied Heroes for <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaCleansingFlameFireballCreateHealer,RechargeVitalRate * Effect,AlexstraszaCleansingFlameFireballSearchPersistent,PeriodCount"/></c> Health.<n/><n/><c val="#TooltipNumbers"><d ref="Effect,AlexstraszaCleansingFlameFireballPersistent,PeriodicPeriodArray[7]" precision="1"/></c> seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.
+Button/Tooltip/AlexstraszaCleansingFlameDragonqueen=Take to the sky and drop <c val="#TooltipNumbers">5</c> fireballs over <c val="#TooltipNumbers"><d ref="5 * Effect,AlexstraszaCleansingFlameFireballPersistent,PeriodicPeriodArray[1]" player="0"/></c> seconds at the position of the mouse cursor. Fireballs deal <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaCleansingFlameFireballDamage,Amount * Effect,AlexstraszaCleansingFlameFireballSearchPersistent,PeriodCount"/></c> damage to enemies and heal allied Heroes for <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaCleansingFlameFireballCreateHealer,RechargeVitalRate * Effect,AlexstraszaCleansingFlameFireballSearchPersistent,PeriodCount"/></c> Health.<n/><n/><c val="#TooltipNumbers"><d ref="Effect,AlexstraszaCleansingFlameFireballPersistent,PeriodicPeriodArray[7]" precision="1"/></c> seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.
+Button/Tooltip/AlexstraszaDraconicDisciplineDragonqueen=Increase Dragonqueen's duration by <c val="#TooltipNumbers"><d ref="Talent,AlexstraszaDraconicDisciplineDragonqueen,AbilityModificationArray[0].Modifications[0].Value"/></c> seconds.
+Button/Tooltip/AlexstraszaDragonScales=Gain <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaDragonScalesArmorCarry,ArmorModification.AllArmorBonus"/></c> Armor while Stunned, Rooted, or Silenced, and for <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaDragonScalesArmorProc,Duration"/></c> seconds after. Can only trigger once every <c val="#TooltipNumbers"><d ref="Abil,AlexstraszaDragonScales,Cost.Cooldown.TimeUse"/></c> seconds.
+Button/Tooltip/AlexstraszaDragonqueen=After <c val="#TooltipNumbers"><d ref="Abil,AlexstraszaDragonqueen,CastIntroTime" precision="2"/></c> seconds, transform into a dragon and gain <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaDragonqueen,Modification.VitalMaxArray[0]"/></c> Health.<n/><n/>While Dragonqueen is active, Alexstrasza's Abilities are empowered, and her Basic Attacks deal <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaDragonConeWeaponDamage,Amount"/></c> damage and heal allied Heroes for <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaDragonConeWeaponCreateHealer,RechargeVitalRate"/></c> in an arc in front of her. Additionally, the duration of incoming Stuns, Roots, and Slows, is reduced by <c val="#TooltipNumbers">50%</c>.<n/><n/>Lasts <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaDragonqueen,Duration" player="0"/></c> seconds.
+Button/Tooltip/AlexstraszaDragonqueenDragonFormPassive=Alexstrasza has transformed into a powerful dragon aspect, gaining <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaDragonqueen,Modification.VitalMaxArray[0]"/></c> Health, resistance to disabling effects, and empowered Basic Attacks and Abilities.
+Button/Tooltip/AlexstraszaExuberance=While above <c val="#TooltipNumbers"><d ref="100 * Validator,AlexstraszaCasterHealthThreshold,Value"/>%</c> Health, gain <c val="#TooltipNumbers"><d ref="100 * Behavior,AlexstraszaExuberance,Modification.UnifiedMoveSpeedFactor"/>%</c> Movement Speed.
+Button/Tooltip/AlexstraszaFireWithinFlameBuffet=Hitting a Burning Hero with Flame Buffet heals Alexstrasza for <c val="#TooltipNumbers"><d ref="100 * Effect,AlexstraszaFireWithinFlameBuffetCreateHealer,RechargeVitalFraction"/>%</c> of her maximum Health.
+Button/Tooltip/AlexstraszaFlameBuffet=Launch a fireball, Burning enemies hit for <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaFlameBuffetDoTDamage,Amount*(1+Behavior,AlexstraszaFlameBuffetDoT,PeriodCount)"/></c> damage over <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaFlameBuffetDoT,Duration" player="0" precision="1"/></c> seconds.<n/><n/>Hitting enemies that are already Burning deals <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaFlameBuffetImpactBonusDamage,Amount"/></c> bonus damage upon impact, Slows them by <c val="#TooltipNumbers"><d ref="-100 * Behavior,AlexstraszaFlameBuffetSlowStacks,Modification.UnifiedMoveSpeedFactor * Behavior,AlexstraszaFlameBuffetSlowStacks,MaxStackCount" player="0"/>%</c> decaying over <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaFlameBuffetSlowStacks,Duration" player="0" precision="2"/></c> seconds, and refunds the Mana cost.<n/><n/><c val="#ColorViolet">Dragonqueen: Wing Buffet</c><n/>Damage and Knockback enemies in an arc.
+Button/Tooltip/AlexstraszaFlamesOfFuryFlameBuffet=<img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Quest:</c> Hit <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaFlamesOfFuryFlameBuffetQuestToken,Max"/></c> Burning Heroes with Flame Buffet.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Reward:</c> Hitting a Burning Hero with Flame Buffet reduces Dragonqueen's cooldown by <c val="#TooltipNumbers"><d ref="-1 * Effect,AlexstraszaFlamesOfFuryFlameBuffetModifyDragonqueenCooldown,Cost[0].CooldownTimeUse"/></c> seconds.
+Button/Tooltip/AlexstraszaFlamesOfFuryFlameBuffetQuestToken=<c val="#TooltipQuest">Burning Heroes Hit: </c><c val="#TooltipNumbers" validator="True"><d ref="$BehaviorStackCount:AlexstraszaFlamesOfFuryFlameBuffetQuestToken$"/>/<d ref="Behavior,AlexstraszaFlamesOfFuryFlameBuffetQuestToken,Max"/></c>
+Button/Tooltip/AlexstraszaGiftOfLife=Sacrifice <c val="#TooltipNumbers"><d ref="-100*Accumulator,AlexstraszaGiftOfLifeCostAccumulator,Ratio" player="0"/>%</c> of Alexstrasza's current Health, healing an allied Hero for <c val="#TooltipNumbers"><d ref="-100 * (Accumulator,AlexstraszaGiftOfLifeHealAccumulator,Ratio / Accumulator,AlexstraszaGiftOfLifeCostAccumulator,Ratio)" player="0"/>%</c> of that amount.<n/><n/><c val="#ColorViolet">Dragonqueen: Breath of Life</c><n/>Cooldown greatly reduced and does not cost Health.
+Button/Tooltip/AlexstraszaHeatExhaustionFlameBuffet=Increase Flame Buffet's initial Slow from <c val="#TooltipNumbers"><d ref="-100 * Behavior,AlexstraszaFlameBuffetSlowStacks,Modification.UnifiedMoveSpeedFactor * Behavior,AlexstraszaFlameBuffetSlowStacks,MaxStackCount" player="0"/>%</c> to <c val="#TooltipNumbers"><d ref="-100 * (Behavior,AlexstraszaFlameBuffetSlowStacks,Modification.UnifiedMoveSpeedFactor + Talent,AlexstraszaHeatExhaustionFlameBuffet,AbilityModificationArray[0].Modifications[0].Value) * Behavior,AlexstraszaFlameBuffetSlowStacks,MaxStackCount" player="0"/>%</c>.
+Button/Tooltip/AlexstraszaLifeUnbound=Activate to heal an allied Hero for <c val="#TooltipNumbers"><d ref="100 * Effect,AlexstraszaLifeUnboundCreateHealer,RechargeVitalFraction"/>%</c> of their maximum Health and deal <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaLifeUnboundDamage,Amount"/></c> damage to nearby enemies.<n/><n/>Healing a Stunned, Rooted, or Silenced ally reduces Life Unbound's cooldown by <c val="#TooltipNumbers"><d ref="-1 * Effect,AlexstraszaLifeUnboundModifyCooldownHealed,Cost.Cooldown.TimeUse"/></c> seconds.<n/><n/><c val="ffff8a">Cannot be used on Alexstrasza.</c>
+Button/Tooltip/AlexstraszaLifebinder=Bind Alexstrasza's life force with an allied Hero. Both her and her target are healed for <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaLifebinderHoTTarget,RechargeVitalRate*Behavior,AlexstraszaLifebinderHoTControllerTarget,PeriodCount"/></c> Health over <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaLifebinderTargetBehavior,Period" player="0" precision="2"/></c> seconds. Afterwards, the Hero with a lower percentage of Health is healed to the same Health percentage as the other Hero.
+Button/Tooltip/AlexstraszaLifeblossomeGiftOfLife=While Alexstrasza is above <c val="#TooltipNumbers"><d ref="100 * Validator,AlexstraszaCasterHealthThreshold,Value"/>%</c> Health, Gift of Life creates a Lifeblossom at the target's location. Alexstrasza can collect the Lifeblossom to make her next Gift of Life cost no Health.
+Button/Tooltip/AlexstraszaLiveAndLetLiveGiftOfLife=While Alexstrasza is above <c val="#TooltipNumbers"><d ref="100 * Validator,AlexstraszaCasterHealthThreshold,Value"/>%</c> Health, Gift of Life's cooldown recharges <c val="#TooltipNumbers"><d ref="-100 * Effect,AlexstraszaLiveAndLetLiveGiftOfLifeModifyCooldown,Cost[0].CooldownTimeUse / Behavior,AlexstraszaLiveAndLetLiveGiftOfLife,Period" precision="2"/>%</c> faster.
+Button/Tooltip/AlexstraszaOnRubyWingsCleansingFlame=Healing or damaging Heroes <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaOnRubyWingsCleansingFlameTokenCounter,Max"/></c> or more times with Cleansing Flame activates Dragonqueen for <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaOnRubyWingsCleansingFlameExtendDragonqueenBehavior,Value"/></c> seconds upon landing.
+Button/Tooltip/AlexstraszaOverprotectiveAbundance=Heroes healed by Abundance gain a Shield for <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaOverprotectiveAbundance,Duration"/></c> seconds equal to <c val="#TooltipNumbers"><d ref="100 * Effect,AlexstraszaOverprotectiveAbundanceShieldFractionScaleDummy,VitalArray[Shields].ChangeFraction"/>%</c> of the amount healed.
+Button/Tooltip/AlexstraszaPacify=Activate to Slow and reduce an enemy Hero's damage by <c val="#TooltipNumbers"><d ref="-100 * Behavior,AlexstraszaPacifyDamageReduction,Modification.DamageDealtFraction[Ability]"/>%</c> for <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaPacifyDamageReduction,Duration"/></c> seconds.<n/><n/>Healing a Stunned, Rooted, or Silenced ally reduces Pacify's cooldown by <c val="#TooltipNumbers"><d ref="-1 * Effect,AlexstraszaPacifyModifyCooldownHealed,Cost.Cooldown.TimeUse"/></c> seconds.
+Button/Tooltip/AlexstraszaPreservation=Plant a seed of healing that blooms after <c val="#TooltipNumbers"><d ref="(Effect,AlexstraszaAbundanceCreatePersistent,PeriodCount) * Effect,AlexstraszaAbundanceCreatePersistent,PeriodicPeriodArray[0]" precision="2"/></c> seconds, healing nearby allied Heroes for <c val="#TooltipNumbers"><d ref="100 * Effect,AlexstraszaPreservationCreateHealer,RechargeVitalFraction" player="0"/>%</c> of their maximum Health.
+Button/Tooltip/AlexstraszaRitualOfLifeLifebinder=Life-Binder activates <c val="#TooltipNumbers"><d ref="(Behavior,AlexstraszaLifebinderTargetBehavior,Duration + Talent,AlexstraszaRitualOfLife,AbilityModificationArray[0].Modifications[1].Value) / Behavior,AlexstraszaLifebinderTargetBehavior,Period" player="0"/></c> times over <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaLifebinderTargetBehavior,Duration + Talent,AlexstraszaRitualOfLife,AbilityModificationArray[0].Modifications[1].Value" player="0" precision="2"/></c> seconds.
+Button/Tooltip/AlexstraszaSurgeOfVitalityAbundance=Abundance's healing burst grants allied Heroes <c val="#TooltipNumbers"><d ref="100 * Behavior,AlexstraszaSurgeOfVitalityAbundance,Modification.UnifiedMoveSpeedFactor"/>%</c> Movement Speed for <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaSurgeOfVitalityAbundance,Duration"/></c> seconds.
+Button/Tooltip/AlexstraszaTalentDragonScalesItem=Gain <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaDragonScalesArmorCarry,ArmorModification.AllArmorBonus"/></c> Armor while Stunned, Silenced, or Rooted, and for <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaDragonScalesArmorProc,Duration"/></c> seconds after.
+Button/Tooltip/AlexstraszaToughLoveGiftOfLife=While Alexstrasza is above <c val="#TooltipNumbers"><d ref="100 * Validator,AlexstraszaCasterHealthThreshold,Value"/>%</c> Health, Gift of Life grants its target <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaToughLoveGiftOfLife,ArmorModification.AllArmorBonus"/></c> Armor for <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaToughLoveGiftOfLife,Duration"/></c> seconds.
+Button/Tooltip/AlexstraszaVerdantFlourishAbundance=Alexstrasza receives <c val="#TooltipNumbers"><d ref="100 * Effect,AlexstraszaAbundanceCreateHealer,MultiplicativeModifierArray[0].Modifier"/>%</c> more healing from Abundance and <c val="#TooltipNumbers"><d ref="100 * (Talent,AlexstraszaVerdantFlourishAbundance,AbilityModificationArray[0].Modifications[0].Value - 1)"/>%</c> more healing from Regeneration Globes.
+Button/Tooltip/AlexstraszaWingBuffet=Deal <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaWingBuffetDamage,Amount"/></c> damage to enemies in an area, knocking them back and Slowing them by <c val="#TooltipNumbers"><d ref="-100 * Behavior,AlexstraszaWingBuffetSlow,Modification.UnifiedMoveSpeedFactor" precision="2"/>%</c> for <c val="#TooltipNumbers"><d ref="Behavior,AlexstraszaWingBuffetSlow,Duration" precision="2"/></c> seconds.
+DocInfo/DescLong=Completely devoid of any description whatsoever.
+DocInfo/DescShort=Any
+DocInfo/Name=Alexstrasza Hero Mod
+Hero/AdditionalSearchText/Alexstrasza=Warcraft 2 WC2 WoW Cataclysm Wrath of the Lich King WotLK dragon elf Queen of Dragons
+Hero/AlternateNameSearchText/Alexstrasza=Alexstraza Alekstrasza Alekstraza
+Hero/Description/Alexstrasza=A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities.
+Hero/Info/Alexstrasza=Alexstrasza, the queen of dragons, was empowered by the titans to be the guardian of all life on Azeroth. She has aided mortals time and again, even at great personal cost. Now, she soars across the Nexus, protecting life wherever she finds it.
+Hero/Name/Alexstrasza=Alexstrasza
+Hero/Title/Alexstrasza=The Life-Binder
+Reward/Name/AlexstraszaBasic=Alexstrasza Portrait
+Reward/Name/AlexstraszaEpic=Alexstrasza Mastery Portrait
+Shape/Name/AlexstraszaAbundanceVisualShape=Alexstrasza - Abundance Visual Shape
+Shape/Name/AlexstraszaCleansingFlameVisualShape=Alexstrasza - Cleansing Flame Visual Shape
+Shape/Name/AlexstraszaDragonWeaponVisualShape=Alexstrasza - Dragon Weapon Visual Shape
+Shape/Name/AlexstraszaLifeUnboundVisualShape=Alexstrasza - Life Unbound Visual Shape
+Shape/Name/AlexstraszaPreservationVisualShape=Alexstrasza - Preservation Visual Shape
+Skin/AdditionalSearchText/AlexstraszaBaseVar1=Blue Black Gray Grey
+Skin/AdditionalSearchText/AlexstraszaBaseVar2=White
+Skin/AdditionalSearchText/AlexstraszaBaseVar3=Green
+Skin/AdditionalSearchText/AlexstraszaBaseVar4=Red Black
+Skin/AdditionalSearchText/AlexstraszaCowl=Red
+Skin/AdditionalSearchText/AlexstraszaCowlVar1=Green
+Skin/AdditionalSearchText/AlexstraszaCowlVar2=Blue Black Gray Grey
+Skin/AdditionalSearchText/AlexstraszaCowlVar3=Purple
+Skin/AdditionalSearchText/AlexstraszaCowlVar4=White Gold
+Skin/AdditionalSearchText/AlexstraszaDark=Purple Black
+Skin/AdditionalSearchText/AlexstraszaDarkVar1=White Red Gold
+Skin/AdditionalSearchText/AlexstraszaDarkVar2=Green
+Skin/AdditionalSearchText/AlexstraszaDarkVar3=Red Orange
+Skin/AdditionalSearchText/AlexstraszaDarkVar4=Blue
+Skin/AdditionalSearchText/AlexstraszaSpooky18=Green Ghost Phantom Hallow's End
+Skin/AdditionalSearchText/AlexstraszaSpooky18Var1=Purple Ghost Phantom Hallow's End
+Skin/AdditionalSearchText/AlexstraszaSpooky18Var2=Red White Ghost Phantom Hallow's End
+Skin/Info/AlexstraszaCowl=The many realms of the Nexus teem with myriad living beings who both empower Alexstrasza and beseech her for protection. The Aspect of Life stands ready to safeguard them all.
+Skin/Info/AlexstraszaDark=Sealed away by the Star Princesses millennia ago, the Dark Queen of the Dragons has finally broken free of her imprisonment. At long last, she will have her revenge on the people of Earth.
+Skin/Info/AlexstraszaSpooky18=After the Grave Keeper's domination by the Raven Lord, Spectral Wyrm Alexstrasza pledged her phantoms to his side. With the Aspect of Undeath serving as a general of his armies, what hope does King's Crest have?
+Skin/Name/AlexstraszaBaseVar1=Saronite Alexstrasza
+Skin/Name/AlexstraszaBaseVar2=Snowfall Alexstrasza
+Skin/Name/AlexstraszaBaseVar3=Jade Alexstrasza
+Skin/Name/AlexstraszaBaseVar4=Ascendant Alexstrasza
+Skin/Name/AlexstraszaCowl=Dragon Aspect Alexstrasza
+Skin/Name/AlexstraszaCowlVar1=Wild Aspect Alexstrasza
+Skin/Name/AlexstraszaCowlVar2=Death Aspect Alexstrasza
+Skin/Name/AlexstraszaCowlVar3=Kaldorei Aspect Alexstrasza
+Skin/Name/AlexstraszaCowlVar4=Timeless Aspect Alexstrasza
+Skin/Name/AlexstraszaDark=Dark Queen Alexstrasza
+Skin/Name/AlexstraszaDarkVar1=Divine Queen Alexstrasza
+Skin/Name/AlexstraszaDarkVar2=Iridescent Queen Alexstrasza
+Skin/Name/AlexstraszaDarkVar3=Molten Queen Alexstrasza
+Skin/Name/AlexstraszaDarkVar4=Ice Queen Alexstrasza
+Skin/Name/AlexstraszaSpooky18=Spectral Wyrm Alexstrasza
+Skin/Name/AlexstraszaSpooky18Var1=Phantom Wyrm Alexstrasza
+Skin/Name/AlexstraszaSpooky18Var2=Infernal Wyrm Alexstrasza
+Skin/SortName/AlexstraszaBaseCommonVar0=zzAlexstraszaBaseVar1
+Skin/SortName/AlexstraszaBaseCommonVar1=zxAlexstraszaBaseVar1
+Skin/SortName/AlexstraszaCowlCommonVar0=AlexstraszaCowlVar0
+Skin/SortName/AlexstraszaCowlCommonVar1=AlexstraszaCowlVar1
+Skin/SortName/AlexstraszaDarkCommonVar0=DarkVar0
+Skin/SortName/AlexstraszaDarkCommonVar1=DarkVar1
+Skin/SortName/AlexstraszaSpooky18CommonVar0=SpectralVar0
+Skin/SortName/AlexstraszaSpooky18CommonVar1=SpectralVar1
+UI/Alexstrasza/BreathOfLife=<d ref= "$RunAccumulators:AlexstraszaBreathOfLifeHealAccumulator$"/>
+UI/Alexstrasza/GiftOfLife=<d ref= "$RunAccumulators:AlexstraszaGiftOfLifeHealAccumulator$"/>
+UI/Alexstrasza/OnRubyWingsCleansingFlameStatus=<d ref= "$BehaviorTokenCount:AlexstraszaOnRubyWingsCleansingFlameTokenCounter$"/>/<d ref="Behavior,AlexstraszaOnRubyWingsCleansingFlameTokenCounter,Max"/>
+UI/Tooltip/Abil/AlexstraszaBreathOfLifeVitalCostOverride=<s val="StandardTooltipDetails">15%</s>
+UI/Tooltip/Abil/AlexstraszaGiftOfLifeVitalCostOverride=<s val="StandardTooltipDetails">15%</s>
+UI/Tooltip/Abil/CurrentLife=<s val="StandardTooltipDetails">Health: %1</s>
+UI/Tooltip/Abil/Life=<s val="StandardTooltipDetails">Life: %1</s>
+Unit/Name/AlexstraszaBreathofLifeMissile=Alexstrasza - Breath of Life Missile
+Unit/Name/AlexstraszaDragonScalesTalent=Life Unbound
+Unit/Name/AlexstraszaFlameBuffetMissile=Flame Buffet Missile
+Unit/Name/AlexstraszaLifeblossomGiftOfLife=Lifeblossom
+Unit/Name/AlexstraszaLifeblossomGiftOfLifePickupMissile=Lifeblossom (Pickup Missile)
+Unit/Name/AlexstraszaTalentDragonScalesItem=(Talent) Dragon Scales (Item)
+Unit/Name/AlexstraszaWeaponMissile=Alexstrasza - Weapon Missile
+Unit/Name/HeroAlexstrasza=Alexstrasza
+Unit/Name/HeroAlexstraszaDragon=Alexstrasza
+VoiceLine/Name/AlexstraszaBase_VoiceLineFive=I Will End You
+VoiceLine/Name/AlexstraszaBase_VoiceLineFour=Never Mess With Mother
+VoiceLine/Name/AlexstraszaBase_VoiceLineOne=Let the Fire Burn Bright
+VoiceLine/Name/AlexstraszaBase_VoiceLineThree=Life Is With You
+VoiceLine/Name/AlexstraszaBase_VoiceLineTwo=Be Prepared
+VoiceLine/Name/AlexstraszaDark_VoiceLineFive=I Will End You
+VoiceLine/Name/AlexstraszaDark_VoiceLineFour=Never Mess With Mother
+VoiceLine/Name/AlexstraszaDark_VoiceLineOne=Let the Fire Burn Bright
+VoiceLine/Name/AlexstraszaDark_VoiceLineThree=Life Is With You
+VoiceLine/Name/AlexstraszaDark_VoiceLineTwo=Be Prepared
+VoiceLine/Name/AlexstraszaSpooky_VoiceLineFive=I Will End You
+VoiceLine/Name/AlexstraszaSpooky_VoiceLineFour=Never Mess With Mother
+VoiceLine/Name/AlexstraszaSpooky_VoiceLineOne=Let the Fire Burn Bright
+VoiceLine/Name/AlexstraszaSpooky_VoiceLineThree=Life Is With You
+VoiceLine/Name/AlexstraszaSpooky_VoiceLineTwo=Be Prepared
+Weapon/Name/AlexstraszaAttackWeapon=Alexstrasza - Attack Weapon
+Weapon/Name/AlexstraszaDragonConeWeapon=Alexstrasza - Dragon Cone Weapon
+Weapon/Name/AlexstraszaLifeblossomGiftOfLifePickupWeapon=Lifeblossom (Pickup Weapon)

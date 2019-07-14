@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CMount default="1">
+    <Name value="Mount/Name/##id##"/>
+    <SortName value="Mount/SortName/##id##"/>
+    <InfoText value="Mount/Info/##id##"/>
+    <Model value="##id##"/>
+    <VariationIcon value="Assets/Textures/ui_glues_heroselect_mount_##id##.dds"/>
+    <AdditionalSearchText value="Mount/AdditionalSearchText/##id##"/>
+    <HyperlinkId value="##id##"/>
+    <Actor value="MountModel"/>
+    <Flags index="ShowInStore" value="1"/>
+    <ReleaseDate>
+      <Month value="1"/>
+      <Day value="1"/>
+      <Year value="2014"/>
+    </ReleaseDate>
+  </CMount>
+</Catalog>

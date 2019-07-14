@@ -1,0 +1,2304 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CActorUnit id="CatapultMinion">
+    <DeathArray index="Normal" SoundLink="Minion_OWVol_Catapult_Death" VoiceLink="" />
+    <ImpactSound value="Minion_OWVol_Catapult_UnitImpact" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Minion_Catapult.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorModel id="CorePermanentInvulnerabilityAuraShield">
+    <On Terms="ActorCreation" Send="Create Doodad_CoreShield_Stand_Loop" />
+    <On Terms="ActorDestruction" Target="Doodad_CoreShield_Stand_Loop" Send="Destroy" />
+  </CActorModel>
+  <CActorSound id="KingsCoreUnitDeathSound">
+    <Sound value="" />
+  </CActorSound>
+  <CActorMissile id="KingsCrestCatapultMinionAttackMissile" parent="StormMissileWithDeath" unitName="CatapultMinionMissile">
+    <Model value="KingsCrestCatapultMinionMissle" />
+    <On Terms="ActorCreation" Send="Create Minion_OWVol_Catapult_Missile" />
+    <On Terms="ActorDestruction" Target="Minion_OWVol_Catapult_Missile" Send="Destroy" />
+  </CActorMissile>
+  <CActorModel id="EngineerAttackImpact" parent="StormModelAnimationStyleOneShotUnit">
+    <HostSiteOps Ops="SOpAttachCenter" />
+  </CActorModel>
+  <CActorModel id="EngineerAttackLaunch1" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD Attack,01 {} {} ContentPlayOnce" />
+    <Remove Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death ContentPlayOnce" />
+    <Model value="EngineerAttackLaunch" />
+  </CActorModel>
+  <CActorModel id="EngineerAttackLaunch2" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD Attack,02 {} {} ContentPlayOnce" />
+    <Remove Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death ContentPlayOnce" />
+    <Model value="EngineerAttackLaunch" />
+  </CActorModel>
+  <CActorModel id="EngineerAttackLaunch0" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD Attack,00 {} {} ContentPlayOnce" />
+    <Remove Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death ContentPlayOnce" />
+    <Model value="EngineerAttackLaunch" />
+  </CActorModel>
+  <CActorSound id="Event_Volskaya_Vehicle_ParticleCannon_Impact" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <On Terms="Effect.VolskayaVehicleParticleCannonDamage.Start; At Target" Send="Create" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorUnit id="FootmanMinion">
+    <DeathArray index="Normal" SoundLink="Minion_OWVol_Death" VoiceLink="Minion_OWVol_Death_Vox" />
+    <ImpactSound value="Unit_OWVol_Minion_Impact" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Minion_Melee.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorAction id="FootmanMinionAttack">
+    <LaunchAssets Sound="Minion_OWVol_Footman_AttackLaunch" />
+    <ImpactMap index="None" Sound="Minion_OWVol_Footman_AttackImpact" />
+    <ImpactMap index="Shield" Sound="Minion_OWVol_Footman_AttackImpact" />
+  </CActorAction>
+  <CActorAction id="KingsCrestRangedMinionAttack">
+    <LaunchAssets Sound="Minion_OWVol_Ranged_AttackLaunch" />
+    <ImpactMap index="None" Sound="Minion_OWVol_Ranged_AttackImpact" />
+  </CActorAction>
+  <CActorSound id="Event_Volskaya_Vehicle_Enter_Start" parent="SoundOneShot">
+    <On Terms="Behavior.CommandeeringVehicle.On" Send="Create" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Enter_Start_PLR" parent="SoundOneShot">
+    <On Terms="Behavior.CommandeeringVehicle.On" Send="Create" />
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Enter_Stop" parent="SoundOneShot">
+    <On Terms="Behavior.CommandeeringVehicle.Off" Send="Create" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Enter_End" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <FilterAtCreation index="Caster" value="1" />
+    <On Terms="Effect.Event_Volskaya_Vehicle_Enter_End.Start; At Target" Send="Create" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Enter_End_PLR" parent="SoundOneShot">
+    <On Terms="Effect.UseVehicleApplyVehicleBehavior.Start; At Target" Send="Create" />
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Channel_End" parent="SoundOneShot">
+    <On Terms="Effect.UseVehicleApplyVehicleBehavior.Start; At Target" Send="Create" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Enter_End_Pilot" parent="SoundOneShot">
+    <On Terms="Effect.UseVehicleApplyVehicleBehavior.Start; At Target; ValidateUnit TargetIsPilot" Send="Create" />
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Enter_End_Gunner" parent="SoundOneShot">
+    <On Terms="Effect.UseVehicleApplyVehicleBehavior.Start; At Target; ValidateUnit VehicleGenericTargetIsOccupiedAndAttachedVehicleUnoccupied" Send="Create" />
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_NeuralLinked" parent="SoundOneShot">
+    <On Terms="Behavior.NeuralLinked.Create" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorModel id="NeuralLinkedBuff1" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Behavior.NeuralLinked.Create" Send="Create" />
+    <HostSiteOps Ops="SOpAttachCenter" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorSound id="KnightGetHitVOX">
+    <Sound value="Merc_OWVol_Sentinel_Vox_GetHit_20" />
+  </CActorSound>
+  <CActorSound id="MapEvent_Garden_Enter_Dragon_End">
+    <Remove Terms="Behavior.CommandeeringVehicle.Off" Send="Create" />
+  </CActorSound>
+  <CActorSound id="MapEvent_Garden_Enter_Dragon_LP">
+    <Remove Terms="Behavior.CommandeeringVehicle.On" Send="Create" />
+  </CActorSound>
+  <CActorSound id="MapEvent_Garden_Enter_Dragon_Start">
+    <Remove Terms="Behavior.CommandeeringVehicle.On" Send="Create" />
+  </CActorSound>
+  <CActorSound id="MercSiegeTrooperMoveStartSound" parent="SoundOneShot">
+    <Sound value="Merc_SiegeTrooper_MoveStart" />
+  </CActorSound>
+  <CActorSound id="MercSiegeTrooperMoveStopSound" parent="SoundOneShot">
+    <Sound value="Merc_SiegeTrooper_MoveStop" />
+  </CActorSound>
+  <CActorSound id="MercTurretRepairEndSound">
+    <Sound value="Merc_OWVol_Mechanic_Turret_RepairEnd" />
+  </CActorSound>
+  <CActorSound id="MercTurretRepairLaunchSound">
+    <Sound value="Merc_OWVol_Mechanic_Turret_RepairLaunch" />
+  </CActorSound>
+  <CActorSound id="MercTurretRepairLoopSound">
+    <Sound value="Merc_OWVol_Mechanic_Turret_RepairLoop" />
+  </CActorSound>
+  <CActorSound id="Merc_OWHana_LargeSamurai_Heal">
+    <Sound value="" />
+    <On index="1" removed="1" />
+  </CActorSound>
+  <CActorSound id="Merc_OWHana_LargeSamurai_Vox_Aggro">
+    <Sound value="Merc_OWVol_Sentinel_Vox_Aggro" />
+  </CActorSound>
+  <CActorSound id="Merc_OWHana_LargeSamurai_Vox_Idle">
+    <Sound value="Merc_OWVol_Sentinel_Vox_Idle" />
+  </CActorSound>
+  <CActorSound id="OWHanaTurretPlacementSound">
+    <Sound value="OWVol_Turret_Birth" />
+  </CActorSound>
+  <CActorSound id="MercSiegeTrooperMoveLoopSound" parent="SoundContinuous">
+    <Sound value="Merc_SiegeTrooper_MoveLoop" />
+  </CActorSound>
+  <CActorSound id="MercSiegeTrooperIdleLoopSound" parent="SoundContinuous">
+    <Sound value="Merc_SiegeTrooper_IdleLoop" />
+  </CActorSound>
+  <CActorUnit id="OverwatchTurret">
+    <DeathArray index="Normal" SoundLink="Merc_OWVol_Mechanic_Turret_Death" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Merc_Turret.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorSound id="OverwatchTurretAbilityChannelSound">
+    <Sound value="OWVol_Turret_Channel" />
+  </CActorSound>
+  <CActorSound id="OverwatchTurretAbilityEndSound">
+    <Sound value="OWVol_Turret_Placement" />
+  </CActorSound>
+  <CActorSound id="OverwatchTurretAbilityTargetSound">
+    <Sound value="OWVol_Turret_TargetOn" />
+  </CActorSound>
+  <CActorSound id="Merc_OWVol_Mechanic_Turret_AttackImpact" parent="SoundOneShot" />
+  <CActorSound id="Merc_OWVol_Mechanic_AttackLaunch" parent="SoundOneShot" />
+  <CActorSound id="Minion_OWVol_Catapult_MoveLoop" parent="SoundContinuous" />
+  <CActorSound id="Minion_OWVol_Catapult_Missile" parent="SoundOneShot" />
+  <CActorSound id="Minion_OWVol_Catapult_PreLaunch_Pt1" parent="SoundOneShot" />
+  <CActorSound id="Minion_OWVol_Catapult_PreLaunch_Pt2" parent="SoundOneShot" />
+  <CActorSound id="Minion_OWVol_Catapult_AttackLaunch" parent="SoundOneShot" />
+  <CActorSound id="Minion_OWVol_Catapult_Explo" parent="SoundOneShot" />
+  <CActorSound id="Fort_Death" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <Sound value="Event_Volskaya_Vehicle_Channel_Enter_Loop" />
+  </CActorSound>
+  <CActorAction id="OverwatchTurretAttack">
+    <LaunchAssets Sound="Merc_OWVol_Mechanic_Turret_AttackLaunch" />
+    <ImpactMap index="None" Sound="Merc_OWVol_Mechanic_Turret_AttackImpact" />
+  </CActorAction>
+  <CActorAction id="OverwatchTurretAttackPlayer">
+    <LaunchAssets Sound="Merc_OWVol_Mechanic_Turret_AttackLaunch" />
+    <ImpactMap index="None" Sound="Merc_OWVol_Mechanic_Turret_AttackImpact" />
+    <ImpactMap index="Flesh" Sound="Merc_OWVol_Mechanic_Turret_AttackImpact" />
+  </CActorAction>
+  <CActorUnit id="OverwatchTurretPlayer">
+    <DeathArray index="Normal" SoundLink="Merc_OWVol_Mechanic_Turret_Death" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Merc_Turret.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorSiteOpForward id="SOpForwardVectorPoint_Shadow">
+    <HostForwardSiteOps Ops="SOpVectorPoint SOpShadow" />
+  </CActorSiteOpForward>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_Core">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_MercCampSlab_Splat">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Mural">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorUnit id="TownTownHallL2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Fort.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownTownHallL3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Keep.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownCannonTowerL2">
+    <Remove Terms="Effect.GuardTowerL2LaunchMissile.Start" Send="AnimPlay Attack Attack" />
+    <On Terms="Effect.GuardTowerL2LaunchMissile.Start" Send="AnimPlay Attack Attack NonLooping" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Tower_0.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownCannonTowerL3">
+    <Remove Terms="Effect.GuardTowerL3LaunchMissile.Start" Send="AnimPlay Attack Attack" />
+    <On Terms="Effect.GuardTowerL3LaunchMissile.Start" Send="AnimPlay Attack Attack NonLooping" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Tower_1.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownMoonwellL2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Moonwell.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownMoonwellL3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Moonwell.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorSound id="UI_Game_Ping_Volskaya_EventCountdown_Start" parent="SoundOneShot" />
+  <CActorSound id="UI_Game_Ping_Volskaya_Event_Start" parent="SoundOneShot" />
+  <CActorSound id="UI_Game_Ping_Volskaya_CapturePoint_Control_Ally" parent="SoundOneShot" />
+  <CActorSound id="UI_Game_Ping_Volskaya_CapturePoint_Control_Enemy" parent="SoundOneShot" />
+  <CActorSound id="UI_Game_Ping_Volskaya_CapturePoint_Control_Neutral" parent="SoundOneShot" />
+  <CActorSound id="UI_Game_Ping_Volskaya_CapturePoint_Win_Ally" parent="SoundOneShot" />
+  <CActorSound id="UI_Game_Ping_Volskaya_CapturePoint_Win_Enemy" parent="SoundOneShot" />
+  <CActorSound id="UI_Game_Volskaya_CapturePoint_Capturing_Interrupt" parent="SoundOneShot" />
+  <CActorSound id="UI_Game_Volskaya_CapturePoint_Capturing_Start" parent="SoundOneShot" />
+  <CActorSound id="UI_Game_Volskaya_CapturePoint_Capturing_StartBeep" parent="SoundOneShot" />
+  <CActorSound id="UI_Game_Volskaya_CapturePoint_Capturing_Enemy" parent="SoundContinuous">
+    <Inherits index="Visibility" value="0" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+  </CActorSound>
+  <CActorSound id="UI_Game_Volskaya_CapturePoint_Capturing_Ally" parent="SoundContinuous">
+    <Inherits index="Visibility" value="0" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+  </CActorSound>
+  <CActorSound id="UI_Game_Ping_Volskaya_Overtime" parent="SoundOneShot" />
+  <CActorSound id="UI_Game_Volskaya_CapturePoint_Contested_Enemy" parent="SoundContinuous" />
+  <CActorSound id="UI_Game_Ping_Volskaya_Event_End" parent="SoundOneShot" />
+  <CActorSound id="Event_Volskaya_Vehicle_FS_Mech" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWVol_GiantMech_Move" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWVol_GiantMech_Turn" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorEventMacro id="LowAmmoTowerDisabledMacro">
+    <On Terms="Behavior.VolskayaVehicleRocketFistStructureDebuff.On" Send="StatusIncrement TowerDisabled" />
+    <On Terms="Behavior.VolskayaVehicleRocketFistStructureDebuff.Off" Send="StatusDecrement TowerDisabled" />
+  </CActorEventMacro>
+  <CActorUnit id="MercDefenderMeleeIndividual">
+    <On index="52" Terms="Abil.MercDefenderHealingPulse.SourceCastStart" Send="AnimPlay SpellStart Spell,A DontResetOnUnhide -1.000000 0.000000 1.000000 AsTimeScale 0.000000 5" />
+    <On index="53" Terms="Abil.MercDefenderHealingPulse.SourceCancel" Send="AnimClear Spell" />
+    <On index="54" Terms="Abil.MercDefenderHealingPulse.SourceCancel" Send="AnimClear SpellStart" />
+    <On index="55" Terms="StatusOn.*.Stunned" Send="AnimClear Spell" />
+    <On index="56" Terms="StatusOn.*.Stunned" Send="AnimClear SpellStart" />
+    <On index="57" Terms="WeaponStart.*.AttackStart" Send="AnimClear Spell" />
+    <On index="58" Terms="WeaponStart.*.AttackStart" Send="AnimClear SpellStart" />
+    <On index="59" Terms="ActorCreation" Send="AnimPlay Birth Birth DontResetOnUnhide -1.000000 0.000000 1.000000 AsTimeScale" />
+    <On index="60" Terms="AnimDone.*.Complete; AnimName Birth" Send="AnimSetTime ::Baseline" />
+    <On index="61" Terms="Behavior.JungleCreepPassive.Off" Send="AnimGroupApply Cover" />
+    <On index="62" Terms="Behavior.JungleCreepPassive.Off; !AnimPlaying Attacking Stand,Cover,B; IsStatus PassiveTimer 0" Send="AnimBracketStart Attacking Stand,Cover,A {} Stand,Cover,B 0 1.000000 AsTimeScale" />
+    <On index="63" Terms="Behavior.JungleCreepPassive.Off; AnimPlaying Attacking Stand,Cover,B" Send="AnimBracketResume Attacking" />
+    <On index="64" Terms="UnitMovementUpdate.*.Stand; !ValidateUnit CasterNotPassive" Send="TimerSet 1.000000 Passive" />
+    <On index="65" Terms="UnitMovementUpdate.*.Stand; !ValidateUnit CasterNotPassive" Send="StatusSet PassiveTimer 1" />
+    <On index="66" Terms="Behavior.JungleCreepSoftLeashingNoHeal.Off; !ValidateUnit CasterNotPassive; IsStatus PassiveTimer 0" Send="TimerSet 1.000000 Passive" />
+    <On index="67" Terms="Behavior.JungleCreepSoftLeashingNoHeal.Off; !ValidateUnit CasterNotPassive; IsStatus PassiveTimer 0" Send="StatusSet PassiveTimer 1" />
+    <On index="68" Terms="Behavior.JungleCreepSoftLeashing.Off; !ValidateUnit CasterNotPassive; IsStatus PassiveTimer 0" Send="TimerSet 1.000000 Passive" />
+    <On index="69" Terms="Behavior.JungleCreepSoftLeashing.Off; !ValidateUnit CasterNotPassive; IsStatus PassiveTimer 0" Send="StatusSet PassiveTimer 1" />
+    <On index="70" Terms="Behavior.JungleCreepHardLeashing.Off; !ValidateUnit CasterNotPassive; IsStatus PassiveTimer 0" Send="TimerSet 1.000000 Passive" />
+    <On index="71" Terms="Behavior.JungleCreepHardLeashing.Off; !ValidateUnit CasterNotPassive; IsStatus PassiveTimer 0" Send="StatusSet PassiveTimer 1" />
+    <On index="72" Terms="TimerExpired; TimerName Passive; !ValidateUnit CasterNotPassive" Send="AnimGroupRemove Cover" />
+    <On index="73" Terms="TimerExpired; TimerName Passive; !ValidateUnit CasterNotPassive" Send="AnimBracketStop Attacking 0 1.000000 AsTimeScale" />
+    <On index="74" Terms="TimerExpired; TimerName Passive; !ValidateUnit CasterNotPassive" Send="AnimGroupRemove Cover" />
+    <On index="75" Terms="TimerExpired; TimerName Passive; !ValidateUnit CasterNotPassive" Send="StatusSet PassiveTimer 0" />
+    <On index="76" Terms="StatusOn.*.Stunned" Send="AnimBracketStop Attacking" />
+    <On index="77" Terms="Behavior.JungleCreepPassive.Off" Send="Create Merc_OWHana_LargeSamurai_Vox_Aggro" />
+    <On index="78" Terms="UnitBirth.MercDefenderMeleeIndividual" Send="TimerSet 10.000000,10.000000 IdleVox" />
+    <On index="79" Terms="TimerExpired; TimerName IdleVox" Send="Create Merc_OWHana_LargeSamurai_Vox_Idle" />
+    <On index="80" Terms="TimerExpired; TimerName IdleVox" Send="TimerSet 10.000000,10.000000 IdleVox" />
+    <On index="81" removed="1" />
+    <On index="82" removed="1" />
+    <On index="83" removed="1" />
+    <DeathArray index="Normal" ModelLink="Storm_Merc_OWVol_Robo_Death" SoundLink="Merc_OWVol_Sentinel_Death" />
+    <ImpactSound value="UnitMercSentinel_Impact" />
+    <SoundArray index="Movement" value="Merc_OWVol_Sentinel_Vox_Idle" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Merc_Support_Robot.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="RangedMinion">
+    <DeathArray index="Normal" SoundLink="Minion_OWVol_Death" VoiceLink="Minion_OWVol_Death_Vox" />
+    <ImpactSound value="Unit_OWVol_Minion_Impact" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Minion_Ranged.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorSound id="RangedMinionAttackImpactPlayerSound">
+    <Sound value="Minion_OWVol_Ranged_AttackImpact_Player" />
+  </CActorSound>
+  <CActorDoodad id="Storm_Doodad_OWVol_Civilian1" parent="Storm_Doodad_OWVol_Civilian_Parent">
+    <On Terms="ActorCreation" Send="AnimPlay Stand Stand,01 PlayForever" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Civilian2" parent="Storm_Doodad_OWVol_Civilian_Parent">
+    <On Terms="ActorCreation" Send="AnimPlay Stand Stand,02 PlayForever" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Civilian3" parent="Storm_Doodad_OWVol_Civilian_Parent">
+    <On Terms="ActorCreation" Send="AnimPlay Stand Stand,03 PlayForever" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Civilian4" parent="Storm_Doodad_OWVol_Civilian_Parent">
+    <On Terms="ActorCreation" Send="AnimPlay Stand Stand,04 PlayForever" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Civilian5" parent="Storm_Doodad_OWVol_Civilian_Parent">
+    <On Terms="ActorCreation" Send="AnimPlay Stand Stand,05 PlayForever" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Civilian6" parent="Storm_Doodad_OWVol_Civilian_Parent">
+    <On Terms="ActorCreation" Send="AnimPlay Stand Stand,06 PlayForever" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Civilian7" parent="Storm_Doodad_OWVol_Civilian_Parent">
+    <On Terms="ActorCreation" Send="AnimPlay Stand Stand,07 PlayForever" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Civilian8" parent="Storm_Doodad_OWVol_Civilian_Parent">
+    <On Terms="ActorCreation" Send="AnimPlay Stand Stand,08 PlayForever" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Civilian9" parent="Storm_Doodad_OWVol_Civilian_Parent">
+    <On Terms="ActorCreation" Send="AnimPlay Stand Attack,01 PlayForever" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Civilian10" parent="Storm_Doodad_OWVol_Civilian_Parent">
+    <On Terms="ActorCreation" Send="AnimPlay Stand Attack,02 PlayForever" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Civilian11" parent="Storm_Doodad_OWVol_Civilian_Parent">
+    <On Terms="ActorCreation" Send="AnimPlay Stand Attack,03 PlayForever" />
+  </CActorDoodad>
+  <CActorBeamSimple id="MercTurretRepairBeam" parent="BeamSimpleAnimationStyleContinuous">
+    <On Terms="Effect.OverwatchMechanicRepairCreatePersistent.Start; At Caster" Send="Create" />
+    <On Terms="Effect.OverwatchMechanicRepairCreatePersistent.Stop" Send="Destroy" />
+    <HostLaunch Subject="_Unit" Scope="Caster" Actor="Find" />
+    <HostLaunchSiteOps Ops="SOpAttachWeapon" />
+    <HostImpact Subject="_Unit" Scope="Target" Actor="Find" />
+    <HostImpactSiteOps Ops="SOpAttachCenter" />
+    <ModelFlags index="AutomatedGlobalLoopsIgnoreOrphan" value="1" />
+    <ModelFlags index="AutomateGlobalLoops" value="1" />
+  </CActorBeamSimple>
+  <CActorUnit id="OverwatchMechanic">
+    <On Terms="Behavior.JungleCreepHardLeashing.On" Send="AnimGroupApply A {} {} 0 1.000000 AsTimeScale" />
+    <On Terms="Behavior.JungleCreepSoftLeashing.On" Send="AnimGroupApply A {} {} 0 1.000000 AsTimeScale" />
+    <On Terms="Behavior.JungleCreepHardLeashing.Off" Send="AnimGroupRemove A 0 1.000000 AsTimeScale" />
+    <On Terms="Behavior.JungleCreepSoftLeashing.Off" Send="AnimGroupRemove A 0 1.000000 AsTimeScale" />
+    <On Terms="AnimPlay; AnimPlayingProps Attack,00; AnimName Attack" Send="Create EngineerAttackLaunch0" />
+    <On Terms="AnimPlay; AnimPlayingProps Attack,01; AnimName Attack" Send="Create EngineerAttackLaunch1" />
+    <On Terms="AnimPlay; AnimPlaying Attack Attack,02; AnimName Attack" Send="Create EngineerAttackLaunch2" />
+    <WalkAnimMoveSpeed value="4" />
+    <DeathArray index="Normal" SoundLink="Merc_OWVol_Mechanic_Death_SFX" VoiceLink="Merc_OWVol_Mechanic_Vox_Death" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Merc_TurretMerc.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorAction id="OverwatchMechanicAttack">
+    <ImpactMap index="None" Model="EngineerAttackImpact" Sound="Merc_OWVol_Mechanic_AttackImpact" />
+  </CActorAction>
+  <CActorDoodad id="Storm_Doodad_OWVol_ConveyorBelt">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <FogVisibility value="Dimmed" />
+  </CActorDoodad>
+  <CActorSound id="Event_Volskaya_Vehicle_Attack_Impact" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Attack_Launch" parent="SoundOneShot">
+    <Layers Sound="Event_Volskaya_Vehicle_Attack_Whoosh" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Attack_Launch2" parent="SoundOneShot">
+    <Layers Sound="Event_Volskaya_Vehicle_Attack_Whoosh" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Attack_Mech" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorDoodad id="Storm_Doodad_OWVol_Shine">
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorUnit id="VolskayaMercCaptureSlab" parent="GenericUnitMinimal" unitName="VolskayaMercCaptureSlab">
+    <Model value="Storm_Doodad_OWVol_MercCampSlab" />
+    <Remove Terms="ActorCreation" Send="AnimPlay Stand Stand PlayForever,RandomStartOffset" />
+    <On Terms="ActorCreation" Send="AnimPlay Creation Birth" />
+    <On Terms="ActorCreation" Send="AnimSetPaused Creation" />
+    <On Terms="Signal.*.Active" Send="SetPlayerId" />
+    <On Terms="Signal.*.Active" Send="AnimPlay Birth Birth PlayForever,DontResetOnUnhide" />
+    <On Terms="Signal.*.Active" Send="AnimClearAllBut Birth" />
+    <On Terms="Signal.*.Capped" Send="AnimPlay Capped Spell PlayForever,DontResetOnUnhide" />
+    <On Terms="Signal.*.Capped" Send="AnimClearAllBut Capped" />
+    <Aliases value="_CreepEngulfable" />
+    <CreepHeightClass value="Default" />
+    <CreepRateGrow value="Grow" />
+    <CreepRateShrink value="Shrink" />
+  </CActorUnit>
+  <CActorModel id="VolskayaVehicleBirthFX" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.VolskayaVehicleBirthSearchArea.Start; At Caster" Send="Create" />
+    <HostSiteOps HoldPosition="1" HoldRotation="1" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorModel id="VolskayaVehicleChargeTargetWarning" parent="StormModelAnimationStyleContinuous">
+    <Remove Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death" />
+    <On Terms="ActorCreation" Send="SetScale 0.010000" />
+    <On Terms="ActorCreation" Send="SetScale 0.800000 0.500000" />
+    <On Terms="Effect.VolskayaVehicleChargeIssueApproachOrder.Start" Send="HostSiteOpsSet ::Host {SOpTargetPoint SOpShadow SOpPointSouthWorld} 1 1" />
+    <On Terms="Effect.VolskayaVehicleChargeDummyPersistent.Start; At Caster" Send="Create" />
+    <On Terms="Effect.VolskayaVehicleChargeImpactSet.Start" Send="Destroy Immediate" />
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD {} Stand Death" />
+    <On Terms="Behavior.VolskayaVehicleChargeUnstoppableBehavior.Off" Send="Destroy Immediate" />
+    <On Terms="ActorCreation" Send="TimerSet 3.000000 Destroy" />
+    <On Terms="TimerExpired; TimerName Destroy" Send="Destroy" />
+    <On Terms="UnitDeath" Send="Destroy Immediate" />
+    <HostSiteOps Ops="SOpTargetPoint SOpShadow SOpPointSouthWorld" HoldRotation="1" />
+    <ModelFlags index="AllowHitTest" value="0" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorForceCylinder id="VolskayaVehicleChargeForceUpward">
+    <On Terms="Effect.VolskayaVehicleChargeSearchArea.Stop" Send="Create" />
+    <HostSiteOps Ops="SOpTargetPoint" />
+    <Duration value="0.150000" />
+    <Magnitude value="40.000000" />
+    <HostEndSiteOps Ops="SOpTargetPoint SOpHigherBy3" />
+    <Radius value="2.500000" />
+  </CActorForceCylinder>
+  <CActorModel id="VolskayaVehicleChargeGroundAOEImpact" parent="StormModelAnimationStyleOneShot">
+    <On Terms="Effect.VolskayaVehicleChargeSearchArea.Start" Send="Create" />
+    <FogVisibility value="Visible" />
+    <Scale value="0.750000,0.750000,0.800000" />
+  </CActorModel>
+  <CActorSound id="Event_Volskaya_Vehicle_Charge_Missile" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+  </CActorSound>
+  <CActorModel id="VolskayaVehicleFighterFlightWarning" parent="StormModelAnimationStyleContinuous">
+    <Inherits index="TeamColor" value="1" />
+    <On Terms="Effect.VolskayaVehicleFighterFlightChannelPersistent.Start; At Caster" Send="Create" />
+    <On Terms="Effect.VolskayaVehicleFighterFlightImpactSet.Start" Send="Destroy" />
+    <On Terms="Effect.VolskayaVehicleFighterFlightModifyCooldownUponInterruption.Start" Send="Destroy" />
+    <HostSiteOps Ops="SOpTargetPoint SOpShadow SOpForwardNorth" />
+    <Model value="StageDiveWarning" />
+    <Scale value="0.800000,0.800000,1.000000" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorSound id="Event_Volskaya_Vehicle_Charge_Impact_Base" parent="SoundOneShot">
+    <On Terms="Effect.VolskayaVehicleChargeSearchArea.Stop; At Effect" Send="Create" />
+    <On Terms="ActorCreation" Target="Event_Volskaya_Vehicle_Charge_Missile" Send="Destroy" />
+    <On Terms="Effect.VolskayaVehicleChargeSearchArea.Stop; At Effect; ValidateEffect VolskayaVehicleChargeWhiffed" Send="Destroy" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Charge_Impact_Missed" parent="SoundOneShot">
+    <On Terms="Effect.VolskayaVehicleChargeSearchArea.Stop; At Effect; ValidateEffect VolskayaVehicleChargeWhiffed" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorAction id="VolskayaVehicleChargeAttack" parent="MeleeHeroAttack" effectAttack="VolskayaVehicleChargeDamage">
+    <ImpactMap index="None" Sound="" />
+    <ImpactMap index="Rock" Sound="Event_Volskaya_Vehicle_Charge_Impact_Metal" />
+    <ImpactMap index="Metal" Sound="Event_Volskaya_Vehicle_Charge_Impact_Metal" />
+    <ImpactMap index="Wood" Sound="Event_Volskaya_Vehicle_Charge_Impact_Stone" />
+    <ActionFlags index="ImpactSuppressUnitSound" value="1" />
+  </CActorAction>
+  <CActorRange id="VolskayaVehicleChargeRange" parent="StormRangeAbilPlusSplat" abil="VolskayaVehicleCharge" />
+  <CActorSplat id="VolskayaVehicleChargeRangeSplat" parent="StormRangeSplat">
+    <Scale value="10.000000" />
+  </CActorSplat>
+  <CActorAction id="VolskayaVehicleRocketFistAction" parent="GenericAttack" effectLaunch="VolskayaVehicleRocketFistLaunchMissile">
+    <LaunchAttachQuery Methods="AMFilterHandRight" />
+    <Missile value="VolskayaVehicleRocketFistMissile" />
+    <ImpactPointSiteOps Ops="SOpTargetPointStationary SOpMoveUpBy1" />
+  </CActorAction>
+  <CActorModel id="VolskayaVehicleSkyLaserGroundModel" parent="StormModelAnimationStyleOneShot">
+    <FogVisibility value="Visible" />
+    <On Terms="Effect.VolskayaVehicleSkyLaserSecondarySearchPersistent.Stop" Send="AnimBracketStop BSD" />
+    <On Terms="ActorCreation" Target="::Creator" Send="MoverMove" />
+    <HostSiteOps Ops="SOpBasicCreatorStationary SOpForwardVectorPoint_Shadow SOpShadow" HoldPosition="1" HoldRotation="1" />
+  </CActorModel>
+  <CActorUnit id="VolskayaVehicleSkyLaserMoverUnit" parent="GenericUnitStandard" unitName="VolskayaVehicleSkyLaserMoverUnit">
+    <Model value="Invisible" />
+    <HighlightTooltip value="Unit/Name/Bogus" />
+  </CActorUnit>
+  <CActorTurret id="VolskayaVehicleMainTurret">
+    <On Terms="TurretEnable.VolskayaVehicleMainTurret" Send="Create" />
+    <On Terms="TurretDisable.VolskayaVehicleMainTurret" Send="Destroy" />
+  </CActorTurret>
+  <CActorBeamSimple id="VolskayaVehicleSkyLaserTurretBeam" parent="BeamSimpleAnimationStyleOneShot">
+    <HostLaunch Subject="VolskayaVehicleMainTurretLaunchSite" Actor="Find" />
+    <HostImpact Subject="::Creator" Actor="Find" />
+    <FogVisibility value="Visible" />
+  </CActorBeamSimple>
+  <CActorRange id="VolskayaVehicleTacticalStrikesAreaWarning">
+    <Inherits index="CloakEffect" value="1" />
+    <Inherits index="TeamColor" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <On Terms="Abil.VolskayaVehicleTacticalStrikes.SourceChannelStart" Send="Create" />
+    <On Terms="Abil.VolskayaVehicleTacticalStrikes.SourceChannelStop" Send="Destroy" />
+    <On Terms="UnitDeath" Send="Destroy" />
+    <Range value="9.500000" />
+    <Icon value="Assets\Textures\Storm_TankRadius_Active.dds" />
+    <IconArcLength value="5.000000" />
+    <Host Subject="_Unit" />
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+  </CActorRange>
+  <CActorSound id="Event_Volskaya_Vehicle_ParticleCannon_AOE" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <On Terms="Effect.VolskayaVehicleParticleCannonSearchArea.Start; At Effect" Send="Create" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_ParticleCannon_Loop" parent="SoundContinuous">
+    <On Terms="Behavior.VolskayaVehicleParticleCannonInitiated.On" Send="Create" />
+    <On Terms="Behavior.VolskayaVehicleParticleCannonInitiated.Off" Send="Destroy" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_ParticleCannon_Missile" parent="SoundOneShot">
+    <On Terms="ActorDestruction" Target="Event_Volskaya_Vehicle_ParticleCannon_Loop" Send="Destroy" />
+    <On Terms="Effect.VolskayaVehicleParticleCannonSearchArea.Start" Send="Destroy" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_ParticleCannon_Arm" parent="SoundOneShot">
+    <On Terms="Behavior.VolskayaVehicleParticleCannonInitiated.On" Send="Create" />
+    <On Terms="Behavior.VolskayaVehicleParticleCannonInitiated.Off" Send="Destroy" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorModel id="VolskayaVehicleParticleCannonGroundImpactModel" parent="StormModelAnimationStyleOneShot">
+    <On Terms="Effect.VolskayaVehicleParticleCannonSearchArea.Start" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorMissile id="VolskayaVehicleParticleCannonMissile" parent="GenericAttackMissile" unitName="VolskayaVehicleParticleCannonMissile">
+    <Model value="VolskayaVehicleParticleBeamMissile" />
+    <ModelFlags index="AutomateGlobalLoops" value="1" />
+    <On Terms="ActorCreation" Send="Create Event_Volskaya_Vehicle_ParticleCannon_Missile" />
+    <On Terms="ActorDestruction" Target="Event_Volskaya_Vehicle_ParticleCannon_Missile" Send="Destroy" />
+    <On Terms="UnitBirth" Send="AnimBracketStart Lifetime IGNORE Stand" />
+    <Remove Terms="UnitBirth" Send="AnimBracketStart Lifetime Birth Stand" />
+    <FogVisibility value="Visible" />
+  </CActorMissile>
+  <CActorAction id="VolskayaVehicleParticleCannonAttack" parent="GenericAttack" effectLaunch="VolskayaVehicleParticleCannonLaunchMissile">
+    <LaunchRequest Subject="VolskayaVehicleOverheadLaunchSite" Actor="Find" />
+    <Missile value="VolskayaVehicleParticleCannonMissile" />
+    <LaunchAssets Sound="Event_Volskaya_Vehicle_ParticleCannon_AttackLaunch" />
+  </CActorAction>
+  <CActorSplat id="VolskayaVehicleParticleCannonCursorSplat">
+    <Aliases value="_VolskayaVehicleParticleCannonGuideVisual" />
+    <Filter index="All" value="1" />
+    <VisibleTo index="Self" value="1" />
+    <Model value="SgtHammerNapalmStrikeCursorSplat" />
+    <FogVisibility value="Visible" />
+    <HoldTime value="-1.000000" />
+    <FadeOut value="0.000000" />
+    <Layer value="AOELayer" />
+    <Host Subject="_VolskayaVehicleParticleCannonGuideRegion" />
+    <HostSiteOps Ops="SOpForwardNorth" />
+    <Flags index="SuppressSaveLoad" value="1" />
+    <On Terms="Behavior.VolskayaVehicleParticleCannonInitiated.On" Send="Create" />
+    <On Terms="Behavior.VolskayaVehicleParticleCannonInitiated.Off" Send="Destroy" />
+    <On Terms="ActorCreation" Send="Create VolskayaVehicleParticleCannonGuideRegionCircle" />
+    <On Terms="ActorCreation" Send="SetTintColor 225,160,25 0.000000 OneShot BaseTint" />
+    <On Terms="ActorDestruction" Target="_VolskayaVehicleParticleCannonGuideRegion" Send="Destroy" />
+    <On Terms="ActorOrphan" Send="Destroy" />
+    <Color value="255,0,0,0" />
+    <Scale value="2.500000" />
+  </CActorSplat>
+  <CActorRegionCircle id="VolskayaVehicleParticleCannonGuideRegionCircle">
+    <Aliases value="_VolskayaVehicleParticleCannonGuideRegion" />
+    <Flags index="SuppressSaveLoad" value="1" />
+    <On Terms="ActorOrphan" Send="Destroy" />
+    <On Terms="RegionSubject.*.AddedFirst" Target="_VolskayaVehicleParticleCannonGuideVisual" Send="ClearTintColor 0.100000 BaseTint" />
+    <On Terms="RegionSubject.*.AddedFirst" Target="_VolskayaVehicleParticleCannonGuideVisual" Send="SetTintColor 0,255,0 0.100000 OneShot Active" />
+    <On Terms="RegionSubject.*.RemovedLast" Target="_VolskayaVehicleParticleCannonGuideVisual" Send="SetTintColor 225,160,25 0.000000 OneShot BaseTint" />
+    <On Terms="RegionSubject.*.RemovedLast" Target="_VolskayaVehicleParticleCannonGuideVisual" Send="ClearTintColor 0.100000 Active" />
+    <On Terms="ActorCreation" Send="QueryPersistent VolskayaVehicleParticleCannonGuideRegionAdd StormGuideRegionRemove AgainstRadiusGame" />
+    <HostSiteOps Ops="SOpBasicScopeFollow SOpCursor VolskayaVehicleParticleCannonSOpClampedCursor" />
+    <Radius value="2.500000" />
+  </CActorRegionCircle>
+  <CActorQueryResponse id="VolskayaVehicleParticleCannonGuideRegionAdd">
+    <Subject Filters="Snapshot,Unit,Missile" Terms="ValidateUnit VolskayaVehicleParticleCannonTargetFilter 0 System_Snapshot_Dummy" />
+    <OnResponse Send="StatusIncrement PreTargetingModel" />
+    <OnResponse Send="StatusIncrement PreTargetingTint" />
+    <OnResponse Send="RefSet ::actor.PreTargetingSource ::QueryDirector" />
+  </CActorQueryResponse>
+  <CActorSiteOpClampInsideCircle id="VolskayaVehicleParticleCannonSOpClampedCursor">
+    <TargetSiteOps Ops="SOpCursor" />
+    <CenterActor Subject="VolskayaVehicleParticleCannonRangeSplat" />
+    <ClampInsideCircleFlags index="AddCenterActorScaleToRadius" value="1" />
+  </CActorSiteOpClampInsideCircle>
+  <CActorModel id="VolskayaVehicleParticleCannonActivationModel" parent="StormModelAnimationStyleContinuousUnit">
+    <HostSiteOps Ops="SOpAttachWeapon02" />
+    <On Terms="ActorCreation" Target="::Host" Send="RefSet ::actor.ParticleCannonActivationModel ::Self" />
+    <On Terms="ActorCreation" Target="::Host" Send="Signal LinkParticleCannon" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorRange id="VolskayaVehicleParticleCannonRange" parent="StormRangeAbilPlusSplat" abil="VolskayaVehicleMortar">
+    <On Terms="Behavior.VolskayaVehicleParticleCannonInitiated.On" Send="Create" />
+    <On Terms="Behavior.VolskayaVehicleParticleCannonInitiated.Off" Send="Destroy" />
+  </CActorRange>
+  <CActorSplat id="VolskayaVehicleParticleCannonRangeSplat" parent="StormRangeSplat">
+    <Filter index="All" value="1" />
+    <VisibleTo index="Self" value="1" />
+    <Remove Terms="ActorCreation" Send="Create StormGuideRegionCircle" />
+    <On Terms="Behavior.VolskayaVehicleParticleCannonInitiated.On" Send="Create" />
+    <On Terms="Behavior.VolskayaVehicleParticleCannonInitiated.Off" Send="Destroy Immediate" />
+    <On Terms="ActorCreation" Send="SetScale 19.000000 3.000000" />
+    <On Terms="Behavior.*.On; BehaviorCategory TimeStop" Send="PauseScale" />
+    <On Terms="Behavior.*.Off; BehaviorCategory TimeStop" Send="PauseScale 0" />
+    <Scale value="4.000000" />
+  </CActorSplat>
+  <CActorRange id="VolskayaVehicleParticleCannonInitiateRange" parent="StormRangeAbilPlusSplat" abil="VolskayaVehicleInitiateParticleCannon" />
+  <CActorSplat id="VolskayaVehicleParticleCannonInitiateRangeSplat" parent="StormRangeSplat">
+    <Scale value="19.000000" />
+  </CActorSplat>
+  <CActorSplat id="VolskayaVehicleParticleCannonInitiateCursorSplat" parent="StormGuideVisualCircle" abil="VolskayaVehicleInitiateParticleCannon">
+    <Remove Terms="ActorCreation" Send="Create StormGuideRegionCircle" />
+    <On Terms="ActorCreation" Send="Create VolskayaVehicleParticleCannonInitiateRegionCircle" />
+    <Model value="SgtHammerNapalmStrikeCursorSplat" />
+    <Scale value="2.500000" />
+  </CActorSplat>
+  <CActorRegionCircle id="VolskayaVehicleParticleCannonInitiateRegionCircle" parent="StormGuideRegionCircle">
+    <Remove Terms="ActorCreation" Send="QueryPersistent StormGuideRegionAdd StormGuideRegionRemove AgainstRadiusGame" />
+    <On Terms="ActorCreation" Send="QueryPersistent VolskayaVehicleParticleCannonGuideRegionAdd StormGuideRegionRemove AgainstRadiusGame" />
+    <Radius value="2.500000" />
+  </CActorRegionCircle>
+  <CActorAction id="VolskayaVehicleTacticalStrikesActionActor" parent="GenericAttack" effectImpact="VolskayaVehicleTacticalStrikesDamage" effectLaunch="VolskayaVehicleTacticalStrikesLM">
+    <Missile value="VolskayaVehicleTacticalStrikesMissile" />
+    <LaunchRequest Subject="VolskayaVehicleMainTurretLaunchSite" Actor="Find" />
+  </CActorAction>
+  <CActorModel id="VolskayaVehicleTacticalStrikesGroundImpactModel" parent="StormModelAnimationStyleOneShot">
+    <On Terms="Effect.VolskayaVehicleTacticalStrikesImpactPersistent.Start" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorModel id="VolskayaVehicleTacticalStrikesWarningModel" parent="StormModelAnimationStyleContinuous">
+    <On Terms="Effect.VolskayaVehicleTacticalStrikesLM.Start" Send="Create" />
+    <On Terms="Effect.VolskayaVehicleTacticalStrikesImpactPersistent.Start; FromEffectTreeDescendant" Send="Destroy" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorSound id="Event_Volskaya_Vehicle_TacticalStrikes_Attack_Launch" parent="SoundOneShot">
+    <On Terms="Abil.VolskayaVehicleTacticalStrikes.SourceChannelStart" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_TacticalStrikes_Attack_Stop" parent="SoundOneShot">
+    <On Terms="Abil.VolskayaVehicleTacticalStrikes.SourceChannelStop" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_TacticalStrikes_Attack_NoAmmo" parent="SoundOneShot">
+    <On Terms="Behavior.VolskayaVehicleTacticalStrikesSuppressAbilitiesBehavior.Off; ValidateUnit CasterHasNoEnergy" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_TacticalStrikes_Attack" parent="SoundContinuous">
+    <On Terms="Abil.VolskayaVehicleTacticalStrikes.SourceChannelStart" Send="Create" />
+    <On Terms="Abil.VolskayaVehicleTacticalStrikes.SourceChannelStop" Send="Destroy" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_TacticalStrikes_Attack_LowAmmo" parent="SoundContinuous">
+    <Terms value="Cap 1" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_TacticalStrikes_Impact_AOE_Damage" parent="SoundOneShot">
+    <On Terms="Effect.VolskayaVehicleTacticalStrikesDamage.Start; At Target" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_TacticalStrikes_Impact_AOE" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorMissile id="VolskayaVehicleTacticalStrikesMissile" parent="GenericAttackMissile" unitName="VolskayaVehicleTacticalStrikesMissile">
+    <On Terms="ActorCreation" Send="AnimPlay Walk Walk PlayForever" />
+    <FogVisibility value="Visible" />
+  </CActorMissile>
+  <CActorModel id="VolskayaVehicleTacticalStrikesWarningModelOuter" parent="StormModelAnimationStyleContinuous">
+    <On Terms="Effect.VolskayaVehicleTacticalStrikesLM.Start" Send="Create" />
+    <On Terms="Effect.VolskayaVehicleTacticalStrikesImpactPersistent.Start; FromEffectTreeDescendant" Send="Destroy" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorUnit id="VolskayaVehicleFighterFlightWarningMinimapUnit" parent="GenericUnitStandard" unitName="VolskayaVehicleWarningMinimapUnit">
+    <On Terms="ActorCreation" Send="SetShowStatusBar" />
+    <Model value="Invisible" />
+    <HighlightTooltip value="Unit/Name/VolskayaVehicleFighterFlightWarningMinimapUnit" />
+    <MinimapIcon value="Assets\Textures\storm_ui_hud_minimap_warhead_nukesymbol_icon.dds" />
+    <MinimapIconIsTeamColored value="1" />
+  </CActorUnit>
+  <CActorAction id="VolskayaVehicleWeaponAttack" parent="MeleeHeroAttack" effectAttack="VolskayaVehicleWeaponDamage">
+    <LaunchAttachQuery Methods="AMFilterWeapon00FullMatch" />
+    <ImpactMap index="None" Sound="Event_Volskaya_Vehicle_Attack_Impact_Unit" />
+    <ImpactMap index="Rock" Sound="Event_Volskaya_Vehicle_Attack_Stone" />
+    <ImpactMap index="Metal" Sound="Event_Volskaya_Vehicle_Attack_Metal" />
+  </CActorAction>
+  <CActorRange id="VolskayaVehicleTShieldRange" parent="StormRangeAbilPlusSplat" abil="VolskayaVehicleTShield" />
+  <CActorSplat id="VolskayaVehicleTShieldRangeSplat" parent="StormRangeSplat">
+    <Scale value="7.000000" />
+  </CActorSplat>
+  <CActorRange id="VolskayaVehicleFighterFlightActivateRange" parent="StormRangeAbilPlusSplat" abil="VolskayaVehicleFighterFlight" />
+  <CActorSplat id="VolskayaVehicleFighterFlightActivateRangeSplat" parent="StormRangeSplat">
+    <Scale value="70.000000" />
+  </CActorSplat>
+  <CActorRange id="VolskayaVehicleTacticalStrikesRange" parent="StormRangeAbilPlusSplat" abil="VolskayaVehicleTacticalStrikes" />
+  <CActorSplat id="VolskayaVehicleTacticalStrikesRangeSplat" parent="StormRangeSplat">
+    <Scale value="10.500000" />
+  </CActorSplat>
+  <CActorSiteOpAttach id="SOpAttachTarget7">
+    <AttachQuery Methods="Target 7" />
+  </CActorSiteOpAttach>
+  <CActorSiteOpAttach id="SOpAttachTarget8">
+    <AttachQuery Methods="Target 8" />
+  </CActorSiteOpAttach>
+  <CActorModel id="VolskayaVehicleFighterFlightGroundImpact" parent="StormModelAnimationStyleOneShot">
+    <On Terms="Effect.VolskayaVehicleFighterFlightImpactSet.Start" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorModel id="VolskayaVehicleFighterFlightModelAdditionLeft" parent="ModelAddition">
+    <On Terms="Behavior.VolskayaVehicleFighterFlight.On" Send="Create" />
+    <On Terms="Behavior.VolskayaVehicleFighterFlight.Off" Send="Destroy" />
+    <HostSiteOps Ops="SOpAttachTarget7 SOpPointSouthWorld SOpForwardPointsDown SOp180 SOp90 SOpMoveDownBy1" />
+    <Model value="VolskayaVehicleFighterFlightModelAddition" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorModel id="VolskayaVehicleFighterFlightModelAdditionRight" parent="ModelAddition">
+    <On Terms="Behavior.VolskayaVehicleFighterFlight.On" Send="Create" />
+    <On Terms="Behavior.VolskayaVehicleFighterFlight.Off" Send="Destroy" />
+    <HostSiteOps Ops="SOpAttachTarget8 SOpPointSouthWorld SOpForwardPointsDown SOp180 SOp90 SOpMoveDownBy1" />
+    <Model value="VolskayaVehicleFighterFlightModelAddition" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorQuad id="VolskayaVehicleRocketFistGuide" parent="StormGuideVisualQuadDownSciFi" abil="VolskayaVehicleRocketFist">
+    <Height value="16.000000" />
+    <Width value="1.500000" />
+  </CActorQuad>
+  <CActorSound id="Event_Volskaya_Vehicle_RocketFist_Impact_Hero" parent="SoundOneShot">
+    <On Terms="Effect.VolskayaVehicleRocketFistImpactSetHero.Start; At Target" Send="Create" />
+    <On Terms="Effect.VolskayaVehicleRocketFistImpactSetHero.Start" Target="Event_Volskaya_Vehicle_RocketFist_Missile" Send="Destroy" />
+    <On Terms="Effect.VolskayaVehicleRocketFistImpactSetHero.Start" Target="Event_Volskaya_Vehicle_RocketFist_End" Send="Destroy" />
+    <Sound value="Event_Volskaya_Vehicle_RocketFist_Impact" />
+    <HostForProps Subject="VolskayaVehicleRocketFistRootModel" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_RocketFist_Impact_Minion" parent="SoundOneShot">
+    <On Terms="Effect.VolskayaVehicleRocketFistImpactSetMinions.Start; At Target" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_RocketFist_Impact_Structure" parent="SoundOneShot">
+    <On Terms="Effect.VolskayaVehicleRocketFistImpactSetStructure.Start; At Target" Send="Create" />
+    <On Terms="Effect.VolskayaVehicleRocketFistImpactSetStructure.Start" Target="Event_Volskaya_Vehicle_RocketFist_Missile" Send="Destroy" />
+    <On Terms="Effect.VolskayaVehicleRocketFistImpactSetStructure.Start" Target="Event_Volskaya_Vehicle_RocketFist_End" Send="Destroy" />
+    <Sound value="Event_Volskaya_Vehicle_RocketFist_Impact" />
+    <HostForProps Subject="VolskayaVehicleRocketFistRootModel" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_RocketFist_Impact_Damage" parent="SoundOneShot">
+    <On Terms="Behavior.VolskayaVehicleRocketFistRoot.Off" Send="Destroy" />
+    <On Terms="Behavior.VolskayaVehicleRocketFistStructureDebuff.Off" Send="Destroy" />
+    <On Terms="Behavior.VolskayaVehicleRocketFistRoot.On" Send="Create" />
+    <On Terms="Behavior.VolskayaVehicleRocketFistStructureDebuff.On" Send="Create" />
+    <HostForProps Subject="VolskayaVehicleRocketFistRootModel" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_RocketFist_Launch" parent="SoundOneShot">
+    <On Terms="Effect.VolskayaVehicleRocketFistCastSet.Start; At Source" Send="Create" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_RocketFist_Impact_End" parent="SoundOneShot">
+    <On Terms="Behavior.VolskayaVehicleRocketFistRoot.Off" Send="Create" />
+    <On Terms="Behavior.VolskayaVehicleRocketFistStructureDebuff.Off" Send="Create" />
+    <HostForProps Subject="VolskayaVehicleRocketFistRootModel" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_RocketFist_End" parent="SoundOneShot">
+    <HostForProps Subject="VolskayaVehicleRocketFistRootModel" />
+    <Host Subject="::Creator" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+  </CActorSound>
+  <CActorModel id="VolskayaVehicleRocketFistRootModel" parent="StormModelAnimationStyleContinuousUnit">
+    <On Terms="Effect.VolskayaVehicleRocketFistInitialBehaviorDummyEffect.Start; At Target" Send="Create" />
+    <On Terms="Behavior.VolskayaVehicleRocketFistRoot.Destroy" Send="AnimBracketStop BSD" />
+    <On Terms="Behavior.VolskayaVehicleRocketFistStructureDebuff.Destroy" Send="AnimBracketStop BSD" />
+    <On Terms="ActorCreation; ValidateUnit TargetIsStructureOrPseudoStructure" Send="AnimBracketStart BSD Morph,C,Start Morph,C Death,C" />
+    <On Terms="ActorCreation; ValidateUnit TargetIsFat" Send="AnimBracketStart BSD Morph,B,Start Morph,B Death,B" />
+    <On Terms="ActorCreation; ValidateUnit TargetIsNotFat" Send="AnimBracketStart BSD Morph,A,Start Morph,A Death,A" />
+    <On Terms="ActorCreation; HasAllianceTypeWith Enemy ::global.Team2Core" Send="SetTeamColorFrom TeamColor ::global.Team1Core ::Base 300.000000" />
+    <On Terms="ActorCreation; HasAllianceTypeWith Enemy ::global.Team1Core" Send="SetTeamColorFrom TeamColor ::global.Team2Core ::Base 300.000000" />
+    <On Terms="AbilMorph" Send="Destroy" />
+    <Remove Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death" />
+    <HostSiteOps Ops="SOpAttachCenter SOpForwardCasterPointInverted" HoldRotation="1" />
+    <Model value="VolskayaVehicleRocketFist" />
+    <Macros index="1" removed="1" />
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorSound id="Event_Volskaya_Vehicle_Charge_Launch" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <Layers Sound="Event_Volskaya_Vehicle_Charge_Launch_Energy" PlayDelay="150,150" PlayDelaySource="Actor" />
+    <Layers Sound="Event_Volskaya_Vehicle_Charge_Missile" PlayDelay="350,350" PlayDelaySource="Actor" />
+  </CActorSound>
+  <CActorSound id="VolskayaVehicleEnergyBombardmentActiveSoundLoop" parent="SoundContinuous">
+    <On Terms="Behavior.VolskayaVehicleEnergyBombardmentSearchBehavior.On" Send="Create" />
+    <On Terms="Behavior.VolskayaVehicleEnergyBombardmentSearchBehavior.Off" Send="Destroy" />
+    <LoopCount value="-1" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="VolskayaVehicleEnergyBombardmentCastSound" parent="SoundOneShot">
+    <On Terms="Behavior.VolskayaVehicleEnergyBombardmentWindUpBehavior.On" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorArc id="VolskayaVehicleEnergyBombardmentWindUpAreaIndicator" parent="StormGuideVisualArcSciFi">
+    <Remove Terms="ActorCreation" Send="Create StormGuideRegionArc" />
+    <On index="0" Terms="Abil.Guide" Send="Create" />
+    <On index="5" Terms="Abil.ButtonHoverOn" Send="Create" />
+    <On index="6" Terms="Abil.ButtonHoverOff" Send="Destroy" />
+    <On Terms="Behavior.VolskayaVehicleEnergyBombardmentWindUpBehavior.On" Send="Create" />
+    <On Terms="Behavior.VolskayaVehicleEnergyBombardmentWindUpBehavior.Off; ValidateUnit VolskayaVehiclePilotHasEnergyBombardmentActive" Send="Destroy" />
+    <On Terms="Behavior.VolskayaVehicleEnergyBombardmentSearchBehavior.Off" Send="Destroy" />
+    <On Terms="ActorCreation" Send="Create VolskayaVehicleLeadRainGuideRegionArc" />
+    <On Terms="ActorCreation" Send="AnimSetTime ::Angle 1.550000" />
+    <On Terms="ActorCreation" Send="AnimSetPausedAll" />
+    <Scale value="11.100000" />
+  </CActorArc>
+  <CActorMissile id="VolskayaVehicleRocketFistMissile" parent="StormMissileWithDeathEarly" unitName="VolskayaVehicleRocketFistMissile">
+    <Model value="VolskayaVehicleRocketFist" />
+    <On Terms="ActorCreation" Send="Create Event_Volskaya_Vehicle_RocketFist_Missile" />
+    <On Terms="MoverStopped" Send="AnimPlay WalkEnd Death,Alternate FullMatch -1.000000 0.000000 1.000000 AsTimeScale 0.000000 13" />
+    <On Terms="AnimDone; AnimName WalkEnd" Send="Destroy Immediate" />
+    <On Terms="UnitBirth" Send="AnimBracketStart BSD Birth Walk Death,Alternate ClosingFull" />
+    <Remove Terms="UnitBirth" Send="AnimBracketStart BSD Birth Stand Death ClosingFull" />
+    <DeathArray index="Timeout" AnimProps="Death,Alternate" />
+    <FogVisibility value="Visible" />
+  </CActorMissile>
+  <CActorSound id="Event_Volskaya_Vehicle_RocketFist_Missile" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_SkyLaser_AOE" parent="SoundOneShot">
+    <Host Subject="::Creator" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_SkyLaser_AOE_Loop" parent="SoundContinuous">
+    <On Terms="Effect.VolskayaVehicleSkyLaserSoundDummy.Start; At Effect" Send="Create" />
+    <On Terms="Effect.VolskayaVehicleSkyLaserSoundDummy.Stop" Send="Destroy" />
+    <Host Subject="::Creator" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_SkyLaser_Launch" parent="SoundOneShot">
+    <On Terms="Effect.VolskayaVehicleSkyLaserCastSet.Start; At Caster" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_SkyLaser_AOE_Birth" parent="SoundOneShot">
+    <On Terms="Effect.VolskayaVehicleSkyLaserCastSet.Start; At Effect" Send="Create" />
+    <Host Subject="::Creator" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_SkyLaser_AEO_Explo" parent="SoundOneShot">
+    <On Terms="Effect.VolskayaVehicleSkyLaserSoundDummy.Stop; At Effect" Send="Create" />
+    <Host Subject="::Creator" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_SkyLaser_AEO_Impact_Start" parent="SoundOneShot">
+    <On Terms="Effect.VolskayaVehicleSkyLaserInitialDamage.Start; At Target" Send="Create" />
+    <Host Subject="::Creator" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_SkyLaser_AEO_Impact_End" parent="SoundOneShot">
+    <On Terms="Effect.VolskayaVehicleSkyLaserSecondaryDamage.Start; At Target" Send="Create" />
+    <Host Subject="::Creator" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+  </CActorSound>
+  <CActorModel id="VolskayaVehicleTShieldCastModel" parent="StormModelAnimationStyleOneShot">
+    <Macros value="GlobalLoopMacro" />
+    <Flags index="SuppressSaveLoad" value="0" />
+    <On Terms="Effect.VolskayaVehicleTShieldCastSet.Start" Send="Create" />
+    <ModelFlags index="AllowHitTest" value="0" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorModel id="VolskayaVehicleTShieldBuff" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Behavior.VolskayaVehicleTShield.On" Send="Create" />
+    <On Terms="Behavior.VolskayaVehicleTShield.Off" Send="AnimBracketStop BSD" />
+    <HostSiteOps Ops="SOpAttachCenterSoft" HoldRotation="1" />
+    <AutoScaleFactor value="1.000000" />
+  </CActorModel>
+  <CActorModel id="VolskayaVehicleMainTurretInvisibleModel" parent="ModelAdditionNoAnims">
+    <HostSiteOps Ops="SOpAttachWeapon00" />
+    <Model value="Invisible" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorModel id="VolskayaVehicleOverheadInvisibleModel" parent="ModelAdditionNoAnims">
+    <HostSiteOps Ops="SOpAttachWeapon02" />
+    <Model value="Invisible" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorUnit id="VolskayaVehicle" parent="StormHeroBasePredictive" unitName="VolskayaVehicle">
+    <FogVisibility value="Visible" />
+    <On Terms="ActorCreation" Send="Create VolskayaVehicleMainTurretInvisibleModel" />
+    <On Terms="ActorCreation" Send="Create VolskayaVehicleOverheadInvisibleModel" />
+    <On Terms="ActorCreation" Send="Create Event_Volskaya_Vehicle_Inactive_Loop" />
+    <On Terms="ActorDestruction" Target="Event_Volskaya_Vehicle_Active_Loop" Send="Destroy" />
+    <On Terms="ActorDestruction" Target="Event_Volskaya_Vehicle_Inactive_Loop" Send="Destroy" />
+    <On Terms="Behavior.VolskayaVehicleEnergyBombardmentWindUpBehavior.On" Send="AnimPlay SpellA Spell,Channel,Start PlayForever" />
+    <On Terms="Behavior.VolskayaVehicleEnergyBombardmentSearchBehavior.On" Send="AnimPlay SpellA Spell,Channel PlayForever" />
+    <On Terms="Behavior.VolskayaVehicleEnergyBombardmentSearchBehavior.Off" Send="AnimPlay SpellA Spell,Channel,End" />
+    <On Terms="Behavior.VolskayaVehicleFighterFlight.On" Send="HostSiteOpsSet ::Host SOpBasicScopeFollow" />
+    <On Terms="Behavior.VolskayaVehicleFighterFlight.Off" Send="HostSiteOpsSet ::Host {SOpBasicScopeFollow SOpTipability}" />
+    <On Terms="Effect.VolskayaVehicleApplyGunnerLinkBehavior.Start; At Caster" Send="RefSetFromRequest ::actor.Gunner _Unit Target Find" />
+    <On Terms="Signal.*.LinkWeaponSiteA" Target="::actor.VolskayaVehicleMainTurretLaunchSite" Send="RefSet ::actor.VolskayaVehicleMainTurretInvisibleModel VolskayaVehicleMainTurretInvisibleModel" />
+    <On Terms="Signal.*.LinkWeaponSiteA" Target="::actor.VolskayaVehicleMainTurretLaunchSite" Send="Signal LinkWeaponSiteB" />
+    <On Terms="Signal.*.LinkWeaponSiteA" Target="::actor.VolskayaVehicleOverheadLaunchSite" Send="RefSet ::actor.VolskayaVehicleOverheadInvisibleModel VolskayaVehicleOverheadInvisibleModel" />
+    <On Terms="Signal.*.LinkWeaponSiteA" Target="::actor.VolskayaVehicleOverheadLaunchSite" Send="Signal LinkWeaponSiteB" />
+    <On Terms="Signal.*.LinkParticleCannon" Target="::actor.Gunner" Send="RefSet ::actor.ParticleCannonActivationModel ::actor.ParticleCannonActivationModel" />
+    <On Terms="ActorCreation" Send="Signal InvisibleRing" />
+    <On Terms="Behavior.VolskayaVehicleFistSlamCasterBehavior.On" Send="AnimBaselineStop" />
+    <On Terms="Behavior.VolskayaVehicleFistSlamCasterBehavior.Off" Send="AnimBaselineStart" />
+    <On Terms="Behavior.VolskayaVehicleChargeBehavior.On" Send="AnimBaselineStop" />
+    <On Terms="Behavior.VolskayaVehicleChargeBehavior.Off" Send="AnimBaselineStart" />
+    <On Terms="WeaponStart.*.AttackStart" Send="AnimPlay Attack Attack 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.VolskayaVehicleCharge.SourceCastStart" Send="AnimClear Attack" />
+    <On Terms="Abil.VolskayaVehicleCharge.SourceCastStart" Send="AnimBracketStart Spell Spell,A,Start Spell,A Spell,A,End 0 1.000000 AsTimeScale" />
+    <On Terms="Abil.VolskayaVehicleChargeApproach.SourceCastStart" Send="AnimBracketStop Spell 0 1.000000 AsTimeScale" />
+    <On Terms="Abil.VolskayaVehicleStructureChargeApproach.SourceCastStart" Send="AnimBracketStop Spell 0 1.000000 AsTimeScale" />
+    <On Terms="Abil.VolskayaVehicleCoreChargeApproach.SourceCastStart" Send="AnimBracketStop Spell 0 1.000000 AsTimeScale" />
+    <On Terms="Abil.VolskayaVehicleRocketFist.SourceCastStart" Send="AnimPlay RocketFist Spell,B 0 -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Behavior.VolskayaVehicleChargeUnstoppableBehavior.Off; !ValidateUnit VolskayaVehicleCasterIsChargingCombine" Send="AnimBracketClear Spell" />
+    <On Terms="ActorCreation" Send="AnimPlay Birth Birth 0 0.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="ActorCreation" Send="AnimBracketStart Deactivated Stand,Alternate,Start Stand,Alternate Stand,Alternate,End OpeningPlayForever 1.000000 AsTimeScale" />
+    <On Terms="ActorCreation" Send="AnimBaselineStop" />
+    <On Terms="Behavior.VolskayaVehicleBirthBehavior.On" Send="SetShowStatusBar" />
+    <On Terms="Behavior.VolskayaVehicleBirthBehavior.Off" Send="SetShowStatusBar 1" />
+    <On Terms="Behavior.TransformHeroVehicleBeingCapturedBehavior.On" Send="Signal BeginChannel" />
+    <On Terms="Behavior.TransformHeroVehicleBeingCapturedBehavior.Off; ValidateUnit SourceNotOccupiedVehicle" Send="Signal EndChannel" />
+    <On Terms="Behavior.TransformHeroVehicleBeingCapturedBehavior.Off; !ValidateUnit SourceNotOccupiedVehicle" Send="Signal EnteredVehicle" />
+    <On Terms="Signal.*.BeginChannel" Send="AnimBracketStop Deactivated" />
+    <On Terms="Signal.*.EndChannel; AnimPlaying Deactivated; IsStatus AlmostDead 0" Send="AnimBracketResume Deactivated" />
+    <On Terms="Signal.*.EndChannel; !AnimPlaying Deactivated; IsStatus AlmostDead 0" Send="AnimBracketStart Deactivated Stand,Alternate,Start Stand,Alternate Stand,Alternate,End OpeningPlayForever 1.000000 AsTimeScale" />
+    <On Terms="Behavior.GenericVehicleBehaviorOccupied.On" Send="Signal VehicleEntered" />
+    <On Terms="Behavior.GenericVehicleBehaviorOccupied.On" Send="Create Event_Volskaya_Vehicle_Active_Loop" />
+    <On Terms="Behavior.GenericVehicleBehaviorOccupied.On" Target="Event_Volskaya_Vehicle_Inactive_Loop" Send="Destroy" />
+    <On Terms="Signal.*.VehicleAbandoned" Target="Event_Volskaya_Vehicle_Active_Loop" Send="Destroy" />
+    <On Terms="Signal.*.VehicleAbandoned" Send="Create Event_Volskaya_Vehicle_Inactive_Loop" />
+    <On Terms="Signal.*.VehicleEntered" Send="AnimBaselineStart" />
+    <On Terms="Signal.*.VehicleAbandoned; IsStatus AlmostDead 0" Send="AnimBracketStart Deactivated Stand,Alternate,Start Stand,Alternate Stand,Alternate,End OpeningPlayForever 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.VehicleAbandoned; IsStatus AlmostDead 0" Send="AnimBaselineStop" />
+    <On Terms="Signal.*.GunnerEntered" Send="AnimBracketStart Cover Cover,Start Cover Cover,End 0 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.GunnerExited" Send="AnimBracketStop Cover 0 1.000000 AsTimeScale" />
+    <On Terms="TimerExpired; TimerName AlmostDead" Send="Signal AlmostDead" />
+    <On Terms="Signal.*.AlmostDead" Send="StatusSet AlmostDead 1" />
+    <On Terms="Signal.*.AlmostDead" Send="AnimBracketStop Deactivated" />
+    <On Terms="Abil.VolskayaVehicleCharge.SourceCastStart" Send="AnimClear RocketFist" />
+    <MinimapIcon value="Assets\Textures\storm_ui_hud_volskaya_minimap_mech.dds" />
+    <ImpactSound value="Event_Volskaya_Vehicle_GetHit" />
+    <MinimapIconIsTeamColored value="1" />
+    <CustomUnitStatusFrame value="VolskayaRobot/VolskayaVehicleUnitStatusFrame" />
+    <MinimapUnitStatusFrame value="MinimapUnitStatus/MinimapMapMonsterIcon" />
+    <MinimapIconBackground value="" />
+    <MinimapIconType value="Vehicle" />
+    <UnitIcon value="Assets\Textures\storm_ui_hud_abilitiy_volskaya_mech_pilot.dds" />
+    <Macros index="18" value="HeroImmortalServitudeMacro" />
+    <Macros index="19" value="ModelSwapRestartGlobalLoopsMacro" />
+    <Macros index="20" value="HeroCommonAnimationsMacro" />
+    <Macros index="21" value="PretargetAbilitySplatMacro" />
+    <Macros index="22" value="DiabloOverpowerAnimationMacro" />
+    <Macros index="23" value="RevealDebuffMacro" />
+    <Macros index="24" value="DevouringMawHeightMacro" />
+    <Macros index="25" value="ChainHealingPreTargetMacro" />
+    <Macros index="26" value="EarthquakeMacro" />
+    <Macros index="27" value="ScalingMacro" />
+    <Macros index="28" value="LiLiCloudSerpentHostMacro" />
+    <Macros index="29" value="StormMoveSpeedRibbonMacro" />
+    <Macros index="30" removed="1" />
+    <Macros index="31" removed="1" />
+    <Macros index="32" removed="1" />
+    <Macros index="33" removed="1" />
+    <Macros index="34" removed="1" />
+    <Macros index="35" removed="1" />
+    <Macros index="36" removed="1" />
+    <Macros index="37" removed="1" />
+    <Macros index="38" removed="1" />
+    <AnimBlendTime value="0.100000" />
+    <DeathArray index="Normal" SoundLink="Event_Volskaya_Vehicle_Death" />
+    <PortraitActor value="VolskayaVehiclePortrait" />
+    <PortraitModel value="VolskayaVehiclePortrait" />
+    <VitalNames index="Energy" value="UI/HeroEnergyType/Energy" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Boss.dds" />
+    </GroupIcon>
+    <InfoText value="Actor/InfoText/VolskayaVehicle" />
+  </CActorUnit>
+  <CActorPortrait id="VolskayaVehiclePortrait" parent="StormCompositePortrait" />
+  <CActorModel id="VolskayaVehiclePortraitAddition" parent="StormCompositePortraitAddition" />
+  <CActorPortrait id="VolskayaVehicleGunnerPortrait" parent="StormCompositePortrait">
+    <On Terms="ActorCreation" Send="AnimBlendTimeApply 0.000000" />
+    <On Terms="ActorCreation" Send="AnimGroupApply Burrow" />
+    <On Terms="ActorCreation" Send="AnimBlendTimeApply" />
+  </CActorPortrait>
+  <CActorModel id="VolskayaVehicleGunnerPortraitAddition" parent="StormCompositePortraitAddition">
+    <On Terms="ActorCreation" Send="AnimBlendTimeApply 0.000000" />
+    <On Terms="ActorCreation" Send="AnimGroupApply Burrow" />
+    <On Terms="ActorCreation" Send="AnimBlendTimeApply" />
+  </CActorModel>
+  <CActorUnit id="VolskayaVehicleGunner" parent="StormHeroBasePredictive" unitName="VolskayaVehicleGunner">
+    <FogVisibility value="Visible" />
+    <Model value="Invisible" />
+    <On Terms="ActorCreation" Send="SetShowStatusBar" />
+    <On Terms="ActorCreation" Send="Signal InvisibleRing" />
+    <On Terms="ActorCreation" Send="Create VolskayaVehicleMainTurretLaunchSite" />
+    <On Terms="ActorCreation" Send="Create VolskayaVehicleOverheadLaunchSite" />
+    <On Terms="Behavior.VolskayaVehicleParticleCannonInitiated.On" Target="::actor.Pilot" Send="Create VolskayaVehicleParticleCannonActivationModel" />
+    <On Terms="Behavior.VolskayaVehicleParticleCannonInitiated.Off" Target="::actor.ParticleCannonActivationModel" Send="Destroy" />
+    <On Terms="Effect.VolskayaVehicleLinkPersistent.Start; At Caster" Send="RefSetFromRequest ::scope.VehicleUnit ::LastTargetUnit" />
+    <On Terms="Effect.VolskayaVehicleLinkPersistent.Start; At Caster" Target="::scope.VehicleUnit" Send="RefSet ::actor.VolskayaVehicleMainTurretLaunchSite VolskayaVehicleMainTurretLaunchSite" />
+    <On Terms="Effect.VolskayaVehicleLinkPersistent.Start; At Caster" Target="::scope.VehicleUnit" Send="RefSet ::actor.VolskayaVehicleOverheadLaunchSite VolskayaVehicleOverheadLaunchSite" />
+    <On Terms="Effect.VolskayaVehicleLinkPersistent.Start; At Caster" Target="::scope.VehicleUnit" Send="Signal LinkWeaponSiteA" />
+    <On Terms="Effect.VolskayaVehicleApplyGunnerLinkBehavior.Start; At Target" Send="RefSetFromRequest ::actor.Pilot _Unit Caster Find" />
+    <On Terms="Effect.VolskayaVehicleApplyGunnerLinkBehavior.Start; At Target" Send="RefSetFromRequest ::actor.Gunner _Unit Target Find" />
+    <On Terms="Signal.*.Link" Send="HostSiteOpsSet ::Host SOpBasicScopeFollow" />
+    <On Terms="ActorCreation" Send="SetMinimapVisibility" />
+    <On Terms="Abil.VolskayaVehicleTacticalStrikes.SourceCastStart" Target="::actor.Pilot" Send="AnimPlay SpellX Spell,C PlayForever -1.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Abil.VolskayaVehicleTacticalStrikes.SourceChannelStop" Target="::actor.Pilot" Send="AnimClear SpellX" />
+    <On Terms="Abil.VolskayaVehicleInitiateParticleCannon.SourceCastStart" Target="::actor.Pilot" Send="AnimBracketStart SpellY Spell,E,Start Spell,E Spell,E,End 0 1.000000 AsTimeScale" />
+    <On Terms="Abil.VolskayaVehicleActivateParticleCannon.SourceCastStart" Target="::actor.Pilot" Send="AnimBracketStop SpellY 0 1.000000 AsTimeScale" />
+    <On Terms="Abil.VolskayaVehicleSkyLaser.SourceCastStart" Target="::actor.Pilot" Send="AnimBracketStart SpellZ Spell,D,Start Spell,D Spell,D,End 0 1.000000 AsTimeScale" />
+    <On Terms="Effect.VolskayaVehicleSkyLaserInitialSearchPersistent.Stop" Target="::actor.Pilot" Send="AnimBracketStop SpellZ 0 1.000000 AsTimeScale" />
+    <VitalColors index="Energy">
+      <ColorArray value="255,255,0,255" />
+    </VitalColors>
+    <VitalNames index="Energy" value="UI/HeroEnergyType/Energy" />
+    <UnitIcon value="Assets\Textures\storm_ui_hud_abilitiy_volskaya_mech_gunner.dds" />
+    <PortraitActor value="VolskayaVehicleGunnerPortrait" />
+    <PortraitModel value="VolskayaVehicleGunnerPortrait" />
+  </CActorUnit>
+  <CActorModel id="VolskayaVehicleMainTurretLaunchSite" parent="ModelAdditionNoAnims">
+    <On Terms="Signal.*.LinkWeaponSiteB" Send="HostSiteOpsSet ::Host" />
+    <On Terms="Signal.*.LinkWeaponSiteB" Send="RefClear ::Host" />
+    <On Terms="Signal.*.LinkWeaponSiteB" Send="RefSet ::Host ::actor.VolskayaVehicleMainTurretInvisibleModel" />
+    <On Terms="Signal.*.LinkWeaponSiteB" Send="HostSiteOpsSet ::Host SOpAttachOrigin" />
+    <Model value="Invisible" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorModel id="VolskayaVehicleOverheadLaunchSite" parent="ModelAdditionNoAnims">
+    <On Terms="Signal.*.LinkWeaponSiteB" Send="HostSiteOpsSet ::Host" />
+    <On Terms="Signal.*.LinkWeaponSiteB" Send="RefClear ::Host" />
+    <On Terms="Signal.*.LinkWeaponSiteB" Send="RefSet ::Host ::actor.VolskayaVehicleOverheadInvisibleModel" />
+    <On Terms="Signal.*.LinkWeaponSiteB" Send="HostSiteOpsSet ::Host SOpAttachOrigin" />
+    <Model value="Invisible" />
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorBeamSimple id="VolskayaVehicleFocusBeamsBeamLeft" parent="BeamSimpleAnimationStyleOneShot">
+    <Model value="VolskayaVehicleFocusBeamsBeam" />
+    <HostImpactSiteOps Ops="SOpTargetPointStationary SOpShadow SOpMoveUpBy1" HoldPosition="1" HoldRotation="1" />
+    <HostLaunch Subject="::Creator" />
+    <HostLaunchSiteOps Ops="SOpShadow SOpMoveUpBy1" HoldPosition="1" HoldRotation="1" />
+    <HostImpact Subject="_Unit" />
+    <HostForProps Subject="::Creator" />
+    <FogVisibility value="Visible" />
+  </CActorBeamSimple>
+  <CActorBeamSimple id="VolskayaVehicleFocusBeamsBeamRight" parent="BeamSimpleAnimationStyleOneShot">
+    <Model value="VolskayaVehicleFocusBeamsBeam" />
+    <HostImpactSiteOps Ops="SOpTargetPointStationary SOpShadow SOpMoveUpBy1" HoldPosition="1" HoldRotation="1" />
+    <HostLaunch Subject="::Creator" />
+    <HostLaunchSiteOps Ops="SOpShadow SOpMoveUpBy1" HoldPosition="1" HoldRotation="1" />
+    <HostImpact Subject="_Unit" />
+    <HostForProps Subject="::Creator" />
+    <FogVisibility value="Visible" />
+  </CActorBeamSimple>
+  <CActorSite id="VolskayaVehicleFocusBeamsLeftLaunchSite">
+    <On Terms="Effect.VolskayaVehicleFocusBeamsLeftOffsetCP.Start" Send="Create" />
+    <On Terms="Effect.VolskayaVehicleFocusBeamsLeftPoint.Start" Send="Create VolskayaVehicleFocusBeamsBeamLeft" />
+    <HostSiteOps Ops="SOpTargetPointStationary" />
+  </CActorSite>
+  <CActorSite id="VolskayaVehicleFocusBeamsRightLaunchSite">
+    <On Terms="Effect.VolskayaVehicleFocusBeamsRightOffsetCP.Start" Send="Create" />
+    <On Terms="Effect.VolskayaVehicleFocusBeamsRightPoint.Start" Send="Create VolskayaVehicleFocusBeamsBeamRight" />
+    <HostSiteOps Ops="SOpTargetPointStationary" />
+  </CActorSite>
+  <CActorSplat id="VolskayaVehicleMortarOuterRangeSplat" parent="StormRangeSplat">
+    <Scale value="18.100000" />
+  </CActorSplat>
+  <CActorMissile id="VolskayaVehicleMortarMissile" parent="GenericAttackMissile" unitName="VolskayaVehicleMortarMissile">
+    <FogVisibility value="Visible" />
+  </CActorMissile>
+  <CActorModel id="VolskayaVehicleSeismicCannonPathingBlocker" parent="StormModelAnimationStyleContinuous">
+    <FogVisibility value="Visible" />
+  </CActorModel>
+  <CActorBeamSimple id="VolskayaVehicleSkyLaserInitialBeam" parent="BeamSimpleAnimationStyleContinuous">
+    <On Terms="ActorCreation" Target="::Creator" Send="MoverMove" />
+    <HostLaunchSiteOps Ops="SOpBasicCreatorStationary" HoldPosition="1" HoldRotation="1" />
+    <HostImpact Subject="::Creator" />
+    <HostLaunch Subject="::Creator" />
+    <FogVisibility value="Visible" />
+  </CActorBeamSimple>
+  <CActorSiteMover id="VolskayaVehicleSkyLaserSite">
+    <HostSiteOps Ops="SOpShadow SOpMoveUpByDot5" />
+    <Acceleration value="1000.000000" />
+    <Deceleration value="1000.000000" />
+    <Speed value="25.299999" />
+    <SpeedMax value="25.299999" />
+    <On Terms="Effect.VolskayaVehicleSkyLaserBeamInitializer.Start" Send="Create" />
+    <On Terms="Effect.VolskayaVehicleSkyLaserInitialBeamEndPoint.Start; At Effect" Send="MoverSetDestination2D" />
+    <On Terms="Effect.VolskayaVehicleSkyLaserInitialBeamEndPoint.Start" Send="Create VolskayaVehicleSkyLaserGroundModel" />
+    <On Terms="ActorCreation" Send="Create VolskayaVehicleSkyLaserTurretBeam" />
+    <On Terms="Effect.VolskayaVehicleSkyLaserInitialBeamEndPoint.Start" Send="Create Event_Volskaya_Vehicle_SkyLaser_AOE" />
+    <On Terms="Effect.VolskayaVehicleSkyLaserSecondarySearchPersistent.Start" Target="VolskayaVehicleSkyLaserTurretBeam" Send="Destroy" />
+  </CActorSiteMover>
+  <CActorQuad id="VolskayaVehicleSkyLaserGuide" parent="StormGuideVisualQuadDownSciFi" abil="VolskayaVehicleSkyLaser">
+    <Remove Terms="Abil.VolskayaVehicleSkyLaser.Guide" Send="Create" />
+    <On Terms="Abil.VolskayaVehicleSkyLaser.DraggingStart" Send="Create" />
+    <On Terms="Abil.VolskayaVehicleSkyLaser.DraggingStop" Send="Destroy" />
+    <On Terms="ActorCreation" Send="Create VolskayaVehicleSkyLaserGuideLaunchSite" />
+    <On Terms="ActorCreation" Send="Create VolskayaVehicleSkyLaserGuideImpactSite" />
+    <On Terms="ActorCreation" Send="RefSetFromRequest ::HostLaunch VolskayaVehicleSkyLaserGuideLaunchSite" />
+    <On Terms="ActorCreation" Send="RefSetFromRequest ::HostImpact VolskayaVehicleSkyLaserGuideImpactSite" />
+    <On Terms="ActorCreation" Target="_GuideRegion" Send="RefSetFromRequest ::HostLaunch VolskayaVehicleSkyLaserGuideLaunchSite" />
+    <On Terms="ActorCreation" Target="_GuideRegion" Send="RefSetFromRequest ::HostImpact VolskayaVehicleSkyLaserGuideImpactSite" />
+    <Height value="12.000000" />
+    <Width value="0.500000" />
+    <HeightRange value="12.000000,12.000000" />
+  </CActorQuad>
+  <CActorSite id="VolskayaVehicleSkyLaserGuideImpactSite">
+    <HostSiteOps Ops="SOpCursor" />
+  </CActorSite>
+  <CActorSite id="VolskayaVehicleSkyLaserGuideLaunchSite">
+    <HostSiteOps Ops="SOpCursor" HoldPosition="1" />
+  </CActorSite>
+  <CActorModel id="VolskayaVehicleStormGuideVisualQuadModelFocusBeamsLeft" parent="ModelAnimationStyleContinuous">
+    <Aliases value="_GuideQuadSegment" />
+    <Flags index="SuppressSaveLoad" value="1" />
+    <Inherits index="CastShadows" value="1" />
+    <Inherits index="CloakEffect" value="1" />
+    <Inherits index="Decal" value="1" />
+    <Inherits index="Opacity" value="1" />
+    <Inherits index="TeamColor" value="1" />
+    <Inherits index="TimeScale" value="1" />
+    <Inherits index="TintColor" value="1" />
+    <Inherits index="Visibility" value="1" />
+    <Inherits index="WarpGroup" value="1" />
+    <FogVisibility value="Visible" />
+    <HostForProps Subject="_GuideVisualLeft" />
+  </CActorModel>
+  <CActorRegionQuad id="VolskayaVehicleStormGuideRegionFocusBeamsLeft">
+    <Aliases value="_GuideRegionLeft" />
+    <Aliases value="_Scalable" />
+    <Flags index="SuppressSaveLoad" value="1" />
+    <On Terms="ActorOrphan" Send="Destroy" />
+    <On Terms="RegionSubject.*.AddedFirst" Target="_GuideVisualLeft" Send="ClearTintColor 0.100000 BaseTint" />
+    <On Terms="RegionSubject.*.AddedFirst" Target="_GuideVisualLeft" Send="SetTintColor 0,255,0 0.100000 OneShot Active" />
+    <On Terms="RegionSubject.*.RemovedLast" Target="_GuideVisualLeft" Send="SetTintColor 225,160,25 0.000000 OneShot BaseTint" />
+    <On Terms="RegionSubject.*.RemovedLast" Target="_GuideVisualLeft" Send="ClearTintColor 0.100000 Active" />
+    <On Terms="ActorCreation" Send="QueryPersistent Bogus Bogus AgainstRadiusGame 0.000000 ::QueryCaster StormGuideRegionAdd StormGuideRegionRemove" />
+    <HostSiteOps Ops="SOpMoveLeftBy3 SOpShadow SOpFocusBeamsForwardGuide SOp2DRotation" />
+    <RegionFlags index="UseEffectRange" value="1" />
+  </CActorRegionQuad>
+  <CActorModel id="VolskayaVehicleStormGuideVisualQuadLaunchFantasyFocusBeamsLeft" parent="VolskayaVehicleStormGuideVisualQuadModelFocusBeamsLeft">
+    <Model value="Storm_UI_AOEStretchLine_Start_Fantasy" />
+  </CActorModel>
+  <CActorModel id="VolskayaVehicleStormGuideVisualQuadCenterFantasyFocusBeamsLeft" parent="VolskayaVehicleStormGuideVisualQuadModelFocusBeamsLeft">
+    <Model value="Storm_UI_AOEStretchLine_Mid_Fantasy" />
+  </CActorModel>
+  <CActorModel id="VolskayaVehicleStormGuideVisualQuadImpactFantasyFocusBeamsLeft" parent="VolskayaVehicleStormGuideVisualQuadModelFocusBeamsLeft">
+    <Model value="Storm_UI_AOEStretchLine_End_Fantasy" />
+  </CActorModel>
+  <CActorModel id="VolskayaVehicleStormGuideVisualQuadModelFocusBeamsRight" parent="ModelAnimationStyleContinuous">
+    <Aliases value="_GuideQuadSegment" />
+    <Flags index="SuppressSaveLoad" value="1" />
+    <Inherits index="CastShadows" value="1" />
+    <Inherits index="CloakEffect" value="1" />
+    <Inherits index="Decal" value="1" />
+    <Inherits index="Opacity" value="1" />
+    <Inherits index="TeamColor" value="1" />
+    <Inherits index="TimeScale" value="1" />
+    <Inherits index="TintColor" value="1" />
+    <Inherits index="Visibility" value="1" />
+    <Inherits index="WarpGroup" value="1" />
+    <FogVisibility value="Visible" />
+    <HostForProps Subject="_GuideVisualRight" />
+  </CActorModel>
+  <CActorRegionQuad id="VolskayaVehicleStormGuideRegionFocusBeamsRight">
+    <Aliases value="_GuideRegionRight" />
+    <Aliases value="_Scalable" />
+    <Flags index="SuppressSaveLoad" value="1" />
+    <On Terms="ActorOrphan" Send="Destroy" />
+    <On Terms="RegionSubject.*.AddedFirst" Target="_GuideVisualRight" Send="ClearTintColor 0.100000 BaseTint" />
+    <On Terms="RegionSubject.*.AddedFirst" Target="_GuideVisualRight" Send="SetTintColor 0,255,0 0.100000 OneShot Active" />
+    <On Terms="RegionSubject.*.RemovedLast" Target="_GuideVisualRight" Send="SetTintColor 225,160,25 0.000000 OneShot BaseTint" />
+    <On Terms="RegionSubject.*.RemovedLast" Target="_GuideVisualRight" Send="ClearTintColor 0.100000 Active" />
+    <On Terms="ActorCreation" Send="QueryPersistent Bogus Bogus AgainstRadiusGame 0.000000 ::QueryCaster StormGuideRegionAdd StormGuideRegionRemove" />
+    <HostSiteOps Ops="SOpMoveRightBy3 SOpShadow SOpFocusBeamsForwardGuide SOp2DRotation" />
+    <RegionFlags index="UseEffectRange" value="1" />
+  </CActorRegionQuad>
+  <CActorModel id="VolskayaVehicleStormGuideVisualQuadLaunchFantasyFocusBeamsRight" parent="VolskayaVehicleStormGuideVisualQuadModelFocusBeamsRight">
+    <Model value="Storm_UI_AOEStretchLine_Start_Fantasy" />
+  </CActorModel>
+  <CActorModel id="VolskayaVehicleStormGuideVisualQuadCenterFantasyFocusBeamsRight" parent="VolskayaVehicleStormGuideVisualQuadModelFocusBeamsRight">
+    <Model value="Storm_UI_AOEStretchLine_Mid_Fantasy" />
+  </CActorModel>
+  <CActorModel id="VolskayaVehicleStormGuideVisualQuadImpactFantasyFocusBeamsRight" parent="VolskayaVehicleStormGuideVisualQuadModelFocusBeamsRight">
+    <Model value="Storm_UI_AOEStretchLine_End_Fantasy" />
+  </CActorModel>
+  <CActorSiteOpForward id="SOpFocusBeamsForwardGuide">
+    <HostForward Subject="VolskayaVehicleFocusBeamsCursorSplat" Actor="Find" />
+  </CActorSiteOpForward>
+  <CActorRegionCircle id="VolskayaVehicleGuideRegionCircle" parent="StormGuideRegionCircle">
+    <On Terms="ActorCreation" Target="::Host" Send="SetScale 2.000000" />
+    <On Terms="ActorOrphan" Send="Destroy" />
+    <On Terms="RegionSubject.*.AddedFirst" Target="_VolskayaVehicleCircleGuideVisual" Send="ClearTintColor 0.100000 BaseTint" />
+    <On Terms="RegionSubject.*.AddedFirst" Target="_VolskayaVehicleCircleGuideVisual" Send="SetTintColor 0,255,0 0.100000 OneShot Active" />
+    <On Terms="RegionSubject.*.RemovedLast" Target="_VolskayaVehicleCircleGuideVisual" Send="SetTintColor 225,160,25 0.000000 OneShot BaseTint" />
+    <On Terms="RegionSubject.*.RemovedLast" Target="_VolskayaVehicleCircleGuideVisual" Send="ClearTintColor 0.100000 Active" />
+    <On Terms="ActorCreation" Send="QueryPersistent StormGuideRegionAdd StormGuideRegionRemove AgainstRadiusGame" />
+    <Remove Terms="ActorOrphan" Send="Destroy" />
+    <Remove Terms="RegionSubject.*.AddedFirst" Target="_GuideVisual" Send="ClearTintColor 0.100000 BaseTint" />
+    <Remove Terms="RegionSubject.*.AddedFirst" Target="_GuideVisual" Send="SetTintColor 0,255,0 0.100000 OneShot Active" />
+    <Remove Terms="RegionSubject.*.RemovedLast" Target="_GuideVisual" Send="SetTintColor 225,160,25 0.000000 OneShot BaseTint" />
+    <Remove Terms="RegionSubject.*.RemovedLast" Target="_GuideVisual" Send="ClearTintColor 0.100000 Active" />
+    <Remove Terms="ActorCreation" Send="QueryPersistent StormGuideRegionAdd StormGuideRegionRemove AgainstRadiusGame" />
+    <Aliases index="0" value="_VolskayaVehicleCircleGuideRegion" />
+    <Host Subject="_Unit" />
+  </CActorRegionCircle>
+  <CActorSplat id="VolskayaVehicleFocusBeamsCursorSplat" parent="StormGuideVisualCircle" abil="VolskayaVehicleFocusBeams">
+    <Aliases index="0" value="_VolskayaVehicleCircleGuideVisual" />
+    <Remove Terms="ActorCreation" Send="Create StormGuideRegionCircle" />
+    <Remove Terms="ActorDestruction" Target="_GuideRegion" Send="Destroy" />
+    <On Terms="Signal.*.SiteOpsBase" Target="VolskayaVehicleFocusBeamsGuideLeft" Send="Signal SiteOpsBase" />
+    <On Terms="Signal.*.SiteOpsBase" Target="VolskayaVehicleFocusBeamsGuideRight" Send="Signal SiteOpsBase" />
+    <On Terms="Signal.*.SiteOpsFollow" Target="VolskayaVehicleFocusBeamsGuideLeft" Send="Signal SiteOpsFollow" />
+    <On Terms="Signal.*.SiteOpsFollow" Target="VolskayaVehicleFocusBeamsGuideRight" Send="Signal SiteOpsFollow" />
+    <On Terms="ActorCreation" Send="Create VolskayaVehicleGuideRegionCircle" />
+    <On Terms="ActorCreation" Send="SetOpacity" />
+    <On Terms="ActorDestruction" Target="_VolskayaVehicleCircleGuideVisual" Send="Destroy" />
+    <On Terms="ActorDestruction" Target="VolskayaVehicleGuideRegionCircle" Send="Destroy" />
+    <Host Subject="_VolskayaVehicleCircleGuideRegion" />
+    <Model value="VolskayaVehicleFocusBeamsCursorSplat" />
+  </CActorSplat>
+  <CActorSplat id="VolskayaVehicleFocusBeamsCursorSplatCaster" parent="StormGuideVisualCircle" abil="VolskayaVehicleFocusBeams">
+    <Aliases index="0" value="_WizardCircleGuideVisualCaster" />
+    <Remove Terms="ActorCreation" Send="Create StormGuideRegionCircle" />
+    <Remove Terms="ActorDestruction" Target="_GuideRegion" Send="Destroy" />
+    <Remove Terms="Abil.VolskayaVehicleFocusBeams.Guide" Send="Create" />
+    <On Terms="Abil.VolskayaVehicleFocusBeams.ButtonHoverOn" Send="Create" />
+    <On Terms="Abil.VolskayaVehicleFocusBeams.ButtonHoverOn" Target="::Cursor" Send="Signal SiteOpsBase" />
+    <On Terms="Abil.VolskayaVehicleFocusBeams.ButtonHoverOff" Send="Destroy" />
+    <On Terms="Abil.VolskayaVehicleFocusBeams.TargetOn" Send="Create" />
+    <On Terms="Abil.VolskayaVehicleFocusBeams.TargetOn" Target="::Cursor" Send="Signal SiteOpsFollow" />
+    <On Terms="Abil.VolskayaVehicleFocusBeams.TargetOff" Send="Destroy" />
+    <On Terms="ActorCreation" Send="Create VolskayaVehicleGuideRegionCircleCaster" />
+    <On Terms="ActorCreation" Send="SetOpacity" />
+    <On Terms="ActorDestruction" Target="_VolskayaVehicleCircleGuideVisualCaster" Send="Destroy" />
+    <On Terms="ActorDestruction" Target="VolskayaVehicleGuideRegionCircleCaster" Send="Destroy" />
+    <Host Subject="_VolskayaVehicleCircleGuideRegionCaster" />
+    <Model value="VolskayaVehicleFocusBeamsCursorSplat" />
+  </CActorSplat>
+  <CActorRegionCircle id="VolskayaVehicleGuideRegionCircleCaster" parent="StormGuideRegionCircle">
+    <Remove Terms="ActorOrphan" Send="Destroy" />
+    <Remove Terms="RegionSubject.*.AddedFirst" Target="_GuideVisual" Send="ClearTintColor 0.100000 BaseTint" />
+    <Remove Terms="RegionSubject.*.AddedFirst" Target="_GuideVisual" Send="SetTintColor 0,255,0 0.100000 OneShot Active" />
+    <Remove Terms="RegionSubject.*.RemovedLast" Target="_GuideVisual" Send="SetTintColor 225,160,25 0.000000 OneShot BaseTint" />
+    <Remove Terms="RegionSubject.*.RemovedLast" Target="_GuideVisual" Send="ClearTintColor 0.100000 Active" />
+    <Remove Terms="ActorCreation" Send="QueryPersistent StormGuideRegionAdd StormGuideRegionRemove AgainstRadiusGame" />
+    <Aliases index="0" value="_VolskayaVehicleCircleGuideRegionCaster" />
+    <Host Subject="_Unit" />
+  </CActorRegionCircle>
+  <CActorQuad id="VolskayaVehicleFocusBeamsGuideCenter" parent="StormGuideVisualQuadDownClosestFantasy" abil="VolskayaVehicleFocusBeams">
+    <Height value="12.800000" />
+    <Width value="0.500000" />
+    <Aliases value="_GuideFocusBeamsCenter" />
+    <On Terms="ActorCreation" Send="SetOpacity" />
+  </CActorQuad>
+  <CActorQuad id="VolskayaVehicleFocusBeamsGuideLeft">
+    <Aliases value="_GuideVisualLeft" />
+    <Aliases value="_Scalable" />
+    <LaunchActor value="VolskayaVehicleStormGuideVisualQuadLaunchFantasyFocusBeamsLeft" />
+    <CenterActor value="VolskayaVehicleStormGuideVisualQuadCenterFantasyFocusBeamsLeft" />
+    <ImpactActor value="VolskayaVehicleStormGuideVisualQuadImpactFantasyFocusBeamsLeft" />
+    <Flags index="SuppressSaveLoad" value="1" />
+    <On Terms="Abil.VolskayaVehicleFocusBeams.Guide" Send="Create" />
+    <On Terms="ActorDestruction" Target="_GuideRegionLeft" Send="Destroy" />
+    <On Terms="ActorDestruction" Target="_GuideQuadSegment" Send="Destroy" />
+    <On Terms="ActorOrphan" Send="Destroy" />
+    <On Terms="ActorCreation" Send="SetTintColor 225,160,25 0.000000 OneShot BaseTint" />
+    <On Terms="ActorCreation; IsActorLocalPlayer" Send="Create VolskayaVehicleStormGuideRegionFocusBeamsLeft" />
+    <On Terms="ActorCreation; IsActorLocalPlayer" Send="HostSiteOpsSet ::Host {SOpMoveLeftBy3 SOpShadow SOp2DRotation}" />
+    <On Terms="Signal.*.SiteOpsFollow" Send="HostSiteOpsSet ::Host {SOpMoveLeftBy3 SOpShadow SOpFocusBeamsForwardGuide SOp2DRotation}" />
+    <On Terms="Signal.*.SiteOpsBase" Send="HostSiteOpsSet ::Host {SOpMoveLeftBy3 SOpShadow SOp2DRotation}" />
+    <On Terms="Signal.*.SiteOpsFollow" Target="VolskayaVehicleStormGuideRegionFocusBeamsLeft" Send="HostSiteOpsSet ::Host {SOpMoveLeftBy3 SOpShadow SOpFocusBeamsForwardGuide SOp2DRotation}" />
+    <On Terms="Signal.*.SiteOpsBase" Target="VolskayaVehicleStormGuideRegionFocusBeamsLeft" Send="HostSiteOpsSet ::Host {SOpMoveLeftBy3 SOpShadow SOp2DRotation}" />
+    <Quad value="-0.500000,-1.000000,0.500000,0.000000" />
+    <Height value="12.800000" />
+    <Width value="0.500000" />
+    <Host Subject="_GuideFocusBeamsCenter" />
+  </CActorQuad>
+  <CActorQuad id="VolskayaVehicleFocusBeamsGuideRight">
+    <Aliases value="_GuideVisualRight" />
+    <Aliases value="_Scalable" />
+    <LaunchActor value="VolskayaVehicleStormGuideVisualQuadLaunchFantasyFocusBeamsRight" />
+    <CenterActor value="VolskayaVehicleStormGuideVisualQuadCenterFantasyFocusBeamsRight" />
+    <ImpactActor value="VolskayaVehicleStormGuideVisualQuadImpactFantasyFocusBeamsRight" />
+    <Flags index="SuppressSaveLoad" value="1" />
+    <On Terms="Abil.VolskayaVehicleFocusBeams.Guide" Send="Create" />
+    <On Terms="ActorDestruction" Target="_GuideRegionLeft" Send="Destroy" />
+    <On Terms="ActorDestruction" Target="_GuideQuadSegment" Send="Destroy" />
+    <On Terms="ActorOrphan" Send="Destroy" />
+    <On Terms="ActorCreation" Send="SetTintColor 225,160,25 0.000000 OneShot BaseTint" />
+    <On Terms="ActorCreation" Send="Create VolskayaVehicleStormGuideRegionFocusBeamsRight" />
+    <On Terms="ActorCreation" Send="HostSiteOpsSet ::Host {SOpMoveRightBy3 SOpShadow SOp2DRotation}" />
+    <On Terms="Signal.*.SiteOpsFollow" Send="HostSiteOpsSet ::Host {SOpMoveRightBy3 SOpShadow SOpFocusBeamsForwardGuide SOp2DRotation}" />
+    <On Terms="Signal.*.SiteOpsBase" Send="HostSiteOpsSet ::Host {SOpMoveRightBy3 SOpShadow SOp2DRotation}" />
+    <On Terms="Signal.*.SiteOpsFollow" Target="VolskayaVehicleStormGuideRegionFocusBeamsRight" Send="HostSiteOpsSet ::Host {SOpMoveRightBy3 SOpShadow SOpFocusBeamsForwardGuide SOp2DRotation}" />
+    <On Terms="Signal.*.SiteOpsBase" Target="VolskayaVehicleStormGuideRegionFocusBeamsRight" Send="HostSiteOpsSet ::Host {SOpMoveRightBy3 SOpShadow SOp2DRotation}" />
+    <Quad value="-0.500000,-1.000000,0.500000,0.000000" />
+    <Height value="12.800000" />
+    <Width value="0.500000" />
+    <Host Subject="_GuideFocusBeamsCenter" />
+  </CActorQuad>
+  <CActorSound id="Doodad_OWVol_Civilian" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWVol_Jungle_H_01" parent="SoundContinuous">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWVol_Jungle_I_00" parent="SoundContinuous">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWVol_Jungle_P" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWVol_JungleCrane_Q_PT1" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWVol_JungleCrane_Q_PT2" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWVol_JungleCrane_Q_PT3" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWVol_JungleCrane_Q_PT4" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Doodad_OWVol_Core_Birth" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_TShield_Launch_Ally" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <On Terms="Abil.VolskayaVehicleTShield.SourceCastStart" Send="Create" />
+    <Host Subject="_Unit" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_TShield_Launch_Enemy" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <On Terms="Abil.VolskayaVehicleTShield.SourceCastStart" Send="Create" />
+    <Host Subject="_Unit" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Filter index="Self" value="1" />
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_TShield_Expand" parent="SoundContinuous">
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_TShield_BuffStart" parent="SoundOneShot">
+    <Filter index="All" value="1" />
+    <VisibleToAtCreation index="Target" value="1" />
+    <On Terms="Effect.VolskayaVehicleTShieldApplyBehavior.Start; At Target" Send="Create" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_TShield_Impact" parent="SoundOneShot">
+    <On Terms="Effect.VolskayaVehicleTShieldImpactSet.Start; At Target" Send="Create" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Exit_End" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <FilterAtCreation index="Caster" value="1" />
+    <On Terms="Effect.Event_Volskaya_Vehicle_Exit_End.Start; At Target" Send="Create" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Exit_End_PLR" parent="SoundOneShot">
+    <On Terms="Effect.LeaveVehicleSet.Start; At Caster" Send="Create" />
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Exit_End_Empty" parent="SoundOneShot">
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Exit_Start" parent="SoundOneShot">
+    <On Terms="Effect.LeaveVehicleApplyLeavingBehavior.Start; At Caster" Send="Create" />
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Birth_Start" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <Layers Sound="Event_Volskaya_Vehicle_Attack_Launch2" VolumeSource="Actor" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Alarm" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Birth_End" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <On Terms="ActorCreation" Target="Event_Volskaya_Vehicle_Birth_Start" Send="Destroy" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_FS" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_FS_StandStart" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_FS_WalkStart" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Active_Loop" parent="SoundContinuous">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Inactive_Loop" parent="SoundContinuous">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_FS_Servo" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Host Subject="::Creator" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Enter_Channel" parent="SoundOneShot">
+    <On Terms="Behavior.CommandeeringVehicle.On" Send="Create" />
+    <On Terms="Behavior.CommandeeringVehicle.off" Send="Destroy" />
+    <HostSiteOps Ops="SOpChannel" HoldPosition="1" HoldRotation="1" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Enter_Channel_PLR" parent="SoundOneShot">
+    <On Terms="Behavior.CommandeeringVehicle.On" Send="Create" />
+    <On Terms="Behavior.CommandeeringVehicle.off" Send="Destroy" />
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Swap_Start_Pilot" parent="SoundOneShot">
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <On Terms="Abil.VehicleGenericSwapVehicle.SourceCastStart; ValidateUnit CasterIsGunner" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_CriticalDamage" parent="SoundOneShot">
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_CriticalDamage_Continuous" parent="SoundOneShot">
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Swap_End_Pilot" parent="SoundOneShot">
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <On Terms="Abil.VehicleGenericSwapVehicle.SourceCastStop; ValidateUnit VehicleGenericCasterIsAttachedVehicle" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Swap_Start_Gunner" parent="SoundOneShot">
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <On Terms="Abil.VehicleGenericSwapVehicle.SourceCastStart; ValidateUnit VehicleGenericCasterIsMainVehicle" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Event_Volskaya_Vehicle_Swap_End_Gunner" parent="SoundOneShot">
+    <Filter index="Ally" value="1" />
+    <Filter index="Neutral" value="1" />
+    <Filter index="Enemy" value="1" />
+    <VisibleToAtCreation index="Caster" value="1" />
+    <Inherits index="Visibility" value="0" />
+    <Host Subject="_Unit" />
+    <On Terms="Abil.VehicleGenericSwapVehicle.SourceCastStop; ValidateUnit VehicleGenericCasterIsMainVehicle" Send="Create" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="Doodad_Volskaya_CapturePoint_Active" parent="SoundOneShot">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <SoundFlags index="UpdateVisibility" value="0" />
+    <On Terms="Effect.Doodad_Volskaya_CapturePoint_Active.Start; At Effect" Send="Create" />
+  </CActorSound>
+  <CActorUnit id="TownGateL3BRULBLVisionBlocked">
+    <On Terms="AnimDone; AnimName Build; ModelName TownGateBirthModel" Send="ModelSwap TownGateL2" />
+    <On Terms="Behavior.BuildingMediumDamage.On" Send="ModelSwap TownGateDamaged" />
+    <On Terms="UnitDeathCustomize" Send="DeathCustomize Variation0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL3VerticalLeftVisionBlocked">
+    <On Terms="AnimDone; AnimName Build; ModelName TownGateBirthModel" Send="ModelSwap TownGateL2" />
+    <On Terms="Behavior.BuildingMediumDamage.On" Send="ModelSwap TownGateDamaged" />
+    <On Terms="UnitDeathCustomize" Send="DeathCustomize Variation0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL3BLURTLVisionBlocked">
+    <On Terms="AnimDone; AnimName Build; ModelName TownGateBirthModel" Send="ModelSwap TownGateL2" />
+    <On Terms="Behavior.BuildingMediumDamage.On" Send="ModelSwap TownGateDamaged" />
+    <On Terms="UnitDeathCustomize" Send="DeathCustomize Variation0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL215BLUR">
+    <On Terms="AnimDone; AnimName Build; ModelName TownGateBirthModel" Send="ModelSwap TownGateL2" />
+    <On Terms="Behavior.BuildingMediumDamage.On" Send="ModelSwap TownGateDamaged" />
+    <On Terms="UnitDeathCustomize" Send="DeathCustomize Variation0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL215BRUL">
+    <On Terms="AnimDone; AnimName Build; ModelName TownGateBirthModel" Send="ModelSwap TownGateL2" />
+    <On Terms="Behavior.BuildingMediumDamage.On" Send="ModelSwap TownGateDamaged" />
+    <On Terms="UnitDeathCustomize" Send="DeathCustomize Variation0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL3BRULTRVisionBlocked">
+    <On Terms="AnimDone; AnimName Build; ModelName TownGateBirthModel" Send="ModelSwap TownGateL2" />
+    <On Terms="Behavior.BuildingMediumDamage.On" Send="ModelSwap TownGateDamaged" />
+    <On Terms="UnitDeathCustomize" Send="DeathCustomize Variation0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL3BLURBRVisionBlocked">
+    <On Terms="AnimDone; AnimName Build; ModelName TownGateBirthModel" Send="ModelSwap TownGateL2" />
+    <On Terms="Behavior.BuildingMediumDamage.On" Send="ModelSwap TownGateDamaged" />
+    <On Terms="UnitDeathCustomize" Send="DeathCustomize Variation0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL2HorizontalBotVisionBlocked">
+    <On Terms="AnimDone; AnimName Build; ModelName TownGateBirthModel" Send="ModelSwap TownGateL2" />
+    <On Terms="Behavior.BuildingMediumDamage.On" Send="ModelSwap TownGateDamaged" />
+    <On Terms="UnitDeathCustomize" Send="DeathCustomize Variation0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL2BLURBRVisionBlocked">
+    <On Terms="AnimDone; AnimName Build; ModelName TownGateBirthModel" Send="ModelSwap TownGateL2" />
+    <On Terms="Behavior.BuildingMediumDamage.On" Send="ModelSwap TownGateDamaged" />
+    <On Terms="UnitDeathCustomize" Send="DeathCustomize Variation0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL2BLURTLVisionBlocked">
+    <On Terms="AnimDone; AnimName Build; ModelName TownGateBirthModel" Send="ModelSwap TownGateL2" />
+    <On Terms="Behavior.BuildingMediumDamage.On" Send="ModelSwap TownGateDamaged" />
+    <On Terms="UnitDeathCustomize" Send="DeathCustomize Variation0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownGateL2HorizontalTopVisionBlocked">
+    <On Terms="AnimDone; AnimName Build; ModelName TownGateBirthModel" Send="ModelSwap TownGateL2" />
+    <On Terms="Behavior.BuildingMediumDamage.On" Send="ModelSwap TownGateDamaged" />
+    <On Terms="UnitDeathCustomize" Send="DeathCustomize Variation0" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Gate.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial4L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial5L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial6L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial7L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial8L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial9L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial20L2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial2L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial3L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial5L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial6L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial8L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial9L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial14L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial15L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial16L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial17L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial18L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial19L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial20L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="TownWallRadial21L3">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Wall.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorRange id="VolskayaVehicleSkyLaserRange" parent="StormRangeAbilPlusSplat" abil="VolskayaVehicleSkyLaser" />
+  <CActorSplat id="VolskayaVehicleSkyLaserRangeSplat" parent="StormRangeSplat">
+    <Scale value="10.500000" />
+  </CActorSplat>
+  <CActorEventMacro id="ControlPointDoodadMacro">
+    <On Terms="Signal.*.EnablePoint" Send="AnimClear Stand" />
+    <On Terms="Signal.*.EnablePoint" Send="AnimBracketStart Morphing Stand,Morph,Start Stand,Morph Stand,Morph,End" />
+    <On Terms="Signal.*.SetOwnerNeutral" Send="SetPlayerId" />
+    <On Terms="Signal.*.SetOwnerNeutral" Send="AnimClear Working" />
+    <On Terms="Signal.*.SetOwnerNeutral" Send="AnimSetPaused Morphing 0" />
+    <On Terms="Signal.*.SetOwnerOrder" Send="SetPlayerId 11" />
+    <On Terms="Signal.*.SetOwnerOrder" Send="AnimSetPaused Morphing" />
+    <On Terms="Signal.*.SetOwnerOrder" Send="AnimPlay Working Stand,Work PlayForever" />
+    <On Terms="Signal.*.SetOwnerChaos" Send="SetPlayerId 12" />
+    <On Terms="Signal.*.SetOwnerChaos" Send="AnimSetPaused Morphing" />
+    <On Terms="Signal.*.SetOwnerChaos" Send="AnimPlay Working Stand,Work PlayForever" />
+    <On Terms="Signal.*.DisablePoint" Send="AnimClear Working" />
+    <On Terms="Signal.*.DisablePoint" Send="AnimSetPaused Morphing 0" />
+    <On Terms="Signal.*.DisablePoint" Send="AnimBracketStop Morphing" />
+    <On Terms="AnimDone; AnimName Morphing" Send="SetPlayerId" />
+    <On Terms="AnimDone; AnimName Morphing" Send="AnimPlay Stand Stand PlayForever" />
+  </CActorEventMacro>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_A">
+    <Aliases value="_ControlPointDoodad" />
+    <Macros value="ControlPointDoodadMacro" />
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_B">
+    <Aliases value="_ControlPointDoodad" />
+    <Macros value="ControlPointDoodadMacro" />
+    <EditorCategories value="DoodadType:Environment" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_C">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_D">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_E">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_F">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_G">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_H">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_I">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_J">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_K">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_L">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_M">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_N">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_O">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_P">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_Q">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_R">
+    <Aliases value="_ControlPointDoodad" />
+    <Macros value="ControlPointDoodadMacro" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_S">
+    <Aliases value="_ControlPointDoodad" />
+    <Macros value="ControlPointDoodadMacro" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_T">
+    <Aliases value="_ControlPointDoodad" />
+    <Macros value="ControlPointDoodadMacro" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_U">
+    <Aliases value="_ControlPointDoodad" />
+    <Macros value="ControlPointDoodadMacro" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_V">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_W">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_X">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_Y">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_Z">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AA">
+    <Aliases value="_ControlPointDoodad" />
+    <Macros value="ControlPointDoodadMacro" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AB">
+    <Aliases value="_ControlPointDoodad" />
+    <Macros value="ControlPointDoodadMacro" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AC">
+    <Aliases value="_ControlPointDoodad" />
+    <Macros value="ControlPointDoodadMacro" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AD">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AE">
+    <Aliases value="_ControlPointDoodad" />
+    <Aliases value="_CreepEngulfable" />
+    <Macros value="ControlPointDoodadMacro" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <CreepHeightClass value="Default" />
+    <CreepRateGrow value="Grow" />
+    <CreepRateShrink value="Shrink" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AF">
+    <Aliases value="_ControlPointDoodad" />
+    <Aliases value="_CreepEngulfable" />
+    <Macros value="ControlPointDoodadMacro" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <CreepHeightClass value="Default" />
+    <CreepRateGrow value="Grow" />
+    <CreepRateShrink value="Shrink" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AG">
+    <Aliases value="_ControlPointDoodad" />
+    <Aliases value="_CreepEngulfable" />
+    <Macros value="ControlPointDoodadMacro" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <CreepHeightClass value="Default" />
+    <CreepRateGrow value="Grow" />
+    <CreepRateShrink value="Shrink" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AH">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AI">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AJ">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AK">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AL">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AM">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AN">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AO">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AP">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AQ">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AR">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AS">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AT">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AU">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AV">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_AW">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BA">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BB">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BC">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BD">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BE">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BF">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BG">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BH">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BI">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BJ">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BK">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BL">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BM">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BN">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BO">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BP">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BQ">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BR">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Jungle_BS">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_FrozenLake">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <On index="1" Terms="ActorCreation" Send="AnimPlay Stand Stand PlayForever" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_GateBase">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Street">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_Grate">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+    <Aliases value="_CreepEngulfable" />
+    <CreepHeightClass value="Default" />
+    <CreepRateGrow value="Grow" />
+    <CreepRateShrink value="Shrink" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_FX_OWVol_Clouds">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_FX_OWVol_SnowDrift">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_FX_OWVol_SnowFall">
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <RandomScaleRange value="1.000000,1.000000" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_StartingPlatform_Town" parent="Storm_Doodad_KingsCrest_StartingPlatform">
+    <Model value="Storm_Doodad_OWVol_StartingPlatform_Town" />
+  </CActorDoodad>
+  <CActorDoodad id="Storm_Doodad_OWVol_StartingPlatform_Factory" parent="Storm_Doodad_KingsCrest_StartingPlatform">
+    <Model value="Storm_Doodad_OWVol_StartingPlatform_Factory" />
+  </CActorDoodad>
+  <CActorUnit id="TownMercCampCaptureBeacon">
+    <On Terms="Signal.*.BeaconCreated" Send="AnimPlay Birth Birth DontResetOnUnhide 0.000000 -1.000000 1.000000 AsTimeScale" />
+    <On Terms="Signal.*.BeaconCreated" Send="AnimGlobalLoopsStart" />
+    <On Terms="Signal.*.BeaconCreated" Send="AnimGroupApply A {} {} Instant" />
+  </CActorUnit>
+  <CActorUnit id="WizardMinion">
+    <DeathArray index="Normal" SoundLink="Minion_OWVol_Death" VoiceLink="Minion_OWVol_Death_Vox" />
+    <ImpactSound value="Unit_OWVol_Minion_Impact" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Minion_Wizard.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorAction id="WizardMinionAttack">
+    <ImpactMap index="None" Sound="Minion_OWVol_Wizard_AttackImpact" />
+    <LaunchAssets Sound="Minion_OWVol_Wizard_AttackLaunch" />
+  </CActorAction>
+  <CActorUnit id="KingsCore">
+    <On Terms="AssetPreInit" Send="ModelLinkCustomize CoreBirthModel" />
+    <On Terms="ActorCreation" Send="AnimBracketStart CoreStart IGNORE Stand,Work Stand,Work,End ContentNonLooping,OpeningPlayForever,Instant" />
+    <On Terms="ActorCreation" Send="SetShowStatusBar" />
+    <On Terms="AnimDone; AnimName CoreStart" Send="ModelSwap CoreKingsCrestBase" />
+    <On Terms="AnimDone; AnimName CoreStart" Send="SetShowStatusBar 1" />
+    <On Terms="AnimDone; AnimName CoreStart" Send="AnimSetTime ::Baseline" />
+    <On Terms="Effect.KingsCoreWeaponSearch; At Caster" Send="AnimPlay Attack Attack NonLooping" />
+    <On Terms="ActorCreation" Send="Create DoodadCoreStandLoopSound" />
+    <On Terms="ActorDestruction" Target="DoodadCoreStandLoopSound" Send="Destroy" />
+    <DeathArray index="Normal" SoundLink="Doodad_Core_Death" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Building_Core.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorSound id="Doodad_CoreShield_Stand_Loop" parent="SoundContinuous">
+    <Host Subject="_Unit" />
+    <Terms value="Cap 1" />
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+  </CActorSound>
+  <CActorSound id="DoodadCoreStandLoopSound" parent="SoundContinuous">
+    <Inherits index="Visibility" value="0" />
+    <FogVisibility value="Visible" />
+    <Sound value="Doodad_Core_Stand_Loop" />
+  </CActorSound>
+  <CActorUnit id="MercSiegeTrooperDefender">
+    <On Terms="UnitMovementUpdate.*.Walk" Send="Create MercSiegeTrooperMoveStartSound" />
+    <On Terms="UnitMovementUpdate.*.Walk" Target="MercSiegeTrooperIdleLoopSound" Send="Destroy" />
+    <On Terms="UnitMovementUpdate.*.Stand" Send="Create MercSiegeTrooperIdleLoopSound" />
+    <On Terms="UnitMovementUpdate.*.Stand" Send="Create MercSiegeTrooperMoveStopSound" />
+    <On Terms="UnitMovementUpdate.*.Walk" Send="Create MercSiegeTrooperMoveLoopSound" />
+    <On Terms="UnitMovementUpdate.*.Stand" Target="MercSiegeTrooperMoveLoopSound" Send="Destroy" />
+    <On Terms="ActorCreation" Send="Create MercSiegeTrooperIdleLoopSound" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Merc_Siege.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="MercSiegeTrooperLaner">
+    <On Terms="UnitMovementUpdate.*.Walk" Send="Create MercSiegeTrooperMoveStartSound" />
+    <On Terms="UnitMovementUpdate.*.Walk" Target="MercSiegeTrooperIdleLoopSound" Send="Destroy" />
+    <On Terms="UnitMovementUpdate.*.Stand" Send="Create MercSiegeTrooperIdleLoopSound" />
+    <On Terms="UnitMovementUpdate.*.Stand" Send="Create MercSiegeTrooperMoveStopSound" />
+    <On Terms="UnitMovementUpdate.*.Walk" Send="Create MercSiegeTrooperMoveLoopSound" />
+    <On Terms="UnitMovementUpdate.*.Stand" Target="MercSiegeTrooperMoveLoopSound" Send="Destroy" />
+    <On Terms="ActorCreation" Send="Create MercSiegeTrooperIdleLoopSound" />
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Volskaya_Merc_Siege.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorAction id="KingsCoreAttack">
+    <LaunchAssets Model="Invisible" />
+    <ImpactMap index="None" Sound="" />
+    <ImpactMap index="Shield" Sound="" />
+  </CActorAction>
+  <CActorSound id="WizardMinionAttackImpactPlayerSound">
+    <Sound value="Minion_OWVol_Wizard_AttackImpact_Player" />
+  </CActorSound>
+</Catalog>

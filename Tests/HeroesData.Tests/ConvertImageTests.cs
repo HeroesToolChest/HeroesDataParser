@@ -1,4 +1,3 @@
-using DDSReader;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SixLabors.ImageSharp;
 using SixLabors.Primitives;
@@ -47,6 +46,17 @@ namespace HeroesData.Tests
 
             Assert.AreEqual(148, newImage.Height);
             Assert.AreEqual(148, newImage.Width);
+        }
+
+        [TestMethod]
+        public void TextureSheetIntoAGifTest()
+        {
+            string file = "storm_emoji_cat_gleam_anim_sheet.dds";
+            DDSImage image = new DDSImage(file);
+
+            image.SaveAsGif(Path.ChangeExtension(file, "gif"), new Size(34, 32), new Size(40, 32), 25, 50);
+
+            Assert.IsTrue(File.Exists(Path.ChangeExtension(file, "gif")));
         }
     }
 }

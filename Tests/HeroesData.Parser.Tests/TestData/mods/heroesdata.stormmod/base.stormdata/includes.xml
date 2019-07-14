@@ -7,4 +7,12 @@
   <Path value="Mods/HeroMods/Junkrat.StormMod" />
   <Path value="Mods/HeroMods/Mephisto.StormMod" />
   <Path value="Mods/HeroMods/Tracer.StormMod" />
+  <Path value="Mods/HeroMods/Chromie.StormMod" />
+  <Path value="Mods/HeroMods/Yrel.StormMod" />
+  <Path value="Mods/HeroMods/Alexstrasza.StormMod" />
+  <Path value="Mods/HeroMods/Alarak.StormMod" />
+  <Path value="Mods/HeroMods/Samuro.StormMod" />
+  <Path value="Mods/HeroMods/Medivh.StormMod" />
+  <Path value="Mods/HeroMods/Imperius.StormMod" />
+  <Path value="Mods/HeroMods/Chogall.StormMod" />
 </Includes>

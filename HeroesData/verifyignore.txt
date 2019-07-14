@@ -1,0 +1,105 @@
+﻿## Validation messages to ignore
+
+# --hero data--
+[Abathur] has less than 3 basic abilities
+
+# unit has no health or energy
+[Gall] has no weapons
+[Gall] LifeRegenerationRateScaling is 0
+[Gall] LifeScaling is 0
+
+# this is the vikings controller, each viking has their own weapons and life
+[LostVikings] has no weapons
+[LostVikings] LifeRegenerationRateScaling is 0
+[LostVikings] LifeScaling is 0
+[LostVikings] Sight is 0
+[LostVikings] has less than 3 basic abilities
+[LostVikings] has more than 1 Q ability
+[LostVikings] has more than 1 W ability
+
+# has three heroic abilities
+[Varian] has more than 2 Heroic abilities
+
+# has three heroic subabilities
+[Zeratul] has more than 2 Heroic subabilities for ZeratulMightOfTheNerazimDummy|ZeratulMightOfTheNerazimPassive
+
+# --unit data--
+# vikings
+[LostVikingsGravestone] has more than 1 Q ability
+[LostVikingsGravestone] has more than 1 W ability
+[BaleogsGravestone] has more than 1 Q ability
+[BaleogsGravestone] has more than 1 W ability
+[OlafsGravestone] has more than 1 Q ability
+[OlafsGravestone] has more than 1 W ability
+[EriksGravestone] has more than 1 Q ability
+[EriksGravestone] has more than 1 W ability
+[LostVikings] [TargetInfoPanelFileName]  is empty
+
+# failed parsing - out of date data references
+[tombofthespiderqueen-JungleGraveGolemLaner] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[overwatchdata-JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[starcraft-TerranRaven] [TerranRavenSeekerMissile|TerranRavenSeekerMissile] FullTooltip failed to parse correctly
+[UnderworldBoss] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[gardenofterrordata-JunglePlantHorror] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[starcraft-TerranRavenDefender] [TerranRavenSeekerMissile|TerranRavenSeekerMissile] FullTooltip failed to parse correctly
+[gardenofterror-GardenTerror] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[JungleGraveGolemLaner] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[tombofthespiderqueen-JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[braxisholdoutdata-TerranArchangelDefender] [TerranArchangelDefenderBulletstorm|TerranArchangelBulletstorm] FullTooltip failed to parse correctly
+[hauntedmines-UnderworldSummonedBoss] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[UnderworldSummonedBoss] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
+[infernalshrinesdata-MercPunisherLaner] [MercPunisherLanerFixate|MercPunisherLanerFixate] FullTooltip failed to parse correctly
+[braxisholdoutdata-TerranArchangelLaner] [TerranArchangelLanerBulletstorm|TerranArchangelBulletstorm] FullTooltip failed to parse correctly
+
+# default announcer has no gender
+[NoAnnouncerPack] Gender is empty
+
+# voice lines for dva pilot
+[DVaBase_VoiceLine01_P] AttributeId is empty
+[DVaBase_VoiceLine01_P] ImageFileName is empty
+[DVaGoliath_VoiceLine04_P] AttributeId is empty
+[DVaGoliath_VoiceLine04_P] ImageFileName is empty
+[DVaGoliath_VoiceLine02_P] AttributeId is empty
+[DVaGoliath_VoiceLine02_P] ImageFileName is empty
+[DVaBase_VoiceLine03_P] AttributeId is empty
+[DVaBase_VoiceLine03_P] ImageFileName is empty
+[DVaBase_VoiceLine05_P] AttributeId is empty
+[DVaBase_VoiceLine05_P] ImageFileName is empty
+[DVaBase_VoiceLine04_P] AttributeId is empty
+[DVaBase_VoiceLine04_P] ImageFileName is empty
+[DVaBase_VoiceLine02_P] AttributeId is empty
+[DVaBase_VoiceLine02_P] ImageFileName is empty
+[DVaGoliath_VoiceLine05_P] AttributeId is empty
+[DVaGoliath_VoiceLine05_P] ImageFileName is empty
+[DVaGoliath_VoiceLine03_P] AttributeId is empty
+[DVaGoliath_VoiceLine03_P] ImageFileName is empty
+[DVaGoliath_VoiceLine01_P] AttributeId is empty
+[DVaGoliath_VoiceLine01_P] ImageFileName is empty
+
+# abstract emoticons do not have images
+[abstract_cool] Image is empty
+[abstract_silly] Image is empty
+[abstract_cool_casesensitive] Image is empty
+[abstract_rofl_casesensitive] Image is empty
+[abstract_inlove] Image is empty
+[abstract_embarrassed] Image is empty
+[abstract_surprised] Image is empty
+[abstract_sad] Image is empty
+[abstract_angry] Image is empty
+[abstract_speechless] Image is empty
+[abstract_happy] Image is empty
+[abstract_rofl] Image is empty
+
+[stukov_army18] Does not contain any aliases.
+
+# emoticon packs
+[AbstractEmoticonPack] Name is empty
+[AbstractEmoticonPack] CollectionCategory is empty
+[SapperPackBonus] Name is empty
+
+# ignore for following data
+[$heroskin] Name is empty
+[$heroskin] SortName is empty
+[$mount] Name is empty
+[$mount] SortName is empty

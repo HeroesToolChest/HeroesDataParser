@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CUnit default="1" id="PickupParent">
+    <FlagArray index="Unhighlightable" value="0" />
+    <FlagArray index="UseLineOfSight" value="1" />
+    <FlagArray index="Invulnerable" value="1" />
+    <FlagArray index="VisionTestCenterOnly" value="1" />
+    <EditorFlags index="NoAutoRotate" value="1" />
+    <PlaneArray index="Ground" value="1" />
+    <BehaviorArray Link="ShowDescriptionTextInTargetPanel" />
+    <BehaviorArray Link="ImmunetoStasisBehavior" />
+    <BehaviorArray Link="IsMacguffin" />
+    <BehaviorArray Link="MacguffinActivated" />
+    <PushPriority value="7000" />
+    <AlliedPushPriority value="7000" />
+    <Collide index="Structure" value="1" />
+  </CUnit>
+  <CUnit id="DragonSpirit" parent="MISSILE_INVULNERABLE">
+    <Race value="Zerg" />
+    <BehaviorArray Link="DragonSpiritTimedLife" />
+    <Height value="1" />
+    <Sight value="6" />
+  </CUnit>
+  <CUnit id="DragonSpiritsPickup" parent="PickupParent">
+    <Race value="Zerg" />
+    <PushPriority value="600" />
+    <Height value="1" />
+  </CUnit>
+  <CUnit id="MercSiegeTrooperDefender">
+    <AbilArray index="1" Link="StormMercenaryAttack" />
+    <CardLayouts index="0">
+      <LayoutButtons index="3" AbilCmd="StormMercenaryAttack,Execute" />
+    </CardLayouts>
+    <KillXP value="90" />
+  </CUnit>
+  <CUnit id="OverwatchBossImprisonMissile" parent="MISSILE_INVULNERABLE">
+    <Race value="Zerg" />
+  </CUnit>
+  <CUnit id="OverwatchBossImprisonMissileDummy" parent="MISSILE_INVULNERABLE">
+    <Race value="Zerg" />
+  </CUnit>
+  <CUnit id="HealingPulsePickup" parent="PickupParent">
+    <Race value="Zerg" />
+    <Height value="2" />
+    <PushPriority value="600" />
+  </CUnit>
+  <CUnit id="MercLanerGoblinSapperAttackMissile">
+    <Mover value="MercOWSapperLanerMissileMover" />
+  </CUnit>
+  <CUnit id="OverwatchBossLaner" parent="StormBossMercLanerParent">
+    <Race value="Zerg" />
+    <Mover value="OverwatchBossFlyer" />
+    <Speed value="8" />
+    <Height value="2" />
+    <BehaviorArray Link="OverwatchBossLaner" />
+    <BehaviorArray Link="OverwatchBossTrail" />
+    <BehaviorArray Link="OverwatchBossSearchForCoreBehavior" />
+    <FlagArray index="Benign" value="1" />
+    <Attributes index="Minion" value="0" />
+    <Attributes index="Merc" value="0" />
+    <Attributes index="NoMinionAggro" value="1" />
+    <AbilArray index="1" Link="move" />
+    <AbilArray index="2" Link="WallCrush" />
+    <AbilArray index="3" removed="1" />
+  </CUnit>
+  <CUnit id="JungleGraveGolemDefender">
+    <AbilArray index="4" Link="DragonsDinner" />
+    <AbilArray index="5" Link="RingOfFire" />
+    <BehaviorArray index="2" Link="OverwatchBossScaling" />
+    <BehaviorArray Link="OverwatchBossSuppressRingOfFire" />
+    <BehaviorArray Link="OverwatchBossAbilityScanPassiveMonitor" />
+    <BehaviorArray Link="OverwatchBossAbilityScan" />
+    <BehaviorArray Link="OverwatchBossBossIsTimeStopped" />
+    <CardLayouts index="0">
+      <LayoutButtons index="5" Face="DragonsDinner" AbilCmd="DragonsDinner,Execute" Slot="Ability1" />
+      <LayoutButtons index="6" Face="RingOfFire" AbilCmd="RingOfFire,Execute" Slot="Ability2" />
+    </CardLayouts>
+    <LifeStart value="15550" />
+    <LifeMax value="15550" />
+    <InnerRadius value="0.125" />
+  </CUnit>
+  <CUnit id="MercDefenderMeleeBruiser" parent="StormMinion">
+    <Description value="Button/Tooltip/MercMeleeKnight" />
+    <DeathRevealRadius value="2" />
+    <Attributes index="Creep" value="1" />
+    <Attributes index="Minion" value="0" />
+    <LifeStart value="1320" />
+    <LifeMax value="1320" />
+    <Speed value="4" />
+    <LateralAcceleration value="46.0625" />
+    <StationaryTurningRate value="999.8437" />
+    <TurningRate value="999.8437" />
+    <RepairTime value="0" />
+    <DamageDealtXP value="0" />
+    <DamageTakenXP value="0" />
+    <BehaviorArray Link="MeleeDefenderBruiserScaling" />
+    <BehaviorArray Link="KnightMeleeDamageResponseBehavior" />
+    <BehaviorArray Link="YakuzaGetHitVOXDamageResponse" />
+    <BehaviorArray Link="MercKnightDeathResponse" />
+    <WeaponArray Link="MercDefenderMeleeKnight" />
+    <Radius value="0.625" />
+    <SeparationRadius value="0.9" />
+    <InnerRadius value="0.3125" />
+    <ScoreResult value="" />
+    <SubgroupPriority value="0" />
+    <MinimapRadius value="0" />
+    <KillDisplay value="Always" />
+    <PushPriority value="700" />
+    <AlliedPushPriority value="800" />
+    <AIBaseThreat value="1" />
+  </CUnit>
+  <CUnit id="MercDefenderMeleeBruiser2" parent="MercDefenderMeleeBruiser" />
+  <CUnit id="MercDefenderMeleeBruiser3" parent="MercDefenderMeleeBruiser" />
+  <CUnit id="MercDefenderMeleeIndividual" parent="StormMinion">
+    <Description value="Button/Tooltip/MercMeleeKnight" />
+    <DeathRevealRadius value="2" />
+    <PushPriority value="700" />
+    <Attributes index="Creep" value="1" />
+    <Attributes index="Minion" value="0" />
+    <FlagArray index="Unstoppable" value="1" />
+    <LifeStart value="5250" />
+    <LifeMax value="5250" />
+    <Speed value="4" />
+    <LateralAcceleration value="46.0625" />
+    <StationaryTurningRate value="199.8632" />
+    <TurningRate value="999.8437" />
+    <RepairTime value="0" />
+    <DamageDealtXP value="0" />
+    <DamageTakenXP value="0" />
+    <AbilArray index="1" Link="StormMercenaryAttack" />
+    <AbilArray Link="MercDefenderHealingPulse" />
+    <BehaviorArray Link="MercDefenderIndividualCampScaling" />
+    <BehaviorArray Link="KnightMeleeDamageResponseBehavior" />
+    <BehaviorArray Link="KnightGetHitVOXDamageResponse" />
+    <BehaviorArray Link="MercKnightDeathResponse" />
+    <BehaviorArray Link="MercDefenderHealingPulseAbilityScanPassiveMonitor" />
+    <BehaviorArray Link="MercDefenderIncinerateAbilityScan" />
+    <BehaviorArray Link="JungleCreepUsesPrepAggro" />
+    <BehaviorArray Link="UnbribableMerc" />
+    <BehaviorArray Link="ImmunetoSylvanasBlackArrowStructureDebuff" />
+    <WeaponArray Link="MercDefenderMeleeIndividual" />
+    <CardLayouts index="0">
+      <LayoutButtons index="3" Face="Attack" Type="AbilCmd" AbilCmd="StormMercenaryAttack,Execute" Slot="Cancel" />
+      <LayoutButtons Face="MercDefenderHealingPulse" Type="AbilCmd" AbilCmd="MercDefenderHealingPulse,Execute" Slot="Mount" />
+    </CardLayouts>
+    <Radius value="1" />
+    <SeparationRadius value="0.9" />
+    <InnerRadius value="0.5" />
+    <ScoreResult value="" />
+    <SubgroupPriority value="0" />
+    <MinimapRadius value="0" />
+    <AIBaseThreat value="1" />
+    <KillDisplay value="Always" />
+    <AlliedPushPriority value="800" />
+  </CUnit>
+  <CUnit id="OverwatchTurretMissile" parent="MISSILE_INVULNERABLE">
+    <Mover value="RockItTurretMissile" />
+  </CUnit>
+  <CUnit id="OverwatchMechanic" parent="StormMinion">
+    <Attributes index="Creep" value="1" />
+    <Attributes index="Minion" value="0" />
+    <LifeStart value="1980" />
+    <LifeMax value="1980" />
+    <Speed value="4" />
+    <Radius value="0.75" />
+    <InnerRadius value="0.5" />
+    <AlliedPushPriority value="0" />
+    <MinimapRadius value="0" />
+    <DeathTime value="0.0625" />
+    <AbilArray index="1" Link="StormMercenaryAttack" />
+    <AbilArray Link="OverwatchMechanicRepair" />
+    <WeaponArray Link="OverwatchMechanicWeapon" />
+    <BehaviorArray Link="OverwatchMechanicFindInitialTurretBehavior" />
+    <BehaviorArray Link="OverwatchMechanicScaling" />
+    <CardLayouts index="0">
+      <LayoutButtons index="3" Face="Attack" Type="AbilCmd" AbilCmd="StormMercenaryAttack,Execute" Slot="Cancel" />
+      <LayoutButtons Face="OverwatchMechanicRepair" Type="AbilCmd" AbilCmd="OverwatchMechanicRepair,Execute" Slot="Mount" />
+    </CardLayouts>
+    <AIBaseThreat value="1" />
+  </CUnit>
+  <CUnit id="OverwatchTurret" parent="StormMinion">
+    <DeathTime value="0.0625" />
+    <FlagArray index="Movable" value="0" />
+    <FlagArray index="Unstoppable" value="1" />
+    <PushPriority value="7000" />
+    <Attributes index="Creep" value="1" />
+    <Attributes index="Minion" value="0" />
+    <LifeStart value="2960" />
+    <LifeMax value="2930" />
+    <Speed value="0" />
+    <TurningRate value="0" />
+    <RepairTime value="0" />
+    <AbilArray index="1" Link="StormMercenaryAttack" />
+    <AbilArray index="2" removed="1" />
+    <BehaviorArray Link="OverwatchTurretScaling" />
+    <TurretArray value="OverwatchTurretTurret" />
+    <WeaponArray Link="OverwatchTurretWeapon" Turret="OverwatchTurretTurret" />
+    <Radius value="0.75" />
+    <InnerRadius value="0.5" />
+    <MinimapRadius value="0" />
+    <AlliedPushPriority value="7000" />
+    <CardLayouts index="0">
+      <LayoutButtons index="3" Face="Attack" Type="AbilCmd" AbilCmd="StormMercenaryAttack,Execute" Slot="Cancel" />
+    </CardLayouts>
+    <AIBaseThreat value="1" />
+  </CUnit>
+  <CUnit id="OverwatchTurretPlayer" parent="OverwatchTurret">
+    <Name value="Unit/Name/OverwatchTurretPlayer" />
+    <FlagArray index="Movable" value="1" />
+    <Attributes index="Creep" value="0" />
+    <Attributes index="Minion" value="1" />
+    <Attributes index="Merc" value="1" />
+    <LifeStart value="2000" />
+    <LifeMax value="2000" />
+    <AbilArray index="1" Link="TurretAttack" />
+    <BehaviorArray index="0" Link="OverwatchTurretPlayerScaling" />
+    <BehaviorArray index="1" Link="TurretPlayerTurretTimedLife" />
+    <WeaponArray index="0" Link="OverwatchTurretWeaponPlayerTargetsHeroes" Turret="OverwatchTurretTurret" />
+    <WeaponArray Link="OverwatchTurretWeaponPlayerTargetsElse" Turret="OverwatchTurretTurret" />
+    <SeparationRadius value="0" />
+    <PlacementFootprint value="StormPlacementFootprint1x1SummonedUnit" />
+    <MinimapRadius value="0.375" />
+    <CardLayouts index="0">
+      <LayoutButtons index="3" Face="MovePatrol" Type="AbilCmd" AbilCmd="move,Patrol" Slot="Hearth" />
+      <LayoutButtons index="4" Face="TurretAttack" Type="AbilCmd" AbilCmd="TurretAttack,Execute" Slot="Cancel" />
+    </CardLayouts>
+    <ReviveType value="OverwatchTurretPlayer" />
+    <UnitDamageType value="Summon" />
+    <AIBaseThreat value="0" />
+  </CUnit>
+  <CUnit id="RegenGlobe">
+    <Name value="Unit/Name/HealthPack" />
+  </CUnit>
+  <CUnit id="RegenGlobePrecursor" parent="StormPowerup">
+    <BehaviorArray Link="FontOfRegenerationPrecursorUnitTimedLife" />
+    <Height value="2" />
+  </CUnit>
+  <CUnit id="DummyTurret" parent="StormSummonActive">
+    <FlagArray index="Turnable" value="0" />
+    <FlagArray index="Unstoppable" value="1" />
+    <Collide index="Ground" value="0" />
+    <Collide index="Structure" value="1" />
+    <Collide index="ForceField" value="0" />
+    <LifeStart value="593" />
+    <LifeMax value="593" />
+    <StationaryTurningRate value="719.4726" />
+    <TurningRate value="719.4726" />
+    <Sight value="7" />
+    <AbilArray Link="BuildInProgress" />
+    <AbilArray Link="stop" />
+    <AbilArray Link="TinkerRockItTurretAttack" />
+    <AbilArray Link="TinkerRoboGoblinMechaLordTalentFocusTarget" />
+    <BehaviorArray Link="ShrubProximityDetector" />
+    <BehaviorArray Link="HallOfStormsKnockbackKillable" />
+    <WeaponArray Link="RockItTurret" Turret="TinkerRockItTurret" />
+    <CardLayouts>
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="stop,Stop" Slot="Stop" />
+      <LayoutButtons Face="AttackBuilding" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Cancel" />
+      <LayoutButtons Face="TinkerRoboGoblinPassive" Type="AbilCmd" AbilCmd="TinkerRoboGoblinMechaLordTalentFocusTarget,Execute" Slot="Ability1" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="TinkerRockItTurretAttack,Execute" Slot="Attack" />
+    </CardLayouts>
+    <SeparationRadius value="0" />
+    <InnerRadius value="0.5" />
+    <SubgroupPriority value="2" />
+    <MinimapRadius value="0.75" />
+  </CUnit>
+  <CUnit id="TurretPickup" parent="PickupParent">
+    <Race value="Zerg" />
+    <Height value="1" />
+  </CUnit>
+  <CUnit id="OWPickupChest">
+    <FlagArray index="Movable" value="0" />
+    <FlagArray index="CreateVisible" value="1" />
+    <FlagArray index="Unselectable" value="1" />
+    <FlagArray index="Untargetable" value="1" />
+    <FlagArray index="Invulnerable" value="1" />
+    <FlagArray index="Unstoppable" value="1" />
+    <Attributes index="ImmuneToAOE" value="1" />
+    <Attributes index="NoMinionAggro" value="1" />
+    <Attributes index="ImmuneToSkillshots" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <FogVisibility value="Snapshot" />
+  </CUnit>
+</Catalog>

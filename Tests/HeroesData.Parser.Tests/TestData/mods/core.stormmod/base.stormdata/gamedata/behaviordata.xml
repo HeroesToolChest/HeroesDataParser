@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CBehaviorVeterancy default="1">
+    <Flags index="CombineNumericModifications" value="1" />
+    <Flags index="CombineXP" value="1" />
+    <ShareFilters index="DamageDealt" value="-;Ally,Neutral,Enemy,Hallucination" />
+    <ShareFilters index="DamageTaken" value="-;Ally,Neutral,Enemy,Hallucination" />
+    <ShareFilters index="Kills" value="-;Ally,Neutral,Enemy,Hallucination" />
+    <TargetFilters index="DamageDealt" value="-;Player,Ally,Neutral,Hallucination" />
+    <TargetFilters index="DamageTaken" value="-;Player,Ally,Neutral,Hallucination" />
+    <TargetFilters index="Kills" value="-;Player,Ally,Neutral,Hallucination" />
+    <XPFraction index="Kills" value="1" />
+  </CBehaviorVeterancy>
+</Catalog>

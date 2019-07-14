@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CEmoticonPack default="1" id="LimitedReleaseEmoticonPackParent">
+    <Flags index="HideIfLocked" value="1"/>
+  </CEmoticonPack>
+  <CEmoticonPack default="1" id="HallowsEndEmoticonPackParent" parent="LimitedReleaseEmoticonPackParent">
+    <CollectionCategory value="SeasonalEvents"/>
+    <EventName value="HallowsEnd"/>
+  </CEmoticonPack>
+  <CEmoticonPack id="JohannaEmoticonPack2">
+    <ProductId value="25284"/>
+    <ReleaseDate Month="3" Day="14" Year="2017"/>
+    <RequiredRewardArray value="JohannaEmoticonPack2"/>
+    <CollectionCategory value="Diablo"/>
+    <EmoticonArray value="johanna_angry"/>
+    <EmoticonArray value="johanna_cool"/>
+    <EmoticonArray value="johanna_embarrassed"/>
+    <EmoticonArray value="johanna_inlove"/>
+    <EmoticonArray value="johanna_surprised"/>
+    <CutsceneEmoticonArray value="johanna_angry"/>
+    <CutsceneEmoticonArray value="johanna_cool"/>
+    <CutsceneEmoticonArray value="johanna_embarrassed"/>
+    <CutsceneEmoticonArray value="johanna_inlove"/>
+    <CutsceneEmoticonArray value="johanna_surprised"/>
+  </CEmoticonPack>
+  <CEmoticonPack id="DeputyVallaPack1" parent="HallowsEndEmoticonPackParent">
+    <ProductId value="31855"/>
+    <ReleaseDate Month="10" Day="17" Year="2017"/>
+    <RequiredRewardArray value="DeputyVallaPack1"/>
+    <EmoticonArray value="valla_deputy_happy"/>
+    <EmoticonArray value="valla_deputy_rofl"/>
+    <EmoticonArray value="valla_deputy_sad"/>
+    <EmoticonArray value="valla_deputy_silly"/>
+    <EmoticonArray value="valla_deputy_speechless"/>
+    <CutsceneEmoticonArray value="valla_deputy_happy"/>
+    <CutsceneEmoticonArray value="valla_deputy_rofl"/>
+    <CutsceneEmoticonArray value="valla_deputy_sad"/>
+    <CutsceneEmoticonArray value="valla_deputy_silly"/>
+    <CutsceneEmoticonArray value="valla_deputy_speechless"/>
+  </CEmoticonPack>
+</Catalog>

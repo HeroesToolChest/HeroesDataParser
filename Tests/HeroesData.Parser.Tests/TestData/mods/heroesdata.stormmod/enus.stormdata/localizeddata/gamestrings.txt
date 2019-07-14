@@ -1,11 +1,11 @@
 ﻿Button/Tooltip/AbathurToxicNestEnvenomedNestTalent=Toxic Nests deal <c val="#TooltipNumbers"><d ref="(Effect,AbathurToxicNestEnvenomedNestDamage,Amount* [d ref='Behavior,AbathurToxicNestEnvenomedNest,PeriodCount' player='0'/])/Effect,ToxicNestDamage,Amount*100"/>%</c> more damage over <c val="#TooltipNumbers"><d ref="Behavior,AbathurToxicNestEnvenomedNest,Duration" player="0"/></c> seconds.
 Button/Tooltip/AbathurSymbioteCarapace=Shields the assisted ally for <c val="#TooltipNumbers"><d ref="Behavior,CarapaceEvolutionShieldTooltipDummy,DamageResponse.ModifyLimit"/></c>. Lasts for <c val="#TooltipNumbers"><d ref="Behavior,CarapaceEvolutionShield,Duration" player="0"/></c> seconds.
-Button/Tooltip/AnubarakBurrowChargeEpicenterTalent=Increases Burrow Charge impact area by <c val="#TooltipNumbers"><d ref="100*Talent,AnubarakMasteryEpicenterBurrowCharge,AbilityModificationArray[0].Modifications[2].Value"player="0"/>%</c> and lowers the cooldown by <c val="#TooltipNumbers"><d ref="-Effect,BurrowChargeEpicenterModifyCooldown,Cost[0].CooldownTimeUse"precision="2"/></c> seconds for each Hero hit.
-Button/Tooltip/AnubarakHardenCarapaceShedExoskeletonTalent=Harden Carapace grants <c val="#TooltipNumbers"><d ref="Behavior,ShedExoskeleton,Modification.UnifiedMoveSpeedFactor * 100"/>%</c> increased Movement Speed for <c val="#TooltipNumbers"><d ref="Behavior,ShedExoskeleton,Duration"/></c> seconds.
-Button/Tooltip/AnubarakNerubianArmor=Every <c val="#TooltipNumbers"><d ref="Behavior,AnubarakNerubianArmorController,Period"/></c> seconds, gain <c val="#TooltipNumbers"><d ref="Behavior,AnubarakNerubianArmorActive,ArmorModification.ArmorSet[Hero].ArmorMitigationTable[Ability]"/></c> Spell Armor against the next enemy Ability and subsequent Abilities for <c val="#TooltipNumbers"><d ref="Behavior,AnubarakNerubianArmorActive,Duration" precision="1"/></c> seconds, reducing the damage taken by <c val="#TooltipNumbers"><d ref="Behavior,AnubarakNerubianArmorActive,ArmorModification.ArmorSet[Hero].ArmorMitigationTable[Ability]"/>%</c>.
+Button/Tooltip/AnubarakBurrowChargeEpicenterTalent=Increases Burrow Charge impact area by <c val="#TooltipNumbers"><d ref="100*Talent,AnubarakMasteryEpicenterBurrowCharge,AbilityModificationArray[0].Modifications[2].Value"player="0"/>%</c> and lowers the cooldown by <c val="#TooltipNumbers"><d ref="-Effect,AnubarakBurrowChargeEpicenterModifyCooldown,Cost[0].CooldownTimeUse"precision="2"/></c> seconds for each Hero hit.
+Button/Tooltip/AnubarakHardenCarapaceShedExoskeletonTalent=Harden Carapace grants <c val="#TooltipNumbers"><d ref="Behavior,AnubarakShedExoskeleton,Modification.UnifiedMoveSpeedFactor * 100"/>%</c> increased Movement Speed for <c val="#TooltipNumbers"><d ref="Behavior,AnubarakShedExoskeleton,Duration"/></c> seconds.
+Button/Tooltip/AnubarakNerubianArmor=Increase Hardened Carapace's Spell Armor by <c val="#TooltipNumbers"><d ref="Talent,AnubarakNerubianArmor,AbilityModificationArray[0].Modifications[0].Value"/></c>.
 Button/Tooltip/ArthasIceboundFortitudeTalent=Activate to gain <c val="#TooltipNumbers"><d ref="Behavior,ArthasIceboundFortitudeCasterBehavior,ArmorModification.AllArmorBonus"/></c> Armor, reducing damage taken by <c val="#TooltipNumbers"><d ref="Behavior,Resistant25,ArmorModification.AllArmorBonus"/>%</c>, and reduce the duration of Stuns, Slows, and Roots against Arthas by <c val="#TooltipNumbers">75%</c> for <c val="#TooltipNumbers"><d ref="Behavior,ArthasIceboundFortitudeCasterBehavior,Duration" precision="1"/></c> seconds.
 Button/Tooltip/AzmodanAllShallBurn=Channel a death beam on an enemy, dealing <c val="#TooltipNumbers"><d ref="Effect,AzmodanAllShallBurnDamage,Amount[0]*1/(Effect,AzmodanAllShallBurnCreatePersistent,PeriodicPeriodArray[0])" precision="0"/></c> damage per second. Damage increases over time, to a max of <c val="#TooltipNumbers"><d ref="Effect,AzmodanAllShallBurnDamage,Amount[0]*(1/(Effect,AzmodanAllShallBurnCreatePersistent,PeriodicPeriodArray[0]))*2" precision="0"/></c> per second, and is increased by <c val="#TooltipNumbers"><d ref="Effect,AzmodanAllShallBurnDamage,Amount[0]*1/(Effect,AzmodanAllShallBurnCreatePersistent,PeriodicPeriodArray[0])*Effect,AzmodanAllShallBurnDamage,AttributeFactor[Structure]" precision="0"/></c> against structures. Azmodan can move at <c val="#TooltipNumbers"><d ref="(1+(Behavior,AzmodanAllShallBurnChannel,Modification.UnifiedMoveSpeedFactor)*100)" player="0" precision="2"/>%</c> speed while channeling.
-Button/Tooltip/AzmodanDemonicInvasion=Rain a small army of Demonic Grunts down on enemies, dealing <c val="#TooltipNumbers"><d ref="Effect,AzmodanDemonicInvasionImpactDamage,Amount"/></c> damage per impact. Grunts deal <c val="#TooltipNumbers"><d ref="Effect,AzmodanDemonicInvasionDemonGruntWeaponDamage,Amount"/></c> damage, have <c val="#TooltipNumbers"><d ref="Unit,AzmodanDemonicInvasionDemonGrunt,LifeMax"/></c> health and last up to <c val="#TooltipNumbers"><d ref="-Unit,AzmodanDemonicInvasionDemonGrunt,LifeMax/Unit,AzmodanDemonicInvasionDemonGrunt,LifeRegenRate/"/></c> seconds. When Grunts die they explode, dealing <c val="#TooltipNumbers"><d ref="Effect,AzmodanDemonicInvasionExplodeDamage,Amount"/></c> damage to nearby enemies.
+Button/Tooltip/AzmodanDemonicInvasion=Rain a small army of Demonic Grunts down on enemies, dealing <c val="#TooltipNumbers"><d ref="Effect,AzmodanDemonicInvasionImpactDamage,Amount"/></c> damage per impact. Grunts deal <c val="#TooltipNumbers"><d ref="Effect,AzmodanDemonicInvasionDemonGruntWeaponDamage,Amount"/></c> damage, have <c val="#TooltipNumbers"><d ref="Unit,AzmodanDemonicInvasionDemonGrunt,LifeMax"/></c> Health and last up to <c val="#TooltipNumbers"><d ref="-Unit,AzmodanDemonicInvasionDemonGrunt,LifeMax/Unit,AzmodanDemonicInvasionDemonGrunt,LifeRegenRate"/></c> seconds. When Grunts die they explode, dealing <c val="#TooltipNumbers"><d ref="Effect,AzmodanDemonicInvasionExplodeDamage,Amount"/></c> damage to nearby enemies.<n/><n/>Usable while Channeling All Shall Burn.
 Button/Tooltip/ChenFortifyingBrewBrewmastersBalanceTalent=While at or below <c val="#TooltipNumbers">50</c> Brew, gain <c val="#TooltipNumbers"><d ref="100*Behavior,ChenBrewmastersBalanceSpeedBuff,Modification.UnifiedMoveSpeedFactor"/>%</c> Movement Speed. While at or above <c val="#TooltipNumbers">50</c> Brew, regenerate an additional <c val="#TooltipNumbers"><d ref="Behavior,ChenBrewmastersBalanceHealthRegen,Modification.VitalRegenArray[Life]"/></c> Health per second.
 Button/Tooltip/DemonHunterMultishot=Deal <c val="#TooltipNumbers"><d ref="Effect,MultishotDamage,AmountArray"/></c> damage to enemies within the target area.
 Button/Tooltip/GenericCalldownMule=Activate to calldown a Mule that repairs Structures, one at a time, near target point for <c val="#TooltipNumbers"><d ref="Behavior,CalldownMULETimedLife,Duration" player="0"/></c> seconds, healing for <c val="#TooltipNumbers"><d ref="Effect,MULERepairHealth,VitalArray[Life].Change"/></c> Health every <c val="#TooltipNumbers"><d ref="Behavior,MULERepairTargetHealth,Period"/></c> second. 
@@ -358,6 +358,119 @@ Hero/Title/Abathur=Evolution Master
 Hero/AdditionalSearchText/Abathur=Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug
 Hero/AlternateNameSearchText/Abathur=Abathur
 
+Skin/Name/AbathurBone=Bone Abathur
+Skin/SortName/AbathurBone=1AbathurVar1
+Skin/Info/AbathurBone=Color variant.
+Skin/AdditionalSearchText/AbathurBone=White Pink
+Skin/SortName/AbathurCommonVar1=zxAbathurVar1
+
+Mount/AdditionalSearchText/MountCloudVar1=Green
+Mount/Name/MountCloudVar1=Azure Nimbus Cloud
+Mount/Info/MountCloud=The Monkey King is said to be able to somersault through the air and leap across great distances with ease. Now, with this magical cloud, you can too!
+Mount/Name/MountCloud=Nimbus Cloud
+Mount/Name/MountCloudVar1=Jade Nimbus Cloud
+Mount/Name/MountCloudVar2=Azure Nimbus Cloud
+Hero/AlternateNameSearchText/Abathur=Abathur
+
 Button/Name/AzmodanGreed=Greed
 Button/SimpleDisplayText/AzmodanGreed=Increase Globe damage to non-Heroes<n/><c val="#TooltipQuest">Quest:</c> Increase All Shall Burn range
 Button/Tooltip/AzmodanGreed=Globe of Annihilation deals <c val="#TooltipNumbers"><d ref="100*Effect,AzmodanGlobeOfAnnihilationDamage,MultiplicativeModifierArray[Greed].Modifier"player="0"/>%</c> more damage to non-Heroic targets.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Quest:</c> After gaining <c val="#TooltipNumbers"><d ref="Behavior,AzmodanGlobeOfAnnihilationGreedTalentTokenCounter,Max"/></c> Annihilation, increase the range of All Shall Burn by <c val="#TooltipNumbers"><d ref="Effect,AzmodanGlobeOfAnnihilationGreedAllShallBurnRangeIncreaseModifyCatalog,CatalogModifications[0].Value/Abil,AzmodanAllShallBurn,Range*100" player="0"/>%</c> and Demon Warriors gain <c val="#TooltipNumbers"><d ref="Behavior,AzmodanGlobeOfAnnihilationGreedMovementSpeed,Modification.UnifiedMoveSpeedFactor*100"/>%</c> Attack Speed and Movement Speed.
+
+Banner/Description/BannerD3WizardRare=The full power of the wizards is so great that the earth itself trembles at their machinations.
+Banner/Name/BannerD3WizardRare=Wizard Warbanner
+Banner/Name/BannerD3WizardRareVar1=Amber Wizard Warbanner
+Banner/Name/BannerD3WizardRareVar2=Violet Wizard Warbanner
+Banner/SortName/BannerD3WizardRareVar0=3WizRareVar0
+Banner/SortName/BannerD3WizardRareVar1=3WizRareVar
+Banner/Name/BannerD3WizardRareVar1=Amber Wizard Warbanner
+Banner/SortName/BannerD3WizardRareVar1=3WizRareVar1
+
+Spray/Name/SprayStaticCarbotsLili=Carbot Li Li
+Spray/SortName/SprayStaticCarbotsLili=6StaticCarbot
+Spray/AdditionalSearchText/SprayStaticCarbotsLili=Carbot Li Li
+
+AnnouncerPack/Name/Adjutant=Adjutant Announcer
+AnnouncerPack/Name/OrpheaA=Orphea Announcer
+
+Reward/Name/StitchesPortraitSummer=Bikini Stitches Portrait
+Reward/Name/StylizedWrathSonyaPortrait=Legion's Wrath Sonya Portrait
+Reward/Name/DiabloPortraitLegacy2=Lord of Terror Portrait
+
+VoiceLine/Name/AbathurBase_VoiceLine01=For the Swarm
+VoiceLine/Name/AbathurBase_VoiceLine02=Poor Essence
+VoiceLine/Name/AbathurMecha_VoiceLine01=For the Swarm
+VoiceLine/Name/AbathurMecha_VoiceLine02=Poor Essence
+
+Emoticon/Description/lunara_angry=Lunara Angry :lunaangry:
+Emoticon/Name/ascii_rofl=:D
+Emoticon/Name/ascii_sad=:(
+
+EmoticonPack/Name/JohannaEmoticonPack2=Johanna Pack 2
+EmoticonPack/Name/DeputyVallaPack1=Deputy Valla Pack 1
+
+Unit/Name/ZagaraHydralisk=Hydralisk
+Weapon/Name/ZagaraHydraliskMelee=Hydralisk Melee
+
+Unit/Name/TownCannonTowerL2=Cannon Tower
+
+Button/Name/VolskayaVehicleTShield=T Shield
+Button/Tooltip/VolskayaVehicleTShield=Gives shields to allies
+
+Abil/Name/KerriganRavage=Ravage
+Button/Name/KerriganRavage=Ravage
+Button/SimpleDisplayText/KerriganRavage=Leap to an enemy and deal damage
+Button/Tooltip/KerriganRavage=Leap to a target, dealing
+
+Abil/AzmodanDemonLieutenantDemonicSmiteAnnihilation=Demon Lieutenant: <c val="#TooltipNumbers"><d score="AzmodanDemonLieutenantDemonicSmiteAnnihilation" Precision="0"/></c>
+Button/Tooltip/AzmodanDemonLieutenant=Summon a Demon Lieutenant at any allied Mercenary, Minion, or Azmodan Demon. The Lieutenant will cast Demonic Smite every <c val="#TooltipNumbers"><d ref="Abil,AzmodanDemonicSmite,Cost.Cooldown.TimeUse"/></c> seconds, instantly killing an enemy Minion. Lasts <c val="#TooltipNumbers"><d ref="Behavior,AzmodanDemonLieutenantTimedLife,Duration-1"player="0"/></c> seconds.<n/><n/>Usable while Channeling All Shall Burn.
+Button/SimpleDisplayText/AzmodanDemonLieutenant=Azmodan summons a Demon Lieutenant to assist Minions, Mercenaries, and Summons
+Unit/Name/AzmodanDemonLieutenant=Demon Lieutenant
+Abil/Name/AzmodanDemonLieutenant=Demon Lieutenant
+Weapon/Name/AzmodanDemonLieutenantWeapon=Demon Lieutenant Weapon
+Abil/Name/AzmodanDemonicSmite=Demonic Smite
+Button/Tooltip/AzmodanGeneralOfHellDemonicSmiteTalent=Every <c val="#TooltipNumbers"><d ref="Abil,AzmodanDemonicSmite,Cost.Cooldown.TimeUse"precision="2"/></c> seconds, the Demon Lieutenant will blast a non-Heroic unit dealing <c val="#TooltipNumbers"><d ref="Effect,DemonicSmiteDamage,Amount"/></c> damage.
+
+Button/Name/ThrallAlphaWolf=Alpha Wolf
+Button/Name/ThrallAncestralWrath=Ancestral Wrath
+Button/Name/ThrallChainLightning=Chain Lightning
+Button/Name/ThrallCrashLightning=Crash Lightning
+Button/Name/ThrallCrashLightningToken=Crash Lightning
+Button/Name/ThrallEarthenShieldsTalent=Earthen Shields
+Button/Name/ThrallEarthquake=Earthquake
+Button/Name/ThrallEchooftheElements=Echo of the Elements
+Button/Name/ThrallEchooftheElementsToken=Echo of the Elements
+Button/Name/ThrallFeralResilience=Feral Resilience
+Button/Name/ThrallFeralSpirit=Feral Spirit
+Button/Name/ThrallFrostwolfPack=Frostwolf Pack
+Button/Name/ThrallFrostwolfPackToken=Frostwolf Pack
+Button/Name/ThrallFrostwolfResilience=Frostwolf Resilience
+Button/Name/ThrallFrostwolfResilienceFace=Frostwolf Resilience
+Button/Name/ThrallFrostwolfResilienceSurgeOfHealing=Frostwolf's Grace
+Button/Name/ThrallGraceOfAirTalent=Grace Of Air
+Button/Name/ThrallMaelstromWeapon=Maelstrom Weapon
+Button/Name/ThrallMaelstromWeaponToken=Maelstrom Weapon
+Button/Name/ThrallManaTideTalent=Mana Tide
+Button/Name/ThrallRollingThunderTalent=Rolling Thunder
+Button/Name/ThrallSpiritShield=Spirit Shield
+Button/Name/ThrallSpiritShieldDisabled=Spirit Shield
+Button/Name/ThrallSpiritShieldEnabled=Spirit Shield
+Button/Name/ThrallStoneWolvesTalent=Stone Wolves
+Button/Name/ThrallSunderingCancel=Sundering
+Button/Name/ThrallTempestFuryTalent=Tempest Fury
+Button/Name/ThrallThunderstorm=Thunderstorm
+Button/Name/ThrallThunderstormToken=Thunderstorm
+Button/Name/ThrallWindRush=Wind Rush
+Button/Name/ThrallWindStalker=Wind Stalker
+Button/Name/ThrallWindStalkerToken=Wind Stalker
+Button/Name/ThrallWorldbreakerTalent=Worldbreaker
+
+Button/Name/Hearthstone=Hearthstone
+
+Button/Tooltip/GenericCalldownMule=Activate to calldown a Mule that repairs Structures, one at a time, near target
+Button/Name/GenericCalldownMule=Calldown: MULE
+Button/SimpleDisplayText/GenericCalldownMule=Activate to heal Structures
+
+Button/Tooltip/MurkyOctoGrab=Murky becomes Unstoppable and Stuns target enemy Hero for <c val="#TooltipNumbers"><d ref="Behavior,OctoGrabStun,Duration" player="0"/></c> seconds while he hits them for <c val="#TooltipNumbers"><d ref="Effect,OctoGrabPokeDamage,Amount"/></c> damage a second.
+Button/Tooltip/MurkyOctoGrabAndASharkTooTalent=Increase the damage of Octo-Grab by <c val="#TooltipNumbers"><d ref="Effect,OctoGrabPokeMasteryDamage,Amount * 100"/>%</c>.
+
+UI/HeroLife=Health

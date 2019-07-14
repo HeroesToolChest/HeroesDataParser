@@ -1,0 +1,24 @@
+{
+  "AbathurBone": {
+    "name": "Bone Abathur",
+    "hyperlinkId": "AbathurBone",
+    "attributeId": "Aba1",
+    "rarity": "None",
+    "releaseDate": "2014-03-13",
+    "sortName": "xxAbathurBone",
+    "searchText": "White Pink",
+    "description": "Evolution Master of Kerrigan's Swarm",
+    "features": [
+      "ThemedAbilities",
+      "ThemedAnimations"
+    ]
+  },
+  "AbathurMechaVar1": {
+    "name": "Mecha Abathur",
+    "hyperlinkId": "AbathurMecha",
+    "attributeId": "Aba2",
+    "rarity": "Legendary",
+    "releaseDate": "2014-03-01",
+    "sortName": "xxyAbathurMecha"
+  }
+}

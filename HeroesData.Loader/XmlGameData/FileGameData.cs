@@ -1,4 +1,5 @@
 ﻿using HeroesData.Helpers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -43,17 +44,17 @@ namespace HeroesData.Loader.XmlGameData
                     }
                     else
                     {
-                        XmlGameData.Root.Add(XDocument.Load(file).Root.Elements());
-                        XmlFileCount++;
+                        LoadXmlFile(file);
                     }
                 }
             }
 
             if (LoadTextFilesOnlyEnabled)
             {
-                ParseTextFile(Path.Combine(CoreLocalizedDataPath, GameStringFile));
-                TextFileCount++;
+                LoadTextFile(Path.Combine(CoreLocalizedDataPath, GameStringFile));
             }
+
+            LoadStormStyleFile(Path.Combine(CoreBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile));
         }
 
         protected override void LoadHeroesDataStormMod()
@@ -63,11 +64,7 @@ namespace HeroesData.Loader.XmlGameData
                 // load up xml files in gamedata folder
                 foreach (string file in Directory.GetFiles(Path.Combine(HeroesDataBaseDataDirectoryPath, GameDataStringName)))
                 {
-                    if (Path.GetExtension(file) != ".xml")
-                        continue;
-
-                    XmlGameData.Root.Add(XDocument.Load(file).Root.Elements());
-                    XmlFileCount++;
+                    LoadXmlFile(file);
                 }
 
                 // load up files in gamedata.xml file
@@ -77,8 +74,7 @@ namespace HeroesData.Loader.XmlGameData
             if (LoadTextFilesOnlyEnabled)
             {
                 // load gamestring file
-                ParseTextFile(Path.Combine(HeroesDataLocalizedDataPath, GameStringFile));
-                TextFileCount++;
+                LoadTextFile(Path.Combine(HeroesDataLocalizedDataPath, GameStringFile));
             }
 
             // load up files in includes.xml file - which are the heroes in the heromods folder
@@ -90,10 +86,10 @@ namespace HeroesData.Loader.XmlGameData
                 string valuePath = pathElement.Attribute("value")?.Value?.ToLower();
                 if (!string.IsNullOrEmpty(valuePath))
                 {
-                    valuePath = PathExtensions.GetFilePath(valuePath);
+                    valuePath = PathHelper.GetFilePath(valuePath);
                     valuePath = valuePath.Remove(0, 5); // remove 'mods/'
 
-                    if (valuePath.StartsWith(HeroesModsDiretoryName))
+                    if (valuePath.StartsWith(HeroesModsDirectoryName, StringComparison.OrdinalIgnoreCase))
                     {
                         string gameDataPath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, GameDataXmlFile);
 
@@ -103,18 +99,19 @@ namespace HeroesData.Loader.XmlGameData
                         {
                             try
                             {
-                                ParseTextFile(Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile));
-                                TextFileCount++;
+                                LoadTextFile(Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile));
                             }
-                            catch (FileNotFoundException)
+                            catch (Exception ex) when (ex is FileNotFoundException || ex is DirectoryNotFoundException)
                             {
-                                if (!valuePath.Contains(HeroInteractionsStringName))
+                                if (!valuePath.Contains(HeroInteractionsStringName, StringComparison.OrdinalIgnoreCase))
                                     throw;
                             }
                         }
                     }
                 }
             }
+
+            LoadStormStyleFile(Path.Combine(CoreBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile));
         }
 
         protected override void LoadHeroesMapMods()
@@ -128,11 +125,7 @@ namespace HeroesData.Loader.XmlGameData
                 {
                     foreach (string xmlFilePath in Directory.GetFiles(xmlMapGameDataPath))
                     {
-                        if (Path.GetExtension(xmlFilePath) == ".xml")
-                        {
-                            XmlGameData.Root.Add(XDocument.Load(xmlFilePath).Root.Elements());
-                            XmlFileCount++;
-                        }
+                        LoadXmlFile(mapFolderName, xmlFilePath);
                     }
                 }
 
@@ -140,12 +133,11 @@ namespace HeroesData.Loader.XmlGameData
                 {
                     try
                     {
-                        ParseTextFile(Path.Combine(HeroesMapModsDirectoryPath, mapFolderName, GameStringLocalization, LocalizedDataName, GameStringFile), true);
-                        TextFileCount++;
+                        LoadTextFile(mapFolderName, Path.Combine(HeroesMapModsDirectoryPath, mapFolderName, GameStringLocalization, LocalizedDataName, GameStringFile));
                     }
-                    catch (FileNotFoundException)
+                    catch (Exception ex) when (ex is FileNotFoundException || ex is DirectoryNotFoundException)
                     {
-                        if (!mapFolderName.Contains(ConveyorBeltsStringName))
+                        if (!mapFolderName.Contains(ConveyorBeltsStringName, StringComparison.OrdinalIgnoreCase))
                             throw;
                     }
                 }
@@ -154,7 +146,7 @@ namespace HeroesData.Loader.XmlGameData
 
         protected override void LoadGameDataXmlContents(string gameDataXmlFilePath)
         {
-            if ((!File.Exists(gameDataXmlFilePath) && gameDataXmlFilePath.Contains("herointeractions.stormmod")) || !LoadXmlFilesEnabled)
+            if ((!File.Exists(gameDataXmlFilePath) && gameDataXmlFilePath.Contains("herointeractions.stormmod", StringComparison.OrdinalIgnoreCase)) || !LoadXmlFilesEnabled)
                 return;
 
             // load up files in gamedata.xml file
@@ -166,23 +158,26 @@ namespace HeroesData.Loader.XmlGameData
                 string pathValue = catalogElement.Attribute("path")?.Value?.ToLower();
                 if (!string.IsNullOrEmpty(pathValue))
                 {
-                    pathValue = PathExtensions.GetFilePath(pathValue);
+                    pathValue = PathHelper.GetFilePath(pathValue);
 
-                    if (!pathValue.Contains("skindata") && !pathValue.Contains("sounddata"))
+                    if (pathValue.Contains($"{GameDataStringName}/", StringComparison.OrdinalIgnoreCase))
                     {
-                        if (gameDataXmlFilePath.Contains(HeroesDataStormModDirectoryName) && pathValue.StartsWith("gamedata/heroes"))
+                        if (gameDataXmlFilePath.Contains(HeroesDataStormModDirectoryName))
                         {
                             string xmlFilePath = Path.Combine(HeroesDataBaseDataDirectoryPath, pathValue);
 
-                            XmlGameData.Root.Add(XDocument.Load(xmlFilePath).Root.Elements());
-                            XmlFileCount++;
+                            if (Path.GetExtension(xmlFilePath) == ".xml")
+                            {
+                                if (File.Exists(xmlFilePath))
+                                {
+                                    LoadXmlFile(xmlFilePath);
+                                }
+                            }
                         }
-                        else if (gameDataXmlFilePath.Contains(HeroesModsDiretoryName) && pathValue.StartsWith("gamedata/"))
+                        else
                         {
                             string xmlFilePath = Path.Combine(gameDataXmlFilePath.Replace(GameDataXmlFile, string.Empty), pathValue);
-
-                            XmlGameData.Root.Add(XDocument.Load(xmlFilePath).Root.Elements());
-                            XmlFileCount++;
+                            LoadXmlFile(xmlFilePath);
                         }
                     }
                 }

@@ -52,15 +52,20 @@
     <FlagArray index="CreateAITreeOnSpawn" value="1" />
     <LifeStart value="750" />
     <LifeMax value="750" />
-    <LifeRegenRate value="-93.75" />
+    <LifeRegenRate value="-75" />
     <Sight value="7" />
+    <AbilArray Link="stop" />
+    <AbilArray Link="attack" />
+    <AbilArray Link="move" />
     <Radius value="0.6875" />
     <InnerRadius value="0.6875" />
+    <DeathTime value="0.25" />
+    <EffectArray index="Death" value="AzmodanDemonicInvasionExplodeSearch" />
   </CUnit>
   <CEffectDamage id="AzmodanDemonicInvasionExplodeDamage" parent="StormSpell">
     <DamageModifierSource Value="Source" />
     <MultiplicativeModifierArray index="Siegebreaker" Validator="AzmodanSiegebreakerTalentCombine" Modifier="0.5" />
-    <Amount value="65" />
+    <Amount value="97.5" />
     <SourceButtonFace value="AzmodanDemonicInvasion" />
   </CEffectDamage>
   <CEffectDamage id="AzmodanGlobeOfAnnihilationDamage" parent="StormSpell">
@@ -104,7 +109,30 @@
     <BehaviorCategories index="Permanent" value="1" />
     <BehaviorCategories index="Fast" value="1" />
   </CBehaviorBuff>
-  
+
+  <LevelScalingArray Ability="AzmodanDemonLieutenant">
+    <Modifications>
+      <Catalog value="Effect" />
+      <Entry value="AzmodanDemonLieutenantWeaponDamage" />
+      <Field value="Amount" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AzmodanDemonLieutenant" />
+      <Field value="LifeStart" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+    <Modifications>
+      <Catalog value="Unit" />
+      <Entry value="AzmodanDemonLieutenant" />
+      <Field value="LifeMax" />
+      <Value value="0.040000" />
+      <AffectedByOverdrive value="1" />
+    </Modifications>
+  </LevelScalingArray>
   <LevelScalingArray Ability="AzmodanAllShallBurn">
     <Modifications>
       <Catalog value="Effect" />
@@ -162,4 +190,57 @@
       <AffectedByOverdrive value="1" />
     </Modifications>
   </LevelScalingArray>
+
+  <CActorUnit id="AzmodanDemonLieutenant" parent="StormMinionStandard" unitName="AzmodanDemonLieutenant">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_Azmodan_DemonLieutenant.dds" />
+    </GroupIcon>
+    <UnitIcon value="Assets\Textures\storm_ui_icon_azmodan_generalofhell.dds" />
+  </CActorUnit>
+  <CAbilEffectTarget id="AzmodanDemonicSmite">
+    <Effect value="AzmodanDemonLieutenantDemonicSmiteLaunchMissile" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown TimeStart="1.5" TimeUse="7" />
+    </Cost>
+    <Range value="7.5" />
+    <Arc value="360" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AzmodanDemonLieutenant">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <TargetFilters value="Minion;Player,Ally,Merc,Heroic" />
+  </CAbilEffectTarget>
+  <CUnit id="AzmodanDemonLieutenant" parent="StormSummonActive">
+    <FlagArray index="CreateAITreeOnSpawn" value="1" />
+    <LifeStart value="593" />
+    <LifeMax value="593" />
+    <Sight value="7" />
+    <AbilArray Link="stop" />
+    <AbilArray Link="attack" />
+    <AbilArray Link="move" />
+    <AbilArray Link="AzmodanDemonicSmite" />
+    <BehaviorArray Link="AzmodanSummonDemonWarriorDemonSpawn" />
+    <BehaviorArray Link="AzmodanDemonLieutenantTimedLife" />
+    <BehaviorArray Link="AzmodanDemonLieutenantInitialAbilitySuppression" />
+    <BehaviorArray Link="AzmodanSummonDemonWarriorHellforgedArmorTalent" />
+    <BehaviorArray Link="AzmodanSummonDemonWarriorBrutishVanguardTalentCarry" />
+    <WeaponArray Link="AzmodanDemonLieutenantWeapon" />
+    <CardLayouts>
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="stop,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="move,HoldPos" Slot="Hold" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Cancel" />
+      <LayoutButtons Face="MovePatrol" Type="AbilCmd" AbilCmd="move,Patrol" Slot="Hearth" />
+    </CardLayouts>
+    <Radius value="0.75" />
+    <InnerRadius value="0.75" />
+    <AIThinkTree value="AI/SummonedMinion.aitree" />
+    <DeathTime value="3" />
+  </CUnit>
+  <CButton id="AzmodanDemonLieutenant" parent="StormButtonParentTrait">
+    <TooltipAppender Validator="AzmodanHasHellforgedArmorTalent" Face="AzmodanSummonDemonWarriorHellforgedArmorTalent" />
+    <TooltipAppender Validator="AzmodanHasBattleborn" Face="AzmodanGlobOfAnnihilationBattlebornTalent" />
+    <TooltipAppender Validator="AzmodanHasChainOfCommand" Face="AzmodanChainOfCommand" />
+    <Icon value="Assets\Textures\storm_ui_icon_azmodan_generalofhell.dds" />
+  </CButton>
 </Catalog>

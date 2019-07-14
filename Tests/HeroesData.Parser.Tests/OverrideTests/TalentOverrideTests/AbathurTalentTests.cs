@@ -33,8 +33,8 @@ namespace HeroesData.Parser.Tests.OverrideTests.TalentOverrideTests
         [TestMethod]
         public void TalentAbilityTalentLinkIdsTest()
         {
-            Assert.AreEqual(1, TestTalent.AbilityTalentLinkIds.Count);
-            Assert.IsTrue(TestTalent.AbilityTalentLinkIds.Contains("Slug"));
+            Assert.AreEqual(1, TestTalent.AbilityTalentLinkIdsCount);
+            Assert.IsTrue(TestTalent.ContainsAbilityTalentLinkId("Slug"));
         }
     }
 }

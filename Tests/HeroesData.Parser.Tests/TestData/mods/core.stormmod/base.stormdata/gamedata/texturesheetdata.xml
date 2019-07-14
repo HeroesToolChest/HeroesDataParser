@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CTextureSheet default="1">
+    <Image value="Assets\Textures\UI_texturesheet_##id##.dds"/>
+    <Rows value="1"/>
+    <Columns value="1"/>
+  </CTextureSheet>
+</Catalog>

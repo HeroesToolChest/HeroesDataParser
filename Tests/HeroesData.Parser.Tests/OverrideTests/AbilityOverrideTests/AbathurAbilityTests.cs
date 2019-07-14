@@ -21,7 +21,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.AbilityOverrideTests
         [TestMethod]
         public void ParentLinkOverrideTest()
         {
-            Assert.AreEqual("Symbiote", TestAbility.ParentLink);
+            Assert.AreEqual(new AbilityTalentId("Symbiote", "Symbiote"), TestAbility.ParentLink);
         }
 
         [TestMethod]

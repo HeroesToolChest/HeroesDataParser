@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Announcers>
+  <OrpheaA name="Orphea" hyperlinkId="OrpheaAId" attributeId="OE3" rarity="Rare" category="Realm" gender="Female" heroId="Orphea" releaseDate="2016-05-21">
+    <SortName>qqOrpheaA</SortName>
+    <Description>Orphea Announcer</Description>
+    <Image>announcer_orphea.png</Image>
+  </OrpheaA>
+  <MurkyA name="Murky" hyperlinkId="MurkyAId" attributeId="ME3" rarity="Rare" category="Warcraft" gender="Male" heroId="Murkey" releaseDate="2016-05-21">
+    <SortName>qqMurkyA</SortName>
+    <Image>announcer_murkey.png</Image>
+  </MurkyA>
+</Announcers>

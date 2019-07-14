@@ -1,0 +1,35 @@
+﻿using Heroes.Models;
+using Newtonsoft.Json.Linq;
+using System.IO;
+
+namespace HeroesData.FileWriter.Writers.MatchAwardData
+{
+    internal class MatchAwardDataJsonWriter : MatchAwardDataWriter<JProperty, JObject>
+    {
+        public MatchAwardDataJsonWriter()
+            : base(FileOutputType.Json)
+        {
+        }
+
+        protected override JProperty MainElement(MatchAward matchAward)
+        {
+            if (FileOutputOptions.IsLocalizedText)
+                AddLocalizedGameString(matchAward);
+
+            JObject matchAwardObject = new JObject();
+
+            if (!string.IsNullOrEmpty(matchAward.Name) && !FileOutputOptions.IsLocalizedText)
+                matchAwardObject.Add("name", matchAward.Name);
+
+            matchAwardObject.Add("gameLink", matchAward.HyperlinkId);
+            matchAwardObject.Add("tag", matchAward.Tag);
+            matchAwardObject.Add("mvpScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName?.ToLower(), StaticImageExtension));
+            matchAwardObject.Add("scoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName?.ToLower(), StaticImageExtension));
+
+            if (!FileOutputOptions.IsLocalizedText)
+                matchAwardObject.Add("description", GetTooltip(matchAward.Description, FileOutputOptions.DescriptionType));
+
+            return new JProperty(matchAward.Id, matchAwardObject);
+        }
+    }
+}

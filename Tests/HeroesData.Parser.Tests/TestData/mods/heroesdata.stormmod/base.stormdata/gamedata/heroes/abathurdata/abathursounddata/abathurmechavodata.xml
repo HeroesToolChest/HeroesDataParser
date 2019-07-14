@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CVoiceLine id="AbathurMecha_VoiceLine01" parent="Abathur_VoiceLine01Common">
+    <Sound value="AbathurMecha_VoiceLineOne"/>
+  </CVoiceLine>
+  <CVoiceLine id="AbathurMecha_VoiceLine02" parent="Abathur_VoiceLine02Common">
+    <Sound value="AbathurMecha_VoiceLineTwo"/>
+  </CVoiceLine>
+</Catalog>

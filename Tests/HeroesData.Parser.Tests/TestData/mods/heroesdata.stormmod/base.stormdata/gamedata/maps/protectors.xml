@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CAbilEffectTarget id="VolskayaVehicleCharge">
+    <PrepEffect value="VolskayaVehicleChargeApplyPrepareBehaviorSet" />
+    <Effect value="VolskayaVehicleChargeCastSet" />
+    <Flags index="ClearLastAttackTarget" value="1" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RangeUseCasterRadius" value="0" />
+    <Flags index="RangeUsePathing" value="1" />
+    <Flags index="ReApproachable" value="0" />
+    <Cost>
+      <Cooldown Location="Unit" TimeUse="8" />
+    </Cost>
+    <TargetFilters value="-;Player,Ally,Item,Stasis,Dead,Invulnerable" />
+    <Range value="10" />
+    <RangeSlop value="0" />
+    <CastIntroTime value="0.5" />
+    <ShowProgressArray index="Cast" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <SetLastTarget value="Attack" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="VolskayaVehicleCharge" />
+    <Activity value="Abil/Activity/VolskayaVehicleCharge" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="VolskayaVehicleActivateParticleCannon">
+    <Effect value="VolskayaVehicleParticleCannonActivateCastSet" />
+    <Flags index="RangeUseCasterRadius" value="0" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Range value="4" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="VolskayaVehicleActivateParticleCannon" Requirements="VolskayaVehicleParticleCannonInitiated">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <CursorEffect value="VolskayaVehicleParticleCannonSearchArea" />
+    <CursorRangeFlags index="ClampMin" value="1" />
+    <CursorRangeFlags index="ClampMax" value="1" />
+    <Cost>
+      <Cooldown Location="Unit" TimeUse="0.0625" />
+    </Cost>
+    <Arc value="360" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="VolskayaVehicleChargeApproach">
+    <Effect value="VolskayaVehicleChargeImpactSet" />
+    <Flags index="AllowMovement" value="0" />
+    <Flags index="ClearLastAttackTarget" value="1" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="LineMovement" value="1" />
+    <TargetFilters value="-;Player,Ally,Item,Stasis,Dead" />
+    <Range value="2.5" />
+    <RangeSlop value="2" />
+    <CastIntroTime value="0.1875" />
+    <CastOutroTime value="0.1875" />
+    <UninterruptibleArray index="Approach" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <SetLastTarget value="Attack" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="VolskayaVehicleCharge" />
+    <Cost>
+      <Cooldown Location="Unit" />
+    </Cost>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="VolskayaVehicleStructureChargeApproach" parent="VolskayaVehicleChargeApproach">
+    <Name value="Abil/Name/VolskayaVehicleStructureChargeApproach" />
+    <Range value="3.5" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="VolskayaVehicleCoreChargeApproach" parent="VolskayaVehicleChargeApproach">
+    <Name value="Abil/Name/VolskayaVehicleCoreChargeApproach" />
+    <Range value="5" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="VolskayaVehicleInitiateParticleCannon">
+    <Effect value="VolskayaVehicleParticleCannonInitiateCastSet" />
+    <Cost>
+      <Cooldown Location="Unit" TimeUse="4" />
+    </Cost>
+    <UninterruptibleArray index="Approach" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="VolskayaVehicleInitiateParticleCannon" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="VolskayaVehicleTacticalStrikesDeactivate">
+    <Effect value="VolskayaVehicleTacticalStrikesDeactivateSet" />
+    <Flags index="DeferCooldown" value="1" />
+    <Flags index="Transient" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="VolskayaVehicleGatlingCannonCancel" Requirements="VolskayaVehicleTacticalStrikesDeactivateRequirement" />
+    <UninterruptibleArray index="Approach" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <Cost>
+      <Cooldown Location="Unit" TimeStart="0.5" />
+    </Cost>
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="VolskayaVehicleRocketFist">
+    <Effect value="VolskayaVehicleRocketFistCastSet" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Range value="500" />
+    <CastIntroTime value="0.125" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="VolskayaVehicleRocketFist">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <CursorEffect value="VolskayaVehicleRocketFistSearchArea" />
+    <Cost>
+      <Cooldown Location="Unit" TimeUse="14" />
+    </Cost>
+    <UninterruptibleArray index="Approach" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="VolskayaVehicleTShield">
+    <Effect value="VolskayaVehicleTShieldCastSet" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="VolskayaVehicleTShield" />
+    <Cost>
+      <Cooldown Location="Unit" TimeUse="16" />
+    </Cost>
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <UninterruptibleArray index="Approach" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="VolskayaVehicleSkyLaser">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="VolskayaVehicleSkyLaserCastSet" />
+    <Flags index="CanToggleAutoCast" value="0" />
+    <Flags index="ClearLastAttackTarget" value="1" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RangeUseCasterRadius" value="0" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Range value="10" />
+    <VectorRange value="12,12" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="VolskayaVehicleSkyLaser">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Arc value="360" />
+    <CursorRangeFlags index="ClampMin" value="1" />
+    <CursorRangeFlags index="ClampMax" value="1" />
+    <Cost>
+      <Cooldown Location="Unit" TimeUse="10" />
+    </Cost>
+    <UninterruptibleArray index="Approach" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <CursorEffect value="VolskayaVehicleSkyLaserInitialSearchArea" />
+    <CastOutroTime value="0.25" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="VolskayaVehicleTacticalStrikes">
+    <Effect value="VolskayaVehicleTacticalStrikesInitialSet" />
+    <Flags index="RangeUseCasterRadius" value="0" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="UpdateTarget" value="1" />
+    <Range value="10" />
+    <CursorRangeFlags index="ClampMin" value="1" />
+    <CursorRangeFlags index="ClampMax" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="VolskayaVehicleTacticalStrikes">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Cost>
+      <Cooldown Location="Unit" TimeUse="0.5" />
+    </Cost>
+    <Arc value="360" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="LeaveVehicle">
+    <Effect value="LeaveVehiclePersistent" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="5" />
+    </Cost>
+    <CmdButtonArray index="Execute" AutoQueueId="LeaveVehicle" DefaultButtonFace="LeaveVehicle" />
+    <Flags index="BestUnit" value="1" />
+    <CancelableArray index="Channel" value="1" />
+    <ValidatedArray index="Approach" value="0" />
+    <ValidatedArray index="Channel" value="0" />
+    <Activity value="Abil/Activity/LeaveVehicle" />
+    <CastOutroTimeEffect value="LeaveVehiclePersistent" />
+  </CAbilEffectInstant>
+  <CBehaviorBuff id="VolskayaVehicleGunnerFatalDamageResponse" parent="CarryBehaviorParent">
+    <DamageResponse>
+      <Chance value="1" />
+      <Fatal value="1" />
+      <ModifyFraction value="0" />
+    </DamageResponse>
+  </CBehaviorBuff>
+  <CButton id="VolskayaVehicleLeaveVehicle">
+    <Icon value="Assets\Textures\storm_ui_icon_volskayarobot_leavevehicle.dds" />
+  </CButton>
+  <CButton id="VolskayaVehicleCharge" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_volskayarobot_charge.dds" />
+  </CButton>
+  <CButton id="VolskayaVehicleGatlingCannonCancel" parent="StormButtonParent">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
+  </CButton>
+  <CButton id="VolskayaVehicleInitiateParticleCannon" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_volskayarobot_initiateparticlecannon.dds" />
+  </CButton>
+  <CButton id="VolskayaVehicleActivateParticleCannon" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_volskayarobot_initiateparticlecannon.dds" />
+  </CButton>
+  <CButton id="VolskayaVehicleRocketFist" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_volskayarobot_rocketfist.dds" />
+  </CButton>
+  <CButton id="VolskayaVehicleSkyLaser" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_volskayarobot_skylaser.dds" />
+  </CButton>
+  <CButton id="VolskayaVehicleSwap" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_volskayarobot_swap.dds" />
+  </CButton>
+  <CButton id="VolskayaVehicleTShield" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\storm_ui_icon_volskayarobot_tshield.dds" />
+  </CButton>
+  <CButton id="VolskayaVehicleTacticalStrikes" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_volskayarobot_tacticalstrikes.dds" />
+  </CButton>
+  <CUnit id="VolskayaVehicle" parent="StormVehicle">
+    <Race value="Zerg" />
+    <FogVisibility value="Visible" />
+    <Collide index="Colossus" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <LifeStart value="10450" />
+    <LifeMax value="10450" />
+    <EnergyStart value="32" />
+    <EnergyMax value="32" />
+    <EnergyRegenRate value="0" />
+    <StationaryTurningRate value="599.9414" />
+    <TurningRate value="599.9414" />
+    <VisionHeight value="5" />
+    <AbilArray Link="VolskayaVehicleSeismicCannon" />
+    <AbilArray Link="VolskayaVehicleFistSlam" />
+    <AbilArray Link="VolskayaVehicleTShield" />
+    <AbilArray Link="VolskayaVehicleRocketFist" />
+    <AbilArray Link="VolskayaVehicleHover" />
+    <AbilArray Link="LeaveVehicle" />
+    <AbilArray Link="VolskayaVehicleCharge" />
+    <AbilArray Link="VolskayaVehicleChargeApproach" />
+    <AbilArray Link="VolskayaVehicleStructureChargeApproach" />
+    <AbilArray Link="VolskayaVehicleCoreChargeApproach" />
+    <BehaviorArray Link="VolskayaVehicleBehavior" />
+    <BehaviorArray Link="VolskayaVehicleScaling" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="TowerAIPrioritizedTarget2" />
+    <BehaviorArray Link="VehicleDragonTimedLife" />
+    <BehaviorArray Link="50PercentCCReduction" />
+    <BehaviorArray Link="VolskayaVehicleBirthBehavior" />
+    <BehaviorArray Link="SuppressGenericDeath" />
+    <BehaviorArray Link="VolskayaVehicleDisableTurretBehavior" />
+    <BehaviorArray Link="VehicleAboveCriticalHP" />
+    <BehaviorArray Link="HeroGenericVehicleDoNotScaleOnUnitEnter" />
+    <BehaviorArray Link="VehicleGenericHeroInsideUnitTracker" />
+    <BehaviorArray Link="AttachedVehicleGenericHeroInsideUnitTracker" />
+    <TurretArray value="VolskayaVehicleMainTurret" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="VolskayaVehicleCharge" Type="AbilCmd" AbilCmd="VolskayaVehicleCharge,Execute" Slot="Ability1" />
+      <LayoutButtons Face="VolskayaVehicleRocketFist" Type="AbilCmd" AbilCmd="VolskayaVehicleRocketFist,Execute" Slot="Ability2" />
+      <LayoutButtons Face="VolskayaVehicleTShield" Type="AbilCmd" AbilCmd="VolskayaVehicleTShield,Execute" Slot="Ability3" />
+      <LayoutButtons Face="VolskayaVehicleLeaveVehicle" Type="AbilCmd" AbilCmd="LeaveVehicle,Execute" Slot="Trait" />
+      <LayoutButtons Face="VolskayaVehicleFighterFlight" Type="AbilCmd" AbilCmd="VolskayaVehicleFighterFlight,Execute" Slot="Mount" />
+    </CardLayouts>
+    <Radius value="1.5" />
+    <AIBaseThreat value="3" />
+    <AIThinkTree value="AI/VolskayaRobotPilot.aitree" />
+    <AlliedPushPriority value="15" />
+    <TauntDoesntStopUnit index="Tease" value="1" />
+    <PlaneArray index="Ground" value="1" />
+    <PlaneArray index="Air" value="1" />
+  </CUnit>
+  <CUnit id="VolskayaVehicleGunner">
+    <DeathTime value="10" />
+    <Race value="Zerg" />
+    <FlagArray index="UseLineOfSight" value="1" />
+    <FlagArray index="Unstoppable" value="1" />
+    <Attributes index="ImmuneToAOE" value="1" />
+    <Attributes index="NoMinionAggro" value="1" />
+    <Attributes index="ImmuneToSkillshots" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <LifeStart value="10000" />
+    <LifeMax value="10000" />
+    <EnergyStart value="32" />
+    <EnergyMax value="32" />
+    <EnergyRegenRate value="3.5" />
+    <AbilArray Link="VolskayaVehicleInitiateParticleCannon" />
+    <AbilArray Link="VolskayaVehicleActivateParticleCannon" />
+    <AbilArray Link="VolskayaVehicleFocusBeams" />
+    <AbilArray Link="VolskayaVehicleSkyLaser" />
+    <AbilArray Link="VolskayaVehicleEnergyBombardment" />
+    <AbilArray Link="LeaveVehicle" />
+    <AbilArray Link="VolskayaVehicleTacticalStrikes" />
+    <AbilArray Link="VolskayaVehicleTacticalStrikesDeactivate" />
+    <AbilArray Link="HoldFire" />
+    <BehaviorArray Link="SuppressGenericDeath" />
+    <BehaviorArray Link="ImmunetoStasisBehavior" />
+    <BehaviorArray Link="HallOfStormsKnockbackImmunity" />
+    <BehaviorArray Link="VolskayaVehicleGunnerFatalDamageResponse" />
+    <CardLayouts>
+      <LayoutButtons Face="VolskayaVehicleActivateParticleCannon" Type="AbilCmd" AbilCmd="VolskayaVehicleActivateParticleCannon,Execute" Slot="Ability1" />
+      <LayoutButtons Face="VolskayaVehicleInitiateParticleCannon" Type="AbilCmd" AbilCmd="VolskayaVehicleInitiateParticleCannon,Execute" Slot="Ability1" />
+      <LayoutButtons Face="VolskayaVehicleGatlingCannonCancel" Type="AbilCmd" AbilCmd="VolskayaVehicleTacticalStrikesDeactivate,Execute" Slot="Ability2" />
+      <LayoutButtons Face="VolskayaVehicleTacticalStrikes" Type="AbilCmd" AbilCmd="VolskayaVehicleTacticalStrikes,Execute" Slot="Ability2" />
+      <LayoutButtons Face="VolskayaVehicleSkyLaser" Type="AbilCmd" AbilCmd="VolskayaVehicleSkyLaser,Execute" Slot="Ability3" />
+      <LayoutButtons Face="VolskayaVehicleFighterFlight" Type="AbilCmd" AbilCmd="VolskayaVehicleFighterFlight,255" Slot="Mount" />
+      <LayoutButtons Face="VolskayaVehicleLeaveVehicle" Type="AbilCmd" AbilCmd="LeaveVehicle,Execute" Slot="Trait" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="HoldFire,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="HoldFire,HoldFire" Slot="Hold" />
+      <DisabledSlots index="Dynamic1" value="1" />
+      <DisabledSlots index="Dynamic2" value="1" />
+      <DisabledSlots index="Dynamic3" value="1" />
+      <DisabledSlots index="Dynamic4" value="1" />
+    </CardLayouts>
+    <AIThinkTree value="AI/VolskayaRobotGunner.aitree" />
+    <PlaneArray index="Air" value="1" />
+    <Sight value="12" />
+    <StationaryTurningRate value="2879.8242" />
+    <TurningRate value="2879.8242" />
+  </CUnit>
+</Catalog>

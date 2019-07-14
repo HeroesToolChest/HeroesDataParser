@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CEffectLaunchMissile id="GuardTowerL2LaunchMissile">
+    <ImpactEffect value="CannonTowerL2Damage" />
+    <AmmoUnit value="TowerMissile" />
+    <ImpactRange value="0.2" />
+    <SharedFlags index="ValidateWeapon" value="0" />
+  </CEffectLaunchMissile>
+  <CEffectDamage id="CannonTowerL2Damage" parent="StormWeapon">
+    <Amount value="250" />
+    <AttributeFactor index="Structure" value="1" />
+    <AttributeFactor index="Summoned" value="-0.5" />
+    <Flags index="NoLeech" value="1" />
+    <Flags index="NoVitalLeechLife" value="1" />
+    <Flags index="NoVitalLeechShields" value="1" />
+    <Flags index="NoVitalLeechEnergy" value="1" />
+  </CEffectDamage>
+  <CEffectDamage id="MercDefenderMeleeKnightDamage" parent="StormWeapon">
+    <ValidatorArray value="NoTankSpecialization" />
+    <AttributeFactor index="Summoned" value="1" />
+    <Amount value="45" />
+  </CEffectDamage>
+</Catalog>

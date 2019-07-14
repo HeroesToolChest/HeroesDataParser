@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CActorUnit id="TownCannonTowerL2">
+    <GroupIcon>
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_BB_Building_Tower_0.dds" />
+      <Image value="Assets\Textures\Storm_UI_InGame_TargetInfoPanel_Unit_BB_Building_Tower_Test.dds" />
+    </GroupIcon>
+  </CActorUnit>
+</Catalog>

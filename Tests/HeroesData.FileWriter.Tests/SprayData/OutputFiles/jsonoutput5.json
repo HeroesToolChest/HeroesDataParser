@@ -1,0 +1,31 @@
+{
+  "CarbotLiLi": {
+    "name": "Carbot Li Li",
+    "hyperlinkId": "CarbotLiLiId",
+    "attributeId": "CLL",
+    "rarity": "Rare",
+    "category": "HeroStorm",
+    "event": "Carbot",
+    "releaseDate": "2016-05-21",
+    "sortName": "33CarbotLiLi",
+    "searchText": "Carbot Li LI",
+    "description": "Carbot spray of Li Li",
+    "image": "carbotspray.gif",
+    "animation": {
+      "texture": "carbotspray.png",
+      "frames": 5,
+      "duration": 100
+    }
+  },
+  "CarbotChen": {
+    "name": "Carbot Chen",
+    "hyperlinkId": "CarbotChenId",
+    "attributeId": "CCH",
+    "rarity": "Epic",
+    "category": "HeroStorm",
+    "releaseDate": "2016-05-21",
+    "sortName": "33CarbotChen",
+    "searchText": "Carbot Chen",
+    "image": "carbotspray.png"
+  }
+}

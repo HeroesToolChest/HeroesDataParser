@@ -7,3 +7,7 @@ Button/Name/RagnarosBigRagExplosiveRune=Explosive Rune
 
 Unit/Name/HeroRagnaros=Ragnaros
 Unit/Name/RagnarosBigRag=Ragnaros
+
+Button/Name/RagnarosLivingMeteorMoltenPower=Molten Power
+Button/SimpleDisplayText/RagnarosLivingMeteorMoltenPower=After hitting Heroes, next Living Meteor deals increased damage
+Button/Tooltip/RagnarosLivingMeteorMoltenPower=Each enemy Hero hit by Living Meteor increases the damage 

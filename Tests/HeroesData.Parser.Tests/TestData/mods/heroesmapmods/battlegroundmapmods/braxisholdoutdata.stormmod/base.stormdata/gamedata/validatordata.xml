@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CValidatorUnitCompareBehaviorCount id="BeaconRadarWaveControllerBL">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="BeaconRadarWaveControllerBL" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="BeaconRadarWaveControllerBR">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="BeaconRadarWaveControllerBR" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="BeaconRadarWaveControllerTL">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="BeaconRadarWaveControllerTL" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="BeaconRadarWaveControllerTR">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="BeaconRadarWaveControllerTR" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HoldingPenAnimation">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="HoldingPenAnimation" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HoldingPenControllerActiveBL">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="HoldingPenControllerActiveBL" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HoldingPenControllerActiveBR">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="HoldingPenControllerActiveBR" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HoldingPenControllerActiveTL">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="HoldingPenControllerActiveTL" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HoldingPenControllerActiveTR">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="HoldingPenControllerActiveTR" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HoldingPenControllerBL">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="HoldingPenControllerBL" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HoldingPenControllerBR">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="HoldingPenControllerBR" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HoldingPenControllerTL">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="HoldingPenControllerTL" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="HoldingPenControllerTR">
+    <Compare value="GE" />
+    <Value value="1" />
+    <Behavior value="HoldingPenControllerTR" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="IsValidInfestationTarget">
+    <CombineArray value="IsTerranMechanicalUnit" />
+    <CombineArray value="TargetMinion" />
+  </CValidatorCombine>
+  <CValidatorUnitCompareBehaviorCount id="MapArrowDestroyValidator">
+    <WhichUnit Effect="MapArrowPersistent" Value="Caster" />
+    <Behavior value="MapArrowDestroyBehavior" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorCombine id="TargetIsNotABossUnitCombine">
+    <CombineArray value="IsNotTerranArchangelDefender" />
+    <CombineArray value="IsNotTerranArchangelLaner" />
+  </CValidatorCombine>
+  <CValidatorUnitType id="IsTerranArchangelDefender">
+    <Value value="TerranArchangelDefender" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsNotTerranArchangelDefender">
+    <Value value="TerranArchangelDefender" />
+    <Find value="0" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsNotTerranArchangelLaner">
+    <Value value="TerranArchangelLaner" />
+    <Find value="0" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsTerranArchangelDefenderBulletstormVisualDummy">
+    <Value value="TerranArchangelDefenderBulletstormVisualDummy" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsZergZergling">
+    <Value value="ZergZergling" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsZergBaneling">
+    <Value value="ZergBaneling" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsZergRoach">
+    <Value value="ZergRoach" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsZergHydralisk">
+    <Value value="ZergHydralisk" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsZergMutalisk">
+    <Value value="ZergMutalisk" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsZergGuardian">
+    <Value value="ZergGuardian" />
+  </CValidatorUnitType>
+  <CValidatorUnitType id="IsZergUltralisk">
+    <Value value="ZergUltralisk" />
+  </CValidatorUnitType>
+  <CValidatorCombine id="IsZergUnit">
+    <CombineArray value="IsZergZergling" />
+    <CombineArray value="IsZergBaneling" />
+    <CombineArray value="IsZergRoach" />
+    <CombineArray value="IsZergHydralisk" />
+    <CombineArray value="IsZergMutalisk" />
+    <CombineArray value="IsZergGuardian" />
+    <CombineArray value="IsZergUltralisk" />
+  </CValidatorCombine>
+  <CValidatorLocationPathable id="SourcePointNotWalkable">
+    <WhichLocation Value="SourcePoint" />
+    <Types index="Building" value="0" />
+    <Find value="0" />
+  </CValidatorLocationPathable>
+</Catalog>

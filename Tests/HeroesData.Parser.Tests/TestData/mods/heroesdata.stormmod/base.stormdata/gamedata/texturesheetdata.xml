@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CTextureSheet id="storm_emoji_lunara_sheet">
+    <Image value="Assets\Textures\storm_emoji_lunara_sheet.dds"/>
+    <Rows value="3"/>
+    <Columns value="4"/>
+  </CTextureSheet>
+</Catalog>

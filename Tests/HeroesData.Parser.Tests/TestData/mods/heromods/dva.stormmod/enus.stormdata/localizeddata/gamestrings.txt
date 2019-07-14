@@ -1,1 +1,277 @@
-﻿Button/Tooltip/DVaBigShotPewPewPew=Instead of a single shot, Big Shot fires <c val="#TooltipNumbers"><d ref="Effect,DVaBigShotPewPewPewOffsetPeriodic,PeriodCount"/></c> shots over <c val="#TooltipNumbers"><d ref="Effect,DVaBigShotPewPewPewOffsetPeriodic,PeriodicPeriodArray[1]+Effect,DVaBigShotPewPewPewOffsetPeriodic,PeriodicPeriodArray[2]" precision="2"/></c> seconds. Each shot deals <c val="#TooltipNumbers"><d ref="Effect,DVaPilotBigShotPewPewPewDamage,Amount/Effect,DVaPilotBigShotDamage,Amount*100"/></c>% damage.
+﻿Abil/Activity/DVaBoosters=Boosters Activated
+Abil/Activity/DVaPilotStunGun=Stun Gun
+Abil/DVa/DVaBigShot=Big Shot
+Abil/DVa/DVaPilotCallMech=Calling Mech
+Abil/Name/DVaAttack=Attack
+Abil/Name/DVaAutoMove=Auto Move
+Abil/Name/DVaAutoMoveApproach=D.Va - Auto Move - Approach
+Abil/Name/DVaBoostersOff=Boosters
+Abil/Name/DVaBoostersOn=Boosters
+Abil/Name/DVaMechAttack=Mech - Attack
+Abil/Name/DVaMechBunnyHopHeroic=Bunny Hop
+Abil/Name/DVaMechDefenseMatrixOff=Defense Matrix
+Abil/Name/DVaMechDefenseMatrixOn=Defense Matrix
+Abil/Name/DVaMechSelfDestruct=Self-Destruct
+Abil/Name/DVaMechTraitAbilityDoesNothing=D.Va - Trait Ability Does Nothing
+Abil/Name/DVaMechTraitEmergencyShieldingCooldownAbility=Mech - Trait Emergency Shielding Cooldown Ability
+Abil/Name/DVaMechTransport=Mech - Transport
+Abil/Name/DVaMechWeaponRightClickSmartCommand=Mech - Weapon - Right Click Smart Command
+Abil/Name/DVaPilotBigShot=Big Shot
+Abil/Name/DVaPilotCallMech=Pilot - Call Mech
+Abil/Name/DVaPilotCallMechMEKAfall=D.Va - Pilot - Call Mech - MEKAfall
+Abil/Name/DVaPilotConcussivePulse=D.Va - Pilot - Concussive Pulse
+Abil/Name/DVaPilotRemoteBoostersOff=Remote Boosters
+Abil/Name/DVaPilotTorpedoDash=Torpedo Dash
+Abil/Name/Unload=Unload
+AnnouncerPack/Name/DVaAnnouncer=D.Va Announcer
+Behavior/Name/DVaBoostersActive=Boosters
+Behavior/Name/DVaMechDefenseMatrixChannelling=Defense Matrix
+Behavior/Name/DvaMechBunnyHopActive=Bunny Hop
+Behavior/Tooltip/DVaBoostersActive=Boosters Active
+Button/Name/DVaAutoMove=Auto Move
+Button/Name/DVaBigShotPewPewPew=Pew! Pew! Pew!
+Button/Name/DVaBoostersComingThrough=Coming Through
+Button/Name/DVaBoostersCrashCourse=Crash Course
+Button/Name/DVaBoostersCrashCourseTokenFace=Crash Course
+Button/Name/DVaBoostersHitTheNitrous=Hit the Nitrous
+Button/Name/DVaBoostersRushdown=Rush-down
+Button/Name/DVaBunnyHopOff=Bunny Hop
+Button/Name/DVaBunnyHopOn=Bunny Hop
+Button/Name/DVaBunnyHopStopAndPop=Stop and Pop
+Button/Name/DVaDefenseMatrixAggressionMatrix=Aggression Matrix
+Button/Name/DVaDefenseMatrixDazerZone=Dazer Zone
+Button/Name/DVaDefenseMatrixDivertingPower=Diverting Power
+Button/Name/DVaDefenseMatrixFusionGenerator=Fusion Generator
+Button/Name/DVaDefenseMatrixGetThroughThis=Get Through This!
+Button/Name/DVaLockedAbilityQ=Locked Ability
+Button/Name/DVaLockedAbilityW=Locked Ability
+Button/Name/DVaMechAblativeArmor=Ablative Armor
+Button/Name/DVaMechBoosters=Boosters
+Button/Name/DVaMechCancelBoosters=Cancel Boosters
+Button/Name/DVaMechCancelDefenseMatrix=Cancel Defense Matrix
+Button/Name/DVaMechDefenseMatrix=Defense Matrix
+Button/Name/DVaMechDefenseMatrixFace=Defense Matrix
+Button/Name/DVaMechEmergencyShielding=Emergency Shielding
+Button/Name/DVaMechEmergencyShieldingCooldownBehaviorFace=Emergency Shielding - Cooldown
+Button/Name/DVaMechExpensivePlating=Expensive Plating
+Button/Name/DVaMechLoadPilot=Mech - Load Pilot
+Button/Name/DVaMechMechMode=Mech Mode
+Button/Name/DVaMechProMoves=Pro Moves
+Button/Name/DVaMechProMovesBehaviorFace=Pro Moves
+Button/Name/DVaMechSelfDestruct=Self-Destruct
+Button/Name/DVaMechUnloadPilot=Mech - Unload Pilot
+Button/Name/DVaMechWeaponAttackCommand=Mech - Weapon - Attack Command
+Button/Name/DVaMechWeaponRightClickSmartCommand=Mech - Weapon - Right Click Smart Command
+Button/Name/DVaMechanizedWalker=Mechanized Walker
+Button/Name/DVaPilotBigShot=Big Shot
+Button/Name/DVaPilotBoostersFake=Boosters
+Button/Name/DVaPilotCallMech=Call Mech
+Button/Name/DVaPilotCallMechMEKAfall=MEKAfall
+Button/Name/DVaPilotCallMechMEKAfallTalent=MEKAfall
+Button/Name/DVaPilotConcussivePulseAbility=Concussive Pulse
+Button/Name/DVaPilotConcussivePulseTalent=Concussive Pulse
+Button/Name/DVaPilotDefenseMatrixFake=Defense Matrix
+Button/Name/DVaPilotGGWP=GG, WP
+Button/Name/DVaPilotNanoweaveSuit=Nanoweave Suit
+Button/Name/DVaPilotPilotMode=Pilot Mode
+Button/Name/DVaPilotSuppressingFire=Suppressing Fire
+Button/Name/DVaPilotTorpedoDashAbility=Torpedo Dash
+Button/Name/DVaPilotTorpedoDashTalent=Torpedo Dash
+Button/Name/DVaSelfDestructBringItOn=Bring It On
+Button/Name/DVaSelfDestructNuclearOption=Nuclear Option
+Button/OverrideText/DVaBunnyHop=<d ref="Abil,DVaMechBunnyHopHeroic,OffCost.Cooldown.TimeUse"/> Seconds
+Button/OverrideText/DVaMechBoosters=<d ref="Effect,DVaBoostersApplyCooldown,Cost[0].CooldownTimeUse"/> Seconds
+Button/OverrideText/DVaMechDefenseMatrix=<d ref="Effect,DVaMechDefenseMatrixApplyCooldown,Cost[0].CooldownTimeUse"/> Seconds
+Button/OverrideText/DVaMechDefenseMatrixFace=<d ref="Effect,DVaMechDefenseMatrixApplyCooldown,Cost[0].CooldownTimeUse"/> Seconds
+Button/SimpleDisplayText/DVaBigShotPewPewPew=Big Shot fires multiple pulses
+Button/SimpleDisplayText/DVaBoostersComingThrough=Increase Boosters knockback
+Button/SimpleDisplayText/DVaBoostersCrashCourse=<c val="#TooltipQuest">Quest:</c> Reduce Boosters cooldown
+Button/SimpleDisplayText/DVaBoostersHitTheNitrous=Boosters give extra immediate speed
+Button/SimpleDisplayText/DVaBoostersRushdown=Reduced Boosters cooldown if used out of combat
+Button/SimpleDisplayText/DVaBunnyHopOn=Become Unstoppable and Slow nearby Heroes
+Button/SimpleDisplayText/DVaBunnyHopStopAndPop=Bunny Hop damage increased if stationary
+Button/SimpleDisplayText/DVaDefenseMatrixAggressionMatrix=Basic Attacks lower Defense Matrix cooldown
+Button/SimpleDisplayText/DVaDefenseMatrixDazerZone=Defense Matrix Slows
+Button/SimpleDisplayText/DVaDefenseMatrixDivertingPower=Increase Defense Matrix size, Move Speed reduced
+Button/SimpleDisplayText/DVaDefenseMatrixFusionGenerator=Defense Matrix adds Self-Destruct Charge
+Button/SimpleDisplayText/DVaDefenseMatrixGetThroughThis=Increase Defense Matrix duration
+Button/SimpleDisplayText/DVaMechAblativeArmor=Take less damage from weak attacks
+Button/SimpleDisplayText/DVaMechBoosters=Move fast and knockback enemies
+Button/SimpleDisplayText/DVaMechDefenseMatrix=Reduce damage of enemy Heroes in an area
+Button/SimpleDisplayText/DVaMechDefenseMatrixFace=Reduce damage of enemy Heroes in an area
+Button/SimpleDisplayText/DVaMechEmergencyShielding=Mech gains a Shield instead of dying
+Button/SimpleDisplayText/DVaMechExpensivePlating=Increase Mech Health and Call Mech cooldown
+Button/SimpleDisplayText/DVaMechMechMode=D.Va can eject from her Mech and continue to fight
+Button/SimpleDisplayText/DVaMechProMoves=Taking damage increases Move Speed
+Button/SimpleDisplayText/DVaMechSelfDestruct=Eject from the Mech, setting it to self-destruct for massive damage
+Button/SimpleDisplayText/DVaMechanizedWalker=While in her Mech, D.Va can shoot while moving, but her Movement Speed is reduced.
+Button/SimpleDisplayText/DVaPilotBigShot=Damage enemies in a line as a Pilot
+Button/SimpleDisplayText/DVaPilotCallMechMEKAfall=Load instantly, targetable, adds damage.
+Button/SimpleDisplayText/DVaPilotCallMechMEKAfallTalent=Call Mech is instant and targetable, damages enemies
+Button/SimpleDisplayText/DVaPilotConcussivePulseAbility=Damage and knockback nearby enemies
+Button/SimpleDisplayText/DVaPilotConcussivePulseTalent=Knockback enemies as a Pilot
+Button/SimpleDisplayText/DVaPilotGGWP=Increased Pilot damage, Takedowns refresh Mech
+Button/SimpleDisplayText/DVaPilotNanoweaveSuit=Faster Call Mech, ejection grants Armor
+Button/SimpleDisplayText/DVaPilotSuppressingFire=Pilot Basic Attacks Slow, range increased
+Button/SimpleDisplayText/DVaPilotTorpedoDashAbility=Dash towards target location
+Button/SimpleDisplayText/DVaPilotTorpedoDashTalent=Dash as a Pilot
+Button/SimpleDisplayText/DVaSelfDestructBringItOn=Increase Self-Destruct Charge rate
+Button/SimpleDisplayText/DVaSelfDestructNuclearOption=Increase Self-Destruct timer and damage
+Button/Tooltip/DVaBigShotPewPewPew=Instead of a single shot, Big Shot fires <c val="#TooltipNumbers"><d ref="Effect,DVaBigShotPewPewPewOffsetPeriodic,PeriodCount"/></c> shots over <c val="#TooltipNumbers"><d ref="Effect,DVaBigShotPewPewPewOffsetPeriodic,PeriodicPeriodArray[1]+Effect,DVaBigShotPewPewPewOffsetPeriodic,PeriodicPeriodArray[2]" precision="2"/></c> seconds. Each shot deals <c val="#TooltipNumbers"><d ref="Effect,DVaPilotBigShotPewPewPewDamage,Amount/Effect,DVaPilotBigShotDamage,Amount*100"/></c>% damage.
+Button/Tooltip/DVaBoostersComingThrough=Knockback distance of Boosters is increased by <c val="#TooltipNumbers"><d ref="(Behavior,DVaBoostersKnockback,Modification.MoveSpeedMinimum+Talent,DVaBoostersComingThrough,AbilityModificationArray[0].Modifications[1].Value)*(Behavior,DVaBoostersKnockback,Duration+Talent,DVaBoostersComingThrough,AbilityModificationArray[0].Modifications[2].Value)-(Behavior,DVaBoostersKnockback,Modification.MoveSpeedMinimum*Behavior,DVaBoostersKnockback,Duration)/(Behavior,DVaBoostersKnockback,Modification.MoveSpeedMinimum*Behavior,DVaBoostersKnockback,Duration)*100" player="0"/>%</c>.
+Button/Tooltip/DVaBoostersCrashCourse=<img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Quest: </c>Damage enemy Heroes with Boosters.<n/><n/><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">Reward:</c> After damaging <c val="#TooltipNumbers"><d ref="Behavior,DVaBoostersCrashCourseQuestToken,Max"/></c> Heroes, each use of Boosters lowers its cooldown by <c val="#TooltipNumbers"><d ref="Effect,DVaBoostersCrashCourseCompletedModifyCooldown,Cost[0].CooldownTimeUse*(-1)" precision="2"/></c> second per Hero hit.
+Button/Tooltip/DVaBoostersCrashCourseTokenFace=<c val="#TooltipQuest">Heroes hit: </c> <c val="#TooltipNumbers"><d ref="$BehaviorStackCount:DVaBoostersCrashCourseQuestToken$"/>/<d ref="Behavior,DVaBoostersCrashCourseQuestToken,Max"/></c>
+Button/Tooltip/DVaBoostersHitTheNitrous=Initial speed bonus of Boosters is increased to <c val="#TooltipNumbers"><d ref="(Accumulator,DVaBoostersHitTheNitrousTokenAccumulator,Scale*Behavior,DVaBoostersHitTheNitrousToken,Init+Behavior,DVaBoostersMoveSpeedActive,Modification.MoveSpeedMaximum)/(Unit,HeroDVaMech,Speed)-1*100" player="0"/>%</c>, then decays to normal boost speed over <c val="#TooltipNumbers"><d ref="Behavior,DVaBoostersMoveSpeedActive,Period*Behavior,DVaBoostersHitTheNitrousToken,Init" precision="1" player="0"/></c> seconds. During this time, Boosters deals <c val="#TooltipNumbers"><d ref="Effect,DVaBoostersHitTheNitrousImpactDamage,Amount - Effect,DVaBoostersImpactDamage,Amount / Effect,DVaBoostersImpactDamage,Amount * (100)"/>%</c> extra damage.
+Button/Tooltip/DVaBoostersRushdown=If D.Va neither takes nor deals damage during Boosters, its cooldown is lowered by <c val="#TooltipNumbers"><d ref="Effect,DVaBoostersRushdownCooldownReduction,Cost[0].CooldownTimeUse*(-1)"/></c> seconds.
+Button/Tooltip/DVaBunnyHopOff=Cancel Bunny Hop
+Button/Tooltip/DVaBunnyHopOn=D.Va's Mech becomes Unstoppable and stomps every <c val="#TooltipNumbers"><d ref="Behavior,DvaMechBunnyHopActive,Period" precision="2"/></c> seconds, dealing <c val="#TooltipNumbers"><d ref="Effect,DVaMechBunnyHopImpactDamage,Amount"/></c> damage and Slowing enemies by <c val="#TooltipNumbers"><d ref="(-100)*Behavior,DVaMechBunnyHopSlow,Modification.UnifiedMoveSpeedFactor"/>%</c>. Lasts <c val="#TooltipNumbers"><d ref="Behavior,DvaMechBunnyHopActive,Duration"/></c> seconds.<n/><n/>Requires Mech Mode.
+Button/Tooltip/DVaBunnyHopStopAndPop=Bunny Hop deals <c val="#TooltipNumbers"><d ref="Effect,DVaMechBunnyHopImpactDamage,MultiplicativeModifierArray[0].Modifier*100"/>%</c> more damage if D.Va isn't moving at the moment of impact.
+Button/Tooltip/DVaDefenseMatrixAggressionMatrix=Basic Attacks in Mech Mode against Heroes lower the cooldown of Defense Matrix by <c val="#TooltipNumbers"><d ref="Effect,DVaMechDefenseMatrixAggressionMatrixCooldownReduction,Cost[0].CooldownTimeUse*(-1)" precision="2"/></c> seconds.
+Button/Tooltip/DVaDefenseMatrixDazerZone=Enemy Heroes affected by Defense Matrix are Slowed by <c val="#TooltipNumbers"><d ref="Behavior,DVaDefenseMatrixDazerZoneSlow,Modification.UnifiedMoveSpeedFactor*(-100)"/>%</c>.
+Button/Tooltip/DVaDefenseMatrixDivertingPower=The area of Defense Matrix is <c val="#TooltipNumbers">100%</c> wider and <c val="#TooltipNumbers">25%</c> longer, but D.Va's Movement Speed is reduced by <c val="#TooltipNumbers"><d ref="-Behavior,DVaMechDefenseMatrixDivertingPowerPeriodicSearch,Modification.UnifiedMoveSpeedFactor*100"/>%</c> for the duration.
+Button/Tooltip/DVaDefenseMatrixFusionGenerator=Every time an enemy Hero deals damage while inside Defense Matrix, D.Va's Self-Destruct Charge increases by <c val="#TooltipNumbers"><d ref="Effect,DVaMechDefenseMatrixFusionGeneratorAddChargetoCaster,Cost[0].ChargeCountUse*(-1)" precision="2"/>%</c>.<n/><n/>Max of <c val="#TooltipNumbers"><d ref="Behavior,DVaDefenseMatrixFusionGeneratorCounterToken,Max"/>%</c> Charge gained per use.
+Button/Tooltip/DVaDefenseMatrixGetThroughThis=Increase the duration of Defense Matrix by <c val="#TooltipNumbers"><d ref="Talent,DVaDefenseMatrixGetThroughThis,AbilityModificationArray[0].Modifications[0].Value"/></c> seconds.
+Button/Tooltip/DVaLockedAbilityQ=<c val="#TooltipNumbers">Torpedo Dash can be unlocked through a Talent at Level 16.
+Button/Tooltip/DVaLockedAbilityW=<c val="#TooltipNumbers">Concussive Pulse can be unlocked through a Talent at Level 20.
+Button/Tooltip/DVaMechAblativeArmor=Damage against D.Va's Mech that would deal <c val="#TooltipNumbers"><d ref="Behavior,DVaMechAblativeArmorDamageResponseCarry,DamageResponse.Maximum/Unit,HeroDVaMech,LifeMax*(100)"/>%</c> or less of its maximum Health is reduced by <c val="#TooltipNumbers"><d ref="Behavior,DVaMechAblativeArmorDamageResponseCarry,DamageResponse.ModifyFraction*100"/>%</c>.<n/><n/>This does not decrease the amount of Self-Destruct Charge gained.
+Button/Tooltip/DVaMechBoosters=Increase D.Va's Movement Speed by <c val="#TooltipNumbers"><d ref="Behavior,DVaBoostersMoveSpeedActive,Modification.MoveSpeedMaximum/Unit,HeroDVaMech,Speed-1*100"/>%</c> for <c val="#TooltipNumbers"><d ref="Behavior,DVaBoostersActive,Duration" precision="2"/></c> seconds. Enemies that are hit take <c val="#TooltipNumbers"><d ref="Effect,DVaBoostersImpactDamage,Amount"/></c> damage and are knocked away. <n/><n/>D.Va cannot be Slowed while Boosters are active, and each enemy can only be hit once per use.
+Button/Tooltip/DVaMechCancelBoosters=Cancel Boosters
+Button/Tooltip/DVaMechCancelDefenseMatrix=Cancel Defense Matrix
+Button/Tooltip/DVaMechDefenseMatrix=Channel a defensive field in the target direction for <c val="#TooltipNumbers"><d ref="Behavior,DVaMechDefenseMatrixChannelling,Duration" player="0"/></c> seconds, reducing the damage dealt by enemy Heroes inside it by <c val="#TooltipNumbers"><d ref="100-(Behavior,DVaMechDefenseMatrixDebuff,DamageResponse.ModifyFraction*100)"/>%</c>. The Mech can move while channeling, but cannot turn.<n/><n/>Damage dealt to the Mech from enemies within Defense Matrix still grants the same amount of Self-Destruct Charge.
+Button/Tooltip/DVaMechDefenseMatrixFace=Reduce damage of enemy Heroes in an area
+Button/Tooltip/DVaMechDefenseMatrixFake=<c val="FF8000">Requires Mech Mode</c><n/>Channel a field in the target direction, reducing the damage dealt by enemy Heroes in it by <c val="#TooltipNumbers"><d ref="Behavior,DVaMechDefenseMatrixDebuff,Modification.DamageDealtFraction*(-100)"/>%</c>. The Mech can move while channeling, but can not turn.<n/><n/>Damage dealt to the Mech from enemies within Defense Matrix still grant the same amount of Self-Destruct charges.
+Button/Tooltip/DVaMechEmergencyShielding=When D.Va's Mech would be destroyed, it instead gains a Shield that absorbs <c val="#TooltipNumbers"><d ref="Behavior,DVaMechEmergencyShieldingShield,DamageResponse.ModifyLimit"/></c> damage over <c val="#TooltipNumbers"><d ref="Behavior,DVaMechEmergencyShieldingShield,Duration"/></c> seconds.<n/></n>This effect has a <c val="#TooltipNumbers"><d ref="Abil,DVaMechTraitEmergencyShieldingCooldownAbility,Cost.Charge.TimeUse"/></c> second cooldown.
+Button/Tooltip/DVaMechEmergencyShieldingCooldownBehaviorFace=<c val="FF0000">Inactive: Currently on Cooldown</c><n/>Gain a shield for <c val="#TooltipNumbers"><d ref="Behavior,DVaMechEmergencyShieldingShield,DamageResponse.ModifyLimit"/></c> instead of Dying
+Button/Tooltip/DVaMechExpensivePlating=Increase Mech Health by <c val="#TooltipNumbers"><d ref="Behavior,DVaMechExpensivePlatingCarry,Modification[0].VitalMaxFractionArray[Life]*100"/>%</c>, but also increase the cooldown of Call Mech by <c val="#TooltipNumbers"><d ref="Talent,DVaMechExpensivePlating,AbilityModificationArray[0].Modifications[0].Value"/></c> seconds.<n/><n/>This does not decrease the amount of Self-Destruct Charge gained.
+Button/Tooltip/DVaMechMechMode=When D.Va's Mech dies, she is ejected out after <c val="#TooltipNumbers"><d ref="Behavior,DVaMechFatalDamageDisabledTimeout,Duration" precision="2" player="0"/></c> seconds and can continue to fight. D.Va's Mech only awards <c val="#TooltipNumbers">50%</c> of a normal Hero's experience upon dying.
+Button/Tooltip/DVaMechProMoves=D.Va's Mech gains <c val="#TooltipNumbers"><d ref="Behavior,DVaMechProMovesMovementSpeed,Modification[0].UnifiedMoveSpeedFactor*(100)"/>%</c> Movement Speed for <c val="#TooltipNumbers"><d ref="Behavior,DVaMechProMovesDecayController,Period" precision="2"/></c> seconds every time it takes damage, up to <c val="#TooltipNumbers"><d ref="Behavior,DVaMechProMovesMovementSpeed,MaxStackCount*Behavior,DVaMechProMovesMovementSpeed,Modification[0].UnifiedMoveSpeedFactor*(100)"/>%</c>.
+Button/Tooltip/DVaMechProMovesBehaviorFace=Movement Speed Increase: <c val="#TooltipNumbers"><d ref="($BehaviorStackCount:DVaMechProMovesMovementSpeed$*Behavior,DVaMechProMovesMovementSpeed,Modification.UnifiedMoveSpeedFactor)*100"/>%</c> 
+Button/Tooltip/DVaMechSelfDestruct=Eject from the Mech, setting it to self-destruct after <c val="#TooltipNumbers"><d ref="Behavior,DVaMechSelfDestructMechDetonationCountdown,Duration" player="0"/></c> seconds. Deals <c val="#TooltipNumbers"><d ref="Effect,DVaMechSelfDestructDetonationSearchDamage,Amount"/></c> to <c val="#TooltipNumbers"><d ref="Effect,DVaMechSelfDestructDetonationSearchDamage,Amount+Accumulator,DVaSelfDestructDistanceAccumulator,MinAccumulation"/></c> damage in a large area, depending on distance from center. Only deals <c val="#TooltipNumbers"><d ref="Effect,DVaMechSelfDestructDetonationSearchDamage,AttributeFactor[Structure]*(-100)"/>%</c> damage against Structures.</n></n><c val="FF8000">Gain <c val="#TooltipNumbers">1%</c> Charge for every <c val="#TooltipNumbers">2</c> seconds spent Basic Attacking, and <c val="#TooltipNumbers">30%</c> Charge per <c val="#TooltipNumbers">100%</c> of Mech Health lost.</c>
+Button/Tooltip/DVaMechanizedWalker=While in her Mech, D.Va can shoot while moving, but her base Movement Speed is reduced by <c val="#TooltipNumbers"><d ref="-Behavior,DVaMechPermanentSlow,Modification.MoveSpeedBonus/Unit,HeroDVaPilot,Speed*100"/>%</c>.
+Button/Tooltip/DVaPilotBigShot=Deal <c val="#TooltipNumbers"><d ref="Effect,DVaPilotBigShotDamage,Amount"/></c> damage to all enemies in a line. The cooldown of Call Mech is reduced by <c val="#TooltipNumbers"><d ref="Effect,DVaPilotBigShotModifyCallMechCooldown,Cost.Cooldown.TimeUse*(-1)"/></c> seconds for each enemy Hero hit.<n/><n/>Requires Pilot Mode.
+Button/Tooltip/DVaPilotCallMech=Call a new Mech and enter Mech Mode.<n/><n/>Basic Attacks lower this cooldown by <c val="#TooltipNumbers"><d ref="Effect,DVaPilotWeaponCallMechCooldownReduction,Cost[0].Cooldown.TimeUse*(-1)" precision="2" player="0"/></c> seconds each.
+Button/Tooltip/DVaPilotCallMechMEKAfall=Call Mech now loads it's pilot instantly and is targeted. Upon landing, it deals x damage to any enemies in the impact area.
+Button/Tooltip/DVaPilotCallMechMEKAfallTalent=Call Mech is instant and can target a location. Upon landing, the Mech deals <c val="#TooltipNumbers"><d ref="Effect,DVaPilotCallMechMEKAfallImpactDamage,Amount"/></c> damage to enemies in the impact area.
+Button/Tooltip/DVaPilotConcussivePulseAbility=Deal <c val="#TooltipNumbers"><d ref="Effect,DVaPilotConcussivePulseDamage,Amount"/></c> damage to enemies in a cone and knock them back.
+Button/Tooltip/DVaPilotConcussivePulseTalent=D.Va gains the Concussive Pulse ability, allowing her to deal <c val="#TooltipNumbers"><d ref="Effect,DVaPilotConcussivePulseDamage,Amount"/></c> damage to enemies in a cone and knock them back.<n/><n/>Requires Pilot Mode.
+Button/Tooltip/DVaPilotGGWP=Increase Pilot Mode Basic Attack damage by <c val="#TooltipNumbers"><d ref="Effect,DVaPilotWeaponDamage,MultiplicativeModifierArray[0].Modifier*100"/>%</c>. Participating in a Takedown while in Pilot Mode instantly refreshes the cooldown of Call Mech.
+Button/Tooltip/DVaPilotNanoweaveSuit=For <c val="#TooltipNumbers"><d ref="Behavior,DVaPilotNanoweaveSuitBuff,Duration"/></c> seconds after ejecting from her Mech, D.Va gains <c val="#TooltipNumbers"><d ref="Behavior,DVaPilotNanoweaveSuitBuff,ArmorModification.AllArmorBonus"/></c> Armor and her Basic Attacks grant <c val="#TooltipNumbers"><d ref="Effect,DVaPilotNanoweaveSuitWeaponCallMechCooldownReduction,Cost.Cooldown.TimeUse/Effect,DVaPilotWeaponCallMechCooldownReduction,Cost.Cooldown.TimeUse-1*100" precision="2"/>%</c> more cooldown reduction towards Call Mech.
+Button/Tooltip/DVaPilotPilotMode=Basic Attacks reduce the cooldown of Call Mech by <c val="#TooltipNumbers"><d ref="Effect,DVaPilotWeaponCallMechCooldownReduction,Cost.Cooldown.TimeUse*(-1)" precision="2" player="0"/></c> seconds. As a Pilot, D.Va only awards <c val="#TooltipNumbers">50%</c> of a normal Hero's experience upon dying.
+Button/Tooltip/DVaPilotSuppressingFire=Pilot Mode Basic Attacks have <c val="#TooltipNumbers">20%</c> increased range and Slow enemy Movement Speed by <c val="#TooltipNumbers"><d ref="Behavior,DVaPilotSuppressingFireSlow,Modification.UnifiedMoveSpeedFactor*(-100)"/>%</c> for <c val="#TooltipNumbers"><d ref="Behavior,DVaPilotSuppressingFireSlow,Duration" precision="2"/></c> seconds.
+Button/Tooltip/DVaPilotTorpedoDashAbility=Dash towards the target location, passing through enemies along the way.
+Button/Tooltip/DVaPilotTorpedoDashTalent=D.Va gains the Torpedo Dash ability, allowing her to dash forward and pass through enemies.<n/><n/>Requires Pilot Mode.
+Button/Tooltip/DVaSelfDestructBringItOn=Self-Destruct's Charge amount gained from losing Mech Health is increased by <c val="#TooltipNumbers">30%</c>.
+Button/Tooltip/DVaSelfDestructNuclearOption=Increase Self Destruct's detonation timer by <c val="#TooltipNumbers"><d ref="Talent,DVaSelfDestructNuclearOption,AbilityModificationArray[0].Modifications[0].Value"/></c> seconds. Detonation damage increased by <c val="#TooltipNumbers"><d ref="Effect,DVaMechSelfDestructDetonationSearchDamage,MultiplicativeModifierArray[DVaNuclearOptionDamageBonus].Modifier*100"/>%</c>.<n/><n/>A new Mech can still be called after <c val="#TooltipNumbers"><d ref="Behavior,DVaMechCallMechDisabler,Duration"/></c> seconds.
+DOCSTR_0000=Insert Text
+DocInfo/Name=DVa Hero Mod
+Hero/AdditionalSearchText/DVa=Hana Song Overwatch OW Human
+Hero/AlternateNameSearchText/DVa=Dva Diva
+Hero/Description/DVa=A hard-to-kill Bruiser that can peel enemies away from her allies with high disruption.
+Hero/Info/DVa=Hana Song, also known as "D.Va," is both a world champion professional gamer and a burgeoning global icon. As a member of South Korea’s elite MEKA unit, she fights to protect her homeland from the colossal omnic threat lurking within the East China Sea.
+Hero/Name/DVa=D.Va
+Hero/SortName/DVa=DVa
+Hero/Title/DVa=MEKA Pilot
+Param/Expression/lib_HDVA_5118D527=~A~ incoming damage
+Param/Expression/lib_HDVA_B9A3D392=~A~ Prevented
+Param/Value/lib_HDVA_13ABE3CF=Attempted to Use D.Va function "HeroDVaActiveDVaUnit" on a non-D.Va Hero
+Param/Value/lib_HDVA_9C3DCAC8=interrupted
+Param/Value/lib_HDVA_B161F94A=D.Va Mech XP mismatches Pilot XP. Equalizing.
+Reward/Name/DVa=Hero - DVa
+Reward/Name/DVaBasic=D.Va Portrait
+Reward/Name/DVaEpic=D.Va Mastery Portrait
+Shape/Name/DVaBigShotVisibilityShape=Big Shot - Visibility Shape
+Shape/Name/DVaDefenseMatrixDivertingPowerVisiblityShape=Defense Matrix - Diverting Power - Visiblity Shape
+Shape/Name/DVaDefenseMatrixVisiblityShape=D.Va - Defense Matrix - Visiblity Shape
+Shape/Name/DVaMechBunnyHopVisiblityShape=Mech - Bunny Hop - Visiblity Shape
+Shape/Name/DVaMechSelfDestructVisiblityShape=Mech - Self Destruct - Visiblity Shape
+Skin/AdditionalSearchText/DVaBaseVar1=red
+Skin/AdditionalSearchText/DVaBaseVar2=blue purple
+Skin/AdditionalSearchText/DVaBaseVar3=Green
+Skin/AdditionalSearchText/DVaBaseVar4=Brown Tan
+Skin/AdditionalSearchText/DVaDeathwing=Deathwing Black Red
+Skin/AdditionalSearchText/DVaDeathwingVar1=Deathwing Zerg Brown Green Purple
+Skin/AdditionalSearchText/DVaDeathwingVar2=Deathwing Destroyer Red Pink
+Skin/AdditionalSearchText/DVaDeathwingVar3=Deathwing Destroyer Green
+Skin/AdditionalSearchText/DVaDeathwingVar4=Deathwing Destroyer Blue
+Skin/AdditionalSearchText/DVaTerran=blue starcraft
+Skin/AdditionalSearchText/DVaTerranVar1=yellow starcraft
+Skin/AdditionalSearchText/DVaTerranVar2=green starcraft
+Skin/AdditionalSearchText/DVaTerranVar3=fire orange red
+Skin/AdditionalSearchText/DVaTerranVar4=black gold red
+Skin/AdditionalSearchText/DVaUltimate=pink master
+Skin/AdditionalSearchText/DVaUltimateVar1=black purple master
+Skin/AdditionalSearchText/DVaUltimateVar2=golden master
+Skin/AdditionalSearchText/DVaUltimateVar3=White Blue
+Skin/AdditionalSearchText/DVaUltimateVar4=Blue Red Orange
+Skin/Info/DVaDeathwing=Why be a Worldbreaker when you can be a Gamebreaker?
+Skin/Info/DVaTerran=Few mechs are as versatile as the goliath combat walker. Armed with the latest aftermarket upgrades, Corporal Song can call in a new walker from TACCOM whenever she gets the go-ahead.
+Skin/Info/DVaUltimate=Being a pro has its perks: sponsorship deals, an adoring fan base, customized polyfusion sequencers for your personal mecha... you know, little things.
+Skin/Name/DVaBase=D.Va
+Skin/Name/DVaBaseVar1=Fiery D.Va
+Skin/Name/DVaBaseVar2=Major D.Va
+Skin/Name/DVaBaseVar3=X-Treme D.Va
+Skin/Name/DVaBaseVar4=Camo D.Va
+Skin/Name/DVaDeathwing=D.Va the Destroyer
+Skin/Name/DVaDeathwingVar1=D.Va the Destroyerlisk
+Skin/Name/DVaDeathwingVar2=D.Va the Life-Binder
+Skin/Name/DVaDeathwingVar3=D.Va the Dreamer
+Skin/Name/DVaDeathwingVar4=D.Va the Spellweaver
+Skin/Name/DVaTerran=Goliath D.Va
+Skin/Name/DVaTerranVar1=Hazard Goliath D.Va
+Skin/Name/DVaTerranVar2=Sharkmouth Goliath D.Va
+Skin/Name/DVaTerranVar3=Devil Dogs Goliath D.Va 
+Skin/Name/DVaTerranVar4=Spectre Goliath D.Va 
+Skin/Name/DVaUltimate=Pro D.Va
+Skin/Name/DVaUltimateVar1=Elite Pro D.Va
+Skin/Name/DVaUltimateVar2=Competitive Pro D.Va
+Skin/Name/DVaUltimateVar3=Perfect Pro D.Va
+Skin/Name/DVaUltimateVar4=Global Pro D.Va
+Skin/SortName/DVaBaseCommonVar0=zzDVaVar1
+Skin/SortName/DVaBaseCommonVar1=zxDVaVar1
+Skin/SortName/DVaDeathwingCommonVar0=DestroyerVar0
+Skin/SortName/DVaDeathwingCommonVar1=DestroyerVar1
+Skin/SortName/DVaTerranCommonVar0=GoliathVar0
+Skin/SortName/DVaTerranCommonVar1=GoliathVar1
+Skin/SortName/DVaUltimateCommonVar0=zUltimateVar0
+Skin/SortName/DVaUltimateCommonVar1=zUltimateVar1
+UI/HeroEnergyType/DVaMechCharge=Charge
+UI/HeroEnergyType/DVaPilotCharge=Charge
+UI/Ingame/HeroUI/DVaSelfDestructing=Exploding
+UI/Ingame/HeroUI/DVaSelfDestructingIn=Exploding In
+Unit/Name/DVaMechPlacementDummy=Mech - Placement Dummy
+Unit/Name/DVaPilotWeaponAttackMissile=Pilot - Weapon - Attack Missile
+Unit/Name/HeroDVaMech=D.Va
+Unit/Name/HeroDVaPilot=D.Va
+VoiceLine/Name/DVaBase_VoiceLine01=Love, D.Va
+VoiceLine/Name/DVaBase_VoiceLine01_P=Love, D.Va
+VoiceLine/Name/DVaBase_VoiceLine02=GG!
+VoiceLine/Name/DVaBase_VoiceLine02_P=GG!
+VoiceLine/Name/DVaBase_VoiceLine03=Is This Easy Mode?
+VoiceLine/Name/DVaBase_VoiceLine03_P=Is This Easy Mode?
+VoiceLine/Name/DVaBase_VoiceLine04=;)
+VoiceLine/Name/DVaBase_VoiceLine04_P=;)
+VoiceLine/Name/DVaBase_VoiceLine05=A New Challenger!
+VoiceLine/Name/DVaBase_VoiceLine05_P=A New Challenger!
+VoiceLine/Name/DVaDestroyer_VoiceLine01=Love, D.Va
+VoiceLine/Name/DVaDestroyer_VoiceLine01_P=Love, D.Va
+VoiceLine/Name/DVaDestroyer_VoiceLine02=GG!
+VoiceLine/Name/DVaDestroyer_VoiceLine02_P=GG!
+VoiceLine/Name/DVaDestroyer_VoiceLine03=Is This Easy Mode?
+VoiceLine/Name/DVaDestroyer_VoiceLine03_P=Is This Easy Mode?
+VoiceLine/Name/DVaDestroyer_VoiceLine04=;)
+VoiceLine/Name/DVaDestroyer_VoiceLine04_P=;)
+VoiceLine/Name/DVaDestroyer_VoiceLine05=A New Challenger!
+VoiceLine/Name/DVaDestroyer_VoiceLine05_P=A New Challenger!
+VoiceLine/Name/DVaGoliath_VoiceLine01=Love, D.Va
+VoiceLine/Name/DVaGoliath_VoiceLine01_P=Love, D.Va
+VoiceLine/Name/DVaGoliath_VoiceLine02=GG!
+VoiceLine/Name/DVaGoliath_VoiceLine02_P=GG!
+VoiceLine/Name/DVaGoliath_VoiceLine03=Is This Easy Mode?
+VoiceLine/Name/DVaGoliath_VoiceLine03_P=Is This Easy Mode?
+VoiceLine/Name/DVaGoliath_VoiceLine04=;)
+VoiceLine/Name/DVaGoliath_VoiceLine04_P=;)
+VoiceLine/Name/DVaGoliath_VoiceLine05=A New Challenger!
+VoiceLine/Name/DVaGoliath_VoiceLine05_P=A New Challenger!
+Weapon/Name/DVaMechDefenseMatrixFacingWeapon=D.Va - Defense Matrix Facing Weapon
+Weapon/Name/DVaMechWeapon=Mech - Weapon
+Weapon/Name/DVaPilotWeapon=Pilot - Weapon

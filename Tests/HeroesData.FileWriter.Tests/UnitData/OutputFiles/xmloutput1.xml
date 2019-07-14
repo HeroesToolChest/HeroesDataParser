@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Units>
+  <MinionArcher name="Minion Archer" hyperlinkId="MinionArcher" innerRadius="1.125" radius="1.111" sight="6" speed="4" killXP="210" damageType="Minion">
+    <ScalingLinkId>MinionScaling</ScalingLinkId>
+    <Attributes>
+      <Attribute>att1</Attribute>
+      <Attribute>att2</Attribute>
+    </Attributes>
+    <Portraits>
+      <TargetInfo>targetinfo.png</TargetInfo>
+    </Portraits>
+    <Life>
+      <Amount scale="0">500</Amount>
+      <RegenRate scale="0">0</RegenRate>
+    </Life>
+    <Weapons>
+      <MinionArcherWeapon range="6" period="4">
+        <Damage scale="0">56</Damage>
+        <DamageFactor>
+          <Minion>5</Minion>
+          <Structure>0.75</Structure>
+        </DamageFactor>
+      </MinionArcherWeapon>
+    </Weapons>
+  </MinionArcher>
+  <MinionFootman name="Minion Footman" hyperlinkId="MinionFootman" innerRadius="1.125" radius="1.111" sight="6" speed="4" damageType="Minion">
+    <Life>
+      <Amount scale="0">900</Amount>
+      <RegenRate scale="0">0</RegenRate>
+    </Life>
+    <Weapons>
+      <MinionFootmanWeapon range="7" period="6">
+        <Damage scale="0">75</Damage>
+      </MinionFootmanWeapon>
+      <MinionArcherWeapon range="6" period="4">
+        <Damage scale="0">56</Damage>
+      </MinionArcherWeapon>
+    </Weapons>
+  </MinionFootman>
+</Units>

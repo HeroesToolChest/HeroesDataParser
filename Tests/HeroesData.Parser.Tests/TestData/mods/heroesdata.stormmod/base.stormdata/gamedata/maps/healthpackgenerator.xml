@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CActorUnit id="HealthPackGenerator" parent="StormMinionStandard" unitName="HealthPackGenerator">
+        <On Terms="Behavior.GenerateHealthPack.Off" Send="MinimapIconTintColor 255,49,255,248"/>
+        <On Terms="Behavior.GenerateHealthPack.On" Send="MinimapIconTintColor 255,35,80,78"/>
+        <MinimapIcon value="Assets\Textures\storm_ui_hud_minimap_hanamura_brawl_healing_icon.dds"/>
+        <FogVisibility value="Visible"/>
+        <MinimapTooltip value="Minimap/Tooltip/HealthPackGenerator"/>
+        <MinimapUseSelfColor value="0"/>
+    </CActorUnit>
+    <CActorUnit id="HealthPack" parent="GenericUnitStandard" unitName="HealthPack">
+        <StatusBarGroups index="All" value="0"/>
+        <On Terms="ActorCreation" Send="AnimPlay Birth Birth 0 0.000000 0.000000 1.000000 AsTimeScale"/>
+        <On Terms="Effect.HealthPackPickupPersistent.Start" Send="Destroy Immediate"/>
+        <ModelFlags index="AutomatedGlobalLoopsIgnoreOrphan" value="1"/>
+        <MinimapUseSelfColor value="0"/>
+    </CActorUnit>
+    <CActorModel id="HealthPackTimer" parent="ModelAddition">
+        <Remove Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death"/>
+        <On Terms="ActorCreation" Send="AnimPlay Baseline Birth 0 -1.000000 -1.000000 20.000000 AsDuration"/>
+        <On Terms="Behavior.GenerateHealthPack.On" Send="Create"/>
+        <On Terms="Behavior.GenerateHealthPack.Off" Send="Destroy"/>
+        <HostSiteOps Ops="SOpMoveUpBy2"/>
+    </CActorModel>
+    <CActorSound id="HealthPackPickupPLRSound" parent="SoundOneShot">
+        <On Terms="Effect.HealthPackPickupPersistent.Start; At Target" Send="Create"/>
+        <Filter index="All" value="1"/>
+        <Inherits index="Visibility" value="0"/>
+        <VisibleToAtCreation index="Target" value="1"/>
+    </CActorSound>
+    <CActorSound id="HealthPackPickupNeutralSound" parent="SoundOneShot">
+        <On Terms="Effect.HealthPackPickupPersistent.Start; At Target" Send="Create"/>
+        <Filter index="All" value="1"/>
+        <Inherits index="Visibility" value="0"/>
+        <VisibleToAtCreation index="TargetAlly" value="1"/>
+        <VisibleToAtCreation index="TargetNeutral" value="1"/>
+        <VisibleToAtCreation index="TargetEnemy" value="1"/>
+    </CActorSound>
+    <CActorModel id="HealthPackImpact" parent="StormModelAnimationStyleOneShotUnit">
+        <On Terms="Effect.HealthPackPickupPersistent.Start; At Target" Send="Create"/>
+        <HostSiteOps HoldRotation="1"/>
+    </CActorModel>
+    <CBehaviorBuff id="GenerateHealthPack">
+        <Duration value="20"/>
+        <ExpireEffect value="GenerateHealthPackPersistent"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="GeneratedHealthPackCasterDetector">
+        <FinalEffect value="GenerateHealthPackAddBehaviortoGenerator"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="HealthPackSearch">
+        <Period value="0.0625"/>
+        <PeriodicEffect value="HealthPackSearch"/>
+        <InitialEffect value="HealthPackSearch"/>
+    </CBehaviorBuff>
+    <CEffectSet id="HealthPackPickupSet">
+        <EffectArray value="HealthPackPickupManaPercentModify"/>
+        <EffectArray value="HealthPackPickupPercentModifyCreateHealer"/>
+        <EffectArray value="Suicide"/>
+        <ValidatorArray value="TargetLifeOrEnergyNotFull"/>
+    </CEffectSet>
+    <CEffectCreatePersistent id="HealthPackPickupPersistent">
+        <PeriodCount value="3"/>
+        <PeriodicEffectArray value="HealthPackPickupManaPercentModify"/>
+        <PeriodicEffectArray value="HealthPackPickupPercentModifyCreateHealer"/>
+        <PeriodicEffectArray value="Suicide"/>
+        <PeriodicPeriodArray value="0"/>
+        <WhichLocation Value="TargetUnit"/>
+        <ValidatorArray value="TargetLifeOrEnergyNotFull"/>
+    </CEffectCreatePersistent>
+    <CEffectCreateHealer id="HealthPackPickupManaPercentModify">
+        <RechargeVital value="Energy"/>
+        <RechargeVitalFraction value="0.3476"/>
+        <Flags index="IgnoreBehaviorDealtMultipliers" value="1"/>
+        <ValidatorArray value="TargetIsManaUser"/>
+    </CEffectCreateHealer>
+    <CEffectCreateHealer id="HealthPackPickupPercentModifyCreateHealer">
+        <RechargeVitalFraction value="0.3476"/>
+        <FloaterCreation value="Suppress"/>
+        <Flags index="IgnoreBehaviorDealtMultipliers" value="1"/>
+    </CEffectCreateHealer>
+    <CEffectApplyBehavior id="GenerateHealthPackAddBehaviortoGenerator">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="GenerateHealthPack"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="GenerateHealthPackAddBehaviortoGlobe">
+        <Behavior value="GeneratedHealthPackCasterDetector"/>
+    </CEffectApplyBehavior>
+    <CEffectCreateUnit id="GenerateHealthPackCreateUnit">
+        <SpawnEffect value="GenerateHealthPackCreateSet"/>
+        <SpawnUnit value="HealthPack"/>
+        <SpawnOffset value="0,0"/>
+        <WhichLocation Value="TargetPoint"/>
+        <SpawnRange value="0"/>
+        <CreateFlags index="Placement" value="0"/>
+        <CreateFlags index="PlacementIgnoreBlockers" value="1"/>
+    </CEffectCreateUnit>
+    <CEffectCreatePersistent id="GenerateHealthPackPersistent">
+        <PeriodCount value="1"/>
+        <PeriodicEffectArray value="GenerateHealthPackCreateUnit"/>
+        <PeriodicPeriodArray value="0"/>
+        <WhichLocation Value="CasterPoint"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="GenerateHealthPackCreateSet">
+        <EffectArray value="GenerateHealthPackAddBehaviortoGlobe"/>
+        <EffectArray value="GenerateHealthPackRemoveTimedLife"/>
+        <OrphanFromEffectChain value="1"/>
+    </CEffectSet>
+    <CEffectRemoveBehavior id="GenerateHealthPackRemoveTimedLife">
+        <BehaviorLink value="HealthPackTimedLife"/>
+    </CEffectRemoveBehavior>
+    <CEffectEnumArea id="HealthPackSearch">
+        <SearchFilters value="Heroic;Structure,Item,Stasis,Dead"/>
+        <TargetSorts RequestCount="1" RequestPercentage="1">
+            <SortArray value="TSDistance"/>
+        </TargetSorts>
+        <AreaArray MaxCount="1" Radius="1" Effect="HealthPackPickupPersistent"/>
+    </CEffectEnumArea>
+    <CModel id="HealthPack" parent="PersistentSpellFX">
+        <Model value="Assets\Doodads\Storm_Doodad_HanaBrawl_HealthPack\Storm_Doodad_HanaBrawl_HealthPack.m3"/>
+        <Events>
+            <Anim value="Birth,00"/>
+            <Name value="HealthPackSpawnSound"/>
+            <Type value="Sound"/>
+            <Time value="0.001000"/>
+            <Payload value="HealthPackSpawnSound"/>
+        </Events>
+    </CModel>
+    <CModel id="HealthPackGenerator" parent="Unit">
+        <Model value="Assets\Doodads\Storm_Doodad_HanaBrawl_HealthPack_Base\Storm_Doodad_HanaBrawl_HealthPack_Base.m3"/>
+    </CModel>
+    <CModel id="HealthPackTimer">
+        <Model value="Assets\Effects\Storm_FX_Chromie_Base_Looper_Counter\Storm_FX_Chromie_Base_Looper_Counter.m3"/>
+    </CModel>
+    <CModel id="HealthPackImpact" parent="OneShotSpellFX">
+        <Model value="Assets\Effects\Storm_FX_Uther_Medic_HolyRadiance_Heal_Impact\Storm_FX_Uther_Medic_HolyRadiance_Heal_Impact.m3"/>
+        <ScaleMax value="0.750000,0.750000,0.750000"/>
+    </CModel>
+    <CSound id="HealthPackPickupNeutralSound" parent="_FX_Pickups">
+        <AssetArray File="Assets\Sounds\Mutators\HanamuraPayloadPush\OW_Healthpack_Pickup_01.wav" FacialGroup=""/>
+        <Flags index="AllowDuckingInPlayDelay" value="0"/>
+        <Category value="User30"/>
+        <CategoryLocalAlly value="User41"/>
+        <CategoryLocal value="SpellOneshotImpact"/>
+        <PanLevel value="0.900000"/>
+        <PanLevelNonLocal value="1.000000"/>
+        <Pitch value="-1.000000,0.000000"/>
+        <VolumeRolloffPoints index="0" Distance="5.000000" Volume="0.000000"/>
+        <VolumeRolloffPoints index="1" Distance="20.000000" Volume="-96.000000"/>
+        <CategoryDuckingLocal value="Local_Spell_Instacast"/>
+        <CategoryDuckingLocalAlly value="NPC_Spell_InstaCast"/>
+        <CategoryDuckingNonLocal value="NPC_Spell_InstaCast"/>
+    </CSound>
+    <CSound id="HealthPackPickupPLRSound" parent="_FX_Pickups">
+        <AssetArray File="Assets\Sounds\Mutators\HanamuraPayloadPush\OW_Healthpack_Pickup_PLR_01.wav" FacialGroup=""/>
+        <Flags index="AllowDuckingInPlayDelay" value="0"/>
+        <Category value="User30"/>
+        <CategoryLocalAlly value="User41"/>
+        <CategoryLocal value="SpellOneshotImpact"/>
+        <PanLevel value="0.900000"/>
+        <PanLevelNonLocal value="1.000000"/>
+        <Pitch value="-1.000000,1.000000"/>
+        <VolumeRolloffPoints index="0" Distance="5.000000" Volume="0.000000"/>
+        <VolumeRolloffPoints index="1" Distance="20.000000" Volume="-96.000000"/>
+        <CategoryDuckingLocal value="Local_Spell_Instacast"/>
+        <CategoryDuckingLocalAlly value="NPC_Spell_InstaCast"/>
+        <CategoryDuckingNonLocal value="NPC_Spell_InstaCast"/>
+    </CSound>
+    <CSound id="HealthPackSpawnSound" parent="_FX_Pickups">
+        <AssetArray File="Assets\Sounds\Mutators\HanamuraPayloadPush\OW_Healthpack_Pickup_Birth_01.wav" FacialGroup=""/>
+        <Flags index="AllowDuckingInPlayDelay" value="0"/>
+        <Category value="User30"/>
+        <CategoryLocalAlly value="User41"/>
+        <CategoryLocal value="SpellOneshotImpact"/>
+        <PanLevel value="0.900000"/>
+        <PanLevelNonLocal value="1.000000"/>
+        <Pitch value="-1.000000,1.000000"/>
+        <Volume value="-2.000000,-2.000000"/>
+        <VolumeRolloffPoints index="0" Distance="5.000000" Volume="0.000000"/>
+        <VolumeRolloffPoints index="1" Distance="20.000000" Volume="-96.000000"/>
+        <CategoryDuckingLocal value="Local_Spell_Instacast"/>
+        <CategoryDuckingLocalAlly value="NPC_Spell_InstaCast"/>
+        <CategoryDuckingNonLocal value="NPC_Spell_InstaCast"/>
+    </CSound>
+    <CUnit id="HealthPackGenerator">
+        <FlagArray index="Movable" value="0"/>
+        <FlagArray index="CreateVisible" value="1"/>
+        <FlagArray index="Unselectable" value="1"/>
+        <FlagArray index="Untargetable" value="1"/>
+        <FlagArray index="KillCredit" value="0"/>
+        <FlagArray index="Invulnerable" value="1"/>
+        <FlagArray index="Unstoppable" value="1"/>
+        <FogVisibility value="Visible"/>
+        <EditorFlags index="NeutralDefault" value="1"/>
+        <Response value="Nothing"/>
+        <Sight value="1"/>
+        <BehaviorArray Link="GenerateHealthPack"/>
+        <Radius value="0.0625"/>
+    </CUnit>
+    <CUnit id="HealthPack" parent="StormPowerup">
+        <BehaviorArray Link="HealthPackSearch"/>
+    </CUnit>
+    <CValidatorUnitCompareVital id="TargetEnergyNotFull" parent="TargetLifeNotFull">
+        <Vital value="Energy"/>
+    </CValidatorUnitCompareVital>
+    <CValidatorCombine id="TargetLifeOrEnergyNotFull">
+        <CombineArray value="TargetLifeNotFull"/>
+        <CombineArray value="TargetEnergyNotFullAndIsManaUser"/>
+    </CValidatorCombine>
+    <CValidatorCombine id="TargetEnergyNotFullAndIsManaUser">
+        <CombineArray value="TargetIsManaUser"/>
+        <CombineArray value="TargetEnergyNotFull"/>
+        <Type value="And"/>
+    </CValidatorCombine>
+</Catalog>

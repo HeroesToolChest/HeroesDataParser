@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CEmoticonPack default="1">
+    <Name value="EmoticonPack/Name/##id##"/>
+    <SortName value="EmoticonPack/SortName/##id##"/>
+    <Description value="EmoticonPack/Description/##id##"/>
+    <LootChestRewardCutsceneFile value="Cutscenes/UI_LootChest_Reward_EmoticonPack.StormCutscene"/>
+    <TextureSlot value="main"/>
+    <HyperlinkId value="##id##"/>
+  </CEmoticonPack>
+</Catalog>

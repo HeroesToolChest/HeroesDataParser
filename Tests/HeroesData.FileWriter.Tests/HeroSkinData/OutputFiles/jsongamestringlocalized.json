@@ -1,0 +1,18 @@
+{
+  "AbathurBone": {
+    "hyperlinkId": "AbathurBone",
+    "attributeId": "Aba1",
+    "rarity": "None",
+    "releaseDate": "2014-03-13",
+    "features": [
+      "ThemedAbilities",
+      "ThemedAnimations"
+    ]
+  },
+  "AbathurMechaVar1": {
+    "hyperlinkId": "AbathurMecha",
+    "attributeId": "Aba2",
+    "rarity": "Legendary",
+    "releaseDate": "2014-03-01"
+  }
+}

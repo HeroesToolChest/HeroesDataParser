@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
+  <CShield id="LaserCannon">   
+  </CShield>
+  <CBehaviorSuper id="LaserCannon">
+  </CBehaviorSuper>
   <CBehaviorBuff id="CalldownMULETimedLife">
     <Duration value="40" />
     <FinalEffect value="StormSuicide" />

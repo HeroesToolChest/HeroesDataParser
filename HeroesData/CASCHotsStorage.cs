@@ -11,8 +11,8 @@ namespace HeroesData
     {
         private readonly string StoragePath;
 
-        private ManualResetEvent ResetEvent = new ManualResetEvent(false);
-        private BackgroundWorkerEx BackgroundWorker = new BackgroundWorkerEx();
+        private readonly ManualResetEvent ResetEvent = new ManualResetEvent(false);
+        private readonly BackgroundWorkerEx BackgroundWorker = new BackgroundWorkerEx();
 
         private CASCHotsStorage(string storagePath)
         {
@@ -46,13 +46,12 @@ namespace HeroesData
                 CASCHandler = CASCHandler.OpenStorage(config, BackgroundWorker);
 
                 LocaleFlags locale = LocaleFlags.All;
-                ContentFlags content = (ContentFlags)Enum.Parse(typeof(ContentFlags), "None");
 
                 Console.SetOut(console); // enable output
                 CASCHandler.Root.LoadListFile(Path.Combine(Environment.CurrentDirectory, "listfile.txt"), BackgroundWorker);
 
                 Console.SetOut(TextWriter.Null); // suppress output
-                CASCFolderRoot = CASCHandler.Root.SetFlags(locale, content);
+                CASCFolderRoot = CASCHandler.Root.SetFlags(locale);
             };
 
             BackgroundWorker.ProgressChanged += (_, e) =>
@@ -65,10 +64,11 @@ namespace HeroesData
             {
                 time.Stop();
                 Console.SetOut(console); // enable output
+                Console.Write("\r");
                 DrawProgressBar(100, 100, 72, '#');
 
                 Console.WriteLine();
-                Console.WriteLine($"Finished in {time.Elapsed.Seconds} seconds {time.Elapsed.Milliseconds} milliseconds");
+                Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
                 Console.WriteLine();
 
                 ResetEvent.Set();

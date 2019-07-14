@@ -1,0 +1,16 @@
+{
+  "Common1": {
+    "name": "Common1",
+    "hyperlinkId": "Common1Id",
+    "attributeId": "AB01",
+    "releaseDate": "2016-05-21"
+  },
+  "Common2": {
+    "name": "Common2",
+    "hyperlinkId": "Common2Id",
+    "attributeId": "AB02",
+    "releaseDate": "2014-05-21",
+    "sortName": "xxCommon2",
+    "description": "some voice talking"
+  }
+}

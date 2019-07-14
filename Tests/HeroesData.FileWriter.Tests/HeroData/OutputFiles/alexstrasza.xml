@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Heroes>
+  <Alexstrasza name="Alexstrasza" unitId="HeroAlexstrasza" hyperlinkId="AlexstraszaId" attributeId="Alex" difficulty="Medium" franchise="Warcraft" gender="Female" innerRadius="0.75" radius="0.75" releaseDate="2017-11-14" sight="12" speed="4.3984" type="Ranged" rarity="Legendary">
+    <Description>A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities.</Description>
+    <Ratings complexity="0" damage="0" survivability="0" utility="0" />
+    <Abilities>
+      <Basic>
+        <TychusOdinAnnihilate buttonId="TychusOdinAnnihilate" name="Annihilate" abilityType="Q">
+          <Icon>storm_ui_icon_tychus_annihilate.png</Icon>
+          <FullTooltip>Burrow to the target location, dealing &lt;c val="#TooltipNumbers"&gt;96~~0.04~~&lt;/c&gt; damage and briefly stunning enemies in a small area upon surfacing, slowing them by &lt;c val="#TooltipNumbers"&gt;25%&lt;/c&gt; for &lt;c val="#TooltipNumbers"&gt;2.5&lt;/c&gt; seconds.&lt;n/&gt;&lt;n/&gt;Burrow Charge can be reactivated to surface early.</FullTooltip>
+        </TychusOdinAnnihilate>
+      </Basic>
+      <Heroic>
+        <SubAbilHeroic buttonId="SubAbilHeroic" name="SubAbilHeroic" abilityType="Heroic" />
+      </Heroic>
+      <Trait>
+        <SubAbilTrait buttonId="SubAbilTrait" name="SubAbilTrait" abilityType="Trait" />
+      </Trait>
+      <Mount>
+        <SubAbilMount buttonId="SubAbilMount" name="SubAbilMount" abilityType="Z" />
+      </Mount>
+      <Activable>
+        <SubAbilActivable buttonId="SubAbilActivable" name="SubAbilActivable" abilityType="Active" />
+      </Activable>
+    </Abilities>
+    <HeroUnits>
+      <HeroAlexstraszaDragon>
+        <AlexstraszaDragon name="Alexstrasza" hyperlinkId="AlexstraszaDragonId" innerRadius="1" radius="1.25" sight="12" speed="4.3984">
+          <Portraits>
+            <TargetInfo>targetinfo.png</TargetInfo>
+            <Minimap>minimap.png</Minimap>
+          </Portraits>
+          <Life>
+            <Amount scale="0.04">1787</Amount>
+            <RegenRate scale="0.04">3.7226</RegenRate>
+          </Life>
+          <Armor>
+            <Minion basic="0" ability="50" splash="0" />
+          </Armor>
+          <Abilities>
+            <Trait>
+              <DragonAbilTrait buttonId="DragonAbilTrait" name="DragonAbilTrait" abilityType="Trait">
+                <FullTooltip>Burrow to the target location, dealing &lt;c val="#TooltipNumbers"&gt;96~~0.04~~&lt;/c&gt; damage and briefly stunning enemies in a small area upon surfacing, slowing them by &lt;c val="#TooltipNumbers"&gt;25%&lt;/c&gt; for &lt;c val="#TooltipNumbers"&gt;2.5&lt;/c&gt; seconds.&lt;n/&gt;&lt;n/&gt;Burrow Charge can be reactivated to surface early.</FullTooltip>
+              </DragonAbilTrait>
+            </Trait>
+            <Activable>
+              <DragonAbilActivable buttonId="DragonAbilActivable" name="DragonAbilActivable" abilityType="Trait" />
+            </Activable>
+          </Abilities>
+          <SubAbilities>
+            <SubAbilHeroic>
+              <Heroic>
+                <DragonAbilHeroic buttonId="DragonAbilHeroic" name="DragonAbilHeroic" abilityType="Heroic" />
+              </Heroic>
+            </SubAbilHeroic>
+            <SubAbilMount>
+              <Mount>
+                <DragonAbilMount buttonId="DragonAbilMount" name="DragonAbilMount" abilityType="Z" />
+              </Mount>
+            </SubAbilMount>
+          </SubAbilities>
+        </AlexstraszaDragon>
+      </HeroAlexstraszaDragon>
+    </HeroUnits>
+  </Alexstrasza>
+</Heroes>

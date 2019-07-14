@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CButton id="BraxisHoldoutSCVChannel" parent="StormButtonParent"/>
+    <CButton id="TerranArchangelBulletstorm" parent="StormButtonParent">
+        <Icon value="Assets\Textures\storm_temp_btn-ability-terran-bombardmentstrike-color.dds"/>
+    </CButton>
+    <CButton id="TerranArchangelMortar" parent="StormButtonParent">
+        <Icon value="Assets\Textures\storm_temp_btn-ability-terran-armnuke.dds"/>
+    </CButton>
+</Catalog>

@@ -1,4 +1,0 @@
-﻿award/description/Bulwark=Highest damage soaked
-award/description/Killer=Most Kills
-award/name/Bulwark=Bulwark
-award/name/Killer=Killer

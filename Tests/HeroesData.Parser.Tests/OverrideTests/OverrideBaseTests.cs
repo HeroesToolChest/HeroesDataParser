@@ -1,9 +1,9 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using HeroesData.Loader.XmlGameData;
-using HeroesData.Parser.HeroData.Overrides;
+using HeroesData.Parser.Overrides;
+using HeroesData.Parser.Overrides.DataOverrides;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -14,20 +14,22 @@ namespace HeroesData.Parser.Tests.OverrideTests
     {
         private const string TestDataFolder = "TestData";
         private readonly string ModsTestFolder = Path.Combine(TestDataFolder, "mods");
-        private readonly string HeroOverrideTestFolder = "HeroOverrideTest.xml";
+        private readonly string OverrideFileNameSuffix = "overrides-test";
 
         public OverrideBaseTests()
         {
             GameData gameData = new FileGameData(ModsTestFolder);
-            OverrideData = OverrideData.Load(gameData, HeroOverrideTestFolder);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(gameData, OverrideFileNameSuffix);
 
-            HeroOverride = OverrideData.HeroOverride(CHeroId);
+            HeroOverrideLoader = (HeroOverrideLoader)xmlDataOverriders.GetOverrider(typeof(HeroDataParser));
+            HeroDataOverride = HeroOverrideLoader.GetOverride(CHeroId);
+
             LoadInitialValues();
         }
 
         protected abstract string CHeroId { get; }
-        protected OverrideData OverrideData { get; }
-        protected HeroOverride HeroOverride { get; }
+        protected HeroOverrideLoader HeroOverrideLoader { get; }
+        protected HeroDataOverride HeroDataOverride { get; }
         protected Ability TestAbility { get; } = new Ability();
         protected Talent TestTalent { get; } = new Talent();
         protected UnitWeapon TestWeapon { get; } = new UnitWeapon();
@@ -36,55 +38,30 @@ namespace HeroesData.Parser.Tests.OverrideTests
         [TestMethod]
         public void HeroIdDoesntExistTest()
         {
-            Assert.IsNull(OverrideData.HeroOverride("KaboomBaby"));
+            Assert.IsNull(HeroOverrideLoader.GetOverride("KaboomBaby"));
         }
 
         protected void LoadOverrideIntoTestAbility(string abilityName)
         {
-            if (HeroOverride.PropertyAbilityOverrideMethodByAbilityId.TryGetValue(abilityName, out Dictionary<string, Action<Ability>> valueOverrideMethods))
-            {
-                foreach (var propertyOverride in valueOverrideMethods)
-                {
-                    // execute each property override
-                    propertyOverride.Value(TestAbility);
-                }
-            }
+            TestAbility.AbilityTalentId = new AbilityTalentId(abilityName, abilityName);
+            HeroDataOverride.ExecuteAbilityOverrides(new List<Ability> { TestAbility });
         }
 
         protected void LoadOverrideIntoTestTalent(string talentName)
         {
-            if (HeroOverride.PropertyTalentOverrideMethodByTalentId.TryGetValue(talentName, out Dictionary<string, Action<Talent>> valueOverrideMethods))
-            {
-                foreach (var propertyOverride in valueOverrideMethods)
-                {
-                    // execute each property override
-                    propertyOverride.Value(TestTalent);
-                }
-            }
+            TestTalent.AbilityTalentId = new AbilityTalentId(talentName, talentName);
+            HeroDataOverride.ExecuteTalentOverrides(new List<Talent> { TestTalent });
         }
 
         protected void LoadOverrideIntoTestWeapon(string weaponName)
         {
-            if (HeroOverride.PropertyWeaponOverrideMethodByWeaponId.TryGetValue(weaponName, out Dictionary<string, Action<UnitWeapon>> valueOverrideMethods))
-            {
-                foreach (var propertyOverride in valueOverrideMethods)
-                {
-                    // execute each property override
-                    propertyOverride.Value(TestWeapon);
-                }
-            }
+            TestWeapon.WeaponNameId = weaponName;
+            HeroDataOverride.ExecuteWeaponOverrides(new List<UnitWeapon> { TestWeapon });
         }
 
         protected void LoadOverrideIntoTestPortrait(string heroName)
         {
-            if (HeroOverride.PropertyPortraitOverrideMethodByCHeroId.TryGetValue(heroName, out Dictionary<string, Action<HeroPortrait>> valueOverrideMethods))
-            {
-                foreach (var propertyOverride in valueOverrideMethods)
-                {
-                    // execute each property override
-                    propertyOverride.Value(TestPortrait);
-                }
-            }
+            HeroDataOverride.ExecutePortraitOverrides(heroName, TestPortrait);
         }
 
         private void LoadInitialValues()

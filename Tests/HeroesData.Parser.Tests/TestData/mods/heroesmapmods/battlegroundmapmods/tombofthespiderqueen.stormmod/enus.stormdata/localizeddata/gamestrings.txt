@@ -1,0 +1,9 @@
+﻿Unit/Name/HarrisonJones=Harrison Jones
+Unit/Name/HeroChenEarth=HeroChenEarth
+Unit/Name/HeroChenFire=HeroChenFire
+Unit/Name/HeroChenStorm=HeroChenStorm
+Unit/Name/ItemSoulPickupPrecursor=Item Soul Pickup Precursor
+Unit/Name/JungleGraveGolemLaner=Sand Golem
+Unit/Name/SoulCage=Spider Altar
+Unit/Name/SoulEater=Webweaver
+Unit/Name/SoulEaterMinion=Spider

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CBehaviorVeterancy default="1" id="HeroXPCurve">
+    <VeterancyLevelArray />
+    <VeterancyLevelArray MinVeterancyXP="2010" />
+    <VeterancyLevelArray MinVeterancyXP="2154" />
+    <VeterancyLevelArray MinVeterancyXP="2154" />
+    <VeterancyLevelArray MinVeterancyXP="2154" />
+    <VeterancyLevelArray MinVeterancyXP="2154" />
+    <VeterancyLevelArray MinVeterancyXP="3303" />
+    <VeterancyLevelArray MinVeterancyXP="3303" />
+    <VeterancyLevelArray MinVeterancyXP="3303" />
+    <VeterancyLevelArray MinVeterancyXP="3303" />
+    <VeterancyLevelArray MinVeterancyXP="3303" />
+    <VeterancyLevelArray MinVeterancyXP="4452" />
+    <VeterancyLevelArray MinVeterancyXP="4452" />
+    <VeterancyLevelArray MinVeterancyXP="4452" />
+    <VeterancyLevelArray MinVeterancyXP="4452" />
+    <VeterancyLevelArray MinVeterancyXP="4452" />
+    <VeterancyLevelArray MinVeterancyXP="5600" />
+    <VeterancyLevelArray MinVeterancyXP="5600" />
+    <VeterancyLevelArray MinVeterancyXP="5600" />
+    <VeterancyLevelArray MinVeterancyXP="5600" />
+    <VeterancyLevelArray MinVeterancyXP="9000" />
+    <VeterancyLevelArray MinVeterancyXP="10000" />
+    <VeterancyLevelArray MinVeterancyXP="11500" />
+    <VeterancyLevelArray MinVeterancyXP="13000" />
+    <VeterancyLevelArray MinVeterancyXP="15000" />
+    <VeterancyLevelArray MinVeterancyXP="17000" />
+    <VeterancyLevelArray MinVeterancyXP="19500" />
+    <VeterancyLevelArray MinVeterancyXP="22000" />
+    <VeterancyLevelArray MinVeterancyXP="25000" />
+    <VeterancyLevelArray MinVeterancyXP="28000" />
+    <InfoFlags index="Hidden" value="1" />
+    <XPFraction index="Kills" value="0" />
+    <BehaviorFlags index="Permanent" value="1" />
+    <BehaviorFlags index="EnabledWhileDead" value="1" />
+  </CBehaviorVeterancy>
+  <CBehaviorVeterancy id="ExcellentMana" parent="HeroXPCurve">
+    <VeterancyLevelArray index="1">
+      <Modification>
+        <VitalMaxArray index="Energy" value="10" />
+        <VitalRegenArray index="Energy" value="0.0976" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="2">
+      <Modification>
+        <VitalMaxArray index="Energy" value="10" />
+        <VitalRegenArray index="Energy" value="0.0976" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="3">
+      <Modification>
+        <VitalMaxArray index="Energy" value="10" />
+        <VitalRegenArray index="Energy" value="0.0976" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="4">
+      <Modification>
+        <VitalMaxArray index="Energy" value="10" />
+        <VitalRegenArray index="Energy" value="0.0976" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="5">
+      <Modification>
+        <VitalMaxArray index="Energy" value="10" />
+        <VitalRegenArray index="Energy" value="0.0976" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="6">
+      <Modification>
+        <VitalMaxArray index="Energy" value="10" />
+        <VitalRegenArray index="Energy" value="0.0976" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray index="7">
+      <Modification>
+        <VitalMaxArray index="Energy" value="10" />
+        <VitalRegenArray index="Energy" value="0.0976" />
+      </Modification>
+    </VeterancyLevelArray>
+  </CBehaviorVeterancy>
+  <CBehaviorVeterancy id="TerranHellbatScaling">
+    <InfoFlags index="Hidden" value="1" />
+    <XPFraction index="Kills" value="0" />
+    <VeterancyLevelArray />
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="1.5" />
+        <VitalMaxArray index="Life" value="40" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="1.5" />
+        <VitalMaxArray index="Life" value="40" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="1.5" />
+        <VitalMaxArray index="Life" value="40" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="1.5" />
+        <VitalMaxArray index="Life" value="40" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="1.5" />
+        <VitalMaxArray index="Life" value="40" />
+      </Modification>
+    </VeterancyLevelArray>
+    <VeterancyLevelArray MinVeterancyXP="1">
+      <Modification>
+        <DamageDealtScaled index="Basic" value="2.25" />
+        <VitalMaxArray index="Life" value="110" />
+      </Modification>
+    </VeterancyLevelArray>
+  </CBehaviorVeterancy>
+</Catalog>

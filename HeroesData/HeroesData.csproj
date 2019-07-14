@@ -12,28 +12,35 @@
     <Authors>Kevin Oliva</Authors>
     <PackageId>HeroesDataParser</PackageId>
     <Product>HeroesDataParser</Product>
-    <PackageLicenseUrl>https://github.com/koliva8245/HeroesDataParser/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/koliva8245/HeroesDataParser</PackageProjectUrl>
     <RepositoryUrl>https://github.com/koliva8245/HeroesDataParser</RepositoryUrl>
     <Description>Extracts Heroes of the Storm game data into XML and JSON format</Description>
     <PackageReleaseNotes>https://github.com/koliva8245/HeroesDataParser/releases</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.1-beta.61">
+    <PackageReference Include="Pfim" Version="0.7.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CASCExplorer\CascLibCore\CascLibCore.csproj" />
-    <ProjectReference Include="..\dds-reader\DDSReader\DDSReader\DDSReader.csproj" />
+    <ProjectReference Include="..\CASCExplorer\CascLib\CascLib\CascLib.csproj" />
     <ProjectReference Include="..\Heroes.Models\Heroes.Models\Heroes.Models.csproj" />
     <ProjectReference Include="..\HeroesData.Loader\HeroesData.Loader.csproj" />
     <ProjectReference Include="..\HeroesData.Parser\HeroesData.Parser.csproj" />
     <ProjectReference Include="..\HeroesData.Writer\HeroesData.FileWriter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="verifyignore.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

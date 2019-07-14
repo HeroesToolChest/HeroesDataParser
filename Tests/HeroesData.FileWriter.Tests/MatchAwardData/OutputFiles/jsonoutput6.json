@@ -1,0 +1,18 @@
+{
+  "Bulwark": {
+    "name": "Bulwark",
+    "gameLink": "EndOfMatchBulwark",
+    "tag": "AwBK",
+    "mvpScreenIcon": "image_bulwark.png",
+    "scoreScreenIcon": "image_scorescreen_bulwark.png",
+    "description": "Highest damage soaked"
+  },
+  "Killer": {
+    "name": "Killer",
+    "gameLink": "EndOfMatchKiller",
+    "tag": "AwKL",
+    "mvpScreenIcon": "image_killer.png",
+    "scoreScreenIcon": "image_scorescreen_killer.png",
+    "description": "Most Kills"
+  }
+}

@@ -1,0 +1,13 @@
+﻿UI/MapLoadingScreen/TowersofDoom=Towers of Doom
+UI/MapLoadingScreen/TowersofDoom/Description1=Both Cores are protected by a barrier that cannot be attacked by Heroes. To be victorious, you must activate Altars.
+UI/MapLoadingScreen/TowersofDoom/Description2=Periodically Altars will rise across the battlefield. Activate them to have your Bell Towers fire upon the enemy's Core. 
+UI/MapLoadingScreen/TowersofDoom/Description3=Destroy your enemy's Towers to bring them under your team's control. The more Towers you have, the more damage an altar will do.
+UI/MapLoadingScreen/TowersofDoom/Title1=Protected Cores
+UI/MapLoadingScreen/TowersofDoom/Title2=Activate Altars
+UI/MapLoadingScreen/TowersofDoom/Title3=Claim Bell Towers
+ScoreResult/Name/AltarDamageDone=Altar Damage Done
+ScoreValue/Name/AltarDamageDone=Altar Damage Done
+ScoreValue/Name/EndOfMatchAwardMostAltarDamageDone=Most Altar Damage Done
+UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Award Name=<lang rule="gender" word="~HeroName~">Cannoneer</lang>
+UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Description=~AwardValue~% Core Damage Done
+UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Tooltip Text=~TooltipAmount~ Core Damage Done

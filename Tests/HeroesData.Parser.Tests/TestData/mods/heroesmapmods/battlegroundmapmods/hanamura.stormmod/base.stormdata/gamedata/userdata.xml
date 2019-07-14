@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CUser id="MapVOEvent">
+        <Instances Id="Hanamura - Payload Spawn First"/>
+        <Instances Id="Hanamura - Payload Spawn Left"/>
+        <Instances Id="Hanamura - Payload Spawn Right"/>
+        <Instances Id="Hanamura - Payload Checkpoint Left"/>
+        <Instances Id="Hanamura - Payload Checkpoint Right"/>
+        <Instances Id="Hanamura - Payload End Left"/>
+        <Instances Id="Hanamura - Payload End Right"/>
+        <Instances Id="Hanamura - Payload Spawn Both"/>
+        <Instances Id="Hanamura - Payload Checkpoint Both"/>
+        <Instances Id="Hanamura - Payload End Both"/>
+        <Instances Id="Hanamura - Payload Spawning First"/>
+        <Instances Id="Hanamura - Payload Spawning Left"/>
+        <Instances Id="Hanamura - Payload Spawning Right"/>
+        <Instances Id="Hanamura - Payload Spawning Both"/>
+        <Instances Id="Hanamura - Boss Capture - Left"/>
+        <Instances Id="Hanamura - Boss Capture - Right"/>
+        <Instances Id="Hanamura - Core Low Health Left"/>
+        <Instances Id="Hanamura - Core Low Health Right"/>
+        <Instances Id="Hanamura - Core 1 HP Left"/>
+        <Instances Id="Hanamura - Core 1 HP Right"/>
+        <Instances Id="Hanamura - Left Core Danger Both Spawn"/>
+        <Instances Id="Hanamura - Right Core Danger Both Spawn"/>
+        <Instances Id="Hanamura - Both Core Danger Both Spawn"/>
+        <Instances Id="Hanamura - Second Payload Spawning Left"/>
+        <Instances Id="Hanamura - Second Payload Spawning Right"/>
+        <Instances Id="Hanamura - Second Payload Spawning Both"/>
+        <Instances Id="Hanamura - Second Payload Spawned Left"/>
+        <Instances Id="Hanamura - Second Payload Spawned Right"/>
+        <Instances Id="Hanamura - Second Payload Spawned Both"/>
+    </CUser>
+    <CUser id="EndOfMatchMapSpecificAward">
+        <Instances Id="[Override]Generic Instance">
+            <Fixed Fixed="60">
+                <Field Id="Base"/>
+            </Fixed>
+            <GameLink GameLink="EndOfMatchAwardMostTimePushingBoolean">
+                <Field Id="Score Value Boolean"/>
+            </GameLink>
+            <String String="33">
+                <Field Id="Award Badge Index"/>
+            </String>
+            <String String="true">
+                <Field Id="Gated by Base"/>
+            </String>
+            <String String="true">
+                <Field Id="Present as Ratio"/>
+            </String>
+            <Text Text="UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Award Name">
+                <Field Id="Award Name"/>
+            </Text>
+            <Text Text="UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Description">
+                <Field Id="Description"/>
+            </Text>
+            <Text Text="UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Tooltip Text">
+                <Field Id="Tooltip Text"/>
+            </Text>
+        </Instances>
+    </CUser>
+</Catalog>

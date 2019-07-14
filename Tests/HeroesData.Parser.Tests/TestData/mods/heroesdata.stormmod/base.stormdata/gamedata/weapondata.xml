@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CWeaponLegacy default="1" id="StormTowerWeapon">
+    <TargetFilters value="-;Player,Ally,Neutral,Creep,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,IgnoredByTowerAI" />
+    <MinScanRange value="0" />
+    <RangeSlop value="0" />
+    <Period value="1" />
+    <DamagePoint value="0.5" />
+    <Backswing value="0" />
+    <RandomDelayMin value="0" />
+    <RandomDelayMax value="0" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="GuardTowerL2Weapon" parent="StormTowerWeapon">
+    <DisplayEffect value="CannonTowerL2Damage" />
+    <Range value="7.75" />
+    <Effect value="GuardTowerL2LaunchMissile" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="MercDefenderMeleeKnight">
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-terran-infantryweaponslevel0.dds" />
+    <DisplayEffect value="MercDefenderMeleeKnightDamage" />
+    <TargetFilters value="Visible;Neutral,ImmuneToSkillshots,Missile,Item,Stasis,Dead,Hidden" />
+    <MinScanRange value="10" />
+    <Range value="1.25" />
+    <Period value="1.25" />
+    <DamagePoint value="0.2" />
+    <Backswing value="0" />
+    <Effect value="MercDefenderMeleeKnightImpactSet" />
+    <AcquireFilters value="Visible;Neutral,Creep,ImmuneToSkillshots,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+  </CWeaponLegacy>
+</Catalog>
