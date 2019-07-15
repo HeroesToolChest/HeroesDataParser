@@ -14,5 +14,5 @@
       <Width>34</Width>
     </Animation>
   </lunara_angry>
-  <lunara_sad />
+  <lunara_sad isHidden="true" />
 </Emoticons>

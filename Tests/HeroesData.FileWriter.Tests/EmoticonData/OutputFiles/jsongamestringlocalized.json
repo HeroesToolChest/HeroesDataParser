@@ -10,5 +10,7 @@
       "width": 34
     }
   },
-  "lunara_sad": {}
+  "lunara_sad": {
+    "isHidden": true
+  }
 }

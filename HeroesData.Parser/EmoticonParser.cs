@@ -98,6 +98,13 @@ namespace HeroesData.Parser
                         else
                             emoticon.IsAliasCaseSensitive = false;
                     }
+                    else if (element.Attribute("value")?.Value == "Hidden")
+                    {
+                        if (element.Attribute("value")?.Value == "1")
+                            emoticon.IsHidden = true;
+                        else
+                            emoticon.IsHidden = false;
+                    }
                 }
                 else if (elementName == "EXPRESSION")
                 {

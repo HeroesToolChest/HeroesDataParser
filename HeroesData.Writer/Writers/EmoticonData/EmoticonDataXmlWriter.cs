@@ -24,6 +24,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
                 string.IsNullOrEmpty(emoticon.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("expression", emoticon.Name),
                 string.IsNullOrEmpty(emoticon.HyperlinkId) ? null : new XAttribute("hyperlinkId", emoticon.HyperlinkId),
                 emoticon.IsAliasCaseSensitive == true ? new XAttribute("caseSensitive", true) : null,
+                emoticon.IsHidden == true ? new XAttribute("isHidden", true) : null,
                 (emoticon.SearchTexts == null || !emoticon.SearchTexts.Any()) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", string.Join(' ', emoticon.SearchTexts)),
                 string.IsNullOrEmpty(emoticon.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(emoticon.Description, FileOutputOptions.DescriptionType)),
                 emoticon.LocalizedAliases != null && emoticon.LocalizedAliases.Any() && !FileOutputOptions.IsLocalizedText ? new XElement("LocalizedAliases", emoticon.LocalizedAliases.Select(x => new XElement("Alias", x))) : null,

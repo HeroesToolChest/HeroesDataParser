@@ -33,6 +33,11 @@ namespace HeroesData.Parser.XmlData
         public string EmoticonExpression { get; private set; }
 
         /// <summary>
+        /// Gets the default emoticon hidden status.
+        /// </summary>
+        public bool EmoticonIsHidden { get; private set; } = false;
+
+        /// <summary>
         /// Gets the default emoticon texture sheet.
         /// </summary>
         public string EmoticonTextureSheet { get; private set; }
@@ -85,6 +90,16 @@ namespace HeroesData.Parser.XmlData
                 else if (elementName == "IMAGE")
                 {
                     EmoticonTextureSheet = element.Attribute("TextureSheet").Value;
+                }
+                else if (elementName == "FLAGS")
+                {
+                    if (element.Attribute("value")?.Value == "Hidden")
+                    {
+                        if (element.Attribute("value")?.Value == "1")
+                            EmoticonIsHidden = true;
+                        else
+                            EmoticonIsHidden = false;
+                    }
                 }
             }
         }

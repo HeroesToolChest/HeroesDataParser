@@ -28,6 +28,9 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
             if (emoticon.IsAliasCaseSensitive)
                 emoticonObject.Add("caseSensitive", true);
 
+            if (emoticon.IsHidden)
+                emoticonObject.Add("isHidden", true);
+
             if (emoticon.SearchTexts != null && emoticon.SearchTexts.Any() && !FileOutputOptions.IsLocalizedText)
                 emoticonObject.Add("searchText", string.Join(' ', emoticon.SearchTexts));
 

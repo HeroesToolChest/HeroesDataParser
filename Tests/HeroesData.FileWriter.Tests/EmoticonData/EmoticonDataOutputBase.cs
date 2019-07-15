@@ -38,6 +38,7 @@ namespace HeroesData.FileWriter.Tests.EmoticonData
             {
                 Name = "Lunara Sad",
                 Id = "lunara_sad",
+                IsHidden = true,
             };
 
             TestData.Add(emoticon2);

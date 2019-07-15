@@ -21,6 +21,7 @@
     }
   },
   "lunara_sad": {
-    "expression": "Lunara Sad"
+    "expression": "Lunara Sad",
+    "isHidden": true
   }
 }
