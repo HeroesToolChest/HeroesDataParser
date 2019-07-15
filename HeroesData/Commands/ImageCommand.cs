@@ -40,7 +40,7 @@ namespace HeroesData.Commands
 
                 CommandOption dimensionWidthOption = config.Option("--width <VALUE>", "Sets the new width.", CommandOptionType.SingleValue);
                 CommandOption dimensionHeightOption = config.Option("--height <VALUE>", "Sets the new height.", CommandOptionType.SingleValue);
-                CommandOption pngCompressOption = config.Option("--png-compress", "Sets an png image bit depth to 8 bits", CommandOptionType.NoValue);
+                CommandOption pngCompressOption = config.Option("--png-compress", "Sets a png image bit depth to 8 bits", CommandOptionType.NoValue);
                 CommandOption outputOption = config.Option("-o|--output-directory <FILEPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
 
                 config.OnExecute(() =>
