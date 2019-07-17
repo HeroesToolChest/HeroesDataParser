@@ -132,9 +132,9 @@ Warnings can be shown to the console using the option `--warnings`.
 Ignored warnings are in `verifyignore.txt`.  
 Ignored warnings only work for a majority of english strings.  
 
-## Options
-### Storage Path (-s|--storage-path) 
-There are two types of paths that can be provided for this option. One is the `Heroes of the Storm` directory and the other is an already extracted `mods` directory.
+## Arguments
+### Storage Path
+There are two types of paths that can be provided for this argument. One is the `Heroes of the Storm` directory and the other is an already extracted `mods` directory.
 
 If this option is not provided, it will look for the `Heroes of the Storm` files in the local directory or an extracted `mods` directory.
 
@@ -142,8 +142,7 @@ The `extract` command is available to use to extract the mods directory and all 
 
 The `mods` directory can also have a build suffix in its name. [More info](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
 
-***
-
+## Options
 ### Output Directory (-o|--output-directory)
 If this option is not provided, it will default to the install directory under the directory `output`.
  
@@ -245,7 +244,7 @@ Extracts the images that were referenced in the xml or json file(s) from the `-e
 Extracts to `<OUTPUT-DIRECTORY>/images/<image-type>`  
 
 `all` - extracts all images files  
-`heroportraits` - extracts hero portrait images (HeroSelect, Leaderboard, Loading, PartyPanel, and Target portraits)  
+`heroportraits` - extracts hero portrait images
 `abilities` - extracts ability icons  
 `talents` - extracts talent icons  
 `abilitytalents` - extracts both ability and talent icons into the same directory (overrides `abilities` and `talents` choices)  
