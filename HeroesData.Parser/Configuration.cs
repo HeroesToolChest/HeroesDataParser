@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 
 namespace HeroesData.Parser
@@ -17,7 +18,7 @@ namespace HeroesData.Parser
         private ILookup<string, string> AddIdByElementName;
         private ILookup<string, string> RemoveIdByElementName;
 
-        public string ConfigFileName => "config.xml";
+        public string ConfigFileName => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "config.xml");
 
         /// <summary>
         /// Gets a collection of extra unit data abilities that should be ignore when parsing unit data.
