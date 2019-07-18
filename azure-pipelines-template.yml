@@ -16,9 +16,9 @@ jobs:
           configuration: $(config_release)
     steps:
     - task: DotNetCoreInstaller@0
-      displayName: dotnet installer 2.2.300
+      displayName: dotnet installer 2.2.301
       inputs:
-        version: '2.2.300'
+        version: '2.2.301'
         
     - powershell: |
         $cascexplorer = get-content CASCExplorer\CascLib\CascLib\CascLib.csproj
