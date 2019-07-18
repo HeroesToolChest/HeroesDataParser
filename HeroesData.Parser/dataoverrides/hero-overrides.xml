@@ -26,7 +26,13 @@
     </Ability>
   </CHero>
   <CHero id="Alexstrasza">
-    <HeroUnit id="HeroAlexstraszaDragon" />
+    <HeroUnit id="HeroAlexstraszaDragon">
+      <Ability id="AlexstraszaCleansingFlameDragonqueen">
+        <Override>
+          <ParentLink value="" />
+        </Override>
+      </Ability>
+    </HeroUnit>
   </CHero>
   <CHero id="Ana">
     <!--Old abilityTalent -->

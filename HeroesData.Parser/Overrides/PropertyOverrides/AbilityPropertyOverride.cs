@@ -21,6 +21,10 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                         else
                             ability.ParentLink = new AbilityTalentId(propertyValue, propertyValue);
                     }
+                    else
+                    {
+                        ability.ParentLink = null;
+                    }
                 });
             }
             else if (propertyName == "AbilityTier")
