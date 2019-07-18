@@ -210,7 +210,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 new JProperty("scale", unit.Life.LifeScaling),
             };
 
-            if (!string.IsNullOrEmpty(unit.Life.LifeType))
+            if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(unit.Life.LifeType))
                 lifeObject.Add(new JProperty("type", unit.Life.LifeType));
 
             lifeObject.Add(new JProperty("regenRate", unit.Life.LifeRegenerationRate));
@@ -226,7 +226,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 new JProperty("amount", unit.Energy.EnergyMax),
             };
 
-            if (!string.IsNullOrEmpty(unit.Energy.EnergyType))
+            if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(unit.Energy.EnergyType))
                 energyObject.Add(new JProperty("type", unit.Energy.EnergyType));
 
             energyObject.Add(new JProperty("regenRate", unit.Energy.EnergyRegenerationRate));
@@ -242,7 +242,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 new JProperty("scale", unit.Shield.ShieldScaling),
             };
 
-            if (!string.IsNullOrEmpty(unit.Shield.ShieldType))
+            if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(unit.Shield.ShieldType))
                 shieldObject.Add(new JProperty("type", unit.Shield.ShieldType));
 
             shieldObject.Add(new JProperty("regenDelay", unit.Shield.ShieldRegenerationDelay));

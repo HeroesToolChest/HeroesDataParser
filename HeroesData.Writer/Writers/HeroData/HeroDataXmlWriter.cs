@@ -103,7 +103,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             return new XElement(
                 "Life",
-                new XElement("Amount", unit.Life.LifeMax, new XAttribute("scale", unit.Life.LifeScaling), !string.IsNullOrEmpty(unit.Life.LifeType) ? new XAttribute("type", unit.Life.LifeType) : null),
+                new XElement("Amount", unit.Life.LifeMax, new XAttribute("scale", unit.Life.LifeScaling), !FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(unit.Life.LifeType) ? new XAttribute("type", unit.Life.LifeType) : null),
                 new XElement("RegenRate", unit.Life.LifeRegenerationRate, new XAttribute("scale", unit.Life.LifeRegenerationRateScaling)));
         }
 
@@ -111,7 +111,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             return new XElement(
                 "Energy",
-                new XElement("Amount", unit.Energy.EnergyMax, !string.IsNullOrEmpty(unit.Energy.EnergyType) ? new XAttribute("type", unit.Energy.EnergyType) : null),
+                new XElement("Amount", unit.Energy.EnergyMax, !FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(unit.Energy.EnergyType) ? new XAttribute("type", unit.Energy.EnergyType) : null),
                 new XElement("RegenRate", unit.Energy.EnergyRegenerationRate));
         }
 
@@ -119,7 +119,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             return new XElement(
                 "Shield",
-                new XElement("Amount", unit.Shield.ShieldMax, new XAttribute("scale", unit.Shield.ShieldScaling), !string.IsNullOrEmpty(unit.Shield.ShieldType) ? new XAttribute("type", unit.Shield.ShieldType) : null, new XAttribute("regenDelay", unit.Shield.ShieldRegenerationDelay)),
+                new XElement("Amount", unit.Shield.ShieldMax, new XAttribute("scale", unit.Shield.ShieldScaling), !FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(unit.Shield.ShieldType) ? new XAttribute("type", unit.Shield.ShieldType) : null, new XAttribute("regenDelay", unit.Shield.ShieldRegenerationDelay)),
                 new XElement("RegenRate", unit.Shield.ShieldRegenerationRate, new XAttribute("scale", unit.Shield.ShieldRegenerationRateScaling)));
         }
 

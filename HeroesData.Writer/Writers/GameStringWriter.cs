@@ -119,6 +119,30 @@ namespace HeroesData.FileWriter.Writers
             GameStrings[$"unit/searchtext/{key}"] = value;
         }
 
+        public void AddUnitLifeType(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"unit/lifetype/{key}"] = value;
+        }
+
+        public void AddUnitEnergyType(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"unit/energytype/{key}"] = value;
+        }
+
+        public void AddUnitShieldType(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"unit/shieldtype/{key}"] = value;
+        }
+
         public void AddAbilityTalentName(string key, string value)
         {
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))

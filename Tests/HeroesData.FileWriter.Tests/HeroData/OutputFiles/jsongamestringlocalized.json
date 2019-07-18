@@ -31,21 +31,18 @@
     "life": {
       "amount": 1900.0,
       "scale": 0.04,
-      "type": "Life",
       "regenRate": 3.957,
       "regenScale": 0.04
     },
     "shield": {
       "amount": 300.0,
       "scale": 0.04,
-      "type": "Shield",
       "regenDelay": 4.5,
       "regenRate": 10.0,
       "regenScale": 0.04
     },
     "energy": {
       "amount": 500.0,
-      "type": "Mana",
       "regenRate": 3.0
     },
     "armor": {

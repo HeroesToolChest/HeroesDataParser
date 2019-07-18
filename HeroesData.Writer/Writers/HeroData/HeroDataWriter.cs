@@ -45,6 +45,9 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             GameStringWriter.AddUnitName(unit.Id, unit.Name);
             GameStringWriter.AddUnitDescription(unit.Id, GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
+            GameStringWriter.AddUnitLifeType(unit.Id, unit.Life.LifeType);
+            GameStringWriter.AddUnitEnergyType(unit.Id, unit.Energy.EnergyType);
+            GameStringWriter.AddUnitShieldType(unit.Id, unit.Shield.ShieldType);
         }
 
         protected void AddLocalizedGameString(Hero hero)
@@ -53,6 +56,9 @@ namespace HeroesData.FileWriter.Writers.HeroData
             GameStringWriter.AddUnitDifficulty(hero.Id, hero.Difficulty);
             GameStringWriter.AddUnitType(hero.Id, hero.Type);
             GameStringWriter.AddUnitDescription(hero.Id, GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
+            GameStringWriter.AddUnitLifeType(hero.Id, hero.Life.LifeType);
+            GameStringWriter.AddUnitEnergyType(hero.Id, hero.Energy.EnergyType);
+            GameStringWriter.AddUnitShieldType(hero.Id, hero.Shield.ShieldType);
             GameStringWriter.AddHeroTitle(hero.Id, hero.Title);
             GameStringWriter.AddHeroSearchText(hero.Id, hero.SearchText);
 
