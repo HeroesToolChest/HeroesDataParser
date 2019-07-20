@@ -27,6 +27,11 @@ namespace HeroesData.FileWriter
         public bool IsMinifiedFiles { get; set; } = false;
 
         /// <summary>
+        /// Gets or sets the value to allow the data files to be written.
+        /// </summary>
+        public bool AllowDataFileWriting { get; set; } = true;
+
+        /// <summary>
         /// Gets or sets the localization.
         /// </summary>
         public Localization Localization { get; set; } = Localization.ENUS;

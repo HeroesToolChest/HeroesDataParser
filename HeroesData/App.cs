@@ -115,13 +115,12 @@ namespace HeroesData
                     IsLocalizedText = IsLocalizedText,
                     IsMinifiedFiles = CreateMinFiles,
                     OutputDirectory = OutputDirectory,
+                    AllowDataFileWriting = !IsLocalizedText,
                 };
 
                 foreach (Localization localization in Localizations)
                 {
                     options.Localization = localization;
-
-                    FileOutput fileOutput = new FileOutput(HotsBuild, options);
 
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine($"[{localization.GetFriendlyName()}]");
@@ -149,49 +148,16 @@ namespace HeroesData
                         Console.WriteLine();
 
                     // write
-                    Console.WriteLine("Creating output file(s)...");
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine($"Directory: {options.OutputDirectory}");
-                    Console.ResetColor();
-                    DataProcessor((parser) =>
-                    {
-                        if (CreateJson)
-                        {
-                            Console.Write($"[{parser.Name}] Writing json file(s)...");
-
-                            if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Json))
-                            {
-                                Console.WriteLine("Done.");
-                            }
-                            else
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Failed.");
-                                Console.ResetColor();
-                            }
-                        }
-
-                        if (CreateXml)
-                        {
-                            Console.Write($"[{parser.Name}] Writing xml file(s)...");
-                            if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Xml))
-                            {
-                                Console.WriteLine("Done.");
-                            }
-                            else
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Failed.");
-                                Console.ResetColor();
-                            }
-                        }
-
-                        Console.ResetColor();
-                    });
-
-                    Console.WriteLine();
+                    WriteFileOutput(options);
 
                     totalLocaleSuccess++;
+                }
+
+                // write
+                if (IsLocalizedText)
+                {
+                    options.AllowDataFileWriting = true;
+                    WriteFileOutput(options);
                 }
 
                 if (ExtractFileOption != ExtractImageOption.None)
@@ -668,6 +634,78 @@ namespace HeroesData
                     action(processor);
                 }
             }
+        }
+
+        private void WriteFileOutput(FileOutputOptions options)
+        {
+            // write
+            FileOutput fileOutput = new FileOutput(HotsBuild, options);
+
+            if (options.AllowDataFileWriting)
+                Console.WriteLine("Creating output file(s)...");
+            else
+                Console.WriteLine("Creating gamestring data...");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"Directory: {options.OutputDirectory}");
+            Console.ResetColor();
+            DataProcessor((parser) =>
+            {
+                if (options.AllowDataFileWriting)
+                {
+                    if (CreateJson)
+                    {
+                        Console.Write($"[{parser.Name}] Writing json file(s)...");
+
+                        if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Json))
+                        {
+                            Console.WriteLine("Done.");
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Failed.");
+                            Console.ResetColor();
+                        }
+                    }
+
+                    if (CreateXml)
+                    {
+                        Console.Write($"[{parser.Name}] Writing xml file(s)...");
+
+                        if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Xml))
+                        {
+                            Console.WriteLine("Done.");
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Failed.");
+                            Console.ResetColor();
+                        }
+                    }
+                }
+                else
+                {
+                    // only need to parsed through one type of file to get the gamestrings
+                    Console.Write($"[{parser.Name}] Writing gamestrings...");
+
+                    if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Json))
+                    {
+                        Console.WriteLine("Done.");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Failed.");
+                        Console.ResetColor();
+                    }
+                }
+
+                Console.ResetColor();
+            });
+
+            Console.WriteLine();
         }
 
         private void SetUpDataProcessors()
