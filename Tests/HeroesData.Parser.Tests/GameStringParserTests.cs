@@ -18,12 +18,12 @@ namespace HeroesData.Parser.Tests
 
         private readonly string ModsTestFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestData", "mods");
         private readonly string DataReferenceText1 = "<d ref=\"100*Talent,AnubarakMasteryEpicenterBurrowCharge,AbilityModificationArray[0].Modifications[2].Value\"/>";
-        private readonly string Tooltip1 = "Toxic Nests deal <c val=\"#bfd4fd\"><d ref=\"(Effect,AbathurToxicNestEnvenomedNestDamage,Amount* [d ref='Behavior,AbathurToxicNestEnvenomedNest,PeriodCount' player='0'/])/Effect,ToxicNestDamage,Amount*100\"/>%</c> more damage over <c val=\"#bfd4fd\"><d ref=\"Behavior,AbathurToxicNestEnvenomedNest,Duration\" player=\"0\"/></c> seconds.";
-        private readonly string Tooltip2 = "Zarya's Basic Attack deals <c val=\"#bfd4fd\"><d ref=\"(Effect,ZaryaWeaponFeelTheHeatDamage,Amount/Effect,ZaryaWeaponDamage,Amount)-1*10)\" />0%</c> additional damage to enemies in melee range.";
+        private readonly string Tooltip1 = "Toxic Nests deal <c val=\"bfd4fd\"><d ref=\"(Effect,AbathurToxicNestEnvenomedNestDamage,Amount* [d ref='Behavior,AbathurToxicNestEnvenomedNest,PeriodCount' player='0'/])/Effect,ToxicNestDamage,Amount*100\"/>%</c> more damage over <c val=\"bfd4fd\"><d ref=\"Behavior,AbathurToxicNestEnvenomedNest,Duration\" player=\"0\"/></c> seconds.";
+        private readonly string Tooltip2 = "Zarya's Basic Attack deals <c val=\"bfd4fd\"><d ref=\"(Effect,ZaryaWeaponFeelTheHeatDamage,Amount/Effect,ZaryaWeaponDamage,Amount)-1*10)\" />0%</c> additional damage to enemies in melee range.";
         private readonly string Tooltip3 = "Yrel sanctifies the ground around her, gaining <c val=\"#bfd4fd\"><d const=\"$YrelSacredGroundArmorBonus\" precision=\"2\"/></c> Armor until she leaves the area.";
-        private readonly string Tooltip4 = "If Sand Blast travels at least <c val=\"#bfd4fd\"><d ref=\"Validator,ChromieFastForwardDistanceCheck,Range/Effect,ChromieSandBlastLaunchMissile,ImpactLocation.ProjectionDistanceScale*100\"/>%</c> of its base distance and hits a Hero, its cooldown is reduced to <c val=\"#bfd4fd\"><d ref=\"Effect,ChromieSandBlastFastForwardCooldownReduction,Cost[0].CooldownTimeUse\" precision=\"2\"/></c> seconds.";
+        private readonly string Tooltip4 = "If Sand Blast travels at least <c val=\"bfd4fd\"><d ref=\"Validator,ChromieFastForwardDistanceCheck,Range/Effect,ChromieSandBlastLaunchMissile,ImpactLocation.ProjectionDistanceScale*100\"/>%</c> of its base distance and hits a Hero, its cooldown is reduced to <c val=\"bfd4fd\"><d ref=\"Effect,ChromieSandBlastFastForwardCooldownReduction,Cost[0].CooldownTimeUse\" precision=\"2\"/></c> seconds.";
 
-        private readonly string FailedTooltip1 = "Surround Yrel in a barrier for <c val=\"#bfd4fd\"><d const=\"$NotExistingVariable\" precision=\"2\"/></c> seconds, absorbing all damage taken and healing her for <c val=\"#bfd4fd\"><d ref=\"Effect,YrelArdentDefenderDamageConversionScaleDummyModifyUnit,XP*100\" player=\"0\" precision=\"2\"/>%</c> of the damage received.";
+        private readonly string FailedTooltip1 = "Surround Yrel in a barrier for <c val=\"bfd4fd\"><d const=\"$NotExistingVariable\" precision=\"2\"/></c> seconds, absorbing all damage taken and healing her for <c val=\"bfd4fd\"><d ref=\"Effect,YrelArdentDefenderDamageConversionScaleDummyModifyUnit,XP*100\" player=\"0\" precision=\"2\"/>%</c> of the damage received.";
 
         private readonly string ExceptionTooltip1 = "Fire a laser that deals <d ref=\"Shield,LaserCannon,Amount\"/>.";
         private readonly string ExceptionTooltip2 = "Fire a laser that deals <d ref=\"Behavior,LaserCannon,Amount\"/>.";
@@ -44,7 +44,7 @@ namespace HeroesData.Parser.Tests
         private readonly string ParsedTooltip14 = "Deal <c val=\"#TooltipNumbers\">172~~0.04~~</c> damage to enemies within the target area.";
         private readonly string ParsedTooltip15 = "Zarya's Basic Attack deals <c val=\"#TooltipNumbers\">50%</c> additional damage to enemies in melee range.";
         private readonly string ParsedTooltip16 = "Channel on an allied or destroyed Fort or Keep to replace it with Ragnaros's ultimate form, temporarily gaining new Abilities, having <c val=\"#TooltipNumbers\">3996~~0.04~~</c> Health that burns away over <c val=\"#TooltipNumbers\">18</c> seconds.<n/><n/>Ragnaros returns to his normal form upon losing all Health in Molten Core.";
-        private readonly string ParsedTooltip17 = "Globe of Annihilation deals <c val=\"#TooltipNumbers\">20%</c> more damage to non-Heroic targets.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"#e4b800\">Quest:</c> After gaining <c val=\"#TooltipNumbers\">200</c> Annihilation, increase the range of All Shall Burn by <c val=\"#TooltipNumbers\">25%</c> and Demon Warriors gain <c val=\"#TooltipNumbers\">20%</c> Attack Speed and Movement Speed.";
+        private readonly string ParsedTooltip17 = "Globe of Annihilation deals <c val=\"#TooltipNumbers\">20%</c> more damage to non-Heroic targets.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\">Quest:</c> After gaining <c val=\"#TooltipNumbers\">200</c> Annihilation, increase the range of All Shall Burn by <c val=\"#TooltipNumbers\">25%</c> and Demon Warriors gain <c val=\"#TooltipNumbers\">20%</c> Attack Speed and Movement Speed.";
         private readonly string ParsedTooltip18 = "Eject from the Mech, setting it to self-destruct after <c val=\"#TooltipNumbers\">4</c> seconds. Deals <c val=\"#TooltipNumbers\">1200~~0.04~~</c> to <c val=\"#TooltipNumbers\">400~~0.04~~</c> damage in a large area, depending on distance from center. Only deals <c val=\"#TooltipNumbers\">50%</c> damage against Structures.<n/><n/><c val=\"FF8000\">Gain </c><c val=\"#TooltipNumbers\">1%</c><c val=\"FF8000\"> Charge for every </c><c val=\"#TooltipNumbers\">2</c><c val=\"FF8000\"> seconds spent Basic Attacking, and </c><c val=\"#TooltipNumbers\">30%</c><c val=\"FF8000\"> Charge per </c><c val=\"#TooltipNumbers\">100%</c><c val=\"FF8000\"> of Mech Health lost.</c>";
         private readonly string ParsedTooltip19 = "Increase the damage of Octo-Grab by <c val=\"#TooltipNumbers\">13700%~~0.04~~</c>.";
 
@@ -73,19 +73,19 @@ namespace HeroesData.Parser.Tests
         public void ParseTooltips()
         {
             Assert.IsTrue(GameStringParser.TryParseRawTooltip("AbathurToxicNestEnvenomedNestTalent", Tooltip1, out string output));
-            Assert.AreEqual("Toxic Nests deal <c val=\"#bfd4fd\">75%</c> more damage over <c val=\"#bfd4fd\">3</c> seconds.", output);
+            Assert.AreEqual("Toxic Nests deal <c val=\"bfd4fd\">75%</c> more damage over <c val=\"bfd4fd\">3</c> seconds.", output);
 
             Assert.IsTrue(GameStringParser.TryParseRawTooltip("ZaryaWeaponFeelTheHeatTalent", Tooltip2, out output));
-            Assert.AreEqual("Zarya's Basic Attack deals <c val=\"#bfd4fd\">50%</c> additional damage to enemies in melee range.", output);
+            Assert.AreEqual("Zarya's Basic Attack deals <c val=\"bfd4fd\">50%</c> additional damage to enemies in melee range.", output);
 
             Assert.IsFalse(GameStringParser.TryParseRawTooltip("YrelArdentDefender", FailedTooltip1, out output));
             Assert.AreEqual(GameStringParser.FailedParsed, output);
 
             Assert.IsTrue(GameStringParser.TryParseRawTooltip("YrelSacredGround", Tooltip3, out output));
-            Assert.AreEqual("Yrel sanctifies the ground around her, gaining <c val=\"#bfd4fd\">50</c> Armor until she leaves the area.", output);
+            Assert.AreEqual("Yrel sanctifies the ground around her, gaining <c val=\"bfd4fd\">50</c> Armor until she leaves the area.", output);
 
             Assert.IsTrue(GameStringParser.TryParseRawTooltip("ChromieSandBlastFastForward", Tooltip4, out output));
-            Assert.AreEqual("If Sand Blast travels at least <c val=\"#bfd4fd\">50%</c> of its base distance and hits a Hero, its cooldown is reduced to <c val=\"#bfd4fd\">0.5</c> seconds.", output);
+            Assert.AreEqual("If Sand Blast travels at least <c val=\"bfd4fd\">50%</c> of its base distance and hits a Hero, its cooldown is reduced to <c val=\"bfd4fd\">0.5</c> seconds.", output);
         }
 
         [TestMethod]
