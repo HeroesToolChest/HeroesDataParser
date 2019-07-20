@@ -891,14 +891,39 @@ namespace HeroesData.Loader.XmlGameData
 
         private void SetFontStyles()
         {
-            foreach (XElement element in XmlStormStyleData.Root.Elements("Constant"))
+            foreach (XElement element in XmlStormStyleData.Root.Elements())
             {
-                string name = element.Attribute("name")?.Value;
-                string val = element.Attribute("val")?.Value;
+                string elementName = element.Name.LocalName.ToUpper();
 
-                if (!string.IsNullOrEmpty(name))
+                if (elementName == "CONSTANT")
                 {
-                    StormStyleHexColorValueByName[name] = val;
+                    string name = element.Attribute("name")?.Value;
+                    string val = element.Attribute("val")?.Value;
+
+                    if (!string.IsNullOrEmpty(name))
+                    {
+                        StormStyleHexColorValueByName[name] = val;
+                    }
+                }
+                else if (elementName == "STYLE")
+                {
+                    string name = element.Attribute("name")?.Value;
+                    string textColor = element.Attribute("textcolor")?.Value;
+
+                    if (!string.IsNullOrEmpty(textColor))
+                    {
+                        if (textColor[0] == '#') // variable
+                        {
+                            if (StormStyleHexColorValueByName.TryGetValue(textColor.TrimStart('#'), out string hexValue))
+                            {
+                                StormStyleHexColorValueByName.TryAdd(name, hexValue);
+                            }
+                        }
+                        else if (!textColor.Contains(','))
+                        {
+                            StormStyleHexColorValueByName.TryAdd(name, textColor);
+                        }
+                    }
                 }
             }
         }

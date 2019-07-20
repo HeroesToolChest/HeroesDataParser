@@ -109,11 +109,11 @@ namespace HeroesData.Parser.GameStrings
                     tooltip = ParseGameString(tooltip, "(\\[d ref=\".*?/\\])", true);
                 }
 
-                return ReplaceCValVariables(ParseGameString(tooltip, "(<d ref=\".*?/>|<d const=\".*?/>)", false));
+                return ReplaceValVariables(ParseGameString(tooltip, "(<d ref=\".*?/>|<d const=\".*?/>)", false));
             }
             else // no values to look up
             {
-                return ReplaceCValVariables(tooltip);
+                return ReplaceValVariables(tooltip);
             }
         }
 
@@ -281,9 +281,9 @@ namespace HeroesData.Parser.GameStrings
             return pathPart;
         }
 
-        private string ReplaceCValVariables(string tooltip)
+        private string ReplaceValVariables(string tooltip)
         {
-            MatchCollection valMatches = Regex.Matches(tooltip, "\\sval=\"#.*?\"", RegexOptions.IgnoreCase);
+            MatchCollection valMatches = Regex.Matches(tooltip, "\\sval=\".*?\"", RegexOptions.IgnoreCase);
 
             foreach (Match item in valMatches.Distinct(new MatchComparer()))
             {

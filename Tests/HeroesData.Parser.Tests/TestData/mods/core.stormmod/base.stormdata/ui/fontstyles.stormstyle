@@ -235,4 +235,27 @@
   <Constant name="BadgeGradient_Tier4" val="ffc4ba-fff5e5" />
   <Constant name="BadgeColor_Tier5" val="e19501" />
   <Constant name="BadgeGradient_Tier5" val="fff6ba-fffde5" />
+  <Style name="FCT_XP_Crit" template="FCT_XP_Normal" height="25" fontflags="Outline" outlineColor="120904" outlineWidth="2" textcolor="ffffff-ffe8a3" glowColor="ffa200" glowMode="Add" />
+  <Style name="FCT_Basic_Medium" template="FCT_Basic_Normal" height="20" />
+  <Style name="FCT_Ability_Medium" template="FCT_Ability_Normal" height="20" />
+  <Style name="FCT_Heal_Medium" template="FCT_Heal_Normal" height="20" />
+  <Style name="FCT_Shield_Medium" template="FCT_Shield_Normal" height="20" />
+  <Style name="FCT_Mana_Medium" template="FCT_Mana_Normal" height="20" />
+  <Style name="FCT_XP_Medium" template="FCT_XP_Crit" height="28" />
+  <Style name="FCT_Basic_Greater" template="FCT_Basic_Normal" height="20" />
+  <Style name="FCT_Ability_Greater" template="FCT_Ability_Normal" height="20" />
+  <Style name="FCT_Heal_Greater" template="FCT_Heal_Normal" height="20" />
+  <Style name="FCT_Shield_Greater" template="FCT_Shield_Normal" height="20" />
+  <Style name="FCT_Mana_Greater" template="FCT_Mana_Normal" height="20" />
+  <Style name="FCT_XP_Greater" template="FCT_XP_Crit" height="36" />
+  <Style name="FCT_Basic_Lesser" template="FCT_Basic_Normal" height="18" textcolor="d4b6b6-8f4343" glowColor="900000" />
+  <Style name="FCT_Ability_Lesser" template="FCT_Ability_Normal" height="18" textcolor="e2ccd8-98539d" />
+  <Style name="FCT_Heal_Lesser" template="FCT_Heal_Normal" height="18" textcolor="DDDDDD-22AA22" />
+  <Style name="FCT_Shield_Lesser" template="FCT_Shield_Normal" height="18" textcolor="DDDDDD" />
+  <Style name="FCT_Mana_Lesser" template="FCT_Mana_Normal" height="18" textcolor="DDDDDD-00008F" />
+  <Style name="FCT_Quest_Lesser" template="FCT_Quest_Normal" height="18" textcolor="DDDDDD-e4b800" />
+  <Style name="FCT_Heal_Prevented" template="FCT_Basic_Normal" height="24" textcolor="ffffff-60ff00" glowcolor="ffffff" styleflags="Glow|TightGradient|Outline" />
+  <Style name="StandardTooltip" template="StandardTemplate" height="18" vjustify="Middle" hjustify="Left" styleflags="Shadow" textcolor="#TooltipBody" highlightcolor="#ColorWhite" disabledcolor="7a59ac" hotkeycolor="#ColorWhite" />
+  <Style name="StandardTooltipHeader" template="HeaderExtendedTemplate" height="18" vjustify="Middle" hjustify="Left" styleflags="Glow" textcolor="cbe8ff-ffffff" highlightcolor="#ColorWhite" disabledcolor="a682dc" hotkeycolor="#ColorWhite" glowcolor="0063c8" highlightglowcolor="0063c8" disabledglowcolor="0063c8" />
+  <Style name="StandardTooltipDetails" template="StandardTemplate" height="18" vjustify="Top" hjustify="Left" textcolor="#TooltipNumbers" highlightcolor="#TooltipNumbers" disabledcolor="7a59ac" styleflags="Shadow" />
 </StyleFile>
