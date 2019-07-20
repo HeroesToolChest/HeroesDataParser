@@ -339,13 +339,16 @@ The format of the strings in the text file are the following:
 - `spray/name/[Id]=[value]`
 - `spray/searchtext/[Id]=[value]`
 - `spray/sortname/[Id]=[value]`
+- `unit/damagetype/[Id]=[value]`
 - `unit/description/[Id]=[value]`
 - `unit/difficulty/[Id]=[value]`
+- `unit/energytype/[Id]=[value]`
 - `unit/expandedrole/[Id]=[value]`
-- `unit/damagetype/[Id]=[value]`
+- `unit/lifetype/[Id]=[value]`
 - `unit/name/[Id]=[value]`
 - `unit/role/[Id]=[value] (comma delimited if more than 1 role)`
 - `unit/searchtext/[Id]=[value]`
+- `unit/shieldtype/[Id]=[value]`
 - `unit/title/[Id]=[value]`
 - `unit/type/[Id]=[value]`
 - `voiceline/description/[Id]=[value]`
