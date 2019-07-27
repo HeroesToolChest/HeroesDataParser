@@ -2,20 +2,28 @@
 
 # --hero data--
 [Abathur] has less than 3 basic abilities
+[Abathur] does not have a E ability
 
 # unit has no health or energy
 [Gall] has no weapons
 [Gall] LifeRegenerationRateScaling is 0
 [Gall] LifeScaling is 0
+[Gall] does not have a B ability
 
 # this is the vikings controller, each viking has their own weapons and life
 [LostVikings] has no weapons
 [LostVikings] LifeRegenerationRateScaling is 0
 [LostVikings] LifeScaling is 0
 [LostVikings] Sight is 0
-[LostVikings] has less than 3 basic abilities
 [LostVikings] has more than 1 Q ability
 [LostVikings] has more than 1 W ability
+
+[HeroBaleog] has more than 1 Q ability
+[HeroBaleog] has more than 1 W ability
+[HeroErik] has more than 1 Q ability
+[HeroErik] has more than 1 W ability
+[HeroOlaf] has more than 1 Q ability
+[HeroOlaf] has more than 1 W ability
 
 # has three heroic abilities
 [Varian] has more than 2 Heroic abilities

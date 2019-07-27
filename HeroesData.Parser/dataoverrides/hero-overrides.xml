@@ -356,6 +356,66 @@
         <PartyFrameFileNameArray value="-storm_ui_ingame_partyframe_lostvikings.dds" />
       </Override>
     </Portrait>
+    <Ability id="LostVikingsSpinToWin">
+      <Override>
+        <AbilityTier value="Basic" />
+        <AbilityType value="Q" />
+      </Override>
+    </Ability>
+    <Ability id="LostVikingsNorseForce">
+      <Override>
+        <AbilityTier value="Basic" />
+        <AbilityType value="Q" />
+      </Override>
+    </Ability>
+    <Ability id="LostVikingsPressA" button="LostVikingsJump">
+      <Override>
+        <AbilityTier value="Basic" />
+        <AbilityType value="W" />
+      </Override>
+    </Ability>
+    <Ability id="LostVikingsNordicAttackSquad">
+      <Override>
+        <AbilityTier value="Basic" />
+        <AbilityType value="W" />
+      </Override>
+    </Ability>
+    <Ability id="LostVikingsVikingBribery">
+      <Override>
+        <AbilityTier value="Basic" />
+        <AbilityType value="E" />
+      </Override>
+    </Ability>
+        <Ability id="LostVikingsVikingHoardTalent" add="true">
+      <Override>
+        <AbilityTier value="Trait" />
+        <AbilityType value="Trait" />
+      </Override>
+    </Ability>
+    <Ability id="LostVikingSelectOlaf" add="true">
+      <Override>
+        <AbilityTier value="Activable" />
+        <AbilityType value="Active" />
+      </Override>
+    </Ability>
+    <Ability id="LostVikingSelectBaleog" add="true">
+      <Override>
+        <AbilityTier value="Activable" />
+        <AbilityType value="Active" />
+      </Override>
+    </Ability>
+    <Ability id="LostVikingSelectErik" add="true">
+      <Override>
+        <AbilityTier value="Activable" />
+        <AbilityType value="Active" />
+      </Override>
+    </Ability>
+    <Ability id="LostVikingSelectAll" add="true">
+      <Override>
+        <AbilityTier value="Activable" />
+        <AbilityType value="Active" />
+      </Override>
+    </Ability>
     <HeroUnit id="HeroLostVikingsController" remove="true" />
     <HeroUnit id="HeroBaleog">
       <Ability id="LostVikingsLongboatRaidMortar" button="LostVikingsMortar">
