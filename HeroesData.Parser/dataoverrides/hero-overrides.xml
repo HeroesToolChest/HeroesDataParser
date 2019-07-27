@@ -68,14 +68,6 @@
       </Override>
     </Ability>
   </CHero>
-  <CHero id="Anubarak">
-    <!--For cooldown display only-->
-    <Ability id="AnubarakLegionOfBeetlesVisual" button="AnubarakScarabHostTrait">
-      <Override>
-        <AbilityTier value="Hidden" />
-      </Override>
-    </Ability>
-  </CHero>
   <CHero id="Artanis">
     <Ability id="ArtanisTwinBladesPrimed">
       <Override>
