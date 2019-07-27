@@ -199,9 +199,24 @@ namespace HeroesData.ExtractorData
         {
             string genericMessage = $"[${typeof(T).Name.ToLowerInvariant()}] {message}";
 
-            message = $"[{ValidationWarningId}] {message}".Trim();
+            CreateMessage(message, genericMessage);
+        }
 
-            if (!string.IsNullOrEmpty(message) && !App.ValidationIgnoreLines.Contains(message) && !App.ValidationIgnoreLines.Contains(genericMessage))
+        protected void AddWarning(string id, string message)
+        {
+            string genericMessage = $"[${typeof(T).Name.ToLowerInvariant()}] {message}";
+
+            CreateMessage(message, genericMessage, id);
+        }
+
+        private void CreateMessage(string message, string genericMessage, string id = "")
+        {
+            if (!string.IsNullOrWhiteSpace(id))
+                message = $"[{id}] {message}".Trim();
+            else
+                message = $"[{ValidationWarningId}] {message}".Trim();
+
+            if (!string.IsNullOrWhiteSpace(message) && !App.ValidationIgnoreLines.Contains(message) && !App.ValidationIgnoreLines.Contains(genericMessage))
                 ValidationWarnings.Add(message);
             else
                 WarningsIgnoredCount++;
