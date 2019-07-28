@@ -49,6 +49,7 @@ Download and install the [.NET Core 2.2 Runtime or SDK](https://www.microsoft.co
 
 Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page.
 
+This zip file can be used between any operating system.
 ***
 
 ### Zip File Download - Framework-Dependent Executable
@@ -56,6 +57,7 @@ Download and install the [.NET Core 2.2 Runtime or SDK](https://www.microsoft.co
 
 Download and extract the latest `HeroesDataParser.*-fde-<OS>-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
+This zip file can only be used for the selected operating system.
 ***
 
 ### Zip File Download - Self-Contained Deployment
@@ -64,6 +66,8 @@ No runtime or SDK is required.
 Download and extract the latest `HeroesDataParser.*-scd-<OS>-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
 This zip file contains everything that is needed to run the dotnet core app without .NET Core being installed, so the zip file is quite large.
+
+This zip file can only be used for the selected operating system.
 
 ## Usage
 If installed as a Dotnet Global Tool, the app can be run with one of the following commands:
@@ -370,7 +374,7 @@ Options:
   --textures                        Includes extracting all textures (.dds).
 ```
 
-Extracts all required files from the `Heroes of the Storm` directory which can be used for the `-s|--storage-path` option.  
+Extracts all required files from the `Heroes of the Storm` directory which can be used for the `storage-path` argument.  
 
 If the `-o|--output-directory` is not set, the local directory will be used.
 
