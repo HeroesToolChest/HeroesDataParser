@@ -283,9 +283,22 @@ namespace HeroesData.Parser.GameStrings
 
         private string ReplaceValVariables(string tooltip)
         {
-            MatchCollection valMatches = Regex.Matches(tooltip, "\\sval=\".*?\"", RegexOptions.IgnoreCase);
+            MatchCollection valSMatches = Regex.Matches(tooltip, "s\\sval=\".*?\"", RegexOptions.IgnoreCase);
+            MatchCollection valCMatches = Regex.Matches(tooltip, "c\\sval=\".*?\"", RegexOptions.IgnoreCase);
 
-            foreach (Match item in valMatches.Distinct(new MatchComparer()))
+            foreach (Match item in valSMatches.Distinct(new MatchComparer()))
+            {
+                MatchCollection valueMatch = Regex.Matches(item.Value, "\".*?\"");
+
+                string hexValue = GameData.GetStormStyleHexValueFromName(valueMatch[0].Value.Trim('"'));
+
+                if (!string.IsNullOrEmpty(hexValue))
+                {
+                    tooltip = tooltip.Replace(valueMatch[0].Value, $"\"{hexValue}\" name={valueMatch[0].Value}");
+                }
+            }
+
+            foreach (Match item in valCMatches.Distinct(new MatchComparer()))
             {
                 MatchCollection valueMatch = Regex.Matches(item.Value, "\".*?\"");
 
