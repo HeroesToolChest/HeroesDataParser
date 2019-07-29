@@ -921,10 +921,6 @@ namespace HeroesData.Loader.XmlGameData
                         }
                         else if (!textColor.Contains(','))
                         {
-                            int indexOfHypen = textColor.IndexOf('-');
-                            if (indexOfHypen > 0)
-                                textColor = textColor.Substring(0, indexOfHypen);
-
                             StormStyleHexColorValueByName.TryAdd(name, textColor);
                         }
                     }
