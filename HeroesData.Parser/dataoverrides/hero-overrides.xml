@@ -535,6 +535,13 @@
       </Override>
     </Ability>
   </CHero>
+  <CHero id="NexusHunter">
+    <Ability id="NexusHunterRevolvingSweepSecondary">
+      <Override>
+        <ParentLink value="NexusHunterRevolvingSweep" />
+      </Override>
+    </Ability>
+  </CHero>
   <CHero id="Nova">
     <!--For cooldown display only-->
     <Ability id="NovaCloakCooldownDisplay" button="NovaPermanentCloak">
