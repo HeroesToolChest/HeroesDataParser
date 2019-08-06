@@ -38,9 +38,9 @@ jobs:
         version: '2.2.401'
 
     - task: NuGetToolInstaller@0
-      displayName: nuget installer 5.0.2
+      displayName: nuget installer 5.1.0
       inputs:
-        versionSpec: '5.0.2' 
+        versionSpec: '5.1.0' 
               
     - powershell: dotnet publish HeroesData\heroesdata.csproj -c release -o .\bin\publish\any\
       displayName: Publish release [fdd-any]
