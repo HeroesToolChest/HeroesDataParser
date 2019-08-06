@@ -45,17 +45,23 @@ namespace HeroesData.FileWriter.Writers
 
         public void CreateOutput(IEnumerable<T> items)
         {
-            SetSingleFileNames();
-            SetFileSplitDirectory();
+            if (FileOutputOptions.AllowDataFileWriting)
+            {
+                SetSingleFileNames();
+                SetFileSplitDirectory();
 
-            Directory.CreateDirectory(OutputDirectory);
+                Directory.CreateDirectory(OutputDirectory);
+            }
 
             if (FileOutputOptions.IsFileSplit)
             {
-                Directory.CreateDirectory(SplitDirectory);
+                if (FileOutputOptions.AllowDataFileWriting)
+                {
+                    Directory.CreateDirectory(SplitDirectory);
 
-                if (FileOutputOptions.IsMinifiedFiles)
-                    Directory.CreateDirectory(SplitMinifiedDirectory);
+                    if (FileOutputOptions.IsMinifiedFiles)
+                        Directory.CreateDirectory(SplitMinifiedDirectory);
+                }
 
                 CreateOutputSplitFiles(items);
             }
@@ -141,15 +147,31 @@ namespace HeroesData.FileWriter.Writers
         {
             if (FileOutputOptions.IsFileSplit)
             {
-                if (HotsBuild.HasValue)
+                if (!FileOutputOptions.IsLocalizedText)
                 {
-                    SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-{FileOutputOptions.Localization.ToString().ToLower()}");
-                    SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-{FileOutputOptions.Localization.ToString().ToLower()}.min");
+                    if (HotsBuild.HasValue)
+                    {
+                        SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-{FileOutputOptions.Localization.ToString().ToLower()}");
+                        SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-{FileOutputOptions.Localization.ToString().ToLower()}.min");
+                    }
+                    else
+                    {
+                        SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-{FileOutputOptions.Localization.ToString().ToLower()}");
+                        SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-{FileOutputOptions.Localization.ToString().ToLower()}");
+                    }
                 }
                 else
                 {
-                    SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-{FileOutputOptions.Localization.ToString().ToLower()}");
-                    SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-{FileOutputOptions.Localization.ToString().ToLower()}");
+                    if (HotsBuild.HasValue)
+                    {
+                        SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-localized");
+                        SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-localized.min");
+                    }
+                    else
+                    {
+                        SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-localized");
+                        SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-localized");
+                    }
                 }
             }
         }
@@ -163,22 +185,25 @@ namespace HeroesData.FileWriter.Writers
             {
                 JObject jObject = new JObject(items.Select(item => MainElement(item)));
 
-                // has formatting
-                using (StreamWriter file = File.CreateText(Path.Combine(OutputDirectory, SingleFileName)))
-                using (JsonTextWriter writer = new JsonTextWriter(file))
+                if (FileOutputOptions.AllowDataFileWriting)
                 {
-                    writer.Formatting = Formatting.Indented;
-                    jObject.WriteTo(writer);
-                }
-
-                // no formatting
-                if (FileOutputOptions.IsMinifiedFiles)
-                {
-                    using (StreamWriter file = File.CreateText(Path.Combine(OutputDirectory, MinifiedSingleFileName)))
+                    // has formatting
+                    using (StreamWriter file = File.CreateText(Path.Combine(OutputDirectory, SingleFileName)))
                     using (JsonTextWriter writer = new JsonTextWriter(file))
                     {
-                        writer.Formatting = Formatting.None;
+                        writer.Formatting = Formatting.Indented;
                         jObject.WriteTo(writer);
+                    }
+
+                    // no formatting
+                    if (FileOutputOptions.IsMinifiedFiles)
+                    {
+                        using (StreamWriter file = File.CreateText(Path.Combine(OutputDirectory, MinifiedSingleFileName)))
+                        using (JsonTextWriter writer = new JsonTextWriter(file))
+                        {
+                            writer.Formatting = Formatting.None;
+                            jObject.WriteTo(writer);
+                        }
                     }
                 }
             }
@@ -189,11 +214,14 @@ namespace HeroesData.FileWriter.Writers
 
                 XDocument xmlDoc = new XDocument(new XElement(RootNodeName, items.Select(item => MainElement(item))));
 
-                xmlDoc.Save(Path.Combine(OutputDirectory, SingleFileName));
-
-                if (FileOutputOptions.IsMinifiedFiles)
+                if (FileOutputOptions.AllowDataFileWriting)
                 {
-                    xmlDoc.Save(Path.Combine(OutputDirectory, MinifiedSingleFileName), SaveOptions.DisableFormatting);
+                    xmlDoc.Save(Path.Combine(OutputDirectory, SingleFileName));
+
+                    if (FileOutputOptions.IsMinifiedFiles)
+                    {
+                        xmlDoc.Save(Path.Combine(OutputDirectory, MinifiedSingleFileName), SaveOptions.DisableFormatting);
+                    }
                 }
             }
         }
@@ -203,9 +231,10 @@ namespace HeroesData.FileWriter.Writers
             if (items == null)
                 return;
 
-            Directory.CreateDirectory(Path.Combine(SplitDirectory, DataName));
+            if (FileOutputOptions.AllowDataFileWriting)
+                Directory.CreateDirectory(Path.Combine(SplitDirectory, DataName));
 
-            if (FileOutputOptions.IsMinifiedFiles)
+            if (FileOutputOptions.IsMinifiedFiles && FileOutputOptions.AllowDataFileWriting)
                 Directory.CreateDirectory(Path.Combine(SplitMinifiedDirectory, DataName));
 
             if (FileOutputType == FileOutputType.Json)
