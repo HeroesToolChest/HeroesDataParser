@@ -329,13 +329,18 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 Tier = TalentTier.Level16,
                 AbilityType = AbilityType.W,
             });
-            alarakHero.AddTalent(new Talent
+
+            Talent level20Talent = new Talent
             {
                 AbilityTalentId = new AbilityTalentId("Level20Talent", "Level20Talent"),
                 Name = "Level20Talent",
                 Tier = TalentTier.Level20,
                 AbilityType = AbilityType.W,
-            });
+            };
+
+            level20Talent.AddPrerequisiteTalentId("AlarakSustainingPower");
+            level20Talent.AddPrerequisiteTalentId("Level4Talent");
+            alarakHero.AddTalent(level20Talent);
 
             TestData.Add(alarakHero);
 

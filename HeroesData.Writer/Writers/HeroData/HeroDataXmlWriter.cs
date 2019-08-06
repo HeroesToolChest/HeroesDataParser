@@ -244,7 +244,8 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
             if (talent.AbilityTalentLinkIdsCount > 0)
                 element.Add(new XElement("AbilityTalentLinkIds", talent.AbilityTalentLinkIds.Select(link => new XElement("AbilityTalentLinkId", link))));
-
+            if (talent.PrerequisiteTalentIdCount > 0)
+                element.Add(new XElement("PrerequisiteTalentIds", talent.PrerequisiteTalentIds.Select(id => new XElement("PrerequisiteTalentId", id))));
             return element;
         }
 

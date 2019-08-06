@@ -191,7 +191,11 @@
           "nameId": "Level20Talent",
           "buttonId": "Level20Talent",
           "abilityType": "W",
-          "sort": 0
+          "sort": 0,
+          "prerequisiteTalentIds": [
+            "AlarakSustainingPower",
+            "Level4Talent"
+          ]
         }
       ]
     }

@@ -97,7 +97,12 @@
         <Level16Talent buttonId="Level16Talent" abilityType="W" sort="0" />
       </Level16>
       <Level20>
-        <Level20Talent buttonId="Level20Talent" abilityType="W" sort="0" />
+        <Level20Talent buttonId="Level20Talent" abilityType="W" sort="0">
+          <PrerequisiteTalentIds>
+            <PrerequisiteTalentId>AlarakSustainingPower</PrerequisiteTalentId>
+            <PrerequisiteTalentId>Level4Talent</PrerequisiteTalentId>
+          </PrerequisiteTalentIds>
+        </Level20Talent>
       </Level20>
     </Talents>
   </Alarak>

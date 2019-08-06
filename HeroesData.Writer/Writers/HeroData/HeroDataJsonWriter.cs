@@ -428,6 +428,8 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
             if (talent.AbilityTalentLinkIdsCount > 0)
                 jObject.Add(new JProperty("abilityTalentLinkIds", talent.AbilityTalentLinkIds));
+            if (talent.PrerequisiteTalentIdCount > 0)
+                jObject.Add(new JProperty("prerequisiteTalentIds", talent.PrerequisiteTalentIds));
 
             return jObject;
         }

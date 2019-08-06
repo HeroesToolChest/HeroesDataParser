@@ -18,6 +18,8 @@ namespace HeroesData.Parser
         private readonly HeroOverrideLoader HeroOverrideLoader;
         private readonly TalentData TalentData;
 
+        private XmlArrayElement TalentsArray;
+
         private HeroDataOverride HeroDataOverride;
 
         public HeroDataParser(IXmlDataService xmlDataService, HeroOverrideLoader heroOverrideLoader)
@@ -67,6 +69,8 @@ namespace HeroesData.Parser
             if (string.IsNullOrEmpty(heroId))
                 return null;
 
+            TalentsArray = new XmlArrayElement();
+
             UnitData unitData = XmlDataService.UnitData;
             unitData.IsAbilityTierFilterEnabled = true;
             unitData.IsAbilityTypeFilterEnabled = true;
@@ -100,7 +104,8 @@ namespace HeroesData.Parser
             unitData.SetUnitData(hero, HeroDataOverride, true);
 
             // parses the hero's hero data; talents
-            SetHeroData(heroElement, hero);
+            SetData(heroElement, hero);
+            SetTalents(hero);
 
             ClearHeroUnitsFromUnitIds(hero);
 
@@ -222,7 +227,7 @@ namespace HeroesData.Parser
             }
         }
 
-        private void SetHeroData(XElement heroElement, Hero hero)
+        private void SetData(XElement heroElement, Hero hero)
         {
             if (heroElement == null || hero == null)
                 return;
@@ -235,7 +240,7 @@ namespace HeroesData.Parser
             {
                 XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
-                    SetHeroData(parentElement, hero);
+                    SetData(parentElement, hero);
             }
 
             // loop through all elements and set found elements
@@ -411,22 +416,55 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "TALENTTREEARRAY")
                 {
-                    Talent talent = TalentData.CreateTalent(hero, element);
-                    if (talent != null)
-                    {
-                        hero.AddTalent(talent);
-
-                        // makes the abilities that are granted from talents subabilities to that talent
-                        if ((talent.AbilityType != AbilityType.Heroic || talent.Tier == TalentTier.Level20) && hero.TryGetAbility(talent.AbilityTalentId.ReferenceId, out Ability ability))
-                        {
-                            ability.ParentLink = talent.AbilityTalentId;
-                        }
-                    }
+                    TalentsArray.AddElement(element);
                 }
             }
 
             if (hero.ReleaseDate == DefaultData.HeroData.HeroReleaseDate)
                 hero.ReleaseDate = DefaultData.HeroData.HeroAlphaReleaseDate;
+        }
+
+        private void SetTalents(Hero hero)
+        {
+            if (TalentsArray == null)
+                throw new ArgumentNullException("Call SetData() first to set up the talents");
+
+            foreach (XElement element in TalentsArray.Elements)
+            {
+                Talent talent = TalentData.CreateTalent(hero, element);
+                if (talent != null)
+                {
+                    XmlArrayElement prerequisiteTalentArray = GetTalentPrerequisites(element);
+
+                    foreach (XElement prerequisiteTalentElement in prerequisiteTalentArray.Elements)
+                    {
+                        string talentPrerequisite = prerequisiteTalentElement.Attribute("value")?.Value;
+
+                        if (!string.IsNullOrEmpty(talentPrerequisite))
+                            talent.AddPrerequisiteTalentId(talentPrerequisite);
+                    }
+
+                    hero.AddTalent(talent);
+
+                    // makes the abilities that are granted from talents subabilities to that talent
+                    if ((talent.AbilityType != AbilityType.Heroic || talent.Tier == TalentTier.Level20) && hero.TryGetAbility(talent.AbilityTalentId.ReferenceId, out Ability ability))
+                    {
+                        ability.ParentLink = talent.AbilityTalentId;
+                    }
+                }
+            }
+        }
+
+        private XmlArrayElement GetTalentPrerequisites(XElement talentElement)
+        {
+            XmlArrayElement prerequisiteTalentArray = new XmlArrayElement();
+
+            foreach (XElement prerequisiteElement in talentElement.Elements("PrerequisiteTalentArray"))
+            {
+                prerequisiteTalentArray.AddElement(prerequisiteElement);
+            }
+
+            return prerequisiteTalentArray;
         }
 
         private void FindUnits(XElement heroElement, Hero hero)
