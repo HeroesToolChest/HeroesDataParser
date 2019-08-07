@@ -441,11 +441,11 @@ Options:
   -?|-h|--help  Show help information
 ```
 
-Displays if the file(s) are the same or have been modified.
+Determines if the `.json` or `.xml` file(s) are the same or have been modified. The files must contain an underscore character `_`.
 
 Example command
 ```
-quick-compare '.\file.txt' '.\file2.txt'
+quick-compare '.\12345_file.json' '.\12345_file2.json'
 ```
 
 ***
