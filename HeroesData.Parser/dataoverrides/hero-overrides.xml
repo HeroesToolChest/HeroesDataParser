@@ -536,6 +536,11 @@
     </Ability>
   </CHero>
   <CHero id="NexusHunter">
+    <Portrait>
+      <Override>
+        <PartyFrameFileNameArray value="-storm_ui_ingame_partyframe_nexushunter.dds" />
+      </Override>
+    </Portrait>
     <Ability id="NexusHunterRevolvingSweepSecondary">
       <Override>
         <ParentLink value="NexusHunterRevolvingSweep" />
