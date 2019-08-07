@@ -244,7 +244,7 @@ Extracts the images that were referenced in the xml or json file(s) from the `-e
 Extracts to `<OUTPUT-DIRECTORY>/images/<image-type>`  
 
 `all` - extracts all images files  
-`heroportraits` - extracts hero portrait images
+`heroportraits` - extracts hero portrait images  
 `abilities` - extracts ability icons  
 `talents` - extracts talent icons  
 `abilitytalents` - extracts both ability and talent icons into the same directory (overrides `abilities` and `talents` choices)  
