@@ -244,7 +244,7 @@ Extracts the images that were referenced in the xml or json file(s) from the `-e
 Extracts to `<OUTPUT-DIRECTORY>/images/<image-type>`  
 
 `all` - extracts all images files  
-`heroportraits` - extracts hero portrait images
+`heroportraits` - extracts hero portrait images  
 `abilities` - extracts ability icons  
 `talents` - extracts talent icons  
 `abilitytalents` - extracts both ability and talent icons into the same directory (overrides `abilities` and `talents` choices)  
@@ -441,11 +441,11 @@ Options:
   -?|-h|--help  Show help information
 ```
 
-Displays if the file(s) are the same or have been modified.
+Determines if the `.json` or `.xml` file(s) are the same or have been modified. The files must contain an underscore character `_`.
 
 Example command
 ```
-quick-compare '.\file.txt' '.\file2.txt'
+quick-compare '.\12345_file.json' '.\12345_file2.json'
 ```
 
 ***
