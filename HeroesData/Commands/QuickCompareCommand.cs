@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace HeroesData.Commands
 {
@@ -38,7 +39,7 @@ namespace HeroesData.Commands
 
                     if (File.Exists(firstFilePathArgument.Value) && File.Exists(secondFilePathArgument.Value))
                     {
-                        CompareFiles(firstFilePathArgument.Value, secondFilePathArgument.Value);
+                        CompareFiles(firstFilePathArgument.Value, secondFilePathArgument.Value, Path.GetFileName(firstFilePathArgument.Value).Length + 4, Path.GetFileName(secondFilePathArgument.Value).Length + 4);
                     }
                     else
                     {
@@ -94,14 +95,19 @@ namespace HeroesData.Commands
 
         private void CompareDirectoryFiles(Dictionary<string, string> first, Dictionary<string, string> second)
         {
+            int columnLength1 = Path.GetFileName(first.Aggregate((l, r) => Path.GetFileName(l.Value).Length > Path.GetFileName(r.Value).Length ? l : r).Value).Length + 4;
+            int columnLength2 = Path.GetFileName(second.Aggregate((l, r) => Path.GetFileName(l.Value).Length > Path.GetFileName(r.Value).Length ? l : r).Value).Length + 4;
+
+            Console.WriteLine("{0," + columnLength1 + "} {1," + columnLength2 + "}\tResult", "File1", "File2");
+
             if (first.Count <= second.Count)
             {
                 foreach (KeyValuePair<string, string> item in second)
                 {
                     if (first.TryGetValue(item.Key, out string value))
-                        CompareFiles(item.Value, value);
+                        CompareFiles(item.Value, value, columnLength1, columnLength2);
                     else
-                        CompareFiles(item.Value, string.Empty);
+                        CompareFiles(item.Value, string.Empty, columnLength1, columnLength2);
                 }
             }
             else
@@ -109,34 +115,30 @@ namespace HeroesData.Commands
                 foreach (KeyValuePair<string, string> item in first)
                 {
                     if (second.TryGetValue(item.Key, out string value))
-                        CompareFiles(item.Value, value);
+                        CompareFiles(item.Value, value, columnLength1, columnLength2);
                     else
-                        CompareFiles(item.Value, string.Empty);
+                        CompareFiles(item.Value, string.Empty, columnLength1, columnLength2);
                 }
             }
         }
 
-        private void CompareFiles(string filePath1, string filePath2)
+        private void CompareFiles(string filePath1, string filePath2, int columnLength1, int columnLength2)
         {
             if (string.IsNullOrEmpty(filePath1) || !File.Exists(filePath1))
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"{Path.GetFileName(filePath2)} <====> DOES NOT EXIST");
             }
             else if (string.IsNullOrEmpty(filePath2) || !File.Exists(filePath2))
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"DOES NOT EXIST <====> {Path.GetFileName(filePath1)}");
             }
             else if (FilesAreEqual(new FileInfo(filePath1), new FileInfo(filePath2)))
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"{Path.GetFileName(filePath2)} <==SAME==> {Path.GetFileName(filePath1)}");
+                Console.WriteLine("{0," + columnLength1 + "} {1," + columnLength2 + "}\tMATCH", Path.GetFileName(filePath2), Path.GetFileName(filePath1));
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"{Path.GetFileName(filePath2)} <!=NOT=!> {Path.GetFileName(filePath1)}");
+                Console.WriteLine("{0," + columnLength1 + "} {1," + columnLength2 + "}\tDIFF", Path.GetFileName(filePath2), Path.GetFileName(filePath1));
             }
 
             Console.ResetColor();

@@ -40,7 +40,7 @@ namespace HeroesData.Tests.CommandTests
 
                 List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
-                Assert.IsTrue(lines[0].Contains("<==SAME==>"));
+                Assert.IsTrue(lines[0].Contains("MATCH"));
             }
         }
 
@@ -56,7 +56,7 @@ namespace HeroesData.Tests.CommandTests
 
                 List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
-                Assert.IsTrue(lines[0].Contains("<!=NOT=!>"));
+                Assert.IsTrue(lines[0].Contains("DIFF"));
             }
         }
 
@@ -72,8 +72,7 @@ namespace HeroesData.Tests.CommandTests
 
                 List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
-                Assert.IsTrue(lines.Contains("awards_73662_enus.json <==SAME==> awards_73493_enus.json"));
-                Assert.IsTrue(lines.Contains("DOES NOT EXIST <====> nonawards_73493_enus.json"));
+                Assert.IsTrue(lines.Contains("    awards_73662_enus.json        awards_73493_enus.json\tMATCH"));
             }
         }
     }

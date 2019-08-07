@@ -45,7 +45,7 @@ namespace HeroesData.Tests.CommandTests
                 Program.Main(new string[] { "quick-compare",  Path.Combine(ConvertedFiles, "heroesdata_73662_enus_test.json"), Path.Combine(FilesDirectory, "heroesdata_73662_enus_test_converted.json") });
 
                 lines = writer.ToString().Split(Environment.NewLine).ToList();
-                Assert.IsTrue(lines[0].Contains("<==SAME==>"));
+                Assert.IsTrue(lines[0].Contains("heroesdata_73662_enus_test_converted.json               heroesdata_73662_enus_test.json\tMATCH"));
             }
         }
 
@@ -65,7 +65,7 @@ namespace HeroesData.Tests.CommandTests
                 Program.Main(new string[] { "quick-compare", Path.Combine(ConvertedFiles, "heroesdata_73662_enus_test.xml"), Path.Combine(FilesDirectory, "heroesdata_73662_enus_test_converted.xml") });
 
                 lines = writer.ToString().Split(Environment.NewLine).ToList();
-                Assert.IsTrue(lines[0].Contains("<==SAME==>"));
+                Assert.IsTrue(lines[0].Contains("heroesdata_73662_enus_test_converted.xml               heroesdata_73662_enus_test.xml\tMATCH"));
             }
         }
     }
