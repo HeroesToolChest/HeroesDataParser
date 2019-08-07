@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
-    <Version>3.0.1</Version>
+    <Version>3.0.2</Version>
     <Authors>Kevin Oliva</Authors>
     <Copyright>Copyright © 2018 - 2019 Kevin Oliva</Copyright>
   </PropertyGroup>
