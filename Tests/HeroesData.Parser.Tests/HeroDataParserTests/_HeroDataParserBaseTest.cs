@@ -33,6 +33,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Parse();
         }
 
+        protected Hero HeroDva { get; set; }
         protected Hero HeroGall { get; set; }
         protected Hero HeroYrel { get; set; }
         protected Hero HeroAnubarak { get; set; }
@@ -90,6 +91,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         private void Parse()
         {
             HeroDataParser heroDataParser = new HeroDataParser(XmlDataService, HeroOverrideLoader);
+            HeroDva = heroDataParser.Parse("DVa");
             HeroGall = heroDataParser.Parse("Gall");
             HeroAnubarak = heroDataParser.Parse("Anubarak");
             HeroYrel = heroDataParser.Parse("Yrel");

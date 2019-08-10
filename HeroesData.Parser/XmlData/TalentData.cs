@@ -353,8 +353,8 @@ namespace HeroesData.Parser.XmlData
                 }
             }
 
-            setFaceAction?.Invoke();
             setAbilAction?.Invoke();
+            setFaceAction?.Invoke();
             setTraitAction?.Invoke();
             setActiveAction?.Invoke();
             setRankArrayAction?.Invoke();
