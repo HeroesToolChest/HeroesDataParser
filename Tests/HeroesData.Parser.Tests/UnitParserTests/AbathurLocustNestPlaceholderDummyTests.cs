@@ -9,7 +9,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void AbilitiesTests()
         {
-            Ability ability1 = AbathurLocustNestPlaceholderDummy.GetAbility("AbathurSpawnLocusts");
+            Ability ability1 = AbathurLocustNestPlaceholderDummy.GetFirstAbility("AbathurSpawnLocusts");
 
             Assert.AreEqual(AbilityType.Q, ability1.AbilityType);
             Assert.AreEqual(AbilityTier.Basic, ability1.Tier);

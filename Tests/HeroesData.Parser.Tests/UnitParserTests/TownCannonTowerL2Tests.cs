@@ -61,7 +61,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void DetectorAbilityActionTest()
         {
-            Ability ability = TownCannonTowerL2.GetAbility("Detector");
+            Ability ability = TownCannonTowerL2.GetFirstAbility("Detector");
             Assert.AreEqual("Detector", ability.AbilityTalentId.ButtonId);
             Assert.AreEqual(AbilityType.Stop, ability.AbilityType);
             Assert.IsTrue(ability.IsPassive);

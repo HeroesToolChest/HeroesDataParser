@@ -273,7 +273,7 @@ namespace HeroesData.Parser.XmlData
                         string abilValue = element.Attribute("value")?.Value;
                         if (!string.IsNullOrEmpty(abilValue))
                         {
-                            if (hero.TryGetAbility(abilValue, out Ability ability))
+                            if (hero.TryGetFirstAbility(abilValue, out Ability ability))
                             {
                                 talent.AbilityType = ability.AbilityType;
                             }
@@ -285,7 +285,7 @@ namespace HeroesData.Parser.XmlData
                             {
                                 foreach (Hero heroUnit in hero.HeroUnits)
                                 {
-                                    if (heroUnit.TryGetAbility(abilValue, out ability))
+                                    if (heroUnit.TryGetFirstAbility(abilValue, out ability))
                                     {
                                         talent.AbilityType = ability.AbilityType;
                                         break;
@@ -303,7 +303,7 @@ namespace HeroesData.Parser.XmlData
                                     if (talent.AbilityType == AbilityType.Unknown)
                                     {
                                         string defaultButtonFace = abilityElement.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
-                                        if (!string.IsNullOrEmpty(defaultButtonFace) && hero.TryGetAbility(defaultButtonFace, out ability))
+                                        if (!string.IsNullOrEmpty(defaultButtonFace) && hero.TryGetFirstAbility(defaultButtonFace, out ability))
                                             talent.AbilityType = ability.AbilityType;
                                     }
                                 }

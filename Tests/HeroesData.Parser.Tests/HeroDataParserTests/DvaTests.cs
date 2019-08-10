@@ -16,5 +16,13 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.IsTrue(talent.IsActive);
             Assert.AreEqual("DVaMechBunnyHopHeroic", talent.AbilityTalentLinkIds.ToList()[0]);
         }
+
+        [TestMethod]
+        public void DVaMechProMovesTalentTests()
+        {
+            Talent talent = HeroDva.GetTalent("DVaMechProMoves");
+            Assert.AreEqual(1, talent.AbilityTalentLinkIdsCount);
+            Assert.AreEqual("DVaMechMechMode", talent.AbilityTalentLinkIds.First());
+        }
     }
 }

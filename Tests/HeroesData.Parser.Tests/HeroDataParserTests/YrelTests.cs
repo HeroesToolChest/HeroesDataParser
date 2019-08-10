@@ -9,7 +9,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void YrelDivinePurposeActiveTest()
         {
-            Ability ability = HeroYrel.GetAbility("YrelDivinePurposeActive");
+            Ability ability = HeroYrel.GetFirstAbility("YrelDivinePurposeActive");
             Assert.IsTrue(ability.IsPassive);
             Assert.AreEqual("storm_ui_icon_yrel_divine_purpose_active.dds", ability.IconFileName);
             Assert.AreEqual("Cooldown: 8 seconds", ability.Tooltip?.Cooldown?.CooldownTooltip?.RawDescription);

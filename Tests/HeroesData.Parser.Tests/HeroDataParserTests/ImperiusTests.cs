@@ -9,7 +9,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void ImperiusAngelicArmamentsLaunchMissilesAbilityTest()
         {
-            Ability ability = HeroImperius.GetAbility("ImperiusAngelicArmamentsLaunchMissiles");
+            Ability ability = HeroImperius.GetFirstAbility("ImperiusAngelicArmamentsLaunchMissiles");
 
             Assert.AreEqual(0.0625, ability.Tooltip.Cooldown.ToggleCooldown);
             Assert.AreEqual(AbilityType.Heroic, ability.AbilityType);

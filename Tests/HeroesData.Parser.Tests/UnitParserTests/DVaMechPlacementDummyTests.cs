@@ -9,7 +9,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void HearthStoneAbilityTests()
         {
-            Ability ability = DVaMechPlacementDummy.GetAbility("Hearthstone");
+            Ability ability = DVaMechPlacementDummy.GetFirstAbility("Hearthstone");
 
             Assert.AreEqual("Hearthstone", ability.Name);
             Assert.AreEqual(AbilityType.B, ability.AbilityType);

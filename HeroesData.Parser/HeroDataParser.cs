@@ -447,7 +447,7 @@ namespace HeroesData.Parser
                     hero.AddTalent(talent);
 
                     // makes the abilities that are granted from talents subabilities to that talent
-                    if ((talent.AbilityType != AbilityType.Heroic || talent.Tier == TalentTier.Level20) && hero.TryGetAbility(talent.AbilityTalentId.ReferenceId, out Ability ability))
+                    if ((talent.AbilityType != AbilityType.Heroic || talent.Tier == TalentTier.Level20) && hero.TryGetFirstAbility(talent.AbilityTalentId.ReferenceId, out Ability ability))
                     {
                         ability.ParentLink = talent.AbilityTalentId;
                     }
@@ -495,8 +495,12 @@ namespace HeroesData.Parser
                 HashSet<string> validatedIds = new HashSet<string>();
                 foreach (string abilityTalentLinkId in talent.AbilityTalentLinkIds)
                 {
-                    if (hero.ContainsAbility(abilityTalentLinkId) || hero.ContainsTalent(abilityTalentLinkId) || hero.HeroUnits.Select(x => x.ContainsAbility(abilityTalentLinkId)).Any())
+                    if ((hero.TryGetAbilities(abilityTalentLinkId, out IEnumerable<Ability> abilities) && abilities.Where(x => x.Tier != AbilityTier.Hidden).Any())
+                        || hero.ContainsTalent(abilityTalentLinkId)
+                        || hero.HeroUnits.Where(x => x.TryGetAbilities(abilityTalentLinkId, out IEnumerable<Ability> heroUnitAbility) && heroUnitAbility.Where(y => y.Tier != AbilityTier.Hidden).Any()).Any())
+                    {
                         validatedIds.Add(abilityTalentLinkId);
+                    }
                 }
 
                 talent.ClearAbilityTalentLinkIds();

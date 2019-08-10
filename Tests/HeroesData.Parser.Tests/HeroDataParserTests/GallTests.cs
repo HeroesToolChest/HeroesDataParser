@@ -9,7 +9,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void GallEyeOfKilroggBehaviorAbilityTest()
         {
-            Ability ability = HeroGall.GetAbility("GallTalentEyeOfKilrogg");
+            Ability ability = HeroGall.GetFirstAbility("GallTalentEyeOfKilrogg");
             Assert.AreEqual(AbilityType.Active, ability.AbilityType);
         }
     }

@@ -21,7 +21,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void AbilitiesTests()
         {
-            Ability ability1 = AzmodanDemonLieutenant.GetAbility("AzmodanDemonicSmite");
+            Ability ability1 = AzmodanDemonLieutenant.GetFirstAbility("AzmodanDemonicSmite");
 
             // ability button is pointed to demon lieutenant
             Assert.AreEqual("Demon Lieutenant", ability1.Name);
