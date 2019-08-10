@@ -519,19 +519,14 @@
         <ParentLink value="NecromancerCursedStrikes" />
       </Override>
     </Ability>
-    <Ability id="NecromancerBoneArmor">
-      <Override>
-        <ParentLink value="NecromancerTalentBoneArmorShade, NecromancerBoneArmorShade" />
-      </Override>
-    </Ability>
     <Ability id="NecromancerBoneArmor" button="NecromancerBoneArmorAbilBacklash">
       <Override>
-        <ParentLink value="NecromancerTalentBoneArmorBacklash, NecromancerBoneArmorBacklash" />
+        <AbilityTier value="Hidden" />
       </Override>
     </Ability>
     <Ability id="NecromancerBoneArmor" button="NecromancerBoneArmorAbilShackler">
       <Override>
-        <ParentLink value="NecromancerTalentBoneArmorShackler, NecromancerBoneArmorShackler" />
+        <AbilityTier value="Hidden" />
       </Override>
     </Ability>
   </CHero>
