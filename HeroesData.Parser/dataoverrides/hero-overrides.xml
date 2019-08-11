@@ -339,6 +339,18 @@
       </Override>
     </Ability>
   </CHero>
+  <CHero id="Leoric">
+    <Ability id="LeoricGhastlySwing">
+      <Override>
+        <ParentLink value="LeoricUndyingTrait" />
+      </Override>
+    </Ability>
+    <Ability id="LeoricDrainEssence">
+      <Override>
+        <ParentLink value="LeoricUndyingTrait" />
+      </Override>
+    </Ability>
+  </CHero>
   <CHero id="LiLi">
     <Ability id="LiLiSafetySprint" button="LiLiFastFeet">
       <Override>
