@@ -125,6 +125,8 @@ Example command to create xml and json files from the `Heroes of the Storm` dire
 dotnet heroesdata.dll 'D:\Heroes of the Storm' -e hero
 ```
 
+**Note: When using command prompt on windows, use double quotes instead of single quote when specifying filepaths.**
+
 ## Validation Warnings
 All the warnings do not need to be fixed, they are shown for awareness.  
 Tooltip strings that fail to parse will show up as `(╯°□°）╯︵ ┻━┻ [Failed to parse]` in the xml or json files.  
