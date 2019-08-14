@@ -61,14 +61,10 @@ namespace HeroesData
 
                 if (extractImageFilesOption.HasValue() && !extractDataFilesOption.HasValue())
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("You need to set the -e|--extract-data option");
-                    Console.ResetColor();
-
-                    return 1;
+                    return InvalidCommand("You need to set the -e|--extract-data option");
                 }
 
-                if (!string.IsNullOrEmpty(storagePathArgument.Value))
+                if (!string.IsNullOrWhiteSpace(storagePathArgument.Value))
                 {
                     App.StoragePath = storagePathArgument.Value;
                 }
@@ -90,7 +86,7 @@ namespace HeroesData
                 // data file extraction
                 if (extractDataFilesOption.HasValue())
                 {
-                    if (extractDataFilesOption.Values.Exists(x => x.ToUpper() == "ALL"))
+                    if (extractDataFilesOption.Values.Exists(x => x.Equals("ALL", StringComparison.OrdinalIgnoreCase)))
                     {
                         App.ExtractDataOption = ExtractDataOption.All;
                     }
@@ -121,11 +117,11 @@ namespace HeroesData
                 // image file extraction
                 if (extractImageFilesOption.HasValue() && !string.IsNullOrEmpty(storagePathArgument.Value))
                 {
-                    if (extractImageFilesOption.Values.Exists(x => x.ToUpper() == "ALL"))
+                    if (extractImageFilesOption.Values.Exists(x => x.Equals("ALL", StringComparison.OrdinalIgnoreCase)))
                     {
                         App.ExtractFileOption = ExtractImageOption.All;
                     }
-                    else if (extractImageFilesOption.Values.Exists(x => x.ToUpper() == "ALL-SPLIT" || x.ToUpper() == "ALLSPLIT"))
+                    else if (extractImageFilesOption.Values.Exists(x => x.Equals("ALL-SPLIT", StringComparison.OrdinalIgnoreCase) || x.Equals("ALLSPLIT", StringComparison.OrdinalIgnoreCase)))
                     {
                         App.ExtractFileOption = ExtractImageOption.AllSplit;
                     }
@@ -153,7 +149,7 @@ namespace HeroesData
                 {
                     IEnumerable<string> localizations = new List<string>();
 
-                    if (setGameStringLocalizations.Values.Exists(x => x.ToUpper() == "ALL"))
+                    if (setGameStringLocalizations.Values.Exists(x => x.Equals("ALL", StringComparison.OrdinalIgnoreCase)))
                         localizations = Enum.GetNames(typeof(Localization));
                     else
                         localizations = setGameStringLocalizations.Values;
@@ -217,6 +213,15 @@ namespace HeroesData
             }
 
             Console.ResetColor();
+        }
+
+        private static int InvalidCommand(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ResetColor();
+
+            return 1;
         }
 
         private void SetExtractValues()
