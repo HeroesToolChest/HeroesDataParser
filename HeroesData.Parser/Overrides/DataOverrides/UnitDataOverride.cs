@@ -117,7 +117,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         }
 
         /// <summary>
-        /// Performs all the ability overrides.
+        /// Performs all the ability overrides for a collection of given abilities.
         /// </summary>
         /// <param name="abilities">Collection of abilities to check for overrides.</param>
         public void ExecuteAbilityOverrides(IEnumerable<Ability> abilities)
@@ -129,13 +129,15 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 
             foreach (Ability ability in abilities)
             {
-                if (PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.AbilityTalentId, out Dictionary<string, Action<Ability>> valueOverrideMethods))
+                if (!ability.IsPassive)
                 {
-                    foreach (KeyValuePair<string, Action<Ability>> propertyOverride in valueOverrideMethods)
-                    {
-                        // execute each property override
-                        propertyOverride.Value(ability);
-                    }
+                    ExecuteOverrideMethods(ability, ability.AbilityTalentId);
+                }
+                else
+                {
+                    AbilityTalentId passiveAbilityTalentId = new AbilityTalentId(ability.AbilityTalentId.ReferenceId, $"{ability.AbilityTalentId.ButtonId}~Passive~");
+
+                    ExecuteOverrideMethods(ability, passiveAbilityTalentId);
                 }
             }
         }
@@ -159,6 +161,18 @@ namespace HeroesData.Parser.Overrides.DataOverrides
                     {
                         propertyOverride.Value(weapon);
                     }
+                }
+            }
+        }
+
+        private void ExecuteOverrideMethods(Ability ability, AbilityTalentId passiveAbilityTalentId)
+        {
+            if (PropertyAbilityOverrideMethodByAbilityId.TryGetValue(passiveAbilityTalentId, out Dictionary<string, Action<Ability>> valueOverrideMethods))
+            {
+                foreach (KeyValuePair<string, Action<Ability>> propertyOverride in valueOverrideMethods)
+                {
+                    // execute each property override
+                    propertyOverride.Value(ability);
                 }
             }
         }

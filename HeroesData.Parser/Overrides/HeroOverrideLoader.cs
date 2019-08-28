@@ -72,7 +72,13 @@ namespace HeroesData.Parser.Overrides
                     case "Ability":
                         string abilityId = dataElement.Attribute("id")?.Value ?? string.Empty;
                         string buttonAbilityId = dataElement.Attribute("button")?.Value ?? abilityId;
+                        string passiveAbility = dataElement.Attribute("passive")?.Value;
                         string addedAbility = dataElement.Attribute("add")?.Value;
+
+                        if (bool.TryParse(passiveAbility, out bool abilityPassiveResult))
+                        {
+                            buttonAbilityId = $"{buttonAbilityId}~Passive~";
+                        }
 
                         if (bool.TryParse(addedAbility, out bool abilityAddedResult))
                         {

@@ -62,14 +62,14 @@
       </Override>
     </Ability>
     <!--Passive button of AnaAimDownSightsActivate-->
-    <Ability id="AnaTraitShrikeSniper">
+    <Ability id="AnaTraitShrikeSniper" passive="true">
       <Override>
         <AbilityTier value="Hidden" />
       </Override>
     </Ability>
   </CHero>
   <CHero id="Artanis">
-    <Ability id="ArtanisTwinBladesPrimed">
+    <Ability id="ArtanisTwinBladesPrimed" passive="true">
       <Override>
         <ParentLink value="ArtanisTwinBlades" />
       </Override>
@@ -81,14 +81,14 @@
         <ParentLink value="ArthasArmyOfTheDead" />
       </Override>
     </Ability>
-    <Ability id="ArthasFrostmourneHungersPrimed">
+    <Ability id="ArthasFrostmourneHungersPrimed" passive="true">
       <Override>
         <ParentLink value="ArthasFrostmourneHungers" />
       </Override>
     </Ability>
   </CHero>
   <CHero id="Azmodan">
-    <Ability id="AzmodanTideOfSinPassive">
+    <Ability id="AzmodanTideOfSinPassive" passive="true">
       <Override>
         <ParentLink value="AzmodanTideOfSin" />
       </Override>
@@ -135,7 +135,7 @@
     <HeroUnit id="HeroChenFire" />
   </CHero>
   <CHero id="Cho">
-    <Ability id="ChoOgreHidePassive">
+    <Ability id="ChoOgreHidePassive" passive="true">
       <Override>
         <ParentLink value="ChoOgreHide,ChoOgreHideActivated" />
       </Override>
@@ -211,7 +211,7 @@
           <AbilityTier value="Hidden" />
         </Override>
       </Ability>
-      <Ability id="DVaMechMechMode">
+      <Ability id="DVaMechMechMode" passive="true">
         <Override>
           <AbilityTier value="Hidden" />
         </Override>
@@ -229,7 +229,7 @@
         <ParentLink value="GallTwistingNether" />
       </Override>
     </Ability>
-    <Ability id="GallOgreRagePassive">
+    <Ability id="GallOgreRagePassive" passive="true">
       <Override>
         <ParentLink value="GallOgreRage,GallOgreRageActivated" />
       </Override>
@@ -261,7 +261,7 @@
         <ParentLink value="GreymaneWorgenForm" />
       </Override>
     </Ability>
-    <Ability id="GreymaneInnerBeastActive">
+    <Ability id="GreymaneInnerBeastActive" passive="true">
       <Override>
         <ParentLink value="GreymaneInnerBeast" />
       </Override>
@@ -398,7 +398,7 @@
         <AbilityType value="E" />
       </Override>
     </Ability>
-        <Ability id="LostVikingsVikingHoardTalent" add="true">
+    <Ability id="LostVikingsVikingHoardTalent" add="true">
       <Override>
         <AbilityTier value="Trait" />
         <AbilityType value="Trait" />
@@ -459,7 +459,7 @@
     </Ability>
   </CHero>
   <CHero id="Kaelthas">
-    <Ability id="KaelthasVerdantSpheresActive">
+    <Ability id="KaelthasVerdantSpheresActive" passive="true">
       <Override>
         <ParentLink value="KaelthasVerdantSpheres" />
       </Override>
@@ -490,7 +490,7 @@
     </Ability>
   </CHero>
   <CHero id="Maiev">
-    <Ability id="MaievUmbralBindPrimed">
+    <Ability id="MaievUmbralBindPrimed" passive="true">
       <Override>
         <ParentLink value="MaievUmbralBind" />
       </Override>
@@ -505,7 +505,7 @@
     </Ability>
   </CHero>
   <CHero id="Monk">
-    <Ability id="MonkDeadlyReachActive">
+    <Ability id="MonkDeadlyReachActive" passive="true">
       <Override>
         <ParentLink value="MonkDeadlyReach" />
       </Override>
@@ -526,7 +526,7 @@
     </Ability>
   </CHero>
   <CHero id="Necromancer">
-    <Ability id="NecromancerCursedStrikesPassive">
+    <Ability id="NecromancerCursedStrikesPassive" passive="true">
       <Override>
         <ParentLink value="NecromancerCursedStrikes" />
       </Override>
@@ -582,7 +582,7 @@
         </Override>
       </Ability>
     </HeroUnit>
-    <Ability id="RagnarosEmpowerSulfurasActive">
+    <Ability id="RagnarosEmpowerSulfurasActive" passive="true">
       <Override>
         <ParentLink value="RagnarosEmpowerSulfuras" />
       </Override>
@@ -637,6 +637,17 @@
     <Ability id="TassadarCancelDimensionalShift">
       <Override>
         <ParentLink value="TassadarDimensionalShift" />
+      </Override>
+    </Ability>
+    <Ability id="TassadarArchon" passive="true">
+      <Override>
+        <ParentLink value="TassadarArchon" />
+      </Override>
+    </Ability>
+    <Ability id="TassadarArchon" add="true">
+      <Override>
+        <AbilityTier value="Heroic" />
+        <AbilityType value="Heroic" />
       </Override>
     </Ability>
   </CHero>
@@ -709,14 +720,14 @@
     </Ability>
   </CHero>
   <CHero id="Varian">
-    <Ability id="VarianHeroicStrikeActive">
+    <Ability id="VarianHeroicStrikeActive" passive="true">
       <Override>
         <ParentLink value="VarianHeroicStrike" />
       </Override>
     </Ability>
   </CHero>
   <CHero id="WitchDoctor">
-    <Ability id="WitchDoctorGargantuanStomp">
+    <Ability id="WitchDoctorGargantuanStomp" passive="true">
       <Override>
         <ParentLink value="WitchDoctorGargantuan" />
       </Override>
@@ -767,7 +778,7 @@
         <ParentLink value="YrelDivinePurpose" />
       </Override>
     </Ability>
-    <Ability id="YrelDivinePurposeActive">
+    <Ability id="YrelDivinePurposeActive" passive="true">
       <Override>
         <ParentLink value="YrelDivinePurpose" />
       </Override>
@@ -779,12 +790,12 @@
     </Ability>
   </CHero>
   <CHero id="Zagara">
-    <Ability id="ZagaraPassiveUI">
+    <Ability id="ZagaraPassiveUI" passive="true">
       <Override>
         <AbilityTier value="Hidden" />
       </Override>
     </Ability>
-    <Ability id="ZagaraPassiveUIImproved">
+    <Ability id="ZagaraPassiveUIImproved" passive="true">
       <Override>
         <AbilityTier value="Hidden" />
       </Override>
