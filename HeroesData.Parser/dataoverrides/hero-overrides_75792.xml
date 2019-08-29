@@ -283,11 +283,6 @@
         <ParentLink value="GuldanRainOfDestruction" />
       </Override>
     </Ability>
-    <Ability id="GuldanLifeTapFree">
-      <Override>
-        <ParentLink value="GuldanLifeTapDarknessWithin" />
-      </Override>
-    </Ability>
   </CHero>
   <CHero id="Illidan">
     <!--Old abilityTalent-->
@@ -590,14 +585,6 @@
     <Ability id="RagnarosEmpowerSulfurasActive" passive="true">
       <Override>
         <ParentLink value="RagnarosEmpowerSulfuras" />
-      </Override>
-    </Ability>
-  </CHero>
-  <CHero id="Rehgar">
-    <Ability id="RehgarTotemicProjection">
-      <Override>
-        <!-- Move it to the talent -->
-        <ParentLink value="RehgarEarthbindTotemColossalTotem" />
       </Override>
     </Ability>
   </CHero>
