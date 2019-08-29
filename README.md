@@ -532,8 +532,10 @@ Setting `modFolders` as the storage path will have the `mods_22388` directory pa
 
 ***
 
-### CASC HeroOverrides loading
+### CASC DataOverrides loading
 When using a `Heroes of the Storm` directory, it will load the equivalent overrides file(s) based on the build version, just like in the [mods suffix directory](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
+
+The override files are for manually modifying the data after parsing the game data.
 
 ***
 
