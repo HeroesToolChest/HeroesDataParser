@@ -1,5 +1,6 @@
 ﻿using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
@@ -9,8 +10,11 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void MockingStrikesTalentIsPassiveTest()
         {
+            Talent talent = HeroAlarak.GetTalent("AlarakMockingStrikes");
             Assert.IsTrue(HeroAlarak.ContainsTalent("AlarakMockingStrikes"));
-            Assert.AreEqual(AbilityType.Passive, HeroAlarak.GetTalent("AlarakMockingStrikes").AbilityType);
+            Assert.AreEqual(AbilityType.Passive, talent.AbilityType);
+            Assert.AreEqual(3, talent.AbilityTalentLinkIdsCount);
+            Assert.AreEqual("AlarakCounterStrikeTargeted2ndHeroic", talent.AbilityTalentLinkIds.ToList()[1]);
         }
 
         [TestMethod]

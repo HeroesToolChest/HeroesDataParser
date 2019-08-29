@@ -12,6 +12,7 @@ namespace HeroesData.Parser.XmlData
     public class TalentData : AbilityTalentData
     {
         private readonly Dictionary<string, HashSet<string>> AbilityTalentIdsByTalentIdUpgrade = new Dictionary<string, HashSet<string>>();
+        private readonly List<(XElement, AbilityTalentBase)> AbilityTalentsButtonElementsList = new List<(XElement, AbilityTalentBase)>();
 
         public TalentData(GameData gameData, DefaultData defaultData, Configuration configuration)
             : base(gameData, defaultData, configuration)
@@ -68,13 +69,11 @@ namespace HeroesData.Parser.XmlData
                 throw new ArgumentNullException(nameof(hero));
             }
 
-            Dictionary<string, (XElement, AbilityTalentBase)> abilityTalentsByButtonElements = new Dictionary<string, (XElement, AbilityTalentBase)>();
-
             // hero's abilities
             foreach (Ability ability in hero.Abilities)
             {
                 // we need to get the cbutton id name
-                FindAbilityTalentButtonElements(abilityTalentsByButtonElements, ability);
+                FindAbilityTalentButtonElements(ability);
             }
 
             // the hero's units
@@ -82,14 +81,12 @@ namespace HeroesData.Parser.XmlData
             {
                 foreach (Ability ability in heroUnit.Abilities)
                 {
-                    FindAbilityTalentButtonElements(abilityTalentsByButtonElements, ability);
+                    FindAbilityTalentButtonElements(ability);
                 }
             }
 
-            foreach (KeyValuePair<string, (XElement, AbilityTalentBase)> abilityElement in abilityTalentsByButtonElements)
+            foreach ((XElement buttonElement, AbilityTalentBase abilityTalent) in AbilityTalentsButtonElementsList)
             {
-                (XElement buttonElement, AbilityTalentBase abilityTalent) = abilityElement.Value;
-
                 if (!string.IsNullOrEmpty(abilityTalent.AbilityTalentId.ReferenceId))
                     AddTooltipAppenderAbilityTalentId(buttonElement, abilityTalent.AbilityTalentId.ReferenceId);
                 else
@@ -373,21 +370,17 @@ namespace HeroesData.Parser.XmlData
             }
         }
 
-        private void FindAbilityTalentButtonElements(Dictionary<string, (XElement, AbilityTalentBase)> abilityTalentsByButtonElements, Ability ability)
+        private void FindAbilityTalentButtonElements(Ability ability)
         {
-            if (abilityTalentsByButtonElements == null)
-                throw new ArgumentNullException(nameof(abilityTalentsByButtonElements));
             if (ability == null)
                 throw new ArgumentNullException(nameof(ability));
 
-            string id = string.Empty;
-            if (!string.IsNullOrEmpty(ability.AbilityTalentId.ReferenceId))
-                id = ability.AbilityTalentId.ReferenceId;
-            else if (ability.IsPassive)
-                id = ability.AbilityTalentId.ButtonId;
-            else
-                return;
+            SetAbilityTalentButton(ability, ability.AbilityTalentId.ReferenceId);
+            SetAbilityTalentButton(ability, ability.AbilityTalentId.ButtonId);
+        }
 
+        private void SetAbilityTalentButton(Ability ability, string id)
+        {
             XElement abilityElement = GameData.MergeXmlElementsNoAttributes(GetAbilityElements(id), false);
             string faceValue = abilityElement?.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value ?? abilityElement?.Element("CmdButtonArray")?.Element("DefaultButtonFace")?.Attribute("value")?.Value;
 
@@ -397,7 +390,7 @@ namespace HeroesData.Parser.XmlData
             XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
 
             if (buttonElement != null)
-                abilityTalentsByButtonElements[id] = (buttonElement, ability);
+                AbilityTalentsButtonElementsList.Add((buttonElement, ability));
         }
     }
 }
