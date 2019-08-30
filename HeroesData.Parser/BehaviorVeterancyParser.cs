@@ -1,8 +1,10 @@
 ﻿using Heroes.Models.Veterancy;
+using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -17,6 +19,30 @@ namespace HeroesData.Parser
         {
         }
 
+        public override HashSet<string[]> Items
+        {
+            get
+            {
+                HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
+                IEnumerable<XElement> elements = GameData.Elements(ElementType).Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
+
+                AddItems(items, elements, GeneralMapName);
+
+                // map specific units
+                foreach (string mapName in GameData.MapIds)
+                {
+                    if (Configuration.RemoveDataXmlElementIds("MapStormmod").Contains(mapName))
+                        continue;
+
+                    elements = GameData.GetMapGameData(mapName).Elements(ElementType).Where(x => x.Attribute("id") != null && x.Attribute("default") == null);
+
+                    AddItems(items, elements, mapName);
+                }
+
+                return items;
+            }
+        }
+
         protected override string ElementType => "CBehaviorVeterancy";
 
         public BehaviorVeterancyParser GetInstance()
@@ -26,10 +52,14 @@ namespace HeroesData.Parser
 
         public BehaviorVeterancy Parse(params string[] ids)
         {
-            if (ids == null || !ids.Any())
+            if (ids == null)
                 return null;
 
-            string id = ids.FirstOrDefault();
+            string id = ids[0];
+            string mapNameId = string.Empty;
+
+            if (ids.Length == 2)
+                mapNameId = ids[1];
 
             XElement behaviorVeterancyElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (behaviorVeterancyElement == null)
@@ -40,9 +70,18 @@ namespace HeroesData.Parser
                 Id = id,
             };
 
+            if (mapNameId != GeneralMapName) // map specific unit
+            {
+                behaviorVeterancy.MapName = mapNameId;
+            }
+
             SetDefaultValues(behaviorVeterancy);
             SetBehaviorVeterancyData(behaviorVeterancyElement, behaviorVeterancy);
             SetVeterancyLevelArray(behaviorVeterancy);
+
+            // must be last
+            if (behaviorVeterancy.IsMapUnique)
+                behaviorVeterancy.Id = $"{mapNameId.Split('.').First()}-{id}";
 
             return behaviorVeterancy;
         }
@@ -214,6 +253,22 @@ namespace HeroesData.Parser
         {
             behaviorVeterancy.CombineModifications = DefaultData.BehaviorVeterancyData.CombineNumericModifications;
             behaviorVeterancy.CombineXP = DefaultData.BehaviorVeterancyData.CombineXP;
+        }
+
+        private void AddItems(HashSet<string[]> items, IEnumerable<XElement> elements, string mapName)
+        {
+            foreach (XElement element in elements)
+            {
+                string id = element.Attribute("id").Value;
+
+                if ((ValidItem(element) && !Configuration.RemoveDataXmlElementIds(ElementType).Contains(id)) || Configuration.AddDataXmlElementIds(ElementType).Contains(id))
+                {
+                    if (string.IsNullOrEmpty(mapName))
+                        items.Add(new string[] { id });
+                    else
+                        items.Add(new string[] { id, mapName });
+                }
+            }
         }
     }
 }
