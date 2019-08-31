@@ -163,7 +163,7 @@ namespace HeroesData.Parser
                 if (elementName == "DAMAGEDEALTSCALED")
                 {
                     string index = element.Attribute("index")?.Value;
-                    string value = element.Attribute("value")?.Value;
+                    string value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value);
 
                     if (double.TryParse(value, out double valueResult))
                     {
@@ -177,7 +177,7 @@ namespace HeroesData.Parser
                 else if (elementName == "DAMAGEDEALTFRACTION")
                 {
                     string index = element.Attribute("index")?.Value;
-                    string value = element.Attribute("value")?.Value;
+                    string value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value);
 
                     if (double.TryParse(value, out double valueResult))
                     {
@@ -191,7 +191,7 @@ namespace HeroesData.Parser
                 else if (elementName == "VITALMAXARRAY")
                 {
                     string index = element.Attribute("index")?.Value;
-                    string value = element.Attribute("value")?.Value;
+                    string value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value);
 
                     if (double.TryParse(value, out double valueResult))
                     {
@@ -205,7 +205,7 @@ namespace HeroesData.Parser
                 else if (elementName == "VITALMAXFRACTIONARRAY")
                 {
                     string index = element.Attribute("index")?.Value;
-                    string value = element.Attribute("value")?.Value;
+                    string value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value);
 
                     if (double.TryParse(value, out double valueResult))
                     {
@@ -219,7 +219,7 @@ namespace HeroesData.Parser
                 else if (elementName == "VITALREGENARRAY")
                 {
                     string index = element.Attribute("index")?.Value;
-                    string value = element.Attribute("value")?.Value;
+                    string value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value);
 
                     if (double.TryParse(value, out double valueResult))
                     {
@@ -233,7 +233,7 @@ namespace HeroesData.Parser
                 else if (elementName == "VITALREGENFRACTIONARRAY")
                 {
                     string index = element.Attribute("index")?.Value;
-                    string value = element.Attribute("value")?.Value;
+                    string value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value);
 
                     if (double.TryParse(value, out double valueResult))
                     {
