@@ -9,7 +9,7 @@
     <Energy value="100" />
     <ParentLink value="TheSwarm" />
     
-    <Ability id="SpikeAbilityThingy" valid="true">
+    <Ability id="SpikeAbilityThingy" add="true">
       <Override>
         <ParentLink value="Symbiote" />
         <AbilityTier value="Activable" />
@@ -37,7 +37,7 @@
       </Override>
     </Talent>
     
-    <Weapon id="SlapSlap" valid="true">
+    <Weapon id="SlapSlap" add="true">
       <Override>
         <Range value="1.5" />
         <Damage value="1000" />
@@ -60,7 +60,7 @@
     <HeroUnit id="LittleLoco">
       <EnergyType value="None" />
       <Energy value="0" />
-      <Weapon id="ScratchScratch" valid="true" />
+      <Weapon id="ScratchScratch" add="true" />
     </HeroUnit>
     
   </CHero>
@@ -131,7 +131,7 @@
       </Override>
     </Ability>
 
-    <Ability id="AVeryLargeSword" valid="false">
+    <Ability id="AVeryLargeSword" add="false">
       <Override>
       </Override>
     </Ability>
@@ -160,7 +160,7 @@
       </Override>
     </Weapon>
 
-    <Weapon id="Ffffwwwwaaa-2.0" valid="false">
+    <Weapon id="Ffffwwwwaaa-2.0" add="false">
       <Override>
       </Override>
     </Weapon>

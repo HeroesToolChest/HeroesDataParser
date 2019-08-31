@@ -136,12 +136,12 @@ namespace HeroesData.Parser.Overrides
                         break;
                     case "Weapon":
                         string weaponId = dataElement.Attribute("id")?.Value;
-                        string validWeapon = dataElement.Attribute("valid")?.Value;
+                        string addedWeapon = dataElement.Attribute("add")?.Value;
 
                         if (string.IsNullOrEmpty(weaponId))
                             continue;
 
-                        if (bool.TryParse(validWeapon, out bool weaponValidResult))
+                        if (bool.TryParse(addedWeapon, out bool weaponValidResult))
                         {
                             heroDataOverride.AddAddedWeapon(weaponId, weaponValidResult);
 

@@ -70,13 +70,19 @@ namespace HeroesData.Parser.Overrides
                     case "Ability":
                         string abilityId = dataElement.Attribute("id")?.Value ?? string.Empty;
                         string buttonAbilityId = dataElement.Attribute("button")?.Value ?? abilityId;
-                        string validAbility = dataElement.Attribute("valid")?.Value;
+                        string passiveAbility = dataElement.Attribute("passive")?.Value;
+                        string addedAbility = dataElement.Attribute("add")?.Value;
 
-                        if (bool.TryParse(validAbility, out bool abilityValidResult))
+                        if (bool.TryParse(passiveAbility, out bool abilityPassiveResult))
                         {
-                            unitDataOverride.AddAddedAbility(new AbilityTalentId(abilityId, buttonAbilityId), abilityValidResult);
+                            buttonAbilityId = $"{buttonAbilityId}~Passive~";
+                        }
 
-                            if (!abilityValidResult)
+                        if (bool.TryParse(addedAbility, out bool abilityAddedResult))
+                        {
+                            unitDataOverride.AddAddedAbility(new AbilityTalentId(abilityId, buttonAbilityId), abilityAddedResult);
+
+                            if (!abilityAddedResult)
                                 continue;
                         }
 
@@ -91,12 +97,12 @@ namespace HeroesData.Parser.Overrides
                         break;
                     case "Weapon":
                         string weaponId = dataElement.Attribute("id")?.Value;
-                        string valid = dataElement.Attribute("valid")?.Value;
+                        string addedWeapon = dataElement.Attribute("add")?.Value;
 
                         if (string.IsNullOrEmpty(weaponId))
                             continue;
 
-                        if (bool.TryParse(valid, out bool weaponValidResult))
+                        if (bool.TryParse(addedWeapon, out bool weaponValidResult))
                         {
                             unitDataOverride.AddAddedWeapon(weaponId, weaponValidResult);
 

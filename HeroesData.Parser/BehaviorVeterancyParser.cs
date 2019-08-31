@@ -28,7 +28,7 @@ namespace HeroesData.Parser
 
                 AddItems(items, elements, GeneralMapName);
 
-                // map specific units
+                // map specific veterancies
                 foreach (string mapName in GameData.MapIds)
                 {
                     if (Configuration.RemoveDataXmlElementIds("MapStormmod").Contains(mapName))

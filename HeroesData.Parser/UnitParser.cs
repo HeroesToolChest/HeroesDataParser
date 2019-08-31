@@ -48,6 +48,11 @@ namespace HeroesData.Parser
                     AddItems(mapName, cUnitElements, items, addIds, removeIds);
                 }
 
+                foreach (string addedMapSpecificUnit in addIds.Where(x => x.Contains(",")))
+                {
+                    items.Add(addedMapSpecificUnit.Split(',').ToArray());
+                }
+
                 return items;
             }
         }
@@ -163,7 +168,6 @@ namespace HeroesData.Parser
             foreach (XElement element in elements)
             {
                 string id = element.Attribute("id").Value;
-                string parent = element.Attribute("parent")?.Value;
 
                 string idCheck = string.Empty;
                 if (string.IsNullOrEmpty(mapName))

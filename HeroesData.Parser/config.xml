@@ -14,6 +14,8 @@
     <CSkin id="Random" value="false" />
     <CSpray id="RandomSpray" value="false" />
     <CVoiceLine id="RandomVoiceLine" value="false" />
+
+    <CUnit id="VolskayaVehicle,volskayadata.stormmod" value="true" />
   </DataParser>
   
   <!--Used for completing gamestring parsing by providing a default value-->
