@@ -1846,7 +1846,7 @@
     <BehaviorFlags index="Permanent" value="1" />
     <BehaviorFlags index="EnabledWhileDead" value="1" />
   </CBehaviorVeterancy>
-  <CBehaviorVeterancy id="ZergMutaliskScaling ">
+  <CBehaviorVeterancy id="ZergMutaliskScaling">
     <InfoFlags index="Hidden" value="1" />
     <XPFraction index="Kills" value="0" />
     <VeterancyLevelArray />
