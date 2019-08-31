@@ -588,6 +588,20 @@
       </Override>
     </Ability>
   </CHero>
+  <CHero id="Raynor">
+    <Ability id="RaynorRaynorsRaidersDummy" button="RaynorRaynorsRaiderDummy">
+      <Override>
+        <!-- Clear, should not be a subability -->
+        <ParentLink value="" />
+      </Override>
+    </Ability>
+    <Ability id="RaynorRaynorsRaidersRedirect" button="RaynorRaynorsRaidersIssueAttackOrder">
+      <Override>
+        <!-- Should be the subability -->
+        <ParentLink value="RaynorRaynorsRaidersDummy" />
+      </Override>
+    </Ability>
+  </CHero>
   <CHero id="Rexxar">
     <Portrait>
       <Override>
