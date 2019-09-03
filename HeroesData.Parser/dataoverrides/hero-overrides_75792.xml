@@ -357,6 +357,11 @@
         <ParentLink value="LiLiMasteryFastFeetSafetySprint,LiLiSafetySprintTalent" />
       </Override>
     </Ability>
+    <Ability id="LiLiCancelJugof1000Cups">
+      <Override>
+        <ParentLink value="LiLiJugof1000Cups" />
+      </Override>
+    </Ability>
   </CHero>
   <CHero id="LostVikings">
     <CUnit value="HeroLostVikingsController" />
