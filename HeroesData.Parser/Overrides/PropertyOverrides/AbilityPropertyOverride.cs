@@ -54,6 +54,16 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                     ability.Tooltip.Cooldown.CooldownTooltip = new TooltipDescription(propertyValue);
                 });
             }
+            else if (propertyName == nameof(Ability.IsPassive))
+            {
+                propertyOverrides.Add(propertyName, (ability) =>
+                {
+                    if (bool.TryParse(propertyValue, out bool result))
+                        ability.IsActive = result;
+                    else
+                        ability.IsActive = false;
+                });
+            }
         }
     }
 }

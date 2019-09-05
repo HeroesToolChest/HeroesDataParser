@@ -412,6 +412,7 @@
       <Override>
         <AbilityTier value="Trait" />
         <AbilityType value="Trait" />
+        <IsPassive value="true" />
       </Override>
     </Ability>
     <Ability id="LostVikingSelectOlaf" add="true">
