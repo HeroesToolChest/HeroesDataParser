@@ -15,10 +15,12 @@ jobs:
         Build_Release:
           configuration: $(config_release)
     steps:
-    - task: DotNetCoreInstaller@0
-      displayName: dotnet installer 2.2.401
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core sdk'
       inputs:
-        version: '2.2.401'
+        packageType: sdk
+        version: 2.2.x
+        installationPath: $(Agent.ToolsDirectory)/dotnet
         
     - powershell: |
         $cascexplorer = get-content CASCExplorer\CascLib\CascLib\CascLib.csproj
