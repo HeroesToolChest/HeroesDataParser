@@ -26,6 +26,7 @@ jobs:
     vmImage: 'windows-2019'
   variables:
     - group: secret
+  condition: and(succeeded(), ne(variables['build.Reason'], 'PullRequest'))
   steps:
     - task: DownloadSecureFile@1
       displayName: Download cert
