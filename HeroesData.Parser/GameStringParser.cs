@@ -240,6 +240,8 @@ namespace HeroesData.Parser.GameStrings
         {
             precision = null;
 
+            pathPart = pathPart.Replace("preicison=", "precision=");
+
             // get the precision string first
             MatchCollection precisionMatches = Regex.Matches(pathPart, "precision\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
 
