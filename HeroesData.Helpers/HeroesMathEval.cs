@@ -92,6 +92,8 @@ namespace HeroesData.Helpers
 
         private static string RemoveDoubleNegative(string input)
         {
+            if (input.Length > 2 && input.StartsWith("*--"))
+                input = input.Remove(0, 1);
             if (input.Length > 2 && input.StartsWith("--"))
                 input = input.Remove(0, 2);
 

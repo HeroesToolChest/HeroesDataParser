@@ -337,10 +337,14 @@
         <ParentLink value="JunkratConcussionMine" />
       </Override>
     </Ability>
-    <!--Only available after using RocketRide and spawning-->
+    <Ability id="JunkratIHateWaitingSummonMount" button="JunkratRocketRideSummonMount">
+      <Override>
+        <ParentLink value="JunkratIHateWaitingTalent,JunkratIHateWaiting" />
+      </Override>
+    </Ability>
     <Ability id="JunkratRocketRideDismount" button="JunkratRocketRideUnsummonMount">
       <Override>
-        <AbilityTier value="Hidden" />
+        <ParentLink value="JunkratIHateWaitingSummonMount,JunkratRocketRideSummonMount" />
       </Override>
     </Ability>
   </CHero>
@@ -782,6 +786,11 @@
     <Ability id="WhitemaneInquisitionCancel">
       <Override>
         <ParentLink value="WhitemaneInquisition" />
+      </Override>
+    </Ability>
+    <Ability id="WhitemaneInquisitionCancel">
+      <Override>
+        <ParentLink value="WhitemaneInquisitionClemency" />
       </Override>
     </Ability>
   </CHero>
