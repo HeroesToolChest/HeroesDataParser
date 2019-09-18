@@ -225,6 +225,7 @@ Extracts to `<OUTPUT-DIRECTORY>/<json and/or xml>`.
 `units` - extracts unit data  
 `matchawards` - extracts match awards  
 `heroskins` - extracts hero skins  
+`mounts` - extracts mounts  
 `banners` - extracts banners  
 `sprays` - extracts sprays  
 `announcers` - extracts announcers  
