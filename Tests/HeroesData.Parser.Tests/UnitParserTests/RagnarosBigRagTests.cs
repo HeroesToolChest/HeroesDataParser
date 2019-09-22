@@ -11,11 +11,17 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void TraitAbilities()
         {
-            List<Ability> abilities = RagnarosBigRag.GetAbilities(new AbilityTalentId("RagnarosBigRagReturnMoltenCore", "RagnarosBigRagReturnMoltenCore")).ToList();
+            List<Ability> abilities = RagnarosBigRag.GetAbilities(new AbilityTalentId("RagnarosBigRagReturnMoltenCore", "RagnarosBigRagReturnMoltenCore")
+            {
+                AbilityType = AbilityType.Trait,
+            }).ToList();
             Assert.AreEqual(1, abilities.Count);
             Ability ability1 = abilities[0];
 
-            List<Ability> abilities2 = RagnarosBigRag.GetAbilities(new AbilityTalentId("RagnarosBigRagReturnMoltenCore", "RagnarosBigRagCancelReturnMoltenCore")).ToList();
+            List<Ability> abilities2 = RagnarosBigRag.GetAbilities(new AbilityTalentId("RagnarosBigRagReturnMoltenCore", "RagnarosBigRagCancelReturnMoltenCore")
+            {
+                AbilityType = AbilityType.Trait,
+            }).ToList();
             Assert.AreEqual(1, abilities2.Count);
 
             Ability ability2 = abilities2[0];

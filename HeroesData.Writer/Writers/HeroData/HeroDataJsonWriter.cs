@@ -394,7 +394,12 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Unknown), "unknown");
 
                 if (abilities.Count > 0)
-                    parentLinkObject.Add(new JProperty(parent.ReferenceId, abilities));
+                {
+                    if (parent.AbilityType != AbilityType.Unknown)
+                        parentLinkObject.Add(new JProperty($"{parent.Id}|{parent.AbilityType}", abilities));
+                    else
+                        parentLinkObject.Add(new JProperty($"{parent.Id}", abilities));
+                }
             }
 
             if (parentLinkObject.Count > 0)

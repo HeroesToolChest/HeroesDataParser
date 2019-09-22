@@ -53,7 +53,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         /// <summary>
         /// Gets the property override action methods for abilities by the ability id.
         /// </summary>
-        internal Dictionary<AbilityTalentId, Dictionary<string, Action<Ability>>> PropertyAbilityOverrideMethodByAbilityId { get; } = new Dictionary<AbilityTalentId, Dictionary<string, Action<Ability>>>();
+        internal Dictionary<string, Dictionary<string, Action<Ability>>> PropertyAbilityOverrideMethodByAbilityId { get; } = new Dictionary<string, Dictionary<string, Action<Ability>>>();
 
         /// <summary>
         /// Gets the property override action methods for weapons by the weapon id.
@@ -129,15 +129,13 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 
             foreach (Ability ability in abilities)
             {
-                if (!ability.IsPassive)
+                if (PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.AbilityTalentId.ToString(), out Dictionary<string, Action<Ability>> valueOverrideMethods))
                 {
-                    ExecuteOverrideMethods(ability, ability.AbilityTalentId);
-                }
-                else
-                {
-                    AbilityTalentId passiveAbilityTalentId = new AbilityTalentId(ability.AbilityTalentId.ReferenceId, $"{ability.AbilityTalentId.ButtonId}~Passive~");
-
-                    ExecuteOverrideMethods(ability, passiveAbilityTalentId);
+                    foreach (KeyValuePair<string, Action<Ability>> propertyOverride in valueOverrideMethods)
+                    {
+                        // execute each property override
+                        propertyOverride.Value(ability);
+                    }
                 }
             }
         }
@@ -161,18 +159,6 @@ namespace HeroesData.Parser.Overrides.DataOverrides
                     {
                         propertyOverride.Value(weapon);
                     }
-                }
-            }
-        }
-
-        private void ExecuteOverrideMethods(Ability ability, AbilityTalentId passiveAbilityTalentId)
-        {
-            if (PropertyAbilityOverrideMethodByAbilityId.TryGetValue(passiveAbilityTalentId, out Dictionary<string, Action<Ability>> valueOverrideMethods))
-            {
-                foreach (KeyValuePair<string, Action<Ability>> propertyOverride in valueOverrideMethods)
-                {
-                    // execute each property override
-                    propertyOverride.Value(ability);
                 }
             }
         }

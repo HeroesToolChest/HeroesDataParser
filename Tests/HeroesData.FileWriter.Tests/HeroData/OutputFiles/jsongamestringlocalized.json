@@ -299,7 +299,7 @@
           },
           "subAbilities": [
             {
-              "SubAbilHeroic": {
+              "SubAbilHeroic|SubAbilHeroic|Heroic": {
                 "heroic": [
                   {
                     "nameId": "DragonAbilHeroic",
@@ -308,7 +308,7 @@
                   }
                 ]
               },
-              "SubAbilMount": {
+              "SubAbilMount|SubAbilMount|Z": {
                 "mount": [
                   {
                     "nameId": "DragonAbilMount",

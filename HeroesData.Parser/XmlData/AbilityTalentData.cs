@@ -532,7 +532,11 @@ namespace HeroesData.Parser.XmlData
 
                 if (requirement == "IsMounted")
                 {
-                    abilityTalentBase.ParentLink = new AbilityTalentId("Mount", "SummonMount"); // ability id of the standard Mount ability
+                    // ability id of the standard Mount ability
+                    abilityTalentBase.ParentLink = new AbilityTalentId("Mount", "SummonMount")
+                    {
+                        AbilityType = AbilityType.Z,
+                    };
                     return;
                 }
 

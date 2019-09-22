@@ -108,6 +108,9 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string value))
                 ability.Name = value;
 
+            ability.AbilityTalentId.AbilityType = ability.AbilityType;
+            ability.AbilityTalentId.IsPassive = ability.IsPassive;
+
             // remove any locked abilities
             if (ability.AbilityTalentId.ReferenceId.EndsWith("LockedAbilityQ", true, null) ||
                 ability.AbilityTalentId.ReferenceId.EndsWith("LockedAbilityW", true, null) ||
@@ -154,6 +157,9 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string value))
                 ability.Name = value;
 
+            ability.AbilityTalentId.AbilityType = ability.AbilityType;
+            ability.AbilityTalentId.IsPassive = ability.IsPassive;
+
             return ability;
         }
 
@@ -190,6 +196,9 @@ namespace HeroesData.Parser.XmlData
             // if no name was set, then use the ability name
             if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string value))
                 ability.Name = value;
+
+            ability.AbilityTalentId.AbilityType = ability.AbilityType;
+            ability.AbilityTalentId.IsPassive = ability.IsPassive;
 
             return ability;
         }

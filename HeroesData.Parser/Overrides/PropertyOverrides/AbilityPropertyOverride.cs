@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace HeroesData.Parser.Overrides.PropertyOverrides
 {
-    internal class AbilityPropertyOverride : PropertyOverrideBase<Ability, AbilityTalentId>
+    internal class AbilityPropertyOverride : PropertyOverrideBase<Ability, string>
     {
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<Ability>> propertyOverrides)
         {
@@ -15,11 +15,30 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                 {
                     if (!string.IsNullOrEmpty(propertyValue))
                     {
-                        string[] split = propertyValue.Split(',', 2);
-                        if (split.Length == 2)
+                        string[] split = propertyValue.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                        if (split.Length == 1)
+                        {
+                            ability.ParentLink = new AbilityTalentId(split[0], split[0]);
+                        }
+                        else if (split.Length == 2)
+                        {
                             ability.ParentLink = new AbilityTalentId(split[0], split[1]);
-                        else
-                            ability.ParentLink = new AbilityTalentId(propertyValue, propertyValue);
+                        }
+                        else if (split.Length == 3)
+                        {
+                            ability.ParentLink = new AbilityTalentId(split[0], split[1])
+                            {
+                                AbilityType = Enum.Parse<AbilityType>(split[2]),
+                            };
+                        }
+                        else if (split.Length == 4)
+                        {
+                            ability.ParentLink = new AbilityTalentId(split[0], split[1])
+                            {
+                                AbilityType = Enum.Parse<AbilityType>(split[2]),
+                                IsPassive = bool.Parse(split[3]),
+                            };
+                        }
                     }
                     else
                     {

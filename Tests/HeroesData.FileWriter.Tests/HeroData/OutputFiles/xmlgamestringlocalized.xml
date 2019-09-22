@@ -150,16 +150,16 @@
             </Activable>
           </Abilities>
           <SubAbilities>
-            <SubAbilHeroic>
+            <SubAbilHeroic_x007C_SubAbilHeroic_x007C_Heroic>
               <Heroic>
                 <DragonAbilHeroic buttonId="DragonAbilHeroic" abilityType="Heroic" />
               </Heroic>
-            </SubAbilHeroic>
-            <SubAbilMount>
+            </SubAbilHeroic_x007C_SubAbilHeroic_x007C_Heroic>
+            <SubAbilMount_x007C_SubAbilMount_x007C_Z>
               <Mount>
                 <DragonAbilMount buttonId="DragonAbilMount" abilityType="Z" />
               </Mount>
-            </SubAbilMount>
+            </SubAbilMount_x007C_SubAbilMount_x007C_Z>
           </SubAbilities>
         </AlexstraszaDragon>
       </HeroAlexstraszaDragon>

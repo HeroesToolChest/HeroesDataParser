@@ -453,7 +453,10 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 AbilityTalentId = new AbilityTalentId("DragonAbilHeroic", "DragonAbilHeroic"),
                 Name = "DragonAbilHeroic",
                 Tier = AbilityTier.Heroic,
-                ParentLink = new AbilityTalentId("SubAbilHeroic", "SubAbilHeroic"),
+                ParentLink = new AbilityTalentId("SubAbilHeroic", "SubAbilHeroic")
+                {
+                     AbilityType = AbilityType.Heroic,
+                },
                 AbilityType = AbilityType.Heroic,
             });
             alexHeroUnit.AddAbility(new Ability
@@ -461,7 +464,10 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 AbilityTalentId = new AbilityTalentId("DragonAbilMount", "DragonAbilMount"),
                 Name = "DragonAbilMount",
                 Tier = AbilityTier.Mount,
-                ParentLink = new AbilityTalentId("SubAbilMount", "SubAbilMount"),
+                ParentLink = new AbilityTalentId("SubAbilMount", "SubAbilMount")
+                {
+                    AbilityType = AbilityType.Z,
+                },
                 AbilityType = AbilityType.Z,
             });
             alexHeroUnit.AddAbility(new Ability

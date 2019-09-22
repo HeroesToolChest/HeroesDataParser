@@ -1,38 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HeroOverrides>
   <CHero id="Abathur">
-    <HeroUnit id="AbathurSymbiote" />
-  </CHero>
-  <CHero id="Alarak">
-    <Ability id="AlarakDeadlyChargeExecute" button="AlarakUnleashDeadlyCharge">
-      <Override>
-        <ParentLink value="AlarakDeadlyChargeActivate,AlarakDeadlyCharge"/>
-      </Override>
-    </Ability>
-    <Ability id="AlarakDeadlyChargeExecute2ndHeroic" button="AlarakUnleashDeadlyCharge">
-      <Override>
-        <ParentLink value="AlarakDeadlyChargeActivate2ndHeroic,AlarakDeadlyCharge2ndHeroicSadism"/>
-      </Override>
-    </Ability>
-    <Ability id="AlarakDeadlyChargeActivate2ndHeroic" button="AlarakDeadlyCharge2ndHeroicSadism">
-      <Override>
-        <ParentLink value="AlarakDeadlyChargeSecondHeroic,AlarakDeadlyCharge"/>
-      </Override>
-    </Ability>
-    <Ability id="AlarakCounterStrikeTargeted2ndHeroic" button="AlarakCounterStrike2ndHeroicSadism">
-      <Override>
-        <ParentLink value="AlarakCounterStrikeItem,AlarakCounterStrike2ndHeroic"/>
-      </Override>
-    </Ability>
-  </CHero>
-  <CHero id="Alexstrasza">
-    <HeroUnit id="HeroAlexstraszaDragon">
-      <Ability id="AlexstraszaCleansingFlameDragonqueen">
+    <HeroUnit id="AbathurSymbiote">
+      <Ability id="AbathurAssumingDirectControlCancel,AbathurSymbioteCancel" abilityType="Heroic">
         <Override>
           <ParentLink value="" />
         </Override>
       </Ability>
     </HeroUnit>
+  </CHero>
+  <CHero id="Alarak">
+    <Ability id="AlarakDeadlyChargeExecute,AlarakUnleashDeadlyCharge" abilityType="Heroic">
+      <Override>
+        <ParentLink value="AlarakDeadlyChargeActivate|AlarakDeadlyCharge|Heroic" />
+      </Override>
+    </Ability>
+    <Ability id="AlarakLightningSurgeLightningBarrage,AlarakLightningSurgeLightningBarrage" abilityType="E">
+      <Override>
+        <ParentLink value="AlarakLightningBarrage|AlarakLightningBarrage" />
+      </Override>
+    </Ability>
+    <Ability id="AlarakDeadlyChargeExecute2ndHeroic,AlarakUnleashDeadlyCharge" abilityType="Trait">
+      <Override>
+        <ParentLink value="AlarakDeadlyChargeActivate2ndHeroic|AlarakDeadlyCharge2ndHeroicSadism|Trait"/>
+      </Override>
+    </Ability>
+    <Ability id="AlarakDeadlyChargeActivate2ndHeroic,AlarakDeadlyCharge2ndHeroicSadism" abilityType="Trait">
+      <Override>
+        <ParentLink value="AlarakDeadlyChargeSecondHeroic|AlarakDeadlyCharge" />
+      </Override>
+    </Ability>
+    <Ability id="AlarakCounterStrikeTargeted2ndHeroic,AlarakCounterStrike2ndHeroicSadism" abilityType="Trait">
+      <Override>
+        <ParentLink value="AlarakCounterStrikeItem|AlarakCounterStrike2ndHeroic" />
+      </Override>
+    </Ability>
+  </CHero>
+  <CHero id="Alexstrasza">
+    <HeroUnit id="HeroAlexstraszaDragon">
+      <Ability id="AlexstraszaCleansingFlameDragonqueen" abilityType="Heroic">
+        <Override>
+          <ParentLink value="" />
+        </Override>
+      </Ability>
+    </HeroUnit>
+  </CHero>
+  <CHero id="Amazon">
+    <Ability id="AmazonSurgeOfLight,AmazonAvoidance" abilityType="Trait">
+      <Override>
+        <ParentLink value="AmazonSurgeOfLight|AmazonAvoidanceSurgeOfLight" />
+      </Override>
+    </Ability>
   </CHero>
   <CHero id="Ana">
     <!--Old abilityTalent -->
@@ -41,24 +59,29 @@
         <AbilityTier value="Hidden" />
       </Override>
     </Ability>
-    <Ability id="AnaEyeOfHorusAttack" button="AnaEyeOfHorusHighPoweredRound">
+    <Ability id="AnaEyeOfHorusAttack,AnaEyeOfHorusHighPoweredRound" abilityType="Heroic">
       <Override>
-        <ParentLink value="AnaEyeOfHorusActivate" />
+        <ParentLink value="AnaEyeOfHorusActivate|AnaEyeOfHorusActivate|Heroic" />
       </Override>
     </Ability>
-    <Ability id="AnaEyeOfHorusCancel">
+    <Ability id="AnaEyeOfHorusCancel" abilityType="W">
       <Override>
-        <ParentLink value="AnaEyeOfHorusActivate" />
+        <ParentLink value="AnaEyeOfHorusActivate|AnaEyeOfHorusActivate|Heroic" />
       </Override>
     </Ability>
-    <Ability id="AnaEyeOfHorusAttackDummy" button="AnaEyeOfHorusHighPoweredRound">
+    <Ability id="AnaEyeOfHorusCancel" abilityType="E">
       <Override>
-        <ParentLink value="AnaEyeOfHorusActivate" />
+        <ParentLink value="AnaEyeOfHorusActivate|AnaEyeOfHorusActivate|Heroic" />
       </Override>
     </Ability>
-    <Ability id="AnaAimDownSightsDeactivate">
+    <Ability id="AnaEyeOfHorusAttackDummy,AnaEyeOfHorusHighPoweredRound" abilityType="Heroic">
       <Override>
-        <ParentLink value="AnaAimDownSightsActivate" />
+        <ParentLink value="AnaEyeOfHorusActivate|AnaEyeOfHorusActivate|Heroic" />
+      </Override>
+    </Ability>
+    <Ability id="AnaAimDownSightsDeactivate" abilityType="Trait">
+      <Override>
+        <ParentLink value="AnaAimDownSightsActivate|AnaAimDownSightsActivate|Trait" />
       </Override>
     </Ability>
     <!--Passive button of AnaAimDownSightsActivate-->

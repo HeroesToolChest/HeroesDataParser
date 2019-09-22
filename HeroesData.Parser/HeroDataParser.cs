@@ -112,11 +112,12 @@ namespace HeroesData.Parser
             // execute all overrides
             ApplyOverrides(hero, HeroDataOverride);
             foreach (Hero heroUnit in hero.HeroUnits)
-            {
                 ApplyOverrides(heroUnit, HeroOverrideLoader.GetOverride(heroUnit.CHeroId) ?? new HeroDataOverride());
-            }
 
             ValidateAbilityTalentLinkIds(hero);
+            ValidateSubAbilities(hero);
+            foreach (Hero heroUnit in hero.HeroUnits)
+                ValidateSubAbilities(heroUnit);
 
             return hero;
         }
@@ -512,6 +513,36 @@ namespace HeroesData.Parser
                 {
                     talent.AddAbilityTalentLinkId(validatedId);
                 }
+            }
+        }
+
+        private void ValidateSubAbilities(Hero hero)
+        {
+            List<Ability> removableSubAbilities = new List<Ability>();
+
+            foreach (Ability subAbility in hero.SubAbilities())
+            {
+                AbilityTalentId parentLinkId = subAbility.ParentLink;
+
+                if (parentLinkId.AbilityType != AbilityType.Unknown && hero.TryGetFirstAbility(parentLinkId.ReferenceId, out Ability ability)) // only try for first ability, if mulitple will require manual set
+                {
+                    parentLinkId.AbilityType = ability.AbilityType;
+                    parentLinkId.IsPassive = ability.IsPassive;
+                }
+                else if (parentLinkId.AbilityType == AbilityType.Unknown && hero.TryGetTalent(parentLinkId.ReferenceId, out Talent talent))
+                {
+                    parentLinkId.ButtonId = talent.AbilityTalentId.ButtonId;
+                    parentLinkId.IsPassive = talent.IsPassive;
+                }
+                else // not linked to anything, remove it
+                {
+                    removableSubAbilities.Add(subAbility);
+                }
+            }
+
+            foreach (Ability subAbility in removableSubAbilities)
+            {
+                hero.RemoveAbility(subAbility);
             }
         }
 

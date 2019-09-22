@@ -160,7 +160,12 @@ namespace HeroesData.FileWriter.Writers.HeroData
             IEnumerable<AbilityTalentId> parentLinks = linkedAbilities.Select(x => x.Key);
             foreach (AbilityTalentId parent in parentLinks)
             {
-                XElement abilities = new XElement(parent.ReferenceId);
+                XElement abilities = null;
+
+                if (parent.AbilityType != AbilityType.Unknown)
+                    abilities = new XElement(XmlConvert.EncodeName($"{parent.Id}|{parent.AbilityType}"));
+                else
+                    abilities = new XElement(XmlConvert.EncodeName(parent.Id));
 
                 abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Basic).Any() ? new XElement("Basic", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
                 abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Heroic).Any() ? new XElement("Heroic", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Heroic).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
