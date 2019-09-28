@@ -255,13 +255,13 @@ namespace HeroesData.FileWriter.Writers.UnitData
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 info.Add("fullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileOutputOptions.DescriptionType));
 
-            info.Add("abilityType", abilityTalentBase.AbilityType.ToString());
+            info.Add("abilityType", abilityTalentBase.AbilityTalentId.AbilityType.ToString());
 
             if (abilityTalentBase.IsActive)
                 info.Add("isActive", abilityTalentBase.IsActive);
 
-            if (abilityTalentBase.IsPassive)
-                info.Add("isPassive", abilityTalentBase.IsPassive);
+            if (abilityTalentBase.AbilityTalentId.IsPassive)
+                info.Add("isPassive", abilityTalentBase.AbilityTalentId.IsPassive);
 
             if (abilityTalentBase.IsQuest)
                 info.Add("isQuest", abilityTalentBase.IsQuest);
@@ -328,7 +328,19 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Unknown), "unknown");
 
                 if (abilities.Count > 0)
-                    parentLinkObject.Add(new JProperty(parent.ReferenceId, abilities));
+                {
+                    if (parent.AbilityType != AbilityType.Unknown)
+                    {
+                        if (parent.IsPassive)
+                            parentLinkObject.Add(new JProperty(parent.Id, abilities));
+                        else
+                            parentLinkObject.Add(new JProperty($"{parent.ReferenceId}|{parent.ButtonId}|{parent.AbilityType}", abilities));
+                    }
+                    else
+                    {
+                        parentLinkObject.Add(new JProperty($"{parent.ReferenceId}|{parent.ButtonId}", abilities));
+                    }
+                }
             }
 
             if (parentLinkObject.Count > 0)
@@ -345,7 +357,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
                     propertyName,
                     new JArray(
                         from abil in abilities
-                        orderby abil.AbilityType ascending
+                        orderby abil.AbilityTalentId.AbilityType ascending
                         select new JObject(AbilityInfoElement(abil)))));
             }
         }

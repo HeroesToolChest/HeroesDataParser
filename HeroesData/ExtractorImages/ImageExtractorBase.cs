@@ -59,15 +59,14 @@ namespace HeroesData.ExtractorImage
                 string textureFilepath = Path.Combine(TexturesPath, fileName);
                 if (FileExists(textureFilepath))
                 {
-                    using (Stream stream = OpenFile(textureFilepath))
-                    {
-                        DDSImage image = new DDSImage(stream);
-                        PathHelper.FileNameToLower(filePath.AsMemory());
+                    using Stream stream = OpenFile(textureFilepath);
 
-                        image.Save(Path.ChangeExtension(filePath, "png"));
+                    DDSImage image = new DDSImage(stream);
+                    PathHelper.FileNameToLower(filePath.AsMemory());
 
-                        return true;
-                    }
+                    image.Save(Path.ChangeExtension(filePath, "png"));
+
+                    return true;
                 }
                 else
                 {
@@ -92,15 +91,14 @@ namespace HeroesData.ExtractorImage
                 string textureFilepath = Path.Combine(TexturesPath, fileName);
                 if (FileExists(textureFilepath))
                 {
-                    using (Stream stream = OpenFile(textureFilepath))
-                    {
-                        DDSImage image = new DDSImage(stream);
-                        PathHelper.FileNameToLower(filePath.AsMemory());
+                    using Stream stream = OpenFile(textureFilepath);
 
-                        image.Save(Path.ChangeExtension(filePath, "png"), point, size);
+                    DDSImage image = new DDSImage(stream);
+                    PathHelper.FileNameToLower(filePath.AsMemory());
 
-                        return true;
-                    }
+                    image.Save(Path.ChangeExtension(filePath, "png"), point, size);
+
+                    return true;
                 }
                 else
                 {
@@ -128,15 +126,14 @@ namespace HeroesData.ExtractorImage
                 string textureFilepath = Path.Combine(TexturesPath, fileName);
                 if (FileExists(textureFilepath))
                 {
-                    using (Stream stream = OpenFile(textureFilepath))
-                    {
-                        DDSImage image = new DDSImage(stream);
-                        PathHelper.FileNameToLower(filePath.AsMemory());
+                    using Stream stream = OpenFile(textureFilepath);
 
-                        image.SaveAsGif(Path.ChangeExtension(filePath, "gif"), size, maxSize, frames, frameDelay);
+                    DDSImage image = new DDSImage(stream);
+                    PathHelper.FileNameToLower(filePath.AsMemory());
 
-                        return true;
-                    }
+                    image.SaveAsGif(Path.ChangeExtension(filePath, "gif"), size, maxSize, frames, frameDelay);
+
+                    return true;
                 }
                 else
                 {

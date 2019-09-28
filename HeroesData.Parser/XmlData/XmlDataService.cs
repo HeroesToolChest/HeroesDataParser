@@ -40,7 +40,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets a new instance of <see cref="UnitData"/>.
         /// </summary>
-        public UnitData UnitData => new UnitData(GameData, Configuration, DefaultData,  WeaponData, ArmorData, AbilityData);
+        public UnitData UnitData => new UnitData(GameData, Configuration, DefaultData, WeaponData, ArmorData, AbilityData);
 
         public XmlDataService GetInstance()
         {

@@ -115,9 +115,6 @@ namespace HeroesData.Parser
                 ApplyOverrides(heroUnit, HeroOverrideLoader.GetOverride(heroUnit.CHeroId) ?? new HeroDataOverride());
 
             ValidateAbilityTalentLinkIds(hero);
-            ValidateSubAbilities(hero);
-            foreach (Hero heroUnit in hero.HeroUnits)
-                ValidateSubAbilities(heroUnit);
 
             return hero;
         }
@@ -448,8 +445,10 @@ namespace HeroesData.Parser
                     hero.AddTalent(talent);
 
                     // makes the abilities that are granted from talents subabilities to that talent
-                    if ((talent.AbilityType != AbilityType.Heroic || talent.Tier == TalentTier.Level20) && hero.TryGetAbilities(talent.AbilityTalentId.ReferenceId, out IEnumerable<Ability> abilities))
+                    if (talent.AbilityTalentId.AbilityType != AbilityType.Heroic || talent.Tier == TalentTier.Level20)
                     {
+                        IEnumerable<Ability> abilities = hero.GetAbilities(talent.AbilityTalentId.ReferenceId, StringComparison.OrdinalIgnoreCase);
+
                         foreach (Ability ability in abilities)
                         {
                             ability.ParentLink = talent.AbilityTalentId;
@@ -497,11 +496,13 @@ namespace HeroesData.Parser
             {
                 // validate all abilityTalentLinkIds
                 HashSet<string> validatedIds = new HashSet<string>();
+
                 foreach (string abilityTalentLinkId in talent.AbilityTalentLinkIds)
                 {
-                    if ((hero.TryGetAbilities(abilityTalentLinkId, out IEnumerable<Ability> abilities) && abilities.Where(x => x.Tier != AbilityTier.Hidden).Any())
-                        || hero.ContainsTalent(abilityTalentLinkId)
-                        || hero.HeroUnits.Where(x => x.TryGetAbilities(abilityTalentLinkId, out IEnumerable<Ability> heroUnitAbility) && heroUnitAbility.Where(y => y.Tier != AbilityTier.Hidden).Any()).Any())
+                    IEnumerable<Ability> abilities = hero.GetAbilities(abilityTalentLinkId, StringComparison.OrdinalIgnoreCase);
+                    IEnumerable<Hero> heroes = hero.HeroUnits.Where(x => x.GetAbilities(abilityTalentLinkId, StringComparison.OrdinalIgnoreCase).Where(x => x.Tier != AbilityTier.Hidden).Any());
+
+                    if (abilities.Where(x => x.Tier != AbilityTier.Hidden).Any() || hero.ContainsTalent(abilityTalentLinkId) || heroes.Any())
                     {
                         validatedIds.Add(abilityTalentLinkId);
                     }
@@ -513,36 +514,6 @@ namespace HeroesData.Parser
                 {
                     talent.AddAbilityTalentLinkId(validatedId);
                 }
-            }
-        }
-
-        private void ValidateSubAbilities(Hero hero)
-        {
-            List<Ability> removableSubAbilities = new List<Ability>();
-
-            foreach (Ability subAbility in hero.SubAbilities())
-            {
-                AbilityTalentId parentLinkId = subAbility.ParentLink;
-
-                if (parentLinkId.AbilityType != AbilityType.Unknown && hero.TryGetFirstAbility(parentLinkId.ReferenceId, out Ability ability)) // only try for first ability, if mulitple will require manual set
-                {
-                    parentLinkId.AbilityType = ability.AbilityType;
-                    parentLinkId.IsPassive = ability.IsPassive;
-                }
-                else if (parentLinkId.AbilityType == AbilityType.Unknown && hero.TryGetTalent(parentLinkId.ReferenceId, out Talent talent))
-                {
-                    parentLinkId.ButtonId = talent.AbilityTalentId.ButtonId;
-                    parentLinkId.IsPassive = talent.IsPassive;
-                }
-                else // not linked to anything, remove it
-                {
-                    removableSubAbilities.Add(subAbility);
-                }
-            }
-
-            foreach (Ability subAbility in removableSubAbilities)
-            {
-                hero.RemoveAbility(subAbility);
             }
         }
 

@@ -68,23 +68,22 @@ namespace HeroesData
 
         public static void WriteExceptionLog(string fileName, Exception ex)
         {
-            using (StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"Exception_{fileName}_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.txt"), false))
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                    writer.Write(ex.Message);
+            using StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"Exception_{fileName}_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.txt"), false);
 
-                if (ex is AggregateException)
+            if (!string.IsNullOrEmpty(ex.Message))
+                writer.Write(ex.Message);
+
+            if (ex is AggregateException)
+            {
+                foreach (Exception exception in ((AggregateException)ex).InnerExceptions)
                 {
-                    foreach (Exception exception in ((AggregateException)ex).InnerExceptions)
-                    {
-                        writer.Write(ex);
-                    }
+                    writer.Write(ex);
                 }
-                else
-                {
-                    if (!string.IsNullOrEmpty(ex.StackTrace))
-                        writer.Write(ex.StackTrace);
-                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(ex.StackTrace))
+                    writer.Write(ex.StackTrace);
             }
         }
 
@@ -572,12 +571,11 @@ namespace HeroesData
 
         private void WriteInvalidGameStrings(List<string> invalidGameStrings, Localization localization)
         {
-            using (StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"InvalidGamestrings_{localization.ToString().ToLower()}.txt"), false))
+            using StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"InvalidGamestrings_{localization.ToString().ToLower()}.txt"), false);
+
+            foreach (string gamestring in invalidGameStrings)
             {
-                foreach (string gamestring in invalidGameStrings)
-                {
-                    writer.WriteLine(gamestring);
-                }
+                writer.WriteLine(gamestring);
             }
         }
 
@@ -585,17 +583,16 @@ namespace HeroesData
         {
             if (File.Exists(VerifyIgnoreFilePath))
             {
-                using (StreamReader reader = new StreamReader(VerifyIgnoreFilePath))
-                {
-                    string line = string.Empty;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        line = line.Trim();
+                using StreamReader reader = new StreamReader(VerifyIgnoreFilePath);
 
-                        if (!string.IsNullOrEmpty(line) && !line.StartsWith("#"))
-                        {
-                            ValidationIgnoreLines.Add(line);
-                        }
+                string line = string.Empty;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    line = line.Trim();
+
+                    if (!string.IsNullOrEmpty(line) && !line.StartsWith("#"))
+                    {
+                        ValidationIgnoreLines.Add(line);
                     }
                 }
             }

@@ -71,7 +71,7 @@ namespace HeroesData.Commands
                     return 0;
                 });
             });
-         }
+        }
 
         private void ConvertFile(string filePath)
         {

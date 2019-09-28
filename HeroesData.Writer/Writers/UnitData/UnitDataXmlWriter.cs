@@ -87,11 +87,11 @@ namespace HeroesData.FileWriter.Writers.UnitData
         {
             return new XElement(
                 "Abilities",
-                unit.PrimaryAbilities(AbilityTier.Basic).Any() ? new XElement("Basic", unit.PrimaryAbilities(AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null,
+                unit.PrimaryAbilities(AbilityTier.Basic).Any() ? new XElement("Basic", unit.PrimaryAbilities(AbilityTier.Basic).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null,
                 unit.PrimaryAbilities(AbilityTier.Heroic).Any() ? new XElement("Heroic", unit.PrimaryAbilities(AbilityTier.Heroic).Select(x => AbilityInfoElement(x))) : null,
                 unit.PrimaryAbilities(AbilityTier.Trait).Any() ? new XElement("Trait", unit.PrimaryAbilities(AbilityTier.Trait).Select(x => AbilityInfoElement(x))) : null,
                 unit.PrimaryAbilities(AbilityTier.Mount).Any() ? new XElement("Mount", unit.PrimaryAbilities(AbilityTier.Mount).Select(x => AbilityInfoElement(x))) : null,
-                unit.PrimaryAbilities(AbilityTier.Activable).Any() ? new XElement("Activable", unit.PrimaryAbilities(AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null,
+                unit.PrimaryAbilities(AbilityTier.Activable).Any() ? new XElement("Activable", unit.PrimaryAbilities(AbilityTier.Activable).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null,
                 unit.PrimaryAbilities(AbilityTier.Hearth).Any() ? new XElement("Hearth", unit.PrimaryAbilities(AbilityTier.Hearth).Select(x => AbilityInfoElement(x))) : null,
                 unit.PrimaryAbilities(AbilityTier.Taunt).Any() ? new XElement("Taunt", unit.PrimaryAbilities(AbilityTier.Taunt).Select(x => AbilityInfoElement(x))) : null,
                 unit.PrimaryAbilities(AbilityTier.Dance).Any() ? new XElement("Dance", unit.PrimaryAbilities(AbilityTier.Dance).Select(x => AbilityInfoElement(x))) : null,
@@ -111,23 +111,35 @@ namespace HeroesData.FileWriter.Writers.UnitData
             IEnumerable<AbilityTalentId> parentLinks = linkedAbilities.Select(x => x.Key);
             foreach (AbilityTalentId parent in parentLinks)
             {
-                XElement abilities = new XElement(parent.ReferenceId);
+                XElement abilities = null;
 
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Basic).Any() ? new XElement("Basic", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Basic).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Heroic).Any() ? new XElement("Heroic", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Heroic).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Trait).Any() ? new XElement("Trait", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Trait).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Mount).Any() ? new XElement("Mount", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Mount).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Activable).Any() ? new XElement("Activable", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Activable).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Hearth).Any() ? new XElement("Hearth", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Hearth).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Taunt).Any() ? new XElement("Taunt", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Taunt).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Dance).Any() ? new XElement("Dance", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Dance).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Spray).Any() ? new XElement("Spray", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Spray).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Voice).Any() ? new XElement("Voice", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Voice).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.MapMechanic).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Interact).Any() ? new XElement("Interact", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Interact).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Hidden).Any() ? new XElement("Hidden", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Hidden).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Action).Any() ? new XElement("Action", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Action).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
-                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Unknown).Any() ? new XElement("Unknown", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Unknown).OrderBy(x => x.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                if (parent.AbilityType != AbilityType.Unknown)
+                {
+                    if (parent.IsPassive)
+                        abilities = new XElement(XmlConvert.EncodeName(parent.Id));
+                    else
+                        abilities = new XElement(XmlConvert.EncodeName($"{parent.ReferenceId}|{parent.ButtonId}|{parent.AbilityType}"));
+                }
+                else
+                {
+                    abilities = new XElement(XmlConvert.EncodeName($"{parent.ReferenceId}|{parent.ButtonId}"));
+                }
+
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Basic).Any() ? new XElement("Basic", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Basic).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Heroic).Any() ? new XElement("Heroic", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Heroic).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Trait).Any() ? new XElement("Trait", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Trait).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Mount).Any() ? new XElement("Mount", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Mount).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Activable).Any() ? new XElement("Activable", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Activable).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Hearth).Any() ? new XElement("Hearth", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Hearth).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Taunt).Any() ? new XElement("Taunt", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Taunt).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Dance).Any() ? new XElement("Dance", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Dance).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Spray).Any() ? new XElement("Spray", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Spray).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Voice).Any() ? new XElement("Voice", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Voice).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.MapMechanic).Any() ? new XElement("MapMechanic", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.MapMechanic).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Interact).Any() ? new XElement("Interact", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Interact).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Hidden).Any() ? new XElement("Hidden", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Hidden).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Action).Any() ? new XElement("Action", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Action).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
+                abilities.Add(linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Unknown).Any() ? new XElement("Unknown", linkedAbilities[parent].Where(x => x.Tier == AbilityTier.Unknown).OrderBy(x => x.AbilityTalentId.AbilityType).Select(x => AbilityInfoElement(x))) : null);
 
                 if (abilities.HasElements)
                     parentLinkElement.Add(abilities);
@@ -148,9 +160,9 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 XmlConvert.EncodeName(abilityTalentBase.AbilityTalentId.ReferenceId),
                 string.IsNullOrEmpty(abilityTalentBase.AbilityTalentId.ButtonId) ? null : new XAttribute("buttonId", abilityTalentBase.AbilityTalentId.ButtonId),
                 string.IsNullOrEmpty(abilityTalentBase.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", abilityTalentBase.Name),
-                new XAttribute("abilityType", abilityTalentBase.AbilityType.ToString()),
+                new XAttribute("abilityType", abilityTalentBase.AbilityTalentId.AbilityType.ToString()),
                 abilityTalentBase.IsActive ? new XAttribute("isActive", abilityTalentBase.IsActive) : null,
-                abilityTalentBase.IsPassive ? new XAttribute("isPassive", abilityTalentBase.IsPassive) : null,
+                abilityTalentBase.AbilityTalentId.IsPassive ? new XAttribute("isPassive", abilityTalentBase.AbilityTalentId.IsPassive) : null,
                 abilityTalentBase.IsQuest ? new XAttribute("isQuest", abilityTalentBase.IsQuest) : null,
                 string.IsNullOrEmpty(abilityTalentBase.IconFileName) ? null : new XElement("Icon", Path.ChangeExtension(abilityTalentBase.IconFileName?.ToLower(), StaticImageExtension)),
                 abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.HasValue ? new XElement("ToggleCooldown", abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.Value) : null,

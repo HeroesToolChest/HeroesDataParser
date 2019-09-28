@@ -343,7 +343,7 @@ namespace HeroesData.Parser.XmlData
                     }
                     else if (index == "ShowCooldown" && element.Attribute("value").Value == "0")
                     {
-                       // ignore, always show the cooldown
+                        // ignore, always show the cooldown
                     }
                     else if (index == "ShowRequirements")
                     {

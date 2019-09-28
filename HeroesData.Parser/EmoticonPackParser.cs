@@ -3,7 +3,6 @@ using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 

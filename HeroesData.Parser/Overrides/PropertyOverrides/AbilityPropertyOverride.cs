@@ -61,9 +61,9 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                 propertyOverrides.Add(propertyName, (ability) =>
                 {
                     if (Enum.TryParse(propertyValue, out AbilityType abilityType))
-                        ability.AbilityType = abilityType;
+                        ability.AbilityTalentId.AbilityType = abilityType;
                     else
-                        ability.AbilityType = AbilityType.Q;
+                        ability.AbilityTalentId.AbilityType = AbilityType.Q;
                 });
             }
             else if (propertyName == "CooldownTooltip")
@@ -73,7 +73,7 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                     ability.Tooltip.Cooldown.CooldownTooltip = new TooltipDescription(propertyValue);
                 });
             }
-            else if (propertyName == nameof(Ability.IsPassive))
+            else if (propertyName == nameof(Ability.AbilityTalentId.IsPassive))
             {
                 propertyOverrides.Add(propertyName, (ability) =>
                 {

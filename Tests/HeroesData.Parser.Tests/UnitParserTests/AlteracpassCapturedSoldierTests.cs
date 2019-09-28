@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 
 namespace HeroesData.Parser.Tests.UnitParserTests
@@ -9,7 +10,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void AbilitiesTests()
         {
-            Assert.IsFalse(AlteracpassCapturedSoldier.ContainsAbility("CapturedSoldierDummyAttack"));
+            Assert.IsFalse(AlteracpassCapturedSoldier.ContainsAbility("CapturedSoldierDummyAttack", StringComparison.OrdinalIgnoreCase));
             Assert.AreEqual(0, AlteracpassCapturedSoldier.Abilities.Count());
         }
     }

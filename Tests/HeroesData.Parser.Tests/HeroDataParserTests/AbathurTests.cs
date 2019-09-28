@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,8 +25,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void HeroicAbilitiesTests()
         {
-            Assert.IsTrue(HeroAbathur.ContainsAbility("AbathurUltimateEvolution"));
-            Assert.IsTrue(HeroAbathur.ContainsAbility("AbathurEvolveMonstrosity"));
+            Assert.IsTrue(HeroAbathur.ContainsAbility("AbathurUltimateEvolution", StringComparison.OrdinalIgnoreCase));
+            Assert.IsTrue(HeroAbathur.ContainsAbility("AbathurEvolveMonstrosity", StringComparison.OrdinalIgnoreCase));
         }
 
         [TestMethod]
@@ -56,7 +57,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void TalentTests()
         {
             Talent talent = HeroAbathur.GetTalent("AbathurMasteryPressurizedGlands");
-            Assert.AreEqual(AbilityType.W, talent.AbilityType);
+            Assert.AreEqual(AbilityType.W, talent.AbilityTalentId.AbilityType);
 
             Talent talent2 = HeroAbathur.GetTalent("AbathurCombatStyleSurvivalInstincts");
             Assert.AreEqual("AbathurSpawnLocusts", talent2.AbilityTalentLinkIds.ToList()[0]);

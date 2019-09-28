@@ -297,7 +297,7 @@ namespace HeroesData.Commands
                 string filePath = ((CASCFile)file.Value).FullName;
 
                 if (Path.GetExtension(filePath) == ".dds")
-                     files.Add(filePath);
+                    files.Add(filePath);
             }
 
             return files;

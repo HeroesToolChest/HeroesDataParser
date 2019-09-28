@@ -355,13 +355,13 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (!string.IsNullOrEmpty(abilityTalentBase.Tooltip.FullTooltip?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 info.Add("fullTooltip", GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileOutputOptions.DescriptionType));
 
-            info.Add("abilityType", abilityTalentBase.AbilityType.ToString());
+            info.Add("abilityType", abilityTalentBase.AbilityTalentId.AbilityType.ToString());
 
             if (abilityTalentBase.IsActive)
                 info.Add("isActive", abilityTalentBase.IsActive);
 
-            if (abilityTalentBase.IsPassive)
-                info.Add("isPassive", abilityTalentBase.IsPassive);
+            if (abilityTalentBase.AbilityTalentId.IsPassive)
+                info.Add("isPassive", abilityTalentBase.AbilityTalentId.IsPassive);
 
             if (abilityTalentBase.IsQuest)
                 info.Add("isQuest", abilityTalentBase.IsQuest);
@@ -396,9 +396,16 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 if (abilities.Count > 0)
                 {
                     if (parent.AbilityType != AbilityType.Unknown)
-                        parentLinkObject.Add(new JProperty($"{parent.Id}|{parent.AbilityType}", abilities));
+                    {
+                        if (parent.IsPassive)
+                            parentLinkObject.Add(new JProperty(parent.Id, abilities));
+                        else
+                            parentLinkObject.Add(new JProperty($"{parent.ReferenceId}|{parent.ButtonId}|{parent.AbilityType}", abilities));
+                    }
                     else
-                        parentLinkObject.Add(new JProperty($"{parent.Id}", abilities));
+                    {
+                        parentLinkObject.Add(new JProperty($"{parent.ReferenceId}|{parent.ButtonId}", abilities));
+                    }
                 }
             }
 
@@ -531,7 +538,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                     propertyName,
                     new JArray(
                         from ability in abilities
-                        orderby ability.AbilityType ascending
+                        orderby ability.AbilityTalentId.AbilityType ascending
                         select new JObject(AbilityInfoElement(ability)))));
             }
         }

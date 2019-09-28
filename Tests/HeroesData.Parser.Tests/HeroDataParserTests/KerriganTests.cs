@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
@@ -8,7 +9,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityTests()
         {
-            Assert.IsTrue(HeroKerrigan.ContainsAbility("KerriganRavage"));
+            Assert.IsTrue(HeroKerrigan.ContainsAbility("KerriganRavage", StringComparison.OrdinalIgnoreCase));
         }
     }
 }

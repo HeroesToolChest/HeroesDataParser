@@ -21,7 +21,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.TalentOverrideTests
         [TestMethod]
         public void AbilityTypeOverrideTest()
         {
-            Assert.AreEqual(AbilityType.W, TestTalent.AbilityType);
+            Assert.AreEqual(AbilityType.W, TestTalent.AbilityTalentId.AbilityType);
         }
 
         [TestMethod]

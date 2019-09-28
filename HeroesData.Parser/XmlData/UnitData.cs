@@ -140,7 +140,7 @@ namespace HeroesData.Parser.XmlData
 
         private void SetData(Unit unit, XElement unitElement = null)
         {
-            unitElement = unitElement ?? GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == unit.CUnitId));
+            unitElement ??= GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == unit.CUnitId));
             if (unitElement == null)
                 return;
 
@@ -381,7 +381,7 @@ namespace HeroesData.Parser.XmlData
             foreach (XElement element in AbilitiesArray.Elements)
             {
                 string linkValue = element.Attribute("Link")?.Value;
-                if (!string.IsNullOrEmpty(linkValue) && !Configuration.ContainsIgnorableExtraAbility(linkValue) && !unit.ContainsAbility(linkValue))
+                if (!string.IsNullOrEmpty(linkValue) && !Configuration.ContainsIgnorableExtraAbility(linkValue) && !unit.GetAbilities(linkValue, StringComparison.OrdinalIgnoreCase).Any())
                     AddCreatedAbility(unit, linkValue);
             }
 

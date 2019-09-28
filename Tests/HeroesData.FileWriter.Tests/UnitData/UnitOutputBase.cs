@@ -48,7 +48,7 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 KillXP = 210,
                 UnitPortrait = new UnitPortrait()
                 {
-                     TargetInfoPanelFileName = "targetInfo.png",
+                    TargetInfoPanelFileName = "targetInfo.png",
                 },
             };
             unit.Life.LifeMax = 500;

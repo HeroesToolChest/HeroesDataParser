@@ -10,7 +10,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void AnubarakLegionOfBeetlesTalentAbilityTypTest()
         {
             Talent talent = HeroAnubarak.GetTalent("AnubarakCombatStyleLegionOfBeetles");
-            Assert.AreEqual(AbilityType.Trait, talent.AbilityType);
+            Assert.AreEqual(AbilityType.Trait, talent.AbilityTalentId.AbilityType);
         }
     }
 }
