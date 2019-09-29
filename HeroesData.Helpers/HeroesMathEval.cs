@@ -24,8 +24,11 @@ namespace HeroesData.Helpers
         {
             MatchCollection matches = Regex.Matches(input, @"\(([^()]+|(?<Level>\()|(?<-Level>\)))+(?(Level)(?!))\)", RegexOptions.IgnorePatternWhitespace);
 
-            foreach (Match match in matches)
+            foreach (Match? match in matches)
             {
+                if (match == null)
+                    continue;
+
                 string matchInput = match.Value;
 
                 if (matchInput.StartsWith("("))
@@ -71,7 +74,7 @@ namespace HeroesData.Helpers
                         toBeComputed = parts[0] + parts[1] + parts[2];
                 }
 
-                double value = double.Parse(DataTable.Compute(toBeComputed, string.Empty).ToString());
+                double value = double.Parse(DataTable.Compute(toBeComputed, string.Empty).ToString()!);
 
                 int pos = input.IndexOf(toBeComputed);
                 if (pos >= 0)

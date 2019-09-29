@@ -29,23 +29,20 @@ namespace HeroesData.Parser.Overrides
             foreach (XElement dataElement in element.Elements())
             {
                 string elementName = dataElement.Name.LocalName;
-                string valueAttribute = dataElement.Attribute("value")?.Value;
+                string valueAttribute = dataElement.Attribute("value")?.Value ?? string.Empty;
 
-                XElement overrideElement = null;
+                XElement? overrideElement = null;
 
                 switch (elementName)
                 {
                     case "Name":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            unitDataOverride.NameOverride = (true, valueAttribute);
+                        unitDataOverride.NameOverride = (true, valueAttribute);
                         break;
                     case "HyperlinkId":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            unitDataOverride.HyperlinkIdOverride = (true, valueAttribute);
+                        unitDataOverride.HyperlinkIdOverride = (true, valueAttribute);
                         break;
                     case "CUnit":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            unitDataOverride.CUnitOverride = (true, valueAttribute);
+                        unitDataOverride.CUnitOverride = (true, valueAttribute);
                         break;
                     case "EnergyType":
                         unitDataOverride.EnergyTypeOverride = (true, valueAttribute);
@@ -70,9 +67,9 @@ namespace HeroesData.Parser.Overrides
                         break;
                     case "Ability":
                         string id = dataElement.Attribute("id")?.Value ?? string.Empty;
-                        string abilityType = dataElement.Attribute("abilityType")?.Value;
-                        string passiveAbility = dataElement.Attribute("passive")?.Value;
-                        string addedAbility = dataElement.Attribute("add")?.Value;
+                        string? abilityType = dataElement.Attribute("abilityType")?.Value;
+                        string? passiveAbility = dataElement.Attribute("passive")?.Value;
+                        string? addedAbility = dataElement.Attribute("add")?.Value;
 
                         AbilityTalentId abilityTalentId = new AbilityTalentId(string.Empty, string.Empty);
 
@@ -112,8 +109,8 @@ namespace HeroesData.Parser.Overrides
 
                         break;
                     case "Weapon":
-                        string weaponId = dataElement.Attribute("id")?.Value;
-                        string addedWeapon = dataElement.Attribute("add")?.Value;
+                        string? weaponId = dataElement.Attribute("id")?.Value;
+                        string? addedWeapon = dataElement.Attribute("add")?.Value;
 
                         if (string.IsNullOrEmpty(weaponId))
                             continue;

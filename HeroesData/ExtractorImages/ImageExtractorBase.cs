@@ -11,13 +11,13 @@ namespace HeroesData.ExtractorImage
     public abstract class ImageExtractorBase<T>
         where T : IExtractable
     {
-        public ImageExtractorBase(CASCHandler cascHandler, string modsFolderPath)
+        public ImageExtractorBase(CASCHandler? cascHandler, string modsFolderPath)
         {
             CASCHandler = cascHandler;
             ModsFolderPath = modsFolderPath;
         }
 
-        protected CASCHandler CASCHandler { get; }
+        protected CASCHandler? CASCHandler { get; }
         protected StorageMode StorageMode { get; private set; }
         protected string ModsFolderPath { get; }
         protected string ExtractDirectory { get; } = Path.Combine(App.OutputDirectory, "images");
@@ -146,7 +146,7 @@ namespace HeroesData.ExtractorImage
         protected bool FileExists(string filePath)
         {
             if (StorageMode == StorageMode.CASC)
-                return CASCHandler.FileExists(filePath);
+                return CASCHandler!.FileExists(filePath);
             else if (StorageMode == StorageMode.Mods)
                 return File.Exists(Path.Combine(ModsFolderPath, filePath.Substring(5)));
             else
@@ -156,11 +156,11 @@ namespace HeroesData.ExtractorImage
         protected Stream OpenFile(string filePath)
         {
             if (StorageMode == StorageMode.CASC)
-                return CASCHandler.OpenFile(filePath);
+                return CASCHandler!.OpenFile(filePath);
             else if (StorageMode == StorageMode.Mods)
                 return File.Open(Path.Combine(ModsFolderPath, filePath.Substring(5)), FileMode.Open);
             else
-                return null;
+                throw new NotSupportedException();
         }
 
         private bool ExtractImageFile(string filePath, Func<bool> extractImage)

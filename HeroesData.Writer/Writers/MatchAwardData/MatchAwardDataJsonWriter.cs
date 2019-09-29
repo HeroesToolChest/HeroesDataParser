@@ -26,7 +26,7 @@ namespace HeroesData.FileWriter.Writers.MatchAwardData
             matchAwardObject.Add("mvpScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName?.ToLower(), StaticImageExtension));
             matchAwardObject.Add("scoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName?.ToLower(), StaticImageExtension));
 
-            if (!FileOutputOptions.IsLocalizedText)
+            if (!FileOutputOptions.IsLocalizedText && matchAward.Description != null)
                 matchAwardObject.Add("description", GetTooltip(matchAward.Description, FileOutputOptions.DescriptionType));
 
             return new JProperty(matchAward.Id, matchAwardObject);

@@ -81,7 +81,7 @@ namespace HeroesData.FileWriter
         public bool Create<T>(IEnumerable<T> items, FileOutputType fileOutputType)
             where T : IExtractable
         {
-            if (Writers[fileOutputType].TryGetValue(typeof(T).Name, out IWritable writable))
+            if (Writers[fileOutputType].TryGetValue(typeof(T).Name, out IWritable? writable))
             {
                 writable.FileOutputOptions = FileOutputOptions;
                 writable.HotsBuild = HotsBuild;

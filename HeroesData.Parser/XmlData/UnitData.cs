@@ -23,12 +23,12 @@ namespace HeroesData.Parser.XmlData
         private readonly string ElementType = "CUnit";
         private readonly string CActorUnit = "CActorUnit";
 
-        private XmlArrayElement AbilitiesArray;
-        private XmlArrayElement WeaponsArray;
-        private XmlArrayElement BehaviorArray;
-        private XmlArrayElement CardLayoutButtons;
+        private XmlArrayElement? AbilitiesArray;
+        private XmlArrayElement? WeaponsArray;
+        private XmlArrayElement? BehaviorArray;
+        private XmlArrayElement? CardLayoutButtons;
 
-        private HashSet<AbilityTalentId> AdditionalActorAbilities;
+        private HashSet<AbilityTalentId>? AdditionalActorAbilities;
 
         private Localization _localization = Localization.ENUS;
         private bool _isHeroParsing = false;
@@ -91,7 +91,7 @@ namespace HeroesData.Parser.XmlData
         /// <param name="unit"></param>
         /// <param name="unitDataOverride"></param>
         /// <param name="isHero"></param>
-        public void SetUnitData(Unit unit, UnitDataOverride unitDataOverride = null, bool isHero = false)
+        public void SetUnitData(Unit unit, UnitDataOverride? unitDataOverride = null, bool isHero = false)
         {
             AbilitiesArray = new XmlArrayElement();
             WeaponsArray = new XmlArrayElement();
@@ -102,8 +102,8 @@ namespace HeroesData.Parser.XmlData
             if (!isHero)
                 SetDefaultValues(unit);
 
-            XElement actorElement = null;
-            XElement unitNameActorUnitElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("unitName")?.Value == unit.CUnitId));
+            XElement? actorElement = null;
+            XElement? unitNameActorUnitElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("unitName")?.Value == unit.CUnitId));
             if (unitNameActorUnitElement != null)
                 actorElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("id")?.Value == unitNameActorUnitElement.Attribute("id")?.Value));
             else
@@ -123,7 +123,7 @@ namespace HeroesData.Parser.XmlData
 
         private void SetDefaultValues(Unit unit)
         {
-            unit.Radius = DefaultData.UnitData.UnitRadius;
+            unit.Radius = DefaultData.UnitData!.UnitRadius;
             unit.Speed = DefaultData.UnitData.UnitSpeed;
             unit.Sight = DefaultData.UnitData.UnitSight;
             unit.Life.LifeMax = DefaultData.UnitData.UnitLifeMax;
@@ -132,13 +132,13 @@ namespace HeroesData.Parser.XmlData
             unit.Energy.EnergyRegenerationRate = DefaultData.UnitData.UnitEnergyRegenRate;
             unit.AddRangeAttribute(DefaultData.UnitData.UnitAttributes);
             unit.DamageType = DefaultData.UnitData.UnitDamageType;
-            unit.Name = GameData.GetGameString(DefaultData.UnitData.UnitName.Replace(DefaultData.IdPlaceHolder, unit.Id)).Trim();
+            unit.Name = GameData.GetGameString(DefaultData.UnitData.UnitName!.Replace(DefaultData.IdPlaceHolder, unit.Id)).Trim();
 
             if (string.IsNullOrEmpty(unit.Energy.EnergyType))
                 unit.Energy.EnergyType = GameData.GetGameString(DefaultData.HeroEnergyTypeManaText);
         }
 
-        private void SetData(Unit unit, XElement unitElement = null)
+        private void SetData(Unit unit, XElement? unitElement = null)
         {
             unitElement ??= GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == unit.CUnitId));
             if (unitElement == null)
@@ -148,10 +148,10 @@ namespace HeroesData.Parser.XmlData
                 throw new ArgumentNullException();
 
             // parent lookup
-            string parentValue = unitElement.Attribute("parent")?.Value;
+            string? parentValue = unitElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement? parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetData(unit, parentElement);
             }
@@ -223,7 +223,7 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "ATTRIBUTES")
                 {
-                    string enabled = element.Attribute("value")?.Value;
+                    string? enabled = element.Attribute("value")?.Value;
                     string attribute = element.Attribute("index").Value;
 
                     if (enabled == "0" && unit.Attributes.Contains(attribute))
@@ -252,22 +252,18 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "WEAPONARRAY")
                 {
-                    WeaponsArray.AddElement(element);
+                    WeaponsArray?.AddElement(element);
                 }
                 else if (elementName == "ARMORLINK")
                 {
-                    IEnumerable<UnitArmor> armorList = ArmorData.CreateArmorCollection(element);
-                    if (armorList != null)
+                    foreach (UnitArmor armor in ArmorData.CreateArmorCollection(element))
                     {
-                        foreach (UnitArmor armor in armorList)
-                        {
-                            unit.AddUnitArmor(armor);
-                        }
+                        unit.AddUnitArmor(armor);
                     }
                 }
                 else if (elementName == "BEHAVIORARRAY")
                 {
-                    BehaviorArray.AddElement(element);
+                    BehaviorArray?.AddElement(element);
                 }
                 else if (elementName == "HEROPLAYSTYLEFLAGS")
                 {
@@ -282,7 +278,7 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "ABILARRAY")
                 {
-                    AbilitiesArray.AddElement(element);
+                    AbilitiesArray?.AddElement(element);
                 }
                 else if (elementName == "CARDLAYOUTS")
                 {
@@ -292,23 +288,23 @@ namespace HeroesData.Parser.XmlData
 
                         if (cardLayoutElementName == "LAYOUTBUTTONS")
                         {
-                            CardLayoutButtons.AddElement(cardLayoutElement);
+                            CardLayoutButtons?.AddElement(cardLayoutElement);
                         }
                     }
                 }
             }
         }
 
-        private void SetActorData(XElement actorElement, Unit unit, UnitDataOverride unitDataOverride)
+        private void SetActorData(XElement actorElement, Unit unit, UnitDataOverride? unitDataOverride)
         {
             if (actorElement == null || unit == null)
                 return;
 
             // parent lookup
-            string parentValue = actorElement.Attribute("parent")?.Value;
+            string? parentValue = actorElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue) && parentValue != "StormUnitBase")
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement? parentElement = GameData.MergeXmlElements(GameData.Elements(CActorUnit).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetActorData(parentElement, unit, unitDataOverride);
             }
@@ -320,8 +316,8 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "VITALNAMES")
                 {
-                    string indexValue = element.Attribute("index")?.Value?.ToUpper();
-                    string valueValue = element.Attribute("value")?.Value;
+                    string? indexValue = element.Attribute("index")?.Value?.ToUpper();
+                    string? valueValue = element.Attribute("value")?.Value;
 
                     if (!string.IsNullOrEmpty(indexValue) && valueValue != null)
                     {
@@ -337,15 +333,15 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "UNITBUTTON" || elementName == "UNITBUTTONMULTIPLE")
                 {
-                    string value = element.Attribute("value")?.Value;
+                    string? value = element.Attribute("value")?.Value;
                     if (!string.IsNullOrEmpty(value) && unitDataOverride != null)
                     {
-                        AdditionalActorAbilities.Add(new AbilityTalentId(value, value));
+                        AdditionalActorAbilities?.Add(new AbilityTalentId(value, value));
                     }
                 }
                 else if (elementName == "GROUPICON")
                 {
-                    string imageValue = element.Element("Image")?.Attribute("value")?.Value;
+                    string? imageValue = element.Element("Image")?.Attribute("value")?.Value;
 
                     if (!string.IsNullOrEmpty(imageValue))
                     {
@@ -356,7 +352,7 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "MINIMAPICON")
                 {
-                    string imageValue = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value));
+                    string imageValue = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty));
 
                     if (!string.IsNullOrEmpty(imageValue))
                     {
@@ -380,14 +376,17 @@ namespace HeroesData.Parser.XmlData
 
             foreach (XElement element in AbilitiesArray.Elements)
             {
-                string linkValue = element.Attribute("Link")?.Value;
+                string? linkValue = element.Attribute("Link")?.Value;
                 if (!string.IsNullOrEmpty(linkValue) && !Configuration.ContainsIgnorableExtraAbility(linkValue) && !unit.GetAbilities(linkValue, StringComparison.OrdinalIgnoreCase).Any())
                     AddCreatedAbility(unit, linkValue);
             }
 
-            foreach (AbilityTalentId addedAbility in AdditionalActorAbilities)
+            if (AdditionalActorAbilities != null)
             {
-                AddCreatedAbility(unit, addedAbility);
+                foreach (AbilityTalentId addedAbility in AdditionalActorAbilities)
+                {
+                    AddCreatedAbility(unit, addedAbility);
+                }
             }
         }
 
@@ -398,10 +397,10 @@ namespace HeroesData.Parser.XmlData
 
             foreach (XElement element in WeaponsArray.Elements)
             {
-                string weaponLink = element.Attribute("Link")?.Value;
+                string? weaponLink = element.Attribute("Link")?.Value;
                 if (!string.IsNullOrEmpty(weaponLink))
                 {
-                    UnitWeapon weapon = WeaponData.CreateWeapon(weaponLink);
+                    UnitWeapon? weapon = WeaponData.CreateWeapon(weaponLink);
                     if (weapon != null)
                         unit.AddUnitWeapon(weapon);
                 }
@@ -415,7 +414,7 @@ namespace HeroesData.Parser.XmlData
 
             foreach (XElement element in BehaviorArray.Elements)
             {
-                string linkValue = element.Attribute("Link")?.Value;
+                string? linkValue = element.Attribute("Link")?.Value;
 
                 if (!string.IsNullOrEmpty(linkValue))
                     ParseBehaviorLink(linkValue, unit);
@@ -437,7 +436,7 @@ namespace HeroesData.Parser.XmlData
             AddAbility(unit, AbilityData.CreateAbility(unit.CUnitId, abilityTalentId));
         }
 
-        private void AddAbility(Unit unit, Ability ability)
+        private void AddAbility(Unit unit, Ability? ability)
         {
             if (ability != null)
             {
@@ -454,14 +453,14 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(linkValue))
                 throw new ArgumentException("Argument cannot be null or empty", nameof(linkValue));
 
-            XElement behaviorVeterancyElement = GameData.MergeXmlElements(GameData.Elements("CBehaviorVeterancy").Where(x => x.Attribute("id")?.Value == linkValue));
+            XElement? behaviorVeterancyElement = GameData.MergeXmlElements(GameData.Elements("CBehaviorVeterancy").Where(x => x.Attribute("id")?.Value == linkValue));
             if (behaviorVeterancyElement != null)
             {
                 unit.ScalingBehaviorLink = linkValue;
                 return;
             }
 
-            XElement behaviorAbilityElement = GameData.MergeXmlElements(GameData.Elements("CBehaviorAbility").Where(x => x.Attribute("id")?.Value == linkValue));
+            XElement? behaviorAbilityElement = GameData.MergeXmlElements(GameData.Elements("CBehaviorAbility").Where(x => x.Attribute("id")?.Value == linkValue));
             if (behaviorAbilityElement != null)
             {
                 foreach (XElement buttonElement in behaviorAbilityElement.Elements("Buttons"))

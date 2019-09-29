@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace HeroesData.ExtractorData
 {
     public abstract class DataExtractorBase<T, TParser>
-        where T : IExtractable
+        where T : IExtractable?
         where TParser : IParser<T, TParser>
     {
         private readonly HashSet<string> ValidationWarnings = new HashSet<string>();
@@ -66,7 +66,7 @@ namespace HeroesData.ExtractorData
                 Parallel.ForEach(generalItems, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, item =>
                 {
                     T parsedItem = Parser.GetInstance().Parse(item);
-                    ParsedData.GetOrAdd(parsedItem.Id, parsedItem);
+                    ParsedData.GetOrAdd(parsedItem!.Id, parsedItem);
                     Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {items.Count} total {Name}");
                 });
 
@@ -83,7 +83,7 @@ namespace HeroesData.ExtractorData
                         Parallel.ForEach(mapItemGroup, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, mapItem =>
                         {
                             T parsedMapItem = Parser.GetInstance().Parse(mapItem);
-                            ParsedData.GetOrAdd(parsedMapItem.Id, parsedMapItem);
+                            ParsedData.GetOrAdd(parsedMapItem!.Id, parsedMapItem);
                             Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {items.Count} total {Name}");
                         });
 
@@ -113,10 +113,10 @@ namespace HeroesData.ExtractorData
             time.Stop();
 
             Console.WriteLine();
-            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
+            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds:0.####} seconds");
             Console.WriteLine();
 
-            return ParsedData.Values.OrderBy(x => x.Id);
+            return ParsedData.Values.OrderBy(x => x!.Id);
         }
 
         /// <summary>
@@ -127,8 +127,11 @@ namespace HeroesData.ExtractorData
             ValidationWarnings.Clear();
             WarningsIgnoredCount = 0;
 
-            foreach (var t in ParsedData)
+            foreach (KeyValuePair<string, T> t in ParsedData)
             {
+                if (t.Value == null)
+                    continue;
+
                 ValidationWarningId = t.Value.Id;
                 Validation(t.Value);
             }
@@ -155,36 +158,35 @@ namespace HeroesData.ExtractorData
                 List<string> nonTooltips = new List<string>(ValidationWarnings.Where(x => !x.ToLower().Contains("tooltip")));
                 List<string> tooltips = new List<string>(ValidationWarnings.Where(x => x.ToLower().Contains("tooltip")));
 
-                using (StreamWriter writer = new StreamWriter(Path.Combine(App.AssemblyPath, $"VerificationCheck_{Name}_{localization.ToString().ToLower()}.txt"), false))
+                using StreamWriter writer = new StreamWriter(Path.Combine(App.AssemblyPath, $"VerificationCheck_{Name}_{localization.ToString().ToLower()}.txt"), false);
+
+                if (nonTooltips.Count > 0)
+                {
+                    nonTooltips.ForEach((warning) =>
+                    {
+                        writer.WriteLine(warning);
+                        if (App.ShowValidationWarnings)
+                            Console.WriteLine($"|- {warning}");
+                    });
+                }
+
+                if (tooltips.Count > 0)
                 {
                     if (nonTooltips.Count > 0)
+                        writer.WriteLine();
+
+                    tooltips.ForEach((warning) =>
                     {
-                        nonTooltips.ForEach((warning) =>
-                        {
-                            writer.WriteLine(warning);
-                            if (App.ShowValidationWarnings)
-                                Console.WriteLine($"|- {warning}");
-                        });
-                    }
-
-                    if (tooltips.Count > 0)
-                    {
-                        if (nonTooltips.Count > 0)
-                            writer.WriteLine();
-
-                        tooltips.ForEach((warning) =>
-                        {
-                            writer.WriteLine(warning);
-                            if (App.ShowValidationWarnings)
-                                Console.WriteLine($"|- {warning}");
-                        });
-                    }
-
-                    writer.WriteLine($"{Environment.NewLine}{ValidationWarnings.Count} warnings ({WarningsIgnoredCount} ignored)");
-
-                    if (App.ShowValidationWarnings)
-                        Console.WriteLine();
+                        writer.WriteLine(warning);
+                        if (App.ShowValidationWarnings)
+                            Console.WriteLine($"|- {warning}");
+                    });
                 }
+
+                writer.WriteLine($"{Environment.NewLine}{ValidationWarnings.Count} warnings ({WarningsIgnoredCount} ignored)");
+
+                if (App.ShowValidationWarnings)
+                    Console.WriteLine();
             }
             else if (App.ShowValidationWarnings)
             {

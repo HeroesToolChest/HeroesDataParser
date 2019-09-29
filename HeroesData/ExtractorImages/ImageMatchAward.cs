@@ -9,11 +9,11 @@ namespace HeroesData.ExtractorImage
 {
     public class ImageMatchAward : ImageExtractorBase<MatchAward>, IImage
     {
-        private readonly HashSet<(string OriginalName, string NewName)> Awards = new HashSet<(string Original, string NewName)>();
+        private readonly HashSet<(string originalName, string newName)> Awards = new HashSet<(string original, string newName)>();
 
         private readonly string MatchAwardsDirectory = "matchAwards";
 
-        public ImageMatchAward(CASCHandler cascHandler, string modsFolderPath)
+        public ImageMatchAward(CASCHandler? cascHandler, string modsFolderPath)
             : base(cascHandler, modsFolderPath)
         {
         }
@@ -80,13 +80,12 @@ namespace HeroesData.ExtractorImage
                 string textureFilepath = Path.Combine(TexturesPath, fileName);
                 if (FileExists(textureFilepath))
                 {
-                    using (Stream stream = OpenFile(textureFilepath))
-                    {
-                        DDSImage image = new DDSImage(stream);
-                        image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%team%", color))}.png"));
+                    using Stream stream = OpenFile(textureFilepath);
 
-                        return true;
-                    }
+                    DDSImage image = new DDSImage(stream);
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%team%", color))}.png"));
+
+                    return true;
                 }
                 else
                 {
@@ -117,18 +116,17 @@ namespace HeroesData.ExtractorImage
                 string textureFilepath = Path.Combine(TexturesPath, fileName);
                 if (FileExists(textureFilepath))
                 {
-                    using (Stream stream = OpenFile(textureFilepath))
-                    {
-                        DDSImage image = new DDSImage(stream);
+                    using Stream stream = OpenFile(textureFilepath);
 
-                        int newWidth = image.Width / 3;
+                    DDSImage image = new DDSImage(stream);
 
-                        image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "blue"))}.png"), new Point(0, 0), new Size(newWidth, image.Height));
-                        image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "red"))}.png"), new Point(newWidth, 0), new Size(newWidth, image.Height));
-                        image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "gold"))}.png"), new Point(newWidth * 2, 0), new Size(newWidth, image.Height));
+                    int newWidth = image.Width / 3;
 
-                        return true;
-                    }
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "blue"))}.png"), new Point(0, 0), new Size(newWidth, image.Height));
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "red"))}.png"), new Point(newWidth, 0), new Size(newWidth, image.Height));
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "gold"))}.png"), new Point(newWidth * 2, 0), new Size(newWidth, image.Height));
+
+                    return true;
                 }
                 else
                 {

@@ -14,7 +14,10 @@ namespace HeroesData.FileWriter.Writers.EmoticonPackData
         protected void AddLocalizedGameString(EmoticonPack emoticonPack)
         {
             GameStringWriter.AddEmoticonPackName(emoticonPack.Id, emoticonPack.Name);
-            GameStringWriter.AddEmoticonPackDescription(emoticonPack.Id, GetTooltip(emoticonPack.Description, FileOutputOptions.DescriptionType));
+
+            if (emoticonPack.Description != null)
+                GameStringWriter.AddEmoticonPackDescription(emoticonPack.Id, GetTooltip(emoticonPack.Description, FileOutputOptions.DescriptionType));
+
             GameStringWriter.AddEmoticonPackSortName(emoticonPack.Id, emoticonPack.SortName);
         }
     }

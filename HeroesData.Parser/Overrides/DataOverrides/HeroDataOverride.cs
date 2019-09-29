@@ -101,7 +101,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 
             foreach (Talent talent in talents)
             {
-                if (PropertyTalentOverrideMethodByTalentId.TryGetValue(talent.AbilityTalentId, out Dictionary<string, Action<Talent>> valueOverrideMethods))
+                if (PropertyTalentOverrideMethodByTalentId.TryGetValue(talent.AbilityTalentId, out Dictionary<string, Action<Talent>>? valueOverrideMethods))
                 {
                     foreach (KeyValuePair<string, Action<Talent>> propertyOverride in valueOverrideMethods)
                     {
@@ -128,7 +128,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
                 throw new ArgumentNullException(nameof(heroPortrait));
             }
 
-            if (PropertyPortraitOverrideMethodByHeroId.TryGetValue(heroId, out Dictionary<string, Action<HeroPortrait>> valueOverrideMethods))
+            if (PropertyPortraitOverrideMethodByHeroId.TryGetValue(heroId, out Dictionary<string, Action<HeroPortrait>>? valueOverrideMethods))
             {
                 foreach (KeyValuePair<string, Action<HeroPortrait>> propertyOverride in valueOverrideMethods)
                 {

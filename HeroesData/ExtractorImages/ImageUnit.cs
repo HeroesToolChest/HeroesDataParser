@@ -13,7 +13,7 @@ namespace HeroesData.ExtractorImages
 
         private readonly string UnitDirectory = "units";
 
-        public ImageUnit(CASCHandler cascHandler, string modsFolderPath)
+        public ImageUnit(CASCHandler? cascHandler, string modsFolderPath)
             : base(cascHandler, modsFolderPath)
         {
         }

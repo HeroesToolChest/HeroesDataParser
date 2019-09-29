@@ -24,7 +24,7 @@ namespace HeroesData.FileWriter.Writers.MatchAwardData
                 new XAttribute("tag", matchAward.Tag),
                 new XElement("MVPScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName?.ToLower(), StaticImageExtension)),
                 new XElement("ScoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName?.ToLower(), StaticImageExtension)),
-                FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(matchAward.Description, FileOutputOptions.DescriptionType)));
+                FileOutputOptions.IsLocalizedText || matchAward.Description == null ? null : new XElement("Description", GetTooltip(matchAward.Description, FileOutputOptions.DescriptionType)));
         }
     }
 }

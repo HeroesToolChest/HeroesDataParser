@@ -49,35 +49,35 @@ namespace HeroesData.FileWriter.Writers.UnitData
             if (unit.UnitIdsCount > 0)
                 unitObject.Add(new JProperty("units", unit.UnitIds.OrderBy(x => x)));
 
-            JProperty portraits = UnitPortraits(unit);
+            JProperty? portraits = UnitPortraits(unit);
             if (portraits != null)
                 unitObject.Add(portraits);
 
-            JProperty life = UnitLife(unit);
+            JProperty? life = UnitLife(unit);
             if (life != null)
                 unitObject.Add(life);
 
-            JProperty shield = UnitShield(unit);
+            JProperty? shield = UnitShield(unit);
             if (shield != null)
                 unitObject.Add(shield);
 
-            JProperty energy = UnitEnergy(unit);
+            JProperty? energy = UnitEnergy(unit);
             if (energy != null)
                 unitObject.Add(energy);
 
-            JProperty armor = UnitArmor(unit);
+            JProperty? armor = UnitArmor(unit);
             if (armor != null)
                 unitObject.Add(armor);
 
-            JProperty weapons = UnitWeapons(unit);
+            JProperty? weapons = UnitWeapons(unit);
             if (weapons != null)
                 unitObject.Add(weapons);
 
-            JProperty abilities = UnitAbilities(unit);
+            JProperty? abilities = UnitAbilities(unit);
             if (abilities != null)
                 unitObject.Add(abilities);
 
-            JProperty subAbilities = UnitSubAbilities(unit);
+            JProperty? subAbilities = UnitSubAbilities(unit);
             if (subAbilities != null)
                 unitObject.Add(subAbilities);
 
@@ -198,17 +198,17 @@ namespace HeroesData.FileWriter.Writers.UnitData
 
         protected override JProperty GetAbilityTalentCooldownObject(TooltipCooldown tooltipCooldown)
         {
-            return new JProperty("cooldownTooltip", GetTooltip(tooltipCooldown.CooldownTooltip, FileOutputOptions.DescriptionType));
+            return new JProperty("cooldownTooltip", GetTooltip(tooltipCooldown.CooldownTooltip!, FileOutputOptions.DescriptionType));
         }
 
         protected override JProperty GetAbilityTalentEnergyCostObject(TooltipEnergy tooltipEnergy)
         {
-            return new JProperty("energyTooltip", GetTooltip(tooltipEnergy.EnergyTooltip, FileOutputOptions.DescriptionType));
+            return new JProperty("energyTooltip", GetTooltip(tooltipEnergy.EnergyTooltip!, FileOutputOptions.DescriptionType));
         }
 
         protected override JProperty GetAbilityTalentLifeCostObject(TooltipLife tooltipLife)
         {
-            return new JProperty("lifeTooltip", GetTooltip(tooltipLife.LifeCostTooltip, FileOutputOptions.DescriptionType));
+            return new JProperty("lifeTooltip", GetTooltip(tooltipLife.LifeCostTooltip!, FileOutputOptions.DescriptionType));
         }
 
         protected override JObject AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase)
@@ -233,19 +233,19 @@ namespace HeroesData.FileWriter.Writers.UnitData
             if (abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.HasValue)
                 info.Add("toggleCooldown", abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.Value);
 
-            JProperty life = UnitAbilityTalentLifeCost(abilityTalentBase.Tooltip.Life);
+            JProperty? life = UnitAbilityTalentLifeCost(abilityTalentBase.Tooltip.Life);
             if (life != null)
                 info.Add(life);
 
-            JProperty energy = UnitAbilityTalentEnergyCost(abilityTalentBase.Tooltip.Energy);
+            JProperty? energy = UnitAbilityTalentEnergyCost(abilityTalentBase.Tooltip.Energy);
             if (energy != null)
                 info.Add(energy);
 
-            JProperty charges = UnitAbilityTalentCharges(abilityTalentBase.Tooltip.Charges);
+            JProperty? charges = UnitAbilityTalentCharges(abilityTalentBase.Tooltip.Charges);
             if (charges != null)
                 info.Add(charges);
 
-            JProperty cooldown = UnitAbilityTalentCooldown(abilityTalentBase.Tooltip.Cooldown);
+            JProperty? cooldown = UnitAbilityTalentCooldown(abilityTalentBase.Tooltip.Cooldown);
             if (cooldown != null)
                 info.Add(cooldown);
 
@@ -302,7 +302,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
             return new JProperty("weapons", weaponArray);
         }
 
-        protected override JProperty GetSubAbilitiesObject(ILookup<AbilityTalentId, Ability> linkedAbilities)
+        protected override JProperty? GetSubAbilitiesObject(ILookup<AbilityTalentId, Ability> linkedAbilities)
         {
             JObject parentLinkObject = new JObject();
 

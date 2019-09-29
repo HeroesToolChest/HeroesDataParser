@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser
 {
-    public class PortraitParser : ParserBase<Portrait, PortraitDataOverride>, IParser<Portrait, PortraitParser>
+    public class PortraitParser : ParserBase<Portrait, PortraitDataOverride>, IParser<Portrait?, PortraitParser>
     {
         public PortraitParser(IXmlDataService xmlDataService)
             : base(xmlDataService)
@@ -21,14 +21,14 @@ namespace HeroesData.Parser
             return new PortraitParser(XmlDataService);
         }
 
-        public Portrait Parse(params string[] ids)
+        public Portrait? Parse(params string[] ids)
         {
             if (ids == null || ids.Count() < 1)
                 return null;
 
             string id = ids.FirstOrDefault();
 
-            XElement portraitElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
+            XElement? portraitElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (portraitElement == null)
                 return null;
 
@@ -49,10 +49,10 @@ namespace HeroesData.Parser
         private void SetPortraitData(XElement portraitElement, Portrait portrait)
         {
             // parent lookup
-            string parentValue = portraitElement.Attribute("parent")?.Value;
+            string? parentValue = portraitElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement? parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetPortraitData(parentElement, portrait);
             }
@@ -63,21 +63,21 @@ namespace HeroesData.Parser
 
                 if (elementName == "SORTNAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value, out string text))
+                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
                         portrait.SortName = text;
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    portrait.HyperlinkId = element.Attribute("value")?.Value;
+                    portrait.HyperlinkId = element.Attribute("value")?.Value ?? string.Empty;
                 }
                 else if (elementName == "NAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value, out string text))
+                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
                         portrait.Name = text;
                 }
                 else if (elementName == "EVENTNAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value, out string text))
+                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
                         portrait.EventName = text;
                     else
                         portrait.EventName = element.Attribute("value")?.Value;
@@ -87,9 +87,9 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(Portrait portrait)
         {
-            portrait.Name = GameData.GetGameString(DefaultData.PortraitPackData.PortraitName.Replace(DefaultData.IdPlaceHolder, portrait.Id));
-            portrait.SortName = GameData.GetGameString(DefaultData.PortraitPackData.PortraitSortName.Replace(DefaultData.IdPlaceHolder, portrait.Id));
-            portrait.HyperlinkId = DefaultData.PortraitPackData.PortraitHyperlinkId.Replace(DefaultData.IdPlaceHolder, portrait.Id);
+            portrait.Name = GameData.GetGameString(DefaultData.PortraitPackData?.PortraitName?.Replace(DefaultData.IdPlaceHolder, portrait.Id));
+            portrait.SortName = GameData.GetGameString(DefaultData.PortraitPackData?.PortraitSortName?.Replace(DefaultData.IdPlaceHolder, portrait.Id));
+            portrait.HyperlinkId = DefaultData.PortraitPackData?.PortraitHyperlinkId?.Replace(DefaultData.IdPlaceHolder, portrait.Id) ?? string.Empty;
         }
     }
 }

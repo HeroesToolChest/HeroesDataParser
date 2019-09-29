@@ -1,9 +1,10 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using System;
 
 namespace HeroesData.ExtractorData
 {
-    public class DataMount : DataExtractorBase<Mount, MountParser>, IData
+    public class DataMount : DataExtractorBase<Mount?, MountParser>, IData
     {
         public DataMount(MountParser parser)
             : base(parser)
@@ -12,8 +13,13 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "mounts";
 
-        protected override void Validation(Mount mount)
+        protected override void Validation(Mount? mount)
         {
+            if (mount is null)
+            {
+                throw new ArgumentNullException(nameof(mount));
+            }
+
             if (string.IsNullOrEmpty(mount.Name))
                 AddWarning($"{nameof(mount.Name)} is empty");
 

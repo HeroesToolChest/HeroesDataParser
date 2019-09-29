@@ -24,7 +24,7 @@ namespace HeroesData.Parser.XmlData
         /// <param name="layoutButtonElement"></param>
         /// <param name="isBehaviorAbility"></param>
         /// <returns></returns>
-        public Ability CreateAbility(string unitId, XElement layoutButtonElement, bool isBehaviorAbility = false)
+        public Ability? CreateAbility(string unitId, XElement layoutButtonElement, bool isBehaviorAbility = false)
         {
             if (string.IsNullOrEmpty(unitId))
                 throw new ArgumentException("Argument cannot be null or empty", nameof(unitId));
@@ -33,11 +33,11 @@ namespace HeroesData.Parser.XmlData
 
             Ability ability = new Ability();
 
-            string faceValue = layoutButtonElement.Attribute("Face")?.Value ?? layoutButtonElement.Element("Face")?.Attribute("value")?.Value; // button id
-            string typeValue = layoutButtonElement.Attribute("Type")?.Value ?? layoutButtonElement.Element("Type")?.Attribute("value")?.Value;
-            string abilCmdValue = layoutButtonElement.Attribute("AbilCmd")?.Value ?? layoutButtonElement.Element("AbilCmd")?.Attribute("value")?.Value; // ability command
-            string requirementsValue = layoutButtonElement.Attribute("Requirements")?.Value ?? layoutButtonElement.Element("Requirements")?.Attribute("value")?.Value;
-            string slotValue = layoutButtonElement.Attribute("Slot")?.Value ?? layoutButtonElement.Element("Slot")?.Attribute("value")?.Value;
+            string? faceValue = layoutButtonElement.Attribute("Face")?.Value ?? layoutButtonElement.Element("Face")?.Attribute("value")?.Value; // button id
+            string? typeValue = layoutButtonElement.Attribute("Type")?.Value ?? layoutButtonElement.Element("Type")?.Attribute("value")?.Value;
+            string? abilCmdValue = layoutButtonElement.Attribute("AbilCmd")?.Value ?? layoutButtonElement.Element("AbilCmd")?.Attribute("value")?.Value; // ability command
+            string? requirementsValue = layoutButtonElement.Attribute("Requirements")?.Value ?? layoutButtonElement.Element("Requirements")?.Attribute("value")?.Value;
+            string slotValue = layoutButtonElement.Attribute("Slot")?.Value ?? layoutButtonElement.Element("Slot")?.Attribute("value")?.Value ?? string.Empty;
 
             if (string.IsNullOrEmpty(faceValue) || slotValue == "Hidden1" || slotValue == "Hidden2" || slotValue == "Hidden3" || requirementsValue == "UltimateNotUnlocked")
                 return null;
@@ -53,7 +53,7 @@ namespace HeroesData.Parser.XmlData
                 ability.AbilityTalentId.ButtonId = faceValue;
                 ability.AbilityTalentId.IsPassive = true;
 
-                XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
+                XElement? buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
                 if (buttonElement != null)
                     SetButtonData(buttonElement, ability);
             }
@@ -105,7 +105,7 @@ namespace HeroesData.Parser.XmlData
                 ability.AbilityTalentId.ReferenceId = ability.AbilityTalentId.ButtonId;
 
             // if no name was set, then use the ability name
-            if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string value))
+            if (string.IsNullOrEmpty(ability.Name) && DefaultData.AbilData != null && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string? value))
                 ability.Name = value;
 
             ability.AbilityTalentId.AbilityType = ability.AbilityTalentId.AbilityType;
@@ -127,7 +127,7 @@ namespace HeroesData.Parser.XmlData
         /// <param name="unitId"></param>
         /// <param name="abilityId"></param>
         /// <returns></returns>
-        public Ability CreateAbility(string unitId, string abilityId)
+        public Ability? CreateAbility(string unitId, string abilityId)
         {
             if (string.IsNullOrEmpty(unitId))
                 throw new ArgumentException("Argument cannot be null or empty", nameof(unitId));
@@ -154,7 +154,7 @@ namespace HeroesData.Parser.XmlData
             ability.AbilityTalentId.AbilityType = AbilityType.Hidden;
 
             // if no name was set, then use the ability name
-            if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string value))
+            if (string.IsNullOrEmpty(ability.Name) && DefaultData.AbilData != null && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string? value))
                 ability.Name = value;
 
             ability.AbilityTalentId.AbilityType = ability.AbilityTalentId.AbilityType;
@@ -169,7 +169,7 @@ namespace HeroesData.Parser.XmlData
         /// <param name="unitId"></param>
         /// <param name="abilityTalentId"></param>
         /// <returns></returns>
-        public Ability CreateAbility(string unitId, AbilityTalentId abilityTalentId)
+        public Ability? CreateAbility(string unitId, AbilityTalentId abilityTalentId)
         {
             if (string.IsNullOrEmpty(unitId))
                 throw new ArgumentException("Argument cannot be null or empty", nameof(unitId));
@@ -190,12 +190,12 @@ namespace HeroesData.Parser.XmlData
                 SetAbilityTalentData(element, ability, string.Empty);
             }
 
-            XElement buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == abilityTalentId.ButtonId));
+            XElement? buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == abilityTalentId.ButtonId));
             if (buttonElement != null)
                 SetButtonData(buttonElement, ability);
 
             // if no name was set, then use the ability name
-            if (string.IsNullOrEmpty(ability.Name) && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string value))
+            if (string.IsNullOrEmpty(ability.Name) && DefaultData.AbilData != null && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string? value))
                 ability.Name = value;
 
             ability.AbilityTalentId.AbilityType = ability.AbilityTalentId.AbilityType;
@@ -204,7 +204,7 @@ namespace HeroesData.Parser.XmlData
             return ability;
         }
 
-        private void SetAbilityTypeFromSlot(string slot, string unitId, Ability ability, bool isBehaviorAbility)
+        private void SetAbilityTypeFromSlot(string slot, string unitId, Ability? ability, bool isBehaviorAbility)
         {
             if (ability == null)
             {

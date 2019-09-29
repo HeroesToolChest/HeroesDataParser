@@ -31,29 +31,27 @@ namespace HeroesData.Parser.Overrides
             foreach (XElement dataElement in element.Elements())
             {
                 string elementName = dataElement.Name.LocalName;
-                string valueAttribute = dataElement.Attribute("value")?.Value;
+                string valueAttribute = dataElement.Attribute("value")?.Value ?? string.Empty;
 
-                XElement overrideElement = null;
+                XElement? overrideElement = null;
 
                 switch (elementName)
                 {
                     case "Name":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            heroDataOverride.NameOverride = (true, valueAttribute);
+                        heroDataOverride.NameOverride = (true, valueAttribute);
                         break;
                     case "HyperlinkId":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            heroDataOverride.HyperlinkIdOverride = (true, valueAttribute);
+                        heroDataOverride.HyperlinkIdOverride = (true, valueAttribute);
                         break;
                     case "CUnit":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            heroDataOverride.CUnitOverride = (true, valueAttribute);
+                        heroDataOverride.CUnitOverride = (true, valueAttribute);
                         break;
                     case "EnergyType":
                         heroDataOverride.EnergyTypeOverride = (true, valueAttribute);
                         break;
                     case "Energy":
                         string energyValue = valueAttribute;
+
                         if (int.TryParse(energyValue, out int value))
                         {
                             if (value < 0)
@@ -68,13 +66,13 @@ namespace HeroesData.Parser.Overrides
 
                         break;
                     case "ParentLink":
-                        heroDataOverride.ParentLinkOverride = (true, valueAttribute);
+                        heroDataOverride.ParentLinkOverride = (true, valueAttribute ?? string.Empty);
                         break;
                     case "Ability":
                         string id = dataElement.Attribute("id")?.Value ?? string.Empty;
-                        string abilityType = dataElement.Attribute("abilityType")?.Value;
-                        string passiveAbility = dataElement.Attribute("passive")?.Value;
-                        string addedAbility = dataElement.Attribute("add")?.Value;
+                        string? abilityType = dataElement.Attribute("abilityType")?.Value;
+                        string? passiveAbility = dataElement.Attribute("passive")?.Value;
+                        string? addedAbility = dataElement.Attribute("add")?.Value;
 
                         AbilityTalentId abilityTalentId = new AbilityTalentId(string.Empty, string.Empty);
 
@@ -114,11 +112,12 @@ namespace HeroesData.Parser.Overrides
 
                         break;
                     case "Talent":
-                        string talentId = dataElement.Attribute("id")?.Value;
-                        string buttonTalentId = dataElement.Attribute("button")?.Value ?? talentId;
+                        string? talentId = dataElement.Attribute("id")?.Value;
 
                         if (string.IsNullOrEmpty(talentId))
                             continue;
+
+                        string buttonTalentId = dataElement.Attribute("button")?.Value ?? talentId;
 
                         // override
                         overrideElement = dataElement.Element("Override");
@@ -131,8 +130,11 @@ namespace HeroesData.Parser.Overrides
                             portraitOverride.SetOverride(heroId, overrideElement, heroDataOverride.PropertyPortraitOverrideMethodByHeroId);
                         break;
                     case "HeroUnit":
-                        string heroUnitId = dataElement.Attribute("id")?.Value;
-                        string removeHeroUnit = dataElement.Attribute("remove")?.Value;
+                        string? heroUnitId = dataElement.Attribute("id")?.Value;
+                        string? removeHeroUnit = dataElement.Attribute("remove")?.Value;
+
+                        if (string.IsNullOrEmpty(heroUnitId))
+                            continue;
 
                         if (bool.TryParse(removeHeroUnit, out bool heroUnitRemoveResult))
                         {
@@ -143,16 +145,13 @@ namespace HeroesData.Parser.Overrides
                             }
                         }
 
-                        if (string.IsNullOrEmpty(heroUnitId))
-                            continue;
-
                         heroDataOverride.AddHeroUnit(heroUnitId);
                         SetOverride(dataElement);
 
                         break;
                     case "Weapon":
-                        string weaponId = dataElement.Attribute("id")?.Value;
-                        string addedWeapon = dataElement.Attribute("add")?.Value;
+                        string? weaponId = dataElement.Attribute("id")?.Value;
+                        string? addedWeapon = dataElement.Attribute("add")?.Value;
 
                         if (string.IsNullOrEmpty(weaponId))
                             continue;

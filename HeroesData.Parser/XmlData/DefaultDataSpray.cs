@@ -20,27 +20,27 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default spray name. Contains ##id##.
         /// </summary>
-        public string SprayName { get; private set; }
+        public string? SprayName { get; private set; }
 
         /// <summary>
         /// Gets the default spray name used for sorting. Contains ##id##.
         /// </summary>
-        public string SpraySortName { get; private set; }
+        public string? SpraySortName { get; private set; }
 
         /// <summary>
         /// Gets the default spray description. Contains ##id##.
         /// </summary>
-        public string SprayDescription { get; private set; }
+        public string? SprayDescription { get; private set; }
 
         /// <summary>
         /// Gets the default spray additional search text. Contains ##id##.
         /// </summary>
-        public string SprayAdditionalSearchText { get; private set; }
+        public string? SprayAdditionalSearchText { get; private set; }
 
         /// <summary>
         /// Gets the default spray hyperlinkId. Contains ##id##.
         /// </summary>
-        public string SprayHyperlinkId { get; private set; }
+        public string? SprayHyperlinkId { get; private set; }
 
         /// <summary>
         /// Gets the default spray release date.
@@ -50,12 +50,12 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default spray animation count.
         /// </summary>
-        public int SprayAnimationCount { get; private set; }
+        public int SprayAnimationCount { get; private set; } = 0;
 
         /// <summary>
         /// Gets the default spray animation duration.
         /// </summary>
-        public int SprayAnimationDuration { get; private set; }
+        public int SprayAnimationDuration { get; private set; } = 0;
 
         // <CSpray default="1">
         private void LoadCSprayDefault()

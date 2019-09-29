@@ -37,7 +37,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
             throw new NotImplementedException();
         }
 
-        protected override T GetSubAbilitiesObject(ILookup<AbilityTalentId, Ability> linkedAbilities)
+        protected override T? GetSubAbilitiesObject(ILookup<AbilityTalentId, Ability> linkedAbilities)
         {
             throw new NotImplementedException();
         }

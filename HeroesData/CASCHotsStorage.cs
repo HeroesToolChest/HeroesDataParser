@@ -21,8 +21,8 @@ namespace HeroesData
             Initialize();
         }
 
-        public CASCFolder CASCFolderRoot { get; private set; }
-        public CASCHandler CASCHandler { get; private set; }
+        public CASCFolder? CASCFolderRoot { get; private set; }
+        public CASCHandler? CASCHandler { get; private set; }
 
         public static CASCHotsStorage Load(string storagePath)
         {

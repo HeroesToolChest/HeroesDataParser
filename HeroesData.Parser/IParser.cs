@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace HeroesData.Parser
 {
     public interface IParser<T, TU>
-        where T : IExtractable
+        where T : IExtractable?
     {
         /// <summary>
         /// Returns a collection of all the parsable ids. Allows multiple ids.

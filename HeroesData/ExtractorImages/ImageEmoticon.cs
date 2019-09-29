@@ -14,7 +14,7 @@ namespace HeroesData.ExtractorImage
         private readonly HashSet<Emoticon> Emoticons = new HashSet<Emoticon>();
         private readonly string EmoticonDirectory = "emoticons";
 
-        public ImageEmoticon(CASCHandler cascHandler, string modsFolderPath)
+        public ImageEmoticon(CASCHandler? cascHandler, string modsFolderPath)
             : base(cascHandler, modsFolderPath)
         {
         }
@@ -43,7 +43,7 @@ namespace HeroesData.ExtractorImage
 
             foreach (Emoticon emoticon in Emoticons)
             {
-                if (emoticon.Image.Count.HasValue)
+                if (emoticon.Image.Count.HasValue && emoticon.Image.DurationPerFrame != null)
                 {
                     if (ExtractAnimatedImageFile(Path.Combine(extractFilePath, emoticon.TextureSheet.Image), new Size(emoticon.Image.Width, ImageMaxHeight), new Size(ImageMaxWidth, ImageMaxHeight), emoticon.Image.Count.Value, emoticon.Image.DurationPerFrame.Value) &&
                         ExtractStaticImageFile(Path.Combine(extractFilePath, emoticon.TextureSheet.Image)))

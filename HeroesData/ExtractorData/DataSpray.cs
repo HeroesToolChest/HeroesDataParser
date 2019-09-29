@@ -1,9 +1,10 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using System;
 
 namespace HeroesData.ExtractorData
 {
-    public class DataSpray : DataExtractorBase<Spray, SprayParser>, IData
+    public class DataSpray : DataExtractorBase<Spray?, SprayParser>, IData
     {
         public DataSpray(SprayParser parser)
             : base(parser)
@@ -12,8 +13,13 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "sprays";
 
-        protected override void Validation(Spray spray)
+        protected override void Validation(Spray? spray)
         {
+            if (spray is null)
+            {
+                throw new ArgumentNullException(nameof(spray));
+            }
+
             if (string.IsNullOrEmpty(spray.Name))
                 AddWarning($"{nameof(spray.Name)} is empty");
 

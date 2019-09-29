@@ -104,14 +104,14 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 unit.PrimaryAbilities(AbilityTier.Unknown).Any() ? new XElement("Unknown", unit.PrimaryAbilities(AbilityTier.Unknown).Select(x => AbilityInfoElement(x))) : null);
         }
 
-        protected override XElement GetSubAbilitiesObject(ILookup<AbilityTalentId, Ability> linkedAbilities)
+        protected override XElement? GetSubAbilitiesObject(ILookup<AbilityTalentId, Ability> linkedAbilities)
         {
             XElement parentLinkElement = new XElement("SubAbilities");
 
             IEnumerable<AbilityTalentId> parentLinks = linkedAbilities.Select(x => x.Key);
             foreach (AbilityTalentId parent in parentLinks)
             {
-                XElement abilities = null;
+                XElement? abilities = null;
 
                 if (parent.AbilityType != AbilityType.Unknown)
                 {
@@ -178,21 +178,21 @@ namespace HeroesData.FileWriter.Writers.UnitData
         {
             return new XElement(
                 "LifeTooltip",
-                GetTooltip(tooltipLife.LifeCostTooltip, FileOutputOptions.DescriptionType));
+                GetTooltip(tooltipLife.LifeCostTooltip!, FileOutputOptions.DescriptionType));
         }
 
         protected override XElement GetAbilityTalentEnergyCostObject(TooltipEnergy tooltipEnergy)
         {
             return new XElement(
                 "EnergyTooltip",
-                GetTooltip(tooltipEnergy.EnergyTooltip, FileOutputOptions.DescriptionType));
+                GetTooltip(tooltipEnergy.EnergyTooltip!, FileOutputOptions.DescriptionType));
         }
 
         protected override XElement GetAbilityTalentCooldownObject(TooltipCooldown tooltipCooldown)
         {
             return new XElement(
                 "CooldownTooltip",
-                GetTooltip(tooltipCooldown.CooldownTooltip, FileOutputOptions.DescriptionType));
+                GetTooltip(tooltipCooldown.CooldownTooltip!, FileOutputOptions.DescriptionType));
         }
 
         protected override XElement GetAbilityTalentChargesObject(TooltipCharges tooltipCharges)
@@ -200,10 +200,10 @@ namespace HeroesData.FileWriter.Writers.UnitData
             return new XElement(
                 "Charges",
                 tooltipCharges.CountMax,
-                tooltipCharges.CountUse.HasValue == true ? new XAttribute("consume", tooltipCharges.CountUse.Value) : null,
-                tooltipCharges.CountStart.HasValue == true ? new XAttribute("initial", tooltipCharges.CountStart.Value) : null,
-                tooltipCharges.IsHideCount.HasValue == true ? new XAttribute("isHidden", tooltipCharges.IsHideCount.Value) : null,
-                tooltipCharges.RecastCooldown.HasValue == true ? new XAttribute("recastCooldown", tooltipCharges.RecastCooldown.Value) : null);
+                tooltipCharges.CountUse.HasValue == true ? new XAttribute("consume", tooltipCharges.CountUse!.Value) : null,
+                tooltipCharges.CountStart.HasValue == true ? new XAttribute("initial", tooltipCharges.CountStart!.Value) : null,
+                tooltipCharges.IsHideCount.HasValue == true ? new XAttribute("isHidden", tooltipCharges.IsHideCount!.Value) : null,
+                tooltipCharges.RecastCooldown.HasValue == true ? new XAttribute("recastCooldown", tooltipCharges.RecastCooldown!.Value) : null);
         }
 
         protected override XElement GetWeaponsObject(Unit unit)

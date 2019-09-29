@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser
 {
-    public class BehaviorVeterancyParser : ParserBase<BehaviorVeterancy, BehaviorVeterancyDataOverride>, IParser<BehaviorVeterancy, BehaviorVeterancyParser>
+    public class BehaviorVeterancyParser : ParserBase<BehaviorVeterancy, BehaviorVeterancyDataOverride>, IParser<BehaviorVeterancy?, BehaviorVeterancyParser>
     {
         private readonly XmlArrayElement VeterancyLevelArray = new XmlArrayElement();
 
@@ -50,7 +50,7 @@ namespace HeroesData.Parser
             return new BehaviorVeterancyParser(XmlDataService);
         }
 
-        public BehaviorVeterancy Parse(params string[] ids)
+        public BehaviorVeterancy? Parse(params string[] ids)
         {
             if (ids == null)
                 return null;
@@ -61,7 +61,7 @@ namespace HeroesData.Parser
             if (ids.Length == 2)
                 mapNameId = ids[1];
 
-            XElement behaviorVeterancyElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
+            XElement? behaviorVeterancyElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (behaviorVeterancyElement == null)
                 return null;
 
@@ -89,10 +89,10 @@ namespace HeroesData.Parser
         private void SetBehaviorVeterancyData(XElement behaviorVeterancyElement, BehaviorVeterancy behaviorVeterancy)
         {
             // parent lookup
-            string parentValue = behaviorVeterancyElement.Attribute("parent")?.Value;
+            string? parentValue = behaviorVeterancyElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement? parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetBehaviorVeterancyData(parentElement, behaviorVeterancy);
             }
@@ -103,8 +103,8 @@ namespace HeroesData.Parser
 
                 if (elementName == "FLAGS")
                 {
-                    string indexValue = element.Attribute("index")?.Value?.ToUpper();
-                    string valueValue = element.Attribute("value")?.Value;
+                    string? indexValue = element.Attribute("index")?.Value?.ToUpper();
+                    string? valueValue = element.Attribute("value")?.Value;
 
                     if (bool.TryParse(valueValue, out bool boolResult))
                     {
@@ -140,13 +140,16 @@ namespace HeroesData.Parser
                 if (int.TryParse(veterancyLevelElement.Attribute("MinVeterancyXP")?.Value, out int minVeterancyXp))
                     veterancyLevel.MinimumVeterancyXP = minVeterancyXp;
 
-                veterancyLevel.VeterancyModification = SetVeterancyLevelArrayModificationData(veterancyLevelElement.Element("Modification"));
+                VeterancyModification? veterancyModification = SetVeterancyLevelArrayModificationData(veterancyLevelElement.Element("Modification"));
+
+                if (veterancyModification != null)
+                    veterancyLevel.VeterancyModification = veterancyModification;
 
                 behaviorVeterancy.VeterancyLevels.Add(veterancyLevel);
             }
         }
 
-        private VeterancyModification SetVeterancyLevelArrayModificationData(XElement modificationElement)
+        private VeterancyModification? SetVeterancyLevelArrayModificationData(XElement modificationElement)
         {
             if (modificationElement == null)
                 return null;
@@ -162,10 +165,10 @@ namespace HeroesData.Parser
 
                 if (elementName == "DAMAGEDEALTSCALED")
                 {
-                    string index = element.Attribute("index")?.Value;
-                    string value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value);
+                    string? index = element.Attribute("index")?.Value;
+                    string? value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value ?? string.Empty);
 
-                    if (double.TryParse(value, out double valueResult))
+                    if (!string.IsNullOrEmpty(index) && double.TryParse(value, out double valueResult))
                     {
                         veterancyModification.DamageDealtScaledCollection.Add(new VeterancyDamageDealtScaled()
                         {
@@ -176,10 +179,10 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "DAMAGEDEALTFRACTION")
                 {
-                    string index = element.Attribute("index")?.Value;
-                    string value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value);
+                    string? index = element.Attribute("index")?.Value;
+                    string? value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value ?? string.Empty);
 
-                    if (double.TryParse(value, out double valueResult))
+                    if (!string.IsNullOrEmpty(index) && double.TryParse(value, out double valueResult))
                     {
                         veterancyModification.DamageDealtFractionCollection.Add(new VeterancyDamageDealtFraction()
                         {
@@ -190,10 +193,10 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "VITALMAXARRAY")
                 {
-                    string index = element.Attribute("index")?.Value;
-                    string value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value);
+                    string? index = element.Attribute("index")?.Value;
+                    string? value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value ?? string.Empty);
 
-                    if (double.TryParse(value, out double valueResult))
+                    if (!string.IsNullOrEmpty(index) && double.TryParse(value, out double valueResult))
                     {
                         veterancyModification.VitalMaxCollection.Add(new VeterancyVitalMax()
                         {
@@ -204,10 +207,10 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "VITALMAXFRACTIONARRAY")
                 {
-                    string index = element.Attribute("index")?.Value;
-                    string value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value);
+                    string? index = element.Attribute("index")?.Value;
+                    string? value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value ?? string.Empty);
 
-                    if (double.TryParse(value, out double valueResult))
+                    if (!string.IsNullOrEmpty(index) && double.TryParse(value, out double valueResult))
                     {
                         veterancyModification.VitalMaxFractionCollection.Add(new VeterancyVitalMaxFraction()
                         {
@@ -218,10 +221,10 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "VITALREGENARRAY")
                 {
-                    string index = element.Attribute("index")?.Value;
-                    string value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value);
+                    string? index = element.Attribute("index")?.Value;
+                    string? value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value ?? string.Empty);
 
-                    if (double.TryParse(value, out double valueResult))
+                    if (!string.IsNullOrEmpty(index) && double.TryParse(value, out double valueResult))
                     {
                         veterancyModification.VitalRegenCollection.Add(new VeterancyVitalRegen()
                         {
@@ -232,10 +235,10 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "VITALREGENFRACTIONARRAY")
                 {
-                    string index = element.Attribute("index")?.Value;
-                    string value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value);
+                    string? index = element.Attribute("index")?.Value;
+                    string? value = GameData.GetValueFromAttribute(element.Attribute("value")?.Value ?? string.Empty);
 
-                    if (double.TryParse(value, out double valueResult))
+                    if (!string.IsNullOrEmpty(index) && double.TryParse(value, out double valueResult))
                     {
                         veterancyModification.VitalRegenFractionCollection.Add(new VeterancyVitalRegenFraction()
                         {
@@ -251,7 +254,7 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(BehaviorVeterancy behaviorVeterancy)
         {
-            behaviorVeterancy.CombineModifications = DefaultData.BehaviorVeterancyData.CombineNumericModifications;
+            behaviorVeterancy.CombineModifications = DefaultData.BehaviorVeterancyData!.CombineNumericModifications;
             behaviorVeterancy.CombineXP = DefaultData.BehaviorVeterancyData.CombineXP;
         }
 

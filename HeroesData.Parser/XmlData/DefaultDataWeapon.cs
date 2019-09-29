@@ -19,7 +19,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the defualt weapon name text. Contains ##id##.
         /// </summary>
-        public string WeaponName { get; private set; }
+        public string? WeaponName { get; private set; }
 
         /// <summary>
         /// Gets the default weapon range value.
@@ -34,7 +34,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default weapon display effect name. Contains ##id##.
         /// </summary>
-        public string WeaponDisplayEffect { get; private set; }
+        public string? WeaponDisplayEffect { get; private set; }
 
         // <CWeapon default="1">
         private void LoadCWeaponDefault()

@@ -11,7 +11,7 @@ namespace HeroesData.Commands
             CommandLineApplication = app;
         }
 
-        protected string AppPath { get; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        protected string AppPath { get; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
         protected CommandLineApplication CommandLineApplication { get; }
     }
 }

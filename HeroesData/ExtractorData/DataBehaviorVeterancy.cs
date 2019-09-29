@@ -3,7 +3,7 @@ using HeroesData.Parser;
 
 namespace HeroesData.ExtractorData
 {
-    public class DataBehaviorVeterancy : DataExtractorBase<BehaviorVeterancy, BehaviorVeterancyParser>, IData
+    public class DataBehaviorVeterancy : DataExtractorBase<BehaviorVeterancy?, BehaviorVeterancyParser>, IData
     {
         public DataBehaviorVeterancy(BehaviorVeterancyParser parser)
             : base(parser)
@@ -12,7 +12,7 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "veterancies";
 
-        protected override void Validation(BehaviorVeterancy behaviorVeterancy)
+        protected override void Validation(BehaviorVeterancy? behaviorVeterancy)
         {
         }
     }

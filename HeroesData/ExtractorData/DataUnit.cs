@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace HeroesData.ExtractorData
 {
-    public class DataUnit : DataExtractorBase<Unit, UnitParser>, IData
+    public class DataUnit : DataExtractorBase<Unit?, UnitParser>, IData
     {
         public DataUnit(UnitParser parser)
             : base(parser)
@@ -17,8 +17,13 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "units";
 
-        protected override void Validation(Unit unit)
+        protected override void Validation(Unit? unit)
         {
+            if (unit is null)
+            {
+                throw new ArgumentNullException(nameof(unit));
+            }
+
             if (unit.Id.EndsWith("dummy", StringComparison.OrdinalIgnoreCase))
                 return;
 
@@ -81,7 +86,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} failed to parse correctly");
-                    else if (char.IsDigit(ability.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
+                    else if (ability.Tooltip.Cooldown.CooldownTooltip != null && char.IsDigit(ability.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
                 }
 
@@ -89,7 +94,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (ability.Tooltip.Energy.EnergyTooltip?.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} failed to parse correctly");
-                    else if (char.IsDigit(ability.Tooltip.Energy.EnergyTooltip.PlainText[0]))
+                    else if (ability.Tooltip.Energy.EnergyTooltip != null && char.IsDigit(ability.Tooltip.Energy.EnergyTooltip.PlainText[0]))
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
                 }
 
@@ -97,7 +102,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (ability.Tooltip.Life.LifeCostTooltip?.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} failed to parse correctly");
-                    else if (char.IsDigit(ability.Tooltip.Life.LifeCostTooltip.PlainText[0]))
+                    else if (ability.Tooltip.Life.LifeCostTooltip != null && char.IsDigit(ability.Tooltip.Life.LifeCostTooltip.PlainText[0]))
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
                 }
             }

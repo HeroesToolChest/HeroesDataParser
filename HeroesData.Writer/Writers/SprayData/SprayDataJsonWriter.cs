@@ -49,7 +49,7 @@ namespace HeroesData.FileWriter.Writers.SprayData
                     sprayObject.Add("image", Path.ChangeExtension(spray.ImageFileName?.ToLower(), AnimatedImageExtension));
             }
 
-            JProperty animation = AnimationObject(spray);
+            JProperty? animation = AnimationObject(spray);
             if (animation != null)
                 sprayObject.Add(animation);
 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HeroesData.ExtractorData
 {
-    public class DataHero : DataExtractorBase<Hero, HeroDataParser>, IData
+    public class DataHero : DataExtractorBase<Hero?, HeroDataParser>, IData
     {
         public DataHero(HeroDataParser parser)
             : base(parser)
@@ -20,10 +20,10 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "heroes";
 
-        public override IEnumerable<Hero> Parse(Localization localization)
+        public override IEnumerable<Hero?> Parse(Localization localization)
         {
             Stopwatch time = new Stopwatch();
-            var failedParsedHeroes = new List<(string CHeroId, Exception Exception)>();
+            var failedParsedHeroes = new List<(string cHeroId, Exception exception)>();
             int currentCount = 0;
             ParsedData.Clear();
 
@@ -60,9 +60,9 @@ namespace HeroesData.ExtractorData
 
             if (failedParsedHeroes.Count > 0)
             {
-                foreach (var hero in failedParsedHeroes)
+                foreach (var (cHeroId, exception) in failedParsedHeroes)
                 {
-                    App.WriteExceptionLog($"FailedHeroParsed_{hero.CHeroId}", hero.Exception);
+                    App.WriteExceptionLog($"FailedHeroParsed_{cHeroId}", exception);
                 }
             }
 
@@ -71,9 +71,9 @@ namespace HeroesData.ExtractorData
             if (failedParsedHeroes.Count > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                foreach (var hero in failedParsedHeroes)
+                foreach (var (cHeroId, exception) in failedParsedHeroes)
                 {
-                    Console.WriteLine($"{hero.CHeroId} - {hero.Exception.Message}");
+                    Console.WriteLine($"{cHeroId} - {exception.Message}");
                 }
 
                 Console.WriteLine($"{failedParsedHeroes.Count} failed to parse [Check logs for details]");
@@ -84,14 +84,19 @@ namespace HeroesData.ExtractorData
             }
 
             Console.ResetColor();
-            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
+            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds:0.####} seconds");
             Console.WriteLine();
 
-            return ParsedData.Values.OrderBy(x => x.Id);
+            return ParsedData.Values.OrderBy(x => x!.Id);
         }
 
-        protected override void Validation(Hero hero)
+        protected override void Validation(Hero? hero)
         {
+            if (hero is null)
+            {
+                throw new ArgumentNullException(nameof(hero));
+            }
+
             if (string.IsNullOrEmpty(hero.AttributeId))
                 AddWarning($"{nameof(hero.AttributeId)} is empty");
 
@@ -243,7 +248,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.Cooldown.CooldownTooltip)} failed to parse correctly");
-                    else if (char.IsDigit(talent.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
+                    else if (talent.Tooltip.Cooldown.CooldownTooltip != null && char.IsDigit(talent.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
                 }
 
@@ -251,7 +256,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (talent.Tooltip.Energy.EnergyTooltip?.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.Energy.EnergyTooltip)} failed to parse correctly");
-                    else if (char.IsDigit(talent.Tooltip.Energy.EnergyTooltip.PlainText[0]))
+                    else if (talent.Tooltip.Energy.EnergyTooltip != null && char.IsDigit(talent.Tooltip.Energy.EnergyTooltip.PlainText[0]))
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
                 }
 
@@ -259,7 +264,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (talent.Tooltip.Life.LifeCostTooltip?.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.Life.LifeCostTooltip)} failed to parse correctly");
-                    else if (char.IsDigit(talent.Tooltip.Life.LifeCostTooltip.PlainText[0]))
+                    else if (talent.Tooltip.Life.LifeCostTooltip != null && char.IsDigit(talent.Tooltip.Life.LifeCostTooltip.PlainText[0]))
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
                 }
 
@@ -321,7 +326,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription == GameStringParser.FailedParsed)
                         AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} failed to parse correctly");
-                    else if (char.IsDigit(ability.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
+                    else if (ability.Tooltip.Cooldown.CooldownTooltip != null && char.IsDigit(ability.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
                         AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
                 }
 
@@ -329,7 +334,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (ability.Tooltip.Energy.EnergyTooltip?.RawDescription == GameStringParser.FailedParsed)
                         AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} failed to parse correctly");
-                    else if (char.IsDigit(ability.Tooltip.Energy.EnergyTooltip.PlainText[0]))
+                    else if (ability.Tooltip.Energy.EnergyTooltip != null && char.IsDigit(ability.Tooltip.Energy.EnergyTooltip.PlainText[0]))
                         AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
                 }
 
@@ -337,7 +342,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (ability.Tooltip.Life.LifeCostTooltip?.RawDescription == GameStringParser.FailedParsed)
                         AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} failed to parse correctly");
-                    else if (char.IsDigit(ability.Tooltip.Life.LifeCostTooltip.PlainText[0]))
+                    else if (ability.Tooltip.Life.LifeCostTooltip != null && char.IsDigit(ability.Tooltip.Life.LifeCostTooltip.PlainText[0]))
                         AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
                 }
 
@@ -394,9 +399,9 @@ namespace HeroesData.ExtractorData
 
         private void VerifySubAbilitiesCount(string unitId, List<Ability> abilitiesList)
         {
-            ILookup<AbilityTalentId, Ability> abilities = abilitiesList.ToLookup(x => x.ParentLink, x => x);
+            ILookup<AbilityTalentId?, Ability> abilities = abilitiesList.ToLookup(x => x.ParentLink, x => x);
 
-            foreach (IGrouping<AbilityTalentId, Ability> parentLinkGroup in abilities)
+            foreach (IGrouping<AbilityTalentId?, Ability> parentLinkGroup in abilities)
             {
                 if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Q && x.Tier != AbilityTier.Hidden).Count() > 1)
                     AddWarning(unitId, $"has more than 1 {AbilityType.Q} subability for {parentLinkGroup.Key}");

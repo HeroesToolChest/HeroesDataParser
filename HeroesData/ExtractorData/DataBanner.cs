@@ -1,9 +1,10 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using System;
 
 namespace HeroesData.ExtractorData
 {
-    public class DataBanner : DataExtractorBase<Banner, BannerParser>, IData
+    public class DataBanner : DataExtractorBase<Banner?, BannerParser>, IData
     {
         public DataBanner(BannerParser parser)
             : base(parser)
@@ -12,8 +13,13 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "banners";
 
-        protected override void Validation(Banner banner)
+        protected override void Validation(Banner? banner)
         {
+            if (banner is null)
+            {
+                throw new ArgumentNullException(nameof(banner));
+            }
+
             if (string.IsNullOrEmpty(banner.Name))
                 AddWarning($"{nameof(banner.Name)} is empty");
 

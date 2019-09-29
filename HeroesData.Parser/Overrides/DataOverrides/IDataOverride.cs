@@ -5,16 +5,16 @@
         /// <summary>
         /// Gets or sets the id.
         /// </summary>
-        (bool Enabled, string Value) IdOverride { get; set; }
+        (bool enabled, string value) IdOverride { get; set; }
 
         /// <summary>
         /// Gets or sets the real name.
         /// </summary>
-        (bool Enabled, string Value) NameOverride { get; set; }
+        (bool enabled, string value) NameOverride { get; set; }
 
         /// <summary>
         /// Gets or sets the hyperlink id.
         /// </summary>
-        (bool Enabled, string Value) HyperlinkIdOverride { get; set; }
+        (bool enabled, string value) HyperlinkIdOverride { get; set; }
     }
 }

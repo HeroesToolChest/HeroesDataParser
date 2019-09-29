@@ -11,7 +11,7 @@
         /// </summary>
         public string ReferenceNameId { get; set; } = string.Empty;
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (!(obj is AddedButtonAbility item))
                 return false;

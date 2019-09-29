@@ -104,7 +104,7 @@ namespace HeroesData.Commands
             {
                 foreach (KeyValuePair<string, string> item in second)
                 {
-                    if (first.TryGetValue(item.Key, out string value))
+                    if (first.TryGetValue(item.Key, out string? value))
                         CompareFiles(item.Value, value, columnLength1, columnLength2);
                     else
                         CompareFiles(item.Value, string.Empty, columnLength1, columnLength2);
@@ -114,7 +114,7 @@ namespace HeroesData.Commands
             {
                 foreach (KeyValuePair<string, string> item in first)
                 {
-                    if (second.TryGetValue(item.Key, out string value))
+                    if (second.TryGetValue(item.Key, out string? value))
                         CompareFiles(item.Value, value, columnLength1, columnLength2);
                     else
                         CompareFiles(item.Value, string.Empty, columnLength1, columnLength2);

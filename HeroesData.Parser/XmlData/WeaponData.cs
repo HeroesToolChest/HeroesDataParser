@@ -25,7 +25,7 @@ namespace HeroesData.Parser.XmlData
         /// </summary>
         public bool IsHeroParsing { get; set; } = false;
 
-        public UnitWeapon CreateWeapon(string weaponLink)
+        public UnitWeapon? CreateWeapon(string weaponLink)
         {
             if (string.IsNullOrEmpty(weaponLink))
             {
@@ -35,9 +35,9 @@ namespace HeroesData.Parser.XmlData
             UnitWeapon weapon = new UnitWeapon()
             {
                 WeaponNameId = weaponLink,
-                Name = GameData.GetGameString(DefaultData.WeaponData.WeaponName.Replace(DefaultData.IdPlaceHolder, weaponLink)),
-                Period = DefaultData.WeaponData.WeaponPeriod,
-                Range = DefaultData.WeaponData.WeaponRange,
+                Name = GameData.GetGameString(DefaultData.WeaponData?.WeaponName?.Replace(DefaultData.IdPlaceHolder, weaponLink)),
+                Period = DefaultData.WeaponData!.WeaponPeriod,
+                Range = DefaultData.WeaponData!.WeaponRange,
             };
 
             IEnumerable<XElement> weaponElements = GetWeaponElements(weaponLink);
@@ -66,10 +66,10 @@ namespace HeroesData.Parser.XmlData
         private void SetWeaponData(XElement weaponElement, UnitWeapon weapon)
         {
             // parent lookup
-            string parentValue = weaponElement.Attribute("parent")?.Value;
+            string? parentValue = weaponElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(weaponElement.Name.LocalName).Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement? parentElement = GameData.MergeXmlElements(GameData.Elements(weaponElement.Name.LocalName).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetWeaponData(parentElement, weapon);
             }
@@ -92,18 +92,18 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "DISPLAYEFFECT")
                 {
-                    string displayEffectElementValue = element.Attribute("value")?.Value;
+                    string? displayEffectElementValue = element.Attribute("value")?.Value;
                     if (!string.IsNullOrEmpty(displayEffectElementValue))
                     {
-                        XElement effectDamageElement = GameData.MergeXmlElements(GameData.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == displayEffectElementValue));
+                        XElement? effectDamageElement = GameData.MergeXmlElements(GameData.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == displayEffectElementValue));
                         if (effectDamageElement != null)
                             WeaponAddEffectDamage(effectDamageElement, weapon);
                     }
                 }
                 else if (elementName == "OPTIONS")
                 {
-                    string indexValue = element.Attribute("index")?.Value;
-                    string value = element.Attribute("value")?.Value;
+                    string? indexValue = element.Attribute("index")?.Value;
+                    string? value = element.Attribute("value")?.Value;
                     if (IsHeroParsing && !string.IsNullOrEmpty(indexValue) && !string.IsNullOrEmpty(value) && indexValue.Equals("disabled", StringComparison.OrdinalIgnoreCase) && value == "1")
                     {
                         weapon.WeaponNameId = string.Empty;
@@ -116,10 +116,10 @@ namespace HeroesData.Parser.XmlData
         private void WeaponAddEffectDamage(XElement effectDamageElement, UnitWeapon weapon)
         {
             // parent lookup
-            string parentValue = effectDamageElement.Attribute("parent")?.Value;
+            string? parentValue = effectDamageElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement? parentElement = GameData.MergeXmlElements(GameData.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     WeaponAddEffectDamage(parentElement, weapon);
             }
@@ -134,8 +134,8 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "ATTRIBUTEFACTOR")
                 {
-                    string index = element.Attribute("index")?.Value;
-                    string value = element.Attribute("value")?.Value;
+                    string? index = element.Attribute("index")?.Value;
+                    string? value = element.Attribute("value")?.Value;
 
                     WeaponAttributeFactor attributeFactor = new WeaponAttributeFactor();
 
@@ -149,7 +149,7 @@ namespace HeroesData.Parser.XmlData
                 }
             }
 
-            double? scaleValue = GameData.GetScaleValue(("Effect", effectDamageElement.Attribute("id")?.Value, "Amount"));
+            double? scaleValue = GameData.GetScaleValue(("Effect", effectDamageElement.Attribute("id")?.Value ?? string.Empty, "Amount"));
             if (scaleValue.HasValue)
                 weapon.DamageScaling = scaleValue.Value;
         }

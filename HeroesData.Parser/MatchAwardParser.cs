@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser
 {
-    public class MatchAwardParser : ParserBase<MatchAward, MatchAwardDataOverride>, IParser<MatchAward, MatchAwardParser>
+    public class MatchAwardParser : ParserBase<MatchAward, MatchAwardDataOverride>, IParser<MatchAward?, MatchAwardParser>
     {
         private readonly string AwardNameId = "UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Award Name";
         private readonly string AwardNamePrefix = "ScoreValue/Name/";
@@ -21,7 +21,7 @@ namespace HeroesData.Parser
         private readonly MatchAwardOverrideLoader MatchAwardOverrideLoader;
         private readonly string MVPGameLinkId = "EndOfMatchAwardMVPBoolean";
 
-        private MatchAwardDataOverride MatchAwardDataOverride;
+        private MatchAwardDataOverride? MatchAwardDataOverride;
 
         public MatchAwardParser(IXmlDataService xmlDataService, MatchAwardOverrideLoader matchAwardOverrideLoader)
             : base(xmlDataService)
@@ -40,15 +40,15 @@ namespace HeroesData.Parser
                 HashSet<string[]> items = new HashSet<string[]>(new StringArrayComparer());
 
                 // general map gamelinks
-                IEnumerable<XElement> matchAwards = GameData.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward")?.Elements("Instances");
-                IEnumerable<XElement> matchAwardsSpecific = GameData.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward")?.Elements("Instances");
+                IEnumerable<XElement>? matchAwards = GameData.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchGeneralAward")?.Elements("Instances");
+                IEnumerable<XElement>? matchAwardsSpecific = GameData.Elements("CUser").FirstOrDefault(x => x.Attribute("id")?.Value == "EndOfMatchMapSpecificAward")?.Elements("Instances");
 
                 if (matchAwards == null && matchAwardsSpecific != null)
                     matchAwards = matchAwardsSpecific;
                 else if (matchAwards != null && matchAwardsSpecific != null)
                     matchAwards = matchAwards.Concat(matchAwardsSpecific);
 
-                AddItems(GeneralMapName, matchAwards, items);
+                AddItems(GeneralMapName, matchAwards!, items);
 
                 // map specific gamelinks
                 foreach (string mapName in GameData.MapIds)
@@ -72,7 +72,7 @@ namespace HeroesData.Parser
         /// </summary>
         /// <param name="id">The ids of the item to parse.</param>
         /// <returns></returns>
-        public MatchAward Parse(params string[] ids)
+        public MatchAward? Parse(params string[] ids)
         {
             if (ids == null)
                 return null;
@@ -86,39 +86,49 @@ namespace HeroesData.Parser
             // get the name
             string awardName = string.Empty;
 
-            if (GameData.TryGetGameString($"{AwardNameId}", out string awardNameText))
-                awardName = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
+            MatchAward? matchAward = null;
+
+            if (GameData.TryGetGameString($"{AwardNameId}", out string? awardNameText))
+                awardName = GetNameFromGenderRule(new TooltipDescription(awardNameText!).PlainText);
             else if (GameData.TryGetGameString($"{AwardNamePrefix}{gameLink}", out awardNameText))
-                awardName = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
+                awardName = GetNameFromGenderRule(new TooltipDescription(awardNameText!).PlainText);
 
-            XElement scoreValueCustomElement = GameData.MergeXmlElements(GameData.Elements("CScoreValueCustom").Where(x => x.Attribute("id")?.Value == gameLink));
-            string scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
-
-            // get the name being used in the dds file
-            string awardSpecialName = Path.GetFileName(PathHelper.GetFilePath(scoreScreenIconFilePath)).Split('_')[4];
-
-            MatchAward matchAward = new MatchAward()
+            XElement? scoreValueCustomElement = GameData.MergeXmlElements(GameData.Elements("CScoreValueCustom").Where(x => x.Attribute("id")?.Value == gameLink));
+            if (scoreValueCustomElement != null)
             {
-                Name = awardName,
-                ScoreScreenImageFileNameOriginal = Path.GetFileName(PathHelper.GetFilePath(scoreScreenIconFilePath)),
-                MVPScreenImageFileNameOriginal = $"storm_ui_mvp_icons_rewards_{awardSpecialName}.dds",
-                Tag = scoreValueCustomElement.Element("UniqueTag").Attribute("value")?.Value,
-            };
+                string? scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
 
-            matchAward.Id = ModifyId(gameLink).ToString();
-            matchAward.HyperlinkId = gameLink;
+                // get the name being used in the dds file
+                if (!string.IsNullOrEmpty(scoreScreenIconFilePath))
+                {
+                    string awardSpecialName = Path.GetFileName(PathHelper.GetFilePath(scoreScreenIconFilePath)).Split('_')[4];
 
-            // set new image file names for the extraction
-            matchAward.ScoreScreenImageFileName = matchAward.ScoreScreenImageFileNameOriginal.ToLower();
-            matchAward.MVPScreenImageFileName = $"storm_ui_mvp_{awardSpecialName}_%color%.dds".ToLower();
+                    matchAward = new MatchAward()
+                    {
+                        Name = awardName,
+                        ScoreScreenImageFileNameOriginal = Path.GetFileName(PathHelper.GetFilePath(scoreScreenIconFilePath)),
+                        MVPScreenImageFileNameOriginal = $"storm_ui_mvp_icons_rewards_{awardSpecialName}.dds",
+                        Tag = scoreValueCustomElement.Element("UniqueTag").Attribute("value")?.Value ?? string.Empty,
+                    };
 
-            // set description
-            if (GameData.TryGetGameString($"{AwardDescriptionPrefix}{gameLink}", out string description))
-                matchAward.Description = new TooltipDescription(description);
+                    matchAward.Id = ModifyId(gameLink).ToString();
+                    matchAward.HyperlinkId = gameLink;
 
-            // overrides
-            MatchAwardDataOverride = MatchAwardOverrideLoader.GetOverride(matchAward.Id);
-            ApplyOverrides(matchAward, MatchAwardDataOverride);
+                    // set new image file names for the extraction
+                    matchAward.ScoreScreenImageFileName = matchAward.ScoreScreenImageFileNameOriginal.ToLower();
+                    matchAward.MVPScreenImageFileName = $"storm_ui_mvp_{awardSpecialName}_%color%.dds".ToLower();
+
+                    // set description
+                    if (GameData.TryGetGameString($"{AwardDescriptionPrefix}{gameLink}", out string? description))
+                        matchAward.Description = new TooltipDescription(description!);
+
+                    // overrides
+                    MatchAwardDataOverride = MatchAwardOverrideLoader.GetOverride(matchAward.Id);
+
+                    if (MatchAwardDataOverride != null)
+                        ApplyOverrides(matchAward, MatchAwardDataOverride);
+                }
+            }
 
             return matchAward;
         }
@@ -130,20 +140,20 @@ namespace HeroesData.Parser
 
         protected override void ApplyAdditionalOverrides(MatchAward matchAward, MatchAwardDataOverride dataOverride)
         {
-            if (dataOverride.MVPScreenImageFileNameOriginalOverride.Enabled)
-                matchAward.MVPScreenImageFileNameOriginal = dataOverride.MVPScreenImageFileNameOriginalOverride.Value;
+            if (dataOverride.MVPScreenImageFileNameOriginalOverride.enabled)
+                matchAward.MVPScreenImageFileNameOriginal = dataOverride.MVPScreenImageFileNameOriginalOverride.value;
 
-            if (dataOverride.MVPScreenImageFileNameOverride.Enabled)
-                matchAward.MVPScreenImageFileName = dataOverride.MVPScreenImageFileNameOverride.Value;
+            if (dataOverride.MVPScreenImageFileNameOverride.enabled)
+                matchAward.MVPScreenImageFileName = dataOverride.MVPScreenImageFileNameOverride.value;
 
-            if (dataOverride.ScoreScreenImageFileNameOriginalOverride.Enabled)
-                matchAward.ScoreScreenImageFileNameOriginal = dataOverride.ScoreScreenImageFileNameOriginalOverride.Value;
+            if (dataOverride.ScoreScreenImageFileNameOriginalOverride.enabled)
+                matchAward.ScoreScreenImageFileNameOriginal = dataOverride.ScoreScreenImageFileNameOriginalOverride.value;
 
-            if (dataOverride.ScoreScreenImageFileNameOverride.Enabled)
-                matchAward.ScoreScreenImageFileName = dataOverride.ScoreScreenImageFileNameOverride.Value;
+            if (dataOverride.ScoreScreenImageFileNameOverride.enabled)
+                matchAward.ScoreScreenImageFileName = dataOverride.ScoreScreenImageFileNameOverride.value;
 
-            if (dataOverride.DescriptionOverride.Enabled)
-                matchAward.Description = new TooltipDescription(dataOverride.DescriptionOverride.Value);
+            if (dataOverride.DescriptionOverride.enabled)
+                matchAward.Description = new TooltipDescription(dataOverride.DescriptionOverride.value);
         }
 
         private string GetNameFromGenderRule(string name)
@@ -171,19 +181,27 @@ namespace HeroesData.Parser
 
         private void AddItems(string mapName, IEnumerable<XElement> elements, HashSet<string[]> items)
         {
+            if (elements is null)
+            {
+                throw new ArgumentNullException(nameof(elements));
+            }
+
             foreach (XElement element in elements)
             {
-                string instanceId = element.Attribute("Id")?.Value;
+                string? instanceId = element.Attribute("Id")?.Value;
 
                 if (instanceId == "[Default]" || !element.HasElements)
                     continue;
 
-                string id = element.Element("GameLink")?.Attribute("GameLink")?.Value;
+                string? id = element.Element("GameLink")?.Attribute("GameLink")?.Value;
 
-                if (string.IsNullOrEmpty(mapName))
-                    items.Add(new string[] { id });
-                else
-                    items.Add(new string[] { id, mapName });
+                if (!string.IsNullOrEmpty(id))
+                {
+                    if (string.IsNullOrEmpty(mapName))
+                        items.Add(new string[] { id });
+                    else
+                        items.Add(new string[] { id, mapName });
+                }
             }
         }
     }

@@ -13,22 +13,22 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         /// <summary>
         /// Gets or sets the CUnit name.
         /// </summary>
-        public (bool Enabled, string CUnit) CUnitOverride { get; set; } = (false, string.Empty);
+        public (bool enabled, string cUnit) CUnitOverride { get; set; } = (false, string.Empty);
 
         /// <summary>
         /// Gets or sets the type of energy.
         /// </summary>
-        public (bool Enabled, string EnergyType) EnergyTypeOverride { get; set; } = (false, string.Empty);
+        public (bool enabled, string energyType) EnergyTypeOverride { get; set; } = (false, string.Empty);
 
         /// <summary>
         /// Gets or sets the amount of energy.
         /// </summary>
-        public (bool Enabled, int Energy) EnergyOverride { get; set; } = (false, 0);
+        public (bool enabled, int energy) EnergyOverride { get; set; } = (false, 0);
 
         /// <summary>
         /// Gets or sets the parent link.
         /// </summary>
-        public (bool Enabled, string ParentLink) ParentLinkOverride { get; set; } = (false, string.Empty);
+        public (bool enabled, string parentLink) ParentLinkOverride { get; set; } = (false, string.Empty);
 
         /// <summary>
         /// Gets the amount of added weapons.
@@ -129,7 +129,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 
             foreach (Ability ability in abilities)
             {
-                if (PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.AbilityTalentId.ToString(), out Dictionary<string, Action<Ability>> valueOverrideMethods))
+                if (PropertyAbilityOverrideMethodByAbilityId.TryGetValue(ability.AbilityTalentId.ToString(), out Dictionary<string, Action<Ability>>? valueOverrideMethods))
                 {
                     foreach (KeyValuePair<string, Action<Ability>> propertyOverride in valueOverrideMethods)
                     {
@@ -153,7 +153,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 
             foreach (UnitWeapon weapon in weapons)
             {
-                if (PropertyWeaponOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<UnitWeapon>> valueOverrideMethods))
+                if (PropertyWeaponOverrideMethodByWeaponId.TryGetValue(weapon.WeaponNameId, out Dictionary<string, Action<UnitWeapon>>? valueOverrideMethods))
                 {
                     foreach (KeyValuePair<string, Action<UnitWeapon>> propertyOverride in valueOverrideMethods)
                     {

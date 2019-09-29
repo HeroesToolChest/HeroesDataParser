@@ -16,12 +16,12 @@ namespace HeroesData.Commands
         private string CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "assets", "textures");
         private string CASCTexturesPathNoMods = Path.Combine("heroes.stormmod", "base.stormassets", "assets", "textures");
 
-        private string StoragePath;
-        private string OutputDirectory;
+        private string StoragePath = string.Empty;
+        private string OutputDirectory = string.Empty;
         private bool MergeExtraction;
         private bool TextureExtraction;
         private int HotsBuild;
-        private CASCHotsStorage CASCHotsStorage;
+        private CASCHotsStorage? CASCHotsStorage;
 
         private ExtractCommand(CommandLineApplication app)
             : base(app)
@@ -101,23 +101,30 @@ namespace HeroesData.Commands
         {
             CASCHotsStorage = CASCHotsStorage.Load(StoragePath);
 
-            ReadOnlySpan<char> buildName = CASCHotsStorage.CASCHandler.Config.BuildName.AsSpan();
-            int indexOfVersion = buildName.LastIndexOf('.');
-
-            // get build number
-            if (indexOfVersion > -1 && int.TryParse(buildName.Slice(indexOfVersion + 1), out int hotsBuild))
+            if (CASCHotsStorage.CASCHandler != null)
             {
-                HotsBuild = hotsBuild;
-                Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
-                Console.WriteLine();
-            }
+                ReadOnlySpan<char> buildName = CASCHotsStorage.CASCHandler.Config.BuildName.AsSpan();
+                int indexOfVersion = buildName.LastIndexOf('.');
 
-            DetectDirectoryCasing();
+                // get build number
+                if (indexOfVersion > -1 && int.TryParse(buildName.Slice(indexOfVersion + 1), out int hotsBuild))
+                {
+                    HotsBuild = hotsBuild;
+                    Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
+                    Console.WriteLine();
+                }
+
+                DetectDirectoryCasing();
+            }
         }
 
         private void ExtractGameData()
         {
             Console.Write("Loading game data...");
+
+            if (CASCHotsStorage?.CASCHandler == null || CASCHotsStorage.CASCFolderRoot == null)
+                throw new NullReferenceException($"{nameof(CASCHotsStorage.CASCHandler)} and {nameof(CASCHotsStorage.CASCFolderRoot)} cannot be null");
+
             GameData gameData = new CASCGameData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild)
             {
                 IsCacheEnabled = true,
@@ -178,7 +185,11 @@ namespace HeroesData.Commands
         private void ExtractMergedGameData()
         {
             Console.Write("Loading game data...");
-            GameData gameData = new CASCGameData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild)
+
+            if (CASCHotsStorage?.CASCHandler == null || CASCHotsStorage.CASCFolderRoot == null)
+                throw new NullReferenceException($"{nameof(CASCHotsStorage.CASCHandler)} and {nameof(CASCHotsStorage.CASCFolderRoot)} cannot be null");
+
+            GameData gameData = new CASCGameData(CASCHotsStorage!.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild)
             {
                 IsCacheEnabled = true,
             };
@@ -234,11 +245,14 @@ namespace HeroesData.Commands
 
         private void ExtractFiles(IEnumerable<string> files, int amount, string fileType)
         {
+            if (CASCHotsStorage?.CASCHandler == null || CASCHotsStorage.CASCFolderRoot == null)
+                throw new NullReferenceException($"{nameof(CASCHotsStorage.CASCHandler)} and {nameof(CASCHotsStorage.CASCFolderRoot)} cannot be null");
+
             int count = 0;
 
             foreach (string filePath in files)
             {
-                if (CASCHotsStorage.CASCHandler.FileExists(filePath))
+                if (CASCHotsStorage!.CASCHandler.FileExists(filePath))
                 {
                     CASCHotsStorage.CASCHandler.SaveFileTo(filePath.ToLower(), OutputDirectory);
                     count++;
@@ -289,8 +303,11 @@ namespace HeroesData.Commands
 
         private List<string> GetTextureFiles()
         {
+            if (CASCHotsStorage?.CASCHandler == null || CASCHotsStorage.CASCFolderRoot == null)
+                throw new NullReferenceException($"{nameof(CASCHotsStorage.CASCHandler)} and {nameof(CASCHotsStorage.CASCFolderRoot)} cannot be null");
+
             List<string> files = new List<string>();
-            CASCFolder currentFolder = CASCHotsStorage.CASCFolderRoot.GetDirectory(CASCTexturesPath);
+            CASCFolder currentFolder = CASCHotsStorage!.CASCFolderRoot.GetDirectory(CASCTexturesPath);
 
             foreach (KeyValuePair<string, ICASCEntry> file in currentFolder.Entries)
             {
@@ -305,7 +322,10 @@ namespace HeroesData.Commands
 
         private void DetectDirectoryCasing()
         {
-            if (!CASCHotsStorage.CASCFolderRoot.DirectoryExists(CASCTexturesPath))
+            if (CASCHotsStorage?.CASCHandler == null || CASCHotsStorage.CASCFolderRoot == null)
+                throw new NullReferenceException($"{nameof(CASCHotsStorage.CASCHandler)} and {nameof(CASCHotsStorage.CASCFolderRoot)} cannot be null");
+
+            if (!CASCHotsStorage!.CASCFolderRoot.DirectoryExists(CASCTexturesPath))
             {
                 CASCTexturesPath = Path.Combine("mods", "heroes.stormmod", "base.stormassets", "Assets", "Textures");
                 CASCTexturesPathNoMods = Path.Combine("heroes.stormmod", "base.stormassets", "Assets", "Textures");

@@ -15,7 +15,9 @@ namespace HeroesData.FileWriter.Writers.AnnouncerData
         {
             GameStringWriter.AddAnnouncerName(announcer.Id, announcer.Name);
             GameStringWriter.AddAnnouncerSortName(announcer.Id, announcer.SortName);
-            GameStringWriter.AddAnnouncerDescription(announcer.Id, GetTooltip(announcer.Description, FileOutputOptions.DescriptionType));
+
+            if (announcer.Description != null)
+                GameStringWriter.AddAnnouncerDescription(announcer.Id, GetTooltip(announcer.Description, FileOutputOptions.DescriptionType));
         }
     }
 }

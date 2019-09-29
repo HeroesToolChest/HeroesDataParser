@@ -19,7 +19,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default abil name text. Contains ##id##.
         /// </summary>
-        public string AbilName { get; private set; }
+        public string AbilName { get; private set; } = string.Empty;
 
         // <CAbil default="1">
         protected void LoadCAbilDefault()

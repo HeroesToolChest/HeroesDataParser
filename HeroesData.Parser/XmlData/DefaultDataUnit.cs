@@ -19,7 +19,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default unit name text. Contains ##id##. Use with CUnit id.
         /// </summary>
-        public string UnitName { get; private set; }
+        public string? UnitName { get; private set; }
 
         /// <summary>
         /// Gets the default life amount.
@@ -74,7 +74,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default damage type.
         /// </summary>
-        public string UnitDamageType { get; private set; }
+        public string? UnitDamageType { get; private set; }
 
         protected GameData GameData { get; }
 

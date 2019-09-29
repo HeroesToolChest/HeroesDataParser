@@ -10,15 +10,15 @@ namespace HeroesData.Parser
 {
     public class Configuration
     {
-        private readonly Dictionary<string, List<(string, string)>> PartValuesByElementName = new Dictionary<string, List<(string Part, string Value)>>();
+        private readonly Dictionary<string, List<(string, string)>> PartValuesByElementName = new Dictionary<string, List<(string part, string value)>>();
         private readonly Dictionary<string, HashSet<string>> XmlElementNameByType = new Dictionary<string, HashSet<string>>();
         private readonly HashSet<string> UnitDataAbilities = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         private readonly HashSet<string> DeadImageFileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-        private ILookup<string, string> AddIdByElementName;
-        private ILookup<string, string> RemoveIdByElementName;
+        private ILookup<string, string?>? AddIdByElementName;
+        private ILookup<string, string?>? RemoveIdByElementName;
 
-        public string ConfigFileName => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "config.xml");
+        public string ConfigFileName => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "config.xml");
 
         /// <summary>
         /// Gets a collection of extra unit data abilities that should be ignore when parsing unit data.
@@ -57,12 +57,12 @@ namespace HeroesData.Parser
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
-        public IEnumerable<(string Part, string Value)> GamestringDefaultValues(string element)
+        public IEnumerable<(string part, string value)> GamestringDefaultValues(string element)
         {
-            if (PartValuesByElementName.TryGetValue(element, out List<(string Part, string Value)> values))
+            if (PartValuesByElementName.TryGetValue(element, out List<(string part, string value)>? values))
                 return values;
             else
-                return new List<(string Part, string Value)>();
+                return new List<(string part, string value)>();
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace HeroesData.Parser
         /// <returns></returns>
         public IEnumerable<string> GamestringXmlElements(string element)
         {
-            if (XmlElementNameByType.TryGetValue(element, out HashSet<string> elements))
+            if (XmlElementNameByType.TryGetValue(element, out HashSet<string>? elements))
                 return elements;
             else
                 return new List<string>();
@@ -85,7 +85,7 @@ namespace HeroesData.Parser
         /// <returns></returns>
         public IEnumerable<string> AddDataXmlElementIds(string element)
         {
-            return AddIdByElementName[element];
+            return AddIdByElementName![element] !;
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace HeroesData.Parser
         /// <returns></returns>
         public IEnumerable<string> RemoveDataXmlElementIds(string element)
         {
-            return RemoveIdByElementName[element];
+            return RemoveIdByElementName![element] !;
         }
 
         /// <summary>
@@ -125,23 +125,23 @@ namespace HeroesData.Parser
             // parser helper
             foreach (XElement idElement in doc.Root.Element("ParserHelper").Elements("Id"))
             {
-                string name = idElement.Attribute("name")?.Value;
-                string part = idElement.Attribute("part")?.Value;
-                string value = idElement.Attribute("value")?.Value;
+                string? name = idElement.Attribute("name")?.Value;
+                string? part = idElement.Attribute("part")?.Value;
+                string? value = idElement.Attribute("value")?.Value;
 
                 if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(part) || string.IsNullOrEmpty(value))
                     continue;
 
-                if (PartValuesByElementName.TryGetValue(name, out List<(string Part, string Value)> values))
+                if (PartValuesByElementName.TryGetValue(name, out List<(string part, string value)>? values))
                     values.Add((part, value));
                 else
-                    PartValuesByElementName.Add(name, new List<(string Part, string Value)>() { (part, value) });
+                    PartValuesByElementName.Add(name, new List<(string part, string value)>() { (part, value) });
             }
 
             // xml element lookup
             foreach (XElement typeElement in doc.Root.Element("XmlElementLookup").Elements("Type"))
             {
-                string name = typeElement.Attribute("name")?.Value;
+                string? name = typeElement.Attribute("name")?.Value;
                 if (string.IsNullOrEmpty(name))
                     continue;
 

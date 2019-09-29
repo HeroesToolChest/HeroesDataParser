@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser
 {
-    public class EmoticonParser : ParserBase<Emoticon, EmoticonDataOverride>, IParser<Emoticon, EmoticonParser>
+    public class EmoticonParser : ParserBase<Emoticon, EmoticonDataOverride>, IParser<Emoticon?, EmoticonParser>
     {
         public EmoticonParser(IXmlDataService xmlDataService)
             : base(xmlDataService)
@@ -23,14 +23,14 @@ namespace HeroesData.Parser
             return new EmoticonParser(XmlDataService);
         }
 
-        public Emoticon Parse(params string[] ids)
+        public Emoticon? Parse(params string[] ids)
         {
             if (ids == null || ids.Count() < 1)
                 return null;
 
             string id = ids.FirstOrDefault();
 
-            XElement emoticonElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
+            XElement? emoticonElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (emoticonElement == null)
                 return null;
 
@@ -51,16 +51,16 @@ namespace HeroesData.Parser
         private void SetEmoticonData(XElement emoticonElement, Emoticon emoticon)
         {
             // parent lookup
-            string parentValue = emoticonElement.Attribute("parent")?.Value;
+            string? parentValue = emoticonElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement? parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetEmoticonData(parentElement, emoticon);
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.EmoticonData.EmoticonDescription.Replace(DefaultData.IdPlaceHolder, emoticonElement.Attribute("id")?.Value));
+                string desc = GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescription?.Replace(DefaultData.IdPlaceHolder, emoticonElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
                     emoticon.Description = new TooltipDescription(desc);
             }
@@ -71,12 +71,12 @@ namespace HeroesData.Parser
 
                 if (elementName == "DESCRIPTION")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value, out string text))
-                        emoticon.Description = new TooltipDescription(text);
+                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
+                        emoticon.Description = new TooltipDescription(text!);
                 }
                 else if (elementName == "HERO")
                 {
-                    emoticon.HeroId = element.Attribute("value")?.Value;
+                    emoticon.HeroId = element.Attribute("value")?.Value ?? string.Empty;
                 }
                 else if (elementName == "SKIN")
                 {
@@ -84,10 +84,10 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "SEARCHTEXTARRAY")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value, out string text))
-                        emoticon.AddSearchText(text);
+                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
+                        emoticon.AddSearchText(text!);
                     else
-                        emoticon.AddSearchText(element.Attribute("value")?.Value);
+                        emoticon.AddSearchText(element.Attribute("value")?.Value ?? string.Empty);
                 }
                 else if (elementName == "FLAGS")
                 {
@@ -108,34 +108,36 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "EXPRESSION")
                 {
-                    emoticon.Name = element.Attribute("value")?.Value;
+                    emoticon.Name = element.Attribute("value")?.Value ?? string.Empty;
                 }
                 else if (elementName == "UNIVERSALALIASARRAY")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value, out string text))
-                        emoticon.AddUniversalAlias(text);
+                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
+                        emoticon.AddUniversalAlias(text!);
                     else
-                        emoticon.AddUniversalAlias(element.Attribute("value")?.Value);
+                        emoticon.AddUniversalAlias(element.Attribute("value")?.Value ?? string.Empty);
                 }
                 else if (elementName == "LOCALIZEDALIASARRAY")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value, out string text))
-                        emoticon.AddLocalizedAlias(text);
+                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
+                        emoticon.AddLocalizedAlias(text!);
                     else
-                        emoticon.AddLocalizedAlias(element.Attribute("value")?.Value);
+                        emoticon.AddLocalizedAlias(element.Attribute("value")?.Value ?? string.Empty);
                 }
                 else if (elementName == "IMAGE")
                 {
-                    string textureSheet = element.Attribute("TextureSheet")?.Value;
-                    string width = element.Attribute("Width")?.Value;
-                    string index = element.Attribute("Index")?.Value;
-                    string count = element.Attribute("Count")?.Value;
-                    string durationPerFrame = element.Attribute("DurationPerFrame")?.Value;
+                    string? textureSheet = element.Attribute("TextureSheet")?.Value;
+                    string? width = element.Attribute("Width")?.Value;
+                    string? index = element.Attribute("Index")?.Value;
+                    string? count = element.Attribute("Count")?.Value;
+                    string? durationPerFrame = element.Attribute("DurationPerFrame")?.Value;
 
                     if (!string.IsNullOrEmpty(textureSheet))
                     {
-                        XElement textureSheetElement = GameData.MergeXmlElements(GameData.Elements("CTextureSheet").Where(x => x.Attribute("id")?.Value == textureSheet));
-                        SetTextureSheetData(textureSheetElement, emoticon.TextureSheet);
+                        XElement? textureSheetElement = GameData.MergeXmlElements(GameData.Elements("CTextureSheet").Where(x => x.Attribute("id")?.Value == textureSheet));
+
+                        if (textureSheetElement != null)
+                            SetTextureSheetData(textureSheetElement, emoticon.TextureSheet);
                     }
 
                     if (!string.IsNullOrEmpty(width))
@@ -156,10 +158,10 @@ namespace HeroesData.Parser
         private void SetTextureSheetData(XElement textureSheetElement, TextureSheet textureSheet)
         {
             // parent lookup
-            string parentValue = textureSheetElement.Attribute("parent")?.Value;
+            string? parentValue = textureSheetElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement parentElement = GameData.MergeXmlElements(GameData.Elements("CTextureSheet").Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement? parentElement = GameData.MergeXmlElements(GameData.Elements("CTextureSheet").Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetTextureSheetData(parentElement, textureSheet);
             }
@@ -170,7 +172,7 @@ namespace HeroesData.Parser
 
                 if (elementName == "IMAGE")
                 {
-                    textureSheet.Image = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value)).ToLower();
+                    textureSheet.Image = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty)).ToLower();
                 }
                 else if (elementName == "ROWS")
                 {
@@ -187,8 +189,8 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(Emoticon emoticon)
         {
-            emoticon.Name = DefaultData.EmoticonData.EmoticonExpression;
-            emoticon.Description = new TooltipDescription(GameData.GetGameString(DefaultData.EmoticonData.EmoticonDescription.Replace(DefaultData.IdPlaceHolder, emoticon.Id)));
+            emoticon.Name = DefaultData.EmoticonData?.EmoticonExpression ?? string.Empty;
+            emoticon.Description = new TooltipDescription(GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescription?.Replace(DefaultData.IdPlaceHolder, emoticon.Id)));
 
             emoticon.Image.Index = 0;
             emoticon.Image.Width = 0;

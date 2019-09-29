@@ -1,6 +1,7 @@
 ﻿using HeroesData.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -17,16 +18,16 @@ namespace HeroesData.Loader.XmlGameData
         private readonly Dictionary<string, GameData> MapGameDataByMapId = new Dictionary<string, GameData>();
         private readonly Dictionary<string, string> StormStyleHexColorValueByName = new Dictionary<string, string>();
 
-        private Dictionary<(string Catalog, string Entry, string Field), double> ScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
+        private Dictionary<(string catalog, string entry, string field), double> ScaleValueByLookupId = new Dictionary<(string catalog, string entry, string field), double>();
         private Dictionary<string, string> GameStringById = new Dictionary<string, string>();
         private Dictionary<string, List<XElement>> XmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>();
         private Dictionary<string, List<XElement>> LayoutButtonElements = new Dictionary<string, List<XElement>>();
 
         // temp variables used for map game data swapping
-        private Dictionary<(string Catalog, string Entry, string Field), double> OriginalScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
-        private Dictionary<string, string> OriginalGameStringById = new Dictionary<string, string>();
-        private Dictionary<string, List<XElement>> OriginalXmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>();
-        private Dictionary<string, List<XElement>> OriginalLayoutButtonElements = new Dictionary<string, List<XElement>>();
+        private Dictionary<(string catalog, string entry, string field), double>? OriginalScaleValueByLookupId = new Dictionary<(string catalog, string entry, string field), double>();
+        private Dictionary<string, string>? OriginalGameStringById = new Dictionary<string, string>();
+        private Dictionary<string, List<XElement>>? OriginalXmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>();
+        private Dictionary<string, List<XElement>>? OriginalLayoutButtonElements = new Dictionary<string, List<XElement>>();
 
         protected GameData(string modsFolderPath)
         {
@@ -158,15 +159,15 @@ namespace HeroesData.Loader.XmlGameData
         protected string GameStringFile { get; set; } = "gamestrings.txt";
         protected string FontStyleFile { get; set; } = "fontstyles.stormstyle";
 
-        protected string CoreBaseDataDirectoryPath { get; set; }
-        protected string HeroesDataBaseDataDirectoryPath { get; set; }
-        protected string HeroesMapModsDirectoryPath { get; set; }
+        protected string CoreBaseDataDirectoryPath { get; set; } = string.Empty;
+        protected string HeroesDataBaseDataDirectoryPath { get; set; } = string.Empty;
+        protected string HeroesMapModsDirectoryPath { get; set; } = string.Empty;
 
-        protected string CoreLocalizedDataPath { get; set; }
-        protected string HeroesDataLocalizedDataPath { get; set; }
+        protected string CoreLocalizedDataPath { get; set; } = string.Empty;
+        protected string HeroesDataLocalizedDataPath { get; set; } = string.Empty;
 
-        protected bool LoadXmlFilesEnabled { get; private set; }
-        protected bool LoadTextFilesOnlyEnabled { get; private set; }
+        protected bool LoadXmlFilesEnabled { get; private set; } = false;
+        protected bool LoadTextFilesOnlyEnabled { get; private set; } = false;
 
         /// <summary>
         /// Merges the elements in the collection into a single XElement.
@@ -180,7 +181,7 @@ namespace HeroesData.Loader.XmlGameData
         /// in the collection to override the earlier items.
         /// When append is false, the Element() method should be used on the returned XElement object instead. This allows the
         /// newer items to be used while ignore the older items.</remarks>
-        public static XElement MergeXmlElements(IEnumerable<XElement> elements, bool append = true)
+        public static XElement? MergeXmlElements(IEnumerable<XElement> elements, bool append = true)
         {
             if (elements == null || !elements.Any())
                 return null;
@@ -213,7 +214,7 @@ namespace HeroesData.Loader.XmlGameData
         /// <param name="elements">The collection of elements.</param>
         /// <param name="append">Add elements as the last children to the first element.</param>
         /// <returns></returns>
-        public static XElement MergeXmlElementsNoAttributes(IEnumerable<XElement> elements, bool append = true)
+        public static XElement? MergeXmlElementsNoAttributes(IEnumerable<XElement> elements, bool append = true)
         {
             if (elements == null || !elements.Any())
                 return null;
@@ -250,7 +251,7 @@ namespace HeroesData.Loader.XmlGameData
 
             // make a temp copy so we can restore later
             OriginalGameStringById = new Dictionary<string, string>(GameStringById);
-            OriginalScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>(ScaleValueByLookupId);
+            OriginalScaleValueByLookupId = new Dictionary<(string catalog, string entry, string field), double>(ScaleValueByLookupId);
             OriginalXmlGameDataElementsByElementName = XmlGameDataElementsByElementName.ToDictionary(x => x.Key, x => x.Value.ToList());
             OriginalLayoutButtonElements = LayoutButtonElements.ToDictionary(x => x.Key, x => x.Value.ToList());
 
@@ -260,12 +261,12 @@ namespace HeroesData.Loader.XmlGameData
             foreach (KeyValuePair<string, string> gamestrings in gameData.GameStringById)
                 GameStringById[gamestrings.Key] = gamestrings.Value;
 
-            foreach (KeyValuePair<(string Catalog, string Entry, string Field), double> item in gameData.ScaleValueByLookupId)
+            foreach (KeyValuePair<(string catalog, string entry, string field), double> item in gameData.ScaleValueByLookupId)
                 ScaleValueByLookupId[item.Key] = item.Value;
 
             foreach (KeyValuePair<string, List<XElement>> item in gameData.LayoutButtonElements)
             {
-                if (LayoutButtonElements.TryGetValue(item.Key, out List<XElement> elementList))
+                if (LayoutButtonElements.TryGetValue(item.Key, out List<XElement>? elementList))
                     elementList.AddRange(item.Value);
                 else
                     LayoutButtonElements.Add(item.Key, item.Value);
@@ -273,7 +274,7 @@ namespace HeroesData.Loader.XmlGameData
 
             foreach (KeyValuePair<string, List<XElement>> item in gameData.XmlGameDataElementsByElementName)
             {
-                if (XmlGameDataElementsByElementName.TryGetValue(item.Key, out List<XElement> elementList))
+                if (XmlGameDataElementsByElementName.TryGetValue(item.Key, out List<XElement>? elementList))
                     elementList.AddRange(item.Value);
                 else
                     XmlGameDataElementsByElementName.Add(item.Key, item.Value);
@@ -288,10 +289,10 @@ namespace HeroesData.Loader.XmlGameData
             if (!IsMapGameData)
                 return;
 
-            ScaleValueByLookupId = OriginalScaleValueByLookupId;
-            GameStringById = OriginalGameStringById;
-            XmlGameDataElementsByElementName = OriginalXmlGameDataElementsByElementName;
-            LayoutButtonElements = OriginalLayoutButtonElements;
+            ScaleValueByLookupId = OriginalScaleValueByLookupId!;
+            GameStringById = OriginalGameStringById!;
+            XmlGameDataElementsByElementName = OriginalXmlGameDataElementsByElementName!;
+            LayoutButtonElements = OriginalLayoutButtonElements!;
 
             OriginalGameStringById = null;
             OriginalScaleValueByLookupId = null;
@@ -336,7 +337,7 @@ namespace HeroesData.Loader.XmlGameData
         /// </summary>
         /// <param name="lookupId">The lookup id.</param>
         /// <returns></returns>
-        public double? GetScaleValue((string Catalog, string Entry, string Field) lookupId)
+        public double? GetScaleValue((string catalog, string entry, string field) lookupId)
         {
             if (ScaleValueByLookupId.TryGetValue(lookupId, out double value))
                 return value;
@@ -349,14 +350,14 @@ namespace HeroesData.Loader.XmlGameData
         /// </summary>
         /// <param name="id">The string id to look up.</param>
         /// <returns></returns>
-        public string GetGameString(string id)
+        public string GetGameString(string? id)
         {
             if (id == null)
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            if (GameStringById.TryGetValue(id, out string value))
+            if (GameStringById.TryGetValue(id, out string? value))
                 return value;
             else
                 return string.Empty;
@@ -368,7 +369,7 @@ namespace HeroesData.Loader.XmlGameData
         /// <param name="id">The string id to look up.</param>
         /// <param name="value">The value returned.</param>
         /// <returns></returns>
-        public bool TryGetGameString(string id, out string value)
+        public bool TryGetGameString(string id, [NotNullWhen(true)] out string? value)
         {
             if (id == null)
             {
@@ -413,7 +414,7 @@ namespace HeroesData.Loader.XmlGameData
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-            if (MapGameDataByMapId.TryGetValue(mapId, out GameData mapGameData))
+            if (MapGameDataByMapId.TryGetValue(mapId, out GameData? mapGameData))
                 mapGameData.GameStringById[id] = value;
             else
                 MapGameDataByMapId[mapId].GameStringById.Add(id, value);
@@ -431,7 +432,7 @@ namespace HeroesData.Loader.XmlGameData
                 throw new ArgumentException("Argument should not be empty or null", nameof(mapId));
             }
 
-            if (MapGameDataByMapId.TryGetValue(mapId, out GameData mapGameData))
+            if (MapGameDataByMapId.TryGetValue(mapId, out GameData? mapGameData))
                 return mapGameData;
 
             throw new KeyNotFoundException($"MapId not found: {mapId}");
@@ -458,10 +459,10 @@ namespace HeroesData.Loader.XmlGameData
                 throw new ArgumentException("Argument should not be empty or null", nameof(unitId));
             }
 
-            if (LayoutButtonElements.TryGetValue(unitId, out List<XElement> value))
+            if (LayoutButtonElements.TryGetValue(unitId, out List<XElement>? value))
                 return value;
             else
-                return null;
+                return new List<XElement>();
         }
 
         /// <summary>
@@ -470,7 +471,7 @@ namespace HeroesData.Loader.XmlGameData
         /// <param name="unitId">The id of the unit.</param>
         /// <param name="value">The returned collection of card layout buttons.</param>
         /// <returns></returns>
-        public bool TryGetLayoutButtonElements(string unitId, out List<XElement> value)
+        public bool TryGetLayoutButtonElements(string unitId, out List<XElement>? value)
         {
             if (string.IsNullOrEmpty(unitId))
             {
@@ -495,7 +496,7 @@ namespace HeroesData.Loader.XmlGameData
                 throw new ArgumentException("Argument should not be empty or null", nameof(elementName));
             }
 
-            if (XmlGameDataElementsByElementName.TryGetValue(elementName, out List<XElement> values))
+            if (XmlGameDataElementsByElementName.TryGetValue(elementName, out List<XElement>? values))
                 return values;
 
             return new List<XElement>();
@@ -519,11 +520,11 @@ namespace HeroesData.Loader.XmlGameData
             if (!string.IsNullOrEmpty(mapNameId))
             {
                 GameData mapGameData = GetMapGameData(mapNameId);
-                if (mapGameData.XmlGameDataElementsByElementName.TryGetValue(elementName, out List<XElement> mapValues))
+                if (mapGameData.XmlGameDataElementsByElementName.TryGetValue(elementName, out List<XElement>? mapValues))
                     values.AddRange(mapValues);
             }
 
-            if (XmlGameDataElementsByElementName.TryGetValue(elementName, out List<XElement> genericValues))
+            if (XmlGameDataElementsByElementName.TryGetValue(elementName, out List<XElement>? genericValues))
                 values.AddRange(genericValues);
 
             return values;
@@ -535,7 +536,7 @@ namespace HeroesData.Loader.XmlGameData
         /// <param name="elements">A collection of element names to include from the collection.</param>
         /// <param name="attributeIdValue">The value of the attribute id.</param>
         /// <returns></returns>
-        public IEnumerable<XElement> ElementsIncluded(IEnumerable<string> elements, string attributeIdValue = null)
+        public IEnumerable<XElement> ElementsIncluded(IEnumerable<string> elements, string? attributeIdValue = null)
         {
             if (elements == null)
             {
@@ -574,8 +575,8 @@ namespace HeroesData.Loader.XmlGameData
                 XElement constElement = XmlGameData.Root.Elements("const").Where(x => x.Attribute("id")?.Value == value).FirstOrDefault();
                 if (constElement != null)
                 {
-                    string attributeValue = constElement.Attribute("value")?.Value;
-                    string isExpression = constElement.Attribute("evaluateAsExpression")?.Value;
+                    string? attributeValue = constElement.Attribute("value")?.Value;
+                    string? isExpression = constElement.Attribute("evaluateAsExpression")?.Value;
 
                     if (!string.IsNullOrEmpty(attributeValue) && !string.IsNullOrEmpty(isExpression) && isExpression == "1")
                     {
@@ -588,7 +589,7 @@ namespace HeroesData.Loader.XmlGameData
                         return HeroesMathEval.CalculatePathEquation($"{GetValueFromAttribute(variables.Slice(0, indexOfSplit).ToString())}{mathOperator}{GetValueFromAttribute(variables.Slice(indexOfSplit + 1).ToString())}").ToString();
                     }
 
-                    return attributeValue;
+                    return attributeValue ?? string.Empty;
                 }
             }
 
@@ -605,7 +606,7 @@ namespace HeroesData.Loader.XmlGameData
             if (string.IsNullOrEmpty(name))
                 return string.Empty;
 
-            if (StormStyleHexColorValueByName.TryGetValue(name.TrimStart('#'), out string value))
+            if (StormStyleHexColorValueByName.TryGetValue(name.TrimStart('#'), out string? value))
                 return value;
             else
                 return string.Empty;
@@ -706,7 +707,7 @@ namespace HeroesData.Loader.XmlGameData
         {
             if (Path.GetExtension(filePath) == ".xml")
             {
-                if (MapGameDataByMapId.TryGetValue(id, out GameData mapGameData))
+                if (MapGameDataByMapId.TryGetValue(id, out GameData? mapGameData))
                 {
                     mapGameData.XmlGameData.Root.Add(XDocument.Load(filePath).Root.Elements());
                 }
@@ -726,7 +727,7 @@ namespace HeroesData.Loader.XmlGameData
 
         protected void LoadXmlFile(string id, Stream stream, string filePath)
         {
-            if (MapGameDataByMapId.TryGetValue(id, out GameData mapGameData))
+            if (MapGameDataByMapId.TryGetValue(id, out GameData? mapGameData))
             {
                 mapGameData.XmlGameData.Root.Add(XDocument.Load(stream).Root.Elements());
             }
@@ -847,12 +848,12 @@ namespace HeroesData.Loader.XmlGameData
             {
                 foreach (XElement modification in scalingArray.Elements("Modifications"))
                 {
-                    string catalog = modification.Element("Catalog")?.Attribute("value")?.Value;
-                    string entry = modification.Element("Entry")?.Attribute("value")?.Value;
-                    string field = modification.Element("Field")?.Attribute("value")?.Value;
-                    string value = modification.Element("Value")?.Attribute("value")?.Value;
+                    string? catalog = modification.Element("Catalog")?.Attribute("value")?.Value;
+                    string? entry = modification.Element("Entry")?.Attribute("value")?.Value;
+                    string? field = modification.Element("Field")?.Attribute("value")?.Value;
+                    string? value = modification.Element("Value")?.Attribute("value")?.Value;
 
-                    if (string.IsNullOrEmpty(value))
+                    if (string.IsNullOrEmpty(value) || catalog == null || entry == null || field == null)
                         continue;
 
                     // add data without index
@@ -868,7 +869,7 @@ namespace HeroesData.Loader.XmlGameData
         {
             foreach (XElement element in XmlGameData.Root.Elements())
             {
-                if (XmlGameDataElementsByElementName.TryGetValue(element.Name.LocalName, out List<XElement> values))
+                if (XmlGameDataElementsByElementName.TryGetValue(element.Name.LocalName, out List<XElement>? values))
                     values.Add(element);
                 else
                     XmlGameDataElementsByElementName.Add(element.Name.LocalName, new List<XElement>() { element });
@@ -881,7 +882,7 @@ namespace HeroesData.Loader.XmlGameData
                 IEnumerable<XElement> cardLayouts = unit.Elements("CardLayouts");
                 if (cardLayouts != null)
                 {
-                    if (LayoutButtonElements.TryGetValue(id, out List<XElement> values))
+                    if (LayoutButtonElements.TryGetValue(id, out List<XElement>? values))
                         values.AddRange(cardLayouts.Elements("LayoutButtons").ToList());
                     else
                         LayoutButtonElements.Add(unit.Attribute("id").Value, cardLayouts.Elements("LayoutButtons").ToList());
@@ -897,24 +898,24 @@ namespace HeroesData.Loader.XmlGameData
 
                 if (elementName == "CONSTANT")
                 {
-                    string name = element.Attribute("name")?.Value;
-                    string val = element.Attribute("val")?.Value;
+                    string? name = element.Attribute("name")?.Value;
+                    string? val = element.Attribute("val")?.Value;
 
-                    if (!string.IsNullOrEmpty(name))
+                    if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(val))
                     {
                         StormStyleHexColorValueByName[name] = val;
                     }
                 }
                 else if (elementName == "STYLE")
                 {
-                    string name = element.Attribute("name")?.Value;
-                    string textColor = element.Attribute("textcolor")?.Value;
+                    string? name = element.Attribute("name")?.Value;
+                    string? textColor = element.Attribute("textcolor")?.Value;
 
-                    if (!string.IsNullOrEmpty(textColor))
+                    if (!string.IsNullOrEmpty(textColor) && !string.IsNullOrEmpty(name))
                     {
                         if (textColor[0] == '#') // variable
                         {
-                            if (StormStyleHexColorValueByName.TryGetValue(textColor.TrimStart('#'), out string hexValue))
+                            if (StormStyleHexColorValueByName.TryGetValue(textColor.TrimStart('#'), out string? hexValue))
                             {
                                 StormStyleHexColorValueByName.TryAdd(name, hexValue);
                             }
