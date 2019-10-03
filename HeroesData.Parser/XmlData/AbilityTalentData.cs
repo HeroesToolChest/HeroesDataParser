@@ -127,7 +127,7 @@ namespace HeroesData.Parser.XmlData
                         {
                             string? defaultButtonFace = parentAbilityElement.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
 
-                            abilityTalentBase.ParentLink = new AbilityTalentId(parentAbilityValue, defaultButtonFace ?? string.Empty);
+                            abilityTalentBase.ParentLink = new AbilityTalentId(parentAbilityValue, defaultButtonFace ?? parentAbilityValue);
                         }
                     }
                 }

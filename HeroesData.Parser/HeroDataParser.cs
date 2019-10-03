@@ -114,7 +114,11 @@ namespace HeroesData.Parser
             foreach (Hero heroUnit in hero.HeroUnits)
                 ApplyOverrides(heroUnit, HeroOverrideLoader.GetOverride(heroUnit.CHeroId) ?? new HeroDataOverride());
 
+            // validation
             ValidateAbilityTalentLinkIds(hero);
+            ValidateSubAbilities(hero);
+            foreach (Hero heroUnit in hero.HeroUnits)
+                ValidateSubAbilities(heroUnit);
 
             return hero;
         }
@@ -513,6 +517,45 @@ namespace HeroesData.Parser
                 foreach (string validatedId in validatedIds)
                 {
                     talent.AddAbilityTalentLinkId(validatedId);
+                }
+            }
+        }
+
+        private void ValidateSubAbilities(Hero hero)
+        {
+            List<Ability> removableSubAbilities = new List<Ability>();
+
+            foreach (Ability subAbility in hero.SubAbilities())
+            {
+                AbilityTalentId? parentLinkId = subAbility.ParentLink!;
+
+                // check the abilityType to see if it has one set and then check if it should be an ability or talent
+                if (parentLinkId.AbilityType == AbilityType.Unknown)
+                {
+                    Ability? ability = hero.GetAbilities(parentLinkId.ReferenceId, StringComparison.OrdinalIgnoreCase).FirstOrDefault(x => x.ParentLink == null); // get the first
+                    if (ability != null)
+                    {
+                        parentLinkId.AbilityType = ability.AbilityTalentId.AbilityType;
+                        parentLinkId.IsPassive = ability.AbilityTalentId.IsPassive;
+                    }
+                    else // is a talent
+                    {
+                        parentLinkId.AbilityType = AbilityType.Unknown;
+                        parentLinkId.IsPassive = false;
+                    }
+                }
+                else // verify it is an ability
+                {
+                    if (!hero.ContainsAbility(parentLinkId))
+                    {
+                        if (hero.ContainsTalent(parentLinkId.ReferenceId))
+                            parentLinkId.AbilityType = AbilityType.Unknown;
+                    }
+                    else
+                    {
+                        if (hero.GetAbility(parentLinkId).ParentLink != null && hero.ContainsTalent(parentLinkId.ReferenceId))
+                            parentLinkId.AbilityType = AbilityType.Unknown;
+                    }
                 }
             }
         }
