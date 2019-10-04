@@ -445,40 +445,41 @@
         <PartyFrameFileNameArray value="-storm_ui_ingame_partyframe_lostvikings.dds" />
       </Override>
     </Portrait>
-    <Ability id="LostVikingsSpinToWin" abilityType="Q" add="true">
+    <Ability id="LostVikingsSpinToWin" abilityType="Hidden">
       <Override>
         <AbilityTier value="Basic" />
         <AbilityType value="Q" />
       </Override>
     </Ability>
-    <Ability id="LostVikingsNorseForce" abilityType="Q" add="true">
+    <Ability id="LostVikingsNorseForce" abilityType="Hidden">
       <Override>
         <AbilityTier value="Basic" />
         <AbilityType value="Q" />
       </Override>
     </Ability>
-    <Ability id="LostVikingsPressA,LostVikingsJump" abilityType="W" add="true">
+    <Ability id="LostVikingsPressA,LostVikingsJump" abilityType="Hidden">
       <Override>
         <AbilityTier value="Basic" />
         <AbilityType value="W" />
       </Override>
     </Ability>
-    <Ability id="LostVikingsNordicAttackSquad" abilityType="W" add="true">
+    <Ability id="LostVikingsNordicAttackSquad" abilityType="Hidden">
       <Override>
         <AbilityTier value="Basic" />
         <AbilityType value="W" />
       </Override>
     </Ability>
-    <Ability id="LostVikingsVikingBribery" abilityType="E" add="true">
+    <Ability id="LostVikingsVikingBribery" abilityType="Hidden">
       <Override>
         <AbilityTier value="Basic" />
         <AbilityType value="E" />
       </Override>
     </Ability>
-    <Ability id="LostVikingsVikingHoardTalent" abilityType="Trait" passive="true" add="true">
+    <Ability id="LostVikingsVikingHoardTalent" abilityType="Active" passive="true" add="true">
       <Override>
         <AbilityTier value="Trait" />
         <AbilityType value="Trait" />
+        <IsActive value="false" />
         <IsPassive value="true" />
       </Override>
     </Ability>
@@ -938,17 +939,17 @@
     </Ability>
   </CHero>
   <CHero id="Zeratul">
-    <Ability id="ZeratulCleaveMightOfTheNerazim" abilityType="Heroic">
+    <Ability id="ZeratulCleaveMightOfTheNerazim,ZeratulCleaveMightoftheNerazim" abilityType="Heroic">
       <Override>
         <ParentLink value="ZeratulMightOfTheNerazimDummy|ZeratulMightOfTheNerazimPassive|Heroic" />
       </Override>
     </Ability>
-    <Ability id="ZeratulSingularitySpikeMightOfTheNerazim" abilityType="Heroic">
+    <Ability id="ZeratulSingularitySpikeMightOfTheNerazim,ZeratulSingularitySpikeMightoftheNerazim" abilityType="Heroic">
       <Override>
         <ParentLink value="ZeratulMightOfTheNerazimDummy|ZeratulMightOfTheNerazimPassive|Heroic" />
       </Override>
     </Ability>
-    <Ability id="ZeratulBlinkMightOfTheNerazim" abilityType="Heroic">
+    <Ability id="ZeratulBlinkMightOfTheNerazim,ZeratulBlinkMightoftheNerazim" abilityType="Heroic">
       <Override>
         <ParentLink value="ZeratulMightOfTheNerazimDummy|ZeratulMightOfTheNerazimPassive|Heroic" />
       </Override>

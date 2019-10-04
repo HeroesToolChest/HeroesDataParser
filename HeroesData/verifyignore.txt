@@ -29,7 +29,7 @@
 [Varian] has more than 2 Heroic abilities
 
 # has three heroic subabilities
-[Zeratul] has more than 2 Heroic subabilities for ZeratulMightOfTheNerazimDummy|ZeratulMightOfTheNerazimPassive
+[Zeratul] has more than 2 Heroic subabilities for ZeratulMightOfTheNerazimDummy|ZeratulMightOfTheNerazimPassive|Heroic|False
 
 # --unit data--
 # vikings

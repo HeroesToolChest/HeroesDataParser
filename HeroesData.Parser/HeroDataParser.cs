@@ -455,7 +455,11 @@ namespace HeroesData.Parser
 
                         foreach (Ability ability in abilities)
                         {
-                            ability.ParentLink = talent.AbilityTalentId;
+                            ability.ParentLink = new AbilityTalentId(talent.AbilityTalentId.ReferenceId, talent.AbilityTalentId.ButtonId)
+                            {
+                                AbilityType = talent.AbilityTalentId.AbilityType,
+                                IsPassive = talent.AbilityTalentId.IsPassive,
+                            };
                         }
                     }
                 }

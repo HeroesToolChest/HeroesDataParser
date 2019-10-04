@@ -78,6 +78,16 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                 propertyOverrides.Add(propertyName, (ability) =>
                 {
                     if (bool.TryParse(propertyValue, out bool result))
+                        ability.AbilityTalentId.IsPassive = result;
+                    else
+                        ability.AbilityTalentId.IsPassive = false;
+                });
+            }
+            else if (propertyName == nameof(Ability.IsActive))
+            {
+                propertyOverrides.Add(propertyName, (ability) =>
+                {
+                    if (bool.TryParse(propertyValue, out bool result))
                         ability.IsActive = result;
                     else
                         ability.IsActive = false;
