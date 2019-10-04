@@ -44,21 +44,21 @@
 [LostVikings] [TargetInfoPanelFileName]  is empty
 
 # failed parsing - out of date data references
-[tombofthespiderqueen-JungleGraveGolemLaner] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
-[overwatchdata-JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
-[starcraft-TerranRaven] [TerranRavenSeekerMissile|TerranRavenSeekerMissile] FullTooltip failed to parse correctly
-[UnderworldBoss] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
-[gardenofterrordata-JunglePlantHorror] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
-[starcraft-TerranRavenDefender] [TerranRavenSeekerMissile|TerranRavenSeekerMissile] FullTooltip failed to parse correctly
-[gardenofterror-GardenTerror] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
-[JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
-[JungleGraveGolemLaner] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
-[tombofthespiderqueen-JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
-[braxisholdoutdata-TerranArchangelDefender] [TerranArchangelDefenderBulletstorm|TerranArchangelBulletstorm] FullTooltip failed to parse correctly
-[hauntedmines-UnderworldSummonedBoss] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
-[UnderworldSummonedBoss] [UnderworldBossStun|GraveGolemMegaStun] FullTooltip failed to parse correctly
-[infernalshrinesdata-MercPunisherLaner] [MercPunisherLanerFixate|MercPunisherLanerFixate] FullTooltip failed to parse correctly
-[braxisholdoutdata-TerranArchangelLaner] [TerranArchangelLanerBulletstorm|TerranArchangelBulletstorm] FullTooltip failed to parse correctly
+[JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
+[gardenofterror-GardenTerror] [UnderworldBossStun|GraveGolemMegaStun|Q|False] FullTooltip failed to parse correctly
+[starcraft-TerranRavenDefender] [TerranRavenSeekerMissile|TerranRavenSeekerMissile|Q|False] FullTooltip failed to parse correctly
+[hauntedmines-UnderworldSummonedBoss] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
+[tombofthespiderqueen-JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
+[infernalshrinesdata-MercPunisherLaner] [MercPunisherLanerFixate|MercPunisherLanerFixate|W|False] FullTooltip failed to parse correctly
+[starcraft-TerranRaven] [TerranRavenSeekerMissile|TerranRavenSeekerMissile|W|False] FullTooltip failed to parse correctly
+[braxisholdoutdata-TerranArchangelLaner] [TerranArchangelLanerBulletstorm|TerranArchangelBulletstorm|Q|False] FullTooltip failed to parse correctly
+[tombofthespiderqueen-JungleGraveGolemLaner] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
+[braxisholdoutdata-TerranArchangelDefender] [TerranArchangelDefenderBulletstorm|TerranArchangelBulletstorm|Q|False] FullTooltip failed to parse correctly
+[UnderworldSummonedBoss] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
+[UnderworldBoss] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
+[gardenofterrordata-JunglePlantHorror] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
+[overwatchdata-JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun|Hidden|False] FullTooltip failed to parse correctly
+[JungleGraveGolemLaner] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
 
 # default announcer has no gender
 [NoAnnouncerPack] Gender is empty
