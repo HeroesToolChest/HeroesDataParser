@@ -42,6 +42,7 @@
   <ItemGroup>
     <None Update="verifyignore.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </None>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
