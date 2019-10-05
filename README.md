@@ -24,12 +24,12 @@ Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some m
 ### Supported Operating Systems
 - Windows 7 SP1 (x64) and later
 - Linux (x64)
-- macOS 10.12 (x64) and later versions
+- macOS 10.13 (x64) and later versions
 
 ***
 
 ### Dotnet Global Tool (Recommended)
-Download and install the [.NET Core 2.2 SDK](https://www.microsoft.com/net/download/windows) or newer. 
+Download and install the [.NET Core 3.0 SDK](https://dotnet.microsoft.com/download) or newer. 
 
 Once installed, run the following command:
 ```
@@ -45,14 +45,14 @@ dotnet tool update --global HeroesDataParser
 
 ### Zip File Download - Framework-Dependent Deployment
 
-Download and install the [.NET Core 2.2 Runtime or SDK](https://www.microsoft.com/net/download/windows) or newer. 
+Download and install the [.NET Core 3.0 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
 
 Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page.
 
 ***
 
 ### Zip File Download - Framework-Dependent Executable
-Download and install the [.NET Core 2.2 Runtime or SDK](https://www.microsoft.com/net/download/windows) or newer. 
+Download and install the [.NET Core 3.0 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
 
 Download and extract the latest `HeroesDataParser.*-fde-<OS>-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
@@ -79,8 +79,9 @@ dotnet heroesdata.dll -h
 
 If installed as a Framework-Dependent Executable or Self-Contained Deployment, run one of the following commands from the extracted directory:
 ```
-./heroesdata -h
-dotnet heroesdata.dll -h
+windows (cmd): heroesdata -h
+windows (powershell): .\heroesdata -h 
+macOS or Linux: ./heroesdata -h
 ```
 
 Output of the -h option
