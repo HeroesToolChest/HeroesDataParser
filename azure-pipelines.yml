@@ -100,7 +100,7 @@ jobs:
       displayName: Archive [fdd-any]
       inputs:
         archiveType: zip
-        rootFolderOrFile: 'HeroesData\bin\publish\any\'
+        rootFolderOrFile: '.\bin\publish\any\'
         includeRootFolder: false
         archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fdd-any.zip'
         
@@ -108,7 +108,7 @@ jobs:
       displayName: Archive [fde-win-x64]
       inputs:
         archiveType: zip
-        rootFolderOrFile: 'HeroesData\bin\publish\fde\win-x64\'
+        rootFolderOrFile: '.\bin\publish\fde\win-x64\'
         includeRootFolder: false
         archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fde-win-x64.zip'
 
@@ -116,7 +116,7 @@ jobs:
       displayName: Archive [fde-osx-x64]
       inputs:
         archiveType: zip
-        rootFolderOrFile: 'HeroesData\bin\publish\fde\osx-x64\'
+        rootFolderOrFile: '.\bin\publish\fde\osx-x64\'
         includeRootFolder: false
         archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fde-osx-x64.zip'
 
@@ -124,7 +124,7 @@ jobs:
       displayName: Archive [fde-linux-x64]
       inputs:
         archiveType: zip
-        rootFolderOrFile: 'HeroesData\bin\publish\fde\linux-x64\'
+        rootFolderOrFile: '.\bin\publish\fde\linux-x64\'
         includeRootFolder: false
         archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fde-linux-x64.zip'
         
@@ -132,7 +132,7 @@ jobs:
       displayName: Archive [scd-win-x64]
       inputs:
         archiveType: zip
-        rootFolderOrFile: 'HeroesData\bin\publish\scd\win-x64\'
+        rootFolderOrFile: '.\bin\publish\scd\win-x64\'
         includeRootFolder: false
         archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-scd-win-x64.zip'
 
@@ -140,7 +140,7 @@ jobs:
       displayName: Archive [scd-osx-x64]
       inputs:
         archiveType: zip
-        rootFolderOrFile: 'HeroesData\bin\publish\scd\osx-x64\'
+        rootFolderOrFile: '.\bin\publish\scd\osx-x64\'
         includeRootFolder: false
         archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-scd-osx-x64.zip'
 
