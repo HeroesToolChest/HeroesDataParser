@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.CommandLineUtils;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text.Encodings.Web;
 using System.Text.Json;
