@@ -95,7 +95,7 @@ namespace HeroesData.Commands
 
             using FileStream fileStream = new FileStream(Path.Combine(OutputDirectory, $"{fileNameNoExt}.json"), FileMode.Create);
 
-            Utf8JsonWriter utf8JsonWriter = new Utf8JsonWriter(fileStream, new JsonWriterOptions { Indented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
+            using Utf8JsonWriter utf8JsonWriter = new Utf8JsonWriter(fileStream, new JsonWriterOptions { Indented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
 
             utf8JsonWriter.WriteStartObject();
 

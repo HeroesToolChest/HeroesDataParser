@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.CommandLineUtils;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
-using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System;
 using System.IO;
@@ -117,7 +116,7 @@ namespace HeroesData.Commands
             {
                 try
                 {
-                    using Image<Rgba32> image = Image.Load(filePath);
+                    using Image image = Image.Load(filePath);
 
                     if (Width == DefaultWidth)
                         Width = image.Width;

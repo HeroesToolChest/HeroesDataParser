@@ -144,9 +144,9 @@ namespace HeroesData
 
                 imagePart.Mutate(x => x.Crop(new Rectangle(new Point(xPos, yPos), size)));
 
-                GifFrameMetaData gifFrameMetaData = imagePart.Frames[0].MetaData.GetFormatMetaData(GifFormat.Instance);
-                gifFrameMetaData.FrameDelay = frameDelay / 10;
-                gifFrameMetaData.DisposalMethod = GifDisposalMethod.RestoreToBackground;
+                GifFrameMetadata gifFrameMetadata = imagePart.Frames[0].Metadata.GetFormatMetadata(GifFormat.Instance);
+                gifFrameMetadata.FrameDelay = frameDelay / 10;
+                gifFrameMetadata.DisposalMethod = GifDisposalMethod.RestoreToBackground;
 
                 gif.Frames.AddFrame(imagePart.Frames[0]);
             }
