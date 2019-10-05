@@ -148,7 +148,7 @@ jobs:
       displayName: Archive [scd-linux-x64]
       inputs:
         archiveType: zip
-        rootFolderOrFile: 'HeroesData\bin\publish\scd\linux-x64\'
+        rootFolderOrFile: '.\bin\publish\scd\linux-x64\'
         includeRootFolder: false
         archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-scd-linux-x64.zip'
 
@@ -197,6 +197,6 @@ jobs:
     - task: PublishBuildArtifacts@1
       displayName: Publish artifact [nuget-fdd-any]
       inputs:
-        pathtoPublish: 'HeroesData\bin\nupkg\any\'
+        pathtoPublish: '.\bin\nupkg\any\'
         artifactName: 'HeroesDataParser-nuget-fdd-any'
   
