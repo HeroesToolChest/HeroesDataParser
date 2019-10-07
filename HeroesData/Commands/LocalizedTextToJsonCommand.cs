@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.CommandLineUtils;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -73,6 +74,8 @@ namespace HeroesData.Commands
 
         private void ConvertFile(string filePath)
         {
+            Dictionary<string, Dictionary<string, Dictionary<string, string>>> groupedItems = new Dictionary<string, Dictionary<string, Dictionary<string, string>>>();
+
             string? fileNameNoExt = Path.GetFileNameWithoutExtension(filePath);
             if (string.IsNullOrEmpty(fileNameNoExt))
                 return;
@@ -99,9 +102,12 @@ namespace HeroesData.Commands
 
             utf8JsonWriter.WriteStartObject();
 
+            utf8JsonWriter.WriteStartObject("meta");
             utf8JsonWriter.WriteString("version", versionSpan);
             utf8JsonWriter.WriteString("locale", localeSpan);
+            utf8JsonWriter.WriteEndObject();
 
+            utf8JsonWriter.WriteStartObject("gamestrings");
             using StreamReader reader = File.OpenText(filePath);
             while (!reader.EndOfStream)
             {
@@ -109,16 +115,53 @@ namespace HeroesData.Commands
                 if (line is null)
                     continue;
 
-                ReadOnlySpan<char> readLineSpan = line.AsSpan();
-                int index = readLineSpan.IndexOf("=", StringComparison.OrdinalIgnoreCase);
+                string[] idAndValue = line.Split('=', 2, StringSplitOptions.RemoveEmptyEntries);
+                string[] idParts = idAndValue[0].Split('/', 3, StringSplitOptions.RemoveEmptyEntries);
 
-                if (index > -1)
+                if (groupedItems.TryGetValue(idParts[0], out Dictionary<string, Dictionary<string, string>>? value))
                 {
-                    ReadOnlySpan<char> id = readLineSpan.Slice(0, index);
-                    ReadOnlySpan<char> value = readLineSpan.Slice(index + 1);
-
-                    utf8JsonWriter.WriteString(id, value);
+                    if (value.TryGetValue(idParts[1], out Dictionary<string, string>? valueInner))
+                    {
+                        valueInner.TryAdd(idParts[2], idAndValue[1]);
+                    }
+                    else
+                    {
+                        value.Add(idParts[1], new Dictionary<string, string>()
+                        {
+                            { idParts[2], idAndValue[1] },
+                        });
+                    }
                 }
+                else
+                {
+                    groupedItems.Add(idParts[0], new Dictionary<string, Dictionary<string, string>>()
+                    {
+                        { idParts[1], new Dictionary<string, string>()
+                        {
+                            { idParts[2], idAndValue[1] },
+                        }
+                        },
+                    });
+                }
+            }
+
+            foreach (KeyValuePair<string, Dictionary<string, Dictionary<string, string>>> firstKey in groupedItems)
+            {
+                utf8JsonWriter.WriteStartObject(firstKey.Key);
+
+                foreach (KeyValuePair<string, Dictionary<string, string>> secondKey in firstKey.Value)
+                {
+                    utf8JsonWriter.WriteStartObject(secondKey.Key);
+
+                    foreach (KeyValuePair<string, string> thirdKey in secondKey.Value)
+                    {
+                        utf8JsonWriter.WriteString(thirdKey.Key, thirdKey.Value);
+                    }
+
+                    utf8JsonWriter.WriteEndObject();
+                }
+
+                utf8JsonWriter.WriteEndObject();
             }
 
             utf8JsonWriter.WriteEndObject();
