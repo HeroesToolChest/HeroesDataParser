@@ -111,12 +111,13 @@ Options:
   --warnings                        Displays all validation warnings.
 
 Commands:
-  extract        Extracts all required files from the `Heroes of the Storm` directory.
-  image          Performs image processing.
-  list           Displays .txt, .xml, and .json files in the local directory.
-  quick-compare  Compares two directory contents or files and displays a list of changed files.
-  read           Reads a .txt, .xml, or .json file and displays its contents on screen.
-  v4-convert     Converts a pre-4.0 heroesdata json or xml file to the version 4 format.
+  extract         Extracts all required files from the `Heroes of the Storm` directory.
+  image           Performs image processing.
+  list            Displays .txt, .xml, and .json files in the local directory.
+  localized-json  Converts a localized gamestring file created from --localized-text to a json file.
+  quick-compare   Compares two directory contents or files and displays a list of changed files.
+  read            Reads a .txt, .xml, or .json file and displays its contents on screen.
+  v4-convert      Converts a pre-4.0 heroesdata json or xml file to the version 4 format.
 
 Use " [command] --help" for more information about a command.
 ```
@@ -433,6 +434,27 @@ list -f -d
 
 ***
 
+### Localized-Json
+```
+Usage:  localized-json [arguments] [options]
+
+Arguments:
+  file-path  The filepath of the file or directory to convert
+
+Options:
+  -?|-h|--help            Show help information
+  -o|--output <FILEPATH>  Output directory to save the converted files to.
+```
+
+Converts the localized text file(s) created from the option `--localized-text` into a json file.
+
+Example command
+```
+localized-json '.\gamestrings_76437_enus.txt'
+```
+
+***
+
 ### Quick-Compare
 ```
 Usage:  quick-compare [arguments] [options]
@@ -544,7 +566,7 @@ The override files are for manually modifying the data after parsing the game da
 ## Developing
 To build and compile the code, it is recommended to use the latest version of [Visual Studio 2019 or Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
 
-Another option is to use the dotnet CLI tools from the [.NET Core 2.2 SDK](https://www.microsoft.com/net/download/windows).
+Another option is to use the dotnet CLI tools from the [.NET Core 3.0 SDK](https://dotnet.microsoft.com/download).
 
 The main project is `HeroesData.csproj` and the main entry point is `Program.cs`.
 
