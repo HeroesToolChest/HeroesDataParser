@@ -46,6 +46,12 @@ namespace HeroesData.Commands
                         Dictionary<string, string> firstBatch = ReadDirectoryFiles(firstFilePathArgument.Value);
                         Dictionary<string, string> secondBatch = ReadDirectoryFiles(secondFilePathArgument.Value);
 
+                        if (firstBatch.Count == 0 || secondBatch.Count == 0)
+                        {
+                            Console.WriteLine("No valid files to compare");
+                            return 0;
+                        }
+
                         CompareDirectoryFiles(firstBatch, secondBatch);
                     }
 
@@ -183,7 +189,7 @@ namespace HeroesData.Commands
             {
                 string fileName = Path.GetFileName(filePath);
 
-                if (fileName.Contains('_') && !fileName.Contains(".min.") && (Path.GetExtension(fileName) == ".xml" || Path.GetExtension(fileName) == ".json"))
+                if (fileName.Contains('_') && !fileName.Contains(".min.") && !fileName.StartsWith("gamestrings_") && (Path.GetExtension(fileName) == ".xml" || Path.GetExtension(fileName) == ".json"))
                 {
                     files.TryAdd(fileName.Substring(0, fileName.IndexOf('_')), filePath);
                 }
