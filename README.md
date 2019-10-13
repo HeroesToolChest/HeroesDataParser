@@ -20,6 +20,10 @@ Also extracts the following:
  
 Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some more information and examples of XML and JSON output.
 
+Extracted data files can be found in the [Heroes Data](https://github.com/HeroesToolChest/heroes-data) repo.  
+Extracted image files can be found in the [Heroes Images](https://github.com/HeroesToolChest/heroes-images) repo.
+
+
 ## Installation
 ### Supported Operating Systems
 - Windows 7 SP1 (x64) and later
@@ -467,7 +471,7 @@ Options:
   -?|-h|--help  Show help information
 ```
 
-Determines if the `.json` or `.xml` file(s) are the same or have been modified. The files must contain an underscore character `_`.
+Determines if the `.json` or `.xml` data file(s) are the same or have been modified. The files must contain an underscore character `_`.
 
 Example command
 ```
