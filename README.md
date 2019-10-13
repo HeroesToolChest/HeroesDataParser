@@ -1,6 +1,8 @@
 # Heroes Data Parser
-[![Build Status](https://dev.azure.com/kevinkoliva/Heroes%20of%20the%20Storm%20Projects/_apis/build/status/koliva8245.HeroesDataParser?branchName=master)](https://dev.azure.com/kevinkoliva/Heroes%20of%20the%20Storm%20Projects/_build/latest?definitionId=1) [![Release](https://img.shields.io/github/release/koliva8245/HeroesDataParser.svg)](https://github.com/koliva8245/HeroesDataParser/releases/latest)
+[![Build Status](https://dev.azure.com/kevinkoliva/Heroes%20of%20the%20Storm%20Projects/_apis/build/status/HeroesToolChest.HeroesDataParser?branchName=master)](https://dev.azure.com/kevinkoliva/Heroes%20of%20the%20Storm%20Projects/_build/latest?definitionId=1&branchName=master) [![Release](https://img.shields.io/github/release/koliva8245/HeroesDataParser.svg)](https://github.com/koliva8245/HeroesDataParser/releases/latest)
 [![NuGet](https://img.shields.io/nuget/v/HeroesDataParser.svg)](https://www.nuget.org/packages/HeroesDataParser/)
+
+
 
 Heroes Data Parser is a .NET Core command line tool that extracts Heroes of the Storm game data into XML and JSON files. Extracts hero data along with all abilities, talents, and their respective portraits and icons.
 
@@ -20,16 +22,21 @@ Also extracts the following:
  
 Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some more information and examples of XML and JSON output.
 
+Extracted data files can be found in the [Heroes Data](https://github.com/HeroesToolChest/heroes-data) repo.  
+Extracted image files can be found in the [Heroes Images](https://github.com/HeroesToolChest/heroes-images) repo.
+
+Another repo that might be useful is [heroes-talents](https://github.com/heroespatchnotes/heroes-talents).
+
 ## Installation
 ### Supported Operating Systems
 - Windows 7 SP1 (x64) and later
 - Linux (x64)
-- macOS 10.12 (x64) and later versions
+- macOS 10.13 (x64) and later versions
 
 ***
 
 ### Dotnet Global Tool (Recommended)
-Download and install the [.NET Core 2.2 SDK](https://www.microsoft.com/net/download/windows) or newer. 
+Download and install the [.NET Core 3.0 SDK](https://dotnet.microsoft.com/download) or newer. 
 
 Once installed, run the following command:
 ```
@@ -45,14 +52,14 @@ dotnet tool update --global HeroesDataParser
 
 ### Zip File Download - Framework-Dependent Deployment
 
-Download and install the [.NET Core 2.2 Runtime or SDK](https://www.microsoft.com/net/download/windows) or newer. 
+Download and install the [.NET Core 3.0 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
 
 Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page.
 
 ***
 
 ### Zip File Download - Framework-Dependent Executable
-Download and install the [.NET Core 2.2 Runtime or SDK](https://www.microsoft.com/net/download/windows) or newer. 
+Download and install the [.NET Core 3.0 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
 
 Download and extract the latest `HeroesDataParser.*-fde-<OS>-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
@@ -79,8 +86,9 @@ dotnet heroesdata.dll -h
 
 If installed as a Framework-Dependent Executable or Self-Contained Deployment, run one of the following commands from the extracted directory:
 ```
-./heroesdata -h
-dotnet heroesdata.dll -h
+windows (cmd): heroesdata -h
+windows (powershell): .\heroesdata -h 
+macOS or Linux: ./heroesdata -h
 ```
 
 Output of the -h option
@@ -110,12 +118,13 @@ Options:
   --warnings                        Displays all validation warnings.
 
 Commands:
-  extract        Extracts all required files from the `Heroes of the Storm` directory.
-  image          Performs image processing.
-  list           Displays .txt, .xml, and .json files in the local directory.
-  quick-compare  Compares two directory contents or files and displays a list of changed files.
-  read           Reads a .txt, .xml, or .json file and displays its contents on screen.
-  v4-convert     Converts a pre-4.0 heroesdata json or xml file to the version 4 format.
+  extract         Extracts all required files from the `Heroes of the Storm` directory.
+  image           Performs image processing.
+  list            Displays .txt, .xml, and .json files in the local directory.
+  localized-json  Converts a localized gamestring file created from --localized-text to a json file.
+  quick-compare   Compares two directory contents or files and displays a list of changed files.
+  read            Reads a .txt, .xml, or .json file and displays its contents on screen.
+  v4-convert      Converts a pre-4.0 heroesdata json or xml file to the version 4 format.
 
 Use " [command] --help" for more information about a command.
 ```
@@ -432,6 +441,27 @@ list -f -d
 
 ***
 
+### Localized-Json
+```
+Usage:  localized-json [arguments] [options]
+
+Arguments:
+  file-path  The filepath of the file or directory to convert
+
+Options:
+  -?|-h|--help            Show help information
+  -o|--output <FILEPATH>  Output directory to save the converted files to.
+```
+
+Converts the localized text file(s) created from the option `--localized-text` into a json file.
+
+Example command
+```
+localized-json '.\gamestrings_76437_enus.txt'
+```
+
+***
+
 ### Quick-Compare
 ```
 Usage:  quick-compare [arguments] [options]
@@ -444,7 +474,7 @@ Options:
   -?|-h|--help  Show help information
 ```
 
-Determines if the `.json` or `.xml` file(s) are the same or have been modified. The files must contain an underscore character `_`.
+Determines if the `.json` or `.xml` data file(s) are the same or have been modified. The files must contain an underscore character `_`.
 
 Example command
 ```
@@ -543,7 +573,7 @@ The override files are for manually modifying the data after parsing the game da
 ## Developing
 To build and compile the code, it is recommended to use the latest version of [Visual Studio 2019 or Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
 
-Another option is to use the dotnet CLI tools from the [.NET Core 2.2 SDK](https://www.microsoft.com/net/download/windows).
+Another option is to use the dotnet CLI tools from the [.NET Core 3.0 SDK](https://dotnet.microsoft.com/download).
 
 The main project is `HeroesData.csproj` and the main entry point is `Program.cs`.
 

@@ -15,65 +15,61 @@ namespace HeroesData.Tests.CommandTests
         [TestMethod]
         public void NoArgumentsTests()
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "quick-compare" });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "quick-compare" });
 
-                Assert.IsTrue(lines[0].Contains("argument needs to specify a path"));
-            }
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+
+            Assert.IsTrue(lines[0].Contains("argument needs to specify a path"));
         }
 
         [TestMethod]
         public void CompareFilesEqual()
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "quick-compare", $"{Path.Combine(Directory1, "awards_73662_enus.json")}", $"{Path.Combine(Directory2, "awards_73493_enus.json")}" });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "quick-compare", $"{Path.Combine(Directory1, "awards_73662_enus.json")}", $"{Path.Combine(Directory2, "awards_73493_enus.json")}" });
 
-                Assert.IsTrue(lines[0].Contains("MATCH"));
-            }
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+
+            Assert.IsTrue(lines[0].Contains("MATCH"));
         }
 
         [TestMethod]
         public void CompareFilesNotEqual()
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "quick-compare", $"{Path.Combine(Directory1, "awards_73662_enus.json")}", $"{Path.Combine(Directory2, "nonawards_73493_enus.json")}" });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "quick-compare", $"{Path.Combine(Directory1, "awards_73662_enus.json")}", $"{Path.Combine(Directory2, "nonawards_73493_enus.json")}" });
 
-                Assert.IsTrue(lines[0].Contains("DIFF"));
-            }
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+
+            Assert.IsTrue(lines[0].Contains("DIFF"));
         }
 
         [TestMethod]
         public void CompareDirectoryFilesEqual()
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "quick-compare", Directory1, Directory2 });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "quick-compare", Directory1, Directory2 });
 
-                Assert.IsTrue(lines.Contains("    awards_73662_enus.json        awards_73493_enus.json\tMATCH"));
-            }
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+
+            Assert.IsTrue(lines.Contains("    awards_73662_enus.json        awards_73493_enus.json\tMATCH"));
         }
     }
 }

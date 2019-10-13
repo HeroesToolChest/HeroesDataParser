@@ -15,7 +15,9 @@ namespace HeroesData.FileWriter.Writers.VoiceLineData
         {
             GameStringWriter.AddVoiceLineName(voiceLine.Id, voiceLine.Name);
             GameStringWriter.AddVoiceLineSortName(voiceLine.Id, voiceLine.SortName);
-            GameStringWriter.AddVoiceLineDescription(voiceLine.Id, GetTooltip(voiceLine.Description, FileOutputOptions.DescriptionType));
+
+            if (voiceLine.Description != null)
+                GameStringWriter.AddVoiceLineDescription(voiceLine.Id, GetTooltip(voiceLine.Description, FileOutputOptions.DescriptionType));
         }
     }
 }

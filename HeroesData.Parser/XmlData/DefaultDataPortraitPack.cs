@@ -19,17 +19,17 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default portrait name. Contains ##id##.
         /// </summary>
-        public string PortraitName { get; private set; }
+        public string? PortraitName { get; private set; }
 
         /// <summary>
         /// Gets the default portrait name used for sorting. Contains ##id##.
         /// </summary>
-        public string PortraitSortName { get; private set; }
+        public string? PortraitSortName { get; private set; }
 
         /// <summary>
         /// Gets the default portrait hyperlinkId. Contains ##id##.
         /// </summary>
-        public string PortraitHyperlinkId { get; private set; }
+        public string? PortraitHyperlinkId { get; private set; }
 
         // <CPortraitPack default="1">
         private void LoadCPortraitPackDefault()

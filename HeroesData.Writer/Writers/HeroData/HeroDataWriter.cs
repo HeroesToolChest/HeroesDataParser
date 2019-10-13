@@ -30,7 +30,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
         protected abstract T GetRatingsObject(Hero hero);
         protected abstract T GetWeaponsObject(Unit unit);
         protected abstract T GetAbilitiesObject(Unit unit);
-        protected abstract T GetSubAbilitiesObject(ILookup<AbilityTalentId, Ability> linkedAbilities);
+        protected abstract T? GetSubAbilitiesObject(ILookup<AbilityTalentId, Ability> linkedAbilities);
         protected abstract T GetTalentsObject(Hero hero);
         protected abstract T GetUnitsObject(Hero hero);
         protected abstract TU AbilityTalentInfoElement(AbilityTalentBase abilityTalentBase);
@@ -44,7 +44,10 @@ namespace HeroesData.FileWriter.Writers.HeroData
         protected virtual void AddLocalizedGameString(Unit unit)
         {
             GameStringWriter.AddUnitName(unit.Id, unit.Name);
-            GameStringWriter.AddUnitDescription(unit.Id, GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
+
+            if (unit.Description != null)
+                GameStringWriter.AddUnitDescription(unit.Id, GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
+
             GameStringWriter.AddUnitLifeType(unit.Id, unit.Life.LifeType);
             GameStringWriter.AddUnitEnergyType(unit.Id, unit.Energy.EnergyType);
             GameStringWriter.AddUnitShieldType(unit.Id, unit.Shield.ShieldType);
@@ -55,7 +58,10 @@ namespace HeroesData.FileWriter.Writers.HeroData
             GameStringWriter.AddUnitName(hero.Id, hero.Name);
             GameStringWriter.AddUnitDifficulty(hero.Id, hero.Difficulty);
             GameStringWriter.AddUnitType(hero.Id, hero.Type);
-            GameStringWriter.AddUnitDescription(hero.Id, GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
+
+            if (hero.Description != null)
+                GameStringWriter.AddUnitDescription(hero.Id, GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
+
             GameStringWriter.AddUnitLifeType(hero.Id, hero.Life.LifeType);
             GameStringWriter.AddUnitEnergyType(hero.Id, hero.Energy.EnergyType);
             GameStringWriter.AddUnitShieldType(hero.Id, hero.Shield.ShieldType);
@@ -88,7 +94,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 GameStringWriter.AddAbilityTalentFullTooltip(abilityTalentBase.AbilityTalentId.Id, GetTooltip(abilityTalentBase.Tooltip.FullTooltip, FileOutputOptions.DescriptionType));
         }
 
-        protected T HeroPortraits(Hero hero)
+        protected T? HeroPortraits(Hero hero)
         {
             if ((!string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName) || !string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName) ||
                 !string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName) || !string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName) ||
@@ -102,7 +108,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected T UnitPortraits(Unit unit)
+        protected T? UnitPortraits(Unit unit)
         {
             if ((!string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName) || !string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName)) && unit.UnitPortrait != null)
             {
@@ -112,7 +118,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected virtual T UnitArmor(Unit unit)
+        protected virtual T? UnitArmor(Unit unit)
         {
             if (unit.ArmorCount > 0)
             {
@@ -122,7 +128,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected virtual T UnitLife(Unit unit)
+        protected virtual T? UnitLife(Unit unit)
         {
             if (unit.Life.LifeMax > 0)
             {
@@ -132,7 +138,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected virtual T UnitEnergy(Unit unit)
+        protected virtual T? UnitEnergy(Unit unit)
         {
             if (unit.Energy.EnergyMax > 0)
             {
@@ -142,7 +148,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected virtual T UnitShield(Unit unit)
+        protected virtual T? UnitShield(Unit unit)
         {
             if (unit.Shield.ShieldMax > 0)
             {
@@ -152,7 +158,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected T HeroRatings(Hero hero)
+        protected T? HeroRatings(Hero hero)
         {
             if (hero.Ratings != null)
             {
@@ -162,7 +168,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected virtual T UnitWeapons(Unit unit)
+        protected virtual T? UnitWeapons(Unit unit)
         {
             if (unit.WeaponsCount > 0)
             {
@@ -172,7 +178,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected virtual T UnitAbilities(Unit unit)
+        protected virtual T? UnitAbilities(Unit unit)
         {
             if (unit.PrimaryAbilities().Any())
             {
@@ -182,7 +188,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected T UnitSubAbilities(Unit unit)
+        protected T? UnitSubAbilities(Unit unit)
         {
             if (unit.SubAbilities().Any())
             {
@@ -196,7 +202,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected virtual T UnitAbilityTalentLifeCost(TooltipLife tooltipLife)
+        protected virtual T? UnitAbilityTalentLifeCost(TooltipLife tooltipLife)
         {
             if (!string.IsNullOrEmpty(tooltipLife?.LifeCostTooltip?.RawDescription) && !FileOutputOptions.IsLocalizedText)
             {
@@ -206,7 +212,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected virtual T UnitAbilityTalentEnergyCost(TooltipEnergy tooltipEnergy)
+        protected virtual T? UnitAbilityTalentEnergyCost(TooltipEnergy tooltipEnergy)
         {
             if (!string.IsNullOrEmpty(tooltipEnergy?.EnergyTooltip?.RawDescription) && !FileOutputOptions.IsLocalizedText)
             {
@@ -216,7 +222,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected virtual T UnitAbilityTalentCooldown(TooltipCooldown tooltipCooldown)
+        protected virtual T? UnitAbilityTalentCooldown(TooltipCooldown tooltipCooldown)
         {
             if (!string.IsNullOrEmpty(tooltipCooldown?.CooldownTooltip?.RawDescription) && !FileOutputOptions.IsLocalizedText)
             {
@@ -226,7 +232,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected virtual T UnitAbilityTalentCharges(TooltipCharges tooltipCharges)
+        protected virtual T? UnitAbilityTalentCharges(TooltipCharges tooltipCharges)
         {
             if (tooltipCharges.HasCharges)
             {
@@ -236,7 +242,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected T HeroTalents(Hero hero)
+        protected T? HeroTalents(Hero hero)
         {
             if (hero.TalentsCount > 0)
             {
@@ -246,7 +252,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             return null;
         }
 
-        protected T Units(Hero hero)
+        protected T? Units(Hero hero)
         {
             if (hero.HeroUnitCount > 0)
             {

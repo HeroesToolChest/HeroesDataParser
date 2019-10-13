@@ -22,6 +22,7 @@
   <ParserHelper>
     <Id name="AttributeFactor[Heroic]" part="last" value="0" />
     <Id name="AttributeFactor[Structure]" part="last" value="0" />
+    <Id name="AttributeFactor[Minion]" part="last" value="0" />
     <Id name="CooldownTimeUse" part="last" value="1" />
     <Id name="Count" part="last" value="1" />
     <Id name="ExpireDelay" part="last" value="0" />

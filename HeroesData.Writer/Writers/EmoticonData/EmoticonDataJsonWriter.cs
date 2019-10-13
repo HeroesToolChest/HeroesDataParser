@@ -59,7 +59,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
                     emoticonObject.Add("image", Path.ChangeExtension(emoticon.Image.FileName?.ToLower(), AnimatedImageExtension));
             }
 
-            JProperty animation = AnimationObject(emoticon);
+            JProperty? animation = AnimationObject(emoticon);
             if (animation != null)
                 emoticonObject.Add(animation);
 

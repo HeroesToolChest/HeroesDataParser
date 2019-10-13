@@ -17,11 +17,14 @@ namespace HeroesData.FileWriter.Writers.SprayData
         {
             GameStringWriter.AddSprayName(spray.Id, spray.Name);
             GameStringWriter.AddSpraySortName(spray.Id, spray.SortName);
-            GameStringWriter.AddSprayDescription(spray.Id, GetTooltip(spray.Description, FileOutputOptions.DescriptionType));
+
+            if (spray.Description != null)
+                GameStringWriter.AddSprayDescription(spray.Id, GetTooltip(spray.Description, FileOutputOptions.DescriptionType));
+
             GameStringWriter.AddSpraySearchText(spray.Id, spray.SearchText);
         }
 
-        protected T AnimationObject(Spray spray)
+        protected T? AnimationObject(Spray spray)
         {
             if (spray.AnimationCount > 0)
             {

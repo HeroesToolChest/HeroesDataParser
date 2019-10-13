@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
@@ -8,9 +9,9 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void BasicAbilitiesTests()
         {
-            Assert.IsTrue(HeroSamuro.ContainsAbility("SamuroMirrorImageTargeted"));
-            Assert.IsTrue(HeroSamuro.ContainsAbility("SamuroCriticalStrikeDummy"));
-            Assert.IsTrue(HeroSamuro.ContainsAbility("SamuroWindwalk"));
+            Assert.IsTrue(HeroSamuro.ContainsAbility("SamuroMirrorImageTargeted", StringComparison.OrdinalIgnoreCase));
+            Assert.IsTrue(HeroSamuro.ContainsAbility("SamuroCriticalStrikeDummy", StringComparison.OrdinalIgnoreCase));
+            Assert.IsTrue(HeroSamuro.ContainsAbility("SamuroWindwalk", StringComparison.OrdinalIgnoreCase));
         }
     }
 }

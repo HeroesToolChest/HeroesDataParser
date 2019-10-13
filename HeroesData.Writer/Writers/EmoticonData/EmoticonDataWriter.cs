@@ -18,7 +18,9 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
         protected void AddLocalizedGameString(Emoticon emoticon)
         {
             GameStringWriter.AddEmoticonName(emoticon.Id, emoticon.Name);
-            GameStringWriter.AddEmoticonDescription(emoticon.Id, GetTooltip(emoticon.Description, FileOutputOptions.DescriptionType));
+
+            if (emoticon.Description != null)
+                GameStringWriter.AddEmoticonDescription(emoticon.Id, GetTooltip(emoticon.Description, FileOutputOptions.DescriptionType));
 
             if (emoticon.LocalizedAliases != null && emoticon.LocalizedAliases.Any())
                 GameStringWriter.AddEmoticonAlias(emoticon.Id, string.Join(" ", emoticon.LocalizedAliases));
@@ -27,7 +29,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
                 GameStringWriter.AddEmoticonSearchText(emoticon.Id, string.Join(' ', emoticon.SearchTexts));
         }
 
-        protected T HeroElement(Emoticon emoticon)
+        protected T? HeroElement(Emoticon emoticon)
         {
             if (!string.IsNullOrEmpty(emoticon.HeroId))
             {
@@ -37,7 +39,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
             return null;
         }
 
-        protected T AnimationObject(Emoticon emoticon)
+        protected T? AnimationObject(Emoticon emoticon)
         {
             if (emoticon.Image.Count.HasValue)
             {

@@ -86,47 +86,45 @@ namespace HeroesData
         private void Save<T>(string file)
             where T : struct, IPixel<T>
         {
-            using (Image<T> image = Image.LoadPixelData<T>(DDSImageFile.Data, DDSImageFile.Width, DDSImageFile.Height))
+            using Image<T> image = Image.LoadPixelData<T>(DDSImageFile.Data, DDSImageFile.Width, DDSImageFile.Height);
+
+            string extension = Path.GetExtension(file);
+            if (extension == ".png")
             {
-                string extension = Path.GetExtension(file);
-                if (extension == ".png")
+                image.Save(file, new PngEncoder()
                 {
-                    image.Save(file, new PngEncoder()
-                    {
-                        CompressionLevel = 6, // default
-                    });
-                }
-                else if (extension == ".jpg")
+                    CompressionLevel = 6, // default
+                });
+            }
+            else if (extension == ".jpg")
+            {
+                image.Save(file, new JpegEncoder()
                 {
-                    image.Save(file, new JpegEncoder()
-                    {
-                        Quality = 85,
-                    });
-                }
+                    Quality = 85,
+                });
             }
         }
 
         private void Save<T>(string file, Point point, Size size)
             where T : struct, IPixel<T>
         {
-            using (Image<T> image = Image.LoadPixelData<T>(DDSImageFile.Data, DDSImageFile.Width, DDSImageFile.Height))
+            using Image<T> image = Image.LoadPixelData<T>(DDSImageFile.Data, DDSImageFile.Width, DDSImageFile.Height);
+
+            image.Mutate(x => x.Crop(new Rectangle(point, size)));
+            string extension = Path.GetExtension(file);
+            if (extension == ".png")
             {
-                image.Mutate(x => x.Crop(new Rectangle(point, size)));
-                string extension = Path.GetExtension(file);
-                if (extension == ".png")
+                image.Save(file, new PngEncoder()
                 {
-                    image.Save(file, new PngEncoder()
-                    {
-                        CompressionLevel = 6, // default
-                    });
-                }
-                else if (extension == ".jpg")
+                    CompressionLevel = 6, // default
+                });
+            }
+            else if (extension == ".jpg")
+            {
+                image.Save(file, new JpegEncoder()
                 {
-                    image.Save(file, new JpegEncoder()
-                    {
-                        Quality = 85,
-                    });
-                }
+                    Quality = 85,
+                });
             }
         }
 
@@ -134,34 +132,30 @@ namespace HeroesData
             where T : struct, IPixel<T>
         {
             // Load full base image
-            using (Image<T> image = Image.LoadPixelData<T>(DDSImageFile.Data, DDSImageFile.Width, DDSImageFile.Height))
+            using Image<T> image = Image.LoadPixelData<T>(DDSImageFile.Data, DDSImageFile.Width, DDSImageFile.Height);
+            using Image<T> gif = new Image<T>(size.Width, size.Height);
+
+            for (int i = 0; i < frames; i++)
             {
-                using (Image<T> gif = new Image<T>(size.Width, size.Height))
-                {
-                    for (int i = 0; i < frames; i++)
-                    {
-                        int xPos = (i % (image.Width / maxSize.Width)) * maxSize.Width;
-                        int yPos = (i / (image.Width / maxSize.Width)) * maxSize.Height;
+                int xPos = (i % (image.Width / maxSize.Width)) * maxSize.Width;
+                int yPos = (i / (image.Width / maxSize.Width)) * maxSize.Height;
 
-                        using (Image<T> imagePart = image.Clone())
-                        {
-                            imagePart.Mutate(x => x.Crop(new Rectangle(new Point(xPos, yPos), size)));
+                using Image<T> imagePart = image.Clone();
 
-                            GifFrameMetaData gifFrameMetaData = imagePart.Frames[0].MetaData.GetFormatMetaData(GifFormat.Instance);
-                            gifFrameMetaData.FrameDelay = frameDelay / 10;
-                            gifFrameMetaData.DisposalMethod = GifDisposalMethod.RestoreToBackground;
+                imagePart.Mutate(x => x.Crop(new Rectangle(new Point(xPos, yPos), size)));
 
-                            gif.Frames.AddFrame(imagePart.Frames[0]);
-                        }
-                    }
+                GifFrameMetadata gifFrameMetadata = imagePart.Frames[0].Metadata.GetFormatMetadata(GifFormat.Instance);
+                gifFrameMetadata.FrameDelay = frameDelay / 10;
+                gifFrameMetadata.DisposalMethod = GifDisposalMethod.RestoreToBackground;
 
-                    gif.Frames.RemoveFrame(0);
-                    gif.Save(file, new GifEncoder()
-                    {
-                        ColorTableMode = GifColorTableMode.Local,
-                    });
-                }
+                gif.Frames.AddFrame(imagePart.Frames[0]);
             }
+
+            gif.Frames.RemoveFrame(0);
+            gif.Save(file, new GifEncoder()
+            {
+                ColorTableMode = GifColorTableMode.Local,
+            });
         }
     }
 }

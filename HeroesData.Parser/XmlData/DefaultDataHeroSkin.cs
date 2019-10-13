@@ -20,27 +20,27 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default hero skin name. Contains ##id##.
         /// </summary>
-        public string HeroSkinName { get; private set; }
+        public string? HeroSkinName { get; private set; }
 
         /// <summary>
         /// Gets the default hero skin name used for sorting. Contains ##id##.
         /// </summary>
-        public string HeroSkinSortName { get; private set; }
+        public string? HeroSkinSortName { get; private set; }
 
         /// <summary>
         /// Gets the default hero skin info text. Contains ##id##.
         /// </summary>
-        public string HeroSkinInfoText { get; private set; }
+        public string? HeroSkinInfoText { get; private set; }
 
         /// <summary>
         /// Gets the default hero skin additional search text. Contains ##id##.
         /// </summary>
-        public string HeroSkinAdditionalSearchText { get; private set; }
+        public string? HeroSkinAdditionalSearchText { get; private set; }
 
         /// <summary>
         /// Gets the default hero skin hyperlinkId. Contains ##id##.
         /// </summary>
-        public string HeroSkinHyperlinkId { get; private set; }
+        public string? HeroSkinHyperlinkId { get; private set; }
 
         /// <summary>
         /// Gets the default hero skins release date.

@@ -10,7 +10,7 @@ namespace HeroesData.Commands
 {
     internal class V4ConvertCommand : CommandBase, ICommand
     {
-        private string OutputDirectory;
+        private string OutputDirectory = string.Empty;
 
         private V4ConvertCommand(CommandLineApplication app)
             : base(app)
@@ -53,7 +53,7 @@ namespace HeroesData.Commands
                         if (Directory.Exists(storagePathArgument.Value))
                             OutputDirectory = Path.Combine(storagePathArgument.Value, "v4-converted");
                         else
-                            OutputDirectory = Path.Combine(Path.GetDirectoryName(storagePathArgument.Value), "v4-converted");
+                            OutputDirectory = Path.Combine(Path.GetDirectoryName(storagePathArgument.Value) ?? string.Empty, "v4-converted");
                     }
 
                     if (File.Exists(storagePathArgument.Value))
@@ -71,7 +71,7 @@ namespace HeroesData.Commands
                     return 0;
                 });
             });
-         }
+        }
 
         private void ConvertFile(string filePath)
         {
@@ -88,8 +88,8 @@ namespace HeroesData.Commands
             foreach (XElement element in doc.Root.Elements())
             {
                 string id = element.Name.LocalName;
-                string heroId = element.Attribute("cHeroId")?.Value;
-                string unitId = element.Attribute("cUnitId")?.Value;
+                string? heroId = element.Attribute("cHeroId")?.Value;
+                string? unitId = element.Attribute("cUnitId")?.Value;
 
                 if (!string.IsNullOrEmpty(heroId))
                     element.Name = heroId;
@@ -109,47 +109,47 @@ namespace HeroesData.Commands
 
         private void ConvertJson(string filePath)
         {
-            using (StreamReader streamReader = File.OpenText(filePath))
-            using (JsonTextReader textReader = new JsonTextReader(streamReader))
+            using StreamReader streamReader = File.OpenText(filePath);
+            using JsonTextReader textReader = new JsonTextReader(streamReader);
+
+            JObject json = (JObject)JToken.ReadFrom(textReader);
+            List<string> names = new List<string>();
+
+            foreach (JProperty property in json.Children())
             {
-                JObject json = (JObject)JToken.ReadFrom(textReader);
+                names.Add(property.Name);
+            }
 
-                List<string> names = new List<string>();
-                foreach (JProperty property in json.Children())
+            foreach (string name in names)
+            {
+                JObject heroObject = (JObject)json[name];
+
+                string? heroId = heroObject["cHeroId"]?.ToString();
+                string? unitId = heroObject["cUnitId"]?.ToString();
+
+                heroObject.Property("cHeroId")?.Remove();
+
+                if (!string.IsNullOrEmpty(unitId))
                 {
-                    names.Add(property.Name);
+                    heroObject.Property("cUnitId").AddAfterSelf(new JProperty("unitId", unitId));
+                    heroObject.Property("cUnitId").Remove();
                 }
 
-                foreach (string name in names)
+                if (!string.IsNullOrEmpty(heroId))
                 {
-                    JObject heroObject = (JObject)json[name];
-
-                    string heroId = heroObject["cHeroId"]?.ToString();
-                    string unitId = heroObject["cUnitId"]?.ToString();
-
-                    heroObject.Property("cHeroId")?.Remove();
-
-                    if (!string.IsNullOrEmpty(unitId))
-                    {
-                        heroObject.Property("cUnitId").AddAfterSelf(new JProperty("unitId", unitId));
-                        heroObject.Property("cUnitId").Remove();
-                    }
-
-                    if (!string.IsNullOrEmpty(heroId))
-                    {
-                        heroObject.Parent.Replace(new JProperty(heroId, heroObject));
-                    }
-                }
-
-                Directory.CreateDirectory(OutputDirectory);
-
-                using (StreamWriter streamWriter = File.CreateText(Path.Combine(OutputDirectory, Path.GetFileName(filePath))))
-                using (JsonTextWriter textWriter = new JsonTextWriter(streamWriter))
-                {
-                    textWriter.Formatting = Formatting.Indented;
-                    json.WriteTo(textWriter);
+                    heroObject.Parent.Replace(new JProperty(heroId, heroObject));
                 }
             }
+
+            Directory.CreateDirectory(OutputDirectory);
+
+            using StreamWriter streamWriter = File.CreateText(Path.Combine(OutputDirectory, Path.GetFileName(filePath)));
+            using JsonTextWriter textWriter = new JsonTextWriter(streamWriter)
+            {
+                Formatting = Formatting.Indented,
+            };
+
+            json.WriteTo(textWriter);
         }
     }
 }

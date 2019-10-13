@@ -81,9 +81,9 @@ namespace HeroesData.Loader.XmlGameData
             XDocument includesXml = XDocument.Load(Path.Combine(HeroesDataBaseDataDirectoryPath, IncludesXmlFile));
             IEnumerable pathElements = includesXml.Root.Elements("Path");
 
-            foreach (XElement pathElement in pathElements)
+            foreach (XElement? pathElement in pathElements)
             {
-                string valuePath = pathElement.Attribute("value")?.Value?.ToLower();
+                string? valuePath = pathElement?.Attribute("value")?.Value?.ToLower();
                 if (!string.IsNullOrEmpty(valuePath))
                 {
                     valuePath = PathHelper.GetFilePath(valuePath);
@@ -155,7 +155,7 @@ namespace HeroesData.Loader.XmlGameData
 
             foreach (XElement catalogElement in catalogElements)
             {
-                string pathValue = catalogElement.Attribute("path")?.Value?.ToLower();
+                string? pathValue = catalogElement?.Attribute("path")?.Value?.ToLower();
                 if (!string.IsNullOrEmpty(pathValue))
                 {
                     pathValue = PathHelper.GetFilePath(pathValue);

@@ -11,7 +11,7 @@ namespace HeroesData
 {
     public class Program
     {
-        private readonly string AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        private readonly string AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
         private readonly Dictionary<ExtractDataOption, List<string>> ExtractDataValues = new Dictionary<ExtractDataOption, List<string>>();
         private readonly Dictionary<ExtractImageOption, List<string>> ExtractImageValues = new Dictionary<ExtractImageOption, List<string>>();
 
@@ -36,6 +36,7 @@ namespace HeroesData
             ExtractCommand.Add(commandLineApplication).SetCommand();
             ImageCommand.Add(commandLineApplication).SetCommand();
             QuickCompareCommand.Add(commandLineApplication).SetCommand();
+            LocalizedTextToJsonCommand.Add(commandLineApplication).SetCommand();
             V4ConvertCommand.Add(commandLineApplication).SetCommand();
 
             CommandArgument storagePathArgument = commandLineApplication.Argument("storage-path", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.");
@@ -92,15 +93,15 @@ namespace HeroesData
                     }
                     else
                     {
-                        foreach (ExtractDataOption extractDataOption in Enum.GetValues(typeof(ExtractDataOption)))
+                        foreach (ExtractDataOption? extractDataOption in Enum.GetValues(typeof(ExtractDataOption)))
                         {
-                            if (extractDataOption == ExtractDataOption.None || extractDataOption == ExtractDataOption.All)
+                            if (!extractDataOption.HasValue || extractDataOption == ExtractDataOption.None || extractDataOption == ExtractDataOption.All)
                                 continue;
 
-                            if (program.ExtractDataValues.TryGetValue(extractDataOption, out List<string> values))
+                            if (program.ExtractDataValues.TryGetValue(extractDataOption.Value, out List<string>? values))
                             {
                                 if (extractDataFilesOption.Values.Intersect(values, StringComparer.OrdinalIgnoreCase).Any())
-                                    App.ExtractDataOption |= extractDataOption;
+                                    App.ExtractDataOption |= extractDataOption.Value;
                             }
                         }
                     }
@@ -127,15 +128,15 @@ namespace HeroesData
                     }
                     else
                     {
-                        foreach (ExtractImageOption extractFileOption in Enum.GetValues(typeof(ExtractImageOption)))
+                        foreach (ExtractImageOption? extractFileOption in Enum.GetValues(typeof(ExtractImageOption)))
                         {
-                            if (extractFileOption == ExtractImageOption.None || extractFileOption == ExtractImageOption.All)
+                            if (!extractFileOption.HasValue || extractFileOption == ExtractImageOption.None || extractFileOption == ExtractImageOption.All)
                                 continue;
 
-                            if (program.ExtractImageValues.TryGetValue(extractFileOption, out List<string> values))
+                            if (program.ExtractImageValues.TryGetValue(extractFileOption.Value, out List<string>? values))
                             {
                                 if (extractImageFilesOption.Values.Intersect(values, StringComparer.OrdinalIgnoreCase).Any())
-                                    App.ExtractFileOption |= extractFileOption;
+                                    App.ExtractFileOption |= extractFileOption.Value;
                             }
                         }
                     }

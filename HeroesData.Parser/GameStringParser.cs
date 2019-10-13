@@ -199,8 +199,11 @@ namespace HeroesData.Parser.GameStrings
             {
                 string joinDesc = string.Join(string.Empty, parts);
 
-                foreach (Match match in Regex.Matches(joinDesc, @"[a-z]+""[a-z]+"))
+                foreach (Match? match in Regex.Matches(joinDesc, @"[a-z]+""[a-z]+"))
                 {
+                    if (match == null)
+                        continue;
+
                     joinDesc = joinDesc.Replace(match.Value, match.Value.Replace("\"", "'"));
                 }
 
@@ -402,16 +405,16 @@ namespace HeroesData.Parser.GameStrings
             return value;
         }
 
-        private string ReadXmlGameData(List<string> parts, XAttribute parent)
+        private string ReadXmlGameData(List<string> parts, XAttribute? parent)
         {
-            XElement currentElement = null;
+            XElement? currentElement = null;
             parent = null;
 
             IEnumerable<string> xmlElementNames = Configuration.GamestringXmlElements(parts[0]);
             if (!xmlElementNames.Any())
             {
-                IEnumerable<string> foundElements = GameData.XmlGameData.Root.Elements().Where(x => x.Name.LocalName.StartsWith($"C{parts[0]}") && x.Attribute("id")?.Value == parts[1])?.Select(x => x.Name.LocalName);
-                if (foundElements.Any())
+                IEnumerable<string>? foundElements = GameData.XmlGameData.Root.Elements().Where(x => x.Name.LocalName.StartsWith($"C{parts[0]}") && x.Attribute("id")?.Value == parts[1])?.Select(x => x.Name.LocalName);
+                if (foundElements != null && foundElements.Any())
                 {
                     throw new GameStringParseException($"The element type \"{parts[0]}\" was not found in the configuration file. The following elements were found for the missing type for the given id of \"{parts[1]}\": {string.Join(',', foundElements)}." +
                         $" Try adding some or all of the elements to the config.xml file XmlElementLookup section for the missing type.");
@@ -429,8 +432,8 @@ namespace HeroesData.Parser.GameStrings
 
             if (!elements.Any())
             {
-                IEnumerable<string> elementDifference = GameData.XmlGameData.Root.Elements().Where(x => x.Name.LocalName.StartsWith($"C{parts[0]}") && x.Attribute("id")?.Value == parts[1])?.Select(x => x.Name.LocalName).Except(xmlElementNames);
-                if (elementDifference.Any())
+                IEnumerable<string>? elementDifference = GameData.XmlGameData.Root.Elements().Where(x => x.Name.LocalName.StartsWith($"C{parts[0]}") && x.Attribute("id")?.Value == parts[1])?.Select(x => x.Name.LocalName).Except(xmlElementNames);
+                if (elementDifference != null && elementDifference.Any())
                     throw new GameStringParseException($"No elements were found for the type \"{parts[0]}\" given the id of \"{parts[1]}\". Try adding some or all of the following element(s) to the \"{parts[0]}\" type in the config.xml file XmlElementLookup section: {string.Join(',', elementDifference)}.");
             }
 

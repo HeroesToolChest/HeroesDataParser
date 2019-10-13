@@ -19,7 +19,7 @@ namespace HeroesData.ExtractorImage
         private readonly string TalentsDirectory = "talents";
         private readonly string AbilityTalentsDirectory = "abilitytalents";
 
-        public ImageHero(CASCHandler cascHandler, string modsFolderPath)
+        public ImageHero(CASCHandler? cascHandler, string modsFolderPath)
             : base(cascHandler, modsFolderPath)
         {
         }

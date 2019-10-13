@@ -57,9 +57,10 @@ namespace HeroesData.Loader.Tests
             elements.Add(element);
             elements.Add(element2);
 
-            XElement mergedElement = GameData.MergeXmlElements(elements);
+            XElement? mergedElement = GameData.MergeXmlElements(elements);
 
-            Assert.IsTrue(mergedElement.Element("Amount").Attribute("value").Value == "153");
+            Assert.IsNotNull(mergedElement);
+            Assert.IsTrue(mergedElement!.Element("Amount").Attribute("value").Value == "153");
             Assert.IsTrue(mergedElement.Element("Flags").Attribute("value").Value == "1");
             Assert.IsTrue(mergedElement.Element("Visibility").Attribute("value").Value == "Hidden");
             Assert.IsTrue(mergedElement.Attribute("Button").Value == "Test");

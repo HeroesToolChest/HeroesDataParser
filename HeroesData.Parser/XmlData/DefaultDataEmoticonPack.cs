@@ -19,22 +19,22 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default emoticon pack name. Contains ##id##.
         /// </summary>
-        public string EmoticonPackName { get; private set; }
+        public string? EmoticonPackName { get; private set; }
 
         /// <summary>
         /// Gets the default emoticon pack name used for sorting. Contains ##id##.
         /// </summary>
-        public string EmoticonPackSortName { get; private set; }
+        public string? EmoticonPackSortName { get; private set; }
 
         /// <summary>
         /// Gets the default emoticon pack description. Contains ##id##.
         /// </summary>
-        public string EmoticonPackDescription { get; private set; }
+        public string? EmoticonPackDescription { get; private set; }
 
         /// <summary>
         /// Gets the default emoticon pack hyperlinkId. Contains ##id##.
         /// </summary>
-        public string EmoticonPackHyperlinkId { get; private set; }
+        public string? EmoticonPackHyperlinkId { get; private set; }
 
         // <CEmoticonPack default="1">
         private void LoadCEmoticonPackDefault()

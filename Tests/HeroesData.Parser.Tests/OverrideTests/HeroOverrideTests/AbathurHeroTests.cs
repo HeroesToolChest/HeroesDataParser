@@ -18,36 +18,36 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void CUnitOverrideTest()
         {
-            Assert.IsTrue(HeroDataOverride.CUnitOverride.Enabled);
-            Assert.AreEqual("HeroAbathur", HeroDataOverride.CUnitOverride.CUnit);
+            Assert.IsTrue(HeroDataOverride.CUnitOverride.enabled);
+            Assert.AreEqual("HeroAbathur", HeroDataOverride.CUnitOverride.cUnit);
         }
 
         [TestMethod]
         public void EnergyOverrideTest()
         {
-            Assert.IsTrue(HeroDataOverride.EnergyOverride.Enabled);
-            Assert.AreEqual(100, HeroDataOverride.EnergyOverride.Energy);
+            Assert.IsTrue(HeroDataOverride.EnergyOverride.enabled);
+            Assert.AreEqual(100, HeroDataOverride.EnergyOverride.energy);
         }
 
         [TestMethod]
         public void EnergyTypeOverrideTest()
         {
-            Assert.IsTrue(HeroDataOverride.EnergyTypeOverride.Enabled);
-            Assert.AreEqual("Charge", HeroDataOverride.EnergyTypeOverride.EnergyType);
+            Assert.IsTrue(HeroDataOverride.EnergyTypeOverride.enabled);
+            Assert.AreEqual("Charge", HeroDataOverride.EnergyTypeOverride.energyType);
         }
 
         [TestMethod]
         public void NameOverrideTest()
         {
-            Assert.IsTrue(HeroDataOverride.NameOverride.Enabled);
-            Assert.AreEqual("Acceptable", HeroDataOverride.NameOverride.Value);
+            Assert.IsTrue(HeroDataOverride.NameOverride.enabled);
+            Assert.AreEqual("Acceptable", HeroDataOverride.NameOverride.value);
         }
 
         [TestMethod]
         public void HyperlinkIdOverrideTest()
         {
-            Assert.IsTrue(HeroDataOverride.HyperlinkIdOverride.Enabled);
-            Assert.AreEqual("Funzo", HeroDataOverride.HyperlinkIdOverride.Value);
+            Assert.IsTrue(HeroDataOverride.HyperlinkIdOverride.enabled);
+            Assert.AreEqual("Funzo", HeroDataOverride.HyperlinkIdOverride.value);
         }
 
         [TestMethod]
@@ -64,18 +64,18 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
 
             HeroDataOverride heroUnitOverride = HeroOverrideLoader.GetOverride("LittleLoco");
 
-            Assert.IsTrue(heroUnitOverride.EnergyTypeOverride.Enabled);
-            Assert.AreEqual("None", heroUnitOverride.EnergyTypeOverride.EnergyType);
+            Assert.IsTrue(heroUnitOverride.EnergyTypeOverride.enabled);
+            Assert.AreEqual("None", heroUnitOverride.EnergyTypeOverride.energyType);
 
-            Assert.IsTrue(heroUnitOverride.EnergyOverride.Enabled);
-            Assert.AreEqual(0, heroUnitOverride.EnergyOverride.Energy);
+            Assert.IsTrue(heroUnitOverride.EnergyOverride.enabled);
+            Assert.AreEqual(0, heroUnitOverride.EnergyOverride.energy);
         }
 
         [TestMethod]
         public void ParentLinkedOverrideTests()
         {
-            Assert.IsTrue(HeroDataOverride.ParentLinkOverride.Enabled);
-            Assert.AreEqual("TheSwarm", HeroDataOverride.ParentLinkOverride.ParentLink);
+            Assert.IsTrue(HeroDataOverride.ParentLinkOverride.enabled);
+            Assert.AreEqual("TheSwarm", HeroDataOverride.ParentLinkOverride.parentLink);
         }
     }
 }

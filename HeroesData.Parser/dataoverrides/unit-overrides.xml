@@ -3,52 +3,52 @@
   <!--These abilities seem to be incorrectly not overriden by the new abilities-->
   <!--Setting abilityType to Hidden to signify that their being overlapped by the new abilities-->
   <CUnit id="overwatchdata-JungleGraveGolemDefender">
-    <Ability id="UnderworldBossRoots" button="GraveGolemBindingRoots">
+    <Ability id="UnderworldBossRoots,GraveGolemBindingRoots" abilityType="Q">
       <Override>
         <AbilityType value="Hidden" />
       </Override>
     </Ability>
-    <Ability id="UnderworldBossStun" button="GraveGolemMegaStun">
+    <Ability id="UnderworldBossStun,GraveGolemMegaStun" abilityType="W">
       <Override>
         <AbilityType value="Hidden" />
       </Override>
     </Ability>
   </CUnit>
   <CUnit id="RagnarosBigRag">
-    <Ability id="RagnarosBigRagReturnMoltenCore" button="RagnarosBigRagCancelReturnMoltenCore">
+    <Ability id="RagnarosBigRagReturnMoltenCore,RagnarosBigRagCancelReturnMoltenCore" abilityType="Trait">
       <Override>
-        <ParentLink value="RagnarosBigRagReturnMoltenCore" />
+        <ParentLink value="RagnarosBigRagReturnMoltenCore|RagnarosBigRagReturnMoltenCore|Trait" />
       </Override>
     </Ability>
   </CUnit>
   <CUnit id="SamuroMirrorImage">
-    <Ability id="SamuroBladestormCancel" button="SamuroCancelBladestorm">
+    <Ability id="SamuroBladestormCancel,SamuroCancelBladestorm" abilityType="Heroic">
       <Override>
-        <ParentLink value="SamuroBladeStormDummy,SamuroBladestorm" />
+        <ParentLink value="SamuroBladeStormDummy|SamuroBladestorm|Heroic" />
       </Override>
     </Ability>
   </CUnit>
   <CUnit id="VolskayaVehicleGunner">
-    <Ability id="VolskayaVehicleActivateParticleCannon" button="VolskayaVehicleActivateParticleCannon">
+    <Ability id="VolskayaVehicleActivateParticleCannon,VolskayaVehicleActivateParticleCannon" abilityType="Q">
       <Override>
-        <ParentLink value="VolskayaVehicleInitiateParticleCannon" />
+        <ParentLink value="VolskayaVehicleInitiateParticleCannon|VolskayaVehicleInitiateParticleCannon|Q" />
       </Override>
     </Ability>
-    <Ability id="VolskayaVehicleTacticalStrikesDeactivate" button="VolskayaVehicleGatlingCannonCancel">
+    <Ability id="VolskayaVehicleTacticalStrikesDeactivate,VolskayaVehicleGatlingCannonCancel" abilityType="W">
       <Override>
-        <ParentLink value="VolskayaVehicleTacticalStrikes" />
+        <ParentLink value="VolskayaVehicleTacticalStrikes|VolskayaVehicleTacticalStrikes|W" />
       </Override>
     </Ability>
   </CUnit>
   <CUnit id="volskayadata-VolskayaVehicleGunner">
-    <Ability id="VolskayaVehicleActivateParticleCannon" button="VolskayaVehicleActivateParticleCannon">
+    <Ability id="VolskayaVehicleActivateParticleCannon,VolskayaVehicleActivateParticleCannon" abilityType="Q">
       <Override>
-        <ParentLink value="VolskayaVehicleInitiateParticleCannon" />
+        <ParentLink value="VolskayaVehicleInitiateParticleCannon|VolskayaVehicleInitiateParticleCannon|Q" />
       </Override>
     </Ability>
-    <Ability id="VolskayaVehicleTacticalStrikesDeactivate" button="VolskayaVehicleGatlingCannonCancel">
+    <Ability id="VolskayaVehicleTacticalStrikesDeactivate,VolskayaVehicleGatlingCannonCancel" abilityType="W">
       <Override>
-        <ParentLink value="VolskayaVehicleTacticalStrikes" />
+        <ParentLink value="VolskayaVehicleTacticalStrikes|VolskayaVehicleTacticalStrikes|W" />
       </Override>
     </Ability>
   </CUnit>

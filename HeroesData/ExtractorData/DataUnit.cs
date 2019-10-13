@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace HeroesData.ExtractorData
 {
-    public class DataUnit : DataExtractorBase<Unit, UnitParser>, IData
+    public class DataUnit : DataExtractorBase<Unit?, UnitParser>, IData
     {
         public DataUnit(UnitParser parser)
             : base(parser)
@@ -17,8 +17,13 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "units";
 
-        protected override void Validation(Unit unit)
+        protected override void Validation(Unit? unit)
         {
+            if (unit is null)
+            {
+                throw new ArgumentNullException(nameof(unit));
+            }
+
             if (unit.Id.EndsWith("dummy", StringComparison.OrdinalIgnoreCase))
                 return;
 
@@ -81,7 +86,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} failed to parse correctly");
-                    else if (char.IsDigit(ability.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
+                    else if (ability.Tooltip.Cooldown.CooldownTooltip != null && char.IsDigit(ability.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
                 }
 
@@ -89,7 +94,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (ability.Tooltip.Energy.EnergyTooltip?.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} failed to parse correctly");
-                    else if (char.IsDigit(ability.Tooltip.Energy.EnergyTooltip.PlainText[0]))
+                    else if (ability.Tooltip.Energy.EnergyTooltip != null && char.IsDigit(ability.Tooltip.Energy.EnergyTooltip.PlainText[0]))
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
                 }
 
@@ -97,7 +102,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (ability.Tooltip.Life.LifeCostTooltip?.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} failed to parse correctly");
-                    else if (char.IsDigit(ability.Tooltip.Life.LifeCostTooltip.PlainText[0]))
+                    else if (ability.Tooltip.Life.LifeCostTooltip != null && char.IsDigit(ability.Tooltip.Life.LifeCostTooltip.PlainText[0]))
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
                 }
             }
@@ -105,25 +110,25 @@ namespace HeroesData.ExtractorData
 
         private void VerifyAbilitiesCount(List<Ability> abilitiesList)
         {
-            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Q).Count() > 1)
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Q).Count() > 1)
                 AddWarning($"has more than 1 {AbilityType.Q} ability");
-            if (abilitiesList.Where(x => x.AbilityType == AbilityType.W).Count() > 1)
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.W).Count() > 1)
                 AddWarning($"has more than 1 {AbilityType.W} ability");
-            if (abilitiesList.Where(x => x.AbilityType == AbilityType.E).Count() > 1)
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.E).Count() > 1)
                 AddWarning($"has more than 1 {AbilityType.E} abilities");
-            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Heroic).Count() > 2)
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Heroic).Count() > 2)
                 AddWarning($"has more than 2 {AbilityType.Heroic} abilities");
-            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Z).Count() > 1)
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Z).Count() > 1)
                 AddWarning($"has more than 1 {AbilityType.Z} ability");
-            if (abilitiesList.Where(x => x.AbilityType == AbilityType.B).Count() > 1)
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.B).Count() > 1)
                 AddWarning($"has more than 1 {AbilityType.B} ability");
-            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Trait).Count() > 1)
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Trait).Count() > 1)
                 AddWarning($"has more than 1 {AbilityType.Trait} ability");
-            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Taunt).Count() > 1)
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Taunt).Count() > 1)
                 AddWarning($"has more than 1 {AbilityType.Taunt} ability");
-            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Spray).Count() > 1)
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Spray).Count() > 1)
                 AddWarning($"has more than 1 {AbilityType.Spray} ability");
-            if (abilitiesList.Where(x => x.AbilityType == AbilityType.Dance).Count() > 1)
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Dance).Count() > 1)
                 AddWarning($"has more than 1 {AbilityType.Dance} ability");
         }
 

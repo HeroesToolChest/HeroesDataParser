@@ -22,15 +22,15 @@ namespace HeroesData.Parser.Overrides
         /// <summary>
         /// The loaded override file name (includes path).
         /// </summary>
-        public string LoadedOverrideFileName { get; private set; }
+        public string LoadedOverrideFileName { get; private set; } = string.Empty;
 
         /// <summary>
         /// Returns the amount of data overrides loaded from override file.
         /// </summary>
         public int Count => DataOverridesById.Count;
 
-        protected Dictionary<string, T> DataOverridesById { get; private set; }
-        protected string DataOverridesDirectoryPath { get; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "dataoverrides");
+        protected Dictionary<string, T> DataOverridesById { get; private set; } = new Dictionary<string, T>();
+        protected string DataOverridesDirectoryPath { get; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "dataoverrides");
         protected virtual string OverrideFileName { get; private set; } = "overrides.xml";
         protected abstract string OverrideElementName { get; }
 
@@ -40,7 +40,7 @@ namespace HeroesData.Parser.Overrides
         /// <exception cref="FileNotFoundException"></exception>
         public void Load()
         {
-            DataOverridesById = new Dictionary<string, T>();
+            DataOverridesById.Clear();
 
             LoadBuildNumberOverrideFiles();
 
@@ -76,7 +76,7 @@ namespace HeroesData.Parser.Overrides
         /// </summary>
         /// <param name="id">The id the override object.</param>
         /// <returns></returns>
-        public T GetOverride(string id)
+        public T? GetOverride(string id)
         {
             if (DataOverridesById == null)
                 throw new NullReferenceException("The Load() method needs to be called before this method can be used.");
@@ -84,7 +84,7 @@ namespace HeroesData.Parser.Overrides
             if (id.Contains(".stormmod"))
                 id = id.Replace(".stormmod", string.Empty);
 
-            if (DataOverridesById.TryGetValue(id, out T overrideData))
+            if (DataOverridesById.TryGetValue(id, out T? overrideData))
                 return overrideData;
             else
                 return null;
@@ -101,7 +101,7 @@ namespace HeroesData.Parser.Overrides
                     if (OverrideFileNamesByBuild.Count > 0)
                     {
                         // exact build number override file
-                        if (OverrideFileNamesByBuild.TryGetValue(HotsBuild.Value, out string filePath))
+                        if (OverrideFileNamesByBuild.TryGetValue(HotsBuild.Value, out string? filePath))
                         {
                             LoadedOverrideFileName = filePath;
                         }

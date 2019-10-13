@@ -1,9 +1,10 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using System;
 
 namespace HeroesData.ExtractorData
 {
-    public class DataMatchAward : DataExtractorBase<MatchAward, MatchAwardParser>, IData
+    public class DataMatchAward : DataExtractorBase<MatchAward?, MatchAwardParser>, IData
     {
         public DataMatchAward(MatchAwardParser parser)
             : base(parser)
@@ -12,8 +13,13 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "awards";
 
-        protected override void Validation(MatchAward matchAward)
+        protected override void Validation(MatchAward? matchAward)
         {
+            if (matchAward is null)
+            {
+                throw new ArgumentNullException(nameof(matchAward));
+            }
+
             if (string.IsNullOrEmpty(matchAward.Name))
                 AddWarning($"{nameof(matchAward.Name)} is empty");
 

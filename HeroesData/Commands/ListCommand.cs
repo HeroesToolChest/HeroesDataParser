@@ -9,7 +9,7 @@ namespace HeroesData.Commands
     {
         private readonly HashSet<string> ValidFileExtensions = new HashSet<string>();
 
-        private string DirectoryPath;
+        private string DirectoryPath = string.Empty;
 
         public ListCommand(CommandLineApplication app)
             : base(app)

@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,33 +15,31 @@ namespace HeroesData.Tests.CommandTests
         [TestMethod]
         public void NoArgumentsTest()
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "image" });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "image" });
 
-                Assert.AreEqual("Must provide a file name, relative file path, or directory.", lines[0]);
-            }
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+
+            Assert.AreEqual("Must provide a file name, relative file path, or directory.", lines[0]);
         }
 
         [TestMethod]
         public void InvalidImagePathTest()
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "image", "DoesNotExists.jpg" });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "image", "DoesNotExists.jpg" });
 
-                Assert.AreEqual("File or directory does not exist.", lines[0]);
-            }
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+
+            Assert.AreEqual("File or directory does not exist.", lines[0]);
         }
 
         [DataTestMethod]
@@ -51,17 +48,16 @@ namespace HeroesData.Tests.CommandTests
         [DataRow("0")]
         public void InvalidWidthOptionTest(string value)
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "image", Path.Combine("CommandTests", PngImage), "--width", value });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "image", Path.Combine("CommandTests", PngImage), "--width", value });
 
-                Assert.AreEqual("Invalid width. Must be an integer greater than 0.", lines[0]);
-            }
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+
+            Assert.AreEqual("Invalid width. Must be an integer greater than 0.", lines[0]);
         }
 
         [DataTestMethod]
@@ -70,17 +66,16 @@ namespace HeroesData.Tests.CommandTests
         [DataRow("0")]
         public void InvalidHeightOptionTest(string value)
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "image", Path.Combine("CommandTests", PngImage), "--height", value });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "image", Path.Combine("CommandTests", PngImage), "--height", value });
 
-                Assert.AreEqual("Invalid height. Must be an integer greater than 0.", lines[0]);
-            }
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+
+            Assert.AreEqual("Invalid height. Must be an integer greater than 0.", lines[0]);
         }
 
         [TestMethod]
@@ -98,49 +93,45 @@ namespace HeroesData.Tests.CommandTests
                 Assert.AreEqual("Image processed.", lines[0]);
             }
 
-            using (Image<Rgba32> image = Image.Load(Path.Combine("CommandTests", PngImage)))
-            {
-                Assert.AreEqual(128, image.Width);
-                Assert.AreEqual(128, image.Height);
-            }
+            using Image image = Image.Load(Path.Combine("CommandTests", PngImage));
+
+            Assert.AreEqual(128, image.Width);
+            Assert.AreEqual(128, image.Height);
         }
 
         [TestMethod]
         public void ImageNotProcessedTest()
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "image", Path.Combine("CommandTests", "Test.txt") });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "image", Path.Combine("CommandTests", "Test.txt") });
 
-                Assert.AreEqual("Image did not get processed.", lines[0]);
-            }
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+
+            Assert.AreEqual("Image did not get processed.", lines[0]);
         }
 
         [TestMethod]
         public void DirectoryImagesProcessedTest()
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "image", "CommandTests", "-o", "MultiImages", "--height", "64" });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "image", "CommandTests", "-o", "MultiImages", "--height", "64" });
 
-                Assert.AreEqual("\rProcessed 1\rProcessed 2", lines[0]);
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
-                using (Image<Rgba32> image = Image.Load(Path.Combine("MultiImages", PngImage)))
-                {
-                    Assert.AreEqual(128, image.Width);
-                    Assert.AreEqual(64, image.Height);
-                }
-            }
+            Assert.AreEqual("\rProcessed 1\rProcessed 2", lines[0]);
+
+            using Image image = Image.Load(Path.Combine("MultiImages", PngImage));
+
+            Assert.AreEqual(128, image.Width);
+            Assert.AreEqual(64, image.Height);
         }
     }
 }

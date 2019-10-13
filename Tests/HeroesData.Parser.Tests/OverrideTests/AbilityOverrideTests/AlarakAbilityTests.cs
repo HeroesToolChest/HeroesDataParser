@@ -33,7 +33,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.AbilityOverrideTests
         [TestMethod]
         public void AbilityTypeOverrideTest()
         {
-            Assert.AreEqual(AbilityType.Q, TestAbility.AbilityType);
+            Assert.AreEqual(AbilityType.Q, TestAbility.AbilityTalentId.AbilityType);
         }
     }
 }

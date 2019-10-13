@@ -8,14 +8,14 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
     {
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<Talent>> propertyOverrides)
         {
-            if (propertyName == nameof(Talent.AbilityType))
+            if (propertyName == nameof(Talent.AbilityTalentId.AbilityType))
             {
                 propertyOverrides.Add(propertyName, (talent) =>
                 {
                     if (Enum.TryParse(propertyValue, out AbilityType abilityType))
-                        talent.AbilityType = abilityType;
+                        talent.AbilityTalentId.AbilityType = abilityType;
                     else
-                        talent.AbilityType = AbilityType.Unknown;
+                        talent.AbilityTalentId.AbilityType = AbilityType.Unknown;
                 });
             }
             else if (propertyName == nameof(Talent.AbilityTalentLinkIds))

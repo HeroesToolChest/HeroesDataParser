@@ -129,7 +129,7 @@ namespace HeroesData.FileWriter.Tests
             using (StreamReader reader = new StreamReader(Path.Combine(Environment.CurrentDirectory, outputFilePath)))
             {
                 string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
+                while ((line = reader.ReadLine()!) != null)
                 {
                     output.Add(line);
                 }
@@ -138,7 +138,7 @@ namespace HeroesData.FileWriter.Tests
             using (StreamReader reader = new StreamReader(Path.Combine(Environment.CurrentDirectory, OutputTestOutputDirectory, testFilePath)))
             {
                 string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
+                while ((line = reader.ReadLine()!) != null)
                 {
                     outputTest.Add(line);
                 }

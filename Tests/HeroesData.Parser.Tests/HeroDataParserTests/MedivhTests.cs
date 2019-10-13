@@ -9,7 +9,10 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void MountAbilityTest()
         {
-            Ability ability = HeroMedivh.GetFirstAbility("MedivhTransformRaven");
+            Ability ability = HeroMedivh.GetAbility(new AbilityTalentId("MedivhTransformRaven", "MedivhTransformRaven")
+            {
+                AbilityType = AbilityType.Z,
+            });
             Assert.AreEqual("Cooldown: 4 seconds", ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
         }
     }

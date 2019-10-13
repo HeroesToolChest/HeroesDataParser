@@ -24,10 +24,10 @@ namespace HeroesData
     {
         private readonly List<DataProcessor> DataProcessors = new List<DataProcessor>();
 
-        private GameData GameData;
-        private DefaultData DefaultData;
-        private XmlDataOverriders XmlDataOverriders;
-        private Configuration Configuration;
+        private GameData? GameData;
+        private DefaultData? DefaultData;
+        private XmlDataOverriders? XmlDataOverriders;
+        private Configuration? Configuration;
 
         /// <summary>
         /// Gets the product version of the application.
@@ -37,7 +37,7 @@ namespace HeroesData
         /// <summary>
         /// Gets the assembly path.
         /// </summary>
-        public static string AssemblyPath { get; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static string AssemblyPath { get; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
 
         public static bool Defaults { get; set; } = true;
         public static bool CreateXml { get; set; } = false;
@@ -58,7 +58,7 @@ namespace HeroesData
         public static HashSet<string> ValidationIgnoreLines { get; } = new HashSet<string>();
 
         public StorageMode StorageMode { get; private set; } = StorageMode.None;
-        public CASCHotsStorage CASCHotsStorage { get; private set; } = null;
+        public CASCHotsStorage? CASCHotsStorage { get; private set; } = null;
         public List<Localization> Localizations { get; set; } = new List<Localization>();
 
         /// <summary>
@@ -68,23 +68,22 @@ namespace HeroesData
 
         public static void WriteExceptionLog(string fileName, Exception ex)
         {
-            using (StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"Exception_{fileName}_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.txt"), false))
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                    writer.Write(ex.Message);
+            using StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"Exception_{fileName}_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.txt"), false);
 
-                if (ex is AggregateException)
+            if (!string.IsNullOrEmpty(ex.Message))
+                writer.Write(ex.Message);
+
+            if (ex is AggregateException)
+            {
+                foreach (Exception exception in ((AggregateException)ex).InnerExceptions)
                 {
-                    foreach (Exception exception in ((AggregateException)ex).InnerExceptions)
-                    {
-                        writer.Write(ex);
-                    }
+                    writer.Write(ex);
                 }
-                else
-                {
-                    if (!string.IsNullOrEmpty(ex.StackTrace))
-                        writer.Write(ex.StackTrace);
-                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(ex.StackTrace))
+                    writer.Write(ex.StackTrace);
             }
         }
 
@@ -134,14 +133,15 @@ namespace HeroesData
                     // parse data
                     DataProcessor((parser) =>
                     {
-                        parser.ParsedItems = parser.Parse(localization);
+                        if (parser.Parse != null)
+                            parser.ParsedItems = parser.Parse(localization);
                     });
 
                     // validate
                     Console.WriteLine("Validating data...");
                     DataProcessor((parser) =>
                     {
-                        parser.Validate(localization);
+                        parser.Validate?.Invoke(localization);
                     });
 
                     if (!ShowValidationWarnings)
@@ -165,7 +165,8 @@ namespace HeroesData
                     Console.WriteLine("Extracting files...");
                     DataProcessor((parser) =>
                     {
-                        parser.Extract?.Invoke(parser.ParsedItems);
+                        if (parser.ParsedItems != null)
+                            parser.Extract?.Invoke(parser.ParsedItems!);
                     });
 
                     Console.WriteLine();
@@ -219,6 +220,9 @@ namespace HeroesData
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
 
+                    if (CASCHotsStorage.CASCHandler == null)
+                        throw new NullReferenceException($"{nameof(CASCHotsStorage.CASCHandler)} is null.");
+
                     ReadOnlySpan<char> buildName = CASCHotsStorage.CASCHandler.Config.BuildName.AsSpan();
                     int indexOfVersion = buildName.LastIndexOf('.');
 
@@ -253,9 +257,22 @@ namespace HeroesData
             try
             {
                 if (StorageMode == StorageMode.Mods)
+                {
                     GameData = new FileGameData(StoragePath, HotsBuild);
+                }
                 else if (StorageMode == StorageMode.CASC)
+                {
+                    if (CASCHotsStorage?.CASCHandler == null)
+                        throw new NullReferenceException($"{nameof(CASCHotsStorage.CASCHandler)} is null.");
+                    if (CASCHotsStorage?.CASCFolderRoot == null)
+                        throw new NullReferenceException($"{nameof(CASCHotsStorage.CASCFolderRoot)} is null.");
+
                     GameData = new CASCGameData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
+                }
+                else
+                {
+                    throw new Exception("Unknown storage type");
+                }
 
                 GameData.LoadXmlFiles();
 
@@ -270,14 +287,17 @@ namespace HeroesData
 
             time.Stop();
 
-            Console.WriteLine($"{GameData.XmlFileCount,6} xml files loaded");
+            Console.WriteLine($"{GameData!.XmlFileCount,6} xml files loaded");
             Console.WriteLine($"{GameData.StormStyleCount,6} storm style files loaded");
-            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
+            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds:0.####} seconds");
             Console.WriteLine();
         }
 
         private void InitializeOverrideData()
         {
+            if (GameData == null)
+                throw new NullReferenceException($"{nameof(GameData)} is null.");
+
             Stopwatch time = new Stopwatch();
 
             Console.WriteLine($"Loading data overriders...");
@@ -313,12 +333,18 @@ namespace HeroesData
 
             time.Stop();
 
-            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
+            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds:0.####} seconds");
             Console.WriteLine();
         }
 
         private void ParseGameStrings(Localization localization)
         {
+            if (GameData == null)
+                throw new NullReferenceException($"{nameof(GameData)} is null");
+
+            if (Configuration == null)
+                throw new NullReferenceException($"{nameof(Configuration)} is null");
+
             int currentCount = 0;
             int failedCount = 0;
             int totalGameStrings = GameData.GameStringCount + GameData.GameStringMapCount;
@@ -401,7 +427,7 @@ namespace HeroesData
             Console.WriteLine($"{totalGameStrings - failedCount,6} successfully parsed gamestrings");
 
             Console.ResetColor();
-            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
+            Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds:0.####} seconds");
             Console.WriteLine();
         }
 
@@ -540,6 +566,9 @@ namespace HeroesData
 
         private void LoadGameStrings(Localization localization)
         {
+            if (GameData == null)
+                throw new NullReferenceException($"{nameof(GameData)} is null");
+
             Stopwatch time = new Stopwatch();
 
             GameData.GameStringLocalization = localization.GetFriendlyName();
@@ -555,7 +584,7 @@ namespace HeroesData
 
                 time.Stop();
 
-                Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
+                Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds:0.####} seconds");
 
                 Console.WriteLine();
             }
@@ -572,12 +601,11 @@ namespace HeroesData
 
         private void WriteInvalidGameStrings(List<string> invalidGameStrings, Localization localization)
         {
-            using (StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"InvalidGamestrings_{localization.ToString().ToLower()}.txt"), false))
+            using StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"InvalidGamestrings_{localization.ToString().ToLower()}.txt"), false);
+
+            foreach (string gamestring in invalidGameStrings)
             {
-                foreach (string gamestring in invalidGameStrings)
-                {
-                    writer.WriteLine(gamestring);
-                }
+                writer.WriteLine(gamestring);
             }
         }
 
@@ -585,17 +613,16 @@ namespace HeroesData
         {
             if (File.Exists(VerifyIgnoreFilePath))
             {
-                using (StreamReader reader = new StreamReader(VerifyIgnoreFilePath))
-                {
-                    string line = string.Empty;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        line = line.Trim();
+                using StreamReader reader = new StreamReader(VerifyIgnoreFilePath);
 
-                        if (!string.IsNullOrEmpty(line) && !line.StartsWith("#"))
-                        {
-                            ValidationIgnoreLines.Add(line);
-                        }
+                string? line = null;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    line = line.Trim();
+
+                    if (!string.IsNullOrEmpty(line) && !line.StartsWith("#"))
+                    {
+                        ValidationIgnoreLines.Add(line);
                     }
                 }
             }
@@ -657,7 +684,7 @@ namespace HeroesData
                     {
                         Console.Write($"[{parser.Name}] Writing json file(s)...");
 
-                        if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Json))
+                        if (fileOutput.Create((dynamic)parser.ParsedItems!, FileOutputType.Json))
                         {
                             Console.WriteLine("Done.");
                         }
@@ -673,7 +700,7 @@ namespace HeroesData
                     {
                         Console.Write($"[{parser.Name}] Writing xml file(s)...");
 
-                        if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Xml))
+                        if (fileOutput.Create((dynamic)parser.ParsedItems!, FileOutputType.Xml))
                         {
                             Console.WriteLine("Done.");
                         }
@@ -690,7 +717,7 @@ namespace HeroesData
                     // only need to parsed through one type of file to get the gamestrings
                     Console.Write($"[{parser.Name}] Writing gamestrings...");
 
-                    if (fileOutput.Create((dynamic)parser.ParsedItems, FileOutputType.Json))
+                    if (fileOutput.Create((dynamic)parser.ParsedItems!, FileOutputType.Json))
                     {
                         Console.WriteLine("Done.");
                     }
@@ -710,11 +737,17 @@ namespace HeroesData
 
         private void SetUpDataProcessors()
         {
+            if (Configuration == null || GameData == null || DefaultData == null)
+                throw new NullReferenceException($"{nameof(Configuration)}, {nameof(GameData)}, and {nameof(DefaultData)} must be initialized before calling this method.");
+
+            if (XmlDataOverriders == null)
+                throw new NullReferenceException($"{nameof(XmlDataOverriders)} cannot be null");
+
             IXmlDataService xmlDataService = new XmlDataService(Configuration, GameData, DefaultData);
 
-            DataHero dataHero = new DataHero(new HeroDataParser(xmlDataService.GetInstance(), (HeroOverrideLoader)XmlDataOverriders.GetOverrider(typeof(HeroDataParser))));
-            DataUnit dataUnit = new DataUnit(new UnitParser(xmlDataService.GetInstance(), (UnitOverrideLoader)XmlDataOverriders.GetOverrider(typeof(UnitParser))));
-            DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(xmlDataService.GetInstance(), (MatchAwardOverrideLoader)XmlDataOverriders.GetOverrider(typeof(MatchAwardParser))));
+            DataHero dataHero = new DataHero(new HeroDataParser(xmlDataService.GetInstance(), (HeroOverrideLoader)XmlDataOverriders.GetOverrider(typeof(HeroDataParser))!));
+            DataUnit dataUnit = new DataUnit(new UnitParser(xmlDataService.GetInstance(), (UnitOverrideLoader)XmlDataOverriders.GetOverrider(typeof(UnitParser))!));
+            DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(xmlDataService.GetInstance(), (MatchAwardOverrideLoader)XmlDataOverriders.GetOverrider(typeof(MatchAwardParser))!));
             DataHeroSkin dataHeroSkin = new DataHeroSkin(new HeroSkinParser(xmlDataService.GetInstance()));
             DataMount dataMount = new DataMount(new MountParser(xmlDataService.GetInstance()));
             DataBanner dataBanner = new DataBanner(new BannerParser(xmlDataService.GetInstance()));

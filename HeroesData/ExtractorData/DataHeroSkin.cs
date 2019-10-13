@@ -1,9 +1,10 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using System;
 
 namespace HeroesData.ExtractorData
 {
-    public class DataHeroSkin : DataExtractorBase<HeroSkin, HeroSkinParser>, IData
+    public class DataHeroSkin : DataExtractorBase<HeroSkin?, HeroSkinParser>, IData
     {
         public DataHeroSkin(HeroSkinParser parser)
             : base(parser)
@@ -12,8 +13,13 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "heroskins";
 
-        protected override void Validation(HeroSkin heroSkin)
+        protected override void Validation(HeroSkin? heroSkin)
         {
+            if (heroSkin is null)
+            {
+                throw new ArgumentNullException(nameof(heroSkin));
+            }
+
             if (string.IsNullOrEmpty(heroSkin.Name))
                 AddWarning($"{nameof(heroSkin.Name)} is empty");
 

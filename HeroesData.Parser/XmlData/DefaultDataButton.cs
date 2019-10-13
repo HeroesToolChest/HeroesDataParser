@@ -22,67 +22,67 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default button name text. Contains ##id##.
         /// </summary>
-        public string ButtonName { get; private set; }
+        public string? ButtonName { get; private set; }
 
         /// <summary>
         /// Gets the default button tooltip text. Contains ##id##. Full text.
         /// </summary>
-        public string ButtonTooltip { get; private set; }
+        public string? ButtonTooltip { get; private set; }
 
         /// <summary>
         /// Gets the default button simple display text. Contains ##id##. Short text.
         /// </summary>
-        public string ButtonSimpleDisplayText { get; private set; }
+        public string? ButtonSimpleDisplayText { get; private set; }
 
         /// <summary>
         /// Gets the default button tooltip vital text.
         /// </summary>
-        public string ButtonTooltipEnergyVitalName { get; private set; }
+        public string? ButtonTooltipEnergyVitalName { get; private set; }
 
         /// <summary>
         /// Gets the default button hotkey text. Contains ##id##.
         /// </summary>
-        public string ButtonHotkey { get; private set; }
+        public string? ButtonHotkey { get; private set; }
 
         /// <summary>
         /// Gets the default button hotkey alias text. Contains ##id##.
         /// </summary>
-        public string ButtonHotkeyAlias { get; private set; }
+        public string? ButtonHotkeyAlias { get; private set; }
 
         /// <summary>
         /// Gets the default button tooltip flag - show name.
         /// </summary>
-        public bool ButtonTooltipFlagShowName { get; private set; }
+        public bool ButtonTooltipFlagShowName { get; private set; } = false;
 
         /// <summary>
         /// Gets the default button tooltip flag - show hotkey.
         /// </summary>
-        public bool ButtonTooltipFlagShowHotkey { get; private set; }
+        public bool ButtonTooltipFlagShowHotkey { get; private set; } = false;
 
         /// <summary>
         /// Gets the default button tooltip flag - show usage.
         /// </summary>
-        public bool ButtonTooltipFlagShowUsage { get; private set; }
+        public bool ButtonTooltipFlagShowUsage { get; private set; } = false;
 
         /// <summary>
         /// Gets the default button tooltip flag - show time.
         /// </summary>
-        public bool ButtonTooltipFlagShowTime { get; private set; }
+        public bool ButtonTooltipFlagShowTime { get; private set; } = false;
 
         /// <summary>
         /// Gets the default button tooltip flag - show cooldown.
         /// </summary>
-        public bool ButtonTooltipFlagShowCooldown { get; private set; }
+        public bool ButtonTooltipFlagShowCooldown { get; private set; } = false;
 
         /// <summary>
         /// Gets the default button tooltip flag - show requirements.
         /// </summary>
-        public bool ButtonTooltipFlagShowRequirements { get; private set; }
+        public bool ButtonTooltipFlagShowRequirements { get; private set; } = false;
 
         /// <summary>
         /// Gets the default button tooltip flag - show autocast.
         /// </summary>
-        public bool ButtonTooltipFlagShowAutocast { get; private set; }
+        public bool ButtonTooltipFlagShowAutocast { get; private set; } = false;
 
         // <CButton default="1">
         private void LoadCButtonDefault()

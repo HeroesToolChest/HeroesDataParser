@@ -20,17 +20,17 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default banner name. Contains ##id##.
         /// </summary>
-        public string BannerName { get; private set; }
+        public string? BannerName { get; private set; }
 
         /// <summary>
         /// Gets the default banner name used for sorting. Contains ##id##.
         /// </summary>
-        public string BannerSortName { get; private set; }
+        public string? BannerSortName { get; private set; }
 
         /// <summary>
         /// Gets the default banner description. Contains ##id##.
         /// </summary>
-        public string BannerDescription { get; private set; }
+        public string? BannerDescription { get; private set; }
 
         /// <summary>
         /// Gets the default banner release date.

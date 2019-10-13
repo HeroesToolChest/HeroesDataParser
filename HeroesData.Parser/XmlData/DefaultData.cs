@@ -36,35 +36,35 @@ namespace HeroesData.Parser.XmlData
             GameData = gameData;
         }
 
-        public DefaultDataHero HeroData { get; private set; }
+        public DefaultDataHero? HeroData { get; private set; }
 
-        public DefaultDataUnit UnitData { get; private set; }
+        public DefaultDataUnit? UnitData { get; private set; }
 
-        public DefaultDataAbil AbilData { get; private set; }
+        public DefaultDataAbil? AbilData { get; private set; }
 
-        public DefaultDataButton ButtonData { get; private set; }
+        public DefaultDataButton? ButtonData { get; private set; }
 
-        public DefaultDataWeapon WeaponData { get; private set; }
+        public DefaultDataWeapon? WeaponData { get; private set; }
 
-        public DefaultDataHeroSkin HeroSkinData { get; private set; }
+        public DefaultDataHeroSkin? HeroSkinData { get; private set; }
 
-        public DefaultDataMount MountData { get; private set; }
+        public DefaultDataMount? MountData { get; private set; }
 
-        public DefaultDataBanner BannerData { get; private set; }
+        public DefaultDataBanner? BannerData { get; private set; }
 
-        public DefaultDataSpray SprayData { get; private set; }
+        public DefaultDataSpray? SprayData { get; private set; }
 
-        public DefaultDataAnnouncer AnnouncerData { get; private set; }
+        public DefaultDataAnnouncer? AnnouncerData { get; private set; }
 
-        public DefaultDataVoiceLine VoiceLineData { get; private set; }
+        public DefaultDataVoiceLine? VoiceLineData { get; private set; }
 
-        public DefaultDataPortraitPack PortraitPackData { get; private set; }
+        public DefaultDataPortraitPack? PortraitPackData { get; private set; }
 
-        public DefaultDataEmoticon EmoticonData { get; private set; }
+        public DefaultDataEmoticon? EmoticonData { get; private set; }
 
-        public DefaultDataEmoticonPack EmoticonPackData { get; private set; }
+        public DefaultDataEmoticonPack? EmoticonPackData { get; private set; }
 
-        public DefaultDataBehaviorVeterancy BehaviorVeterancyData { get; private set; }
+        public DefaultDataBehaviorVeterancy? BehaviorVeterancyData { get; private set; }
 
         /// <summary>
         /// Gets the default difficulty text. Contains ##id##.

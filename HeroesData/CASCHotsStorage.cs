@@ -11,9 +11,6 @@ namespace HeroesData
     {
         private readonly string StoragePath;
 
-        private readonly ManualResetEvent ResetEvent = new ManualResetEvent(false);
-        private readonly BackgroundWorkerEx BackgroundWorker = new BackgroundWorkerEx();
-
         private CASCHotsStorage(string storagePath)
         {
             StoragePath = storagePath;
@@ -21,8 +18,8 @@ namespace HeroesData
             Initialize();
         }
 
-        public CASCFolder CASCFolderRoot { get; private set; }
-        public CASCHandler CASCHandler { get; private set; }
+        public CASCFolder? CASCFolderRoot { get; private set; }
+        public CASCHandler? CASCHandler { get; private set; }
 
         public static CASCHotsStorage Load(string storagePath)
         {
@@ -37,30 +34,33 @@ namespace HeroesData
 
             TextWriter console = Console.Out;
 
-            var time = new Stopwatch();
+            Stopwatch time = new Stopwatch();
 
-            BackgroundWorker.DoWork += (_, e) =>
+            using ManualResetEvent resetEvent = new ManualResetEvent(false);
+            using BackgroundWorkerEx backgroundWorker = new BackgroundWorkerEx();
+
+            backgroundWorker.DoWork += (_, e) =>
             {
                 Console.SetOut(TextWriter.Null); // suppress output
                 CASCConfig config = CASCConfig.LoadLocalStorageConfig(StoragePath);
-                CASCHandler = CASCHandler.OpenStorage(config, BackgroundWorker);
+                CASCHandler = CASCHandler.OpenStorage(config, backgroundWorker);
 
                 LocaleFlags locale = LocaleFlags.All;
 
                 Console.SetOut(console); // enable output
-                CASCHandler.Root.LoadListFile(Path.Combine(Environment.CurrentDirectory, "listfile.txt"), BackgroundWorker);
+                CASCHandler.Root.LoadListFile(Path.Combine(Environment.CurrentDirectory, "listfile.txt"), backgroundWorker);
 
                 Console.SetOut(TextWriter.Null); // suppress output
                 CASCFolderRoot = CASCHandler.Root.SetFlags(locale);
             };
 
-            BackgroundWorker.ProgressChanged += (_, e) =>
+            backgroundWorker.ProgressChanged += (_, e) =>
             {
                 // main thread is blocked, so push it on another thread
                 Task.Run(() => { DrawProgressBar(e.ProgressPercentage, 100, 72, '#'); });
             };
 
-            BackgroundWorker.RunWorkerCompleted += (_, e) =>
+            backgroundWorker.RunWorkerCompleted += (_, e) =>
             {
                 time.Stop();
                 Console.SetOut(console); // enable output
@@ -68,10 +68,10 @@ namespace HeroesData
                 DrawProgressBar(100, 100, 72, '#');
 
                 Console.WriteLine();
-                Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds} seconds");
+                Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds:0.####} seconds");
                 Console.WriteLine();
 
-                ResetEvent.Set();
+                resetEvent.Set();
             };
 
             try
@@ -79,12 +79,12 @@ namespace HeroesData
                 // use backgroundworker for progress reporting since it is provided by CASCLib
                 // the main thread is blocked until the background process is completed
                 time.Start();
-                BackgroundWorker.RunWorkerAsync();
-                ResetEvent.WaitOne();
+                backgroundWorker.RunWorkerAsync();
+                resetEvent.WaitOne();
             }
             catch (Exception ex)
             {
-                ResetEvent.Set();
+                resetEvent.Set();
                 Console.SetOut(console);
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine();
@@ -123,7 +123,7 @@ namespace HeroesData
             Console.ResetColor();
 
             percent *= 100;
-            Console.Write($"{percent.ToString(),4}%");
+            Console.Write($" {percent:0}%");
 
             if (percent < 100)
                 Console.Write("\r");

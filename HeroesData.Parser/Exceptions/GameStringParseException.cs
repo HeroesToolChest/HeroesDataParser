@@ -9,12 +9,12 @@ namespace HeroesData.Parser.Exceptions
         {
         }
 
-        public GameStringParseException(string message)
+        public GameStringParseException(string? message)
             : base(message)
         {
         }
 
-        public GameStringParseException(string message, Exception innerException)
+        public GameStringParseException(string? message, Exception? innerException)
             : base(message, innerException)
         {
         }

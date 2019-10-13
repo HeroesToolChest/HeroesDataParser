@@ -38,52 +38,52 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default hero name text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string HeroName { get; private set; }
+        public string? HeroName { get; private set; }
 
         /// <summary>
         /// Gets the default description text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string HeroDescription { get; private set; }
+        public string? HeroDescription { get; private set; }
 
         /// <summary>
         /// Gets the default portrait text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string HeroPortrait { get; private set; }
+        public string? HeroPortrait { get; private set; }
 
         /// <summary>
         /// Gets the default select screen button text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string HeroSelectScreenButtonImage { get; private set; }
+        public string? HeroSelectScreenButtonImage { get; private set; }
 
         /// <summary>
         /// Gets the default party panel button image text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string HeroPartyPanelButtonImage { get; private set; }
+        public string? HeroPartyPanelButtonImage { get; private set; }
 
         /// <summary>
         /// Gets the default leaderboard image text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string HeroLeaderboardImage { get; private set; }
+        public string? HeroLeaderboardImage { get; private set; }
 
         /// <summary>
         /// Gets the default loading screen text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string HeroLoadingScreenImage { get; private set; }
+        public string? HeroLoadingScreenImage { get; private set; }
 
         /// <summary>
         /// Gets the default party frame text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string HeroPartyFrameImage { get; private set; }
+        public string? HeroPartyFrameImage { get; private set; }
 
         /// <summary>
         /// Gets the default draft screen text. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string HeroDraftScreenImage { get; private set; }
+        public string? HeroDraftScreenImage { get; private set; }
 
         /// <summary>
         /// Gets the default hyperlink id text. Used for shortname. Contains ##id##. Use with CHero id.
         /// </summary>
-        public string HeroHyperlinkId { get; private set; }
+        public string? HeroHyperlinkId { get; private set; }
 
         /// <summary>
         /// Gets the default release date value.
@@ -98,32 +98,32 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the unit text. Contains ##id##. Used to get the cUnitId.
         /// </summary>
-        public string HeroUnit { get; private set; }
+        public string? HeroUnit { get; private set; }
 
         /// <summary>
         /// Gets the default hero role text. Contains ##id##.
         /// </summary>
-        public string HeroRoleName { get; private set; }
+        public string? HeroRoleName { get; private set; }
 
         /// <summary>
         /// Gets the default hero information text. Contains ##id##.
         /// </summary>
-        public string HeroInfoText { get; private set; }
+        public string? HeroInfoText { get; private set; }
 
         /// <summary>
         /// Gets the default hero title. Contains ##id##.
         /// </summary>
-        public string HeroTitle { get; private set; }
+        public string? HeroTitle { get; private set; }
 
         /// <summary>
         /// Gets the default additional search text. Contains ##id##.
         /// </summary>
-        public string HeroAdditionalSearchText { get; private set; }
+        public string? HeroAdditionalSearchText { get; private set; }
 
         /// <summary>
         /// Gets the default alternamte name search text. Contains ##id##.
         /// </summary>
-        public string HeroAlternateNameSearchText { get; private set; }
+        public string? HeroAlternateNameSearchText { get; private set; }
 
         // <CHero default="1">
         private void LoadCHeroDefault()

@@ -20,17 +20,17 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default emoticon localized alias array value. Contains ##id##.
         /// </summary>
-        public string EmoticonLocalizedAliasArray { get; private set; }
+        public string? EmoticonLocalizedAliasArray { get; private set; }
 
         /// <summary>
         /// Gets the default emoticon description. Contains ##id##.
         /// </summary>
-        public string EmoticonDescription { get; private set; }
+        public string? EmoticonDescription { get; private set; }
 
         /// <summary>
         /// Gets the default emoticon expression.
         /// </summary>
-        public string EmoticonExpression { get; private set; }
+        public string? EmoticonExpression { get; private set; }
 
         /// <summary>
         /// Gets the default emoticon hidden status.
@@ -40,22 +40,22 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default emoticon texture sheet.
         /// </summary>
-        public string EmoticonTextureSheet { get; private set; }
+        public string? EmoticonTextureSheet { get; private set; }
 
         /// <summary>
         /// Gets the default texture sheet image file name. Contains ##id##.
         /// </summary>
-        public string TextureSheetImage { get; private set; }
+        public string? TextureSheetImage { get; private set; }
 
         /// <summary>
         /// Gets the default texture sheet rows.
         /// </summary>
-        public int TextureSheetRows { get; private set; }
+        public int TextureSheetRows { get; private set; } = 0;
 
         /// <summary>
         /// Gets the default texture sheet columns.
         /// </summary>
-        public int TextureSheetColumns { get; private set; }
+        public int TextureSheetColumns { get; private set; } = 0;
 
         // <CEmoticon default="1">
         private void LoadCEmoticonDefault()

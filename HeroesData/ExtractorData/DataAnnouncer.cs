@@ -1,9 +1,10 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using System;
 
 namespace HeroesData.ExtractorData
 {
-    public class DataAnnouncer : DataExtractorBase<Announcer, AnnouncerParser>, IData
+    public class DataAnnouncer : DataExtractorBase<Announcer?, AnnouncerParser>, IData
     {
         public DataAnnouncer(AnnouncerParser parser)
             : base(parser)
@@ -12,8 +13,13 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "announcers";
 
-        protected override void Validation(Announcer announcer)
+        protected override void Validation(Announcer? announcer)
         {
+            if (announcer is null)
+            {
+                throw new ArgumentNullException(nameof(announcer));
+            }
+
             if (string.IsNullOrEmpty(announcer.Name))
                 AddWarning($"{nameof(announcer.Name)} is empty");
 

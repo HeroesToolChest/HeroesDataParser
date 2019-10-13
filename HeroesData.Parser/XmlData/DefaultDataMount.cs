@@ -20,27 +20,27 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default mount name. Contains ##id##.
         /// </summary>
-        public string MountName { get; private set; }
+        public string? MountName { get; private set; }
 
         /// <summary>
         /// Gets the default mount name used for sorting. Contains ##id##.
         /// </summary>
-        public string MountSortName { get; private set; }
+        public string? MountSortName { get; private set; }
 
         /// <summary>
         /// Gets the default mount info text. Contains ##id##.
         /// </summary>
-        public string MountInfoText { get; private set; }
+        public string? MountInfoText { get; private set; }
 
         /// <summary>
         /// Gets the default mount additional search text. Contains ##id##.
         /// </summary>
-        public string MountAdditionalSearchText { get; private set; }
+        public string? MountAdditionalSearchText { get; private set; }
 
         /// <summary>
         /// Gets the default mount hyperlinkId. Contains ##id##.
         /// </summary>
-        public string MountHyperlinkId { get; private set; }
+        public string? MountHyperlinkId { get; private set; }
 
         /// <summary>
         /// Gets the default mount release date.

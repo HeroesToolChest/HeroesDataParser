@@ -1,9 +1,10 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using System;
 
 namespace HeroesData.ExtractorData
 {
-    public class DataPortrait : DataExtractorBase<Portrait, PortraitParser>, IData
+    public class DataPortrait : DataExtractorBase<Portrait?, PortraitParser>, IData
     {
         public DataPortrait(PortraitParser parser)
             : base(parser)
@@ -12,8 +13,13 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "portrait";
 
-        protected override void Validation(Portrait portrait)
+        protected override void Validation(Portrait? portrait)
         {
+            if (portrait is null)
+            {
+                throw new ArgumentNullException(nameof(portrait));
+            }
+
             if (string.IsNullOrEmpty(portrait.Name))
                 AddWarning($"{nameof(portrait.Name)} is empty");
 

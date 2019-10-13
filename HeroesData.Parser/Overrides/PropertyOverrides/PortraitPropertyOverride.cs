@@ -22,7 +22,7 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
             {
                 propertyOverrides.Add(propertyName, (portrait) =>
                 {
-                    portrait.GetType().GetProperty(propertyName).SetValue(portrait, propertyValue);
+                    portrait.GetType().GetProperty(propertyName)?.SetValue(portrait, propertyValue);
                 });
             }
         }

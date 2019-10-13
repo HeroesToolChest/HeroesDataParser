@@ -19,12 +19,12 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default value for the flag.
         /// </summary>
-        public bool CombineNumericModifications { get; private set; }
+        public bool CombineNumericModifications { get; private set; } = false;
 
         /// <summary>
         /// Gets the default value for the flag.
         /// </summary>
-        public bool CombineXP { get; private set; }
+        public bool CombineXP { get; private set; } = false;
 
         // <CBehaviorVeterancy default="1">
         private void LoadCBehaviorVeterancyDefault()
@@ -40,8 +40,8 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "FLAGS")
                 {
-                    string indexValue = element.Attribute("index")?.Value?.ToUpper();
-                    string valueValue = element.Attribute("value")?.Value;
+                    string? indexValue = element.Attribute("index")?.Value?.ToUpper();
+                    string valueValue = element.Attribute("value")?.Value ?? string.Empty;
 
                     if (!string.IsNullOrEmpty(indexValue))
                     {

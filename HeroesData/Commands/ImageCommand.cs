@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.CommandLineUtils;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
-using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System;
 using System.IO;
@@ -16,7 +15,7 @@ namespace HeroesData.Commands
         private int Width = DefaultWidth;
         private int Height = DefaultHeight;
 
-        private string OutputDirectory;
+        private string OutputDirectory = string.Empty;
         private bool Compress = false;
 
         public ImageCommand(CommandLineApplication app)
@@ -117,38 +116,37 @@ namespace HeroesData.Commands
             {
                 try
                 {
-                    using (Image<Rgba32> image = Image.Load(filePath))
+                    using Image image = Image.Load(filePath);
+
+                    if (Width == DefaultWidth)
+                        Width = image.Width;
+
+                    if (Height == DefaultHeight)
+                        Height = image.Height;
+
+                    image.Mutate(x => x.Resize(Width, Height));
+
+                    if (!string.IsNullOrEmpty(OutputDirectory))
                     {
-                        if (Width == DefaultWidth)
-                            Width = image.Width;
+                        Directory.CreateDirectory(OutputDirectory);
+                        newFilePath = Path.Combine(OutputDirectory, Path.GetFileName(filePath));
+                    }
 
-                        if (Height == DefaultHeight)
-                            Height = image.Height;
-
-                        image.Mutate(x => x.Resize(Width, Height));
-
-                        if (!string.IsNullOrEmpty(OutputDirectory))
+                    if (fileType == ".png" && Compress)
+                    {
+                        image.Save(newFilePath, new PngEncoder()
                         {
-                            Directory.CreateDirectory(OutputDirectory);
-                            newFilePath = Path.Combine(OutputDirectory, Path.GetFileName(filePath));
-                        }
+                            BitDepth = PngBitDepth.Bit8,
+                            ColorType = PngColorType.Palette,
+                        });
 
-                        if (fileType == ".png" && Compress)
-                        {
-                            image.Save(newFilePath, new PngEncoder()
-                            {
-                                BitDepth = PngBitDepth.Bit8,
-                                ColorType = PngColorType.Palette,
-                            });
+                        return true;
+                    }
+                    else
+                    {
+                        image.Save(newFilePath);
 
-                            return true;
-                        }
-                        else
-                        {
-                            image.Save(newFilePath);
-
-                            return true;
-                        }
+                        return true;
                     }
                 }
                 catch (Exception ex)

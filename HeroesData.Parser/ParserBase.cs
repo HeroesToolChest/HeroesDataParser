@@ -93,14 +93,14 @@ namespace HeroesData.Parser
             if (dataOverride == null)
                 return;
 
-            if (dataOverride.IdOverride.Enabled)
-                t.Id = dataOverride.IdOverride.Value;
+            if (dataOverride.IdOverride.enabled)
+                t.Id = dataOverride.IdOverride.value;
 
-            if (dataOverride.NameOverride.Enabled)
-                t.Name = dataOverride.NameOverride.Value;
+            if (dataOverride.NameOverride.enabled)
+                t.Name = dataOverride.NameOverride.value;
 
-            if (dataOverride.HyperlinkIdOverride.Enabled)
-                t.HyperlinkId = dataOverride.HyperlinkIdOverride.Value;
+            if (dataOverride.HyperlinkIdOverride.enabled)
+                t.HyperlinkId = dataOverride.HyperlinkIdOverride.value;
 
             ApplyAdditionalOverrides(t, dataOverride);
         }

@@ -1,10 +1,11 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using System;
 using System.Linq;
 
 namespace HeroesData.ExtractorData
 {
-    public class DataEmoticon : DataExtractorBase<Emoticon, EmoticonParser>, IData
+    public class DataEmoticon : DataExtractorBase<Emoticon?, EmoticonParser>, IData
     {
         public DataEmoticon(EmoticonParser parser)
             : base(parser)
@@ -13,8 +14,13 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "emoticons";
 
-        protected override void Validation(Emoticon emoticon)
+        protected override void Validation(Emoticon? emoticon)
         {
+            if (emoticon is null)
+            {
+                throw new ArgumentNullException(nameof(emoticon));
+            }
+
             if (string.IsNullOrEmpty(emoticon.Name))
                 AddWarning($"{nameof(emoticon.Name)} is empty");
 

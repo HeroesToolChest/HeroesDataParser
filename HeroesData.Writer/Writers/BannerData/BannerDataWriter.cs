@@ -15,7 +15,9 @@ namespace HeroesData.FileWriter.Writers.BannerData
         {
             GameStringWriter.AddBannerName(banner.Id, banner.Name);
             GameStringWriter.AddBannerSortName(banner.Id, banner.SortName);
-            GameStringWriter.AddBannerDescription(banner.Id, GetTooltip(banner.Description, FileOutputOptions.DescriptionType));
+
+            if (banner.Description != null)
+                GameStringWriter.AddBannerDescription(banner.Id, GetTooltip(banner.Description, FileOutputOptions.DescriptionType));
         }
     }
 }

@@ -47,7 +47,7 @@ namespace HeroesData.Parser.Overrides
         /// <returns></returns>
         public static XmlDataOverriders Load(GameData gameData)
         {
-            return new XmlDataOverriders(gameData, null);
+            return new XmlDataOverriders(gameData, string.Empty);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace HeroesData.Parser.Overrides
         /// <returns></returns>
         public static XmlDataOverriders Load(GameData gameData, int? hotsBuild)
         {
-            return new XmlDataOverriders(gameData, hotsBuild, null);
+            return new XmlDataOverriders(gameData, hotsBuild, string.Empty);
         }
 
         /// <summary>
@@ -89,9 +89,9 @@ namespace HeroesData.Parser.Overrides
         /// </summary>
         /// <param name="type">The type of parser.</param>
         /// <returns></returns>
-        public IOverrideLoader GetOverrider(Type type)
+        public IOverrideLoader? GetOverrider(Type type)
         {
-            if (Overrides.TryGetValue(type, out IOverrideLoader overrides))
+            if (Overrides.TryGetValue(type, out IOverrideLoader? overrides))
                 return overrides;
             else
                 return null;

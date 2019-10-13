@@ -14,7 +14,7 @@ namespace HeroesData.ExtractorImage
         private readonly HashSet<Spray> Sprays = new HashSet<Spray>();
         private readonly string SprayDirectory = "sprays";
 
-        public ImageSpray(CASCHandler cascHandler, string modsFolderPath)
+        public ImageSpray(CASCHandler? cascHandler, string modsFolderPath)
             : base(cascHandler, modsFolderPath)
         {
         }

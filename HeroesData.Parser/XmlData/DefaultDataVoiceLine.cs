@@ -20,22 +20,22 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default voice line name. Contains ##id##.
         /// </summary>
-        public string VoiceLineName { get; private set; }
+        public string? VoiceLineName { get; private set; }
 
         /// <summary>
         /// Gets the default voice line name used for sorting. Contains ##id##.
         /// </summary>
-        public string VoiceLineSortName { get; private set; }
+        public string? VoiceLineSortName { get; private set; }
 
         /// <summary>
         /// Gets the default voice line description. Contains ##id##.
         /// </summary>
-        public string VoiceLineDescription { get; private set; }
+        public string? VoiceLineDescription { get; private set; }
 
         /// <summary>
         /// Gets the default voice line attribute id.
         /// </summary>
-        public string VoiceLineAttributeId { get; private set; }
+        public string? VoiceLineAttributeId { get; private set; }
 
         /// <summary>
         /// Gets the default voice line release date.

@@ -1,9 +1,10 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using System;
 
 namespace HeroesData.ExtractorData
 {
-    public class DataVoiceLine : DataExtractorBase<VoiceLine, VoiceLineParser>, IData
+    public class DataVoiceLine : DataExtractorBase<VoiceLine?, VoiceLineParser>, IData
     {
         public DataVoiceLine(VoiceLineParser parser)
             : base(parser)
@@ -12,8 +13,13 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "voicelines";
 
-        protected override void Validation(VoiceLine voiceLine)
+        protected override void Validation(VoiceLine? voiceLine)
         {
+            if (voiceLine is null)
+            {
+                throw new ArgumentNullException(nameof(voiceLine));
+            }
+
             if (string.IsNullOrEmpty(voiceLine.Name))
                 AddWarning($"{nameof(voiceLine.Name)} is empty");
 

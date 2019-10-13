@@ -11,13 +11,13 @@ namespace HeroesData.ExtractorImage
     public abstract class ImageExtractorBase<T>
         where T : IExtractable
     {
-        public ImageExtractorBase(CASCHandler cascHandler, string modsFolderPath)
+        public ImageExtractorBase(CASCHandler? cascHandler, string modsFolderPath)
         {
             CASCHandler = cascHandler;
             ModsFolderPath = modsFolderPath;
         }
 
-        protected CASCHandler CASCHandler { get; }
+        protected CASCHandler? CASCHandler { get; }
         protected StorageMode StorageMode { get; private set; }
         protected string ModsFolderPath { get; }
         protected string ExtractDirectory { get; } = Path.Combine(App.OutputDirectory, "images");
@@ -59,15 +59,14 @@ namespace HeroesData.ExtractorImage
                 string textureFilepath = Path.Combine(TexturesPath, fileName);
                 if (FileExists(textureFilepath))
                 {
-                    using (Stream stream = OpenFile(textureFilepath))
-                    {
-                        DDSImage image = new DDSImage(stream);
-                        PathHelper.FileNameToLower(filePath.AsMemory());
+                    using Stream stream = OpenFile(textureFilepath);
 
-                        image.Save(Path.ChangeExtension(filePath, "png"));
+                    DDSImage image = new DDSImage(stream);
+                    PathHelper.FileNameToLower(filePath.AsMemory());
 
-                        return true;
-                    }
+                    image.Save(Path.ChangeExtension(filePath, "png"));
+
+                    return true;
                 }
                 else
                 {
@@ -92,15 +91,14 @@ namespace HeroesData.ExtractorImage
                 string textureFilepath = Path.Combine(TexturesPath, fileName);
                 if (FileExists(textureFilepath))
                 {
-                    using (Stream stream = OpenFile(textureFilepath))
-                    {
-                        DDSImage image = new DDSImage(stream);
-                        PathHelper.FileNameToLower(filePath.AsMemory());
+                    using Stream stream = OpenFile(textureFilepath);
 
-                        image.Save(Path.ChangeExtension(filePath, "png"), point, size);
+                    DDSImage image = new DDSImage(stream);
+                    PathHelper.FileNameToLower(filePath.AsMemory());
 
-                        return true;
-                    }
+                    image.Save(Path.ChangeExtension(filePath, "png"), point, size);
+
+                    return true;
                 }
                 else
                 {
@@ -128,15 +126,14 @@ namespace HeroesData.ExtractorImage
                 string textureFilepath = Path.Combine(TexturesPath, fileName);
                 if (FileExists(textureFilepath))
                 {
-                    using (Stream stream = OpenFile(textureFilepath))
-                    {
-                        DDSImage image = new DDSImage(stream);
-                        PathHelper.FileNameToLower(filePath.AsMemory());
+                    using Stream stream = OpenFile(textureFilepath);
 
-                        image.SaveAsGif(Path.ChangeExtension(filePath, "gif"), size, maxSize, frames, frameDelay);
+                    DDSImage image = new DDSImage(stream);
+                    PathHelper.FileNameToLower(filePath.AsMemory());
 
-                        return true;
-                    }
+                    image.SaveAsGif(Path.ChangeExtension(filePath, "gif"), size, maxSize, frames, frameDelay);
+
+                    return true;
                 }
                 else
                 {
@@ -149,7 +146,7 @@ namespace HeroesData.ExtractorImage
         protected bool FileExists(string filePath)
         {
             if (StorageMode == StorageMode.CASC)
-                return CASCHandler.FileExists(filePath);
+                return CASCHandler!.FileExists(filePath);
             else if (StorageMode == StorageMode.Mods)
                 return File.Exists(Path.Combine(ModsFolderPath, filePath.Substring(5)));
             else
@@ -159,11 +156,11 @@ namespace HeroesData.ExtractorImage
         protected Stream OpenFile(string filePath)
         {
             if (StorageMode == StorageMode.CASC)
-                return CASCHandler.OpenFile(filePath);
+                return CASCHandler!.OpenFile(filePath);
             else if (StorageMode == StorageMode.Mods)
                 return File.Open(Path.Combine(ModsFolderPath, filePath.Substring(5)), FileMode.Open);
             else
-                return null;
+                throw new NotSupportedException();
         }
 
         private bool ExtractImageFile(string filePath, Func<bool> extractImage)

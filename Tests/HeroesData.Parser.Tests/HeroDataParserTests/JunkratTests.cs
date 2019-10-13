@@ -9,7 +9,10 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void AbilityCooldownOverrideTextTest()
         {
-            Ability ability = HeroJunkrat.GetFirstAbility("JunkratRocketRide");
+            Ability ability = HeroJunkrat.GetAbility(new AbilityTalentId("JunkratRocketRide", "JunkratRocketRide")
+            {
+                AbilityType = AbilityType.Heroic,
+            });
 
             Assert.AreEqual("Cooldown: 75 seconds", ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
         }

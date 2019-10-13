@@ -20,17 +20,17 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default announcer name. Contains ##id##.
         /// </summary>
-        public string AnnouncerName { get; private set; }
+        public string? AnnouncerName { get; private set; }
 
         /// <summary>
         /// Gets the default announcer name used for sorting. Contains ##id##.
         /// </summary>
-        public string AnnouncerSortName { get; private set; }
+        public string? AnnouncerSortName { get; private set; }
 
         /// <summary>
         /// Gets the default announcer description. Contains ##id##.
         /// </summary>
-        public string AnnouncerDescription { get; private set; }
+        public string? AnnouncerDescription { get; private set; }
 
         /// <summary>
         /// Gets the default announcer release date.

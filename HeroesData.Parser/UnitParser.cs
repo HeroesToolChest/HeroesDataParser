@@ -12,11 +12,11 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser
 {
-    public class UnitParser : ParserBase<Unit, UnitDataOverride>, IParser<Unit, UnitParser>
+    public class UnitParser : ParserBase<Unit, UnitDataOverride>, IParser<Unit?, UnitParser>
     {
         private readonly UnitOverrideLoader UnitOverrideLoader;
 
-        private UnitDataOverride UnitDataOverride;
+        private UnitDataOverride? UnitDataOverride;
 
         public UnitParser(IXmlDataService xmlDataService, UnitOverrideLoader unitOverrideLoader)
             : base(xmlDataService)
@@ -64,7 +64,7 @@ namespace HeroesData.Parser
             return new UnitParser(XmlDataService, UnitOverrideLoader);
         }
 
-        public Unit Parse(params string[] ids)
+        public Unit? Parse(params string[] ids)
         {
             if (ids == null)
                 return null;
@@ -120,7 +120,7 @@ namespace HeroesData.Parser
             {
                 foreach (AbilityTalentId validAbility in dataOverride.AddedAbilities)
                 {
-                    Ability ability = XmlDataService.AbilityData.CreateAbility(unit.CUnitId, validAbility.ReferenceId);
+                    Ability? ability = XmlDataService.AbilityData.CreateAbility(unit.CUnitId, validAbility.ReferenceId);
 
                     if (ability != null)
                     {
@@ -138,7 +138,7 @@ namespace HeroesData.Parser
             {
                 foreach (string validWeapon in dataOverride.AddedWeapons)
                 {
-                    UnitWeapon weapon = XmlDataService.WeaponData.CreateWeapon(validWeapon);
+                    UnitWeapon? weapon = XmlDataService.WeaponData.CreateWeapon(validWeapon);
 
                     if (weapon != null)
                     {
@@ -158,7 +158,7 @@ namespace HeroesData.Parser
         protected override bool ValidItem(XElement element)
         {
             string id = element.Attribute("id").Value;
-            string parent = element.Attribute("parent")?.Value;
+            string? parent = element.Attribute("parent")?.Value;
 
             return !string.IsNullOrEmpty(parent) && !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal);
         }

@@ -23,33 +23,30 @@ namespace HeroesData.Parser.Overrides
             foreach (XElement dataElement in element.Elements())
             {
                 string elementName = dataElement.Name.LocalName;
-                string valueAttribute = dataElement.Attribute("value")?.Value;
+                string? valueAttribute = dataElement.Attribute("value")?.Value;
+
+                if (string.IsNullOrEmpty(valueAttribute))
+                    continue;
 
                 switch (elementName)
                 {
                     case "Id":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            matchAwardDataOverride.IdOverride = (true, valueAttribute);
+                        matchAwardDataOverride.IdOverride = (true, valueAttribute);
                         break;
                     case "MVPScreenImageFileNameOriginal":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            matchAwardDataOverride.MVPScreenImageFileNameOriginalOverride = (true, valueAttribute);
+                        matchAwardDataOverride.MVPScreenImageFileNameOriginalOverride = (true, valueAttribute);
                         break;
                     case "MVPScreenImageFileName":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            matchAwardDataOverride.MVPScreenImageFileNameOverride = (true, valueAttribute);
+                        matchAwardDataOverride.MVPScreenImageFileNameOverride = (true, valueAttribute);
                         break;
                     case "ScoreScreenImageFileNameOriginal":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            matchAwardDataOverride.ScoreScreenImageFileNameOriginalOverride = (true, valueAttribute);
+                        matchAwardDataOverride.ScoreScreenImageFileNameOriginalOverride = (true, valueAttribute);
                         break;
                     case "ScoreScreenImageFileName":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            matchAwardDataOverride.ScoreScreenImageFileNameOverride = (true, valueAttribute);
+                        matchAwardDataOverride.ScoreScreenImageFileNameOverride = (true, valueAttribute);
                         break;
                     case "Description":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            matchAwardDataOverride.DescriptionOverride = (true, valueAttribute);
+                        matchAwardDataOverride.DescriptionOverride = (true, valueAttribute);
                         break;
                 }
             }

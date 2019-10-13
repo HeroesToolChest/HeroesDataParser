@@ -1,6 +1,7 @@
 ﻿using Heroes.Models.AbilityTalents;
 using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.Overrides.PropertyOverrides;
+using System;
 using System.Xml.Linq;
 
 namespace HeroesData.Parser.Overrides
@@ -28,23 +29,20 @@ namespace HeroesData.Parser.Overrides
             foreach (XElement dataElement in element.Elements())
             {
                 string elementName = dataElement.Name.LocalName;
-                string valueAttribute = dataElement.Attribute("value")?.Value;
+                string valueAttribute = dataElement.Attribute("value")?.Value ?? string.Empty;
 
-                XElement overrideElement = null;
+                XElement? overrideElement = null;
 
                 switch (elementName)
                 {
                     case "Name":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            unitDataOverride.NameOverride = (true, valueAttribute);
+                        unitDataOverride.NameOverride = (true, valueAttribute);
                         break;
                     case "HyperlinkId":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            unitDataOverride.HyperlinkIdOverride = (true, valueAttribute);
+                        unitDataOverride.HyperlinkIdOverride = (true, valueAttribute);
                         break;
                     case "CUnit":
-                        if (!string.IsNullOrEmpty(valueAttribute))
-                            unitDataOverride.CUnitOverride = (true, valueAttribute);
+                        unitDataOverride.CUnitOverride = (true, valueAttribute);
                         break;
                     case "EnergyType":
                         unitDataOverride.EnergyTypeOverride = (true, valueAttribute);
@@ -68,36 +66,51 @@ namespace HeroesData.Parser.Overrides
                         unitDataOverride.ParentLinkOverride = (true, valueAttribute);
                         break;
                     case "Ability":
-                        string abilityId = dataElement.Attribute("id")?.Value ?? string.Empty;
-                        string buttonAbilityId = dataElement.Attribute("button")?.Value ?? abilityId;
-                        string passiveAbility = dataElement.Attribute("passive")?.Value;
-                        string addedAbility = dataElement.Attribute("add")?.Value;
+                        string id = dataElement.Attribute("id")?.Value ?? string.Empty;
+                        string? abilityType = dataElement.Attribute("abilityType")?.Value;
+                        string? passiveAbility = dataElement.Attribute("passive")?.Value;
+                        string? addedAbility = dataElement.Attribute("add")?.Value;
+
+                        AbilityTalentId abilityTalentId = new AbilityTalentId(string.Empty, string.Empty);
+
+                        string[] idSplit = id.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                        if (idSplit.Length >= 2)
+                        {
+                            abilityTalentId.ReferenceId = idSplit[0];
+                            abilityTalentId.ButtonId = idSplit[1];
+                        }
+                        else if (idSplit.Length == 1)
+                        {
+                            abilityTalentId.ReferenceId = idSplit[0];
+                            abilityTalentId.ButtonId = idSplit[0];
+                        }
+
+                        if (Enum.TryParse(abilityType, true, out AbilityType abilityTypeResult))
+                            abilityTalentId.AbilityType = abilityTypeResult;
 
                         if (bool.TryParse(passiveAbility, out bool abilityPassiveResult))
-                        {
-                            buttonAbilityId = $"{buttonAbilityId}~Passive~";
-                        }
+                            abilityTalentId.IsPassive = abilityPassiveResult;
 
                         if (bool.TryParse(addedAbility, out bool abilityAddedResult))
                         {
-                            unitDataOverride.AddAddedAbility(new AbilityTalentId(abilityId, buttonAbilityId), abilityAddedResult);
+                            unitDataOverride.AddAddedAbility(abilityTalentId, abilityAddedResult);
 
                             if (!abilityAddedResult)
                                 continue;
                         }
 
-                        if (!string.IsNullOrEmpty(abilityId))
+                        if (!string.IsNullOrEmpty(id))
                         {
                             overrideElement = dataElement.Element("Override");
 
                             if (overrideElement != null)
-                                abilityOverride.SetOverride(new AbilityTalentId(abilityId, buttonAbilityId), overrideElement, unitDataOverride.PropertyAbilityOverrideMethodByAbilityId);
+                                abilityOverride.SetOverride(abilityTalentId.ToString(), overrideElement, unitDataOverride.PropertyAbilityOverrideMethodByAbilityId);
                         }
 
                         break;
                     case "Weapon":
-                        string weaponId = dataElement.Attribute("id")?.Value;
-                        string addedWeapon = dataElement.Attribute("add")?.Value;
+                        string? weaponId = dataElement.Attribute("id")?.Value;
+                        string? addedWeapon = dataElement.Attribute("add")?.Value;
 
                         if (string.IsNullOrEmpty(weaponId))
                             continue;

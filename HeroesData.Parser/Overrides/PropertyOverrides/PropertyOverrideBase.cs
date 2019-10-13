@@ -16,7 +16,7 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
             foreach (XElement property in element.Elements())
             {
                 string propertyName = property.Name.LocalName;
-                string propertyValue = property.Attribute("value")?.Value;
+                string? propertyValue = property.Attribute("value")?.Value;
 
                 // text will override attribute value
                 if (!string.IsNullOrEmpty(property.Value))
@@ -31,7 +31,7 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                 if (propertyOverrides.ContainsKey(propertyName))
                     propertyOverrides.Remove(propertyName);
 
-                SetPropertyValues(propertyName, propertyValue, propertyOverrides);
+                SetPropertyValues(propertyName, propertyValue ?? string.Empty, propertyOverrides);
             }
 
             if (!propertyOverrideMethodByElementId.ContainsKey(id) && propertyOverrides.Count > 0)

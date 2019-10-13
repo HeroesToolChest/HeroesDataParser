@@ -1,5 +1,6 @@
 ﻿using Heroes.Models.AbilityTalents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
@@ -17,7 +18,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void TracerBlinkAbilityTest()
         {
-            Assert.IsTrue(HeroTracer.ContainsAbility("TracerBlink"));
+            Assert.IsTrue(HeroTracer.ContainsAbility("TracerBlink", StringComparison.OrdinalIgnoreCase));
         }
     }
 }

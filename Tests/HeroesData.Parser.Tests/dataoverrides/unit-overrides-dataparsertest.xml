@@ -5,19 +5,19 @@
   <!--***************************************-->
 
   <CUnit id="overwatchdata-JungleGraveGolemDefender">
-    <Ability id="UnderworldBossRoots" button="GraveGolemBindingRoots">
+    <Ability id="UnderworldBossRoots,GraveGolemBindingRoots">
       <Override>
         <AbilityType value="Hidden" />
       </Override>
     </Ability>
-    <Ability id="UnderworldBossStun" button="GraveGolemMegaStun">
+    <Ability id="UnderworldBossStun,GraveGolemMegaStun">
       <Override>
         <AbilityType value="Hidden" />
       </Override>
     </Ability>
   </CUnit>
   <CUnit id="RagnarosBigRag">
-    <Ability id="RagnarosBigRagReturnMoltenCore" button="RagnarosBigRagCancelReturnMoltenCore">
+    <Ability id="RagnarosBigRagReturnMoltenCore,RagnarosBigRagCancelReturnMoltenCore" abilityType="trait">
       <Override>
         <ParentLink value="RagnarosBigRagReturnMoltenCore" />
       </Override>
@@ -26,29 +26,29 @@
   <CUnit id="SamuroMirrorImage">
     <Ability id="SamuroBladestormCancel">
       <Override>
-        <ParentLink value="SamuroBladeStormDummy,SamuroBladestorm" />
+        <ParentLink value="SamuroBladeStormDummy|SamuroBladestorm" />
       </Override>
     </Ability>
   </CUnit>
   <CUnit id="VolskayaVehicleGunner">
-    <Ability id="VolskayaVehicleActivateParticleCannon" button="VolskayaVehicleActivateParticleCannon">
+    <Ability id="VolskayaVehicleActivateParticleCannon,VolskayaVehicleActivateParticleCannon" abilityType="Q">
       <Override>
         <ParentLink value="VolskayaVehicleInitiateParticleCannon" />
       </Override>
     </Ability>
-    <Ability id="VolskayaVehicleTacticalStrikesDeactivate" button="VolskayaVehicleGatlingCannonCancel">
+    <Ability id="VolskayaVehicleTacticalStrikesDeactivate,VolskayaVehicleGatlingCannonCancel">
       <Override>
         <ParentLink value="VolskayaVehicleTacticalStrikes" />
       </Override>
     </Ability>
   </CUnit>
   <CUnit id="volskayadata-VolskayaVehicleGunner">
-    <Ability id="VolskayaVehicleActivateParticleCannon" button="VolskayaVehicleActivateParticleCannon">
+    <Ability id="VolskayaVehicleActivateParticleCannon,VolskayaVehicleActivateParticleCannon" abilityType="Q">
       <Override>
         <ParentLink value="VolskayaVehicleInitiateParticleCannon" />
       </Override>
     </Ability>
-    <Ability id="VolskayaVehicleTacticalStrikesDeactivate" button="VolskayaVehicleGatlingCannonCancel">
+    <Ability id="VolskayaVehicleTacticalStrikesDeactivate,VolskayaVehicleGatlingCannonCancel" abilityType="W">
       <Override>
         <ParentLink value="VolskayaVehicleTacticalStrikes" />
       </Override>

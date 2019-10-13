@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace HeroesData.Parser.Tests.HeroDataParserTests
@@ -25,7 +26,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void PassiveAbilityExistsTests()
         {
-            Assert.IsTrue(HeroGreymane.ContainsAbility("GreymaneWorgenForm"));
+            Assert.IsTrue(HeroGreymane.ContainsAbility("GreymaneWorgenForm", StringComparison.OrdinalIgnoreCase));
         }
     }
 }

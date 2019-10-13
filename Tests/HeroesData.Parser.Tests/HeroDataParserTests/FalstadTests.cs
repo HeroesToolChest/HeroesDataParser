@@ -12,12 +12,15 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void BasicAbilitiesTests()
         {
-            Ability ability = HeroFalstad.GetFirstAbility("FalstadHammerang");
+            Ability ability = HeroFalstad.GetAbility(new AbilityTalentId("FalstadHammerang", "FalstadHammerang")
+            {
+                AbilityType = AbilityType.Q,
+            });
             Assert.AreEqual(AbilityTier.Basic, ability.Tier);
             Assert.AreEqual("FalstadHammerang", ability.AbilityTalentId.ReferenceId);
             Assert.AreEqual("Hammerang", ability.Name);
             Assert.AreEqual("storm_ui_icon_falstad_hammerang.dds", ability.IconFileName);
-            Assert.AreEqual(AbilityType.Q, ability.AbilityType);
+            Assert.AreEqual(AbilityType.Q, ability.AbilityTalentId.AbilityType);
 
             Assert.AreEqual("<s val=\"StandardTooltipDetails\">Mana: 60</s>", ability.Tooltip.Energy.EnergyTooltip?.RawDescription);
             Assert.AreEqual("Cooldown: 10 seconds", ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription);
@@ -59,7 +62,10 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void HeroicAbilitiesTests()
         {
-            Ability ability = HeroFalstad.GetFirstAbility("FalstadHinterlandBlast");
+            Ability ability = HeroFalstad.GetAbility(new AbilityTalentId("FalstadHinterlandBlast", "FalstadHinterlandBlast")
+            {
+                AbilityType = AbilityType.Heroic,
+            });
             Assert.AreEqual(AbilityTier.Heroic, ability.Tier);
             Assert.AreEqual("FalstadHinterlandBlast", ability.AbilityTalentId.ReferenceId);
             Assert.AreEqual("Hinterland Blast", ability.Name);
@@ -87,7 +93,10 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void MountAbilitiesTests()
         {
-            Ability ability = HeroFalstad.GetFirstAbility("FalstadFlight");
+            Ability ability = HeroFalstad.GetAbility(new AbilityTalentId("FalstadFlight", "FalstadFlight")
+            {
+                AbilityType = AbilityType.Z,
+            });
             Assert.AreEqual(AbilityTier.Mount, ability.Tier);
             Assert.AreEqual("FalstadFlight", ability.AbilityTalentId.ReferenceId);
             Assert.AreEqual("Flight", ability.Name);
@@ -136,7 +145,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual("FalstadMasteryHammerangSecretWeapon", talent.AbilityTalentId.ReferenceId);
             Assert.AreEqual("Secret Weapon", talent.Name);
             Assert.AreEqual("storm_ui_icon_falstad_hammerang.dds", talent.IconFileName);
-            Assert.AreEqual(AbilityType.Q, talent.AbilityType);
+            Assert.AreEqual(AbilityType.Q, talent.AbilityTalentId.AbilityType);
 
             Assert.IsTrue(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyTooltip?.RawDescription));
             Assert.IsTrue(string.IsNullOrEmpty(talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription));
@@ -154,7 +163,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual("FalstadWingman", talent.AbilityTalentId.ReferenceId);
             Assert.AreEqual("Wingman", talent.Name);
             Assert.AreEqual("storm_ui_icon_talent_bribe.dds", talent.IconFileName);
-            Assert.AreEqual(AbilityType.Active, talent.AbilityType);
+            Assert.AreEqual(AbilityType.Active, talent.AbilityTalentId.AbilityType);
             Assert.IsTrue(talent.IsActive);
 
             Assert.IsTrue(string.IsNullOrEmpty(talent.Tooltip.Energy.EnergyTooltip?.RawDescription));
@@ -169,13 +178,16 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             talent = HeroFalstad.GetTalent("FalstadHeroicAbilityHinterlandBlast");
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("FalstadHinterlandBlast"));
             Assert.IsTrue(talent.IsActive);
-            Assert.AreEqual(AbilityType.Heroic, talent.AbilityType);
+            Assert.AreEqual(AbilityType.Heroic, talent.AbilityTalentId.AbilityType);
         }
 
         [TestMethod]
         public void TraitAbilitiesTests()
         {
-            Ability ability = HeroFalstad.GetFirstAbility("FalstadTailwindCooldownDisplay");
+            Ability ability = HeroFalstad.GetAbility(new AbilityTalentId("FalstadTailwindCooldownDisplay", "FalstadTailwind")
+            {
+                AbilityType = AbilityType.Trait,
+            });
             Assert.AreEqual(AbilityTier.Trait, ability.Tier);
             Assert.AreEqual("FalstadTailwindCooldownDisplay", ability.AbilityTalentId.ReferenceId);
             Assert.AreEqual("Tailwind", ability.Name);

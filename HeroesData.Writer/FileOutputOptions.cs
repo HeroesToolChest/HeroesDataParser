@@ -39,6 +39,6 @@ namespace HeroesData.FileWriter
         /// <summary>
         /// Gets or sets the output directory.
         /// </summary>
-        public string OutputDirectory { get; set; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "output");
+        public string OutputDirectory { get; set; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "output");
     }
 }
