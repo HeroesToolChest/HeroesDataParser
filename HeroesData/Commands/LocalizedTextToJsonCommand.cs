@@ -164,6 +164,8 @@ namespace HeroesData.Commands
                 utf8JsonWriter.WriteEndObject();
             }
 
+            utf8JsonWriter.WriteEndObject(); // end meta
+
             utf8JsonWriter.WriteEndObject();
 
             utf8JsonWriter.Flush();
