@@ -317,7 +317,7 @@ namespace HeroesData.Loader.XmlGameData
         /// </summary>
         public void LoadGamestringFiles()
         {
-            GameStringById = new Dictionary<string, string>();
+            GameStringById.Clear();
 
             LoadTextFilesOnlyEnabled = true;
             LoadXmlFilesEnabled = false;
