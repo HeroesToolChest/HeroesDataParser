@@ -1,7 +1,7 @@
 # This script is for newly released patches
 # Be sure to update the paths for variables 1, 2, and 5
 
-param([string]$full_version, [string]$heroes_directory)
+param([string]$full_version, [string]$heroes_directory, [bool]$ptr = $False)
 
 $major,$minor,$rev,$build = $full_version.Split("{.}")
 
@@ -11,6 +11,12 @@ $heroes_data_path = "C:\Users\koliva\Source\Repos\heroes-data\heroesdata\${full_
 $heroes_data_path_data = "${heroes_data_path}\data"
 $heroes_data_path_gamestrings = "${heroes_data_path}\gamestrings"
 $heroes_images_path = "C:\Users\koliva\Source\Repos\heroes-images"
+
+if ($ptr)
+{
+	$output_path = "${output_path}_ptr"
+	$heroes_data_path = "${heroes_data_path}_ptr"
+}
 
 # extract all
 dotnet heroes-data $heroes_directory --extract-data all --extract-images all --localization all --json --localized-text --output-directory $output_path
