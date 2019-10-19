@@ -1,18 +1,35 @@
 # This script is for old versions
-# Be sure to update the paths
+# Be sure to update the PATHS
 
-param([Parameter(Mandatory=$true)][string]$full_version, [bool]$ptr = $False)
+param(
+	[Parameter(Mandatory=$true)][string]$full_version,
+	[bool]$ptr = $False)
 	
 $major,$minor,$rev,$build = $full_version.Split("{.}")
 
-# paths to update
+# PATHS ##########################
+### PATH TO UPDATE ###
 $hots_path = "F:\heroes\heroes_${build}\mods_${build}"
+
+### PATH TO UPDATE ###
 $output_path = "C:\Users\koliva\Source\Repos\heroes-data\heroesdata\${full_version}"
+
 $hdp_json_file = "${output_path}\.hdp.json"
+
+##################################
+
+# if ptr update the paths to _ptr
 if ($ptr)
 {
 	$hots_path = "F:\heroes\heroes_${build}_ptr\mods_${build}"
 	$output_path = "${output_path}_ptr"
+}
+
+# Powershell version check
+if ($PSVersionTable.PSVersion.Major -lt 6)
+{
+	"Must use PowerShell version 6 or higher"
+	exit
 }
 
 $output_path_data = "${output_path}\data"
