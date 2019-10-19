@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace HeroesData.FileWriter.Writers
 {
@@ -27,14 +28,14 @@ namespace HeroesData.FileWriter.Writers
 
         public void Write(string gamestringDirectory, string gamestringTextFileName)
         {
-            List<string> list = new List<string>();
+            List<string> list = new List<string>(GameStrings.Count);
 
             foreach (var gamestring in GameStrings)
             {
                 list.Add($"{gamestring.Key}={gamestring.Value}");
             }
 
-            list.Sort();
+            list = list.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).ToList();
 
             using StreamWriter writer = new StreamWriter(Path.Combine(gamestringDirectory, gamestringTextFileName), false);
 
