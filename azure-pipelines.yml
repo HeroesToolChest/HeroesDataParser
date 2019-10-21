@@ -3,19 +3,19 @@ jobs:
   parameters:
     name: Linux
     pool:
-      vmImage: 'ubuntu-16.04'
+      vmImage: 'ubuntu-latest'
 
 - template: azure-pipelines-template.yml
   parameters:
     name: macOS
     pool:
-      vmImage: 'macOS-10.14'
+      vmImage: 'macOS-latest'
   
 - template: azure-pipelines-template.yml
   parameters:
     name: Windows
     pool:
-      vmImage: 'windows-2019'
+      vmImage: 'windows-latest'
     
 - job: Artifacts
   dependsOn:
@@ -23,7 +23,7 @@ jobs:
     - macOS
     - Windows
   pool:
-    vmImage: 'windows-2019'
+    vmImage: 'windows-latest'
   variables:
     - group: secret
   condition: and(succeeded(), ne(variables['build.Reason'], 'PullRequest'))
