@@ -1,6 +1,7 @@
 ﻿using Heroes.Models;
 using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -42,8 +43,8 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 hero.Rarity.HasValue ? new XAttribute("rarity", hero.Rarity.Value) : null,
                 string.IsNullOrEmpty(hero.SearchText) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", hero.SearchText),
                 string.IsNullOrEmpty(hero.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(hero.Description, FileOutputOptions.DescriptionType)),
-                hero.HeroDescriptorsCount > 0 ? new XElement("Descriptors", hero.HeroDescriptors.OrderBy(x => x).Select(d => new XElement("Descriptor", d))) : null,
-                hero.UnitIdsCount > 0 ? new XElement("Units", hero.UnitIds.OrderBy(x => x).Select(x => new XElement("Unit", x))) : null,
+                hero.HeroDescriptorsCount > 0 ? new XElement("Descriptors", hero.HeroDescriptors.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(d => new XElement("Descriptor", d))) : null,
+                hero.UnitIdsCount > 0 ? new XElement("Units", hero.UnitIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(x => new XElement("Unit", x))) : null,
                 HeroPortraits(hero),
                 UnitLife(hero),
                 UnitShield(hero),
@@ -76,9 +77,9 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 string.IsNullOrEmpty(unit.DamageType) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("damageType", unit.DamageType),
                 string.IsNullOrEmpty(unit.ScalingBehaviorLink) ? null : new XElement("ScalingLinkId", unit.ScalingBehaviorLink),
                 string.IsNullOrEmpty(unit.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType)),
-                unit.HeroDescriptorsCount > 0 ? new XElement("Descriptors", unit.HeroDescriptors.OrderBy(x => x).Select(d => new XElement("Descriptor", d))) : null,
-                unit.AttributesCount > 0 ? new XElement("Attributes", unit.Attributes.OrderBy(x => x).Select(x => new XElement("Attribute", x))) : null,
-                unit.UnitIdsCount > 0 ? new XElement("Units", unit.UnitIds.OrderBy(x => x).Select(x => new XElement("Unit", x))) : null,
+                unit.HeroDescriptorsCount > 0 ? new XElement("Descriptors", unit.HeroDescriptors.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(d => new XElement("Descriptor", d))) : null,
+                unit.AttributesCount > 0 ? new XElement("Attributes", unit.Attributes.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(x => new XElement("Attribute", x))) : null,
+                unit.UnitIdsCount > 0 ? new XElement("Units", unit.UnitIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(x => new XElement("Unit", x))) : null,
                 UnitPortraits(unit),
                 UnitLife(unit),
                 UnitEnergy(unit),

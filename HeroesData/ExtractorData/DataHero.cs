@@ -87,7 +87,7 @@ namespace HeroesData.ExtractorData
             Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds:0.####} seconds");
             Console.WriteLine();
 
-            return ParsedData.Values.OrderBy(x => x!.Id);
+            return ParsedData.Values.OrderBy(x => x!.Id, StringComparer.OrdinalIgnoreCase);
         }
 
         protected override void Validation(Hero? hero)

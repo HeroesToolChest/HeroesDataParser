@@ -2,6 +2,7 @@
 using Heroes.Models.AbilityTalents;
 using Heroes.Models.AbilityTalents.Tooltip;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -43,11 +44,11 @@ namespace HeroesData.FileWriter.Writers.UnitData
             if (!string.IsNullOrEmpty(unit.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 unitObject.Add("description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
             if (unit.HeroDescriptorsCount > 0)
-                unitObject.Add(new JProperty("descriptors", unit.HeroDescriptors.OrderBy(x => x)));
+                unitObject.Add(new JProperty("descriptors", unit.HeroDescriptors.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
             if (unit.AttributesCount > 0)
-                unitObject.Add(new JProperty("attributes", unit.Attributes.OrderBy(x => x)));
+                unitObject.Add(new JProperty("attributes", unit.Attributes.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
             if (unit.UnitIdsCount > 0)
-                unitObject.Add(new JProperty("units", unit.UnitIds.OrderBy(x => x)));
+                unitObject.Add(new JProperty("units", unit.UnitIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
 
             JProperty? portraits = UnitPortraits(unit);
             if (portraits != null)
