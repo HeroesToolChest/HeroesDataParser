@@ -5,7 +5,7 @@ param(
 	[Parameter(Mandatory=$true)][string]$full_version,
 	[bool]$ptr = $False)
 	
-$major,$minor,$rev,$build = $full_version.Split("{.}")
+$major,$minor,$rev,$build = $full_version.Split(".")
 
 # PATHS ##########################
 ### PATH TO UPDATE ###
