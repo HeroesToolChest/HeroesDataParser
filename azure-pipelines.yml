@@ -1,3 +1,14 @@
+variables:
+  main_project: HeroesData\heroesdata.csproj
+  publish_any_path: .\bin\publish\any\
+  nupkg_path: .\bin\nupkg\any\
+  publish_fde_win_path: .\bin\publish\fde\win-x64\
+  publish_fde_osx_path: .\bin\publish\fde\osx-x64\
+  publish_fde_linux_path: .\bin\publish\fde\linux-x64\
+  publish_scd_win_path: .\bin\publish\scd\win-x64\
+  publish_scd_osx_path: .\bin\publish\scd\osx-x64\
+  publish_scd_linux_path: .\bin\publish\scd\linux-x64\
+
 jobs:
 - template: azure-pipelines-template.yml
   parameters:
@@ -38,7 +49,7 @@ jobs:
       inputs:
         packageType: sdk
         version: 3.0.x
-        installationPath: $(Agent.ToolsDirectory)/dotnet
+        installationPath: $(Agent.ToolsDirectory)\dotnet
 
     - task: NuGetToolInstaller@0
       displayName: nuget installer 5.2.0
@@ -51,106 +62,106 @@ jobs:
         $spv = $csproj | select-string -pattern "<PackageVersion>"
         $sv -match "<Version>(?<content>.*)</Version>"
         $version = $matches['content'] + "-build.$(Build.BuildNumber)"
-        $csproj.replace($sv, "<Version>$version</Version>") | out-file HeroesData\HeroesData.csproj
-        $csproj.replace($spv, "<PackageVersion>$version</PackageVersion>") | out-file HeroesData\HeroesData.csproj
+        $csproj.replace($sv, "<Version>$version</Version>") | out-file $env:MAIN_PROJECT
+        $csproj.replace($spv, "<PackageVersion>$version</PackageVersion>") | out-file $env:MAIN_PROJECT
         echo "Version - $version"
       displayName: Non-master version build number
       condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
       
-    - powershell: dotnet publish HeroesData\heroesdata.csproj -c release -o .\bin\publish\any\
+    - powershell: dotnet publish $env:MAIN_PROJECT -c release -o $env:PUBLISH_ANY_PATH
       displayName: Publish release [fdd-any]
 
-    - powershell: dotnet pack HeroesData\heroesdata.csproj -c release --no-build -o .\bin\nupkg\any\       
+    - powershell: dotnet pack $env:MAIN_PROJECT -c release --no-build -o $env:NUPKG_PATH       
       displayName: Nuget pack [fdd-any]
 
     - task: NuGetCommand@2
       displayName: Sign nuget pack
       inputs:
         command: 'custom'
-        arguments: 'sign .\bin\nupkg\any\HeroesDataParser.*.nupkg -CertificatePath $(Agent.TempDirectory)\certificate -CertificatePassword $(cert_password) -Timestamper http://timestamp.digicert.com'
+        arguments: 'sign $(nupkg_path)HeroesDataParser.*.nupkg -CertificatePath $(Agent.TempDirectory)\certificate -CertificatePassword $(cert_password) -Timestamper http://timestamp.digicert.com'
            
     - powershell: |
-        (get-content HeroesData\HeroesData.csproj).Replace('<PublishSingleFile>false</PublishSingleFile>','<PublishSingleFile>true</PublishSingleFile>') | out-file HeroesData\HeroesData.csproj
-        $s = get-content HeroesData\HeroesData.csproj | select-string -pattern "<PackageVersion>"
+        (get-content $env:MAIN_PROJECT).Replace('<PublishSingleFile>false</PublishSingleFile>','<PublishSingleFile>true</PublishSingleFile>') | out-file $env:MAIN_PROJECT
+        $s = get-content $env:MAIN_PROJECT | select-string -pattern "<PackageVersion>"
         $s -match "<PackageVersion>(?<content>.*)</PackageVersion>"
         $m = $matches['content']        
         echo "##vso[task.setvariable variable=version]$m"
         echo "Package version - $m"
       displayName: FDE and SCD Prep
                  
-    - powershell: dotnet publish HeroesData\heroesdata.csproj -c release --self-contained false -r win-x64 -o .\bin\publish\fde\win-x64\
+    - powershell: dotnet publish $env:MAIN_PROJECT -c release --self-contained false -r win-x64 -o $env:PUBLISH_FDE_WIN_PATH
       displayName: Publish release [fde-win-x64]
 
-    - powershell: dotnet publish HeroesData\heroesdata.csproj -c release --self-contained false -r osx-x64 -o .\bin\publish\fde\osx-x64\
+    - powershell: dotnet publish $env:MAIN_PROJECT -c release --self-contained false -r osx-x64 -o $env:PUBLISH_FDE_OSX_PATH
       displayName: Publish release [fde-osx-x64]
 
-    - powershell: dotnet publish HeroesData\heroesdata.csproj -c release --self-contained false -r linux-x64 -o .\bin\publish\fde\linux-x64\
+    - powershell: dotnet publish $env:MAIN_PROJECT -c release --self-contained false -r linux-x64 -o $env:PUBLISH_FDE_LINUX_PATH
       displayName: Publish release [fde-linux-x64]
       
-    - powershell: dotnet publish HeroesData\heroesdata.csproj -c release --self-contained true -r win-x64 -o .\bin\publish\scd\win-x64\
+    - powershell: dotnet publish $env:MAIN_PROJECT -c release --self-contained true -r win-x64 -o $env:PUBLISH_SCD_WIN_PATH
       displayName: Publish release [scd-win-x64]
 
-    - powershell: dotnet publish HeroesData\heroesdata.csproj -c release --self-contained true -r osx-x64 -o .\bin\publish\scd\osx-x64\
+    - powershell: dotnet publish $env:MAIN_PROJECT -c release --self-contained true -r osx-x64 -o $env:PUBLISH_SCD_OSX_PATH
       displayName: Publish release [scd-osx-x64]
 
-    - powershell: dotnet publish HeroesData\heroesdata.csproj -c release --self-contained true -r linux-x64 -o .\bin\publish\scd\linux-x64\
+    - powershell: dotnet publish $env:MAIN_PROJECT -c release --self-contained true -r linux-x64 -o $env:PUBLISH_SCD_LINUX_PATH
       displayName: Publish release [scd-linux-x64]
  
     - task: ArchiveFiles@2
       displayName: Archive [fdd-any]
       inputs:
-        archiveType: zip
-        rootFolderOrFile: '.\bin\publish\any\'
+        archiveType: 'zip'
+        rootFolderOrFile: '$(publish_any_path)'
         includeRootFolder: false
         archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fdd-any.zip'
         
     - task: ArchiveFiles@2
       displayName: Archive [fde-win-x64]
       inputs:
-        archiveType: zip
-        rootFolderOrFile: '.\bin\publish\fde\win-x64\'
+        archiveType: 'zip'
+        rootFolderOrFile: '$(publish_fde_win_path)'
         includeRootFolder: false
         archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fde-win-x64.zip'
 
     - task: ArchiveFiles@2
       displayName: Archive [fde-osx-x64]
       inputs:
-        archiveType: zip
-        rootFolderOrFile: '.\bin\publish\fde\osx-x64\'
+        archiveType: 'tar'
+        rootFolderOrFile: '$(publish_fde_osx_path)'
         includeRootFolder: false
-        archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fde-osx-x64.zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fde-osx-x64.tar.gz'
 
     - task: ArchiveFiles@2
       displayName: Archive [fde-linux-x64]
       inputs:
-        archiveType: zip
-        rootFolderOrFile: '.\bin\publish\fde\linux-x64\'
+        archiveType: 'tar'
+        rootFolderOrFile: '$(publish_fde_linux_path)'
         includeRootFolder: false
-        archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fde-linux-x64.zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fde-linux-x64.tar.gz'
         
     - task: ArchiveFiles@2
       displayName: Archive [scd-win-x64]
       inputs:
-        archiveType: zip
-        rootFolderOrFile: '.\bin\publish\scd\win-x64\'
+        archiveType: 'zip'
+        rootFolderOrFile: '$(publish_scd_win_path)'
         includeRootFolder: false
         archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-scd-win-x64.zip'
 
     - task: ArchiveFiles@2
       displayName: Archive [scd-osx-x64]
       inputs:
-        archiveType: zip
-        rootFolderOrFile: '.\bin\publish\scd\osx-x64\'
+        archiveType: 'tar'
+        rootFolderOrFile: '$(publish_scd_osx_path)'
         includeRootFolder: false
-        archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-scd-osx-x64.zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-scd-osx-x64.tar.gz'
 
     - task: ArchiveFiles@2
       displayName: Archive [scd-linux-x64]
       inputs:
-        archiveType: zip
-        rootFolderOrFile: '.\bin\publish\scd\linux-x64\'
+        archiveType: 'tar'
+        rootFolderOrFile: '$(publish_scd_linux_path)'
         includeRootFolder: false
-        archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-scd-linux-x64.zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-scd-linux-x64.tar.gz'
 
     - task: PublishBuildArtifacts@1
       displayName: Publish artifacts [fdd-any]
@@ -167,13 +178,13 @@ jobs:
     - task: PublishBuildArtifacts@1
       displayName: Publish artifacts [fde-osx-x64]
       inputs:
-        pathtoPublish: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fde-osx-x64.zip'
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fde-osx-x64.tar.gz'
         artifactName: 'HeroesDataParser-fde-osx-x64'  
 
     - task: PublishBuildArtifacts@1
       displayName: Publish artifacts [fde-linux-x64]
       inputs:
-        pathtoPublish: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fde-linux-x64.zip'
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fde-linux-x64.tar.gz'
         artifactName: 'HeroesDataParser-fde-linux-x64'  
         
     - task: PublishBuildArtifacts@1
@@ -185,18 +196,18 @@ jobs:
     - task: PublishBuildArtifacts@1
       displayName: Publish artifacts [scd-osx-x64]
       inputs:
-        pathtoPublish: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-scd-osx-x64.zip'
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-scd-osx-x64.tar.gz'
         artifactName: 'HeroesDataParser-scd-osx-x64'  
 
     - task: PublishBuildArtifacts@1
       displayName: Publish artifacts [scd-linux-x64]
       inputs:
-        pathtoPublish: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-scd-linux-x64.zip'
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-scd-linux-x64.tar.gz'
         artifactName: 'HeroesDataParser-scd-linux-x64'  
         
     - task: PublishBuildArtifacts@1
       displayName: Publish artifact [nuget-fdd-any]
       inputs:
-        pathtoPublish: '.\bin\nupkg\any\'
+        pathtoPublish: '$(nupkg_path)'
         artifactName: 'HeroesDataParser-nuget-fdd-any'
   
