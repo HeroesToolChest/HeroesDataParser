@@ -14,8 +14,6 @@ $hots_path = "F:\heroes\heroes_${build}\mods_${build}"
 ### PATH TO UPDATE ###
 $output_path = "C:\Users\koliva\Source\Repos\heroes-data\heroesdata\${full_version}"
 
-$hdp_json_file = "${output_path}\.hdp.json"
-
 ##################################
 
 # if ptr update the paths to _ptr
@@ -24,6 +22,8 @@ if ($ptr)
 	$hots_path = "F:\heroes\heroes_${build}_ptr\mods_${build}"
 	$output_path = "${output_path}_ptr"
 }
+
+$hdp_json_file = "${output_path}\.hdp.json"
 
 # Powershell version check
 if ($PSVersionTable.PSVersion.Major -lt 6)
