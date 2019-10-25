@@ -25,4 +25,11 @@
       </Override>
     </Ability>
   </CHero>
+  <CHero id="Dehaka">
+    <Ability id="DehakaCancelBurrow" abilityType="E">
+      <Override>
+        <ParentLink value="DehakaBurrow|DehakaBurrow|E" />
+      </Override>
+    </Ability>
+  </CHero>
 </HeroOverrides>

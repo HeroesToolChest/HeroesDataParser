@@ -382,19 +382,7 @@ namespace HeroesData.Parser.XmlData
             if (ability == null)
                 throw new ArgumentNullException(nameof(ability));
 
-            SetAbilityTalentButton(ability, ability.AbilityTalentId.ReferenceId);
-            SetAbilityTalentButton(ability, ability.AbilityTalentId.ButtonId);
-        }
-
-        private void SetAbilityTalentButton(Ability ability, string id)
-        {
-            XElement? abilityElement = GameData.MergeXmlElementsNoAttributes(GetAbilityElements(id), false);
-            string? faceValue = abilityElement?.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value ?? abilityElement?.Element("CmdButtonArray")?.Element("DefaultButtonFace")?.Attribute("value")?.Value;
-
-            if (string.IsNullOrEmpty(faceValue))
-                faceValue = ability.AbilityTalentId.ButtonId;
-
-            XElement? buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
+            XElement? buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.AbilityTalentId.ButtonId));
 
             if (buttonElement != null)
                 AbilityTalentsButtonElementsList.Add((buttonElement, ability));
