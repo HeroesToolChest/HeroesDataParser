@@ -507,10 +507,10 @@ namespace HeroesData.Parser
 
                 foreach (string abilityTalentLinkId in talent.AbilityTalentLinkIds)
                 {
-                    IEnumerable<Ability> abilities = hero.GetAbilities(abilityTalentLinkId, StringComparison.OrdinalIgnoreCase);
-                    IEnumerable<Hero> heroes = hero.HeroUnits.Where(x => x.GetAbilities(abilityTalentLinkId, StringComparison.OrdinalIgnoreCase).Where(x => x.Tier != AbilityTier.Hidden).Any());
+                    IEnumerable<Ability> abilities = hero.GetAbilities(abilityTalentLinkId, StringComparison.Ordinal);
+                    IEnumerable<Hero> heroes = hero.HeroUnits.Where(x => x.GetAbilities(abilityTalentLinkId, StringComparison.Ordinal).Where(x => x.Tier != AbilityTier.Hidden).Any());
 
-                    if (abilities.Where(x => x.Tier != AbilityTier.Hidden).Any() || hero.ContainsTalent(abilityTalentLinkId) || heroes.Any())
+                    if (abilities.Where(x => x.Tier != AbilityTier.Hidden).Any() || (hero.TryGetTalent(abilityTalentLinkId, out Talent? foundTalent) && talent != foundTalent) || heroes.Any())
                     {
                         validatedIds.Add(abilityTalentLinkId);
                     }

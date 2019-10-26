@@ -106,6 +106,7 @@ namespace HeroesData.Parser.XmlData
                     talent.RemoveAbilityTalentLinkId(talent.AbilityTalentId.ReferenceId);
             }
 
+            // let find the heroic the talent belongs to
             if (talent.AbilityTalentId.AbilityType == AbilityType.Heroic)
             {
                 XElement talentAbilElement = talentElement.Element("Abil");
@@ -120,7 +121,29 @@ namespace HeroesData.Parser.XmlData
                     {
                         string abilValue = talentAbilElement.Attribute("value").Value;
                         if (!string.IsNullOrEmpty(abilValue))
+                        {
+                            XElement abilElement = GetAbilityElements(abilValue).FirstOrDefault();
+                            string? defaultButtonFace = abilElement?.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
+
+                            //if (!string.IsNullOrWhiteSpace(defaultButtonFace) && defaultButtonFace.Equals(abilValue, StringComparison.OrdinalIgnoreCase))
+                            //{
+                            //    talent.AddAbilityTalentLinkId(abilValue);
+                            //}
+                            //else if (!string.IsNullOrWhiteSpace(defaultButtonFace))
+                            //{
+                            //    talent.AddAbilityTalentLinkId(defaultButtonFace);
+                            //    talent.AddAbilityTalentLinkId(abilValue);
+                            //}
+                            //else
+                            //{
+                            //    talent.AddAbilityTalentLinkId(abilValue);
+                            //}
+
+                            if (!string.IsNullOrWhiteSpace(defaultButtonFace))
+                                talent.AddAbilityTalentLinkId(defaultButtonFace);
+
                             talent.AddAbilityTalentLinkId(abilValue);
+                        }
                     }
                 }
             }
@@ -176,7 +199,7 @@ namespace HeroesData.Parser.XmlData
                 if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
                     AbilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(abilityTalentId);
                 else
-                    AbilityTalentIdsByTalentIdUpgrade.TryAdd(talentReferenceNameId, new HashSet<string>(StringComparer.OrdinalIgnoreCase) { abilityTalentId });
+                    AbilityTalentIdsByTalentIdUpgrade.TryAdd(talentReferenceNameId, new HashSet<string>(StringComparer.Ordinal) { abilityTalentId });
             }
         }
 
