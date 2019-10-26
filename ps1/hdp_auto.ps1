@@ -6,7 +6,7 @@ param(
 	[Parameter(Mandatory=$true)][string]$heroes_directory,
 	[bool]$ptr = $False)
 
-$major,$minor,$rev,$build = $full_version.Split("{.}")
+$major,$minor,$rev,$build = $full_version.Split(".")
 
 # PATHS ##########################
 ### PATH TO UPDATE ###
