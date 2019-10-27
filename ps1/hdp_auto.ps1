@@ -19,7 +19,7 @@ $heroes_data_path_data = "${heroes_data_path}\data"
 $heroes_data_path_gamestrings = "${heroes_data_path}\gamestrings"
 
 ### PATH TO UPDATE ###
-$heroes_images_path = "C:\Users\koliva\Source\Repos\heroes-images"
+$heroes_images_path = "C:\Users\koliva\Source\Repos\heroes-images\heroesimages"
 
 $hdp_json_file = "${heroes_data_path}\.hdp.json"
 
