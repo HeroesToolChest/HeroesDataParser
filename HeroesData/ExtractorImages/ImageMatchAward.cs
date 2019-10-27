@@ -11,7 +11,7 @@ namespace HeroesData.ExtractorImage
     {
         private readonly HashSet<(string originalName, string newName)> Awards = new HashSet<(string original, string newName)>();
 
-        private readonly string MatchAwardsDirectory = "matchAwards";
+        private readonly string MatchAwardsDirectory = "matchawards";
 
         public ImageMatchAward(CASCHandler? cascHandler, string modsFolderPath)
             : base(cascHandler, modsFolderPath)
