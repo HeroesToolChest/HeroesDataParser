@@ -22,6 +22,7 @@ $heroes_data_path_gamestrings = "${heroes_data_path}\gamestrings"
 $heroes_images_path = "C:\Users\koliva\Source\Repos\heroes-images\heroesimages"
 
 $hdp_json_file = "${heroes_data_path}\.hdp.json"
+$hdp_json_file_images = "${heroes_images_path}\.hdp.json"
 
 ##################################
 
@@ -73,4 +74,5 @@ Copy-Item -Path "${output_path}\images\*" -Destination $heroes_images_path -Recu
 
 "Create .hdp.json file"
 @{hdp="${v_num}"} | ConvertTo-Json | Out-File $hdp_json_file
+@{hdp="${v_num}"} | ConvertTo-Json | Out-File $hdp_json_file_images
 "Done."
