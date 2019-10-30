@@ -125,20 +125,6 @@ namespace HeroesData.Parser.XmlData
                             XElement abilElement = GetAbilityElements(abilValue).FirstOrDefault();
                             string? defaultButtonFace = abilElement?.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
 
-                            //if (!string.IsNullOrWhiteSpace(defaultButtonFace) && defaultButtonFace.Equals(abilValue, StringComparison.OrdinalIgnoreCase))
-                            //{
-                            //    talent.AddAbilityTalentLinkId(abilValue);
-                            //}
-                            //else if (!string.IsNullOrWhiteSpace(defaultButtonFace))
-                            //{
-                            //    talent.AddAbilityTalentLinkId(defaultButtonFace);
-                            //    talent.AddAbilityTalentLinkId(abilValue);
-                            //}
-                            //else
-                            //{
-                            //    talent.AddAbilityTalentLinkId(abilValue);
-                            //}
-
                             if (!string.IsNullOrWhiteSpace(defaultButtonFace))
                                 talent.AddAbilityTalentLinkId(defaultButtonFace);
 
