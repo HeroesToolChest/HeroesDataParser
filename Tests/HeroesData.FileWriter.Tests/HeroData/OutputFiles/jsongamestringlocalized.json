@@ -101,7 +101,8 @@
           "nameId": "AlarakSadismDummyUI",
           "buttonId": "AlarakSadismDummyUI",
           "icon": "storm_ui_icon_alarak_sadism.png",
-          "abilityType": "Trait"
+          "abilityType": "Trait",
+          "isActive": false
         }
       ],
       "mount": [

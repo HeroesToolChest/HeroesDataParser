@@ -67,7 +67,7 @@
         <HeroicAbility buttonId="HeroicAbility" name="Heroic" abilityType="Heroic" />
       </Heroic>
       <Trait>
-        <AlarakSadismDummyUI buttonId="AlarakSadismDummyUI" name="Sadism" abilityType="Trait">
+        <AlarakSadismDummyUI buttonId="AlarakSadismDummyUI" name="Sadism" abilityType="Trait" isActive="false">
           <Icon>storm_ui_icon_alarak_sadism.png</Icon>
           <ShortTooltip>Alarak deals increased damage and has increased self-healing against enemy Heroes</ShortTooltip>
           <FullTooltip>Alarak's Ability damage and self-healing are increased by &lt;c val="#TooltipNumbers"&gt;100%&lt;/c&gt; against enemy Heroes.&lt;n/&gt;&lt;n/&gt;&lt;img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/&gt;&lt;c val="#TooltipQuest"&gt;Repeatable Quest:&lt;/c&gt; Takedowns increase Sadism by &lt;c val="#TooltipNumbers"&gt;3%&lt;/c&gt;, up to &lt;c val="#TooltipNumbers"&gt;30%&lt;/c&gt;. Sadism gained from Takedowns is lost on death.</FullTooltip>

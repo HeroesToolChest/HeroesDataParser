@@ -46,8 +46,8 @@ namespace HeroesData.Parser.XmlData
         /// </summary>
         /// <param name="abilityElement">The ability element.</param>
         /// <param name="abilityTalentBase"></param>
-        /// <param name="index"></param>
-        protected void SetAbilityTalentData(XElement abilityElement, AbilityTalentBase abilityTalentBase, string index)
+        /// <param name="abilIndex"></param>
+        protected void SetAbilityTalentData(XElement abilityElement, AbilityTalentBase abilityTalentBase, string abilIndex)
         {
             if (abilityElement == null)
                 throw new ArgumentNullException(nameof(abilityElement));
@@ -60,7 +60,7 @@ namespace HeroesData.Parser.XmlData
             {
                 XElement? parentElement = GameData.MergeXmlElements(GameData.Elements(abilityElement.Name.LocalName).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
-                    SetAbilityTalentData(parentElement, abilityTalentBase, index);
+                    SetAbilityTalentData(parentElement, abilityTalentBase, abilIndex);
             }
 
             // don't want these
@@ -68,6 +68,9 @@ namespace HeroesData.Parser.XmlData
                 abilityTalentBase.AbilityTalentId.ReferenceId = string.Empty;
 
             Action? setCmdButtonArrayDataAction = null;
+            bool isAutoCast = false;
+            bool isAutoCastOn = false;
+
 
             // look through all elements to set all the data
             foreach (XElement element in abilityElement.Elements())
@@ -86,7 +89,7 @@ namespace HeroesData.Parser.XmlData
                 {
                     string? indexValue = element.Attribute("index")?.Value;
 
-                    if (!string.IsNullOrEmpty(indexValue) && index == indexValue)
+                    if (!string.IsNullOrEmpty(indexValue) && abilIndex == indexValue)
                     {
                         setCmdButtonArrayDataAction = () => SetCmdButtonArrayData(element, abilityTalentBase);
                     }
@@ -131,7 +134,23 @@ namespace HeroesData.Parser.XmlData
                         }
                     }
                 }
+                else if (elementName == "FLAGS")
+                {
+                    string index = element.Attribute("index").Value.ToUpperInvariant();
+
+                    if (index == "AUTOCAST" && element.Attribute("value").Value == "1")
+                    {
+                        isAutoCast = true;
+                    }
+                    else if (index == "AUTOCASTON" && element.Attribute("value").Value == "1")
+                    {
+                        isAutoCastOn = true;
+                    }
+                }
             }
+
+            if (isAutoCast && isAutoCastOn)
+                abilityTalentBase.IsActive = false;
 
             // must execute the cmdButtonArrayData last
             setCmdButtonArrayDataAction?.Invoke();
@@ -353,6 +372,13 @@ namespace HeroesData.Parser.XmlData
                     else if (index == "ShowAutocast")
                     {
                     }
+                }
+                else if (elementName == "USEHOTKEYLABEL")
+                {
+                    string? value = element.Attribute("value")?.Value;
+
+                    if (!string.IsNullOrEmpty(value) && value == "0")
+                        abilityTalentBase.IsActive = false; // ability has no hotkey, not activable
                 }
             }
 

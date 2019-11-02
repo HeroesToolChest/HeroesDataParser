@@ -350,6 +350,9 @@ namespace HeroesData.ExtractorData
                     AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] is of type Unknown");
                 else if (ability.AbilityTalentId.AbilityType == AbilityType.Hidden)
                     AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] is of type Hidden");
+
+                if (ability.AbilityTalentId.IsPassive && ability.IsActive)
+                    AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] is both passive and active");
             }
         }
 

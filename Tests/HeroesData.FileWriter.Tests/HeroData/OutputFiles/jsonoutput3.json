@@ -124,7 +124,8 @@
           "icon": "storm_ui_icon_alarak_sadism.png",
           "shortTooltip": "Alarak deals increased damage and has increased self-healing against enemy Heroes",
           "fullTooltip": "Alarak's Ability damage and self-healing are increased by 100% against enemy Heroes.  Repeatable Quest: Takedowns increase Sadism by 3%, up to 30%. Sadism gained from Takedowns is lost on death.",
-          "abilityType": "Trait"
+          "abilityType": "Trait",
+          "isActive": false
         }
       ],
       "mount": [

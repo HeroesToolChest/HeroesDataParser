@@ -358,7 +358,9 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
             info.Add("abilityType", abilityTalentBase.AbilityTalentId.AbilityType.ToString());
 
-            if (abilityTalentBase.IsActive)
+            if (abilityTalentBase.IsActive && abilityTalentBase is Talent)
+                info.Add("isActive", abilityTalentBase.IsActive);
+            else if (!abilityTalentBase.IsActive && abilityTalentBase is Ability)
                 info.Add("isActive", abilityTalentBase.IsActive);
 
             if (abilityTalentBase.AbilityTalentId.IsPassive)

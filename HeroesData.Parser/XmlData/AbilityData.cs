@@ -52,6 +52,7 @@ namespace HeroesData.Parser.XmlData
             {
                 ability.AbilityTalentId.ButtonId = faceValue;
                 ability.AbilityTalentId.IsPassive = true;
+                ability.IsActive = false;
 
                 XElement? buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == faceValue));
                 if (buttonElement != null)

@@ -230,7 +230,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 string.IsNullOrEmpty(abilityTalentBase.AbilityTalentId.ButtonId) ? null : new XAttribute("buttonId", abilityTalentBase.AbilityTalentId.ButtonId),
                 string.IsNullOrEmpty(abilityTalentBase.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", abilityTalentBase.Name),
                 new XAttribute("abilityType", abilityTalentBase.AbilityTalentId.AbilityType.ToString()),
-                abilityTalentBase.IsActive ? new XAttribute("isActive", abilityTalentBase.IsActive) : null,
+                abilityTalentBase.IsActive && abilityTalentBase is Talent ? new XAttribute("isActive", abilityTalentBase.IsActive) : !abilityTalentBase.IsActive && abilityTalentBase is Ability ? new XAttribute("isActive", abilityTalentBase.IsActive) : null,
                 abilityTalentBase.AbilityTalentId.IsPassive ? new XAttribute("isPassive", abilityTalentBase.AbilityTalentId.IsPassive) : null,
                 abilityTalentBase.IsQuest ? new XAttribute("isQuest", abilityTalentBase.IsQuest) : null,
                 string.IsNullOrEmpty(abilityTalentBase.IconFileName) ? null : new XElement("Icon", Path.ChangeExtension(abilityTalentBase.IconFileName?.ToLower(), StaticImageExtension)),
