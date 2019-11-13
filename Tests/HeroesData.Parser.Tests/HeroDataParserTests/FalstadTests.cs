@@ -29,6 +29,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
 
             Assert.AreEqual("Throw out a Hammer that returns. Hammer slows and damages enemies", ability.Tooltip.ShortTooltip.RawDescription);
             Assert.AreEqual("Throw out a Hammer that returns to Falstad, dealing <c val=\"#TooltipNumbers\">121~~0.04~~</c> damage and slowing enemies by <c val=\"#TooltipNumbers\">25%</c> for <c val=\"#TooltipNumbers\">2</c> seconds.", ability.Tooltip.FullTooltip.RawDescription);
+
+            Assert.IsTrue(ability.IsActive);
         }
 
         [TestMethod]
@@ -79,6 +81,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
 
             Assert.AreEqual("Long range damage beam", ability.Tooltip.ShortTooltip.RawDescription);
             Assert.AreEqual("After <c val=\"#TooltipNumbers\">1</c> second, deal <c val=\"#TooltipNumbers\">475~~0.0475~~</c> damage to enemies within a long line. The cooldown is reduced by <c val=\"#TooltipNumbers\">25</c> seconds for every enemy Hero hit.", ability.Tooltip.FullTooltip.RawDescription);
+
+            Assert.IsTrue(ability.IsActive);
         }
 
         [TestMethod]
@@ -157,6 +161,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual(1, talent.Column);
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("FalstadHammerang"));
 
+            Assert.IsFalse(talent.IsActive);
+
             // Wingman
             talent = HeroFalstad.GetTalent("FalstadWingman");
             Assert.AreEqual(TalentTier.Level1, talent.Tier);
@@ -199,6 +205,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
 
             Assert.AreEqual("After not taking damage for a brief period, gain increased Movement Speed", ability.Tooltip.ShortTooltip.RawDescription);
             Assert.AreEqual("Gain <c val=\"#TooltipNumbers\">15%</c> increased Movement Speed after not taking damage for <c val=\"#TooltipNumbers\">6</c> seconds.", ability.Tooltip.FullTooltip.RawDescription);
+
+            Assert.IsFalse(ability.IsActive);
         }
 
         [TestMethod]

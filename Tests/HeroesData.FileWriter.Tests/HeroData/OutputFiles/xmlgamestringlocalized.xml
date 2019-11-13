@@ -56,7 +56,7 @@
         <HeroicAbility buttonId="HeroicAbility" abilityType="Heroic" />
       </Heroic>
       <Trait>
-        <AlarakSadismDummyUI buttonId="AlarakSadismDummyUI" abilityType="Trait">
+        <AlarakSadismDummyUI buttonId="AlarakSadismDummyUI" abilityType="Trait" isActive="false">
           <Icon>storm_ui_icon_alarak_sadism.png</Icon>
         </AlarakSadismDummyUI>
       </Trait>

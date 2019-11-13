@@ -24,7 +24,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             });
             Assert.AreEqual("VolskayaVehicleTShield", shield.AbilityTalentId.ButtonId);
             Assert.AreEqual(AbilityType.E, shield.AbilityTalentId.AbilityType);
-            Assert.IsFalse(shield.IsActive);
+            Assert.IsTrue(shield.IsActive);
             Assert.IsFalse(shield.IsQuest);
             Assert.AreEqual(AbilityTier.Basic, shield.Tier);
             Assert.AreEqual("storm_ui_icon_volskayarobot_tshield.dds", shield.IconFileName);
