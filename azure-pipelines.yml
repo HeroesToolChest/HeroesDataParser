@@ -52,16 +52,18 @@ jobs:
         installationPath: $(Agent.ToolsDirectory)\dotnet
 
     - task: NuGetToolInstaller@0
-      displayName: nuget installer 5.2.0
+      displayName: nuget installer 5.3.1
       inputs:
-        versionSpec: '5.2.0' 
+        versionSpec: '5.3.1' 
    
     - powershell: |
         $csproj = get-content HeroesData\HeroesData.csproj
         $sv = $csproj | select-string -pattern "<Version>"
         $spv = $csproj | select-string -pattern "<PackageVersion>"
         $sv -match "<Version>(?<content>.*)</Version>"
-        $version = $matches['content'] + "-build.$(Build.BuildNumber)"
+        $value = $matches['content']
+        $first_part_version,$build_version = $value.Split("-")
+        $version = $first_part_version + "-build.$(Build.BuildNumber)"
         $csproj.replace($sv, "<Version>$version</Version>") | out-file $env:MAIN_PROJECT
         $csproj.replace($spv, "<PackageVersion>$version</PackageVersion>") | out-file $env:MAIN_PROJECT
         echo "Version - $version"
@@ -108,13 +110,21 @@ jobs:
       displayName: Publish release [scd-linux-x64]
  
     - task: ArchiveFiles@2
-      displayName: Archive [fdd-any]
+      displayName: Archive [fdd-any] zip
       inputs:
         archiveType: 'zip'
         rootFolderOrFile: '$(publish_any_path)'
         includeRootFolder: false
         archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fdd-any.zip'
-        
+
+    - task: ArchiveFiles@2
+      displayName: Archive [fdd-any] tar
+      inputs:
+        archiveType: 'zip'
+        rootFolderOrFile: '$(publish_any_path)'
+        includeRootFolder: false
+        archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fdd-any.tar.gz'
+
     - task: ArchiveFiles@2
       displayName: Archive [fde-win-x64]
       inputs:
@@ -164,11 +174,17 @@ jobs:
         archiveFile: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-scd-linux-x64.tar.gz'
 
     - task: PublishBuildArtifacts@1
-      displayName: Publish artifacts [fdd-any]
+      displayName: Publish artifacts [fdd-any] zip
       inputs:
         pathtoPublish: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fdd-any.zip'
         artifactName: 'HeroesDataParser-fdd-any'
-  
+
+    - task: PublishBuildArtifacts@1
+      displayName: Publish artifacts [fdd-any] tar
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)\HeroesDataParser.$(version)-fdd-any.tar.gz'
+        artifactName: 'HeroesDataParser-fdd-any' 
+        
     - task: PublishBuildArtifacts@1
       displayName: Publish artifacts [fde-win-x64]
       inputs:
