@@ -59,13 +59,11 @@ jobs:
     - powershell: |
         $csproj = get-content HeroesData\HeroesData.csproj
         $sv = $csproj | select-string -pattern "<Version>"
-        $spv = $csproj | select-string -pattern "<PackageVersion>"
         $sv -match "<Version>(?<content>.*)</Version>"
         $value = $matches['content']
         $first_part_version,$build_version = $value.Split("-")
         $version = $first_part_version + "-build.$(Build.BuildNumber)"
         $csproj.replace($sv, "<Version>$version</Version>") | out-file $env:MAIN_PROJECT
-        $csproj.replace($spv, "<PackageVersion>$version</PackageVersion>") | out-file $env:MAIN_PROJECT
         echo "Version - $version"
       displayName: Non-master version build number
       condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
