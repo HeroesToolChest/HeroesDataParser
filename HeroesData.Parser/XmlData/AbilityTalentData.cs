@@ -71,7 +71,6 @@ namespace HeroesData.Parser.XmlData
             bool isAutoCast = false;
             bool isAutoCastOn = false;
 
-
             // look through all elements to set all the data
             foreach (XElement element in abilityElement.Elements())
             {

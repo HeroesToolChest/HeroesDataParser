@@ -1,4 +1,5 @@
 ﻿using Heroes.Models;
+using Heroes.Models.Extensions;
 using HeroesData.ExtractorData;
 using HeroesData.ExtractorImage;
 using HeroesData.ExtractorImages;

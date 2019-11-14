@@ -1,4 +1,5 @@
-﻿using Heroes.Models.Veterancy;
+﻿using Heroes.Models;
+using Heroes.Models.Veterancy;
 using System.Collections.Generic;
 
 namespace HeroesData.FileWriter.Writers.BehaviorVeterancyData

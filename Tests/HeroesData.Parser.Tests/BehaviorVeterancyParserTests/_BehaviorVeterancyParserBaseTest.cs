@@ -1,4 +1,5 @@
-﻿using Heroes.Models.Veterancy;
+﻿using Heroes.Models;
+using Heroes.Models.Veterancy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesData.Parser.Tests.BehaviorVeterancyParserTests

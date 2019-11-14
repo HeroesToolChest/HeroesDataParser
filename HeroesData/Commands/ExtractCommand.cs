@@ -1,5 +1,6 @@
 ﻿using CASCLib;
 using Heroes.Models;
+using Heroes.Models.Extensions;
 using HeroesData.Loader;
 using HeroesData.Loader.XmlGameData;
 using Microsoft.Extensions.CommandLineUtils;

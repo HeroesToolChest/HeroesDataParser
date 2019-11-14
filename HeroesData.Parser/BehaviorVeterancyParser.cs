@@ -1,4 +1,5 @@
-﻿using Heroes.Models.Veterancy;
+﻿using Heroes.Models;
+using Heroes.Models.Veterancy;
 using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
