@@ -82,11 +82,11 @@ jobs:
            
     - powershell: |
         (get-content $env:MAIN_PROJECT).Replace('<PublishSingleFile>false</PublishSingleFile>','<PublishSingleFile>true</PublishSingleFile>') | out-file $env:MAIN_PROJECT
-        $s = get-content $env:MAIN_PROJECT | select-string -pattern "<PackageVersion>"
-        $s -match "<PackageVersion>(?<content>.*)</PackageVersion>"
+        $s = get-content $env:MAIN_PROJECT | select-string -pattern "<Version>"
+        $s -match "<Version>(?<content>.*)</Version>"
         $m = $matches['content']        
         echo "##vso[task.setvariable variable=version]$m"
-        echo "Package version - $m"
+        echo "Version - $m"
       displayName: FDE and SCD Prep
                  
     - powershell: dotnet publish $env:MAIN_PROJECT -c release --self-contained false -r win-x64 -o $env:PUBLISH_FDE_WIN_PATH
