@@ -11,7 +11,7 @@ using System.IO;
 
 namespace HeroesData
 {
-    public class DDSImage
+    public class DDSImage : IDisposable
     {
         private readonly Pfim.IImage DDSImageFile;
 
@@ -32,6 +32,11 @@ namespace HeroesData
 
         public int Height => DDSImageFile.Height;
 
+        public void Dispose()
+        {
+            DDSImageFile?.Dispose();
+        }
+
         /// <summary>
         /// Writes the image to the file path.
         /// </summary>
@@ -39,11 +44,43 @@ namespace HeroesData
         public void Save(string file)
         {
             if (DDSImageFile.Format == ImageFormat.Rgba32)
+            {
                 Save<Bgra32>(file);
+            }
             else if (DDSImageFile.Format == ImageFormat.Rgb24)
+            {
                 Save<Bgr24>(file);
+            }
+            else if (DDSImageFile.Format == ImageFormat.Rgba16)
+            {
+                Save<Bgra4444>(file);
+            }
+            else if (DDSImageFile.Format == ImageFormat.R5g5b5)
+            {
+                // Turn the alpha channel on for image sharp
+                for (int i = 1; i < DDSImageFile.Data.Length; i += 2)
+                {
+                    DDSImageFile.Data[i] |= 128;
+                }
+
+                Save<Bgra5551>(file);
+            }
+            else if (DDSImageFile.Format == ImageFormat.R5g5b5a1)
+            {
+                Save<Bgra5551>(file);
+            }
+            else if (DDSImageFile.Format == ImageFormat.R5g6b5)
+            {
+                Save<Bgr565>(file);
+            }
+            else if (DDSImageFile.Format == ImageFormat.Rgb8)
+            {
+                Save<Gray8>(file);
+            }
             else
-                throw new Exception("Unsupported pixel format (" + DDSImageFile.Format + ")");
+            {
+                throw new Exception($"Unsupported pixel format ({DDSImageFile.Format})");
+            }
         }
 
         /// <summary>
@@ -55,11 +92,43 @@ namespace HeroesData
         public void Save(string file, Point point, Size size)
         {
             if (DDSImageFile.Format == ImageFormat.Rgba32)
+            {
                 Save<Bgra32>(file, point, size);
+            }
             else if (DDSImageFile.Format == ImageFormat.Rgb24)
+            {
                 Save<Bgr24>(file, point, size);
+            }
+            else if (DDSImageFile.Format == ImageFormat.Rgba16)
+            {
+                Save<Bgra4444>(file, point, size);
+            }
+            else if (DDSImageFile.Format == ImageFormat.R5g5b5)
+            {
+                // Turn the alpha channel on for image sharp
+                for (int i = 1; i < DDSImageFile.Data.Length; i += 2)
+                {
+                    DDSImageFile.Data[i] |= 128;
+                }
+
+                Save<Bgra5551>(file, point, size);
+            }
+            else if (DDSImageFile.Format == ImageFormat.R5g5b5a1)
+            {
+                Save<Bgra5551>(file, point, size);
+            }
+            else if (DDSImageFile.Format == ImageFormat.R5g6b5)
+            {
+                Save<Bgr565>(file, point, size);
+            }
+            else if (DDSImageFile.Format == ImageFormat.Rgb8)
+            {
+                Save<Gray8>(file, point, size);
+            }
             else
-                throw new Exception("Unsupported pixel format (" + DDSImageFile.Format + ")");
+            {
+                throw new Exception($"Unsupported pixel format ({DDSImageFile.Format})");
+            }
         }
 
         /// <summary>
@@ -76,11 +145,43 @@ namespace HeroesData
                 throw new Exception("File is not a gif");
 
             if (DDSImageFile.Format == ImageFormat.Rgba32)
+            {
                 SaveAsGif<Bgra32>(file, size, maxSize, frames, frameDelay);
+            }
             else if (DDSImageFile.Format == ImageFormat.Rgb24)
+            {
                 SaveAsGif<Bgr24>(file, size, maxSize, frames, frameDelay);
+            }
+            else if (DDSImageFile.Format == ImageFormat.Rgba16)
+            {
+                SaveAsGif<Bgra4444>(file, size, maxSize, frames, frameDelay);
+            }
+            else if (DDSImageFile.Format == ImageFormat.R5g5b5)
+            {
+                // Turn the alpha channel on for image sharp
+                for (int i = 1; i < DDSImageFile.Data.Length; i += 2)
+                {
+                    DDSImageFile.Data[i] |= 128;
+                }
+
+                SaveAsGif<Bgra5551>(file, size, maxSize, frames, frameDelay);
+            }
+            else if (DDSImageFile.Format == ImageFormat.R5g5b5a1)
+            {
+                SaveAsGif<Bgra5551>(file, size, maxSize, frames, frameDelay);
+            }
+            else if (DDSImageFile.Format == ImageFormat.R5g6b5)
+            {
+                SaveAsGif<Bgr565>(file, size, maxSize, frames, frameDelay);
+            }
+            else if (DDSImageFile.Format == ImageFormat.Rgb8)
+            {
+                SaveAsGif<Gray8>(file, size, maxSize, frames, frameDelay);
+            }
             else
-                throw new Exception("Unsupported pixel format (" + DDSImageFile.Format + ")");
+            {
+                throw new Exception($"Unsupported pixel format ({DDSImageFile.Format})");
+            }
         }
 
         private void Save<T>(string file)

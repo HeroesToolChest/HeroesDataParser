@@ -158,9 +158,5 @@
     <File>wireframe-general-destructiblerocks-6x6.dds</File>
     <File>wireframe-critter-dog.dds</File>
     <File>wireframe-zerg-baneling.dds</File>
-    
-    <!--Unsupported pixel format (R5g5b5a1)-->
-    <File>storm_ui_minimapicon_core_fill.dds</File>
-    <File>storm_ui_minimap_lavawave.dds</File>
   </NonExistingImageFileNames>
 </Configuration>
