@@ -78,8 +78,8 @@ namespace HeroesData.Parser.Tests
             Assert.IsTrue(GameStringParser.TryParseRawTooltip("ZaryaWeaponFeelTheHeatTalent", Tooltip2, out output));
             Assert.AreEqual("Zarya's Basic Attack deals <c val=\"bfd4fd\">50%</c> additional damage to enemies in melee range.", output);
 
-            Assert.IsFalse(GameStringParser.TryParseRawTooltip("YrelArdentDefender", FailedTooltip1, out output));
-            Assert.AreEqual(GameStringParser.FailedParsed, output);
+            Assert.IsTrue(GameStringParser.TryParseRawTooltip("YrelArdentDefender", FailedTooltip1, out output));
+            Assert.AreEqual("Surround Yrel in a barrier for <c val=\"bfd4fd\">0##ERROR##</c> seconds, absorbing all damage taken and healing her for <c val=\"bfd4fd\">50%</c> of the damage received.", output);
 
             Assert.IsTrue(GameStringParser.TryParseRawTooltip("YrelSacredGround", Tooltip3, out output));
             Assert.AreEqual("Yrel sanctifies the ground around her, gaining <c val=\"bfd4fd\">50</c> Armor until she leaves the area.", output);
