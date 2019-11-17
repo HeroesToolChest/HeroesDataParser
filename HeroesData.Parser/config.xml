@@ -48,6 +48,7 @@
       <Element>CAbilStop</Element>
     </Type>
     <Type name="Accumulator">
+      <Element>CAccumulator</Element>
       <Element>CAccumulatorDistance</Element>
       <Element>CAccumulatorDistanceUnitTraveled</Element>
       <Element>CAccumulatorTimed</Element>

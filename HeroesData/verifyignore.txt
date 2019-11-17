@@ -43,22 +43,22 @@
 [EriksGravestone] has more than 1 W ability
 [LostVikings] [TargetInfoPanelFileName]  is empty
 
-# failed parsing - out of date data references
-[JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
-[gardenofterror-GardenTerror] [UnderworldBossStun|GraveGolemMegaStun|Q|False] FullTooltip failed to parse correctly
-[starcraft-TerranRavenDefender] [TerranRavenSeekerMissile|TerranRavenSeekerMissile|Q|False] FullTooltip failed to parse correctly
-[hauntedmines-UnderworldSummonedBoss] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
-[tombofthespiderqueen-JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
-[infernalshrinesdata-MercPunisherLaner] [MercPunisherLanerFixate|MercPunisherLanerFixate|W|False] FullTooltip failed to parse correctly
-[starcraft-TerranRaven] [TerranRavenSeekerMissile|TerranRavenSeekerMissile|W|False] FullTooltip failed to parse correctly
-[braxisholdoutdata-TerranArchangelLaner] [TerranArchangelLanerBulletstorm|TerranArchangelBulletstorm|Q|False] FullTooltip failed to parse correctly
-[tombofthespiderqueen-JungleGraveGolemLaner] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
-[braxisholdoutdata-TerranArchangelDefender] [TerranArchangelDefenderBulletstorm|TerranArchangelBulletstorm|Q|False] FullTooltip failed to parse correctly
-[UnderworldSummonedBoss] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
-[UnderworldBoss] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
-[gardenofterrordata-JunglePlantHorror] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
-[overwatchdata-JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun|Hidden|False] FullTooltip failed to parse correctly
-[JungleGraveGolemLaner] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip failed to parse correctly
+# contains error tags - out of date data references
+[starcraft-TerranRaven] [TerranRavenSeekerMissile|TerranRavenSeekerMissile|W|False] FullTooltip contains an error tag
+[braxisholdoutdata-TerranArchangelLaner] [TerranArchangelLanerBulletstorm|TerranArchangelBulletstorm|Q|False] FullTooltip contains an error tag
+[UnderworldSummonedBoss] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip contains an error tag
+[hauntedmines-UnderworldSummonedBoss] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip contains an error tag
+[UnderworldBoss] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip contains an error tag
+[starcraft-TerranRavenDefender] [TerranRavenSeekerMissile|TerranRavenSeekerMissile|Q|False] FullTooltip contains an error tag
+[overwatchdata-JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun|Hidden|False] FullTooltip contains an error tag
+[tombofthespiderqueen-JungleGraveGolemLaner] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip contains an error tag
+[JungleGraveGolemLaner] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip contains an error tag
+[gardenofterrordata-JunglePlantHorror] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip contains an error tag
+[JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip contains an error tag
+[braxisholdoutdata-TerranArchangelDefender] [TerranArchangelDefenderBulletstorm|TerranArchangelBulletstorm|Q|False] FullTooltip contains an error tag
+[tombofthespiderqueen-JungleGraveGolemDefender] [UnderworldBossStun|GraveGolemMegaStun|W|False] FullTooltip contains an error tag
+[infernalshrinesdata-MercPunisherLaner] [MercPunisherLanerFixate|MercPunisherLanerFixate|W|False] FullTooltip contains an error tag
+[gardenofterror-GardenTerror] [UnderworldBossStun|GraveGolemMegaStun|Q|False] FullTooltip contains an error tag
 
 # default announcer has no gender
 [NoAnnouncerPack] Gender is empty

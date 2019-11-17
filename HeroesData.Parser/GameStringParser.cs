@@ -151,60 +151,62 @@ namespace HeroesData.Parser.GameStrings
                 // perform xml data lookup to find values
                 string mathPath = ParseValues(pathLookup.AsMemory());
 
-                if (string.IsNullOrEmpty(Regex.Replace(mathPath, @"[/*+\-()]", string.Empty)))
+                if (!string.IsNullOrEmpty(Regex.Replace(mathPath, @"[/*+\-()]", string.Empty)))
                 {
-                    return string.Empty;
-                }
+                    // extract the scaling and the amount
+                    string scalingText = GetScalingText(mathPath, out int numOfScalingTexts);
 
-                // extract the scaling and the amount
-                string scalingText = GetScalingText(mathPath, out int numOfScalingTexts);
-
-                if (!string.IsNullOrEmpty(scalingText))
-                {
-                    mathPath = mathPath.Replace(scalingText, string.Empty);
-                }
-
-                // calculate the value
-                double number;
-                bool calculateSuccess = true;
-                try
-                {
-                    number = HeroesMathEval.CalculatePathEquation(mathPath.Trim('/'));
-                }
-                catch (Exception ex) when (ex is FormatException || ex is SyntaxErrorException || ex is IndexOutOfRangeException)
-                {
-                    number = 0;
-                    calculateSuccess = false;
-                }
-
-                if (precision.HasValue)
-                    parts[i] = Math.Round(number, precision.Value).ToString();
-                else
-                    parts[i] = Math.Round(number, 0).ToString();
-
-                if (!calculateSuccess)
-                {
-                    parts[i] += ErrorTag;
-                }
-
-                if (!string.IsNullOrEmpty(scalingText))
-                {
-                    // only add the scaling in certain cases
-                    if (numOfScalingTexts == 1 || (numOfScalingTexts > 1 && !mathPath.Contains('/')))
+                    if (!string.IsNullOrEmpty(scalingText))
                     {
-                        ReadOnlySpan<char> nextPart = parts[i + 1];
-                        nextPart = nextPart.TrimStart();
+                        mathPath = mathPath.Replace(scalingText, string.Empty);
+                    }
 
-                        if (nextPart.StartsWith("%"))
+                    // calculate the value
+                    double number;
+                    bool calculateSuccess = true;
+                    try
+                    {
+                        number = HeroesMathEval.CalculatePathEquation(mathPath.Trim('/'));
+                    }
+                    catch (Exception ex) when (ex is FormatException || ex is SyntaxErrorException || ex is IndexOutOfRangeException)
+                    {
+                        number = 0;
+                        calculateSuccess = false;
+                    }
+
+                    if (precision.HasValue)
+                        parts[i] = Math.Round(number, precision.Value).ToString();
+                    else
+                        parts[i] = Math.Round(number, 0).ToString();
+
+                    if (!calculateSuccess)
+                    {
+                        parts[i] += ErrorTag;
+                    }
+
+                    if (!string.IsNullOrEmpty(scalingText))
+                    {
+                        // only add the scaling in certain cases
+                        if (numOfScalingTexts == 1 || (numOfScalingTexts > 1 && !mathPath.Contains('/')))
                         {
-                            parts[i] += $"%{scalingText}";
-                            parts[i + 1] = parts[i + 1].ReplaceFirst("%", string.Empty);
-                        }
-                        else
-                        {
-                            parts[i] += $"{scalingText}";
+                            ReadOnlySpan<char> nextPart = parts[i + 1];
+                            nextPart = nextPart.TrimStart();
+
+                            if (nextPart.StartsWith("%"))
+                            {
+                                parts[i] += $"%{scalingText}";
+                                parts[i + 1] = parts[i + 1].ReplaceFirst("%", string.Empty);
+                            }
+                            else
+                            {
+                                parts[i] += $"{scalingText}";
+                            }
                         }
                     }
+                }
+                else
+                {
+                    parts[i] = $"0{ErrorTag}";
                 }
             }
 
