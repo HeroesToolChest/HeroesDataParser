@@ -158,7 +158,23 @@ namespace HeroesData.ExtractorData
                 List<string> nonTooltips = new List<string>(ValidationWarnings.Where(x => !x.ToLower().Contains("tooltip")));
                 List<string> tooltips = new List<string>(ValidationWarnings.Where(x => x.ToLower().Contains("tooltip")));
 
-                using StreamWriter writer = new StreamWriter(Path.Combine(App.AssemblyPath, $"VerificationCheck_{Name}_{localization.ToString().ToLower()}.txt"), false);
+                string validationDirectory;
+                string validationFilePath;
+
+                if (App.HotsBuild.HasValue)
+                {
+                    validationDirectory = Path.Combine(App.AssemblyPath, $"validation_{App.HotsBuild}");
+                    validationFilePath = Path.Combine(validationDirectory, $"VerificationCheck_{App.HotsBuild}_{Name}_{localization.ToString().ToLower()}.txt");
+                }
+                else
+                {
+                    validationDirectory = Path.Combine(App.AssemblyPath, $"validation");
+                    validationFilePath = Path.Combine($"VerificationCheck_{Name}_{localization.ToString().ToLower()}.txt");
+                }
+
+                Directory.CreateDirectory(validationDirectory);
+
+                using StreamWriter writer = new StreamWriter(validationFilePath, false);
 
                 if (nonTooltips.Count > 0)
                 {
