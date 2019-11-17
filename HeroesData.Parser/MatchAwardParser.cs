@@ -89,9 +89,9 @@ namespace HeroesData.Parser
             MatchAward? matchAward = null;
 
             if (GameData.TryGetGameString($"{AwardNameId}", out string? awardNameText))
-                awardName = GetNameFromGenderRule(new TooltipDescription(awardNameText!).PlainText);
+                awardName = GetNameFromGenderRule(new TooltipDescription(DescriptionValidator.Validate(awardNameText)).PlainText);
             else if (GameData.TryGetGameString($"{AwardNamePrefix}{gameLink}", out awardNameText))
-                awardName = GetNameFromGenderRule(new TooltipDescription(awardNameText!).PlainText);
+                awardName = GetNameFromGenderRule(new TooltipDescription(DescriptionValidator.Validate(awardNameText)).PlainText);
 
             XElement? scoreValueCustomElement = GameData.MergeXmlElements(GameData.Elements("CScoreValueCustom").Where(x => x.Attribute("id")?.Value == gameLink));
             if (scoreValueCustomElement != null)
@@ -120,7 +120,7 @@ namespace HeroesData.Parser
 
                     // set description
                     if (GameData.TryGetGameString($"{AwardDescriptionPrefix}{gameLink}", out string? description))
-                        matchAward.Description = new TooltipDescription(description!);
+                        matchAward.Description = new TooltipDescription(DescriptionValidator.Validate(description));
 
                     // overrides
                     MatchAwardDataOverride = MatchAwardOverrideLoader.GetOverride(matchAward.Id);
@@ -153,7 +153,7 @@ namespace HeroesData.Parser
                 matchAward.ScoreScreenImageFileName = dataOverride.ScoreScreenImageFileNameOverride.value;
 
             if (dataOverride.DescriptionOverride.enabled)
-                matchAward.Description = new TooltipDescription(dataOverride.DescriptionOverride.value);
+                matchAward.Description = new TooltipDescription(DescriptionValidator.Validate(dataOverride.DescriptionOverride.value));
         }
 
         private string GetNameFromGenderRule(string name)

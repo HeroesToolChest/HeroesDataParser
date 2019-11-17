@@ -71,7 +71,7 @@ namespace HeroesData.Parser
             {
                 string desc = GameData.GetGameString(DefaultData.SprayData?.SprayDescription?.Replace(DefaultData.IdPlaceHolder, sprayElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
-                    spray.Description = new TooltipDescription(desc);
+                    spray.Description = new TooltipDescription(DescriptionValidator.Validate(desc));
             }
 
             foreach (XElement element in sprayElement.Elements())
@@ -81,7 +81,7 @@ namespace HeroesData.Parser
                 if (elementName == "INFOTEXT")
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        spray.Description = new TooltipDescription(text!);
+                        spray.Description = new TooltipDescription(DescriptionValidator.Validate(text));
                 }
                 else if (elementName == "SORTNAME")
                 {
@@ -153,7 +153,7 @@ namespace HeroesData.Parser
         {
             spray.Name = GameData.GetGameString(DefaultData.SprayData?.SprayName?.Replace(DefaultData.IdPlaceHolder, spray.Id));
             spray.SortName = GameData.GetGameString(DefaultData.SprayData?.SpraySortName?.Replace(DefaultData.IdPlaceHolder, spray.Id));
-            spray.Description = new TooltipDescription(GameData.GetGameString(DefaultData.SprayData?.SprayDescription?.Replace(DefaultData.IdPlaceHolder, spray.Id)));
+            spray.Description = new TooltipDescription(DescriptionValidator.Validate(GameData.GetGameString(DefaultData.SprayData?.SprayDescription?.Replace(DefaultData.IdPlaceHolder, spray.Id))));
             spray.HyperlinkId = DefaultData.SprayData?.SprayHyperlinkId?.Replace(DefaultData.IdPlaceHolder, spray.Id) ?? string.Empty;
             spray.ReleaseDate = DefaultData.SprayData?.SprayReleaseDate;
             spray.Rarity = Rarity.None;

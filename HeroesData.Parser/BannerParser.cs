@@ -69,7 +69,7 @@ namespace HeroesData.Parser
             {
                 string desc = GameData.GetGameString(DefaultData.BannerData?.BannerDescription?.Replace(DefaultData.IdPlaceHolder, bannerElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
-                    banner.Description = new TooltipDescription(desc);
+                    banner.Description = new TooltipDescription(DescriptionValidator.Validate(desc));
             }
 
             foreach (XElement element in bannerElement.Elements())
@@ -79,7 +79,7 @@ namespace HeroesData.Parser
                 if (elementName == "DESCRIPTION")
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        banner.Description = new TooltipDescription(text!);
+                        banner.Description = new TooltipDescription(DescriptionValidator.Validate(text));
                 }
                 else if (elementName == "SORTNAME")
                 {
@@ -134,7 +134,7 @@ namespace HeroesData.Parser
         {
             banner.Name = GameData.GetGameString(DefaultData.BannerData?.BannerName?.Replace(DefaultData.IdPlaceHolder, banner.Id));
             banner.SortName = GameData.GetGameString(DefaultData.BannerData?.BannerSortName?.Replace(DefaultData.IdPlaceHolder, banner.Id));
-            banner.Description = new TooltipDescription(GameData.GetGameString(DefaultData.BannerData?.BannerDescription?.Replace(DefaultData.IdPlaceHolder, banner.Id)));
+            banner.Description = new TooltipDescription(DescriptionValidator.Validate(GameData.GetGameString(DefaultData.BannerData?.BannerDescription?.Replace(DefaultData.IdPlaceHolder, banner.Id))));
             banner.ReleaseDate = DefaultData?.BannerData?.BannerReleaseDate;
             banner.Rarity = Rarity.None;
         }

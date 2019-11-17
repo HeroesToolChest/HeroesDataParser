@@ -62,7 +62,7 @@ namespace HeroesData.Parser
             {
                 string desc = GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescription?.Replace(DefaultData.IdPlaceHolder, emoticonElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
-                    emoticon.Description = new TooltipDescription(desc);
+                    emoticon.Description = new TooltipDescription(DescriptionValidator.Validate(desc));
             }
 
             foreach (XElement element in emoticonElement.Elements())
@@ -72,7 +72,7 @@ namespace HeroesData.Parser
                 if (elementName == "DESCRIPTION")
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        emoticon.Description = new TooltipDescription(text!);
+                        emoticon.Description = new TooltipDescription(DescriptionValidator.Validate(text));
                 }
                 else if (elementName == "HERO")
                 {
@@ -190,7 +190,7 @@ namespace HeroesData.Parser
         private void SetDefaultValues(Emoticon emoticon)
         {
             emoticon.Name = DefaultData.EmoticonData?.EmoticonExpression ?? string.Empty;
-            emoticon.Description = new TooltipDescription(GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescription?.Replace(DefaultData.IdPlaceHolder, emoticon.Id)));
+            emoticon.Description = new TooltipDescription(DescriptionValidator.Validate(GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescription?.Replace(DefaultData.IdPlaceHolder, emoticon.Id))));
 
             emoticon.Image.Index = 0;
             emoticon.Image.Width = 0;
