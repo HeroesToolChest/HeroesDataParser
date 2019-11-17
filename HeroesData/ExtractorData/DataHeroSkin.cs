@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using HeroesData.Parser.GameStrings;
 using System;
 
 namespace HeroesData.ExtractorData
@@ -37,6 +38,10 @@ namespace HeroesData.ExtractorData
 
             if (string.IsNullOrEmpty(heroSkin.Description?.RawDescription))
                 AddWarning($"{nameof(heroSkin.Description)} is empty");
+            else if (heroSkin.Description.RawDescription == GameStringParser.FailedParsed)
+                AddWarning($"{nameof(heroSkin.Description)} failed to parse correctly");
+            else if (heroSkin.Description.RawDescription.Contains(GameStringParser.ErrorTag))
+                AddWarning($"{nameof(heroSkin.Description)} contains an error tag");
 
             if (!heroSkin.ReleaseDate.HasValue)
                 AddWarning($"{nameof(heroSkin.ReleaseDate)} is null");

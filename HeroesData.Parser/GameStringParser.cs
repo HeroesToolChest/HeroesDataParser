@@ -14,6 +14,7 @@ namespace HeroesData.Parser.GameStrings
     public class GameStringParser
     {
         public const string FailedParsed = "(╯°□°）╯︵ ┻━┻ [Failed to parse]";
+        public const string ErrorTag = "##ERROR##";
 
         private readonly int? HotsBuild;
         private readonly GameData GameData;
@@ -163,12 +164,28 @@ namespace HeroesData.Parser.GameStrings
                     mathPath = mathPath.Replace(scalingText, string.Empty);
                 }
 
-                double number = HeroesMathEval.CalculatePathEquation(mathPath.Trim('/'));
+                // calculate the value
+                double number;
+                bool calculateSuccess = true;
+                try
+                {
+                    number = HeroesMathEval.CalculatePathEquation(mathPath.Trim('/'));
+                }
+                catch (Exception ex) when (ex is FormatException || ex is SyntaxErrorException || ex is IndexOutOfRangeException)
+                {
+                    number = 0;
+                    calculateSuccess = false;
+                }
 
                 if (precision.HasValue)
                     parts[i] = Math.Round(number, precision.Value).ToString();
                 else
                     parts[i] = Math.Round(number, 0).ToString();
+
+                if (!calculateSuccess)
+                {
+                    parts[i] += ErrorTag;
+                }
 
                 if (!string.IsNullOrEmpty(scalingText))
                 {

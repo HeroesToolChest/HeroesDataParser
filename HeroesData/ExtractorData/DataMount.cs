@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using HeroesData.Parser.GameStrings;
 using System;
 
 namespace HeroesData.ExtractorData
@@ -38,8 +39,15 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(mount.CollectionCategory))
                 AddWarning($"{nameof(mount.CollectionCategory)} is empty");
 
-            if (string.IsNullOrEmpty(mount.Description?.RawDescription) && mount.Rarity == Rarity.None && mount.MountCategory == "Unique")
-                AddWarning($"{nameof(mount.Description)} is empty");
+            if (mount.Rarity == Rarity.None && mount.MountCategory == "Unique")
+            {
+                if (string.IsNullOrEmpty(mount.Description?.RawDescription))
+                    AddWarning($"{nameof(mount.Description)} is empty");
+                else if (mount.Description.RawDescription == GameStringParser.FailedParsed)
+                    AddWarning($"{nameof(mount.Description)} failed to parse correctly");
+                else if (mount.Description.RawDescription.Contains(GameStringParser.ErrorTag))
+                    AddWarning($"{nameof(mount.Description)} contains an error tag");
+            }
 
             if (!mount.ReleaseDate.HasValue)
                 AddWarning($"{nameof(mount.ReleaseDate)} is null");

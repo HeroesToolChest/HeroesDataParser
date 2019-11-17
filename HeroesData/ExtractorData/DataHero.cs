@@ -102,6 +102,8 @@ namespace HeroesData.ExtractorData
 
             if (string.IsNullOrEmpty(hero.Description?.RawDescription))
                 AddWarning($"{nameof(hero.Description)} is empty");
+            else if (hero.Description.RawDescription.Contains(GameStringParser.ErrorTag))
+                AddWarning($"{nameof(hero.Description.RawDescription)} contains an error tag");
 
             if (string.IsNullOrEmpty(hero.Difficulty))
                 AddWarning($"{nameof(hero.Difficulty)} is Unknown");
@@ -214,58 +216,72 @@ namespace HeroesData.ExtractorData
                 if (string.IsNullOrEmpty(talent.AbilityTalentId.ButtonId))
                     AddWarning($"[{talent}] {nameof(talent.AbilityTalentId.Id)} is empty");
 
-                if (talent.Tooltip.ShortTooltip?.RawDescription == GameStringParser.FailedParsed)
-                    AddWarning($"[{talent}] {nameof(talent.Tooltip.ShortTooltip)} failed to parse correctly");
+                if (!string.IsNullOrEmpty(talent.Tooltip.ShortTooltip?.RawDescription))
+                {
+                    if (talent.Tooltip.ShortTooltip.RawDescription == GameStringParser.FailedParsed)
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.ShortTooltip)} failed to parse correctly");
+                    else if (talent.Tooltip.ShortTooltip.RawDescription.Contains("<d ref=\"") || talent.Tooltip.ShortTooltip.RawDescription.Contains("<d const=\""))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.ShortTooltip)} could not be parsed");
+                    else if (talent.Tooltip.ShortTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.ShortTooltip)} contains an error tag");
+                }
 
-                if (!string.IsNullOrEmpty(talent.Tooltip.ShortTooltip?.RawDescription) && (talent.Tooltip.ShortTooltip.RawDescription.Contains("<d ref=\"") || talent.Tooltip.ShortTooltip.RawDescription.Contains("<d const=\"")))
-                    AddWarning($"[{talent}] {nameof(talent.Tooltip.ShortTooltip)} could not be parsed");
+                if (!string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.RawDescription))
+                {
+                    if (talent.Tooltip.FullTooltip.RawDescription == GameStringParser.FailedParsed)
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)} failed to parse correctly");
+                    else if (talent.Tooltip.FullTooltip.RawDescription.Contains("<d ref=\"") || talent.Tooltip.FullTooltip.RawDescription.Contains("<d const=\""))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)} could not be parsed");
+                    else if (talent.Tooltip.FullTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)} contains an error tag");
 
-                if (talent.Tooltip.FullTooltip?.RawDescription == GameStringParser.FailedParsed)
-                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)} failed to parse correctly");
+                    if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip.PlainText))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.PlainText)} is empty");
 
-                if (!string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.RawDescription) && (talent.Tooltip.FullTooltip.RawDescription.Contains("<d ref=\"") || talent.Tooltip.FullTooltip.RawDescription.Contains("<d const=\"")))
-                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)} could not be parsed");
+                    if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip.PlainTextWithNewlines))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.PlainTextWithScaling)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.PlainText))
-                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.PlainText)} is empty");
+                    if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip.PlainTextWithScaling))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.PlainTextWithScaling)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.PlainTextWithNewlines))
-                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.PlainTextWithScaling)} is empty");
+                    if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip.PlainTextWithScalingWithNewlines))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.PlainTextWithScalingWithNewlines)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.PlainTextWithScaling))
-                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.PlainTextWithScaling)} is empty");
+                    if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip.ColoredText))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.ColoredText)} is empty");
 
-                if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.PlainTextWithScalingWithNewlines))
-                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.PlainTextWithScalingWithNewlines)} is empty");
-
-                if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.ColoredText))
-                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.ColoredText)} is empty");
-
-                if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip?.ColoredTextWithScaling))
-                    AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.ColoredTextWithScaling)} is empty");
+                    if (string.IsNullOrEmpty(talent.Tooltip.FullTooltip.ColoredTextWithScaling))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)}.{nameof(talent.Tooltip.FullTooltip.ColoredTextWithScaling)} is empty");
+                }
 
                 if (!string.IsNullOrEmpty(talent.Tooltip.Cooldown?.CooldownTooltip?.RawDescription))
                 {
-                    if (talent.Tooltip.Cooldown.CooldownTooltip?.RawDescription == GameStringParser.FailedParsed)
+                    if (talent.Tooltip.Cooldown.CooldownTooltip.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.Cooldown.CooldownTooltip)} failed to parse correctly");
-                    else if (talent.Tooltip.Cooldown.CooldownTooltip != null && char.IsDigit(talent.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
+                    else if (char.IsDigit(talent.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
+                    else if (talent.Tooltip.Cooldown.CooldownTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.Cooldown.CooldownTooltip)} contains an error tag");
                 }
 
                 if (!string.IsNullOrEmpty(talent.Tooltip.Energy?.EnergyTooltip?.RawDescription))
                 {
-                    if (talent.Tooltip.Energy.EnergyTooltip?.RawDescription == GameStringParser.FailedParsed)
+                    if (talent.Tooltip.Energy.EnergyTooltip.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.Energy.EnergyTooltip)} failed to parse correctly");
-                    else if (talent.Tooltip.Energy.EnergyTooltip != null && char.IsDigit(talent.Tooltip.Energy.EnergyTooltip.PlainText[0]))
+                    else if (char.IsDigit(talent.Tooltip.Energy.EnergyTooltip.PlainText[0]))
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
+                    else if (talent.Tooltip.Energy.EnergyTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.Energy.EnergyTooltip)} contains an error tag");
                 }
 
                 if (!string.IsNullOrEmpty(talent.Tooltip.Life?.LifeCostTooltip?.RawDescription))
                 {
-                    if (talent.Tooltip.Life.LifeCostTooltip?.RawDescription == GameStringParser.FailedParsed)
+                    if (talent.Tooltip.Life.LifeCostTooltip.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.Life.LifeCostTooltip)} failed to parse correctly");
-                    else if (talent.Tooltip.Life.LifeCostTooltip != null && char.IsDigit(talent.Tooltip.Life.LifeCostTooltip.PlainText[0]))
+                    else if (char.IsDigit(talent.Tooltip.Life.LifeCostTooltip.PlainText[0]))
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
+                    else if (talent.Tooltip.Life.LifeCostTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                        AddWarning($"[{talent}] {nameof(talent.Tooltip.Life.LifeCostTooltip)} contains an error tag");
                 }
 
                 if (talent.AbilityTalentId.AbilityType == AbilityType.Unknown)
@@ -316,34 +332,50 @@ namespace HeroesData.ExtractorData
                 if (string.IsNullOrEmpty(ability.AbilityTalentId.ButtonId))
                     AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.AbilityTalentId.ButtonId)} is empty");
 
-                if (ability.Tooltip.ShortTooltip?.RawDescription == GameStringParser.FailedParsed)
-                    AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.ShortTooltip)} failed to parse correctly");
+                if (!string.IsNullOrEmpty(ability.Tooltip.ShortTooltip?.RawDescription))
+                {
+                    if (ability.Tooltip.ShortTooltip.RawDescription == GameStringParser.FailedParsed)
+                        AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.ShortTooltip)} failed to parse correctly");
+                    else if (ability.Tooltip.ShortTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                        AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.ShortTooltip)} contains an error tag");
+                }
 
-                if (ability.Tooltip.FullTooltip?.RawDescription == GameStringParser.FailedParsed)
-                    AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.FullTooltip)} failed to parse correctly");
+                if (!string.IsNullOrEmpty(ability.Tooltip.FullTooltip?.RawDescription))
+                {
+                    if (ability.Tooltip.FullTooltip.RawDescription == GameStringParser.FailedParsed)
+                        AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.FullTooltip)} failed to parse correctly");
+                    else if (ability.Tooltip.FullTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                        AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.FullTooltip)} contains an error tag");
+                }
 
                 if (!string.IsNullOrEmpty(ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription))
                 {
-                    if (ability.Tooltip.Cooldown.CooldownTooltip?.RawDescription == GameStringParser.FailedParsed)
+                    if (ability.Tooltip.Cooldown.CooldownTooltip.RawDescription == GameStringParser.FailedParsed)
                         AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} failed to parse correctly");
-                    else if (ability.Tooltip.Cooldown.CooldownTooltip != null && char.IsDigit(ability.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
+                    else if (char.IsDigit(ability.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
                         AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
+                    else if (ability.Tooltip.Cooldown.CooldownTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                        AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} contains an error tag");
                 }
 
                 if (!string.IsNullOrEmpty(ability.Tooltip.Energy?.EnergyTooltip?.RawDescription))
                 {
-                    if (ability.Tooltip.Energy.EnergyTooltip?.RawDescription == GameStringParser.FailedParsed)
+                    if (ability.Tooltip.Energy.EnergyTooltip.RawDescription == GameStringParser.FailedParsed)
                         AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} failed to parse correctly");
-                    else if (ability.Tooltip.Energy.EnergyTooltip != null && char.IsDigit(ability.Tooltip.Energy.EnergyTooltip.PlainText[0]))
+                    else if (char.IsDigit(ability.Tooltip.Energy.EnergyTooltip.PlainText[0]))
                         AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
+                    else if (ability.Tooltip.Energy.EnergyTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                        AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} contains an error tag");
                 }
 
                 if (!string.IsNullOrEmpty(ability.Tooltip.Life?.LifeCostTooltip?.RawDescription))
                 {
-                    if (ability.Tooltip.Life.LifeCostTooltip?.RawDescription == GameStringParser.FailedParsed)
+                    if (ability.Tooltip.Life.LifeCostTooltip.RawDescription == GameStringParser.FailedParsed)
                         AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} failed to parse correctly");
-                    else if (ability.Tooltip.Life.LifeCostTooltip != null && char.IsDigit(ability.Tooltip.Life.LifeCostTooltip.PlainText[0]))
+                    else if (char.IsDigit(ability.Tooltip.Life.LifeCostTooltip.PlainText[0]))
                         AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
+                    else if (ability.Tooltip.Life.LifeCostTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                        AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} contains an error tag");
                 }
 
                 if (ability.AbilityTalentId.AbilityType == AbilityType.Unknown)

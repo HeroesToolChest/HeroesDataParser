@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
+using HeroesData.Parser.GameStrings;
 using System;
 
 namespace HeroesData.ExtractorData
@@ -37,6 +38,10 @@ namespace HeroesData.ExtractorData
 
             if (string.IsNullOrEmpty(banner.Description?.RawDescription))
                 AddWarning($"{nameof(banner.Description)} is empty");
+            else if (banner.Description.RawDescription == GameStringParser.FailedParsed)
+                AddWarning($"{nameof(banner.Description)} failed to parse correctly");
+            else if (banner.Description.RawDescription.Contains(GameStringParser.ErrorTag))
+                AddWarning($"{nameof(banner.Description)} contains an error tag");
 
             if (!banner.ReleaseDate.HasValue)
                 AddWarning($"{nameof(banner.ReleaseDate)} is null");
