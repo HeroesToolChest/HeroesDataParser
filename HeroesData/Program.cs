@@ -5,13 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace HeroesData
 {
     public class Program
     {
-        private readonly string AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
         private readonly Dictionary<ExtractDataOption, List<string>> ExtractDataValues = new Dictionary<ExtractDataOption, List<string>>();
         private readonly Dictionary<ExtractImageOption, List<string>> ExtractImageValues = new Dictionary<ExtractImageOption, List<string>>();
 
@@ -82,7 +80,7 @@ namespace HeroesData
                 if (setOutputDirectoryOption.HasValue())
                     App.OutputDirectory = setOutputDirectoryOption.Value();
                 else
-                    App.OutputDirectory = Path.Combine(program.AssemblyPath, "output");
+                    App.OutputDirectory = Path.Combine(App.AssemblyPath, "output");
 
                 // data file extraction
                 if (extractDataFilesOption.HasValue())
