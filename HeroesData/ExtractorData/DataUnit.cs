@@ -80,7 +80,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (ability.Tooltip.ShortTooltip.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.ShortTooltip)} failed to parse correctly");
-                    else if (ability.Tooltip.ShortTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                    else if (ability.Tooltip.ShortTooltip.HasErrorTag)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.ShortTooltip)} contains an error tag");
                 }
 
@@ -88,7 +88,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (ability.Tooltip.FullTooltip.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.FullTooltip)} failed to parse correctly");
-                    else if (ability.Tooltip.FullTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                    else if (ability.Tooltip.FullTooltip.HasErrorTag)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.FullTooltip)} contains an error tag");
                 }
 
@@ -98,7 +98,7 @@ namespace HeroesData.ExtractorData
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} failed to parse correctly");
                     else if (char.IsDigit(ability.Tooltip.Cooldown.CooldownTooltip.PlainText[0]))
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} does not have a prefix");
-                    else if (ability.Tooltip.Cooldown.CooldownTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                    else if (ability.Tooltip.Cooldown.CooldownTooltip.HasErrorTag)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Cooldown.CooldownTooltip)} contains an error tag");
                 }
 
@@ -108,7 +108,7 @@ namespace HeroesData.ExtractorData
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} failed to parse correctly");
                     else if (char.IsDigit(ability.Tooltip.Energy.EnergyTooltip.PlainText[0]))
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} does not have a prefix");
-                    else if (ability.Tooltip.Energy.EnergyTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                    else if (ability.Tooltip.Energy.EnergyTooltip.HasErrorTag)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Energy.EnergyTooltip)} contains an error tag");
                 }
 
@@ -118,7 +118,7 @@ namespace HeroesData.ExtractorData
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} failed to parse correctly");
                     else if (char.IsDigit(ability.Tooltip.Life.LifeCostTooltip.PlainText[0]))
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} does not have a prefix");
-                    else if (ability.Tooltip.Life.LifeCostTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                    else if (ability.Tooltip.Life.LifeCostTooltip.HasErrorTag)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} contains an error tag");
                 }
             }
@@ -156,7 +156,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (ability.Tooltip.ShortTooltip.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.ShortTooltip)} failed to parse correctly");
-                    else if (ability.Tooltip.ShortTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                    else if (ability.Tooltip.ShortTooltip.HasErrorTag)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.ShortTooltip)} contains an error tag");
                 }
 
@@ -164,7 +164,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (ability.Tooltip.FullTooltip.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.FullTooltip)} failed to parse correctly");
-                    else if (ability.Tooltip.FullTooltip.RawDescription.Contains(GameStringParser.ErrorTag))
+                    else if (ability.Tooltip.FullTooltip.HasErrorTag)
                         AddWarning($"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.FullTooltip)} contains an error tag");
                 }
             }

@@ -45,7 +45,7 @@ namespace HeroesData.ExtractorData
                     AddWarning($"{nameof(mount.Description)} is empty");
                 else if (mount.Description.RawDescription == GameStringParser.FailedParsed)
                     AddWarning($"{nameof(mount.Description)} failed to parse correctly");
-                else if (mount.Description.RawDescription.Contains(GameStringParser.ErrorTag))
+                else if (mount.Description.HasErrorTag)
                     AddWarning($"{nameof(mount.Description)} contains an error tag");
             }
 

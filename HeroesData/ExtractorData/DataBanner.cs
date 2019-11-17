@@ -40,7 +40,7 @@ namespace HeroesData.ExtractorData
                 AddWarning($"{nameof(banner.Description)} is empty");
             else if (banner.Description.RawDescription == GameStringParser.FailedParsed)
                 AddWarning($"{nameof(banner.Description)} failed to parse correctly");
-            else if (banner.Description.RawDescription.Contains(GameStringParser.ErrorTag))
+            else if (banner.Description.HasErrorTag)
                 AddWarning($"{nameof(banner.Description)} contains an error tag");
 
             if (!banner.ReleaseDate.HasValue)
