@@ -81,8 +81,8 @@ namespace HeroesData.ExtractorImage
                 if (FileExists(textureFilepath))
                 {
                     using Stream stream = OpenFile(textureFilepath);
+                    using DDSImage image = new DDSImage(stream);
 
-                    DDSImage image = new DDSImage(stream);
                     image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%team%", color))}.png"));
 
                     return true;
@@ -117,8 +117,7 @@ namespace HeroesData.ExtractorImage
                 if (FileExists(textureFilepath))
                 {
                     using Stream stream = OpenFile(textureFilepath);
-
-                    DDSImage image = new DDSImage(stream);
+                    using DDSImage image = new DDSImage(stream);
 
                     int newWidth = image.Width / 3;
 

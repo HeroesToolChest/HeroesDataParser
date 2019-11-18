@@ -60,8 +60,8 @@ namespace HeroesData.ExtractorImage
                 if (FileExists(textureFilepath))
                 {
                     using Stream stream = OpenFile(textureFilepath);
+                    using DDSImage image = new DDSImage(stream);
 
-                    DDSImage image = new DDSImage(stream);
                     PathHelper.FileNameToLower(filePath.AsMemory());
 
                     image.Save(Path.ChangeExtension(filePath, "png"));
@@ -92,8 +92,8 @@ namespace HeroesData.ExtractorImage
                 if (FileExists(textureFilepath))
                 {
                     using Stream stream = OpenFile(textureFilepath);
+                    using DDSImage image = new DDSImage(stream);
 
-                    DDSImage image = new DDSImage(stream);
                     PathHelper.FileNameToLower(filePath.AsMemory());
 
                     image.Save(Path.ChangeExtension(filePath, "png"), point, size);
@@ -127,8 +127,8 @@ namespace HeroesData.ExtractorImage
                 if (FileExists(textureFilepath))
                 {
                     using Stream stream = OpenFile(textureFilepath);
+                    using DDSImage image = new DDSImage(stream);
 
-                    DDSImage image = new DDSImage(stream);
                     PathHelper.FileNameToLower(filePath.AsMemory());
 
                     image.SaveAsGif(Path.ChangeExtension(filePath, "gif"), size, maxSize, frames, frameDelay);

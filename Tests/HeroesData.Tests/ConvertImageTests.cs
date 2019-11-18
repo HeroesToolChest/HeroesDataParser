@@ -13,7 +13,7 @@ namespace HeroesData.Tests
         {
             string file = "storm_ui_icon_nova_orbitalstrike.dds";
 
-            DDSImage image = new DDSImage(file);
+            using DDSImage image = new DDSImage(file);
             image.Save(Path.ChangeExtension(file, ".png"));
 
             Assert.IsTrue(File.Exists(Path.ChangeExtension(file, ".png")));
@@ -28,7 +28,7 @@ namespace HeroesData.Tests
             string redAward = Path.ChangeExtension(file.Replace("loyaldefender", "loyaldefender_red"), ".png");
             string goldAward = Path.ChangeExtension(file.Replace("loyaldefender", "loyaldefender_gold"), ".png");
 
-            DDSImage image = new DDSImage(file);
+            using DDSImage image = new DDSImage(file);
 
             Assert.AreEqual(148, image.Height);
             Assert.AreEqual(444, image.Width);
@@ -52,7 +52,7 @@ namespace HeroesData.Tests
         public void TextureSheetIntoAGifTest()
         {
             string file = "storm_emoji_cat_gleam_anim_sheet.dds";
-            DDSImage image = new DDSImage(file);
+            using DDSImage image = new DDSImage(file);
 
             image.SaveAsGif(Path.ChangeExtension(file, "gif"), new Size(34, 32), new Size(40, 32), 25, 50);
 
