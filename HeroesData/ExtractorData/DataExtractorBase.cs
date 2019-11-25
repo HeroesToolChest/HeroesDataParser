@@ -169,7 +169,7 @@ namespace HeroesData.ExtractorData
                 else
                 {
                     validationDirectory = Path.Combine(App.AssemblyPath, $"validation");
-                    validationFilePath = Path.Combine($"VerificationCheck_{Name}_{localization.ToString().ToLower()}.txt");
+                    validationFilePath = Path.Combine(validationDirectory, $"VerificationCheck_{Name}_{localization.ToString().ToLower()}.txt");
                 }
 
                 Directory.CreateDirectory(validationDirectory);
