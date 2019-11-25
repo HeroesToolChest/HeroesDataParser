@@ -24,7 +24,9 @@ namespace HeroesData.FileWriter.Writers.SprayData
             sprayObject.Add("hyperlinkId", spray.HyperlinkId);
             sprayObject.Add("attributeId", spray.AttributeId);
             sprayObject.Add("rarity", spray.Rarity.ToString());
-            sprayObject.Add("category", spray.CollectionCategory);
+
+            if (!string.IsNullOrEmpty(spray.CollectionCategory))
+                sprayObject.Add("category", spray.CollectionCategory);
 
             if (!string.IsNullOrEmpty(spray.EventName))
                 sprayObject.Add("event", spray.EventName);

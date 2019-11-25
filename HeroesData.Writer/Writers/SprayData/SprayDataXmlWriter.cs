@@ -24,7 +24,7 @@ namespace HeroesData.FileWriter.Writers.SprayData
                 new XAttribute("hyperlinkId", spray.HyperlinkId),
                 new XAttribute("attributeId", spray.AttributeId),
                 new XAttribute("rarity", spray.Rarity),
-                new XAttribute("category", spray.CollectionCategory),
+                string.IsNullOrEmpty(spray.CollectionCategory) ? null : new XAttribute("category", spray.CollectionCategory),
                 string.IsNullOrEmpty(spray.EventName) ? null : new XAttribute("event", spray.EventName),
                 spray.ReleaseDate.HasValue ? new XAttribute("releaseDate", spray.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
                 string.IsNullOrEmpty(spray.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", spray.SortName),
