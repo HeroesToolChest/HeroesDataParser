@@ -88,10 +88,12 @@ namespace HeroesData.Commands
 
             if (firstSplit > -1 && lastSplit > -1)
             {
-                ReadOnlySpan<char> fileNameNoExtSpan = fileNameNoExt.AsSpan();
+                localeSpan = fileNameNoExt.AsSpan(lastSplit + 1);
 
-                versionSpan = fileNameNoExtSpan.Slice(firstSplit + 1, lastSplit - firstSplit - 1);
-                localeSpan = fileNameNoExtSpan.Slice(lastSplit + 1);
+                if (firstSplit - lastSplit < 0)
+                {
+                    versionSpan = fileNameNoExt.AsSpan(firstSplit + 1, lastSplit - firstSplit - 1);
+                }
             }
 
             Directory.CreateDirectory(OutputDirectory);
