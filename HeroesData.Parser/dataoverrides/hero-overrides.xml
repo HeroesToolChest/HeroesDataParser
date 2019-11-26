@@ -181,6 +181,33 @@
       </Override>
     </Ability>
   </CHero>
+  <CHero id="Deathwing">
+    <Ability id="DeathwingDestroyerForm,DeathwingDestroyer" abilityType="Q">
+      <Override>
+        <ParentLink value="DeathwingDragonflight|DeathwingDragonflight|Z" />
+      </Override>
+    </Ability>
+    <Ability id="DeathwingMoltenFlameCancel" abilityType="Q">
+      <Override>
+        <ParentLink value="DeathwingMoltenFlame|DeathwingMoltenFlame|Q" />
+      </Override>
+    </Ability>
+    <Ability id="DeathwingWorldbreakerForm,DeathwingWorldbreaker" abilityType="W">
+      <Override>
+        <ParentLink value="DeathwingDragonflight|DeathwingDragonflight|Z" />
+      </Override>
+    </Ability>
+    <Ability id="DeathwingLavaBurst" abilityType="W">
+      <Override>
+        <ParentLink value="DeathwingFormSwitch|DeathwingFormSwitch|Active" />
+      </Override>
+    </Ability>
+    <Ability id="DeathwingEarthShatter" abilityType="E">
+      <Override>
+        <ParentLink value="DeathwingFormSwitch|DeathwingFormSwitch|Active" />
+      </Override>
+    </Ability>  
+  </CHero>
   <CHero id="Deckard">
     <Ability id="DeckardStayAWhileAndListenCancel" abilityType="Heroic">
       <Override>

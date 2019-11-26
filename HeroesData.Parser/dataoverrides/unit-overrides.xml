@@ -1,5 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <UnitOverrides>
+  <CUnit id="DeathwingDragonflightUnit">
+    <Ability id="DeathwingDestroyerForm,DeathwingDestroyer" abilityType="Q">
+      <Override>
+        <ParentLink value="DeathwingDragonflight|DeathwingDragonflight|Z" />
+      </Override>
+    </Ability>
+    <Ability id="DeathwingMoltenFlameCancel" abilityType="Q">
+      <Override>
+        <ParentLink value="DeathwingMoltenFlame|DeathwingMoltenFlame|Q" />
+      </Override>
+    </Ability>
+    <Ability id="DeathwingWorldbreakerForm,DeathwingWorldbreaker" abilityType="W">
+      <Override>
+        <ParentLink value="DeathwingDragonflight|DeathwingDragonflight|Z" />
+      </Override>
+    </Ability>
+    <Ability id="DeathwingEarthShatter" abilityType="E">
+      <Override>
+        <ParentLink value="DeathwingFormSwitch|DeathwingFormSwitch|Active" />
+      </Override>
+    </Ability>
+  </CUnit>
   <!--These abilities seem to be incorrectly not overriden by the new abilities-->
   <!--Setting abilityType to Hidden to signify that their being overlapped by the new abilities-->
   <CUnit id="overwatchdata-JungleGraveGolemDefender">
@@ -52,4 +74,5 @@
       </Override>
     </Ability>
   </CUnit>
+
 </UnitOverrides>
