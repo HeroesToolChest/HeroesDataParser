@@ -148,6 +148,15 @@ namespace HeroesData.Loader.XmlGameData
 
                             LoadGameDataXmlContents(gameDataPath);
 
+                            string heroModsFontStylesFilePath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, UIDirectoryStringName, FontStyleFile);
+                            if (CASCHandlerData.FileExists(heroModsFontStylesFilePath))
+                            {
+                                LoadStormStyleFile(CASCHandlerData.OpenFile(heroModsFontStylesFilePath));
+
+                                if (IsCacheEnabled)
+                                    AddStormStyleCachedFilePath(heroModsFontStylesFilePath);
+                            }
+
                             if (LoadTextFilesOnlyEnabled)
                             {
                                 string filePath = Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile);

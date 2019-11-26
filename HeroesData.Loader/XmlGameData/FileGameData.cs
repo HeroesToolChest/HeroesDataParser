@@ -94,6 +94,7 @@ namespace HeroesData.Loader.XmlGameData
                         string gameDataPath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, GameDataXmlFile);
 
                         LoadGameDataXmlContents(gameDataPath);
+                        LoadStormStyleFile(Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, UIDirectoryStringName, FontStyleFile));
 
                         if (LoadTextFilesOnlyEnabled)
                         {

@@ -753,7 +753,7 @@ namespace HeroesData.Loader.XmlGameData
 
         protected void LoadStormStyleFile(string filePath)
         {
-            if (Path.GetExtension(filePath).Equals(".stormstyle", StringComparison.OrdinalIgnoreCase))
+            if (Path.GetExtension(filePath).Equals(".stormstyle", StringComparison.OrdinalIgnoreCase) && File.Exists(filePath))
             {
                 if (XmlStormStyleData.LastNode == null)
                     XmlStormStyleData = XDocument.Load(filePath);
