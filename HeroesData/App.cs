@@ -224,13 +224,13 @@ namespace HeroesData
                     if (CASCHotsStorage.CASCHandler == null)
                         throw new NullReferenceException($"{nameof(CASCHotsStorage.CASCHandler)} is null.");
 
-                    ReadOnlySpan<char> buildName = CASCHotsStorage.CASCHandler.Config.BuildName.AsSpan();
+                    ReadOnlySpan<char> buildName = CASCHotsStorage.CASCHandler.Config.VersionName.AsSpan();
                     int indexOfVersion = buildName.LastIndexOf('.');
 
                     if (indexOfVersion > -1 && int.TryParse(buildName.Slice(indexOfVersion + 1), out int hotsBuild))
                     {
                         HotsBuild = hotsBuild;
-                        Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
+                        Console.WriteLine($"Hots Version: {CASCHotsStorage.CASCHandler.Config.VersionName}");
                     }
                     else
                     {
