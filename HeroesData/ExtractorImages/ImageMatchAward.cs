@@ -9,7 +9,7 @@ namespace HeroesData.ExtractorImage
 {
     public class ImageMatchAward : ImageExtractorBase<MatchAward>, IImage
     {
-        private readonly HashSet<(string originalName, string newName)> Awards = new HashSet<(string original, string newName)>();
+        private readonly HashSet<(string OriginalName, string NewName)> Awards = new HashSet<(string Original, string NewName)>();
 
         private readonly string MatchAwardsDirectory = "matchawards";
 

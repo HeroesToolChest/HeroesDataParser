@@ -140,20 +140,20 @@ namespace HeroesData.Parser
 
         protected override void ApplyAdditionalOverrides(MatchAward matchAward, MatchAwardDataOverride dataOverride)
         {
-            if (dataOverride.MVPScreenImageFileNameOriginalOverride.enabled)
-                matchAward.MVPScreenImageFileNameOriginal = dataOverride.MVPScreenImageFileNameOriginalOverride.value;
+            if (dataOverride.MVPScreenImageFileNameOriginalOverride.Enabled)
+                matchAward.MVPScreenImageFileNameOriginal = dataOverride.MVPScreenImageFileNameOriginalOverride.Value;
 
-            if (dataOverride.MVPScreenImageFileNameOverride.enabled)
-                matchAward.MVPScreenImageFileName = dataOverride.MVPScreenImageFileNameOverride.value;
+            if (dataOverride.MVPScreenImageFileNameOverride.Enabled)
+                matchAward.MVPScreenImageFileName = dataOverride.MVPScreenImageFileNameOverride.Value;
 
-            if (dataOverride.ScoreScreenImageFileNameOriginalOverride.enabled)
-                matchAward.ScoreScreenImageFileNameOriginal = dataOverride.ScoreScreenImageFileNameOriginalOverride.value;
+            if (dataOverride.ScoreScreenImageFileNameOriginalOverride.Enabled)
+                matchAward.ScoreScreenImageFileNameOriginal = dataOverride.ScoreScreenImageFileNameOriginalOverride.Value;
 
-            if (dataOverride.ScoreScreenImageFileNameOverride.enabled)
-                matchAward.ScoreScreenImageFileName = dataOverride.ScoreScreenImageFileNameOverride.value;
+            if (dataOverride.ScoreScreenImageFileNameOverride.Enabled)
+                matchAward.ScoreScreenImageFileName = dataOverride.ScoreScreenImageFileNameOverride.Value;
 
-            if (dataOverride.DescriptionOverride.enabled)
-                matchAward.Description = new TooltipDescription(DescriptionValidator.Validate(dataOverride.DescriptionOverride.value));
+            if (dataOverride.DescriptionOverride.Enabled)
+                matchAward.Description = new TooltipDescription(DescriptionValidator.Validate(dataOverride.DescriptionOverride.Value));
         }
 
         private string GetNameFromGenderRule(string name)

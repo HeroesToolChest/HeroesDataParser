@@ -24,9 +24,9 @@ namespace HeroesData.Parser.Tests
         [TestMethod]
         public void GamestringDefaultValuesTests()
         {
-            List<(string part, string value)> values = Configuration.GamestringDefaultValues("ModifyFraction").ToList();
-            Assert.AreEqual("last", values[0].part);
-            Assert.AreEqual("1", values[0].value);
+            List<(string Part, string Value)> values = Configuration.GamestringDefaultValues("ModifyFraction").ToList();
+            Assert.AreEqual("last", values[0].Part);
+            Assert.AreEqual("1", values[0].Value);
         }
 
         [TestMethod]

@@ -1,5 +1,4 @@
 ﻿using Heroes.Models;
-using Heroes.Models.Veterancy;
 using HeroesData.FileWriter.Writers;
 using HeroesData.FileWriter.Writers.AnnouncerData;
 using HeroesData.FileWriter.Writers.BannerData;

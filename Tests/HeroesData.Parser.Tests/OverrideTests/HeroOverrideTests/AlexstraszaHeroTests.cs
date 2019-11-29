@@ -18,33 +18,33 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void CUnitOverrideTest()
         {
-            Assert.IsFalse(HeroDataOverride.CUnitOverride.enabled);
+            Assert.IsFalse(HeroDataOverride.CUnitOverride.Enabled);
         }
 
         [TestMethod]
         public void EnergyOverrideTest()
         {
-            Assert.IsTrue(HeroDataOverride.EnergyOverride.enabled);
-            Assert.AreEqual(0, HeroDataOverride.EnergyOverride.energy);
+            Assert.IsTrue(HeroDataOverride.EnergyOverride.Enabled);
+            Assert.AreEqual(0, HeroDataOverride.EnergyOverride.Energy);
         }
 
         [TestMethod]
         public void EnergyTypeOverrideTest()
         {
-            Assert.IsTrue(HeroDataOverride.EnergyTypeOverride.enabled);
-            Assert.AreEqual("CrazyPills", HeroDataOverride.EnergyTypeOverride.energyType);
+            Assert.IsTrue(HeroDataOverride.EnergyTypeOverride.Enabled);
+            Assert.AreEqual("CrazyPills", HeroDataOverride.EnergyTypeOverride.EnergyType);
         }
 
         [TestMethod]
         public void NameOverrideTest()
         {
-            Assert.IsFalse(HeroDataOverride.NameOverride.enabled);
+            Assert.IsFalse(HeroDataOverride.NameOverride.Enabled);
         }
 
         [TestMethod]
         public void HyperlinkIdOverrideTest()
         {
-            Assert.IsFalse(HeroDataOverride.HyperlinkIdOverride.enabled);
+            Assert.IsFalse(HeroDataOverride.HyperlinkIdOverride.Enabled);
         }
 
         [TestMethod]
@@ -69,8 +69,8 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void ParentLinkedOverrideTests()
         {
-            Assert.IsFalse(HeroDataOverride.ParentLinkOverride.enabled);
-            Assert.AreEqual(string.Empty, HeroDataOverride.ParentLinkOverride.parentLink);
+            Assert.IsFalse(HeroDataOverride.ParentLinkOverride.Enabled);
+            Assert.AreEqual(string.Empty, HeroDataOverride.ParentLinkOverride.ParentLink);
         }
     }
 }

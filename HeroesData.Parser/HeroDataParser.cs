@@ -130,14 +130,14 @@ namespace HeroesData.Parser
 
         protected override void ApplyAdditionalOverrides(Hero hero, HeroDataOverride dataOverride)
         {
-            if (dataOverride.EnergyTypeOverride.enabled)
-                hero.Energy.EnergyType = dataOverride.EnergyTypeOverride.energyType;
+            if (dataOverride.EnergyTypeOverride.Enabled)
+                hero.Energy.EnergyType = dataOverride.EnergyTypeOverride.EnergyType;
 
-            if (dataOverride.EnergyOverride.enabled)
-                hero.Energy.EnergyMax = dataOverride.EnergyOverride.energy;
+            if (dataOverride.EnergyOverride.Enabled)
+                hero.Energy.EnergyMax = dataOverride.EnergyOverride.Energy;
 
-            if (dataOverride.ParentLinkOverride.enabled)
-                hero.ParentLink = dataOverride.ParentLinkOverride.parentLink;
+            if (dataOverride.ParentLinkOverride.Enabled)
+                hero.ParentLink = dataOverride.ParentLinkOverride.ParentLink;
 
             if (hero.Abilities != null)
             {
@@ -224,8 +224,8 @@ namespace HeroesData.Parser
                 hero.SearchText += GameData.GetGameString(DefaultData.HeroData.HeroAdditionalSearchText?.Replace(DefaultData.IdPlaceHolder, hero.CHeroId));
                 hero.SearchText = hero.SearchText.Trim();
 
-                if (HeroDataOverride != null && HeroDataOverride.CUnitOverride.enabled)
-                    hero.CUnitId = HeroDataOverride.CUnitOverride.cUnit;
+                if (HeroDataOverride != null && HeroDataOverride.CUnitOverride.Enabled)
+                    hero.CUnitId = HeroDataOverride.CUnitOverride.CUnit;
             }
         }
 

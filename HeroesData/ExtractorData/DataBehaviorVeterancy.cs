@@ -1,5 +1,4 @@
 ﻿using Heroes.Models;
-using Heroes.Models.Veterancy;
 using HeroesData.Parser;
 
 namespace HeroesData.ExtractorData

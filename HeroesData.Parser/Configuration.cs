@@ -10,7 +10,7 @@ namespace HeroesData.Parser
 {
     public class Configuration
     {
-        private readonly Dictionary<string, List<(string, string)>> PartValuesByElementName = new Dictionary<string, List<(string part, string value)>>();
+        private readonly Dictionary<string, List<(string, string)>> PartValuesByElementName = new Dictionary<string, List<(string Part, string Value)>>();
         private readonly Dictionary<string, HashSet<string>> XmlElementNameByType = new Dictionary<string, HashSet<string>>();
         private readonly HashSet<string> UnitDataAbilities = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         private readonly HashSet<string> DeadImageFileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -57,12 +57,12 @@ namespace HeroesData.Parser
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
-        public IEnumerable<(string part, string value)> GamestringDefaultValues(string element)
+        public IEnumerable<(string Part, string Value)> GamestringDefaultValues(string element)
         {
-            if (PartValuesByElementName.TryGetValue(element, out List<(string part, string value)>? values))
+            if (PartValuesByElementName.TryGetValue(element, out List<(string Part, string Value)>? values))
                 return values;
             else
-                return new List<(string part, string value)>();
+                return new List<(string Part, string Value)>();
         }
 
         /// <summary>
@@ -132,10 +132,10 @@ namespace HeroesData.Parser
                 if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(part) || string.IsNullOrEmpty(value))
                     continue;
 
-                if (PartValuesByElementName.TryGetValue(name, out List<(string part, string value)>? values))
+                if (PartValuesByElementName.TryGetValue(name, out List<(string Part, string Value)>? values))
                     values.Add((part, value));
                 else
-                    PartValuesByElementName.Add(name, new List<(string part, string value)>() { (part, value) });
+                    PartValuesByElementName.Add(name, new List<(string Part, string Value)>() { (part, value) });
             }
 
             // xml element lookup

@@ -266,7 +266,7 @@ namespace HeroesData.Parser.XmlData
                 ability.Tier = AbilityTier.Unknown;
         }
 
-        private (string abilityId, string index) AbilCmdSplit(string abilCmd)
+        private (string SbilityId, string Index) AbilCmdSplit(string abilCmd)
         {
             ReadOnlySpan<char> abilCmdSpan = abilCmd.AsSpan();
             ReadOnlySpan<char> firstPartAbilCmdSpan;

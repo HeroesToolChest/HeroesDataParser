@@ -18,21 +18,21 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void CUnitOverrideTest()
         {
-            Assert.IsTrue(HeroDataOverride.CUnitOverride.enabled);
+            Assert.IsTrue(HeroDataOverride.CUnitOverride.Enabled);
         }
 
         [TestMethod]
         public void EnergyOverrideTest()
         {
-            Assert.IsTrue(HeroDataOverride.EnergyOverride.enabled);
-            Assert.AreEqual(0, HeroDataOverride.EnergyOverride.energy);
+            Assert.IsTrue(HeroDataOverride.EnergyOverride.Enabled);
+            Assert.AreEqual(0, HeroDataOverride.EnergyOverride.Energy);
         }
 
         [TestMethod]
         public void EnergyTypeOverrideTest()
         {
-            Assert.IsTrue(HeroDataOverride.EnergyTypeOverride.enabled);
-            Assert.AreEqual("Ammo", HeroDataOverride.EnergyTypeOverride.energyType);
+            Assert.IsTrue(HeroDataOverride.EnergyTypeOverride.Enabled);
+            Assert.AreEqual("Ammo", HeroDataOverride.EnergyTypeOverride.EnergyType);
         }
 
         [TestMethod]
@@ -44,13 +44,13 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void NameOverrideTest()
         {
-            Assert.IsTrue(HeroDataOverride.NameOverride.enabled);
+            Assert.IsTrue(HeroDataOverride.NameOverride.Enabled);
         }
 
         [TestMethod]
         public void HyperlinkIdOverrideTest()
         {
-            Assert.IsTrue(HeroDataOverride.HyperlinkIdOverride.enabled);
+            Assert.IsTrue(HeroDataOverride.HyperlinkIdOverride.Enabled);
         }
 
         [TestMethod]
@@ -62,8 +62,8 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
         [TestMethod]
         public void ParentLinkedOverrideTests()
         {
-            Assert.IsTrue(HeroDataOverride.ParentLinkOverride.enabled);
-            Assert.AreEqual(string.Empty, HeroDataOverride.ParentLinkOverride.parentLink);
+            Assert.IsTrue(HeroDataOverride.ParentLinkOverride.Enabled);
+            Assert.AreEqual(string.Empty, HeroDataOverride.ParentLinkOverride.ParentLink);
         }
     }
 }

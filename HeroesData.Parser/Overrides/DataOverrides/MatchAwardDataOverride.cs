@@ -5,26 +5,26 @@
         /// <summary>
         /// Gets or sets the mvp screen image original file name.
         /// </summary>
-        public (bool enabled, string value) MVPScreenImageFileNameOriginalOverride { get; set; } = (false, string.Empty);
+        public (bool Enabled, string Value) MVPScreenImageFileNameOriginalOverride { get; set; } = (false, string.Empty);
 
         /// <summary>
         /// Gets or sets the mvp screen image file name.
         /// </summary>
-        public (bool enabled, string value) MVPScreenImageFileNameOverride { get; set; } = (false, string.Empty);
+        public (bool Enabled, string Value) MVPScreenImageFileNameOverride { get; set; } = (false, string.Empty);
 
         /// <summary>
         /// Gets or sets the score screen image original file name.
         /// </summary>
-        public (bool enabled, string value) ScoreScreenImageFileNameOriginalOverride { get; set; } = (false, string.Empty);
+        public (bool Enabled, string Value) ScoreScreenImageFileNameOriginalOverride { get; set; } = (false, string.Empty);
 
         /// <summary>
         /// Gets or sets the score screen image file name.
         /// </summary>
-        public (bool enabled, string value) ScoreScreenImageFileNameOverride { get; set; } = (false, string.Empty);
+        public (bool Enabled, string Value) ScoreScreenImageFileNameOverride { get; set; } = (false, string.Empty);
 
         /// <summary>
         /// Gets or sets the description.
         /// </summary>
-        public (bool enabled, string value) DescriptionOverride { get; set; } = (false, string.Empty);
+        public (bool Enabled, string Value) DescriptionOverride { get; set; } = (false, string.Empty);
     }
 }

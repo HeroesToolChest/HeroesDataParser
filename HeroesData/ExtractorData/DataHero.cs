@@ -23,7 +23,7 @@ namespace HeroesData.ExtractorData
         public override IEnumerable<Hero?> Parse(Localization localization)
         {
             Stopwatch time = new Stopwatch();
-            var failedParsedHeroes = new List<(string cHeroId, Exception exception)>();
+            var failedParsedHeroes = new List<(string CHeroId, Exception Exception)>();
             int currentCount = 0;
             ParsedData.Clear();
 

@@ -18,13 +18,13 @@ namespace HeroesData.Loader.XmlGameData
         private readonly Dictionary<string, GameData> MapGameDataByMapId = new Dictionary<string, GameData>();
         private readonly Dictionary<string, string> StormStyleHexColorValueByName = new Dictionary<string, string>();
 
-        private Dictionary<(string catalog, string entry, string field), double> ScaleValueByLookupId = new Dictionary<(string catalog, string entry, string field), double>();
+        private Dictionary<(string Catalog, string Entry, string Field), double> ScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
         private Dictionary<string, string> GameStringById = new Dictionary<string, string>();
         private Dictionary<string, List<XElement>> XmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>();
         private Dictionary<string, List<XElement>> LayoutButtonElements = new Dictionary<string, List<XElement>>();
 
         // temp variables used for map game data swapping
-        private Dictionary<(string catalog, string entry, string field), double>? OriginalScaleValueByLookupId = new Dictionary<(string catalog, string entry, string field), double>();
+        private Dictionary<(string Catalog, string Entry, string Field), double>? OriginalScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
         private Dictionary<string, string>? OriginalGameStringById = new Dictionary<string, string>();
         private Dictionary<string, List<XElement>>? OriginalXmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>();
         private Dictionary<string, List<XElement>>? OriginalLayoutButtonElements = new Dictionary<string, List<XElement>>();
@@ -251,7 +251,7 @@ namespace HeroesData.Loader.XmlGameData
 
             // make a temp copy so we can restore later
             OriginalGameStringById = new Dictionary<string, string>(GameStringById);
-            OriginalScaleValueByLookupId = new Dictionary<(string catalog, string entry, string field), double>(ScaleValueByLookupId);
+            OriginalScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>(ScaleValueByLookupId);
             OriginalXmlGameDataElementsByElementName = XmlGameDataElementsByElementName.ToDictionary(x => x.Key, x => x.Value.ToList());
             OriginalLayoutButtonElements = LayoutButtonElements.ToDictionary(x => x.Key, x => x.Value.ToList());
 
@@ -261,7 +261,7 @@ namespace HeroesData.Loader.XmlGameData
             foreach (KeyValuePair<string, string> gamestrings in gameData.GameStringById)
                 GameStringById[gamestrings.Key] = gamestrings.Value;
 
-            foreach (KeyValuePair<(string catalog, string entry, string field), double> item in gameData.ScaleValueByLookupId)
+            foreach (KeyValuePair<(string Catalog, string Entry, string Field), double> item in gameData.ScaleValueByLookupId)
                 ScaleValueByLookupId[item.Key] = item.Value;
 
             foreach (KeyValuePair<string, List<XElement>> item in gameData.LayoutButtonElements)
@@ -339,7 +339,7 @@ namespace HeroesData.Loader.XmlGameData
         /// </summary>
         /// <param name="lookupId">The lookup id.</param>
         /// <returns></returns>
-        public double? GetScaleValue((string catalog, string entry, string field) lookupId)
+        public double? GetScaleValue((string Catalog, string Entry, string Field) lookupId)
         {
             if (ScaleValueByLookupId.TryGetValue(lookupId, out double value))
                 return value;
