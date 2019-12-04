@@ -37,7 +37,7 @@ Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some m
 ***
 
 ### Dotnet Global Tool (Recommended)
-Download and install the [.NET Core 3.0 SDK](https://dotnet.microsoft.com/download) or newer. 
+Download and install the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download) or newer. 
 
 Once installed, run the following command:
 ```
@@ -53,14 +53,14 @@ dotnet tool update --global HeroesDataParser
 
 ### Zip File Download - Framework-Dependent Deployment
 
-Download and install the [.NET Core 3.0 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
+Download and install the [.NET Core 3.1 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
 
 Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page.
 
 ***
 
 ### Zip File Download - Framework-Dependent Executable
-Download and install the [.NET Core 3.0 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
+Download and install the [.NET Core 3.1 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
 
 Download and extract the latest `HeroesDataParser.*-fde-<OS>-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
@@ -125,7 +125,6 @@ Commands:
   localized-json  Converts a localized gamestring file created from --localized-text to a json file.
   quick-compare   Compares two directory contents or files and displays a list of changed files.
   read            Reads a .txt, .xml, or .json file and displays its contents on screen.
-  v4-convert      Converts a pre-4.0 heroesdata json or xml file to the version 4 format.
 
 Use " [command] --help" for more information about a command.
 ```
@@ -168,7 +167,7 @@ Sets the description/tooltip output type (0 - 6).
 Some of these may require parsing for a readable output. Visit the [wiki page](https://github.com/koliva8245/HeroesDataParser/wiki/Parsing-Descriptions) for parsing tips.
 
 `0` - RawDescription (Default)  
-The raw output of the description. Contains the color tags `<c val=\"#TooltipNumbers\"></c>`, scaling data `~~x~~`, and newlines `<n/>`.
+The raw output of the description. Contains the color tags `<c val=\"#TooltipNumbers\"></c>`, scaling data `~~x~~`, and newlines `<n/>`. It can also contain error tags `##ERROR##`.
 
 Example:  
 ```
@@ -502,26 +501,6 @@ Example command that reads and displays the `parserhelper.xml` file.
 read .\parserhelper.xml
 ```
 
-***
-
-### V4-Convert
-```
-Usage:  v4-convert [arguments] [options]
-
-Arguments:
-  file-path  The filepath of the file or directory to convert
-
-Options:
-  -?|-h|--help            Show help information
-  -o|--output <FILEPATH>  Output directory to save the converted files to.
-```
-Converts a pre-version 4 hero-data xml or json into the version 4 format. This does not add any data.  It simply modifies the shortname, CHeroId, and CUnitId.
-
-Example command
-```
-v4-convert '.\hero-data.xml'
-```
-
 ## Advanced Features
 ### Mods suffix directory
 The `mods` directory may have a `_<build number>` suffix in its name. The build number determines the overrides file(s) to load. If the overrides file does not exist and the build number is greater than the highest overrides file then it will load the default overrides file otherwise it will load next **lowest** overrides file.
@@ -574,7 +553,7 @@ The override files are for manually modifying the data after parsing the game da
 ## Developing
 To build and compile the code, it is recommended to use the latest version of [Visual Studio 2019 or Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
 
-Another option is to use the dotnet CLI tools from the [.NET Core 3.0 SDK](https://dotnet.microsoft.com/download).
+Another option is to use the dotnet CLI tools from the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download).
 
 The main project is `HeroesData.csproj` and the main entry point is `Program.cs`.
 
