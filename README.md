@@ -37,7 +37,7 @@ Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some m
 ***
 
 ### Dotnet Global Tool (Recommended)
-Download and install the [.NET Core 3.0 SDK](https://dotnet.microsoft.com/download) or newer. 
+Download and install the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download) or newer. 
 
 Once installed, run the following command:
 ```
