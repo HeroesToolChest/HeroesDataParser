@@ -104,7 +104,7 @@ namespace HeroesData.Commands
 
             if (CASCHotsStorage.CASCHandler != null)
             {
-                ReadOnlySpan<char> buildName = CASCHotsStorage.CASCHandler.Config.BuildName.AsSpan();
+                ReadOnlySpan<char> buildName = CASCHotsStorage.CASCHandler.Config.VersionName.AsSpan();
                 int indexOfVersion = buildName.LastIndexOf('.');
 
                 // get build number
