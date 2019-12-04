@@ -31,6 +31,9 @@
 # has three heroic subabilities
 [Zeratul] has more than 2 Heroic subabilities for ZeratulMightOfTheNerazimDummy|ZeratulMightOfTheNerazimPassive|Heroic|False
 
+# missing
+[Deathwing] SearchText is null or emtpy
+
 # --unit data--
 # vikings
 [LostVikingsGravestone] has more than 1 Q ability
@@ -42,6 +45,9 @@
 [EriksGravestone] has more than 1 Q ability
 [EriksGravestone] has more than 1 W ability
 [LostVikings] [TargetInfoPanelFileName]  is empty
+
+[DeathwingDragonflightUnit] has more than 1 E abilities
+[DeathwingDragonflightUnit] has more than 1 Q ability
 
 # contains error tags - out of date data references
 [starcraft-TerranRaven] [TerranRavenSeekerMissile|TerranRavenSeekerMissile|W|False] FullTooltip contains an error tag
