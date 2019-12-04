@@ -53,14 +53,14 @@ dotnet tool update --global HeroesDataParser
 
 ### Zip File Download - Framework-Dependent Deployment
 
-Download and install the [.NET Core 3.0 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
+Download and install the [.NET Core 3.1 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
 
 Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page.
 
 ***
 
 ### Zip File Download - Framework-Dependent Executable
-Download and install the [.NET Core 3.0 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
+Download and install the [.NET Core 3.1 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
 
 Download and extract the latest `HeroesDataParser.*-fde-<OS>-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
@@ -553,7 +553,7 @@ The override files are for manually modifying the data after parsing the game da
 ## Developing
 To build and compile the code, it is recommended to use the latest version of [Visual Studio 2019 or Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
 
-Another option is to use the dotnet CLI tools from the [.NET Core 3.0 SDK](https://dotnet.microsoft.com/download).
+Another option is to use the dotnet CLI tools from the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download).
 
 The main project is `HeroesData.csproj` and the main entry point is `Program.cs`.
 
