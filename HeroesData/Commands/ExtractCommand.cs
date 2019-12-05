@@ -111,7 +111,7 @@ namespace HeroesData.Commands
                 if (indexOfVersion > -1 && int.TryParse(buildName.Slice(indexOfVersion + 1), out int hotsBuild))
                 {
                     HotsBuild = hotsBuild;
-                    Console.WriteLine($"Hots Version Build: {CASCHotsStorage.CASCHandler.Config.BuildName}");
+                    Console.WriteLine($"Hots Version: {CASCHotsStorage.CASCHandler.Config.VersionName}");
                     Console.WriteLine();
                 }
 
