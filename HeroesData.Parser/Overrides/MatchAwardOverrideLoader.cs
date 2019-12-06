@@ -10,6 +10,11 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
+        public MatchAwardOverrideLoader(string appPath, int? hotsBuild)
+            : base(appPath, hotsBuild)
+        {
+        }
+
         protected override string OverrideFileName => $"matchaward-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CAward";

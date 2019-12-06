@@ -11,6 +11,11 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
+        public BehaviorVeterancyOverrideLoader(string appPath, int? hotsBuild)
+            : base(appPath, hotsBuild)
+        {
+        }
+
         protected override string OverrideFileName => $"veterancy-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CBehaviorVeterancy";

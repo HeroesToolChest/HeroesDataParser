@@ -19,7 +19,7 @@ namespace HeroesData.Parser.Tests.OverrideTests
         public OverrideBaseTests()
         {
             GameData gameData = new FileGameData(ModsTestFolder);
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(gameData, OverrideFileNameSuffix);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, gameData, OverrideFileNameSuffix);
 
             HeroOverrideLoader = (HeroOverrideLoader)xmlDataOverriders.GetOverrider(typeof(HeroDataParser));
             HeroDataOverride = HeroOverrideLoader.GetOverride(CHeroId);

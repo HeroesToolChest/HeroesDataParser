@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Xml.Linq;
 
 namespace HeroesData.Parser
 {
     public class Configuration
     {
+        private readonly string AppPath;
+
         private readonly Dictionary<string, List<(string, string)>> PartValuesByElementName = new Dictionary<string, List<(string Part, string Value)>>();
         private readonly Dictionary<string, HashSet<string>> XmlElementNameByType = new Dictionary<string, HashSet<string>>();
         private readonly HashSet<string> UnitDataAbilities = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -18,7 +19,17 @@ namespace HeroesData.Parser
         private ILookup<string, string?>? AddIdByElementName;
         private ILookup<string, string?>? RemoveIdByElementName;
 
-        public string ConfigFileName => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "config.xml");
+        public Configuration()
+        {
+            AppPath = string.Empty;
+        }
+
+        public Configuration(string appPath)
+        {
+            AppPath = appPath;
+        }
+
+        public string ConfigFileName => Path.Combine(AppPath, "config.xml");
 
         /// <summary>
         /// Gets a collection of extra unit data abilities that should be ignore when parsing unit data.

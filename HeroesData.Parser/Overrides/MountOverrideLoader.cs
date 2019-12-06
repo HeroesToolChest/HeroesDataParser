@@ -11,6 +11,11 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
+        public MountOverrideLoader(string appPath, int? hotsBuild)
+            : base(appPath, hotsBuild)
+        {
+        }
+
         protected override string OverrideFileName => $"mount-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CMount";

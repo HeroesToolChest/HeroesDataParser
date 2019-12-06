@@ -13,6 +13,11 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
+        public UnitOverrideLoader(string appPath, int? hotsBuild)
+            : base(appPath, hotsBuild)
+        {
+        }
+
         protected override string OverrideFileName => $"unit-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CUnit";

@@ -44,7 +44,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
 
         private void LoadTestData()
         {
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(GameData, OverrideFileNameSuffix);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, OverrideFileNameSuffix);
             UnitOverrideLoader = (UnitOverrideLoader)xmlDataOverriders.GetOverrider(typeof(UnitParser));
         }
 

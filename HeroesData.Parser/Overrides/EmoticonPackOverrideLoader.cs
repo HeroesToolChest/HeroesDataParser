@@ -11,6 +11,11 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
+        public EmoticonPackOverrideLoader(string appPath, int? hotsBuild)
+            : base(appPath, hotsBuild)
+        {
+        }
+
         protected override string OverrideFileName => $"emoticonpack-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CEmoticonPack";

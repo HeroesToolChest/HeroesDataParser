@@ -7,22 +7,21 @@ namespace HeroesData.Parser.Overrides
 {
     public class XmlDataOverriders
     {
+        private readonly string AppPath;
         private readonly GameData GameData;
         private readonly int? HotsBuild;
         private readonly string OverrideFileNameSuffix;
 
         private readonly Dictionary<Type, IOverrideLoader> Overrides = new Dictionary<Type, IOverrideLoader>();
 
-        private XmlDataOverriders(GameData gameData, string overrideFileNameSuffix)
+        private XmlDataOverriders(string appPath, GameData gameData, string overrideFileNameSuffix)
+            : this(appPath, gameData, null, overrideFileNameSuffix)
         {
-            GameData = gameData;
-            OverrideFileNameSuffix = overrideFileNameSuffix;
-
-            Initialize();
         }
 
-        private XmlDataOverriders(GameData gameData, int? hotsBuild, string overrideFileNameSuffix)
+        private XmlDataOverriders(string appPath, GameData gameData, int? hotsBuild, string overrideFileNameSuffix)
         {
+            AppPath = appPath;
             GameData = gameData;
             HotsBuild = hotsBuild;
             OverrideFileNameSuffix = overrideFileNameSuffix;
@@ -43,45 +42,49 @@ namespace HeroesData.Parser.Overrides
         /// <summary>
         /// Loads all the override data.
         /// </summary>
+        /// <param name="appPath">The path of the app host.</param>
         /// <param name="gameData">GameData.</param>
         /// <returns></returns>
-        public static XmlDataOverriders Load(GameData gameData)
+        public static XmlDataOverriders Load(string appPath, GameData gameData)
         {
-            return new XmlDataOverriders(gameData, string.Empty);
+            return new XmlDataOverriders(appPath, gameData, string.Empty);
         }
 
         /// <summary>
         /// Sets and loads all the override data.
         /// </summary>
+        /// <param name="appPath">The path of the app host.</param>
         /// <param name="gameData">GameData.</param>
         /// <param name="overrideFileNameSuffix">Sets the suffix of the override file name to load. The suffix is the part after the first hypen. It does not have to include the file extension.</param>
         /// <returns></returns>
-        public static XmlDataOverriders Load(GameData gameData, string overrideFileNameSuffix)
+        public static XmlDataOverriders Load(string appPath, GameData gameData, string overrideFileNameSuffix)
         {
-            return new XmlDataOverriders(gameData, overrideFileNameSuffix);
+            return new XmlDataOverriders(appPath, gameData, overrideFileNameSuffix);
         }
 
         /// <summary>
         /// Sets and loads all the override data.
         /// </summary>
+        /// <param name="appPath">The path of the app host.</param>
         /// <param name="gameData">GameData.</param>
         /// <param name="hotsBuild">The override build version to load.</param>
         /// <returns></returns>
-        public static XmlDataOverriders Load(GameData gameData, int? hotsBuild)
+        public static XmlDataOverriders Load(string appPath, GameData gameData, int? hotsBuild)
         {
-            return new XmlDataOverriders(gameData, hotsBuild, string.Empty);
+            return new XmlDataOverriders(appPath, gameData, hotsBuild, string.Empty);
         }
 
         /// <summary>
         /// Loads all the override data.
         /// </summary>
+        /// <param name="appPath">The path of the app host.</param>
         /// <param name="gameData">GameData.</param>
         /// <param name="hotsBuild">The override build version to load.</param>
         /// <param name="overrideFileNameSuffix">Sets the suffix of the override file name to load. The suffix is the part after the first hypen. It does not have to include the file extension.</param>
         /// <returns></returns>
-        public static XmlDataOverriders Load(GameData gameData, int? hotsBuild, string overrideFileNameSuffix)
+        public static XmlDataOverriders Load(string appPath, GameData gameData, int? hotsBuild, string overrideFileNameSuffix)
         {
-            return new XmlDataOverriders(gameData, hotsBuild, overrideFileNameSuffix);
+            return new XmlDataOverriders(appPath, gameData, hotsBuild, overrideFileNameSuffix);
         }
 
         /// <summary>
@@ -105,9 +108,9 @@ namespace HeroesData.Parser.Overrides
 
         private void SetDataOverrides()
         {
-            Overrides.Add(typeof(HeroDataParser), new HeroOverrideLoader(HotsBuild));
-            Overrides.Add(typeof(UnitParser), new UnitOverrideLoader(HotsBuild));
-            Overrides.Add(typeof(MatchAwardParser), new MatchAwardOverrideLoader(HotsBuild));
+            Overrides.Add(typeof(HeroDataParser), new HeroOverrideLoader(AppPath, HotsBuild));
+            Overrides.Add(typeof(UnitParser), new UnitOverrideLoader(AppPath, HotsBuild));
+            Overrides.Add(typeof(MatchAwardParser), new MatchAwardOverrideLoader(AppPath, HotsBuild));
         }
 
         private void LoadOverrides()

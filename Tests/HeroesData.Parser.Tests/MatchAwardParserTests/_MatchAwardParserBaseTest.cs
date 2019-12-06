@@ -29,7 +29,7 @@ namespace HeroesData.Parser.Tests.MatchAwardParserTests
 
         private void LoadTestData()
         {
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(GameData, OverrideFileNameSuffix);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, OverrideFileNameSuffix);
             MatchAwardOverrideLoader = (MatchAwardOverrideLoader)xmlDataOverriders.GetOverrider(typeof(MatchAwardParser));
         }
 

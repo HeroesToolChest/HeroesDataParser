@@ -38,7 +38,17 @@ namespace HeroesData
         /// <summary>
         /// Gets the assembly path.
         /// </summary>
-        public static string AssemblyPath { get; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
+        public static string AssemblyPath
+        {
+            get
+            {
+                string executingFileName = Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
+                if (executingFileName == "dotnet-heroes-data-test.exe") // ToolCommandName
+                    return AppContext.BaseDirectory;
+                else
+                    return Path.GetDirectoryName(executingFileName) ?? string.Empty;
+            }
+        }
 
         public static bool Defaults { get; set; } = true;
         public static bool CreateXml { get; set; } = false;
@@ -78,7 +88,7 @@ namespace HeroesData
             {
                 foreach (Exception exception in ((AggregateException)ex).InnerExceptions)
                 {
-                    writer.Write(ex);
+                    writer.Write(exception);
                 }
             }
             else
@@ -306,11 +316,11 @@ namespace HeroesData
             time.Start();
 
             if (OverrideBuild.HasValue)
-                XmlDataOverriders = XmlDataOverriders.Load(GameData, OverrideBuild.Value);
+                XmlDataOverriders = XmlDataOverriders.Load(AssemblyPath, GameData, OverrideBuild.Value);
             else if (HotsBuild.HasValue)
-                XmlDataOverriders = XmlDataOverriders.Load(GameData, HotsBuild.Value);
+                XmlDataOverriders = XmlDataOverriders.Load(AssemblyPath, GameData, HotsBuild.Value);
             else
-                XmlDataOverriders = XmlDataOverriders.Load(GameData);
+                XmlDataOverriders = XmlDataOverriders.Load(AssemblyPath, GameData);
 
             foreach (string overrideFileName in XmlDataOverriders.LoadedFileNames)
             {
@@ -434,7 +444,7 @@ namespace HeroesData
 
         private void LoadConfiguration()
         {
-            Configuration = new Configuration();
+            Configuration = new Configuration(AssemblyPath);
             if (!Configuration.ConfigFileExists())
             {
                 Console.ForegroundColor = ConsoleColor.Red;

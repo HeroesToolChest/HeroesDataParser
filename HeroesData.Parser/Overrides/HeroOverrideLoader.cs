@@ -13,6 +13,11 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
+        public HeroOverrideLoader(string appPath, int? hotsBuild)
+            : base(appPath, hotsBuild)
+        {
+        }
+
         protected override string OverrideFileName => $"hero-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CHero";
@@ -33,7 +38,7 @@ namespace HeroesData.Parser.Overrides
                 string elementName = dataElement.Name.LocalName;
                 string valueAttribute = dataElement.Attribute("value")?.Value ?? string.Empty;
 
-                XElement? overrideElement = null;
+                XElement? overrideElement;
 
                 switch (elementName)
                 {

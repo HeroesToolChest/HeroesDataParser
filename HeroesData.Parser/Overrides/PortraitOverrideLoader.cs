@@ -11,6 +11,11 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
+        public PortraitOverrideLoader(string appPath, int? hotsBuild)
+            : base(appPath, hotsBuild)
+        {
+        }
+
         protected override string OverrideFileName => $"portrait-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CPortraitPack";

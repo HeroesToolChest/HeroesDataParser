@@ -11,6 +11,11 @@ namespace HeroesData.Parser.Overrides
         {
         }
 
+        public AnnouncerOverrideLoader(string appPath, int? hotsBuild)
+            : base(appPath, hotsBuild)
+        {
+        }
+
         protected override string OverrideFileName => $"announcer-{base.OverrideFileName}";
 
         protected override string OverrideElementName => "CAnnouncerPack";

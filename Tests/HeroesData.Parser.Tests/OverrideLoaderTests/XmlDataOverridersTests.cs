@@ -25,7 +25,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
         [TestMethod]
         public void LoadedDataOverridersNoBuildTest()
         {
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(GameData, OverrideFileNameSuffix);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, OverrideFileNameSuffix);
 
             List<string> loadedOverrideFileNames = xmlDataOverriders.LoadedFileNames.ToList();
 
@@ -36,7 +36,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
         [TestMethod]
         public void LoadedDataOverridersHasBuildTest()
         {
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(GameData, 12000, OverrideFileNameSuffix);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, 12000, OverrideFileNameSuffix);
 
             List<string> loadedOverrideFileNames = xmlDataOverriders.LoadedFileNames.ToList();
 
@@ -48,7 +48,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
         [DataRow(typeof(HeroDataParser))]
         public void LoadedDataOverridersGetOverrider(Type type)
         {
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(GameData, OverrideFileNameSuffix);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, OverrideFileNameSuffix);
             IOverrideLoader overrideLoader = xmlDataOverriders.GetOverrider(type);
 
             Assert.IsNotNull(overrideLoader);
@@ -57,7 +57,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
         [TestMethod]
         public void LoadedDataOverridersGetOverriderIsNull()
         {
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(GameData, OverrideFileNameSuffix);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, OverrideFileNameSuffix);
             IOverrideLoader overrideLoader = xmlDataOverriders.GetOverrider(typeof(XmlDataOverridersTests));
 
             Assert.IsNull(overrideLoader);

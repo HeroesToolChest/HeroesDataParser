@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Xml.Linq;
 
 namespace HeroesData.Parser.Overrides
@@ -11,11 +10,18 @@ namespace HeroesData.Parser.Overrides
     public abstract class OverrideLoaderBase<T>
         where T : class, IDataOverride
     {
+        private readonly string AppPath;
         private readonly int? HotsBuild;
         private readonly SortedDictionary<int, string> OverrideFileNamesByBuild = new SortedDictionary<int, string>(); // includes path
 
         public OverrideLoaderBase(int? hotsBuild)
+            : this(string.Empty, hotsBuild)
         {
+        }
+
+        public OverrideLoaderBase(string appPath, int? hotsBuild)
+        {
+            AppPath = appPath;
             HotsBuild = hotsBuild;
         }
 
@@ -30,7 +36,7 @@ namespace HeroesData.Parser.Overrides
         public int Count => DataOverridesById.Count;
 
         protected Dictionary<string, T> DataOverridesById { get; private set; } = new Dictionary<string, T>();
-        protected string DataOverridesDirectoryPath { get; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "dataoverrides");
+        protected string DataOverridesDirectoryPath => Path.Combine(AppPath, "dataoverrides");
         protected virtual string OverrideFileName { get; private set; } = "overrides.xml";
         protected abstract string OverrideElementName { get; }
 

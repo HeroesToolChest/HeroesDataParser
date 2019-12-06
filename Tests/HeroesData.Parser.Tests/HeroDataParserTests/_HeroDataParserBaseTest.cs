@@ -84,7 +84,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             DefaultData = new DefaultData(GameData);
             DefaultData.Load();
 
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(GameData, OverrideFileNameSuffix);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, OverrideFileNameSuffix);
             HeroOverrideLoader = (HeroOverrideLoader)xmlDataOverriders.GetOverrider(typeof(HeroDataParser));
 
             XmlDataService = new XmlDataService(Configuration, GameData, DefaultData);
