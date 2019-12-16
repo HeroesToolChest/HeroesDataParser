@@ -42,8 +42,8 @@ namespace HeroesData
         {
             get
             {
-                string executingFileName = Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
-                if (executingFileName == "dotnet-heroes-data.exe") // ToolCommandName
+                string executingFileName = Path.GetFileNameWithoutExtension(Process.GetCurrentProcess().MainModule.FileName);
+                if (executingFileName == "dotnet-heroes-data") // ToolCommandName
                     return AppContext.BaseDirectory;
                 else
                     return Path.GetDirectoryName(executingFileName) ?? string.Empty;
