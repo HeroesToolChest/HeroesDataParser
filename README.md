@@ -311,17 +311,18 @@ Example selecting multiple locales.
 ### Localized Text (--localized-text)
 Strings that are localized are removed from the XML and JSON file(s) and are instead put into a text file to allow easy swapping between localizations. The file(s) are sorted alphabetically and each line can be read in as a key-value pair (split on `=`). 
 
-The gamestring text file(s) are located at `<OUTPUT-DIRECTORY>/gamestrings/`.
-
-Both heroes and units use the `units/...` prefix string.
+- The gamestring text file(s) are located at `<OUTPUT-DIRECTORY>/gamestrings/`
+- Both heroes and units use the `units/...` prefix string
+- For abilities the id is `<nameId>|<buttonId>|<abilityType>|<isPassive>` (if `isPassive` is false it will not show)
+- For talents the id is `<nameId>|<buttonId>`
 
 The format of the strings in the text file are the following:
-- `abiltalent/cooldown/[nameId|buttonId]=[value]`
-- `abiltalent/energy/[nameId|buttonId]=[value]`
-- `abiltalent/full/[nameId|buttonId]=[value]`
-- `abiltalent/life/[nameId|buttonId]=[value]`
-- `abiltalent/name/[nameId|buttonId]=[value]`
-- `abiltalent/short/[nameId|buttonId]=[value]`
+- `abiltalent/cooldown/[Id]=[value]`
+- `abiltalent/energy/[Id]=[value]`
+- `abiltalent/full/[Id]=[value]`
+- `abiltalent/life/[Id]=[value]`
+- `abiltalent/name/[Id]=[value]`
+- `abiltalent/short/[Id]=[value]`
 - `announcer/name/[Id]=[value]`
 - `announcer/description/[Id]=[value]`
 - `announcer/sortname/[Id]=[value]`
