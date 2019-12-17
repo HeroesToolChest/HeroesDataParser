@@ -47,7 +47,7 @@ namespace HeroesData
 
                 if (executingFileName == "dotnet-heroes-data") // ToolCommandName
                     return AppContext.BaseDirectory;
-                else if (executingFileName == "testhost")
+                else if (executingFileName == "testhost" || executingFileName == "dotnet")
                     return string.Empty;
                 else
                     return Path.GetDirectoryName(fileName) ?? string.Empty;
