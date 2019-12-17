@@ -115,6 +115,13 @@
       </Override>
     </Ability>
   </CHero>
+  <CHero id="Auriel">
+    <Ability id="AurielResurrectSelf" abilityType="Heroic">
+      <Override>
+        <ParentLink value="AurielResurrect|AurielResurrect|Heroic" />
+      </Override>
+    </Ability>
+  </CHero>
   <CHero id="Azmodan">
     <Ability id="AzmodanTideOfSinPassive" abilityType="Heroic" passive="true">
       <Override>
