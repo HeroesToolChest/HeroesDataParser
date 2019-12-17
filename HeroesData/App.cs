@@ -42,11 +42,13 @@ namespace HeroesData
         {
             get
             {
-                string executingFileName = Path.GetFileNameWithoutExtension(Process.GetCurrentProcess().MainModule.FileName);
+                string fileName = Process.GetCurrentProcess().MainModule.FileName;
+                string executingFileName = Path.GetFileNameWithoutExtension(fileName);
+
                 if (executingFileName == "dotnet-heroes-data") // ToolCommandName
                     return AppContext.BaseDirectory;
                 else
-                    return Path.GetDirectoryName(executingFileName) ?? string.Empty;
+                    return Path.GetDirectoryName(fileName) ?? string.Empty;
             }
         }
 
