@@ -12,33 +12,31 @@ namespace HeroesData.Tests.CommandTests
         [TestMethod]
         public void BasicNoOptionsTest()
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "extract" });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "extract" });
 
-                Assert.AreEqual("'storage-path' argument needs to specify a path", lines[0]);
-            }
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+
+            Assert.AreEqual("'storage-path' argument needs to specify a path", lines[0]);
         }
 
         [TestMethod]
         public void InvalidPathTest()
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "extract", "CommandTests" });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "extract", "CommandTests" });
 
-                Assert.AreEqual("Path provided is not a valid `Heroes of the Storm` directory", lines[0]);
-            }
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+
+            Assert.AreEqual("Path provided is not a valid `Heroes of the Storm` directory", lines[0]);
         }
     }
 }
