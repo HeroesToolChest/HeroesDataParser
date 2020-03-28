@@ -35,8 +35,18 @@
         <ParentLink value="AlarakCounterStrikeItem|AlarakCounterStrike2ndHeroic" />
       </Override>
     </Ability>
+    <Talent id="AlarakCounterStrikeItem,AlarakCounterStrike2ndHeroic" abilityType="Heroic">
+      <Override>
+        <AbilityTalentLinkIds value="AlarakCounterStrikeTargeted" />
+      </Override>
+    </Talent>
   </CHero>
   <CHero id="Alexstrasza">
+    <Talent id="AlexstraszaCleansingFlame" abilityType="Heroic">
+      <Override>
+        <AbilityTalentLinkIds value="AlexstraszaCleansingFlameDragonqueen" />
+      </Override>
+    </Talent>
     <HeroUnit id="HeroAlexstraszaDragon">
       <Ability id="AlexstraszaCleansingFlameDragonqueen" abilityType="Heroic">
         <Override>

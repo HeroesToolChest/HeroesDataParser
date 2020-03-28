@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace HeroesData.Parser.Overrides.PropertyOverrides
 {
-    internal class TalentPropertyOverride : PropertyOverrideBase<Talent, AbilityTalentId>
+    internal class TalentPropertyOverride : PropertyOverrideBase<Talent, string>
     {
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<Talent>> propertyOverrides)
         {
@@ -22,7 +22,7 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
             {
                 propertyOverrides.Add(propertyName, (talent) =>
                 {
-                    if (propertyName.StartsWith('-'))
+                    if (propertyValue.StartsWith('-'))
                         talent.RemoveAbilityTalentLinkId(propertyValue.Substring(1));
                     else
                         talent.AddAbilityTalentLinkId(propertyValue);

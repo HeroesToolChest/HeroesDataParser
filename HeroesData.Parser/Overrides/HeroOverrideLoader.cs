@@ -74,6 +74,7 @@ namespace HeroesData.Parser.Overrides
                         heroDataOverride.ParentLinkOverride = (true, valueAttribute ?? string.Empty);
                         break;
                     case "Ability":
+                    case "Talent":
                         string id = dataElement.Attribute("id")?.Value ?? string.Empty;
                         string? abilityType = dataElement.Attribute("abilityType")?.Value;
                         string? passiveAbility = dataElement.Attribute("passive")?.Value;
@@ -99,12 +100,15 @@ namespace HeroesData.Parser.Overrides
                         if (bool.TryParse(passiveAbility, out bool abilityPassiveResult))
                             abilityTalentId.IsPassive = abilityPassiveResult;
 
-                        if (bool.TryParse(addedAbility, out bool abilityAddedResult))
+                        if (elementName == "Ability")
                         {
-                            heroDataOverride.AddAddedAbility(abilityTalentId, abilityAddedResult);
+                            if (bool.TryParse(addedAbility, out bool abilityAddedResult))
+                            {
+                                heroDataOverride.AddAddedAbility(abilityTalentId, abilityAddedResult);
 
-                            if (!abilityAddedResult)
-                                continue;
+                                if (!abilityAddedResult)
+                                    continue;
+                            }
                         }
 
                         if (!string.IsNullOrEmpty(id))
@@ -112,22 +116,14 @@ namespace HeroesData.Parser.Overrides
                             overrideElement = dataElement.Element("Override");
 
                             if (overrideElement != null)
-                                abilityOverride.SetOverride(abilityTalentId.ToString(), overrideElement, heroDataOverride.PropertyAbilityOverrideMethodByAbilityId);
+                            {
+                                if (elementName == "Ability")
+                                    abilityOverride.SetOverride(abilityTalentId.ToString(), overrideElement, heroDataOverride.PropertyAbilityOverrideMethodByAbilityId);
+                                else
+                                    talentOverride.SetOverride(abilityTalentId.ToString(), overrideElement, heroDataOverride.PropertyTalentOverrideMethodByTalentId);
+                            }
                         }
 
-                        break;
-                    case "Talent":
-                        string? talentId = dataElement.Attribute("id")?.Value;
-
-                        if (string.IsNullOrEmpty(talentId))
-                            continue;
-
-                        string buttonTalentId = dataElement.Attribute("button")?.Value ?? talentId;
-
-                        // override
-                        overrideElement = dataElement.Element("Override");
-                        if (overrideElement != null)
-                            talentOverride.SetOverride(new AbilityTalentId(talentId, buttonTalentId), overrideElement, heroDataOverride.PropertyTalentOverrideMethodByTalentId);
                         break;
                     case "Portrait":
                         overrideElement = dataElement.Element("Override");

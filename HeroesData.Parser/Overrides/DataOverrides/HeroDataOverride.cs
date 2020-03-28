@@ -23,7 +23,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         /// <summary>
         /// Gets the property override action methods for talents by talent id.
         /// </summary>
-        internal Dictionary<AbilityTalentId, Dictionary<string, Action<Talent>>> PropertyTalentOverrideMethodByTalentId { get; } = new Dictionary<AbilityTalentId, Dictionary<string, Action<Talent>>>();
+        internal Dictionary<string, Dictionary<string, Action<Talent>>> PropertyTalentOverrideMethodByTalentId { get; } = new Dictionary<string, Dictionary<string, Action<Talent>>>();
 
         /// <summary>
         /// Gets the property override action methods for portraits by cHero id.
@@ -101,7 +101,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 
             foreach (Talent talent in talents)
             {
-                if (PropertyTalentOverrideMethodByTalentId.TryGetValue(talent.AbilityTalentId, out Dictionary<string, Action<Talent>>? valueOverrideMethods))
+                if (PropertyTalentOverrideMethodByTalentId.TryGetValue(talent.AbilityTalentId.ToString(), out Dictionary<string, Action<Talent>>? valueOverrideMethods))
                 {
                     foreach (KeyValuePair<string, Action<Talent>> propertyOverride in valueOverrideMethods)
                     {
