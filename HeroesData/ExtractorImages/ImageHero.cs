@@ -51,6 +51,11 @@ namespace HeroesData.ExtractorImage
             }
 
             LoadAbilityTalentFiles(hero);
+
+            foreach (Hero heroUnit in hero.HeroUnits)
+            {
+                LoadAbilityTalentFiles(heroUnit);
+            }
         }
 
         protected override void ExtractFiles()
