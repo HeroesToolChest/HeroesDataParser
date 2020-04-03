@@ -6,7 +6,7 @@
     <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
     <Version>1.1.1</Version>
     <Authors>Kevin Oliva</Authors>
-    <Copyright>Copyright © 2018 - 2019 Kevin Oliva</Copyright>
+    <Copyright>Copyright © 2018 - 2020 Kevin Oliva</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
