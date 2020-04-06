@@ -15,7 +15,18 @@
     </Ability>
   </CHero>
   <CHero id="Alexstrasza">
-    <HeroUnit id="HeroAlexstraszaDragon" />
+    <Talent id="AlexstraszaCleansingFlame" abilityType="Heroic">
+      <Override>
+        <AbilityTalentLinkIds value="AlexstraszaCleansingFlameDragonqueen" />
+      </Override>
+    </Talent>
+    <HeroUnit id="HeroAlexstraszaDragon">
+      <Ability id="AlexstraszaCleansingFlameDragonqueen" abilityType="Heroic">
+        <Override>
+          <ParentLink value="" />
+        </Override>
+      </Ability>
+    </HeroUnit>
   </CHero>
   <CHero id="Ragnaros">
     <HeroUnit id="RagnarosBigRag"></HeroUnit>
