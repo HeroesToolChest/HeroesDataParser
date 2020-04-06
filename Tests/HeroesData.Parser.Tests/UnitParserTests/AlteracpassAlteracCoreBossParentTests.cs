@@ -18,11 +18,11 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             Ability ability1 = AlteracpassAlteracCoreBossParent.GetAbility(new AbilityTalentId("AlteracBossChargeApproach", "AlteracBossCharge")
             {
-                AbilityType = AbilityType.Hidden,
+                AbilityType = AbilityTypes.Hidden,
             });
 
-            Assert.AreEqual(AbilityType.Hidden, ability1.AbilityTalentId.AbilityType);
-            Assert.AreEqual(AbilityTier.Hidden, ability1.Tier);
+            Assert.AreEqual(AbilityTypes.Hidden, ability1.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTiers.Hidden, ability1.Tier);
         }
 
         [TestMethod]
@@ -30,11 +30,11 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             Ability ability1 = AlteracpassAlteracCoreBossParent.GetAbility(new AbilityTalentId("AlteracBossWhirlwind", "AlteracBossWhirlwind")
             {
-                AbilityType = AbilityType.Q,
+                AbilityType = AbilityTypes.Q,
             });
 
-            Assert.AreEqual(AbilityType.Q, ability1.AbilityTalentId.AbilityType);
-            Assert.AreEqual(AbilityTier.Basic, ability1.Tier);
+            Assert.AreEqual(AbilityTypes.Q, ability1.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTiers.Basic, ability1.Tier);
         }
 
         [TestMethod]

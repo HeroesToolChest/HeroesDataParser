@@ -11,11 +11,11 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             Ability ability1 = AbathurLocustNestPlaceholderDummy.GetAbility(new AbilityTalentId("AbathurSpawnLocusts", "AbathurLocustStrain")
             {
-                AbilityType = AbilityType.Q,
+                AbilityType = AbilityTypes.Q,
             });
 
-            Assert.AreEqual(AbilityType.Q, ability1.AbilityTalentId.AbilityType);
-            Assert.AreEqual(AbilityTier.Basic, ability1.Tier);
+            Assert.AreEqual(AbilityTypes.Q, ability1.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTiers.Basic, ability1.Tier);
         }
     }
 }

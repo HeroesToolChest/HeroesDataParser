@@ -23,13 +23,13 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             Ability ability1 = AzmodanDemonLieutenant.GetAbility(new AbilityTalentId("AzmodanDemonicSmite", "AzmodanDemonLieutenant")
             {
-                AbilityType = AbilityType.Hidden,
+                AbilityType = AbilityTypes.Hidden,
             });
 
             // ability button is pointed to demon lieutenant
             Assert.AreEqual("Demon Lieutenant", ability1.Name);
             Assert.AreEqual("Cooldown: 7 seconds", ability1.Tooltip.Cooldown.CooldownTooltip.PlainText);
-            Assert.AreEqual(AbilityType.Hidden, ability1.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTypes.Hidden, ability1.AbilityTalentId.AbilityType);
         }
     }
 }

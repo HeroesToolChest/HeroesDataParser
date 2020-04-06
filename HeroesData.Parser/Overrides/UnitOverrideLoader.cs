@@ -36,7 +36,7 @@ namespace HeroesData.Parser.Overrides
                 string elementName = dataElement.Name.LocalName;
                 string valueAttribute = dataElement.Attribute("value")?.Value ?? string.Empty;
 
-                XElement? overrideElement = null;
+                XElement? overrideElement;
 
                 switch (elementName)
                 {
@@ -90,7 +90,7 @@ namespace HeroesData.Parser.Overrides
                             abilityTalentId.ButtonId = idSplit[0];
                         }
 
-                        if (Enum.TryParse(abilityType, true, out AbilityType abilityTypeResult))
+                        if (Enum.TryParse(abilityType, true, out AbilityTypes abilityTypeResult))
                             abilityTalentId.AbilityType = abilityTypeResult;
 
                         if (bool.TryParse(passiveAbility, out bool abilityPassiveResult))

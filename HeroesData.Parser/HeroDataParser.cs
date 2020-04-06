@@ -80,7 +80,7 @@ namespace HeroesData.Parser
             Hero hero = new Hero
             {
                 Name = GameData.GetGameString(DefaultData.HeroData?.HeroName?.Replace(DefaultData.IdPlaceHolder, heroId)),
-                Description = new TooltipDescription(DescriptionValidator.Validate(GameData.GetGameString(DefaultData.HeroData?.HeroDescription?.Replace(DefaultData.IdPlaceHolder, heroId)), Localization)),
+                Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroData?.HeroDescription?.Replace(DefaultData.IdPlaceHolder, heroId)), Localization),
                 CHeroId = heroId,
                 Id = heroId,
             };
@@ -174,9 +174,9 @@ namespace HeroesData.Parser
                     if (weapon != null)
                     {
                         if (dataOverride.IsAddedWeapon(addedWeapon))
-                            hero.AddUnitWeapon(weapon);
+                            hero.Weapons.Add(weapon);
                         else
-                            hero.RemoveUnitWeapon(weapon);
+                            hero.Weapons.Remove(weapon);
                     }
                 }
 
@@ -284,7 +284,7 @@ namespace HeroesData.Parser
                         string role = GameData.GetGameString(DefaultData.HeroData?.HeroRoleName?.Replace(DefaultData.IdPlaceHolder, roleValue)).Trim();
                         if (!string.IsNullOrEmpty(roleValue))
                         {
-                            hero.AddRole(role);
+                            hero.Roles.Add(role);
                         }
                     }
                 }
@@ -443,15 +443,15 @@ namespace HeroesData.Parser
                         string? talentPrerequisite = prerequisiteTalentElement.Attribute("value")?.Value;
 
                         if (!string.IsNullOrEmpty(talentPrerequisite))
-                            talent.AddPrerequisiteTalentId(talentPrerequisite);
+                            talent.PrerequisiteTalentIds.Add(talentPrerequisite);
                     }
 
                     hero.AddTalent(talent);
 
                     // makes the abilities that are granted from talents subabilities to that talent
-                    if (talent.AbilityTalentId.AbilityType != AbilityType.Heroic || talent.Tier == TalentTier.Level20)
+                    if (talent.AbilityTalentId.AbilityType != AbilityTypes.Heroic || talent.Tier == TalentTiers.Level20)
                     {
-                        IEnumerable<Ability> abilities = hero.GetAbilities(talent.AbilityTalentId.ReferenceId, StringComparison.OrdinalIgnoreCase);
+                        IEnumerable<Ability> abilities = hero.GetAbilitiesFromReferenceId(talent.AbilityTalentId.ReferenceId, StringComparison.OrdinalIgnoreCase);
 
                         foreach (Ability ability in abilities)
                         {
@@ -507,20 +507,20 @@ namespace HeroesData.Parser
 
                 foreach (string abilityTalentLinkId in talent.AbilityTalentLinkIds)
                 {
-                    IEnumerable<Ability> abilities = hero.GetAbilities(abilityTalentLinkId, StringComparison.Ordinal);
-                    IEnumerable<Hero> heroes = hero.HeroUnits.Where(x => x.GetAbilities(abilityTalentLinkId, StringComparison.Ordinal).Where(x => x.Tier != AbilityTier.Hidden).Any());
+                    IEnumerable<Ability> abilities = hero.GetAbilitiesFromReferenceId(abilityTalentLinkId, StringComparison.Ordinal);
+                    IEnumerable<Hero> heroes = hero.HeroUnits.Where(x => x.GetAbilitiesFromReferenceId(abilityTalentLinkId, StringComparison.Ordinal).Where(x => x.Tier != AbilityTiers.Hidden).Any());
 
-                    if (abilities.Where(x => x.Tier != AbilityTier.Hidden).Any() || (hero.TryGetTalent(abilityTalentLinkId, out Talent? foundTalent) && talent != foundTalent) || heroes.Any())
+                    if (abilities.Where(x => x.Tier != AbilityTiers.Hidden).Any() || (hero.TryGetTalent(abilityTalentLinkId, out Talent? foundTalent) && talent != foundTalent) || heroes.Any())
                     {
                         validatedIds.Add(abilityTalentLinkId);
                     }
                 }
 
-                talent.ClearAbilityTalentLinkIds();
+                talent.AbilityTalentLinkIds.Clear();
 
                 foreach (string validatedId in validatedIds)
                 {
-                    talent.AddAbilityTalentLinkId(validatedId);
+                    talent.AbilityTalentLinkIds.Add(validatedId);
                 }
             }
         }
@@ -534,9 +534,9 @@ namespace HeroesData.Parser
                 AbilityTalentId? parentLinkId = subAbility.ParentLink!;
 
                 // check the abilityType to see if it has one set and then check if it should be an ability or talent
-                if (parentLinkId.AbilityType == AbilityType.Unknown)
+                if (parentLinkId.AbilityType == AbilityTypes.Unknown)
                 {
-                    Ability? ability = hero.GetAbilities(parentLinkId.ReferenceId, StringComparison.OrdinalIgnoreCase).FirstOrDefault(x => x.ParentLink == null); // get the first
+                    Ability? ability = hero.GetAbilitiesFromReferenceId(parentLinkId.ReferenceId, StringComparison.OrdinalIgnoreCase).FirstOrDefault(x => x.ParentLink == null); // get the first
                     if (ability != null)
                     {
                         parentLinkId.AbilityType = ability.AbilityTalentId.AbilityType;
@@ -544,7 +544,7 @@ namespace HeroesData.Parser
                     }
                     else // is a talent
                     {
-                        parentLinkId.AbilityType = AbilityType.Unknown;
+                        parentLinkId.AbilityType = AbilityTypes.Unknown;
                         parentLinkId.IsPassive = false;
                     }
                 }
@@ -553,12 +553,12 @@ namespace HeroesData.Parser
                     if (!hero.ContainsAbility(parentLinkId))
                     {
                         if (hero.ContainsTalent(parentLinkId.ReferenceId))
-                            parentLinkId.AbilityType = AbilityType.Unknown;
+                            parentLinkId.AbilityType = AbilityTypes.Unknown;
                     }
                     else
                     {
                         if (hero.GetAbility(parentLinkId).ParentLink != null && hero.ContainsTalent(parentLinkId.ReferenceId))
-                            parentLinkId.AbilityType = AbilityType.Unknown;
+                            parentLinkId.AbilityType = AbilityTypes.Unknown;
                     }
                 }
             }
@@ -586,7 +586,7 @@ namespace HeroesData.Parser
                     if (string.IsNullOrEmpty(newHeroUnit.HyperlinkId))
                         newHeroUnit.HyperlinkId = newHeroUnit.Id;
 
-                    hero.AddHeroUnit(newHeroUnit);
+                    hero.HeroUnits.Add(newHeroUnit);
                 }
             }
         }
@@ -595,7 +595,7 @@ namespace HeroesData.Parser
         {
             foreach (Hero heroUnit in hero.HeroUnits)
             {
-                hero.RemoveUnitId(heroUnit.CUnitId);
+                hero.UnitIds.Remove(heroUnit.CUnitId);
             }
         }
     }

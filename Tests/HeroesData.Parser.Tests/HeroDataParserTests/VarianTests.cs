@@ -11,9 +11,20 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroVarian.GetAbility(new AbilityTalentId("VarianHeroicStrike", "VarianHeroicStrike")
             {
-                AbilityType = AbilityType.Trait,
+                AbilityType = AbilityTypes.Trait,
             });
             Assert.IsFalse(ability.IsActive);
+        }
+
+        [TestMethod]
+        public void AbilityShortTooltipTest()
+        {
+            Ability ability = HeroVarian.GetAbility(new AbilityTalentId("VarianColossusSmash", "VarianColossusSmash")
+            {
+                AbilityType = AbilityTypes.Heroic,
+            });
+
+            Assert.AreEqual("Gain Damage, Lose Health<n/>Smash enemies and lower their Armor", ability.Tooltip.ShortTooltip!.RawDescription);
         }
     }
 }

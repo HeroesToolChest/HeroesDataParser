@@ -12,7 +12,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void TalentAbilityTalentLinkIdsTest()
         {
             Talent talent = HeroDehaka.GetTalent("DehakaEssenceCollectionTalentHeroStalker");
-            Assert.AreEqual(2, talent.AbilityTalentLinkIdsCount);
+            Assert.AreEqual(2, talent.AbilityTalentLinkIds.Count);
 
             List<string> linkIds = talent.AbilityTalentLinkIds.ToList();
 
@@ -26,12 +26,12 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             if (HeroDehaka.TryGetAbility(
                 new AbilityTalentId("DehakaCancelBurrow", "DehakaCancelBurrow")
                 {
-                    AbilityType = AbilityType.E,
+                    AbilityType = AbilityTypes.E,
                 }, out Ability ability))
             {
                 Assert.AreEqual("DehakaBurrow", ability.ParentLink.ReferenceId);
                 Assert.AreEqual("DehakaBurrow", ability.ParentLink.ButtonId);
-                Assert.AreEqual(AbilityType.E, ability.ParentLink.AbilityType);
+                Assert.AreEqual(AbilityTypes.E, ability.ParentLink.AbilityType);
                 Assert.IsFalse(ability.ParentLink.IsPassive);
             }
         }

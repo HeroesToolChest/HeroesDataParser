@@ -58,7 +58,7 @@ namespace HeroesData.Parser
             {
                 string? desc = GameData.GetGameString(DefaultData.EmoticonPackData?.EmoticonPackDescription?.Replace(DefaultData.IdPlaceHolder, emoticonElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
-                    emoticonPack.Description = new TooltipDescription(DescriptionValidator.Validate(desc));
+                    emoticonPack.Description = new TooltipDescription(desc);
             }
 
             foreach (XElement element in emoticonElement.Elements())
@@ -76,7 +76,7 @@ namespace HeroesData.Parser
                 else if (elementName == "DESCRIPTION")
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        emoticonPack.Description = new TooltipDescription(DescriptionValidator.Validate(text));
+                        emoticonPack.Description = new TooltipDescription(text);
                 }
                 else if (elementName == "HYPERLINKID")
                 {
@@ -108,7 +108,7 @@ namespace HeroesData.Parser
                     string item = element.Attribute("value")?.Value ?? string.Empty;
 
                     if (!string.IsNullOrEmpty(item))
-                        emoticonPack.AddEmoticonId(item);
+                        emoticonPack.EmoticonIds.Add(item);
                 }
             }
         }
@@ -117,7 +117,7 @@ namespace HeroesData.Parser
         {
             emoticonPack.Name = GameData.GetGameString(DefaultData.EmoticonPackData?.EmoticonPackName?.Replace(DefaultData.IdPlaceHolder, emoticonPack.Id));
             emoticonPack.SortName = GameData.GetGameString(DefaultData.EmoticonPackData?.EmoticonPackSortName?.Replace(DefaultData.IdPlaceHolder, emoticonPack.Id));
-            emoticonPack.Description = new TooltipDescription(DescriptionValidator.Validate(GameData.GetGameString(DefaultData.EmoticonPackData?.EmoticonPackDescription?.Replace(DefaultData.IdPlaceHolder, emoticonPack.Id))));
+            emoticonPack.Description = new TooltipDescription(GameData.GetGameString(DefaultData.EmoticonPackData?.EmoticonPackDescription?.Replace(DefaultData.IdPlaceHolder, emoticonPack.Id)));
             emoticonPack.HyperlinkId = DefaultData.EmoticonPackData?.EmoticonPackHyperlinkId?.Replace(DefaultData.IdPlaceHolder, emoticonPack.Id) ?? string.Empty;
         }
     }

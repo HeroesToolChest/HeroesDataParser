@@ -11,10 +11,10 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroGall.GetAbility(new AbilityTalentId("GallTalentEyeOfKilrogg", "GallEyeofKilroggHotbar")
             {
-                AbilityType = AbilityType.Active,
+                AbilityType = AbilityTypes.Active,
             });
 
-            Assert.AreEqual(AbilityType.Active, ability.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTypes.Active, ability.AbilityTalentId.AbilityType);
         }
     }
 }

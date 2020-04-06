@@ -18,7 +18,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroArthas.GetAbility(new AbilityTalentId("ArthasDeathCoil", "ArthasDeathCoil")
             {
-                AbilityType = AbilityType.Q,
+                AbilityType = AbilityTypes.Q,
             });
             Assert.IsTrue(!string.IsNullOrEmpty(ability.Tooltip?.FullTooltip?.RawDescription));
             Assert.IsTrue(!string.IsNullOrEmpty(ability.Tooltip?.ShortTooltip?.RawDescription));

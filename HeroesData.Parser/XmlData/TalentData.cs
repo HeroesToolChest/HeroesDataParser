@@ -99,15 +99,15 @@ namespace HeroesData.Parser.XmlData
             if (AbilityTalentIdsByTalentIdUpgrade.TryGetValue(talent.AbilityTalentId.ReferenceId, out HashSet<string>? abilityTalentIds))
             {
                 foreach (string abilityTalentId in abilityTalentIds)
-                    talent.AddAbilityTalentLinkId(abilityTalentId);
+                    talent.AbilityTalentLinkIds.Add(abilityTalentId);
 
                 // remove own self talent referenceNameId from abilityTalentLinkIds unless it is an id of an ability
                 if (!hero.ContainsAbility(talent.AbilityTalentId))
-                    talent.RemoveAbilityTalentLinkId(talent.AbilityTalentId.ReferenceId);
+                    talent.AbilityTalentLinkIds.Remove(talent.AbilityTalentId.ReferenceId);
             }
 
             // let find the heroic the talent belongs to
-            if (talent.AbilityTalentId.AbilityType == AbilityType.Heroic)
+            if (talent.AbilityTalentId.AbilityType == AbilityTypes.Heroic)
             {
                 XElement talentAbilElement = talentElement.Element("Abil");
                 XElement rankArrayElement = talentElement.Element("RankArray");
@@ -126,9 +126,9 @@ namespace HeroesData.Parser.XmlData
                             string? defaultButtonFace = abilElement?.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
 
                             if (!string.IsNullOrWhiteSpace(defaultButtonFace))
-                                talent.AddAbilityTalentLinkId(defaultButtonFace);
+                                talent.AbilityTalentLinkIds.Add(defaultButtonFace);
 
-                            talent.AddAbilityTalentLinkId(abilValue);
+                            talent.AbilityTalentLinkIds.Add(abilValue);
                         }
                     }
                 }
@@ -197,21 +197,21 @@ namespace HeroesData.Parser.XmlData
             }
 
             if (tier == "1")
-                talent.Tier = TalentTier.Level1;
+                talent.Tier = TalentTiers.Level1;
             else if (tier == "2")
-                talent.Tier = TalentTier.Level4;
+                talent.Tier = TalentTiers.Level4;
             else if (tier == "3")
-                talent.Tier = TalentTier.Level7;
+                talent.Tier = TalentTiers.Level7;
             else if (tier == "4")
-                talent.Tier = TalentTier.Level10;
+                talent.Tier = TalentTiers.Level10;
             else if (tier == "5")
-                talent.Tier = TalentTier.Level13;
+                talent.Tier = TalentTiers.Level13;
             else if (tier == "6")
-                talent.Tier = TalentTier.Level16;
+                talent.Tier = TalentTiers.Level16;
             else if (tier == "7")
-                talent.Tier = TalentTier.Level20;
+                talent.Tier = TalentTiers.Level20;
             else
-                talent.Tier = TalentTier.Old;
+                talent.Tier = TalentTiers.Old;
         }
 
         private void SetTalentData(XElement talentElement, Talent talent, Hero hero)
@@ -268,8 +268,8 @@ namespace HeroesData.Parser.XmlData
                     setTraitAction = () =>
                     {
                         string? traitValue = element.Attribute("value")?.Value;
-                        if (traitValue == "1" && (talent.AbilityTalentId.AbilityType == AbilityType.Unknown || talent.AbilityTalentId.AbilityType == AbilityType.Hidden))
-                            talent.AbilityTalentId.AbilityType = AbilityType.Trait;
+                        if (traitValue == "1" && (talent.AbilityTalentId.AbilityType == AbilityTypes.Unknown || talent.AbilityTalentId.AbilityType == AbilityTypes.Hidden))
+                            talent.AbilityTalentId.AbilityType = AbilityTypes.Trait;
                     };
                 }
                 else if (elementName == "ABIL")
@@ -279,20 +279,20 @@ namespace HeroesData.Parser.XmlData
                         string? abilValue = element.Attribute("value")?.Value;
                         if (!string.IsNullOrEmpty(abilValue))
                         {
-                            Ability? ability = hero.GetAbilities(abilValue, StringComparison.OrdinalIgnoreCase).FirstOrDefault();
+                            Ability? ability = hero.GetAbilitiesFromReferenceId(abilValue, StringComparison.OrdinalIgnoreCase).FirstOrDefault();
                             if (ability != null)
                             {
                                 talent.AbilityTalentId.AbilityType = ability.AbilityTalentId.AbilityType;
                             }
                             else if (abilValue == "Mount")
                             {
-                                talent.AbilityTalentId.AbilityType = AbilityType.Z;
+                                talent.AbilityTalentId.AbilityType = AbilityTypes.Z;
                             }
                             else
                             {
                                 foreach (Hero heroUnit in hero.HeroUnits)
                                 {
-                                    Ability heroUnitAbility = heroUnit.GetAbilities(abilValue, StringComparison.OrdinalIgnoreCase).FirstOrDefault();
+                                    Ability heroUnitAbility = heroUnit.GetAbilitiesFromReferenceId(abilValue, StringComparison.OrdinalIgnoreCase).FirstOrDefault();
                                     if (heroUnitAbility != null)
                                     {
                                         talent.AbilityTalentId.AbilityType = heroUnitAbility.AbilityTalentId.AbilityType;
@@ -308,12 +308,12 @@ namespace HeroesData.Parser.XmlData
                                 {
                                     SetAbilityTalentData(abilityElement, talent, string.Empty);
 
-                                    if (talent.AbilityTalentId.AbilityType == AbilityType.Unknown)
+                                    if (talent.AbilityTalentId.AbilityType == AbilityTypes.Unknown)
                                     {
                                         string? defaultButtonFace = abilityElement.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
                                         if (!string.IsNullOrEmpty(defaultButtonFace))
                                         {
-                                            Ability defaultButtonFaceAbility = hero.GetAbilities(defaultButtonFace, StringComparison.OrdinalIgnoreCase).FirstOrDefault();
+                                            Ability defaultButtonFaceAbility = hero.GetAbilitiesFromReferenceId(defaultButtonFace, StringComparison.OrdinalIgnoreCase).FirstOrDefault();
 
                                             if (defaultButtonFaceAbility != null && ability != null)
                                                 talent.AbilityTalentId.AbilityType = ability.AbilityTalentId.AbilityType;
@@ -338,8 +338,8 @@ namespace HeroesData.Parser.XmlData
                         {
                             talent.IsActive = true;
 
-                            if (talent.AbilityTalentId.AbilityType == AbilityType.Unknown || talent.AbilityTalentId.AbilityType == AbilityType.Hidden)
-                                talent.AbilityTalentId.AbilityType = AbilityType.Active;
+                            if (talent.AbilityTalentId.AbilityType == AbilityTypes.Unknown || talent.AbilityTalentId.AbilityType == AbilityTypes.Hidden)
+                                talent.AbilityTalentId.AbilityType = AbilityTypes.Active;
                         }
                     };
                 }
@@ -372,12 +372,12 @@ namespace HeroesData.Parser.XmlData
             setActiveAction?.Invoke();
             setRankArrayAction?.Invoke();
 
-            if ((talent.AbilityTalentId.AbilityType == AbilityType.Unknown || talent.AbilityTalentId.AbilityType == AbilityType.Hidden) && abilElement == null)
-                talent.AbilityTalentId.AbilityType = AbilityType.Passive;
-            else if ((talent.AbilityTalentId.AbilityType == AbilityType.Unknown || talent.AbilityTalentId.AbilityType == AbilityType.Hidden) && abilElement != null)
-                talent.AbilityTalentId.AbilityType = AbilityType.Active;
+            if ((talent.AbilityTalentId.AbilityType == AbilityTypes.Unknown || talent.AbilityTalentId.AbilityType == AbilityTypes.Hidden) && abilElement == null)
+                talent.AbilityTalentId.AbilityType = AbilityTypes.Passive;
+            else if ((talent.AbilityTalentId.AbilityType == AbilityTypes.Unknown || talent.AbilityTalentId.AbilityType == AbilityTypes.Hidden) && abilElement != null)
+                talent.AbilityTalentId.AbilityType = AbilityTypes.Active;
 
-            if (buttonElement != null && !(talent.AbilityTalentId.AbilityType == AbilityType.Heroic && talent.IsActive))
+            if (buttonElement != null && !(talent.AbilityTalentId.AbilityType == AbilityTypes.Heroic && talent.IsActive))
             {
                 if (!string.IsNullOrEmpty(talent.AbilityTalentId.ReferenceId))
                     AddTooltipAppenderAbilityTalentId(buttonElement, talent.AbilityTalentId.ReferenceId);

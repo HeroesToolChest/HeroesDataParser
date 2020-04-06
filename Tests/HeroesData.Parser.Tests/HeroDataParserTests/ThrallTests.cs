@@ -11,14 +11,14 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void AbilityTalentLinkIdsTests()
         {
             Talent talent = HeroThrall.GetTalent("ThrallMasteryManaTide");
-            Assert.IsTrue(talent.AbilityTalentLinkIdsCount == 2);
-            Assert.IsTrue(talent.ContainsAbilityTalentLinkId("ThrallFrostwolfResilience"));
-            Assert.AreEqual(AbilityType.Trait, talent.AbilityTalentId.AbilityType);
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 2);
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("ThrallFrostwolfResilience"));
+            Assert.AreEqual(AbilityTypes.Trait, talent.AbilityTalentId.AbilityType);
 
             talent = HeroThrall.GetTalent("ThrallMasteryFrostwolfsGrace");
-            Assert.IsTrue(talent.AbilityTalentLinkIdsCount == 2);
-            Assert.IsTrue(talent.ContainsAbilityTalentLinkId("ThrallFrostwolfResilience"));
-            Assert.AreEqual(AbilityType.Trait, talent.AbilityTalentId.AbilityType);
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 2);
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("ThrallFrostwolfResilience"));
+            Assert.AreEqual(AbilityTypes.Trait, talent.AbilityTalentId.AbilityType);
         }
 
         [TestMethod]
@@ -39,7 +39,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void ThrallMasteryGraceOfAirTalentAbilityTypeTest()
         {
             Talent talent = HeroThrall.GetTalent("ThrallMasteryGraceOfAir");
-            Assert.AreEqual(AbilityType.E, talent.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTypes.E, talent.AbilityTalentId.AbilityType);
         }
     }
 }

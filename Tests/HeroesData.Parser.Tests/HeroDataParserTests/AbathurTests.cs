@@ -33,14 +33,14 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void HeroicAbilitySubAbilityTest()
         {
             // AbathurEvolveMonstrosityActiveSymbiote
-            Assert.AreEqual(1, HeroAbathur.SubAbilities(AbilityTier.Heroic).Count());
+            Assert.AreEqual(1, HeroAbathur.SubAbilities(AbilityTiers.Heroic).Count());
         }
 
         [TestMethod]
         public void AbilityTalentLinkIdsTests()
         {
             Talent talent = HeroAbathur.GetTalent("AbathurVolatileMutation");
-            Assert.IsTrue(talent.AbilityTalentLinkIdsCount == 2);
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Count == 2);
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("AbathurUltimateEvolution"));
             Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("AbathurEvolveMonstrosity"));
         }
@@ -57,7 +57,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void TalentTests()
         {
             Talent talent = HeroAbathur.GetTalent("AbathurMasteryPressurizedGlands");
-            Assert.AreEqual(AbilityType.W, talent.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTypes.W, talent.AbilityTalentId.AbilityType);
 
             Talent talent2 = HeroAbathur.GetTalent("AbathurCombatStyleSurvivalInstincts");
             Assert.AreEqual("AbathurSpawnLocusts", talent2.AbilityTalentLinkIds.ToList()[0]);

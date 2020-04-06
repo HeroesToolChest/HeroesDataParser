@@ -12,8 +12,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Talent talent = HeroAlarak.GetTalent("AlarakMockingStrikes");
             Assert.IsTrue(HeroAlarak.ContainsTalent("AlarakMockingStrikes"));
-            Assert.AreEqual(AbilityType.Passive, talent.AbilityTalentId.AbilityType);
-            Assert.AreEqual(3, talent.AbilityTalentLinkIdsCount);
+            Assert.AreEqual(AbilityTypes.Passive, talent.AbilityTalentId.AbilityType);
+            Assert.AreEqual(3, talent.AbilityTalentLinkIds.Count);
             Assert.AreEqual("AlarakCounterStrikeTargeted2ndHeroic", talent.AbilityTalentLinkIds.ToList()[1]);
         }
 

@@ -28,14 +28,14 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                         {
                             ability.ParentLink = new AbilityTalentId(split[0], split[1])
                             {
-                                AbilityType = Enum.Parse<AbilityType>(split[2]),
+                                AbilityType = Enum.Parse<AbilityTypes>(split[2]),
                             };
                         }
                         else if (split.Length == 4)
                         {
                             ability.ParentLink = new AbilityTalentId(split[0], split[1])
                             {
-                                AbilityType = Enum.Parse<AbilityType>(split[2]),
+                                AbilityType = Enum.Parse<AbilityTypes>(split[2]),
                                 IsPassive = bool.Parse(split[3]),
                             };
                         }
@@ -50,20 +50,20 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
             {
                 propertyOverrides.Add(propertyName, (ability) =>
                 {
-                    if (Enum.TryParse(propertyValue, out AbilityTier abilityTier))
-                        ability.Tier = abilityTier;
+                    if (Enum.TryParse(propertyValue, out AbilityTiers abilityTiers))
+                        ability.Tier = abilityTiers;
                     else
-                        ability.Tier = AbilityTier.Basic;
+                        ability.Tier = AbilityTiers.Basic;
                 });
             }
             else if (propertyName == "AbilityType")
             {
                 propertyOverrides.Add(propertyName, (ability) =>
                 {
-                    if (Enum.TryParse(propertyValue, out AbilityType abilityType))
-                        ability.AbilityTalentId.AbilityType = abilityType;
+                    if (Enum.TryParse(propertyValue, out AbilityTypes abilityTypes))
+                        ability.AbilityTalentId.AbilityType = abilityTypes;
                     else
-                        ability.AbilityTalentId.AbilityType = AbilityType.Q;
+                        ability.AbilityTalentId.AbilityType = AbilityTypes.Q;
                 });
             }
             else if (propertyName == "CooldownTooltip")

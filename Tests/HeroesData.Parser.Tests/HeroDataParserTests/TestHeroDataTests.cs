@@ -74,10 +74,10 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void AbilityTalentLinkIdsForTalentActivableAbilitiesTest()
         {
             Talent talentNoLinks = HeroTestHero.GetTalent("TestHeroArmorUpBodyCheck");
-            Assert.IsTrue(talentNoLinks.AbilityTalentLinkIdsCount == 0);
+            Assert.IsTrue(talentNoLinks.AbilityTalentLinkIds.Count == 0);
 
             Talent talentHasLinks = HeroTestHero.GetTalent("TestHeroBodyCheckBruteForce");
-            Assert.IsTrue(talentHasLinks.AbilityTalentLinkIdsCount == 1);
+            Assert.IsTrue(talentHasLinks.AbilityTalentLinkIds.Count == 1);
             Assert.AreEqual("TestHeroArmorUpBodyCheck", talentHasLinks.AbilityTalentLinkIds.ToList()[0]);
         }
     }

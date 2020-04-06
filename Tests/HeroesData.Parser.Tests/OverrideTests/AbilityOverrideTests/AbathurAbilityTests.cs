@@ -27,13 +27,13 @@ namespace HeroesData.Parser.Tests.OverrideTests.AbilityOverrideTests
         [TestMethod]
         public void AbilityTierOverrideTest()
         {
-            Assert.AreEqual(AbilityTier.Activable, TestAbility.Tier);
+            Assert.AreEqual(AbilityTiers.Activable, TestAbility.Tier);
         }
 
         [TestMethod]
         public void AbilityTypeOverrideTest()
         {
-            Assert.AreEqual(AbilityType.W, TestAbility.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTypes.W, TestAbility.AbilityTalentId.AbilityType);
         }
     }
 }

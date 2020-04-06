@@ -167,7 +167,7 @@ namespace HeroesData.ExtractorData
             if (!hero.Weapons.Any())
                 AddWarning("has no weapons");
 
-            if (hero.PrimaryAbilities(AbilityTier.Basic).Count() < 3)
+            if (hero.PrimaryAbilities(AbilityTiers.Basic).Count() < 3)
                 AddWarning($"has less than 3 basic abilities");
 
             VerifyAbilities(hero);
@@ -284,9 +284,9 @@ namespace HeroesData.ExtractorData
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.Life.LifeCostTooltip)} contains an error tag");
                 }
 
-                if (talent.AbilityTalentId.AbilityType == AbilityType.Unknown)
+                if (talent.AbilityTalentId.AbilityType == AbilityTypes.Unknown)
                     AddWarning($"[{talent.AbilityTalentId.Id}] is of type Unknown");
-                else if (talent.AbilityTalentId.AbilityType == AbilityType.Hidden)
+                else if (talent.AbilityTalentId.AbilityType == AbilityTypes.Hidden)
                     AddWarning($"[{talent.AbilityTalentId.Id}] is of type Hidden");
             }
 
@@ -320,7 +320,7 @@ namespace HeroesData.ExtractorData
         {
             foreach (Ability ability in unit.Abilities)
             {
-                if (ability.Tier == AbilityTier.Hidden)
+                if (ability.Tier == AbilityTiers.Hidden)
                     continue;
 
                 if (string.IsNullOrEmpty(ability.IconFileName))
@@ -378,9 +378,9 @@ namespace HeroesData.ExtractorData
                         AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] {nameof(ability.Tooltip.Life.LifeCostTooltip)} contains an error tag");
                 }
 
-                if (ability.AbilityTalentId.AbilityType == AbilityType.Unknown)
+                if (ability.AbilityTalentId.AbilityType == AbilityTypes.Unknown)
                     AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] is of type Unknown");
-                else if (ability.AbilityTalentId.AbilityType == AbilityType.Hidden)
+                else if (ability.AbilityTalentId.AbilityType == AbilityTypes.Hidden)
                     AddWarning(unit.Id, $"[{ability.AbilityTalentId.Id}] is of type Hidden");
 
                 if (ability.AbilityTalentId.IsPassive && ability.IsActive)
@@ -390,45 +390,45 @@ namespace HeroesData.ExtractorData
 
         private void VerifyAbilitiesCount(string unitId, List<Ability> abilitiesList, bool isHeroUnit = false)
         {
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Q && x.Tier != AbilityTier.Hidden).Count() > 1)
-                AddWarning(unitId, $"has more than 1 {AbilityType.Q} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.W && x.Tier != AbilityTier.Hidden).Count() > 1)
-                AddWarning(unitId, $"has more than 1 {AbilityType.W} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.E && x.Tier != AbilityTier.Hidden).Count() > 1)
-                AddWarning(unitId, $"has more than 1 {AbilityType.E} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Heroic && x.Tier != AbilityTier.Hidden).Count() > 2)
-                AddWarning(unitId, $"has more than 2 {AbilityType.Heroic} abilities");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Z && x.Tier != AbilityTier.Hidden).Count() > 1)
-                AddWarning(unitId, $"has more than 1 {AbilityType.Z} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.B && x.Tier != AbilityTier.Hidden).Count() > 1)
-                AddWarning(unitId, $"has more than 1 {AbilityType.B} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Trait && x.Tier != AbilityTier.Hidden).Count() > 1)
-                AddWarning(unitId, $"has more than 1 {AbilityType.Trait} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Taunt && x.Tier != AbilityTier.Hidden).Count() > 1)
-                AddWarning(unitId, $"has more than 1 {AbilityType.Taunt} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Spray && x.Tier != AbilityTier.Hidden).Count() > 1)
-                AddWarning(unitId, $"has more than 1 {AbilityType.Spray} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Dance && x.Tier != AbilityTier.Hidden).Count() > 1)
-                AddWarning(unitId, $"has more than 1 {AbilityType.Dance} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Q && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                AddWarning(unitId, $"has more than 1 {AbilityTypes.Q} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.W && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                AddWarning(unitId, $"has more than 1 {AbilityTypes.W} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.E && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                AddWarning(unitId, $"has more than 1 {AbilityTypes.E} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Heroic && x.Tier != AbilityTiers.Hidden).Count() > 2)
+                AddWarning(unitId, $"has more than 2 {AbilityTypes.Heroic} abilities");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Z && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                AddWarning(unitId, $"has more than 1 {AbilityTypes.Z} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.B && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                AddWarning(unitId, $"has more than 1 {AbilityTypes.B} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Trait && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                AddWarning(unitId, $"has more than 1 {AbilityTypes.Trait} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Taunt && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                AddWarning(unitId, $"has more than 1 {AbilityTypes.Taunt} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Spray && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                AddWarning(unitId, $"has more than 1 {AbilityTypes.Spray} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Dance && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                AddWarning(unitId, $"has more than 1 {AbilityTypes.Dance} ability");
 
             if (!isHeroUnit)
             {
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Q && x.Tier != AbilityTier.Hidden).Count() < 1)
-                    AddWarning(unitId, $"does not have a {AbilityType.Q} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.W && x.Tier != AbilityTier.Hidden).Count() < 1)
-                    AddWarning(unitId, $"does not have a {AbilityType.W} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.E && x.Tier != AbilityTier.Hidden).Count() < 1)
-                    AddWarning(unitId, $"does not have a {AbilityType.E} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Heroic && x.Tier != AbilityTier.Hidden).Count() < 1)
-                    AddWarning(unitId, $"does not have a {AbilityType.Heroic} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Z && x.Tier != AbilityTier.Hidden).Count() < 1)
-                    AddWarning(unitId, $"does not have a {AbilityType.Z} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.B && x.Tier != AbilityTier.Hidden).Count() < 1)
-                    AddWarning(unitId, $"does not have a {AbilityType.B} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Trait && x.Tier != AbilityTier.Hidden).Count() < 1)
-                    AddWarning(unitId, $"does not have a {AbilityType.Trait} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Spray && x.Tier != AbilityTier.Hidden).Count() < 1)
-                    AddWarning(unitId, $"does not have a {AbilityType.Spray} ability");
+                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Q && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                    AddWarning(unitId, $"does not have a {AbilityTypes.Q} ability");
+                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.W && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                    AddWarning(unitId, $"does not have a {AbilityTypes.W} ability");
+                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.E && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                    AddWarning(unitId, $"does not have a {AbilityTypes.E} ability");
+                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Heroic && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                    AddWarning(unitId, $"does not have a {AbilityTypes.Heroic} ability");
+                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Z && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                    AddWarning(unitId, $"does not have a {AbilityTypes.Z} ability");
+                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.B && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                    AddWarning(unitId, $"does not have a {AbilityTypes.B} ability");
+                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Trait && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                    AddWarning(unitId, $"does not have a {AbilityTypes.Trait} ability");
+                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Spray && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                    AddWarning(unitId, $"does not have a {AbilityTypes.Spray} ability");
             }
         }
 
@@ -438,26 +438,26 @@ namespace HeroesData.ExtractorData
 
             foreach (IGrouping<AbilityTalentId?, Ability> parentLinkGroup in abilities)
             {
-                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Q && x.Tier != AbilityTier.Hidden).Count() > 1)
-                    AddWarning(unitId, $"has more than 1 {AbilityType.Q} subability for {parentLinkGroup.Key}");
-                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityType.W && x.Tier != AbilityTier.Hidden).Count() > 1)
-                    AddWarning(unitId, $"has more than 1 {AbilityType.W} subability for {parentLinkGroup.Key}");
-                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityType.E && x.Tier != AbilityTier.Hidden).Count() > 1)
-                    AddWarning(unitId, $"has more than 1 {AbilityType.E} subability for {parentLinkGroup.Key}");
-                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Heroic && x.Tier != AbilityTier.Hidden).Count() > 2)
-                    AddWarning(unitId, $"has more than 2 {AbilityType.Heroic} subabilities for {parentLinkGroup.Key}");
-                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Z && x.Tier != AbilityTier.Hidden).Count() > 1)
-                    AddWarning(unitId, $"has more than 1 {AbilityType.Z} subability for {parentLinkGroup.Key}");
-                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityType.B && x.Tier != AbilityTier.Hidden).Count() > 1)
-                    AddWarning(unitId, $"has more than 1 {AbilityType.B} subability for {parentLinkGroup.Key}");
-                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Trait && x.Tier != AbilityTier.Hidden).Count() > 1)
-                    AddWarning(unitId, $"has more than 1 {AbilityType.Trait} subability for {parentLinkGroup.Key}");
-                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Taunt && x.Tier != AbilityTier.Hidden).Count() > 1)
-                    AddWarning(unitId, $"has more than 1 {AbilityType.Taunt} subability for {parentLinkGroup.Key}");
-                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Spray && x.Tier != AbilityTier.Hidden).Count() > 1)
-                    AddWarning(unitId, $"has more than 1 {AbilityType.Spray} subability for {parentLinkGroup.Key}");
-                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Dance && x.Tier != AbilityTier.Hidden).Count() > 1)
-                    AddWarning(unitId, $"has more than 1 {AbilityType.Dance} subability for {parentLinkGroup.Key}");
+                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Q && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                    AddWarning(unitId, $"has more than 1 {AbilityTypes.Q} subability for {parentLinkGroup.Key}");
+                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.W && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                    AddWarning(unitId, $"has more than 1 {AbilityTypes.W} subability for {parentLinkGroup.Key}");
+                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.E && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                    AddWarning(unitId, $"has more than 1 {AbilityTypes.E} subability for {parentLinkGroup.Key}");
+                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Heroic && x.Tier != AbilityTiers.Hidden).Count() > 2)
+                    AddWarning(unitId, $"has more than 2 {AbilityTypes.Heroic} subabilities for {parentLinkGroup.Key}");
+                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Z && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                    AddWarning(unitId, $"has more than 1 {AbilityTypes.Z} subability for {parentLinkGroup.Key}");
+                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.B && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                    AddWarning(unitId, $"has more than 1 {AbilityTypes.B} subability for {parentLinkGroup.Key}");
+                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Trait && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                    AddWarning(unitId, $"has more than 1 {AbilityTypes.Trait} subability for {parentLinkGroup.Key}");
+                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Taunt && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                    AddWarning(unitId, $"has more than 1 {AbilityTypes.Taunt} subability for {parentLinkGroup.Key}");
+                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Spray && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                    AddWarning(unitId, $"has more than 1 {AbilityTypes.Spray} subability for {parentLinkGroup.Key}");
+                if (parentLinkGroup.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Dance && x.Tier != AbilityTiers.Hidden).Count() > 1)
+                    AddWarning(unitId, $"has more than 1 {AbilityTypes.Dance} subability for {parentLinkGroup.Key}");
             }
         }
     }

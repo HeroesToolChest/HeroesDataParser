@@ -68,7 +68,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             GameStringWriter.AddHeroTitle(hero.Id, hero.Title);
             GameStringWriter.AddHeroSearchText(hero.Id, hero.SearchText);
 
-            if (hero.RolesCount > 0)
+            if (hero.Roles.Count > 0)
                 GameStringWriter.AddUnitRole(hero.Id, string.Join(",", hero.Roles));
 
             GameStringWriter.AddUnitExpandedRole(hero.Id, hero.ExpandedRole);
@@ -120,7 +120,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected virtual T? UnitArmor(Unit unit)
         {
-            if (unit.ArmorCount > 0)
+            if (unit.Armor.Count > 0)
             {
                 return GetArmorObject(unit);
             }
@@ -170,7 +170,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected virtual T? UnitWeapons(Unit unit)
         {
-            if (unit.WeaponsCount > 0)
+            if (unit.Weapons.Count > 0)
             {
                 return GetWeaponsObject(unit);
             }
@@ -254,7 +254,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
         protected T? Units(Hero hero)
         {
-            if (hero.HeroUnitCount > 0)
+            if (hero.HeroUnits.Count > 0)
             {
                 return GetUnitsObject(hero);
             }

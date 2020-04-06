@@ -11,7 +11,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             Ability ability = RagnarosBigRag.GetAbility(new AbilityTalentId("RagnarosBigRagReturnMoltenCore", "RagnarosBigRagReturnMoltenCore")
             {
-                AbilityType = AbilityType.Trait,
+                AbilityType = AbilityTypes.Trait,
             });
 
             Assert.AreEqual("RagnarosBigRagReturnMoltenCore", ability.AbilityTalentId.ButtonId);
@@ -19,7 +19,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
 
             Ability ability2 = RagnarosBigRag.GetAbility(new AbilityTalentId("RagnarosBigRagReturnMoltenCore", "RagnarosBigRagCancelReturnMoltenCore")
             {
-                AbilityType = AbilityType.Trait,
+                AbilityType = AbilityTypes.Trait,
             });
 
             Assert.AreEqual("RagnarosBigRagCancelReturnMoltenCore", ability2.AbilityTalentId.ButtonId);

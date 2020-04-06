@@ -144,7 +144,7 @@ namespace HeroesData.Parser.XmlData
                         attributeFactor.Type = index;
                         attributeFactor.Value = XmlParse.GetDoubleValue(weapon.WeaponNameId, element, GameData);
 
-                        weapon.AddAttributeFactor(attributeFactor);
+                        weapon.AttributeFactors.Add(attributeFactor);
                     }
                 }
             }

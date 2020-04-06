@@ -29,8 +29,8 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 Range = 6,
                 WeaponNameId = "MinionArcherWeapon",
             };
-            unitWeapon.AddAttributeFactor(weaponAttributeFactor1);
-            unitWeapon.AddAttributeFactor(weaponAttributeFactor2);
+            unitWeapon.AttributeFactors.Add(weaponAttributeFactor1);
+            unitWeapon.AttributeFactors.Add(weaponAttributeFactor2);
 
             Unit unit = new Unit()
             {
@@ -52,9 +52,9 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 },
             };
             unit.Life.LifeMax = 500;
-            unit.AddUnitWeapon(unitWeapon);
-            unit.AddAttribute("att1");
-            unit.AddAttribute("att2");
+            unit.Weapons.Add(unitWeapon);
+            unit.Attributes.Add("att1");
+            unit.Attributes.Add("att2");
 
             TestData.Add(unit);
 
@@ -72,7 +72,7 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 Speed = 4,
             };
             unit2.Life.LifeMax = 900;
-            unit2.AddUnitWeapon(new UnitWeapon()
+            unit2.Weapons.Add(new UnitWeapon()
             {
                 Damage = 75,
                 Name = "Minion Footman Weapon",
@@ -80,7 +80,7 @@ namespace HeroesData.FileWriter.Tests.UnitData
                 Range = 7,
                 WeaponNameId = "MinionFootmanWeapon",
             });
-            unit2.AddUnitWeapon(new UnitWeapon()
+            unit2.Weapons.Add(new UnitWeapon()
             {
                 Damage = 56,
                 Name = "Minion Archer Weapon",

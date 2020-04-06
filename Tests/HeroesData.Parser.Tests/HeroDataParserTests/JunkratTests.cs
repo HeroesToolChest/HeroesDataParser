@@ -11,7 +11,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroJunkrat.GetAbility(new AbilityTalentId("JunkratRocketRide", "JunkratRocketRide")
             {
-                AbilityType = AbilityType.Heroic,
+                AbilityType = AbilityTypes.Heroic,
             });
 
             Assert.AreEqual("Cooldown: 75 seconds", ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);

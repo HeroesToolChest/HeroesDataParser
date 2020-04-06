@@ -69,7 +69,7 @@ namespace HeroesData.Parser
             {
                 string desc = GameData.GetGameString(DefaultData.MountData?.MountInfoText?.Replace(DefaultData.IdPlaceHolder, mountElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
-                    mount.Description = new TooltipDescription(DescriptionValidator.Validate(desc));
+                    mount.Description = new TooltipDescription(desc);
             }
 
             foreach (XElement element in mountElement.Elements())
@@ -79,7 +79,7 @@ namespace HeroesData.Parser
                 if (elementName == "INFOTEXT")
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        mount.Description = new TooltipDescription(DescriptionValidator.Validate(text));
+                        mount.Description = new TooltipDescription(text);
                 }
                 else if (elementName == "SORTNAME")
                 {
@@ -143,7 +143,7 @@ namespace HeroesData.Parser
         {
             mount.Name = GameData.GetGameString(DefaultData.MountData?.MountName?.Replace(DefaultData.IdPlaceHolder, mount.Id));
             mount.SortName = GameData.GetGameString(DefaultData.MountData?.MountSortName?.Replace(DefaultData.IdPlaceHolder, mount.Id));
-            mount.Description = new TooltipDescription(DescriptionValidator.Validate(GameData.GetGameString(DefaultData.MountData?.MountInfoText?.Replace(DefaultData.IdPlaceHolder, mount.Id))));
+            mount.Description = new TooltipDescription(GameData.GetGameString(DefaultData.MountData?.MountInfoText?.Replace(DefaultData.IdPlaceHolder, mount.Id)));
             mount.HyperlinkId = DefaultData.MountData?.MountHyperlinkId?.Replace(DefaultData.IdPlaceHolder, mount.Id) ?? string.Empty;
             mount.ReleaseDate = DefaultData.MountData?.MountReleaseDate;
             mount.Rarity = Rarity.None;

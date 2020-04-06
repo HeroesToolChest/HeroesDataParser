@@ -94,7 +94,7 @@ namespace HeroesData.Parser.Overrides
                             abilityTalentId.ButtonId = idSplit[0];
                         }
 
-                        if (Enum.TryParse(abilityType, true, out AbilityType abilityTypeResult))
+                        if (Enum.TryParse(abilityType, true, out AbilityTypes abilityTypeResult))
                             abilityTalentId.AbilityType = abilityTypeResult;
 
                         if (bool.TryParse(passiveAbility, out bool abilityPassiveResult))

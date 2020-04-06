@@ -83,7 +83,7 @@ namespace HeroesData.Parser
             {
                 string desc = GameData.GetGameString(DefaultData.VoiceLineData?.VoiceLineDescription?.Replace(DefaultData.IdPlaceHolder, voiceLineElement.Attribute("id")?.Value));
                 if (!string.IsNullOrEmpty(desc))
-                    voiceLine.Description = new TooltipDescription(DescriptionValidator.Validate(desc));
+                    voiceLine.Description = new TooltipDescription(desc);
             }
 
             foreach (XElement element in voiceLineElement.Elements())
@@ -93,7 +93,7 @@ namespace HeroesData.Parser
                 if (elementName == "DESCRIPTION")
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        voiceLine.Description = new TooltipDescription(DescriptionValidator.Validate(text));
+                        voiceLine.Description = new TooltipDescription(text);
                 }
                 else if (elementName == "SORTNAME")
                 {
@@ -144,7 +144,7 @@ namespace HeroesData.Parser
         {
             voiceLine.Name = GameData.GetGameString(DefaultData.VoiceLineData?.VoiceLineName?.Replace(DefaultData.IdPlaceHolder, voiceLine.Id));
             voiceLine.SortName = GameData.GetGameString(DefaultData.VoiceLineData?.VoiceLineSortName?.Replace(DefaultData.IdPlaceHolder, voiceLine.Id));
-            voiceLine.Description = new TooltipDescription(DescriptionValidator.Validate(GameData.GetGameString(DefaultData.VoiceLineData?.VoiceLineDescription?.Replace(DefaultData.IdPlaceHolder, voiceLine.Id))));
+            voiceLine.Description = new TooltipDescription(GameData.GetGameString(DefaultData.VoiceLineData?.VoiceLineDescription?.Replace(DefaultData.IdPlaceHolder, voiceLine.Id)));
             voiceLine.HyperlinkId = string.Empty;
             voiceLine.ReleaseDate = DefaultData.VoiceLineData?.VoiceLineReleaseDate;
         }

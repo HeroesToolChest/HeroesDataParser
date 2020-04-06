@@ -11,7 +11,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroMedic.GetAbility(new AbilityTalentId("MedicHealingBeam", "MedicHealingBeam")
             {
-                AbilityType = AbilityType.Q,
+                AbilityType = AbilityTypes.Q,
             });
             Assert.AreEqual("<s val=\"StandardTooltipDetails\">Energy: 6 per second</s>", ability.Tooltip.Energy?.EnergyTooltip.RawDescription);
         }

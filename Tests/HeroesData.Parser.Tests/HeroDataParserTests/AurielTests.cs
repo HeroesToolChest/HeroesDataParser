@@ -39,7 +39,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroAuriel.GetAbility(new AbilityTalentId("AurielSacredSweep", "AurielSacredSweep")
             {
-                AbilityType = AbilityType.Q,
+                AbilityType = AbilityTypes.Q,
             });
 
             Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Energy?.EnergyTooltip?.RawDescription));

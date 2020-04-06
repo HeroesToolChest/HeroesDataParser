@@ -143,9 +143,9 @@ namespace HeroesData.Parser
                     if (weapon != null)
                     {
                         if (dataOverride.IsAddedWeapon(validWeapon))
-                            unit.AddUnitWeapon(weapon);
+                            unit.Weapons.Add(weapon);
                         else
-                            unit.RemoveUnitWeapon(weapon);
+                            unit.Weapons.Remove(weapon);
                     }
                 }
 
@@ -169,7 +169,7 @@ namespace HeroesData.Parser
             {
                 string id = element.Attribute("id").Value;
 
-                string idCheck = string.Empty;
+                string idCheck;
                 if (string.IsNullOrEmpty(mapName))
                     idCheck = id;
                 else

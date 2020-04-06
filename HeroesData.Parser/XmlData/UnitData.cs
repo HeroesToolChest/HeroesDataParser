@@ -130,7 +130,12 @@ namespace HeroesData.Parser.XmlData
             unit.Life.LifeRegenerationRate = 0;
             unit.Energy.EnergyMax = DefaultData.UnitData.UnitEnergyMax;
             unit.Energy.EnergyRegenerationRate = DefaultData.UnitData.UnitEnergyRegenRate;
-            unit.AddRangeAttribute(DefaultData.UnitData.UnitAttributes);
+
+            foreach (string unitAttribute in DefaultData.UnitData.UnitAttributes)
+            {
+                unit.Attributes.Add(unitAttribute);
+            }
+
             unit.DamageType = DefaultData.UnitData.UnitDamageType;
             unit.Name = GameData.GetGameString(DefaultData.UnitData.UnitName!.Replace(DefaultData.IdPlaceHolder, unit.Id)).Trim();
 
@@ -227,9 +232,9 @@ namespace HeroesData.Parser.XmlData
                     string attribute = element.Attribute("index").Value;
 
                     if (enabled == "0" && unit.Attributes.Contains(attribute))
-                        unit.RemoveAttribute(attribute);
+                        unit.Attributes.Remove(attribute);
                     else if (enabled == "1")
-                        unit.AddAttribute(attribute);
+                        unit.Attributes.Add(attribute);
                 }
                 else if (elementName == "UNITDAMAGETYPE")
                 {
@@ -258,7 +263,7 @@ namespace HeroesData.Parser.XmlData
                 {
                     foreach (UnitArmor armor in ArmorData.CreateArmorCollection(element))
                     {
-                        unit.AddUnitArmor(armor);
+                        unit.Armor.Add(armor);
                     }
                 }
                 else if (elementName == "BEHAVIORARRAY")
@@ -270,7 +275,7 @@ namespace HeroesData.Parser.XmlData
                     string descriptor = element.Attribute("index").Value;
 
                     if (element.Attribute("value")?.Value == "1")
-                        unit.AddHeroDescriptor(descriptor);
+                        unit.HeroDescriptors.Add(descriptor);
                 }
                 else if (elementName == "KILLXP")
                 {
@@ -377,7 +382,7 @@ namespace HeroesData.Parser.XmlData
             foreach (XElement element in AbilitiesArray.Elements)
             {
                 string? linkValue = element.Attribute("Link")?.Value;
-                if (!string.IsNullOrEmpty(linkValue) && !Configuration.ContainsIgnorableExtraAbility(linkValue) && !unit.GetAbilities(linkValue, StringComparison.OrdinalIgnoreCase).Any())
+                if (!string.IsNullOrEmpty(linkValue) && !Configuration.ContainsIgnorableExtraAbility(linkValue) && !unit.GetAbilitiesFromReferenceId(linkValue, StringComparison.OrdinalIgnoreCase).Any())
                     AddCreatedAbility(unit, linkValue);
             }
 
@@ -402,7 +407,7 @@ namespace HeroesData.Parser.XmlData
                 {
                     UnitWeapon? weapon = WeaponData.CreateWeapon(weaponLink);
                     if (weapon != null)
-                        unit.AddUnitWeapon(weapon);
+                        unit.Weapons.Add(weapon);
                 }
             }
         }
@@ -444,7 +449,7 @@ namespace HeroesData.Parser.XmlData
                     unit.AddAbility(ability);
 
                 foreach (string createUnit in ability.CreatedUnits)
-                    unit.AddUnitId(createUnit);
+                    unit.UnitIds.Add(createUnit);
             }
         }
 

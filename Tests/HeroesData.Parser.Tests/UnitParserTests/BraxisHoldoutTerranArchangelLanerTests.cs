@@ -48,7 +48,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
 
             Ability terranArchangelLanerAbility = BraxisHoldoutTerranArchangelLaner.GetAbility(new AbilityTalentId("TerranArchangelLanerBulletstorm", "TerranArchangelBulletstorm")
             {
-                AbilityType = AbilityType.Q,
+                AbilityType = AbilityTypes.Q,
             });
             Assert.AreEqual("Cooldown: 12 seconds", terranArchangelLanerAbility.Tooltip.Cooldown.CooldownTooltip.PlainText);
             Assert.AreEqual("Bulletstorm", terranArchangelLanerAbility.Name);

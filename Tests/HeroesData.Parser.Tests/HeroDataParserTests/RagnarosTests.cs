@@ -28,7 +28,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual("After hitting Heroes, next Living Meteor deals increased damage", talent.Tooltip.ShortTooltip?.RawDescription);
             Assert.AreEqual("Each enemy Hero hit by Living Meteor increases the damage ", talent.Tooltip.FullTooltip?.RawDescription);
             Assert.AreEqual("storm_ui_icon_ragnaros_livingmeteor.dds", talent.IconFileName);
-            Assert.AreEqual(AbilityType.W, talent.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTypes.W, talent.AbilityTalentId.AbilityType);
         }
     }
 }

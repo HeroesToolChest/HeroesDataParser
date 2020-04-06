@@ -108,7 +108,7 @@ namespace HeroesData.Parser.XmlData
                     {
                         if (GameData.Elements("CUnit").Where(x => x.Attribute("id")?.Value == elementValue).Any())
                         {
-                            abilityTalentBase.AddCreatedUnit(elementValue);
+                            abilityTalentBase.CreatedUnits.Add(elementValue);
                         }
                     }
                 }
@@ -273,18 +273,18 @@ namespace HeroesData.Parser.XmlData
                         {
                             if (string.IsNullOrEmpty(abilityTalentBase.Tooltip.Energy.EnergyTooltip?.RawDescription))
                             {
-                                abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName!));
+                                abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(overrideVitalName!);
                             }
                             else if (overrideVitalName!.Contains(DefaultData.ReplacementCharacter) && abilityTalentBase.Tooltip.Energy.EnergyValue.HasValue)
                             {
-                                abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(DefaultData.ReplacementCharacter, abilityTalentBase.Tooltip.Energy.EnergyValue.ToString())));
+                                abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(overrideVitalName.Replace(DefaultData.ReplacementCharacter, abilityTalentBase.Tooltip.Energy.EnergyValue.ToString()));
                             }
                             else if (overrideVitalName.Contains(DefaultData.ReplacementCharacter) && !string.IsNullOrEmpty(abilityTalentBase.Tooltip.Energy.EnergyTooltip.RawDescription) && !overrideTextTemp!.StartsWith(defaultEnergyValue))
                             {
                                 if (string.IsNullOrEmpty(overrideTextTemp))
                                     abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(string.Empty);
                                 else
-                                    abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(DefaultData.ReplacementCharacter, overrideTextTemp)));
+                                    abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(overrideVitalName.Replace(DefaultData.ReplacementCharacter, overrideTextTemp));
                             }
                         }
                     }
@@ -299,11 +299,11 @@ namespace HeroesData.Parser.XmlData
                         else if (GameData.TryGetGameString(vitalLifeValueTextTemp, out string? overrideVitalName))
                         {
                             if (string.IsNullOrEmpty(abilityTalentBase.Tooltip.Life.LifeCostTooltip?.RawDescription))
-                                abilityTalentBase.Tooltip.Life.LifeCostTooltip = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName!));
+                                abilityTalentBase.Tooltip.Life.LifeCostTooltip = new TooltipDescription(overrideVitalName!);
                             else if (overrideVitalName!.Contains(DefaultData.ReplacementCharacter))
-                                abilityTalentBase.Tooltip.Life.LifeCostTooltip = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(DefaultData.ReplacementCharacter, abilityTalentBase.Tooltip.Life.LifeValue.ToString())));
+                                abilityTalentBase.Tooltip.Life.LifeCostTooltip = new TooltipDescription(overrideVitalName.Replace(DefaultData.ReplacementCharacter, abilityTalentBase.Tooltip.Life.LifeValue.ToString()));
                             else
-                                abilityTalentBase.Tooltip.Life.LifeCostTooltip = new TooltipDescription(DescriptionValidator.Validate(overrideVitalName.Replace(DefaultData.ReplacementCharacter, abilityTalentBase.Tooltip.Life.LifeCostTooltip.RawDescription)));
+                                abilityTalentBase.Tooltip.Life.LifeCostTooltip = new TooltipDescription(overrideVitalName.Replace(DefaultData.ReplacementCharacter, abilityTalentBase.Tooltip.Life.LifeCostTooltip.RawDescription));
                         }
                     }
                 }
@@ -314,7 +314,7 @@ namespace HeroesData.Parser.XmlData
                         if (element.Attribute("index")?.Value == "Energy")
                         {
                             // check if overriding text starts with the energy text
-                            if (!new TooltipDescription(DescriptionValidator.Validate(text!)).PlainText.StartsWith(defaultEnergyValue))
+                            if (!new TooltipDescription(text!).PlainText.StartsWith(defaultEnergyValue))
                             {
                                 if (DefaultData.ButtonData?.ButtonTooltipEnergyVitalName != null && GameData.TryGetGameString(DefaultData.ButtonData.ButtonTooltipEnergyVitalName, out string? energyText)) // default
                                 {
@@ -327,7 +327,7 @@ namespace HeroesData.Parser.XmlData
                         }
                         else if (element.Attribute("index")?.Value == "Life" && abilityTalentBase.Tooltip.Life.LifeCostTooltip != null)
                         {
-                            abilityTalentBase.Tooltip.Life.LifeCostTooltip = new TooltipDescription(DescriptionValidator.Validate(abilityTalentBase.Tooltip.Life.LifeCostTooltip.RawDescription.Replace(DefaultData.ReplacementCharacter, text)));
+                            abilityTalentBase.Tooltip.Life.LifeCostTooltip = new TooltipDescription(abilityTalentBase.Tooltip.Life.LifeCostTooltip.RawDescription.Replace(DefaultData.ReplacementCharacter, text));
                         }
                     }
                 }
@@ -339,7 +339,7 @@ namespace HeroesData.Parser.XmlData
                         if (!text!.StartsWith(GameData.GetGameString(DefaultData.StringCooldownColon)))
                             text = $"{GameData.GetGameString(DefaultData.StringCooldownColon)}{text}";
 
-                        abilityTalentBase.Tooltip.Cooldown.CooldownTooltip = new TooltipDescription(DescriptionValidator.Validate(text));
+                        abilityTalentBase.Tooltip.Cooldown.CooldownTooltip = new TooltipDescription(text);
                     }
                 }
                 else if (elementName == "TOOLTIPFLAGS")
@@ -527,7 +527,7 @@ namespace HeroesData.Parser.XmlData
                 if (vitalIndex == "Energy" && !string.IsNullOrEmpty(vitalValue))
                 {
                     abilityTalentBase.Tooltip.Energy.EnergyValue = double.Parse(vitalValue);
-                    abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(DescriptionValidator.Validate(GameData.GetGameString(DefaultData.ButtonData?.ButtonTooltipEnergyVitalName).Replace(DefaultData.ReplacementCharacter, vitalValue)));
+                    abilityTalentBase.Tooltip.Energy.EnergyTooltip = new TooltipDescription(GameData.GetGameString(DefaultData.ButtonData?.ButtonTooltipEnergyVitalName).Replace(DefaultData.ReplacementCharacter, vitalValue));
                 }
             }
         }
@@ -562,7 +562,7 @@ namespace HeroesData.Parser.XmlData
                     // ability id of the standard Mount ability
                     abilityTalentBase.ParentLink = new AbilityTalentId("Mount", "SummonMount")
                     {
-                        AbilityType = AbilityType.Z,
+                        AbilityType = AbilityTypes.Z,
                     };
                     return;
                 }
@@ -642,7 +642,7 @@ namespace HeroesData.Parser.XmlData
                     {
                         if (GameData.Elements("CUnit").Where(x => x.Attribute("id")?.Value == spawnUnitValue).Any())
                         {
-                            abilityTalentBase.AddCreatedUnit(spawnUnitValue);
+                            abilityTalentBase.CreatedUnits.Add(spawnUnitValue);
                         }
                     }
                 }

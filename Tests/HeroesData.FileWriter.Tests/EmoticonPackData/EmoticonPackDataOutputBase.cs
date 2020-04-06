@@ -24,9 +24,9 @@ namespace HeroesData.FileWriter.Tests.EmoticonPackData
                 ReleaseDate = new DateTime(2018, 4, 3),
             };
 
-            emoticonPack.AddEmoticonId("orphea_sad");
-            emoticonPack.AddEmoticonId("orphea_happy");
-            emoticonPack.AddEmoticonId("orphea_happy");
+            emoticonPack.EmoticonIds.Add("orphea_sad");
+            emoticonPack.EmoticonIds.Add("orphea_happy");
+            emoticonPack.EmoticonIds.Add("orphea_happy");
 
             TestData.Add(emoticonPack);
 

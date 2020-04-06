@@ -11,7 +11,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroSonya.GetAbility(new AbilityTalentId("BarbarianSeismicSlam", "BarbarianSeismicSlam")
             {
-                AbilityType = AbilityType.W,
+                AbilityType = AbilityTypes.W,
             });
             Assert.AreEqual("<s val=\"StandardTooltipDetails\">Fury: 25</s>", ability.Tooltip.Energy.EnergyTooltip.RawDescription);
         }

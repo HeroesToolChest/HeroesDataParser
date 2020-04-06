@@ -1,6 +1,5 @@
 ﻿using Heroes.Models;
 using Heroes.Models.Veterancy;
-using System.Collections.Generic;
 
 namespace HeroesData.FileWriter.Tests.BehaviorVeterancyData
 {
@@ -20,64 +19,64 @@ namespace HeroesData.FileWriter.Tests.BehaviorVeterancyData
                 Id = "Vet1",
             };
 
+            var veterancyModification = new VeterancyModification
+            {
+                KillXpBonus = 10,
+            };
+            veterancyModification.DamageDealtScaledCollection.Add(
+                new VeterancyDamageDealtScaled()
+                {
+                    Type = "basic",
+                    Value = 0.2,
+                });
+            veterancyModification.DamageDealtScaledCollection.Add(
+                new VeterancyDamageDealtScaled()
+                {
+                    Type = "ability",
+                    Value = 0.6,
+                });
+            veterancyModification.VitalRegenFractionCollection.Add(
+                new VeterancyVitalRegenFraction()
+                {
+                    Type = "life",
+                    Value = 0.02,
+                });
+
             behaviorVeterancy.VeterancyLevels.Add(new VeterancyLevel()
             {
                 MinimumVeterancyXP = 5,
-                VeterancyModification = new VeterancyModification()
-                {
-                    KillXpBonus = 10,
-                    DamageDealtScaledCollection = new List<VeterancyDamageDealtScaled>()
-                    {
-                        new VeterancyDamageDealtScaled()
-                        {
-                            Type = "basic",
-                            Value = 0.2,
-                        },
-                        new VeterancyDamageDealtScaled()
-                        {
-                            Type = "ability",
-                            Value = 0.6,
-                        },
-                    },
-                    VitalRegenFractionCollection = new List<VeterancyVitalRegenFraction>()
-                    {
-                        new VeterancyVitalRegenFraction()
-                        {
-                            Type = "life",
-                            Value = 0.02,
-                        },
-                    },
-                },
+                VeterancyModification = veterancyModification,
             });
+
+            var veterancyModification2 = new VeterancyModification()
+            {
+                KillXpBonus = 0,
+            };
+            veterancyModification2.DamageDealtScaledCollection.Add(
+                new VeterancyDamageDealtScaled()
+                {
+                    Type = "basic",
+                    Value = 0.4,
+                });
+
+            veterancyModification2.DamageDealtScaledCollection.Add(
+                new VeterancyDamageDealtScaled()
+                {
+                    Type = "ability",
+                    Value = 0.5,
+                });
+
+            veterancyModification2.VitalRegenFractionCollection.Add(
+                new VeterancyVitalRegenFraction()
+                {
+                    Type = "life",
+                    Value = 0.03,
+                });
 
             behaviorVeterancy.VeterancyLevels.Add(new VeterancyLevel()
             {
                 MinimumVeterancyXP = 9,
-                VeterancyModification = new VeterancyModification()
-                {
-                    KillXpBonus = 0,
-                    DamageDealtScaledCollection = new List<VeterancyDamageDealtScaled>()
-                    {
-                        new VeterancyDamageDealtScaled()
-                        {
-                            Type = "basic",
-                            Value = 0.4,
-                        },
-                        new VeterancyDamageDealtScaled()
-                        {
-                            Type = "ability",
-                            Value = 0.5,
-                        },
-                    },
-                    VitalRegenFractionCollection = new List<VeterancyVitalRegenFraction>()
-                    {
-                        new VeterancyVitalRegenFraction()
-                        {
-                            Type = "life",
-                            Value = 0.03,
-                        },
-                    },
-                },
+                VeterancyModification = veterancyModification2,
             });
 
             TestData.Add(behaviorVeterancy);

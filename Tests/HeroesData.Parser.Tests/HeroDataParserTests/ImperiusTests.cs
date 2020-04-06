@@ -11,11 +11,11 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroImperius.GetAbility(new AbilityTalentId("ImperiusAngelicArmamentsLaunchMissiles", "ImperiusAngelicArmamentsLaunchMissiles")
             {
-                AbilityType = AbilityType.Heroic,
+                AbilityType = AbilityTypes.Heroic,
             });
 
             Assert.AreEqual(0.0625, ability.Tooltip.Cooldown.ToggleCooldown);
-            Assert.AreEqual(AbilityType.Heroic, ability.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTypes.Heroic, ability.AbilityTalentId.AbilityType);
             Assert.AreEqual("Angelic Armaments (Launch Missiles)", ability.Name);
             Assert.AreEqual("storm_ui_icon_imperius_r1_activate.dds", ability.IconFileName);
         }

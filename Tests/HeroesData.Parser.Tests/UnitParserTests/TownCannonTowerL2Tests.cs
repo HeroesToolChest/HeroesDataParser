@@ -63,11 +63,11 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             Ability ability = TownCannonTowerL2.GetAbility(new AbilityTalentId("Detector", "Detector")
             {
-                AbilityType = AbilityType.Stop,
+                AbilityType = AbilityTypes.Stop,
                 IsPassive = true,
             });
             Assert.AreEqual("Detector", ability.AbilityTalentId.ButtonId);
-            Assert.AreEqual(AbilityType.Stop, ability.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTypes.Stop, ability.AbilityTalentId.AbilityType);
             Assert.IsTrue(ability.AbilityTalentId.IsPassive);
         }
     }

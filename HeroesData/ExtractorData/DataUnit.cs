@@ -27,9 +27,9 @@ namespace HeroesData.ExtractorData
             if (unit.Id.EndsWith("dummy", StringComparison.OrdinalIgnoreCase))
                 return;
 
-            if (unit.ContainsAttribute("Heroic"))
+            if (unit.Attributes.Contains("Heroic"))
             {
-                if (!unit.ContainsAttribute("ImmuneToAOE"))
+                if (!unit.Attributes.Contains("ImmuneToAOE"))
                 {
                     if (unit.Life.LifeMax <= 0)
                         AddWarning($"{nameof(unit.Life)} is 0");
@@ -126,26 +126,26 @@ namespace HeroesData.ExtractorData
 
         private void VerifyAbilitiesCount(List<Ability> abilitiesList)
         {
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Q).Count() > 1)
-                AddWarning($"has more than 1 {AbilityType.Q} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.W).Count() > 1)
-                AddWarning($"has more than 1 {AbilityType.W} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.E).Count() > 1)
-                AddWarning($"has more than 1 {AbilityType.E} abilities");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Heroic).Count() > 2)
-                AddWarning($"has more than 2 {AbilityType.Heroic} abilities");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Z).Count() > 1)
-                AddWarning($"has more than 1 {AbilityType.Z} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.B).Count() > 1)
-                AddWarning($"has more than 1 {AbilityType.B} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Trait).Count() > 1)
-                AddWarning($"has more than 1 {AbilityType.Trait} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Taunt).Count() > 1)
-                AddWarning($"has more than 1 {AbilityType.Taunt} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Spray).Count() > 1)
-                AddWarning($"has more than 1 {AbilityType.Spray} ability");
-            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityType.Dance).Count() > 1)
-                AddWarning($"has more than 1 {AbilityType.Dance} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Q).Count() > 1)
+                AddWarning($"has more than 1 {AbilityTypes.Q} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.W).Count() > 1)
+                AddWarning($"has more than 1 {AbilityTypes.W} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.E).Count() > 1)
+                AddWarning($"has more than 1 {AbilityTypes.E} abilities");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Heroic).Count() > 2)
+                AddWarning($"has more than 2 {AbilityTypes.Heroic} abilities");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Z).Count() > 1)
+                AddWarning($"has more than 1 {AbilityTypes.Z} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.B).Count() > 1)
+                AddWarning($"has more than 1 {AbilityTypes.B} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Trait).Count() > 1)
+                AddWarning($"has more than 1 {AbilityTypes.Trait} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Taunt).Count() > 1)
+                AddWarning($"has more than 1 {AbilityTypes.Taunt} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Spray).Count() > 1)
+                AddWarning($"has more than 1 {AbilityTypes.Spray} ability");
+            if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Dance).Count() > 1)
+                AddWarning($"has more than 1 {AbilityTypes.Dance} ability");
         }
 
         private void VerifyTooltipDescription(Unit unit)

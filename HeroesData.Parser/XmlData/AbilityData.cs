@@ -46,7 +46,7 @@ namespace HeroesData.Parser.XmlData
             ability.AbilityTalentId = new AbilityTalentId(string.Empty, faceValue);
 
             // default tier
-            ability.Tier = AbilityTier.Unknown;
+            ability.Tier = AbilityTiers.Unknown;
 
             if (typeValue.AsSpan().Equals("Passive", StringComparison.OrdinalIgnoreCase)) // passive "ability", actually just a dummy button
             {
@@ -89,14 +89,14 @@ namespace HeroesData.Parser.XmlData
             SetAbilityTypeFromSlot(slotValue, unitId, ability, isBehaviorAbility);
 
             // if type is not a type we want, return
-            if (IsAbilityTypeFilterEnabled && AbilityType.Misc.HasFlag(ability.AbilityTalentId.AbilityType) && ability.AbilityTalentId.AbilityType != AbilityType.Unknown)
+            if (IsAbilityTypeFilterEnabled && AbilityTypes.Misc.HasFlag(ability.AbilityTalentId.AbilityType) && ability.AbilityTalentId.AbilityType != AbilityTypes.Unknown)
                 return null;
 
             // set the ability tier
             SetAbilityTierFromAbilityType(ability);
 
             // filter ability tiers
-            if (IsAbilityTierFilterEnabled && (ability.Tier == AbilityTier.MapMechanic || ability.Tier == AbilityTier.Interact))
+            if (IsAbilityTierFilterEnabled && (ability.Tier == AbilityTiers.MapMechanic || ability.Tier == AbilityTiers.Interact))
                 return null;
 
             // if no ability id and it is not a passive ability, return null
@@ -113,7 +113,7 @@ namespace HeroesData.Parser.XmlData
             if (ability.AbilityTalentId.ReferenceId.EndsWith("LockedAbilityQ", true, null) ||
                 ability.AbilityTalentId.ReferenceId.EndsWith("LockedAbilityW", true, null) ||
                 ability.AbilityTalentId.ReferenceId.EndsWith("LockedAbilityE", true, null) ||
-                (ability.AbilityTalentId.ButtonId == "LockedHeroicAbility" && ability.AbilityTalentId.AbilityType == AbilityType.Heroic && ability.AbilityTalentId.IsPassive))
+                (ability.AbilityTalentId.ButtonId == "LockedHeroicAbility" && ability.AbilityTalentId.AbilityType == AbilityTypes.Heroic && ability.AbilityTalentId.IsPassive))
                 return null;
 
             return ability;
@@ -148,8 +148,8 @@ namespace HeroesData.Parser.XmlData
                 return null;
 
             // default
-            ability.Tier = AbilityTier.Hidden;
-            ability.AbilityTalentId.AbilityType = AbilityType.Hidden;
+            ability.Tier = AbilityTiers.Hidden;
+            ability.AbilityTalentId.AbilityType = AbilityTypes.Hidden;
 
             // if no name was set, then use the ability name
             if (string.IsNullOrEmpty(ability.Name) && DefaultData.AbilData != null && GameData.TryGetGameString(DefaultData.AbilData.AbilName.Replace(DefaultData.IdPlaceHolder, ability.AbilityTalentId.ReferenceId), out string? value))
@@ -174,10 +174,10 @@ namespace HeroesData.Parser.XmlData
             Ability ability = new Ability
             {
                 AbilityTalentId = abilityTalentId,
-                Tier = AbilityTier.Activable,
+                Tier = AbilityTiers.Activable,
             };
 
-            ability.AbilityTalentId.AbilityType = AbilityType.Active;
+            ability.AbilityTalentId.AbilityType = AbilityTypes.Active;
 
             // find all abilities and loop through them
             foreach (XElement element in GetAbilityElements(ability.AbilityTalentId.ReferenceId))
@@ -206,25 +206,25 @@ namespace HeroesData.Parser.XmlData
             ReadOnlySpan<char> slotSpan = slot.AsSpan();
 
             if (slotSpan.IsEmpty && !isBehaviorAbility)
-                ability.AbilityTalentId.AbilityType = AbilityType.Attack;
+                ability.AbilityTalentId.AbilityType = AbilityTypes.Attack;
             else if (slotSpan.IsEmpty && isBehaviorAbility)
-                ability.AbilityTalentId.AbilityType = AbilityType.Active;
+                ability.AbilityTalentId.AbilityType = AbilityTypes.Active;
             else if (slotSpan.StartsWith("ABILITY1", StringComparison.OrdinalIgnoreCase))
-                ability.AbilityTalentId.AbilityType = AbilityType.Q;
+                ability.AbilityTalentId.AbilityType = AbilityTypes.Q;
             else if (slotSpan.StartsWith("ABILITY2", StringComparison.OrdinalIgnoreCase))
-                ability.AbilityTalentId.AbilityType = AbilityType.W;
+                ability.AbilityTalentId.AbilityType = AbilityTypes.W;
             else if (slotSpan.StartsWith("ABILITY3", StringComparison.OrdinalIgnoreCase))
-                ability.AbilityTalentId.AbilityType = AbilityType.E;
+                ability.AbilityTalentId.AbilityType = AbilityTypes.E;
             else if (slotSpan.StartsWith("MOUNT", StringComparison.OrdinalIgnoreCase))
-                ability.AbilityTalentId.AbilityType = AbilityType.Z;
+                ability.AbilityTalentId.AbilityType = AbilityTypes.Z;
             else if (slotSpan.StartsWith("HEROIC", StringComparison.OrdinalIgnoreCase))
-                ability.AbilityTalentId.AbilityType = AbilityType.Heroic;
+                ability.AbilityTalentId.AbilityType = AbilityTypes.Heroic;
             else if (slotSpan.StartsWith("HEARTH", StringComparison.OrdinalIgnoreCase))
-                ability.AbilityTalentId.AbilityType = AbilityType.B;
+                ability.AbilityTalentId.AbilityType = AbilityTypes.B;
             else if (slotSpan.StartsWith("TRAIT", StringComparison.OrdinalIgnoreCase))
-                ability.AbilityTalentId.AbilityType = AbilityType.Trait;
-            else if (Enum.TryParse(slot, true, out AbilityType abilityType))
-                ability.AbilityTalentId.AbilityType = abilityType;
+                ability.AbilityTalentId.AbilityType = AbilityTypes.Trait;
+            else if (Enum.TryParse(slot, true, out AbilityTypes abilityTypes))
+                ability.AbilityTalentId.AbilityType = abilityTypes;
             else
                 throw new XmlGameDataParseException($"Unknown slot type ({slot}) - CUnit: {unitId} - Id: {ability.AbilityTalentId.Id}");
         }
@@ -236,34 +236,34 @@ namespace HeroesData.Parser.XmlData
                 throw new ArgumentNullException(nameof(ability));
             }
 
-            if (ability.AbilityTalentId.AbilityType == AbilityType.Q || ability.AbilityTalentId.AbilityType == AbilityType.W || ability.AbilityTalentId.AbilityType == AbilityType.E)
-                ability.Tier = AbilityTier.Basic;
-            else if (ability.AbilityTalentId.AbilityType == AbilityType.Heroic)
-                ability.Tier = AbilityTier.Heroic;
-            else if (ability.AbilityTalentId.AbilityType == AbilityType.Z)
-                ability.Tier = AbilityTier.Mount;
-            else if (ability.AbilityTalentId.AbilityType == AbilityType.Trait)
-                ability.Tier = AbilityTier.Trait;
-            else if (ability.AbilityTalentId.AbilityType == AbilityType.B)
-                ability.Tier = AbilityTier.Hearth;
-            else if (ability.AbilityTalentId.AbilityType == AbilityType.Active)
-                ability.Tier = AbilityTier.Activable;
-            else if (ability.AbilityTalentId.AbilityType == AbilityType.Taunt)
-                ability.Tier = AbilityTier.Taunt;
-            else if (ability.AbilityTalentId.AbilityType == AbilityType.Dance)
-                ability.Tier = AbilityTier.Dance;
-            else if (ability.AbilityTalentId.AbilityType == AbilityType.Spray)
-                ability.Tier = AbilityTier.Spray;
-            else if (ability.AbilityTalentId.AbilityType == AbilityType.Voice)
-                ability.Tier = AbilityTier.Voice;
-            else if (ability.AbilityTalentId.AbilityType == AbilityType.MapMechanic)
-                ability.Tier = AbilityTier.MapMechanic;
-            else if (ability.AbilityTalentId.AbilityType == AbilityType.Interact)
-                ability.Tier = AbilityTier.Interact;
-            else if (ability.AbilityTalentId.AbilityType == AbilityType.Attack || ability.AbilityTalentId.AbilityType == AbilityType.Stop || ability.AbilityTalentId.AbilityType == AbilityType.Hold || ability.AbilityTalentId.AbilityType == AbilityType.Cancel | ability.AbilityTalentId.AbilityType == AbilityType.ForceMove)
-                ability.Tier = AbilityTier.Action;
+            if (ability.AbilityTalentId.AbilityType == AbilityTypes.Q || ability.AbilityTalentId.AbilityType == AbilityTypes.W || ability.AbilityTalentId.AbilityType == AbilityTypes.E)
+                ability.Tier = AbilityTiers.Basic;
+            else if (ability.AbilityTalentId.AbilityType == AbilityTypes.Heroic)
+                ability.Tier = AbilityTiers.Heroic;
+            else if (ability.AbilityTalentId.AbilityType == AbilityTypes.Z)
+                ability.Tier = AbilityTiers.Mount;
+            else if (ability.AbilityTalentId.AbilityType == AbilityTypes.Trait)
+                ability.Tier = AbilityTiers.Trait;
+            else if (ability.AbilityTalentId.AbilityType == AbilityTypes.B)
+                ability.Tier = AbilityTiers.Hearth;
+            else if (ability.AbilityTalentId.AbilityType == AbilityTypes.Active)
+                ability.Tier = AbilityTiers.Activable;
+            else if (ability.AbilityTalentId.AbilityType == AbilityTypes.Taunt)
+                ability.Tier = AbilityTiers.Taunt;
+            else if (ability.AbilityTalentId.AbilityType == AbilityTypes.Dance)
+                ability.Tier = AbilityTiers.Dance;
+            else if (ability.AbilityTalentId.AbilityType == AbilityTypes.Spray)
+                ability.Tier = AbilityTiers.Spray;
+            else if (ability.AbilityTalentId.AbilityType == AbilityTypes.Voice)
+                ability.Tier = AbilityTiers.Voice;
+            else if (ability.AbilityTalentId.AbilityType == AbilityTypes.MapMechanic)
+                ability.Tier = AbilityTiers.MapMechanic;
+            else if (ability.AbilityTalentId.AbilityType == AbilityTypes.Interact)
+                ability.Tier = AbilityTiers.Interact;
+            else if (ability.AbilityTalentId.AbilityType == AbilityTypes.Attack || ability.AbilityTalentId.AbilityType == AbilityTypes.Stop || ability.AbilityTalentId.AbilityType == AbilityTypes.Hold || ability.AbilityTalentId.AbilityType == AbilityTypes.Cancel | ability.AbilityTalentId.AbilityType == AbilityTypes.ForceMove)
+                ability.Tier = AbilityTiers.Action;
             else
-                ability.Tier = AbilityTier.Unknown;
+                ability.Tier = AbilityTiers.Unknown;
         }
 
         private (string SbilityId, string Index) AbilCmdSplit(string abilCmd)

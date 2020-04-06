@@ -11,7 +11,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroYrel.GetAbility(new AbilityTalentId("YrelDivinePurposeActive", "YrelDivinePurposeActive")
             {
-                AbilityType = AbilityType.Trait,
+                AbilityType = AbilityTypes.Trait,
                 IsPassive = true,
             });
             Assert.IsTrue(ability.AbilityTalentId.IsPassive);

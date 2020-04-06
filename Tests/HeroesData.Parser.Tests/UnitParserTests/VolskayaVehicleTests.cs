@@ -13,30 +13,30 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             Assert.IsTrue(VolskayaVehicle.Abilities.Count() >= 2);
 
-            List<Ability> sortedAbilities = VolskayaVehicle.PrimaryAbilities(AbilityTier.Basic).OrderBy(x => x.AbilityTalentId.AbilityType).ToList();
+            List<Ability> sortedAbilities = VolskayaVehicle.PrimaryAbilities(AbilityTiers.Basic).OrderBy(x => x.AbilityTalentId.AbilityType).ToList();
 
-            Assert.AreEqual(AbilityType.W, sortedAbilities[1].AbilityTalentId.AbilityType);
-            Assert.AreEqual(AbilityType.E, sortedAbilities[2].AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTypes.W, sortedAbilities[1].AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTypes.E, sortedAbilities[2].AbilityTalentId.AbilityType);
 
             Ability shield = VolskayaVehicle.GetAbility(new AbilityTalentId("VolskayaVehicleTShield", "VolskayaVehicleTShield")
             {
-                AbilityType = AbilityType.E,
+                AbilityType = AbilityTypes.E,
             });
             Assert.AreEqual("VolskayaVehicleTShield", shield.AbilityTalentId.ButtonId);
-            Assert.AreEqual(AbilityType.E, shield.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTypes.E, shield.AbilityTalentId.AbilityType);
             Assert.IsTrue(shield.IsActive);
             Assert.IsFalse(shield.IsQuest);
-            Assert.AreEqual(AbilityTier.Basic, shield.Tier);
+            Assert.AreEqual(AbilityTiers.Basic, shield.Tier);
             Assert.AreEqual("storm_ui_icon_volskayarobot_tshield.dds", shield.IconFileName);
             Assert.AreEqual("Gives shields to allies", shield.Tooltip.FullTooltip.RawDescription);
             Assert.AreEqual("Cooldown: 16 seconds", shield.Tooltip.Cooldown.CooldownTooltip.PlainText);
 
             Ability fist = VolskayaVehicle.GetAbility(new AbilityTalentId("VolskayaVehicleRocketFist", "VolskayaVehicleRocketFist")
             {
-                AbilityType = AbilityType.W,
+                AbilityType = AbilityTypes.W,
             });
-            Assert.AreEqual(AbilityType.W, fist.AbilityTalentId.AbilityType);
-            Assert.AreEqual(AbilityTier.Basic, fist.Tier);
+            Assert.AreEqual(AbilityTypes.W, fist.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTiers.Basic, fist.Tier);
             Assert.AreEqual("Cooldown: 14 seconds", fist.Tooltip.Cooldown.CooldownTooltip.PlainText);
         }
     }

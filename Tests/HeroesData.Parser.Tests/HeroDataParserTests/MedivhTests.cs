@@ -11,7 +11,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroMedivh.GetAbility(new AbilityTalentId("MedivhTransformRaven", "MedivhTransformRaven")
             {
-                AbilityType = AbilityType.Z,
+                AbilityType = AbilityTypes.Z,
             });
             Assert.AreEqual("Cooldown: 4 seconds", ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription);
         }

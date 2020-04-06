@@ -12,11 +12,11 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         {
             Ability ability = DVaMechPlacementDummy.GetAbility(new AbilityTalentId("Hearthstone", "Hearthstone")
             {
-                AbilityType = AbilityType.B,
+                AbilityType = AbilityTypes.B,
             });
 
             Assert.AreEqual("Hearthstone", ability.Name);
-            Assert.AreEqual(AbilityType.B, ability.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTypes.B, ability.AbilityTalentId.AbilityType);
         }
 
         [TestMethod]

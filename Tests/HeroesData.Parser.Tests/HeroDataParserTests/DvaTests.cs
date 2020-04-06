@@ -12,7 +12,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Talent talent = HeroDva.GetTalent("DVaBunnyHop");
             Assert.AreEqual("Cooldown: 100 Seconds", talent.Tooltip.Cooldown.CooldownTooltip.RawDescription);
-            Assert.AreEqual(AbilityType.Heroic, talent.AbilityTalentId.AbilityType);
+            Assert.AreEqual(AbilityTypes.Heroic, talent.AbilityTalentId.AbilityType);
             Assert.IsTrue(talent.IsActive);
             Assert.AreEqual("DVaMechBunnyHopHeroic", talent.AbilityTalentLinkIds.ToList()[0]);
         }
@@ -21,7 +21,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void DVaMechProMovesTalentTests()
         {
             Talent talent = HeroDva.GetTalent("DVaMechProMoves");
-            Assert.AreEqual(1, talent.AbilityTalentLinkIdsCount);
+            Assert.AreEqual(1, talent.AbilityTalentLinkIds.Count);
             Assert.AreEqual("DVaMechMechMode", talent.AbilityTalentLinkIds.First());
         }
     }

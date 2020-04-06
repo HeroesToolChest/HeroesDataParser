@@ -25,9 +25,9 @@ namespace HeroesData.FileWriter.Tests.HeroSkinData
                 ReleaseDate = new DateTime(2014, 3, 13),
             };
 
-            heroSkin.AddFeature("ThemedAbilities");
-            heroSkin.AddFeature("ThemedAbilities");
-            heroSkin.AddFeature("ThemedAnimations");
+            heroSkin.Features.Add("ThemedAbilities");
+            heroSkin.Features.Add("ThemedAbilities");
+            heroSkin.Features.Add("ThemedAnimations");
 
             TestData.Add(heroSkin);
 

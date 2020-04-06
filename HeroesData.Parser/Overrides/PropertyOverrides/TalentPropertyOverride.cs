@@ -12,10 +12,10 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
             {
                 propertyOverrides.Add(propertyName, (talent) =>
                 {
-                    if (Enum.TryParse(propertyValue, out AbilityType abilityType))
-                        talent.AbilityTalentId.AbilityType = abilityType;
+                    if (Enum.TryParse(propertyValue, out AbilityTypes abilityTypes))
+                        talent.AbilityTalentId.AbilityType = abilityTypes;
                     else
-                        talent.AbilityTalentId.AbilityType = AbilityType.Unknown;
+                        talent.AbilityTalentId.AbilityType = AbilityTypes.Unknown;
                 });
             }
             else if (propertyName == nameof(Talent.AbilityTalentLinkIds))
@@ -23,9 +23,9 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                 propertyOverrides.Add(propertyName, (talent) =>
                 {
                     if (propertyValue.StartsWith('-'))
-                        talent.RemoveAbilityTalentLinkId(propertyValue.Substring(1));
+                        talent.AbilityTalentLinkIds.Remove(propertyValue.Substring(1));
                     else
-                        talent.AddAbilityTalentLinkId(propertyValue);
+                        talent.AbilityTalentLinkIds.Add(propertyValue);
                 });
             }
             else if (propertyName == nameof(Talent.IsActive))

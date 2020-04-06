@@ -11,7 +11,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         {
             Ability ability = HeroDryad.GetAbility(new AbilityTalentId("DryadDryadsSwiftness", "DryadDryadsSwiftness")
             {
-                AbilityType = AbilityType.Z,
+                AbilityType = AbilityTypes.Z,
                 IsPassive = true,
             });
             Assert.IsTrue(string.IsNullOrEmpty(ability.Tooltip.Cooldown?.CooldownTooltip?.RawDescription));
@@ -28,8 +28,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         public void AbilityTalentLinkIdTest()
         {
             Talent talent = HeroDryad.GetTalent("DryadHippityHop");
-            Assert.IsTrue(talent.ContainsAbilityTalentLinkId("DryadDryadsSwiftness"));
-            Assert.AreEqual(AbilityType.Z, talent.AbilityTalentId.AbilityType);
+            Assert.IsTrue(talent.AbilityTalentLinkIds.Contains("DryadDryadsSwiftness"));
+            Assert.AreEqual(AbilityTypes.Z, talent.AbilityTalentId.AbilityType);
         }
     }
 }
