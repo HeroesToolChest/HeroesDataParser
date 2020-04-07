@@ -810,9 +810,9 @@
     </Ability>
   </CHero>
   <CHero id="Tassadar">
-    <Ability id="TassadarResonanceBeamArcDischargeDummy,TassadarResonanceBeam" abilityType="Trait">
+    <Ability id="TassadarCancelDimensionalShift" abilityType="E">
       <Override>
-        <ParentLink value="TassadarArcDischarge|TassadarArcDischarge" />
+        <ParentLink value="TassadarDimensionalShift|TassadarDimensionalShift|E" />
       </Override>
     </Ability>
     <Ability id="TassadarArchon" abilityType="Heroic" passive="true">
