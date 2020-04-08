@@ -6,7 +6,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.AbilityOverrideTests
     [TestClass]
     public class AbathurAbilityTests : OverrideBaseTests, IAbilityOverride
     {
-        private readonly string Hero = "Abathur";
+        private readonly string _hero = "Abathur";
 
         public AbathurAbilityTests()
             : base()
@@ -16,7 +16,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.AbilityOverrideTests
 
         public string AbilityName => "SpikeAbilityThingy";
 
-        protected override string CHeroId => Hero;
+        protected override string CHeroId => _hero;
 
         [TestMethod]
         public void ParentLinkOverrideTest()

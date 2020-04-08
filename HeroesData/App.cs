@@ -23,12 +23,12 @@ namespace HeroesData
 {
     internal class App
     {
-        private readonly List<DataProcessor> DataProcessors = new List<DataProcessor>();
+        private readonly List<DataProcessor> _dataProcessors = new List<DataProcessor>();
 
-        private GameData? GameData;
-        private DefaultData? DefaultData;
-        private XmlDataOverriders? XmlDataOverriders;
-        private Configuration? Configuration;
+        private GameData? _gameData;
+        private DefaultData? _defaultData;
+        private XmlDataOverriders? _xmlDataOverriders;
+        private Configuration? _configuration;
 
         /// <summary>
         /// Gets the product version of the application.
@@ -58,8 +58,8 @@ namespace HeroesData
         public static bool CreateXml { get; set; } = false;
         public static bool CreateJson { get; set; } = false;
         public static bool ShowValidationWarnings { get; set; } = false;
-        public static ExtractDataOption ExtractDataOption { get; set; } = ExtractDataOption.None;
-        public static ExtractImageOption ExtractFileOption { get; set; } = ExtractImageOption.None;
+        public static ExtractDataOptions ExtractDataOption { get; set; } = ExtractDataOptions.None;
+        public static ExtractImageOptions ExtractFileOption { get; set; } = ExtractImageOptions.None;
         public static bool IsFileSplit { get; set; } = false;
         public static bool IsLocalizedText { get; set; } = false;
         public static bool CreateMinFiles { get; set; } = false;
@@ -83,7 +83,7 @@ namespace HeroesData
 
         public static void WriteExceptionLog(string fileName, Exception ex)
         {
-            using StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"Exception_{fileName}_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.txt"), false);
+            using StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"Exception_{fileName}_{DateTime.Now:yyyyMMddHHmmssfff}.txt"), false);
 
             if (!string.IsNullOrEmpty(ex.Message))
                 writer.Write(ex.Message);
@@ -175,7 +175,7 @@ namespace HeroesData
                     WriteFileOutput(options);
                 }
 
-                if (ExtractFileOption != ExtractImageOption.None)
+                if (ExtractFileOption != ExtractImageOptions.None)
                 {
                     Console.WriteLine("Extracting files...");
                     DataProcessor((parser) =>
@@ -216,13 +216,136 @@ namespace HeroesData
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
         }
 
+        /// <summary>
+        /// Attempts to get the build number from the mods folder.
+        /// </summary>
+        private static void GetModsDirectoryBuild()
+        {
+            ReadOnlySpan<char> storagePath = StoragePath.AsSpan();
+            ReadOnlySpan<char> lastDirectory = storagePath.Slice(storagePath.LastIndexOf(Path.DirectorySeparatorChar) + 1);
+            int indexOfBuild = lastDirectory.LastIndexOf('_');
+
+            if (indexOfBuild > -1 && int.TryParse(lastDirectory.Slice(indexOfBuild + 1), out int value))
+            {
+                HotsBuild = value;
+
+                Console.WriteLine($"Hots build: {HotsBuild}");
+            }
+            else
+            {
+                Console.WriteLine($"Defaulting to latest build");
+            }
+        }
+
+        /// <summary>
+        /// Checks for multiple mods folders with a number suffix, selects the highest one and sets the storage path.
+        /// </summary>
+        /// <returns></returns>
+        private static bool IsMultiModsDirectory()
+        {
+            ReadOnlySpan<string> directories = Directory.GetDirectories(StoragePath, "mods_*", SearchOption.TopDirectoryOnly).AsSpan();
+
+            if (directories.Length < 1)
+                return false;
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Found 'mods_*' directory(s)");
+
+            int max = 0;
+            ReadOnlySpan<char> selectedDirectory = null;
+
+            foreach (ReadOnlySpan<char> directory in directories)
+            {
+                ReadOnlySpan<char> lastDirectory = directory.Slice(directory.LastIndexOf(Path.DirectorySeparatorChar) + 1);
+                int indexOfBuild = lastDirectory.LastIndexOf('_');
+
+                if (indexOfBuild > -1 && int.TryParse(lastDirectory.Slice(indexOfBuild + 1), out int value) && value >= max)
+                {
+                    max = value;
+                    selectedDirectory = lastDirectory;
+                }
+            }
+
+            if (!selectedDirectory.IsEmpty)
+            {
+                StoragePath = Path.Combine(StoragePath, selectedDirectory.ToString());
+                HotsBuild = max;
+
+                Console.WriteLine($"Using {StoragePath}");
+                Console.WriteLine($"Hots build: {max}");
+                Console.WriteLine();
+                Console.ResetColor();
+
+                return true;
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("mods_* directories are not valid");
+            Console.WriteLine();
+            Console.ResetColor();
+            return false;
+        }
+
+        private static void WriteInvalidGameStrings(List<string> invalidGameStrings, Localization localization)
+        {
+            using StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"InvalidGamestrings_{localization.ToString().ToLowerInvariant()}.txt"), false);
+
+            foreach (string gamestring in invalidGameStrings)
+            {
+                writer.WriteLine(gamestring);
+            }
+        }
+
+        private static void SetupValidationIgnoreFile()
+        {
+            if (File.Exists(VerifyIgnoreFilePath))
+            {
+                using StreamReader reader = new StreamReader(VerifyIgnoreFilePath);
+
+                string? line = null;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    line = line.Trim();
+
+                    if (!string.IsNullOrEmpty(line) && !line.StartsWith("#", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidationIgnoreLines.Add(line);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Writes a message to the console. Will change the text to read and then shutdown the application with exit code 1.
+        /// </summary>
+        /// <param name="message">The message to outptut.</param>
+        private static void ConsoleExceptionMessage(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ResetColor();
+            Environment.Exit(1);
+        }
+
+        /// <summary>
+        /// Writes a message to the console. Will change the text to read and then shutdown the application with exit code 1.
+        /// </summary>
+        /// <param name="ex">The exception.</param>
+        private static void ConsoleExceptionMessage(Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(ex);
+            Console.ResetColor();
+            Environment.Exit(1);
+        }
+
         private void PreInitialize()
         {
             LoadConfiguration();
             DetectStoragePathType();
 
             Console.Write($"Localization(s): ");
-            Localizations.ForEach(locale => { Console.Write($"{locale.ToString().ToLower()} "); });
+            Localizations.ForEach(locale => { Console.Write($"{locale.ToString().ToLowerInvariant()} "); });
             Console.WriteLine();
             Console.WriteLine();
             Console.ResetColor();
@@ -273,7 +396,7 @@ namespace HeroesData
             {
                 if (StorageMode == StorageMode.Mods)
                 {
-                    GameData = new FileGameData(StoragePath, HotsBuild);
+                    _gameData = new FileGameData(StoragePath, HotsBuild);
                 }
                 else if (StorageMode == StorageMode.CASC)
                 {
@@ -282,17 +405,17 @@ namespace HeroesData
                     if (CASCHotsStorage?.CASCFolderRoot == null)
                         throw new NullReferenceException($"{nameof(CASCHotsStorage.CASCFolderRoot)} is null.");
 
-                    GameData = new CASCGameData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
+                    _gameData = new CASCGameData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
                 }
                 else
                 {
                     throw new Exception("Unknown storage type");
                 }
 
-                GameData.LoadXmlFiles();
+                _gameData.LoadXmlFiles();
 
-                DefaultData = new DefaultData(GameData);
-                DefaultData.Load();
+                _defaultData = new DefaultData(_gameData);
+                _defaultData.Load();
             }
             catch (DirectoryNotFoundException ex)
             {
@@ -302,16 +425,16 @@ namespace HeroesData
 
             time.Stop();
 
-            Console.WriteLine($"{GameData!.XmlFileCount,6} xml files loaded");
-            Console.WriteLine($"{GameData.StormStyleCount,6} storm style files loaded");
+            Console.WriteLine($"{_gameData!.XmlFileCount,6} xml files loaded");
+            Console.WriteLine($"{_gameData.StormStyleCount,6} storm style files loaded");
             Console.WriteLine($"Finished in {time.Elapsed.TotalSeconds:0.####} seconds");
             Console.WriteLine();
         }
 
         private void InitializeOverrideData()
         {
-            if (GameData == null)
-                throw new NullReferenceException($"{nameof(GameData)} is null.");
+            if (_gameData == null)
+                throw new NullReferenceException($"{nameof(_gameData)} is null.");
 
             Stopwatch time = new Stopwatch();
 
@@ -320,13 +443,13 @@ namespace HeroesData
             time.Start();
 
             if (OverrideBuild.HasValue)
-                XmlDataOverriders = XmlDataOverriders.Load(AssemblyPath, GameData, OverrideBuild.Value);
+                _xmlDataOverriders = XmlDataOverriders.Load(AssemblyPath, _gameData, OverrideBuild.Value);
             else if (HotsBuild.HasValue)
-                XmlDataOverriders = XmlDataOverriders.Load(AssemblyPath, GameData, HotsBuild.Value);
+                _xmlDataOverriders = XmlDataOverriders.Load(AssemblyPath, _gameData, HotsBuild.Value);
             else
-                XmlDataOverriders = XmlDataOverriders.Load(AssemblyPath, GameData);
+                _xmlDataOverriders = XmlDataOverriders.Load(AssemblyPath, _gameData);
 
-            foreach (string overrideFileName in XmlDataOverriders.LoadedFileNames)
+            foreach (string overrideFileName in _xmlDataOverriders.LoadedFileNames)
             {
                 ReadOnlySpan<char> fileNameNoExtension = Path.GetFileNameWithoutExtension(overrideFileName).AsSpan();
 
@@ -354,20 +477,20 @@ namespace HeroesData
 
         private void ParseGameStrings(Localization localization)
         {
-            if (GameData == null)
-                throw new NullReferenceException($"{nameof(GameData)} is null");
+            if (_gameData == null)
+                throw new NullReferenceException($"{nameof(_gameData)} is null");
 
-            if (Configuration == null)
-                throw new NullReferenceException($"{nameof(Configuration)} is null");
+            if (_configuration == null)
+                throw new NullReferenceException($"{nameof(_configuration)} is null");
 
             int currentCount = 0;
             int failedCount = 0;
-            int totalGameStrings = GameData.GameStringCount + GameData.GameStringMapCount;
+            int totalGameStrings = _gameData.GameStringCount + _gameData.GameStringMapCount;
             List<string> failedGameStrings = new List<string>();
 
             Stopwatch time = new Stopwatch();
 
-            GameStringParser gameStringParser = new GameStringParser(Configuration, GameData, HotsBuild);
+            GameStringParser gameStringParser = new GameStringParser(_configuration, _gameData, HotsBuild);
 
             Console.WriteLine($"Parsing gamestrings...");
 
@@ -377,46 +500,46 @@ namespace HeroesData
 
             try
             {
-                Parallel.ForEach(GameData.GameStringIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, gamestringId =>
+                Parallel.ForEach(_gameData.GameStringIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, gamestringId =>
                 {
-                    if (!gameStringParser.TryParseRawTooltip(gamestringId, GameData.GetGameString(gamestringId), out string parsedGamestring))
+                    if (!gameStringParser.TryParseRawTooltip(gamestringId, _gameData.GetGameString(gamestringId), out string parsedGamestring))
                     {
-                        failedGameStrings.Add($"{gamestringId}={GameData.GetGameString(gamestringId)}");
+                        failedGameStrings.Add($"{gamestringId}={_gameData.GetGameString(gamestringId)}");
                         Interlocked.Increment(ref failedCount);
                     }
 
                     // always add
-                    GameData.AddGameString(gamestringId, parsedGamestring);
+                    _gameData.AddGameString(gamestringId, parsedGamestring);
 
                     Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {totalGameStrings} total gamestrings");
                 });
 
                 // map specific data
-                foreach (string mapName in GameData.MapIds)
+                foreach (string mapName in _gameData.MapIds)
                 {
-                    GameData mapGameData = GameData.GetMapGameData(mapName);
-                    GameData.AppendGameData(mapGameData);
+                    GameData mapGameData = _gameData.GetMapGameData(mapName);
+                    _gameData.AppendGameData(mapGameData);
 
                     Parallel.ForEach(mapGameData.GameStringIds, new ParallelOptions { MaxDegreeOfParallelism = MaxParallelism }, gamestringId =>
                     {
                         if (!gameStringParser.TryParseRawTooltip(gamestringId, mapGameData.GetGameString(gamestringId), out string parsedGamestring))
                         {
-                            failedGameStrings.Add($"[{mapName}]:{gamestringId}={GameData.GetGameString(gamestringId)}");
+                            failedGameStrings.Add($"[{mapName}]:{gamestringId}={_gameData.GetGameString(gamestringId)}");
                             Interlocked.Increment(ref failedCount);
                         }
 
                         // always add
-                        GameData.AddMapGameString(mapName, gamestringId, parsedGamestring);
+                        _gameData.AddMapGameString(mapName, gamestringId, parsedGamestring);
 
                         Console.Write($"\r{Interlocked.Increment(ref currentCount),6} / {totalGameStrings} total gamestrings");
                     });
 
-                    GameData.RestoreGameData();
+                    _gameData.RestoreGameData();
                 }
             }
             catch (AggregateException ae)
             {
-                WriteExceptionLog($"gamestrings_{localization.ToString().ToLower()}", ae);
+                WriteExceptionLog($"gamestrings_{localization.ToString().ToLowerInvariant()}", ae);
 
                 ae.Handle(ex =>
                 {
@@ -448,16 +571,16 @@ namespace HeroesData
 
         private void LoadConfiguration()
         {
-            Configuration = new Configuration(AssemblyPath);
-            if (!Configuration.ConfigFileExists())
+            _configuration = new Configuration(AssemblyPath);
+            if (!_configuration.ConfigFileExists())
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"{Configuration.ConfigFileName} not found. Unable to continue.");
+                Console.WriteLine($"{_configuration.ConfigFileName} not found. Unable to continue.");
                 Console.ResetColor();
                 Environment.Exit(1);
             }
 
-            Configuration.Load();
+            _configuration.Load();
         }
 
         /// <summary>
@@ -509,93 +632,23 @@ namespace HeroesData
             }
         }
 
-        /// <summary>
-        /// Attempts to get the build number from the mods folder.
-        /// </summary>
-        private void GetModsDirectoryBuild()
-        {
-            ReadOnlySpan<char> storagePath = StoragePath.AsSpan();
-            ReadOnlySpan<char> lastDirectory = storagePath.Slice(storagePath.LastIndexOf(Path.DirectorySeparatorChar) + 1);
-            int indexOfBuild = lastDirectory.LastIndexOf('_');
-
-            if (indexOfBuild > -1 && int.TryParse(lastDirectory.Slice(indexOfBuild + 1), out int value))
-            {
-                HotsBuild = value;
-
-                Console.WriteLine($"Hots build: {HotsBuild}");
-            }
-            else
-            {
-                Console.WriteLine($"Defaulting to latest build");
-            }
-        }
-
-        /// <summary>
-        /// Checks for multiple mods folders with a number suffix, selects the highest one and sets the storage path.
-        /// </summary>
-        /// <returns></returns>
-        private bool IsMultiModsDirectory()
-        {
-            ReadOnlySpan<string> directories = Directory.GetDirectories(StoragePath, "mods_*", SearchOption.TopDirectoryOnly).AsSpan();
-
-            if (directories.Length < 1)
-                return false;
-
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Found 'mods_*' directory(s)");
-
-            int max = 0;
-            ReadOnlySpan<char> selectedDirectory = null;
-
-            foreach (ReadOnlySpan<char> directory in directories)
-            {
-                ReadOnlySpan<char> lastDirectory = directory.Slice(directory.LastIndexOf(Path.DirectorySeparatorChar) + 1);
-                int indexOfBuild = lastDirectory.LastIndexOf('_');
-
-                if (indexOfBuild > -1 && int.TryParse(lastDirectory.Slice(indexOfBuild + 1), out int value) && value >= max)
-                {
-                    max = value;
-                    selectedDirectory = lastDirectory;
-                }
-            }
-
-            if (!selectedDirectory.IsEmpty)
-            {
-                StoragePath = Path.Combine(StoragePath, selectedDirectory.ToString());
-                HotsBuild = max;
-
-                Console.WriteLine($"Using {StoragePath}");
-                Console.WriteLine($"Hots build: {max}");
-                Console.WriteLine();
-                Console.ResetColor();
-
-                return true;
-            }
-
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("mods_* directories are not valid");
-            Console.WriteLine();
-            Console.ResetColor();
-            return false;
-        }
-
         private void LoadGameStrings(Localization localization)
         {
-            if (GameData == null)
-                throw new NullReferenceException($"{nameof(GameData)} is null");
+            if (_gameData == null)
+                throw new NullReferenceException($"{nameof(_gameData)} is null");
 
             Stopwatch time = new Stopwatch();
 
-            GameData.GameStringLocalization = localization.GetFriendlyName();
+            _gameData.GameStringLocalization = localization.GetFriendlyName();
 
             time.Start();
 
             try
             {
-                GameData.LoadGamestringFiles();
+                _gameData.LoadGamestringFiles();
 
                 Console.WriteLine("Loading text files...");
-                Console.WriteLine($"{GameData.TextFileCount,6} text files loaded");
+                Console.WriteLine($"{_gameData.TextFileCount,6} text files loaded");
 
                 time.Stop();
 
@@ -605,7 +658,7 @@ namespace HeroesData
             }
             catch (Exception ex) when (ex is DirectoryNotFoundException || ex is FileNotFoundException)
             {
-                WriteExceptionLog($"gamestrings_loader_{localization.ToString().ToLower()}", ex);
+                WriteExceptionLog($"gamestrings_loader_{localization.ToString().ToLowerInvariant()}", ex);
 
                 if (StorageMode == StorageMode.CASC)
                     ConsoleExceptionMessage($"Gamestrings could not be loaded. Check if localization is installed in the game client.");
@@ -614,62 +667,9 @@ namespace HeroesData
             }
         }
 
-        private void WriteInvalidGameStrings(List<string> invalidGameStrings, Localization localization)
-        {
-            using StreamWriter writer = new StreamWriter(Path.Combine(AssemblyPath, $"InvalidGamestrings_{localization.ToString().ToLower()}.txt"), false);
-
-            foreach (string gamestring in invalidGameStrings)
-            {
-                writer.WriteLine(gamestring);
-            }
-        }
-
-        private void SetupValidationIgnoreFile()
-        {
-            if (File.Exists(VerifyIgnoreFilePath))
-            {
-                using StreamReader reader = new StreamReader(VerifyIgnoreFilePath);
-
-                string? line = null;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    line = line.Trim();
-
-                    if (!string.IsNullOrEmpty(line) && !line.StartsWith("#"))
-                    {
-                        ValidationIgnoreLines.Add(line);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Writes a message to the console. Will change the text to read and then shutdown the application with exit code 1.
-        /// </summary>
-        /// <param name="message">The message to outptut.</param>
-        private void ConsoleExceptionMessage(string message)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(message);
-            Console.ResetColor();
-            Environment.Exit(1);
-        }
-
-        /// <summary>
-        /// Writes a message to the console. Will change the text to read and then shutdown the application with exit code 1.
-        /// </summary>
-        /// <param name="message">The message to outptut.</param>
-        private void ConsoleExceptionMessage(Exception ex)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(ex);
-            Console.ResetColor();
-            Environment.Exit(1);
-        }
-
         private void DataProcessor(Action<DataProcessor> action)
         {
-            foreach (DataProcessor processor in DataProcessors)
+            foreach (DataProcessor processor in _dataProcessors)
             {
                 if (processor.IsEnabled)
                 {
@@ -752,17 +752,17 @@ namespace HeroesData
 
         private void SetUpDataProcessors()
         {
-            if (Configuration == null || GameData == null || DefaultData == null)
-                throw new NullReferenceException($"{nameof(Configuration)}, {nameof(GameData)}, and {nameof(DefaultData)} must be initialized before calling this method.");
+            if (_configuration == null || _gameData == null || _defaultData == null)
+                throw new NullReferenceException($"{nameof(_configuration)}, {nameof(_gameData)}, and {nameof(_defaultData)} must be initialized before calling this method.");
 
-            if (XmlDataOverriders == null)
-                throw new NullReferenceException($"{nameof(XmlDataOverriders)} cannot be null");
+            if (_xmlDataOverriders == null)
+                throw new NullReferenceException($"{nameof(_xmlDataOverriders)} cannot be null");
 
-            IXmlDataService xmlDataService = new XmlDataService(Configuration, GameData, DefaultData);
+            IXmlDataService xmlDataService = new XmlDataService(_configuration, _gameData, _defaultData);
 
-            DataHero dataHero = new DataHero(new HeroDataParser(xmlDataService.GetInstance(), (HeroOverrideLoader)XmlDataOverriders.GetOverrider(typeof(HeroDataParser))!));
-            DataUnit dataUnit = new DataUnit(new UnitParser(xmlDataService.GetInstance(), (UnitOverrideLoader)XmlDataOverriders.GetOverrider(typeof(UnitParser))!));
-            DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(xmlDataService.GetInstance(), (MatchAwardOverrideLoader)XmlDataOverriders.GetOverrider(typeof(MatchAwardParser))!));
+            DataHero dataHero = new DataHero(new HeroDataParser(xmlDataService.GetInstance(), (HeroOverrideLoader)_xmlDataOverriders.GetOverrider(typeof(HeroDataParser))!));
+            DataUnit dataUnit = new DataUnit(new UnitParser(xmlDataService.GetInstance(), (UnitOverrideLoader)_xmlDataOverriders.GetOverrider(typeof(UnitParser))!));
+            DataMatchAward dataMatchAward = new DataMatchAward(new MatchAwardParser(xmlDataService.GetInstance(), (MatchAwardOverrideLoader)_xmlDataOverriders.GetOverrider(typeof(MatchAwardParser))!));
             DataHeroSkin dataHeroSkin = new DataHeroSkin(new HeroSkinParser(xmlDataService.GetInstance()));
             DataMount dataMount = new DataMount(new MountParser(xmlDataService.GetInstance()));
             DataBanner dataBanner = new DataBanner(new BannerParser(xmlDataService.GetInstance()));
@@ -782,112 +782,112 @@ namespace HeroesData
             ImageSpray filesSpray = new ImageSpray(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageEmoticon filesEmoticon = new ImageEmoticon(CASCHotsStorage?.CASCHandler, StoragePath);
 
-            DataProcessors.Add(new DataProcessor()
+            _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.HeroData),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.HeroData),
                 Name = dataHero.Name,
                 Parse = (localization) => dataHero.Parse(localization),
                 Validate = (localization) => dataHero.Validate(localization),
                 Extract = (data) => filesHero.ExtractFiles(data),
             });
 
-            DataProcessors.Add(new DataProcessor()
+            _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Unit),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.Unit),
                 Name = dataUnit.Name,
                 Parse = (localization) => dataUnit.Parse(localization),
                 Validate = (localization) => dataUnit.Validate(localization),
                 Extract = (data) => filesUnit.ExtractFiles(data),
             });
 
-            DataProcessors.Add(new DataProcessor()
+            _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.MatchAward),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.MatchAward),
                 Name = dataMatchAward.Name,
                 Parse = (localization) => dataMatchAward.Parse(localization),
                 Validate = (localization) => dataMatchAward.Validate(localization),
                 Extract = (data) => filesMatchAward.ExtractFiles(data),
             });
 
-            DataProcessors.Add(new DataProcessor()
+            _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.HeroSkin),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.HeroSkin),
                 Name = dataHeroSkin.Name,
                 Parse = (localization) => dataHeroSkin.Parse(localization),
                 Validate = (localization) => dataHeroSkin.Validate(localization),
             });
 
-            DataProcessors.Add(new DataProcessor()
+            _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Mount),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.Mount),
                 Name = dataMount.Name,
                 Parse = (localization) => dataMount.Parse(localization),
                 Validate = (localization) => dataMount.Validate(localization),
             });
 
-            DataProcessors.Add(new DataProcessor()
+            _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Banner),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.Banner),
                 Name = dataBanner.Name,
                 Parse = (localization) => dataBanner.Parse(localization),
                 Validate = (localization) => dataBanner.Validate(localization),
             });
 
-            DataProcessors.Add(new DataProcessor()
+            _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Spray),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.Spray),
                 Name = dataSpray.Name,
                 Parse = (localization) => dataSpray.Parse(localization),
                 Validate = (localization) => dataSpray.Validate(localization),
                 Extract = (data) => filesSpray.ExtractFiles(data),
             });
 
-            DataProcessors.Add(new DataProcessor()
+            _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Announcer),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.Announcer),
                 Name = dataAnnouncer.Name,
                 Parse = (localization) => dataAnnouncer.Parse(localization),
                 Validate = (localization) => dataAnnouncer.Validate(localization),
                 Extract = (data) => filesAnnouncer.ExtractFiles(data),
             });
 
-            DataProcessors.Add(new DataProcessor()
+            _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.VoiceLine),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.VoiceLine),
                 Name = dataVoiceLine.Name,
                 Parse = (localization) => dataVoiceLine.Parse(localization),
                 Validate = (localization) => dataVoiceLine.Validate(localization),
                 Extract = (data) => filesVoiceLine.ExtractFiles(data),
             });
 
-            DataProcessors.Add(new DataProcessor()
+            _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Portrait),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.Portrait),
                 Name = dataPortrait.Name,
                 Parse = (localization) => dataPortrait.Parse(localization),
                 Validate = (localization) => dataPortrait.Validate(localization),
             });
 
-            DataProcessors.Add(new DataProcessor()
+            _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Emoticon),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.Emoticon),
                 Name = dataEmoticon.Name,
                 Parse = (localization) => dataEmoticon.Parse(localization),
                 Validate = (localization) => dataEmoticon.Validate(localization),
                 Extract = (data) => filesEmoticon.ExtractFiles(data),
             });
 
-            DataProcessors.Add(new DataProcessor()
+            _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.EmoticonPack),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.EmoticonPack),
                 Name = dataEmoticonPack.Name,
                 Parse = (localization) => dataEmoticonPack.Parse(localization),
                 Validate = (localization) => dataEmoticonPack.Validate(localization),
             });
 
-            DataProcessors.Add(new DataProcessor()
+            _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOption.Veterancy),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.Veterancy),
                 Name = dataBehaviorVeterancy.Name,
                 Parse = (localization) => dataBehaviorVeterancy.Parse(localization),
                 Validate = (localization) => dataBehaviorVeterancy.Validate(localization),

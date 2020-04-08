@@ -12,92 +12,89 @@ namespace HeroesData.Tests.CommandTests
         [TestMethod]
         public void BasicNoOptionsTest()
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "list" });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "list" });
 
-                // should not exist
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".dds")).Count() == 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".png")).Count() == 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".gif")).Count() == 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".pdb")).Count() == 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".dll")).Count() == 0);
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
-                // may exist
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".txt")).Count() >= 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".xml")).Count() >= 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".json")).Count() >= 0);
+            // should not exist
+            Assert.IsTrue(!lines.Where(x => x.EndsWith(".dds", StringComparison.OrdinalIgnoreCase)).Any());
+            Assert.IsTrue(!lines.Where(x => x.EndsWith(".png", StringComparison.OrdinalIgnoreCase)).Any());
+            Assert.IsTrue(!lines.Where(x => x.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)).Any());
+            Assert.IsTrue(!lines.Where(x => x.EndsWith(".pdb", StringComparison.OrdinalIgnoreCase)).Any());
+            Assert.IsTrue(!lines.Where(x => x.EndsWith(".dll", StringComparison.OrdinalIgnoreCase)).Any());
 
-                lines.ForEach((x) => Assert.IsFalse(Directory.Exists(x)));
-            }
+            // may exist
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)).Count() >= 0);
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)).Count() >= 0);
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".json", StringComparison.OrdinalIgnoreCase)).Count() >= 0);
+
+            lines.ForEach((x) => Assert.IsFalse(Directory.Exists(x)));
         }
 
         [TestMethod]
         public void ShowAllFilesTest()
         {
-            using (StringWriter writer = new StringWriter())
-            {
-                Console.SetOut(writer);
-                Console.SetError(writer);
+            using StringWriter writer = new StringWriter();
 
-                Program.Main(new string[] { "list", "-f" });
+            Console.SetOut(writer);
+            Console.SetError(writer);
 
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+            Program.Main(new string[] { "list", "-f" });
 
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".dds")).Count() > 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".dll")).Count() > 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".png")).Count() >= 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".gif")).Count() >= 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".pdb")).Count() >= 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".txt")).Count() >= 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".xml")).Count() >= 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".json")).Count() >= 0);
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
-                lines.ForEach((x) => Assert.IsFalse(Directory.Exists(x)));
-            }
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".dds", StringComparison.OrdinalIgnoreCase)).Any());
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".dll", StringComparison.OrdinalIgnoreCase)).Any());
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".png", StringComparison.OrdinalIgnoreCase)).Count() >= 0);
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)).Count() >= 0);
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".pdb", StringComparison.OrdinalIgnoreCase)).Count() >= 0);
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)).Count() >= 0);
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)).Count() >= 0);
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".json", StringComparison.OrdinalIgnoreCase)).Count() >= 0);
+
+            lines.ForEach((x) => Assert.IsFalse(Directory.Exists(x)));
         }
 
         [TestMethod]
         public void ShowAllDirectoriesTest()
         {
-            using (StringWriter writer = new StringWriter())
+            using StringWriter writer = new StringWriter();
+
+            Console.SetOut(writer);
+            Console.SetError(writer);
+
+            Program.Main(new string[] { "list", "-d" });
+
+            List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
+
+            // should not exist
+            Assert.IsTrue(!lines.Where(x => x.EndsWith(".dds", StringComparison.OrdinalIgnoreCase)).Any());
+            Assert.IsTrue(!lines.Where(x => x.EndsWith(".png", StringComparison.OrdinalIgnoreCase)).Any());
+            Assert.IsTrue(!lines.Where(x => x.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)).Any());
+            Assert.IsTrue(!lines.Where(x => x.EndsWith(".pdb", StringComparison.OrdinalIgnoreCase)).Any());
+            Assert.IsTrue(!lines.Where(x => x.EndsWith(".dll", StringComparison.OrdinalIgnoreCase)).Any());
+
+            // may exist
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)).Count() >= 0);
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)).Count() >= 0);
+            Assert.IsTrue(lines.Where(x => x.EndsWith(".json", StringComparison.OrdinalIgnoreCase)).Count() >= 0);
+
+            lines.ForEach((line) =>
             {
-                Console.SetOut(writer);
-                Console.SetError(writer);
-
-                Program.Main(new string[] { "list", "-d" });
-
-                List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
-
-                // should not exist
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".dds")).Count() == 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".png")).Count() == 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".gif")).Count() == 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".pdb")).Count() == 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".dll")).Count() == 0);
-
-                // may exist
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".txt")).Count() >= 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".xml")).Count() >= 0);
-                Assert.IsTrue(lines.Where(x => x.EndsWith(".json")).Count() >= 0);
-
-                lines.ForEach((line) =>
+                if (!string.IsNullOrEmpty(line))
                 {
-                    if (!string.IsNullOrEmpty(line))
-                    {
-                        string extension = Path.GetExtension(line);
-                        if (string.IsNullOrEmpty(extension))
-                            Assert.IsTrue(Directory.Exists(line));
-                        else
-                            Assert.IsFalse(Directory.Exists(line));
-                    }
-                });
-            }
+                    string extension = Path.GetExtension(line);
+                    if (string.IsNullOrEmpty(extension))
+                        Assert.IsTrue(Directory.Exists(line));
+                    else
+                        Assert.IsFalse(Directory.Exists(line));
+                }
+            });
         }
     }
 }

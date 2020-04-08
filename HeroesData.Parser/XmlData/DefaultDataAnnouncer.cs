@@ -8,11 +8,11 @@ namespace HeroesData.Parser.XmlData
 {
     public class DefaultDataAnnouncer
     {
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public DefaultDataAnnouncer(GameData gameData)
         {
-            GameData = gameData;
+            _gameData = gameData;
 
             LoadCAnnouncerPackDefault();
         }
@@ -40,14 +40,14 @@ namespace HeroesData.Parser.XmlData
         // <CAnnouncerPack default="1">
         private void LoadCAnnouncerPackDefault()
         {
-            CAnnouncerPackElement(GameData.Elements("CAnnouncerPack").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CAnnouncerPackElement(_gameData.Elements("CAnnouncerPack").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         private void CAnnouncerPackElement(IEnumerable<XElement> cAnnouncerPackElements)
         {
             foreach (XElement element in cAnnouncerPackElements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "NAME")
                 {

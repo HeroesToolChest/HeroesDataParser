@@ -6,7 +6,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.TalentOverrideTests
     [TestClass]
     public class AbathurTalentTests : OverrideBaseTests, ITalentOverride
     {
-        private readonly string Hero = "Abathur";
+        private readonly string _hero = "Abathur";
 
         public AbathurTalentTests()
             : base()
@@ -16,7 +16,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.TalentOverrideTests
 
         public string TalentName => "UpgradeSpikeAbilityThingy";
 
-        protected override string CHeroId => Hero;
+        protected override string CHeroId => _hero;
 
         [TestMethod]
         public void AbilityTypeOverrideTest()

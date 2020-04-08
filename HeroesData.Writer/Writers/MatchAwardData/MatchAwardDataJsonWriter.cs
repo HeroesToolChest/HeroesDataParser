@@ -23,8 +23,8 @@ namespace HeroesData.FileWriter.Writers.MatchAwardData
 
             matchAwardObject.Add("gameLink", matchAward.HyperlinkId);
             matchAwardObject.Add("tag", matchAward.Tag);
-            matchAwardObject.Add("mvpScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName?.ToLower(), StaticImageExtension));
-            matchAwardObject.Add("scoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName?.ToLower(), StaticImageExtension));
+            matchAwardObject.Add("mvpScreenIcon", Path.ChangeExtension(matchAward.MVPScreenImageFileName?.ToLowerInvariant(), StaticImageExtension));
+            matchAwardObject.Add("scoreScreenIcon", Path.ChangeExtension(matchAward.ScoreScreenImageFileName?.ToLowerInvariant(), StaticImageExtension));
 
             if (!FileOutputOptions.IsLocalizedText && matchAward.Description != null)
                 matchAwardObject.Add("description", GetTooltip(matchAward.Description, FileOutputOptions.DescriptionType));

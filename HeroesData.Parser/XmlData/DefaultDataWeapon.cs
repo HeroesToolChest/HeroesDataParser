@@ -7,11 +7,11 @@ namespace HeroesData.Parser.XmlData
 {
     public class DefaultDataWeapon
     {
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public DefaultDataWeapon(GameData gameData)
         {
-            GameData = gameData;
+            _gameData = gameData;
 
             LoadCWeaponDefault();
         }
@@ -39,14 +39,14 @@ namespace HeroesData.Parser.XmlData
         // <CWeapon default="1">
         private void LoadCWeaponDefault()
         {
-            CWeaponElement(GameData.Elements("CWeapon").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CWeaponElement(_gameData.Elements("CWeapon").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         private void CWeaponElement(IEnumerable<XElement> cWeaponElements)
         {
             foreach (XElement element in cWeaponElements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "NAME")
                 {

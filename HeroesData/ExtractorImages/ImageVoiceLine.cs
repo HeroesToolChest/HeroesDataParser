@@ -8,9 +8,9 @@ namespace HeroesData.ExtractorImage
 {
     public class ImageVoiceLine : ImageExtractorBase<VoiceLine>, IImage
     {
-        private readonly HashSet<string> VoiceLines = new HashSet<string>();
+        private readonly HashSet<string> _voiceLines = new HashSet<string>();
 
-        private readonly string VoiceDirectory = "voicelines";
+        private readonly string _voiceDirectory = "voicelines";
 
         public ImageVoiceLine(CASCHandler? cascHandler, string modsFolderPath)
             : base(cascHandler, modsFolderPath)
@@ -19,32 +19,35 @@ namespace HeroesData.ExtractorImage
 
         protected override void ExtractFiles()
         {
-            if (App.ExtractFileOption.HasFlag(ExtractImageOption.VoiceLine))
+            if (App.ExtractFileOption.HasFlag(ExtractImageOptions.VoiceLine))
                 ExtractVoiceLineImages();
         }
 
         protected override void LoadFileData(VoiceLine voiceLine)
         {
+            if (voiceLine is null)
+                throw new ArgumentNullException(nameof(voiceLine));
+
             if (!string.IsNullOrEmpty(voiceLine.ImageFileName))
-                VoiceLines.Add(voiceLine.ImageFileName);
+                _voiceLines.Add(voiceLine.ImageFileName);
         }
 
         private void ExtractVoiceLineImages()
         {
-            if (VoiceLines == null || VoiceLines.Count < 1)
+            if (_voiceLines == null || _voiceLines.Count < 1)
                 return;
 
             int count = 0;
-            Console.Write($"Extracting voiceline image files...{count}/{VoiceLines.Count}");
+            Console.Write($"Extracting voiceline image files...{count}/{_voiceLines.Count}");
 
-            string extractFilePath = Path.Combine(ExtractDirectory, VoiceDirectory);
+            string extractFilePath = Path.Combine(ExtractDirectory, _voiceDirectory);
 
-            foreach (string voiceline in VoiceLines)
+            foreach (string voiceline in _voiceLines)
             {
                 if (ExtractStaticImageFile(Path.Combine(extractFilePath, voiceline)))
                     count++;
 
-                Console.Write($"\rExtracting voiceline image files...{count}/{VoiceLines.Count}");
+                Console.Write($"\rExtracting voiceline image files...{count}/{_voiceLines.Count}");
             }
 
             Console.WriteLine(" Done.");

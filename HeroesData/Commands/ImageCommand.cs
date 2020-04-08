@@ -9,14 +9,14 @@ namespace HeroesData.Commands
 {
     internal class ImageCommand : CommandBase, ICommand
     {
-        private const int DefaultWidth = -1;
-        private const int DefaultHeight = -1;
+        private const int _defaultWidth = -1;
+        private const int _defaultHeight = -1;
 
-        private int Width = DefaultWidth;
-        private int Height = DefaultHeight;
+        private int _width = _defaultWidth;
+        private int _height = _defaultHeight;
 
-        private string OutputDirectory = string.Empty;
-        private bool Compress = false;
+        private string _outputDirectory = string.Empty;
+        private bool _compress = false;
 
         public ImageCommand(CommandLineApplication app)
             : base(app)
@@ -53,7 +53,7 @@ namespace HeroesData.Commands
                         return 0;
                     }
 
-                    if (dimensionWidthOption.HasValue() && (!int.TryParse(dimensionWidthOption.Value(), out Width) || Width <= 0))
+                    if (dimensionWidthOption.HasValue() && (!int.TryParse(dimensionWidthOption.Value(), out _width) || _width <= 0))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid width. Must be an integer greater than 0.");
@@ -62,7 +62,7 @@ namespace HeroesData.Commands
                         return 0;
                     }
 
-                    if (dimensionHeightOption.HasValue() && (!int.TryParse(dimensionHeightOption.Value(), out Height) || Height <= 0))
+                    if (dimensionHeightOption.HasValue() && (!int.TryParse(dimensionHeightOption.Value(), out _height) || _height <= 0))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid height. Must be an integer greater than 0.");
@@ -72,9 +72,9 @@ namespace HeroesData.Commands
                     }
 
                     if (outputOption.HasValue())
-                        OutputDirectory = outputOption.Value();
+                        _outputDirectory = outputOption.Value();
 
-                    Compress = pngCompressOption.HasValue();
+                    _compress = pngCompressOption.HasValue();
 
                     if (Directory.Exists(filePathArgument.Value))
                     {
@@ -118,21 +118,21 @@ namespace HeroesData.Commands
                 {
                     using Image image = Image.Load(filePath);
 
-                    if (Width == DefaultWidth)
-                        Width = image.Width;
+                    if (_width == _defaultWidth)
+                        _width = image.Width;
 
-                    if (Height == DefaultHeight)
-                        Height = image.Height;
+                    if (_height == _defaultHeight)
+                        _height = image.Height;
 
-                    image.Mutate(x => x.Resize(Width, Height));
+                    image.Mutate(x => x.Resize(_width, _height));
 
-                    if (!string.IsNullOrEmpty(OutputDirectory))
+                    if (!string.IsNullOrEmpty(_outputDirectory))
                     {
-                        Directory.CreateDirectory(OutputDirectory);
-                        newFilePath = Path.Combine(OutputDirectory, Path.GetFileName(filePath));
+                        Directory.CreateDirectory(_outputDirectory);
+                        newFilePath = Path.Combine(_outputDirectory, Path.GetFileName(filePath));
                     }
 
-                    if (fileType == ".png" && Compress)
+                    if (fileType == ".png" && _compress)
                     {
                         image.Save(newFilePath, new PngEncoder()
                         {

@@ -11,14 +11,14 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void PropertiesTests()
         {
-            Assert.AreEqual(5, AlteracpassAllianceCavalry.Attributes.Count());
+            Assert.AreEqual(5, AlteracpassAllianceCavalry.Attributes.Count);
             Assert.IsTrue(AlteracpassAllianceCavalry.Attributes.Contains("Minion"));
             Assert.IsTrue(AlteracpassAllianceCavalry.Attributes.Contains("Merc"));
             Assert.IsTrue(AlteracpassAllianceCavalry.Attributes.Contains("ImmuneToFriendlyAbilities"));
             Assert.AreEqual("AllianceCavalry", AlteracpassAllianceCavalry.CUnitId);
             Assert.AreEqual("Monster", AlteracpassAllianceCavalry.DamageType);
             Assert.IsNull(AlteracpassAllianceCavalry.Description?.RawDescription);
-            Assert.AreEqual(0, AlteracpassAllianceCavalry.HeroDescriptors.Count());
+            Assert.AreEqual(0, AlteracpassAllianceCavalry.HeroDescriptors.Count);
             Assert.AreEqual("AllianceCavalry", AlteracpassAllianceCavalry.HyperlinkId);
             Assert.AreEqual("alteracpass-AllianceCavalry", AlteracpassAllianceCavalry.Id);
             Assert.AreEqual(0, AlteracpassAllianceCavalry.InnerRadius);

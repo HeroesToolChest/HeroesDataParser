@@ -8,7 +8,7 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
     {
         protected override void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<HeroPortrait>> propertyOverrides)
         {
-            if (propertyName.StartsWith("PartyFrameFileNameArray"))
+            if (propertyName.StartsWith("PartyFrameFileNameArray", StringComparison.OrdinalIgnoreCase))
             {
                 propertyOverrides.Add(propertyName, (portrait) =>
                 {

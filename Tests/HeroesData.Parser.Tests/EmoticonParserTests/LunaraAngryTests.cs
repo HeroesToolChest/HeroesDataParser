@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
 
 namespace HeroesData.Parser.Tests.EmoticonParserTests
 {
@@ -16,8 +15,8 @@ namespace HeroesData.Parser.Tests.EmoticonParserTests
             Assert.AreEqual("storm_emoji_lunara_sheet.dds", LunaraAngry.TextureSheet.Image);
             Assert.AreEqual(3, LunaraAngry.TextureSheet.Rows);
             Assert.AreEqual(4, LunaraAngry.TextureSheet.Columns);
-            Assert.AreEqual(2, LunaraAngry.UniversalAliases.Count());
-            Assert.AreEqual(0, LunaraAngry.LocalizedAliases.Count());
+            Assert.AreEqual(2, LunaraAngry.UniversalAliases.Count);
+            Assert.AreEqual(0, LunaraAngry.LocalizedAliases.Count);
             Assert.AreEqual(0, LunaraAngry.Image.Index);
             Assert.AreEqual(38, LunaraAngry.Image.Width);
         }

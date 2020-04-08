@@ -29,7 +29,7 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(announcer.HyperlinkId))
                 AddWarning($"{nameof(announcer.HyperlinkId)} is empty");
 
-            if (!string.IsNullOrEmpty(announcer.HyperlinkId) && announcer.HyperlinkId.Contains("##heroid##"))
+            if (!string.IsNullOrEmpty(announcer.HyperlinkId) && announcer.HyperlinkId.Contains("##heroid##", StringComparison.OrdinalIgnoreCase))
                 AddWarning($"{nameof(announcer.HyperlinkId)} ##heroid## not found");
 
             if (string.IsNullOrEmpty(announcer.AttributeId))
@@ -50,13 +50,13 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(announcer.HeroId))
                 AddWarning($"{nameof(announcer.HeroId)} is empty");
 
-            if (!string.IsNullOrEmpty(announcer.HeroId) && announcer.HeroId.Contains("##heroid##"))
+            if (!string.IsNullOrEmpty(announcer.HeroId) && announcer.HeroId.Contains("##heroid##", StringComparison.OrdinalIgnoreCase))
                 AddWarning($"{nameof(announcer.HeroId)} ##heroid## not found");
 
             if (string.IsNullOrEmpty(announcer.ImageFileName))
                 AddWarning($"{nameof(announcer.ImageFileName)} is empty");
 
-            if (!string.IsNullOrEmpty(announcer.ImageFileName) && announcer.ImageFileName.Contains("##heroid##"))
+            if (!string.IsNullOrEmpty(announcer.ImageFileName) && announcer.ImageFileName.Contains("##heroid##", StringComparison.OrdinalIgnoreCase))
                 AddWarning($"{nameof(announcer.ImageFileName)} ##heroid## not found");
         }
     }

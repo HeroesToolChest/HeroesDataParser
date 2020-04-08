@@ -24,6 +24,9 @@ namespace HeroesData.Parser.Overrides
 
         protected override void SetOverride(XElement element)
         {
+            if (element is null)
+                throw new ArgumentNullException(nameof(element));
+
             HeroDataOverride heroDataOverride = new HeroDataOverride();
 
             AbilityPropertyOverride abilityOverride = new AbilityPropertyOverride();

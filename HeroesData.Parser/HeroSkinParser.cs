@@ -24,7 +24,7 @@ namespace HeroesData.Parser
 
         public HeroSkin? Parse(params string[] ids)
         {
-            if (ids == null || ids.Count() < 1)
+            if (ids == null || ids.Length < 1)
                 return null;
 
             string id = ids.FirstOrDefault();
@@ -52,6 +52,9 @@ namespace HeroesData.Parser
 
         protected override bool ValidItem(XElement element)
         {
+            if (element is null)
+                throw new ArgumentNullException(nameof(element));
+
             return element.Element("AttributeId") != null;
         }
 
@@ -67,14 +70,14 @@ namespace HeroesData.Parser
             }
             else
             {
-                string? desc = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinInfoText?.Replace(DefaultData.IdPlaceHolder, skinElement.Attribute("id")?.Value));
+                string? desc = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinInfoText?.Replace(DefaultData.IdPlaceHolder, skinElement.Attribute("id")?.Value, StringComparison.OrdinalIgnoreCase));
                 if (!string.IsNullOrEmpty(desc))
                     heroSkin.Description = new TooltipDescription(desc);
             }
 
             foreach (XElement element in skinElement.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "INFOTEXT")
                 {
@@ -136,14 +139,14 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(HeroSkin heroSkin)
         {
-            heroSkin.Name = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinName?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));
-            heroSkin.SortName = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinSortName?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));
-            heroSkin.Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinInfoText?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id)));
-            heroSkin.HyperlinkId = DefaultData.HeroSkinData?.HeroSkinHyperlinkId?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id) ?? string.Empty;
+            heroSkin.Name = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinName?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase));
+            heroSkin.SortName = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinSortName?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase));
+            heroSkin.Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinInfoText?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase)));
+            heroSkin.HyperlinkId = DefaultData.HeroSkinData?.HeroSkinHyperlinkId?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
             heroSkin.ReleaseDate = DefaultData.HeroData?.HeroReleaseDate;
             heroSkin.Rarity = Rarity.None;
 
-            heroSkin.SearchText = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinAdditionalSearchText?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id));
+            heroSkin.SearchText = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinAdditionalSearchText?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrEmpty(heroSkin.SearchText))
                 heroSkin.SearchText = heroSkin.SearchText.Trim();
         }

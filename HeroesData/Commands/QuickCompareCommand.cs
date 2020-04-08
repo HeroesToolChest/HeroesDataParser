@@ -63,6 +63,59 @@ namespace HeroesData.Commands
             });
         }
 
+        private static bool FilesAreEqual(FileInfo first, FileInfo second)
+        {
+            int bytesToRead = sizeof(long);
+
+            if (first.Length != second.Length)
+                return false;
+
+            if (string.Equals(first.FullName, second.FullName, StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            int iterations = (int)Math.Ceiling((double)first.Length / bytesToRead);
+
+            using (FileStream fs1 = first.OpenRead())
+            using (FileStream fs2 = second.OpenRead())
+            {
+                byte[] one = new byte[bytesToRead];
+                byte[] two = new byte[bytesToRead];
+
+                for (int i = 0; i < iterations; i++)
+                {
+                    fs1.Read(one, 0, bytesToRead);
+                    fs2.Read(two, 0, bytesToRead);
+
+                    if (BitConverter.ToInt64(one, 0) != BitConverter.ToInt64(two, 0))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static void CompareFiles(string filePath1, string filePath2, int columnLength1, int columnLength2)
+        {
+            if (string.IsNullOrEmpty(filePath1) || !File.Exists(filePath1))
+            {
+            }
+            else if (string.IsNullOrEmpty(filePath2) || !File.Exists(filePath2))
+            {
+            }
+            else if (FilesAreEqual(new FileInfo(filePath1), new FileInfo(filePath2)))
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("{0," + columnLength1 + "} {1," + columnLength2 + "}\tMATCH", Path.GetFileName(filePath2), Path.GetFileName(filePath1));
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("{0," + columnLength1 + "} {1," + columnLength2 + "}\tDIFF", Path.GetFileName(filePath2), Path.GetFileName(filePath1));
+            }
+
+            Console.ResetColor();
+        }
+
         private bool ValidatePath(string path, string argument)
         {
             if (string.IsNullOrEmpty(path))
@@ -128,59 +181,6 @@ namespace HeroesData.Commands
             }
         }
 
-        private void CompareFiles(string filePath1, string filePath2, int columnLength1, int columnLength2)
-        {
-            if (string.IsNullOrEmpty(filePath1) || !File.Exists(filePath1))
-            {
-            }
-            else if (string.IsNullOrEmpty(filePath2) || !File.Exists(filePath2))
-            {
-            }
-            else if (FilesAreEqual(new FileInfo(filePath1), new FileInfo(filePath2)))
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("{0," + columnLength1 + "} {1," + columnLength2 + "}\tMATCH", Path.GetFileName(filePath2), Path.GetFileName(filePath1));
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("{0," + columnLength1 + "} {1," + columnLength2 + "}\tDIFF", Path.GetFileName(filePath2), Path.GetFileName(filePath1));
-            }
-
-            Console.ResetColor();
-        }
-
-        private bool FilesAreEqual(FileInfo first, FileInfo second)
-        {
-            int bytesToRead = sizeof(long);
-
-            if (first.Length != second.Length)
-                return false;
-
-            if (string.Equals(first.FullName, second.FullName, StringComparison.OrdinalIgnoreCase))
-                return true;
-
-            int iterations = (int)Math.Ceiling((double)first.Length / bytesToRead);
-
-            using (FileStream fs1 = first.OpenRead())
-            using (FileStream fs2 = second.OpenRead())
-            {
-                byte[] one = new byte[bytesToRead];
-                byte[] two = new byte[bytesToRead];
-
-                for (int i = 0; i < iterations; i++)
-                {
-                    fs1.Read(one, 0, bytesToRead);
-                    fs2.Read(two, 0, bytesToRead);
-
-                    if (BitConverter.ToInt64(one, 0) != BitConverter.ToInt64(two, 0))
-                        return false;
-                }
-            }
-
-            return true;
-        }
-
         private Dictionary<string, string> ReadDirectoryFiles(string directory)
         {
             Dictionary<string, string> files = new Dictionary<string, string>();
@@ -189,9 +189,9 @@ namespace HeroesData.Commands
             {
                 string fileName = Path.GetFileName(filePath);
 
-                if (fileName.Contains('_') && !fileName.Contains(".min.") && !fileName.StartsWith("gamestrings_") && (Path.GetExtension(fileName) == ".xml" || Path.GetExtension(fileName) == ".json"))
+                if (fileName.Contains('_', StringComparison.OrdinalIgnoreCase) && !fileName.Contains(".min.", StringComparison.OrdinalIgnoreCase) && !fileName.StartsWith("gamestrings_", StringComparison.OrdinalIgnoreCase) && (Path.GetExtension(fileName) == ".xml" || Path.GetExtension(fileName) == ".json"))
                 {
-                    files.TryAdd(fileName.Substring(0, fileName.IndexOf('_')), filePath);
+                    files.TryAdd(fileName.Substring(0, fileName.IndexOf('_', StringComparison.OrdinalIgnoreCase)), filePath);
                 }
             }
 

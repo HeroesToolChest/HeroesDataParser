@@ -9,9 +9,9 @@ namespace HeroesData.ExtractorImages
 {
     public class ImageUnit : ImageExtractorBase<Unit>, IImage
     {
-        private readonly HashSet<string> Units = new HashSet<string>();
+        private readonly HashSet<string> _units = new HashSet<string>();
 
-        private readonly string UnitDirectory = "units";
+        private readonly string _unitDirectory = "units";
 
         public ImageUnit(CASCHandler? cascHandler, string modsFolderPath)
             : base(cascHandler, modsFolderPath)
@@ -20,34 +20,37 @@ namespace HeroesData.ExtractorImages
 
         protected override void ExtractFiles()
         {
-            if (App.ExtractFileOption.HasFlag(ExtractImageOption.Unit))
+            if (App.ExtractFileOption.HasFlag(ExtractImageOptions.Unit))
                 ExtractUnitImages();
         }
 
         protected override void LoadFileData(Unit unit)
         {
+            if (unit is null)
+                throw new ArgumentNullException(nameof(unit));
+
             if (!string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName))
-                Units.Add(unit.UnitPortrait.MiniMapIconFileName);
+                _units.Add(unit.UnitPortrait.MiniMapIconFileName);
             if (!string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName))
-                Units.Add(unit.UnitPortrait.TargetInfoPanelFileName);
+                _units.Add(unit.UnitPortrait.TargetInfoPanelFileName);
         }
 
         private void ExtractUnitImages()
         {
-            if (Units == null || Units.Count < 1)
+            if (_units == null || _units.Count < 1)
                 return;
 
             int count = 0;
-            Console.Write($"Extracting unit image files...{count}/{Units.Count}");
+            Console.Write($"Extracting unit image files...{count}/{_units.Count}");
 
-            string extractFilePath = Path.Combine(ExtractDirectory, UnitDirectory);
+            string extractFilePath = Path.Combine(ExtractDirectory, _unitDirectory);
 
-            foreach (string unit in Units)
+            foreach (string unit in _units)
             {
                 if (ExtractStaticImageFile(Path.Combine(extractFilePath, unit)))
                     count++;
 
-                Console.Write($"\rExtracting unit image files...{count}/{Units.Count}");
+                Console.Write($"\rExtracting unit image files...{count}/{_units.Count}");
             }
 
             Console.WriteLine(" Done.");

@@ -7,10 +7,10 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
     [TestClass]
     public class HeroOverrideLoaderTests : OverrideLoaderBase
     {
-        private readonly string HeroOverrideTestFile = "hero-overrides-test.xml";
-        private readonly string HeroOverrideBuildTestFile11000 = "hero-overrides-test_11000.xml";
-        private readonly string HeroOverrideBuildTestFile12000 = "hero-overrides-test_12000.xml";
-        private readonly string HeroOverrideBuildTestFile12345 = "hero-overrides-test_12345.xml";
+        private readonly string _heroOverrideTestFile = "hero-overrides-test.xml";
+        private readonly string _heroOverrideBuildTestFile11000 = "hero-overrides-test_11000.xml";
+        private readonly string _heroOverrideBuildTestFile12000 = "hero-overrides-test_12000.xml";
+        private readonly string _heroOverrideBuildTestFile12345 = "hero-overrides-test_12345.xml";
 
         [TestMethod]
         public void LoadOverrideFileTest()
@@ -20,7 +20,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
 
             Assert.IsNotNull(overrideLoader);
             Assert.AreEqual(4, overrideLoader.Count); // LittleLoco counts as one
-            Assert.AreEqual(HeroOverrideTestFile, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
+            Assert.AreEqual(_heroOverrideTestFile, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
         }
 
         [TestMethod]
@@ -31,7 +31,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
 
             Assert.IsNotNull(overrideLoader);
             Assert.AreEqual(1, overrideLoader.Count);
-            Assert.AreEqual(HeroOverrideBuildTestFile12345, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
+            Assert.AreEqual(_heroOverrideBuildTestFile12345, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
         }
 
         [TestMethod]
@@ -42,7 +42,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
 
             Assert.IsNotNull(overrideLoader);
             Assert.AreEqual(7, overrideLoader.Count);
-            Assert.AreEqual(HeroOverrideBuildTestFile11000, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
+            Assert.AreEqual(_heroOverrideBuildTestFile11000, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
         }
 
         [TestMethod]
@@ -53,7 +53,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
 
             Assert.IsNotNull(overrideLoader);
             Assert.AreEqual(7, overrideLoader.Count);
-            Assert.AreEqual(HeroOverrideBuildTestFile11000, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
+            Assert.AreEqual(_heroOverrideBuildTestFile11000, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
         }
 
         [TestMethod]
@@ -64,7 +64,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
 
             Assert.IsNotNull(overrideLoader);
             Assert.AreEqual(11, overrideLoader.Count);
-            Assert.AreEqual(HeroOverrideBuildTestFile12000, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
+            Assert.AreEqual(_heroOverrideBuildTestFile12000, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
 
             Assert.IsNotNull(overrideLoader);
             Assert.AreEqual(11, overrideLoader.Count);
-            Assert.AreEqual(HeroOverrideBuildTestFile12000, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
+            Assert.AreEqual(_heroOverrideBuildTestFile12000, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
         }
 
         [TestMethod]
@@ -86,7 +86,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
 
             Assert.IsNotNull(overrideLoader);
             Assert.AreEqual(11, overrideLoader.Count);
-            Assert.AreEqual(HeroOverrideBuildTestFile12000, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
+            Assert.AreEqual(_heroOverrideBuildTestFile12000, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
         }
 
         [TestMethod]
@@ -97,7 +97,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
 
             Assert.IsNotNull(overrideLoader);
             Assert.AreEqual(7, overrideLoader.Count);
-            Assert.AreEqual(HeroOverrideBuildTestFile11000, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
+            Assert.AreEqual(_heroOverrideBuildTestFile11000, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
         }
 
         [TestMethod]
@@ -108,7 +108,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
 
             Assert.IsNotNull(overrideLoader);
             Assert.AreEqual(4, overrideLoader.Count);
-            Assert.AreEqual(HeroOverrideTestFile, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
+            Assert.AreEqual(_heroOverrideTestFile, Path.GetFileName(overrideLoader.LoadedOverrideFileName));
         }
 
         [TestMethod]

@@ -7,16 +7,16 @@ namespace HeroesData.Commands
 {
     internal class ListCommand : CommandBase, ICommand
     {
-        private readonly HashSet<string> ValidFileExtensions = new HashSet<string>();
+        private readonly HashSet<string> _validFileExtensions = new HashSet<string>();
 
-        private string DirectoryPath = string.Empty;
+        private string _directoryPath = string.Empty;
 
         public ListCommand(CommandLineApplication app)
             : base(app)
         {
-            ValidFileExtensions.Add(".txt");
-            ValidFileExtensions.Add(".xml");
-            ValidFileExtensions.Add(".json");
+            _validFileExtensions.Add(".txt");
+            _validFileExtensions.Add(".xml");
+            _validFileExtensions.Add(".json");
         }
 
         public static ListCommand Add(CommandLineApplication app)
@@ -38,7 +38,7 @@ namespace HeroesData.Commands
                 config.OnExecute(() =>
                 {
                     if (directoryOption.HasValue())
-                        DirectoryPath = directoryOption.Value();
+                        _directoryPath = directoryOption.Value();
 
                     ListValidFiles(allOption.HasValue(), allDirectories.HasValue());
 
@@ -47,12 +47,17 @@ namespace HeroesData.Commands
             });
         }
 
+        private static void Display(string filePath, string lookUpPath)
+        {
+            Console.WriteLine(filePath.AsSpan().TrimEnd(Path.DirectorySeparatorChar).Slice(lookUpPath.Length).TrimStart(Path.DirectorySeparatorChar).ToString());
+        }
+
         private void ListValidFiles(bool allFiles, bool allDirectories)
         {
             string lookUpPath = AppPath;
 
-            if (!string.IsNullOrEmpty(DirectoryPath))
-                lookUpPath = Path.Combine(lookUpPath, DirectoryPath);
+            if (!string.IsNullOrEmpty(_directoryPath))
+                lookUpPath = Path.Combine(lookUpPath, _directoryPath);
 
             if (allDirectories)
             {
@@ -68,7 +73,7 @@ namespace HeroesData.Commands
                 {
                     Display(filePath, lookUpPath);
                 }
-                else if (ValidFileExtensions.Contains(Path.GetExtension(filePath)))
+                else if (_validFileExtensions.Contains(Path.GetExtension(filePath)))
                 {
                     string fileName = Path.GetFileName(filePath);
                     if (fileName.EndsWith(".deps.json", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".dev.json", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith("runtimeconfig.json", StringComparison.OrdinalIgnoreCase))
@@ -79,11 +84,6 @@ namespace HeroesData.Commands
             }
 
             Console.WriteLine();
-        }
-
-        private void Display(string filePath, string lookUpPath)
-        {
-            Console.WriteLine(filePath.AsSpan().TrimEnd(Path.DirectorySeparatorChar).Slice(lookUpPath.Length).TrimStart(Path.DirectorySeparatorChar).ToString());
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace HeroesData
 {
     [Flags]
-    public enum ExtractDataOption
+    public enum ExtractDataOptions
     {
         None = 0,
         HeroData = 1 << 0,

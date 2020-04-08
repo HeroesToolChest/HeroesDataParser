@@ -14,14 +14,14 @@ namespace HeroesData.Parser
 {
     public class UnitParser : ParserBase<Unit, UnitDataOverride>, IParser<Unit?, UnitParser>
     {
-        private readonly UnitOverrideLoader UnitOverrideLoader;
+        private readonly UnitOverrideLoader _unitOverrideLoader;
 
-        private UnitDataOverride? UnitDataOverride;
+        private UnitDataOverride? _unitDataOverride;
 
         public UnitParser(IXmlDataService xmlDataService, UnitOverrideLoader unitOverrideLoader)
             : base(xmlDataService)
         {
-            UnitOverrideLoader = unitOverrideLoader;
+            _unitOverrideLoader = unitOverrideLoader;
         }
 
         public override HashSet<string[]> Items
@@ -48,7 +48,7 @@ namespace HeroesData.Parser
                     AddItems(mapName, cUnitElements, items, addIds, removeIds);
                 }
 
-                foreach (string addedMapSpecificUnit in addIds.Where(x => x.Contains(",")))
+                foreach (string addedMapSpecificUnit in addIds.Where(x => x.Contains(",", StringComparison.OrdinalIgnoreCase)))
                 {
                     items.Add(addedMapSpecificUnit.Split(',').ToArray());
                 }
@@ -61,7 +61,7 @@ namespace HeroesData.Parser
 
         public UnitParser GetInstance()
         {
-            return new UnitParser(XmlDataService, UnitOverrideLoader);
+            return new UnitParser(XmlDataService, _unitOverrideLoader);
         }
 
         public Unit? Parse(params string[] ids)
@@ -86,21 +86,21 @@ namespace HeroesData.Parser
 
             if (mapNameId != GeneralMapName) // map specific unit
             {
-                UnitDataOverride = UnitOverrideLoader.GetOverride($"{mapNameId}-{id}") ?? new UnitDataOverride();
+                _unitDataOverride = _unitOverrideLoader.GetOverride($"{mapNameId}-{id}") ?? new UnitDataOverride();
                 unit.MapName = mapNameId;
             }
             else // generic
             {
-                UnitDataOverride = UnitOverrideLoader.GetOverride(unit.Id) ?? new UnitDataOverride();
+                _unitDataOverride = _unitOverrideLoader.GetOverride(unit.Id) ?? new UnitDataOverride();
             }
 
-            unitData.SetUnitData(unit, UnitDataOverride);
+            unitData.SetUnitData(unit, _unitDataOverride);
 
             // set the hyperlinkId to id if it doesn't have one
             if (string.IsNullOrEmpty(unit.HyperlinkId))
                 unit.HyperlinkId = id;
 
-            ApplyOverrides(unit, UnitDataOverride);
+            ApplyOverrides(unit, _unitDataOverride);
 
             // must be last
             if (unit.IsMapUnique)
@@ -157,10 +157,21 @@ namespace HeroesData.Parser
 
         protected override bool ValidItem(XElement element)
         {
+            if (element is null)
+                throw new ArgumentNullException(nameof(element));
+
             string id = element.Attribute("id").Value;
             string? parent = element.Attribute("parent")?.Value;
 
             return !string.IsNullOrEmpty(parent) && !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal);
+        }
+
+        private static void AddItem(HashSet<string[]> items, string id, string mapName)
+        {
+            if (string.IsNullOrEmpty(mapName))
+                items.Add(new string[] { id });
+            else
+                items.Add(new string[] { id, mapName });
         }
 
         private void AddItems(string mapName, IEnumerable<XElement> elements, HashSet<string[]> items, List<string> addIds, List<string> removeIds)
@@ -188,14 +199,6 @@ namespace HeroesData.Parser
                     AddItem(items, id, mapName);
                 }
             }
-        }
-
-        private void AddItem(HashSet<string[]> items, string id, string mapName)
-        {
-            if (string.IsNullOrEmpty(mapName))
-                items.Add(new string[] { id });
-            else
-                items.Add(new string[] { id, mapName });
         }
     }
 }

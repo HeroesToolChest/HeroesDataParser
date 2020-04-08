@@ -12,14 +12,14 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void PropertiesTests()
         {
-            Assert.AreEqual(3, TownCannonTowerL2.Attributes.Count());
+            Assert.AreEqual(3, TownCannonTowerL2.Attributes.Count);
             Assert.IsTrue(TownCannonTowerL2.Attributes.Contains("Tower"));
             Assert.IsTrue(TownCannonTowerL2.Attributes.Contains("Structure"));
             Assert.IsTrue(TownCannonTowerL2.Attributes.Contains("AITargetableStructure"));
             Assert.AreEqual("TownCannonTowerL2", TownCannonTowerL2.CUnitId);
             Assert.AreEqual("Structure", TownCannonTowerL2.DamageType);
             Assert.IsNotNull(TownCannonTowerL2.Description?.RawDescription);
-            Assert.AreEqual(0, TownCannonTowerL2.HeroDescriptors.Count());
+            Assert.AreEqual(0, TownCannonTowerL2.HeroDescriptors.Count);
             Assert.AreEqual("TownCannonTowerL2", TownCannonTowerL2.HyperlinkId);
             Assert.AreEqual("TownCannonTowerL2", TownCannonTowerL2.Id);
             Assert.AreEqual(0, TownCannonTowerL2.InnerRadius);

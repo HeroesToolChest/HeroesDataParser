@@ -9,11 +9,11 @@ namespace HeroesData
 {
     internal class CASCHotsStorage
     {
-        private readonly string StoragePath;
+        private readonly string _storagePath;
 
         private CASCHotsStorage(string storagePath)
         {
-            StoragePath = storagePath;
+            _storagePath = storagePath;
 
             Initialize();
         }
@@ -24,6 +24,39 @@ namespace HeroesData
         public static CASCHotsStorage Load(string storagePath)
         {
             return new CASCHotsStorage(storagePath);
+        }
+
+        private static void DrawProgressBar(float percent, int barSize, char progressCharacter)
+        {
+            Console.CursorVisible = false;
+            string p1 = string.Empty;
+            string p2 = string.Empty;
+
+            int chars = (int)Math.Round(percent / (1.0f / barSize));
+
+            for (int i = 0; i < chars; i++)
+                p1 += progressCharacter;
+            for (int i = 0; i < barSize - chars; i++)
+                p2 += progressCharacter;
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"{p1}");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write($"{p2}");
+
+            Console.ResetColor();
+
+            percent *= 100;
+            Console.Write($" {percent:0}%");
+
+            if (percent < 100)
+                Console.Write("\r");
+        }
+
+        private static void DrawProgressBar(int complete, int maxVal, int barSize, char progressCharacter)
+        {
+            float percent = (float)complete / maxVal;
+            DrawProgressBar(percent, barSize, progressCharacter);
         }
 
         private void Initialize()
@@ -42,7 +75,7 @@ namespace HeroesData
             backgroundWorker.DoWork += (_, e) =>
             {
                 Console.SetOut(TextWriter.Null); // suppress output
-                CASCConfig config = CASCConfig.LoadLocalStorageConfig(StoragePath);
+                CASCConfig config = CASCConfig.LoadLocalStorageConfig(_storagePath);
                 CASCHandler = CASCHandler.OpenStorage(config, backgroundWorker);
 
                 LocaleFlags locale = LocaleFlags.All;
@@ -94,39 +127,6 @@ namespace HeroesData
                 Console.ResetColor();
                 Environment.Exit(1);
             }
-        }
-
-        private void DrawProgressBar(int complete, int maxVal, int barSize, char progressCharacter)
-        {
-            float percent = (float)complete / maxVal;
-            DrawProgressBar(percent, barSize, progressCharacter);
-        }
-
-        private void DrawProgressBar(float percent, int barSize, char progressCharacter)
-        {
-            Console.CursorVisible = false;
-            string p1 = string.Empty;
-            string p2 = string.Empty;
-
-            int chars = (int)Math.Round(percent / (1.0f / barSize));
-
-            for (int i = 0; i < chars; i++)
-                p1 += progressCharacter;
-            for (int i = 0; i < barSize - chars; i++)
-                p2 += progressCharacter;
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"{p1}");
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write($"{p2}");
-
-            Console.ResetColor();
-
-            percent *= 100;
-            Console.Write($" {percent:0}%");
-
-            if (percent < 100)
-                Console.Write("\r");
         }
     }
 }

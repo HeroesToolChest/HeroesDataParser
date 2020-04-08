@@ -7,14 +7,14 @@ namespace HeroesData.Commands
 {
     internal class ReadCommand : CommandBase, ICommand
     {
-        private readonly HashSet<string> ValidFileExtensions = new HashSet<string>();
+        private readonly HashSet<string> _validFileExtensions = new HashSet<string>();
 
         private ReadCommand(CommandLineApplication app)
             : base(app)
         {
-            ValidFileExtensions.Add(".txt");
-            ValidFileExtensions.Add(".xml");
-            ValidFileExtensions.Add(".json");
+            _validFileExtensions.Add(".txt");
+            _validFileExtensions.Add(".xml");
+            _validFileExtensions.Add(".json");
         }
 
         public static ReadCommand Add(CommandLineApplication app)
@@ -58,11 +58,11 @@ namespace HeroesData.Commands
                 filePath += ".txt";
                 fileName += ".txt";
             }
-            else if (!ValidFileExtensions.Contains(Path.GetExtension(filePath)))
+            else if (!_validFileExtensions.Contains(Path.GetExtension(filePath)))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Not a valid file to read, must be one of the following file types: ");
-                foreach (string type in ValidFileExtensions)
+                foreach (string type in _validFileExtensions)
                     Console.Write($"{type} ");
 
                 Console.ResetColor();

@@ -9,20 +9,23 @@ namespace HeroesData.Parser.XmlData
 {
     public class ArmorData
     {
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public ArmorData(GameData gameData)
         {
-            GameData = gameData;
+            _gameData = gameData;
         }
 
         public IEnumerable<UnitArmor> CreateArmorCollection(XElement armorLinkElement)
         {
+            if (armorLinkElement is null)
+                throw new ArgumentNullException(nameof(armorLinkElement));
+
             string? armorLink = armorLinkElement.Attribute("value")?.Value;
             if (string.IsNullOrEmpty(armorLink))
                 return new List<UnitArmor>();
 
-            XElement? armorElement = GameData.MergeXmlElements(GameData.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLink));
+            XElement? armorElement = GameData.MergeXmlElements(_gameData.Elements("CArmor").Where(x => x.Attribute("id")?.Value == armorLink));
             if (armorElement == null)
                 return new List<UnitArmor>();
 

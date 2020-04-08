@@ -7,7 +7,7 @@ namespace HeroesData.Parser.XmlData
 {
     public class DefaultDataUnit
     {
-        private readonly HashSet<string> UnitAttributeList = new HashSet<string>();
+        private readonly HashSet<string> _unitAttributeList = new HashSet<string>();
 
         public DefaultDataUnit(GameData gameData)
         {
@@ -69,7 +69,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets a collection of the default attributes.
         /// </summary>
-        public IEnumerable<string> UnitAttributes => UnitAttributeList;
+        public IEnumerable<string> UnitAttributes => _unitAttributeList;
 
         /// <summary>
         /// Gets the default damage type.
@@ -88,7 +88,7 @@ namespace HeroesData.Parser.XmlData
         {
             foreach (XElement element in elements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "NAME")
                 {
@@ -121,9 +121,9 @@ namespace HeroesData.Parser.XmlData
                 else if (elementName == "ATTRIBUTES")
                 {
                     if (element.Attribute("value")?.Value == "1")
-                        UnitAttributeList.Add(element.Attribute("index").Value);
+                        _unitAttributeList.Add(element.Attribute("index").Value);
                     else if (element.Attribute("value")?.Value == "0")
-                        UnitAttributeList.Remove(element.Attribute("index").Value);
+                        _unitAttributeList.Remove(element.Attribute("index").Value);
                 }
                 else if (elementName == "UNITDAMAGETYPE")
                 {

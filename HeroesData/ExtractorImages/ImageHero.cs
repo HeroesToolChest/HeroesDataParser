@@ -9,15 +9,15 @@ namespace HeroesData.ExtractorImage
 {
     public class ImageHero : ImageExtractorBase<Hero>, IImage
     {
-        private readonly HashSet<string> Portraits = new HashSet<string>();
-        private readonly HashSet<string> Talents = new HashSet<string>();
-        private readonly HashSet<string> Abilities = new HashSet<string>();
-        private readonly HashSet<string> AbilityTalents = new HashSet<string>();
+        private readonly HashSet<string> _portraits = new HashSet<string>();
+        private readonly HashSet<string> _talents = new HashSet<string>();
+        private readonly HashSet<string> _abilities = new HashSet<string>();
+        private readonly HashSet<string> _abilityTalents = new HashSet<string>();
 
-        private readonly string PortraitsDirectory = "heroportraits";
-        private readonly string AbilitiesDirectory = "abilities";
-        private readonly string TalentsDirectory = "talents";
-        private readonly string AbilityTalentsDirectory = "abilitytalents";
+        private readonly string _portraitsDirectory = "heroportraits";
+        private readonly string _abilitiesDirectory = "abilities";
+        private readonly string _talentsDirectory = "talents";
+        private readonly string _abilityTalentsDirectory = "abilitytalents";
 
         public ImageHero(CASCHandler? cascHandler, string modsFolderPath)
             : base(cascHandler, modsFolderPath)
@@ -26,27 +26,30 @@ namespace HeroesData.ExtractorImage
 
         protected override void LoadFileData(Hero hero)
         {
+            if (hero is null)
+                throw new ArgumentNullException(nameof(hero));
+
             if (!string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName))
-                Portraits.Add(hero.HeroPortrait.HeroSelectPortraitFileName);
+                _portraits.Add(hero.HeroPortrait.HeroSelectPortraitFileName);
             if (!string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName))
-                Portraits.Add(hero.HeroPortrait.LeaderboardPortraitFileName);
+                _portraits.Add(hero.HeroPortrait.LeaderboardPortraitFileName);
             if (!string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName))
-                Portraits.Add(hero.HeroPortrait.LoadingScreenPortraitFileName);
+                _portraits.Add(hero.HeroPortrait.LoadingScreenPortraitFileName);
             if (!string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName))
-                Portraits.Add(hero.HeroPortrait.PartyPanelPortraitFileName);
+                _portraits.Add(hero.HeroPortrait.PartyPanelPortraitFileName);
             if (!string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
-                Portraits.Add(hero.HeroPortrait.TargetPortraitFileName);
+                _portraits.Add(hero.HeroPortrait.TargetPortraitFileName);
             if (!string.IsNullOrEmpty(hero.HeroPortrait.DraftScreenFileName))
-                Portraits.Add(hero.HeroPortrait.DraftScreenFileName);
+                _portraits.Add(hero.HeroPortrait.DraftScreenFileName);
             if (!string.IsNullOrEmpty(hero.UnitPortrait.MiniMapIconFileName))
-                Portraits.Add(hero.UnitPortrait.MiniMapIconFileName);
+                _portraits.Add(hero.UnitPortrait.MiniMapIconFileName);
             if (!string.IsNullOrEmpty(hero.UnitPortrait.TargetInfoPanelFileName))
-                Portraits.Add(hero.UnitPortrait.TargetInfoPanelFileName);
+                _portraits.Add(hero.UnitPortrait.TargetInfoPanelFileName);
             if (hero.HeroPortrait.PartyFrameFileName.Count > 0)
             {
                 foreach (string partyFrame in hero.HeroPortrait.PartyFrameFileName)
                 {
-                    Portraits.Add(partyFrame);
+                    _portraits.Add(partyFrame);
                 }
             }
 
@@ -60,18 +63,18 @@ namespace HeroesData.ExtractorImage
 
         protected override void ExtractFiles()
         {
-            if (App.ExtractFileOption.HasFlag(ExtractImageOption.HeroPortrait))
+            if (App.ExtractFileOption.HasFlag(ExtractImageOptions.HeroPortrait))
                 ExtractPortraits();
 
-            if (App.ExtractFileOption.HasFlag(ExtractImageOption.AbilityTalent))
+            if (App.ExtractFileOption.HasFlag(ExtractImageOptions.AbilityTalent))
             {
                 ExtractAbilityTalentIcons();
             }
             else
             {
-                if (App.ExtractFileOption.HasFlag(ExtractImageOption.Talent))
+                if (App.ExtractFileOption.HasFlag(ExtractImageOptions.Talent))
                     ExtractTalentIcons();
-                if (App.ExtractFileOption.HasFlag(ExtractImageOption.Ability))
+                if (App.ExtractFileOption.HasFlag(ExtractImageOptions.Ability))
                     ExtractAbilityIcons();
             }
         }
@@ -82,8 +85,8 @@ namespace HeroesData.ExtractorImage
             {
                 if (!string.IsNullOrEmpty(abilityIconFileName))
                 {
-                    Abilities.Add(abilityIconFileName);
-                    AbilityTalents.Add(abilityIconFileName);
+                    _abilities.Add(abilityIconFileName);
+                    _abilityTalents.Add(abilityIconFileName);
                 }
             }
 
@@ -91,8 +94,8 @@ namespace HeroesData.ExtractorImage
             {
                 if (!string.IsNullOrEmpty(talentIconFileName))
                 {
-                    Talents.Add(talentIconFileName);
-                    AbilityTalents.Add(talentIconFileName);
+                    _talents.Add(talentIconFileName);
+                    _abilityTalents.Add(talentIconFileName);
                 }
             }
         }
@@ -102,20 +105,20 @@ namespace HeroesData.ExtractorImage
         /// </summary>
         private void ExtractPortraits()
         {
-            if (Portraits == null)
+            if (_portraits == null)
                 return;
 
             int count = 0;
-            Console.Write($"Extracting portrait files...{count}/{Portraits.Count}");
+            Console.Write($"Extracting portrait files...{count}/{_portraits.Count}");
 
-            string extractFilePath = Path.Combine(ExtractDirectory, PortraitsDirectory);
+            string extractFilePath = Path.Combine(ExtractDirectory, _portraitsDirectory);
 
-            foreach (string portrait in Portraits)
+            foreach (string portrait in _portraits)
             {
                 if (ExtractStaticImageFile(Path.Combine(extractFilePath, portrait)))
                     count++;
 
-                Console.Write($"\rExtracting portrait files...{count}/{Portraits.Count}");
+                Console.Write($"\rExtracting portrait files...{count}/{_portraits.Count}");
             }
 
             Console.WriteLine(" Done.");
@@ -126,20 +129,20 @@ namespace HeroesData.ExtractorImage
         /// </summary>
         private void ExtractAbilityIcons()
         {
-            if (Abilities == null)
+            if (_abilities == null)
                 return;
 
             int count = 0;
-            Console.Write($"Extracting ability icon files...{count}/{Abilities.Count}");
+            Console.Write($"Extracting ability icon files...{count}/{_abilities.Count}");
 
-            string extractFilePath = Path.Combine(ExtractDirectory, AbilitiesDirectory);
+            string extractFilePath = Path.Combine(ExtractDirectory, _abilitiesDirectory);
 
-            foreach (string ability in Abilities)
+            foreach (string ability in _abilities)
             {
                 if (ExtractStaticImageFile(Path.Combine(extractFilePath, ability)))
                     count++;
 
-                Console.Write($"\rExtracting ability icon files...{count}/{Abilities.Count}");
+                Console.Write($"\rExtracting ability icon files...{count}/{_abilities.Count}");
             }
 
             Console.WriteLine(" Done.");
@@ -150,20 +153,20 @@ namespace HeroesData.ExtractorImage
         /// </summary>
         private void ExtractTalentIcons()
         {
-            if (Talents == null)
+            if (_talents == null)
                 return;
 
             int count = 0;
-            Console.Write($"Extracting talent icon files...{count}/{Talents.Count}");
+            Console.Write($"Extracting talent icon files...{count}/{_talents.Count}");
 
-            string extractFilePath = Path.Combine(ExtractDirectory, TalentsDirectory);
+            string extractFilePath = Path.Combine(ExtractDirectory, _talentsDirectory);
 
-            foreach (string talent in Talents)
+            foreach (string talent in _talents)
             {
                 if (ExtractStaticImageFile(Path.Combine(extractFilePath, talent)))
                     count++;
 
-                Console.Write($"\rExtracting talent icon files...{count}/{Talents.Count}");
+                Console.Write($"\rExtracting talent icon files...{count}/{_talents.Count}");
             }
 
             Console.WriteLine(" Done.");
@@ -174,20 +177,20 @@ namespace HeroesData.ExtractorImage
         /// </summary>
         private void ExtractAbilityTalentIcons()
         {
-            if (AbilityTalents == null)
+            if (_abilityTalents == null)
                 return;
 
             int count = 0;
-            Console.Write($"Extracting abilityTalent icon files...{count}/{AbilityTalents.Count}");
+            Console.Write($"Extracting abilityTalent icon files...{count}/{_abilityTalents.Count}");
 
-            string extractFilePath = Path.Combine(ExtractDirectory, AbilityTalentsDirectory);
+            string extractFilePath = Path.Combine(ExtractDirectory, _abilityTalentsDirectory);
 
-            foreach (string abilityTalent in AbilityTalents)
+            foreach (string abilityTalent in _abilityTalents)
             {
                 if (ExtractStaticImageFile(Path.Combine(extractFilePath, abilityTalent)))
                     count++;
 
-                Console.Write($"\rExtracting abilityTalent icon files...{count}/{AbilityTalents.Count}");
+                Console.Write($"\rExtracting abilityTalent icon files...{count}/{_abilityTalents.Count}");
             }
 
             Console.WriteLine(" Done.");

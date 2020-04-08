@@ -4,15 +4,17 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HeroesData.Parser.Tests.VoiceLineParserTests
 {
     [TestClass]
+#pragma warning disable SA1649 // File name should match first type name
     public class VoiceLineParserBaseTest : ParserBase
+#pragma warning restore SA1649 // File name should match first type name
     {
         public VoiceLineParserBaseTest()
         {
             Parse();
         }
 
-        protected VoiceLine AbathurBase_VoiceLine01 { get; set; }
-        protected VoiceLine AbathurMecha_VoiceLine01 { get; set; }
+        protected VoiceLine AbathurBaseVoiceLine01 { get; set; }
+        protected VoiceLine AbathurMechaVoiceLine01 { get; set; }
 
         [TestMethod]
         public void GetItemsTest()
@@ -24,8 +26,8 @@ namespace HeroesData.Parser.Tests.VoiceLineParserTests
         private void Parse()
         {
             VoiceLineParser voiceLineParser = new VoiceLineParser(XmlDataService);
-            AbathurBase_VoiceLine01 = voiceLineParser.Parse("AbathurBase_VoiceLine01");
-            AbathurMecha_VoiceLine01 = voiceLineParser.Parse("AbathurMecha_VoiceLine01");
+            AbathurBaseVoiceLine01 = voiceLineParser.Parse("AbathurBase_VoiceLine01");
+            AbathurMechaVoiceLine01 = voiceLineParser.Parse("AbathurMecha_VoiceLine01");
         }
     }
 }

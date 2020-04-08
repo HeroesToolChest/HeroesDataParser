@@ -8,11 +8,11 @@ namespace HeroesData.Parser.XmlData
 {
     public class DefaultDataSpray
     {
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public DefaultDataSpray(GameData gameData)
         {
-            GameData = gameData;
+            _gameData = gameData;
 
             LoadCSprayDefault();
         }
@@ -60,14 +60,14 @@ namespace HeroesData.Parser.XmlData
         // <CSpray default="1">
         private void LoadCSprayDefault()
         {
-            CSprayElement(GameData.Elements("CSpray").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CSprayElement(_gameData.Elements("CSpray").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         private void CSprayElement(IEnumerable<XElement> cSprayElements)
         {
             foreach (XElement element in cSprayElements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "NAME")
                 {

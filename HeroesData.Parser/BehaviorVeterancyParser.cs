@@ -13,7 +13,7 @@ namespace HeroesData.Parser
 {
     public class BehaviorVeterancyParser : ParserBase<BehaviorVeterancy, BehaviorVeterancyDataOverride>, IParser<BehaviorVeterancy?, BehaviorVeterancyParser>
     {
-        private readonly XmlArrayElement VeterancyLevelArray = new XmlArrayElement();
+        private readonly XmlArrayElement _veterancyLevelArray = new XmlArrayElement();
 
         public BehaviorVeterancyParser(IXmlDataService xmlDataService)
             : base(xmlDataService)
@@ -100,11 +100,11 @@ namespace HeroesData.Parser
 
             foreach (XElement element in behaviorVeterancyElement.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "FLAGS")
                 {
-                    string? indexValue = element.Attribute("index")?.Value?.ToUpper();
+                    string? indexValue = element.Attribute("index")?.Value?.ToUpperInvariant();
                     string? valueValue = element.Attribute("value")?.Value;
 
                     if (bool.TryParse(valueValue, out bool boolResult))
@@ -124,7 +124,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "VETERANCYLEVELARRAY")
                 {
-                    VeterancyLevelArray.AddElement(element);
+                    _veterancyLevelArray.AddElement(element);
                 }
             }
         }
@@ -132,9 +132,9 @@ namespace HeroesData.Parser
         private void SetVeterancyLevelArray(BehaviorVeterancy behaviorVeterancy)
         {
             if (behaviorVeterancy == null)
-                throw new ArgumentNullException("Call SetBehaviorVeterancyData() first to set up the veterancy collection");
+                throw new NullReferenceException("Call SetBehaviorVeterancyData() first to set up the veterancy collection");
 
-            foreach (XElement veterancyLevelElement in VeterancyLevelArray.Elements)
+            foreach (XElement veterancyLevelElement in _veterancyLevelArray.Elements)
             {
                 VeterancyLevel veterancyLevel = new VeterancyLevel();
 
@@ -162,7 +162,7 @@ namespace HeroesData.Parser
 
             foreach (XElement element in modificationElement.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "DAMAGEDEALTSCALED")
                 {

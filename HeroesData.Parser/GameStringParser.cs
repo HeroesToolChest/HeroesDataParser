@@ -16,34 +16,34 @@ namespace HeroesData.Parser.GameStrings
         public const string FailedParsed = "(╯°□°）╯︵ ┻━┻ [Failed to parse]";
         public const string ErrorTag = "##ERROR##";
 
-        private readonly int? HotsBuild;
-        private readonly GameData GameData;
-        private readonly Configuration Configuration;
+        private readonly int? _hotsBuild;
+        private readonly GameData _gameData;
+        private readonly Configuration _configuration;
 
         public GameStringParser(GameData gameData)
         {
-            Configuration = new Configuration();
-            GameData = gameData;
+            _configuration = new Configuration();
+            _gameData = gameData;
         }
 
         public GameStringParser(GameData gameData, int? hotsBuild)
         {
-            Configuration = new Configuration();
-            GameData = gameData;
-            HotsBuild = hotsBuild;
+            _configuration = new Configuration();
+            _gameData = gameData;
+            _hotsBuild = hotsBuild;
         }
 
         public GameStringParser(Configuration configuration, GameData gameData)
         {
-            GameData = gameData;
-            Configuration = configuration;
+            _gameData = gameData;
+            _configuration = configuration;
         }
 
         public GameStringParser(Configuration configuration, GameData gameData, int? hotsBuild)
         {
-            Configuration = configuration;
-            GameData = gameData;
-            HotsBuild = hotsBuild;
+            _configuration = configuration;
+            _gameData = gameData;
+            _hotsBuild = hotsBuild;
         }
 
         /// <summary>
@@ -97,6 +97,125 @@ namespace HeroesData.Parser.GameStrings
             return ParseDataReferenceString(dRef);
         }
 
+        private static string GetPrecision(string pathPart, out int? precision)
+        {
+            precision = null;
+
+            pathPart = pathPart.Replace("preicison=", "precision=", StringComparison.OrdinalIgnoreCase);
+
+            // get the precision string first
+            MatchCollection precisionMatches = Regex.Matches(pathPart, "precision\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
+
+            if (precisionMatches.Count > 0)
+            {
+                // now get the value
+                MatchCollection match = Regex.Matches(precisionMatches[0].Value, "\".*?\"");
+
+                precision = int.Parse(match[0].Value.AsSpan().Trim('"'));
+
+                // remove precision text
+                pathPart = pathPart.Replace(precisionMatches[0].Value, string.Empty, StringComparison.OrdinalIgnoreCase);
+            }
+
+            return pathPart;
+        }
+
+        private static string GetPlayer(string pathPart, out int? player)
+        {
+            player = null;
+
+            // get the player string first
+            MatchCollection playerMatches = Regex.Matches(pathPart, "player\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
+
+            if (playerMatches.Count > 0)
+            {
+                // now get the value
+                MatchCollection match = Regex.Matches(playerMatches[0].Value, "\".*?\"");
+
+                if (int.TryParse(match[0].Value.AsSpan().Trim('"'), out int playerNum))
+                    player = playerNum;
+                else
+                    player = null;
+
+                // remove player text
+                pathPart = pathPart.Replace(playerMatches[0].Value, string.Empty, StringComparison.OrdinalIgnoreCase);
+            }
+
+            return pathPart;
+        }
+
+        private static string GetScalingText(string pathLookup, out int count)
+        {
+            count = 0;
+
+            // get scaling string
+            MatchCollection playerMatches = Regex.Matches(pathLookup, "~~.*?~~");
+
+            if (playerMatches.Count < 1)
+                return string.Empty;
+            else
+                count = playerMatches.Count;
+
+            return playerMatches[0].Value;
+        }
+
+        private static IEnumerable<ReadOnlyMemory<char>> GetPartBySeperators(ReadOnlyMemory<char> pathLookup, ReadOnlyMemory<char> seperators)
+        {
+            ReadOnlyMemory<char> part;
+            int length = 0;
+
+            for (int i = 0; i < pathLookup.Length; i++)
+            {
+                if (seperators.Span.IndexOf(pathLookup.Span[i]) > -1)
+                {
+                    part = pathLookup.Slice(i - length, length);
+                    if (!part.Span.Trim().IsEmpty)
+                        yield return part;
+
+                    length = 0;
+                }
+                else
+                {
+                    length++;
+                }
+            }
+
+            part = pathLookup.Slice(pathLookup.Length - length, length);
+            if (!part.Span.Trim().IsEmpty)
+                yield return part;
+        }
+
+        private static bool IsValidTooltip(ReadOnlySpan<char> key, ReadOnlySpan<char> tooltip)
+        {
+            return !(key.IsEmpty || tooltip.Contains("$GalaxyVar", StringComparison.OrdinalIgnoreCase) || tooltip.Contains("**TEMP**", StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static ReadOnlyMemory<char> TrimDataReference(ReadOnlyMemory<char> pathLookup)
+        {
+            if (pathLookup.Span.StartsWith("<d ref", StringComparison.OrdinalIgnoreCase) || pathLookup.Span.StartsWith("[d ref", StringComparison.OrdinalIgnoreCase))
+                pathLookup = pathLookup.Slice(8);
+            else if (pathLookup.Span.StartsWith("<d const", StringComparison.OrdinalIgnoreCase))
+                pathLookup = pathLookup.Slice(10);
+
+            pathLookup = pathLookup.Slice(0, pathLookup.Span.LastIndexOf('/') - 1); // removes ending />
+
+            int start = 0;
+            int end = pathLookup.Length - 1;
+            char endChar = pathLookup.Span[end];
+
+            while ((start < end) && (endChar == ' ' || endChar == '"'))
+            {
+                if (endChar == ' ' || endChar == '"')
+                {
+                    end--;
+                }
+
+                endChar = pathLookup.Span[end];
+            }
+
+            return pathLookup.Slice(start, end - start + 1);
+        }
+
         private string ParseTooltip(string tooltip)
         {
             tooltip = Regex.Replace(tooltip, @"<d score=.*?/>", "0");
@@ -122,7 +241,7 @@ namespace HeroesData.Parser.GameStrings
         {
             if (nestedTooltip)
             {
-                tooltip = tooltip.Replace("'", "\"");
+                tooltip = tooltip.Replace("'", "\"", StringComparison.OrdinalIgnoreCase);
             }
 
             string[] parts = Regex.Split(tooltip, splitter);
@@ -131,12 +250,12 @@ namespace HeroesData.Parser.GameStrings
             {
                 if (nestedTooltip)
                 {
-                    if (!parts[i].Contains("[d ref="))
+                    if (!parts[i].Contains("[d ref=", StringComparison.OrdinalIgnoreCase))
                         continue;
                 }
                 else
                 {
-                    if (!parts[i].Contains("<d ref=") && !parts[i].Contains("<d const="))
+                    if (!parts[i].Contains("<d ref=", StringComparison.OrdinalIgnoreCase) && !parts[i].Contains("<d const=", StringComparison.OrdinalIgnoreCase))
                         continue;
                 }
 
@@ -158,7 +277,7 @@ namespace HeroesData.Parser.GameStrings
 
                     if (!string.IsNullOrEmpty(scalingText))
                     {
-                        mathPath = mathPath.Replace(scalingText, string.Empty);
+                        mathPath = mathPath.Replace(scalingText, string.Empty, StringComparison.OrdinalIgnoreCase);
                     }
 
                     // calculate the value
@@ -187,7 +306,7 @@ namespace HeroesData.Parser.GameStrings
                     if (!string.IsNullOrEmpty(scalingText))
                     {
                         // only add the scaling in certain cases
-                        if (numOfScalingTexts == 1 || (numOfScalingTexts > 1 && !mathPath.Contains('/')))
+                        if (numOfScalingTexts == 1 || (numOfScalingTexts > 1 && !mathPath.Contains('/', StringComparison.OrdinalIgnoreCase)))
                         {
                             ReadOnlySpan<char> nextPart = parts[i + 1];
                             nextPart = nextPart.TrimStart();
@@ -223,7 +342,7 @@ namespace HeroesData.Parser.GameStrings
                     if (match == null)
                         continue;
 
-                    joinDesc = joinDesc.Replace(match.Value, match.Value.Replace("\"", "'"));
+                    joinDesc = joinDesc.Replace(match.Value, match.Value.Replace("\"", "'", StringComparison.OrdinalIgnoreCase), StringComparison.OrdinalIgnoreCase);
                 }
 
                 return DescriptionValidator.Validate(joinDesc);
@@ -247,7 +366,7 @@ namespace HeroesData.Parser.GameStrings
 
             if (!string.IsNullOrEmpty(scalingText))
             {
-                dRef = dRef.Replace(scalingText, string.Empty);
+                dRef = dRef.Replace(scalingText, string.Empty, StringComparison.OrdinalIgnoreCase);
             }
 
             double number = HeroesMathEval.CalculatePathEquation(dRef);
@@ -256,53 +375,6 @@ namespace HeroesData.Parser.GameStrings
                 return Math.Round(number, precision.Value);
             else
                 return Math.Round(number, 0);
-        }
-
-        private string GetPrecision(string pathPart, out int? precision)
-        {
-            precision = null;
-
-            pathPart = pathPart.Replace("preicison=", "precision=");
-
-            // get the precision string first
-            MatchCollection precisionMatches = Regex.Matches(pathPart, "precision\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
-
-            if (precisionMatches.Count > 0)
-            {
-                // now get the value
-                MatchCollection match = Regex.Matches(precisionMatches[0].Value, "\".*?\"");
-
-                precision = int.Parse(match[0].Value.AsSpan().Trim('"'));
-
-                // remove precision text
-                pathPart = pathPart.Replace(precisionMatches[0].Value, string.Empty);
-            }
-
-            return pathPart;
-        }
-
-        private string GetPlayer(string pathPart, out int? player)
-        {
-            player = null;
-
-            // get the player string first
-            MatchCollection playerMatches = Regex.Matches(pathPart, "player\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
-
-            if (playerMatches.Count > 0)
-            {
-                // now get the value
-                MatchCollection match = Regex.Matches(playerMatches[0].Value, "\".*?\"");
-
-                if (int.TryParse(match[0].Value.AsSpan().Trim('"'), out int playerNum))
-                    player = playerNum;
-                else
-                    player = null;
-
-                // remove player text
-                pathPart = pathPart.Replace(playerMatches[0].Value, string.Empty);
-            }
-
-            return pathPart;
         }
 
         private string ReplaceValVariables(string tooltip)
@@ -314,11 +386,11 @@ namespace HeroesData.Parser.GameStrings
             {
                 MatchCollection valueMatch = Regex.Matches(item.Value, "\".*?\"");
 
-                string hexValue = GameData.GetStormStyleHexValueFromName(valueMatch[0].Value.Trim('"'));
+                string hexValue = _gameData.GetStormStyleHexValueFromName(valueMatch[0].Value.Trim('"'));
 
                 if (!string.IsNullOrEmpty(hexValue))
                 {
-                    tooltip = tooltip.Replace(valueMatch[0].Value, $"\"{hexValue}\" name={valueMatch[0].Value}");
+                    tooltip = tooltip.Replace(valueMatch[0].Value, $"\"{hexValue}\" name={valueMatch[0].Value}", StringComparison.OrdinalIgnoreCase);
                 }
             }
 
@@ -326,11 +398,11 @@ namespace HeroesData.Parser.GameStrings
             {
                 MatchCollection valueMatch = Regex.Matches(item.Value, "\".*?\"");
 
-                string hexValue = GameData.GetStormStyleHexValueFromName(valueMatch[0].Value.Trim('"'));
+                string hexValue = _gameData.GetStormStyleHexValueFromName(valueMatch[0].Value.Trim('"'));
 
                 if (!string.IsNullOrEmpty(hexValue))
                 {
-                    tooltip = tooltip.Replace(valueMatch[0].Value, $"\"{hexValue}\"");
+                    tooltip = tooltip.Replace(valueMatch[0].Value, $"\"{hexValue}\"", StringComparison.OrdinalIgnoreCase);
                 }
             }
 
@@ -367,27 +439,12 @@ namespace HeroesData.Parser.GameStrings
             return pathLookup.ToString();
         }
 
-        private string GetScalingText(string pathLookup, out int count)
-        {
-            count = 0;
-
-            // get scaling string
-            MatchCollection playerMatches = Regex.Matches(pathLookup, "~~.*?~~");
-
-            if (playerMatches.Count < 1)
-                return string.Empty;
-            else
-                count = playerMatches.Count;
-
-            return playerMatches[0].Value;
-        }
-
         private string GetValueFromPath(string pathLookup, out double? scaling)
         {
             var parts = pathLookup.Trim().Split(new char[] { ',', '.' }, StringSplitOptions.RemoveEmptyEntries).ToList();
             var scalingParts = pathLookup.Trim().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            if (parts[0].Contains("$BehaviorTokenCount") || parts[0].Contains("$BehaviorStackCount"))
+            if (parts[0].Contains("$BehaviorTokenCount", StringComparison.OrdinalIgnoreCase) || parts[0].Contains("$BehaviorStackCount", StringComparison.OrdinalIgnoreCase))
             {
                 scaling = null;
                 return "0";
@@ -401,8 +458,8 @@ namespace HeroesData.Parser.GameStrings
             scaling = null;
             string value = string.Empty;
 
-            if (parts[0].StartsWith("$"))
-                value = GameData.GetValueFromAttribute(parts[0]);
+            if (parts[0].StartsWith("$", StringComparison.OrdinalIgnoreCase))
+                value = _gameData.GetValueFromAttribute(parts[0]);
             else if (parts.Count > 2)
                 value = ReadXmlGameData(parts, null);
 
@@ -412,11 +469,11 @@ namespace HeroesData.Parser.GameStrings
             if (string.IsNullOrEmpty(value))
             {
                 // see if we can find a default value
-                foreach ((string part, string partValue) in Configuration.GamestringDefaultValues(parts.Last()))
+                foreach ((string part, string partValue) in _configuration.GamestringDefaultValues(parts.Last()))
                 {
                     if (part == "last")
                         return partValue;
-                    else if (int.TryParse(part, out int partAsInt) && parts.Count() > partAsInt && parts[partAsInt] == parts.Last())
+                    else if (int.TryParse(part, out int partAsInt) && parts.Count > partAsInt && parts[partAsInt] == parts.Last())
                         return partValue;
                 }
             }
@@ -429,10 +486,10 @@ namespace HeroesData.Parser.GameStrings
             XElement? currentElement = null;
             parent = null;
 
-            IEnumerable<string> xmlElementNames = Configuration.GamestringXmlElements(parts[0]);
+            IEnumerable<string> xmlElementNames = _configuration.GamestringXmlElements(parts[0]);
             if (!xmlElementNames.Any())
             {
-                IEnumerable<string>? foundElements = GameData.XmlGameData.Root.Elements().Where(x => x.Name.LocalName.StartsWith($"C{parts[0]}") && x.Attribute("id")?.Value == parts[1])?.Select(x => x.Name.LocalName);
+                IEnumerable<string>? foundElements = _gameData.XmlGameData.Root.Elements().Where(x => x.Name.LocalName.StartsWith($"C{parts[0]}", StringComparison.OrdinalIgnoreCase) && x.Attribute("id")?.Value == parts[1])?.Select(x => x.Name.LocalName);
                 if (foundElements != null && foundElements.Any())
                 {
                     throw new GameStringParseException($"The element type \"{parts[0]}\" was not found in the configuration file. The following elements were found for the missing type for the given id of \"{parts[1]}\": {string.Join(',', foundElements)}." +
@@ -444,14 +501,14 @@ namespace HeroesData.Parser.GameStrings
 
             foreach (string elementName in xmlElementNames)
             {
-                elements = GameData.Elements(elementName).Where(x => x.Attribute("id")?.Value == parts[1]);
+                elements = _gameData.Elements(elementName).Where(x => x.Attribute("id")?.Value == parts[1]);
                 if (elements.Any())
                     break;
             }
 
             if (!elements.Any())
             {
-                IEnumerable<string>? elementDifference = GameData.XmlGameData.Root.Elements().Where(x => x.Name.LocalName.StartsWith($"C{parts[0]}") && x.Attribute("id")?.Value == parts[1])?.Select(x => x.Name.LocalName).Except(xmlElementNames);
+                IEnumerable<string>? elementDifference = _gameData.XmlGameData.Root.Elements().Where(x => x.Name.LocalName.StartsWith($"C{parts[0]}", StringComparison.OrdinalIgnoreCase) && x.Attribute("id")?.Value == parts[1])?.Select(x => x.Name.LocalName).Except(xmlElementNames);
                 if (elementDifference != null && elementDifference.Any())
                     throw new GameStringParseException($"No elements were found for the type \"{parts[0]}\" given the id of \"{parts[1]}\". Try adding some or all of the following element(s) to the \"{parts[0]}\" type in the config.xml file XmlElementLookup section: {string.Join(',', elementDifference)}.");
             }
@@ -466,7 +523,7 @@ namespace HeroesData.Parser.GameStrings
                 // loop through path look up
                 for (int i = 2; i < parts.Count; i++)
                 {
-                    if (parts[i].Contains("]")) // attribute index
+                    if (parts[i].Contains("]", StringComparison.OrdinalIgnoreCase)) // attribute index
                     {
                         string[] elementIndexParts = parts[i].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
                         var indexElements = currentElement.Elements(elementIndexParts[0]).ToList();
@@ -507,7 +564,7 @@ namespace HeroesData.Parser.GameStrings
                     }
                     else if (currentElement.Attributes().Any(x => x.Name == parts[i]))
                     {
-                        return GameData.GetValueFromAttribute(currentElement.Attribute(parts[i]).Value);
+                        return _gameData.GetValueFromAttribute(currentElement.Attribute(parts[i]).Value);
                     }
                     else
                     {
@@ -537,7 +594,7 @@ namespace HeroesData.Parser.GameStrings
                     }
                     else if (attribute != null)
                     {
-                        return GameData.GetValueFromAttribute(attribute.Value);
+                        return _gameData.GetValueFromAttribute(attribute.Value);
                     }
                 }
             }
@@ -550,72 +607,15 @@ namespace HeroesData.Parser.GameStrings
             double? scaleValue = null;
 
             // try lookup without indexing first
-            if (fieldValue.Contains("]"))
+            if (fieldValue.Contains("]", StringComparison.OrdinalIgnoreCase))
             {
-                scaleValue = GameData.GetScaleValue((catalogValue, entryValue, Regex.Replace(fieldValue, @"\[.*?\]", string.Empty)));
+                scaleValue = _gameData.GetScaleValue((catalogValue, entryValue, Regex.Replace(fieldValue, @"\[.*?\]", string.Empty)));
             }
 
             if (!scaleValue.HasValue)
-                scaleValue = GameData.GetScaleValue((catalogValue, entryValue, fieldValue));
+                scaleValue = _gameData.GetScaleValue((catalogValue, entryValue, fieldValue));
 
             return scaleValue;
-        }
-
-        private IEnumerable<ReadOnlyMemory<char>> GetPartBySeperators(ReadOnlyMemory<char> pathLookup, ReadOnlyMemory<char> seperators)
-        {
-            ReadOnlyMemory<char> part;
-            int length = 0;
-
-            for (int i = 0; i < pathLookup.Length; i++)
-            {
-                if (seperators.Span.IndexOf(pathLookup.Span[i]) > -1)
-                {
-                    part = pathLookup.Slice(i - length, length);
-                    if (!part.Span.Trim().IsEmpty)
-                        yield return part;
-
-                    length = 0;
-                }
-                else
-                {
-                    length++;
-                }
-            }
-
-            part = pathLookup.Slice(pathLookup.Length - length, length);
-            if (!part.Span.Trim().IsEmpty)
-                yield return part;
-        }
-
-        private bool IsValidTooltip(ReadOnlySpan<char> key, ReadOnlySpan<char> tooltip)
-        {
-            return !(key.IsEmpty || tooltip.Contains("$GalaxyVar", StringComparison.OrdinalIgnoreCase) || tooltip.Contains("**TEMP**", StringComparison.OrdinalIgnoreCase));
-        }
-
-        private ReadOnlyMemory<char> TrimDataReference(ReadOnlyMemory<char> pathLookup)
-        {
-            if (pathLookup.Span.StartsWith("<d ref", StringComparison.OrdinalIgnoreCase) || pathLookup.Span.StartsWith("[d ref", StringComparison.OrdinalIgnoreCase))
-                pathLookup = pathLookup.Slice(8);
-            else if (pathLookup.Span.StartsWith("<d const", StringComparison.OrdinalIgnoreCase))
-                pathLookup = pathLookup.Slice(10);
-
-            pathLookup = pathLookup.Slice(0, pathLookup.Span.LastIndexOf('/') - 1); // removes ending />
-
-            int start = 0;
-            int end = pathLookup.Length - 1;
-            char endChar = pathLookup.Span[end];
-
-            while ((start < end) && (endChar == ' ' || endChar == '"'))
-            {
-                if (endChar == ' ' || endChar == '"')
-                {
-                    end--;
-                }
-
-                endChar = pathLookup.Span[end];
-            }
-
-            return pathLookup.Slice(start, end - start + 1);
         }
     }
 }

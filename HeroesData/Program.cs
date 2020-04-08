@@ -10,8 +10,8 @@ namespace HeroesData
 {
     public class Program
     {
-        private readonly Dictionary<ExtractDataOption, List<string>> ExtractDataValues = new Dictionary<ExtractDataOption, List<string>>();
-        private readonly Dictionary<ExtractImageOption, List<string>> ExtractImageValues = new Dictionary<ExtractImageOption, List<string>>();
+        private readonly Dictionary<ExtractDataOptions, List<string>> _extractDataValues = new Dictionary<ExtractDataOptions, List<string>>();
+        private readonly Dictionary<ExtractImageOptions, List<string>> _extractImageValues = new Dictionary<ExtractImageOptions, List<string>>();
 
         public static void Main(string[] args)
         {
@@ -86,16 +86,16 @@ namespace HeroesData
                 {
                     if (extractDataFilesOption.Values.Exists(x => x.Equals("ALL", StringComparison.OrdinalIgnoreCase)))
                     {
-                        App.ExtractDataOption = ExtractDataOption.All;
+                        App.ExtractDataOption = ExtractDataOptions.All;
                     }
                     else
                     {
-                        foreach (ExtractDataOption? extractDataOption in Enum.GetValues(typeof(ExtractDataOption)))
+                        foreach (ExtractDataOptions? extractDataOption in Enum.GetValues(typeof(ExtractDataOptions)))
                         {
-                            if (!extractDataOption.HasValue || extractDataOption == ExtractDataOption.None || extractDataOption == ExtractDataOption.All)
+                            if (!extractDataOption.HasValue || extractDataOption == ExtractDataOptions.None || extractDataOption == ExtractDataOptions.All)
                                 continue;
 
-                            if (program.ExtractDataValues.TryGetValue(extractDataOption.Value, out List<string>? values))
+                            if (program._extractDataValues.TryGetValue(extractDataOption.Value, out List<string>? values))
                             {
                                 if (extractDataFilesOption.Values.Intersect(values, StringComparer.OrdinalIgnoreCase).Any())
                                     App.ExtractDataOption |= extractDataOption.Value;
@@ -104,12 +104,12 @@ namespace HeroesData
                     }
 
                     // none is default as defined in App
-                    if (App.ExtractDataOption != ExtractDataOption.None)
-                        App.ExtractDataOption &= ~ExtractDataOption.None;
+                    if (App.ExtractDataOption != ExtractDataOptions.None)
+                        App.ExtractDataOption &= ~ExtractDataOptions.None;
                 }
                 else
                 {
-                    App.ExtractDataOption = ExtractDataOption.HeroData;
+                    App.ExtractDataOption = ExtractDataOptions.HeroData;
                 }
 
                 // image file extraction
@@ -117,20 +117,20 @@ namespace HeroesData
                 {
                     if (extractImageFilesOption.Values.Exists(x => x.Equals("ALL", StringComparison.OrdinalIgnoreCase)))
                     {
-                        App.ExtractFileOption = ExtractImageOption.All;
+                        App.ExtractFileOption = ExtractImageOptions.All;
                     }
                     else if (extractImageFilesOption.Values.Exists(x => x.Equals("ALL-SPLIT", StringComparison.OrdinalIgnoreCase) || x.Equals("ALLSPLIT", StringComparison.OrdinalIgnoreCase)))
                     {
-                        App.ExtractFileOption = ExtractImageOption.AllSplit;
+                        App.ExtractFileOption = ExtractImageOptions.AllSplit;
                     }
                     else
                     {
-                        foreach (ExtractImageOption? extractFileOption in Enum.GetValues(typeof(ExtractImageOption)))
+                        foreach (ExtractImageOptions? extractFileOption in Enum.GetValues(typeof(ExtractImageOptions)))
                         {
-                            if (!extractFileOption.HasValue || extractFileOption == ExtractImageOption.None || extractFileOption == ExtractImageOption.All)
+                            if (!extractFileOption.HasValue || extractFileOption == ExtractImageOptions.None || extractFileOption == ExtractImageOptions.All)
                                 continue;
 
-                            if (program.ExtractImageValues.TryGetValue(extractFileOption.Value, out List<string>? values))
+                            if (program._extractImageValues.TryGetValue(extractFileOption.Value, out List<string>? values))
                             {
                                 if (extractImageFilesOption.Values.Intersect(values, StringComparer.OrdinalIgnoreCase).Any())
                                     App.ExtractFileOption |= extractFileOption.Value;
@@ -139,8 +139,8 @@ namespace HeroesData
                     }
 
                     // none is default as defined in App
-                    if (App.ExtractFileOption != ExtractImageOption.None)
-                        App.ExtractFileOption &= ~ExtractImageOption.None;
+                    if (App.ExtractFileOption != ExtractImageOptions.None)
+                        App.ExtractFileOption &= ~ExtractImageOptions.None;
                 }
 
                 if (setGameStringLocalizations.HasValue())
@@ -255,63 +255,63 @@ namespace HeroesData
             };
 
             // data
-            ExtractDataValues.Add(ExtractDataOption.HeroData, heroData);
-            ExtractDataValues.Add(ExtractDataOption.Unit, unitData);
-            ExtractDataValues.Add(ExtractDataOption.MatchAward, matchAwards);
-            ExtractDataValues.Add(ExtractDataOption.Spray, sprays);
-            ExtractDataValues.Add(ExtractDataOption.Announcer, announcers);
-            ExtractDataValues.Add(ExtractDataOption.VoiceLine, voiceLines);
-            ExtractDataValues.Add(ExtractDataOption.Emoticon, emoticons);
-            ExtractDataValues.Add(ExtractDataOption.HeroSkin, new List<string>()
+            _extractDataValues.Add(ExtractDataOptions.HeroData, heroData);
+            _extractDataValues.Add(ExtractDataOptions.Unit, unitData);
+            _extractDataValues.Add(ExtractDataOptions.MatchAward, matchAwards);
+            _extractDataValues.Add(ExtractDataOptions.Spray, sprays);
+            _extractDataValues.Add(ExtractDataOptions.Announcer, announcers);
+            _extractDataValues.Add(ExtractDataOptions.VoiceLine, voiceLines);
+            _extractDataValues.Add(ExtractDataOptions.Emoticon, emoticons);
+            _extractDataValues.Add(ExtractDataOptions.HeroSkin, new List<string>()
             {
                 "HEROSKINS", "HEROSKIN", "SKINS", "SKIN",
             });
-            ExtractDataValues.Add(ExtractDataOption.Mount, new List<string>()
+            _extractDataValues.Add(ExtractDataOptions.Mount, new List<string>()
             {
                 "MOUNTS", "MOUNT",
             });
-            ExtractDataValues.Add(ExtractDataOption.Banner, new List<string>()
+            _extractDataValues.Add(ExtractDataOptions.Banner, new List<string>()
             {
                 "BANNERS", "BANNER",
             });
-            ExtractDataValues.Add(ExtractDataOption.EmoticonPack, new List<string>()
+            _extractDataValues.Add(ExtractDataOptions.EmoticonPack, new List<string>()
             {
                 "EMOTICONPACKS", "EMOTICONPACK", "EMOTEPACKS", "EMOTEPACK",
             });
-            ExtractDataValues.Add(ExtractDataOption.Portrait, new List<string>()
+            _extractDataValues.Add(ExtractDataOptions.Portrait, new List<string>()
             {
                 "PORTRAITS", "PORTRAIT", "PORTRIAT", "PORT",
             });
-            ExtractDataValues.Add(ExtractDataOption.Veterancy, new List<string>()
+            _extractDataValues.Add(ExtractDataOptions.Veterancy, new List<string>()
             {
                 "VETERANCY", "VET", "VETERENCY", "SCALE", "SCALING", "SCALES",
             });
 
             // images
-            ExtractImageValues.Add(ExtractImageOption.HeroData, heroData);
-            ExtractImageValues.Add(ExtractImageOption.Unit, unitData);
-            ExtractImageValues.Add(ExtractImageOption.MatchAward, matchAwards);
-            ExtractImageValues.Add(ExtractImageOption.Announcer, announcers);
-            ExtractImageValues.Add(ExtractImageOption.Spray, sprays);
-            ExtractImageValues.Add(ExtractImageOption.VoiceLine, voiceLines);
-            ExtractImageValues.Add(ExtractImageOption.Emoticon, emoticons);
-            ExtractImageValues.Add(ExtractImageOption.Talent, new List<string>()
+            _extractImageValues.Add(ExtractImageOptions.HeroData, heroData);
+            _extractImageValues.Add(ExtractImageOptions.Unit, unitData);
+            _extractImageValues.Add(ExtractImageOptions.MatchAward, matchAwards);
+            _extractImageValues.Add(ExtractImageOptions.Announcer, announcers);
+            _extractImageValues.Add(ExtractImageOptions.Spray, sprays);
+            _extractImageValues.Add(ExtractImageOptions.VoiceLine, voiceLines);
+            _extractImageValues.Add(ExtractImageOptions.Emoticon, emoticons);
+            _extractImageValues.Add(ExtractImageOptions.Talent, new List<string>()
             {
                 "TALENTS", "TALENT", "TAL",
             });
-            ExtractImageValues.Add(ExtractImageOption.Ability, new List<string>()
+            _extractImageValues.Add(ExtractImageOptions.Ability, new List<string>()
             {
                 "ABILITIES", "ABILITY", "ABIL", "ABILITEIS", "ABILITES", "ABILITIS",
             });
-            ExtractImageValues.Add(ExtractImageOption.AbilityTalent, new List<string>()
+            _extractImageValues.Add(ExtractImageOptions.AbilityTalent, new List<string>()
             {
                 "ABILITYTALENTS", "ABILITYTALENT", "ABILTALENT", "ABILTAL",
             });
-            ExtractImageValues.Add(ExtractImageOption.HeroPortrait, new List<string>()
+            _extractImageValues.Add(ExtractImageOptions.HeroPortrait, new List<string>()
             {
                 "HEROPORTRAITS", "HEROPORTRAIT", "HP",
             });
-            ExtractImageValues.Add(ExtractImageOption.HeroDataSplit, new List<string>()
+            _extractImageValues.Add(ExtractImageOptions.HeroDataSplit, new List<string>()
             {
                 "HERODATASPLIT", "HEROESSPLIT", "HEROESDATASPLIT", "HEROSPLIT", "HERODATA-SPLIT", "HEROES-SPLIT", "HEROESDATA-SPLIT", "HERO-SPLIT",
             });

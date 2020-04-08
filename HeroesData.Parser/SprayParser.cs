@@ -26,7 +26,7 @@ namespace HeroesData.Parser
 
         public Spray? Parse(params string[] ids)
         {
-            if (ids == null || ids.Count() < 1)
+            if (ids == null || ids.Length < 1)
                 return null;
 
             string id = ids.FirstOrDefault();
@@ -54,6 +54,9 @@ namespace HeroesData.Parser
 
         protected override bool ValidItem(XElement element)
         {
+            if (element is null)
+                throw new ArgumentNullException(nameof(element));
+
             return element.Element("AttributeId") != null;
         }
 
@@ -69,14 +72,14 @@ namespace HeroesData.Parser
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.SprayData?.SprayDescription?.Replace(DefaultData.IdPlaceHolder, sprayElement.Attribute("id")?.Value));
+                string desc = GameData.GetGameString(DefaultData.SprayData?.SprayDescription?.Replace(DefaultData.IdPlaceHolder, sprayElement.Attribute("id")?.Value, StringComparison.OrdinalIgnoreCase));
                 if (!string.IsNullOrEmpty(desc))
                     spray.Description = new TooltipDescription(desc);
             }
 
             foreach (XElement element in sprayElement.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "INFOTEXT")
                 {
@@ -136,7 +139,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "TEXTURE")
                 {
-                    spray.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty)).ToLower();
+                    spray.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty)).ToLowerInvariant();
                 }
                 else if (elementName == "ANIMCOUNT")
                 {
@@ -151,16 +154,16 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(Spray spray)
         {
-            spray.Name = GameData.GetGameString(DefaultData.SprayData?.SprayName?.Replace(DefaultData.IdPlaceHolder, spray.Id));
-            spray.SortName = GameData.GetGameString(DefaultData.SprayData?.SpraySortName?.Replace(DefaultData.IdPlaceHolder, spray.Id));
-            spray.Description = new TooltipDescription(GameData.GetGameString(DefaultData.SprayData?.SprayDescription?.Replace(DefaultData.IdPlaceHolder, spray.Id)));
-            spray.HyperlinkId = DefaultData.SprayData?.SprayHyperlinkId?.Replace(DefaultData.IdPlaceHolder, spray.Id) ?? string.Empty;
+            spray.Name = GameData.GetGameString(DefaultData.SprayData?.SprayName?.Replace(DefaultData.IdPlaceHolder, spray.Id, StringComparison.OrdinalIgnoreCase));
+            spray.SortName = GameData.GetGameString(DefaultData.SprayData?.SpraySortName?.Replace(DefaultData.IdPlaceHolder, spray.Id, StringComparison.OrdinalIgnoreCase));
+            spray.Description = new TooltipDescription(GameData.GetGameString(DefaultData.SprayData?.SprayDescription?.Replace(DefaultData.IdPlaceHolder, spray.Id, StringComparison.OrdinalIgnoreCase)));
+            spray.HyperlinkId = DefaultData.SprayData?.SprayHyperlinkId?.Replace(DefaultData.IdPlaceHolder, spray.Id, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
             spray.ReleaseDate = DefaultData.SprayData?.SprayReleaseDate;
             spray.Rarity = Rarity.None;
             spray.AnimationCount = DefaultData.SprayData!.SprayAnimationCount;
             spray.AnimationDuration = DefaultData.SprayData.SprayAnimationDuration;
 
-            spray.SearchText = GameData.GetGameString(DefaultData.SprayData?.SprayAdditionalSearchText?.Replace(DefaultData.IdPlaceHolder, spray.Id));
+            spray.SearchText = GameData.GetGameString(DefaultData.SprayData?.SprayAdditionalSearchText?.Replace(DefaultData.IdPlaceHolder, spray.Id, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrEmpty(spray.SearchText))
                 spray.SearchText = spray.SearchText.Trim();
         }

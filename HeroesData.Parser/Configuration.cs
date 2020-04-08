@@ -9,39 +9,39 @@ namespace HeroesData.Parser
 {
     public class Configuration
     {
-        private readonly string AppPath;
+        private readonly string _appPath;
 
-        private readonly Dictionary<string, List<(string, string)>> PartValuesByElementName = new Dictionary<string, List<(string Part, string Value)>>();
-        private readonly Dictionary<string, HashSet<string>> XmlElementNameByType = new Dictionary<string, HashSet<string>>();
-        private readonly HashSet<string> UnitDataAbilities = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        private readonly HashSet<string> DeadImageFileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, List<(string, string)>> _partValuesByElementName = new Dictionary<string, List<(string Part, string Value)>>();
+        private readonly Dictionary<string, HashSet<string>> _xmlElementNameByType = new Dictionary<string, HashSet<string>>();
+        private readonly HashSet<string> _unitDataAbilities = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private readonly HashSet<string> _deadImageFileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-        private ILookup<string, string?>? AddIdByElementName;
-        private ILookup<string, string?>? RemoveIdByElementName;
+        private ILookup<string, string?>? _addIdByElementName;
+        private ILookup<string, string?>? _removeIdByElementName;
 
         public Configuration()
         {
-            AppPath = string.Empty;
+            _appPath = string.Empty;
         }
 
         public Configuration(string appPath)
         {
-            AppPath = appPath;
+            _appPath = appPath;
         }
 
-        public string ConfigFileName => Path.Combine(AppPath, "config.xml");
+        public string ConfigFileName => Path.Combine(_appPath, "config.xml");
 
         /// <summary>
         /// Gets a collection of extra unit data abilities that should be ignore when parsing unit data.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<string> UnitDataExtraAbilities => UnitDataAbilities;
+        public IEnumerable<string> UnitDataExtraAbilities => _unitDataAbilities;
 
         /// <summary>
         /// Gets a collection of image file names that do not exist.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<string> NonExistingImageFileNames => DeadImageFileNames;
+        public IEnumerable<string> NonExistingImageFileNames => _deadImageFileNames;
 
         /// <summary>
         /// Loads the configuration file.
@@ -66,24 +66,24 @@ namespace HeroesData.Parser
         /// <summary>
         /// Returns a collection of gamestring default values consisting of a part and value.
         /// </summary>
-        /// <param name="element"></param>
+        /// <param name="element">The element to look for.</param>
         /// <returns></returns>
         public IEnumerable<(string Part, string Value)> GamestringDefaultValues(string element)
         {
-            if (PartValuesByElementName.TryGetValue(element, out List<(string Part, string Value)>? values))
+            if (_partValuesByElementName.TryGetValue(element, out List<(string Part, string Value)>? values))
                 return values;
             else
                 return new List<(string Part, string Value)>();
         }
 
         /// <summary>
-        /// Returns a collection of elements if the element if found. Returns null if none found. Used for xml gamestring parsing.
+        /// Returns a collection of elements if the element is found. Returns null if none found. Used for xml gamestring parsing.
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="element">The element to look for.</param>
         /// <returns></returns>
         public IEnumerable<string> GamestringXmlElements(string element)
         {
-            if (XmlElementNameByType.TryGetValue(element, out HashSet<string>? elements))
+            if (_xmlElementNameByType.TryGetValue(element, out HashSet<string>? elements))
                 return elements;
             else
                 return new List<string>();
@@ -92,41 +92,41 @@ namespace HeroesData.Parser
         /// <summary>
         /// Returns a collection of id values from the element name. Used for xml parsing when retrieving items.
         /// </summary>
-        /// <param name="element"></param>
+        /// <param name="element">The element to look for.</param>
         /// <returns></returns>
         public IEnumerable<string> AddDataXmlElementIds(string element)
         {
-            return AddIdByElementName![element] !;
+            return _addIdByElementName![element]!;
         }
 
         /// <summary>
         /// Returns a collection of id values from the element name. Used for xml parsing when retrieving items.
         /// </summary>
-        /// <param name="element"></param>
+        /// <param name="element">The element to look for.</param>
         /// <returns></returns>
         public IEnumerable<string> RemoveDataXmlElementIds(string element)
         {
-            return RemoveIdByElementName![element] !;
+            return _removeIdByElementName![element]!;
         }
 
         /// <summary>
         /// Returns true if the ability id was found.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The ability id to look for (case insensitive).</param>
         /// <returns></returns>
         public bool ContainsIgnorableExtraAbility(string value)
         {
-            return UnitDataAbilities.Contains(value);
+            return _unitDataAbilities.Contains(value);
         }
 
         /// <summary>
         /// Returns true if the iamge file name was found.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The image file name to look for (case insensitive).</param>
         /// <returns></returns>
         public bool ContainsDeadImageFileName(string value)
         {
-            return DeadImageFileNames.Contains(value);
+            return _deadImageFileNames.Contains(value);
         }
 
         private void LoadConfigurationFile()
@@ -143,10 +143,10 @@ namespace HeroesData.Parser
                 if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(part) || string.IsNullOrEmpty(value))
                     continue;
 
-                if (PartValuesByElementName.TryGetValue(name, out List<(string Part, string Value)>? values))
+                if (_partValuesByElementName.TryGetValue(name, out List<(string Part, string Value)>? values))
                     values.Add((part, value));
                 else
-                    PartValuesByElementName.Add(name, new List<(string Part, string Value)>() { (part, value) });
+                    _partValuesByElementName.Add(name, new List<(string Part, string Value)>() { (part, value) });
             }
 
             // xml element lookup
@@ -166,7 +166,7 @@ namespace HeroesData.Parser
                     elements.Add(element.Value);
                 }
 
-                XmlElementNameByType.Add(name, elements);
+                _xmlElementNameByType.Add(name, elements);
             }
 
             // extra abilities
@@ -174,7 +174,7 @@ namespace HeroesData.Parser
             {
                 string value = abilityIdElement.Value;
                 if (!string.IsNullOrEmpty(value))
-                    UnitDataAbilities.Add(value);
+                    _unitDataAbilities.Add(value);
             }
 
             // dead image file names
@@ -182,12 +182,12 @@ namespace HeroesData.Parser
             {
                 string value = fileNameXelement.Value;
                 if (!string.IsNullOrEmpty(value))
-                    DeadImageFileNames.Add(value);
+                    _deadImageFileNames.Add(value);
             }
 
             // additional valid elements for xml parsing
-            AddIdByElementName = doc.Root.Element("DataParser").Elements().Where(x => string.IsNullOrEmpty(x.Attribute("value")?.Value) || x.Attribute("value").Value == "true").ToLookup(x => x.Name.LocalName, x => x.Attribute("id")?.Value);
-            RemoveIdByElementName = doc.Root.Element("DataParser").Elements().Where(x => x.Attribute("value")?.Value == "false").ToLookup(x => x.Name.LocalName, x => x.Attribute("id")?.Value);
+            _addIdByElementName = doc.Root.Element("DataParser").Elements().Where(x => string.IsNullOrEmpty(x.Attribute("value")?.Value) || x.Attribute("value").Value == "true").ToLookup(x => x.Name.LocalName, x => x.Attribute("id")?.Value);
+            _removeIdByElementName = doc.Root.Element("DataParser").Elements().Where(x => x.Attribute("value")?.Value == "false").ToLookup(x => x.Name.LocalName, x => x.Attribute("id")?.Value);
         }
     }
 }

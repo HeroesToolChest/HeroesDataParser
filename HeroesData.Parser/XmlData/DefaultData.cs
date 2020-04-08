@@ -29,11 +29,11 @@ namespace HeroesData.Parser.XmlData
 
         public const string AbilMountLinkId = "Mount";
 
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public DefaultData(GameData gameData)
         {
-            GameData = gameData;
+            _gameData = gameData;
         }
 
         public DefaultDataHero? HeroData { get; private set; }
@@ -77,27 +77,27 @@ namespace HeroesData.Parser.XmlData
         /// <remarks>Order is important.</remarks>
         public void Load()
         {
-            if (GameData == null)
+            if (_gameData == null)
                 return;
 
-            HeroData = new DefaultDataHero(GameData);
-            UnitData = new DefaultDataUnit(GameData);
-            AbilData = new DefaultDataAbil(GameData);
+            HeroData = new DefaultDataHero(_gameData);
+            UnitData = new DefaultDataUnit(_gameData);
+            AbilData = new DefaultDataAbil(_gameData);
 
-            ButtonData = new DefaultDataButton(GameData);
-            WeaponData = new DefaultDataWeapon(GameData);
+            ButtonData = new DefaultDataButton(_gameData);
+            WeaponData = new DefaultDataWeapon(_gameData);
 
-            HeroSkinData = new DefaultDataHeroSkin(GameData);
-            MountData = new DefaultDataMount(GameData);
-            BannerData = new DefaultDataBanner(GameData);
-            SprayData = new DefaultDataSpray(GameData);
-            AnnouncerData = new DefaultDataAnnouncer(GameData);
-            VoiceLineData = new DefaultDataVoiceLine(GameData);
-            PortraitPackData = new DefaultDataPortraitPack(GameData);
-            EmoticonData = new DefaultDataEmoticon(GameData);
-            EmoticonPackData = new DefaultDataEmoticonPack(GameData);
+            HeroSkinData = new DefaultDataHeroSkin(_gameData);
+            MountData = new DefaultDataMount(_gameData);
+            BannerData = new DefaultDataBanner(_gameData);
+            SprayData = new DefaultDataSpray(_gameData);
+            AnnouncerData = new DefaultDataAnnouncer(_gameData);
+            VoiceLineData = new DefaultDataVoiceLine(_gameData);
+            PortraitPackData = new DefaultDataPortraitPack(_gameData);
+            EmoticonData = new DefaultDataEmoticon(_gameData);
+            EmoticonPackData = new DefaultDataEmoticonPack(_gameData);
 
-            BehaviorVeterancyData = new DefaultDataBehaviorVeterancy(GameData);
+            BehaviorVeterancyData = new DefaultDataBehaviorVeterancy(_gameData);
         }
     }
 }

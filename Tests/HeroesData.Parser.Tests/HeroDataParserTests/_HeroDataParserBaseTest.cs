@@ -10,18 +10,20 @@ using System.IO;
 namespace HeroesData.Parser.Tests.HeroDataParserTests
 {
     [TestClass]
+#pragma warning disable SA1649 // File name should match first type name
     public class HeroDataParserBaseTest
+#pragma warning restore SA1649 // File name should match first type name
     {
-        private const string TestDataFolder = "TestData";
-        private readonly string ModsTestFolder = Path.Combine(TestDataFolder, "mods");
-        private readonly string OverrideFileNameSuffix = "overrides-dataparsertest.xml";
+        private const string _testDataFolder = "TestData";
+        private readonly string _modsTestFolder = Path.Combine(_testDataFolder, "mods");
+        private readonly string _overrideFileNameSuffix = "overrides-dataparsertest.xml";
 
-        private GameData GameData;
-        private DefaultData DefaultData;
-        private GameStringParser GameStringParser;
-        private HeroOverrideLoader HeroOverrideLoader;
-        private Configuration Configuration;
-        private IXmlDataService XmlDataService;
+        private GameData _gameData;
+        private DefaultData _defaultData;
+        private GameStringParser _gameStringParser;
+        private HeroOverrideLoader _heroOverrideLoader;
+        private Configuration _configuration;
+        private IXmlDataService _xmlDataService;
 
         public HeroDataParserBaseTest()
         {
@@ -66,33 +68,33 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            HeroDataParser heroDataParser = new HeroDataParser(XmlDataService, HeroOverrideLoader);
+            HeroDataParser heroDataParser = new HeroDataParser(_xmlDataService, _heroOverrideLoader);
             Assert.IsTrue(heroDataParser.Items.Count > 0);
         }
 
         private void LoadTestData()
         {
-            GameData = new FileGameData(ModsTestFolder);
-            GameData.LoadAllData();
+            _gameData = new FileGameData(_modsTestFolder);
+            _gameData.LoadAllData();
 
-            Configuration = new Configuration();
-            Configuration.Load();
+            _configuration = new Configuration();
+            _configuration.Load();
 
-            GameStringParser = new GameStringParser(Configuration, GameData);
+            _gameStringParser = new GameStringParser(_configuration, _gameData);
             ParseGameStrings();
 
-            DefaultData = new DefaultData(GameData);
-            DefaultData.Load();
+            _defaultData = new DefaultData(_gameData);
+            _defaultData.Load();
 
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, OverrideFileNameSuffix);
-            HeroOverrideLoader = (HeroOverrideLoader)xmlDataOverriders.GetOverrider(typeof(HeroDataParser));
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, _gameData, _overrideFileNameSuffix);
+            _heroOverrideLoader = (HeroOverrideLoader)xmlDataOverriders.GetOverrider(typeof(HeroDataParser));
 
-            XmlDataService = new XmlDataService(Configuration, GameData, DefaultData);
+            _xmlDataService = new XmlDataService(_configuration, _gameData, _defaultData);
         }
 
         private void Parse()
         {
-            HeroDataParser heroDataParser = new HeroDataParser(XmlDataService, HeroOverrideLoader);
+            HeroDataParser heroDataParser = new HeroDataParser(_xmlDataService, _heroOverrideLoader);
             HeroVarian = heroDataParser.Parse("Varian");
             HeroDehaka = heroDataParser.Parse("Dehaka");
             HeroDva = heroDataParser.Parse("DVa");
@@ -126,10 +128,10 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
 
         private void ParseGameStrings()
         {
-            foreach (string id in GameData.GameStringIds)
+            foreach (string id in _gameData.GameStringIds)
             {
-                if (GameStringParser.TryParseRawTooltip(id, GameData.GetGameString(id), out string parsedGamestring))
-                    GameData.AddGameString(id, parsedGamestring);
+                if (_gameStringParser.TryParseRawTooltip(id, _gameData.GetGameString(id), out string parsedGamestring))
+                    _gameData.AddGameString(id, parsedGamestring);
             }
         }
     }

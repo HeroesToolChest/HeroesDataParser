@@ -233,7 +233,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 abilityTalentBase.IsActive && abilityTalentBase is Talent ? new XAttribute("isActive", abilityTalentBase.IsActive) : !abilityTalentBase.IsActive && abilityTalentBase is Ability ? new XAttribute("isActive", abilityTalentBase.IsActive) : null,
                 abilityTalentBase.AbilityTalentId.IsPassive ? new XAttribute("isPassive", abilityTalentBase.AbilityTalentId.IsPassive) : null,
                 abilityTalentBase.IsQuest ? new XAttribute("isQuest", abilityTalentBase.IsQuest) : null,
-                string.IsNullOrEmpty(abilityTalentBase.IconFileName) ? null : new XElement("Icon", Path.ChangeExtension(abilityTalentBase.IconFileName?.ToLower(), StaticImageExtension)),
+                string.IsNullOrEmpty(abilityTalentBase.IconFileName) ? null : new XElement("Icon", Path.ChangeExtension(abilityTalentBase.IconFileName?.ToLowerInvariant(), StaticImageExtension)),
                 abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.HasValue ? new XElement("ToggleCooldown", abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.Value) : null,
                 UnitAbilityTalentLifeCost(abilityTalentBase.Tooltip.Life),
                 UnitAbilityTalentEnergyCost(abilityTalentBase.Tooltip.Energy),
@@ -310,23 +310,23 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             return new XElement(
                 "Portraits",
-                new XElement("HeroSelect", Path.ChangeExtension(hero.HeroPortrait.HeroSelectPortraitFileName?.ToLower(), StaticImageExtension)),
-                new XElement("Leaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName?.ToLower(), StaticImageExtension)),
-                new XElement("Loading", Path.ChangeExtension(hero.HeroPortrait.LoadingScreenPortraitFileName?.ToLower(), StaticImageExtension)),
-                new XElement("PartyFrame", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName?.ToLower(), StaticImageExtension)),
-                new XElement("Target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName?.ToLower(), StaticImageExtension)),
-                new XElement("DraftScreen", Path.ChangeExtension(hero.HeroPortrait.DraftScreenFileName?.ToLower(), StaticImageExtension)),
-                new XElement("PartyFrames", hero.HeroPortrait.PartyFrameFileName.Select(x => new XElement("PartyFrame", Path.ChangeExtension(x.ToLower(), StaticImageExtension)))),
-                new XElement("Minimap", Path.ChangeExtension(hero.UnitPortrait.MiniMapIconFileName?.ToLower(), StaticImageExtension)),
-                new XElement("TargetInfo", Path.ChangeExtension(hero.UnitPortrait.TargetInfoPanelFileName?.ToLower(), StaticImageExtension)));
+                new XElement("HeroSelect", Path.ChangeExtension(hero.HeroPortrait.HeroSelectPortraitFileName?.ToLowerInvariant(), StaticImageExtension)),
+                new XElement("Leaderboard", Path.ChangeExtension(hero.HeroPortrait.LeaderboardPortraitFileName?.ToLowerInvariant(), StaticImageExtension)),
+                new XElement("Loading", Path.ChangeExtension(hero.HeroPortrait.LoadingScreenPortraitFileName?.ToLowerInvariant(), StaticImageExtension)),
+                new XElement("PartyFrame", Path.ChangeExtension(hero.HeroPortrait.PartyPanelPortraitFileName?.ToLowerInvariant(), StaticImageExtension)),
+                new XElement("Target", Path.ChangeExtension(hero.HeroPortrait.TargetPortraitFileName?.ToLowerInvariant(), StaticImageExtension)),
+                new XElement("DraftScreen", Path.ChangeExtension(hero.HeroPortrait.DraftScreenFileName?.ToLowerInvariant(), StaticImageExtension)),
+                new XElement("PartyFrames", hero.HeroPortrait.PartyFrameFileName.Select(x => new XElement("PartyFrame", Path.ChangeExtension(x.ToLowerInvariant(), StaticImageExtension)))),
+                new XElement("Minimap", Path.ChangeExtension(hero.UnitPortrait.MiniMapIconFileName?.ToLowerInvariant(), StaticImageExtension)),
+                new XElement("TargetInfo", Path.ChangeExtension(hero.UnitPortrait.TargetInfoPanelFileName?.ToLowerInvariant(), StaticImageExtension)));
         }
 
         protected override XElement GetUnitPortraitObject(Unit unit)
         {
             return new XElement(
                 "Portraits",
-                string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName) ? null : new XElement("TargetInfo", Path.ChangeExtension(unit.UnitPortrait.TargetInfoPanelFileName?.ToLower(), StaticImageExtension)),
-                string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName) ? null : new XElement("Minimap", Path.ChangeExtension(unit.UnitPortrait.MiniMapIconFileName?.ToLower(), StaticImageExtension)));
+                string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName) ? null : new XElement("TargetInfo", Path.ChangeExtension(unit.UnitPortrait.TargetInfoPanelFileName?.ToLowerInvariant(), StaticImageExtension)),
+                string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName) ? null : new XElement("Minimap", Path.ChangeExtension(unit.UnitPortrait.MiniMapIconFileName?.ToLowerInvariant(), StaticImageExtension)));
         }
     }
 }

@@ -11,10 +11,10 @@ namespace HeroesData.Loader.Tests
     [TestClass]
     public class FileGameDataTests
     {
-        private const string TestDataFolder = "TestData";
-        private readonly string ModsTestFolder = Path.Combine(TestDataFolder, "mods");
+        private const string _testDataFolder = "TestData";
+        private readonly string _modsTestFolder = Path.Combine(_testDataFolder, "mods");
 
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public FileGameDataTests()
         {
@@ -22,20 +22,20 @@ namespace HeroesData.Loader.Tests
             CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
-            GameData = new FileGameData(ModsTestFolder);
-            GameData.LoadXmlFiles();
+            _gameData = new FileGameData(_modsTestFolder);
+            _gameData.LoadXmlFiles();
         }
 
         [TestMethod]
         public void GameDataOnlyXmlPropertiesTests()
         {
-            Assert.IsTrue(GameData.XmlFileCount > 0);
-            Assert.IsTrue(GameData.TextFileCount == 0);
-            Assert.IsTrue(GameData.XmlCachedFilePathCount == 0);
-            Assert.IsTrue(GameData.TextCachedFilePathCount == 0);
-            Assert.IsTrue(GameData.GameStringCount == 0);
-            Assert.IsFalse(GameData.IsCacheEnabled);
-            Assert.IsNull(GameData.HotsBuild);
+            Assert.IsTrue(_gameData.XmlFileCount > 0);
+            Assert.IsTrue(_gameData.TextFileCount == 0);
+            Assert.IsTrue(_gameData.XmlCachedFilePathCount == 0);
+            Assert.IsTrue(_gameData.TextCachedFilePathCount == 0);
+            Assert.IsTrue(_gameData.GameStringCount == 0);
+            Assert.IsFalse(_gameData.IsCacheEnabled);
+            Assert.IsNull(_gameData.HotsBuild);
         }
 
         [TestMethod]

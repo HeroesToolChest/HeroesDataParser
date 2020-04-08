@@ -2,7 +2,6 @@
 
 namespace HeroesData.Parser.Exceptions
 {
-    [Serializable]
     public class ConfigurationException : Exception
     {
         public ConfigurationException()

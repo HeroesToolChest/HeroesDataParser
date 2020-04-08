@@ -7,11 +7,11 @@ namespace HeroesData.Parser.XmlData
 {
     public class DefaultDataEmoticon
     {
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public DefaultDataEmoticon(GameData gameData)
         {
-            GameData = gameData;
+            _gameData = gameData;
 
             LoadCEmoticonDefault();
             LoadCTextureSheetDefault();
@@ -33,7 +33,7 @@ namespace HeroesData.Parser.XmlData
         public string? EmoticonExpression { get; private set; }
 
         /// <summary>
-        /// Gets the default emoticon hidden status.
+        /// Gets a value indicating whether the default emoticon status is hidden.
         /// </summary>
         public bool EmoticonIsHidden { get; private set; } = false;
 
@@ -60,20 +60,20 @@ namespace HeroesData.Parser.XmlData
         // <CEmoticon default="1">
         private void LoadCEmoticonDefault()
         {
-            CEmoticonElement(GameData.Elements("CEmoticon").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CEmoticonElement(_gameData.Elements("CEmoticon").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CTextureSheet default="1">
         private void LoadCTextureSheetDefault()
         {
-            CTextureSheetElement(GameData.Elements("CTextureSheet").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CTextureSheetElement(_gameData.Elements("CTextureSheet").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         private void CEmoticonElement(IEnumerable<XElement> cEmoticonElements)
         {
             foreach (XElement element in cEmoticonElements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "LOCALIZEDALIASARRAY")
                 {
@@ -108,7 +108,7 @@ namespace HeroesData.Parser.XmlData
         {
             foreach (XElement element in cTextureSheetElements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "IMAGE")
                 {

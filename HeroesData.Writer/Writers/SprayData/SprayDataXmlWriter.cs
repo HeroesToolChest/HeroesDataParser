@@ -30,7 +30,7 @@ namespace HeroesData.FileWriter.Writers.SprayData
                 string.IsNullOrEmpty(spray.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", spray.SortName),
                 string.IsNullOrEmpty(spray.SearchText) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", spray.SearchText),
                 string.IsNullOrEmpty(spray.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(spray.Description, FileOutputOptions.DescriptionType)),
-                string.IsNullOrEmpty(spray.ImageFileName) ? null : new XElement("Image", spray.AnimationCount < 1 ? Path.ChangeExtension(spray.ImageFileName?.ToLower(), StaticImageExtension) : Path.ChangeExtension(spray.ImageFileName?.ToLower(), AnimatedImageExtension)),
+                string.IsNullOrEmpty(spray.ImageFileName) ? null : new XElement("Image", spray.AnimationCount < 1 ? Path.ChangeExtension(spray.ImageFileName?.ToLowerInvariant(), StaticImageExtension) : Path.ChangeExtension(spray.ImageFileName?.ToLowerInvariant(), AnimatedImageExtension)),
                 AnimationObject(spray));
         }
 
@@ -38,7 +38,7 @@ namespace HeroesData.FileWriter.Writers.SprayData
         {
             return new XElement(
                 "Animation",
-                new XElement("Texture", Path.ChangeExtension(spray.ImageFileName?.ToLower(), StaticImageExtension)),
+                new XElement("Texture", Path.ChangeExtension(spray.ImageFileName?.ToLowerInvariant(), StaticImageExtension)),
                 new XElement("Frames", spray.AnimationCount),
                 new XElement("Duration", spray.AnimationDuration));
         }

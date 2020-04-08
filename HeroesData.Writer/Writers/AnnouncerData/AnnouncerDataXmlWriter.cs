@@ -30,7 +30,7 @@ namespace HeroesData.FileWriter.Writers.AnnouncerData
                 announcer.ReleaseDate.HasValue ? new XAttribute("releaseDate", announcer.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
                 string.IsNullOrEmpty(announcer.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", announcer.SortName),
                 string.IsNullOrEmpty(announcer.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(announcer.Description, FileOutputOptions.DescriptionType)),
-                string.IsNullOrEmpty(announcer.ImageFileName) ? null : new XElement("Image", Path.ChangeExtension(announcer.ImageFileName?.ToLower(), StaticImageExtension)));
+                string.IsNullOrEmpty(announcer.ImageFileName) ? null : new XElement("Image", Path.ChangeExtension(announcer.ImageFileName?.ToLowerInvariant(), StaticImageExtension)));
         }
     }
 }

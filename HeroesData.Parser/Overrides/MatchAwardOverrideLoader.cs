@@ -21,6 +21,9 @@ namespace HeroesData.Parser.Overrides
 
         protected override void SetOverride(XElement element)
         {
+            if (element is null)
+                throw new System.ArgumentNullException(nameof(element));
+
             MatchAwardDataOverride matchAwardDataOverride = new MatchAwardDataOverride();
 
             string cAwardId = element.Attribute("id").Value;

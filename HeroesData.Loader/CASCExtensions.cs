@@ -8,11 +8,18 @@ namespace HeroesData.Loader
     {
         public static CASCFolder GetDirectory(this CASCFolder cascFolder, string folderPath)
         {
+            if (cascFolder is null)
+                throw new ArgumentNullException(nameof(cascFolder));
+            if (folderPath is null)
+                throw new ArgumentNullException(nameof(folderPath));
+
             CASCFolder currentFolder = cascFolder;
 
             foreach (string directory in EnumeratedStringPath(folderPath))
             {
+#pragma warning disable CA1062 // Validate arguments of public methods
                 currentFolder = (CASCFolder)currentFolder.GetEntry(directory);
+#pragma warning restore CA1062 // Validate arguments of public methods
             }
 
             return currentFolder;
@@ -20,6 +27,11 @@ namespace HeroesData.Loader
 
         public static bool DirectoryExists(this CASCFolder cascFolder, string folderPath)
         {
+            if (cascFolder is null)
+                throw new ArgumentNullException(nameof(cascFolder));
+            if (folderPath is null)
+                throw new ArgumentNullException(nameof(folderPath));
+
             CASCFolder currentFolder = cascFolder;
 
             foreach (string directory in EnumeratedStringPath(folderPath))

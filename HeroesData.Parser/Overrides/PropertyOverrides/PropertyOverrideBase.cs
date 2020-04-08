@@ -23,7 +23,7 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                     propertyValue = property.Value;
 
                 // remove existing non-array property override - duplicates will override previous
-                if (propertyName.EndsWith("Array"))
+                if (propertyName.EndsWith("Array", StringComparison.OrdinalIgnoreCase))
                 {
                     propertyName += propertyValue;
                 }

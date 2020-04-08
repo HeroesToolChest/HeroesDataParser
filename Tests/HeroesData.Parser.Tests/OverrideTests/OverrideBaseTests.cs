@@ -12,14 +12,14 @@ namespace HeroesData.Parser.Tests.OverrideTests
     [TestClass]
     public abstract class OverrideBaseTests
     {
-        private const string TestDataFolder = "TestData";
-        private readonly string ModsTestFolder = Path.Combine(TestDataFolder, "mods");
-        private readonly string OverrideFileNameSuffix = "overrides-test";
+        private const string _testDataFolder = "TestData";
+        private readonly string _modsTestFolder = Path.Combine(_testDataFolder, "mods");
+        private readonly string _overrideFileNameSuffix = "overrides-test";
 
         public OverrideBaseTests()
         {
-            GameData gameData = new FileGameData(ModsTestFolder);
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, gameData, OverrideFileNameSuffix);
+            GameData gameData = new FileGameData(_modsTestFolder);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, gameData, _overrideFileNameSuffix);
 
             HeroOverrideLoader = (HeroOverrideLoader)xmlDataOverriders.GetOverrider(typeof(HeroDataParser));
             HeroDataOverride = HeroOverrideLoader.GetOverride(CHeroId);

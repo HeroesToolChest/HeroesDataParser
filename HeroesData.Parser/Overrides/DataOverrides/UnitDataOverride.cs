@@ -7,8 +7,8 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 {
     public class UnitDataOverride : DataOverrideBase, IDataOverride
     {
-        private readonly Dictionary<string, bool> IsAddedWeaponByWeaponId = new Dictionary<string, bool>();
-        private readonly Dictionary<AbilityTalentId, bool> IsAddedAbilityByAbilityId = new Dictionary<AbilityTalentId, bool>();
+        private readonly Dictionary<string, bool> _isAddedWeaponByWeaponId = new Dictionary<string, bool>();
+        private readonly Dictionary<AbilityTalentId, bool> _isAddedAbilityByAbilityId = new Dictionary<AbilityTalentId, bool>();
 
         /// <summary>
         /// Gets or sets the CUnit name.
@@ -33,22 +33,22 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         /// <summary>
         /// Gets the amount of added weapons.
         /// </summary>
-        public int AddedWeaponsCount => IsAddedWeaponByWeaponId.Count;
+        public int AddedWeaponsCount => _isAddedWeaponByWeaponId.Count;
 
         /// <summary>
         /// Gets a collection of addded weapons.
         /// </summary>
-        public IEnumerable<string> AddedWeapons => IsAddedWeaponByWeaponId.Keys;
+        public IEnumerable<string> AddedWeapons => _isAddedWeaponByWeaponId.Keys;
 
         /// <summary>
         /// Gets the amount of added abilities.
         /// </summary>
-        public int AddedAbilitiesCount => IsAddedAbilityByAbilityId.Count;
+        public int AddedAbilitiesCount => _isAddedAbilityByAbilityId.Count;
 
         /// <summary>
         /// Gets a collection of added abilities.
         /// </summary>
-        public IEnumerable<AbilityTalentId> AddedAbilities => IsAddedAbilityByAbilityId.Keys;
+        public IEnumerable<AbilityTalentId> AddedAbilities => _isAddedAbilityByAbilityId.Keys;
 
         /// <summary>
         /// Gets the property override action methods for abilities by the ability id.
@@ -67,7 +67,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
                 throw new ArgumentNullException(nameof(weaponId));
             }
 
-            IsAddedWeaponByWeaponId.Add(weaponId, isAdded);
+            _isAddedWeaponByWeaponId.Add(weaponId, isAdded);
         }
 
         public bool ContainsAddedWeapon(string weaponId)
@@ -77,12 +77,12 @@ namespace HeroesData.Parser.Overrides.DataOverrides
                 throw new ArgumentNullException(nameof(weaponId));
             }
 
-            return IsAddedWeaponByWeaponId.ContainsKey(weaponId);
+            return _isAddedWeaponByWeaponId.ContainsKey(weaponId);
         }
 
         public bool IsAddedWeapon(string weaponId)
         {
-            if (IsAddedWeaponByWeaponId.TryGetValue(weaponId, out bool value))
+            if (_isAddedWeaponByWeaponId.TryGetValue(weaponId, out bool value))
                 return value;
             else
                 return false;
@@ -95,7 +95,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
                 throw new ArgumentNullException(nameof(abilityTalentId));
             }
 
-            IsAddedAbilityByAbilityId.TryAdd(abilityTalentId, isAdded);
+            _isAddedAbilityByAbilityId.TryAdd(abilityTalentId, isAdded);
         }
 
         public bool ContainsAddedAbility(AbilityTalentId abilityTalentId)
@@ -105,12 +105,12 @@ namespace HeroesData.Parser.Overrides.DataOverrides
                 throw new ArgumentNullException(nameof(abilityTalentId));
             }
 
-            return IsAddedAbilityByAbilityId.ContainsKey(abilityTalentId);
+            return _isAddedAbilityByAbilityId.ContainsKey(abilityTalentId);
         }
 
         public bool IsAddedAbility(AbilityTalentId abilityTalentId)
         {
-            if (IsAddedAbilityByAbilityId.TryGetValue(abilityTalentId, out bool value))
+            if (_isAddedAbilityByAbilityId.TryGetValue(abilityTalentId, out bool value))
                 return value;
             else
                 return false;

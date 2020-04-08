@@ -30,7 +30,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void RolesTests()
         {
-            Assert.AreEqual(1, HeroAuriel.Roles.Count());
+            Assert.AreEqual(1, HeroAuriel.Roles.Count);
             Assert.AreEqual("Support", HeroAuriel.Roles.ToList()[0]);
         }
 

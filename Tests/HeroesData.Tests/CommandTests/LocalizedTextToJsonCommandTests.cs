@@ -9,9 +9,9 @@ namespace HeroesData.Tests.CommandTests
     [TestClass]
     public class LocalizedTextToJsonCommandTests
     {
-        private readonly string CommandName = "localized-json";
-        private readonly string FilesDirectory = Path.Combine("CommandTests", "LocalizedTextToJsonFiles");
-        private readonly string ConvertedFiles = Path.Combine("CommandTests", "LocalizedTextToJsonFiles", "localizedtextjson");
+        private readonly string _commandName = "localized-json";
+        private readonly string _filesDirectory = Path.Combine("CommandTests", "LocalizedTextToJsonFiles");
+        private readonly string _convertedFiles = Path.Combine("CommandTests", "LocalizedTextToJsonFiles", "localizedtextjson");
 
         [TestMethod]
         public void NoArgumentsTests()
@@ -21,11 +21,11 @@ namespace HeroesData.Tests.CommandTests
             Console.SetOut(writer);
             Console.SetError(writer);
 
-            Program.Main(new string[] { CommandName });
+            Program.Main(new string[] { _commandName });
 
             List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
-            Assert.IsTrue(lines[0].Contains("Argument needs to specify a valid file or directory path."));
+            Assert.IsTrue(lines[0].Contains("Argument needs to specify a valid file or directory path.", StringComparison.OrdinalIgnoreCase));
         }
 
         [TestMethod]
@@ -36,15 +36,15 @@ namespace HeroesData.Tests.CommandTests
             Console.SetOut(writer);
             Console.SetError(writer);
 
-            Program.Main(new string[] { CommandName, Path.Combine(FilesDirectory, "gamestrings_76437_dede.txt") });
+            Program.Main(new string[] { _commandName, Path.Combine(_filesDirectory, "gamestrings_76437_dede.txt") });
 
             List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
-            Assert.IsTrue(lines[0].Contains(string.Empty));
+            Assert.IsTrue(lines[0].Contains(string.Empty, StringComparison.OrdinalIgnoreCase));
 
-            Program.Main(new string[] { "quick-compare", Path.Combine(ConvertedFiles, "gamestrings_76437_dede.json"), Path.Combine(FilesDirectory, "gamestrings_76437_dede_converted.json") });
+            Program.Main(new string[] { "quick-compare", Path.Combine(_convertedFiles, "gamestrings_76437_dede.json"), Path.Combine(_filesDirectory, "gamestrings_76437_dede_converted.json") });
 
             lines = writer.ToString().Split(Environment.NewLine).ToList();
-            Assert.IsTrue(lines[0].Contains("gamestrings_76437_dede_converted.json               gamestrings_76437_dede.json\tMATCH"));
+            Assert.IsTrue(lines[0].Contains("gamestrings_76437_dede_converted.json               gamestrings_76437_dede.json\tMATCH", StringComparison.OrdinalIgnoreCase));
         }
 
         [TestMethod]
@@ -55,15 +55,15 @@ namespace HeroesData.Tests.CommandTests
             Console.SetOut(writer);
             Console.SetError(writer);
 
-            Program.Main(new string[] { CommandName, Path.Combine(FilesDirectory, "gamestrings_dede.txt") });
+            Program.Main(new string[] { _commandName, Path.Combine(_filesDirectory, "gamestrings_dede.txt") });
 
             List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
-            Assert.IsTrue(lines[0].Contains(string.Empty));
+            Assert.IsTrue(lines[0].Contains(string.Empty, StringComparison.OrdinalIgnoreCase));
 
-            Program.Main(new string[] { "quick-compare", Path.Combine(ConvertedFiles, "gamestrings_dede.json"), Path.Combine(FilesDirectory, "gamestrings_dede_converted.json") });
+            Program.Main(new string[] { "quick-compare", Path.Combine(_convertedFiles, "gamestrings_dede.json"), Path.Combine(_filesDirectory, "gamestrings_dede_converted.json") });
 
             lines = writer.ToString().Split(Environment.NewLine).ToList();
-            Assert.IsTrue(lines[0].Contains("gamestrings_dede_converted.json               gamestrings_dede.json\tMATCH"));
+            Assert.IsTrue(lines[0].Contains("gamestrings_dede_converted.json               gamestrings_dede.json\tMATCH", StringComparison.OrdinalIgnoreCase));
         }
     }
 }

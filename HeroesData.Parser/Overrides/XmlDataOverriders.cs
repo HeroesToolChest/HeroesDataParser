@@ -7,12 +7,12 @@ namespace HeroesData.Parser.Overrides
 {
     public class XmlDataOverriders
     {
-        private readonly string AppPath;
-        private readonly GameData GameData;
-        private readonly int? HotsBuild;
-        private readonly string OverrideFileNameSuffix;
+        private readonly string _appPath;
+        private readonly GameData _gameData;
+        private readonly int? _hotsBuild;
+        private readonly string _overrideFileNameSuffix;
 
-        private readonly Dictionary<Type, IOverrideLoader> Overrides = new Dictionary<Type, IOverrideLoader>();
+        private readonly Dictionary<Type, IOverrideLoader> _overrides = new Dictionary<Type, IOverrideLoader>();
 
         private XmlDataOverriders(string appPath, GameData gameData, string overrideFileNameSuffix)
             : this(appPath, gameData, null, overrideFileNameSuffix)
@@ -21,23 +21,23 @@ namespace HeroesData.Parser.Overrides
 
         private XmlDataOverriders(string appPath, GameData gameData, int? hotsBuild, string overrideFileNameSuffix)
         {
-            AppPath = appPath;
-            GameData = gameData;
-            HotsBuild = hotsBuild;
-            OverrideFileNameSuffix = overrideFileNameSuffix;
+            _appPath = appPath;
+            _gameData = gameData;
+            _hotsBuild = hotsBuild;
+            _overrideFileNameSuffix = overrideFileNameSuffix;
 
             Initialize();
         }
 
         /// <summary>
-        /// Returns a collection of loaded override file names.
+        /// Gets a collection of loaded override file names.
         /// </summary>
-        public IEnumerable<string> LoadedFileNames => Overrides.Values.Select(x => x.LoadedOverrideFileName).ToList();
+        public IEnumerable<string> LoadedFileNames => _overrides.Values.Select(x => x.LoadedOverrideFileName).ToList();
 
         /// <summary>
-        /// Returns the amount of overriders that have been set.
+        /// Gets the amount of overriders that have been set.
         /// </summary>
-        public int Count => Overrides.Count;
+        public int Count => _overrides.Count;
 
         /// <summary>
         /// Loads all the override data.
@@ -94,7 +94,7 @@ namespace HeroesData.Parser.Overrides
         /// <returns></returns>
         public IOverrideLoader? GetOverrider(Type type)
         {
-            if (Overrides.TryGetValue(type, out IOverrideLoader? overrides))
+            if (_overrides.TryGetValue(type, out IOverrideLoader? overrides))
                 return overrides;
             else
                 return null;
@@ -108,16 +108,16 @@ namespace HeroesData.Parser.Overrides
 
         private void SetDataOverrides()
         {
-            Overrides.Add(typeof(HeroDataParser), new HeroOverrideLoader(AppPath, HotsBuild));
-            Overrides.Add(typeof(UnitParser), new UnitOverrideLoader(AppPath, HotsBuild));
-            Overrides.Add(typeof(MatchAwardParser), new MatchAwardOverrideLoader(AppPath, HotsBuild));
+            _overrides.Add(typeof(HeroDataParser), new HeroOverrideLoader(_appPath, _hotsBuild));
+            _overrides.Add(typeof(UnitParser), new UnitOverrideLoader(_appPath, _hotsBuild));
+            _overrides.Add(typeof(MatchAwardParser), new MatchAwardOverrideLoader(_appPath, _hotsBuild));
         }
 
         private void LoadOverrides()
         {
-            foreach (var overrider in Overrides)
+            foreach (var overrider in _overrides)
             {
-                overrider.Value.Load(OverrideFileNameSuffix);
+                overrider.Value.Load(_overrideFileNameSuffix);
             }
         }
     }

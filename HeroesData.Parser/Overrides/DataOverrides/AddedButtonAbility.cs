@@ -1,4 +1,6 @@
-﻿namespace HeroesData.Parser.Overrides.DataOverrides
+﻿using System;
+
+namespace HeroesData.Parser.Overrides.DataOverrides
 {
     public class AddedButtonAbility
     {
@@ -21,7 +23,7 @@
 
         public override int GetHashCode()
         {
-            return (ButtonId + ParentValue).GetHashCode();
+            return (ButtonId + ParentValue).GetHashCode(StringComparison.OrdinalIgnoreCase);
         }
     }
 }

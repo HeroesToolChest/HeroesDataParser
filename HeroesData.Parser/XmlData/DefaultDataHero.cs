@@ -153,7 +153,7 @@ namespace HeroesData.Parser.XmlData
         {
             foreach (XElement element in elements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "NAME")
                 {
@@ -235,7 +235,7 @@ namespace HeroesData.Parser.XmlData
         {
             foreach (XElement element in elements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "NAME")
                 {

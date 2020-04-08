@@ -26,7 +26,7 @@ namespace HeroesData.Parser
 
         public Announcer? Parse(params string[] ids)
         {
-            if (ids == null || ids.Count() < 1)
+            if (ids == null || ids.Length < 1)
                 return null;
 
             string id = ids.FirstOrDefault();
@@ -54,6 +54,9 @@ namespace HeroesData.Parser
 
         protected override bool ValidItem(XElement element)
         {
+            if (element is null)
+                throw new ArgumentNullException(nameof(element));
+
             return element.Element("AttributeId") != null;
         }
 
@@ -71,14 +74,14 @@ namespace HeroesData.Parser
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.AnnouncerData?.AnnouncerDescription?.Replace(DefaultData.IdPlaceHolder, announcerPackElement.Attribute("id")?.Value));
+                string desc = GameData.GetGameString(DefaultData.AnnouncerData?.AnnouncerDescription?.Replace(DefaultData.IdPlaceHolder, announcerPackElement.Attribute("id")?.Value, StringComparison.OrdinalIgnoreCase));
                 if (!string.IsNullOrEmpty(desc))
                     announcer.Description = new TooltipDescription(desc);
             }
 
             foreach (XElement element in announcerPackElement.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "INFOTEXT")
                 {
@@ -112,7 +115,7 @@ namespace HeroesData.Parser
                     announcer.HyperlinkId = element.Attribute("value")?.Value ?? string.Empty;
 
                     if (!string.IsNullOrEmpty(heroId))
-                        announcer.HyperlinkId = announcer.HyperlinkId.Replace(DefaultData.HeroIdPlaceHolder, heroId);
+                        announcer.HyperlinkId = announcer.HyperlinkId.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase);
                 }
                 else if (elementName == "RARITY")
                 {
@@ -132,17 +135,17 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "TILETEXTURE")
                 {
-                    announcer.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty)).ToLower();
+                    announcer.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty)).ToLowerInvariant();
 
                     if (!string.IsNullOrEmpty(heroId))
-                        announcer.ImageFileName = announcer.ImageFileName.Replace(DefaultData.HeroIdPlaceHolder, heroId).ToLower();
+                        announcer.ImageFileName = announcer.ImageFileName.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase).ToLowerInvariant();
                 }
                 else if (elementName == "HERO")
                 {
                     announcer.HeroId = element?.Attribute("value")?.Value ?? string.Empty;
 
                     if (!string.IsNullOrEmpty(heroId))
-                        announcer.HeroId = announcer.HeroId.Replace(DefaultData.HeroIdPlaceHolder, heroId) ?? string.Empty;
+                        announcer.HeroId = announcer.HeroId.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
                 }
                 else if (elementName == "GENDER")
                 {
@@ -153,9 +156,9 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(Announcer announcer)
         {
-            announcer.Name = GameData.GetGameString(DefaultData.AnnouncerData?.AnnouncerName?.Replace(DefaultData.IdPlaceHolder, announcer.Id));
-            announcer.SortName = GameData.GetGameString(DefaultData.AnnouncerData?.AnnouncerSortName?.Replace(DefaultData.IdPlaceHolder, announcer.Id));
-            announcer.Description = new TooltipDescription(GameData.GetGameString(DefaultData.AnnouncerData?.AnnouncerDescription?.Replace(DefaultData.IdPlaceHolder, announcer.Id)));
+            announcer.Name = GameData.GetGameString(DefaultData.AnnouncerData?.AnnouncerName?.Replace(DefaultData.IdPlaceHolder, announcer.Id, StringComparison.OrdinalIgnoreCase));
+            announcer.SortName = GameData.GetGameString(DefaultData.AnnouncerData?.AnnouncerSortName?.Replace(DefaultData.IdPlaceHolder, announcer.Id, StringComparison.OrdinalIgnoreCase));
+            announcer.Description = new TooltipDescription(GameData.GetGameString(DefaultData.AnnouncerData?.AnnouncerDescription?.Replace(DefaultData.IdPlaceHolder, announcer.Id, StringComparison.OrdinalIgnoreCase)));
             announcer.ReleaseDate = DefaultData.AnnouncerData?.AnnouncerReleaseDate;
             announcer.Rarity = Rarity.None;
         }

@@ -8,11 +8,11 @@ namespace HeroesData.Parser.XmlData
 {
     public class DefaultDataVoiceLine
     {
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public DefaultDataVoiceLine(GameData gameData)
         {
-            GameData = gameData;
+            _gameData = gameData;
 
             LoadCVoiceLineDefault();
         }
@@ -45,14 +45,14 @@ namespace HeroesData.Parser.XmlData
         // <CVoiceLine default="1">
         private void LoadCVoiceLineDefault()
         {
-            CVoiceLineElement(GameData.Elements("CVoiceLine").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CVoiceLineElement(_gameData.Elements("CVoiceLine").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         private void CVoiceLineElement(IEnumerable<XElement> cVoiceLineElements)
         {
             foreach (XElement element in cVoiceLineElements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "NAME")
                 {

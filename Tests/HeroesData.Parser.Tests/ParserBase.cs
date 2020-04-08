@@ -8,8 +8,8 @@ namespace HeroesData.Parser.Tests
 {
     public class ParserBase
     {
-        private const string TestDataFolder = "TestData";
-        private readonly string ModsTestFolder = Path.Combine(TestDataFolder, "mods");
+        private const string _testDataFolder = "TestData";
+        private readonly string _modsTestFolder = Path.Combine(_testDataFolder, "mods");
 
         public ParserBase()
         {
@@ -28,7 +28,7 @@ namespace HeroesData.Parser.Tests
 
         private void LoadTestData()
         {
-            GameData = new FileGameData(ModsTestFolder);
+            GameData = new FileGameData(_modsTestFolder);
             GameData.LoadAllData();
 
             DefaultData = new DefaultData(GameData);

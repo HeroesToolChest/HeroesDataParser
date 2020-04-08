@@ -6,14 +6,14 @@ namespace HeroesData.Parser.Tests.OverrideTests.HeroOverrideTest
     [TestClass]
     public class AlarakHeroTests : OverrideBaseTests, IHeroOverride
     {
-        private readonly string Hero = "Alarak";
+        private readonly string _hero = "Alarak";
 
         public AlarakHeroTests()
             : base()
         {
         }
 
-        protected override string CHeroId => Hero;
+        protected override string CHeroId => _hero;
 
         [TestMethod]
         public void CUnitOverrideTest()

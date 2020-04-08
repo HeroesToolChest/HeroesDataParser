@@ -220,7 +220,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (talent.Tooltip.ShortTooltip.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.ShortTooltip)} failed to parse correctly");
-                    else if (talent.Tooltip.ShortTooltip.RawDescription.Contains("<d ref=\"") || talent.Tooltip.ShortTooltip.RawDescription.Contains("<d const=\""))
+                    else if (talent.Tooltip.ShortTooltip.RawDescription.Contains("<d ref=\"", StringComparison.OrdinalIgnoreCase) || talent.Tooltip.ShortTooltip.RawDescription.Contains("<d const=\"", StringComparison.OrdinalIgnoreCase))
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.ShortTooltip)} could not be parsed");
                     else if (talent.Tooltip.ShortTooltip.HasErrorTag)
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.ShortTooltip)} contains an error tag");
@@ -230,7 +230,7 @@ namespace HeroesData.ExtractorData
                 {
                     if (talent.Tooltip.FullTooltip.RawDescription == GameStringParser.FailedParsed)
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)} failed to parse correctly");
-                    else if (talent.Tooltip.FullTooltip.RawDescription.Contains("<d ref=\"") || talent.Tooltip.FullTooltip.RawDescription.Contains("<d const=\""))
+                    else if (talent.Tooltip.FullTooltip.RawDescription.Contains("<d ref=\"", StringComparison.OrdinalIgnoreCase) || talent.Tooltip.FullTooltip.RawDescription.Contains("<d const=\"", StringComparison.OrdinalIgnoreCase))
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)} could not be parsed");
                     else if (talent.Tooltip.FullTooltip.HasErrorTag)
                         AddWarning($"[{talent}] {nameof(talent.Tooltip.FullTooltip)} contains an error tag");
@@ -413,21 +413,21 @@ namespace HeroesData.ExtractorData
 
             if (!isHeroUnit)
             {
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Q && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                if (!abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Q && x.Tier != AbilityTiers.Hidden).Any())
                     AddWarning(unitId, $"does not have a {AbilityTypes.Q} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.W && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                if (!abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.W && x.Tier != AbilityTiers.Hidden).Any())
                     AddWarning(unitId, $"does not have a {AbilityTypes.W} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.E && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                if (!abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.E && x.Tier != AbilityTiers.Hidden).Any())
                     AddWarning(unitId, $"does not have a {AbilityTypes.E} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Heroic && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                if (!abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Heroic && x.Tier != AbilityTiers.Hidden).Any())
                     AddWarning(unitId, $"does not have a {AbilityTypes.Heroic} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Z && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                if (!abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Z && x.Tier != AbilityTiers.Hidden).Any())
                     AddWarning(unitId, $"does not have a {AbilityTypes.Z} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.B && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                if (!abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.B && x.Tier != AbilityTiers.Hidden).Any())
                     AddWarning(unitId, $"does not have a {AbilityTypes.B} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Trait && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                if (!abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Trait && x.Tier != AbilityTiers.Hidden).Any())
                     AddWarning(unitId, $"does not have a {AbilityTypes.Trait} ability");
-                if (abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Spray && x.Tier != AbilityTiers.Hidden).Count() < 1)
+                if (!abilitiesList.Where(x => x.AbilityTalentId.AbilityType == AbilityTypes.Spray && x.Tier != AbilityTiers.Hidden).Any())
                     AddWarning(unitId, $"does not have a {AbilityTypes.Spray} ability");
             }
         }

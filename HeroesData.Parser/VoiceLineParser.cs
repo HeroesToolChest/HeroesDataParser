@@ -26,7 +26,7 @@ namespace HeroesData.Parser
 
         public VoiceLine? Parse(params string[] ids)
         {
-            if (ids == null || ids.Count() < 1)
+            if (ids == null || ids.Length < 1)
                 return null;
 
             string id = ids.FirstOrDefault();
@@ -81,14 +81,14 @@ namespace HeroesData.Parser
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.VoiceLineData?.VoiceLineDescription?.Replace(DefaultData.IdPlaceHolder, voiceLineElement.Attribute("id")?.Value));
+                string desc = GameData.GetGameString(DefaultData.VoiceLineData?.VoiceLineDescription?.Replace(DefaultData.IdPlaceHolder, voiceLineElement.Attribute("id")?.Value, StringComparison.OrdinalIgnoreCase));
                 if (!string.IsNullOrEmpty(desc))
                     voiceLine.Description = new TooltipDescription(desc);
             }
 
             foreach (XElement element in voiceLineElement.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "DESCRIPTION")
                 {
@@ -119,7 +119,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    voiceLine.HyperlinkId = element.Attribute("value")?.Value.Replace(DefaultData.HeroIdPlaceHolder, heroId) ?? string.Empty;
+                    voiceLine.HyperlinkId = element.Attribute("value")?.Value.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
                 }
                 else if (elementName == "NAME")
                 {
@@ -128,23 +128,23 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "HERO")
                 {
-                    voiceLine.HeroId = element.Attribute("value")?.Value.Replace(DefaultData.HeroIdPlaceHolder, heroId) ?? string.Empty;
+                    voiceLine.HeroId = element.Attribute("value")?.Value.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
                 }
                 else if (elementName == "TILETEXTURE")
                 {
-                    voiceLine.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty)).ToLower();
+                    voiceLine.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty)).ToLowerInvariant();
 
                     if (!string.IsNullOrEmpty(heroId))
-                        voiceLine.ImageFileName = voiceLine.ImageFileName.Replace(DefaultData.HeroIdPlaceHolder, heroId).ToLower();
+                        voiceLine.ImageFileName = voiceLine.ImageFileName.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase).ToLowerInvariant();
                 }
             }
         }
 
         private void SetDefaultValues(VoiceLine voiceLine)
         {
-            voiceLine.Name = GameData.GetGameString(DefaultData.VoiceLineData?.VoiceLineName?.Replace(DefaultData.IdPlaceHolder, voiceLine.Id));
-            voiceLine.SortName = GameData.GetGameString(DefaultData.VoiceLineData?.VoiceLineSortName?.Replace(DefaultData.IdPlaceHolder, voiceLine.Id));
-            voiceLine.Description = new TooltipDescription(GameData.GetGameString(DefaultData.VoiceLineData?.VoiceLineDescription?.Replace(DefaultData.IdPlaceHolder, voiceLine.Id)));
+            voiceLine.Name = GameData.GetGameString(DefaultData.VoiceLineData?.VoiceLineName?.Replace(DefaultData.IdPlaceHolder, voiceLine.Id, StringComparison.OrdinalIgnoreCase));
+            voiceLine.SortName = GameData.GetGameString(DefaultData.VoiceLineData?.VoiceLineSortName?.Replace(DefaultData.IdPlaceHolder, voiceLine.Id, StringComparison.OrdinalIgnoreCase));
+            voiceLine.Description = new TooltipDescription(GameData.GetGameString(DefaultData.VoiceLineData?.VoiceLineDescription?.Replace(DefaultData.IdPlaceHolder, voiceLine.Id, StringComparison.OrdinalIgnoreCase)));
             voiceLine.HyperlinkId = string.Empty;
             voiceLine.ReleaseDate = DefaultData.VoiceLineData?.VoiceLineReleaseDate;
         }

@@ -9,11 +9,11 @@ namespace HeroesData.Parser.XmlData
     {
         public const string CButtonDefaultBaseId = "StormButtonParent";
 
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public DefaultDataButton(GameData gameData)
         {
-            GameData = gameData;
+            _gameData = gameData;
 
             LoadCButtonDefault();
             LoadCButtonDefaultStormButtonParent();
@@ -50,57 +50,57 @@ namespace HeroesData.Parser.XmlData
         public string? ButtonHotkeyAlias { get; private set; }
 
         /// <summary>
-        /// Gets the default button tooltip flag - show name.
+        /// Gets a value indicating whether the default button tooltip flag - show name.
         /// </summary>
         public bool ButtonTooltipFlagShowName { get; private set; } = false;
 
         /// <summary>
-        /// Gets the default button tooltip flag - show hotkey.
+        /// Gets a value indicating whether the default button tooltip flag - show hotkey.
         /// </summary>
         public bool ButtonTooltipFlagShowHotkey { get; private set; } = false;
 
         /// <summary>
-        /// Gets the default button tooltip flag - show usage.
+        /// Gets a value indicating whether the default button tooltip flag - show usage.
         /// </summary>
         public bool ButtonTooltipFlagShowUsage { get; private set; } = false;
 
         /// <summary>
-        /// Gets the default button tooltip flag - show time.
+        /// Gets a value indicating whether the default button tooltip flag - show time.
         /// </summary>
         public bool ButtonTooltipFlagShowTime { get; private set; } = false;
 
         /// <summary>
-        /// Gets the default button tooltip flag - show cooldown.
+        /// Gets a value indicating whether the default button tooltip flag - show cooldown.
         /// </summary>
         public bool ButtonTooltipFlagShowCooldown { get; private set; } = false;
 
         /// <summary>
-        /// Gets the default button tooltip flag - show requirements.
+        /// Gets a value indicating whether the default button tooltip flag - show requirements.
         /// </summary>
         public bool ButtonTooltipFlagShowRequirements { get; private set; } = false;
 
         /// <summary>
-        /// Gets the default button tooltip flag - show autocast.
+        /// Gets a value indicating whether the default button tooltip flag - show autocast.
         /// </summary>
         public bool ButtonTooltipFlagShowAutocast { get; private set; } = false;
 
         // <CButton default="1">
         private void LoadCButtonDefault()
         {
-            CButtonElement(GameData.Elements("CButton").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CButtonElement(_gameData.Elements("CButton").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         // <CButton default="1" id="StormButtonParent">
         private void LoadCButtonDefaultStormButtonParent()
         {
-            CButtonElement(GameData.Elements("CButton").Where(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == CButtonDefaultBaseId));
+            CButtonElement(_gameData.Elements("CButton").Where(x => x.Attribute("default")?.Value == "1" && x.Attribute("id")?.Value == CButtonDefaultBaseId));
         }
 
         private void CButtonElement(IEnumerable<XElement> cButtonElements)
         {
             foreach (XElement element in cButtonElements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "NAME")
                 {

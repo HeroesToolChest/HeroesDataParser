@@ -7,18 +7,18 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 {
     public class HeroDataOverride : UnitDataOverride, IDataOverride
     {
-        private readonly HashSet<string> HeroUnitsList = new HashSet<string>();
-        private readonly HashSet<string> HeroUnitsRemovedList = new HashSet<string>();
+        private readonly HashSet<string> _heroUnitsList = new HashSet<string>();
+        private readonly HashSet<string> _heroUnitsRemovedList = new HashSet<string>();
 
         /// <summary>
         /// Gets a collection of hero units.
         /// </summary>
-        public IEnumerable<string> HeroUnits => HeroUnitsList;
+        public IEnumerable<string> HeroUnits => _heroUnitsList;
 
         /// <summary>
         /// Gets the amount of hero units.
         /// </summary>
-        public int HeroUnitsCount => HeroUnitsList.Count;
+        public int HeroUnitsCount => _heroUnitsList.Count;
 
         /// <summary>
         /// Gets the property override action methods for talents by talent id.
@@ -41,7 +41,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
                 throw new ArgumentException("Argument cannot be null or empty", nameof(heroUnitId));
             }
 
-            HeroUnitsList.Add(heroUnitId);
+            _heroUnitsList.Add(heroUnitId);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
                 throw new ArgumentException("Argument cannot be null or empty", nameof(heroUnitId));
             }
 
-            return HeroUnitsList.Contains(heroUnitId);
+            return _heroUnitsList.Contains(heroUnitId);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
                 throw new ArgumentException("Argument cannot be null or empty", nameof(heroUnitId));
             }
 
-            HeroUnitsRemovedList.Add(heroUnitId);
+            _heroUnitsRemovedList.Add(heroUnitId);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
                 throw new ArgumentException("Argument cannot be null or empty", nameof(heroUnitId));
             }
 
-            return HeroUnitsRemovedList.Contains(heroUnitId);
+            return _heroUnitsRemovedList.Contains(heroUnitId);
         }
 
         /// <summary>
@@ -115,7 +115,8 @@ namespace HeroesData.Parser.Overrides.DataOverrides
         /// <summary>
         /// Peforms all portrait overrides.
         /// </summary>
-        /// <param name="hero"></param>
+        /// <param name="heroId"></param>
+        /// <param name="heroPortrait"></param>
         public void ExecutePortraitOverrides(string heroId, HeroPortrait heroPortrait)
         {
             if (heroId == null)

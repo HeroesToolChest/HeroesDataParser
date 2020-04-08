@@ -11,12 +11,12 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void PropertiesTests()
         {
-            Assert.AreEqual(1, ZagaraHydralisk.Attributes.Count());
+            Assert.AreEqual(1, ZagaraHydralisk.Attributes.Count);
             Assert.IsTrue(ZagaraHydralisk.Attributes.Contains("Summoned"));
             Assert.AreEqual("ZagaraHydralisk", ZagaraHydralisk.CUnitId);
             Assert.AreEqual("Summon", ZagaraHydralisk.DamageType);
             Assert.IsNull(ZagaraHydralisk.Description?.RawDescription);
-            Assert.AreEqual(0, ZagaraHydralisk.HeroDescriptors.Count());
+            Assert.AreEqual(0, ZagaraHydralisk.HeroDescriptors.Count);
             Assert.AreEqual("ZagaraHydralisk", ZagaraHydralisk.HyperlinkId);
             Assert.AreEqual("ZagaraHydralisk", ZagaraHydralisk.Id);
             Assert.AreEqual(0.375, ZagaraHydralisk.InnerRadius);

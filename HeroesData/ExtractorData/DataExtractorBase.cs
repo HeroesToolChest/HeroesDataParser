@@ -15,9 +15,9 @@ namespace HeroesData.ExtractorData
         where T : IExtractable?
         where TParser : IParser<T, TParser>
     {
-        private readonly HashSet<string> ValidationWarnings = new HashSet<string>();
+        private readonly HashSet<string> _validationWarnings = new HashSet<string>();
 
-        private string ValidationWarningId = "Unknown";
+        private string _validationWarningId = "Unknown";
 
         public DataExtractorBase(TParser parser)
         {
@@ -30,7 +30,7 @@ namespace HeroesData.ExtractorData
         public int WarningsIgnoredCount { get; private set; } = 0;
 
         /// <summary>
-        /// Type of data that is being parsed.
+        /// Gets type of data that is being parsed.
         /// </summary>
         public abstract string Name { get; }
 
@@ -122,9 +122,10 @@ namespace HeroesData.ExtractorData
         /// <summary>
         /// Checks all the parsed data for missing or inaccurate data.
         /// </summary>
+        /// <param name="localization">The <see cref="Localization"/> of the file being validated.</param>
         public void Validate(Localization localization)
         {
-            ValidationWarnings.Clear();
+            _validationWarnings.Clear();
             WarningsIgnoredCount = 0;
 
             foreach (KeyValuePair<string, T> t in ParsedData)
@@ -132,19 +133,19 @@ namespace HeroesData.ExtractorData
                 if (t.Value == null)
                     continue;
 
-                ValidationWarningId = t.Value.Id;
+                _validationWarningId = t.Value.Id;
                 Validation(t.Value);
             }
 
-            if (ValidationWarnings.Count > 0)
+            if (_validationWarnings.Count > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write($"[{Name}] {ValidationWarnings.Count} warnings");
+                Console.Write($"[{Name}] {_validationWarnings.Count} warnings");
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write($"[{Name}] {ValidationWarnings.Count} warnings");
+                Console.Write($"[{Name}] {_validationWarnings.Count} warnings");
             }
 
             if (WarningsIgnoredCount > 0)
@@ -153,10 +154,10 @@ namespace HeroesData.ExtractorData
             Console.WriteLine();
             Console.ResetColor();
 
-            if (ValidationWarnings.Count > 0 || WarningsIgnoredCount > 0)
+            if (_validationWarnings.Count > 0 || WarningsIgnoredCount > 0)
             {
-                List<string> nonTooltips = new List<string>(ValidationWarnings.Where(x => !x.ToLower().Contains("tooltip")));
-                List<string> tooltips = new List<string>(ValidationWarnings.Where(x => x.ToLower().Contains("tooltip")));
+                List<string> nonTooltips = new List<string>(_validationWarnings.Where(x => !x.Contains("tooltip", StringComparison.OrdinalIgnoreCase)));
+                List<string> tooltips = new List<string>(_validationWarnings.Where(x => x.Contains("tooltip", StringComparison.OrdinalIgnoreCase)));
 
                 string validationDirectory;
                 string validationFilePath;
@@ -164,12 +165,12 @@ namespace HeroesData.ExtractorData
                 if (App.HotsBuild.HasValue)
                 {
                     validationDirectory = Path.Combine(App.AssemblyPath, $"validation_{App.HotsBuild}");
-                    validationFilePath = Path.Combine(validationDirectory, $"VerificationCheck_{App.HotsBuild}_{Name}_{localization.ToString().ToLower()}.txt");
+                    validationFilePath = Path.Combine(validationDirectory, $"VerificationCheck_{App.HotsBuild}_{Name}_{localization.ToString().ToLowerInvariant()}.txt");
                 }
                 else
                 {
                     validationDirectory = Path.Combine(App.AssemblyPath, $"validation");
-                    validationFilePath = Path.Combine(validationDirectory, $"VerificationCheck_{Name}_{localization.ToString().ToLower()}.txt");
+                    validationFilePath = Path.Combine(validationDirectory, $"VerificationCheck_{Name}_{localization.ToString().ToLowerInvariant()}.txt");
                 }
 
                 Directory.CreateDirectory(validationDirectory);
@@ -199,7 +200,7 @@ namespace HeroesData.ExtractorData
                     });
                 }
 
-                writer.WriteLine($"{Environment.NewLine}{ValidationWarnings.Count} warnings ({WarningsIgnoredCount} ignored)");
+                writer.WriteLine($"{Environment.NewLine}{_validationWarnings.Count} warnings ({WarningsIgnoredCount} ignored)");
 
                 if (App.ShowValidationWarnings)
                     Console.WriteLine();
@@ -232,10 +233,10 @@ namespace HeroesData.ExtractorData
             if (!string.IsNullOrWhiteSpace(id))
                 message = $"[{id}] {message}".Trim();
             else
-                message = $"[{ValidationWarningId}] {message}".Trim();
+                message = $"[{_validationWarningId}] {message}".Trim();
 
             if (!string.IsNullOrWhiteSpace(message) && !App.ValidationIgnoreLines.Contains(message) && !App.ValidationIgnoreLines.Contains(genericMessage))
-                ValidationWarnings.Add(message);
+                _validationWarnings.Add(message);
             else
                 WarningsIgnoredCount++;
         }

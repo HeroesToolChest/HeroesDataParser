@@ -136,7 +136,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
         [TestMethod]
         public void RolesTests()
         {
-            Assert.AreEqual(1, HeroFalstad.Roles.Count());
+            Assert.AreEqual(1, HeroFalstad.Roles.Count);
             Assert.AreEqual("Assassin", HeroFalstad.Roles.ToList()[0]);
         }
 

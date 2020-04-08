@@ -7,11 +7,11 @@ namespace HeroesData.Parser.XmlData
 {
     public class DefaultDataEmoticonPack
     {
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public DefaultDataEmoticonPack(GameData gameData)
         {
-            GameData = gameData;
+            _gameData = gameData;
 
             LoadCEmoticonPackDefault();
         }
@@ -39,14 +39,14 @@ namespace HeroesData.Parser.XmlData
         // <CEmoticonPack default="1">
         private void LoadCEmoticonPackDefault()
         {
-            CEmoticonPackElement(GameData.Elements("CEmoticonPack").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CEmoticonPackElement(_gameData.Elements("CEmoticonPack").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         private void CEmoticonPackElement(IEnumerable<XElement> cEmoticonPackElements)
         {
             foreach (XElement element in cEmoticonPackElements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "NAME")
                 {

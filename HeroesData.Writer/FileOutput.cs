@@ -19,53 +19,57 @@ namespace HeroesData.FileWriter
 {
     public class FileOutput
     {
-        private readonly FileOutputOptions FileOutputOptions;
-        private readonly int? HotsBuild;
+        private readonly FileOutputOptions _fileOutputOptions;
+        private readonly int? _hotsBuild;
 
-        private readonly Dictionary<FileOutputType, Dictionary<string, IWritable>> Writers = new Dictionary<FileOutputType, Dictionary<string, IWritable>>();
+        private readonly Dictionary<FileOutputType, Dictionary<string, IWritable>> _writers = new Dictionary<FileOutputType, Dictionary<string, IWritable>>();
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="FileOutput"/> class.
         /// Creates the output files.
         /// </summary>
         public FileOutput()
         {
-            FileOutputOptions = new FileOutputOptions();
+            _fileOutputOptions = new FileOutputOptions();
 
             Initialize();
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="FileOutput"/> class.
         /// Creates the output files.
         /// </summary>
         /// <param name="hotsBuild">The hots build number.</param>
         public FileOutput(int? hotsBuild)
         {
-            HotsBuild = hotsBuild;
-            FileOutputOptions = new FileOutputOptions();
+            _hotsBuild = hotsBuild;
+            _fileOutputOptions = new FileOutputOptions();
 
             Initialize();
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="FileOutput"/> class.
         /// Creates the output files.
         /// </summary>
         /// <param name="fileOutputOptions">Configuration options that can be set from the CLI.</param>
         public FileOutput(FileOutputOptions fileOutputOptions)
         {
-            FileOutputOptions = fileOutputOptions;
+            _fileOutputOptions = fileOutputOptions;
 
             Initialize();
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="FileOutput"/> class.
         /// Creates the output files.
         /// </summary>
         /// <param name="hotsBuild">The hots build number.</param>
         /// <param name="fileOutputOptions">Configuration options that can be set from the CLI.</param>
         public FileOutput(int? hotsBuild, FileOutputOptions fileOutputOptions)
         {
-            HotsBuild = hotsBuild;
-            FileOutputOptions = fileOutputOptions;
+            _hotsBuild = hotsBuild;
+            _fileOutputOptions = fileOutputOptions;
 
             Initialize();
         }
@@ -73,17 +77,17 @@ namespace HeroesData.FileWriter
         /// <summary>
         /// Creates the output files.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">A type of <see cref="IExtractable"/>.</typeparam>
         /// <param name="items">The parsed items to be used for the creation of the output.</param>
         /// <param name="fileOutputType">The file type.</param>
         /// <returns></returns>
         public bool Create<T>(IEnumerable<T> items, FileOutputType fileOutputType)
             where T : IExtractable
         {
-            if (Writers[fileOutputType].TryGetValue(typeof(T).Name, out IWritable? writable))
+            if (_writers[fileOutputType].TryGetValue(typeof(T).Name, out IWritable? writable))
             {
-                writable.FileOutputOptions = FileOutputOptions;
-                writable.HotsBuild = HotsBuild;
+                writable.FileOutputOptions = _fileOutputOptions;
+                writable.HotsBuild = _hotsBuild;
 
                 ((IWriter<T>)writable).CreateOutput(items);
 
@@ -100,7 +104,7 @@ namespace HeroesData.FileWriter
 
         private void SetWriters()
         {
-            Writers.Add(FileOutputType.Json, new Dictionary<string, IWritable>()
+            _writers.Add(FileOutputType.Json, new Dictionary<string, IWritable>()
             {
                 { nameof(Hero), new HeroDataJsonWriter() },
                 { nameof(Unit), new UnitDataJsonWriter() },
@@ -117,7 +121,7 @@ namespace HeroesData.FileWriter
                 { nameof(BehaviorVeterancy), new BehaviorVeterancyDataJsonWriter() },
             });
 
-            Writers.Add(FileOutputType.Xml, new Dictionary<string, IWritable>()
+            _writers.Add(FileOutputType.Xml, new Dictionary<string, IWritable>()
             {
                 { nameof(Hero), new HeroDataXmlWriter() },
                 { nameof(Unit), new UnitDataXmlWriter() },

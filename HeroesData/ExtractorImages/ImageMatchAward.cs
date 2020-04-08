@@ -9,9 +9,9 @@ namespace HeroesData.ExtractorImage
 {
     public class ImageMatchAward : ImageExtractorBase<MatchAward>, IImage
     {
-        private readonly HashSet<(string OriginalName, string NewName)> Awards = new HashSet<(string Original, string NewName)>();
+        private readonly HashSet<(string OriginalName, string NewName)> _awards = new HashSet<(string Original, string NewName)>();
 
-        private readonly string MatchAwardsDirectory = "matchawards";
+        private readonly string _matchAwardsDirectory = "matchawards";
 
         public ImageMatchAward(CASCHandler? cascHandler, string modsFolderPath)
             : base(cascHandler, modsFolderPath)
@@ -20,43 +20,46 @@ namespace HeroesData.ExtractorImage
 
         protected override void LoadFileData(MatchAward matchAward)
         {
+            if (matchAward is null)
+                throw new ArgumentNullException(nameof(matchAward));
+
             if (!string.IsNullOrEmpty(matchAward.MVPScreenImageFileNameOriginal))
-                Awards.Add((matchAward.MVPScreenImageFileNameOriginal, matchAward.MVPScreenImageFileName));
+                _awards.Add((matchAward.MVPScreenImageFileNameOriginal, matchAward.MVPScreenImageFileName));
             if (!string.IsNullOrEmpty(matchAward.ScoreScreenImageFileNameOriginal))
-                Awards.Add((matchAward.ScoreScreenImageFileNameOriginal, matchAward.ScoreScreenImageFileName));
+                _awards.Add((matchAward.ScoreScreenImageFileNameOriginal, matchAward.ScoreScreenImageFileName));
         }
 
         protected override void ExtractFiles()
         {
-            if (App.ExtractFileOption.HasFlag(ExtractImageOption.MatchAward))
+            if (App.ExtractFileOption.HasFlag(ExtractImageOptions.MatchAward))
                 ExtractMatchAwardIcons();
         }
 
         private void ExtractMatchAwardIcons()
         {
-            if (Awards == null || Awards.Count < 1)
+            if (_awards == null || _awards.Count < 1)
                 return;
 
             int count = 0;
-            Console.Write($"Extracting match award icon files...{count}/{Awards.Count}");
+            Console.Write($"Extracting match award icon files...{count}/{_awards.Count}");
 
-            string extractFilePath = Path.Combine(ExtractDirectory, MatchAwardsDirectory);
+            string extractFilePath = Path.Combine(ExtractDirectory, _matchAwardsDirectory);
 
-            foreach ((string originalName, string newName) in Awards)
+            foreach ((string originalName, string newName) in _awards)
             {
-                if (originalName.StartsWith("storm_ui_mvp_icons_rewards_") || originalName == "storm_ui_mvp_icon.dds")
+                if (originalName.StartsWith("storm_ui_mvp_icons_rewards_", StringComparison.OrdinalIgnoreCase) || originalName == "storm_ui_mvp_icon.dds")
                 {
                     if (ExtractMVPAwardFile(extractFilePath, originalName, newName))
                         count++;
 
-                    Console.Write($"\rExtracting match award icon files...{count}/{Awards.Count}");
+                    Console.Write($"\rExtracting match award icon files...{count}/{_awards.Count}");
                 }
                 else
                 {
                     if (ExtractScoreAwardFile(extractFilePath, originalName, newName, "red") && ExtractScoreAwardFile(extractFilePath, originalName, newName, "blue"))
                         count++;
 
-                    Console.Write($"\rExtracting match award icon files...{count}/{Awards.Count}");
+                    Console.Write($"\rExtracting match award icon files...{count}/{_awards.Count}");
                 }
             }
 
@@ -76,14 +79,14 @@ namespace HeroesData.ExtractorImage
             {
                 Directory.CreateDirectory(path);
 
-                fileName = fileName.Replace("%team%", color);
+                fileName = fileName.Replace("%team%", color, StringComparison.OrdinalIgnoreCase);
                 string textureFilepath = Path.Combine(TexturesPath, fileName);
                 if (FileExists(textureFilepath))
                 {
                     using Stream stream = OpenFile(textureFilepath);
                     using DDSImage image = new DDSImage(stream);
 
-                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%team%", color))}.png"));
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%team%", color, StringComparison.OrdinalIgnoreCase))}.png"));
 
                     return true;
                 }
@@ -121,9 +124,9 @@ namespace HeroesData.ExtractorImage
 
                     int newWidth = image.Width / 3;
 
-                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "blue"))}.png"), new Point(0, 0), new Size(newWidth, image.Height));
-                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "red"))}.png"), new Point(newWidth, 0), new Size(newWidth, image.Height));
-                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "gold"))}.png"), new Point(newWidth * 2, 0), new Size(newWidth, image.Height));
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "blue", StringComparison.OrdinalIgnoreCase))}.png"), new Point(0, 0), new Size(newWidth, image.Height));
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "red", StringComparison.OrdinalIgnoreCase))}.png"), new Point(newWidth, 0), new Size(newWidth, image.Height));
+                    image.Save(Path.Combine(path, $"{Path.GetFileNameWithoutExtension(newFileName.Replace("%color%", "gold", StringComparison.OrdinalIgnoreCase))}.png"), new Point(newWidth * 2, 0), new Size(newWidth, image.Height));
 
                     return true;
                 }

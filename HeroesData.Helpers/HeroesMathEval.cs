@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -6,10 +7,13 @@ namespace HeroesData.Helpers
 {
     public static class HeroesMathEval
     {
-        private static readonly DataTable DataTable = new DataTable();
+        private static readonly DataTable _dataTable = new DataTable();
 
         public static double CalculatePathEquation(string input)
         {
+            if (input is null)
+                throw new ArgumentNullException(nameof(input));
+
             input = ParenthesisValidator(input);
             input = SpecificEquationModifier(input);
             input = GetInnerParenthesisValues(input);
@@ -31,14 +35,14 @@ namespace HeroesData.Helpers
 
                 string matchInput = match.Value;
 
-                if (matchInput.StartsWith("("))
+                if (matchInput.StartsWith("(", StringComparison.OrdinalIgnoreCase))
                     matchInput = matchInput.Substring(1);
-                if (matchInput.EndsWith(")"))
+                if (matchInput.EndsWith(")", StringComparison.OrdinalIgnoreCase))
                     matchInput = matchInput.Remove(matchInput.Length - 1);
 
                 matchInput = GetInnerParenthesisValues(matchInput);
 
-                int position = input.IndexOf(match.Value);
+                int position = input.IndexOf(match.Value, StringComparison.OrdinalIgnoreCase);
                 if (position >= 0)
                 {
                     input = input.Substring(0, position) + CalculateInput(matchInput) + input.Substring(position + match.Length);
@@ -74,9 +78,9 @@ namespace HeroesData.Helpers
                         toBeComputed = parts[0] + parts[1] + parts[2];
                 }
 
-                double value = double.Parse(DataTable.Compute(toBeComputed, string.Empty).ToString()!);
+                double value = double.Parse(_dataTable.Compute(toBeComputed, string.Empty).ToString()!);
 
-                int pos = input.IndexOf(toBeComputed);
+                int pos = input.IndexOf(toBeComputed, StringComparison.OrdinalIgnoreCase);
                 if (pos >= 0)
                 {
                     input = input.Substring(0, pos) + value + input.Substring(pos + toBeComputed.Length);
@@ -95,12 +99,12 @@ namespace HeroesData.Helpers
 
         private static string RemoveDoubleNegative(string input)
         {
-            if (input.Length > 2 && input.StartsWith("*--"))
+            if (input.Length > 2 && input.StartsWith("*--", StringComparison.OrdinalIgnoreCase))
                 input = input.Remove(0, 1);
-            if (input.Length > 2 && input.StartsWith("--"))
+            if (input.Length > 2 && input.StartsWith("--", StringComparison.OrdinalIgnoreCase))
                 input = input.Remove(0, 2);
 
-            return input.Replace("--", "+");
+            return input.Replace("--", "+", StringComparison.OrdinalIgnoreCase);
         }
 
         private static string RemoveAllSpaces(string input)
@@ -150,7 +154,7 @@ namespace HeroesData.Helpers
 
             if (!string.IsNullOrEmpty(match.Value))
             {
-                if (input.Length > 2 && input.StartsWith("--"))
+                if (input.Length > 2 && input.StartsWith("--", StringComparison.OrdinalIgnoreCase))
                     return input.Remove(0, 1);
             }
 

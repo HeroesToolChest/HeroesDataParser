@@ -5,7 +5,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.WeaponOverrideTests
     [TestClass]
     public class AbathurWeaponTests : OverrideBaseTests, IWeaponOverride
     {
-        private readonly string Hero = "Abathur";
+        private readonly string _hero = "Abathur";
 
         public AbathurWeaponTests()
             : base()
@@ -15,7 +15,7 @@ namespace HeroesData.Parser.Tests.OverrideTests.WeaponOverrideTests
 
         public string WeaponName => "SlapSlap";
 
-        protected override string CHeroId => Hero;
+        protected override string CHeroId => _hero;
 
         [TestMethod]
         public void DamageOverrideTest()

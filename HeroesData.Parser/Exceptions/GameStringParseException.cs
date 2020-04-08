@@ -2,7 +2,6 @@
 
 namespace HeroesData.Parser.Exceptions
 {
-    [Serializable]
     public class GameStringParseException : Exception
     {
         public GameStringParseException()

@@ -1,4 +1,6 @@
-﻿namespace HeroesData.Helpers
+﻿using System;
+
+namespace HeroesData.Helpers
 {
     public static class StringExtensions
     {
@@ -11,7 +13,12 @@
         /// <returns></returns>
         public static string ReplaceFirst(this string text, string oldValue, string newValue)
         {
-            int pos = text.IndexOf(oldValue);
+            if (text is null)
+                throw new ArgumentNullException(nameof(text));
+            if (oldValue is null)
+                throw new ArgumentNullException(nameof(oldValue));
+
+            int pos = text.IndexOf(oldValue, StringComparison.Ordinal);
             if (pos < 0)
             {
                 return text;

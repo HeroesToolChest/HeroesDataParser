@@ -3,6 +3,7 @@ using HeroesData.Helpers;
 using HeroesData.Loader.XmlGameData;
 using HeroesData.Parser.Overrides.DataOverrides;
 using HeroesData.Parser.XmlData;
+using System;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -25,7 +26,7 @@ namespace HeroesData.Parser
 
         public Emoticon? Parse(params string[] ids)
         {
-            if (ids == null || ids.Count() < 1)
+            if (ids == null || ids.Length < 1)
                 return null;
 
             string id = ids.FirstOrDefault();
@@ -60,14 +61,14 @@ namespace HeroesData.Parser
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescription?.Replace(DefaultData.IdPlaceHolder, emoticonElement.Attribute("id")?.Value));
+                string desc = GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescription?.Replace(DefaultData.IdPlaceHolder, emoticonElement.Attribute("id")?.Value, StringComparison.OrdinalIgnoreCase));
                 if (!string.IsNullOrEmpty(desc))
                     emoticon.Description = new TooltipDescription(desc);
             }
 
             foreach (XElement element in emoticonElement.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "DESCRIPTION")
                 {
@@ -168,11 +169,11 @@ namespace HeroesData.Parser
 
             foreach (XElement element in textureSheetElement.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "IMAGE")
                 {
-                    textureSheet.Image = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty)).ToLower();
+                    textureSheet.Image = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty)).ToLowerInvariant();
                 }
                 else if (elementName == "ROWS")
                 {
@@ -190,7 +191,7 @@ namespace HeroesData.Parser
         private void SetDefaultValues(Emoticon emoticon)
         {
             emoticon.Name = DefaultData.EmoticonData?.EmoticonExpression ?? string.Empty;
-            emoticon.Description = new TooltipDescription(GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescription?.Replace(DefaultData.IdPlaceHolder, emoticon.Id)));
+            emoticon.Description = new TooltipDescription(GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescription?.Replace(DefaultData.IdPlaceHolder, emoticon.Id, StringComparison.OrdinalIgnoreCase)));
 
             emoticon.Image.Index = 0;
             emoticon.Image.Width = 0;

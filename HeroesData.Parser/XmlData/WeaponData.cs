@@ -9,19 +9,19 @@ namespace HeroesData.Parser.XmlData
 {
     public class WeaponData
     {
-        private readonly GameData GameData;
-        private readonly DefaultData DefaultData;
-        private readonly Configuration Configuration;
+        private readonly GameData _gameData;
+        private readonly DefaultData _defaultData;
+        private readonly Configuration _configuration;
 
         public WeaponData(GameData gameData, DefaultData defaultData, Configuration configuration)
         {
-            GameData = gameData;
-            DefaultData = defaultData;
-            Configuration = configuration;
+            _gameData = gameData;
+            _defaultData = defaultData;
+            _configuration = configuration;
         }
 
         /// <summary>
-        /// Gets or sets if the parsing is for hero units.
+        /// Gets or sets a value indicating whether if the parsing is for hero units.
         /// </summary>
         public bool IsHeroParsing { get; set; } = false;
 
@@ -35,9 +35,9 @@ namespace HeroesData.Parser.XmlData
             UnitWeapon weapon = new UnitWeapon()
             {
                 WeaponNameId = weaponLink,
-                Name = GameData.GetGameString(DefaultData.WeaponData?.WeaponName?.Replace(DefaultData.IdPlaceHolder, weaponLink)),
-                Period = DefaultData.WeaponData!.WeaponPeriod,
-                Range = DefaultData.WeaponData!.WeaponRange,
+                Name = _gameData.GetGameString(_defaultData.WeaponData?.WeaponName?.Replace(DefaultData.IdPlaceHolder, weaponLink, StringComparison.OrdinalIgnoreCase)),
+                Period = _defaultData.WeaponData!.WeaponPeriod,
+                Range = _defaultData.WeaponData!.WeaponRange,
             };
 
             IEnumerable<XElement> weaponElements = GetWeaponElements(weaponLink);
@@ -60,7 +60,7 @@ namespace HeroesData.Parser.XmlData
             if (string.IsNullOrEmpty(weaponElementId))
                 return new List<XElement>();
 
-            return GameData.ElementsIncluded(Configuration.GamestringXmlElements("Weapon"), weaponElementId);
+            return _gameData.ElementsIncluded(_configuration.GamestringXmlElements("Weapon"), weaponElementId);
         }
 
         private void SetWeaponData(XElement weaponElement, UnitWeapon weapon)
@@ -69,7 +69,7 @@ namespace HeroesData.Parser.XmlData
             string? parentValue = weaponElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement? parentElement = GameData.MergeXmlElements(GameData.Elements(weaponElement.Name.LocalName).Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement? parentElement = GameData.MergeXmlElements(_gameData.Elements(weaponElement.Name.LocalName).Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     SetWeaponData(parentElement, weapon);
             }
@@ -80,22 +80,22 @@ namespace HeroesData.Parser.XmlData
             // loop through all elements and set found elements
             foreach (XElement element in weaponElement.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "RANGE")
                 {
-                    weapon.Range = XmlParse.GetDoubleValue(weapon.WeaponNameId, element, GameData);
+                    weapon.Range = XmlParse.GetDoubleValue(weapon.WeaponNameId, element, _gameData);
                 }
                 else if (elementName == "PERIOD")
                 {
-                    weapon.Period = XmlParse.GetDoubleValue(weapon.WeaponNameId, element, GameData);
+                    weapon.Period = XmlParse.GetDoubleValue(weapon.WeaponNameId, element, _gameData);
                 }
                 else if (elementName == "DISPLAYEFFECT")
                 {
                     string? displayEffectElementValue = element.Attribute("value")?.Value;
                     if (!string.IsNullOrEmpty(displayEffectElementValue))
                     {
-                        XElement? effectDamageElement = GameData.MergeXmlElements(GameData.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == displayEffectElementValue));
+                        XElement? effectDamageElement = GameData.MergeXmlElements(_gameData.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == displayEffectElementValue));
                         if (effectDamageElement != null)
                             WeaponAddEffectDamage(effectDamageElement, weapon);
                     }
@@ -119,18 +119,18 @@ namespace HeroesData.Parser.XmlData
             string? parentValue = effectDamageElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement? parentElement = GameData.MergeXmlElements(GameData.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement? parentElement = GameData.MergeXmlElements(_gameData.Elements("CEffectDamage").Where(x => x.Attribute("id")?.Value == parentValue));
                 if (parentElement != null)
                     WeaponAddEffectDamage(parentElement, weapon);
             }
 
             foreach (XElement element in effectDamageElement.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "AMOUNT")
                 {
-                    weapon.Damage = XmlParse.GetDoubleValue(weapon.WeaponNameId, element, GameData);
+                    weapon.Damage = XmlParse.GetDoubleValue(weapon.WeaponNameId, element, _gameData);
                 }
                 else if (elementName == "ATTRIBUTEFACTOR")
                 {
@@ -142,14 +142,14 @@ namespace HeroesData.Parser.XmlData
                     if (!string.IsNullOrEmpty(index) && !string.IsNullOrEmpty(value))
                     {
                         attributeFactor.Type = index;
-                        attributeFactor.Value = XmlParse.GetDoubleValue(weapon.WeaponNameId, element, GameData);
+                        attributeFactor.Value = XmlParse.GetDoubleValue(weapon.WeaponNameId, element, _gameData);
 
                         weapon.AttributeFactors.Add(attributeFactor);
                     }
                 }
             }
 
-            double? scaleValue = GameData.GetScaleValue(("Effect", effectDamageElement.Attribute("id")?.Value ?? string.Empty, "Amount"));
+            double? scaleValue = _gameData.GetScaleValue(("Effect", effectDamageElement.Attribute("id")?.Value ?? string.Empty, "Amount"));
             if (scaleValue.HasValue)
                 weapon.DamageScaling = scaleValue.Value;
         }

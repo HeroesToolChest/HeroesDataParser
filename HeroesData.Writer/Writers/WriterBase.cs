@@ -13,13 +13,13 @@ namespace HeroesData.FileWriter.Writers
         where T : IExtractable
         where TType : class
     {
-        private readonly string DataName;
-        private readonly FileOutputType FileOutputType;
+        private readonly string _dataName;
+        private readonly FileOutputType _fileOutputType;
 
         protected WriterBase(string dataName, FileOutputType fileOutputType)
         {
-            DataName = dataName.ToLower();
-            FileOutputType = fileOutputType;
+            _dataName = dataName.ToLowerInvariant();
+            _fileOutputType = fileOutputType;
         }
 
         public FileOutputOptions FileOutputOptions { get; set; } = new FileOutputOptions();
@@ -28,20 +28,21 @@ namespace HeroesData.FileWriter.Writers
 
         public GameStringWriter GameStringWriter { get; } = new GameStringWriter();
 
-        protected string SingleFileName { get; private set; } = string.Empty;
-        protected string MinifiedSingleFileName { get; private set; } = string.Empty;
-        protected string SplitDirectory { get; private set; } = string.Empty;
-        protected string SplitMinifiedDirectory { get; private set; } = string.Empty;
-        protected string RootNodeName { get; set; } = string.Empty;
-        protected string GameStringDirectory { get; private set; } = string.Empty;
-        protected string GameStringTextFileName { get; private set; } = string.Empty;
-        protected string StaticImageExtension => ".png";
-        protected string AnimatedImageExtension => ".gif";
+        protected static string StaticImageExtension => ".png";
+        protected static string AnimatedImageExtension => ".gif";
+        protected static string SingleFileName { get; private set; } = string.Empty;
+        protected static string MinifiedSingleFileName { get; private set; } = string.Empty;
+        protected static string SplitDirectory { get; private set; } = string.Empty;
+        protected static string SplitMinifiedDirectory { get; private set; } = string.Empty;
+        protected static string RootNodeName { get; set; } = string.Empty;
+        protected static string GameStringDirectory { get; private set; } = string.Empty;
+
+        protected static string GameStringTextFileName { get; private set; } = string.Empty;
 
         /// <summary>
         /// Gets the directory for the created output files.
         /// </summary>
-        protected string OutputDirectory => Path.Combine(FileOutputOptions.OutputDirectory, FileOutputType.ToString().ToLower());
+        protected string OutputDirectory => Path.Combine(FileOutputOptions.OutputDirectory, _fileOutputType.ToString().ToLowerInvariant());
 
         public void CreateOutput(IEnumerable<T> items)
         {
@@ -76,12 +77,12 @@ namespace HeroesData.FileWriter.Writers
                 if (HotsBuild.HasValue)
                 {
                     GameStringDirectory = Path.Combine(FileOutputOptions.OutputDirectory, $"gamestrings-{HotsBuild.Value}");
-                    GameStringTextFileName = $"gamestrings_{HotsBuild.Value}_{FileOutputOptions.Localization.ToString().ToLower()}.txt";
+                    GameStringTextFileName = $"gamestrings_{HotsBuild.Value}_{FileOutputOptions.Localization.ToString().ToLowerInvariant()}.txt";
                 }
                 else
                 {
                     GameStringDirectory = Path.Combine(FileOutputOptions.OutputDirectory, $"gamestrings");
-                    GameStringTextFileName = $"gamestrings_{FileOutputOptions.Localization.ToString().ToLower()}.txt";
+                    GameStringTextFileName = $"gamestrings_{FileOutputOptions.Localization.ToString().ToLowerInvariant()}.txt";
                 }
 
                 Directory.CreateDirectory(GameStringDirectory);
@@ -119,26 +120,26 @@ namespace HeroesData.FileWriter.Writers
             {
                 if (HotsBuild.HasValue)
                 {
-                    SingleFileName = $"{DataName}_{HotsBuild.Value}_{FileOutputOptions.Localization.ToString().ToLower()}.{FileOutputType.ToString().ToLower()}";
-                    MinifiedSingleFileName = $"{DataName}_{HotsBuild.Value}_{FileOutputOptions.Localization.ToString().ToLower()}.min.{FileOutputType.ToString().ToLower()}";
+                    SingleFileName = $"{_dataName}_{HotsBuild.Value}_{FileOutputOptions.Localization.ToString().ToLowerInvariant()}.{_fileOutputType.ToString().ToLowerInvariant()}";
+                    MinifiedSingleFileName = $"{_dataName}_{HotsBuild.Value}_{FileOutputOptions.Localization.ToString().ToLowerInvariant()}.min.{_fileOutputType.ToString().ToLowerInvariant()}";
                 }
                 else
                 {
-                    SingleFileName = $"{DataName}_{FileOutputOptions.Localization.ToString().ToLower()}.{FileOutputType.ToString().ToLower()}";
-                    MinifiedSingleFileName = $"{DataName}_{FileOutputOptions.Localization.ToString().ToLower()}.min.{FileOutputType.ToString().ToLower()}";
+                    SingleFileName = $"{_dataName}_{FileOutputOptions.Localization.ToString().ToLowerInvariant()}.{_fileOutputType.ToString().ToLowerInvariant()}";
+                    MinifiedSingleFileName = $"{_dataName}_{FileOutputOptions.Localization.ToString().ToLowerInvariant()}.min.{_fileOutputType.ToString().ToLowerInvariant()}";
                 }
             }
             else
             {
                 if (HotsBuild.HasValue)
                 {
-                    SingleFileName = $"{DataName}_{HotsBuild.Value}_localized.{FileOutputType.ToString().ToLower()}";
-                    MinifiedSingleFileName = $"{DataName}_{HotsBuild.Value}_localized.min.{FileOutputType.ToString().ToLower()}";
+                    SingleFileName = $"{_dataName}_{HotsBuild.Value}_localized.{_fileOutputType.ToString().ToLowerInvariant()}";
+                    MinifiedSingleFileName = $"{_dataName}_{HotsBuild.Value}_localized.min.{_fileOutputType.ToString().ToLowerInvariant()}";
                 }
                 else
                 {
-                    SingleFileName = $"{DataName}_localized.{FileOutputType.ToString().ToLower()}";
-                    MinifiedSingleFileName = $"{DataName}_localized.min.{FileOutputType.ToString().ToLower()}";
+                    SingleFileName = $"{_dataName}_localized.{_fileOutputType.ToString().ToLowerInvariant()}";
+                    MinifiedSingleFileName = $"{_dataName}_localized.min.{_fileOutputType.ToString().ToLowerInvariant()}";
                 }
             }
         }
@@ -151,13 +152,13 @@ namespace HeroesData.FileWriter.Writers
                 {
                     if (HotsBuild.HasValue)
                     {
-                        SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-{FileOutputOptions.Localization.ToString().ToLower()}");
-                        SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-{FileOutputOptions.Localization.ToString().ToLower()}.min");
+                        SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-{FileOutputOptions.Localization.ToString().ToLowerInvariant()}");
+                        SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-{HotsBuild.Value}-{FileOutputOptions.Localization.ToString().ToLowerInvariant()}.min");
                     }
                     else
                     {
-                        SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-{FileOutputOptions.Localization.ToString().ToLower()}");
-                        SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-{FileOutputOptions.Localization.ToString().ToLower()}");
+                        SplitDirectory = Path.Combine(OutputDirectory, $"splitfiles-{FileOutputOptions.Localization.ToString().ToLowerInvariant()}");
+                        SplitMinifiedDirectory = Path.Combine(OutputDirectory, $"splitfiles-{FileOutputOptions.Localization.ToString().ToLowerInvariant()}");
                     }
                 }
                 else
@@ -181,7 +182,7 @@ namespace HeroesData.FileWriter.Writers
             if (items == null)
                 return;
 
-            if (FileOutputType == FileOutputType.Json)
+            if (_fileOutputType == FileOutputType.Json)
             {
                 JObject jObject = new JObject(items.Select(item => MainElement(item)));
 
@@ -208,7 +209,7 @@ namespace HeroesData.FileWriter.Writers
                     }
                 }
             }
-            else if (FileOutputType == FileOutputType.Xml)
+            else if (_fileOutputType == FileOutputType.Xml)
             {
                 if (RootNodeName == null)
                     throw new ArgumentNullException($"{nameof(RootNodeName)} cannot be null. Needs to be set in the corresponding xml writer class.");
@@ -233,12 +234,12 @@ namespace HeroesData.FileWriter.Writers
                 return;
 
             if (FileOutputOptions.AllowDataFileWriting)
-                Directory.CreateDirectory(Path.Combine(SplitDirectory, DataName));
+                Directory.CreateDirectory(Path.Combine(SplitDirectory, _dataName));
 
             if (FileOutputOptions.IsMinifiedFiles && FileOutputOptions.AllowDataFileWriting)
-                Directory.CreateDirectory(Path.Combine(SplitMinifiedDirectory, DataName));
+                Directory.CreateDirectory(Path.Combine(SplitMinifiedDirectory, _dataName));
 
-            if (FileOutputType == FileOutputType.Json)
+            if (_fileOutputType == FileOutputType.Json)
             {
                 foreach (T item in items)
                 {
@@ -247,7 +248,7 @@ namespace HeroesData.FileWriter.Writers
                     if (FileOutputOptions.AllowDataFileWriting)
                     {
                         // has formatting
-                        using (StreamWriter file = File.CreateText(Path.Combine(SplitDirectory, DataName, $"{item.Id.ToLower()}.{FileOutputType.ToString().ToLower()}")))
+                        using (StreamWriter file = File.CreateText(Path.Combine(SplitDirectory, _dataName, $"{item.Id.ToLowerInvariant()}.{_fileOutputType.ToString().ToLowerInvariant()}")))
                         using (JsonTextWriter writer = new JsonTextWriter(file))
                         {
                             writer.Formatting = Formatting.Indented;
@@ -257,7 +258,7 @@ namespace HeroesData.FileWriter.Writers
                         if (FileOutputOptions.IsMinifiedFiles)
                         {
                             // no formatting
-                            using StreamWriter file = File.CreateText(Path.Combine(SplitMinifiedDirectory, DataName, $"{item.Id.ToLower()}.min.{FileOutputType.ToString().ToLower()}"));
+                            using StreamWriter file = File.CreateText(Path.Combine(SplitMinifiedDirectory, _dataName, $"{item.Id.ToLowerInvariant()}.min.{_fileOutputType.ToString().ToLowerInvariant()}"));
                             using JsonTextWriter writer = new JsonTextWriter(file)
                             {
                                 Formatting = Formatting.None,
@@ -268,7 +269,7 @@ namespace HeroesData.FileWriter.Writers
                     }
                 }
             }
-            else if (FileOutputType == FileOutputType.Xml)
+            else if (_fileOutputType == FileOutputType.Xml)
             {
                 foreach (T item in items)
                 {
@@ -276,11 +277,11 @@ namespace HeroesData.FileWriter.Writers
 
                     if (FileOutputOptions.AllowDataFileWriting)
                     {
-                        xmlDoc.Save(Path.Combine(SplitDirectory, DataName, $"{item.Id.ToLower()}.{FileOutputType.ToString().ToLower()}"));
+                        xmlDoc.Save(Path.Combine(SplitDirectory, _dataName, $"{item.Id.ToLowerInvariant()}.{_fileOutputType.ToString().ToLowerInvariant()}"));
 
                         if (FileOutputOptions.IsMinifiedFiles)
                         {
-                            xmlDoc.Save(Path.Combine(SplitMinifiedDirectory, DataName, $"{item.Id.ToLower()}.min.{FileOutputType.ToString().ToLower()}"), SaveOptions.DisableFormatting);
+                            xmlDoc.Save(Path.Combine(SplitMinifiedDirectory, _dataName, $"{item.Id.ToLowerInvariant()}.min.{_fileOutputType.ToString().ToLowerInvariant()}"), SaveOptions.DisableFormatting);
                         }
                     }
                 }

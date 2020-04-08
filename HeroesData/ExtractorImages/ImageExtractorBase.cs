@@ -50,6 +50,7 @@ namespace HeroesData.ExtractorImage
         /// Extracts a static image file. Returns true if successful.
         /// </summary>
         /// <param name="filePath">The file path the file will be saved to.</param>
+        /// <returns></returns>
         protected bool ExtractStaticImageFile(string filePath)
         {
             string fileName = Path.GetFileName(filePath);
@@ -145,6 +146,9 @@ namespace HeroesData.ExtractorImage
 
         protected bool FileExists(string filePath)
         {
+            if (filePath is null)
+                throw new ArgumentNullException(nameof(filePath));
+
             if (StorageMode == StorageMode.CASC)
                 return CASCHandler!.FileExists(filePath);
             else if (StorageMode == StorageMode.Mods)
@@ -155,6 +159,9 @@ namespace HeroesData.ExtractorImage
 
         protected Stream OpenFile(string filePath)
         {
+            if (filePath is null)
+                throw new ArgumentNullException(nameof(filePath));
+
             if (StorageMode == StorageMode.CASC)
                 return CASCHandler!.OpenFile(filePath);
             else if (StorageMode == StorageMode.Mods)

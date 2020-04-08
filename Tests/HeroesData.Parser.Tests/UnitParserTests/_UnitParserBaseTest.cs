@@ -5,11 +5,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HeroesData.Parser.Tests.UnitParserTests
 {
     [TestClass]
+#pragma warning disable SA1649 // File name should match first type name
     public class UnitParserBaseTest : ParserBase
+#pragma warning restore SA1649 // File name should match first type name
     {
-        private readonly string OverrideFileNameSuffix = "overrides-dataparsertest.xml";
+        private readonly string _overrideFileNameSuffix = "overrides-dataparsertest.xml";
 
-        private UnitOverrideLoader UnitOverrideLoader;
+        private UnitOverrideLoader _unitOverrideLoader;
 
         public UnitParserBaseTest()
         {
@@ -38,19 +40,19 @@ namespace HeroesData.Parser.Tests.UnitParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            UnitParser unitParser = new UnitParser(XmlDataService, UnitOverrideLoader);
+            UnitParser unitParser = new UnitParser(XmlDataService, _unitOverrideLoader);
             Assert.IsTrue(unitParser.Items.Count > 0);
         }
 
         private void LoadTestData()
         {
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, OverrideFileNameSuffix);
-            UnitOverrideLoader = (UnitOverrideLoader)xmlDataOverriders.GetOverrider(typeof(UnitParser));
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, _overrideFileNameSuffix);
+            _unitOverrideLoader = (UnitOverrideLoader)xmlDataOverriders.GetOverrider(typeof(UnitParser));
         }
 
         private void Parse()
         {
-            UnitParser unitParser = new UnitParser(XmlDataService, UnitOverrideLoader);
+            UnitParser unitParser = new UnitParser(XmlDataService, _unitOverrideLoader);
             RagnarosBigRag = unitParser.Parse("RagnarosBigRag");
             AbathurLocustNestPlaceholderDummy = unitParser.Parse("AbathurLocustNestPlaceholderDummy");
             DVaMechPlacementDummy = unitParser.Parse("DVaMechPlacementDummy");

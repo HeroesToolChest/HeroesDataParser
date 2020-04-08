@@ -8,11 +8,11 @@ namespace HeroesData.Parser.XmlData
 {
     public class DefaultDataBanner
     {
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public DefaultDataBanner(GameData gameData)
         {
-            GameData = gameData;
+            _gameData = gameData;
 
             LoadCBannerDefault();
         }
@@ -40,14 +40,14 @@ namespace HeroesData.Parser.XmlData
         // <CBanner default="1">
         private void LoadCBannerDefault()
         {
-            CBannerElement(GameData.Elements("CBanner").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CBannerElement(_gameData.Elements("CBanner").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         private void CBannerElement(IEnumerable<XElement> cBannerElements)
         {
             foreach (XElement element in cBannerElements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "NAME")
                 {

@@ -8,11 +8,11 @@ namespace HeroesData.Parser.XmlData
 {
     public class DefaultDataHeroSkin
     {
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public DefaultDataHeroSkin(GameData gameData)
         {
-            GameData = gameData;
+            _gameData = gameData;
 
             LoadCSkinDefault();
         }
@@ -50,14 +50,14 @@ namespace HeroesData.Parser.XmlData
         // <CSkin default="1">
         private void LoadCSkinDefault()
         {
-            CSkinElement(GameData.Elements("CSkin").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CSkinElement(_gameData.Elements("CSkin").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         private void CSkinElement(IEnumerable<XElement> cSkinElements)
         {
             foreach (XElement element in cSkinElements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "NAME")
                 {

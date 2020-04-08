@@ -2,40 +2,48 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace HeroesData.FileWriter.Tests
 {
     [TestClass]
+    [SuppressMessage("Globalization", "CA1308:Normalize strings to uppercase", Justification = "not for comparision.")]
     public abstract class FileOutputTestBase<T>
         where T : IExtractable
     {
         public FileOutputTestBase(string dataName)
         {
-            SetTestData();
+            if (dataName is null)
+                throw new ArgumentNullException(nameof(dataName));
 
-            DefaultDataNameSuffix = dataName.ToLower();
+#pragma warning disable CA2214 // Do not call overridable methods in constructors
+            SetTestData();
+#pragma warning restore CA2214 // Do not call overridable methods in constructors
+
+            DefaultDataNameSuffix = dataName.ToLowerInvariant();
             OutputTestOutputDirectory = Path.Combine(dataName, BaseTestOutputDirectory);
         }
 
         protected int? BuildNumber => 12345;
-        protected int? GamestringsBuildNumber => DefaultDataNameSuffix.GetHashCode();
+        protected int? GamestringsBuildNumber => DefaultDataNameSuffix.GetHashCode(StringComparison.OrdinalIgnoreCase);
         protected int? MinifiedBuildNumber => 22222;
         protected int? SplitMinifiedBuildNumber => 33333;
         protected string BaseOutputDirectory => "output";
         protected string BaseGamestringsDirectory => "gamestrings";
         protected string BaseSplitFileSuffix => "splitfiles";
         protected string BaseTestOutputDirectory => "OutputFiles";
-        protected string FileOutputTypeFileName => FileOutputType.ToString().ToLower();
-        protected string LocalizationFileName => Localization.ToString().ToLower();
+        protected string FileOutputTypeFileName => FileOutputType.ToString().ToLowerInvariant();
+
+        protected string LocalizationFileName => Localization.ToString().ToLowerInvariant();
         protected string DefaultOutputDirectory => Path.Combine(BaseOutputDirectory, FileOutputTypeFileName);
         protected Localization Localization => Localization.ENUS;
 
         protected string OutputTestOutputDirectory { get; }
         protected string DefaultDataNameSuffix { get; }
 
-        protected List<MatchAward> MatchAwards { get; set; } = new List<MatchAward>();
-        protected List<T> TestData { get; set; } = new List<T>();
+        protected List<MatchAward> MatchAwards { get; } = new List<MatchAward>();
+        protected List<T> TestData { get; } = new List<T>();
         protected FileOutputType FileOutputType { get; set; } = FileOutputType.Xml;
 
         public virtual void WriterNoBuildNumberTest()

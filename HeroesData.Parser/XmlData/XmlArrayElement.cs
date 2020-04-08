@@ -5,7 +5,7 @@ namespace HeroesData.Parser.XmlData
 {
     public class XmlArrayElement
     {
-        private readonly Dictionary<int, XElement> XElementByIndex = new Dictionary<int, XElement>();
+        private readonly Dictionary<int, XElement> _xElementByIndex = new Dictionary<int, XElement>();
 
         /// <summary>
         /// Gets the maximum index value of the array collection.
@@ -15,7 +15,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets a collection of the elements from the array.
         /// </summary>
-        public IEnumerable<XElement> Elements => XElementByIndex.Values;
+        public IEnumerable<XElement> Elements => _xElementByIndex.Values;
 
         /// <summary>
         /// Adds an element to the array collection.
@@ -23,10 +23,13 @@ namespace HeroesData.Parser.XmlData
         /// <param name="element">The <see cref="XElement"/> to be added.</param>
         public void AddElement(XElement element)
         {
+            if (element is null)
+                throw new System.ArgumentNullException(nameof(element));
+
             string? indexValue = element.Attribute("index")?.Value ?? element.Element("index")?.Attribute("value")?.Value;
             string? removedValue = element.Attribute("removed")?.Value ?? element.Element("removed")?.Attribute("value")?.Value;
 
-            if (int.TryParse(indexValue, out int indexResult) && XElementByIndex.TryGetValue(indexResult, out XElement? existingElement) && string.IsNullOrEmpty(removedValue))
+            if (int.TryParse(indexValue, out int indexResult) && _xElementByIndex.TryGetValue(indexResult, out XElement? existingElement) && string.IsNullOrEmpty(removedValue))
             {
                 foreach (XAttribute attribute in existingElement.Attributes())
                 {
@@ -37,18 +40,18 @@ namespace HeroesData.Parser.XmlData
                         element.SetAttributeValue(attribute.Name.LocalName, currentAttribute.Value);
                 }
 
-                XElementByIndex[indexResult] = element;
+                _xElementByIndex[indexResult] = element;
             }
             else if (int.TryParse(removedValue, out int removedResult) && removedResult == 1)
             {
-                XElementByIndex.Remove(indexResult);
+                _xElementByIndex.Remove(indexResult);
             }
             else
             {
-                if (XElementByIndex.ContainsKey(MaxIndex))
+                if (_xElementByIndex.ContainsKey(MaxIndex))
                     MaxIndex++;
 
-                XElementByIndex.Add(MaxIndex, element);
+                _xElementByIndex.Add(MaxIndex, element);
             }
         }
     }

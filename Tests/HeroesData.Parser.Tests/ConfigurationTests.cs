@@ -7,24 +7,24 @@ namespace HeroesData.Parser.Tests
     [TestClass]
     public class ConfigurationTests
     {
-        private readonly Configuration Configuration;
+        private readonly Configuration _configuration;
 
         public ConfigurationTests()
         {
-            Configuration = new Configuration();
-            Configuration.Load();
+            _configuration = new Configuration();
+            _configuration.Load();
         }
 
         [TestMethod]
         public void ConfigFileExistsTest()
         {
-            Assert.IsTrue(Configuration.ConfigFileExists());
+            Assert.IsTrue(_configuration.ConfigFileExists());
         }
 
         [TestMethod]
         public void GamestringDefaultValuesTests()
         {
-            List<(string Part, string Value)> values = Configuration.GamestringDefaultValues("ModifyFraction").ToList();
+            List<(string Part, string Value)> values = _configuration.GamestringDefaultValues("ModifyFraction").ToList();
             Assert.AreEqual("last", values[0].Part);
             Assert.AreEqual("1", values[0].Value);
         }
@@ -32,7 +32,7 @@ namespace HeroesData.Parser.Tests
         [TestMethod]
         public void XmlElementTests()
         {
-            List<string> list = Configuration.GamestringXmlElements("Effect").ToList();
+            List<string> list = _configuration.GamestringXmlElements("Effect").ToList();
             Assert.IsTrue(list.Contains("CEffectModifyUnit"));
             Assert.IsTrue(list.Contains("CEffectModifyCatalogNumeric"));
             Assert.IsTrue(list.Contains("CEffectCreateUnit"));
@@ -45,7 +45,7 @@ namespace HeroesData.Parser.Tests
         [TestMethod]
         public void XmlElementIdsTests()
         {
-            List<string> list = Configuration.AddDataXmlElementIds("CUnit").ToList();
+            List<string> list = _configuration.AddDataXmlElementIds("CUnit").ToList();
             Assert.IsTrue(list.Contains("VolskayaVehicleGunner"));
             Assert.IsTrue(list.Contains("Chromie"));
             Assert.IsTrue(list.Contains("Tower"));
@@ -53,13 +53,13 @@ namespace HeroesData.Parser.Tests
             Assert.IsFalse(list.Contains("PlasmaRifle"));
             Assert.IsFalse(list.Contains("Infernos"));
 
-            list = Configuration.AddDataXmlElementIds("CHero").ToList();
+            list = _configuration.AddDataXmlElementIds("CHero").ToList();
             Assert.IsTrue(list.Contains("PlasmaRifle"));
             Assert.IsTrue(list.Contains("Infernos"));
             Assert.IsFalse(list.Contains("Infernos2"));
             Assert.IsFalse(list.Contains("Infernos3"));
 
-            list = Configuration.RemoveDataXmlElementIds("CHero").ToList();
+            list = _configuration.RemoveDataXmlElementIds("CHero").ToList();
             Assert.IsFalse(list.Contains("PlasmaRifle"));
             Assert.IsFalse(list.Contains("Infernos"));
             Assert.IsTrue(list.Contains("Infernos2"));
@@ -69,15 +69,15 @@ namespace HeroesData.Parser.Tests
         [TestMethod]
         public void ContainsDeadImageFileNameTests()
         {
-            Assert.IsTrue(Configuration.ContainsDeadImageFileName("hud_icon_teammapmechanic_tribute.dds"));
-            Assert.IsFalse(Configuration.ContainsDeadImageFileName("asdf.dds"));
+            Assert.IsTrue(_configuration.ContainsDeadImageFileName("hud_icon_teammapmechanic_tribute.dds"));
+            Assert.IsFalse(_configuration.ContainsDeadImageFileName("asdf.dds"));
         }
 
         [TestMethod]
         public void ContainsIgnorableExtraAbilityTests()
         {
-            Assert.IsTrue(Configuration.ContainsIgnorableExtraAbility("Attack"));
-            Assert.IsFalse(Configuration.ContainsIgnorableExtraAbility("asdf"));
+            Assert.IsTrue(_configuration.ContainsIgnorableExtraAbility("Attack"));
+            Assert.IsFalse(_configuration.ContainsIgnorableExtraAbility("asdf"));
         }
     }
 }

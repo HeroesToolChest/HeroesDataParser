@@ -9,8 +9,8 @@ namespace HeroesData.Tests.CommandTests
     [TestClass]
     public class QuickCompareCommandTests
     {
-        private readonly string Directory1 = Path.Combine("CommandTests", "QuickCompareFiles", "File1");
-        private readonly string Directory2 = Path.Combine("CommandTests", "QuickCompareFiles", "File2");
+        private readonly string _directory1 = Path.Combine("CommandTests", "QuickCompareFiles", "File1");
+        private readonly string _directory2 = Path.Combine("CommandTests", "QuickCompareFiles", "File2");
 
         [TestMethod]
         public void NoArgumentsTests()
@@ -24,7 +24,7 @@ namespace HeroesData.Tests.CommandTests
 
             List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
-            Assert.IsTrue(lines[0].Contains("argument needs to specify a path"));
+            Assert.IsTrue(lines[0].Contains("argument needs to specify a path", StringComparison.OrdinalIgnoreCase));
         }
 
         [TestMethod]
@@ -35,11 +35,11 @@ namespace HeroesData.Tests.CommandTests
             Console.SetOut(writer);
             Console.SetError(writer);
 
-            Program.Main(new string[] { "quick-compare", $"{Path.Combine(Directory1, "awards_73662_enus.json")}", $"{Path.Combine(Directory2, "awards_73493_enus.json")}" });
+            Program.Main(new string[] { "quick-compare", $"{Path.Combine(_directory1, "awards_73662_enus.json")}", $"{Path.Combine(_directory2, "awards_73493_enus.json")}" });
 
             List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
-            Assert.IsTrue(lines[0].Contains("MATCH"));
+            Assert.IsTrue(lines[0].Contains("MATCH", StringComparison.OrdinalIgnoreCase));
         }
 
         [TestMethod]
@@ -50,11 +50,11 @@ namespace HeroesData.Tests.CommandTests
             Console.SetOut(writer);
             Console.SetError(writer);
 
-            Program.Main(new string[] { "quick-compare", $"{Path.Combine(Directory1, "awards_73662_enus.json")}", $"{Path.Combine(Directory2, "nonawards_73493_enus.json")}" });
+            Program.Main(new string[] { "quick-compare", $"{Path.Combine(_directory1, "awards_73662_enus.json")}", $"{Path.Combine(_directory2, "nonawards_73493_enus.json")}" });
 
             List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
-            Assert.IsTrue(lines[0].Contains("DIFF"));
+            Assert.IsTrue(lines[0].Contains("DIFF", StringComparison.OrdinalIgnoreCase));
         }
 
         [TestMethod]
@@ -65,7 +65,7 @@ namespace HeroesData.Tests.CommandTests
             Console.SetOut(writer);
             Console.SetError(writer);
 
-            Program.Main(new string[] { "quick-compare", Directory1, Directory2 });
+            Program.Main(new string[] { "quick-compare", _directory1, _directory2 });
 
             List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 

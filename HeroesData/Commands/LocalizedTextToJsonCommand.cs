@@ -9,7 +9,7 @@ namespace HeroesData.Commands
 {
     internal class LocalizedTextToJsonCommand : CommandBase, ICommand
     {
-        private string OutputDirectory = string.Empty;
+        private string _outputDirectory = string.Empty;
 
         public LocalizedTextToJsonCommand(CommandLineApplication app)
             : base(app)
@@ -45,14 +45,14 @@ namespace HeroesData.Commands
 
                     if (!string.IsNullOrEmpty(outputDirectoryOption.Value()))
                     {
-                        OutputDirectory = outputDirectoryOption.Value();
+                        _outputDirectory = outputDirectoryOption.Value();
                     }
                     else
                     {
                         if (Directory.Exists(storagePathArgument.Value))
-                            OutputDirectory = Path.Combine(storagePathArgument.Value, "localizedtextjson");
+                            _outputDirectory = Path.Combine(storagePathArgument.Value, "localizedtextjson");
                         else
-                            OutputDirectory = Path.Combine(Path.GetDirectoryName(storagePathArgument.Value) ?? string.Empty, "localizedtextjson");
+                            _outputDirectory = Path.Combine(Path.GetDirectoryName(storagePathArgument.Value) ?? string.Empty, "localizedtextjson");
                     }
 
                     if (File.Exists(storagePathArgument.Value))
@@ -83,7 +83,7 @@ namespace HeroesData.Commands
             ReadOnlySpan<char> versionSpan = string.Empty;
             ReadOnlySpan<char> localeSpan = string.Empty;
 
-            int firstSplit = fileNameNoExt.IndexOf('_');
+            int firstSplit = fileNameNoExt.IndexOf('_', StringComparison.OrdinalIgnoreCase);
             int lastSplit = fileNameNoExt.LastIndexOf('_');
 
             if (firstSplit > -1 && lastSplit > -1)
@@ -96,9 +96,9 @@ namespace HeroesData.Commands
                 }
             }
 
-            Directory.CreateDirectory(OutputDirectory);
+            Directory.CreateDirectory(_outputDirectory);
 
-            using FileStream fileStream = new FileStream(Path.Combine(OutputDirectory, $"{fileNameNoExt}.json"), FileMode.Create);
+            using FileStream fileStream = new FileStream(Path.Combine(_outputDirectory, $"{fileNameNoExt}.json"), FileMode.Create);
 
             using Utf8JsonWriter utf8JsonWriter = new Utf8JsonWriter(fileStream, new JsonWriterOptions { Indented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
 
@@ -138,10 +138,11 @@ namespace HeroesData.Commands
                 {
                     groupedItems.Add(idParts[0], new Dictionary<string, Dictionary<string, string>>()
                     {
-                        { idParts[1], new Dictionary<string, string>()
                         {
-                            { idParts[2], idAndValue[1] },
-                        }
+                            idParts[1], new Dictionary<string, string>()
+                            {
+                                { idParts[2], idAndValue[1] },
+                            }
                         },
                     });
                 }

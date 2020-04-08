@@ -8,11 +8,11 @@ namespace HeroesData.Parser.XmlData
 {
     public class DefaultDataMount
     {
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public DefaultDataMount(GameData gameData)
         {
-            GameData = gameData;
+            _gameData = gameData;
 
             LoadCMountDefault();
         }
@@ -50,14 +50,14 @@ namespace HeroesData.Parser.XmlData
         // <CMount default="1">
         private void LoadCMountDefault()
         {
-            CMountElement(GameData.Elements("CMount").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CMountElement(_gameData.Elements("CMount").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         private void CMountElement(IEnumerable<XElement> cMountElements)
         {
             foreach (XElement element in cMountElements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "NAME")
                 {

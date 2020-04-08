@@ -9,11 +9,11 @@ namespace HeroesData.Loader.XmlGameData
 {
     public class CASCGameData : GameData
     {
-        private readonly CASCHandler CASCHandlerData;
-        private readonly CASCFolder CASCFolderData;
+        private readonly CASCHandler _cascHandlerData;
+        private readonly CASCFolder _cascFolderData;
 
         /// <summary>
-        /// Contruct the CASCGameData object.
+        /// Initializes a new instance of the <see cref="CASCGameData"/> class.
         /// </summary>
         /// <param name="cascHandler"></param>
         /// <param name="cascFolder"></param>
@@ -21,12 +21,12 @@ namespace HeroesData.Loader.XmlGameData
         public CASCGameData(CASCHandler cascHandler, CASCFolder cascFolder, string modsFolderPath = "mods")
             : base(modsFolderPath)
         {
-            CASCHandlerData = cascHandler;
-            CASCFolderData = cascFolder;
+            _cascHandlerData = cascHandler;
+            _cascFolderData = cascFolder;
         }
 
         /// <summary>
-        /// Contruct the CASCGameData object.
+        /// Initializes a new instance of the <see cref="CASCGameData"/> class.
         /// </summary>
         /// <param name="cascHandler"></param>
         /// <param name="cascFolder"></param>
@@ -35,8 +35,8 @@ namespace HeroesData.Loader.XmlGameData
         public CASCGameData(CASCHandler cascHandler, CASCFolder cascFolder, int? hotsBuild, string modsFolderPath = "mods")
             : base(modsFolderPath, hotsBuild)
         {
-            CASCHandlerData = cascHandler;
-            CASCFolderData = cascFolder;
+            _cascHandlerData = cascHandler;
+            _cascFolderData = cascFolder;
         }
 
         protected override void LoadCoreStormMod()
@@ -46,7 +46,7 @@ namespace HeroesData.Loader.XmlGameData
             if (LoadXmlFilesEnabled)
             {
                 // core.stormmod xml files
-                CASCFolder currentFolder = CASCFolderData.GetDirectory(Path.Combine(CoreBaseDataDirectoryPath, GameDataStringName));
+                CASCFolder currentFolder = _cascFolderData.GetDirectory(Path.Combine(CoreBaseDataDirectoryPath, GameDataStringName));
 
                 foreach (KeyValuePair<string, ICASCEntry> file in currentFolder.Entries)
                 {
@@ -55,10 +55,10 @@ namespace HeroesData.Loader.XmlGameData
 
                     string filePath = ((CASCFile)file.Value).FullName;
 
-                    if (!CASCHandlerData.FileExists(filePath))
+                    if (!_cascHandlerData.FileExists(filePath))
                         throw new FileNotFoundException(filePath);
 
-                    using Stream stream = CASCHandlerData.OpenFile(filePath);
+                    using Stream stream = _cascHandlerData.OpenFile(filePath);
 
                     if (XmlGameData.LastNode == null)
                     {
@@ -80,11 +80,11 @@ namespace HeroesData.Loader.XmlGameData
             if (LoadTextFilesOnlyEnabled)
             {
                 string filePath = Path.Combine(CoreLocalizedDataPath, GameStringFile);
-                LoadTextFile(CASCHandlerData.OpenFile(filePath), filePath);
+                LoadTextFile(_cascHandlerData.OpenFile(filePath), filePath);
             }
 
             string fontStylesFilePath = Path.Combine(CoreBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile);
-            LoadStormStyleFile(CASCHandlerData.OpenFile(fontStylesFilePath));
+            LoadStormStyleFile(_cascHandlerData.OpenFile(fontStylesFilePath));
 
             if (IsCacheEnabled)
                 AddStormStyleCachedFilePath(fontStylesFilePath);
@@ -95,7 +95,7 @@ namespace HeroesData.Loader.XmlGameData
             if (LoadXmlFilesEnabled)
             {
                 // load up xml files in gamedata folder
-                CASCFolder currentFolder = CASCFolderData.GetDirectory(Path.Combine(HeroesDataBaseDataDirectoryPath, GameDataStringName));
+                CASCFolder currentFolder = _cascFolderData.GetDirectory(Path.Combine(HeroesDataBaseDataDirectoryPath, GameDataStringName));
 
                 foreach (KeyValuePair<string, ICASCEntry> file in currentFolder.Entries)
                 {
@@ -104,10 +104,10 @@ namespace HeroesData.Loader.XmlGameData
 
                     string filePath = ((CASCFile)file.Value).FullName;
 
-                    if (!CASCHandlerData.FileExists(filePath))
+                    if (!_cascHandlerData.FileExists(filePath))
                         throw new FileNotFoundException(filePath);
 
-                    using Stream data = CASCHandlerData.OpenFile(filePath);
+                    using Stream data = _cascHandlerData.OpenFile(filePath);
 
                     LoadXmlFile(data, filePath);
                 }
@@ -120,11 +120,11 @@ namespace HeroesData.Loader.XmlGameData
             {
                 // load gamestring file
                 string filePath = Path.Combine(HeroesDataLocalizedDataPath, GameStringFile);
-                LoadTextFile(CASCHandlerData.OpenFile(filePath), filePath);
+                LoadTextFile(_cascHandlerData.OpenFile(filePath), filePath);
             }
 
             // load up files in includes.xml file - which are the heroes in the heromods folder
-            using (Stream cascXmlStream = CASCHandlerData.OpenFile(Path.Combine(HeroesDataBaseDataDirectoryPath, IncludesXmlFile)))
+            using (Stream cascXmlStream = _cascHandlerData.OpenFile(Path.Combine(HeroesDataBaseDataDirectoryPath, IncludesXmlFile)))
             {
                 if (IsCacheEnabled)
                 {
@@ -149,9 +149,9 @@ namespace HeroesData.Loader.XmlGameData
                             LoadGameDataXmlContents(gameDataPath);
 
                             string heroModsFontStylesFilePath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, UIDirectoryStringName, FontStyleFile);
-                            if (CASCHandlerData.FileExists(heroModsFontStylesFilePath))
+                            if (_cascHandlerData.FileExists(heroModsFontStylesFilePath))
                             {
-                                LoadStormStyleFile(CASCHandlerData.OpenFile(heroModsFontStylesFilePath));
+                                LoadStormStyleFile(_cascHandlerData.OpenFile(heroModsFontStylesFilePath));
 
                                 if (IsCacheEnabled)
                                     AddStormStyleCachedFilePath(heroModsFontStylesFilePath);
@@ -161,8 +161,8 @@ namespace HeroesData.Loader.XmlGameData
                             {
                                 string filePath = Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile);
 
-                                if (CASCHandlerData.FileExists(filePath))
-                                    LoadTextFile(CASCHandlerData.OpenFile(filePath), filePath);
+                                if (_cascHandlerData.FileExists(filePath))
+                                    LoadTextFile(_cascHandlerData.OpenFile(filePath), filePath);
                             }
                         }
                     }
@@ -170,7 +170,7 @@ namespace HeroesData.Loader.XmlGameData
             }
 
             string fontStylesFilePath = Path.Combine(HeroesDataBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile);
-            LoadStormStyleFile(CASCHandlerData.OpenFile(fontStylesFilePath));
+            LoadStormStyleFile(_cascHandlerData.OpenFile(fontStylesFilePath));
 
             if (IsCacheEnabled)
                 AddStormStyleCachedFilePath(fontStylesFilePath);
@@ -178,7 +178,7 @@ namespace HeroesData.Loader.XmlGameData
 
         protected override void LoadHeroesMapMods()
         {
-            CASCFolder currentFolder = CASCFolderData.GetDirectory(HeroesMapModsDirectoryPath);
+            CASCFolder currentFolder = _cascFolderData.GetDirectory(HeroesMapModsDirectoryPath);
 
             // loop through each mapmods folder
             foreach (KeyValuePair<string, ICASCEntry> mapFolder in currentFolder.Entries)
@@ -194,10 +194,10 @@ namespace HeroesData.Loader.XmlGameData
                         {
                             string filePath = ((CASCFile)dataFiles.Value).FullName;
 
-                            if (!CASCHandlerData.FileExists(filePath))
+                            if (!_cascHandlerData.FileExists(filePath))
                                 throw new FileNotFoundException(filePath);
 
-                            using Stream data = CASCHandlerData.OpenFile(filePath);
+                            using Stream data = _cascHandlerData.OpenFile(filePath);
 
                             LoadXmlFile(mapFolder.Value.Name, data, filePath);
                         }
@@ -208,15 +208,18 @@ namespace HeroesData.Loader.XmlGameData
                 {
                     string filePath = Path.Combine(HeroesMapModsDirectoryPath, mapFolder.Value.Name, GameStringLocalization, LocalizedDataName, GameStringFile);
 
-                    if (CASCHandlerData.FileExists(filePath))
-                        LoadTextFile(mapFolder.Value.Name, CASCHandlerData.OpenFile(filePath), filePath);
+                    if (_cascHandlerData.FileExists(filePath))
+                        LoadTextFile(mapFolder.Value.Name, _cascHandlerData.OpenFile(filePath), filePath);
                 }
             }
         }
 
         protected override void LoadGameDataXmlContents(string gameDataXmlFilePath)
         {
-            if ((!CASCHandlerData.FileExists(gameDataXmlFilePath) && gameDataXmlFilePath.Contains($"{HeroInteractionsStringName}.stormmod", StringComparison.OrdinalIgnoreCase)) || !LoadXmlFilesEnabled)
+            if (gameDataXmlFilePath is null)
+                throw new ArgumentNullException(nameof(gameDataXmlFilePath));
+
+            if ((!_cascHandlerData.FileExists(gameDataXmlFilePath) && gameDataXmlFilePath.Contains($"{HeroInteractionsStringName}.stormmod", StringComparison.OrdinalIgnoreCase)) || !LoadXmlFilesEnabled)
                 return;
 
             if (IsCacheEnabled)
@@ -225,7 +228,7 @@ namespace HeroesData.Loader.XmlGameData
             }
 
             // load up files in gamedata.xml file
-            using Stream cascXmlStream = CASCHandlerData.OpenFile(gameDataXmlFilePath);
+            using Stream cascXmlStream = _cascHandlerData.OpenFile(gameDataXmlFilePath);
 
             XDocument gameDataXml = XDocument.Load(cascXmlStream);
             IEnumerable<XElement> catalogElements = gameDataXml.Root.Elements("Catalog");
@@ -244,9 +247,9 @@ namespace HeroesData.Loader.XmlGameData
                             string xmlFilePath = Path.Combine(HeroesDataBaseDataDirectoryPath, pathValue);
                             if (Path.GetExtension(xmlFilePath) == ".xml")
                             {
-                                if (CASCHandlerData.FileExists(xmlFilePath))
+                                if (_cascHandlerData.FileExists(xmlFilePath))
                                 {
-                                    using Stream stream = CASCHandlerData.OpenFile(xmlFilePath);
+                                    using Stream stream = _cascHandlerData.OpenFile(xmlFilePath);
 
                                     LoadXmlFile(stream, xmlFilePath);
                                 }
@@ -254,11 +257,11 @@ namespace HeroesData.Loader.XmlGameData
                         }
                         else
                         {
-                            string xmlFilePath = Path.Combine(gameDataXmlFilePath.Replace(GameDataXmlFile, string.Empty), pathValue);
+                            string xmlFilePath = Path.Combine(gameDataXmlFilePath.Replace(GameDataXmlFile, string.Empty, StringComparison.OrdinalIgnoreCase), pathValue);
 
                             if (Path.GetExtension(xmlFilePath) == ".xml")
                             {
-                                using Stream stream = CASCHandlerData.OpenFile(xmlFilePath);
+                                using Stream stream = _cascHandlerData.OpenFile(xmlFilePath);
 
                                 LoadXmlFile(stream, xmlFilePath);
                             }
@@ -270,7 +273,7 @@ namespace HeroesData.Loader.XmlGameData
 
         private void SetCorrectFileCasing()
         {
-            if (!CASCFolderData.DirectoryExists(CoreLocalizedDataPath))
+            if (!_cascFolderData.DirectoryExists(CoreLocalizedDataPath))
             {
                 LocalizedDataName = "LocalizedData";
                 GameDataStringName = "GameData";

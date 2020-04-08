@@ -7,11 +7,11 @@ namespace HeroesData.Parser.XmlData
 {
     public class DefaultDataPortraitPack
     {
-        private readonly GameData GameData;
+        private readonly GameData _gameData;
 
         public DefaultDataPortraitPack(GameData gameData)
         {
-            GameData = gameData;
+            _gameData = gameData;
 
             LoadCPortraitPackDefault();
         }
@@ -34,14 +34,14 @@ namespace HeroesData.Parser.XmlData
         // <CPortraitPack default="1">
         private void LoadCPortraitPackDefault()
         {
-            CPortraitPackElement(GameData.Elements("CPortraitPack").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CPortraitPackElement(_gameData.Elements("CPortraitPack").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
         private void CPortraitPackElement(IEnumerable<XElement> cPortraitPackElements)
         {
             foreach (XElement element in cPortraitPackElements.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "NAME")
                 {

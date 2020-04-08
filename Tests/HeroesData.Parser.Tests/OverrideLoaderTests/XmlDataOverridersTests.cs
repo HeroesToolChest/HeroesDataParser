@@ -11,21 +11,21 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
     [TestClass]
     public class XmlDataOverridersTests
     {
-        private const string TestDataFolder = "TestData";
+        private const string _testDataFolder = "TestData";
 
-        private readonly string ModsTestFolder = Path.Combine(TestDataFolder, "mods");
-        private readonly string OverrideFileNameSuffix = "overrides-test";
-        private readonly GameData GameData;
+        private readonly string _modsTestFolder = Path.Combine(_testDataFolder, "mods");
+        private readonly string _overrideFileNameSuffix = "overrides-test";
+        private readonly GameData _gameData;
 
         public XmlDataOverridersTests()
         {
-            GameData = new FileGameData(ModsTestFolder);
+            _gameData = new FileGameData(_modsTestFolder);
         }
 
         [TestMethod]
         public void LoadedDataOverridersNoBuildTest()
         {
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, OverrideFileNameSuffix);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, _gameData, _overrideFileNameSuffix);
 
             List<string> loadedOverrideFileNames = xmlDataOverriders.LoadedFileNames.ToList();
 
@@ -36,7 +36,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
         [TestMethod]
         public void LoadedDataOverridersHasBuildTest()
         {
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, 12000, OverrideFileNameSuffix);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, _gameData, 12000, _overrideFileNameSuffix);
 
             List<string> loadedOverrideFileNames = xmlDataOverriders.LoadedFileNames.ToList();
 
@@ -48,7 +48,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
         [DataRow(typeof(HeroDataParser))]
         public void LoadedDataOverridersGetOverrider(Type type)
         {
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, OverrideFileNameSuffix);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, _gameData, _overrideFileNameSuffix);
             IOverrideLoader overrideLoader = xmlDataOverriders.GetOverrider(type);
 
             Assert.IsNotNull(overrideLoader);
@@ -57,7 +57,7 @@ namespace HeroesData.Parser.Tests.OverrideLoaderTests
         [TestMethod]
         public void LoadedDataOverridersGetOverriderIsNull()
         {
-            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, GameData, OverrideFileNameSuffix);
+            XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, _gameData, _overrideFileNameSuffix);
             IOverrideLoader overrideLoader = xmlDataOverriders.GetOverrider(typeof(XmlDataOverridersTests));
 
             Assert.IsNull(overrideLoader);

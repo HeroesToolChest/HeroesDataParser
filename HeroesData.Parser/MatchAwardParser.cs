@@ -14,23 +14,23 @@ namespace HeroesData.Parser
 {
     public class MatchAwardParser : ParserBase<MatchAward, MatchAwardDataOverride>, IParser<MatchAward?, MatchAwardParser>
     {
-        private readonly string AwardNameId = "UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Award Name";
-        private readonly string AwardNamePrefix = "ScoreValue/Name/";
-        private readonly string AwardDescriptionPrefix = "ScoreValue/Tooltip/";
+        private readonly string _awardNameId = "UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Award Name";
+        private readonly string _awardNamePrefix = "ScoreValue/Name/";
+        private readonly string _awardDescriptionPrefix = "ScoreValue/Tooltip/";
 
-        private readonly MatchAwardOverrideLoader MatchAwardOverrideLoader;
-        private readonly string MVPGameLinkId = "EndOfMatchAwardMVPBoolean";
+        private readonly MatchAwardOverrideLoader _matchAwardOverrideLoader;
+        private readonly string _mvpGameLinkId = "EndOfMatchAwardMVPBoolean";
 
-        private MatchAwardDataOverride? MatchAwardDataOverride;
+        private MatchAwardDataOverride? _matchAwardDataOverride;
 
         public MatchAwardParser(IXmlDataService xmlDataService, MatchAwardOverrideLoader matchAwardOverrideLoader)
             : base(xmlDataService)
         {
-            MatchAwardOverrideLoader = matchAwardOverrideLoader;
+            _matchAwardOverrideLoader = matchAwardOverrideLoader;
         }
 
         /// <summary>
-        /// Returns a collection of all the parsable ids. Allows multiple ids.
+        /// Gets a collection of all the parsable ids. Allows multiple ids.
         /// </summary>
         /// <returns></returns>
         public override HashSet<string[]> Items
@@ -59,18 +59,18 @@ namespace HeroesData.Parser
                 }
 
                 // manually add mvp award
-                items.Add(new string[] { MVPGameLinkId });
+                items.Add(new string[] { _mvpGameLinkId });
 
                 return items;
             }
         }
 
-        protected override string ElementType => throw new NotImplementedException();
+        protected override string ElementType => throw new NotSupportedException();
 
         /// <summary>
         /// Returns the parsed game data from the given ids. Multiple ids may be used to identify one item.
         /// </summary>
-        /// <param name="id">The ids of the item to parse.</param>
+        /// <param name="ids">The ids of the item to parse.</param>
         /// <returns></returns>
         public MatchAward? Parse(params string[] ids)
         {
@@ -88,9 +88,9 @@ namespace HeroesData.Parser
 
             MatchAward? matchAward = null;
 
-            if (GameData.TryGetGameString($"{AwardNameId}", out string? awardNameText))
+            if (GameData.TryGetGameString($"{_awardNameId}", out string? awardNameText))
                 awardName = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
-            else if (GameData.TryGetGameString($"{AwardNamePrefix}{gameLink}", out awardNameText))
+            else if (GameData.TryGetGameString($"{_awardNamePrefix}{gameLink}", out awardNameText))
                 awardName = GetNameFromGenderRule(new TooltipDescription(awardNameText).PlainText);
 
             XElement? scoreValueCustomElement = GameData.MergeXmlElements(GameData.Elements("CScoreValueCustom").Where(x => x.Attribute("id")?.Value == gameLink));
@@ -115,18 +115,18 @@ namespace HeroesData.Parser
                     matchAward.HyperlinkId = gameLink;
 
                     // set new image file names for the extraction
-                    matchAward.ScoreScreenImageFileName = matchAward.ScoreScreenImageFileNameOriginal.ToLower();
-                    matchAward.MVPScreenImageFileName = $"storm_ui_mvp_{awardSpecialName}_%color%.dds".ToLower();
+                    matchAward.ScoreScreenImageFileName = matchAward.ScoreScreenImageFileNameOriginal.ToLowerInvariant();
+                    matchAward.MVPScreenImageFileName = $"storm_ui_mvp_{awardSpecialName}_%color%.dds".ToLowerInvariant();
 
                     // set description
-                    if (GameData.TryGetGameString($"{AwardDescriptionPrefix}{gameLink}", out string? description))
+                    if (GameData.TryGetGameString($"{_awardDescriptionPrefix}{gameLink}", out string? description))
                         matchAward.Description = new TooltipDescription(description);
 
                     // overrides
-                    MatchAwardDataOverride = MatchAwardOverrideLoader.GetOverride(matchAward.Id);
+                    _matchAwardDataOverride = _matchAwardOverrideLoader.GetOverride(matchAward.Id);
 
-                    if (MatchAwardDataOverride != null)
-                        ApplyOverrides(matchAward, MatchAwardDataOverride);
+                    if (_matchAwardDataOverride != null)
+                        ApplyOverrides(matchAward, _matchAwardDataOverride);
                 }
             }
 
@@ -135,11 +135,16 @@ namespace HeroesData.Parser
 
         public MatchAwardParser GetInstance()
         {
-            return new MatchAwardParser(XmlDataService, MatchAwardOverrideLoader);
+            return new MatchAwardParser(XmlDataService, _matchAwardOverrideLoader);
         }
 
         protected override void ApplyAdditionalOverrides(MatchAward matchAward, MatchAwardDataOverride dataOverride)
         {
+            if (matchAward is null)
+                throw new ArgumentNullException(nameof(matchAward));
+            if (dataOverride is null)
+                throw new ArgumentNullException(nameof(dataOverride));
+
             if (dataOverride.MVPScreenImageFileNameOriginalOverride.Enabled)
                 matchAward.MVPScreenImageFileNameOriginal = dataOverride.MVPScreenImageFileNameOriginalOverride.Value;
 

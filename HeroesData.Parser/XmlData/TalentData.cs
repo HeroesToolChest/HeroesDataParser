@@ -11,8 +11,8 @@ namespace HeroesData.Parser.XmlData
 {
     public class TalentData : AbilityTalentData
     {
-        private readonly Dictionary<string, HashSet<string>> AbilityTalentIdsByTalentIdUpgrade = new Dictionary<string, HashSet<string>>();
-        private readonly List<(XElement, AbilityTalentBase)> AbilityTalentsButtonElementsList = new List<(XElement, AbilityTalentBase)>();
+        private readonly Dictionary<string, HashSet<string>> _abilityTalentIdsByTalentIdUpgrade = new Dictionary<string, HashSet<string>>();
+        private readonly List<(XElement, AbilityTalentBase)> _abilityTalentsButtonElementsList = new List<(XElement, AbilityTalentBase)>();
 
         public TalentData(GameData gameData, DefaultData defaultData, Configuration configuration)
             : base(gameData, defaultData, configuration)
@@ -62,6 +62,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Acquire TooltipAppender data for abilityTalentLinkIds. This should be called after abilities are parsed and before talents are parsed.
         /// </summary>
+        /// <param name="hero">The <see cref="Hero"/> object data to update.</param>
         public void SetButtonTooltipAppenderData(Hero hero)
         {
             if (hero == null)
@@ -85,7 +86,7 @@ namespace HeroesData.Parser.XmlData
                 }
             }
 
-            foreach ((XElement buttonElement, AbilityTalentBase abilityTalent) in AbilityTalentsButtonElementsList)
+            foreach ((XElement buttonElement, AbilityTalentBase abilityTalent) in _abilityTalentsButtonElementsList)
             {
                 if (!string.IsNullOrEmpty(abilityTalent.AbilityTalentId.ReferenceId))
                     AddTooltipAppenderAbilityTalentId(buttonElement, abilityTalent.AbilityTalentId.ReferenceId);
@@ -94,9 +95,34 @@ namespace HeroesData.Parser.XmlData
             }
         }
 
+        private static void SetTalentTier(string tier, Talent? talent)
+        {
+            if (talent == null)
+            {
+                throw new ArgumentNullException(nameof(talent));
+            }
+
+            if (tier == "1")
+                talent.Tier = TalentTiers.Level1;
+            else if (tier == "2")
+                talent.Tier = TalentTiers.Level4;
+            else if (tier == "3")
+                talent.Tier = TalentTiers.Level7;
+            else if (tier == "4")
+                talent.Tier = TalentTiers.Level10;
+            else if (tier == "5")
+                talent.Tier = TalentTiers.Level13;
+            else if (tier == "6")
+                talent.Tier = TalentTiers.Level16;
+            else if (tier == "7")
+                talent.Tier = TalentTiers.Level20;
+            else
+                talent.Tier = TalentTiers.Old;
+        }
+
         private void SetAbilityTalentLinkIds(Hero hero, Talent talent, XElement talentElement)
         {
-            if (AbilityTalentIdsByTalentIdUpgrade.TryGetValue(talent.AbilityTalentId.ReferenceId, out HashSet<string>? abilityTalentIds))
+            if (_abilityTalentIdsByTalentIdUpgrade.TryGetValue(talent.AbilityTalentId.ReferenceId, out HashSet<string>? abilityTalentIds))
             {
                 foreach (string abilityTalentId in abilityTalentIds)
                     talent.AbilityTalentLinkIds.Add(abilityTalentId);
@@ -115,7 +141,7 @@ namespace HeroesData.Parser.XmlData
                 if (rankArrayElement != null)
                 {
                     XElement behaviorArrayElement = rankArrayElement.Elements("BehaviorArray").FirstOrDefault(x => !string.IsNullOrEmpty(x.Attribute("value")?.Value) &&
-                        x.Attribute("value").Value.StartsWith("Ultimate") && x.Attribute("value").Value.EndsWith("Unlocked"));
+                        x.Attribute("value").Value.StartsWith("Ultimate", StringComparison.OrdinalIgnoreCase) && x.Attribute("value").Value.EndsWith("Unlocked", StringComparison.OrdinalIgnoreCase));
 
                     if (talentAbilElement != null && behaviorArrayElement != null)
                     {
@@ -182,36 +208,11 @@ namespace HeroesData.Parser.XmlData
             {
                 string talentReferenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value ?? string.Empty;
 
-                if (AbilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
-                    AbilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(abilityTalentId);
+                if (_abilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
+                    _abilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(abilityTalentId);
                 else
-                    AbilityTalentIdsByTalentIdUpgrade.TryAdd(talentReferenceNameId, new HashSet<string>(StringComparer.Ordinal) { abilityTalentId });
+                    _abilityTalentIdsByTalentIdUpgrade.TryAdd(talentReferenceNameId, new HashSet<string>(StringComparer.Ordinal) { abilityTalentId });
             }
-        }
-
-        private void SetTalentTier(string tier, Talent? talent)
-        {
-            if (talent == null)
-            {
-                throw new ArgumentNullException(nameof(talent));
-            }
-
-            if (tier == "1")
-                talent.Tier = TalentTiers.Level1;
-            else if (tier == "2")
-                talent.Tier = TalentTiers.Level4;
-            else if (tier == "3")
-                talent.Tier = TalentTiers.Level7;
-            else if (tier == "4")
-                talent.Tier = TalentTiers.Level10;
-            else if (tier == "5")
-                talent.Tier = TalentTiers.Level13;
-            else if (tier == "6")
-                talent.Tier = TalentTiers.Level16;
-            else if (tier == "7")
-                talent.Tier = TalentTiers.Level20;
-            else
-                talent.Tier = TalentTiers.Old;
         }
 
         private void SetTalentData(XElement talentElement, Talent talent, Hero hero)
@@ -243,7 +244,7 @@ namespace HeroesData.Parser.XmlData
 
             foreach (XElement element in talentElement.Elements())
             {
-                string elementName = element.Name.LocalName.ToUpper();
+                string elementName = element.Name.LocalName.ToUpperInvariant();
 
                 if (elementName == "FACE")
                 {
@@ -356,7 +357,7 @@ namespace HeroesData.Parser.XmlData
                     {
                         foreach (XElement rankArrayElement in element.Elements())
                         {
-                            string rankArrayElementName = element.Name.LocalName.ToUpper();
+                            string rankArrayElementName = element.Name.LocalName.ToUpperInvariant();
 
                             if (rankArrayElementName == "BEHAVIORARRAY")
                             {
@@ -394,7 +395,7 @@ namespace HeroesData.Parser.XmlData
             XElement? buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.AbilityTalentId.ButtonId));
 
             if (buttonElement != null)
-                AbilityTalentsButtonElementsList.Add((buttonElement, ability));
+                _abilityTalentsButtonElementsList.Add((buttonElement, ability));
         }
     }
 }

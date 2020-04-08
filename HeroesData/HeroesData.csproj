@@ -7,7 +7,6 @@
     <PublishSingleFile>false</PublishSingleFile>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>dotnet-heroes-data</ToolCommandName>
-    <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
     <Version>4.5.3</Version>
     <Copyright>Copyright © 2018 - 2020 Kevin Oliva</Copyright>
     <Authors>Kevin Oliva</Authors>
@@ -21,10 +20,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
     <PackageReference Include="Pfim" Version="0.9.1" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0007" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.113">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>

@@ -12,10 +12,13 @@ namespace HeroesData.Helpers
 
         public int GetHashCode(string[] obj)
         {
+            if (obj is null)
+                throw new System.ArgumentNullException(nameof(obj));
+
             int value = 0;
             foreach (var item in obj)
             {
-                value += item.GetHashCode() * 17;
+                value += item.GetHashCode(System.StringComparison.Ordinal) * 17;
             }
 
             return value;

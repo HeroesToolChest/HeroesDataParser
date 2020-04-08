@@ -92,7 +92,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
             foreach (UnitArmor armor in unit.Armor)
             {
                 armorObject.Add(new JProperty(
-                    armor.Type.ToLower(),
+                    armor.Type.ToLowerInvariant(),
                     new JObject(
                         new JProperty("basic", armor.BasicArmor),
                         new JProperty("ability", armor.AbilityArmor),
@@ -229,7 +229,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 info.Add("name", abilityTalentBase.Name);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.IconFileName))
-                info.Add("icon", Path.ChangeExtension(abilityTalentBase.IconFileName?.ToLower(), ".png"));
+                info.Add("icon", Path.ChangeExtension(abilityTalentBase.IconFileName?.ToLowerInvariant(), ".png"));
 
             if (abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.HasValue)
                 info.Add("toggleCooldown", abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.Value);
@@ -293,7 +293,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
 
                     foreach (WeaponAttributeFactor item in weapon.AttributeFactors)
                     {
-                        attributeFactorOjbect.Add(item.Type.ToLower(), item.Value);
+                        attributeFactorOjbect.Add(item.Type.ToLowerInvariant(), item.Value);
                     }
 
                     weaponObject.Add("damageFactor", attributeFactorOjbect);
@@ -377,9 +377,9 @@ namespace HeroesData.FileWriter.Writers.UnitData
             JObject portrait = new JObject();
 
             if (!string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName))
-                portrait.Add("targetInfo", Path.ChangeExtension(unit.UnitPortrait.TargetInfoPanelFileName?.ToLower(), StaticImageExtension));
+                portrait.Add("targetInfo", Path.ChangeExtension(unit.UnitPortrait.TargetInfoPanelFileName?.ToLowerInvariant(), StaticImageExtension));
             if (!string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName))
-                portrait.Add("minimap", Path.ChangeExtension(unit.UnitPortrait.MiniMapIconFileName?.ToLower(), StaticImageExtension));
+                portrait.Add("minimap", Path.ChangeExtension(unit.UnitPortrait.MiniMapIconFileName?.ToLowerInvariant(), StaticImageExtension));
 
             return new JProperty("portraits", portrait);
         }

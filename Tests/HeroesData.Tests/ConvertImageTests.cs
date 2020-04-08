@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SixLabors.ImageSharp;
 using SixLabors.Primitives;
+using System;
 using System.IO;
 
 namespace HeroesData.Tests
@@ -24,9 +25,9 @@ namespace HeroesData.Tests
         {
             string file = "storm_ui_mvp_icons_rewards_loyaldefender.dds";
 
-            string blueAward = Path.ChangeExtension(file.Replace("loyaldefender", "loyaldefender_blue"), ".png");
-            string redAward = Path.ChangeExtension(file.Replace("loyaldefender", "loyaldefender_red"), ".png");
-            string goldAward = Path.ChangeExtension(file.Replace("loyaldefender", "loyaldefender_gold"), ".png");
+            string blueAward = Path.ChangeExtension(file.Replace("loyaldefender", "loyaldefender_blue", StringComparison.OrdinalIgnoreCase), ".png");
+            string redAward = Path.ChangeExtension(file.Replace("loyaldefender", "loyaldefender_red", StringComparison.OrdinalIgnoreCase), ".png");
+            string goldAward = Path.ChangeExtension(file.Replace("loyaldefender", "loyaldefender_gold", StringComparison.OrdinalIgnoreCase), ".png");
 
             using DDSImage image = new DDSImage(file);
 

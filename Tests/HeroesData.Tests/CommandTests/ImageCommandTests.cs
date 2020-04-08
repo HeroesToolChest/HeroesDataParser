@@ -10,7 +10,7 @@ namespace HeroesData.Tests.CommandTests
     [TestClass]
     public class ImageCommandTests
     {
-        private readonly string PngImage = "storm_ui_icon_abathur_symbiote.png";
+        private readonly string _pngImage = "storm_ui_icon_abathur_symbiote.png";
 
         [TestMethod]
         public void NoArgumentsTest()
@@ -53,7 +53,7 @@ namespace HeroesData.Tests.CommandTests
             Console.SetOut(writer);
             Console.SetError(writer);
 
-            Program.Main(new string[] { "image", Path.Combine("CommandTests", PngImage), "--width", value });
+            Program.Main(new string[] { "image", Path.Combine("CommandTests", _pngImage), "--width", value });
 
             List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
@@ -71,7 +71,7 @@ namespace HeroesData.Tests.CommandTests
             Console.SetOut(writer);
             Console.SetError(writer);
 
-            Program.Main(new string[] { "image", Path.Combine("CommandTests", PngImage), "--height", value });
+            Program.Main(new string[] { "image", Path.Combine("CommandTests", _pngImage), "--height", value });
 
             List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
@@ -86,14 +86,14 @@ namespace HeroesData.Tests.CommandTests
                 Console.SetOut(writer);
                 Console.SetError(writer);
 
-                Program.Main(new string[] { "image", Path.Combine("CommandTests", PngImage) });
+                Program.Main(new string[] { "image", Path.Combine("CommandTests", _pngImage) });
 
                 List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
                 Assert.AreEqual("Image processed.", lines[0]);
             }
 
-            using Image image = Image.Load(Path.Combine("CommandTests", PngImage));
+            using Image image = Image.Load(Path.Combine("CommandTests", _pngImage));
 
             Assert.AreEqual(128, image.Width);
             Assert.AreEqual(128, image.Height);
@@ -128,7 +128,7 @@ namespace HeroesData.Tests.CommandTests
 
             Assert.AreEqual("\rProcessed 1\rProcessed 2", lines[0]);
 
-            using Image image = Image.Load(Path.Combine("MultiImages", PngImage));
+            using Image image = Image.Load(Path.Combine("MultiImages", _pngImage));
 
             Assert.AreEqual(128, image.Width);
             Assert.AreEqual(64, image.Height);
