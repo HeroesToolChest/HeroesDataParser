@@ -174,10 +174,10 @@ namespace HeroesData.Parser
 
         private ReadOnlySpan<char> ModifyId(ReadOnlySpan<char> value)
         {
-            if (value.StartsWith("EndOfMatchAward"))
+            if (value.StartsWith("EndOfMatchAward", StringComparison.OrdinalIgnoreCase))
                 value = value.Slice("EndOfMatchAward".Length);
-            if (value.EndsWith("Boolean"))
-                value = value.Slice(0, value.IndexOf("Boolean"));
+            if (value.EndsWith("Boolean", StringComparison.OrdinalIgnoreCase))
+                value = value.Slice(0, value.IndexOf("Boolean", StringComparison.OrdinalIgnoreCase));
             if (value[0] == '0')
                 value = ("Zero" + value.Slice(1).ToString()).AsSpan();
 

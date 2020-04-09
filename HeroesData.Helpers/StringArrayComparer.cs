@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HeroesData.Helpers
@@ -13,7 +14,7 @@ namespace HeroesData.Helpers
         public int GetHashCode(string[] obj)
         {
             if (obj is null)
-                throw new System.ArgumentNullException(nameof(obj));
+                throw new ArgumentNullException(nameof(obj));
 
             int value = 0;
             foreach (var item in obj)
