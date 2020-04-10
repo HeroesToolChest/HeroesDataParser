@@ -12,22 +12,22 @@ namespace HeroesData.FileWriter
         public DescriptionType DescriptionType { get; set; } = DescriptionType.ColoredText;
 
         /// <summary>
-        /// Gets or sets the file split option.
+        /// Gets or sets a value indicating whether the files should be split.
         /// </summary>
         public bool IsFileSplit { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets if localized text is removed from the XML and JSON files.
+        /// Gets or sets a value indicating whether the localized text is removed from the XML and JSON files.
         /// </summary>
         public bool IsLocalizedText { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets the minify file option.
+        /// Gets or sets a value indicating whether the files swhould be minified.
         /// </summary>
         public bool IsMinifiedFiles { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets the value to allow the data files to be written.
+        /// Gets or sets a value indicating whether the data files to be written.
         /// </summary>
         public bool AllowDataFileWriting { get; set; } = true;
 

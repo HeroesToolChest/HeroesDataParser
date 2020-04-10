@@ -51,7 +51,7 @@ namespace HeroesData.Parser
         protected abstract string ElementType { get; }
 
         /// <summary>
-        /// Default name for general items.
+        /// Gets default name for general items.
         /// </summary>
         protected string GeneralMapName => string.Empty;
 

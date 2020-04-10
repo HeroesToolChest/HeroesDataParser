@@ -7,7 +7,7 @@ namespace HeroesData.Parser
         where T : IExtractable?
     {
         /// <summary>
-        /// Returns a collection of all the parsable ids. Allows multiple ids.
+        /// Gets a collection of all the parsable ids. Allows multiple ids.
         /// </summary>
         /// <returns></returns>
         HashSet<string[]> Items { get; }
@@ -25,7 +25,7 @@ namespace HeroesData.Parser
         /// <summary>
         /// Returns the parsed game data from the given ids. Multiple ids may be used to identity one item.
         /// </summary>
-        /// <param name="id">The ids of the item to parse.</param>
+        /// <param name="ids">The ids of the item to parse.</param>
         /// <returns></returns>
         T Parse(params string[] ids);
 
@@ -38,6 +38,7 @@ namespace HeroesData.Parser
         /// <summary>
         /// Loads the specific map data.
         /// </summary>
+        /// <param name="mapId">The map id value.</param>
         void LoadMapData(string mapId);
 
         /// <summary>
