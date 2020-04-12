@@ -1,0 +1,29 @@
+{
+  "WhitemaneCat": {
+    "name": "Whitemane Cat",
+    "hyperlinkId": "WhitemaneCatId",
+    "rarity": "Epic",
+    "category": "AchievementCategory",
+    "description": "This is some description",
+    "descriptionUnearned": "This is an unearned description",
+    "heroId": "Aba",
+    "portraitPackId": "LagForce",
+    "iconSlot": 27,
+    "textureSheet": {
+      "image": "this_is_an_image_file.png",
+      "columns": 8,
+      "rows": 8
+    }
+  },
+  "WhitemaneBat": {
+    "name": "Whitemane Bat",
+    "hyperlinkId": "WhitemaneBatId",
+    "rarity": "None",
+    "iconSlot": 0,
+    "textureSheet": {
+      "image": "this_is_an_image_file.png",
+      "columns": 8,
+      "rows": 8
+    }
+  }
+}

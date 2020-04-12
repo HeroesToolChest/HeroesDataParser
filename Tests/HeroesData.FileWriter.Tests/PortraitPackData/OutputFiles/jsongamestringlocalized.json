@@ -1,0 +1,16 @@
+{
+  "LagForce": {
+    "hyperlinkId": "LagForceId",
+    "rarity": "Epic",
+    "event": "SunsOut",
+    "rewardPortraitIds": [
+      "WhitemaneCat",
+      "WhitemaneHat",
+      "Kitty"
+    ]
+  },
+  "00Force": {
+    "hyperlinkId": "00ForceId",
+    "rarity": "Epic"
+  }
+}

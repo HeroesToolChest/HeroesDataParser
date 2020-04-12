@@ -9,7 +9,8 @@ using HeroesData.FileWriter.Writers.HeroData;
 using HeroesData.FileWriter.Writers.HeroSkinData;
 using HeroesData.FileWriter.Writers.MatchAwardData;
 using HeroesData.FileWriter.Writers.MountData;
-using HeroesData.FileWriter.Writers.PortraitData;
+using HeroesData.FileWriter.Writers.PortraitPackData;
+using HeroesData.FileWriter.Writers.RewardPortraitData;
 using HeroesData.FileWriter.Writers.SprayData;
 using HeroesData.FileWriter.Writers.UnitData;
 using HeroesData.FileWriter.Writers.VoiceLineData;
@@ -115,7 +116,8 @@ namespace HeroesData.FileWriter
                 { nameof(Spray), new SprayDataJsonWriter() },
                 { nameof(Announcer), new AnnouncerDataJsonWriter() },
                 { nameof(VoiceLine), new VoiceLineDataJsonWriter() },
-                { nameof(Portrait), new PortraitDataJsonWriter() },
+                { nameof(PortraitPack), new PortraitPackDataJsonWriter() },
+                { nameof(RewardPortrait), new RewardPortraitDataJsonWriter() },
                 { nameof(Emoticon), new EmoticonDataJsonWriter() },
                 { nameof(EmoticonPack), new EmoticonPackDataJsonWriter() },
                 { nameof(BehaviorVeterancy), new BehaviorVeterancyDataJsonWriter() },
@@ -132,7 +134,8 @@ namespace HeroesData.FileWriter
                 { nameof(Spray), new SprayDataXmlWriter() },
                 { nameof(Announcer), new AnnouncerDataXmlWriter() },
                 { nameof(VoiceLine), new VoiceLineDataXmlWriter() },
-                { nameof(Portrait), new PortraitDataXmlWriter() },
+                { nameof(PortraitPack), new PortraitPackDataXmlWriter() },
+                { nameof(RewardPortrait), new RewardPortraitDataXmlWriter() },
                 { nameof(Emoticon), new EmoticonDataXmlWriter() },
                 { nameof(EmoticonPack), new EmoticonPackDataXmlWriter() },
                 { nameof(BehaviorVeterancy), new BehaviorVeterancyDataXmlWriter() },

@@ -253,6 +253,14 @@ namespace HeroesData
             {
                 "EMOTICONS", "EMOTICON", "EMOTES", "EMOTE",
             };
+            List<string> portraitPacks = new List<string>()
+            {
+                "PORTRAITPACKS", "PORTRAITPACK", "PORTRIATPACKS", "PORTRIATPACK", "PORTPACKS", "PORTPACK",
+            };
+            List<string> rewardPortraits = new List<string>()
+            {
+                "REWARDPORTRAITS", "REWARDPORTRAIT", "REWARDPORTRIATS", "REWARDPORTRIAT", "REWARDPORTS", "REWARDPORT",
+            };
 
             // data
             _extractDataValues.Add(ExtractDataOptions.HeroData, heroData);
@@ -262,6 +270,8 @@ namespace HeroesData
             _extractDataValues.Add(ExtractDataOptions.Announcer, announcers);
             _extractDataValues.Add(ExtractDataOptions.VoiceLine, voiceLines);
             _extractDataValues.Add(ExtractDataOptions.Emoticon, emoticons);
+            _extractDataValues.Add(ExtractDataOptions.PortraitPack, portraitPacks);
+            _extractDataValues.Add(ExtractDataOptions.RewardPortrait, rewardPortraits);
             _extractDataValues.Add(ExtractDataOptions.HeroSkin, new List<string>()
             {
                 "HEROSKINS", "HEROSKIN", "SKINS", "SKIN",
@@ -277,10 +287,6 @@ namespace HeroesData
             _extractDataValues.Add(ExtractDataOptions.EmoticonPack, new List<string>()
             {
                 "EMOTICONPACKS", "EMOTICONPACK", "EMOTEPACKS", "EMOTEPACK",
-            });
-            _extractDataValues.Add(ExtractDataOptions.Portrait, new List<string>()
-            {
-                "PORTRAITS", "PORTRAIT", "PORTRIAT", "PORT",
             });
             _extractDataValues.Add(ExtractDataOptions.Veterancy, new List<string>()
             {

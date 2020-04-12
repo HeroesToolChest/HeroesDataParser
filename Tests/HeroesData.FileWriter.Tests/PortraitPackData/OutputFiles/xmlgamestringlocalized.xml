@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PortraitPacks>
+  <LagForce hyperlinkId="LagForceId" rarity="Epic" event="SunsOut">
+    <RewardPortraitIds>
+      <RewardPortraitId>WhitemaneCat</RewardPortraitId>
+      <RewardPortraitId>WhitemaneHat</RewardPortraitId>
+      <RewardPortraitId>Kitty</RewardPortraitId>
+    </RewardPortraitIds>
+  </LagForce>
+  <_x0030_0Force hyperlinkId="00ForceId" rarity="Epic" />
+</PortraitPacks>

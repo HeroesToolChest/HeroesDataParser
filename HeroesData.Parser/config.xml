@@ -11,6 +11,7 @@
     <CBanner id="NeutralMercCamp" value="false" />
     <CMount id="Random" value="false" />
     <CPortraitPack id="TestPortrait" value="false" />
+    <CRewardPortrait id="_PORTRAITPLACEHOLDER" value="false" />
     <CSkin id="Random" value="false" />
     <CSpray id="RandomSpray" value="false" />
     <CVoiceLine id="RandomVoiceLine" value="false" />

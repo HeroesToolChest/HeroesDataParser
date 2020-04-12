@@ -1,8 +1,0 @@
-{
-  "LagForce": {
-    "name": "Lag Force",
-    "hyperlinkId": "LagForceId",
-    "event": "SunsOut",
-    "sortName": "xxLagForce"
-  }
-}

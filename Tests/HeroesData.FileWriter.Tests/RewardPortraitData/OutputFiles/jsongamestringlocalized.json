@@ -1,0 +1,25 @@
+{
+  "WhitemaneCat": {
+    "hyperlinkId": "WhitemaneCatId",
+    "rarity": "Epic",
+    "category": "AchievementCategory",
+    "heroId": "Aba",
+    "portraitPackId": "LagForce",
+    "iconSlot": 27,
+    "textureSheet": {
+      "image": "this_is_an_image_file.png",
+      "columns": 8,
+      "rows": 8
+    }
+  },
+  "WhitemaneBat": {
+    "hyperlinkId": "WhitemaneBatId",
+    "rarity": "None",
+    "iconSlot": 0,
+    "textureSheet": {
+      "image": "this_is_an_image_file.png",
+      "columns": 8,
+      "rows": 8
+    }
+  }
+}

@@ -355,7 +355,7 @@ namespace HeroesData.Loader.XmlGameData
         {
             if (id == null)
             {
-                throw new ArgumentNullException(nameof(id));
+                return string.Empty;
             }
 
             if (_gameStringById.TryGetValue(id, out string? value))

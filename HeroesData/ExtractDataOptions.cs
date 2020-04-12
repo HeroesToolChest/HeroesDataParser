@@ -15,10 +15,11 @@ namespace HeroesData
         Spray = 1 << 6,
         Announcer = 1 << 7,
         VoiceLine = 1 << 8,
-        Portrait = 1 << 9,
-        Emoticon = 1 << 10,
-        EmoticonPack = 1 << 11,
-        Veterancy = 1 << 12,
-        All = ~(~0 << 13),
+        PortraitPack = 1 << 9,
+        RewardPortrait = 1 << 10,
+        Emoticon = 1 << 11,
+        EmoticonPack = 1 << 12,
+        Veterancy = 1 << 13,
+        All = ~(~0 << 14),
     }
 }

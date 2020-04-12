@@ -1,2 +1,0 @@
-portrait/name/LagForce=Lag Force
-portrait/sortname/LagForce=xxLagForce

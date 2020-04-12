@@ -112,6 +112,10 @@
 [AbstractEmoticonPack] CollectionCategory is empty
 [SapperPackBonus] Name is empty
 
+# reward portraits
+[PortraitOverlayPlayerLevel] CollectionCategory is empty
+[PortraitOverlayStormLeagueLevel] CollectionCategory is empty
+
 # ignore for following data
 [$heroskin] Name is empty
 [$heroskin] SortName is empty

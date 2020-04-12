@@ -769,7 +769,8 @@ namespace HeroesData
             DataSpray dataSpray = new DataSpray(new SprayParser(xmlDataService.GetInstance()));
             DataAnnouncer dataAnnouncer = new DataAnnouncer(new AnnouncerParser(xmlDataService.GetInstance()));
             DataVoiceLine dataVoiceLine = new DataVoiceLine(new VoiceLineParser(xmlDataService.GetInstance()));
-            DataPortrait dataPortrait = new DataPortrait(new PortraitParser(xmlDataService.GetInstance()));
+            DataPortraitPack dataPortrait = new DataPortraitPack(new PortraitPackParser(xmlDataService.GetInstance()));
+            DataRewardPortrait dataRewardPortrait = new DataRewardPortrait(new RewardPortraitParser(xmlDataService.GetInstance()));
             DataEmoticon dataEmoticon = new DataEmoticon(new EmoticonParser(xmlDataService.GetInstance()));
             DataEmoticonPack dataEmoticonPack = new DataEmoticonPack(new EmoticonPackParser(xmlDataService.GetInstance()));
             DataBehaviorVeterancy dataBehaviorVeterancy = new DataBehaviorVeterancy(new BehaviorVeterancyParser(xmlDataService.GetInstance()));
@@ -862,10 +863,18 @@ namespace HeroesData
 
             _dataProcessors.Add(new DataProcessor()
             {
-                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.Portrait),
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.PortraitPack),
                 Name = dataPortrait.Name,
                 Parse = (localization) => dataPortrait.Parse(localization),
                 Validate = (localization) => dataPortrait.Validate(localization),
+            });
+
+            _dataProcessors.Add(new DataProcessor()
+            {
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.RewardPortrait),
+                Name = dataRewardPortrait.Name,
+                Parse = (localization) => dataRewardPortrait.Parse(localization),
+                Validate = (localization) => dataRewardPortrait.Validate(localization),
             });
 
             _dataProcessors.Add(new DataProcessor()

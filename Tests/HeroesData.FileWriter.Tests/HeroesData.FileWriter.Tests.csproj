@@ -47,7 +47,7 @@
     <None Update="AnnouncerData\OutputFiles\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="PortraitData\OutputFiles\**\*">
+    <None Update="PortraitPackData\OutputFiles\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="VoiceLineData\OutputFiles\**\*">
@@ -65,5 +65,9 @@
     <None Update="BehaviorVeterancyData\OutputFiles\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="RewardPortraitData\OutputFiles\**\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
+  
 </Project>

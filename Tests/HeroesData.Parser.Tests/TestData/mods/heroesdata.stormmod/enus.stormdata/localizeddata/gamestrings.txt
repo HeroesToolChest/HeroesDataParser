@@ -474,3 +474,20 @@ Button/Tooltip/MurkyOctoGrab=Murky becomes Unstoppable and Stuns target enemy He
 Button/Tooltip/MurkyOctoGrabAndASharkTooTalent=Increase the damage of Octo-Grab by <c val="#TooltipNumbers"><d ref="Effect,OctoGrabPokeMasteryDamage,Amount * 100"/>%</c>.
 
 UI/HeroLife=Health
+
+Reward/Name/WhitemaneCarbotsPortrait=Carbot Whitemane Portrait
+Reward/Name/WhitemaneSpooky18ToonPortrait=Toon Cursed Witch Whitemane Portrait
+Reward/Name/WhitemaneBasePortrait=Whitemane Portrait
+Reward/Name/WhitemaneMasteryPortrait=Whitemane Mastery Portrait
+Reward/Name/HeroesAvatar256x256Qhira=Qhira Emblem Portrait
+Reward/Name/QhiraEmblemPortrait=Qhira Emblem Portrait
+
+Reward/Description/LootBoxPortraitGeneric=You have unlocked this portrait in your Collection
+Reward/Description/HeroPortraitGeneric=Unlocks this Hero's Portrait in your Collection
+Reward/Description/HeroPortraitGenericEpic=Unlocks this Hero's Master Portrait in your Collection
+Reward/Description/TespaMembershipPortrait=Awarded to official Tespa members.
+Reward/DescriptionUnearned/HeroPortraitGeneric=You have unlocked this Hero's Portrait in your Collection
+Reward/DescriptionUnearned/HeroPortraitGenericEpic=You have unlocked this Hero's Master Portrait in your Collection
+Reward/DescriptionUnearned/LootBoxPortraitGeneric=Forge using Shards, purchase with Gems, or receive in a Loot Chest to unlock.
+Reward/Name/2015TespaMembershipPortrait=2015 Tespa Membership Portrait
+Reward/Name/2018Season4TLPortraitParent=2018 S4 Team League Portrait

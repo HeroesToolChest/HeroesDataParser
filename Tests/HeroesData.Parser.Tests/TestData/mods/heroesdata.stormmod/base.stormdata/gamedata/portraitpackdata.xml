@@ -21,6 +21,9 @@
   <CPortraitPack default="1" id="Winter18PortraitParent">
     <EventName value="WinterVeil" />
   </CPortraitPack>
+  <CPortraitPack default="1" id="FallOfKingsCrestPortraitParent">
+    <EventName value="HallowsEnd" />
+  </CPortraitPack>
 
   <CPortraitPack id="StitchesPortraitSummer" parent="SunsOutGunsOutPortraitParent">
     <ProductId value="27360" />
@@ -33,5 +36,20 @@
     <PortraitArray index="0" value="DiabloPortraitLegacy2" />
     <ProductId value="28885" />
     <Name value="Reward/Name/DiabloPortraitLegacy2" />
+  </CPortraitPack>
+  <CPortraitPack id="WhitemaneCarbotsPortrait">
+    <ProductId value="40650" />
+    <Rarity value="Rare" />
+  </CPortraitPack>
+  <CPortraitPack id="WhitemaneSpooky18ToonPortrait" parent="FallOfKingsCrestPortraitParent">
+    <ProductId value="42176" />
+  </CPortraitPack>
+  <CPortraitPack id="WhitemaneSpooky18RewardPortrait">
+    <ProductId value="42224" />
+    <EventName value="HallowsEnd" />
+  </CPortraitPack>
+  <CPortraitPack id="QhiraEmblemPortrait">
+    <ProductId value="61394" />
+    <PortraitArray index="0" value="HeroesAvatar256x256Qhira" />
   </CPortraitPack>
 </Catalog>

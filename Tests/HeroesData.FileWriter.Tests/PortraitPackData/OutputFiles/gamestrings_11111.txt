@@ -1,0 +1,4 @@
+portrait/name/00Force=00 Force
+portrait/name/LagForce=Lag Force
+portrait/sortname/00Force=xx00Force
+portrait/sortname/LagForce=xxLagForce

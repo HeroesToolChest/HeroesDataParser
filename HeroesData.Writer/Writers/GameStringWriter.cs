@@ -349,7 +349,7 @@ namespace HeroesData.FileWriter.Writers
             GameStrings[$"announcer/description/{key}"] = value;
         }
 
-        public void AddPortraitName(string key, string? value)
+        public void AddPortraitPackName(string key, string? value)
         {
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
@@ -357,12 +357,36 @@ namespace HeroesData.FileWriter.Writers
             GameStrings[$"portrait/name/{key}"] = value;
         }
 
-        public void AddPortraitSortName(string key, string? value)
+        public void AddPortraitackSortName(string key, string? value)
         {
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
             GameStrings[$"portrait/sortname/{key}"] = value;
+        }
+
+        public void AddRewardPortraitName(string key, string? value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"rewardportrait/name/{key}"] = value;
+        }
+
+        public void AddRewardPortraitDescription(string key, string? value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"rewardportrait/description/{key}"] = value;
+        }
+
+        public void AddRewardPortraitDescriptionUnearned(string key, string? value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"rewardportrait/descriptionunearned/{key}"] = value;
         }
 
         public void AddVoiceLineName(string key, string? value)

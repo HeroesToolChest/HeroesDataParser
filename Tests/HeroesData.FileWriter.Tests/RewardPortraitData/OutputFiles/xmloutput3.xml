@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RewardPortraits>
+  <WhitemaneCat name="Whitemane Cat" hyperlinkId="WhitemaneCatId" rarity="Epic" heroId="Aba" iconSlot="27" PortraitPackId="LagForce" category="AchievementCategory">
+    <Description>This is some description</Description>
+    <DescriptionUnearned>This is an unearned description</DescriptionUnearned>
+    <TextureSheet>
+      <Image>this_is_an_image_file.png</Image>
+      <Columns>8</Columns>
+      <Rows>8</Rows>
+    </TextureSheet>
+  </WhitemaneCat>
+  <WhitemaneBat name="Whitemane Bat" hyperlinkId="WhitemaneBatId" rarity="None" iconSlot="0">
+    <TextureSheet>
+      <Image>this_is_an_image_file.png</Image>
+      <Columns>8</Columns>
+      <Rows>8</Rows>
+    </TextureSheet>
+  </WhitemaneBat>
+</RewardPortraits>
