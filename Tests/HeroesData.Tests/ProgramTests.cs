@@ -8,17 +8,11 @@ namespace HeroesData.Tests
     public class ProgramTests
     {
         [TestMethod]
-        public void NoWriterSpecifiedNoOutputTest()
-        {
-            Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", "TestOutput1", "-e", "all" });
-
-            Assert.IsTrue(Directory.Exists("TestOutput1"));
-        }
-
-        [TestMethod]
         public void JsonWriterOnlyTest()
         {
             string folder = "TestOutputJsonOnly";
+
+            Directory.Delete(folder, true);
 
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--json", "-e", "all" });
 
@@ -44,6 +38,8 @@ namespace HeroesData.Tests
         {
             string folder = "TestOutputXmlOnly";
 
+            Directory.Delete(folder, true);
+
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--xml", "-e", "all" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "xml", "herodata_enus.xml")));
@@ -67,6 +63,8 @@ namespace HeroesData.Tests
         public void XmlAndJsonWriterTest()
         {
             string folder = "TestOutputBothXmlJson";
+
+            Directory.Delete(folder, true);
 
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "-e", "all" });
 
@@ -105,6 +103,8 @@ namespace HeroesData.Tests
         public void JsonWriterOnlyWithMinifyOptionTest()
         {
             string folder = "TestOutputJsonOnlyWithMinify";
+
+            Directory.Delete(folder, true);
 
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--json", "--minify", "-e", "all" });
 
@@ -146,6 +146,8 @@ namespace HeroesData.Tests
         {
             string folder = "TestOutputFileSplit";
 
+            Directory.Delete(folder, true);
+
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--file-split", "-e", "all" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "json", "splitfiles-enus", "herodata", "abathur.json")));
@@ -182,6 +184,8 @@ namespace HeroesData.Tests
         public void FileSplitOptionWithMinifyOptionTest()
         {
             string folder = "TestOutputFileSplitWithMinify";
+
+            Directory.Delete(folder, true);
 
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--file-split", "--minify", "-e", "all" });
 
@@ -223,6 +227,8 @@ namespace HeroesData.Tests
         {
             string folder = "TestOutputLocalizedText";
 
+            Directory.Delete(folder, true);
+
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--localized-text", "-e", "all" });
 
             Assert.IsTrue(File.Exists(Path.Combine(folder, "gamestrings", "gamestrings_enus.txt")));
@@ -258,6 +264,8 @@ namespace HeroesData.Tests
         public void LocalizedTextOptionWithSplitOptionTest()
         {
             string folder = "TestOutputLocalizedTextSplit";
+
+            Directory.Delete(folder, true);
 
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--localized-text", "--file-split", "-e", "all" });
 
