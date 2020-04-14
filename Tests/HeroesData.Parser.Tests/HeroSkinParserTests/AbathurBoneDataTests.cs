@@ -16,7 +16,7 @@ namespace HeroesData.Parser.Tests.HeroSkinParserTests
             Assert.AreEqual("White Pink", AbathurCommonSkin.SearchText);
             Assert.AreEqual("BoneAbathur", AbathurCommonSkin.HyperlinkId);
             Assert.AreEqual(new DateTime(2014, 3, 13), AbathurCommonSkin.ReleaseDate);
-            Assert.AreEqual(Rarity.None, AbathurCommonSkin.Rarity);
+            Assert.AreEqual(Rarity.Common, AbathurCommonSkin.Rarity);
             Assert.AreEqual(0, AbathurCommonSkin.Features.Count);
         }
     }

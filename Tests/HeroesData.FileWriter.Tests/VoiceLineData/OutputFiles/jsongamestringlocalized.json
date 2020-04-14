@@ -2,11 +2,13 @@
   "Common1": {
     "hyperlinkId": "Common1Id",
     "attributeId": "AB01",
+    "rarity": "Epic",
     "releaseDate": "2016-05-21"
   },
   "Common2": {
     "hyperlinkId": "Common2Id",
     "attributeId": "AB02",
+    "rarity": "Common",
     "releaseDate": "2014-05-21"
   }
 }

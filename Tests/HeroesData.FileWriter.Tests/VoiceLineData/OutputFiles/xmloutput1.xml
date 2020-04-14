@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <VoiceLines>
-  <Common1 name="Common1" hyperlinkId="Common1Id" attributeId="AB01" releaseDate="2016-05-21" />
-  <Common2 name="Common2" hyperlinkId="Common2Id" attributeId="AB02" releaseDate="2014-05-21">
+  <Common1 name="Common1" hyperlinkId="Common1Id" attributeId="AB01" rarity="Epic" releaseDate="2016-05-21" />
+  <Common2 name="Common2" hyperlinkId="Common2Id" attributeId="AB02" rarity="Common" releaseDate="2014-05-21">
     <SortName>xxCommon2</SortName>
     <Description>some voice talking</Description>
   </Common2>

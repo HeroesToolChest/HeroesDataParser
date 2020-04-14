@@ -139,7 +139,6 @@ namespace HeroesData.Parser
             banner.SortName = GameData.GetGameString(DefaultData.BannerData?.BannerSortName?.Replace(DefaultData.IdPlaceHolder, banner.Id, StringComparison.OrdinalIgnoreCase));
             banner.Description = new TooltipDescription(GameData.GetGameString(DefaultData.BannerData?.BannerDescription?.Replace(DefaultData.IdPlaceHolder, banner.Id, StringComparison.OrdinalIgnoreCase)));
             banner.ReleaseDate = DefaultData?.BannerData?.BannerReleaseDate;
-            banner.Rarity = Rarity.None;
         }
     }
 }

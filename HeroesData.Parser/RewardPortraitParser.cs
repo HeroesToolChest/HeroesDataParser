@@ -44,24 +44,7 @@ namespace HeroesData.Parser
             if (string.IsNullOrEmpty(rewardPortrait.HyperlinkId))
                 rewardPortrait.HyperlinkId = id;
 
-            if (rewardPortrait.Rarity == Rarity.None || rewardPortrait.Rarity == Rarity.Unknown)
-                rewardPortrait.Rarity = Rarity.Common;
-
             return rewardPortrait;
-        }
-
-        private void SetDefaultValues(RewardPortrait rewardPortrait)
-        {
-            rewardPortrait.Name = GameData.GetGameString(DefaultData.RewardData?.RewardName.Replace(DefaultData.IdPlaceHolder, rewardPortrait.Id, StringComparison.OrdinalIgnoreCase));
-            rewardPortrait.Description = new TooltipDescription(GameData.GetGameString(DefaultData.RewardData?.RewardDescription.Replace(DefaultData.IdPlaceHolder, rewardPortrait.Id, StringComparison.OrdinalIgnoreCase)));
-            rewardPortrait.DescriptionUnearned = new TooltipDescription(GameData.GetGameString(DefaultData.RewardData?.RewardDescriptionUnearned.Replace(DefaultData.IdPlaceHolder, rewardPortrait.Id, StringComparison.OrdinalIgnoreCase)));
-            rewardPortrait.HyperlinkId = GameData.GetGameString(DefaultData.RewardData?.RewardHyperlinkId.Replace(DefaultData.IdPlaceHolder, rewardPortrait.Id, StringComparison.OrdinalIgnoreCase));
-
-            rewardPortrait.TextureSheet.Columns = DefaultData.RewardPortraitData?.PortraitIconColumns ?? 0;
-            rewardPortrait.TextureSheet.Rows = DefaultData.RewardPortraitData?.PortraitIconRows ?? 0;
-            rewardPortrait.CollectionCategory = DefaultData.RewardPortraitData?.PortraitCollectionCategory;
-            rewardPortrait.TextureSheet.Image = DefaultData.RewardPortraitData?.PortraitIconFileName ?? string.Empty;
-            rewardPortrait.Rarity = DefaultData.RewardPortraitData?.PortraitRarity ?? Rarity.None;
         }
 
         private void SetRewardPortraitData(XElement portraitElement, RewardPortrait rewardPortrait)
@@ -135,6 +118,20 @@ namespace HeroesData.Parser
                     rewardPortrait.PortraitPackId = element.Attribute("value")?.Value.Replace(DefaultData.IdPlaceHolder, rewardPortrait.Id, StringComparison.OrdinalIgnoreCase);
                 }
             }
+        }
+
+        private void SetDefaultValues(RewardPortrait rewardPortrait)
+        {
+            rewardPortrait.Name = GameData.GetGameString(DefaultData.RewardData?.RewardName.Replace(DefaultData.IdPlaceHolder, rewardPortrait.Id, StringComparison.OrdinalIgnoreCase));
+            rewardPortrait.Description = new TooltipDescription(GameData.GetGameString(DefaultData.RewardData?.RewardDescription.Replace(DefaultData.IdPlaceHolder, rewardPortrait.Id, StringComparison.OrdinalIgnoreCase)));
+            rewardPortrait.DescriptionUnearned = new TooltipDescription(GameData.GetGameString(DefaultData.RewardData?.RewardDescriptionUnearned.Replace(DefaultData.IdPlaceHolder, rewardPortrait.Id, StringComparison.OrdinalIgnoreCase)));
+            rewardPortrait.HyperlinkId = GameData.GetGameString(DefaultData.RewardData?.RewardHyperlinkId.Replace(DefaultData.IdPlaceHolder, rewardPortrait.Id, StringComparison.OrdinalIgnoreCase));
+
+            rewardPortrait.TextureSheet.Columns = DefaultData.RewardPortraitData?.PortraitIconColumns ?? 0;
+            rewardPortrait.TextureSheet.Rows = DefaultData.RewardPortraitData?.PortraitIconRows ?? 0;
+            rewardPortrait.CollectionCategory = DefaultData.RewardPortraitData?.PortraitCollectionCategory;
+            rewardPortrait.TextureSheet.Image = DefaultData.RewardPortraitData?.PortraitIconFileName ?? string.Empty;
+            rewardPortrait.Rarity = DefaultData.RewardPortraitData?.PortraitRarity ?? Rarity.Common;
         }
     }
 }

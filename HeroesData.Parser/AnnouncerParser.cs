@@ -160,7 +160,6 @@ namespace HeroesData.Parser
             announcer.SortName = GameData.GetGameString(DefaultData.AnnouncerData?.AnnouncerSortName?.Replace(DefaultData.IdPlaceHolder, announcer.Id, StringComparison.OrdinalIgnoreCase));
             announcer.Description = new TooltipDescription(GameData.GetGameString(DefaultData.AnnouncerData?.AnnouncerDescription?.Replace(DefaultData.IdPlaceHolder, announcer.Id, StringComparison.OrdinalIgnoreCase)));
             announcer.ReleaseDate = DefaultData.AnnouncerData?.AnnouncerReleaseDate;
-            announcer.Rarity = Rarity.None;
         }
     }
 }

@@ -149,7 +149,6 @@ namespace HeroesData.Parser
             mount.Description = new TooltipDescription(GameData.GetGameString(DefaultData.MountData?.MountInfoText?.Replace(DefaultData.IdPlaceHolder, mount.Id, StringComparison.OrdinalIgnoreCase)));
             mount.HyperlinkId = DefaultData.MountData?.MountHyperlinkId?.Replace(DefaultData.IdPlaceHolder, mount.Id, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
             mount.ReleaseDate = DefaultData.MountData?.MountReleaseDate;
-            mount.Rarity = Rarity.None;
 
             mount.SearchText = GameData.GetGameString(DefaultData.MountData?.MountAdditionalSearchText?.Replace(DefaultData.IdPlaceHolder, mount.Id, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrEmpty(mount.SearchText))

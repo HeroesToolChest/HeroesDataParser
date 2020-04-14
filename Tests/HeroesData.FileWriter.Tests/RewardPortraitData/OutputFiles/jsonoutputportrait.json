@@ -18,7 +18,7 @@
   "WhitemaneBat": {
     "name": "Whitemane Bat",
     "hyperlinkId": "WhitemaneBatId",
-    "rarity": "None",
+    "rarity": "Common",
     "iconSlot": 0,
     "textureSheet": {
       "image": "this_is_an_image_file.png",

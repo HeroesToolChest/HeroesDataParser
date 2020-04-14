@@ -21,6 +21,7 @@ namespace HeroesData.FileWriter.Tests.VoiceLineData
                 Description = new TooltipDescription(string.Empty),
                 HyperlinkId = "Common1Id",
                 ReleaseDate = new DateTime(2016, 5, 21),
+                Rarity = Rarity.Epic,
             };
 
             TestData.Add(voiceLine);

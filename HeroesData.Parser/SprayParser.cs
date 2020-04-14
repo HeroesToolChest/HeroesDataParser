@@ -159,7 +159,6 @@ namespace HeroesData.Parser
             spray.Description = new TooltipDescription(GameData.GetGameString(DefaultData.SprayData?.SprayDescription?.Replace(DefaultData.IdPlaceHolder, spray.Id, StringComparison.OrdinalIgnoreCase)));
             spray.HyperlinkId = DefaultData.SprayData?.SprayHyperlinkId?.Replace(DefaultData.IdPlaceHolder, spray.Id, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
             spray.ReleaseDate = DefaultData.SprayData?.SprayReleaseDate;
-            spray.Rarity = Rarity.None;
             spray.AnimationCount = DefaultData.SprayData!.SprayAnimationCount;
             spray.AnimationDuration = DefaultData.SprayData.SprayAnimationDuration;
 

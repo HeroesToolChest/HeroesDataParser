@@ -24,6 +24,8 @@ namespace HeroesData.FileWriter.Writers.EmoticonPackData
             if (!string.IsNullOrEmpty(emoticonPack.HyperlinkId))
                 emoticonObject.Add("hyperlinkId", emoticonPack.HyperlinkId);
 
+            emoticonObject.Add("rarity", emoticonPack.Rarity.ToString());
+
             if (!string.IsNullOrEmpty(emoticonPack.CollectionCategory))
                 emoticonObject.Add("category", emoticonPack.CollectionCategory);
 

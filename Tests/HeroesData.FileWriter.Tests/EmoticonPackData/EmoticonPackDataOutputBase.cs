@@ -18,6 +18,7 @@ namespace HeroesData.FileWriter.Tests.EmoticonPackData
                 Id = "OrpheaPack1",
                 Description = new TooltipDescription("Emoticon pack for Orphea"),
                 HyperlinkId = "OrpheaPack1",
+                Rarity = Rarity.Epic,
                 CollectionCategory = "Nexus",
                 EventName = "EvilTower",
                 SortName = "xxOrpheaPack1",

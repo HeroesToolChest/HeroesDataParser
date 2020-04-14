@@ -40,7 +40,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 hero.Sight > 0 ? new XAttribute("sight", hero.Sight) : null,
                 hero.Speed > 0 ? new XAttribute("speed", hero.Speed) : null,
                 string.IsNullOrEmpty(hero.Type) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("type", hero.Type),
-                hero.Rarity.HasValue ? new XAttribute("rarity", hero.Rarity.Value) : null,
+                new XAttribute("rarity", hero.Rarity),
                 string.IsNullOrEmpty(hero.SearchText) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", hero.SearchText),
                 string.IsNullOrEmpty(hero.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(hero.Description, FileOutputOptions.DescriptionType)),
                 hero.HeroDescriptors.Count > 0 ? new XElement("Descriptors", hero.HeroDescriptors.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(d => new XElement("Descriptor", d))) : null,

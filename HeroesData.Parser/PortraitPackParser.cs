@@ -44,9 +44,6 @@ namespace HeroesData.Parser
             if (string.IsNullOrEmpty(portraitPack.HyperlinkId))
                 portraitPack.HyperlinkId = id;
 
-            if (portraitPack.Rarity == Rarity.None || portraitPack.Rarity == Rarity.Unknown)
-                portraitPack.Rarity = Rarity.Common;
-
             return portraitPack;
         }
 

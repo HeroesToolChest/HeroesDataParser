@@ -7,7 +7,7 @@
       <Rows>8</Rows>
     </TextureSheet>
   </WhitemaneCat>
-  <WhitemaneBat hyperlinkId="WhitemaneBatId" rarity="None" iconSlot="0">
+  <WhitemaneBat hyperlinkId="WhitemaneBatId" rarity="Common" iconSlot="0">
     <TextureSheet>
       <Image>this_is_an_image_file.png</Image>
       <Columns>8</Columns>

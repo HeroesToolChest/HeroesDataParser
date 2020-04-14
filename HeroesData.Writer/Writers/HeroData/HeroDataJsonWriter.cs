@@ -53,8 +53,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 heroObject.Add("speed", hero.Speed);
             if (!string.IsNullOrEmpty(hero.Type) && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add("type", hero.Type);
-            if (hero.Rarity.HasValue)
-                heroObject.Add("rarity", hero.Rarity.Value.ToString());
+            heroObject.Add("rarity", hero.Rarity.ToString());
             if (!string.IsNullOrEmpty(hero.ScalingBehaviorLink))
                 heroObject.Add(new JProperty("scalingLinkId", hero.ScalingBehaviorLink));
             if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(hero.SearchText))

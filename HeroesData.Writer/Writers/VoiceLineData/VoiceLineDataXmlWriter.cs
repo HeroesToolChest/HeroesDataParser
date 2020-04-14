@@ -22,6 +22,7 @@ namespace HeroesData.FileWriter.Writers.VoiceLineData
                 string.IsNullOrEmpty(voiceLine.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", voiceLine.Name),
                 new XAttribute("hyperlinkId", voiceLine.HyperlinkId),
                 string.IsNullOrEmpty(voiceLine.AttributeId) ? null : new XAttribute("attributeId", voiceLine.AttributeId),
+                new XAttribute("rarity", voiceLine.Rarity),
                 voiceLine.ReleaseDate.HasValue ? new XAttribute("releaseDate", voiceLine.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
                 string.IsNullOrEmpty(voiceLine.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", voiceLine.SortName),
                 string.IsNullOrEmpty(voiceLine.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(voiceLine.Description, FileOutputOptions.DescriptionType)));

@@ -2,6 +2,7 @@
   "OrpheaPack1": {
     "name": "Orphea Pack 1",
     "hyperlinkId": "OrpheaPack1",
+    "rarity": "Epic",
     "category": "Nexus",
     "event": "EvilTower",
     "releaseDate": "2018-04-03",
@@ -14,6 +15,7 @@
   },
   "OrpheaPack2": {
     "name": "Orphea Pack 2",
+    "rarity": "Common",
     "category": "Nexus",
     "releaseDate": "2018-04-03"
   }

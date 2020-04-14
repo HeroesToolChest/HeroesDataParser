@@ -41,7 +41,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default rarity.
         /// </summary>
-        public Rarity PortraitRarity { get; private set; } = Rarity.None;
+        public Rarity PortraitRarity { get; private set; } = Rarity.Common;
 
         // <CRewardPortrait default="1">
         private void LoadCRewardPortraitDefault()
