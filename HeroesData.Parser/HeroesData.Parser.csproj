@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>4.3.5</Version>
+    <Version>4.4.0</Version>
     <Copyright>Copyright © 2018 - 2020 Kevin Oliva</Copyright>
     <Authors>Kevin Oliva</Authors>
   </PropertyGroup>
