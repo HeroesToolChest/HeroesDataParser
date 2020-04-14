@@ -12,7 +12,8 @@ namespace HeroesData.Tests
         {
             string folder = "TestOutputJsonOnly";
 
-            Directory.Delete(folder, true);
+            if (Directory.Exists(folder))
+                Directory.Delete(folder, true);
 
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--json", "-e", "all" });
 
@@ -38,7 +39,8 @@ namespace HeroesData.Tests
         {
             string folder = "TestOutputXmlOnly";
 
-            Directory.Delete(folder, true);
+            if (Directory.Exists(folder))
+                Directory.Delete(folder, true);
 
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--xml", "-e", "all" });
 
@@ -64,7 +66,8 @@ namespace HeroesData.Tests
         {
             string folder = "TestOutputBothXmlJson";
 
-            Directory.Delete(folder, true);
+            if (Directory.Exists(folder))
+                Directory.Delete(folder, true);
 
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "-e", "all" });
 
@@ -104,7 +107,8 @@ namespace HeroesData.Tests
         {
             string folder = "TestOutputJsonOnlyWithMinify";
 
-            Directory.Delete(folder, true);
+            if (Directory.Exists(folder))
+                Directory.Delete(folder, true);
 
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--json", "--minify", "-e", "all" });
 
@@ -146,7 +150,8 @@ namespace HeroesData.Tests
         {
             string folder = "TestOutputFileSplit";
 
-            Directory.Delete(folder, true);
+            if (Directory.Exists(folder))
+                Directory.Delete(folder, true);
 
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--file-split", "-e", "all" });
 
@@ -185,7 +190,8 @@ namespace HeroesData.Tests
         {
             string folder = "TestOutputFileSplitWithMinify";
 
-            Directory.Delete(folder, true);
+            if (Directory.Exists(folder))
+                Directory.Delete(folder, true);
 
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--file-split", "--minify", "-e", "all" });
 
@@ -227,7 +233,8 @@ namespace HeroesData.Tests
         {
             string folder = "TestOutputLocalizedText";
 
-            Directory.Delete(folder, true);
+            if (Directory.Exists(folder))
+                Directory.Delete(folder, true);
 
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--localized-text", "-e", "all" });
 
@@ -265,7 +272,8 @@ namespace HeroesData.Tests
         {
             string folder = "TestOutputLocalizedTextSplit";
 
-            Directory.Delete(folder, true);
+            if (Directory.Exists(folder))
+                Directory.Delete(folder, true);
 
             Program.Main(new string[] { Path.Combine("TestData", "mods"), "-o", folder, "--xml", "--json", "--localized-text", "--file-split", "-e", "all" });
 
