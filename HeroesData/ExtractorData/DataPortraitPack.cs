@@ -34,6 +34,9 @@ namespace HeroesData.ExtractorData
 
             if (string.IsNullOrEmpty(portraitPack.HyperlinkId))
                 AddWarning($"{nameof(portraitPack.HyperlinkId)} is empty");
+
+            if (portraitPack.Rarity == Rarity.None || portraitPack.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(portraitPack.Rarity)} is {portraitPack.Rarity}");
         }
     }
 }

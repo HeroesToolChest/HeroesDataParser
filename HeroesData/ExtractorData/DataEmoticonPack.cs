@@ -41,6 +41,9 @@ namespace HeroesData.ExtractorData
 
             if (!emoticonPack.EmoticonIds.Any())
                 AddWarning($"{nameof(emoticonPack.EmoticonIds)} does not contain any aliases.");
+
+            if (emoticonPack.Rarity == Rarity.None || emoticonPack.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(emoticonPack.Rarity)} is {emoticonPack.Rarity}");
         }
     }
 }

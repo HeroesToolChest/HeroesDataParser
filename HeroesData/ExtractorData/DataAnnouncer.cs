@@ -58,6 +58,9 @@ namespace HeroesData.ExtractorData
 
             if (!string.IsNullOrEmpty(announcer.ImageFileName) && announcer.ImageFileName.Contains("##heroid##", StringComparison.OrdinalIgnoreCase))
                 AddWarning($"{nameof(announcer.ImageFileName)} ##heroid## not found");
+
+            if (announcer.Rarity == Rarity.None || announcer.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(announcer.Rarity)} is {announcer.Rarity}");
         }
     }
 }

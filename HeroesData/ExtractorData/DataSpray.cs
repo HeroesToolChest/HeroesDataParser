@@ -38,8 +38,8 @@ namespace HeroesData.ExtractorData
             if (!spray.ReleaseDate.HasValue)
                 AddWarning($"{nameof(spray.ReleaseDate)} is null");
 
-            if (spray.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(spray.Rarity)} is unknown");
+            if (spray.Rarity == Rarity.None || spray.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(spray.Rarity)} is {spray.Rarity}");
 
             if (string.IsNullOrEmpty(spray.ImageFileName))
                 AddWarning($"{nameof(spray.ImageFileName)} is empty");

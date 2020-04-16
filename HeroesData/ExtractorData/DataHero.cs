@@ -142,7 +142,7 @@ namespace HeroesData.ExtractorData
                 AddWarning($"{nameof(hero.Speed)} is 0");
 
             if (hero.Rarity == Rarity.None || hero.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(hero.Rarity)} is none or unknown");
+                AddWarning($"{nameof(hero.Rarity)} is {hero.Rarity}");
 
             if (string.IsNullOrEmpty(hero.ScalingBehaviorLink))
                 AddWarning($"{nameof(hero.ScalingBehaviorLink)} is null or empty");
@@ -158,9 +158,6 @@ namespace HeroesData.ExtractorData
 
             if (string.IsNullOrEmpty(hero.SearchText))
                 AddWarning($"{nameof(hero.SearchText)} is null or emtpy");
-
-            if (hero.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(hero.Rarity)} is unknown");
 
             VerifyWeapons(hero);
 

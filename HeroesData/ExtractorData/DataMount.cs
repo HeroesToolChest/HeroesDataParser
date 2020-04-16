@@ -39,7 +39,7 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(mount.CollectionCategory))
                 AddWarning($"{nameof(mount.CollectionCategory)} is empty");
 
-            if (mount.Rarity == Rarity.None && mount.MountCategory == "Unique")
+            if (mount.MountCategory == "Unique")
             {
                 if (string.IsNullOrEmpty(mount.Description?.RawDescription))
                     AddWarning($"{nameof(mount.Description)} is empty");
@@ -52,8 +52,8 @@ namespace HeroesData.ExtractorData
             if (!mount.ReleaseDate.HasValue)
                 AddWarning($"{nameof(mount.ReleaseDate)} is null");
 
-            if (mount.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(mount.Rarity)} is unknown");
+            if (mount.Rarity == Rarity.None || mount.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(mount.Rarity)} is {mount.Rarity}");
         }
     }
 }

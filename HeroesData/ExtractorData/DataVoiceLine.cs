@@ -34,6 +34,9 @@ namespace HeroesData.ExtractorData
 
             if (string.IsNullOrEmpty(voiceLine.ImageFileName))
                 AddWarning($"{nameof(voiceLine.ImageFileName)} is empty");
+
+            if (voiceLine.Rarity == Rarity.None || voiceLine.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(voiceLine.Rarity)} is {voiceLine.Rarity}");
         }
     }
 }

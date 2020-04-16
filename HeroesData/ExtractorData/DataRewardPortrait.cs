@@ -46,6 +46,9 @@ namespace HeroesData.ExtractorData
 
             if (rewardPortrait.TextureSheet.Rows < 1)
                 AddWarning($"{nameof(rewardPortrait.TextureSheet.Rows)} is less than 1");
+
+            if (rewardPortrait.Rarity == Rarity.None || rewardPortrait.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(rewardPortrait.Rarity)} is {rewardPortrait.Rarity}");
         }
     }
 }
