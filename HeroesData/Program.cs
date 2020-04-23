@@ -35,6 +35,10 @@ namespace HeroesData
             ImageCommand.Add(commandLineApplication).SetCommand();
             QuickCompareCommand.Add(commandLineApplication).SetCommand();
             LocalizedTextToJsonCommand.Add(commandLineApplication).SetCommand();
+            PortraitInfoCommand.Add(commandLineApplication).SetCommand();
+            PortraitCacheCommand.Add(commandLineApplication).SetCommand();
+            PortraitExtractCommand.Add(commandLineApplication).SetCommand();
+            PortraitAutoExtractCommand.Add(commandLineApplication).SetCommand();
 
             CommandArgument storagePathArgument = commandLineApplication.Argument("storage-path", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.");
 

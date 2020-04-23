@@ -42,6 +42,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="portrait-auto-extract.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </None>
     <None Update="verifyignore.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
