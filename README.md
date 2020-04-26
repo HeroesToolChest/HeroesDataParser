@@ -14,7 +14,7 @@ Also extracts the following:
  - Announcers (includes images)
  - Voice Lines (includes images)
  - Portrait Packs
- - Reward Portraits
+ - Reward Portraits (manual extraction through portrait commands, read [wiki](https://github.com/HeroesToolChest/HeroesDataParser/wiki/Portrait-Icon-Extraction))
  - Emoticons (includes images)
  - Emoticon Packs
  - Veterancy data
@@ -100,32 +100,36 @@ Heroes Data Parser (VERSION)
 Usage:  [arguments] [options] [command]
 
 Arguments:
-  storage-path  The 'Heroes of the Storm' directory or an already extracted 'mods' directory.
+  storage-directory  The 'Heroes of the Storm' directory or an already extracted 'mods' directory.
 
 Options:
-  -?|-h|--help                      Show help information
-  -v|--version                      Show version information
-  -o|--output-directory <FILEPATH>  Sets the output directory.
-  -d|--description <VALUE>          Sets the description output type (0 - 6) - Default: 0.
-  -e|--extract-data <VALUE>         Extracts data files - Default: herodata.
-  -i|--extract-images <VALUE>       Extracts image files, only available using the Heroes of the Storm game directory.
-  -l|--localization <LOCALE>        Sets the gamestring localization(s) - Default: enUS.
-  -b|--build <NUMBER>               Sets the override build file(s).
-  -t|--threads <NUMBER>             Limits the maximum amount of threads to use.
-  --xml                             Creates xml output.
-  --json                            Creates json output.
-  --file-split                      Splits the XML and JSON file(s) into multiple files.
-  --localized-text                  Extracts localized gamestrings from the XML and JSON file(s) into a text file.
-  --minify                          Creates .min file(s) along with current output file(s).
-  --warnings                        Displays all validation warnings.
+  -?|-h|--help                           Show help information
+  -v|--version                           Show version information
+  -o|--output-directory <DIRECTORYPATH>  Sets the output directory.
+  -d|--description <VALUE>               Sets the description output type (0 - 6) - Default: 0.
+  -e|--extract-data <VALUE>              Extracts data files - Default: herodata.
+  -i|--extract-images <VALUE>            Extracts image files, only available using the Heroes of the Storm game directory.
+  -l|--localization <LOCALE>             Sets the gamestring localization(s) - Default: enUS.
+  -b|--build <NUMBER>                    Sets the override build file(s).
+  -t|--threads <NUMBER>                  Limits the maximum amount of threads to use.
+  --xml                                  Creates xml output.
+  --json                                 Creates json output.
+  --file-split                           Splits the XML and JSON file(s) into multiple files.
+  --localized-text                       Extracts localized gamestrings from the XML and JSON file(s) into a text file.
+  --minify                               Creates .min file(s) along with current output file(s).
+  --warnings                             Displays all validation warnings.
 
 Commands:
-  extract         Extracts all required files from the `Heroes of the Storm` directory.
-  image           Performs image processing.
-  list            Displays .txt, .xml, and .json files in the local directory.
-  localized-json  Converts a localized gamestring file created from --localized-text to a json file.
-  quick-compare   Compares two directory contents or files and displays a list of changed files.
-  read            Reads a .txt, .xml, or .json file and displays its contents on screen.
+  extract                Extracts all required files from the `Heroes of the Storm` directory.
+  image                  Performs image processing.
+  list                   Displays .txt, .xml, and .json files in the local directory.
+  localized-json         Converts a localized gamestring file created from --localized-text to a json file.
+  portrait-auto-extract  Auto extracts the portraits from the battle.net cache or a copied directory.
+  portrait-cache         Obtains the portrait texture sheets from the battle.net cache.
+  portrait-extract       Performs portrait extraction from the texture sheets.
+  portrait-info          Provide information from the reward portrait data.
+  quick-compare          Compares two directory contents or files and displays a list of changed files.
+  read                   Reads a .txt, .xml, or .json file and displays its contents on screen.
 
 Use " [command] --help" for more information about a command.
 ```
@@ -374,18 +378,18 @@ The format of the strings in the text file are the following:
 - `voiceline/sortname/[Id]=[value]`
 
 ## Commands
-### Extract
+### extract
 ```
 Usage:  extract [arguments] [options]
 
 Arguments:
-  storage-path  The 'Heroes of the Storm' directory
+  storage-directory  The 'Heroes of the Storm' directory
 
 Options:
-  -?|-h|--help                      Show help information
-  -o|--output-directory <FILEPATH>  Sets the output directory.
-  --xml-merge                       Extracts the xml files as one file, excludes the map files.
-  --textures                        Includes extracting all textures (.dds).
+  -?|-h|--help                           Show help information
+  -o|--output-directory <DIRECTORYPATH>  Sets the output directory.
+  --xml-merge                            Extracts the xml files as one file (excludes map files).
+  --textures                             Includes extracting all textures (.dds).
 ```
 
 Extracts all required files from the `Heroes of the Storm` directory which can be used for the `storage-path` argument.  
@@ -401,7 +405,7 @@ extract 'D:\Games\Heroes of the Storm' --textures
 
 ***
 
-### Image
+### image
 ```
 Usage:  image [arguments] [options]
 
@@ -409,11 +413,11 @@ Arguments:
   file-name  The filename, file path, or directory containing the images to process.
 
 Options:
-  -?|-h|--help                      Show help information
-  --width <VALUE>                   Sets the new width.
-  --height <VALUE>                  Sets the new height.
-  --png-compress                    Sets an png image bit depth to 8 bits
-  -o|--output-directory <FILEPATH>  Sets the output directory.
+  -?|-h|--help                           Show help information
+  --width <VALUE>                        Sets the new width.
+  --height <VALUE>                       Sets the new height.
+  --png-compress                         Sets a png image bit depth to 8 bits
+  -o|--output-directory <DIRECTORYPATH>  Sets the output directory.
 ```
 
 Performs image processing (`.png`, `.jpg`, or `.gif`) to a single file or multiple files in a directory.
@@ -427,7 +431,7 @@ image '.\Images' -o '.\Images\New' --width 64 --length 64
 ```
 ***
 
-### List
+### list
 ```
 Usage:  list [options]
 
@@ -447,16 +451,16 @@ list -f -d
 
 ***
 
-### Localized-Json
+### localized-json
 ```
 Usage:  localized-json [arguments] [options]
 
 Arguments:
-  file-path  The filepath of the file or directory to convert
+  path  The file path of the file or directory to convert
 
 Options:
-  -?|-h|--help            Show help information
-  -o|--output <FILEPATH>  Output directory to save the converted files to.
+  -?|-h|--help                           Show help information
+  -o|--output-directory <DIRECTORYPATH>  Output directory to save the converted files to.
 ```
 
 Converts the localized text file(s) created from the option `--localized-text` into a json file.
@@ -468,13 +472,117 @@ localized-json '.\gamestrings_76437_enus.txt'
 
 ***
 
-### Quick-Compare
+### portrait-auto-extract
+```
+Usage:  portrait-auto-extract [arguments] [options]
+
+Arguments:
+  rewardportrait-file-path  The reward portrait data json file path.
+  cache-directory-path      The directory path of the battle.net cache or an another directory containing the files (.wafl or .dds).
+
+Options:
+  -?|-h|--help                           Show help information
+  -o|--output-directory <DIRECTORYPATH>  Directory to save the extracted portraits.
+  --xml-auto-extract <FILEPATH>          Sets the xml file used for the auto extracting.
+```
+
+Attempts to auto extract all the reward portraits from the `portrait-auto-extract.xml` and the reward portrait data json file.
+
+The option `--xml-auto-extract` is optional, use it if a custom extract.xml is available.
+
+Example command
+```
+portrait-auto-extract '.\output\json\rewardportraitdata_79155_enus.json' '.\texturesheets'
+```
+
+***
+
+### portrait-cache
+```
+Usage:  portrait-cache [arguments] [options]
+
+Arguments:
+  cache-directory-path  The directory path of the battle.net cache
+
+Options:
+  -?|-h|--help                           Show help information
+  -o|--output-directory <DIRECTORYPATH>  Directory to save the texture sheets to.
+```
+
+Copies the `.wafl` files from the cache diretory into the output directory. The file extension is automatically converted into its proper image format.
+
+**Note: This will copy ALL .wafl files, which Starcraft II uses as well**
+
+Example command
+```
+portrait-cache 'C:\ProgramData\Blizzard Entertainment\Battle.net\Cache'
+```
+
+***
+
+### portrait-extract
+```
+Usage:  portrait-extract [arguments] [options]
+
+Arguments:
+  rewardportrait-file-path      The reward portrait data json file path.
+  texture-sheet-directory-path  The directory path of the saved texture sheets (the copied files from the battle.net cache).
+  image-file-name               The texture sheet image name (from data file) to extract images from.
+
+Options:
+  -?|-h|--help                           Show help information
+  -o|--output-directory <DIRECTORYPATH>  Output directory to save the extracted files to.
+  -t|--texture-sheet <FILENAME>          The file name of a texture sheet from the texture-sheet-directory-path argument.
+  --single                               Displays list of portrait names then prompts for original file.
+```
+
+Extracts the images from the original texture sheet. 
+
+The `image-file-name` argument is optional. If set then the `-t|--texture-sheet` option must be set.
+
+Use the `--single` option (without the `image-file-name` argument) to be prompted the image file name and the original texture sheet name.
+
+Example command without `--single` option
+```
+portrait-extract '.\output\json\rewardportraitdata_79155_enus.json' '.\texturesheets' 'ui_heroes_portraits_sheet5.png' -t 'a2354ee73a23a5263c1b88bdda84db035658bae17ef772026bd084d1733e4f80.dds'
+```
+Example command with `--single` option
+```
+portrait-extract '.\output\json\rewardportraitdata_79155_enus.json' '.\texturesheets' '--single'"
+```
+
+***
+
+### portrait-info
+```
+Usage:  portrait-info [arguments] [options]
+
+Arguments:
+  rewardportrait-file-path  The reward portrait data json file path.
+
+Options:
+  -?|-h|--help                    Show help information
+  -t|--texture-sheets             Displays all the reward portraits image file names.
+  -z|--icon-zero                  Displays all the icon slot 0 names along with the image file name.
+  -p|--portrait-names <FILENAME>  Displays all the reward portrait names that are associated with the given texture sheet image name (from data file).
+```
+
+Display information from the reward portrait data.
+
+Example command
+```
+portrait-info '.\output\json\rewardportraitdata_79155_enus.json' -t
+```
+
+***
+
+### quick-compare
 ```
 Usage:  quick-compare [arguments] [options]
 
 Arguments:
-  first-file-path   First directory or file path
-  second-file-path  Second directory or file path
+  first-file-path   First directory or file path.
+  second-file-path  Second directory or file path.
 
 Options:
   -?|-h|--help  Show help information
@@ -489,7 +597,7 @@ quick-compare '.\12345_file.json' '.\12345_file2.json'
 
 ***
 
-### Read
+### read
 ```
 Usage:  read [arguments] [options]
 
