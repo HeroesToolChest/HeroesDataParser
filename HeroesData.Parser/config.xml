@@ -12,6 +12,8 @@
     <CMount id="Random" value="false" />
     <CPortraitPack id="TestPortrait" value="false" />
     <CRewardPortrait id="_PORTRAITPLACEHOLDER" value="false" />
+    <CRewardPortrait id="PortraitOverlayPlayerLevel" value="false" />
+    <CRewardPortrait id="PortraitOverlayStormLeagueLevel" value="false" />
     <CSkin id="Random" value="false" />
     <CSpray id="RandomSpray" value="false" />
     <CVoiceLine id="RandomVoiceLine" value="false" />
