@@ -30,7 +30,7 @@ namespace HeroesData.Commands
 
                 CommandArgument storagePathArgument = config.Argument("file-path", "The filepath of the file or directory to convert");
 
-                CommandOption outputDirectoryOption = config.Option("-o|--output <FILEPATH>", "Output directory to save the converted files to.", CommandOptionType.SingleValue);
+                CommandOption outputDirectoryOption = config.Option("-o|--output-directory <FILEPATH>", "Output directory to save the converted files to.", CommandOptionType.SingleValue);
 
                 config.OnExecute(() =>
                 {
