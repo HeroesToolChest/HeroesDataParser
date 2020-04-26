@@ -13,7 +13,8 @@ Also extracts the following:
  - Sprays (includes images)
  - Announcers (includes images)
  - Voice Lines (includes images)
- - Portraits
+ - Portrait Packs
+ - Reward Portraits
  - Emoticons (includes images)
  - Emoticon Packs
  - Veterancy data
@@ -239,9 +240,10 @@ Extracts to `<OUTPUT-DIRECTORY>/<json and/or xml>`.
 `sprays` - extracts sprays  
 `announcers` - extracts announcers  
 `voicelines` - extracts voicelines  
-`portraits` - extracts portraits  
+`portraitpacks` - extracts portrait packs  
+`rewardportraits` - extracts reward portraits  
 `emoticons` - extracts emojis  
-`emoticonpacks` - extracts the emoji packs  
+`emoticonpacks` - extracts emoji packs  
 `veterancy` - extracts veterancy data
 
 Example seleting multiple data extractions.
@@ -348,6 +350,9 @@ The format of the strings in the text file are the following:
 - `mount/sortname/[Id]=[value]`
 - `portrait/name/[Id]=[value]`
 - `portrait/sortname/[Id]=[value]`
+- `rewardportrait/name/[Id]=[value]`
+- `rewardportrait/description/[Id]=[value]`
+- `rewardportrait/descriptionunearned/[Id]=[value]`
 - `spray/description/[Id]=[value]`
 - `spray/name/[Id]=[value]`
 - `spray/searchtext/[Id]=[value]`
