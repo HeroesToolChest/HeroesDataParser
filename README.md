@@ -512,7 +512,7 @@ directory to load: mods_13500
 
 hero overrides files:
 hero-overrides.xml
-hero-overrides_12000.xmls
+hero-overrides_12000.xml
 hero-overrides_13000.xml <--- will be loaded
 hero-overrides_14000.xml
 
@@ -528,7 +528,7 @@ hero-overrides_14000.xml
 ***
 
 ### Multi-mods directory
-There can be multiple mods directories with the suffix `_<build number>` in the same directory.  If the selected parent directory is the storage path, the highest build number suffix diretory will be parsed.
+There can be multiple mods directories with the suffix `_<build number>` in the same directory.  If the selected parent directory is the storage path, the highest build number suffix directory will be parsed.
 
 For example, with this directory:
 ```
