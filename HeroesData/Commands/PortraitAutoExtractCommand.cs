@@ -10,7 +10,7 @@ namespace HeroesData.Commands
 {
     internal class PortraitAutoExtractCommand : PortraitExtractCommandBase, ICommand
     {
-        private const string _portraitExtractXmlFile = "portrait-auto-extract.xml";
+        private string _portraitExtractXmlFilePath = string.Empty;
 
         public PortraitAutoExtractCommand(CommandLineApplication app)
             : base(app)
@@ -30,9 +30,10 @@ namespace HeroesData.Commands
                 config.Description = "Auto extracts the portraits from the battle.net cache or a copied directory.";
 
                 CommandArgument rewardPortraitFilePathArgument = config.Argument("rewardportrait-file-path", "The reward portrait data json file path.");
-                CommandArgument cacheDirectoryPathArgument = config.Argument("directory-path", "The directory path of the battle.net cache or an another directory containing the files.");
+                CommandArgument cacheDirectoryPathArgument = config.Argument("cache-path", "The directory path of the battle.net cache or an another directory containing the files (.wafl or .dds).");
 
                 CommandOption outputDirectoryOption = config.Option("-o|--output-directory <FILEPATH>", "Directory to save the extracted portraits.", CommandOptionType.SingleValue);
+                CommandOption portraitAutoExtractXmlFileOption = config.Option("--xml-auto-extract", "Sets the xml file used for the auto extracting", CommandOptionType.SingleValue);
 
                 config.OnExecute(() =>
                 {
@@ -68,12 +69,17 @@ namespace HeroesData.Commands
                     else
                         OutputDirectory = Path.Combine(AppPath, "output", "images", "portraitrewards");
 
+                    if (portraitAutoExtractXmlFileOption.HasValue())
+                        _portraitExtractXmlFilePath = portraitAutoExtractXmlFileOption.Value();
+                    else
+                        _portraitExtractXmlFilePath = Path.Combine(AppPath, "portrait-auto-extract.xml");
+
                     Directory.CreateDirectory(OutputDirectory);
 
                     Dictionary<string, PortraitExtractXml> portraitElements = LoadPortraitDataFromXml();
                     if (portraitElements.Count < 1)
                     {
-                        Console.WriteLine($"No auto-extractable elemnts found in {_portraitExtractXmlFile}");
+                        Console.WriteLine($"No auto-extractable elemnts found in {_portraitExtractXmlFilePath}");
 
                         return 0;
                     }
@@ -95,7 +101,7 @@ namespace HeroesData.Commands
             {
                 if (item.Value.TryGetProperty("textureSheet", out JsonElement value) && value.TryGetProperty("image", out value) && !string.IsNullOrWhiteSpace(value.GetString()))
                 {
-                    names.Add(value.GetString());
+                    names.Add(Path.GetFileNameWithoutExtension(value.GetString()));
                 }
             }
 
@@ -110,8 +116,8 @@ namespace HeroesData.Commands
 
             List<KeyValuePair<string, PortraitExtractXml>> notFound = new List<KeyValuePair<string, PortraitExtractXml>>();
 
-            Console.WriteLine($"There are {imageNameData.Count} texture sheets found in the reward data.");
-            Console.WriteLine($"There are {portraitElements.Count} auto-extractable texture sheets");
+            Console.WriteLine($"There are {portraitElements.Count} auto-extractable texture sheets to be extracted");
+            Console.WriteLine($"There are {imageNameData.Count} texture sheets found in the reward data");
 
             foreach (KeyValuePair<string, PortraitExtractXml> item in portraitElements)
             {
@@ -129,7 +135,7 @@ namespace HeroesData.Commands
                     continue;
                 }
 
-                ExtractImageFiles(jsonDocument, Path.Combine(cacheDirectoryPath, files[0]), Path.ChangeExtension(item.Value.TextureSheetName, "png"));
+                ExtractImageFiles(jsonDocument, Path.Combine(files[0]), Path.ChangeExtension(item.Value.TextureSheetName, "png"));
                 imageNamesExtracted.Add(item.Value.TextureSheetName);
 
                 count++;
@@ -142,7 +148,7 @@ namespace HeroesData.Commands
             else
                 Console.ForegroundColor = ConsoleColor.Yellow;
 
-            Console.WriteLine($"{count} out of {portraitElements.Count} texture sheets were found and auto-extracted.");
+            Console.WriteLine($"{count} out of {portraitElements.Count} auto-extractable texture sheets were found");
             Console.ResetColor();
 
             if (notFound.Count > 0)
@@ -160,16 +166,29 @@ namespace HeroesData.Commands
             if (imageNameData.Count >= portraitElements.Count)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("All texture sheets were auto-extracted from the reward data.");
+                Console.WriteLine("All texture sheets were auto-extracted from the reward data");
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"The following {imageNameData.Count - count} texture sheets were not auto-extracted");
-
-                foreach (string item in imageNameData.Except(imageNamesExtracted))
+                if (imageNameData.Count - count < 0)
                 {
-                    Console.WriteLine(item);
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"The following {Math.Abs(imageNameData.Count - count)} auto-extractable texture sheet(s) were found but the associated texture sheet image name was not found in the reward portrait data file");
+
+                    foreach (string item in imageNamesExtracted.Except(imageNameData))
+                    {
+                        Console.WriteLine(item);
+                    }
+                }
+                else if (imageNameData.Count - count > 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"The following {imageNameData.Count - count} texture sheet(s) were not auto-extracted");
+
+                    foreach (string item in imageNameData.Except(imageNamesExtracted))
+                    {
+                        Console.WriteLine(item);
+                    }
                 }
             }
 
@@ -178,7 +197,7 @@ namespace HeroesData.Commands
 
         private Dictionary<string, PortraitExtractXml> LoadPortraitDataFromXml()
         {
-            XDocument document = XDocument.Load(Path.Combine(AppPath, _portraitExtractXmlFile));
+            XDocument document = XDocument.Load(_portraitExtractXmlFilePath);
 
             Dictionary<string, PortraitExtractXml> portraitElements = new Dictionary<string, PortraitExtractXml>();
 

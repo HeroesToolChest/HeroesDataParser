@@ -58,23 +58,46 @@ namespace HeroesData.Commands
         private void GetWaflImageFiles(string blizzardCachePath)
         {
             Console.WriteLine("Getting .wafl files from blizzard cache...");
+
             string[] waflFiles = Directory.GetFiles(blizzardCachePath, "*.wafl", SearchOption.AllDirectories);
+
             Console.WriteLine($"Found {waflFiles.Length} file(s)");
 
-            Console.WriteLine($"Copying files to {_outputDirectory} (auto-converted file)");
+            Console.WriteLine($"Copying files to {_outputDirectory} (auto-converting files to appropriate types)");
 
+            int count = 0;
             foreach (string waflFile in waflFiles)
             {
                 string? fileExtension = Image.DetectFormat(waflFile)?.Name?.ToLowerInvariant();
 
                 if (string.IsNullOrEmpty(fileExtension))
                 {
-                    using DDSImage image = new DDSImage(waflFile);
+                    try
+                    {
+                        using DDSImage image = new DDSImage(waflFile);
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine($"{waflFile} is not a valid image file");
+                        continue;
+                    }
+
                     fileExtension = "dds";
                 }
 
                 File.Copy(waflFile, Path.Combine(_outputDirectory, Path.ChangeExtension(Path.GetFileName(waflFile), fileExtension)), true);
+                count++;
             }
+
+            Console.WriteLine();
+
+            if (count >= waflFiles.Length)
+                Console.ForegroundColor = ConsoleColor.Green;
+            else
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
+            Console.WriteLine($"Copied {count} out of {waflFiles.Length} files found");
+            Console.ResetColor();
         }
     }
 }

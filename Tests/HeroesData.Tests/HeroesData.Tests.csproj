@@ -43,4 +43,22 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="CommandTests\BattlenetCacheFiles\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="CommandTests\DataFiles\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CommandTests\CopiedBattlenetCacheFiles\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

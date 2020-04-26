@@ -14,16 +14,16 @@ namespace HeroesData.Commands
 
         protected string OutputDirectory { get; set; } = string.Empty;
 
-        protected int ListPortraitNamesFromImageFileName(JsonDocument jsonDocument, string textureSheetImageFileName)
+        protected int ListPortraitNamesFromTextureSheetImageName(JsonDocument jsonDocument, string textureSheetImageName)
         {
             SortedList<int, string> rewardPortraitNames = new SortedList<int, string>();
 
-            Console.WriteLine($"Image file names associated with {textureSheetImageFileName}");
+            Console.WriteLine($"Image file names associated with {textureSheetImageName}");
             Console.WriteLine();
 
             foreach (JsonProperty item in jsonDocument.RootElement.EnumerateObject())
             {
-                if (item.Value.TryGetProperty("textureSheet", out JsonElement jsonElement) && jsonElement.TryGetProperty("image", out jsonElement) && jsonElement.GetString() == textureSheetImageFileName)
+                if (item.Value.TryGetProperty("textureSheet", out JsonElement jsonElement) && jsonElement.TryGetProperty("image", out jsonElement) && jsonElement.GetString() == textureSheetImageName)
                 {
                     if (item.Value.TryGetProperty("iconSlot", out jsonElement) && jsonElement.TryGetInt32(out int iconSlotValue) &&
                         item.Value.TryGetProperty("name", out jsonElement))
@@ -39,8 +39,16 @@ namespace HeroesData.Commands
             }
 
             Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Green;
+            if (rewardPortraitNames.Count >= 1)
+                Console.ForegroundColor = ConsoleColor.Green;
+            else
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
             Console.WriteLine($"{rewardPortraitNames.Count} file names found");
+
+            if (rewardPortraitNames.Count < 1)
+                Console.WriteLine("No names found! Make sure you are NOT using the localized reward portrait data file.");
+
             Console.ResetColor();
 
             return rewardPortraitNames.Count;

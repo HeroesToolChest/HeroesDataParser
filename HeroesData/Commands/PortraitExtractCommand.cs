@@ -26,7 +26,7 @@ namespace HeroesData.Commands
 
                 CommandArgument rewardPortraitFilePathArgument = config.Argument("rewardportrait-file-path", "The reward portrait data json file path.");
                 CommandArgument rewardPortraitDirectoryArgument = config.Argument("texture-sheet-directory-path", "The directory path of the saved texture sheets (the copied files from the battle.net cache).");
-                CommandArgument imageFileNameArgument = config.Argument("image-file-name", "The image portrait sheet file name (from data file) to extract images from.");
+                CommandArgument imageFileNameArgument = config.Argument("image-file-name", "The texture sheet image name (from data file) to extract images from.");
 
                 CommandOption outputDirectoryOption = config.Option("-o|--output-directory <FILEPATH>", "Output directory to save the extracted files to.", CommandOptionType.SingleValue);
                 CommandOption textureSheetFileNameOption = config.Option("-t|--texture-sheet <FILENAME>", "The file name of a texture sheet from the texture-sheet-directory-path argument.", CommandOptionType.SingleValue);
@@ -73,7 +73,7 @@ namespace HeroesData.Commands
                     string imageFileName = imageFileNameArgument.Value;
                     if (string.IsNullOrWhiteSpace(imageFileName))
                     {
-                        Console.Write("Image File Name: ");
+                        Console.Write("Texture sheet file name (from data): ");
 
                         imageFileName = Console.ReadLine();
                     }
@@ -89,7 +89,7 @@ namespace HeroesData.Commands
 
                     if (singleOption.HasValue())
                     {
-                        if (ListPortraitNamesFromImageFileName(jsonDocument, imageFileName) > 0)
+                        if (ListPortraitNamesFromTextureSheetImageName(jsonDocument, imageFileName) > 0)
                         {
                             string originalFile = PromptOriginalFile();
                             ExtractImageFiles(jsonDocument, Path.Combine(rewardPortraitDirectoryArgument.Value, originalFile), imageFileName);
@@ -108,7 +108,7 @@ namespace HeroesData.Commands
         private string PromptOriginalFile()
         {
             Console.WriteLine();
-            Console.Write("Original Texture Sheet File Name: ");
+            Console.Write("Original texture sheet file name (.dds): ");
             return Console.ReadLine();
         }
     }

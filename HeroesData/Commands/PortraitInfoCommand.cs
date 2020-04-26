@@ -28,8 +28,8 @@ namespace HeroesData.Commands
                 CommandArgument rewardPortraitFilePathArgument = config.Argument("rewardportrait-file-path", "The reward portrait data json file path.");
 
                 CommandOption textureSheetDirectoryOption = config.Option("-t|--texture-sheets", "Displays all the reward portraits image file names.", CommandOptionType.NoValue);
-                CommandOption iconZeroOption = config.Option("-z|--icon-zero", "Displays all the icons slot 0 names along with the image file name.", CommandOptionType.NoValue);
-                CommandOption portraitNamesOption = config.Option("-p|--portrait-names <FILENAME>", "Displays all the reward portrait names that are associated with the given image portrait sheet file name (from data file).", CommandOptionType.SingleValue);
+                CommandOption iconZeroOption = config.Option("-z|--icon-zero", "Displays all the icon slot 0 names along with the image file name.", CommandOptionType.NoValue);
+                CommandOption portraitNamesOption = config.Option("-p|--portrait-names <FILENAME>", "Displays all the reward portrait names that are associated with the given texture sheet image name (from data file).", CommandOptionType.SingleValue);
 
                 config.OnExecute(() =>
                 {
@@ -69,7 +69,7 @@ namespace HeroesData.Commands
                         ListFileNamesWithIconSlotZero(jsonDocument);
 
                     if (portraitNamesOption.HasValue())
-                        ListPortraitNamesFromImageFileName(jsonDocument, portraitNamesOption.Value());
+                        ListPortraitNamesFromTextureSheetImageName(jsonDocument, portraitNamesOption.Value());
 
                     return 0;
                 });
@@ -99,6 +99,8 @@ namespace HeroesData.Commands
 
         private void ListFileNamesWithIconSlotZero(JsonDocument jsonDocument)
         {
+            int count = 0;
+
             foreach (JsonProperty item in jsonDocument.RootElement.EnumerateObject())
             {
                 if (item.Value.TryGetProperty("iconSlot", out JsonElement jsonElement) && jsonElement.TryGetInt32(out int value) && value == 0)
@@ -119,8 +121,16 @@ namespace HeroesData.Commands
                         Console.ResetColor();
                         Console.Write("  ");
                         Console.WriteLine(imageFileName);
+                        count++;
                     }
                 }
+            }
+
+            if (count < 1)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("No names found! Make sure you are NOT using the localized reward portrait data file.");
+                Console.ResetColor();
             }
         }
     }
