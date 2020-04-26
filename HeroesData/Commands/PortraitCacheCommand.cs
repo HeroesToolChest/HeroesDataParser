@@ -28,7 +28,7 @@ namespace HeroesData.Commands
 
                 CommandArgument battleNetCachePathArgument = config.Argument("cache-directory-path", "The directory path of the battle.net cache");
 
-                CommandOption outputDirectoryOption = config.Option("-o|--output-directory <FILEPATH>", "Directory to save the texture sheets to.", CommandOptionType.SingleValue);
+                CommandOption outputDirectoryOption = config.Option("-o|--output-directory <DIRECTORYPATH>", "Directory to save the texture sheets to.", CommandOptionType.SingleValue);
 
                 config.OnExecute(() =>
                 {

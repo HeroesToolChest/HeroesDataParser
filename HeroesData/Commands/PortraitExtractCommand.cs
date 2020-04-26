@@ -28,7 +28,7 @@ namespace HeroesData.Commands
                 CommandArgument rewardPortraitDirectoryArgument = config.Argument("texture-sheet-directory-path", "The directory path of the saved texture sheets (the copied files from the battle.net cache).");
                 CommandArgument imageFileNameArgument = config.Argument("image-file-name", "The texture sheet image name (from data file) to extract images from.");
 
-                CommandOption outputDirectoryOption = config.Option("-o|--output-directory <FILEPATH>", "Output directory to save the extracted files to.", CommandOptionType.SingleValue);
+                CommandOption outputDirectoryOption = config.Option("-o|--output-directory <DIRECTORYPATH>", "Output directory to save the extracted files to.", CommandOptionType.SingleValue);
                 CommandOption textureSheetFileNameOption = config.Option("-t|--texture-sheet <FILENAME>", "The file name of a texture sheet from the texture-sheet-directory-path argument.", CommandOptionType.SingleValue);
                 CommandOption singleOption = config.Option("--single", "Displays list of portrait names then prompts for original file.", CommandOptionType.NoValue);
 

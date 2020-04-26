@@ -41,9 +41,9 @@ namespace HeroesData.Commands
                 config.HelpOption("-?|-h|--help");
                 config.Description = "Extracts all required files from the `Heroes of the Storm` directory.";
 
-                CommandArgument storagePathArgument = config.Argument("storage-path", "The 'Heroes of the Storm' directory");
+                CommandArgument storagePathArgument = config.Argument("storage-directory", "The 'Heroes of the Storm' directory");
 
-                CommandOption setOutputDirectoryOption = config.Option("-o|--output-directory <FILEPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
+                CommandOption setOutputDirectoryOption = config.Option("-o|--output-directory <DIRECTORYPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
                 CommandOption mergeOption = config.Option("--xml-merge", "Extracts the xml files as one file (excludes map files).", CommandOptionType.NoValue);
                 CommandOption texturesOption = config.Option("--textures", "Includes extracting all textures (.dds).", CommandOptionType.NoValue);
 

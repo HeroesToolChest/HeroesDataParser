@@ -40,9 +40,9 @@ namespace HeroesData
             PortraitExtractCommand.Add(commandLineApplication).SetCommand();
             PortraitAutoExtractCommand.Add(commandLineApplication).SetCommand();
 
-            CommandArgument storagePathArgument = commandLineApplication.Argument("storage-path", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.");
+            CommandArgument storagePathArgument = commandLineApplication.Argument("storage-directory", "The 'Heroes of the Storm' directory or an already extracted 'mods' directory.");
 
-            CommandOption setOutputDirectoryOption = commandLineApplication.Option("-o|--output-directory <FILEPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
+            CommandOption setOutputDirectoryOption = commandLineApplication.Option("-o|--output-directory <DIRECTORYPATH>", "Sets the output directory.", CommandOptionType.SingleValue);
             CommandOption setDescriptionOption = commandLineApplication.Option("-d|--description <VALUE>", "Sets the description output type (0 - 6) - Default: 0.", CommandOptionType.SingleValue);
             CommandOption extractDataFilesOption = commandLineApplication.Option("-e|--extract-data <VALUE>", $"Extracts data files - Default: herodata.", CommandOptionType.MultipleValue);
             CommandOption extractImageFilesOption = commandLineApplication.Option("-i|--extract-images <VALUE>", $"Extracts image files, only available using the Heroes of the Storm game directory.", CommandOptionType.MultipleValue);

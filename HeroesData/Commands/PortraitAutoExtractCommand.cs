@@ -30,10 +30,10 @@ namespace HeroesData.Commands
                 config.Description = "Auto extracts the portraits from the battle.net cache or a copied directory.";
 
                 CommandArgument rewardPortraitFilePathArgument = config.Argument("rewardportrait-file-path", "The reward portrait data json file path.");
-                CommandArgument cacheDirectoryPathArgument = config.Argument("cache-path", "The directory path of the battle.net cache or an another directory containing the files (.wafl or .dds).");
+                CommandArgument cacheDirectoryPathArgument = config.Argument("cache-directory-path", "The directory path of the battle.net cache or an another directory containing the files (.wafl or .dds).");
 
-                CommandOption outputDirectoryOption = config.Option("-o|--output-directory <FILEPATH>", "Directory to save the extracted portraits.", CommandOptionType.SingleValue);
-                CommandOption portraitAutoExtractXmlFileOption = config.Option("--xml-auto-extract", "Sets the xml file used for the auto extracting", CommandOptionType.SingleValue);
+                CommandOption outputDirectoryOption = config.Option("-o|--output-directory <DIRECTORYPATH>", "Directory to save the extracted portraits.", CommandOptionType.SingleValue);
+                CommandOption portraitAutoExtractXmlFileOption = config.Option("--xml-auto-extract <FILEPATH>", "Sets the xml file used for the auto extracting.", CommandOptionType.SingleValue);
 
                 config.OnExecute(() =>
                 {

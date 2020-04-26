@@ -28,9 +28,9 @@ namespace HeroesData.Commands
                 config.HelpOption("-?|-h|--help");
                 config.Description = "Converts a localized gamestring file created from --localized-text to a json file.";
 
-                CommandArgument storagePathArgument = config.Argument("file-path", "The filepath of the file or directory to convert");
+                CommandArgument storagePathArgument = config.Argument("path", "The file path of the file or directory to convert");
 
-                CommandOption outputDirectoryOption = config.Option("-o|--output-directory <FILEPATH>", "Output directory to save the converted files to.", CommandOptionType.SingleValue);
+                CommandOption outputDirectoryOption = config.Option("-o|--output-directory <DIRECTORYPATH>", "Output directory to save the converted files to.", CommandOptionType.SingleValue);
 
                 config.OnExecute(() =>
                 {
