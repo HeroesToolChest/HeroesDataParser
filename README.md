@@ -14,7 +14,7 @@ Also extracts the following:
  - Announcers (includes images)
  - Voice Lines (includes images)
  - Portrait Packs
- - Reward Portraits (manual extraction through portrait commands, read [wiki](https://github.com/HeroesToolChest/HeroesDataParser/wiki/Portrait-Icon-Extraction))
+ - Reward Portraits (images involve manual extraction, read [wiki](https://github.com/HeroesToolChest/HeroesDataParser/wiki/Portrait-Icon-Extraction))
  - Emoticons (includes images)
  - Emoticon Packs
  - Veterancy data
