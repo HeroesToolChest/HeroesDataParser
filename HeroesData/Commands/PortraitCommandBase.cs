@@ -18,7 +18,9 @@ namespace HeroesData.Commands
         {
             SortedList<int, string> rewardPortraitNames = new SortedList<int, string>();
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"Image file names associated with {textureSheetImageName}");
+            Console.ResetColor();
             Console.WriteLine();
 
             foreach (JsonProperty item in jsonDocument.RootElement.EnumerateObject())

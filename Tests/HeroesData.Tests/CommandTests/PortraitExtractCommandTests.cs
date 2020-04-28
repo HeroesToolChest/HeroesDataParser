@@ -71,13 +71,13 @@ namespace HeroesData.Tests.CommandTests
 
             List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
-            Assert.AreEqual("2015 Tespa Membership Portrait - 11", lines[2]);
-            Assert.AreEqual("2017 S1 Team League Portrait - 15", lines[3]);
-            Assert.IsTrue(lines[5].StartsWith('2'));
+            Assert.AreEqual("2015 Tespa Membership Portrait - 11", lines[3]);
+            Assert.AreEqual("2017 S1 Team League Portrait - 15", lines[4]);
+            Assert.IsTrue(lines[6].StartsWith('2'));
 
-            Assert.AreEqual("storm_portrait_2015tespamembershipportrait.png", lines[10]);
-            Assert.AreEqual("storm_portrait_2017season1teamleagueportraitgold.png", lines[11]);
-            Assert.IsTrue(lines[13].StartsWith('2'));
+            Assert.AreEqual("storm_portrait_2015tespamembershipportrait.png", lines[11]);
+            Assert.AreEqual("storm_portrait_2017season1teamleagueportraitgold.png", lines[12]);
+            Assert.IsTrue(lines[14].StartsWith('2'));
 
             Assert.IsTrue(File.Exists(Path.Combine("output", "imageSingleExtract", "storm_portrait_2015tespamembershipportrait.png")));
             Assert.IsTrue(File.Exists(Path.Combine("output", "imageSingleExtract", "storm_portrait_2017season1teamleagueportraitgold.png")));

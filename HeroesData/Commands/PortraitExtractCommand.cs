@@ -89,6 +89,7 @@ namespace HeroesData.Commands
 
                     if (singleOption.HasValue())
                     {
+                        Console.WriteLine();
                         if (ListPortraitNamesFromTextureSheetImageName(jsonDocument, imageFileName) > 0)
                         {
                             string originalFile = PromptOriginalFile();
