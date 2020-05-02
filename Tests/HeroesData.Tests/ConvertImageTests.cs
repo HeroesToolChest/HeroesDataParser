@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SixLabors.ImageSharp;
-using SixLabors.Primitives;
 using System;
 using System.IO;
 

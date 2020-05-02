@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.CommandLineUtils;
-using SixLabors.Primitives;
+using SixLabors.ImageSharp;
 using System;
 using System.IO;
 using System.Text.Json;

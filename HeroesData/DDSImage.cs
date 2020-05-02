@@ -5,7 +5,6 @@ using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.Primitives;
 using System;
 using System.IO;
 
@@ -75,7 +74,7 @@ namespace HeroesData
             }
             else if (_ddsImageFile.Format == ImageFormat.Rgb8)
             {
-                Save<Gray8>(file);
+                throw new Exception($"Unsupported pixel format ({_ddsImageFile.Format})");
             }
             else
             {
@@ -123,7 +122,7 @@ namespace HeroesData
             }
             else if (_ddsImageFile.Format == ImageFormat.Rgb8)
             {
-                Save<Gray8>(file, point, size);
+                throw new Exception($"Unsupported pixel format ({_ddsImageFile.Format})");
             }
             else
             {
@@ -176,7 +175,7 @@ namespace HeroesData
             }
             else if (_ddsImageFile.Format == ImageFormat.Rgb8)
             {
-                SaveAsGif<Gray8>(file, size, maxSize, frames, frameDelay);
+                throw new Exception($"Unsupported pixel format ({_ddsImageFile.Format})");
             }
             else
             {
@@ -184,17 +183,15 @@ namespace HeroesData
             }
         }
 
-        private void Save<T>(string file)
-            where T : struct, IPixel<T>
+        private static void SaveNewFile<T>(string file, Image<T> image)
+            where T : unmanaged, IPixel<T>
         {
-            using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
-
             string extension = Path.GetExtension(file);
             if (extension == ".png")
             {
                 image.Save(file, new PngEncoder()
                 {
-                    CompressionLevel = 6, // default
+                    CompressionLevel = PngCompressionLevel.DefaultCompression, // default
                 });
             }
             else if (extension == ".jpg")
@@ -206,31 +203,26 @@ namespace HeroesData
             }
         }
 
+        private void Save<T>(string file)
+            where T : unmanaged, IPixel<T>
+        {
+            using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
+
+            SaveNewFile(file, image);
+        }
+
         private void Save<T>(string file, Point point, Size size)
-            where T : struct, IPixel<T>
+            where T : unmanaged, IPixel<T>
         {
             using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
 
             image.Mutate(x => x.Crop(new Rectangle(point, size)));
-            string extension = Path.GetExtension(file);
-            if (extension == ".png")
-            {
-                image.Save(file, new PngEncoder()
-                {
-                    CompressionLevel = 6, // default
-                });
-            }
-            else if (extension == ".jpg")
-            {
-                image.Save(file, new JpegEncoder()
-                {
-                    Quality = 85,
-                });
-            }
+
+            SaveNewFile(file, image);
         }
 
         private void SaveAsGif<T>(string file, Size size, Size maxSize, int frames, int frameDelay)
-            where T : struct, IPixel<T>
+            where T : unmanaged, IPixel<T>
         {
             // Load full base image
             using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);

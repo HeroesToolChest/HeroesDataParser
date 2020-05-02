@@ -1,7 +1,7 @@
 ﻿using CASCLib;
 using Heroes.Models;
 using HeroesData.Helpers;
-using SixLabors.Primitives;
+using SixLabors.ImageSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
