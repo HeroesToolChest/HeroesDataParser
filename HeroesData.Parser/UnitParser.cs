@@ -174,7 +174,7 @@ namespace HeroesData.Parser
                 items.Add(new string[] { id, mapName });
         }
 
-        private void AddItems(string mapName, IEnumerable<XElement> elements, HashSet<string[]> items, List<string> addIds, List<string> removeIds)
+        private static void AddItems(string mapName, IEnumerable<XElement> elements, HashSet<string[]> items, List<string> addIds, List<string> removeIds)
         {
             foreach (XElement element in elements)
             {

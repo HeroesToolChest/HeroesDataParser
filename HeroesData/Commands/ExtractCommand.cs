@@ -109,7 +109,7 @@ namespace HeroesData.Commands
             return localizations;
         }
 
-        private bool ValidatePath(string path)
+        private static bool ValidatePath(string path)
         {
             if (string.IsNullOrEmpty(path))
             {

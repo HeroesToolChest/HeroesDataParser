@@ -116,7 +116,7 @@ namespace HeroesData.Commands
             Console.ResetColor();
         }
 
-        private bool ValidatePath(string path, string argument)
+        private static bool ValidatePath(string path, string argument)
         {
             if (string.IsNullOrEmpty(path))
             {
@@ -137,7 +137,7 @@ namespace HeroesData.Commands
             return true;
         }
 
-        private bool ValidationBothPaths(string path1, string path2)
+        private static bool ValidationBothPaths(string path1, string path2)
         {
             if ((Directory.Exists(path1) && Directory.Exists(path2)) || (File.Exists(path1) && File.Exists(path2)))
             {
@@ -152,7 +152,7 @@ namespace HeroesData.Commands
             }
         }
 
-        private void CompareDirectoryFiles(Dictionary<string, string> first, Dictionary<string, string> second)
+        private static void CompareDirectoryFiles(Dictionary<string, string> first, Dictionary<string, string> second)
         {
             int columnLength1 = Path.GetFileName(first.Aggregate((l, r) => Path.GetFileName(l.Value).Length > Path.GetFileName(r.Value).Length ? l : r).Value).Length + 4;
             int columnLength2 = Path.GetFileName(second.Aggregate((l, r) => Path.GetFileName(l.Value).Length > Path.GetFileName(r.Value).Length ? l : r).Value).Length + 4;
@@ -181,7 +181,7 @@ namespace HeroesData.Commands
             }
         }
 
-        private Dictionary<string, string> ReadDirectoryFiles(string directory)
+        private static Dictionary<string, string> ReadDirectoryFiles(string directory)
         {
             Dictionary<string, string> files = new Dictionary<string, string>();
 

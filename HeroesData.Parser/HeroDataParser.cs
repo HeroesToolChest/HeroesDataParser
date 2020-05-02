@@ -204,6 +204,80 @@ namespace HeroesData.Parser
             return prerequisiteTalentArray;
         }
 
+        private static void ValidateAbilityTalentLinkIds(Hero hero)
+        {
+            foreach (Talent talent in hero.Talents)
+            {
+                // validate all abilityTalentLinkIds
+                HashSet<string> validatedIds = new HashSet<string>();
+
+                foreach (string abilityTalentLinkId in talent.AbilityTalentLinkIds)
+                {
+                    IEnumerable<Ability> abilities = hero.GetAbilitiesFromReferenceId(abilityTalentLinkId, StringComparison.Ordinal);
+                    IEnumerable<Hero> heroes = hero.HeroUnits.Where(x => x.GetAbilitiesFromReferenceId(abilityTalentLinkId, StringComparison.Ordinal).Where(x => x.Tier != AbilityTiers.Hidden).Any());
+
+                    if (abilities.Where(x => x.Tier != AbilityTiers.Hidden).Any() || (hero.TryGetTalent(abilityTalentLinkId, out Talent? foundTalent) && talent != foundTalent) || heroes.Any())
+                    {
+                        validatedIds.Add(abilityTalentLinkId);
+                    }
+                }
+
+                talent.AbilityTalentLinkIds.Clear();
+
+                foreach (string validatedId in validatedIds)
+                {
+                    talent.AbilityTalentLinkIds.Add(validatedId);
+                }
+            }
+        }
+
+        private static void ValidateSubAbilities(Hero hero)
+        {
+            List<Ability> removableSubAbilities = new List<Ability>();
+
+            foreach (Ability subAbility in hero.SubAbilities())
+            {
+                AbilityTalentId? parentLinkId = subAbility.ParentLink!;
+
+                // check the abilityType to see if it has one set and then check if it should be an ability or talent
+                if (parentLinkId.AbilityType == AbilityTypes.Unknown)
+                {
+                    Ability? ability = hero.GetAbilitiesFromReferenceId(parentLinkId.ReferenceId, StringComparison.OrdinalIgnoreCase).FirstOrDefault(x => x.ParentLink == null); // get the first
+                    if (ability != null)
+                    {
+                        parentLinkId.AbilityType = ability.AbilityTalentId.AbilityType;
+                        parentLinkId.IsPassive = ability.AbilityTalentId.IsPassive;
+                    }
+                    else // is a talent
+                    {
+                        parentLinkId.AbilityType = AbilityTypes.Unknown;
+                        parentLinkId.IsPassive = false;
+                    }
+                }
+                else // verify it is an ability
+                {
+                    if (!hero.ContainsAbility(parentLinkId))
+                    {
+                        if (hero.ContainsTalent(parentLinkId.ReferenceId))
+                            parentLinkId.AbilityType = AbilityTypes.Unknown;
+                    }
+                    else
+                    {
+                        if (hero.GetAbility(parentLinkId).ParentLink != null && hero.ContainsTalent(parentLinkId.ReferenceId))
+                            parentLinkId.AbilityType = AbilityTypes.Unknown;
+                    }
+                }
+            }
+        }
+
+        private static void ClearHeroUnitsFromUnitIds(Hero hero)
+        {
+            foreach (Hero heroUnit in hero.HeroUnits)
+            {
+                hero.UnitIds.Remove(heroUnit.CUnitId);
+            }
+        }
+
         private void SetDefaultValues(Hero hero)
         {
             hero.Type = GameData.GetGameString(DefaultData.StringRanged).Trim();
@@ -506,72 +580,6 @@ namespace HeroesData.Parser
                 _heroDataOverride.AddHeroUnit(unit);
         }
 
-        private void ValidateAbilityTalentLinkIds(Hero hero)
-        {
-            foreach (Talent talent in hero.Talents)
-            {
-                // validate all abilityTalentLinkIds
-                HashSet<string> validatedIds = new HashSet<string>();
-
-                foreach (string abilityTalentLinkId in talent.AbilityTalentLinkIds)
-                {
-                    IEnumerable<Ability> abilities = hero.GetAbilitiesFromReferenceId(abilityTalentLinkId, StringComparison.Ordinal);
-                    IEnumerable<Hero> heroes = hero.HeroUnits.Where(x => x.GetAbilitiesFromReferenceId(abilityTalentLinkId, StringComparison.Ordinal).Where(x => x.Tier != AbilityTiers.Hidden).Any());
-
-                    if (abilities.Where(x => x.Tier != AbilityTiers.Hidden).Any() || (hero.TryGetTalent(abilityTalentLinkId, out Talent? foundTalent) && talent != foundTalent) || heroes.Any())
-                    {
-                        validatedIds.Add(abilityTalentLinkId);
-                    }
-                }
-
-                talent.AbilityTalentLinkIds.Clear();
-
-                foreach (string validatedId in validatedIds)
-                {
-                    talent.AbilityTalentLinkIds.Add(validatedId);
-                }
-            }
-        }
-
-        private void ValidateSubAbilities(Hero hero)
-        {
-            List<Ability> removableSubAbilities = new List<Ability>();
-
-            foreach (Ability subAbility in hero.SubAbilities())
-            {
-                AbilityTalentId? parentLinkId = subAbility.ParentLink!;
-
-                // check the abilityType to see if it has one set and then check if it should be an ability or talent
-                if (parentLinkId.AbilityType == AbilityTypes.Unknown)
-                {
-                    Ability? ability = hero.GetAbilitiesFromReferenceId(parentLinkId.ReferenceId, StringComparison.OrdinalIgnoreCase).FirstOrDefault(x => x.ParentLink == null); // get the first
-                    if (ability != null)
-                    {
-                        parentLinkId.AbilityType = ability.AbilityTalentId.AbilityType;
-                        parentLinkId.IsPassive = ability.AbilityTalentId.IsPassive;
-                    }
-                    else // is a talent
-                    {
-                        parentLinkId.AbilityType = AbilityTypes.Unknown;
-                        parentLinkId.IsPassive = false;
-                    }
-                }
-                else // verify it is an ability
-                {
-                    if (!hero.ContainsAbility(parentLinkId))
-                    {
-                        if (hero.ContainsTalent(parentLinkId.ReferenceId))
-                            parentLinkId.AbilityType = AbilityTypes.Unknown;
-                    }
-                    else
-                    {
-                        if (hero.GetAbility(parentLinkId).ParentLink != null && hero.ContainsTalent(parentLinkId.ReferenceId))
-                            parentLinkId.AbilityType = AbilityTypes.Unknown;
-                    }
-                }
-            }
-        }
-
         private void AddHeroUnits(Hero hero, UnitData unitData)
         {
             if (_heroDataOverride != null)
@@ -596,14 +604,6 @@ namespace HeroesData.Parser
 
                     hero.HeroUnits.Add(newHeroUnit);
                 }
-            }
-        }
-
-        private void ClearHeroUnitsFromUnitIds(Hero hero)
-        {
-            foreach (Hero heroUnit in hero.HeroUnits)
-            {
-                hero.UnitIds.Remove(heroUnit.CUnitId);
             }
         }
     }

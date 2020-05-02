@@ -18,7 +18,7 @@ namespace HeroesData
             App app = new App();
             Program program = new Program();
 
-            app.SetCurrentCulture();
+            App.SetCurrentCulture();
 
             program.SetExtractValues();
 

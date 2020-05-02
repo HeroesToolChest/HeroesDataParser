@@ -102,6 +102,13 @@ namespace HeroesData
             }
         }
 
+        public static void SetCurrentCulture()
+        {
+            CultureInfo cultureInfo = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+        }
+
         public void Run()
         {
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -207,13 +214,6 @@ namespace HeroesData
                 Console.ResetColor();
                 Environment.Exit(1);
             }
-        }
-
-        public void SetCurrentCulture()
-        {
-            CultureInfo cultureInfo = new CultureInfo("en-US");
-            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
         }
 
         /// <summary>

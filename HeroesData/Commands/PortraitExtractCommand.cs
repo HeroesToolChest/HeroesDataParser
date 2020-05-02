@@ -106,7 +106,7 @@ namespace HeroesData.Commands
             });
         }
 
-        private string PromptOriginalFile()
+        private static string PromptOriginalFile()
         {
             Console.WriteLine();
             Console.Write("Original texture sheet file name (.dds): ");

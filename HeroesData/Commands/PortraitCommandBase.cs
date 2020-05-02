@@ -14,7 +14,7 @@ namespace HeroesData.Commands
 
         protected string OutputDirectory { get; set; } = string.Empty;
 
-        protected int ListPortraitNamesFromTextureSheetImageName(JsonDocument jsonDocument, string textureSheetImageName)
+        protected static int ListPortraitNamesFromTextureSheetImageName(JsonDocument jsonDocument, string textureSheetImageName)
         {
             SortedList<int, string> rewardPortraitNames = new SortedList<int, string>();
 

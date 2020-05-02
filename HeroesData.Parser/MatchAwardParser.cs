@@ -161,7 +161,7 @@ namespace HeroesData.Parser
                 matchAward.Description = new TooltipDescription(dataOverride.DescriptionOverride.Value);
         }
 
-        private string GetNameFromGenderRule(string name)
+        private static string GetNameFromGenderRule(string name)
         {
             string[] parts = name.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length == 2)
@@ -172,7 +172,7 @@ namespace HeroesData.Parser
             return name;
         }
 
-        private ReadOnlySpan<char> ModifyId(ReadOnlySpan<char> value)
+        private static ReadOnlySpan<char> ModifyId(ReadOnlySpan<char> value)
         {
             if (value.StartsWith("EndOfMatchAward", StringComparison.OrdinalIgnoreCase))
                 value = value.Slice("EndOfMatchAward".Length);
@@ -184,7 +184,7 @@ namespace HeroesData.Parser
             return value;
         }
 
-        private void AddItems(string mapName, IEnumerable<XElement> elements, HashSet<string[]> items)
+        private static void AddItems(string mapName, IEnumerable<XElement> elements, HashSet<string[]> items)
         {
             if (elements is null)
             {

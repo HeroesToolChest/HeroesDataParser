@@ -38,9 +38,7 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
                 propertyOverrideMethodByElementId.Add(id, propertyOverrides);
         }
 
-        protected abstract void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<T>> propertyOverrides);
-
-        protected double GetDoubleValue(string textValue)
+        protected static double GetDoubleValue(string textValue)
         {
             if (string.IsNullOrEmpty(textValue))
                 return 0;
@@ -50,5 +48,7 @@ namespace HeroesData.Parser.Overrides.PropertyOverrides
             else
                 throw new ArgumentException($"{nameof(textValue)} must be a valid number");
         }
+
+        protected abstract void SetPropertyValues(string propertyName, string propertyValue, Dictionary<string, Action<T>> propertyOverrides);
     }
 }

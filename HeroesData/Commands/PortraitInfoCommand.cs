@@ -76,7 +76,7 @@ namespace HeroesData.Commands
             });
         }
 
-        private void ListRewardPortraitImageFileNames(JsonDocument jsonDocument)
+        private static void ListRewardPortraitImageFileNames(JsonDocument jsonDocument)
         {
             SortedSet<string> imageFileNames = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
@@ -97,7 +97,7 @@ namespace HeroesData.Commands
             Console.WriteLine($"{imageFileNames.Count} image files");
         }
 
-        private void ListFileNamesWithIconSlotZero(JsonDocument jsonDocument)
+        private static void ListFileNamesWithIconSlotZero(JsonDocument jsonDocument)
         {
             int count = 0;
 

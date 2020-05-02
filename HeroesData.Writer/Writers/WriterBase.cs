@@ -91,9 +91,7 @@ namespace HeroesData.FileWriter.Writers
             }
         }
 
-        protected abstract TType MainElement(T t);
-
-        protected string GetTooltip(TooltipDescription tooltipDescription, DescriptionType descriptionType)
+        protected static string GetTooltip(TooltipDescription tooltipDescription, DescriptionType descriptionType)
         {
             if (tooltipDescription == null)
                 return string.Empty;
@@ -113,6 +111,8 @@ namespace HeroesData.FileWriter.Writers
             else
                 return tooltipDescription.ColoredText;
         }
+
+        protected abstract TType MainElement(T t);
 
         private void SetSingleFileNames()
         {
