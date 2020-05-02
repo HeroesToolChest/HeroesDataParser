@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -656,7 +657,7 @@ namespace HeroesData
 
                 Console.WriteLine();
             }
-            catch (Exception ex) when (ex is DirectoryNotFoundException || ex is FileNotFoundException)
+            catch (Exception ex) when (ex is DirectoryNotFoundException || ex is FileNotFoundException || ex is WebException)
             {
                 WriteExceptionLog($"gamestrings_loader_{localization.ToString().ToLowerInvariant()}", ex);
 
