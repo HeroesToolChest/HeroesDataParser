@@ -75,6 +75,8 @@ namespace HeroesData
             backgroundWorker.DoWork += (_, e) =>
             {
                 Console.SetOut(TextWriter.Null); // suppress output
+                CASCConfig.ThrowOnFileNotFound = true;
+                CASCConfig.ThrowOnMissingDecryptionKey = true;
                 CASCConfig config = CASCConfig.LoadLocalStorageConfig(_storagePath);
                 CASCHandler = CASCHandler.OpenStorage(config, backgroundWorker);
 
