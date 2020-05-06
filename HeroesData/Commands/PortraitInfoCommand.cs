@@ -23,7 +23,7 @@ namespace HeroesData.Commands
             CommandLineApplication.Command("portrait-info", config =>
             {
                 config.HelpOption("-?|-h|--help");
-                config.Description = "Provide information from the reward portrait data.";
+                config.Description = "Provides information from the reward portrait data.";
 
                 CommandArgument rewardPortraitFilePathArgument = config.Argument("rewardportrait-file-path", "The reward portrait data json file path.");
 
