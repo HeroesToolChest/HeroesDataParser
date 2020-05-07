@@ -127,7 +127,7 @@ Commands:
   portrait-auto-extract  Auto extracts the portraits from the battle.net cache or a copied directory.
   portrait-cache         Obtains the portrait texture sheets from the battle.net cache.
   portrait-extract       Performs portrait extraction from the texture sheets.
-  portrait-info          Provide information from the reward portrait data.
+  portrait-info          Provides information from the reward portrait data.
   quick-compare          Compares two directory contents or files and displays a list of changed files.
   read                   Reads a .txt, .xml, or .json file and displays its contents on screen.
 
