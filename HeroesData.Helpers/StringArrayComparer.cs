@@ -6,7 +6,7 @@ namespace HeroesData.Helpers
 {
     public class StringArrayComparer : IEqualityComparer<string[]>
     {
-        public bool Equals(string[] x, string[] y)
+        public bool Equals(string[]? x, string[]? y)
         {
             return x.SequenceEqual(y);
         }
