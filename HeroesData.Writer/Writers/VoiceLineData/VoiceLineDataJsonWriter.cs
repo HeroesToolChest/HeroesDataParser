@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace HeroesData.FileWriter.Writers.VoiceLineData
 {
@@ -29,6 +30,9 @@ namespace HeroesData.FileWriter.Writers.VoiceLineData
 
             if (voiceLine.ReleaseDate.HasValue)
                 voiceLineObject.Add("releaseDate", voiceLine.ReleaseDate.Value.ToString("yyyy-MM-dd"));
+
+            if (!string.IsNullOrEmpty(voiceLine.ImageFileName))
+                voiceLineObject.Add("image", Path.ChangeExtension(voiceLine.ImageFileName?.ToLowerInvariant(), StaticImageExtension));
 
             if (!string.IsNullOrEmpty(voiceLine.SortName) && !FileOutputOptions.IsLocalizedText)
                 voiceLineObject.Add("sortName", voiceLine.SortName);

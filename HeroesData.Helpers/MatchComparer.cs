@@ -6,7 +6,7 @@ namespace HeroesData.Helpers
 {
     public class MatchComparer : IEqualityComparer<Match>
     {
-        public bool Equals(Match x, Match y)
+        public bool Equals(Match? x, Match? y)
         {
             if (x is null || y is null)
                 return false;

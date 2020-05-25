@@ -22,6 +22,7 @@ namespace HeroesData.FileWriter.Tests.VoiceLineData
                 HyperlinkId = "Common1Id",
                 ReleaseDate = new DateTime(2016, 5, 21),
                 Rarity = Rarity.Epic,
+                ImageFileName = "voicelineImage.dds",
             };
 
             TestData.Add(voiceLine);

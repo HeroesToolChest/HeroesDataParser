@@ -1,4 +1,5 @@
 ﻿using Heroes.Models;
+using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -25,7 +26,8 @@ namespace HeroesData.FileWriter.Writers.VoiceLineData
                 new XAttribute("rarity", voiceLine.Rarity),
                 voiceLine.ReleaseDate.HasValue ? new XAttribute("releaseDate", voiceLine.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
                 string.IsNullOrEmpty(voiceLine.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", voiceLine.SortName),
-                string.IsNullOrEmpty(voiceLine.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(voiceLine.Description, FileOutputOptions.DescriptionType)));
+                string.IsNullOrEmpty(voiceLine.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(voiceLine.Description, FileOutputOptions.DescriptionType)),
+                string.IsNullOrEmpty(voiceLine.ImageFileName) ? null : new XElement("Image", Path.ChangeExtension(voiceLine.ImageFileName?.ToLowerInvariant(), StaticImageExtension)));
         }
     }
 }
