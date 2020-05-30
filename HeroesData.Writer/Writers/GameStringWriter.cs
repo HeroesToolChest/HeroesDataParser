@@ -226,7 +226,7 @@ namespace HeroesData.FileWriter.Writers
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
-            GameStrings[$"heroskin/info/{key}"] = value;
+            GameStrings[$"heroskin/description/{key}"] = value;
         }
 
         public void AddHeroSkinSearchText(string key, string? value)
@@ -413,20 +413,28 @@ namespace HeroesData.FileWriter.Writers
             GameStrings[$"voiceline/description/{key}"] = value;
         }
 
-        public void AddEmoticonName(string key, string? value)
+        public void AddEmoticonExpression(string key, string? value)
         {
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
-            GameStrings[$"emoticon/name/{key}"] = value;
+            GameStrings[$"emoticon/expression/{key}"] = value;
         }
 
-        public void AddEmoticonAlias(string key, string? value)
+        public void AddEmoticonLocalizedAliases(string key, string? value)
         {
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
-            GameStrings[$"emoticon/alias/{key}"] = value;
+            GameStrings[$"emoticon/localizedaliases/{key}"] = value;
+        }
+
+        public void AddEmoticonAliases(string key, string? value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"emoticon/aliases/{key}"] = value;
         }
 
         public void AddEmoticonSearchText(string key, string? value)

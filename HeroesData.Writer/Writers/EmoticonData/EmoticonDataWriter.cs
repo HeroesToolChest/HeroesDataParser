@@ -17,13 +17,16 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
 
         protected void AddLocalizedGameString(Emoticon emoticon)
         {
-            GameStringWriter.AddEmoticonName(emoticon.Id, emoticon.Name);
+            GameStringWriter.AddEmoticonExpression(emoticon.Id, emoticon.Name);
 
             if (emoticon.Description != null)
                 GameStringWriter.AddEmoticonDescription(emoticon.Id, GetTooltip(emoticon.Description, FileOutputOptions.DescriptionType));
 
             if (emoticon.LocalizedAliases != null && emoticon.LocalizedAliases.Any())
-                GameStringWriter.AddEmoticonAlias(emoticon.Id, string.Join(" ", emoticon.LocalizedAliases));
+                GameStringWriter.AddEmoticonLocalizedAliases(emoticon.Id, string.Join(' ', emoticon.LocalizedAliases));
+
+            if (emoticon.UniversalAliases != null && emoticon.UniversalAliases.Any())
+                GameStringWriter.AddEmoticonAliases(emoticon.Id, string.Join(' ', emoticon.UniversalAliases));
 
             if (emoticon.SearchTexts != null && emoticon.SearchTexts.Any())
                 GameStringWriter.AddEmoticonSearchText(emoticon.Id, string.Join(' ', emoticon.SearchTexts));
