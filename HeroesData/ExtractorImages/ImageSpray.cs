@@ -30,7 +30,7 @@ namespace HeroesData.ExtractorImage
             if (spray is null)
                 throw new ArgumentNullException(nameof(spray));
 
-            if (!string.IsNullOrEmpty(spray.ImageFileName))
+            if (!string.IsNullOrEmpty(spray.TextureSheet.Image))
                 _sprays.Add(spray);
         }
 
@@ -47,7 +47,7 @@ namespace HeroesData.ExtractorImage
             foreach (Spray spray in _sprays)
             {
                 bool success = false;
-                string filePath = Path.Combine(extractFilePath, spray.ImageFileName);
+                string filePath = Path.Combine(extractFilePath, spray.TextureSheet.Image);
 
                 if (ExtractStaticImageFile(filePath))
                     success = true;

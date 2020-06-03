@@ -41,8 +41,8 @@ namespace HeroesData.ExtractorData
             if (spray.Rarity == Rarity.None || spray.Rarity == Rarity.Unknown)
                 AddWarning($"{nameof(spray.Rarity)} is {spray.Rarity}");
 
-            if (string.IsNullOrEmpty(spray.ImageFileName))
-                AddWarning($"{nameof(spray.ImageFileName)} is empty");
+            if (string.IsNullOrEmpty(spray.TextureSheet.Image))
+                AddWarning($"{nameof(spray.TextureSheet.Image)} is empty");
         }
     }
 }
