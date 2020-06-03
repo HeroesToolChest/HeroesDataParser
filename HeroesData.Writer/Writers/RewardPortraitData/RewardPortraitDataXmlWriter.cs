@@ -37,8 +37,8 @@ namespace HeroesData.FileWriter.Writers.RewardPortraitData
             return new XElement(
                 "TextureSheet",
                 new XElement("Image", Path.ChangeExtension(rewardPortrait.TextureSheet.Image?.ToLowerInvariant(), StaticImageExtension)),
-                new XElement("Columns", rewardPortrait.TextureSheet.Columns),
-                new XElement("Rows", rewardPortrait.TextureSheet.Rows));
+                rewardPortrait.TextureSheet.Columns.HasValue ? new XElement("Columns", rewardPortrait.TextureSheet.Columns.Value) : null,
+                rewardPortrait.TextureSheet.Rows.HasValue ? new XElement("Rows", rewardPortrait.TextureSheet.Rows.Value) : null);
         }
     }
 }

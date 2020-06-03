@@ -41,10 +41,10 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(rewardPortrait.TextureSheet.Image))
                 AddWarning($"{nameof(rewardPortrait.TextureSheet.Image)} is empty");
 
-            if (rewardPortrait.TextureSheet.Columns < 1)
+            if (!rewardPortrait.TextureSheet.Columns.HasValue || (rewardPortrait.TextureSheet.Columns.HasValue && rewardPortrait.TextureSheet.Columns < 1))
                 AddWarning($"{nameof(rewardPortrait.TextureSheet.Columns)} is less than 1");
 
-            if (rewardPortrait.TextureSheet.Rows < 1)
+            if (!rewardPortrait.TextureSheet.Rows.HasValue || (rewardPortrait.TextureSheet.Rows.HasValue && rewardPortrait.TextureSheet.Rows < 1))
                 AddWarning($"{nameof(rewardPortrait.TextureSheet.Rows)} is less than 1");
 
             if (rewardPortrait.Rarity == Rarity.None || rewardPortrait.Rarity == Rarity.Unknown)

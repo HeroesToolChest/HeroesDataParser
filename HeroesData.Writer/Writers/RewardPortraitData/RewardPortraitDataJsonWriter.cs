@@ -50,12 +50,15 @@ namespace HeroesData.FileWriter.Writers.RewardPortraitData
 
         protected override JProperty GetImageObject(RewardPortrait rewardPortrait)
         {
-            return new JProperty(
-                "textureSheet",
-                new JObject(
-                    new JProperty("image", Path.ChangeExtension(rewardPortrait.TextureSheet.Image.ToLowerInvariant(), StaticImageExtension)),
-                    new JProperty("columns", rewardPortrait.TextureSheet.Columns),
-                    new JProperty("rows", rewardPortrait.TextureSheet.Rows)));
+            JObject textureSheetObject = new JObject(new JObject(
+                    new JProperty("image", Path.ChangeExtension(rewardPortrait.TextureSheet.Image.ToLowerInvariant(), StaticImageExtension))));
+
+            if (rewardPortrait.TextureSheet.Columns.HasValue)
+                textureSheetObject.Add(new JProperty("columns", rewardPortrait.TextureSheet.Columns.Value));
+            if (rewardPortrait.TextureSheet.Rows.HasValue)
+                textureSheetObject.Add(new JProperty("rows", rewardPortrait.TextureSheet.Rows.Value));
+
+            return new JProperty("textureSheet", textureSheetObject);
         }
     }
 }
