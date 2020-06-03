@@ -34,8 +34,8 @@ namespace HeroesData.FileWriter.Writers.HeroSkinData
             if (!string.IsNullOrEmpty(heroSkin.SearchText) && !FileOutputOptions.IsLocalizedText)
                 heroSkinObject.Add("searchText", heroSkin.SearchText);
 
-            if (!string.IsNullOrEmpty(heroSkin.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
-                heroSkinObject.Add("description", GetTooltip(heroSkin.Description, FileOutputOptions.DescriptionType));
+            if (!string.IsNullOrEmpty(heroSkin.InfoText?.RawDescription) && !FileOutputOptions.IsLocalizedText)
+                heroSkinObject.Add("infoText", GetTooltip(heroSkin.InfoText, FileOutputOptions.DescriptionType));
 
             if (heroSkin.Features.Any())
                 heroSkinObject.Add(new JProperty("features", heroSkin.Features));

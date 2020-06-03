@@ -3,7 +3,7 @@
   <AbathurBone name="Bone Abathur" hyperlinkId="AbathurBone" attributeId="Aba1" rarity="Aba1" releaseDate="2014-03-13">
     <SortName>xxAbathurBone</SortName>
     <SearchText>White Pink</SearchText>
-    <Description>Evolution Master of Kerrigan's Swarm</Description>
+    <InfoText>Evolution Master of Kerrigan's Swarm</InfoText>
     <Features>
       <Feature>ThemedAbilities</Feature>
       <Feature>ThemedAnimations</Feature>

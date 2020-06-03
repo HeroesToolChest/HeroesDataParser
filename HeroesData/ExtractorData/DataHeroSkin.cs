@@ -36,12 +36,12 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(heroSkin.AttributeId))
                 AddWarning($"{nameof(heroSkin.AttributeId)} is empty");
 
-            if (string.IsNullOrEmpty(heroSkin.Description?.RawDescription))
-                AddWarning($"{nameof(heroSkin.Description)} is empty");
-            else if (heroSkin.Description.RawDescription == GameStringParser.FailedParsed)
-                AddWarning($"{nameof(heroSkin.Description)} failed to parse correctly");
-            else if (heroSkin.Description.HasErrorTag)
-                AddWarning($"{nameof(heroSkin.Description)} contains an error tag");
+            if (string.IsNullOrEmpty(heroSkin.InfoText?.RawDescription))
+                AddWarning($"{nameof(heroSkin.InfoText)} is empty");
+            else if (heroSkin.InfoText.RawDescription == GameStringParser.FailedParsed)
+                AddWarning($"{nameof(heroSkin.InfoText)} failed to parse correctly");
+            else if (heroSkin.InfoText.HasErrorTag)
+                AddWarning($"{nameof(heroSkin.InfoText)} contains an error tag");
 
             if (!heroSkin.ReleaseDate.HasValue)
                 AddWarning($"{nameof(heroSkin.ReleaseDate)} is null");

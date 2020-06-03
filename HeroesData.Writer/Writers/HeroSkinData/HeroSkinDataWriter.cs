@@ -16,8 +16,8 @@ namespace HeroesData.FileWriter.Writers.HeroSkinData
             GameStringWriter.AddHeroSkinName(heroSkin.Id, heroSkin.Name);
             GameStringWriter.AddHeroSkinSortName(heroSkin.Id, heroSkin.SortName);
 
-            if (heroSkin.Description != null)
-                GameStringWriter.AddHeroSkinInfo(heroSkin.Id, GetTooltip(heroSkin.Description, FileOutputOptions.DescriptionType));
+            if (heroSkin.InfoText != null)
+                GameStringWriter.AddHeroSkinInfoText(heroSkin.Id, GetTooltip(heroSkin.InfoText, FileOutputOptions.DescriptionType));
 
             GameStringWriter.AddHeroSkinSearchText(heroSkin.Id, heroSkin.SearchText);
         }

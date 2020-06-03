@@ -70,9 +70,9 @@ namespace HeroesData.Parser
             }
             else
             {
-                string? desc = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinInfoText?.Replace(DefaultData.IdPlaceHolder, skinElement.Attribute("id")?.Value, StringComparison.OrdinalIgnoreCase));
-                if (!string.IsNullOrEmpty(desc))
-                    heroSkin.Description = new TooltipDescription(desc);
+                string? infoText = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinInfoText?.Replace(DefaultData.IdPlaceHolder, skinElement.Attribute("id")?.Value, StringComparison.OrdinalIgnoreCase));
+                if (!string.IsNullOrEmpty(infoText))
+                    heroSkin.InfoText = new TooltipDescription(infoText);
             }
 
             foreach (XElement element in skinElement.Elements())
@@ -82,7 +82,7 @@ namespace HeroesData.Parser
                 if (elementName == "INFOTEXT")
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        heroSkin.Description = new TooltipDescription(text);
+                        heroSkin.InfoText = new TooltipDescription(text);
                 }
                 else if (elementName == "SORTNAME")
                 {
@@ -141,7 +141,7 @@ namespace HeroesData.Parser
         {
             heroSkin.Name = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinName?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase));
             heroSkin.SortName = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinSortName?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase));
-            heroSkin.Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinInfoText?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase)));
+            heroSkin.InfoText = new TooltipDescription(GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinInfoText?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase)));
             heroSkin.HyperlinkId = DefaultData.HeroSkinData?.HeroSkinHyperlinkId?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
             heroSkin.ReleaseDate = DefaultData.HeroData?.HeroReleaseDate;
 

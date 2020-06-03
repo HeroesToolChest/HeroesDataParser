@@ -20,7 +20,7 @@ namespace HeroesData.FileWriter.Tests.HeroSkinData
                 SortName = "xxAbathurBone",
                 Rarity = Rarity.None,
                 AttributeId = "Aba1",
-                Description = new TooltipDescription("Evolution Master of Kerrigan's Swarm"),
+                InfoText = new TooltipDescription("Evolution Master of Kerrigan's Swarm"),
                 SearchText = "White Pink",
                 ReleaseDate = new DateTime(2014, 3, 13),
             };
