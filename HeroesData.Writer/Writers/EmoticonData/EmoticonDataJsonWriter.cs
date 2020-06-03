@@ -37,6 +37,9 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
             if (!string.IsNullOrEmpty(emoticon.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 emoticonObject.Add("description", GetTooltip(emoticon.Description, FileOutputOptions.DescriptionType));
 
+            if (!string.IsNullOrEmpty(emoticon.DescriptionLocked?.RawDescription) && !FileOutputOptions.IsLocalizedText)
+                emoticonObject.Add("descriptionLocked", GetTooltip(emoticon.DescriptionLocked, FileOutputOptions.DescriptionType));
+
             if (emoticon.LocalizedAliases != null && emoticon.LocalizedAliases.Any() && !FileOutputOptions.IsLocalizedText)
                 emoticonObject.Add(new JProperty("localizedAliases", emoticon.LocalizedAliases));
 
@@ -66,6 +69,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
             return new JProperty(emoticon.Id, emoticonObject);
         }
 
+        // not used on json writer
         protected override JProperty GetHeroElement(Emoticon emoticon)
         {
             JObject jObject = new JObject
@@ -81,13 +85,18 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
 
         protected override JProperty GetAnimationObject(Emoticon emoticon)
         {
-            return new JProperty(
-                "animation",
-                new JObject(
+            JObject animationObject = new JObject(
                     new JProperty("texture", Path.ChangeExtension(emoticon.TextureSheet.Image?.ToLowerInvariant(), StaticImageExtension)),
                     new JProperty("frames", emoticon.Image.Count),
                     new JProperty("duration", emoticon.Image.DurationPerFrame),
-                    new JProperty("width", emoticon.Image.Width)));
+                    new JProperty("width", emoticon.Image.Width));
+
+            if (emoticon.TextureSheet.Columns.HasValue)
+                animationObject.Add(new JProperty("columns", emoticon.TextureSheet.Columns.Value));
+            if (emoticon.TextureSheet.Rows.HasValue)
+                animationObject.Add(new JProperty("rows", emoticon.TextureSheet.Rows.Value));
+
+            return new JProperty("animation", animationObject);
         }
     }
 }

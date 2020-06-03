@@ -54,12 +54,12 @@ namespace HeroesData.ExtractorImage
                         count++;
                     }
                 }
-                else
+                else if (emoticon.TextureSheet.Columns.HasValue)
                 {
 #pragma warning disable SA1407 // Arithmetic expressions should declare precedence
-                    int xPos = emoticon.Image.Index % emoticon.TextureSheet.Columns * _imageMaxWidth;
+                    int xPos = emoticon.Image.Index % emoticon.TextureSheet.Columns.Value * _imageMaxWidth;
 #pragma warning restore SA1407 // Arithmetic expressions should declare precedence
-                    int yPos = emoticon.Image.Index / emoticon.TextureSheet.Columns * _imageMaxHeight;
+                    int yPos = emoticon.Image.Index / emoticon.TextureSheet.Columns.Value * _imageMaxHeight;
 
                     if (ExtractStaticImageFile(Path.Combine(extractFilePath, emoticon.Image.FileName), emoticon.TextureSheet.Image, new Point(xPos, yPos), new Size(emoticon.Image.Width, _imageMaxHeight)))
                         count++;

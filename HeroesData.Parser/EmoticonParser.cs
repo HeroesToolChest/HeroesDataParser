@@ -61,9 +61,13 @@ namespace HeroesData.Parser
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescription?.Replace(DefaultData.IdPlaceHolder, emoticonElement.Attribute("id")?.Value, StringComparison.OrdinalIgnoreCase));
-                if (!string.IsNullOrEmpty(desc))
-                    emoticon.Description = new TooltipDescription(desc);
+                string description = GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescription?.Replace(DefaultData.IdPlaceHolder, emoticonElement.Attribute("id")?.Value, StringComparison.OrdinalIgnoreCase));
+                string descriptionLocked = GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescriptionLocked?.Replace(DefaultData.IdPlaceHolder, emoticonElement.Attribute("id")?.Value, StringComparison.OrdinalIgnoreCase));
+
+                if (!string.IsNullOrEmpty(description))
+                    emoticon.Description = new TooltipDescription(description);
+                if (!string.IsNullOrEmpty(descriptionLocked))
+                    emoticon.DescriptionLocked = new TooltipDescription(descriptionLocked);
             }
 
             foreach (XElement element in emoticonElement.Elements())
@@ -74,6 +78,11 @@ namespace HeroesData.Parser
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
                         emoticon.Description = new TooltipDescription(text);
+                }
+                else if (elementName == "DESCRIPTIONLOCKED")
+                {
+                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
+                        emoticon.DescriptionLocked = new TooltipDescription(text);
                 }
                 else if (elementName == "HERO")
                 {
@@ -192,6 +201,7 @@ namespace HeroesData.Parser
         {
             emoticon.Name = DefaultData.EmoticonData?.EmoticonExpression ?? string.Empty;
             emoticon.Description = new TooltipDescription(GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescription?.Replace(DefaultData.IdPlaceHolder, emoticon.Id, StringComparison.OrdinalIgnoreCase)));
+            emoticon.DescriptionLocked = new TooltipDescription(GameData.GetGameString(DefaultData.EmoticonData?.EmoticonDescriptionLocked?.Replace(DefaultData.IdPlaceHolder, emoticon.Id, StringComparison.OrdinalIgnoreCase)));
 
             emoticon.Image.Index = 0;
             emoticon.Image.Width = 0;

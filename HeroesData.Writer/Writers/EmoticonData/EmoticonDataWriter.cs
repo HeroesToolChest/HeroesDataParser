@@ -22,6 +22,9 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
             if (emoticon.Description != null)
                 GameStringWriter.AddEmoticonDescription(emoticon.Id, GetTooltip(emoticon.Description, FileOutputOptions.DescriptionType));
 
+            if (emoticon.DescriptionLocked != null)
+                GameStringWriter.AddEmoticonDescriptionLocked(emoticon.Id, GetTooltip(emoticon.DescriptionLocked, FileOutputOptions.DescriptionType));
+
             if (emoticon.LocalizedAliases != null && emoticon.LocalizedAliases.Any())
                 GameStringWriter.AddEmoticonLocalizedAliases(emoticon.Id, string.Join(' ', emoticon.LocalizedAliases));
 

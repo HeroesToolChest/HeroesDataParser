@@ -12,6 +12,8 @@
       <Frames>2</Frames>
       <Duration>1000</Duration>
       <Width>34</Width>
+      <Columns>2</Columns>
+      <Rows>1</Rows>
     </Animation>
   </lunara_angry>
   <lunara_sad isHidden="true" />

@@ -28,6 +28,11 @@ namespace HeroesData.Parser.XmlData
         public string? EmoticonDescription { get; private set; }
 
         /// <summary>
+        /// Gets the default emoticon description locked. Contains ##id##.
+        /// </summary>
+        public string? EmoticonDescriptionLocked { get; private set; }
+
+        /// <summary>
         /// Gets the default emoticon expression.
         /// </summary>
         public string? EmoticonExpression { get; private set; }
@@ -82,6 +87,10 @@ namespace HeroesData.Parser.XmlData
                 else if (elementName == "DESCRIPTION")
                 {
                     EmoticonDescription = element.Attribute("value").Value;
+                }
+                else if (elementName == "DESCRIPTIONLOCKED")
+                {
+                    EmoticonDescriptionLocked = element.Attribute("value").Value;
                 }
                 else if (elementName == "EXPRESSION")
                 {

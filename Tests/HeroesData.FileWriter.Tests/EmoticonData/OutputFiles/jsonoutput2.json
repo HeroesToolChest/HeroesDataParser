@@ -2,6 +2,7 @@
   "lunara_angry": {
     "expression": "Lunara Angry",
     "description": "Use emoticons for lunara",
+    "descriptionLocked": "Some locked message",
     "localizedAliases": [
       ":lunaraangry:",
       ":lunaangry:"
@@ -17,7 +18,9 @@
       "texture": "emoticon_image_texture.png",
       "frames": 2,
       "duration": 1000,
-      "width": 34
+      "width": 34,
+      "columns": 2,
+      "rows": 1
     }
   },
   "lunara_sad": {

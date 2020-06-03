@@ -16,6 +16,7 @@ namespace HeroesData.FileWriter.Tests.EmoticonData
                 Name = "Lunara Angry",
                 Id = "lunara_angry",
                 Description = new TooltipDescription("Use emoticons for lunara"),
+                DescriptionLocked = new TooltipDescription("Some locked message"),
                 HyperlinkId = string.Empty,
                 HeroId = "Lunara",
                 HeroSkinId = "LunaraWitch",
@@ -31,6 +32,8 @@ namespace HeroesData.FileWriter.Tests.EmoticonData
             emoticon.UniversalAliases.Add("(:");
             emoticon.UniversalAliases.Add("(:");
             emoticon.TextureSheet.Image = "emoticon_image_texture.png";
+            emoticon.TextureSheet.Rows = 1;
+            emoticon.TextureSheet.Columns = 2;
 
             TestData.Add(emoticon);
 

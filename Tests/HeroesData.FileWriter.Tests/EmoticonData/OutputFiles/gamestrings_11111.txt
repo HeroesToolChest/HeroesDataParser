@@ -1,5 +1,6 @@
 emoticon/aliases/lunara_angry=:( (:
 emoticon/description/lunara_angry=Use emoticons for lunara
+emoticon/descriptionlocked/lunara_angry=Some locked message
 emoticon/expression/lunara_angry=Lunara Angry
 emoticon/expression/lunara_sad=Lunara Sad
 emoticon/localizedaliases/lunara_angry=:lunaraangry: :lunaangry:
