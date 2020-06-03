@@ -70,9 +70,9 @@ namespace HeroesData.Parser
             }
             else
             {
-                string desc = GameData.GetGameString(DefaultData.MountData?.MountInfoText?.Replace(DefaultData.IdPlaceHolder, mountElement.Attribute("id")?.Value, StringComparison.OrdinalIgnoreCase));
-                if (!string.IsNullOrEmpty(desc))
-                    mount.Description = new TooltipDescription(desc);
+                string infoText = GameData.GetGameString(DefaultData.MountData?.MountInfoText?.Replace(DefaultData.IdPlaceHolder, mountElement.Attribute("id")?.Value, StringComparison.OrdinalIgnoreCase));
+                if (!string.IsNullOrEmpty(infoText))
+                    mount.InfoText = new TooltipDescription(infoText);
             }
 
             foreach (XElement element in mountElement.Elements())
@@ -82,7 +82,7 @@ namespace HeroesData.Parser
                 if (elementName == "INFOTEXT")
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        mount.Description = new TooltipDescription(text);
+                        mount.InfoText = new TooltipDescription(text);
                 }
                 else if (elementName == "SORTNAME")
                 {
@@ -146,7 +146,7 @@ namespace HeroesData.Parser
         {
             mount.Name = GameData.GetGameString(DefaultData.MountData?.MountName?.Replace(DefaultData.IdPlaceHolder, mount.Id, StringComparison.OrdinalIgnoreCase));
             mount.SortName = GameData.GetGameString(DefaultData.MountData?.MountSortName?.Replace(DefaultData.IdPlaceHolder, mount.Id, StringComparison.OrdinalIgnoreCase));
-            mount.Description = new TooltipDescription(GameData.GetGameString(DefaultData.MountData?.MountInfoText?.Replace(DefaultData.IdPlaceHolder, mount.Id, StringComparison.OrdinalIgnoreCase)));
+            mount.InfoText = new TooltipDescription(GameData.GetGameString(DefaultData.MountData?.MountInfoText?.Replace(DefaultData.IdPlaceHolder, mount.Id, StringComparison.OrdinalIgnoreCase)));
             mount.HyperlinkId = DefaultData.MountData?.MountHyperlinkId?.Replace(DefaultData.IdPlaceHolder, mount.Id, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
             mount.ReleaseDate = DefaultData.MountData?.MountReleaseDate;
 

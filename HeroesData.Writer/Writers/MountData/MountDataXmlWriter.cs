@@ -29,7 +29,7 @@ namespace HeroesData.FileWriter.Writers.MountData
                 mount.ReleaseDate.HasValue ? new XAttribute("releaseDate", mount.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
                 string.IsNullOrEmpty(mount.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", mount.SortName),
                 string.IsNullOrEmpty(mount.SearchText) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", mount.SearchText),
-                string.IsNullOrEmpty(mount.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(mount.Description, FileOutputOptions.DescriptionType)));
+                string.IsNullOrEmpty(mount.InfoText?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("InfoText", GetTooltip(mount.InfoText, FileOutputOptions.DescriptionType)));
         }
     }
 }

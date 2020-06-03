@@ -38,8 +38,8 @@ namespace HeroesData.FileWriter.Writers.MountData
             if (!string.IsNullOrEmpty(mount.SearchText) && !FileOutputOptions.IsLocalizedText)
                 mountObject.Add("searchText", mount.SearchText);
 
-            if (!string.IsNullOrEmpty(mount.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
-                mountObject.Add("description", GetTooltip(mount.Description, FileOutputOptions.DescriptionType));
+            if (!string.IsNullOrEmpty(mount.InfoText?.RawDescription) && !FileOutputOptions.IsLocalizedText)
+                mountObject.Add("infoText", GetTooltip(mount.InfoText, FileOutputOptions.DescriptionType));
 
             return new JProperty(mount.Id, mountObject);
         }

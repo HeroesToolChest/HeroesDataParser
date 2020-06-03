@@ -41,12 +41,12 @@ namespace HeroesData.ExtractorData
 
             if (mount.MountCategory == "Unique")
             {
-                if (string.IsNullOrEmpty(mount.Description?.RawDescription))
-                    AddWarning($"{nameof(mount.Description)} is empty");
-                else if (mount.Description.RawDescription == GameStringParser.FailedParsed)
-                    AddWarning($"{nameof(mount.Description)} failed to parse correctly");
-                else if (mount.Description.HasErrorTag)
-                    AddWarning($"{nameof(mount.Description)} contains an error tag");
+                if (string.IsNullOrEmpty(mount.InfoText?.RawDescription))
+                    AddWarning($"{nameof(mount.InfoText)} is empty");
+                else if (mount.InfoText.RawDescription == GameStringParser.FailedParsed)
+                    AddWarning($"{nameof(mount.InfoText)} failed to parse correctly");
+                else if (mount.InfoText.HasErrorTag)
+                    AddWarning($"{nameof(mount.InfoText)} contains an error tag");
             }
 
             if (!mount.ReleaseDate.HasValue)

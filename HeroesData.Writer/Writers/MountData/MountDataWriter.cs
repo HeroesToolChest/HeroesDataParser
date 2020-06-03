@@ -16,8 +16,8 @@ namespace HeroesData.FileWriter.Writers.MountData
             GameStringWriter.AddMountName(mount.Id, mount.Name);
             GameStringWriter.AddMountSortName(mount.Id, mount.SortName);
 
-            if (mount.Description != null)
-                GameStringWriter.AddMountInfo(mount.Id, GetTooltip(mount.Description, FileOutputOptions.DescriptionType));
+            if (mount.InfoText != null)
+                GameStringWriter.AddMountInfoText(mount.Id, GetTooltip(mount.InfoText, FileOutputOptions.DescriptionType));
 
             GameStringWriter.AddMountSearchText(mount.Id, mount.SearchText);
         }

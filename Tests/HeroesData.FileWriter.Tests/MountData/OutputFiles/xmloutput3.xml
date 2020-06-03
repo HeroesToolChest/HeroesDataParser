@@ -3,11 +3,11 @@
   <CloudNine name="Cloud Nine" hyperlinkId="CloudNine" attributeId="CN9" rarity="Rare" type="Ride" category="Magical" event="WhimsyDale" releaseDate="2016-05-21">
     <SortName>99CloudeNine</SortName>
     <SearchText>Blue</SearchText>
-    <Description>A floating cloud</Description>
+    <InfoText>A floating cloud</InfoText>
   </CloudNine>
   <MagixCarpet name="Magic Carpet" hyperlinkId="MagicCarpet" attributeId="MC4" rarity="Epic" type="Ride" category="Magical" releaseDate="2018-04-01">
     <SortName>xxMagixCarpet</SortName>
     <SearchText>Blue</SearchText>
-    <Description>A flying magic carpet</Description>
+    <InfoText>A flying magic carpet</InfoText>
   </MagixCarpet>
 </Mounts>
