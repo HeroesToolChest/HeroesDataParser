@@ -83,7 +83,7 @@ namespace HeroesData.Parser
             {
                 string elementName = element.Name.LocalName.ToUpperInvariant();
 
-                if (elementName == "INFOTEXT")
+                if (elementName == "DESCRIPTION")
                 {
                     if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
                         announcer.Description = new TooltipDescription(text);
