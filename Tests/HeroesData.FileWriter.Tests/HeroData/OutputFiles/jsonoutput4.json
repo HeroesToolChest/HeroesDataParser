@@ -15,6 +15,7 @@
     "rarity": "Legendary",
     "searchText": "Alarak highlord protoss",
     "description": "A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/>20 Spell Armor",
+    "infoText": "infotext description",
     "descriptors": [
       "EnergyImportant",
       "Overconfident",

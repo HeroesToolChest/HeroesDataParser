@@ -48,6 +48,9 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (unit.Description != null)
                 GameStringWriter.AddUnitDescription(unit.Id, GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
 
+            if (unit.InfoText != null)
+                GameStringWriter.AddUnitInfoText(unit.Id, GetTooltip(unit.InfoText, FileOutputOptions.DescriptionType));
+
             GameStringWriter.AddUnitLifeType(unit.Id, unit.Life.LifeType);
             GameStringWriter.AddUnitEnergyType(unit.Id, unit.Energy.EnergyType);
             GameStringWriter.AddUnitShieldType(unit.Id, unit.Shield.ShieldType);
@@ -61,6 +64,9 @@ namespace HeroesData.FileWriter.Writers.HeroData
 
             if (hero.Description != null)
                 GameStringWriter.AddUnitDescription(hero.Id, GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
+
+            if (hero.InfoText != null)
+                GameStringWriter.AddUnitInfoText(hero.Id, GetTooltip(hero.InfoText, FileOutputOptions.DescriptionType));
 
             GameStringWriter.AddUnitLifeType(hero.Id, hero.Life.LifeType);
             GameStringWriter.AddUnitEnergyType(hero.Id, hero.Energy.EnergyType);

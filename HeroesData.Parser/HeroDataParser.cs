@@ -84,6 +84,7 @@ namespace HeroesData.Parser
             {
                 Name = GameData.GetGameString(DefaultData.HeroData?.HeroName?.Replace(DefaultData.IdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase)),
                 Description = new TooltipDescription(GameData.GetGameString(DefaultData.HeroData?.HeroDescription?.Replace(DefaultData.IdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase)), Localization),
+                InfoText = new TooltipDescription(GameData.GetGameString(DefaultData.HeroData?.HeroInfoText?.Replace(DefaultData.IdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase)), Localization),
                 CHeroId = heroId,
                 Id = heroId,
             };
@@ -309,7 +310,6 @@ namespace HeroesData.Parser
                 hero.HeroPortrait.PartyFrameFileName.Add(Path.GetFileName(PathHelper.GetFilePath(DefaultData.HeroData.HeroPartyFrameImage!.Replace(DefaultData.IdPlaceHolder, hero.CHeroId, StringComparison.OrdinalIgnoreCase))).ToLowerInvariant());
                 hero.HeroPortrait.DraftScreenFileName = Path.GetFileName(PathHelper.GetFilePath(DefaultData.HeroData.HeroDraftScreenImage!.Replace(DefaultData.IdPlaceHolder, hero.CHeroId, StringComparison.OrdinalIgnoreCase))).ToLowerInvariant();
 
-                hero.InfoText = GameData.GetGameString(DefaultData.HeroData.HeroInfoText!.Replace(DefaultData.IdPlaceHolder, hero.CHeroId, StringComparison.OrdinalIgnoreCase));
                 hero.Title = GameData.GetGameString(DefaultData.HeroData.HeroTitle!.Replace(DefaultData.IdPlaceHolder, hero.CHeroId, StringComparison.OrdinalIgnoreCase));
 
                 hero.SearchText = GameData.GetGameString(DefaultData.HeroData.HeroAlternateNameSearchText?.Replace(DefaultData.IdPlaceHolder, hero.CHeroId, StringComparison.OrdinalIgnoreCase));

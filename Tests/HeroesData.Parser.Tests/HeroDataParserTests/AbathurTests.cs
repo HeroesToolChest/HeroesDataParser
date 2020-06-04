@@ -17,7 +17,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual(HeroFranchise.Starcraft, HeroAbathur.Franchise);
             Assert.AreEqual(UnitGender.Neutral, HeroAbathur.Gender);
             Assert.AreEqual("storm_ui_ingame_heroselect_btn_infestor.dds", HeroAbathur.HeroPortrait.HeroSelectPortraitFileName);
-            Assert.AreEqual("Abathur, the Evolution Master of Kerrigan's Swarm, works ceaselessly to improve the zerg from the genetic level up. His hate for chaos and imperfection almost rivals his hatred of pronouns.", HeroAbathur.InfoText);
+            Assert.AreEqual("Abathur, the Evolution Master of Kerrigan's Swarm, works ceaselessly to improve the zerg from the genetic level up. His hate for chaos and imperfection almost rivals his hatred of pronouns.", HeroAbathur.InfoText!.RawDescription);
             Assert.AreEqual("Evolution Master", HeroAbathur.Title);
             Assert.AreEqual("Abathur Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug", HeroAbathur.SearchText);
         }

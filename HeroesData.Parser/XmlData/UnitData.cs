@@ -252,6 +252,10 @@ namespace HeroesData.Parser.XmlData
                 {
                     unit.Description = new TooltipDescription(_gameData.GetGameString(element.Attribute("value").Value));
                 }
+                else if (elementName == "INFOTEXT")
+                {
+                    unit.InfoText = new TooltipDescription(_gameData.GetGameString(element.Attribute("value").Value));
+                }
                 else if (elementName == "GENDER")
                 {
                     if (Enum.TryParse(element.Attribute("value").Value, out UnitGender unitGender))

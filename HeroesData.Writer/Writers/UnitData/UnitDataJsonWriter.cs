@@ -43,6 +43,8 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 unitObject.Add(new JProperty("scalingLinkId", unit.ScalingBehaviorLink));
             if (!string.IsNullOrEmpty(unit.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 unitObject.Add("description", GetTooltip(unit.Description, FileOutputOptions.DescriptionType));
+            if (!string.IsNullOrEmpty(unit.InfoText?.RawDescription) && !FileOutputOptions.IsLocalizedText)
+                unitObject.Add("infoText", GetTooltip(unit.InfoText, FileOutputOptions.DescriptionType));
             if (unit.HeroDescriptors.Count > 0)
                 unitObject.Add(new JProperty("descriptors", unit.HeroDescriptors.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
             if (unit.Attributes.Count > 0)

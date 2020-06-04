@@ -88,6 +88,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 Type = "Melee",
                 Rarity = Rarity.Legendary,
                 Description = new TooltipDescription("A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/><img path=\"@UI / StormTalentInTextArmorIcon\" alignment=\"uppermiddle\" color=\"e12bfc\" width=\"20\" height=\"22\"/><c val=\"#TooltipNumbers\">20 Spell Armor</c>"),
+                InfoText = new TooltipDescription("infotext description"),
                 SearchText = "Alarak highlord protoss",
                 HeroPortrait = new HeroPortrait()
                 {

@@ -93,6 +93,14 @@ namespace HeroesData.FileWriter.Writers
             GameStrings[$"unit/description/{key}"] = value;
         }
 
+        public void AddUnitInfoText(string key, string? value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"unit/infotext/{key}"] = value;
+        }
+
         public void AddUnitDamageType(string key, string? value)
         {
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
@@ -221,12 +229,12 @@ namespace HeroesData.FileWriter.Writers
             GameStrings[$"heroskin/sortname/{key}"] = value;
         }
 
-        public void AddHeroSkinInfo(string key, string? value)
+        public void AddHeroSkinInfoText(string key, string? value)
         {
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
-            GameStrings[$"heroskin/description/{key}"] = value;
+            GameStrings[$"heroskin/infotext/{key}"] = value;
         }
 
         public void AddHeroSkinSearchText(string key, string? value)
@@ -253,12 +261,12 @@ namespace HeroesData.FileWriter.Writers
             GameStrings[$"mount/sortname/{key}"] = value;
         }
 
-        public void AddMountInfo(string key, string? value)
+        public void AddMountInfoText(string key, string? value)
         {
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                 return;
 
-            GameStrings[$"mount/info/{key}"] = value;
+            GameStrings[$"mount/infotext/{key}"] = value;
         }
 
         public void AddMountSearchText(string key, string? value)
@@ -451,6 +459,14 @@ namespace HeroesData.FileWriter.Writers
                 return;
 
             GameStrings[$"emoticon/description/{key}"] = value;
+        }
+
+        public void AddEmoticonDescriptionLocked(string key, string? value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"emoticon/descriptionlocked/{key}"] = value;
         }
 
         public void AddEmoticonPackName(string key, string? value)

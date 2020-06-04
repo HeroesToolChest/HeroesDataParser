@@ -3,6 +3,7 @@
   <Alarak name="Alarak" unitId="Alar" hyperlinkId="AlarakId" difficulty="Hard" franchise="Starcraft" gender="Male" title="Highlord" radius="0.875" releaseDate="2016-09-13" sight="12" speed="4.3984" type="Melee" rarity="Legendary">
     <SearchText>Alarak highlord protoss</SearchText>
     <Description>A Tank who specializes against Mages thanks in part to his innate Spell Armor.  20 Spell Armor</Description>
+    <InfoText>infotext description</InfoText>
     <Descriptors>
       <Descriptor>EnergyImportant</Descriptor>
       <Descriptor>Overconfident</Descriptor>

@@ -60,6 +60,8 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 heroObject.Add("searchText", hero.SearchText);
             if (!string.IsNullOrEmpty(hero.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add("description", GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
+            if (!string.IsNullOrEmpty(hero.InfoText?.RawDescription) && !FileOutputOptions.IsLocalizedText)
+                heroObject.Add("infoText", GetTooltip(hero.InfoText, FileOutputOptions.DescriptionType));
             if (hero.HeroDescriptors.Count > 0)
                 heroObject.Add(new JProperty("descriptors", hero.HeroDescriptors.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
             if (hero.UnitIds.Count > 0)

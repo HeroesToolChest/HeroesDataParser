@@ -47,6 +47,7 @@ unit/difficulty/Alexstrasza=Medium
 unit/energytype/Alarak=Mana
 unit/energytype/Alexstrasza=Mana
 unit/expandedrole/Alarak=Melee Assassin
+unit/infotext/Alarak=infotext description
 unit/lifetype/Alarak=Life
 unit/name/Alarak=Alarak
 unit/name/Alexstrasza=Alexstrasza

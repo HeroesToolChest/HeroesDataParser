@@ -43,6 +43,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 new XAttribute("rarity", hero.Rarity),
                 string.IsNullOrEmpty(hero.SearchText) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", hero.SearchText),
                 string.IsNullOrEmpty(hero.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(hero.Description, FileOutputOptions.DescriptionType)),
+                string.IsNullOrEmpty(hero.InfoText?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("InfoText", GetTooltip(hero.InfoText, FileOutputOptions.DescriptionType)),
                 hero.HeroDescriptors.Count > 0 ? new XElement("Descriptors", hero.HeroDescriptors.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(d => new XElement("Descriptor", d))) : null,
                 hero.UnitIds.Count > 0 ? new XElement("Units", hero.UnitIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(x => new XElement("Unit", x))) : null,
                 HeroPortraits(hero),
