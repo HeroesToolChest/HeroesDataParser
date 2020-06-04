@@ -123,19 +123,19 @@ namespace HeroesData.Parser.XmlData
                     string index = element.Attribute("index").Value;
 
                     if (index == "ShowName")
-                        ButtonTooltipFlagShowName = element.Attribute("value").Value == "1" ? true : false;
+                        ButtonTooltipFlagShowName = element.Attribute("value").Value == "1";
                     else if (index == "ShowHotkey")
-                        ButtonTooltipFlagShowHotkey = element.Attribute("value").Value == "1" ? true : false;
+                        ButtonTooltipFlagShowHotkey = element.Attribute("value").Value == "1";
                     else if (index == "ShowUsage")
-                        ButtonTooltipFlagShowUsage = element.Attribute("value").Value == "1" ? true : false;
+                        ButtonTooltipFlagShowUsage = element.Attribute("value").Value == "1";
                     else if (index == "ShowTime")
-                        ButtonTooltipFlagShowTime = element.Attribute("value").Value == "1" ? true : false;
+                        ButtonTooltipFlagShowTime = element.Attribute("value").Value == "1";
                     else if (index == "ShowCooldown")
-                        ButtonTooltipFlagShowCooldown = element.Attribute("value").Value == "1" ? true : false;
+                        ButtonTooltipFlagShowCooldown = element.Attribute("value").Value == "1";
                     else if (index == "ShowRequirements")
-                        ButtonTooltipFlagShowRequirements = element.Attribute("value").Value == "1" ? true : false;
+                        ButtonTooltipFlagShowRequirements = element.Attribute("value").Value == "1";
                     else if (index == "ShowAutocast")
-                        ButtonTooltipFlagShowAutocast = element.Attribute("value").Value == "1" ? true : false;
+                        ButtonTooltipFlagShowAutocast = element.Attribute("value").Value == "1";
                 }
                 else if (elementName == "SIMPLEDISPLAYTEXT")
                 {

@@ -419,7 +419,7 @@ namespace HeroesData.Parser.XmlData
                         abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(GameData.GetValueFromAttribute(countUseElement.Attribute("value").Value)!);
 
                     if (hideCountElement != null)
-                        abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(GameData.GetValueFromAttribute(hideCountElement.Attribute("value").Value)!) == 1 ? true : false;
+                        abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(GameData.GetValueFromAttribute(hideCountElement.Attribute("value").Value)!) == 1;
 
                     if (timeUseElement != null)
                     {
@@ -462,7 +462,7 @@ namespace HeroesData.Parser.XmlData
                         abilityTalentBase.Tooltip.Charges.CountUse = int.Parse(GameData.GetValueFromAttribute(countUseAttribute.Value)!);
 
                     if (hideCountAttribute != null)
-                        abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(GameData.GetValueFromAttribute(hideCountAttribute.Value)!) == 1 ? true : false;
+                        abilityTalentBase.Tooltip.Charges.IsHideCount = int.Parse(GameData.GetValueFromAttribute(hideCountAttribute.Value)!) == 1;
 
                     if (timeUseAttribute != null)
                     {
