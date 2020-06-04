@@ -24,7 +24,7 @@ Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some m
 ### Other Helpful Repos
 - [Heroes Data](https://github.com/HeroesToolChest/heroes-data) contains already extracted data files in localized form
 - [Heroes Images](https://github.com/HeroesToolChest/heroes-images) complements Heroes Data by providing the extracted image files
-- [Heroes Icons](https://github.com/HeroesToolChest/Heroes.Icons) is a dotnet core library that reads the extracted json files
+- [Heroes Icons](https://github.com/HeroesToolChest/Heroes.Icons) is a dotnet core library that parses the extracted json files
 
 ### Third Party Repos
 - [heroes-talents](https://github.com/heroespatchnotes/heroes-talents) provides curated json data and image files
@@ -38,7 +38,7 @@ Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some m
 ***
 
 ### Dotnet Global Tool (Recommended)
-Download and install the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download) or newer. 
+Download and install the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download). 
 
 Once installed, run the following command:
 ```
@@ -54,14 +54,14 @@ dotnet tool update --global HeroesDataParser
 
 ### Zip File Download - Framework-Dependent Deployment
 
-Download and install the [.NET Core 3.1 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
+Download and install the [.NET Core 3.1 Runtime or SDK](https://dotnet.microsoft.com/download). 
 
 Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page.
 
 ***
 
 ### Zip File Download - Framework-Dependent Executable
-Download and install the [.NET Core 3.1 Runtime or SDK](https://dotnet.microsoft.com/download) or newer. 
+Download and install the [.NET Core 3.1 Runtime or SDK](https://dotnet.microsoft.com/download). 
 
 Download and extract the latest `HeroesDataParser.*-fde-<OS>-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
@@ -337,18 +337,20 @@ The format of the strings in the text file are the following:
 - `banner/name/[Id]=[value]`
 - `banner/description/[Id]=[value]`
 - `banner/sortname/[Id]=[value]`
-- `emoticon/alias/[Id]=[value]`
+- `emoticon/aliases/[Id]=[value]`
 - `emoticon/description/[Id]=[value]`
-- `emoticon/name/[Id]=[value]`
+- `emoticon/expression/[Id]=[value]`
+- `emoticon/localizedaliases/[Id]=[value]`
 - `emoticon/searchtext/[Id]=[value]`
 - `emoticonpack/description/[Id]=[value]`
+- `emoticonpack/descriptionlocked/[Id]=[value]`
 - `emoticonpack/name/[Id]=[value]`
 - `emoticonpack/sortname/[Id]=[value]`
-- `heroskin/info/[Id]=[value]`
+- `heroskin/infotext/[Id]=[value]`
 - `heroskin/name/[Id]=[value]`
 - `heroskin/searchtext/[Id]=[value]`
 - `heroskin/sortname/[Id]=[value]`
-- `mount/info/[Id]=[value]`
+- `mount/infotext/[Id]=[value]`
 - `mount/name/[Id]=[value]`
 - `mount/searchtext/[Id]=[value]`
 - `mount/sortname/[Id]=[value]`
@@ -363,6 +365,7 @@ The format of the strings in the text file are the following:
 - `spray/sortname/[Id]=[value]`
 - `unit/damagetype/[Id]=[value]`
 - `unit/description/[Id]=[value]`
+- `unit/infotext/[Id]=[value]`
 - `unit/difficulty/[Id]=[value]`
 - `unit/energytype/[Id]=[value]`
 - `unit/expandedrole/[Id]=[value]`
