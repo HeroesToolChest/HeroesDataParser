@@ -19,7 +19,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             Assert.AreEqual("Monster", AlteracpassAllianceCavalry.DamageType);
             Assert.IsNull(AlteracpassAllianceCavalry.Description?.RawDescription);
             Assert.AreEqual(0, AlteracpassAllianceCavalry.HeroDescriptors.Count);
-            Assert.AreEqual("AllianceCavalry", AlteracpassAllianceCavalry.HyperlinkId);
+            Assert.AreEqual("alteracpass-AllianceCavalry", AlteracpassAllianceCavalry.HyperlinkId);
             Assert.AreEqual("alteracpass-AllianceCavalry", AlteracpassAllianceCavalry.Id);
             Assert.AreEqual(0, AlteracpassAllianceCavalry.InnerRadius);
             Assert.AreEqual("Alliance Cavalry", AlteracpassAllianceCavalry.Name);
