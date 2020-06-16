@@ -19,13 +19,13 @@ namespace HeroesData.Loader.XmlGameData
         private readonly Dictionary<string, string> _stormStyleHexColorValueByName = new Dictionary<string, string>();
 
         private Dictionary<(string Catalog, string Entry, string Field), double> _scaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
-        private Dictionary<string, string> _gameStringById = new Dictionary<string, string>();
+        private Dictionary<string, string> _gameStringById = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private Dictionary<string, List<XElement>> _xmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>();
         private Dictionary<string, List<XElement>> _layoutButtonElements = new Dictionary<string, List<XElement>>();
 
         // temp variables used for map game data swapping
         private Dictionary<(string Catalog, string Entry, string Field), double>? _originalScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
-        private Dictionary<string, string>? _originalGameStringById = new Dictionary<string, string>();
+        private Dictionary<string, string>? _originalGameStringById = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private Dictionary<string, List<XElement>>? _originalXmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>();
         private Dictionary<string, List<XElement>>? _originalLayoutButtonElements = new Dictionary<string, List<XElement>>();
 
@@ -249,7 +249,7 @@ namespace HeroesData.Loader.XmlGameData
             IsMapGameData = true;
 
             // make a temp copy so we can restore later
-            _originalGameStringById = new Dictionary<string, string>(_gameStringById);
+            _originalGameStringById = new Dictionary<string, string>(_gameStringById, StringComparer.OrdinalIgnoreCase);
             _originalScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>(_scaleValueByLookupId);
             _originalXmlGameDataElementsByElementName = _xmlGameDataElementsByElementName.ToDictionary(x => x.Key, x => x.Value.ToList());
             _originalLayoutButtonElements = _layoutButtonElements.ToDictionary(x => x.Key, x => x.Value.ToList());
