@@ -626,6 +626,18 @@
       </Override>
     </Ability> 
   </CHero>
+  <CHero id="MeiOW">
+    <Ability id="MeiOWIcingCancel" abilityType="E">
+      <Override>
+        <ParentLink value="MeiOWIcing|MeiOWIcing|E" />
+      </Override>
+    </Ability>
+    <Ability id="MeiOWCryoFreezeCancel" abilityType="Trait">
+      <Override>
+        <ParentLink value="MeiOWCryoFreeze|MeiOWCryoFreeze|Trait" />
+      </Override>
+    </Ability>
+  </CHero>
   <CHero id="Monk">
     <Ability id="MonkDeadlyReachActive" abilityType="E" passive="true">
       <Override>
