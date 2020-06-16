@@ -36,7 +36,7 @@ jobs:
         includeNuGetOrg: true
       displayName: 'Restore'
       
-    - script: dotnet build -c $(configuration)    
+    - script: dotnet build -c $(configuration) --no-restore  
       displayName: Build
  
     - script: dotnet test -c $(configuration) --no-build --logger trx --collect "Code coverage"
