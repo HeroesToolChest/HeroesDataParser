@@ -539,7 +539,7 @@ namespace HeroesData.Parser.GameStrings
                                 currentElement = indexElements[j];
                                 break;
                             }
-                            else if (index == null && int.TryParse(elementIndexParts[1], out arrayIndex)) // numerical array index
+                            else if (int.TryParse(elementIndexParts[1], out arrayIndex)) // numerical array index
                             {
                                 string lastPart = parts.Last();
 
