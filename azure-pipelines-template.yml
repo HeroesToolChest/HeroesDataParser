@@ -29,6 +29,12 @@ jobs:
         $new = $matches['content'] -replace ".*;"
         $cascexplorer.replace($framework, "<TargetFrameworks>$new</TargetFrameworks>") | out-file CASCExplorer\CascLib\CascLib\CascLib.csproj
       displayName: Target Framework
+     
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'restore'
+        includeNuGetOrg: true
+      displayName: 'Restore'
       
     - script: dotnet build -c $(configuration)    
       displayName: Build
