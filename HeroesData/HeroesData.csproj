@@ -26,7 +26,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
     <PackageReference Include="Pfim" Version="0.9.1" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-rc0001" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-rc0003" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
