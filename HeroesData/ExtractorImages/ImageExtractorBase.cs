@@ -117,8 +117,9 @@ namespace HeroesData.ExtractorImage
         /// <param name="maxSize">The maximum size from the base image. Not the base image size.</param>
         /// <param name="frames">The amount of frames the animated image has.</param>
         /// <param name="frameDelay">The amount of delay for each frame.</param>
+        /// <param name="rows">The number of rows in the base image.</param>
         /// <returns></returns>
-        protected bool ExtractAnimatedImageFile(string filePath, Size size, Size maxSize, int frames, int frameDelay)
+        protected bool ExtractAnimatedImageFile(string filePath, Size size, Size maxSize, int frames, int frameDelay, int? rows)
         {
             string fileName = Path.GetFileName(filePath);
 
@@ -131,6 +132,12 @@ namespace HeroesData.ExtractorImage
                     using DDSImage image = new DDSImage(stream);
 
                     PathHelper.FileNameToLower(filePath.AsMemory());
+
+                    if (rows.HasValue)
+                    {
+                        maxSize.Height = image.Height / rows.Value;
+                        size.Height = maxSize.Height;
+                    }
 
                     image.SaveAsGif(Path.ChangeExtension(filePath, "gif"), size, maxSize, frames, frameDelay);
 

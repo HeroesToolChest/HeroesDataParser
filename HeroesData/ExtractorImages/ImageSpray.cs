@@ -54,7 +54,7 @@ namespace HeroesData.ExtractorImage
 
                 if (success && spray.AnimationCount > 0)
                 {
-                    success = ExtractAnimatedImageFile(filePath, new Size(_imageMaxWidth, _imageMaxHeight), new Size(_imageMaxWidth, _imageMaxHeight), spray.AnimationCount, spray.AnimationDuration / 2);
+                    success = ExtractAnimatedImageFile(filePath, new Size(_imageMaxWidth, _imageMaxHeight), new Size(_imageMaxWidth, _imageMaxHeight), spray.AnimationCount, spray.AnimationDuration / 2, spray.TextureSheet.Rows);
                 }
 
                 if (success)
