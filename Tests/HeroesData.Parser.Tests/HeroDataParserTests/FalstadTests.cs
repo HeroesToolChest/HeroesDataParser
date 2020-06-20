@@ -48,7 +48,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual("2014-03-13", HeroFalstad.ReleaseDate.Value.ToString("yyyy-MM-dd"));
             Assert.AreEqual(12.0, HeroFalstad.Sight);
             Assert.AreEqual(4.3984, HeroFalstad.Speed);
-            Assert.AreEqual("Ranged", HeroFalstad.Type);
+            Assert.AreEqual("Ranged", HeroFalstad.Type.RawDescription);
             Assert.AreEqual(Rarity.Epic, HeroFalstad.Rarity);
             Assert.AreEqual("An Assassin that can fly large distances, excelling on large battlegrounds.", HeroFalstad.Description.RawDescription);
         }

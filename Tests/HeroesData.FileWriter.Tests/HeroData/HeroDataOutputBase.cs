@@ -85,7 +85,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 ReleaseDate = new DateTime(2016, 9, 13),
                 Sight = 12,
                 Speed = 4.3984,
-                Type = "Melee",
+                Type = new TooltipDescription("Melee"),
                 Rarity = Rarity.Legendary,
                 Description = new TooltipDescription("A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/><img path=\"@UI / StormTalentInTextArmorIcon\" alignment=\"uppermiddle\" color=\"e12bfc\" width=\"20\" height=\"22\"/><c val=\"#TooltipNumbers\">20 Spell Armor</c>"),
                 InfoText = new TooltipDescription("infotext description"),
@@ -391,7 +391,7 @@ namespace HeroesData.FileWriter.Tests.HeroData
                 ReleaseDate = new DateTime(2017, 11, 14),
                 Sight = 12,
                 Speed = 4.3984,
-                Type = "Ranged",
+                Type = new TooltipDescription("Ranged"),
                 Rarity = Rarity.Legendary,
                 Description = new TooltipDescription("A Healer who shares her Health with allies and can transform into a Dragon to empower her Abilities."),
                 Life = new UnitLife

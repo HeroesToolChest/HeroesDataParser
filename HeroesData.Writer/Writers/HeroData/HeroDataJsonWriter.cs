@@ -51,8 +51,8 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 heroObject.Add("sight", hero.Sight);
             if (hero.Speed > 0)
                 heroObject.Add("speed", hero.Speed);
-            if (!string.IsNullOrEmpty(hero.Type) && !FileOutputOptions.IsLocalizedText)
-                heroObject.Add("type", hero.Type);
+            if (!string.IsNullOrEmpty(hero.Type?.RawDescription) && !FileOutputOptions.IsLocalizedText)
+                heroObject.Add("type", GetTooltip(hero.Type, FileOutputOptions.DescriptionType));
             heroObject.Add("rarity", hero.Rarity.ToString());
             if (!string.IsNullOrEmpty(hero.ScalingBehaviorLink))
                 heroObject.Add(new JProperty("scalingLinkId", hero.ScalingBehaviorLink));

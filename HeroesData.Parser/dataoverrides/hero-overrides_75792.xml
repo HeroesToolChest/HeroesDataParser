@@ -716,14 +716,6 @@
       </Override>
     </Ability>
   </CHero>
-  <CHero id="Rehgar">
-    <Ability id="RehgarTotemicProjection" abilityType="E">
-      <Override>
-        <!-- Move it to the talent -->
-        <ParentLink value="RehgarEarthbindTotemColossalTotem|RehgarEarthbindTotemColossalTotem" />
-      </Override>
-    </Ability>
-  </CHero>
   <CHero id="Rexxar">
     <Portrait>
       <Override>
@@ -747,25 +739,6 @@
     <Ability id="SamuroBladestormCancel,SamuroCancelBladestorm" abilityType="Heroic">
       <Override>
         <ParentLink value="SamuroBladeStormDummy|SamuroBladestorm|Heroic" />
-      </Override>
-    </Ability>
-  </CHero>
-  <CHero id="SgtHammer">
-    <!--Point to trait-->
-    <Ability id="SgtHammerSpiderMinesSiegeMode,SgtHammerSpiderMines" abilityType="Q">
-      <Override>
-        <ParentLink value="SgtHammerSiegeMode|SgtHammerSiegeMode|Trait" />
-      </Override>
-    </Ability>
-    <!--Point to trait-->
-    <Ability id="SgtHammerNapalmStrikeSiege,SgtHammerNapalmStrike" abilityType="Heroic">
-      <Override>
-        <ParentLink value="SgtHammerSiegeMode|SgtHammerSiegeMode|Trait" />
-      </Override>
-    </Ability>
-    <Ability id="ConcussiveBlastScrapCancel,SgtHammerConcussiveBlastBarricadeCancel" abilityType="W">
-      <Override>
-        <ParentLink value="SgtHammerConcussiveBlastEntrenched|SgtHammerConcussiveBlastEntrenchedTalent" />
       </Override>
     </Ability>
   </CHero>

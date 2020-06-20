@@ -60,7 +60,9 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             GameStringWriter.AddUnitName(hero.Id, hero.Name);
             GameStringWriter.AddUnitDifficulty(hero.Id, hero.Difficulty);
-            GameStringWriter.AddUnitType(hero.Id, hero.Type);
+
+            if (hero.Type != null)
+                GameStringWriter.AddUnitType(hero.Id, GetTooltip(hero.Type, FileOutputOptions.DescriptionType));
 
             if (hero.Description != null)
                 GameStringWriter.AddUnitDescription(hero.Id, GetTooltip(hero.Description, FileOutputOptions.DescriptionType));

@@ -150,8 +150,10 @@ namespace HeroesData.ExtractorData
             if (!hero.ReleaseDate.HasValue)
                 AddWarning($"{nameof(hero.ReleaseDate)} is null");
 
-            if (string.IsNullOrEmpty(hero.Type))
-                AddWarning($"{nameof(hero.Type)} is null or emtpy");
+            if (string.IsNullOrEmpty(hero.Type?.RawDescription))
+                AddWarning($"{nameof(hero.Type)} is empty");
+            else if (hero.Type.HasErrorTag)
+                AddWarning($"{nameof(hero.Type.RawDescription)} contains an error tag");
 
             if (string.IsNullOrEmpty(hero.Title))
                 AddWarning($"{nameof(hero.Title)} is null or emtpy");

@@ -281,7 +281,7 @@ namespace HeroesData.Parser
 
         private void SetDefaultValues(Hero hero)
         {
-            hero.Type = GameData.GetGameString(DefaultData.StringRanged).Trim();
+            hero.Type = new TooltipDescription(GameData.GetGameString(DefaultData.StringRanged).Trim());
             hero.Radius = DefaultData.HeroData!.UnitRadius;
             hero.Speed = DefaultData.HeroData.UnitSpeed;
             hero.Sight = DefaultData.HeroData.UnitSight;
@@ -355,11 +355,11 @@ namespace HeroesData.Parser
                 else if (elementName == "MELEE")
                 {
                     if (element.Attribute("value").Value == "1")
-                        hero.Type = GameData.GetGameString(DefaultData.StringMelee).Trim();
+                        hero.Type = new TooltipDescription(GameData.GetGameString(DefaultData.StringMelee).Trim());
                     else if (element.Attribute("value").Value == "0")
-                        hero.Type = GameData.GetGameString(DefaultData.StringRanged).Trim();
+                        hero.Type = new TooltipDescription(GameData.GetGameString(DefaultData.StringRanged).Trim());
                     else
-                        hero.Type = GameData.GetGameString(DefaultData.StringRanged).Trim();
+                        hero.Type = new TooltipDescription(GameData.GetGameString(DefaultData.StringRanged).Trim());
                 }
                 else if (elementName == "DIFFICULTY")
                 {
