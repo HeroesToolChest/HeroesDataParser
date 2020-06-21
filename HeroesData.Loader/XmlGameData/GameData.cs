@@ -168,6 +168,7 @@ namespace HeroesData.Loader.XmlGameData
 
         protected bool LoadXmlFilesEnabled { get; private set; } = false;
         protected bool LoadTextFilesOnlyEnabled { get; private set; } = false;
+        protected bool LoadStormStyleEnabled { get; private set; } = false;
 
         /// <summary>
         /// Merges the elements in the collection into a single XElement.
@@ -302,12 +303,14 @@ namespace HeroesData.Loader.XmlGameData
         }
 
         /// <summary>
-        /// Load only the xml files.
+        /// Load only the xml and storm style files.
         /// </summary>
         public void LoadXmlFiles()
         {
             LoadXmlFilesEnabled = true;
             LoadTextFilesOnlyEnabled = false;
+            LoadStormStyleEnabled = true;
+
             Load();
         }
 
@@ -320,6 +323,8 @@ namespace HeroesData.Loader.XmlGameData
 
             LoadTextFilesOnlyEnabled = true;
             LoadXmlFilesEnabled = false;
+            LoadStormStyleEnabled = false;
+
             Load();
         }
 
@@ -330,6 +335,8 @@ namespace HeroesData.Loader.XmlGameData
         {
             LoadXmlFilesEnabled = true;
             LoadTextFilesOnlyEnabled = true;
+            LoadStormStyleEnabled = true;
+
             Load();
         }
 
@@ -803,7 +810,8 @@ namespace HeroesData.Loader.XmlGameData
                 }
             }
 
-            SetFontStyles();
+            if (LoadStormStyleEnabled)
+                SetFontStyles();
         }
 
         private void LoadFiles()

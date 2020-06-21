@@ -84,7 +84,8 @@ namespace HeroesData.Loader.XmlGameData
             }
 
             string fontStylesFilePath = Path.Combine(CoreBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile);
-            LoadStormStyleFile(_cascHandlerData.OpenFile(fontStylesFilePath));
+            if (LoadStormStyleEnabled)
+                LoadStormStyleFile(_cascHandlerData.OpenFile(fontStylesFilePath));
 
             if (IsCacheEnabled)
                 AddStormStyleCachedFilePath(fontStylesFilePath);
@@ -151,7 +152,8 @@ namespace HeroesData.Loader.XmlGameData
                             string heroModsFontStylesFilePath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, UIDirectoryStringName, FontStyleFile);
                             if (_cascHandlerData.FileExists(heroModsFontStylesFilePath))
                             {
-                                LoadStormStyleFile(_cascHandlerData.OpenFile(heroModsFontStylesFilePath));
+                                if (LoadStormStyleEnabled)
+                                    LoadStormStyleFile(_cascHandlerData.OpenFile(heroModsFontStylesFilePath));
 
                                 if (IsCacheEnabled)
                                     AddStormStyleCachedFilePath(heroModsFontStylesFilePath);
@@ -170,7 +172,8 @@ namespace HeroesData.Loader.XmlGameData
             }
 
             string fontStylesFilePath = Path.Combine(HeroesDataBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile);
-            LoadStormStyleFile(_cascHandlerData.OpenFile(fontStylesFilePath));
+            if (LoadStormStyleEnabled)
+                LoadStormStyleFile(_cascHandlerData.OpenFile(fontStylesFilePath));
 
             if (IsCacheEnabled)
                 AddStormStyleCachedFilePath(fontStylesFilePath);

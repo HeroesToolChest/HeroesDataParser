@@ -50,11 +50,10 @@ namespace HeroesData.Loader.XmlGameData
             }
 
             if (LoadTextFilesOnlyEnabled)
-            {
                 LoadTextFile(Path.Combine(CoreLocalizedDataPath, GameStringFile));
-            }
 
-            LoadStormStyleFile(Path.Combine(CoreBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile));
+            if (LoadStormStyleEnabled)
+                LoadStormStyleFile(Path.Combine(CoreBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile));
         }
 
         protected override void LoadHeroesDataStormMod()
@@ -94,7 +93,9 @@ namespace HeroesData.Loader.XmlGameData
                         string gameDataPath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, GameDataXmlFile);
 
                         LoadGameDataXmlContents(gameDataPath);
-                        LoadStormStyleFile(Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, UIDirectoryStringName, FontStyleFile));
+
+                        if (LoadStormStyleEnabled)
+                            LoadStormStyleFile(Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, UIDirectoryStringName, FontStyleFile));
 
                         if (LoadTextFilesOnlyEnabled)
                         {
@@ -112,7 +113,8 @@ namespace HeroesData.Loader.XmlGameData
                 }
             }
 
-            LoadStormStyleFile(Path.Combine(CoreBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile));
+            if (LoadStormStyleEnabled)
+                LoadStormStyleFile(Path.Combine(CoreBaseDataDirectoryPath, UIDirectoryStringName, FontStyleFile));
         }
 
         protected override void LoadHeroesMapMods()

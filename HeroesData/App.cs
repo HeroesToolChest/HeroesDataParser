@@ -89,9 +89,9 @@ namespace HeroesData
             if (!string.IsNullOrEmpty(ex.Message))
                 writer.Write(ex.Message);
 
-            if (ex is AggregateException)
+            if (ex is AggregateException aggregateException)
             {
-                foreach (Exception exception in ((AggregateException)ex).InnerExceptions)
+                foreach (Exception exception in aggregateException.InnerExceptions)
                 {
                     writer.Write(exception);
                 }
