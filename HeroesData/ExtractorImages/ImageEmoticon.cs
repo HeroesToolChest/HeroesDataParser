@@ -9,8 +9,6 @@ namespace HeroesData.ExtractorImage
 {
     public class ImageEmoticon : ImageExtractorBase<Emoticon>, IImage
     {
-        private readonly int _imageMaxHeight = 32;
-        private readonly int _imageMaxWidth = 40;
         private readonly HashSet<Emoticon> _emoticons = new HashSet<Emoticon>();
         private readonly string _emoticonDirectory = "emoticons";
 
@@ -46,10 +44,23 @@ namespace HeroesData.ExtractorImage
 
             foreach (Emoticon emoticon in _emoticons)
             {
+                string filePath = Path.Combine(extractFilePath, emoticon.TextureSheet.Image);
+                using DDSImage? originalTextureSheetImage = GetDDSImage(filePath);
+                if (originalTextureSheetImage == null)
+                    continue;
+
+                int imageHeight = originalTextureSheetImage.Height;
+                if (emoticon.TextureSheet.Rows != null)
+                    imageHeight = originalTextureSheetImage.Height / emoticon.TextureSheet.Rows.Value;
+
+                int imageWidth = originalTextureSheetImage.Width;
+                if (emoticon.TextureSheet.Columns != null)
+                    imageWidth = originalTextureSheetImage.Width / emoticon.TextureSheet.Columns.Value;
+
                 if (emoticon.Image.Count.HasValue && emoticon.Image.DurationPerFrame != null)
                 {
-                    if (ExtractAnimatedImageFile(Path.Combine(extractFilePath, emoticon.TextureSheet.Image), new Size(emoticon.Image.Width, _imageMaxHeight), new Size(_imageMaxWidth, _imageMaxHeight), emoticon.Image.Count.Value, emoticon.Image.DurationPerFrame.Value, emoticon.TextureSheet.Rows) &&
-                        ExtractStaticImageFile(Path.Combine(extractFilePath, emoticon.TextureSheet.Image)))
+                    if (ExtractAnimatedImageFile(filePath, originalTextureSheetImage, new Size(emoticon.Image.Width, imageHeight), new Size(imageWidth, imageHeight), emoticon.Image.Count.Value, emoticon.Image.DurationPerFrame.Value) &&
+                        ExtractStaticImageFile(filePath, originalTextureSheetImage))
                     {
                         count++;
                     }
@@ -57,11 +68,11 @@ namespace HeroesData.ExtractorImage
                 else if (emoticon.TextureSheet.Columns.HasValue)
                 {
 #pragma warning disable SA1407 // Arithmetic expressions should declare precedence
-                    int xPos = emoticon.Image.Index % emoticon.TextureSheet.Columns.Value * _imageMaxWidth;
+                    int xPos = emoticon.Image.Index % emoticon.TextureSheet.Columns.Value * imageWidth;
 #pragma warning restore SA1407 // Arithmetic expressions should declare precedence
-                    int yPos = emoticon.Image.Index / emoticon.TextureSheet.Columns.Value * _imageMaxHeight;
+                    int yPos = emoticon.Image.Index / emoticon.TextureSheet.Columns.Value * imageHeight;
 
-                    if (ExtractStaticImageFile(Path.Combine(extractFilePath, emoticon.Image.FileName), emoticon.TextureSheet.Image, new Point(xPos, yPos), new Size(emoticon.Image.Width, _imageMaxHeight)))
+                    if (ExtractStaticImageFile(Path.Combine(extractFilePath, emoticon.Image.FileName), emoticon.TextureSheet.Image, new Point(xPos, yPos), new Size(emoticon.Image.Width, imageHeight)))
                         count++;
                 }
 

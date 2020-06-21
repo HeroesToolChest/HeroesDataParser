@@ -9,8 +9,6 @@ namespace HeroesData.ExtractorImage
 {
     public class ImageSpray : ImageExtractorBase<Spray>, IImage
     {
-        private readonly int _imageMaxHeight = 256;
-        private readonly int _imageMaxWidth = 256;
         private readonly HashSet<Spray> _sprays = new HashSet<Spray>();
         private readonly string _sprayDirectory = "sprays";
 
@@ -49,12 +47,24 @@ namespace HeroesData.ExtractorImage
                 bool success = false;
                 string filePath = Path.Combine(extractFilePath, spray.TextureSheet.Image);
 
-                if (ExtractStaticImageFile(filePath))
+                using DDSImage? originalTextureSheetImage = GetDDSImage(filePath);
+                if (originalTextureSheetImage == null)
+                    continue;
+
+                int imageHeight = originalTextureSheetImage.Height;
+                if (spray.TextureSheet.Rows != null)
+                    imageHeight = originalTextureSheetImage.Height / spray.TextureSheet.Rows.Value;
+
+                int imageWidth = originalTextureSheetImage.Width;
+                if (spray.AnimationCount > 0)
+                    imageWidth = originalTextureSheetImage.Width / spray.AnimationCount;
+
+                if (ExtractStaticImageFile(filePath, originalTextureSheetImage))
                     success = true;
 
                 if (success && spray.AnimationCount > 0)
                 {
-                    success = ExtractAnimatedImageFile(filePath, new Size(_imageMaxWidth, _imageMaxHeight), new Size(_imageMaxWidth, _imageMaxHeight), spray.AnimationCount, spray.AnimationDuration / 2, spray.TextureSheet.Rows);
+                    success = ExtractAnimatedImageFile(filePath, originalTextureSheetImage, new Size(imageWidth, imageHeight), new Size(imageWidth, imageHeight), spray.AnimationCount, spray.AnimationDuration / 2);
                 }
 
                 if (success)

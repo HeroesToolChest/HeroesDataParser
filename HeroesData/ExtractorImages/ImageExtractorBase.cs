@@ -78,6 +78,24 @@ namespace HeroesData.ExtractorImage
         }
 
         /// <summary>
+        /// Extracts a static image file.
+        /// </summary>
+        /// <param name="filePath">The file path the file will be saved to.</param>
+        /// <param name="image">The image in <see cref="DDSImage"/> format.</param>
+        /// <returns></returns>
+        protected bool ExtractStaticImageFile(string filePath, DDSImage image)
+        {
+            return ExtractImageFile(filePath, () =>
+            {
+                PathHelper.FileNameToLower(filePath.AsMemory());
+
+                image.Save(Path.ChangeExtension(filePath, "png"));
+
+                return true;
+            });
+        }
+
+        /// <summary>
         /// Extracts a static image file. Returns true if successful.
         /// </summary>
         /// <param name="filePath">The file path the file will be saved to.</param>
@@ -113,42 +131,39 @@ namespace HeroesData.ExtractorImage
         /// Extracts an animated image file. Returns true if successful.
         /// </summary>
         /// <param name="filePath">The file path the file will be saved to.</param>
+        /// <param name="image">The image in <see cref="DDSImage"/> format.</param>
         /// <param name="size">The size of the extracted image.</param>
         /// <param name="maxSize">The maximum size from the base image. Not the base image size.</param>
         /// <param name="frames">The amount of frames the animated image has.</param>
         /// <param name="frameDelay">The amount of delay for each frame.</param>
-        /// <param name="rows">The number of rows in the base image.</param>
         /// <returns></returns>
-        protected bool ExtractAnimatedImageFile(string filePath, Size size, Size maxSize, int frames, int frameDelay, int? rows)
+        protected bool ExtractAnimatedImageFile(string filePath, DDSImage image, Size size, Size maxSize, int frames, int frameDelay)
+        {
+            return ExtractImageFile(filePath, () =>
+            {
+                PathHelper.FileNameToLower(filePath.AsMemory());
+
+                image.SaveAsGif(Path.ChangeExtension(filePath, "gif"), size, maxSize, frames, frameDelay);
+
+                return true;
+            });
+        }
+
+        protected DDSImage? GetDDSImage(string filePath)
         {
             string fileName = Path.GetFileName(filePath);
 
-            return ExtractImageFile(filePath, () =>
+            string textureFilepath = Path.Combine(TexturesPath, fileName);
+            if (FileExists(textureFilepath))
             {
-                string textureFilepath = Path.Combine(TexturesPath, fileName);
-                if (FileExists(textureFilepath))
-                {
-                    using Stream stream = OpenFile(textureFilepath);
-                    using DDSImage image = new DDSImage(stream);
-
-                    PathHelper.FileNameToLower(filePath.AsMemory());
-
-                    if (rows.HasValue)
-                    {
-                        maxSize.Height = image.Height / rows.Value;
-                        size.Height = maxSize.Height;
-                    }
-
-                    image.SaveAsGif(Path.ChangeExtension(filePath, "gif"), size, maxSize, frames, frameDelay);
-
-                    return true;
-                }
-                else
-                {
-                    FailedFileMessages.Add($"File not found: {fileName}");
-                    return false;
-                }
-            });
+                using Stream stream = OpenFile(textureFilepath);
+                return new DDSImage(stream);
+            }
+            else
+            {
+                FailedFileMessages.Add($"File not found: {fileName}");
+                return null;
+            }
         }
 
         protected bool FileExists(string filePath)
