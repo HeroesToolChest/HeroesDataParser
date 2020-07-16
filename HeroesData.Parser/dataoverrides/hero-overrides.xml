@@ -309,6 +309,11 @@
     </Ability>
   </CHero>
   <CHero id="Gall">
+    <Ability id="GallDoubleBack,GallDoubleBackAbility" abilityType="W">
+      <Override>
+        <ParentLink value="GallDreadOrb|GallDreadOrb|W" />
+      </Override>
+    </Ability>
     <Ability id="GallTwistingNetherActivated" abilityType="Heroic">
       <Override>
         <ParentLink value="GallTwistingNether|GallTwistingNether|Heroic" />
