@@ -52,25 +52,25 @@ dotnet tool update --global HeroesDataParser
 
 ***
 
-### Zip File Download - Framework-Dependent Deployment
+### Zip File Download - Framework-Dependent Deployment (fdd)
 
 Download and install the [.NET Core 3.1 Runtime or SDK](https://dotnet.microsoft.com/download). 
 
-Download and extract the latest `HeroesDataParser.*-fdd-any.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page.
+Download and extract the latest `HeroesDataParser.*-fdd-any` zip file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page.
 
 ***
 
-### Zip File Download - Framework-Dependent Executable
+### Zip File Download - Framework-Dependent Executable (fde)
 Download and install the [.NET Core 3.1 Runtime or SDK](https://dotnet.microsoft.com/download). 
 
-Download and extract the latest `HeroesDataParser.*-fde-<OS>-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
+Download and extract the latest `HeroesDataParser.*-fde-<OS>-x64` zip file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
 ***
 
-### Zip File Download - Self-Contained Deployment
+### Zip File Download - Self-Contained Deployment (scd)
 No runtime or SDK is required.
 
-Download and extract the latest `HeroesDataParser.*-scd-<OS>-x64.zip` file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
+Download and extract the latest `HeroesDataParser.*-scd-<OS>-x64` zip file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
 This zip file contains everything that is needed to run the dotnet core app without .NET Core being installed, so the zip file is quite large.
 
