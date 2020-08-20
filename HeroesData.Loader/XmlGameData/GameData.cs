@@ -53,17 +53,17 @@ namespace HeroesData.Loader.XmlGameData
         /// <summary>
         /// Gets or sets the number of xml files that were added.
         /// </summary>
-        public int XmlFileCount { get; protected set; } = 0;
+        public int XmlFileCount { get; protected set; }
 
         /// <summary>
         /// Gets or sets the number of text files that were added.
         /// </summary>
-        public int TextFileCount { get; protected set; } = 0;
+        public int TextFileCount { get; protected set; }
 
         /// <summary>
         /// Gets or sets the number of storm style files that were added.
         /// </summary>
-        public int StormStyleCount { get; protected set; } = 0;
+        public int StormStyleCount { get; protected set; }
 
         /// <summary>
         /// Gets or sets a XDocument of the xml game data. Recommended to use <see cref="Elements(string)"/> for quicker access.
@@ -88,7 +88,7 @@ namespace HeroesData.Loader.XmlGameData
         /// <summary>
         /// Gets or sets a value indicating whether the cache is enabled.
         /// </summary>
-        public bool IsCacheEnabled { get; set; } = false;
+        public bool IsCacheEnabled { get; set; }
 
         /// <summary>
         /// Gets the cached xml file paths.
@@ -138,7 +138,7 @@ namespace HeroesData.Loader.XmlGameData
         /// <summary>
         /// Gets a value indicating whether the game data is map game data.
         /// </summary>
-        public bool IsMapGameData { get; private set; } = false;
+        public bool IsMapGameData { get; private set; }
 
         protected string ModsFolderPath { get; }
 
@@ -166,9 +166,9 @@ namespace HeroesData.Loader.XmlGameData
         protected string CoreLocalizedDataPath { get; set; } = string.Empty;
         protected string HeroesDataLocalizedDataPath { get; set; } = string.Empty;
 
-        protected bool LoadXmlFilesEnabled { get; private set; } = false;
-        protected bool LoadTextFilesOnlyEnabled { get; private set; } = false;
-        protected bool LoadStormStyleEnabled { get; private set; } = false;
+        protected bool LoadXmlFilesEnabled { get; private set; }
+        protected bool LoadTextFilesOnlyEnabled { get; private set; }
+        protected bool LoadStormStyleEnabled { get; private set; }
 
         /// <summary>
         /// Merges the elements in the collection into a single XElement.

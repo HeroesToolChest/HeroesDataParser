@@ -14,8 +14,8 @@ namespace HeroesData.Parser.XmlData
         {
         }
 
-        public bool IsAbilityTypeFilterEnabled { get; set; } = false;
-        public bool IsAbilityTierFilterEnabled { get; set; } = false;
+        public bool IsAbilityTypeFilterEnabled { get; set; }
+        public bool IsAbilityTierFilterEnabled { get; set; }
 
         /// <summary>
         /// Creates an ability from the layout button element.

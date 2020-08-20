@@ -19,12 +19,12 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets a value indicating whether the veterancy combines modifications.
         /// </summary>
-        public bool CombineNumericModifications { get; private set; } = false;
+        public bool CombineNumericModifications { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether gets the veterancy combines xp.
         /// </summary>
-        public bool CombineXP { get; private set; } = false;
+        public bool CombineXP { get; private set; }
 
         // <CBehaviorVeterancy default="1">
         private void LoadCBehaviorVeterancyDefault()

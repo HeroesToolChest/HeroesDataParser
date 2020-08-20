@@ -14,17 +14,17 @@ namespace HeroesData.FileWriter
         /// <summary>
         /// Gets or sets a value indicating whether the files should be split.
         /// </summary>
-        public bool IsFileSplit { get; set; } = false;
+        public bool IsFileSplit { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the localized text is removed from the XML and JSON files.
         /// </summary>
-        public bool IsLocalizedText { get; set; } = false;
+        public bool IsLocalizedText { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the files swhould be minified.
         /// </summary>
-        public bool IsMinifiedFiles { get; set; } = false;
+        public bool IsMinifiedFiles { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the data files to be written.

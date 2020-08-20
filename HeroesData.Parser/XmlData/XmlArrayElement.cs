@@ -10,7 +10,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the maximum index value of the array collection.
         /// </summary>
-        public int MaxIndex { get; private set; } = 0;
+        public int MaxIndex { get; private set; }
 
         /// <summary>
         /// Gets a collection of the elements from the array.

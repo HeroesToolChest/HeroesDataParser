@@ -23,7 +23,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets or sets a value indicating whether if the parsing is for hero units.
         /// </summary>
-        public bool IsHeroParsing { get; set; } = false;
+        public bool IsHeroParsing { get; set; }
 
         public UnitWeapon? CreateWeapon(string weaponLink)
         {

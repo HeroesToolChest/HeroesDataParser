@@ -16,7 +16,7 @@ namespace HeroesData.Commands
         private int _height = _defaultHeight;
 
         private string _outputDirectory = string.Empty;
-        private bool _compress = false;
+        private bool _compress;
 
         public ImageCommand(CommandLineApplication app)
             : base(app)

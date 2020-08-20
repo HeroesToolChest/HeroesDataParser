@@ -52,37 +52,37 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets a value indicating whether the default button tooltip flag - show name.
         /// </summary>
-        public bool ButtonTooltipFlagShowName { get; private set; } = false;
+        public bool ButtonTooltipFlagShowName { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether the default button tooltip flag - show hotkey.
         /// </summary>
-        public bool ButtonTooltipFlagShowHotkey { get; private set; } = false;
+        public bool ButtonTooltipFlagShowHotkey { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether the default button tooltip flag - show usage.
         /// </summary>
-        public bool ButtonTooltipFlagShowUsage { get; private set; } = false;
+        public bool ButtonTooltipFlagShowUsage { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether the default button tooltip flag - show time.
         /// </summary>
-        public bool ButtonTooltipFlagShowTime { get; private set; } = false;
+        public bool ButtonTooltipFlagShowTime { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether the default button tooltip flag - show cooldown.
         /// </summary>
-        public bool ButtonTooltipFlagShowCooldown { get; private set; } = false;
+        public bool ButtonTooltipFlagShowCooldown { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether the default button tooltip flag - show requirements.
         /// </summary>
-        public bool ButtonTooltipFlagShowRequirements { get; private set; } = false;
+        public bool ButtonTooltipFlagShowRequirements { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether the default button tooltip flag - show autocast.
         /// </summary>
-        public bool ButtonTooltipFlagShowAutocast { get; private set; } = false;
+        public bool ButtonTooltipFlagShowAutocast { get; private set; }
 
         // <CButton default="1">
         private void LoadCButtonDefault()

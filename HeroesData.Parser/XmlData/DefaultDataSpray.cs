@@ -50,12 +50,12 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default spray animation count.
         /// </summary>
-        public int SprayAnimationCount { get; private set; } = 0;
+        public int SprayAnimationCount { get; private set; }
 
         /// <summary>
         /// Gets the default spray animation duration.
         /// </summary>
-        public int SprayAnimationDuration { get; private set; } = 0;
+        public int SprayAnimationDuration { get; private set; }
 
         // <CSpray default="1">
         private void LoadCSprayDefault()

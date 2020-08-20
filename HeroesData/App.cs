@@ -56,25 +56,25 @@ namespace HeroesData
         }
 
         public static bool Defaults { get; set; } = true;
-        public static bool CreateXml { get; set; } = false;
-        public static bool CreateJson { get; set; } = false;
-        public static bool ShowValidationWarnings { get; set; } = false;
+        public static bool CreateXml { get; set; }
+        public static bool CreateJson { get; set; }
+        public static bool ShowValidationWarnings { get; set; }
         public static ExtractDataOptions ExtractDataOption { get; set; } = ExtractDataOptions.None;
         public static ExtractImageOptions ExtractFileOption { get; set; } = ExtractImageOptions.None;
-        public static bool IsFileSplit { get; set; } = false;
-        public static bool IsLocalizedText { get; set; } = false;
-        public static bool CreateMinFiles { get; set; } = false;
-        public static int? HotsBuild { get; set; } = null;
-        public static int? OverrideBuild { get; set; } = null;
+        public static bool IsFileSplit { get; set; }
+        public static bool IsLocalizedText { get; set; }
+        public static bool CreateMinFiles { get; set; }
+        public static int? HotsBuild { get; set; }
+        public static int? OverrideBuild { get; set; }
         public static int MaxParallelism { get; set; } = -1;
-        public static DescriptionType DescriptionType { get; set; } = 0;
+        public static DescriptionType DescriptionType { get; set; }
         public static string StoragePath { get; set; } = Environment.CurrentDirectory;
         public static string OutputDirectory { get; set; } = string.Empty;
 
         public static HashSet<string> ValidationIgnoreLines { get; } = new HashSet<string>();
 
         public StorageMode StorageMode { get; private set; } = StorageMode.None;
-        public CASCHotsStorage? CASCHotsStorage { get; private set; } = null;
+        public CASCHotsStorage? CASCHotsStorage { get; private set; }
         public List<Localization> Localizations { get; set; } = new List<Localization>();
 
         /// <summary>

@@ -21,12 +21,12 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default number of icons in the column.
         /// </summary>
-        public int PortraitIconColumns { get; private set; } = 0;
+        public int PortraitIconColumns { get; private set; }
 
         /// <summary>
         /// Gets the default number of icons in the row.
         /// </summary>
-        public int PortraitIconRows { get; private set; } = 0;
+        public int PortraitIconRows { get; private set; }
 
         /// <summary>
         /// Gets the default icon file name.

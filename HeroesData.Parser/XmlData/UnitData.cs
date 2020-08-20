@@ -32,9 +32,9 @@ namespace HeroesData.Parser.XmlData
         private HashSet<AbilityTalentId>? _additionalActorAbilities;
 
         private Localization _localization = Localization.ENUS;
-        private bool _isHeroParsing = false;
-        private bool _isAbilityTypeFilterEnabled = false;
-        private bool _isAbilityTierFilterEnabled = false;
+        private bool _isHeroParsing;
+        private bool _isAbilityTypeFilterEnabled;
+        private bool _isAbilityTierFilterEnabled;
 
         public UnitData(GameData gameData, Configuration configuration, DefaultData defaultData, WeaponData weaponData, ArmorData armorData, AbilityData abilityData)
         {

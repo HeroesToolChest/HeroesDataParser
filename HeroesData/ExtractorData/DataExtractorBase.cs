@@ -27,7 +27,7 @@ namespace HeroesData.ExtractorData
         /// <summary>
         /// Gets the amount of validation warnings that were ignored.
         /// </summary>
-        public int WarningsIgnoredCount { get; private set; } = 0;
+        public int WarningsIgnoredCount { get; private set; }
 
         /// <summary>
         /// Gets type of data that is being parsed.

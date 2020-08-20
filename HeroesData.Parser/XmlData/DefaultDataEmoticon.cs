@@ -40,7 +40,7 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets a value indicating whether the default emoticon status is hidden.
         /// </summary>
-        public bool EmoticonIsHidden { get; private set; } = false;
+        public bool EmoticonIsHidden { get; private set; }
 
         /// <summary>
         /// Gets the default emoticon texture sheet.
@@ -55,12 +55,12 @@ namespace HeroesData.Parser.XmlData
         /// <summary>
         /// Gets the default texture sheet rows.
         /// </summary>
-        public int TextureSheetRows { get; private set; } = 0;
+        public int TextureSheetRows { get; private set; }
 
         /// <summary>
         /// Gets the default texture sheet columns.
         /// </summary>
-        public int TextureSheetColumns { get; private set; } = 0;
+        public int TextureSheetColumns { get; private set; }
 
         // <CEmoticon default="1">
         private void LoadCEmoticonDefault()
