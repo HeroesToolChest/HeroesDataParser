@@ -22,12 +22,14 @@ namespace HeroesData.Loader.XmlGameData
         private Dictionary<string, string> _gameStringById = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private Dictionary<string, List<XElement>> _xmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>();
         private Dictionary<string, List<XElement>> _layoutButtonElements = new Dictionary<string, List<XElement>>();
+        private Dictionary<string, XElement> _constElementById = new Dictionary<string, XElement>();
 
         // temp variables used for map game data swapping
         private Dictionary<(string Catalog, string Entry, string Field), double>? _originalScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>();
         private Dictionary<string, string>? _originalGameStringById = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private Dictionary<string, List<XElement>>? _originalXmlGameDataElementsByElementName = new Dictionary<string, List<XElement>>();
         private Dictionary<string, List<XElement>>? _originalLayoutButtonElements = new Dictionary<string, List<XElement>>();
+        private Dictionary<string, XElement>? _originalConstElementById = new Dictionary<string, XElement>();
 
         protected GameData(string modsFolderPath)
         {
@@ -254,6 +256,7 @@ namespace HeroesData.Loader.XmlGameData
             _originalScaleValueByLookupId = new Dictionary<(string Catalog, string Entry, string Field), double>(_scaleValueByLookupId);
             _originalXmlGameDataElementsByElementName = _xmlGameDataElementsByElementName.ToDictionary(x => x.Key, x => x.Value.ToList());
             _originalLayoutButtonElements = _layoutButtonElements.ToDictionary(x => x.Key, x => x.Value.ToList());
+            _originalConstElementById = new Dictionary<string, XElement>(_constElementById);
 
             // appending all map data together
             XmlGameData.Root.Add(gameData.XmlGameData.Root.Elements());
@@ -279,6 +282,9 @@ namespace HeroesData.Loader.XmlGameData
                 else
                     _xmlGameDataElementsByElementName.Add(item.Key, item.Value);
             }
+
+            foreach (KeyValuePair<string, XElement> constElement in gameData._constElementById)
+                _constElementById[constElement.Key] = constElement.Value;
         }
 
         /// <summary>
@@ -293,11 +299,13 @@ namespace HeroesData.Loader.XmlGameData
             _gameStringById = _originalGameStringById!;
             _xmlGameDataElementsByElementName = _originalXmlGameDataElementsByElementName!;
             _layoutButtonElements = _originalLayoutButtonElements!;
+            _constElementById = _originalConstElementById!;
 
             _originalGameStringById = null;
             _originalScaleValueByLookupId = null;
             _originalXmlGameDataElementsByElementName = null;
             _originalLayoutButtonElements = null;
+            _originalConstElementById = null;
 
             IsMapGameData = false;
         }
@@ -580,8 +588,7 @@ namespace HeroesData.Loader.XmlGameData
 
             if (value.StartsWith("$", StringComparison.OrdinalIgnoreCase))
             {
-                XElement constElement = XmlGameData.Root.Elements("const").Where(x => x.Attribute("id")?.Value == value).FirstOrDefault();
-                if (constElement != null)
+                if (_constElementById.TryGetValue(value, out XElement? constElement))
                 {
                     string? attributeValue = constElement.Attribute("value")?.Value;
                     string? isExpression = constElement.Attribute("evaluateAsExpression")?.Value;
@@ -882,6 +889,15 @@ namespace HeroesData.Loader.XmlGameData
                     values.Add(element);
                 else
                     _xmlGameDataElementsByElementName.Add(element.Name.LocalName, new List<XElement>() { element });
+
+                if (element.Name == "const")
+                {
+                    string? id = element.Attribute("id")?.Value;
+                    if (!string.IsNullOrEmpty(id))
+                    {
+                        _constElementById[id] = element;
+                    }
+                }
             }
 
             IEnumerable<XElement> units = Elements("CUnit").Where(x => !string.IsNullOrEmpty(x.Attribute("id")?.Value) && x.Attribute("id")?.Value != "TargetHeroDummy");
