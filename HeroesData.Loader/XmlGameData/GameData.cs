@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
@@ -595,13 +596,59 @@ namespace HeroesData.Loader.XmlGameData
 
                     if (!string.IsNullOrEmpty(attributeValue) && !string.IsNullOrEmpty(isExpression) && isExpression == "1")
                     {
-                        ReadOnlySpan<char> attributeValueSpan = attributeValue.AsSpan().Trim();
-                        char mathOperator = attributeValueSpan[0];
+                        Stack<char> characterStack = new Stack<char>();
 
-                        ReadOnlySpan<char> variables = attributeValueSpan.Slice(1).TrimStart('(').TrimEnd(')');
-                        int indexOfSplit = variables.IndexOf(' ');
+                        StringBuilder sb = new StringBuilder();
+                        string secondValue = string.Empty;
+                        string firstValue = string.Empty;
 
-                        return HeroesMathEval.CalculatePathEquation($"{GetValueFromAttribute(variables.Slice(0, indexOfSplit).ToString())}{mathOperator}{GetValueFromAttribute(variables.Slice(indexOfSplit + 1).ToString())}").ToString();
+                        foreach (char character in attributeValue)
+                        {
+                            if (character == ')')
+                            {
+                                int totalCount = characterStack.Count;
+                                for (int i = 0; i < totalCount; i++)
+                                {
+                                    char popChar = characterStack.Pop();
+
+                                    if (popChar == '+' || popChar == '-' || popChar == '*' || popChar == '/')
+                                    {
+                                        string calcValue = HeroesMathEval.CalculatePathEquation($"{firstValue}{popChar}{secondValue}").ToString();
+                                        foreach (char calcValueCharacter in calcValue)
+                                            characterStack.Push(calcValueCharacter);
+
+                                        break;
+                                    }
+
+                                    if (popChar == ' ')
+                                    {
+                                        secondValue = GetValueFromAttribute(sb.ToString());
+                                        sb.Clear();
+                                    }
+                                    else if (popChar == '(')
+                                    {
+                                        firstValue = GetValueFromAttribute(sb.ToString());
+                                        sb.Clear();
+                                    }
+                                    else
+                                    {
+                                        sb.Insert(0, popChar);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                characterStack.Push(character);
+                            }
+                        }
+
+                        int totalFinalCount = characterStack.Count;
+                        for (int i = 0; i < totalFinalCount; i++)
+                        {
+                            sb.Insert(0, characterStack.Pop());
+                        }
+
+                        return sb.ToString();
                     }
 
                     return attributeValue ?? string.Empty;

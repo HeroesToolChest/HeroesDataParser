@@ -67,5 +67,12 @@ namespace HeroesData.Loader.Tests
 
             Assert.IsTrue(mergedElement.Elements("Amount").LastOrDefault().Attribute("value").Value == "179");
         }
+
+        [TestMethod]
+        public void GetValueFromAttributeTest()
+        {
+            Assert.AreEqual("2", _gameData.GetValueFromAttribute("$GazloweDethLazorLeechAmountHeroModifier"));
+            Assert.AreEqual("5", _gameData.GetValueFromAttribute("$GazloweDethLazorSearchMidPoint"));
+        }
     }
 }
