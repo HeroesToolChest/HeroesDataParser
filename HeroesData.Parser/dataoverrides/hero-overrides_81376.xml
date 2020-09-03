@@ -246,7 +246,7 @@
         <ParentLink value="DVaBoostersOn|DVaMechBoosters|Q" />
       </Override>
     </Ability>
-    <Ability id="DVaMechDefenseMatrixRetarget,DVaRetargetDefenseMatrix" abilityType="W">
+    <Ability id="DVaMechDefenseMatrixOff,DVaMechCancelDefenseMatrix" abilityType="W">
       <Override>
         <ParentLink value="DVaMechDefenseMatrixOn|DVaMechDefenseMatrix|W" />
       </Override>
@@ -254,17 +254,6 @@
     <Ability id="DVaMechBunnyHopHeroic,DVaBunnyHopOff" abilityType="Heroic">
       <Override>
         <ParentLink value="DVaMechBunnyHopHeroic|DVaBunnyHopOn|Heroic" />
-      </Override>
-    </Ability>
-    <Ability id="DvaCancelDefenseMatrix,DvaCancelDefenseMatrix" abilityType="Trait">
-      <Override>
-        <ParentLink value="DVaMechDefenseMatrixOn|DVaMechDefenseMatrix|Trait" />
-      </Override>
-    </Ability>
-    <!--only on mech, from level talent; hide-->
-    <Ability id="DVaLiquidCoolingAbility,DVaLiquidCooling" abilityType="Active">
-      <Override>
-        <AbilityTier value="Hidden" />
       </Override>
     </Ability>
     <HeroUnit id="HeroDVaPilot">
@@ -295,11 +284,6 @@
         </Override>
       </Ability>
       <Ability id="DVaMechMechMode" abilityType="Trait" passive="true">
-        <Override>
-          <AbilityTier value="Hidden" />
-        </Override>
-      </Ability>
-      <Ability id="DVaMicroMissiles,DVaMicroMissiles" abilityType="Heroic">
         <Override>
           <AbilityTier value="Hidden" />
         </Override>
