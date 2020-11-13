@@ -34,7 +34,7 @@ namespace HeroesData.Parser.Overrides
             WeaponPropertyOverride weaponOverride = new WeaponPropertyOverride();
             PortraitPropertyOverride portraitOverride = new PortraitPropertyOverride();
 
-            string heroId = element.Attribute("id").Value;
+            string heroId = element.Attribute("id")?.Value ?? string.Empty;
 
             foreach (XElement dataElement in element.Elements())
             {

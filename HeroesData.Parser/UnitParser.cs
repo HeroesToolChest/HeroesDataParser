@@ -164,10 +164,13 @@ namespace HeroesData.Parser
             if (element is null)
                 throw new ArgumentNullException(nameof(element));
 
-            string id = element.Attribute("id").Value;
+            string? id = element.Attribute("id")?.Value;
             string? parent = element.Attribute("parent")?.Value;
 
-            return !string.IsNullOrEmpty(parent) && !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) && !id.Contains("BLUR", StringComparison.Ordinal);
+            return !string.IsNullOrEmpty(parent) &&
+                !string.IsNullOrEmpty(id) &&
+                !id.Contains("tutorial", StringComparison.OrdinalIgnoreCase) &&
+                !id.Contains("BLUR", StringComparison.Ordinal);
         }
 
         private static void AddItem(HashSet<string[]> items, string id, string mapName)
@@ -182,7 +185,10 @@ namespace HeroesData.Parser
         {
             foreach (XElement element in elements)
             {
-                string id = element.Attribute("id").Value;
+                string? id = element.Attribute("id")?.Value;
+
+                if (string.IsNullOrEmpty(id))
+                    continue;
 
                 string idCheck;
                 if (string.IsNullOrEmpty(mapName))

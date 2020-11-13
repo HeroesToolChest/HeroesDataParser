@@ -157,76 +157,76 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "NAME")
                 {
-                    HeroName = element.Attribute("value").Value;
+                    HeroName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "DESCRIPTION")
                 {
-                    HeroDescription = element.Attribute("value").Value;
+                    HeroDescription = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "PORTRAIT")
                 {
-                    HeroPortrait = element.Attribute("value").Value;
+                    HeroPortrait = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "SELECTSCREENBUTTONIMAGE")
                 {
-                    HeroSelectScreenButtonImage = element.Attribute("value").Value;
+                    HeroSelectScreenButtonImage = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "PARTYPANELBUTTONIMAGE")
                 {
-                    HeroPartyPanelButtonImage = element.Attribute("value").Value;
+                    HeroPartyPanelButtonImage = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "PARTYFRAMEIMAGE")
                 {
-                    HeroPartyFrameImage = element.Attribute("value").Value;
+                    HeroPartyFrameImage = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "LOADINGSCREENIMAGE")
                 {
-                    HeroLoadingScreenImage = element.Attribute("value").Value;
+                    HeroLoadingScreenImage = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "SCORESCREENIMAGE")
                 {
-                    HeroLeaderboardImage = element.Attribute("value").Value;
+                    HeroLeaderboardImage = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "DRAFTSCREENPORTRAIT")
                 {
-                    HeroDraftScreenImage = element.Attribute("value").Value;
+                    HeroDraftScreenImage = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "RELEASEDATE")
                 {
-                    if (!int.TryParse(element.Element("Year").Attribute("value").Value, out int year))
+                    if (!int.TryParse(element.Element("Year")?.Attribute("value")?.Value, out int year))
                         year = 2014;
 
-                    if (!int.TryParse(element.Element("Month").Attribute("value").Value, out int month))
+                    if (!int.TryParse(element.Element("Month")?.Attribute("value")?.Value, out int month))
                         month = 1;
 
-                    if (!int.TryParse(element.Element("Day").Attribute("value").Value, out int day))
+                    if (!int.TryParse(element.Element("Day")?.Attribute("value")?.Value, out int day))
                         day = 1;
 
                     HeroReleaseDate = new DateTime(year, month, day);
                 }
                 else if (elementName == "UNIT")
                 {
-                    HeroUnit = element.Attribute("value").Value;
+                    HeroUnit = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    HeroHyperlinkId = element.Attribute("value").Value;
+                    HeroHyperlinkId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "INFOTEXT")
                 {
-                    HeroInfoText = element.Attribute("value").Value;
+                    HeroInfoText = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "TITLE")
                 {
-                    HeroTitle = element.Attribute("value").Value;
+                    HeroTitle = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "ADDITIONALSEARCHTEXT")
                 {
-                    HeroAdditionalSearchText = element.Attribute("value").Value;
+                    HeroAdditionalSearchText = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "ALTERNATENAMESEARCHTEXT")
                 {
-                    HeroAlternateNameSearchText = element.Attribute("value").Value;
+                    HeroAlternateNameSearchText = element.Attribute("value")?.Value;
                 }
             }
         }
@@ -239,7 +239,7 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "NAME")
                 {
-                    HeroRoleName = element.Attribute("value").Value;
+                    HeroRoleName = element.Attribute("value")?.Value;
                 }
             }
         }

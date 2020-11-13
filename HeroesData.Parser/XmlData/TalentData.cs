@@ -135,20 +135,24 @@ namespace HeroesData.Parser.XmlData
             // let find the heroic the talent belongs to
             if (talent.AbilityTalentId.AbilityType == AbilityTypes.Heroic)
             {
-                XElement talentAbilElement = talentElement.Element("Abil");
-                XElement rankArrayElement = talentElement.Element("RankArray");
+                XElement? talentAbilElement = talentElement.Element("Abil");
+                XElement? rankArrayElement = talentElement.Element("RankArray");
 
                 if (rankArrayElement != null)
                 {
-                    XElement behaviorArrayElement = rankArrayElement.Elements("BehaviorArray").FirstOrDefault(x => !string.IsNullOrEmpty(x.Attribute("value")?.Value) &&
-                        x.Attribute("value").Value.StartsWith("Ultimate", StringComparison.OrdinalIgnoreCase) && x.Attribute("value").Value.EndsWith("Unlocked", StringComparison.OrdinalIgnoreCase));
+                    XElement? behaviorArrayElement = rankArrayElement
+                        .Elements("BehaviorArray")?
+                        .FirstOrDefault(x =>
+                            !string.IsNullOrEmpty(x.Attribute("value")?.Value) &&
+                            x.Attribute("value")!.Value.StartsWith("Ultimate", StringComparison.OrdinalIgnoreCase) &&
+                            x.Attribute("value")!.Value.EndsWith("Unlocked", StringComparison.OrdinalIgnoreCase));
 
                     if (talentAbilElement != null && behaviorArrayElement != null)
                     {
-                        string abilValue = talentAbilElement.Attribute("value").Value;
+                        string? abilValue = talentAbilElement.Attribute("value")?.Value;
                         if (!string.IsNullOrEmpty(abilValue))
                         {
-                            XElement abilElement = GetAbilityElements(abilValue).FirstOrDefault();
+                            XElement? abilElement = GetAbilityElements(abilValue)?.FirstOrDefault();
                             string? defaultButtonFace = abilElement?.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
 
                             if (!string.IsNullOrWhiteSpace(defaultButtonFace))
@@ -171,7 +175,7 @@ namespace HeroesData.Parser.XmlData
             IEnumerable<XElement> tooltipAppenderElements = buttonElement.Elements("TooltipAppender").Where(x => !string.IsNullOrEmpty(x.Attribute("Validator")?.Value));
             foreach (XElement tooltipAppenderElement in tooltipAppenderElements)
             {
-                string validatorId = tooltipAppenderElement.Attribute("Validator").Value;
+                string? validatorId = tooltipAppenderElement.Attribute("Validator")?.Value;
                 string? faceId = tooltipAppenderElement.Attribute("Face")?.Value;
 
                 // check if face value exists as a button
@@ -201,12 +205,12 @@ namespace HeroesData.Parser.XmlData
             }
         }
 
-        private void ValidatorPlayerTalentCheck(string validatorId, string abilityTalentId)
+        private void ValidatorPlayerTalentCheck(string? validatorId, string abilityTalentId)
         {
             XElement? validatorPlayerTalentElement = GameData.MergeXmlElements(GameData.Elements("CValidatorPlayerTalent").Where(x => x.Attribute("id")?.Value == validatorId));
             if (validatorPlayerTalentElement != null)
             {
-                string talentReferenceNameId = validatorPlayerTalentElement.Element("Value").Attribute("value")?.Value ?? string.Empty;
+                string talentReferenceNameId = validatorPlayerTalentElement.Element("Value")?.Attribute("value")?.Value ?? string.Empty;
 
                 if (_abilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
                     _abilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(abilityTalentId);
@@ -234,7 +238,7 @@ namespace HeroesData.Parser.XmlData
             }
 
             XElement? buttonElement = null;
-            XElement abilElement = talentElement.Element("Abil");
+            XElement? abilElement = talentElement.Element("Abil");
 
             Action? setFaceAction = null;
             Action? setAbilAction = null;
@@ -293,7 +297,7 @@ namespace HeroesData.Parser.XmlData
                             {
                                 foreach (Hero heroUnit in hero.HeroUnits)
                                 {
-                                    Ability heroUnitAbility = heroUnit.GetAbilitiesFromReferenceId(abilValue, StringComparison.OrdinalIgnoreCase).FirstOrDefault();
+                                    Ability? heroUnitAbility = heroUnit.GetAbilitiesFromReferenceId(abilValue, StringComparison.OrdinalIgnoreCase).FirstOrDefault();
                                     if (heroUnitAbility != null)
                                     {
                                         talent.AbilityTalentId.AbilityType = heroUnitAbility.AbilityTalentId.AbilityType;
@@ -314,7 +318,7 @@ namespace HeroesData.Parser.XmlData
                                         string? defaultButtonFace = abilityElement.Element("CmdButtonArray")?.Attribute("DefaultButtonFace")?.Value;
                                         if (!string.IsNullOrEmpty(defaultButtonFace))
                                         {
-                                            Ability defaultButtonFaceAbility = hero.GetAbilitiesFromReferenceId(defaultButtonFace, StringComparison.OrdinalIgnoreCase).FirstOrDefault();
+                                            Ability? defaultButtonFaceAbility = hero.GetAbilitiesFromReferenceId(defaultButtonFace, StringComparison.OrdinalIgnoreCase).FirstOrDefault();
 
                                             if (defaultButtonFaceAbility != null && ability != null)
                                                 talent.AbilityTalentId.AbilityType = ability.AbilityTalentId.AbilityType;

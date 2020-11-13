@@ -71,44 +71,44 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "NAME")
                 {
-                    SprayName = element.Attribute("value").Value;
+                    SprayName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "SORTNAME")
                 {
-                    SpraySortName = element.Attribute("value").Value;
+                    SpraySortName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "DESCRIPTION")
                 {
-                    SprayDescription = element.Attribute("value").Value;
+                    SprayDescription = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "ADDITIONALSEARCHTEXT")
                 {
-                    SprayAdditionalSearchText = element.Attribute("value").Value;
+                    SprayAdditionalSearchText = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "RELEASEDATE")
                 {
-                    if (!int.TryParse(element.Element("Year").Attribute("value").Value, out int year))
+                    if (!int.TryParse(element.Element("Year")?.Attribute("value")?.Value, out int year))
                         year = 2014;
 
-                    if (!int.TryParse(element.Element("Month").Attribute("value").Value, out int month))
+                    if (!int.TryParse(element.Element("Month")?.Attribute("value")?.Value, out int month))
                         month = 1;
 
-                    if (!int.TryParse(element.Element("Day").Attribute("value").Value, out int day))
+                    if (!int.TryParse(element.Element("Day")?.Attribute("value")?.Value, out int day))
                         day = 1;
 
                     SprayReleaseDate = new DateTime(year, month, day);
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    SprayHyperlinkId = element.Attribute("value").Value;
+                    SprayHyperlinkId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "ANIMCOUNT")
                 {
-                    SprayAnimationCount = int.Parse(element.Attribute("value").Value);
+                    SprayAnimationCount = int.Parse(element.Attribute("value")?.Value ?? "0");
                 }
                 else if (elementName == "ANIMDURATION")
                 {
-                    SprayAnimationDuration = int.Parse(element.Attribute("value").Value);
+                    SprayAnimationDuration = int.Parse(element.Attribute("value")?.Value ?? "0");
                 }
             }
         }

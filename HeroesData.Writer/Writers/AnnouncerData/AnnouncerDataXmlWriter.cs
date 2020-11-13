@@ -20,17 +20,17 @@ namespace HeroesData.FileWriter.Writers.AnnouncerData
 
             return new XElement(
                 XmlConvert.EncodeName(announcer.Id),
-                string.IsNullOrEmpty(announcer.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", announcer.Name),
+                string.IsNullOrEmpty(announcer.Name) || FileOutputOptions.IsLocalizedText ? null! : new XAttribute("name", announcer.Name),
                 new XAttribute("hyperlinkId", announcer.HyperlinkId),
                 new XAttribute("attributeId", announcer.AttributeId),
                 new XAttribute("rarity", announcer.Rarity),
-                new XAttribute("category", announcer.CollectionCategory),
-                string.IsNullOrEmpty(announcer.Gender) ? null : new XAttribute("gender", announcer.Gender),
-                new XAttribute("heroId", announcer.HeroId),
-                announcer.ReleaseDate.HasValue ? new XAttribute("releaseDate", announcer.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
-                string.IsNullOrEmpty(announcer.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", announcer.SortName),
-                string.IsNullOrEmpty(announcer.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(announcer.Description, FileOutputOptions.DescriptionType)),
-                string.IsNullOrEmpty(announcer.ImageFileName) ? null : new XElement("Image", Path.ChangeExtension(announcer.ImageFileName?.ToLowerInvariant(), StaticImageExtension)));
+                new XAttribute("category", announcer.CollectionCategory!),
+                string.IsNullOrEmpty(announcer.Gender) ? null! : new XAttribute("gender", announcer.Gender),
+                new XAttribute("heroId", announcer.HeroId!),
+                announcer.ReleaseDate.HasValue ? new XAttribute("releaseDate", announcer.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null!,
+                string.IsNullOrEmpty(announcer.SortName) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SortName", announcer.SortName),
+                string.IsNullOrEmpty(announcer.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null! : new XElement("Description", GetTooltip(announcer.Description, FileOutputOptions.DescriptionType)),
+                string.IsNullOrEmpty(announcer.ImageFileName) ? null! : new XElement("Image", Path.ChangeExtension(announcer.ImageFileName?.ToLowerInvariant(), StaticImageExtension)));
         }
     }
 }

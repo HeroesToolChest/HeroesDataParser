@@ -27,7 +27,8 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
                 new AbilityTalentId("DehakaCancelBurrow", "DehakaCancelBurrow")
                 {
                     AbilityType = AbilityTypes.E,
-                }, out Ability ability))
+                },
+                out Ability ability))
             {
                 Assert.AreEqual("DehakaBurrow", ability.ParentLink.ReferenceId);
                 Assert.AreEqual("DehakaBurrow", ability.ParentLink.ButtonId);

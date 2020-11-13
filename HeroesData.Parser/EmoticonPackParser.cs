@@ -27,7 +27,7 @@ namespace HeroesData.Parser
             if (ids == null || ids.Length < 1)
                 return null;
 
-            string id = ids.FirstOrDefault();
+            string id = ids.First();
 
             XElement? emoticonPackElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (emoticonPackElement == null)

@@ -101,7 +101,7 @@ namespace HeroesData.Commands
             {
                 if (item.Value.TryGetProperty("textureSheet", out JsonElement value) && value.TryGetProperty("image", out value) && !string.IsNullOrWhiteSpace(value.GetString()))
                 {
-                    names.Add(Path.GetFileNameWithoutExtension(value.GetString()));
+                    names.Add(Path.GetFileNameWithoutExtension(value.GetString()!));
                 }
             }
 
@@ -199,6 +199,9 @@ namespace HeroesData.Commands
         {
             XDocument document = XDocument.Load(_portraitExtractXmlFilePath);
 
+            if (document.Root == null)
+                throw new InvalidOperationException();
+
             Dictionary<string, PortraitExtractXml> portraitElements = new Dictionary<string, PortraitExtractXml>();
 
             foreach (XElement element in document.Root.Elements())
@@ -206,8 +209,8 @@ namespace HeroesData.Commands
                 portraitElements[element.Name.LocalName] = new PortraitExtractXml()
                 {
                     TextureSheetName = element.Name.LocalName,
-                    ZeroName = element.Element("Zero").Value,
-                    OriginalFileName = element.Element("File").Value,
+                    ZeroName = element.Element("Zero")?.Value ?? string.Empty,
+                    OriginalFileName = element.Element("File")?.Value ?? string.Empty,
                 };
             }
 

@@ -27,7 +27,7 @@ namespace HeroesData.Parser
             if (ids == null || ids.Length < 1)
                 return null;
 
-            string id = ids.FirstOrDefault();
+            string id = ids.First();
 
             XElement? rewardPortraitElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (rewardPortraitElement == null)
@@ -74,22 +74,22 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "ICONFILE")
                 {
-                    rewardPortrait.TextureSheet.Image = GameData.GetValueFromAttribute(element.Attribute("value").Value);
+                    rewardPortrait.TextureSheet.Image = GameData.GetValueFromAttribute(element.Attribute("value")?.Value);
                 }
                 else if (elementName == "COLLECTIONCATEGORY")
                 {
-                    rewardPortrait.CollectionCategory = element.Attribute("value").Value;
+                    rewardPortrait.CollectionCategory = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "RARITY")
                 {
-                    if (Enum.TryParse(element.Attribute("value").Value, out Rarity rarity))
+                    if (Enum.TryParse(element.Attribute("value")?.Value, out Rarity rarity))
                     {
                         rewardPortrait.Rarity = rarity;
                     }
                 }
                 else if (elementName == "ICONSLOT")
                 {
-                    if (int.TryParse(element.Attribute("value").Value, out int result))
+                    if (int.TryParse(element.Attribute("value")?.Value, out int result))
                         rewardPortrait.IconSlot = result;
                 }
                 else if (elementName == "HYPERLINKID")

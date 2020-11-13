@@ -38,7 +38,10 @@ namespace HeroesData.Parser
 
                 foreach (XElement element in elements)
                 {
-                    string id = element.Attribute("id").Value;
+                    string? id = element.Attribute("id")?.Value;
+
+                    if (string.IsNullOrEmpty(id))
+                        continue;
 
                     if ((ValidItem(element) && !Configuration.RemoveDataXmlElementIds(ElementType).Contains(id)) || Configuration.AddDataXmlElementIds(ElementType).Contains(id))
                         items.Add(new string[] { id });

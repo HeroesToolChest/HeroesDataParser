@@ -70,12 +70,16 @@ namespace HeroesData.Commands
                         return 0;
                     }
 
-                    string imageFileName = imageFileNameArgument.Value;
+                    string? imageFileName = imageFileNameArgument.Value;
                     if (string.IsNullOrWhiteSpace(imageFileName))
                     {
-                        Console.Write("Texture sheet file name (from data): ");
+                        do
+                        {
+                            Console.Write("Texture sheet file name (from data): ");
 
-                        imageFileName = Console.ReadLine();
+                            imageFileName = Console.ReadLine();
+                        }
+                        while (string.IsNullOrWhiteSpace(imageFileName));
                     }
 
                     if (outputDirectoryOption.HasValue())
@@ -108,9 +112,19 @@ namespace HeroesData.Commands
 
         private static string PromptOriginalFile()
         {
+            string? file;
+
             Console.WriteLine();
-            Console.Write("Original texture sheet file name (.dds): ");
-            return Console.ReadLine();
+
+            do
+            {
+                Console.Write("Original texture sheet file name (.dds): ");
+
+                file = Console.ReadLine();
+            }
+            while (string.IsNullOrWhiteSpace(file));
+
+            return file;
         }
     }
 }

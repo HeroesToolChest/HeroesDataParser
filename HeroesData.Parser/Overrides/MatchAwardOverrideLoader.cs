@@ -26,7 +26,7 @@ namespace HeroesData.Parser.Overrides
 
             MatchAwardDataOverride matchAwardDataOverride = new MatchAwardDataOverride();
 
-            string cAwardId = element.Attribute("id").Value;
+            string? cAwardId = element.Attribute("id")?.Value;
 
             foreach (XElement dataElement in element.Elements())
             {
@@ -59,7 +59,7 @@ namespace HeroesData.Parser.Overrides
                 }
             }
 
-            if (!DataOverridesById.ContainsKey(cAwardId))
+            if (!string.IsNullOrEmpty(cAwardId) && !DataOverridesById.ContainsKey(cAwardId))
                 DataOverridesById.Add(cAwardId, matchAwardDataOverride);
         }
     }

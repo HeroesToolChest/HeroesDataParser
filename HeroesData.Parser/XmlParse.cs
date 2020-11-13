@@ -22,10 +22,10 @@ namespace HeroesData.Parser
             if (gameData == null)
                 throw new ArgumentNullException(nameof(gameData));
 
-            if (double.TryParse(gameData.GetValueFromAttribute(element.Attribute("value").Value), out double value))
+            if (double.TryParse(gameData.GetValueFromAttribute(element.Attribute("value")?.Value), out double value))
                 return value;
             else
-                throw new FormatException($"Invalid value: {id} {element.Attribute("value").Value}");
+                throw new FormatException($"Invalid value: {id} {element.Attribute("value")?.Value}");
         }
 
         /// <summary>
@@ -44,10 +44,10 @@ namespace HeroesData.Parser
             if (gameData == null)
                 throw new ArgumentNullException(nameof(gameData));
 
-            if (int.TryParse(gameData.GetValueFromAttribute(element.Attribute("value").Value), out int value))
+            if (int.TryParse(gameData.GetValueFromAttribute(element.Attribute("value")?.Value), out int value))
                 return value;
             else
-                throw new FormatException($"Invalid value: {id} {element.Attribute("value").Value}");
+                throw new FormatException($"Invalid value: {id} {element.Attribute("value")?.Value}");
         }
     }
 }

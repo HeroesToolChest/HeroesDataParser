@@ -50,19 +50,19 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "NAME")
                 {
-                    EmoticonPackName = element.Attribute("value").Value;
+                    EmoticonPackName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "SORTNAME")
                 {
-                    EmoticonPackSortName = element.Attribute("value").Value;
+                    EmoticonPackSortName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "DESCRIPTION")
                 {
-                    EmoticonPackDescription = element.Attribute("value").Value;
+                    EmoticonPackDescription = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    EmoticonPackHyperlinkId = element.Attribute("value").Value;
+                    EmoticonPackHyperlinkId = element.Attribute("value")?.Value;
                 }
             }
         }

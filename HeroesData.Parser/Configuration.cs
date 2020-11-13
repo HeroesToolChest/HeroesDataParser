@@ -133,8 +133,11 @@ namespace HeroesData.Parser
         {
             XDocument doc = XDocument.Load(ConfigFileName);
 
+            if (doc.Root == null)
+                throw new InvalidOperationException();
+
             // parser helper
-            foreach (XElement idElement in doc.Root.Element("ParserHelper").Elements("Id"))
+            foreach (XElement idElement in doc.Root.Element("ParserHelper")?.Elements("Id") ?? Enumerable.Empty<XElement>())
             {
                 string? name = idElement.Attribute("name")?.Value;
                 string? part = idElement.Attribute("part")?.Value;
@@ -150,7 +153,7 @@ namespace HeroesData.Parser
             }
 
             // xml element lookup
-            foreach (XElement typeElement in doc.Root.Element("XmlElementLookup").Elements("Type"))
+            foreach (XElement typeElement in doc.Root.Element("XmlElementLookup")?.Elements("Type") ?? Enumerable.Empty<XElement>())
             {
                 string? name = typeElement.Attribute("name")?.Value;
                 if (string.IsNullOrEmpty(name))
@@ -170,7 +173,7 @@ namespace HeroesData.Parser
             }
 
             // extra abilities
-            foreach (XElement abilityIdElement in doc.Root.Element("UnitDataExtraAbilities").Elements())
+            foreach (XElement abilityIdElement in doc.Root.Element("UnitDataExtraAbilities")?.Elements() ?? Enumerable.Empty<XElement>())
             {
                 string value = abilityIdElement.Value;
                 if (!string.IsNullOrEmpty(value))
@@ -178,7 +181,7 @@ namespace HeroesData.Parser
             }
 
             // dead image file names
-            foreach (XElement fileNameXelement in doc.Root.Element("NonExistingImageFileNames").Elements())
+            foreach (XElement fileNameXelement in doc.Root.Element("NonExistingImageFileNames")?.Elements() ?? Enumerable.Empty<XElement>())
             {
                 string value = fileNameXelement.Value;
                 if (!string.IsNullOrEmpty(value))
@@ -186,8 +189,8 @@ namespace HeroesData.Parser
             }
 
             // additional valid elements for xml parsing
-            _addIdByElementName = doc.Root.Element("DataParser").Elements().Where(x => string.IsNullOrEmpty(x.Attribute("value")?.Value) || x.Attribute("value").Value == "true").ToLookup(x => x.Name.LocalName, x => x.Attribute("id")?.Value);
-            _removeIdByElementName = doc.Root.Element("DataParser").Elements().Where(x => x.Attribute("value")?.Value == "false").ToLookup(x => x.Name.LocalName, x => x.Attribute("id")?.Value);
+            _addIdByElementName = doc.Root.Element("DataParser")?.Elements().Where(x => string.IsNullOrEmpty(x.Attribute("value")?.Value) || x.Attribute("value")?.Value == "true").ToLookup(x => x.Name.LocalName, x => x.Attribute("id")?.Value);
+            _removeIdByElementName = doc.Root.Element("DataParser")?.Elements().Where(x => x.Attribute("value")?.Value == "false").ToLookup(x => x.Name.LocalName, x => x.Attribute("id")?.Value);
         }
     }
 }

@@ -78,6 +78,10 @@ namespace HeroesData.Loader.XmlGameData
 
             // load up files in includes.xml file - which are the heroes in the heromods folder
             XDocument includesXml = XDocument.Load(Path.Combine(HeroesDataBaseDataDirectoryPath, IncludesXmlFile));
+
+            if (includesXml.Root == null)
+                throw new InvalidOperationException();
+
             IEnumerable pathElements = includesXml.Root.Elements("Path");
 
             foreach (XElement? pathElement in pathElements)
@@ -86,27 +90,31 @@ namespace HeroesData.Loader.XmlGameData
                 if (!string.IsNullOrEmpty(valuePath))
                 {
                     valuePath = PathHelper.GetFilePath(valuePath);
-                    valuePath = valuePath.Remove(0, 5); // remove 'mods/'
 
-                    if (valuePath.StartsWith(HeroesModsDirectoryName, StringComparison.OrdinalIgnoreCase))
+                    if (!string.IsNullOrEmpty(valuePath))
                     {
-                        string gameDataPath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, GameDataXmlFile);
+                        valuePath = valuePath.Remove(0, 5); // remove 'mods/'
 
-                        LoadGameDataXmlContents(gameDataPath);
-
-                        if (LoadStormStyleEnabled)
-                            LoadStormStyleFile(Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, UIDirectoryStringName, FontStyleFile));
-
-                        if (LoadTextFilesOnlyEnabled)
+                        if (valuePath.StartsWith(HeroesModsDirectoryName, StringComparison.OrdinalIgnoreCase))
                         {
-                            try
+                            string gameDataPath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, GameDataXmlFile);
+
+                            LoadGameDataXmlContents(gameDataPath);
+
+                            if (LoadStormStyleEnabled)
+                                LoadStormStyleFile(Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, UIDirectoryStringName, FontStyleFile));
+
+                            if (LoadTextFilesOnlyEnabled)
                             {
-                                LoadTextFile(Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile));
-                            }
-                            catch (Exception ex) when (ex is FileNotFoundException || ex is DirectoryNotFoundException)
-                            {
-                                if (!valuePath.Contains(HeroInteractionsStringName, StringComparison.OrdinalIgnoreCase))
-                                    throw;
+                                try
+                                {
+                                    LoadTextFile(Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile));
+                                }
+                                catch (Exception ex) when (ex is FileNotFoundException || ex is DirectoryNotFoundException)
+                                {
+                                    if (!valuePath.Contains(HeroInteractionsStringName, StringComparison.OrdinalIgnoreCase))
+                                        throw;
+                                }
                             }
                         }
                     }
@@ -157,6 +165,10 @@ namespace HeroesData.Loader.XmlGameData
 
             // load up files in gamedata.xml file
             XDocument gameDataXml = XDocument.Load(gameDataXmlFilePath);
+
+            if (gameDataXml.Root == null)
+                throw new InvalidOperationException();
+
             IEnumerable<XElement> catalogElements = gameDataXml.Root.Elements("Catalog");
 
             foreach (XElement catalogElement in catalogElements)
@@ -166,7 +178,7 @@ namespace HeroesData.Loader.XmlGameData
                 {
                     pathValue = PathHelper.GetFilePath(pathValue);
 
-                    if (pathValue.Contains($"{GameDataStringName}/", StringComparison.OrdinalIgnoreCase))
+                    if (pathValue!.Contains($"{GameDataStringName}/", StringComparison.OrdinalIgnoreCase))
                     {
                         if (gameDataXmlFilePath.Contains(HeroesDataStormModDirectoryName, StringComparison.OrdinalIgnoreCase))
                         {

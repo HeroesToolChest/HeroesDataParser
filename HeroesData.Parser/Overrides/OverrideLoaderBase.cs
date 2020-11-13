@@ -51,6 +51,10 @@ namespace HeroesData.Parser.Overrides
             LoadBuildNumberOverrideFiles();
 
             XDocument dataOverrideDocument = LoadOverrideFile();
+
+            if (dataOverrideDocument.Root == null)
+                throw new InvalidOperationException();
+
             IEnumerable<XElement> dataElements = dataOverrideDocument.Root.Elements(OverrideElementName).Where(x => x.Attribute("id") != null);
 
             foreach (XElement dataElement in dataElements)

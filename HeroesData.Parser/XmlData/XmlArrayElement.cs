@@ -33,7 +33,7 @@ namespace HeroesData.Parser.XmlData
             {
                 foreach (XAttribute attribute in existingElement.Attributes())
                 {
-                    XAttribute currentAttribute = element.Attribute(attribute.Name.LocalName);
+                    XAttribute? currentAttribute = element.Attribute(attribute.Name.LocalName);
                     if (currentAttribute == null)
                         element.Add(attribute);
                     else

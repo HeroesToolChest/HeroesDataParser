@@ -96,19 +96,19 @@ namespace HeroesData.Parser
             XElement? scoreValueCustomElement = GameData.MergeXmlElements(GameData.Elements("CScoreValueCustom").Where(x => x.Attribute("id")?.Value == gameLink));
             if (scoreValueCustomElement != null)
             {
-                string? scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon").Attribute("value")?.Value;
+                string? scoreScreenIconFilePath = scoreValueCustomElement.Element("Icon")?.Attribute("value")?.Value;
 
                 // get the name being used in the dds file
                 if (!string.IsNullOrEmpty(scoreScreenIconFilePath))
                 {
-                    string awardSpecialName = Path.GetFileName(PathHelper.GetFilePath(scoreScreenIconFilePath)).Split('_')[4];
+                    string awardSpecialName = Path.GetFileName(PathHelper.GetFilePath(scoreScreenIconFilePath))?.Split('_')[4] ?? string.Empty;
 
                     matchAward = new MatchAward()
                     {
                         Name = awardName,
-                        ScoreScreenImageFileNameOriginal = Path.GetFileName(PathHelper.GetFilePath(scoreScreenIconFilePath)),
+                        ScoreScreenImageFileNameOriginal = Path.GetFileName(PathHelper.GetFilePath(scoreScreenIconFilePath)) ?? string.Empty,
                         MVPScreenImageFileNameOriginal = $"storm_ui_mvp_icons_rewards_{awardSpecialName}.dds",
-                        Tag = scoreValueCustomElement.Element("UniqueTag").Attribute("value")?.Value ?? string.Empty,
+                        Tag = scoreValueCustomElement.Element("UniqueTag")?.Attribute("value")?.Value ?? string.Empty,
                     };
 
                     matchAward.Id = ModifyId(gameLink).ToString();
@@ -175,11 +175,11 @@ namespace HeroesData.Parser
         private static ReadOnlySpan<char> ModifyId(ReadOnlySpan<char> value)
         {
             if (value.StartsWith("EndOfMatchAward", StringComparison.OrdinalIgnoreCase))
-                value = value.Slice("EndOfMatchAward".Length);
+                value = value["EndOfMatchAward".Length..];
             if (value.EndsWith("Boolean", StringComparison.OrdinalIgnoreCase))
                 value = value.Slice(0, value.IndexOf("Boolean", StringComparison.OrdinalIgnoreCase));
             if (value[0] == '0')
-                value = ("Zero" + value.Slice(1).ToString()).AsSpan();
+                value = $"Zero{value[1..].ToString()}".AsSpan();
 
             return value;
         }

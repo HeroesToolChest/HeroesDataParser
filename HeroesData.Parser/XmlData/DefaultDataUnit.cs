@@ -92,54 +92,62 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "NAME")
                 {
-                    UnitName = element.Attribute("value").Value;
+                    UnitName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "LIFEMAX")
                 {
-                    UnitLifeMax = double.Parse(element.Attribute("value").Value);
+                    UnitLifeMax = double.Parse(element.Attribute("value")?.Value ?? "0");
                 }
                 else if (elementName == "RADIUS")
                 {
-                    UnitRadius = double.Parse(element.Attribute("value").Value);
+                    UnitRadius = double.Parse(element.Attribute("value")?.Value ?? "0");
                 }
                 else if (elementName == "SPEED")
                 {
-                    UnitSpeed = double.Parse(element.Attribute("value").Value);
+                    UnitSpeed = double.Parse(element.Attribute("value")?.Value ?? "0");
                 }
                 else if (elementName == "SIGHT")
                 {
-                    UnitSight = double.Parse(element.Attribute("value").Value);
+                    UnitSight = double.Parse(element.Attribute("value")?.Value ?? "0");
                 }
                 else if (elementName == "ENERGYMAX")
                 {
-                    UnitEnergyMax = double.Parse(element.Attribute("value").Value);
+                    UnitEnergyMax = double.Parse(element.Attribute("value")?.Value ?? "0");
                 }
                 else if (elementName == "ENERGYREGENRATE")
                 {
-                    UnitEnergyRegenRate = double.Parse(element.Attribute("value").Value);
+                    UnitEnergyRegenRate = double.Parse(element.Attribute("value")?.Value ?? "0");
                 }
                 else if (elementName == "ATTRIBUTES")
                 {
                     if (element.Attribute("value")?.Value == "1")
-                        _unitAttributeList.Add(element.Attribute("index").Value);
+                    {
+                        string? value = element.Attribute("index")?.Value;
+                        if (!string.IsNullOrEmpty(value))
+                            _unitAttributeList.Add(value);
+                    }
                     else if (element.Attribute("value")?.Value == "0")
-                        _unitAttributeList.Remove(element.Attribute("index").Value);
+                    {
+                        string? value = element.Attribute("index")?.Value;
+                        if (!string.IsNullOrEmpty(value))
+                            _unitAttributeList.Remove(value);
+                    }
                 }
                 else if (elementName == "UNITDAMAGETYPE")
                 {
-                    UnitDamageType = element.Attribute("value").Value;
+                    UnitDamageType = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "SHIELDSMAX")
                 {
-                    UnitShieldMax = double.Parse(element.Attribute("value").Value);
+                    UnitShieldMax = double.Parse(element.Attribute("value")?.Value ?? "0");
                 }
                 else if (elementName == "SHIELDREGENRATE")
                 {
-                    UnitShieldRegenRate = double.Parse(element.Attribute("value").Value);
+                    UnitShieldRegenRate = double.Parse(element.Attribute("value")?.Value ?? "0");
                 }
                 else if (elementName == "SHIELDREGENDELAY")
                 {
-                    UnitShieldRegenDelay = double.Parse(element.Attribute("value").Value);
+                    UnitShieldRegenDelay = double.Parse(element.Attribute("value")?.Value ?? "0");
                 }
             }
         }

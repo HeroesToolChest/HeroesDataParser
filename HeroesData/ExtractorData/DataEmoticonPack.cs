@@ -1,6 +1,5 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
-using System;
 using System.Linq;
 
 namespace HeroesData.ExtractorData
@@ -17,9 +16,7 @@ namespace HeroesData.ExtractorData
         protected override void Validation(EmoticonPack? emoticonPack)
         {
             if (emoticonPack is null)
-            {
-                throw new ArgumentNullException(nameof(emoticonPack));
-            }
+                return;
 
             if (string.IsNullOrEmpty(emoticonPack.Name))
                 AddWarning($"{nameof(emoticonPack.Name)} is empty");
@@ -39,7 +36,7 @@ namespace HeroesData.ExtractorData
             if (emoticonPack.EmoticonIds == null || !emoticonPack.EmoticonIds.Any())
                 AddWarning($"{nameof(emoticonPack.EmoticonIds)} is null or does not contain any emoticons");
 
-            if (!emoticonPack.EmoticonIds.Any())
+            if (!emoticonPack.EmoticonIds!.Any())
                 AddWarning($"{nameof(emoticonPack.EmoticonIds)} does not contain any aliases.");
 
             if (emoticonPack.Rarity == Rarity.None || emoticonPack.Rarity == Rarity.Unknown)

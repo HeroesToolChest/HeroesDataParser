@@ -60,12 +60,12 @@ namespace HeroesData.Loader.Tests
             XElement? mergedElement = GameData.MergeXmlElements(elements);
 
             Assert.IsNotNull(mergedElement);
-            Assert.IsTrue(mergedElement!.Element("Amount").Attribute("value").Value == "153");
-            Assert.IsTrue(mergedElement.Element("Flags").Attribute("value").Value == "1");
-            Assert.IsTrue(mergedElement.Element("Visibility").Attribute("value").Value == "Hidden");
-            Assert.IsTrue(mergedElement.Attribute("Button").Value == "Test");
+            Assert.IsTrue(mergedElement!.Element("Amount")?.Attribute("value")?.Value == "153");
+            Assert.IsTrue(mergedElement.Element("Flags")?.Attribute("value")?.Value == "1");
+            Assert.IsTrue(mergedElement.Element("Visibility")?.Attribute("value")?.Value == "Hidden");
+            Assert.IsTrue(mergedElement.Attribute("Button")?.Value == "Test");
 
-            Assert.IsTrue(mergedElement.Elements("Amount").LastOrDefault().Attribute("value").Value == "179");
+            Assert.IsTrue(mergedElement.Elements("Amount").LastOrDefault()?.Attribute("value")?.Value == "179");
         }
 
         [TestMethod]

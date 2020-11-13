@@ -45,15 +45,15 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "NAME")
                 {
-                    PortraitName = element.Attribute("value").Value;
+                    PortraitName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "SORTNAME")
                 {
-                    PortraitSortName = element.Attribute("value").Value;
+                    PortraitSortName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    PortraitHyperlinkId = element.Attribute("value").Value;
+                    PortraitHyperlinkId = element.Attribute("value")?.Value;
                 }
             }
         }

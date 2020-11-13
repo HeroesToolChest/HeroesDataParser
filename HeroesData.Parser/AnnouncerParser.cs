@@ -29,7 +29,7 @@ namespace HeroesData.Parser
             if (ids == null || ids.Length < 1)
                 return null;
 
-            string id = ids.FirstOrDefault();
+            string id = ids.First();
 
             XElement? announcerPackElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (announcerPackElement == null)
@@ -119,7 +119,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "RARITY")
                 {
-                    if (Enum.TryParse(element.Attribute("value").Value, out Rarity heroRarity))
+                    if (Enum.TryParse(element.Attribute("value")?.Value, out Rarity heroRarity))
                         announcer.Rarity = heroRarity;
                     else
                         announcer.Rarity = Rarity.Unknown;
@@ -135,7 +135,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "TILETEXTURE")
                 {
-                    announcer.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty)).ToLowerInvariant();
+                    announcer.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty))?.ToLowerInvariant() ?? string.Empty;
 
                     if (!string.IsNullOrEmpty(heroId))
                         announcer.ImageFileName = announcer.ImageFileName.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase).ToLowerInvariant();

@@ -15,7 +15,7 @@ namespace HeroesData.Parser.Overrides.DataOverrides
 
         public override bool Equals(object? obj)
         {
-            if (!(obj is AddedButtonAbility item))
+            if (obj is not AddedButtonAbility item)
                 return false;
 
             return ButtonId == item.ButtonId && ParentValue == item.ParentValue;

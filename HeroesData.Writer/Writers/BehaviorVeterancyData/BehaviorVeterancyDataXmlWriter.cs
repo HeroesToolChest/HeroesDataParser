@@ -36,13 +36,13 @@ namespace HeroesData.FileWriter.Writers.BehaviorVeterancyData
                         new XAttribute("minVeterancyXP", veterancyLevel.MinimumVeterancyXP),
                         new XElement(
                             "Modifications",
-                            veterancyLevel.VeterancyModification?.KillXpBonus > 0 ? new XAttribute("killXPBonus", veterancyLevel.VeterancyModification.KillXpBonus) : null,
-                            veterancyLevel.VeterancyModification?.DamageDealtScaledCollection.Count > 0 ? GetDamageDealtScaledObject(veterancyLevel) : null,
-                            veterancyLevel.VeterancyModification?.DamageDealtFractionCollection.Count > 0 ? GetDamageDealtFractionObject(veterancyLevel) : null,
-                            veterancyLevel.VeterancyModification?.VitalMaxCollection.Count > 0 ? GetVitalMaxCollectionObject(veterancyLevel) : null,
-                            veterancyLevel.VeterancyModification?.VitalMaxFractionCollection.Count > 0 ? GetVitalMaxFractionCollectionObject(veterancyLevel) : null,
-                            veterancyLevel.VeterancyModification?.VitalRegenCollection.Count > 0 ? GetVitalRegenObject(veterancyLevel) : null,
-                            veterancyLevel.VeterancyModification?.VitalRegenFractionCollection.Count > 0 ? GetVitalRegenFractionObject(veterancyLevel) : null));
+                            veterancyLevel.VeterancyModification?.KillXpBonus > 0 ? new XAttribute("killXPBonus", veterancyLevel.VeterancyModification.KillXpBonus) : null!,
+                            veterancyLevel.VeterancyModification?.DamageDealtScaledCollection.Count > 0 ? GetDamageDealtScaledObject(veterancyLevel) : null!,
+                            veterancyLevel.VeterancyModification?.DamageDealtFractionCollection.Count > 0 ? GetDamageDealtFractionObject(veterancyLevel) : null!,
+                            veterancyLevel.VeterancyModification?.VitalMaxCollection.Count > 0 ? GetVitalMaxCollectionObject(veterancyLevel) : null!,
+                            veterancyLevel.VeterancyModification?.VitalMaxFractionCollection.Count > 0 ? GetVitalMaxFractionCollectionObject(veterancyLevel) : null!,
+                            veterancyLevel.VeterancyModification?.VitalRegenCollection.Count > 0 ? GetVitalRegenObject(veterancyLevel) : null!,
+                            veterancyLevel.VeterancyModification?.VitalRegenFractionCollection.Count > 0 ? GetVitalRegenFractionObject(veterancyLevel) : null!));
 
                 veterancyLevelsElement.Add(veterancyLevelElement);
             }

@@ -34,7 +34,7 @@ namespace HeroesData
         /// <summary>
         /// Gets the product version of the application.
         /// </summary>
-        public static string Version { get; } = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
+        public static string Version { get; } = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location)?.ProductVersion ?? "No version";
 
         /// <summary>
         /// Gets the assembly path.
@@ -43,8 +43,8 @@ namespace HeroesData
         {
             get
             {
-                string fileName = Process.GetCurrentProcess().MainModule.FileName;
-                string executingFileName = Path.GetFileNameWithoutExtension(fileName);
+                string? fileName = Process.GetCurrentProcess().MainModule?.FileName;
+                string? executingFileName = Path.GetFileNameWithoutExtension(fileName);
 
                 if (executingFileName == "dotnet-heroes-data") // ToolCommandName
                     return AppContext.BaseDirectory;
@@ -223,10 +223,10 @@ namespace HeroesData
         private static void GetModsDirectoryBuild()
         {
             ReadOnlySpan<char> storagePath = StoragePath.AsSpan();
-            ReadOnlySpan<char> lastDirectory = storagePath.Slice(storagePath.LastIndexOf(Path.DirectorySeparatorChar) + 1);
+            ReadOnlySpan<char> lastDirectory = storagePath[(storagePath.LastIndexOf(Path.DirectorySeparatorChar) + 1)..];
             int indexOfBuild = lastDirectory.LastIndexOf('_');
 
-            if (indexOfBuild > -1 && int.TryParse(lastDirectory.Slice(indexOfBuild + 1), out int value))
+            if (indexOfBuild > -1 && int.TryParse(lastDirectory[(indexOfBuild + 1)..], out int value))
             {
                 HotsBuild = value;
 
@@ -257,10 +257,10 @@ namespace HeroesData
 
             foreach (ReadOnlySpan<char> directory in directories)
             {
-                ReadOnlySpan<char> lastDirectory = directory.Slice(directory.LastIndexOf(Path.DirectorySeparatorChar) + 1);
+                ReadOnlySpan<char> lastDirectory = directory[(directory.LastIndexOf(Path.DirectorySeparatorChar) + 1)..];
                 int indexOfBuild = lastDirectory.LastIndexOf('_');
 
-                if (indexOfBuild > -1 && int.TryParse(lastDirectory.Slice(indexOfBuild + 1), out int value) && value >= max)
+                if (indexOfBuild > -1 && int.TryParse(lastDirectory[(indexOfBuild + 1)..], out int value) && value >= max)
                 {
                     max = value;
                     selectedDirectory = lastDirectory;
@@ -365,7 +365,7 @@ namespace HeroesData
                     ReadOnlySpan<char> buildName = CASCHotsStorage.CASCHandler.Config.VersionName.AsSpan();
                     int indexOfVersion = buildName.LastIndexOf('.');
 
-                    if (indexOfVersion > -1 && int.TryParse(buildName.Slice(indexOfVersion + 1), out int hotsBuild))
+                    if (indexOfVersion > -1 && int.TryParse(buildName[(indexOfVersion + 1)..], out int hotsBuild))
                     {
                         HotsBuild = hotsBuild;
                         Console.WriteLine($"Hots Version: {CASCHotsStorage.CASCHandler.Config.VersionName}");
@@ -454,7 +454,7 @@ namespace HeroesData
             {
                 ReadOnlySpan<char> fileNameNoExtension = Path.GetFileNameWithoutExtension(overrideFileName).AsSpan();
 
-                if (int.TryParse(fileNameNoExtension.Slice(fileNameNoExtension.IndexOf('_') + 1), out int loadedOverrideBuild))
+                if (int.TryParse(fileNameNoExtension[(fileNameNoExtension.IndexOf('_') + 1)..], out int loadedOverrideBuild))
                 {
                     if ((StorageMode == StorageMode.Mods && HotsBuild.HasValue && HotsBuild.Value != loadedOverrideBuild) || (StorageMode == StorageMode.CASC && HotsBuild.HasValue && HotsBuild.Value != loadedOverrideBuild))
                         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -590,14 +590,14 @@ namespace HeroesData
         private void DetectStoragePathType()
         {
             string modsPath = StoragePath;
-            string hotsPath = StoragePath;
+            string? hotsPath = StoragePath;
 
             if (Defaults)
             {
                 modsPath = Path.Combine(StoragePath, "mods");
 
                 if (Directory.GetParent(StoragePath) != null)
-                    hotsPath = Directory.GetParent(StoragePath).FullName;
+                    hotsPath = Directory.GetParent(StoragePath)?.FullName;
             }
 
             if (Directory.Exists(modsPath) &&
@@ -614,12 +614,12 @@ namespace HeroesData
             {
                 StorageMode = StorageMode.Mods;
             }
-            else if (Directory.Exists(hotsPath) && Directory.Exists(Path.Combine(hotsPath, "HeroesData")) && File.Exists(Path.Combine(hotsPath, ".build.info")))
+            else if (Directory.Exists(hotsPath) && Directory.Exists(Path.Combine(hotsPath!, "HeroesData")) && File.Exists(Path.Combine(hotsPath!, ".build.info")))
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("Found 'Heroes of the Storm' directory");
 
-                StoragePath = hotsPath;
+                StoragePath = hotsPath!;
                 StorageMode = StorageMode.CASC;
             }
             else

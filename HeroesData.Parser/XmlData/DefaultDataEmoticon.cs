@@ -82,23 +82,23 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "LOCALIZEDALIASARRAY")
                 {
-                    EmoticonLocalizedAliasArray = element.Attribute("value").Value;
+                    EmoticonLocalizedAliasArray = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "DESCRIPTION")
                 {
-                    EmoticonDescription = element.Attribute("value").Value;
+                    EmoticonDescription = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "DESCRIPTIONLOCKED")
                 {
-                    EmoticonDescriptionLocked = element.Attribute("value").Value;
+                    EmoticonDescriptionLocked = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "EXPRESSION")
                 {
-                    EmoticonExpression = element.Attribute("value").Value;
+                    EmoticonExpression = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "IMAGE")
                 {
-                    EmoticonTextureSheet = element.Attribute("TextureSheet").Value;
+                    EmoticonTextureSheet = element.Attribute("TextureSheet")?.Value;
                 }
                 else if (elementName == "FLAGS")
                 {
@@ -121,16 +121,16 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "IMAGE")
                 {
-                    TextureSheetImage = element.Attribute("value").Value;
+                    TextureSheetImage = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "ROWS")
                 {
-                    if (int.TryParse(element.Attribute("value").Value, out int value))
+                    if (int.TryParse(element.Attribute("value")?.Value, out int value))
                         TextureSheetRows = value;
                 }
                 else if (elementName == "COLUMNS")
                 {
-                    if (int.TryParse(element.Attribute("value").Value, out int value))
+                    if (int.TryParse(element.Attribute("value")?.Value, out int value))
                         TextureSheetColumns = value;
                 }
             }

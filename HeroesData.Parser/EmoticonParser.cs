@@ -29,7 +29,7 @@ namespace HeroesData.Parser
             if (ids == null || ids.Length < 1)
                 return null;
 
-            string id = ids.FirstOrDefault();
+            string id = ids.First();
 
             XElement? emoticonElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (emoticonElement == null)
@@ -182,16 +182,16 @@ namespace HeroesData.Parser
 
                 if (elementName == "IMAGE")
                 {
-                    textureSheet.Image = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty)).ToLowerInvariant();
+                    textureSheet.Image = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty))?.ToLowerInvariant() ?? string.Empty;
                 }
                 else if (elementName == "ROWS")
                 {
-                    if (int.TryParse(element.Attribute("value").Value, out int value))
+                    if (int.TryParse(element.Attribute("value")?.Value, out int value))
                         textureSheet.Rows = value;
                 }
                 else if (elementName == "COLUMNS")
                 {
-                    if (int.TryParse(element.Attribute("value").Value, out int value))
+                    if (int.TryParse(element.Attribute("value")?.Value, out int value))
                         textureSheet.Columns = value;
                 }
             }

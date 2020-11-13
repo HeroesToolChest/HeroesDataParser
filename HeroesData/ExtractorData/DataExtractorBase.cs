@@ -74,10 +74,13 @@ namespace HeroesData.ExtractorData
                 if (mapItems.Any())
                 {
                     // group them up by the map name id
-                    IEnumerable<IGrouping<string, string[]>> mapItemsGroup = mapItems.GroupBy(x => x.ElementAtOrDefault(1));
+                    IEnumerable<IGrouping<string?, string[]>> mapItemsGroup = mapItems.GroupBy(x => x.ElementAtOrDefault(1));
 
-                    foreach (IGrouping<string, string[]> mapItemGroup in mapItemsGroup)
+                    foreach (IGrouping<string?, string[]> mapItemGroup in mapItemsGroup)
                     {
+                        if (mapItemGroup.Key == null)
+                            continue;
+
                         Parser.LoadMapData(mapItemGroup.Key);
 
                         Parallel.ForEach(mapItemGroup, new ParallelOptions { MaxDegreeOfParallelism = App.MaxParallelism }, mapItem =>

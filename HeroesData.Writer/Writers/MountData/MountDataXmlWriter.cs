@@ -19,17 +19,17 @@ namespace HeroesData.FileWriter.Writers.MountData
 
             return new XElement(
                 XmlConvert.EncodeName(mount.Id),
-                string.IsNullOrEmpty(mount.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", mount.Name),
+                string.IsNullOrEmpty(mount.Name) || FileOutputOptions.IsLocalizedText ? null! : new XAttribute("name", mount.Name),
                 new XAttribute("hyperlinkId", mount.HyperlinkId),
                 new XAttribute("attributeId", mount.AttributeId),
                 new XAttribute("rarity", mount.Rarity),
-                new XAttribute("type", mount.MountCategory),
-                new XAttribute("category", mount.CollectionCategory),
-                string.IsNullOrEmpty(mount.EventName) ? null : new XAttribute("event", mount.EventName),
-                mount.ReleaseDate.HasValue ? new XAttribute("releaseDate", mount.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
-                string.IsNullOrEmpty(mount.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", mount.SortName),
-                string.IsNullOrEmpty(mount.SearchText) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", mount.SearchText),
-                string.IsNullOrEmpty(mount.InfoText?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("InfoText", GetTooltip(mount.InfoText, FileOutputOptions.DescriptionType)));
+                new XAttribute("type", mount.MountCategory!),
+                new XAttribute("category", mount.CollectionCategory!),
+                string.IsNullOrEmpty(mount.EventName) ? null! : new XAttribute("event", mount.EventName),
+                mount.ReleaseDate.HasValue ? new XAttribute("releaseDate", mount.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null!,
+                string.IsNullOrEmpty(mount.SortName) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SortName", mount.SortName),
+                string.IsNullOrEmpty(mount.SearchText) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SearchText", mount.SearchText),
+                string.IsNullOrEmpty(mount.InfoText?.RawDescription) || FileOutputOptions.IsLocalizedText ? null! : new XElement("InfoText", GetTooltip(mount.InfoText, FileOutputOptions.DescriptionType)));
         }
     }
 }

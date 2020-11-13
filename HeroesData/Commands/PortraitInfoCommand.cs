@@ -84,7 +84,9 @@ namespace HeroesData.Commands
             {
                 if (item.Value.TryGetProperty("textureSheet", out JsonElement value) && value.TryGetProperty("image", out value))
                 {
-                    imageFileNames.Add(value.GetString());
+                    string? imageName = value.GetString();
+                    if (!string.IsNullOrEmpty(imageName))
+                        imageFileNames.Add(imageName);
                 }
             }
 
@@ -105,8 +107,8 @@ namespace HeroesData.Commands
             {
                 if (item.Value.TryGetProperty("iconSlot", out JsonElement jsonElement) && jsonElement.TryGetInt32(out int value) && value == 0)
                 {
-                    string name = string.Empty;
-                    string imageFileName = string.Empty;
+                    string? name = null;
+                    string? imageFileName = null;
 
                     if (item.Value.TryGetProperty("name", out jsonElement))
                         name = jsonElement.GetString();

@@ -27,7 +27,7 @@ namespace HeroesData.Parser
             if (ids == null || ids.Length < 1)
                 return null;
 
-            string id = ids.FirstOrDefault();
+            string id = ids.First();
 
             XElement? skinElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (skinElement == null)
@@ -112,7 +112,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "RARITY")
                 {
-                    if (Enum.TryParse(element.Attribute("value").Value, out Rarity heroRarity))
+                    if (Enum.TryParse(element.Attribute("value")?.Value, out Rarity heroRarity))
                         heroSkin.Rarity = heroRarity;
                     else
                         heroSkin.Rarity = Rarity.Unknown;

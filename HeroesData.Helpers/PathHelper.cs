@@ -11,11 +11,11 @@ namespace HeroesData.Helpers
         /// </summary>
         /// <param name="filePath">A file path.</param>
         /// <returns></returns>
-        public static string GetFilePath(string filePath)
+        public static string? GetFilePath(string? filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
-                throw new ArgumentException("Argument cannot be null or empty.", nameof(filePath));
+                return filePath;
             }
 
             if (Path.DirectorySeparatorChar != '\\')

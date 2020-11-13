@@ -36,7 +36,7 @@ namespace HeroesData.Helpers
                 string matchInput = match.Value;
 
                 if (matchInput.StartsWith("(", StringComparison.OrdinalIgnoreCase))
-                    matchInput = matchInput.Substring(1);
+                    matchInput = matchInput[1..];
                 if (matchInput.EndsWith(")", StringComparison.OrdinalIgnoreCase))
                     matchInput = matchInput.Remove(matchInput.Length - 1);
 
@@ -45,7 +45,7 @@ namespace HeroesData.Helpers
                 int position = input.IndexOf(match.Value, StringComparison.OrdinalIgnoreCase);
                 if (position >= 0)
                 {
-                    input = input.Substring(0, position) + CalculateInput(matchInput) + input.Substring(position + match.Length);
+                    input = input.Substring(0, position) + CalculateInput(matchInput) + input[(position + match.Length)..];
                 }
             }
 
@@ -83,7 +83,7 @@ namespace HeroesData.Helpers
                 int pos = input.IndexOf(toBeComputed, StringComparison.OrdinalIgnoreCase);
                 if (pos >= 0)
                 {
-                    input = input.Substring(0, pos) + value + input.Substring(pos + toBeComputed.Length);
+                    input = input.Substring(0, pos) + value + input[(pos + toBeComputed.Length)..];
                 }
 
                 parts = SplitExpression(input);

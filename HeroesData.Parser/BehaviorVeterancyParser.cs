@@ -150,7 +150,7 @@ namespace HeroesData.Parser
             }
         }
 
-        private VeterancyModification? SetVeterancyLevelArrayModificationData(XElement modificationElement)
+        private VeterancyModification? SetVeterancyLevelArrayModificationData(XElement? modificationElement)
         {
             if (modificationElement == null)
                 return null;
@@ -263,14 +263,17 @@ namespace HeroesData.Parser
         {
             foreach (XElement element in elements)
             {
-                string id = element.Attribute("id").Value;
+                string? id = element.Attribute("id")?.Value;
 
-                if ((ValidItem(element) && !Configuration.RemoveDataXmlElementIds(ElementType).Contains(id)) || Configuration.AddDataXmlElementIds(ElementType).Contains(id))
+                if (!string.IsNullOrEmpty(id))
                 {
-                    if (string.IsNullOrEmpty(mapName))
-                        items.Add(new string[] { id });
-                    else
-                        items.Add(new string[] { id, mapName });
+                    if ((ValidItem(element) && !Configuration.RemoveDataXmlElementIds(ElementType).Contains(id)) || Configuration.AddDataXmlElementIds(ElementType).Contains(id))
+                    {
+                        if (string.IsNullOrEmpty(mapName))
+                            items.Add(new string[] { id });
+                        else
+                            items.Add(new string[] { id, mapName });
+                    }
                 }
             }
         }

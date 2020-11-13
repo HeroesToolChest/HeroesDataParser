@@ -30,7 +30,7 @@ namespace HeroesData.Commands
                     if (item.Value.TryGetProperty("iconSlot", out jsonElement) && jsonElement.TryGetInt32(out int iconSlotValue) &&
                         item.Value.TryGetProperty("name", out jsonElement))
                     {
-                        rewardPortraitNames.Add(iconSlotValue, jsonElement.GetString());
+                        rewardPortraitNames.Add(iconSlotValue, jsonElement.GetString() ?? string.Empty);
                     }
                 }
             }

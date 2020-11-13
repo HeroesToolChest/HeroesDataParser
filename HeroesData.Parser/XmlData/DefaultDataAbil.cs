@@ -35,7 +35,7 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "NAME")
                 {
-                    AbilName = element.Attribute("value").Value;
+                    AbilName = element.Attribute("value")?.Value ?? string.Empty;
                 }
             }
         }

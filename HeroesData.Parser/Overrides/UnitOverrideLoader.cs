@@ -32,7 +32,7 @@ namespace HeroesData.Parser.Overrides
             AbilityPropertyOverride abilityOverride = new AbilityPropertyOverride();
             WeaponPropertyOverride weaponOverride = new WeaponPropertyOverride();
 
-            string unitId = element.Attribute("id").Value;
+            string unitId = element.Attribute("id")?.Value ?? string.Empty;
 
             foreach (XElement dataElement in element.Elements())
             {

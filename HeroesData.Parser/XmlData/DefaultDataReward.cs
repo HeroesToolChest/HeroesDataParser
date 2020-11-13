@@ -50,19 +50,19 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "NAME")
                 {
-                    RewardName = element.Attribute("value").Value;
+                    RewardName = element.Attribute("value")?.Value ?? string.Empty;
                 }
                 else if (elementName == "DESCRIPTION")
                 {
-                    RewardDescription = element.Attribute("value").Value;
+                    RewardDescription = element.Attribute("value")?.Value ?? string.Empty;
                 }
                 else if (elementName == "DESCRIPTIONUNEARNED")
                 {
-                    RewardDescriptionUnearned = element.Attribute("value").Value;
+                    RewardDescriptionUnearned = element.Attribute("value")?.Value ?? string.Empty;
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    RewardHyperlinkId = element.Attribute("value").Value;
+                    RewardHyperlinkId = element.Attribute("value")?.Value ?? string.Empty;
                 }
             }
         }

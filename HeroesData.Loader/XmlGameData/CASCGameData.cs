@@ -133,6 +133,10 @@ namespace HeroesData.Loader.XmlGameData
                 }
 
                 XDocument gameDataXml = XDocument.Load(cascXmlStream);
+
+                if (gameDataXml.Root == null)
+                    throw new InvalidOperationException();
+
                 IEnumerable<XElement> pathElements = gameDataXml.Root.Elements("Path");
 
                 foreach (XElement pathElement in pathElements)
@@ -141,30 +145,34 @@ namespace HeroesData.Loader.XmlGameData
                     if (!string.IsNullOrEmpty(valuePath))
                     {
                         valuePath = PathHelper.GetFilePath(valuePath);
-                        valuePath = valuePath.Remove(0, 5); // remove 'mods/'
 
-                        if (valuePath.StartsWith(HeroesModsDirectoryName, StringComparison.OrdinalIgnoreCase))
+                        if (!string.IsNullOrEmpty(valuePath))
                         {
-                            string gameDataPath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, GameDataXmlFile);
+                            valuePath = valuePath.Remove(0, 5); // remove 'mods/'
 
-                            LoadGameDataXmlContents(gameDataPath);
-
-                            string heroModsFontStylesFilePath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, UIDirectoryStringName, FontStyleFile);
-                            if (_cascHandlerData.FileExists(heroModsFontStylesFilePath))
+                            if (valuePath.StartsWith(HeroesModsDirectoryName, StringComparison.OrdinalIgnoreCase))
                             {
-                                if (LoadStormStyleEnabled)
-                                    LoadStormStyleFile(_cascHandlerData.OpenFile(heroModsFontStylesFilePath));
+                                string gameDataPath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, GameDataXmlFile);
 
-                                if (IsCacheEnabled)
-                                    AddStormStyleCachedFilePath(heroModsFontStylesFilePath);
-                            }
+                                LoadGameDataXmlContents(gameDataPath);
 
-                            if (LoadTextFilesOnlyEnabled)
-                            {
-                                string filePath = Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile);
+                                string heroModsFontStylesFilePath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, UIDirectoryStringName, FontStyleFile);
+                                if (_cascHandlerData.FileExists(heroModsFontStylesFilePath))
+                                {
+                                    if (LoadStormStyleEnabled)
+                                        LoadStormStyleFile(_cascHandlerData.OpenFile(heroModsFontStylesFilePath));
 
-                                if (_cascHandlerData.FileExists(filePath))
-                                    LoadTextFile(_cascHandlerData.OpenFile(filePath), filePath);
+                                    if (IsCacheEnabled)
+                                        AddStormStyleCachedFilePath(heroModsFontStylesFilePath);
+                                }
+
+                                if (LoadTextFilesOnlyEnabled)
+                                {
+                                    string filePath = Path.Combine(ModsFolderPath, valuePath, GameStringLocalization, LocalizedDataName, GameStringFile);
+
+                                    if (_cascHandlerData.FileExists(filePath))
+                                        LoadTextFile(_cascHandlerData.OpenFile(filePath), filePath);
+                                }
                             }
                         }
                     }
@@ -234,6 +242,10 @@ namespace HeroesData.Loader.XmlGameData
             using Stream cascXmlStream = _cascHandlerData.OpenFile(gameDataXmlFilePath);
 
             XDocument gameDataXml = XDocument.Load(cascXmlStream);
+
+            if (gameDataXml.Root == null)
+                throw new InvalidOperationException();
+
             IEnumerable<XElement> catalogElements = gameDataXml.Root.Elements("Catalog");
 
             foreach (XElement catalogElement in catalogElements)
@@ -243,7 +255,7 @@ namespace HeroesData.Loader.XmlGameData
                 {
                     pathValue = PathHelper.GetFilePath(pathValue);
 
-                    if (pathValue.Contains($"{GameDataStringName}/", StringComparison.OrdinalIgnoreCase))
+                    if (pathValue!.Contains($"{GameDataStringName}/", StringComparison.OrdinalIgnoreCase))
                     {
                         if (gameDataXmlFilePath.Contains(HeroesDataStormModDirectoryName, StringComparison.OrdinalIgnoreCase))
                         {

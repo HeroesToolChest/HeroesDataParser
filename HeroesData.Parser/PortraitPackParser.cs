@@ -27,7 +27,7 @@ namespace HeroesData.Parser
             if (ids == null || ids.Length < 1)
                 return null;
 
-            string id = ids.FirstOrDefault();
+            string id = ids.First();
 
             XElement? portraitElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (portraitElement == null)
@@ -85,7 +85,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "RARITY")
                 {
-                    if (Enum.TryParse(element.Attribute("value").Value, out Rarity rarity))
+                    if (Enum.TryParse(element.Attribute("value")?.Value, out Rarity rarity))
                     {
                         portrait.Rarity = rarity;
                     }

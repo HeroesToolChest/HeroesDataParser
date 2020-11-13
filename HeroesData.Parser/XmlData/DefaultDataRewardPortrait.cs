@@ -67,15 +67,15 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "ICONFILE")
                 {
-                    PortraitIconFileName = _gameData.GetValueFromAttribute(element.Attribute("value").Value);
+                    PortraitIconFileName = _gameData.GetValueFromAttribute(element.Attribute("value")?.Value);
                 }
                 else if (elementName == "COLLECTIONCATEGORY")
                 {
-                    PortraitCollectionCategory = element.Attribute("value").Value;
+                    PortraitCollectionCategory = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "RARITY")
                 {
-                    if (Enum.TryParse(element.Attribute("value").Value, out Rarity rarity))
+                    if (Enum.TryParse(element.Attribute("value")?.Value, out Rarity rarity))
                     {
                         PortraitRarity = rarity;
                     }

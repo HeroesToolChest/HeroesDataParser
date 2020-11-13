@@ -29,7 +29,7 @@ namespace HeroesData.Parser
             if (ids == null || ids.Length < 1)
                 return null;
 
-            string id = ids.FirstOrDefault();
+            string id = ids.First();
 
             XElement? sprayElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (sprayElement == null)
@@ -114,7 +114,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "RARITY")
                 {
-                    if (Enum.TryParse(element.Attribute("value").Value, out Rarity heroRarity))
+                    if (Enum.TryParse(element.Attribute("value")?.Value, out Rarity heroRarity))
                         spray.Rarity = heroRarity;
                     else
                         spray.Rarity = Rarity.Unknown;
@@ -139,7 +139,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "TEXTURE")
                 {
-                    spray.TextureSheet.Image = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty)).ToLowerInvariant();
+                    spray.TextureSheet.Image = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty))?.ToLowerInvariant() ?? string.Empty;
                 }
                 else if (elementName == "ANIMCOUNT")
                 {

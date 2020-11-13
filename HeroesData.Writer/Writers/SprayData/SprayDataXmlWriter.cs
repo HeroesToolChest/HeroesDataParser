@@ -20,18 +20,18 @@ namespace HeroesData.FileWriter.Writers.SprayData
 
             return new XElement(
                 XmlConvert.EncodeName(spray.Id),
-                string.IsNullOrEmpty(spray.Name) || FileOutputOptions.IsLocalizedText ? null : new XAttribute("name", spray.Name),
+                string.IsNullOrEmpty(spray.Name) || FileOutputOptions.IsLocalizedText ? null! : new XAttribute("name", spray.Name),
                 new XAttribute("hyperlinkId", spray.HyperlinkId),
                 new XAttribute("attributeId", spray.AttributeId),
                 new XAttribute("rarity", spray.Rarity),
-                string.IsNullOrEmpty(spray.CollectionCategory) ? null : new XAttribute("category", spray.CollectionCategory),
-                string.IsNullOrEmpty(spray.EventName) ? null : new XAttribute("event", spray.EventName),
-                spray.ReleaseDate.HasValue ? new XAttribute("releaseDate", spray.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null,
-                string.IsNullOrEmpty(spray.SortName) || FileOutputOptions.IsLocalizedText ? null : new XElement("SortName", spray.SortName),
-                string.IsNullOrEmpty(spray.SearchText) || FileOutputOptions.IsLocalizedText ? null : new XElement("SearchText", spray.SearchText),
-                string.IsNullOrEmpty(spray.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null : new XElement("Description", GetTooltip(spray.Description, FileOutputOptions.DescriptionType)),
-                string.IsNullOrEmpty(spray.TextureSheet.Image) ? null : new XElement("Image", spray.AnimationCount < 1 ? Path.ChangeExtension(spray.TextureSheet.Image.ToLowerInvariant(), StaticImageExtension) : Path.ChangeExtension(spray.TextureSheet.Image.ToLowerInvariant(), AnimatedImageExtension)),
-                AnimationObject(spray));
+                string.IsNullOrEmpty(spray.CollectionCategory) ? null! : new XAttribute("category", spray.CollectionCategory),
+                string.IsNullOrEmpty(spray.EventName) ? null! : new XAttribute("event", spray.EventName),
+                spray.ReleaseDate.HasValue ? new XAttribute("releaseDate", spray.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null!,
+                string.IsNullOrEmpty(spray.SortName) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SortName", spray.SortName),
+                string.IsNullOrEmpty(spray.SearchText) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SearchText", spray.SearchText),
+                string.IsNullOrEmpty(spray.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null! : new XElement("Description", GetTooltip(spray.Description, FileOutputOptions.DescriptionType)),
+                string.IsNullOrEmpty(spray.TextureSheet.Image) ? null! : new XElement("Image", spray.AnimationCount < 1 ? Path.ChangeExtension(spray.TextureSheet.Image.ToLowerInvariant(), StaticImageExtension) : Path.ChangeExtension(spray.TextureSheet.Image.ToLowerInvariant(), AnimatedImageExtension)),
+                AnimationObject(spray)!);
         }
 
         protected override XElement GetAnimationObject(Spray spray)

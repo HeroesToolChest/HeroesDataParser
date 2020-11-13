@@ -233,32 +233,35 @@ namespace HeroesData.Parser.XmlData
                 else if (elementName == "ATTRIBUTES")
                 {
                     string? enabled = element.Attribute("value")?.Value;
-                    string attribute = element.Attribute("index").Value;
+                    string? attribute = element.Attribute("index")?.Value;
 
-                    if (enabled == "0" && unit.Attributes.Contains(attribute))
-                        unit.Attributes.Remove(attribute);
-                    else if (enabled == "1")
-                        unit.Attributes.Add(attribute);
+                    if (!string.IsNullOrEmpty(attribute))
+                    {
+                        if (enabled == "0" && unit.Attributes.Contains(attribute))
+                            unit.Attributes.Remove(attribute);
+                        else if (enabled == "1")
+                            unit.Attributes.Add(attribute);
+                    }
                 }
                 else if (elementName == "UNITDAMAGETYPE")
                 {
-                    unit.DamageType = element.Attribute("value").Value;
+                    unit.DamageType = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "NAME")
                 {
-                    unit.Name = _gameData.GetGameString(element.Attribute("value").Value);
+                    unit.Name = _gameData.GetGameString(element.Attribute("value")?.Value);
                 }
                 else if (elementName == "DESCRIPTION")
                 {
-                    unit.Description = new TooltipDescription(_gameData.GetGameString(element.Attribute("value").Value));
+                    unit.Description = new TooltipDescription(_gameData.GetGameString(element.Attribute("value")?.Value));
                 }
                 else if (elementName == "INFOTEXT")
                 {
-                    unit.InfoText = new TooltipDescription(_gameData.GetGameString(element.Attribute("value").Value));
+                    unit.InfoText = new TooltipDescription(_gameData.GetGameString(element.Attribute("value")?.Value));
                 }
                 else if (elementName == "GENDER")
                 {
-                    if (Enum.TryParse(element.Attribute("value").Value, out UnitGender unitGender))
+                    if (Enum.TryParse(element.Attribute("value")?.Value, out UnitGender unitGender))
                         unit.Gender = unitGender;
                     else
                         unit.Gender = UnitGender.Neutral;
@@ -280,10 +283,13 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "HEROPLAYSTYLEFLAGS")
                 {
-                    string descriptor = element.Attribute("index").Value;
+                    string? descriptor = element.Attribute("index")?.Value;
 
-                    if (element.Attribute("value")?.Value == "1")
-                        unit.HeroDescriptors.Add(descriptor);
+                    if (!string.IsNullOrEmpty(descriptor))
+                    {
+                        if (element.Attribute("value")?.Value == "1")
+                            unit.HeroDescriptors.Add(descriptor);
+                    }
                 }
                 else if (elementName == "KILLXP")
                 {
@@ -358,20 +364,28 @@ namespace HeroesData.Parser.XmlData
 
                     if (!string.IsNullOrEmpty(imageValue))
                     {
-                        string fileName = Path.GetFileName(PathHelper.GetFilePath(imageValue)).ToLowerInvariant();
-                        if (!_configuration.ContainsDeadImageFileName(fileName))
-                            unit.UnitPortrait.TargetInfoPanelFileName = fileName;
+                        string? fileName = Path.GetFileName(PathHelper.GetFilePath(imageValue))?.ToLowerInvariant();
+
+                        if (!string.IsNullOrEmpty(fileName))
+                        {
+                            if (!_configuration.ContainsDeadImageFileName(fileName))
+                                unit.UnitPortrait.TargetInfoPanelFileName = fileName;
+                        }
                     }
                 }
                 else if (elementName == "MINIMAPICON")
                 {
-                    string imageValue = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty));
+                    string? imageValue = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty));
 
                     if (!string.IsNullOrEmpty(imageValue))
                     {
-                        string fileName = Path.GetFileName(PathHelper.GetFilePath(imageValue)).ToLowerInvariant();
-                        if (!_configuration.ContainsDeadImageFileName(fileName))
-                            unit.UnitPortrait.MiniMapIconFileName = fileName;
+                        string? fileName = Path.GetFileName(PathHelper.GetFilePath(imageValue))?.ToLowerInvariant();
+
+                        if (!string.IsNullOrEmpty(fileName))
+                        {
+                            if (!_configuration.ContainsDeadImageFileName(fileName))
+                                unit.UnitPortrait.MiniMapIconFileName = fileName;
+                        }
                     }
                 }
             }

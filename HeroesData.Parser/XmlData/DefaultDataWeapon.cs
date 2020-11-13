@@ -50,19 +50,19 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "NAME")
                 {
-                    WeaponName = element.Attribute("value").Value;
+                    WeaponName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "DISPLAYEFFECT")
                 {
-                    WeaponDisplayEffect = element.Attribute("value").Value;
+                    WeaponDisplayEffect = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "RANGE")
                 {
-                    WeaponRange = double.Parse(element.Attribute("value").Value);
+                    WeaponRange = double.Parse(element.Attribute("value")?.Value ?? "0");
                 }
                 else if (elementName == "PERIOD")
                 {
-                    WeaponPeriod = double.Parse(element.Attribute("value").Value);
+                    WeaponPeriod = double.Parse(element.Attribute("value")?.Value ?? "0");
                 }
             }
         }

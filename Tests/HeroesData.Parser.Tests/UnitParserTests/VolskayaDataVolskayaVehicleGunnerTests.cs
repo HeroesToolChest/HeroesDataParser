@@ -21,7 +21,8 @@ namespace HeroesData.Parser.Tests.UnitParserTests
                 new AbilityTalentId("VolskayaVehicleInitiateParticleCannon", "VolskayaVehicleInitiateParticleCannon")
                 {
                     AbilityType = AbilityTypes.Q,
-                }, out Ability ability));
+                },
+                out Ability ability));
 
             Assert.AreEqual(AbilityTypes.Q, ability.AbilityTalentId.AbilityType);
         }

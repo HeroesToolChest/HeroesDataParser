@@ -193,7 +193,7 @@ namespace HeroesData.Loader.XmlGameData
             if (!append)
                 elements = elements.Reverse();
 
-            XElement mergedXElement = new XElement(elements.FirstOrDefault());
+            XElement mergedXElement = new XElement(elements.First());
 
             foreach (XElement element in elements.Skip(1))
             {
@@ -226,7 +226,7 @@ namespace HeroesData.Loader.XmlGameData
             if (!append)
                 elements = elements.Reverse();
 
-            XElement mergedXElement = new XElement(elements.FirstOrDefault());
+            XElement mergedXElement = new XElement(elements.First());
 
             foreach (XElement element in elements.Skip(1))
             {
@@ -246,9 +246,10 @@ namespace HeroesData.Loader.XmlGameData
         public void AppendGameData(GameData gameData)
         {
             if (gameData == null)
-            {
                 throw new ArgumentNullException(nameof(gameData));
-            }
+
+            if (XmlGameData.Root == null || gameData.XmlGameData.Root == null)
+                throw new InvalidOperationException();
 
             IsMapGameData = true;
 
@@ -389,9 +390,7 @@ namespace HeroesData.Loader.XmlGameData
         public bool TryGetGameString(string id, [NotNullWhen(true)] out string? value)
         {
             if (id == null)
-            {
                 throw new ArgumentNullException(nameof(id));
-            }
 
             if (_gameStringById.TryGetValue(id, out value))
                 return true;
@@ -406,8 +405,8 @@ namespace HeroesData.Loader.XmlGameData
         /// <param name="value">The value of the string.</param>
         public void AddGameString(string id, string value)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new ArgumentException("Argument should not be empty or null", nameof(id));
+            if (string.IsNullOrWhiteSpace(id))
+                throw new ArgumentException($"'{nameof(id)}' cannot be null or whitespace", nameof(id));
 
             _gameStringById[id] = value ?? throw new ArgumentNullException(nameof(value));
         }
@@ -420,10 +419,8 @@ namespace HeroesData.Loader.XmlGameData
         /// <param name="value">The value of the string.</param>
         public void AddMapGameString(string mapId, string id, string value)
         {
-            if (string.IsNullOrEmpty(mapId))
-            {
-                throw new ArgumentException("Argument should not be empty or null", nameof(mapId));
-            }
+            if (string.IsNullOrWhiteSpace(mapId))
+                throw new ArgumentException($"'{nameof(mapId)}' cannot be null or whitespace", nameof(mapId));
 
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
@@ -444,10 +441,8 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public GameData GetMapGameData(string mapId)
         {
-            if (string.IsNullOrEmpty(mapId))
-            {
-                throw new ArgumentException("Argument should not be empty or null", nameof(mapId));
-            }
+            if (string.IsNullOrWhiteSpace(mapId))
+                throw new ArgumentException($"'{nameof(mapId)}' cannot be null or whitespace", nameof(mapId));
 
             if (_mapGameDataByMapId.TryGetValue(mapId, out GameData? mapGameData))
                 return mapGameData;
@@ -471,10 +466,8 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public ICollection<XElement> GetLayoutButtonElements(string unitId)
         {
-            if (string.IsNullOrEmpty(unitId))
-            {
-                throw new ArgumentException("Argument should not be empty or null", nameof(unitId));
-            }
+            if (string.IsNullOrWhiteSpace(unitId))
+                throw new ArgumentException($"'{nameof(unitId)}' cannot be null or whitespace", nameof(unitId));
 
             if (_layoutButtonElements.TryGetValue(unitId, out List<XElement>? value))
                 return value;
@@ -490,10 +483,8 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public bool TryGetLayoutButtonElements(string unitId, out List<XElement>? value)
         {
-            if (string.IsNullOrEmpty(unitId))
-            {
-                throw new ArgumentException("Argument should not be empty or null", nameof(unitId));
-            }
+            if (string.IsNullOrWhiteSpace(unitId))
+                throw new ArgumentException($"'{nameof(unitId)}' cannot be null or whitespace", nameof(unitId));
 
             if (_layoutButtonElements.TryGetValue(unitId, out value))
                 return true;
@@ -508,10 +499,8 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public IEnumerable<XElement> Elements(string elementName)
         {
-            if (string.IsNullOrEmpty(elementName))
-            {
-                throw new ArgumentException("Argument should not be empty or null", nameof(elementName));
-            }
+            if (string.IsNullOrWhiteSpace(elementName))
+                throw new ArgumentException($"'{nameof(elementName)}' cannot be null or whitespace", nameof(elementName));
 
             if (_xmlGameDataElementsByElementName.TryGetValue(elementName, out List<XElement>? values))
                 return values;
@@ -527,10 +516,8 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public IEnumerable<XElement> Elements(string elementName, string mapNameId)
         {
-            if (string.IsNullOrEmpty(elementName))
-            {
-                throw new ArgumentException("Argument should not be empty or null", nameof(elementName));
-            }
+            if (string.IsNullOrWhiteSpace(elementName))
+                throw new ArgumentException($"'{nameof(elementName)}' cannot be null or whitespace", nameof(elementName));
 
             List<XElement> values = new List<XElement>();
 
@@ -555,10 +542,8 @@ namespace HeroesData.Loader.XmlGameData
         /// <returns></returns>
         public IEnumerable<XElement> ElementsIncluded(IEnumerable<string> elements, string? attributeIdValue = null)
         {
-            if (elements == null)
-            {
+            if (elements is null)
                 throw new ArgumentNullException(nameof(elements));
-            }
 
             List<string> elementsList = elements.ToList();
             List<XElement> foundElementList = new List<XElement>();
@@ -746,17 +731,23 @@ namespace HeroesData.Loader.XmlGameData
 
         protected void LoadXmlFile(string filePath)
         {
+            if (XmlGameData.Root == null)
+                throw new InvalidOperationException();
+
             if (Path.GetExtension(filePath) == ".xml")
             {
-                XmlGameData.Root.Add(XDocument.Load(filePath).Root.Elements());
+                XmlGameData.Root.Add(XDocument.Load(filePath)?.Root?.Elements());
                 XmlFileCount++;
             }
         }
 
         protected void LoadXmlFile(Stream stream, string filePath)
         {
+            if (XmlGameData.Root == null)
+                throw new InvalidOperationException();
+
             XDocument document = XDocument.Load(stream);
-            XmlGameData.Root.Add(document.Root.Elements());
+            XmlGameData.Root.Add(document.Root?.Elements());
             XmlFileCount++;
 
             if (IsCacheEnabled)
@@ -771,7 +762,7 @@ namespace HeroesData.Loader.XmlGameData
             {
                 if (_mapGameDataByMapId.TryGetValue(id, out GameData? mapGameData))
                 {
-                    mapGameData.XmlGameData.Root.Add(XDocument.Load(filePath).Root.Elements());
+                    mapGameData.XmlGameData.Root?.Add(XDocument.Load(filePath).Root?.Elements());
                 }
                 else
                 {
@@ -791,7 +782,7 @@ namespace HeroesData.Loader.XmlGameData
         {
             if (_mapGameDataByMapId.TryGetValue(id, out GameData? mapGameData))
             {
-                mapGameData.XmlGameData.Root.Add(XDocument.Load(stream).Root.Elements());
+                mapGameData.XmlGameData.Root?.Add(XDocument.Load(stream).Root?.Elements());
             }
             else
             {
@@ -818,7 +809,7 @@ namespace HeroesData.Loader.XmlGameData
                 if (XmlStormStyleData.LastNode == null)
                     XmlStormStyleData = XDocument.Load(filePath);
                 else
-                    XmlStormStyleData.Root.Add(XDocument.Load(filePath).Root.Elements());
+                    XmlStormStyleData.Root?.Add(XDocument.Load(filePath).Root?.Elements());
 
                 StormStyleCount++;
 
@@ -836,7 +827,7 @@ namespace HeroesData.Loader.XmlGameData
             if (XmlStormStyleData.LastNode == null)
                 XmlStormStyleData = document;
             else
-                XmlStormStyleData.Root.Add(document.Root.Elements());
+                XmlStormStyleData.Root?.Add(document.Root?.Elements());
 
             StormStyleCount++;
         }
@@ -884,7 +875,7 @@ namespace HeroesData.Loader.XmlGameData
                 int indexOfSplit = lineSpan.IndexOf('=');
 
                 if (indexOfSplit > -1)
-                    AddGameString(lineSpan.Slice(0, indexOfSplit).ToString(), lineSpan.Slice(indexOfSplit + 1).ToString());
+                    AddGameString(lineSpan.Slice(0, indexOfSplit).ToString(), lineSpan[(indexOfSplit + 1)..].ToString());
             }
         }
 
@@ -896,7 +887,7 @@ namespace HeroesData.Loader.XmlGameData
                 int indexOfSplit = lineSpan.IndexOf('=');
 
                 if (indexOfSplit > -1)
-                    AddMapGameString(mapName, lineSpan.Slice(0, indexOfSplit).ToString(), lineSpan.Slice(indexOfSplit + 1).ToString());
+                    AddMapGameString(mapName, lineSpan.Slice(0, indexOfSplit).ToString(), lineSpan[(indexOfSplit + 1)..].ToString());
             }
         }
 
@@ -904,6 +895,9 @@ namespace HeroesData.Loader.XmlGameData
         {
             if (!LoadXmlFilesEnabled)
                 return;
+
+            if (XmlGameData.Root == null)
+                throw new InvalidOperationException();
 
             IEnumerable<XElement> levelScalingArrays = XmlGameData.Root.Descendants("LevelScalingArray");
 
@@ -930,6 +924,9 @@ namespace HeroesData.Loader.XmlGameData
 
         private void SetPredefinedElements()
         {
+            if (XmlGameData.Root == null)
+                throw new InvalidOperationException();
+
             foreach (XElement element in XmlGameData.Root.Elements())
             {
                 if (_xmlGameDataElementsByElementName.TryGetValue(element.Name.LocalName, out List<XElement>? values))
@@ -950,20 +947,26 @@ namespace HeroesData.Loader.XmlGameData
             IEnumerable<XElement> units = Elements("CUnit").Where(x => !string.IsNullOrEmpty(x.Attribute("id")?.Value) && x.Attribute("id")?.Value != "TargetHeroDummy");
             foreach (XElement unit in units)
             {
-                string id = unit.Attribute("id").Value;
+                string? id = unit.Attribute("id")?.Value;
+                if (string.IsNullOrEmpty(id))
+                    continue;
+
                 IEnumerable<XElement> cardLayouts = unit.Elements("CardLayouts");
                 if (cardLayouts != null)
                 {
                     if (_layoutButtonElements.TryGetValue(id, out List<XElement>? values))
                         values.AddRange(cardLayouts.Elements("LayoutButtons").ToList());
                     else
-                        _layoutButtonElements.Add(unit.Attribute("id").Value, cardLayouts.Elements("LayoutButtons").ToList());
+                        _layoutButtonElements.Add(id, cardLayouts.Elements("LayoutButtons").ToList());
                 }
             }
         }
 
         private void SetFontStyles()
         {
+            if (XmlStormStyleData.Root == null)
+                throw new InvalidOperationException();
+
             foreach (XElement element in XmlStormStyleData.Root.Elements())
             {
                 string elementName = element.Name.LocalName.ToUpperInvariant();

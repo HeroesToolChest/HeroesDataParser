@@ -104,49 +104,49 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "NAME")
                 {
-                    ButtonName = element.Attribute("value").Value;
+                    ButtonName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "TOOLTIP")
                 {
-                    ButtonTooltip = element.Attribute("value").Value;
+                    ButtonTooltip = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "HOTKEY")
                 {
-                    ButtonHotkey = element.Attribute("value").Value;
+                    ButtonHotkey = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "HOTKEYALIAS")
                 {
-                    ButtonHotkeyAlias = element.Attribute("value").Value;
+                    ButtonHotkeyAlias = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "TOOLTIPFLAGS")
                 {
-                    string index = element.Attribute("index").Value;
+                    string index = element.Attribute("index")?.Value ?? string.Empty;
 
                     if (index == "ShowName")
-                        ButtonTooltipFlagShowName = element.Attribute("value").Value == "1";
+                        ButtonTooltipFlagShowName = element.Attribute("value")?.Value == "1";
                     else if (index == "ShowHotkey")
-                        ButtonTooltipFlagShowHotkey = element.Attribute("value").Value == "1";
+                        ButtonTooltipFlagShowHotkey = element.Attribute("value")?.Value == "1";
                     else if (index == "ShowUsage")
-                        ButtonTooltipFlagShowUsage = element.Attribute("value").Value == "1";
+                        ButtonTooltipFlagShowUsage = element.Attribute("value")?.Value == "1";
                     else if (index == "ShowTime")
-                        ButtonTooltipFlagShowTime = element.Attribute("value").Value == "1";
+                        ButtonTooltipFlagShowTime = element.Attribute("value")?.Value == "1";
                     else if (index == "ShowCooldown")
-                        ButtonTooltipFlagShowCooldown = element.Attribute("value").Value == "1";
+                        ButtonTooltipFlagShowCooldown = element.Attribute("value")?.Value == "1";
                     else if (index == "ShowRequirements")
-                        ButtonTooltipFlagShowRequirements = element.Attribute("value").Value == "1";
+                        ButtonTooltipFlagShowRequirements = element.Attribute("value")?.Value == "1";
                     else if (index == "ShowAutocast")
-                        ButtonTooltipFlagShowAutocast = element.Attribute("value").Value == "1";
+                        ButtonTooltipFlagShowAutocast = element.Attribute("value")?.Value == "1";
                 }
                 else if (elementName == "SIMPLEDISPLAYTEXT")
                 {
-                    ButtonSimpleDisplayText = element.Attribute("value").Value;
+                    ButtonSimpleDisplayText = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "TOOLTIPVITALNAME")
                 {
-                    string index = element.Attribute("index").Value;
+                    string index = element.Attribute("index")?.Value ?? string.Empty;
 
                     if (index == "Energy")
-                        ButtonTooltipEnergyVitalName = element.Attribute("value").Value;
+                        ButtonTooltipEnergyVitalName = element.Attribute("value")?.Value;
                 }
             }
         }

@@ -51,25 +51,25 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "NAME")
                 {
-                    AnnouncerName = element.Attribute("value").Value;
+                    AnnouncerName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "SORTNAME")
                 {
-                    AnnouncerSortName = element.Attribute("value").Value;
+                    AnnouncerSortName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "DESCRIPTION")
                 {
-                    AnnouncerDescription = element.Attribute("value").Value;
+                    AnnouncerDescription = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "RELEASEDATE")
                 {
-                    if (!int.TryParse(element.Element("Year").Attribute("value").Value, out int year))
+                    if (!int.TryParse(element.Element("Year")?.Attribute("value")?.Value, out int year))
                         year = 2014;
 
-                    if (!int.TryParse(element.Element("Month").Attribute("value").Value, out int month))
+                    if (!int.TryParse(element.Element("Month")?.Attribute("value")?.Value, out int month))
                         month = 1;
 
-                    if (!int.TryParse(element.Element("Day").Attribute("value").Value, out int day))
+                    if (!int.TryParse(element.Element("Day")?.Attribute("value")?.Value, out int day))
                         day = 1;
 
                     AnnouncerReleaseDate = new DateTime(year, month, day);

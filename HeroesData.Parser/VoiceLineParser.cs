@@ -29,7 +29,7 @@ namespace HeroesData.Parser
             if (ids == null || ids.Length < 1)
                 return null;
 
-            string id = ids.FirstOrDefault();
+            string id = ids.First();
 
             XElement? voiceLineElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == id));
             if (voiceLineElement == null)
@@ -62,7 +62,7 @@ namespace HeroesData.Parser
             // parent lookup
             string? parentValue = voiceLineElement.Attribute("parent")?.Value;
 
-            if (voiceLineElement.HasElements && voiceLineElement.FirstNode.GetType() == typeof(XProcessingInstruction))
+            if (voiceLineElement.HasElements && voiceLineElement.FirstNode?.GetType() == typeof(XProcessingInstruction))
             {
                 XProcessingInstruction heroIdInstruction = (XProcessingInstruction)voiceLineElement.FirstNode;
                 if (heroIdInstruction != null)
@@ -132,10 +132,10 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "TILETEXTURE")
                 {
-                    voiceLine.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty)).ToLowerInvariant();
+                    voiceLine.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty))?.ToLowerInvariant();
 
                     if (!string.IsNullOrEmpty(heroId))
-                        voiceLine.ImageFileName = voiceLine.ImageFileName.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase).ToLowerInvariant();
+                        voiceLine.ImageFileName = voiceLine.ImageFileName?.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase).ToLowerInvariant();
                 }
             }
         }

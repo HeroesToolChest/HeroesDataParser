@@ -53,7 +53,12 @@ namespace HeroesData.ExtractorImage
         /// <returns></returns>
         protected bool ExtractStaticImageFile(string filePath)
         {
-            string fileName = Path.GetFileName(filePath);
+            string? fileName = Path.GetFileName(filePath);
+
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                throw new InvalidOperationException($"Invalid {nameof(filePath)} of {filePath}");
+            }
 
             return ExtractImageFile(filePath, () =>
             {
@@ -151,7 +156,12 @@ namespace HeroesData.ExtractorImage
 
         protected DDSImage? GetDDSImage(string filePath)
         {
-            string fileName = Path.GetFileName(filePath);
+            string? fileName = Path.GetFileName(filePath);
+
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                throw new InvalidOperationException($"Invalid {nameof(filePath)} of {filePath}");
+            }
 
             string textureFilepath = Path.Combine(TexturesPath, fileName);
             if (FileExists(textureFilepath))
@@ -174,7 +184,7 @@ namespace HeroesData.ExtractorImage
             if (StorageMode == StorageMode.CASC)
                 return CASCHandler!.FileExists(filePath);
             else if (StorageMode == StorageMode.Mods)
-                return File.Exists(Path.Combine(ModsFolderPath, filePath.Substring(5)));
+                return File.Exists(Path.Combine(ModsFolderPath, filePath[5..]));
             else
                 return false;
         }
@@ -187,14 +197,14 @@ namespace HeroesData.ExtractorImage
             if (StorageMode == StorageMode.CASC)
                 return CASCHandler!.OpenFile(filePath);
             else if (StorageMode == StorageMode.Mods)
-                return File.Open(Path.Combine(ModsFolderPath, filePath.Substring(5)), FileMode.Open);
+                return File.Open(Path.Combine(ModsFolderPath, filePath[5..]), FileMode.Open);
             else
                 throw new NotSupportedException();
         }
 
         private bool ExtractImageFile(string filePath, Func<bool> extractImage)
         {
-            string fileName = Path.GetFileName(filePath);
+            string? fileName = Path.GetFileName(filePath);
 
             if (Path.GetExtension(fileName) != ".dds")
             {
@@ -202,9 +212,16 @@ namespace HeroesData.ExtractorImage
                 return false;
             }
 
+            string? directoryName = Path.GetDirectoryName(filePath);
+            if (string.IsNullOrWhiteSpace(directoryName))
+            {
+                FailedFileMessages.Add($"Could not extract image file {fileName} - directory path of {filePath} is invalid");
+                return false;
+            }
+
             try
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                Directory.CreateDirectory(directoryName);
 
                 return extractImage();
             }

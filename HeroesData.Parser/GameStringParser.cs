@@ -193,9 +193,9 @@ namespace HeroesData.Parser.GameStrings
         private static ReadOnlyMemory<char> TrimDataReference(ReadOnlyMemory<char> pathLookup)
         {
             if (pathLookup.Span.StartsWith("<d ref", StringComparison.OrdinalIgnoreCase) || pathLookup.Span.StartsWith("[d ref", StringComparison.OrdinalIgnoreCase))
-                pathLookup = pathLookup.Slice(8);
+                pathLookup = pathLookup[8..];
             else if (pathLookup.Span.StartsWith("<d const", StringComparison.OrdinalIgnoreCase))
-                pathLookup = pathLookup.Slice(10);
+                pathLookup = pathLookup[10..];
 
             pathLookup = pathLookup.Slice(0, pathLookup.Span.LastIndexOf('/') - 1); // removes ending />
 
@@ -428,9 +428,9 @@ namespace HeroesData.Parser.GameStrings
                             string value = GetValueFromPath(arithmeticPath.ToString(), out double? scalingValue);
 
                             if (scalingValue.HasValue)
-                                pathLookup = $"{pathLookup.Slice(0, position)}{value}~~{scalingValue}~~{pathLookup.Slice(position + arithmeticPath.Length)}".AsMemory();
+                                pathLookup = $"{pathLookup.Slice(0, position)}{value}~~{scalingValue}~~{pathLookup[(position + arithmeticPath.Length)..]}".AsMemory();
                             else
-                                pathLookup = (pathLookup.Slice(0, position) + value + pathLookup.Slice(position + arithmeticPath.Length)).AsMemory();
+                                pathLookup = (pathLookup.Slice(0, position) + value + pathLookup[(position + arithmeticPath.Length)..]).AsMemory();
                         }
                     }
                 }
@@ -483,6 +483,9 @@ namespace HeroesData.Parser.GameStrings
 
         private string ReadXmlGameData(List<string> parts, XAttribute? parent)
         {
+            if (_gameData.XmlGameData.Root == null)
+                throw new InvalidOperationException();
+
             XElement? currentElement = null;
             parent = null;
 
@@ -530,7 +533,7 @@ namespace HeroesData.Parser.GameStrings
 
                         for (int j = 0; j < indexElements.Count; j++)
                         {
-                            XAttribute index = indexElements[j].Attribute("index");
+                            XAttribute? index = indexElements[j].Attribute("index");
                             if (index == null)
                                 index = indexElements[j].Attribute("Index");
 
@@ -549,7 +552,7 @@ namespace HeroesData.Parser.GameStrings
                                 if (indexOfArray > -1)
                                     lastPartSpan = lastPartSpan.Slice(0, indexOfArray);
 
-                                XAttribute value = indexElements[j].Attribute(lastPartSpan.ToString());
+                                XAttribute? value = indexElements[j].Attribute(lastPartSpan.ToString());
                                 if (value != null && j == arrayIndex)
                                 {
                                     return value.Value;
@@ -564,7 +567,7 @@ namespace HeroesData.Parser.GameStrings
                     }
                     else if (currentElement.Attributes().Any(x => x.Name == parts[i]))
                     {
-                        return _gameData.GetValueFromAttribute(currentElement.Attribute(parts[i]).Value);
+                        return _gameData.GetValueFromAttribute(currentElement.Attribute(parts[i])?.Value);
                     }
                     else
                     {
@@ -587,7 +590,7 @@ namespace HeroesData.Parser.GameStrings
 
                 if (currentElement != null)
                 {
-                    XAttribute attribute = currentElement.Attribute("value");
+                    XAttribute? attribute = currentElement.Attribute("value");
                     if (attribute == null)
                     {
                         attribute = currentElement.Attribute("Value");
