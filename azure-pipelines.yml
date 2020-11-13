@@ -45,16 +45,16 @@ jobs:
         secureFile: certificate
 
     - task: UseDotNet@2
-      displayName: 'Use .NET Core sdk'
+      displayName: 'Use .NET sdk'
       inputs:
         packageType: sdk
-        version: 3.1.x
+        version: 5.0.x
         installationPath: $(Agent.ToolsDirectory)\dotnet
 
     - task: NuGetToolInstaller@0
-      displayName: nuget installer 5.3.1
+      displayName: nuget installer 5.7.0
       inputs:
-        versionSpec: '5.3.1' 
+        versionSpec: '5.7.0' 
    
     - powershell: |
         $csproj = get-content HeroesData\HeroesData.csproj
@@ -85,7 +85,7 @@ jobs:
       displayName: Sign nuget pack
       inputs:
         command: 'custom'
-        arguments: 'sign $(nupkg_path)HeroesDataParser.*.nupkg -CertificatePath $(Agent.TempDirectory)\certificate -CertificatePassword $(cert_password) -Timestamper http://timestamp.digicert.com'
+        arguments: 'sign $(nupkg_path)HeroesDataParser.*.nupkg -CertificatePath $(Agent.TempDirectory)\certificate -CertificatePassword $(cert_password) -Timestamper http://ts.ssl.com'
            
     - powershell: |
         (get-content $env:MAIN_PROJECT).Replace('<PublishSingleFile>false</PublishSingleFile>','<PublishSingleFile>true</PublishSingleFile>') | out-file $env:MAIN_PROJECT

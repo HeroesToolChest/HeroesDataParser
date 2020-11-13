@@ -16,10 +16,10 @@ jobs:
           configuration: $(config_release)
     steps:
     - task: UseDotNet@2
-      displayName: 'Use .NET Core sdk'
+      displayName: 'Use .NET sdk'
       inputs:
         packageType: sdk
-        version: 3.1.x
+        version: 5.0.x
         installationPath: $(Agent.ToolsDirectory)/dotnet
         
     - powershell: |
