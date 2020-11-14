@@ -16,9 +16,7 @@ namespace HeroesData.ExtractorData
         protected override void Validation(Announcer? announcer)
         {
             if (announcer is null)
-            {
-                throw new ArgumentNullException(nameof(announcer));
-            }
+                return;
 
             if (string.IsNullOrEmpty(announcer.Name))
                 AddWarning($"{nameof(announcer.Name)} is empty");

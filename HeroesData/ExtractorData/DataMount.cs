@@ -1,7 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
-using System;
 
 namespace HeroesData.ExtractorData
 {
@@ -17,9 +16,7 @@ namespace HeroesData.ExtractorData
         protected override void Validation(Mount? mount)
         {
             if (mount is null)
-            {
-                throw new ArgumentNullException(nameof(mount));
-            }
+                return;
 
             if (string.IsNullOrEmpty(mount.Name))
                 AddWarning($"{nameof(mount.Name)} is empty");

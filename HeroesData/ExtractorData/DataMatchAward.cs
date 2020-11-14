@@ -16,9 +16,7 @@ namespace HeroesData.ExtractorData
         protected override void Validation(MatchAward? matchAward)
         {
             if (matchAward is null)
-            {
-                throw new ArgumentNullException(nameof(matchAward));
-            }
+                return;
 
             if (string.IsNullOrEmpty(matchAward.Name))
                 AddWarning($"{nameof(matchAward.Name)} is empty");

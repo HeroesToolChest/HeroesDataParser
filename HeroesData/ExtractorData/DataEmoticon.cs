@@ -1,6 +1,5 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
-using System;
 using System.Linq;
 
 namespace HeroesData.ExtractorData
@@ -17,9 +16,7 @@ namespace HeroesData.ExtractorData
         protected override void Validation(Emoticon? emoticon)
         {
             if (emoticon is null)
-            {
-                throw new ArgumentNullException(nameof(emoticon));
-            }
+                return;
 
             if (string.IsNullOrEmpty(emoticon.Name))
                 AddWarning($"{nameof(emoticon.Name)} is empty");

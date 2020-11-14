@@ -20,9 +20,7 @@ namespace HeroesData.ExtractorData
         protected override void Validation(Unit? unit)
         {
             if (unit is null)
-            {
-                throw new ArgumentNullException(nameof(unit));
-            }
+                return;
 
             if (unit.Id.EndsWith("dummy", StringComparison.OrdinalIgnoreCase))
                 return;

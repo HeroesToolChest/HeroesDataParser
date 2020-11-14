@@ -1,6 +1,5 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
-using System;
 using System.Collections.Generic;
 
 namespace HeroesData.ExtractorData
@@ -22,9 +21,7 @@ namespace HeroesData.ExtractorData
         protected override void Validation(PortraitPack? portraitPack)
         {
             if (portraitPack is null)
-            {
-                throw new ArgumentNullException(nameof(portraitPack));
-            }
+                return;
 
             if (string.IsNullOrEmpty(portraitPack.Name))
                 AddWarning($"{nameof(portraitPack.Name)} is empty");

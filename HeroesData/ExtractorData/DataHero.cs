@@ -93,9 +93,7 @@ namespace HeroesData.ExtractorData
         protected override void Validation(Hero? hero)
         {
             if (hero is null)
-            {
-                throw new ArgumentNullException(nameof(hero));
-            }
+                return;
 
             if (string.IsNullOrEmpty(hero.AttributeId))
                 AddWarning($"{nameof(hero.AttributeId)} is empty");

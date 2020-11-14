@@ -1,7 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
-using System;
 
 namespace HeroesData.ExtractorData
 {
@@ -17,9 +16,7 @@ namespace HeroesData.ExtractorData
         protected override void Validation(HeroSkin? heroSkin)
         {
             if (heroSkin is null)
-            {
-                throw new ArgumentNullException(nameof(heroSkin));
-            }
+                return;
 
             if (string.IsNullOrEmpty(heroSkin.Name))
                 AddWarning($"{nameof(heroSkin.Name)} is empty");

@@ -1,7 +1,6 @@
 ﻿using Heroes.Models;
 using HeroesData.Parser;
 using HeroesData.Parser.GameStrings;
-using System;
 
 namespace HeroesData.ExtractorData
 {
@@ -17,9 +16,7 @@ namespace HeroesData.ExtractorData
         protected override void Validation(Banner? banner)
         {
             if (banner is null)
-            {
-                throw new ArgumentNullException(nameof(banner));
-            }
+                return;
 
             if (string.IsNullOrEmpty(banner.Name))
                 AddWarning($"{nameof(banner.Name)} is empty");
