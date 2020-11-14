@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.CommandLineUtils;
+using System;
 using System.IO;
-using System.Reflection;
 
 namespace HeroesData.Commands
 {
@@ -11,7 +11,7 @@ namespace HeroesData.Commands
             CommandLineApplication = app;
         }
 
-        protected string AppPath { get; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
+        protected string AppPath { get; } = Path.GetDirectoryName(AppContext.BaseDirectory) ?? string.Empty;
         protected CommandLineApplication CommandLineApplication { get; }
     }
 }

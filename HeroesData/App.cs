@@ -16,7 +16,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,7 +33,15 @@ namespace HeroesData
         /// <summary>
         /// Gets the product version of the application.
         /// </summary>
-        public static string Version { get; } = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location)?.ProductVersion ?? "No version";
+        public static string Version
+        {
+            get
+            {
+                string fileName = Process.GetCurrentProcess().MainModule?.FileName!;
+
+                return FileVersionInfo.GetVersionInfo(Path.Combine(AppContext.BaseDirectory, fileName))?.ProductVersion ?? "No version";
+            }
+        }
 
         /// <summary>
         /// Gets the assembly path.
