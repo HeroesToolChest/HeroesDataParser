@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HeroSkins>
-  <AbathurBone name="Bone Abathur" hyperlinkId="AbathurBone" attributeId="Aba1" rarity="Aba1" releaseDate="2014-03-13">
+  <AbathurBone name="Bone Abathur" hyperlinkId="AbathurBone" attributeId="Aba1" rarity="None" releaseDate="2014-03-13">
     <SortName>xxAbathurBone</SortName>
     <SearchText>White Pink</SearchText>
     <InfoText>Evolution Master of Kerrigan's Swarm</InfoText>
@@ -9,7 +9,7 @@
       <Feature>ThemedAnimations</Feature>
     </Features>
   </AbathurBone>
-  <AbathurMechaVar1 name="Mecha Abathur" hyperlinkId="AbathurMecha" attributeId="Aba2" rarity="Aba2" releaseDate="2014-03-01">
+  <AbathurMechaVar1 name="Mecha Abathur" hyperlinkId="AbathurMecha" attributeId="Aba2" rarity="Legendary" releaseDate="2014-03-01">
     <SortName>xxyAbathurMecha</SortName>
   </AbathurMechaVar1>
 </HeroSkins>

@@ -21,8 +21,8 @@ namespace HeroesData.FileWriter.Writers.SprayData
             return new XElement(
                 XmlConvert.EncodeName(spray.Id),
                 string.IsNullOrEmpty(spray.Name) || FileOutputOptions.IsLocalizedText ? null! : new XAttribute("name", spray.Name),
-                new XAttribute("hyperlinkId", spray.HyperlinkId),
-                new XAttribute("attributeId", spray.AttributeId),
+                string.IsNullOrEmpty(spray.HyperlinkId) ? null! : new XAttribute("hyperlinkId", spray.HyperlinkId),
+                string.IsNullOrEmpty(spray.AttributeId) ? null! : new XAttribute("attributeId", spray.AttributeId),
                 new XAttribute("rarity", spray.Rarity),
                 string.IsNullOrEmpty(spray.CollectionCategory) ? null! : new XAttribute("category", spray.CollectionCategory),
                 string.IsNullOrEmpty(spray.EventName) ? null! : new XAttribute("event", spray.EventName),
@@ -38,7 +38,7 @@ namespace HeroesData.FileWriter.Writers.SprayData
         {
             return new XElement(
                 "Animation",
-                new XElement("Texture", Path.ChangeExtension(spray.TextureSheet.Image.ToLowerInvariant(), StaticImageExtension)),
+                new XElement("Texture", Path.ChangeExtension(spray.TextureSheet.Image?.ToLowerInvariant(), StaticImageExtension)),
                 new XElement("Frames", spray.AnimationCount),
                 new XElement("Duration", spray.AnimationDuration));
         }

@@ -67,7 +67,7 @@ namespace HeroesData.Parser
 
                 if (elementName == "NAME")
                 {
-                    emoticonPack.Name = element.Attribute("value")?.Value ?? string.Empty;
+                    emoticonPack.Name = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "SORTNAME")
                 {
@@ -75,12 +75,16 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "DESCRIPTION")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        emoticonPack.Description = new TooltipDescription(text);
+                    string? descriptionValue = element.Attribute("value")?.Value;
+                    if (descriptionValue is not null)
+                    {
+                        if (GameData.TryGetGameString(descriptionValue, out string? text))
+                            emoticonPack.Description = new TooltipDescription(text);
+                    }
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    emoticonPack.HyperlinkId = element.Attribute("value")?.Value ?? string.Empty;
+                    emoticonPack.HyperlinkId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "COLLECTIONCATEGORY")
                 {
@@ -105,7 +109,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "EMOTICONARRAY")
                 {
-                    string item = element.Attribute("value")?.Value ?? string.Empty;
+                    string? item = element.Attribute("value")?.Value;
 
                     if (!string.IsNullOrEmpty(item))
                         emoticonPack.EmoticonIds.Add(item);

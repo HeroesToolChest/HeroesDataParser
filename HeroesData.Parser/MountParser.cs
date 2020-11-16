@@ -81,13 +81,21 @@ namespace HeroesData.Parser
 
                 if (elementName == "INFOTEXT")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        mount.InfoText = new TooltipDescription(text);
+                    string? infoTextValue = element.Attribute("value")?.Value;
+                    if (infoTextValue is not null)
+                    {
+                        if (GameData.TryGetGameString(infoTextValue, out string? text))
+                            mount.InfoText = new TooltipDescription(text);
+                    }
                 }
                 else if (elementName == "SORTNAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        mount.SortName = text;
+                    string? sortNameValue = element.Attribute("value")?.Value;
+                    if (sortNameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(sortNameValue, out string? text))
+                            mount.SortName = text;
+                    }
                 }
                 else if (elementName == "RELEASEDATE")
                 {
@@ -104,11 +112,11 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "ATTRIBUTEID")
                 {
-                    mount.AttributeId = element.Attribute("value")?.Value ?? string.Empty;
+                    mount.AttributeId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    mount.HyperlinkId = element.Attribute("value")?.Value ?? string.Empty;
+                    mount.HyperlinkId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "RARITY")
                 {
@@ -119,13 +127,21 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "NAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        mount.Name = text;
+                    string? nameValue = element.Attribute("value")?.Value;
+                    if (nameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(nameValue, out string? text))
+                            mount.Name = text;
+                    }
                 }
                 else if (elementName == "ADDITIONALSEARCHTEXT")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        mount.SearchText = text;
+                    string? additionalSearchTextValue = element.Attribute("value")?.Value;
+                    if (additionalSearchTextValue is not null)
+                    {
+                        if (GameData.TryGetGameString(additionalSearchTextValue, out string? text))
+                            mount.SearchText = text;
+                    }
                 }
                 else if (elementName == "COLLECTIONCATEGORY")
                 {

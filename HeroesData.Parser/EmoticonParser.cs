@@ -76,17 +76,25 @@ namespace HeroesData.Parser
 
                 if (elementName == "DESCRIPTION")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        emoticon.Description = new TooltipDescription(text);
+                    string? descriptionValue = element.Attribute("value")?.Value;
+                    if (descriptionValue is not null)
+                    {
+                        if (GameData.TryGetGameString(descriptionValue, out string? text))
+                            emoticon.Description = new TooltipDescription(text);
+                    }
                 }
                 else if (elementName == "DESCRIPTIONLOCKED")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        emoticon.DescriptionLocked = new TooltipDescription(text);
+                    string? descriptionLockedValue = element.Attribute("value")?.Value;
+                    if (descriptionLockedValue is not null)
+                    {
+                        if (GameData.TryGetGameString(descriptionLockedValue, out string? text))
+                            emoticon.DescriptionLocked = new TooltipDescription(text);
+                    }
                 }
                 else if (elementName == "HERO")
                 {
-                    emoticon.HeroId = element.Attribute("value")?.Value ?? string.Empty;
+                    emoticon.HeroId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "SKIN")
                 {
@@ -94,10 +102,14 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "SEARCHTEXTARRAY")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        emoticon.SearchTexts.Add(text!);
-                    else
-                        emoticon.SearchTexts.Add(element.Attribute("value")?.Value ?? string.Empty);
+                    string? searchTextArrayValue = element.Attribute("value")?.Value;
+                    if (searchTextArrayValue is not null)
+                    {
+                        if (GameData.TryGetGameString(searchTextArrayValue, out string? text))
+                            emoticon.SearchTexts.Add(text);
+                        else
+                            emoticon.SearchTexts.Add(searchTextArrayValue);
+                    }
                 }
                 else if (elementName == "FLAGS")
                 {
@@ -118,21 +130,29 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "EXPRESSION")
                 {
-                    emoticon.Name = element.Attribute("value")?.Value ?? string.Empty;
+                    emoticon.Name = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "UNIVERSALALIASARRAY")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        emoticon.UniversalAliases.Add(text!);
-                    else
-                        emoticon.UniversalAliases.Add(element.Attribute("value")?.Value ?? string.Empty);
+                    string? universalAliasArrayValue = element.Attribute("value")?.Value;
+                    if (universalAliasArrayValue is not null)
+                    {
+                        if (GameData.TryGetGameString(universalAliasArrayValue, out string? text))
+                            emoticon.UniversalAliases.Add(text!);
+                        else
+                            emoticon.UniversalAliases.Add(universalAliasArrayValue);
+                    }
                 }
                 else if (elementName == "LOCALIZEDALIASARRAY")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        emoticon.LocalizedAliases.Add(text!);
-                    else
-                        emoticon.LocalizedAliases.Add(element.Attribute("value")?.Value ?? string.Empty);
+                    string? localizedAliasArrayValue = element.Attribute("value")?.Value;
+                    if (localizedAliasArrayValue is not null)
+                    {
+                        if (GameData.TryGetGameString(localizedAliasArrayValue, out string? text))
+                            emoticon.LocalizedAliases.Add(text!);
+                        else
+                            emoticon.LocalizedAliases.Add(localizedAliasArrayValue);
+                    }
                 }
                 else if (elementName == "IMAGE")
                 {
@@ -182,7 +202,7 @@ namespace HeroesData.Parser
 
                 if (elementName == "IMAGE")
                 {
-                    textureSheet.Image = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty))?.ToLowerInvariant() ?? string.Empty;
+                    textureSheet.Image = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value))?.ToLowerInvariant();
                 }
                 else if (elementName == "ROWS")
                 {

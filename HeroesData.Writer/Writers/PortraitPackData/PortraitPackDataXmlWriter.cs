@@ -21,7 +21,7 @@ namespace HeroesData.FileWriter.Writers.PortraitPackData
             return new XElement(
                 XmlConvert.EncodeName(portrait.Id),
                 string.IsNullOrEmpty(portrait.Name) || FileOutputOptions.IsLocalizedText ? null! : new XAttribute("name", portrait.Name),
-                new XAttribute("hyperlinkId", portrait.HyperlinkId),
+                string.IsNullOrEmpty(portrait.HyperlinkId) ? null! : new XAttribute("hyperlinkId", portrait.HyperlinkId),
                 new XAttribute("rarity", portrait.Rarity),
                 string.IsNullOrEmpty(portrait.EventName) ? null! : new XAttribute("event", portrait.EventName),
                 string.IsNullOrEmpty(portrait.SortName) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SortName", portrait.SortName),

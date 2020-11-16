@@ -17,13 +17,11 @@
     <Description>Extracts Heroes of the Storm game data into XML and JSON format</Description>
     <PackageReleaseNotes>https://github.com/HeroesToolChest/HeroesDataParser/releases</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
     <PackageReference Include="Pfim" Version="0.9.1" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.1" />

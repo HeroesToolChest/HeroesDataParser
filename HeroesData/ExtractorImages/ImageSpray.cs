@@ -44,6 +44,9 @@ namespace HeroesData.ExtractorImage
 
             foreach (Spray spray in _sprays)
             {
+                if (string.IsNullOrEmpty(spray.TextureSheet.Image))
+                    continue;
+
                 bool success = false;
                 string filePath = Path.Combine(extractFilePath, spray.TextureSheet.Image);
 

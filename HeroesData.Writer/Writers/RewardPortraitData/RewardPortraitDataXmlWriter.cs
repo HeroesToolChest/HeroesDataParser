@@ -21,7 +21,7 @@ namespace HeroesData.FileWriter.Writers.RewardPortraitData
             return new XElement(
                 XmlConvert.EncodeName(rewardPortrait.Id),
                 string.IsNullOrEmpty(rewardPortrait.Name) || FileOutputOptions.IsLocalizedText ? null! : new XAttribute("name", rewardPortrait.Name),
-                new XAttribute("hyperlinkId", rewardPortrait.HyperlinkId),
+                string.IsNullOrEmpty(rewardPortrait.HyperlinkId) ? null! : new XAttribute("hyperlinkId", rewardPortrait.HyperlinkId),
                 new XAttribute("rarity", rewardPortrait.Rarity),
                 string.IsNullOrEmpty(rewardPortrait.HeroId) ? null! : new XAttribute("heroId", rewardPortrait.HeroId),
                 new XAttribute("iconSlot", rewardPortrait.IconSlot),

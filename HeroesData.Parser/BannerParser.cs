@@ -81,13 +81,21 @@ namespace HeroesData.Parser
 
                 if (elementName == "DESCRIPTION")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        banner.Description = new TooltipDescription(text);
+                    string? descriptionValue = element.Attribute("value")?.Value;
+                    if (descriptionValue is not null)
+                    {
+                        if (GameData.TryGetGameString(descriptionValue, out string? text))
+                            banner.Description = new TooltipDescription(text);
+                    }
                 }
                 else if (elementName == "SORTNAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        banner.SortName = text;
+                    string? sortName = element.Attribute("value")?.Value;
+                    if (sortName is not null)
+                    {
+                        if (GameData.TryGetGameString(sortName, out string? text))
+                            banner.SortName = text;
+                    }
                 }
                 else if (elementName == "RELEASEDATE")
                 {
@@ -104,11 +112,11 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "ATTRIBUTEID")
                 {
-                    banner.AttributeId = element.Attribute("value")?.Value ?? string.Empty;
+                    banner.AttributeId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    banner.HyperlinkId = element.Attribute("value")?.Value ?? string.Empty;
+                    banner.HyperlinkId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "RARITY")
                 {
@@ -119,8 +127,12 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "NAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        banner.Name = text;
+                    string? nameValue = element.Attribute("value")?.Value;
+                    if (nameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(nameValue, out string? text))
+                            banner.Name = text;
+                    }
                 }
                 else if (elementName == "COLLECTIONCATEGORY")
                 {

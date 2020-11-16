@@ -81,13 +81,21 @@ namespace HeroesData.Parser
 
                 if (elementName == "INFOTEXT")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        heroSkin.InfoText = new TooltipDescription(text);
+                    string? infoText = element.Attribute("value")?.Value;
+                    if (infoText is not null)
+                    {
+                        if (GameData.TryGetGameString(infoText, out string? text))
+                            heroSkin.InfoText = new TooltipDescription(text);
+                    }
                 }
                 else if (elementName == "SORTNAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        heroSkin.SortName = text;
+                    string? sortNameValue = element.Attribute("value")?.Value;
+                    if (sortNameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(sortNameValue, out string? text))
+                            heroSkin.SortName = text;
+                    }
                 }
                 else if (elementName == "RELEASEDATE")
                 {
@@ -104,11 +112,11 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "ATTRIBUTEID")
                 {
-                    heroSkin.AttributeId = element.Attribute("value")?.Value ?? string.Empty;
+                    heroSkin.AttributeId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    heroSkin.HyperlinkId = element.Attribute("value")?.Value ?? string.Empty;
+                    heroSkin.HyperlinkId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "RARITY")
                 {
@@ -126,13 +134,21 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "NAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        heroSkin.Name = text;
+                    string? nameValue = element.Attribute("value")?.Value;
+                    if (nameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(nameValue, out string? text))
+                            heroSkin.Name = text;
+                    }
                 }
                 else if (elementName == "ADDITIONALSEARCHTEXT")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        heroSkin.SearchText = text;
+                    string? additionalSearchTextValue = element.Attribute("value")?.Value;
+                    if (additionalSearchTextValue is not null)
+                    {
+                        if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
+                            heroSkin.SearchText = text;
+                    }
                 }
             }
         }

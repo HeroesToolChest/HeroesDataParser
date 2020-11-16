@@ -106,16 +106,16 @@ namespace HeroesData.Parser
                     matchAward = new MatchAward()
                     {
                         Name = awardName,
-                        ScoreScreenImageFileNameOriginal = Path.GetFileName(PathHelper.GetFilePath(scoreScreenIconFilePath)) ?? string.Empty,
+                        ScoreScreenImageFileNameOriginal = Path.GetFileName(PathHelper.GetFilePath(scoreScreenIconFilePath)),
                         MVPScreenImageFileNameOriginal = $"storm_ui_mvp_icons_rewards_{awardSpecialName}.dds",
-                        Tag = scoreValueCustomElement.Element("UniqueTag")?.Attribute("value")?.Value ?? string.Empty,
+                        Tag = scoreValueCustomElement.Element("UniqueTag")?.Attribute("value")?.Value,
                     };
 
                     matchAward.Id = ModifyId(gameLink).ToString();
                     matchAward.HyperlinkId = gameLink;
 
                     // set new image file names for the extraction
-                    matchAward.ScoreScreenImageFileName = matchAward.ScoreScreenImageFileNameOriginal.ToLowerInvariant();
+                    matchAward.ScoreScreenImageFileName = matchAward.ScoreScreenImageFileNameOriginal?.ToLowerInvariant();
                     matchAward.MVPScreenImageFileName = $"storm_ui_mvp_{awardSpecialName}_%color%.dds".ToLowerInvariant();
 
                     // set description

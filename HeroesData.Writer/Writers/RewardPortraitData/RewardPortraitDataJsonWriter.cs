@@ -51,7 +51,7 @@ namespace HeroesData.FileWriter.Writers.RewardPortraitData
         protected override JProperty GetImageObject(RewardPortrait rewardPortrait)
         {
             JObject textureSheetObject = new JObject(new JObject(
-                    new JProperty("image", Path.ChangeExtension(rewardPortrait.TextureSheet.Image.ToLowerInvariant(), StaticImageExtension))));
+                    new JProperty("image", Path.ChangeExtension(rewardPortrait.TextureSheet.Image?.ToLowerInvariant(), StaticImageExtension))));
 
             if (rewardPortrait.TextureSheet.Columns.HasValue)
                 textureSheetObject.Add(new JProperty("columns", rewardPortrait.TextureSheet.Columns.Value));

@@ -21,8 +21,8 @@ namespace HeroesData.FileWriter.Writers.AnnouncerData
             return new XElement(
                 XmlConvert.EncodeName(announcer.Id),
                 string.IsNullOrEmpty(announcer.Name) || FileOutputOptions.IsLocalizedText ? null! : new XAttribute("name", announcer.Name),
-                new XAttribute("hyperlinkId", announcer.HyperlinkId),
-                new XAttribute("attributeId", announcer.AttributeId),
+                string.IsNullOrEmpty(announcer.HyperlinkId) ? null! : new XAttribute("hyperlinkId", announcer.HyperlinkId),
+                string.IsNullOrEmpty(announcer.AttributeId) ? null! : new XAttribute("attributeId", announcer.AttributeId),
                 new XAttribute("rarity", announcer.Rarity),
                 new XAttribute("category", announcer.CollectionCategory!),
                 string.IsNullOrEmpty(announcer.Gender) ? null! : new XAttribute("gender", announcer.Gender),

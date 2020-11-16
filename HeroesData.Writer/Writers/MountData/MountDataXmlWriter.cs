@@ -20,8 +20,8 @@ namespace HeroesData.FileWriter.Writers.MountData
             return new XElement(
                 XmlConvert.EncodeName(mount.Id),
                 string.IsNullOrEmpty(mount.Name) || FileOutputOptions.IsLocalizedText ? null! : new XAttribute("name", mount.Name),
-                new XAttribute("hyperlinkId", mount.HyperlinkId),
-                new XAttribute("attributeId", mount.AttributeId),
+                string.IsNullOrEmpty(mount.HyperlinkId) ? null! : new XAttribute("hyperlinkId", mount.HyperlinkId),
+                string.IsNullOrEmpty(mount.AttributeId) ? null! : new XAttribute("attributeId", mount.AttributeId),
                 new XAttribute("rarity", mount.Rarity),
                 new XAttribute("type", mount.MountCategory!),
                 new XAttribute("category", mount.CollectionCategory!),

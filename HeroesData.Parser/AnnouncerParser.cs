@@ -85,13 +85,21 @@ namespace HeroesData.Parser
 
                 if (elementName == "DESCRIPTION")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        announcer.Description = new TooltipDescription(text);
+                    string? descriptionValue = element.Attribute("value")?.Value;
+                    if (descriptionValue is not null)
+                    {
+                        if (GameData.TryGetGameString(descriptionValue, out string? text))
+                            announcer.Description = new TooltipDescription(text);
+                    }
                 }
                 else if (elementName == "SORTNAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        announcer.SortName = text;
+                    string? sortNameValue = element.Attribute("value")?.Value;
+                    if (sortNameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(sortNameValue, out string? text))
+                            announcer.SortName = text;
+                    }
                 }
                 else if (elementName == "RELEASEDATE")
                 {
@@ -108,14 +116,14 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "ATTRIBUTEID")
                 {
-                    announcer.AttributeId = element.Attribute("value")?.Value ?? string.Empty;
+                    announcer.AttributeId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    announcer.HyperlinkId = element.Attribute("value")?.Value ?? string.Empty;
+                    announcer.HyperlinkId = element.Attribute("value")?.Value;
 
                     if (!string.IsNullOrEmpty(heroId))
-                        announcer.HyperlinkId = announcer.HyperlinkId.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase);
+                        announcer.HyperlinkId = announcer.HyperlinkId?.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase);
                 }
                 else if (elementName == "RARITY")
                 {
@@ -126,8 +134,12 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "NAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        announcer.Name = text;
+                    string? nameValue = element.Attribute("value")?.Value;
+                    if (nameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(nameValue, out string? text))
+                            announcer.Name = text;
+                    }
                 }
                 else if (elementName == "COLLECTIONCATEGORY")
                 {
@@ -135,17 +147,17 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "TILETEXTURE")
                 {
-                    announcer.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty))?.ToLowerInvariant() ?? string.Empty;
+                    announcer.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value))?.ToLowerInvariant();
 
                     if (!string.IsNullOrEmpty(heroId))
-                        announcer.ImageFileName = announcer.ImageFileName.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase).ToLowerInvariant();
+                        announcer.ImageFileName = announcer.ImageFileName?.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase).ToLowerInvariant();
                 }
                 else if (elementName == "HERO")
                 {
-                    announcer.HeroId = element?.Attribute("value")?.Value ?? string.Empty;
+                    announcer.HeroId = element?.Attribute("value")?.Value;
 
                     if (!string.IsNullOrEmpty(heroId))
-                        announcer.HeroId = announcer.HeroId.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
+                        announcer.HeroId = announcer.HeroId?.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
                 }
                 else if (elementName == "GENDER")
                 {

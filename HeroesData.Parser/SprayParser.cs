@@ -83,13 +83,21 @@ namespace HeroesData.Parser
 
                 if (elementName == "INFOTEXT")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        spray.Description = new TooltipDescription(text);
+                    string? infoTextValue = element.Attribute("value")?.Value;
+                    if (infoTextValue is not null)
+                    {
+                        if (GameData.TryGetGameString(infoTextValue, out string? text))
+                            spray.Description = new TooltipDescription(text);
+                    }
                 }
                 else if (elementName == "SORTNAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        spray.SortName = text;
+                    string? sortNameValue = element.Attribute("value")?.Value;
+                    if (sortNameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(sortNameValue, out string? text))
+                            spray.SortName = text;
+                    }
                 }
                 else if (elementName == "RELEASEDATE")
                 {
@@ -106,11 +114,11 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "ATTRIBUTEID")
                 {
-                    spray.AttributeId = element.Attribute("value")?.Value ?? string.Empty;
+                    spray.AttributeId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    spray.HyperlinkId = element.Attribute("value")?.Value ?? string.Empty;
+                    spray.HyperlinkId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "RARITY")
                 {
@@ -121,13 +129,21 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "NAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        spray.Name = text;
+                    string? nameValue = element.Attribute("value")?.Value;
+                    if (nameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(nameValue, out string? text))
+                            spray.Name = text;
+                    }
                 }
                 else if (elementName == "ADDITIONALSEARCHTEXT")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        spray.SearchText = text;
+                    string? additionalSearchTextValue = element.Attribute("value")?.Value;
+                    if (additionalSearchTextValue is not null)
+                    {
+                        if (GameData.TryGetGameString(additionalSearchTextValue, out string? text))
+                            spray.SearchText = text;
+                    }
                 }
                 else if (elementName == "COLLECTIONCATEGORY")
                 {
@@ -139,15 +155,19 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "TEXTURE")
                 {
-                    spray.TextureSheet.Image = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty))?.ToLowerInvariant() ?? string.Empty;
+                    spray.TextureSheet.Image = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value))?.ToLowerInvariant();
                 }
                 else if (elementName == "ANIMCOUNT")
                 {
-                    spray.AnimationCount = int.Parse(element.Attribute("value")?.Value ?? string.Empty);
+                    string? animCountValue = element.Attribute("value")?.Value;
+                    if (animCountValue is not null)
+                        spray.AnimationCount = int.Parse(animCountValue);
                 }
                 else if (elementName == "ANIMDURATION")
                 {
-                    spray.AnimationDuration = int.Parse(element.Attribute("value")?.Value ?? string.Empty);
+                    string? animDurationValue = element.Attribute("value")?.Value;
+                    if (animDurationValue is not null)
+                        spray.AnimationDuration = int.Parse(animDurationValue);
                 }
             }
         }

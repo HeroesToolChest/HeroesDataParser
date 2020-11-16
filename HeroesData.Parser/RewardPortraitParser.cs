@@ -94,15 +94,23 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    rewardPortrait.HyperlinkId = element.Attribute("value")?.Value ?? string.Empty;
+                    rewardPortrait.HyperlinkId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "DESCRIPTION")
                 {
-                    rewardPortrait.Description = new TooltipDescription(GameData.GetGameString(element.Attribute("value")?.Value));
+                    string? descriptionValue = element.Attribute("value")?.Value;
+                    if (descriptionValue is not null)
+                    {
+                        rewardPortrait.Description = new TooltipDescription(GameData.GetGameString(descriptionValue));
+                    }
                 }
                 else if (elementName == "DESCRIPTIONUNEARNED")
                 {
-                    rewardPortrait.DescriptionUnearned = new TooltipDescription(GameData.GetGameString(element.Attribute("value")?.Value));
+                    string? descriptionUnearnedValue = element.Attribute("value")?.Value;
+                    if (descriptionUnearnedValue is not null)
+                    {
+                        rewardPortrait.DescriptionUnearned = new TooltipDescription(GameData.GetGameString(descriptionUnearnedValue));
+                    }
                 }
                 else if (elementName == "HERO")
                 {
@@ -110,8 +118,12 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "NAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        rewardPortrait.Name = text;
+                    string? nameValue = element.Attribute("value")?.Value;
+                    if (nameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(nameValue, out string? text))
+                            rewardPortrait.Name = text;
+                    }
                 }
                 else if (elementName == "PORTRAITPACK")
                 {

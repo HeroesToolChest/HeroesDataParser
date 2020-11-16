@@ -17,9 +17,7 @@ namespace HeroesData.Loader
 
             foreach (string directory in EnumeratedStringPath(folderPath))
             {
-#pragma warning disable CA1062 // Validate arguments of public methods
                 currentFolder = (CASCFolder)currentFolder.GetEntry(directory);
-#pragma warning restore CA1062 // Validate arguments of public methods
             }
 
             return currentFolder;

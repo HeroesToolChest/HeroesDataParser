@@ -21,13 +21,13 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(matchAward.Name))
                 AddWarning($"{nameof(matchAward.Name)} is empty");
 
-            if (matchAward.Name.Contains("_", StringComparison.OrdinalIgnoreCase))
+            if (matchAward.Name is not null && matchAward.Name.Contains("_", StringComparison.OrdinalIgnoreCase))
                 AddWarning($"{nameof(matchAward.Name)} contains an underscore, may have a duplicate name");
 
             if (string.IsNullOrEmpty(matchAward.HyperlinkId))
                 AddWarning($"{nameof(matchAward.HyperlinkId)} is empty");
 
-            if (matchAward.HyperlinkId.Contains(",", StringComparison.OrdinalIgnoreCase))
+            if (matchAward.HyperlinkId is not null && matchAward.HyperlinkId.Contains(",", StringComparison.OrdinalIgnoreCase))
                 AddWarning($"{nameof(matchAward.HyperlinkId)} contains a comma, may have a duplicate short name");
 
             if (string.IsNullOrEmpty(matchAward.Tag))

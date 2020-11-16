@@ -37,9 +37,11 @@ namespace HeroesData
         {
             get
             {
-                string fileName = Process.GetCurrentProcess().MainModule?.FileName!;
+                string filePath = Path.Combine(AppContext.BaseDirectory, "heroesdata.dll");
+                if (!File.Exists(filePath))
+                    filePath = Path.Combine(AppContext.BaseDirectory, "Heroesdata.dll");
 
-                return FileVersionInfo.GetVersionInfo(Path.Combine(AppContext.BaseDirectory, fileName))?.ProductVersion ?? "No version";
+                return FileVersionInfo.GetVersionInfo(filePath)?.ProductVersion ?? "No version";
             }
         }
 

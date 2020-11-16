@@ -92,13 +92,21 @@ namespace HeroesData.Parser
 
                 if (elementName == "DESCRIPTION")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        voiceLine.Description = new TooltipDescription(text);
+                    string? descriptionValue = element.Attribute("value")?.Value;
+                    if (descriptionValue is not null)
+                    {
+                        if (GameData.TryGetGameString(descriptionValue, out string? text))
+                            voiceLine.Description = new TooltipDescription(text);
+                    }
                 }
                 else if (elementName == "SORTNAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        voiceLine.SortName = text;
+                    string? sortNameValue = element.Attribute("value")?.Value;
+                    if (sortNameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(sortNameValue, out string? text))
+                            voiceLine.SortName = text;
+                    }
                 }
                 else if (elementName == "RELEASEDATE")
                 {
@@ -115,24 +123,28 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "ATTRIBUTEID")
                 {
-                    voiceLine.AttributeId = element.Attribute("value")?.Value ?? string.Empty;
+                    voiceLine.AttributeId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    voiceLine.HyperlinkId = element.Attribute("value")?.Value.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
+                    voiceLine.HyperlinkId = element.Attribute("value")?.Value.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase);
                 }
                 else if (elementName == "NAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        voiceLine.Name = text;
+                    string? nameValue = element.Attribute("value")?.Value;
+                    if (nameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(nameValue, out string? text))
+                            voiceLine.Name = text;
+                    }
                 }
                 else if (elementName == "HERO")
                 {
-                    voiceLine.HeroId = element.Attribute("value")?.Value.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
+                    voiceLine.HeroId = element.Attribute("value")?.Value.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase);
                 }
                 else if (elementName == "TILETEXTURE")
                 {
-                    voiceLine.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value ?? string.Empty))?.ToLowerInvariant();
+                    voiceLine.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value))?.ToLowerInvariant();
 
                     if (!string.IsNullOrEmpty(heroId))
                         voiceLine.ImageFileName = voiceLine.ImageFileName?.Replace(DefaultData.HeroIdPlaceHolder, heroId, StringComparison.OrdinalIgnoreCase).ToLowerInvariant();

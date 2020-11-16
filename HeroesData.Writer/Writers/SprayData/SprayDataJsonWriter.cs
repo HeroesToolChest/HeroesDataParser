@@ -63,7 +63,7 @@ namespace HeroesData.FileWriter.Writers.SprayData
             return new JProperty(
                 "animation",
                 new JObject(
-                    new JProperty("texture", Path.ChangeExtension(spray.TextureSheet.Image.ToLowerInvariant(), StaticImageExtension)),
+                    new JProperty("texture", Path.ChangeExtension(spray.TextureSheet.Image?.ToLowerInvariant(), StaticImageExtension)),
                     new JProperty("frames", spray.AnimationCount),
                     new JProperty("duration", spray.AnimationDuration)));
         }

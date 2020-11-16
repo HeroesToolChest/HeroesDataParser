@@ -44,6 +44,9 @@ namespace HeroesData.ExtractorImage
 
             foreach (Emoticon emoticon in _emoticons)
             {
+                if (string.IsNullOrEmpty(emoticon.TextureSheet.Image))
+                    continue;
+
                 string filePath = Path.Combine(extractFilePath, emoticon.TextureSheet.Image);
                 using DDSImage? originalTextureSheetImage = GetDDSImage(filePath);
                 if (originalTextureSheetImage == null)
@@ -72,7 +75,7 @@ namespace HeroesData.ExtractorImage
 #pragma warning restore SA1407 // Arithmetic expressions should declare precedence
                     int yPos = emoticon.Image.Index / emoticon.TextureSheet.Columns.Value * imageHeight;
 
-                    if (ExtractStaticImageFile(Path.Combine(extractFilePath, emoticon.Image.FileName), emoticon.TextureSheet.Image, new Point(xPos, yPos), new Size(emoticon.Image.Width, imageHeight)))
+                    if (!string.IsNullOrEmpty(emoticon.Image.FileName) && ExtractStaticImageFile(Path.Combine(extractFilePath, emoticon.Image.FileName), emoticon.TextureSheet.Image, new Point(xPos, yPos), new Size(emoticon.Image.Width, imageHeight)))
                         count++;
                 }
 

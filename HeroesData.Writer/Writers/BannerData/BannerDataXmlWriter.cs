@@ -20,8 +20,8 @@ namespace HeroesData.FileWriter.Writers.BannerData
             return new XElement(
                 XmlConvert.EncodeName(banner.Id),
                 string.IsNullOrEmpty(banner.Name) || FileOutputOptions.IsLocalizedText ? null! : new XAttribute("name", banner.Name),
-                new XAttribute("hyperlinkId", banner.HyperlinkId),
-                new XAttribute("attributeId", banner.AttributeId),
+                string.IsNullOrEmpty(banner.HyperlinkId) ? null! : new XAttribute("hyperlinkId", banner.HyperlinkId),
+                string.IsNullOrEmpty(banner.AttributeId) ? null! : new XAttribute("attributeId", banner.AttributeId),
                 new XAttribute("rarity", banner.Rarity),
                 new XAttribute("category", banner.CollectionCategory!),
                 string.IsNullOrEmpty(banner.EventName) ? null! : new XAttribute("event", banner.EventName),

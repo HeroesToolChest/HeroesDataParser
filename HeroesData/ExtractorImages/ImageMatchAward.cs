@@ -23,9 +23,9 @@ namespace HeroesData.ExtractorImage
             if (matchAward is null)
                 throw new ArgumentNullException(nameof(matchAward));
 
-            if (!string.IsNullOrEmpty(matchAward.MVPScreenImageFileNameOriginal))
+            if (!string.IsNullOrEmpty(matchAward.MVPScreenImageFileNameOriginal) && !string.IsNullOrEmpty(matchAward.MVPScreenImageFileName))
                 _awards.Add((matchAward.MVPScreenImageFileNameOriginal, matchAward.MVPScreenImageFileName));
-            if (!string.IsNullOrEmpty(matchAward.ScoreScreenImageFileNameOriginal))
+            if (!string.IsNullOrEmpty(matchAward.ScoreScreenImageFileNameOriginal) && !string.IsNullOrEmpty(matchAward.ScoreScreenImageFileName))
                 _awards.Add((matchAward.ScoreScreenImageFileNameOriginal, matchAward.ScoreScreenImageFileName));
         }
 

@@ -64,24 +64,36 @@ namespace HeroesData.Parser
 
                 if (elementName == "SORTNAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        portrait.SortName = text;
+                    string? sortNameValue = element.Attribute("value")?.Value;
+                    if (sortNameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(sortNameValue, out string? text))
+                            portrait.SortName = text;
+                    }
                 }
                 else if (elementName == "HYPERLINKID")
                 {
-                    portrait.HyperlinkId = element.Attribute("value")?.Value ?? string.Empty;
+                    portrait.HyperlinkId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "NAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        portrait.Name = text;
+                    string? nameValue = element.Attribute("value")?.Value;
+                    if (nameValue is not null)
+                    {
+                        if (GameData.TryGetGameString(nameValue, out string? text))
+                            portrait.Name = text;
+                    }
                 }
                 else if (elementName == "EVENTNAME")
                 {
-                    if (GameData.TryGetGameString(element.Attribute("value")?.Value ?? string.Empty, out string? text))
-                        portrait.EventName = text;
-                    else
-                        portrait.EventName = element.Attribute("value")?.Value;
+                    string? eventName = element.Attribute("value")?.Value;
+                    if (eventName is not null)
+                    {
+                        if (GameData.TryGetGameString(eventName ?? string.Empty, out string? text))
+                            portrait.EventName = text;
+                        else
+                            portrait.EventName = eventName;
+                    }
                 }
                 else if (elementName == "RARITY")
                 {
@@ -92,7 +104,7 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "PORTRAITARRAY")
                 {
-                    string item = element.Attribute("value")?.Value ?? string.Empty;
+                    string? item = element.Attribute("value")?.Value;
 
                     if (!string.IsNullOrEmpty(item))
                         portrait.RewardPortraitIds.Add(item);

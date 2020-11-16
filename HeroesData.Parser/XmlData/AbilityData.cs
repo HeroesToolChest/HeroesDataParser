@@ -276,7 +276,7 @@ namespace HeroesData.Parser.XmlData
             if (index > 0)
             {
                 firstPartAbilCmdSpan = abilCmdSpan.Slice(0, index);
-                indexPartAbilCmdSpan = abilCmdSpan.Slice(index + 1);
+                indexPartAbilCmdSpan = abilCmdSpan[(index + 1)..];
             }
             else
             {
