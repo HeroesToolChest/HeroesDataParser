@@ -16,6 +16,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -37,32 +38,18 @@ namespace HeroesData
         {
             get
             {
-                string filePath = Path.Combine(AppContext.BaseDirectory, "heroesdata.dll");
-                if (!File.Exists(filePath))
-                    filePath = Path.Combine(AppContext.BaseDirectory, "Heroesdata.dll");
-
-                return FileVersionInfo.GetVersionInfo(filePath)?.ProductVersion ?? "No version";
+                Version? assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                if (assemblyVersion is not null)
+                    return $"{assemblyVersion.Major}.{assemblyVersion.Minor}.{assemblyVersion.Build}";
+                else
+                    return "Unknown Version";
             }
         }
 
         /// <summary>
         /// Gets the assembly path.
         /// </summary>
-        public static string AssemblyPath
-        {
-            get
-            {
-                string? fileName = Process.GetCurrentProcess().MainModule?.FileName;
-                string? executingFileName = Path.GetFileNameWithoutExtension(fileName);
-
-                if (executingFileName == "dotnet-heroes-data") // ToolCommandName
-                    return AppContext.BaseDirectory;
-                else if (executingFileName == "testhost" || executingFileName == "dotnet")
-                    return string.Empty;
-                else
-                    return Path.GetDirectoryName(fileName) ?? string.Empty;
-            }
-        }
+        public static string AssemblyPath => AppContext.BaseDirectory;
 
         public static bool Defaults { get; set; } = true;
         public static bool CreateXml { get; set; }
@@ -121,7 +108,7 @@ namespace HeroesData
 
         public void Run()
         {
-            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine($"{AppContext.BaseDirectory}");
             Console.WriteLine($"Heroes Data Parser ({Version})");
             Console.WriteLine("  --https://github.com/HeroesToolChest/HeroesDataParser");
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
