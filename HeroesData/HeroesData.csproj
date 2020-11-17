@@ -19,6 +19,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>

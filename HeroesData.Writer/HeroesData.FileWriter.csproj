@@ -8,6 +8,7 @@
     <Authors>Kevin Oliva</Authors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
