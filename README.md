@@ -2,7 +2,7 @@
 [![Build Status](https://dev.azure.com/kevinkoliva/Heroes%20of%20the%20Storm%20Projects/_apis/build/status/HeroesToolChest.HeroesDataParser?branchName=master)](https://dev.azure.com/kevinkoliva/Heroes%20of%20the%20Storm%20Projects/_build/latest?definitionId=1&branchName=master) [![Release](https://img.shields.io/github/release/koliva8245/HeroesDataParser.svg)](https://github.com/koliva8245/HeroesDataParser/releases/latest)
 [![NuGet](https://img.shields.io/nuget/v/HeroesDataParser.svg)](https://www.nuget.org/packages/HeroesDataParser/)
 
-Heroes Data Parser is a .NET Core command line tool that extracts Heroes of the Storm game data into XML and JSON files. Extracts hero data along with all abilities, talents, and their respective portraits and icons.
+Heroes Data Parser is a .NET command line tool that extracts Heroes of the Storm game data into XML and JSON files. Extracts hero data along with all abilities, talents, and their respective portraits and icons.
 
 Also extracts the following:
  - Units (includes images)  
@@ -30,15 +30,8 @@ Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some m
 - [heroes-talents](https://github.com/heroespatchnotes/heroes-talents) provides curated json data and image files
 
 ## Installation
-### Supported Operating Systems
-- Windows 7 SP1 (x64) and later
-- Linux (x64)
-- macOS 10.13 (x64) and later versions
-
-***
-
 ### Dotnet Global Tool (Recommended)
-Download and install the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download). 
+Download and install the [.NET 5.0 SDK](https://dotnet.microsoft.com/download). 
 
 Once installed, run the following command:
 ```
@@ -53,26 +46,31 @@ dotnet tool update --global HeroesDataParser
 ***
 
 ### Zip File Download - Framework-Dependent Deployment (fdd)
+Portable to any operating system.
 
-Download and install the [.NET Core 3.1 Runtime or SDK](https://dotnet.microsoft.com/download). 
+Download and install the [.NET 5.0 Runtime or SDK](https://dotnet.microsoft.com/download). 
 
 Download and extract the latest `HeroesDataParser.*-fdd-any` zip file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page.
 
 ***
 
 ### Zip File Download - Framework-Dependent Executable (fde)
-Download and install the [.NET Core 3.1 Runtime or SDK](https://dotnet.microsoft.com/download). 
+Runs only on the selected operating system.
+
+Download and install the [.NET 5.0 Runtime or SDK](https://dotnet.microsoft.com/download). 
 
 Download and extract the latest `HeroesDataParser.*-fde-<OS>-x64` zip file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
 ***
 
 ### Zip File Download - Self-Contained Deployment (scd)
+Runs only on the selected operating system.
+
 No runtime or SDK is required.
 
 Download and extract the latest `HeroesDataParser.*-scd-<OS>-x64` zip file from the [releases](https://github.com/koliva8245/HeroesDataParser/releases) page for a selected operating system.
 
-This zip file contains everything that is needed to run the dotnet core app without .NET Core being installed, so the zip file is quite large.
+This zip file contains everything that is needed to run the dotnet app without .NET being installed, so the zip file is quite large.
 
 ## Usage
 If installed as a Dotnet Global Tool, the app can be run with one of the following commands:
@@ -81,12 +79,12 @@ dotnet heroes-data -h
 dotnet-heroes-data -h
 ```
 
-If installed as a Framework-Dependent Deployment, run the following command from the extracted directory:
+If installed as a Framework-Dependent Deployment (fdd), run the following command from the extracted directory:
 ```
 dotnet heroesdata.dll -h
 ```
 
-If installed as a Framework-Dependent Executable or Self-Contained Deployment, run one of the following commands from the extracted directory:
+If installed as a Framework-Dependent Executable (fde) or Self-Contained Deployment (scd), run one of the following commands from the extracted directory:
 ```
 windows (cmd): heroesdata -h
 windows (powershell): .\heroesdata -h 
@@ -670,7 +668,7 @@ The override files are for manually modifying the data after parsing the game da
 ## Developing
 To build and compile the code, it is recommended to use the latest version of [Visual Studio 2019 or Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
 
-Another option is to use the dotnet CLI tools from the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download).
+Another option is to use the dotnet CLI tools from the [.NET 5.0 SDK](https://dotnet.microsoft.com/download).
 
 The main project is `HeroesData.csproj` and the main entry point is `Program.cs`.
 
