@@ -394,9 +394,9 @@
     </Ability>
   </CHero>
   <CHero id="Hogger">
-    <Ability id="HoggerCancelHoggWild" abilityType="E">
+    <Ability id="HoggerCancelHoggWild,HoggerCancelHoggWild" abilityType="E">
       <Override>
-        <ParentLink value="HoggerHoggWild|HoggerCancelHoggWild|E" />
+        <ParentLink value="HoggerHoggWild|HoggerHoggWild|E" />
       </Override>
     </Ability>
     <Ability id="HoggerCancelHoardapult,HoggerDestroyHoardapult" abilityType="Heroic">
