@@ -24,7 +24,7 @@ Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some m
 ### Other Helpful Repos
 - [Heroes Data](https://github.com/HeroesToolChest/heroes-data) contains already extracted data files in localized form
 - [Heroes Images](https://github.com/HeroesToolChest/heroes-images) complements Heroes Data by providing the extracted image files
-- [Heroes Icons](https://github.com/HeroesToolChest/Heroes.Icons) is a dotnet core library that parses the extracted json files
+- [Heroes Icons](https://github.com/HeroesToolChest/Heroes.Icons) is a dotnet library that parses the extracted json files
 
 ### Third Party Repos
 - [heroes-talents](https://github.com/heroespatchnotes/heroes-talents) provides curated json data and image files
@@ -378,6 +378,8 @@ The format of the strings in the text file are the following:
 - `voiceline/name/[Id]=[value]`
 - `voiceline/sortname/[Id]=[value]`
 
+If a json file is preferred over a text file, take a look at the [localized-json](https://github.com/koliva8245/HeroesDataParser/tree/master#localized-json) command.
+
 ## Commands
 ### extract
 ```
@@ -465,6 +467,66 @@ Options:
 ```
 
 Converts the localized text file(s) created from the option `--localized-text` into a json file.
+
+The json file is based on the format of the text file.
+
+The json contains two string values pairs at the top level: `meta` and `gamestrings`. `meta` contains the Heroes build version and the localization type of the strings. `gamestrings` is broken down based on the format in the text files.
+
+For example
+```
+abiltalent/cooldown/[Id]=[value]
+abiltalent/energy/[Id]=[value]
+abiltalent/full/[Id]=[value]
+...
+announcer/name/[Id]=[value]
+announcer/description/[Id]=[value]
+...
+```
+is broken down in the json as 
+```
+{
+  "meta": {
+    "version": "82624",
+    "locale": "enus"
+  },
+  "gamestrings": {
+    "abiltalent": {
+      "cooldown": {
+        "<Id1>": "<value1>",
+        "<Id2>": "<value2>",
+        "<Id3>": "<value3>",
+        "..."
+      },
+      "energy": {
+        "<Id1>": "<value1>",
+        "<Id2>": "<value2>",
+        "<Id3>": "<value3>",
+        "..."
+      },
+      "full": {
+        "<Id1>": "<value1>",
+        "<Id2>": "<value2>",
+        "<Id3>": "<value3>",
+        "..."
+      }
+    },
+    "announcer": {
+      "name": {
+        "<Id1>": "<value1>",
+        "<Id2>": "<value2>",
+        "<Id3>": "<value3>",
+        "..."
+      },
+      "description": {
+        "<Id1>": "<value1>",
+        "<Id2>": "<value2>",
+        "<Id3>": "<value3>",
+        "..."
+      }
+    }
+  }
+}
+```
 
 Example command
 ```
