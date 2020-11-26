@@ -24,7 +24,7 @@ Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some m
 ### Other Helpful Repos
 - [Heroes Data](https://github.com/HeroesToolChest/heroes-data) contains already extracted data files in localized form
 - [Heroes Images](https://github.com/HeroesToolChest/heroes-images) complements Heroes Data by providing the extracted image files
-- [Heroes Icons](https://github.com/HeroesToolChest/Heroes.Icons) is a dotnet library that parses the extracted json files
+- [Heroes Icons](https://github.com/HeroesToolChest/Heroes.Icons) is a .NET library that parses the extracted json files
 
 ### Third Party Repos
 - [heroes-talents](https://github.com/heroespatchnotes/heroes-talents) provides curated json data and image files
