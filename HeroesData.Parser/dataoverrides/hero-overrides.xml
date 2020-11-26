@@ -393,6 +393,23 @@
       </Override>
     </Ability>
   </CHero>
+  <CHero id="Hogger">
+    <Ability id="HoggerCancelHoggWild" abilityType="E">
+      <Override>
+        <ParentLink value="HoggerHoggWild|HoggerCancelHoggWild|E" />
+      </Override>
+    </Ability>
+    <Ability id="HoggerCancelHoardapult,HoggerDestroyHoardapult" abilityType="Heroic">
+      <Override>
+        <ParentLink value="HoggerHoardapult|HoggerHoardapult|Heroic" />
+      </Override>
+    </Ability>
+    <Ability id="HoggerCancelLootHoard,HoggerDestroyLootHoard" abilityType="Trait">
+      <Override>
+        <ParentLink value="HoggerLootHoard|HoggerLootHoard|Trait" />
+      </Override>
+    </Ability>
+  </CHero>
   <CHero id="Illidan">
     <!--Old abilityTalent-->
     <Ability id="IllidanThrillOfBattle,IllidanBetrayersThirstThrillOfBattle" abilityType="Trait">
