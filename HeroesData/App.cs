@@ -108,7 +108,6 @@ namespace HeroesData
 
         public void Run()
         {
-            Console.WriteLine($"{AppContext.BaseDirectory}");
             Console.WriteLine($"Heroes Data Parser ({Version})");
             Console.WriteLine("  --https://github.com/HeroesToolChest/HeroesDataParser");
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
