@@ -1,5 +1,6 @@
 ﻿using Heroes.Models;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Linq;
 
 namespace HeroesData.FileWriter.Writers.HeroSkinData
@@ -37,8 +38,13 @@ namespace HeroesData.FileWriter.Writers.HeroSkinData
             if (!string.IsNullOrEmpty(heroSkin.InfoText?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 heroSkinObject.Add("infoText", GetTooltip(heroSkin.InfoText, FileOutputOptions.DescriptionType));
 
+            heroSkinObject.Add("franchise", heroSkin.Franchise.ToString());
+
             if (heroSkin.Features.Any())
                 heroSkinObject.Add(new JProperty("features", heroSkin.Features));
+
+            if (heroSkin.VariationSkinIds.Count > 0)
+                heroSkinObject.Add(new JProperty("variationSkinIds", heroSkin.VariationSkinIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
 
             return new JProperty(heroSkin.Id, heroSkinObject);
         }

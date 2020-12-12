@@ -23,7 +23,12 @@ namespace HeroesData.FileWriter.Tests.HeroSkinData
                 InfoText = new TooltipDescription("Evolution Master of Kerrigan's Swarm"),
                 SearchText = "White Pink",
                 ReleaseDate = new DateTime(2014, 3, 13),
+                Franchise = HeroFranchise.Nexus,
             };
+
+            heroSkin.VariationSkinIds.Add("var1");
+            heroSkin.VariationSkinIds.Add("var2");
+            heroSkin.VariationSkinIds.Add("var3");
 
             heroSkin.Features.Add("ThemedAbilities");
             heroSkin.Features.Add("ThemedAbilities");

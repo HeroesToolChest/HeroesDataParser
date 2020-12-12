@@ -4,15 +4,22 @@
     "attributeId": "Aba1",
     "rarity": "None",
     "releaseDate": "2014-03-13",
+    "franchise": "Nexus",
     "features": [
       "ThemedAbilities",
       "ThemedAnimations"
+    ],
+    "variationSkinIds": [
+      "var1",
+      "var2",
+      "var3"
     ]
   },
   "AbathurMechaVar1": {
     "hyperlinkId": "AbathurMecha",
     "attributeId": "Aba2",
     "rarity": "Legendary",
-    "releaseDate": "2014-03-01"
+    "releaseDate": "2014-03-01",
+    "franchise": "Classic"
   }
 }

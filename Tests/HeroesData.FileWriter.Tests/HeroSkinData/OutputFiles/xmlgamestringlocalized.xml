@@ -1,10 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HeroSkins>
-  <AbathurBone hyperlinkId="AbathurBone" attributeId="Aba1" rarity="None" releaseDate="2014-03-13">
+  <AbathurBone hyperlinkId="AbathurBone" attributeId="Aba1" rarity="None" franchise="Nexus" releaseDate="2014-03-13">
     <Features>
       <Feature>ThemedAbilities</Feature>
       <Feature>ThemedAnimations</Feature>
     </Features>
+    <VariationSkinIds>
+      <VariationSkinId>var1</VariationSkinId>
+      <VariationSkinId>var2</VariationSkinId>
+      <VariationSkinId>var3</VariationSkinId>
+    </VariationSkinIds>
   </AbathurBone>
-  <AbathurMechaVar1 hyperlinkId="AbathurMecha" attributeId="Aba2" rarity="Legendary" releaseDate="2014-03-01" />
+  <AbathurMechaVar1 hyperlinkId="AbathurMecha" attributeId="Aba2" rarity="Legendary" franchise="Classic" releaseDate="2014-03-01" />
 </HeroSkins>

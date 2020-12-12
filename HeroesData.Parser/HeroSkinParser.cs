@@ -150,6 +150,30 @@ namespace HeroesData.Parser
                             heroSkin.SearchText = text;
                     }
                 }
+                else if (elementName == "UNIVERSE")
+                {
+                    string? universe = element.Attribute("value")?.Value.ToUpperInvariant();
+
+                    if (universe == "STARCRAFT")
+                        heroSkin.Franchise = HeroFranchise.Starcraft;
+                    else if (universe == "WARCRAFT")
+                        heroSkin.Franchise = HeroFranchise.Warcraft;
+                    else if (universe == "DIABLO")
+                        heroSkin.Franchise = HeroFranchise.Diablo;
+                    else if (universe == "OVERWATCH")
+                        heroSkin.Franchise = HeroFranchise.Overwatch;
+                    else if (universe == "HEROES" || universe == "NEXUS")
+                        heroSkin.Franchise = HeroFranchise.Nexus;
+                }
+                else if (elementName == "VARIATIONARRAY")
+                {
+                    string? variation = element.Attribute("value")?.Value;
+
+                    if (variation is not null)
+                    {
+                        heroSkin.VariationSkinIds.Add(variation);
+                    }
+                }
             }
         }
 
@@ -160,6 +184,7 @@ namespace HeroesData.Parser
             heroSkin.InfoText = new TooltipDescription(GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinInfoText?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase)));
             heroSkin.HyperlinkId = DefaultData.HeroSkinData?.HeroSkinHyperlinkId?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
             heroSkin.ReleaseDate = DefaultData.HeroData?.HeroReleaseDate;
+            heroSkin.Franchise = HeroFranchise.Unknown;
 
             heroSkin.SearchText = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinAdditionalSearchText?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrEmpty(heroSkin.SearchText))
