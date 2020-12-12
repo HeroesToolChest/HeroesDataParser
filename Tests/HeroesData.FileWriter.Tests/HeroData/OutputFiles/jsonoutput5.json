@@ -13,6 +13,8 @@
     "speed": 4.3984,
     "type": "Melee",
     "rarity": "Legendary",
+    "scalingLinkId": "scalingLink",
+    "defaultMountId": "someMount",
     "searchText": "Alarak highlord protoss",
     "description": "A Tank who specializes against Mages thanks in part to his innate Spell Armor.<n/><n/><img path=\"@UI / StormTalentInTextArmorIcon\" alignment=\"uppermiddle\" color=\"e12bfc\" width=\"20\" height=\"22\"/><c val=\"#TooltipNumbers\">20 Spell Armor</c>",
     "infoText": "infotext description",
@@ -93,6 +95,26 @@
         "damage": 340.0,
         "damageScale": 0.05
       }
+    ],
+    "skins": [
+      "skin1",
+      "skin2",
+      "skin3"
+    ],
+    "variationSkins": [
+      "var1",
+      "var2",
+      "var3"
+    ],
+    "voiceLines": [
+      "voiceLine1",
+      "voiceLine2",
+      "voiceLine3"
+    ],
+    "mountCategories": [
+      "mount1",
+      "mount2",
+      "mount3"
     ],
     "abilities": {
       "basic": [

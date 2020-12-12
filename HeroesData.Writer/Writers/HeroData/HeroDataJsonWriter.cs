@@ -56,6 +56,8 @@ namespace HeroesData.FileWriter.Writers.HeroData
             heroObject.Add("rarity", hero.Rarity.ToString());
             if (!string.IsNullOrEmpty(hero.ScalingBehaviorLink))
                 heroObject.Add(new JProperty("scalingLinkId", hero.ScalingBehaviorLink));
+            if (!string.IsNullOrEmpty(hero.DefaultMountId))
+                heroObject.Add("defaultMountId", hero.DefaultMountId);
             if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(hero.SearchText))
                 heroObject.Add("searchText", hero.SearchText);
             if (!string.IsNullOrEmpty(hero.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
@@ -101,7 +103,19 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (weapons != null)
                 heroObject.Add(weapons);
 
-            JProperty? abilities = UnitAbilities(hero);
+            if (hero.SkinIds.Count > 0)
+                heroObject.Add(new JProperty("skins", hero.SkinIds));
+
+            if (hero.VariationSkinIds.Count > 0)
+                heroObject.Add(new JProperty("variationSkins", hero.VariationSkinIds));
+
+            if (hero.VoiceLineIds.Count > 0)
+                heroObject.Add(new JProperty("voiceLines", hero.VoiceLineIds));
+
+            if (hero.AllowedMountCategoryIds.Count > 0)
+                heroObject.Add(new JProperty("mountCategories", hero.AllowedMountCategoryIds));
+
+            JProperty ? abilities = UnitAbilities(hero);
             if (abilities != null)
                 heroObject.Add(abilities);
 

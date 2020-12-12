@@ -414,6 +414,8 @@ namespace HeroesData.Parser
                         hero.Franchise = HeroFranchise.Diablo;
                     else if (universe == "OVERWATCH")
                         hero.Franchise = HeroFranchise.Overwatch;
+                    else if (universe == "NEXUS")
+                        hero.Franchise = HeroFranchise.Nexus;
                     else if (universe == "RETRO" && hero.Franchise == HeroFranchise.Unknown)
                         hero.Franchise = HeroFranchise.Classic;
                 }
@@ -518,6 +520,51 @@ namespace HeroesData.Parser
                 else if (elementName == "TALENTTREEARRAY")
                 {
                     _talentsArray?.AddElement(element);
+                }
+                else if (elementName == "SKINARRAY")
+                {
+                    string? skin = element.Attribute("value")?.Value;
+
+                    if (skin is not null)
+                    {
+                        hero.SkinIds.Add(skin);
+                    }
+                }
+                else if (elementName == "VARIATIONARRAY")
+                {
+                    string? variation = element.Attribute("value")?.Value;
+
+                    if (variation is not null)
+                    {
+                        hero.VariationSkinIds.Add(variation);
+                    }
+                }
+                else if (elementName == "VOICELINEARRAY")
+                {
+                    string? voiceLine = element.Attribute("value")?.Value;
+
+                    if (voiceLine is not null)
+                    {
+                        hero.VoiceLineIds.Add(voiceLine);
+                    }
+                }
+                else if (elementName == "ALLOWEDMOUNTCATEGORYARRAY")
+                {
+                    string? allowedMountCategory = element.Attribute("value")?.Value;
+
+                    if (allowedMountCategory is not null)
+                    {
+                        hero.AllowedMountCategoryIds.Add(allowedMountCategory);
+                    }
+                }
+                else if (elementName == "DEFAULTMOUNT")
+                {
+                    string? defaultMount = element.Attribute("value")?.Value;
+
+                    if (defaultMount is not null)
+                    {
+                        hero.DefaultMountId = defaultMount;
+                    }
                 }
             }
 

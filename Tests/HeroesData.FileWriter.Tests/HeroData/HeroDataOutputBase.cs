@@ -373,6 +373,26 @@ namespace HeroesData.FileWriter.Tests.HeroData
             level20Talent.PrerequisiteTalentIds.Add("Level4Talent");
             alarakHero.AddTalent(level20Talent);
 
+            alarakHero.ScalingBehaviorLink = "scalingLink";
+            alarakHero.DefaultMountId = "someMount";
+
+            alarakHero.SkinIds.Add("skin1");
+            alarakHero.SkinIds.Add("skin2");
+            alarakHero.SkinIds.Add("skin3");
+
+            alarakHero.VariationSkinIds.Add("var1");
+            alarakHero.VariationSkinIds.Add("var2");
+            alarakHero.VariationSkinIds.Add("var3");
+
+            alarakHero.VoiceLineIds.Add("voiceLine1");
+            alarakHero.VoiceLineIds.Add("voiceLine2");
+            alarakHero.VoiceLineIds.Add("voiceLine3");
+
+            alarakHero.AllowedMountCategoryIds.Add("mount1");
+            alarakHero.AllowedMountCategoryIds.Add("mount2");
+            alarakHero.AllowedMountCategoryIds.Add("mount3");
+
+            // add the hero
             TestData.Add(alarakHero);
 
             Hero alexstraszaHero = new Hero
