@@ -155,6 +155,32 @@ namespace HeroesData.Parser
                 {
                     mount.MountCategory = element.Attribute("value")?.Value;
                 }
+                else if (elementName == "UNIVERSE")
+                {
+                    string? universe = element.Attribute("value")?.Value.ToUpperInvariant();
+
+                    if (universe == "STARCRAFT")
+                        mount.Franchise = HeroFranchise.Starcraft;
+                    else if (universe == "WARCRAFT")
+                        mount.Franchise = HeroFranchise.Warcraft;
+                    else if (universe == "DIABLO")
+                        mount.Franchise = HeroFranchise.Diablo;
+                    else if (universe == "OVERWATCH")
+                        mount.Franchise = HeroFranchise.Overwatch;
+                    else if (universe == "HEROES")
+                        mount.Franchise = HeroFranchise.Heroes;
+                    else if (universe == "NEXUS")
+                        mount.Franchise = HeroFranchise.Nexus;
+                }
+                else if (elementName == "VARIATIONARRAY")
+                {
+                    string? variation = element.Attribute("value")?.Value;
+
+                    if (variation is not null)
+                    {
+                        mount.VariationSkinIds.Add(variation);
+                    }
+                }
             }
         }
 
@@ -169,6 +195,8 @@ namespace HeroesData.Parser
             mount.SearchText = GameData.GetGameString(DefaultData.MountData?.MountAdditionalSearchText?.Replace(DefaultData.IdPlaceHolder, mount.Id, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrEmpty(mount.SearchText))
                 mount.SearchText = mount.SearchText.Trim();
+
+            mount.Franchise = HeroFranchise.Unknown;
         }
     }
 }

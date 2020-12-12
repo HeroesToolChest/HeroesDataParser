@@ -26,7 +26,12 @@ namespace HeroesData.FileWriter.Tests.MountData
                 CollectionCategory = "Magical",
                 MountCategory = "Ride",
                 EventName = "WhimsyDale",
+                Franchise = HeroFranchise.Classic,
             };
+
+            mount.VariationSkinIds.Add("var1");
+            mount.VariationSkinIds.Add("var2");
+            mount.VariationSkinIds.Add("var3");
 
             TestData.Add(mount);
 
@@ -43,6 +48,7 @@ namespace HeroesData.FileWriter.Tests.MountData
                 ReleaseDate = new DateTime(2018, 4, 1),
                 CollectionCategory = "Magical",
                 MountCategory = "Ride",
+                Franchise = HeroFranchise.Unknown,
             };
 
             TestData.Add(mount2);

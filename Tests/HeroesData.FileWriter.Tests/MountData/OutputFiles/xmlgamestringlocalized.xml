@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mounts>
-  <CloudNine hyperlinkId="CloudNine" attributeId="CN9" rarity="Rare" type="Ride" category="Magical" event="WhimsyDale" releaseDate="2016-05-21" />
-  <MagixCarpet hyperlinkId="MagicCarpet" attributeId="MC4" rarity="Epic" type="Ride" category="Magical" releaseDate="2018-04-01" />
+  <CloudNine hyperlinkId="CloudNine" attributeId="CN9" rarity="Rare" type="Ride" category="Magical" franchise="Classic" event="WhimsyDale" releaseDate="2016-05-21">
+    <VariationSkinIds>
+      <VariationSkinId>var1</VariationSkinId>
+      <VariationSkinId>var2</VariationSkinId>
+      <VariationSkinId>var3</VariationSkinId>
+    </VariationSkinIds>
+  </CloudNine>
+  <MagixCarpet hyperlinkId="MagicCarpet" attributeId="MC4" rarity="Epic" type="Ride" category="Magical" franchise="Unknown" releaseDate="2018-04-01" />
 </Mounts>

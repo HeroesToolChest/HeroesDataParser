@@ -1,4 +1,6 @@
 ﻿using Heroes.Models;
+using System;
+using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -25,11 +27,13 @@ namespace HeroesData.FileWriter.Writers.MountData
                 new XAttribute("rarity", mount.Rarity),
                 new XAttribute("type", mount.MountCategory!),
                 new XAttribute("category", mount.CollectionCategory!),
+                new XAttribute("franchise", mount.Franchise),
                 string.IsNullOrEmpty(mount.EventName) ? null! : new XAttribute("event", mount.EventName),
                 mount.ReleaseDate.HasValue ? new XAttribute("releaseDate", mount.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null!,
                 string.IsNullOrEmpty(mount.SortName) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SortName", mount.SortName),
                 string.IsNullOrEmpty(mount.SearchText) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SearchText", mount.SearchText),
-                string.IsNullOrEmpty(mount.InfoText?.RawDescription) || FileOutputOptions.IsLocalizedText ? null! : new XElement("InfoText", GetTooltip(mount.InfoText, FileOutputOptions.DescriptionType)));
+                string.IsNullOrEmpty(mount.InfoText?.RawDescription) || FileOutputOptions.IsLocalizedText ? null! : new XElement("InfoText", GetTooltip(mount.InfoText, FileOutputOptions.DescriptionType)),
+                mount.VariationSkinIds.Count > 0 ? new XElement("VariationSkinIds", mount.VariationSkinIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(d => new XElement("VariationSkinId", d))) : null!);
         }
     }
 }

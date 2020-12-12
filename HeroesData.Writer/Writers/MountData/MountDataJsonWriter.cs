@@ -1,5 +1,7 @@
 ﻿using Heroes.Models;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Linq;
 
 namespace HeroesData.FileWriter.Writers.MountData
 {
@@ -40,6 +42,11 @@ namespace HeroesData.FileWriter.Writers.MountData
 
             if (!string.IsNullOrEmpty(mount.InfoText?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 mountObject.Add("infoText", GetTooltip(mount.InfoText, FileOutputOptions.DescriptionType));
+
+            mountObject.Add("franchise", mount.Franchise.ToString());
+
+            if (mount.VariationSkinIds.Count > 0)
+                mountObject.Add(new JProperty("variationSkinIds", mount.VariationSkinIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
 
             return new JProperty(mount.Id, mountObject);
         }

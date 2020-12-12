@@ -6,7 +6,13 @@
     "type": "Ride",
     "category": "Magical",
     "event": "WhimsyDale",
-    "releaseDate": "2016-05-21"
+    "releaseDate": "2016-05-21",
+    "franchise": "Classic",
+    "variationSkinIds": [
+      "var1",
+      "var2",
+      "var3"
+    ]
   },
   "MagixCarpet": {
     "hyperlinkId": "MagicCarpet",
@@ -14,6 +20,7 @@
     "rarity": "Epic",
     "type": "Ride",
     "category": "Magical",
-    "releaseDate": "2018-04-01"
+    "releaseDate": "2018-04-01",
+    "franchise": "Unknown"
   }
 }
