@@ -4,11 +4,11 @@
     <SortName>99CloudeNine</SortName>
     <SearchText>Blue</SearchText>
     <InfoText>A floating cloud</InfoText>
-    <VariationSkinIds>
-      <VariationSkinId>var1</VariationSkinId>
-      <VariationSkinId>var2</VariationSkinId>
-      <VariationSkinId>var3</VariationSkinId>
-    </VariationSkinIds>
+    <VariationMountIds>
+      <VariationMountId>var1</VariationMountId>
+      <VariationMountId>var2</VariationMountId>
+      <VariationMountId>var3</VariationMountId>
+    </VariationMountIds>
   </CloudNine>
   <MagixCarpet name="Magic Carpet" hyperlinkId="MagicCarpet" attributeId="MC4" rarity="Epic" type="Ride" category="Magical" franchise="Unknown" releaseDate="2018-04-01">
     <SortName>xxMagixCarpet</SortName>

@@ -167,9 +167,7 @@ namespace HeroesData.Parser
                         mount.Franchise = HeroFranchise.Diablo;
                     else if (universe == "OVERWATCH")
                         mount.Franchise = HeroFranchise.Overwatch;
-                    else if (universe == "HEROES")
-                        mount.Franchise = HeroFranchise.Heroes;
-                    else if (universe == "NEXUS")
+                    else if (universe == "HEROES" || universe == "NEXUS")
                         mount.Franchise = HeroFranchise.Nexus;
                 }
                 else if (elementName == "VARIATIONARRAY")
@@ -191,12 +189,11 @@ namespace HeroesData.Parser
             mount.InfoText = new TooltipDescription(GameData.GetGameString(DefaultData.MountData?.MountInfoText?.Replace(DefaultData.IdPlaceHolder, mount.Id, StringComparison.OrdinalIgnoreCase)));
             mount.HyperlinkId = DefaultData.MountData?.MountHyperlinkId?.Replace(DefaultData.IdPlaceHolder, mount.Id, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
             mount.ReleaseDate = DefaultData.MountData?.MountReleaseDate;
+            mount.Franchise = HeroFranchise.Unknown;
 
             mount.SearchText = GameData.GetGameString(DefaultData.MountData?.MountAdditionalSearchText?.Replace(DefaultData.IdPlaceHolder, mount.Id, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrEmpty(mount.SearchText))
                 mount.SearchText = mount.SearchText.Trim();
-
-            mount.Franchise = HeroFranchise.Unknown;
         }
     }
 }

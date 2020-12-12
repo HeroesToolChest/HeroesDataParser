@@ -12,7 +12,7 @@
     "searchText": "Blue",
     "infoText": "A floating cloud",
     "franchise": "Classic",
-    "variationSkinIds": [
+    "variationMountIds": [
       "var1",
       "var2",
       "var3"
