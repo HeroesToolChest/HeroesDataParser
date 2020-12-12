@@ -45,8 +45,8 @@ namespace HeroesData.FileWriter.Writers.MountData
 
             mountObject.Add("franchise", mount.Franchise.ToString());
 
-            if (mount.VariationSkinIds.Count > 0)
-                mountObject.Add(new JProperty("variationMountIds", mount.VariationSkinIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
+            if (mount.VariationMountIds.Count > 0)
+                mountObject.Add(new JProperty("variationMountIds", mount.VariationMountIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
 
             return new JProperty(mount.Id, mountObject);
         }

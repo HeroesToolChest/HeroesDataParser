@@ -33,7 +33,7 @@ namespace HeroesData.FileWriter.Writers.MountData
                 string.IsNullOrEmpty(mount.SortName) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SortName", mount.SortName),
                 string.IsNullOrEmpty(mount.SearchText) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SearchText", mount.SearchText),
                 string.IsNullOrEmpty(mount.InfoText?.RawDescription) || FileOutputOptions.IsLocalizedText ? null! : new XElement("InfoText", GetTooltip(mount.InfoText, FileOutputOptions.DescriptionType)),
-                mount.VariationSkinIds.Count > 0 ? new XElement("VariationMountIds", mount.VariationSkinIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(d => new XElement("VariationMountId", d))) : null!);
+                mount.VariationMountIds.Count > 0 ? new XElement("VariationMountIds", mount.VariationMountIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(d => new XElement("VariationMountId", d))) : null!);
         }
     }
 }

@@ -29,9 +29,9 @@ namespace HeroesData.FileWriter.Tests.MountData
                 Franchise = HeroFranchise.Classic,
             };
 
-            mount.VariationSkinIds.Add("var1");
-            mount.VariationSkinIds.Add("var2");
-            mount.VariationSkinIds.Add("var3");
+            mount.VariationMountIds.Add("var1");
+            mount.VariationMountIds.Add("var2");
+            mount.VariationMountIds.Add("var3");
 
             TestData.Add(mount);
 

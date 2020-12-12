@@ -176,7 +176,7 @@ namespace HeroesData.Parser
 
                     if (variation is not null)
                     {
-                        mount.VariationSkinIds.Add(variation);
+                        mount.VariationMountIds.Add(variation);
                     }
                 }
             }
