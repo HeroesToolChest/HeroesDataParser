@@ -30,6 +30,10 @@ namespace HeroesData.FileWriter.Tests.HeroSkinData
             heroSkin.VariationSkinIds.Add("var2");
             heroSkin.VariationSkinIds.Add("var3");
 
+            heroSkin.VoiceLineIds.Add("voice1");
+            heroSkin.VoiceLineIds.Add("voice2");
+            heroSkin.VoiceLineIds.Add("voice3");
+
             heroSkin.Features.Add("ThemedAbilities");
             heroSkin.Features.Add("ThemedAbilities");
             heroSkin.Features.Add("ThemedAnimations");

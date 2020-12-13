@@ -48,7 +48,6 @@ namespace HeroesData.FileWriter.Tests.MountData
                 ReleaseDate = new DateTime(2018, 4, 1),
                 CollectionCategory = "Magical",
                 MountCategory = "Ride",
-                Franchise = Franchise.Unknown,
             };
 
             TestData.Add(mount2);

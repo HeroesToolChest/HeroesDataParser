@@ -45,7 +45,10 @@ namespace HeroesData.FileWriter.Writers.HeroSkinData
                 heroSkinObject.Add(new JProperty("features", heroSkin.Features));
 
             if (heroSkin.VariationSkinIds.Count > 0)
-                heroSkinObject.Add(new JProperty("variationSkinIds", heroSkin.VariationSkinIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
+                heroSkinObject.Add(new JProperty("variationSkins", heroSkin.VariationSkinIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
+
+            if (heroSkin.VoiceLineIds.Count > 0)
+                heroSkinObject.Add(new JProperty("voiceLines", heroSkin.VoiceLineIds));
 
             return new JProperty(heroSkin.Id, heroSkinObject);
         }

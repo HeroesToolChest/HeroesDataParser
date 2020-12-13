@@ -31,7 +31,8 @@ namespace HeroesData.FileWriter.Writers.HeroSkinData
                 string.IsNullOrEmpty(heroSkin.SearchText) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SearchText", heroSkin.SearchText),
                 string.IsNullOrEmpty(heroSkin.InfoText?.RawDescription) || FileOutputOptions.IsLocalizedText ? null! : new XElement("InfoText", GetTooltip(heroSkin.InfoText, FileOutputOptions.DescriptionType)),
                 heroSkin.Features.Any() ? new XElement("Features", heroSkin.Features.Select(f => new XElement("Feature", f))) : null!,
-                heroSkin.VariationSkinIds.Count > 0 ? new XElement("VariationSkinIds", heroSkin.VariationSkinIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(d => new XElement("VariationSkinId", d))) : null!);
+                heroSkin.VariationSkinIds.Count > 0 ? new XElement("VariationSkins", heroSkin.VariationSkinIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(d => new XElement("VariationSkin", d))) : null!,
+                heroSkin.VoiceLineIds.Count > 0 ? new XElement("VoiceLines", heroSkin.VoiceLineIds.Select(x => new XElement("VoiceLine", x))) : null!);
         }
     }
 }

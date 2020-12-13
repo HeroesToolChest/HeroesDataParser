@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mounts>
   <CloudNine hyperlinkId="CloudNine" attributeId="CN9" rarity="Rare" type="Ride" category="Magical" franchise="Classic" event="WhimsyDale" releaseDate="2016-05-21">
-    <VariationMountIds>
-      <VariationMountId>var1</VariationMountId>
-      <VariationMountId>var2</VariationMountId>
-      <VariationMountId>var3</VariationMountId>
-    </VariationMountIds>
+    <VariationMounts>
+      <VariationMount>var1</VariationMount>
+      <VariationMount>var2</VariationMount>
+      <VariationMount>var3</VariationMount>
+    </VariationMounts>
   </CloudNine>
-  <MagixCarpet hyperlinkId="MagicCarpet" attributeId="MC4" rarity="Epic" type="Ride" category="Magical" franchise="Unknown" releaseDate="2018-04-01" />
+  <MagixCarpet hyperlinkId="MagicCarpet" attributeId="MC4" rarity="Epic" type="Ride" category="Magical" releaseDate="2018-04-01" />
 </Mounts>

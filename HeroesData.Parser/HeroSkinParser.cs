@@ -174,6 +174,15 @@ namespace HeroesData.Parser
                         heroSkin.VariationSkinIds.Add(variation);
                     }
                 }
+                else if (elementName == "VOICELINEARRAY")
+                {
+                    string? voiceLine = element.Attribute("value")?.Value;
+
+                    if (voiceLine is not null)
+                    {
+                        heroSkin.VoiceLineIds.Add(voiceLine);
+                    }
+                }
             }
         }
 
