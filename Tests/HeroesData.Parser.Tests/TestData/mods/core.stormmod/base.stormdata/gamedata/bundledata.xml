@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CBundle default="1">
+    <Name value="Bundle/Name/##id##"/>
+    <SortName value="Bundle/SortName/##id##"/>
+    <HyperlinkId value="##id##"/>
+    <ReleaseDate>
+      <Month value="1"/>
+      <Day value="1"/>
+      <Year value="2014"/>
+    </ReleaseDate>
+    <LootChestRewardCutsceneFile value="Cutscenes/UI_LootBox_Coin.StormCutscene"/>
+  </CBundle>
+</Catalog>

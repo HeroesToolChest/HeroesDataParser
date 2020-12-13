@@ -491,3 +491,8 @@ Reward/DescriptionUnearned/HeroPortraitGenericEpic=You have unlocked this Hero's
 Reward/DescriptionUnearned/LootBoxPortraitGeneric=Forge using Shards, purchase with Gems, or receive in a Loot Chest to unlock.
 Reward/Name/2015TespaMembershipPortrait=2015 Tespa Membership Portrait
 Reward/Name/2018Season4TLPortraitParent=2018 S4 Team League Portrait
+
+Bundle/Name/UltimateUndyingLegendsBundle=Ultimate Undying Legends Bundle
+Bundle/Name/BattleBundle=Battle Bundle
+Bundle/Name/CyberdemonZaryaSkinPack=Cyberdemon Zarya Skin Pack
+Bundle/Name/WelcomeBundle=Welcome Bundle

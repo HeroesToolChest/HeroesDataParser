@@ -1,0 +1,42 @@
+{
+  "bundel1": {
+    "hyperlinkId": "bundle1",
+    "releaseDate": "2012-03-03",
+    "franchise": "Overwatch",
+    "event": "event1",
+    "heroes": [
+      "hero1",
+      "hero2",
+      "hero3"
+    ],
+    "skins": [
+      {
+        "hero1": [
+          "skin1",
+          "skin2",
+          "skin3"
+        ]
+      },
+      {
+        "hero2": [
+          "skin5",
+          "skin6",
+          "skin7"
+        ]
+      }
+    ],
+    "mounts": [
+      "mount1",
+      "mount2",
+      "mount3"
+    ],
+    "image": "some_image_name.png",
+    "boostId": "boos7day",
+    "goldBonus": 33,
+    "gemsBonus": 45
+  },
+  "winterBundle": {
+    "hyperlinkId": "winterbundle2",
+    "IsDynamicContent": true
+  }
+}

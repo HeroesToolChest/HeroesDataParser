@@ -770,6 +770,7 @@ namespace HeroesData
             DataEmoticon dataEmoticon = new DataEmoticon(new EmoticonParser(xmlDataService.GetInstance()));
             DataEmoticonPack dataEmoticonPack = new DataEmoticonPack(new EmoticonPackParser(xmlDataService.GetInstance()));
             DataBehaviorVeterancy dataBehaviorVeterancy = new DataBehaviorVeterancy(new BehaviorVeterancyParser(xmlDataService.GetInstance()));
+            DataBundle dataBundle = new DataBundle(new BundleParser(xmlDataService.GetInstance()));
 
             ImageHero filesHero = new ImageHero(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageUnit filesUnit = new ImageUnit(CASCHotsStorage?.CASCHandler, StoragePath);
@@ -778,6 +779,7 @@ namespace HeroesData
             ImageVoiceLine filesVoiceLine = new ImageVoiceLine(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageSpray filesSpray = new ImageSpray(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageEmoticon filesEmoticon = new ImageEmoticon(CASCHotsStorage?.CASCHandler, StoragePath);
+            ImageBundle filesBundle = new ImageBundle(CASCHotsStorage?.CASCHandler, StoragePath);
 
             _dataProcessors.Add(new DataProcessor()
             {
@@ -896,6 +898,15 @@ namespace HeroesData
                 Name = dataBehaviorVeterancy.Name,
                 Parse = (localization) => dataBehaviorVeterancy.Parse(localization),
                 Validate = (localization) => dataBehaviorVeterancy.Validate(localization),
+            });
+
+            _dataProcessors.Add(new DataProcessor()
+            {
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.Bundle),
+                Name = dataBundle.Name,
+                Parse = (localization) => dataBundle.Parse(localization),
+                Validate = (localization) => dataBundle.Validate(localization),
+                Extract = (data) => filesBundle.ExtractFiles(data),
             });
         }
     }

@@ -492,5 +492,21 @@ namespace HeroesData.FileWriter.Writers
 
             GameStrings[$"emoticonpack/description/{key}"] = value;
         }
+
+        public void AddBundleName(string key, string? value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"bundle/name/{key}"] = value;
+        }
+
+        public void AddBundleSortName(string key, string? value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"bundle/sortname/{key}"] = value;
+        }
     }
 }

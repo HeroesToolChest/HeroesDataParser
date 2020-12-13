@@ -70,6 +70,8 @@ namespace HeroesData.Parser.XmlData
 
         public DefaultDataRewardPortrait? RewardPortraitData { get; private set; }
 
+        public DefaultBundleData? BundleData { get; private set; }
+
         /// <summary>
         /// Gets the default difficulty text. Contains ##id##.
         /// </summary>
@@ -105,6 +107,8 @@ namespace HeroesData.Parser.XmlData
 
             RewardData = new DefaultDataReward(_gameData);
             RewardPortraitData = new DefaultDataRewardPortrait(_gameData);
+
+            BundleData = new DefaultBundleData(_gameData);
         }
     }
 }

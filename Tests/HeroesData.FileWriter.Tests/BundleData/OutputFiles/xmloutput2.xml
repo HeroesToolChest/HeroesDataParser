@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Bundles>
+  <bundel1 name="Bundel one" hyperlinkId="bundle1" releaseDate="2012-03-03" franchise="Overwatch" event="event1">
+    <SortName>xxBundle1</SortName>
+    <Heroes>
+      <Feature>hero1</Feature>
+      <Feature>hero2</Feature>
+      <Feature>hero3</Feature>
+    </Heroes>
+    <Skins>
+      <Skin hero="hero1">skin1</Skin>
+      <Skin hero="hero1">skin2</Skin>
+      <Skin hero="hero1">skin3</Skin>
+      <Skin hero="hero2">skin5</Skin>
+      <Skin hero="hero2">skin6</Skin>
+      <Skin hero="hero2">skin7</Skin>
+    </Skins>
+    <Mounts>
+      <Mount>mount1</Mount>
+      <Mount>mount2</Mount>
+      <Mount>mount3</Mount>
+    </Mounts>
+    <Image>some_image_name.png</Image>
+    <BoostId>boos7day</BoostId>
+    <GoldBonus>33</GoldBonus>
+    <GemsBonus>45</GemsBonus>
+  </bundel1>
+  <winterBundle hyperlinkId="winterbundle2" isDynamicContent="true">
+    <SortName>xxwinterBundle</SortName>
+  </winterBundle>
+</Bundles>

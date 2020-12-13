@@ -115,7 +115,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (hero.AllowedMountCategoryIds.Count > 0)
                 heroObject.Add(new JProperty("mountCategories", hero.AllowedMountCategoryIds));
 
-            JProperty ? abilities = UnitAbilities(hero);
+            JProperty? abilities = UnitAbilities(hero);
             if (abilities != null)
                 heroObject.Add(abilities);
 

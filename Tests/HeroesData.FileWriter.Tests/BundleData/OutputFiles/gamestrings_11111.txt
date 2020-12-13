@@ -1,0 +1,3 @@
+bundle/name/bundel1=Bundel one
+bundle/sortname/bundel1=xxBundle1
+bundle/sortname/winterBundle=xxwinterBundle

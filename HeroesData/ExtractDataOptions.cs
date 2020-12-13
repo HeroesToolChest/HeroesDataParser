@@ -20,6 +20,7 @@ namespace HeroesData
         Emoticon = 1 << 11,
         EmoticonPack = 1 << 12,
         Veterancy = 1 << 13,
-        All = ~(~0 << 14),
+        Bundle = 1 << 14,
+        All = ~(~0 << 15),
     }
 }
