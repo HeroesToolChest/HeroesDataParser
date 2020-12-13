@@ -27,7 +27,7 @@ namespace HeroesData.FileWriter.Writers.MountData
                 new XAttribute("rarity", mount.Rarity),
                 new XAttribute("type", mount.MountCategory!),
                 new XAttribute("category", mount.CollectionCategory!),
-                new XAttribute("franchise", mount.Franchise),
+                mount.Franchise is not null ? new XAttribute("franchise", mount.Franchise) : null!,
                 string.IsNullOrEmpty(mount.EventName) ? null! : new XAttribute("event", mount.EventName),
                 mount.ReleaseDate.HasValue ? new XAttribute("releaseDate", mount.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null!,
                 string.IsNullOrEmpty(mount.SortName) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SortName", mount.SortName),

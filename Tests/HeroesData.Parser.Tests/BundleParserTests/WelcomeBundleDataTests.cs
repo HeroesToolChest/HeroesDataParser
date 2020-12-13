@@ -8,7 +8,7 @@ namespace HeroesData.Parser.Tests.BundleParserTests
         [TestMethod]
         public void PropertiesTest()
         {
-            Assert.IsTrue(WelcomeBundle.IsDynamicContext);
+            Assert.IsTrue(WelcomeBundle.IsDynamicContent);
 
             Assert.AreEqual("storm_ui_bundles_h25mid_welcome.dds", WelcomeBundle.ImageFileName);
         }

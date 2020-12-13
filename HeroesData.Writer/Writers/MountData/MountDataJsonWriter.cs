@@ -43,7 +43,8 @@ namespace HeroesData.FileWriter.Writers.MountData
             if (!string.IsNullOrEmpty(mount.InfoText?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 mountObject.Add("infoText", GetTooltip(mount.InfoText, FileOutputOptions.DescriptionType));
 
-            mountObject.Add("franchise", mount.Franchise.ToString());
+            if (mount.Franchise is not null)
+                mountObject.Add("franchise", mount.Franchise.ToString());
 
             if (mount.VariationMountIds.Count > 0)
                 mountObject.Add(new JProperty("variationMountIds", mount.VariationMountIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));

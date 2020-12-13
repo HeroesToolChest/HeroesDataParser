@@ -155,15 +155,15 @@ namespace HeroesData.Parser
                     string? universe = element.Attribute("value")?.Value.ToUpperInvariant();
 
                     if (universe == "STARCRAFT")
-                        heroSkin.Franchise = HeroFranchise.Starcraft;
+                        heroSkin.Franchise = Franchise.Starcraft;
                     else if (universe == "WARCRAFT")
-                        heroSkin.Franchise = HeroFranchise.Warcraft;
+                        heroSkin.Franchise = Franchise.Warcraft;
                     else if (universe == "DIABLO")
-                        heroSkin.Franchise = HeroFranchise.Diablo;
+                        heroSkin.Franchise = Franchise.Diablo;
                     else if (universe == "OVERWATCH")
-                        heroSkin.Franchise = HeroFranchise.Overwatch;
+                        heroSkin.Franchise = Franchise.Overwatch;
                     else if (universe == "HEROES" || universe == "NEXUS")
-                        heroSkin.Franchise = HeroFranchise.Nexus;
+                        heroSkin.Franchise = Franchise.Nexus;
                 }
                 else if (elementName == "VARIATIONARRAY")
                 {
@@ -184,7 +184,7 @@ namespace HeroesData.Parser
             heroSkin.InfoText = new TooltipDescription(GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinInfoText?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase)));
             heroSkin.HyperlinkId = DefaultData.HeroSkinData?.HeroSkinHyperlinkId?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase) ?? string.Empty;
             heroSkin.ReleaseDate = DefaultData.HeroSkinData?.HeroSkinReleaseDate;
-            heroSkin.Franchise = HeroFranchise.Unknown;
+            heroSkin.Franchise = Franchise.Unknown;
 
             heroSkin.SearchText = GameData.GetGameString(DefaultData.HeroSkinData?.HeroSkinAdditionalSearchText?.Replace(DefaultData.IdPlaceHolder, heroSkin.Id, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrEmpty(heroSkin.SearchText))

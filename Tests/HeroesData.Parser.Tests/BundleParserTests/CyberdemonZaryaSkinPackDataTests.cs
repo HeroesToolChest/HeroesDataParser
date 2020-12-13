@@ -9,7 +9,7 @@ namespace HeroesData.Parser.Tests.BundleParserTests
         [TestMethod]
         public void PropertiesTest()
         {
-            Assert.IsTrue(CyberdemonZaryaSkinPack.IsDynamicContext);
+            Assert.IsTrue(CyberdemonZaryaSkinPack.IsDynamicContent);
 
             Assert.AreEqual(0, CyberdemonZaryaSkinPack.HeroSkinsCount);
             Assert.AreEqual(0, CyberdemonZaryaSkinPack.HeroIdsWithHeroSkinsCount);

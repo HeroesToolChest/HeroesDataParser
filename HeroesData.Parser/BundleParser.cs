@@ -115,15 +115,15 @@ namespace HeroesData.Parser
                     string? universe = element.Attribute("value")?.Value.ToUpperInvariant();
 
                     if (universe == "STARCRAFT")
-                        bundle.Franchise = HeroFranchise.Starcraft;
+                        bundle.Franchise = Franchise.Starcraft;
                     else if (universe == "WARCRAFT")
-                        bundle.Franchise = HeroFranchise.Warcraft;
+                        bundle.Franchise = Franchise.Warcraft;
                     else if (universe == "DIABLO")
-                        bundle.Franchise = HeroFranchise.Diablo;
+                        bundle.Franchise = Franchise.Diablo;
                     else if (universe == "OVERWATCH")
-                        bundle.Franchise = HeroFranchise.Overwatch;
+                        bundle.Franchise = Franchise.Overwatch;
                     else if (universe == "HEROES" || universe == "NEXUS")
-                        bundle.Franchise = HeroFranchise.Nexus;
+                        bundle.Franchise = Franchise.Nexus;
                 }
                 else if (elementName == "TILETEXTURE")
                 {
@@ -182,7 +182,7 @@ namespace HeroesData.Parser
 
                     if (index == "ShowDynamicProductContent" && value == "1")
                     {
-                        bundle.IsDynamicContext = true;
+                        bundle.IsDynamicContent = true;
                     }
                 }
             }

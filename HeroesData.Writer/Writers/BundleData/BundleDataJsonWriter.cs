@@ -53,7 +53,7 @@ namespace HeroesData.FileWriter.Writers.BundleData
             if (!string.IsNullOrEmpty(bundle.EventName))
                 bundleObject.Add("event", bundle.EventName);
 
-            if (bundle.IsDynamicContext)
+            if (bundle.IsDynamicContent)
                 bundleObject.Add("IsDynamicContent", true);
 
             if (bundle.HeroIds.Count > 0)

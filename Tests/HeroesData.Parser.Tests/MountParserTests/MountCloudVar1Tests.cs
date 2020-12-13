@@ -21,7 +21,7 @@ namespace HeroesData.Parser.Tests.MountParserTests
             Assert.AreEqual(Rarity.Legendary, MountCloudVar1.Rarity);
             Assert.AreEqual("Ridesurf", MountCloudVar1.MountCategory);
             Assert.AreEqual("Magical", MountCloudVar1.CollectionCategory);
-            Assert.AreEqual(HeroFranchise.Nexus, MountCloudVar1.Franchise);
+            Assert.AreEqual(Franchise.Nexus, MountCloudVar1.Franchise);
 
             List<string> variations = MountCloudVar1.VariationMountIds.ToList();
 

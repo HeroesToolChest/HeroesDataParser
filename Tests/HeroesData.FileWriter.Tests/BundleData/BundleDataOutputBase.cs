@@ -16,7 +16,7 @@ namespace HeroesData.FileWriter.Tests.BundleData
             {
                 BoostBonusId = "boos7day",
                 EventName = "event1",
-                Franchise = HeroFranchise.Overwatch,
+                Franchise = Franchise.Overwatch,
                 GemsBonus = 45,
                 GoldBonus = 33,
                 HyperlinkId = "bundle1",
@@ -49,7 +49,7 @@ namespace HeroesData.FileWriter.Tests.BundleData
                 Id = "winterBundle",
                 SortName = "xxwinterBundle",
                 HyperlinkId = "winterbundle2",
-                IsDynamicContext = true,
+                IsDynamicContent = true,
             };
 
             TestData.Add(bundle2);

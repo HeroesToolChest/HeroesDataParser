@@ -25,7 +25,7 @@ namespace HeroesData.FileWriter.Writers.HeroSkinData
                 string.IsNullOrEmpty(heroSkin.HyperlinkId) ? null! : new XAttribute("hyperlinkId", heroSkin.HyperlinkId),
                 string.IsNullOrEmpty(heroSkin.AttributeId) ? null! : new XAttribute("attributeId", heroSkin.AttributeId),
                 new XAttribute("rarity", heroSkin.Rarity),
-                new XAttribute("franchise", heroSkin.Franchise),
+                heroSkin.Franchise is not null ? new XAttribute("franchise", heroSkin.Franchise) : null!,
                 heroSkin.ReleaseDate.HasValue ? new XAttribute("releaseDate", heroSkin.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null!,
                 string.IsNullOrEmpty(heroSkin.SortName) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SortName", heroSkin.SortName),
                 string.IsNullOrEmpty(heroSkin.SearchText) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SearchText", heroSkin.SearchText),

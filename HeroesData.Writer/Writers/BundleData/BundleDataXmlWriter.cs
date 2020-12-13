@@ -46,7 +46,7 @@ namespace HeroesData.FileWriter.Writers.BundleData
                 bundle.ReleaseDate.HasValue ? new XAttribute("releaseDate", bundle.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null!,
                 bundle.Franchise is not null ? new XAttribute("franchise", bundle.Franchise) : null!,
                 string.IsNullOrEmpty(bundle.EventName) ? null! : new XAttribute("event", bundle.EventName),
-                bundle.IsDynamicContext ? new XAttribute("isDynamicContent", true) : null!,
+                bundle.IsDynamicContent ? new XAttribute("isDynamicContent", true) : null!,
                 string.IsNullOrEmpty(bundle.SortName) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SortName", bundle.SortName),
                 bundle.HeroIds.Count > 0 ? new XElement("Heroes", bundle.HeroIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(x => new XElement("Feature", x))) : null!,
                 HeroSkins(bundle)!,

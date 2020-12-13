@@ -38,7 +38,8 @@ namespace HeroesData.FileWriter.Writers.HeroSkinData
             if (!string.IsNullOrEmpty(heroSkin.InfoText?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 heroSkinObject.Add("infoText", GetTooltip(heroSkin.InfoText, FileOutputOptions.DescriptionType));
 
-            heroSkinObject.Add("franchise", heroSkin.Franchise.ToString());
+            if (heroSkin.Franchise is not null)
+                heroSkinObject.Add("franchise", heroSkin.Franchise.ToString());
 
             if (heroSkin.Features.Any())
                 heroSkinObject.Add(new JProperty("features", heroSkin.Features));

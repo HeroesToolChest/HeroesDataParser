@@ -106,7 +106,7 @@ namespace HeroesData.ExtractorData
             if (string.IsNullOrEmpty(hero.Difficulty))
                 AddWarning($"{nameof(hero.Difficulty)} is Unknown");
 
-            if (hero.Franchise == HeroFranchise.Unknown)
+            if (hero.Franchise == Franchise.Unknown)
                 AddWarning($"{nameof(hero.Franchise)} is Unknown");
 
             if (hero.Roles.Contains("Unknown"))

@@ -51,6 +51,9 @@ namespace HeroesData.ExtractorData
 
             if (mount.Rarity == Rarity.None || mount.Rarity == Rarity.Unknown)
                 AddWarning($"{nameof(mount.Rarity)} is {mount.Rarity}");
+
+            if (mount.Franchise == Franchise.Unknown)
+                AddWarning($"{nameof(mount.Franchise)} is {mount.Franchise}");
         }
     }
 }

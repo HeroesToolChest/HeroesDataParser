@@ -14,7 +14,7 @@ namespace HeroesData.Parser.Tests.BundleParserTests
             Assert.AreEqual("BattleBundle", BattleBundle.Id);
             Assert.AreEqual("BattleBundle", BattleBundle.HyperlinkId);
             Assert.AreEqual("Battle Bundle", BattleBundle.Name);
-            Assert.AreEqual(HeroFranchise.Nexus, BattleBundle.Franchise);
+            Assert.AreEqual(Franchise.Nexus, BattleBundle.Franchise);
             Assert.AreEqual(2500, BattleBundle.GoldBonus);
             Assert.IsNull(BattleBundle.GemsBonus);
             Assert.IsNull(BattleBundle.ImageFileName);
@@ -32,7 +32,7 @@ namespace HeroesData.Parser.Tests.BundleParserTests
 
             Assert.AreEqual("DiabloMurkablo", BattleBundle.GetSkinIdsByHeroId("Diablo").ToList()[0]);
 
-            Assert.IsFalse(BattleBundle.IsDynamicContext);
+            Assert.IsFalse(BattleBundle.IsDynamicContent);
         }
     }
 }

@@ -290,7 +290,7 @@ namespace HeroesData.Parser
             hero.Sight = DefaultData.HeroData.UnitSight;
             hero.ReleaseDate = DefaultData.HeroData.HeroReleaseDate;
             hero.Gender = UnitGender.Male;
-            hero.Franchise = HeroFranchise.Unknown;
+            hero.Franchise = Franchise.Unknown;
             hero.Life.LifeMax = DefaultData.HeroData.UnitLifeMax;
             hero.Life.LifeRegenerationRate = 0;
             hero.Energy.EnergyMax = DefaultData.HeroData.UnitEnergyMax;
@@ -390,34 +390,34 @@ namespace HeroesData.Parser
                     string? iconImage = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value))?.ToUpperInvariant();
 
                     if (iconImage == "UI_GLUES_STORE_GAMEICON_SC2.DDS")
-                        hero.Franchise = HeroFranchise.Starcraft;
+                        hero.Franchise = Franchise.Starcraft;
                     else if (iconImage == "UI_GLUES_STORE_GAMEICON_WOW.DDS")
-                        hero.Franchise = HeroFranchise.Warcraft;
+                        hero.Franchise = Franchise.Warcraft;
                     else if (iconImage == "UI_GLUES_STORE_GAMEICON_D3.DDS")
-                        hero.Franchise = HeroFranchise.Diablo;
+                        hero.Franchise = Franchise.Diablo;
                     else if (iconImage == "UI_GLUES_STORE_GAMEICON_OW.DDS")
-                        hero.Franchise = HeroFranchise.Overwatch;
+                        hero.Franchise = Franchise.Overwatch;
                     else if (iconImage == "UI_GLUES_STORE_GAMEICON_RETRO.DDS")
-                        hero.Franchise = HeroFranchise.Classic;
+                        hero.Franchise = Franchise.Classic;
                     else if (iconImage == "UI_GLUES_STORE_GAMEICON_NEXUS.DDS")
-                        hero.Franchise = HeroFranchise.Nexus;
+                        hero.Franchise = Franchise.Nexus;
                 }
                 else if (elementName == "UNIVERSE")
                 {
                     string? universe = element.Attribute("value")?.Value.ToUpperInvariant();
 
                     if (universe == "STARCRAFT")
-                        hero.Franchise = HeroFranchise.Starcraft;
+                        hero.Franchise = Franchise.Starcraft;
                     else if (universe == "WARCRAFT")
-                        hero.Franchise = HeroFranchise.Warcraft;
+                        hero.Franchise = Franchise.Warcraft;
                     else if (universe == "DIABLO")
-                        hero.Franchise = HeroFranchise.Diablo;
+                        hero.Franchise = Franchise.Diablo;
                     else if (universe == "OVERWATCH")
-                        hero.Franchise = HeroFranchise.Overwatch;
+                        hero.Franchise = Franchise.Overwatch;
                     else if (universe == "NEXUS")
-                        hero.Franchise = HeroFranchise.Nexus;
-                    else if (universe == "RETRO" && hero.Franchise == HeroFranchise.Unknown)
-                        hero.Franchise = HeroFranchise.Classic;
+                        hero.Franchise = Franchise.Nexus;
+                    else if (universe == "RETRO" && hero.Franchise == Franchise.Unknown)
+                        hero.Franchise = Franchise.Classic;
                 }
                 else if (elementName == "RELEASEDATE")
                 {

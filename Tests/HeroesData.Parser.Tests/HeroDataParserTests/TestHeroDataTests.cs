@@ -14,7 +14,7 @@ namespace HeroesData.Parser.Tests.HeroDataParserTests
             Assert.AreEqual(2.124, HeroTestHero.Speed);
             Assert.AreEqual(6.5, HeroTestHero.Sight);
             Assert.AreEqual("Support", HeroTestHero.Roles.ToList()[0]);
-            Assert.AreEqual(HeroFranchise.Warcraft, HeroTestHero.Franchise);
+            Assert.AreEqual(Franchise.Warcraft, HeroTestHero.Franchise);
         }
 
         [TestMethod]
