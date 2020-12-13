@@ -45,9 +45,6 @@ namespace HeroesData.ExtractorData
 
             if (heroSkin.Rarity == Rarity.None || heroSkin.Rarity == Rarity.Unknown)
                 AddWarning($"{nameof(heroSkin.Rarity)} is {heroSkin.Rarity}");
-
-            if (heroSkin.Franchise == Franchise.Unknown)
-                AddWarning($"{nameof(heroSkin.Franchise)} is {heroSkin.Franchise}");
         }
     }
 }
