@@ -8,5 +8,7 @@
     <ProductId value="23785"/>
     <HyperlinkId value="JadeNimbusCloud"/>
     <Rarity value="Legendary"/>
+    <VariationArray value="MountCloudVar1"/>
+    <VariationArray value="MountCloudVar2"/>
   </CMount>
 </Catalog>

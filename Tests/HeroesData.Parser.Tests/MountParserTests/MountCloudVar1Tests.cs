@@ -1,6 +1,8 @@
 ﻿using Heroes.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HeroesData.Parser.Tests.MountParserTests
 {
@@ -19,6 +21,12 @@ namespace HeroesData.Parser.Tests.MountParserTests
             Assert.AreEqual(Rarity.Legendary, MountCloudVar1.Rarity);
             Assert.AreEqual("Ridesurf", MountCloudVar1.MountCategory);
             Assert.AreEqual("Magical", MountCloudVar1.CollectionCategory);
+            Assert.AreEqual(HeroFranchise.Nexus, MountCloudVar1.Franchise);
+
+            List<string> variations = MountCloudVar1.VariationMountIds.ToList();
+
+            Assert.AreEqual(2, variations.Count);
+            Assert.AreEqual("MountCloudVar2", variations[1]);
         }
     }
 }

@@ -15,5 +15,7 @@
     <FeatureArray value="ThemedAnimations" />
     <ReleaseDate Month="1" Day="16" Year="2018" />
     <Rarity value="Legendary" />
+    <VariationArray value="AbathurBone" />
+    <VariationArray value="AbathurChar" />
   </CSkin>
 </Catalog>
