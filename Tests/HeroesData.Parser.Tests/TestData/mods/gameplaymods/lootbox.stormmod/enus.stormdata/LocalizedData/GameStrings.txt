@@ -1,0 +1,3 @@
+﻿LootChest/Name/AbathurChest=Abathur Chest
+LootChest/Name/AlarakChest=Alarak Chest
+LootChest/Name/AlexstraszaChest=Alexstrasza Chest

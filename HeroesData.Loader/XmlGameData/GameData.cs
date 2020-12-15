@@ -151,6 +151,8 @@ namespace HeroesData.Loader.XmlGameData
         protected string HeroesModsDirectoryName { get; } = "heromods";
         protected string BaseStormDataDirectoryName { get; } = "base.stormdata";
         protected string BattlegroundMapModsDirectoryName { get; } = "battlegroundmapmods";
+        protected string GameplayModsDirectoryName { get; } = "gameplaymods";
+        protected string LootBoxStormModsDirectoryName { get; } = "lootbox.stormmod";
         protected string LocalizedDataName { get; set; } = "localizeddata";
 
         protected string GameDataStringName { get; set; } = "gamedata";
@@ -165,9 +167,11 @@ namespace HeroesData.Loader.XmlGameData
         protected string CoreBaseDataDirectoryPath { get; set; } = string.Empty;
         protected string HeroesDataBaseDataDirectoryPath { get; set; } = string.Empty;
         protected string HeroesMapModsDirectoryPath { get; set; } = string.Empty;
+        protected string GameplayModsLootboxDirectoryPath { get; set; } = string.Empty;
 
         protected string CoreLocalizedDataPath { get; set; } = string.Empty;
         protected string HeroesDataLocalizedDataPath { get; set; } = string.Empty;
+        protected string GameplayModsLocalizedDataPath { get; set; } = string.Empty;
 
         protected bool LoadXmlFilesEnabled { get; private set; }
         protected bool LoadTextFilesOnlyEnabled { get; private set; }
@@ -678,6 +682,7 @@ namespace HeroesData.Loader.XmlGameData
         protected abstract void LoadHeroesDataStormMod();
         protected abstract void LoadHeroesMapMods();
         protected abstract void LoadGameDataXmlContents(string gameDataXmlFilePath);
+        protected abstract void LoadGameplayMods();
 
         protected void LoadTextFile(string filePath)
         {
@@ -837,9 +842,11 @@ namespace HeroesData.Loader.XmlGameData
             CoreBaseDataDirectoryPath = Path.Combine(ModsFolderPath, CoreStormModDirectoryName, BaseStormDataDirectoryName);
             HeroesDataBaseDataDirectoryPath = Path.Combine(ModsFolderPath, HeroesDataStormModDirectoryName, BaseStormDataDirectoryName);
             HeroesMapModsDirectoryPath = Path.Combine(ModsFolderPath, HeroesMapModsDirectoryName, BattlegroundMapModsDirectoryName);
+            GameplayModsLootboxDirectoryPath = Path.Combine(ModsFolderPath, GameplayModsDirectoryName, LootBoxStormModsDirectoryName, BaseStormDataDirectoryName);
 
             CoreLocalizedDataPath = Path.Combine(ModsFolderPath, CoreStormModDirectoryName, GameStringLocalization, LocalizedDataName);
             HeroesDataLocalizedDataPath = Path.Combine(ModsFolderPath, HeroesDataStormModDirectoryName, GameStringLocalization, LocalizedDataName);
+            GameplayModsLocalizedDataPath = Path.Combine(ModsFolderPath, GameplayModsDirectoryName, LootBoxStormModsDirectoryName, GameStringLocalization, LocalizedDataName);
 
             LoadFiles();
 
@@ -862,6 +869,7 @@ namespace HeroesData.Loader.XmlGameData
         private void LoadFiles()
         {
             LoadCoreStormMod(); // must come first
+            LoadGameplayMods();
             LoadHeroesDataStormMod();
 
             LoadHeroesMapMods();

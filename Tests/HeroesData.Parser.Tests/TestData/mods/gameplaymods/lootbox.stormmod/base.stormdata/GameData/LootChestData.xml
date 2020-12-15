@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CLootChest default="1" id="BaseLootChest">
+        <Name value="LootChest/Name/##id##" />
+        <HyperlinkId value="##id##" />
+        <CutsceneFile value="Cutscenes/UI_LootBox_Base.StormCutscene" />
+        <DisplayModel value="Storm_LootUI_Chest_Base" />
+        <MaxRerolls value="5" />
+        <PreviewCutsceneFile value="Cutscenes\StoreLootChest_##id##.StormCutscene" />
+        <TileCutsceneFile value="Cutscenes\FrameLootChest_##id##.StormCutscene" />
+        <TypeDescription value="LootChestCommon" />
+    </CLootChest>
+    <CLootChest default="1" id="CommonLootChest" parent="BaseLootChest">
+        <DisplayModel value="Storm_LootUI_Chest_Base_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="RareLootChest" parent="BaseLootChest">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_Base_Rare" />
+        <TypeDescription value="LootChestRare" />
+    </CLootChest>
+    <CLootChest default="1" id="EpicLootChest" parent="BaseLootChest">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_Base_Epic" />
+        <TypeDescription value="LootChestEpic" />
+    </CLootChest>
+    <CLootChest default="1" id="LegendaryLootChest" parent="BaseLootChest">
+        <Rarity value="Legendary" />
+        <DisplayModel value="Storm_LootUI_Chest_Base_Legendary" />
+    </CLootChest>
+    <CLootChest default="1" id="SummerLootChest" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Summer.StormCutscene" />
+        <TypeDescription value="SummerLootChestCommon" />
+        <EventName value="Summer" />
+    </CLootChest>
+    <CLootChest default="1" id="SummerCommonLootChest" parent="SummerLootChest">
+        <DisplayModel value="Storm_LootUI_Chest_Summer_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="SummerRareLootChest" parent="SummerLootChest">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_Summer_Rare" />
+        <TypeDescription value="SummerLootChestRare" />
+    </CLootChest>
+    <CLootChest default="1" id="SummerEpicLootChest" parent="SummerLootChest">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_Summer_Epic" />
+        <TypeDescription value="SummerLootChestEpic" />
+    </CLootChest>
+    <CLootChest default="1" id="HalloweenLootChest" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Halloween.StormCutscene" />
+        <TypeDescription value="HalloweenLootChestCommon" />
+        <EventName value="Halloween" />
+    </CLootChest>
+    <CLootChest default="1" id="HalloweenCommonLootChest" parent="HalloweenLootChest">
+        <DisplayModel value="Storm_LootUI_Chest_Halloween_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="HalloweenRareLootChest" parent="HalloweenLootChest">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_Halloween_Rare" />
+        <TypeDescription value="HalloweenLootChestRare" />
+    </CLootChest>
+    <CLootChest default="1" id="HalloweenEpicLootChest" parent="HalloweenLootChest">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_Halloween_Epic" />
+        <TypeDescription value="HalloweenLootChestEpic" />
+    </CLootChest>
+    <CLootChest default="1" id="WinterVeilLootChest" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_WinterVeil.StormCutscene" />
+        <TypeDescription value="WinterVeilLootChestCommon" />
+        <EventName value="WinterVeil" />
+    </CLootChest>
+    <CLootChest default="1" id="WinterVeilCommonLootChest" parent="WinterVeilLootChest">
+        <DisplayModel value="Storm_LootUI_Chest_WinterVeil_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="WinterVeilRareLootChest" parent="WinterVeilLootChest">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_WinterVeil_Rare" />
+        <TypeDescription value="WinterVeilLootChestRare" />
+    </CLootChest>
+    <CLootChest default="1" id="WinterVeilEpicLootChest" parent="WinterVeilLootChest">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_WinterVeil_Epic" />
+        <TypeDescription value="WinterVeilLootChestEpic" />
+    </CLootChest>
+    <CLootChest default="1" id="Lunar18LootChest" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Lunar18.StormCutscene" />
+        <TypeDescription value="Lunar18LootChestCommon" />
+        <EventName value="Lunar18" />
+    </CLootChest>
+    <CLootChest default="1" id="Lunar18CommonLootChest" parent="Lunar18LootChest">
+        <DisplayModel value="Storm_LootUI_Chest_Lunar18_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="Lunar18RareLootChest" parent="Lunar18LootChest">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_Lunar18_Rare" />
+        <TypeDescription value="Lunar18LootChestRare" />
+    </CLootChest>
+    <CLootChest default="1" id="Lunar18EpicLootChest" parent="Lunar18LootChest">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_Lunar18_Epic" />
+        <TypeDescription value="Lunar18LootChestEpic" />
+    </CLootChest>
+    <CLootChest default="1" id="Summer18LootChest" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Summer18.StormCutscene" />
+        <TypeDescription value="##id##" />
+        <EventName value="Summer18" />
+    </CLootChest>
+    <CLootChest default="1" id="Summer18CommonLootChest" parent="Summer18LootChest">
+        <DisplayModel value="Storm_LootUI_Chest_Summer18_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="Summer18RareLootChest" parent="Summer18LootChest">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_Summer18_Rare" />
+    </CLootChest>
+    <CLootChest default="1" id="Summer18EpicLootChest" parent="Summer18LootChest">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_Summer18_Epic" />
+    </CLootChest>
+    <CLootChest default="1" id="Halloween2018LootChestParent" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Halloween.StormCutscene" />
+        <TypeDescription value="##id##" />
+        <EventName value="Halloween18" />
+    </CLootChest>
+    <CLootChest default="1" id="Halloween2018LootChest" parent="Halloween2018LootChestParent">
+        <DisplayModel value="Storm_LootUI_Chest_Halloween_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="Halloween2018RareLootChest" parent="Halloween2018LootChestParent">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_Halloween_Rare" />
+    </CLootChest>
+    <CLootChest default="1" id="Halloween2018EpicLootChest" parent="Halloween2018LootChestParent">
+        <DisplayModel value="Storm_LootUI_Chest_Halloween_Epic" />
+        <Rarity value="Epic" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestChristmas2018Parent" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Toys18.StormCutscene" />
+        <TypeDescription value="LootChestChristmas2018Common" />
+        <EventName value="Toys18" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestChristmas2018Common" parent="LootChestChristmas2018Parent">
+        <DisplayModel value="Storm_LootUI_Chest_Toys18_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestChristmas2018Rare" parent="LootChestChristmas2018Parent">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_Toys18_Rare" />
+        <TypeDescription value="LootChestChristmas2018Rare" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestChristmas2018Epic" parent="LootChestChristmas2018Parent">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_Toys18_Epic" />
+        <TypeDescription value="LootChestChristmas2018Epic" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestSpring2019Parent" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Spring19.StormCutscene" />
+        <TypeDescription value="##id##" />
+        <EventName value="Spring19" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestSpring2019Common" parent="LootChestSpring2019Parent">
+        <DisplayModel value="Storm_LootUI_Chest_Spring19_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestSpring2019Rare" parent="LootChestSpring2019Parent">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_Spring19_Rare" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestSpring2019Epic" parent="LootChestSpring2019Parent">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_Spring19_Epic" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestSummer2019Parent" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Mecha19.StormCutscene" />
+        <TypeDescription value="##id##" />
+        <EventName value="Mecha19" />
+    </CLootChest>
+    <CLootChest id="LootChestSummer2019Common" parent="LootChestSummer2019Parent">
+        <DisplayModel value="Storm_LootUI_Chest_Mecha19_Common" />
+    </CLootChest>
+    <CLootChest id="LootChestSummer2019Rare" parent="LootChestSummer2019Parent">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_Mecha19_Rare" />
+    </CLootChest>
+    <CLootChest id="LootChestSummer2019Epic" parent="LootChestSummer2019Parent">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_Mecha19_Epic" />
+    </CLootChest>
+    <CLootChest id="BoostPromoLegendaryChest" parent="LegendaryLootChest">
+        <EventName value="Mobster19" />
+        <TypeDescription value="##id##" />
+    </CLootChest>
+    <CLootChest id="Mobster2019LegendaryLootChest" parent="LegendaryLootChest">
+        <EventName value="Mobster19" />
+        <TypeDescription value="##id##" />
+    </CLootChest>
+    <CLootChest default="1" id="Mobster2019LootChest" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Halloween.StormCutscene" />
+        <DisplayModel value="Storm_LootUI_Chest_Halloween_Common" />
+        <TypeDescription value="##id##" />
+        <EventName value="Mobster19" />
+    </CLootChest>
+    <CLootChest default="1" id="Mobster2019RareLootChest" parent="RareLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Halloween.StormCutscene" />
+        <DisplayModel value="Storm_LootUI_Chest_Halloween_Rare" />
+        <TypeDescription value="##id##" />
+        <EventName value="Mobster19" />
+    </CLootChest>
+    <CLootChest default="1" id="Mobster2019EpicLootChest" parent="EpicLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Halloween.StormCutscene" />
+        <DisplayModel value="Storm_LootUI_Chest_Halloween_Epic" />
+        <TypeDescription value="##id##" />
+        <EventName value="Mobster19" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestChristmas2019Common" parent="LootChestChristmas2018Parent">
+        <DisplayModel value="Storm_LootUI_Chest_Toys18_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestChristmas2019Rare" parent="LootChestChristmas2018Parent">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_Toys18_Rare" />
+        <TypeDescription value="LootChestChristmas2019Rare" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestChristmas2019Epic" parent="LootChestChristmas2018Parent">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_Toys18_Epic" />
+        <TypeDescription value="LootChestChristmas2019Epic" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestSpring2020Parent" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Spring19.StormCutscene" />
+        <TypeDescription value="##id##" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestSpring2020Common" parent="LootChestSpring2020Parent">
+        <DisplayModel value="Storm_LootUI_Chest_Spring19_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestSpring2020Rare" parent="LootChestSpring2020Parent">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_Spring19_Rare" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestSpring2020Epic" parent="LootChestSpring2020Parent">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_Spring19_Epic" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestSummer2020Parent" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Summer18.StormCutscene" />
+        <TypeDescription value="##id##" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestSummer2020Common" parent="LootChestSummer2020Parent">
+        <DisplayModel value="Storm_LootUI_Chest_Summer18_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestSummer2020Rare" parent="LootChestSummer2020Parent">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_Summer18_Rare" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestSummer2020Epic" parent="LootChestSummer2020Parent">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_Summer18_Epic" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestHalloween2020Parent" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_Halloween.StormCutscene" />
+        <TypeDescription value="##id##" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestHalloween2020Common" parent="LootChestHalloween2020Parent">
+        <DisplayModel value="Storm_LootUI_Chest_Halloween_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestHalloween2020Rare" parent="LootChestHalloween2020Parent">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_Halloween_Rare" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestHalloween2020Epic" parent="LootChestHalloween2020Parent">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_Halloween_Epic" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestChristmas2020Parent" parent="BaseLootChest">
+        <CutsceneFile value="Cutscenes/UI_LootChest_WinterVeil.StormCutscene" />
+        <TypeDescription value="##id##" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestChristmas2020Common" parent="LootChestChristmas2020Parent">
+        <DisplayModel value="Storm_LootUI_Chest_WinterVeil_Common" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestChristmas2020Rare" parent="LootChestChristmas2020Parent">
+        <Rarity value="Rare" />
+        <DisplayModel value="Storm_LootUI_Chest_WinterVeil_Rare" />
+    </CLootChest>
+    <CLootChest default="1" id="LootChestChristmas2020Epic" parent="LootChestChristmas2020Parent">
+        <Rarity value="Epic" />
+        <DisplayModel value="Storm_LootUI_Chest_WinterVeil_Epic" />
+    </CLootChest>
+</Catalog>

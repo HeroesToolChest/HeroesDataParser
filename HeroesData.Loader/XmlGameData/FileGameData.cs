@@ -58,23 +58,7 @@ namespace HeroesData.Loader.XmlGameData
 
         protected override void LoadHeroesDataStormMod()
         {
-            if (LoadXmlFilesEnabled)
-            {
-                // load up xml files in gamedata folder
-                foreach (string file in Directory.GetFiles(Path.Combine(HeroesDataBaseDataDirectoryPath, GameDataStringName)))
-                {
-                    LoadXmlFile(file);
-                }
-
-                // load up files in gamedata.xml file
-                LoadGameDataXmlContents(Path.Combine(HeroesDataBaseDataDirectoryPath, GameDataXmlFile));
-            }
-
-            if (LoadTextFilesOnlyEnabled)
-            {
-                // load gamestring file
-                LoadTextFile(Path.Combine(HeroesDataLocalizedDataPath, GameStringFile));
-            }
+            LoadDefaultData(HeroesDataBaseDataDirectoryPath, HeroesDataLocalizedDataPath, true);
 
             // load up files in includes.xml file - which are the heroes in the heromods folder
             XDocument includesXml = XDocument.Load(Path.Combine(HeroesDataBaseDataDirectoryPath, IncludesXmlFile));
@@ -199,6 +183,35 @@ namespace HeroesData.Loader.XmlGameData
                         }
                     }
                 }
+            }
+        }
+
+        protected override void LoadGameplayMods()
+        {
+            LoadDefaultData(GameplayModsLootboxDirectoryPath, GameplayModsLocalizedDataPath, false);
+        }
+
+        private void LoadDefaultData(string stormModPath, string localizedPath, bool loadGameDataFile)
+        {
+            if (LoadXmlFilesEnabled)
+            {
+                // load up xml files in gamedata folder
+                foreach (string file in Directory.GetFiles(Path.Combine(stormModPath, GameDataStringName)))
+                {
+                    LoadXmlFile(file);
+                }
+
+                if (loadGameDataFile)
+                {
+                    // load up files in gamedata.xml file
+                    LoadGameDataXmlContents(Path.Combine(HeroesDataBaseDataDirectoryPath, GameDataXmlFile));
+                }
+            }
+
+            if (LoadTextFilesOnlyEnabled)
+            {
+                // load gamestring file
+                LoadTextFile(Path.Combine(localizedPath, GameStringFile));
             }
         }
     }
