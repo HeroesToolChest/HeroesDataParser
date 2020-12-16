@@ -13,52 +13,52 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "announcers";
 
-        protected override void Validation(Announcer? announcer)
+        protected override void Validation(Announcer? data)
         {
-            if (announcer is null)
+            if (data is null)
                 return;
 
-            if (string.IsNullOrEmpty(announcer.Name))
-                AddWarning($"{nameof(announcer.Name)} is empty");
+            if (string.IsNullOrEmpty(data.Name))
+                AddWarning($"{nameof(data.Name)} is empty");
 
-            if (string.IsNullOrEmpty(announcer.Id))
-                AddWarning($"{nameof(announcer.Id)} is empty");
+            if (string.IsNullOrEmpty(data.Id))
+                AddWarning($"{nameof(data.Id)} is empty");
 
-            if (string.IsNullOrEmpty(announcer.HyperlinkId))
-                AddWarning($"{nameof(announcer.HyperlinkId)} is empty");
+            if (string.IsNullOrEmpty(data.HyperlinkId))
+                AddWarning($"{nameof(data.HyperlinkId)} is empty");
 
-            if (!string.IsNullOrEmpty(announcer.HyperlinkId) && announcer.HyperlinkId.Contains("##heroid##", StringComparison.OrdinalIgnoreCase))
-                AddWarning($"{nameof(announcer.HyperlinkId)} ##heroid## not found");
+            if (!string.IsNullOrEmpty(data.HyperlinkId) && data.HyperlinkId.Contains("##heroid##", StringComparison.OrdinalIgnoreCase))
+                AddWarning($"{nameof(data.HyperlinkId)} ##heroid## not found");
 
-            if (string.IsNullOrEmpty(announcer.AttributeId))
-                AddWarning($"{nameof(announcer.AttributeId)} is empty");
+            if (string.IsNullOrEmpty(data.AttributeId))
+                AddWarning($"{nameof(data.AttributeId)} is empty");
 
-            if (string.IsNullOrEmpty(announcer.CollectionCategory))
-                AddWarning($"{nameof(announcer.CollectionCategory)} is empty");
+            if (string.IsNullOrEmpty(data.CollectionCategory))
+                AddWarning($"{nameof(data.CollectionCategory)} is empty");
 
-            if (!announcer.ReleaseDate.HasValue)
-                AddWarning($"{nameof(announcer.ReleaseDate)} is null");
+            if (!data.ReleaseDate.HasValue)
+                AddWarning($"{nameof(data.ReleaseDate)} is null");
 
-            if (announcer.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(announcer.Rarity)} is unknown");
+            if (data.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(data.Rarity)} is unknown");
 
-            if (string.IsNullOrEmpty(announcer.Gender))
-                AddWarning($"{nameof(announcer.Gender)} is empty");
+            if (string.IsNullOrEmpty(data.Gender))
+                AddWarning($"{nameof(data.Gender)} is empty");
 
-            if (string.IsNullOrEmpty(announcer.HeroId))
-                AddWarning($"{nameof(announcer.HeroId)} is empty");
+            if (string.IsNullOrEmpty(data.HeroId))
+                AddWarning($"{nameof(data.HeroId)} is empty");
 
-            if (!string.IsNullOrEmpty(announcer.HeroId) && announcer.HeroId.Contains("##heroid##", StringComparison.OrdinalIgnoreCase))
-                AddWarning($"{nameof(announcer.HeroId)} ##heroid## not found");
+            if (!string.IsNullOrEmpty(data.HeroId) && data.HeroId.Contains("##heroid##", StringComparison.OrdinalIgnoreCase))
+                AddWarning($"{nameof(data.HeroId)} ##heroid## not found");
 
-            if (string.IsNullOrEmpty(announcer.ImageFileName))
-                AddWarning($"{nameof(announcer.ImageFileName)} is empty");
+            if (string.IsNullOrEmpty(data.ImageFileName))
+                AddWarning($"{nameof(data.ImageFileName)} is empty");
 
-            if (!string.IsNullOrEmpty(announcer.ImageFileName) && announcer.ImageFileName.Contains("##heroid##", StringComparison.OrdinalIgnoreCase))
-                AddWarning($"{nameof(announcer.ImageFileName)} ##heroid## not found");
+            if (!string.IsNullOrEmpty(data.ImageFileName) && data.ImageFileName.Contains("##heroid##", StringComparison.OrdinalIgnoreCase))
+                AddWarning($"{nameof(data.ImageFileName)} ##heroid## not found");
 
-            if (announcer.Rarity == Rarity.None || announcer.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(announcer.Rarity)} is {announcer.Rarity}");
+            if (data.Rarity == Rarity.None || data.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(data.Rarity)} is {data.Rarity}");
         }
     }
 }

@@ -355,7 +355,7 @@ namespace HeroesData
                     Console.ForegroundColor = ConsoleColor.Cyan;
 
                     if (CASCHotsStorage.CASCHandler == null)
-                        throw new NullReferenceException($"{nameof(CASCHotsStorage.CASCHandler)} is null.");
+                        throw new InvalidOperationException($"{nameof(CASCHotsStorage.CASCHandler)} is null.");
 
                     ReadOnlySpan<char> buildName = CASCHotsStorage.CASCHandler.Config.VersionName.AsSpan();
                     int indexOfVersion = buildName.LastIndexOf('.');
@@ -397,9 +397,9 @@ namespace HeroesData
                 else if (StorageMode == StorageMode.CASC)
                 {
                     if (CASCHotsStorage?.CASCHandler == null)
-                        throw new NullReferenceException($"{nameof(CASCHotsStorage.CASCHandler)} is null.");
+                        throw new InvalidOperationException($"{nameof(CASCHotsStorage.CASCHandler)} is null.");
                     if (CASCHotsStorage?.CASCFolderRoot == null)
-                        throw new NullReferenceException($"{nameof(CASCHotsStorage.CASCFolderRoot)} is null.");
+                        throw new InvalidOperationException($"{nameof(CASCHotsStorage.CASCFolderRoot)} is null.");
 
                     _gameData = new CASCGameData(CASCHotsStorage.CASCHandler, CASCHotsStorage.CASCFolderRoot, HotsBuild);
                 }
@@ -749,10 +749,10 @@ namespace HeroesData
         private void SetUpDataProcessors()
         {
             if (_configuration == null || _gameData == null || _defaultData == null)
-                throw new NullReferenceException($"{nameof(_configuration)}, {nameof(_gameData)}, and {nameof(_defaultData)} must be initialized before calling this method.");
+                throw new InvalidOperationException($"{nameof(_configuration)}, {nameof(_gameData)}, and {nameof(_defaultData)} must be initialized before calling this method.");
 
             if (_xmlDataOverriders == null)
-                throw new NullReferenceException($"{nameof(_xmlDataOverriders)} cannot be null");
+                throw new InvalidOperationException($"{nameof(_xmlDataOverriders)} cannot be null");
 
             IXmlDataService xmlDataService = new XmlDataService(_configuration, _gameData, _defaultData);
 

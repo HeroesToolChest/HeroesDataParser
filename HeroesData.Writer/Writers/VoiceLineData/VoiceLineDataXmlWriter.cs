@@ -27,7 +27,7 @@ namespace HeroesData.FileWriter.Writers.VoiceLineData
                 voiceLine.ReleaseDate.HasValue ? new XAttribute("releaseDate", voiceLine.ReleaseDate.Value.ToString("yyyy-MM-dd")) : null!,
                 string.IsNullOrEmpty(voiceLine.SortName) || FileOutputOptions.IsLocalizedText ? null! : new XElement("SortName", voiceLine.SortName),
                 string.IsNullOrEmpty(voiceLine.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null! : new XElement("Description", GetTooltip(voiceLine.Description, FileOutputOptions.DescriptionType)),
-                string.IsNullOrEmpty(voiceLine.ImageFileName) ? null! : new XElement("Image", Path.ChangeExtension(voiceLine.ImageFileName?.ToLowerInvariant(), StaticImageExtension)));
+                string.IsNullOrEmpty(voiceLine.ImageFileName) ? null! : new XElement("Image", Path.ChangeExtension(voiceLine.ImageFileName.ToLowerInvariant(), StaticImageExtension)));
         }
     }
 }

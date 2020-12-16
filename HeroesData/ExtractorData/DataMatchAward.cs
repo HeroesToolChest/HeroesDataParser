@@ -13,34 +13,34 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "awards";
 
-        protected override void Validation(MatchAward? matchAward)
+        protected override void Validation(MatchAward? data)
         {
-            if (matchAward is null)
+            if (data is null)
                 return;
 
-            if (string.IsNullOrEmpty(matchAward.Name))
-                AddWarning($"{nameof(matchAward.Name)} is empty");
+            if (string.IsNullOrEmpty(data.Name))
+                AddWarning($"{nameof(data.Name)} is empty");
 
-            if (matchAward.Name is not null && matchAward.Name.Contains("_", StringComparison.OrdinalIgnoreCase))
-                AddWarning($"{nameof(matchAward.Name)} contains an underscore, may have a duplicate name");
+            if (data.Name is not null && data.Name.Contains("_", StringComparison.OrdinalIgnoreCase))
+                AddWarning($"{nameof(data.Name)} contains an underscore, may have a duplicate name");
 
-            if (string.IsNullOrEmpty(matchAward.HyperlinkId))
-                AddWarning($"{nameof(matchAward.HyperlinkId)} is empty");
+            if (string.IsNullOrEmpty(data.HyperlinkId))
+                AddWarning($"{nameof(data.HyperlinkId)} is empty");
 
-            if (matchAward.HyperlinkId is not null && matchAward.HyperlinkId.Contains(",", StringComparison.OrdinalIgnoreCase))
-                AddWarning($"{nameof(matchAward.HyperlinkId)} contains a comma, may have a duplicate short name");
+            if (data.HyperlinkId is not null && data.HyperlinkId.Contains(",", StringComparison.OrdinalIgnoreCase))
+                AddWarning($"{nameof(data.HyperlinkId)} contains a comma, may have a duplicate short name");
 
-            if (string.IsNullOrEmpty(matchAward.Tag))
-                AddWarning($"{nameof(matchAward.Tag)} is empty");
+            if (string.IsNullOrEmpty(data.Tag))
+                AddWarning($"{nameof(data.Tag)} is empty");
 
-            if (string.IsNullOrEmpty(matchAward.MVPScreenImageFileName))
-                AddWarning($"{nameof(matchAward.MVPScreenImageFileName)} is empty");
+            if (string.IsNullOrEmpty(data.MVPScreenImageFileName))
+                AddWarning($"{nameof(data.MVPScreenImageFileName)} is empty");
 
-            if (string.IsNullOrEmpty(matchAward.ScoreScreenImageFileName))
-                AddWarning($"{nameof(matchAward.ScoreScreenImageFileName)} is empty");
+            if (string.IsNullOrEmpty(data.ScoreScreenImageFileName))
+                AddWarning($"{nameof(data.ScoreScreenImageFileName)} is empty");
 
-            if (string.IsNullOrEmpty(matchAward.ScoreScreenImageFileNameOriginal))
-                AddWarning($"{nameof(matchAward.ScoreScreenImageFileNameOriginal)} is empty");
+            if (string.IsNullOrEmpty(data.ScoreScreenImageFileNameOriginal))
+                AddWarning($"{nameof(data.ScoreScreenImageFileNameOriginal)} is empty");
         }
     }
 }

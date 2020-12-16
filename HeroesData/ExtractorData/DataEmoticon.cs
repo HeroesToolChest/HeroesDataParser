@@ -13,22 +13,22 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "emoticons";
 
-        protected override void Validation(Emoticon? emoticon)
+        protected override void Validation(Emoticon? data)
         {
-            if (emoticon is null)
+            if (data is null)
                 return;
 
-            if (string.IsNullOrEmpty(emoticon.Name))
-                AddWarning($"{nameof(emoticon.Name)} is empty");
+            if (string.IsNullOrEmpty(data.Name))
+                AddWarning($"{nameof(data.Name)} is empty");
 
-            if (string.IsNullOrEmpty(emoticon.Id))
-                AddWarning($"{nameof(emoticon.Id)} is empty");
+            if (string.IsNullOrEmpty(data.Id))
+                AddWarning($"{nameof(data.Id)} is empty");
 
-            if (!emoticon.LocalizedAliases.Any() && !emoticon.UniversalAliases.Any())
+            if (!data.LocalizedAliases.Any() && !data.UniversalAliases.Any())
                 AddWarning("Does not contain any aliases.");
 
-            if (string.IsNullOrEmpty(emoticon.TextureSheet.Image))
-                AddWarning($"{nameof(emoticon.TextureSheet.Image)} is empty");
+            if (string.IsNullOrEmpty(data.TextureSheet.Image))
+                AddWarning($"{nameof(data.TextureSheet.Image)} is empty");
         }
     }
 }

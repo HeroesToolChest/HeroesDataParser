@@ -90,116 +90,116 @@ namespace HeroesData.ExtractorData
             return ParsedData.Values.OrderBy(x => x!.Id, StringComparer.OrdinalIgnoreCase);
         }
 
-        protected override void Validation(Hero? hero)
+        protected override void Validation(Hero? data)
         {
-            if (hero is null)
+            if (data is null)
                 return;
 
-            if (string.IsNullOrEmpty(hero.AttributeId))
-                AddWarning($"{nameof(hero.AttributeId)} is empty");
+            if (string.IsNullOrEmpty(data.AttributeId))
+                AddWarning($"{nameof(data.AttributeId)} is empty");
 
-            if (string.IsNullOrEmpty(hero.Description?.RawDescription))
-                AddWarning($"{nameof(hero.Description)} is empty");
-            else if (hero.Description.HasErrorTag)
-                AddWarning($"{nameof(hero.Description.RawDescription)} contains an error tag");
+            if (string.IsNullOrEmpty(data.Description?.RawDescription))
+                AddWarning($"{nameof(data.Description)} is empty");
+            else if (data.Description.HasErrorTag)
+                AddWarning($"{nameof(data.Description.RawDescription)} contains an error tag");
 
-            if (string.IsNullOrEmpty(hero.Difficulty))
-                AddWarning($"{nameof(hero.Difficulty)} is Unknown");
+            if (string.IsNullOrEmpty(data.Difficulty))
+                AddWarning($"{nameof(data.Difficulty)} is Unknown");
 
-            if (hero.Franchise == Franchise.Unknown)
-                AddWarning($"{nameof(hero.Franchise)} is Unknown");
+            if (data.Franchise == Franchise.Unknown)
+                AddWarning($"{nameof(data.Franchise)} is Unknown");
 
-            if (hero.Roles.Contains("Unknown"))
-                AddWarning($"{nameof(hero.Roles)} is Unknown");
+            if (data.Roles.Contains("Unknown"))
+                AddWarning($"{nameof(data.Roles)} is Unknown");
 
-            if (Parser.HotsBuild.GetValueOrDefault(0) >= 72880 && string.IsNullOrEmpty(hero.ExpandedRole))
-                AddWarning($"{nameof(hero.ExpandedRole)} is empty");
+            if (Parser.HotsBuild.GetValueOrDefault(0) >= 72880 && string.IsNullOrEmpty(data.ExpandedRole))
+                AddWarning($"{nameof(data.ExpandedRole)} is empty");
 
-            if (!hero.Abilities.Any())
+            if (!data.Abilities.Any())
                 AddWarning("Hero has no abilities");
 
-            if (!hero.Talents.Any())
+            if (!data.Talents.Any())
                 AddWarning("Hero has no talents");
 
-            if (hero.Life.LifeMax <= 0)
-                AddWarning($"{nameof(hero.Life)} is 0");
+            if (data.Life.LifeMax <= 0)
+                AddWarning($"{nameof(data.Life)} is 0");
 
-            if (hero.Life.LifeScaling <= 0)
-                AddWarning($"{nameof(hero.Life.LifeScaling)} is 0");
+            if (data.Life.LifeScaling <= 0)
+                AddWarning($"{nameof(data.Life.LifeScaling)} is 0");
 
-            if (hero.Life.LifeRegenerationRateScaling <= 0)
-                AddWarning($"{nameof(hero.Life.LifeRegenerationRateScaling)} is 0");
+            if (data.Life.LifeRegenerationRateScaling <= 0)
+                AddWarning($"{nameof(data.Life.LifeRegenerationRateScaling)} is 0");
 
-            if (hero.Energy.EnergyMax > 0 && string.IsNullOrEmpty(hero.Energy.EnergyType))
-                AddWarning($"{nameof(hero.Energy)} > 0 and {nameof(hero.Energy.EnergyType)} is NONE");
+            if (data.Energy.EnergyMax > 0 && string.IsNullOrEmpty(data.Energy.EnergyType))
+                AddWarning($"{nameof(data.Energy)} > 0 and {nameof(data.Energy.EnergyType)} is NONE");
 
-            if (hero.Sight <= 0)
-                AddWarning($"{nameof(hero.Sight)} is 0");
+            if (data.Sight <= 0)
+                AddWarning($"{nameof(data.Sight)} is 0");
 
-            if (hero.Speed <= 0)
-                AddWarning($"{nameof(hero.Speed)} is 0");
+            if (data.Speed <= 0)
+                AddWarning($"{nameof(data.Speed)} is 0");
 
-            if (hero.Rarity == Rarity.None || hero.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(hero.Rarity)} is {hero.Rarity}");
+            if (data.Rarity == Rarity.None || data.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(data.Rarity)} is {data.Rarity}");
 
-            if (string.IsNullOrEmpty(hero.ScalingBehaviorLink))
-                AddWarning($"{nameof(hero.ScalingBehaviorLink)} is null or empty");
+            if (string.IsNullOrEmpty(data.ScalingBehaviorLink))
+                AddWarning($"{nameof(data.ScalingBehaviorLink)} is null or empty");
 
-            if (!hero.ReleaseDate.HasValue)
-                AddWarning($"{nameof(hero.ReleaseDate)} is null");
+            if (!data.ReleaseDate.HasValue)
+                AddWarning($"{nameof(data.ReleaseDate)} is null");
 
-            if (string.IsNullOrEmpty(hero.Type?.RawDescription))
-                AddWarning($"{nameof(hero.Type)} is empty");
-            else if (hero.Type.HasErrorTag)
-                AddWarning($"{nameof(hero.Type.RawDescription)} contains an error tag");
+            if (string.IsNullOrEmpty(data.Type?.RawDescription))
+                AddWarning($"{nameof(data.Type)} is empty");
+            else if (data.Type.HasErrorTag)
+                AddWarning($"{nameof(data.Type.RawDescription)} contains an error tag");
 
-            if (string.IsNullOrEmpty(hero.Title))
-                AddWarning($"{nameof(hero.Title)} is null or emtpy");
+            if (string.IsNullOrEmpty(data.Title))
+                AddWarning($"{nameof(data.Title)} is null or emtpy");
 
-            if (string.IsNullOrEmpty(hero.SearchText))
-                AddWarning($"{nameof(hero.SearchText)} is null or emtpy");
+            if (string.IsNullOrEmpty(data.SearchText))
+                AddWarning($"{nameof(data.SearchText)} is null or emtpy");
 
-            VerifyWeapons(hero);
+            VerifyWeapons(data);
 
-            if (!hero.Weapons.Any())
+            if (!data.Weapons.Any())
                 AddWarning("has no weapons");
 
-            if (hero.PrimaryAbilities(AbilityTiers.Basic).Count() < 3)
+            if (data.PrimaryAbilities(AbilityTiers.Basic).Count() < 3)
                 AddWarning($"has less than 3 basic abilities");
 
-            VerifyAbilities(hero);
-            VerifyAbilitiesCount(hero.Id, hero.PrimaryAbilities().ToList());
-            VerifySubAbilitiesCount(hero.Id, hero.SubAbilities().ToList());
+            VerifyAbilities(data);
+            VerifyAbilitiesCount(data.Id, data.PrimaryAbilities().ToList());
+            VerifySubAbilitiesCount(data.Id, data.SubAbilities().ToList());
 
             // hero portraits
-            if (string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName))
-                AddWarning($"[{nameof(hero.HeroPortrait.HeroSelectPortraitFileName)}]  is empty");
+            if (string.IsNullOrEmpty(data.HeroPortrait.HeroSelectPortraitFileName))
+                AddWarning($"[{nameof(data.HeroPortrait.HeroSelectPortraitFileName)}]  is empty");
 
-            if (string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName))
-                AddWarning($"[{nameof(hero.HeroPortrait.LeaderboardPortraitFileName)}]  is empty");
+            if (string.IsNullOrEmpty(data.HeroPortrait.LeaderboardPortraitFileName))
+                AddWarning($"[{nameof(data.HeroPortrait.LeaderboardPortraitFileName)}]  is empty");
 
-            if (string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName))
-                AddWarning($"[{nameof(hero.HeroPortrait.LoadingScreenPortraitFileName)}]  is empty");
+            if (string.IsNullOrEmpty(data.HeroPortrait.LoadingScreenPortraitFileName))
+                AddWarning($"[{nameof(data.HeroPortrait.LoadingScreenPortraitFileName)}]  is empty");
 
-            if (string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName))
-                AddWarning($"[{nameof(hero.HeroPortrait.PartyPanelPortraitFileName)}]  is empty");
+            if (string.IsNullOrEmpty(data.HeroPortrait.PartyPanelPortraitFileName))
+                AddWarning($"[{nameof(data.HeroPortrait.PartyPanelPortraitFileName)}]  is empty");
 
-            if (string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
-                AddWarning($"[{nameof(hero.HeroPortrait.TargetPortraitFileName)}]  is empty");
+            if (string.IsNullOrEmpty(data.HeroPortrait.TargetPortraitFileName))
+                AddWarning($"[{nameof(data.HeroPortrait.TargetPortraitFileName)}]  is empty");
 
-            if (string.IsNullOrEmpty(hero.HeroPortrait.DraftScreenFileName))
-                AddWarning($"[{nameof(hero.HeroPortrait.DraftScreenFileName)}]  is empty");
+            if (string.IsNullOrEmpty(data.HeroPortrait.DraftScreenFileName))
+                AddWarning($"[{nameof(data.HeroPortrait.DraftScreenFileName)}]  is empty");
 
-            if (string.IsNullOrEmpty(hero.UnitPortrait.MiniMapIconFileName))
-                AddWarning($"[{nameof(hero.UnitPortrait.MiniMapIconFileName)}]  is empty");
+            if (string.IsNullOrEmpty(data.UnitPortrait.MiniMapIconFileName))
+                AddWarning($"[{nameof(data.UnitPortrait.MiniMapIconFileName)}]  is empty");
 
-            if (string.IsNullOrEmpty(hero.UnitPortrait.TargetInfoPanelFileName))
-                AddWarning($"[{nameof(hero.UnitPortrait.TargetInfoPanelFileName)}]  is empty");
+            if (string.IsNullOrEmpty(data.UnitPortrait.TargetInfoPanelFileName))
+                AddWarning($"[{nameof(data.UnitPortrait.TargetInfoPanelFileName)}]  is empty");
 
-            if (hero.HeroPortrait.PartyFrameFileName.Count < 1)
-                AddWarning($"[{nameof(hero.HeroPortrait.PartyFrameFileName)}]  is empty");
+            if (data.HeroPortrait.PartyFrameFileName.Count < 1)
+                AddWarning($"[{nameof(data.HeroPortrait.PartyFrameFileName)}]  is empty");
 
-            foreach (Talent talent in hero.Talents)
+            foreach (Talent talent in data.Talents)
             {
                 if (string.IsNullOrEmpty(talent.IconFileName))
                     AddWarning($"[{talent}, {talent}] {nameof(talent.IconFileName)} is empty");
@@ -287,7 +287,7 @@ namespace HeroesData.ExtractorData
                     AddWarning($"[{talent.AbilityTalentId.Id}] is of type Hidden");
             }
 
-            foreach (Hero heroUnit in hero.HeroUnits)
+            foreach (Hero heroUnit in data.HeroUnits)
             {
                 VerifyAbilities(heroUnit);
                 VerifyAbilitiesCount(heroUnit.Id, heroUnit.PrimaryAbilities().ToList(), true);

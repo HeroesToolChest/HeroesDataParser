@@ -32,7 +32,7 @@ namespace HeroesData.FileWriter.Writers.VoiceLineData
                 voiceLineObject.Add("releaseDate", voiceLine.ReleaseDate.Value.ToString("yyyy-MM-dd"));
 
             if (!string.IsNullOrEmpty(voiceLine.ImageFileName))
-                voiceLineObject.Add("image", Path.ChangeExtension(voiceLine.ImageFileName?.ToLowerInvariant(), StaticImageExtension));
+                voiceLineObject.Add("image", Path.ChangeExtension(voiceLine.ImageFileName.ToLowerInvariant(), StaticImageExtension));
 
             if (!string.IsNullOrEmpty(voiceLine.SortName) && !FileOutputOptions.IsLocalizedText)
                 voiceLineObject.Add("sortName", voiceLine.SortName);

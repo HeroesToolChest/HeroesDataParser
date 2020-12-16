@@ -26,7 +26,7 @@ namespace HeroesData.Parser
 
         public Announcer? Parse(params string[] ids)
         {
-            if (ids == null || ids.Length < 1)
+            if (ids.Length < 1)
                 return null;
 
             string id = ids.First();

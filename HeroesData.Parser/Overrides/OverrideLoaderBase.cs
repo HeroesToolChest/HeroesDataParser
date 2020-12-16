@@ -14,12 +14,12 @@ namespace HeroesData.Parser.Overrides
         private readonly int? _hotsBuild;
         private readonly SortedDictionary<int, string> _overrideFileNamesByBuild = new SortedDictionary<int, string>(); // includes path
 
-        public OverrideLoaderBase(int? hotsBuild)
+        protected OverrideLoaderBase(int? hotsBuild)
             : this(string.Empty, hotsBuild)
         {
         }
 
-        public OverrideLoaderBase(string appPath, int? hotsBuild)
+        protected OverrideLoaderBase(string appPath, int? hotsBuild)
         {
             _appPath = appPath;
             _hotsBuild = hotsBuild;
@@ -92,7 +92,7 @@ namespace HeroesData.Parser.Overrides
                 throw new ArgumentNullException(nameof(id));
 
             if (DataOverridesById == null)
-                throw new NullReferenceException("The Load() method needs to be called before this method can be used.");
+                throw new InvalidOperationException("The Load() method needs to be called before this method can be used.");
 
             if (id.Contains(".stormmod", StringComparison.OrdinalIgnoreCase))
                 id = id.Replace(".stormmod", string.Empty, StringComparison.OrdinalIgnoreCase);

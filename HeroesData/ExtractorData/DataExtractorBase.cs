@@ -19,7 +19,7 @@ namespace HeroesData.ExtractorData
 
         private string _validationWarningId = "Unknown";
 
-        public DataExtractorBase(TParser parser)
+        protected DataExtractorBase(TParser parser)
         {
             Parser = parser;
         }
@@ -133,10 +133,7 @@ namespace HeroesData.ExtractorData
 
             foreach (KeyValuePair<string, T> t in ParsedData)
             {
-                if (t.Value == null)
-                    continue;
-
-                _validationWarningId = t.Value.Id;
+                _validationWarningId = t.Value!.Id;
                 Validation(t.Value);
             }
 
@@ -215,7 +212,7 @@ namespace HeroesData.ExtractorData
             }
         }
 
-        protected abstract void Validation(T t);
+        protected abstract void Validation(T data);
 
         protected void AddWarning(string message)
         {

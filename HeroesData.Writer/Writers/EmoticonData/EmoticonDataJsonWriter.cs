@@ -57,9 +57,9 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
             if (!string.IsNullOrEmpty(emoticon.Image.FileName))
             {
                 if (!emoticon.Image.Count.HasValue)
-                    emoticonObject.Add("image", Path.ChangeExtension(emoticon.Image.FileName?.ToLowerInvariant(), StaticImageExtension));
+                    emoticonObject.Add("image", Path.ChangeExtension(emoticon.Image.FileName.ToLowerInvariant(), StaticImageExtension));
                 else
-                    emoticonObject.Add("image", Path.ChangeExtension(emoticon.Image.FileName?.ToLowerInvariant(), AnimatedImageExtension));
+                    emoticonObject.Add("image", Path.ChangeExtension(emoticon.Image.FileName.ToLowerInvariant(), AnimatedImageExtension));
             }
 
             JProperty? animation = AnimationObject(emoticon);

@@ -18,15 +18,15 @@ namespace HeroesData.ExtractorImage
         {
         }
 
-        protected override void LoadFileData(MatchAward matchAward)
+        protected override void LoadFileData(MatchAward data)
         {
-            if (matchAward is null)
-                throw new ArgumentNullException(nameof(matchAward));
+            if (data is null)
+                throw new ArgumentNullException(nameof(data));
 
-            if (!string.IsNullOrEmpty(matchAward.MVPScreenImageFileNameOriginal) && !string.IsNullOrEmpty(matchAward.MVPScreenImageFileName))
-                _awards.Add((matchAward.MVPScreenImageFileNameOriginal, matchAward.MVPScreenImageFileName));
-            if (!string.IsNullOrEmpty(matchAward.ScoreScreenImageFileNameOriginal) && !string.IsNullOrEmpty(matchAward.ScoreScreenImageFileName))
-                _awards.Add((matchAward.ScoreScreenImageFileNameOriginal, matchAward.ScoreScreenImageFileName));
+            if (!string.IsNullOrEmpty(data.MVPScreenImageFileNameOriginal) && !string.IsNullOrEmpty(data.MVPScreenImageFileName))
+                _awards.Add((data.MVPScreenImageFileNameOriginal, data.MVPScreenImageFileName));
+            if (!string.IsNullOrEmpty(data.ScoreScreenImageFileNameOriginal) && !string.IsNullOrEmpty(data.ScoreScreenImageFileName))
+                _awards.Add((data.ScoreScreenImageFileNameOriginal, data.ScoreScreenImageFileName));
         }
 
         protected override void ExtractFiles()

@@ -31,7 +31,7 @@ namespace HeroesData.FileWriter.Writers.EmoticonData
                 emoticon.LocalizedAliases != null! && emoticon.LocalizedAliases.Any() && !FileOutputOptions.IsLocalizedText ? new XElement("LocalizedAliases", emoticon.LocalizedAliases.Select(x => new XElement("Alias", x))) : null!,
                 emoticon.UniversalAliases != null! && emoticon.UniversalAliases.Any() ? new XElement("Aliases", emoticon.UniversalAliases.Select(x => new XElement("Alias", x))) : null!,
                 HeroElement(emoticon)!,
-                string.IsNullOrEmpty(emoticon.Image.FileName) ? null! : new XElement("Image", !emoticon.Image.Count.HasValue ? Path.ChangeExtension(emoticon.Image.FileName?.ToLowerInvariant(), StaticImageExtension) : Path.ChangeExtension(emoticon.Image.FileName?.ToLowerInvariant(), AnimatedImageExtension)),
+                string.IsNullOrEmpty(emoticon.Image.FileName) ? null! : new XElement("Image", !emoticon.Image.Count.HasValue ? Path.ChangeExtension(emoticon.Image.FileName.ToLowerInvariant(), StaticImageExtension) : Path.ChangeExtension(emoticon.Image.FileName.ToLowerInvariant(), AnimatedImageExtension)),
                 AnimationObject(emoticon)!);
         }
 

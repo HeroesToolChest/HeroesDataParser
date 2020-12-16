@@ -18,22 +18,22 @@ namespace HeroesData.ExtractorData
             return base.Parse(localization);
         }
 
-        protected override void Validation(PortraitPack? portraitPack)
+        protected override void Validation(PortraitPack? data)
         {
-            if (portraitPack is null)
+            if (data is null)
                 return;
 
-            if (string.IsNullOrEmpty(portraitPack.Name))
-                AddWarning($"{nameof(portraitPack.Name)} is empty");
+            if (string.IsNullOrEmpty(data.Name))
+                AddWarning($"{nameof(data.Name)} is empty");
 
-            if (string.IsNullOrEmpty(portraitPack.Id))
-                AddWarning($"{nameof(portraitPack.Id)} is empty");
+            if (string.IsNullOrEmpty(data.Id))
+                AddWarning($"{nameof(data.Id)} is empty");
 
-            if (string.IsNullOrEmpty(portraitPack.HyperlinkId))
-                AddWarning($"{nameof(portraitPack.HyperlinkId)} is empty");
+            if (string.IsNullOrEmpty(data.HyperlinkId))
+                AddWarning($"{nameof(data.HyperlinkId)} is empty");
 
-            if (portraitPack.Rarity == Rarity.None || portraitPack.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(portraitPack.Rarity)} is {portraitPack.Rarity}");
+            if (data.Rarity == Rarity.None || data.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(data.Rarity)} is {data.Rarity}");
         }
     }
 }

@@ -240,7 +240,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 abilityTalentBase.IsActive && abilityTalentBase is Talent ? new XAttribute("isActive", abilityTalentBase.IsActive) : !abilityTalentBase.IsActive && abilityTalentBase is Ability ? new XAttribute("isActive", abilityTalentBase.IsActive) : null!,
                 abilityTalentBase.AbilityTalentId.IsPassive ? new XAttribute("isPassive", abilityTalentBase.AbilityTalentId.IsPassive) : null!,
                 abilityTalentBase.IsQuest ? new XAttribute("isQuest", abilityTalentBase.IsQuest) : null!,
-                string.IsNullOrEmpty(abilityTalentBase.IconFileName) ? null! : new XElement("Icon", Path.ChangeExtension(abilityTalentBase.IconFileName?.ToLowerInvariant(), StaticImageExtension)),
+                string.IsNullOrEmpty(abilityTalentBase.IconFileName) ? null! : new XElement("Icon", Path.ChangeExtension(abilityTalentBase.IconFileName.ToLowerInvariant(), StaticImageExtension)),
                 abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.HasValue ? new XElement("ToggleCooldown", abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.Value) : null!,
                 UnitAbilityTalentLifeCost(abilityTalentBase.Tooltip.Life)!,
                 UnitAbilityTalentEnergyCost(abilityTalentBase.Tooltip.Energy)!,
@@ -332,8 +332,8 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             return new XElement(
                 "Portraits",
-                string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName) ? null! : new XElement("TargetInfo", Path.ChangeExtension(unit.UnitPortrait.TargetInfoPanelFileName?.ToLowerInvariant(), StaticImageExtension)),
-                string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName) ? null! : new XElement("Minimap", Path.ChangeExtension(unit.UnitPortrait.MiniMapIconFileName?.ToLowerInvariant(), StaticImageExtension)));
+                string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName) ? null! : new XElement("TargetInfo", Path.ChangeExtension(unit.UnitPortrait.TargetInfoPanelFileName.ToLowerInvariant(), StaticImageExtension)),
+                string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName) ? null! : new XElement("Minimap", Path.ChangeExtension(unit.UnitPortrait.MiniMapIconFileName.ToLowerInvariant(), StaticImageExtension)));
         }
     }
 }

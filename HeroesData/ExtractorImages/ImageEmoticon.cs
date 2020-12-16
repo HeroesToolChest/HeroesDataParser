@@ -23,13 +23,13 @@ namespace HeroesData.ExtractorImage
                 ExtractEmoticonImages();
         }
 
-        protected override void LoadFileData(Emoticon emoticon)
+        protected override void LoadFileData(Emoticon data)
         {
-            if (emoticon is null)
-                throw new ArgumentNullException(nameof(emoticon));
+            if (data is null)
+                throw new ArgumentNullException(nameof(data));
 
-            if (!string.IsNullOrEmpty(emoticon.TextureSheet.Image))
-                _emoticons.Add(emoticon);
+            if (!string.IsNullOrEmpty(data.TextureSheet.Image))
+                _emoticons.Add(data);
         }
 
         private void ExtractEmoticonImages()

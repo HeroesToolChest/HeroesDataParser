@@ -23,13 +23,13 @@ namespace HeroesData.ExtractorImage
                 ExtractVoiceLineImages();
         }
 
-        protected override void LoadFileData(VoiceLine voiceLine)
+        protected override void LoadFileData(VoiceLine data)
         {
-            if (voiceLine is null)
-                throw new ArgumentNullException(nameof(voiceLine));
+            if (data is null)
+                throw new ArgumentNullException(nameof(data));
 
-            if (!string.IsNullOrEmpty(voiceLine.ImageFileName))
-                _voiceLines.Add(voiceLine.ImageFileName);
+            if (!string.IsNullOrEmpty(data.ImageFileName))
+                _voiceLines.Add(data.ImageFileName);
         }
 
         private void ExtractVoiceLineImages()

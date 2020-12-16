@@ -24,15 +24,15 @@ namespace HeroesData.ExtractorImages
                 ExtractUnitImages();
         }
 
-        protected override void LoadFileData(Unit unit)
+        protected override void LoadFileData(Unit data)
         {
-            if (unit is null)
-                throw new ArgumentNullException(nameof(unit));
+            if (data is null)
+                throw new ArgumentNullException(nameof(data));
 
-            if (!string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName))
-                _units.Add(unit.UnitPortrait.MiniMapIconFileName);
-            if (!string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName))
-                _units.Add(unit.UnitPortrait.TargetInfoPanelFileName);
+            if (!string.IsNullOrEmpty(data.UnitPortrait.MiniMapIconFileName))
+                _units.Add(data.UnitPortrait.MiniMapIconFileName);
+            if (!string.IsNullOrEmpty(data.UnitPortrait.TargetInfoPanelFileName))
+                _units.Add(data.UnitPortrait.TargetInfoPanelFileName);
         }
 
         private void ExtractUnitImages()

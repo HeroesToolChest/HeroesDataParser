@@ -66,9 +66,6 @@ namespace HeroesData.Parser
 
         public Unit? Parse(params string[] ids)
         {
-            if (ids == null)
-                return null;
-
             UnitData unitData = XmlDataService.UnitData;
             unitData.Localization = Localization;
 
@@ -113,32 +110,32 @@ namespace HeroesData.Parser
             return unit;
         }
 
-        protected override void ApplyAdditionalOverrides(Unit unit, UnitDataOverride dataOverride)
+        protected override void ApplyAdditionalOverrides(Unit t, UnitDataOverride dataOverride)
         {
-            if (unit == null)
-                throw new ArgumentNullException(nameof(unit));
+            if (t == null)
+                throw new ArgumentNullException(nameof(t));
             if (dataOverride == null)
                 throw new ArgumentNullException(nameof(dataOverride));
 
-            if (unit.Abilities != null)
+            if (t.Abilities != null)
             {
                 foreach (AbilityTalentId validAbility in dataOverride.AddedAbilities)
                 {
-                    Ability? ability = XmlDataService.AbilityData.CreateAbility(unit.CUnitId, validAbility.ReferenceId);
+                    Ability? ability = XmlDataService.AbilityData.CreateAbility(t.CUnitId, validAbility.ReferenceId);
 
                     if (ability != null)
                     {
                         if (dataOverride.IsAddedAbility(validAbility))
-                            unit.AddAbility(ability);
+                            t.AddAbility(ability);
                         else
-                            unit.RemoveAbility(ability);
+                            t.RemoveAbility(ability);
                     }
                 }
 
-                dataOverride.ExecuteAbilityOverrides(unit.Abilities);
+                dataOverride.ExecuteAbilityOverrides(t.Abilities);
             }
 
-            if (unit.Weapons != null)
+            if (t.Weapons != null)
             {
                 foreach (string validWeapon in dataOverride.AddedWeapons)
                 {
@@ -147,16 +144,16 @@ namespace HeroesData.Parser
                     if (weapon != null)
                     {
                         if (dataOverride.IsAddedWeapon(validWeapon))
-                            unit.Weapons.Add(weapon);
+                            t.Weapons.Add(weapon);
                         else
-                            unit.Weapons.Remove(weapon);
+                            t.Weapons.Remove(weapon);
                     }
                 }
 
-                dataOverride.ExecuteWeaponOverrides(unit.Weapons);
+                dataOverride.ExecuteWeaponOverrides(t.Weapons);
             }
 
-            base.ApplyAdditionalOverrides(unit, dataOverride);
+            base.ApplyAdditionalOverrides(t, dataOverride);
         }
 
         protected override bool ValidItem(XElement element)

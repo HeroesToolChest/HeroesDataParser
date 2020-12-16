@@ -8,6 +8,7 @@
     <Copyright>Copyright © 2018 - 2020 Kevin Oliva</Copyright>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
@@ -23,4 +24,8 @@
     <ProjectReference Include="..\HeroesData.Helpers\HeroesData.Helpers.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);CA1014</NoWarn>
+  </PropertyGroup>
+  
 </Project>

@@ -16,7 +16,7 @@ namespace HeroesData.Parser.Tests.OverrideTests
         private readonly string _modsTestFolder = Path.Combine(_testDataFolder, "mods");
         private readonly string _overrideFileNameSuffix = "overrides-test";
 
-        public OverrideBaseTests()
+        protected OverrideBaseTests()
         {
             GameData gameData = new FileGameData(_modsTestFolder);
             XmlDataOverriders xmlDataOverriders = XmlDataOverriders.Load(App.AssemblyPath, gameData, _overrideFileNameSuffix);

@@ -17,42 +17,42 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "units";
 
-        protected override void Validation(Unit? unit)
+        protected override void Validation(Unit? data)
         {
-            if (unit is null)
+            if (data is null)
                 return;
 
-            if (unit.Id.EndsWith("dummy", StringComparison.OrdinalIgnoreCase))
+            if (data.Id.EndsWith("dummy", StringComparison.OrdinalIgnoreCase))
                 return;
 
-            if (unit.Attributes.Contains("Heroic"))
+            if (data.Attributes.Contains("Heroic"))
             {
-                if (!unit.Attributes.Contains("ImmuneToAOE"))
+                if (!data.Attributes.Contains("ImmuneToAOE"))
                 {
-                    if (unit.Life.LifeMax <= 0)
-                        AddWarning($"{nameof(unit.Life)} is 0");
+                    if (data.Life.LifeMax <= 0)
+                        AddWarning($"{nameof(data.Life)} is 0");
 
-                    if (unit.Sight <= 0)
-                        AddWarning($"{nameof(unit.Sight)} is 0");
+                    if (data.Sight <= 0)
+                        AddWarning($"{nameof(data.Sight)} is 0");
 
-                    if (unit.Speed <= 0 && unit.DamageType != "Structure" && !unit.Attributes.Contains("Structure"))
-                        AddWarning($"{nameof(unit.Speed)} is 0");
+                    if (data.Speed <= 0 && data.DamageType != "Structure" && !data.Attributes.Contains("Structure"))
+                        AddWarning($"{nameof(data.Speed)} is 0");
 
-                    if (!unit.Attributes.Any())
-                        AddWarning($"{nameof(unit.Attributes)} is 0");
+                    if (!data.Attributes.Any())
+                        AddWarning($"{nameof(data.Attributes)} is 0");
                 }
 
-                VerifyAbilities(unit);
+                VerifyAbilities(data);
             }
             else
             {
-                VerifyTooltipDescription(unit);
+                VerifyTooltipDescription(data);
             }
 
-            VerifyAbilitiesCount(unit.PrimaryAbilities().ToList());
-            VerifyAbilitiesCount(unit.SubAbilities().ToList());
+            VerifyAbilitiesCount(data.PrimaryAbilities().ToList());
+            VerifyAbilitiesCount(data.SubAbilities().ToList());
 
-            VerifyWeapons(unit);
+            VerifyWeapons(data);
         }
 
         private void VerifyWeapons(Unit unit)

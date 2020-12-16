@@ -23,13 +23,13 @@ namespace HeroesData.ExtractorImage
                 ExtractAnnouncerImages();
         }
 
-        protected override void LoadFileData(Announcer announcer)
+        protected override void LoadFileData(Announcer data)
         {
-            if (announcer is null)
-                throw new ArgumentNullException(nameof(announcer));
+            if (data is null)
+                throw new ArgumentNullException(nameof(data));
 
-            if (!string.IsNullOrEmpty(announcer.ImageFileName))
-                _announcers.Add(announcer.ImageFileName);
+            if (!string.IsNullOrEmpty(data.ImageFileName))
+                _announcers.Add(data.ImageFileName);
         }
 
         private void ExtractAnnouncerImages()

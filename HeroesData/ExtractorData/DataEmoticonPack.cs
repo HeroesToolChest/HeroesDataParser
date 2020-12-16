@@ -13,34 +13,34 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "emoticonpacks";
 
-        protected override void Validation(EmoticonPack? emoticonPack)
+        protected override void Validation(EmoticonPack? data)
         {
-            if (emoticonPack is null)
+            if (data is null)
                 return;
 
-            if (string.IsNullOrEmpty(emoticonPack.Name))
-                AddWarning($"{nameof(emoticonPack.Name)} is empty");
+            if (string.IsNullOrEmpty(data.Name))
+                AddWarning($"{nameof(data.Name)} is empty");
 
-            if (string.IsNullOrEmpty(emoticonPack.Id))
-                AddWarning($"{nameof(emoticonPack.Id)} is empty");
+            if (string.IsNullOrEmpty(data.Id))
+                AddWarning($"{nameof(data.Id)} is empty");
 
-            if (string.IsNullOrEmpty(emoticonPack.HyperlinkId))
-                AddWarning($"{nameof(emoticonPack.HyperlinkId)} is empty");
+            if (string.IsNullOrEmpty(data.HyperlinkId))
+                AddWarning($"{nameof(data.HyperlinkId)} is empty");
 
-            if (string.IsNullOrEmpty(emoticonPack.CollectionCategory))
-                AddWarning($"{nameof(emoticonPack.CollectionCategory)} is empty");
+            if (string.IsNullOrEmpty(data.CollectionCategory))
+                AddWarning($"{nameof(data.CollectionCategory)} is empty");
 
-            if (!emoticonPack.ReleaseDate.HasValue)
-                AddWarning($"{nameof(emoticonPack.ReleaseDate)} is null");
+            if (!data.ReleaseDate.HasValue)
+                AddWarning($"{nameof(data.ReleaseDate)} is null");
 
-            if (emoticonPack.EmoticonIds == null || !emoticonPack.EmoticonIds.Any())
-                AddWarning($"{nameof(emoticonPack.EmoticonIds)} is null or does not contain any emoticons");
+            if (data.EmoticonIds == null || !data.EmoticonIds.Any())
+                AddWarning($"{nameof(data.EmoticonIds)} is null or does not contain any emoticons");
 
-            if (!emoticonPack.EmoticonIds!.Any())
-                AddWarning($"{nameof(emoticonPack.EmoticonIds)} does not contain any aliases.");
+            if (!data.EmoticonIds!.Any())
+                AddWarning($"{nameof(data.EmoticonIds)} does not contain any aliases.");
 
-            if (emoticonPack.Rarity == Rarity.None || emoticonPack.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(emoticonPack.Rarity)} is {emoticonPack.Rarity}");
+            if (data.Rarity == Rarity.None || data.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(data.Rarity)} is {data.Rarity}");
         }
     }
 }

@@ -11,7 +11,7 @@ namespace HeroesData.ExtractorImage
     public abstract class ImageExtractorBase<T>
         where T : IExtractable
     {
-        public ImageExtractorBase(CASCHandler? cascHandler, string modsFolderPath)
+        protected ImageExtractorBase(CASCHandler? cascHandler, string modsFolderPath)
         {
             CASCHandler = cascHandler;
             ModsFolderPath = modsFolderPath;
@@ -31,7 +31,7 @@ namespace HeroesData.ExtractorImage
 
             if (CASCHandler != null)
                 StorageMode = StorageMode.CASC;
-            else if (CASCHandler == null && !string.IsNullOrEmpty(ModsFolderPath))
+            else if (!string.IsNullOrEmpty(ModsFolderPath))
                 StorageMode = StorageMode.Mods;
 
             foreach (T t in data)
@@ -43,7 +43,7 @@ namespace HeroesData.ExtractorImage
             DisplayFailedExtractedFiles();
         }
 
-        protected abstract void LoadFileData(T t);
+        protected abstract void LoadFileData(T data);
         protected abstract void ExtractFiles();
 
         /// <summary>

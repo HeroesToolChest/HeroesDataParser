@@ -231,7 +231,7 @@ namespace HeroesData.FileWriter.Writers.UnitData
                 info.Add("name", abilityTalentBase.Name);
 
             if (!string.IsNullOrEmpty(abilityTalentBase.IconFileName))
-                info.Add("icon", Path.ChangeExtension(abilityTalentBase.IconFileName?.ToLowerInvariant(), ".png"));
+                info.Add("icon", Path.ChangeExtension(abilityTalentBase.IconFileName.ToLowerInvariant(), ".png"));
 
             if (abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.HasValue)
                 info.Add("toggleCooldown", abilityTalentBase.Tooltip.Cooldown.ToggleCooldown.Value);
@@ -379,9 +379,9 @@ namespace HeroesData.FileWriter.Writers.UnitData
             JObject portrait = new JObject();
 
             if (!string.IsNullOrEmpty(unit.UnitPortrait.TargetInfoPanelFileName))
-                portrait.Add("targetInfo", Path.ChangeExtension(unit.UnitPortrait.TargetInfoPanelFileName?.ToLowerInvariant(), StaticImageExtension));
+                portrait.Add("targetInfo", Path.ChangeExtension(unit.UnitPortrait.TargetInfoPanelFileName.ToLowerInvariant(), StaticImageExtension));
             if (!string.IsNullOrEmpty(unit.UnitPortrait.MiniMapIconFileName))
-                portrait.Add("minimap", Path.ChangeExtension(unit.UnitPortrait.MiniMapIconFileName?.ToLowerInvariant(), StaticImageExtension));
+                portrait.Add("minimap", Path.ChangeExtension(unit.UnitPortrait.MiniMapIconFileName.ToLowerInvariant(), StaticImageExtension));
 
             return new JProperty("portraits", portrait);
         }

@@ -135,49 +135,49 @@ namespace HeroesData.Parser
             return new HeroDataParser(XmlDataService, _heroOverrideLoader);
         }
 
-        protected override void ApplyAdditionalOverrides(Hero hero, HeroDataOverride dataOverride)
+        protected override void ApplyAdditionalOverrides(Hero t, HeroDataOverride dataOverride)
         {
-            if (hero is null)
-                throw new ArgumentNullException(nameof(hero));
+            if (t is null)
+                throw new ArgumentNullException(nameof(t));
             if (dataOverride is null)
                 throw new ArgumentNullException(nameof(dataOverride));
 
             if (dataOverride.EnergyTypeOverride.Enabled)
-                hero.Energy.EnergyType = dataOverride.EnergyTypeOverride.EnergyType;
+                t.Energy.EnergyType = dataOverride.EnergyTypeOverride.EnergyType;
 
             if (dataOverride.EnergyOverride.Enabled)
-                hero.Energy.EnergyMax = dataOverride.EnergyOverride.Energy;
+                t.Energy.EnergyMax = dataOverride.EnergyOverride.Energy;
 
             if (dataOverride.ParentLinkOverride.Enabled)
-                hero.ParentLink = dataOverride.ParentLinkOverride.ParentLink;
+                t.ParentLink = dataOverride.ParentLinkOverride.ParentLink;
 
-            if (hero.Abilities != null)
+            if (t.Abilities != null)
             {
                 foreach (AbilityTalentId addedAbility in dataOverride.AddedAbilities)
                 {
-                    Ability? ability = XmlDataService.AbilityData.CreateAbility(hero.CUnitId, addedAbility);
+                    Ability? ability = XmlDataService.AbilityData.CreateAbility(t.CUnitId, addedAbility);
 
                     if (ability != null)
                     {
                         if (dataOverride.IsAddedAbility(addedAbility))
-                            hero.AddAbility(ability);
+                            t.AddAbility(ability);
                         else
-                            hero.RemoveAbility(ability);
+                            t.RemoveAbility(ability);
                     }
                 }
 
-                dataOverride.ExecuteAbilityOverrides(hero.Abilities);
+                dataOverride.ExecuteAbilityOverrides(t.Abilities);
             }
 
-            if (hero.HeroPortrait != null)
-                dataOverride.ExecutePortraitOverrides(hero.CHeroId, hero.HeroPortrait);
+            if (t.HeroPortrait != null)
+                dataOverride.ExecutePortraitOverrides(t.CHeroId, t.HeroPortrait);
 
-            if (hero.Talents != null)
+            if (t.Talents != null)
             {
-                dataOverride.ExecuteTalentOverrides(hero.Talents);
+                dataOverride.ExecuteTalentOverrides(t.Talents);
             }
 
-            if (hero.Weapons != null)
+            if (t.Weapons != null)
             {
                 foreach (string addedWeapon in dataOverride.AddedWeapons)
                 {
@@ -186,13 +186,13 @@ namespace HeroesData.Parser
                     if (weapon != null)
                     {
                         if (dataOverride.IsAddedWeapon(addedWeapon))
-                            hero.Weapons.Add(weapon);
+                            t.Weapons.Add(weapon);
                         else
-                            hero.Weapons.Remove(weapon);
+                            t.Weapons.Remove(weapon);
                     }
                 }
 
-                dataOverride.ExecuteWeaponOverrides(hero.Weapons);
+                dataOverride.ExecuteWeaponOverrides(t.Weapons);
             }
         }
 
@@ -379,7 +379,7 @@ namespace HeroesData.Parser
                     if (!string.IsNullOrEmpty(roleValue))
                     {
                         string role = GameData.GetGameString(DefaultData.HeroData?.HeroRoleName?.Replace(DefaultData.IdPlaceHolder, roleValue, StringComparison.OrdinalIgnoreCase)).Trim();
-                        if (!string.IsNullOrEmpty(roleValue))
+                        if (!string.IsNullOrEmpty(role))
                         {
                             hero.Roles.Add(role);
                         }
@@ -575,7 +575,7 @@ namespace HeroesData.Parser
         private void SetTalents(Hero hero)
         {
             if (_talentsArray == null)
-                throw new NullReferenceException("Call SetData() first to set up the talents");
+                throw new InvalidOperationException("Call SetData() first to set up the talents");
 
             foreach (XElement element in _talentsArray.Elements)
             {

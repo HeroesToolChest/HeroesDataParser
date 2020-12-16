@@ -24,13 +24,13 @@ namespace HeroesData.ExtractorImages
                 ExtractBundleImages();
         }
 
-        protected override void LoadFileData(Bundle bundle)
+        protected override void LoadFileData(Bundle data)
         {
-            if (bundle is null)
-                throw new ArgumentNullException(nameof(bundle));
+            if (data is null)
+                throw new ArgumentNullException(nameof(data));
 
-            if (!string.IsNullOrEmpty(bundle.ImageFileName))
-                _bundles.Add(bundle.ImageFileName);
+            if (!string.IsNullOrEmpty(data.ImageFileName))
+                _bundles.Add(data.ImageFileName);
         }
 
         private void ExtractBundleImages()

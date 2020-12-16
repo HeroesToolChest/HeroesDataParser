@@ -74,15 +74,11 @@ namespace HeroesData.Parser.XmlData
                     SetAbilityTalentData(element, ability, index);
                 }
             }
-            else if (string.IsNullOrEmpty(abilCmdValue))
+            else
             {
                 // doesn't have an abilcmd value set, so this is just a dummy button that doesn't do anything
                 // most likely still has an ability set in the ability array but wasn't set for the abilcmd value
                 return null;
-            }
-            else
-            {
-                throw new XmlGameDataParseException($"Could not create ability for {unitId}, no abilCmdValue: faceValue: {faceValue} - typeValue: {typeValue}");
             }
 
             // set the ability type

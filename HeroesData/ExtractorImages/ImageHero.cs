@@ -24,38 +24,38 @@ namespace HeroesData.ExtractorImage
         {
         }
 
-        protected override void LoadFileData(Hero hero)
+        protected override void LoadFileData(Hero data)
         {
-            if (hero is null)
-                throw new ArgumentNullException(nameof(hero));
+            if (data is null)
+                throw new ArgumentNullException(nameof(data));
 
-            if (!string.IsNullOrEmpty(hero.HeroPortrait.HeroSelectPortraitFileName))
-                _portraits.Add(hero.HeroPortrait.HeroSelectPortraitFileName);
-            if (!string.IsNullOrEmpty(hero.HeroPortrait.LeaderboardPortraitFileName))
-                _portraits.Add(hero.HeroPortrait.LeaderboardPortraitFileName);
-            if (!string.IsNullOrEmpty(hero.HeroPortrait.LoadingScreenPortraitFileName))
-                _portraits.Add(hero.HeroPortrait.LoadingScreenPortraitFileName);
-            if (!string.IsNullOrEmpty(hero.HeroPortrait.PartyPanelPortraitFileName))
-                _portraits.Add(hero.HeroPortrait.PartyPanelPortraitFileName);
-            if (!string.IsNullOrEmpty(hero.HeroPortrait.TargetPortraitFileName))
-                _portraits.Add(hero.HeroPortrait.TargetPortraitFileName);
-            if (!string.IsNullOrEmpty(hero.HeroPortrait.DraftScreenFileName))
-                _portraits.Add(hero.HeroPortrait.DraftScreenFileName);
-            if (!string.IsNullOrEmpty(hero.UnitPortrait.MiniMapIconFileName))
-                _portraits.Add(hero.UnitPortrait.MiniMapIconFileName);
-            if (!string.IsNullOrEmpty(hero.UnitPortrait.TargetInfoPanelFileName))
-                _portraits.Add(hero.UnitPortrait.TargetInfoPanelFileName);
-            if (hero.HeroPortrait.PartyFrameFileName.Count > 0)
+            if (!string.IsNullOrEmpty(data.HeroPortrait.HeroSelectPortraitFileName))
+                _portraits.Add(data.HeroPortrait.HeroSelectPortraitFileName);
+            if (!string.IsNullOrEmpty(data.HeroPortrait.LeaderboardPortraitFileName))
+                _portraits.Add(data.HeroPortrait.LeaderboardPortraitFileName);
+            if (!string.IsNullOrEmpty(data.HeroPortrait.LoadingScreenPortraitFileName))
+                _portraits.Add(data.HeroPortrait.LoadingScreenPortraitFileName);
+            if (!string.IsNullOrEmpty(data.HeroPortrait.PartyPanelPortraitFileName))
+                _portraits.Add(data.HeroPortrait.PartyPanelPortraitFileName);
+            if (!string.IsNullOrEmpty(data.HeroPortrait.TargetPortraitFileName))
+                _portraits.Add(data.HeroPortrait.TargetPortraitFileName);
+            if (!string.IsNullOrEmpty(data.HeroPortrait.DraftScreenFileName))
+                _portraits.Add(data.HeroPortrait.DraftScreenFileName);
+            if (!string.IsNullOrEmpty(data.UnitPortrait.MiniMapIconFileName))
+                _portraits.Add(data.UnitPortrait.MiniMapIconFileName);
+            if (!string.IsNullOrEmpty(data.UnitPortrait.TargetInfoPanelFileName))
+                _portraits.Add(data.UnitPortrait.TargetInfoPanelFileName);
+            if (data.HeroPortrait.PartyFrameFileName.Count > 0)
             {
-                foreach (string partyFrame in hero.HeroPortrait.PartyFrameFileName)
+                foreach (string partyFrame in data.HeroPortrait.PartyFrameFileName)
                 {
                     _portraits.Add(partyFrame);
                 }
             }
 
-            LoadAbilityTalentFiles(hero);
+            LoadAbilityTalentFiles(data);
 
-            foreach (Hero heroUnit in hero.HeroUnits)
+            foreach (Hero heroUnit in data.HeroUnits)
             {
                 LoadAbilityTalentFiles(heroUnit);
             }

@@ -12,19 +12,19 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "bundles";
 
-        protected override void Validation(Bundle? bundle)
+        protected override void Validation(Bundle? data)
         {
-            if (bundle is null)
+            if (data is null)
                 return;
 
-            if (string.IsNullOrEmpty(bundle.Id))
-                AddWarning($"{nameof(bundle.Id)} is empty");
+            if (string.IsNullOrEmpty(data.Id))
+                AddWarning($"{nameof(data.Id)} is empty");
 
-            if (string.IsNullOrEmpty(bundle.HyperlinkId))
-                AddWarning($"{nameof(bundle.HyperlinkId)} is empty");
+            if (string.IsNullOrEmpty(data.HyperlinkId))
+                AddWarning($"{nameof(data.HyperlinkId)} is empty");
 
-            if (!bundle.ReleaseDate.HasValue)
-                AddWarning($"{nameof(bundle.ReleaseDate)} is null");
+            if (!data.ReleaseDate.HasValue)
+                AddWarning($"{nameof(data.ReleaseDate)} is null");
         }
     }
 }

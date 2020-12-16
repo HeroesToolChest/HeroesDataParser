@@ -140,7 +140,7 @@ namespace HeroesData.Commands
                 int indexOfVersion = buildName.LastIndexOf('.');
 
                 // get build number
-                if (indexOfVersion > -1 && int.TryParse(buildName.Slice(indexOfVersion + 1), out int hotsBuild))
+                if (indexOfVersion > -1 && int.TryParse(buildName[(indexOfVersion + 1)..], out int hotsBuild))
                 {
                     _hotsBuild = hotsBuild;
                     Console.WriteLine($"Hots Version: {_cascHotsStorage.CASCHandler.Config.VersionName}");
@@ -156,7 +156,7 @@ namespace HeroesData.Commands
             Console.Write("Loading game data...");
 
             if (_cascHotsStorage?.CASCHandler == null || _cascHotsStorage.CASCFolderRoot == null)
-                throw new NullReferenceException($"{nameof(_cascHotsStorage.CASCHandler)} and {nameof(_cascHotsStorage.CASCFolderRoot)} cannot be null");
+                throw new InvalidOperationException($"{nameof(_cascHotsStorage.CASCHandler)} and {nameof(_cascHotsStorage.CASCFolderRoot)} cannot be null");
 
             GameData gameData = new CASCGameData(_cascHotsStorage.CASCHandler, _cascHotsStorage.CASCFolderRoot, _hotsBuild)
             {
@@ -220,7 +220,7 @@ namespace HeroesData.Commands
             Console.Write("Loading game data...");
 
             if (_cascHotsStorage?.CASCHandler == null || _cascHotsStorage.CASCFolderRoot == null)
-                throw new NullReferenceException($"{nameof(_cascHotsStorage.CASCHandler)} and {nameof(_cascHotsStorage.CASCFolderRoot)} cannot be null");
+                throw new InvalidOperationException($"{nameof(_cascHotsStorage.CASCHandler)} and {nameof(_cascHotsStorage.CASCFolderRoot)} cannot be null");
 
             GameData gameData = new CASCGameData(_cascHotsStorage!.CASCHandler, _cascHotsStorage.CASCFolderRoot, _hotsBuild)
             {
@@ -279,7 +279,7 @@ namespace HeroesData.Commands
         private void ExtractFiles(IEnumerable<string> files, int amount, string fileType)
         {
             if (_cascHotsStorage?.CASCHandler == null || _cascHotsStorage.CASCFolderRoot == null)
-                throw new NullReferenceException($"{nameof(_cascHotsStorage.CASCHandler)} and {nameof(_cascHotsStorage.CASCFolderRoot)} cannot be null");
+                throw new InvalidOperationException($"{nameof(_cascHotsStorage.CASCHandler)} and {nameof(_cascHotsStorage.CASCFolderRoot)} cannot be null");
 
             int count = 0;
 
@@ -305,7 +305,7 @@ namespace HeroesData.Commands
         private List<string> GetTextureFiles()
         {
             if (_cascHotsStorage?.CASCHandler == null || _cascHotsStorage.CASCFolderRoot == null)
-                throw new NullReferenceException($"{nameof(_cascHotsStorage.CASCHandler)} and {nameof(_cascHotsStorage.CASCFolderRoot)} cannot be null");
+                throw new InvalidOperationException($"{nameof(_cascHotsStorage.CASCHandler)} and {nameof(_cascHotsStorage.CASCFolderRoot)} cannot be null");
 
             List<string> files = new List<string>();
             CASCFolder currentFolder = _cascHotsStorage!.CASCFolderRoot.GetDirectory(_cascCTexturesPath);
@@ -324,7 +324,7 @@ namespace HeroesData.Commands
         private void DetectDirectoryCasing()
         {
             if (_cascHotsStorage?.CASCHandler == null || _cascHotsStorage.CASCFolderRoot == null)
-                throw new NullReferenceException($"{nameof(_cascHotsStorage.CASCHandler)} and {nameof(_cascHotsStorage.CASCFolderRoot)} cannot be null");
+                throw new InvalidOperationException($"{nameof(_cascHotsStorage.CASCHandler)} and {nameof(_cascHotsStorage.CASCFolderRoot)} cannot be null");
 
             if (!_cascHotsStorage!.CASCFolderRoot.DirectoryExists(_cascCTexturesPath))
             {

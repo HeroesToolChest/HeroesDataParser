@@ -53,9 +53,6 @@ namespace HeroesData.Parser
 
         public BehaviorVeterancy? Parse(params string[] ids)
         {
-            if (ids == null)
-                return null;
-
             string id = ids[0];
             string mapNameId = string.Empty;
 
@@ -132,7 +129,7 @@ namespace HeroesData.Parser
         private void SetVeterancyLevelArray(BehaviorVeterancy behaviorVeterancy)
         {
             if (behaviorVeterancy == null)
-                throw new NullReferenceException("Call SetBehaviorVeterancyData() first to set up the veterancy collection");
+                throw new InvalidOperationException("Call SetBehaviorVeterancyData() first to set up the veterancy collection");
 
             foreach (XElement veterancyLevelElement in _veterancyLevelArray.Elements)
             {

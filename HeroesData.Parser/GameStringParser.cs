@@ -595,7 +595,7 @@ namespace HeroesData.Parser.GameStrings
                     {
                         attribute = currentElement.Attribute("Value");
                     }
-                    else if (attribute != null)
+                    else
                     {
                         return _gameData.GetValueFromAttribute(attribute.Value);
                     }

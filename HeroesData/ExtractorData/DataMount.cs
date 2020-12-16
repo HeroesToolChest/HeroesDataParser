@@ -13,44 +13,44 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "mounts";
 
-        protected override void Validation(Mount? mount)
+        protected override void Validation(Mount? data)
         {
-            if (mount is null)
+            if (data is null)
                 return;
 
-            if (string.IsNullOrEmpty(mount.Name))
-                AddWarning($"{nameof(mount.Name)} is empty");
+            if (string.IsNullOrEmpty(data.Name))
+                AddWarning($"{nameof(data.Name)} is empty");
 
-            if (string.IsNullOrEmpty(mount.Id))
-                AddWarning($"{nameof(mount.Id)} is empty");
+            if (string.IsNullOrEmpty(data.Id))
+                AddWarning($"{nameof(data.Id)} is empty");
 
-            if (string.IsNullOrEmpty(mount.HyperlinkId))
-                AddWarning($"{nameof(mount.HyperlinkId)} is empty");
+            if (string.IsNullOrEmpty(data.HyperlinkId))
+                AddWarning($"{nameof(data.HyperlinkId)} is empty");
 
-            if (string.IsNullOrEmpty(mount.AttributeId))
-                AddWarning($"{nameof(mount.AttributeId)} is empty");
+            if (string.IsNullOrEmpty(data.AttributeId))
+                AddWarning($"{nameof(data.AttributeId)} is empty");
 
-            if (string.IsNullOrEmpty(mount.MountCategory))
-                AddWarning($"{nameof(mount.MountCategory)} is empty");
+            if (string.IsNullOrEmpty(data.MountCategory))
+                AddWarning($"{nameof(data.MountCategory)} is empty");
 
-            if (string.IsNullOrEmpty(mount.CollectionCategory))
-                AddWarning($"{nameof(mount.CollectionCategory)} is empty");
+            if (string.IsNullOrEmpty(data.CollectionCategory))
+                AddWarning($"{nameof(data.CollectionCategory)} is empty");
 
-            if (mount.MountCategory == "Unique")
+            if (data.MountCategory == "Unique")
             {
-                if (string.IsNullOrEmpty(mount.InfoText?.RawDescription))
-                    AddWarning($"{nameof(mount.InfoText)} is empty");
-                else if (mount.InfoText.RawDescription == GameStringParser.FailedParsed)
-                    AddWarning($"{nameof(mount.InfoText)} failed to parse correctly");
-                else if (mount.InfoText.HasErrorTag)
-                    AddWarning($"{nameof(mount.InfoText)} contains an error tag");
+                if (string.IsNullOrEmpty(data.InfoText?.RawDescription))
+                    AddWarning($"{nameof(data.InfoText)} is empty");
+                else if (data.InfoText.RawDescription == GameStringParser.FailedParsed)
+                    AddWarning($"{nameof(data.InfoText)} failed to parse correctly");
+                else if (data.InfoText.HasErrorTag)
+                    AddWarning($"{nameof(data.InfoText)} contains an error tag");
             }
 
-            if (!mount.ReleaseDate.HasValue)
-                AddWarning($"{nameof(mount.ReleaseDate)} is null");
+            if (!data.ReleaseDate.HasValue)
+                AddWarning($"{nameof(data.ReleaseDate)} is null");
 
-            if (mount.Rarity == Rarity.None || mount.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(mount.Rarity)} is {mount.Rarity}");
+            if (data.Rarity == Rarity.None || data.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(data.Rarity)} is {data.Rarity}");
         }
     }
 }

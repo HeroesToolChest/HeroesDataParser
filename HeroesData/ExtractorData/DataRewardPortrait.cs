@@ -18,34 +18,34 @@ namespace HeroesData.ExtractorData
             return base.Parse(localization);
         }
 
-        protected override void Validation(RewardPortrait? rewardPortrait)
+        protected override void Validation(RewardPortrait? data)
         {
-            if (rewardPortrait is null)
+            if (data is null)
                 return;
 
-            if (string.IsNullOrEmpty(rewardPortrait.Name))
-                AddWarning($"{nameof(rewardPortrait.Name)} is empty");
+            if (string.IsNullOrEmpty(data.Name))
+                AddWarning($"{nameof(data.Name)} is empty");
 
-            if (string.IsNullOrEmpty(rewardPortrait.Id))
-                AddWarning($"{nameof(rewardPortrait.Id)} is empty");
+            if (string.IsNullOrEmpty(data.Id))
+                AddWarning($"{nameof(data.Id)} is empty");
 
-            if (string.IsNullOrEmpty(rewardPortrait.HyperlinkId))
-                AddWarning($"{nameof(rewardPortrait.HyperlinkId)} is empty");
+            if (string.IsNullOrEmpty(data.HyperlinkId))
+                AddWarning($"{nameof(data.HyperlinkId)} is empty");
 
-            if (string.IsNullOrEmpty(rewardPortrait.CollectionCategory))
-                AddWarning($"{nameof(rewardPortrait.CollectionCategory)} is empty");
+            if (string.IsNullOrEmpty(data.CollectionCategory))
+                AddWarning($"{nameof(data.CollectionCategory)} is empty");
 
-            if (string.IsNullOrEmpty(rewardPortrait.TextureSheet.Image))
-                AddWarning($"{nameof(rewardPortrait.TextureSheet.Image)} is empty");
+            if (string.IsNullOrEmpty(data.TextureSheet.Image))
+                AddWarning($"{nameof(data.TextureSheet.Image)} is empty");
 
-            if (!rewardPortrait.TextureSheet.Columns.HasValue || (rewardPortrait.TextureSheet.Columns.HasValue && rewardPortrait.TextureSheet.Columns < 1))
-                AddWarning($"{nameof(rewardPortrait.TextureSheet.Columns)} is less than 1");
+            if (!data.TextureSheet.Columns.HasValue || (data.TextureSheet.Columns.HasValue && data.TextureSheet.Columns < 1))
+                AddWarning($"{nameof(data.TextureSheet.Columns)} is less than 1");
 
-            if (!rewardPortrait.TextureSheet.Rows.HasValue || (rewardPortrait.TextureSheet.Rows.HasValue && rewardPortrait.TextureSheet.Rows < 1))
-                AddWarning($"{nameof(rewardPortrait.TextureSheet.Rows)} is less than 1");
+            if (!data.TextureSheet.Rows.HasValue || (data.TextureSheet.Rows.HasValue && data.TextureSheet.Rows < 1))
+                AddWarning($"{nameof(data.TextureSheet.Rows)} is less than 1");
 
-            if (rewardPortrait.Rarity == Rarity.None || rewardPortrait.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(rewardPortrait.Rarity)} is {rewardPortrait.Rarity}");
+            if (data.Rarity == Rarity.None || data.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(data.Rarity)} is {data.Rarity}");
         }
     }
 }

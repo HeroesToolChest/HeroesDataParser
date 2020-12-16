@@ -554,7 +554,7 @@ namespace HeroesData.Parser.XmlData
                 throw new ArgumentNullException(nameof(abilityTalentBase));
 
             string defaultButtonFace = cmdButtonArrayElement.Attribute("DefaultButtonFace")?.Value ?? cmdButtonArrayElement.Element("DefaultButtonFace")?.Attribute("value")?.Value ?? string.Empty;
-            string requirement = cmdButtonArrayElement.Attribute("Requirements")?.Value ?? cmdButtonArrayElement.Element("Requirements")?.Attribute("value")?.Value ?? string.Empty;
+            string? requirement = cmdButtonArrayElement.Attribute("Requirements")?.Value ?? cmdButtonArrayElement.Element("Requirements")?.Attribute("value")?.Value;
 
             if (string.IsNullOrEmpty(abilityTalentBase.AbilityTalentId.ButtonId))
                 abilityTalentBase.AbilityTalentId.ButtonId = defaultButtonFace;

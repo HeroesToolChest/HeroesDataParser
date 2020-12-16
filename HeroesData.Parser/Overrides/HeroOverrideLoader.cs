@@ -74,7 +74,7 @@ namespace HeroesData.Parser.Overrides
 
                         break;
                     case "ParentLink":
-                        heroDataOverride.ParentLinkOverride = (true, valueAttribute ?? string.Empty);
+                        heroDataOverride.ParentLinkOverride = (true, valueAttribute);
                         break;
                     case "Ability":
                     case "Talent":

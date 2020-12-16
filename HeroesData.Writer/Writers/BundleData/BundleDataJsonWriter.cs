@@ -67,7 +67,7 @@ namespace HeroesData.FileWriter.Writers.BundleData
                 bundleObject.Add(new JProperty("mounts", bundle.MountIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
 
             if (!string.IsNullOrEmpty(bundle.ImageFileName))
-                bundleObject.Add("image", Path.ChangeExtension(bundle.ImageFileName?.ToLowerInvariant(), StaticImageExtension));
+                bundleObject.Add("image", Path.ChangeExtension(bundle.ImageFileName.ToLowerInvariant(), StaticImageExtension));
 
             if (!string.IsNullOrEmpty(bundle.BoostBonusId))
                 bundleObject.Add("boostId", bundle.BoostBonusId);

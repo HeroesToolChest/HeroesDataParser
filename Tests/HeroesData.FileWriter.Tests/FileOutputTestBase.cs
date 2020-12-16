@@ -10,12 +10,14 @@ namespace HeroesData.FileWriter.Tests
     public abstract class FileOutputTestBase<T>
         where T : IExtractable
     {
-        public FileOutputTestBase(string dataName)
+        protected FileOutputTestBase(string dataName)
         {
             if (dataName is null)
                 throw new ArgumentNullException(nameof(dataName));
 
+#pragma warning disable CA2214 // Do not call overridable methods in constructors
             SetTestData();
+#pragma warning restore CA2214 // Do not call overridable methods in constructors
             DefaultDataNameSuffix = dataName.ToLowerInvariant();
             OutputTestOutputDirectory = Path.Combine(dataName, BaseTestOutputDirectory);
         }
@@ -37,7 +39,6 @@ namespace HeroesData.FileWriter.Tests
         protected string OutputTestOutputDirectory { get; }
         protected string DefaultDataNameSuffix { get; }
 
-        protected List<MatchAward> MatchAwards { get; } = new List<MatchAward>();
         protected List<T> TestData { get; } = new List<T>();
         protected FileOutputType FileOutputType { get; set; } = FileOutputType.Xml;
 

@@ -24,7 +24,7 @@ namespace HeroesData.Parser
 
         public PortraitPack? Parse(params string[] ids)
         {
-            if (ids == null || ids.Length < 1)
+            if (ids.Length < 1)
                 return null;
 
             string id = ids.First();
@@ -89,7 +89,7 @@ namespace HeroesData.Parser
                     string? eventName = element.Attribute("value")?.Value;
                     if (eventName is not null)
                     {
-                        if (GameData.TryGetGameString(eventName ?? string.Empty, out string? text))
+                        if (GameData.TryGetGameString(eventName, out string? text))
                             portrait.EventName = text;
                         else
                             portrait.EventName = eventName;

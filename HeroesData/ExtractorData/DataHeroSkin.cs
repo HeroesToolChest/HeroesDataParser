@@ -13,38 +13,38 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "heroskins";
 
-        protected override void Validation(HeroSkin? heroSkin)
+        protected override void Validation(HeroSkin? data)
         {
-            if (heroSkin is null)
+            if (data is null)
                 return;
 
-            if (string.IsNullOrEmpty(heroSkin.Name))
-                AddWarning($"{nameof(heroSkin.Name)} is empty");
+            if (string.IsNullOrEmpty(data.Name))
+                AddWarning($"{nameof(data.Name)} is empty");
 
-            if (string.IsNullOrEmpty(heroSkin.Id))
-                AddWarning($"{nameof(heroSkin.Id)} is empty");
+            if (string.IsNullOrEmpty(data.Id))
+                AddWarning($"{nameof(data.Id)} is empty");
 
-            if (string.IsNullOrEmpty(heroSkin.HyperlinkId))
-                AddWarning($"{nameof(heroSkin.HyperlinkId)} is empty");
+            if (string.IsNullOrEmpty(data.HyperlinkId))
+                AddWarning($"{nameof(data.HyperlinkId)} is empty");
 
-            if (string.IsNullOrEmpty(heroSkin.SortName))
-                AddWarning($"{nameof(heroSkin.SortName)} is empty");
+            if (string.IsNullOrEmpty(data.SortName))
+                AddWarning($"{nameof(data.SortName)} is empty");
 
-            if (string.IsNullOrEmpty(heroSkin.AttributeId))
-                AddWarning($"{nameof(heroSkin.AttributeId)} is empty");
+            if (string.IsNullOrEmpty(data.AttributeId))
+                AddWarning($"{nameof(data.AttributeId)} is empty");
 
-            if (string.IsNullOrEmpty(heroSkin.InfoText?.RawDescription))
-                AddWarning($"{nameof(heroSkin.InfoText)} is empty");
-            else if (heroSkin.InfoText.RawDescription == GameStringParser.FailedParsed)
-                AddWarning($"{nameof(heroSkin.InfoText)} failed to parse correctly");
-            else if (heroSkin.InfoText.HasErrorTag)
-                AddWarning($"{nameof(heroSkin.InfoText)} contains an error tag");
+            if (string.IsNullOrEmpty(data.InfoText?.RawDescription))
+                AddWarning($"{nameof(data.InfoText)} is empty");
+            else if (data.InfoText.RawDescription == GameStringParser.FailedParsed)
+                AddWarning($"{nameof(data.InfoText)} failed to parse correctly");
+            else if (data.InfoText.HasErrorTag)
+                AddWarning($"{nameof(data.InfoText)} contains an error tag");
 
-            if (!heroSkin.ReleaseDate.HasValue)
-                AddWarning($"{nameof(heroSkin.ReleaseDate)} is null");
+            if (!data.ReleaseDate.HasValue)
+                AddWarning($"{nameof(data.ReleaseDate)} is null");
 
-            if (heroSkin.Rarity == Rarity.None || heroSkin.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(heroSkin.Rarity)} is {heroSkin.Rarity}");
+            if (data.Rarity == Rarity.None || data.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(data.Rarity)} is {data.Rarity}");
         }
     }
 }

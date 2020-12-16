@@ -14,7 +14,7 @@ namespace HeroesData.Parser
         where T : IExtractable
         where TOverride : IDataOverride
     {
-        public ParserBase(IXmlDataService xmlDataService)
+        protected ParserBase(IXmlDataService xmlDataService)
         {
             XmlDataService = xmlDataService;
         }

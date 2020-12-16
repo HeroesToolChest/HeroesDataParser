@@ -12,28 +12,28 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "voicelines";
 
-        protected override void Validation(VoiceLine? voiceLine)
+        protected override void Validation(VoiceLine? data)
         {
-            if (voiceLine is null)
+            if (data is null)
                 return;
 
-            if (string.IsNullOrEmpty(voiceLine.Name))
-                AddWarning($"{nameof(voiceLine.Name)} is empty");
+            if (string.IsNullOrEmpty(data.Name))
+                AddWarning($"{nameof(data.Name)} is empty");
 
-            if (string.IsNullOrEmpty(voiceLine.Id))
-                AddWarning($"{nameof(voiceLine.Id)} is empty");
+            if (string.IsNullOrEmpty(data.Id))
+                AddWarning($"{nameof(data.Id)} is empty");
 
-            if (string.IsNullOrEmpty(voiceLine.AttributeId))
-                AddWarning($"{nameof(voiceLine.AttributeId)} is empty");
+            if (string.IsNullOrEmpty(data.AttributeId))
+                AddWarning($"{nameof(data.AttributeId)} is empty");
 
-            if (!voiceLine.ReleaseDate.HasValue)
-                AddWarning($"{nameof(voiceLine.ReleaseDate)} is null");
+            if (!data.ReleaseDate.HasValue)
+                AddWarning($"{nameof(data.ReleaseDate)} is null");
 
-            if (string.IsNullOrEmpty(voiceLine.ImageFileName))
-                AddWarning($"{nameof(voiceLine.ImageFileName)} is empty");
+            if (string.IsNullOrEmpty(data.ImageFileName))
+                AddWarning($"{nameof(data.ImageFileName)} is empty");
 
-            if (voiceLine.Rarity == Rarity.None || voiceLine.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(voiceLine.Rarity)} is {voiceLine.Rarity}");
+            if (data.Rarity == Rarity.None || data.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(data.Rarity)} is {data.Rarity}");
         }
     }
 }

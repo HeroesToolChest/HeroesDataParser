@@ -394,7 +394,7 @@ namespace HeroesData.Parser.XmlData
         private void SetAbilities(Unit unit)
         {
             if (_abilitiesArray == null || _cardLayoutButtons == null)
-                throw new NullReferenceException("Call SetData() first to set up the abilities and card layout button collections");
+                throw new InvalidOperationException("Call SetData() first to set up the abilities and card layout button collections");
 
             foreach (XElement element in _cardLayoutButtons.Elements)
             {
@@ -420,7 +420,7 @@ namespace HeroesData.Parser.XmlData
         private void SetWeapons(Unit unit)
         {
             if (_weaponsArray == null)
-                throw new NullReferenceException("Call SetData() first to set up the weapons collections");
+                throw new InvalidOperationException("Call SetData() first to set up the weapons collections");
 
             foreach (XElement element in _weaponsArray.Elements)
             {
@@ -437,7 +437,7 @@ namespace HeroesData.Parser.XmlData
         private void SetBehaviors(Unit unit)
         {
             if (_behaviorArray == null)
-                throw new NullReferenceException("Call SetData() first to set up the behavior collections");
+                throw new InvalidOperationException("Call SetData() first to set up the behavior collections");
 
             foreach (XElement element in _behaviorArray.Elements)
             {

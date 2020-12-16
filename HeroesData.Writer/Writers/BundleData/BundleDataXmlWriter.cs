@@ -51,7 +51,7 @@ namespace HeroesData.FileWriter.Writers.BundleData
                 bundle.HeroIds.Count > 0 ? new XElement("Heroes", bundle.HeroIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(x => new XElement("Feature", x))) : null!,
                 HeroSkins(bundle)!,
                 bundle.MountIds.Count > 0 ? new XElement("Mounts", bundle.MountIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).Select(x => new XElement("Mount", x))) : null!,
-                string.IsNullOrEmpty(bundle.ImageFileName) ? null! : new XElement("Image", Path.ChangeExtension(bundle.ImageFileName?.ToLowerInvariant(), StaticImageExtension)),
+                string.IsNullOrEmpty(bundle.ImageFileName) ? null! : new XElement("Image", Path.ChangeExtension(bundle.ImageFileName.ToLowerInvariant(), StaticImageExtension)),
                 string.IsNullOrEmpty(bundle.BoostBonusId) ? null! : new XElement("BoostId", bundle.BoostBonusId),
                 bundle.GoldBonus is null ? null! : new XElement("GoldBonus", bundle.GoldBonus),
                 bundle.GemsBonus is null ? null! : new XElement("GemsBonus", bundle.GemsBonus));

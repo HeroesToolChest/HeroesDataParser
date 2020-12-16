@@ -23,13 +23,13 @@ namespace HeroesData.ExtractorImage
                 ExtractSprayImages();
         }
 
-        protected override void LoadFileData(Spray spray)
+        protected override void LoadFileData(Spray data)
         {
-            if (spray is null)
-                throw new ArgumentNullException(nameof(spray));
+            if (data is null)
+                throw new ArgumentNullException(nameof(data));
 
-            if (!string.IsNullOrEmpty(spray.TextureSheet.Image))
-                _sprays.Add(spray);
+            if (!string.IsNullOrEmpty(data.TextureSheet.Image))
+                _sprays.Add(data);
         }
 
         private void ExtractSprayImages()

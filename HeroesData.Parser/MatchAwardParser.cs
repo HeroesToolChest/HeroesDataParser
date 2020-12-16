@@ -74,9 +74,6 @@ namespace HeroesData.Parser
         /// <returns></returns>
         public MatchAward? Parse(params string[] ids)
         {
-            if (ids == null)
-                return null;
-
             string gameLink = ids[0];
             string mapNameId = string.Empty;
 
@@ -138,27 +135,27 @@ namespace HeroesData.Parser
             return new MatchAwardParser(XmlDataService, _matchAwardOverrideLoader);
         }
 
-        protected override void ApplyAdditionalOverrides(MatchAward matchAward, MatchAwardDataOverride dataOverride)
+        protected override void ApplyAdditionalOverrides(MatchAward t, MatchAwardDataOverride dataOverride)
         {
-            if (matchAward is null)
-                throw new ArgumentNullException(nameof(matchAward));
+            if (t is null)
+                throw new ArgumentNullException(nameof(t));
             if (dataOverride is null)
                 throw new ArgumentNullException(nameof(dataOverride));
 
             if (dataOverride.MVPScreenImageFileNameOriginalOverride.Enabled)
-                matchAward.MVPScreenImageFileNameOriginal = dataOverride.MVPScreenImageFileNameOriginalOverride.Value;
+                t.MVPScreenImageFileNameOriginal = dataOverride.MVPScreenImageFileNameOriginalOverride.Value;
 
             if (dataOverride.MVPScreenImageFileNameOverride.Enabled)
-                matchAward.MVPScreenImageFileName = dataOverride.MVPScreenImageFileNameOverride.Value;
+                t.MVPScreenImageFileName = dataOverride.MVPScreenImageFileNameOverride.Value;
 
             if (dataOverride.ScoreScreenImageFileNameOriginalOverride.Enabled)
-                matchAward.ScoreScreenImageFileNameOriginal = dataOverride.ScoreScreenImageFileNameOriginalOverride.Value;
+                t.ScoreScreenImageFileNameOriginal = dataOverride.ScoreScreenImageFileNameOriginalOverride.Value;
 
             if (dataOverride.ScoreScreenImageFileNameOverride.Enabled)
-                matchAward.ScoreScreenImageFileName = dataOverride.ScoreScreenImageFileNameOverride.Value;
+                t.ScoreScreenImageFileName = dataOverride.ScoreScreenImageFileNameOverride.Value;
 
             if (dataOverride.DescriptionOverride.Enabled)
-                matchAward.Description = new TooltipDescription(dataOverride.DescriptionOverride.Value);
+                t.Description = new TooltipDescription(dataOverride.DescriptionOverride.Value);
         }
 
         private static string GetNameFromGenderRule(string name)

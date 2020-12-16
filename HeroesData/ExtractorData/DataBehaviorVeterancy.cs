@@ -12,7 +12,7 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "veterancies";
 
-        protected override void Validation(BehaviorVeterancy? behaviorVeterancy)
+        protected override void Validation(BehaviorVeterancy? data)
         {
         }
     }

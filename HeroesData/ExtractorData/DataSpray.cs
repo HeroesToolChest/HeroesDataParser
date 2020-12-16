@@ -12,34 +12,34 @@ namespace HeroesData.ExtractorData
 
         public override string Name => "sprays";
 
-        protected override void Validation(Spray? spray)
+        protected override void Validation(Spray? data)
         {
-            if (spray is null)
+            if (data is null)
                 return;
 
-            if (string.IsNullOrEmpty(spray.Name))
-                AddWarning($"{nameof(spray.Name)} is empty");
+            if (string.IsNullOrEmpty(data.Name))
+                AddWarning($"{nameof(data.Name)} is empty");
 
-            if (string.IsNullOrEmpty(spray.Id))
-                AddWarning($"{nameof(spray.Id)} is empty");
+            if (string.IsNullOrEmpty(data.Id))
+                AddWarning($"{nameof(data.Id)} is empty");
 
-            if (string.IsNullOrEmpty(spray.HyperlinkId))
-                AddWarning($"{nameof(spray.HyperlinkId)} is empty");
+            if (string.IsNullOrEmpty(data.HyperlinkId))
+                AddWarning($"{nameof(data.HyperlinkId)} is empty");
 
-            if (string.IsNullOrEmpty(spray.AttributeId))
-                AddWarning($"{nameof(spray.AttributeId)} is empty");
+            if (string.IsNullOrEmpty(data.AttributeId))
+                AddWarning($"{nameof(data.AttributeId)} is empty");
 
-            if (string.IsNullOrEmpty(spray.CollectionCategory))
-                AddWarning($"{nameof(spray.CollectionCategory)} is empty");
+            if (string.IsNullOrEmpty(data.CollectionCategory))
+                AddWarning($"{nameof(data.CollectionCategory)} is empty");
 
-            if (!spray.ReleaseDate.HasValue)
-                AddWarning($"{nameof(spray.ReleaseDate)} is null");
+            if (!data.ReleaseDate.HasValue)
+                AddWarning($"{nameof(data.ReleaseDate)} is null");
 
-            if (spray.Rarity == Rarity.None || spray.Rarity == Rarity.Unknown)
-                AddWarning($"{nameof(spray.Rarity)} is {spray.Rarity}");
+            if (data.Rarity == Rarity.None || data.Rarity == Rarity.Unknown)
+                AddWarning($"{nameof(data.Rarity)} is {data.Rarity}");
 
-            if (string.IsNullOrEmpty(spray.TextureSheet.Image))
-                AddWarning($"{nameof(spray.TextureSheet.Image)} is empty");
+            if (string.IsNullOrEmpty(data.TextureSheet.Image))
+                AddWarning($"{nameof(data.TextureSheet.Image)} is empty");
         }
     }
 }
