@@ -35,7 +35,8 @@
     "image": "some_image_name.png",
     "boostId": "boos7day",
     "goldBonus": 33,
-    "gemsBonus": 45
+    "gemsBonus": 45,
+    "lootChestBonus": "lootChest1"
   },
   "winterBundle": {
     "hyperlinkId": "winterbundle2",

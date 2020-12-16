@@ -24,6 +24,7 @@
     <BoostId>boos7day</BoostId>
     <GoldBonus>33</GoldBonus>
     <GemsBonus>45</GemsBonus>
+    <LootChestBonus>lootChest1</LootChestBonus>
   </bundel1>
   <winterBundle hyperlinkId="winterbundle2" isDynamicContent="true">
     <SortName>xxwinterBundle</SortName>

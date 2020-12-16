@@ -19,6 +19,7 @@ namespace HeroesData.FileWriter.Tests.BundleData
                 Franchise = Franchise.Overwatch,
                 GemsBonus = 45,
                 GoldBonus = 33,
+                LootChestBonus = "lootChest1",
                 HyperlinkId = "bundle1",
                 Id = "bundel1",
                 ImageFileName = "some_image_name.png",

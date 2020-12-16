@@ -175,6 +175,10 @@ namespace HeroesData.Parser
                 {
                     bundle.GemsBonus = XmlParse.GetIntValue(bundle.Id, element, GameData);
                 }
+                else if (elementName == "LOOTCHESTBONUS")
+                {
+                    bundle.LootChestBonus = element.Attribute("value")?.Value;
+                }
                 else if (elementName == "FLAGS")
                 {
                     string? index = element.Attribute("index")?.Value;

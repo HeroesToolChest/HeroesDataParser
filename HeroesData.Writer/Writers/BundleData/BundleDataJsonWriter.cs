@@ -78,6 +78,9 @@ namespace HeroesData.FileWriter.Writers.BundleData
             if (bundle.GemsBonus is not null)
                 bundleObject.Add("gemsBonus", bundle.GemsBonus);
 
+            if (bundle.LootChestBonus is not null)
+                bundleObject.Add("lootChestBonus", bundle.LootChestBonus);
+
             return new JProperty(bundle.Id, bundleObject);
         }
     }

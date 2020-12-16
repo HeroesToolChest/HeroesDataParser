@@ -54,7 +54,8 @@ namespace HeroesData.FileWriter.Writers.BundleData
                 string.IsNullOrEmpty(bundle.ImageFileName) ? null! : new XElement("Image", Path.ChangeExtension(bundle.ImageFileName.ToLowerInvariant(), StaticImageExtension)),
                 string.IsNullOrEmpty(bundle.BoostBonusId) ? null! : new XElement("BoostId", bundle.BoostBonusId),
                 bundle.GoldBonus is null ? null! : new XElement("GoldBonus", bundle.GoldBonus),
-                bundle.GemsBonus is null ? null! : new XElement("GemsBonus", bundle.GemsBonus));
+                bundle.GemsBonus is null ? null! : new XElement("GemsBonus", bundle.GemsBonus),
+                bundle.LootChestBonus is null ? null! : new XElement("LootChestBonus", bundle.LootChestBonus));
         }
     }
 }
