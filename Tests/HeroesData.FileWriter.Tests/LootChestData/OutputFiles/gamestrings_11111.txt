@@ -1,0 +1,2 @@
+lootchest/description/leglootchest1=legendary!!!!
+lootchest/name/leglootchest1=Legend Chest

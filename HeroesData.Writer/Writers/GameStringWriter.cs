@@ -524,5 +524,21 @@ namespace HeroesData.FileWriter.Writers
 
             GameStrings[$"boost/sortname/{key}"] = value;
         }
+
+        public void AddLootChestName(string key, string? value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"lootchest/name/{key}"] = value;
+        }
+
+        public void AddLootChestDescription(string key, string? value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"lootchest/description/{key}"] = value;
+        }
     }
 }

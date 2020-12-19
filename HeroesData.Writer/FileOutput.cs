@@ -9,6 +9,7 @@ using HeroesData.FileWriter.Writers.EmoticonData;
 using HeroesData.FileWriter.Writers.EmoticonPackData;
 using HeroesData.FileWriter.Writers.HeroData;
 using HeroesData.FileWriter.Writers.HeroSkinData;
+using HeroesData.FileWriter.Writers.LootChestData;
 using HeroesData.FileWriter.Writers.MatchAwardData;
 using HeroesData.FileWriter.Writers.MountData;
 using HeroesData.FileWriter.Writers.PortraitPackData;
@@ -125,6 +126,7 @@ namespace HeroesData.FileWriter
                 { nameof(BehaviorVeterancy), new BehaviorVeterancyDataJsonWriter() },
                 { nameof(Bundle), new BundleDataJsonWriter() },
                 { nameof(Boost), new BoostDataJsonWriter() },
+                { nameof(LootChest), new LootChestDataJsonWriter() },
             });
 
             _writers.Add(FileOutputType.Xml, new Dictionary<string, IWritable>()
@@ -145,6 +147,7 @@ namespace HeroesData.FileWriter
                 { nameof(BehaviorVeterancy), new BehaviorVeterancyDataXmlWriter() },
                 { nameof(Bundle), new BundleDataXmlWriter() },
                 { nameof(Boost), new BoostDataXmlWriter() },
+                { nameof(LootChest), new LootChestDataXmlWriter() },
             });
         }
     }

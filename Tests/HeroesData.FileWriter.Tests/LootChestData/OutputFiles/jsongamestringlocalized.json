@@ -1,0 +1,15 @@
+{
+  "leglootchest1": {
+    "hyperlinkId": "lootchest1",
+    "rarity": "Legendary",
+    "maxRerolls": 10,
+    "typeDescription": "typeDescription",
+    "event": "event1"
+  },
+  "winterLoot1": {
+    "hyperlinkId": "winterlootId1",
+    "rarity": "Rare",
+    "maxRerolls": 2,
+    "typeDescription": "yep..."
+  }
+}

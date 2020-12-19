@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LootChests>
+  <leglootchest1 name="Legend Chest" hyperlinkId="lootchest1" rarity="Legendary" maxRerolls="10" event="event1">
+    <TypeDescription>typeDescription</TypeDescription>
+    <Description>legendary!!!!</Description>
+  </leglootchest1>
+  <winterLoot1 hyperlinkId="winterlootId1" rarity="Rare" maxRerolls="2">
+    <TypeDescription>yep...</TypeDescription>
+  </winterLoot1>
+</LootChests>

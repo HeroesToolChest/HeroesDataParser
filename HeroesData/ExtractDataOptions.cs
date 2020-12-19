@@ -22,6 +22,7 @@ namespace HeroesData
         Veterancy = 1 << 13,
         Bundle = 1 << 14,
         Boost = 1 << 15,
-        All = ~(~0 << 16),
+        LootChest = 1 << 16,
+        All = ~(~0 << 17),
     }
 }

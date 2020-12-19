@@ -257,21 +257,9 @@ namespace HeroesData
             {
                 "EMOTICONS", "EMOTICON", "EMOTES", "EMOTE",
             };
-            List<string> portraitPacks = new List<string>()
-            {
-                "PORTRAITPACKS", "PORTRAITPACK", "PORTRIATPACKS", "PORTRIATPACK", "PORTPACKS", "PORTPACK",
-            };
-            List<string> rewardPortraits = new List<string>()
-            {
-                "REWARDPORTRAITS", "REWARDPORTRAIT", "REWARDPORTRIATS", "REWARDPORTRIAT", "REWARDPORTS", "REWARDPORT",
-            };
             List<string> bundles = new List<string>()
             {
                 "BUNDLES", "BUNDLE",
-            };
-            List<string> boosts = new List<string>()
-            {
-                "BOOST", "BOOSTS",
             };
 
             // data
@@ -282,10 +270,23 @@ namespace HeroesData
             _extractDataValues.Add(ExtractDataOptions.Announcer, announcers);
             _extractDataValues.Add(ExtractDataOptions.VoiceLine, voiceLines);
             _extractDataValues.Add(ExtractDataOptions.Emoticon, emoticons);
-            _extractDataValues.Add(ExtractDataOptions.PortraitPack, portraitPacks);
-            _extractDataValues.Add(ExtractDataOptions.RewardPortrait, rewardPortraits);
             _extractDataValues.Add(ExtractDataOptions.Bundle, bundles);
-            _extractDataValues.Add(ExtractDataOptions.Boost, boosts);
+            _extractDataValues.Add(ExtractDataOptions.Boost, new List<string>()
+            {
+                "BOOST", "BOOSTS",
+            });
+            _extractDataValues.Add(ExtractDataOptions.LootChest, new List<string>()
+            {
+                "LOOTCHEST", "LOOTCHESTS", "LOOT", "LOOTS", "BOOTY",
+            });
+            _extractDataValues.Add(ExtractDataOptions.PortraitPack, new List<string>()
+            {
+                "PORTRAITPACKS", "PORTRAITPACK", "PORTRIATPACKS", "PORTRIATPACK", "PORTPACKS", "PORTPACK",
+            });
+            _extractDataValues.Add(ExtractDataOptions.RewardPortrait, new List<string>()
+            {
+                "REWARDPORTRAITS", "REWARDPORTRAIT", "REWARDPORTRIATS", "REWARDPORTRIAT", "REWARDPORTS", "REWARDPORT",
+            });
             _extractDataValues.Add(ExtractDataOptions.HeroSkin, new List<string>()
             {
                 "HEROSKINS", "HEROSKIN", "SKINS", "SKIN",
@@ -316,7 +317,6 @@ namespace HeroesData
             _extractImageValues.Add(ExtractImageOptions.VoiceLine, voiceLines);
             _extractImageValues.Add(ExtractImageOptions.Emoticon, emoticons);
             _extractImageValues.Add(ExtractImageOptions.Bundle, bundles);
-            _extractImageValues.Add(ExtractImageOptions.Boost, boosts);
             _extractImageValues.Add(ExtractImageOptions.Talent, new List<string>()
             {
                 "TALENTS", "TALENT", "TAL",

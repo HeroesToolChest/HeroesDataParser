@@ -772,6 +772,7 @@ namespace HeroesData
             DataBehaviorVeterancy dataBehaviorVeterancy = new DataBehaviorVeterancy(new BehaviorVeterancyParser(xmlDataService.GetInstance()));
             DataBundle dataBundle = new DataBundle(new BundleParser(xmlDataService.GetInstance()));
             DataBoost dataBoost = new DataBoost(new BoostParser(xmlDataService.GetInstance()));
+            DataLootChest dataLootChest = new DataLootChest(new LootChestParser(xmlDataService.GetInstance()));
 
             ImageHero filesHero = new ImageHero(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageUnit filesUnit = new ImageUnit(CASCHotsStorage?.CASCHandler, StoragePath);
@@ -916,6 +917,14 @@ namespace HeroesData
                 Name = dataBoost.Name,
                 Parse = (localization) => dataBoost.Parse(localization),
                 Validate = (localization) => dataBoost.Validate(localization),
+            });
+
+            _dataProcessors.Add(new DataProcessor()
+            {
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.LootChest),
+                Name = dataLootChest.Name,
+                Parse = (localization) => dataLootChest.Parse(localization),
+                Validate = (localization) => dataLootChest.Validate(localization),
             });
         }
     }

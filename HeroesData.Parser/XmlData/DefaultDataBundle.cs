@@ -6,44 +6,44 @@ using System.Xml.Linq;
 
 namespace HeroesData.Parser.XmlData
 {
-    public class DefaultBoostData
+    public class DefaultDataBundle
     {
         private readonly GameData _gameData;
 
-        public DefaultBoostData(GameData gameData)
+        public DefaultDataBundle(GameData gameData)
         {
-            _gameData = gameData ?? throw new ArgumentNullException(nameof(gameData));
+            _gameData = gameData;
 
-            LoadCBoostDefault();
+            LoadCBundleDefault();
         }
 
         /// <summary>
-        /// Gets the default boost name. Contains ##id##.
+        /// Gets the default bundle name. Contains ##id##.
         /// </summary>
-        public string? BoostName { get; private set; }
+        public string? BundleName { get; private set; }
 
         /// <summary>
-        /// Gets the default boost name used for sorting. Contains ##id##.
+        /// Gets the default bundle name used for sorting. Contains ##id##.
         /// </summary>
-        public string? BoostSortName { get; private set; }
+        public string? BundleSortName { get; private set; }
 
         /// <summary>
-        /// Gets the default boost hyperlinkId. Contains ##id##.
+        /// Gets the default bundle hyperlinkId. Contains ##id##.
         /// </summary>
-        public string? BoostHyperlinkId { get; private set; }
+        public string? BundleHyperlinkId { get; private set; }
 
         /// <summary>
-        /// Gets the default boost release date.
+        /// Gets the default bundle release date.
         /// </summary>
-        public DateTime BoostReleaseDate { get; private set; }
+        public DateTime BundleReleaseDate { get; private set; }
 
-        // <CBoost default="1">
-        private void LoadCBoostDefault()
+        // <CBundle default="1">
+        private void LoadCBundleDefault()
         {
-            CBoostElement(_gameData.Elements("CBoost").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CBundleElement(_gameData.Elements("CBundle").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
-        private void CBoostElement(IEnumerable<XElement> cBannerElements)
+        private void CBundleElement(IEnumerable<XElement> cBannerElements)
         {
             foreach (XElement element in cBannerElements.Elements())
             {
@@ -51,15 +51,15 @@ namespace HeroesData.Parser.XmlData
 
                 if (elementName == "NAME")
                 {
-                    BoostName = element.Attribute("value")?.Value;
+                    BundleName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "SORTNAME")
                 {
-                    BoostSortName = element.Attribute("value")?.Value;
+                    BundleSortName = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "HyperlinkId")
                 {
-                    BoostHyperlinkId = element.Attribute("value")?.Value;
+                    BundleHyperlinkId = element.Attribute("value")?.Value;
                 }
                 else if (elementName == "RELEASEDATE")
                 {
@@ -72,7 +72,7 @@ namespace HeroesData.Parser.XmlData
                     if (!int.TryParse(element.Element("Day")?.Attribute("value")?.Value, out int day))
                         day = 1;
 
-                    BoostReleaseDate = new DateTime(year, month, day);
+                    BundleReleaseDate = new DateTime(year, month, day);
                 }
             }
         }

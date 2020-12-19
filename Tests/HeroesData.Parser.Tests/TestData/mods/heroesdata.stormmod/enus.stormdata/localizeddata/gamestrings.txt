@@ -502,3 +502,7 @@ Boost/Name/360DayStimpack=360 Day Boost
 Boost/Name/LootChest1Day=1 Day Boost
 Boost/Name/LootChest3Day=3 Day Boost
 Boost/Name/LootChest7Day=7 Day Boost
+
+
+LootChest/Name/LootChestSummer2020Rare=Name of loot chest
+LootChest/Description/LootChestSummer2020Rare=description of loot chest

@@ -73,6 +73,9 @@
     <None Update="BoostData\OutputFiles\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="LootChestData\OutputFiles\**\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   
   <PropertyGroup>
