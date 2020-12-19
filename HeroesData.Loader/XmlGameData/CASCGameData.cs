@@ -93,7 +93,7 @@ namespace HeroesData.Loader.XmlGameData
 
         protected override void LoadHeroesDataStormMod()
         {
-            LoadDefaultData(HeroesDataBaseDataDirectoryPath, HeroesDataBaseDataDirectoryPath, true);
+            LoadDefaultData(HeroesDataBaseDataDirectoryPath, HeroesDataLocalizedDataPath, true);
 
             // load up files in includes.xml file - which are the heroes in the heromods folder
             using (Stream cascXmlStream = _cascHandlerData.OpenFile(Path.Combine(HeroesDataBaseDataDirectoryPath, IncludesXmlFile)))
