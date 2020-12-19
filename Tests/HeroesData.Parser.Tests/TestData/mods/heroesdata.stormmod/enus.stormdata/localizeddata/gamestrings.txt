@@ -496,3 +496,9 @@ Bundle/Name/UltimateUndyingLegendsBundle=Ultimate Undying Legends Bundle
 Bundle/Name/BattleBundle=Battle Bundle
 Bundle/Name/CyberdemonZaryaSkinPack=Cyberdemon Zarya Skin Pack
 Bundle/Name/WelcomeBundle=Welcome Bundle
+
+Boost/Name/30DayPromo=30 Day Boost
+Boost/Name/360DayStimpack=360 Day Boost
+Boost/Name/LootChest1Day=1 Day Boost
+Boost/Name/LootChest3Day=3 Day Boost
+Boost/Name/LootChest7Day=7 Day Boost

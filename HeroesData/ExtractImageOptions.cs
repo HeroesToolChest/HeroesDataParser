@@ -17,7 +17,8 @@ namespace HeroesData
         VoiceLine = 1 << 8,
         Emoticon = 1 << 9,
         Bundle = 1 << 10,
-        All = ~(~0 << 11),
+        Boost = 1 << 11,
+        All = ~(~0 << 12),
 
         HeroData = HeroPortrait | AbilityTalent,
         HeroDataSplit = HeroPortrait | Ability | Talent,

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CBoost default="1">
+    <Name value="Boost/Name/##id##" />
+    <SortName value="Boost/SortName/##id##" />
+    <HyperlinkId value="##id##" />
+    <ReleaseDate>
+      <Month value="1" />
+      <Day value="1" />
+      <Year value="2014" />
+    </ReleaseDate>
+  </CBoost>
+</Catalog>

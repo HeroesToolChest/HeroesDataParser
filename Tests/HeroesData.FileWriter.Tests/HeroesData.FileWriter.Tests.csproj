@@ -70,8 +70,11 @@
     <None Update="BundleData\OutputFiles\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="BoostData\OutputFiles\**\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-
+  
   <PropertyGroup>
     <NoWarn>$(NoWarn);CA1014</NoWarn>
   </PropertyGroup>

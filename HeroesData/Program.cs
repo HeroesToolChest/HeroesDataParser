@@ -269,6 +269,10 @@ namespace HeroesData
             {
                 "BUNDLES", "BUNDLE",
             };
+            List<string> boosts = new List<string>()
+            {
+                "BOOST", "BOOSTS",
+            };
 
             // data
             _extractDataValues.Add(ExtractDataOptions.HeroData, heroData);
@@ -281,6 +285,7 @@ namespace HeroesData
             _extractDataValues.Add(ExtractDataOptions.PortraitPack, portraitPacks);
             _extractDataValues.Add(ExtractDataOptions.RewardPortrait, rewardPortraits);
             _extractDataValues.Add(ExtractDataOptions.Bundle, bundles);
+            _extractDataValues.Add(ExtractDataOptions.Boost, boosts);
             _extractDataValues.Add(ExtractDataOptions.HeroSkin, new List<string>()
             {
                 "HEROSKINS", "HEROSKIN", "SKINS", "SKIN",
@@ -311,6 +316,7 @@ namespace HeroesData
             _extractImageValues.Add(ExtractImageOptions.VoiceLine, voiceLines);
             _extractImageValues.Add(ExtractImageOptions.Emoticon, emoticons);
             _extractImageValues.Add(ExtractImageOptions.Bundle, bundles);
+            _extractImageValues.Add(ExtractImageOptions.Boost, boosts);
             _extractImageValues.Add(ExtractImageOptions.Talent, new List<string>()
             {
                 "TALENTS", "TALENT", "TAL",

@@ -508,5 +508,21 @@ namespace HeroesData.FileWriter.Writers
 
             GameStrings[$"bundle/sortname/{key}"] = value;
         }
+
+        public void AddBoostName(string key, string? value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"boost/name/{key}"] = value;
+        }
+
+        public void AddBoostSortName(string key, string? value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"boost/sortname/{key}"] = value;
+        }
     }
 }

@@ -1,0 +1,13 @@
+{
+  "boost1": {
+    "name": "boost one",
+    "hyperlinkId": "boost1",
+    "releaseDate": "2012-03-03",
+    "sortName": "xxBoost1",
+    "event": "event1"
+  },
+  "winterBoost": {
+    "hyperlinkId": "winterboost2",
+    "sortName": "xxwinterBoost"
+  }
+}

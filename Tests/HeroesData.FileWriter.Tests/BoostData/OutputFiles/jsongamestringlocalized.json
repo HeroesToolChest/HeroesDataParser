@@ -1,0 +1,10 @@
+{
+  "boost1": {
+    "hyperlinkId": "boost1",
+    "releaseDate": "2012-03-03",
+    "event": "event1"
+  },
+  "winterBoost": {
+    "hyperlinkId": "winterboost2"
+  }
+}
