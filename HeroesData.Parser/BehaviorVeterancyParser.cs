@@ -90,7 +90,7 @@ namespace HeroesData.Parser
             string? parentValue = behaviorVeterancyElement.Attribute("parent")?.Value;
             if (!string.IsNullOrEmpty(parentValue))
             {
-                XElement? parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue));
+                XElement? parentElement = GameData.MergeXmlElements(GameData.Elements(ElementType).Where(x => x.Attribute("id")?.Value == parentValue && x.Attribute("parent")?.Value != parentValue));
                 if (parentElement != null)
                     SetBehaviorVeterancyData(parentElement, behaviorVeterancy);
             }
