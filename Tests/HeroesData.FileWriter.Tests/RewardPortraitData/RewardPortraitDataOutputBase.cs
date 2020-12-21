@@ -23,6 +23,7 @@ namespace HeroesData.FileWriter.Tests.RewardPortraitData
                 IconSlot = 27,
                 Rarity = Rarity.Epic,
                 PortraitPackId = "LagForce",
+                ImageFileName = "some file.png",
             };
 
             rewardPortrait.TextureSheet.Image = "this_is_an_image_file.dds";

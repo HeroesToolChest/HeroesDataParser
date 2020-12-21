@@ -44,6 +44,9 @@ namespace HeroesData.Parser
             if (string.IsNullOrEmpty(rewardPortrait.HyperlinkId))
                 rewardPortrait.HyperlinkId = id;
 
+            if (!string.IsNullOrEmpty(rewardPortrait.TextureSheet.Image))
+                rewardPortrait.ImageFileName = $"storm_portrait_{rewardPortrait.Id.ToLowerInvariant()}.dds";
+
             return rewardPortrait;
         }
 

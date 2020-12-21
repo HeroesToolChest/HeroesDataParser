@@ -10,7 +10,8 @@
       "image": "this_is_an_image_file.png",
       "columns": 8,
       "rows": 8
-    }
+    },
+    "image": "some file.png"
   },
   "WhitemaneBat": {
     "hyperlinkId": "WhitemaneBatId",

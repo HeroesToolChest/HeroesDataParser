@@ -45,6 +45,9 @@ namespace HeroesData.FileWriter.Writers.RewardPortraitData
             if (image != null)
                 portraitObject.Add(image);
 
+            if (!string.IsNullOrEmpty(rewardPortrait.ImageFileName))
+                portraitObject.Add("image", Path.ChangeExtension(rewardPortrait.ImageFileName.ToLowerInvariant(), StaticImageExtension));
+
             return new JProperty(rewardPortrait.Id, portraitObject);
         }
 

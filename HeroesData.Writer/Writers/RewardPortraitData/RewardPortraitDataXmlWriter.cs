@@ -29,7 +29,8 @@ namespace HeroesData.FileWriter.Writers.RewardPortraitData
                 string.IsNullOrEmpty(rewardPortrait.CollectionCategory) ? null! : new XAttribute("category", rewardPortrait.CollectionCategory),
                 string.IsNullOrEmpty(rewardPortrait.Description?.RawDescription) || FileOutputOptions.IsLocalizedText ? null! : new XElement("Description", GetTooltip(rewardPortrait.Description, FileOutputOptions.DescriptionType)),
                 string.IsNullOrEmpty(rewardPortrait.DescriptionUnearned?.RawDescription) || FileOutputOptions.IsLocalizedText ? null! : new XElement("DescriptionUnearned", GetTooltip(rewardPortrait.DescriptionUnearned, FileOutputOptions.DescriptionType)),
-                GetImageObject(rewardPortrait));
+                GetImageObject(rewardPortrait),
+                string.IsNullOrEmpty(rewardPortrait.ImageFileName) ? null! : new XElement("Image", Path.ChangeExtension(rewardPortrait.ImageFileName.ToLowerInvariant(), StaticImageExtension)));
         }
 
         protected override XElement GetImageObject(RewardPortrait rewardPortrait)
