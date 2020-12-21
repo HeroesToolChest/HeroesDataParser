@@ -1,6 +1,5 @@
 ﻿using CASCLib;
 using Heroes.Models;
-using HeroesData.ExtractorImage;
 using System;
 using System.Collections.Generic;
 using System.IO;

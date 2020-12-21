@@ -261,6 +261,10 @@ namespace HeroesData
             {
                 "BUNDLES", "BUNDLE",
             };
+            List<string> typeDescriptions = new List<string>()
+            {
+                "TYPEDESCRIPTION", "TYPEDESCRIPTIONS", "TYPE", "TYPES", "TYPED",
+            };
 
             // data
             _extractDataValues.Add(ExtractDataOptions.HeroData, heroData);
@@ -271,6 +275,7 @@ namespace HeroesData
             _extractDataValues.Add(ExtractDataOptions.VoiceLine, voiceLines);
             _extractDataValues.Add(ExtractDataOptions.Emoticon, emoticons);
             _extractDataValues.Add(ExtractDataOptions.Bundle, bundles);
+            _extractDataValues.Add(ExtractDataOptions.TypeDescription, typeDescriptions);
             _extractDataValues.Add(ExtractDataOptions.Boost, new List<string>()
             {
                 "BOOST", "BOOSTS",
@@ -317,6 +322,7 @@ namespace HeroesData
             _extractImageValues.Add(ExtractImageOptions.VoiceLine, voiceLines);
             _extractImageValues.Add(ExtractImageOptions.Emoticon, emoticons);
             _extractImageValues.Add(ExtractImageOptions.Bundle, bundles);
+            _extractImageValues.Add(ExtractImageOptions.TypeDescription, typeDescriptions);
             _extractImageValues.Add(ExtractImageOptions.Talent, new List<string>()
             {
                 "TALENTS", "TALENT", "TAL",

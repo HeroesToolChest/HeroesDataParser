@@ -23,6 +23,7 @@ namespace HeroesData
         Bundle = 1 << 14,
         Boost = 1 << 15,
         LootChest = 1 << 16,
-        All = ~(~0 << 17),
+        TypeDescription = 1 << 17,
+        All = ~(~0 << 18),
     }
 }

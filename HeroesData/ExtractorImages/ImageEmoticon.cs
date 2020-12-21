@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace HeroesData.ExtractorImage
+namespace HeroesData.ExtractorImages
 {
     public class ImageEmoticon : ImageExtractorBase<Emoticon>, IImage
     {

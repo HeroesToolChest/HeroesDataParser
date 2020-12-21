@@ -1,4 +1,4 @@
-﻿namespace HeroesData.ExtractorImage
+﻿namespace HeroesData.ExtractorImages
 {
     public interface IImage
     {

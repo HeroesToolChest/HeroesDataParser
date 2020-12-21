@@ -1,7 +1,6 @@
 ﻿using Heroes.Models;
 using Heroes.Models.Extensions;
 using HeroesData.ExtractorData;
-using HeroesData.ExtractorImage;
 using HeroesData.ExtractorImages;
 using HeroesData.FileWriter;
 using HeroesData.Loader.XmlGameData;
@@ -773,6 +772,7 @@ namespace HeroesData
             DataBundle dataBundle = new DataBundle(new BundleParser(xmlDataService.GetInstance()));
             DataBoost dataBoost = new DataBoost(new BoostParser(xmlDataService.GetInstance()));
             DataLootChest dataLootChest = new DataLootChest(new LootChestParser(xmlDataService.GetInstance()));
+            DataTypeDescription dataTypeDescription = new DataTypeDescription(new TypeDescriptionParser(xmlDataService.GetInstance()));
 
             ImageHero filesHero = new ImageHero(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageUnit filesUnit = new ImageUnit(CASCHotsStorage?.CASCHandler, StoragePath);
@@ -782,6 +782,7 @@ namespace HeroesData
             ImageSpray filesSpray = new ImageSpray(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageEmoticon filesEmoticon = new ImageEmoticon(CASCHotsStorage?.CASCHandler, StoragePath);
             ImageBundle filesBundle = new ImageBundle(CASCHotsStorage?.CASCHandler, StoragePath);
+            ImageTypeDescription filesTypeDescription = new ImageTypeDescription(CASCHotsStorage?.CASCHandler, StoragePath);
 
             _dataProcessors.Add(new DataProcessor()
             {
@@ -925,6 +926,15 @@ namespace HeroesData
                 Name = dataLootChest.Name,
                 Parse = (localization) => dataLootChest.Parse(localization),
                 Validate = (localization) => dataLootChest.Validate(localization),
+            });
+
+            _dataProcessors.Add(new DataProcessor()
+            {
+                IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.TypeDescription),
+                Name = dataTypeDescription.Name,
+                Parse = (localization) => dataTypeDescription.Parse(localization),
+                Validate = (localization) => dataTypeDescription.Validate(localization),
+                Extract = (data) => filesTypeDescription.ExtractFiles(data),
             });
         }
     }

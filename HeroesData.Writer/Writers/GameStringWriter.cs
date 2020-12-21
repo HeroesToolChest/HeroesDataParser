@@ -540,5 +540,13 @@ namespace HeroesData.FileWriter.Writers
 
             GameStrings[$"lootchest/description/{key}"] = value;
         }
+
+        public void AddTypeDescriptionName(string key, string? value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+                return;
+
+            GameStrings[$"typedescription/name/{key}"] = value;
+        }
     }
 }

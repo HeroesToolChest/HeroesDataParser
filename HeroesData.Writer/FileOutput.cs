@@ -15,6 +15,7 @@ using HeroesData.FileWriter.Writers.MountData;
 using HeroesData.FileWriter.Writers.PortraitPackData;
 using HeroesData.FileWriter.Writers.RewardPortraitData;
 using HeroesData.FileWriter.Writers.SprayData;
+using HeroesData.FileWriter.Writers.TypeDescriptionData;
 using HeroesData.FileWriter.Writers.UnitData;
 using HeroesData.FileWriter.Writers.VoiceLineData;
 using System.Collections.Generic;
@@ -127,6 +128,7 @@ namespace HeroesData.FileWriter
                 { nameof(Bundle), new BundleDataJsonWriter() },
                 { nameof(Boost), new BoostDataJsonWriter() },
                 { nameof(LootChest), new LootChestDataJsonWriter() },
+                { nameof(TypeDescription), new TypeDescriptionDataJsonWriter() },
             });
 
             _writers.Add(FileOutputType.Xml, new Dictionary<string, IWritable>()
@@ -148,6 +150,7 @@ namespace HeroesData.FileWriter
                 { nameof(Bundle), new BundleDataXmlWriter() },
                 { nameof(Boost), new BoostDataXmlWriter() },
                 { nameof(LootChest), new LootChestDataXmlWriter() },
+                { nameof(TypeDescription), new TypeDescriptionDataXmlWriter() },
             });
         }
     }

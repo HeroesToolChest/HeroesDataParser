@@ -506,3 +506,5 @@ Boost/Name/LootChest7Day=7 Day Boost
 
 LootChest/Name/LootChestSummer2020Rare=Name of loot chest
 LootChest/Description/LootChestSummer2020Rare=description of loot chest
+
+TypeDescription/Name/Gold=name of the type description

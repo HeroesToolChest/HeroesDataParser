@@ -20,8 +20,8 @@ namespace HeroesData.Parser.Tests.LootChestParserTests
         [TestMethod]
         public void GetItemsTest()
         {
-            BundleParser bundleParser = new BundleParser(XmlDataService);
-            Assert.IsTrue(bundleParser.Items.Count > 0);
+            LootChestParser lootChestParser = new LootChestParser(XmlDataService);
+            Assert.IsTrue(lootChestParser.Items.Count > 0);
         }
 
         private void Parse()

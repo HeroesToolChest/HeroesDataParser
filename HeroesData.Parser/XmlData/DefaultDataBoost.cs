@@ -43,9 +43,9 @@ namespace HeroesData.Parser.XmlData
             CBoostElement(_gameData.Elements("CBoost").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
-        private void CBoostElement(IEnumerable<XElement> cBannerElements)
+        private void CBoostElement(IEnumerable<XElement> cBootElements)
         {
-            foreach (XElement element in cBannerElements.Elements())
+            foreach (XElement element in cBootElements.Elements())
             {
                 string elementName = element.Name.LocalName.ToUpperInvariant();
 
@@ -57,7 +57,7 @@ namespace HeroesData.Parser.XmlData
                 {
                     BoostSortName = element.Attribute("value")?.Value;
                 }
-                else if (elementName == "HyperlinkId")
+                else if (elementName == "HYPERLINKID")
                 {
                     BoostHyperlinkId = element.Attribute("value")?.Value;
                 }

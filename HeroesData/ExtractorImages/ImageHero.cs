@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace HeroesData.ExtractorImage
+namespace HeroesData.ExtractorImages
 {
     public class ImageHero : ImageExtractorBase<Hero>, IImage
     {

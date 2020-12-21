@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+  <CTypeDescription default="1">
+    <RewardIcon TextureSheet="RewardIconSheet" />
+  </CTypeDescription>
+  <CTypeDescription id="Gold">
+    <RewardIcon Index="1" />
+    <LargeIcon value="@UI/Storm_UI_ProfileDialog_ProgressionReward_Icon_Gold" />
+  </CTypeDescription>
+  <CTypeDescription id="LootChestHalloween2020Epic">
+    <RewardIcon Index="41" />
+    <LargeIcon value="@UI/Storm_UI_ProfileDialog_ProgressionReward_Icon_EpicAutumnLootChest" />
+  </CTypeDescription>
+</Catalog>

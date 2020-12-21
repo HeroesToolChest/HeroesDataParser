@@ -24,12 +24,12 @@ namespace HeroesData.Parser.XmlData
         // <CLootChest default="1">
         private void LoadCLootChestDefault()
         {
-            CBundleElement(_gameData.Elements("CLootChest").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
+            CLootChestElement(_gameData.Elements("CLootChest").Where(x => x.Attribute("default")?.Value == "1" && x.Attributes().Count() == 1));
         }
 
-        private void CBundleElement(IEnumerable<XElement> cBannerElements)
+        private void CLootChestElement(IEnumerable<XElement> cLootChestElements)
         {
-            foreach (XElement element in cBannerElements.Elements())
+            foreach (XElement element in cLootChestElements.Elements())
             {
                 string elementName = element.Name.LocalName.ToUpperInvariant();
 

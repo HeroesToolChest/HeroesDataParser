@@ -74,6 +74,7 @@ namespace HeroesData.Parser.XmlData
 
         public DefaultDataBoost? BoostData { get; private set; }
         public DefaultDataLootChest? LootChestData { get; private set; }
+        public DefaultDataTypeDescription? TypeDescriptionData { get; private set; }
 
         /// <summary>
         /// Gets the default difficulty text. Contains ##id##.
@@ -114,6 +115,7 @@ namespace HeroesData.Parser.XmlData
             BundleData = new DefaultDataBundle(_gameData);
             BoostData = new DefaultDataBoost(_gameData);
             LootChestData = new DefaultDataLootChest(_gameData);
+            TypeDescriptionData = new DefaultDataTypeDescription(_gameData);
         }
     }
 }
