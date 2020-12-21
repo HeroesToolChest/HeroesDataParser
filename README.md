@@ -2,9 +2,10 @@
 [![Build Status](https://dev.azure.com/kevinkoliva/Heroes%20of%20the%20Storm%20Projects/_apis/build/status/HeroesToolChest.HeroesDataParser?branchName=master)](https://dev.azure.com/kevinkoliva/Heroes%20of%20the%20Storm%20Projects/_build/latest?definitionId=1&branchName=master) [![Release](https://img.shields.io/github/release/koliva8245/HeroesDataParser.svg)](https://github.com/koliva8245/HeroesDataParser/releases/latest)
 [![NuGet](https://img.shields.io/nuget/v/HeroesDataParser.svg)](https://www.nuget.org/packages/HeroesDataParser/)
 
-Heroes Data Parser is a .NET command line tool that extracts Heroes of the Storm game data into XML and JSON files. Extracts hero data along with all abilities, talents, and their respective portraits and icons.
+Heroes Data Parser is a .NET command line tool that extracts Heroes of the Storm game data into XML and JSON files. Extracts numerous types of data.
 
-Also extracts the following:
+Extracts the following:
+ - Heroes (includes images)
  - Units (includes images)  
  - Match Awards (includes images)
  - Hero Skins
@@ -18,6 +19,10 @@ Also extracts the following:
  - Emoticons (includes images)
  - Emoticon Packs
  - Veterancy data
+ - Boosts
+ - Bundles (includes images)
+ - Loot Chests
+ - Type Description data (includes images)
  
 Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some more information and examples of XML and JSON output.
 
@@ -246,7 +251,11 @@ Extracts to `<OUTPUT-DIRECTORY>/<json and/or xml>`.
 `rewardportraits` - extracts reward portraits  
 `emoticons` - extracts emojis  
 `emoticonpacks` - extracts emoji packs  
-`veterancy` - extracts veterancy data
+`veterancy` - extracts veterancy data  
+`boosts` - extracts boosts  
+`bundles` - extracts bundles  
+`lootchests` - extract loot chests  
+`typedescription` - extracts type description data
 
 Example seleting multiple data extractions.
 ```
@@ -269,7 +278,9 @@ Extracts to `<OUTPUT-DIRECTORY>/images/<image-type>`
 `sprays` - extracts spray images  
 `announcers` - extracts announcer images  
 `voicelines` - extracts voiceline images  
-`emoticons` - extracts emoji icons
+`emoticons` - extracts emoji icons  
+`bundles` - extracts bundle images  
+`typedescription` - extracts type description icons
 
 `all-split` - sets all options except for `abilityTalents`  
 `herodata` - sets `heroportraits`, `abilitytalents`  
@@ -335,6 +346,10 @@ The format of the strings in the text file are the following:
 - `banner/name/[Id]=[value]`
 - `banner/description/[Id]=[value]`
 - `banner/sortname/[Id]=[value]`
+- `boost/name/[Id]=[value]`
+- `boost/sortname/[Id]=[value]`
+- `bundle/name/[Id]=[value]`
+- `bundle/sortname/[Id]=[value]`
 - `emoticon/aliases/[Id]=[value]`
 - `emoticon/description/[Id]=[value]`
 - `emoticon/expression/[Id]=[value]`
@@ -348,6 +363,8 @@ The format of the strings in the text file are the following:
 - `heroskin/name/[Id]=[value]`
 - `heroskin/searchtext/[Id]=[value]`
 - `heroskin/sortname/[Id]=[value]`
+- `lootchest/name/[Id]=[value]`
+- `lootchest/description/[Id]=[value]`
 - `mount/infotext/[Id]=[value]`
 - `mount/name/[Id]=[value]`
 - `mount/searchtext/[Id]=[value]`
@@ -361,6 +378,7 @@ The format of the strings in the text file are the following:
 - `spray/name/[Id]=[value]`
 - `spray/searchtext/[Id]=[value]`
 - `spray/sortname/[Id]=[value]`
+- `typedescription/name/[Id]=[value]`
 - `unit/damagetype/[Id]=[value]`
 - `unit/description/[Id]=[value]`
 - `unit/infotext/[Id]=[value]`
