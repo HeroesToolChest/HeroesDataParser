@@ -689,6 +689,7 @@ namespace HeroesData.Loader.XmlGameData
             if (filePath is null)
                 throw new ArgumentNullException(nameof(filePath));
 
+            // added loot box storm mod parsing for hdp in 83086
             if (HotsBuild >= 83086 || !filePath.Contains(LootBoxStormModsDirectoryName, StringComparison.OrdinalIgnoreCase) || Directory.Exists(filePath))
             {
                 using StreamReader reader = new StreamReader(filePath);

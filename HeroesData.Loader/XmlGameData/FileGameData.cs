@@ -195,7 +195,7 @@ namespace HeroesData.Loader.XmlGameData
         {
             if (LoadXmlFilesEnabled)
             {
-                // added loot box storm mod parsing for hdp in 83036
+                // added loot box storm mod parsing for hdp in 83086
                 if (HotsBuild >= 83086 || !stormModPath.Contains(LootBoxStormModsDirectoryName, StringComparison.OrdinalIgnoreCase) || Directory.Exists(stormModPath))
                 {
                     // load up xml files in gamedata folder
