@@ -110,7 +110,12 @@ namespace HeroesData.ExtractorData
             }
             finally
             {
+                if (items.Count <= 0)
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+
                 Console.Write($"\r{currentCount,6} / {items.Count} total {Name}");
+
+                Console.ResetColor();
             }
 
             time.Stop();
