@@ -686,8 +686,12 @@ namespace HeroesData.Loader.XmlGameData
 
         protected void LoadTextFile(string filePath)
         {
-            using (StreamReader reader = new StreamReader(filePath))
+            if (filePath is null)
+                throw new ArgumentNullException(nameof(filePath));
+
+            if (HotsBuild >= 83086 || !filePath.Contains(LootBoxStormModsDirectoryName, StringComparison.OrdinalIgnoreCase) || Directory.Exists(filePath))
             {
+                using StreamReader reader = new StreamReader(filePath);
                 ReadTextFile(reader);
             }
 
