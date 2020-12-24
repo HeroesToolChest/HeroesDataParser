@@ -162,5 +162,32 @@
     <File>wireframe-general-destructiblerocks-6x6.dds</File>
     <File>wireframe-critter-dog.dds</File>
     <File>wireframe-zerg-baneling.dds</File>
+    
+    <!--This are missing???-->    
+    <File>storm_ui_bundles_h44_lunarfestival2019bundle.dds</File>
+    <File>storm_ui_bundle_h53_blizzconlinetracerbundle.dds</File>
+    <File>storm_ui_bundles_rarelootchest_boostpromolegendarychestpack.dds</File>
+    <File>storm_ui_bundles_rarelootchest_craftwars2020lootchest1pack.dds</File>
+    <File>storm_ui_bundles_h44_cyberonibutcherskinpack.dds</File>
+    <File>storm_ui_bundles_h44_cyberoniwarboarbundle.dds</File>
+    <File>storm_ui_bundles_rarelootchest_darknexus2020lootchest1pack.dds</File>
+    <File>storm_ui_bundles_rarelootchest_lootchest1packgold.dds</File>
+    <File>storm_ui_bundles_h44_lunarfestivalmountbundle.dds</File>
+    <File>storm_ui_bundles_rarelootchest_mobster2019legendarylootchest1pack.dds</File>
+    <File>storm_ui_bundles_rarelootchest_mobster2019lootchest1pack.dds</File>
+    <File>storm_ui_bundles_rarelootchest_nexomania2020lootchest1pack.dds</File>
+    <File>storm_ui_bundles_h44_speeddemonlucioskinpack.dds</File>
+    <File>storm_ui_bundles_lootchest_spring2019lootchest1pack.dds</File>
+    <File>storm_ui_bundles_h44_streetcyborgkharazimskinpack.dds</File>
+    <File>storm_ui_bundles_rarelootchest_spring2019lootchest1pack.dds</File>
+    <File>storm_ui_bundles_rarelootchest_summer2019lootchest1pack.dds</File>
+    <File>storm_ui_bundles_rarelootchest_summerlootchest12pack.dds</File>
+    <File>storm_ui_bundles_rarelootchest_summerlootchest1pack.dds</File>
+    <File>storm_ui_bundles_rarelootchest_summerlootchest25pack.dds</File>
+    <File>storm_ui_bundles_rarelootchest_summerlootchest52pack.dds</File>
+    <File>storm_ui_bundles_rarelootchest_summerlootchest5pack.dds</File>
+    <File>storm_ui_bundles_h44_technovandalchromieskinpack.dds</File>
+    <File>storm_ui_bundles_rarelootchest_winter2019lootchest1pack.dds</File>
+    <File>storm_ui_bundles_rarelootchest_winter2020lootchest1pack.dds</File>  
   </NonExistingImageFileNames>
 </Configuration>

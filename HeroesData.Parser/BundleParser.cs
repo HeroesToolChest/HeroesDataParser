@@ -12,9 +12,12 @@ namespace HeroesData.Parser
 {
     public class BundleParser : ParserBase<Bundle, BundleDataOverride>, IParser<Bundle?, BundleParser>
     {
+        private readonly Configuration _configuration;
+
         public BundleParser(IXmlDataService xmlDataService)
             : base(xmlDataService)
         {
+            _configuration = XmlDataService.Configuration;
         }
 
         protected override string ElementType => "CBundle";
@@ -127,9 +130,12 @@ namespace HeroesData.Parser
                 }
                 else if (elementName == "TILETEXTURE")
                 {
-                    bundle.ImageFileName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value.Replace(DefaultData.IdPlaceHolder, bundle.Id, StringComparison.OrdinalIgnoreCase)))?.ToLowerInvariant();
-                    if (!Path.HasExtension(bundle.ImageFileName))
+                    string? imageName = Path.GetFileName(PathHelper.GetFilePath(element.Attribute("value")?.Value.Replace(DefaultData.IdPlaceHolder, bundle.Id, StringComparison.OrdinalIgnoreCase)))?.ToLowerInvariant();
+
+                    if (!Path.HasExtension(imageName))
                         bundle.ImageFileName = null;
+                    else if (!string.IsNullOrEmpty(imageName) && !_configuration.ContainsDeadImageFileName(imageName))
+                        bundle.ImageFileName = imageName;
                 }
                 else if (elementName == "EVENTNAME")
                 {
