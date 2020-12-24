@@ -33,7 +33,7 @@ namespace HeroesData.Commands
                 CommandArgument cacheDirectoryPathArgument = config.Argument("cache-directory-path", "The directory path of the battle.net cache or an another directory containing the files (.wafl or .dds).");
 
                 CommandOption outputDirectoryOption = config.Option("-o|--output-directory <DIRECTORYPATH>", "Directory to save the extracted portraits.", CommandOptionType.SingleValue);
-                CommandOption portraitAutoExtractXmlFileOption = config.Option("--xml-auto-extract <FILEPATH>", "Sets the xml file used for the auto extracting.", CommandOptionType.SingleValue);
+                CommandOption portraitAutoExtractXmlFileOption = config.Option("--xml-config <FILEPATH>", "Sets the xml file used for the auto extracting.", CommandOptionType.SingleValue);
 
                 config.OnExecute(() =>
                 {
