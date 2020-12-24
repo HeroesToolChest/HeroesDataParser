@@ -67,7 +67,7 @@ namespace HeroesData.Tests.CommandTests
             Console.SetError(writer);
             Console.SetIn(reader);
 
-            Program.Main(new string[] { "portrait-extract", Path.Combine("CommandTests", "DataFiles", _portraitData), Path.Combine("CommandTests", "CopiedBattlenetCacheFiles"), "--single", "-o", Path.Combine("output", "imageSingleExtract") });
+            Program.Main(new string[] { "portrait-extract", Path.Combine("CommandTests", "DataFiles", _portraitData), Path.Combine("CommandTests", "CopiedBattlenetCacheFiles"), "--prompt", "-o", Path.Combine("output", "imageSingleExtract") });
 
             List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 

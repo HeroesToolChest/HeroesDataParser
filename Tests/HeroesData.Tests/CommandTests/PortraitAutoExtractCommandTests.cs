@@ -24,7 +24,7 @@ namespace HeroesData.Tests.CommandTests
             Console.SetOut(writer);
             Console.SetError(writer);
 
-            Program.Main(new string[] { "portrait-auto-extract", Path.Combine("CommandTests", "DataFiles", _portraitDataLocalized), Path.Combine("CommandTests", "CopiedBattlenetCacheFiles"), "--xml-auto-extract", Path.Combine("CommandTests", "portrait-auto-extract-test.xml"), "-o", outputDirectory });
+            Program.Main(new string[] { "portrait-auto-extract", Path.Combine("CommandTests", "DataFiles", _portraitDataLocalized), Path.Combine("CommandTests", "CopiedBattlenetCacheFiles"), "--xml-config", Path.Combine("CommandTests", "portrait-auto-extract-test.xml"), "-o", outputDirectory });
 
             List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
@@ -51,7 +51,7 @@ namespace HeroesData.Tests.CommandTests
             Console.SetOut(writer);
             Console.SetError(writer);
 
-            Program.Main(new string[] { "portrait-auto-extract", Path.Combine("CommandTests", "DataFiles", _portraitDataLocalized), Path.Combine("CommandTests", "CopiedBattlenetCacheFiles"), "--xml-auto-extract", Path.Combine("CommandTests", "portrait-auto-extract-new-test.xml"), "-o", outputDirectory });
+            Program.Main(new string[] { "portrait-auto-extract", Path.Combine("CommandTests", "DataFiles", _portraitDataLocalized), Path.Combine("CommandTests", "CopiedBattlenetCacheFiles"), "--xml-config", Path.Combine("CommandTests", "portrait-auto-extract-new-test.xml"), "-o", outputDirectory });
 
             List<string> lines = writer.ToString().Split(Environment.NewLine).ToList();
 
