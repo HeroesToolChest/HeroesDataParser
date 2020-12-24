@@ -30,7 +30,7 @@ namespace HeroesData.Commands
 
                 CommandOption outputDirectoryOption = config.Option("-o|--output-directory <DIRECTORYPATH>", "Output directory to save the extracted files to.", CommandOptionType.SingleValue);
                 CommandOption textureSheetFileNameOption = config.Option("-t|--texture-sheet <FILENAME>", "The file name of a texture sheet from the texture-sheet-directory-path argument.", CommandOptionType.SingleValue);
-                CommandOption singleOption = config.Option("--single", "Displays list of portrait names then prompts for original file.", CommandOptionType.NoValue);
+                CommandOption singleOption = config.Option("--prompt", "Displays list of portrait names then prompts for original file.", CommandOptionType.NoValue);
 
                 config.OnExecute(() =>
                 {
