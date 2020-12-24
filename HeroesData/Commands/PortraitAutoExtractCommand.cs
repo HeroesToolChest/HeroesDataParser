@@ -33,7 +33,8 @@ namespace HeroesData.Commands
                 CommandArgument cacheDirectoryPathArgument = config.Argument("cache-directory-path", "The directory path of the battle.net cache or an another directory containing the files (.wafl or .dds).");
 
                 CommandOption outputDirectoryOption = config.Option("-o|--output-directory <DIRECTORYPATH>", "Directory to save the extracted portraits.", CommandOptionType.SingleValue);
-                CommandOption portraitAutoExtractXmlFileOption = config.Option("--xml-config <FILEPATH>", "Sets the xml file used for the auto extracting.", CommandOptionType.SingleValue);
+                CommandOption xmlConfigOption = config.Option("--xml-config <FILEPATH>", "Sets the xml file used for the auto extracting.", CommandOptionType.SingleValue);
+                CommandOption deleteFileOption = config.Option("--delete-file", "Deletes the texture sheet after images have been extracted.", CommandOptionType.NoValue);
 
                 config.OnExecute(() =>
                 {
@@ -69,8 +70,8 @@ namespace HeroesData.Commands
                     else
                         OutputDirectory = Path.Combine(AppPath, "output", "images", "portraitrewards");
 
-                    if (portraitAutoExtractXmlFileOption.HasValue())
-                        _portraitExtractXmlFilePath = portraitAutoExtractXmlFileOption.Value();
+                    if (xmlConfigOption.HasValue())
+                        _portraitExtractXmlFilePath = xmlConfigOption.Value();
                     else
                         _portraitExtractXmlFilePath = Path.Combine(AppPath, "portrait-auto-extract.xml");
 
@@ -86,7 +87,7 @@ namespace HeroesData.Commands
 
                     using JsonDocument jsonDocument = JsonDocument.Parse(File.ReadAllBytes(rewardPortraitFilePathArgument.Value));
 
-                    AutoExtract(cacheDirectoryPathArgument.Value, portraitElements, jsonDocument);
+                    AutoExtract(cacheDirectoryPathArgument.Value, portraitElements, jsonDocument, deleteFileOption.HasValue());
 
                     return 0;
                 });
@@ -108,7 +109,7 @@ namespace HeroesData.Commands
             return names;
         }
 
-        private void AutoExtract(string cacheDirectoryPath, Dictionary<string, PortraitExtractXml> portraitElements, JsonDocument jsonDocument)
+        private void AutoExtract(string cacheDirectoryPath, Dictionary<string, PortraitExtractXml> portraitElements, JsonDocument jsonDocument, bool deleteTextureSheet)
         {
             int count = 0;
             HashSet<string> imageNameData = TextureSheetsImageNameFromData(jsonDocument);
@@ -135,7 +136,7 @@ namespace HeroesData.Commands
                     continue;
                 }
 
-                ExtractImageFiles(jsonDocument, Path.Combine(files[0]), Path.ChangeExtension(item.Value.TextureSheetName, "png"));
+                ExtractImageFiles(jsonDocument, Path.Combine(files[0]), Path.ChangeExtension(item.Value.TextureSheetName, "png"), deleteTextureSheet);
                 imageNamesExtracted.Add(item.Value.TextureSheetName);
 
                 count++;

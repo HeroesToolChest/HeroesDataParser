@@ -30,7 +30,8 @@ namespace HeroesData.Commands
 
                 CommandOption outputDirectoryOption = config.Option("-o|--output-directory <DIRECTORYPATH>", "Output directory to save the extracted files to.", CommandOptionType.SingleValue);
                 CommandOption textureSheetFileNameOption = config.Option("-t|--texture-sheet <FILENAME>", "The file name of a texture sheet from the texture-sheet-directory-path argument.", CommandOptionType.SingleValue);
-                CommandOption singleOption = config.Option("--prompt", "Displays list of portrait names then prompts for original file.", CommandOptionType.NoValue);
+                CommandOption promptOption = config.Option("--prompt", "Displays list of portrait names then prompts for original file.", CommandOptionType.NoValue);
+                CommandOption deleteFileOption = config.Option("--delete-file", "Deletes the texture sheet after images have been extracted.", CommandOptionType.NoValue);
 
                 config.OnExecute(() =>
                 {
@@ -61,7 +62,7 @@ namespace HeroesData.Commands
                         return 0;
                     }
 
-                    if (!singleOption.HasValue() && string.IsNullOrEmpty(textureSheetFileNameOption.Value()))
+                    if (!promptOption.HasValue() && string.IsNullOrEmpty(textureSheetFileNameOption.Value()))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("The -t|--texture-sheet option must be set.");
@@ -91,18 +92,18 @@ namespace HeroesData.Commands
 
                     using JsonDocument jsonDocument = JsonDocument.Parse(File.ReadAllBytes(rewardPortraitFilePathArgument.Value));
 
-                    if (singleOption.HasValue())
+                    if (promptOption.HasValue())
                     {
                         Console.WriteLine();
                         if (ListPortraitNamesFromTextureSheetImageName(jsonDocument, imageFileName) > 0)
                         {
                             string originalFile = PromptOriginalFile();
-                            ExtractImageFiles(jsonDocument, Path.Combine(rewardPortraitDirectoryArgument.Value, originalFile), imageFileName);
+                            ExtractImageFiles(jsonDocument, Path.Combine(rewardPortraitDirectoryArgument.Value, originalFile), imageFileName, deleteFileOption.HasValue());
                         }
                     }
                     else
                     {
-                        ExtractImageFiles(jsonDocument, Path.Combine(rewardPortraitDirectoryArgument.Value, textureSheetFileNameOption.Value()), imageFileName);
+                        ExtractImageFiles(jsonDocument, Path.Combine(rewardPortraitDirectoryArgument.Value, textureSheetFileNameOption.Value()), imageFileName, deleteFileOption.HasValue());
                     }
 
                     return 0;

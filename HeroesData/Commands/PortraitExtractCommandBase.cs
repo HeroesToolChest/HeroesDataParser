@@ -16,8 +16,13 @@ namespace HeroesData.Commands
         {
         }
 
-        protected void ExtractImageFiles(JsonDocument rewardData, string originalTextureSheetFilePath, string imageFileName)
+        protected void ExtractImageFiles(JsonDocument rewardData, string originalTextureSheetFilePath, string imageFileName, bool deleteTextureSheet = false)
         {
+            if (!Path.HasExtension(originalTextureSheetFilePath))
+            {
+                originalTextureSheetFilePath = Path.ChangeExtension(originalTextureSheetFilePath, "dds");
+            }
+
             if (!File.Exists(originalTextureSheetFilePath))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -56,6 +61,12 @@ namespace HeroesData.Commands
 
                     Console.WriteLine(fileName);
                 }
+            }
+
+            if (deleteTextureSheet)
+            {
+                File.Delete(originalTextureSheetFilePath);
+                Console.WriteLine("Texture sheet deleted.");
             }
 
             Console.WriteLine();
