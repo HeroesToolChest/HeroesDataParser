@@ -41,6 +41,6 @@
   "winterBundle": {
     "hyperlinkId": "winterbundle2",
     "sortName": "xxwinterBundle",
-    "IsDynamicContent": true
+    "isDynamicContent": true
   }
 }

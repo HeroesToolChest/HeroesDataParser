@@ -54,7 +54,7 @@ namespace HeroesData.FileWriter.Writers.BundleData
                 bundleObject.Add("event", bundle.EventName);
 
             if (bundle.IsDynamicContent)
-                bundleObject.Add("IsDynamicContent", true);
+                bundleObject.Add("isDynamicContent", true);
 
             if (bundle.HeroIds.Count > 0)
                 bundleObject.Add(new JProperty("heroes", bundle.HeroIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
