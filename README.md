@@ -564,7 +564,8 @@ Arguments:
 Options:
   -?|-h|--help                           Show help information
   -o|--output-directory <DIRECTORYPATH>  Directory to save the extracted portraits.
-  --xml-auto-extract <FILEPATH>          Sets the xml file used for the auto extracting.
+  --xml-config <FILEPATH>                Sets the xml file used for the auto extracting.
+  --delete-file                          Deletes the texture sheet after images have been extracted.
 ```
 
 Attempts to auto extract all the reward portraits from the `portrait-auto-extract.xml` and the reward portrait data json file.
@@ -614,7 +615,8 @@ Options:
   -?|-h|--help                           Show help information
   -o|--output-directory <DIRECTORYPATH>  Output directory to save the extracted files to.
   -t|--texture-sheet <FILENAME>          The file name of a texture sheet from the texture-sheet-directory-path argument.
-  --single                               Displays list of portrait names then prompts for original file.
+  --prompt                               Displays list of portrait names then prompts for original file.
+  --delete-file                          Deletes the texture sheet after images have been extracted.
 ```
 
 Extracts the images from the original texture sheet. 
