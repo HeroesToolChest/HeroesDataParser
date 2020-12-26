@@ -52,6 +52,10 @@ if (!(Test-Path $hdp_json_file -PathType Leaf))
 	exit
 }
 
+# ensure output directories exist
+New-Item -ItemType Directory -Force -Path $output_path_data | Out-Null
+New-Item -ItemType Directory -Force -Path $output_path_gamestrings | Out-Null
+
 # get version of hdp
 $version = [string](dotnet heroes-data --version)
 $x = $version -match "Heroes Data Parser (?<content>.*)"
