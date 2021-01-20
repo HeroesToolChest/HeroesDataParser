@@ -570,7 +570,7 @@ Options:
 
 Attempts to auto extract all the reward portraits from the `portrait-auto-extract.xml` and the reward portrait data json file.
 
-The option `--xml-auto-extract` is optional, use it if a custom extract.xml is available.
+The option `--xml-config` is optional, use it if a custom extract.xml is available.
 
 Example command
 ```
@@ -623,15 +623,15 @@ Extracts the images from the original texture sheet.
 
 The `image-file-name` argument is optional. If set then the `-t|--texture-sheet` option must be set.
 
-Use the `--single` option (without the `image-file-name` argument) to be prompted the image file name and the original texture sheet name.
+Use the `--prompt` option (without the `image-file-name` argument) to be prompted the image file name and the original texture sheet name.
 
-Example command without `--single` option
+Example command without `--prompt` option
 ```
 portrait-extract '.\output\json\rewardportraitdata_79155_enus.json' '.\texturesheets' 'ui_heroes_portraits_sheet5.png' -t 'a2354ee73a23a5263c1b88bdda84db035658bae17ef772026bd084d1733e4f80.dds'
 ```
-Example command with `--single` option
+Example command with `--prompt` option
 ```
-portrait-extract '.\output\json\rewardportraitdata_79155_enus.json' '.\texturesheets' '--single'"
+portrait-extract '.\output\json\rewardportraitdata_79155_enus.json' '.\texturesheets' '--prompt'"
 ```
 
 ***
