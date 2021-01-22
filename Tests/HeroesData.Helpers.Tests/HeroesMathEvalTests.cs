@@ -6,26 +6,30 @@ namespace HeroesData.Parser.Tests
     [TestClass]
     public class HeroesMathEvalTests
     {
-        [TestMethod]
-        public void CalculatePathEquationTest()
+        [DataTestMethod]
+        [DataRow(100, "(12 + 6.000000) * (0.1875 + 0.062500) - (12 * 0.1875) / (12 * 0.1875) * 100")]
+        [DataRow(50, "17 / 34 * 100")]
+        [DataRow(70, "(57.8 / 34) * 100 - 100")]
+        [DataRow(40, "-100*(1-1.400000)")]
+        [DataRow(-100, "--100")]
+        [DataRow(15, "-100*(-0.15)")]
+        [DataRow(150, "-100 * (0.225/(-0.15))")]
+        [DataRow(40, "(1+(-0.6)*100)")]
+        [DataRow(30, "-(-0.6-(-0.3))*100")]
+        [DataRow(70, "- (-0.7*100)")]
+        [DataRow(-0.5, "-0.5")]
+        [DataRow(0, "0")]
+        [DataRow(100, "1+0*100")]
+        [DataRow(100, "(1+0*100)")]
+        [DataRow(60, "((5) + (3) / 5 - 1) * 100")]
+        [DataRow(5, "(30/20)-1*10)")]
+        [DataRow(60, "(1-(-60))*-1")]
+        [DataRow(9, "--100*(-0.09)")]
+        [DataRow(10, "5*/-+5")]
+        [DataRow(0, "*+/-5+5")]
+        public void Test(double expected, string equation)
         {
-            Assert.AreEqual(100, HeroesMathEval.CalculatePathEquation("(12 + 6.000000) * (0.1875 + 0.062500) - (12 * 0.1875) / (12 * 0.1875) * 100"));
-            Assert.AreEqual(50, HeroesMathEval.CalculatePathEquation("17 / 34 * 100"));
-            Assert.AreEqual(70, HeroesMathEval.CalculatePathEquation("(57.8 / 34) * 100 - 100"));
-            Assert.AreEqual(40, HeroesMathEval.CalculatePathEquation("-100*(1-1.400000)"));
-            Assert.AreEqual(100, HeroesMathEval.CalculatePathEquation("--100"));
-            Assert.AreEqual(15, HeroesMathEval.CalculatePathEquation("-100*-0.15"));
-            Assert.AreEqual(150, HeroesMathEval.CalculatePathEquation("-100 * (0.225/-0.15)"));
-            Assert.AreEqual(40, HeroesMathEval.CalculatePathEquation("(1+(-0.6)*100)"));
-            Assert.AreEqual(30, HeroesMathEval.CalculatePathEquation("-(-0.6--0.3)*100"));
-            Assert.AreEqual(70, HeroesMathEval.CalculatePathEquation("- (-0.7*100)"));
-            Assert.AreEqual(-0.5, HeroesMathEval.CalculatePathEquation("-0.5"));
-            Assert.AreEqual(0, HeroesMathEval.CalculatePathEquation("0"));
-            Assert.AreEqual(100, HeroesMathEval.CalculatePathEquation("1+0*100"));
-            Assert.AreEqual(100, HeroesMathEval.CalculatePathEquation("(1+0*100)"));
-            Assert.AreEqual(60, HeroesMathEval.CalculatePathEquation("((5) + (3) / 5 - 1) * 100"));
-            Assert.AreEqual(5, HeroesMathEval.CalculatePathEquation("(30/20)-1*10)")); // missing a (left) parenthesis
-            Assert.AreEqual(9, HeroesMathEval.CalculatePathEquation("--100*-0.09"));
+            Assert.AreEqual(expected, HeroesMathEval.CalculatePathEquation(equation));
         }
     }
 }

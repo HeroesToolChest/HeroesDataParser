@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace HeroesData.Helpers
@@ -14,8 +15,7 @@ namespace HeroesData.Helpers
             if (input is null)
                 throw new ArgumentNullException(nameof(input));
 
-            input = ParenthesisValidator(input);
-            input = SpecificEquationModifier(input);
+            input = Validate(input);
             input = GetInnerParenthesisValues(input);
 
             // finalize calculations
@@ -52,32 +52,34 @@ namespace HeroesData.Helpers
             return input;
         }
 
+        // order of operations is not followed, calculate left to right
         private static string CalculateInput(string input)
         {
-            input = RemoveAllSpaces(input);
-            input = RemoveDoubleNegative(input);
             string[] parts = SplitExpression(input);
 
             while (parts.Length > 2)
             {
-                string toBeComputed;
-                if (parts[0] == "-") // first is negative number
-                {
-                    toBeComputed = parts[0] + parts[1] + parts[2];
+                StringBuilder stringBuilder = new StringBuilder();
 
-                    if (parts[3] == "-") // second is negative number
-                        toBeComputed += parts[3] + parts[4];
-                    else
-                        toBeComputed += parts[3];
-                }
-                else
+                int numberCount = 0;
+
+                // loop through, get the first two operands
+                foreach (string part in parts)
                 {
-                    if (parts[2] == "-")
-                        toBeComputed = parts[0] + parts[1] + parts[2] + parts[3];
-                    else
-                        toBeComputed = parts[0] + parts[1] + parts[2];
+                    stringBuilder.Append(part);
+
+                    // check if it's a number
+                    if (double.TryParse(part, out _))
+                    {
+                        numberCount++;
+                    }
+
+                    // got two, we're done
+                    if (numberCount >= 2)
+                        break;
                 }
 
+                string toBeComputed = stringBuilder.ToString();
                 double value = double.Parse(_dataTable.Compute(toBeComputed, string.Empty).ToString()!);
 
                 int pos = input.IndexOf(toBeComputed, StringComparison.OrdinalIgnoreCase);
@@ -107,58 +109,69 @@ namespace HeroesData.Helpers
             return input.Replace("--", "+", StringComparison.OrdinalIgnoreCase);
         }
 
-        private static string RemoveAllSpaces(string input)
+        // remove all white space and multi operators
+        private static string Validate(string input)
         {
-            return Regex.Replace(input, @"\s+", string.Empty);
-        }
+            if (string.IsNullOrEmpty(input))
+                return input;
 
-        private static string ParenthesisValidator(string input)
-        {
-            int leftCount = 0;
-            int rightCount = 0;
+            int leftParenthesesCount = 0;
+            int rightParenthesesCount = 0;
+            char? lastOperator = null;
 
-            foreach (char c in input)
+            StringBuilder builder = new StringBuilder();
+
+            foreach (char character in input)
             {
-                if (c == '(')
-                    leftCount++;
-                else if (c == ')')
-                    rightCount++;
-            }
+                // remove whitespace
+                if (char.IsWhiteSpace(character))
+                    continue;
 
-            if (leftCount == rightCount)
-            {
-                return input; // no change
+                if (character == '(')
+                {
+                    leftParenthesesCount++;
+                }
+                else if (character == ')')
+                {
+                    rightParenthesesCount++;
+                }
+
+                if (IsOperator(character))
+                {
+                    // keep track of the last operator
+                    lastOperator = character;
+                }
+                else if (lastOperator is not null)
+                {
+                    // only append the last operator
+                    builder.Append(lastOperator);
+                    builder.Append(character);
+
+                    lastOperator = null;
+                }
+                else
+                {
+                    builder.Append(character);
+                }
             }
 
             // add parenthesis to left
-            while (leftCount < rightCount)
+            while (leftParenthesesCount < rightParenthesesCount)
             {
-                input = $"({input}";
-                leftCount++;
+                builder.Insert(0, '(');
+                leftParenthesesCount++;
             }
 
             // add parenthesis to right
-            while (leftCount > rightCount)
+            while (leftParenthesesCount > rightParenthesesCount)
             {
-                input = $"{input})";
-                rightCount++;
+                builder.Append(')');
+                rightParenthesesCount++;
             }
 
-            return input;
+            return builder.ToString();
         }
 
-        private static string SpecificEquationModifier(string input)
-        {
-            // MedivhTemporalFlux - build 72481 - change negative to positive
-            Match match = Regex.Match(input, @"\-\-\d+\s*\*\-\d+\s*", RegexOptions.IgnorePatternWhitespace);
-
-            if (!string.IsNullOrEmpty(match.Value))
-            {
-                if (input.Length > 2 && input.StartsWith("--", StringComparison.OrdinalIgnoreCase))
-                    return input.Remove(0, 1);
-            }
-
-            return input;
-        }
+        private static bool IsOperator(char value) => value == '*' || value == '-' || value == '+' || value == '/';
     }
 }

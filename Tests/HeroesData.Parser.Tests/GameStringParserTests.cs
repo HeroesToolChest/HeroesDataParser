@@ -23,6 +23,8 @@ namespace HeroesData.Parser.Tests
         private readonly string _tooltip2 = "Zarya's Basic Attack deals <c val=\"bfd4fd\"><d ref=\"(Effect,ZaryaWeaponFeelTheHeatDamage,Amount/Effect,ZaryaWeaponDamage,Amount)-1*10)\" />0%</c> additional damage to enemies in melee range.";
         private readonly string _tooltip3 = "Yrel sanctifies the ground around her, gaining <c val=\"#bfd4fd\"><d const=\"$YrelSacredGroundArmorBonus\" precision=\"2\"/></c> Armor until she leaves the area.";
         private readonly string _tooltip4 = "If Sand Blast travels at least <c val=\"bfd4fd\"><d ref=\"Validator,ChromieFastForwardDistanceCheck,Range/Effect,ChromieSandBlastLaunchMissile,ImpactLocation.ProjectionDistanceScale*100\"/>%</c> of its base distance and hits a Hero, its cooldown is reduced to <c val=\"bfd4fd\"><d ref=\"Effect,ChromieSandBlastFastForwardCooldownReduction,Cost[0].CooldownTimeUse\" precision=\"2\"/></c> seconds.";
+        private readonly string _tooltip5 = "After <c val=\"#TooltipNumbers\"><d ref=\"Abil,GuldanHorrify,CastIntroTime+Effect,GuldanHorrifyAbilityStartCreatePersistent,PeriodicPeriodArray[0]\" precision=\"2\"/></c> seconds..";
+        private readonly string _tooltip6 = "reduces its cooldown by <c val=\"#TooltipNumbers\"><d ref=\"(1-Effect,AnduinHolyWordSalvationLightOfStormwindCooldownReduction,Cost[0].CooldownTimeUse)*-1\"/></c>";
 
         private readonly string _failedTooltip1 = "Surround Yrel in a barrier for <c val=\"bfd4fd\"><d const=\"$NotExistingVariable\" precision=\"2\"/></c> seconds, absorbing all damage taken and healing her for <c val=\"bfd4fd\"><d ref=\"Effect,YrelArdentDefenderDamageConversionScaleDummyModifyUnit,XP*100\" player=\"0\" precision=\"2\"/>%</c> of the damage received.";
 
@@ -87,6 +89,12 @@ namespace HeroesData.Parser.Tests
 
             Assert.IsTrue(_gameStringParser.TryParseRawTooltip("ChromieSandBlastFastForward", _tooltip4, out output));
             Assert.AreEqual("If Sand Blast travels at least <c val=\"bfd4fd\">50%</c> of its base distance and hits a Hero, its cooldown is reduced to <c val=\"bfd4fd\">0.5</c> seconds.", output);
+
+            Assert.IsTrue(_gameStringParser.TryParseRawTooltip("GuldanHorrify", _tooltip5, out output));
+            Assert.AreEqual("After <c val=\"#TooltipNumbers\">0.5</c> seconds..", output);
+
+            Assert.IsTrue(_gameStringParser.TryParseRawTooltip("AnduinHolyWordSalvationLightOfStormwind", _tooltip6, out output));
+            Assert.AreEqual("reduces its cooldown by <c val=\"#TooltipNumbers\">60</c>", output);
         }
 
         [TestMethod]

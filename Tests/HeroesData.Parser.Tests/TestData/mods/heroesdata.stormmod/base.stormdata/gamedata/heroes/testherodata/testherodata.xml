@@ -444,4 +444,28 @@
     <Find value="1" />
     <Value value="TestHeroArmorUpInnerRage" />
   </CValidatorPlayerTalent>
+
+  <CAbilEffectTarget id="GuldanHorrify">
+    <Cost>
+      <Vital index="Energy" value="90" />
+      <Cooldown TimeUse="80" />
+    </Cost>
+    <Range value="10" />
+    <Arc value="360" />
+    <CastOutroTime value="0.3125" />
+  </CAbilEffectTarget>
+
+  <CEffectCreatePersistent id="GuldanHorrifyAbilityStartCreatePersistent">
+    <ExpireDelay value="0.5" />
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="GuldanHorrifySearchArea" />
+    <PeriodicPeriodArray value="0.5" />
+    <RevealRadius value="2" />
+    <RevealFlags index="Unfog" value="1" />
+  </CEffectCreatePersistent>
+
+  <CEffectModifyUnit id="AnduinHolyWordSalvationLightOfStormwindCooldownReduction">
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="AnduinHolyWordSalvation,Execute" CooldownOperation="Add" CooldownTimeUse="-60" />
+  </CEffectModifyUnit>
 </Catalog>
