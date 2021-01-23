@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <Authors>Kevin Oliva</Authors>
     <Copyright>Copyright © 2018 - 2021 Kevin Oliva</Copyright>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
