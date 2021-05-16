@@ -132,6 +132,7 @@
       <Element>CValidatorUnitCompareDamageTakenTime</Element>
       <Element>CValidatorUnitCompareTokenCount</Element>
       <Element>CValidatorUnitCompareVital</Element>
+      <Element>CValidatorUnitCompareVitality</Element>
     </Type>
     <Type name="Weapon">
       <Element>CWeaponLegacy</Element>
