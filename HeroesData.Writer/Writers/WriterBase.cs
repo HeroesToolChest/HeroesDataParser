@@ -212,7 +212,7 @@ namespace HeroesData.FileWriter.Writers
             else if (_fileOutputType == FileOutputType.Xml)
             {
                 if (RootNodeName == null)
-                    throw new ArgumentNullException($"{nameof(RootNodeName)} cannot be null. Needs to be set in the corresponding xml writer class.");
+                    throw new NullReferenceException($"{nameof(RootNodeName)} cannot be null. Needs to be set in the corresponding xml writer class.");
 
                 XDocument xmlDoc = new XDocument(new XElement(RootNodeName, items.Select(item => MainElement(item))));
 
