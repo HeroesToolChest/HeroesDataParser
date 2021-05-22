@@ -104,12 +104,12 @@ namespace HeroesData.Parser.GameStrings
             pathPart = pathPart.Replace("preicison=", "precision=", StringComparison.OrdinalIgnoreCase);
 
             // get the precision string first
-            MatchCollection precisionMatches = Regex.Matches(pathPart, "precision\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
+            MatchCollection precisionMatches = Regex.Matches(pathPart, "precision\\s*=\\s*\"+.*?\"+", RegexOptions.IgnoreCase);
 
             if (precisionMatches.Count > 0)
             {
                 // now get the value
-                MatchCollection match = Regex.Matches(precisionMatches[0].Value, "\".*?\"");
+                MatchCollection match = Regex.Matches(precisionMatches[0].Value, "\"+.*?\"+");
 
                 precision = int.Parse(match[0].Value.AsSpan().Trim('"'));
 
@@ -125,12 +125,12 @@ namespace HeroesData.Parser.GameStrings
             player = null;
 
             // get the player string first
-            MatchCollection playerMatches = Regex.Matches(pathPart, "player\\s*=\\s*\".*?\"", RegexOptions.IgnoreCase);
+            MatchCollection playerMatches = Regex.Matches(pathPart, "player\\s*=\\s*\"+.*?\"+", RegexOptions.IgnoreCase);
 
             if (playerMatches.Count > 0)
             {
                 // now get the value
-                MatchCollection match = Regex.Matches(playerMatches[0].Value, "\".*?\"");
+                MatchCollection match = Regex.Matches(playerMatches[0].Value, "\"+.*?\"+");
 
                 if (int.TryParse(match[0].Value.AsSpan().Trim('"'), out int playerNum))
                     player = playerNum;
@@ -213,7 +213,7 @@ namespace HeroesData.Parser.GameStrings
                 endChar = pathLookup.Span[end];
             }
 
-            return pathLookup.Slice(start, end - start + 1);
+            return pathLookup.Slice(start, end - start + 1).TrimStart('"');
         }
 
         private string ParseTooltip(string tooltip)
