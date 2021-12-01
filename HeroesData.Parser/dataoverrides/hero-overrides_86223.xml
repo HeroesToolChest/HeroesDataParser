@@ -787,11 +787,6 @@
         <ParentLink value="RehgarEarthbindTotemColossalTotem|RehgarEarthbindTotemColossalTotem" />
       </Override>
     </Ability>
-	<Ability id="RehgarGhostWolfLunge,RehgarGhostWolf" abilityType="Z">
-      <Override>
-	    <AbilityTier value="Hidden" />
-	  </Override>
-	</Ability>
   </CHero>
   <CHero id="Rexxar">
     <Portrait>
