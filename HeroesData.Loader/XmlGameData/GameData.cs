@@ -642,6 +642,10 @@ namespace HeroesData.Loader.XmlGameData
 
                     return attributeValue ?? string.Empty;
                 }
+                else if (value == "$ZagaraHunterKillerDamage") // TODO: (86813) hard code for now, fix in v5
+                {
+                    return "0.0000000001"; // cant be 0
+                }
             }
 
             return value;
