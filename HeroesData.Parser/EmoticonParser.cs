@@ -162,6 +162,29 @@ namespace HeroesData.Parser
                     string? count = element.Attribute("Count")?.Value;
                     string? durationPerFrame = element.Attribute("DurationPerFrame")?.Value;
 
+                    if (element.HasElements)
+                    {
+                        string? textureSheetElementValue = element.Element("TextureSheet")?.Attribute("value")?.Value;
+                        if (!string.IsNullOrEmpty(textureSheetElementValue))
+                            textureSheet = textureSheetElementValue;
+
+                        string? widthElementValue = element.Element("Width")?.Attribute("value")?.Value;
+                        if (!string.IsNullOrEmpty(widthElementValue))
+                            width = widthElementValue;
+
+                        string? indexElementValue = element.Element("Index")?.Attribute("value")?.Value;
+                        if (!string.IsNullOrEmpty(indexElementValue))
+                            index = indexElementValue;
+
+                        string? countElementValue = element.Element("Count")?.Attribute("value")?.Value;
+                        if (!string.IsNullOrEmpty(countElementValue))
+                            count = countElementValue;
+
+                        string? durationPerFrameElementValue = element.Element("DurationPerFrame")?.Attribute("value")?.Value;
+                        if (!string.IsNullOrEmpty(durationPerFrameElementValue))
+                            durationPerFrame = durationPerFrameElementValue;
+                    }
+
                     if (!string.IsNullOrEmpty(textureSheet))
                     {
                         XElement? textureSheetElement = GameData.MergeXmlElements(GameData.Elements("CTextureSheet").Where(x => x.Attribute("id")?.Value == textureSheet));
