@@ -1,175 +1,225 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace HeroesData.Helpers
 {
     public static class HeroesMathEval
     {
-        private static readonly DataTable _dataTable = new DataTable();
+        private static readonly Stack<double> _values = new();
+        private static readonly Stack<char> _operators = new();
 
         public static double CalculatePathEquation(string input)
         {
-            if (input is null)
-                throw new ArgumentNullException(nameof(input));
-
-            input = Validate(input);
-            input = GetInnerParenthesisValues(input);
-
-            // finalize calculations
-            input = CalculateInput(input);
-
-            return double.Parse(input);
+            try
+            {
+                return Compute(input);
+            }
+            catch
+            {
+                throw new SyntaxErrorException($"Syntax error in expression: {input}");
+            }
         }
 
-        private static string GetInnerParenthesisValues(string input)
+        /* Only parentheses have precedence
+         * Divide by 0 results in the numberator
+         * With multiple operators in a row, only take the last one
+         * account for mismatch parenthesis (too many or too little)
+         */
+        private static double Compute(string expression)
         {
-            MatchCollection matches = Regex.Matches(input, @"\(([^()]+|(?<Level>\()|(?<-Level>\)))+(?(Level)(?!))\)", RegexOptions.IgnorePatternWhitespace);
+            ReadOnlySpan<char> tokens = expression.AsSpan();
 
-            foreach (Match? match in matches)
+            char lastReadToken = '\0';
+
+            for (int i = 0; i < tokens.Length; i++)
             {
-                if (match == null)
+                // ignore space
+                if (tokens[i] == ' ')
                     continue;
 
-                string matchInput = match.Value;
-
-                if (matchInput.StartsWith("(", StringComparison.OrdinalIgnoreCase))
-                    matchInput = matchInput[1..];
-                if (matchInput.EndsWith(")", StringComparison.OrdinalIgnoreCase))
-                    matchInput = matchInput.Remove(matchInput.Length - 1);
-
-                matchInput = GetInnerParenthesisValues(matchInput);
-
-                int position = input.IndexOf(match.Value, StringComparison.OrdinalIgnoreCase);
-                if (position >= 0)
+                // check if digit
+                if (IsDigit(tokens[i]) || tokens[i] == '.')
                 {
-                    input = input.Substring(0, position) + CalculateInput(matchInput) + input[(position + match.Length)..];
+                    GetNumber(tokens, ref i, false);
                 }
-            }
-
-            return input;
-        }
-
-        // order of operations is not followed, calculate left to right
-        private static string CalculateInput(string input)
-        {
-            string[] parts = SplitExpression(input);
-
-            while (parts.Length > 2)
-            {
-                StringBuilder stringBuilder = new StringBuilder();
-
-                int numberCount = 0;
-
-                // loop through, get the first two operands
-                foreach (string part in parts)
+                else if (!IsOperator(lastReadToken) && lastReadToken != ')' && tokens[i] == '-' && !IsDigit(lastReadToken) && (i + 1) < tokens.Length && IsDigit(tokens[i + 1])) // negative number check
                 {
-                    stringBuilder.Append(part);
-
-                    // check if it's a number
-                    if (double.TryParse(part, out _))
+                    if (_operators.Count > 0 && _operators.Peek() != '(' && _values.Count < 1) // no values, then its a negative number
                     {
-                        numberCount++;
+                        _operators.Pop();
+                        GetNumber(tokens, ref i, true);
+                    }
+                    else
+                    {
+                        GetNumber(tokens, ref i, true);
+                    }
+                }
+                else if (tokens[i] == '(')
+                {
+                    _operators.Push(tokens[i]);
+                }
+                else if (tokens[i] == ')')
+                {
+                    while (_operators.Count > 0 && _operators.Peek() != '(')
+                    {
+                        if (_operators.Peek() == 'b')
+                        {
+                            _values.Push(_values.Pop() * -1);
+                            _operators.Pop();
+                        }
+                        else
+                        {
+                            _values.Push(ApplyOperator(_operators.Pop(), _values.Pop(), _values.Pop()));
+                        }
                     }
 
-                    // got two, we're done
-                    if (numberCount >= 2)
-                        break;
+                    if (_operators.Count > 0)
+                        _operators.Pop(); // this pops the left parentheses
                 }
-
-                string toBeComputed = stringBuilder.ToString();
-                double value = double.Parse(_dataTable.Compute(toBeComputed, string.Empty).ToString()!);
-
-                int pos = input.IndexOf(toBeComputed, StringComparison.OrdinalIgnoreCase);
-                if (pos >= 0)
+                else if (IsOperator(tokens[i]))
                 {
-                    input = input.Substring(0, pos) + value + input[(pos + toBeComputed.Length)..];
+                    if (IsOperator(lastReadToken))
+                    {
+                        // multiple operators in a row, only take the last one
+                        _operators.Pop();
+                        _operators.Push(tokens[i]);
+                    }
+                    else if (_values.Count == 1 && _operators.Count > 0 && _operators.Peek() == '-')
+                    {
+                        _operators.Pop();
+                        _values.Push(_values.Pop() * -1);
+                        _operators.Push(tokens[i]);
+                    }
+                    else if (tokens[i] == '-' && lastReadToken == '(' && (i + 1) < tokens.Length && tokens[i + 1] == '(') // - in between ( and (
+                    {
+                        _operators.Push('b');
+                    }
+                    else
+                    {
+                        while (_operators.Count > 0 && CheckPrecedence(tokens[i], _operators.Peek()))
+                        {
+                            if (_operators.Peek() == 'b')
+                            {
+                                _values.Push(_values.Pop() * -1);
+                                _operators.Pop();
+                            }
+                            else
+                            {
+                                _values.Push(ApplyOperator(_operators.Pop(), _values.Pop(), _values.Pop()));
+                            }
+                        }
+
+                        _operators.Push(tokens[i]);
+                    }
                 }
 
-                parts = SplitExpression(input);
+                lastReadToken = tokens[i];
             }
 
-            return input;
-        }
-
-        private static string[] SplitExpression(string input)
-        {
-            return Regex.Split(input, @"([+\-*/])").Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
-        }
-
-        private static string RemoveDoubleNegative(string input)
-        {
-            if (input.Length > 2 && input.StartsWith("*--", StringComparison.OrdinalIgnoreCase))
-                input = input.Remove(0, 1);
-            if (input.Length > 2 && input.StartsWith("--", StringComparison.OrdinalIgnoreCase))
-                input = input.Remove(0, 2);
-
-            return input.Replace("--", "+", StringComparison.OrdinalIgnoreCase);
-        }
-
-        // remove all white space and multi operators
-        private static string Validate(string input)
-        {
-            if (string.IsNullOrEmpty(input))
-                return input;
-
-            int leftParenthesesCount = 0;
-            int rightParenthesesCount = 0;
-            char? lastOperator = null;
-
-            StringBuilder builder = new StringBuilder();
-
-            foreach (char character in input)
+            // pop remaining operators
+            while (_operators.Count > 0)
             {
-                // remove whitespace
-                if (char.IsWhiteSpace(character))
-                    continue;
-
-                if (character == '(')
+                if (_values.Count == 1 && _operators.Count == 1 && _operators.Peek() == '-')
                 {
-                    leftParenthesesCount++;
-                }
-                else if (character == ')')
-                {
-                    rightParenthesesCount++;
-                }
-
-                if (IsOperator(character))
-                {
-                    // keep track of the last operator
-                    lastOperator = character;
-                }
-                else if (lastOperator is not null)
-                {
-                    // only append the last operator
-                    builder.Append(lastOperator);
-                    builder.Append(character);
-
-                    lastOperator = null;
+                    _operators.Pop();
+                    _values.Push(_values.Pop() * -1);
                 }
                 else
                 {
-                    builder.Append(character);
+                    if (_operators.Peek() == '(')
+                        _operators.Pop();
+                    else if (_values.Count > 1)
+                        _values.Push(ApplyOperator(_operators.Pop(), _values.Pop(), _values.Pop()));
+                    else
+                        _operators.Pop();
                 }
             }
 
-            // add parenthesis to left
-            while (leftParenthesesCount < rightParenthesesCount)
+            while (_values.Count > 1)
             {
-                builder.Insert(0, '(');
-                leftParenthesesCount++;
+                _values.Push(ApplyOperator('+', _values.Pop(), _values.Pop()));
             }
 
-            // add parenthesis to right
-            while (leftParenthesesCount > rightParenthesesCount)
+            // final result value
+            return _values.Pop();
+        }
+
+        private static void GetNumber(ReadOnlySpan<char> tokens, ref int i, bool isNegative)
+        {
+            int beginning = i;
+
+            if (isNegative)
+                i++; // negative sign
+
+            bool hasDecimal = false;
+
+            // get entire number
+            while (i < tokens.Length)
             {
-                builder.Append(')');
-                rightParenthesesCount++;
+                if (IsDigit(tokens[i])) // digit
+                {
+                    i++;
+                }
+                else if (!hasDecimal && tokens[i] == '.') // decimal
+                {
+                    hasDecimal = true;
+                    i++;
+                }
+                else
+                {
+                    break;
+                }
             }
 
-            return builder.ToString();
+            _values.Push(double.Parse(tokens[beginning..i]));
+
+            i--;
+        }
+
+        private static bool IsDigit(char token)
+        {
+            if (token >= '0' && token <= '9')
+                return true;
+            else
+                return false;
+        }
+
+        // only parentheses has precedence
+        // if operator2 has same or higher then return true, otherwise return false
+#pragma warning disable IDE0060 // Remove unused parameter
+        private static bool CheckPrecedence(char operator1, char operator2)
+#pragma warning restore IDE0060 // Remove unused parameter
+        {
+            if (operator2 == '(' || operator2 == ')')
+                return false;
+            ////else if ((operator1 == '*' || operator1 == '/') && (operator2 == '+' || operator2 == '-'))
+            ////   return false;
+            else
+                return true;
+        }
+
+        private static double ApplyOperator(char op, double b, double a)
+        {
+            switch (op)
+            {
+                case '+':
+                    return a + b;
+                case '-':
+                    return a - b;
+                case '*':
+                    return a * b;
+                case '/':
+                    if (b == 0)
+                    {
+                        // if divide by 0, return the numerator
+                        return a;
+                    }
+
+                    return a / b;
+            }
+
+            throw new InvalidOperationException($"Invalid operator: {op}");
         }
 
         private static bool IsOperator(char value) => value == '*' || value == '-' || value == '+' || value == '/';

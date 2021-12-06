@@ -567,7 +567,7 @@ namespace HeroesData.Loader.XmlGameData
         }
 
         /// <summary>
-        /// Does a lookup up for a const value if one exists otherwise returns the passed value.
+        /// Gets the value from the attribute. Does a check if its from a constant, returns 0 if constant does not exist, otherwise returns the passed in <paramref name="value"/>.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -642,9 +642,9 @@ namespace HeroesData.Loader.XmlGameData
 
                     return attributeValue ?? string.Empty;
                 }
-                else if (value == "$ZagaraHunterKillerDamage") // TODO: (86813) hard code for now, fix in v5
+                else
                 {
-                    return "0.1"; // cant be 0
+                    return "0";
                 }
             }
 
