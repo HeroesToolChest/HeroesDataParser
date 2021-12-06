@@ -931,7 +931,7 @@ namespace HeroesData.Loader.XmlGameData
                         continue;
 
                     // add data without index
-                    if (field.Contains("]", StringComparison.OrdinalIgnoreCase))
+                    if (field.Contains(']', StringComparison.OrdinalIgnoreCase))
                         _scaleValueByLookupId[(catalog, entry, Regex.Replace(field, @"\[.*?\]", string.Empty))] = double.Parse(value);
 
                     _scaleValueByLookupId[(catalog, entry, field)] = double.Parse(value);

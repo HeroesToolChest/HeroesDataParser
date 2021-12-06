@@ -48,7 +48,7 @@ namespace HeroesData.Parser
                     AddItems(mapName, cUnitElements, items, addIds, removeIds);
                 }
 
-                foreach (string addedMapSpecificUnit in addIds.Where(x => x.Contains(",", StringComparison.OrdinalIgnoreCase)))
+                foreach (string addedMapSpecificUnit in addIds.Where(x => x.Contains(',', StringComparison.OrdinalIgnoreCase)))
                 {
                     items.Add(addedMapSpecificUnit.Split(',').ToArray());
                 }

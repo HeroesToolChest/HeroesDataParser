@@ -528,7 +528,7 @@ namespace HeroesData.Parser.GameStrings
                 // loop through path look up
                 for (int i = 2; i < parts.Count; i++)
                 {
-                    if (parts[i].Contains("]", StringComparison.OrdinalIgnoreCase)) // attribute index
+                    if (parts[i].Contains(']', StringComparison.OrdinalIgnoreCase)) // attribute index
                     {
                         string[] elementIndexParts = parts[i].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
                         var indexElements = currentElement.Elements(elementIndexParts[0]).ToList();
@@ -612,7 +612,7 @@ namespace HeroesData.Parser.GameStrings
             double? scaleValue = null;
 
             // try lookup without indexing first
-            if (fieldValue.Contains("]", StringComparison.OrdinalIgnoreCase))
+            if (fieldValue.Contains(']', StringComparison.OrdinalIgnoreCase))
             {
                 scaleValue = _gameData.GetScaleValue((catalogValue, entryValue, Regex.Replace(fieldValue, @"\[.*?\]", string.Empty)));
             }
