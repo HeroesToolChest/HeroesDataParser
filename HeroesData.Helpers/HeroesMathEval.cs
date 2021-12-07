@@ -6,9 +6,6 @@ namespace HeroesData.Helpers
 {
     public static class HeroesMathEval
     {
-        private static readonly Stack<double> _values = new();
-        private static readonly Stack<char> _operators = new();
-
         public static double CalculatePathEquation(string input)
         {
             try
@@ -28,6 +25,8 @@ namespace HeroesData.Helpers
          */
         private static double Compute(string expression)
         {
+            Stack<double> values = new();
+            Stack<char> operators = new();
             ReadOnlySpan<char> tokens = expression.AsSpan();
 
             char lastReadToken = '\0';
@@ -41,76 +40,76 @@ namespace HeroesData.Helpers
                 // check if digit
                 if (IsDigit(tokens[i]) || tokens[i] == '.')
                 {
-                    GetNumber(tokens, ref i, false);
+                    GetNumber(tokens, values, ref i, false);
                 }
                 else if (!IsOperator(lastReadToken) && lastReadToken != ')' && tokens[i] == '-' && !IsDigit(lastReadToken) && (i + 1) < tokens.Length && IsDigit(tokens[i + 1])) // negative number check
                 {
-                    if (_operators.Count > 0 && _operators.Peek() != '(' && _values.Count < 1) // no values, then its a negative number
+                    if (operators.Count > 0 && operators.Peek() != '(' && values.Count < 1) // no values, then its a negative number
                     {
-                        _operators.Pop();
-                        GetNumber(tokens, ref i, true);
+                        operators.Pop();
+                        GetNumber(tokens, values, ref i, true);
                     }
                     else
                     {
-                        GetNumber(tokens, ref i, true);
+                        GetNumber(tokens, values, ref i, true);
                     }
                 }
                 else if (tokens[i] == '(')
                 {
-                    _operators.Push(tokens[i]);
+                    operators.Push(tokens[i]);
                 }
                 else if (tokens[i] == ')')
                 {
-                    while (_operators.Count > 0 && _operators.Peek() != '(')
+                    while (operators.Count > 0 && operators.Peek() != '(')
                     {
-                        if (_operators.Peek() == 'b')
+                        if (operators.Peek() == 'b')
                         {
-                            _values.Push(_values.Pop() * -1);
-                            _operators.Pop();
+                            values.Push(values.Pop() * -1);
+                            operators.Pop();
                         }
                         else
                         {
-                            _values.Push(ApplyOperator(_operators.Pop(), _values.Pop(), _values.Pop()));
+                            values.Push(ApplyOperator(operators.Pop(), values.Pop(), values.Pop()));
                         }
                     }
 
-                    if (_operators.Count > 0)
-                        _operators.Pop(); // this pops the left parentheses
+                    if (operators.Count > 0)
+                        operators.Pop(); // this pops the left parentheses
                 }
                 else if (IsOperator(tokens[i]))
                 {
                     if (IsOperator(lastReadToken))
                     {
                         // multiple operators in a row, only take the last one
-                        _operators.Pop();
-                        _operators.Push(tokens[i]);
+                        operators.Pop();
+                        operators.Push(tokens[i]);
                     }
-                    else if (_values.Count == 1 && _operators.Count > 0 && _operators.Peek() == '-')
+                    else if (values.Count == 1 && operators.Count > 0 && operators.Peek() == '-')
                     {
-                        _operators.Pop();
-                        _values.Push(_values.Pop() * -1);
-                        _operators.Push(tokens[i]);
+                        operators.Pop();
+                        values.Push(values.Pop() * -1);
+                        operators.Push(tokens[i]);
                     }
                     else if (tokens[i] == '-' && lastReadToken == '(' && (i + 1) < tokens.Length && tokens[i + 1] == '(') // - in between ( and (
                     {
-                        _operators.Push('b');
+                        operators.Push('b');
                     }
                     else
                     {
-                        while (_operators.Count > 0 && CheckPrecedence(tokens[i], _operators.Peek()))
+                        while (operators.Count > 0 && CheckPrecedence(tokens[i], operators.Peek()))
                         {
-                            if (_operators.Peek() == 'b')
+                            if (operators.Peek() == 'b')
                             {
-                                _values.Push(_values.Pop() * -1);
-                                _operators.Pop();
+                                values.Push(values.Pop() * -1);
+                                operators.Pop();
                             }
                             else
                             {
-                                _values.Push(ApplyOperator(_operators.Pop(), _values.Pop(), _values.Pop()));
+                                values.Push(ApplyOperator(operators.Pop(), values.Pop(), values.Pop()));
                             }
                         }
 
-                        _operators.Push(tokens[i]);
+                        operators.Push(tokens[i]);
                     }
                 }
 
@@ -118,34 +117,34 @@ namespace HeroesData.Helpers
             }
 
             // pop remaining operators
-            while (_operators.Count > 0)
+            while (operators.Count > 0)
             {
-                if (_values.Count == 1 && _operators.Count == 1 && _operators.Peek() == '-')
+                if (values.Count == 1 && operators.Count == 1 && operators.Peek() == '-')
                 {
-                    _operators.Pop();
-                    _values.Push(_values.Pop() * -1);
+                    operators.Pop();
+                    values.Push(values.Pop() * -1);
                 }
                 else
                 {
-                    if (_operators.Peek() == '(')
-                        _operators.Pop();
-                    else if (_values.Count > 1)
-                        _values.Push(ApplyOperator(_operators.Pop(), _values.Pop(), _values.Pop()));
+                    if (operators.Peek() == '(')
+                        operators.Pop();
+                    else if (values.Count > 1)
+                        values.Push(ApplyOperator(operators.Pop(), values.Pop(), values.Pop()));
                     else
-                        _operators.Pop();
+                        operators.Pop();
                 }
             }
 
-            while (_values.Count > 1)
+            while (values.Count > 1)
             {
-                _values.Push(ApplyOperator('+', _values.Pop(), _values.Pop()));
+                values.Push(ApplyOperator('+', values.Pop(), values.Pop()));
             }
 
             // final result value
-            return _values.Pop();
+            return values.Pop();
         }
 
-        private static void GetNumber(ReadOnlySpan<char> tokens, ref int i, bool isNegative)
+        private static void GetNumber(ReadOnlySpan<char> tokens, Stack<double> values, ref int i, bool isNegative)
         {
             int beginning = i;
 
@@ -172,7 +171,7 @@ namespace HeroesData.Helpers
                 }
             }
 
-            _values.Push(double.Parse(tokens[beginning..i]));
+            values.Push(double.Parse(tokens[beginning..i]));
 
             i--;
         }
