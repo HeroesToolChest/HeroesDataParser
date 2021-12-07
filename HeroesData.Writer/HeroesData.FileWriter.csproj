@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
     <Version>2.8.1</Version>
-    <Copyright>Copyright © 2018 - 2021 Kevin Oliva</Copyright>
+    <Copyright>Copyright © 2018 - 2022 Kevin Oliva</Copyright>
     <Authors>Kevin Oliva</Authors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
