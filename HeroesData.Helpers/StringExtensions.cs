@@ -24,7 +24,7 @@ namespace HeroesData.Helpers
                 return text;
             }
 
-            return text.Substring(0, pos) + newValue + text.Substring(pos + oldValue.Length);
+            return string.Concat(text.AsSpan(0, pos), newValue, text.AsSpan(pos + oldValue.Length));
         }
     }
 }
