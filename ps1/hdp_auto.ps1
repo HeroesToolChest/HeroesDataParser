@@ -3,23 +3,24 @@
 
 param(
 	[Parameter(Mandatory=$true)][string]$full_version,
-	[Parameter(Mandatory=$true)][string]$heroes_directory,
+	[Parameter(Mandatory=$true)][string]$installed_heroes_directory,
+	[Parameter(Mandatory=$true)][string]$output_directory,
+	[Parameter(Mandatory=$true)][string]$heroes__data_project_directory,
+	[Parameter(Mandatory=$true)][string]$heroes__images_project_directory,
 	[bool]$ptr = $False)
 
 $major,$minor,$rev,$build = $full_version.Split(".")
 
 # PATHS ##########################
-### PATH TO UPDATE ###
-$output_path = "F:\heroes\heroes_${build}"
+$output_path = "${output_directory}\heroes_${build}"
 
-### PATH TO UPDATE ###
-$heroes_data_path = "C:\Users\koliva\Source\Repos\heroes-data\heroesdata\${full_version}"
+$heroes_data_path = "${heroes__data_project_directory}\heroesdata\${full_version}"
 
 $heroes_data_path_data = "${heroes_data_path}\data"
 $heroes_data_path_gamestrings = "${heroes_data_path}\gamestrings"
 
 ### PATH TO UPDATE ###
-$heroes_images_path = "C:\Users\koliva\Source\Repos\heroes-images\heroesimages"
+$heroes_images_path = "${heroes__images_project_directory}\heroesimages"
 
 $hdp_json_file = "${heroes_data_path}\.hdp.json"
 $hdp_json_file_images = "${heroes_images_path}\.hdp.json"
@@ -46,10 +47,10 @@ $x = $version -match "Heroes Data Parser (?<content>.*)"
 $v_num = $matches['content'].trim("(").trim(")")
 
 # extract all
-dotnet heroes-data $heroes_directory --extract-data all --extract-images all --localization all --json --localized-text --output-directory $output_path
+dotnet heroes-data $installed_heroes_directory --extract-data all --extract-images all --localization all --json --localized-text --output-directory $output_path
 
 "Extracting mods data"
-dotnet heroes-data extract $heroes_directory -o $output_path
+dotnet heroes-data extract $installed_heroes_directory -o $output_path
 
 $mods_path = "${output_path}\mods_${build}"
 
