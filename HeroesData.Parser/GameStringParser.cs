@@ -478,6 +478,8 @@ namespace HeroesData.Parser.GameStrings
                     else if (int.TryParse(part, out int partAsInt) && parts.Count > partAsInt && parts[partAsInt] == parts.Last())
                         return partValue;
                 }
+
+                return "0";
             }
 
             return value;
