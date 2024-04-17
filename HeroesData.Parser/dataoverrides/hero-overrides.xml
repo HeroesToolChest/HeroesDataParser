@@ -765,10 +765,10 @@
         </Override>
       </Ability>
 	  <Ability id="RagnarosBigRagSulfurasSmash,RagnarosSulfurasSmash" abilityType="Heroic">
-		<Override>
-		  <!-- Clear, should not be a subability -->
-		  <ParentLink value="" />
-		</Override>
+        <Override>
+          <!-- Clear, should not be a subability -->
+          <ParentLink value="" />
+        </Override>
 	  </Ability>		
     </HeroUnit>
     <Ability id="RagnarosEmpowerSulfurasActive" abilityType="Q" passive="true">
