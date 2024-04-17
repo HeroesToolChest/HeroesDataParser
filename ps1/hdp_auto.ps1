@@ -1,5 +1,4 @@
 # This script is for newly released patches
-# Be sure to update the PATHS
 
 param(
 	[Parameter(Mandatory=$true)][string]$full_version,
@@ -11,28 +10,22 @@ param(
 
 $major,$minor,$rev,$build = $full_version.Split(".")
 
-# PATHS ##########################
 $output_path = "${output_directory}\heroes_${build}"
-
 $heroes_data_path = "${heroes__data_project_directory}\heroesdata\${full_version}"
-
-$heroes_data_path_data = "${heroes_data_path}\data"
-$heroes_data_path_gamestrings = "${heroes_data_path}\gamestrings"
-
-### PATH TO UPDATE ###
-$heroes_images_path = "${heroes__images_project_directory}\heroesimages"
-
-$hdp_json_file = "${heroes_data_path}\.hdp.json"
-$hdp_json_file_images = "${heroes_images_path}\.hdp.json"
-
-##################################
 
 # if ptr update the paths to _ptr
 if ($ptr)
 {
-	$output_path = "${output_path}_ptr"
-	$heroes_data_path = "${heroes_data_path}_ptr"
+	$output_path = "${output_path}_ptr"	
+	$heroes_data_path = "${heroes_data_path}_ptr"		
 }
+
+$heroes_data_path_data = "${heroes_data_path}\data"
+$heroes_data_path_gamestrings = "${heroes_data_path}\gamestrings"
+$heroes_images_path = "${heroes__images_project_directory}\heroesimages"
+
+$hdp_json_file = "${heroes_data_path}\.hdp.json"
+$hdp_json_file_images = "${heroes_images_path}\.hdp.json"
 
 # Powershell version check
 if ($PSVersionTable.PSVersion.Major -lt 6)
