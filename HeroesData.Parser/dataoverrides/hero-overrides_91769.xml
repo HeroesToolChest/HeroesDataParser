@@ -61,11 +61,6 @@
         <ParentLink value="AmazonSurgeOfLight|AmazonAvoidanceSurgeOfLight" />
       </Override>
     </Ability>
-	<Ability id="AmazonWarTravelerSummonMount,AmazonWarTravelerSummonMount" abilityType="Z">
-	  <Override>
-	    <ParentLink value="AmazonWarTraveler|AmazonAvoidanceWarTraveler" />
-	  </Override>
-	</Ability>	  
   </CHero>
   <CHero id="Ana">
     <!--Old abilityTalent -->
@@ -764,12 +759,6 @@
           <ParentLink value="RagnarosBigRagReturnMoltenCore|RagnarosBigRagReturnMoltenCore|Trait" />
         </Override>
       </Ability>
-	  <Ability id="RagnarosBigRagSulfurasSmash,RagnarosSulfurasSmash" abilityType="Heroic">
-		<Override>
-		  <!-- Clear, should not be a subability -->
-		  <ParentLink value="" />
-		</Override>
-	  </Ability>		
     </HeroUnit>
     <Ability id="RagnarosEmpowerSulfurasActive" abilityType="Q" passive="true">
       <Override>
@@ -829,18 +818,6 @@
         <ParentLink value="SamuroBladeStormDummy|SamuroBladestorm|Heroic" />
       </Override>
     </Ability>
-	<!--Hide, extra button to handle when no mirror images are alive-->
-	<Ability id="SamuroIllusionMasterNoTarget,SamuroIllusionMaster" abilityType="Heroic">
-	  <Override>
-	    <AbilityTier value="Hidden" />
-	  </Override>
-	</Ability>
-	<!--Hide, extra button to handle when no mirror images are alive-->
-	<Ability id="SamuroIllusionMasterNoTarget,SamuroAdvancingStrikes" abilityType="Trait">
-	  <Override>
-	    <AbilityTier value="Hidden" />
-	  </Override>
-	</Ability>
   </CHero>
   <CHero id="SgtHammer">
     <!--Point to trait-->
