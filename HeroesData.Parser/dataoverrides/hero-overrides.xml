@@ -764,12 +764,12 @@
           <ParentLink value="RagnarosBigRagReturnMoltenCore|RagnarosBigRagReturnMoltenCore|Trait" />
         </Override>
       </Ability>
-	  <Ability id="RagnarosBigRagSulfurasSmash,RagnarosSulfurasSmash" abilityType="Heroic">
+      <Ability id="RagnarosBigRagSulfurasSmash,RagnarosSulfurasSmash" abilityType="Heroic">
         <Override>
           <!-- Clear, should not be a subability -->
           <ParentLink value="" />
         </Override>
-	  </Ability>		
+      </Ability>		
     </HeroUnit>
     <Ability id="RagnarosEmpowerSulfurasActive" abilityType="Q" passive="true">
       <Override>
