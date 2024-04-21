@@ -3,7 +3,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <Version>4.9.1</Version>
-    <Copyright>Copyright © 2018 - 2023 Kevin Oliva</Copyright>
+    <Copyright>Copyright © 2018 - 2024 Kevin Oliva</Copyright>
     <Authors>Kevin Oliva</Authors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
