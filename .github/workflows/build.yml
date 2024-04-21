@@ -1,0 +1,17 @@
+name: Build
+
+on: [push, workflow_dispatch]
+ 
+jobs:
+  build:
+    uses: koliva8245/github.workflows/.github/workflows/dotnet-build.yml@main
+    with:
+      dotnet-sdk: 6.0.X
+      main-project: HeroesData/HeroesData.csproj
+      artifact-name-prefix: HeroesData
+      is-tool: true
+    secrets:
+      es-username: ${{ secrets.ES_USERNAME }}
+      es-password: ${{ secrets.ES_PASSWORD }}
+      es-credential-id: ${{ secrets.ES_CREDENTIAL_ID }}
+      es-totp-secret: ${{ secrets.ES_TOTP_SECRET }}    
