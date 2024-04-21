@@ -6,7 +6,7 @@ jobs:
   build:
     uses: koliva8245/github.workflows/.github/workflows/dotnet-build.yml@main
     with:
-      dotnet-sdk: 6.0.X
+      dotnet-sdk: 8.0.X
       main-project: HeroesData/HeroesData.csproj
       artifact-name-prefix: HeroesData
       is-tool: true
