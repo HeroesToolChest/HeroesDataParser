@@ -1,5 +1,6 @@
 # Heroes Data Parser
-[![Build Status](https://dev.azure.com/kevinkoliva/Heroes%20of%20the%20Storm%20Projects/_apis/build/status/HeroesToolChest.HeroesDataParser?branchName=master)](https://dev.azure.com/kevinkoliva/Heroes%20of%20the%20Storm%20Projects/_build/latest?definitionId=1&branchName=master) [![Release](https://img.shields.io/github/release/koliva8245/HeroesDataParser.svg)](https://github.com/koliva8245/HeroesDataParser/releases/latest)
+[![Build](https://github.com/HeroesToolChest/HeroesDataParser/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/HeroesToolChest/HeroesDataParser/actions/workflows/build.yml)
+[![Release](https://img.shields.io/github/release/koliva8245/HeroesDataParser.svg)](https://github.com/koliva8245/HeroesDataParser/releases/latest)
 [![NuGet](https://img.shields.io/nuget/v/HeroesDataParser.svg)](https://www.nuget.org/packages/HeroesDataParser/)
 
 Heroes Data Parser is a .NET command line tool that extracts Heroes of the Storm game data into XML and JSON files. Extracts numerous types of data.
