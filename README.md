@@ -37,7 +37,7 @@ Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some m
 
 ## Installation
 ### Dotnet Global Tool (Recommended)
-Download and install the [.NET 6.0 SDK](https://dotnet.microsoft.com/download). 
+Download and install the [.NET 8.0 SDK](https://dotnet.microsoft.com/download). 
 
 Once installed, run the following command:
 ```
@@ -54,7 +54,7 @@ dotnet tool update --global HeroesDataParser
 ### Zip File Download - Framework-Dependent Deployment (fdd)
 Portable to any operating system.
 
-Download and install the [.NET 6.0 Runtime or SDK](https://dotnet.microsoft.com/download). 
+Download and install the [.NET 8.0 Runtime or SDK](https://dotnet.microsoft.com/download). 
 
 Download and extract the latest `HeroesDataParser.*-fdd-any` zip file from the [releases](https://github.com/HeroesToolChest/HeroesDataParser/releases) page.
 
@@ -63,7 +63,7 @@ Download and extract the latest `HeroesDataParser.*-fdd-any` zip file from the [
 ### Zip File Download - Framework-Dependent Executable (fde)
 Runs only on the selected operating system.
 
-Download and install the [.NET 6.0 Runtime or SDK](https://dotnet.microsoft.com/download). 
+Download and install the [.NET 8.0 Runtime or SDK](https://dotnet.microsoft.com/download). 
 
 Download and extract the latest `HeroesDataParser.*-fde-<OS>-x64` zip file from the [releases](https://github.com/HeroesToolChest/HeroesDataParser/releases) page for a selected operating system.
 
@@ -751,7 +751,7 @@ The override files are for manually modifying the data after parsing the game da
 ## Developing
 To build and compile the code, it is recommended to use the latest version of [Visual Studio 2022 or Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
 
-Another option is to use the dotnet CLI tools from the [.NET 6.0 SDK](https://dotnet.microsoft.com/download).
+Another option is to use the dotnet CLI tools from the [.NET 8.0 SDK](https://dotnet.microsoft.com/download).
 
 The main project is `HeroesData.csproj` and the main entry point is `Program.cs`.
 
