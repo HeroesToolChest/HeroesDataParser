@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>3.4.0</Version>
+    <Version>3.5.0</Version>
     <Authors>Kevin Oliva</Authors>
     <Copyright>Copyright © 2018 - 2024 Kevin Oliva</Copyright>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
