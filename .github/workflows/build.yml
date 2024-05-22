@@ -8,7 +8,7 @@ jobs:
     with:
       dotnet-sdk: 8.0.X
       main-project: HeroesData/HeroesData.csproj
-      artifact-name-prefix: HeroesData
+      artifact-name-prefix: HeroesDataParser
       is-tool: true
     secrets:
       es-username: ${{ secrets.ES_USERNAME }}
