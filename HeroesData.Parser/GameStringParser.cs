@@ -427,10 +427,10 @@ namespace HeroesData.Parser.GameStrings
                         {
                             string value = GetValueFromPath(arithmeticPath.ToString(), out double? scalingValue);
 
-                            if (value.Length > 0 && scalingValue.HasValue)
-                                pathLookup = $"{pathLookup.Slice(0, position)}({value})~~{scalingValue}~~{pathLookup[(position + arithmeticPath.Length)..]}".AsMemory();
-                            else if (value.Length > 0)
-                                pathLookup = $"{pathLookup.Slice(0, position)}({value}){pathLookup[(position + arithmeticPath.Length)..]}".AsMemory();
+                            if (value.Length > 0 && scalingValue.HasValue && double.TryParse(value, out double number))
+                                pathLookup = $"{pathLookup.Slice(0, position)}({number})~~{scalingValue}~~{pathLookup[(position + arithmeticPath.Length)..]}".AsMemory();
+                            else if (value.Length > 0 && double.TryParse(value, out number))
+                                pathLookup = $"{pathLookup.Slice(0, position)}({number}){pathLookup[(position + arithmeticPath.Length)..]}".AsMemory();
                             else
                                 pathLookup = $"{pathLookup.Slice(0, position)}{pathLookup[(position + arithmeticPath.Length)..]}".AsMemory();
                         }
