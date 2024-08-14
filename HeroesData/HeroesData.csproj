@@ -7,7 +7,7 @@
     <PublishSingleFile>false</PublishSingleFile>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>dotnet-heroes-data</ToolCommandName>
-    <Version>4.13.0</Version>
+    <Version>4.13.1</Version>
     <Copyright>Copyright © 2018 - 2024 Kevin Oliva</Copyright>
     <Authors>Kevin Oliva</Authors>
     <PackageId>HeroesDataParser</PackageId>
