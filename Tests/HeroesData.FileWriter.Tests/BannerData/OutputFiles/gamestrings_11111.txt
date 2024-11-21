@@ -1,6 +1,0 @@
-banner/description/OrcWarbanner=Orc infused warbanner
-banner/description/WizardWarbanner=Magically infused warbanner
-banner/name/OrcWarbanner=Orc Warbanner
-banner/name/WizardWarbanner=Wizard Warbanner
-banner/sortname/OrcWarbanner=11OrcWarbanner
-banner/sortname/WizardWarbanner=22WizardWarbanner

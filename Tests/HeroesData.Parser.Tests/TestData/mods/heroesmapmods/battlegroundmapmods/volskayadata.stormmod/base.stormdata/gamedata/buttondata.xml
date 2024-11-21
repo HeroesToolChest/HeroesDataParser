@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="us-ascii"?>
-<Catalog>
-    <CButton id="DragonKnightLeaveDragon">
-        <Icon value="Assets\Textures\storm_ui_icon_volskayarobot_leavevehicle.dds"/>
-    </CButton>
-    <CButton id="VehicleGenericSwapVehicle">
-        <Tooltip value="Button/Tooltip/VolskayaVehicleSwap"/>
-    </CButton>
-</Catalog>

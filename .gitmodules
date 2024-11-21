@@ -1,6 +1,0 @@
-[submodule "CASCExplorer"]
-	path = CASCExplorer
-	url = https://github.com/WoW-Tools/CASCExplorer.git
-[submodule "Heroes.Models"]
-	path = Heroes.Models
-	url = https://github.com/koliva8245/Heroes.Models.git

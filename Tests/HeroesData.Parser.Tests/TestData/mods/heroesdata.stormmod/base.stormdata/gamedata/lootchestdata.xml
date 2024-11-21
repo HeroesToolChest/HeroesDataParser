@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="us-ascii"?>
-<Catalog>
-  <CLootChest id="LootChestChristmas2020Epic" parent="LootChestChristmas2020Epic">
-    <MaxRerolls value="3" />
-    <ServerId value="163" />
-    <RequiredRewardArray value="LootChestChristmas2020EpicReward" />
-  </CLootChest>
-</Catalog>

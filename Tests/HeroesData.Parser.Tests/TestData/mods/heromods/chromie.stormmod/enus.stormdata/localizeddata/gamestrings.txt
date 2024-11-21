@@ -1,9 +1,0 @@
-﻿Hero/Description/Chromie=A long range, high burst damage Mage, who requires good timing and setup.
-Hero/Name/Chromie=Chromie
-
-Abil/Name/ChromieSandBlast=Sand Blast
-Button/Name/ChromieSandBlast=Sand Blast
-Button/SimpleDisplayText/ChromieSandBlast=Fire a long range blast that damages an enemy
-Button/Tooltip/ChromieSandBlast=Fire a sand chicken
-
-Button/Tooltip/ChromieSandBlastFastForward=If Sand Blast travels at least <c val="#TooltipNumbers"><d ref="Validator,ChromieFastForwardDistanceCheck,Range/Effect,ChromieSandBlastLaunchMissile,ImpactLocation.ProjectionDistanceScale*100"/>%</c> of its base distance and hits a Hero, its cooldown is reduced to <c val="#TooltipNumbers"><d ref="Effect,ChromieSandBlastFastForwardCooldownReduction,Cost[0].CooldownTimeUse" precision="2"/></c> seconds.

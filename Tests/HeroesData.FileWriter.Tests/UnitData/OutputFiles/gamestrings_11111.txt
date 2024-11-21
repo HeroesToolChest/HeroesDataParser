@@ -1,4 +1,0 @@
-unit/damagetype/MinionArcher=Minion
-unit/damagetype/MinionFootman=Minion
-unit/name/MinionArcher=Minion Archer
-unit/name/MinionFootman=Minion Footman

@@ -1,4 +1,0 @@
-emoticonpack/description/OrpheaPack1=Emoticon pack for Orphea
-emoticonpack/name/OrpheaPack1=Orphea Pack 1
-emoticonpack/name/OrpheaPack2=Orphea Pack 2
-emoticonpack/sortname/OrpheaPack1=xxOrpheaPack1

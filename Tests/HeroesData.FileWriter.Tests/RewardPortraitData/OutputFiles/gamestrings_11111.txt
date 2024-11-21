@@ -1,4 +1,0 @@
-rewardportrait/description/WhitemaneCat=This is some description
-rewardportrait/descriptionunearned/WhitemaneCat=This is an unearned description
-rewardportrait/name/WhitemaneBat=Whitemane Bat
-rewardportrait/name/WhitemaneCat=Whitemane Cat
