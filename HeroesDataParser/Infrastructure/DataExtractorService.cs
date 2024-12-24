@@ -6,11 +6,13 @@ public class DataExtractorService : IDataExtractorService
 {
     private readonly ILogger<DataExtractorService> _logger;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
+    private readonly IParsingConfigurationService _parsingConfigurationService;
 
-    public DataExtractorService(ILogger<DataExtractorService> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+    public DataExtractorService(ILogger<DataExtractorService> logger, IHeroesXmlLoaderService heroesXmlLoaderService, IParsingConfigurationService parsingConfigurationService)
     {
         _logger = logger;
         _heroesXmlLoaderService = heroesXmlLoaderService;
+        _parsingConfigurationService = parsingConfigurationService;
     }
 
     public Dictionary<string, TElement> Extract<TElement, TParser>(TParser parser, Map? map = null)
@@ -22,8 +24,10 @@ public class DataExtractorService : IDataExtractorService
         Dictionary<string, TElement> parsedItems = [];
 
         IEnumerable<string> itemIds = _heroesXmlLoaderService.HeroesXmlLoader.HeroesData
-            .GetStormElementIds(parser.DataObjectType, map is null ? StormCacheType.All : StormCacheType.Map)
-                .OrderBy(x => x);
+            .GetStormElementIds(parser.DataObjectType, map is null ? StormCacheType.All : StormCacheType.Map);
+
+        itemIds = _parsingConfigurationService.FilterAllowedItems(parser.DataObjectType, itemIds)
+            .OrderBy(x => x);
 
         _logger.LogTrace("Element ids: {@ItemIds}", itemIds);
 

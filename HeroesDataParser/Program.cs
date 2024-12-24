@@ -1,4 +1,7 @@
-﻿using Serilog;
+﻿using HeroesDataParser.Core.Models.ConfigParsing;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using Serilog;
 
 // TODO: CLI
 
@@ -17,6 +20,9 @@ try
     HeroesXmlLoader heroesXmlLoader = await HeroesDataLoader.Load();
     Log.Information("Completed loading of heroes data");
 
+    // TODO: from cli
+    //int? theCliBuildNumber = null;
+
     builder.Services.AddSerilog();
     builder.Configuration
         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
@@ -24,12 +30,15 @@ try
         {
             // TODO: from cli options, set here
             //["RootOptions:OutputDirectory"] = "mypath",
+            //["RootOptions:BuildNumber"] = theCliBuildNumber?.ToString(),
         });
 
     // options
     builder.Services.Configure<RootOptions>(builder.Configuration.GetSection(nameof(RootOptions)));
 
     // other services
+    builder.Services.AddSingleton(builder.Environment.ContentRootFileProvider);
+
     builder.Services.AddScoped<IHeroesXmlLoaderService>(provider => new HeroesXmlLoaderService(heroesXmlLoader));
     builder.Services.AddScoped<IHeroesDataService>(provider => new HeroesDataService(heroesXmlLoader.HeroesData));
 
@@ -45,6 +54,9 @@ try
     builder.Services.AddScoped<IMapDataExtractorService, MapDataExtractorService>();
 
     builder.Services.AddScoped<IJsonFileWriterService, JsonFileWriterService>();
+
+    // config-file services
+    builder.Services.AddActivatedSingleton<IParsingConfigurationService, ParsingConfigurationService>();
 
     using IHost host = builder.Build();
 

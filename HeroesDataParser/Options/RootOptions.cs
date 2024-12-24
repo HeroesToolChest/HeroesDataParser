@@ -9,4 +9,6 @@ public class RootOptions
     public HashSet<StormLocale> Localizations { get; set; } = [];
 
     public bool LocalizedText { get; set; }
+
+    public int? BuildNumber { get; set; }
 }

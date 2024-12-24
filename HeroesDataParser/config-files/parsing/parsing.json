@@ -1,0 +1,27 @@
+{
+  "XmlDataParsers": {
+    "AnnouncerPack": {
+      "Disallow": {
+        "Exact": [
+          "Cook",
+          "Default",
+          "GardensNightAnnouncer",
+          "NoAnnouncerPack",
+          "Quality",
+          "RandomAnnouncerPack",
+          "StormAnnouncerPackQuick"
+        ],
+        "Regex": [
+        ]
+      }
+    },
+    "Banner": {
+      "Disallow": {
+        "Exact": [
+        ],
+        "Regex": [
+        ]
+      }
+    }
+  }
+}
