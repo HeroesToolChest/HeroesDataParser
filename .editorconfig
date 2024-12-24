@@ -1,8 +1,8 @@
 # Remove the line below if you want to inherit .editorconfig settings from higher directories
 root = true
 
-# .csproj files
-[*.csproj]
+# file types
+[*.{csproj,json,xml}]
 
 # Indentation and spacing
 indent_size = 2
