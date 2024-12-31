@@ -35,19 +35,20 @@ public sealed class DDSImage : IDisposable
     /// Writes the image to the file path.
     /// </summary>
     /// <param name="file">The file path the image will be written to. The file extension determine to conversion to perform.</param>
-    public void Save(string file)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    public async Task Save(string file)
     {
         if (_ddsImageFile.Format == ImageFormat.Rgba32)
         {
-            Save<Bgra32>(file);
+            await Save<Bgra32>(file);
         }
         else if (_ddsImageFile.Format == ImageFormat.Rgb24)
         {
-            Save<Bgr24>(file);
+            await Save<Bgr24>(file);
         }
         else if (_ddsImageFile.Format == ImageFormat.Rgba16)
         {
-            Save<Bgra4444>(file);
+            await Save<Bgra4444>(file);
         }
         else if (_ddsImageFile.Format == ImageFormat.R5g5b5)
         {
@@ -57,15 +58,15 @@ public sealed class DDSImage : IDisposable
                 _ddsImageFile.Data[i] |= 128;
             }
 
-            Save<Bgra5551>(file);
+            await Save<Bgra5551>(file);
         }
         else if (_ddsImageFile.Format == ImageFormat.R5g5b5a1)
         {
-            Save<Bgra5551>(file);
+            await Save<Bgra5551>(file);
         }
         else if (_ddsImageFile.Format == ImageFormat.R5g6b5)
         {
-            Save<Bgr565>(file);
+            await Save<Bgr565>(file);
         }
         else if (_ddsImageFile.Format == ImageFormat.Rgb8)
         {
@@ -83,19 +84,20 @@ public sealed class DDSImage : IDisposable
     /// <param name="file">The file path the image will be written to.</param>
     /// <param name="point">The coordinates where the image will be cropped from.</param>
     /// <param name="size">The size of the new image.</param>
-    public void Save(string file, Point point, Size size)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    public async Task Save(string file, Point point, Size size)
     {
         if (_ddsImageFile.Format == ImageFormat.Rgba32)
         {
-            Save<Bgra32>(file, point, size);
+            await Save<Bgra32>(file, point, size);
         }
         else if (_ddsImageFile.Format == ImageFormat.Rgb24)
         {
-            Save<Bgr24>(file, point, size);
+            await Save<Bgr24>(file, point, size);
         }
         else if (_ddsImageFile.Format == ImageFormat.Rgba16)
         {
-            Save<Bgra4444>(file, point, size);
+            await Save<Bgra4444>(file, point, size);
         }
         else if (_ddsImageFile.Format == ImageFormat.R5g5b5)
         {
@@ -105,15 +107,15 @@ public sealed class DDSImage : IDisposable
                 _ddsImageFile.Data[i] |= 128;
             }
 
-            Save<Bgra5551>(file, point, size);
+            await Save<Bgra5551>(file, point, size);
         }
         else if (_ddsImageFile.Format == ImageFormat.R5g5b5a1)
         {
-            Save<Bgra5551>(file, point, size);
+            await Save<Bgra5551>(file, point, size);
         }
         else if (_ddsImageFile.Format == ImageFormat.R5g6b5)
         {
-            Save<Bgr565>(file, point, size);
+            await Save<Bgr565>(file, point, size);
         }
         else if (_ddsImageFile.Format == ImageFormat.Rgb8)
         {
@@ -133,22 +135,23 @@ public sealed class DDSImage : IDisposable
     /// <param name="innerSize">The size of the inner images on the base image.</param>
     /// <param name="frames">The amount of frames.</param>
     /// <param name="frameDelay">The delay of each frame.</param>
-    public void SaveAsGif(string file, Size size, Size innerSize, int frames, int frameDelay)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    public async Task SaveAsGif(string file, Size size, Size innerSize, int frames, int frameDelay)
     {
         if (Path.GetExtension(file) != ".gif")
             throw new Exception("File is not a gif");
 
         if (_ddsImageFile.Format == ImageFormat.Rgba32)
         {
-            SaveAsGif<Bgra32>(file, size, innerSize, frames, frameDelay);
+            await SaveAsGif<Bgra32>(file, size, innerSize, frames, frameDelay);
         }
         else if (_ddsImageFile.Format == ImageFormat.Rgb24)
         {
-            SaveAsGif<Bgr24>(file, size, innerSize, frames, frameDelay);
+            await SaveAsGif<Bgr24>(file, size, innerSize, frames, frameDelay);
         }
         else if (_ddsImageFile.Format == ImageFormat.Rgba16)
         {
-            SaveAsGif<Bgra4444>(file, size, innerSize, frames, frameDelay);
+            await SaveAsGif<Bgra4444>(file, size, innerSize, frames, frameDelay);
         }
         else if (_ddsImageFile.Format == ImageFormat.R5g5b5)
         {
@@ -158,15 +161,15 @@ public sealed class DDSImage : IDisposable
                 _ddsImageFile.Data[i] |= 128;
             }
 
-            SaveAsGif<Bgra5551>(file, size, innerSize, frames, frameDelay);
+            await SaveAsGif<Bgra5551>(file, size, innerSize, frames, frameDelay);
         }
         else if (_ddsImageFile.Format == ImageFormat.R5g5b5a1)
         {
-            SaveAsGif<Bgra5551>(file, size, innerSize, frames, frameDelay);
+            await SaveAsGif<Bgra5551>(file, size, innerSize, frames, frameDelay);
         }
         else if (_ddsImageFile.Format == ImageFormat.R5g6b5)
         {
-            SaveAsGif<Bgr565>(file, size, innerSize, frames, frameDelay);
+            await SaveAsGif<Bgr565>(file, size, innerSize, frames, frameDelay);
         }
         else if (_ddsImageFile.Format == ImageFormat.Rgb8)
         {
@@ -186,19 +189,20 @@ public sealed class DDSImage : IDisposable
     /// <param name="innerSize">The size of the inner images on the base image.</param>
     /// <param name="frames">The amount of frames.</param>
     /// <param name="frameDelay">The delay of each frame.</param>
-    public void SaveAsAPNG(string file, Size size, Size innerSize, int frames, int frameDelay)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    public async Task SaveAsAPNG(string file, Size size, Size innerSize, int frames, int frameDelay)
     {
         if (_ddsImageFile.Format == ImageFormat.Rgba32)
         {
-            SaveAsAPNG<Bgra32>(file, size, innerSize, frames, frameDelay);
+            await SaveAsAPNG<Bgra32>(file, size, innerSize, frames, frameDelay);
         }
         else if (_ddsImageFile.Format == ImageFormat.Rgb24)
         {
-            SaveAsAPNG<Bgr24>(file, size, innerSize, frames, frameDelay);
+            await SaveAsAPNG<Bgr24>(file, size, innerSize, frames, frameDelay);
         }
         else if (_ddsImageFile.Format == ImageFormat.Rgba16)
         {
-            SaveAsAPNG<Bgra4444>(file, size, innerSize, frames, frameDelay);
+            await SaveAsAPNG<Bgra4444>(file, size, innerSize, frames, frameDelay);
         }
         else if (_ddsImageFile.Format == ImageFormat.R5g5b5)
         {
@@ -208,15 +212,15 @@ public sealed class DDSImage : IDisposable
                 _ddsImageFile.Data[i] |= 128;
             }
 
-            SaveAsAPNG<Bgra5551>(file, size, innerSize, frames, frameDelay);
+            await SaveAsAPNG<Bgra5551>(file, size, innerSize, frames, frameDelay);
         }
         else if (_ddsImageFile.Format == ImageFormat.R5g5b5a1)
         {
-            SaveAsAPNG<Bgra5551>(file, size, innerSize, frames, frameDelay);
+            await SaveAsAPNG<Bgra5551>(file, size, innerSize, frames, frameDelay);
         }
         else if (_ddsImageFile.Format == ImageFormat.R5g6b5)
         {
-            SaveAsAPNG<Bgr565>(file, size, innerSize, frames, frameDelay);
+            await SaveAsAPNG<Bgr565>(file, size, innerSize, frames, frameDelay);
         }
         else if (_ddsImageFile.Format == ImageFormat.Rgb8)
         {
@@ -228,20 +232,20 @@ public sealed class DDSImage : IDisposable
         }
     }
 
-    private static void SaveNewFile<T>(string file, Image<T> image)
+    private static async Task SaveNewFile<T>(string file, Image<T> image)
         where T : unmanaged, IPixel<T>
     {
         string extension = Path.GetExtension(file);
         if (extension == ".png")
         {
-            image.Save(file, new PngEncoder()
+            await image.SaveAsync(file, new PngEncoder()
             {
                 CompressionLevel = PngCompressionLevel.DefaultCompression, // default
             });
         }
         else if (extension == ".jpg")
         {
-            image.Save(file, new JpegEncoder()
+            await image.SaveAsync(file, new JpegEncoder()
             {
                 Quality = 85,
             });
@@ -252,25 +256,25 @@ public sealed class DDSImage : IDisposable
         }
     }
 
-    private void Save<T>(string file)
+    private async Task Save<T>(string file)
         where T : unmanaged, IPixel<T>
     {
         using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
 
-        SaveNewFile(file, image);
+        await SaveNewFile(file, image);
     }
 
-    private void Save<T>(string file, Point point, Size size)
+    private async Task Save<T>(string file, Point point, Size size)
         where T : unmanaged, IPixel<T>
     {
         using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
 
         image.Mutate(x => x.Crop(new Rectangle(point, size)));
 
-        SaveNewFile(file, image);
+        await SaveNewFile(file, image);
     }
 
-    private void SaveAsGif<T>(string file, Size size, Size innerSize, int frames, int frameDelay)
+    private async Task SaveAsGif<T>(string file, Size size, Size innerSize, int frames, int frameDelay)
         where T : unmanaged, IPixel<T>
     {
         // Load full base image
@@ -298,13 +302,13 @@ public sealed class DDSImage : IDisposable
         }
 
         gif.Frames.RemoveFrame(0);
-        gif.Save(file, new GifEncoder()
+        await gif.SaveAsync(file, new GifEncoder()
         {
             ColorTableMode = GifColorTableMode.Local,
         });
     }
 
-    private void SaveAsAPNG<T>(string file, Size size, Size innerSize, int frames, int frameDelay)
+    private async Task SaveAsAPNG<T>(string file, Size size, Size innerSize, int frames, int frameDelay)
         where T : unmanaged, IPixel<T>
     {
         if (Path.GetExtension(file) != ".apng")
@@ -335,7 +339,7 @@ public sealed class DDSImage : IDisposable
             apng.Frames.AddFrame(imagePart.Frames.RootFrame);
         }
 
-        apng.Save(file, new PngEncoder()
+        await apng.SaveAsync(file, new PngEncoder()
         {
             ColorType = PngColorType.RgbWithAlpha,
             CompressionLevel = PngCompressionLevel.DefaultCompression,

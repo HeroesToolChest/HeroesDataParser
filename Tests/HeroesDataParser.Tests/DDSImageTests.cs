@@ -8,7 +8,7 @@ public class DDSImageTests
     private readonly string _testImagesDirectory = "TestImages";
 
     [TestMethod]
-    public void Save_SingleImage_CreatesNewFile()
+    public async Task Save_SingleImage_CreatesNewFile()
     {
         // arrange
         string file = Path.Combine(_testImagesDirectory, "storm_ui_icon_nova_orbitalstrike.dds");
@@ -17,14 +17,14 @@ public class DDSImageTests
         string outputFile = Path.ChangeExtension(file, ".png");
 
         // act
-        image.Save(outputFile);
+        await image.Save(outputFile);
 
         // assert
         File.Exists(outputFile).Should().BeTrue();
     }
 
     [TestMethod]
-    public void Save_ImageIsThreeImages_CreateThreeNewImages()
+    public async Task Save_ImageIsThreeImages_CreateThreeNewImages()
     {
         // arrange
         string file = Path.Combine(_testImagesDirectory, "storm_ui_mvp_icons_rewards_loyaldefender.dds");
@@ -37,9 +37,9 @@ public class DDSImageTests
 
         // act
         int newWidth = 444 / 3;
-        image.Save(blueAward, new Point(0, 0), new Size(newWidth, image.Height));
-        image.Save(redAward, new Point(newWidth, 0), new Size(newWidth, image.Height));
-        image.Save(goldAward, new Point(newWidth * 2, 0), new Size(newWidth, image.Height));
+        await image.Save(blueAward, new Point(0, 0), new Size(newWidth, image.Height));
+        await image.Save(redAward, new Point(newWidth, 0), new Size(newWidth, image.Height));
+        await image.Save(goldAward, new Point(newWidth * 2, 0), new Size(newWidth, image.Height));
 
         // assert
         // original image size
@@ -66,7 +66,7 @@ public class DDSImageTests
     }
 
     [TestMethod]
-    public void SaveAsGif_ImageWithMultipleImages_CreateNewFile()
+    public async Task SaveAsGif_ImageWithMultipleImages_CreateNewFile()
     {
         // arrange
         string file = Path.Combine(_testImagesDirectory, "storm_emoji_cat_gleam_anim_sheet.dds");
@@ -75,14 +75,14 @@ public class DDSImageTests
         string outputFile = Path.ChangeExtension(file, "gif");
 
         // act
-        image.SaveAsGif(outputFile, new Size(34, 32), new Size(40, 32), 25, 50);
+        await image.SaveAsGif(outputFile, new Size(34, 32), new Size(40, 32), 25, 50);
 
         // assert
         File.Exists(outputFile).Should().BeTrue();
     }
 
     [TestMethod]
-    public void SaveAsAPNG_ImageWithMultipleImages_CreateNewFile()
+    public async Task SaveAsAPNG_ImageWithMultipleImages_CreateNewFile()
     {
         // arrange
         string file = Path.Combine(_testImagesDirectory, "storm_emoji_cat_gleam_anim_sheet.dds");
@@ -91,14 +91,14 @@ public class DDSImageTests
         string outputFile = Path.ChangeExtension(file, "apng");
 
         // act
-        image.SaveAsAPNG(outputFile, new Size(34, 32), new Size(40, 32), 25, 50);
+        await image.SaveAsAPNG(outputFile, new Size(34, 32), new Size(40, 32), 25, 50);
 
         // assert
         File.Exists(outputFile).Should().BeTrue();
     }
 
     [TestMethod]
-    public void SaveAsAPNG_SprayImage_CreateNewFile()
+    public async Task SaveAsAPNG_SprayImage_CreateNewFile()
     {
         // arrange
         string file = Path.Combine(_testImagesDirectory, "storm_lootspray_animated_snowglobe_cursed.dds");
@@ -108,7 +108,7 @@ public class DDSImageTests
         string outputFile = Path.ChangeExtension(file, "apng");
 
         // act
-        image.SaveAsAPNG(outputFile, new Size(256, 256), new Size(256, 256), 2, 2000);
+        await image.SaveAsAPNG(outputFile, new Size(256, 256), new Size(256, 256), 2, 2000);
 
         // assert
         File.Exists(outputFile).Should().BeTrue();

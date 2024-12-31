@@ -4,6 +4,8 @@ namespace HeroesDataParser.Infrastructure;
 
 public class JsonFileWriterService : IJsonFileWriterService
 {
+    private const string _jsonFileDirectory = "data";
+
     private readonly ILogger<JsonFileWriterService> _logger;
     private readonly RootOptions _options;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
@@ -42,7 +44,7 @@ public class JsonFileWriterService : IJsonFileWriterService
         if (!IsSerializationRequired(elementsById.Count))
             return;
 
-        await WriteTo(elementsById, _options.OutputDirectory, stormLocale);
+        await WriteTo(elementsById, Path.Combine(_options.OutputDirectory, _jsonFileDirectory), stormLocale);
     }
 
     // write to the maps sub directory
@@ -55,7 +57,7 @@ public class JsonFileWriterService : IJsonFileWriterService
         Span<char> buffer = stackalloc char[mapDirectory.Length];
         int length = SanitizeMapDirectory(buffer, mapDirectory);
 
-        await WriteTo(elementsById, Path.Join(_options.OutputDirectory, "maps", buffer[..length]), stormLocale);
+        await WriteTo(elementsById, Path.Join(_options.OutputDirectory, _jsonFileDirectory, "maps", buffer[..length]), stormLocale);
     }
 
     private static int SanitizeMapDirectory(Span<char> buffer, string mapDirectory)

@@ -1,4 +1,8 @@
-﻿using Serilog.Context;
+﻿using Heroes.LocaleText;
+using Serilog.Context;
+using System.Collections.Immutable;
+using System.Runtime.InteropServices;
+using System.Xml.Linq;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -7,30 +11,34 @@ public class ProcessorService : IProcessorService
     private readonly ILogger<ProcessorService> _logger;
     private readonly RootOptions _options;
     private readonly IServiceProvider _serviceProvider;
-    private readonly IDataParserService _dataParserService;
-
-    // circular dependency
-    //private readonly IMapDataParserService _mapDataParserService;
+    //private readonly IDataParserService _dataParserService;
+    private readonly IDataExtractorService _dataExtractorService;
+    private readonly IJsonFileWriterService _jsonFileWriterService;
 
     private readonly ExtractDataOptions _extractDataOptions;
+    private readonly ExtractImageOptions _extractImageOptions;
     private readonly Dictionary<ExtractDataOptions, Func<Map?, Task>> _processElementByExtractDataOption;
-    //private readonly Dictionary<ExtractDataOptions, Func<Task>> _processElementByExtractDataOptionForMap;
 
     private StormLocale _stormLocale;
 
-    public ProcessorService(ILogger<ProcessorService> logger, IOptions<RootOptions> options, IServiceProvider serviceProvider, IDataParserService dataParserService)
+    public ProcessorService(ILogger<ProcessorService> logger, IOptions<RootOptions> options, IServiceProvider serviceProvider, IDataExtractorService dataExtractorService, IJsonFileWriterService jsonFileWriterService)
     {
         _logger = logger;
         _options = options.Value;
         _serviceProvider = serviceProvider;
-        _dataParserService = dataParserService;
+        //_dataParserService = dataParserService;
+        _dataExtractorService = dataExtractorService;
+        _jsonFileWriterService = jsonFileWriterService;
 
         _extractDataOptions = GetExtractDataOptions();
+        _extractImageOptions = GetExtractImageOptions();
+
         _processElementByExtractDataOption = GetElementProcessors();
-        //_processElementByExtractDataOptionForMap = GetElementProcessors(true);
     }
 
     public ExtractDataOptions ExtractDataOptions => _extractDataOptions;
+
+    public ExtractImageOptions ExtractImageOptions => _extractImageOptions;
 
     public async Task Start(StormLocale stormLocale)
     {
@@ -48,6 +56,11 @@ public class ProcessorService : IProcessorService
         await RunElementProcessors(_processElementByExtractDataOption, map);
     }
 
+    public void Test<TElement>(Dictionary<string, TElement> items)
+        where TElement : IElementObject
+    {
+        
+    }
     //public async Task RunElementProcessors()
     //{
     //    _logger.LogTrace("Available element processors {@ActionProcessors}", _processElementByExtractDataOption.Keys);
@@ -160,7 +173,19 @@ public class ProcessorService : IProcessorService
 
             var dataParser = _serviceProvider.GetRequiredService<IDataParser<THeroesCollectionObject>>();
 
-            await _dataParserService.ParseAndWriteData<THeroesCollectionObject, TParser>((TParser)dataParser, _stormLocale, map);
+            var itemsToSerialize = _dataExtractorService.Extract<THeroesCollectionObject, TParser>((TParser)dataParser, map);
+
+            if (map is null)
+                await _jsonFileWriterService.Write(itemsToSerialize, _stormLocale);
+            else
+                await _jsonFileWriterService.WriteToMaps(map.Id, itemsToSerialize, _stormLocale);
+
+            IImageWriter<THeroesCollectionObject>? imageWriter = _serviceProvider.GetService<IImageWriter<THeroesCollectionObject>>();
+
+            if (imageWriter is not null && _extractImageOptions.HasFlag(imageWriter.ExtractImageOption))
+            {
+                await imageWriter.WriteImages(itemsToSerialize);
+            }
         }
 
         _logger.LogInformation("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeof(THeroesCollectionObject).Name, typeof(TParser).Name);
@@ -222,7 +247,7 @@ public class ProcessorService : IProcessorService
 
         foreach (var extractDataOption in _options.Extractors)
         {
-            if (!extractDataOption.Value.IsEnabled || !Enum.TryParse(extractDataOption.Key, true, out ExtractDataOptions result))
+            if (!Enum.TryParse(extractDataOption.Key, true, out ExtractDataOptions result) || extractDataOption.Value.IsEnabled is false)
                 continue;
 
             selectDataExtractOptions |= result;
@@ -231,6 +256,23 @@ public class ProcessorService : IProcessorService
         _logger.LogTrace("Selected data extractors: {@DataOptions}", selectDataExtractOptions);
 
         return selectDataExtractOptions;
+    }
+
+    private ExtractImageOptions GetExtractImageOptions()
+    {
+        ExtractImageOptions selectImageExtractOptions = ExtractImageOptions.None;
+
+        foreach (var extractDataOption in _options.Extractors)
+        {
+            if (!Enum.TryParse(extractDataOption.Key, true, out ExtractImageOptions result) || extractDataOption.Value.IsEnabled is false || extractDataOption.Value.Images is false)
+                continue;
+
+            selectImageExtractOptions |= result;
+        }
+
+        _logger.LogTrace("Selected image extractors: {@ImageOptions}", selectImageExtractOptions);
+
+        return selectImageExtractOptions;
     }
 
     //private Dictionary<ExtractDataOptions, Func<Dictionary<string, IElementObject>>> GetElementProcessors() => new()
@@ -245,4 +287,6 @@ public class ProcessorService : IProcessorService
         { ExtractDataOptions.Announcer, ProcessHeroesCollectionObject<Announcer, AnnouncerParser> },
         { ExtractDataOptions.Banner, ProcessHeroesCollectionObject<Banner, BannerParser> },
     };
+
+   // private Dictionary<ExtractImageOptions, >
 }

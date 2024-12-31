@@ -1,4 +1,6 @@
-﻿namespace HeroesDataParser.Extensions;
+﻿using HeroesDataParser.Infrastructure.ImageWriters;
+
+namespace HeroesDataParser.Extensions;
 
 public static class ServiceCollectionExtensions
 {
@@ -12,6 +14,14 @@ public static class ServiceCollectionExtensions
 
         //services.AddScoped(typeof(IDataExtractorService<,>), typeof(DataExtractorService<,>));
         //services.AddScoped<IDataExtractorService<Map, IDataParser<Map>>, MapDataExtractorService>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddImageWriters(this IServiceCollection services)
+    {
+        // add all image writers
+        services.AddTransient<IImageWriter<Announcer>, AnnouncerImageWriter>();
 
         return services;
     }

@@ -43,6 +43,7 @@ try
     builder.Services.AddScoped<IHeroesDataService>(provider => new HeroesDataService(heroesXmlLoader.HeroesData));
 
     builder.Services.AddDataParsers();
+    builder.Services.AddImageWriters();
 
     builder.Services.AddScoped<IProcessorService, ProcessorService>();
     builder.Services.AddScoped<IMapProcessorService, MapProcessorService>();

@@ -7,6 +7,7 @@ public class DataParserService : IDataParserService
     private readonly ILogger<ProcessorService> _logger;
     private readonly IDataExtractorService _dataExtractorService;
     private readonly IJsonFileWriterService _jsonFileWriterService;
+    
 
     public DataParserService(ILogger<ProcessorService> logger, IDataExtractorService dataExtractorService, IJsonFileWriterService jsonFileWriterService)
     {
