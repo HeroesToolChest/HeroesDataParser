@@ -18,6 +18,12 @@ public class ParsingConfigurationService : IParsingConfigurationService
     private readonly SortedDictionary<int, string> _relativeFilePathsByBuild = [];
     private readonly Dictionary<string, ParsingDataObjectType> _parsingDataObjectTypeByDOT = [];
 
+    private readonly JsonDocumentOptions _jsonDocumentOptions = new()
+    {
+        AllowTrailingCommas = true,
+        CommentHandling = JsonCommentHandling.Skip,
+    };
+
     public ParsingConfigurationService(ILogger<ParsingConfigurationService> logger, IOptions<RootOptions> options, IFileProvider fileProvider)
     {
         _logger = logger;
@@ -149,7 +155,7 @@ public class ParsingConfigurationService : IParsingConfigurationService
     private void LoadFile(string selectedFilePath)
     {
         using Stream fileStream = _fileProvider.GetFileInfo(selectedFilePath).CreateReadStream();
-        using JsonDocument jsonDocument = JsonDocument.Parse(fileStream);
+        using JsonDocument jsonDocument = JsonDocument.Parse(fileStream, _jsonDocumentOptions);
 
         JsonElement root = jsonDocument.RootElement;
 

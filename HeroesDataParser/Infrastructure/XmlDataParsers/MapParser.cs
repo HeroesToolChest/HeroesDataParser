@@ -57,6 +57,12 @@ public class MapParser : ParserBase<Map>
         }
     }
 
+    protected override void SetProperties(Map elementObject, StormElement stormElement)
+    {
+        // Parse method was overridden, so this method is not needed
+        return;
+    }
+
     private static string? GetImagePath(string path)
     {
         return Path.ChangeExtension(Path.GetFileName(path), ImageFileExtension);

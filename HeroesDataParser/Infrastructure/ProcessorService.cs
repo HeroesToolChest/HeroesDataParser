@@ -191,6 +191,35 @@ public class ProcessorService : IProcessorService
         _logger.LogInformation("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeof(THeroesCollectionObject).Name, typeof(TParser).Name);
     }
 
+    private async Task ProcessElementObject<TElementObject, TParser>(Map? map = null)
+        where TElementObject : IElementObject
+        where TParser : IDataParser<TElementObject>
+    {
+        using (LogContext.PushProperty("ElementType", typeof(TElementObject).Name))
+        using (LogContext.PushProperty("Parser", typeof(TParser).Name))
+        {
+            _logger.LogInformation("Start action processor for {HeroesCollectionObject} using parser {Parser}", typeof(TElementObject).Name, typeof(TParser).Name);
+
+            var dataParser = _serviceProvider.GetRequiredService<IDataParser<TElementObject>>();
+
+            var itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser, map);
+
+            if (map is null)
+                await _jsonFileWriterService.Write(itemsToSerialize, _stormLocale);
+            else
+                await _jsonFileWriterService.WriteToMaps(map.Id, itemsToSerialize, _stormLocale);
+
+            IImageWriter<TElementObject>? imageWriter = _serviceProvider.GetService<IImageWriter<TElementObject>>();
+
+            if (imageWriter is not null && _extractImageOptions.HasFlag(imageWriter.ExtractImageOption))
+            {
+                await imageWriter.WriteImages(itemsToSerialize);
+            }
+        }
+
+        _logger.LogInformation("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeof(TElementObject).Name, typeof(TParser).Name);
+    }
+
     //private async Task ProcessMapObject()
     //{
     //    _logger.LogInformation("Start action processor for {MapObject} using parser {Parser}", typeof(Map).Name, typeof(MapParser).Name);
@@ -284,8 +313,11 @@ public class ProcessorService : IProcessorService
 
     private Dictionary<ExtractDataOptions, Func<Map?, Task>> GetElementProcessors() => new()
     {
-        { ExtractDataOptions.Announcer, ProcessHeroesCollectionObject<Announcer, AnnouncerParser> },
-        { ExtractDataOptions.Banner, ProcessHeroesCollectionObject<Banner, BannerParser> },
+        { ExtractDataOptions.Announcer, ProcessElementObject<Announcer, AnnouncerParser> },
+        { ExtractDataOptions.Banner, ProcessElementObject<Banner, BannerParser> },
+        { ExtractDataOptions.Bundle, ProcessElementObject<Bundle, BundleParser> },
+        { ExtractDataOptions.Boost, ProcessElementObject<Boost, BoostParser> },
+        { ExtractDataOptions.LootChest, ProcessElementObject<LootChest, LootChestParser> },
     };
 
    // private Dictionary<ExtractImageOptions, >

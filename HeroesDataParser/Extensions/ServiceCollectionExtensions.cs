@@ -9,6 +9,9 @@ public static class ServiceCollectionExtensions
         // add all data parsers
         services.AddScoped<IDataParser<Announcer>, AnnouncerParser>();
         services.AddScoped<IDataParser<Banner>, BannerParser>();
+        services.AddScoped<IDataParser<Boost>, BoostParser>();
+        services.AddScoped<IDataParser<Bundle>, BundleParser>();
+        services.AddScoped<IDataParser<LootChest>, LootChestParser>();
 
         services.AddScoped<IDataParser<Map>, MapParser>();
 

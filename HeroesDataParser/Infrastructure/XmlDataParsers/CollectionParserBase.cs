@@ -24,54 +24,58 @@ public abstract class CollectionParserBase<T> : ParserBase<T>
 
     public abstract override string DataObjectType { get; }
 
-    public override T? Parse(string id)
+    //public override T? Parse(string id)
+    //{
+    //    _logger.LogTrace("Parsing id {Id}", id);
+
+    //    StormElement? stormElement = _heroesData.GetCompleteStormElement(DataObjectType, id);
+
+    //    if (stormElement is null)
+    //    {
+    //        _logger.LogWarning("Could not find data for id {Id}", id);
+    //        return null;
+    //    }
+
+    //    T? collectionObject = (T?)Activator.CreateInstance(typeof(T), id);
+
+    //    if (collectionObject is null)
+    //    {
+    //        _logger.LogError("Failed to create instance of type {Type} for id {Id}", typeof(T), id);
+    //        return null;
+    //    }
+
+    //    using (LogContext.PushProperty("XmlPaths", stormElement.OriginalXElements.Select(x => x.StormPath)))
+    //    {
+    //        SetCommonProperties(collectionObject, stormElement);
+    //        SetAdditionalProperties(collectionObject, stormElement);
+    //        SetValidatedProperties(collectionObject);
+
+    //        _logger.LogTrace("Parsing id {Id} complete", id);
+
+    //        return collectionObject;
+    //    }
+    //}
+
+    protected override void SetProperties(T elementObject, StormElement stormElement)
     {
-        _logger.LogTrace("Parsing id {Id}", id);
-
-        StormElement? stormElement = _heroesData.GetCompleteStormElement(DataObjectType, id);
-
-        if (stormElement is null)
-        {
-            _logger.LogWarning("Could not find data for id {Id}", id);
-            return null;
-        }
-
-        T? collectionObject = (T?)Activator.CreateInstance(typeof(T), id);
-
-        if (collectionObject is null)
-        {
-            _logger.LogError("Failed to create instance of type {Type} for id {Id}", typeof(T), id);
-            return null;
-        }
-
-        using (LogContext.PushProperty("XmlPaths", stormElement.OriginalXElements.Select(x => x.StormPath)))
-        {
-            SetCommonProperties(collectionObject, stormElement);
-            SetAdditionalProperties(collectionObject, stormElement);
-            SetValidatedProperties(collectionObject);
-
-            _logger.LogTrace("Parsing id {Id} complete", id);
-
-            return collectionObject;
-        }
+        SetCommonProperties(elementObject, stormElement);
+        SetAdditionalProperties(elementObject, stormElement);
+        SetValidatedProperties(elementObject);
     }
 
     protected void SetCommonProperties(T collectionObject, StormElement stormElement)
     {
-        if (stormElement.DataValues.TryGetElementDataAt("name", out StormElementData? nameData))
-            collectionObject.Name = GetTooltipDescription(nameData.Value.GetString());
+        SetNameProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("sortname", out StormElementData? sortNameData))
             collectionObject.SortName = GetTooltipDescription(sortNameData.Value.GetString());
 
-        if (stormElement.DataValues.TryGetElementDataAt("hyperlinkid", out StormElementData? hyperLinkIdData))
-            collectionObject.HyperlinkId = hyperLinkIdData.Value.GetString();
+        SetHyperlinkIdProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("attributeid", out StormElementData? attributeIdData))
             collectionObject.AttributeId = attributeIdData.Value.GetString();
 
-        if (stormElement.DataValues.TryGetElementDataAt("rarity", out StormElementData? rarityData) && Enum.TryParse(rarityData.Value.GetString(), out Rarity rarity))
-            collectionObject.Rarity = rarity;
+        SetRarityProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("releasedate", out StormElementData? releasetDateData))
         {
@@ -92,13 +96,10 @@ public abstract class CollectionParserBase<T> : ParserBase<T>
         }
 
         if (stormElement.DataValues.TryGetElementDataAt("collectioncategory", out StormElementData? collectionCategoryData))
-            collectionObject.CollectionCategory = collectionCategoryData.Value.GetString();
+            collectionObject.Category = collectionCategoryData.Value.GetString();
 
-        if (stormElement.DataValues.TryGetElementDataAt("eventname", out StormElementData? eventNameData))
-            collectionObject.EventName = eventNameData.Value.GetString();
-
-        if (stormElement.DataValues.TryGetElementDataAt("description", out StormElementData? descriptionData))
-            collectionObject.Description = GetTooltipDescription(descriptionData.Value.GetString());
+        SetEventNameProperty(collectionObject, stormElement);
+        SetDescriptionProperty(collectionObject, stormElement);
     }
 
     protected abstract void SetAdditionalProperties(T collectionObject, StormElement stormElement);

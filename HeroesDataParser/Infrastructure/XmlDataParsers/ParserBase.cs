@@ -1,4 +1,6 @@
-﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
+﻿using Serilog.Context;
+
+namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
 public abstract class ParserBase<T> : IDataParser<T>
     where T : ElementObject, IElementObject
@@ -36,10 +38,17 @@ public abstract class ParserBase<T> : IDataParser<T>
             return null;
         }
 
-        _logger.LogTrace("Parsing id {Id} complete", id);
+        using (LogContext.PushProperty("XmlPaths", stormElement.OriginalXElements.Select(x => x.StormPath)))
+        {
+            SetProperties(elementObject, stormElement);
 
-        return elementObject;
+            _logger.LogTrace("Parsing id {Id} complete", id);
+
+            return elementObject;
+        }
     }
+
+    protected abstract void SetProperties(T elementObject, StormElement stormElement);
 
     protected TooltipDescription? GetTooltipDescription(string id)
     {
@@ -49,5 +58,50 @@ public abstract class ParserBase<T> : IDataParser<T>
             return null;
         else
             return _heroesData.ParseGameString(stormGameString);
+    }
+
+    protected void SetNameProperty(T elementObject, StormElement stormElement)
+    {
+        if (elementObject is IName nameObject)
+        {
+            if (stormElement.DataValues.TryGetElementDataAt("name", out StormElementData? nameData))
+                nameObject.Name = GetTooltipDescription(nameData.Value.GetString());
+        }
+    }
+
+    protected void SetHyperlinkIdProperty(T elementObject, StormElement stormElement)
+    {
+        if (elementObject is IHyperlinkId hyperlinkIdObject)
+        {
+            if (stormElement.DataValues.TryGetElementDataAt("hyperlinkid", out StormElementData? hyperlinkIdData))
+                hyperlinkIdObject.HyperlinkId = hyperlinkIdData.Value.GetString();
+        }
+    }
+
+    protected void SetRarityProperty(T elementObject, StormElement stormElement)
+    {
+        if (elementObject is IRarity rarityObject)
+        {
+            if (stormElement.DataValues.TryGetElementDataAt("rarity", out StormElementData? rarityData) && Enum.TryParse(rarityData.Value.GetString(), out Rarity rarity))
+                rarityObject.Rarity = rarity;
+        }
+    }
+
+    protected void SetEventNameProperty(T elementObject, StormElement stormElement)
+    {
+        if (elementObject is IEventName eventNameObject)
+        {
+            if (stormElement.DataValues.TryGetElementDataAt("eventname", out StormElementData? eventNameData))
+                eventNameObject.Event = eventNameData.Value.GetString();
+        }
+    }
+
+    protected void SetDescriptionProperty(T elementObject, StormElement stormElement)
+    {
+        if (elementObject is IDescription descriptionObject)
+        {
+            if (stormElement.DataValues.TryGetElementDataAt("description", out StormElementData? descriptionData))
+                descriptionObject.Description = GetTooltipDescription(descriptionData.Value.GetString());
+        }
     }
 }

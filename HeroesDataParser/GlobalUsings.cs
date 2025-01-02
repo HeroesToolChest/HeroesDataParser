@@ -1,4 +1,5 @@
 ﻿global using Heroes.Element.Models;
+global using Heroes.Element.Models.ObjectProperties;
 global using Heroes.Element.Types;
 global using Heroes.LocaleText;
 global using Heroes.XmlData;
