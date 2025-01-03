@@ -64,8 +64,30 @@ public abstract class ImageWriterBase<TElement> : IImageWriter<TElement>
         await ddsImage.Save(outputFilePath);
     }
 
-    private void SaveImageFile()
+    protected async Task SaveImagesFiles(ICollection<string> paths, string directory)
     {
-        
+        if (paths.Count < 1)
+        {
+            _logger.LogInformation("No {Type} file paths found", typeof(TElement));
+            return;
+        }
+
+        _logger.LogInformation("{Count} {Type} images to save", paths.Count, typeof(TElement));
+        _logger.LogTrace("{Type} file paths: {@FilePaths}", paths, typeof(TElement));
+
+        string outputDirectory = Path.Combine(_options.OutputDirectory, ImageDirectory, directory);
+
+        Directory.CreateDirectory(outputDirectory);
+
+        _logger.LogInformation("Saving {Type} images to {OutputDirectory}", outputDirectory, typeof(TElement));
+
+        List<Task> tasks = new(paths.Count);
+
+        foreach (string relativePath in paths)
+        {
+            tasks.Add(SaveStaticImageFile(relativePath, outputDirectory));
+        }
+
+        await Task.WhenAll(tasks);
     }
 }

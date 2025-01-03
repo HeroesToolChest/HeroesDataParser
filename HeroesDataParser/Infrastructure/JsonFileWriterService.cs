@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HeroesDataParser.Infrastructure;
+﻿namespace HeroesDataParser.Infrastructure;
 
 public class JsonFileWriterService : IJsonFileWriterService
 {
