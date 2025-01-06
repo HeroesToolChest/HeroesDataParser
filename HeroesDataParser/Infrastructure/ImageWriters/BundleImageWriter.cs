@@ -4,27 +4,23 @@ public class BundleImageWriter : ImageWriterBase<Bundle>
 {
     private const string _bundleDirectory = "bundles";
 
-    private readonly ILogger<BundleImageWriter> _logger;
-    private readonly RootOptions _options;
-    private readonly HashSet<string> _bundleFilePaths = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, ImageRelativePath> _bundleRelativePathsByFileName = new(StringComparer.OrdinalIgnoreCase);
 
     public BundleImageWriter(ILogger<BundleImageWriter> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
         : base(logger, options, heroesXmlLoaderService)
     {
-        _logger = logger;
-        _options = options.Value;
     }
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.Bundle;
 
-    protected override void GetImages(Bundle element)
+    protected override void SetImages(Bundle element)
     {
-        if (!string.IsNullOrWhiteSpace(element.ImagePath))
-            _bundleFilePaths.Add(element.ImagePath);
+        if (!string.IsNullOrWhiteSpace(element.Image) && !string.IsNullOrWhiteSpace(element.ImagePath?.FilePath))
+            _bundleRelativePathsByFileName.TryAdd(element.Image, new ImageRelativePath(element, element.ImagePath));
     }
 
     protected override async Task SaveImages()
     {
-        await SaveImagesFiles(_bundleFilePaths, _bundleDirectory);
+        await SaveImagesFiles(_bundleRelativePathsByFileName, _bundleDirectory);
     }
 }

@@ -28,7 +28,10 @@ public class AnnouncerParser : CollectionParserBase<Announcer>
             if (stormAssetFile is not null)
             {
                 collectionObject.Image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), ImageFileExtension);
-                collectionObject.ImagePath = stormAssetFile.StormPath.Path;
+                collectionObject.ImagePath = new RelativeFilePath()
+                {
+                    FilePath = stormAssetFile.StormPath.Path,
+                };
             }
             else
             {

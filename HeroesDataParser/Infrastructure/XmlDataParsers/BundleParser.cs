@@ -25,8 +25,11 @@ public class BundleParser : CollectionParserBase<Bundle>
             if (stormAssetFile is not null)
             {
                 collectionObject.Image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), ImageFileExtension);
-                collectionObject.ImagePath = stormAssetFile.StormPath.Path;
-            }
+                collectionObject.ImagePath = new RelativeFilePath()
+                {
+                    FilePath = stormAssetFile.StormPath.Path,
+                };
+             }
             else
             {
                 _logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTexturePath);

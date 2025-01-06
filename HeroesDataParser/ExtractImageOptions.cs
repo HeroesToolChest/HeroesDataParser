@@ -17,7 +17,8 @@ public enum ExtractImageOptions
     Bundle = 1 << 10,
     Boost = 1 << 11,
     TypeDescription = 1 << 12,
-    All = ~(~0 << 13),
+    Map = 1 << 13,
+    All = ~(~0 << 14),
 
     HeroData = HeroPortrait | AbilityTalent,
     HeroDataSplit = HeroPortrait | Ability | Talent,

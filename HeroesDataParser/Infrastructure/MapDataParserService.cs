@@ -3,16 +3,16 @@
 // for the map data, since we use different ids and have to parse all the elements
 public class MapDataParserService : IMapDataParserService
 {
-    private readonly ILogger<MapDataParserService> _logger;
-    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
+    //private readonly ILogger<MapDataParserService> _logger;
+    //private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IMapDataExtractorService _mapDataExtractorService;
     private readonly IProcessorService _processorService;
     private readonly IJsonFileWriterService _jsonFileWriterService;
 
     public MapDataParserService(ILogger<MapDataParserService> logger, IHeroesXmlLoaderService heroesXmlLoaderService, IMapDataExtractorService mapDataExtractorService, IProcessorService processorService, IJsonFileWriterService jsonFileWriterService)
     {
-        _logger = logger;
-        _heroesXmlLoaderService = heroesXmlLoaderService;
+        //_logger = logger;
+        //_heroesXmlLoaderService = heroesXmlLoaderService;
         _mapDataExtractorService = mapDataExtractorService;
         _processorService = processorService;
         _jsonFileWriterService = jsonFileWriterService;

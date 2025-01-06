@@ -195,29 +195,49 @@ public class ProcessorService : IProcessorService
         where TElementObject : IElementObject
         where TParser : IDataParser<TElementObject>
     {
-        using (LogContext.PushProperty("ElementType", typeof(TElementObject).Name))
-        using (LogContext.PushProperty("Parser", typeof(TParser).Name))
+        string typeOfElementObjectName = typeof(TElementObject).Name;
+        string typeOfParserName = typeof(TParser).Name;
+
+        using (LogContext.PushProperty("ElementType", typeOfElementObjectName))
+        using (LogContext.PushProperty("Parser", typeOfParserName))
         {
-            _logger.LogInformation("Start action processor for {HeroesCollectionObject} using parser {Parser}", typeof(TElementObject).Name, typeof(TParser).Name);
+            _logger.LogInformation("Start action processor for {HeroesCollectionObject} using parser {Parser}", typeOfElementObjectName, typeOfParserName);
 
             var dataParser = _serviceProvider.GetRequiredService<IDataParser<TElementObject>>();
 
             var itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser, map);
 
-            if (map is null)
-                await _jsonFileWriterService.Write(itemsToSerialize, _stormLocale);
-            else
-                await _jsonFileWriterService.WriteToMaps(map.Id, itemsToSerialize, _stormLocale);
+            await WriteToJson(map, itemsToSerialize);
+            await WriteImages(itemsToSerialize);
 
-            IImageWriter<TElementObject>? imageWriter = _serviceProvider.GetService<IImageWriter<TElementObject>>();
+            _logger.LogInformation("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeOfElementObjectName, typeOfParserName);
+        }
+    }
 
-            if (imageWriter is not null && _extractImageOptions.HasFlag(imageWriter.ExtractImageOption))
-            {
-                await imageWriter.WriteImages(itemsToSerialize);
-            }
+    private async Task WriteToJson<TElementObject>(Map? map, Dictionary<string, TElementObject> itemsToSerialize)
+        where TElementObject : IElementObject
+    {
+        if (map is null)
+            await _jsonFileWriterService.Write(itemsToSerialize, _stormLocale);
+        else
+            await _jsonFileWriterService.WriteToMaps(map.Id, itemsToSerialize, _stormLocale);
+    }
+
+    private async Task WriteImages<TElementObject>(Dictionary<string, TElementObject> itemsToSerialize)
+    where TElementObject : IElementObject
+    {
+        IImageWriter<TElementObject>? imageWriter = _serviceProvider.GetService<IImageWriter<TElementObject>>();
+
+        if (imageWriter is null)
+        {
+            _logger.LogInformation("No image writer found for {ElementType}", typeof(TElementObject).Name);
+            return;
         }
 
-        _logger.LogInformation("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeof(TElementObject).Name, typeof(TParser).Name);
+        if (_extractImageOptions.HasFlag(imageWriter.ExtractImageOption))
+        {
+            await imageWriter.WriteImages(itemsToSerialize);
+        }
     }
 
     //private async Task ProcessMapObject()

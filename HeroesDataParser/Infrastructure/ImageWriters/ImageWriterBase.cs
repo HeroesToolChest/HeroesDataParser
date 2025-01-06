@@ -1,4 +1,5 @@
-﻿using Heroes.XmlData;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace HeroesDataParser.Infrastructure.ImageWriters;
 
@@ -10,14 +11,12 @@ public abstract class ImageWriterBase<TElement> : IImageWriter<TElement>
     private readonly ILogger _logger;
     private readonly RootOptions _options;
     private readonly HeroesXmlLoader _heroesXmlLoader;
-    private readonly HeroesData _heroesData;
 
     public ImageWriterBase(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
     {
         _options = options.Value;
         _logger = logger;
         _heroesXmlLoader = heroesXmlLoaderService.HeroesXmlLoader;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     public abstract ExtractImageOptions ExtractImageOption { get; }
@@ -34,7 +33,7 @@ public abstract class ImageWriterBase<TElement> : IImageWriter<TElement>
 
         foreach (TElement element in elementsById.Values)
         {
-            GetImages(element);
+            SetImages(element);
         }
 
         await SaveImages();
@@ -42,52 +41,70 @@ public abstract class ImageWriterBase<TElement> : IImageWriter<TElement>
         _logger.LogTrace("Writing images complete");
     }
 
-    protected abstract void GetImages(TElement element);
+    protected abstract void SetImages(TElement element);
 
     protected abstract Task SaveImages();
 
-    protected async Task SaveStaticImageFile(string relativeFilePath, string outputDirectory)
+    /// <summary>
+    /// Saves the images files to the output directory.
+    /// </summary>
+    /// <param name="relativePathsByFileName">A dictionary of relative file paths to the original image file by the key which is a the final file name.</param>
+    /// <param name="directory">The output (sub)directory.</param>
+    /// <returns>A <see cref="Task"/>.</returns>
+    private protected async Task SaveImagesFiles(IDictionary<string, ImageRelativePath> relativePathsByFileName, string directory)
     {
-        if (!_heroesXmlLoader.FileExists(relativeFilePath))
-        {
-            _logger.LogWarning("File {RelativeFilePath} does not exist", relativeFilePath);
-            return;
-        }
+        string typeElementName = typeof(TElement).Name;
 
-        using Stream stream = _heroesXmlLoader.GetFile(relativeFilePath);
-        using DDSImage ddsImage = new(stream);
-
-        string outputFilePath = Path.Combine(outputDirectory, $"{Path.GetFileNameWithoutExtension(relativeFilePath)}.png");
-
-        _logger.LogTrace("Saving image file {RelativeFilePath} to {OutputFilePath}", relativeFilePath, outputFilePath);
-
-        await ddsImage.Save(outputFilePath);
-    }
-
-    protected async Task SaveImagesFiles(ICollection<string> paths, string directory)
-    {
-        if (paths.Count < 1)
+        if (relativePathsByFileName.Count < 1)
         {
             _logger.LogInformation("No {Type} file paths found", typeof(TElement));
             return;
         }
 
-        _logger.LogInformation("{Count} {Type} images to save", paths.Count, typeof(TElement));
-        _logger.LogTrace("{Type} file paths: {@FilePaths}", paths, typeof(TElement));
+        _logger.LogInformation("{Count} {Type} images to save", relativePathsByFileName.Count, typeElementName);
+        _logger.LogTrace("{Type} file paths: {@FilePaths}", typeElementName, relativePathsByFileName);
 
         string outputDirectory = Path.Combine(_options.OutputDirectory, ImageDirectory, directory);
 
         Directory.CreateDirectory(outputDirectory);
 
-        _logger.LogInformation("Saving {Type} images to {OutputDirectory}", outputDirectory, typeof(TElement));
+        _logger.LogInformation("Saving {Type} images to {OutputDirectory}", typeElementName, outputDirectory);
 
-        List<Task> tasks = new(paths.Count);
+        List<Task> tasks = new(relativePathsByFileName.Count);
 
-        foreach (string relativePath in paths)
+        foreach (KeyValuePair<string, ImageRelativePath> path in relativePathsByFileName)
         {
-            tasks.Add(SaveStaticImageFile(relativePath, outputDirectory));
+            tasks.Add(SaveStaticImageFile(path.Key, path.Value, outputDirectory));
         }
 
         await Task.WhenAll(tasks);
+    }
+
+    private Task SaveStaticImageFile(string fileName, ImageRelativePath imageRelativeFilePath, string outputDirectory)
+    {
+        if (!_heroesXmlLoader.FileExists(imageRelativeFilePath.FilePath, imageRelativeFilePath.MpqFilePath))
+        {
+            _logger.LogWarning("Unable to save {FileName} because {@RelativeFilePath} does not exist ", fileName, imageRelativeFilePath);
+            return Task.CompletedTask;
+        }
+
+        using Stream stream = _heroesXmlLoader.GetFile(imageRelativeFilePath.FilePath, imageRelativeFilePath.MpqFilePath);
+
+        string outputFilePath = Path.Combine(outputDirectory, fileName);
+
+        _logger.LogTrace("Saving image file {@RelativeFilePath} to {OutputFilePath}", imageRelativeFilePath, outputFilePath);
+
+        if (imageRelativeFilePath.FilePath.EndsWith(".dds", StringComparison.OrdinalIgnoreCase))
+        {
+            using DDSImage ddsImage = new(stream);
+
+            return ddsImage.Save(outputFilePath);
+        }
+        else
+        {
+            using Image image = Image.Load(stream);
+
+            return image.SaveAsync(outputFilePath);
+        }
     }
 }

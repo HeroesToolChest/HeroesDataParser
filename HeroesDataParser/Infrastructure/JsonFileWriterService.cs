@@ -82,7 +82,7 @@ public class JsonFileWriterService : IJsonFileWriterService
         }
         else
         {
-            _logger.LogWarning("No items to serialize");
+            _logger.LogInformation("No items to serialize");
             return false;
         }
     }

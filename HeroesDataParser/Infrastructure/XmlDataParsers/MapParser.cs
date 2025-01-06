@@ -45,7 +45,7 @@ public class MapParser : ParserBase<Map>
             if (stormElement is null)
                 _logger.LogWarning("No storm element found for map link {MapLink} of map title {MapTitle}", stormMap.MapLink, mapTitle);
             else
-                SetDataFromXmlFiles(stormElement, map);
+                SetDataFromXmlFiles(stormElement, map, stormMap);
 
             SetMapName(map, stormMap);
             SetPreviewImage(map, stormMap);
@@ -73,13 +73,13 @@ public class MapParser : ParserBase<Map>
         return $"{Path.GetFileNameWithoutExtension(path)}_{new string(appender.ToLowerInvariant().Where(static x => !char.IsWhiteSpace(x) && !char.IsPunctuation(x)).ToArray())}.{ImageFileExtension}";
     }
 
-    private void SetMapName(Map map, StormMap stormMap)
+    private static void SetMapName(Map map, StormMap stormMap)
     {
         if (stormMap.NameByLocale.TryGetValue(StormLocale.ENUS, out string? name))
             map.Name = new TooltipDescription(name, StormLocale.ENUS);
     }
 
-    private void SetDataFromXmlFiles(StormElement stormElement, Map map)
+    private void SetDataFromXmlFiles(StormElement stormElement, Map map, StormMap stormMap)
     {
         if (stormElement.DataValues.TryGetElementDataAt("DraftIntroImage", out StormElementData? draftIntroImageData))
         {
@@ -91,14 +91,21 @@ public class MapParser : ParserBase<Map>
                 if (stormAssetFile is not null)
                 {
                     map.LoadingScreenImage = GetImagePath(stormAssetFile.StormPath.Path);
-                    map.LoadingScreenImagePath = stormAssetFile.StormPath.Path;
+                    map.LoadingScreenImagePath = new RelativeFilePath()
+                    {
+                        FilePath = stormAssetFile.StormPath.Path,
+                    };
                 }
             }
             else
             {
                 // mpq file
                 map.LoadingScreenImage = GetImagePath(imagePath);
-                map.LoadingScreenImagePath = imagePath;
+                map.LoadingScreenImagePath = new RelativeFilePath()
+                {
+                    FilePath = imagePath,
+                    MpqFilePath = stormMap.S2MAFilePath,
+                };
             }
         }
     }
@@ -111,14 +118,21 @@ public class MapParser : ParserBase<Map>
             if (stormAssetFile is not null)
             {
                 map.ReplayPreviewImage = GetImagePath(stormAssetFile.StormPath.Path);
-                map.ReplayPreviewImagePath = stormAssetFile.StormPath.Path;
+                map.ReplayPreviewImagePath = new RelativeFilePath()
+                {
+                    FilePath = stormAssetFile.StormPath.Path,
+                };
             }
         }
         else if (!string.IsNullOrWhiteSpace(stormMap.ReplayPreviewImagePath))
         {
             // mpq file
             map.ReplayPreviewImage = GetImagePathWithAppender(stormMap.ReplayPreviewImagePath, map.Id);
-            map.ReplayPreviewImagePath = stormMap.ReplayPreviewImagePath;
+            map.ReplayPreviewImagePath = new RelativeFilePath()
+            {
+                FilePath = stormMap.ReplayPreviewImagePath,
+                MpqFilePath = stormMap.S2MAFilePath,
+            };
         }
     }
 
@@ -195,7 +209,10 @@ public class MapParser : ParserBase<Map>
                 if (stormAssetFile is not null)
                 {
                     mapIcon.Image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), ImageFileExtension);
-                    mapIcon.ImagePath = stormAssetFile.StormPath.Path;
+                    mapIcon.ImagePath = new RelativeFilePath()
+                    {
+                        FilePath = stormAssetFile.StormPath.Path,
+                    };
                 }
                 else
                 {
@@ -213,7 +230,7 @@ public class MapParser : ParserBase<Map>
         }
     }
 
-    private string? GetTitleText(XElement mapObjectiveElement)
+    private TooltipDescription? GetTitleText(XElement mapObjectiveElement)
     {
         XElement? objectiveTitleElement = mapObjectiveElement.Elements("Frame")
             .Where(x => x.Attribute("name")?.Value.Equals("ObjectiveTitle", StringComparison.OrdinalIgnoreCase) is true)
@@ -224,7 +241,7 @@ public class MapParser : ParserBase<Map>
         return GetResolvedTextPath(titleValue);
     }
 
-    private string? GetDescriptionText(XElement mapObjectiveElement)
+    private TooltipDescription? GetDescriptionText(XElement mapObjectiveElement)
     {
         XElement? objectiveDescriptionElement = mapObjectiveElement.Elements("Frame")
             .Where(x => x.Attribute("name")?.Value.Equals("ObjectiveDescription", StringComparison.OrdinalIgnoreCase) is true)
@@ -246,7 +263,7 @@ public class MapParser : ParserBase<Map>
         return assetPath;
     }
 
-    private string? GetResolvedTextPath(string? assetPath)
+    private TooltipDescription? GetResolvedTextPath(string? assetPath)
     {
         if (string.IsNullOrEmpty(assetPath))
             return null;
@@ -255,9 +272,9 @@ public class MapParser : ParserBase<Map>
         {
             string? value = _heroesData.GetStormAssetString(assetPath[1..])?.Value;
             if (value is null)
-                return _heroesData.GetStormGameString(assetPath[1..])?.Value;
+                return GetTooltipDescription(assetPath[1..]);
         }
 
-        return assetPath;
+        return new TooltipDescription(assetPath);
     }
 }

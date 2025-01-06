@@ -26,6 +26,7 @@ public static class ServiceCollectionExtensions
         // add all image writers
         services.AddTransient<IImageWriter<Announcer>, AnnouncerImageWriter>();
         services.AddTransient<IImageWriter<Bundle>, BundleImageWriter>();
+        services.AddTransient<IImageWriter<Map>, MapImageWriter>();
 
         return services;
     }
