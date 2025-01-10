@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace HeroesData.Helpers
 {
@@ -11,6 +13,7 @@ namespace HeroesData.Helpers
         /// </summary>
         /// <param name="filePath">A file path.</param>
         /// <returns></returns>
+        [return: NotNullIfNotNull(nameof(filePath))]
         public static string? GetFilePath(string? filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
@@ -18,12 +21,20 @@ namespace HeroesData.Helpers
                 return filePath;
             }
 
-            if (Path.DirectorySeparatorChar != '\\')
+            bool platformIsBackslash = Path.DirectorySeparatorChar == '\\';
+
+            StringBuilder sb = new();
+            for (var i = 0; i < filePath.Length; i++)
             {
-                filePath = filePath.Replace('\\', Path.DirectorySeparatorChar);
+                if (platformIsBackslash && filePath[i] == '/')
+                    sb.Append(Path.DirectorySeparatorChar);
+                else if (!platformIsBackslash && filePath[i] == '\\')
+                    sb.Append(Path.DirectorySeparatorChar);
+                else
+                    sb.Append(filePath[i]);
             }
 
-            return filePath;
+            return sb.ToString();
         }
 
         /// <summary>
