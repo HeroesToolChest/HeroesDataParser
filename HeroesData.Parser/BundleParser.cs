@@ -90,13 +90,13 @@ namespace HeroesData.Parser
                 else if (elementName == "RELEASEDATE")
                 {
                     if (!int.TryParse(element.Attribute("Day")?.Value, out int day))
-                        day = DefaultData.HeroSkinData!.HeroSkinReleaseDate.Day;
+                        day = 1;
 
                     if (!int.TryParse(element.Attribute("Month")?.Value, out int month))
-                        month = DefaultData.HeroSkinData!.HeroSkinReleaseDate.Month;
+                        month = 1;
 
                     if (!int.TryParse(element.Attribute("Year")?.Value, out int year))
-                        year = DefaultData.HeroSkinData!.HeroSkinReleaseDate.Year;
+                        year = 2014;
 
                     bundle.ReleaseDate = new DateTime(year, month, day);
                 }
@@ -127,6 +127,8 @@ namespace HeroesData.Parser
                         bundle.Franchise = Franchise.Overwatch;
                     else if (universe == "HEROES" || universe == "NEXUS")
                         bundle.Franchise = Franchise.Nexus;
+                    else if (universe == "RETRO")
+                        bundle.Franchise = Franchise.Classic;
                 }
                 else if (elementName == "TILETEXTURE")
                 {
