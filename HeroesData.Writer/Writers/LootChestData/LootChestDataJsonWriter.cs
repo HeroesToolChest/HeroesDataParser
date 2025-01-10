@@ -22,11 +22,12 @@ namespace HeroesData.FileWriter.Writers.LootChestData
 
             lootChestObject.Add("hyperlinkId", lootChest.HyperlinkId);
             lootChestObject.Add("rarity", lootChest.Rarity.ToString());
-            lootChestObject.Add("maxRerolls", lootChest.MaxRerolls);
-            lootChestObject.Add("typeDescription", lootChest.TypeDescription);
 
             if (!string.IsNullOrEmpty(lootChest.EventName))
                 lootChestObject.Add("event", lootChest.EventName);
+
+            lootChestObject.Add("maxRerolls", lootChest.MaxRerolls);
+            lootChestObject.Add("typeDescription", lootChest.TypeDescription);
 
             if (!string.IsNullOrEmpty(lootChest.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 lootChestObject.Add("description", GetTooltip(lootChest.Description, FileOutputOptions.DescriptionType));

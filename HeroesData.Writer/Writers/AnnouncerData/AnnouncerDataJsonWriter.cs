@@ -21,9 +21,16 @@ namespace HeroesData.FileWriter.Writers.AnnouncerData
             if (!string.IsNullOrEmpty(announcer.Name) && !FileOutputOptions.IsLocalizedText)
                 announcerObject.Add("name", announcer.Name);
 
+            if (!string.IsNullOrEmpty(announcer.SortName) && !FileOutputOptions.IsLocalizedText)
+                announcerObject.Add("sortName", announcer.SortName);
+
             announcerObject.Add("hyperlinkId", announcer.HyperlinkId);
             announcerObject.Add("attributeId", announcer.AttributeId);
             announcerObject.Add("rarity", announcer.Rarity.ToString());
+
+            if (announcer.ReleaseDate.HasValue)
+                announcerObject.Add("releaseDate", announcer.ReleaseDate.Value.ToString("yyyy-MM-dd"));
+
             announcerObject.Add("category", announcer.CollectionCategory);
 
             if (!string.IsNullOrEmpty(announcer.Gender))
@@ -31,17 +38,12 @@ namespace HeroesData.FileWriter.Writers.AnnouncerData
 
             announcerObject.Add("heroId", announcer.HeroId);
 
-            if (announcer.ReleaseDate.HasValue)
-                announcerObject.Add("releaseDate", announcer.ReleaseDate.Value.ToString("yyyy-MM-dd"));
+            if (!string.IsNullOrEmpty(announcer.ImageFileName))
+                announcerObject.Add("image", Path.ChangeExtension(announcer.ImageFileName.ToLowerInvariant(), StaticImageExtension));
 
-            if (!string.IsNullOrEmpty(announcer.SortName) && !FileOutputOptions.IsLocalizedText)
-                announcerObject.Add("sortName", announcer.SortName);
 
             if (!string.IsNullOrEmpty(announcer.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 announcerObject.Add("description", GetTooltip(announcer.Description, FileOutputOptions.DescriptionType));
-
-            if (!string.IsNullOrEmpty(announcer.ImageFileName))
-                announcerObject.Add("image", Path.ChangeExtension(announcer.ImageFileName.ToLowerInvariant(), StaticImageExtension));
 
             return new JProperty(announcer.Id, announcerObject);
         }

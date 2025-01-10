@@ -20,19 +20,24 @@ namespace HeroesData.FileWriter.Writers.BannerData
             if (!string.IsNullOrEmpty(banner.Name) && !FileOutputOptions.IsLocalizedText)
                 bannerObject.Add("name", banner.Name);
 
+            if (!string.IsNullOrEmpty(banner.SortName) && !FileOutputOptions.IsLocalizedText)
+                bannerObject.Add("sortName", banner.SortName);
+
             bannerObject.Add("hyperlinkId", banner.HyperlinkId);
             bannerObject.Add("attributeId", banner.AttributeId);
             bannerObject.Add("rarity", banner.Rarity.ToString());
+
+            if (banner.ReleaseDate.HasValue)
+                bannerObject.Add("releaseDate", banner.ReleaseDate.Value.ToString("yyyy-MM-dd"));
+
             bannerObject.Add("category", banner.CollectionCategory);
 
             if (!string.IsNullOrEmpty(banner.EventName))
                 bannerObject.Add("event", banner.EventName);
 
-            if (banner.ReleaseDate.HasValue)
-                bannerObject.Add("releaseDate", banner.ReleaseDate.Value.ToString("yyyy-MM-dd"));
 
-            if (!string.IsNullOrEmpty(banner.SortName) && !FileOutputOptions.IsLocalizedText)
-                bannerObject.Add("sortName", banner.SortName);
+
+
 
             if (!string.IsNullOrEmpty(banner.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 bannerObject.Add("description", GetTooltip(banner.Description, FileOutputOptions.DescriptionType));

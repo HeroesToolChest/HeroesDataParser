@@ -16,13 +16,13 @@ namespace HeroesData.FileWriter.Writers.BundleData
 
         protected override JProperty GetHeroSkinsObject(Bundle bundle)
         {
-            JArray heroSkinsArray = new JArray();
+            JObject heroSkinsArray = new JObject();
 
-            foreach (string heroId in bundle.HeroIdsWithHeroSkins)
+            foreach (string heroId in bundle.HeroIdsWithHeroSkins.OrderBy(x => x))
             {
                 if (bundle.TryGetSkinIdsByHeroId(heroId, out IEnumerable<string>? heroSkins))
                 {
-                    heroSkinsArray.Add(new JObject(new JProperty(heroId, heroSkins.OrderBy(x => x, StringComparer.OrdinalIgnoreCase))));
+                    heroSkinsArray.Add(new JProperty(heroId, heroSkins.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
                 }
             }
 
@@ -47,14 +47,16 @@ namespace HeroesData.FileWriter.Writers.BundleData
             if (!string.IsNullOrEmpty(bundle.SortName) && !FileOutputOptions.IsLocalizedText)
                 bundleObject.Add("sortName", bundle.SortName);
 
-            if (bundle.Franchise is not null)
-                bundleObject.Add("franchise", bundle.Franchise.ToString());
+
 
             if (!string.IsNullOrEmpty(bundle.EventName))
                 bundleObject.Add("event", bundle.EventName);
 
-            if (bundle.IsDynamicContent)
-                bundleObject.Add("isDynamicContent", true);
+            if (bundle.Franchise is not null)
+                bundleObject.Add("franchise", bundle.Franchise.ToString());
+
+            //if (bundle.IsDynamicContent)
+            bundleObject.Add("isDynamicContent", bundle.IsDynamicContent);
 
             if (bundle.HeroIds.Count > 0)
                 bundleObject.Add(new JProperty("heroes", bundle.HeroIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
