@@ -460,10 +460,15 @@ namespace HeroesData.Parser.GameStrings
             scaling = null;
             string value = string.Empty;
 
-            if (parts[0].StartsWith("$", StringComparison.OrdinalIgnoreCase))
+            if (parts[0].StartsWith('$'))
                 value = _gameData.GetValueFromAttribute(parts[0]);
             else if (parts.Count > 2)
                 value = ReadXmlGameData(parts, null);
+
+            if (value.StartsWith('$'))
+            {
+                value = _gameData.GetValueFromAttribute(value);
+            }
 
             if (scalingParts.Count == 3)
                 scaling = GetScalingInfo(scalingParts[0], scalingParts[1], scalingParts[2]);
