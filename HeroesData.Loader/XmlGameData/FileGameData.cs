@@ -81,6 +81,18 @@ namespace HeroesData.Loader.XmlGameData
 
                         if (valuePath.StartsWith(HeroesModsDirectoryName, StringComparison.OrdinalIgnoreCase))
                         {
+                            string gameDataDirectory = Path.Join(ModsFolderPath, valuePath, BaseStormDataDirectoryName, GameDataStringName);
+                            if (Directory.Exists(gameDataDirectory))
+                            {
+                                foreach (string file in Directory.GetFiles(gameDataDirectory))
+                                {
+                                    if (!Path.GetFileName(file).Equals("AnnouncerPackData.xml", StringComparison.OrdinalIgnoreCase))
+                                        continue;
+
+                                    LoadXmlFile(file);
+                                }
+                            }
+
                             string gameDataPath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, GameDataXmlFile);
 
                             LoadGameDataXmlContents(gameDataPath);
@@ -162,7 +174,7 @@ namespace HeroesData.Loader.XmlGameData
                 {
                     pathValue = PathHelper.GetFilePath(pathValue);
 
-                    if (pathValue!.Contains($"{GameDataStringName}/", StringComparison.OrdinalIgnoreCase))
+                    if (pathValue!.Contains($"{GameDataStringName}{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
                     {
                         if (gameDataXmlFilePath.Contains(HeroesDataStormModDirectoryName, StringComparison.OrdinalIgnoreCase))
                         {

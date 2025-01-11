@@ -123,6 +123,23 @@ namespace HeroesData.Loader.XmlGameData
 
                             if (valuePath.StartsWith(HeroesModsDirectoryName, StringComparison.OrdinalIgnoreCase))
                             {
+                                string gameDataDirectory = Path.Join(ModsFolderPath, valuePath, BaseStormDataDirectoryName, GameDataStringName);
+                                CASCFolder currentFolder = _cascFolderData.GetDirectory(gameDataDirectory);
+
+                                foreach (KeyValuePair<string, ICASCEntry> file in currentFolder.Entries)
+                                {
+                                    if (!file.Key.Equals("AnnouncerPackData.xml", StringComparison.OrdinalIgnoreCase))
+                                        continue;
+
+                                    string filePath = ((CASCFile)file.Value).FullName;
+
+                                    if (!_cascHandlerData.FileExists(filePath))
+                                        throw new FileNotFoundException(filePath);
+
+                                    using Stream stream = _cascHandlerData.OpenFile(filePath);
+                                    LoadXmlFile(stream, filePath);
+                                }
+
                                 string gameDataPath = Path.Combine(ModsFolderPath, valuePath, BaseStormDataDirectoryName, GameDataXmlFile);
 
                                 LoadGameDataXmlContents(gameDataPath);
@@ -226,7 +243,7 @@ namespace HeroesData.Loader.XmlGameData
                 {
                     pathValue = PathHelper.GetFilePath(pathValue);
 
-                    if (pathValue!.Contains($"{GameDataStringName}/", StringComparison.OrdinalIgnoreCase))
+                    if (pathValue!.Contains($"{GameDataStringName}{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
                     {
                         if (gameDataXmlFilePath.Contains(HeroesDataStormModDirectoryName, StringComparison.OrdinalIgnoreCase))
                         {

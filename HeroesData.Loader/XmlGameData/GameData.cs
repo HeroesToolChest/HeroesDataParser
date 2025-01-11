@@ -576,7 +576,7 @@ namespace HeroesData.Loader.XmlGameData
             if (string.IsNullOrEmpty(value))
                 return string.Empty;
 
-            if (value.StartsWith("$", StringComparison.OrdinalIgnoreCase))
+            if (value.StartsWith('$'))
             {
                 if (_constElementById.TryGetValue(value, out XElement? constElement))
                 {
@@ -585,50 +585,25 @@ namespace HeroesData.Loader.XmlGameData
 
                     if (!string.IsNullOrEmpty(attributeValue) && !string.IsNullOrEmpty(isExpression) && isExpression == "1")
                     {
-                        Stack<char> characterStack = new Stack<char>();
+                        Stack<char> characterStack = new();
 
-                        StringBuilder sb = new StringBuilder();
+                        StringBuilder sb = new();
                         string secondValue = string.Empty;
                         string firstValue = string.Empty;
 
-                        foreach (char character in attributeValue)
+                        bool isNegated = false;
+                        if (attributeValue.StartsWith("negate", StringComparison.OrdinalIgnoreCase))
                         {
-                            if (character == ')')
-                            {
-                                int totalCount = characterStack.Count;
-                                for (int i = 0; i < totalCount; i++)
-                                {
-                                    char popChar = characterStack.Pop();
+                            isNegated = true;
+                            string valueToBeNegated = attributeValue[7..^1];   // removed negate( and )
+                            if (valueToBeNegated.StartsWith('$'))
+                                return $"-{GetValueFromAttribute(valueToBeNegated)}";
 
-                                    if (popChar == '+' || popChar == '-' || popChar == '*' || popChar == '/')
-                                    {
-                                        string calcValue = HeroesMathEval.CalculatePathEquation($"{firstValue}{popChar}{secondValue}").ToString();
-                                        foreach (char calcValueCharacter in calcValue)
-                                            characterStack.Push(calcValueCharacter);
-
-                                        break;
-                                    }
-
-                                    if (popChar == ' ')
-                                    {
-                                        secondValue = GetValueFromAttribute(sb.ToString());
-                                        sb.Clear();
-                                    }
-                                    else if (popChar == '(')
-                                    {
-                                        firstValue = GetValueFromAttribute(sb.ToString());
-                                        sb.Clear();
-                                    }
-                                    else
-                                    {
-                                        sb.Insert(0, popChar);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                characterStack.Push(character);
-                            }
+                            ProcessAttributeValue(valueToBeNegated, characterStack, sb, ref secondValue, ref firstValue);
+                        }
+                        else
+                        {
+                            ProcessAttributeValue(attributeValue, characterStack, sb, ref secondValue, ref firstValue);
                         }
 
                         int totalFinalCount = characterStack.Count;
@@ -636,6 +611,9 @@ namespace HeroesData.Loader.XmlGameData
                         {
                             sb.Insert(0, characterStack.Pop());
                         }
+
+                        if (isNegated)
+                            return $"-{sb}";
 
                         return sb.ToString();
                     }
@@ -1017,6 +995,49 @@ namespace HeroesData.Loader.XmlGameData
                             _stormStyleHexColorValueByName.TryAdd(name, textColor);
                         }
                     }
+                }
+            }
+        }
+
+        private void ProcessAttributeValue(string attributeValue, Stack<char> characterStack, StringBuilder sb, ref string secondValue, ref string firstValue)
+        {
+            foreach (char character in attributeValue)
+            {
+                if (character == ')')
+                {
+                    int totalCount = characterStack.Count;
+                    for (int i = 0; i < totalCount; i++)
+                    {
+                        char popChar = characterStack.Pop();
+
+                        if (popChar == '+' || popChar == '-' || popChar == '*' || popChar == '/')
+                        {
+                            string calcValue = HeroesMathEval.CalculatePathEquation($"{firstValue}{popChar}{secondValue}").ToString();
+                            foreach (char calcValueCharacter in calcValue)
+                                characterStack.Push(calcValueCharacter);
+
+                            break;
+                        }
+
+                        if (popChar == ' ')
+                        {
+                            secondValue = GetValueFromAttribute(sb.ToString());
+                            sb.Clear();
+                        }
+                        else if (popChar == '(')
+                        {
+                            firstValue = GetValueFromAttribute(sb.ToString());
+                            sb.Clear();
+                        }
+                        else
+                        {
+                            sb.Insert(0, popChar);
+                        }
+                    }
+                }
+                else
+                {
+                    characterStack.Push(character);
                 }
             }
         }
