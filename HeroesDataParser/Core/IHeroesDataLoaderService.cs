@@ -1,6 +1,8 @@
 ﻿namespace HeroesDataParser.Core;
 
-public interface IHeroesXmlLoaderService
+public interface IHeroesDataLoaderService
 {
     HeroesXmlLoader HeroesXmlLoader { get; }
+
+    Task Load();
 }

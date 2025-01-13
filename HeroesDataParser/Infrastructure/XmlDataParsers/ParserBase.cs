@@ -10,10 +10,10 @@ public abstract class ParserBase<T> : IDataParser<T>
     private readonly ILogger _logger;
     private readonly HeroesData _heroesData;
 
-    public ParserBase(ILogger logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+    public ParserBase(ILogger logger, IHeroesDataLoaderService heroesDataLoaderService)
     {
         _logger = logger;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
+        _heroesData = heroesDataLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     public abstract string DataObjectType { get; }

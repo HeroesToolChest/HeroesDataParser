@@ -9,11 +9,11 @@ public class JsonFileWriterService : IJsonFileWriterService
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly HeroesData _heroesData;
 
-    public JsonFileWriterService(ILogger<JsonFileWriterService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
+    public JsonFileWriterService(ILogger<JsonFileWriterService> logger, IOptions<RootOptions> options, IHeroesDataLoaderService heroesDataLoaderService)
     {
         _logger = logger;
         _options = options.Value;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
+        _heroesData = heroesDataLoaderService.HeroesXmlLoader.HeroesData;
         _jsonSerializerOptions = new JsonSerializerOptions()
         {
             WriteIndented = true,

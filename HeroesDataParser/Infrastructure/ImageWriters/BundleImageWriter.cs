@@ -6,8 +6,8 @@ public class BundleImageWriter : ImageWriterBase<Bundle>
 
     private readonly Dictionary<string, ImageRelativePath> _bundleRelativePathsByFileName = new(StringComparer.OrdinalIgnoreCase);
 
-    public BundleImageWriter(ILogger<BundleImageWriter> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
-        : base(logger, options, heroesXmlLoaderService)
+    public BundleImageWriter(ILogger<BundleImageWriter> logger, IOptions<RootOptions> options, IHeroesDataLoaderService heroesDataLoaderService)
+        : base(logger, options, heroesDataLoaderService)
     {
     }
 

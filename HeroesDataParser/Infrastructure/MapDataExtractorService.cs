@@ -5,12 +5,12 @@ namespace HeroesDataParser.Infrastructure;
 public class MapDataExtractorService : IMapDataExtractorService
 {
     private readonly ILogger<MapDataExtractorService> _logger;
-    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
+    private readonly IHeroesDataLoaderService _heroesDataLoaderService;
 
-    public MapDataExtractorService(ILogger<MapDataExtractorService> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+    public MapDataExtractorService(ILogger<MapDataExtractorService> logger, IHeroesDataLoaderService heroesDataLoaderService)
     {
         _logger = logger;
-        _heroesXmlLoaderService = heroesXmlLoaderService;
+        _heroesDataLoaderService = heroesDataLoaderService;
     }
 
     public async Task<Dictionary<string, Map>> Extract(IDataParser<Map> parser, Func<Map, Task> elementParsersForMap)
@@ -19,7 +19,7 @@ public class MapDataExtractorService : IMapDataExtractorService
 
         Dictionary<string, Map> parsedMaps = [];
 
-        IEnumerable<string> mapTitles = _heroesXmlLoaderService.HeroesXmlLoader.GetMapTitles().OrderBy(x => x);
+        IEnumerable<string> mapTitles = _heroesDataLoaderService.HeroesXmlLoader.GetMapTitles().OrderBy(x => x);
 
         _logger.LogTrace("Map ids: {@MapIds}", mapTitles);
 
@@ -27,7 +27,7 @@ public class MapDataExtractorService : IMapDataExtractorService
         {
             using (LogContext.PushProperty("MapId", mapTitle))
             {
-                _heroesXmlLoaderService.HeroesXmlLoader.LoadMapMod(mapTitle);
+                _heroesDataLoaderService.HeroesXmlLoader.LoadMapMod(mapTitle);
                 Map? map = parser.Parse(mapTitle);
 
                 if (map is not null)
@@ -47,7 +47,7 @@ public class MapDataExtractorService : IMapDataExtractorService
             }
         }
 
-        _heroesXmlLoaderService.HeroesXmlLoader.UnloadMapMod();
+        _heroesDataLoaderService.HeroesXmlLoader.UnloadMapMod();
 
         _logger.LogInformation("Data extractor complete for data object type {DataObjectType}", parser.DataObjectType);
 

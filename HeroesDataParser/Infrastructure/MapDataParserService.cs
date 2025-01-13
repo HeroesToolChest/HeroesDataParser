@@ -9,7 +9,7 @@ public class MapDataParserService : IMapDataParserService
     private readonly IProcessorService _processorService;
     private readonly IJsonFileWriterService _jsonFileWriterService;
 
-    public MapDataParserService(ILogger<MapDataParserService> logger, IHeroesXmlLoaderService heroesXmlLoaderService, IMapDataExtractorService mapDataExtractorService, IProcessorService processorService, IJsonFileWriterService jsonFileWriterService)
+    public MapDataParserService(ILogger<MapDataParserService> logger, IHeroesDataLoaderService heroesDataLoaderService, IMapDataExtractorService mapDataExtractorService, IProcessorService processorService, IJsonFileWriterService jsonFileWriterService)
     {
         //_logger = logger;
         //_heroesXmlLoaderService = heroesXmlLoaderService;

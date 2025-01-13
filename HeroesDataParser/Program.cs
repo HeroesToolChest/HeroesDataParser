@@ -1,11 +1,16 @@
-﻿using HeroesDataParser.Core.Models.ConfigParsing;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using Serilog;
+﻿using Serilog;
+using System.Globalization;
 
 // TODO: CLI
 
+Console.WriteLine($"Heroes Data Parser ({AppVersion.GetAppVersion()})");
+Console.WriteLine("  --https://github.com/HeroesToolChest/HeroesDataParser");
+Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+Console.WriteLine();
+
 HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
+
+SetAppCulture();
 
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
@@ -15,15 +20,11 @@ Log.Logger = new LoggerConfiguration()
 
 try
 {
-    Log.Information("HDP v5.0.0-alpha.1");
-    Log.Information("Starting loading of heroes data");
-    HeroesXmlLoader heroesXmlLoader = await HeroesDataLoader.Load();
-    Log.Information("Completed loading of heroes data");
+    Log.Information($"HDP v{AppVersion.GetAppVersion()}");
 
     // TODO: from cli
     //int? theCliBuildNumber = null;
 
-    builder.Services.AddSerilog();
     builder.Configuration
         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
         .AddInMemoryCollection(new Dictionary<string, string?>
@@ -33,34 +34,12 @@ try
             //["RootOptions:BuildNumber"] = theCliBuildNumber?.ToString(),
         });
 
-    // options
-    builder.Services.Configure<RootOptions>(builder.Configuration.GetSection(nameof(RootOptions)));
-
-    // other services
-    builder.Services.AddSingleton(builder.Environment.ContentRootFileProvider);
-
-    builder.Services.AddScoped<IHeroesXmlLoaderService>(provider => new HeroesXmlLoaderService(heroesXmlLoader));
-    builder.Services.AddScoped<IHeroesDataService>(provider => new HeroesDataService(heroesXmlLoader.HeroesData));
-
-    builder.Services.AddDataParsers();
-    builder.Services.AddImageWriters();
-
-    builder.Services.AddScoped<IProcessorService, ProcessorService>();
-    builder.Services.AddScoped<IMapProcessorService, MapProcessorService>();
-
-    builder.Services.AddScoped<IDataParserService, DataParserService>();
-    builder.Services.AddScoped<IMapDataParserService, MapDataParserService>();
-
-    builder.Services.AddScoped<IDataExtractorService, DataExtractorService>();
-    builder.Services.AddScoped<IMapDataExtractorService, MapDataExtractorService>();
-
-    builder.Services.AddScoped<IJsonFileWriterService, JsonFileWriterService>();
-
-    // config-file services
-    builder.Services.AddActivatedSingleton<IParsingConfigurationService, ParsingConfigurationService>();
+    builder.Services.AddHDPServices(builder);
 
     using IHost host = builder.Build();
 
+    var loading = host.Services.GetRequiredService<IHeroesDataLoaderService>();
+    await loading.Load();
 
     var a = host.Services.GetRequiredService<IProcessorService>();
     await a.Start(StormLocale.ENUS);
@@ -71,10 +50,21 @@ try
 catch (Exception ex)
 {
     Log.Fatal(ex, "Application error");
+
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("An application error occured. Check logs for details.");
+    Console.ResetColor();
 }
 finally
 {
     Log.Information("HPD done");
 
     await Log.CloseAndFlushAsync();
+}
+
+static void SetAppCulture()
+{
+    CultureInfo cultureInfo = new("en-US");
+    CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+    CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 }
