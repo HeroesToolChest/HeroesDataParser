@@ -12,11 +12,11 @@ public abstract class ImageWriterBase<TElement> : IImageWriter<TElement>
     private readonly RootOptions _options;
     private readonly HeroesXmlLoader _heroesXmlLoader;
 
-    public ImageWriterBase(ILogger logger, IOptions<RootOptions> options, IHeroesDataLoaderService heroesDataLoaderService)
+    public ImageWriterBase(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
     {
         _options = options.Value;
         _logger = logger;
-        _heroesXmlLoader = heroesDataLoaderService.HeroesXmlLoader;
+        _heroesXmlLoader = heroesXmlLoaderService.HeroesXmlLoader;
     }
 
     public abstract ExtractImageOptions ExtractImageOption { get; }

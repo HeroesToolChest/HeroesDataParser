@@ -2,8 +2,8 @@
 
 public class BoostParser : CollectionParserBase<Boost>
 {
-    public BoostParser(ILogger<BoostParser> logger, IHeroesDataLoaderService heroesDataLoaderService)
-        : base(logger, heroesDataLoaderService)
+    public BoostParser(ILogger<BoostParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
     {
     }
 

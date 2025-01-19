@@ -11,8 +11,8 @@ public class MapImageWriter : ImageWriterBase<Map>
     private readonly Dictionary<string, ImageRelativePath> _loadingScreenRelativePathsByFileName = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, ImageRelativePath> _mapObjectiveIconRelativePathsByFileName = new(StringComparer.OrdinalIgnoreCase);
 
-    public MapImageWriter(ILogger<MapImageWriter> logger, IOptions<RootOptions> options, IHeroesDataLoaderService heroesDataLoaderService)
-        : base(logger, options, heroesDataLoaderService)
+    public MapImageWriter(ILogger<MapImageWriter> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, options, heroesXmlLoaderService)
     {
     }
 

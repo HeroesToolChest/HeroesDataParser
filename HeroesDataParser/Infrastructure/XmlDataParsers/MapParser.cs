@@ -10,12 +10,12 @@ public class MapParser : ParserBase<Map>
     private readonly HeroesXmlLoader _heroesXmlLoader;
     private readonly HeroesData _heroesData;
 
-    public MapParser(ILogger<MapParser> logger, IHeroesDataLoaderService heroesDataLoaderService)
-        : base(logger, heroesDataLoaderService)
+    public MapParser(ILogger<MapParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
     {
         _logger = logger;
-        _heroesXmlLoader = heroesDataLoaderService.HeroesXmlLoader;
-        _heroesData = heroesDataLoaderService.HeroesXmlLoader.HeroesData;
+        _heroesXmlLoader = heroesXmlLoaderService.HeroesXmlLoader;
+        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     public override string DataObjectType => "Map";

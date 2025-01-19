@@ -5,13 +5,13 @@ namespace HeroesDataParser.Infrastructure;
 public class DataExtractorService : IDataExtractorService
 {
     private readonly ILogger<DataExtractorService> _logger;
-    private readonly IHeroesDataLoaderService _heroesDataLoaderService;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IParsingConfigurationService _parsingConfigurationService;
 
-    public DataExtractorService(ILogger<DataExtractorService> logger, IHeroesDataLoaderService heroesDataLoaderService, IParsingConfigurationService parsingConfigurationService)
+    public DataExtractorService(ILogger<DataExtractorService> logger, IHeroesXmlLoaderService heroesXmlLoaderService, IParsingConfigurationService parsingConfigurationService)
     {
         _logger = logger;
-        _heroesDataLoaderService = heroesDataLoaderService;
+        _heroesXmlLoaderService = heroesXmlLoaderService;
         _parsingConfigurationService = parsingConfigurationService;
     }
 
@@ -23,7 +23,7 @@ public class DataExtractorService : IDataExtractorService
 
         Dictionary<string, TElement> parsedItems = [];
 
-        IEnumerable<string> itemIds = _heroesDataLoaderService.HeroesXmlLoader.HeroesData
+        IEnumerable<string> itemIds = _heroesXmlLoaderService.HeroesXmlLoader.HeroesData
             .GetStormElementIds(parser.DataObjectType, map is null ? StormCacheType.All : StormCacheType.Map);
 
         itemIds = _parsingConfigurationService.FilterAllowedItems(parser.DataObjectType, itemIds)

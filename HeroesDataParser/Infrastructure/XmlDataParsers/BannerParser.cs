@@ -2,8 +2,8 @@
 
 public class BannerParser : CollectionParserBase<Banner>
 {
-    public BannerParser(ILogger<BannerParser> logger, IHeroesDataLoaderService heroesDataLoaderService)
-        : base(logger, heroesDataLoaderService)
+    public BannerParser(ILogger<BannerParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
     {
     }
 

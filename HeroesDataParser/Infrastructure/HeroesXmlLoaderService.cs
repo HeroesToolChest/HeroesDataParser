@@ -5,12 +5,12 @@ using System.Runtime.CompilerServices;
 
 namespace HeroesDataParser.Infrastructure;
 
-public class HeroesDataLoaderService : IHeroesDataLoaderService
+public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 {
-    private readonly ILogger<HeroesDataLoaderService> _logger;
+    private readonly ILogger<HeroesXmlLoaderService> _logger;
     private readonly RootOptions _options;
 
-    public HeroesDataLoaderService(ILogger<HeroesDataLoaderService> logger, IOptions<RootOptions> options)
+    public HeroesXmlLoaderService(ILogger<HeroesXmlLoaderService> logger, IOptions<RootOptions> options)
     {
         _logger = logger;
         _options = options.Value;

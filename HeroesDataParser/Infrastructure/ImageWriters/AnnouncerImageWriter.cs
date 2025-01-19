@@ -6,8 +6,8 @@ public class AnnouncerImageWriter : ImageWriterBase<Announcer>
 
     private readonly Dictionary<string, ImageRelativePath> _announcerRelativePathsByFileName = new(StringComparer.OrdinalIgnoreCase);
 
-    public AnnouncerImageWriter(ILogger<AnnouncerImageWriter> logger, IOptions<RootOptions> options, IHeroesDataLoaderService heroesDataLoaderService)
-        : base(logger, options, heroesDataLoaderService)
+    public AnnouncerImageWriter(ILogger<AnnouncerImageWriter> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, options, heroesXmlLoaderService)
     {
     }
 

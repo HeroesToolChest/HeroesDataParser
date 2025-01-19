@@ -6,11 +6,11 @@ public class BundleParser : CollectionParserBase<Bundle>
 
     private readonly HeroesData _heroesData;
 
-    public BundleParser(ILogger<BundleParser> logger, IHeroesDataLoaderService heroesDataLoaderService)
-        : base(logger, heroesDataLoaderService)
+    public BundleParser(ILogger<BundleParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
     {
         _logger = logger;
-        _heroesData = heroesDataLoaderService.HeroesXmlLoader.HeroesData;
+        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     public override string DataObjectType => "Bundle";

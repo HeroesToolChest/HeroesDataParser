@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions
         services.Configure<RootOptions>(builder.Configuration.GetSection(nameof(RootOptions)));
         services.AddSingleton(builder.Environment.ContentRootFileProvider);
 
-        services.AddActivatedSingleton<IHeroesDataLoaderService, HeroesDataLoaderService>();
+        services.AddActivatedSingleton<IHeroesXmlLoaderService, HeroesXmlLoaderService>();
         services.AddActivatedSingleton<IParsingConfigurationService, ParsingConfigurationService>();
 
         services.AddDataParsers();

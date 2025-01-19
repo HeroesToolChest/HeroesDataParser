@@ -7,19 +7,19 @@ public abstract class CollectionParserBase<T> : ParserBase<T>
 {
     private readonly ILogger _logger;
 
-    private readonly IHeroesDataLoaderService _heroesDataLoaderService;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly HeroesData _heroesData;
 
     // https://en.wikipedia.org/wiki/Heroes_of_the_Storm
     // https://web.archive.org/web/20140525185554/http://www.heroesofthestorm.com/en-us/news/13290651/the-heroes-of-the-storm-technical-alpha-is-now-live
     private readonly DateOnly _technicalAlphaReleaseDate = new(2014, 3, 13);
 
-    public CollectionParserBase(ILogger logger, IHeroesDataLoaderService heroesDataLoaderService)
-        : base(logger, heroesDataLoaderService)
+    public CollectionParserBase(ILogger logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
     {
         _logger = logger;
-        _heroesDataLoaderService = heroesDataLoaderService;
-        _heroesData = _heroesDataLoaderService.HeroesXmlLoader.HeroesData;
+        _heroesXmlLoaderService = heroesXmlLoaderService;
+        _heroesData = _heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     public abstract override string DataObjectType { get; }

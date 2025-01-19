@@ -6,11 +6,11 @@ public class AnnouncerParser : CollectionParserBase<Announcer>
 
     private readonly HeroesData _heroesData;
 
-    public AnnouncerParser(ILogger<AnnouncerParser> logger, IHeroesDataLoaderService heroesDataLoaderService)
-        : base(logger, heroesDataLoaderService)
+    public AnnouncerParser(ILogger<AnnouncerParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
     {
         _logger = logger;
-        _heroesData = heroesDataLoaderService.HeroesXmlLoader.HeroesData;
+        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     public override string DataObjectType => "AnnouncerPack";
