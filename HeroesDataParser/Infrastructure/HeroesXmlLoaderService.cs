@@ -51,7 +51,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
                 await Task.CompletedTask;
             });
 
-        _logger.LogInformation("Heroes data loaded.");
+        _logger.LogInformation("Heroes data loaded");
         AnsiConsole.MarkupLine("[green bold]Loading completed[/]");
     }
 
@@ -128,7 +128,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
     {
         if (_options.StorageLoad.Type == StorageType.Game && IsValidPath())
         {
-            _logger.LogInformation("Loading heroes data with game storage.");
+            _logger.LogInformation("Loading heroes data by game storage");
 
             AnsiConsole.MarkupLine("[aqua]Found 'Heroes of the Storm' directory[/]");
             AnsiConsole.MarkupLine("[aqua]Loading local CASC storage... please wait[/]");
@@ -137,7 +137,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
         }
         else if (_options.StorageLoad.Type == StorageType.Mods && IsValidPath())
         {
-            _logger.LogInformation("Loading heroes data with mods storage.");
+            _logger.LogInformation("Loading heroes data by mods storage");
 
             AnsiConsole.MarkupLine("[aqua]Found 'mods' directory[/]");
             AnsiConsole.WriteLine();
@@ -146,7 +146,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
         }
         else if (_options.StorageLoad.Type == StorageType.Online)
         {
-            _logger.LogInformation("Loading heroes data with online storage.");
+            _logger.LogInformation("Loading heroes data by online storage");
 
             AnsiConsole.MarkupLine("[aqua]Loading online CASC storage... please wait[/]");
 
@@ -154,7 +154,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
         }
         else
         {
-            _logger.LogWarning("Unknown storage load type, defaulting to online storage.");
+            _logger.LogWarning("Unknown storage load type, defaulting to online storage");
 
             AnsiConsole.MarkupLine("[yellow]Unknown storage load type, defaulting to online storage.[/]");
             AnsiConsole.MarkupLine("[aqua]Loading online CASC storage... please wait[/]");
