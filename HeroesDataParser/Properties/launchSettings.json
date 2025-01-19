@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "HeroesDataParser": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
