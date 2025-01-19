@@ -5,6 +5,8 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 // TODO: CLI
 
+SetAppCulture();
+
 AnsiConsole.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 AnsiConsole.MarkupLine($"[bold]Heroes Data Parser[/] ({AppVersion.GetAppVersion()})");
 AnsiConsole.MarkupLine("  --[link]https://github.com/HeroesToolChest/HeroesDataParser[/]");
@@ -12,8 +14,6 @@ AnsiConsole.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 AnsiConsole.WriteLine();
 
 HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
-
-SetAppCulture();
 
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
@@ -29,7 +29,6 @@ try
     //int? theCliBuildNumber = null;
 
     builder.Configuration
-        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
         .AddInMemoryCollection(new Dictionary<string, string?>
         {
             // TODO: from cli options, set here
@@ -41,7 +40,9 @@ try
 
     using IHost host = builder.Build();
 
-    var loading = host.Services.GetRequiredService<IHeroesDataLoaderService>();
+    SelectedLocalizations(host);
+
+    var loading = host.Services.GetRequiredService<IHeroesXmlLoaderService>();
     await loading.Load();
 
     var a = host.Services.GetRequiredService<IProcessorService>();
@@ -79,11 +80,11 @@ static void RunLogRententionPolicy()
 
     Log.Information($"Log Retention: Found {allLogFiles.Length} log files. Keeping latest {SerilogLogging.RetainedFileCountLimit} log files");
 
-    IEnumerable<FileInfo> tobeDeletedLogFiles = allLogFiles
+    IEnumerable<FileInfo> toBeDeletedLogFiles = allLogFiles
        .OrderByDescending(x => x.CreationTime)
        .Skip(SerilogLogging.RetainedFileCountLimit);
 
-    foreach (FileInfo file in tobeDeletedLogFiles)
+    foreach (FileInfo file in toBeDeletedLogFiles)
     {
         try
         {
@@ -94,5 +95,27 @@ static void RunLogRententionPolicy()
         {
             Log.Error(ex, $"Failed to delete old log file: {file.Name}");
         }
+    }
+}
+
+static void SelectedLocalizations(IHost host)
+{
+    IOptions<RootOptions> options = host.Services.GetRequiredService<IOptions<RootOptions>>();
+
+    if (options.Value.Localizations.Count < 1)
+    {
+        Log.Warning("No localizations selected. Default to enUS");
+        AnsiConsole.MarkupLine("[yellow]No localizations selected. Defaulting to enus[/]");
+    }
+    else
+    {
+        AnsiConsole.Markup($"[aqua]Localization(s):[/]");
+
+        foreach (StormLocale locale in options.Value.Localizations)
+        {
+            AnsiConsole.Markup($" [aqua]{locale.ToString().ToLowerInvariant()}[/]");
+        }
+
+        AnsiConsole.WriteLine();
     }
 }
