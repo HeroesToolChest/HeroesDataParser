@@ -10,7 +10,7 @@ public static class HeroesDataLoader
         using BackgroundWorkerEx backgroundWorkerEx = new();
         backgroundWorkerEx.DoWork += (_, e) =>
         {
-            heroesXmlLoader = HeroesXmlLoader.LoadWithCASC("E:\\Games\\Heroes of the Storm Public Test", backgroundWorkerEx);
+            heroesXmlLoader = HeroesXmlLoader.LoadWithCASC("E:\\Games\\Heroes of the Storm Public Test", null, backgroundWorkerEx);
             //heroesXmlLoader2 = HeroesXmlLoader.LoadAsOnlineCASC(backgroundWorkerEx);
             //heroesXmlLoader2 = HeroesXmlLoader.LoadWithFile("F:\\heroes\\heroes_91418\\mods_all_91418", backgroundWorkerEx);
             //heroesXmlLoader2 = HeroesXmlLoader.LoadWithFile("F:\\heroes\\heroes_92264\\mods_92264", backgroundWorkerEx);

@@ -1,4 +1,5 @@
 ﻿using CASCLib;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
@@ -21,99 +22,145 @@ public class HeroesDataLoaderService : IHeroesDataLoaderService
     {
         _logger.LogInformation("Loading heroes data...");
 
-        using BackgroundWorkerEx backgroundWorkerEx = new();
-        backgroundWorkerEx.DoWork += (_, e) =>
-        {
-            if (_options.StorageLoad.Type == StorageType.Game && IsValidPath())
-            {
-                _logger.LogInformation("Loading heroes data with game storage.");
-
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Found 'Heroes of the Storm' directory");
-                Console.WriteLine();
-                Console.WriteLine("Loading local CASC storage... please wait");
-                Console.ResetColor();
-
-                HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(_options.StorageLoad.Path!, backgroundWorkerEx);
-            }
-            else if (_options.StorageLoad.Type == StorageType.Mods && IsValidPath())
-            {
-                _logger.LogInformation("Loading heroes data with mods storage.");
-
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Found 'mods' directory");
-                Console.WriteLine();
-                Console.WriteLine("Loading local mods storage... please wait");
-                Console.ResetColor();
-
-                HeroesXmlLoader = HeroesXmlLoader.LoadWithFile(_options.StorageLoad.Path!, backgroundWorkerEx);
-            }
-            else if (_options.StorageLoad.Type == StorageType.Online)
-            {
-                _logger.LogInformation("Loading heroes data with online storage.");
-
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Loading online CASC storage... please wait");
-                Console.ResetColor();
-
-                HeroesXmlLoader = HeroesXmlLoader.LoadWithOnlineCASC(backgroundWorkerEx);
-            }
-            else
-            {
-                _logger.LogWarning("Unknown storage load type, defaulting to online storage.");
-
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Unknown storage load type, defaulting to online storage.");
-                Console.WriteLine();
-                Console.WriteLine("Loading online CASC storage... please wait");
-                Console.ResetColor();
-
-                HeroesXmlLoader = HeroesXmlLoader.LoadWithOnlineCASC(backgroundWorkerEx);
-            }
-
-            HeroesXmlLoader
-                .LoadStormMods()
-                .LoadGameStrings();
-        };
-
-        string? currentMessage = string.Empty;
-
-        backgroundWorkerEx.ProgressChanged += (_, e) =>
-        {
-            Task.Run(() =>
-            {
-                //currentMessage = e.UserState?.ToString();
-
-                //if (!string.IsNullOrWhiteSpace(currentMessage))
-                //{
-                    
-                //}
-                //Console.WriteLine($"{e.UserState}{" ",-50}");
-                //Console.Write($"{e.ProgressPercentage}%{" ",-5}");
-
-                //Console.CursorLeft = 0;
-                //Console.CursorTop = Console.CursorTop - 1;
-
-                //Console.Write($"\r{e.ProgressPercentage}% - {e.UserState}{" ",-10}");
-                Console.WriteLine($"{e.ProgressPercentage}% - {e.UserState}");
-            });
-        };
-        backgroundWorkerEx.RunWorkerCompleted += (_, e) =>
-        {
-            Console.WriteLine("done");
-        };
-
-        backgroundWorkerEx.RunWorkerAsync();
-
-        while (backgroundWorkerEx.IsBusy)
-        {
-            await Task.Delay(1000);
-        }
+        if (_options.StorageLoad.Type == StorageType.Mods)
+            RunLoader();
+        else
+            await LoadFromCASC();
 
         if (HeroesXmlLoader is null)
-            throw new InvalidOperationException("Failed to load heroes data");
+            throw new InvalidOperationException("Failed to load from casc or file.");
+
+        await AnsiConsole.Status()
+            .Spinner(Spinner.Known.Star)
+            .SpinnerStyle(Style.Parse("yellow bold"))
+            .StartAsync("[yellow bold]Initializing[/]", async ctx =>
+            {
+                _logger.LogInformation("Loading data from stormmods...");
+
+                if (_options.StorageLoad.Type == StorageType.Online)
+                    AnsiConsole.MarkupLine("Loading data from stormmods (this might take a while)...");
+                else
+                    AnsiConsole.MarkupLine("Loading data from stormmods...");
+
+                HeroesXmlLoader.LoadStormMods();
+
+                _logger.LogInformation("Loading gamestrings...");
+                AnsiConsole.MarkupLine("Loading gamestrings...");
+                HeroesXmlLoader.LoadGameStrings();
+
+                await Task.CompletedTask;
+            });
 
         _logger.LogInformation("Heroes data loaded.");
+        AnsiConsole.MarkupLine("[green bold]Loading completed[/]");
+    }
+
+    private async Task LoadFromCASC()
+    {
+        await AnsiConsole.Progress()
+            .Columns(
+            [
+                new TaskDescriptionColumn(),
+                new ProgressBarColumn(),
+                new PercentageColumn(),
+            ])
+            .StartAsync(async ctx =>
+            {
+                ProgressTask cdnIndexesTask = ctx.AddTask("Loading CDN Indexes");
+
+                ProgressTask? localIndexesTask = null;
+                if (_options.StorageLoad.Type != StorageType.Online)
+                {
+                    localIndexesTask = ctx.AddTask("Loading Local Indexes");
+                    cdnIndexesTask.IsIndeterminate = true;
+                }
+
+                ProgressTask encodingTask = ctx.AddTask("Loading Encoding");
+                ProgressTask rootTask = ctx.AddTask("Loading Root");
+                ProgressTask listFileTask = ctx.AddTask("Loading ListFile");
+
+                encodingTask.IsIndeterminate = true;
+                rootTask.IsIndeterminate = true;
+                listFileTask.IsIndeterminate = true;
+
+                using BackgroundWorkerEx backgroundWorkerEx = new();
+                backgroundWorkerEx.DoWork += (_, e) =>
+                {
+                    RunLoader(backgroundWorkerEx);
+                };
+                backgroundWorkerEx.ProgressChanged += (_, e) =>
+                {
+                    if (cdnIndexesTask.Value < 100)
+                    {
+                        cdnIndexesTask.Value = e.ProgressPercentage;
+                    }
+                    else if (_options.StorageLoad.Type != StorageType.Online && localIndexesTask?.Value < 100)
+                    {
+                        localIndexesTask.IsIndeterminate = false;
+                        localIndexesTask.Value = e.ProgressPercentage;
+                    }
+                    else if (encodingTask.Value < 100)
+                    {
+                        encodingTask.IsIndeterminate = false;
+                        encodingTask.Value = e.ProgressPercentage;
+                    }
+                    else if (rootTask.Value < 100)
+                    {
+                        rootTask.IsIndeterminate = false;
+                        rootTask.Value = e.ProgressPercentage;
+                    }
+                    else if (listFileTask.Value < 100)
+                    {
+                        listFileTask.IsIndeterminate = false;
+                        listFileTask.Value = e.ProgressPercentage;
+                    }
+                };
+                backgroundWorkerEx.RunWorkerAsync();
+
+                while (!ctx.IsFinished || backgroundWorkerEx.IsBusy)
+                {
+                    await Task.Delay(100);
+                }
+            });
+    }
+
+    private void RunLoader(BackgroundWorkerEx? backgroundWorkerEx = null)
+    {
+        if (_options.StorageLoad.Type == StorageType.Game && IsValidPath())
+        {
+            _logger.LogInformation("Loading heroes data with game storage.");
+
+            AnsiConsole.MarkupLine("[aqua]Found 'Heroes of the Storm' directory[/]");
+            AnsiConsole.MarkupLine("[aqua]Loading local CASC storage... please wait[/]");
+
+            HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(_options.StorageLoad.Path!, new CASCLoggerOptions(), backgroundWorkerEx);
+        }
+        else if (_options.StorageLoad.Type == StorageType.Mods && IsValidPath())
+        {
+            _logger.LogInformation("Loading heroes data with mods storage.");
+
+            AnsiConsole.MarkupLine("[aqua]Found 'mods' directory[/]");
+            AnsiConsole.WriteLine();
+
+            HeroesXmlLoader = HeroesXmlLoader.LoadWithFile(_options.StorageLoad.Path!, backgroundWorkerEx);
+        }
+        else if (_options.StorageLoad.Type == StorageType.Online)
+        {
+            _logger.LogInformation("Loading heroes data with online storage.");
+
+            AnsiConsole.MarkupLine("[aqua]Loading online CASC storage... please wait[/]");
+
+            HeroesXmlLoader = HeroesXmlLoader.LoadWithOnlineCASC(new CASCLoggerOptions(), backgroundWorkerEx);
+        }
+        else
+        {
+            _logger.LogWarning("Unknown storage load type, defaulting to online storage.");
+
+            AnsiConsole.MarkupLine("[yellow]Unknown storage load type, defaulting to online storage.[/]");
+            AnsiConsole.MarkupLine("[aqua]Loading online CASC storage... please wait[/]");
+
+            HeroesXmlLoader = HeroesXmlLoader.LoadWithOnlineCASC(new CASCLoggerOptions(), backgroundWorkerEx);
+        }
     }
 
     private bool IsValidPath()
@@ -121,7 +168,7 @@ public class HeroesDataLoaderService : IHeroesDataLoaderService
         if (string.IsNullOrWhiteSpace(_options.StorageLoad.Path))
         {
             _logger.LogCritical("StorageLoad path is empty.");
-            Console.WriteLine("Error: The storage load path is empty. Please provide a path to the game or mods directory.");
+            AnsiConsole.Markup("[red]Error: The storage load path is empty. Please provide a path to the game or mods directory.[/]");
 
             return false;
         }
@@ -129,7 +176,7 @@ public class HeroesDataLoaderService : IHeroesDataLoaderService
         if (!Directory.Exists(_options.StorageLoad.Path))
         {
             _logger.LogCritical("StorageLoad path does not exist.");
-            Console.WriteLine("Error: The storage load path does not exist. Please provide a valid path to the game or mods directory.");
+            AnsiConsole.Markup("[red]Error: The storage load path does not exist. Please provide a valid path to the game or mods directory.[/]");
 
             return false;
         }
