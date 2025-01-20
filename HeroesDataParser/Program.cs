@@ -40,7 +40,8 @@ try
 
     using IHost host = builder.Build();
 
-    SelectedLocalizations(host);
+    var preload = host.Services.GetRequiredService<IPreloadService>();
+    preload.Preload();
 
     var loading = host.Services.GetRequiredService<IHeroesXmlLoaderService>();
     await loading.Load();
@@ -95,27 +96,5 @@ static void RunLogRententionPolicy()
         {
             Log.Error(ex, $"Failed to delete old log file: {file.Name}");
         }
-    }
-}
-
-static void SelectedLocalizations(IHost host)
-{
-    IOptions<RootOptions> options = host.Services.GetRequiredService<IOptions<RootOptions>>();
-
-    if (options.Value.Localizations.Count < 1)
-    {
-        Log.Warning("No localizations selected. Default to enUS");
-        AnsiConsole.MarkupLine("[yellow]No localizations selected. Defaulting to enus[/]");
-    }
-    else
-    {
-        AnsiConsole.Markup($"[aqua]Localization(s):[/]");
-
-        foreach (StormLocale locale in options.Value.Localizations)
-        {
-            AnsiConsole.Markup($" [aqua]{locale.ToString().ToLowerInvariant()}[/]");
-        }
-
-        AnsiConsole.WriteLine();
     }
 }

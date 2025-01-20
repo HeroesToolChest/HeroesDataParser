@@ -29,15 +29,18 @@ public class ParsingConfigurationService : IParsingConfigurationService
         _logger = logger;
         _options = options.Value;
         _fileProvider = fileProvider;
-
-        LoadFiles();
-        ProcessFile();
     }
 
     // the relative file path
     public string? SelectedFilePath { get; private set; }
 
     public string ParsingConfigurationDirectory => _parsingConfigurationDirectory;
+
+    public void Load()
+    {
+        LoadFiles();
+        ProcessFile();
+    }
 
     public IEnumerable<string> FilterAllowedItems(string dataObjectType, IEnumerable<string> items)
     {

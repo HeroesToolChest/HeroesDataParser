@@ -12,22 +12,24 @@ public static class ServiceCollectionExtensions
         services.Configure<RootOptions>(builder.Configuration.GetSection(nameof(RootOptions)));
         services.AddSingleton(builder.Environment.ContentRootFileProvider);
 
-        services.AddActivatedSingleton<IHeroesXmlLoaderService, HeroesXmlLoaderService>();
-        services.AddActivatedSingleton<IParsingConfigurationService, ParsingConfigurationService>();
+        services.AddSingleton<IParsingConfigurationService, ParsingConfigurationService>();
+        services.AddSingleton<IPreloadService, PreloadService>();
+
+        services.AddSingleton<IHeroesXmlLoaderService, HeroesXmlLoaderService>();
 
         services.AddDataParsers();
         services.AddImageWriters();
 
-        services.AddScoped<IProcessorService, ProcessorService>();
-        services.AddScoped<IMapProcessorService, MapProcessorService>();
+        services.AddSingleton<IProcessorService, ProcessorService>();
+        services.AddSingleton<IMapProcessorService, MapProcessorService>();
 
-        services.AddScoped<IDataParserService, DataParserService>();
-        services.AddScoped<IMapDataParserService, MapDataParserService>();
+        services.AddSingleton<IDataParserService, DataParserService>();
+        services.AddSingleton<IMapDataParserService, MapDataParserService>();
 
-        services.AddScoped<IDataExtractorService, DataExtractorService>();
-        services.AddScoped<IMapDataExtractorService, MapDataExtractorService>();
+        services.AddSingleton<IDataExtractorService, DataExtractorService>();
+        services.AddSingleton<IMapDataExtractorService, MapDataExtractorService>();
 
-        services.AddScoped<IJsonFileWriterService, JsonFileWriterService>();
+        services.AddSingleton<IJsonFileWriterService, JsonFileWriterService>();
 
         return services;
     }
@@ -35,13 +37,13 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddDataParsers(this IServiceCollection services)
     {
         // add all data parsers
-        services.AddScoped<IDataParser<Announcer>, AnnouncerParser>();
-        services.AddScoped<IDataParser<Banner>, BannerParser>();
-        services.AddScoped<IDataParser<Boost>, BoostParser>();
-        services.AddScoped<IDataParser<Bundle>, BundleParser>();
-        services.AddScoped<IDataParser<LootChest>, LootChestParser>();
+        services.AddSingleton<IDataParser<Announcer>, AnnouncerParser>();
+        services.AddSingleton<IDataParser<Banner>, BannerParser>();
+        services.AddSingleton<IDataParser<Boost>, BoostParser>();
+        services.AddSingleton<IDataParser<Bundle>, BundleParser>();
+        services.AddSingleton<IDataParser<LootChest>, LootChestParser>();
 
-        services.AddScoped<IDataParser<Map>, MapParser>();
+        services.AddSingleton<IDataParser<Map>, MapParser>();
         return services;
     }
 

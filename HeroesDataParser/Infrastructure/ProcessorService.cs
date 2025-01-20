@@ -162,34 +162,34 @@ public class ProcessorService : IProcessorService
     //    return extractedItems;
     //}
 
-    private async Task ProcessHeroesCollectionObject<THeroesCollectionObject, TParser>(Map? map = null)
-        where THeroesCollectionObject : IHeroesCollectionObject, IElementObject
-        where TParser : IDataParser<THeroesCollectionObject>
-    {
-        using (LogContext.PushProperty("ElementType", typeof(THeroesCollectionObject).Name))
-        using (LogContext.PushProperty("Parser", typeof(TParser).Name))
-        {
-            _logger.LogInformation("Start action processor for {HeroesCollectionObject} using parser {Parser}", typeof(THeroesCollectionObject).Name, typeof(TParser).Name);
+    //private async Task ProcessHeroesCollectionObject<THeroesCollectionObject, TParser>(Map? map = null)
+    //    where THeroesCollectionObject : IHeroesCollectionObject, IElementObject
+    //    where TParser : IDataParser<THeroesCollectionObject>
+    //{
+    //    using (LogContext.PushProperty("ElementType", typeof(THeroesCollectionObject).Name))
+    //    using (LogContext.PushProperty("Parser", typeof(TParser).Name))
+    //    {
+    //        _logger.LogInformation("Start action processor for {HeroesCollectionObject} using parser {Parser}", typeof(THeroesCollectionObject).Name, typeof(TParser).Name);
 
-            var dataParser = _serviceProvider.GetRequiredService<IDataParser<THeroesCollectionObject>>();
+    //        var dataParser = _serviceProvider.GetRequiredService<IDataParser<THeroesCollectionObject>>();
 
-            var itemsToSerialize = _dataExtractorService.Extract<THeroesCollectionObject, TParser>((TParser)dataParser, map);
+    //        var itemsToSerialize = _dataExtractorService.Extract<THeroesCollectionObject, TParser>((TParser)dataParser, map);
 
-            if (map is null)
-                await _jsonFileWriterService.Write(itemsToSerialize, _stormLocale);
-            else
-                await _jsonFileWriterService.WriteToMaps(map.Id, itemsToSerialize, _stormLocale);
+    //        if (map is null)
+    //            await _jsonFileWriterService.Write(itemsToSerialize, _stormLocale);
+    //        else
+    //            await _jsonFileWriterService.WriteToMaps(map.Id, itemsToSerialize, _stormLocale);
 
-            IImageWriter<THeroesCollectionObject>? imageWriter = _serviceProvider.GetService<IImageWriter<THeroesCollectionObject>>();
+    //        IImageWriter<THeroesCollectionObject>? imageWriter = _serviceProvider.GetService<IImageWriter<THeroesCollectionObject>>();
 
-            if (imageWriter is not null && _extractImageOptions.HasFlag(imageWriter.ExtractImageOption))
-            {
-                await imageWriter.WriteImages(itemsToSerialize);
-            }
-        }
+    //        if (imageWriter is not null && _extractImageOptions.HasFlag(imageWriter.ExtractImageOption))
+    //        {
+    //            await imageWriter.WriteImages(itemsToSerialize);
+    //        }
+    //    }
 
-        _logger.LogInformation("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeof(THeroesCollectionObject).Name, typeof(TParser).Name);
-    }
+    //    _logger.LogInformation("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeof(THeroesCollectionObject).Name, typeof(TParser).Name);
+    //}
 
     private async Task ProcessElementObject<TElementObject, TParser>(Map? map = null)
         where TElementObject : IElementObject

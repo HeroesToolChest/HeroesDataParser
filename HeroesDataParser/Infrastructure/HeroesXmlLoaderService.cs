@@ -1,7 +1,5 @@
 ﻿using CASCLib;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -9,6 +7,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 {
     private readonly ILogger<HeroesXmlLoaderService> _logger;
     private readonly RootOptions _options;
+    private readonly Stopwatch _stopwatch = new();
 
     public HeroesXmlLoaderService(ILogger<HeroesXmlLoaderService> logger, IOptions<RootOptions> options)
     {
@@ -22,10 +21,21 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
     {
         _logger.LogInformation("Loading heroes data...");
 
+        // TODO: not going to be needed in this service (move to cli validation)
+        if (VerifyPath() is false)
+        {
+            _logger.LogError("Failed to verify path.");
+            Environment.Exit(1);
+            return;
+        }
+
         if (_options.StorageLoad.Type == StorageType.Mods)
             RunLoader();
         else
             await LoadFromCASC();
+
+        AnsiConsole.MarkupLineInterpolated($"Load time: {_stopwatch.Elapsed.TotalSeconds:0.####} seconds");
+        AnsiConsole.WriteLine();
 
         if (HeroesXmlLoader is null)
             throw new InvalidOperationException("Failed to load from casc or file.");
@@ -38,9 +48,11 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
                 _logger.LogInformation("Loading data from stormmods...");
 
                 if (_options.StorageLoad.Type == StorageType.Online)
-                    AnsiConsole.MarkupLine("Loading data from stormmods (this might take a while)...");
+                    AnsiConsole.MarkupLine("Loading data from stormmods (this might take a while, still downloading files)...");
                 else
                     AnsiConsole.MarkupLine("Loading data from stormmods...");
+
+                _stopwatch.Restart();
 
                 HeroesXmlLoader.LoadStormMods();
 
@@ -48,11 +60,12 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
                 AnsiConsole.MarkupLine("Loading gamestrings...");
                 HeroesXmlLoader.LoadGameStrings();
 
+                _stopwatch.Stop();
                 await Task.CompletedTask;
             });
 
         _logger.LogInformation("Heroes data loaded");
-        AnsiConsole.MarkupLine("[green bold]Loading completed[/]");
+        AnsiConsole.MarkupLineInterpolated($"[green bold]Loading completed in {_stopwatch.Elapsed.TotalSeconds:0.####} seconds[/]");
     }
 
     private async Task LoadFromCASC()
@@ -126,59 +139,70 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 
     private void RunLoader(BackgroundWorkerEx? backgroundWorkerEx = null)
     {
-        if (_options.StorageLoad.Type == StorageType.Game && IsValidPath())
+        if (_options.StorageLoad.Type == StorageType.Game)
         {
             _logger.LogInformation("Loading heroes data by game storage");
 
             AnsiConsole.MarkupLine("[aqua]Found 'Heroes of the Storm' directory[/]");
-            AnsiConsole.MarkupLine("[aqua]Loading local CASC storage... please wait[/]");
+            AnsiConsole.MarkupLine("Loading from local CASC storage... please wait");
 
+            _stopwatch.Start();
             HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(_options.StorageLoad.Path!, new CASCLoggerOptions(), backgroundWorkerEx);
+            _stopwatch.Stop();
         }
-        else if (_options.StorageLoad.Type == StorageType.Mods && IsValidPath())
+        else if (_options.StorageLoad.Type == StorageType.Mods)
         {
-            _logger.LogInformation("Loading heroes data by mods storage");
+            _logger.LogInformation("Loading heroes data by extracted mods directory");
 
             AnsiConsole.MarkupLine("[aqua]Found 'mods' directory[/]");
-            AnsiConsole.WriteLine();
+            AnsiConsole.MarkupLine("Loading from extracted 'mods' directory... please wait");
 
+            _stopwatch.Start();
             HeroesXmlLoader = HeroesXmlLoader.LoadWithFile(_options.StorageLoad.Path!, backgroundWorkerEx);
+            _stopwatch.Stop();
         }
         else if (_options.StorageLoad.Type == StorageType.Online)
         {
             _logger.LogInformation("Loading heroes data by online storage");
 
-            AnsiConsole.MarkupLine("[aqua]Loading online CASC storage... please wait[/]");
+            AnsiConsole.MarkupLine("Loading from online CASC storage... please wait");
 
+            _stopwatch.Start();
             HeroesXmlLoader = HeroesXmlLoader.LoadWithOnlineCASC(new CASCLoggerOptions(), backgroundWorkerEx);
+            _stopwatch.Stop();
         }
         else
         {
             _logger.LogWarning("Unknown storage load type, defaulting to online storage");
 
-            AnsiConsole.MarkupLine("[yellow]Unknown storage load type, defaulting to online storage.[/]");
-            AnsiConsole.MarkupLine("[aqua]Loading online CASC storage... please wait[/]");
+            AnsiConsole.MarkupLine("[yellow]Unknown storage load type, defaulting to online storage.");
+            AnsiConsole.MarkupLine("Loading from online CASC storage... please wait");
 
+            _stopwatch.Start();
             HeroesXmlLoader = HeroesXmlLoader.LoadWithOnlineCASC(new CASCLoggerOptions(), backgroundWorkerEx);
+            _stopwatch.Stop();
         }
     }
 
-    private bool IsValidPath()
+    private bool VerifyPath()
     {
-        if (string.IsNullOrWhiteSpace(_options.StorageLoad.Path))
+        if (_options.StorageLoad.Type == StorageType.Game || _options.StorageLoad.Type == StorageType.Mods)
         {
-            _logger.LogCritical("StorageLoad path is empty.");
-            AnsiConsole.Markup("[red]Error: The storage load path is empty. Please provide a path to the game or mods directory.[/]");
+            if (string.IsNullOrWhiteSpace(_options.StorageLoad.Path))
+            {
+                _logger.LogCritical("StorageLoad path is empty.");
+                AnsiConsole.Markup("[red]Error: The storage load path is empty. Please provide a path to the game or mods directory.[/]");
 
-            return false;
-        }
+                return false;
+            }
 
-        if (!Directory.Exists(_options.StorageLoad.Path))
-        {
-            _logger.LogCritical("StorageLoad path does not exist.");
-            AnsiConsole.Markup("[red]Error: The storage load path does not exist. Please provide a valid path to the game or mods directory.[/]");
+            if (!Directory.Exists(_options.StorageLoad.Path))
+            {
+                _logger.LogCritical("StorageLoad path does not exist.");
+                AnsiConsole.Markup("[red]Error: The storage load path does not exist. Please provide a valid path to the game or mods directory.[/]");
 
-            return false;
+                return false;
+            }
         }
 
         return true;
