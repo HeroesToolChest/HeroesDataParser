@@ -90,11 +90,11 @@ static void RunLogRententionPolicy()
         try
         {
             file.Delete();
-            Log.Information($"Deleted old log file: {file.Name}");
+            Log.Information("Deleted old log file: {FileName}", file.Name);
         }
         catch (Exception ex)
         {
-            Log.Error(ex, $"Failed to delete old log file: {file.Name}");
+            Log.Error(ex, "Failed to delete old log file: {FileName}", file.Name);
         }
     }
 }
