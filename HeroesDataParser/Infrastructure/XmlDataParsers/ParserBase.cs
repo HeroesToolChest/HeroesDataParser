@@ -60,6 +60,38 @@ public abstract class ParserBase<T> : IDataParser<T>
             return _heroesData.ParseGameString(stormGameString);
     }
 
+    protected string? GetStormGameString(string id)
+    {
+        StormGameString? stormGameString = _heroesData.GetStormGameString(id);
+
+        if (stormGameString is null)
+            return null;
+        else
+            return stormGameString.Value;
+    }
+
+    protected ImageFilePath? GetImageFilePath(StormElementData data)
+    {
+        string tileTexturePath = data.Value.GetString();
+
+        StormFile? stormAssetFile = _heroesData.GetStormAssetFile(tileTexturePath);
+        if (stormAssetFile is not null)
+        {
+            string image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), ImageFileExtension);
+            RelativeFilePath imagePath = new()
+            {
+                FilePath = stormAssetFile.StormPath.Path,
+            };
+
+            return new ImageFilePath(image, imagePath);
+        }
+        else
+        {
+            _logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTexturePath);
+            return null;
+        }
+    }
+
     protected void SetNameProperty(T elementObject, StormElement stormElement)
     {
         if (elementObject is IName nameObject)

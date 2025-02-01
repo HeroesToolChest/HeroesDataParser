@@ -18,7 +18,7 @@ public class LootChestParser : ParserBase<LootChest>
         SetRarityProperty(elementObject, stormElement);
         SetEventNameProperty(elementObject, stormElement);
 
-        if (stormElement.DataValues.TryGetElementDataAt("maxrerolls", out StormElementData? maxRerollsData) && maxRerollsData.Value.TryGetAsInt32(out int maxRerollsValue))
+        if (stormElement.DataValues.TryGetElementDataAt("maxrerolls", out StormElementData? maxRerollsData) && maxRerollsData.Value.TryGetInt32(out int maxRerollsValue))
             elementObject.MaxRerolls = maxRerollsValue;
 
         if (stormElement.DataValues.TryGetElementDataAt("typedescription", out StormElementData? typeDescriptionData))

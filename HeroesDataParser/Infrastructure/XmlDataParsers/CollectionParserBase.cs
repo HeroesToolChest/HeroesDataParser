@@ -1,4 +1,5 @@
-﻿using Serilog.Context;
+﻿using Heroes.Element.Models;
+using Serilog.Context;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
@@ -68,7 +69,7 @@ public abstract class CollectionParserBase<T> : ParserBase<T>
         SetNameProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("sortname", out StormElementData? sortNameData))
-            collectionObject.SortName = GetTooltipDescription(sortNameData.Value.GetString());
+            collectionObject.SortName = GetStormGameString(sortNameData.Value.GetString());
 
         SetHyperlinkIdProperty(collectionObject, stormElement);
 
@@ -83,13 +84,13 @@ public abstract class CollectionParserBase<T> : ParserBase<T>
             int month = 1;
             int day = 1;
 
-            if (releasetDateData.TryGetElementDataAt("year", out StormElementData? yearData) && yearData.Value.TryGetAsInt32(out int yearValue))
+            if (releasetDateData.TryGetElementDataAt("year", out StormElementData? yearData) && yearData.Value.TryGetInt32(out int yearValue))
                 year = yearValue;
 
-            if (releasetDateData.TryGetElementDataAt("month", out StormElementData? monthData) && monthData.Value.TryGetAsInt32(out int monthValue))
+            if (releasetDateData.TryGetElementDataAt("month", out StormElementData? monthData) && monthData.Value.TryGetInt32(out int monthValue))
                 month = monthValue;
 
-            if (releasetDateData.TryGetElementDataAt("day", out StormElementData? dayData) && dayData.Value.TryGetAsInt32(out int dayValue))
+            if (releasetDateData.TryGetElementDataAt("day", out StormElementData? dayData) && dayData.Value.TryGetInt32(out int dayValue))
                 day = dayValue;
 
             collectionObject.ReleaseDate = new DateOnly(year, month, day);
@@ -104,7 +105,7 @@ public abstract class CollectionParserBase<T> : ParserBase<T>
 
     protected abstract void SetAdditionalProperties(T collectionObject, StormElement stormElement);
 
-    protected void SetValidatedProperties(T collectionObject)
+    protected virtual void SetValidatedProperties(T collectionObject)
     {
         if (string.IsNullOrEmpty(collectionObject.HyperlinkId))
             collectionObject.HyperlinkId = collectionObject.Id;
@@ -133,6 +134,24 @@ public abstract class CollectionParserBase<T> : ParserBase<T>
                 franchiseObject.Franchise = Franchise.Nexus;
             else
                 franchiseObject.Franchise = Franchise.Unknown;
+        }
+
+        if (stormElement.DataValues.TryGetElementDataAt("UniverseIcon", out StormElementData? universeIconData))
+        {
+            string? iconImageName = Path.GetFileName(universeIconData.Value.GetString());
+
+            if (iconImageName.Equals("UI_GLUES_STORE_GAMEICON_SC2.DDS", StringComparison.OrdinalIgnoreCase))
+                franchiseObject.Franchise = Franchise.Starcraft;
+            else if (iconImageName.Equals("UI_GLUES_STORE_GAMEICON_WOW.DDS", StringComparison.OrdinalIgnoreCase))
+                franchiseObject.Franchise = Franchise.Warcraft;
+            else if (iconImageName.Equals("UI_GLUES_STORE_GAMEICON_D3.DDS", StringComparison.OrdinalIgnoreCase))
+                franchiseObject.Franchise = Franchise.Diablo;
+            else if (iconImageName.Equals("UI_GLUES_STORE_GAMEICON_OW.DDS", StringComparison.OrdinalIgnoreCase))
+                franchiseObject.Franchise = Franchise.Overwatch;
+            else if (iconImageName.Equals("UI_GLUES_STORE_GAMEICON_RETRO.DDS", StringComparison.OrdinalIgnoreCase))
+                franchiseObject.Franchise = Franchise.Classic;
+            else if (iconImageName.Equals("UI_GLUES_STORE_GAMEICON_NEXUS.DDS", StringComparison.OrdinalIgnoreCase))
+                franchiseObject.Franchise = Franchise.Nexus;
         }
     }
 }

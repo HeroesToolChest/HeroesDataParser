@@ -40,7 +40,7 @@ public class BundleParser : CollectionParserBase<Bundle>
         {
             if (flagsData.TryGetElementDataAt("ShowDynamicProductContent", out StormElementData? dynamicProductContent))
             {
-                if (dynamicProductContent.Value.GetAsInt() == 1)
+                if (dynamicProductContent.Value.GetInt() == 1)
                     collectionObject.IsDynamicContent = true;
             }
         }
@@ -76,12 +76,12 @@ public class BundleParser : CollectionParserBase<Bundle>
 
         if (stormElement.DataValues.TryGetElementDataAt("goldbonus", out StormElementData? goldData))
         {
-            collectionObject.GoldBonus = goldData.Value.GetAsInt();
+            collectionObject.GoldBonus = goldData.Value.GetInt();
         }
 
         if (stormElement.DataValues.TryGetElementDataAt("gemsbonus", out StormElementData? gemsData))
         {
-            collectionObject.GemsBonus = gemsData.Value.GetAsInt();
+            collectionObject.GemsBonus = gemsData.Value.GetInt();
         }
 
         if (stormElement.DataValues.TryGetElementDataAt("lootchestbonus", out StormElementData? lootChestData))

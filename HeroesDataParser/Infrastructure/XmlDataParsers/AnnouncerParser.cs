@@ -3,7 +3,6 @@
 public class AnnouncerParser : CollectionParserBase<Announcer>
 {
     private readonly ILogger<AnnouncerParser> _logger;
-
     private readonly HeroesData _heroesData;
 
     public AnnouncerParser(ILogger<AnnouncerParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
@@ -22,21 +21,28 @@ public class AnnouncerParser : CollectionParserBase<Announcer>
 
         if (stormElement.DataValues.TryGetElementDataAt("tiletexture", out StormElementData? tileTextureData))
         {
-            string tileTexturePath = tileTextureData.Value.GetString();
+            ImageFilePath? imageFilePath = GetImageFilePath(tileTextureData);
+            if (imageFilePath is not null)
+            {
+                collectionObject.Image = imageFilePath.Image;
+                collectionObject.ImagePath = imageFilePath.FilePath;
+            }
 
-            StormFile? stormAssetFile = _heroesData.GetStormAssetFile(tileTexturePath);
-            if (stormAssetFile is not null)
-            {
-                collectionObject.Image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), ImageFileExtension);
-                collectionObject.ImagePath = new RelativeFilePath()
-                {
-                    FilePath = stormAssetFile.StormPath.Path,
-                };
-            }
-            else
-            {
-                _logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTexturePath);
-            }
+            //string tileTexturePath = tileTextureData.Value.GetString();
+
+            //StormFile? stormAssetFile = _heroesData.GetStormAssetFile(tileTexturePath);
+            //if (stormAssetFile is not null)
+            //{
+            //    collectionObject.Image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), ImageFileExtension);
+            //    collectionObject.ImagePath = new RelativeFilePath()
+            //    {
+            //        FilePath = stormAssetFile.StormPath.Path,
+            //    };
+            //}
+            //else
+            //{
+            //    _logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTexturePath);
+            //}
         }
 
         if (stormElement.DataValues.TryGetElementDataAt("heroid", out StormElementData? heroIdData))
