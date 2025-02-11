@@ -2,12 +2,12 @@
 
 public class HeroParser : CollectionParserBase<Hero>
 {
-    private readonly ILogger<AnnouncerParser> _logger;
+    private readonly ILogger<HeroParser> _logger;
     private readonly HeroesData _heroesData;
 
     private readonly string _roleGameStringText;
 
-    public HeroParser(ILogger<AnnouncerParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+    public HeroParser(ILogger<HeroParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
         : base(logger, heroesXmlLoaderService)
     {
         _logger = logger;

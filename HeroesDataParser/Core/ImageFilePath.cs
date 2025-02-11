@@ -11,4 +11,9 @@ public class ImageFilePath
     public string Image { get; }
 
     internal RelativeFilePath FilePath { get; }
+
+    public override string ToString()
+    {
+        return Image;
+    }
 }

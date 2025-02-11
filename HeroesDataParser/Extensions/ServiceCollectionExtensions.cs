@@ -43,6 +43,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDataParser<Bundle>, BundleParser>();
         services.AddSingleton<IDataParser<Hero>, HeroParser>();
         services.AddSingleton<IDataParser<LootChest>, LootChestParser>();
+        services.AddSingleton<IDataParser<Unit>, UnitParser>();
 
         services.AddSingleton<IDataParser<Map>, MapParser>();
         return services;

@@ -1,4 +1,5 @@
-﻿using Serilog.Context;
+﻿using Heroes.Element.Models;
+using Serilog.Context;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
@@ -90,6 +91,24 @@ public abstract class ParserBase<T> : IDataParser<T>
             _logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTexturePath);
             return null;
         }
+    }
+
+    protected double GetScaleValue(string elementType, string id, string? elementName)
+    {
+        string? dataObjectType = _heroesData.GetDataObjectTypeByElementType(elementType);
+        if (string.IsNullOrWhiteSpace(dataObjectType))
+        {
+            _logger.LogWarning("Could not get data object type for element type {ElementType}", elementType);
+            return 0;
+        }
+
+        if (string.IsNullOrWhiteSpace(elementName))
+        {
+            _logger.LogWarning("Element name {ElementName} is emtpy or null", elementName);
+            return 0;
+        }
+
+        return _heroesData.GetScalingValue(dataObjectType, id, elementName) ?? 0;
     }
 
     protected void SetNameProperty(T elementObject, StormElement stormElement)

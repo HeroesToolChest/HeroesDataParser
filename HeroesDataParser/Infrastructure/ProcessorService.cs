@@ -339,6 +339,7 @@ public class ProcessorService : IProcessorService
         { ExtractDataOptions.Boost, ProcessElementObject<Boost, BoostParser> },
         { ExtractDataOptions.Hero, ProcessElementObject<Hero, HeroParser> },
         { ExtractDataOptions.LootChest, ProcessElementObject<LootChest, LootChestParser> },
+        { ExtractDataOptions.Unit, ProcessElementObject<Unit, UnitParser> },
     };
 
    // private Dictionary<ExtractImageOptions, >
