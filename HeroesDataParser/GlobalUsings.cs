@@ -1,5 +1,4 @@
 ﻿global using Heroes.Element.Models;
-global using Heroes.Element.Models.AbilityTalents;
 global using Heroes.Element.Models.ObjectProperties;
 global using Heroes.Element.Types;
 global using Heroes.LocaleText;
@@ -10,7 +9,9 @@ global using HeroesDataParser.Core;
 global using HeroesDataParser.Extensions;
 global using HeroesDataParser.Infrastructure;
 global using HeroesDataParser.Infrastructure.Configurations;
+global using HeroesDataParser.Infrastructure.ImageWriters;
 global using HeroesDataParser.Infrastructure.XmlDataParsers;
+global using HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
 global using HeroesDataParser.JsonConverters;
 global using HeroesDataParser.JsonTypeInfoResolvers;
 global using HeroesDataParser.Options;

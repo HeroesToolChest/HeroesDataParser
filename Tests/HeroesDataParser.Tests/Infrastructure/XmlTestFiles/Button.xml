@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Button>
+  <CButton default="1">
+    <Name value="Button/Name/##id##"/>
+    <Tooltip value="Button/Tooltip/##id##"/>
+    <TooltipFlags index="ShowName" value="1"/>
+    <TooltipFlags index="ShowHotkey" value="1"/>
+    <TooltipFlags index="ShowUsage" value="1"/>
+    <TooltipFlags index="ShowTime" value="1"/>
+    <TooltipFlags index="ShowCooldown" value="1"/>
+    <TooltipFlags index="ShowRequirements" value="1"/>
+    <TooltipFlags index="ShowAutocast" value="1"/>
+    <UseHotkeyLabel value="1"/>
+  </CButton>
+  <CButton default="1" id="StormButtonParent">
+    <TooltipFlags index="ShowTime" value="0"/>
+    <TooltipFlags index="ShowRequirements" value="0"/>
+    <TooltipFlags index="ShowAutocast" value="0"/>
+    <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Mana"/>
+    <SimpleDisplayText value="Button/SimpleDisplayText/##id##"/>
+  </CButton>
+  <CButton id="AbathurSymbiote" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_symbiote.dds" />
+    <TooltipAppender Validator="HasAbathurMasteryPressurizedGlands" Face="AbathurSymbiotePressurizedGlandsTalent" />
+    <TooltipAppender Validator="AbathurHasReinforcedCarapace" Face="AbathurReinforcedCarapaceTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryRegenerativeMicrobes" Face="AbathurSymbioteRegenerativeMicrobesTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteCarapaceSustainedCarapace" Face="AbathurSymbioteCarapaceSustainedCarapaceTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteAdrenalOverload" Face="AbathurSymbioteAdrenalOverloadTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryNeedlespine" Face="AbathurSymbioteNeedlespineTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteCarapaceNetworkedCarapace" Face="AbathurSymbioteCarapaceNetworkedCarapaceTalent" />
+    <TooltipAppender Validator="HasAbathurMasterySpatialEfficiency" Face="AbathurSymbioteSpatialEfficiencyTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteSpikeBurstSomaTransference" Face="AbathurSymbioteSpikeBurstSomaTransferenceTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryEnvenomedSpikes" Face="AbathurSymbioteEnvenomedSpikesTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryAdrenalineBoost" Face="AbathurSymbioteAdrenalineBoostTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteHivemind" Face="AbathurSymbioteHivemindTalent" />
+  </CButton>
+  <CButton id="AbathurToxicNest" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_toxicnest.dds" />
+    <TooltipAppender Validator="HasPregameSuppressionBehavior" Text="Button/TooltipAppender/LockedUntilGameStarts" />
+    <TooltipAppender Validator="HasAbathurMasteryEnvenomedNestsToxicNest" Face="AbathurToxicNestEnvenomedNestTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryProlificDispersal" Face="AbathurToxicNestProlificDispersalTalent" />
+    <TooltipAppender Validator="AbathurHasMasteryBallistospores" Face="AbathurToxicNestBallistosporesTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryVileNestsToxicNest" Face="AbathurToxicNestVileNestTalent" />
+  </CButton>
+  <CButton id="AlarakDeadlyCharge" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_recklesscharge.dds" />
+    <TooltipVitalOverrideText index="Energy" value="Abil/AlarakDeadlyChargeButtonVitalCostOverride" />
+    <TooltipCooldownOverrideText value="Abil/AlarakDeadlyChargeButtonCooldownCostOverride" />
+  </CButton>
+</Button>

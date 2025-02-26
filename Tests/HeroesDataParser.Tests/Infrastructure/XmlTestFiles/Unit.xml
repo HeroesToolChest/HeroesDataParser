@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Unit>
+  <CUnit default="1" id="StormHero" parent="StormBasicHeroicUnit">
+    <FlagArray index="SelectableWhileDead" value="1" />
+    <FlagArray index="PreferLastAttackTarget" value="1" />
+    <FlagArray index="ResumeLastMoveOrder" value="1" />
+    <FlagArray index="StatTrackAbilities" value="1" />
+    <FlagArray index="LeechBehaviorShieldDamage" value="1" />
+    <FlagArray index="DisableLeashing" value="1" />
+    <EnergyStart value="500" />
+    <EnergyMax value="500" />
+    <EnergyRegenRate value="3" />
+    <ShieldRegenDelay value="10" />
+    <AbilArray Link="HoldFire" />
+    <AbilArray Link="attack" />
+    <AbilArray Link="move" />
+    <AbilArray Link="Hearthstone" />
+    <AbilArray Link="UseVehicle" />
+    <AbilArray Link="FountainDrink" />
+    <AbilArray Link="FountainDrinkOnCooldown" />
+    <AbilArray Link="CaptureMacGuffin" />
+    <AbilArray Link="CaptureMacGuffinTwo" />
+    <AbilArray Link="SmartCommandUnitInteraction" />
+    <AbilArray Link="MountCabooseSmartCommandUnitInteraction" />
+    <AbilArray Link="MapMechanicAbilityTarget" />
+    <AbilArray Link="MapMechanicAbilityTarget2" />
+    <AbilArray Link="MapMechanicAbilityInstant" />
+    <AbilArray Link="LootSpray" />
+    <AbilArray Link="LootYellVoiceLine" />
+    <BehaviorArray Link="HeroDummyVeterancy" />
+    <BehaviorArray Link="ShrubStatusController" />
+    <BehaviorArray Link="ShrubProximityDetector" />
+    <BehaviorArray Link="HeroGenericPregameAbilitySuppression" />
+    <BehaviorArray Link="HeroGenericPregameAbilityMinionSuppression" />
+    <BehaviorArray Link="EndOfMatchAwardsHeroGenericLowHealthMonitor" />
+    <BehaviorArray Link="HeroGenericStationaryExtraStealthController" />
+  </CUnit>
+  <CUnit default="1" id="StormHeroMounted" parent="StormHero">
+    <AbilArray Link="Mount" />
+    <AbilArray Link="Dismount" />
+    <CardLayouts>
+      <LayoutButtons Face="LockedHeroicAbility" Type="Passive" Requirements="UltimateNotUnlocked" Slot="Heroic" />
+      <LayoutButtons Face="Hearthstone" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="HoldFire,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="HoldFire,HoldFire" Slot="Hold" />
+      <LayoutButtons Face="SummonMount" Type="AbilCmd" AbilCmd="Mount,Execute" Slot="Mount" />
+      <LayoutButtons Face="UnsummonMount" Type="AbilCmd" AbilCmd="Dismount,Execute" Slot="Mount" />
+      <LayoutButtons Face="Cancel" Type="CancelTargetMode" Slot="Cancel" />
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Cancel" />
+      <LayoutButtons Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrink,Execute" Slot="Interact" />
+      <LayoutButtons Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrinkOnCooldown,Execute" Slot="Interact" />
+      <LayoutButtons Face="CaptureMacGuffin" Type="AbilCmd" AbilCmd="CaptureMacGuffin,Execute" Slot="Interact" />
+      <LayoutButtons Face="SmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="SmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons Face="MountCabooseSmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="MountCabooseSmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons Face="Tease" Type="AbilCmd" AbilCmd="stop,Tease" Slot="Taunt" />
+      <LayoutButtons Face="Dance" Type="AbilCmd" AbilCmd="stop,Dance" Slot="Dance" />
+      <LayoutButtons Face="MapMechanicAbilityInstant" Type="AbilCmd" AbilCmd="MapMechanicAbilityInstant,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="MapMechanicAbility" Type="AbilCmd" AbilCmd="MapMechanicAbilityTarget,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="MapMechanicAbility2" Type="AbilCmd" AbilCmd="MapMechanicAbilityTarget2,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="LockedMapMechanicAbility" Type="Passive" Slot="MapMechanic" />
+      <LayoutButtons Face="MapMechanicAbilityParent" Type="AbilCmd" AbilCmd="MapMechanicAbilityParent,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="LootSpray" Type="AbilCmd" AbilCmd="LootSpray,Execute" Slot="Spray" />
+      <LayoutButtons Face="LootYellVoiceLine" Type="AbilCmd" AbilCmd="LootYellVoiceLine,Execute" Slot="Voice" />
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="ForceMove" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit default="1" id="StormHeroMountedCustom" parent="StormHero">
+    <CardLayouts>
+      <LayoutButtons Face="LockedHeroicAbility" Type="Passive" Requirements="UltimateNotUnlocked" Slot="Heroic" />
+      <LayoutButtons Face="Hearthstone" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="HoldFire,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="HoldFire,HoldFire" Slot="Hold" />
+      <LayoutButtons Face="Cancel" Type="CancelTargetMode" Slot="Cancel" />
+      <LayoutButtons Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrink,Execute" Slot="Interact" />
+      <LayoutButtons Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrinkOnCooldown,Execute" Slot="Interact" />
+      <LayoutButtons Face="CaptureMacGuffin" Type="AbilCmd" AbilCmd="CaptureMacGuffin,Execute" Slot="Interact" />
+      <LayoutButtons Face="SmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="SmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons Face="MountCabooseSmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="MountCabooseSmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Cancel" />
+      <LayoutButtons Face="Tease" Type="AbilCmd" AbilCmd="stop,Tease" Slot="Taunt" />
+      <LayoutButtons Face="Dance" Type="AbilCmd" AbilCmd="stop,Dance" Slot="Dance" />
+      <LayoutButtons Face="MapMechanicAbilityInstant" Type="AbilCmd" AbilCmd="MapMechanicAbilityInstant,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="MapMechanicAbility" Type="AbilCmd" AbilCmd="MapMechanicAbilityTarget,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="MapMechanicAbility2" Type="AbilCmd" AbilCmd="MapMechanicAbilityTarget2,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="LockedMapMechanicAbility" Type="Passive" Slot="MapMechanic" />
+      <LayoutButtons Face="MapMechanicAbilityParent" Type="AbilCmd" AbilCmd="MapMechanicAbilityParent,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="LootSpray" Type="AbilCmd" AbilCmd="LootSpray,Execute" Slot="Spray" />
+      <LayoutButtons Face="LootYellVoiceLine" Type="AbilCmd" AbilCmd="LootYellVoiceLine,Execute" Slot="Voice" />
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="ForceMove" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit id="HeroAbathur" parent="StormHeroMountedCustom">
+    <CardLayouts index="0">
+      <LayoutButtons index="1" Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons index="2" Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons index="3" Face="Stop" Type="AbilCmd" AbilCmd="HoldFire,Stop" Slot="Stop" />
+      <LayoutButtons index="4" Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="HoldFire,HoldFire" Slot="Hold" />
+      <LayoutButtons index="5" Face="Cancel" Type="CancelTargetMode" AbilCmd="" Slot="Cancel" />
+      <LayoutButtons index="6" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrink,Execute" Slot="Interact" />
+      <LayoutButtons index="7" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrinkOnCooldown,Execute" Slot="Interact" />
+      <LayoutButtons index="8" Face="CaptureMacGuffin" Type="AbilCmd" AbilCmd="CaptureMacGuffin,Execute" Slot="Interact" />
+      <LayoutButtons index="9" Face="SmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="SmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons index="10" Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Cancel" />
+      <LayoutButtons index="11" Face="EvolveMonstrosityActiveHotbar" Type="AbilCmd" AbilCmd="AbathurEvolveMonstrosityActiveSymbiote,Execute" Requirements="AbathurHasActiveMonstrosity" Slot="Heroic" />
+      <LayoutButtons Face="AbathurEvolveMonstrosityHotbar" Type="AbilCmd" AbilCmd="AbathurEvolveMonstrosity,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AbathurUltimateEvolution" Type="AbilCmd" AbilCmd="AbathurUltimateEvolution,Execute" Slot="Heroic" />
+      <LayoutButtons Face="HearthstoneNoMana" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="AbathurLocustStrain" Type="AbilCmd" AbilCmd="AbathurSpawnLocusts,Execute" Slot="Trait" />
+      <LayoutButtons Face="AbathurSymbiote" Type="AbilCmd" AbilCmd="AbathurSymbiote,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AbathurToxicNest" Type="AbilCmd" AbilCmd="AbathurToxicNest,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AbathurDeepTunnel" Type="AbilCmd" AbilCmd="AbathurDeepTunnel,Execute" Slot="Mount" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit id="HeroAlarak" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <LayoutButtons Face="AlarakUnleashDeadlyCharge" Type="AbilCmd" AbilCmd="AlarakDeadlyChargeExecute,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlarakDeadlyCharge" Type="AbilCmd" AbilCmd="AlarakDeadlyChargeActivate,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlarakCounterStrikeTargeted" Type="AbilCmd" AbilCmd="AlarakCounterStrikeTargeted,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlarakDiscordStrike" Type="AbilCmd" AbilCmd="AlarakDiscordStrike,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AlarakTelekinesis" Type="AbilCmd" AbilCmd="AlarakTelekinesis,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AlarakLightningSurgeLightningBarrage" Type="AbilCmd" AbilCmd="AlarakLightningSurgeLightningBarrage,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AlarakLightningSurge" Type="AbilCmd" AbilCmd="AlarakLightningSurge,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AlarakUnleashDeadlyCharge" Type="AbilCmd" AbilCmd="AlarakDeadlyChargeExecute2ndHeroic,Execute" Slot="Trait" />
+      <LayoutButtons Face="AlarakDeadlyCharge2ndHeroicSadism" Type="AbilCmd" AbilCmd="AlarakDeadlyChargeActivate2ndHeroic,Execute" Slot="Trait" />
+      <LayoutButtons Face="AlarakCounterStrike2ndHeroicSadism" Type="AbilCmd" AbilCmd="AlarakCounterStrikeTargeted2ndHeroic,Execute" Slot="Trait" />
+      <LayoutButtons Face="AlarakSadism" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+  </CUnit>
+</Unit> 

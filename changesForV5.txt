@@ -1,0 +1,36 @@
+Changes from v4 to v5
+Rarity change: If not specified, then default to None. Before it was Common
+
+RandomAnnouncerPack	Added
+NoAnnouncerPack	(rarity default to none)
+
+NeutralMercCamp	added
+RandomBanner	added
+
+-------
+Need to decide:
+BannerDFEsportsWarChest18RareKT	No sortname, however exists in inherited element
+BannerDFEsportsWarChest18RareMiracle	No sortname, however exists in inherited element
+
+-------
+meta tag (maybe):
+like for gamestrings.json
+add version
+description type
+
+possible add gamestring for collection Category and Event
+
+
+-------
+New stuff:
+CollectionCategoryData.xml
+HeroRoleData.xml ?
+
+-------
+v5 changes
+Removed 'type' (melee or ranged) -> changed to Added 'isMelee': <bool>
+'skins' -> 'skinIds'
+'variationSkins' -> 'variationSkinIds'
+'voiceLines' -> 'voiceLineIds'
+'mountCategories' -> 'mountCategoryIds'
+'scalingLinkId' -> changed to an array 'scalingLinkIds'

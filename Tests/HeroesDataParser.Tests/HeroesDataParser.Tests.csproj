@@ -42,4 +42,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Infrastructure\XmlTestFiles\*.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
-public class LootChestParser : ParserBase<LootChest>
+public class LootChestParser : DataParser<LootChest>
 {
     public LootChestParser(ILogger<LootChestParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
         : base(logger, heroesXmlLoaderService)

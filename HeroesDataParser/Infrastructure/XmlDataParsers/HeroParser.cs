@@ -21,12 +21,12 @@ public class HeroParser : CollectionParserBase<Hero>
     protected override void SetAdditionalProperties(Hero collectionObject, StormElement stormElement)
     {
         if (stormElement.DataValues.TryGetElementDataAt("difficulty", out StormElementData? difficultyData))
-            collectionObject.Difficulty = GetTooltipDescription(GameStringConstants.DiffucultyGameString.Replace(GameStringConstants.IdPlaceHolder, difficultyData.Value.GetString()));
+            collectionObject.Difficulty = GetTooltipDescriptionFromId(GameStringConstants.DifficultyGameString.Replace(GameStringConstants.IdPlaceHolder, difficultyData.Value.GetString()));
 
         SetFranchiseProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("title", out StormElementData? titleData))
-            collectionObject.Title = GetTooltipDescription(titleData.Value.GetString());
+            collectionObject.Title = GetTooltipDescriptionFromId(titleData.Value.GetString());
 
         if (stormElement.DataValues.TryGetElementDataAt("melee", out StormElementData? meleeData) && meleeData.Value.TryGetInt32(out int meleeValue) && meleeValue == 1)
             collectionObject.IsMelee = true;
@@ -52,7 +52,7 @@ public class HeroParser : CollectionParserBase<Hero>
         SetRoleProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("ExpandedRole", out StormElementData? expandedRoleData))
-            collectionObject.ExpandedRole = GetTooltipDescription(_roleGameStringText.Replace(GameStringConstants.IdPlaceHolder, expandedRoleData.Value.GetString()));
+            collectionObject.ExpandedRole = GetTooltipDescriptionFromId(_roleGameStringText.Replace(GameStringConstants.IdPlaceHolder, expandedRoleData.Value.GetString()));
 
         if (stormElement.DataValues.TryGetElementDataAt("ratings", out StormElementData? ratingsData))
         {
@@ -176,7 +176,7 @@ public class HeroParser : CollectionParserBase<Hero>
     {
         base.SetValidatedProperties(collectionObject);
 
-        collectionObject.Difficulty ??= GetTooltipDescription(GameStringConstants.DiffucultyGameString.Replace(GameStringConstants.IdPlaceHolder, "Easy"));
+        collectionObject.Difficulty ??= GetTooltipDescriptionFromId(GameStringConstants.DifficultyGameString.Replace(GameStringConstants.IdPlaceHolder, "Easy"));
     }
 
     private string GetRoleText()

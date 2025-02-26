@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
-public class MapParser : ParserBase<Map>
+public class MapParser : DataParser<Map>
 {
     private readonly ILogger<MapParser> _logger;
 
@@ -272,7 +272,7 @@ public class MapParser : ParserBase<Map>
         {
             string? value = _heroesData.GetStormAssetString(assetPath[1..])?.Value;
             if (value is null)
-                return GetTooltipDescription(assetPath[1..]);
+                return GetTooltipDescriptionFromId(assetPath[1..]);
         }
 
         return new TooltipDescription(assetPath);

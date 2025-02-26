@@ -1,19 +1,24 @@
 ﻿using Heroes.Element.Models;
+using System;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
-public class UnitParser : ParserBase<Unit>
+public class UnitParser : DataParser<Unit>
 {
     private const string ActorDataObjectType = "Actor";
 
     private readonly ILogger<UnitParser> _logger;
     private readonly HeroesData _heroesData;
+    private readonly IAbilityParser _abilityParser;
 
-    public UnitParser(ILogger<UnitParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+    public UnitParser(ILogger<UnitParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService, IAbilityParser abilityParser)
         : base(logger, heroesXmlLoaderService)
     {
         _logger = logger;
         _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
+        _abilityParser = abilityParser;
     }
 
     public override string DataObjectType => "Unit";
@@ -24,6 +29,7 @@ public class UnitParser : ParserBase<Unit>
         SetUnitData(elementObject, stormElement);
         SetArmorData(elementObject, stormElement);
         SetWeaponData(elementObject, stormElement);
+        SetAbilityData(elementObject, stormElement);
 
         ParseBehaviorLink(elementObject, stormElement);
     }
@@ -51,11 +57,11 @@ public class UnitParser : ParserBase<Unit>
         if (actorElement.DataValues.TryGetElementDataAt("VitalNames", out StormElementData? vitalNamesData))
         {
             if (vitalNamesData.TryGetElementDataAt("Life", out StormElementData? lifeData))
-                elementObject.Life.LifeType = GetTooltipDescription(lifeData.Value.GetString());
+                elementObject.Life.LifeType = GetTooltipDescriptionFromId(lifeData.Value.GetString());
             if (vitalNamesData.TryGetElementDataAt("Shields", out StormElementData? shieldsData))
-                elementObject.Shield.ShieldType = GetTooltipDescription(shieldsData.Value.GetString());
+                elementObject.Shield.ShieldType = GetTooltipDescriptionFromId(shieldsData.Value.GetString());
             if (vitalNamesData.TryGetElementDataAt("Energy", out StormElementData? energyData))
-                elementObject.Energy.EnergyType = GetTooltipDescription(energyData.Value.GetString());
+                elementObject.Energy.EnergyType = GetTooltipDescriptionFromId(energyData.Value.GetString());
         }
 
         //// TODO additional actor abilities
@@ -146,7 +152,7 @@ public class UnitParser : ParserBase<Unit>
             elementObject.KillXP = killXpData.Value.GetInt();
 
         if (stormElement.DataValues.TryGetElementDataAt("InfoText", out StormElementData? infoTextData))
-            elementObject.InfoText = GetTooltipDescription(infoTextData.Value.GetString());
+            elementObject.InfoText = GetTooltipDescriptionFromId(infoTextData.Value.GetString());
 
         if (stormElement.DataValues.TryGetElementDataAt("HeroPlaystyleFlags", out StormElementData? heroPlaystyleFlagsData))
         {
@@ -268,7 +274,7 @@ public class UnitParser : ParserBase<Unit>
                     };
 
                     if (weaponStormElement.DataValues.TryGetElementDataAt("Name", out StormElementData? nameData))
-                        unitWeapon.Name = GetTooltipDescription(nameData.Value.GetString());
+                        unitWeapon.Name = GetTooltipDescriptionFromId(nameData.Value.GetString());
 
                     if (weaponStormElement.DataValues.TryGetElementDataAt("Range", out StormElementData? rangeData))
                         unitWeapon.Range = rangeData.Value.GetDouble();
@@ -312,6 +318,28 @@ public class UnitParser : ParserBase<Unit>
                     }
 
                     elementObject.Weapons.Add(unitWeapon);
+                }
+            }
+        }
+    }
+
+    private void SetAbilityData(Unit elementObject, StormElement stormElement)
+    {
+        if (stormElement.DataValues.TryGetElementDataAt("CardLayouts", out StormElementData? cardLayoutsData))
+        {
+            foreach (string cardLayoutIndex in cardLayoutsData.GetElementDataIndexes())
+            {
+                StormElementData layoutButtonsData = cardLayoutsData.GetElementDataAt(cardLayoutIndex);
+
+                foreach (string layoutButtonIndex in layoutButtonsData.GetElementDataIndexes())
+                {
+                    StormElementData innerData = layoutButtonsData.GetElementDataAt(layoutButtonIndex);
+
+                    foreach (string item in innerData.GetElementDataIndexes())
+                    {
+                        // data passed in is Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
+                        _abilityParser.GetAbility(elementObject.Id, innerData.GetElementDataAt(item));
+                    }
                 }
             }
         }

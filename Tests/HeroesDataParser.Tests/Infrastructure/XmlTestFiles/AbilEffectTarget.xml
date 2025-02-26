@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AbilEffectTarget>
+  <CAbilEffectTarget id="AbathurSymbiote">
+    <Effect value="AbathurSymbioteInitialDelay" />
+    <Cost>
+      <Cooldown TimeUse="4" />
+    </Cost>
+    <TargetFilters value="-;Self,Neutral,Enemy,Missile,Item,Stasis,Dead" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurSymbiote" />
+    <CmdButtonArray index="Execute2" DefaultButtonFace="AbathurSymbiote2" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AbathurToxicNest">
+    <Effect value="AbathurToxicNestInitialSet" />
+    <Cost>
+      <Charge>
+        <CountMax value="3" />
+        <CountStart value="3" />
+        <CountUse value="1" />
+        <TimeUse value="10" />
+      </Charge>
+      <Cooldown TimeUse="0.0625" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurToxicNest" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakDeadlyChargeActivate">
+    <Cost>
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakDeadlyCharge" ShowValidator="AlarakHasDeadlyChargeAsFirstHeroic">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+  </CAbilEffectTarget>
+</AbilEffectTarget>

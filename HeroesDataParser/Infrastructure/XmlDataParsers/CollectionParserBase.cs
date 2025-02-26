@@ -3,7 +3,7 @@ using Serilog.Context;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
-public abstract class CollectionParserBase<T> : ParserBase<T>
+public abstract class CollectionParserBase<T> : DataParser<T>
     where T : ElementObject, IElementObject, IHeroesCollectionObject
 {
     private readonly ILogger _logger;

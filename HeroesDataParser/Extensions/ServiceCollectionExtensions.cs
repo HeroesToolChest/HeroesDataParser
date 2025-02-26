@@ -1,5 +1,4 @@
-﻿using HeroesDataParser.Infrastructure.ImageWriters;
-using Serilog;
+﻿using Serilog;
 
 namespace HeroesDataParser.Extensions;
 
@@ -37,6 +36,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddDataParsers(this IServiceCollection services)
     {
         // add all data parsers
+        services.AddSingleton<IAbilityParser, AbilityParser>();
+
         services.AddSingleton<IDataParser<Announcer>, AnnouncerParser>();
         services.AddSingleton<IDataParser<Banner>, BannerParser>();
         services.AddSingleton<IDataParser<Boost>, BoostParser>();
