@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Abil>
+  <CAbilEffectInstant id="Hearthstone">
+    <CmdButtonArray index="Execute">
+      <AutoQueueId value="Hearthstone" />
+      <DefaultButtonFace value="Hearthstone" />
+      <Flags index="Continuous" value="0" />
+    </CmdButtonArray>
+    <ProgressButtonArray index="Cast" value="Hearthstone" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="LootSpray">
+    <CmdButtonArray index="Execute" AutoQueueId="LootAction" DefaultButtonFace="LootSpray" PreemptLevel="-1" />
+    <Flags index="Transient" value="1" />
+    <Effect value="LootSprayDummy" />
+    <Cost>
+      <Cooldown TimeUse="3" />
+    </Cost>
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="LootYellVoiceLine">
+    <Effect value="LootYellVoiceLineDummy" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown TimeUse="7" />
+    </Cost>
+    <CmdButtonArray index="Execute" AutoQueueId="LootAction" DefaultButtonFace="LootYellVoiceLine" PreemptLevel="-1" />
+  </CAbilEffectInstant>
+  <CAbilStop default="1">
+    <AbilSetId value="Stop"/>
+    <CmdButtonArray index="Stop" DefaultButtonFace="Stop">
+      <Flags index="ToSelection" value="1"/>
+    </CmdButtonArray>
+    <CmdButtonArray index="HoldFire" DefaultButtonFace="HoldFire">
+      <Flags index="ToSelection" value="1"/>
+    </CmdButtonArray>
+    <CmdButtonArray index="Cheer" DefaultButtonFace="Cheer">
+      <Flags index="ToSelection" value="1"/>
+    </CmdButtonArray>
+    <CmdButtonArray index="Dance" DefaultButtonFace="Dance">
+      <Flags index="ToSelection" value="1"/>
+    </CmdButtonArray>
+  </CAbilStop>
+  <CAbilStop id="stop">
+    <CmdButtonArray index="HoldFire" DefaultButtonFace="HoldFireSpecial"/>
+  </CAbilStop>
+  <CAbilStop id="stop">
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <CmdButtonArray index="Tease" DefaultButtonFace="Tease" />
+  </CAbilStop>
+  <CAbilEffectTarget id="AbathurSymbiote">
+    <Effect value="AbathurSymbioteInitialDelay" />
+    <Cost>
+      <Cooldown TimeUse="4" />
+    </Cost>
+    <TargetFilters value="-;Self,Neutral,Enemy,Missile,Item,Stasis,Dead" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurSymbiote" />
+    <CmdButtonArray index="Execute2" DefaultButtonFace="AbathurSymbiote2" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AbathurToxicNest">
+    <Effect value="AbathurToxicNestInitialSet" />
+    <Cost>
+      <Charge>
+        <CountMax value="3" />
+        <CountStart value="3" />
+        <CountUse value="1" />
+        <TimeUse value="10" />
+      </Charge>
+      <Cooldown TimeUse="0.0625" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurToxicNest" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakDeadlyChargeActivate">
+    <Cost>
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakDeadlyCharge" ShowValidator="AlarakHasDeadlyChargeAsFirstHeroic">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="AbathurSpawnLocusts">
+    <Effect value="LocustSpawnLocustSwitch" />
+    <Cost>
+      <Cooldown Link="AbathurSpawnLocusts" TimeUse="15" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurLocustStrain" PreemptLevel="-1" />
+    <Flags index="Transient" value="1" />
+    <ProducedUnitArray value="AbathurLocustNormal" />
+    <ProducedUnitArray value="AbathurLocustBombardStrain" />
+    <ProducedUnitArray value="AbathurLocustAssaultStrain" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AbathurDeepTunnel">
+    <Cost>
+      <Cooldown TimeUse="30" />
+    </Cost>
+    <Range value="500" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurDeepTunnel">
+      <Flags index="AllowMinimap" value="1" />
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Arc value="360" />
+    <PrepEffect value="AbathurDeepTunnelPrepSet" />
+    <InterruptArray index="Cast" value="1" />
+    <InterruptCost>
+      <Cooldown Operation="Set" TimeUse="10" />
+    </InterruptCost>
+    <CastIntroTime value="2.5" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlexstraszaGiftOfLife">
+    <Effect value="AlexstraszaGiftOfLifeSet" />
+    <Cost>
+      <Cooldown TimeUse="7" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlexstraszaGiftOfLife" />
+  </CAbilEffectTarget>
+</Abil>

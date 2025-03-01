@@ -55,6 +55,7 @@ public class AbilityParser : ParserBase, IAbilityParser
         // passive "ability", actually just a dummy button
         if (typeValue.AsSpan().Equals("Passive", StringComparison.OrdinalIgnoreCase))
         {
+            ability.ButtonId = faceValue;
             ability.IsPassive = true;
             ability.IsActive = false;
 
@@ -85,9 +86,17 @@ public class AbilityParser : ParserBase, IAbilityParser
         // set the ability tier
         SetAbilityTierFromAbilityType(ability);
 
-        // if tier is not a tier we want, return;
+        // if tier is not a tier we want, return
         if (IgnoreAbilityTier(ability))
             return null;
+
+        // if no NameId and it is not a passive ability, return null
+        if (string.IsNullOrEmpty(ability.NameId) && ability.IsPassive is not true)
+            return null;
+
+        // if no NameId and it is a passive ability, set the NameId to the ButtonId
+        if (string.IsNullOrEmpty(ability.NameId) && ability.IsPassive is true)
+            ability.NameId = ability.ButtonId;
 
         return ability;
     }
@@ -275,6 +284,20 @@ public class AbilityParser : ParserBase, IAbilityParser
 
             if (tooltipVitalOverrideTextData.TryGetElementDataAt("Life", out StormElementData? lifeData))
             {
+                string? lifeText = GetStormGameString(lifeData.Value.GetString());
+                if (!string.IsNullOrEmpty(lifeText))
+                {
+                    // TODO: check if the override text starts with the default life text
+                    //new TooltipDescription(energyData.Value.GetString(), StormLocale.ENUS).PlainText.StartsWith("", StringComparison.OrdinalIgnoreCase);
+
+                    if (buttonDataValues.TryGetElementDataAt("TooltipVitalName", out StormElementData? tooltipVitalNameData) && tooltipVitalNameData.TryGetElementDataAt("Life", out StormElementData? vitalNameLifeData))
+                    {
+                        string? defaultLifeText = GetStormGameString(vitalNameLifeData.Value.GetString());
+
+                        if (!string.IsNullOrEmpty(defaultLifeText))
+                            abilityTalent.Tooltip.LifeTooltip = GetTooltipDescriptionFromGameString(defaultLifeText.Replace(GameStringConstants.ReplacementCharacter, lifeText, StringComparison.OrdinalIgnoreCase));
+                    }
+                }
             }
         }
 
@@ -383,7 +406,10 @@ public class AbilityParser : ParserBase, IAbilityParser
 
         if (abilityDataValues.TryGetElementDataAt("ProducedUnitArray", out StormElementData? producedUnitArrayData))
         {
-            // TODO: produced unit array
+            foreach (string item in producedUnitArrayData.GetElementDataIndexes())
+            {
+                abilityTalent.CreateUnits.Add(producedUnitArrayData.GetElementDataAt(item).Value.GetString());
+            }
         }
 
         if (abilityDataValues.TryGetElementDataAt("ParentAbil", out StormElementData? parentAbilData))
@@ -399,17 +425,26 @@ public class AbilityParser : ParserBase, IAbilityParser
         // must be done last
         if (abilityDataValues.TryGetElementDataAt("CmdButtonArray", out StormElementData? cmdButtonArrayData))
         {
-            foreach (string index in cmdButtonArrayData.GetElementDataIndexes())
+            if (cmdButtonArrayData.TryGetElementDataAt(abilCmdIndex, out StormElementData? abilCmdData))
             {
-                // check if the index is the same as the abilCmdIndex or it's "Execute"
-                // cancel is also an available index, but it doesn't seem to be used in HOTS
-                if (index.Equals(abilCmdIndex, StringComparison.OrdinalIgnoreCase) || index.Equals("Execute", StringComparison.OrdinalIgnoreCase))
-                {
-                    StormElementData arrayElement = cmdButtonArrayData.GetElementDataAt(index);
-
-                    SetCmdButtonArrayData(abilityTalent, arrayElement);
-                }
+                SetCmdButtonArrayData(abilityTalent, abilCmdData);
             }
+            else if (cmdButtonArrayData.TryGetElementDataAt("Execute", out StormElementData? executeData))
+            {
+                SetCmdButtonArrayData(abilityTalent, executeData);
+            }
+
+                //foreach (string index in cmdButtonArrayData.GetElementDataIndexes())
+                //{
+                //    // check if the index is the same as the abilCmdIndex or it's "Execute"
+                //    // cancel is also an available index, but it doesn't seem to be used in HOTS
+                //    if (index.Equals(abilCmdIndex, StringComparison.OrdinalIgnoreCase) || index.Equals("Execute", StringComparison.OrdinalIgnoreCase))
+                //    {
+                //        StormElementData arrayElement = cmdButtonArrayData.GetElementDataAt(index);
+
+                //        SetCmdButtonArrayData(abilityTalent, arrayElement);
+                //    }
+                //}
         }
     }
 

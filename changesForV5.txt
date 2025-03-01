@@ -28,9 +28,11 @@ HeroRoleData.xml ?
 
 -------
 v5 changes
+Added Taunt and Dance ability
 Removed 'type' (melee or ranged) -> changed to Added 'isMelee': <bool>
 'skins' -> 'skinIds'
 'variationSkins' -> 'variationSkinIds'
 'voiceLines' -> 'voiceLineIds'
 'mountCategories' -> 'mountCategoryIds'
 'scalingLinkId' -> changed to an array 'scalingLinkIds'
+'descriptors' -> 'playstyles'

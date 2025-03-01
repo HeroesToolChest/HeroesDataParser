@@ -19,6 +19,41 @@
     <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Mana"/>
     <SimpleDisplayText value="Button/SimpleDisplayText/##id##"/>
   </CButton>
+  <CButton default="1" id="StormButtonParentTrait" parent="StormButtonParent"/>
+  <CButton id="Hearthstone" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_miscrune_1.dds"/>
+  </CButton>
+  <CButton id="HearthstoneNoMana" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_miscrune_1.dds"/>
+    <HotkeyAlias value="Hearthstone"/>
+  </CButton>
+  <CButton id="LootSpray">
+    <Icon value="Assets\Textures\storm_temp_war3_btnhealingspray.dds" />
+    <HotkeyAlias value="LootDebugCycleVanity" />
+  </CButton>
+  <CButton id="LootYellVoiceLine">
+    <Icon value="Assets\Textures\storm_btn_d3_barbarian_threateningshout.dds"/>
+    <AlertIcon value="Assets\Textures\storm_btn_d3_barbarian_threateningshout.dds"/>
+  </CButton>
+  <CButton id="Stop">
+    <Icon value="Assets\Textures\btn-command-stop.dds"/>
+    <AlertIcon value="Assets\Textures\btn-command-stop.dds"/>
+    <TintRacially value="1"/>
+    <Universal value="1"/>
+  </CButton>
+  <CButton id="Tease">
+    <Icon value="Assets\Textures\btn-command-stop.dds"/>
+    <AlertIcon value="Assets\Textures\btn-command-stop.dds"/>
+    <TintRacially value="1"/>
+    <HotkeyAlias value="Cheer"/>
+    <Universal value="1"/>
+  </CButton>
+  <CButton id="Dance">
+    <Icon value="Assets\Textures\btn-command-stop.dds"/>
+    <AlertIcon value="Assets\Textures\btn-command-stop.dds"/>
+    <TintRacially value="1"/>
+    <Universal value="1"/>
+  </CButton>
   <CButton id="AbathurSymbiote" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_abathur_symbiote.dds" />
     <TooltipAppender Validator="HasAbathurMasteryPressurizedGlands" Face="AbathurSymbiotePressurizedGlandsTalent" />
@@ -42,9 +77,44 @@
     <TooltipAppender Validator="AbathurHasMasteryBallistospores" Face="AbathurToxicNestBallistosporesTalent" />
     <TooltipAppender Validator="HasAbathurMasteryVileNestsToxicNest" Face="AbathurToxicNestVileNestTalent" />
   </CButton>
+  <CButton id="AbathurLocustStrain" parent="StormButtonParentTrait">
+    <TooltipFlags index="ShowHotkey" value="0" />
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_spawnlocust.dds" />
+    <Hotkey value="" />
+    <HotkeyAlias value="" />
+    <UseHotkeyLabel value="0" />
+    <TooltipAppender Validator="HasPregameSuppressionMinionBehavior" Text="Button/TooltipAppender/LockedUntilMinionsSpawn" />
+    <TooltipAppender Validator="HasAbathurCombatStyleSurvivalInstincts" Face="AbathurLocustStrainSurvivalInstinctsTalent" />
+    <TooltipAppender Validator="HasAbathurCombatStyleAssaultStrain" Face="AbathurLocustStrainAssaultStrainTalent" />
+    <TooltipAppender Validator="HasAbathurCombatStyleBombardStrain" Face="AbathurLocustStrainBombardStrainTalent" />
+    <TooltipAppender />
+  </CButton>
+  <CButton id="AbathurDeepTunnel" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_Abathur_Mount.dds" />
+    <TooltipAppender Validator="HasPregameSuppressionBehavior" Text="Button/TooltipAppender/LockedUntilGameStarts" />
+  </CButton>
   <CButton id="AlarakDeadlyCharge" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_alarak_recklesscharge.dds" />
     <TooltipVitalOverrideText index="Energy" value="Abil/AlarakDeadlyChargeButtonVitalCostOverride" />
     <TooltipCooldownOverrideText value="Abil/AlarakDeadlyChargeButtonCooldownCostOverride" />
   </CButton>
+  <CButton id="AlarakSadism" parent="StormButtonParentTrait">
+    <TooltipAppender Validator="AlarakHasShowofForceTalent" Face="AlarakShowofForce" />
+    <TooltipAppender Validator="AlarakHasRuthlessMomentumTalent" Face="AlarakRuthlessMomentum" />
+    <TooltipAppender Validator="AlarakHasBladeoftheHighlordTalent" Face="AlarakBladeoftheHighlord" />
+    <TooltipAppender Validator="AlarakHasPureMaliceTalent" Face="AlarakPureMalice" />
+    <TooltipAppender Validator="AlarakHasMockingStrikesTalent" Face="AlarakMockingStrikes" />
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_sadism.dds" />
+  </CButton>
+  <CButton id="AlexstraszaGiftOfLife" parent="StormButtonParent">
+    <TooltipVitalName index="Life" value="UI/Tooltip/Abil/CurrentLife" />
+    <TooltipVitalName index="Shields" value="UI/Tooltip/Abil/Life" />
+    <TooltipVitalOverrideText index="Life" value="UI/Tooltip/Abil/AlexstraszaGiftOfLifeVitalCostOverride" />
+    <Icon value="Assets\Textures\storm_ui_icon_alexstrasza_gift_of_life.dds" />
+    <TooltipAppender Validator="AlexstraszaLiveAndLetLiveGiftOfLifeHasTalent" Face="AlexstraszaLiveAndLetLiveGiftOfLife" />
+    <TooltipAppender Validator="AlexstraszaLifeblossomGiftOfLifeHasTalent" Face="AlexstraszaLifeblossomeGiftOfLife" />
+    <TooltipAppender Validator="AlexstraszaToughLoveHasTalent" Face="AlexstraszaToughLoveGiftOfLife" />
+  </CButton>
 </Button>
+
+

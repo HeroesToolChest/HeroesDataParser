@@ -130,4 +130,34 @@
       <LayoutButtons Face="AlarakSadism" Type="Passive" Slot="Trait" />
     </CardLayouts>
   </CUnit>
+  <CUnit id="HeroAlexstrasza" parent="StormHeroMounted">
+    <LifeStart value="1698" />
+    <LifeMax value="1698" />
+    <LifeRegenRate value="8.8437" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="AlexstraszaGiftOfLifeLifeblossomTokenCounter" />
+    <AIThinkTree value="AI/Alexstrasza.aitree" />
+    <HeroPlaystyleFlags index="AllyHealer" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Helper" value="1" />
+    <HeroPlaystyleFlags index="RoleSupport" value="1" />
+    <WeaponArray Link="AlexstraszaAttackWeapon" />
+    <AbilArray Link="AlexstraszaGiftOfLife" />
+    <AbilArray Link="AlexstraszaAbundance" />
+    <AbilArray Link="AlexstraszaFlameBuffet" />
+    <AbilArray Link="AlexstraszaDragonqueen" />
+    <AbilArray Link="AlexstraszaDragonqueenDragonMorph" />
+    <AbilArray Link="AlexstraszaLifebinder" />
+    <AbilArray Link="AlexstraszaCleansingFlame" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="AlexstraszaGiftOfLife" Type="AbilCmd" AbilCmd="AlexstraszaGiftOfLife,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AlexstraszaAbundance" Type="AbilCmd" AbilCmd="AlexstraszaAbundance,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AlexstraszaFlameBuffet" Type="AbilCmd" AbilCmd="AlexstraszaFlameBuffet,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AlexstraszaLifebinder" Type="AbilCmd" AbilCmd="AlexstraszaLifebinder,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlexstraszaCleansingFlame" Type="AbilCmd" AbilCmd="AlexstraszaCleansingFlame,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlexstraszaDragonqueen" Type="AbilCmd" AbilCmd="AlexstraszaDragonqueen,Execute" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.625" />
+    <InnerRadius value="0.625" />
+  </CUnit>
 </Unit> 
