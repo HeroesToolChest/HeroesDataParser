@@ -242,25 +242,19 @@ public class AbilityParser : ParserBase, IAbilityParser
             }
         }
 
-        // TODO: is needed?
-        //if (buttonDataValues.TryGetElementDataAt("TooltipVitalName", out StormElementData? tooltipVitalNameData))
-        //{
-        //    string value = tooltipVitalNameData.Value.GetString();
+        // must be done before the TooltipVital overrides
+        if (buttonDataValues.TryGetElementDataAt("TooltipVitalName", out StormElementData? tooltipVitalNameData2))
+        {
+            string? value = GetStormGameString(tooltipVitalNameData2.Value.GetString());
 
-        //    if (tooltipVitalNameData.TryGetElementDataAt("Energy", out _))
-        //    {
-        //        //abilityTalent.Tooltip.EnergyTooltip = GetTooltipDescriptionFromId(value);
-        //        //value.Replace(GameStringConstants.ReplacementCharacter, cooldownString)
-        //    }
-        //    else if (tooltipVitalNameData.TryGetElementDataAt("Life", out _))
-        //    {
-
-        //    }
-        //    else
-        //    {
-        //        _logger.LogWarning("Unknown vital name: {VitalName}", value);
-        //    }
-        //}
+            if (!string.IsNullOrEmpty(value))
+            {
+                if (tooltipVitalNameData2.TryGetElementDataAt("Energy", out _) && abilityTalent.Tooltip.EnergyCost is not null)
+                    abilityTalent.Tooltip.EnergyTooltip = GetTooltipDescriptionFromGameString(value.Replace(GameStringConstants.ReplacementCharacter, abilityTalent.Tooltip.EnergyCost));
+                else if (tooltipVitalNameData2.TryGetElementDataAt("Life", out _) && abilityTalent.Tooltip.LifeCost is not null)
+                    abilityTalent.Tooltip.LifeTooltip = GetTooltipDescriptionFromGameString(value.Replace(GameStringConstants.ReplacementCharacter, abilityTalent.Tooltip.LifeCost));
+            }
+        }
 
         if (buttonDataValues.TryGetElementDataAt("TooltipVitalOverrideText", out StormElementData? tooltipVitalOverrideTextData))
         {
@@ -393,6 +387,7 @@ public class AbilityParser : ParserBase, IAbilityParser
 
         StormElementData abilityDataValues = abilityElement.DataValues;
 
+        // it's important to have the cost data set first (before the button data) because the tooltips need the cost data
         if (abilityDataValues.TryGetElementDataAt("Cost", out StormElementData? costData))
             SetCostData(abilityTalent, costData);
 
@@ -542,9 +537,15 @@ public class AbilityParser : ParserBase, IAbilityParser
                     }
                 }
             }
-        }
 
-        // TODO: vitals
+            if (costInnerData.TryGetElementDataAt("Vital", out StormElementData? vitalData))
+            {
+                if (vitalData.TryGetElementDataAt("Energy", out StormElementData? energyData))
+                {
+                    abilityTalent.Tooltip.EnergyCost = energyData.Value.GetString();
+                }
+            }
+        }
     }
 
     private void SetEffectData(AbilityTalentBase abilityTalent, StormElementData effectElementData)

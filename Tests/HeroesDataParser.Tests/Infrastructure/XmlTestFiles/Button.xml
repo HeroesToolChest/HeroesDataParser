@@ -20,6 +20,9 @@
     <SimpleDisplayText value="Button/SimpleDisplayText/##id##"/>
   </CButton>
   <CButton default="1" id="StormButtonParentTrait" parent="StormButtonParent"/>
+  <CButton default="1" id="StormButtonParentFury" parent="StormButtonParent">
+    <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Fury"/>
+  </CButton>
   <CButton id="Hearthstone" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_miscrune_1.dds"/>
   </CButton>
@@ -114,6 +117,29 @@
     <TooltipAppender Validator="AlexstraszaLiveAndLetLiveGiftOfLifeHasTalent" Face="AlexstraszaLiveAndLetLiveGiftOfLife" />
     <TooltipAppender Validator="AlexstraszaLifeblossomGiftOfLifeHasTalent" Face="AlexstraszaLifeblossomeGiftOfLife" />
     <TooltipAppender Validator="AlexstraszaToughLoveHasTalent" Face="AlexstraszaToughLoveGiftOfLife" />
+  </CButton>
+  <CButton id="AlexstraszaAbundance" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alexstrasza_abundance.dds" />
+    <TooltipAppender Validator="AlexstraszaCircleOfLifeAbundanceHasTalent" Face="AlexstraszaCircleOfLifeAbundance" />
+    <TooltipAppender Validator="AlexstraszaSurgeOfVitalityAbundanceHasTalent" Face="AlexstraszaSurgeOfVitalityAbundance" />
+    <TooltipAppender Validator="AlexstraszaVerdantFlourishHasTalent" Face="AlexstraszaVerdantFlourishAbundance" />
+    <TooltipAppender Validator="AlexstraszaOverprotectiveHasTalent" Face="AlexstraszaOverprotectiveAbundance" />
+  </CButton>
+  <CButton id="GuldanLifeTap" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_guldan_lifetap.dds" />
+    <TooltipAppender Validator="GuldanHasLifeTapDarknessWithinTalent" Text="Button/Tooltip/GuldanLifeTapDarknessWithinDamageTrackingAppender" />
+    <TooltipAppender Validator="GuldanHasLifeTapImprovedLifeTapTalent" Face="GuldanLifeTapImprovedLifeTap" />
+    <TooltipAppender Validator="GuldanHasLifeTapHungerforPowerTalent" Face="GuldanLifeTapHungerforPower" />
+    <TooltipAppender Validator="GuldanHasDarkBargainTalent" Face="GuldanDarkBargain" />
+    <TooltipAppender Validator="GuldanHasLifeTapDarknessWithinTalent" Face="GuldanLifeTapDarknessWithin" />
+    <TooltipVitalName index="Life" value="UI/Tooltip/Abil/Life" />
+    <TooltipVitalOverrideText index="Life" value="UI/Tooltip/Abil/GuldanLifeTapVitalCostOverride" />
+  </CButton>
+  <CButton id="BarbarianSeismicSlam" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_seismicslam.dds" />
+    <TooltipAppender Validator="HasBarbarianMasteryFuriousBlowSeismicSlam" Face="BarbarianSeismicSlamFuriousBlowTalent" />
+    <TooltipAppender Validator="HasBarbarianMasteryShatteredGroundSeismicSlam" Face="BarbarianSeismicSlamShatteredGroundTalent" />
+    <TooltipAppender Validator="BarbarianHasGiantSlammerTalent" Face="BarbarianGiantSlammer" />
   </CButton>
 </Button>
 

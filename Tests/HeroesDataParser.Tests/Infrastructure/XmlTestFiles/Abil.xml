@@ -111,4 +111,44 @@
     </Cost>
     <CmdButtonArray index="Execute" DefaultButtonFace="AlexstraszaGiftOfLife" />
   </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlexstraszaAbundance">
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlexstraszaAbundance" />
+    <Effect value="AlexstraszaAbundanceCreatePersistent" />
+    <Range value="11.5" />
+    <Cost>
+      <Vital index="Energy" value="75" />
+      <Cooldown TimeUse="14" />
+    </Cost>
+    <CastIntroTime value="0.125" />
+    <Arc value="360" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="GuldanLifeTap">
+    <Effect value="GuldanLifeTapCastSet" />
+    <Cost>
+      <Vital index="Life" value="222" />
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="GuldanLifeTap" Requirements="GuldanLifeTapManaControllerNotActive" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="BarbarianSeismicSlam">
+    <Effect value="BarbarianSeismicSlamSet" />
+    <Cost>
+      <Vital index="Energy" value="25" />
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <TargetFilters value="-;Player,Ally,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="2.25" />
+    <RangeSlop value="2.5" />
+    <Arc value="219.9902" />
+    <CastIntroTime value="0.15" />
+    <UninterruptibleArray index="Prep" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianSeismicSlam">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+  </CAbilEffectTarget>
 </Abil>

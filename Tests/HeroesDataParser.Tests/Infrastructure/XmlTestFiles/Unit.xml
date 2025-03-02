@@ -39,6 +39,7 @@
     <AbilArray Link="Mount" />
     <AbilArray Link="Dismount" />
     <CardLayouts>
+      <!--total index 24-->
       <LayoutButtons Face="LockedHeroicAbility" Type="Passive" Requirements="UltimateNotUnlocked" Slot="Heroic" />
       <LayoutButtons Face="Hearthstone" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
       <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
@@ -68,6 +69,7 @@
   </CUnit>
   <CUnit default="1" id="StormHeroMountedCustom" parent="StormHero">
     <CardLayouts>
+      <!--total index 22-->
       <LayoutButtons Face="LockedHeroicAbility" Type="Passive" Requirements="UltimateNotUnlocked" Slot="Heroic" />
       <LayoutButtons Face="Hearthstone" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
       <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
@@ -159,5 +161,99 @@
     </CardLayouts>
     <Radius value="0.625" />
     <InnerRadius value="0.625" />
+  </CUnit>
+  <CUnit id="HeroGuldan" parent="StormHeroMounted">
+    <LifeStart value="1700" />
+    <LifeMax value="1700" />
+    <LifeRegenRate value="3.543" />
+    <AbilArray Link="AbathurAssumingDirectControlCancel" />
+    <AbilArray Link="GuldanLifeTap" />
+    <AbilArray Link="GuldanFelFlame" />
+    <AbilArray Link="GuldanDrainLife" />
+    <AbilArray Link="GuldanDrainLifeCancel" />
+    <AbilArray Link="GuldanFear" />
+    <AbilArray Link="GuldanHorrify" />
+    <AbilArray Link="GuldanCorruption" />
+    <AbilArray Link="GuldanRainOfDestruction" />
+    <AbilArray Link="GuldanRainOfDestructionCancel" />
+    <AbilArray Link="GuldanLifeTapFree" />
+    <BehaviorArray Link="GuldanLifeTapManaController" />
+    <BehaviorArray Link="GuldanVeterancyMana" />
+    <BehaviorArray Link="GuldanHasMaxLife" />
+    <WeaponArray Link="HeroGuldan" />
+    <Radius value="0.8125" />
+    <InnerRadius value="0.8125" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="GuldanHorrify" Type="AbilCmd" AbilCmd="GuldanHorrify,Execute" Slot="Heroic" />
+      <LayoutButtons Face="GuldanRainOfDestruction" Type="AbilCmd" AbilCmd="GuldanRainOfDestruction,Execute" Slot="Heroic" />
+      <LayoutButtons Face="GuldanFelFlame" Type="AbilCmd" AbilCmd="GuldanFelFlame,Execute" Slot="Ability1" />
+      <LayoutButtons Face="GuldanDrainLifeCancel" Type="AbilCmd" AbilCmd="GuldanDrainLifeCancel,Execute" Slot="Ability2" />
+      <LayoutButtons Face="GuldanDrainLife" Type="AbilCmd" AbilCmd="GuldanDrainLife,Execute" Slot="Ability2" />
+      <LayoutButtons Face="GuldanCorruption" Type="AbilCmd" AbilCmd="GuldanCorruption,Execute" Slot="Ability3" />
+      <LayoutButtons Face="GuldanLifeTapFree" Type="AbilCmd" AbilCmd="GuldanLifeTapFree,Execute" Slot="Trait" />
+      <LayoutButtons Face="GuldanLifeTap" Type="AbilCmd" AbilCmd="GuldanLifeTap,Execute" Slot="Trait" />
+      <LayoutButtons />
+    </CardLayouts>
+    <EnergyRegenRate value="0" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <HeroPlaystyleFlags index="SoloLaner" value="1" />
+    <HeroPlaystyleFlags index="TowerPusher" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+  </CUnit>
+  <CUnit id="HeroBarbarian" parent="StormHeroMounted">
+    <LifeStart value="2450" />
+    <LifeMax value="2450" />
+    <LifeRegenRate value="5.1054" />
+    <AbilArray Link="BarbarianShotofFury" />
+    <AbilArray Link="BarbarianSeismicSlam" />
+    <AbilArray Link="BarbarianAncientSpear" />
+    <AbilArray Link="BarbarianCancelLeapArreatCrater" />
+    <AbilArray Link="BarbarianLeap" />
+    <AbilArray Link="BarbarianWhirlwind" />
+    <AbilArray Link="BarbarianWhirlwindCancel" />
+    <AbilArray Link="BarbarianWrathoftheBerserker" />
+    <BehaviorArray Link="BarbarianFuryManagementBuff" />
+    <BehaviorArray Link="SonyaFuryCarry" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="HeroGeneric0EnergyOnRespawn" />
+    <WeaponArray Link="HeroBarbarian" />
+    <CardLayouts index="0">
+      <LayoutButtons index="1" Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons index="2" Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons index="3" Face="Stop" Type="AbilCmd" AbilCmd="HoldFire,Stop" Slot="Stop" />
+      <LayoutButtons index="4" Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="HoldFire,HoldFire" Slot="Hold" />
+      <LayoutButtons index="5" Face="SummonMount" Type="AbilCmd" AbilCmd="Mount,Execute" Slot="Mount" />
+      <LayoutButtons index="6" Face="UnsummonMount" Type="AbilCmd" AbilCmd="Dismount,Execute" Slot="Mount" />
+      <LayoutButtons index="7" Face="Cancel" Type="CancelTargetMode" AbilCmd="" Slot="Cancel" />
+      <LayoutButtons index="8" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrink,Execute" Slot="Interact" />
+      <LayoutButtons index="9" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrinkOnCooldown,Execute" Slot="Interact" />
+      <LayoutButtons index="10" Face="CaptureMacGuffin" Type="AbilCmd" AbilCmd="CaptureMacGuffin,Execute" Slot="Interact" />
+      <LayoutButtons index="11" Face="SmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="SmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons index="12" Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Cancel" />
+      <LayoutButtons index="13" Face="BarbarianLeapArreatCraterCancel" Type="AbilCmd" AbilCmd="BarbarianCancelLeapArreatCrater,Execute" Slot="Heroic" />
+      <LayoutButtons Face="BarbarianLeap" Type="AbilCmd" AbilCmd="BarbarianLeap,Execute" Slot="Heroic" />
+      <LayoutButtons Face="BarbarianWrathoftheBerserker" Type="AbilCmd" AbilCmd="BarbarianWrathoftheBerserker,Execute" Slot="Heroic" />
+      <LayoutButtons Face="HearthstoneNoMana" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="BarbarianAncientSpear" Type="AbilCmd" AbilCmd="BarbarianAncientSpear,Execute" Slot="Ability1" />
+      <LayoutButtons Face="BarbarianSeismicSlam" Type="AbilCmd" AbilCmd="BarbarianSeismicSlam,Execute" Slot="Ability2" />
+      <LayoutButtons Face="BarbarianWhirlwindCancel" Type="AbilCmd" AbilCmd="BarbarianWhirlwindCancel,Execute" Slot="Ability3" />
+      <LayoutButtons Face="BarbarianWhirlwind" Type="AbilCmd" AbilCmd="BarbarianWhirlwind,Execute" Slot="Ability3" />
+      <LayoutButtons Face="BarbarianFuryShotOfFury" Type="AbilCmd" AbilCmd="BarbarianShotofFury,Execute" Slot="Trait" />
+      <LayoutButtons Face="BarbarianFury" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.75" />
+    <InnerRadius value="0.75" />
+    <AIThinkTree value="AI/Barbarian.aitree" />
+    <EnergyStart value="0" />
+    <EnergyMax value="100" />
+    <EnergyRegenRate value="0" />
+    <Gender value="Female" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="MercKiller" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <HeroPlaystyleFlags index="SoloLaner" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
   </CUnit>
 </Unit> 

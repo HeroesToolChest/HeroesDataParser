@@ -1,4 +1,5 @@
 ﻿using Heroes.Element.Types;
+using System.Drawing.Text;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
 
@@ -19,17 +20,19 @@ public class AbilityParserTests
     public void GetAbility_AbathurSymbiote_ReturnsAbility()
     {
         // arrange
+        string heroUnit = "HeroAbathur";
+
         HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
 
-        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", "HeroAbathur")!;
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("27");
 
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability ability = abilityParser.GetAbility("HeroAbathur", layoutButtons)!;
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
 
         // assert
         ability.Name!.RawDescription.Should().Be("Symbiote");
@@ -52,17 +55,19 @@ public class AbilityParserTests
     public void GetAbility_AbathurToxicNest_ReturnsAbility()
     {
         // arrange
+        string heroUnit = "HeroAbathur";
+
         HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
 
-        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", "HeroAbathur")!;
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("28");
 
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability ability = abilityParser.GetAbility("HeroAbathur", layoutButtons)!;
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
 
         // assert
         ability.Name!.RawDescription.Should().Be("Toxic Nest");
@@ -89,17 +94,19 @@ public class AbilityParserTests
     public void GetAbility_AbathurLocustStrain_ReturnsAbility()
     {
         // arrange
+        string heroUnit = "HeroAbathur";
+
         HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
 
-        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", "HeroAbathur")!;
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("26");
 
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability ability = abilityParser.GetAbility("HeroAbathur", layoutButtons)!;
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
 
         // assert
         ability.Name!.RawDescription.Should().Be("Locust Strain");
@@ -128,17 +135,19 @@ public class AbilityParserTests
     public void GetAbility_AbathurDeepTunnel_ReturnsAbility()
     {
         // arrange
+        string heroUnit = "HeroAbathur";
+
         HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
 
-        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", "HeroAbathur")!;
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("29");
 
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability ability = abilityParser.GetAbility("HeroAbathur", layoutButtons)!;
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
 
         // assert
         ability.Name!.RawDescription.Should().Be("Deep Tunnel");
@@ -162,17 +171,19 @@ public class AbilityParserTests
     public void GetAbility_HearthstoneNoMana_ReturnsAbility()
     {
         // arrange
+        string heroUnit = "HeroAbathur";
+
         HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
 
-        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", "HeroAbathur")!;
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("25");
 
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability ability = abilityParser.GetAbility("HeroAbathur", layoutButtons)!;
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
 
         // assert
         ability.Name!.RawDescription.Should().Be("Hearthstone");
@@ -196,17 +207,19 @@ public class AbilityParserTests
     public void GetAbility_Tease_ReturnsAbility()
     {
         // arrange
+        string heroUnit = "HeroAbathur";
+
         HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
 
-        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", "HeroAbathur")!;
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("13");
 
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability ability = abilityParser.GetAbility("HeroAbathur", layoutButtons)!;
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
 
         // assert
         ability.Name!.RawDescription.Should().Be("Taunt");
@@ -230,17 +243,19 @@ public class AbilityParserTests
     public void GetAbility_Dance_ReturnsAbility()
     {
         // arrange
+        string heroUnit = "HeroAbathur";
+
         HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
 
-        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", "HeroAbathur")!;
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("14");
 
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability ability = abilityParser.GetAbility("HeroAbathur", layoutButtons)!;
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
 
         // assert
         ability.Name!.RawDescription.Should().Be("Dance");
@@ -264,17 +279,19 @@ public class AbilityParserTests
     public void GetAbility_LootSpray_ReturnsAbility()
     {
         // arrange
+        string heroUnit = "HeroAbathur";
+
         HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
 
-        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", "HeroAbathur")!;
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("20");
 
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability ability = abilityParser.GetAbility("HeroAbathur", layoutButtons)!;
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
 
         // assert
         ability.Name!.RawDescription.Should().Be("Quick Spray Expression");
@@ -298,17 +315,19 @@ public class AbilityParserTests
     public void GetAbility_LootYellVoiceLine_ReturnsAbility()
     {
         // arrange
+        string heroUnit = "HeroAbathur";
+
         HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
 
-        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", "HeroAbathur")!;
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("21");
 
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability ability = abilityParser.GetAbility("HeroAbathur", layoutButtons)!;
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
 
         // assert
         ability.Name!.RawDescription.Should().Be("Quick Voice Line Expression");
@@ -332,17 +351,19 @@ public class AbilityParserTests
     public void GetAbility_AlarakDeadlyCharge_ReturnsAbility()
     {
         // arrange
+        string heroUnit = "HeroAlarak";
+
         HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
 
-        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", "HeroAlarak")!;
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("26");
 
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability ability = abilityParser.GetAbility("HeroAlarak", layoutButtons)!;
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
 
         // assert
         ability.Name!.RawDescription.Should().Be("Deadly Charge");
@@ -353,7 +374,7 @@ public class AbilityParserTests
         ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Heroic);
         ability.AbilityType.Should().Be(AbilityType.Heroic);
-        ability.ToggleCooldown.Should().BeNull();
+        ability.ToggleCooldown.Should().Be(0.5);
         ability.Tooltip.CooldownTooltip!.RawDescription.Should().Be("Cooldown: 45 seconds");
         ability.Tooltip.Charges.Should().BeNull();
         ability.Tooltip.LifeTooltip.Should().BeNull();
@@ -366,17 +387,19 @@ public class AbilityParserTests
     public void GetAbility_AlarakSadism_ReturnsAbility()
     {
         // arrange
+        string heroUnit = "HeroAlarak";
+
         HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
 
-        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", "HeroAlarak")!;
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("35");
 
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability ability = abilityParser.GetAbility("HeroAlarak", layoutButtons)!;
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
 
         // assert
         ability.Name!.RawDescription.Should().Be("Sadism");
@@ -400,17 +423,19 @@ public class AbilityParserTests
     public void GetAbility_AlexstraszaGiftOfLife_ReturnsAbility()
     {
         // arrange
+        string heroUnit = "HeroAlexstrasza";
+
         HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
 
-        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", "HeroAlexstrasza")!;
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("25");
 
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability ability = abilityParser.GetAbility("HeroAlexstrasza", layoutButtons)!;
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
 
         // assert
         ability.Name!.RawDescription.Should().Be("Gift of Life");
@@ -430,6 +455,114 @@ public class AbilityParserTests
         ability.Tooltip.FullTooltip!.RawDescription.Should().Be("Sacrifice...");
     }
 
+    [TestMethod]
+    public void GetAbility_AlexstraszaAbundance_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAlexstrasza";
+
+        HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
+
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("26");
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
+
+        // assert
+        ability.Name!.RawDescription.Should().Be("Abundance");
+        ability.NameId.Should().Be("AlexstraszaAbundance");
+        ability.ButtonId.Should().Be("AlexstraszaAbundance");
+        ability.Icon.Should().Be("storm_ui_icon_alexstrasza_abundance.png");
+        ability.IsActive.Should().BeTrue();
+        ability.IsPassive.Should().BeFalse();
+        ability.Tier.Should().Be(AbilityTier.Basic);
+        ability.AbilityType.Should().Be(AbilityType.W);
+        ability.ToggleCooldown.Should().BeNull();
+        ability.Tooltip.CooldownTooltip!.RawDescription.Should().Be("Cooldown: 14 seconds");
+        ability.Tooltip.Charges.Should().BeNull();
+        ability.Tooltip.LifeTooltip.Should().BeNull();
+        ability.Tooltip.EnergyTooltip!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Mana: 75</s>");
+        ability.Tooltip.ShortTooltip!.RawDescription.Should().Be("Heal allied Heroes in an area");
+        ability.Tooltip.FullTooltip!.RawDescription.Should().Be("Plant a seed of healing that blooms after...");
+    }
+
+    [TestMethod]
+    public void GetAbility_GuldanLifeTap_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroGuldan";
+
+        HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
+
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("32");
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
+
+        // assert
+        ability.Name!.RawDescription.Should().Be("Life Tap");
+        ability.NameId.Should().Be("GuldanLifeTap");
+        ability.ButtonId.Should().Be("GuldanLifeTap");
+        ability.Icon.Should().Be("storm_ui_icon_guldan_lifetap.png");
+        ability.IsActive.Should().BeTrue();
+        ability.IsPassive.Should().BeFalse();
+        ability.Tier.Should().Be(AbilityTier.Trait);
+        ability.AbilityType.Should().Be(AbilityType.Trait);
+        ability.ToggleCooldown.Should().Be(0.5);
+        ability.Tooltip.CooldownTooltip.Should().BeNull();
+        ability.Tooltip.Charges.Should().BeNull();
+        ability.Tooltip.LifeTooltip!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Life: </s><s val=\"StandardTooltipDetails\">222</s>");
+        ability.Tooltip.EnergyTooltip.Should().BeNull();
+        ability.Tooltip.ShortTooltip!.RawDescription.Should().Be("Restore Mana at the cost of Health");
+        ability.Tooltip.FullTooltip!.RawDescription.Should().Be("Gul'dan does not regenerate Mana...");
+    }
+
+    [TestMethod]
+    public void GetAbility_BarbarianSeismicSlam_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroBarbarian";
+
+        HeroesXmlLoader heroesXmlLoader = GetArrangedHeroesXmlLoader();
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(heroesXmlLoader);
+
+        StormElement stormElement = heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("29");
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability ability = abilityParser.GetAbility(heroUnit, layoutButtons)!;
+
+        // assert
+        ability.Name!.RawDescription.Should().Be("Seismic Slam");
+        ability.NameId.Should().Be("BarbarianSeismicSlam");
+        ability.ButtonId.Should().Be("BarbarianSeismicSlam");
+        ability.Icon.Should().Be("storm_ui_icon_sonya_seismicslam.png");
+        ability.IsActive.Should().BeTrue();
+        ability.IsPassive.Should().BeFalse();
+        ability.Tier.Should().Be(AbilityTier.Basic);
+        ability.AbilityType.Should().Be(AbilityType.W);
+        ability.ToggleCooldown.Should().BeNull();
+        ability.Tooltip.CooldownTooltip!.RawDescription.Should().Be("Cooldown: 1 second");
+        ability.Tooltip.Charges.Should().BeNull();
+        ability.Tooltip.LifeTooltip.Should().BeNull();
+        ability.Tooltip.EnergyTooltip!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Fury: 25</s>");
+        ability.Tooltip.ShortTooltip!.RawDescription.Should().Be("Damage an enemy and splash damage behind them");
+        ability.Tooltip.FullTooltip!.RawDescription.Should().Be("Deals deals damage to...");
+    }
+
     private static XDocument GetXDocument(string file)
     {
         return XDocument.Load(File.OpenRead(Path.Join(XmlTestDirectory, file)));
@@ -444,7 +577,8 @@ public class AbilityParserTests
         return HeroesXmlLoader.LoadWithEmpty()
             .LoadCustomMod(new ManualModLoader("test")
                 .AddBaseElementTypes([
-                    ("abil", "CAbilEffectTarget"),
+                    ("Abil", "CAbilEffectTarget"),
+                    ("Abil", "CAbilEffectInstant"),
                     ("Unit", "CUnit"),
                     ("Button", "CButton"),
                 ])
@@ -473,6 +607,9 @@ public class AbilityParserTests
                         "Button/Name/AlarakDeadlyCharge=Deadly Charge",
                         "Button/Name/AlarakSadism=Sadism",
                         "Button/Name/AlexstraszaGiftOfLife=Gift of Life",
+                        "Button/Name/AlexstraszaAbundance=Abundance",
+                        "Button/Name/BarbarianSeismicSlam=Seismic Slam",
+                        "Button/Name/GuldanLifeTap=Life Tap",
                         "Button/SimpleDisplayText/AbathurSymbiote=Assist an ally and gain new abilities",
                         "Button/SimpleDisplayText/AbathurToxicNest=Spawn a mine",
                         "Button/SimpleDisplayText/AbathurLocustStrain=Spawn locusts that attack down the nearest lane",
@@ -480,6 +617,9 @@ public class AbilityParserTests
                         "Button/SimpleDisplayText/AlarakDeadlyCharge=Channel to charge a long distance",
                         "Button/SimpleDisplayText/AlarakSadism=Each point of Sadism increases Alarak's Ability damage...",
                         "Button/SimpleDisplayText/AlexstraszaGiftOfLife=Give a portion of Health to an allied Hero",
+                        "Button/SimpleDisplayText/AlexstraszaAbundance=Heal allied Heroes in an area",
+                        "Button/SimpleDisplayText/GuldanLifeTap=Restore Mana at the cost of Health",
+                        "Button/SimpleDisplayText/BarbarianSeismicSlam=Damage an enemy and splash damage behind them",
                         "Button/Tooltip/HearthstoneNoMana=After Channeling for...",
                         "Button/Tooltip/LootSpray=Express yourself to other players by marking the ground with your selected spray.",
                         "Button/Tooltip/LootYellVoiceLine=Express yourself to other players by playing your selected Voice Line.",
@@ -490,10 +630,15 @@ public class AbilityParserTests
                         "Button/Tooltip/AlarakDeadlyCharge=After channeling, Alarak charges forward...",
                         "Button/Tooltip/AlarakSadism=Alarak's Ability damage and self-healing are increased...",
                         "Button/Tooltip/AlexstraszaGiftOfLife=Sacrifice...",
+                        "Button/Tooltip/AlexstraszaAbundance=Plant a seed of healing that blooms after...",
+                        "Button/Tooltip/GuldanLifeTap=Gul'dan does not regenerate Mana...",
+                        "Button/Tooltip/BarbarianSeismicSlam=Deals deals damage to...",
                         "UI/Tooltip/Abil/AlexstraszaGiftOfLifeVitalCostOverride=<s val=\"StandardTooltipDetails\">15%</s>",
                         "UI/Tooltip/Abil/Mana=<s val=\"StandardTooltipDetails\">Mana: %1</s>",
                         "UI/Tooltip/Abil/CurrentLife=<s val=\"StandardTooltipDetails\">Health: %1</s>",
                         "UI/Tooltip/Abil/Life=<s val=\"StandardTooltipDetails\">Life: %1</s>",
+                        "UI/Tooltip/Abil/Fury=<s val=\"StandardTooltipDetails\">Fury: %1</s>",
+                        "UI/Tooltip/Abil/GuldanLifeTapVitalCostOverride=<s val=\"StandardTooltipDetails\"><d ref=\"Abil,GuldanLifeTap,Cost.Vital[Life]\"/></s>",
 
                     ],
                     StormLocale.ENUS)
@@ -509,6 +654,9 @@ public class AbilityParserTests
                     Path.Join("Assets", "Textures", "storm_ui_icon_alarak_recklesscharge.dds"),
                     Path.Join("Assets", "Textures", "storm_ui_icon_alarak_sadism.dds"),
                     Path.Join("Assets", "Textures", "storm_ui_icon_alexstrasza_gift_of_life.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_alexstrasza_abundance.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_guldan_lifetap.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_sonya_seismicslam.dds"),
                     ]))
             .LoadGameStrings();
     }
