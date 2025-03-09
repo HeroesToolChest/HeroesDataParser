@@ -51,6 +51,7 @@ public class ParsingConfigurationServiceTests
         _fileProvider.GetFileInfo(Arg.Any<string>()).Returns(x => fileInfo);
 
         ParsingConfigurationService parsingConfigurationService = new(_logger, _options, _fileProvider);
+        parsingConfigurationService.Load();
 
         // act
         List<string> result = parsingConfigurationService.FilterAllowedItems("AnnouncerPack", items).ToList();
@@ -90,6 +91,7 @@ public class ParsingConfigurationServiceTests
         _fileProvider.GetFileInfo(Arg.Any<string>()).Returns(x => fileInfo);
 
         ParsingConfigurationService parsingConfigurationService = new(_logger, _options, _fileProvider);
+        parsingConfigurationService.Load();
 
         // act
         List<string> result = parsingConfigurationService.FilterAllowedItems("AnnouncerPack", items).ToList();
@@ -120,6 +122,7 @@ public class ParsingConfigurationServiceTests
         _fileProvider.GetFileInfo(Arg.Any<string>()).Returns(x => fileInfo);
 
         ParsingConfigurationService parsingConfigurationService = new(_logger, _options, _fileProvider);
+        parsingConfigurationService.Load();
 
         // act
         List<string> result = parsingConfigurationService.FilterAllowedItems("AnnouncerPack", items).ToList();
@@ -157,6 +160,7 @@ public class ParsingConfigurationServiceTests
         _fileProvider.GetFileInfo(Arg.Any<string>()).Returns(x => fileInfo);
 
         ParsingConfigurationService parsingConfigurationService = new(_logger, _options, _fileProvider);
+        parsingConfigurationService.Load();
 
         // act
         string? result = parsingConfigurationService.SelectedFilePath;
@@ -194,6 +198,7 @@ public class ParsingConfigurationServiceTests
         _fileProvider.GetFileInfo(Arg.Any<string>()).Returns(x => fileInfo);
 
         ParsingConfigurationService parsingConfigurationService = new(_logger, _options, _fileProvider);
+        parsingConfigurationService.Load();
 
         // act
         string? result = parsingConfigurationService.SelectedFilePath;
@@ -231,6 +236,7 @@ public class ParsingConfigurationServiceTests
         _fileProvider.GetFileInfo(Arg.Any<string>()).Returns(x => fileInfo);
 
         ParsingConfigurationService parsingConfigurationService = new(_logger, _options, _fileProvider);
+        parsingConfigurationService.Load();
 
         // act
         string? result = parsingConfigurationService.SelectedFilePath;
@@ -268,6 +274,7 @@ public class ParsingConfigurationServiceTests
         _fileProvider.GetFileInfo(Arg.Any<string>()).Returns(x => fileInfo);
 
         ParsingConfigurationService parsingConfigurationService = new(_logger, _options, _fileProvider);
+        parsingConfigurationService.Load();
 
         // act
         string? result = parsingConfigurationService.SelectedFilePath;
@@ -297,6 +304,7 @@ public class ParsingConfigurationServiceTests
         _fileProvider.GetDirectoryContents(Arg.Any<string>()).Returns(directoryContents);
 
         ParsingConfigurationService parsingConfigurationService = new(_logger, _options, _fileProvider);
+        parsingConfigurationService.Load();
 
         // act
         string? result = parsingConfigurationService.SelectedFilePath;
@@ -334,6 +342,7 @@ public class ParsingConfigurationServiceTests
         _fileProvider.GetFileInfo(Arg.Any<string>()).Returns(x => fileInfo);
 
         ParsingConfigurationService parsingConfigurationService = new(_logger, _options, _fileProvider);
+        parsingConfigurationService.Load();
 
         // act
         string? result = parsingConfigurationService.SelectedFilePath;
