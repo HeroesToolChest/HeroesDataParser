@@ -1,9 +1,12 @@
 ﻿global using FluentAssertions;
+global using Heroes.Element.Models;
 global using Heroes.Element.Models.AbilityTalents;
+global using Heroes.Element.Types;
 global using Heroes.LocaleText;
 global using Heroes.XmlData;
 global using Heroes.XmlData.StormData;
 global using HeroesDataParser.Core;
+global using HeroesDataParser.Tests.TestHelpers;
 global using Microsoft.Extensions.Logging;
 global using NSubstitute;
 global using System.Xml.Linq;

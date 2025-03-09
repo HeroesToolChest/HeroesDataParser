@@ -1,4 +1,5 @@
 ﻿using Heroes.Element.Models;
+using Heroes.Element.Models.AbilityTalents;
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -7,7 +8,7 @@ namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
 public class UnitParser : DataParser<Unit>
 {
-    private const string ActorDataObjectType = "Actor";
+    private const string _actorDataObjectType = "Actor";
 
     private readonly ILogger<UnitParser> _logger;
     private readonly HeroesData _heroesData;
@@ -36,16 +37,16 @@ public class UnitParser : DataParser<Unit>
 
     private void SetActorData(Unit elementObject)
     {
-        string? unitId = _heroesData.GetStormElementIdByUnitName(elementObject.Id, ActorDataObjectType);
+        string? unitId = _heroesData.GetStormElementIdByUnitName(elementObject.Id, _actorDataObjectType);
 
         StormElement? actorElement;
         if (!string.IsNullOrEmpty(unitId))
         {
-            actorElement = _heroesData.GetCompleteStormElement(ActorDataObjectType, unitId);
+            actorElement = _heroesData.GetCompleteStormElement(_actorDataObjectType, unitId);
         }
         else
         {
-            actorElement = _heroesData.GetCompleteStormElement(ActorDataObjectType, elementObject.Id);
+            actorElement = _heroesData.GetCompleteStormElement(_actorDataObjectType, elementObject.Id);
         }
 
         if (actorElement is null)
@@ -71,70 +72,72 @@ public class UnitParser : DataParser<Unit>
             ImageFilePath? imageFilePath = GetImageFilePath(groupImageData);
             if (imageFilePath is not null)
             {
-                elementObject.UnitPortrait.TargetInfoPanel = imageFilePath.Image;
-                elementObject.UnitPortrait.TargetInfoPanelPath = imageFilePath.FilePath;
+                elementObject.Portraits.TargetInfoPanel = imageFilePath.Image;
+                elementObject.Portraits.TargetInfoPanelPath = imageFilePath.FilePath;
             }
         }
 
-        if (actorElement.DataValues.TryGetElementDataAt("MiniMapIcon", out StormElementData? miniMapIconData) && miniMapIconData.TryGetElementDataAt("Image", out StormElementData? miniMapImageData))
+        if (actorElement.DataValues.TryGetElementDataAt("MiniMapIcon", out StormElementData? miniMapIconData))
         {
-            ImageFilePath? imageFilePath = GetImageFilePath(miniMapImageData);
+            ImageFilePath? imageFilePath = GetImageFilePath(miniMapIconData);
             if (imageFilePath is not null)
             {
-                elementObject.UnitPortrait.MiniMapIcon = imageFilePath.Image;
-                elementObject.UnitPortrait.MiniMapIconPath = imageFilePath.FilePath;
+                elementObject.Portraits.MiniMapIcon = imageFilePath.Image;
+                elementObject.Portraits.MiniMapIconPath = imageFilePath.FilePath;
             }
         }
     }
 
     private void SetUnitData(Unit elementObject, StormElement stormElement)
     {
-        if (stormElement.DataValues.TryGetElementDataAt("LifeMax", out StormElementData? lifeMaxData))
+        StormElementData elementData = stormElement.DataValues;
+
+        if (elementData.TryGetElementDataAt("LifeMax", out StormElementData? lifeMaxData))
         {
             elementObject.Life.LifeMax = lifeMaxData.Value.GetDouble();
             elementObject.Life.LifeMaxScaling = GetScaleValue(stormElement.ElementType, elementObject.Id, lifeMaxData.Field);
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("LifeRegenRate", out StormElementData? lifeRegenRateData))
+        if (elementData.TryGetElementDataAt("LifeRegenRate", out StormElementData? lifeRegenRateData))
         {
             elementObject.Life.LifeRegenerationRate = lifeRegenRateData.Value.GetDouble();
             elementObject.Life.LifeRegenerationRateScaling = GetScaleValue(stormElement.ElementType, elementObject.Id, lifeRegenRateData.Field);
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("ShieldsMax", out StormElementData? shieldsMaxData))
+        if (elementData.TryGetElementDataAt("ShieldsMax", out StormElementData? shieldsMaxData))
         {
             elementObject.Shield.ShieldMax = shieldsMaxData.Value.GetDouble();
-            elementObject.Shield.ShieldScaling = GetScaleValue(stormElement.ElementType, elementObject.Id, shieldsMaxData.Field);
+            elementObject.Shield.ShieldMaxScaling = GetScaleValue(stormElement.ElementType, elementObject.Id, shieldsMaxData.Field);
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("ShieldsRegenDelay", out StormElementData? shieldsRegenDelayData))
+        if (elementData.TryGetElementDataAt("ShieldsRegenDelay", out StormElementData? shieldsRegenDelayData))
             elementObject.Shield.ShieldRegenerationDelay = shieldsRegenDelayData.Value.GetDouble();
 
-        if (stormElement.DataValues.TryGetElementDataAt("ShieldRegenRate", out StormElementData? shieldRegenRateData))
+        if (elementData.TryGetElementDataAt("ShieldRegenRate", out StormElementData? shieldRegenRateData))
         {
             elementObject.Shield.ShieldRegenerationRate = shieldRegenRateData.Value.GetDouble();
             elementObject.Shield.ShieldRegenerationRateScaling = GetScaleValue(stormElement.ElementType, elementObject.Id, shieldRegenRateData.Field);
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("EnergyMax", out StormElementData? energyMaxData))
+        if (elementData.TryGetElementDataAt("EnergyMax", out StormElementData? energyMaxData))
             elementObject.Energy.EnergyMax = energyMaxData.Value.GetDouble();
 
-        if (stormElement.DataValues.TryGetElementDataAt("EnergyRegenRate", out StormElementData? energyRegenRateData))
+        if (elementData.TryGetElementDataAt("EnergyRegenRate", out StormElementData? energyRegenRateData))
             elementObject.Energy.EnergyRegenerationRate = energyRegenRateData.Value.GetDouble();
 
-        if (stormElement.DataValues.TryGetElementDataAt("InnerRadius", out StormElementData? innerRadiusData))
+        if (elementData.TryGetElementDataAt("InnerRadius", out StormElementData? innerRadiusData))
             elementObject.InnerRadius = innerRadiusData.Value.GetDouble();
 
-        if (stormElement.DataValues.TryGetElementDataAt("Radius", out StormElementData? radiusData))
+        if (elementData.TryGetElementDataAt("Radius", out StormElementData? radiusData))
             elementObject.Radius = radiusData.Value.GetDouble();
 
-        if (stormElement.DataValues.TryGetElementDataAt("Sight", out StormElementData? sightData))
+        if (elementData.TryGetElementDataAt("Sight", out StormElementData? sightData))
             elementObject.Sight = sightData.Value.GetDouble();
 
-        if (stormElement.DataValues.TryGetElementDataAt("Speed", out StormElementData? speedData))
+        if (elementData.TryGetElementDataAt("Speed", out StormElementData? speedData))
             elementObject.Speed = speedData.Value.GetDouble();
 
-        if (stormElement.DataValues.TryGetElementDataAt("UnitDamageType", out StormElementData? unitDamageTypeData))
+        if (elementData.TryGetElementDataAt("UnitDamageType", out StormElementData? unitDamageTypeData))
         {
             string unitDamageTypeValue = unitDamageTypeData.Value.GetString();
             if (Enum.TryParse(unitDamageTypeValue, true, out ArmorSet armorSet))
@@ -148,13 +151,10 @@ public class UnitParser : DataParser<Unit>
             }
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("KillXp", out StormElementData? killXpData))
+        if (elementData.TryGetElementDataAt("KillXp", out StormElementData? killXpData))
             elementObject.KillXP = killXpData.Value.GetInt();
 
-        if (stormElement.DataValues.TryGetElementDataAt("InfoText", out StormElementData? infoTextData))
-            elementObject.InfoText = GetTooltipDescriptionFromId(infoTextData.Value.GetString());
-
-        if (stormElement.DataValues.TryGetElementDataAt("HeroPlaystyleFlags", out StormElementData? heroPlaystyleFlagsData))
+        if (elementData.TryGetElementDataAt("HeroPlaystyleFlags", out StormElementData? heroPlaystyleFlagsData))
         {
             foreach (string flag in heroPlaystyleFlagsData.GetElementDataIndexes())
             {
@@ -166,7 +166,7 @@ public class UnitParser : DataParser<Unit>
             }
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("Attributes", out StormElementData? attributesData))
+        if (elementData.TryGetElementDataAt("Attributes", out StormElementData? attributesData))
         {
             foreach (string attribute in attributesData.GetElementDataIndexes())
             {
@@ -176,6 +176,16 @@ public class UnitParser : DataParser<Unit>
                 else if (value == 0)
                     elementObject.Attributes.Remove(attribute);
             }
+        }
+
+        if (elementData.TryGetElementDataAt("Gender", out StormElementData? genderData))
+        {
+            string genderValue = genderData.Value.GetString();
+
+            if (Enum.TryParse(genderValue, out Gender genderResult))
+                elementObject.Gender = genderResult;
+            else
+                _logger.LogWarning("Unknown gender {Gender}", genderValue);
         }
     }
 
@@ -338,7 +348,10 @@ public class UnitParser : DataParser<Unit>
                     foreach (string item in innerData.GetElementDataIndexes())
                     {
                         // data passed in is Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
-                        _abilityParser.GetAbility(elementObject.Id, innerData.GetElementDataAt(item));
+                        Ability? ability = _abilityParser.GetAbility(elementObject.Id, innerData.GetElementDataAt(item));
+
+                        if (ability is not null)
+                            elementObject.Abilities.Add(ability);
                     }
                 }
             }

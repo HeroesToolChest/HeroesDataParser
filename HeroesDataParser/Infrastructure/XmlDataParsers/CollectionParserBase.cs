@@ -69,7 +69,7 @@ public abstract class CollectionParserBase<T> : DataParser<T>
         SetNameProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("sortname", out StormElementData? sortNameData))
-            collectionObject.SortName = GetStormGameString(sortNameData.Value.GetString());
+            collectionObject.SortName = GetTooltipDescriptionFromId(sortNameData.Value.GetString());
 
         SetHyperlinkIdProperty(collectionObject, stormElement);
 

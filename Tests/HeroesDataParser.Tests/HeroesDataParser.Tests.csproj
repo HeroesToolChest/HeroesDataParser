@@ -12,8 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="7.0.0" />
-    <PackageReference Include="FluentAssertions.Analyzers" Version="0.34.1">
+    <PackageReference Include="AwesomeAssertions" Version="8.0.1" />
+    <PackageReference Include="AwesomeAssertions.Analyzers" Version="0.34.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Infrastructure\XmlTestFiles\*.xml">
+    <None Update="TestXmlFiles\*.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

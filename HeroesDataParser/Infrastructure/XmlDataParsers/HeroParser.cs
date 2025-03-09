@@ -1,60 +1,84 @@
-﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
+﻿using Heroes.Element.Models;
+using Heroes.XmlData;
+
+namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
 public class HeroParser : CollectionParserBase<Hero>
 {
     private readonly ILogger<HeroParser> _logger;
     private readonly HeroesData _heroesData;
+    private readonly IDataParser<Unit> _unitParser;
 
     private readonly string _roleGameStringText;
 
-    public HeroParser(ILogger<HeroParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+    public HeroParser(ILogger<HeroParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService, IDataParser<Unit> unitParser)
         : base(logger, heroesXmlLoaderService)
     {
         _logger = logger;
         _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
+        _unitParser = unitParser;
 
         _roleGameStringText = GetRoleText();
     }
 
     public override string DataObjectType => "Hero";
 
+    protected override void SetProperties(Hero elementObject, StormElement stormElement)
+    {
+        //// TODO: FindUnits ? e.g dva pilot
+        //// TODO: HeroUnits ? e.g symbiote
+
+        if (stormElement.DataValues.TryGetElementDataAt("Unit", out StormElementData? unitData))
+            elementObject.UnitId = unitData.Value.GetString();
+
+        SetUnitData(elementObject);
+
+        base.SetProperties(elementObject, stormElement);
+    }
+
     protected override void SetAdditionalProperties(Hero collectionObject, StormElement stormElement)
     {
-        if (stormElement.DataValues.TryGetElementDataAt("difficulty", out StormElementData? difficultyData))
+        StormElementData elementData = stormElement.DataValues;
+
+        if (elementData.TryGetElementDataAt("difficulty", out StormElementData? difficultyData))
             collectionObject.Difficulty = GetTooltipDescriptionFromId(GameStringConstants.DifficultyGameString.Replace(GameStringConstants.IdPlaceHolder, difficultyData.Value.GetString()));
 
         SetFranchiseProperty(collectionObject, stormElement);
 
-        if (stormElement.DataValues.TryGetElementDataAt("title", out StormElementData? titleData))
+        if (elementData.TryGetElementDataAt("title", out StormElementData? titleData))
             collectionObject.Title = GetTooltipDescriptionFromId(titleData.Value.GetString());
 
-        if (stormElement.DataValues.TryGetElementDataAt("melee", out StormElementData? meleeData) && meleeData.Value.TryGetInt32(out int meleeValue) && meleeValue == 1)
+        if (elementData.TryGetElementDataAt("melee", out StormElementData? meleeData) && meleeData.Value.TryGetInt32(out int meleeValue) && meleeValue == 1)
             collectionObject.IsMelee = true;
 
-        if (stormElement.DataValues.TryGetElementDataAt("AlternateNameSearchText", out StormElementData? alternateNameSearchTextData))
-            collectionObject.SearchText = GetStormGameString(alternateNameSearchTextData.Value.GetString());
+        if (elementData.TryGetElementDataAt("AlternateNameSearchText", out StormElementData? alternateNameSearchTextData))
+            collectionObject.SearchText = GetTooltipDescriptionFromId(alternateNameSearchTextData.Value.GetString());
 
-        if (stormElement.DataValues.TryGetElementDataAt("AdditionalSearchText", out StormElementData? additionalSearchTextData))
+        if (elementData.TryGetElementDataAt("AdditionalSearchText", out StormElementData? additionalSearchTextData))
         {
-            if (!string.IsNullOrWhiteSpace(collectionObject.SearchText))
+            if (collectionObject.SearchText is not null && !string.IsNullOrWhiteSpace(collectionObject.SearchText.RawDescription))
             {
-                if (collectionObject.SearchText[^1] != ' ')
-                    collectionObject.SearchText += ' ';
+                string currentSearchText = collectionObject.SearchText.RawDescription;
 
-                collectionObject.SearchText += GetStormGameString(additionalSearchTextData.Value.GetString());
+                if (currentSearchText[^1] != ' ')
+                    currentSearchText += ' ';
+
+                currentSearchText += GetStormGameString(additionalSearchTextData.Value.GetString());
+
+                collectionObject.SearchText = GetTooltipDescriptionFromGameString(currentSearchText);
             }
             else
             {
-                collectionObject.SearchText = GetStormGameString(additionalSearchTextData.Value.GetString());
+                collectionObject.SearchText = GetTooltipDescriptionFromId(additionalSearchTextData.Value.GetString());
             }
         }
 
         SetRoleProperty(collectionObject, stormElement);
 
-        if (stormElement.DataValues.TryGetElementDataAt("ExpandedRole", out StormElementData? expandedRoleData))
+        if (elementData.TryGetElementDataAt("ExpandedRole", out StormElementData? expandedRoleData))
             collectionObject.ExpandedRole = GetTooltipDescriptionFromId(_roleGameStringText.Replace(GameStringConstants.IdPlaceHolder, expandedRoleData.Value.GetString()));
 
-        if (stormElement.DataValues.TryGetElementDataAt("ratings", out StormElementData? ratingsData))
+        if (elementData.TryGetElementDataAt("ratings", out StormElementData? ratingsData))
         {
             if (ratingsData.TryGetElementDataAt("damage", out StormElementData? damageData))
                 collectionObject.Ratings.Damage = damageData.Value.GetDouble();
@@ -66,7 +90,7 @@ public class HeroParser : CollectionParserBase<Hero>
                 collectionObject.Ratings.Complexity = complexityData.Value.GetDouble();
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("SelectScreenButtonImage", out StormElementData? selectScreenButtonImageData))
+        if (elementData.TryGetElementDataAt("SelectScreenButtonImage", out StormElementData? selectScreenButtonImageData))
         {
             ImageFilePath? imageFilePath = GetImageFilePath(selectScreenButtonImageData);
             if (imageFilePath is not null)
@@ -76,7 +100,7 @@ public class HeroParser : CollectionParserBase<Hero>
             }
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("ScoreScreenImage", out StormElementData? scoreScreenImageData))
+        if (elementData.TryGetElementDataAt("ScoreScreenImage", out StormElementData? scoreScreenImageData))
         {
             ImageFilePath? imageFilePath = GetImageFilePath(scoreScreenImageData);
             if (imageFilePath is not null)
@@ -86,7 +110,7 @@ public class HeroParser : CollectionParserBase<Hero>
             }
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("LoadingScreenImage", out StormElementData? loadingScreenImageData))
+        if (elementData.TryGetElementDataAt("LoadingScreenImage", out StormElementData? loadingScreenImageData))
         {
             ImageFilePath? imageFilePath = GetImageFilePath(loadingScreenImageData);
             if (imageFilePath is not null)
@@ -96,7 +120,7 @@ public class HeroParser : CollectionParserBase<Hero>
             }
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("PartyPanelButtonImage", out StormElementData? partyPanelImageData))
+        if (elementData.TryGetElementDataAt("PartyPanelButtonImage", out StormElementData? partyPanelImageData))
         {
             ImageFilePath? imageFilePath = GetImageFilePath(partyPanelImageData);
             if (imageFilePath is not null)
@@ -106,7 +130,7 @@ public class HeroParser : CollectionParserBase<Hero>
             }
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("Portrait", out StormElementData? portraitData))
+        if (elementData.TryGetElementDataAt("Portrait", out StormElementData? portraitData))
         {
             ImageFilePath? imageFilePath = GetImageFilePath(portraitData);
             if (imageFilePath is not null)
@@ -116,7 +140,7 @@ public class HeroParser : CollectionParserBase<Hero>
             }
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("DraftScreenPortrait", out StormElementData? draftScreenPortraitData))
+        if (elementData.TryGetElementDataAt("DraftScreenPortrait", out StormElementData? draftScreenPortraitData))
         {
             ImageFilePath? imageFilePath = GetImageFilePath(draftScreenPortraitData);
             if (imageFilePath is not null)
@@ -126,7 +150,7 @@ public class HeroParser : CollectionParserBase<Hero>
             }
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("PartyFrameImage", out StormElementData? partyFrameData))
+        if (elementData.TryGetElementDataAt("PartyFrameImage", out StormElementData? partyFrameData))
         {
             ImageFilePath? imageFilePath = GetImageFilePath(partyFrameData);
             if (imageFilePath is not null)
@@ -136,7 +160,7 @@ public class HeroParser : CollectionParserBase<Hero>
             }
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("SkinArray", out StormElementData? skinArrayData))
+        if (elementData.TryGetElementDataAt("SkinArray", out StormElementData? skinArrayData))
         {
             foreach (string item in skinArrayData.GetElementDataIndexes())
             {
@@ -144,7 +168,7 @@ public class HeroParser : CollectionParserBase<Hero>
             }
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("VariationArray", out StormElementData? variationArrayData))
+        if (elementData.TryGetElementDataAt("VariationArray", out StormElementData? variationArrayData))
         {
             foreach (string item in variationArrayData.GetElementDataIndexes())
             {
@@ -152,7 +176,7 @@ public class HeroParser : CollectionParserBase<Hero>
             }
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("VoiceLineArray", out StormElementData? voiceLineArrayData))
+        if (elementData.TryGetElementDataAt("VoiceLineArray", out StormElementData? voiceLineArrayData))
         {
             foreach (string item in voiceLineArrayData.GetElementDataIndexes())
             {
@@ -160,7 +184,7 @@ public class HeroParser : CollectionParserBase<Hero>
             }
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("AllowedMountCategoryArray", out StormElementData? allowedMountCategoryArrayData))
+        if (elementData.TryGetElementDataAt("AllowedMountCategoryArray", out StormElementData? allowedMountCategoryArrayData))
         {
             foreach (string item in allowedMountCategoryArrayData.GetElementDataIndexes())
             {
@@ -168,8 +192,10 @@ public class HeroParser : CollectionParserBase<Hero>
             }
         }
 
-        if (stormElement.DataValues.TryGetElementDataAt("DefaultMount", out StormElementData? defaultMountData))
+        if (elementData.TryGetElementDataAt("DefaultMount", out StormElementData? defaultMountData))
             collectionObject.DefaultMountId = defaultMountData.Value.GetString();
+
+        SetInfoTextProperty(collectionObject, stormElement);
     }
 
     protected override void SetValidatedProperties(Hero collectionObject)
@@ -177,6 +203,25 @@ public class HeroParser : CollectionParserBase<Hero>
         base.SetValidatedProperties(collectionObject);
 
         collectionObject.Difficulty ??= GetTooltipDescriptionFromId(GameStringConstants.DifficultyGameString.Replace(GameStringConstants.IdPlaceHolder, "Easy"));
+    }
+
+    private void SetUnitData(Hero elementObject)
+    {
+        if (string.IsNullOrEmpty(elementObject.UnitId))
+        {
+            _logger.LogWarning("Could not find unit id for hero {Id}", elementObject.Id);
+            return;
+        }
+
+        Unit? unit = _unitParser.Parse(elementObject.UnitId);
+
+        if (unit is null)
+        {
+            _logger.LogWarning("Could not find unit data for hero {Id}", elementObject.Id);
+            return;
+        }
+
+        elementObject.SetUnitData(unit);
     }
 
     private string GetRoleText()
@@ -200,17 +245,9 @@ public class HeroParser : CollectionParserBase<Hero>
         {
             if (stormElement.DataValues.TryGetElementDataAt(index, out StormElementData? roleData))
             {
-                string? roleGameString = roleData.Value.GetString();
-
-                if (!string.IsNullOrWhiteSpace(roleGameString))
-                {
-                    StormGameString? stormGameString = _heroesData.GetStormGameString(roleGameString);
-
-                    if (stormGameString is not null)
-                        collectionObject.Roles.Add(stormGameString.Value);
-                    else
-                        _logger.LogWarning("Could not get storm game string from {RoleGameString}", roleGameString);
-                }
+                TooltipDescription? roleTooltipDescription = GetTooltipDescriptionFromId(GameStringConstants.HeroRoleGameString.Replace(GameStringConstants.IdPlaceHolder, roleData.Value.GetString()));
+                if (roleTooltipDescription is not null)
+                    collectionObject.Roles.Add(roleTooltipDescription);
             }
         }
     }

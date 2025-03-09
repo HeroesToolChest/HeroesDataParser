@@ -1,5 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Unit>
+  <CUnit default="1">
+    <Name value="Unit/Name/##id##" />
+    <Description value="Button/Tooltip/##id##" />
+    <Response value="Acquire" />
+    <LifeStart value="1" />
+    <LifeMax value="1" />
+    <Mover value="Ground" />
+    <TurningRate value="720" />
+    <Radius value="0.5" />
+    <SeparationRadius value="0.5" />
+    <MinimapRadius value="0.5" />
+    <Mass value="0.4" />
+    <FlagArray index="Turnable" value="1" />
+    <FlagArray index="Movable" value="1" />
+    <FlagArray index="Unclickable" value="1" />
+    <FlagArray index="Unhighlightable" value="1" />
+    <FlagArray index="Untooltipable" value="1" />
+    <FlagArray index="KillCredit" value="1" />
+    <FlagArray index="ClearRallyOnTargetLost" value="1" />
+    <FlagArray index="PlayerRevivable" value="1" />
+    <FlagArray index="CameraFollow" value="1" />
+  </CUnit>
+  <CUnit default="1" id="StormBasicHeroicUnit">
+    <FlagArray index="Unclickable" value="0" />
+    <FlagArray index="Unhighlightable" value="0" />
+    <FlagArray index="Hero" value="1" />
+    <FlagArray index="UseLineOfSight" value="1" />
+    <FlagArray index="AIForceTactical" value="1" />
+    <FlagArray index="VisionTestCenterOnly" value="1" />
+    <PlaneArray index="Ground" value="1" />
+    <Collide index="Ground" value="1" />
+    <Collide index="ForceField" value="1" />
+    <Collide index="Pushable" value="1" />
+    <Response value="Nothing" />
+    <Attributes index="Heroic" value="1" />
+    <Speed value="4.8398" />
+    <Acceleration value="1000" />
+    <LateralAcceleration value="46" />
+    <StationaryTurningRate value="1759.9218" />
+    <TurningRate value="1759.9218" />
+    <Sight value="12" />
+    <AttackTargetPriority value="10" />
+    <DamageDealtXP value="1" />
+    <DamageTakenXP value="1" />
+    <SubgroupPriority value="15" />
+    <TauntDuration index="Dance" value="5" />
+    <TauntDuration index="Tease" value="2.5" />
+  </CUnit>
   <CUnit default="1" id="StormHero" parent="StormBasicHeroicUnit">
     <FlagArray index="SelectableWhileDead" value="1" />
     <FlagArray index="PreferLastAttackTarget" value="1" />
@@ -95,7 +143,15 @@
       <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="ForceMove" />
     </CardLayouts>
   </CUnit>
+  <CUnit id="HeroHpTESTHero">    
+  </CUnit>
   <CUnit id="HeroAbathur" parent="StormHeroMountedCustom">
+    <LifeStart value="685" />
+    <LifeMax value="685" />
+    <LifeRegenRate value="1.4257" />
+    <BehaviorArray Link="LocustSpawnTimer" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <WeaponArray Link="HeroAbathur" />
     <CardLayouts index="0">
       <LayoutButtons index="1" Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
       <LayoutButtons index="2" Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
@@ -116,6 +172,34 @@
       <LayoutButtons Face="AbathurToxicNest" Type="AbilCmd" AbilCmd="AbathurToxicNest,Execute" Slot="Ability2" />
       <LayoutButtons Face="AbathurDeepTunnel" Type="AbilCmd" AbilCmd="AbathurDeepTunnel,Execute" Slot="Mount" />
     </CardLayouts>
+    <Radius value="0.75" />
+    <InnerRadius value="0.75" />
+    <AIThinkTree value="AI/Abathur.aitree" />
+    <AbilArray Link="AbathurDeepTunnel" />
+    <AbilArray Link="AbathurNeuralParasite" />
+    <AbilArray Link="AbathurSymbiote" />
+    <AbilArray Link="AbathurToxicNest" />
+    <AbilArray Link="AbathurUltimateEvolution" />
+    <AbilArray Link="AbathurSpawnLocusts" />
+    <AbilArray Link="AbathurSpawnLocustsAssaultStrain" />
+    <AbilArray Link="AbathurSpawnLocustsBombardStrain" />
+    <AbilArray Link="AbathurEvolveMonstrosity" />
+    <AbilArray Link="AbathurEvolveMonstrosityActiveSymbiote" />
+    <SubgroupPriority value="1" />
+    <EnergyStart value="0" />
+    <EnergyMax value="0" />
+    <EnergyRegenRate value="0" />
+    <Gender value="Neutral" />
+    <AIEvalFactor value="1.1" />
+    <AIBaseThreat value="0.4" />
+    <InitializerFunction value="libGDHL_gf_HeroAbathurIncrementHeroCountFunction" />
+    <DestructionFunction value="libGDHL_gf_HeroAbathurDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="Helper" value="1" />
+    <HeroPlaystyleFlags index="InstantTraveler" value="1" />
+    <HeroPlaystyleFlags index="RoleSpecialist" value="1" />
+    <HeroPlaystyleFlags index="TowerPusher" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
   </CUnit>
   <CUnit id="HeroAlarak" parent="StormHeroMounted">
     <CardLayouts index="0">

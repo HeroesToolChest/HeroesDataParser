@@ -97,6 +97,8 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
                 listFileTask.IsIndeterminate = true;
 
                 using BackgroundWorkerEx backgroundWorkerEx = new();
+
+                string currentTask = string.Empty;
                 backgroundWorkerEx.DoWork += (_, e) =>
                 {
                     RunLoader(backgroundWorkerEx);
@@ -105,7 +107,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
                 {
                     if (cdnIndexesTask.Value < 100)
                     {
-                        cdnIndexesTask.Value = e.ProgressPercentage;
+                        cdnIndexesTask.Value = 100;
                     }
                     else if (_options.StorageLoad.Type != StorageType.Online && localIndexesTask?.Value < 100)
                     {

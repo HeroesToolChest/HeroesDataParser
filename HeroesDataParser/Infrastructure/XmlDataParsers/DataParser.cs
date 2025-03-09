@@ -94,4 +94,13 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
                 descriptionObject.Description = GetTooltipDescriptionFromId(descriptionData.Value.GetString());
         }
     }
+
+    protected void SetInfoTextProperty(T elementObject, StormElement stormElement)
+    {
+        if (elementObject is IInfoText infoTextObject)
+        {
+            if (stormElement.DataValues.TryGetElementDataAt("infotext", out StormElementData? infoTextData))
+                infoTextObject.InfoText = GetTooltipDescriptionFromId(infoTextData.Value.GetString());
+        }
+    }
 }

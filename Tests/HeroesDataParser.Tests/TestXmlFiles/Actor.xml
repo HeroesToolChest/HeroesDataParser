@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Actor>
+  <CActorUnit default="1" id="StormUnitBase" parent="StormGenericUnitSelectable">
+  </CActorUnit>
+  <CActorUnit default="1" id="StormHeroBase" parent="StormUnitBase">
+    <Aliases value="AnimOverrideReceiverStand" />
+    <Aliases value="_Hero" />
+    <CustomUnitStatusFrame value="UnitStatus/HeroUnitStatusFrameTemplate" />
+    <CustomUnitStatusActor value="StatusBarStabilizer" />
+    <MinimapRenderPriority value="Hero" />
+    <MinimapIconBackground value="Assets\Textures\storm_ui_minimapicon_herobg_arrow.dds" />
+    <MinimapIconBackgroundIsTeamColored value="1" />
+    <VitalNames index="Life" value="UI/HeroLife" />
+    <VitalNames index="Shields" value="UI/HeroShields" />
+    <VitalNames index="Energy" value="UI/HeroEnergyType/Mana" />
+    <MinimapIconType value="Hero" />
+    <MinimapUnitStatusFrame value="MinimapUnitStatus/MinimapHeroIcon" />
+  </CActorUnit>
+  <CActorUnit default="1" id="StormHeroBasePredictive" parent="StormHeroBase">
+    <Macros value="AttackPredictionMacro" />
+  </CActorUnit>
+  <CActorUnit id="HeroAbathur" parent="StormHeroBasePredictive" unitName="HeroAbathur">
+    <DeathArray index="Normal" ModelLink="AbathurDeath" SoundLink="AbathurHero_Death" />
+    <PortraitActor value="AbathurPortrait" />
+    <PortraitModel value="AbathurPortrait" />
+    <AbilSoundArray AbilCmd="AbathurDeepTunnel,Execute" Sound="AbathurHero_VOX_CastingA" />
+    <AbilSoundArray AbilCmd="AbathurSymbiote,Execute" Sound="StormNoSound" />
+    <AbilSoundArray AbilCmd="AbathurToxicNest,Execute" Sound="AbathurHero_VOX_CastingB" />
+    <AbilSoundArray AbilCmd="AbathurUltimateEvolution,Execute" Sound="AbathurHero_Ultimate1Used" />
+    <AbilSoundArray AbilCmd="AbathurEvolveMonstrosity,Execute" Sound="AbathurHero_Ultimate2Used" />
+    <HeroIcon value="Assets\Textures\ui_targetportrait_hero_abathur.dds" />
+    <MinimapIcon value="Assets\Textures\storm_ui_minimapicon_heros_infestor.dds" />
+    <SoundArray index="Birth" value="" />
+    <SoundArray index="Ready" value="AbathurHero_Revive" />
+    <SoundArray index="Yes" value="AbathurHero_Yes" />
+    <SoundArray index="Attack" value="AbathurHero_Attack" />
+    <SoundArray index="Pissed" value="AbathurHero_Pissed" />
+    <StatusBarFlags index="Energy" value="0" />
+    <UnitIcon value="Assets\Textures\ui_targetportrait_hero_abathur.dds" />
+    <Wireframe>
+      <Image value="Assets\Textures\ui_targetportrait_hero_abathur.dds" />
+    </Wireframe>
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_partyframe_abathur.dds" />
+    </GroupIcon>
+    <Macros value="TipableKnockbackMacro" />
+    <CustomUnitStatusFrame value="UnitStatus/HeroUnitStatusFrameNoEnergyTemplate" />
+    <VitalNames index="Energy" value="" />
+  </CActorUnit>
+</Actor>

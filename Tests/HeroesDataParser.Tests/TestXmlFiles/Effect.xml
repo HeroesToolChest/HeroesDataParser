@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Effect>
+  <CEffectDamage id="AbathurWeaponDamage" parent="StormWeapon">
+    <Marker Link="Effect/MuradinWeaponDamage" />
+    <Amount value="26" />
+  </CEffectDamage>
+</Effect>
