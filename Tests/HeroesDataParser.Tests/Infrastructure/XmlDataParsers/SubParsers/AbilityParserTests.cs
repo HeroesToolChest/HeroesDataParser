@@ -19,7 +19,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_AbathurSymbiote_ReturnsAbility()
+    public void GetAbility_AbathurSymbioteCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAbathur";
@@ -32,7 +32,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -53,7 +53,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_AbathurToxicNest_ReturnsAbility()
+    public void GetAbility_AbathurToxicNestCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAbathur";
@@ -66,7 +66,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -91,7 +91,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_AbathurLocustStrain_ReturnsAbility()
+    public void GetAbility_AbathurLocustStrainCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAbathur";
@@ -104,7 +104,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -131,7 +131,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_AbathurDeepTunnel_ReturnsAbility()
+    public void GetAbility_AbathurDeepTunnelCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAbathur";
@@ -144,7 +144,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -166,7 +166,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_HearthstoneNoMana_ReturnsAbility()
+    public void GetAbility_HearthstoneNoManaCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAbathur";
@@ -179,7 +179,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -201,7 +201,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_Tease_ReturnsAbility()
+    public void GetAbility_TeaseCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAbathur";
@@ -214,7 +214,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -236,7 +236,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_Dance_ReturnsAbility()
+    public void GetAbility_DanceCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAbathur";
@@ -249,7 +249,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -271,7 +271,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_LootSpray_ReturnsAbility()
+    public void GetAbility_LootSprayCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAbathur";
@@ -284,7 +284,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -306,7 +306,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_LootYellVoiceLine_ReturnsAbility()
+    public void GetAbility_LootYellVoiceLineCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAbathur";
@@ -319,7 +319,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -341,7 +341,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_AlarakDeadlyCharge_ReturnsAbility()
+    public void GetAbility_AlarakDeadlyChargeCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAlarak";
@@ -354,7 +354,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -376,7 +376,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_AlarakSadism_ReturnsAbility()
+    public void GetAbility_AlarakSadismCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAlarak";
@@ -389,7 +389,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -411,7 +411,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_AlexstraszaGiftOfLife_ReturnsAbility()
+    public void GetAbility_AlexstraszaGiftOfLifeCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAlexstrasza";
@@ -424,7 +424,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -446,7 +446,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_AlexstraszaAbundance_ReturnsAbility()
+    public void GetAbility_AlexstraszaAbundanceCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAlexstrasza";
@@ -459,7 +459,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -481,7 +481,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_GuldanLifeTap_ReturnsAbility()
+    public void GetAbility_GuldanLifeTapCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroGuldan";
@@ -494,7 +494,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -516,7 +516,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_BarbarianSeismicSlam_ReturnsAbility()
+    public void GetAbility_BarbarianSeismicSlamCommand_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroBarbarian";
@@ -529,7 +529,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
         // act
-        Ability? ability = abilityParser.GetAbility(heroUnit, layoutButtons);
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
@@ -548,5 +548,25 @@ public class AbilityParserTests
         ability.Tooltip.EnergyTooltip!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Fury: 25</s>");
         ability.Tooltip.ShortTooltip!.RawDescription.Should().Be("Damage an enemy and splash damage behind them");
         ability.Tooltip.FullTooltip!.RawDescription.Should().Be("Deals deals damage to...");
+    }
+
+    [TestMethod]
+    public void GetAbility_AbathurSymbioteAbil_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAbathur";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("18").GetElementDataAt("Link").Value.GetString();
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(abilArrayLinkValue);
+
+        // assert
+        ability.Should().NotBeNull();
     }
 }

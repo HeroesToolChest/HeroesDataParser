@@ -340,4 +340,16 @@
     <HeroPlaystyleFlags index="SoloLaner" value="1" />
     <HeroPlaystyleFlags index="WaveClearer" value="1" />
   </CUnit>
+  
+  <!--Other Units-->
+  <CUnit id="AbathurLocustAssaultStrain" parent="AbathurLocust">
+    <WeaponArray Link="AbathurLocustAssaultWeapon" />
+  </CUnit>
+  <CUnit id="AbathurLocustBombardStrain" parent="AbathurLocust">
+    <WeaponArray Link="AbathurLocustBombardWeapon" />
+    <WeaponArray Link="AbathurLocustBombardWeaponCloseRange" />
+  </CUnit>
+  <CUnit id="AbathurLocustNormal" parent="AbathurLocust">
+    <WeaponArray Link="AbathurLocustWeapon" />
+  </CUnit>
 </Unit> 

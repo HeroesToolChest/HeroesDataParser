@@ -335,6 +335,13 @@ public class UnitParser : DataParser<Unit>
 
     private void SetAbilityData(Unit elementObject, StormElement stormElement)
     {
+        // keep track of added abilities; by their nameId
+        HashSet<string> addedAbilities = new(StringComparer.OrdinalIgnoreCase);
+
+        // keep track of abilities that were NOT added; by their nameId
+        HashSet<string> rejectedAbilities = new(StringComparer.OrdinalIgnoreCase);
+
+        // loop through the cardlayouts to get the abilities
         if (stormElement.DataValues.TryGetElementDataAt("CardLayouts", out StormElementData? cardLayoutsData))
         {
             foreach (string cardLayoutIndex in cardLayoutsData.GetElementDataIndexes())
@@ -347,11 +354,48 @@ public class UnitParser : DataParser<Unit>
 
                     foreach (string item in innerData.GetElementDataIndexes())
                     {
-                        // data passed in is Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
-                        Ability? ability = _abilityParser.GetAbility(elementObject.Id, innerData.GetElementDataAt(item));
+                        // Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
+                        StormElementData innerDataElements = innerData.GetElementDataAt(item);
 
-                        if (ability is not null)
+                        Ability? ability = _abilityParser.GetAbility(innerDataElements);
+
+                        if (ability is null && innerDataElements.TryGetElementDataAt("AbilCmd", out StormElementData? abilCmdData))
+                        {
+                            rejectedAbilities.Add(AbilityParser.GetAbilCmdSplit(abilCmdData.Value.GetString()).AbilityId);
+                        }
+                        else if (ability is not null && addedAbilities.Contains(ability.NameId) is false)
+                        {
                             elementObject.Abilities.Add(ability);
+                            addedAbilities.Add(ability.NameId);
+                        }
+                    }
+                }
+            }
+        }
+
+        // loop through the abilArray to get the abilities
+        if (stormElement.DataValues.TryGetElementDataAt("AbilArray", out StormElementData? abilArrayData))
+        {
+            foreach (string abilArrayIndex in abilArrayData.GetElementDataIndexes())
+            {
+                if (abilArrayData.GetElementDataAt(abilArrayIndex).TryGetElementDataAt("Link", out StormElementData? linkData))
+                {
+                    string linkValue = linkData.Value.GetString();
+
+                    // check if we already added the ability or rejected it
+                    if (addedAbilities.Contains(linkValue) || rejectedAbilities.Contains(linkValue))
+                        continue;
+
+                    Ability? ability = _abilityParser.GetAbility(linkValue);
+
+                    if (ability is null)
+                    {
+                        rejectedAbilities.Add(linkValue);
+                    }
+                    else if (ability is not null)
+                    {
+                        elementObject.Abilities.Add(ability);
+                        addedAbilities.Add(ability.NameId);
                     }
                 }
             }

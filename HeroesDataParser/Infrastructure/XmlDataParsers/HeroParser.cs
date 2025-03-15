@@ -164,7 +164,10 @@ public class HeroParser : CollectionParserBase<Hero>
         {
             foreach (string item in skinArrayData.GetElementDataIndexes())
             {
-                collectionObject.SkinIds.Add(skinArrayData.GetElementDataAt(item).Value.GetString());
+                string value = skinArrayData.GetElementDataAt(item).Value.GetString();
+
+                if (_heroesData.StormElementExists("Skin", value))
+                    collectionObject.SkinIds.Add(value);
             }
         }
 
@@ -172,7 +175,10 @@ public class HeroParser : CollectionParserBase<Hero>
         {
             foreach (string item in variationArrayData.GetElementDataIndexes())
             {
-                collectionObject.VariationSkinIds.Add(variationArrayData.GetElementDataAt(item).Value.GetString());
+                string value = variationArrayData.GetElementDataAt(item).Value.GetString();
+
+                if (_heroesData.StormElementExists("Skin", value))
+                    collectionObject.VariationSkinIds.Add(value);
             }
         }
 
@@ -180,7 +186,10 @@ public class HeroParser : CollectionParserBase<Hero>
         {
             foreach (string item in voiceLineArrayData.GetElementDataIndexes())
             {
-                collectionObject.VoiceLineIds.Add(voiceLineArrayData.GetElementDataAt(item).Value.GetString());
+                string value = voiceLineArrayData.GetElementDataAt(item).Value.GetString();
+
+                if (_heroesData.StormElementExists("VoiceLine", value))
+                    collectionObject.VoiceLineIds.Add(value);
             }
         }
 

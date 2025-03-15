@@ -14,6 +14,8 @@ public static class TestHeroesXmlLoader
         XDocument actorDocument = GetXDocument("Actor.xml");
         XDocument weaponDocument = GetXDocument("Weapon.xml");
         XDocument effectDocument = GetXDocument("Effect.xml");
+        XDocument skinDocument = GetXDocument("Skin.xml");
+        XDocument voiceLineDocument = GetXDocument("VoiceLine.xml");
 
         return HeroesXmlLoader.LoadWithEmpty()
             .LoadCustomMod(new ManualModLoader("test")
@@ -26,6 +28,8 @@ public static class TestHeroesXmlLoader
                     ("Actor", "CActorUnit"),
                     ("Weapon", "CWeaponLegacy"),
                     ("Effect", "CEffectDamage"),
+                    ("Skin", "CSkin"),
+                    ("VoiceLine", "CVoiceLine"),
                 ])
                 .AddElements(unitDocument.Root!.Elements())
                 .AddElements(heroDocument.Root!.Elements())
@@ -35,6 +39,8 @@ public static class TestHeroesXmlLoader
                 .AddElements(actorDocument.Root!.Elements())
                 .AddElements(weaponDocument.Root!.Elements())
                 .AddElements(effectDocument.Root!.Elements())
+                .AddElements(skinDocument.Root!.Elements())
+                .AddElements(voiceLineDocument.Root!.Elements())
                 .AddGameStrings(
                     [
                         "e_gameUIStringChargeCooldownColon=Charge Cooldown: ",

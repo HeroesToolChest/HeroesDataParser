@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Skin>
+  <CSkin id="AbathurMecha" parent="AbathurMechaCommon">
+    <AttributeId value="AbaD" />
+    <VariationArray value="AbathurMechaVar1" />
+    <VariationArray value="AbathurMechaVar2" />
+    <VariationArray value="AbathurMechaVar3" />
+    <VariationArray value="AbathurMechaVar4" />
+    <VariationArray value="AbathurMechaVar5" />
+    <ProductId value="33961" />
+    <RequiredRewardArray value="AbathurMecha" />
+    <HyperlinkId value="XenotechAbathur" />
+    <SortName value="Skin/SortName/AbathurXenotechX" />
+  </CSkin>
+  <CSkin id="AbathurPajamathur" parent="AbathurPajamathurCommon">
+    <AttributeId value="Aba3"/>
+    <VariationArray value="AbathurPajamathurPlane"/>
+    <VariationArray value="AbathurPajamathurZerg"/>
+    <VariationArray value="AbathurPajamathurVar3"/>
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_AbathurTrain.dds"/>
+    <ProductId value="23245"/>
+    <RequiredRewardArray value="AbathurPajamathur"/>
+    <HyperlinkId value="PajamathurAbathur"/>
+    <SortName value="Skin/SortName/AbathurPajamathurPAJ"/>
+  </CSkin>
+  <CSkin id="AbathurSkelethur" parent="AbathurSkelethurCommon">
+    <AttributeId value="AbaA"/>
+    <VariationArray value="AbathurSkelethurGreen"/>
+    <VariationArray value="AbathurSkelethurYellow"/>
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Pink_Pale.dds"/>
+    <ProductId value="24946"/>
+    <RequiredRewardArray value="AbathurSkelethur"/>
+    <HyperlinkId value="SkelethurAbathur"/>
+    <SortName value="Skin/SortName/AbathurSkelethurS"/>
+  </CSkin>
+  <CSkin id="AbathurUltimate" parent="AbathurUltimateCommon">
+    <AttributeId value="Aba6"/>
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Purple_Dark.dds"/>
+    <VariationArray value="AbathurUltimateGrey"/>
+    <VariationArray value="AbathurUltimateRed"/>
+    <VariationArray value="AbathurUltimatePurple"/>
+    <ProductId value="25026"/>
+    <RequiredRewardArray value="AbathurUltimate"/>
+    <Rarity value="Rare"/>
+    <SortName value="Skin/SortName/AbathurSwarmS"/>
+    <ReleaseDate Month="7" Day="23"/>
+  </CSkin>
+  <CSkin id="AbathurBaseVar3" parent="AbathurCommon">
+    <AttributeId value="Aba0"/>
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Blue_Dark.dds"/>
+    <ModelMacroRun Models="AbathurModels" Macro="AbathurBaseVar3Macro"/>
+    <ProductId value="23609"/>
+    <RequiredRewardArray value="AbathurBaseVar3"/>
+    <HyperlinkId value="KaldirAbathur"/>
+    <Rarity value="Rare"/>
+    <SortName value="Skin/SortName/AbathurAK"/>
+    <ReleaseDate Month="4" Day="25" Year="2017"/>
+  </CSkin>
+  <CSkin id="AbathurBone" parent="AbathurCommon">
+    <AttributeId value="Aba1"/>
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_WhiteEggshell.dds"/>
+    <ModelMacroRun Models="AbathurModels" Macro="AbathurAlbinoMacro"/>
+    <HyperlinkId value="BoneAbathur"/>
+    <RequiredRewardArray value="Abathur"/>
+    <SortName value="Skin/SortName/AbathurAB"/>
+    <IsBaseVariation value="1"/>
+  </CSkin>
+  <CSkin id="AbathurChar" parent="AbathurCommon">
+    <AttributeId value="Aba2"/>
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Red_Dark.dds"/>
+    <ModelMacroRun Models="AbathurModels" Macro="AbathurCharMacro"/>
+    <HyperlinkId value="CharAbathur"/>
+    <RequiredRewardArray value="Abathur"/>
+    <SortName value="Skin/SortName/AbathurAC"/>
+    <IsBaseVariation value="1"/>
+  </CSkin>
+</Skin>

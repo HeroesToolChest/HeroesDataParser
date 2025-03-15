@@ -72,7 +72,7 @@ public class UnitParserTests
         unit.Armor.Should().BeEmpty();
         unit.Portraits.MiniMapIcon.Should().Be("storm_ui_minimapicon_heros_infestor.png");
         unit.Portraits.TargetInfoPanel.Should().Be("storm_ui_ingame_partyframe_abathur.png");
-        //unit.UnitIds.Should().BeEmpty();
+        unit.UnitIds.Should().BeEmpty();
         unit.Weapons.Should().ContainSingle();
 
         UnitWeapon abathurWeapon1 = unit.Weapons.First();
@@ -84,8 +84,8 @@ public class UnitParserTests
         abathurWeapon1.DamageScaling.Should().Be(0.04);
         abathurWeapon1.AttacksPerSecond.Should().BeApproximately(1.429, 3);
 
-        //unit.Abilities.Should().ContainSingle();
-        _abilityParser.Received().GetAbility(unitId, Arg.Any<StormElementData>());
+        _abilityParser.Received(30).GetAbility(Arg.Any<StormElementData>());
+        _abilityParser.Received(6).GetAbility(Arg.Any<string>());
 
     }
 }

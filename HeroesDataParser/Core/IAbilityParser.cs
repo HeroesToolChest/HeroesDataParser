@@ -4,5 +4,7 @@ namespace HeroesDataParser.Core;
 
 public interface IAbilityParser
 {
-    Ability? GetAbility(string unitId, StormElementData layoutButtonData);
+    Ability? GetAbility(StormElementData layoutButtonData);
+
+    Ability? GetAbility(string abilityId);
 }

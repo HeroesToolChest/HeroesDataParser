@@ -16,7 +16,29 @@ public class AbilityParser : ParserBase, IAbilityParser
         _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
-    public Ability? GetAbility(string unitId, StormElementData layoutButtonData)
+    public static (string AbilityId, string Index) GetAbilCmdSplit(string abilCmdValue)
+    {
+        ReadOnlySpan<char> abilCmdSpan = abilCmdValue.AsSpan();
+        ReadOnlySpan<char> firstPartAbilCmdSpan;
+        ReadOnlySpan<char> indexPartAbilCmdSpan;
+
+        int index = abilCmdSpan.IndexOf(',');
+
+        if (index > 0)
+        {
+            firstPartAbilCmdSpan = abilCmdSpan[..index];
+            indexPartAbilCmdSpan = abilCmdSpan[(index + 1)..];
+        }
+        else
+        {
+            firstPartAbilCmdSpan = abilCmdSpan;
+            indexPartAbilCmdSpan = string.Empty;
+        }
+
+        return (firstPartAbilCmdSpan.ToString(), indexPartAbilCmdSpan.ToString());
+    }
+
+    public Ability? GetAbility(StormElementData layoutButtonData)
     {
         string? faceValue = null;
         string? typeValue = null;
@@ -56,6 +78,7 @@ public class AbilityParser : ParserBase, IAbilityParser
         if (typeValue.AsSpan().Equals("Passive", StringComparison.OrdinalIgnoreCase))
         {
             ability.ButtonId = faceValue;
+            ability.NameId = faceValue;
             ability.IsPassive = true;
             ability.IsActive = false;
 
@@ -90,13 +113,33 @@ public class AbilityParser : ParserBase, IAbilityParser
         if (IgnoreAbilityTier(ability))
             return null;
 
-        // if no NameId and it is not a passive ability, return null
-        if (string.IsNullOrEmpty(ability.NameId) && ability.IsPassive is not true)
-            return null;
+        //// if no NameId and it is not a passive ability, return null
+        //if (string.IsNullOrEmpty(ability.NameId) && ability.IsPassive is not true)
+        //    return null;
 
         // if no NameId and it is a passive ability, set the NameId to the ButtonId
-        if (string.IsNullOrEmpty(ability.NameId) && ability.IsPassive is true)
-            ability.NameId = ability.ButtonId;
+        //if (string.IsNullOrEmpty(ability.NameId) && ability.IsPassive is true)
+         //   ability.NameId = ability.ButtonId;
+
+        return ability;
+    }
+
+    public Ability? GetAbility(string abilityId)
+    {
+        Ability ability = new()
+        {
+            NameId = abilityId,
+        };
+
+        SetAbilityTalentData(ability);
+
+        // default
+        ability.Tier = AbilityTier.Hidden;
+        ability.AbilityType = AbilityType.Hidden;
+
+        // TODO: if no name was set, use the ability name
+        if (ability.Name is null)
+            throw new NotImplementedException();
 
         return ability;
     }
@@ -121,28 +164,6 @@ public class AbilityParser : ParserBase, IAbilityParser
 
     private static bool IsTypeValueMatch(string typeValue) =>
         typeValue.Equals("CancelTargetMode", StringComparison.OrdinalIgnoreCase);
-
-    private static (string AbilityId, string Index) GetAbilCmdSplit(string abilCmdValue)
-    {
-        ReadOnlySpan<char> abilCmdSpan = abilCmdValue.AsSpan();
-        ReadOnlySpan<char> firstPartAbilCmdSpan;
-        ReadOnlySpan<char> indexPartAbilCmdSpan;
-
-        int index = abilCmdSpan.IndexOf(',');
-
-        if (index > 0)
-        {
-            firstPartAbilCmdSpan = abilCmdSpan[..index];
-            indexPartAbilCmdSpan = abilCmdSpan[(index + 1)..];
-        }
-        else
-        {
-            firstPartAbilCmdSpan = abilCmdSpan;
-            indexPartAbilCmdSpan = string.Empty;
-        }
-
-        return (firstPartAbilCmdSpan.ToString(), indexPartAbilCmdSpan.ToString());
-    }
 
     private static void SetAbilityTypeFromSlot(AbilityTalentBase abilityTalent, string slot, bool isBehaviorAbility)
     {
@@ -379,7 +400,7 @@ public class AbilityParser : ParserBase, IAbilityParser
 
     //}
 
-    private void SetAbilityTalentData(AbilityTalentBase abilityTalent, string abilCmdIndex)
+    private void SetAbilityTalentData(AbilityTalentBase abilityTalent, string abilCmdIndex = "")
     {
         StormElement? abilityElement = _heroesData.GetCompleteStormElement("Abil", abilityTalent.NameId);
         if (abilityElement is null)
@@ -403,7 +424,10 @@ public class AbilityParser : ParserBase, IAbilityParser
         {
             foreach (string item in producedUnitArrayData.GetElementDataIndexes())
             {
-                abilityTalent.CreateUnits.Add(producedUnitArrayData.GetElementDataAt(item).Value.GetString());
+                string value = producedUnitArrayData.GetElementDataAt(item).Value.GetString();
+
+                if (_heroesData.StormElementExists("Unit", value))
+                    abilityTalent.CreateUnits.Add(value);
             }
         }
 
