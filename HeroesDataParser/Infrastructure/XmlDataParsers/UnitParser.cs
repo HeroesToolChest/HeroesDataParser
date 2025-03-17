@@ -368,7 +368,7 @@ public class UnitParser : DataParser<Unit>
                         }
                         else if (ability is not null && addedAbilities.Contains(ability.NameId) is false)
                         {
-                            elementObject.Abilities.Add(ability);
+                            elementObject.AddAbility(ability);
                             addedAbilities.Add(ability.NameId);
                         }
                     }
@@ -397,7 +397,7 @@ public class UnitParser : DataParser<Unit>
                     }
                     else if (ability is not null)
                     {
-                        elementObject.Abilities.Add(ability);
+                        elementObject.AddAbility(ability);
                         addedAbilities.Add(ability.NameId);
                     }
                 }

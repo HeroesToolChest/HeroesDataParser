@@ -79,7 +79,7 @@ public class HeroParserTests
                      Damage = 1,
                 },
             },
-            Abilities = { new Ability() },
+            Abilities = { { AbilityTier.Basic, [new Ability()] } },
         });
 
         // act
@@ -119,6 +119,7 @@ public class HeroParserTests
         hero.UnitIds.Should().Contain("HeroUnit");
         hero.Weapons.Should().ContainSingle();
         hero.Abilities.Should().ContainSingle();
+        hero.Abilities[AbilityTier.Basic].Should().ContainSingle();
     }
 
     [TestMethod]
