@@ -1,5 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Abil>
+  <CAbil default="1">
+    <Name value="Abil/Name/##id##"/>
+  </CAbil>
+  <CAbilEffect default="1">
+    <RangeSlop value="1"/>
+    <ArcSlop value="11.25"/>
+    <Cost>
+      <Charge Location="Unit"/>
+      <Cooldown Location="Unit"/>
+    </Cost>
+    <CancelCost>
+      <Charge Location="Unit"/>
+      <Cooldown Location="Unit"/>
+    </CancelCost>
+    <InterruptCost>
+      <Charge Location="Unit"/>
+      <Cooldown Location="Unit"/>
+    </InterruptCost>
+  </CAbilEffect>
+  <CAbilAttack id="attack">
+    <MinAttackSpeedMultiplier value="0.25" />
+    <MaxAttackSpeedMultiplier value="128" />
+    <ExecuteUnitAutoQueueId value="Spell" />
+  </CAbilAttack>
+  <CAbilEffectTarget default="1">
+    <CmdButtonArray index="Execute">
+      <Flags index="ShowInGlossary" value="1"/>
+    </CmdButtonArray>
+    <Flags index="CanToggleAutoCast" value="1"/>
+    <Flags index="BestUnit" value="1"/>
+    <FollowRange value="5"/>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget default="1">
+    <CmdButtonArray index="Execute" AutoQueueId="Spell">
+      <Flags index="AllowMinimap" value="0" />
+      <Flags index="AllowSelfCast" value="1" />
+    </CmdButtonArray>
+    <Flags index="AllowMovement" value="1" />
+    <Flags index="WaitToSpend" value="0" />
+    <Flags index="UninterruptibleTurn" value="1" />
+    <Flags index="ValidateButtonState" value="1" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="UseVehicle">
+    <Effect value="UseVehiclePersistent" />
+    <Flags index="AllowTurningSuppressed" value="1" />
+    <Flags index="ChannelingMinimum" value="0" />
+    <Flags index="Smart" value="1" />
+    <TargetFilters value="-;Self,Player,Enemy" />
+    <Range value="2" />
+    <CancelableArray index="Channel" value="1" />
+    <ValidatedArray index="Approach" value="0" />
+    <CmdButtonArray index="Execute" AutoQueueId="UseVehicle" DefaultButtonFace="UseVehicle" PreemptLevel="-1" />
+    <Activity value="Abil/Activity/UseVehicle" />
+    <ShowProgressArray index="Channel" value="1" />
+    <CastOutroTimeEffect value="UseVehiclePersistent" />
+    <PrepEffect value="UseVehiclePrepSet" />
+  </CAbilEffectTarget>
   <CAbilEffectInstant id="Hearthstone">
     <CmdButtonArray index="Execute">
       <AutoQueueId value="Hearthstone" />
@@ -16,6 +73,30 @@
       <Cooldown TimeUse="3" />
     </Cost>
   </CAbilEffectInstant>
+  <CAbilEffectTarget id="MountCabooseSmartCommandUnitInteraction">
+    <Activity value="Abil/Activity/MountCaboose" />
+    <Effect value="MountCabooseSmartCommandSet" />
+    <Flags index="ClearLastAttackTarget" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="Smart" value="1" />
+    <Cost>
+      <Cooldown Link="Abil/Mount" TimeUse="4" />
+    </Cost>
+    <Range value="4" />
+    <RangeSlop value="6" />
+    <CastIntroTime value="1" />
+    <CmdButtonArray index="Execute">
+      <AutoQueueId value="Mount" />
+      <DefaultButtonFace value="MountCabooseSmartCommandUnitInteraction" />
+      <Requirements value="NotMounted" />
+      <PreemptLevel value="-1" />
+    </CmdButtonArray>
+    <PrepEffect value="HeroGenericMountAbilityUsePrepareEffectSet" />
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <AbilityCategories index="Mount" value="1" />
+    <AbilityCategories index="RequiresCastTime" value="1" />
+    <AbilityCategories index="InterruptedByDamage" value="1" />
+  </CAbilEffectTarget>
   <CAbilEffectInstant id="LootYellVoiceLine">
     <Effect value="LootYellVoiceLineDummy" />
     <Flags index="Transient" value="1" />
@@ -101,6 +182,79 @@
     <InterruptArray index="Cast" value="1" />
     <InterruptCost>
       <Cooldown Operation="Set" TimeUse="10" />
+    </InterruptCost>
+    <CastIntroTime value="2.5" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="AbathurAssumingDirectControlCancel">
+    <Effect value="AbathurAssumingDirectControlCancelSet" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown TimeStart="1.5" TimeUse="1.5" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurSymbioteCancel" Requirements="AbathurHasAssumedDirectControl" />
+    <Arc value="0.9997" />
+    <ParentAbil value="AbathurSymbiote" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AbathurSymbioteStab">
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurSymbioteStab">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Range value="500" />
+    <Effect value="StabCreateSet" />
+    <Cost>
+      <Charge>
+        <CountMax value="2" />
+        <CountStart value="2" />
+        <CountUse value="1" />
+        <TimeUse value="3" />
+      </Charge>
+      <Cooldown TimeStart="0.5" TimeUse="1" />
+    </Cost>
+    <Flags index="RequireTargetVision" value="0" />
+    <CursorEffect value="AbathurSymbioteStabMissileScan" />
+    <Arc value="360" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="AbathurSymbioteSpikeBurst">
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurSymbioteSpikeBurst" />
+    <Effect value="SpikeBurstCastSearch" />
+    <Cost>
+      <Cooldown TimeStart="0.5" TimeUse="6" />
+    </Cost>
+    <PrepEffect value="AbathurSymbioteSpikeBurstPrepSet" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="AbathurSymbioteCarapace">
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurSymbioteCarapace" />
+    <Effect value="CarapaceEvolutionSearchArea" />
+    <Cost>
+      <Cooldown TimeStart="0.5" TimeUse="6" />
+    </Cost>
+    <PrepEffect value="AbathurSymbioteCarapacePrepSet" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AbathurMonstrosityDeepTunnel">
+    <Effect value="AbathurMonstrosityDeepTunnelPersistent" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="80" />
+    </Cost>
+    <Range value="500" />
+    <ShowProgressArray index="Cast" value="1" />
+    <ShowProgressArray index="Channel" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurMonstrosityDeepTunnel">
+      <Flags index="AllowMinimap" value="1" />
+      <Flags index="AllowSelfCast" value="0" />
+      <Flags index="ToSelection" value="1" />
+    </CmdButtonArray>
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Activity value="Abil/Activity/DeepTunnelActivity" />
+    <CastOutroTimeEffect value="AbathurMonstrosityDeepTunnelPersistent" />
+    <Arc value="360" />
+    <PrepEffect value="AbathurMonstrosityDeepTunnelPrepSet" />
+    <InterruptArray index="Cast" value="1" />
+    <InterruptCost>
+      <Cooldown Location="Player" Operation="Set" TimeUse="10" />
     </InterruptCost>
     <CastIntroTime value="2.5" />
   </CAbilEffectTarget>

@@ -205,6 +205,18 @@ public class HeroParser : CollectionParserBase<Hero>
             collectionObject.DefaultMountId = defaultMountData.Value.GetString();
 
         SetInfoTextProperty(collectionObject, stormElement);
+
+        if (elementData.TryGetElementDataAt("AlternateUnitArray", out StormElementData? alternateUnitArrayData))
+        {
+            foreach (string item in alternateUnitArrayData.GetElementDataIndexes())
+            {
+                string value = alternateUnitArrayData.GetElementDataAt(item).Value.GetString();
+                Unit? unit = _unitParser.Parse(value);
+
+                if (unit is not null)
+                    collectionObject.HeroUnits.Add(unit.Id, unit);
+            }
+        }
     }
 
     protected override void SetValidatedProperties(Hero collectionObject)

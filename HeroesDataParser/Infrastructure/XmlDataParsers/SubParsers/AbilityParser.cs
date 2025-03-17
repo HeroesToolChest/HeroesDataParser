@@ -74,6 +74,20 @@ public class AbilityParser : ParserBase, IAbilityParser
             ButtonId = faceValue,
         };
 
+        // set the ability type
+        SetAbilityTypeFromSlot(ability, slotsValue, false);
+
+        // if type is not a type we want, return
+        if (IgnoreAbilityType(ability))
+            return null;
+
+        // set the ability tier
+        SetAbilityTierFromAbilityType(ability);
+
+        // if tier is not a tier we want, return
+        if (IgnoreAbilityTier(ability))
+            return null;
+
         // passive "ability", actually just a dummy button
         if (typeValue.AsSpan().Equals("Passive", StringComparison.OrdinalIgnoreCase))
         {
@@ -99,20 +113,6 @@ public class AbilityParser : ParserBase, IAbilityParser
             return null;
         }
 
-        // set the ability type
-        SetAbilityTypeFromSlot(ability, slotsValue, false);
-
-        // if type is not a type we want, return
-        if (IgnoreAbilityType(ability))
-            return null;
-
-        // set the ability tier
-        SetAbilityTierFromAbilityType(ability);
-
-        // if tier is not a tier we want, return
-        if (IgnoreAbilityTier(ability))
-            return null;
-
         //// if no NameId and it is not a passive ability, return null
         //if (string.IsNullOrEmpty(ability.NameId) && ability.IsPassive is not true)
         //    return null;
@@ -136,10 +136,6 @@ public class AbilityParser : ParserBase, IAbilityParser
         // default
         ability.Tier = AbilityTier.Hidden;
         ability.AbilityType = AbilityType.Hidden;
-
-        // TODO: if no name was set, use the ability name
-        if (ability.Name is null)
-            throw new NotImplementedException();
 
         return ability;
     }
@@ -416,9 +412,7 @@ public class AbilityParser : ParserBase, IAbilityParser
             SetEffectData(abilityTalent, effectData);
 
         if (abilityDataValues.TryGetElementDataAt("Name", out StormElementData? nameData))
-        {
-            // TODO: name
-        }
+            abilityTalent.Name = GetTooltipDescriptionFromId(nameData.Value.GetString());
 
         if (abilityDataValues.TryGetElementDataAt("ProducedUnitArray", out StormElementData? producedUnitArrayData))
         {

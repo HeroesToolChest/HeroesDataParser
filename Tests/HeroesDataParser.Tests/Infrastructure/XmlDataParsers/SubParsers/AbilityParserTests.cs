@@ -36,20 +36,11 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Name!.RawDescription.Should().Be("Symbiote");
-        ability.NameId.Should().Be("AbathurSymbiote");
-        ability.ButtonId.Should().Be("AbathurSymbiote");
-        ability.Icon.Should().Be("storm_ui_icon_abathur_symbiote.png");
-        ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
+        ability.Id.Should().Be("AbathurSymbiote|AbathurSymbiote|Q|False");
         ability.Tier.Should().Be(AbilityTier.Basic);
         ability.AbilityType.Should().Be(AbilityType.Q);
-        ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownTooltip!.RawDescription.Should().Be("Cooldown: 4 seconds");
-        ability.Tooltip.LifeTooltip.Should().BeNull();
-        ability.Tooltip.EnergyTooltip.Should().BeNull();
-        ability.Tooltip.ShortTooltip!.RawDescription.Should().Be("Assist an ally and gain new abilities");
-        ability.Tooltip.FullTooltip!.RawDescription.Should().Be("Spawn and attach a Symbiote...");
+
+        AssertAbathurSymbioteAbility(ability);
     }
 
     [TestMethod]
@@ -70,6 +61,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("AbathurToxicNest|AbathurToxicNest|W|False");
         ability.Name!.RawDescription.Should().Be("Toxic Nest");
         ability.NameId.Should().Be("AbathurToxicNest");
         ability.ButtonId.Should().Be("AbathurToxicNest");
@@ -108,6 +100,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("AbathurSpawnLocusts|AbathurLocustStrain|Trait|False");
         ability.Name!.RawDescription.Should().Be("Locust Strain");
         ability.NameId.Should().Be("AbathurSpawnLocusts");
         ability.ButtonId.Should().Be("AbathurLocustStrain");
@@ -148,6 +141,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("AbathurDeepTunnel|AbathurDeepTunnel|Z|False");
         ability.Name!.RawDescription.Should().Be("Deep Tunnel");
         ability.NameId.Should().Be("AbathurDeepTunnel");
         ability.ButtonId.Should().Be("AbathurDeepTunnel");
@@ -163,6 +157,103 @@ public class AbilityParserTests
         ability.Tooltip.EnergyTooltip.Should().BeNull();
         ability.Tooltip.ShortTooltip!.RawDescription.Should().Be("Tunnel to a location.");
         ability.Tooltip.FullTooltip!.RawDescription.Should().Be("Quickly tunnel to a visible location.");
+    }
+
+    [TestMethod]
+    public void GetAbility_AttackCommand_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAbathur";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("1");
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void GetAbility_AbathurSymbioteAbil_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAbathur";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("18").GetElementDataAt("Link").Value.GetString();
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(abilArrayLinkValue);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.Id.Should().Be("AbathurSymbiote|AbathurSymbiote|Hidden|False");
+        ability.Tier.Should().Be(AbilityTier.Hidden);
+        ability.AbilityType.Should().Be(AbilityType.Hidden);
+
+        AssertAbathurSymbioteAbility(ability);
+    }
+
+    [TestMethod]
+    public void GetAbility_AbathurAssumingDirectControlCancelCommand_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "AbathurSymbiote";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("0");
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.Id.Should().Be("AbathurAssumingDirectControlCancel|AbathurSymbioteCancel|Heroic|False");
+        ability.Name!.RawDescription.Should().Be("Cancel Symbiote");
+        ability.Tier.Should().Be(AbilityTier.Heroic);
+        ability.AbilityType.Should().Be(AbilityType.Heroic);
+        ability.Icon.Should().Be("hud_btn_bg_ability_cancel.png");
+        ability.IsActive.Should().BeTrue();
+        ability.IsPassive.Should().BeFalse();
+        ability.Tooltip.FullTooltip!.RawDescription.Should().Be("Cancels the Symbiote ability.");
+        ability.Tooltip.ShortTooltip.Should().BeNull();
+        ability.Tooltip.CooldownTooltip!.RawDescription.Should().Be("Cooldown: 1.5 seconds");
+        ability.ToggleCooldown.Should().BeNull();
+        ability.CreateUnits.Should().BeEmpty();
+    }
+
+    [TestMethod]
+    public void GetAbility_NoFaceCommand_ReturnsNull()
+    {
+        // arrange
+        string heroUnit = "AbathurSymbiote";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("2");
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().BeNull();
     }
 
     [TestMethod]
@@ -183,6 +274,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("Hearthstone|HearthstoneNoMana|B|False");
         ability.Name!.RawDescription.Should().Be("Hearthstone");
         ability.NameId.Should().Be("Hearthstone");
         ability.ButtonId.Should().Be("HearthstoneNoMana");
@@ -218,6 +310,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("stop|Tease|Taunt|False");
         ability.Name!.RawDescription.Should().Be("Taunt");
         ability.NameId.Should().Be("stop");
         ability.ButtonId.Should().Be("Tease");
@@ -253,6 +346,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("stop|Dance|Dance|False");
         ability.Name!.RawDescription.Should().Be("Dance");
         ability.NameId.Should().Be("stop");
         ability.ButtonId.Should().Be("Dance");
@@ -288,6 +382,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("LootSpray|LootSpray|Spray|False");
         ability.Name!.RawDescription.Should().Be("Quick Spray Expression");
         ability.NameId.Should().Be("LootSpray");
         ability.ButtonId.Should().Be("LootSpray");
@@ -323,6 +418,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("LootYellVoiceLine|LootYellVoiceLine|Voice|False");
         ability.Name!.RawDescription.Should().Be("Quick Voice Line Expression");
         ability.NameId.Should().Be("LootYellVoiceLine");
         ability.ButtonId.Should().Be("LootYellVoiceLine");
@@ -358,6 +454,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("AlarakDeadlyChargeActivate|AlarakDeadlyCharge|Heroic|False");
         ability.Name!.RawDescription.Should().Be("Deadly Charge");
         ability.NameId.Should().Be("AlarakDeadlyChargeActivate");
         ability.ButtonId.Should().Be("AlarakDeadlyCharge");
@@ -393,6 +490,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("AlarakSadism|AlarakSadism|Trait|True");
         ability.Name!.RawDescription.Should().Be("Sadism");
         ability.NameId.Should().Be("AlarakSadism");
         ability.ButtonId.Should().Be("AlarakSadism");
@@ -428,6 +526,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("AlexstraszaGiftOfLife|AlexstraszaGiftOfLife|Q|False");
         ability.Name!.RawDescription.Should().Be("Gift of Life");
         ability.NameId.Should().Be("AlexstraszaGiftOfLife");
         ability.ButtonId.Should().Be("AlexstraszaGiftOfLife");
@@ -463,6 +562,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("AlexstraszaAbundance|AlexstraszaAbundance|W|False");
         ability.Name!.RawDescription.Should().Be("Abundance");
         ability.NameId.Should().Be("AlexstraszaAbundance");
         ability.ButtonId.Should().Be("AlexstraszaAbundance");
@@ -498,6 +598,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("GuldanLifeTap|GuldanLifeTap|Trait|False");
         ability.Name!.RawDescription.Should().Be("Life Tap");
         ability.NameId.Should().Be("GuldanLifeTap");
         ability.ButtonId.Should().Be("GuldanLifeTap");
@@ -533,6 +634,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("BarbarianSeismicSlam|BarbarianSeismicSlam|W|False");
         ability.Name!.RawDescription.Should().Be("Seismic Slam");
         ability.NameId.Should().Be("BarbarianSeismicSlam");
         ability.ButtonId.Should().Be("BarbarianSeismicSlam");
@@ -551,7 +653,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_AbathurSymbioteAbil_ReturnsAbility()
+    public void GetAbility_UseVehicleAbil_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroAbathur";
@@ -559,7 +661,7 @@ public class AbilityParserTests
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
-        string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("18").GetElementDataAt("Link").Value.GetString();
+        string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("4").GetElementDataAt("Link").Value.GetString();
 
         AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
 
@@ -568,5 +670,61 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
+        ability.Id.Should().Be("UseVehicle|UseVehicle|Hidden|False");
+        ability.Name!.RawDescription.Should().Be("Use Vehicle");
+        ability.Tier.Should().Be(AbilityTier.Hidden);
+        ability.AbilityType.Should().Be(AbilityType.Hidden);
+        ability.IsActive.Should().BeTrue();
+        ability.IsPassive.Should().BeFalse();
+        ability.Icon.Should().Be("storm_temp_war3_btnloaddwarf.png");
+        ability.Tooltip.CooldownTooltip.Should().BeNull();
+        ability.Tooltip.ShortTooltip.Should().BeNull();
+        ability.Tooltip.FullTooltip.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void GetAbility_MountCabooseSmartCommandUnitInteractionAbil_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAbathur";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("10").GetElementDataAt("Link").Value.GetString();
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(abilArrayLinkValue);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.Id.Should().Be("MountCabooseSmartCommandUnitInteraction|MountCabooseSmartCommandUnitInteraction|Hidden|False");
+        ability.Name.Should().BeNull();
+        ability.Tier.Should().Be(AbilityTier.Hidden);
+        ability.AbilityType.Should().Be(AbilityType.Hidden);
+        ability.IsActive.Should().BeTrue();
+        ability.IsPassive.Should().BeFalse();
+        ability.Icon.Should().Be("storm_ui_temp_icon_cheatdeath.png");
+        ability.Tooltip.CooldownTooltip!.RawDescription.Should().Be("Cooldown: 4 seconds");
+        ability.Tooltip.ShortTooltip.Should().BeNull();
+        ability.Tooltip.FullTooltip.Should().BeNull();
+    }
+
+    private static void AssertAbathurSymbioteAbility(Ability ability)
+    {
+        ability.Name!.RawDescription.Should().Be("Symbiote");
+        ability.NameId.Should().Be("AbathurSymbiote");
+        ability.ButtonId.Should().Be("AbathurSymbiote");
+        ability.Icon.Should().Be("storm_ui_icon_abathur_symbiote.png");
+        ability.IsActive.Should().BeTrue();
+        ability.IsPassive.Should().BeFalse();
+        ability.ToggleCooldown.Should().BeNull();
+        ability.Tooltip.CooldownTooltip!.RawDescription.Should().Be("Cooldown: 4 seconds");
+        ability.Tooltip.LifeTooltip.Should().BeNull();
+        ability.Tooltip.EnergyTooltip.Should().BeNull();
+        ability.Tooltip.ShortTooltip!.RawDescription.Should().Be("Assist an ally and gain new abilities");
+        ability.Tooltip.FullTooltip!.RawDescription.Should().Be("Spawn and attach a Symbiote...");
     }
 }

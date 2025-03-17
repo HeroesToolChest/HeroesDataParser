@@ -92,6 +92,9 @@ public class UnitParser : DataParser<Unit>
     {
         StormElementData elementData = stormElement.DataValues;
 
+        SetNameProperty(elementObject, stormElement);
+        SetDescriptionProperty(elementObject, stormElement);
+
         if (elementData.TryGetElementDataAt("LifeMax", out StormElementData? lifeMaxData))
         {
             elementObject.Life.LifeMax = lifeMaxData.Value.GetDouble();

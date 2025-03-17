@@ -30,6 +30,15 @@
     <Icon value="Assets\Textures\storm_ui_icon_miscrune_1.dds"/>
     <HotkeyAlias value="Hearthstone"/>
   </CButton>
+  <CButton id="Attack" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_autoattack_base.dds"/>
+  </CButton>
+  <CButton id="UseVehicle" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_temp_war3_btnloaddwarf.dds"/>
+  </CButton>
+  <CButton id="MountCabooseSmartCommandUnitInteraction" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_temp_icon_cheatdeath.dds"/>
+  </CButton>
   <CButton id="LootSpray">
     <Icon value="Assets\Textures\storm_temp_war3_btnhealingspray.dds" />
     <HotkeyAlias value="LootDebugCycleVanity" />
@@ -96,6 +105,32 @@
     <Icon value="Assets\Textures\storm_ui_icon_Abathur_Mount.dds" />
     <TooltipAppender Validator="HasPregameSuppressionBehavior" Text="Button/TooltipAppender/LockedUntilGameStarts" />
   </CButton>
+  <CButton id="AbathurSymbioteCancel" parent="StormButtonParent">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
+  </CButton>
+  <CButton id="AbathurSymbioteStab" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_stab.dds" />
+    <TooltipAppender Validator="HasAbathurMasteryNeedlespine" Face="AbathurSymbioteNeedlespineTalent" />
+    <TooltipAppender Validator="HasAbathurMasterySpatialEfficiency" Face="AbathurSymbioteSpatialEfficiencyTalent" />
+  </CButton>
+  <CButton id="AbathurSymbioteSpikeBurst" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_spikeburst.dds" />
+    <TooltipAppender Validator="HasAbathurMasteryPressurizedGlands" Face="AbathurSymbiotePressurizedGlandsTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteSpikeBurstSomaTransference" Face="AbathurSymbioteSpikeBurstSomaTransferenceTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryEnvenomedSpikes" Face="AbathurSymbioteEnvenomedSpikesTalent" />
+  </CButton>
+  <CButton id="AbathurSymbioteCarapace" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_carapace.dds" />
+    <TooltipAppender Validator="AbathurHasReinforcedCarapace" Face="AbathurReinforcedCarapaceTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteCarapaceSustainedCarapace" Face="AbathurSymbioteCarapaceSustainedCarapaceTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteCarapaceNetworkedCarapace" Face="AbathurSymbioteCarapaceNetworkedCarapaceTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryAdrenalineBoost" Face="AbathurSymbioteAdrenalineBoostTalent" />
+  </CButton>
+  <CButton id="AbathurMonstrosityDeepTunnel" parent="StormButtonParent">
+    <TooltipAppender Validator="HasPregameSuppressionBehavior" Text="Button/TooltipAppender/LockedUntilGameStarts" />
+    <Icon value="Assets\Textures\storm_ui_icon_Abathur_Mount.dds" />
+    <HotkeyAlias value="AbathurDeepTunnel" />
+  </CButton>
   <CButton id="AlarakDeadlyCharge" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_alarak_recklesscharge.dds" />
     <TooltipVitalOverrideText index="Energy" value="Abil/AlarakDeadlyChargeButtonVitalCostOverride" />
@@ -141,6 +176,7 @@
     <TooltipAppender Validator="HasBarbarianMasteryShatteredGroundSeismicSlam" Face="BarbarianSeismicSlamShatteredGroundTalent" />
     <TooltipAppender Validator="BarbarianHasGiantSlammerTalent" Face="BarbarianGiantSlammer" />
   </CButton>
+  
 </Button>
 
 

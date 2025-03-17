@@ -47,6 +47,7 @@ public static class TestHeroesXmlLoader
                         "e_gameUIStringCooldownColon=Cooldown: ",
                         "UI/AbilTooltipCooldown=Cooldown: %1 second",
                         "UI/AbilTooltipCooldownPlural=Cooldown: %1 seconds",
+                        "Abil/Name/attack=Storm Attack",
                         "Abil/Name/AbathurSymbiote=Symbiote",
                         "Abil/Name/AbathurToxicNest=Toxic Nest",
                         "Abil/AlarakDeadlyChargeButtonVitalCostOverride=60",
@@ -66,6 +67,8 @@ public static class TestHeroesXmlLoader
                         "Button/Name/AlexstraszaAbundance=Abundance",
                         "Button/Name/BarbarianSeismicSlam=Seismic Slam",
                         "Button/Name/GuldanLifeTap=Life Tap",
+                        "Button/Name/AbathurSymbioteCancel=Cancel Symbiote",
+                        "Button/Name/UseVehicle=Use Vehicle",
                         "Button/SimpleDisplayText/AbathurSymbiote=Assist an ally and gain new abilities",
                         "Button/SimpleDisplayText/AbathurToxicNest=Spawn a mine",
                         "Button/SimpleDisplayText/AbathurLocustStrain=Spawn locusts that attack down the nearest lane",
@@ -76,6 +79,7 @@ public static class TestHeroesXmlLoader
                         "Button/SimpleDisplayText/AlexstraszaAbundance=Heal allied Heroes in an area",
                         "Button/SimpleDisplayText/GuldanLifeTap=Restore Mana at the cost of Health",
                         "Button/SimpleDisplayText/BarbarianSeismicSlam=Damage an enemy and splash damage behind them",
+                        "Button/Tooltip/Attack=Attacks using the Hero's weapon",
                         "Button/Tooltip/HearthstoneNoMana=After Channeling for...",
                         "Button/Tooltip/LootSpray=Express yourself to other players by marking the ground with your selected spray.",
                         "Button/Tooltip/LootYellVoiceLine=Express yourself to other players by playing your selected Voice Line.",
@@ -89,6 +93,7 @@ public static class TestHeroesXmlLoader
                         "Button/Tooltip/AlexstraszaAbundance=Plant a seed of healing that blooms after...",
                         "Button/Tooltip/GuldanLifeTap=Gul'dan does not regenerate Mana...",
                         "Button/Tooltip/BarbarianSeismicSlam=Deals deals damage to...",
+                        "Button/Tooltip/AbathurSymbioteCancel=Cancels the Symbiote ability.",
                         "Hero/AdditionalSearchText/Abathur=Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug Double Soak",
                         "Hero/AlternateNameSearchText/Abathur=Abathur",
                         "Hero/Description/Abathur=A unique Hero that can manipulate the battle from anywhere on the map.",
@@ -119,6 +124,8 @@ public static class TestHeroesXmlLoader
                         "UI/Tooltip/Abil/Fury=<s val=\"StandardTooltipDetails\">Fury: %1</s>",
                         "UI/Tooltip/Abil/GuldanLifeTapVitalCostOverride=<s val=\"StandardTooltipDetails\"><d ref=\"Abil,GuldanLifeTap,Cost.Vital[Life]\"/></s>",
                         "Weapon/Name/HeroAbathur=Hero Abathur",
+                        "Unit/Name/HeroAbathur=Abathur",
+                        "Unit/Name/AbathurSymbiote=Symbiote",
                     ],
                     StormLocale.ENUS)
                 .AddAssetFilePaths([
@@ -138,6 +145,10 @@ public static class TestHeroesXmlLoader
                     Path.Join("Assets", "Textures", "storm_ui_icon_sonya_seismicslam.dds"),
                     Path.Join("Assets", "Textures", "storm_ui_minimapicon_heros_infestor.dds"),
                     Path.Join("Assets", "Textures", "storm_ui_ingame_partyframe_abathur.dds"),
+                    Path.Join("Assets", "Textures", "hud_btn_bg_ability_cancel.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_talent_autoattack_base.dds"),
+                    Path.Join("Assets", "Textures", "storm_temp_war3_btnloaddwarf.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_temp_icon_cheatdeath.dds"),
                     ])
                 .AddLevelScalingArrayElements(heroDocument.Root.Descendants("LevelScalingArray")))
             .LoadGameStrings();

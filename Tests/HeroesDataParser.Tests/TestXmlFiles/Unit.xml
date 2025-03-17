@@ -143,6 +143,26 @@
       <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="ForceMove" />
     </CardLayouts>
   </CUnit>
+  <CUnit default="1" id="StormSummonInactive">
+    <FlagArray index="UseLineOfSight" value="1" />
+    <FlagArray index="KillCredit" value="0" />
+    <FlagArray index="VisionTestCenterOnly" value="1" />
+    <FlagArray index="Unstoppable" value="1" />
+    <Response value="Nothing" />
+    <Attributes index="NoMinionAggro" value="1" />
+    <Attributes index="ImmuneToSkillshots" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <Attributes index="Summoned" value="1" />
+    <MinimapRadius value="0" />
+  </CUnit>
+  <CUnit default="1" id="StormSummonFigment" parent="StormSummonInactive">
+    <DeathRevealRadius value="0" />
+    <FlagArray index="Invulnerable" value="1" />
+    <Attributes index="ImmuneToAOE" value="1" />
+    <Attributes index="IgnoredByTowerAI" value="1" />
+    <PushPriority value="300" />
+    <AlliedPushPriority value="300" />
+  </CUnit>
   <CUnit id="HeroHpTESTHero">    
   </CUnit>
   <CUnit id="HeroAbathur" parent="StormHeroMountedCustom">
@@ -200,6 +220,52 @@
     <HeroPlaystyleFlags index="RoleSpecialist" value="1" />
     <HeroPlaystyleFlags index="TowerPusher" value="1" />
     <HeroPlaystyleFlags index="WaveClearer" value="1" />
+  </CUnit>
+  <CUnit id="AbathurSymbiote" parent="StormSummonFigment">
+    <FlagArray index="Untargetable" value="1" />
+    <FlagArray index="Undetectable" value="1" />
+    <FlagArray index="AIForceTactical" value="1" />
+    <FlagArray index="Benign" value="1" />
+    <PlaneArray index="Air" value="1" />
+    <Mover value="Fly" />
+    <StationaryTurningRate value="799.9804" />
+    <TurningRate value="399.9023" />
+    <Acceleration value="1000" />
+    <LateralAcceleration value="46" />
+    <Speed value="0.0117" />
+    <Sight value="4" />
+    <AbilArray Link="AbathurAssumingDirectControlCancel" />
+    <AbilArray Link="AbathurSymbioteStab" />
+    <AbilArray Link="AbathurSymbioteSpikeBurst" />
+    <AbilArray Link="AbathurSymbioteCarapace" />
+    <AbilArray Link="attack" />
+    <AbilArray Link="AbathurMonstrosityDeepTunnel" />
+    <AbilArray Link="move" />
+    <BehaviorArray Link="SymbioteTimedLife" />
+    <BehaviorArray Link="EarnsXP" />
+    <BehaviorArray Link="AbathurSymbioteSuppressAttack" />
+    <BehaviorArray Link="HeroGenericMapMechanicPickupDisallowed" />
+    <BehaviorArray Link="DisableAIGoalAssignment" />
+    <CardLayouts>
+      <LayoutButtons Face="AbathurSymbioteCancel" Type="AbilCmd" AbilCmd="AbathurAssumingDirectControlCancel,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AbathurSymbioteStab" Type="AbilCmd" AbilCmd="AbathurSymbioteStab,Execute" Slot="Ability1" />
+      <LayoutButtons Slot="Ability1" />
+      <LayoutButtons Face="AbathurSymbioteSpikeBurst" Type="AbilCmd" AbilCmd="AbathurSymbioteSpikeBurst,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AbathurSymbioteCarapace" Type="AbilCmd" AbilCmd="AbathurSymbioteCarapace,Execute" Slot="Ability3" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="ForceMove" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="stop,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="move,HoldPos" Slot="Hold" />
+      <LayoutButtons Face="AbathurMonstrosityDeepTunnel" Type="AbilCmd" AbilCmd="AbathurMonstrosityDeepTunnel,Execute" Slot="Mount" />
+    </CardLayouts>
+    <Radius value="1.5" />
+    <SubgroupPriority value="9" />
+    <AcquireLeashRadius value="4" />
+    <AIThinkTree value="AI/AbathurSymbiote.aitree" />
+    <Height value="1" />
+    <TauntDuration index="Cheer" value="5" />
+    <TauntDuration index="Dance" value="5" />
+    <LeaderAlias value="HeroAbathur" />
   </CUnit>
   <CUnit id="HeroAlarak" parent="StormHeroMounted">
     <CardLayouts index="0">

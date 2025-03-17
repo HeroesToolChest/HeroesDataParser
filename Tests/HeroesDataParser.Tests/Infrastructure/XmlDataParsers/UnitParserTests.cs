@@ -33,18 +33,9 @@ public class UnitParserTests
 
         // assert
         unit.Should().NotBeNull();
-        unit.Name.Should().BeNull();
-        unit.SortName.Should().BeNull();
-        unit.HyperlinkId.Should().BeNull();
-        unit.AttributeId.Should().BeNull();
-        unit.Franchise.Should().BeNull();
-        unit.Rarity.Should().BeNull();
-        unit.ReleaseDate.Should().BeNull();
-        unit.Category.Should().BeNull();
-        unit.Event.Should().BeNull();
-        unit.SearchText.Should().BeNull();
+        unit.Id.Should().Be("HeroAbathur");
+        unit.Name!.RawDescription.Should().Be("Abathur");
         unit.Description.Should().BeNull();
-
         unit.Gender.Should().Be(Gender.Neutral);
         unit.DamageType.Should().BeNull();
         unit.Radius.Should().Be(0.75);
@@ -86,6 +77,29 @@ public class UnitParserTests
 
         _abilityParser.Received(30).GetAbility(Arg.Any<StormElementData>());
         _abilityParser.Received(6).GetAbility(Arg.Any<string>());
+    }
 
+    [TestMethod]
+    public void Parse_AbathurSymbiote_ReturnsData()
+    {
+        // arrange
+        string unitId = "AbathurSymbiote";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        UnitParser unitParser = new(_logger, _heroesXmlLoaderService, _abilityParser);
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        unit.Id.Should().Be("AbathurSymbiote");
+        unit.Name!.RawDescription.Should().Be("Symbiote");
+        unit.Description!.RawDescription.Should().Be("Spawn and attach a Symbiote...");
+        unit.Attributes.Should().HaveCount(6);
+
+        _abilityParser.Received(10).GetAbility(Arg.Any<StormElementData>());
+        _abilityParser.DidNotReceive().GetAbility(Arg.Any<string>());
     }
 }

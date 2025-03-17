@@ -1,4 +1,5 @@
-﻿using Heroes.Element.Models.AbilityTalents;
+﻿using Heroes.Element.Models;
+using Heroes.Element.Models.AbilityTalents;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers.Tests;
 
@@ -33,14 +34,6 @@ public class HeroParserTests
         _unitDataParser.Parse(unitId).Returns(new Unit(unitId)
         {
             Name = new TooltipDescription("Abathur"),
-            SortName = new TooltipDescription("SortNameAbathur"),
-            HyperlinkId = "Abathur",
-            AttributeId = "Abat",
-            Rarity = Rarity.Legendary,
-            ReleaseDate = new DateOnly(1001, 2, 20),
-            Category = "category",
-            Event = "event",
-            SearchText = new TooltipDescription("search"),
             Description = new TooltipDescription("description"),
             DamageType = ArmorSet.Hero,
             Radius = 1.1,
@@ -97,11 +90,10 @@ public class HeroParserTests
         hero.Name.Should().BeNull();
         hero.SortName.Should().BeNull();
         hero.HyperlinkId.Should().Be("HpTESTHero");
-        hero.AttributeId.Should().Be("Abat");
-        hero.Rarity.Should().Be(Rarity.Legendary);
+        hero.Rarity.Should().BeNull();
         hero.ReleaseDate.Should().Be(new DateOnly(2014, 3, 13));
-        hero.Category.Should().Be("category");
-        hero.Event.Should().Be("event");
+        hero.Category.Should().BeNull();
+        hero.Event.Should().BeNull();
         hero.SearchText.Should().BeNull();
         hero.Description.Should().BeNull();
         hero.DamageType.Should().Be(ArmorSet.Hero);
@@ -138,6 +130,8 @@ public class HeroParserTests
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         HeroParser heroParser = new(_logger, _heroesXmlLoaderService, _unitDataParser);
+
+        _unitDataParser.Parse("AbathurSymbiote").Returns(new Unit("AbathurSymbiote"));
 
         // act
         Hero? hero = heroParser.Parse(heroUnit);
@@ -186,5 +180,6 @@ public class HeroParserTests
                 fifth => fifth.Should().Be("AbathurBase_VoiceLine05"));
         hero.MountCategoryIds.Should().BeEmpty();
         hero.InfoText!.RawDescription.Should().Be("Abathur, the Evolution Master of Kerrigan's Swarm, works ceaselessly...");
+        hero.HeroUnits.Should().ContainSingle();
     }
 }
