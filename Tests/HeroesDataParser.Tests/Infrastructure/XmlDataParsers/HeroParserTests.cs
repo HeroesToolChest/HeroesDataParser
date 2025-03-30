@@ -42,7 +42,7 @@ public class HeroParserTests
         _ = heroParser.Parse(hero.Id);
 
         // assert
-        _unitParser.Received().Parse(hero, hero.UnitId);
+        _unitParser.Received().Parse(hero);
     }
 
     [TestMethod]

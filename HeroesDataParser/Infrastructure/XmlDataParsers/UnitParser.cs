@@ -25,15 +25,15 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
     public override string DataObjectType => "Unit";
 
-    public void Parse(Unit unit, string unitId)
+    public void Parse(Unit unit)
     {
-        _logger.LogTrace("Parsing unitId {UnitId} for existing id {Id}", unitId, unit.Id);
+        _logger.LogTrace("Parsing unit for existing id {Id}", unit.Id);
 
-        StormElement? stormElement = _heroesData.GetCompleteStormElement(DataObjectType, unitId);
+        StormElement? stormElement = _heroesData.GetCompleteStormElement(DataObjectType, unit.Id);
 
         if (stormElement is null)
         {
-            _logger.LogWarning("Could not find data for unitId {UnitId}", unitId);
+            _logger.LogWarning("Could not find data for id {Id}", unit.Id);
             return;
         }
 
@@ -41,7 +41,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         {
             SetProperties(unit, stormElement);
 
-            _logger.LogTrace("Parsing unitId {Id} for existing id {Id} complete", unitId, unit.Id);
+            _logger.LogTrace("Parsing unit for existing id {Id} complete", unit.Id);
         }
     }
 

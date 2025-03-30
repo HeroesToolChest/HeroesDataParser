@@ -237,11 +237,18 @@ public class HeroParser : CollectionParserBase<Hero>
     {
         if (string.IsNullOrEmpty(elementObject.UnitId))
         {
-            _logger.LogWarning("Could not find unit id for hero {Id}", elementObject.Id);
+            _logger.LogWarning("There is no unit id for hero {Id}", elementObject.Id);
             return;
         }
 
-        _unitParser.Parse(elementObject, elementObject.UnitId);
+        // when calling the unitparser, we need to use the unitId for the objects id
+        string heroId = elementObject.Id;
+        elementObject.Id = elementObject.UnitId;
+
+        _unitParser.Parse(elementObject);
+
+        // then set it back to the heroId
+        elementObject.Id = heroId;
     }
 
     private void SetTalentData(Hero elementObject, StormElement stormElement)
