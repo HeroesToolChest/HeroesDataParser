@@ -305,4 +305,17 @@
     <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
     <Flags index="ClearLastMoveTarget" value="1" />
   </CAbilEffectTarget>
+  <CAbilEffectTarget id="SamuroIllusionMaster">
+    <AbilityCategories index="TargetAcrossMapPlane" value="1" />
+    <PrepEffect value="DismountCasterSet" />
+    <Effect value="SamuroIllusionMasterInitalSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="TransientPreferred" value="1" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="14" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="SamuroAdvancingStrikes">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+  </CAbilEffectTarget>
 </Abil>

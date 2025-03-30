@@ -633,4 +633,253 @@
     <Rarity value="Legendary" />
     <ReleaseDate Month="3" Day="13" />
   </CHero>
+  <CHero id="Samuro">
+    <AttributeId value="Samu" />
+    <Flags index="GoodForModeA" value="1" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <Melee value="1" />
+    <IntroCutsceneSize value="Medium" />
+    <HeroAbilArray Abil="SamuroMirrorImageTargeted" Button="SamuroMirrorImage">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="SamuroCriticalStrike" Button="SamuroCriticalStrike">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="UsesCharges" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="SamuroWindwalk" Button="SamuroWindwalk">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="SamuroBladeStormDummy" Button="SamuroBladestorm">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="SamuroIllusionMaster" Button="SamuroIllusionMaster">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="SamuroIllusionMasterDummyShopAbility" Button="SamuroImageTransmissionDummyShopAbility">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="SamuroIllusionMasterImageSelfCast" Button="IllusionMasterImageSelfCast" />
+    <SkinArray value="SamuroUltimate" />
+    <SkinArray value="SamuroFel" />
+    <SkinArray value="SamuroMonkey" />
+    <VoiceLineArray value="SamuroBase_VoiceLine01" />
+    <VoiceLineArray value="SamuroBase_VoiceLine02" />
+    <VoiceLineArray value="SamuroBase_VoiceLine03" />
+    <VoiceLineArray value="SamuroBase_VoiceLine04" />
+    <VoiceLineArray value="SamuroBase_VoiceLine05" />
+    <DefaultMount value="HorseCommon" />
+    <TalentTreeArray Talent="SamuroWayOfIllusion" Tier="1" Column="1" />
+    <TalentTreeArray Talent="SamuroMirrorImageWayOfTheBlade" Tier="1" Column="2" />
+    <TalentTreeArray Talent="SamuroWayOfTheWind" Tier="1" Column="3" />
+    <TalentTreeArray Talent="SamuroMirage" Tier="2" Column="1" />
+    <TalentTreeArray Talent="SamuroWindwalkOneWithTheWind" Tier="2" Column="2" />
+    <TalentTreeArray Talent="SamuroAdvancingStrikesDeflection" Tier="2" Column="3" />
+    <TalentTreeArray Talent="SamuroBurningBlade" Tier="3" Column="1" />
+    <TalentTreeArray Talent="SamuroPhantomPain" Tier="3" Column="2" />
+    <TalentTreeArray Talent="SamuroCrushingBlow" Tier="3" Column="3" />
+    <TalentTreeArray Talent="SamuroHeroicAbilityBladestorm" Tier="4" Column="1" />
+    <TalentTreeArray Talent="SamuroHeroicAbilityIllusionMaster" Tier="4" Column="2" />
+    <TalentTreeArray Talent="SamuroMirroredSteel" Tier="5" Column="1" />
+    <TalentTreeArray Talent="SamuroWindwalkKawarimi" Tier="5" Column="2" />
+    <TalentTreeArray Talent="SamuroShukuchi" Tier="5" Column="3" />
+    <TalentTreeArray Talent="SamuroMercilessStrikes" Tier="6" Column="1" />
+    <TalentTreeArray Talent="SamuroHarshWinds" Tier="6" Column="2" />
+    <TalentTreeArray Talent="SamuroPressTheAttack" Tier="6" Column="3" />
+    <TalentTreeArray Talent="SamuroDanceOfDeath" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="SamuroHeroicAbilityBladestorm" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="SamuroThreeBladeStyle" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="SamuroHeroicAbilityIllusionMaster" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="SamuroWindStrider" Tier="7" Column="3" />
+    <TalentTreeArray Talent="SamuroBlademastersPursuit" Tier="7" Column="4" />
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Red_Rose.dds" />
+    <Difficulty value="VeryHard" />
+    <HeroTierAchievementId value="5216701565556424622" />
+    <Universe value="Warcraft" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_Wow.dds" />
+    <ProductId value="22559" />
+    <LevelScalingArray Ability="SamuroBladestorm">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="SamuroBladestormDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="SamuroBladestormMirrorImageDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroSamuro" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroSamuro" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroSamuro" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="SamuroWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="SamuroMirrorImageWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="SamuroMirrorImage" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="SamuroMirrorImage" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="SamuroMirrorImage" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="SamuroWindwalkWhispersFromtheWindDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="SamuroCriticalStrikeBurningBladeSplashDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="SamuroMirrorImageCriticalStrikeBurningBladeSplashDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <VariationArray value="SamuroBaseVar1" />
+    <VariationArray value="SamuroBaseVar2" />
+    <VariationArray value="SamuroBaseVar3" />
+    <ReleaseDate Month="10" Day="18" Year="2016" />
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <Ratings>
+      <Damage value="6" />
+      <Utility value="3" />
+      <Survivability value="7" />
+      <Complexity value="7" />
+    </Ratings>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="SamuroWayOfIllusion" />
+      <TalentsArray value="SamuroAdvancingStrikesDeflection" />
+      <TalentsArray value="SamuroPhantomPain" />
+      <TalentsArray value="SamuroHeroicAbilityIllusionMaster" />
+      <TalentsArray value="SamuroMirroredSteel" />
+      <TalentsArray value="SamuroHarshWinds" />
+      <TalentsArray value="SamuroBlademastersPursuit" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="SamuroMirrorImageWayOfTheBlade" />
+      <TalentsArray value="SamuroMirage" />
+      <TalentsArray value="SamuroBurningBlade" />
+      <TalentsArray value="SamuroHeroicAbilityBladestorm" />
+      <TalentsArray value="SamuroMirroredSteel" />
+      <TalentsArray value="SamuroPressTheAttack" />
+      <TalentsArray value="SamuroDanceOfDeath" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="SamuroWayOfTheWind" />
+      <TalentsArray value="SamuroWindwalkOneWithTheWind" />
+      <TalentsArray value="SamuroPhantomPain" />
+      <TalentsArray value="SamuroHeroicAbilityIllusionMaster" />
+      <TalentsArray value="SamuroWindwalkKawarimi" />
+      <TalentsArray value="SamuroHarshWinds" />
+      <TalentsArray value="SamuroWindStrider" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="SamuroMirrorImageWayOfTheBlade" />
+      <TalentsArray value="SamuroAdvancingStrikesDeflection" />
+      <TalentsArray value="SamuroCrushingBlow" />
+      <TalentsArray value="SamuroHeroicAbilityBladestorm" />
+      <TalentsArray value="SamuroMirroredSteel" />
+      <TalentsArray value="SamuroMercilessStrikes" />
+      <TalentsArray value="SamuroDanceOfDeath" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="SamuroWayOfTheWind" />
+      <TalentsArray value="SamuroWindwalkOneWithTheWind" />
+      <TalentsArray value="SamuroPhantomPain" />
+      <TalentsArray value="SamuroHeroicAbilityIllusionMaster" />
+      <TalentsArray value="SamuroShukuchi" />
+      <TalentsArray value="SamuroHarshWinds" />
+      <TalentsArray value="SamuroThreeBladeStyle" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="SamuroMirrorImageWayOfTheBlade" />
+      <TalentsArray value="SamuroMirage" />
+      <TalentsArray value="SamuroBurningBlade" />
+      <TalentsArray value="SamuroHeroicAbilityBladestorm" />
+      <TalentsArray value="SamuroShukuchi" />
+      <TalentsArray value="SamuroPressTheAttack" />
+      <TalentsArray value="SamuroDanceOfDeath" />
+    </TalentAIBuildsArray>
+    <HeroSpecificUIArray Location="Status" DescName="Samuro/SamuroFrame" />
+    <HeroSpecificUIArray Location="CommandButton01Status" DescName="Samuro/SamuroCriticalStrikeButtonOverride" />
+    <HeroSpecificUIArray Location="HeroSpecificStackingBuffsStatus" DescName="Samuro/SamuroStacksFrameContainer" />
+    <Rarity value="Legendary" />
+    <ExpandedRole value="MeleeAssassin" />
+  </CHero>
 </Hero>

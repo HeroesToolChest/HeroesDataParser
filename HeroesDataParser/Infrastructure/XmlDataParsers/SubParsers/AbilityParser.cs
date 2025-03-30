@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
 
-public class AbilityParser : ParserBase, IAbilityParser
+public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 {
     private readonly ILogger<AbilityParser> _logger;
     private readonly HeroesData _heroesData;
@@ -229,156 +229,6 @@ public class AbilityParser : ParserBase, IAbilityParser
             ability.Tier = AbilityTier.Unknown;
     }
 
-    private void SetButtonData(AbilityTalentBase abilityTalent)
-    {
-        StormElement? buttonElement = _heroesData.GetCompleteStormElement("Button", abilityTalent.ButtonId);
-
-        if (buttonElement is null)
-            return;
-
-        StormElementData buttonDataValues = buttonElement.DataValues;
-        //SetTooltipDescriptions(abilityTalent, buttonElement);
-        //SetTooltipData(abilityTalent, buttonElement);
-
-        if (buttonDataValues.TryGetElementDataAt("Name", out StormElementData? nameData))
-            abilityTalent.Name = GetTooltipDescriptionFromId(nameData.Value.GetString());
-
-        if (buttonDataValues.TryGetElementDataAt("SimpleDisplayText", out StormElementData? simpleDisplayTextData))
-            abilityTalent.Tooltip.ShortTooltip = GetTooltipDescriptionFromId(simpleDisplayTextData.Value.GetString());
-
-        if (buttonDataValues.TryGetElementDataAt("Tooltip", out StormElementData? tooltipData))
-            abilityTalent.Tooltip.FullTooltip = GetTooltipDescriptionFromId(tooltipData.Value.GetString());
-
-        if (buttonDataValues.TryGetElementDataAt("Icon", out StormElementData? iconData))
-        {
-            ImageFilePath? imageFilePath = GetImageFilePath(iconData);
-            if (imageFilePath is not null)
-            {
-                abilityTalent.Icon = imageFilePath.Image;
-                abilityTalent.IconPath = imageFilePath.FilePath;
-            }
-        }
-
-        // must be done before the TooltipVital overrides
-        if (buttonDataValues.TryGetElementDataAt("TooltipVitalName", out StormElementData? tooltipVitalNameData2))
-        {
-            string? value = GetStormGameString(tooltipVitalNameData2.Value.GetString());
-
-            if (!string.IsNullOrEmpty(value))
-            {
-                if (tooltipVitalNameData2.TryGetElementDataAt("Energy", out _) && abilityTalent.Tooltip.EnergyCost is not null)
-                    abilityTalent.Tooltip.EnergyTooltip = GetTooltipDescriptionFromGameString(value.Replace(GameStringConstants.ReplacementCharacter, abilityTalent.Tooltip.EnergyCost));
-                else if (tooltipVitalNameData2.TryGetElementDataAt("Life", out _) && abilityTalent.Tooltip.LifeCost is not null)
-                    abilityTalent.Tooltip.LifeTooltip = GetTooltipDescriptionFromGameString(value.Replace(GameStringConstants.ReplacementCharacter, abilityTalent.Tooltip.LifeCost));
-            }
-        }
-
-        if (buttonDataValues.TryGetElementDataAt("TooltipVitalOverrideText", out StormElementData? tooltipVitalOverrideTextData))
-        {
-            if (tooltipVitalOverrideTextData.TryGetElementDataAt("Energy", out StormElementData? energyData))
-            {
-                string? energyText = GetStormGameString(energyData.Value.GetString());
-                if (!string.IsNullOrEmpty(energyText))
-                {
-                    // TODO: check if the override text starts with the default energy text
-                    //new TooltipDescription(energyData.Value.GetString(), StormLocale.ENUS).PlainText.StartsWith("", StringComparison.OrdinalIgnoreCase);
-
-                    if (buttonDataValues.TryGetElementDataAt("TooltipVitalName", out StormElementData? tooltipVitalNameData) && tooltipVitalNameData.TryGetElementDataAt("Energy", out StormElementData? vitalNameEnergyData))
-                    {
-                        string? defaultEnergyText = GetStormGameString(vitalNameEnergyData.Value.GetString());
-
-                        if (!string.IsNullOrEmpty(defaultEnergyText))
-                            abilityTalent.Tooltip.EnergyTooltip = GetTooltipDescriptionFromGameString(defaultEnergyText.Replace(GameStringConstants.ReplacementCharacter, energyText, StringComparison.OrdinalIgnoreCase));
-                    }
-                }
-            }
-
-            if (tooltipVitalOverrideTextData.TryGetElementDataAt("Life", out StormElementData? lifeData))
-            {
-                string? lifeText = GetStormGameString(lifeData.Value.GetString());
-                if (!string.IsNullOrEmpty(lifeText))
-                {
-                    // TODO: check if the override text starts with the default life text
-                    //new TooltipDescription(energyData.Value.GetString(), StormLocale.ENUS).PlainText.StartsWith("", StringComparison.OrdinalIgnoreCase);
-
-                    if (buttonDataValues.TryGetElementDataAt("TooltipVitalName", out StormElementData? tooltipVitalNameData) && tooltipVitalNameData.TryGetElementDataAt("Life", out StormElementData? vitalNameLifeData))
-                    {
-                        string? defaultLifeText = GetStormGameString(vitalNameLifeData.Value.GetString());
-
-                        if (!string.IsNullOrEmpty(defaultLifeText))
-                            abilityTalent.Tooltip.LifeTooltip = GetTooltipDescriptionFromGameString(defaultLifeText.Replace(GameStringConstants.ReplacementCharacter, lifeText, StringComparison.OrdinalIgnoreCase));
-                    }
-                }
-            }
-        }
-
-        if (buttonDataValues.TryGetElementDataAt("TooltipCooldownOverrideText", out StormElementData? tooltipCooldownOverrideTextData))
-        {
-            string? cooldownText = GetStormGameString(tooltipCooldownOverrideTextData.Value.GetString());
-            if (!string.IsNullOrEmpty(cooldownText))
-            {
-                string? defaultCooldownText = GetStormGameString(GameStringConstants.StringCooldownColon);
-
-                if (!string.IsNullOrEmpty(defaultCooldownText))
-                {
-                    TooltipDescription cooldownTooltip = new(cooldownText, StormLocale.ENUS);
-
-                    if (!cooldownTooltip.PlainText.StartsWith(defaultCooldownText, StringComparison.OrdinalIgnoreCase))
-                        abilityTalent.Tooltip.CooldownTooltip = new TooltipDescription($"{defaultCooldownText}{cooldownText}");
-                    else
-                        abilityTalent.Tooltip.CooldownTooltip = cooldownTooltip;
-                }
-            }
-        }
-
-        if (buttonDataValues.TryGetElementDataAt("TooltipFlags", out StormElementData? tooltipFlagsData))
-        {
-            if (tooltipFlagsData.TryGetElementDataAt("ShowName", out StormElementData? showNameData) && showNameData.Value.GetInt() == 0)
-            {
-                abilityTalent.Name = null;
-            }
-
-            if (tooltipFlagsData.TryGetElementDataAt("ShowHotkey", out StormElementData? showHotkeyData) && showHotkeyData.Value.GetInt() == 0)
-            {
-            }
-
-            if (tooltipFlagsData.TryGetElementDataAt("ShowUsage", out StormElementData? showUsageData) && showUsageData.Value.GetInt() == 0)
-            {
-                abilityTalent.Tooltip.EnergyTooltip = null;
-                abilityTalent.Tooltip.LifeTooltip = null;
-            }
-
-            if (tooltipFlagsData.TryGetElementDataAt("ShowTime", out StormElementData? showTimeData) && showTimeData.Value.GetInt() == 0)
-            {
-            }
-
-            if (tooltipFlagsData.TryGetElementDataAt("ShowCooldown", out StormElementData? showCooldownData) && showCooldownData.Value.GetInt() == 0)
-            {
-                // ignore, always show the cooldown
-            }
-
-            if (tooltipFlagsData.TryGetElementDataAt("ShowRequirements", out StormElementData? showRequirementsData) && showRequirementsData.Value.GetInt() == 0)
-            {
-            }
-
-            if (tooltipFlagsData.TryGetElementDataAt("ShowAutocast", out StormElementData? showAutocastData) && showAutocastData.Value.GetInt() == 0)
-            {
-            }
-        }
-
-        if (buttonDataValues.TryGetElementDataAt("UseHotkeyLabel", out StormElementData? useHotkeyLabelData))
-        {
-            if (useHotkeyLabelData.Value.GetInt() == 0)
-                abilityTalent.IsActive = false; // ability has no hotkey, not activable
-        }
-
-        // validate, check if the tooltip for energy and life still contain the replacement character, if so then then set them to null
-        //if (abilityTalent.Tooltip.EnergyTooltip is not null && abilityTalent.Tooltip.EnergyTooltip.RawDescription.Contains(GameStringConstants.ReplacementCharacter, StringComparison.OrdinalIgnoreCase))
-        //    abilityTalent.Tooltip.EnergyTooltip = null;
-        //if (abilityTalent.Tooltip.LifeTooltip is not null && abilityTalent.Tooltip.LifeTooltip.RawDescription.Contains(GameStringConstants.ReplacementCharacter, StringComparison.OrdinalIgnoreCase))
-        //    abilityTalent.Tooltip.LifeTooltip = null;
-    }
-
     //private void SetTooltipDescriptions(AbilityTalentBase abilityTalent, StormElement buttonElement)
     //{
     //    StormElementData buttonDataValues = buttonElement.DataValues;
@@ -517,7 +367,7 @@ public class AbilityParser : ParserBase, IAbilityParser
                         if (string.IsNullOrEmpty(cooldownTooltipFinal))
                             _logger.LogWarning("No cooldown tooltip was set");
                         else
-                            abilityTalent.Tooltip.CooldownTooltip = GetTooltipDescriptionFromGameString(cooldownTooltipFinal);
+                            abilityTalent.Tooltip.CooldownText = GetTooltipDescriptionFromGameString(cooldownTooltipFinal);
                     }
                 }
             }
@@ -540,13 +390,13 @@ public class AbilityParser : ParserBase, IAbilityParser
                         {
                             StormGameString? abilTooltipCooldown = _heroesData.GetStormGameString(GameStringConstants.AbilTooltipCooldownText);
                             if (abilTooltipCooldown is not null)
-                                abilityTalent.Tooltip.CooldownTooltip = GetTooltipDescriptionFromGameString(abilTooltipCooldown.Value.Replace(GameStringConstants.ReplacementCharacter, cooldownString, StringComparison.OrdinalIgnoreCase));
+                                abilityTalent.Tooltip.CooldownText = GetTooltipDescriptionFromGameString(abilTooltipCooldown.Value.Replace(GameStringConstants.ReplacementCharacter, cooldownString, StringComparison.OrdinalIgnoreCase));
                         }
                         else if (cooldown > 1)
                         {
                             StormGameString? abilTooltipCooldownPlural = _heroesData.GetStormGameString(GameStringConstants.AbilTooltipCooldownPluralText);
                             if (abilTooltipCooldownPlural is not null)
-                                abilityTalent.Tooltip.CooldownTooltip = GetTooltipDescriptionFromGameString(abilTooltipCooldownPlural.Value.Replace(GameStringConstants.ReplacementCharacter, cooldownString, StringComparison.OrdinalIgnoreCase));
+                                abilityTalent.Tooltip.CooldownText = GetTooltipDescriptionFromGameString(abilTooltipCooldownPlural.Value.Replace(GameStringConstants.ReplacementCharacter, cooldownString, StringComparison.OrdinalIgnoreCase));
                         }
                         else
                         {

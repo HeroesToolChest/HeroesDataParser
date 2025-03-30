@@ -131,6 +131,9 @@
     <Icon value="Assets\Textures\storm_ui_icon_Abathur_Mount.dds" />
     <HotkeyAlias value="AbathurDeepTunnel" />
   </CButton>
+  <CButton id="AbathurSymbiotePressurizedGlandsTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_spikeburst.dds" />
+  </CButton>
   <CButton id="AlarakDeadlyCharge" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_alarak_recklesscharge.dds" />
     <TooltipVitalOverrideText index="Energy" value="Abil/AlarakDeadlyChargeButtonVitalCostOverride" />
@@ -176,7 +179,28 @@
     <TooltipAppender Validator="HasBarbarianMasteryShatteredGroundSeismicSlam" Face="BarbarianSeismicSlamShatteredGroundTalent" />
     <TooltipAppender Validator="BarbarianHasGiantSlammerTalent" Face="BarbarianGiantSlammer" />
   </CButton>
-  
+  <CButton id="KelThuzadMasterOfTheColdDark" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_kel'thuzad_powerofthecolddark.dds" />
+    <TooltipAppender Validator="KelThuzadHasPhylacteryOfKelThuzad" Face="KelThuzadPhylactery" />
+    <TooltipAppender Validator="KelThuzadHasChillingTouch" Face="KelThuzadChillingTouch" />
+    <TooltipAppender Validator="KelThuzadHasHungeringCold" Face="KelThuzadHungeringCold" />
+    <TooltipAppender Validator="KelThuzadHasPowerOfIcecrown" Face="KelThuzadPowerOfIcecrown" />
+  </CButton>
+  <CButton id="SamuroIllusionMaster" parent="StormButtonParent">
+    <TooltipAppender Validator="SamuroHasThreeBladeStyle" Face="SamuroThreeBladeStyleTalent" />
+    <Icon value="Assets\Textures\storm_ui_icon_samuro_illusiondancer.dds" />
+    <Tooltip value="Button/Tooltip/SamuroIllusionMasterTalent" />
+    <SimpleDisplayText value="Button/SimpleDisplayText/SamuroIllusionMasterTalent" />
+    <TooltipCooldownOverrideText value="SamuroIllusionMaster" />
+  </CButton>
+  <CButton id="SamuroAdvancingStrikes" parent="StormButtonParent">
+    <TooltipAppender Validator="SamuroHasDeflectionTalent" Face="SamuroDeflectionTalent" />
+    <TooltipAppender Validator="SamuroHasPressTheAttack" Face="SamuroPressTheAttack" />
+    <TooltipAppender Validator="SamuroHasBlademastersPursuit" Face="SamuroBlademastersPursuitTalent" />
+    <Icon value="Assets\Textures\storm_ui_icon_samuro_flowingstrikes.dds" />
+    <HotkeyAlias value="SamuroMirrorImage" />
+    <TooltipCooldownOverrideText value="SamuroImageTransmission" />
+  </CButton>
 </Button>
 
 

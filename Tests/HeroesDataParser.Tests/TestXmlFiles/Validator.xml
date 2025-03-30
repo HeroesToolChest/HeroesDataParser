@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Validator>
+  <CValidator default="1">
+    <ResultFailed value="Error" />
+  </CValidator>
+  <CValidatorPlayerTalent id="SamuroHasDeflectionTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="SamuroAdvancingStrikesDeflection" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="SamuroHasBlademastersPursuit">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="SamuroBlademastersPursuit" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="SamuroHasThreeBladeStyle">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="SamuroThreeBladeStyle" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="SamuroHasPressTheAttack">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="SamuroPressTheAttack" />
+  </CValidatorPlayerTalent>
+</Validator>

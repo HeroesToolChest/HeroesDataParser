@@ -23,6 +23,15 @@
         ]
       }
     },
+    "Boost": {
+      "Disallow": {
+        "Exact": [
+        ],
+        "Regex": [
+          ".*\\(Test\\)$"
+        ]
+      }
+    },
     "Bundle": {
       "Disallow": {
         "Exact": [
@@ -33,12 +42,13 @@
         ]
       }
     },
-    "Boost": {
+    "Hero": {
       "Disallow": {
         "Exact": [
+          "_Empty",
+          "AI"
         ],
         "Regex": [
-          ".*\\(Test\\)$"
         ]
       }
     },

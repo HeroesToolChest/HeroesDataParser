@@ -27,14 +27,19 @@ CollectionCategoryData.xml
 HeroRoleData.xml ?
 
 -------
-v5 changes
-Added Taunt and Dance ability
-Added DamageType
-Removed 'type' (melee or ranged) -> changed to Added 'isMelee': <bool>
-updated property names:
+v5 changes heroes
+- Added Taunt and Dance ability
+- Added 'damageType' (unit only?)
+- Added 'attributes'
+- Removed 'type' (melee or ranged) -> changed to Added 'isMelee': <bool>
+- updated property names:
 'skins' -> 'skinIds'
 'variationSkins' -> 'variationSkinIds'
 'voiceLines' -> 'voiceLineIds'
 'mountCategories' -> 'mountCategoryIds'
 'scalingLinkId' -> changed to an array 'scalingLinkIds'
 'descriptors' -> 'playstyles'
+- 'charges', 'cooldownTooltip', 'shortTooltip', 'fullTooltip' are now properties to 'tooltip (new)', which also have been updated
+'cooldownTooltip' -> 'cooldownText'
+'shortTooltip' -> 'shortText'
+'fullTooltip' -> 'fullText'

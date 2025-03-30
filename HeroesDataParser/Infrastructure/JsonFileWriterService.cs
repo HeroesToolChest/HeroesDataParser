@@ -31,8 +31,7 @@ public class JsonFileWriterService : IJsonFileWriterService
             {
                 Modifiers =
                 {
-                    JsonTypeInfoModifiers.IEnumerableModifier,
-                    JsonTypeInfoModifiers.TooltipDescriptionModifier,
+                    JsonTypeInfoModifiers.SerialiazationModifiers,
                 },
             },
         };

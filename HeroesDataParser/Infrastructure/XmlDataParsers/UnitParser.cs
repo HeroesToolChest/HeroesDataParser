@@ -1,12 +1,13 @@
 ﻿using Heroes.Element.Models;
 using Heroes.Element.Models.AbilityTalents;
+using Serilog.Context;
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
-public class UnitParser : DataParser<Unit>
+public class UnitParser : DataParser<Unit>, IUnitParser
 {
     private const string _actorDataObjectType = "Actor";
 
@@ -23,6 +24,26 @@ public class UnitParser : DataParser<Unit>
     }
 
     public override string DataObjectType => "Unit";
+
+    public void Parse(Unit unit, string unitId)
+    {
+        _logger.LogTrace("Parsing unitId {UnitId} for existing id {Id}", unitId, unit.Id);
+
+        StormElement? stormElement = _heroesData.GetCompleteStormElement(DataObjectType, unitId);
+
+        if (stormElement is null)
+        {
+            _logger.LogWarning("Could not find data for unitId {UnitId}", unitId);
+            return;
+        }
+
+        using (LogContext.PushProperty("XmlPaths", stormElement.OriginalXElements.Select(x => x.StormPath)))
+        {
+            SetProperties(unit, stormElement);
+
+            _logger.LogTrace("Parsing unitId {Id} for existing id {Id} complete", unitId, unit.Id);
+        }
+    }
 
     protected override void SetProperties(Unit elementObject, StormElement stormElement)
     {

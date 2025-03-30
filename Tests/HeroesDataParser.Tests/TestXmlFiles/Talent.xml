@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Talent>
+  <CTalent id="AbathurMasteryPressurizedGlands">
+    <Face value="AbathurSymbiotePressurizedGlandsTalent" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurSymbioteSpikeBurstDamageSearch" />
+        <Field value="AreaArray[0].Radius" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Actor" />
+        <Entry value="SymbioteSpikeBurstRangeSplat" />
+        <Field value="Scale" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Actor" />
+        <Entry value="AbathurSymbioteSpikeBlastCast" />
+        <Field value="Scale" />
+        <Value value="0.250000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurSpikeBurstSomaTransferenceSearch" />
+        <Field value="AreaArray[0].Radius" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Entry value="AbathurSymbioteSpikeBurst" />
+        <Field value="Cost[0].Cooldown.TimeUse" />
+        <Value value="-1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="AbathurSymbioteSpikeBurst" />
+  </CTalent>
+  <CTalent id="KelThuzadMasterOfTheColdDark">
+    <Face value="KelThuzadMasterOfTheColdDark" />
+    <QuestData>
+      <StackBehavior value="KelThuzadMasterOfTheColdDarkToken" />
+      <FinishedBehavior value="KelThuzadMasterOfTheColdDarkSpellPower" />
+      <TargetCount value="30" />
+      <IgnoreTargetCount value="0" />
+    </QuestData>
+  </CTalent>
+  <CTalent id="SamuroThreeBladeStyle">
+    <Face value="SamuroThreeBladeStyleTalent" />
+    <Abil value="SamuroIllusionMaster" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="SamuroMirrorImageTimedLife" />
+        <Field value="Duration" />
+        <Value value="8.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="SamuroAdvancingStrikesDeflection">
+    <Face value="SamuroDeflectionTalent" />
+  </CTalent>
+  <CTalent id="SamuroPressTheAttack">
+    <Face value="SamuroPressTheAttack" />
+    <RankArray>
+      <BehaviorArray value="SamuroPressTheAttackCarry" />
+      <BehaviorArray value="SamuroPressTheAttackTokenCounter" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="SamuroBlademastersPursuit">
+    <Face value="SamuroBlademastersPursuitTalent" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="SamuroAdvancingStrikesMoveSpeedBuff" />
+        <Field value="Modification.UnifiedMoveSpeedFactor" />
+        <Value value="0.150000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="SamuroAdvancingStrikesMoveSpeedBuff" />
+        <Field value="Duration" />
+        <Value value="2.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="SamuroAdvancingStrikesDeflectionBlock" />
+        <Field value="Duration" />
+        <Value value="2.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+</Talent>

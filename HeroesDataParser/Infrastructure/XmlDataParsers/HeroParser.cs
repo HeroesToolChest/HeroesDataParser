@@ -1,5 +1,6 @@
 ﻿using Heroes.Element.Models;
 using Heroes.XmlData;
+using System.Runtime.CompilerServices;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
@@ -7,16 +8,19 @@ public class HeroParser : CollectionParserBase<Hero>
 {
     private readonly ILogger<HeroParser> _logger;
     private readonly HeroesData _heroesData;
-    private readonly IDataParser<Unit> _unitParser;
+    //private readonly IDataParser<Unit> _unitParser;
+    private readonly IUnitParser _unitParser;
+    private readonly ITalentParser _talentParser;
 
     private readonly string _roleGameStringText;
 
-    public HeroParser(ILogger<HeroParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService, IDataParser<Unit> unitParser)
+    public HeroParser(ILogger<HeroParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService, IUnitParser unitParser, ITalentParser talentParser)
         : base(logger, heroesXmlLoaderService)
     {
         _logger = logger;
         _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
         _unitParser = unitParser;
+        _talentParser = talentParser;
 
         _roleGameStringText = GetRoleText();
     }
@@ -25,13 +29,16 @@ public class HeroParser : CollectionParserBase<Hero>
 
     protected override void SetProperties(Hero elementObject, StormElement stormElement)
     {
-        //// TODO: FindUnits ? e.g dva pilot
-        //// TODO: HeroUnits ? e.g symbiote
-
         if (stormElement.DataValues.TryGetElementDataAt("Unit", out StormElementData? unitData))
             elementObject.UnitId = unitData.Value.GetString();
 
+        // first thing to do is to set the unit data
         SetUnitData(elementObject);
+
+        //// TODO: FindUnits ? e.g dva pilot
+        //// TODO: HeroUnits ? e.g symbiote
+
+        SetTalentData(elementObject, stormElement);
 
         base.SetProperties(elementObject, stormElement);
     }
@@ -234,15 +241,29 @@ public class HeroParser : CollectionParserBase<Hero>
             return;
         }
 
-        Unit? unit = _unitParser.Parse(elementObject.UnitId);
+        _unitParser.Parse(elementObject, elementObject.UnitId);
+    }
 
-        if (unit is null)
+    private void SetTalentData(Hero elementObject, StormElement stormElement)
+    {
+        if (stormElement.DataValues.TryGetElementDataAt("TalentTreeArray", out StormElementData? talentTreeArray))
         {
-            _logger.LogWarning("Could not find unit data for hero {Id}", elementObject.Id);
-            return;
-        }
+            foreach (string item in talentTreeArray.GetElementDataIndexes())
+            {
+                StormElementData talentTreeArrayData = talentTreeArray.GetElementDataAt(item);
+                Talent? talent = _talentParser.GetTalent(elementObject, talentTreeArrayData);
 
-        elementObject.SetUnitData(unit);
+                if (talent is not null)
+                {
+                    foreach (TalentId talentId in talent.TooltipAppenderTalentIds)
+                    {
+                        // TODO: Add to the talent tooltip appender list
+                    }
+
+                    elementObject.AddTalent(talent);
+                }
+            }
+        }
     }
 
     private string GetRoleText()

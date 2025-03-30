@@ -22,10 +22,17 @@ public abstract class ParserBase
     {
         StormGameString? stormGameString = _heroesData.GetStormGameString(id);
 
-        if (stormGameString is null)
-            return null;
-        else
-            return _heroesData.ParseGameString(stormGameString);
+        try
+        {
+            if (stormGameString is null)
+                return null;
+            else
+                return _heroesData.ParseGameString(stormGameString);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 
     /// <summary>

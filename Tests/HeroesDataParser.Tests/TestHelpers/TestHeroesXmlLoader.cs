@@ -16,6 +16,8 @@ public static class TestHeroesXmlLoader
         XDocument effectDocument = GetXDocument("Effect.xml");
         XDocument skinDocument = GetXDocument("Skin.xml");
         XDocument voiceLineDocument = GetXDocument("VoiceLine.xml");
+        XDocument talentDocument = GetXDocument("Talent.xml");
+        XDocument validatorDocument = GetXDocument("Validator.xml");
 
         return HeroesXmlLoader.LoadWithEmpty()
             .LoadCustomMod(new ManualModLoader("test")
@@ -30,6 +32,8 @@ public static class TestHeroesXmlLoader
                     ("Effect", "CEffectDamage"),
                     ("Skin", "CSkin"),
                     ("VoiceLine", "CVoiceLine"),
+                    ("Talent", "CTalent"),
+                    ("Validator", "CValidatorPlayerTalent"),
                 ])
                 .AddElements(unitDocument.Root!.Elements())
                 .AddElements(heroDocument.Root!.Elements())
@@ -41,6 +45,8 @@ public static class TestHeroesXmlLoader
                 .AddElements(effectDocument.Root!.Elements())
                 .AddElements(skinDocument.Root!.Elements())
                 .AddElements(voiceLineDocument.Root!.Elements())
+                .AddElements(talentDocument.Root!.Elements())
+                .AddElements(validatorDocument.Root!.Elements())
                 .AddGameStrings(
                     [
                         "e_gameUIStringChargeCooldownColon=Charge Cooldown: ",
@@ -61,6 +67,7 @@ public static class TestHeroesXmlLoader
                         "Button/Name/AbathurToxicNest=Toxic Nest",
                         "Button/Name/AbathurLocustStrain=Locust Strain",
                         "Button/Name/AbathurDeepTunnel=Deep Tunnel",
+                        "Button/Name/AbathurSymbiotePressurizedGlandsTalent=Pressurized Glands",
                         "Button/Name/AlarakDeadlyCharge=Deadly Charge",
                         "Button/Name/AlarakSadism=Sadism",
                         "Button/Name/AlexstraszaGiftOfLife=Gift of Life",
@@ -69,16 +76,21 @@ public static class TestHeroesXmlLoader
                         "Button/Name/GuldanLifeTap=Life Tap",
                         "Button/Name/AbathurSymbioteCancel=Cancel Symbiote",
                         "Button/Name/UseVehicle=Use Vehicle",
+                        "Button/Name/SamuroIllusionMaster=Illusion Master",
+                        "Button/Name/SamuroAdvancingStrikes=Image Transmission",
                         "Button/SimpleDisplayText/AbathurSymbiote=Assist an ally and gain new abilities",
                         "Button/SimpleDisplayText/AbathurToxicNest=Spawn a mine",
                         "Button/SimpleDisplayText/AbathurLocustStrain=Spawn locusts that attack down the nearest lane",
                         "Button/SimpleDisplayText/AbathurDeepTunnel=Tunnel to a location.",
+                        "Button/SimpleDisplayText/AbathurSymbiotePressurizedGlandsTalent=Increases Spike Burst range and decreases cooldown",
                         "Button/SimpleDisplayText/AlarakDeadlyCharge=Channel to charge a long distance",
                         "Button/SimpleDisplayText/AlarakSadism=Each point of Sadism increases Alarak's Ability damage...",
                         "Button/SimpleDisplayText/AlexstraszaGiftOfLife=Give a portion of Health to an allied Hero",
                         "Button/SimpleDisplayText/AlexstraszaAbundance=Heal allied Heroes in an area",
                         "Button/SimpleDisplayText/GuldanLifeTap=Restore Mana at the cost of Health",
                         "Button/SimpleDisplayText/BarbarianSeismicSlam=Damage an enemy and splash damage behind them",
+                        "Button/SimpleDisplayText/SamuroIllusionMasterTalent=Mirror Images can be controlled",
+                        "Button/SimpleDisplayText/SamuroAdvancingStrikes=Increase Movement Speed when attacking Heroes",
                         "Button/Tooltip/Attack=Attacks using the Hero's weapon",
                         "Button/Tooltip/HearthstoneNoMana=After Channeling for...",
                         "Button/Tooltip/LootSpray=Express yourself to other players by marking the ground with your selected spray.",
@@ -87,6 +99,7 @@ public static class TestHeroesXmlLoader
                         "Button/Tooltip/AbathurToxicNest=Spawn a mine that becomes active...",
                         "Button/Tooltip/AbathurLocustStrain=Spawns a Locust to attack down the nearest lane...",
                         "Button/Tooltip/AbathurDeepTunnel=Quickly tunnel to a visible location.",
+                        "Button/Tooltip/AbathurSymbiotePressurizedGlandsTalent=Increases the range of Symbiote's Spike Burst by",
                         "Button/Tooltip/AlarakDeadlyCharge=After channeling, Alarak charges forward...",
                         "Button/Tooltip/AlarakSadism=Alarak's Ability damage and self-healing are increased...",
                         "Button/Tooltip/AlexstraszaGiftOfLife=Sacrifice...",
@@ -94,6 +107,8 @@ public static class TestHeroesXmlLoader
                         "Button/Tooltip/GuldanLifeTap=Gul'dan does not regenerate Mana...",
                         "Button/Tooltip/BarbarianSeismicSlam=Deals deals damage to...",
                         "Button/Tooltip/AbathurSymbioteCancel=Cancels the Symbiote ability.",
+                        "Button/Tooltip/SamuroIllusionMasterTalent=Mirror Images can be controlled individually or as...",
+                        "Button/Tooltip/SamuroAdvancingStrikes=Activate to switch places with a target",
                         "Hero/AdditionalSearchText/Abathur=Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug Double Soak",
                         "Hero/AlternateNameSearchText/Abathur=Abathur",
                         "Hero/Description/Abathur=A unique Hero that can manipulate the battle from anywhere on the map.",
@@ -126,6 +141,8 @@ public static class TestHeroesXmlLoader
                         "Weapon/Name/HeroAbathur=Hero Abathur",
                         "Unit/Name/HeroAbathur=Abathur",
                         "Unit/Name/AbathurSymbiote=Symbiote",
+                        "SamuroIllusionMaster=8 seconds",
+                        "SamuroImageTransmission=14 seconds",
                     ],
                     StormLocale.ENUS)
                 .AddAssetFilePaths([
@@ -149,6 +166,9 @@ public static class TestHeroesXmlLoader
                     Path.Join("Assets", "Textures", "storm_ui_icon_talent_autoattack_base.dds"),
                     Path.Join("Assets", "Textures", "storm_temp_war3_btnloaddwarf.dds"),
                     Path.Join("Assets", "Textures", "storm_ui_temp_icon_cheatdeath.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_abathur_spikeburst.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_samuro_illusiondancer.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_samuro_flowingstrikes.dds"),
                     ])
                 .AddLevelScalingArrayElements(heroDocument.Root.Descendants("LevelScalingArray")))
             .LoadGameStrings();

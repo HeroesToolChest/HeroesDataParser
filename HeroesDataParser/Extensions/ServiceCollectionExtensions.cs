@@ -37,6 +37,7 @@ public static class ServiceCollectionExtensions
     {
         // add all data parsers
         services.AddSingleton<IAbilityParser, AbilityParser>();
+        services.AddSingleton<ITalentParser, TalentParser>();
 
         services.AddSingleton<IDataParser<Announcer>, AnnouncerParser>();
         services.AddSingleton<IDataParser<Banner>, BannerParser>();
@@ -47,6 +48,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDataParser<Unit>, UnitParser>();
 
         services.AddSingleton<IDataParser<Map>, MapParser>();
+
+        // special for unit parser
+        services.AddSingleton<IUnitParser, UnitParser>();
+
         return services;
     }
 
