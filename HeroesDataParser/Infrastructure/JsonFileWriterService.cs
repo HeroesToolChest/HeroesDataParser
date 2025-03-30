@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Schema;
+﻿using Heroes.Element.JsonConverters;
+using System.Text.Json.Schema;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -25,6 +26,7 @@ public class JsonFileWriterService : IJsonFileWriterService
             Converters =
             {
                 new JsonStringEnumConverter(),
+                new DoubleRoundingConverter(),
                 new TooltipDescriptionWriteConverter(DescriptionType.RawDescription),
             },
             TypeInfoResolver = new DefaultJsonTypeInfoResolver
