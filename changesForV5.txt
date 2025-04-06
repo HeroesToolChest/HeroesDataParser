@@ -43,3 +43,4 @@ v5 changes heroes
 'cooldownTooltip' -> 'cooldownText'
 'shortTooltip' -> 'shortText'
 'fullTooltip' -> 'fullText'
+- 'subAbilities' changed to a object from an array

@@ -359,11 +359,24 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
     private void SetAbilityData(Unit elementObject, StormElement stormElement)
     {
-        // keep track of added abilities; by their nameId
-        HashSet<string> addedAbilities = new(StringComparer.OrdinalIgnoreCase);
+        // keep track of abilities that are being added; by their nameId
+        // when we add an ability, we remove it from the checklist
+        HashSet<string> abilityIdChecklist = new(StringComparer.OrdinalIgnoreCase);
 
-        // keep track of abilities that were NOT added; by their nameId
-        HashSet<string> rejectedAbilities = new(StringComparer.OrdinalIgnoreCase);
+        // keep track of abilites that have parent abils
+        List<Ability> abilitesWithParentAbils = [];
+
+        // loop through the abilArray to get the ability ids
+        if (stormElement.DataValues.TryGetElementDataAt("AbilArray", out StormElementData? abilArrayData))
+        {
+            foreach (string abilArrayIndex in abilArrayData.GetElementDataIndexes())
+            {
+                if (abilArrayData.GetElementDataAt(abilArrayIndex).TryGetElementDataAt("link", out StormElementData? linkData))
+                {
+                    abilityIdChecklist.Add(linkData.Value.GetString());
+                }
+            }
+        }
 
         // loop through the cardlayouts to get the abilities
         if (stormElement.DataValues.TryGetElementDataAt("CardLayouts", out StormElementData? cardLayoutsData))
@@ -383,46 +396,39 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
                         Ability? ability = _abilityParser.GetAbility(innerDataElements);
 
-                        if (ability is null && innerDataElements.TryGetElementDataAt("AbilCmd", out StormElementData? abilCmdData))
+                        if (ability is not null)
                         {
-                            rejectedAbilities.Add(AbilityParser.GetAbilCmdSplit(abilCmdData.Value.GetString()).AbilityId);
-                        }
-                        else if (ability is not null && addedAbilities.Contains(ability.NameId) is false)
-                        {
-                            elementObject.AddAbility(ability);
-                            addedAbilities.Add(ability.NameId);
+                            if (ability.AbilityType != AbilityType.Passive)
+                                abilityIdChecklist.Remove(ability.NameId);
+
+                            if (!string.IsNullOrEmpty(ability.ParentAbililtyId))
+                                abilitesWithParentAbils.Add(ability);
+                            else
+                                elementObject.AddAbility(ability);
                         }
                     }
                 }
             }
         }
 
-        // loop through the abilArray to get the abilities
-        if (stormElement.DataValues.TryGetElementDataAt("AbilArray", out StormElementData? abilArrayData))
+        // for any that are left in the ability checklist, we create an ability
+        foreach (string abilityId in abilityIdChecklist)
         {
-            foreach (string abilArrayIndex in abilArrayData.GetElementDataIndexes())
+            Ability? ability = _abilityParser.GetAbility(abilityId);
+
+            if (ability is not null)
             {
-                if (abilArrayData.GetElementDataAt(abilArrayIndex).TryGetElementDataAt("Link", out StormElementData? linkData))
-                {
-                    string linkValue = linkData.Value.GetString();
-
-                    // check if we already added the ability or rejected it
-                    if (addedAbilities.Contains(linkValue) || rejectedAbilities.Contains(linkValue))
-                        continue;
-
-                    Ability? ability = _abilityParser.GetAbility(linkValue);
-
-                    if (ability is null)
-                    {
-                        rejectedAbilities.Add(linkValue);
-                    }
-                    else if (ability is not null)
-                    {
-                        elementObject.AddAbility(ability);
-                        addedAbilities.Add(ability.NameId);
-                    }
-                }
+                if (!string.IsNullOrEmpty(ability.ParentAbililtyId))
+                    abilitesWithParentAbils.Add(ability);
+                else
+                    elementObject.AddAbility(ability);
             }
+        }
+
+        // for any abilities that have parent abilities, we add them as subabilities
+        foreach (Ability ability in abilitesWithParentAbils)
+        {
+            elementObject.AddSubAbility(ability);
         }
     }
 }

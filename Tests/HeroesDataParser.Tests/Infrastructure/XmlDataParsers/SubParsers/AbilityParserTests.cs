@@ -200,8 +200,33 @@ public class AbilityParserTests
         ability.Id.ToString().Should().Be("AbathurSymbiote|AbathurSymbiote|Hidden|False");
         ability.Tier.Should().Be(AbilityTier.Hidden);
         ability.AbilityType.Should().Be(AbilityType.Hidden);
+        ability.ParentAbililtyId.Should().BeNull();
 
         AssertAbathurSymbioteAbility(ability);
+    }
+
+    [TestMethod]
+    public void GetAbility_AbathurEvolveMonstrosityActiveSymbioteAbil_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAbathur";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("25").GetElementDataAt("Link").Value.GetString();
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(abilArrayLinkValue);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.Id.ToString().Should().Be("AbathurEvolveMonstrosityActiveSymbiote|EvolveMonstrosityActiveHotbar|Hidden|False");
+        ability.Tier.Should().Be(AbilityTier.Hidden);
+        ability.AbilityType.Should().Be(AbilityType.Hidden);
+        ability.ParentAbililtyId.Should().Be("AbathurEvolveMonstrosity");
     }
 
     [TestMethod]
@@ -787,6 +812,7 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Trait);
         ability.AbilityType.Should().Be(AbilityType.Trait);
         ability.Tooltip.ShortText!.RawDescription.Should().Be("Increase Movement Speed when attacking Heroes");
+        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 14 seconds");
         ability.Icon.Should().Be("storm_ui_icon_samuro_flowingstrikes.png");
         ability.TooltipAppenderTalentIds.Should().HaveCount(3)
             .And.Contain(new TalentId("SamuroAdvancingStrikesDeflection", "SamuroDeflectionTalent"))

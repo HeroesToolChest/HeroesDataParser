@@ -258,6 +258,17 @@
     </InterruptCost>
     <CastIntroTime value="2.5" />
   </CAbilEffectTarget>
+  <CAbilEffectInstant id="AbathurEvolveMonstrosityActiveSymbiote">
+    <Effect value="AbathurEvolveMonstrosityActivateSymbioteEnumerator" />
+    <Cost>
+      <Cooldown Link="Abil/AbathurSymbiote" TimeUse="4" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="EvolveMonstrosityActiveHotbar" Requirements="AbathurHasActiveMonstrosityNotInStasis" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <AbilityCategories index="TargetAcrossMapPlane" value="1" />
+    <Arc value="360" />
+    <ParentAbil value="AbathurEvolveMonstrosity" />
+  </CAbilEffectInstant>
   <CAbilEffectTarget id="AlexstraszaGiftOfLife">
     <Effect value="AlexstraszaGiftOfLifeSet" />
     <Cost>

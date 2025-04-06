@@ -104,7 +104,7 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 
             ability.NameId = abilityId;
 
-            SetAbilityTalentData(ability, index);
+            SetAbilityData(ability, index);
         }
         else
         {
@@ -131,7 +131,7 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
             NameId = abilityId,
         };
 
-        SetAbilityTalentData(ability);
+        SetAbilityData(ability);
 
         // default
         ability.Tier = AbilityTier.Hidden;
@@ -161,36 +161,36 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
     private static bool IsTypeValueMatch(string typeValue) =>
         typeValue.Equals("CancelTargetMode", StringComparison.OrdinalIgnoreCase);
 
-    private static void SetAbilityTypeFromSlot(AbilityTalentBase abilityTalent, string slot, bool isBehaviorAbility)
+    private static void SetAbilityTypeFromSlot(Ability ability, string slot, bool isBehaviorAbility)
     {
         if (string.IsNullOrEmpty(slot))
         {
             if (isBehaviorAbility)
-                abilityTalent.AbilityType = AbilityType.Active;
+                ability.AbilityType = AbilityType.Active;
             else
-                abilityTalent.AbilityType = AbilityType.Attack;
+                ability.AbilityType = AbilityType.Attack;
 
             return;
         }
 
         if (slot.StartsWith("Ability1", StringComparison.OrdinalIgnoreCase))
-            abilityTalent.AbilityType = AbilityType.Q;
+            ability.AbilityType = AbilityType.Q;
         else if (slot.StartsWith("Ability2", StringComparison.OrdinalIgnoreCase))
-            abilityTalent.AbilityType = AbilityType.W;
+            ability.AbilityType = AbilityType.W;
         else if (slot.StartsWith("Ability3", StringComparison.OrdinalIgnoreCase))
-            abilityTalent.AbilityType = AbilityType.E;
+            ability.AbilityType = AbilityType.E;
         else if (slot.StartsWith("Mount", StringComparison.OrdinalIgnoreCase))
-            abilityTalent.AbilityType = AbilityType.Z;
+            ability.AbilityType = AbilityType.Z;
         else if (slot.StartsWith("Heroic", StringComparison.OrdinalIgnoreCase))
-            abilityTalent.AbilityType = AbilityType.Heroic;
+            ability.AbilityType = AbilityType.Heroic;
         else if (slot.StartsWith("Hearth", StringComparison.OrdinalIgnoreCase))
-            abilityTalent.AbilityType = AbilityType.B;
+            ability.AbilityType = AbilityType.B;
         else if (slot.StartsWith("Trait", StringComparison.OrdinalIgnoreCase))
-            abilityTalent.AbilityType = AbilityType.Trait;
+            ability.AbilityType = AbilityType.Trait;
         else if (Enum.TryParse(slot, true, out AbilityType abilityType))
-            abilityTalent.AbilityType = abilityType;
+            ability.AbilityType = abilityType;
         else
-            abilityTalent.AbilityType = AbilityType.Unknown;
+            ability.AbilityType = AbilityType.Unknown;
     }
 
     private static void SetAbilityTierFromAbilityType(Ability ability)
@@ -229,6 +229,10 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
             ability.Tier = AbilityTier.Unknown;
     }
 
+    private static bool TryGetCmdButtonArrayData(StormElementData stormElementData, out StormElementData? cmdButtonArrayData)
+    {
+        return stormElementData.TryGetElementDataAt("CmdButtonArray", out cmdButtonArrayData);
+    }
     //private void SetTooltipDescriptions(AbilityTalentBase abilityTalent, StormElement buttonElement)
     //{
     //    StormElementData buttonDataValues = buttonElement.DataValues;
@@ -246,9 +250,9 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 
     //}
 
-    private void SetAbilityTalentData(AbilityTalentBase abilityTalent, string abilCmdIndex = "")
+    private void SetAbilityData(Ability ability, string? abilCmdIndex = null)
     {
-        StormElement? abilityElement = _heroesData.GetCompleteStormElement("Abil", abilityTalent.NameId);
+        StormElement? abilityElement = _heroesData.GetCompleteStormElement("Abil", ability.NameId);
         if (abilityElement is null)
             return;
 
@@ -256,13 +260,13 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 
         // it's important to have the cost data set first (before the button data) because the tooltips need the cost data
         if (abilityDataValues.TryGetElementDataAt("Cost", out StormElementData? costData))
-            SetCostData(abilityTalent, costData);
+            SetCostData(ability, costData);
 
         if (abilityDataValues.TryGetElementDataAt("Effect", out StormElementData? effectData))
-            SetEffectData(abilityTalent, effectData);
+            SetEffectData(ability, effectData);
 
         if (abilityDataValues.TryGetElementDataAt("Name", out StormElementData? nameData))
-            abilityTalent.Name = GetTooltipDescriptionFromId(nameData.Value.GetString());
+            ability.Name = GetTooltipDescriptionFromId(nameData.Value.GetString());
 
         if (abilityDataValues.TryGetElementDataAt("ProducedUnitArray", out StormElementData? producedUnitArrayData))
         {
@@ -271,13 +275,13 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
                 string value = producedUnitArrayData.GetElementDataAt(item).Value.GetString();
 
                 if (_heroesData.StormElementExists("Unit", value))
-                    abilityTalent.CreateUnits.Add(value);
+                    ability.CreateUnits.Add(value);
             }
         }
 
         if (abilityDataValues.TryGetElementDataAt("ParentAbil", out StormElementData? parentAbilData))
         {
-            // TODO: parent abil
+            ability.ParentAbililtyId = parentAbilData.Value.GetString();
         }
 
         if (abilityDataValues.TryGetElementDataAt("Flags", out StormElementData? flagsData))
@@ -288,30 +292,18 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
         // must be done last
         if (abilityDataValues.TryGetElementDataAt("CmdButtonArray", out StormElementData? cmdButtonArrayData))
         {
-            if (cmdButtonArrayData.TryGetElementDataAt(abilCmdIndex, out StormElementData? abilCmdData))
+            if (abilCmdIndex is not null && cmdButtonArrayData.TryGetElementDataAt(abilCmdIndex, out StormElementData? abilCmdData))
             {
-                SetCmdButtonArrayData(abilityTalent, abilCmdData);
+                SetCmdButtonArrayData(ability, abilCmdData);
             }
             else if (cmdButtonArrayData.TryGetElementDataAt("Execute", out StormElementData? executeData))
             {
-                SetCmdButtonArrayData(abilityTalent, executeData);
+                SetCmdButtonArrayData(ability, executeData);
             }
-
-                //foreach (string index in cmdButtonArrayData.GetElementDataIndexes())
-                //{
-                //    // check if the index is the same as the abilCmdIndex or it's "Execute"
-                //    // cancel is also an available index, but it doesn't seem to be used in HOTS
-                //    if (index.Equals(abilCmdIndex, StringComparison.OrdinalIgnoreCase) || index.Equals("Execute", StringComparison.OrdinalIgnoreCase))
-                //    {
-                //        StormElementData arrayElement = cmdButtonArrayData.GetElementDataAt(index);
-
-                //        SetCmdButtonArrayData(abilityTalent, arrayElement);
-                //    }
-                //}
         }
     }
 
-    private void SetCostData(AbilityTalentBase abilityTalent, StormElementData costElementData)
+    private void SetCostData(Ability ability, StormElementData costElementData)
     {
         if (costElementData.TryGetElementDataAt("0", out StormElementData? costInnerData))
         {
@@ -324,26 +316,26 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
                     chargeInnerData.ContainsIndex("HideCount") ||
                     chargeInnerData.ContainsIndex("TimeUse")))
                 {
-                    abilityTalent.Tooltip.Charges ??= new TooltipCharges();
+                    ability.Tooltip.Charges ??= new TooltipCharges();
 
                     if (chargeInnerData.TryGetElementDataAt("CountMax", out StormElementData? countMaxData))
-                        abilityTalent.Tooltip.Charges.CountMax = countMaxData.Value.GetInt();
+                        ability.Tooltip.Charges.CountMax = countMaxData.Value.GetInt();
 
                     if (chargeInnerData.TryGetElementDataAt("CountStart", out StormElementData? countStartData))
-                        abilityTalent.Tooltip.Charges.CountStart = countStartData.Value.GetInt();
+                        ability.Tooltip.Charges.CountStart = countStartData.Value.GetInt();
 
                     if (chargeInnerData.TryGetElementDataAt("CountUse", out StormElementData? countUseData))
-                        abilityTalent.Tooltip.Charges.CountUse = countUseData.Value.GetInt();
+                        ability.Tooltip.Charges.CountUse = countUseData.Value.GetInt();
 
                     if (chargeInnerData.TryGetElementDataAt("HideCount", out StormElementData? hideCountData))
-                        abilityTalent.Tooltip.Charges.IsHideCount = hideCountData.Value.GetInt() == 1;
+                        ability.Tooltip.Charges.IsHideCount = hideCountData.Value.GetInt() == 1;
 
                     if (chargeInnerData.TryGetElementDataAt("TimeUse", out StormElementData? timeUseData))
                     {
                         string? timeUseValue = timeUseData.Value.GetString();
 
                         string? replaceText;
-                        if (abilityTalent.Tooltip.Charges.CountMax.HasValue && abilityTalent.Tooltip.Charges.CountMax.Value > 1)
+                        if (ability.Tooltip.Charges.CountMax.HasValue && ability.Tooltip.Charges.CountMax.Value > 1)
                             replaceText = GetStormGameString(GameStringConstants.StringChargeCooldownColon); // Charge Cooldown:<space>
                         else
                             replaceText = GetStormGameString(GameStringConstants.StringCooldownColon); // Cooldown:<space>
@@ -367,7 +359,7 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
                         if (string.IsNullOrEmpty(cooldownTooltipFinal))
                             _logger.LogWarning("No cooldown tooltip was set");
                         else
-                            abilityTalent.Tooltip.CooldownText = GetTooltipDescriptionFromGameString(cooldownTooltipFinal);
+                            ability.Tooltip.CooldownText = GetTooltipDescriptionFromGameString(cooldownTooltipFinal);
                     }
                 }
             }
@@ -379,10 +371,10 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
                     string cooldownString = timeUseData.Value.GetString();
                     double cooldown = timeUseData.Value.GetDouble();
 
-                    if (abilityTalent.Tooltip.Charges is not null && abilityTalent.Tooltip.Charges.HasCharges)
+                    if (ability.Tooltip.Charges is not null && ability.Tooltip.Charges.HasCharges)
                     {
-                        abilityTalent.Tooltip.Charges ??= new TooltipCharges();
-                        abilityTalent.Tooltip.Charges.RecastCooldown = cooldown;
+                        ability.Tooltip.Charges ??= new TooltipCharges();
+                        ability.Tooltip.Charges.RecastCooldown = cooldown;
                     }
                     else
                     {
@@ -390,17 +382,17 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
                         {
                             StormGameString? abilTooltipCooldown = _heroesData.GetStormGameString(GameStringConstants.AbilTooltipCooldownText);
                             if (abilTooltipCooldown is not null)
-                                abilityTalent.Tooltip.CooldownText = GetTooltipDescriptionFromGameString(abilTooltipCooldown.Value.Replace(GameStringConstants.ReplacementCharacter, cooldownString, StringComparison.OrdinalIgnoreCase));
+                                ability.Tooltip.CooldownText = GetTooltipDescriptionFromGameString(abilTooltipCooldown.Value.Replace(GameStringConstants.ReplacementCharacter, cooldownString, StringComparison.OrdinalIgnoreCase));
                         }
                         else if (cooldown > 1)
                         {
                             StormGameString? abilTooltipCooldownPlural = _heroesData.GetStormGameString(GameStringConstants.AbilTooltipCooldownPluralText);
                             if (abilTooltipCooldownPlural is not null)
-                                abilityTalent.Tooltip.CooldownText = GetTooltipDescriptionFromGameString(abilTooltipCooldownPlural.Value.Replace(GameStringConstants.ReplacementCharacter, cooldownString, StringComparison.OrdinalIgnoreCase));
+                                ability.Tooltip.CooldownText = GetTooltipDescriptionFromGameString(abilTooltipCooldownPlural.Value.Replace(GameStringConstants.ReplacementCharacter, cooldownString, StringComparison.OrdinalIgnoreCase));
                         }
                         else
                         {
-                            abilityTalent.ToggleCooldown = cooldown;
+                            ability.ToggleCooldown = cooldown;
                         }
                     }
                 }
@@ -410,28 +402,28 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
             {
                 if (vitalData.TryGetElementDataAt("Energy", out StormElementData? energyData))
                 {
-                    abilityTalent.Tooltip.EnergyCost = energyData.Value.GetString();
+                    ability.Tooltip.EnergyCost = energyData.Value.GetString();
                 }
             }
         }
     }
 
-    private void SetEffectData(AbilityTalentBase abilityTalent, StormElementData effectElementData)
+    private void SetEffectData(Ability ability, StormElementData effectElementData)
     {
         // TODO: looking up create units
     }
 
-    private void SetCmdButtonArrayData(AbilityTalentBase abilityTalent, StormElementData cmdButtonArrayElementData)
+    private void SetCmdButtonArrayData(Ability ability, StormElementData cmdButtonArrayElementData)
     {
         if (cmdButtonArrayElementData.TryGetElementDataAt("DefaultButtonFace", out StormElementData? defaultButtonFaceData))
         {
             string defaultButtonFaceValue = defaultButtonFaceData.Value.GetString();
 
-            if (string.IsNullOrEmpty(abilityTalent.ButtonId))
-                abilityTalent.ButtonId = defaultButtonFaceValue;
+            if (string.IsNullOrEmpty(ability.ButtonId))
+                ability.ButtonId = defaultButtonFaceValue;
         }
 
-        SetButtonData(abilityTalent);
+        SetButtonData(ability);
 
         if (cmdButtonArrayElementData.TryGetElementDataAt("Requirements", out StormElementData? requirementsData))
         {
