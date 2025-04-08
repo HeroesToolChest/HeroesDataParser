@@ -66,6 +66,9 @@
     <TintRacially value="1"/>
     <Universal value="1"/>
   </CButton>
+  <CButton id="GenericCalldownMule" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_mule.dds"/>
+  </CButton>
   <CButton id="AbathurSymbiote" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_abathur_symbiote.dds" />
     <TooltipAppender Validator="HasAbathurMasteryPressurizedGlands" Face="AbathurSymbiotePressurizedGlandsTalent" />
@@ -134,6 +137,17 @@
   <CButton id="AbathurSymbiotePressurizedGlandsTalent" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_abathur_spikeburst.dds" />
   </CButton>
+  <CButton id="AbathurToxicNestEnvenomedNestTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_toxicnest.dds" />
+  </CButton>
+  <CButton id="AbathurLocustStrainSurvivalInstinctsTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_spawnlocust.dds" />
+  </CButton>
+  <CButton id="AbathurUltimateEvolution" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_ultimateevolution.dds" />
+    <TooltipAppender Validator="AbathurHasVolatileMutation" Face="AbathurVolatileMutationTalent" />
+    <TooltipAppender Validator="AbathurHasUltimateEvolutionEvolutionaryLink" Face="AbathurUltimateEvolutionEvolutionaryLinkTalent" />
+  </CButton>
   <CButton id="AlarakDeadlyCharge" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_alarak_recklesscharge.dds" />
     <TooltipVitalOverrideText index="Energy" value="Abil/AlarakDeadlyChargeButtonVitalCostOverride" />
@@ -146,6 +160,9 @@
     <TooltipAppender Validator="AlarakHasPureMaliceTalent" Face="AlarakPureMalice" />
     <TooltipAppender Validator="AlarakHasMockingStrikesTalent" Face="AlarakMockingStrikes" />
     <Icon value="Assets\Textures\storm_ui_icon_alarak_sadism.dds" />
+  </CButton>
+  <CButton id="AlarakExtendedLightning" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_lightningsurge.dds" />
   </CButton>
   <CButton id="AlexstraszaGiftOfLife" parent="StormButtonParent">
     <TooltipVitalName index="Life" value="UI/Tooltip/Abil/CurrentLife" />
@@ -200,6 +217,9 @@
     <Icon value="Assets\Textures\storm_ui_icon_samuro_flowingstrikes.dds" />
     <HotkeyAlias value="SamuroMirrorImage" />
     <TooltipCooldownOverrideText value="SamuroImageTransmission" />
+  </CButton>
+  <CButton id="MuradinSecondWindStoneformTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_Muradin_SecondWind.dds" />
   </CButton>
 </Button>
 

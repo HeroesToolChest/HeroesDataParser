@@ -136,6 +136,8 @@
     <HeroMasteryRingArray index="2" value="##id##MasteryRing2" />
     <HeroMasteryRingArray index="3" value="##id##MasteryRing3" />
   </CHero>
+  <CHero default="1" id="LegacyVOHero">
+  </CHero>
   <CHero id="HpTESTHero"> 
   </CHero>
   <CHero id="Abathur">
@@ -633,6 +635,280 @@
     <Rarity value="Legendary" />
     <ReleaseDate Month="3" Day="13" />
   </CHero>
+  <CHero id="Alarak">
+    <AttributeId value="Alar" />
+    <DisplayModel value="HeroAlarak" />
+    <VariationArray value="AlarakBaseVar1" />
+    <VariationArray value="AlarakBaseVar2" />
+    <VariationArray value="AlarakBaseVar3" />
+    <SkinArray value="AlarakUltimate" />
+    <SkinArray value="AlarakHunter" />
+    <SkinArray value="AlarakDark18" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <Melee value="1" />
+    <HeroAbilArray Abil="AlarakDiscordStrike" Button="AlarakDiscordStrike">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AlarakTelekinesis" Button="AlarakTelekinesis">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AlarakLightningSurge" Button="AlarakLightningSurge">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AlarakDeadlyChargeActivate" Button="AlarakDeadlyCharge">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AlarakCounterStrikeTargeted" Button="AlarakCounterStrikeTargeted">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="AlarakSadismDummyUI">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroicAbilArray Abil="AlarakDeadlyChargeActivate" />
+    <HeroicAbilArray Abil="AlarakCounterStrikeTargeted" />
+    <DefaultMount value="AlarakTaldarimMarch" />
+    <TalentTreeArray Talent="AlarakOverwhelmingPowerDiscordStrike" Tier="1" Column="1" />
+    <TalentTreeArray Talent="AlarakRuthlessMomentum" Tier="1" Column="2" />
+    <TalentTreeArray Talent="AlarakExtendedLightning" Tier="1" Column="3" />
+    <TalentTreeArray Talent="AlarakChaosReigns" Tier="2" Column="1" />
+    <TalentTreeArray Talent="AlarakNegativelyCharged" Tier="2" Column="2" />
+    <TalentTreeArray Talent="AlarakShowofForce" Tier="2" Column="3" />
+    <TalentTreeArray Talent="AlarakDissonance" Tier="3" Column="1" />
+    <TalentTreeArray Talent="AlarakHinderedMotion" Tier="3" Column="2" />
+    <TalentTreeArray Talent="AlarakAppliedForce" Tier="3" Column="3" />
+    <TalentTreeArray Talent="AlarakDeadlyChargeFirstHeroic" Tier="4" Column="1" />
+    <TalentTreeArray Talent="AlarakHeroicAbilityCounterStrike" Tier="4" Column="2" />
+    <TalentTreeArray Talent="AlarakBladeoftheHighlord" Tier="5" Column="1" />
+    <TalentTreeArray Talent="AlarakPureMalice" Tier="5" Column="2" />
+    <TalentTreeArray Talent="AlarakRiteofRakShir" Tier="5" Column="3" />
+    <TalentTreeArray Talent="AlarakLethalOnslaughtDiscordStrike" Tier="6" Column="1" />
+    <TalentTreeArray Talent="AlarakLightningBarrage" Tier="6" Column="2" />
+    <TalentTreeArray Talent="AlarakMockingStrikes" Tier="6" Column="3" />
+    <TalentTreeArray Talent="AlarakCounterStrikeItem" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="AlarakDeadlyChargeFirstHeroic" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="AlarakDeadlyChargeSecondHeroic" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="AlarakHeroicAbilityCounterStrike" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="AlarakLastLaugh" Tier="7" Column="3" />
+    <TalentTreeArray Talent="AlarakHastyBargain" Tier="7" Column="4" />
+    <Difficulty value="VeryHard" />
+    <UniverseIcon value="Assets\Textures\ui_glues_store_gameicon_sc2.dds" />
+    <ProductId value="22256" />
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroAlarak" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroAlarak" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroAlarak" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AlarakHeroWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AlarakSadismShowofForceTalentDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AlarakDiscordStrike">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AlarakDiscordStrikeDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AlarakLightningSurge">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AlarakLightningSurgeDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AlarakLightningSurgeHeroDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AlarakLightningSurgeTargetDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AlarakLightningSurgeHeroTargetDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AlarakLightningSurgeHeroDamageCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AlarakLightningSurgeHeroTargetCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AlarakTelekinesis">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AlarakTelekinesisDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AlarakCounterStrikeTargeted">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AlarakCounterStrikeDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AlarakDeadlyChargeActivate">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AlarakDeadlyChargeDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <ReleaseDate Month="9" Day="13" Year="2016" />
+    <AllowedMountCategoryArray value="AlarakTaldarimMarch" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <HeroSpecificUIArray Location="Status" DescName="Alarak/AlarakFrame" />
+    <HeroSpecificUIArray Location="FullscreenStatus" DescName="Alarak/AlarakHeroicChargeFrame" />
+    <Flags index="GoodForModeA" value="1" />
+    <VariationIcon value="Assets\Textures\ui_glues_swatch_brown.dds" />
+    <Ratings>
+      <Damage value="7" />
+      <Utility value="7" />
+      <Survivability value="6" />
+      <Complexity value="8" />
+    </Ratings>
+    <HeroTierAchievementId value="5216701565559264468" />
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="AlarakExtendedLightning" />
+      <TalentsArray value="AlarakNegativelyCharged" />
+      <TalentsArray value="AlarakHinderedMotion" />
+      <TalentsArray value="AlarakHeroicAbilityCounterStrike" />
+      <TalentsArray value="AlarakRiteofRakShir" />
+      <TalentsArray value="AlarakLightningBarrage" />
+      <TalentsArray value="AlarakDeadlyChargeSecondHeroic" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="AlarakRuthlessMomentum" />
+      <TalentsArray value="AlarakChaosReigns" />
+      <TalentsArray value="AlarakDissonance" />
+      <TalentsArray value="AlarakDeadlyChargeFirstHeroic" />
+      <TalentsArray value="AlarakBladeoftheHighlord" />
+      <TalentsArray value="AlarakLethalOnslaughtDiscordStrike" />
+      <TalentsArray value="AlarakCounterStrikeItem" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="AlarakExtendedLightning" />
+      <TalentsArray value="AlarakShowofForce" />
+      <TalentsArray value="AlarakHinderedMotion" />
+      <TalentsArray value="AlarakHeroicAbilityCounterStrike" />
+      <TalentsArray value="AlarakPureMalice" />
+      <TalentsArray value="AlarakMockingStrikes" />
+      <TalentsArray value="AlarakDeadlyChargeSecondHeroic" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="AlarakRuthlessMomentum" />
+      <TalentsArray value="AlarakShowofForce" />
+      <TalentsArray value="AlarakAppliedForce" />
+      <TalentsArray value="AlarakDeadlyChargeFirstHeroic" />
+      <TalentsArray value="AlarakRiteofRakShir" />
+      <TalentsArray value="AlarakMockingStrikes" />
+      <TalentsArray value="AlarakCounterStrikeItem" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="AlarakOverwhelmingPowerDiscordStrike" />
+      <TalentsArray value="AlarakShowofForce" />
+      <TalentsArray value="AlarakAppliedForce" />
+      <TalentsArray value="AlarakHeroicAbilityCounterStrike" />
+      <TalentsArray value="AlarakBladeoftheHighlord" />
+      <TalentsArray value="AlarakLethalOnslaughtDiscordStrike" />
+      <TalentsArray value="AlarakLastLaugh" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="AlarakOverwhelmingPowerDiscordStrike" />
+      <TalentsArray value="AlarakShowofForce" />
+      <TalentsArray value="AlarakHinderedMotion" />
+      <TalentsArray value="AlarakDeadlyChargeFirstHeroic" />
+      <TalentsArray value="AlarakBladeoftheHighlord" />
+      <TalentsArray value="AlarakMockingStrikes" />
+      <TalentsArray value="AlarakHastyBargain" />
+    </TalentAIBuildsArray>
+    <VoiceLineArray value="AlarakBase_VoiceLine01" />
+    <VoiceLineArray value="AlarakBase_VoiceLine02" />
+    <VoiceLineArray value="AlarakBase_VoiceLine03" />
+    <VoiceLineArray value="AlarakBase_VoiceLine04" />
+    <VoiceLineArray value="AlarakBase_VoiceLine05" />
+    <Rarity value="Epic" />
+    <ExpandedRole value="MeleeAssassin" />
+  </CHero>
   <CHero id="Samuro">
     <AttributeId value="Samu" />
     <Flags index="GoodForModeA" value="1" />
@@ -881,5 +1157,321 @@
     <HeroSpecificUIArray Location="HeroSpecificStackingBuffsStatus" DescName="Samuro/SamuroStacksFrameContainer" />
     <Rarity value="Legendary" />
     <ExpandedRole value="MeleeAssassin" />
+  </CHero>
+  <CHero id="Muradin" parent="LegacyVOHero">
+    <AIComplexityTier value="Low" />
+    <AttributeId value="Mura" />
+    <ProductId value="10118" />
+    <Melee value="1" />
+    <RolesMultiClass value="Warrior" />
+    <ExpandedRole value="Tank" />
+    <RoleScoreValueOverride value="Warrior" />
+    <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_muradin.dds" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_Wow.dds" />
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Blue_Bright.dds" />
+    <IntroCutsceneSize value="Medium" />
+    <SkinArray value="MuradinUltimate" />
+    <SkinArray value="MuradinMagni" />
+    <SkinArray value="MuradinKandyKing" />
+    <SkinArray value="MuradinMarauder" />
+    <SkinArray value="MuradinWCAV" />
+    <DefaultMount value="HorseCommon" />
+    <VariationArray value="MuradinIron" />
+    <VariationArray value="MuradinRed" />
+    <TalentTreeArray Talent="MuradinStormboltPerfectStorm" Tier="1" Column="1" />
+    <TalentTreeArray Talent="MuradinDwarfBlock" Tier="1" Column="2" />
+    <TalentTreeArray Talent="MuradinCombatStyleThirdWind" Tier="1" Column="3" />
+    <TalentTreeArray Talent="MuradinMasteryStormhammerSledgehammer" Tier="2" Column="1" />
+    <TalentTreeArray Talent="MuradinMasteryThunderclapReverberation" Tier="2" Column="2" />
+    <TalentTreeArray Talent="MuradinMasteryThunderburn" Tier="2" Column="3" />
+    <TalentTreeArray Talent="MuradinMasteryDwarfTossHeavyImpact" Tier="3" Column="1" />
+    <TalentTreeArray Talent="MuradinGiveEmTheAxeExecutioner60DamageBonus" Tier="3" Column="2" />
+    <TalentTreeArray Talent="MuradinCombatStyleSkullcracker" Tier="3" Column="3" />
+    <TalentTreeArray Talent="MuradinHeroicAbilityAvatar" Tier="4" Column="1" />
+    <TalentTreeArray Talent="MuradinHeroicAbilityHaymaker" Tier="4" Column="2" />
+    <TalentTreeArray Talent="MuradinBronzebeardRage" Tier="5" Column="1" />
+    <TalentTreeArray Talent="MuradinMasteryThunderclapHealingStatic" Tier="5" Column="2" />
+    <TalentTreeArray Talent="MuradinMasteryThunderclapThunderstrike" Tier="5" Column="3" />
+    <TalentTreeArray Talent="MuradinMasteryDwarfTossDwarfLaunch" Tier="6" Column="1" />
+    <TalentTreeArray Talent="GenericTalentImposingPresence" Tier="6" Column="2" />
+    <TalentTreeArray Talent="MuradinMasteryPassiveStoneform" Tier="6" Column="3" />
+    <TalentTreeArray Talent="MuradinMasteryAvatarUnstoppableForce" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="MuradinHeroicAbilityAvatar" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="MuradinMasteryHaymakerGrandSlam" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="MuradinHeroicAbilityHaymaker" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="GenericTalentHardenedShield" Tier="7" Column="3" />
+    <TalentTreeArray Talent="GenericTalentRewind" Tier="7" Column="4" />
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="MuradinStormboltPerfectStorm" />
+      <TalentsArray value="MuradinMasteryThunderburn" />
+      <TalentsArray value="MuradinMasteryDwarfTossHeavyImpact" />
+      <TalentsArray value="MuradinHeroicAbilityAvatar" />
+      <TalentsArray value="MuradinMasteryThunderclapHealingStatic" />
+      <TalentsArray value="MuradinMasteryPassiveStoneform" />
+      <TalentsArray value="GenericTalentRewind" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="MuradinStormboltPerfectStorm" />
+      <TalentsArray value="MuradinMasteryStormhammerSledgehammer" />
+      <TalentsArray value="MuradinGiveEmTheAxeExecutioner60DamageBonus" />
+      <TalentsArray value="MuradinHeroicAbilityAvatar" />
+      <TalentsArray value="MuradinMasteryThunderclapThunderstrike" />
+      <TalentsArray value="MuradinMasteryPassiveStoneform" />
+      <TalentsArray value="GenericTalentHardenedShield" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="MuradinCombatStyleThirdWind" />
+      <TalentsArray value="MuradinMasteryThunderburn" />
+      <TalentsArray value="MuradinMasteryDwarfTossHeavyImpact" />
+      <TalentsArray value="MuradinHeroicAbilityAvatar" />
+      <TalentsArray value="MuradinMasteryThunderclapHealingStatic" />
+      <TalentsArray value="MuradinMasteryDwarfTossDwarfLaunch" />
+      <TalentsArray value="MuradinMasteryAvatarUnstoppableForce" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="MuradinDwarfBlock" />
+      <TalentsArray value="MuradinMasteryThunderclapReverberation" />
+      <TalentsArray value="MuradinCombatStyleSkullcracker" />
+      <TalentsArray value="MuradinHeroicAbilityAvatar" />
+      <TalentsArray value="MuradinBronzebeardRage" />
+      <TalentsArray value="GenericTalentImposingPresence" />
+      <TalentsArray value="MuradinMasteryAvatarUnstoppableForce" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="MuradinStormboltPerfectStorm" />
+      <TalentsArray value="MuradinMasteryThunderburn" />
+      <TalentsArray value="MuradinMasteryDwarfTossHeavyImpact" />
+      <TalentsArray value="MuradinHeroicAbilityHaymaker" />
+      <TalentsArray value="MuradinMasteryThunderclapThunderstrike" />
+      <TalentsArray value="MuradinMasteryDwarfTossDwarfLaunch" />
+      <TalentsArray value="MuradinMasteryHaymakerGrandSlam" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="MuradinDwarfBlock" />
+      <TalentsArray value="MuradinMasteryThunderclapReverberation" />
+      <TalentsArray value="MuradinCombatStyleSkullcracker" />
+      <TalentsArray value="MuradinHeroicAbilityHaymaker" />
+      <TalentsArray value="MuradinBronzebeardRage" />
+      <TalentsArray value="GenericTalentImposingPresence" />
+      <TalentsArray value="MuradinMasteryHaymakerGrandSlam" />
+    </TalentAIBuildsArray>
+    <HeroTierAchievementId value="5216701565564375433" />
+    <Universe value="Warcraft" />
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroMuradin" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroMuradin" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroMuradin" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="MuradinWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="MuradinBronzebeardRageDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="MuradinStormBolt">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="StormBoltDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="MuradinSecondWindCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="MuradinSecondWindCriticalCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="MuradinSecondWindImprovedCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="MuradinSecondWindImprovedCriticalCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="MuradinThunderclap">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThunderclapDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThunderclapThunderstrikeDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="MuradinThunderclapThunderburnTalentDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="MuradinThunderclapThunderburnTalentThunderstrikeDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="MuradinDwarfToss">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="MuradinDwarfTossDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="MuradinAvatar">
+      <Modifications>
+        <Catalog value="Behavior" />
+        <Entry value="MuradinAvatar" />
+        <Field value="Modification.VitalMaxArray[0]" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="MuradinHaymaker">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="HaymakerDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="HaymakerSecondaryImpactDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <VOArray index="Cheer" value="Muradin_VOX_Cheer" />
+    <VOArray index="GetHit" value="Muradin_VOX_GetHitSmall" />
+    <VOArray index="MatchEnd" value="Muradin_MatchEnd" />
+    <VOArray index="PingCapture" value="Muradin_Ping_Capture" />
+    <VOArray index="PingCollect" value="Muradin_Ping_Collect" />
+    <VOArray index="PingDefendStructure" value="Muradin_Ping_DefendStructure" />
+    <VOArray index="PingDefendThing" value="Muradin_Ping_DefendThing" />
+    <VOArray index="PingDestroyStructure" value="Muradin_Ping_DestroyStructure" />
+    <VOArray index="PingDestroyThing" value="Muradin_Ping_DestroyThing" />
+    <VOArray index="PingTransport" value="Muradin_Ping_Transport" />
+    <VOArray index="PingTurnIn" value="Muradin_Ping_TurnIn" />
+    <VOArray index="VOPing_AssistMe" value="Muradin_VOPing_AssistMe" />
+    <VOArray index="VOPing_Danger" value="Muradin_VOPing_Danger" />
+    <VOArray index="VOPing_Defend" value="Muradin_VOPing_Defend" />
+    <VOArray index="VOPing_EnemyMissing" value="Muradin_VOPing_EnemyMissing" />
+    <VOArray index="VOPing_OnMyWay" value="Muradin_VOPing_OnMyWay" />
+    <VOArray index="VOPing_Retreat" value="Muradin_VOPing_Retreat" />
+    <HeroAbilArray Abil="MuradinStormBolt" Button="MuradinStormbolt">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="MuradinThunderclap" Button="MuradinThunderclap">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="MuradinDwarfToss" Button="MuradinDwarfToss">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="MuradinAvatar" Button="MuradinAvatar">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="MuradinHaymaker" Button="MuradinHaymaker">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="UsesCharges" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="MuradinSecondWind">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="Stoneform">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroSpecificUIArray Location="CommandButton05Status" DescName="Muradin/UnitStatusMuradinSecondWindCooldownOverrideFrame" />
+    <HeroSpecificUIArray Location="Status" DescName="Muradin/MuradinFrame" />
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <Ratings>
+      <Damage value="5" />
+      <Utility value="5" />
+      <Survivability value="9" />
+      <Complexity value="4" />
+    </Ratings>
+    <Flags index="GoodForModeA" value="1" />
+    <VoiceLineArray value="MuradinBase_VoiceLine01" />
+    <VoiceLineArray value="MuradinBase_VoiceLine02" />
+    <VoiceLineArray value="MuradinBase_VoiceLine03" />
+    <VoiceLineArray value="MuradinBase_VoiceLine04" />
+    <VoiceLineArray value="MuradinBase_VoiceLine05" />
+    <Rarity value="Epic" />
+    <ReleaseDate Month="3" Day="13" />
   </CHero>
 </Hero>

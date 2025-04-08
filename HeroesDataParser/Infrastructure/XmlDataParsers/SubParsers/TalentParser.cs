@@ -1,21 +1,15 @@
-﻿using Heroes.Element.Models.AbilityTalents;
-using Heroes.Element.Types;
-using System.Runtime.CompilerServices;
-
-namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
+﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
 
 public class TalentParser : AbilityTalentParserBase, ITalentParser
 {
     private readonly ILogger<TalentParser> _logger;
     private readonly HeroesData _heroesData;
-    private readonly IAbilityParser _abilityParser;
 
-    public TalentParser(ILogger<TalentParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService, IAbilityParser abilityParser)
+    public TalentParser(ILogger<TalentParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
         : base(logger, heroesXmlLoaderService)
     {
         _logger = logger;
         _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
-        _abilityParser = abilityParser;
     }
 
     // <TalentTreeArray Talent="SamuroWayOfIllusion" Tier="1" Column="1" />
@@ -74,7 +68,7 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 
     private void SetTalentData(Hero hero, Talent talent)
     {
-        StormElement? talentElement = _heroesData.GetCompleteStormElement("Talent", (string)talent.NameId);
+        StormElement? talentElement = _heroesData.GetCompleteStormElement("Talent", talent.NameId);
         if (talentElement is null)
             return;
 
@@ -84,18 +78,63 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
         {
             talent.ButtonId = faceData.Value.GetString();
 
-            if (hero.GetAbilityTypeByButtonId(talent.ButtonId, out AbilityType abilityType))
-                talent.AbilityType = abilityType;
-            else
-                talent.AbilityType = AbilityType.Unknown;
-
             SetButtonData(talent);
         }
 
-        //// TODO: Trait
+        if (talentDataValues.TryGetElementDataAt("QuestData", out StormElementData? questData) &&
+            questData.TryGetElementDataAt("StackBehavior", out StormElementData? stackBehaviorData) &&
+            !string.IsNullOrEmpty(stackBehaviorData.Value.GetString()))
+        {
+            talent.IsQuest = true;
+        }
 
-        //// TODO: ACtive
+        // set the IsActive, we do not know if it's an active abilityType yet
+        if (talentDataValues.TryGetElementDataAt("Active", out StormElementData? activeData) && activeData.Value.GetString() == "1")
+            talent.IsActive = true;
+
+        if (talentDataValues.TryGetElementDataAt("Trait", out StormElementData? traitData) && traitData.Value.GetString() == "1")
+            talent.AbilityType = AbilityType.Trait;
+
+        if (talentDataValues.TryGetElementDataAt("Abil", out StormElementData? abilityData))
+        {
+            string abilityId = abilityData.Value.GetString();
+
+            if (talent.AbilityType != AbilityType.Trait)
+            {
+                // find the (first) matching ability we have for the hero
+                if (hero.GetAbilityTypeByNameId(abilityId, out AbilityType abilityType))
+                {
+                    talent.AbilityType = abilityType;
+                }
+                else
+                {
+                    // search through all hero units
+                    foreach (Unit heroUnit in hero.HeroUnits.Values)
+                    {
+                        if (heroUnit.GetAbilityTypeByNameId(abilityId, out abilityType))
+                        {
+                            talent.AbilityType = abilityType;
+                        }
+                    }
+                }
+            }
+
+            // only if it's IsActive we will add the ability data
+            if (talent.IsActive)
+                SetAbilityData(abilityId, talent);
+        }
+
+        // if the abilityType is still unknown and isActive, then set it to an active abilityType
+        if (talent.AbilityType == AbilityType.Unknown && talent.IsActive)
+            talent.AbilityType = AbilityType.Active;
     }
 
+    private void SetAbilityData(string abilityId, AbilityTalentBase abilityTalent, string? abilCmdIndex = null)
+    {
+        StormElement? abilityElement = _heroesData.GetCompleteStormElement("Abil", abilityId);
+        if (abilityElement is null)
+            return;
 
+        SetAbilityData(abilityElement, abilityTalent, abilCmdIndex);
+    }
 }

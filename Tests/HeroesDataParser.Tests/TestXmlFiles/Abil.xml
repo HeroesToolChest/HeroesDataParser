@@ -136,6 +136,17 @@
     <CmdButtonArray index="Execute" DefaultButtonFace="AbathurSymbiote" />
     <CmdButtonArray index="Execute2" DefaultButtonFace="AbathurSymbiote2" />
   </CAbilEffectTarget>
+  <CAbilEffectTarget id="TalentBucketCalldownMule">
+    <Effect value="CalldownMULEDummySet" />
+    <Cost>
+      <Cooldown TimeUse="60" />
+    </Cost>
+    <Range value="500" />
+    <Arc value="360" />
+    <CmdButtonArray index="Execute">
+      <Flags index="AllowMinimap" value="1" />
+    </CmdButtonArray>
+  </CAbilEffectTarget>
   <CAbilEffectTarget id="AbathurToxicNest">
     <Effect value="AbathurToxicNestInitialSet" />
     <Cost>
@@ -184,6 +195,25 @@
       <Cooldown Operation="Set" TimeUse="10" />
     </InterruptCost>
     <CastIntroTime value="2.5" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakLightningSurge">
+    <Flags index="BestUnit" value="0" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Cost>
+      <Vital index="Energy" value="25" />
+      <Cooldown TimeUse="6" />
+    </Cost>
+    <Range value="10" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakLightningSurge">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <PrepEffect value="AlarakLightningSurgePrepSet" />
+    <Effect value="AlarakLightningSurgeCastSet" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <TargetFilters value="Visible;Self,Player,Ally,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <CursorEffect value="AlarakLightningSurgeSearch16" />
   </CAbilEffectTarget>
   <CAbilEffectInstant id="AbathurAssumingDirectControlCancel">
     <Effect value="AbathurAssumingDirectControlCancelSet" />
@@ -269,6 +299,29 @@
     <Arc value="360" />
     <ParentAbil value="AbathurEvolveMonstrosity" />
   </CAbilEffectInstant>
+  <CAbilEffectTarget id="AbathurUltimateEvolution">
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurUltimateEvolution" Requirements="Ultimate1Unlocked" />
+    <Range value="500" />
+    <TargetFilters value="Heroic;Player,Neutral,Enemy,Stasis,Dead,Hallucination,Benign" />
+    <Arc value="360" />
+    <Effect value="UltimateEvolutionInitialCreatePersistent" />
+    <Cost>
+      <Cooldown TimeUse="70" />
+    </Cost>
+    <CastIntroTime value="1" />
+    <FinishTime value="0.0625" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <Activity value="Abil/Activity/AbathurUltimateEvolution" />
+    <ShowProgressArray index="Cast" value="1" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <InterruptArray index="Cast" value="1" />
+    <InterruptCost>
+      <Cooldown Operation="Set" TimeUse="10" />
+    </InterruptCost>
+    <AbilityCategories index="TargetAcrossMapPlane" value="1" />
+  </CAbilEffectTarget>
   <CAbilEffectTarget id="AlexstraszaGiftOfLife">
     <Effect value="AlexstraszaGiftOfLifeSet" />
     <Cost>
@@ -329,4 +382,15 @@
       <Flags index="AllowSelfCast" value="0" />
     </CmdButtonArray>
   </CAbilEffectTarget>
+  <CAbilEffectInstant id="Stoneform">
+    <Effect value="StoneformApplyBehavior" />
+    <Cost>
+      <Cooldown TimeUse="60" />
+    </Cost>
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="MuradinSecondWindActivateable" Requirements="MuradinHasStoneformCarryBehavior" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+  </CAbilEffectInstant>
 </Abil>

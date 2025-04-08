@@ -36,7 +36,9 @@ public class HeroParser : CollectionParserBase<Hero>
         SetUnitData(elementObject);
 
         //// TODO: FindUnits ? e.g dva pilot
-        //// TODO: HeroUnits ? e.g symbiote
+
+        // find additional (hero) units
+        SetHeroUnits(elementObject, stormElement);
 
         SetTalentData(elementObject, stormElement);
 
@@ -212,18 +214,6 @@ public class HeroParser : CollectionParserBase<Hero>
             collectionObject.DefaultMountId = defaultMountData.Value.GetString();
 
         SetInfoTextProperty(collectionObject, stormElement);
-
-        if (elementData.TryGetElementDataAt("AlternateUnitArray", out StormElementData? alternateUnitArrayData))
-        {
-            foreach (string item in alternateUnitArrayData.GetElementDataIndexes())
-            {
-                string value = alternateUnitArrayData.GetElementDataAt(item).Value.GetString();
-                Unit? unit = _unitParser.Parse(value);
-
-                if (unit is not null)
-                    collectionObject.HeroUnits.Add(unit.Id, unit);
-            }
-        }
     }
 
     protected override void SetValidatedProperties(Hero collectionObject)
@@ -241,7 +231,7 @@ public class HeroParser : CollectionParserBase<Hero>
             return;
         }
 
-        // when calling the unitparser, we need to use the unitId for the objects id
+        // when calling the unitparser, we need to use the unitId for the object's id
         string heroId = elementObject.Id;
         elementObject.Id = elementObject.UnitId;
 
@@ -249,6 +239,21 @@ public class HeroParser : CollectionParserBase<Hero>
 
         // then set it back to the heroId
         elementObject.Id = heroId;
+    }
+
+    private void SetHeroUnits(Hero collectionObject, StormElement stormElement)
+    {
+        if (stormElement.DataValues.TryGetElementDataAt("AlternateUnitArray", out StormElementData? alternateUnitArrayData))
+        {
+            foreach (string item in alternateUnitArrayData.GetElementDataIndexes())
+            {
+                string value = alternateUnitArrayData.GetElementDataAt(item).Value.GetString();
+                Unit? unit = _unitParser.Parse(value);
+
+                if (unit is not null)
+                    collectionObject.HeroUnits.Add(unit.Id, unit);
+            }
+        }
     }
 
     private void SetTalentData(Hero elementObject, StormElement stormElement)

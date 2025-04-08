@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Talent>
+  <CTalent id="GenericTalentCalldownMULE">
+    <Face value="GenericCalldownMule"/>
+    <Abil value="TalentBucketCalldownMule"/>
+    <RankArray>
+      <BehaviorArray value="GenericCalldownMule"/>
+    </RankArray>
+    <Active value="1"/>
+  </CTalent>
   <CTalent id="AbathurMasteryPressurizedGlands">
     <Face value="AbathurSymbiotePressurizedGlandsTalent" />
     <AbilityModificationArray>
@@ -40,6 +48,40 @@
     </AbilityModificationArray>
     <Abil value="AbathurSymbioteSpikeBurst" />
   </CTalent>
+  <CTalent id="AbathurMasteryEnvenomedNestsToxicNest">
+    <Face value="AbathurToxicNestEnvenomedNestTalent" />
+    <AbilityModificationArray ModifyAbil="AbathurToxicNest" TooltipAddendum="Talent/Abathur/ToxicNest/EnevenomedNest">
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurToxicNestApplyEnvenomedNestDamage" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="AbathurToxicNest" />
+  </CTalent>
+  <CTalent id="AbathurCombatStyleSurvivalInstincts">
+    <Face value="AbathurLocustStrainSurvivalInstinctsTalent" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurSurvivalInstinctsApplyBehavior" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="AbathurHeroicAbilityUltimateEvolution">
+    <Face value="AbathurUltimateEvolution" />
+    <RankArray>
+      <BehaviorArray value="Ultimate1Unlocked" />
+    </RankArray>
+    <Active value="1" />
+    <Abil value="AbathurUltimateEvolution" />
+  </CTalent>
   <CTalent id="KelThuzadMasterOfTheColdDark">
     <Face value="KelThuzadMasterOfTheColdDark" />
     <QuestData>
@@ -48,6 +90,26 @@
       <TargetCount value="30" />
       <IgnoreTargetCount value="0" />
     </QuestData>
+  </CTalent>
+  <CTalent id="AlarakExtendedLightning">
+    <Face value="AlarakExtendedLightning" />
+    <Abil value="AlarakLightningSurge" />
+    <RankArray>
+      <BehaviorArray value="AlarakSadism10TokenReduction" />
+      <BehaviorArray value="AlarakLightningSurgeExtendedLightningMasterQuestToken" />
+      <BehaviorArray value="AlarakLightningSurgeExtendedLightningTalentTokenCounter" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications Type="FlatModification" Entry="AlarakLightningSurge" Field="Range[0]" />
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Actor" />
+        <Entry value="AlarakLightningSurgeRangeSplat" />
+        <Field value="Scale" />
+      </Modifications>
+      <Modifications Type="FlatModification" Entry="AlarakLightningSurgeLightningBarrage" Field="Range[0]" />
+    </AbilityModificationArray>
+    <QuestData StackBehavior="AlarakLightningSurgeExtendedLightningMasterQuestToken" />
   </CTalent>
   <CTalent id="SamuroThreeBladeStyle">
     <Face value="SamuroThreeBladeStyleTalent" />
@@ -97,5 +159,14 @@
         <Value value="2.000000" />
       </Modifications>
     </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="MuradinMasteryPassiveStoneform">
+    <Face value="MuradinSecondWindStoneformTalent" />
+    <RankArray>
+      <BehaviorArray value="StoneformCarryBehavior" />
+    </RankArray>
+    <Abil value="Stoneform" />
+    <Trait value="1" />
+    <Active value="1" />
   </CTalent>
 </Talent>

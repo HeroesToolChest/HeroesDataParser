@@ -1,9 +1,4 @@
-﻿using Heroes.Element.Models;
-using Heroes.Element.Models.AbilityTalents;
-using Serilog.Context;
-using System;
-using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using Serilog.Context;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
@@ -383,18 +378,16 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         {
             foreach (string cardLayoutIndex in cardLayoutsData.GetElementDataIndexes())
             {
-                StormElementData layoutButtonsData = cardLayoutsData.GetElementDataAt(cardLayoutIndex);
+                StormElementData cardLayoutsElement = cardLayoutsData.GetElementDataAt(cardLayoutIndex);
 
-                foreach (string layoutButtonIndex in layoutButtonsData.GetElementDataIndexes())
+                if (cardLayoutsElement.TryGetElementDataAt("LayoutButtons", out StormElementData? layoutButtonsData))
                 {
-                    StormElementData innerData = layoutButtonsData.GetElementDataAt(layoutButtonIndex);
-
-                    foreach (string item in innerData.GetElementDataIndexes())
+                    foreach (string layoutButtonsIndex in layoutButtonsData.GetElementDataIndexes())
                     {
                         // Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
-                        StormElementData innerDataElements = innerData.GetElementDataAt(item);
+                        StormElementData layoutButtonsElement = layoutButtonsData.GetElementDataAt(layoutButtonsIndex);
 
-                        Ability? ability = _abilityParser.GetAbility(innerDataElements);
+                        Ability? ability = _abilityParser.GetAbility(layoutButtonsElement);
 
                         if (ability is not null)
                         {
