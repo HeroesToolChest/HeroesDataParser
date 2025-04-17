@@ -32,14 +32,12 @@ public class TalentParserTests
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("0");
 
         Hero hero = new(heroUnit);
-
         Unit abathurSymbioteUnit = new("AbathurSymbiote");
         abathurSymbioteUnit.AddAbility(new Ability()
         {
-            NameId = "AbathurSymbioteSpikeBurst",
-            ButtonId = "AbathurSymbioteSpikeBurst",
+            AbilityElementId = "AbathurSymbioteSpikeBurst",
+            ButtonElementId = "AbathurSymbioteSpikeBurst",
             AbilityType = AbilityType.W,
-            IsPassive = false,
         });
 
         hero.HeroUnits.Add(abathurSymbioteUnit.Id, abathurSymbioteUnit);
@@ -51,9 +49,12 @@ public class TalentParserTests
 
         // assert
         talent.Should().NotBeNull();
-        talent.NameId.Should().Be("AbathurMasteryPressurizedGlands");
-        talent.ButtonId.Should().Be("AbathurSymbiotePressurizedGlandsTalent");
+        talent.LinkId.ToString().Should().Be("AbathurMasteryPressurizedGlands|AbathurSymbiotePressurizedGlandsTalent|W");
+        talent.TalentElementId.Should().Be("AbathurMasteryPressurizedGlands");
+        talent.ButtonElementId.Should().Be("AbathurSymbiotePressurizedGlandsTalent");
         talent.Icon.Should().Be("storm_ui_icon_abathur_spikeburst.png");
+        talent.IconPath!.FilePath.Should().NotBeNullOrWhiteSpace();
+        talent.IconPath!.MpqFilePath.Should().BeNull();
         talent.Name!.RawDescription.Should().Be("Pressurized Glands");
         talent.Column.Should().Be(1);
         talent.Tooltip.ShortText!.RawDescription.Should().Be("Increases Spike Burst range and decreases cooldown");
@@ -65,7 +66,7 @@ public class TalentParserTests
         talent.CreateUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.W);
         talent.Tier.Should().Be(TalentTier.Level1);
-        //talent.TooltipAppenderTalentIds.Should().HaveCount(2);
+        talent.TooltipAppendersTalentElementIds.Should().BeEmpty();
     }
 
     [TestMethod]
@@ -82,10 +83,9 @@ public class TalentParserTests
         Hero hero = new(heroUnit);
         hero.AddAbility(new Ability()
         {
-            NameId = "AbathurToxicNest",
-            ButtonId = "AbathurToxicNest",
+            AbilityElementId = "AbathurToxicNest",
+            ButtonElementId = "AbathurToxicNest",
             AbilityType = AbilityType.W,
-            IsPassive = false,
         });
 
         TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
@@ -95,8 +95,9 @@ public class TalentParserTests
 
         // assert
         talent.Should().NotBeNull();
-        talent.NameId.Should().Be("AbathurMasteryEnvenomedNestsToxicNest");
-        talent.ButtonId.Should().Be("AbathurToxicNestEnvenomedNestTalent");
+        talent.LinkId.ToString().Should().Be("AbathurMasteryEnvenomedNestsToxicNest|AbathurToxicNestEnvenomedNestTalent|W");
+        talent.TalentElementId.Should().Be("AbathurMasteryEnvenomedNestsToxicNest");
+        talent.ButtonElementId.Should().Be("AbathurToxicNestEnvenomedNestTalent");
         talent.Icon.Should().Be("storm_ui_icon_abathur_toxicnest.png");
         talent.Name!.RawDescription.Should().Be("Envenomed Nest");
         talent.Column.Should().Be(2);
@@ -109,7 +110,6 @@ public class TalentParserTests
         talent.CreateUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.W);
         talent.Tier.Should().Be(TalentTier.Level1);
-        //talent.TooltipAppenderTalentIds.Should().HaveCount(2);
     }
 
     [TestMethod]
@@ -132,8 +132,8 @@ public class TalentParserTests
 
         // assert
         talent.Should().NotBeNull();
-        talent.NameId.Should().Be("AbathurCombatStyleSurvivalInstincts");
-        talent.ButtonId.Should().Be("AbathurLocustStrainSurvivalInstinctsTalent");
+        talent.TalentElementId.Should().Be("AbathurCombatStyleSurvivalInstincts");
+        talent.ButtonElementId.Should().Be("AbathurLocustStrainSurvivalInstinctsTalent");
         talent.Icon.Should().Be("storm_ui_icon_abathur_spawnlocust.png");
         talent.Name!.RawDescription.Should().Be("Survival Instincts");
         talent.Column.Should().Be(4);
@@ -146,9 +146,7 @@ public class TalentParserTests
         talent.CreateUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
         talent.IsActive.Should().BeFalse();
-        talent.IsPassive.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level1);
-        //talent.TooltipAppenderTalentIds.Should().HaveCount(2);
     }
 
     [TestMethod]
@@ -165,10 +163,9 @@ public class TalentParserTests
         Hero hero = new(heroUnit);
         hero.AddAbility(new Ability()
         {
-            NameId = "AbathurUltimateEvolution",
-            ButtonId = "AbathurUltimateEvolution",
+            AbilityElementId = "AbathurUltimateEvolution",
+            ButtonElementId = "AbathurUltimateEvolution",
             AbilityType = AbilityType.Heroic,
-            IsPassive = false,
         });
 
         TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
@@ -178,8 +175,8 @@ public class TalentParserTests
 
         // assert
         talent.Should().NotBeNull();
-        talent.NameId.Should().Be("AbathurHeroicAbilityUltimateEvolution");
-        talent.ButtonId.Should().Be("AbathurUltimateEvolution");
+        talent.TalentElementId.Should().Be("AbathurHeroicAbilityUltimateEvolution");
+        talent.ButtonElementId.Should().Be("AbathurUltimateEvolution");
         talent.Column.Should().Be(1);
         talent.Tooltip.Charges.Should().BeNull();
         talent.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 70 seconds");
@@ -188,10 +185,8 @@ public class TalentParserTests
         talent.CreateUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Heroic);
         talent.IsActive.Should().BeTrue();
-        talent.IsPassive.Should().BeFalse();
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level10);
-        //talent.TooltipAppenderTalentIds.Should().HaveCount(2);
     }
 
     [TestMethod]
@@ -214,8 +209,8 @@ public class TalentParserTests
 
         // assert
         talent.Should().NotBeNull();
-        talent.NameId.Should().Be("GenericTalentCalldownMULE");
-        talent.ButtonId.Should().Be("GenericCalldownMule");
+        talent.TalentElementId.Should().Be("GenericTalentCalldownMULE");
+        talent.ButtonElementId.Should().Be("GenericCalldownMule");
         talent.Name!.RawDescription.Should().Be("Calldown: MULE");
         talent.Icon.Should().Be("storm_ui_icon_talent_mule.png");
         talent.Column.Should().Be(3);
@@ -228,7 +223,6 @@ public class TalentParserTests
         talent.CreateUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Active);
         talent.IsActive.Should().BeTrue();
-        talent.IsPassive.Should().BeFalse();
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level7);
     }
@@ -253,8 +247,8 @@ public class TalentParserTests
 
         // assert
         talent.Should().NotBeNull();
-        talent.NameId.Should().Be("MuradinMasteryPassiveStoneform");
-        talent.ButtonId.Should().Be("MuradinSecondWindStoneformTalent");
+        talent.TalentElementId.Should().Be("MuradinMasteryPassiveStoneform");
+        talent.ButtonElementId.Should().Be("MuradinSecondWindStoneformTalent");
         talent.Icon.Should().Be("storm_ui_icon_Muradin_SecondWind.png");
         talent.Column.Should().Be(3);
         talent.Tooltip.Charges.Should().BeNull();
@@ -264,10 +258,8 @@ public class TalentParserTests
         talent.CreateUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
         talent.IsActive.Should().BeTrue();
-        talent.IsPassive.Should().BeFalse();
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level16);
-        //talent.TooltipAppenderTalentIds.Should().HaveCount(2);
     }
 
     [TestMethod]
@@ -284,10 +276,9 @@ public class TalentParserTests
         Hero hero = new(heroUnit);
         hero.AddAbility(new Ability()
         {
-            NameId = "AlarakLightningSurge",
-            ButtonId = "AlarakLightningSurge",
+            AbilityElementId = "AlarakLightningSurge",
+            ButtonElementId = "AlarakLightningSurge",
             AbilityType = AbilityType.E,
-            IsPassive = false,
         });
 
         TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
@@ -297,15 +288,53 @@ public class TalentParserTests
 
         // assert
         talent.Should().NotBeNull();
-        talent.NameId.Should().Be("AlarakExtendedLightning");
-        talent.ButtonId.Should().Be("AlarakExtendedLightning");
+        talent.TalentElementId.Should().Be("AlarakExtendedLightning");
+        talent.ButtonElementId.Should().Be("AlarakExtendedLightning");
         talent.Column.Should().Be(3);
         talent.CreateUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.E);
         talent.IsActive.Should().BeFalse();
-        talent.IsPassive.Should().BeFalse();
         talent.IsQuest.Should().BeTrue();
         talent.Tier.Should().Be(TalentTier.Level1);
-        //talent.TooltipAppenderTalentIds.Should().HaveCount(2);
+    }
+
+    [TestMethod]
+    public void GetTalent_GarroshArmorUpBodyCheck_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Garrosh";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("2");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("GarroshArmorUpBodyCheck|GarroshArmorUpBodyCheck|Active");
+        talent.TalentElementId.Should().Be("GarroshArmorUpBodyCheck");
+        talent.ButtonElementId.Should().Be("GarroshArmorUpBodyCheck");
+        talent.Column.Should().Be(3);
+        talent.CreateUnits.Should().BeEmpty();
+        talent.AbilityType.Should().Be(AbilityType.Active);
+        talent.IsActive.Should().BeTrue();
+        talent.IsQuest.Should().BeFalse();
+        talent.Tier.Should().Be(TalentTier.Level1);
+        talent.Tooltip.Charges!.CountMax.Should().Be(1);
+        talent.Tooltip.Charges.CountStart.Should().Be(1);
+        talent.Tooltip.Charges.CountUse.Should().Be(1);
+        talent.Tooltip.Charges.HasCharges.Should().BeTrue();
+        talent.Tooltip.Charges.IsHideCount.Should().BeTrue();
+        talent.Tooltip.Charges.RecastCooldown.Should().Be(1);
+        talent.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 15 seconds");
+        talent.TooltipAppendersTalentElementIds.Should().HaveCount(2).And
+            .Contain(["GarroshBodyCheckBruteForce", "GarroshArmorUpInnerRage"]);
     }
 }

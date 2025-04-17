@@ -57,11 +57,11 @@ public abstract class CollectionParserBase<T> : DataParser<T>
     //    }
     //}
 
-    protected override void SetProperties(T elementObject, StormElement stormElement)
+    protected override void SetProperties(T collectionObject, StormElement stormElement)
     {
-        SetCommonProperties(elementObject, stormElement);
-        SetAdditionalProperties(elementObject, stormElement);
-        SetValidatedProperties(elementObject);
+        SetCommonProperties(collectionObject, stormElement);
+        SetAdditionalProperties(collectionObject, stormElement);
+        SetValidatedProperties(collectionObject);
     }
 
     protected void SetCommonProperties(T collectionObject, StormElement stormElement)

@@ -71,7 +71,7 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 
         Ability ability = new()
         {
-            ButtonId = faceValue,
+            ButtonElementId = faceValue,
         };
 
         // set the ability type
@@ -91,9 +91,8 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
         // passive "ability", actually just a dummy button
         if (typeValue.AsSpan().Equals("Passive", StringComparison.OrdinalIgnoreCase))
         {
-            ability.ButtonId = faceValue;
-            ability.NameId = faceValue;
-            ability.IsPassive = true;
+            ability.AbilityElementId = PassiveAbilityElementId;
+            ability.ButtonElementId = faceValue;
             ability.IsActive = false;
 
             SetButtonData(ability);
@@ -102,7 +101,7 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
         {
             (string abilityId, string index) = GetAbilCmdSplit(abilCmdValue);
 
-            ability.NameId = abilityId;
+            ability.AbilityElementId = abilityId;
 
             SetAbilityData(ability, index);
         }
@@ -128,7 +127,7 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
     {
         Ability ability = new()
         {
-            NameId = abilityId,
+            AbilityElementId = abilityId,
         };
 
         SetAbilityData(ability);
@@ -136,6 +135,10 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
         // default
         ability.Tier = AbilityTier.Hidden;
         ability.AbilityType = AbilityType.Hidden;
+
+        // if not set, set to none
+        if (string.IsNullOrEmpty(ability.ButtonElementId))
+            ability.ButtonElementId = NoButtonElementId;
 
         return ability;
     }
@@ -231,7 +234,7 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 
     private void SetAbilityData(AbilityTalentBase abilityTalent, string? abilCmdIndex = null)
     {
-        StormElement? abilityElement = _heroesData.GetCompleteStormElement("Abil", abilityTalent.NameId);
+        StormElement? abilityElement = _heroesData.GetCompleteStormElement("Abil", abilityTalent.AbilityElementId);
         if (abilityElement is null)
             return;
 

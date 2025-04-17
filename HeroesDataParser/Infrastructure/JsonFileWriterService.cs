@@ -27,8 +27,8 @@ public class JsonFileWriterService : IJsonFileWriterService
             {
                 new JsonStringEnumConverter(),
                 new DoubleRoundingConverter(),
-                new AbilityIdConverter(),
-                new TalentIdConverter(),
+                new AbilityLinkIdConverter(),
+                new TalentLInkIdConverter(),
                 new TooltipDescriptionWriteConverter(DescriptionType.RawDescription),
             },
             TypeInfoResolver = new DefaultJsonTypeInfoResolver

@@ -28,6 +28,26 @@ public class UnitParserTests
 
         UnitParser unitParser = new(_logger, _heroesXmlLoaderService, _abilityParser);
 
+        Ability abathurUltimateEvolutionAbility = new()
+        {
+            AbilityElementId = "AbathurUltimateEvolution",
+            ButtonElementId = "AbathurUltimateEvolution",
+            AbilityType = AbilityType.Heroic,
+        };
+        abathurUltimateEvolutionAbility.TooltipAppendersTalentElementIds.Add("AbathurVolatileMutation");
+        abathurUltimateEvolutionAbility.TooltipAppendersTalentElementIds.Add("AbathurHasVolatileMutation");
+
+        Ability abathurSymbioteAbility = new()
+        {
+            AbilityElementId = "AbathurSymbiote",
+            ButtonElementId = "AbathurSymbiote",
+            AbilityType = AbilityType.Q,
+        };
+        abathurSymbioteAbility.TooltipAppendersTalentElementIds.Add("AbathurMasteryPressurizedGlands");
+
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[24]")).Returns(abathurUltimateEvolutionAbility);
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[27]")).Returns(abathurSymbioteAbility);
+
         // act
         Unit? unit = unitParser.Parse(unitId);
 
@@ -65,6 +85,9 @@ public class UnitParserTests
         unit.Portraits.TargetInfoPanel.Should().Be("storm_ui_ingame_partyframe_abathur.png");
         unit.UnitIds.Should().BeEmpty();
         unit.Weapons.Should().ContainSingle();
+        unit.TooltipTalentElementIdCount.Should().Be(3);
+        unit.GetTooltipAbilityLinkIdsByTalentElementId("AbathurVolatileMutation").Should().ContainSingle().And
+            .Contain(new AbilityLinkId("AbathurUltimateEvolution", "AbathurUltimateEvolution", AbilityType.Heroic));
 
         UnitWeapon abathurWeapon1 = unit.Weapons.First();
         abathurWeapon1.Name!.RawDescription.Should().Be("Hero Abathur");
@@ -75,9 +98,9 @@ public class UnitParserTests
         abathurWeapon1.DamageScaling.Should().Be(0.04);
         abathurWeapon1.AttacksPerSecond.Should().BeApproximately(1.429, 3);
 
-        // we are not mocking all the returns so the second get ability method will be hitting all the abils
+        // we are not mocking all the ability returns
         _abilityParser.Received(30).GetAbility(Arg.Any<StormElementData>());
-        _abilityParser.Received(26).GetAbility(Arg.Any<string>());
+        _abilityParser.Received(24).GetAbility(Arg.Any<string>());
     }
 
     [TestMethod]
@@ -105,7 +128,7 @@ public class UnitParserTests
     }
 
     [TestMethod]
-    public void Parse_AbathurEvolveMonstrosityActiveSymbioteCommand_ReturnsAsSubability()
+    public void Parse_AbathurEvolveMonstrosityActiveSymbioteCommand_ReturnAsSubAbility()
     {
         // arrange
         string unitId = "HeroAbathur";
@@ -116,15 +139,15 @@ public class UnitParserTests
 
         _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[25]")).Returns(new Ability()
         {
-            NameId = "AbathurEvolveMonstrosityActiveSymbiote",
-            ButtonId = "EvolveMonstrosityActiveHotbar",
+            AbilityElementId = "AbathurEvolveMonstrosityActiveSymbiote",
+            ButtonElementId = "EvolveMonstrosityActiveHotbar",
             AbilityType = AbilityType.Heroic,
-            ParentAbililtyId = "AbathurEvolveMonstrosity",
+            ParentAbilityElementId = "AbathurEvolveMonstrosity",
         });
         _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[26]")).Returns(new Ability()
         {
-            NameId = "AbathurEvolveMonstrosity",
-            ButtonId = "AbathurEvolveMonstrosityHotbar",
+            AbilityElementId = "AbathurEvolveMonstrosity",
+            ButtonElementId = "AbathurEvolveMonstrosityHotbar",
             AbilityType = AbilityType.Heroic,
         });
 
@@ -134,6 +157,6 @@ public class UnitParserTests
         // assert
         unit.Should().NotBeNull();
         unit.SubAbilities.Should().ContainSingle();
-        unit.SubAbilities.Should().ContainKey(new AbilityId("AbathurEvolveMonstrosity", "AbathurEvolveMonstrosityHotbar", AbilityType.Heroic, false));
+        unit.SubAbilities.Should().ContainKey(new AbilityLinkId("AbathurEvolveMonstrosity", "AbathurEvolveMonstrosityHotbar", AbilityType.Heroic));
     }
 }

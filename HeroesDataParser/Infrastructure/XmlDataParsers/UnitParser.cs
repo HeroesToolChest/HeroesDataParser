@@ -51,6 +51,14 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         ParseBehaviorLink(elementObject, stormElement);
     }
 
+    private static void AddAbilityByTooltipTalentElementIds(Unit elementObject, Ability ability)
+    {
+        foreach (string talentElementId in ability.TooltipAppendersTalentElementIds)
+        {
+            elementObject.AddAbilityByTooltipTalentElementId(talentElementId, ability);
+        }
+    }
+
     private void SetActorData(Unit elementObject)
     {
         string? unitId = _heroesData.GetStormElementIdByUnitName(elementObject.Id, _actorDataObjectType);
@@ -388,16 +396,17 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                         StormElementData layoutButtonsElement = layoutButtonsData.GetElementDataAt(layoutButtonsIndex);
 
                         Ability? ability = _abilityParser.GetAbility(layoutButtonsElement);
-
                         if (ability is not null)
                         {
                             if (ability.AbilityType != AbilityType.Passive)
-                                abilityIdChecklist.Remove(ability.NameId);
+                                abilityIdChecklist.Remove(ability.AbilityElementId);
 
-                            if (!string.IsNullOrEmpty(ability.ParentAbililtyId))
+                            if (!string.IsNullOrEmpty(ability.ParentAbilityElementId))
                                 abilitesWithParentAbils.Add(ability);
                             else
                                 elementObject.AddAbility(ability);
+
+                            AddAbilityByTooltipTalentElementIds(elementObject, ability);
                         }
                     }
                 }
@@ -411,10 +420,12 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
             if (ability is not null)
             {
-                if (!string.IsNullOrEmpty(ability.ParentAbililtyId))
+                if (!string.IsNullOrEmpty(ability.ParentAbilityElementId))
                     abilitesWithParentAbils.Add(ability);
                 else
                     elementObject.AddAbility(ability);
+
+                AddAbilityByTooltipTalentElementIds(elementObject, ability);
             }
         }
 

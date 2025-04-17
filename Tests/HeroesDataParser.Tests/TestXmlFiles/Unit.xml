@@ -517,6 +517,53 @@
     <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
     <HeroPlaystyleFlags index="WaveClearer" value="1" />
   </CUnit>
+  <CUnit id="HeroGarrosh" parent="StormHeroMounted">
+    <LifeStart value="2060" />
+    <LifeMax value="2060" />
+    <LifeRegenRate value="4.293" />
+    <AbilArray Link="GarroshGroundbreaker" />
+    <AbilArray Link="GarroshBloodthirst" />
+    <AbilArray Link="GarroshWreckingBall" />
+    <AbilArray Link="GarroshWarlordsChallenge" />
+    <AbilArray Link="GarroshDecimate" />
+    <AbilArray Link="GarroshArmorUpDoubleUp" />
+    <BehaviorArray Link="GarroshWreckingBallValidityBehavior" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="GarroshArmorUpPassive" />
+    <BehaviorArray Link="GarroshArmorUpFXCarryBehavior" />
+    <BehaviorArray Link="GarroshWreckingBallMarkerEnemyUnitTracker" />
+    <BehaviorArray Link="GarroshArmorUpSeasonedSoldierHealthBuff" />
+    <BehaviorArray Link="GarroshWreckingBallIntotheFrayCarryBehavior" />
+    <BehaviorArray Link="GarroshWreckingBallIntoTheFrayAllyValidityBehavior" />
+    <BehaviorArray Link="GarroshWreckingBallIntoTheFrayMarkerAllyUnitTracker" />
+    <BehaviorArray Link="GarroshWreckingBallIntoTheFrayItem" />
+    <WeaponArray Link="HeroGarrosh" />
+    <EffectArray index="Birth" value="GarroshUIActivateDummy" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="GarroshWarlordsChallenge" Type="AbilCmd" AbilCmd="GarroshWarlordsChallenge,Execute" Slot="Heroic" />
+      <LayoutButtons Face="GarroshDecimate" Type="AbilCmd" AbilCmd="GarroshDecimate,Execute" Slot="Heroic" />
+      <LayoutButtons Face="GarroshGroundbreaker" Type="AbilCmd" AbilCmd="GarroshGroundbreaker,Execute" Slot="Ability1" />
+      <LayoutButtons Face="GarroshBloodthirst" Type="AbilCmd" AbilCmd="GarroshBloodthirst,Execute" Slot="Ability2" />
+      <LayoutButtons Face="GarroshWreckingBall" Type="AbilCmd" AbilCmd="GarroshWreckingBall,Execute" Slot="Ability3" />
+      <LayoutButtons Face="GarroshArmorUpDoubleUp" Type="AbilCmd" AbilCmd="GarroshArmorUpDoubleUp,Execute" Slot="Trait" />
+      <LayoutButtons Face="GarroshArmorUp" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.875" />
+    <InnerRadius value="0.875" />
+    <AIThinkTree value="AI/Garrosh.aitree" />
+    <AIHealthThresholds index="ReturnToSpawn" value="0.1" />
+    <AIHealthThresholds index="EndOffensive" value="0.25" />
+    <AIHealthThresholds index="StartOffensive" value="0.45" />
+    <AIHealthThresholds index="High" value="0.6" />
+    <InitializerFunction value="libHGAR_gf_HeroGarroshIncrementHeroCountFunction" />
+    <DestructionFunction value="libHGAR_gf_HeroGarroshDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="BodyBlocker" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleTank" value="1" />
+    <ArmorLink value="GarroshArmor" />
+  </CUnit>
   
   <!--Other Units-->
   <CUnit id="AbathurLocustAssaultStrain" parent="AbathurLocust">

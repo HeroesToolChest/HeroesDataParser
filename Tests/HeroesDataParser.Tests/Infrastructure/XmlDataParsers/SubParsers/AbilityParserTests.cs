@@ -36,7 +36,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("AbathurSymbiote|AbathurSymbiote|Q|False");
+        ability.LinkId.ToString().Should().Be("AbathurSymbiote|AbathurSymbiote|Q");
         ability.Tier.Should().Be(AbilityTier.Basic);
         ability.AbilityType.Should().Be(AbilityType.Q);
 
@@ -61,13 +61,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("AbathurToxicNest|AbathurToxicNest|W|False");
+        ability.LinkId.ToString().Should().Be("AbathurToxicNest|AbathurToxicNest|W");
         ability.Name!.RawDescription.Should().Be("Toxic Nest");
-        ability.NameId.Should().Be("AbathurToxicNest");
-        ability.ButtonId.Should().Be("AbathurToxicNest");
+        ability.AbilityElementId.Should().Be("AbathurToxicNest");
+        ability.ButtonElementId.Should().Be("AbathurToxicNest");
         ability.Icon.Should().Be("storm_ui_icon_abathur_toxicnest.png");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Basic);
         ability.AbilityType.Should().Be(AbilityType.W);
         ability.ToggleCooldown.Should().BeNull();
@@ -100,13 +99,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("AbathurSpawnLocusts|AbathurLocustStrain|Trait|False");
+        ability.LinkId.ToString().Should().Be("AbathurSpawnLocusts|AbathurLocustStrain|Trait");
         ability.Name!.RawDescription.Should().Be("Locust Strain");
-        ability.NameId.Should().Be("AbathurSpawnLocusts");
-        ability.ButtonId.Should().Be("AbathurLocustStrain");
+        ability.AbilityElementId.Should().Be("AbathurSpawnLocusts");
+        ability.ButtonElementId.Should().Be("AbathurLocustStrain");
         ability.Icon.Should().Be("storm_ui_icon_abathur_spawnlocust.png");
         ability.IsActive.Should().BeFalse();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Trait);
         ability.AbilityType.Should().Be(AbilityType.Trait);
         ability.ToggleCooldown.Should().BeNull();
@@ -141,13 +139,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("AbathurDeepTunnel|AbathurDeepTunnel|Z|False");
+        ability.LinkId.ToString().Should().Be("AbathurDeepTunnel|AbathurDeepTunnel|Z");
         ability.Name!.RawDescription.Should().Be("Deep Tunnel");
-        ability.NameId.Should().Be("AbathurDeepTunnel");
-        ability.ButtonId.Should().Be("AbathurDeepTunnel");
+        ability.AbilityElementId.Should().Be("AbathurDeepTunnel");
+        ability.ButtonElementId.Should().Be("AbathurDeepTunnel");
         ability.Icon.Should().Be("storm_ui_icon_abathur_mount.png");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Mount);
         ability.AbilityType.Should().Be(AbilityType.Z);
         ability.ToggleCooldown.Should().BeNull();
@@ -197,10 +194,10 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("AbathurSymbiote|AbathurSymbiote|Hidden|False");
+        ability.LinkId.ToString().Should().Be("AbathurSymbiote|AbathurSymbiote|Hidden");
         ability.Tier.Should().Be(AbilityTier.Hidden);
         ability.AbilityType.Should().Be(AbilityType.Hidden);
-        ability.ParentAbililtyId.Should().BeNull();
+        ability.ParentAbilityElementId.Should().BeNull();
 
         AssertAbathurSymbioteAbility(ability);
     }
@@ -223,10 +220,10 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("AbathurEvolveMonstrosityActiveSymbiote|EvolveMonstrosityActiveHotbar|Hidden|False");
+        ability.LinkId.ToString().Should().Be("AbathurEvolveMonstrosityActiveSymbiote|EvolveMonstrosityActiveHotbar|Hidden");
         ability.Tier.Should().Be(AbilityTier.Hidden);
         ability.AbilityType.Should().Be(AbilityType.Hidden);
-        ability.ParentAbililtyId.Should().Be("AbathurEvolveMonstrosity");
+        ability.ParentAbilityElementId.Should().Be("AbathurEvolveMonstrosity");
     }
 
     [TestMethod]
@@ -247,13 +244,14 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("AbathurAssumingDirectControlCancel|AbathurSymbioteCancel|Heroic|False");
+        ability.LinkId.ToString().Should().Be("AbathurAssumingDirectControlCancel|AbathurSymbioteCancel|Heroic");
         ability.Name!.RawDescription.Should().Be("Cancel Symbiote");
         ability.Tier.Should().Be(AbilityTier.Heroic);
         ability.AbilityType.Should().Be(AbilityType.Heroic);
         ability.Icon.Should().Be("hud_btn_bg_ability_cancel.png");
+        ability.IconPath!.FilePath.Should().NotBeNullOrWhiteSpace();
+        ability.IconPath.MpqFilePath.Should().BeNull();
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tooltip.FullText!.RawDescription.Should().Be("Cancels the Symbiote ability.");
         ability.Tooltip.ShortText.Should().BeNull();
         ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 1.5 seconds");
@@ -299,13 +297,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("Hearthstone|HearthstoneNoMana|B|False");
+        ability.LinkId.ToString().Should().Be("Hearthstone|HearthstoneNoMana|B");
         ability.Name!.RawDescription.Should().Be("Hearthstone");
-        ability.NameId.Should().Be("Hearthstone");
-        ability.ButtonId.Should().Be("HearthstoneNoMana");
+        ability.AbilityElementId.Should().Be("Hearthstone");
+        ability.ButtonElementId.Should().Be("HearthstoneNoMana");
         ability.Icon.Should().Be("storm_ui_icon_miscrune_1.png");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Hearth);
         ability.AbilityType.Should().Be(AbilityType.B);
         ability.ToggleCooldown.Should().BeNull();
@@ -335,13 +332,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("stop|Tease|Taunt|False");
+        ability.LinkId.ToString().Should().Be("stop|Tease|Taunt");
         ability.Name!.RawDescription.Should().Be("Taunt");
-        ability.NameId.Should().Be("stop");
-        ability.ButtonId.Should().Be("Tease");
+        ability.AbilityElementId.Should().Be("stop");
+        ability.ButtonElementId.Should().Be("Tease");
         ability.Icon.Should().Be("btn-command-stop.png");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Taunt);
         ability.AbilityType.Should().Be(AbilityType.Taunt);
         ability.ToggleCooldown.Should().BeNull();
@@ -371,13 +367,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("stop|Dance|Dance|False");
+        ability.LinkId.ToString().Should().Be("stop|Dance|Dance");
         ability.Name!.RawDescription.Should().Be("Dance");
-        ability.NameId.Should().Be("stop");
-        ability.ButtonId.Should().Be("Dance");
+        ability.AbilityElementId.Should().Be("stop");
+        ability.ButtonElementId.Should().Be("Dance");
         ability.Icon.Should().Be("btn-command-stop.png");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Dance);
         ability.AbilityType.Should().Be(AbilityType.Dance);
         ability.ToggleCooldown.Should().BeNull();
@@ -407,13 +402,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("LootSpray|LootSpray|Spray|False");
+        ability.LinkId.ToString().Should().Be("LootSpray|LootSpray|Spray");
         ability.Name!.RawDescription.Should().Be("Quick Spray Expression");
-        ability.NameId.Should().Be("LootSpray");
-        ability.ButtonId.Should().Be("LootSpray");
+        ability.AbilityElementId.Should().Be("LootSpray");
+        ability.ButtonElementId.Should().Be("LootSpray");
         ability.Icon.Should().Be("storm_temp_war3_btnhealingspray.png");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Spray);
         ability.AbilityType.Should().Be(AbilityType.Spray);
         ability.ToggleCooldown.Should().BeNull();
@@ -443,13 +437,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("LootYellVoiceLine|LootYellVoiceLine|Voice|False");
+        ability.LinkId.ToString().Should().Be("LootYellVoiceLine|LootYellVoiceLine|Voice");
         ability.Name!.RawDescription.Should().Be("Quick Voice Line Expression");
-        ability.NameId.Should().Be("LootYellVoiceLine");
-        ability.ButtonId.Should().Be("LootYellVoiceLine");
+        ability.AbilityElementId.Should().Be("LootYellVoiceLine");
+        ability.ButtonElementId.Should().Be("LootYellVoiceLine");
         ability.Icon.Should().Be("storm_btn_d3_barbarian_threateningshout.png");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Voice);
         ability.AbilityType.Should().Be(AbilityType.Voice);
         ability.ToggleCooldown.Should().BeNull();
@@ -479,13 +472,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("AlarakDeadlyChargeActivate|AlarakDeadlyCharge|Heroic|False");
+        ability.LinkId.ToString().Should().Be("AlarakDeadlyChargeActivate|AlarakDeadlyCharge|Heroic");
         ability.Name!.RawDescription.Should().Be("Deadly Charge");
-        ability.NameId.Should().Be("AlarakDeadlyChargeActivate");
-        ability.ButtonId.Should().Be("AlarakDeadlyCharge");
+        ability.AbilityElementId.Should().Be("AlarakDeadlyChargeActivate");
+        ability.ButtonElementId.Should().Be("AlarakDeadlyCharge");
         ability.Icon.Should().Be("storm_ui_icon_alarak_recklesscharge.png");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Heroic);
         ability.AbilityType.Should().Be(AbilityType.Heroic);
         ability.ToggleCooldown.Should().Be(0.5);
@@ -515,13 +507,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("AlarakSadism|AlarakSadism|Trait|True");
+        ability.LinkId.ToString().Should().Be($"{AbilityTalentParserBase.PassiveAbilityElementId}|AlarakSadism|Trait");
         ability.Name!.RawDescription.Should().Be("Sadism");
-        ability.NameId.Should().Be("AlarakSadism");
-        ability.ButtonId.Should().Be("AlarakSadism");
+        ability.AbilityElementId.Should().Be(AbilityTalentParserBase.PassiveAbilityElementId);
+        ability.ButtonElementId.Should().Be("AlarakSadism");
         ability.Icon.Should().Be("storm_ui_icon_alarak_sadism.png");
         ability.IsActive.Should().BeFalse();
-        ability.IsPassive.Should().BeTrue();
         ability.Tier.Should().Be(AbilityTier.Trait);
         ability.AbilityType.Should().Be(AbilityType.Trait);
         ability.ToggleCooldown.Should().BeNull();
@@ -551,13 +542,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("AlexstraszaGiftOfLife|AlexstraszaGiftOfLife|Q|False");
+        ability.LinkId.ToString().Should().Be("AlexstraszaGiftOfLife|AlexstraszaGiftOfLife|Q");
         ability.Name!.RawDescription.Should().Be("Gift of Life");
-        ability.NameId.Should().Be("AlexstraszaGiftOfLife");
-        ability.ButtonId.Should().Be("AlexstraszaGiftOfLife");
+        ability.AbilityElementId.Should().Be("AlexstraszaGiftOfLife");
+        ability.ButtonElementId.Should().Be("AlexstraszaGiftOfLife");
         ability.Icon.Should().Be("storm_ui_icon_alexstrasza_gift_of_life.png");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Basic);
         ability.AbilityType.Should().Be(AbilityType.Q);
         ability.ToggleCooldown.Should().BeNull();
@@ -587,13 +577,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("AlexstraszaAbundance|AlexstraszaAbundance|W|False");
+        ability.LinkId.ToString().Should().Be("AlexstraszaAbundance|AlexstraszaAbundance|W");
         ability.Name!.RawDescription.Should().Be("Abundance");
-        ability.NameId.Should().Be("AlexstraszaAbundance");
-        ability.ButtonId.Should().Be("AlexstraszaAbundance");
+        ability.AbilityElementId.Should().Be("AlexstraszaAbundance");
+        ability.ButtonElementId.Should().Be("AlexstraszaAbundance");
         ability.Icon.Should().Be("storm_ui_icon_alexstrasza_abundance.png");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Basic);
         ability.AbilityType.Should().Be(AbilityType.W);
         ability.ToggleCooldown.Should().BeNull();
@@ -623,13 +612,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("GuldanLifeTap|GuldanLifeTap|Trait|False");
+        ability.LinkId.ToString().Should().Be("GuldanLifeTap|GuldanLifeTap|Trait");
         ability.Name!.RawDescription.Should().Be("Life Tap");
-        ability.NameId.Should().Be("GuldanLifeTap");
-        ability.ButtonId.Should().Be("GuldanLifeTap");
+        ability.AbilityElementId.Should().Be("GuldanLifeTap");
+        ability.ButtonElementId.Should().Be("GuldanLifeTap");
         ability.Icon.Should().Be("storm_ui_icon_guldan_lifetap.png");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Trait);
         ability.AbilityType.Should().Be(AbilityType.Trait);
         ability.ToggleCooldown.Should().Be(0.5);
@@ -659,13 +647,12 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("BarbarianSeismicSlam|BarbarianSeismicSlam|W|False");
+        ability.LinkId.ToString().Should().Be("BarbarianSeismicSlam|BarbarianSeismicSlam|W");
         ability.Name!.RawDescription.Should().Be("Seismic Slam");
-        ability.NameId.Should().Be("BarbarianSeismicSlam");
-        ability.ButtonId.Should().Be("BarbarianSeismicSlam");
+        ability.AbilityElementId.Should().Be("BarbarianSeismicSlam");
+        ability.ButtonElementId.Should().Be("BarbarianSeismicSlam");
         ability.Icon.Should().Be("storm_ui_icon_sonya_seismicslam.png");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Basic);
         ability.AbilityType.Should().Be(AbilityType.W);
         ability.ToggleCooldown.Should().BeNull();
@@ -695,12 +682,11 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("UseVehicle|UseVehicle|Hidden|False");
+        ability.LinkId.ToString().Should().Be("UseVehicle|UseVehicle|Hidden");
         ability.Name!.RawDescription.Should().Be("Use Vehicle");
         ability.Tier.Should().Be(AbilityTier.Hidden);
         ability.AbilityType.Should().Be(AbilityType.Hidden);
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Icon.Should().Be("storm_temp_war3_btnloaddwarf.png");
         ability.Tooltip.CooldownText.Should().BeNull();
         ability.Tooltip.ShortText.Should().BeNull();
@@ -725,12 +711,11 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("MountCabooseSmartCommandUnitInteraction|MountCabooseSmartCommandUnitInteraction|Hidden|False");
+        ability.LinkId.ToString().Should().Be("MountCabooseSmartCommandUnitInteraction|MountCabooseSmartCommandUnitInteraction|Hidden");
         ability.Name.Should().BeNull();
         ability.Tier.Should().Be(AbilityTier.Hidden);
         ability.AbilityType.Should().Be(AbilityType.Hidden);
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Icon.Should().Be("storm_ui_temp_icon_cheatdeath.png");
         ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 4 seconds");
         ability.Tooltip.ShortText.Should().BeNull();
@@ -755,9 +740,8 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("KelThuzadMasterOfTheColdDark|KelThuzadMasterOfTheColdDark|Trait|True");
+        ability.LinkId.ToString().Should().Be($"{AbilityTalentParserBase.PassiveAbilityElementId}|KelThuzadMasterOfTheColdDark|Trait");
         ability.IsActive.Should().BeFalse();
-        ability.IsPassive.Should().BeTrue();
     }
 
     [TestMethod]
@@ -778,9 +762,8 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("SamuroIllusionMaster|SamuroIllusionMaster|Heroic|False");
+        ability.LinkId.ToString().Should().Be("SamuroIllusionMaster|SamuroIllusionMaster|Heroic");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Heroic);
         ability.AbilityType.Should().Be(AbilityType.Heroic);
         ability.Tooltip.ShortText!.RawDescription.Should().Be("Mirror Images can be controlled");
@@ -806,33 +789,33 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.Id.ToString().Should().Be("SamuroIllusionMaster|SamuroAdvancingStrikes|Trait|False");
+        ability.LinkId.ToString().Should().Be("SamuroIllusionMaster|SamuroAdvancingStrikes|Trait");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.Tier.Should().Be(AbilityTier.Trait);
         ability.AbilityType.Should().Be(AbilityType.Trait);
         ability.Tooltip.ShortText!.RawDescription.Should().Be("Increase Movement Speed when attacking Heroes");
         ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 14 seconds");
         ability.Icon.Should().Be("storm_ui_icon_samuro_flowingstrikes.png");
-        ability.TooltipAppenderTalentIds.Should().HaveCount(3)
-            .And.Contain(new TalentId("SamuroAdvancingStrikesDeflection", "SamuroDeflectionTalent"))
-            .And.Contain(new TalentId("SamuroPressTheAttack", "SamuroPressTheAttack"))
-            .And.Contain(new TalentId("SamuroBlademastersPursuit", "SamuroBlademastersPursuitTalent"));
+        ability.TooltipAppendersTalentElementIds.Should().HaveCount(3).And
+            .Contain(["SamuroAdvancingStrikesDeflection", "SamuroPressTheAttack", "SamuroBlademastersPursuit"]);
     }
 
     private static void AssertAbathurSymbioteAbility(Ability ability)
     {
         ability.Name!.RawDescription.Should().Be("Symbiote");
-        ability.NameId.Should().Be("AbathurSymbiote");
-        ability.ButtonId.Should().Be("AbathurSymbiote");
+        ability.AbilityElementId.Should().Be("AbathurSymbiote");
+        ability.ButtonElementId.Should().Be("AbathurSymbiote");
         ability.Icon.Should().Be("storm_ui_icon_abathur_symbiote.png");
         ability.IsActive.Should().BeTrue();
-        ability.IsPassive.Should().BeFalse();
         ability.ToggleCooldown.Should().BeNull();
         ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 4 seconds");
         ability.Tooltip.LifeText.Should().BeNull();
         ability.Tooltip.EnergyText.Should().BeNull();
         ability.Tooltip.ShortText!.RawDescription.Should().Be("Assist an ally and gain new abilities");
         ability.Tooltip.FullText!.RawDescription.Should().Be("Spawn and attach a Symbiote...");
+
+        // base on the number of validators
+        ability.TooltipAppendersTalentElementIds.Should().HaveCount(3).And
+            .Contain(["AbathurMasteryPressurizedGlands", "AbathurReinforcedCarapace", "AbathurMasteryRegenerativeMicrobes"]);
     }
 }

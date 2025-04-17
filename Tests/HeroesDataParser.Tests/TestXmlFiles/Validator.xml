@@ -3,6 +3,36 @@
   <CValidator default="1">
     <ResultFailed value="Error" />
   </CValidator>
+  <CValidatorPlayerTalent id="HasAbathurMasteryPressurizedGlands">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurMasteryPressurizedGlands" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AbathurHasReinforcedCarapace">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurReinforcedCarapace" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasAbathurMasteryRegenerativeMicrobes">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurMasteryRegenerativeMicrobes" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AbathurHasVolatileMutation">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurVolatileMutation" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AbathurHasUltimateEvolutionEvolutionaryLink">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurUltimateEvolutionEvolutionaryLink" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasAbathurMasteryEnvenomedNestsToxicNest">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurMasteryEnvenomedNestsToxicNest" />
+  </CValidatorPlayerTalent>
   <CValidatorPlayerTalent id="SamuroHasDeflectionTalent">
     <WhichPlayer Value="Caster" />
     <Find value="1" />
@@ -22,5 +52,15 @@
     <WhichPlayer Value="Caster" />
     <Find value="1" />
     <Value value="SamuroPressTheAttack" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="GarroshHasBodyCheckBruteForceTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="GarroshBodyCheckBruteForce" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="GarroshHasArmorUpInnerRageTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="GarroshArmorUpInnerRage" />
   </CValidatorPlayerTalent>
 </Validator>

@@ -36,7 +36,7 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 
         Talent talent = new()
         {
-            NameId = talentValue,
+            TalentElementId = talentValue,
             Column = int.Parse(columnValue),
         };
 
@@ -68,7 +68,7 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 
     private void SetTalentData(Hero hero, Talent talent)
     {
-        StormElement? talentElement = _heroesData.GetCompleteStormElement("Talent", talent.NameId);
+        StormElement? talentElement = _heroesData.GetCompleteStormElement("Talent", talent.TalentElementId);
         if (talentElement is null)
             return;
 
@@ -76,7 +76,7 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 
         if (talentDataValues.TryGetElementDataAt("Face", out StormElementData? faceData))
         {
-            talent.ButtonId = faceData.Value.GetString();
+            talent.ButtonElementId = faceData.Value.GetString();
 
             SetButtonData(talent);
         }
@@ -97,12 +97,12 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 
         if (talentDataValues.TryGetElementDataAt("Abil", out StormElementData? abilityData))
         {
-            string abilityId = abilityData.Value.GetString();
+            talent.AbilityElementId = abilityData.Value.GetString();
 
             if (talent.AbilityType != AbilityType.Trait)
             {
                 // find the (first) matching ability we have for the hero
-                if (hero.GetAbilityTypeByNameId(abilityId, out AbilityType abilityType))
+                if (hero.GetAbilityTypeByNameId(talent.AbilityElementId, out AbilityType abilityType))
                 {
                     talent.AbilityType = abilityType;
                 }
@@ -111,7 +111,7 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
                     // search through all hero units
                     foreach (Unit heroUnit in hero.HeroUnits.Values)
                     {
-                        if (heroUnit.GetAbilityTypeByNameId(abilityId, out abilityType))
+                        if (heroUnit.GetAbilityTypeByNameId(talent.AbilityElementId, out abilityType))
                         {
                             talent.AbilityType = abilityType;
                         }
@@ -121,8 +121,16 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 
             // only if it's IsActive we will add the ability data
             if (talent.IsActive)
-                SetAbilityData(abilityId, talent);
+                SetAbilityData(talent.AbilityElementId, talent);
         }
+
+        // if not set, set to the passive abilityId
+        if (string.IsNullOrEmpty(talent.AbilityElementId))
+            talent.AbilityElementId = PassiveAbilityElementId;
+
+        // if not set, set to the button element id to none
+        if (string.IsNullOrEmpty(talent.ButtonElementId))
+            talent.ButtonElementId = NoButtonElementId;
 
         // if the abilityType is still unknown and isActive, then set it to an active abilityType
         if (talent.AbilityType == AbilityType.Unknown && talent.IsActive)

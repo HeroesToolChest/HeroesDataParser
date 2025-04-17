@@ -1474,4 +1474,288 @@
     <Rarity value="Epic" />
     <ReleaseDate Month="3" Day="13" />
   </CHero>
+  <CHero id="Garrosh">
+    <AIComplexityTier value="Mid" />
+    <AttributeId value="Garr" />
+    <Flags index="GoodForModeA" value="1" />
+    <DisplayModel value="HeroGarroshCommon" />
+    <RolesMultiClass value="Warrior" />
+    <Melee value="1" />
+    <HeroAbilArray Abil="GarroshGroundbreaker" Button="GarroshGroundbreaker">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GarroshBloodthirst" Button="GarroshBloodthirst">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="UsesCharges" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GarroshWreckingBall" Button="GarroshWreckingBall">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GarroshWreckingBallIntotheFray" Button="GarroshWreckingBallIntotheFray">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="ShowInQuickCastSetting" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GarroshWarlordsChallenge" Button="GarroshWarlordsChallenge">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GarroshDecimate" Button="GarroshDecimate">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="GarroshArmorUp">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Trait" value="1" />
+      <Flags index="HideHotkey" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GarroshArmorUpDoubleUp" Button="GarroshArmorUpDoubleUp">
+      <Flags index="ShowInQuickCastSetting" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <SkinArray value="GarroshRoad" />
+    <SkinArray value="GarroshSummer18" />
+    <SkinArray value="GarroshWCAV" />
+    <VoiceLineArray value="GarroshBase_VoiceLine01" />
+    <VoiceLineArray value="GarroshBase_VoiceLine02" />
+    <VoiceLineArray value="GarroshBase_VoiceLine03" />
+    <VoiceLineArray value="GarroshBase_VoiceLine04" />
+    <VoiceLineArray value="GarroshBase_VoiceLine05" />
+    <DefaultMount value="HorseCommon" />
+    <TalentTreeArray Talent="GarroshGroundbreakerWarbreaker" Tier="1" Column="1" />
+    <TalentTreeArray Talent="GarroshWreckingBallUnrivaledStrength" Tier="1" Column="2" />
+    <TalentTreeArray Talent="GarroshArmorUpBodyCheck" Tier="1" Column="3" />
+    <TalentTreeArray Talent="GarroshBloodthirstInFortheKill" Tier="2" Column="1" />
+    <TalentTreeArray Talent="GarroshBloodthirstThirstforBattle" Tier="2" Column="2" />
+    <TalentTreeArray Talent="GarroshIndomitable" Tier="2" Column="3" />
+    <TalentTreeArray Talent="GarroshGroundbreakerIntimidation" Tier="3" Column="1" />
+    <TalentTreeArray Talent="GarroshOppressor" Tier="3" Column="2" />
+    <TalentTreeArray Talent="GarroshIntotheFrayLoktarOgar" Tier="3" Column="3" />
+    <TalentTreeArray Talent="GarroshHeroicAbilityWarlordsChallenge" Tier="4" Column="1" />
+    <TalentTreeArray Talent="GarroshHeroicAbilityDecimate" Tier="4" Column="2" />
+    <TalentTreeArray Talent="GarroshGroundbreakerDefensiveMeasures" Tier="5" Column="1" />
+    <TalentTreeArray Talent="GarroshBloodthirstBloodcraze" Tier="5" Column="2" />
+    <TalentTreeArray Talent="GarroshArmorUpDoubleUp" Tier="5" Column="3" />
+    <TalentTreeArray Talent="GarroshGroundbreakerMortalCombo" Tier="6" Column="1" />
+    <TalentTreeArray Talent="GarroshWreckingBallEarthshaker" Tier="6" Column="2" />
+    <TalentTreeArray Talent="GarroshArmorUpSeasonedSoldier" Tier="6" Column="3" />
+    <TalentTreeArray Talent="GarroshWarlordsChallengeDeathWish" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="GarroshHeroicAbilityWarlordsChallenge" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="GarroshDecimateDeadlyCalm" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="GarroshHeroicAbilityDecimate" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="GarroshWreckingBallTitanicMight" Tier="7" Column="3" />
+    <TalentTreeArray Talent="GarroshArmorUpInnerRage" Tier="7" Column="4">
+      <PrerequisiteTalentArray value="GarroshArmorUpBodyCheck" />
+    </TalentTreeArray>
+    <Difficulty value="Hard" />
+    <Universe value="Warcraft" />
+    <UniverseIcon value="Assets\Textures\ui_glues_store_gameicon_wow.dds" />
+    <ProductId value="24949" />
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroGarrosh" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroGarrosh" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroGarrosh" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GarroshWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="GarroshGroundbreaker">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GarroshGroundbreakerDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GarroshGroundbreakerWarbreakerDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Behavior" />
+        <Entry value="GarroshGroundbreakerDefensiveMeasures" />
+        <Field value="DamageResponse.ModifyLimit" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="GarroshBloodthirst">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GarroshBloodThirstDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GarroshBloodThirstBloodcrazeDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="GarroshWreckingBall">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GarroshWreckingBallDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GarroshWreckingBallUnrivaledStrengthDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="GarroshDecimate">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GarroshDecimateDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="GarroshArmorUpDoubleUp">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GarroshArmorUpBodyCheckDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GarroshDoubleUpBodyCheckDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <VariationArray value="GarroshBaseVar1" />
+    <VariationArray value="GarroshBaseVar2" />
+    <VariationArray value="GarroshBaseVar3" />
+    <VariationArray value="GarroshBaseVar4" />
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <Ratings>
+      <Damage value="3" />
+      <Utility value="7" />
+      <Survivability value="9" />
+      <Complexity value="6" />
+    </Ratings>
+    <HeroSpecificUIArray Location="Status" DescName="Garrosh/GarroshTraitFrame" />
+    <ExpandedRole value="Tank" />
+    <ReleaseDate Month="8" Day="8" Year="2017" />
+    <Rarity value="Legendary" />
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="GarroshGroundbreakerWarbreaker" />
+      <TalentsArray value="GarroshBloodthirstThirstforBattle" />
+      <TalentsArray value="GarroshGroundbreakerIntimidation" />
+      <TalentsArray value="GarroshHeroicAbilityDecimate" />
+      <TalentsArray value="GarroshGroundbreakerDefensiveMeasures" />
+      <TalentsArray value="GarroshArmorUpSeasonedSoldier" />
+      <TalentsArray value="GarroshDecimateDeadlyCalm" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="GarroshWreckingBallUnrivaledStrength" />
+      <TalentsArray value="GarroshIndomitable" />
+      <TalentsArray value="GarroshIntotheFrayLoktarOgar" />
+      <TalentsArray value="GarroshHeroicAbilityWarlordsChallenge" />
+      <TalentsArray value="GarroshArmorUpDoubleUp" />
+      <TalentsArray value="GarroshWreckingBallEarthshaker" />
+      <TalentsArray value="GarroshWreckingBallTitanicMight" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="GarroshArmorUpBodyCheck" />
+      <TalentsArray value="GarroshBloodthirstThirstforBattle" />
+      <TalentsArray value="GarroshOppressor" />
+      <TalentsArray value="GarroshHeroicAbilityDecimate" />
+      <TalentsArray value="GarroshBloodthirstBloodcraze" />
+      <TalentsArray value="GarroshGroundbreakerMortalCombo" />
+      <TalentsArray value="GarroshArmorUpInnerRage" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="GarroshWreckingBallUnrivaledStrength" />
+      <TalentsArray value="GarroshBloodthirstThirstforBattle" />
+      <TalentsArray value="GarroshOppressor" />
+      <TalentsArray value="GarroshHeroicAbilityWarlordsChallenge" />
+      <TalentsArray value="GarroshBloodthirstBloodcraze" />
+      <TalentsArray value="GarroshGroundbreakerMortalCombo" />
+      <TalentsArray value="GarroshWarlordsChallengeDeathWish" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="GarroshGroundbreakerWarbreaker" />
+      <TalentsArray value="GarroshIndomitable" />
+      <TalentsArray value="GarroshOppressor" />
+      <TalentsArray value="GarroshHeroicAbilityDecimate" />
+      <TalentsArray value="GarroshGroundbreakerDefensiveMeasures" />
+      <TalentsArray value="GarroshArmorUpSeasonedSoldier" />
+      <TalentsArray value="GarroshDecimateDeadlyCalm" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="GarroshWreckingBallUnrivaledStrength" />
+      <TalentsArray value="GarroshBloodthirstThirstforBattle" />
+      <TalentsArray value="GarroshGroundbreakerIntimidation" />
+      <TalentsArray value="GarroshHeroicAbilityWarlordsChallenge" />
+      <TalentsArray value="GarroshBloodthirstBloodcraze" />
+      <TalentsArray value="GarroshWreckingBallEarthshaker" />
+      <TalentsArray value="GarroshWarlordsChallengeDeathWish" />
+    </TalentAIBuildsArray>
+  </CHero>
 </Hero>

@@ -221,6 +221,12 @@
   <CButton id="MuradinSecondWindStoneformTalent" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_Muradin_SecondWind.dds" />
   </CButton>
+  <CButton id="GarroshArmorUpBodyCheck" parent="StormButtonParent">
+    <TooltipAppender Validator="GarroshHasBodyCheckBruteForceTalent" Face="GarroshBodyCheckBruteForce" />
+    <TooltipAppender Validator="GarroshHasArmorUpInnerRageTalent" Face="GarroshArmorUpInnerRage" />
+    <TooltipCooldownOverrideText value="GarroshBodyCheckCooldown" />
+    <Icon value="Assets\Textures\storm_ui_icon_garrosh_slam.dds" />
+  </CButton>
 </Button>
 
 

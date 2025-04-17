@@ -48,6 +48,30 @@
     </AbilityModificationArray>
     <Abil value="AbathurSymbioteSpikeBurst" />
   </CTalent>
+  <CTalent id="AbathurReinforcedCarapace">
+    <Face value="AbathurReinforcedCarapaceTalent" />
+    <Abil value="AbathurSymbioteCarapace" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="MultiplyLevelModification" />
+        <Catalog value="Behavior" />
+        <Entry value="CarapaceEvolutionShield" />
+        <Field value="DamageResponse.ModifyLimit" />
+        <Value value="1.400000" />
+      </Modifications>
+      <Modifications>
+        <Type value="MultiplyLevelModification" />
+        <Catalog value="Behavior" />
+        <Entry value="CarapaceEvolutionShieldHivemind" />
+        <Field value="DamageResponse.ModifyLimit" />
+        <Value value="1.400000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="AbathurMasteryRegenerativeMicrobes">
+    <Face value="AbathurSymbioteRegenerativeMicrobesTalent" />
+    <Abil value="AbathurSymbioteCarapace" />
+  </CTalent>
   <CTalent id="AbathurMasteryEnvenomedNestsToxicNest">
     <Face value="AbathurToxicNestEnvenomedNestTalent" />
     <AbilityModificationArray ModifyAbil="AbathurToxicNest" TooltipAddendum="Talent/Abathur/ToxicNest/EnevenomedNest">
@@ -80,6 +104,40 @@
       <BehaviorArray value="Ultimate1Unlocked" />
     </RankArray>
     <Active value="1" />
+    <Abil value="AbathurUltimateEvolution" />
+  </CTalent>
+  <CTalent id="AbathurUltimateEvolutionEvolutionaryLink">
+    <Face value="AbathurUltimateEvolutionEvolutionaryLinkTalent" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurUltimateEvolutionEvolutionaryLinkApplyTarget" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurUltimateEvolutionEvolutionaryLinkTargetSearch" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurUltimateEvolutionEvolutionaryLinkRemoveTargetSearch" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="UltimateEvolutionTimedLife" />
+        <Field value="Duration" />
+        <Value value="10.000000" />
+      </Modifications>
+    </AbilityModificationArray>
     <Abil value="AbathurUltimateEvolution" />
   </CTalent>
   <CTalent id="KelThuzadMasterOfTheColdDark">
@@ -168,5 +226,60 @@
     <Abil value="Stoneform" />
     <Trait value="1" />
     <Active value="1" />
+  </CTalent>
+  <CTalent id="GarroshArmorUpBodyCheck">
+    <Face value="GarroshArmorUpBodyCheck" />
+    <Abil value="GarroshArmorUpBodyCheck" />
+    <RankArray>
+      <BehaviorArray value="GarroshArmorUpBodyCheckCarryBehavior" />
+      <BehaviorArray value="GarroshBodyCheckItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="GarroshBodyCheckBruteForce">
+    <Face value="GarroshBodyCheckBruteForce" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="GarroshBodyCheckBruteForceApplyHealReduction" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="GarroshArmorUpBodyCheck" />
+  </CTalent>
+  <CTalent id="GarroshArmorUpInnerRage">
+    <Face value="GarroshArmorUpInnerRage" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Entry value="GarroshArmorUpBodyCheck" />
+        <Field value="Cost[0].Charge.CountMax" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Entry value="GarroshArmorUpBodyCheck" />
+        <Field value="Cost[0].Charge.HideCount" />
+        <FieldIsInteger value="1" />
+        <Value value="-1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="GarroshBodyCheckBruteForceHealReduction" />
+        <Field value="Modification.HealTakenAdditiveMultiplier[Life]" />
+        <Value value="-0.450000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="GarroshBodyCheckBruteForceHealReduction" />
+        <Field value="Modification.VitalRegenMultiplier[Life]" />
+        <Value value="-0.450000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="GarroshArmorUpBodyCheck" />
   </CTalent>
 </Talent>

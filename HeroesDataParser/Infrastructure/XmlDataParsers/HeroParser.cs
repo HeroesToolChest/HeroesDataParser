@@ -1,14 +1,9 @@
-﻿using Heroes.Element.Models;
-using Heroes.XmlData;
-using System.Runtime.CompilerServices;
-
-namespace HeroesDataParser.Infrastructure.XmlDataParsers;
+﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
 public class HeroParser : CollectionParserBase<Hero>
 {
     private readonly ILogger<HeroParser> _logger;
     private readonly HeroesData _heroesData;
-    //private readonly IDataParser<Unit> _unitParser;
     private readonly IUnitParser _unitParser;
     private readonly ITalentParser _talentParser;
 
@@ -26,24 +21,6 @@ public class HeroParser : CollectionParserBase<Hero>
     }
 
     public override string DataObjectType => "Hero";
-
-    protected override void SetProperties(Hero elementObject, StormElement stormElement)
-    {
-        if (stormElement.DataValues.TryGetElementDataAt("Unit", out StormElementData? unitData))
-            elementObject.UnitId = unitData.Value.GetString();
-
-        // first thing to do is to set the unit data
-        SetUnitData(elementObject);
-
-        //// TODO: FindUnits ? e.g dva pilot
-
-        // find additional (hero) units
-        SetHeroUnits(elementObject, stormElement);
-
-        SetTalentData(elementObject, stormElement);
-
-        base.SetProperties(elementObject, stormElement);
-    }
 
     protected override void SetAdditionalProperties(Hero collectionObject, StormElement stormElement)
     {
@@ -214,6 +191,8 @@ public class HeroParser : CollectionParserBase<Hero>
             collectionObject.DefaultMountId = defaultMountData.Value.GetString();
 
         SetInfoTextProperty(collectionObject, stormElement);
+
+        SetOtherProperties(collectionObject, stormElement);
     }
 
     protected override void SetValidatedProperties(Hero collectionObject)
@@ -223,22 +202,60 @@ public class HeroParser : CollectionParserBase<Hero>
         collectionObject.Difficulty ??= GetTooltipDescriptionFromId(GameStringConstants.DifficultyGameString.Replace(GameStringConstants.IdPlaceHolder, "Easy"));
     }
 
-    private void SetUnitData(Hero elementObject)
+    private static void SetTalentUpgradeLinkIds(Hero collectionObject)
     {
-        if (string.IsNullOrEmpty(elementObject.UnitId))
+        foreach (Talent talent in collectionObject.Talents.Values.SelectMany(x => x))
         {
-            _logger.LogWarning("There is no unit id for hero {Id}", elementObject.Id);
+            List<AbilityLinkId> abilityLinkIds = collectionObject.GetTooltipAbilityLinkIdsByTalentElementId(talent.TalentElementId);
+
+            // also search the hero units
+            foreach (Unit heroUnit in collectionObject.HeroUnits.Values)
+            {
+                abilityLinkIds.AddRange(heroUnit.GetTooltipAbilityLinkIdsByTalentElementId(talent.TalentElementId));
+            }
+
+            // for each ability link id, add it to the talent
+            foreach (AbilityLinkId abilityLInkId in abilityLinkIds)
+            {
+                talent.UpgradeLinkIds.AbilityLinkIds.Add(abilityLInkId);
+            }
+        }
+    }
+
+    private void SetOtherProperties(Hero collectionObject, StormElement stormElement)
+    {
+        if (stormElement.DataValues.TryGetElementDataAt("Unit", out StormElementData? unitData))
+            collectionObject.UnitId = unitData.Value.GetString();
+
+        // first thing to do is to set the unit data
+        SetUnitData(collectionObject);
+
+        //// TODO: FindUnits ? e.g dva pilot
+
+        // find additional (hero) units
+        SetHeroUnits(collectionObject, stormElement);
+
+        SetTalentData(collectionObject, stormElement);
+
+        SetTalentUpgradeLinkIds(collectionObject);
+    }
+
+    private void SetUnitData(Hero collectionObject)
+    {
+        if (string.IsNullOrEmpty(collectionObject.UnitId))
+        {
+            _logger.LogWarning("There is no unit id for hero {Id}", collectionObject.Id);
             return;
         }
 
         // when calling the unitparser, we need to use the unitId for the object's id
-        string heroId = elementObject.Id;
-        elementObject.Id = elementObject.UnitId;
+        string heroId = collectionObject.Id;
+        collectionObject.Id = collectionObject.UnitId;
 
-        _unitParser.Parse(elementObject);
+        _unitParser.Parse(collectionObject);
 
         // then set it back to the heroId
-        elementObject.Id = heroId;
+        collectionObject.Id = heroId;
     }
 
     private void SetHeroUnits(Hero collectionObject, StormElement stormElement)
@@ -256,24 +273,17 @@ public class HeroParser : CollectionParserBase<Hero>
         }
     }
 
-    private void SetTalentData(Hero elementObject, StormElement stormElement)
+    private void SetTalentData(Hero collectionObject, StormElement stormElement)
     {
         if (stormElement.DataValues.TryGetElementDataAt("TalentTreeArray", out StormElementData? talentTreeArray))
         {
             foreach (string item in talentTreeArray.GetElementDataIndexes())
             {
                 StormElementData talentTreeArrayData = talentTreeArray.GetElementDataAt(item);
-                Talent? talent = _talentParser.GetTalent(elementObject, talentTreeArrayData);
+                Talent? talent = _talentParser.GetTalent(collectionObject, talentTreeArrayData);
 
                 if (talent is not null)
-                {
-                    foreach (TalentId talentId in talent.TooltipAppenderTalentIds)
-                    {
-                        // TODO: Add to the talent tooltip appender list
-                    }
-
-                    elementObject.AddTalent(talent);
-                }
+                    collectionObject.AddTalent(talent);
             }
         }
     }

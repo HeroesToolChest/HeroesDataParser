@@ -6,6 +6,16 @@ namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
 
 public class AbilityTalentParserBase : ParserBase
 {
+    /// <summary>
+    /// Gets the value for an ability that has no ability element id.
+    /// </summary>
+    public const string PassiveAbilityElementId = ":PASSIVE:";
+
+    /// <summary>
+    /// Gets the value for a button that has no button element id.
+    /// </summary>
+    public const string NoButtonElementId = ":NONE:";
+
     private readonly ILogger<AbilityTalentParserBase> _logger;
     private readonly HeroesData _heroesData;
 
@@ -18,7 +28,7 @@ public class AbilityTalentParserBase : ParserBase
 
     protected void SetButtonData(AbilityTalentBase abilityTalent)
     {
-        StormElement? buttonElement = _heroesData.GetCompleteStormElement("Button", abilityTalent.ButtonId);
+        StormElement? buttonElement = _heroesData.GetCompleteStormElement("Button", abilityTalent.ButtonElementId);
 
         if (buttonElement is null)
             return;
@@ -171,10 +181,8 @@ public class AbilityTalentParserBase : ParserBase
             {
                 StormElementData tooltipAppenderData = tooltipAppenderArray.GetElementDataAt(index);
 
-                if (tooltipAppenderData.TryGetElementDataAt("Face", out StormElementData? faceData) &&
-                    tooltipAppenderData.TryGetElementDataAt("Validator", out StormElementData? validatorData))
+                if (tooltipAppenderData.TryGetElementDataAt("Validator", out StormElementData? validatorData))
                 {
-                    string faceValue = faceData.Value.GetString();
                     string validatorValue = validatorData.Value.GetString();
 
                     // find the validator
@@ -182,7 +190,7 @@ public class AbilityTalentParserBase : ParserBase
 
                     if (validatorElement is null)
                     {
-                        _logger.LogWarning("Validator element {ValidatorValue} not found for button {ButtonId}", validatorValue, abilityTalent.ButtonId);
+                        _logger.LogWarning("Validator element {ValidatorValue} not found for button {ButtonId}", validatorValue, abilityTalent.ButtonElementId);
                         continue;
                     }
 
@@ -193,14 +201,10 @@ public class AbilityTalentParserBase : ParserBase
 
                         // check if it exists
                         if (_heroesData.StormElementExists("Talent", valueValue))
-                            abilityTalent.TooltipAppenderTalentIds.Add(new TalentId(valueValue, faceValue));
+                            abilityTalent.TooltipAppendersTalentElementIds.Add(valueValue);
                         else
-                            _logger.LogWarning("Talent element {ValueValue} not found for button {ButtonId}", valueValue, abilityTalent.ButtonId);
+                            _logger.LogWarning("Talent element {ValueValue} not found for button {ButtonId}", valueValue, abilityTalent.ButtonElementId);
                     }
-                }
-                else
-                {
-                    _logger.LogWarning("TooltipAppender element {Index} is missing Face or Validator for button {ButtonId}", index, abilityTalent.ButtonId);
                 }
             }
         }
@@ -251,7 +255,7 @@ public class AbilityTalentParserBase : ParserBase
 
         if (abilityDataValues.TryGetElementDataAt("ParentAbil", out StormElementData? parentAbilData))
         {
-            abilityTalent.ParentAbililtyId = parentAbilData.Value.GetString();
+            abilityTalent.ParentAbilityElementId = parentAbilData.Value.GetString();
         }
 
         if (abilityDataValues.TryGetElementDataAt("Flags", out StormElementData? flagsData))
@@ -389,8 +393,8 @@ public class AbilityTalentParserBase : ParserBase
         {
             string defaultButtonFaceValue = defaultButtonFaceData.Value.GetString();
 
-            if (string.IsNullOrEmpty(abilityTalent.ButtonId))
-                abilityTalent.ButtonId = defaultButtonFaceValue;
+            if (string.IsNullOrEmpty(abilityTalent.ButtonElementId))
+                abilityTalent.ButtonElementId = defaultButtonFaceValue;
         }
 
         SetButtonData(abilityTalent);

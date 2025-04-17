@@ -106,4 +106,91 @@ public class HeroParserTests
         hero.InfoText!.RawDescription.Should().Be("Abathur, the Evolution Master of Kerrigan's Swarm, works ceaselessly...");
         hero.HeroUnits.Should().ContainSingle();
     }
+
+    [TestMethod]
+    public void Parse_AbathurSettingTalentUpgradeLinks_TalentUpgradeLinksAreSet()
+    {
+        // arrange
+        string heroUnit = "Abathur";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        HeroParser heroParser = new(_logger, _heroesXmlLoaderService, _unitParser, _talentParser);
+
+        Ability abathurSymbioteAbility = new()
+        {
+            AbilityElementId = "AbathurSymbiote",
+            ButtonElementId = "AbathurSymbiote",
+            Tier = AbilityTier.Basic,
+            AbilityType = AbilityType.Q,
+        };
+        abathurSymbioteAbility.TooltipAppendersTalentElementIds.Add("AbathurMasteryPressurizedGlands");
+
+        Ability envenomedNestAbility = new()
+        {
+            AbilityElementId = "AbathurToxicNest",
+            ButtonElementId = "AbathurToxicNest",
+            Tier = AbilityTier.Basic,
+            AbilityType = AbilityType.W,
+        };
+        abathurSymbioteAbility.TooltipAppendersTalentElementIds.Add("AbathurMasteryEnvenomedNestsToxicNest");
+
+        // unit part for abathur hero
+        _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
+            .Do(x =>
+            {
+                Unit argUnit = x.Arg<Unit>();
+                argUnit.Id = "HeroAbathur";
+                argUnit.AddAbility(abathurSymbioteAbility);
+                argUnit.AddAbility(envenomedNestAbility);
+                argUnit.AddAbilityByTooltipTalentElementId("AbathurMasteryPressurizedGlands", abathurSymbioteAbility);
+                argUnit.AddAbilityByTooltipTalentElementId("AbathurMasteryEnvenomedNestsToxicNest", envenomedNestAbility);
+            });
+
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[0]")).Returns(new Talent()
+        {
+            TalentElementId = "AbathurMasteryPressurizedGlands",
+            ButtonElementId = "AbathurSymbiotePressurizedGlandsTalent",
+            Tier = TalentTier.Level1,
+            AbilityType = AbilityType.W,
+        });
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[1]")).Returns(new Talent()
+        {
+            TalentElementId = "AbathurMasteryEnvenomedNestsToxicNest",
+            ButtonElementId = "AbathurToxicNestEnvenomedNestTalent",
+            Tier = TalentTier.Level1,
+            AbilityType = AbilityType.W,
+        });
+
+        // hero unit Symbiote
+        Unit abathurSymbioteUnit = new("AbathurSymbiote");
+
+        Ability abathurSymbioteSpikeBurstAbility = new()
+        {
+            AbilityElementId = "AbathurSymbioteSpikeBurst",
+            ButtonElementId = "AbathurSymbioteSpikeBurst",
+            Tier = AbilityTier.Basic,
+            AbilityType = AbilityType.W,
+        };
+        abathurSymbioteAbility.TooltipAppendersTalentElementIds.Add("AbathurMasteryPressurizedGlands");
+
+        abathurSymbioteUnit.AddAbility(abathurSymbioteSpikeBurstAbility);
+        abathurSymbioteUnit.AddAbilityByTooltipTalentElementId("AbathurMasteryPressurizedGlands", abathurSymbioteSpikeBurstAbility);
+
+        _unitParser.Parse("AbathurSymbiote").Returns(abathurSymbioteUnit);
+
+        // act
+        Hero? hero = heroParser.Parse(heroUnit);
+
+        // assert
+        hero.Should().NotBeNull();
+        hero.HeroUnits.Should().ContainSingle();
+        hero.Talents[TalentTier.Level1].Should().HaveCount(2);
+        hero.Talents[TalentTier.Level1][0].LinkId.ToString().Should().Be("AbathurMasteryPressurizedGlands|AbathurSymbiotePressurizedGlandsTalent|W");
+        hero.Talents[TalentTier.Level1][0].UpgradeLinkIds.AbilityLinkIds.Should()
+            .Contain([new AbilityLinkId("AbathurSymbiote", "AbathurSymbiote", AbilityType.Q), new AbilityLinkId("AbathurSymbioteSpikeBurst", "AbathurSymbioteSpikeBurst", AbilityType.W)]);
+        hero.Talents[TalentTier.Level1][1].LinkId.ToString().Should().Be("AbathurMasteryEnvenomedNestsToxicNest|AbathurToxicNestEnvenomedNestTalent|W");
+        hero.Talents[TalentTier.Level1][1].UpgradeLinkIds.AbilityLinkIds.Should()
+            .Contain([new AbilityLinkId("AbathurToxicNest", "AbathurToxicNest", AbilityType.W)]);
+    }
 }

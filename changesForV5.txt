@@ -40,8 +40,19 @@ v5 changes heroes
 'scalingLinkId' -> changed to an array 'scalingLinkIds'
 'descriptors' -> 'playstyles'
 - 'charges', 'cooldownTooltip', 'shortTooltip', 'fullTooltip' are now properties to 'tooltip (new)', which also have been updated
-'cooldownTooltip' -> 'cooldownText'
-'shortTooltip' -> 'shortText'
-'fullTooltip' -> 'fullText'
+  - 'cooldownTooltip' -> 'cooldownText'
+  - 'shortTooltip' -> 'shortText'
+  - 'fullTooltip' -> 'fullText'
 - 'subAbilities' changed to an object from an array
 - 'heroUnits' changed to an object from an array
+- For both abilities and talents, 'nameId' renamed
+  - abilities -> 'abilityId'
+  - talents -> 'talentId'
+- Added 'linkId' to abilities (abilityId|buttonId|abilityType)
+- Added 'linkId' to talents (talentId|buttonId|abilityType)
+- Added 'abilityId' to talents
+- Removed 'isPassive' from abilities
+- Removed 'isPassive' from talents
+- The "id" for subabilites changed to the linkId
+- Added upgradeLinkIds (updated from the abilityTalentLinkIds - also kept for legacy reasons)
+
