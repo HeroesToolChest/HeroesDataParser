@@ -189,6 +189,7 @@
     </TalentTreeArray>
     <TalentTreeArray Talent="AbathurMasteryEvolutionComplete" Tier="7" Column="2">
       <PrerequisiteTalentArray value="AbathurHeroicAbilityEvolveMonstrosity" />
+      <PrerequisiteTalentArray value="Other" />
     </TalentTreeArray>
     <TalentTreeArray Talent="AbathurSymbioteHivemind" Tier="7" Column="3" />
     <TalentTreeArray Talent="AbathurMasteryLocustMaster" Tier="7" Column="4" />

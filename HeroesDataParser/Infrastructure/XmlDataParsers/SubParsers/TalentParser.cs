@@ -43,6 +43,20 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
         SetTalentData(hero, talent);
         SetTalentTier(talent, tierValue);
 
+        if (talentTreeData.TryGetElementDataAt("PrerequisiteTalentArray", out StormElementData? prerequisiteTalentArrayDataArray))
+        {
+            foreach (string index in prerequisiteTalentArrayDataArray.GetElementDataIndexes())
+            {
+                StormElementData prerequisiteTalentArrayData = prerequisiteTalentArrayDataArray.GetElementDataAt(index);
+
+                string value = prerequisiteTalentArrayData.Value.GetString();
+                if (!string.IsNullOrEmpty(value) && _heroesData.StormElementExists("Talent", value))
+                    talent.PrerequisiteTalentIds.Add(value);
+                else
+                    _logger.LogWarning("Talent {Talent} has an unknown prerequisite talent id {PrerequisiteTalentId}.", talentValue, value);
+            }
+        }
+
         return talent;
     }
 

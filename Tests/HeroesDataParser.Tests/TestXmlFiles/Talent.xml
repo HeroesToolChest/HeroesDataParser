@@ -140,6 +140,17 @@
     </AbilityModificationArray>
     <Abil value="AbathurUltimateEvolution" />
   </CTalent>
+  <CTalent id="AbathurHeroicAbilityEvolveMonstrosity">
+    <Face value="AbathurEvolveMonstrosityHotbar" />
+    <RankArray>
+      <BehaviorArray value="Ultimate2Unlocked" />
+      <BehaviorArray value="AbathurEvolveMonstrosityTrackingBehavior" />
+      <BehaviorArray value="AbathurEvolveMonstrosityQuestStack" />
+    </RankArray>
+    <QuestData StackBehavior="AbathurEvolveMonstrosityQuestStack" />
+    <Active value="1" />
+    <Abil value="AbathurEvolveMonstrosity" />
+  </CTalent>
   <CTalent id="KelThuzadMasterOfTheColdDark">
     <Face value="KelThuzadMasterOfTheColdDark" />
     <QuestData>

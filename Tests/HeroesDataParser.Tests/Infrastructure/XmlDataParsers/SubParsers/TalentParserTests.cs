@@ -1,4 +1,5 @@
 ﻿using HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
 
@@ -187,6 +188,33 @@ public class TalentParserTests
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level10);
+    }
+
+    [TestMethod]
+    public void GetTalent_AbathurHeroicAbilityEvolveMonstrosityPrerequisiteTalentIds_GetsPrerequisiteTalentIds()
+    {
+        // arrange
+        string heroUnit = "Abathur";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("20");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.Tier.Should().Be(TalentTier.Level20);
+        talent.PrerequisiteTalentIds.Should().ContainSingle().And
+            .Contain("AbathurHeroicAbilityEvolveMonstrosity");
+
+        _talentLogger.Received(1).Log(LogLevel.Warning, 0, Arg.Any<object>(), null, Arg.Any<Func<object, Exception?, string>>());
     }
 
     [TestMethod]

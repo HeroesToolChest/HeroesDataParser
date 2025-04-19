@@ -21,7 +21,6 @@
     <!--<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>-->
     <!--<PackageLicenseFile>LICENSE</PackageLicenseFile>-->
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <!--<PackageReadmeFile>README.md</PackageReadmeFile>-->
   </PropertyGroup>
 
