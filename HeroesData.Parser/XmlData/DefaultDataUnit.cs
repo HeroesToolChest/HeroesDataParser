@@ -96,27 +96,27 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "LIFEMAX")
                 {
-                    UnitLifeMax = double.Parse(element.Attribute("value")?.Value ?? "0");
+                    UnitLifeMax = XmlParse.GetDoubleValue(elementName, element, GameData);
                 }
                 else if (elementName == "RADIUS")
                 {
-                    UnitRadius = double.Parse(element.Attribute("value")?.Value ?? "0");
+                    UnitRadius = XmlParse.GetDoubleValue(elementName, element, GameData);
                 }
                 else if (elementName == "SPEED")
                 {
-                    UnitSpeed = double.Parse(element.Attribute("value")?.Value ?? "0");
+                    UnitSpeed = XmlParse.GetDoubleValue(elementName, element, GameData);
                 }
                 else if (elementName == "SIGHT")
                 {
-                    UnitSight = double.Parse(element.Attribute("value")?.Value ?? "0");
+                    UnitSight = XmlParse.GetDoubleValue(elementName, element, GameData);
                 }
                 else if (elementName == "ENERGYMAX")
                 {
-                    UnitEnergyMax = double.Parse(element.Attribute("value")?.Value ?? "0");
+                    UnitEnergyMax = XmlParse.GetDoubleValue(elementName, element, GameData);
                 }
                 else if (elementName == "ENERGYREGENRATE")
                 {
-                    UnitEnergyRegenRate = double.Parse(element.Attribute("value")?.Value ?? "0");
+                    UnitEnergyRegenRate = XmlParse.GetDoubleValue(elementName, element, GameData);
                 }
                 else if (elementName == "ATTRIBUTES")
                 {
@@ -139,15 +139,15 @@ namespace HeroesData.Parser.XmlData
                 }
                 else if (elementName == "SHIELDSMAX")
                 {
-                    UnitShieldMax = double.Parse(element.Attribute("value")?.Value ?? "0");
+                    UnitShieldMax = XmlParse.GetDoubleValue(elementName, element, GameData);
                 }
                 else if (elementName == "SHIELDREGENRATE")
                 {
-                    UnitShieldRegenRate = double.Parse(element.Attribute("value")?.Value ?? "0");
+                    UnitShieldRegenRate = XmlParse.GetDoubleValue(elementName, element, GameData);
                 }
                 else if (elementName == "SHIELDREGENDELAY")
                 {
-                    UnitShieldRegenDelay = double.Parse(element.Attribute("value")?.Value ?? "0");
+                    UnitShieldRegenDelay = XmlParse.GetDoubleValue(elementName, element, GameData);
                 }
             }
         }
