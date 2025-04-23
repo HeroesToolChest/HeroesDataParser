@@ -29,49 +29,60 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 heroObject.Add("unitId", hero.CUnitId);
             if (!string.IsNullOrEmpty(hero.HyperlinkId))
                 heroObject.Add("hyperlinkId", hero.HyperlinkId);
+
             if (!string.IsNullOrEmpty(hero.AttributeId))
                 heroObject.Add("attributeId", hero.AttributeId);
 
-            if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(hero.Difficulty))
-                heroObject.Add("difficulty", hero.Difficulty);
-
-            heroObject.Add("franchise", hero.Franchise.ToString());
-
-            if (hero.Gender.HasValue)
-                heroObject.Add("gender", hero.Gender.Value.ToString());
             if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(hero.Title))
                 heroObject.Add("title", hero.Title);
-            if (hero.InnerRadius > 0)
-                heroObject.Add("innerRadius", hero.InnerRadius);
-            if (hero.Radius > 0)
-                heroObject.Add("radius", hero.Radius);
+
+            heroObject.Add("franchise", hero.Franchise.ToString());
+            heroObject.Add("rarity", hero.Rarity.ToString());
             if (hero.ReleaseDate.HasValue)
                 heroObject.Add("releaseDate", hero.ReleaseDate.Value.ToString("yyyy-MM-dd"));
+            if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(hero.Difficulty))
+                heroObject.Add("difficulty", hero.Difficulty);
+            if (!string.IsNullOrEmpty(hero.Type?.RawDescription) && !FileOutputOptions.IsLocalizedText)
+                heroObject.Add("isMelee", GetTooltip(hero.Type, FileOutputOptions.DescriptionType) == "Melee");
+            if (hero.Gender.HasValue)
+                heroObject.Add("gender", hero.Gender.Value.ToString());
+            if (hero.Radius > 0)
+                heroObject.Add("radius", hero.Radius);
+            if (hero.InnerRadius > 0)
+                heroObject.Add("innerRadius", hero.InnerRadius);
             if (hero.Sight > 0)
                 heroObject.Add("sight", hero.Sight);
             if (hero.Speed > 0)
                 heroObject.Add("speed", hero.Speed);
-            if (!string.IsNullOrEmpty(hero.Type?.RawDescription) && !FileOutputOptions.IsLocalizedText)
-                heroObject.Add("type", GetTooltip(hero.Type, FileOutputOptions.DescriptionType));
-            heroObject.Add("rarity", hero.Rarity.ToString());
+
+            heroObject.Add(new JProperty("attributes", ["Heroic"]));
+
+
             if (!string.IsNullOrEmpty(hero.ScalingBehaviorLink))
-                heroObject.Add(new JProperty("scalingLinkId", hero.ScalingBehaviorLink));
+                heroObject.Add(new JProperty("scalingLinkIds", [hero.ScalingBehaviorLink]));
+
             if (!string.IsNullOrEmpty(hero.DefaultMountId))
                 heroObject.Add("defaultMountId", hero.DefaultMountId);
+
+            if (hero.Roles.Count > 0 && !FileOutputOptions.IsLocalizedText)
+                heroObject.Add(new JProperty("roles", hero.Roles));
+
+            if (!string.IsNullOrEmpty(hero.ExpandedRole) && !FileOutputOptions.IsLocalizedText)
+                heroObject.Add(new JProperty("expandedRole", hero.ExpandedRole));
+
+            JProperty? ratings = HeroRatings(hero);
+            if (ratings != null)
+                heroObject.Add(ratings);
+
+            JProperty? portraits = HeroPortraits(hero);
+            if (portraits != null)
+                heroObject.Add(portraits);
             if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(hero.SearchText))
                 heroObject.Add("searchText", hero.SearchText);
             if (!string.IsNullOrEmpty(hero.Description?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add("description", GetTooltip(hero.Description, FileOutputOptions.DescriptionType));
             if (!string.IsNullOrEmpty(hero.InfoText?.RawDescription) && !FileOutputOptions.IsLocalizedText)
                 heroObject.Add("infoText", GetTooltip(hero.InfoText, FileOutputOptions.DescriptionType));
-            if (hero.HeroDescriptors.Count > 0)
-                heroObject.Add(new JProperty("descriptors", hero.HeroDescriptors.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
-            if (hero.UnitIds.Count > 0)
-                heroObject.Add(new JProperty("units", hero.UnitIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
-
-            JProperty? portraits = HeroPortraits(hero);
-            if (portraits != null)
-                heroObject.Add(portraits);
 
             JProperty? life = UnitLife(hero);
             if (life != null)
@@ -89,31 +100,47 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (armor != null)
                 heroObject.Add(armor);
 
-            if (hero.Roles.Count > 0 && !FileOutputOptions.IsLocalizedText)
-                heroObject.Add(new JProperty("roles", hero.Roles));
 
-            if (!string.IsNullOrEmpty(hero.ExpandedRole) && !FileOutputOptions.IsLocalizedText)
-                heroObject.Add(new JProperty("expandedRole", hero.ExpandedRole));
+            if (hero.HeroDescriptors.Count > 0)
+                heroObject.Add(new JProperty("playstyles", hero.HeroDescriptors.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
 
-            JProperty? ratings = HeroRatings(hero);
-            if (ratings != null)
-                heroObject.Add(ratings);
 
             JProperty? weapons = UnitWeapons(hero);
             if (weapons != null)
                 heroObject.Add(weapons);
 
+
             if (hero.SkinIds.Count > 0)
-                heroObject.Add(new JProperty("skins", hero.SkinIds));
+                heroObject.Add(new JProperty("skinIds", hero.SkinIds.OrderBy(x => x)));
 
             if (hero.VariationSkinIds.Count > 0)
-                heroObject.Add(new JProperty("variationSkins", hero.VariationSkinIds));
+                heroObject.Add(new JProperty("variationSkinIds", hero.VariationSkinIds.OrderBy(x => x)));
 
             if (hero.VoiceLineIds.Count > 0)
-                heroObject.Add(new JProperty("voiceLines", hero.VoiceLineIds));
+                heroObject.Add(new JProperty("voiceLineIds", hero.VoiceLineIds.OrderBy(x => x)));
 
             if (hero.AllowedMountCategoryIds.Count > 0)
-                heroObject.Add(new JProperty("mountCategories", hero.AllowedMountCategoryIds));
+                heroObject.Add(new JProperty("mountCategoryIds", hero.AllowedMountCategoryIds.OrderBy(x => x)));
+
+
+
+
+            //if (hero.UnitIds.Count > 0)
+            //    heroObject.Add(new JProperty("units", hero.UnitIds.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             JProperty? abilities = UnitAbilities(hero);
             if (abilities != null)
@@ -186,9 +213,7 @@ namespace HeroesData.FileWriter.Writers.HeroData
             if (armor != null)
                 unitObject.Add(armor);
 
-            JProperty? weapons = UnitWeapons(unit);
-            if (weapons != null)
-                unitObject.Add(weapons);
+
 
             JProperty? abilities = UnitAbilities(unit);
             if (abilities != null)
@@ -226,11 +251,11 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 new JProperty("scale", unit.Life.LifeScaling),
             };
 
-            if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(unit.Life.LifeType))
-                lifeObject.Add(new JProperty("type", unit.Life.LifeType));
-
             lifeObject.Add(new JProperty("regenRate", unit.Life.LifeRegenerationRate));
             lifeObject.Add(new JProperty("regenScale", unit.Life.LifeRegenerationRateScaling));
+
+            if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(unit.Life.LifeType))
+                lifeObject.Add(new JProperty("type", unit.Life.LifeType));
 
             return new JProperty("life", lifeObject);
         }
@@ -242,10 +267,10 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 new JProperty("amount", unit.Energy.EnergyMax),
             };
 
+            energyObject.Add(new JProperty("regenRate", unit.Energy.EnergyRegenerationRate));
+
             if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(unit.Energy.EnergyType))
                 energyObject.Add(new JProperty("type", unit.Energy.EnergyType));
-
-            energyObject.Add(new JProperty("regenRate", unit.Energy.EnergyRegenerationRate));
 
             return new JProperty("energy", energyObject);
         }
@@ -257,13 +282,13 @@ namespace HeroesData.FileWriter.Writers.HeroData
                 new JProperty("amount", unit.Shield.ShieldMax),
                 new JProperty("scale", unit.Shield.ShieldScaling),
             };
-
-            if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(unit.Shield.ShieldType))
-                shieldObject.Add(new JProperty("type", unit.Shield.ShieldType));
-
             shieldObject.Add(new JProperty("regenDelay", unit.Shield.ShieldRegenerationDelay));
             shieldObject.Add(new JProperty("regenRate", unit.Shield.ShieldRegenerationRate));
             shieldObject.Add(new JProperty("regenScale", unit.Shield.ShieldRegenerationRateScaling));
+
+
+            if (!FileOutputOptions.IsLocalizedText && !string.IsNullOrEmpty(unit.Shield.ShieldType))
+                shieldObject.Add(new JProperty("type", unit.Shield.ShieldType));
 
             return new JProperty("shield", shieldObject);
         }
@@ -272,20 +297,20 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             JObject abilityObject = new JObject();
 
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Basic), "basic");
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Heroic), "heroic");
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Trait), "trait");
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Mount), "mount");
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Activable), "activable");
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Hearth), "hearth");
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Taunt), "taunt");
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Dance), "dance");
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Spray), "spray");
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Voice), "voice");
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.MapMechanic), "mapMechanic");
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Interact), "interact");
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Action), "action");
-            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Unknown), "unknown");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Basic), "Basic");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Heroic), "Heroic");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Trait), "Trait");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Mount), "Mount");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Activable), "Activable");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Hearth), "Hearth");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Taunt), "Taunt");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Dance), "Dance");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Spray), "Spray");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Voice), "Voice");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.MapMechanic), "MapMechanic");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Interact), "Interact");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Action), "Action");
+            SetAbilities(abilityObject, unit.PrimaryAbilities(AbilityTiers.Unknown), "Unknown");
 
             return new JProperty("abilities", abilityObject);
         }
@@ -396,20 +421,20 @@ namespace HeroesData.FileWriter.Writers.HeroData
             {
                 JObject abilities = new JObject();
 
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Basic), "basic");
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Heroic), "heroic");
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Trait), "trait");
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Mount), "mount");
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Activable), "activable");
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Hearth), "hearth");
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Taunt), "taunt");
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Dance), "dance");
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Spray), "spray");
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Voice), "voice");
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.MapMechanic), "mapMechanic");
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Interact), "interact");
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Action), "action");
-                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Unknown), "unknown");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Basic), "Basic");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Heroic), "Heroic");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Trait), "Trait");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Mount), "Mount");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Activable), "Activable");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Hearth), "Hearth");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Taunt), "Taunt");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Dance), "Dance");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Spray), "Apray");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Voice), "Voice");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.MapMechanic), "MapMechanic");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Interact), "Interact");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Action), "Action");
+                SetAbilities(abilities, linkedAbilities[parent].Where(x => x.Tier == AbilityTiers.Unknown), "Unknown");
 
                 if (abilities.Count > 0)
                 {
@@ -468,13 +493,13 @@ namespace HeroesData.FileWriter.Writers.HeroData
         {
             JObject talantObject = new JObject();
 
-            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level1), "level1");
-            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level4), "level4");
-            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level7), "level7");
-            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level10), "level10");
-            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level13), "level13");
-            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level16), "level16");
-            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level20), "level20");
+            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level1), "Level1");
+            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level4), "Level4");
+            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level7), "Level7");
+            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level10), "Level10");
+            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level13), "Level13");
+            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level16), "Level16");
+            SetTalents(talantObject, hero.TierTalents(TalentTiers.Level20), "Level20");
 
             return new JProperty("talents", talantObject);
         }
