@@ -788,7 +788,7 @@ namespace HeroesData
             {
                 IsEnabled = ExtractDataOption.HasFlag(ExtractDataOptions.HeroData),
                 Name = dataHero.Name,
-                Parse = (localization) => dataHero.Parse(localization),
+                Parse = dataHero.Parse,
                 Validate = (localization) => dataHero.Validate(localization),
                 Extract = (data) => filesHero.ExtractFiles(data),
             });

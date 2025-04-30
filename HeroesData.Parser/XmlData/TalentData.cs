@@ -21,10 +21,8 @@ namespace HeroesData.Parser.XmlData
 
         public Talent? CreateTalent(Hero hero, XElement talentArrayElement)
         {
-            if (hero == null)
-                throw new ArgumentNullException(nameof(hero));
-            if (talentArrayElement == null)
-                throw new ArgumentNullException(nameof(talentArrayElement));
+            ArgumentNullException.ThrowIfNull(hero);
+            ArgumentNullException.ThrowIfNull(talentArrayElement);
 
             string? referenceName = talentArrayElement.Attribute("Talent")?.Value;
             string? tier = talentArrayElement.Attribute("Tier")?.Value;
@@ -65,10 +63,7 @@ namespace HeroesData.Parser.XmlData
         /// <param name="hero">The <see cref="Hero"/> object data to update.</param>
         public void SetButtonTooltipAppenderData(Hero hero)
         {
-            if (hero == null)
-            {
-                throw new ArgumentNullException(nameof(hero));
-            }
+            ArgumentNullException.ThrowIfNull(hero);
 
             // hero's abilities
             foreach (Ability ability in hero.Abilities)
@@ -97,10 +92,7 @@ namespace HeroesData.Parser.XmlData
 
         private static void SetTalentTier(string tier, Talent? talent)
         {
-            if (talent == null)
-            {
-                throw new ArgumentNullException(nameof(talent));
-            }
+            ArgumentNullException.ThrowIfNull(talent);
 
             if (tier == "1")
                 talent.Tier = TalentTiers.Level1;
@@ -167,10 +159,7 @@ namespace HeroesData.Parser.XmlData
 
         private void AddTooltipAppenderAbilityTalentId(XElement buttonElement, string abilityTalentId)
         {
-            if (buttonElement == null)
-            {
-                throw new ArgumentNullException(nameof(buttonElement));
-            }
+            ArgumentNullException.ThrowIfNull(buttonElement);
 
             IEnumerable<XElement> tooltipAppenderElements = buttonElement.Elements("TooltipAppender").Where(x => !string.IsNullOrEmpty(x.Attribute("Validator")?.Value));
             foreach (XElement tooltipAppenderElement in tooltipAppenderElements)
@@ -212,8 +201,8 @@ namespace HeroesData.Parser.XmlData
             {
                 string talentReferenceNameId = validatorPlayerTalentElement.Element("Value")?.Attribute("value")?.Value ?? string.Empty;
 
-                if (_abilityTalentIdsByTalentIdUpgrade.ContainsKey(talentReferenceNameId))
-                    _abilityTalentIdsByTalentIdUpgrade[talentReferenceNameId].Add(abilityTalentId);
+                if (_abilityTalentIdsByTalentIdUpgrade.TryGetValue(talentReferenceNameId, out HashSet<string>? value))
+                    value.Add(abilityTalentId);
                 else
                     _abilityTalentIdsByTalentIdUpgrade.TryAdd(talentReferenceNameId, new HashSet<string>(StringComparer.Ordinal) { abilityTalentId });
             }
@@ -221,12 +210,9 @@ namespace HeroesData.Parser.XmlData
 
         private void SetTalentData(XElement talentElement, Talent talent, Hero hero)
         {
-            if (talentElement == null)
-                throw new ArgumentNullException(nameof(talentElement));
-            if (talent == null)
-                throw new ArgumentNullException(nameof(talent));
-            if (hero == null)
-                throw new ArgumentNullException(nameof(hero));
+            ArgumentNullException.ThrowIfNull(talentElement);
+            ArgumentNullException.ThrowIfNull(talent);
+            ArgumentNullException.ThrowIfNull(hero);
 
             // parent lookup
             string? parentValue = talentElement.Attribute("parent")?.Value;
@@ -272,9 +258,13 @@ namespace HeroesData.Parser.XmlData
                 {
                     setTraitAction = () =>
                     {
-                        string? traitValue = element.Attribute("value")?.Value;
-                        if (traitValue == "1" && (talent.AbilityTalentId.AbilityType == AbilityTypes.Unknown || talent.AbilityTalentId.AbilityType == AbilityTypes.Hidden))
-                            talent.AbilityTalentId.AbilityType = AbilityTypes.Trait;
+                        if ((talent.IsActive is true && (talent.AbilityTalentId.AbilityType == AbilityTypes.Unknown)) ||
+                            (talent.IsActive is false && (talent.AbilityTalentId.AbilityType == AbilityTypes.Unknown || talent.AbilityTalentId.AbilityType == AbilityTypes.Hidden)))
+                        {
+                            string? traitValue = element.Attribute("value")?.Value;
+                            if (traitValue == "1")
+                                talent.AbilityTalentId.AbilityType = AbilityTypes.Trait;
+                        }
                     };
                 }
                 else if (elementName == "ABIL")
@@ -311,7 +301,8 @@ namespace HeroesData.Parser.XmlData
                             {
                                 foreach (XElement abilityElement in abilityElements)
                                 {
-                                    SetAbilityTalentData(abilityElement, talent, string.Empty);
+                                    if (talent.IsActive || talent.AbilityTalentId.AbilityType == AbilityTypes.Unknown || talent.AbilityTalentId.AbilityType == AbilityTypes.Hidden)
+                                        SetAbilityTalentData(abilityElement, talent, string.Empty);
 
                                     if (talent.AbilityTalentId.AbilityType == AbilityTypes.Unknown)
                                     {
@@ -342,9 +333,6 @@ namespace HeroesData.Parser.XmlData
                         if (activeValue == "1")
                         {
                             talent.IsActive = true;
-
-                            if (talent.AbilityTalentId.AbilityType == AbilityTypes.Unknown || talent.AbilityTalentId.AbilityType == AbilityTypes.Hidden)
-                                talent.AbilityTalentId.AbilityType = AbilityTypes.Active;
                         }
                     };
                 }
@@ -371,10 +359,10 @@ namespace HeroesData.Parser.XmlData
                 }
             }
 
-            setAbilAction?.Invoke();
-            setFaceAction?.Invoke();
-            setTraitAction?.Invoke();
             setActiveAction?.Invoke();
+            setAbilAction?.Invoke();
+            setTraitAction?.Invoke();
+            setFaceAction?.Invoke();
             setRankArrayAction?.Invoke();
 
             if ((talent.AbilityTalentId.AbilityType == AbilityTypes.Unknown || talent.AbilityTalentId.AbilityType == AbilityTypes.Hidden) && abilElement == null)
@@ -393,8 +381,7 @@ namespace HeroesData.Parser.XmlData
 
         private void FindAbilityTalentButtonElements(Ability ability)
         {
-            if (ability == null)
-                throw new ArgumentNullException(nameof(ability));
+            ArgumentNullException.ThrowIfNull(ability);
 
             XElement? buttonElement = GameData.MergeXmlElements(GameData.Elements("CButton").Where(x => x.Attribute("id")?.Value == ability.AbilityTalentId.ButtonId));
 

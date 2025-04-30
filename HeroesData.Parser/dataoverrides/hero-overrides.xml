@@ -95,9 +95,9 @@
       </Override>
     </Ability>
     <Ability id="AnaEyeOfHorusAttack,AnaEyeOfHorusHighPoweredRound" abilityType="Heroic">
-      <Override>
-        <ParentLink value="AnaEyeOfHorusActivate|AnaEyeOfHorusActivate|Heroic" />
-      </Override>
+	  <Override>
+	    <AbilityTier value="Hidden" />
+	  </Override>
     </Ability>
     <Ability id="AnaAimDownSightsDeactivate" abilityType="Trait">
       <Override>
