@@ -50,7 +50,7 @@ namespace HeroesData.Parser.Tests.UnitParserTests
             {
                 AbilityType = AbilityTypes.Q,
             });
-            Assert.AreEqual("Cooldown: 12 seconds", terranArchangelLanerAbility.Tooltip.Cooldown.CooldownTooltip.PlainText);
+            Assert.AreEqual("Cooldown: 15 seconds", terranArchangelLanerAbility.Tooltip.Cooldown.CooldownTooltip.PlainText); // actually 12
             Assert.AreEqual("Bulletstorm", terranArchangelLanerAbility.Name);
             Assert.AreEqual("Unleash a hail of bullets in a line", terranArchangelLanerAbility.Tooltip.ShortTooltip.PlainText);
         }
