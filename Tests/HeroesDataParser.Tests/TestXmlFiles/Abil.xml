@@ -215,6 +215,40 @@
     <TargetFilters value="Visible;Self,Player,Ally,Item,Stasis,Dead,Hidden,Invulnerable" />
     <CursorEffect value="AlarakLightningSurgeSearch16" />
   </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakLightningSurgeLightningBarrage">
+    <PrepEffect value="AlarakLightningSurgePrepSet" />
+    <Effect value="AlarakLightningSurgeCastSet" />
+    <Flags index="BestUnit" value="0" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Cost>
+      <Charge Link="Abil/AlarakLightningSurge" />
+      <Cooldown Link="Abil/Alarak/LightningSurgeLightningBarrage" TimeUse="0.125" />
+    </Cost>
+    <InterruptCost>
+      <Charge Link="Abil/AlarakLightningSurge" />
+      <Cooldown Link="Abil/AlarakLightningSurge" />
+    </InterruptCost>
+    <TargetFilters value="Visible;Self,Player,Ally,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="10" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CursorEffect value="AlarakLightningSurgeSearch16" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakLightningSurgeLightningBarrage" Requirements="HasLightningSurgeLightningBarrageFreeCast">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <ParentAbil value="AlarakLightningSurge" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakRiteofRakShir">
+    <Effect value="AlarakSadismRiteofRakShirTalentApplyDebuff" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="300" />
+    </Cost>
+    <TargetFilters value="Heroic;Player,Ally,Dead,Invulnerable,AITargetableStructure" />
+    <Range value="8" />
+    <Arc value="360" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakRiteofRakShir" />
+  </CAbilEffectTarget>
   <CAbilEffectInstant id="AbathurAssumingDirectControlCancel">
     <Effect value="AbathurAssumingDirectControlCancelSet" />
     <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
@@ -417,4 +451,157 @@
     <UninterruptibleArray index="Finish" value="1" />
     <CmdButtonArray index="Execute" DefaultButtonFace="GarroshArmorUpBodyCheck" />
   </CAbilEffectTarget>
+  <CAbilEffectInstant id="AnaEyeOfHorusActivate">
+    <PrepEffect value="AnaEyeOfHorusActivatePrepSet" />
+    <Effect value="AnaEyeOfHorusInitialSet" />
+    <Flags index="ClearLastAttackTarget" value="1" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="NoDeceleration" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="UpdateTarget" value="1" />
+    <Cost>
+      <Vital index="Energy" value="45" />
+      <Charge>
+        <CountMax value="6" />
+        <CountStart value="6" />
+        <CountUse value="0" />
+        <HideCount value="1" />
+      </Charge>
+      <Cooldown TimeUse="60" />
+    </Cost>
+    <CancelableArray index="Channel" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <AutoQueueArray index="Channel" value="0" />
+    <AutoQueueArray index="Finish" value="0" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AnaEyeOfHorusActivate" Requirements="Ultimate2Unlocked">
+      <Flags index="Continuous" value="0" />
+    </CmdButtonArray>
+    <CastIntroTime value="0.0625" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AnaEyeOfHorusAttack">
+    <Effect value="AnaEyeOfHorusAttackInitialSet" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TransientPreferred" value="1" />
+    <Cost>
+      <Charge CountMax="6" CountStart="6" CountUse="1" />
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <Range value="500" />
+    <Arc value="360" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CursorEffect value="AnaEyeOfHorusPresearch" />
+    <TargetCursorInfo>
+      <Invalid value="SelectNormal" />
+      <Normal value="SelectNormal" />
+      <Allied value="SelectNormal" />
+      <Enemy value="SelectNormal" />
+    </TargetCursorInfo>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AnaEyeOfHorusHighPoweredRound" Requirements="AnaHaveEyeOfHorus">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <AbilityCategories index="TargetAcrossMapPlane" value="1" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="AnaEyeOfHorusAttackDummy">
+    <Effect value="AnaEyeOfHorusAttackDummySet" />
+    <Cost>
+      <Charge CountMax="6" CountStart="6" Link="Abil/AnaEyeOfHorusAttack" />
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AnaEyeOfHorusHighPoweredRound" Requirements="AnaHaveEyeOfHorus" />
+    <AbilityCategories index="TargetAcrossMapPlane" value="1" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="BarbarianBattleRage">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="BarbarianBattleRageCastSet" />
+    <Cost>
+      <Charge>
+        <CountMax value="2" />
+        <CountUse value="1" />
+        <Location value="Player" />
+        <TimeUse value="30" />
+      </Charge>
+      <Cooldown Location="Player" TimeUse="8" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianBattleRage" Requirements="AbathurHasNoStrainBuffs" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="DehakaEssenceCollection">
+    <Effect value="DehakaEssenceCollectionInitialAmountSwitch" />
+    <Cost>
+      <Charge CountMax="50" />
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="DehakaEssenceCollectionStore" Requirements="DehakaEssenceCollectionStackBehaviorActive" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="TassadarOracleTargeted">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="TassadarOracleTargetedCreatePersistent" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Cost>
+      <Charge Link="" />
+      <Cooldown TimeUse="45" />
+    </Cost>
+    <Range value="500" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="TassadarOracleTargeted">
+      <Flags index="AllowMinimap" value="1" />
+      <Flags index="AllowMinimapUpdateTarget" value="1" />
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <CmdButtonArray index="Cancel" DefaultButtonFace="TassadarCancelOracle" />
+    <ArcSlop value="0" />
+    <CastIntroTime value="0.0625" />
+    <CursorEffect value="TassadarOracleTargetedSearchArea" />
+    <AutoQueueArray index="Channel" value="0" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="ThrallAncestralWrath">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="ThrallAncestralWrathCastSet" />
+    <Cost>
+      <Charge CountMax="8" CountUse="8" />
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <TargetFilters value="Heroic,Visible;Self,Player,Ally,Neutral,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="7" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="ThrallAncestralWrath">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="GallShove">
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="Transient" value="1" />
+    <Effect value="GallShoveInitialPersistent" />
+    <Range value="500" />
+    <Arc value="360" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="GallShoveHotbar">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Cost>
+      <Cooldown TimeUse="30" />
+    </Cost>
+  </CAbilEffectTarget>
+  <CAbilBehavior id="AnubarakLegionOfBeetlesToggle">
+    <OrderArray index="0" Color="255,0,255,0" Model="Assets\UI\Feedback\WayPointConfirm\WayPointConfirm.m3" LineTexture="Assets\Textures\Storm_WayPointLine.dds" />
+    <CmdButtonArray index="On" DefaultButtonFace="AnubarakScarabHostToggleLegionOfBeetlesOn" />
+    <CmdButtonArray index="Off" DefaultButtonFace="AnubarakScarabHostToggleLegionOfBeetlesOff" />
+    <Flags index="Toggle" value="1" />
+    <Flags index="Transient" value="1" />
+    <BehaviorArray value="AnubarakLegionOfBeetlesDisableBehavior" />
+    <Cost>
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <OffCost>
+      <Cooldown TimeUse="0.5" />
+    </OffCost>
+  </CAbilBehavior>
+  <CAbilEffectInstant id="DVaLiquidCoolingAbility">
+    <Effect value="DVaLiquidCoolingCastSet" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="50" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="DVaLiquidCooling" />
+  </CAbilEffectInstant>
 </Abil>

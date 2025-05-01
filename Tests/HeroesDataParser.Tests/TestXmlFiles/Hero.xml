@@ -1759,4 +1759,1953 @@
       <TalentsArray value="GarroshWarlordsChallengeDeathWish" />
     </TalentAIBuildsArray>
   </CHero>
+  <CHero id="Barbarian" parent="LegacyVOHero">
+    <AIComplexityTier value="Mid" />
+    <AttributeId value="Barb" />
+    <ProductId value="10198" />
+    <Melee value="1" />
+    <RolesMultiClass value="Warrior" />
+    <RoleScoreValueOverride value="Warrior" />
+    <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_femalebarbarian.dds" />
+    <ScoreScreenImage value="Assets\Textures\storm_ui_ingame_hero_leaderboard_femalebarbarian.dds" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_D3.dds" />
+    <HyperlinkId value="Sonya" />
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Orange_Dark.dds" />
+    <ImageFacing value="Left" />
+    <SkinArray value="SonyaUltimate" />
+    <SkinArray value="BarbarianWrathFemale" />
+    <SkinArray value="SuperSonya" />
+    <SkinArray value="BarbarianLegionFemale" />
+    <SkinArray value="BarbarianDeathKnightFemale" />
+    <SkinArray value="BarbarianSummer18" />
+    <SkinArray value="BarbarianDeathKnightFemaleVar5" />
+    <DefaultMount value="BattleBeast" />
+    <VariationArray value="BarbarianBlue" />
+    <VariationArray value="BarbarianRed" />
+    <VariationArray value="BarbarianBaseVar3" />
+    <VariationArray value="BarbarianBaseVar4" />
+    <IntroCutsceneSize value="Medium" />
+    <TalentTreeArray Talent="BarbarianFuriousBlow" Tier="1" Column="1" />
+    <TalentTreeArray Talent="BarbarianWarPaint" Tier="1" Column="2" />
+    <TalentTreeArray Talent="BarbarianToughAsNails" Tier="1" Column="3" />
+    <TalentTreeArray Talent="BarbarianShatteredGround" Tier="2" Column="1" />
+    <TalentTreeArray Talent="BarbarianHurricane" Tier="2" Column="2" />
+    <TalentTreeArray Talent="BarbarianShotOfFury" Tier="2" Column="3" />
+    <TalentTreeArray Talent="BarbarianPoisonedSpear" Tier="3" Column="1" />
+    <TalentTreeArray Talent="BarbarianLifeFunnel" Tier="3" Column="2" />
+    <TalentTreeArray Talent="BarbarianBattleRage" Tier="3" Column="3" />
+    <TalentTreeArray Talent="BarbarianHeroicAbilityLeap" Tier="4" Column="1" />
+    <TalentTreeArray Talent="BarbarianHeroicAbilityWrathoftheBerserker" Tier="4" Column="2" />
+    <TalentTreeArray Talent="BarbarianMysticalSpear" Tier="5" Column="1" />
+    <TalentTreeArray Talent="BarbarianRuthless" Tier="5" Column="2" />
+    <TalentTreeArray Talent="BarbarianNoEscape" Tier="5" Column="3" />
+    <TalentTreeArray Talent="BarbarianGiantSlammer" Tier="6" Column="1" />
+    <TalentTreeArray Talent="BarbarianRampage" Tier="6" Column="2" />
+    <TalentTreeArray Talent="BarbarianNervesOfSteel" Tier="6" Column="3" />
+    <TalentTreeArray Talent="BarbarianArreatCrater" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="BarbarianHeroicAbilityLeap" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="BarbarianStridingGiant" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="BarbarianHeroicAbilityWrathoftheBerserker" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="BarbarianCompositeSpear" Tier="7" Column="3" />
+    <TalentTreeArray Talent="BarbarianIgnorePain" Tier="7" Column="4" />
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="BarbarianWarPaint" />
+      <TalentsArray value="BarbarianHurricane" />
+      <TalentsArray value="BarbarianPoisonedSpear" />
+      <TalentsArray value="BarbarianHeroicAbilityWrathoftheBerserker" />
+      <TalentsArray value="BarbarianMysticalSpear" />
+      <TalentsArray value="BarbarianNervesOfSteel" />
+      <TalentsArray value="BarbarianIgnorePain" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="BarbarianFuriousBlow" />
+      <TalentsArray value="BarbarianShatteredGround" />
+      <TalentsArray value="BarbarianLifeFunnel" />
+      <TalentsArray value="BarbarianHeroicAbilityWrathoftheBerserker" />
+      <TalentsArray value="BarbarianMysticalSpear" />
+      <TalentsArray value="BarbarianGiantSlammer" />
+      <TalentsArray value="BarbarianIgnorePain" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="BarbarianToughAsNails" />
+      <TalentsArray value="BarbarianShatteredGround" />
+      <TalentsArray value="BarbarianLifeFunnel" />
+      <TalentsArray value="BarbarianHeroicAbilityLeap" />
+      <TalentsArray value="BarbarianRuthless" />
+      <TalentsArray value="BarbarianNervesOfSteel" />
+      <TalentsArray value="BarbarianIgnorePain" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="BarbarianWarPaint" />
+      <TalentsArray value="BarbarianHurricane" />
+      <TalentsArray value="BarbarianPoisonedSpear" />
+      <TalentsArray value="BarbarianHeroicAbilityLeap" />
+      <TalentsArray value="BarbarianMysticalSpear" />
+      <TalentsArray value="BarbarianRampage" />
+      <TalentsArray value="BarbarianIgnorePain" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="BarbarianToughAsNails" />
+      <TalentsArray value="BarbarianHurricane" />
+      <TalentsArray value="BarbarianLifeFunnel" />
+      <TalentsArray value="BarbarianHeroicAbilityLeap" />
+      <TalentsArray value="BarbarianNoEscape" />
+      <TalentsArray value="BarbarianRampage" />
+      <TalentsArray value="BarbarianCompositeSpear" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="BarbarianFuriousBlow" />
+      <TalentsArray value="BarbarianHurricane" />
+      <TalentsArray value="BarbarianBattleRage" />
+      <TalentsArray value="BarbarianHeroicAbilityWrathoftheBerserker" />
+      <TalentsArray value="BarbarianRuthless" />
+      <TalentsArray value="BarbarianRampage" />
+      <TalentsArray value="BarbarianStridingGiant" />
+    </TalentAIBuildsArray>
+    <VOArray index="Cheer" value="Barbarian_VOX_Cheer" />
+    <VOArray index="MatchEnd" value="Barbarian_MatchEnd" />
+    <VOArray index="PingCapture" value="Barbarian_Ping_Capture" />
+    <VOArray index="PingCollect" value="Barbarian_Ping_Collect" />
+    <VOArray index="PingDefendStructure" value="Barbarian_Ping_DefendStructure" />
+    <VOArray index="PingDefendThing" value="Barbarian_Ping_DefendThing" />
+    <VOArray index="PingDestroyStructure" value="Barbarian_Ping_DestroyStructure" />
+    <VOArray index="PingDestroyThing" value="Barbarian_Ping_DestroyThing" />
+    <VOArray index="PingTransport" value="Barbarian_Ping_Transport" />
+    <VOArray index="PingTurnIn" value="Barbarian_Ping_TurnIn" />
+    <VOArray index="VOPing_AssistMe" value="Barbarian_VOPing_AssistMe" />
+    <VOArray index="VOPing_Danger" value="Barbarian_VOPing_Danger" />
+    <VOArray index="VOPing_Defend" value="Barbarian_VOPing_Defend" />
+    <VOArray index="VOPing_EnemyMissing" value="Barbarian_VOPing_EnemyMissing" />
+    <VOArray index="VOPing_OnMyWay" value="Barbarian_VOPing_OnMyWay" />
+    <VOArray index="VOPing_Retreat" value="Barbarian_VOPing_Retreat" />
+    <Difficulty value="Medium" />
+    <HeroTierAchievementId value="5216701565563773679" />
+    <Gender value="Female" />
+    <Universe value="Diablo" />
+    <LevelScalingArray Ability="BarbarianWhirlwind">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianWhirlwindDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianWhirlwindHeroDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianWhirlwindRuthlessTalentDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="BarbarianLeap">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianLeapDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="BarbarianAncientSpear">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianAncientSpearDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianAncientSpearDummyDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianAncientSpearMasteryPoisonDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="BarbarianSeismicSlam">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianSeismicSlamDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianSeismicSlamSecondaryDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianSeismicSlamShatteredGroundSecondaryDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="BarbarianHeroWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroBarbarian" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroBarbarian" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroBarbarian" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <HeroAbilArray Abil="BarbarianAncientSpear" Button="BarbarianAncientSpear">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="BarbarianSeismicSlam" Button="BarbarianSeismicSlam">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="BarbarianWhirlwind" Button="BarbarianWhirlwind">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="BarbarianLeap" Button="BarbarianLeap">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="BarbarianWrathoftheBerserker" Button="BarbarianWrathoftheBerserker">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="BarbarianFury">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="BarbarianShotofFury">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <Flags index="GoodForModeA" value="1" />
+    <Flags index="GoodForModeB" value="1" />
+    <Ratings>
+      <Damage value="7" />
+      <Utility value="5" />
+      <Survivability value="6" />
+      <Complexity value="5" />
+    </Ratings>
+    <VoiceLineArray value="BarbarianBase_VoiceLine01" />
+    <VoiceLineArray value="BarbarianBase_VoiceLine02" />
+    <VoiceLineArray value="BarbarianBase_VoiceLine03" />
+    <VoiceLineArray value="BarbarianBase_VoiceLine04" />
+    <VoiceLineArray value="BarbarianBase_VoiceLine05" />
+    <HeroSpecificUIArray Location="ConsoleUICommandCardStatus" DescName="Sonya/BarbarianCommandCardFrame" />
+    <HeroSpecificUIArray Location="CommandButton05Status" DescName="Sonya/BarbarianFuryButtonOverride" />
+    <HeroSpecificUIArray Location="FullscreenStatus" DescName="Sonya/BarbarianWrathoftheBerserkerDuration" />
+    <Rarity value="Epic" />
+    <ReleaseDate Month="3" Day="13" />
+    <ExpandedRole value="Bruiser" />
+  </CHero>
+  <CHero id="Tassadar" parent="LegacyVOHero">
+    <AIComplexityTier value="Mid" />
+    <Difficulty value="Hard" />
+    <AttributeId value="Tass" />
+    <ProductId value="10121" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <RoleScoreValueOverride value="Damage" />
+    <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_tassadar.dds" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_SC2.dds" />
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Blue_Sky.dds" />
+    <ImageFacing value="Right" />
+    <IntroCutsceneSize value="Medium" />
+    <TalentTreeArray Talent="TassadarStaticCharge" Tier="1" Column="1" />
+    <TalentTreeArray Talent="TassadarPsionicStormPsiInfusion" Tier="1" Column="2" />
+    <TalentTreeArray Talent="TassadarKhaydarinAmulet" Tier="1" Column="3" />
+    <TalentTreeArray Talent="TassadarInduction" Tier="2" Column="1" />
+    <TalentTreeArray Talent="TassadarElectricFence" Tier="2" Column="2" />
+    <TalentTreeArray Talent="TassadarPlasmaShield" Tier="2" Column="3" />
+    <TalentTreeArray Talent="TassadarBeamAlignment" Tier="3" Column="1" />
+    <TalentTreeArray Talent="TassadarPsionicEcho" Tier="3" Column="2" />
+    <TalentTreeArray Talent="TassadarArcDischarge" Tier="3" Column="3" />
+    <TalentTreeArray Talent="TassadarHeroicAbilityArchon" Tier="4" Column="1" />
+    <TalentTreeArray Talent="TassadarHeroicAbilityBlackHole" Tier="4" Column="2" />
+    <TalentTreeArray Talent="TassadarFeedback" Tier="5" Column="1" />
+    <TalentTreeArray Talent="TassadarShadowWalk" Tier="5" Column="2" />
+    <TalentTreeArray Talent="TassadarOracle" Tier="5" Column="3" />
+    <TalentTreeArray Talent="TassadarThermalLance" Tier="6" Column="1" />
+    <TalentTreeArray Talent="TassadarPsychicShock" Tier="6" Column="2" />
+    <TalentTreeArray Talent="TassadarExecutorsWill" Tier="6" Column="3" />
+    <TalentTreeArray Talent="TassadarMasteryTwilightArchon" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="TassadarHeroicAbilityArchon" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="TassadarKugelblitz" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="TassadarHeroicAbilityBlackHole" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="TassadarMasteryForceBarrier" Tier="7" Column="3" />
+    <TalentTreeArray Talent="TassadarKhalasGift" Tier="7" Column="4" />
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="TassadarPsionicStormPsiInfusion" />
+      <TalentsArray value="TassadarElectricFence" />
+      <TalentsArray value="TassadarPsionicEcho" />
+      <TalentsArray value="TassadarHeroicAbilityBlackHole" />
+      <TalentsArray value="TassadarFeedback" />
+      <TalentsArray value="TassadarPsychicShock" />
+      <TalentsArray value="TassadarKugelblitz" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="TassadarStaticCharge" />
+      <TalentsArray value="TassadarInduction" />
+      <TalentsArray value="TassadarBeamAlignment" />
+      <TalentsArray value="TassadarHeroicAbilityBlackHole" />
+      <TalentsArray value="TassadarShadowWalk" />
+      <TalentsArray value="TassadarThermalLance" />
+      <TalentsArray value="TassadarKhalasGift" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="TassadarKhaydarinAmulet" />
+      <TalentsArray value="TassadarPlasmaShield" />
+      <TalentsArray value="TassadarArcDischarge" />
+      <TalentsArray value="TassadarHeroicAbilityArchon" />
+      <TalentsArray value="TassadarFeedback" />
+      <TalentsArray value="TassadarPsychicShock" />
+      <TalentsArray value="TassadarMasteryTwilightArchon" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="TassadarStaticCharge" />
+      <TalentsArray value="TassadarElectricFence" />
+      <TalentsArray value="TassadarPsionicEcho" />
+      <TalentsArray value="TassadarHeroicAbilityArchon" />
+      <TalentsArray value="TassadarOracle" />
+      <TalentsArray value="TassadarExecutorsWill" />
+      <TalentsArray value="TassadarKhalasGift" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="TassadarPsionicStormPsiInfusion" />
+      <TalentsArray value="TassadarPlasmaShield" />
+      <TalentsArray value="TassadarBeamAlignment" />
+      <TalentsArray value="TassadarHeroicAbilityArchon" />
+      <TalentsArray value="TassadarShadowWalk" />
+      <TalentsArray value="TassadarPsychicShock" />
+      <TalentsArray value="TassadarMasteryTwilightArchon" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="TassadarStaticCharge" />
+      <TalentsArray value="TassadarPlasmaShield" />
+      <TalentsArray value="TassadarBeamAlignment" />
+      <TalentsArray value="TassadarHeroicAbilityBlackHole" />
+      <TalentsArray value="TassadarShadowWalk" />
+      <TalentsArray value="TassadarThermalLance" />
+      <TalentsArray value="TassadarKugelblitz" />
+    </TalentAIBuildsArray>
+    <SkinArray value="TassadarUltimate" />
+    <SkinArray value="TassadarMecha" />
+    <SkinArray value="TassadarPharaoh" />
+    <SkinArray value="TassadarDark20" />
+    <DefaultMount value="HorseCommon" />
+    <VariationArray value="TassadarArgent" />
+    <VariationArray value="TassadarPurple" />
+    <VariationArray value="TassadarBaseVar3" />
+    <HeroTierAchievementId value="5216701565566704142" />
+    <LevelScalingArray Ability="TassadarShockRay">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="TassadarShockRayDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="TassadarPsionicStorm">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="TassadarPsionicStormDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="TassadarArchon">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="TassadarArchonTwilightArchonTalentSplashDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="TassadarArchonSplashDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="TassadarArchonWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="TassadarArchonTwilightArchonTalentDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroTassadar" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroTassadar" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroTassadar" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="TassadarResonanceBeamDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="TassadarResonanceBeamKhaydarinAmuletDamage1" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="TassadarResonanceBeamKhaydarinAmuletDamage2" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="TassadarOracleCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="TassadarForceWall">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="TassadarForceWallElectricFenceTalentDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="TassadarBlackHole">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="TassadarBlackHoleDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <VOArray index="Cheer" value="Tassadar_VOX_Cheer" />
+    <VOArray index="GetHit" value="Tassadar_VOX_GetHitSmall" />
+    <VOArray index="MatchEnd" value="Tassadar_MatchEnd" />
+    <VOArray index="PingCapture" value="Tassadar_Ping_Capture" />
+    <VOArray index="PingCollect" value="Tassadar_Ping_Collect" />
+    <VOArray index="PingDefendStructure" value="Tassadar_Ping_DefendStructure" />
+    <VOArray index="PingDefendThing" value="Tassadar_Ping_DefendThing" />
+    <VOArray index="PingDestroyStructure" value="Tassadar_Ping_DestroyStructure" />
+    <VOArray index="PingDestroyThing" value="Tassadar_Ping_DestroyThing" />
+    <VOArray index="PingTransport" value="Tassadar_Ping_Transport" />
+    <VOArray index="PingTurnIn" value="Tassadar_Ping_TurnIn" />
+    <VOArray index="VOPing_AssistMe" value="Tassadar_VOPing_AssistMe" />
+    <VOArray index="VOPing_Danger" value="Tassadar_VOPing_Danger" />
+    <VOArray index="VOPing_Defend" value="Tassadar_VOPing_Defend" />
+    <VOArray index="VOPing_EnemyMissing" value="Tassadar_VOPing_EnemyMissing" />
+    <VOArray index="VOPing_OnMyWay" value="Tassadar_VOPing_OnMyWay" />
+    <VOArray index="VOPing_Retreat" value="Tassadar_VOPing_Retreat" />
+    <HeroAbilArray Abil="TassadarShockRay" Button="TassadarShockRay">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="TassadarPsionicStorm" Button="TassadarPsionicStorm">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="TassadarForceWall" Button="TassadarForceWall">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="TassadarArchon" Button="TassadarArchon">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="TassadarBlackHole" Button="TassadarBlackHole">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="TassadarResonanceBeam">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <Ratings>
+      <Damage value="6" />
+      <Utility value="7" />
+      <Survivability value="7" />
+      <Complexity value="4" />
+    </Ratings>
+    <Flags index="GoodForModeA" value="1" />
+    <VoiceLineArray value="TassadarBase_VoiceLine01" />
+    <VoiceLineArray value="TassadarBase_VoiceLine02" />
+    <VoiceLineArray value="TassadarBase_VoiceLine03" />
+    <VoiceLineArray value="TassadarBase_VoiceLine04" />
+    <VoiceLineArray value="TassadarBase_VoiceLine05" />
+    <Rarity value="Epic" />
+    <ExpandedRole value="RangedAssassin" />
+    <HeroSpecificUIArray Location="Status" DescName="Tassadar/TassadarFrame" />
+    <HeroSpecificUIArray Location="CommandButton00Status" DescName="Tassadar/TassadarPsionicEchoButtonOverride" />
+  </CHero>
+  <CHero id="Thrall">
+    <AIComplexityTier value="Low" />
+    <AttributeId value="Thra" />
+    <Melee value="1" />
+    <HeroTierAchievementId value="5216701565556648437" />
+    <ReleaseDate Day="13" Year="2015" />
+    <ProductId value="11235" />
+    <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_thrall.dds" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_Wow.dds" />
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Blue_Bright.dds" />
+    <VariationArray value="ThrallSilver" />
+    <VariationArray value="ThrallRed" />
+    <SkinArray value="ThrallUltimate" />
+    <SkinArray value="ThrallHellhammer" />
+    <SkinArray value="ThrallEarthbreaker" />
+    <IntroCutsceneSize value="Large" />
+    <Universe value="Warcraft" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <DefaultMount value="BattleBeast" />
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroThrall" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroThrall" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroThrall" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallWeaponAttackDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallWindfuryTempestFuryDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="ThrallChainLightning">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallChainLightningInitialDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallChainLightningBounce1Damage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallChainLightningBounce2Damage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallChainLightningBounce3Damage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallChainLightningBounce4Damage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallChainLightningRollingThunderTalentBounce5Damage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallChainLightningRollingThunderTalentBounce6Damage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="ThrallSundering">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="SunderingDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallFrostwolfResilienceCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallFrostwolfResilienceCreateEarthenBlessingMasteryHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallFrostwolfsGraceCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="ThrallFeralSpirit">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallFeralSpiritDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallFeralSpiritSpiritPackMasteryDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="ThrallEarthquake">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ThrallEarthquakeHeroDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <TalentTreeArray Talent="ThrallEchooftheElements" Tier="1" Column="1" />
+    <TalentTreeArray Talent="ThrallCrashLightning" Tier="1" Column="2" />
+    <TalentTreeArray Talent="ThrallMasteryRollingThunder" Tier="1" Column="3" />
+    <TalentTreeArray Talent="ThrallFeralResilience" Tier="2" Column="1" />
+    <TalentTreeArray Talent="ThrallFrostwolfPack" Tier="2" Column="2" />
+    <TalentTreeArray Talent="ThrallMasteryManaTide" Tier="2" Column="3" />
+    <TalentTreeArray Talent="ThrallMaelstromWeapon" Tier="3" Column="1" />
+    <TalentTreeArray Talent="ThrallAncestralWrath" Tier="3" Column="2" />
+    <TalentTreeArray Talent="GenericTalentFollowThrough" Tier="3" Column="3" />
+    <TalentTreeArray Talent="ThrallHeroicAbilitySundering" Tier="4" Column="1" />
+    <TalentTreeArray Talent="ThrallHeroicAbilityEarthquake" Tier="4" Column="2" />
+    <TalentTreeArray Talent="ThrallMasteryGraceOfAir" Tier="5" Column="1" />
+    <TalentTreeArray Talent="ThrallMasteryFrostwolfsGrace" Tier="5" Column="2" />
+    <TalentTreeArray Talent="ThrallSpiritShield" Tier="5" Column="3" />
+    <TalentTreeArray Talent="ThrallMasteryTempestFury" Tier="6" Column="1" />
+    <TalentTreeArray Talent="ThrallThunderstorm" Tier="6" Column="2" />
+    <TalentTreeArray Talent="ThrallAlphaWolf" Tier="6" Column="3" />
+    <TalentTreeArray Talent="ThrallMasteryWorldbreaker" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="ThrallHeroicAbilitySundering" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="ThrallMasteryEarthenShields" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="ThrallHeroicAbilityEarthquake" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="ThrallElementalMomentum" Tier="7" Column="3" />
+    <TalentTreeArray Talent="GenericTalentNexusBlades" Tier="7" Column="4" />
+    <TalentTreeArray Talent="ThrallWindRush" Tier="7" Column="5" />
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="ThrallEchooftheElements" />
+      <TalentsArray value="ThrallFeralResilience" />
+      <TalentsArray value="GenericTalentFollowThrough" />
+      <TalentsArray value="ThrallHeroicAbilitySundering" />
+      <TalentsArray value="ThrallSpiritShield" />
+      <TalentsArray value="ThrallThunderstorm" />
+      <TalentsArray value="ThrallWindRush" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="ThrallEchooftheElements" />
+      <TalentsArray value="ThrallFrostwolfPack" />
+      <TalentsArray value="GenericTalentFollowThrough" />
+      <TalentsArray value="ThrallHeroicAbilitySundering" />
+      <TalentsArray value="ThrallMasteryGraceOfAir" />
+      <TalentsArray value="ThrallThunderstorm" />
+      <TalentsArray value="ThrallWindRush" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="ThrallCrashLightning" />
+      <TalentsArray value="ThrallMasteryManaTide" />
+      <TalentsArray value="ThrallAncestralWrath" />
+      <TalentsArray value="ThrallHeroicAbilityEarthquake" />
+      <TalentsArray value="ThrallMasteryGraceOfAir" />
+      <TalentsArray value="ThrallMasteryTempestFury" />
+      <TalentsArray value="ThrallWindRush" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="ThrallMasteryRollingThunder" />
+      <TalentsArray value="ThrallFeralResilience" />
+      <TalentsArray value="ThrallAncestralWrath" />
+      <TalentsArray value="ThrallHeroicAbilityEarthquake" />
+      <TalentsArray value="ThrallMasteryGraceOfAir" />
+      <TalentsArray value="ThrallAlphaWolf" />
+      <TalentsArray value="ThrallWindRush" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="ThrallMasteryRollingThunder" />
+      <TalentsArray value="ThrallMasteryManaTide" />
+      <TalentsArray value="ThrallMaelstromWeapon" />
+      <TalentsArray value="ThrallHeroicAbilityEarthquake" />
+      <TalentsArray value="ThrallMasteryFrostwolfsGrace" />
+      <TalentsArray value="ThrallAlphaWolf" />
+      <TalentsArray value="ThrallMasteryEarthenShields" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="ThrallCrashLightning" />
+      <TalentsArray value="ThrallMasteryManaTide" />
+      <TalentsArray value="ThrallMaelstromWeapon" />
+      <TalentsArray value="ThrallHeroicAbilitySundering" />
+      <TalentsArray value="ThrallMasteryFrostwolfsGrace" />
+      <TalentsArray value="ThrallMasteryTempestFury" />
+      <TalentsArray value="ThrallMasteryWorldbreaker" />
+    </TalentAIBuildsArray>
+    <HeroAbilArray Abil="ThrallChainLightning" Button="ThrallChainLightning">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="UsesCharges" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="ThrallFeralSpirit" Button="ThrallFeralSpirit">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="ThrallWindfury" Button="Windfury">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="ThrallSundering" Button="Sundering">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="ThrallEarthquake" Button="ThrallEarthquake">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="ThrallFrostwolfResilience">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="ThrallFrostwolfsGrace" Button="ThrallFrostwolfResilienceSurgeOfHealing">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <Difficulty value="Medium" />
+    <Ratings>
+      <Damage value="8" />
+      <Utility value="5" />
+      <Survivability value="7" />
+      <Complexity value="6" />
+    </Ratings>
+    <Flags index="GoodForModeA" value="1" />
+    <VoiceLineArray value="ThrallBase_VoiceLine01" />
+    <VoiceLineArray value="ThrallBase_VoiceLine02" />
+    <VoiceLineArray value="ThrallBase_VoiceLine03" />
+    <VoiceLineArray value="ThrallBase_VoiceLine04" />
+    <VoiceLineArray value="ThrallBase_VoiceLine05" />
+    <HeroSpecificUIArray Location="HeroSpecificStackingBuffsStatus" DescName="Thrall/ThrallStacksFrameContainer" />
+    <Rarity value="Epic" />
+    <ExpandedRole value="Bruiser" />
+  </CHero>
+  <CHero id="Gall">
+    <Flags index="ExcludeFromMapIntro" value="1" />
+    <Flags index="AllowAIRandomSelection" value="0" />
+    <Flags index="AllowHumanRandomSelection" value="0" />
+    <Flags index="ShowInStore" value="0" />
+    <Flags index="IsSharedControlHero" value="1" />
+    <ProductId value="21138" />
+    <AttributeId value="Gall" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_Wow.dds" />
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Brown_Bright.dds" />
+    <PortraitPaired value="Assets\Textures\UI_targetportrait_Hero_gall.dds" />
+    <PortraitPairedText value="Hero/Name/Gall" />
+    <IntroCutsceneSize value="Medium" />
+    <Universe value="Warcraft" />
+    <SkinArray value="ChoUltimate" />
+    <SkinArray value="ChoCorruptor" />
+    <SkinArray value="ChoPumpkin" />
+    <SkinArray value="ChoAltered20" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <AllowedMountCategoryArray value="ChoGallRun" />
+    <DefaultMount value="ChoGallRunHorseCommon" />
+    <TalentTreeArray Talent="GallKeepMoving" Tier="1" Column="1" />
+    <TalentTreeArray Talent="GallTaskmaster" Tier="1" Column="2" />
+    <TalentTreeArray Talent="GallWeSeeYou" Tier="1" Column="3" />
+    <TalentTreeArray Talent="GallRisingDread" Tier="2" Column="1" />
+    <TalentTreeArray Talent="GallRunicPersistence" Tier="2" Column="2" />
+    <TalentTreeArray Talent="GallBombsAway" Tier="2" Column="3" />
+    <TalentTreeArray Talent="GallEdgeOfMadness" Tier="3" Column="1" />
+    <TalentTreeArray Talent="GallDoubleTrouble" Tier="3" Column="2" />
+    <TalentTreeArray Talent="GallOgreRampage" Tier="3" Column="3" />
+    <TalentTreeArray Talent="GallHeroicAbilityShadowboltVolley" Tier="4" Column="1" />
+    <TalentTreeArray Talent="GallHeroicAbilityTwistingNether" Tier="4" Column="2" />
+    <TalentTreeArray Talent="GallSearingShadows" Tier="5" Column="1" />
+    <TalentTreeArray Talent="GallPsychoticBreak" Tier="5" Column="2" />
+    <TalentTreeArray Talent="GallTwilightNova" Tier="5" Column="3" />
+    <TalentTreeArray Talent="GallLeadenOrb" Tier="6" Column="1" />
+    <TalentTreeArray Talent="GallDeafeningBlast" Tier="6" Column="2" />
+    <TalentTreeArray Talent="GallShadowsnare" Tier="6" Column="3" />
+    <TalentTreeArray Talent="GallShadowboltVolleyShadowfury" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="GallHeroicAbilityShadowboltVolley" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="GallShiftingNether" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="GallHeroicAbilityTwistingNether" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="GallTheWillofGall" Tier="7" Column="3" />
+    <TalentTreeArray Talent="GallTwilightFrenzy" Tier="7" Column="4" />
+    <HeroAbilArray Abil="GallShadowflame" Button="GallShadowflame">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GallDreadOrb" Button="GallDreadOrb">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GallShadowboltVolley" Button="GallShadowboltVolley">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GallRunicBlast" Button="GallRunicBlast">
+      <Flags index="ShowInHeroSelect" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GallTalentEyeOfKilrogg" Button="GallEyeofKilroggHotbar">
+      <Flags index="ShowInQuickCastSetting" value="1" />
+      <Flags index="UsesCharges" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GallTwistingNether" Button="GallTwistingNether">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GallTwistingNetherActivated" Button="GallTwistingNetherActivated" />
+    <HeroAbilArray Abil="GallShove" Button="GallShoveHotbar">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GallOgreRage" Button="GallOgreRageActivated">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="GallShiftingNether" Button="GallTwistingNether">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <LevelScalingArray Ability="GallShadowflame">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GallShadowflameDamage" />
+        <Field value="Amount" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="GallDreadOrb">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GallDreadOrbImpactDamage01" />
+        <Field value="Amount" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GallDreadOrbImpactDamage02" />
+        <Field value="Amount" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GallDreadOrbImpactDamage03" />
+        <Field value="Amount" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="GallRunicBlast">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GallRunicBlastImpactDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ChoRuneBombDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GallRunicBlastRunicPersistenceTalentDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="GallTwistingNether">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GallTwistingNetherDamage" />
+        <Field value="Amount" />
+        <Value value="0.050000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="GallShadowboltVolley">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="GallShadowboltVolleyDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroCho" />
+        <Field value="LifeStart" />
+        <Value value="0.045000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroCho" />
+        <Field value="LifeMax" />
+        <Value value="0.045000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroCho" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.045000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ChoHeroWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.045000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="ChoSurgingFistTrigger">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ChoSurgingFistImpactedDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="ChoConsumingBlaze">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ChoConsumingBlazeInitialDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ChoConsumingBlazeDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ChoConsumingBlazeCasterHeal" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="ChoTalentMoltenBlock">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ChoMoltenBlockImpactDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="ChoUpheaval">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="ChoUpheavalDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <DisplayModel value="HeroCho" />
+    <PairedHero value="Cho" />
+    <VOArray index="AIAttack" value="ChoBase_AI_Attack" />
+    <VOArray index="AICaution" value="ChoBase_AI_Caution" />
+    <VOArray index="AIGoodJob" value="ChoBase_AI_GoodJob" />
+    <VOArray index="AIHeal" value="ChoBase_AI_Heal" />
+    <VOArray index="AIMercCapture" value="ChoBase_AI_MercCapture" />
+    <VOArray index="AIOnMyWay" value="ChoBase_AI_OnMyWay" />
+    <VOArray index="AIRetreat" value="ChoBase_AI_Retreat" />
+    <VOArray index="AIUhOh" value="ChoBase_AI_Uhoh" />
+    <VOArray index="Celebrate" value="ChoBase_Celebrate" />
+    <VOArray index="Cheer" value="ChoBase_VOX_Cheer" />
+    <VOArray index="Comeback" value="ChoBase_Comeback" />
+    <VOArray index="GetHit" value="ChoBase_VOX_GetHitSmall" />
+    <VOArray index="GetHitLarge" value="ChoBase_VOX_GetHitLarge" />
+    <VOArray index="GetHitSmall" value="ChoBase_VOX_GetHitSmall" />
+    <VOArray index="GlueExamineLocked" value="ChoBase_UI_ExLocked" />
+    <VOArray index="GlueExaminePurchased" value="ChoBase_UI_ExPurchased" />
+    <VOArray index="GlueGift" value="ChoBase_UI_Gift" />
+    <VOArray index="GluePurchase" value="ChoBase_UI_Purchase" />
+    <VOArray index="GlueWaitLocked" value="ChoBase_UI_WaitLocked" />
+    <VOArray index="GlueWaitPurchased" value="ChoBase_UI_WaitPurchased" />
+    <VOArray index="Healed" value="ChoBase_AI_Heal" />
+    <VOArray index="IntroAgree" value="ChoBase_IntroAgree" />
+    <VOArray index="IntroBoast" value="ChoBase_IntroBoast" />
+    <VOArray index="IntroQuestion" value="ChoBase_IntroQuestion" />
+    <VOArray index="IntroResponse" value="ChoBase_IntroRespond" />
+    <VOArray index="Pissed" value="ChoBase_Pissed" />
+    <VOArray index="Resurrected" value="ChoBase_Resurrected" />
+    <VOArray index="Revive" value="ChoBase_Revive" />
+    <VOArray index="TeamKilled" value="ChoBase_TeamKilled" />
+    <VOArray index="WorthIt" value="ChoBase_WorthIt" />
+    <ReleaseDate Month="11" Day="17" Year="2015" />
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="GallTaskmaster" />
+      <TalentsArray value="GallBombsAway" />
+      <TalentsArray value="GallEdgeOfMadness" />
+      <TalentsArray value="GallHeroicAbilityShadowboltVolley" />
+      <TalentsArray value="GallTwilightNova" />
+      <TalentsArray value="GallLeadenOrb" />
+      <TalentsArray value="GallShadowboltVolleyShadowfury" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="GallTaskmaster" />
+      <TalentsArray value="GallRunicPersistence" />
+      <TalentsArray value="GallDoubleTrouble" />
+      <TalentsArray value="GallHeroicAbilityShadowboltVolley" />
+      <TalentsArray value="GallSearingShadows" />
+      <TalentsArray value="GallShadowsnare" />
+      <TalentsArray value="GallShadowboltVolleyShadowfury" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="GallKeepMoving" />
+      <TalentsArray value="GallBombsAway" />
+      <TalentsArray value="GallOgreRampage" />
+      <TalentsArray value="GallHeroicAbilityShadowboltVolley" />
+      <TalentsArray value="GallSearingShadows" />
+      <TalentsArray value="GallDeafeningBlast" />
+      <TalentsArray value="GallShadowboltVolleyShadowfury" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="GallKeepMoving" />
+      <TalentsArray value="GallRunicPersistence" />
+      <TalentsArray value="GallEdgeOfMadness" />
+      <TalentsArray value="GallHeroicAbilityTwistingNether" />
+      <TalentsArray value="GallTwilightNova" />
+      <TalentsArray value="GallLeadenOrb" />
+      <TalentsArray value="GallShiftingNether" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="GallWeSeeYou" />
+      <TalentsArray value="GallRisingDread" />
+      <TalentsArray value="GallOgreRampage" />
+      <TalentsArray value="GallHeroicAbilityTwistingNether" />
+      <TalentsArray value="GallTwilightNova" />
+      <TalentsArray value="GallLeadenOrb" />
+      <TalentsArray value="GallPsychoticBreak" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="GallKeepMoving" />
+      <TalentsArray value="GallBombsAway" />
+      <TalentsArray value="GallDoubleTrouble" />
+      <TalentsArray value="GallHeroicAbilityTwistingNether" />
+      <TalentsArray value="GallTwilightNova" />
+      <TalentsArray value="GallDeafeningBlast" />
+      <TalentsArray value="GallPsychoticBreak" />
+    </TalentAIBuildsArray>
+    <Ratings>
+      <Damage value="9" />
+      <Utility value="4" />
+      <Survivability value="10" />
+      <Complexity value="3" />
+    </Ratings>
+    <StoreName value="Hero/StoreName/Cho" />
+    <VariationArray value="ChoBaseVar1" />
+    <VariationArray value="ChoBaseVar2" />
+    <VariationArray value="ChoBaseVar3" />
+    <HeroTierAchievementId value="5216701565565226488" />
+    <HeroSpecificUIArray Location="Status" DescName="ChoGall/GallFrame" />
+    <VoiceLineArray value="GallBase_VoiceLine01" />
+    <VoiceLineArray value="GallBase_VoiceLine02" />
+    <VoiceLineArray value="GallBase_VoiceLine03" />
+    <VoiceLineArray value="GallBase_VoiceLine04" />
+    <VoiceLineArray value="GallBase_VoiceLine05" />
+    <Rarity value="Legendary" />
+    <ExpandedRole value="RangedAssassin" />
+  </CHero>
+  <CHero id="Anubarak">
+    <AIComplexityTier value="Low" />
+    <AttributeId value="Anub" />
+    <ProductId value="10756" />
+    <Melee value="1" />
+    <RolesMultiClass value="Warrior" />
+    <RoleScoreValueOverride value="Warrior" />
+    <ExpandedRole value="Tank" />
+    <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_anubarak.dds" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_Wow.dds" />
+    <ImageFacing value="Right" />
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Purple.dds" />
+    <IntroCutsceneSize value="Large" />
+    <TalentTreeArray Talent="AnubarakNerubianArmor" Tier="1" Column="1" />
+    <TalentTreeArray Talent="AnubarakCombatStyleLegionOfBeetles" Tier="1" Column="2" />
+    <TalentTreeArray Talent="GenericTalentRegenerationMaster" Tier="1" Column="3" />
+    <TalentTreeArray Talent="AnubarakMasteryBedOfBarbs" Tier="2" Column="1" />
+    <TalentTreeArray Talent="AnubarakMasteryShedExoskeletonHardenCarapace" Tier="2" Column="2" />
+    <TalentTreeArray Talent="AnubarakMasteryUnderkingBurrowCharge" Tier="2" Column="3" />
+    <TalentTreeArray Talent="AnubarakCombatStyleChitinousPlating" Tier="3" Column="1" />
+    <TalentTreeArray Talent="AnubarakSubterraneanShield" Tier="3" Column="2" />
+    <TalentTreeArray Talent="AnubarakMasteryLeechingScarabs" Tier="3" Column="3" />
+    <TalentTreeArray Talent="AnubarakLocustSwarm" Tier="4" Column="1" />
+    <TalentTreeArray Talent="AnubarakHeroicAbilityCocoon" Tier="4" Column="2" />
+    <TalentTreeArray Talent="AnubarakMasteryUrticatingSpines" Tier="5" Column="1" />
+    <TalentTreeArray Talent="AnubarakBurningBeetles" Tier="5" Column="2" />
+    <TalentTreeArray Talent="AnubarakAcidDrenchedMandibles" Tier="5" Column="3" />
+    <TalentTreeArray Talent="AnubarakMasteryEpicenterBurrowCharge" Tier="6" Column="1" />
+    <TalentTreeArray Talent="AnubarakDebilitation" Tier="6" Column="2" />
+    <TalentTreeArray Talent="AnubarakScarabHostBeetleJuiced" Tier="6" Column="3" />
+    <TalentTreeArray Talent="AnubarakLocustSwarmHiveMaster" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="AnubarakLocustSwarm" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="AnubarakCocoonCryptweave" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="AnubarakHeroicAbilityCocoon" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="AnubarakTheTraitorKing" Tier="7" Column="3" />
+    <TalentTreeArray Talent="GenericTalentRewind" Tier="7" Column="4" />
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="AnubarakCombatStyleLegionOfBeetles" />
+      <TalentsArray value="AnubarakMasteryBedOfBarbs" />
+      <TalentsArray value="AnubarakMasteryLeechingScarabs" />
+      <TalentsArray value="AnubarakLocustSwarm" />
+      <TalentsArray value="AnubarakBurningBeetles" />
+      <TalentsArray value="AnubarakScarabHostBeetleJuiced" />
+      <TalentsArray value="AnubarakTheTraitorKing" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="AnubarakNerubianArmor" />
+      <TalentsArray value="AnubarakMasteryUnderkingBurrowCharge" />
+      <TalentsArray value="AnubarakSubterraneanShield" />
+      <TalentsArray value="AnubarakHeroicAbilityCocoon" />
+      <TalentsArray value="AnubarakAcidDrenchedMandibles" />
+      <TalentsArray value="AnubarakMasteryEpicenterBurrowCharge" />
+      <TalentsArray value="GenericTalentRewind" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="GenericTalentRegenerationMaster" />
+      <TalentsArray value="AnubarakMasteryShedExoskeletonHardenCarapace" />
+      <TalentsArray value="AnubarakCombatStyleChitinousPlating" />
+      <TalentsArray value="AnubarakLocustSwarm" />
+      <TalentsArray value="AnubarakMasteryUrticatingSpines" />
+      <TalentsArray value="AnubarakDebilitation" />
+      <TalentsArray value="AnubarakTheTraitorKing" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="AnubarakNerubianArmor" />
+      <TalentsArray value="AnubarakMasteryBedOfBarbs" />
+      <TalentsArray value="AnubarakSubterraneanShield" />
+      <TalentsArray value="AnubarakHeroicAbilityCocoon" />
+      <TalentsArray value="AnubarakAcidDrenchedMandibles" />
+      <TalentsArray value="AnubarakMasteryEpicenterBurrowCharge" />
+      <TalentsArray value="GenericTalentRewind" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="AnubarakCombatStyleLegionOfBeetles" />
+      <TalentsArray value="AnubarakMasteryBedOfBarbs" />
+      <TalentsArray value="AnubarakSubterraneanShield" />
+      <TalentsArray value="AnubarakHeroicAbilityCocoon" />
+      <TalentsArray value="AnubarakBurningBeetles" />
+      <TalentsArray value="AnubarakMasteryEpicenterBurrowCharge" />
+      <TalentsArray value="AnubarakCocoonCryptweave" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="AnubarakCombatStyleLegionOfBeetles" />
+      <TalentsArray value="AnubarakMasteryUnderkingBurrowCharge" />
+      <TalentsArray value="AnubarakMasteryLeechingScarabs" />
+      <TalentsArray value="AnubarakLocustSwarm" />
+      <TalentsArray value="AnubarakAcidDrenchedMandibles" />
+      <TalentsArray value="AnubarakScarabHostBeetleJuiced" />
+      <TalentsArray value="AnubarakLocustSwarmHiveMaster" />
+    </TalentAIBuildsArray>
+    <VariationArray value="AnubarakWhite" />
+    <VariationArray value="AnubarakIce" />
+    <SkinArray value="AnubarakUltimate" />
+    <SkinArray value="AnubarakCyberSkin" />
+    <SkinArray value="AnubarakLovebug" />
+    <SkinArray value="AnubarakCyberNeonSkin" />
+    <SkinArray value="AnubarakZerg" />
+    <Difficulty value="Hard" />
+    <HeroTierAchievementId value="5216701565558228103" />
+    <Universe value="Warcraft" />
+    <LevelScalingArray Ability="AnubarakImpale">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakImpaleDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakImpaleBedOfBarbsPeriodicDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AnubarakLocustSwarm">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakBeetleSpitBeetleDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakBurningBeetlesDamageBeetle" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="AnubarakBeetleSpitBeetle" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="AnubarakBeetleSpitBeetle" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakBeetleSpitHealCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AnubarakBurrowCharge">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakBurrowChargeDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Behavior" />
+        <Entry value="AnubarakBurrowChargeSubterraneanShieldTalentShield" />
+        <Field value="DamageResponse.ModifyLimit" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AnubarakLocustSwarm">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakLocustSwarmDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakLocustSwarmHeal" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakLocustSwarmMasteryDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakLocustSwarmMasteryCreateHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AnubarakHardenCarapace">
+      <Modifications>
+        <Catalog value="Behavior" />
+        <Entry value="AnubarakHardenCarapace" />
+        <Field value="DamageResponse.ModifyLimit" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakUrticatingSpinesDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroAnubarak" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroAnubarak" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroAnubarak" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakBurningBeetlesDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AnubarakCocoon">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AnubarakCocoonCryptweaveDoTDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <HeroAbilArray Abil="AnubarakImpale" Button="AnubarakImpale">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AnubarakHardenCarapace" Button="AnubarakHardenCarapace">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AnubarakBurrowCharge" Button="AnubarakBurrowCharge">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AnubarakLocustSwarm" Button="AnubarakLocustSwarm">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AnubarakCocoon" Button="AnubarakCocoon">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="AnubarakScarabHostTrait">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AnubarakLegionOfBeetles" Button="AnubarakLegionOfBeetlesTalent" />
+    <ReleaseDate Month="10" Day="7" />
+    <AllowedMountCategoryArray value="AnubarakWings" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <DefaultMount value="AnubarakWings" />
+    <Ratings>
+      <Damage value="4" />
+      <Utility value="6" />
+      <Survivability value="7" />
+      <Complexity value="5" />
+    </Ratings>
+    <Flags index="GoodForModeA" value="1" />
+    <VoiceLineArray value="AnubarakBase_VoiceLine01" />
+    <VoiceLineArray value="AnubarakBase_VoiceLine02" />
+    <VoiceLineArray value="AnubarakBase_VoiceLine03" />
+    <VoiceLineArray value="AnubarakBase_VoiceLine04" />
+    <VoiceLineArray value="AnubarakBase_VoiceLine05" />
+    <Rarity value="Epic" />
+  </CHero>
+  <CHero id="DVa">
+    <AIComplexityTier value="Mid" />
+    <AttributeId value="DVA0" />
+    <Flags index="GoodForModeA" value="1" />
+    <Model value="HeroDVaPilot" />
+    <Unit value="HeroDVaPilot" />
+    <RolesMultiClass value="Warrior" />
+    <RoleScoreValueOverride value="Warrior" />
+    <HeroSpecificUIArray Location="Status" DescName="DVa/DVaMechDefenceMatrixFrame" />
+    <HeroSpecificUIArray Location="CommandButton02Status" DescName="DVa/DVaMechCommandCardFrame" />
+    <HeroSpecificUIArray Location="FullscreenStatus" DescName="Dva/DVaPilotEnterFrame" />
+    <HeroSpecificUIArray Location="HeroSpecificStackingBuffsStatus" DescName="DVa/DVaBunnyHopStacksFrameContainer" />
+    <HeroAbilArray Abil="DVaPilotCallMech" Button="DVaPilotCallMech">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DVaBoostersOn" Button="DVaMechBoosters">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DVaMechDefenseMatrixOn" Button="DVaMechDefenseMatrix">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DVaMechDefenseMatrixRetarget">
+      <Flags index="ShowInQuickCastSetting" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DVaMechSelfDestruct" Button="DVaMechSelfDestruct">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DVaPilotBigShot" Button="DVaPilotBigShot">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+      <Flags index="HideHotkey" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="DVaMechanizedWalker">
+      <Flags index="MountReplacement" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="DVaMechMechMode">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DVaPilotTorpedoDash" Button="DVaPilotTorpedoDashAbility">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DVaPilotConcussivePulse" Button="DVaPilotConcussivePulseAbility">
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DVaLiquidCoolingAbility" Button="DVaLiquidCooling" />
+    <HeroAbilArray Abil="DVaMechBunnyHopHeroic" Button="DVaBunnyHopOn">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DVaMicroMissiles" Button="DVaMicroMissiles">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <TalentTreeArray Talent="DVaFullMetal" Tier="1" Column="1" />
+    <TalentTreeArray Talent="DVaMechProMoves" Tier="1" Column="2" />
+    <TalentTreeArray Talent="DVaLiquidCooling" Tier="1" Column="3" />
+    <TalentTreeArray Talent="DVaBoostersRushdown" Tier="2" Column="1" />
+    <TalentTreeArray Talent="DVaDefenseMatrixAggressionMatrix" Tier="2" Column="2" />
+    <TalentTreeArray Talent="DVaSelfDestructNuclearOption" Tier="2" Column="3" />
+    <TalentTreeArray Talent="DvaGetOnThePoint" Tier="3" Column="1" />
+    <TalentTreeArray Talent="DVaBoostersHitTheNitrous" Tier="3" Column="2" />
+    <TalentTreeArray Talent="DVaDefenseMatrixFusionGenerator" Tier="3" Column="3" />
+    <TalentTreeArray Talent="DVaBunnyHop" Tier="4" Column="1" />
+    <TalentTreeArray Talent="DVaMicroMissiles" Tier="4" Column="2" />
+    <TalentTreeArray Talent="DVaTargetLocked" Tier="5" Column="1" />
+    <TalentTreeArray Talent="DVaGoodToGo" Tier="5" Column="2" />
+    <TalentTreeArray Talent="DVaBigShotPewPewPew" Tier="5" Column="3" />
+    <TalentTreeArray Talent="DVaInForTheKill" Tier="6" Column="1" />
+    <TalentTreeArray Talent="DVaDefenseMatrixDivertingPower" Tier="6" Column="2" />
+    <TalentTreeArray Talent="DVaMechEmergencyShielding" Tier="6" Column="3" />
+    <TalentTreeArray Talent="DVaBunnyHopStopAndPop" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="DVaBunnyHop" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="DVaTimingAttack" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="DVaMicroMissiles" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="DVaHeadshot" Tier="7" Column="3" />
+    <TalentTreeArray Talent="DVaMechAblativeArmor" Tier="7" Column="4" />
+    <Universe value="Overwatch" />
+    <ProductId value="24370" />
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroDVaMech" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroDVaMech" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroDVaMech" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DVaMechWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroDVaPilot" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroDVaPilot" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroDVaPilot" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DVaPilotWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Behavior" />
+        <Entry value="DVaMechAblativeArmorDamageResponseCarry" />
+        <Field value="DamageResponse.Maximum" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Behavior" />
+        <Entry value="DVaMechEmergencyShieldingShield" />
+        <Field value="DamageResponse.ModifyLimit" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DVaPilotConcussivePulseDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DVaMechWeaponBonusDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DVaMechSelfDestruct">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DVaMechSelfDestructDetonationSearchDamageNear" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DVaMechSelfDestructDetonationSearchDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Accumulator" />
+        <Entry value="DVaSelfDestructDistanceAccumulator" />
+        <Field value="MinAccumulation" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Accumulator" />
+        <Entry value="DVaSelfDestructDistanceAccumulator" />
+        <Field value="Scale" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DVaBoostersOn">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DVaBoostersImpactDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DVaBoostersHitTheNitrousImpactDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DVaMechBunnyHopHeroic">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DVaMechBunnyHopImpactDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DVaPilotBigShot">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DVaPilotBigShotDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DVaBigShotPewPewPewTalentDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DVaMicroMissiles">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DVaMicroMissilesDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DVaMechDefenseMatrixOn">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DVaDefenseMatrixDivertingPowerTalentHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <HeroicAbilArray Abil="DVaMechBunnyHopHeroic" />
+    <HeroicAbilArray Abil="DVaMicroMissiles" />
+    <DisplayModel value="HeroDVaMech" />
+    <UniverseIcon value="Assets\Textures\ui_glues_store_gameicon_ow.dds" />
+    <VariationArray value="DVaBaseVar1" />
+    <VariationArray value="DVaBaseVar2" />
+    <VariationArray value="DVaBaseVar3" />
+    <VariationArray value="DVaBaseVar4" />
+    <VariationArray value="DVaBaseVar5" />
+    <SkinArray value="DVaUltimate" />
+    <SkinArray value="DVaTerran" />
+    <SkinArray value="DVaDeathwing" />
+    <DefaultMount value="HorseCommon" />
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <VoiceLineArray value="DVaBase_VoiceLine01" />
+    <VoiceLineArray value="DVaBase_VoiceLine02" />
+    <VoiceLineArray value="DVaBase_VoiceLine03" />
+    <VoiceLineArray value="DVaBase_VoiceLine04" />
+    <VoiceLineArray value="DVaBase_VoiceLine05" />
+    <Difficulty value="Medium" />
+    <Ratings>
+      <Damage value="4" />
+      <Utility value="8" />
+      <Survivability value="8" />
+      <Complexity value="6" />
+    </Ratings>
+    <AlternateUnitArray value="HeroDVaMech" />
+    <AlternateUnitArray value="HeroDVaPilot" />
+    <Gender value="Female" />
+    <ReleaseDate Month="5" Day="16" Year="2017" />
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="DVaFullMetal" />
+      <TalentsArray value="DVaDefenseMatrixAggressionMatrix" />
+      <TalentsArray value="DVaDefenseMatrixFusionGenerator" />
+      <TalentsArray value="DVaBunnyHop" />
+      <TalentsArray value="DVaTargetLocked" />
+      <TalentsArray value="DVaDefenseMatrixDivertingPower" />
+      <TalentsArray value="DVaMechAblativeArmor" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="DVaFullMetal" />
+      <TalentsArray value="DVaBoostersRushdown" />
+      <TalentsArray value="DVaBoostersHitTheNitrous" />
+      <TalentsArray value="DVaBunnyHop" />
+      <TalentsArray value="DVaGoodToGo" />
+      <TalentsArray value="DVaInForTheKill" />
+      <TalentsArray value="DVaBunnyHopStopAndPop" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="DVaMechProMoves" />
+      <TalentsArray value="DVaSelfDestructNuclearOption" />
+      <TalentsArray value="DVaDefenseMatrixFusionGenerator" />
+      <TalentsArray value="DVaBunnyHop" />
+      <TalentsArray value="DVaBigShotPewPewPew" />
+      <TalentsArray value="DVaMechEmergencyShielding" />
+      <TalentsArray value="DVaHeadshot" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="DVaLiquidCooling" />
+      <TalentsArray value="DVaSelfDestructNuclearOption" />
+      <TalentsArray value="DVaBoostersHitTheNitrous" />
+      <TalentsArray value="DVaMicroMissiles" />
+      <TalentsArray value="DVaTargetLocked" />
+      <TalentsArray value="DVaDefenseMatrixDivertingPower" />
+      <TalentsArray value="DVaTimingAttack" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="DVaMechProMoves" />
+      <TalentsArray value="DVaDefenseMatrixAggressionMatrix" />
+      <TalentsArray value="DvaGetOnThePoint" />
+      <TalentsArray value="DVaMicroMissiles" />
+      <TalentsArray value="DVaTargetLocked" />
+      <TalentsArray value="DVaInForTheKill" />
+      <TalentsArray value="DVaTimingAttack" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="DVaLiquidCooling" />
+      <TalentsArray value="DVaBoostersRushdown" />
+      <TalentsArray value="DvaGetOnThePoint" />
+      <TalentsArray value="DVaBunnyHop" />
+      <TalentsArray value="DVaGoodToGo" />
+      <TalentsArray value="DVaInForTheKill" />
+      <TalentsArray value="DVaMechAblativeArmor" />
+    </TalentAIBuildsArray>
+    <Rarity value="Epic" />
+    <ExpandedRole value="Bruiser" />
+  </CHero>
 </Hero>

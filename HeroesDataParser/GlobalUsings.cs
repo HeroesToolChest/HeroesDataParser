@@ -14,7 +14,6 @@ global using HeroesDataParser.Infrastructure.ImageWriters;
 global using HeroesDataParser.Infrastructure.XmlDataParsers;
 global using HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
 global using HeroesDataParser.JsonConverters;
-global using HeroesDataParser.JsonTypeInfoResolvers;
 global using HeroesDataParser.Options;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;

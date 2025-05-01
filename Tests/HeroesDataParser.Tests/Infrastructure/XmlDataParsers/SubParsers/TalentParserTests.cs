@@ -1,4 +1,5 @@
-﻿using HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
+﻿using Heroes.Element.Models.AbilityTalents;
+using HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
@@ -64,7 +65,7 @@ public class TalentParserTests
         talent.Tooltip.CooldownText.Should().BeNull();
         talent.Tooltip.EnergyText.Should().BeNull();
         talent.Tooltip.LifeText.Should().BeNull();
-        talent.CreateUnits.Should().BeEmpty();
+        talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.W);
         talent.Tier.Should().Be(TalentTier.Level1);
         talent.TooltipAppendersTalentElementIds.Should().BeEmpty();
@@ -108,7 +109,7 @@ public class TalentParserTests
         talent.Tooltip.CooldownText.Should().BeNull();
         talent.Tooltip.EnergyText.Should().BeNull();
         talent.Tooltip.LifeText.Should().BeNull();
-        talent.CreateUnits.Should().BeEmpty();
+        talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.W);
         talent.Tier.Should().Be(TalentTier.Level1);
     }
@@ -144,7 +145,7 @@ public class TalentParserTests
         talent.Tooltip.CooldownText.Should().BeNull();
         talent.Tooltip.EnergyText.Should().BeNull();
         talent.Tooltip.LifeText.Should().BeNull();
-        talent.CreateUnits.Should().BeEmpty();
+        talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
         talent.IsActive.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level1);
@@ -183,7 +184,7 @@ public class TalentParserTests
         talent.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 70 seconds");
         talent.Tooltip.EnergyText.Should().BeNull();
         talent.Tooltip.LifeText.Should().BeNull();
-        talent.CreateUnits.Should().BeEmpty();
+        talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Heroic);
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
@@ -248,7 +249,7 @@ public class TalentParserTests
         talent.Tooltip.FullText!.RawDescription.Should().Be("Activate to calldown a Mule that repairs Structures");
         talent.Tooltip.EnergyText.Should().BeNull();
         talent.Tooltip.LifeText.Should().BeNull();
-        talent.CreateUnits.Should().BeEmpty();
+        talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Active);
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
@@ -267,6 +268,12 @@ public class TalentParserTests
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("16");
 
         Hero hero = new(heroUnit);
+        hero.AddAbility(new Ability()
+        {
+            AbilityElementId = "Stoneform",
+            ButtonElementId = "MuradinSecondWindActivateable",
+            AbilityType = AbilityType.Trait,
+        });
 
         TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
 
@@ -277,13 +284,13 @@ public class TalentParserTests
         talent.Should().NotBeNull();
         talent.TalentElementId.Should().Be("MuradinMasteryPassiveStoneform");
         talent.ButtonElementId.Should().Be("MuradinSecondWindStoneformTalent");
-        talent.Icon.Should().Be("storm_ui_icon_Muradin_SecondWind.png");
+        talent.Icon.Should().Be("storm_ui_icon_muradin_secondwind.png");
         talent.Column.Should().Be(3);
         talent.Tooltip.Charges.Should().BeNull();
         talent.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 60 seconds");
         talent.Tooltip.EnergyText.Should().BeNull();
         talent.Tooltip.LifeText.Should().BeNull();
-        talent.CreateUnits.Should().BeEmpty();
+        talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
@@ -319,11 +326,40 @@ public class TalentParserTests
         talent.TalentElementId.Should().Be("AlarakExtendedLightning");
         talent.ButtonElementId.Should().Be("AlarakExtendedLightning");
         talent.Column.Should().Be(3);
-        talent.CreateUnits.Should().BeEmpty();
+        talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.E);
         talent.IsActive.Should().BeFalse();
         talent.IsQuest.Should().BeTrue();
         talent.Tier.Should().Be(TalentTier.Level1);
+    }
+
+    [TestMethod]
+    public void GetTalent_AlarakRiteofRakShir_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Alarak";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("13");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("AlarakRiteofRakShir|AlarakRiteofRakShir|Trait");
+        talent.Column.Should().Be(3);
+        talent.CreatedUnits.Should().BeEmpty();
+        talent.AbilityType.Should().Be(AbilityType.Trait);
+        talent.IsActive.Should().BeTrue();
+        talent.IsQuest.Should().BeFalse();
+        talent.Tier.Should().Be(TalentTier.Level13);
     }
 
     [TestMethod]
@@ -350,7 +386,7 @@ public class TalentParserTests
         talent.TalentElementId.Should().Be("GarroshArmorUpBodyCheck");
         talent.ButtonElementId.Should().Be("GarroshArmorUpBodyCheck");
         talent.Column.Should().Be(3);
-        talent.CreateUnits.Should().BeEmpty();
+        talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Active);
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
@@ -364,5 +400,191 @@ public class TalentParserTests
         talent.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 15 seconds");
         talent.TooltipAppendersTalentElementIds.Should().HaveCount(2).And
             .Contain(["GarroshBodyCheckBruteForce", "GarroshArmorUpInnerRage"]);
+    }
+
+    [TestMethod]
+    public void GetTalent_BarbarianBattleRage_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Barbarian";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("8");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("BarbarianBattleRage|BarbarianBattleRage|Active");
+        talent.Column.Should().Be(3);
+        talent.CreatedUnits.Should().BeEmpty();
+        talent.AbilityType.Should().Be(AbilityType.Active);
+        talent.IsActive.Should().BeTrue();
+        talent.IsQuest.Should().BeFalse();
+        talent.Tier.Should().Be(TalentTier.Level7);
+        talent.ToggleCooldown.Should().BeNull();
+        talent.Tooltip.Charges!.CountMax.Should().Be(2);
+        talent.Tooltip.Charges.CountStart.Should().BeNull();
+        talent.Tooltip.Charges.CountUse.Should().Be(1);
+        talent.Tooltip.Charges.HasCharges.Should().BeTrue();
+        talent.Tooltip.Charges.IsHideCount.Should().BeFalse();
+        talent.Tooltip.Charges.RecastCooldown.Should().Be(8);
+        talent.Tooltip.CooldownText!.RawDescription.Should().Be("Charge Cooldown: 30 seconds");
+    }
+
+    [TestMethod]
+    public void GetTalent_ThrallAncestralWrath_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Thrall";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("7");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("ThrallAncestralWrath|ThrallAncestralWrath|Active");
+        talent.Column.Should().Be(2);
+        talent.CreatedUnits.Should().BeEmpty();
+        talent.AbilityType.Should().Be(AbilityType.Active);
+        talent.IsActive.Should().BeTrue();
+        talent.IsQuest.Should().BeFalse();
+        talent.Tier.Should().Be(TalentTier.Level7);
+        talent.ToggleCooldown.Should().BeNull();
+        talent.Tooltip.Charges!.CountMax.Should().Be(8);
+        talent.Tooltip.Charges.CountStart.Should().BeNull();
+        talent.Tooltip.Charges.CountUse.Should().Be(8);
+        talent.Tooltip.Charges.HasCharges.Should().BeTrue();
+        talent.Tooltip.Charges.IsHideCount.Should().BeFalse();
+        talent.Tooltip.Charges.RecastCooldown.Should().Be(1);
+        talent.Tooltip.CooldownText.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void GetTalent_GallKeepMoving_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Gall";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("0");
+
+        Hero hero = new(heroUnit);
+        hero.AddAbility(new Ability()
+        {
+            AbilityElementId = "GallShove",
+            ButtonElementId = "GallShoveHotbar",
+            AbilityType = AbilityType.Z,
+        });
+
+        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("GallKeepMoving|GallKeepMoving|Z");
+        talent.Column.Should().Be(1);
+        talent.CreatedUnits.Should().BeEmpty();
+        talent.AbilityType.Should().Be(AbilityType.Z);
+        talent.IsActive.Should().BeFalse();
+        talent.IsQuest.Should().BeFalse();
+        talent.Tier.Should().Be(TalentTier.Level1);
+        talent.ToggleCooldown.Should().BeNull();
+        talent.Tooltip.Charges.Should().BeNull();
+        talent.Tooltip.CooldownText.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void GetTalent_AnubarakCombatStyleLegionOfBeetles_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Anubarak";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("1");
+
+        Hero hero = new(heroUnit);
+        hero.AddAbility(new Ability()
+        {
+            AbilityElementId = "AnubarakLegionOfBeetlesToggle",
+            ButtonElementId = AbilityTalentParserBase.NoButtonElementId,
+            AbilityType = AbilityType.Hidden,
+        });
+        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("AnubarakCombatStyleLegionOfBeetles|AnubarakLegionOfBeetlesTalent|Trait");
+        talent.Column.Should().Be(2);
+        talent.CreatedUnits.Should().BeEmpty();
+        talent.AbilityType.Should().Be(AbilityType.Trait);
+        talent.IsActive.Should().BeFalse();
+        talent.IsQuest.Should().BeFalse();
+        talent.Tier.Should().Be(TalentTier.Level1);
+        talent.ToggleCooldown.Should().BeNull();
+        talent.Tooltip.Charges.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void GetTalent_DVaLiquidCooling_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "DVa";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("2");
+
+        Hero hero = new(heroUnit);
+        hero.AddAbility(new Ability()
+        {
+            AbilityElementId = "DVaLiquidCoolingAbility",
+            ButtonElementId = "DVaLiquidCooling",
+            AbilityType = AbilityType.Active,
+        });
+
+        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("DVaLiquidCooling|DVaLiquidCooling|Active");
+        talent.Column.Should().Be(3);
+        talent.CreatedUnits.Should().BeEmpty();
+        talent.AbilityType.Should().Be(AbilityType.Active);
+        talent.IsActive.Should().BeTrue();
+        talent.IsQuest.Should().BeFalse();
+        talent.Tier.Should().Be(TalentTier.Level1);
+        talent.ToggleCooldown.Should().BeNull();
+        talent.Tooltip.Charges.Should().BeNull();
+        talent.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 50 seconds");
     }
 }

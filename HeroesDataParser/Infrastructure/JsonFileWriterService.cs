@@ -1,4 +1,5 @@
 ﻿using Heroes.Element.JsonConverters;
+using Heroes.Element.JsonTypeInfoResolvers;
 using System.Text.Json.Schema;
 
 namespace HeroesDataParser.Infrastructure;
@@ -31,13 +32,20 @@ public class JsonFileWriterService : IJsonFileWriterService
                 new TalentLInkIdConverter(),
                 new TooltipDescriptionWriteConverter(DescriptionType.RawDescription),
             },
-            TypeInfoResolver = new DefaultJsonTypeInfoResolver
+            TypeInfoResolver = new HeroesElementResolver()
             {
                 Modifiers =
                 {
                     JsonTypeInfoModifiers.SerialiazationModifiers,
                 },
             },
+            //TypeInfoResolver = new DefaultJsonTypeInfoResolver
+            //{
+            //    Modifiers =
+            //    {
+            //        JsonTypeInfoModifiers.SerialiazationModifiers,
+            //    },
+            //},
         };
     }
 

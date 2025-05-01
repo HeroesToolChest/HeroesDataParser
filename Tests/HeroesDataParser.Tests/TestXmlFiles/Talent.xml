@@ -180,6 +180,15 @@
     </AbilityModificationArray>
     <QuestData StackBehavior="AlarakLightningSurgeExtendedLightningMasterQuestToken" />
   </CTalent>
+  <CTalent id="AlarakRiteofRakShir">
+    <Face value="AlarakRiteofRakShir" />
+    <Abil value="AlarakRiteofRakShir" />
+    <RankArray>
+      <BehaviorArray value="AlarakRiteofRakShirItem" />
+    </RankArray>
+    <Active value="1" />
+    <Trait value="1" />
+  </CTalent>
   <CTalent id="SamuroThreeBladeStyle">
     <Face value="SamuroThreeBladeStyleTalent" />
     <Abil value="SamuroIllusionMaster" />
@@ -292,5 +301,69 @@
       </Modifications>
     </AbilityModificationArray>
     <Abil value="GarroshArmorUpBodyCheck" />
+  </CTalent>
+  <CTalent id="BarbarianBattleRage">
+    <Face value="BarbarianBattleRage" />
+    <Abil value="BarbarianBattleRage" />
+    <RankArray>
+      <BehaviorArray value="BarbarianBattleRageItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="TassadarOracle">
+    <Face value="TassadarOracleTargeted" />
+    <Abil value="TassadarOracleTargeted" />
+    <RankArray>
+      <BehaviorArray value="TassadarOracleAbility" />
+      <BehaviorArray value="TassadarOracleTalentCarry" />
+      <BehaviorArray value="TassadarOracleTalentHealerCarry" />
+    </RankArray>
+    <AbilityModificationArray />
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="ThrallAncestralWrath">
+    <Face value="ThrallAncestralWrath" />
+    <Abil value="ThrallAncestralWrath" />
+    <RankArray>
+      <BehaviorArray value="ThrallAncestralWrathItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="GallKeepMoving">
+    <Face value="GallKeepMoving" />
+    <Abil value="GallShove" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="GallShoveMoveSpeedBuff" />
+        <Field value="Duration" />
+        <Value value="2.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="GallShoveMoveSpeedBuff" />
+        <Field value="Modification.UnifiedMoveSpeedFactor" />
+        <Value value="0.100000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="AnubarakCombatStyleLegionOfBeetles">
+    <Face value="AnubarakLegionOfBeetlesTalent" />
+    <Abil value="AnubarakLegionOfBeetlesToggle" />
+    <RankArray>
+      <BehaviorArray value="AnubarakLegionOfBeetlesControllerBehavior" />
+      <BehaviorArray value="AnubarakLegionOfBeetlesItem" />
+    </RankArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="DVaLiquidCooling">
+    <Face value="DVaLiquidCooling" />
+    <RankArray />
+    <Trait value="1" />
+    <Abil value="DVaLiquidCoolingAbility" />
+    <Active value="1" />
   </CTalent>
 </Talent>

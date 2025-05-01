@@ -108,7 +108,7 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
         else
         {
             // doesn't have an abilcmd value set, so this is just a dummy button that doesn't do anything
-            // most likely still has an ability set in the ability array but wasn't set for the abilcmd value
+            // most likely still has an ability set in the ability array but wasn't used for the abilcmd value
             return null;
         }
 

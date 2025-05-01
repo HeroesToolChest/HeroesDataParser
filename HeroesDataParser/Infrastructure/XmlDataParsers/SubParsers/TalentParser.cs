@@ -88,13 +88,6 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 
         StormElementData talentDataValues = talentElement.DataValues;
 
-        if (talentDataValues.TryGetElementDataAt("Face", out StormElementData? faceData))
-        {
-            talent.ButtonElementId = faceData.Value.GetString();
-
-            SetButtonData(talent);
-        }
-
         if (talentDataValues.TryGetElementDataAt("QuestData", out StormElementData? questData) &&
             questData.TryGetElementDataAt("StackBehavior", out StormElementData? stackBehaviorData) &&
             !string.IsNullOrEmpty(stackBehaviorData.Value.GetString()))
@@ -106,36 +99,46 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
         if (talentDataValues.TryGetElementDataAt("Active", out StormElementData? activeData) && activeData.Value.GetString() == "1")
             talent.IsActive = true;
 
-        if (talentDataValues.TryGetElementDataAt("Trait", out StormElementData? traitData) && traitData.Value.GetString() == "1")
-            talent.AbilityType = AbilityType.Trait;
-
         if (talentDataValues.TryGetElementDataAt("Abil", out StormElementData? abilityData))
         {
             talent.AbilityElementId = abilityData.Value.GetString();
 
-            if (talent.AbilityType != AbilityType.Trait)
+            // find the (first) matching ability we have for the hero
+            if (hero.GetAbilityTypeByNameId(talent.AbilityElementId, out AbilityType abilityType))
             {
-                // find the (first) matching ability we have for the hero
-                if (hero.GetAbilityTypeByNameId(talent.AbilityElementId, out AbilityType abilityType))
+                talent.AbilityType = abilityType;
+            }
+            else
+            {
+                // search through all hero units
+                foreach (Unit heroUnit in hero.HeroUnits.Values)
                 {
-                    talent.AbilityType = abilityType;
-                }
-                else
-                {
-                    // search through all hero units
-                    foreach (Unit heroUnit in hero.HeroUnits.Values)
+                    if (heroUnit.GetAbilityTypeByNameId(talent.AbilityElementId, out abilityType))
                     {
-                        if (heroUnit.GetAbilityTypeByNameId(talent.AbilityElementId, out abilityType))
-                        {
-                            talent.AbilityType = abilityType;
-                        }
+                        talent.AbilityType = abilityType;
                     }
                 }
             }
 
-            // only if it's IsActive we will add the ability data
             if (talent.IsActive)
                 SetAbilityData(talent.AbilityElementId, talent);
+        }
+
+        // the trait check should come after the ability data is set
+        // hidden means that it was an ability that is in the AbilArray but not in the command array
+        if (((talent.IsActive is true && (talent.AbilityType == AbilityType.Unknown)) ||
+            (talent.IsActive is false && (talent.AbilityType == AbilityType.Unknown || talent.AbilityType == AbilityType.Hidden))) &&
+            talentDataValues.TryGetElementDataAt("Trait", out StormElementData? traitData) && traitData.Value.GetString() == "1")
+        {
+            talent.AbilityType = AbilityType.Trait;
+        }
+
+        // button data should come after ability data
+        if (talentDataValues.TryGetElementDataAt("Face", out StormElementData? faceData))
+        {
+            talent.ButtonElementId = faceData.Value.GetString();
+
+            SetButtonData(talent);
         }
 
         // if not set, set to the passive abilityId
@@ -146,8 +149,8 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
         if (string.IsNullOrEmpty(talent.ButtonElementId))
             talent.ButtonElementId = NoButtonElementId;
 
-        // if the abilityType is still unknown and isActive, then set it to an active abilityType
-        if (talent.AbilityType == AbilityType.Unknown && talent.IsActive)
+        // if it's an IsActive and if the abilityType is still Unknown or Hidden, then set it to an Active abilityType
+        if (talent.IsActive && (talent.AbilityType == AbilityType.Unknown || talent.AbilityType == AbilityType.Hidden))
             talent.AbilityType = AbilityType.Active;
     }
 

@@ -151,7 +151,7 @@ public class AbilityTalentParserBase : ParserBase
 
             if (tooltipFlagsData.TryGetElementDataAt("ShowCooldown", out StormElementData? showCooldownData) && showCooldownData.Value.GetInt() == 0)
             {
-                // ignore, always show the cooldown
+                abilityTalent.Tooltip.CooldownText = null;
             }
 
             if (tooltipFlagsData.TryGetElementDataAt("ShowRequirements", out StormElementData? showRequirementsData) && showRequirementsData.Value.GetInt() == 0)
@@ -249,7 +249,7 @@ public class AbilityTalentParserBase : ParserBase
                 string value = producedUnitArrayData.GetElementDataAt(item).Value.GetString();
 
                 if (_heroesData.StormElementExists("Unit", value))
-                    abilityTalent.CreateUnits.Add(value);
+                    abilityTalent.CreatedUnits.Add(value);
             }
         }
 
@@ -282,61 +282,7 @@ public class AbilityTalentParserBase : ParserBase
         if (costElementData.TryGetElementDataAt("0", out StormElementData? costInnerData))
         {
             if (costInnerData.TryGetElementDataAt("Charge", out StormElementData? chargeData))
-            {
-                if (chargeData.TryGetElementDataAt("0", out StormElementData? chargeInnerData) &&
-                    (chargeInnerData.ContainsIndex("CountMax") ||
-                    chargeInnerData.ContainsIndex("CountStart") ||
-                    chargeInnerData.ContainsIndex("CountUse") ||
-                    chargeInnerData.ContainsIndex("HideCount") ||
-                    chargeInnerData.ContainsIndex("TimeUse")))
-                {
-                    abilityTalent.Tooltip.Charges ??= new TooltipCharges();
-
-                    if (chargeInnerData.TryGetElementDataAt("CountMax", out StormElementData? countMaxData))
-                        abilityTalent.Tooltip.Charges.CountMax = countMaxData.Value.GetInt();
-
-                    if (chargeInnerData.TryGetElementDataAt("CountStart", out StormElementData? countStartData))
-                        abilityTalent.Tooltip.Charges.CountStart = countStartData.Value.GetInt();
-
-                    if (chargeInnerData.TryGetElementDataAt("CountUse", out StormElementData? countUseData))
-                        abilityTalent.Tooltip.Charges.CountUse = countUseData.Value.GetInt();
-
-                    if (chargeInnerData.TryGetElementDataAt("HideCount", out StormElementData? hideCountData))
-                        abilityTalent.Tooltip.Charges.IsHideCount = hideCountData.Value.GetInt() == 1;
-
-                    if (chargeInnerData.TryGetElementDataAt("TimeUse", out StormElementData? timeUseData))
-                    {
-                        string? timeUseValue = timeUseData.Value.GetString();
-
-                        string? replaceText;
-                        if (abilityTalent.Tooltip.Charges.CountMax.HasValue && abilityTalent.Tooltip.Charges.CountMax.Value > 1)
-                            replaceText = GetStormGameString(GameStringConstants.StringChargeCooldownColon); // Charge Cooldown:<space>
-                        else
-                            replaceText = GetStormGameString(GameStringConstants.StringCooldownColon); // Cooldown:<space>
-
-                        if (string.IsNullOrEmpty(replaceText))
-                            _logger.LogWarning("{ReplaceText} was not found", replaceText);
-
-                        string? cooldownTooltip;
-                        if (timeUseValue == "1")
-                            cooldownTooltip = GetStormGameString(GameStringConstants.AbilTooltipCooldownText);
-                        else
-                            cooldownTooltip = GetStormGameString(GameStringConstants.AbilTooltipCooldownPluralText);
-
-                        if (string.IsNullOrEmpty(cooldownTooltip))
-                            _logger.LogWarning("{CooldownTooltip} was not found", cooldownTooltip);
-
-                        string? cooldownTooltipFinal = cooldownTooltip?
-                               .Replace(GetStormGameString(GameStringConstants.StringCooldownColon) ?? string.Empty, replaceText, StringComparison.OrdinalIgnoreCase)
-                               .Replace(GameStringConstants.ReplacementCharacter, timeUseValue, StringComparison.OrdinalIgnoreCase);
-
-                        if (string.IsNullOrEmpty(cooldownTooltipFinal))
-                            _logger.LogWarning("No cooldown tooltip was set");
-                        else
-                            abilityTalent.Tooltip.CooldownText = GetTooltipDescriptionFromGameString(cooldownTooltipFinal);
-                    }
-                }
-            }
+                SetCostChargeData(abilityTalent, chargeData);
 
             if (costInnerData.TryGetElementDataAt("Cooldown", out StormElementData? cooldownData))
             {
@@ -345,12 +291,12 @@ public class AbilityTalentParserBase : ParserBase
                     string cooldownString = timeUseData.Value.GetString();
                     double cooldown = timeUseData.Value.GetDouble();
 
-                    if (abilityTalent.Tooltip.Charges is not null && abilityTalent.Tooltip.Charges.HasCharges)
+                    if (abilityTalent.Tooltip.Charges is not null && abilityTalent.Tooltip.Charges.CountUse > 0)
                     {
-                        abilityTalent.Tooltip.Charges ??= new TooltipCharges();
                         abilityTalent.Tooltip.Charges.RecastCooldown = cooldown;
                     }
-                    else
+
+                    if (abilityTalent.Tooltip.CooldownText is null)
                     {
                         if (cooldown == 1)
                         {
@@ -364,7 +310,7 @@ public class AbilityTalentParserBase : ParserBase
                             if (abilTooltipCooldownPlural is not null)
                                 abilityTalent.Tooltip.CooldownText = GetTooltipDescriptionFromGameString(abilTooltipCooldownPlural.Value.Replace(GameStringConstants.ReplacementCharacter, cooldownString, StringComparison.OrdinalIgnoreCase));
                         }
-                        else
+                        else if (abilityTalent.Tooltip.Charges is null || (abilityTalent.Tooltip.Charges is not null && !abilityTalent.Tooltip.Charges.HasCharges))
                         {
                             abilityTalent.ToggleCooldown = cooldown;
                         }
@@ -378,6 +324,83 @@ public class AbilityTalentParserBase : ParserBase
                 {
                     abilityTalent.Tooltip.EnergyCost = energyData.Value.GetString();
                 }
+            }
+        }
+    }
+
+    private void SetCostChargeData(AbilityTalentBase abilityTalent, StormElementData chargeData)
+    {
+        if (chargeData.TryGetElementDataAt("0", out StormElementData? chargeInnerData))
+        {
+            abilityTalent.Tooltip.Charges ??= new TooltipCharges();
+
+            // this needs to be done first
+            if (chargeInnerData.TryGetElementDataAt("Link", out StormElementData? linkData))
+            {
+                string linkValue = linkData.Value.GetString();
+
+                if (!string.IsNullOrEmpty(linkValue))
+                {
+                    string[] linkSplit = linkValue.Split('/', 2);
+
+                    // we need to check to see if the link is not pointing to the current (same) abilityTalent.
+                    if (linkSplit[1].Equals(abilityTalent.AbilityElementId) is false)
+                    {
+                        StormElement? linkAbilElement = _heroesData.GetCompleteStormElement(linkSplit[0], linkSplit[1]);
+
+                        if (linkAbilElement is not null &&
+                            linkAbilElement.DataValues.TryGetElementDataAt("Cost", out StormElementData? costData) &&
+                            costData.TryGetElementDataAt("0", out StormElementData? costInnerData) &&
+                            costInnerData.TryGetElementDataAt("Charge", out StormElementData? linkChargeData))
+                        {
+                            SetCostChargeData(abilityTalent, linkChargeData);
+                        }
+                    }
+                }
+            }
+
+            if (chargeInnerData.TryGetElementDataAt("CountMax", out StormElementData? countMaxData))
+                abilityTalent.Tooltip.Charges.CountMax = countMaxData.Value.GetInt();
+
+            if (chargeInnerData.TryGetElementDataAt("CountStart", out StormElementData? countStartData))
+                abilityTalent.Tooltip.Charges.CountStart = countStartData.Value.GetInt();
+
+            if (chargeInnerData.TryGetElementDataAt("CountUse", out StormElementData? countUseData))
+                abilityTalent.Tooltip.Charges.CountUse = countUseData.Value.GetInt();
+
+            if (chargeInnerData.TryGetElementDataAt("HideCount", out StormElementData? hideCountData))
+                abilityTalent.Tooltip.Charges.IsHideCount = hideCountData.Value.GetInt() == 1;
+
+            if (chargeInnerData.TryGetElementDataAt("TimeUse", out StormElementData? timeUseData))
+            {
+                string? timeUseValue = timeUseData.Value.GetString();
+
+                string? replaceText;
+                if (abilityTalent.Tooltip.Charges.CountMax.HasValue && abilityTalent.Tooltip.Charges.CountMax.Value > 1)
+                    replaceText = GetStormGameString(GameStringConstants.StringChargeCooldownColon); // Charge Cooldown:<space>
+                else
+                    replaceText = GetStormGameString(GameStringConstants.StringCooldownColon); // Cooldown:<space>
+
+                if (string.IsNullOrEmpty(replaceText))
+                    _logger.LogWarning("{ReplaceText} was not found", replaceText);
+
+                string? cooldownTooltip;
+                if (timeUseValue == "1")
+                    cooldownTooltip = GetStormGameString(GameStringConstants.AbilTooltipCooldownText);
+                else
+                    cooldownTooltip = GetStormGameString(GameStringConstants.AbilTooltipCooldownPluralText);
+
+                if (string.IsNullOrEmpty(cooldownTooltip))
+                    _logger.LogWarning("{CooldownTooltip} was not found", cooldownTooltip);
+
+                string? cooldownTooltipFinal = cooldownTooltip?
+                        .Replace(GetStormGameString(GameStringConstants.StringCooldownColon) ?? string.Empty, replaceText, StringComparison.OrdinalIgnoreCase)
+                        .Replace(GameStringConstants.ReplacementCharacter, timeUseValue, StringComparison.OrdinalIgnoreCase);
+
+                if (string.IsNullOrEmpty(cooldownTooltipFinal))
+                    _logger.LogWarning("No cooldown tooltip was set");
+                else
+                    abilityTalent.Tooltip.CooldownText = GetTooltipDescriptionFromGameString(cooldownTooltipFinal);
             }
         }
     }

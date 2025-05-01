@@ -114,7 +114,7 @@ public class AbilityParserTests
         ability.Tooltip.EnergyText.Should().BeNull();
         ability.Tooltip.ShortText!.RawDescription.Should().Be("Spawn locusts that attack down the nearest lane");
         ability.Tooltip.FullText!.RawDescription.Should().Be("Spawns a Locust to attack down the nearest lane...");
-        ability.CreateUnits.Should().HaveCount(3).And
+        ability.CreatedUnits.Should().HaveCount(3).And
             .SatisfyRespectively(
                 first => first.Should().Be("AbathurLocustAssaultStrain"),
                 second => second.Should().Be("AbathurLocustBombardStrain"),
@@ -256,7 +256,7 @@ public class AbilityParserTests
         ability.Tooltip.ShortText.Should().BeNull();
         ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 1.5 seconds");
         ability.ToggleCooldown.Should().BeNull();
-        ability.CreateUnits.Should().BeEmpty();
+        ability.CreatedUnits.Should().BeEmpty();
     }
 
     [TestMethod]
@@ -522,6 +522,37 @@ public class AbilityParserTests
         ability.Tooltip.EnergyText.Should().BeNull();
         ability.Tooltip.ShortText!.RawDescription.Should().Be("Each point of Sadism increases Alarak's Ability damage...");
         ability.Tooltip.FullText!.RawDescription.Should().Be("Alarak's Ability damage and self-healing are increased...");
+    }
+
+    [TestMethod]
+    public void GetAbility_AlarakLightningSurgeLightningBarrageCommand_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAlarak";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("30");
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("AlarakLightningSurgeLightningBarrage|AlarakLightningSurgeLightningBarrage|E");
+        ability.IsActive.Should().BeTrue();
+        ability.Tier.Should().Be(AbilityTier.Basic);
+        ability.AbilityType.Should().Be(AbilityType.E);
+        ability.ToggleCooldown.Should().Be(0.125);
+        ability.Tooltip.CooldownText.Should().BeNull();
+        ability.Tooltip.Charges!.HasCharges.Should().BeFalse();
+        ability.Tooltip.LifeText.Should().BeNull();
+        ability.Tooltip.EnergyText.Should().BeNull();
+        ability.ToggleCooldown.Should().Be(0.125);
+        ability.ParentAbilityElementId.Should().Be("AlarakLightningSurge");
     }
 
     [TestMethod]
@@ -798,6 +829,102 @@ public class AbilityParserTests
         ability.Icon.Should().Be("storm_ui_icon_samuro_flowingstrikes.png");
         ability.TooltipAppendersTalentElementIds.Should().HaveCount(3).And
             .Contain(["SamuroAdvancingStrikesDeflection", "SamuroPressTheAttack", "SamuroBlademastersPursuit"]);
+    }
+
+    [TestMethod]
+    public void GetAbility_AnaEyeOfHorusActivateCommand_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAna";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("28");
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("AnaEyeOfHorusActivate|AnaEyeOfHorusActivate|Heroic");
+        ability.IsActive.Should().BeTrue();
+        ability.Tier.Should().Be(AbilityTier.Heroic);
+        ability.AbilityType.Should().Be(AbilityType.Heroic);
+        ability.ToggleCooldown.Should().BeNull();
+        ability.Tooltip.Charges!.CountMax.Should().Be(6);
+        ability.Tooltip.Charges.CountStart.Should().Be(6);
+        ability.Tooltip.Charges.CountUse.Should().Be(0);
+        ability.Tooltip.Charges.HasCharges.Should().BeTrue();
+        ability.Tooltip.Charges.IsHideCount.Should().BeTrue();
+        ability.Tooltip.Charges.RecastCooldown.Should().BeNull();
+        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 60 seconds");
+    }
+
+    [TestMethod]
+    public void GetAbility_AnaEyeOfHorusAttackDummyCommand_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAna";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("26");
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("AnaEyeOfHorusAttackDummy|AnaEyeOfHorusHighPoweredRound|Heroic");
+        ability.IsActive.Should().BeTrue();
+        ability.Tier.Should().Be(AbilityTier.Heroic);
+        ability.AbilityType.Should().Be(AbilityType.Heroic);
+        ability.ToggleCooldown.Should().BeNull();
+        ability.Tooltip.Charges!.CountMax.Should().Be(6);
+        ability.Tooltip.Charges.CountStart.Should().Be(6);
+        ability.Tooltip.Charges.CountUse.Should().Be(1);
+        ability.Tooltip.Charges.HasCharges.Should().BeTrue();
+        ability.Tooltip.Charges.IsHideCount.Should().BeFalse();
+        ability.Tooltip.Charges.RecastCooldown.Should().Be(1);
+        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 1 second");
+    }
+
+    [TestMethod]
+    public void GetAbility_DehakaEssenceCollectionCommand_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroDehaka";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("29");
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("DehakaEssenceCollection|DehakaEssenceCollection|Trait");
+        ability.IsActive.Should().BeTrue();
+        ability.Tier.Should().Be(AbilityTier.Trait);
+        ability.AbilityType.Should().Be(AbilityType.Trait);
+        ability.ToggleCooldown.Should().BeNull();
+        ability.Tooltip.Charges!.CountMax.Should().Be(50);
+        ability.Tooltip.Charges.CountStart.Should().BeNull();
+        ability.Tooltip.Charges.CountUse.Should().BeNull();
+        ability.Tooltip.Charges.HasCharges.Should().BeTrue();
+        ability.Tooltip.Charges.IsHideCount.Should().BeFalse();
+        ability.Tooltip.Charges.RecastCooldown.Should().BeNull();
+        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 5 seconds");
     }
 
     private static void AssertAbathurSymbioteAbility(Ability ability)

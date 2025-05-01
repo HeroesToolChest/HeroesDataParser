@@ -46,7 +46,7 @@ public class HeroParserTests
     }
 
     [TestMethod]
-    public void Parse_AbathurData_ReturnHeroData()
+    public void Parse_AbathurDataHeroDataOnly_ReturnHeroData()
     {
         // arrange
         string heroUnit = "Abathur";
@@ -105,6 +105,65 @@ public class HeroParserTests
         hero.MountCategoryIds.Should().BeEmpty();
         hero.InfoText!.RawDescription.Should().Be("Abathur, the Evolution Master of Kerrigan's Swarm, works ceaselessly...");
         hero.HeroUnits.Should().ContainSingle();
+        hero.HeroPortraits.DraftScreen.Should().Be("storm_ui_glues_draft_portrait_abathur.png");
+        hero.HeroPortraits.DraftScreenPath!.FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_glues_draft_portrait_Abathur.dds");
+        hero.HeroPortraits.HeroSelectPortrait.Should().Be("storm_ui_ingame_heroselect_btn_infestor.png");
+        hero.HeroPortraits.HeroSelectPortraitPath!.FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_ingame_heroselect_btn_infestor.dds");
+        hero.HeroPortraits.LeaderboardPortrait.Should().Be("storm_ui_ingame_hero_leaderboard_abathur.png");
+        hero.HeroPortraits.LeaderboardPortraitPath!.FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_ingame_hero_leaderboard_Abathur.dds");
+        hero.HeroPortraits.LoadingScreenPortrait.Should().Be("storm_ui_ingame_hero_loadingscreen_abathur.png");
+        hero.HeroPortraits.LoadingScreenPortraitPath!.FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_ingame_hero_loadingscreen_Abathur.dds");
+        hero.HeroPortraits.PartyPanelPortrait.Should().Be("storm_ui_ingame_partypanel_btn_abathur.png");
+        hero.HeroPortraits.PartyPanelPortraitPath!.FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_ingame_partypanel_btn_Abathur.dds");
+        hero.HeroPortraits.TargetPortrait.Should().Be("ui_targetportrait_hero_abathur.png");
+        hero.HeroPortraits.TargetPortraitPath!.FilePath.Should().StartWith("Assets").And.EndWith("UI_targetportrait_Hero_Abathur.dds");
+        hero.HeroPortraits.PartyFrames.Should().ContainSingle().And
+            .Contain("storm_ui_ingame_partyframe_abathur.png");
+        hero.HeroPortraits.PartyFramePaths.Should().HaveCount(1);
+        hero.HeroPortraits.PartyFramePaths[0].FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_ingame_partyframe_Abathur.dds");
+        hero.HeroPortraits.MiniMapIcon.Should().BeNull();
+        hero.HeroPortraits.TargetInfoPanel.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void Parse_WithUnitData_ReturnsHeroData()
+    {
+        // arrange
+        string heroUnit = "Abathur";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        HeroParser heroParser = new(_logger, _heroesXmlLoaderService, _unitParser, _talentParser);
+
+        // unit part for abathur hero
+        _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
+            .Do(x =>
+            {
+                Unit argUnit = x.Arg<Unit>();
+                argUnit.Id = "HeroAbathur";
+                argUnit.Description = null;
+                argUnit.UnitPortraits.MiniMapIcon = "minimap_icon.png";
+                argUnit.UnitPortraits.MiniMapIconPath = new RelativeFilePath()
+                {
+                    FilePath = Path.Join("Assets", "minimap_icon.dds"),
+                };
+                argUnit.UnitPortraits.TargetInfoPanel = "target_info_panel.png";
+                argUnit.UnitPortraits.TargetInfoPanelPath = new RelativeFilePath()
+                {
+                    FilePath = Path.Join("Assets", "target_info_panel.dds"),
+                };
+            });
+
+        // act
+        Hero? hero = heroParser.Parse(heroUnit);
+
+        // assert
+        hero.Should().NotBeNull();
+        hero.Description!.RawDescription.Should().Be("A unique Hero that can manipulate the battle from anywhere on the map.");
+        hero.HeroPortraits.MiniMapIcon.Should().Be("minimap_icon.png");
+        hero.HeroPortraits.MiniMapIconPath!.FilePath.Should().StartWith("Assets").And.EndWith("minimap_icon.dds");
+        hero.HeroPortraits.TargetInfoPanel.Should().Be("target_info_panel.png");
+        hero.HeroPortraits.TargetInfoPanelPath!.FilePath.Should().StartWith("Assets").And.EndWith("target_info_panel.dds");
     }
 
     [TestMethod]

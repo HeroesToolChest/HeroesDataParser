@@ -164,6 +164,17 @@
   <CButton id="AlarakExtendedLightning" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_alarak_lightningsurge.dds" />
   </CButton>
+  <CButton id="AlarakLightningSurgeLightningBarrage" parent="StormButtonParent">
+    <TooltipAppender Validator="AlarakHasSustainingPowerTalent" Face="AlarakSustainingPower" />
+    <TooltipAppender Validator="AlarakHasExtendedLightningTalent" Face="AlarakExtendedLightning" />
+    <TooltipAppender Validator="AlarakHasNegativelyChargedTalent" Face="AlarakNegativelyCharged" />
+    <TooltipAppender Validator="AlarakHasLightningBarrageTalent" Face="AlarakLightningBarrage" />
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_lightningsurge.dds" />
+    <HotkeyAlias value="AlarakLightningSurge" />
+  </CButton>
+  <CButton id="AlarakRiteofRakShir" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_sadism_b.dds" />
+  </CButton>
   <CButton id="AlexstraszaGiftOfLife" parent="StormButtonParent">
     <TooltipVitalName index="Life" value="UI/Tooltip/Abil/CurrentLife" />
     <TooltipVitalName index="Shields" value="UI/Tooltip/Abil/Life" />
@@ -227,6 +238,42 @@
     <TooltipCooldownOverrideText value="GarroshBodyCheckCooldown" />
     <Icon value="Assets\Textures\storm_ui_icon_garrosh_slam.dds" />
   </CButton>
+  <CButton id="AnaEyeOfHorusActivate" parent="StormButtonParent">
+    <TooltipAppender Validator="AnaHasEyeOfHorusDeadeyeTalent" Face="AnaEyeOfHorusDeadeye" />
+    <Icon value="Assets\Textures\storm_ui_icon_ana_overwatch.dds" />
+  </CButton>
+  <CButton id="AnaEyeOfHorusHighPoweredRound" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_ana_overwatch.dds" />
+    <HotkeyAlias value="AnaEyeOfHorusActivate" />
+  </CButton>
+  <CButton id="BarbarianBattleRage" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_mercenarylord.dds" />
+  </CButton>
+  <CButton id="DehakaEssenceCollection" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_dehaka_essencecollection.dds" />
+    <TooltipAppender Validator="DehakaHasEssenceCollectionTissueRegenerationTalent" Face="DehakaEssenceCollectionTalentTissueRegeneration" />
+    <TooltipAppender Validator="DehakaHasEssenceCollectionTalentHeroStalkerTalent" Face="DehakaEssenceCollectionTalentHeroStalker" />
+    <TooltipAppender Validator="DehakaEssenceCollectionOneWhoCollects" Face="DehakaEssenceCollectionOneWhoCollectsTalent" />
+    <TooltipAppender Validator="DehakaHasPrimalRageTalent" Face="DehakaPrimalRage" />
+    <TooltipAppender Validator="DehakaHasEssenceClawsTalent" Face="DehakaEssenceClaws" />
+    <TooltipCooldownOverrideText value="Button/Tooltip/DehakaEssenceCollectionCooldownOverride" />
+  </CButton>
+  <CButton id="TassadarOracleTargeted" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\storm_ui_icon_tassadar_oracle.dds" />
+  </CButton>
+  <CButton id="ThrallAncestralWrath" parent="StormButtonParent">
+    <TooltipFlags index="ShowCooldown" value="0" />
+    <Icon value="Assets\Textures\storm_ui_icon_talent_bloodforblood.dds" />
+    <HotkeyAlias value="GenericSpellShieldItemDisabled" />
+  </CButton>
+  <CButton id="GallKeepMoving" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_gall_shove.dds" />
+  </CButton>
+  <CButton id="AnubarakLegionOfBeetlesTalent" parent="StormButtonParent">
+    <TooltipVitalName index="Energy" value="" />
+    <Icon value="Assets\Textures\storm_ui_icon_Anubarak_ScarabHost.dds" />
+  </CButton>
+  <CButton id="DVaLiquidCooling" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_dva_mechmode_b.dds" />
+  </CButton>
 </Button>
-
-

@@ -81,8 +81,10 @@ public class UnitParserTests
         unit.Shield.ShieldRegenerationRateScaling.Should().Be(0);
         unit.Shield.ShieldType!.RawDescription.Should().Be("Shields");
         unit.Armor.Should().BeEmpty();
-        unit.Portraits.MiniMapIcon.Should().Be("storm_ui_minimapicon_heros_infestor.png");
-        unit.Portraits.TargetInfoPanel.Should().Be("storm_ui_ingame_partyframe_abathur.png");
+        unit.UnitPortraits.MiniMapIcon.Should().Be("storm_ui_minimapicon_heros_infestor.png");
+        unit.UnitPortraits.MiniMapIconPath!.FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_minimapicon_heros_infestor.dds");
+        unit.UnitPortraits.TargetInfoPanel.Should().Be("storm_ui_ingame_partyframe_abathur.png");
+        unit.UnitPortraits.TargetInfoPanelPath!.FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_ingame_partyframe_Abathur.dds");
         unit.UnitIds.Should().BeEmpty();
         unit.Weapons.Should().ContainSingle();
         unit.TooltipTalentElementIdCount.Should().Be(3);
@@ -93,7 +95,7 @@ public class UnitParserTests
         abathurWeapon1.Name!.RawDescription.Should().Be("Hero Abathur");
         abathurWeapon1.Range.Should().Be(1);
         abathurWeapon1.Period.Should().Be(0.7);
-        abathurWeapon1.WeaponNameId.Should().Be("HeroAbathur");
+        abathurWeapon1.NameId.Should().Be("HeroAbathur");
         abathurWeapon1.Damage.Should().Be(26);
         abathurWeapon1.DamageScaling.Should().Be(0.04);
         abathurWeapon1.AttacksPerSecond.Should().BeApproximately(1.429, 3);

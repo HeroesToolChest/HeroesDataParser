@@ -96,8 +96,8 @@ public class UnitParser : DataParser<Unit>, IUnitParser
             ImageFilePath? imageFilePath = GetImageFilePath(groupImageData);
             if (imageFilePath is not null)
             {
-                elementObject.Portraits.TargetInfoPanel = imageFilePath.Image;
-                elementObject.Portraits.TargetInfoPanelPath = imageFilePath.FilePath;
+                elementObject.UnitPortraits.TargetInfoPanel = imageFilePath.Image;
+                elementObject.UnitPortraits.TargetInfoPanelPath = imageFilePath.FilePath;
             }
         }
 
@@ -106,8 +106,8 @@ public class UnitParser : DataParser<Unit>, IUnitParser
             ImageFilePath? imageFilePath = GetImageFilePath(miniMapIconData);
             if (imageFilePath is not null)
             {
-                elementObject.Portraits.MiniMapIcon = imageFilePath.Image;
-                elementObject.Portraits.MiniMapIconPath = imageFilePath.FilePath;
+                elementObject.UnitPortraits.MiniMapIcon = imageFilePath.Image;
+                elementObject.UnitPortraits.MiniMapIconPath = imageFilePath.FilePath;
             }
         }
     }
@@ -307,7 +307,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
                     UnitWeapon unitWeapon = new()
                     {
-                        WeaponNameId = linkId,
+                        NameId = linkId,
                     };
 
                     if (weaponStormElement.DataValues.TryGetElementDataAt("Name", out StormElementData? nameData))

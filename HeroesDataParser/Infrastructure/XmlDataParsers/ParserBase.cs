@@ -77,7 +77,11 @@ public abstract class ParserBase
         StormFile? stormAssetFile = _heroesData.GetStormAssetFile(tileTexturePath);
         if (stormAssetFile is not null)
         {
-            string image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), ImageFileExtension);
+            Span<char> pathSpan = stackalloc char[stormAssetFile.StormPath.Path.Length];
+
+            int size = Path.GetFileName(stormAssetFile.StormPath.Path.AsSpan()).ToLowerInvariant(pathSpan);
+
+            string image = Path.ChangeExtension(pathSpan[..size].ToString(), ImageFileExtension);
             RelativeFilePath imagePath = new()
             {
                 FilePath = stormAssetFile.StormPath.Path,

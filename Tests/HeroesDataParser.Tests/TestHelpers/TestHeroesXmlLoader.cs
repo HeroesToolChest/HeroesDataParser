@@ -118,6 +118,7 @@ public static class TestHeroesXmlLoader
                         "Button/Tooltip/AbathurSymbioteCancel=Cancels the Symbiote ability.",
                         "Button/Tooltip/SamuroIllusionMasterTalent=Mirror Images can be controlled individually or as...",
                         "Button/Tooltip/SamuroAdvancingStrikes=Activate to switch places with a target",
+                        "Button/Tooltip/DehakaEssenceCollectionCooldownOverride=5 seconds",
                         "Hero/AdditionalSearchText/Abathur=Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug Double Soak",
                         "Hero/AlternateNameSearchText/Abathur=Abathur",
                         "Hero/Description/Abathur=A unique Hero that can manipulate the battle from anywhere on the map.",
@@ -180,6 +181,13 @@ public static class TestHeroesXmlLoader
                     Path.Join("Assets", "Textures", "storm_ui_icon_samuro_illusiondancer.dds"),
                     Path.Join("Assets", "Textures", "storm_ui_icon_samuro_flowingstrikes.dds"),
                     Path.Join("Assets", "Textures", "storm_ui_icon_Muradin_SecondWind.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_ingame_heroselect_btn_infestor.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_ingame_hero_leaderboard_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_ingame_hero_loadingscreen_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_ingame_partypanel_btn_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "UI_targetportrait_Hero_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_glues_draft_portrait_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_ingame_partyframe_Abathur.dds"),
                     ])
                 .AddLevelScalingArrayElements(heroDocument.Root.Descendants("LevelScalingArray")))
             .LoadGameStrings();

@@ -22,6 +22,22 @@ public class HeroParser : CollectionParserBase<Hero>
 
     public override string DataObjectType => "Hero";
 
+    protected override void SetProperties(Hero collectionObject, StormElement stormElement)
+    {
+        if (stormElement.DataValues.TryGetElementDataAt("Unit", out StormElementData? unitData))
+            collectionObject.UnitId = unitData.Value.GetString();
+
+        // first thing to do is to set the unit data
+        SetUnitData(collectionObject);
+
+        //// TODO: FindUnits ? e.g dva pilot
+
+        // find additional (hero) units
+        SetHeroUnits(collectionObject, stormElement);
+
+        base.SetProperties(collectionObject, stormElement);
+    }
+
     protected override void SetAdditionalProperties(Hero collectionObject, StormElement stormElement)
     {
         StormElementData elementData = stormElement.DataValues;
@@ -81,8 +97,8 @@ public class HeroParser : CollectionParserBase<Hero>
             ImageFilePath? imageFilePath = GetImageFilePath(selectScreenButtonImageData);
             if (imageFilePath is not null)
             {
-                collectionObject.Portraits.HeroSelectPortrait = imageFilePath.Image;
-                collectionObject.Portraits.HeroSelectPortraitPath = imageFilePath.FilePath;
+                collectionObject.HeroPortraits.HeroSelectPortrait = imageFilePath.Image;
+                collectionObject.HeroPortraits.HeroSelectPortraitPath = imageFilePath.FilePath;
             }
         }
 
@@ -91,8 +107,8 @@ public class HeroParser : CollectionParserBase<Hero>
             ImageFilePath? imageFilePath = GetImageFilePath(scoreScreenImageData);
             if (imageFilePath is not null)
             {
-                collectionObject.Portraits.LeaderboardPortrait = imageFilePath.Image;
-                collectionObject.Portraits.LeaderboardPortraitPath = imageFilePath.FilePath;
+                collectionObject.HeroPortraits.LeaderboardPortrait = imageFilePath.Image;
+                collectionObject.HeroPortraits.LeaderboardPortraitPath = imageFilePath.FilePath;
             }
         }
 
@@ -101,8 +117,8 @@ public class HeroParser : CollectionParserBase<Hero>
             ImageFilePath? imageFilePath = GetImageFilePath(loadingScreenImageData);
             if (imageFilePath is not null)
             {
-                collectionObject.Portraits.LoadingScreenPortrait = imageFilePath.Image;
-                collectionObject.Portraits.LoadingScreenPortraitPath = imageFilePath.FilePath;
+                collectionObject.HeroPortraits.LoadingScreenPortrait = imageFilePath.Image;
+                collectionObject.HeroPortraits.LoadingScreenPortraitPath = imageFilePath.FilePath;
             }
         }
 
@@ -111,8 +127,8 @@ public class HeroParser : CollectionParserBase<Hero>
             ImageFilePath? imageFilePath = GetImageFilePath(partyPanelImageData);
             if (imageFilePath is not null)
             {
-                collectionObject.Portraits.PartyPanelPortrait = imageFilePath.Image;
-                collectionObject.Portraits.PartyPanelPortraitPath = imageFilePath.FilePath;
+                collectionObject.HeroPortraits.PartyPanelPortrait = imageFilePath.Image;
+                collectionObject.HeroPortraits.PartyPanelPortraitPath = imageFilePath.FilePath;
             }
         }
 
@@ -121,8 +137,8 @@ public class HeroParser : CollectionParserBase<Hero>
             ImageFilePath? imageFilePath = GetImageFilePath(portraitData);
             if (imageFilePath is not null)
             {
-                collectionObject.Portraits.TargetPortrait = imageFilePath.Image;
-                collectionObject.Portraits.TargetPortraitPath = imageFilePath.FilePath;
+                collectionObject.HeroPortraits.TargetPortrait = imageFilePath.Image;
+                collectionObject.HeroPortraits.TargetPortraitPath = imageFilePath.FilePath;
             }
         }
 
@@ -131,8 +147,8 @@ public class HeroParser : CollectionParserBase<Hero>
             ImageFilePath? imageFilePath = GetImageFilePath(draftScreenPortraitData);
             if (imageFilePath is not null)
             {
-                collectionObject.Portraits.DraftScreen = imageFilePath.Image;
-                collectionObject.Portraits.DraftScreenPath = imageFilePath.FilePath;
+                collectionObject.HeroPortraits.DraftScreen = imageFilePath.Image;
+                collectionObject.HeroPortraits.DraftScreenPath = imageFilePath.FilePath;
             }
         }
 
@@ -141,8 +157,8 @@ public class HeroParser : CollectionParserBase<Hero>
             ImageFilePath? imageFilePath = GetImageFilePath(partyFrameData);
             if (imageFilePath is not null)
             {
-                collectionObject.Portraits.PartyFrames.Add(imageFilePath.Image);
-                collectionObject.Portraits.PartyFramePaths.Add(imageFilePath.FilePath);
+                collectionObject.HeroPortraits.PartyFrames.Add(imageFilePath.Image);
+                collectionObject.HeroPortraits.PartyFramePaths.Add(imageFilePath.FilePath);
             }
         }
 
@@ -191,8 +207,8 @@ public class HeroParser : CollectionParserBase<Hero>
             collectionObject.DefaultMountId = defaultMountData.Value.GetString();
 
         SetInfoTextProperty(collectionObject, stormElement);
-
-        SetOtherProperties(collectionObject, stormElement);
+        SetTalentData(collectionObject, stormElement);
+        SetTalentUpgradeLinkIds(collectionObject);
     }
 
     protected override void SetValidatedProperties(Hero collectionObject)
@@ -222,24 +238,6 @@ public class HeroParser : CollectionParserBase<Hero>
         }
     }
 
-    private void SetOtherProperties(Hero collectionObject, StormElement stormElement)
-    {
-        if (stormElement.DataValues.TryGetElementDataAt("Unit", out StormElementData? unitData))
-            collectionObject.UnitId = unitData.Value.GetString();
-
-        // first thing to do is to set the unit data
-        SetUnitData(collectionObject);
-
-        //// TODO: FindUnits ? e.g dva pilot
-
-        // find additional (hero) units
-        SetHeroUnits(collectionObject, stormElement);
-
-        SetTalentData(collectionObject, stormElement);
-
-        SetTalentUpgradeLinkIds(collectionObject);
-    }
-
     private void SetUnitData(Hero collectionObject)
     {
         if (string.IsNullOrEmpty(collectionObject.UnitId))
@@ -256,6 +254,12 @@ public class HeroParser : CollectionParserBase<Hero>
 
         // then set it back to the heroId
         collectionObject.Id = heroId;
+
+        // copy over the unit portraits
+        collectionObject.HeroPortraits.MiniMapIcon = collectionObject.UnitPortraits.MiniMapIcon;
+        collectionObject.HeroPortraits.MiniMapIconPath = collectionObject.UnitPortraits.MiniMapIconPath;
+        collectionObject.HeroPortraits.TargetInfoPanel = collectionObject.UnitPortraits.TargetInfoPanel;
+        collectionObject.HeroPortraits.TargetInfoPanelPath = collectionObject.UnitPortraits.TargetInfoPanelPath;
     }
 
     private void SetHeroUnits(Hero collectionObject, StormElement stormElement)

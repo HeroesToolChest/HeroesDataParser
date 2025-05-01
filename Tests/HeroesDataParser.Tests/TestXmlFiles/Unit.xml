@@ -268,6 +268,19 @@
     <LeaderAlias value="HeroAbathur" />
   </CUnit>
   <CUnit id="HeroAlarak" parent="StormHeroMounted">
+    <LifeStart value="1950" />
+    <LifeMax value="1950" />
+    <AbilArray Link="AlarakDiscordStrike" />
+    <AbilArray Link="AlarakLightningSurge" />
+    <AbilArray Link="AlarakCounterStrikeTargeted" />
+    <AbilArray Link="AlarakTelekinesis" />
+    <AbilArray Link="AlarakDeadlyChargeActivate" />
+    <AbilArray Link="AlarakDeadlyChargeExecute" />
+    <AbilArray Link="AlarakDeadlyChargeActivate2ndHeroic" />
+    <AbilArray Link="AlarakDeadlyChargeExecute2ndHeroic" />
+    <AbilArray Link="AlarakCounterStrikeTargeted2ndHeroic" />
+    <AbilArray Link="AlarakLightningSurgeLightningBarrage" />
+    <WeaponArray Link="HeroWeaponAlarak" />
     <CardLayouts index="0">
       <LayoutButtons Face="AlarakUnleashDeadlyCharge" Type="AbilCmd" AbilCmd="AlarakDeadlyChargeExecute,Execute" Slot="Heroic" />
       <LayoutButtons Face="AlarakDeadlyCharge" Type="AbilCmd" AbilCmd="AlarakDeadlyChargeActivate,Execute" Slot="Heroic" />
@@ -281,6 +294,23 @@
       <LayoutButtons Face="AlarakCounterStrike2ndHeroicSadism" Type="AbilCmd" AbilCmd="AlarakCounterStrikeTargeted2ndHeroic,Execute" Slot="Trait" />
       <LayoutButtons Face="AlarakSadism" Type="Passive" Slot="Trait" />
     </CardLayouts>
+    <Radius value="0.8125" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="AlarakSadismToken" />
+    <BehaviorArray Link="AlarakLightningSurgeHitCounter" />
+    <BehaviorArray Link="AlarakSadismTakedownIncreaseTokenCounter" />
+    <LifeRegenRate value="4.0585" />
+    <InitializerFunction value="libHALA_gf_HeroAlarakIncrementHeroCountFunction" />
+    <DestructionFunction value="libHALA_gf_HeroAlarakDecrementHeroCountFunction" />
+    <TauntDuration index="Dance" value="5.7" />
+    <EffectArray index="Death" value="AlarakSadismDeathSet" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <HeroPlaystyleFlags index="SoloLaner" value="1" />
+    <AIThinkTree value="AI\Alarak.aitree" />
+    <InnerRadius value="0.8125" />
   </CUnit>
   <CUnit id="HeroAlexstrasza" parent="StormHeroMounted">
     <LifeStart value="1698" />
@@ -563,6 +593,105 @@
     <HeroPlaystyleFlags index="Overconfident" value="1" />
     <HeroPlaystyleFlags index="RoleTank" value="1" />
     <ArmorLink value="GarroshArmor" />
+  </CUnit>
+  <CUnit id="HeroAna" parent="StormHeroMounted">
+    <Gender value="Female" />
+    <LifeStart value="1598" />
+    <LifeMax value="1598" />
+    <LifeRegenRate value="3.3281" />
+    <AbilArray Link="AnaHealingDart" />
+    <AbilArray Link="AnaBioticGrenade" />
+    <AbilArray Link="AnaSleepDart" />
+    <AbilArray Link="AnaNanoBoost" />
+    <AbilArray Link="AnaEyeOfHorusActivate" />
+    <AbilArray Link="AnaEyeOfHorusAttack" />
+    <AbilArray Link="AnaEyeOfHorusAttackDummy" />
+    <AbilArray Link="AnaEyeOfHorusCancel" />
+    <AbilArray Link="AnaAimDownSightsActivate" />
+    <AbilArray Link="AnaAimDownSightsDeactivate" />
+    <AbilArray Link="AnaHealingDartDetachableBoxMagazine" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="AnaHealingDartConcentratedDosesPlayerTracker" />
+    <BehaviorArray Link="AnaEyeOfHorusTurretDisable" />
+    <BehaviorArray Link="AnaShrikeSelfHealPoisonTrait" />
+    <BehaviorArray Link="AnaShrikeSelfHealPoisonTraitHealToken" />
+    <BehaviorArray Link="AnaAimDownSightsCarryBehavior" />
+    <BehaviorArray Link="AnaSleepDartUnitTracker" />
+    <WeaponArray Link="AnaHeroWeapon" />
+    <WeaponArray Turret="AnaEyeOfHorusTurret" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="AnaNanoBoost" Type="AbilCmd" AbilCmd="AnaNanoBoost,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AnaEyeOfHorusHighPoweredRound" Type="AbilCmd" AbilCmd="AnaEyeOfHorusAttackDummy,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AnaEyeOfHorusHighPoweredRound" Type="AbilCmd" AbilCmd="AnaEyeOfHorusAttack,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AnaEyeOfHorusActivate" Type="AbilCmd" AbilCmd="AnaEyeOfHorusActivate,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AnaEyeOfHorusHighPoweredRound" Type="AbilCmd" AbilCmd="AnaEyeOfHorusAttackDummy,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AnaHealingDart" Type="AbilCmd" AbilCmd="AnaHealingDartDetachableBoxMagazine,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AnaHealingDart" Type="AbilCmd" AbilCmd="AnaHealingDart,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AnaEyeOfHorusCancel" Type="AbilCmd" AbilCmd="AnaEyeOfHorusCancel,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AnaBioticGrenade" Type="AbilCmd" AbilCmd="AnaBioticGrenade,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AnaEyeOfHorusCancel" Type="AbilCmd" AbilCmd="AnaEyeOfHorusCancel,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AnaSleepDart" Type="AbilCmd" AbilCmd="AnaSleepDart,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AnaAimDownSightsDeactivate" Type="AbilCmd" AbilCmd="AnaAimDownSightsDeactivate,Execute" Slot="Trait" />
+      <LayoutButtons Face="AnaAimDownSightsActivate" Type="AbilCmd" AbilCmd="AnaAimDownSightsActivate,Execute" Slot="Trait" />
+      <LayoutButtons Face="AnaTraitShrikeSniper" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.5625" />
+    <InnerRadius value="0.5625" />
+    <AIEvalFactor value="1.2" />
+    <InitializerFunction value="libHANA_gf_HeroAnaIncrementHeroCountFunction" />
+    <DestructionFunction value="libHANA_gf_HeroAnaDecrementHeroCountFunction" />
+    <AIThinkTree value="AI/Ana.aitree" />
+    <HeroPlaystyleFlags index="AllyHealer" value="1" />
+    <HeroPlaystyleFlags index="ChanneledAutoAttacker" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Helper" value="1" />
+    <HeroPlaystyleFlags index="Roamer" value="1" />
+    <HeroPlaystyleFlags index="RoleSupport" value="1" />
+  </CUnit>
+    <CUnit id="HeroDehaka" parent="StormHeroMountedCustom">
+    <LifeStart value="2385" />
+    <LifeMax value="2385" />
+    <LifeRegenRate value="4.9687" />
+    <AbilArray Link="AbathurAssumingDirectControlCancel" />
+    <AbilArray Link="DehakaBurrow" />
+    <AbilArray Link="DehakaDarkSwarm" />
+    <AbilArray Link="DehakaBrushstalker" />
+    <AbilArray Link="DehakaIsolation" />
+    <AbilArray Link="DehakaDrag" />
+    <AbilArray Link="DehakaAdaptation" />
+    <AbilArray Link="DehakaEssenceCollection" />
+    <AbilArray Link="DehakaCancelBurrow" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="DehakaEssenceCollectionCarryBehavior" />
+    <BehaviorArray Link="DehakaEssenceCollectionEnabler" />
+    <BehaviorArray Link="DehakaBrushstalkerCarry" />
+    <BehaviorArray Link="DehakaEssenceCollectionPrimalRageTalentTokenCounter" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <WeaponArray Link="HeroDehaka" />
+    <WeaponArray Link="HeroDehakaDragWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="DehakaIsolation" Type="AbilCmd" AbilCmd="DehakaIsolation,Execute" Slot="Heroic" />
+      <LayoutButtons Face="DehakaAdaptation" Type="AbilCmd" AbilCmd="DehakaAdaptation,Execute" Slot="Heroic" />
+      <LayoutButtons Face="DehakaBrushstalker" Type="AbilCmd" AbilCmd="DehakaBrushstalker,Execute" Slot="Mount" />
+      <LayoutButtons Face="DehakaCancelBurrow" Type="AbilCmd" AbilCmd="DehakaCancelBurrow,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DehakaBurrow" Type="AbilCmd" AbilCmd="DehakaBurrow,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DehakaDarkSwarm" Type="AbilCmd" AbilCmd="DehakaDarkSwarm,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DehakaEssenceCollection" Type="AbilCmd" AbilCmd="DehakaEssenceCollection,Execute" Slot="Trait" />
+      <LayoutButtons Face="DehakaDrag" Type="AbilCmd" AbilCmd="DehakaDrag,Execute" Slot="Ability1" />
+    </CardLayouts>
+    <Radius value="1" />
+    <InnerRadius value="0.875" />
+    <AIThinkTree value="AI/Dehaka.aitree" />
+    <HeroPlaystyleFlags index="BodyBlocker" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleTank" value="1" />
+    <HeroPlaystyleFlags index="SoloLaner" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+    <InitializerFunction value="libHDEH_gf_HeroDehakaIncrementHeroCountFunction" />
+    <DestructionFunction value="libHDEH_gf_HeroDehakaDecrementHeroCountFunction" />
+    <EffectArray index="Death" value="DehakaFeedingFrenzyTalentSubtractToken" />
   </CUnit>
   
   <!--Other Units-->
