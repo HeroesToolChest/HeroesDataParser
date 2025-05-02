@@ -39,10 +39,11 @@ v5 changes heroes
 'mountCategories' -> 'mountCategoryIds'
 'scalingLinkId' -> changed to an array 'scalingLinkIds'
 'descriptors' -> 'playstyles'
-- 'charges', 'cooldownTooltip', 'shortTooltip', 'fullTooltip' are now properties to 'tooltip (new)', which also have been updated
-  - 'cooldownTooltip' -> 'cooldownText'
-  - 'shortTooltip' -> 'shortText'
-  - 'fullTooltip' -> 'fullText'
+- 'cooldownTooltip' -> 'cooldownText'
+- 'shortTooltip' -> 'shortText'
+- 'fullTooltip' -> 'fullText'
+- 'energyTooltip -> 'energyText'
+- 'lifeTooltip -> 'lifeText'
 - 'subAbilities' changed to an object from an array
 - 'heroUnits' changed to an object from an array
 - For both abilities and talents, 'nameId' renamed

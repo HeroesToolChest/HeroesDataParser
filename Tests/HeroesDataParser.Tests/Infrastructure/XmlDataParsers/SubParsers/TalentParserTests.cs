@@ -59,12 +59,12 @@ public class TalentParserTests
         talent.IconPath!.MpqFilePath.Should().BeNull();
         talent.Name!.RawDescription.Should().Be("Pressurized Glands");
         talent.Column.Should().Be(1);
-        talent.Tooltip.ShortText!.RawDescription.Should().Be("Increases Spike Burst range and decreases cooldown");
-        talent.Tooltip.FullText!.RawDescription.Should().Be("Increases the range of Symbiote's Spike Burst by");
-        talent.Tooltip.Charges.Should().BeNull();
-        talent.Tooltip.CooldownText.Should().BeNull();
-        talent.Tooltip.EnergyText.Should().BeNull();
-        talent.Tooltip.LifeText.Should().BeNull();
+        talent.ShortText!.RawDescription.Should().Be("Increases Spike Burst range and decreases cooldown");
+        talent.FullText!.RawDescription.Should().Be("Increases the range of Symbiote's Spike Burst by");
+        talent.Charges.Should().BeNull();
+        talent.CooldownText.Should().BeNull();
+        talent.EnergyText.Should().BeNull();
+        talent.LifeText.Should().BeNull();
         talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.W);
         talent.Tier.Should().Be(TalentTier.Level1);
@@ -103,12 +103,12 @@ public class TalentParserTests
         talent.Icon.Should().Be("storm_ui_icon_abathur_toxicnest.png");
         talent.Name!.RawDescription.Should().Be("Envenomed Nest");
         talent.Column.Should().Be(2);
-        talent.Tooltip.ShortText!.RawDescription.Should().Be("Toxic Nests deal more damage, reduce Armor");
-        talent.Tooltip.FullText!.RawDescription.Should().Be("Toxic Nests deal");
-        talent.Tooltip.Charges.Should().BeNull();
-        talent.Tooltip.CooldownText.Should().BeNull();
-        talent.Tooltip.EnergyText.Should().BeNull();
-        talent.Tooltip.LifeText.Should().BeNull();
+        talent.ShortText!.RawDescription.Should().Be("Toxic Nests deal more damage, reduce Armor");
+        talent.FullText!.RawDescription.Should().Be("Toxic Nests deal");
+        talent.Charges.Should().BeNull();
+        talent.CooldownText.Should().BeNull();
+        talent.EnergyText.Should().BeNull();
+        talent.LifeText.Should().BeNull();
         talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.W);
         talent.Tier.Should().Be(TalentTier.Level1);
@@ -139,12 +139,12 @@ public class TalentParserTests
         talent.Icon.Should().Be("storm_ui_icon_abathur_spawnlocust.png");
         talent.Name!.RawDescription.Should().Be("Survival Instincts");
         talent.Column.Should().Be(4);
-        talent.Tooltip.ShortText!.RawDescription.Should().Be("Increases Locust Health and damage");
-        talent.Tooltip.FullText!.RawDescription.Should().Be("Increases Locust's Health by");
-        talent.Tooltip.Charges.Should().BeNull();
-        talent.Tooltip.CooldownText.Should().BeNull();
-        talent.Tooltip.EnergyText.Should().BeNull();
-        talent.Tooltip.LifeText.Should().BeNull();
+        talent.ShortText!.RawDescription.Should().Be("Increases Locust Health and damage");
+        talent.FullText!.RawDescription.Should().Be("Increases Locust's Health by");
+        talent.Charges.Should().BeNull();
+        talent.CooldownText.Should().BeNull();
+        talent.EnergyText.Should().BeNull();
+        talent.LifeText.Should().BeNull();
         talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
         talent.IsActive.Should().BeFalse();
@@ -180,10 +180,10 @@ public class TalentParserTests
         talent.TalentElementId.Should().Be("AbathurHeroicAbilityUltimateEvolution");
         talent.ButtonElementId.Should().Be("AbathurUltimateEvolution");
         talent.Column.Should().Be(1);
-        talent.Tooltip.Charges.Should().BeNull();
-        talent.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 70 seconds");
-        talent.Tooltip.EnergyText.Should().BeNull();
-        talent.Tooltip.LifeText.Should().BeNull();
+        talent.Charges.Should().BeNull();
+        talent.CooldownText!.RawDescription.Should().Be("Cooldown: 70 seconds");
+        talent.EnergyText.Should().BeNull();
+        talent.LifeText.Should().BeNull();
         talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Heroic);
         talent.IsActive.Should().BeTrue();
@@ -243,12 +243,12 @@ public class TalentParserTests
         talent.Name!.RawDescription.Should().Be("Calldown: MULE");
         talent.Icon.Should().Be("storm_ui_icon_talent_mule.png");
         talent.Column.Should().Be(3);
-        talent.Tooltip.Charges.Should().BeNull();
-        talent.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 60 seconds");
-        talent.Tooltip.ShortText!.RawDescription.Should().Be("Activate to heal Structures");
-        talent.Tooltip.FullText!.RawDescription.Should().Be("Activate to calldown a Mule that repairs Structures");
-        talent.Tooltip.EnergyText.Should().BeNull();
-        talent.Tooltip.LifeText.Should().BeNull();
+        talent.Charges.Should().BeNull();
+        talent.CooldownText!.RawDescription.Should().Be("Cooldown: 60 seconds");
+        talent.ShortText!.RawDescription.Should().Be("Activate to heal Structures");
+        talent.FullText!.RawDescription.Should().Be("Activate to calldown a Mule that repairs Structures");
+        talent.EnergyText.Should().BeNull();
+        talent.LifeText.Should().BeNull();
         talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Active);
         talent.IsActive.Should().BeTrue();
@@ -286,10 +286,10 @@ public class TalentParserTests
         talent.ButtonElementId.Should().Be("MuradinSecondWindStoneformTalent");
         talent.Icon.Should().Be("storm_ui_icon_muradin_secondwind.png");
         talent.Column.Should().Be(3);
-        talent.Tooltip.Charges.Should().BeNull();
-        talent.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 60 seconds");
-        talent.Tooltip.EnergyText.Should().BeNull();
-        talent.Tooltip.LifeText.Should().BeNull();
+        talent.Charges.Should().BeNull();
+        talent.CooldownText!.RawDescription.Should().Be("Cooldown: 60 seconds");
+        talent.EnergyText.Should().BeNull();
+        talent.LifeText.Should().BeNull();
         talent.CreatedUnits.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
         talent.IsActive.Should().BeTrue();
@@ -391,13 +391,13 @@ public class TalentParserTests
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level1);
-        talent.Tooltip.Charges!.CountMax.Should().Be(1);
-        talent.Tooltip.Charges.CountStart.Should().Be(1);
-        talent.Tooltip.Charges.CountUse.Should().Be(1);
-        talent.Tooltip.Charges.HasCharges.Should().BeTrue();
-        talent.Tooltip.Charges.IsHideCount.Should().BeTrue();
-        talent.Tooltip.Charges.RecastCooldown.Should().Be(1);
-        talent.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 15 seconds");
+        talent.Charges!.CountMax.Should().Be(1);
+        talent.Charges.CountStart.Should().Be(1);
+        talent.Charges.CountUse.Should().Be(1);
+        talent.Charges.HasCharges.Should().BeTrue();
+        talent.Charges.IsHideCount.Should().BeTrue();
+        talent.Charges.RecastCooldown.Should().Be(1);
+        talent.CooldownText!.RawDescription.Should().Be("Cooldown: 15 seconds");
         talent.TooltipAppendersTalentElementIds.Should().HaveCount(2).And
             .Contain(["GarroshBodyCheckBruteForce", "GarroshArmorUpInnerRage"]);
     }
@@ -430,13 +430,13 @@ public class TalentParserTests
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level7);
         talent.ToggleCooldown.Should().BeNull();
-        talent.Tooltip.Charges!.CountMax.Should().Be(2);
-        talent.Tooltip.Charges.CountStart.Should().BeNull();
-        talent.Tooltip.Charges.CountUse.Should().Be(1);
-        talent.Tooltip.Charges.HasCharges.Should().BeTrue();
-        talent.Tooltip.Charges.IsHideCount.Should().BeFalse();
-        talent.Tooltip.Charges.RecastCooldown.Should().Be(8);
-        talent.Tooltip.CooldownText!.RawDescription.Should().Be("Charge Cooldown: 30 seconds");
+        talent.Charges!.CountMax.Should().Be(2);
+        talent.Charges.CountStart.Should().BeNull();
+        talent.Charges.CountUse.Should().Be(1);
+        talent.Charges.HasCharges.Should().BeTrue();
+        talent.Charges.IsHideCount.Should().BeFalse();
+        talent.Charges.RecastCooldown.Should().Be(8);
+        talent.CooldownText!.RawDescription.Should().Be("Charge Cooldown: 30 seconds");
     }
 
     [TestMethod]
@@ -467,13 +467,13 @@ public class TalentParserTests
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level7);
         talent.ToggleCooldown.Should().BeNull();
-        talent.Tooltip.Charges!.CountMax.Should().Be(8);
-        talent.Tooltip.Charges.CountStart.Should().BeNull();
-        talent.Tooltip.Charges.CountUse.Should().Be(8);
-        talent.Tooltip.Charges.HasCharges.Should().BeTrue();
-        talent.Tooltip.Charges.IsHideCount.Should().BeFalse();
-        talent.Tooltip.Charges.RecastCooldown.Should().Be(1);
-        talent.Tooltip.CooldownText.Should().BeNull();
+        talent.Charges!.CountMax.Should().Be(8);
+        talent.Charges.CountStart.Should().BeNull();
+        talent.Charges.CountUse.Should().Be(8);
+        talent.Charges.HasCharges.Should().BeTrue();
+        talent.Charges.IsHideCount.Should().BeFalse();
+        talent.Charges.RecastCooldown.Should().Be(1);
+        talent.CooldownText.Should().BeNull();
     }
 
     [TestMethod]
@@ -510,8 +510,8 @@ public class TalentParserTests
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level1);
         talent.ToggleCooldown.Should().BeNull();
-        talent.Tooltip.Charges.Should().BeNull();
-        talent.Tooltip.CooldownText.Should().BeNull();
+        talent.Charges.Should().BeNull();
+        talent.CooldownText.Should().BeNull();
     }
 
     [TestMethod]
@@ -547,7 +547,7 @@ public class TalentParserTests
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level1);
         talent.ToggleCooldown.Should().BeNull();
-        talent.Tooltip.Charges.Should().BeNull();
+        talent.Charges.Should().BeNull();
     }
 
     [TestMethod]
@@ -584,7 +584,7 @@ public class TalentParserTests
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level1);
         talent.ToggleCooldown.Should().BeNull();
-        talent.Tooltip.Charges.Should().BeNull();
-        talent.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 50 seconds");
+        talent.Charges.Should().BeNull();
+        talent.CooldownText!.RawDescription.Should().Be("Cooldown: 50 seconds");
     }
 }

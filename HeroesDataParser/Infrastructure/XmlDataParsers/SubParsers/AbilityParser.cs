@@ -252,9 +252,9 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
     //    // TODO: if name is still null, try to get it from the ability element, need to have it passed down
 
     //    if (buttonDataValues.TryGetElementDataAt("SimpleDisplayText", out StormElementData? simpleDisplayTextData))
-    //        abilityTalent.Tooltip.ShortTooltip = GetTooltipDescriptionFromId(simpleDisplayTextData.Value.GetString());
+    //        abilityTalent.ShortTooltip = GetTooltipDescriptionFromId(simpleDisplayTextData.Value.GetString());
     //    if (buttonDataValues.TryGetElementDataAt("Tooltip", out StormElementData? tooltipData))
-    //        abilityTalent.Tooltip.FullTooltip = GetTooltipDescriptionFromId(tooltipData.Value.GetString());
+    //        abilityTalent.FullTooltip = GetTooltipDescriptionFromId(tooltipData.Value.GetString());
 
     //}
 }

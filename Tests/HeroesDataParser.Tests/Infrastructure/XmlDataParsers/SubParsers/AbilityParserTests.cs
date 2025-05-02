@@ -70,15 +70,15 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Basic);
         ability.AbilityType.Should().Be(AbilityType.W);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Charge Cooldown: 10 seconds");
-        ability.Tooltip.Charges!.CountMax.Should().Be(3);
-        ability.Tooltip.Charges!.CountStart.Should().Be(3);
-        ability.Tooltip.Charges!.CountUse.Should().Be(1);
-        ability.Tooltip.Charges.RecastCooldown.Should().Be(0.0625);
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText.Should().BeNull();
-        ability.Tooltip.ShortText!.RawDescription.Should().Be("Spawn a mine");
-        ability.Tooltip.FullText!.RawDescription.Should().Be("Spawn a mine that becomes active...");
+        ability.CooldownText!.RawDescription.Should().Be("Charge Cooldown: 10 seconds");
+        ability.Charges!.CountMax.Should().Be(3);
+        ability.Charges!.CountStart.Should().Be(3);
+        ability.Charges!.CountUse.Should().Be(1);
+        ability.Charges.RecastCooldown.Should().Be(0.0625);
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText.Should().BeNull();
+        ability.ShortText!.RawDescription.Should().Be("Spawn a mine");
+        ability.FullText!.RawDescription.Should().Be("Spawn a mine that becomes active...");
     }
 
     [TestMethod]
@@ -108,12 +108,12 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Trait);
         ability.AbilityType.Should().Be(AbilityType.Trait);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 15 seconds");
-        ability.Tooltip.Charges.Should().BeNull();
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText.Should().BeNull();
-        ability.Tooltip.ShortText!.RawDescription.Should().Be("Spawn locusts that attack down the nearest lane");
-        ability.Tooltip.FullText!.RawDescription.Should().Be("Spawns a Locust to attack down the nearest lane...");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 15 seconds");
+        ability.Charges.Should().BeNull();
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText.Should().BeNull();
+        ability.ShortText!.RawDescription.Should().Be("Spawn locusts that attack down the nearest lane");
+        ability.FullText!.RawDescription.Should().Be("Spawns a Locust to attack down the nearest lane...");
         ability.CreatedUnits.Should().HaveCount(3).And
             .SatisfyRespectively(
                 first => first.Should().Be("AbathurLocustAssaultStrain"),
@@ -148,12 +148,12 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Mount);
         ability.AbilityType.Should().Be(AbilityType.Z);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 30 seconds");
-        ability.Tooltip.Charges.Should().BeNull();
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText.Should().BeNull();
-        ability.Tooltip.ShortText!.RawDescription.Should().Be("Tunnel to a location.");
-        ability.Tooltip.FullText!.RawDescription.Should().Be("Quickly tunnel to a visible location.");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 30 seconds");
+        ability.Charges.Should().BeNull();
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText.Should().BeNull();
+        ability.ShortText!.RawDescription.Should().Be("Tunnel to a location.");
+        ability.FullText!.RawDescription.Should().Be("Quickly tunnel to a visible location.");
     }
 
     [TestMethod]
@@ -252,9 +252,9 @@ public class AbilityParserTests
         ability.IconPath!.FilePath.Should().NotBeNullOrWhiteSpace();
         ability.IconPath.MpqFilePath.Should().BeNull();
         ability.IsActive.Should().BeTrue();
-        ability.Tooltip.FullText!.RawDescription.Should().Be("Cancels the Symbiote ability.");
-        ability.Tooltip.ShortText.Should().BeNull();
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 1.5 seconds");
+        ability.FullText!.RawDescription.Should().Be("Cancels the Symbiote ability.");
+        ability.ShortText.Should().BeNull();
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 1.5 seconds");
         ability.ToggleCooldown.Should().BeNull();
         ability.CreatedUnits.Should().BeEmpty();
     }
@@ -306,12 +306,12 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Hearth);
         ability.AbilityType.Should().Be(AbilityType.B);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText.Should().BeNull();
-        ability.Tooltip.Charges.Should().BeNull();
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText.Should().BeNull();
-        ability.Tooltip.ShortText.Should().BeNull();
-        ability.Tooltip.FullText!.RawDescription.Should().Be("After Channeling for...");
+        ability.CooldownText.Should().BeNull();
+        ability.Charges.Should().BeNull();
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText.Should().BeNull();
+        ability.ShortText.Should().BeNull();
+        ability.FullText!.RawDescription.Should().Be("After Channeling for...");
     }
 
     [TestMethod]
@@ -341,12 +341,12 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Taunt);
         ability.AbilityType.Should().Be(AbilityType.Taunt);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText.Should().BeNull();
-        ability.Tooltip.Charges.Should().BeNull();
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText.Should().BeNull();
-        ability.Tooltip.ShortText.Should().BeNull();
-        ability.Tooltip.FullText.Should().BeNull();
+        ability.CooldownText.Should().BeNull();
+        ability.Charges.Should().BeNull();
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText.Should().BeNull();
+        ability.ShortText.Should().BeNull();
+        ability.FullText.Should().BeNull();
     }
 
     [TestMethod]
@@ -376,12 +376,12 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Dance);
         ability.AbilityType.Should().Be(AbilityType.Dance);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText.Should().BeNull();
-        ability.Tooltip.Charges.Should().BeNull();
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText.Should().BeNull();
-        ability.Tooltip.ShortText.Should().BeNull();
-        ability.Tooltip.FullText.Should().BeNull();
+        ability.CooldownText.Should().BeNull();
+        ability.Charges.Should().BeNull();
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText.Should().BeNull();
+        ability.ShortText.Should().BeNull();
+        ability.FullText.Should().BeNull();
     }
 
     [TestMethod]
@@ -411,12 +411,12 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Spray);
         ability.AbilityType.Should().Be(AbilityType.Spray);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 3 seconds");
-        ability.Tooltip.Charges.Should().BeNull();
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText.Should().BeNull();
-        ability.Tooltip.ShortText.Should().BeNull();
-        ability.Tooltip.FullText!.RawDescription.Should().Be("Express yourself to other players by marking the ground with your selected spray.");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 3 seconds");
+        ability.Charges.Should().BeNull();
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText.Should().BeNull();
+        ability.ShortText.Should().BeNull();
+        ability.FullText!.RawDescription.Should().Be("Express yourself to other players by marking the ground with your selected spray.");
     }
 
     [TestMethod]
@@ -446,12 +446,12 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Voice);
         ability.AbilityType.Should().Be(AbilityType.Voice);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 7 seconds");
-        ability.Tooltip.Charges.Should().BeNull();
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText.Should().BeNull();
-        ability.Tooltip.ShortText.Should().BeNull();
-        ability.Tooltip.FullText!.RawDescription.Should().Be("Express yourself to other players by playing your selected Voice Line.");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 7 seconds");
+        ability.Charges.Should().BeNull();
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText.Should().BeNull();
+        ability.ShortText.Should().BeNull();
+        ability.FullText!.RawDescription.Should().Be("Express yourself to other players by playing your selected Voice Line.");
     }
 
     [TestMethod]
@@ -481,12 +481,12 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Heroic);
         ability.AbilityType.Should().Be(AbilityType.Heroic);
         ability.ToggleCooldown.Should().Be(0.5);
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 45 seconds");
-        ability.Tooltip.Charges.Should().BeNull();
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Mana: 60</s>");
-        ability.Tooltip.ShortText!.RawDescription.Should().Be("Channel to charge a long distance");
-        ability.Tooltip.FullText!.RawDescription.Should().Be("After channeling, Alarak charges forward...");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 45 seconds");
+        ability.Charges.Should().BeNull();
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Mana: 60</s>");
+        ability.ShortText!.RawDescription.Should().Be("Channel to charge a long distance");
+        ability.FullText!.RawDescription.Should().Be("After channeling, Alarak charges forward...");
     }
 
     [TestMethod]
@@ -516,12 +516,12 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Trait);
         ability.AbilityType.Should().Be(AbilityType.Trait);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText.Should().BeNull();
-        ability.Tooltip.Charges.Should().BeNull();
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText.Should().BeNull();
-        ability.Tooltip.ShortText!.RawDescription.Should().Be("Each point of Sadism increases Alarak's Ability damage...");
-        ability.Tooltip.FullText!.RawDescription.Should().Be("Alarak's Ability damage and self-healing are increased...");
+        ability.CooldownText.Should().BeNull();
+        ability.Charges.Should().BeNull();
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText.Should().BeNull();
+        ability.ShortText!.RawDescription.Should().Be("Each point of Sadism increases Alarak's Ability damage...");
+        ability.FullText!.RawDescription.Should().Be("Alarak's Ability damage and self-healing are increased...");
     }
 
     [TestMethod]
@@ -547,10 +547,10 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Basic);
         ability.AbilityType.Should().Be(AbilityType.E);
         ability.ToggleCooldown.Should().Be(0.125);
-        ability.Tooltip.CooldownText.Should().BeNull();
-        ability.Tooltip.Charges!.HasCharges.Should().BeFalse();
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText.Should().BeNull();
+        ability.CooldownText.Should().BeNull();
+        ability.Charges!.HasCharges.Should().BeFalse();
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText.Should().BeNull();
         ability.ToggleCooldown.Should().Be(0.125);
         ability.ParentAbilityElementId.Should().Be("AlarakLightningSurge");
     }
@@ -582,12 +582,12 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Basic);
         ability.AbilityType.Should().Be(AbilityType.Q);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 7 seconds");
-        ability.Tooltip.Charges.Should().BeNull();
-        ability.Tooltip.LifeText!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Health: </s><s val=\"StandardTooltipDetails\">15%</s>");
-        ability.Tooltip.EnergyText.Should().BeNull();
-        ability.Tooltip.ShortText!.RawDescription.Should().Be("Give a portion of Health to an allied Hero");
-        ability.Tooltip.FullText!.RawDescription.Should().Be("Sacrifice...");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 7 seconds");
+        ability.Charges.Should().BeNull();
+        ability.LifeText!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Health: </s><s val=\"StandardTooltipDetails\">15%</s>");
+        ability.EnergyText.Should().BeNull();
+        ability.ShortText!.RawDescription.Should().Be("Give a portion of Health to an allied Hero");
+        ability.FullText!.RawDescription.Should().Be("Sacrifice...");
     }
 
     [TestMethod]
@@ -617,12 +617,12 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Basic);
         ability.AbilityType.Should().Be(AbilityType.W);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 14 seconds");
-        ability.Tooltip.Charges.Should().BeNull();
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Mana: 75</s>");
-        ability.Tooltip.ShortText!.RawDescription.Should().Be("Heal allied Heroes in an area");
-        ability.Tooltip.FullText!.RawDescription.Should().Be("Plant a seed of healing that blooms after...");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 14 seconds");
+        ability.Charges.Should().BeNull();
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Mana: 75</s>");
+        ability.ShortText!.RawDescription.Should().Be("Heal allied Heroes in an area");
+        ability.FullText!.RawDescription.Should().Be("Plant a seed of healing that blooms after...");
     }
 
     [TestMethod]
@@ -652,12 +652,12 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Trait);
         ability.AbilityType.Should().Be(AbilityType.Trait);
         ability.ToggleCooldown.Should().Be(0.5);
-        ability.Tooltip.CooldownText.Should().BeNull();
-        ability.Tooltip.Charges.Should().BeNull();
-        ability.Tooltip.LifeText!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Life: </s><s val=\"StandardTooltipDetails\">222</s>");
-        ability.Tooltip.EnergyText.Should().BeNull();
-        ability.Tooltip.ShortText!.RawDescription.Should().Be("Restore Mana at the cost of Health");
-        ability.Tooltip.FullText!.RawDescription.Should().Be("Gul'dan does not regenerate Mana...");
+        ability.CooldownText.Should().BeNull();
+        ability.Charges.Should().BeNull();
+        ability.LifeText!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Life: </s><s val=\"StandardTooltipDetails\">222</s>");
+        ability.EnergyText.Should().BeNull();
+        ability.ShortText!.RawDescription.Should().Be("Restore Mana at the cost of Health");
+        ability.FullText!.RawDescription.Should().Be("Gul'dan does not regenerate Mana...");
     }
 
     [TestMethod]
@@ -687,12 +687,12 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Basic);
         ability.AbilityType.Should().Be(AbilityType.W);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 1 second");
-        ability.Tooltip.Charges.Should().BeNull();
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Fury: 25</s>");
-        ability.Tooltip.ShortText!.RawDescription.Should().Be("Damage an enemy and splash damage behind them");
-        ability.Tooltip.FullText!.RawDescription.Should().Be("Deals deals damage to...");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 1 second");
+        ability.Charges.Should().BeNull();
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText!.RawDescription.Should().Be("<s val=\"StandardTooltipDetails\">Fury: 25</s>");
+        ability.ShortText!.RawDescription.Should().Be("Damage an enemy and splash damage behind them");
+        ability.FullText!.RawDescription.Should().Be("Deals deals damage to...");
     }
 
     [TestMethod]
@@ -719,9 +719,9 @@ public class AbilityParserTests
         ability.AbilityType.Should().Be(AbilityType.Hidden);
         ability.IsActive.Should().BeTrue();
         ability.Icon.Should().Be("storm_temp_war3_btnloaddwarf.png");
-        ability.Tooltip.CooldownText.Should().BeNull();
-        ability.Tooltip.ShortText.Should().BeNull();
-        ability.Tooltip.FullText.Should().BeNull();
+        ability.CooldownText.Should().BeNull();
+        ability.ShortText.Should().BeNull();
+        ability.FullText.Should().BeNull();
     }
 
     [TestMethod]
@@ -748,9 +748,9 @@ public class AbilityParserTests
         ability.AbilityType.Should().Be(AbilityType.Hidden);
         ability.IsActive.Should().BeTrue();
         ability.Icon.Should().Be("storm_ui_temp_icon_cheatdeath.png");
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 4 seconds");
-        ability.Tooltip.ShortText.Should().BeNull();
-        ability.Tooltip.FullText.Should().BeNull();
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 4 seconds");
+        ability.ShortText.Should().BeNull();
+        ability.FullText.Should().BeNull();
     }
 
     [TestMethod]
@@ -797,8 +797,8 @@ public class AbilityParserTests
         ability.IsActive.Should().BeTrue();
         ability.Tier.Should().Be(AbilityTier.Heroic);
         ability.AbilityType.Should().Be(AbilityType.Heroic);
-        ability.Tooltip.ShortText!.RawDescription.Should().Be("Mirror Images can be controlled");
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 8 seconds");
+        ability.ShortText!.RawDescription.Should().Be("Mirror Images can be controlled");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 8 seconds");
         ability.Icon.Should().Be("storm_ui_icon_samuro_illusiondancer.png");
     }
 
@@ -824,8 +824,8 @@ public class AbilityParserTests
         ability.IsActive.Should().BeTrue();
         ability.Tier.Should().Be(AbilityTier.Trait);
         ability.AbilityType.Should().Be(AbilityType.Trait);
-        ability.Tooltip.ShortText!.RawDescription.Should().Be("Increase Movement Speed when attacking Heroes");
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 14 seconds");
+        ability.ShortText!.RawDescription.Should().Be("Increase Movement Speed when attacking Heroes");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 14 seconds");
         ability.Icon.Should().Be("storm_ui_icon_samuro_flowingstrikes.png");
         ability.TooltipAppendersTalentElementIds.Should().HaveCount(3).And
             .Contain(["SamuroAdvancingStrikesDeflection", "SamuroPressTheAttack", "SamuroBlademastersPursuit"]);
@@ -854,13 +854,13 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Heroic);
         ability.AbilityType.Should().Be(AbilityType.Heroic);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.Charges!.CountMax.Should().Be(6);
-        ability.Tooltip.Charges.CountStart.Should().Be(6);
-        ability.Tooltip.Charges.CountUse.Should().Be(0);
-        ability.Tooltip.Charges.HasCharges.Should().BeTrue();
-        ability.Tooltip.Charges.IsHideCount.Should().BeTrue();
-        ability.Tooltip.Charges.RecastCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 60 seconds");
+        ability.Charges!.CountMax.Should().Be(6);
+        ability.Charges.CountStart.Should().Be(6);
+        ability.Charges.CountUse.Should().Be(0);
+        ability.Charges.HasCharges.Should().BeTrue();
+        ability.Charges.IsHideCount.Should().BeTrue();
+        ability.Charges.RecastCooldown.Should().BeNull();
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 60 seconds");
     }
 
     [TestMethod]
@@ -886,13 +886,13 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Heroic);
         ability.AbilityType.Should().Be(AbilityType.Heroic);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.Charges!.CountMax.Should().Be(6);
-        ability.Tooltip.Charges.CountStart.Should().Be(6);
-        ability.Tooltip.Charges.CountUse.Should().Be(1);
-        ability.Tooltip.Charges.HasCharges.Should().BeTrue();
-        ability.Tooltip.Charges.IsHideCount.Should().BeFalse();
-        ability.Tooltip.Charges.RecastCooldown.Should().Be(1);
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 1 second");
+        ability.Charges!.CountMax.Should().Be(6);
+        ability.Charges.CountStart.Should().Be(6);
+        ability.Charges.CountUse.Should().Be(1);
+        ability.Charges.HasCharges.Should().BeTrue();
+        ability.Charges.IsHideCount.Should().BeFalse();
+        ability.Charges.RecastCooldown.Should().Be(1);
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 1 second");
     }
 
     [TestMethod]
@@ -918,13 +918,13 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Trait);
         ability.AbilityType.Should().Be(AbilityType.Trait);
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.Charges!.CountMax.Should().Be(50);
-        ability.Tooltip.Charges.CountStart.Should().BeNull();
-        ability.Tooltip.Charges.CountUse.Should().BeNull();
-        ability.Tooltip.Charges.HasCharges.Should().BeTrue();
-        ability.Tooltip.Charges.IsHideCount.Should().BeFalse();
-        ability.Tooltip.Charges.RecastCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 5 seconds");
+        ability.Charges!.CountMax.Should().Be(50);
+        ability.Charges.CountStart.Should().BeNull();
+        ability.Charges.CountUse.Should().BeNull();
+        ability.Charges.HasCharges.Should().BeTrue();
+        ability.Charges.IsHideCount.Should().BeFalse();
+        ability.Charges.RecastCooldown.Should().BeNull();
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 5 seconds");
     }
 
     private static void AssertAbathurSymbioteAbility(Ability ability)
@@ -935,11 +935,11 @@ public class AbilityParserTests
         ability.Icon.Should().Be("storm_ui_icon_abathur_symbiote.png");
         ability.IsActive.Should().BeTrue();
         ability.ToggleCooldown.Should().BeNull();
-        ability.Tooltip.CooldownText!.RawDescription.Should().Be("Cooldown: 4 seconds");
-        ability.Tooltip.LifeText.Should().BeNull();
-        ability.Tooltip.EnergyText.Should().BeNull();
-        ability.Tooltip.ShortText!.RawDescription.Should().Be("Assist an ally and gain new abilities");
-        ability.Tooltip.FullText!.RawDescription.Should().Be("Spawn and attach a Symbiote...");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 4 seconds");
+        ability.LifeText.Should().BeNull();
+        ability.EnergyText.Should().BeNull();
+        ability.ShortText!.RawDescription.Should().Be("Assist an ally and gain new abilities");
+        ability.FullText!.RawDescription.Should().Be("Spawn and attach a Symbiote...");
 
         // base on the number of validators
         ability.TooltipAppendersTalentElementIds.Should().HaveCount(3).And
