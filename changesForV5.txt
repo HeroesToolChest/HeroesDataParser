@@ -44,6 +44,7 @@ v5 changes heroes
 - 'fullTooltip' -> 'fullText'
 - 'energyTooltip -> 'energyText'
 - 'lifeTooltip -> 'lifeText'
+-  For Charges -> 'IsHideCount' -> 'IsCountHidden' 
 - 'subAbilities' changed to an object from an array
 - 'heroUnits' changed to an object from an array
 - For both abilities and talents, 'nameId' renamed

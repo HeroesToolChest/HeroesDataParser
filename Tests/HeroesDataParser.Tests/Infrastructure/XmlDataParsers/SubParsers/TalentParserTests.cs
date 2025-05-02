@@ -395,7 +395,7 @@ public class TalentParserTests
         talent.Charges.CountStart.Should().Be(1);
         talent.Charges.CountUse.Should().Be(1);
         talent.Charges.HasCharges.Should().BeTrue();
-        talent.Charges.IsHideCount.Should().BeTrue();
+        talent.Charges.IsCountHidden.Should().BeTrue();
         talent.Charges.RecastCooldown.Should().Be(1);
         talent.CooldownText!.RawDescription.Should().Be("Cooldown: 15 seconds");
         talent.TooltipAppendersTalentElementIds.Should().HaveCount(2).And
@@ -434,7 +434,7 @@ public class TalentParserTests
         talent.Charges.CountStart.Should().BeNull();
         talent.Charges.CountUse.Should().Be(1);
         talent.Charges.HasCharges.Should().BeTrue();
-        talent.Charges.IsHideCount.Should().BeFalse();
+        talent.Charges.IsCountHidden.Should().BeFalse();
         talent.Charges.RecastCooldown.Should().Be(8);
         talent.CooldownText!.RawDescription.Should().Be("Charge Cooldown: 30 seconds");
     }
@@ -471,7 +471,7 @@ public class TalentParserTests
         talent.Charges.CountStart.Should().BeNull();
         talent.Charges.CountUse.Should().Be(8);
         talent.Charges.HasCharges.Should().BeTrue();
-        talent.Charges.IsHideCount.Should().BeFalse();
+        talent.Charges.IsCountHidden.Should().BeFalse();
         talent.Charges.RecastCooldown.Should().Be(1);
         talent.CooldownText.Should().BeNull();
     }

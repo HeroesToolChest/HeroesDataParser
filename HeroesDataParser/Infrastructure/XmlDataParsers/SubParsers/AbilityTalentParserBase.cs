@@ -369,7 +369,7 @@ public class AbilityTalentParserBase : ParserBase
                 abilityTalent.Charges.CountUse = countUseData.Value.GetInt();
 
             if (chargeInnerData.TryGetElementDataAt("HideCount", out StormElementData? hideCountData))
-                abilityTalent.Charges.IsHideCount = hideCountData.Value.GetInt() == 1;
+                abilityTalent.Charges.IsCountHidden = hideCountData.Value.GetInt() == 1;
 
             if (chargeInnerData.TryGetElementDataAt("TimeUse", out StormElementData? timeUseData))
             {

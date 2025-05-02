@@ -858,7 +858,7 @@ public class AbilityParserTests
         ability.Charges.CountStart.Should().Be(6);
         ability.Charges.CountUse.Should().Be(0);
         ability.Charges.HasCharges.Should().BeTrue();
-        ability.Charges.IsHideCount.Should().BeTrue();
+        ability.Charges.IsCountHidden.Should().BeTrue();
         ability.Charges.RecastCooldown.Should().BeNull();
         ability.CooldownText!.RawDescription.Should().Be("Cooldown: 60 seconds");
     }
@@ -890,7 +890,7 @@ public class AbilityParserTests
         ability.Charges.CountStart.Should().Be(6);
         ability.Charges.CountUse.Should().Be(1);
         ability.Charges.HasCharges.Should().BeTrue();
-        ability.Charges.IsHideCount.Should().BeFalse();
+        ability.Charges.IsCountHidden.Should().BeFalse();
         ability.Charges.RecastCooldown.Should().Be(1);
         ability.CooldownText!.RawDescription.Should().Be("Cooldown: 1 second");
     }
@@ -922,7 +922,7 @@ public class AbilityParserTests
         ability.Charges.CountStart.Should().BeNull();
         ability.Charges.CountUse.Should().BeNull();
         ability.Charges.HasCharges.Should().BeTrue();
-        ability.Charges.IsHideCount.Should().BeFalse();
+        ability.Charges.IsCountHidden.Should().BeFalse();
         ability.Charges.RecastCooldown.Should().BeNull();
         ability.CooldownText!.RawDescription.Should().Be("Cooldown: 5 seconds");
     }
