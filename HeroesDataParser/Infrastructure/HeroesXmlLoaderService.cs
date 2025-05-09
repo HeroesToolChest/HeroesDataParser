@@ -1,5 +1,6 @@
 ﻿using CASCLib;
 using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -7,12 +8,14 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 {
     private readonly ILogger<HeroesXmlLoaderService> _logger;
     private readonly RootOptions _options;
+    private readonly ICustomConfigurationService _customConfigurationService;
     private readonly Stopwatch _stopwatch = new();
 
-    public HeroesXmlLoaderService(ILogger<HeroesXmlLoaderService> logger, IOptions<RootOptions> options)
+    public HeroesXmlLoaderService(ILogger<HeroesXmlLoaderService> logger, IOptions<RootOptions> options, ICustomConfigurationService customConfigurationService)
     {
         _logger = logger;
         _options = options.Value;
+        _customConfigurationService = customConfigurationService;
     }
 
     public HeroesXmlLoader HeroesXmlLoader { get; private set; } = null!;
@@ -56,6 +59,9 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 
                 HeroesXmlLoader.LoadStormMods();
 
+                AnsiConsole.MarkupLine("Loading data from custommods...");
+                LoadCustomStormMod();
+
                 _logger.LogInformation("Loading gamestrings...");
                 AnsiConsole.MarkupLine("Loading gamestrings...");
                 HeroesXmlLoader.LoadGameStrings();
@@ -64,7 +70,10 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
                 await Task.CompletedTask;
             });
 
+
+
         _logger.LogInformation("Heroes data loaded");
+
         AnsiConsole.MarkupLineInterpolated($"[green bold]Loading completed in {_stopwatch.Elapsed.TotalSeconds:0.####} seconds[/]");
     }
 
@@ -208,5 +217,38 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
         }
 
         return true;
+    }
+
+    private void LoadCustomStormMod()
+    {
+        ISet<string> files = _customConfigurationService.SelectedCustomDataFilePaths;
+
+        if (files.Count < 1)
+        {
+            _logger.LogInformation("No custom configuration files found");
+            return;
+        }
+
+        ManualModLoader manualModLoader = new("hdp");
+
+        foreach (string relativeFilePath in files)
+        {
+            if (!Path.Exists(relativeFilePath))
+            {
+                _logger.LogWarning("Custom configuration file {RelativeFilePath} does not exist", relativeFilePath);
+                continue;
+            }
+
+            XDocument xDoc = XDocument.Load(relativeFilePath);
+            if (xDoc.Root is null)
+            {
+                _logger.LogWarning("Custom configuration file {RelativeFilePath} root does not exist", relativeFilePath);
+                continue;
+            }
+
+            manualModLoader.AddElements(xDoc.Root.Elements());
+        }
+
+        HeroesXmlLoader.LoadCustomMod(manualModLoader);
     }
 }

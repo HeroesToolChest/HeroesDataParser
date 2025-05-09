@@ -1,5 +1,4 @@
-﻿using Serilog;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -8,13 +7,15 @@ public class PreloadService : IPreloadService
     private readonly ILogger<PreloadService> _logger;
     private readonly RootOptions _options;
     private readonly IParsingConfigurationService _parsingConfigurationService;
+    private readonly ICustomConfigurationService _customConfigurationService;
     private readonly Stopwatch _stopwatch = new();
 
-    public PreloadService(ILogger<PreloadService> logger, IOptions<RootOptions> options, IParsingConfigurationService parsingConfigurationService)
+    public PreloadService(ILogger<PreloadService> logger, IOptions<RootOptions> options, IParsingConfigurationService parsingConfigurationService, ICustomConfigurationService customConfigurationService)
     {
         _logger = logger;
         _options = options.Value;
         _parsingConfigurationService = parsingConfigurationService;
+        _customConfigurationService = customConfigurationService;
     }
 
     public void Preload()
@@ -25,7 +26,7 @@ public class PreloadService : IPreloadService
 
         _stopwatch.Start();
         LoadParsingConfiguration();
-        LoadOverriders();
+        LoadCustomConfigurationService();
         _stopwatch.Stop();
 
         AnsiConsole.MarkupLine($"Finished in {_stopwatch.Elapsed.TotalSeconds:0.###} seconds");
@@ -53,8 +54,18 @@ public class PreloadService : IPreloadService
         AnsiConsole.MarkupLine($"[aqua]Loaded {Path.GetFileName(_parsingConfigurationService.SelectedFilePath)}[/]");
     }
 
-    private void LoadOverriders()
+    private void LoadCustomConfigurationService()
     {
-        // TODO: Load overriders
+        _customConfigurationService.Load();
+
+        ISet<string> files = _customConfigurationService.SelectedCustomDataFilePaths;
+
+        AnsiConsole.MarkupLine($"[aqua]Loaded {files.Count} custom configuration files[/]");
+
+        foreach (string relativeFilePath in files)
+        {
+            AnsiConsole.MarkupLine($"[aqua]- {Path.GetFileName(relativeFilePath)}[/]");
+        }
+
     }
 }

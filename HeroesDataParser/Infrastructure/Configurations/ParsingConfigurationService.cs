@@ -1,9 +1,8 @@
-﻿using HeroesDataParser.Core.Models.ConfigParsing;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace HeroesDataParser.Infrastructure.Configurations;
 
-public class ParsingConfigurationService : IParsingConfigurationService
+public class ParsingConfigurationService : ConfigurationServiceBase, IParsingConfigurationService
 {
     private const string _parsingConfigFileNameNoExt = "parsing";
     private const string _parsingConfigExtension = ".json";
@@ -12,7 +11,6 @@ public class ParsingConfigurationService : IParsingConfigurationService
     private readonly string _parsingConfigurationDirectory = Path.Join("config-files", "parsing");
 
     private readonly ILogger<ParsingConfigurationService> _logger;
-    private readonly RootOptions _options;
     private readonly IFileProvider _fileProvider;
 
     private readonly SortedDictionary<int, string> _relativeFilePathsByBuild = [];
@@ -25,9 +23,9 @@ public class ParsingConfigurationService : IParsingConfigurationService
     };
 
     public ParsingConfigurationService(ILogger<ParsingConfigurationService> logger, IOptions<RootOptions> options, IFileProvider fileProvider)
+        : base(options.Value)
     {
         _logger = logger;
-        _options = options.Value;
         _fileProvider = fileProvider;
     }
 
@@ -36,10 +34,10 @@ public class ParsingConfigurationService : IParsingConfigurationService
 
     public string ParsingConfigurationDirectory => _parsingConfigurationDirectory;
 
-    public void Load()
+    public override void Load()
     {
         LoadFiles();
-        ProcessFile();
+        ProcessFiles();
     }
 
     public IEnumerable<string> FilterAllowedItems(string dataObjectType, IEnumerable<string> items)
@@ -67,16 +65,16 @@ public class ParsingConfigurationService : IParsingConfigurationService
         }
     }
 
-    private void LoadFiles()
+    protected override void LoadFiles()
     {
         _logger.LogInformation("Loading parsing configuration files");
 
-        // get all<fileName>_<build>.json files
+        // get all <fileName>_<build>.json files
         IDirectoryContents directoryContents = _fileProvider.GetDirectoryContents(_parsingConfigurationDirectory);
 
         foreach (IFileInfo fileInfo in directoryContents)
         {
-            if (fileInfo.IsDirectory || !fileInfo.Exists || fileInfo.PhysicalPath is null)
+            if (!fileInfo.Exists || fileInfo.PhysicalPath is null || fileInfo.IsDirectory)
                 continue;
 
             if (!fileInfo.Name.StartsWith(_parsingConfigFileNameNoExt, StringComparison.OrdinalIgnoreCase) || !fileInfo.Name.EndsWith(_parsingConfigExtension, StringComparison.OrdinalIgnoreCase))
@@ -107,42 +105,9 @@ public class ParsingConfigurationService : IParsingConfigurationService
         _logger.LogTrace("Parsing configuration files loaded: {@Files}", _relativeFilePathsByBuild);
     }
 
-    private void ProcessFile()
+    protected override void ProcessFiles()
     {
-        // check if a build number was set
-        if (_options.BuildNumber.HasValue)
-        {
-            // are there any files loaded
-            if (_relativeFilePathsByBuild.Count > 0)
-            {
-                // exact match
-                if (_relativeFilePathsByBuild.TryGetValue(_options.BuildNumber.Value, out string? filePath))
-                {
-                    SelectedFilePath = filePath;
-                }
-                else if (_options.BuildNumber.Value <= _relativeFilePathsByBuild.Keys.Min())
-                {
-                    // lowest build number
-                    SelectedFilePath = _relativeFilePathsByBuild.First().Value;
-                }
-                else
-                {
-                    // load next lowest
-                    int index = _relativeFilePathsByBuild.Keys.ToList().BinarySearch(_options.BuildNumber.Value);
-
-                    int closestLowerIndex = ~index - 1;
-                    if (closestLowerIndex >= 0)
-                    {
-                        SelectedFilePath = _relativeFilePathsByBuild.ElementAt(closestLowerIndex).Value;
-                    }
-                }
-            }
-        }
-        else if (_relativeFilePathsByBuild.Count > 0)
-        {
-            // default
-            SelectedFilePath = _relativeFilePathsByBuild.Last().Value;
-        }
+        SelectedFilePath = GetSelectedFilePath(_relativeFilePathsByBuild);
 
         if (string.IsNullOrWhiteSpace(SelectedFilePath))
         {

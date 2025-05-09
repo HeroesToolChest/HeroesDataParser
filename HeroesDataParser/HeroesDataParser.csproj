@@ -52,7 +52,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="config-files\overrides\" />
 	  <Folder Include="JsonConverters\" />
 	</ItemGroup>
 
@@ -63,7 +62,10 @@
 	  <None Update="appsettings.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="config-files\parsing\parsing.json">
+	  <None Update="config-files\custom\**\*.xml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="config-files\parsing\parsing*.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>

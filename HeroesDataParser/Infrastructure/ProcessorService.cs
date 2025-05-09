@@ -1,8 +1,4 @@
-﻿using Heroes.LocaleText;
-using Serilog.Context;
-using System.Collections.Immutable;
-using System.Runtime.InteropServices;
-using System.Xml.Linq;
+﻿using Serilog.Context;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -207,14 +203,14 @@ public class ProcessorService : IProcessorService
 
             var itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser, map);
 
-            await WriteToJson(map, itemsToSerialize);
+            await WriteToJson(itemsToSerialize, map);
             await WriteImages(itemsToSerialize);
 
             _logger.LogInformation("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeOfElementObjectName, typeOfParserName);
         }
     }
 
-    private async Task WriteToJson<TElementObject>(Map? map, Dictionary<string, TElementObject> itemsToSerialize)
+    private async Task WriteToJson<TElementObject>(Dictionary<string, TElementObject> itemsToSerialize, Map? map)
         where TElementObject : IElementObject
     {
         if (map is null)

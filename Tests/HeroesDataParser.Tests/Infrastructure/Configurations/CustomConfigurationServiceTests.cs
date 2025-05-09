@@ -1,0 +1,438 @@
+﻿using HeroesDataParser.Options;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Options;
+
+namespace HeroesDataParser.Infrastructure.Configurations.Tests;
+
+[TestClass]
+public class CustomConfigurationServiceTests
+{
+    private readonly ILogger<CustomConfigurationService> _logger;
+    private readonly IOptions<RootOptions> _options;
+    private readonly IFileProvider _fileProvider;
+
+    public CustomConfigurationServiceTests()
+    {
+        _logger = Substitute.For<ILogger<CustomConfigurationService>>();
+        _options = Substitute.For<IOptions<RootOptions>>();
+        _fileProvider = Substitute.For<IFileProvider>();
+    }
+
+    [TestMethod]
+    public void SelectedCustomDataFilePaths_Random_MatchesAppropriateBuilds()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            BuildNumber = 5800,
+            Extractors =
+            {
+                { "hero", new ExtractorOptions() },
+                { "announcer", new ExtractorOptions() },
+            },
+        });
+
+        IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
+        customDirectoryContents.Exists.Returns(true);
+        customDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("hero", true),
+            CreateFileInfo("someotherfile.xml", false),
+            CreateFileInfo("announcer", true),
+        }.GetEnumerator());
+
+        IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
+        heroDirectoryContents.Exists.Returns(true);
+        heroDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("Abathur.xml"),
+            CreateFileInfo("Abathur_1000.xml"),
+            CreateFileInfo("Abathur_2000.xml"),
+            CreateFileInfo("Abathur_3000.xml"),
+            CreateFileInfo("Alarak.xml"),
+            CreateFileInfo("Alarak_12455.xml"),
+            CreateFileInfo("Alarak_13455.xml"),
+            CreateFileInfo("Ana.xml"),
+            CreateFileInfo("someDirectory", true),
+        }.GetEnumerator());
+
+        IDirectoryContents announcerDirectoryContents = Substitute.For<IDirectoryContents>();
+        announcerDirectoryContents.Exists.Returns(true);
+        announcerDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("SomeFile.xml"),
+        }.GetEnumerator());
+
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom")).Returns(customDirectoryContents);
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom", "hero")).Returns(heroDirectoryContents);
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom", "announcer")).Returns(announcerDirectoryContents);
+
+        CustomConfigurationService customConfigurationService = new(_logger, _options, _fileProvider);
+        customConfigurationService.Load();
+
+        // act
+        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+
+        // assert
+        selectedPaths.Should().HaveCount(4)
+            .And.Contain(
+                [
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur.xml"),
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Alarak_12455.xml"),
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Ana.xml"),
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "announcer", "SomeFile.xml"),
+                ]);
+    }
+
+    [TestMethod]
+    public void SelectedCustomDataFilePaths_BuildNumberLowerThanFiles_MatchesLowestBuild()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            BuildNumber = 1,
+            Extractors =
+            {
+                { "hero", new ExtractorOptions() },
+            },
+        });
+
+        IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
+        customDirectoryContents.Exists.Returns(true);
+        customDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("hero", true),
+        }.GetEnumerator());
+
+        IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
+        heroDirectoryContents.Exists.Returns(true);
+        heroDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("Abathur.xml"),
+            CreateFileInfo("Abathur_1000.xml"),
+            CreateFileInfo("Abathur_2000.xml"),
+            CreateFileInfo("Abathur_3000.xml"),
+        }.GetEnumerator());
+
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom")).Returns(customDirectoryContents);
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom", "hero")).Returns(heroDirectoryContents);
+
+        CustomConfigurationService customConfigurationService = new(_logger, _options, _fileProvider);
+        customConfigurationService.Load();
+
+        // act
+        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+
+        // assert
+        selectedPaths.Should().HaveCount(1)
+            .And.Contain(
+                [
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur_1000.xml")
+                ]);
+    }
+
+    [TestMethod]
+    public void SelectedCustomDataFilePaths_BuildNumberHigherThanFiles_MatchesDefaultFile()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            BuildNumber = 99999,
+            Extractors =
+            {
+                { "hero", new ExtractorOptions() },
+                { "announcer", new ExtractorOptions() },
+            },
+        });
+
+        IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
+        customDirectoryContents.Exists.Returns(true);
+        customDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("hero", true),
+            CreateFileInfo("someotherfile.xml", false),
+            CreateFileInfo("announcer", true),
+        }.GetEnumerator());
+
+        IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
+        heroDirectoryContents.Exists.Returns(true);
+        heroDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("Abathur.xml"),
+            CreateFileInfo("Abathur_1000.xml"),
+            CreateFileInfo("Abathur_2000.xml"),
+            CreateFileInfo("Abathur_3000.xml"),
+            CreateFileInfo("Alarak.xml"),
+            CreateFileInfo("Alarak_12455.xml"),
+            CreateFileInfo("Alarak_13455.xml"),
+            CreateFileInfo("Ana.xml"),
+            CreateFileInfo("someDirectory", true),
+        }.GetEnumerator());
+
+        IDirectoryContents announcerDirectoryContents = Substitute.For<IDirectoryContents>();
+        announcerDirectoryContents.Exists.Returns(true);
+        announcerDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("SomeFile.xml"),
+        }.GetEnumerator());
+
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom")).Returns(customDirectoryContents);
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom", "hero")).Returns(heroDirectoryContents);
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom", "announcer")).Returns(announcerDirectoryContents);
+
+        CustomConfigurationService customConfigurationService = new(_logger, _options, _fileProvider);
+        customConfigurationService.Load();
+
+        // act
+        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+
+        // assert
+        selectedPaths.Should().HaveCount(4)
+            .And.Contain(
+                [
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur.xml"),
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Alarak.xml"),
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Ana.xml"),
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "announcer", "SomeFile.xml"),
+                ]);
+    }
+
+    [TestMethod]
+    public void SelectedCustomDataFilePaths_BuildNumberBetweenFiles_MatchesNextLowestBuild()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            BuildNumber = 2999,
+            Extractors =
+            {
+                { "hero", new ExtractorOptions() },
+                { "announcer", new ExtractorOptions() },
+            },
+        });
+
+        IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
+        customDirectoryContents.Exists.Returns(true);
+        customDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("hero", true),
+        }.GetEnumerator());
+
+        IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
+        heroDirectoryContents.Exists.Returns(true);
+        heroDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("Abathur.xml"),
+            CreateFileInfo("Abathur_1000.xml"),
+            CreateFileInfo("Abathur_2000.xml"),
+            CreateFileInfo("Abathur_3000.xml"),
+        }.GetEnumerator());
+
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom")).Returns(customDirectoryContents);
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom", "hero")).Returns(heroDirectoryContents);
+
+        CustomConfigurationService customConfigurationService = new(_logger, _options, _fileProvider);
+        customConfigurationService.Load();
+
+        // act
+        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+
+        // assert
+        selectedPaths.Should().ContainSingle()
+            .And.Contain(
+                [
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur_2000.xml")
+                ]);
+    }
+
+    [TestMethod]
+    public void SelectedCustomDataFilePaths_BuildNumberEqualsAFile_MatchesBuild()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            BuildNumber = 2000,
+            Extractors =
+            {
+                { "hero", new ExtractorOptions() },
+                { "announcer", new ExtractorOptions() },
+            },
+        });
+
+        IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
+        customDirectoryContents.Exists.Returns(true);
+        customDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("hero", true),
+        }.GetEnumerator());
+
+        IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
+        heroDirectoryContents.Exists.Returns(true);
+        heroDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("Abathur.xml"),
+            CreateFileInfo("Abathur_1000.xml"),
+            CreateFileInfo("Abathur_2000.xml"),
+            CreateFileInfo("Abathur_3000.xml"),
+        }.GetEnumerator());
+
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom")).Returns(customDirectoryContents);
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom", "hero")).Returns(heroDirectoryContents);
+
+        CustomConfigurationService customConfigurationService = new(_logger, _options, _fileProvider);
+        customConfigurationService.Load();
+
+        // act
+        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+
+        // assert
+        selectedPaths.Should().ContainSingle()
+            .And.Contain(
+                [
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur_2000.xml")
+                ]);
+    }
+
+    [TestMethod]
+    public void SelectedCustomDataFilePaths_NoBuildSet_MatchesHighestBuild()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            BuildNumber = null,
+            Extractors =
+            {
+                { "hero", new ExtractorOptions() },
+            },
+        });
+
+        IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
+        customDirectoryContents.Exists.Returns(true);
+        customDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("hero", true),
+        }.GetEnumerator());
+
+        IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
+        heroDirectoryContents.Exists.Returns(true);
+        heroDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("Abathur.xml"),
+            CreateFileInfo("Abathur_1000.xml"),
+            CreateFileInfo("Abathur_2000.xml"),
+            CreateFileInfo("Abathur_3000.xml"),
+            CreateFileInfo("Alarak.xml"),
+            CreateFileInfo("Alarak_12455.xml"),
+            CreateFileInfo("Alarak_13455.xml"),
+        }.GetEnumerator());
+
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom")).Returns(customDirectoryContents);
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom", "hero")).Returns(heroDirectoryContents);
+
+        CustomConfigurationService customConfigurationService = new(_logger, _options, _fileProvider);
+        customConfigurationService.Load();
+
+        // act
+        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+
+        // assert
+        selectedPaths.Should().HaveCount(2)
+            .And.Contain(
+                [
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur.xml"),
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Alarak.xml"),
+                ]);
+    }
+
+    [TestMethod]
+    public void SelectedCustomDataFilePaths_NoBuildSetWithNoFiles_SelectedPathShouldBeEmpty()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            BuildNumber = null,
+            Extractors =
+            {
+                { "hero", new ExtractorOptions() },
+            },
+        });
+
+        IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
+        customDirectoryContents.Exists.Returns(true);
+        customDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("hero", true),
+        }.GetEnumerator());
+
+        IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
+        heroDirectoryContents.Exists.Returns(true);
+        heroDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+        }.GetEnumerator());
+
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom")).Returns(customDirectoryContents);
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom", "hero")).Returns(heroDirectoryContents);
+
+        CustomConfigurationService customConfigurationService = new(_logger, _options, _fileProvider);
+        customConfigurationService.Load();
+
+        // act
+        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+
+        // assert
+        selectedPaths.Should().BeEmpty();
+    }
+
+    [TestMethod]
+    public void SelectedCustomDataFilePaths_NoExtractorsSet_SelectedPathShouldBeEmpty()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            BuildNumber = null,
+            Extractors = { },
+        });
+
+        IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
+        customDirectoryContents.Exists.Returns(true);
+        customDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("hero", true),
+        }.GetEnumerator());
+
+        IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
+        heroDirectoryContents.Exists.Returns(true);
+        heroDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("Abathur.xml"),
+            CreateFileInfo("Abathur_1000.xml"),
+            CreateFileInfo("Abathur_2000.xml"),
+            CreateFileInfo("Abathur_3000.xml"),
+            CreateFileInfo("Alarak.xml"),
+            CreateFileInfo("Alarak_12455.xml"),
+            CreateFileInfo("Alarak_13455.xml"),
+        }.GetEnumerator());
+
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom")).Returns(customDirectoryContents);
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom", "hero")).Returns(heroDirectoryContents);
+
+        CustomConfigurationService customConfigurationService = new(_logger, _options, _fileProvider);
+        customConfigurationService.Load();
+
+        // act
+        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+
+        // assert
+        selectedPaths.Should().BeEmpty();
+    }
+
+    private static IFileInfo CreateFileInfo(string name, bool isDirectory = false)
+    {
+        IFileInfo fileInfo = Substitute.For<IFileInfo>();
+        fileInfo.Exists.Returns(true);
+        fileInfo.Name.Returns(name);
+        fileInfo.IsDirectory.Returns(isDirectory);
+
+        return fileInfo;
+    }
+}

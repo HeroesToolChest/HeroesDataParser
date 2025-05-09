@@ -12,6 +12,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(builder.Environment.ContentRootFileProvider);
 
         services.AddSingleton<IParsingConfigurationService, ParsingConfigurationService>();
+        services.AddSingleton<ICustomConfigurationService, CustomConfigurationService>();
         services.AddSingleton<IPreloadService, PreloadService>();
 
         services.AddSingleton<IHeroesXmlLoaderService, HeroesXmlLoaderService>();

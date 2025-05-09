@@ -135,8 +135,6 @@ public class ParsingConfigurationServiceTests
     public void FilterAllowedItems_BuildNumberLowerThanFiles_MatchesLowestBuild()
     {
         // arrange
-        List<string> items = ["item1", "item2", "item3"];
-
         _options.Value.Returns(new RootOptions()
         {
             BuildNumber = 500,
@@ -173,8 +171,6 @@ public class ParsingConfigurationServiceTests
     public void FilterAllowedItems_BuildNumberHigherThanFiles_MatchesDefaultFile()
     {
         // arrange
-        List<string> items = ["item1", "item2", "item3"];
-
         _options.Value.Returns(new RootOptions()
         {
             BuildNumber = 99999,
@@ -211,8 +207,6 @@ public class ParsingConfigurationServiceTests
     public void FilterAllowedItems_BuildNumberBetweenFiles_MatchesNextLowestBuild()
     {
         // arrange
-        List<string> items = ["item1", "item2", "item3"];
-
         _options.Value.Returns(new RootOptions()
         {
             BuildNumber = 33332,
@@ -249,8 +243,6 @@ public class ParsingConfigurationServiceTests
     public void FilterAllowedItems_BuildNumberEqualsAFile_MatchesBuild()
     {
         // arrange
-        List<string> items = ["item1", "item2", "item3"];
-
         _options.Value.Returns(new RootOptions()
         {
             BuildNumber = 22222,
@@ -287,8 +279,6 @@ public class ParsingConfigurationServiceTests
     public void FilterAllowedItems_NoFilesLoaded_SelectedFilePathShouldBeNull()
     {
         // arrange
-        List<string> items = ["item1", "item2", "item3"];
-
         _options.Value.Returns(new RootOptions()
         {
             BuildNumber = 22222,
@@ -317,8 +307,6 @@ public class ParsingConfigurationServiceTests
     public void FilterAllowedItems_NoBuildSet_MatchesHighestBuild()
     {
         // arrange
-        List<string> items = ["item1", "item2", "item3"];
-
         _options.Value.Returns(new RootOptions()
         {
             BuildNumber = null,
@@ -355,8 +343,6 @@ public class ParsingConfigurationServiceTests
     public void FilterAllowedItems_NoBuildSetWithNoFiles_SelectedFilePathShouldBeNull()
     {
         // arrange
-        List<string> items = ["item1", "item2", "item3"];
-
         _options.Value.Returns(new RootOptions()
         {
             BuildNumber = null,
