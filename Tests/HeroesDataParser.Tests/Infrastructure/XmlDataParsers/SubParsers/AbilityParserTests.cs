@@ -556,6 +556,32 @@ public class AbilityParserTests
     }
 
     [TestMethod]
+    public void GetAbility_AlarakDeadlyChargeExecute2ndHeroicCommand_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAlarak";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("32");
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("AlarakDeadlyChargeExecute2ndHeroic|AlarakUnleashDeadlyCharge|Trait");
+        ability.IsActive.Should().BeTrue();
+        ability.Tier.Should().Be(AbilityTier.Trait);
+        ability.AbilityType.Should().Be(AbilityType.Trait);
+        ability.ToggleCooldown.Should().Be(0.25);
+        ability.ParentAbilityElementId.Should().Be("AlarakDeadlyChargeActivate2ndHeroic"); // extra
+    }
+
+    [TestMethod]
     public void GetAbility_AlexstraszaGiftOfLifeCommand_ReturnsAbility()
     {
         // arrange

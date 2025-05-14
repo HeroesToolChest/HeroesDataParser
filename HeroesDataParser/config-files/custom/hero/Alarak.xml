@@ -1,6 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
-  <!--<CAbilEffectInstant id="AlarakDeadlyChargeExecute">
-    <ParentAbil value="" />
-  </CAbilEffectInstant>-->
+  <CAbilEffectInstant id="AlarakDeadlyChargeExecute">
+    <ParentAbil value="AlarakDeadlyChargeActivate" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AlarakDeadlyChargeActivate2ndHeroic">
+    <ParentAbil value="AlarakDeadlyChargeSecondHeroic" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="AlarakDeadlyChargeExecute2ndHeroic">
+    <ParentAbil value="AlarakDeadlyChargeActivate2ndHeroic" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AlarakCounterStrikeTargeted2ndHeroic">
+    <ParentAbil value="AlarakCounterStrikeItem" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakLightningSurgeLightningBarrage">
+    <ParentAbil value="AlarakLightningBarrage" />
+  </CAbilEffectTarget>
 </Catalog>

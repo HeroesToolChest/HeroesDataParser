@@ -209,6 +209,7 @@ public class HeroParser : CollectionParserBase<Hero>
         SetInfoTextProperty(collectionObject, stormElement);
         SetTalentData(collectionObject, stormElement);
         SetTalentUpgradeLinkIds(collectionObject);
+        SetSubAbilitesToTalents(collectionObject);
     }
 
     protected override void SetValidatedProperties(Hero collectionObject)
@@ -231,10 +232,20 @@ public class HeroParser : CollectionParserBase<Hero>
             }
 
             // for each ability link id, add it to the talent
-            foreach (AbilityLinkId abilityLInkId in abilityLinkIds)
+            foreach (AbilityLinkId abilityLinkId in abilityLinkIds)
             {
-                talent.UpgradeLinkIds.AbilityLinkIds.Add(abilityLInkId);
+                talent.UpgradeLinkIds.AbilityLinkIds.Add(abilityLinkId);
             }
+        }
+    }
+
+    private static void SetSubAbilitesToTalents(Hero collectionObject)
+    {
+        IEnumerable<Ability> unknownSubAbilities = collectionObject.UnknownSubAbilities.SelectMany(x => x.Value);
+
+        foreach (Ability unknownSubAbility in unknownSubAbilities)
+        {
+            collectionObject.AddTalentSubAbility(unknownSubAbility);
         }
     }
 

@@ -161,4 +161,39 @@ public class UnitParserTests
         unit.SubAbilities.Should().ContainSingle();
         unit.SubAbilities.Should().ContainKey(new AbilityLinkId("AbathurEvolveMonstrosity", "AbathurEvolveMonstrosityHotbar", AbilityType.Heroic));
     }
+
+    [TestMethod]
+    public void Parse_AlarakDeadlyChargeExecute2ndHeroic_ReturnAsSubAbility()
+    {
+        // arrange
+        string unitId = "HeroAlarak";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        UnitParser unitParser = new(_logger, _heroesXmlLoaderService, _abilityParser);
+
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[32]")).Returns(new Ability()
+        {
+            AbilityElementId = "AlarakDeadlyChargeExecute2ndHeroic",
+            ButtonElementId = "AlarakUnleashDeadlyCharge",
+            AbilityType = AbilityType.Trait,
+            Tier = AbilityTier.Trait,
+            ParentAbilityElementId = "AlarakDeadlyChargeActivate2ndHeroic",
+        });
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[33]")).Returns(new Ability()
+        {
+            AbilityElementId = "AlarakDeadlyChargeActivate2ndHeroic",
+            ButtonElementId = "AlarakDeadlyCharge2ndHeroicSadism",
+            AbilityType = AbilityType.Trait,
+            Tier = AbilityTier.Trait,
+            ParentAbilityElementId = "AlarakDeadlyChargeSecondHeroic",
+        });
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        unit.SubAbilities.Should().BeEmpty(); // should be empty because the subabilites are children to talent abilities
+    }
 }

@@ -604,4 +604,20 @@
     </Cost>
     <CmdButtonArray index="Execute" DefaultButtonFace="DVaLiquidCooling" />
   </CAbilEffectInstant>
+  <CAbilEffectInstant id="AlarakDeadlyChargeExecute">
+    <Effect value="AlarakDeadlyChargeExecuteTriggerDummy" />
+    <Cost>
+      <Cooldown TimeUse="0.25" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakUnleashDeadlyCharge" ShowValidator="AlarakDeadlyChargeIsFirstHeroicAndChanneling" />
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="AlarakDeadlyChargeExecute2ndHeroic" parent="AlarakDeadlyChargeExecute">
+    <CmdButtonArray index="Execute" ShowValidator="AlarakDeadlyChargeIsSecondHeroicAndChanneling" />
+  </CAbilEffectInstant>
+  <!--test for subability-->
+  <CAbilEffectInstant id="AlarakDeadlyChargeExecute2ndHeroic">
+    <ParentAbil value="AlarakDeadlyChargeActivate2ndHeroic" />
+  </CAbilEffectInstant>
+
 </Abil>

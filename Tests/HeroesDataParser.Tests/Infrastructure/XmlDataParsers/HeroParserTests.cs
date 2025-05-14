@@ -119,7 +119,7 @@ public class HeroParserTests
         hero.HeroPortraits.TargetPortraitPath!.FilePath.Should().StartWith("Assets").And.EndWith("UI_targetportrait_Hero_Abathur.dds");
         hero.HeroPortraits.PartyFrames.Should().ContainSingle().And
             .Contain("storm_ui_ingame_partyframe_abathur.png");
-        hero.HeroPortraits.PartyFramePaths.Should().HaveCount(1);
+        hero.HeroPortraits.PartyFramePaths.Should().ContainSingle();
         hero.HeroPortraits.PartyFramePaths[0].FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_ingame_partyframe_Abathur.dds");
         hero.HeroPortraits.MiniMapIcon.Should().BeNull();
         hero.HeroPortraits.TargetInfoPanel.Should().BeNull();
@@ -251,5 +251,63 @@ public class HeroParserTests
         hero.Talents[TalentTier.Level1][1].LinkId.ToString().Should().Be("AbathurMasteryEnvenomedNestsToxicNest|AbathurToxicNestEnvenomedNestTalent|W");
         hero.Talents[TalentTier.Level1][1].UpgradeLinkIds.AbilityLinkIds.Should()
             .Contain([new AbilityLinkId("AbathurToxicNest", "AbathurToxicNest", AbilityType.W)]);
+    }
+
+    [TestMethod]
+    public void Parse_HasSubAbilitiesWithTalentParents_()
+    {
+        // arrange
+        string heroUnit = "Alarak";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        HeroParser heroParser = new(_logger, _heroesXmlLoaderService, _unitParser, _talentParser);
+
+        // unit part for alarak hero
+        _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
+            .Do(x =>
+            {
+                Unit argUnit = x.Arg<Unit>();
+                argUnit.Id = "HeroAlarak";
+                argUnit.AddAbility(new Ability()
+                {
+                    AbilityElementId = "someability",
+                    ButtonElementId = "someability",
+                    Tier = AbilityTier.Trait,
+                    AbilityType = AbilityType.Trait,
+                });
+                argUnit.AddSubAbility(new Ability()
+                {
+                    AbilityElementId = "AlarakDeadlyChargeExecute2ndHeroic",
+                    ButtonElementId = "AlarakUnleashDeadlyCharge",
+                    Tier = AbilityTier.Trait,
+                    AbilityType = AbilityType.Trait,
+                    ParentAbilityElementId = "AlarakDeadlyChargeActivate2ndHeroic",
+                });
+                argUnit.AddSubAbility(new Ability()
+                {
+                    AbilityElementId = "AlarakDeadlyChargeActivate2ndHeroic",
+                    ButtonElementId = "AlarakDeadlyCharge2ndHeroicSadism",
+                    Tier = AbilityTier.Trait,
+                    AbilityType = AbilityType.Trait,
+                    ParentAbilityElementId = "AlarakDeadlyChargeSecondHeroic",
+                });
+            });
+
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[0]")).Returns(new Talent()
+        {
+            TalentElementId = "AlarakDeadlyChargeSecondHeroic",
+            ButtonElementId = "AlarakDeadlyCharge",
+            Tier = TalentTier.Level20,
+            AbilityType = AbilityType.Heroic,
+        });
+
+        // act
+        Hero? hero = heroParser.Parse(heroUnit);
+
+        // assert
+        hero.Should().NotBeNull();
+        hero.SubAbilities.Should().HaveCount(2)
+            .And.ContainKeys(new AbilityLinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait), new TalentLinkId("AlarakDeadlyChargeSecondHeroic", "AlarakDeadlyCharge", AbilityType.Heroic));
     }
 }

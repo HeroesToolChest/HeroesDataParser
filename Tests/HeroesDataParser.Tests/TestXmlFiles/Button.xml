@@ -175,6 +175,11 @@
   <CButton id="AlarakRiteofRakShir" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_alarak_sadism_b.dds" />
   </CButton>
+  <CButton id="AlarakUnleashDeadlyCharge" parent="StormButtonParent">
+    <TooltipFlags index="ShowCooldown" value="0" />
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_recklesscharge.dds" />
+    <HotkeyAlias value="AlarakLightningSurge" />
+  </CButton>
   <CButton id="AlexstraszaGiftOfLife" parent="StormButtonParent">
     <TooltipVitalName index="Life" value="UI/Tooltip/Abil/CurrentLife" />
     <TooltipVitalName index="Shields" value="UI/Tooltip/Abil/Life" />
