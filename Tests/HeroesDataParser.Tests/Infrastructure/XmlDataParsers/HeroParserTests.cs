@@ -246,10 +246,10 @@ public class HeroParserTests
         hero.HeroUnits.Should().ContainSingle();
         hero.Talents[TalentTier.Level1].Should().HaveCount(2);
         hero.Talents[TalentTier.Level1][0].LinkId.ToString().Should().Be("AbathurMasteryPressurizedGlands|AbathurSymbiotePressurizedGlandsTalent|W");
-        hero.Talents[TalentTier.Level1][0].UpgradeLinkIds.AbilityLinkIds.Should()
+        hero.Talents[TalentTier.Level1][0].UpgradeLinkIds.Should()
             .Contain([new AbilityLinkId("AbathurSymbiote", "AbathurSymbiote", AbilityType.Q), new AbilityLinkId("AbathurSymbioteSpikeBurst", "AbathurSymbioteSpikeBurst", AbilityType.W)]);
         hero.Talents[TalentTier.Level1][1].LinkId.ToString().Should().Be("AbathurMasteryEnvenomedNestsToxicNest|AbathurToxicNestEnvenomedNestTalent|W");
-        hero.Talents[TalentTier.Level1][1].UpgradeLinkIds.AbilityLinkIds.Should()
+        hero.Talents[TalentTier.Level1][1].UpgradeLinkIds.Should()
             .Contain([new AbilityLinkId("AbathurToxicNest", "AbathurToxicNest", AbilityType.W)]);
     }
 
