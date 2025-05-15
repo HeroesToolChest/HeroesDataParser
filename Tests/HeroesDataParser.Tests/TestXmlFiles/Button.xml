@@ -172,12 +172,23 @@
     <Icon value="Assets\Textures\storm_ui_icon_alarak_lightningsurge.dds" />
     <HotkeyAlias value="AlarakLightningSurge" />
   </CButton>
+  <CButton id="AlarakLightningBarrage" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_lightningsurge.dds" />
+  </CButton>
   <CButton id="AlarakRiteofRakShir" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_alarak_sadism_b.dds" />
   </CButton>
   <CButton id="AlarakUnleashDeadlyCharge" parent="StormButtonParent">
     <TooltipFlags index="ShowCooldown" value="0" />
     <Icon value="Assets\Textures\storm_ui_icon_alarak_recklesscharge.dds" />
+    <HotkeyAlias value="AlarakLightningSurge" />
+  </CButton>
+  <CButton id="AlarakLightningSurgeLightningBarrage" parent="StormButtonParent">
+    <TooltipAppender Validator="AlarakHasSustainingPowerTalent" Face="AlarakSustainingPower" />
+    <TooltipAppender Validator="AlarakHasExtendedLightningTalent" Face="AlarakExtendedLightning" />
+    <TooltipAppender Validator="AlarakHasNegativelyChargedTalent" Face="AlarakNegativelyCharged" />
+    <TooltipAppender Validator="AlarakHasLightningBarrageTalent" Face="AlarakLightningBarrage" />
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_lightningsurge.dds" />
     <HotkeyAlias value="AlarakLightningSurge" />
   </CButton>
   <CButton id="AlexstraszaGiftOfLife" parent="StormButtonParent">

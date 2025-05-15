@@ -189,6 +189,10 @@
     <Active value="1" />
     <Trait value="1" />
   </CTalent>
+  <CTalent id="AlarakLightningBarrage">
+    <Face value="AlarakLightningBarrage" />
+    <Abil value="AlarakLightningSurge" />
+  </CTalent>
   <CTalent id="SamuroThreeBladeStyle">
     <Face value="SamuroThreeBladeStyleTalent" />
     <Abil value="SamuroIllusionMaster" />

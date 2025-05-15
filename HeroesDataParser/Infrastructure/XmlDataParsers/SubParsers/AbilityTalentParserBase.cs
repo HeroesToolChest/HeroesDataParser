@@ -402,6 +402,9 @@ public class AbilityTalentParserBase : ParserBase
                 else
                     abilityTalent.CooldownText = GetTooltipDescriptionFromGameString(cooldownTooltipFinal);
             }
+
+            if (abilityTalent.Charges.HasCharges is false)
+                abilityTalent.Charges = null;
         }
     }
 

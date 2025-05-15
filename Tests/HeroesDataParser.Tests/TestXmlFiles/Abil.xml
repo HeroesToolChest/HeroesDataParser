@@ -249,6 +249,30 @@
     <Arc value="360" />
     <CmdButtonArray index="Execute" DefaultButtonFace="AlarakRiteofRakShir" />
   </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakLightningSurgeLightningBarrage">
+    <PrepEffect value="AlarakLightningSurgePrepSet" />
+    <Effect value="AlarakLightningSurgeCastSet" />
+    <Flags index="BestUnit" value="0" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Cost>
+      <Charge Link="Abil/AlarakLightningSurge" />
+      <Cooldown Link="Abil/Alarak/LightningSurgeLightningBarrage" TimeUse="0.125" />
+    </Cost>
+    <InterruptCost>
+      <Charge Link="Abil/AlarakLightningSurge" />
+      <Cooldown Link="Abil/AlarakLightningSurge" />
+    </InterruptCost>
+    <TargetFilters value="Visible;Self,Player,Ally,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="10" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CursorEffect value="AlarakLightningSurgeSearch16" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakLightningSurgeLightningBarrage" Requirements="HasLightningSurgeLightningBarrageFreeCast">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <ParentAbil value="AlarakLightningSurge" />
+  </CAbilEffectTarget>
   <CAbilEffectInstant id="AbathurAssumingDirectControlCancel">
     <Effect value="AbathurAssumingDirectControlCancelSet" />
     <Flags index="ClearLastAttackTargetOutOfRange" value="1" />

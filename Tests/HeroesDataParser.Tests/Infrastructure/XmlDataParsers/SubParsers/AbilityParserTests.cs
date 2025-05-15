@@ -548,7 +548,7 @@ public class AbilityParserTests
         ability.AbilityType.Should().Be(AbilityType.E);
         ability.ToggleCooldown.Should().Be(0.125);
         ability.CooldownText.Should().BeNull();
-        ability.Charges!.HasCharges.Should().BeFalse();
+        ability.Charges.Should().BeNull();
         ability.LifeText.Should().BeNull();
         ability.EnergyText.Should().BeNull();
         ability.ToggleCooldown.Should().Be(0.125);
@@ -579,6 +579,29 @@ public class AbilityParserTests
         ability.AbilityType.Should().Be(AbilityType.Trait);
         ability.ToggleCooldown.Should().Be(0.25);
         ability.ParentAbilityElementId.Should().Be("AlarakDeadlyChargeActivate2ndHeroic"); // extra
+    }
+
+    [TestMethod]
+    public void GetAbility_AlarakLightningSurgeLightningBarrageAbil_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAlarak";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("27").GetElementDataAt("Link").Value.GetString();
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(abilArrayLinkValue);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.IsActive.Should().BeTrue();
+        ability.ToggleCooldown.Should().Be(0.125);
+        ability.Charges.Should().BeNull();
     }
 
     [TestMethod]
