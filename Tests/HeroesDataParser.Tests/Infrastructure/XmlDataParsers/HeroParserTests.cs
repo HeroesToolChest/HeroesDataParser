@@ -254,7 +254,7 @@ public class HeroParserTests
     }
 
     [TestMethod]
-    public void Parse_HasSubAbilitiesWithTalentParents_()
+    public void Parse_HasSubAbilitiesWithTalentParents_ReturnsSubAbilities()
     {
         // arrange
         string heroUnit = "Alarak";
@@ -308,6 +308,8 @@ public class HeroParserTests
         // assert
         hero.Should().NotBeNull();
         hero.SubAbilities.Should().HaveCount(2)
-            .And.ContainKeys(new AbilityLinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait), new TalentLinkId("AlarakDeadlyChargeSecondHeroic", "AlarakDeadlyCharge", AbilityType.Heroic));
+            .And.ContainKeys(
+                new AbilityLinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait),
+                new TalentLinkId("AlarakDeadlyChargeSecondHeroic", "AlarakDeadlyCharge", AbilityType.Heroic));
     }
 }
