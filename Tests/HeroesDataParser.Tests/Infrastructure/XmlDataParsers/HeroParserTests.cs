@@ -1,7 +1,4 @@
-﻿using Heroes.Element.Models;
-using Heroes.Element.Models.AbilityTalents;
-
-namespace HeroesDataParser.Infrastructure.XmlDataParsers.Tests;
+﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers.Tests;
 
 [TestClass]
 public class HeroParserTests
@@ -311,5 +308,88 @@ public class HeroParserTests
             .And.ContainKeys(
                 new AbilityLinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait),
                 new TalentLinkId("AlarakDeadlyChargeSecondHeroic", "AlarakDeadlyCharge", AbilityType.Heroic));
+    }
+
+    [TestMethod]
+    public void Parse_AlarakShowofForceTalentUpgradeLinkIds_TalentUpgradeLinksAreSet()
+    {
+        // arrange
+        string heroUnit = "Alarak";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        HeroParser heroParser = new(_logger, _heroesXmlLoaderService, _unitParser, _talentParser);
+
+        Ability sadismAbility = new()
+        {
+            AbilityElementId = AbilityTalentParserBase.PassiveAbilityElementId,
+            ButtonElementId = "AlarakSadism",
+            Tier = AbilityTier.Trait,
+            AbilityType = AbilityType.Trait,
+            TooltipAppendersTalentElementIds =
+            {
+                "AlarakShowofForce",
+            },
+        };
+
+        Ability alarakCounterStrikeTargeted2ndHeroicAbility = new()
+        {
+            AbilityElementId = "AlarakCounterStrikeTargeted2ndHeroic",
+            ButtonElementId = "AlarakCounterStrike2ndHeroicSadism",
+            Tier = AbilityTier.Trait,
+            AbilityType = AbilityType.Trait,
+            TooltipAppendersTalentElementIds =
+            {
+                "AlarakShowofForce",
+            },
+        };
+
+        Ability alarakDeadlyChargeActivate2ndHeroicmAbility = new()
+        {
+            AbilityElementId = "AlarakDeadlyChargeActivate2ndHeroic",
+            ButtonElementId = "AlarakDeadlyCharge2ndHeroicSadism",
+            Tier = AbilityTier.Trait,
+            AbilityType = AbilityType.Trait,
+            TooltipAppendersTalentElementIds =
+            {
+                "AlarakShowofForce",
+            },
+        };
+
+        // unit part for alark hero
+        _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
+            .Do(x =>
+            {
+                Unit argUnit = x.Arg<Unit>();
+                argUnit.Id = "HeroAlarak";
+                argUnit.AddAbility(sadismAbility);
+                argUnit.AddAbility(alarakCounterStrikeTargeted2ndHeroicAbility);
+                argUnit.AddAbility(alarakDeadlyChargeActivate2ndHeroicmAbility);
+                argUnit.AddAbilityByTooltipTalentElementId("AlarakShowofForce", sadismAbility);
+                argUnit.AddAbilityByTooltipTalentElementId("AlarakShowofForce", alarakCounterStrikeTargeted2ndHeroicAbility);
+                argUnit.AddAbilityByTooltipTalentElementId("AlarakShowofForce", alarakDeadlyChargeActivate2ndHeroicmAbility);
+            });
+
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[5]")).Returns(new Talent()
+        {
+            TalentElementId = "AlarakShowofForce",
+            ButtonElementId = "AlarakShowofForce",
+            Tier = TalentTier.Level4,
+            AbilityType = AbilityType.Trait,
+        });
+
+        // act
+        Hero? hero = heroParser.Parse(heroUnit);
+
+        // assert
+        hero.Should().NotBeNull();
+        hero.Talents[TalentTier.Level4].Should().ContainSingle();
+        hero.Talents[TalentTier.Level4][0].UpgradeLinkIds.Should()
+            .Contain(
+                [
+                    new AbilityLinkId(":PASSIVE:", "AlarakSadism", AbilityType.Trait),
+                    new AbilityLinkId("AlarakCounterStrikeTargeted2ndHeroic", "AlarakCounterStrike2ndHeroicSadism", AbilityType.Trait),
+                    new AbilityLinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait),
+                ]);
     }
 }

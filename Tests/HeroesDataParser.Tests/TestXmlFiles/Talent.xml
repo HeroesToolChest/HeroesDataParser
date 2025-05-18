@@ -193,6 +193,10 @@
     <Face value="AlarakLightningBarrage" />
     <Abil value="AlarakLightningSurge" />
   </CTalent>
+  <CTalent id="AlarakShowofForce">
+    <Face value="AlarakShowofForce" />
+    <Trait value="1" />
+  </CTalent>
   <CTalent id="SamuroThreeBladeStyle">
     <Face value="SamuroThreeBladeStyleTalent" />
     <Abil value="SamuroIllusionMaster" />

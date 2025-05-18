@@ -1,8 +1,4 @@
-﻿using Heroes.Element.Models.AbilityTalents;
-using HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
+﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
 
 [TestClass]
 public class TalentParserTests
@@ -360,6 +356,35 @@ public class TalentParserTests
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level13);
+    }
+
+    [TestMethod]
+    public void GetTalent_AlarakShowofForce_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Alarak";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("5");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("AlarakShowofForce|AlarakShowofForce|Trait");
+        talent.Column.Should().Be(3);
+        talent.CreatedUnits.Should().BeEmpty();
+        talent.AbilityType.Should().Be(AbilityType.Trait);
+        talent.IsActive.Should().BeFalse();
+        talent.IsQuest.Should().BeFalse();
+        talent.Tier.Should().Be(TalentTier.Level4);
     }
 
     [TestMethod]

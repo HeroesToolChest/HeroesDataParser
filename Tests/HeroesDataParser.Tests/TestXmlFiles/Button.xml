@@ -191,6 +191,27 @@
     <Icon value="Assets\Textures\storm_ui_icon_alarak_lightningsurge.dds" />
     <HotkeyAlias value="AlarakLightningSurge" />
   </CButton>
+  <CButton id="AlarakShowofForce" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_sadism.dds" />
+  </CButton>
+  <CButton id="AlarakDeadlyCharge2ndHeroicSadism" parent="StormButtonParentTrait">
+    <TooltipAppender Validator="AlarakHasRuthlessMomentumTalent" Face="AlarakRuthlessMomentum" />
+    <TooltipAppender Validator="AlarakHasShowofForceTalent" Face="AlarakShowofForce" />
+    <TooltipAppender Validator="AlarakHasBladeoftheHighlordTalent" Face="AlarakBladeoftheHighlord" />
+    <TooltipAppender Validator="AlarakHasPureMaliceTalent" Face="AlarakPureMalice" />
+    <TooltipAppender Validator="AlarakHasMockingStrikesTalent" Face="AlarakMockingStrikes" />
+    <TooltipCooldownOverrideText value="Abil/AlarakDeadlyChargeItemButtonCooldownCostOverride" />
+    <TooltipVitalOverrideText index="Energy" value="Abil/AlarakDeadlyChargeItemButtonVitalCostOverride" />
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_recklesscharge.dds" />
+  </CButton>
+  <CButton id="AlarakCounterStrike2ndHeroicSadism" parent="StormButtonParentTrait">
+    <TooltipAppender Validator="AlarakHasShowofForceTalent" Face="AlarakShowofForce" />
+    <TooltipAppender Validator="AlarakHasRuthlessMomentumTalent" Face="AlarakRuthlessMomentum" />
+    <TooltipAppender Validator="AlarakHasBladeoftheHighlordTalent" Face="AlarakBladeoftheHighlord" />
+    <TooltipAppender Validator="AlarakHasPureMaliceTalent" Face="AlarakPureMalice" />
+    <TooltipAppender Validator="AlarakHasMockingStrikesTalent" Face="AlarakMockingStrikes" />
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_counterstrike.dds" />
+  </CButton>
   <CButton id="AlexstraszaGiftOfLife" parent="StormButtonParent">
     <TooltipVitalName index="Life" value="UI/Tooltip/Abil/CurrentLife" />
     <TooltipVitalName index="Shields" value="UI/Tooltip/Abil/Life" />
