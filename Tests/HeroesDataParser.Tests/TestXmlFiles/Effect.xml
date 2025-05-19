@@ -4,4 +4,50 @@
     <Marker Link="Effect/MuradinWeaponDamage" />
     <Amount value="26" />
   </CEffectDamage>
+  <CEffectCreateUnit id="ToxicNestCreateUnit">
+    <ValidatorArray value="AbathurToxicNestInRangeorHasProlificDispersalCombine" />
+    <WhichLocation Value="TargetPoint" />
+    <SpawnUnit value="AbathurToxicNest" />
+    <SpawnRange value="6" />
+    <SpawnEffect value="AbathurToxicNestApplyArmingBehavior" />
+    <CreateFlags index="OffsetByRadius" value="0" />
+    <CreateFlags index="NormalizeSpawnOffset" value="0" />
+  </CEffectCreateUnit>
+  <CEffectSet id="AbathurToxicNestInitialSet">
+    <EffectArray value="ToxicNestCreateUnit" />
+    <TargetLocationType value="Point" />
+    <ValidatorArray value="TargetPointWalkable" />
+  </CEffectSet>
+  <CEffectCreateUnit id="LocustSpawnCreateNormalUnit">
+    <ValidatorArray value="SourceNotDead" />
+    <WhichLocation Value="SourcePoint" />
+    <SpawnEffect value="LocustSpawnLanerDummy" />
+    <SpawnUnit value="AbathurLocustNormal" />
+    <SpawnRange value="2" />
+  </CEffectCreateUnit>
+  <CEffectSwitch id="LocustSpawnLocustSwitch">
+    <CaseArray Validator="HasAbathurAssaultStrain" Effect="LocustSpawnCreateAssaultUnit" />
+    <CaseArray Validator="HasAbathurBombardStrain" Effect="LocustSpawnCreateBombardUnit" />
+    <CaseDefault value="LocustSpawnCreateNormalUnit" />
+  </CEffectSwitch>
+  <CEffectRemoveBehavior id="AbathurEvolveMonstrosityRemoveAbathurStack">
+    <WhichUnit Value="Caster" />
+    <BehaviorLink value="AbathurEvolveMonstrosityAbathurStack" />
+    <Count value="40" />
+  </CEffectRemoveBehavior>
+  <CEffectCreateUnit id="AbathurEvolveMonstrosityCreateUnit">
+    <SpawnEffect value="AbathurEvolveMonstrositySpawnSet" />
+    <SpawnUnit value="AbathurEvolvedMonstrosity" />
+    <CreateFlags index="OffsetByRadius" value="0" />
+    <CreateFlags index="Placement" value="0" />
+  </CEffectCreateUnit>
+  <CEffectSet id="AbathurEvolveMonstrosityInitialSet">
+    <EffectArray value="AbathurEvolveMonstrosityRemoveAbathurStack" />
+    <EffectArray value="AbathurEvolveMonstrosityApplyCollisionSuppresser" />
+    <EffectArray value="AbathurEvolveMonstrosityCreateUnit" />
+    <EffectArray value="EvolveMonstrosityApplyActiveBehavior" />
+    <ValidatorArray value="TargetIsAbathurLocustorMinion" />
+    <ValidatorArray value="TargetIsNotABossUnitOrMonsterMinorCombine" />
+    <ValidatorArray value="TargetNotMerc" />
+  </CEffectSet>
 </Effect>

@@ -61,7 +61,7 @@ public class TalentParserTests
         talent.CooldownText.Should().BeNull();
         talent.EnergyText.Should().BeNull();
         talent.LifeText.Should().BeNull();
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.W);
         talent.Tier.Should().Be(TalentTier.Level1);
         talent.TooltipAppendersTalentElementIds.Should().BeEmpty();
@@ -105,10 +105,53 @@ public class TalentParserTests
         talent.CooldownText.Should().BeNull();
         talent.EnergyText.Should().BeNull();
         talent.LifeText.Should().BeNull();
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.W);
         talent.Tier.Should().Be(TalentTier.Level1);
     }
+
+    //[TestMethod]
+    //public void GetTalent_AbathurMasteryEnvenomedNestsToxicNest_ReturnsTalent()
+    //{
+    //    // arrange
+    //    string heroUnit = "Abathur";
+
+    //    _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+    //    StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+    //    StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("1");
+
+    //    Hero hero = new(heroUnit);
+    //    hero.AddAbility(new Ability()
+    //    {
+    //        AbilityElementId = "AbathurToxicNest",
+    //        ButtonElementId = "AbathurToxicNest",
+    //        AbilityType = AbilityType.W,
+    //    });
+
+    //    TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+
+    //    // act
+    //    Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+    //    // assert
+    //    talent.Should().NotBeNull();
+    //    talent.LinkId.ToString().Should().Be("AbathurMasteryEnvenomedNestsToxicNest|AbathurToxicNestEnvenomedNestTalent|W");
+    //    talent.TalentElementId.Should().Be("AbathurMasteryEnvenomedNestsToxicNest");
+    //    talent.ButtonElementId.Should().Be("AbathurToxicNestEnvenomedNestTalent");
+    //    talent.Icon.Should().Be("storm_ui_icon_abathur_toxicnest.png");
+    //    talent.Name!.RawDescription.Should().Be("Envenomed Nest");
+    //    talent.Column.Should().Be(2);
+    //    talent.ShortText!.RawDescription.Should().Be("Toxic Nests deal more damage, reduce Armor");
+    //    talent.FullText!.RawDescription.Should().Be("Toxic Nests deal");
+    //    talent.Charges.Should().BeNull();
+    //    talent.CooldownText.Should().BeNull();
+    //    talent.EnergyText.Should().BeNull();
+    //    talent.LifeText.Should().BeNull();
+    //    talent.SummonedUnitIds.Should().BeEmpty();
+    //    talent.AbilityType.Should().Be(AbilityType.W);
+    //    talent.Tier.Should().Be(TalentTier.Level1);
+    //}
 
     [TestMethod]
     public void GetTalent_AbathurCombatStyleSurvivalInstincts_ReturnsTalent()
@@ -141,7 +184,7 @@ public class TalentParserTests
         talent.CooldownText.Should().BeNull();
         talent.EnergyText.Should().BeNull();
         talent.LifeText.Should().BeNull();
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
         talent.IsActive.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level1);
@@ -180,7 +223,7 @@ public class TalentParserTests
         talent.CooldownText!.RawDescription.Should().Be("Cooldown: 70 seconds");
         talent.EnergyText.Should().BeNull();
         talent.LifeText.Should().BeNull();
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Heroic);
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
@@ -245,7 +288,7 @@ public class TalentParserTests
         talent.FullText!.RawDescription.Should().Be("Activate to calldown a Mule that repairs Structures");
         talent.EnergyText.Should().BeNull();
         talent.LifeText.Should().BeNull();
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Active);
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
@@ -286,7 +329,7 @@ public class TalentParserTests
         talent.CooldownText!.RawDescription.Should().Be("Cooldown: 60 seconds");
         talent.EnergyText.Should().BeNull();
         talent.LifeText.Should().BeNull();
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
@@ -322,7 +365,7 @@ public class TalentParserTests
         talent.TalentElementId.Should().Be("AlarakExtendedLightning");
         talent.ButtonElementId.Should().Be("AlarakExtendedLightning");
         talent.Column.Should().Be(3);
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.E);
         talent.IsActive.Should().BeFalse();
         talent.IsQuest.Should().BeTrue();
@@ -351,7 +394,7 @@ public class TalentParserTests
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("AlarakRiteofRakShir|AlarakRiteofRakShir|Trait");
         talent.Column.Should().Be(3);
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
@@ -380,7 +423,7 @@ public class TalentParserTests
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("AlarakShowofForce|AlarakShowofForce|Trait");
         talent.Column.Should().Be(3);
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
         talent.IsActive.Should().BeFalse();
         talent.IsQuest.Should().BeFalse();
@@ -411,7 +454,7 @@ public class TalentParserTests
         talent.TalentElementId.Should().Be("GarroshArmorUpBodyCheck");
         talent.ButtonElementId.Should().Be("GarroshArmorUpBodyCheck");
         talent.Column.Should().Be(3);
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Active);
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
@@ -449,7 +492,7 @@ public class TalentParserTests
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("BarbarianBattleRage|BarbarianBattleRage|Active");
         talent.Column.Should().Be(3);
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Active);
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
@@ -486,7 +529,7 @@ public class TalentParserTests
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("ThrallAncestralWrath|ThrallAncestralWrath|Active");
         talent.Column.Should().Be(2);
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Active);
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
@@ -529,7 +572,7 @@ public class TalentParserTests
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("GallKeepMoving|GallKeepMoving|Z");
         talent.Column.Should().Be(1);
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Z);
         talent.IsActive.Should().BeFalse();
         talent.IsQuest.Should().BeFalse();
@@ -566,7 +609,7 @@ public class TalentParserTests
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("AnubarakCombatStyleLegionOfBeetles|AnubarakLegionOfBeetlesTalent|Trait");
         talent.Column.Should().Be(2);
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
         talent.IsActive.Should().BeFalse();
         talent.IsQuest.Should().BeFalse();
@@ -603,7 +646,7 @@ public class TalentParserTests
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("DVaLiquidCooling|DVaLiquidCooling|Active");
         talent.Column.Should().Be(3);
-        talent.CreatedUnits.Should().BeEmpty();
+        talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Active);
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();

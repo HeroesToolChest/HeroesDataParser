@@ -85,7 +85,7 @@ public class UnitParserTests
         unit.UnitPortraits.MiniMapIconPath!.FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_minimapicon_heros_infestor.dds");
         unit.UnitPortraits.TargetInfoPanel.Should().Be("storm_ui_ingame_partyframe_abathur.png");
         unit.UnitPortraits.TargetInfoPanelPath!.FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_ingame_partyframe_Abathur.dds");
-        unit.UnitIds.Should().BeEmpty();
+        unit.SummonedUnitIds.Should().BeEmpty();
         unit.Weapons.Should().ContainSingle();
         unit.TooltipTalentElementIdCount.Should().Be(3);
         unit.GetTooltipAbilityLinkIdsByTalentElementId("AbathurVolatileMutation").Should().ContainSingle().And
@@ -151,6 +151,7 @@ public class UnitParserTests
             AbilityElementId = "AbathurEvolveMonstrosity",
             ButtonElementId = "AbathurEvolveMonstrosityHotbar",
             AbilityType = AbilityType.Heroic,
+            SummonedUnitIds = { "AbathurEvolveMonstrosity" },
         });
 
         // act
@@ -160,6 +161,7 @@ public class UnitParserTests
         unit.Should().NotBeNull();
         unit.SubAbilities.Should().ContainSingle();
         unit.SubAbilities.Should().ContainKey(new AbilityLinkId("AbathurEvolveMonstrosity", "AbathurEvolveMonstrosityHotbar", AbilityType.Heroic));
+        unit.SummonedUnitIds.Should().ContainInConsecutiveOrder("AbathurEvolveMonstrosity");
     }
 
     [TestMethod]

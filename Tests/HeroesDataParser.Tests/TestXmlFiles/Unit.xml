@@ -22,6 +22,69 @@
     <FlagArray index="PlayerRevivable" value="1" />
     <FlagArray index="CameraFollow" value="1" />
   </CUnit>
+  <CUnit default="1" id="StormSummonInactive">
+    <FlagArray index="UseLineOfSight" value="1" />
+    <FlagArray index="KillCredit" value="0" />
+    <FlagArray index="VisionTestCenterOnly" value="1" />
+    <FlagArray index="Unstoppable" value="1" />
+    <Response value="Nothing" />
+    <Attributes index="NoMinionAggro" value="1" />
+    <Attributes index="ImmuneToSkillshots" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <Attributes index="Summoned" value="1" />
+    <MinimapRadius value="0" />
+  </CUnit>
+  <CUnit default="1" id="StormMinorUnit">
+    <DeathRevealRadius value="3" />
+    <FlagArray index="Unclickable" value="0" />
+    <FlagArray index="Unhighlightable" value="0" />
+    <FlagArray index="UseLineOfSight" value="1" />
+    <FlagArray index="VisionTestCenterOnly" value="1" />
+    <FlagArray index="LeechBehaviorShieldDamage" value="1" />
+    <FlagArray index="DisableLeashing" value="1" />
+    <PlaneArray index="Ground" value="1" />
+    <PushPriority value="0" />
+    <Collide index="Ground" value="1" />
+    <Collide index="ForceField" value="1" />
+    <Response value="Nothing" />
+    <Speed value="3.25" />
+    <StationaryTurningRate value="799.9804" />
+    <TurningRate value="399.9023" />
+    <Acceleration value="1000" />
+    <LateralAcceleration value="46" />
+    <Sight value="8" />
+    <RepairTime value="16.667" />
+    <AttackTargetPriority value="10" />
+    <DamageDealtXP value="1" />
+    <DamageTakenXP value="1" />
+    <ScoreResult value="BuildOrder" />
+    <SubgroupPriority value="6" />
+    <MinimapRadius value="0.375" />
+    <OverlapIndex value="Minion" />
+    <AIUtility value="0.1" />
+    <AIEvalFactor value="0.1" />
+    <BehaviorArray Link="ShrubProximityDetector" />
+  </CUnit>
+  <CUnit default="1" id="StormSummonPassive" parent="StormSummonInactive">
+    <DeathRevealRadius value="3" />
+    <FlagArray index="Turnable" value="0" />
+    <FlagArray index="Unclickable" value="0" />
+    <FlagArray index="Unhighlightable" value="0" />
+    <Collide index="Structure" value="1" />
+    <AttackTargetPriority value="20" />
+    <TargetingHitTestPriority value="11" />
+    <BehaviorArray Link="HallOfStormsKnockbackKillable" />
+    <Radius value="0" />
+    <PushPriority value="300" />
+    <AlliedPushPriority value="300" />
+  </CUnit>
+  <CUnit default="1" id="StormSummonActive" parent="StormMinorUnit">
+    <Attributes index="Summoned" value="1" />
+    <UnitDamageType value="Summon" />
+    <TacticalAIFilters value="-;Player,Ally,Neutral,NoMinionAggro" />
+    <PushPriority value="300" />
+    <AlliedPushPriority value="300" />
+  </CUnit>
   <CUnit default="1" id="StormBasicHeroicUnit">
     <FlagArray index="Unclickable" value="0" />
     <FlagArray index="Unhighlightable" value="0" />
@@ -704,5 +767,76 @@
   </CUnit>
   <CUnit id="AbathurLocustNormal" parent="AbathurLocust">
     <WeaponArray Link="AbathurLocustWeapon" />
+  </CUnit>
+  <CUnit id="AbathurToxicNest" parent="StormSummonPassive">
+    <LifeStart value="80" />
+    <LifeMax value="80" />
+    <Facing value="315" />
+    <Radius value="0.5" />
+  </CUnit>
+  <CUnit id="AbathurLocust" parent="StormSummonActive">
+    <FlagArray index="DoNotAcquire" value="1" />
+    <LifeStart value="350" />
+    <LifeMax value="350" />
+    <BehaviorArray Link="LocustTimedLife" />
+    <AbilArray Link="stop" />
+    <AbilArray Link="AttackAlly" />
+    <AbilArray Link="move" />
+    <Radius value="0.375" />
+    <SeparationRadius value="0.375" />
+    <AIThinkTree value="AI/SummonedMinion.aitree" />
+  </CUnit>
+  <CUnit id="AbathurLocustNormal" parent="AbathurLocust">
+    <WeaponArray Link="AbathurLocustWeapon" />
+  </CUnit>
+  <CUnit id="AbathurLocustBombardStrain" parent="AbathurLocust">
+    <WeaponArray Link="AbathurLocustBombardWeapon" />
+    <WeaponArray Link="AbathurLocustBombardWeaponCloseRange" />
+  </CUnit>
+  <CUnit id="AbathurLocustAssaultStrain" parent="AbathurLocust">
+    <WeaponArray Link="AbathurLocustAssaultWeapon" />
+  </CUnit>
+  <CUnit id="AbathurEvolvedMonstrosity" parent="StormSummonActive">
+    <FlagArray index="CreateAITreeOnSpawn" value="1" />
+    <PushPriority value="400" />
+    <LifeStart value="1350" />
+    <LifeMax value="1350" />
+    <Speed value="4" />
+    <StationaryTurningRate value="1759.9218" />
+    <TurningRate value="1759.9218" />
+    <Sight value="9" />
+    <AbilArray Link="stop" />
+    <AbilArray Link="attack" />
+    <AbilArray Link="move" />
+    <AbilArray Link="AbathurMonstrosityDeepTunnel" />
+    <AbilArray Link="HeroGenericSummonedUnitSpecialCaseInteraction" />
+    <BehaviorArray Link="HeroicSummon" />
+    <BehaviorArray Link="SpecialCaseNPCTakedownParticipant" />
+    <BehaviorArray Link="AbathurMonstrositySpawn" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <BehaviorArray Link="HeroGenericHasNoStatusBar" />
+    <BehaviorArray Link="HeroGenericMapMechanicPickupDisallowed" />
+    <BehaviorArray Link="AbathurEvolveMonstrosityMinionAbsorbedToken" />
+    <WeaponArray Link="AbathurEvolveMonstrosityWeapon" />
+    <WeaponArray Link="AbathurEvolveMonstrosityWeaponMelee" />
+    <CardLayouts>
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="stop,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="move,HoldPos" Slot="Hold" />
+      <LayoutButtons Face="SummonedUnitSpecialCaseInteraction" Type="AbilCmd" AbilCmd="HeroGenericSummonedUnitSpecialCaseInteraction,Execute" Slot="Hold" />
+      <LayoutButtons Face="MovePatrol" Type="AbilCmd" AbilCmd="move,Patrol" Slot="Hearth" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons Face="AbathurMonstrosityDeepTunnel" Type="AbilCmd" AbilCmd="AbathurMonstrosityDeepTunnel,Execute" Slot="Mount" />
+    </CardLayouts>
+    <Radius value="1" />
+    <InnerRadius value="0.375" />
+    <SubgroupPriority value="9" />
+    <TauntDuration index="Cheer" value="5" />
+    <TauntDuration index="Dance" value="5" />
+    <AlliedPushPriority value="600" />
+    <MinimapRadius value="1" />
+    <OverlapIndex value="Hero" />
+    <AIThinkTree value="AI/SummonedMinion.aitree" />
   </CUnit>
 </Unit> 

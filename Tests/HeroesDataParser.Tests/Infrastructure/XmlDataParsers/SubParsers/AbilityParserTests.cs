@@ -79,6 +79,7 @@ public class AbilityParserTests
         ability.EnergyText.Should().BeNull();
         ability.ShortText!.RawDescription.Should().Be("Spawn a mine");
         ability.FullText!.RawDescription.Should().Be("Spawn a mine that becomes active...");
+        ability.SummonedUnitIds.Should().Contain("AbathurToxicNest");
     }
 
     [TestMethod]
@@ -114,11 +115,8 @@ public class AbilityParserTests
         ability.EnergyText.Should().BeNull();
         ability.ShortText!.RawDescription.Should().Be("Spawn locusts that attack down the nearest lane");
         ability.FullText!.RawDescription.Should().Be("Spawns a Locust to attack down the nearest lane...");
-        ability.CreatedUnits.Should().HaveCount(3).And
-            .SatisfyRespectively(
-                first => first.Should().Be("AbathurLocustAssaultStrain"),
-                second => second.Should().Be("AbathurLocustBombardStrain"),
-                third => third.Should().Be("AbathurLocustNormal"));
+        ability.SummonedUnitIds.Should().HaveCount(3).And
+            .ContainInConsecutiveOrder("AbathurLocustAssaultStrain", "AbathurLocustBombardStrain", "AbathurLocustNormal");
     }
 
     [TestMethod]
@@ -154,6 +152,28 @@ public class AbilityParserTests
         ability.EnergyText.Should().BeNull();
         ability.ShortText!.RawDescription.Should().Be("Tunnel to a location.");
         ability.FullText!.RawDescription.Should().Be("Quickly tunnel to a visible location.");
+    }
+
+    [TestMethod]
+    public void GetAbility_AbathurEvolveMonstrosityComand_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAbathur";
+
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("23");
+
+        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("AbathurEvolveMonstrosity|AbathurEvolveMonstrosityHotbar|Heroic");
+        ability.SummonedUnitIds.Should().ContainInConsecutiveOrder("AbathurEvolvedMonstrosity");
     }
 
     [TestMethod]
@@ -256,7 +276,7 @@ public class AbilityParserTests
         ability.ShortText.Should().BeNull();
         ability.CooldownText!.RawDescription.Should().Be("Cooldown: 1.5 seconds");
         ability.ToggleCooldown.Should().BeNull();
-        ability.CreatedUnits.Should().BeEmpty();
+        ability.SummonedUnitIds.Should().BeEmpty();
     }
 
     [TestMethod]

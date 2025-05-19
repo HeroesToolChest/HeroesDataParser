@@ -1,6 +1,7 @@
 ﻿using Heroes.Element.Models.AbilityTalents;
 using Heroes.XmlData;
 using Heroes.XmlData.StormData;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
 
@@ -177,7 +178,9 @@ public class AbilityTalentParserBase : ParserBase
 
         if (buttonDataValues.TryGetElementDataAt("TooltipAppender", out StormElementData? tooltipAppenderArray))
         {
-            foreach (string index in tooltipAppenderArray.GetElementDataIndexes())
+            IEnumerable<string> tooltipAppenders = tooltipAppenderArray.GetElementDataIndexes();
+
+            foreach (string index in tooltipAppenders)
             {
                 StormElementData tooltipAppenderData = tooltipAppenderArray.GetElementDataAt(index);
 
@@ -244,12 +247,13 @@ public class AbilityTalentParserBase : ParserBase
 
         if (abilityDataValues.TryGetElementDataAt("ProducedUnitArray", out StormElementData? producedUnitArrayData))
         {
-            foreach (string item in producedUnitArrayData.GetElementDataIndexes())
+            IEnumerable<string> producedUnits = producedUnitArrayData.GetElementDataIndexes();
+
+            foreach (string item in producedUnits)
             {
                 string value = producedUnitArrayData.GetElementDataAt(item).Value.GetString();
 
-                if (_heroesData.StormElementExists("Unit", value))
-                    abilityTalent.CreatedUnits.Add(value);
+                AddSummonedUnit(abilityTalent, value);
             }
         }
 
@@ -410,7 +414,23 @@ public class AbilityTalentParserBase : ParserBase
 
     private void SetEffectData(AbilityTalentBase abilityTalent, StormElementData effectElementData)
     {
-        // TODO: looking up create units
+        StormElement? stormElement = _heroesData.GetCompleteStormElement("Effect", effectElementData.Value.GetString());
+
+        if (stormElement is null)
+            return;
+
+        if (stormElement.DataValues.TryGetElementDataAt("EffectArray", out StormElementData? effectArrayData))
+        {
+            IEnumerable<string> effectArray = effectArrayData.GetElementDataIndexes();
+
+            foreach (string effectIndex in effectArray)
+            {
+                ProcessEffectForSpawnUnit(abilityTalent, effectArrayData.GetElementDataAt(effectIndex).Value.GetString());
+            }
+        }
+
+        if (stormElement.DataValues.TryGetElementDataAt("CaseDefault", out StormElementData? caseDefaultData))
+            ProcessEffectForSpawnUnit(abilityTalent, caseDefaultData.Value.GetString());
     }
 
     private void SetCmdButtonArrayData(AbilityTalentBase abilityTalent, StormElementData cmdButtonArrayElementData)
@@ -428,6 +448,42 @@ public class AbilityTalentParserBase : ParserBase
         if (cmdButtonArrayElementData.TryGetElementDataAt("Requirements", out StormElementData? requirementsData))
         {
             // TODO: requirements
+        }
+    }
+
+    private void ProcessEffectForSpawnUnit(AbilityTalentBase abilityTalent, string id)
+    {
+        StormElement? stormElement = _heroesData.GetCompleteStormElement("Effect", id);
+        if (stormElement is null)
+        {
+            _logger.LogInformation("Effect element {Id} not found", id);
+            return;
+        }
+
+        if (stormElement.DataValues.TryGetElementDataAt("SpawnUnit", out StormElementData? spawnUnitData))
+        {
+            string unitId = spawnUnitData.Value.GetString();
+
+            AddSummonedUnit(abilityTalent, unitId);
+        }
+    }
+
+    private void AddSummonedUnit(AbilityTalentBase abilityTalent, string unitId)
+    {
+        StormElement? unitStormElement = _heroesData.GetCompleteStormElement("Unit", unitId);
+        if (unitStormElement is null)
+        {
+            _logger.LogInformation("Unit element {UnitId} not found", unitId);
+            return;
+        }
+
+        if (unitStormElement.DataValues.TryGetElementDataAt("Attributes", out StormElementData? attributesData))
+        {
+            if (attributesData.TryGetElementDataAt("Summoned", out StormElementData? summonedData))
+            {
+                if (summonedData.Value.GetInt() == 1)
+                    abilityTalent.SummonedUnitIds.Add(unitId);
+            }
         }
     }
 }

@@ -25,7 +25,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Heroes.XmlData" Version="1.0.0-alpha.2.41" />
+		<PackageReference Include="Heroes.XmlData" Version="1.0.0-alpha.2.42" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.AutoActivation" Version="9.3.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
 		<PackageReference Include="Pfim" Version="0.11.3" />

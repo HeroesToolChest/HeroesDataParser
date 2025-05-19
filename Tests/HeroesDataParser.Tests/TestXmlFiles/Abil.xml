@@ -380,6 +380,19 @@
     </InterruptCost>
     <AbilityCategories index="TargetAcrossMapPlane" value="1" />
   </CAbilEffectTarget>
+  <CAbilEffectTarget id="AbathurEvolveMonstrosity">
+    <Effect value="AbathurEvolveMonstrosityInitialSet" />
+    <Cost>
+      <Cooldown TimeUse="90" />
+    </Cost>
+    <TargetFilters value="-;Neutral,Enemy,Heroic,Missile,Stasis,Dead" />
+    <Range value="500" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurEvolveMonstrosityHotbar" Requirements="Ultimate2Unlocked">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Arc value="360" />
+    <ProducedUnitArray value="AbathurEvolvedMonstrosity" />
+  </CAbilEffectTarget>
   <CAbilEffectTarget id="AlexstraszaGiftOfLife">
     <Effect value="AlexstraszaGiftOfLifeSet" />
     <Cost>
