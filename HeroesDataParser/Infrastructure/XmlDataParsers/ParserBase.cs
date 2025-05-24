@@ -1,39 +1,58 @@
-﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
+﻿using HeroesDataParser.Core;
+
+namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
 public abstract class ParserBase
 {
     public const string ImageFileExtension = "png";
 
     private readonly ILogger _logger;
+    private readonly RootOptions _options;
+    private readonly HeroesXmlLoader _heroesXmlLoader;
     private readonly HeroesData _heroesData;
+    private readonly ITooltipDescriptionService _tooltipDescriptionService;
 
-    protected ParserBase(ILogger logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+    protected ParserBase(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
     {
         _logger = logger;
+        _options = options.Value;
+        _heroesXmlLoader = heroesXmlLoaderService.HeroesXmlLoader;
         _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
+        _tooltipDescriptionService = tooltipDescriptionService;
     }
 
-    /// <summary>
-    /// Gets a tooltip description from an id. Looks up the id in the gamestrings and parses it.
-    /// </summary>
-    /// <param name="id">The id.</param>
-    /// <returns>A <see cref="TooltipDescription"/>.</returns>
-    protected TooltipDescription? GetTooltipDescriptionFromId(string id)
-    {
-        StormGameString? stormGameString = _heroesData.GetStormGameString(id);
+    protected ILogger Logger => _logger;
 
-        try
-        {
-            if (stormGameString is null)
-                return null;
-            else
-                return _heroesData.ParseGameString(stormGameString);
-        }
-        catch (Exception ex)
-        {
-            throw;
-        }
-    }
+    protected RootOptions Options => _options;
+
+    protected HeroesXmlLoader HeroesXmlLoader => _heroesXmlLoader;
+
+    protected HeroesData HeroesData => _heroesData;
+
+    protected ITooltipDescriptionService TooltipDescriptionService => _tooltipDescriptionService;
+
+    ///// <summary>
+    ///// Gets a tooltip description from an id. Looks up the id in the gamestrings and parses it.
+    ///// </summary>
+    ///// <param name="id">The id.</param>
+    ///// <returns>A <see cref="TooltipDescription"/>.</returns>
+    //protected TooltipDescription? GetTooltipDescriptionFromId(string id)
+    //{
+    //    StormGameString? stormGameString = _heroesData.GetStormGameString(id);
+
+    //    try
+    //    {
+    //        if (stormGameString is null)
+    //            return null;
+    //        else
+    //            return _heroesData.ParseGameString(stormGameString);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Logger.LogError(ex, "Could not parse gamestring {Id}", id);
+    //        throw;
+    //    }
+    //}
 
     /// <summary>
     /// Gets a tooltip description from a <see cref="StormGameString"/>.
@@ -91,7 +110,7 @@ public abstract class ParserBase
         }
         else
         {
-            _logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTexturePath);
+            Logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTexturePath);
             return null;
         }
     }
@@ -101,13 +120,13 @@ public abstract class ParserBase
         string? dataObjectType = _heroesData.GetDataObjectTypeByElementType(elementType);
         if (string.IsNullOrWhiteSpace(dataObjectType))
         {
-            _logger.LogWarning("Could not get data object type for element type {ElementType}", elementType);
+            Logger.LogWarning("Could not get data object type for element type {ElementType}", elementType);
             return 0;
         }
 
         if (string.IsNullOrWhiteSpace(elementName))
         {
-            _logger.LogWarning("Element name {ElementName} is emtpy or null", elementName);
+            Logger.LogWarning("Element name {ElementName} is emtpy or null", elementName);
             return 0;
         }
 

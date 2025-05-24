@@ -17,19 +17,14 @@ public class AbilityTalentParserBase : ParserBase
     /// </summary>
     public const string NoButtonElementId = ":NONE:";
 
-    private readonly ILogger<AbilityTalentParserBase> _logger;
-    private readonly HeroesData _heroesData;
-
-    public AbilityTalentParserBase(ILogger<AbilityTalentParserBase> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
-        : base(logger, heroesXmlLoaderService)
+    public AbilityTalentParserBase(ILogger<AbilityTalentParserBase> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
+        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
     {
-        _logger = logger;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     protected void SetButtonData(AbilityTalentBase abilityTalent)
     {
-        StormElement? buttonElement = _heroesData.GetCompleteStormElement("Button", abilityTalent.ButtonElementId);
+        StormElement? buttonElement = HeroesData.GetCompleteStormElement("Button", abilityTalent.ButtonElementId);
 
         if (buttonElement is null)
             return;
@@ -39,13 +34,13 @@ public class AbilityTalentParserBase : ParserBase
         //SetTooltipData(abilityTalent, buttonElement);
 
         if (buttonDataValues.TryGetElementDataAt("Name", out StormElementData? nameData))
-            abilityTalent.Name = GetTooltipDescriptionFromId(nameData.Value.GetString());
+            abilityTalent.Name = TooltipDescriptionService.GetTooltipDescriptionFromId(nameData.Value.GetString());
 
         if (buttonDataValues.TryGetElementDataAt("SimpleDisplayText", out StormElementData? simpleDisplayTextData))
-            abilityTalent.ShortText = GetTooltipDescriptionFromId(simpleDisplayTextData.Value.GetString());
+            abilityTalent.ShortText = TooltipDescriptionService.GetTooltipDescriptionFromId(simpleDisplayTextData.Value.GetString());
 
         if (buttonDataValues.TryGetElementDataAt("Tooltip", out StormElementData? tooltipData))
-            abilityTalent.FullText = GetTooltipDescriptionFromId(tooltipData.Value.GetString());
+            abilityTalent.FullText = TooltipDescriptionService.GetTooltipDescriptionFromId(tooltipData.Value.GetString());
 
         if (buttonDataValues.TryGetElementDataAt("Icon", out StormElementData? iconData))
         {
@@ -189,11 +184,11 @@ public class AbilityTalentParserBase : ParserBase
                     string validatorValue = validatorData.Value.GetString();
 
                     // find the validator
-                    StormElement? validatorElement = _heroesData.GetCompleteStormElement("Validator", validatorValue);
+                    StormElement? validatorElement = HeroesData.GetCompleteStormElement("Validator", validatorValue);
 
                     if (validatorElement is null)
                     {
-                        _logger.LogWarning("Validator element {ValidatorValue} not found for button {ButtonId}", validatorValue, abilityTalent.ButtonElementId);
+                        Logger.LogWarning("Validator element {ValidatorValue} not found for button {ButtonId}", validatorValue, abilityTalent.ButtonElementId);
                         continue;
                     }
 
@@ -203,10 +198,10 @@ public class AbilityTalentParserBase : ParserBase
                         string valueValue = valueData.Value.GetString();
 
                         // check if it exists
-                        if (_heroesData.StormElementExists("Talent", valueValue))
+                        if (HeroesData.StormElementExists("Talent", valueValue))
                             abilityTalent.TooltipAppendersTalentElementIds.Add(valueValue);
                         else
-                            _logger.LogWarning("Talent element {ValueValue} not found for button {ButtonId}", valueValue, abilityTalent.ButtonElementId);
+                            Logger.LogWarning("Talent element {ValueValue} not found for button {ButtonId}", valueValue, abilityTalent.ButtonElementId);
                     }
                 }
             }
@@ -243,7 +238,7 @@ public class AbilityTalentParserBase : ParserBase
             SetEffectData(abilityTalent, effectData);
 
         if (abilityDataValues.TryGetElementDataAt("Name", out StormElementData? nameData))
-            abilityTalent.Name = GetTooltipDescriptionFromId(nameData.Value.GetString());
+            abilityTalent.Name = TooltipDescriptionService.GetTooltipDescriptionFromId(nameData.Value.GetString());
 
         if (abilityDataValues.TryGetElementDataAt("ProducedUnitArray", out StormElementData? producedUnitArrayData))
         {
@@ -304,13 +299,13 @@ public class AbilityTalentParserBase : ParserBase
                     {
                         if (cooldown == 1)
                         {
-                            StormGameString? abilTooltipCooldown = _heroesData.GetStormGameString(GameStringConstants.AbilTooltipCooldownText);
+                            StormGameString? abilTooltipCooldown = HeroesData.GetStormGameString(GameStringConstants.AbilTooltipCooldownText);
                             if (abilTooltipCooldown is not null)
                                 abilityTalent.CooldownText = GetTooltipDescriptionFromGameString(abilTooltipCooldown.Value.Replace(GameStringConstants.ReplacementCharacter, cooldownString, StringComparison.OrdinalIgnoreCase));
                         }
                         else if (cooldown > 1)
                         {
-                            StormGameString? abilTooltipCooldownPlural = _heroesData.GetStormGameString(GameStringConstants.AbilTooltipCooldownPluralText);
+                            StormGameString? abilTooltipCooldownPlural = HeroesData.GetStormGameString(GameStringConstants.AbilTooltipCooldownPluralText);
                             if (abilTooltipCooldownPlural is not null)
                                 abilityTalent.CooldownText = GetTooltipDescriptionFromGameString(abilTooltipCooldownPlural.Value.Replace(GameStringConstants.ReplacementCharacter, cooldownString, StringComparison.OrdinalIgnoreCase));
                         }
@@ -350,7 +345,7 @@ public class AbilityTalentParserBase : ParserBase
                     // we need to check to see if the link is not pointing to the current (same) abilityTalent.
                     if (linkSplit[1].Equals(abilityTalent.AbilityElementId) is false)
                     {
-                        StormElement? linkAbilElement = _heroesData.GetCompleteStormElement(linkSplit[0], linkSplit[1]);
+                        StormElement? linkAbilElement = HeroesData.GetCompleteStormElement(linkSplit[0], linkSplit[1]);
 
                         if (linkAbilElement is not null &&
                             linkAbilElement.DataValues.TryGetElementDataAt("Cost", out StormElementData? costData) &&
@@ -386,7 +381,7 @@ public class AbilityTalentParserBase : ParserBase
                     replaceText = GetStormGameString(GameStringConstants.StringCooldownColon); // Cooldown:<space>
 
                 if (string.IsNullOrEmpty(replaceText))
-                    _logger.LogWarning("{ReplaceText} was not found", replaceText);
+                    Logger.LogWarning("{ReplaceText} was not found", replaceText);
 
                 string? cooldownTooltip;
                 if (timeUseValue == "1")
@@ -395,14 +390,14 @@ public class AbilityTalentParserBase : ParserBase
                     cooldownTooltip = GetStormGameString(GameStringConstants.AbilTooltipCooldownPluralText);
 
                 if (string.IsNullOrEmpty(cooldownTooltip))
-                    _logger.LogWarning("{CooldownTooltip} was not found", cooldownTooltip);
+                    Logger.LogWarning("{CooldownTooltip} was not found", cooldownTooltip);
 
                 string? cooldownTooltipFinal = cooldownTooltip?
                         .Replace(GetStormGameString(GameStringConstants.StringCooldownColon) ?? string.Empty, replaceText, StringComparison.OrdinalIgnoreCase)
                         .Replace(GameStringConstants.ReplacementCharacter, timeUseValue, StringComparison.OrdinalIgnoreCase);
 
                 if (string.IsNullOrEmpty(cooldownTooltipFinal))
-                    _logger.LogWarning("No cooldown tooltip was set");
+                    Logger.LogWarning("No cooldown tooltip was set");
                 else
                     abilityTalent.CooldownText = GetTooltipDescriptionFromGameString(cooldownTooltipFinal);
             }
@@ -414,7 +409,7 @@ public class AbilityTalentParserBase : ParserBase
 
     private void SetEffectData(AbilityTalentBase abilityTalent, StormElementData effectElementData)
     {
-        StormElement? stormElement = _heroesData.GetCompleteStormElement("Effect", effectElementData.Value.GetString());
+        StormElement? stormElement = HeroesData.GetCompleteStormElement("Effect", effectElementData.Value.GetString());
 
         if (stormElement is null)
             return;
@@ -453,10 +448,10 @@ public class AbilityTalentParserBase : ParserBase
 
     private void ProcessEffectForSpawnUnit(AbilityTalentBase abilityTalent, string id)
     {
-        StormElement? stormElement = _heroesData.GetCompleteStormElement("Effect", id);
+        StormElement? stormElement = HeroesData.GetCompleteStormElement("Effect", id);
         if (stormElement is null)
         {
-            _logger.LogInformation("Effect element {Id} not found", id);
+            Logger.LogInformation("Effect element {Id} not found", id);
             return;
         }
 
@@ -470,10 +465,10 @@ public class AbilityTalentParserBase : ParserBase
 
     private void AddSummonedUnit(AbilityTalentBase abilityTalent, string unitId)
     {
-        StormElement? unitStormElement = _heroesData.GetCompleteStormElement("Unit", unitId);
+        StormElement? unitStormElement = HeroesData.GetCompleteStormElement("Unit", unitId);
         if (unitStormElement is null)
         {
-            _logger.LogInformation("Unit element {UnitId} not found", unitId);
+            Logger.LogInformation("Unit element {UnitId} not found", unitId);
             return;
         }
 

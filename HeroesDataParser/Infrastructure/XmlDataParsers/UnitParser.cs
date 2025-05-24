@@ -6,15 +6,11 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 {
     private const string _actorDataObjectType = "Actor";
 
-    private readonly ILogger<UnitParser> _logger;
-    private readonly HeroesData _heroesData;
     private readonly IAbilityParser _abilityParser;
 
-    public UnitParser(ILogger<UnitParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService, IAbilityParser abilityParser)
-        : base(logger, heroesXmlLoaderService)
+    public UnitParser(ILogger<UnitParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IAbilityParser abilityParser, ITooltipDescriptionService tooltipDescriptionService)
+        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
     {
-        _logger = logger;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
         _abilityParser = abilityParser;
     }
 
@@ -22,13 +18,13 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
     public void Parse(Unit unit)
     {
-        _logger.LogTrace("Parsing unit for existing id {Id}", unit.Id);
+        Logger.LogTrace("Parsing unit for existing id {Id}", unit.Id);
 
-        StormElement? stormElement = _heroesData.GetCompleteStormElement(DataObjectType, unit.Id);
+        StormElement? stormElement = HeroesData.GetCompleteStormElement(DataObjectType, unit.Id);
 
         if (stormElement is null)
         {
-            _logger.LogWarning("Could not find data for id {Id}", unit.Id);
+            Logger.LogWarning("Could not find data for id {Id}", unit.Id);
             return;
         }
 
@@ -36,7 +32,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         {
             SetProperties(unit, stormElement);
 
-            _logger.LogTrace("Parsing unit for existing id {Id} complete", unit.Id);
+            Logger.LogTrace("Parsing unit for existing id {Id} complete", unit.Id);
         }
     }
 
@@ -61,32 +57,32 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
     private void SetActorData(Unit elementObject)
     {
-        string? unitId = _heroesData.GetStormElementIdByUnitName(elementObject.Id, _actorDataObjectType);
+        string? unitId = HeroesData.GetStormElementIdByUnitName(elementObject.Id, _actorDataObjectType);
 
         StormElement? actorElement;
         if (!string.IsNullOrEmpty(unitId))
         {
-            actorElement = _heroesData.GetCompleteStormElement(_actorDataObjectType, unitId);
+            actorElement = HeroesData.GetCompleteStormElement(_actorDataObjectType, unitId);
         }
         else
         {
-            actorElement = _heroesData.GetCompleteStormElement(_actorDataObjectType, elementObject.Id);
+            actorElement = HeroesData.GetCompleteStormElement(_actorDataObjectType, elementObject.Id);
         }
 
         if (actorElement is null)
         {
-            _logger.LogTrace("Actor element not found for Unit {Id}", elementObject.Id);
+            Logger.LogTrace("Actor element not found for Unit {Id}", elementObject.Id);
             return;
         }
 
         if (actorElement.DataValues.TryGetElementDataAt("VitalNames", out StormElementData? vitalNamesData))
         {
             if (vitalNamesData.TryGetElementDataAt("Life", out StormElementData? lifeData))
-                elementObject.Life.LifeType = GetTooltipDescriptionFromId(lifeData.Value.GetString());
+                elementObject.Life.LifeType = TooltipDescriptionService.GetTooltipDescriptionFromId(lifeData.Value.GetString());
             if (vitalNamesData.TryGetElementDataAt("Shields", out StormElementData? shieldsData))
-                elementObject.Shield.ShieldType = GetTooltipDescriptionFromId(shieldsData.Value.GetString());
+                elementObject.Shield.ShieldType = TooltipDescriptionService.GetTooltipDescriptionFromId(shieldsData.Value.GetString());
             if (vitalNamesData.TryGetElementDataAt("Energy", out StormElementData? energyData))
-                elementObject.Energy.EnergyType = GetTooltipDescriptionFromId(energyData.Value.GetString());
+                elementObject.Energy.EnergyType = TooltipDescriptionService.GetTooltipDescriptionFromId(energyData.Value.GetString());
         }
 
         //// TODO additional actor abilities
@@ -174,7 +170,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
             else
             {
                 elementObject.DamageType = ArmorSet.Unknown;
-                _logger.LogWarning("Unknown armor set type {ArmorSet} for damage type", unitDamageTypeData.Value.GetString());
+                Logger.LogWarning("Unknown armor set type {ArmorSet} for damage type", unitDamageTypeData.Value.GetString());
             }
         }
 
@@ -212,7 +208,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
             if (Enum.TryParse(genderValue, out Gender genderResult))
                 elementObject.Gender = genderResult;
             else
-                _logger.LogWarning("Unknown gender {Gender}", genderValue);
+                Logger.LogWarning("Unknown gender {Gender}", genderValue);
         }
     }
 
@@ -226,7 +222,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                 {
                     string linkId = linkData.Value.GetString();
 
-                    StormElement? behaviorStormElement = _heroesData.GetCompleteStormElement("Behavior", linkId);
+                    StormElement? behaviorStormElement = HeroesData.GetCompleteStormElement("Behavior", linkId);
 
                     if (behaviorStormElement is not null && behaviorStormElement.ElementType.Equals("CBehaviorVeterancy", StringComparison.OrdinalIgnoreCase))
                     {
@@ -243,7 +239,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
     {
         if (stormElement.DataValues.TryGetElementDataAt("ArmorLink", out StormElementData? armorLinkData))
         {
-            StormElement? armorStormElement = _heroesData.GetCompleteStormElement("Armor", armorLinkData.Value.GetString());
+            StormElement? armorStormElement = HeroesData.GetCompleteStormElement("Armor", armorLinkData.Value.GetString());
 
             if (armorStormElement is null)
                 return;
@@ -277,7 +273,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                             }
                             else
                             {
-                                _logger.LogWarning("Unknown armor set type {ArmorSet}", type);
+                                Logger.LogWarning("Unknown armor set type {ArmorSet}", type);
                                 elementObject.Armor[ArmorSet.Unknown] = unitArmor;
                             }
                         }
@@ -297,11 +293,11 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                 {
                     string linkId = linkData.Value.GetString();
 
-                    StormElement? weaponStormElement = _heroesData.GetCompleteStormElement("Weapon", linkId);
+                    StormElement? weaponStormElement = HeroesData.GetCompleteStormElement("Weapon", linkId);
 
                     if (weaponStormElement is null)
                     {
-                        _logger.LogWarning("Weapon element does not exist for id {LinkId}", linkId);
+                        Logger.LogWarning("Weapon element does not exist for id {LinkId}", linkId);
                         continue;
                     }
 
@@ -311,7 +307,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                     };
 
                     if (weaponStormElement.DataValues.TryGetElementDataAt("Name", out StormElementData? nameData))
-                        unitWeapon.Name = GetTooltipDescriptionFromId(nameData.Value.GetString());
+                        unitWeapon.Name = TooltipDescriptionService.GetTooltipDescriptionFromId(nameData.Value.GetString());
 
                     if (weaponStormElement.DataValues.TryGetElementDataAt("Range", out StormElementData? rangeData))
                         unitWeapon.Range = rangeData.Value.GetDouble();
@@ -330,11 +326,11 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                     if (weaponStormElement.DataValues.TryGetElementDataAt("DisplayEffect", out StormElementData? displayEffectData))
                     {
                         string displayEffectId = displayEffectData.Value.GetString();
-                        StormElement? effectStormElement = _heroesData.GetCompleteStormElement("Effect", displayEffectId);
+                        StormElement? effectStormElement = HeroesData.GetCompleteStormElement("Effect", displayEffectId);
 
                         if (effectStormElement is null)
                         {
-                            _logger.LogWarning("Effect element does not exist for id {DisplayEffectId}", displayEffectId);
+                            Logger.LogWarning("Effect element does not exist for id {DisplayEffectId}", displayEffectId);
                         }
                         else
                         {

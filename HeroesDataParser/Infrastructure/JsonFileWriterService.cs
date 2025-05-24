@@ -1,6 +1,5 @@
-﻿using Heroes.Element.JsonConverters;
-using Heroes.Element.JsonTypeInfoResolvers;
-using System.Text.Json.Schema;
+﻿using Heroes.XmlData;
+using HeroesDataParser.JsonConverters;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -31,7 +30,7 @@ public class JsonFileWriterService : IJsonFileWriterService
                 new AbilityLinkIdConverter(),
                 new TalentLinkIdConverter(),
                 new LinkIdConverter(),
-                new TooltipDescriptionWriteConverter(DescriptionType.RawDescription),
+                new TooltipDescriptionWriteConverter(_options.DescriptionText, DescriptionType.RawDescription),
             },
             TypeInfoResolver = new HeroesElementResolver()
             {
@@ -106,7 +105,6 @@ public class JsonFileWriterService : IJsonFileWriterService
     {
         //if (_options.LocalizedText)
         //{
-
         //}
 
         Directory.CreateDirectory(outputDirectory);

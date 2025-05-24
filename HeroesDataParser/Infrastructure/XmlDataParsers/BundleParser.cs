@@ -2,15 +2,9 @@
 
 public class BundleParser : CollectionParserBase<Bundle>
 {
-    private readonly ILogger<BundleParser> _logger;
-
-    private readonly HeroesData _heroesData;
-
-    public BundleParser(ILogger<BundleParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
-        : base(logger, heroesXmlLoaderService)
+    public BundleParser(ILogger<BundleParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
+        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
     {
-        _logger = logger;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     public override string DataObjectType => "Bundle";
@@ -21,7 +15,7 @@ public class BundleParser : CollectionParserBase<Bundle>
         {
             string tileTexturePath = tileTextureData.Value.GetString();
 
-            StormFile? stormAssetFile = _heroesData.GetStormAssetFile(tileTexturePath);
+            StormFile? stormAssetFile = HeroesData.GetStormAssetFile(tileTexturePath);
             if (stormAssetFile is not null)
             {
                 collectionObject.Image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), ImageFileExtension);
@@ -32,7 +26,7 @@ public class BundleParser : CollectionParserBase<Bundle>
              }
             else
             {
-                _logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTexturePath);
+                Logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTexturePath);
             }
         }
 

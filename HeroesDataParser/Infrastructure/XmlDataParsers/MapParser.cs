@@ -7,15 +7,10 @@ public class MapParser : DataParser<Map>
 {
     private readonly ILogger<MapParser> _logger;
 
-    private readonly HeroesXmlLoader _heroesXmlLoader;
-    private readonly HeroesData _heroesData;
-
-    public MapParser(ILogger<MapParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
-        : base(logger, heroesXmlLoaderService)
+    public MapParser(ILogger<MapParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
+        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
     {
         _logger = logger;
-        _heroesXmlLoader = heroesXmlLoaderService.HeroesXmlLoader;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     public override string DataObjectType => "Map";
@@ -24,7 +19,7 @@ public class MapParser : DataParser<Map>
     {
         _logger.LogTrace("Parsing map title {MapTitle}", mapTitle);
 
-        StormMap? stormMap = _heroesXmlLoader.GetStormMap(mapTitle);
+        StormMap? stormMap = HeroesXmlLoader.GetStormMap(mapTitle);
         if (stormMap is null)
         {
             _logger.LogWarning("Could not find s2m data for map title {MapTitle}", mapTitle);
@@ -41,7 +36,7 @@ public class MapParser : DataParser<Map>
                 MapSize = new MapSize(stormMap.MapSize.X, stormMap.MapSize.Y),
             };
 
-            StormElement? stormElement = _heroesData.GetCompleteStormElement(DataObjectType, stormMap.MapLink);
+            StormElement? stormElement = HeroesData.GetCompleteStormElement(DataObjectType, stormMap.MapLink);
             if (stormElement is null)
                 _logger.LogWarning("No storm element found for map link {MapLink} of map title {MapTitle}", stormMap.MapLink, mapTitle);
             else
@@ -70,7 +65,7 @@ public class MapParser : DataParser<Map>
 
     private static string? GetImagePathWithAppender(string path, string appender)
     {
-        return $"{Path.GetFileNameWithoutExtension(path)}_{new string(appender.ToLowerInvariant().Where(static x => !char.IsWhiteSpace(x) && !char.IsPunctuation(x)).ToArray())}.{ImageFileExtension}";
+        return $"{Path.GetFileNameWithoutExtension(path)}_{new string([.. appender.ToLowerInvariant().Where(static x => !char.IsWhiteSpace(x) && !char.IsPunctuation(x))])}.{ImageFileExtension}";
     }
 
     private static void SetMapName(Map map, StormMap stormMap)
@@ -87,7 +82,7 @@ public class MapParser : DataParser<Map>
 
             if (imagePath.StartsWith("assets", StringComparison.OrdinalIgnoreCase))
             {
-                StormFile? stormAssetFile = _heroesData.GetStormAssetFile(imagePath);
+                StormFile? stormAssetFile = HeroesData.GetStormAssetFile(imagePath);
                 if (stormAssetFile is not null)
                 {
                     map.LoadingScreenImage = GetImagePath(stormAssetFile.StormPath.Path);
@@ -114,7 +109,7 @@ public class MapParser : DataParser<Map>
     {
         if (stormMap.ReplayPreviewImagePath.StartsWith("assets", StringComparison.OrdinalIgnoreCase))
         {
-            StormFile? stormAssetFile = _heroesData.GetStormAssetFile(stormMap.ReplayPreviewImagePath);
+            StormFile? stormAssetFile = HeroesData.GetStormAssetFile(stormMap.ReplayPreviewImagePath);
             if (stormAssetFile is not null)
             {
                 map.ReplayPreviewImage = GetImagePath(stormAssetFile.StormPath.Path);
@@ -138,7 +133,7 @@ public class MapParser : DataParser<Map>
 
     private void SetMapObjectives(Map map, StormMap stormMap)
     {
-        StormFile? layoutStormFile = _heroesData.GetStormLayoutFile(stormMap.LayoutFilePath);
+        StormFile? layoutStormFile = HeroesData.GetStormLayoutFile(stormMap.LayoutFilePath);
         if (layoutStormFile is null)
         {
             _logger.LogWarning("No StormFile found for {LayoutFilePath}", stormMap.LayoutFilePath);
@@ -146,7 +141,7 @@ public class MapParser : DataParser<Map>
             return;
         }
 
-        if (!_heroesXmlLoader.FileExists(layoutStormFile))
+        if (!HeroesXmlLoader.FileExists(layoutStormFile))
         {
             _logger.LogWarning("No layout file found for {@LayoutStormFile}", layoutStormFile);
 
@@ -187,7 +182,7 @@ public class MapParser : DataParser<Map>
 
     private XDocument GetLayoutDocument(StormFile layoutStormFile)
     {
-        using Stream layoutFileStream = _heroesXmlLoader.GetFile(layoutStormFile);
+        using Stream layoutFileStream = HeroesXmlLoader.GetFile(layoutStormFile);
         return XDocument.Load(layoutFileStream);
     }
 
@@ -205,7 +200,7 @@ public class MapParser : DataParser<Map>
 
             if (!string.IsNullOrEmpty(resolvedTexturePath))
             {
-                StormFile? stormAssetFile = _heroesData.GetStormAssetFile(resolvedTexturePath);
+                StormFile? stormAssetFile = HeroesData.GetStormAssetFile(resolvedTexturePath);
                 if (stormAssetFile is not null)
                 {
                     mapIcon.Image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), ImageFileExtension);
@@ -258,7 +253,7 @@ public class MapParser : DataParser<Map>
             return null;
 
         if (assetPath.StartsWith('@'))
-            return _heroesData.GetStormAssetString(assetPath[1..])?.Value;
+            return HeroesData.GetStormAssetString(assetPath[1..])?.Value;
 
         return assetPath;
     }
@@ -270,9 +265,9 @@ public class MapParser : DataParser<Map>
 
         if (assetPath.StartsWith('@'))
         {
-            string? value = _heroesData.GetStormAssetString(assetPath[1..])?.Value;
+            string? value = HeroesData.GetStormAssetString(assetPath[1..])?.Value;
             if (value is null)
-                return GetTooltipDescriptionFromId(assetPath[1..]);
+                return TooltipDescriptionService.GetTooltipDescriptionFromId(assetPath[1..]);
         }
 
         return new TooltipDescription(assetPath);

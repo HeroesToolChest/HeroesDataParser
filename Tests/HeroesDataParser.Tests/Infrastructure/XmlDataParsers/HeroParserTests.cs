@@ -1,20 +1,28 @@
-﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers.Tests;
+﻿using HeroesDataParser.Options;
+using Microsoft.Extensions.Options;
+
+namespace HeroesDataParser.Infrastructure.XmlDataParsers.Tests;
 
 [TestClass]
 public class HeroParserTests
 {
     private readonly ILogger<HeroParser> _logger;
+    private readonly IOptions<RootOptions> _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IUnitParser _unitParser;
     private readonly ITalentParser _talentParser;
+    private readonly ITooltipDescriptionService _tooltipDescriptionService;
+
     private readonly HeroesXmlLoader _heroesXmlLoader;
 
     public HeroParserTests()
     {
         _logger = Substitute.For<ILogger<HeroParser>>();
+        _options = Substitute.For<IOptions<RootOptions>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
         _unitParser = Substitute.For<IUnitParser>();
         _talentParser = Substitute.For<ITalentParser>();
+        _tooltipDescriptionService = Substitute.For<ITooltipDescriptionService>();
 
         _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
     }
@@ -28,7 +36,7 @@ public class HeroParserTests
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
-        HeroParser heroParser = new(_logger, _heroesXmlLoaderService, _unitParser, _talentParser);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
 
         Hero hero = new(heroUnit)
         {
@@ -50,7 +58,7 @@ public class HeroParserTests
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
-        HeroParser heroParser = new(_logger, _heroesXmlLoaderService, _unitParser, _talentParser);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
 
         _unitParser.Parse("AbathurSymbiote").Returns(new Unit("AbathurSymbiote"));
 
@@ -130,7 +138,7 @@ public class HeroParserTests
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
-        HeroParser heroParser = new(_logger, _heroesXmlLoaderService, _unitParser, _talentParser);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
 
         // unit part for abathur hero
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
@@ -171,7 +179,7 @@ public class HeroParserTests
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
-        HeroParser heroParser = new(_logger, _heroesXmlLoaderService, _unitParser, _talentParser);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
 
         Ability abathurSymbioteAbility = new()
         {
@@ -258,7 +266,7 @@ public class HeroParserTests
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
-        HeroParser heroParser = new(_logger, _heroesXmlLoaderService, _unitParser, _talentParser);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
 
         // unit part for alarak hero
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
@@ -318,7 +326,7 @@ public class HeroParserTests
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
-        HeroParser heroParser = new(_logger, _heroesXmlLoaderService, _unitParser, _talentParser);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
 
         Ability sadismAbility = new()
         {

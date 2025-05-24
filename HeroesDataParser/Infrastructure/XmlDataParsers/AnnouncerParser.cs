@@ -2,14 +2,9 @@
 
 public class AnnouncerParser : CollectionParserBase<Announcer>
 {
-    private readonly ILogger<AnnouncerParser> _logger;
-    private readonly HeroesData _heroesData;
-
-    public AnnouncerParser(ILogger<AnnouncerParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
-        : base(logger, heroesXmlLoaderService)
+    public AnnouncerParser(ILogger<AnnouncerParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
+        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
     {
-        _logger = logger;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     public override string DataObjectType => "AnnouncerPack";

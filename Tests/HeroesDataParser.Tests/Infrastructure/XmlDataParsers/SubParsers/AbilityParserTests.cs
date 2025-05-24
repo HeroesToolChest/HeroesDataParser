@@ -1,4 +1,7 @@
-﻿using HeroesDataParser.Tests.TestHelpers;
+﻿using HeroesDataParser.Core;
+using HeroesDataParser.Options;
+using HeroesDataParser.Tests.TestHelpers;
+using Microsoft.Extensions.Options;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
 
@@ -6,14 +9,18 @@ namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
 public class AbilityParserTests
 {
     private readonly ILogger<AbilityParser> _logger;
+    private readonly IOptions<RootOptions> _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
+    private readonly ITooltipDescriptionService _tooltipDescriptionService;
 
     private readonly HeroesXmlLoader _heroesXmlLoader;
 
     public AbilityParserTests()
     {
         _logger = Substitute.For<ILogger<AbilityParser>>();
+        _options = Substitute.For<IOptions<RootOptions>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
+        _tooltipDescriptionService = Substitute.For<ITooltipDescriptionService>();
 
         _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
     }
@@ -29,7 +36,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("27");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -54,7 +61,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("28");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -93,7 +100,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("26");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -130,7 +137,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("29");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -165,7 +172,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("23");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -187,7 +194,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("1");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -207,7 +214,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("18").GetElementDataAt("Link").Value.GetString();
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(abilArrayLinkValue);
@@ -233,7 +240,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("25").GetElementDataAt("Link").Value.GetString();
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(abilArrayLinkValue);
@@ -257,7 +264,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("0");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -290,7 +297,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("2");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -310,7 +317,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("25");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -345,7 +352,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("13");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -380,7 +387,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("14");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -415,7 +422,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("20");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -450,7 +457,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("21");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -485,7 +492,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("26");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -520,7 +527,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("35");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -555,7 +562,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("30");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -586,7 +593,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("32");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -612,7 +619,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("27").GetElementDataAt("Link").Value.GetString();
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(abilArrayLinkValue);
@@ -635,7 +642,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("25");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -670,7 +677,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("26");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -705,7 +712,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("32");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -740,7 +747,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("29");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -775,7 +782,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("4").GetElementDataAt("Link").Value.GetString();
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(abilArrayLinkValue);
@@ -804,7 +811,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("10").GetElementDataAt("Link").Value.GetString();
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(abilArrayLinkValue);
@@ -833,7 +840,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("31");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -855,7 +862,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("29");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -882,7 +889,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("34");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -911,7 +918,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("28");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -943,7 +950,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("26");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);
@@ -975,7 +982,7 @@ public class AbilityParserTests
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("29");
 
-        AbilityParser abilityParser = new(_logger, _heroesXmlLoaderService);
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Ability? ability = abilityParser.GetAbility(layoutButtons);

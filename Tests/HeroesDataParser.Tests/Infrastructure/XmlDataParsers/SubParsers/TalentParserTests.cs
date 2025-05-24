@@ -1,19 +1,24 @@
-﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
+﻿using HeroesDataParser.Options;
+using Microsoft.Extensions.Options;
+
+namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
 
 [TestClass]
 public class TalentParserTests
 {
     private readonly ILogger<TalentParser> _talentLogger;
-    private readonly ILogger<AbilityParser> _abilityLogger;
+    private readonly IOptions<RootOptions> _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
+    private readonly ITooltipDescriptionService _tooltipDescriptionService;
 
     private readonly HeroesXmlLoader _heroesXmlLoader;
 
     public TalentParserTests()
     {
         _talentLogger = Substitute.For<ILogger<TalentParser>>();
-        _abilityLogger = Substitute.For<ILogger<AbilityParser>>();
+        _options = Substitute.For<IOptions<RootOptions>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
+        _tooltipDescriptionService = Substitute.For<ITooltipDescriptionService>();
 
         _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
     }
@@ -40,7 +45,7 @@ public class TalentParserTests
 
         hero.HeroUnits.Add(abathurSymbioteUnit.Id, abathurSymbioteUnit);
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -86,7 +91,7 @@ public class TalentParserTests
             AbilityType = AbilityType.W,
         });
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -110,49 +115,6 @@ public class TalentParserTests
         talent.Tier.Should().Be(TalentTier.Level1);
     }
 
-    //[TestMethod]
-    //public void GetTalent_AbathurMasteryEnvenomedNestsToxicNest_ReturnsTalent()
-    //{
-    //    // arrange
-    //    string heroUnit = "Abathur";
-
-    //    _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
-    //    StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
-    //    StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("1");
-
-    //    Hero hero = new(heroUnit);
-    //    hero.AddAbility(new Ability()
-    //    {
-    //        AbilityElementId = "AbathurToxicNest",
-    //        ButtonElementId = "AbathurToxicNest",
-    //        AbilityType = AbilityType.W,
-    //    });
-
-    //    TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
-
-    //    // act
-    //    Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
-
-    //    // assert
-    //    talent.Should().NotBeNull();
-    //    talent.LinkId.ToString().Should().Be("AbathurMasteryEnvenomedNestsToxicNest|AbathurToxicNestEnvenomedNestTalent|W");
-    //    talent.TalentElementId.Should().Be("AbathurMasteryEnvenomedNestsToxicNest");
-    //    talent.ButtonElementId.Should().Be("AbathurToxicNestEnvenomedNestTalent");
-    //    talent.Icon.Should().Be("storm_ui_icon_abathur_toxicnest.png");
-    //    talent.Name!.RawDescription.Should().Be("Envenomed Nest");
-    //    talent.Column.Should().Be(2);
-    //    talent.ShortText!.RawDescription.Should().Be("Toxic Nests deal more damage, reduce Armor");
-    //    talent.FullText!.RawDescription.Should().Be("Toxic Nests deal");
-    //    talent.Charges.Should().BeNull();
-    //    talent.CooldownText.Should().BeNull();
-    //    talent.EnergyText.Should().BeNull();
-    //    talent.LifeText.Should().BeNull();
-    //    talent.SummonedUnitIds.Should().BeEmpty();
-    //    talent.AbilityType.Should().Be(AbilityType.W);
-    //    talent.Tier.Should().Be(TalentTier.Level1);
-    //}
-
     [TestMethod]
     public void GetTalent_AbathurCombatStyleSurvivalInstincts_ReturnsTalent()
     {
@@ -166,7 +128,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -209,7 +171,7 @@ public class TalentParserTests
             AbilityType = AbilityType.Heroic,
         });
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -243,7 +205,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -270,7 +232,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -314,7 +276,7 @@ public class TalentParserTests
             AbilityType = AbilityType.Trait,
         });
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -355,7 +317,7 @@ public class TalentParserTests
             AbilityType = AbilityType.E,
         });
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -385,7 +347,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -414,7 +376,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -443,7 +405,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -483,7 +445,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -520,7 +482,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -563,7 +525,7 @@ public class TalentParserTests
             AbilityType = AbilityType.Z,
         });
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -600,7 +562,7 @@ public class TalentParserTests
             ButtonElementId = AbilityTalentParserBase.NoButtonElementId,
             AbilityType = AbilityType.Hidden,
         });
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -637,7 +599,7 @@ public class TalentParserTests
             AbilityType = AbilityType.Active,
         });
 
-        TalentParser talentParser = new(_talentLogger, _heroesXmlLoaderService);
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);

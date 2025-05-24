@@ -2,8 +2,8 @@
 
 public class LootChestParser : DataParser<LootChest>
 {
-    public LootChestParser(ILogger<LootChestParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
-        : base(logger, heroesXmlLoaderService)
+    public LootChestParser(ILogger<LootChestParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
+        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
     {
     }
 

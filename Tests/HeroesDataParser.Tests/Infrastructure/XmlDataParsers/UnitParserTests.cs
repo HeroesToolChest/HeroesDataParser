@@ -1,4 +1,6 @@
 ﻿using HeroesDataParser.Infrastructure.XmlDataParsers;
+using HeroesDataParser.Options;
+using Microsoft.Extensions.Options;
 
 namespace HeroesDataParser.Tests.Infrastructure.XmlDataParsers;
 
@@ -6,15 +8,21 @@ namespace HeroesDataParser.Tests.Infrastructure.XmlDataParsers;
 public class UnitParserTests
 {
     private readonly ILogger<UnitParser> _logger;
+    private readonly IOptions<RootOptions> _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IAbilityParser _abilityParser;
+    private readonly ITooltipDescriptionService _tooltipDescriptionService;
+
     private readonly HeroesXmlLoader _heroesXmlLoader;
 
     public UnitParserTests()
     {
         _logger = Substitute.For<ILogger<UnitParser>>();
+        _options = Substitute.For<IOptions<RootOptions>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
         _abilityParser = Substitute.For<IAbilityParser>();
+        _tooltipDescriptionService = Substitute.For<ITooltipDescriptionService>();
+
         _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
     }
 
@@ -26,7 +34,7 @@ public class UnitParserTests
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
-        UnitParser unitParser = new(_logger, _heroesXmlLoaderService, _abilityParser);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
 
         Ability abathurUltimateEvolutionAbility = new()
         {
@@ -113,7 +121,7 @@ public class UnitParserTests
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
-        UnitParser unitParser = new(_logger, _heroesXmlLoaderService, _abilityParser);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
 
         // act
         Unit? unit = unitParser.Parse(unitId);
@@ -137,7 +145,7 @@ public class UnitParserTests
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
-        UnitParser unitParser = new(_logger, _heroesXmlLoaderService, _abilityParser);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
 
         _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[25]")).Returns(new Ability()
         {
@@ -172,7 +180,7 @@ public class UnitParserTests
 
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
-        UnitParser unitParser = new(_logger, _heroesXmlLoaderService, _abilityParser);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
 
         _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[32]")).Returns(new Ability()
         {

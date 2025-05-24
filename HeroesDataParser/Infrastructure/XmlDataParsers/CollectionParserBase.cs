@@ -6,21 +6,13 @@ namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 public abstract class CollectionParserBase<T> : DataParser<T>
     where T : ElementObject, IElementObject, IHeroesCollectionObject
 {
-    private readonly ILogger _logger;
-
-    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
-    private readonly HeroesData _heroesData;
-
     // https://en.wikipedia.org/wiki/Heroes_of_the_Storm
     // https://web.archive.org/web/20140525185554/http://www.heroesofthestorm.com/en-us/news/13290651/the-heroes-of-the-storm-technical-alpha-is-now-live
     private readonly DateOnly _technicalAlphaReleaseDate = new(2014, 3, 13);
 
-    public CollectionParserBase(ILogger logger, IHeroesXmlLoaderService heroesXmlLoaderService)
-        : base(logger, heroesXmlLoaderService)
+    public CollectionParserBase(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
+        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
     {
-        _logger = logger;
-        _heroesXmlLoaderService = heroesXmlLoaderService;
-        _heroesData = _heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     public abstract override string DataObjectType { get; }
@@ -69,7 +61,7 @@ public abstract class CollectionParserBase<T> : DataParser<T>
         SetNameProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("sortname", out StormElementData? sortNameData))
-            collectionObject.SortName = GetTooltipDescriptionFromId(sortNameData.Value.GetString());
+            collectionObject.SortName = TooltipDescriptionService.GetTooltipDescriptionFromId(sortNameData.Value.GetString());
 
         SetHyperlinkIdProperty(collectionObject, stormElement);
 

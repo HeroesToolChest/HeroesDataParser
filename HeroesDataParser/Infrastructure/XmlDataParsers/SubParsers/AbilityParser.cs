@@ -6,14 +6,9 @@ namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
 
 public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 {
-    private readonly ILogger<AbilityParser> _logger;
-    private readonly HeroesData _heroesData;
-
-    public AbilityParser(ILogger<AbilityParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
-        : base(logger, heroesXmlLoaderService)
+    public AbilityParser(ILogger<AbilityParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
+        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
     {
-        _logger = logger;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     public static (string AbilityId, string Index) GetAbilCmdSplit(string abilCmdValue)
@@ -234,7 +229,7 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 
     private void SetAbilityData(AbilityTalentBase abilityTalent, string? abilCmdIndex = null)
     {
-        StormElement? abilityElement = _heroesData.GetCompleteStormElement("Abil", abilityTalent.AbilityElementId);
+        StormElement? abilityElement = HeroesData.GetCompleteStormElement("Abil", abilityTalent.AbilityElementId);
         if (abilityElement is null)
             return;
 

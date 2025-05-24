@@ -2,14 +2,9 @@
 
 public class TalentParser : AbilityTalentParserBase, ITalentParser
 {
-    private readonly ILogger<TalentParser> _logger;
-    private readonly HeroesData _heroesData;
-
-    public TalentParser(ILogger<TalentParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
-        : base(logger, heroesXmlLoaderService)
+    public TalentParser(ILogger<TalentParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
+        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
     {
-        _logger = logger;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     // <TalentTreeArray Talent="SamuroWayOfIllusion" Tier="1" Column="1" />
@@ -50,10 +45,10 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
                 StormElementData prerequisiteTalentArrayData = prerequisiteTalentArrayDataArray.GetElementDataAt(index);
 
                 string value = prerequisiteTalentArrayData.Value.GetString();
-                if (!string.IsNullOrEmpty(value) && _heroesData.StormElementExists("Talent", value))
+                if (!string.IsNullOrEmpty(value) && HeroesData.StormElementExists("Talent", value))
                     talent.PrerequisiteTalentIds.Add(value);
                 else
-                    _logger.LogWarning("Talent {Talent} has an unknown prerequisite talent id {PrerequisiteTalentId}.", talentValue, value);
+                    Logger.LogWarning("Talent {Talent} has an unknown prerequisite talent id {PrerequisiteTalentId}.", talentValue, value);
             }
         }
 
@@ -82,7 +77,7 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 
     private void SetTalentData(Hero hero, Talent talent)
     {
-        StormElement? talentElement = _heroesData.GetCompleteStormElement("Talent", talent.TalentElementId);
+        StormElement? talentElement = HeroesData.GetCompleteStormElement("Talent", talent.TalentElementId);
         if (talentElement is null)
             return;
 
@@ -156,7 +151,7 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 
     private void SetAbilityData(string abilityId, AbilityTalentBase abilityTalent, string? abilCmdIndex = null)
     {
-        StormElement? abilityElement = _heroesData.GetCompleteStormElement("Abil", abilityId);
+        StormElement? abilityElement = HeroesData.GetCompleteStormElement("Abil", abilityId);
         if (abilityElement is null)
             return;
 

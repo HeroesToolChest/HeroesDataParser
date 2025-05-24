@@ -6,27 +6,22 @@ namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 public abstract class DataParser<T> : ParserBase, IDataParser<T>
     where T : ElementObject, IElementObject
 {
-    private readonly ILogger _logger;
-    private readonly HeroesData _heroesData;
-
-    public DataParser(ILogger logger, IHeroesXmlLoaderService heroesXmlLoaderService)
-        : base(logger, heroesXmlLoaderService)
+    public DataParser(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
+        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
     {
-        _logger = logger;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
     }
 
     public abstract string DataObjectType { get; }
 
     public virtual T? Parse(string id)
     {
-        _logger.LogTrace("Parsing id {Id}", id);
+        Logger.LogTrace("Parsing id {Id}", id);
 
-        StormElement? stormElement = _heroesData.GetCompleteStormElement(DataObjectType, id);
+        StormElement? stormElement = HeroesData.GetCompleteStormElement(DataObjectType, id);
 
         if (stormElement is null)
         {
-            _logger.LogWarning("Could not find data for id {Id}", id);
+            Logger.LogWarning("Could not find data for id {Id}", id);
             return null;
         }
 
@@ -34,7 +29,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
 
         if (elementObject is null)
         {
-            _logger.LogError("Failed to create instance of type {Type} for id {Id}", typeof(T), id);
+            Logger.LogError("Failed to create instance of type {Type} for id {Id}", typeof(T), id);
             return null;
         }
 
@@ -42,7 +37,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
         {
             SetProperties(elementObject, stormElement);
 
-            _logger.LogTrace("Parsing id {Id} complete", id);
+            Logger.LogTrace("Parsing id {Id} complete", id);
 
             return elementObject;
         }
@@ -55,7 +50,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
         if (elementObject is IName nameObject)
         {
             if (stormElement.DataValues.TryGetElementDataAt("name", out StormElementData? nameData))
-                nameObject.Name = GetTooltipDescriptionFromId(nameData.Value.GetString());
+                nameObject.Name = TooltipDescriptionService.GetTooltipDescriptionFromId(nameData.Value.GetString());
         }
     }
 
@@ -91,7 +86,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
         if (elementObject is IDescription descriptionObject)
         {
             if (stormElement.DataValues.TryGetElementDataAt("description", out StormElementData? descriptionData))
-                descriptionObject.Description = GetTooltipDescriptionFromId(descriptionData.Value.GetString());
+                descriptionObject.Description = TooltipDescriptionService.GetTooltipDescriptionFromId(descriptionData.Value.GetString());
         }
     }
 
@@ -100,7 +95,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
         if (elementObject is IInfoText infoTextObject)
         {
             if (stormElement.DataValues.TryGetElementDataAt("infotext", out StormElementData? infoTextData))
-                infoTextObject.InfoText = GetTooltipDescriptionFromId(infoTextData.Value.GetString());
+                infoTextObject.InfoText = TooltipDescriptionService.GetTooltipDescriptionFromId(infoTextData.Value.GetString());
         }
     }
 }
