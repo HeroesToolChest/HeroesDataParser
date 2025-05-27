@@ -11,12 +11,15 @@ public class JsonFileWriterService : IJsonFileWriterService
     private readonly RootOptions _options;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly HeroesData _heroesData;
+    private readonly ITooltipDescriptionService _tooltipDescriptionService;
 
-    public JsonFileWriterService(ILogger<JsonFileWriterService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
+    public JsonFileWriterService(ILogger<JsonFileWriterService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
     {
         _logger = logger;
         _options = options.Value;
         _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
+        _tooltipDescriptionService = tooltipDescriptionService;
+
         _jsonSerializerOptions = new JsonSerializerOptions()
         {
             WriteIndented = true,
@@ -30,7 +33,7 @@ public class JsonFileWriterService : IJsonFileWriterService
                 new AbilityLinkIdConverter(),
                 new TalentLinkIdConverter(),
                 new LinkIdConverter(),
-                new TooltipDescriptionWriteConverter(_options.DescriptionText, DescriptionType.RawDescription),
+                new TooltipDescriptionWriteConverter(_options.DescriptionText),
             },
             TypeInfoResolver = new HeroesElementResolver()
             {

@@ -61,9 +61,9 @@ public class HeroParser : CollectionParserBase<Hero>
                 if (currentSearchText[^1] != ' ')
                     currentSearchText += ' ';
 
-                currentSearchText += GetStormGameString(additionalSearchTextData.Value.GetString());
+                currentSearchText += TooltipDescriptionService.GetStormGameString(additionalSearchTextData.Value.GetString());
 
-                collectionObject.SearchText = GetTooltipDescriptionFromGameString(currentSearchText);
+                collectionObject.SearchText = TooltipDescriptionService.GetTooltipDescriptionFromGameString(currentSearchText);
             }
             else
             {

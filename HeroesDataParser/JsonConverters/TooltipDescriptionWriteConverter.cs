@@ -1,19 +1,22 @@
-﻿namespace HeroesDataParser.JsonConverters;
+﻿using HeroesDataParser.Infrastructure;
+
+namespace HeroesDataParser.JsonConverters;
 
 /// <summary>
 /// Convert to convert <see cref="TooltipDescription"/>s to the selected <see cref="DescriptionType"/>.
 /// </summary>
 public class TooltipDescriptionWriteConverter : JsonConverter<TooltipDescription>
 {
-    private readonly DescriptionType _descriptionType;
+    private readonly DescriptionTextOptions _descriptionTextOptions;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TooltipDescriptionWriteConverter"/> class.
     /// </summary>
-    /// <param name="descriptionType">The current <see cref="DescriptionType"/>.</param>
-    public TooltipDescriptionWriteConverter(DescriptionType descriptionType)
+    /// <param name="descriptionTextOptions">The options.</param>
+    /// <param name="tooltipDescriptionService">The tooltip description service.</param>
+    public TooltipDescriptionWriteConverter(DescriptionTextOptions descriptionTextOptions)
     {
-        _descriptionType = descriptionType;
+        _descriptionTextOptions = descriptionTextOptions;
     }
 
     /// <inheritdoc/>
@@ -25,19 +28,19 @@ public class TooltipDescriptionWriteConverter : JsonConverter<TooltipDescription
     /// <inheritdoc/>
     public override void Write(Utf8JsonWriter writer, TooltipDescription value, JsonSerializerOptions options)
     {
-        if (_descriptionType == DescriptionType.RawDescription)
+        if (_descriptionTextOptions.Type == DescriptionType.RawDescription)
             writer.WriteStringValue(value.RawDescription);
-        else if (_descriptionType == DescriptionType.PlainText)
+        else if (_descriptionTextOptions.Type == DescriptionType.PlainText)
             writer.WriteStringValue(value.PlainText);
-        else if (_descriptionType == DescriptionType.PlainTextWithNewlines)
+        else if (_descriptionTextOptions.Type == DescriptionType.PlainTextWithNewlines)
             writer.WriteStringValue(value.PlainTextWithNewlines);
-        else if (_descriptionType == DescriptionType.PlainTextWithScaling)
+        else if (_descriptionTextOptions.Type == DescriptionType.PlainTextWithScaling)
             writer.WriteStringValue(value.PlainTextWithScaling);
-        else if (_descriptionType == DescriptionType.PlainTextWithScalingWithNewlines)
+        else if (_descriptionTextOptions.Type == DescriptionType.PlainTextWithScalingWithNewlines)
             writer.WriteStringValue(value.PlainTextWithScalingWithNewlines);
-        else if (_descriptionType == DescriptionType.ColoredText)
+        else if (_descriptionTextOptions.Type == DescriptionType.ColoredText)
             writer.WriteStringValue(value.ColoredText);
-        else if (_descriptionType == DescriptionType.ColoredTextWithScaling)
+        else if (_descriptionTextOptions.Type == DescriptionType.ColoredTextWithScaling)
             writer.WriteStringValue(value.ColoredTextWithScaling);
         else
             writer.WriteStringValue(value.ToString());

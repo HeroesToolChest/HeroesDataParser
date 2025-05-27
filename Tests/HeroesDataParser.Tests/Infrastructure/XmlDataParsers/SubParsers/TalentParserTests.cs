@@ -7,6 +7,7 @@ namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
 public class TalentParserTests
 {
     private readonly ILogger<TalentParser> _talentLogger;
+    private readonly ILogger<TooltipDescriptionService> _tooltipLogger;
     private readonly IOptions<RootOptions> _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly ITooltipDescriptionService _tooltipDescriptionService;
@@ -16,11 +17,23 @@ public class TalentParserTests
     public TalentParserTests()
     {
         _talentLogger = Substitute.For<ILogger<TalentParser>>();
+        _tooltipLogger = Substitute.For<ILogger<TooltipDescriptionService>>();
         _options = Substitute.For<IOptions<RootOptions>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
         _tooltipDescriptionService = Substitute.For<ITooltipDescriptionService>();
 
         _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+        _options.Value.Returns(new RootOptions()
+        {
+            DescriptionText = new DescriptionTextOptions()
+            {
+                Type = DescriptionType.RawDescription,
+            },
+        });
+
+        // allow the real instance
+        _tooltipDescriptionService = new TooltipDescriptionService(_tooltipLogger, _options, _heroesXmlLoaderService);
     }
 
     [TestMethod]
@@ -28,8 +41,6 @@ public class TalentParserTests
     {
         // arrange
         string heroUnit = "Abathur";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("0");
@@ -78,8 +89,6 @@ public class TalentParserTests
         // arrange
         string heroUnit = "Abathur";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("1");
 
@@ -121,8 +130,6 @@ public class TalentParserTests
         // arrange
         string heroUnit = "Abathur";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("3");
 
@@ -157,8 +164,6 @@ public class TalentParserTests
     {
         // arrange
         string heroUnit = "Abathur";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("10");
@@ -198,8 +203,6 @@ public class TalentParserTests
         // arrange
         string heroUnit = "Abathur";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("20");
 
@@ -224,8 +227,6 @@ public class TalentParserTests
     {
         // arrange
         string heroUnit = "Abathur";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("9");
@@ -262,8 +263,6 @@ public class TalentParserTests
     {
         // arrange
         string heroUnit = "Muradin";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("16");
@@ -304,8 +303,6 @@ public class TalentParserTests
         // arrange
         string heroUnit = "Alarak";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("2");
 
@@ -340,8 +337,6 @@ public class TalentParserTests
         // arrange
         string heroUnit = "Alarak";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("13");
 
@@ -369,8 +364,6 @@ public class TalentParserTests
         // arrange
         string heroUnit = "Alarak";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("5");
 
@@ -397,8 +390,6 @@ public class TalentParserTests
     {
         // arrange
         string heroUnit = "Garrosh";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("2");
@@ -438,8 +429,6 @@ public class TalentParserTests
         // arrange
         string heroUnit = "Barbarian";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("8");
 
@@ -475,8 +464,6 @@ public class TalentParserTests
         // arrange
         string heroUnit = "Thrall";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("7");
 
@@ -511,8 +498,6 @@ public class TalentParserTests
     {
         // arrange
         string heroUnit = "Gall";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("0");
@@ -550,8 +535,6 @@ public class TalentParserTests
         // arrange
         string heroUnit = "Anubarak";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("1");
 
@@ -585,8 +568,6 @@ public class TalentParserTests
     {
         // arrange
         string heroUnit = "DVa";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("2");

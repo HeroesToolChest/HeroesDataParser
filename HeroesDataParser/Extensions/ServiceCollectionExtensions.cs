@@ -17,6 +17,8 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<IHeroesXmlLoaderService, HeroesXmlLoaderService>();
 
+        services.AddSingleton<ITooltipDescriptionService, TooltipDescriptionService>();
+
         services.AddDataParsers();
         services.AddImageWriters();
 

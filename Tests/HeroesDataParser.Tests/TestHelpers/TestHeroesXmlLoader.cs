@@ -18,6 +18,7 @@ public static class TestHeroesXmlLoader
         XDocument voiceLineDocument = GetXDocument("VoiceLine.xml");
         XDocument talentDocument = GetXDocument("Talent.xml");
         XDocument validatorDocument = GetXDocument("Validator.xml");
+        XDocument stormStyleDocument = GetXDocument("StormStyle.xml");
 
         return HeroesXmlLoader.LoadWithEmpty()
             .LoadCustomMod(new ManualModLoader("test")
@@ -49,6 +50,7 @@ public static class TestHeroesXmlLoader
                 .AddElements(validatorDocument.Root!.Elements())
                 .AddGameStrings(
                     [
+                        "test_for_tooltip_decription_service=Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>",
                         "e_gameUIStringChargeCooldownColon=Charge Cooldown: ",
                         "e_gameUIStringCooldownColon=Cooldown: ",
                         "UI/AbilTooltipCooldown=Cooldown: %1 second",
@@ -119,6 +121,7 @@ public static class TestHeroesXmlLoader
                         "Button/Tooltip/SamuroIllusionMasterTalent=Mirror Images can be controlled individually or as...",
                         "Button/Tooltip/SamuroAdvancingStrikes=Activate to switch places with a target",
                         "Button/Tooltip/DehakaEssenceCollectionCooldownOverride=5 seconds",
+                        "Button/OverrideText/DVaMechBoosters=<d ref=\"Effect,DVaBoostersApplyCooldown,Cost[0].CooldownTimeUse\"/> seconds",
                         "Hero/AdditionalSearchText/Abathur=Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug Double Soak",
                         "Hero/AlternateNameSearchText/Abathur=Abathur",
                         "Hero/Description/Abathur=A unique Hero that can manipulate the battle from anywhere on the map.",
@@ -189,7 +192,8 @@ public static class TestHeroesXmlLoader
                     Path.Join("Assets", "Textures", "storm_ui_glues_draft_portrait_Abathur.dds"),
                     Path.Join("Assets", "Textures", "storm_ui_ingame_partyframe_Abathur.dds"),
                     ])
-                .AddLevelScalingArrayElements(heroDocument.Root.Descendants("LevelScalingArray")))
+                .AddLevelScalingArrayElements(heroDocument.Root.Descendants("LevelScalingArray"))
+                .AddStormStyleElements(stormStyleDocument.Root!.Elements()))
             .LoadGameStrings();
     }
 

@@ -9,6 +9,7 @@ namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
 public class AbilityParserTests
 {
     private readonly ILogger<AbilityParser> _logger;
+    private readonly ILogger<TooltipDescriptionService> _tooltipLogger;
     private readonly IOptions<RootOptions> _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly ITooltipDescriptionService _tooltipDescriptionService;
@@ -18,11 +19,22 @@ public class AbilityParserTests
     public AbilityParserTests()
     {
         _logger = Substitute.For<ILogger<AbilityParser>>();
+        _tooltipLogger = Substitute.For<ILogger<TooltipDescriptionService>>();
         _options = Substitute.For<IOptions<RootOptions>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
-        _tooltipDescriptionService = Substitute.For<ITooltipDescriptionService>();
 
         _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+        _options.Value.Returns(new RootOptions()
+        {
+            DescriptionText = new DescriptionTextOptions()
+            {
+                Type = DescriptionType.RawDescription,
+            },
+        });
+
+        // allow the real instance
+        _tooltipDescriptionService = new TooltipDescriptionService(_tooltipLogger, _options, _heroesXmlLoaderService);
     }
 
     [TestMethod]
@@ -30,8 +42,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "HeroAbathur";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("27");
@@ -55,8 +65,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "HeroAbathur";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("28");
@@ -95,8 +103,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAbathur";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("26");
 
@@ -132,8 +138,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAbathur";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("29");
 
@@ -167,8 +171,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAbathur";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("23");
 
@@ -189,8 +191,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAbathur";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("1");
 
@@ -208,8 +208,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "HeroAbathur";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("18").GetElementDataAt("Link").Value.GetString();
@@ -235,8 +233,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAbathur";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("25").GetElementDataAt("Link").Value.GetString();
 
@@ -258,8 +254,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "AbathurSymbiote";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("0");
@@ -292,8 +286,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "AbathurSymbiote";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("2");
 
@@ -311,8 +303,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "HeroAbathur";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("25");
@@ -347,8 +337,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAbathur";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("13");
 
@@ -381,8 +369,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "HeroAbathur";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("14");
@@ -417,8 +403,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAbathur";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("20");
 
@@ -451,8 +435,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "HeroAbathur";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("21");
@@ -487,8 +469,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAlarak";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("26");
 
@@ -521,8 +501,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "HeroAlarak";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("35");
@@ -557,8 +535,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAlarak";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("30");
 
@@ -588,8 +564,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAlarak";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("32");
 
@@ -614,8 +588,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAlarak";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("27").GetElementDataAt("Link").Value.GetString();
 
@@ -636,8 +608,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "HeroAlexstrasza";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("25");
@@ -672,8 +642,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAlexstrasza";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("26");
 
@@ -706,8 +674,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "HeroGuldan";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("32");
@@ -742,8 +708,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroBarbarian";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("29");
 
@@ -777,8 +741,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAbathur";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("4").GetElementDataAt("Link").Value.GetString();
 
@@ -805,8 +767,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "HeroAbathur";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         string abilArrayLinkValue = stormElement.DataValues.GetElementDataAt("AbilArray").GetElementDataAt("10").GetElementDataAt("Link").Value.GetString();
@@ -835,8 +795,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroKelThuzad";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("31");
 
@@ -856,8 +814,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "HeroSamuro";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("29");
@@ -883,8 +839,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "HeroSamuro";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("34");
@@ -912,8 +866,6 @@ public class AbilityParserTests
     {
         // arrange
         string heroUnit = "HeroAna";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("28");
@@ -945,8 +897,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroAna";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("26");
 
@@ -977,8 +927,6 @@ public class AbilityParserTests
         // arrange
         string heroUnit = "HeroDehaka";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
         StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("29");
 
@@ -1001,6 +949,26 @@ public class AbilityParserTests
         ability.Charges.IsCountHidden.Should().BeFalse();
         ability.Charges.RecastCooldown.Should().BeNull();
         ability.CooldownText!.RawDescription.Should().Be("Cooldown: 5 seconds");
+    }
+
+    [TestMethod]
+    public void GetAbility_DVaBoostersOnCommand_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroDVaMech";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("29");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("DVaBoostersOn|DVaMechBoosters|Q");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 10 seconds");
     }
 
     private static void AssertAbathurSymbioteAbility(Ability ability)

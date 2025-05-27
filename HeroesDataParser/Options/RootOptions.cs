@@ -2,6 +2,8 @@
 
 public class RootOptions
 {
+    public int? BuildNumber { get; set; }
+
     public StorageLoadOptions StorageLoad { get; set; } = new();
 
     public string OutputDirectory { get; set; } = ".";
@@ -12,5 +14,5 @@ public class RootOptions
 
     public bool LocalizedText { get; set; }
 
-    public int? BuildNumber { get; set; }
+    public DescriptionTextOptions DescriptionText { get; set; } = new();
 }

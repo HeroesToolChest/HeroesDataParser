@@ -7,6 +7,7 @@ namespace HeroesDataParser.Infrastructure.XmlDataParsers.Tests;
 public class HeroParserTests
 {
     private readonly ILogger<HeroParser> _logger;
+    private readonly ILogger<TooltipDescriptionService> _tooltipLogger;
     private readonly IOptions<RootOptions> _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IUnitParser _unitParser;
@@ -18,6 +19,7 @@ public class HeroParserTests
     public HeroParserTests()
     {
         _logger = Substitute.For<ILogger<HeroParser>>();
+        _tooltipLogger = Substitute.For<ILogger<TooltipDescriptionService>>();
         _options = Substitute.For<IOptions<RootOptions>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
         _unitParser = Substitute.For<IUnitParser>();
@@ -25,6 +27,17 @@ public class HeroParserTests
         _tooltipDescriptionService = Substitute.For<ITooltipDescriptionService>();
 
         _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+        _options.Value.Returns(new RootOptions()
+        {
+            DescriptionText = new DescriptionTextOptions()
+            {
+                Type = DescriptionType.RawDescription,
+            },
+        });
+
+        // allow the real instance
+        _tooltipDescriptionService = new TooltipDescriptionService(_tooltipLogger, _options, _heroesXmlLoaderService);
     }
 
     [TestMethod]
@@ -33,8 +46,6 @@ public class HeroParserTests
         // arrange
         string heroUnit = "HpTESTHero";
         string unitId = "HeroHpTESTHero";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
 
@@ -55,8 +66,6 @@ public class HeroParserTests
     {
         // arrange
         string heroUnit = "Abathur";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
 
@@ -136,8 +145,6 @@ public class HeroParserTests
         // arrange
         string heroUnit = "Abathur";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
 
         // unit part for abathur hero
@@ -176,8 +183,6 @@ public class HeroParserTests
     {
         // arrange
         string heroUnit = "Abathur";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
 
@@ -264,8 +269,6 @@ public class HeroParserTests
         // arrange
         string heroUnit = "Alarak";
 
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
-
         HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
 
         // unit part for alarak hero
@@ -323,8 +326,6 @@ public class HeroParserTests
     {
         // arrange
         string heroUnit = "Alarak";
-
-        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
 
         HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
 

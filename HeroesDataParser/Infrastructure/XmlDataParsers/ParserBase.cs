@@ -31,64 +31,6 @@ public abstract class ParserBase
 
     protected ITooltipDescriptionService TooltipDescriptionService => _tooltipDescriptionService;
 
-    ///// <summary>
-    ///// Gets a tooltip description from an id. Looks up the id in the gamestrings and parses it.
-    ///// </summary>
-    ///// <param name="id">The id.</param>
-    ///// <returns>A <see cref="TooltipDescription"/>.</returns>
-    //protected TooltipDescription? GetTooltipDescriptionFromId(string id)
-    //{
-    //    StormGameString? stormGameString = _heroesData.GetStormGameString(id);
-
-    //    try
-    //    {
-    //        if (stormGameString is null)
-    //            return null;
-    //        else
-    //            return _heroesData.ParseGameString(stormGameString);
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        Logger.LogError(ex, "Could not parse gamestring {Id}", id);
-    //        throw;
-    //    }
-    //}
-
-    /// <summary>
-    /// Gets a tooltip description from a <see cref="StormGameString"/>.
-    /// </summary>
-    /// <param name="gamestring">A <see cref="StormGameString"/>, which is an unparsed gamestring.</param>
-    /// <returns>A <see cref="TooltipDescription"/>.</returns>
-    protected TooltipDescription? GetTooltipDescriptionFromGameString(StormGameString gamestring)
-    {
-        return _heroesData.ParseGameString(gamestring);
-    }
-
-    /// <summary>
-    /// Gets a tooltip description from an unparsed gamestring.
-    /// </summary>
-    /// <param name="gamestring">An unparsed gamestring.</param>
-    /// <returns>A <see cref="TooltipDescription"/>.</returns>
-    protected TooltipDescription? GetTooltipDescriptionFromGameString(string gamestring)
-    {
-        return _heroesData.ParseGameString(gamestring);
-    }
-
-    /// <summary>
-    /// Gets an unparsed gamestring from an id.
-    /// </summary>
-    /// <param name="id">The id.</param>
-    /// <returns>An unparsed gamestring or <see langword="null"/> if not found.</returns>
-    protected string? GetStormGameString(string id)
-    {
-        StormGameString? stormGameString = _heroesData.GetStormGameString(id);
-
-        if (stormGameString is null)
-            return null;
-        else
-            return stormGameString.Value;
-    }
-
     protected ImageFilePath? GetImageFilePath(StormElementData data)
     {
         string tileTexturePath = data.Value.GetString();

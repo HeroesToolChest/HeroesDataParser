@@ -50,4 +50,8 @@
     <ValidatorArray value="TargetIsNotABossUnitOrMonsterMinorCombine" />
     <ValidatorArray value="TargetNotMerc" />
   </CEffectSet>
+  <CEffectModifyUnit id="DVaBoostersApplyCooldown">
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="DVaBoostersOn,Execute" CooldownTimeUse="10" />
+  </CEffectModifyUnit>
 </Effect>

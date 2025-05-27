@@ -313,4 +313,13 @@
   <CButton id="DVaLiquidCooling" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_dva_mechmode_b.dds" />
   </CButton>
+  <CButton id="DVaMechBoosters" parent="StormButtonParent">
+    <TooltipAppender Validator="DVaBoostersRushdownHasTalent" Face="DVaBoostersRushdown" />
+    <TooltipAppender Validator="DVaBoostersComingThroughHasTalent" Face="DVaBoostersComingThrough" />
+    <TooltipAppender Validator="DVaBoostersHitTheNitrousHasTalent" Face="DVaBoostersHitTheNitrous" />
+    <TooltipAppender Validator="DvaHasGetOnThePointTalent" Face="DvaGetOnThePoint" />
+    <TooltipAppender Validator="DVaHasInForTheKillTalent" Face="DVaInForTheKill" />
+    <TooltipCooldownOverrideText value="Button/OverrideText/DVaMechBoosters" />
+    <Icon value="Assets\Textures\storm_ui_icon_dva_boosters.dds" />
+  </CButton>
 </Button>

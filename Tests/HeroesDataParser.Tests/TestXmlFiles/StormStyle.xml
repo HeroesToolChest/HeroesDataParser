@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StormStyle>
+  <Constant name="TooltipNumbers" val="bfd4fd" />
+  <Constant name="TooltipNumbersNoVal" />
+  <Constant name="TooltipAttackDamageNumbers" val="c27f02" />
+  <Style name="StandardTooltipDetails" template="StandardTemplate" height="18" vjustify="Top" hjustify="Left" textcolor="#TooltipNumbers" highlightcolor="#TooltipNumbers" disabledcolor="7a59ac" styleflags="Shadow" />
+  <Style name="StandardTooltipDetailsNoTextColor" template="StandardTemplate" height="18" vjustify="Top" hjustify="Left" highlightcolor="#TooltipNumbers" disabledcolor="7a59ac" styleflags="Shadow" />
+  <Style name="StandardTooltipProgressComplete" template="StandardTooltipDetails" textcolor="FFFFFF" />
+</StormStyle>

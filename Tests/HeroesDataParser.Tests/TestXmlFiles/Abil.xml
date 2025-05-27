@@ -656,5 +656,13 @@
   <CAbilEffectInstant id="AlarakDeadlyChargeExecute2ndHeroic">
     <ParentAbil value="AlarakDeadlyChargeActivate2ndHeroic" />
   </CAbilEffectInstant>
-
+  <CAbilEffectInstant id="DVaBoostersOn">
+    <Flags index="Transient" value="1" />
+    <Effect value="DVaBoostersInitialSet" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="DVaMechBoosters" Requirements="DVaMechAbilityUseRequirement" />
+    <Cost>
+      <Cooldown TimeUse="0.0625" />
+    </Cost>
+    <PrepEffect value="DecloakCasterSet" />
+  </CAbilEffectInstant>
 </Abil>

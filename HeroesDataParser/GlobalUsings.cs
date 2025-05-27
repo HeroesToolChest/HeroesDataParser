@@ -1,4 +1,6 @@
-﻿global using Heroes.Element.Models;
+﻿global using Heroes.Element.JsonConverters;
+global using Heroes.Element.JsonTypeInfoResolvers;
+global using Heroes.Element.Models;
 global using Heroes.Element.Models.AbilityTalents;
 global using Heroes.Element.Models.ObjectProperties;
 global using Heroes.Element.Types;
@@ -14,7 +16,6 @@ global using HeroesDataParser.Infrastructure.Configurations;
 global using HeroesDataParser.Infrastructure.ImageWriters;
 global using HeroesDataParser.Infrastructure.XmlDataParsers;
 global using HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
-global using HeroesDataParser.JsonConverters;
 global using HeroesDataParser.Options;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
