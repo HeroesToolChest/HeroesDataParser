@@ -1,6 +1,4 @@
-﻿using HeroesDataParser.Options;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.FileProviders;
 
 namespace HeroesDataParser.Infrastructure.Configurations.Tests;
 

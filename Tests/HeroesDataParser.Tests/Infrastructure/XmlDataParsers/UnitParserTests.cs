@@ -1,7 +1,5 @@
 ﻿using HeroesDataParser.Infrastructure;
 using HeroesDataParser.Infrastructure.XmlDataParsers;
-using HeroesDataParser.Options;
-using Microsoft.Extensions.Options;
 
 namespace HeroesDataParser.Tests.Infrastructure.XmlDataParsers;
 

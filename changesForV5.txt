@@ -58,3 +58,5 @@ v5 changes heroes
 - The "id" for subabilities changed to the linkId
 - Added upgradeLinkIds (updated from the abilityTalentLinkIds - also kept for legacy reasons)
 - 'units' -> 'summonedUnitIds'
+- removed more 'charges' from talents
+- remove 'upgradeLinkIds' from ultimates that had pointed to itself

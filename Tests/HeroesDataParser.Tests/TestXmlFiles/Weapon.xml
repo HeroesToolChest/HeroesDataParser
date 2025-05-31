@@ -55,6 +55,12 @@
     <UninterruptibleDelay value="0.125" />
     <UninterruptibleDuration value="0.1875" />
   </CWeaponLegacy>
+  <CWeaponLegacy default="1" id="StormHeroFastWeapon" parent="StormHeroWeapon">
+    <DamagePoint value="0.125" />
+    <Backswing value="0.125" />
+    <UninterruptibleDelay value="0.0625" />
+    <UninterruptibleDuration value="0.125" />
+  </CWeaponLegacy>
   <CWeaponLegacy id="HeroAbathur" parent="StormHeroSlowWeapon">
     <Options index="Melee" value="1" />
     <Icon value="Assets\Textures\storm_temp_btn-upgrade-terran-infantryweaponslevel3.dds" />
@@ -65,5 +71,10 @@
     <PreswingBeforeAttack value="0.75" />
     <Effect value="AbathurWeaponDamageSet" />
     <PreswingBetweenAttacks value="0.25" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="HeroWeaponAlarak" parent="StormHeroFastWeapon">
+    <Range value="1.5" />
+    <Effect value="AlarakHeroWeaponImpactSet" />
+    <DisplayEffect value="AlarakHeroWeaponDamage" />
   </CWeaponLegacy>
 </Weapon>

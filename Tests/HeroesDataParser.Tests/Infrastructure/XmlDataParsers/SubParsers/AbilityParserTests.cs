@@ -1,9 +1,4 @@
-﻿using HeroesDataParser.Core;
-using HeroesDataParser.Options;
-using HeroesDataParser.Tests.TestHelpers;
-using Microsoft.Extensions.Options;
-
-namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
+﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
 
 [TestClass]
 public class AbilityParserTests
