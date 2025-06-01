@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace HeroesDataParser.Core;
+﻿namespace HeroesDataParser.Core;
 
 public interface IImageWriter<T>
     where T : IElementObject

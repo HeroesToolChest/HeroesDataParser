@@ -1,6 +1,4 @@
-﻿using Heroes.LocaleText;
-using HeroesDataParser.Core;
-using Serilog.Context;
+﻿using Serilog.Context;
 
 namespace HeroesDataParser.Infrastructure;
 

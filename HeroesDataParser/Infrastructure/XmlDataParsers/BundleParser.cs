@@ -23,7 +23,7 @@ public class BundleParser : CollectionParserBase<Bundle>
                 {
                     FilePath = stormAssetFile.StormPath.Path,
                 };
-             }
+            }
             else
             {
                 Logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTexturePath);

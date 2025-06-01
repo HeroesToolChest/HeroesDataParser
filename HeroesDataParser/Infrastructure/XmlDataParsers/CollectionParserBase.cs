@@ -1,7 +1,4 @@
-﻿using Heroes.Element.Models;
-using Serilog.Context;
-
-namespace HeroesDataParser.Infrastructure.XmlDataParsers;
+﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
 public abstract class CollectionParserBase<T> : DataParser<T>
     where T : ElementObject, IElementObject, IHeroesCollectionObject

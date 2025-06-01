@@ -1,7 +1,4 @@
-﻿using Heroes.XmlData.StormData;
-using System.Net;
-
-namespace HeroesDataParser.Infrastructure;
+﻿namespace HeroesDataParser.Infrastructure;
 
 public class TooltipDescriptionService : ITooltipDescriptionService
 {

@@ -55,7 +55,7 @@ public class ProcessorService : IProcessorService
     public void Test<TElement>(Dictionary<string, TElement> items)
         where TElement : IElementObject
     {
-        
+
     }
     //public async Task RunElementProcessors()
     //{
@@ -338,5 +338,5 @@ public class ProcessorService : IProcessorService
         { ExtractDataOptions.Unit, ProcessElementObject<Unit, UnitParser> },
     };
 
-   // private Dictionary<ExtractImageOptions, >
+    // private Dictionary<ExtractImageOptions, >
 }

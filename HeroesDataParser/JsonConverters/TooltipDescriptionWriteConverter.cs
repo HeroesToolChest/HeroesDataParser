@@ -1,6 +1,4 @@
-﻿using HeroesDataParser.Infrastructure;
-
-namespace HeroesDataParser.JsonConverters;
+﻿namespace HeroesDataParser.JsonConverters;
 
 /// <summary>
 /// Convert to convert <see cref="TooltipDescription"/>s to the selected <see cref="DescriptionType"/>.

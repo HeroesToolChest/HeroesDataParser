@@ -1,9 +1,4 @@
-﻿using Heroes.Element.Models.AbilityTalents;
-using Heroes.XmlData;
-using Heroes.XmlData.StormData;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
-
-namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
+﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
 
 public class AbilityTalentParserBase : ParserBase
 {

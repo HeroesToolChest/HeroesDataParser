@@ -1,6 +1,4 @@
-﻿using HeroesDataParser.Core;
-
-namespace HeroesDataParser.Infrastructure.XmlDataParsers;
+﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
 public abstract class ParserBase
 {

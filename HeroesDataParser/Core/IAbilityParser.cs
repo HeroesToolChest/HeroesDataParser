@@ -1,6 +1,4 @@
-﻿using Heroes.Element.Models.AbilityTalents;
-
-namespace HeroesDataParser.Core;
+﻿namespace HeroesDataParser.Core;
 
 public interface IAbilityParser
 {

@@ -1,5 +1,4 @@
-﻿using Heroes.Element.Models;
-using Serilog.Context;
+﻿using Serilog.Context;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 

@@ -1,5 +1,4 @@
-﻿using Heroes.XmlData;
-using HeroesDataParser.JsonConverters;
+﻿using HeroesDataParser.JsonConverters;
 
 namespace HeroesDataParser.Infrastructure;
 

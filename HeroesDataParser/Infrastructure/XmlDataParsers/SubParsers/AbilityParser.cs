@@ -1,8 +1,4 @@
-﻿using Heroes.Element.Models.AbilityTalents;
-using Heroes.Element.Types;
-using SixLabors.ImageSharp.Formats.Jpeg;
-
-namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
+﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
 
 public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 {
@@ -113,7 +109,7 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 
         // if no NameId and it is a passive ability, set the NameId to the ButtonId
         //if (string.IsNullOrEmpty(ability.NameId) && ability.IsPassive is true)
-         //   ability.NameId = ability.ButtonId;
+        //   ability.NameId = ability.ButtonId;
 
         return ability;
     }
