@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectTarget id="AlexstraszaCleansingFlameDragonqueen">
+    <!--Set to emtpy to remove it as a subability -->
+    <ParentAbil value="" />
+  </CAbilEffectTarget>
+</Catalog>
