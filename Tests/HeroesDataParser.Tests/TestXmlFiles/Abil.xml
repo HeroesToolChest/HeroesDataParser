@@ -419,6 +419,37 @@
     </Cost>
     <CmdButtonArray index="Execute" DefaultButtonFace="GuldanLifeTap" Requirements="GuldanLifeTapManaControllerNotActive" />
   </CAbilEffectInstant>
+  <CAbilEffectTarget id="AlexstraszaCleansingFlameDragonqueen">
+    <PrepEffect value="AlexstraszaCleansingFlamePrepSet" />
+    <Effect value="AlexstraszaCleansingFlameFireballPersistent" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RangeUseCasterRadius" value="0" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Cost>
+      <Vital index="Energy" value="100" />
+      <Cooldown Link="Abil/AlexstraszaCleansingFlame" TimeUse="100" />
+    </Cost>
+    <InterruptArray index="Cast" value="1" />
+    <InterruptCost>
+      <Cooldown Link="Abil/AlexstraszaCleansingFlame" TimeStart="10" TimeUse="10" />
+    </InterruptCost>
+    <Range value="$AlexstraszaCleansingFlameCastRange" />
+    <Arc value="360" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CursorEffect value="AlexstraszaCleansingFlameFireballSearch" />
+    <CastOutroTimeEffect value="AlexstraszaCleansingFlameFireballPersistent" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlexstraszaCleansingFlameDragonqueen" Requirements="Ultimate2Unlocked">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <SharedFlags index="ForceQuickCast" value="1" />
+    <CursorRangeFlags index="ClampMin" value="1" />
+    <CursorRangeFlags index="ClampMax" value="1" />
+    <ParentAbil value="AlexstraszaCleansingFlame" />
+  </CAbilEffectTarget>
   <CAbilEffectTarget id="BarbarianSeismicSlam">
     <Effect value="BarbarianSeismicSlamSet" />
     <Cost>

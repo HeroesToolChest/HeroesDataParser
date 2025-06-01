@@ -405,6 +405,49 @@
     <Radius value="0.625" />
     <InnerRadius value="0.625" />
   </CUnit>
+  <CUnit id="HeroAlexstraszaDragon" parent="StormHeroMounted">
+    <LifeStart value="1698" />
+    <LifeMax value="1698" />
+    <LifeRegenRate value="8.8437" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="UltimateEvolutionInvalidTarget" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <AIThinkTree value="AI/Alexstrasza.aitree" />
+    <HeroPlaystyleFlags index="AllyHealer" value="1" />
+    <HeroPlaystyleFlags index="Helper" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleSupport" value="1" />
+    <WeaponArray Link="AlexstraszaDragonConeWeapon" />
+    <ReviveType value="HeroAlexstrasza" />
+    <AbilArray Link="AlexstraszaDragonqueen" />
+    <AbilArray Link="AlexstraszaDragonqueenHumanoidMorph" />
+    <AbilArray Link="AlexstraszaBreathOfLife" />
+    <AbilArray Link="AlexstraszaPreservation" />
+    <AbilArray Link="AlexstraszaWingBuffet" />
+    <AbilArray Link="AlexstraszaLifebinder" />
+    <AbilArray Link="AlexstraszaCleansingFlameDragonqueen" />
+    <AbilArray Link="AlexstraszaCleansingFlame" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="AlexstraszaBreathOfLife" Type="AbilCmd" AbilCmd="AlexstraszaBreathOfLife,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AlexstraszaPreservation" Type="AbilCmd" AbilCmd="AlexstraszaPreservation,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AlexstraszaWingBuffet" Type="AbilCmd" AbilCmd="AlexstraszaWingBuffet,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AlexstraszaLifebinder" Type="AbilCmd" AbilCmd="AlexstraszaLifebinder,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlexstraszaCleansingFlameDragonqueen" Type="AbilCmd" AbilCmd="AlexstraszaCleansingFlameDragonqueen,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlexstraszaDragonqueenDragonFormPassive" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="1.25" />
+    <InnerRadius value="1" />
+    <LeaderAlias value="HeroAlexstrasza" />
+    <HotkeyAlias value="HeroAlexstrasza" />
+    <SelectAlias value="HeroAlexstrasza" />
+    <SubgroupAlias value="HeroAlexstrasza" />
+    <ReviveInfoBase>
+      <Charge Link="HeroAlexstrasza/Revive" />
+      <Cooldown Link="HeroAlexstrasza/Revive" />
+    </ReviveInfoBase>
+    <InitializerFunction value="libHALE_gf_HeroAlexstraszaIncrementHeroCountFunction" />
+    <DestructionFunction value="libHALE_gf_HeroAlexstraszaDecrementHeroCountFunction" />
+  </CUnit>
   <CUnit id="HeroGuldan" parent="StormHeroMounted">
     <LifeStart value="1700" />
     <LifeMax value="1700" />

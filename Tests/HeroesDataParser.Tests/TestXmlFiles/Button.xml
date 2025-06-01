@@ -231,6 +231,11 @@
     <TooltipAppender Validator="AlexstraszaVerdantFlourishHasTalent" Face="AlexstraszaVerdantFlourishAbundance" />
     <TooltipAppender Validator="AlexstraszaOverprotectiveHasTalent" Face="AlexstraszaOverprotectiveAbundance" />
   </CButton>
+  <CButton id="AlexstraszaCleansingFlameDragonqueen" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alexstrasza_cleansing_flame.dds" />
+    <HotkeyAlias value="AlexstraszaCleansingFlame" />
+    <TooltipAppender Validator="AlexstraszaOnRubyWingsCleansingFlameHasTalent" Face="AlexstraszaOnRubyWingsCleansingFlame" />
+  </CButton>
   <CButton id="GuldanLifeTap" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_guldan_lifetap.dds" />
     <TooltipAppender Validator="GuldanHasLifeTapDarknessWithinTalent" Text="Button/Tooltip/GuldanLifeTapDarknessWithinDamageTrackingAppender" />
