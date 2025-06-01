@@ -144,8 +144,12 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
         if (string.IsNullOrEmpty(talent.ButtonElementId))
             talent.ButtonElementId = NoButtonElementId;
 
+        // if it's not an IsActive and if the abilityType is still Unknown or Hidden, then set it to a Passive abilityType
+        if (talent is { IsActive: false, AbilityType: AbilityType.Unknown or AbilityType.Hidden })
+            talent.AbilityType = AbilityType.Passive;
+
         // if it's an IsActive and if the abilityType is still Unknown or Hidden, then set it to an Active abilityType
-        if (talent.IsActive && (talent.AbilityType == AbilityType.Unknown || talent.AbilityType == AbilityType.Hidden))
+        if (talent is { IsActive: true, AbilityType: AbilityType.Unknown or AbilityType.Hidden })
             talent.AbilityType = AbilityType.Active;
     }
 

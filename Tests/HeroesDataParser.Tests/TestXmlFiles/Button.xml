@@ -212,6 +212,9 @@
     <TooltipAppender Validator="AlarakHasMockingStrikesTalent" Face="AlarakMockingStrikes" />
     <Icon value="Assets\Textures\storm_ui_icon_alarak_counterstrike.dds" />
   </CButton>
+  <CButton id="AlarakMockingStrikes" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_autoattack_cooldown.dds" />
+  </CButton>
   <CButton id="AlexstraszaGiftOfLife" parent="StormButtonParent">
     <TooltipVitalName index="Life" value="UI/Tooltip/Abil/CurrentLife" />
     <TooltipVitalName index="Shields" value="UI/Tooltip/Abil/Life" />

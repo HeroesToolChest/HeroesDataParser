@@ -197,6 +197,9 @@
     <Face value="AlarakShowofForce" />
     <Trait value="1" />
   </CTalent>
+  <CTalent id="AlarakMockingStrikes">
+    <Face value="AlarakMockingStrikes" />
+  </CTalent>
   <CTalent id="SamuroThreeBladeStyle">
     <Face value="SamuroThreeBladeStyleTalent" />
     <Abil value="SamuroIllusionMaster" />

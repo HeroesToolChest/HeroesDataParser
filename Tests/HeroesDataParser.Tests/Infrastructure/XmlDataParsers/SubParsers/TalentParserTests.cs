@@ -383,6 +383,33 @@ public class TalentParserTests
     }
 
     [TestMethod]
+    public void GetTalent_AlarakMockingStrikes_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Alarak";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("16");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("AlarakMockingStrikes|AlarakMockingStrikes|Passive");
+        talent.Column.Should().Be(3);
+        talent.SummonedUnitIds.Should().BeEmpty();
+        talent.AbilityType.Should().Be(AbilityType.Passive);
+        talent.IsActive.Should().BeFalse();
+        talent.IsQuest.Should().BeFalse();
+        talent.Tier.Should().Be(TalentTier.Level16);
+    }
+
+    [TestMethod]
     public void GetTalent_GarroshArmorUpBodyCheck_ReturnsTalent()
     {
         // arrange
