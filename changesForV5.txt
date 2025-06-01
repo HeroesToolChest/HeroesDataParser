@@ -60,3 +60,4 @@ v5 changes heroes
 - 'units' -> 'summonedUnitIds'
 - removed more 'charges' from talents
 - remove 'upgradeLinkIds' from ultimates that had pointed to itself
+- Added 'weapons' to 'herounits'
