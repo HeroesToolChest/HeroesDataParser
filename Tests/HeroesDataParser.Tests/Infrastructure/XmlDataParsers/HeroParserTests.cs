@@ -137,6 +137,22 @@ public class HeroParserTests
     }
 
     [TestMethod]
+    public void Parse_BarbarianDataHeroDataOnly_ReturnHeroData()
+    {
+        // arrange
+        string heroUnit = "Barbarian";
+
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+
+        // act
+        Hero? hero = heroParser.Parse(heroUnit);
+
+        // assert
+        hero.Should().NotBeNull();
+        hero.Gender.Should().Be(Gender.Female);
+    }
+
+    [TestMethod]
     public void Parse_WithUnitData_ReturnsHeroData()
     {
         // arrange

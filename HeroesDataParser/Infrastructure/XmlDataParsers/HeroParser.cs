@@ -202,6 +202,16 @@ public class HeroParser : CollectionParserBase<Hero>
         if (elementData.TryGetElementDataAt("DefaultMount", out StormElementData? defaultMountData))
             collectionObject.DefaultMountId = defaultMountData.Value.GetString();
 
+        if (elementData.TryGetElementDataAt("Gender", out StormElementData? genderData))
+        {
+            string genderValue = genderData.Value.GetString();
+
+            if (Enum.TryParse(genderValue, out Gender genderResult))
+                collectionObject.Gender = genderResult;
+            else
+                Logger.LogWarning("Unknown gender {Gender}", genderValue);
+        }
+
         SetInfoTextProperty(collectionObject, stormElement);
         SetTalentData(collectionObject, stormElement);
         SetTalentUpgradeLinkIds(collectionObject);
