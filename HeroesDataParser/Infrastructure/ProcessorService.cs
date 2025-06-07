@@ -15,8 +15,6 @@ public class ProcessorService : IProcessorService
     private readonly ExtractImageOptions _extractImageOptions;
     private readonly Dictionary<ExtractDataOptions, Func<Map?, Task>> _processElementByExtractDataOption;
 
-    private StormLocale _stormLocale;
-
     public ProcessorService(ILogger<ProcessorService> logger, IOptions<RootOptions> options, IServiceProvider serviceProvider, IDataExtractorService dataExtractorService, IJsonFileWriterService jsonFileWriterService)
     {
         _logger = logger;
@@ -36,10 +34,8 @@ public class ProcessorService : IProcessorService
 
     public ExtractImageOptions ExtractImageOptions => _extractImageOptions;
 
-    public async Task Start(StormLocale stormLocale)
+    public async Task Start()
     {
-        _stormLocale = stormLocale;
-
         _logger.LogTrace("Available element processors {@ActionProcessors}", _processElementByExtractDataOption.Keys);
 
         await RunElementProcessors(_processElementByExtractDataOption);
@@ -200,7 +196,6 @@ public class ProcessorService : IProcessorService
             _logger.LogInformation("Start action processor for {HeroesCollectionObject} using parser {Parser}", typeOfElementObjectName, typeOfParserName);
 
             var dataParser = _serviceProvider.GetRequiredService<IDataParser<TElementObject>>();
-
             var itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser, map);
 
             await WriteToJson(itemsToSerialize, map);
@@ -214,9 +209,9 @@ public class ProcessorService : IProcessorService
         where TElementObject : IElementObject
     {
         if (map is null)
-            await _jsonFileWriterService.Write(itemsToSerialize, _stormLocale);
+            await _jsonFileWriterService.Write(itemsToSerialize);
         else
-            await _jsonFileWriterService.WriteToMaps(map.Id, itemsToSerialize, _stormLocale);
+            await _jsonFileWriterService.WriteToMaps(map.Id, itemsToSerialize);
     }
 
     private async Task WriteImages<TElementObject>(Dictionary<string, TElementObject> itemsToSerialize)

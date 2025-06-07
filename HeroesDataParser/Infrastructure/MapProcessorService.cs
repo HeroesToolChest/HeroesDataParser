@@ -32,10 +32,8 @@ public class MapProcessorService : IMapProcessorService
         // _mapDataParserService = mapDataParserService;
     }
 
-    public async Task Start(StormLocale stormLocale)
+    public async Task Start()
     {
-        _stormLocale = stormLocale;
-
         ExtractDataOptions extractDataOptions = _processorService.ExtractDataOptions;
 
         if (extractDataOptions.HasFlag(ExtractDataOptions.Map))
@@ -57,7 +55,7 @@ public class MapProcessorService : IMapProcessorService
             //await _mapDataParserService.ParseAndWriteData(_mapDataParser, _stormLocale);
 
             var mapItemsToSerialize = await _mapDataExtractorService.Extract(_mapDataParser, _processorService.StartForMap);
-            await _jsonFileWriterService.Write(mapItemsToSerialize, _stormLocale);
+            await _jsonFileWriterService.Write(mapItemsToSerialize);
 
             if (_processorService.ExtractImageOptions.HasFlag(_imageWriter.ExtractImageOption))
             {

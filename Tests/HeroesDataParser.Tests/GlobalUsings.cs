@@ -1,4 +1,4 @@
-﻿global using FluentAssertions;
+﻿global using AwesomeAssertions;
 global using Heroes.Element.Models;
 global using Heroes.Element.Models.AbilityTalents;
 global using Heroes.Element.Types;

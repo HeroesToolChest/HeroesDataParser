@@ -15,4 +15,6 @@ public class RootOptions
     public bool LocalizedText { get; set; }
 
     public DescriptionTextOptions DescriptionText { get; set; } = new();
+
+    public StormLocale CurrentLocale { get; set; } = StormLocale.ENUS;
 }

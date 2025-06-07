@@ -22,11 +22,12 @@ public static class ServiceCollectionExtensions
         services.AddDataParsers();
         services.AddImageWriters();
 
+        services.AddSingleton<IMainService, MainService>();
         services.AddSingleton<IProcessorService, ProcessorService>();
         services.AddSingleton<IMapProcessorService, MapProcessorService>();
 
-        services.AddSingleton<IDataParserService, DataParserService>();
-        services.AddSingleton<IMapDataParserService, MapDataParserService>();
+        //services.AddSingleton<IDataParserService, DataParserService>();
+        //services.AddSingleton<IMapDataParserService, MapDataParserService>();
 
         services.AddSingleton<IDataExtractorService, DataExtractorService>();
         services.AddSingleton<IMapDataExtractorService, MapDataExtractorService>();

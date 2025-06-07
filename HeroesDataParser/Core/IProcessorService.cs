@@ -6,7 +6,7 @@ public interface IProcessorService
 
     ExtractImageOptions ExtractImageOptions { get; }
 
-    Task Start(StormLocale stormLocale);
+    Task Start();
 
     Task StartForMap(Map map);
 }

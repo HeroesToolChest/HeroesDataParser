@@ -12,7 +12,11 @@ public class JsonFileWriterService : IJsonFileWriterService
     private readonly HeroesData _heroesData;
     private readonly ITooltipDescriptionService _tooltipDescriptionService;
 
-    public JsonFileWriterService(ILogger<JsonFileWriterService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
+    public JsonFileWriterService(
+        ILogger<JsonFileWriterService> logger,
+        IOptions<RootOptions> options,
+        IHeroesXmlLoaderService heroesXmlLoaderService,
+        ITooltipDescriptionService tooltipDescriptionService)
     {
         _logger = logger;
         _options = options.Value;
@@ -51,17 +55,17 @@ public class JsonFileWriterService : IJsonFileWriterService
         };
     }
 
-    public async Task Write<TElement>(Dictionary<string, TElement> elementsById, StormLocale stormLocale)
+    public async Task Write<TElement>(Dictionary<string, TElement> elementsById)
         where TElement : IElementObject
     {
         if (!IsSerializationRequired(elementsById.Count))
             return;
 
-        await WriteTo(elementsById, Path.Combine(_options.OutputDirectory, _jsonFileDirectory), stormLocale);
+        await WriteTo(elementsById, _jsonFileDirectory);
     }
 
     // write to the maps sub directory
-    public async Task WriteToMaps<TElement>(string mapDirectory, Dictionary<string, TElement> elementsById, StormLocale stormLocale)
+    public async Task WriteToMaps<TElement>(string mapDirectory, Dictionary<string, TElement> elementsById)
         where TElement : IElementObject
     {
         if (!IsSerializationRequired(elementsById.Count))
@@ -70,7 +74,7 @@ public class JsonFileWriterService : IJsonFileWriterService
         Span<char> buffer = stackalloc char[mapDirectory.Length];
         int length = SanitizeMapDirectory(buffer, mapDirectory);
 
-        await WriteTo(elementsById, Path.Join(_options.OutputDirectory, _jsonFileDirectory, "maps", buffer[..length]), stormLocale);
+        await WriteTo(elementsById, Path.Join(_jsonFileDirectory, "maps", buffer[..length]));
     }
 
     private static int SanitizeMapDirectory(Span<char> buffer, string mapDirectory)
@@ -102,19 +106,31 @@ public class JsonFileWriterService : IJsonFileWriterService
         }
     }
 
-    private async Task WriteTo<TElement>(Dictionary<string, TElement> elementsById, string outputDirectory, StormLocale stormLocale)
+    private async Task WriteTo<TElement>(Dictionary<string, TElement> elementsById, string innerDirectory)
         where TElement : IElementObject
     {
         //if (_options.LocalizedText)
         //{
         //}
 
-        Directory.CreateDirectory(outputDirectory);
+        string fullOutputDirectory = Path.Join(_options.OutputDirectory, innerDirectory);
 
-        string filePath = Path.Join(outputDirectory, $"{typeof(TElement).Name}data_{_heroesData.Build ?? 0}_{stormLocale}.json").ToLowerInvariant();
+        Directory.CreateDirectory(fullOutputDirectory);
+
+        string fileName = $"{typeof(TElement).Name}data_{_heroesData.Build ?? 0}_{_options.CurrentLocale}.json".ToLowerInvariant();
+        string filePath = Path.Join(fullOutputDirectory, fileName);
+
         _logger.LogInformation("Writing to {FilePath}", filePath);
 
         await using FileStream fileStream = File.Create(filePath);
         await JsonSerializer.SerializeAsync(fileStream, elementsById, _jsonSerializerOptions);
+
+        AnsiConsole.Write("Created json file ");
+        AnsiConsole.Write(new TextPath(Path.Join(innerDirectory, fileName))
+            .SeparatorColor(Color.SpringGreen1)
+            .StemColor(Color.SteelBlue1_1)
+            .LeafColor(Color.Orange1));
+        AnsiConsole.WriteLine();
+        AnsiConsole.WriteLine();
     }
 }

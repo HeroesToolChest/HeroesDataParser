@@ -51,7 +51,7 @@ public class PreloadService : IPreloadService
     private void LoadParsingConfiguration()
     {
         _parsingConfigurationService.Load();
-        AnsiConsole.MarkupLine($"[aqua]Loaded {Path.GetFileName(_parsingConfigurationService.SelectedFilePath)}[/]");
+        AnsiConsole.MarkupLine($"Loaded {Path.GetFileName(_parsingConfigurationService.SelectedFilePath)}");
     }
 
     private void LoadCustomConfigurationService()
@@ -60,12 +60,15 @@ public class PreloadService : IPreloadService
 
         ISet<string> files = _customConfigurationService.SelectedCustomDataFilePaths;
 
-        AnsiConsole.MarkupLine($"[aqua]Loaded {files.Count} custom configuration files[/]");
+        Tree root = new($"Loaded {files.Count} custom configuration files");
+        //AnsiConsole.MarkupLine();
 
         foreach (string relativeFilePath in files)
         {
-            AnsiConsole.MarkupLine($"[aqua]- {Path.GetFileName(relativeFilePath)}[/]");
+            root.AddNode(Path.GetFileName(relativeFilePath));
+            //AnsiConsole.MarkupLine($"- {Path.GetFileName(relativeFilePath)}");
         }
 
+        AnsiConsole.Write(root);
     }
 }

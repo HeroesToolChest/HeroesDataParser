@@ -62,19 +62,16 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
                 AnsiConsole.MarkupLine("Loading data from custommods...");
                 LoadCustomStormMod();
 
-                _logger.LogInformation("Loading gamestrings...");
-                AnsiConsole.MarkupLine("Loading gamestrings...");
-                HeroesXmlLoader.LoadGameStrings();
-
                 _stopwatch.Stop();
                 await Task.CompletedTask;
             });
 
-
-
         _logger.LogInformation("Heroes data loaded");
 
+        AnsiConsole.MarkupLineInterpolated($"{HeroesXmlLoader.GetCountOfXmlDataFiles(),6} xml files loaded");
+        AnsiConsole.MarkupLineInterpolated($"{HeroesXmlLoader.GetCountOfFontStyleFiles(),6} storm style files loaded");
         AnsiConsole.MarkupLineInterpolated($"[green bold]Loading completed in {_stopwatch.Elapsed.TotalSeconds:0.####} seconds[/]");
+        AnsiConsole.WriteLine();
     }
 
     private async Task LoadFromCASC()
@@ -155,7 +152,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
             _logger.LogInformation("Loading heroes data by game storage");
 
             AnsiConsole.MarkupLine("[aqua]Found 'Heroes of the Storm' directory[/]");
-            AnsiConsole.MarkupLine("Loading from local CASC storage... please wait");
+            AnsiConsole.MarkupLine("[gold1 bold]Loading from local CASC storage[/]... please wait");
 
             _stopwatch.Start();
             HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(_options.StorageLoad.Path!, new CASCLoggerOptions(), backgroundWorkerEx);

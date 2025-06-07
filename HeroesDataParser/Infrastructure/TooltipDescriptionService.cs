@@ -26,7 +26,7 @@ public class TooltipDescriptionService : ITooltipDescriptionService
 
     public TooltipDescription GetTooltipDescription(string text)
     {
-        TooltipDescription tooltipDescription = new(text, extractFontValues: ShouldExtractFontValues);
+        TooltipDescription tooltipDescription = new(text, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
         ExtractFontValues(tooltipDescription);
 
         return tooltipDescription;
@@ -88,7 +88,7 @@ public class TooltipDescriptionService : ITooltipDescriptionService
 
     private TooltipDescription ParseTooltipDescription(StormGameString stormGameString)
     {
-        TooltipDescription tooltipDescription = _heroesData.ParseGameString(stormGameString, extractFontValues: ShouldExtractFontValues);
+        TooltipDescription tooltipDescription = _heroesData.ParseGameString(stormGameString, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
         ExtractFontValues(tooltipDescription);
 
         return tooltipDescription;
@@ -96,7 +96,7 @@ public class TooltipDescriptionService : ITooltipDescriptionService
 
     private TooltipDescription ParseTooltipDescription(string gamestring)
     {
-        TooltipDescription tooltipDescription = _heroesData.ParseGameString(gamestring, extractFontValues: ShouldExtractFontValues);
+        TooltipDescription tooltipDescription = _heroesData.ParseGameString(gamestring, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
         ExtractFontValues(tooltipDescription);
 
         return tooltipDescription;

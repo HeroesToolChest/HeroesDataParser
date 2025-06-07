@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Core;
 
-public interface IMapProcessorService
+public interface IMainService
 {
     Task Start();
 }
