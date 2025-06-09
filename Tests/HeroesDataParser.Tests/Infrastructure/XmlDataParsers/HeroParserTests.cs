@@ -59,6 +59,37 @@ public class HeroParserTests
     }
 
     [TestMethod]
+    public void Parse_HiddenOptions_OptionsReceived()
+    {
+        // arrange
+        string heroUnit = "HpTESTHero";
+        string unitId = "HeroHpTESTHero";
+
+        _options.Value.Returns(new RootOptions()
+        {
+            Hidden = new HiddenOptions()
+            {
+                AllowHeroHiddenAbilities = true,
+                AllowHeroSpecialAbilities = true,
+            },
+        });
+
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+
+        Hero hero = new(heroUnit)
+        {
+            UnitId = unitId,
+        };
+
+        // act
+        _ = heroParser.Parse(hero.Id);
+
+        // assert
+        _unitParser.AllowHiddenAbilities.Should().BeTrue();
+        _unitParser.AllowSpecialAbilities.Should().BeTrue();
+    }
+
+    [TestMethod]
     public void Parse_AbathurDataHeroDataOnly_ReturnHeroData()
     {
         // arrange

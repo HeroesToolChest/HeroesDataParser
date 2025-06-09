@@ -69,6 +69,10 @@
   <CButton id="GenericCalldownMule" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_talent_mule.dds"/>
   </CButton>
+  <CButton id="SummonMount" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_generic_mount.dds"/>
+    <TooltipAppender Validator="HasBucketSwiftStorm" Face="GenericSwiftStormTalent"/>
+  </CButton>
   <CButton id="AbathurSymbiote" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_abathur_symbiote.dds" />
     <TooltipAppender Validator="HasAbathurMasteryPressurizedGlands" Face="AbathurSymbiotePressurizedGlandsTalent" />
@@ -329,5 +333,21 @@
     <TooltipAppender Validator="DVaHasInForTheKillTalent" Face="DVaInForTheKill" />
     <TooltipCooldownOverrideText value="Button/OverrideText/DVaMechBoosters" />
     <Icon value="Assets\Textures\storm_ui_icon_dva_boosters.dds" />
+  </CButton>
+  <CButton id="AmazonWarTravelerSummonMount" parent="SummonMount">
+    <TooltipAppender Validator="AmazonAvoidanceWarTravelerHasTalent" Face="AmazonAvoidanceWarTraveler" />
+  </CButton>
+  <CButton id="AmazonAvoidance" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\storm_ui_icon_cassia_avoidance_b.dds" />
+    <TooltipAppender Validator="AmazonAvoidancePlateoftheWhaleHasTalent" Face="AmazonAvoidancePlateoftheWhale" />
+    <TooltipAppender Validator="AmazonAvoidanceSurgeOfLightHasTalentAndDoesNotHaveAbilityReadyBuff" Text="Button/TooltipAppender/AmazonAvoidanceSurgeOfLightCharging" Face="AmazonAvoidanceSurgeOfLight" />
+    <TooltipAppender Validator="AmazonAvoidanceSurgeOfLightHasTalentAndHasAbilityReadyBuff" Text="Button/TooltipAppender/AmazonAvoidanceSurgeOfLightReady" Face="AmazonAvoidanceSurgeOfLight" />
+    <TooltipAppender Validator="AmazonAvoidanceWarTravelerHasTalent" Face="AmazonAvoidanceWarTraveler" />
+    <TooltipAppender Validator="AmazonHasFendGlovesOfAlacrityTalent" Face="AmazonFendGlovesOfAlacrity" />
+    <TooltipAppender Validator="AmazonTitansRevengeHasTalent" Face="AmazonTitansRevenge" />
+    <TooltipAppender Validator="Amazon-HasAvoidanceRockstopperTalent" Face="AmazonAvoidanceRockstopper" />
+  </CButton>
+  <CButton id="AmazonAvoidanceSurgeOfLight" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_cassia_avoidance_b.dds" />
   </CButton>
 </Button>

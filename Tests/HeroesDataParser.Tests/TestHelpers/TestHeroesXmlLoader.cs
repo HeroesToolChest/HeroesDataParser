@@ -50,7 +50,7 @@ public static class TestHeroesXmlLoader
                 .AddElements(validatorDocument.Root!.Elements())
                 .AddGameStrings(
                     [
-                        "test_for_tooltip_decription_service=Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>",
+                        "test_for_tooltip_decription_service=Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200~~0.045~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>",
                         "e_gameUIStringChargeCooldownColon=Charge Cooldown: ",
                         "e_gameUIStringCooldownColon=Cooldown: ",
                         "UI/AbilTooltipCooldown=Cooldown: %1 second",
@@ -99,6 +99,7 @@ public static class TestHeroesXmlLoader
                         "Button/SimpleDisplayText/BarbarianSeismicSlam=Damage an enemy and splash damage behind them",
                         "Button/SimpleDisplayText/SamuroIllusionMasterTalent=Mirror Images can be controlled",
                         "Button/SimpleDisplayText/SamuroAdvancingStrikes=Increase Movement Speed when attacking Heroes",
+                        "Button/Tooltip/SummonMount=After Channeling for 1 second, gain 30% Movement Speed",
                         "Button/Tooltip/Attack=Attacks using the Hero's weapon",
                         "Button/Tooltip/HearthstoneNoMana=After Channeling for...",
                         "Button/Tooltip/LootSpray=Express yourself to other players by marking the ground with your selected spray.",

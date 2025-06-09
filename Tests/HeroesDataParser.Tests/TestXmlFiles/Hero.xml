@@ -3708,4 +3708,316 @@
     <Rarity value="Epic" />
     <ExpandedRole value="Bruiser" />
   </CHero>
+  <CHero id="Amazon">
+    <AttributeId value="Amaz" />
+    <Flags index="GoodForModeA" value="1" />
+    <Role value="Damage" />
+    <ExpandedRole value="RangedAssassin" />
+    <RolesMultiClass value="Damage" />
+    <Portrait value="Assets\Textures\ui_targetportrait_hero_d2amazonf.dds" />
+    <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_d2amazonf.dds" />
+    <PartyPanelButtonImage value="Assets\Textures\storm_ui_ingame_partypanel_btn_d2amazonf.dds" />
+    <LeaderboardImage value="Assets\Textures\ui_targetportrait_hero_d2amazonf.dds" />
+    <LoadingScreenImage value="Assets\Textures\storm_ui_ingame_hero_loadingscreen_d2amazonf.dds" />
+    <ScoreScreenImage value="Assets\Textures\storm_ui_ingame_hero_leaderboard_d2amazonf.dds" />
+    <HeroAbilArray Abil="AmazonLightningFury" Button="AmazonLightningFury">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="UsesCharges" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AmazonBlindingLight" Button="AmazonBlindingLight">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AmazonFend" Button="AmazonFend">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Button="AmazonAvoidance">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AmazonBallLightning" Button="AmazonBallLightning">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="AmazonValkyrie" Button="AmazonValkyrie">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroicAbilArray Abil="AmazonBallLightning" />
+    <HeroicAbilArray Abil="AmazonValkyrie" />
+    <SkinArray value="AmazonUltimate" />
+    <SkinArray value="AmazonPirate" />
+    <SkinArray value="AmazonLunar" />
+    <SkinArray value="AmazonMyth20" />
+    <VoiceLineArray value="AmazonBase_VoiceLine01" />
+    <VoiceLineArray value="AmazonBase_VoiceLine02" />
+    <VoiceLineArray value="AmazonBase_VoiceLine03" />
+    <VoiceLineArray value="AmazonBase_VoiceLine04" />
+    <VoiceLineArray value="AmazonBase_VoiceLine05" />
+    <DefaultMount value="HorseCommon" />
+    <RequiredRewardArray index="0" value="Cassia" />
+    <TalentTreeArray Talent="AmazonThunderstroke" Tier="1" Column="1" />
+    <TalentTreeArray Talent="AmazonImpale" Tier="1" Column="2" />
+    <TalentTreeArray Talent="AmazonChargedStrikes" Tier="1" Column="3" />
+    <TalentTreeArray Talent="AmazonPlateoftheWhale" Tier="2" Column="1" />
+    <TalentTreeArray Talent="AmazonRingoftheLeech" Tier="2" Column="2" />
+    <TalentTreeArray Talent="AmazonInnerLight" Tier="2" Column="3" />
+    <TalentTreeArray Talent="AmazonFendGroundingRod" Tier="3" Column="1" />
+    <TalentTreeArray Talent="AmazonSeraphsHymn" Tier="3" Column="2" />
+    <TalentTreeArray Talent="AmazonSurgeOfLight" Tier="3" Column="3" />
+    <TalentTreeArray Talent="AmazonBallLightning" Tier="4" Column="1" />
+    <TalentTreeArray Talent="AmazonValkyrie" Tier="4" Column="2" />
+    <TalentTreeArray Talent="AmazonFendWarMatron" Tier="5" Column="1" />
+    <TalentTreeArray Talent="AmazonWarTraveler" Tier="5" Column="2" />
+    <TalentTreeArray Talent="AmazonFendGlovesOfAlacrity" Tier="5" Column="3" />
+    <TalentTreeArray Talent="AmazonPowerStrike" Tier="6" Column="1" />
+    <TalentTreeArray Talent="AmazonStaticElectricity" Tier="6" Column="2" />
+    <TalentTreeArray Talent="AmazonMartialLaw" Tier="6" Column="3" />
+    <TalentTreeArray Talent="AmazonInfiniteLightning" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="AmazonBallLightning" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="AmazonImprisoningLight" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="AmazonValkyrie" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="AmazonTitansRevenge" Tier="7" Column="3" />
+    <TalentTreeArray Talent="Amazon-AvoidanceRockstopper" Tier="7" Column="4" />
+    <VariationIcon value="Assets\Textures\UI_Glues_Swatch_Red.dds" />
+    <Difficulty value="Medium" />
+    <HeroTierAchievementId value="5216701565563447419" />
+    <CollectionIcon value="Assets\Textures\ui_targetportrait_hero_d2amazonf.dds" />
+    <Gender value="Female" />
+    <Universe value="Diablo" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_D3.dds" />
+    <ProductId value="24368" />
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroAmazon" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroAmazon" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroAmazon" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonHeroWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonHeroWeaponDamageTitansRevenge" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonChargedStrikesWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonChargedStrikesWeaponDamageTitansRevenge" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonPlateoftheWhaleRegenHealer" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AmazonLightningFury">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonLightningFuryDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonLightningFuryLightningDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonLightningFuryStaticElectricityLightningDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AmazonFend">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonFendChannelDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AmazonBallLightning">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonBallLightningBounceToEnemyDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AmazonValkyrie">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonValkyrieImpaleDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonValkyrieImprisoningLightDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AmazonSurgeOfLight">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonAvoidanceSurgeOfLightDummyMaximumCharge" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonAvoidanceSurgeOfLightDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="AmazonBlindingLight">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="AmazonBlindingLightDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <VariationArray value="AmazonBaseVar1" />
+    <VariationArray value="AmazonBaseVar2" />
+    <VariationArray value="AmazonBaseVar3" />
+    <ReleaseDate Month="4" Day="4" Year="2017" />
+    <HyperlinkId value="Cassia" />
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <Ratings>
+      <Damage value="7" />
+      <Utility value="5" />
+      <Survivability value="6" />
+      <Complexity value="4" />
+    </Ratings>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="AmazonThunderstroke" />
+      <TalentsArray value="AmazonPlateoftheWhale" />
+      <TalentsArray value="AmazonSeraphsHymn" />
+      <TalentsArray value="AmazonBallLightning" />
+      <TalentsArray value="AmazonWarTraveler" />
+      <TalentsArray value="AmazonPowerStrike" />
+      <TalentsArray value="AmazonInfiniteLightning" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="AmazonThunderstroke" />
+      <TalentsArray value="AmazonInnerLight" />
+      <TalentsArray value="AmazonSurgeOfLight" />
+      <TalentsArray value="AmazonBallLightning" />
+      <TalentsArray value="AmazonFendGlovesOfAlacrity" />
+      <TalentsArray value="AmazonStaticElectricity" />
+      <TalentsArray value="AmazonInfiniteLightning" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="AmazonChargedStrikes" />
+      <TalentsArray value="AmazonRingoftheLeech" />
+      <TalentsArray value="AmazonSeraphsHymn" />
+      <TalentsArray value="AmazonValkyrie" />
+      <TalentsArray value="AmazonFendGlovesOfAlacrity" />
+      <TalentsArray value="AmazonMartialLaw" />
+      <TalentsArray value="AmazonTitansRevenge" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray ChanceToPick="16">
+      <TalentsArray value="AmazonImpale" />
+      <TalentsArray value="AmazonRingoftheLeech" />
+      <TalentsArray value="AmazonFendGroundingRod" />
+      <TalentsArray value="AmazonBallLightning" />
+      <TalentsArray value="AmazonFendWarMatron" />
+      <TalentsArray value="AmazonStaticElectricity" />
+      <TalentsArray value="Amazon-AvoidanceRockstopper" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="AmazonThunderstroke" />
+      <TalentsArray value="AmazonInnerLight" />
+      <TalentsArray value="AmazonSeraphsHymn" />
+      <TalentsArray value="AmazonValkyrie" />
+      <TalentsArray value="AmazonFendGlovesOfAlacrity" />
+      <TalentsArray value="AmazonPowerStrike" />
+      <TalentsArray value="AmazonImprisoningLight" />
+    </TalentAIBuildsArray>
+    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
+      <TalentsArray value="AmazonChargedStrikes" />
+      <TalentsArray value="AmazonRingoftheLeech" />
+      <TalentsArray value="AmazonSeraphsHymn" />
+      <TalentsArray value="AmazonBallLightning" />
+      <TalentsArray value="AmazonFendGlovesOfAlacrity" />
+      <TalentsArray value="AmazonMartialLaw" />
+      <TalentsArray value="AmazonTitansRevenge" />
+    </TalentAIBuildsArray>
+    <HeroSpecificUIArray Location="CommandButton05Status" DescName="Amazon/AmazonSurgeOfLightChargeButtonOverrideFrame" />
+    <HeroSpecificUIArray Location="HeroSpecificStackingBuffsStatus" DescName="Amazon/AmazonStacksFrameContainer" />
+    <Rarity value="Legendary" />
+  </CHero>
 </Hero>

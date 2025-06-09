@@ -16,5 +16,8 @@ public class RootOptions
 
     public DescriptionTextOptions DescriptionText { get; set; } = new();
 
+    // set/overridden during runtime
     public StormLocale CurrentLocale { get; set; } = StormLocale.ENUS;
+
+    public HiddenOptions Hidden { get; set; } = new();
 }

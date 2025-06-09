@@ -178,26 +178,7 @@ public class AbilityTalentParserBase : ParserBase
                 {
                     string validatorValue = validatorData.Value.GetString();
 
-                    // find the validator
-                    StormElement? validatorElement = HeroesData.GetCompleteStormElement("Validator", validatorValue);
-
-                    if (validatorElement is null)
-                    {
-                        Logger.LogWarning("Validator element {ValidatorValue} not found for button {ButtonId}", validatorValue, abilityTalent.ButtonElementId);
-                        continue;
-                    }
-
-                    if (validatorElement.DataValues.TryGetElementDataAt("Value", out StormElementData? valueData))
-                    {
-                        // this is the CTalent id
-                        string valueValue = valueData.Value.GetString();
-
-                        // check if it exists
-                        if (HeroesData.StormElementExists("Talent", valueValue))
-                            abilityTalent.TooltipAppendersTalentElementIds.Add(valueValue);
-                        else
-                            Logger.LogWarning("Talent element {ValueValue} not found for button {ButtonId}", valueValue, abilityTalent.ButtonElementId);
-                    }
+                    ProcessValidatorData(abilityTalent, validatorValue);
                 }
             }
         }
@@ -473,6 +454,42 @@ public class AbilityTalentParserBase : ParserBase
             {
                 if (summonedData.Value.GetInt() == 1)
                     abilityTalent.SummonedUnitIds.Add(unitId);
+            }
+        }
+    }
+
+    private void ProcessValidatorData(AbilityTalentBase abilityTalent, string validatorId)
+    {
+        // find the validator
+        StormElement? validatorElement = HeroesData.GetCompleteStormElement("Validator", validatorId);
+
+        if (validatorElement is null)
+        {
+            Logger.LogWarning("Validator element {ValidatorValue} not found for button {ButtonId}", validatorId, abilityTalent.ButtonElementId);
+            return;
+        }
+
+        if (validatorElement.DataValues.TryGetElementDataAt("Value", out StormElementData? valueData))
+        {
+            // this is the CTalent id
+            string valueValue = valueData.Value.GetString();
+
+            // check if it exists
+            if (HeroesData.StormElementExists("Talent", valueValue))
+                abilityTalent.TooltipAppendersTalentElementIds.Add(valueValue);
+            else
+                Logger.LogWarning("Talent element {ValueValue} not found for button {ButtonId}", valueValue, abilityTalent.ButtonElementId);
+        }
+        else if (validatorElement.DataValues.TryGetElementDataAt("CombineArray", out StormElementData? combineArrayData))
+        {
+            IEnumerable<string> combineArray = combineArrayData.GetElementDataIndexes();
+
+            foreach (string combineIndex in combineArray)
+            {
+                // another validator id
+                string valueValue = combineArrayData.GetElementDataAt(combineIndex).Value.GetString();
+
+                ProcessValidatorData(abilityTalent, valueValue);
             }
         }
     }

@@ -966,6 +966,49 @@ public class AbilityParserTests
         ability.CooldownText!.RawDescription.Should().Be("Cooldown: 10 seconds");
     }
 
+    [TestMethod]
+    public void GetAbility_AmazonWarTravelerSummonMountCommand_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAmazon";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("32");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("AmazonWarTravelerSummonMount|AmazonWarTravelerSummonMount|Z");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 4 seconds");
+        ability.FullText.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void GetAbility_AmazonAvoidanceCommand_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAmazon";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("27");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be(":PASSIVE:|AmazonAvoidance|Trait");
+        ability.IsActive.Should().BeFalse();
+        ability.TooltipAppendersTalentElementIds.Should().HaveCount(6).And
+            .ContainInConsecutiveOrder(["AmazonPlateoftheWhale", "AmazonSurgeOfLight", "AmazonWarTraveler", "AmazonFendGlovesOfAlacrity", "AmazonTitansRevenge", "Amazon-AvoidanceRockstopper"]);
+    }
+
     private static void AssertAbathurSymbioteAbility(Ability ability)
     {
         ability.Name!.RawDescription.Should().Be("Symbiote");

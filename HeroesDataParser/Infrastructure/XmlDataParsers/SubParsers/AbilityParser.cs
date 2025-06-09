@@ -88,8 +88,9 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 
             SetButtonData(ability);
         }
-        else if (!string.IsNullOrEmpty(abilCmdValue)) // non-passive
+        else if (!string.IsNullOrEmpty(abilCmdValue))
         {
+            // this is non-passive
             (string abilityId, string index) = GetAbilCmdSplit(abilCmdValue);
 
             ability.AbilityElementId = abilityId;

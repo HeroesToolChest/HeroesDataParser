@@ -63,4 +63,53 @@
     <Find value="1" />
     <Value value="GarroshArmorUpInnerRage" />
   </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AmazonAvoidancePlateoftheWhaleHasTalent">
+    <Find value="1" />
+    <Value value="AmazonPlateoftheWhale" />
+    <WhichPlayer Value="Caster" />
+  </CValidatorPlayerTalent>
+  <CValidatorCombine id="AmazonAvoidanceSurgeOfLightHasTalentAndDoesNotHaveAbilityReadyBuff">
+    <Type value="And" />
+    <CombineArray value="AmazonAvoidanceSurgeOfLightHasTalent" />
+    <CombineArray value="AmazonAvoidanceSurgeOfLightDoesNotHaveAbilityReadyBuff" />
+  </CValidatorCombine>
+  <CValidatorCombine id="AmazonAvoidanceSurgeOfLightHasTalentAndHasAbilityReadyBuff">
+    <Type value="And" />
+    <CombineArray value="AmazonAvoidanceSurgeOfLightHasTalent" />
+    <CombineArray value="AmazonAvoidanceSurgeOfLightHasAbilityReadyBuff" />
+  </CValidatorCombine>
+  <CValidatorPlayerTalent id="AmazonAvoidanceWarTravelerHasTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AmazonWarTraveler" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AmazonHasFendGlovesOfAlacrityTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AmazonFendGlovesOfAlacrity" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AmazonTitansRevengeHasTalent">
+    <Find value="1" />
+    <Value value="AmazonTitansRevenge" />
+    <WhichPlayer Value="Caster" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="Amazon-HasAvoidanceRockstopperTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="Amazon-AvoidanceRockstopper" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AmazonAvoidanceSurgeOfLightHasTalent">
+    <Find value="1" />
+    <Value value="AmazonSurgeOfLight" />
+    <WhichPlayer Value="Caster" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitCompareBehaviorCount id="AmazonAvoidanceSurgeOfLightDoesNotHaveAbilityReadyBuff">
+    <WhichUnit Value="Caster" />
+    <Behavior value="AmazonAvoidanceSurgeOfLightAbilityReady" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="AmazonAvoidanceSurgeOfLightHasAbilityReadyBuff">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="AmazonAvoidanceSurgeOfLightAbilityReady" />
+  </CValidatorUnitCompareBehaviorCount>
 </Validator>

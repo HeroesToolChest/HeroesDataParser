@@ -267,6 +267,8 @@ public class HeroParser : CollectionParserBase<Hero>
         string heroId = collectionObject.Id;
         collectionObject.Id = collectionObject.UnitId;
 
+        _unitParser.AllowHiddenAbilities = Options.Hidden.AllowHeroHiddenAbilities;
+        _unitParser.AllowSpecialAbilities = Options.Hidden.AllowHeroSpecialAbilities;
         _unitParser.Parse(collectionObject);
 
         // then set it back to the heroId

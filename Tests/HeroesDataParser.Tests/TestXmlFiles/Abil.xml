@@ -696,4 +696,38 @@
     </Cost>
     <PrepEffect value="DecloakCasterSet" />
   </CAbilEffectInstant>
+  <CAbilEffectInstant id="AmazonWarTravelerSummonMount">
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <AbilityCategories index="Mount" value="1" />
+    <AbilityCategories index="InterruptedByDamage" value="1" />
+    <PrepEffect value="HeroGenericMountAbilityUsePrepareEffectSet" />
+    <Effect value="HeroGenericMountAbilityInitialSet" />
+    <Flags index="ClearLastAttackTarget" value="1" />
+    <Cost>
+      <Cooldown Link="Abil/Mount" TimeUse="4" />
+    </Cost>
+    <ValidatedArray index="Approach" value="0" />
+    <ValidatedArray index="Channel" value="0" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AmazonWarTravelerSummonMount" ShowValidator="AmazonWarTravelerMountCombine" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="AmazonSurgeOfLight">
+    <CmdButtonArray index="Execute" DefaultButtonFace="AmazonAvoidance" ShowValidator="AmazonHasSurgeOfLightPickedTalent" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="AmazonAvoidanceSurgeOfLightActivateSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RangeUseCasterRadius" value="0" />
+    <Cost>
+      <Charge>
+        <CountMax value="100" />
+        <CountUse value="100" />
+        <HideCount value="1" />
+        <Location value="Player" />
+      </Charge>
+      <Cooldown Location="Player" TimeUse="0.25" />
+    </Cost>
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CastIntroTime value="0.125" />
+  </CAbilEffectInstant>
 </Abil>

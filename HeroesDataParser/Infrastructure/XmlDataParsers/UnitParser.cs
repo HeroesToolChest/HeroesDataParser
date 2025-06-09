@@ -16,6 +16,10 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
     public override string DataObjectType => "Unit";
 
+    public bool AllowHiddenAbilities { get; set; } = true;
+
+    public bool AllowSpecialAbilities { get; set; } = true;
+
     public void Parse(Unit unit)
     {
         Logger.LogTrace("Parsing unit for existing id {Id}", unit.Id);
@@ -306,9 +310,6 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                         NameId = linkId,
                     };
 
-                    if (weaponStormElement.DataValues.TryGetElementDataAt("Name", out StormElementData? nameData))
-                        unitWeapon.Name = TooltipDescriptionService.GetTooltipDescriptionFromId(nameData.Value.GetString());
-
                     if (weaponStormElement.DataValues.TryGetElementDataAt("Range", out StormElementData? rangeData))
                         unitWeapon.Range = rangeData.Value.GetDouble();
 
@@ -384,38 +385,45 @@ public class UnitParser : DataParser<Unit>, IUnitParser
             {
                 StormElementData cardLayoutsElement = cardLayoutsData.GetElementDataAt(cardLayoutIndex);
 
-                if (cardLayoutsElement.TryGetElementDataAt("LayoutButtons", out StormElementData? layoutButtonsData))
+                if (!cardLayoutsElement.TryGetElementDataAt("LayoutButtons", out StormElementData? layoutButtonsData))
+                    continue;
+
+                foreach (string layoutButtonsIndex in layoutButtonsData.GetElementDataIndexes())
                 {
-                    foreach (string layoutButtonsIndex in layoutButtonsData.GetElementDataIndexes())
-                    {
-                        // Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
-                        StormElementData layoutButtonsElement = layoutButtonsData.GetElementDataAt(layoutButtonsIndex);
+                    // Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
+                    StormElementData layoutButtonsElement = layoutButtonsData.GetElementDataAt(layoutButtonsIndex);
 
-                        Ability? ability = _abilityParser.GetAbility(layoutButtonsElement);
-                        if (ability is not null)
-                        {
-                            if (ability.AbilityType != AbilityType.Passive)
-                                abilityIdChecklist.Remove(ability.AbilityElementId);
+                    Ability? ability = _abilityParser.GetAbility(layoutButtonsElement);
 
-                            if (!string.IsNullOrEmpty(ability.ParentAbilityElementId))
-                                abilitesWithParentAbils.Add(ability);
-                            else
-                                elementObject.AddAbility(ability);
+                    if (ability is null)
+                        continue;
 
-                            AddAbilityByTooltipTalentElementIds(elementObject, ability);
-                        }
-                    }
+                    if (ability.AbilityType != AbilityType.Passive)
+                        abilityIdChecklist.Remove(ability.AbilityElementId);
+
+                    if (AllowSpecialAbilities is false && ability is { AbilityType: AbilityType.Taunt or AbilityType.Dance or AbilityType.Spray or AbilityType.Voice })
+                        continue;
+
+                    if (!string.IsNullOrEmpty(ability.ParentAbilityElementId))
+                        abilitesWithParentAbils.Add(ability);
+                    else
+                        elementObject.AddAbility(ability);
+
+                    AddAbilityByTooltipTalentElementIds(elementObject, ability);
                 }
             }
         }
 
-        // for any that are left in the ability checklist, we create an ability
-        foreach (string abilityId in abilityIdChecklist)
+        if (AllowHiddenAbilities)
         {
-            Ability? ability = _abilityParser.GetAbility(abilityId);
-
-            if (ability is not null)
+            // for any that are left in the ability checklist, we create an ability
+            foreach (string abilityId in abilityIdChecklist)
             {
+                Ability? ability = _abilityParser.GetAbility(abilityId);
+
+                if (ability is null)
+                    continue;
+
                 if (!string.IsNullOrEmpty(ability.ParentAbilityElementId))
                     abilitesWithParentAbils.Add(ability);
                 else

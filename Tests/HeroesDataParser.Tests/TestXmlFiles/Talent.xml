@@ -377,4 +377,73 @@
     <Abil value="DVaLiquidCoolingAbility" />
     <Active value="1" />
   </CTalent>
+  <CTalent id="AmazonPlateoftheWhale">
+    <Face value="AmazonAvoidancePlateoftheWhale" />
+    <RankArray>
+      <BehaviorArray value="AmazonPlateoftheWhaleRegenBehavior" />
+      <BehaviorArray value="AmazonPlateoftheWhaleStackCounter" />
+    </RankArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="AmazonWarTraveler">
+    <Face value="AmazonAvoidanceWarTraveler" />
+    <Trait value="1" />
+    <RankArray>
+      <BehaviorArray value="AmazonAvoidanceWarTravelerMovementBonus" />
+      <BehaviorArray value="AmazonAvoidanceWarTravelerTokenCounter" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AmazonWarTravelerSummonMountCooldownSwitch" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AmazonWarTravelerDismountCooldownSwitch" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="AmazonFendGlovesOfAlacrity">
+    <Face value="AmazonFendGlovesOfAlacrity" />
+    <RankArray>
+      <BehaviorArray value="AmazonGlovesOfAlacrityAvoidanceMaxedAttackRangeBehavior" />
+      <BehaviorArray value="AmazonGlovesOfAlacrityBaseAttackRangeBehavior" />
+    </RankArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="AmazonTitansRevenge">
+    <Face value="AmazonTitansRevenge" />
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="Amazon-AvoidanceRockstopper">
+    <Face value="AmazonAvoidanceRockstopper" />
+    <RankArray>
+      <BehaviorArray value="AmazonAvoidanceRockstopperItem" />
+    </RankArray>
+    <Active value="1" />
+    <Abil value="AmazonAvoidanceRockstopper" />
+  </CTalent>
+  <CTalent id="AmazonSurgeOfLight">
+    <Trait value="1" />
+    <Abil value="AmazonSurgeOfLight" />
+    <Face value="AmazonAvoidanceSurgeOfLight" />
+    <RankArray>
+      <BehaviorArray value="AmazonAvoidanceSurgeOfLightPickedTalent" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AmazonAvoidanceSurgeOfLightDummyCurrentCharge" />
+        <Field value="Amount" />
+        <FieldIsInteger value="1" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
 </Talent>

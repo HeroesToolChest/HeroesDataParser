@@ -1011,4 +1011,50 @@
     <EnergyRegenRate value="2.1992" />
     <AIThinkTree value="AI\DVaPilot.aitree" />
   </CUnit>
+  <CUnit id="HeroAmazon" parent="StormHeroMountedCustom">
+    <LifeStart value="1660" />
+    <LifeMax value="1660" />
+    <AIThinkTree value="AI/Amazon.aitree" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="AmazonAvoidanceMovementCheck" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="AmazonBallLightning" Type="AbilCmd" AbilCmd="AmazonBallLightning,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AmazonValkyrie" Type="AbilCmd" AbilCmd="AmazonValkyrie,Execute" Slot="Heroic" />
+      <LayoutButtons Face="LootConsumableThrow" Type="AbilCmd" AbilCmd="LootConsumableThrow,255" Slot="Hidden2" />
+      <LayoutButtons Face="AmazonAvoidance" Type="AbilCmd" AbilCmd="AmazonSurgeOfLight,Execute" Slot="Trait" />
+      <LayoutButtons Face="AmazonAvoidance" Type="Passive" Slot="Trait" />
+      <LayoutButtons Face="AmazonLightningFury" Type="AbilCmd" AbilCmd="AmazonLightningFury,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AmazonBlindingLight" Type="AbilCmd" AbilCmd="AmazonBlindingLight,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AmazonCancelFend" Type="AbilCmd" AbilCmd="AmazonFendCancelChannel,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AmazonFend" Type="AbilCmd" AbilCmd="AmazonFend,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AmazonWarTravelerSummonMount" Type="AbilCmd" AbilCmd="AmazonWarTravelerSummonMount,Execute" Slot="Mount" />
+      <LayoutButtons Face="SummonMount" Type="AbilCmd" AbilCmd="Mount,Execute" Slot="Mount" />
+      <LayoutButtons Face="UnsummonMount" Type="AbilCmd" AbilCmd="Dismount,Execute" Slot="Mount" />
+    </CardLayouts>
+    <AbilArray Link="AmazonBallLightning" />
+    <AbilArray Link="AmazonBlindingLight" />
+    <AbilArray Link="AmazonFend" />
+    <AbilArray Link="AmazonFendApproach" />
+    <AbilArray Link="AmazonFendCancelChannel" />
+    <AbilArray Link="AmazonFendChannel" />
+    <AbilArray Link="AmazonLightningFury" />
+    <AbilArray Link="AmazonValkyrie" />
+    <AbilArray Link="AmazonSurgeOfLight" />
+    <AbilArray Link="AmazonAvoidanceRockstopper" />
+    <AbilArray Link="Mount" />
+    <AbilArray Link="Dismount" />
+    <AbilArray Link="AmazonWarTravelerSummonMount" />
+    <WeaponArray Link="AmazonHeroWeaponMelee" />
+    <WeaponArray Link="AmazonHeroWeaponRanged" />
+    <LifeRegenRate value="3.457" />
+    <Radius value="0.6875" />
+    <InnerRadius value="0.6875" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <InitializerFunction value="libHAMA_gf_HeroAmazonIncrementHeroCountFunction" />
+    <DestructionFunction value="libHAMA_gf_HeroAmazonDecrementHeroCountFunction" />
+    <EffectArray index="Death" value="AmazonChargedStrikesResetTokens" />
+  </CUnit>
 </Unit> 

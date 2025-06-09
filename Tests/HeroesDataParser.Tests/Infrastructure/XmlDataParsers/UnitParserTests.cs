@@ -1,7 +1,4 @@
-﻿using HeroesDataParser.Infrastructure;
-using HeroesDataParser.Infrastructure.XmlDataParsers;
-
-namespace HeroesDataParser.Tests.Infrastructure.XmlDataParsers;
+﻿namespace HeroesDataParser.Tests.Infrastructure.XmlDataParsers;
 
 [TestClass]
 public class UnitParserTests
@@ -110,7 +107,6 @@ public class UnitParserTests
             .Contain(new AbilityLinkId("AbathurUltimateEvolution", "AbathurUltimateEvolution", AbilityType.Heroic));
 
         UnitWeapon abathurWeapon1 = unit.Weapons.First();
-        abathurWeapon1.Name!.RawDescription.Should().Be("Hero Abathur");
         abathurWeapon1.Range.Should().Be(1);
         abathurWeapon1.Period.Should().Be(0.7);
         abathurWeapon1.NameId.Should().Be("HeroAbathur");
@@ -209,5 +205,74 @@ public class UnitParserTests
         // assert
         unit.Should().NotBeNull();
         unit.SubAbilities.Should().BeEmpty(); // should be empty because the subabilites are children to talent abilities
+    }
+
+    [TestMethod]
+    public void Parse_DisallowHiddenAbilities_GetAbilityIsntReceived()
+    {
+        // arrange
+        string unitId = "HeroAmazon";
+
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService)
+        {
+            AllowHiddenAbilities = false,
+        };
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        _abilityParser.DidNotReceive().GetAbility(Arg.Any<string>());
+    }
+
+    [TestMethod]
+    [DataRow(true, 4)]
+    [DataRow(false, 0)]
+    public void Parse_DisallowSpecialAbilities_NoAbilitiesAdded(bool allow, int count)
+    {
+        // arrange
+        string unitId = "HeroAmazon";
+
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService)
+        {
+            AllowSpecialAbilities = allow,
+        };
+
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[13]")).Returns(new Ability()
+        {
+            AbilityElementId = "stop",
+            ButtonElementId = "Tease",
+            AbilityType = AbilityType.Taunt,
+            Tier = AbilityTier.Taunt,
+        });
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[14]")).Returns(new Ability()
+        {
+            AbilityElementId = "stop",
+            ButtonElementId = "Dance",
+            AbilityType = AbilityType.Dance,
+            Tier = AbilityTier.Dance,
+        });
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[20]")).Returns(new Ability()
+        {
+            AbilityElementId = "LootSpray",
+            ButtonElementId = "LootSpray",
+            AbilityType = AbilityType.Spray,
+            Tier = AbilityTier.Spray,
+        });
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[21]")).Returns(new Ability()
+        {
+            AbilityElementId = "LootYellVoiceLine",
+            ButtonElementId = "LootYellVoiceLine",
+            AbilityType = AbilityType.Voice,
+            Tier = AbilityTier.Voice,
+        });
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        unit.Abilities.Should().HaveCount(count);
     }
 }

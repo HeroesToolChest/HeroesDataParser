@@ -24,7 +24,7 @@ public class MapDataParserService : IMapDataParserService
 
         //_logger.LogInformation("{Count} items to serialize", mapItemsToSerialize.Keys.Count);
 
-       // await _jsonFileWriterService.Write(mapItemsToSerialize, stormLocale);
+        // await _jsonFileWriterService.Write(mapItemsToSerialize, stormLocale);
 
 
 
