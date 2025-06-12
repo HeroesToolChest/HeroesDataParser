@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroAna" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <LayoutButtons index="30" Face="AnaHealingDart" Type="AbilCmd" AbilCmd="AnaHealingDartDetachableBoxMagazine,Execute" Slot="Hidden" />
+      <LayoutButtons index="38" Face="AnaTraitShrikeSniper" Type="Passive" Slot="Hidden" />
+    </CardLayouts>
+  </CUnit>
+  <CAbilEffectInstant id="AnaEyeOfHorusAttackDummy">
+    <ParentAbil value="AnaEyeOfHorusActivate" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AnaEyeOfHorusAttack">
+    <ParentAbil value="AnaEyeOfHorusActivate" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="AnaAimDownSightsDeactivate">
+    <ParentAbil value="AnaAimDownSightsActivate" />
+  </CAbilEffectInstant>
+</Catalog>
