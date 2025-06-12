@@ -63,11 +63,11 @@ public class HeroParser : CollectionParserBase<Hero>
 
                 currentSearchText += TooltipDescriptionService.GetStormGameString(additionalSearchTextData.Value.GetString());
 
-                collectionObject.SearchText = TooltipDescriptionService.GetTooltipDescriptionFromGameString(currentSearchText);
+                collectionObject.SearchText = TooltipDescriptionService.GetTooltipDescriptionFromGameString(currentSearchText.TrimEnd());
             }
             else
             {
-                collectionObject.SearchText = TooltipDescriptionService.GetTooltipDescriptionFromId(additionalSearchTextData.Value.GetString());
+                collectionObject.SearchText = TooltipDescriptionService.GetTooltipDescriptionFromId(additionalSearchTextData.Value.GetString().TrimEnd());
             }
         }
 

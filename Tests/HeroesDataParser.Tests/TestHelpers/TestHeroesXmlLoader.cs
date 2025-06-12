@@ -123,7 +123,7 @@ public static class TestHeroesXmlLoader
                         "Button/Tooltip/SamuroAdvancingStrikes=Activate to switch places with a target",
                         "Button/Tooltip/DehakaEssenceCollectionCooldownOverride=5 seconds",
                         "Button/OverrideText/DVaMechBoosters=<d ref=\"Effect,DVaBoostersApplyCooldown,Cost[0].CooldownTimeUse\"/> seconds",
-                        "Hero/AdditionalSearchText/Abathur=Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug Double Soak",
+                        "Hero/AdditionalSearchText/Abathur=Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug Double Soak ",
                         "Hero/AlternateNameSearchText/Abathur=Abathur",
                         "Hero/Description/Abathur=A unique Hero that can manipulate the battle from anywhere on the map.",
                         "Hero/Info/Abathur=Abathur, the Evolution Master of Kerrigan's Swarm, works ceaselessly...",

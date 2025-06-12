@@ -226,7 +226,10 @@
     <PushPriority value="300" />
     <AlliedPushPriority value="300" />
   </CUnit>
-  <CUnit id="HeroHpTESTHero">    
+  <CUnit id="HeroHpTESTHero">
+    <CardLayouts index="0">
+      <LayoutButtons Face="AmazonBallLightning" Type="AbilCmd" AbilCmd="AmazonBallLightning,Execute" Slot="Hidden" />
+    </CardLayouts>
   </CUnit>
   <CUnit id="HeroAbathur" parent="StormHeroMountedCustom">
     <LifeStart value="685" />

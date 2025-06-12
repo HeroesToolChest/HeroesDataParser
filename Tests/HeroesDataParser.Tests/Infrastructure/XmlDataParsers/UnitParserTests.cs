@@ -229,7 +229,7 @@ public class UnitParserTests
     [TestMethod]
     [DataRow(true, 4)]
     [DataRow(false, 0)]
-    public void Parse_DisallowSpecialAbilities_NoAbilitiesAdded(bool allow, int count)
+    public void Parse_SpecialAbilities_AbilitiesAdded(bool allow, int count)
     {
         // arrange
         string unitId = "HeroAmazon";
@@ -273,6 +273,36 @@ public class UnitParserTests
 
         // assert
         unit.Should().NotBeNull();
+        unit.Abilities.Should().HaveCount(count);
+    }
+
+    [TestMethod]
+    [DataRow(true, 1)]
+    [DataRow(false, 0)]
+    public void Parse_AbilityHiddenCommand_GetAbility(bool allow, int count)
+    {
+        // arrange
+        string unitId = "HeroHpTESTHero";
+
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService)
+        {
+            AllowHiddenAbilities = allow,
+        };
+
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[0]")).Returns(new Ability()
+        {
+            AbilityElementId = "Test",
+            ButtonElementId = "Test",
+            AbilityType = AbilityType.Hidden,
+            Tier = AbilityTier.Hidden,
+        });
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        _abilityParser.Received().GetAbility(Arg.Any<StormElementData>());
         unit.Abilities.Should().HaveCount(count);
     }
 }

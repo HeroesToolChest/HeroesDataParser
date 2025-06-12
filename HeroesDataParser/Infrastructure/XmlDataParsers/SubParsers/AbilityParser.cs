@@ -190,38 +190,24 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 
     private static void SetAbilityTierFromAbilityType(Ability ability)
     {
-        if (ability.AbilityType == AbilityType.Q || ability.AbilityType == AbilityType.W || ability.AbilityType == AbilityType.E)
-            ability.Tier = AbilityTier.Basic;
-        else if (ability.AbilityType == AbilityType.Heroic)
-            ability.Tier = AbilityTier.Heroic;
-        else if (ability.AbilityType == AbilityType.Z)
-            ability.Tier = AbilityTier.Mount;
-        else if (ability.AbilityType == AbilityType.Trait)
-            ability.Tier = AbilityTier.Trait;
-        else if (ability.AbilityType == AbilityType.B)
-            ability.Tier = AbilityTier.Hearth;
-        else if (ability.AbilityType == AbilityType.Active)
-            ability.Tier = AbilityTier.Activable;
-        else if (ability.AbilityType == AbilityType.Taunt)
-            ability.Tier = AbilityTier.Taunt;
-        else if (ability.AbilityType == AbilityType.Dance)
-            ability.Tier = AbilityTier.Dance;
-        else if (ability.AbilityType == AbilityType.Spray)
-            ability.Tier = AbilityTier.Spray;
-        else if (ability.AbilityType == AbilityType.Voice)
-            ability.Tier = AbilityTier.Voice;
-        else if (ability.AbilityType == AbilityType.MapMechanic)
-            ability.Tier = AbilityTier.MapMechanic;
-        else if (ability.AbilityType == AbilityType.Interact)
-            ability.Tier = AbilityTier.Interact;
-        else if (ability.AbilityType == AbilityType.Attack ||
-            ability.AbilityType == AbilityType.Stop ||
-            ability.AbilityType == AbilityType.Hold ||
-            ability.AbilityType == AbilityType.Cancel ||
-            ability.AbilityType == AbilityType.ForceMove)
-            ability.Tier = AbilityTier.Action;
-        else
-            ability.Tier = AbilityTier.Unknown;
+        ability.Tier = ability.AbilityType switch
+        {
+            AbilityType.Q or AbilityType.W or AbilityType.E => AbilityTier.Basic,
+            AbilityType.Heroic => AbilityTier.Heroic,
+            AbilityType.Z => AbilityTier.Mount,
+            AbilityType.Trait => AbilityTier.Trait,
+            AbilityType.B => AbilityTier.Hearth,
+            AbilityType.Active => AbilityTier.Activable,
+            AbilityType.Taunt => AbilityTier.Taunt,
+            AbilityType.Dance => AbilityTier.Dance,
+            AbilityType.Spray => AbilityTier.Spray,
+            AbilityType.Voice => AbilityTier.Voice,
+            AbilityType.MapMechanic => AbilityTier.MapMechanic,
+            AbilityType.Interact => AbilityTier.Interact,
+            AbilityType.Attack or AbilityType.Stop or AbilityType.Hold or AbilityType.Cancel or AbilityType.ForceMove => AbilityTier.Action,
+            AbilityType.Hidden => AbilityTier.Hidden,
+            _ => AbilityTier.Unknown,
+        };
     }
 
     private void SetAbilityData(AbilityTalentBase abilityTalent, string? abilCmdIndex = null)

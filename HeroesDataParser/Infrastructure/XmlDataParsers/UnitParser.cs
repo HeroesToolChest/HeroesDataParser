@@ -401,7 +401,8 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                     if (ability.AbilityType != AbilityType.Passive)
                         abilityIdChecklist.Remove(ability.AbilityElementId);
 
-                    if (AllowSpecialAbilities is false && ability is { AbilityType: AbilityType.Taunt or AbilityType.Dance or AbilityType.Spray or AbilityType.Voice })
+                    if ((AllowSpecialAbilities is false && ability is { AbilityType: AbilityType.Taunt or AbilityType.Dance or AbilityType.Spray or AbilityType.Voice }) ||
+                        (AllowHiddenAbilities is false && ability is { AbilityType: AbilityType.Hidden }))
                         continue;
 
                     if (!string.IsNullOrEmpty(ability.ParentAbilityElementId))
