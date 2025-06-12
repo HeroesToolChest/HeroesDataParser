@@ -1009,6 +1009,26 @@ public class AbilityParserTests
             .ContainInConsecutiveOrder(["AmazonPlateoftheWhale", "AmazonSurgeOfLight", "AmazonWarTraveler", "AmazonFendGlovesOfAlacrity", "AmazonTitansRevenge", "Amazon-AvoidanceRockstopper"]);
     }
 
+    [TestMethod]
+    public void GetAbility__ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroHpTESTHero";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("1");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be(":PASSIVE:|TestButtonWithParentAbil|W");
+        ability.ParentAbilityElementId.Should().Be("SomeParentAbil");
+    }
+
     private static void AssertAbathurSymbioteAbility(Ability ability)
     {
         ability.Name!.RawDescription.Should().Be("Symbiote");

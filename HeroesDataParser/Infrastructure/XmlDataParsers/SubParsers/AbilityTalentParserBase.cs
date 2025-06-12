@@ -182,6 +182,15 @@ public class AbilityTalentParserBase : ParserBase
                 }
             }
         }
+
+        if (buttonDataValues.TryGetElementDataAt("hdp-ParentAbil", out StormElementData? hdpParentAbilData))
+        {
+            string hdpParentAbilValue = hdpParentAbilData.Value.GetString();
+            if (!string.IsNullOrEmpty(hdpParentAbilValue))
+            {
+                abilityTalent.ParentAbilityElementId = hdpParentAbilValue;
+            }
+        }
     }
 
     //protected void SetAbilityData(AbilityTalentBase abilityTalent, string? abilCmdIndex = null)

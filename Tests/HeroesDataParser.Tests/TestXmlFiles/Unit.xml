@@ -229,6 +229,7 @@
   <CUnit id="HeroHpTESTHero">
     <CardLayouts index="0">
       <LayoutButtons Face="AmazonBallLightning" Type="AbilCmd" AbilCmd="AmazonBallLightning,Execute" Slot="Hidden" />
+      <LayoutButtons Face="TestButtonWithParentAbil" Type="Passive" Requirements="ArtanisHasTwinBladesPrimed" Slot="Ability2" />
     </CardLayouts>
   </CUnit>
   <CUnit id="HeroAbathur" parent="StormHeroMountedCustom">

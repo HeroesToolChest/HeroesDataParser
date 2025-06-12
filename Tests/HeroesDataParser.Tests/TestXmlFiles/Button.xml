@@ -23,6 +23,9 @@
   <CButton default="1" id="StormButtonParentFury" parent="StormButtonParent">
     <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Fury"/>
   </CButton>
+  <CButton id="TestButtonWithParentAbil" parent="StormButtonParent">
+    <hdp-ParentAbil value="SomeParentAbil" />
+  </CButton>
   <CButton id="Hearthstone" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_miscrune_1.dds"/>
   </CButton>
