@@ -46,9 +46,13 @@
       "Disallow": {
         "Exact": [
           "_Empty",
-          "AI"
+          "AI",
+          "ChoGallBundleProduct",
+          "Cyberpunk",
+          "DeathwingWorldBreaker"
         ],
         "Regex": [
+          "\\b\\w*Event\\b" // exclude all heroes ending with 'Event'
         ]
       }
     },
