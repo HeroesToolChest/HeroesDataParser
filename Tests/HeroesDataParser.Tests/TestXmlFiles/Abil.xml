@@ -730,4 +730,47 @@
     <UninterruptibleArray index="Finish" value="1" />
     <CastIntroTime value="0.125" />
   </CAbilEffectInstant>
+  <CAbilEffectTarget id="DeathwingMoltenFlame">
+    <Activity value="Abil/Activity/DeathwingMoltenFlame" />
+    <Effect value="DeathwingMoltenFlameInitialSet" />
+    <Flags index="ClearLastAttackTarget" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TargetVectorLock" value="1" />
+    <Cost>
+      <Cooldown TimeUse="3" />
+    </Cost>
+    <Arc value="360" />
+    <Range value="500" />
+    <ShowProgressArray index="Cast" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CursorEffect value="DeathwingMoltenFlameSearch" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="DeathwingMoltenFlame" UseValidator="DeathwingCasterHasGTE10Energy">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <CastIntroTime value="1.5" />
+    <PrepEffect value="DeathwingMoltenFlamePrepSet" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="DeathwingFormSwitch">
+    <AbilityCategories index="Control" value="1" />
+    <Activity value="Abil/Activity/DeathwingFormSwitch" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="DeathwingFormSwitchInitialSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Cost>
+      <Cooldown TimeUse="20" />
+    </Cost>
+    <CastIntroTime value="2" />
+    <CastOutroTime value="0.5" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="DeathwingAspectOfDeath" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <ShowProgressArray index="Cast" value="1" />
+    <ShowProgressArray index="Channel" value="1" />
+    <ShowProgressArray index="Finish" value="1" />
+  </CAbilEffectInstant>
 </Abil>

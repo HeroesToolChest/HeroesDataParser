@@ -445,4 +445,65 @@ public class HeroParserTests
                     new AbilityLinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait),
                 ]);
     }
+
+    [TestMethod]
+    public void Parse_TalentUpgradeLinksShouldOnlyBeAddedIfAbilityorSubAbilityAvailable_ReturnsCorrectUpgradeTalentLiks()
+    {
+        // arrange
+        string heroUnit = "Deathwing";
+
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+
+        Ability deathwingIncinerateAbility = new()
+        {
+            AbilityElementId = "DeathwingIncinerate",
+            ButtonElementId = "DeathwingIncinerate",
+            AbilityType = AbilityType.W,
+            Tier = AbilityTier.Basic,
+            TooltipAppendersTalentElementIds =
+            {
+                "DeathwingDragonSoul",
+            },
+        };
+
+        Ability deathwingLavaBurstAbility = new()
+        {
+            AbilityElementId = "DeathwingLavaBurst",
+            ButtonElementId = "DeathwingLavaBurst",
+            AbilityType = AbilityType.W,
+            Tier = AbilityTier.Basic,
+            ParentAbilityElementId = "DeathwingFormSwitch",
+            TooltipAppendersTalentElementIds =
+            {
+                "DeathwingDragonSoul",
+            },
+        };
+
+        _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
+            .Do(x =>
+            {
+                Unit argUnit = x.Arg<Unit>();
+                argUnit.Id = "HeroDeathwing";
+                argUnit.AddAbility(deathwingIncinerateAbility);
+                argUnit.AddSubAbility(deathwingLavaBurstAbility);
+                argUnit.AddAbilityByTooltipTalentElementId("DeathwingDragonSoul", deathwingIncinerateAbility);
+                argUnit.AddAbilityByTooltipTalentElementId("DeathwingDragonSoul", deathwingLavaBurstAbility);
+            });
+
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[0]")).Returns(new Talent()
+        {
+            TalentElementId = "DeathwingDragonSoul",
+            ButtonElementId = "DeathwingDragonSoul",
+            Tier = TalentTier.Level1,
+            AbilityType = AbilityType.W,
+        });
+
+        // act
+        Hero? hero = heroParser.Parse(heroUnit);
+
+        // assert
+        hero.Should().NotBeNull();
+        hero.Talents[TalentTier.Level1][0].UpgradeLinkIds.Should().HaveCount(1);
+        hero.Talents[TalentTier.Level1][0].UpgradeLinkIds.First().ToString().Should().Be("DeathwingIncinerate|DeathwingIncinerate|W");
+    }
 }

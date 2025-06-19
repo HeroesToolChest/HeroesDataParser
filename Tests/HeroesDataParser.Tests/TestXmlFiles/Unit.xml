@@ -1061,4 +1061,179 @@
     <DestructionFunction value="libHAMA_gf_HeroAmazonDecrementHeroCountFunction" />
     <EffectArray index="Death" value="AmazonChargedStrikesResetTokens" />
   </CUnit>
+  <CUnit id="HeroCho" parent="StormHeroMounted">
+    <Subtitle value="Hero/Name/ChoGallBundleProduct" />
+    <LifeStart value="2950" />
+    <LifeMax value="2950" />
+    <LifeRegenRate value="6.1445" />
+    <EnergyStart value="0" />
+    <EnergyMax value="0" />
+    <EnergyRegenRate value="0" />
+    <AbilArray Link="ChoConsumingBlaze" />
+    <AbilArray Link="ChoSurgingFistCast" />
+    <AbilArray Link="ChoSurgingFistTrigger" />
+    <AbilArray Link="ChoSurgingFistExecute" />
+    <AbilArray Link="ChoHammerOfTwilight" />
+    <AbilArray Link="ChoRuneBomb" />
+    <AbilArray Link="ChoUpheaval" />
+    <AbilArray Link="ChoOgreHide" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="HeroSharesCutsceneOverlaysSource" />
+    <BehaviorArray Link="ChoGallConjoined" />
+    <BehaviorArray Link="ChoOgreHideVisualController" />
+    <BehaviorArray Link="ChoOgreRageVisualController" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <BehaviorArray Link="ChoOgreHideCallousedHideTalentMoveSpeedCarry" />
+    <WeaponArray Link="ChoShortRangeHeroWeapon" />
+    <WeaponArray Link="ChoHeroWeapon" />
+    <WeaponArray Link="ChoLongRangeHeroWeaponCthunsGift" />
+    <CardLayouts index="0">
+      <LayoutButtons index="1" Face="HearthstoneNoMana" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="ChoUpheaval" Type="AbilCmd" AbilCmd="ChoUpheaval,Execute" Slot="Heroic" />
+      <LayoutButtons Face="ChoHammerOfTwilight" Type="AbilCmd" AbilCmd="ChoHammerOfTwilight,Execute" Slot="Heroic" />
+      <LayoutButtons Face="ChoSurgingFistExecute" Type="AbilCmd" AbilCmd="ChoSurgingFistExecute,255" Slot="Hold" />
+      <LayoutButtons Face="ChoSurgingFistTriggerButton" Type="AbilCmd" AbilCmd="ChoSurgingFistTrigger,Execute" Slot="Ability1" />
+      <LayoutButtons Face="ChoSurgingFist" Type="AbilCmd" AbilCmd="ChoSurgingFistCast,Execute" Slot="Ability1" />
+      <LayoutButtons Face="ChoRuneBomb" Type="AbilCmd" AbilCmd="ChoRuneBomb,Execute" Slot="Ability3" />
+      <LayoutButtons Face="ChoConsumingBlaze" Type="AbilCmd" AbilCmd="ChoConsumingBlaze,Execute" Slot="Ability2" />
+      <LayoutButtons Face="ChoOgreHidePassive" Type="Passive" Requirements="ChoHasOgreHideArmorBuff" ShowInGlossary="0" Slot="Trait" />
+      <LayoutButtons Face="ChoOgreHideActivated" Type="AbilCmd" AbilCmd="ChoOgreHide,Execute" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="1.1875" />
+    <InnerRadius value="0.9375" />
+    <AIUtility value="2" />
+    <AIBaseThreat value="1.9" />
+    <AIThinkTree value="AI/Cho.aitree" />
+    <HeroPlaystyleFlags index="BodyBlocker" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="MercKiller" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleTank" value="1" />
+    <HeroPlaystyleFlags index="SoloLaner" value="1" />
+    <InitializerFunction value="libHCHO_gf_HeroChoGallIncrementHeroCountFunction" />
+    <DestructionFunction value="libHCHO_gf_HeroChoGallDecrementHeroCountFunction" />
+    <ArmorLink value="ChoGallArmor" />
+  </CUnit>
+  <CUnit id="HeroTracer" parent="StormHeroMounted">
+    <BehaviorArray Link="TracerReloadController" />
+    <BehaviorArray Link="TracerRecallController" />
+    <BehaviorArray Link="TracerPulseBombChargeController" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="TracerBlinkAvailabilityController" />
+    <BehaviorArray Link="TracerMeleeDisabler" />
+    <BehaviorArray Link="HeroWeaponCasterTargetFinderDisablerMounted" />
+    <BehaviorArray Link="TracerHasFullAmmo" />
+    <BehaviorArray Link="TracerRecallUnitAITrackingBehavior" />
+    <LifeStart value="1330" />
+    <LifeMax value="1330" />
+    <AbilArray index="1" Link="TracerAttack" />
+    <AbilArray Link="TracerReload" />
+    <AbilArray Link="TracerBlink" />
+    <AbilArray Link="TracerPulseBomb" />
+    <AbilArray Link="TracerRecall" />
+    <AbilArray Link="TracerMelee" />
+    <AbilArray Link="TracerLockedandLoaded" />
+    <AbilArray Link="TracerLockedandLoadedFailReload" />
+    <AbilArray Link="TracerSmartTargetingRightClick" />
+    <AbilArray Link="TracerTargetingAttackClick" />
+    <AbilArray Link="TracerUseVehicle" />
+    <CardLayouts index="0">
+      <LayoutButtons index="0" Face="TracerPulseBomb" Type="AbilCmd" AbilCmd="TracerPulseBomb,Execute" Requirements="" Slot="Heroic" />
+      <LayoutButtons index="1" Face="HearthstoneNoMana" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons index="2" Face="Attack" Type="AbilCmd" AbilCmd="TracerTargetingAttackClick,Execute" Slot="Attack" />
+      <LayoutButtons Face="TracerRecall" Type="AbilCmd" AbilCmd="TracerRecall,Execute" Slot="Ability3" />
+      <LayoutButtons Face="TracerLockedandLoadedAbility" Type="AbilCmd" AbilCmd="TracerLockedandLoadedFailReload,Execute" Slot="Trait" />
+      <LayoutButtons Face="TracerLockedandLoadedAbility" Type="AbilCmd" AbilCmd="TracerLockedandLoaded,Execute" Slot="Trait" />
+      <LayoutButtons Face="TracerReload" Type="AbilCmd" AbilCmd="TracerReload,Execute" Slot="Trait" />
+      <LayoutButtons Face="TracerMelee" Type="AbilCmd" AbilCmd="TracerMelee,Execute" Slot="Ability2" />
+      <LayoutButtons Face="TracerBlink" Type="AbilCmd" AbilCmd="TracerBlink,Execute" Slot="Ability1" />
+    </CardLayouts>
+    <WeaponArray Link="TracerHeroWeapon" />
+    <EnergyStart value="20" />
+    <EnergyMax value="20" />
+    <EnergyRegenRate value="0" />
+    <Radius value="0.625" />
+    <AIEvalFactor value="1.2" />
+    <LifeRegenRate value="2.707" />
+    <EffectArray index="Death" value="TracerDeathSet" />
+    <InitializerFunction value="libTrac_gf_HeroTracerIncrementHeroCountFunction" />
+    <DestructionFunction value="libTrac_gf_HeroTracerDecrementHeroCountFunction" />
+    <AIThreatCalculation value="IgnoreEnergy" />
+    <InnerRadius value="0.625" />
+    <AIThinkTree value="AI/Tracer.aitree" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+  </CUnit>
+  <CUnit id="HeroDeathwing" parent="StormHeroMountedCustom">
+    <LifeStart value="2750" />
+    <LifeMax value="2750" />
+    <LifeRegenRate value="5.7304" />
+    <EnergyStart value="100" />
+    <EnergyMax value="100" />
+    <EnergyRegenRate value="5" />
+    <AbilArray Link="DeathwingOnslaught" />
+    <AbilArray Link="DeathwingMoltenFlame" />
+    <AbilArray Link="DeathwingMoltenFlameCancel" />
+    <AbilArray Link="DeathwingIncinerate" />
+    <AbilArray Link="DeathwingTailSmash" />
+    <AbilArray Link="DeathwingLavaBurst" />
+    <AbilArray Link="DeathwingEarthShatter" />
+    <AbilArray Link="DeathwingCataclysm" />
+    <AbilArray Link="DeathwingBrimstoneCancel" />
+    <AbilArray Link="DeathwingDragonflight" />
+    <AbilArray Link="DeathwingDragonflightFlyMorph" />
+    <AbilArray Link="DeathwingDragonflightLandMorph" />
+    <AbilArray Link="DeathwingDestroyerForm" />
+    <AbilArray Link="DeathwingWorldbreakerForm" />
+    <AbilArray Link="DeathwingSkyfall" />
+    <AbilArray Link="DeathwingFormSwitch" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <BehaviorArray Link="DeathwingBrimstonePathingBlockerUnitTracker" />
+    <BehaviorArray Link="DeathwingDestroyerForm" />
+    <BehaviorArray Link="Ultimate1Unlocked" />
+    <BehaviorArray Link="DeathwingAdamantineArmorPlate4" />
+    <BehaviorArray Link="DeathwingAdamantineArmorPlate3" />
+    <BehaviorArray Link="DeathwingAdamantineArmorPlate2" />
+    <BehaviorArray Link="DeathwingAdamantineArmorPlate1" />
+    <BehaviorArray Link="UltimateEvolutionInvalidTarget" />
+    <BehaviorArray Link="UntargetableByFriendlyAbilities" />
+    <BehaviorArray Link="DeathwingFormSwitchAbility" />
+    <BehaviorArray Link="UnitImmuneToDevouringMaw" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <WeaponArray Link="DeathwingHeroWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons index="1" Face="DeathwingHearthstone" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="DeathwingCataclysm" Type="AbilCmd" AbilCmd="DeathwingCataclysm,Execute" Slot="Heroic" />
+      <LayoutButtons Face="DeathwingDestroyer" Type="AbilCmd" AbilCmd="DeathwingDestroyerForm,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DeathwingMoltenFlameCancel" Type="AbilCmd" AbilCmd="DeathwingMoltenFlameCancel,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DeathwingMoltenFlame" Type="AbilCmd" AbilCmd="DeathwingMoltenFlame,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DeathwingWorldbreaker" Type="AbilCmd" AbilCmd="DeathwingWorldbreakerForm,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DeathwingIncinerate" Type="AbilCmd" AbilCmd="DeathwingIncinerate,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DeathwingLavaBurst" Type="AbilCmd" AbilCmd="DeathwingLavaBurst,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DeathwingSkyfallActive" Type="AbilCmd" AbilCmd="DeathwingSkyfall,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DeathwingOnslaught" Type="AbilCmd" AbilCmd="DeathwingOnslaught,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DeathwingEarthShatter" Type="AbilCmd" AbilCmd="DeathwingEarthShatter,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DeathwingDragonflight" Type="AbilCmd" AbilCmd="DeathwingDragonflight,Execute" Slot="Mount" />
+      <LayoutButtons Face="DeathwingAspectOfDeath" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="1.25" />
+    <InnerRadius value="1" />
+    <InitializerFunction value="libHDEA_gf_HeroDeathwingIncrementHeroCountFunction" />
+    <DestructionFunction value="libHDEA_gf_HeroDeathwingDecrementHeroCountFunction" />
+    <FlagArray index="Unstoppable" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <AIThinkTree value="AI/Deathwing.aitree" />
+    <HeroPlaystyleFlags index="BodyBlocker" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="HealingAltarGoalDisabled" value="1" />
+    <HeroPlaystyleFlags index="InstantTraveler" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="Roamer" value="1" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+    <HeroPlaystyleFlags index="Suicidal" value="1" />
+    <HeroPlaystyleFlags index="TowerPusher" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+  </CUnit>
 </Unit> 

@@ -151,6 +151,7 @@ public static class TestHeroesXmlLoader
                         "UI/Tooltip/Abil/CurrentLife=<s val=\"StandardTooltipDetails\">Health: %1</s>",
                         "UI/Tooltip/Abil/Life=<s val=\"StandardTooltipDetails\">Life: %1</s>",
                         "UI/Tooltip/Abil/Fury=<s val=\"StandardTooltipDetails\">Fury: %1</s>",
+                        "UI/Tooltip/Abil/Energy=<s val=\"StandardTooltipDetails\">Energy: %1</s>",
                         "UI/Tooltip/Abil/GuldanLifeTapVitalCostOverride=<s val=\"StandardTooltipDetails\"><d ref=\"Abil,GuldanLifeTap,Cost.Vital[Life]\"/></s>",
                         "Weapon/Name/HeroAbathur=Hero Abathur",
                         "Unit/Name/HeroAbathur=Abathur",

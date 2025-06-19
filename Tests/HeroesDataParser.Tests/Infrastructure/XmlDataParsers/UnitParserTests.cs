@@ -48,17 +48,23 @@ public class UnitParserTests
             AbilityElementId = "AbathurUltimateEvolution",
             ButtonElementId = "AbathurUltimateEvolution",
             AbilityType = AbilityType.Heroic,
+            TooltipAppendersTalentElementIds =
+            {
+                "AbathurVolatileMutation",
+                "AbathurHasVolatileMutation",
+            },
         };
-        abathurUltimateEvolutionAbility.TooltipAppendersTalentElementIds.Add("AbathurVolatileMutation");
-        abathurUltimateEvolutionAbility.TooltipAppendersTalentElementIds.Add("AbathurHasVolatileMutation");
 
         Ability abathurSymbioteAbility = new()
         {
             AbilityElementId = "AbathurSymbiote",
             ButtonElementId = "AbathurSymbiote",
             AbilityType = AbilityType.Q,
+            TooltipAppendersTalentElementIds =
+            {
+                "AbathurMasteryPressurizedGlands",
+            },
         };
-        abathurSymbioteAbility.TooltipAppendersTalentElementIds.Add("AbathurMasteryPressurizedGlands");
 
         _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[24]")).Returns(abathurUltimateEvolutionAbility);
         _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[27]")).Returns(abathurSymbioteAbility);
@@ -107,6 +113,8 @@ public class UnitParserTests
             .Contain(new AbilityLinkId("AbathurUltimateEvolution", "AbathurUltimateEvolution", AbilityType.Heroic));
 
         UnitWeapon abathurWeapon1 = unit.Weapons.First();
+        abathurWeapon1.IsDisabled.Should().BeFalse();
+        abathurWeapon1.MinimumRange.Should().Be(0);
         abathurWeapon1.Range.Should().Be(1);
         abathurWeapon1.Period.Should().Be(0.7);
         abathurWeapon1.NameId.Should().Be("HeroAbathur");
@@ -304,5 +312,130 @@ public class UnitParserTests
         unit.Should().NotBeNull();
         _abilityParser.Received().GetAbility(Arg.Any<StormElementData>());
         unit.Abilities.Should().HaveCount(count);
+    }
+
+    [TestMethod]
+    public void Parse_ChoWeapons_ReturnsWeapons()
+    {
+        // arrange
+        string unitId = "HeroCho";
+
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        UnitWeapon choWeapon1 = unit.Weapons.ToList()[0];
+        choWeapon1.IsDisabled.Should().BeFalse();
+        choWeapon1.MinimumRange.Should().Be(0);
+        choWeapon1.Range.Should().Be(1);
+        choWeapon1.Period.Should().Be(1.1);
+
+        UnitWeapon choWeapon2 = unit.Weapons.ToList()[1];
+        choWeapon2.IsDisabled.Should().BeFalse();
+        choWeapon2.MinimumRange.Should().Be(1);
+        choWeapon2.Range.Should().Be(2);
+        choWeapon2.Period.Should().Be(1.1);
+
+        UnitWeapon choWeapon3 = unit.Weapons.ToList()[2];
+        choWeapon3.IsDisabled.Should().BeTrue();
+        choWeapon3.MinimumRange.Should().Be(2);
+        choWeapon3.Range.Should().Be(5);
+        choWeapon3.Period.Should().Be(1.1);
+    }
+
+    [TestMethod]
+    public void Parse_TracerWeapons_ReturnsWeapons()
+    {
+        // arrange
+        string unitId = "HeroTracer";
+
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        UnitWeapon weapon1 = unit.Weapons.ToList()[0];
+        weapon1.IsDisabled.Should().BeFalse();
+        weapon1.MinimumRange.Should().Be(0);
+        weapon1.Range.Should().Be(5);
+        weapon1.Period.Should().Be(0.125);
+        weapon1.VitalCost[VitalType.Energy].Should().Be(2);
+    }
+
+    [TestMethod]
+    public void Parse_DeathwingBehaviorAbility_ReturnsBehaviorAbility()
+    {
+        // arrange
+        string unitId = "HeroDeathwing";
+
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons")).Returns(new Ability()
+        {
+            AbilityElementId = "Test",
+            ButtonElementId = "Test",
+            AbilityType = AbilityType.Active,
+            Tier = AbilityTier.Activable,
+        });
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        unit.Abilities.Should().ContainSingle();
+        unit.Abilities[AbilityTier.Activable].Should().ContainSingle();
+        unit.Abilities[AbilityTier.Activable][0].AbilityElementId.Should().Be("Test");
+    }
+
+    [TestMethod]
+    public void Parse_AbilityIsChildToBehaviorAbility_ReturnsAbilityAsSubAbility()
+    {
+        // arrange
+        string unitId = "HeroDeathwing";
+
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+
+        Ability deathwingLavaBurstAbility = new()
+        {
+            AbilityElementId = "DeathwingLavaBurst",
+            ButtonElementId = "DeathwingLavaBurst",
+            AbilityType = AbilityType.W,
+            Tier = AbilityTier.Basic,
+            ParentAbilityElementId = "DeathwingFormSwitch",
+            TooltipAppendersTalentElementIds =
+            {
+                "DeathwingHasDragonSoulTalent",
+            },
+        };
+
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons")).Returns(new Ability()
+        {
+            AbilityElementId = "DeathwingFormSwitch",
+            ButtonElementId = "DeathwingFormSwitch",
+            AbilityType = AbilityType.Active,
+            Tier = AbilityTier.Activable,
+        });
+
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[29]")).Returns(deathwingLavaBurstAbility);
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        unit.Abilities.Should().ContainSingle();
+        unit.Abilities[AbilityTier.Activable].Should().ContainSingle();
+        unit.Abilities[AbilityTier.Activable][0].AbilityElementId.Should().Be("DeathwingFormSwitch");
+        unit.SubAbilities.Should().ContainKey(new AbilityLinkId("DeathwingFormSwitch", "DeathwingFormSwitch", AbilityType.Active));
+
+        // we are not mocking all the ability returns
+        _abilityParser.Received(35).GetAbility(Arg.Any<StormElementData>());
+        _abilityParser.Received(30).GetAbility(Arg.Any<string>());
     }
 }

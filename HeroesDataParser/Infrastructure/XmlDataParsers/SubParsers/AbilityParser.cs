@@ -66,7 +66,7 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
         };
 
         // set the ability type
-        SetAbilityTypeFromSlot(ability, slotsValue, false);
+        SetAbilityTypeFromSlot(ability, slotsValue);
 
         // if type is not a type we want, return
         if (IgnoreAbilityType(ability))
@@ -115,6 +115,18 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
         return ability;
     }
 
+    public Ability? GetBehaviorAbility(StormElementData buttonData)
+    {
+        Ability? ability = GetAbility(buttonData);
+        if (ability is null)
+            return null;
+
+        ability.AbilityType = AbilityType.Active;
+        ability.Tier = AbilityTier.Activable;
+
+        return ability;
+    }
+
     public Ability? GetAbility(string abilityId)
     {
         Ability ability = new()
@@ -156,19 +168,11 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
     private static bool IsTypeValueMatch(string typeValue) =>
         typeValue.Equals("CancelTargetMode", StringComparison.OrdinalIgnoreCase);
 
-    private static void SetAbilityTypeFromSlot(Ability ability, string slot, bool isBehaviorAbility)
+    private static void SetAbilityTypeFromSlot(Ability ability, string slot)
     {
         if (string.IsNullOrEmpty(slot))
-        {
-            if (isBehaviorAbility)
-                ability.AbilityType = AbilityType.Active;
-            else
-                ability.AbilityType = AbilityType.Attack;
-
-            return;
-        }
-
-        if (slot.StartsWith("Ability1", StringComparison.OrdinalIgnoreCase))
+            ability.AbilityType = AbilityType.Unknown;
+        else if (slot.StartsWith("Ability1", StringComparison.OrdinalIgnoreCase))
             ability.AbilityType = AbilityType.Q;
         else if (slot.StartsWith("Ability2", StringComparison.OrdinalIgnoreCase))
             ability.AbilityType = AbilityType.W;

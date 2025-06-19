@@ -77,4 +77,56 @@
     <Effect value="AlarakHeroWeaponImpactSet" />
     <DisplayEffect value="AlarakHeroWeaponDamage" />
   </CWeaponLegacy>
+  <CWeaponLegacy id="ChoHeroWeapon" parent="StormHeroFastWeapon">
+    <Options index="Melee" value="1" />
+    <Icon value="Assets\Textures\storm_temp_war3_btnorcmeleeuptwo.dds" />
+    <DisplayEffect value="ChoHeroWeaponDamage" />
+    <Range value="2" />
+    <MinimumRange value="1" />
+    <Period value="1.1" />
+    <DamagePoint value="0.16" />
+    <PreswingBeforeAttack value="0.125" />
+    <PreswingBetweenAttacks value="0.125" />
+    <Effect value="ChoHeroWeaponLaunchSet" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ChoShortRangeHeroWeapon" parent="ChoHeroWeapon">
+    <Name value="Weapon/Name/ChogallHeroWeapon" />
+    <Range value="1" />
+    <MinimumRange value="0" />
+    <DamagePoint value="0.1" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ChoLongRangeHeroWeaponCthunsGift" parent="ChoHeroWeapon">
+    <Name value="Weapon/Name/ChogallHeroWeapon" />
+    <Options index="Disabled" value="1" />
+    <Range value="5" />
+    <MinimumRange value="2" />
+    <DamagePoint value="0.1" />
+    <Effect value="ChoHeroWeaponCThunsGiftLaunchSet" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="TracerHeroWeapon" parent="StormHeroFastWeapon">
+    <Options index="CanInitiateAttackOrder" value="0" />
+    <Options index="OnlyFireWhileInAttackOrder" value="0" />
+    <Options index="OnlyFireAtAttackOrderTarget" value="0" />
+    <Options index="LinkedCooldown" value="0" />
+    <Options index="HoldFileInShrubs" value="0" />
+    <Options index="ScanValidationDisabled" value="1" />
+    <Options index="ContinuouslyFaceTarget" value="1" />
+    <Options index="AllowBenignTargets" value="1" />
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-terran-infantryweaponslevel2.dds" />
+    <DisplayEffect value="TracerHeroWeaponDamage" />
+    <ChaseFilters value="-;Player,Ally,Neutral,Enemy" />
+    <Arc value="360" />
+    <Cost>
+      <Vital index="Energy" value="2" />
+    </Cost>
+    <Period value="0.125" />
+    <DamagePoint value="0" />
+    <Backswing value="0" />
+    <Effect value="TracerHeroWeaponInitialSet" />
+    <ScanValidationArray value="TracerTargetHasHeroWeaponTargetBehavior" />
+    <LegacyOptions index="Uninterruptible" value="0" />
+    <LegacyOptions index="NoDeceleration" value="1" />
+    <AllowedMovement value="Moving" />
+    <UninterruptibleDuration value="0" />
+  </CWeaponLegacy>
 </Weapon>

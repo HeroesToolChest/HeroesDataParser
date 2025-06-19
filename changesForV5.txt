@@ -61,3 +61,7 @@ v5 changes heroes
 - removed more 'charges' from talents
 - remove 'upgradeLinkIds' from ultimates that had pointed to itself
 - Added 'weapons' to 'herounits'
+- Fixed missing sortname for some heroes (butcher, cho)
+- Fixed missing cooldownsfor some abilities
+- Fixed some abilities having cooldowns where it should not
+- Fixed Deathwing's DeathwingMoltenFlame incorrent energy text

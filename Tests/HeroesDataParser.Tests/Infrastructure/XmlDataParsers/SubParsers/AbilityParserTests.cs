@@ -1010,7 +1010,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility__ReturnsAbility()
+    public void GetAbility_TestingButtonWithCustomParentAbil_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroHpTESTHero";
@@ -1027,6 +1027,28 @@ public class AbilityParserTests
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be(":PASSIVE:|TestButtonWithParentAbil|W");
         ability.ParentAbilityElementId.Should().Be("SomeParentAbil");
+    }
+
+    [TestMethod]
+    public void GetAbility_BehaviorAbility_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroDeathwing";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        string linkValue = stormElement.DataValues.GetElementDataAt("BehaviorArray").GetElementDataAt("17").GetElementDataAt("Link").Value.GetString();
+
+        StormElement behaviorElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Behavior", linkValue)!;
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetBehaviorAbility(behaviorElement.DataValues.GetElementDataAt("buttons"));
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("DeathwingFormSwitch|DeathwingFormSwitch|Active");
+        ability.AbilityType.Should().Be(AbilityType.Active);
+        ability.Tier.Should().Be(AbilityTier.Activable);
     }
 
     private static void AssertAbathurSymbioteAbility(Ability ability)

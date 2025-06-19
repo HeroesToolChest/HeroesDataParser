@@ -46,9 +46,11 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         SetUnitData(elementObject, stormElement);
         SetArmorData(elementObject, stormElement);
         SetWeaponData(elementObject, stormElement);
-        SetAbilityData(elementObject, stormElement);
 
-        ParseBehaviorLink(elementObject, stormElement);
+        // behaviors, could have abilities as well
+        List<StormElement> behaviorAbilityStormElements = ParseBehaviors(elementObject, stormElement);
+
+        SetAbilityData(elementObject, stormElement, behaviorAbilityStormElements);
     }
 
     private static void AddAbilityByTooltipTalentElementIds(Unit elementObject, Ability ability)
@@ -57,6 +59,16 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         {
             elementObject.AddAbilityByTooltipTalentElementId(talentElementId, ability);
         }
+    }
+
+    private static void ProcessAbility(Unit elementObject, Ability ability, List<Ability> abilitesWithParentAbils)
+    {
+        if (!string.IsNullOrEmpty(ability.ParentAbilityElementId))
+            abilitesWithParentAbils.Add(ability);
+        else
+            elementObject.AddAbility(ability);
+
+        AddAbilityByTooltipTalentElementIds(elementObject, ability);
     }
 
     private void SetActorData(Unit elementObject)
@@ -216,27 +228,33 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         }
     }
 
-    private void ParseBehaviorLink(Unit elementObject, StormElement stormElement)
+    // returns the behavior abilities
+    private List<StormElement> ParseBehaviors(Unit elementObject, StormElement stormElement)
     {
-        if (stormElement.DataValues.TryGetElementDataAt("BehaviorArray", out StormElementData? behaviorArrayData))
+        List<StormElement> behaviorAbilities = [];
+
+        if (!stormElement.DataValues.TryGetElementDataAt("BehaviorArray", out StormElementData? behaviorArrayData))
+            return behaviorAbilities;
+
+        foreach (string item in behaviorArrayData.GetElementDataIndexes())
         {
-            foreach (string item in behaviorArrayData.GetElementDataIndexes())
-            {
-                if (behaviorArrayData.GetElementDataAt(item).TryGetElementDataAt("link", out StormElementData? linkData))
-                {
-                    string linkId = linkData.Value.GetString();
+            if (!behaviorArrayData.GetElementDataAt(item).TryGetElementDataAt("link", out StormElementData? linkData))
+                continue;
 
-                    StormElement? behaviorStormElement = HeroesData.GetCompleteStormElement("Behavior", linkId);
+            string linkId = linkData.Value.GetString();
 
-                    if (behaviorStormElement is not null && behaviorStormElement.ElementType.Equals("CBehaviorVeterancy", StringComparison.OrdinalIgnoreCase))
-                    {
-                        elementObject.ScalingLinkIds.Add(linkId);
-                    }
+            StormElement? behaviorStormElement = HeroesData.GetCompleteStormElement("Behavior", linkId);
 
-                    // TODO: CBehaviorAbility, Buttons, abilities?
-                }
-            }
+            if (behaviorStormElement is null)
+                continue;
+
+            if (behaviorStormElement.ElementType.Equals("CBehaviorVeterancy", StringComparison.OrdinalIgnoreCase))
+                elementObject.ScalingLinkIds.Add(linkId);
+            else if (behaviorStormElement.ElementType.Equals("CBehaviorAbility", StringComparison.OrdinalIgnoreCase))
+                 behaviorAbilities.Add(behaviorStormElement);
         }
+
+        return behaviorAbilities;
     }
 
     private void SetArmorData(Unit elementObject, StormElement stormElement)
@@ -313,15 +331,16 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                     if (weaponStormElement.DataValues.TryGetElementDataAt("Range", out StormElementData? rangeData))
                         unitWeapon.Range = rangeData.Value.GetDouble();
 
+                    if (weaponStormElement.DataValues.TryGetElementDataAt("MinimumRange", out StormElementData? minimumRangeData))
+                        unitWeapon.MinimumRange = minimumRangeData.Value.GetDouble();
+
                     if (weaponStormElement.DataValues.TryGetElementDataAt("Period", out StormElementData? periodData))
                         unitWeapon.Period = periodData.Value.GetDouble();
 
                     if (weaponStormElement.DataValues.TryGetElementDataAt("Options", out StormElementData? optionsData))
                     {
                         if (optionsData.TryGetElementDataAt("Disabled", out StormElementData? disabledData) && disabledData.Value.GetInt() == 1)
-                        {
-                            //// TODO: Disabled weapons
-                        }
+                            unitWeapon.IsDisabled = true;
                     }
 
                     if (weaponStormElement.DataValues.TryGetElementDataAt("DisplayEffect", out StormElementData? displayEffectData))
@@ -351,20 +370,23 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                         }
                     }
 
+                    if (weaponStormElement.DataValues.TryGetElementDataAt("Cost", out StormElementData? costData))
+                        SetWeaponCostData(unitWeapon, costData);
+
                     elementObject.Weapons.Add(unitWeapon);
                 }
             }
         }
     }
 
-    private void SetAbilityData(Unit elementObject, StormElement stormElement)
+    private void SetAbilityData(Unit elementObject, StormElement stormElement, IEnumerable<StormElement> behaviorAbilityStormElements)
     {
         // keep track of abilities that are being added; by their nameId
         // when we add an ability, we remove it from the checklist
         HashSet<string> abilityIdChecklist = new(StringComparer.OrdinalIgnoreCase);
 
         // keep track of abilites that have parent abils
-        List<Ability> abilitesWithParentAbils = [];
+        List<Ability> abilitiesWithParentAbils = [];
 
         // loop through the abilArray to get the ability ids
         if (stormElement.DataValues.TryGetElementDataAt("AbilArray", out StormElementData? abilArrayData))
@@ -405,13 +427,23 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                         (AllowHiddenAbilities is false && ability is { AbilityType: AbilityType.Hidden }))
                         continue;
 
-                    if (!string.IsNullOrEmpty(ability.ParentAbilityElementId))
-                        abilitesWithParentAbils.Add(ability);
-                    else
-                        elementObject.AddAbility(ability);
-
-                    AddAbilityByTooltipTalentElementIds(elementObject, ability);
+                    ProcessAbility(elementObject, ability, abilitiesWithParentAbils);
                 }
+            }
+        }
+
+        // loop through the behavior abilities
+        foreach (StormElement behaviorStormElement in behaviorAbilityStormElements)
+        {
+            if (behaviorStormElement.DataValues.TryGetElementDataAt("buttons", out StormElementData? buttonsData))
+            {
+                Ability? behaviorAbility = _abilityParser.GetBehaviorAbility(buttonsData);
+                if (behaviorAbility is null)
+                    continue;
+
+                abilityIdChecklist.Remove(behaviorAbility.AbilityElementId);
+
+                ProcessAbility(elementObject, behaviorAbility, abilitiesWithParentAbils);
             }
         }
 
@@ -425,19 +457,42 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                 if (ability is null)
                     continue;
 
-                if (!string.IsNullOrEmpty(ability.ParentAbilityElementId))
-                    abilitesWithParentAbils.Add(ability);
-                else
-                    elementObject.AddAbility(ability);
-
-                AddAbilityByTooltipTalentElementIds(elementObject, ability);
+                ProcessAbility(elementObject, ability, abilitiesWithParentAbils);
             }
         }
 
         // for any abilities that have parent abilities, we add them as subabilities
-        foreach (Ability ability in abilitesWithParentAbils)
+        foreach (Ability ability in abilitiesWithParentAbils)
         {
             elementObject.AddSubAbility(ability);
+        }
+    }
+
+    private void SetWeaponCostData(UnitWeapon unitWeapon, StormElementData costElementData)
+    {
+        if (costElementData.TryGetElementDataAt("0", out StormElementData? costInnerData))
+        {
+            if (costInnerData.TryGetElementDataAt("Vital", out StormElementData? vitalData))
+            {
+                IEnumerable<string> vitalIndexes = vitalData.GetElementDataIndexes();
+
+                foreach (string index in vitalIndexes)
+                {
+                    if (vitalData.TryGetElementDataAt(index, out StormElementData? vitalCostData))
+                    {
+                        double vitalCost = vitalCostData.Value.GetDouble();
+                        if (Enum.TryParse(index, true, out VitalType vitalType))
+                        {
+                            unitWeapon.VitalCost[vitalType] = vitalCost;
+                        }
+                        else
+                        {
+                            Logger.LogWarning("Unknown vital type {VitalType} for weapon {WeaponId}", index, unitWeapon.NameId);
+                            unitWeapon.VitalCost[VitalType.Unknown] = vitalCost;
+                        }
+                    }
+                }
+            }
         }
     }
 }

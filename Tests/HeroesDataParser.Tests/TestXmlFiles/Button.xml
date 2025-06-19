@@ -353,4 +353,24 @@
   <CButton id="AmazonAvoidanceSurgeOfLight" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_cassia_avoidance_b.dds" />
   </CButton>
+  <CButton id="DeathwingMoltenFlame" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_deathwing_molten_flame.dds" />
+    <TooltipAppender Validator="DeathwingHasInfernusTalent" Face="DeathwingInfernus" />
+    <TooltipAppender Validator="DeathwingHasWickedInfernoTalent" Face="DeathwingWickedInferno" />
+    <TooltipAppender Validator="DeathwingHasConflagrationTalent" Face="DeathwingConflagration" />
+    <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Energy" />
+    <TooltipVitalOverrideText index="Energy" value="Deathwing/ManaCostOverride" />
+  </CButton>
+  <CButton id="DeathwingFormSwitch" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_deathwing_deathdrop.dds" />
+  </CButton>
+  <CButton id="DeathwingDragonSoul" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_deathwing_heat_wave.dds" />
+  </CButton>
+  <CButton id="DeathwingLavaBurst" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_deathwing_lava_burst.dds" />
+    <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Energy" />
+    <TooltipAppender Validator="DeathwingHasDragonSoulTalent" Face="DeathwingDragonSoul" />
+    <TooltipAppender Validator="DeathwingHasHeatWaveTalent" Face="DeathwingHeatWave" />
+  </CButton>
 </Button>

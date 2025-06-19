@@ -4020,4 +4020,309 @@
     <HeroSpecificUIArray Location="HeroSpecificStackingBuffsStatus" DescName="Amazon/AmazonStacksFrameContainer" />
     <Rarity value="Legendary" />
   </CHero>
+  <CHero id="Deathwing">
+    <AttributeId value="DEAT" />
+    <Flags index="UsesMount" value="0" />
+    <Flags index="GoodForModeA" value="1" />
+    <Flags index="IsBaseHeroOfPair" value="1" />
+    <PairedHero value="DeathwingWorldBreaker" />
+    <PortraitPaired value="Assets\Textures\storm_ui_icon_deathwing_destroyer.dds" />
+    <PortraitPairedText value="Hero/PortraitPairedText/Deathwing" />
+    <HeroAbilArray Abil="DeathwingMoltenFlame" Button="DeathwingMoltenFlame">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="ShowInQuickCastSetting" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DeathwingIncinerate" Button="DeathwingIncinerate">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="ShowInQuickCastSetting" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DeathwingLavaBurst" Button="DeathwingLavaBurst">
+      <Flags index="ShowInQuickCastSetting" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DeathwingOnslaught" Button="DeathwingOnslaught">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="ShowInQuickCastSetting" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DeathwingEarthShatter" Button="DeathwingEarthShatter">
+      <Flags index="ShowInQuickCastSetting" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DeathwingCataclysm" Button="DeathwingCataclysm">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="ShowInQuickCastSetting" value="1" />
+      <Flags index="AffectedByCooldownReduction" value="1" />
+      <Flags index="AffectedByOverdrive" value="1" />
+      <Flags index="Heroic" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DeathwingDragonflight" Button="DeathwingDragonflight">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="MountReplacement" value="1" />
+    </HeroAbilArray>
+    <HeroAbilArray Abil="DeathwingFormSwitch" Button="DeathwingAspectOfDeath">
+      <Flags index="ShowInHeroSelect" value="1" />
+      <Flags index="ShowInQuickCastSetting" value="1" />
+      <Flags index="Trait" value="1" />
+    </HeroAbilArray>
+    <Melee value="1" />
+    <ExpandedRole value="Bruiser" />
+    <RolesMultiClass value="Warrior" />
+    <VoiceLineArray value="DeathwingBase_VoiceLine01" />
+    <VoiceLineArray value="DeathwingBase_VoiceLine02" />
+    <VoiceLineArray value="DeathwingBase_VoiceLine03" />
+    <VoiceLineArray value="DeathwingBase_VoiceLine04" />
+    <VoiceLineArray value="DeathwingBase_VoiceLine05" />
+    <TalentTreeArray Talent="DeathwingDragonSoul" Tier="1" Column="1" />
+    <TalentTreeArray Talent="DeathwingMoltenBlood" Tier="1" Column="2" />
+    <TalentTreeArray Talent="DeathwingDraconicMight" Tier="1" Column="3" />
+    <TalentTreeArray Talent="DeathwingInfernus" Tier="2" Column="1" />
+    <TalentTreeArray Talent="DeathwingHeatWave" Tier="2" Column="2" />
+    <TalentTreeArray Talent="DeathwingDragonsIre" Tier="2" Column="3" />
+    <TalentTreeArray Talent="DeathwingFirestorm" Tier="3" Column="1" />
+    <TalentTreeArray Talent="DeathwingDeathDrop" Tier="3" Column="2" />
+    <TalentTreeArray Talent="DeathwingSkyfall" Tier="3" Column="3" />
+    <TalentTreeArray Talent="DeathwingBurnBeneathMyShadow" Tier="4" Column="1" />
+    <TalentTreeArray Talent="DeathwingBellowingRoar" Tier="4" Column="2" />
+    <TalentTreeArray Talent="DeathwingWickedInferno" Tier="5" Column="1" />
+    <TalentTreeArray Talent="DeathwingRuination" Tier="5" Column="2" />
+    <TalentTreeArray Talent="DeathwingFireAndFury" Tier="5" Column="3" />
+    <TalentTreeArray Talent="DeathwingConflagration" Tier="6" Column="1" />
+    <TalentTreeArray Talent="DeathwingGazeOntoDestruction" Tier="6" Column="2" />
+    <TalentTreeArray Talent="DeathwingElementiumPlating" Tier="6" Column="3" />
+    <TalentTreeArray Talent="DeathwingStoodInTheFire" Tier="7" Column="1" />
+    <TalentTreeArray Talent="DeathwingArrivalOfAGod" Tier="7" Column="2" />
+    <TalentTreeArray Talent="DeathwingDestroyersRampage" Tier="7" Column="3" />
+    <Difficulty value="Hard" />
+    <Universe value="Warcraft" />
+    <UniverseIcon value="Assets\Textures\ui_glues_store_gameicon_wow.dds" />
+    <ProductId value="70730" />
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroDeathwing" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroDeathwing" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroDeathwing" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="DeathwingDragonflightUnit" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="DeathwingDragonflightUnit" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="DeathwingDragonflightUnit" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingConflagrationRequiredDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingConflagrationExplosionDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingConflagrationDoTDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingBellowingRoarDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DeathwingOnslaught">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingOnslaughtDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingOnslaughtBiteDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DeathwingMoltenFlame">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingMoltenFlameDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DeathwingIncinerate">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingIncinerateDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingIncinerateDoTDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingHeatWaveDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DeathwingTailSmash">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingTailSmashDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DeathwingLavaBurst">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingLavaBurstExplosionDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingLavaBurstBurnDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DeathwingEarthShatter">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingEarthShatterDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DeathwingCataclysm">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingCataclysmDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingCataclysmDoTDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="DeathwingDragonflightLand">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingDragonflightLandDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingFirestormExplosionDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="DeathwingSkyfallExplosionDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <VariationArray value="DeathwingVar1" />
+    <VariationArray value="DeathwingVar2" />
+    <VariationArray value="DeathwingVar3" />
+    <VariationArray value="DeathwingVar4" />
+    <VariationArray value="DeathwingVar5" />
+    <SkinArray value="DeathwingDark20" />
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <Rarity value="Legendary" />
+    <HeroSpecificUIArray Location="Status" DescName="Deathwing/DeathwingFrame" />
+    <Ratings>
+      <Damage value="7" />
+      <Utility value="7" />
+      <Survivability value="10" />
+      <Complexity value="8" />
+    </Ratings>
+    <AlternateUnitArray value="DeathwingDragonflightUnit" />
+    <ReleaseDate Month="12" Day="3" Year="2019" />
+  </CHero>
 </Hero>
