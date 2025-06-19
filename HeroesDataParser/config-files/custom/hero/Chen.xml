@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroChen" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <!-- duplicate -->
+      <LayoutButtons index="27" Face="HearthstoneBrew" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hidden" />
+    </CardLayouts>
+  </CUnit>
+  <CAbilEffectTarget id="ChenBreathOfFire">
+    <ParentAbil value="ChenKegSmash" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="ChenStorm">
+    <ParentAbil value="ChenStormEarthFire" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="ChenEarth">
+    <ParentAbil value="ChenStormEarthFire" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="ChenFire">
+    <ParentAbil value="ChenStormEarthFire" />
+  </CAbilEffectInstant>
+</Catalog>

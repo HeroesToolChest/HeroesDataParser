@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CHero id="Deathwing">
+    <!--removed DeathwingDragonflightUnit-->
+    <AlternateUnitArray index="0" value="" />
+  </CHero>
+  <CAbilEffectTarget id="DeathwingDestroyerForm">
+    <ParentAbil value="DeathwingDragonflight" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="DeathwingWorldbreakerForm">
+    <ParentAbil value="DeathwingDragonflight" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="DeathwingMoltenFlameCancel">
+    <ParentAbil value="DeathwingMoltenFlame" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="DeathwingLavaBurst">
+    <ParentAbil value="DeathwingFormSwitch" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="DeathwingEarthShatter">
+    <ParentAbil value="DeathwingFormSwitch" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="DeathwingSkyfall">
+    <ParentAbil value="DeathwingSkyfall" />
+  </CAbilEffectTarget>
+</Catalog>

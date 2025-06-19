@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroButcher" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <LayoutButtons index="31" Face="RuthlessOnslaughtCharge" Type="AbilCmd" AbilCmd="ButcherRuthlessOnslaughtCharge,Execute" Slot="Hidden" />
+    </CardLayouts>
+  </CUnit>
+</Catalog>
