@@ -149,7 +149,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
             elementObject.Shield.ShieldMaxScaling = GetScaleValue(stormElement.ElementType, elementObject.Id, shieldsMaxData.Field);
         }
 
-        if (elementData.TryGetElementDataAt("ShieldsRegenDelay", out StormElementData? shieldsRegenDelayData))
+        if (elementData.TryGetElementDataAt("ShieldRegenDelay", out StormElementData? shieldsRegenDelayData))
             elementObject.Shield.ShieldRegenerationDelay = shieldsRegenDelayData.Value.GetDouble();
 
         if (elementData.TryGetElementDataAt("ShieldRegenRate", out StormElementData? shieldRegenRateData))

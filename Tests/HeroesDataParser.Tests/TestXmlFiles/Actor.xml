@@ -19,6 +19,8 @@
   <CActorUnit default="1" id="StormHeroBasePredictive" parent="StormHeroBase">
     <Macros value="AttackPredictionMacro" />
   </CActorUnit>
+  <CActorUnit default="1" id="StormHeroStandard" parent="StormHeroBase">
+  </CActorUnit>
   <CActorUnit id="HeroAbathur" parent="StormHeroBasePredictive" unitName="HeroAbathur">
     <DeathArray index="Normal" ModelLink="AbathurDeath" SoundLink="AbathurHero_Death" />
     <PortraitActor value="AbathurPortrait" />
@@ -46,5 +48,24 @@
     <Macros value="TipableKnockbackMacro" />
     <CustomUnitStatusFrame value="UnitStatus/HeroUnitStatusFrameNoEnergyTemplate" />
     <VitalNames index="Energy" value="" />
+  </CActorUnit>
+  <CActorUnit id="HeroFenix" parent="StormHeroStandard" unitName="HeroFenix">
+    <DeathArray index="Normal" ModelLink="HeroFenixDeathRagdoll" SoundLink="FenixBase_Death" VoiceLink="FenixBase_Death" />
+    <ModelFlags index="TreatAsUnableToTurnForWalkDirections" value="1" />
+    <PortraitActor value="FenixPortrait" />
+    <PortraitModel value="FenixPortrait" />
+    <HeroIcon value="Assets\Textures\storm_ui_ingame_hero_leaderboard_fenix.dds" />
+    <HighlightTooltip value="Unit/Name/Fenix" />
+    <MinimapIcon value="Assets\Textures\storm_ui_minimapicon_fenix.dds" />
+    <UnitIcon value="Assets\Textures\ui_targetportrait_hero_fenix.dds" />
+    <Aliases value="_Fenix" />
+    <CustomUnitStatusFrame value="UnitStatus/HeroUnitStatusFrameSeparateShieldBar" />
+    <ErrorArray Error="NotEnoughEnergy" Sound="FenixBase_LowMana" />
+    <SoundArray index="Yes" value="FenixBase_Yes" />
+    <SoundArray index="Attack" value="FenixBase_Attack" />
+    <SoundArray index="Pissed" value="FenixBase_Pissed" />
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_partyframe_fenix.dds" />
+    </GroupIcon>
   </CActorUnit>
 </Actor>

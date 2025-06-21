@@ -128,6 +128,26 @@ public class UnitParserTests
     }
 
     [TestMethod]
+    public void Parse_HeroFenix_ReturnsData()
+    {
+        // arrange
+        string unitId = "HeroFenix";
+
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        unit.Id.Should().Be("HeroFenix");
+        unit.Shield.ShieldMax.Should().Be(760);
+        unit.Shield.ShieldRegenerationRate.Should().Be(76);
+        unit.Shield.ShieldRegenerationDelay.Should().Be(5);
+        unit.Shield.ShieldType!.RawDescription.Should().Be("Shields");
+    }
+
+    [TestMethod]
     public void Parse_AbathurSymbiote_ReturnsData()
     {
         // arrange

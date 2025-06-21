@@ -1311,4 +1311,53 @@
     <AIThinkTree value="AI\DVaMech.aitree" />
     <UICheckPassengers value="0" />
   </CUnit>
+  <CUnit id="HeroFenix" parent="StormHeroMounted">
+    <LifeStart value="1140" />
+    <LifeMax value="1140" />
+    <LifeRegenRate value="2.379" />
+    <ShieldsStart value="760" />
+    <ShieldsMax value="760" />
+    <ShieldRegenDelay value="5" />
+    <ShieldRegenRate value="76" />
+    <AbilArray Link="FenixPlasmaCutter" />
+    <AbilArray Link="FenixWarp" />
+    <AbilArray Link="FenixPurificationSalvo" />
+    <AbilArray Link="FenixShieldCapacitorVisual" />
+    <AbilArray Link="FenixPhaseBomb" />
+    <AbilArray Link="FenixRepeaterCannon" />
+    <AbilArray Link="NovaSnipeStorm" />
+    <AbilArray Link="FenixPlanetCracker" />
+    <AbilArray Link="FenixPlanetCrackerCancel" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <BehaviorArray Link="FenixCombatTrackerBehavior" />
+    <BehaviorArray Link="FenixPurificationSalvoTrackingBehavior" />
+    <BehaviorArray Link="FenixShieldTrackerBehavior" />
+    <BehaviorArray Link="FenixRepeaterCannonBehavior" />
+    <WeaponArray Link="FenixHeroWeapon" Turret="FenixHeroWeaponTurret" />
+    <WeaponArray Link="FenixPhaseBombWeapon" Turret="FenixHeroWeaponTurret" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="FenixPlanetCrackerCancel" Type="AbilCmd" AbilCmd="FenixPlanetCrackerCancel,Execute" Slot="Heroic" />
+      <LayoutButtons Face="FenixPlanetCracker" Type="AbilCmd" AbilCmd="FenixPlanetCracker,Execute" Slot="Heroic" />
+      <LayoutButtons Face="FenixPurificationSalvo" Type="AbilCmd" AbilCmd="FenixPurificationSalvo,Execute" Slot="Heroic" />
+      <LayoutButtons Face="FenixPlasmaCutter" Type="AbilCmd" AbilCmd="FenixPlasmaCutter,Execute" Slot="Ability1" />
+      <LayoutButtons Face="FenixRepeaterCannon" Type="AbilCmd" AbilCmd="FenixRepeaterCannon,Execute" Slot="Ability2" />
+      <LayoutButtons Face="FenixPhaseBomb" Type="AbilCmd" AbilCmd="FenixPhaseBomb,Execute" Slot="Ability2" />
+      <LayoutButtons Face="FenixWarp" Type="AbilCmd" AbilCmd="FenixWarp,Execute" Slot="Ability3" />
+      <LayoutButtons Face="FenixShieldCapacitor" Type="Passive" Requirements="FenixShieldCapacitorVisualNotOnCooldown" Slot="Trait" />
+      <LayoutButtons Face="FenixShieldCapacitor" Type="AbilCmd" AbilCmd="FenixShieldCapacitorVisual,Execute" Slot="Trait" />
+    </CardLayouts>
+    <InitializerFunction value="libHFEN_gf_HeroFenixIncrementHeroCountFunction" />
+    <DestructionFunction value="libHFEN_gf_HeroFenixDecrementHeroCountFunction" />
+    <Radius value="1.0625" />
+    <InnerRadius value="0.9375" />
+    <EnergyStart value="0" />
+    <EnergyMax value="0" />
+    <EnergyRegenRate value="0" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+    <AIThinkTree value="AI\Fenix.aitree" />
+  </CUnit>
 </Unit> 
