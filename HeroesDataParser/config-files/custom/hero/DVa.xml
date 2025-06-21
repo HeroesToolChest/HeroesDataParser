@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CHero id="DVa">
+    <!--swap to mech, instead of pilot so that the "base" is the mech properties-->
+    <Unit value="HeroDVaMech" />
+    <!--clear the HeroDVaMech-->
+    <AlternateUnitArray index="0" value="" />
+  </CHero>
+  <CUnit id="HeroDVaPilot" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <LayoutButtons index="0" Face="DVaMechCancelBoosters" Type="AbilCmd" AbilCmd="DVaPilotRemoteBoostersOff,Execute" Requirements="" Slot="Hidden" />
+      <LayoutButtons index="25" Face="DVaMechCancelBoosters" Type="AbilCmd" AbilCmd="DVaPilotRemoteBoostersOff,255" Slot="Hidden" />
+      <!--<LayoutButtons index="26" Face="DVaPilotTorpedoDashAbility" Type="AbilCmd" AbilCmd="DVaPilotTorpedoDash,Execute" Slot="Ability1" />-->
+      <LayoutButtons index="27" Face="DVaMechBoosters" Type="AbilCmd" AbilCmd="DVaBoostersOn,Execute" Slot="Hidden" />
+      <LayoutButtons index="28" />
+      <LayoutButtons index="29" />
+      <LayoutButtons index="30" />
+      <LayoutButtons index="31" />
+      <LayoutButtons index="32" />
+      <LayoutButtons index="33" />
+      <LayoutButtons index="34" Face="DVaPilotBigShot" Type="AbilCmd" AbilCmd="DVaPilotBigShot,Execute" Slot="Heroic" />
+      <LayoutButtons index="35" Face="DVaBunnyHopOn" Type="AbilCmd" AbilCmd="DVaMechBunnyHopHeroic,On" Slot="Hidden" />
+      <LayoutButtons index="36" Face="DVaMicroMissiles" Type="AbilCmd" AbilCmd="DVaMicroMissiles,Execute" Slot="Hidden" />
+      <LayoutButtons index="37" Face="LootConsumableThrow" Type="AbilCmd" AbilCmd="LootConsumableThrow,255" Slot="Hidden" />
+      <!--<LayoutButtons index="38" Face="DVaPilotCallMech" Type="AbilCmd" AbilCmd="DVaPilotCallMech,Execute" Slot="Ability3" />-->
+      <LayoutButtons index="39" Face="DVaMechSelfDestruct" Type="AbilCmd" AbilCmd="DVaMechSelfDestruct,Execute" Slot="Hidden" />
+      <!--<LayoutButtons index="40" Face="DVaPilotConcussivePulseAbility" Type="AbilCmd" AbilCmd="DVaPilotConcussivePulse,Execute" Slot="Ability2" />-->
+      <LayoutButtons index="41" Face="DVaMechDefenseMatrix" Type="AbilCmd" AbilCmd="DVaMechDefenseMatrixOn,Execute" Slot="Hidden" />
+      <!--<LayoutButtons index="42" Face="DVaPilotPilotMode" Type="Passive" Slot="Trait" />-->
+      <LayoutButtons index="43" Face="DVaMechMechMode" Type="Passive" Slot="Hidden" />
+    </CardLayouts>    
+  </CUnit>
+  <CAbilEffectInstant id="DVaBoostersOff">
+    <ParentAbil value="DVaBoostersOn" />
+  </CAbilEffectInstant>
+  <CAbilBehavior id="DVaMechBunnyHopHeroic">
+    <CmdButtonArray index="Off" hdp-ParentAbil="DVaMechBunnyHopHeroic" />
+  </CAbilBehavior>
+  <CAbilEffectInstant id="DVaLiquidCoolingAbility">
+    <ParentAbil value="DVaLiquidCooling" />
+  </CAbilEffectInstant>
+</Catalog>
