@@ -438,4 +438,41 @@ public class UnitParserTests
         _abilityParser.Received(35).GetAbility(Arg.Any<StormElementData>());
         _abilityParser.Received(30).GetAbility(Arg.Any<string>());
     }
+
+    [TestMethod]
+    public void Parse_TwoAbilitiesDiffByAbilCmdIndex_ReturnsAbilities()
+    {
+        // arrange
+        string unitId = "HeroDVaMech";
+
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+
+        Ability dVaMechBunnyHopHeroicOff = new()
+        {
+            AbilityElementId = "DVaMechBunnyHopHeroic",
+            ButtonElementId = "DVaBunnyHopOff",
+            AbilityType = AbilityType.Heroic,
+            Tier = AbilityTier.Heroic,
+            ParentAbilityElementId = "DVaMechBunnyHopHeroic",
+        };
+
+        Ability dVaMechBunnyHopHeroicOn = new()
+        {
+            AbilityElementId = "DVaMechBunnyHopHeroic",
+            ButtonElementId = "DVaBunnyHopOn",
+            AbilityType = AbilityType.Heroic,
+            Tier = AbilityTier.Heroic,
+        };
+
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[23]")).Returns(dVaMechBunnyHopHeroicOff);
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[24]")).Returns(dVaMechBunnyHopHeroicOn);
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        unit.Abilities[AbilityTier.Heroic][0].ButtonElementId.Should().Be("DVaBunnyHopOn");
+        unit.SubAbilities[new AbilityLinkId("DVaMechBunnyHopHeroic", "DVaBunnyHopOn", AbilityType.Heroic)][AbilityTier.Heroic][0].ButtonElementId.Should().Be("DVaBunnyHopOff");
+    }
 }

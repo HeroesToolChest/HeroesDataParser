@@ -403,14 +403,18 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         // loop through the cardlayouts to get the abilities
         if (stormElement.DataValues.TryGetElementDataAt("CardLayouts", out StormElementData? cardLayoutsData))
         {
-            foreach (string cardLayoutIndex in cardLayoutsData.GetElementDataIndexes())
+            IEnumerable<string> cardLayoutIndexes = cardLayoutsData.GetElementDataIndexes();
+
+            foreach (string cardLayoutIndex in cardLayoutIndexes)
             {
                 StormElementData cardLayoutsElement = cardLayoutsData.GetElementDataAt(cardLayoutIndex);
 
                 if (!cardLayoutsElement.TryGetElementDataAt("LayoutButtons", out StormElementData? layoutButtonsData))
                     continue;
 
-                foreach (string layoutButtonsIndex in layoutButtonsData.GetElementDataIndexes())
+                IEnumerable<string> layoutButtonsIndexes = layoutButtonsData.GetElementDataIndexes();
+
+                foreach (string layoutButtonsIndex in layoutButtonsIndexes)
                 {
                     // Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
                     StormElementData layoutButtonsElement = layoutButtonsData.GetElementDataAt(layoutButtonsIndex);

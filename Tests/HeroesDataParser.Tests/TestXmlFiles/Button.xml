@@ -373,4 +373,9 @@
     <TooltipAppender Validator="DeathwingHasDragonSoulTalent" Face="DeathwingDragonSoul" />
     <TooltipAppender Validator="DeathwingHasHeatWaveTalent" Face="DeathwingHeatWave" />
   </CButton>
+  <CButton id="DVaBunnyHopOn" parent="StormButtonParent">
+    <TooltipAppender Validator="DVaBunnyHopStopAndPopHasTalent" Face="DVaBunnyHopStopAndPop" />
+    <TooltipCooldownOverrideText value="Button/OverrideText/DVaBunnyHop" />
+    <Icon value="Assets\Textures\storm_ui_icon_dva_bunnyhop.dds" />
+  </CButton>
 </Button>

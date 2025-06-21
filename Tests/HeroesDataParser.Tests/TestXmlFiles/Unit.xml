@@ -1236,4 +1236,79 @@
     <HeroPlaystyleFlags index="TowerPusher" value="1" />
     <HeroPlaystyleFlags index="WaveClearer" value="1" />
   </CUnit>
+  <CUnit id="HeroDVaMech" parent="StormHeroMountedCustom">
+    <DeathTime value="1" />
+    <DefaultAcquireLevel value="Passive" />
+    <LifeStart value="2150" />
+    <LifeMax value="2150" />
+    <LifeRegenRate value="4.4804" />
+    <EnergyStart value="0" />
+    <EnergyMax value="100" />
+    <EnergyRegenRate value="0" />
+    <StationaryTurningRate value="599.9414" />
+    <TurningRate value="599.9414" />
+    <AbilArray index="1" Link="DVaAttack" />
+    <AbilArray Link="DVaMechTransport" />
+    <AbilArray Link="DVaBoostersOn" />
+    <AbilArray Link="DVaBoostersOff" />
+    <AbilArray Link="DVaMechDefenseMatrixOn" />
+    <AbilArray Link="DVaMechDefenseMatrixRetarget" />
+    <AbilArray Link="DVaMechSelfDestruct" />
+    <AbilArray Link="DVaMechBunnyHopHeroic" />
+    <AbilArray Link="DVaPilotBigShot" />
+    <AbilArray Link="DVaMechTraitAbilityDoesNothing" />
+    <AbilArray Link="DVaMechTraitEmergencyShieldingCooldownAbility" />
+    <AbilArray Link="DVaAutoMoveApproach" />
+    <AbilArray Link="DvaCancelDefenseMatrix" />
+    <AbilArray Link="DVaMicroMissiles" />
+    <BehaviorArray Link="DVaPilotAbilityDisablerCarry" />
+    <BehaviorArray Link="DVaMechFatalDamageResponse" />
+    <BehaviorArray Link="DVaMechNoCargoStatusBarHidden" />
+    <BehaviorArray Link="HalfValueHero" />
+    <BehaviorArray Link="DVaMechProMovesDamageResponseCarry" />
+    <BehaviorArray Link="DVaMechEmergencyShieldingFatalResponseCarry" />
+    <BehaviorArray Link="DVaFullMetalCarry" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="DVaMechWeaponChargeEnabler" />
+    <BehaviorArray Link="DVaMechEmergencyShieldingCooldownCarry" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <BehaviorArray Link="HeroGenericMapMechanicPickupDisallowed" />
+    <BehaviorArray Link="DVaChannelingSlowController" />
+    <BehaviorArray Link="DVaMechPilotUnitTracker" />
+    <BehaviorArray Link="DVaLiquidCoolingCarry" />
+    <BehaviorArray Link="DVaAblativeArmorTokenCounter" />
+    <BehaviorArray Link="DVaAblativeArmorDisplayTokenCounter" />
+    <BehaviorArray Link="DVaLiquidCoolingAbility" />
+    <BehaviorArray Link="DVaBoostersGetOnThePointTalentCarry" />
+    <WeaponArray Link="DVaMechWeapon" Turret="DVaMechWeaponTurret" />
+    <CardLayouts index="0">
+      <LayoutButtons index="2" Face="Attack" Type="AbilCmd" AbilCmd="DVaAttack,Execute" Slot="Attack" />
+      <LayoutButtons Face="DVaBunnyHopOff" Type="AbilCmd" AbilCmd="DVaMechBunnyHopHeroic,Off" Slot="Heroic" />
+      <LayoutButtons Face="DVaBunnyHopOn" Type="AbilCmd" AbilCmd="DVaMechBunnyHopHeroic,On" Slot="Heroic" />
+      <LayoutButtons Face="DVaMicroMissiles" Type="AbilCmd" AbilCmd="DVaMicroMissiles,Execute" Slot="Heroic" />
+      <LayoutButtons Face="DVaAutoMove" Type="AbilCmd" AbilCmd="DVaAutoMoveApproach,Execute" Slot="Cancel" />
+      <LayoutButtons Face="LootConsumableThrow" Type="AbilCmd" AbilCmd="LootConsumableThrow,255" Slot="Hidden2" />
+      <LayoutButtons Face="DVaMechCancelBoosters" Type="AbilCmd" AbilCmd="DVaBoostersOff,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DVaMechBoosters" Type="AbilCmd" AbilCmd="DVaBoostersOn,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DVaMechDefenseMatrix" Type="AbilCmd" AbilCmd="DVaMechDefenseMatrixOn,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DVaRetargetDefenseMatrix" Type="AbilCmd" AbilCmd="DVaMechDefenseMatrixRetarget,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DVaMechSelfDestruct" Type="AbilCmd" AbilCmd="DVaMechSelfDestruct,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DVaMechLoadPilot" Type="AbilCmd" AbilCmd="DVaMechTransport,Load" Slot="Hidden1" />
+      <LayoutButtons Face="DVaMechUnloadPilot" Type="AbilCmd" AbilCmd="DVaMechTransport,UnloadAll" Slot="Hidden1" />
+      <LayoutButtons Face="DvaCancelDefenseMatrix" Type="AbilCmd" AbilCmd="DvaCancelDefenseMatrix,Execute" Slot="Trait" />
+      <LayoutButtons Face="DVaMechMechMode" Type="Passive" AbilCmd="DVaMechTraitAbilityDoesNothing,Execute" Behavior="DVaMechEmergencyShieldingCooldownCarry" Slot="Trait" />
+      <LayoutButtons Face="DVaMechanizedWalker" Type="Passive" Slot="Mount" />
+      <LayoutButtons />
+    </CardLayouts>
+    <Radius value="1.1875" />
+    <InnerRadius value="0.9375" />
+    <StationaryStepAngle value="74.9926" />
+    <StationaryStepTime value="0.25" />
+    <HeroPlaystyleFlags index="BodyBlocker" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleTank" value="1" />
+    <AIThinkTree value="AI\DVaMech.aitree" />
+    <UICheckPassengers value="0" />
+  </CUnit>
 </Unit> 

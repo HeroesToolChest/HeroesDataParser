@@ -8,6 +8,11 @@ public class AbilityTalentParserBase : ParserBase
     public const string PassiveAbilityElementId = ":PASSIVE:";
 
     /// <summary>
+    /// Gets the name of the custom hdp parentAbil attribute or element name.
+    /// </summary>
+    public const string HdpParentAbilName = "hdp-ParentAbil";
+
+    /// <summary>
     /// Gets the value for a button that has no button element id.
     /// </summary>
     public const string NoButtonElementId = ":NONE:";
@@ -183,7 +188,7 @@ public class AbilityTalentParserBase : ParserBase
             }
         }
 
-        if (buttonDataValues.TryGetElementDataAt("hdp-ParentAbil", out StormElementData? hdpParentAbilData))
+        if (buttonDataValues.TryGetElementDataAt(HdpParentAbilName, out StormElementData? hdpParentAbilData))
         {
             string hdpParentAbilValue = hdpParentAbilData.Value.GetString();
             if (!string.IsNullOrEmpty(hdpParentAbilValue))
@@ -421,6 +426,13 @@ public class AbilityTalentParserBase : ParserBase
 
             if (string.IsNullOrEmpty(abilityTalent.ButtonElementId))
                 abilityTalent.ButtonElementId = defaultButtonFaceValue;
+        }
+
+        if (cmdButtonArrayElementData.TryGetElementDataAt(HdpParentAbilName, out StormElementData? hdpParentAbilNameData))
+        {
+            string hdpParentAbilValue = hdpParentAbilNameData.Value.GetString();
+            if (!string.IsNullOrEmpty(hdpParentAbilValue))
+                abilityTalent.ParentAbilityElementId = hdpParentAbilValue;
         }
 
         SetButtonData(abilityTalent);

@@ -773,4 +773,21 @@
     <ShowProgressArray index="Channel" value="1" />
     <ShowProgressArray index="Finish" value="1" />
   </CAbilEffectInstant>
+  <CAbilBehavior id="DVaMechBunnyHopHeroic">
+    <BehaviorArray value="DvaMechBunnyHopActive" />
+    <CmdButtonArray index="On" DefaultButtonFace="DVaBunnyHopOn" Requirements="DVaMechAbilityUseAndBunnyHopUnlockedRequirement" />
+    <CmdButtonArray index="Off" DefaultButtonFace="DVaBunnyHopOff" hdp-ParentAbil="DVaMechBunnyHopHeroic" />
+    <Flags index="Toggle" value="1" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="1" />
+    </Cost>
+    <OffCost>
+      <Cooldown Location="Player" TimeUse="70" />
+    </OffCost>
+    <ExpireCost>
+      <Cooldown Location="Player" TimeUse="70" />
+    </ExpireCost>
+    <ValidatorArray value="DVaSourceisMech" />
+  </CAbilBehavior>
 </Abil>

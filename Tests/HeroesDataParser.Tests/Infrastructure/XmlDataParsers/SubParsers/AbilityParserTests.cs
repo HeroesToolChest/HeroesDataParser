@@ -1051,6 +1051,45 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Activable);
     }
 
+    [TestMethod]
+    public void GetAbility_DVaMechBunnyHopHeroicOn_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroDVaMech";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("24");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("DVaMechBunnyHopHeroic|DVaBunnyHopOn|Heroic");
+    }
+
+    [TestMethod]
+    public void GetAbility_DVaMechBunnyHopHeroicOff_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroDVaMech";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("23");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("DVaMechBunnyHopHeroic|DVaBunnyHopOff|Heroic");
+        ability.ParentAbilityElementId.Should().Be("DVaMechBunnyHopHeroic");
+    }
+
     private static void AssertAbathurSymbioteAbility(Ability ability)
     {
         ability.Name!.RawDescription.Should().Be("Symbiote");
