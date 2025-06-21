@@ -69,11 +69,11 @@ public class CustomConfigurationServiceTests
         customConfigurationService.Load();
 
         // act
-        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+        IReadOnlyList<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
 
         // assert
         selectedPaths.Should().HaveCount(4)
-            .And.Contain(
+            .And.ContainInConsecutiveOrder(
                 [
                     Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur.xml"),
                     Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Alarak_12455.xml"),
@@ -119,10 +119,10 @@ public class CustomConfigurationServiceTests
         customConfigurationService.Load();
 
         // act
-        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+        IReadOnlyList<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
 
         // assert
-        selectedPaths.Should().HaveCount(1)
+        selectedPaths.Should().ContainSingle()
             .And.Contain(
                 [
                     Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur_1000.xml")
@@ -182,7 +182,7 @@ public class CustomConfigurationServiceTests
         customConfigurationService.Load();
 
         // act
-        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+        IReadOnlyList<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
 
         // assert
         selectedPaths.Should().HaveCount(4)
@@ -233,7 +233,7 @@ public class CustomConfigurationServiceTests
         customConfigurationService.Load();
 
         // act
-        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+        IReadOnlyList<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
 
         // assert
         selectedPaths.Should().ContainSingle()
@@ -281,7 +281,7 @@ public class CustomConfigurationServiceTests
         customConfigurationService.Load();
 
         // act
-        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+        IReadOnlyList<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
 
         // assert
         selectedPaths.Should().ContainSingle()
@@ -331,7 +331,7 @@ public class CustomConfigurationServiceTests
         customConfigurationService.Load();
 
         // act
-        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+        IReadOnlyList<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
 
         // assert
         selectedPaths.Should().HaveCount(2)
@@ -375,7 +375,7 @@ public class CustomConfigurationServiceTests
         customConfigurationService.Load();
 
         // act
-        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+        IReadOnlyList<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
 
         // assert
         selectedPaths.Should().BeEmpty();
@@ -418,10 +418,58 @@ public class CustomConfigurationServiceTests
         customConfigurationService.Load();
 
         // act
-        ISet<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+        IReadOnlyList<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
 
         // assert
         selectedPaths.Should().BeEmpty();
+    }
+
+    [TestMethod]
+    public void SelectedCustomDataFilePaths_FileNameStartsWithSingleUnderscore_Matches()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            BuildNumber = 1,
+            Extractors =
+            {
+                { "hero", new ExtractorOptions() },
+            },
+        });
+
+        IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
+        customDirectoryContents.Exists.Returns(true);
+        customDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("hero", true),
+        }.GetEnumerator());
+
+        IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
+        heroDirectoryContents.Exists.Returns(true);
+        heroDirectoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
+        {
+            CreateFileInfo("_Abil.xml"),
+            CreateFileInfo("_Abil_1000.xml"),
+            CreateFileInfo("Abathur.xml"),
+            CreateFileInfo("Abathur_1000.xml"),
+        }.GetEnumerator());
+
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom")).Returns(customDirectoryContents);
+        _fileProvider.GetDirectoryContents(Path.Join("config-files", "custom", "hero")).Returns(heroDirectoryContents);
+
+        CustomConfigurationService customConfigurationService = new(_logger, _options, _fileProvider);
+        customConfigurationService.Load();
+
+        // act
+        IReadOnlyList<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
+
+        // assert
+        selectedPaths.Should().HaveCount(2)
+            .And.ContainInConsecutiveOrder(
+                [
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "_Abil_1000.xml"),
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur_1000.xml"),
+                ]);
     }
 
     private static IFileInfo CreateFileInfo(string name, bool isDirectory = false)

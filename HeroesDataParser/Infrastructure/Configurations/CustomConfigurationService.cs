@@ -1,4 +1,6 @@
-﻿namespace HeroesDataParser.Infrastructure.Configurations;
+﻿using HeroesDataParser.Comparers;
+
+namespace HeroesDataParser.Infrastructure.Configurations;
 
 public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfigurationService
 {
@@ -9,11 +11,13 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
 
     private readonly string _customConfigurationDirectory = Path.Join("config-files", "custom");
 
+    private readonly List<string> _selectedCustomDataFilePaths = [];
+
     // key: extractor name
     // key: file prefix name
     // key: build number
     // value: relative file path
-    private readonly Dictionary<string, Dictionary<string, SortedDictionary<int, string>>> _customElementByExtractorName = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, SortedDictionary<string, SortedDictionary<int, string>>> _customElementByExtractorName = new(StringComparer.OrdinalIgnoreCase);
 
     public CustomConfigurationService(ILogger<CustomConfigurationService> logger, IOptions<RootOptions> options, IFileProvider fileProvider)
         : base(options.Value)
@@ -22,7 +26,7 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
         _fileProvider = fileProvider;
     }
 
-    public ISet<string> SelectedCustomDataFilePaths { get; private set; } = new HashSet<string>();
+    public IReadOnlyList<string> SelectedCustomDataFilePaths => _selectedCustomDataFilePaths.AsReadOnly();
 
     public string CustomConfigurationDirectory => _customConfigurationDirectory;
 
@@ -63,7 +67,7 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
 
                 _logger.LogInformation("Selected parsing configuration file {SelectedFilePath} for {FilePrefixName}", selectedFilePath, filePrefixName);
 
-                SelectedCustomDataFilePaths.Add(selectedFilePath);
+                _selectedCustomDataFilePaths.Add(selectedFilePath);
             }
         }
     }
@@ -107,13 +111,13 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
             string relativeFilePath = Path.Join(_customConfigurationDirectory, extractorName, fileInfo.Name);
 
             // check for default file (no build number suffix)
-            if (index < 0)
+            if (index < 1)
             {
                 relativeFilePathByDefaultFileName[filePathSpan.ToString()] = relativeFilePath;
                 continue;
             }
 
-            if (index < 1 || !int.TryParse(filePathSpan[(index + 1)..], out int build))
+            if (index < 2 || !int.TryParse(filePathSpan[(index + 1)..], out int build))
                 continue;
 
             // for files with a build number suffix
@@ -135,7 +139,7 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
             }
             else
             {
-                _customElementByExtractorName[extractorName] = new Dictionary<string, SortedDictionary<int, string>>(StringComparer.OrdinalIgnoreCase)
+                _customElementByExtractorName[extractorName] = new SortedDictionary<string, SortedDictionary<int, string>>(new UnderscoreFirstComparer())
                 {
                     [fileNamePrefix] = new SortedDictionary<int, string>
                     {
@@ -167,7 +171,7 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
             }
             else
             {
-                _customElementByExtractorName[extractorName] = new Dictionary<string, SortedDictionary<int, string>>(StringComparer.OrdinalIgnoreCase)
+                _customElementByExtractorName[extractorName] = new SortedDictionary<string, SortedDictionary<int, string>>(new UnderscoreFirstComparer())
                 {
                     [defaultFile.Key] = new SortedDictionary<int, string>
                     {

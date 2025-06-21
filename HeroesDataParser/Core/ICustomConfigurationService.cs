@@ -2,7 +2,7 @@
 
 public interface ICustomConfigurationService
 {
-    ISet<string> SelectedCustomDataFilePaths { get; }
+    IReadOnlyList<string> SelectedCustomDataFilePaths { get; }
 
     string CustomConfigurationDirectory { get; }
 

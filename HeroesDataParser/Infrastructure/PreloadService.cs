@@ -58,7 +58,7 @@ public class PreloadService : IPreloadService
     {
         _customConfigurationService.Load();
 
-        ISet<string> files = _customConfigurationService.SelectedCustomDataFilePaths;
+        IReadOnlyList<string> files = _customConfigurationService.SelectedCustomDataFilePaths;
 
         Tree root = new($"Loaded {files.Count} custom configuration files");
         //AnsiConsole.MarkupLine();

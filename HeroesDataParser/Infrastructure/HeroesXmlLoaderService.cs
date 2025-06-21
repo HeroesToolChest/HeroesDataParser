@@ -218,7 +218,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 
     private void LoadCustomStormMod()
     {
-        ISet<string> files = _customConfigurationService.SelectedCustomDataFilePaths;
+        IReadOnlyList<string> files = _customConfigurationService.SelectedCustomDataFilePaths;
 
         if (files.Count < 1)
         {
