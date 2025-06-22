@@ -790,4 +790,18 @@
     </ExpireCost>
     <ValidatorArray value="DVaSourceisMech" />
   </CAbilBehavior>
+  <CAbilEffectInstant id="FenixShieldCapacitorVisual">
+    <Effect value="FenixShieldCapacitorVisualDummySet" />
+    <Flags index="ValidateButtonState" value="0" />
+    <Cost>
+      <Cooldown TimeUse="5" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="FenixShieldCapacitor">
+      <Flags index="AllowMinimap" value="0" />
+      <Flags index="IgnoreUser" value="1" />
+      <Flags index="ShowInGlossary" value="0" />
+    </CmdButtonArray>
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <hdp-ParentLink elementId=":PASSIVE:" buttonElementId="FenixShieldCapacitor" abilityType="Trait" />
+  </CAbilEffectInstant>
 </Abil>

@@ -33,7 +33,7 @@ public class JsonFileWriterService : IJsonFileWriterService
             {
                 new JsonStringEnumConverter(),
                 new DoubleRoundingConverter(),
-                new AbilityLinkIdConverter(),
+                new LinkIdConverter(),
                 new TalentLinkIdConverter(),
                 new LinkIdConverter(),
                 new TooltipDescriptionWriteConverter(_options.DescriptionText),

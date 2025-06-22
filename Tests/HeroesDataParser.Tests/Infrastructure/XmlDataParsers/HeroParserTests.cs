@@ -301,10 +301,10 @@ public class HeroParserTests
         hero.Talents[TalentTier.Level1].Should().HaveCount(2);
         hero.Talents[TalentTier.Level1][0].LinkId.ToString().Should().Be("AbathurMasteryPressurizedGlands|AbathurSymbiotePressurizedGlandsTalent|W");
         hero.Talents[TalentTier.Level1][0].UpgradeLinkIds.Should()
-            .ContainInConsecutiveOrder([new AbilityLinkId("AbathurSymbiote", "AbathurSymbiote", AbilityType.Q), new AbilityLinkId("AbathurSymbioteSpikeBurst", "AbathurSymbioteSpikeBurst", AbilityType.W)]);
+            .ContainInConsecutiveOrder([new LinkId("AbathurSymbiote", "AbathurSymbiote", AbilityType.Q), new LinkId("AbathurSymbioteSpikeBurst", "AbathurSymbioteSpikeBurst", AbilityType.W)]);
         hero.Talents[TalentTier.Level1][1].LinkId.ToString().Should().Be("AbathurMasteryEnvenomedNestsToxicNest|AbathurToxicNestEnvenomedNestTalent|W");
         hero.Talents[TalentTier.Level1][1].UpgradeLinkIds.Should()
-            .ContainInConsecutiveOrder([new AbilityLinkId("AbathurToxicNest", "AbathurToxicNest", AbilityType.W)]);
+            .ContainInConsecutiveOrder([new LinkId("AbathurToxicNest", "AbathurToxicNest", AbilityType.W)]);
     }
 
     [TestMethod]
@@ -361,8 +361,8 @@ public class HeroParserTests
         hero.Should().NotBeNull();
         hero.SubAbilities.Should().HaveCount(2)
             .And.ContainKeys(
-                new AbilityLinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait),
-                new TalentLinkId("AlarakDeadlyChargeSecondHeroic", "AlarakDeadlyCharge", AbilityType.Heroic));
+                new LinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait),
+                new LinkId("AlarakDeadlyChargeSecondHeroic", "AlarakDeadlyCharge", AbilityType.Heroic));
     }
 
     [TestMethod]
@@ -440,9 +440,9 @@ public class HeroParserTests
         hero.Talents[TalentTier.Level4][0].UpgradeLinkIds.Should()
             .ContainInConsecutiveOrder(
                 [
-                    new AbilityLinkId(":PASSIVE:", "AlarakSadism", AbilityType.Trait),
-                    new AbilityLinkId("AlarakCounterStrikeTargeted2ndHeroic", "AlarakCounterStrike2ndHeroicSadism", AbilityType.Trait),
-                    new AbilityLinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait),
+                    new LinkId(":PASSIVE:", "AlarakSadism", AbilityType.Trait),
+                    new LinkId("AlarakCounterStrikeTargeted2ndHeroic", "AlarakCounterStrike2ndHeroicSadism", AbilityType.Trait),
+                    new LinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait),
                 ]);
     }
 

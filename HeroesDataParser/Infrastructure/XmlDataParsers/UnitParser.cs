@@ -63,7 +63,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
     private static void ProcessAbility(Unit elementObject, Ability ability, List<Ability> abilitesWithParentAbils)
     {
-        if (!string.IsNullOrEmpty(ability.ParentAbilityElementId))
+        if (!string.IsNullOrEmpty(ability.ParentAbilityElementId) || ability.ParentLinkId is not null)
             abilitesWithParentAbils.Add(ability);
         else
             elementObject.AddAbility(ability);

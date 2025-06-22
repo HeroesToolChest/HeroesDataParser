@@ -229,7 +229,7 @@ public class HeroParser : CollectionParserBase<Hero>
     {
         foreach (Talent talent in collectionObject.Talents.Values.SelectMany(x => x))
         {
-            List<AbilityLinkId> abilityLinkIds = collectionObject.GetTooltipAbilityLinkIdsByTalentElementId(talent.TalentElementId);
+            List<LinkId> abilityLinkIds = collectionObject.GetTooltipAbilityLinkIdsByTalentElementId(talent.TalentElementId);
 
             // also search the hero units
             foreach (Unit heroUnit in collectionObject.HeroUnits.Values)
@@ -238,9 +238,9 @@ public class HeroParser : CollectionParserBase<Hero>
             }
 
             // for each ability link id, add it to the talent
-            foreach (AbilityLinkId abilityLinkId in abilityLinkIds)
+            foreach (LinkId linkId in abilityLinkIds)
             {
-                talent.UpgradeLinkIds.Add(abilityLinkId);
+                talent.UpgradeLinkIds.Add(linkId);
             }
         }
     }

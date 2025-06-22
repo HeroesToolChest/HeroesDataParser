@@ -1090,6 +1090,26 @@ public class AbilityParserTests
         ability.ParentAbilityElementId.Should().Be("DVaMechBunnyHopHeroic");
     }
 
+    [TestMethod]
+    public void GetAbility_AbilityWithCustomParentLink_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroFenix";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("33");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("FenixShieldCapacitorVisual|FenixShieldCapacitor|Trait");
+        ability.ParentLinkId!.ToString().Should().Be(":PASSIVE:|FenixShieldCapacitor|Trait");
+    }
+
     private static void AssertAbathurSymbioteAbility(Ability ability)
     {
         ability.Name!.RawDescription.Should().Be("Symbiote");

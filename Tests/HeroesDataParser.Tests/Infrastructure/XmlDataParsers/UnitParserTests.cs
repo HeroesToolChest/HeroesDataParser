@@ -110,7 +110,7 @@ public class UnitParserTests
         unit.Weapons.Should().ContainSingle();
         unit.TooltipTalentElementIdCount.Should().Be(3);
         unit.GetTooltipAbilityLinkIdsByTalentElementId("AbathurVolatileMutation").Should().ContainSingle().And
-            .Contain(new AbilityLinkId("AbathurUltimateEvolution", "AbathurUltimateEvolution", AbilityType.Heroic));
+            .Contain(new LinkId("AbathurUltimateEvolution", "AbathurUltimateEvolution", AbilityType.Heroic));
 
         UnitWeapon abathurWeapon1 = unit.Weapons.First();
         abathurWeapon1.IsDisabled.Should().BeFalse();
@@ -198,7 +198,7 @@ public class UnitParserTests
         // assert
         unit.Should().NotBeNull();
         unit.SubAbilities.Should().ContainSingle();
-        unit.SubAbilities.Should().ContainKey(new AbilityLinkId("AbathurEvolveMonstrosity", "AbathurEvolveMonstrosityHotbar", AbilityType.Heroic));
+        unit.SubAbilities.Should().ContainKey(new LinkId("AbathurEvolveMonstrosity", "AbathurEvolveMonstrosityHotbar", AbilityType.Heroic));
         unit.SummonedUnitIds.Should().ContainInConsecutiveOrder("AbathurEvolveMonstrosity");
     }
 
@@ -452,7 +452,7 @@ public class UnitParserTests
         unit.Abilities.Should().ContainSingle();
         unit.Abilities[AbilityTier.Activable].Should().ContainSingle();
         unit.Abilities[AbilityTier.Activable][0].AbilityElementId.Should().Be("DeathwingFormSwitch");
-        unit.SubAbilities.Should().ContainKey(new AbilityLinkId("DeathwingFormSwitch", "DeathwingFormSwitch", AbilityType.Active));
+        unit.SubAbilities.Should().ContainKey(new LinkId("DeathwingFormSwitch", "DeathwingFormSwitch", AbilityType.Active));
 
         // we are not mocking all the ability returns
         _abilityParser.Received(35).GetAbility(Arg.Any<StormElementData>());
@@ -493,6 +493,43 @@ public class UnitParserTests
         // assert
         unit.Should().NotBeNull();
         unit.Abilities[AbilityTier.Heroic][0].ButtonElementId.Should().Be("DVaBunnyHopOn");
-        unit.SubAbilities[new AbilityLinkId("DVaMechBunnyHopHeroic", "DVaBunnyHopOn", AbilityType.Heroic)][AbilityTier.Heroic][0].ButtonElementId.Should().Be("DVaBunnyHopOff");
+        unit.SubAbilities[new LinkId("DVaMechBunnyHopHeroic", "DVaBunnyHopOn", AbilityType.Heroic)][AbilityTier.Heroic][0].ButtonElementId.Should().Be("DVaBunnyHopOff");
+    }
+
+    [TestMethod]
+    public void Parse_NonPassiveAbilityChildToPassiveAbility_ReturnsAbilities()
+    {
+        // arrange
+        string unitId = "HeroFenix";
+
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+
+        Ability fenixShieldCapacitorPassiveAbility = new()
+        {
+            AbilityElementId = AbilityTalentParserBase.PassiveAbilityElementId,
+            ButtonElementId = "FenixShieldCapacitor",
+            AbilityType = AbilityType.Trait,
+            Tier = AbilityTier.Trait,
+        };
+
+        Ability fenixShieldCapacitorVisualAbility = new()
+        {
+            AbilityElementId = "FenixShieldCapacitorVisual",
+            ButtonElementId = "FenixShieldCapacitor",
+            AbilityType = AbilityType.Trait,
+            Tier = AbilityTier.Trait,
+            ParentLinkId = new LinkId(AbilityTalentParserBase.PassiveAbilityElementId, "FenixShieldCapacitor", AbilityType.Trait),
+        };
+
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[32]")).Returns(fenixShieldCapacitorPassiveAbility);
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[33]")).Returns(fenixShieldCapacitorVisualAbility);
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        unit.Abilities[AbilityTier.Trait][0].LinkId.ToString().Should().Be(":PASSIVE:|FenixShieldCapacitor|Trait");
+        unit.SubAbilities[new LinkId(":PASSIVE:", "FenixShieldCapacitor", AbilityType.Trait)][AbilityTier.Trait][0].LinkId.ToString().Should().Be("FenixShieldCapacitorVisual|FenixShieldCapacitor|Trait");
     }
 }

@@ -378,4 +378,14 @@
     <TooltipCooldownOverrideText value="Button/OverrideText/DVaBunnyHop" />
     <Icon value="Assets\Textures\storm_ui_icon_dva_bunnyhop.dds" />
   </CButton>
+  <CButton id="FenixShieldCapacitor" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_fenix_shield_1.dds" />
+    <TooltipAppender Validator="FenixHasEmergencyProtocol" Face="FenixEmergencyProtocol" />
+    <TooltipAppender Validator="FenixHasDivertPowerWeapons" Face="FenixDivertPowerWeapons" />
+    <TooltipAppender Validator="FenixHasDampeningShield" Face="FenixDampeningField" />
+    <TooltipAppender Validator="FenixHasRapidRecharge" Face="FenixRapidRecharge" />
+    <TooltipAppender Validator="FenixHasAuxiliaryShields" Face="FenixAuxiliaryShields" />
+    <TooltipAppender Validator="FenixHasPhotonicWeaponry" Face="FenixPhotonicWeaponry" />
+    <TooltipAppender Validator="FenixHasUnconqueredSpirit" Face="FenixUnconqueredSpirit" />
+  </CButton>
 </Button>

@@ -8,14 +8,19 @@ public class AbilityTalentParserBase : ParserBase
     public const string PassiveAbilityElementId = ":PASSIVE:";
 
     /// <summary>
+    /// Gets the value for a button that has no button element id.
+    /// </summary>
+    public const string NoButtonElementId = ":NONE:";
+
+    /// <summary>
     /// Gets the name of the custom hdp parentAbil attribute or element name.
     /// </summary>
     public const string HdpParentAbilName = "hdp-ParentAbil";
 
     /// <summary>
-    /// Gets the value for a button that has no button element id.
+    /// Gets the name of the custom hdp parentLink element name.
     /// </summary>
-    public const string NoButtonElementId = ":NONE:";
+    public const string HdpParentLinkName = "hdp-ParentLink";
 
     public AbilityTalentParserBase(ILogger<AbilityTalentParserBase> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
         : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
@@ -245,6 +250,16 @@ public class AbilityTalentParserBase : ParserBase
         if (abilityDataValues.TryGetElementDataAt("ParentAbil", out StormElementData? parentAbilData))
         {
             abilityTalent.ParentAbilityElementId = parentAbilData.Value.GetString();
+        }
+
+        if (abilityDataValues.TryGetElementDataAt(HdpParentLinkName, out StormElementData? hdpParentLinkNameData))
+        {
+            if (hdpParentLinkNameData.TryGetElementDataAt("elementId", out StormElementData? elementIdData) &&
+                hdpParentLinkNameData.TryGetElementDataAt("buttonElementId", out StormElementData? buttonElementIdData) &&
+                hdpParentLinkNameData.TryGetElementDataAt("abilityType", out StormElementData? abilityTypeData) && Enum.TryParse(abilityTypeData.Value.GetString(), true, out AbilityType abilityType))
+            {
+                abilityTalent.ParentLinkId = new LinkId(elementIdData.Value.GetString(), buttonElementIdData.Value.GetString(), abilityType);
+            }
         }
 
         if (abilityDataValues.TryGetElementDataAt("Flags", out StormElementData? flagsData))
