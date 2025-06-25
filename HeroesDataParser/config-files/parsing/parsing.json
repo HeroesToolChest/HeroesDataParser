@@ -49,7 +49,9 @@
           "AI",
           "ChoGallBundleProduct",
           "Cyberpunk",
-          "DeathwingWorldBreaker"
+          "DeathwingWorldBreaker",
+          "FallOfKingsCrest",
+          "GreymaneWorgen"
         ],
         "Regex": [
           "\\b\\w*Event\\b" // exclude all heroes ending with 'Event'
