@@ -104,6 +104,9 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
             return null;
         }
 
+        if (ability.IsValid is false)
+            return null;
+
         //// if no NameId and it is not a passive ability, return null
         //if (string.IsNullOrEmpty(ability.NameId) && ability.IsPassive is not true)
         //    return null;

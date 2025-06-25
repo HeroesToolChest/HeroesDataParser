@@ -431,6 +431,8 @@ public class AbilityTalentParserBase : ParserBase
 
         if (stormElement.DataValues.TryGetElementDataAt("CaseDefault", out StormElementData? caseDefaultData))
             ProcessEffectForSpawnUnit(abilityTalent, caseDefaultData.Value.GetString());
+        if (stormElement.DataValues.TryGetElementDataAt("ProducedUnitArray", out StormElementData? producedUnitArrayData))
+            ProcessEffectForSpawnUnit(abilityTalent, producedUnitArrayData.Value.GetString());
     }
 
     private void SetCmdButtonArrayData(AbilityTalentBase abilityTalent, StormElementData cmdButtonArrayElementData)
@@ -454,7 +456,27 @@ public class AbilityTalentParserBase : ParserBase
 
         if (cmdButtonArrayElementData.TryGetElementDataAt("Requirements", out StormElementData? requirementsData))
         {
-            // TODO: requirements
+            StormElement? requirementElement = HeroesData.GetCompleteStormElement("Requirement", requirementsData.Value.GetString());
+
+            if (requirementElement is not null)
+            {
+                if (requirementElement.DataValues.TryGetElementDataAt("NodeArray", out StormElementData? nodeArrayData))
+                {
+                    IEnumerable<string> nodeArrayDataIndexes = nodeArrayData.GetElementDataIndexes();
+
+                    foreach (string index in nodeArrayDataIndexes)
+                    {
+                        if (index.Equals("use", StringComparison.OrdinalIgnoreCase))
+                        {
+                            StormElementData nodeArray = nodeArrayData.GetElementDataAt(index);
+                            if (nodeArray.TryGetElementDataAt("link", out StormElementData? linkData) && linkData.Value.GetString() == "0")
+                            {
+                                abilityTalent.IsValid = false;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

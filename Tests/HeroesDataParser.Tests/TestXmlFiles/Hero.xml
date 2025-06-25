@@ -4325,4 +4325,73 @@
     <AlternateUnitArray value="DeathwingDragonflightUnit" />
     <ReleaseDate Month="12" Day="3" Year="2019" />
   </CHero>
+  <CHero id="Guldan">
+    <AIComplexityTier value="Mid" />
+    <AttributeId value="Guld" />
+    <ProductId value="22157" />
+    <VariationArray value="GuldanBaseVar1" />
+    <VariationArray value="GuldanBaseVar2" />
+    <VariationArray value="GuldanBaseVar3" />
+    <VariationArray value="GuldanBaseVar4" />
+    <SkinArray value="GuldanUltimate" />
+    <SkinArray value="GuldanSpider" />
+    <SkinArray value="GuldanDark18" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <DefaultMount value="HorseCommon" />
+    <Difficulty value="Medium" />
+    <Universe value="Warcraft" />
+    <UniverseIcon value="Assets\Textures\UI_Glues_Store_GameIcon_Wow.dds" />
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <Portrait value="Assets\Textures\ui_targetportrait_hero_guldan.dds" />
+    <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_guldan.dds" />
+    <PartyPanelButtonImage value="Assets\Textures\storm_ui_ingame_partypanel_btn_guldan.dds" />
+    <ScoreScreenImage value="Assets\Textures\storm_ui_ingame_hero_leaderboard_guldan.dds" />
+    <LeaderboardImage value="Assets\Textures\ui_targetportrait_hero_guldan.dds" />
+    <TalentTreeArray Talent="GuldanFelFlamePursuitOfFlame" Tier="1" Column="1" />
+    <TalentTreeArray Talent="GuldanChaoticEnergy" Tier="1" Column="2" />
+    <TalentTreeArray Talent="GuldanCorruptionEchoedCorruption" Tier="1" Column="3" />
+    <TalentTreeArray Talent="GuldanDrainLifeHealthFunnel" Tier="2" Column="1" />
+    <TalentTreeArray Talent="GuldanLifeTapImprovedLifeTap" Tier="2" Column="2" />
+    <TalentTreeArray Talent="GuldanConsumeSoul" Tier="2" Column="3" />
+    <TalentTreeArray Talent="GuldanFelFlameBoundByShadow" Tier="3" Column="1" />
+    <TalentTreeArray Talent="GuldanCorruptionCurseOfExhaustion" Tier="3" Column="2" />
+    <TalentTreeArray Talent="GuldanLifeTapHungerforPower" Tier="3" Column="3" />
+    <TalentTreeArray Talent="GuldanHorrify" Tier="4" Column="1" />
+    <TalentTreeArray Talent="GuldanRainOfDestruction" Tier="4" Column="2" />
+    <TalentTreeArray Talent="GuldanFelFlameFelArmor" Tier="5" Column="1" />
+    <TalentTreeArray Talent="GuldanDrainLifeHarvestLife" Tier="5" Column="2" />
+    <TalentTreeArray Talent="GuldanDarkBargain" Tier="5" Column="3" />
+    <TalentTreeArray Talent="GuldanHealthstone" Tier="5" Column="4" />
+    <TalentTreeArray Talent="GuldanFelFlameRampantHellfire" Tier="6" Column="1" />
+    <TalentTreeArray Talent="GuldanCorruptionRuinousAffliction" Tier="6" Column="2" />
+    <TalentTreeArray Talent="GuldanLifeTapDarknessWithin" Tier="6" Column="3" />
+    <TalentTreeArray Talent="GuldanHorrifyHaunt" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="GuldanHorrify" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="GuldanRainOfDestructionDeepImpact" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="GuldanRainOfDestruction" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="GuldanDemonicCircle" Tier="7" Column="3" />
+    <HeroSpecificUIArray Location="Status" DescName="Guldan/GuldanRampantHellfireFrame" />
+    <HeroTierAchievementId value="5216701565561180855" />
+    <ReleaseDate Month="7" Day="12" Year="2016" />
+    <Flags index="GoodForModeA" value="1" />
+    <VoiceLineArray value="GuldanBase_VoiceLine01" />
+    <VoiceLineArray value="GuldanBase_VoiceLine02" />
+    <VoiceLineArray value="GuldanBase_VoiceLine03" />
+    <VoiceLineArray value="GuldanBase_VoiceLine04" />
+    <VoiceLineArray value="GuldanBase_VoiceLine05" />
+    <Ratings>
+      <Damage value="8" />
+      <Utility value="3" />
+      <Survivability value="5" />
+      <Complexity value="6" />
+    </Ratings>
+    <Rarity value="Epic" />
+    <ExpandedRole value="RangedAssassin" />
+  </CHero>
 </Hero>

@@ -26,8 +26,6 @@ public class HeroParser : CollectionParserBase<Hero>
         // first thing to do is to set the unit data
         SetUnitData(collectionObject);
 
-        //// TODO: FindUnits ? e.g dva pilot
-
         // find additional (hero) units
         SetHeroUnits(collectionObject, stormElement);
 
@@ -214,8 +212,8 @@ public class HeroParser : CollectionParserBase<Hero>
 
         SetInfoTextProperty(collectionObject, stormElement);
         SetTalentData(collectionObject, stormElement);
-        SetTalentUpgradeLinkIds(collectionObject);
         SetSubAbilitesToTalents(collectionObject);
+        SetTalentUpgradeLinkIds(collectionObject);
     }
 
     protected override void SetValidatedProperties(Hero collectionObject)

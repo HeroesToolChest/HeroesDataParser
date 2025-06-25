@@ -447,7 +447,7 @@ public class HeroParserTests
     }
 
     [TestMethod]
-    public void Parse_TalentUpgradeLinksShouldOnlyBeAddedIfAbilityorSubAbilityAvailable_ReturnsCorrectUpgradeTalentLiks()
+    public void Parse_TalentUpgradeLinksShouldOnlyBeAddedIfAbilityorSubAbilityAvailable_ReturnsCorrectUpgradeTalentLinks()
     {
         // arrange
         string heroUnit = "Deathwing";
@@ -505,5 +505,79 @@ public class HeroParserTests
         hero.Should().NotBeNull();
         hero.Talents[TalentTier.Level1][0].UpgradeLinkIds.Should().HaveCount(1);
         hero.Talents[TalentTier.Level1][0].UpgradeLinkIds.First().ToString().Should().Be("DeathwingIncinerate|DeathwingIncinerate|W");
+    }
+
+    [TestMethod]
+    public void Parse_GuldanSubAbilitiesToTalents_ReturnsTalentUpgradeLinks()
+    {
+        // arrange
+        string heroUnit = "Guldan";
+
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+
+        Ability guldanLifeTapAbility = new()
+        {
+            AbilityElementId = "GuldanLifeTap",
+            ButtonElementId = "GuldanLifeTap",
+            AbilityType = AbilityType.Trait,
+            Tier = AbilityTier.Trait,
+            TooltipAppendersTalentElementIds =
+            {
+                "GuldanLifeTapImprovedLifeTap",
+                "GuldanLifeTapDarknessWithin",
+            },
+        };
+
+        Ability guldanLifeTapFreeSubAbility = new()
+        {
+            AbilityElementId = "GuldanLifeTapFree",
+            ButtonElementId = "GuldanLifeTapFree",
+            AbilityType = AbilityType.Trait,
+            Tier = AbilityTier.Trait,
+            TooltipAppendersTalentElementIds =
+            {
+                "GuldanLifeTapImprovedLifeTap",
+                "GuldanLifeTapDarknessWithin",
+            },
+            ParentAbilityElementId = "GuldanLifeTapDarknessWithin",
+        };
+
+        _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
+            .Do(x =>
+            {
+                Unit argUnit = x.Arg<Unit>();
+                argUnit.Id = "HeroGuldan";
+                argUnit.AddAbility(guldanLifeTapAbility);
+                argUnit.AddSubAbility(guldanLifeTapFreeSubAbility);
+                argUnit.AddAbilityByTooltipTalentElementId("GuldanLifeTapImprovedLifeTap", guldanLifeTapAbility);
+                argUnit.AddAbilityByTooltipTalentElementId("GuldanLifeTapDarknessWithin", guldanLifeTapAbility);
+                argUnit.AddAbilityByTooltipTalentElementId("GuldanLifeTapImprovedLifeTap", guldanLifeTapFreeSubAbility);
+                argUnit.AddAbilityByTooltipTalentElementId("GuldanLifeTapDarknessWithin", guldanLifeTapFreeSubAbility);
+            });
+
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[4]")).Returns(new Talent()
+        {
+            TalentElementId = "GuldanLifeTapImprovedLifeTap",
+            ButtonElementId = "GuldanLifeTapImprovedLifeTap",
+            Tier = TalentTier.Level4,
+            AbilityType = AbilityType.Trait,
+        });
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[17]")).Returns(new Talent()
+        {
+            TalentElementId = "GuldanLifeTapDarknessWithin",
+            ButtonElementId = "GuldanLifeTapDarknessWithin",
+            Tier = TalentTier.Level16,
+            AbilityType = AbilityType.Trait,
+        });
+
+        // act
+        Hero? hero = heroParser.Parse(heroUnit);
+
+        // assert
+        hero.Should().NotBeNull();
+        hero.Talents[TalentTier.Level4][0].UpgradeLinkIds.Should().HaveCount(2);
+        hero.Talents[TalentTier.Level4][0].UpgradeLinkIds.Should().ContainInConsecutiveOrder(new LinkId("GuldanLifeTap", "GuldanLifeTap", AbilityType.Trait), new LinkId("GuldanLifeTapFree", "GuldanLifeTapFree", AbilityType.Trait));
+        hero.Talents[TalentTier.Level16][0].UpgradeLinkIds.Should().HaveCount(2);
+        hero.Talents[TalentTier.Level16][0].UpgradeLinkIds.Should().ContainInConsecutiveOrder(new LinkId("GuldanLifeTap", "GuldanLifeTap", AbilityType.Trait), new LinkId("GuldanLifeTapFree", "GuldanLifeTapFree", AbilityType.Trait));
     }
 }

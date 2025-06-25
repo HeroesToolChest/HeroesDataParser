@@ -62,6 +62,8 @@ v5 changes heroes
 - remove 'upgradeLinkIds' from ultimates that had pointed to itself
 - Added 'weapons' to 'herounits'
 - Fixed missing sortname for some heroes (butcher, cho)
-- Fixed missing cooldownsfor some abilities
+- Fixed missing cooldowns for some abilities
 - Fixed some abilities having cooldowns where it should not
 - Fixed Deathwing's DeathwingMoltenFlame incorrent energy text
+- Fixed Greymane's `GreymaneRazorSwipe|GreymaneRazorSwipe|Q` and `GreymaneDisengage|GreymaneDisengage|E` abilities having the incorrect parent ability (should be `GreymaneDarkflight|GreymaneDarkflight|E`)
+- Fixed Greymane's `Dismount|UnsummonMount|Z` ability having the incorrect parent ability (should be `Mount|GreymaneSummonMount|Z`)

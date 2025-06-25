@@ -1110,6 +1110,44 @@ public class AbilityParserTests
         ability.ParentLinkId!.ToString().Should().Be(":PASSIVE:|FenixShieldCapacitor|Trait");
     }
 
+    [TestMethod]
+    public void GetAbility_AbilityWithRequirement_ReturnsNull()
+    {
+        // arrange
+        string heroUnit = "HeroGall";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("7");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void GetAbility_AnubarakLegionOfBeetlesVisual_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAnubarak";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("30");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.SummonedUnitIds.Should().ContainSingle()
+            .And.ContainSingle("AnubarakBeetleSpitBeetle");
+    }
+
     private static void AssertAbathurSymbioteAbility(Ability ability)
     {
         ability.Name!.RawDescription.Should().Be("Symbiote");

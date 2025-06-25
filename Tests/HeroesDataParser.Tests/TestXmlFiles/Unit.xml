@@ -1360,4 +1360,151 @@
     <HeroPlaystyleFlags index="WaveClearer" value="1" />
     <AIThinkTree value="AI\Fenix.aitree" />
   </CUnit>
+  <CUnit id="HeroGall" parent="StormHeroMountedCustom">
+    <PlaneArray index="Air" value="1" />
+    <FlagArray index="Untargetable" value="1" />
+    <FlagArray index="Undetectable" value="1" />
+    <FlagArray index="Invulnerable" value="1" />
+    <FlagArray index="NoScore" value="1" />
+    <FlagArray index="Unstoppable" value="1" />
+    <FlagArray index="PreferLastAttackTarget" value="0" />
+    <FlagArray index="ResumeLastMoveOrder" value="0" />
+    <FlagArray index="StatTrackAbilities" value="0" />
+    <Attributes index="ImmuneToAOE" value="1" />
+    <Attributes index="NoMinionAggro" value="1" />
+    <Attributes index="ImmuneToSkillshots" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <EnergyStart value="0" />
+    <EnergyMax value="0" />
+    <EnergyRegenRate value="0" />
+    <ShieldRegenDelay value="0" />
+    <TurningRate value="999.8437" />
+    <AttackTargetPriority value="0" />
+    <AbilArray index="0" Link="GallShadowflame" />
+    <AbilArray index="1" Link="GallDreadOrb" />
+    <AbilArray index="2" Link="GallTwistingNetherActivated" />
+    <AbilArray index="3" Link="GallTwistingNether" />
+    <AbilArray index="4" Link="GallShadowboltVolley" />
+    <AbilArray index="5" Link="GallRunicBlast" />
+    <AbilArray index="6" Link="GallShove" />
+    <AbilArray index="7" Link="CaptureMacGuffinTwo" />
+    <AbilArray index="8" Link="GallShadowBoltVolleyMoltenBlockDummy" />
+    <AbilArray index="9" Link="LootSpray" />
+    <AbilArray index="10" Link="LootYellVoiceLine" />
+    <AbilArray index="11" Link="GallOgreRage" />
+    <AbilArray index="12" Link="GallShove" />
+    <AbilArray index="13" Link="GallDoubleBack" />
+    <AbilArray index="14" Link="GallShiftingNether" />
+    <BehaviorArray Link="GallAbilityDisablerBehavior" />
+    <BehaviorArray Link="GallChoMountedMonitor" />
+    <BehaviorArray Link="GallMovementSuppression" />
+    <BehaviorArray Link="HeroSharesCutsceneOverlaysDestination" />
+    <BehaviorArray Link="BenignFlag" />
+    <BehaviorArray Link="ChoGallConjoined" />
+    <BehaviorArray Link="HeroGenericHasNoStatusBar" />
+    <BehaviorArray Link="HallOfStormsKnockbackImmunity" />
+    <BehaviorArray Link="HeroGenericMapMechanicPickupDisallowed" />
+    <BehaviorArray Link="DisableDanceAndTaunt" />
+    <BehaviorArray Link="GallEyeOfKilrogg" />
+    <CardLayouts index="0">
+      <LayoutButtons index="1" Face="Dance" Type="AbilCmd" AbilCmd="stop,Dance" Slot="Dance" />
+      <LayoutButtons index="2" Face="LootSpray" Type="AbilCmd" AbilCmd="LootSpray,Execute" Slot="Spray" />
+      <LayoutButtons index="3" Face="LootYellVoiceLine" Type="AbilCmd" AbilCmd="LootYellVoiceLine,Execute" Slot="Voice" />
+      <LayoutButtons index="4" Face="GallTwistingNetherActivated" Type="AbilCmd" AbilCmd="GallTwistingNetherActivated,Execute" Slot="Heroic" />
+      <LayoutButtons index="5" Face="GallTwistingNether" Type="AbilCmd" AbilCmd="GallShiftingNether,Execute" Slot="Heroic" />
+      <LayoutButtons index="6" Face="GallTwistingNether" Type="AbilCmd" AbilCmd="GallTwistingNether,Execute" Slot="Heroic" />
+      <LayoutButtons index="7" Face="GallShadowboltVolley" Type="AbilCmd" AbilCmd="GallShadowBoltVolleyMoltenBlockDummy,Execute" Slot="Heroic" />
+      <LayoutButtons index="8" Face="GallShadowflame" Type="AbilCmd" AbilCmd="GallShadowflame,Execute" Slot="Ability1" />
+      <LayoutButtons index="9" Face="GallDoubleBackAbility" Type="AbilCmd" AbilCmd="GallDoubleBack,Execute" Slot="Ability2" />
+      <LayoutButtons index="10" Face="GallDreadOrb" Type="AbilCmd" AbilCmd="GallDreadOrb,Execute" Slot="Ability2" />
+      <LayoutButtons index="11" Face="GallRunicBlast" Type="AbilCmd" AbilCmd="GallRunicBlast,Execute" Slot="Ability3" />
+      <LayoutButtons index="12" Face="GallShoveHotbar" Type="AbilCmd" AbilCmd="GallShove,Execute" Slot="Mount" />
+      <LayoutButtons index="13" Face="GallOgreRageActivated" Type="AbilCmd" AbilCmd="GallOgreRage,Execute" Slot="Trait" />
+      <LayoutButtons index="14" Face="GallOgreRagePassive" Type="Passive" AbilCmd="" Slot="Trait" />
+      <LayoutButtons index="15" Face="GallShadowboltVolley" Type="AbilCmd" AbilCmd="GallShadowboltVolley,Execute" Slot="Heroic" />
+      <LayoutButtons index="16" removed="1" />
+      <LayoutButtons index="17" removed="1" />
+      <LayoutButtons index="18" removed="1" />
+      <LayoutButtons index="19" removed="1" />
+      <LayoutButtons index="20" removed="1" />
+      <LayoutButtons index="21" removed="1" />
+      <LayoutButtons index="22" removed="1" />
+    </CardLayouts>
+    <Radius value="0" />
+    <CargoSize value="0" />
+    <AIUtility value="0" />
+    <AIBaseThreat value="0" />
+    <AIThinkTree value="AI/Gall.aitree" />
+    <AIEvalFactor value="0" />
+    <OverlapIndex value="Minion" />
+    <AlliedPushPriority value="0" />
+    <HeroPlaystyleFlags index="GoalsDisabled" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <InitializerFunction value="libHCHO_gf_HeroChoGallIncrementHeroCountFunction" />
+    <DestructionFunction value="libHCHO_gf_HeroChoGallDecrementHeroCountFunction" />
+    <ArmorLink value="ChoGallArmor" />
+  </CUnit>
+  <CUnit id="HeroAnubarak" parent="StormHeroMounted">
+    <LifeStart value="2150" />
+    <LifeMax value="2150" />
+    <LifeRegenRate value="4.4804" />
+    <AbilArray Link="AnubarakProtrusion" />
+    <AbilArray Link="AnubarakImpale" />
+    <AbilArray Link="AnubarakHardenCarapace" />
+    <AbilArray Link="AnubarakBurrowCharge" />
+    <AbilArray Link="AnubarakLocustSwarm" />
+    <AbilArray Link="AnubarakCocoon" />
+    <AbilArray Link="AnubarakBurrowChargeCancel" />
+    <AbilArray Link="AnubarakLegionOfBeetles" />
+    <AbilArray Link="AnubarakLegionOfBeetlesToggle" />
+    <AbilArray Link="AnubarakLegionOfBeetlesVisual" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <BehaviorArray Link="UsesLargeBlobShadow" />
+    <WeaponArray Link="AnubarakHeroWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="AnubarakLocustSwarm" Type="AbilCmd" AbilCmd="AnubarakLocustSwarm,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AnubarakCocoon" Type="AbilCmd" AbilCmd="AnubarakCocoon,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AnubarakImpale" Type="AbilCmd" AbilCmd="AnubarakImpale,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AnubarakBurrowChargeCancel" Type="AbilCmd" AbilCmd="AnubarakBurrowChargeCancel,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AnubarakBurrowCharge" Type="AbilCmd" AbilCmd="AnubarakBurrowCharge,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AnubarakScarabHostTrait" Type="AbilCmd" AbilCmd="AnubarakLegionOfBeetlesVisual,Execute" Slot="Trait" />
+      <LayoutButtons Face="AnubarakHardenCarapace" Type="AbilCmd" AbilCmd="AnubarakHardenCarapace,Execute" Slot="Ability2" />
+      <LayoutButtons />
+    </CardLayouts>
+    <Radius value="1.0625" />
+    <InnerRadius value="0.875" />
+    <AIThinkTree value="AI/Anubarak.aitree" />
+    <InitializerFunction value="libGDHL_gf_HeroAnubarakIncrementHeroCountFunction" />
+    <DestructionFunction value="libGDHL_gf_HeroAnubarakDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="BodyBlocker" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleTank" value="1" />
+  </CUnit>
+  <CUnit id="AnubarakBeetleSpitBeetle" parent="StormSummonActive">
+    <FlagArray index="CreateAITreeOnSpawn" value="1" />
+    <Response value="Acquire" />
+    <LifeStart value="285" />
+    <LifeMax value="285" />
+    <Speed value="4" />
+    <AbilArray Link="stop" />
+    <AbilArray Link="AttackAlly" />
+    <AbilArray Link="move" />
+    <BehaviorArray Link="AnubarakLegionOfBeetlesBeetleArmorBuffBehavior" />
+    <BehaviorArray Link="ScarabHostBeetleJuicedTalentCarry" />
+    <WeaponArray Link="AnubarakBeetleSpitBeetleWeapon" />
+    <CardLayouts>
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="stop,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="move,HoldPos" Slot="Hold" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="AttackAlly,Execute" Slot="Cancel" />
+      <LayoutButtons Face="MovePatrol" Type="AbilCmd" AbilCmd="move,Patrol" Slot="Hearth" />
+    </CardLayouts>
+    <ScoreResult value="" />
+    <AIThinkTree value="AI/SummonedMinionAttackOwnerTarget.aitree" />
+    <AcquireLeashRadius value="6" />
+  </CUnit>
 </Unit> 

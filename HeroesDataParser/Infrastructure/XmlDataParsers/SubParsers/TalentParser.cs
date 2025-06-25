@@ -52,6 +52,9 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
             }
         }
 
+        if (talent.IsValid is false)
+            return null;
+
         return talent;
     }
 

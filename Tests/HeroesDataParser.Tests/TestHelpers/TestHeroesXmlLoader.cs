@@ -18,6 +18,7 @@ public static class TestHeroesXmlLoader
         XDocument voiceLineDocument = GetXDocument("VoiceLine.xml");
         XDocument talentDocument = GetXDocument("Talent.xml");
         XDocument validatorDocument = GetXDocument("Validator.xml");
+        XDocument requirementDocument = GetXDocument("Requirement.xml");
         XDocument stormStyleDocument = GetXDocument("StormStyle.xml");
 
         return HeroesXmlLoader.LoadWithEmpty()
@@ -35,6 +36,7 @@ public static class TestHeroesXmlLoader
                     ("VoiceLine", "CVoiceLine"),
                     ("Talent", "CTalent"),
                     ("Validator", "CValidatorPlayerTalent"),
+                    ("Requirement", "CRequirement"),
                 ])
                 .AddElements(unitDocument.Root!.Elements())
                 .AddElements(heroDocument.Root!.Elements())
@@ -48,6 +50,7 @@ public static class TestHeroesXmlLoader
                 .AddElements(voiceLineDocument.Root!.Elements())
                 .AddElements(talentDocument.Root!.Elements())
                 .AddElements(validatorDocument.Root!.Elements())
+                .AddElements(requirementDocument.Root!.Elements())
                 .AddGameStrings(
                     [
                         "test_for_tooltip_decription_service=Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200~~0.045~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>",

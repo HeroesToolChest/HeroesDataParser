@@ -112,4 +112,14 @@
     <Compare value="GT" />
     <Behavior value="AmazonAvoidanceSurgeOfLightAbilityReady" />
   </CValidatorUnitCompareBehaviorCount>
+  <CValidatorPlayerTalent id="GuldanHasLifeTapImprovedLifeTapTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="GuldanLifeTapImprovedLifeTap" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="GuldanHasLifeTapDarknessWithinTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="GuldanLifeTapDarknessWithin" />
+  </CValidatorPlayerTalent>
 </Validator>

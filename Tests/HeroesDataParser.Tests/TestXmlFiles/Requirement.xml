@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Requirement>
+  <CRequirement id="GallShadowboltVolleyMoltenBlockDummyRequirements">
+    <NodeArray index="Use" Link="0" />
+    <NodeArray index="Show" Link="AndCountBehaviorGallMoltenBlockStasisQueuedOrBetterAtUnitCountBehaviorUltimate1UnlockedQueuedOrBetterAtUnit" />
+  </CRequirement>
+</Requirement>
