@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CHero id="Firebat">
+    <!--remove FirebatBunkerDropTurretUnit, has only the abilities; FirebatBunkerDropBunkerUnit is the proper unit-->
+    <AlternateUnitArray index="0" value="" />
+  </CHero>
+</Catalog>

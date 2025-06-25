@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectInstant id="GallDoubleBack">
+    <ParentAbil value="GallDreadOrb" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="GallTwistingNetherActivated">
+    <ParentAbil value="GallTwistingNether" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="GallShiftingNether">
+    <ParentAbil value="GallShiftingNether" />
+  </CAbilEffectTarget>
+  <CButton id="GallOgreRagePassive" parent="StormButtonParent">
+    <hdp-ParentAbil value="GallOgreRage" />
+  </CButton>
+</Catalog>

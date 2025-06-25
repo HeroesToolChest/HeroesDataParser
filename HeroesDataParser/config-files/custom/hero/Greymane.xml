@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectTarget id="GreymaneRazorSwipe">
+    <ParentAbil value="GreymaneDarkflight" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="GreymaneDisengage" parent="StormSkillshotDashParent">
+    <ParentAbil value="GreymaneDarkflight" />
+  </CAbilEffectTarget>
+  <CButton id="GreymaneInnerBeastActive" parent="StormButtonParent">
+    <hdp-ParentAbil value="GreymaneInnerBeast" />
+  </CButton>
+</Catalog>
