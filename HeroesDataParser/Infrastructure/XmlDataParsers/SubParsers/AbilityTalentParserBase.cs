@@ -452,6 +452,19 @@ public class AbilityTalentParserBase : ParserBase
                 abilityTalent.ParentAbilityElementId = hdpParentAbilValue;
         }
 
+        if (cmdButtonArrayElementData.TryGetElementDataAt(HdpParentLinkName, out StormElementData? hdpParentLinkNameIndexData))
+        {
+            if (hdpParentLinkNameIndexData.TryGetElementDataAt("0", out StormElementData ? hdpParentLinkNameData))
+            {
+                if (hdpParentLinkNameData.TryGetElementDataAt("elementId", out StormElementData? elementIdData) &&
+                    hdpParentLinkNameData.TryGetElementDataAt("buttonElementId", out StormElementData? buttonElementIdData) &&
+                    hdpParentLinkNameData.TryGetElementDataAt("abilityType", out StormElementData? abilityTypeData) && Enum.TryParse(abilityTypeData.Value.GetString(), true, out AbilityType abilityType))
+                {
+                    abilityTalent.ParentLinkId = new LinkId(elementIdData.Value.GetString(), buttonElementIdData.Value.GetString(), abilityType);
+                }
+            }
+        }
+
         SetButtonData(abilityTalent);
 
         if (cmdButtonArrayElementData.TryGetElementDataAt("Requirements", out StormElementData? requirementsData))
