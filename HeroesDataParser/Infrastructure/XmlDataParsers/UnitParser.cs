@@ -474,26 +474,23 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
     private void SetWeaponCostData(UnitWeapon unitWeapon, StormElementData costElementData)
     {
-        if (costElementData.TryGetElementDataAt("0", out StormElementData? costInnerData))
+        if (costElementData.TryGetElementDataAt("Vital", out StormElementData? vitalData))
         {
-            if (costInnerData.TryGetElementDataAt("Vital", out StormElementData? vitalData))
-            {
-                IEnumerable<string> vitalIndexes = vitalData.GetElementDataIndexes();
+            IEnumerable<string> vitalIndexes = vitalData.GetElementDataIndexes();
 
-                foreach (string index in vitalIndexes)
+            foreach (string index in vitalIndexes)
+            {
+                if (vitalData.TryGetElementDataAt(index, out StormElementData? vitalCostData))
                 {
-                    if (vitalData.TryGetElementDataAt(index, out StormElementData? vitalCostData))
+                    double vitalCost = vitalCostData.Value.GetDouble();
+                    if (Enum.TryParse(index, true, out VitalType vitalType))
                     {
-                        double vitalCost = vitalCostData.Value.GetDouble();
-                        if (Enum.TryParse(index, true, out VitalType vitalType))
-                        {
-                            unitWeapon.VitalCost[vitalType] = vitalCost;
-                        }
-                        else
-                        {
-                            Logger.LogWarning("Unknown vital type {VitalType} for weapon {WeaponId}", index, unitWeapon.NameId);
-                            unitWeapon.VitalCost[VitalType.Unknown] = vitalCost;
-                        }
+                        unitWeapon.VitalCost[vitalType] = vitalCost;
+                    }
+                    else
+                    {
+                        Logger.LogWarning("Unknown vital type {VitalType} for weapon {WeaponId}", index, unitWeapon.NameId);
+                        unitWeapon.VitalCost[VitalType.Unknown] = vitalCost;
                     }
                 }
             }

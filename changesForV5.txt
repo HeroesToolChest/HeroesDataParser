@@ -61,9 +61,17 @@ v5 changes heroes
 - removed more 'charges' from talents
 - remove 'upgradeLinkIds' from ultimates that had pointed to itself
 - Added 'weapons' to 'herounits'
-- Fixed missing sortname for some heroes (butcher, cho)
+- Fixed missing sortname for some heroes
 - Fixed missing cooldowns for some abilities
 - Fixed some abilities having cooldowns where it should not
 - Fixed Deathwing's DeathwingMoltenFlame incorrent energy text
 - Fixed Greymane's `GreymaneRazorSwipe|GreymaneRazorSwipe|Q` and `GreymaneDisengage|GreymaneDisengage|E` abilities having the incorrect parent ability (should be `GreymaneDarkflight|GreymaneDarkflight|E`)
 - Fixed Greymane's `Dismount|UnsummonMount|Z` ability having the incorrect parent ability (should be `Mount|GreymaneSummonMount|Z`)
+- Removed basic abilities from `LostVikings` (the `HeroLostVikingsController`)
+- Fixed Lost Vikings' `LostVikingsMasteryVikingBribery|LostVikingsVikingBribery|E` ability type
+- Fixed Lost Vikings' `LostVikingsMasterySpinToWin|LostVikingsSpinToWin|Q` ability type
+- Fixed Lost Vikings' `LostVikingsMasteryNorseForce|LostVikingsNorseForce|Q` ability type
+- Fixed Lost Vikings' `LostVikingsMasteryJump|LostVikingsJump|W` ability type
+- Removed the `Activable` abilities from Baleog, Erik, and Olaf
+- Fixed Dva's `DVaMechBunnyHopHeroic|DVaBunnyHopOff|Heroic` incorrect cooldown
+

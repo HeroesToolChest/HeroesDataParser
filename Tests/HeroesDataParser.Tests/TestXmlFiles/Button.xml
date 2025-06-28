@@ -346,6 +346,15 @@
     <TooltipCooldownOverrideText value="Button/OverrideText/DVaMechBoosters" />
     <Icon value="Assets\Textures\storm_ui_icon_dva_boosters.dds" />
   </CButton>
+  <CButton id="DVaBunnyHopOn" parent="StormButtonParent">
+    <TooltipAppender Validator="DVaBunnyHopStopAndPopHasTalent" Face="DVaBunnyHopStopAndPop" />
+    <TooltipCooldownOverrideText value="Button/OverrideText/DVaBunnyHop" />
+    <Icon value="Assets\Textures\storm_ui_icon_dva_bunnyhop.dds" />
+  </CButton>
+  <CButton id="DVaBunnyHopOff" parent="StormButtonParent">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
+    <SimpleDisplayText value="Button/Tooltip/DVaBunnyHopOff" />
+  </CButton>
   <CButton id="AmazonWarTravelerSummonMount" parent="SummonMount">
     <TooltipAppender Validator="AmazonAvoidanceWarTravelerHasTalent" Face="AmazonAvoidanceWarTraveler" />
   </CButton>
@@ -382,11 +391,6 @@
     <TooltipAppender Validator="DeathwingHasDragonSoulTalent" Face="DeathwingDragonSoul" />
     <TooltipAppender Validator="DeathwingHasHeatWaveTalent" Face="DeathwingHeatWave" />
   </CButton>
-  <CButton id="DVaBunnyHopOn" parent="StormButtonParent">
-    <TooltipAppender Validator="DVaBunnyHopStopAndPopHasTalent" Face="DVaBunnyHopStopAndPop" />
-    <TooltipCooldownOverrideText value="Button/OverrideText/DVaBunnyHop" />
-    <Icon value="Assets\Textures\storm_ui_icon_dva_bunnyhop.dds" />
-  </CButton>
   <CButton id="FenixShieldCapacitor" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_fenix_shield_1.dds" />
     <TooltipAppender Validator="FenixHasEmergencyProtocol" Face="FenixEmergencyProtocol" />
@@ -405,5 +409,13 @@
   </CButton>
   <CButton id="JainaImprovedIceBlockCancel" parent="StormButtonParent">
     <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
+  </CButton>
+  <CButton id="LucioCrossfadeActivateHealingBoost" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_Lucio_CrossfadeHealing.dds" />
+    <TooltipAppender Validator="LucioHasCrossfadePartyMixTalent" Face="LucioCrossfadePartyMix" />
+    <TooltipAppender Validator="LucioHasReverseAmpTalent" Face="LucioReverseAmp" />
+    <TooltipAppender Validator="LucioHasAllTogetherTalent" Face="LucioCrossfadeAllTogether" />
+    <TooltipAppender Validator="LucioHasPassiveHousePartyTalent" Face="LucioPassiveHouseParty" />
+    <TooltipAppender Validator="LucioHasItemSummerAnthemTalent" Face="LucioItemSummerAnthem" />
   </CButton>
 </Button>

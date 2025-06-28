@@ -1549,4 +1549,54 @@
       <LayoutButtons Face="JainaImprovedIceBlockHotbar" Type="AbilCmd" AbilCmd="ImprovedIceBlock,On" Slot="Active" />
     </CardLayouts>
   </CUnit>
+  <CUnit id="HeroLucio" parent="StormHeroMountedCustom">
+    <LifeStart value="1442" />
+    <LifeMax value="1442" />
+    <LifeRegenRate value="3" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="LucioCrossfadeSpeedBoostApplier" />
+    <BehaviorArray Link="LucioCrossfadeAllyToken" />
+    <BehaviorArray Link="LucioWallRideLeftProbes" />
+    <BehaviorArray Link="LucioWallRideRightProbes" />
+    <BehaviorArray Link="LucioSkateCrossfadeUnitTracker" />
+    <Radius value="0.6875" />
+    <InnerRadius value="0.4375" />
+    <WeaponArray Link="HeroLucioWeapon" />
+    <AbilArray index="1" Link="LucioAttack" />
+    <AbilArray Link="LucioSoundwave" />
+    <AbilArray Link="LucioCrossfade" />
+    <AbilArray Link="LucioAmpItUp" />
+    <AbilArray Link="LucioPushOff" />
+    <AbilArray Link="LucioSoundBarrier" />
+    <AbilArray Link="LucioSmartTargetingRightClick" />
+    <AbilArray Link="LucioTargetingAttackClick" />
+    <AbilArray Link="LucioReverseAmp" />
+    <AbilArray Link="LucioHighFive" />
+    <AbilArray Link="LucioHighFiveApproach" />
+    <AbilArray Link="LucioWallRide" />
+    <AbilArray Link="LucioSummerAnthem" />
+    <AbilArray Link="LucioAmpItUpUpToEleven" />
+    <CardLayouts index="0">
+      <LayoutButtons index="2" Face="Attack" Type="AbilCmd" AbilCmd="LucioTargetingAttackClick,Execute" Slot="Attack" />
+      <LayoutButtons Face="LucioSoundBarrier" Type="AbilCmd" AbilCmd="LucioSoundBarrier,Execute" Slot="Heroic" />
+      <LayoutButtons Face="LucioHighFive" Type="AbilCmd" AbilCmd="LucioHighFive,Execute" Slot="Heroic" />
+      <LayoutButtons Face="LucioSoundwave" Type="AbilCmd" AbilCmd="LucioSoundwave,Execute" Slot="Ability1" />
+      <LayoutButtons Face="LucioCrossfadeActivateHealingBoost" Type="AbilCmd" AbilCmd="LucioCrossfade,On" Slot="Ability2" />
+      <LayoutButtons Face="LucioCrossfadeActivateSpeedBoost" Type="AbilCmd" AbilCmd="LucioCrossfade,Off" Slot="Ability2" />
+      <LayoutButtons Face="LucioAmpItUp" Type="AbilCmd" AbilCmd="LucioAmpItUp,Execute" Slot="Ability3" />
+      <LayoutButtons Face="LucioPushOff" Type="AbilCmd" AbilCmd="LucioPushOff,Execute" Slot="Trait" />
+      <LayoutButtons Face="LucioWallRide" Type="Passive" Slot="Mount" />
+      <LayoutButtons Face="LucioWallRide" Type="AbilCmd" AbilCmd="LucioWallRide,Execute" Slot="Mount" />
+    </CardLayouts>
+    <TurningRate value="999.8437" />
+    <InitializerFunction value="libHLUC_gf_HeroLucioIncrementHeroCountFunction" />
+    <DestructionFunction value="libHLUC_gf_HeroLucioDecrementHeroCountFunction" />
+    <AIThinkTree value="AI/Lucio.aitree" />
+    <HeroPlaystyleFlags index="AllyHealer" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Helper" value="1" />
+    <HeroPlaystyleFlags index="RoleSupport" value="1" />
+    <HeroPlaystyleFlags index="SelfHealer" value="1" />
+  </CUnit>
 </Unit> 

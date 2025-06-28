@@ -1068,6 +1068,7 @@ public class AbilityParserTests
         // assert
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be("DVaMechBunnyHopHeroic|DVaBunnyHopOn|Heroic");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 70 seconds");
     }
 
     [TestMethod]
@@ -1088,6 +1089,9 @@ public class AbilityParserTests
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be("DVaMechBunnyHopHeroic|DVaBunnyHopOff|Heroic");
         ability.ParentAbilityElementId.Should().Be("DVaMechBunnyHopHeroic");
+        ability.FullText!.RawDescription.Should().Be("Cancel Bunny Hop");
+        ability.ShortText!.RawDescription.Should().Be("Cancel Bunny Hop");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 70 seconds");
     }
 
     [TestMethod]
@@ -1165,6 +1169,26 @@ public class AbilityParserTests
         // assert
         ability.Should().NotBeNull();
         ability.ParentLinkId!.ToString().Should().Be(":PASSIVE:|JainaTraitFrostbite|Trait");
+    }
+
+    [TestMethod]
+    public void GetAbility__ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroLucio";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("26");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("LucioCrossfade|LucioCrossfadeActivateHealingBoost|W");
+        ability.ToggleCooldown.Should().Be(0.5);
     }
 
     private static void AssertAbathurSymbioteAbility(Ability ability)

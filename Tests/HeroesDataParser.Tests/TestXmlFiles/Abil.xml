@@ -3,6 +3,24 @@
   <CAbil default="1">
     <Name value="Abil/Name/##id##"/>
   </CAbil>
+  <CAbilBehavior default="1">
+    <CmdButtonArray index="On">
+      <Flags index="ShowInGlossary" value="1"/>
+    </CmdButtonArray>
+    <Cost>
+      <Charge Location="Unit"/>
+      <Cooldown Location="Unit"/>
+    </Cost>
+    <OffCost>
+      <Charge Location="Unit"/>
+      <Cooldown Location="Unit"/>
+    </OffCost>
+    <ExpireCost>
+      <Charge Location="Unit"/>
+      <Cooldown Location="Unit"/>
+    </ExpireCost>
+    <SharedFlags index="DisableWhileDead" value="0"/>
+  </CAbilBehavior>
   <CAbilEffect default="1">
     <RangeSlop value="1"/>
     <ArcSlop value="11.25"/>
@@ -877,5 +895,26 @@
       <hdp-ParentLink elementId=":PASSIVE:" buttonElementId="JainaTraitFrostbite" abilityType="Trait" />
     </CmdButtonArray>
     <CmdButtonArray index="Off" hdp-ParentAbil="ImprovedIceBlock" />
+  </CAbilBehavior>
+  <CAbilBehavior id="LucioCrossfade">
+    <CmdButtonArray index="On" DefaultButtonFace="LucioCrossfadeActivateHealingBoost">
+      <Flags index="ToSelection" value="1" />
+    </CmdButtonArray>
+    <CmdButtonArray index="Off" DefaultButtonFace="LucioCrossfadeActivateSpeedBoost">
+      <Flags index="ToSelection" value="1" />
+    </CmdButtonArray>
+    <Cost>
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <OffCost>
+      <Cooldown TimeUse="0.5" />
+    </OffCost>
+    <BehaviorArray value="LucioCrossfadeHealingBoostApplier" />
+    <Flags index="Toggle" value="1" />
+    <Flags index="Transient" value="1" />
+    <ExpireCost>
+      <Cooldown TimeUse="0.5" />
+    </ExpireCost>
+    <ValidatorArray value="CasterNotDead" />
   </CAbilBehavior>
 </Abil>

@@ -70,7 +70,7 @@ public class HeroParserTests
         Hero? hero = heroParser.Parse(heroUnit);
 
         // assert
-        hero!.HeroPortraits.PartyFrames.Should().HaveCount(3)
+        hero!.HeroPortraits.PartyFrames.Should().HaveCount(4)
             .And.ContainInConsecutiveOrder("test-default.png", "test-image1.png", "test-image2.png", "test-image3.png");
     }
 
@@ -179,8 +179,8 @@ public class HeroParserTests
             .Contain("storm_ui_ingame_partyframe_abathur.png");
         hero.HeroPortraits.PartyFramePaths.Should().ContainSingle();
         hero.HeroPortraits.PartyFramePaths[0].FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_ingame_partyframe_Abathur.dds");
-        hero.HeroPortraits.MiniMapIcon.Should().BeNull();
-        hero.HeroPortraits.TargetInfoPanel.Should().BeNull();
+        hero.HeroPortraits.MiniMapIcon.Should().BeEmpty();
+        hero.HeroPortraits.TargetInfoPanel.Should().BeEmpty();
     }
 
     [TestMethod]
