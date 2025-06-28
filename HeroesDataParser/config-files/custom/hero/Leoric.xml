@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectTarget id="LeoricGhastlySwing">
+    <!--Point to trait-->
+    <hdp-ParentLink elementId=":PASSIVE:" buttonElementId="LeoricUndyingTrait" abilityType="Trait" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="LeoricDrainEssence">
+    <!--Point to trait-->
+    <hdp-ParentLink elementId=":PASSIVE:" buttonElementId="LeoricUndyingTrait" abilityType="Trait" />
+  </CAbilEffectTarget>
+</Catalog>

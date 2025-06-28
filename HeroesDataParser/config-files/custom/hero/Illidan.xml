@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroIllidan" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <LayoutButtons index="32" Slot="Hidden" /> <!--Face="IllidanBetrayersThirstThrillOfBattle" Type="AbilCmd" AbilCmd="IllidanThrillOfBattle,Execute"-->
+    </CardLayouts>
+  </CUnit>
+  <CAbilEffectInstant id="IllidanMetamorphosisMountCustom">
+    <ParentAbil value="IllidanMasteryDemonicFormMetamorphosis" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="IllidanMetamorphosisDismountCustom">
+    <ParentAbil value="IllidanMetamorphosisMountCustom" />
+  </CAbilEffectInstant>
+</Catalog>

@@ -2,8 +2,8 @@
 <Catalog>
   <CUnit id="HeroAna" parent="StormHeroMounted">
     <CardLayouts index="0">
-      <LayoutButtons index="30" Face="AnaHealingDart" Type="AbilCmd" AbilCmd="AnaHealingDartDetachableBoxMagazine,Execute" Slot="Hidden" />
-      <LayoutButtons index="38" Face="AnaTraitShrikeSniper" Type="Passive" Slot="Hidden" />
+      <LayoutButtons index="30" Slot="Hidden" /> <!--Face="AnaHealingDart" Type="AbilCmd" AbilCmd="AnaHealingDartDetachableBoxMagazine,Execute"-->
+      <LayoutButtons index="38" Slot="Hidden" /> <!--Face="AnaTraitShrikeSniper" Type="Passive"-->
     </CardLayouts>
   </CUnit>
   <CAbilEffectInstant id="AnaEyeOfHorusAttackDummy">

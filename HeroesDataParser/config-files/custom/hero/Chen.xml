@@ -3,7 +3,7 @@
   <CUnit id="HeroChen" parent="StormHeroMounted">
     <CardLayouts index="0">
       <!-- duplicate -->
-      <LayoutButtons index="27" Face="HearthstoneBrew" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hidden" />
+      <LayoutButtons index="27" Slot="Hidden" /> <!--Face="HearthstoneBrew" Type="AbilCmd" AbilCmd="Hearthstone,Execute"-->
     </CardLayouts>
   </CUnit>
   <CAbilEffectTarget id="ChenBreathOfFire">

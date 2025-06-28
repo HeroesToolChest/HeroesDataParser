@@ -2,7 +2,7 @@
 <Catalog>
   <CUnit id="HeroButcher" parent="StormHeroMounted">
     <CardLayouts index="0">
-      <LayoutButtons index="31" Face="RuthlessOnslaughtCharge" Type="AbilCmd" AbilCmd="ButcherRuthlessOnslaughtCharge,Execute" Slot="Hidden" />
+      <LayoutButtons index="31" Slot="Hidden" /> <!--Face="RuthlessOnslaughtCharge" Type="AbilCmd" AbilCmd="ButcherRuthlessOnslaughtCharge,Execute"-->
     </CardLayouts>
   </CUnit>
 </Catalog>

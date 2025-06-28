@@ -3,4 +3,8 @@
   <CAbilEffectInstant id="AnubarakLegionOfBeetlesVisual">
     <ProducedUnitArray value="AnubarakBeetleSpitBeetle" />
   </CAbilEffectInstant>
+  <CAbilEffectTarget id="AnubarakCocoon">
+    <ProducedUnitArray value="AnubarakCocoonNormal" />
+    <ProducedUnitArray value="AnubarakCocoonFat" />
+  </CAbilEffectTarget>
 </Catalog>

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroLostVikingsController" parent="StormHeroMountedCustom">
+    <CardLayouts index="0">
+      <LayoutButtons Face="LostVikingSelectOlaf" Type="Passive" Slot="Active" />
+      <LayoutButtons Face="LostVikingSelectBaleog" Type="Passive" Slot="Active" />
+      <LayoutButtons Face="LostVikingSelectErik" Type="Passive" Slot="Active" />
+      <LayoutButtons Face="LostVikingSelectAll" Type="Passive" Slot="Active" />
+      <LayoutButtons Face="LostVikingsVikingHoardTalent" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit id="HeroErik" parent="StormHeroMountedCustom">
+    <CardLayouts index="0">
+      <LayoutButtons index="26" Face="LostVikingsLockedAbilityQ" Type="Passive" Requirements="LostVikingsQAbilitiesNotEnabled" Slot="Hidden" />
+      <LayoutButtons index="31" Face="LostVikingsLockedAbilityW" Type="Passive" Requirements="LostVikingsWAbilitiesNotEnabled" Slot="Hidden" />
+      <LayoutButtons index="34" Face="LostVikingsLockedAbilityE" Type="Passive" Requirements="LostVikingsVikingBriberyNotEnabled" Slot="Hidden" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit id="HeroBaleog" parent="StormHeroMountedCustom">
+    <CardLayouts index="0">
+      <LayoutButtons index="26" Face="LostVikingsLockedAbilityQ" Type="Passive" Requirements="LostVikingsQAbilitiesNotEnabled" Slot="Hidden" />
+      <LayoutButtons index="31" Face="LostVikingsLockedAbilityW" Type="Passive" Requirements="LostVikingsWAbilitiesNotEnabled" Slot="Hidden" />
+      <LayoutButtons index="34" Face="LostVikingsLockedAbilityE" Type="Passive" Requirements="LostVikingsVikingBriberyNotEnabled" Slot="Hidden" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit id="HeroOlaf" parent="StormHeroMountedCustom">
+    <CardLayouts index="0">
+      <LayoutButtons index="26" Face="LostVikingsLockedAbilityQ" Type="Passive" Requirements="LostVikingsQAbilitiesNotEnabled" Slot="Hidden" />
+      <LayoutButtons index="31" Face="LostVikingsLockedAbilityW" Type="Passive" Requirements="LostVikingsWAbilitiesNotEnabled" Slot="Hidden" />
+      <LayoutButtons index="34" Face="LostVikingsLockedAbilityE" Type="Passive" Requirements="LostVikingsVikingBriberyNotEnabled" Slot="Hidden" />
+    </CardLayouts>
+  </CUnit>
+  <CHero id="LostVikings">
+    <hdp-PartyFrameImageArray value="Assets\Textures\storm_ui_ingame_partyframe_lostvikings_baelog.dds"/>
+    <hdp-PartyFrameImageArray value="Assets\Textures\storm_ui_ingame_partyframe_lostvikings_eric.dds"/>
+    <hdp-PartyFrameImageArray value="Assets\Textures\storm_ui_ingame_partyframe_lostvikings_olaf.dds"/>
+  </CHero>
+  <CAbilEffectTarget id="LostVikingsLongboatRaidMortar">
+    <ParentAbil value="LostVikingsLongboatRaidNewer" />
+  </CAbilEffectTarget>
+  <CButton id="LostVikingSelectOlaf" parent="StormButtonParent">
+    <hdp-IsActive value="1" />
+  </CButton>
+  <CButton id="LostVikingSelectBaleog" parent="StormButtonParent">
+    <hdp-IsActive value="1" />
+  </CButton>
+  <CButton id="LostVikingSelectErik" parent="StormButtonParent">
+    <hdp-IsActive value="1" />
+  </CButton>
+  <CButton id="LostVikingSelectAll" parent="StormButtonParent">
+    <hdp-IsActive value="1" />
+  </CButton>
+</Catalog>
