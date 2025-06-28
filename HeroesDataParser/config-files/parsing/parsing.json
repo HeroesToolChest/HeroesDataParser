@@ -51,7 +51,9 @@
           "Cyberpunk",
           "DeathwingWorldBreaker",
           "FallOfKingsCrest",
-          "GreymaneWorgen"
+          "GreymaneWorgen",
+          "InvisibleHero",
+          "LegacyVOHero"
         ],
         "Regex": [
           "\\b\\w*Event\\b" // exclude all heroes ending with 'Event'
