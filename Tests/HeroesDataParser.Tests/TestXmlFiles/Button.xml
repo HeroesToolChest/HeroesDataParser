@@ -397,4 +397,13 @@
     <TooltipAppender Validator="FenixHasPhotonicWeaponry" Face="FenixPhotonicWeaponry" />
     <TooltipAppender Validator="FenixHasUnconqueredSpirit" Face="FenixUnconqueredSpirit" />
   </CButton>
+  <CButton id="JainaImprovedIceBlockHotbar" parent="StormButtonParent">
+    <TooltipCooldownOverrideText value="Improved Ice Block Cooldown" />
+    <Icon value="Assets\Textures\storm_ui_icon_talent_iceblock.dds" />
+    <HotkeyAlias value="GenericRewindHotbar" />
+    <TooltipAppender Validator="JainaHasLT15000FrostbiteTokens" Text="Button/TooltipAppender/GenericLockedUntilQuestComplete" />
+  </CButton>
+  <CButton id="JainaImprovedIceBlockCancel" parent="StormButtonParent">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
+  </CButton>
 </Button>

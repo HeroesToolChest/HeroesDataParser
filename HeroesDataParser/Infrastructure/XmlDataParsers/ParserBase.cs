@@ -50,7 +50,7 @@ public abstract class ParserBase
         }
         else
         {
-            Logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTexturePath);
+            Logger.LogWarning("Could not find storm asset {TileTexturePath}", tileTexturePath);
             return null;
         }
     }

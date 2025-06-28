@@ -1507,4 +1507,46 @@
     <AIThinkTree value="AI/SummonedMinionAttackOwnerTarget.aitree" />
     <AcquireLeashRadius value="6" />
   </CUnit>
+  <CUnit id="HeroJaina" parent="StormHeroMounted">
+    <LifeStart value="1365" />
+    <LifeMax value="1365" />
+    <LifeRegenRate value="2.8437" />
+    <AbilArray Link="JainaFrostbolt" />
+    <AbilArray Link="JainaBlizzard" />
+    <AbilArray Link="JainaConeOfCold" />
+    <AbilArray Link="JainaSummonWaterElemental" />
+    <AbilArray Link="JainaRingOfFrost" />
+    <AbilArray Link="JainaCommandWaterElemental" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="JainaWaterElementalStatusController" />
+    <BehaviorArray Link="JainaFrostbiteTokenCounter" />
+    <WeaponArray Link="HeroJaina" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="JainaCommandWaterElemental" Type="AbilCmd" AbilCmd="JainaCommandWaterElemental,Execute" Slot="Heroic" />
+      <LayoutButtons Face="JainaSummonWaterElemental" Type="AbilCmd" AbilCmd="JainaSummonWaterElemental,Execute" Slot="Heroic" />
+      <LayoutButtons Face="JainaRingOfFrost" Type="AbilCmd" AbilCmd="JainaRingOfFrost,Execute" Slot="Heroic" />
+      <LayoutButtons Face="JainaFrostbolt" Type="AbilCmd" AbilCmd="JainaFrostbolt,Execute" Slot="Ability1" />
+      <LayoutButtons Face="JainaBlizzard" Type="AbilCmd" AbilCmd="JainaBlizzard,Execute" Slot="Ability2" />
+      <LayoutButtons Face="JainaConeOfCold" Type="AbilCmd" AbilCmd="JainaConeOfCold,Execute" Slot="Ability3" />
+      <LayoutButtons Face="JainaTraitFrostbite" Type="Passive" Requirements="JainaHasPassive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.625" />
+    <InnerRadius value="0.625" />
+    <AIEvalFactor value="1.2" />
+    <AIThinkTree value="AI/Jaina.aitree" />
+    <InitializerFunction value="libGDHL_gf_HeroJainaIncrementHeroCountFunction" />
+    <DestructionFunction value="libGDHL_gf_HeroJainaDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <HeroPlaystyleFlags index="TowerPusher" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+    <EffectArray index="Death" value="JainaIceBlockApplyUsedCarry" />
+  </CUnit>
+  <!--Custom-->
+  <CUnit id="HeroJaina" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <LayoutButtons Face="JainaImprovedIceBlockCancel" Type="AbilCmd" AbilCmd="ImprovedIceBlock,Off" Slot="Active" />
+      <LayoutButtons Face="JainaImprovedIceBlockHotbar" Type="AbilCmd" AbilCmd="ImprovedIceBlock,On" Slot="Active" />
+    </CardLayouts>
+  </CUnit>
 </Unit> 

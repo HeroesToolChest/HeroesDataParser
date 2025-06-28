@@ -849,4 +849,33 @@
     <!--Custom-->
     <ProducedUnitArray value="AnubarakBeetleSpitBeetle" />
   </CAbilEffectInstant>
+  <CAbilBehavior id="ImprovedIceBlock">
+    <OrderArray index="0" Color="255,0,255,0" Model="Assets\UI\Feedback\WayPointConfirm\WayPointConfirm.m3" LineTexture="Assets\Textures\Storm_WayPointLine.dds" />
+    <Flags index="Toggle" value="1" />
+    <Flags index="Transient" value="1" />
+    <BehaviorArray value="JainaImprovedIceBlock" />
+    <CmdButtonArray index="On" DefaultButtonFace="JainaImprovedIceBlockHotbar">
+      <Flags index="ToSelection" value="1" />
+    </CmdButtonArray>
+    <CmdButtonArray index="Off" DefaultButtonFace="JainaImprovedCancelIceBlock">
+      <Flags index="ToSelection" value="1" />
+    </CmdButtonArray>
+    <Cost>
+      <Cooldown Location="Player" TimeUse="0.5" />
+    </Cost>
+    <ExpireCost>
+      <Cooldown Location="Player" TimeUse="40" />
+    </ExpireCost>
+    <OffCost>
+      <Cooldown Location="Player" TimeUse="40" />
+    </OffCost>
+    <ValidatorArray value="CasterNotDead" />
+  </CAbilBehavior>
+  <!--custom-->
+  <CAbilBehavior id="ImprovedIceBlock">
+    <CmdButtonArray index="On">
+      <hdp-ParentLink elementId=":PASSIVE:" buttonElementId="JainaTraitFrostbite" abilityType="Trait" />
+    </CmdButtonArray>
+    <CmdButtonArray index="Off" hdp-ParentAbil="ImprovedIceBlock" />
+  </CAbilBehavior>
 </Abil>

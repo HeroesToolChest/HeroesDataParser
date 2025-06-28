@@ -138,7 +138,11 @@
   </CHero>
   <CHero default="1" id="LegacyVOHero">
   </CHero>
-  <CHero id="HpTESTHero"> 
+  <CHero id="HpTESTHero">
+    <PartyFrameImage value="Assets\Textures\test-default.dds" />
+    <hdp-PartyFrameImageArray value="Assets\Textures\test-image1.dds"/>
+    <hdp-PartyFrameImageArray value="Assets\Textures\test-image2.dds"/>
+    <hdp-PartyFrameImageArray value="Assets\Textures\test-image3.dds"/>
   </CHero>
   <CHero id="Abathur">
     <AttributeId value="Abat" />
@@ -4393,5 +4397,7 @@
     </Ratings>
     <Rarity value="Epic" />
     <ExpandedRole value="RangedAssassin" />
+  </CHero>
+  <CHero id="Jaina">
   </CHero>
 </Hero>

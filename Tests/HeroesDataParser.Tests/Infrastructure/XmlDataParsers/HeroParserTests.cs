@@ -59,6 +59,22 @@ public class HeroParserTests
     }
 
     [TestMethod]
+    public void Parse_CustomPartyFrameImageArray_ReceivesImageFilePath()
+    {
+        // arrange
+        string heroUnit = "HpTESTHero";
+
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+
+        // act
+        Hero? hero = heroParser.Parse(heroUnit);
+
+        // assert
+        hero!.HeroPortraits.PartyFrames.Should().HaveCount(3)
+            .And.ContainInConsecutiveOrder("test-default.png", "test-image1.png", "test-image2.png", "test-image3.png");
+    }
+
+    [TestMethod]
     public void Parse_HiddenOptions_OptionsReceived()
     {
         // arrange

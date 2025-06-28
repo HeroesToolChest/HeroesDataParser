@@ -164,6 +164,10 @@ public static class TestHeroesXmlLoader
                     ],
                     StormLocale.ENUS)
                 .AddAssetFilePaths([
+                    Path.Join("Assets", "Textures", "test-default.dds"),
+                    Path.Join("Assets", "Textures", "test-image1.dds"),
+                    Path.Join("Assets", "Textures", "test-image2.dds"),
+                    Path.Join("Assets", "Textures", "test-image3.dds"),
                     Path.Join("Assets", "Textures", "storm_ui_icon_miscrune_1.dds"),
                     Path.Join("Assets", "Textures", "storm_temp_war3_btnhealingspray.dds"),
                     Path.Join("Assets", "Textures", "btn-command-stop.dds"),

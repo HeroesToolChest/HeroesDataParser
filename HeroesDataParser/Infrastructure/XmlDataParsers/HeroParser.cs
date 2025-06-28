@@ -156,6 +156,21 @@ public class HeroParser : CollectionParserBase<Hero>
             }
         }
 
+        if (elementData.TryGetElementDataAt("hdp-PartyFrameImageArray", out StormElementData? hdpPartyFrameArrayData))
+        {
+            IEnumerable<string> hdpParyFrameArrayIndexes = hdpPartyFrameArrayData.GetElementDataIndexes();
+
+            foreach (string index in hdpParyFrameArrayIndexes)
+            {
+                ImageFilePath? imageFilePath = GetImageFilePath(hdpPartyFrameArrayData.GetElementDataAt(index));
+                if (imageFilePath is not null)
+                {
+                    collectionObject.HeroPortraits.PartyFrames.Add(imageFilePath.Image);
+                    collectionObject.HeroPortraits.PartyFramePaths.Add(imageFilePath.FilePath);
+                }
+            }
+        }
+
         if (elementData.TryGetElementDataAt("SkinArray", out StormElementData? skinArrayData))
         {
             foreach (string item in skinArrayData.GetElementDataIndexes())
@@ -273,9 +288,9 @@ public class HeroParser : CollectionParserBase<Hero>
         collectionObject.Id = heroId;
 
         // copy over the unit portraits
-        collectionObject.HeroPortraits.MiniMapIcon = collectionObject.UnitPortraits.MiniMapIcon;
+        collectionObject.HeroPortraits.MiniMapIcon = collectionObject.UnitPortraits.MiniMapIcon ?? string.Empty;
         collectionObject.HeroPortraits.MiniMapIconPath = collectionObject.UnitPortraits.MiniMapIconPath;
-        collectionObject.HeroPortraits.TargetInfoPanel = collectionObject.UnitPortraits.TargetInfoPanel;
+        collectionObject.HeroPortraits.TargetInfoPanel = collectionObject.UnitPortraits.TargetInfoPanel ?? string.Empty;
         collectionObject.HeroPortraits.TargetInfoPanelPath = collectionObject.UnitPortraits.TargetInfoPanelPath;
     }
 
