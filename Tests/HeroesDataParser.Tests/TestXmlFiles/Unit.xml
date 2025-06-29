@@ -1599,4 +1599,9 @@
     <HeroPlaystyleFlags index="RoleSupport" value="1" />
     <HeroPlaystyleFlags index="SelfHealer" value="1" />
   </CUnit>
+  <CUnit id="HeroLostVikingsController" parent="StormHeroMountedCustom">
+    <CardLayouts index="0">
+      <LayoutButtons Face="LostVikingSelectOlaf" Type="Passive" Slot="Active" />
+    </CardLayouts>
+  </CUnit>
 </Unit> 

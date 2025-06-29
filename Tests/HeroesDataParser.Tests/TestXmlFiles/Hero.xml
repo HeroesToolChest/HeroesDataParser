@@ -4400,4 +4400,43 @@
   </CHero>
   <CHero id="Jaina">
   </CHero>
+  <CHero id="MalGanis">
+    <AttributeId value="MalG" />
+    <SkinArray value="MalGanisPilotHawk" />
+    <SkinArray value="MalGanisSummer20" />
+    <Flags index="GoodForModeA" value="1" />
+    <RolesMultiClass value="Warrior" />
+    <Melee value="1" />
+    <VoiceLineArray value="MalGanisBase_VoiceLineOne" />
+    <VoiceLineArray value="MalGanisBase_VoiceLineTwo" />
+    <VoiceLineArray value="MalGanisBase_VoiceLineThree" />
+    <VoiceLineArray value="MalGanisBase_VoiceLineFour" />
+    <VoiceLineArray value="MalGanisBase_VoiceLineFive" />
+    <DefaultMount value="HorseCommon" />
+    <TalentTreeArray Talent="MalGanisNecroticEmbraceWingedGuard" Tier="1" Column="1" />
+    <TalentTreeArray Talent="MalGanisVampiricTouchVampiricAura" Tier="1" Column="2" />
+    <TalentTreeArray Talent="MalGanisVampiricTouchTimeToFeed" Tier="1" Column="3" />
+    <TalentTreeArray Talent="MalGanisNecroticEmbraceFueledByTorment" Tier="2" Column="1" />
+    <TalentTreeArray Talent="MalGanisNecroticEmbraceMightOfSargeras" Tier="2" Column="2" />
+    <TalentTreeArray Talent="MalGanisNecroticEmbraceEchoOfDoom" Tier="2" Column="3" />
+    <TalentTreeArray Talent="MalGanisFelClawsBlackClaws" Tier="3" Column="1" />
+    <TalentTreeArray Talent="MalGanisFelClawsWillOfTichondrius" Tier="3" Column="2" />
+    <TalentTreeArray Talent="MalGanisNightRushSpreadingPlague" Tier="3" Column="3" />
+    <TalentTreeArray Talent="MalGanisCarrionSwarm" Tier="4" Column="1" />
+    <TalentTreeArray Talent="MalGanisDarkConversion" Tier="4" Column="2" />
+    <TalentTreeArray Talent="MalGanisNightRushDeepSleep" Tier="5" Column="1" />
+    <TalentTreeArray Talent="MalGanisNightRushTheNightBeckons" Tier="5" Column="2" />
+    <TalentTreeArray Talent="MalGanisVampiricTouchBloodRush" Tier="5" Column="3" />
+    <TalentTreeArray Talent="MalGanisNecroticEmbracePlagueBats" Tier="6" Column="1" />
+    <TalentTreeArray Talent="MalGanisVampiricTouchFrenziedAssault" Tier="6" Column="2" />
+    <TalentTreeArray Talent="MalGanisFelClawsBlindAsABat" Tier="6" Column="3" />
+    <TalentTreeArray Talent="MalGanisCarrionSwarmSeekerSwarm" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="MalGanisCarrionSwarm" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="MalGanisDarkConversionWrathOfNathreza" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="MalGanisDarkConversion" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="MalGanisFelClawsVanquishTheWeak" Tier="7" Column="3" />
+    <TalentTreeArray Talent="MalGanisNightRushAloneInTheDark" Tier="7" Column="4" />
+  </CHero>
 </Hero>

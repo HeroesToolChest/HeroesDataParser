@@ -418,4 +418,21 @@
     <TooltipAppender Validator="LucioHasPassiveHousePartyTalent" Face="LucioPassiveHouseParty" />
     <TooltipAppender Validator="LucioHasItemSummerAnthemTalent" Face="LucioItemSummerAnthem" />
   </CButton>
+  <CButton id="LucioWallRide" parent="StormButtonParent">
+    <TooltipFlags index="ShowCooldown" value="0" />
+    <Icon value="Assets\Textures\storm_ui_icon_lucio_mount.dds" />
+    <TooltipAppender Validator="LucioHasWallRideAccelerandoTalent" Face="LucioWallRideAccelerando" />
+    <TooltipAppender Validator="LucioHasPassiveSmoothMovesTalent" Face="LucioPassiveSmoothMoves" />
+    <TooltipAppender Validator="LucioHasWallRideSlipTalent" Face="LucioWallRideSlip" />
+    <hdp-IsActive value="0" />
+  </CButton>
+  <CButton id="LostVikingSelectOlaf" parent="StormButtonParent">
+    <TooltipAppender Validator="LostVikingsHasOlafTheStout" Face="LostVikingsOlafTheStoutTalent" />
+    <TooltipAppender Validator="LostVikingsHasHunkaBurningOlaf" Face="LostVikingsHunkaBurningOlafTalent" />
+    <TooltipAppender Validator="LostVikingsHasLargeAndInCharge" Face="LostVikingsLargeAndInChargeTalent" />
+    <Icon value="Assets\Textures\storm_ui_icon_lostvikings_selectolaf.dds" />
+    <TooltipFlags index="ShowHotkey" value="0" />
+    <TooltipFlags index="ShowCooldown" value="0" />
+    <hdp-IsActive value="1" />
+  </CButton>
 </Button>

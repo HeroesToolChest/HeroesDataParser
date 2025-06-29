@@ -206,6 +206,8 @@ public class AbilityTalentParserBase : ParserBase
         {
             if (hdpIsActiveData.Value.GetInt() == 1)
                 abilityTalent.IsActive = true;
+            else if (hdpIsActiveData.Value.GetInt() == 0)
+                abilityTalent.IsActive = false;
         }
     }
 

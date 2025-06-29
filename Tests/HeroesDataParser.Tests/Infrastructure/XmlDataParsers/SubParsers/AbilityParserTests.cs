@@ -1172,7 +1172,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility__ReturnsAbility()
+    public void GetAbility_ToggleCooldown_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroLucio";
@@ -1189,6 +1189,46 @@ public class AbilityParserTests
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be("LucioCrossfade|LucioCrossfadeActivateHealingBoost|W");
         ability.ToggleCooldown.Should().Be(0.5);
+    }
+
+    [TestMethod]
+    public void GetAbility_CustomIsActive0_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroLucio";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("31");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("LucioWallRide|LucioWallRide|Z");
+        ability.IsActive.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void GetAbility_CustomIsActive1_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroLostVikingsController";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("23");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be(":PASSIVE:|LostVikingSelectOlaf|Active");
+        ability.IsActive.Should().BeTrue();
     }
 
     private static void AssertAbathurSymbioteAbility(Ability ability)
