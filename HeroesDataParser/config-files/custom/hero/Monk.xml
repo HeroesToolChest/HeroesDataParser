@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CButton id="MonkDeadlyReachActive" parent="StormButtonParentTrait">
+    <hdp-ParentAbil value="MonkDeadlyReach" />
+  </CButton>
+  <CButton id="MonkIronFists" parent="StormButtonParentTrait">
+    <hdp-ParentAbil value="MonkIronFists" />
+  </CButton>
+  <CButton id="MonkInsight" parent="StormButtonParentTrait">
+    <hdp-ParentAbil value="MonkInsight" />
+  </CButton>
+  <CButton id="MonkTranscendence" parent="StormButtonParentTrait">
+    <hdp-ParentAbil value="MonkTranscendence" />
+  </CButton>
+</Catalog>

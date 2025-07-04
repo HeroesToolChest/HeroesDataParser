@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroMedivh" parent="StormHeroMountedCustom">
+    <CardLayouts index="0">
+      <!--Only available when at the hall of storms-->
+      <LayoutButtons index="30" Slot="Hidden" /> <!--Face="MedivhTransformRaven" Type="AbilCmd" AbilCmd="MedivhTransformRavenFountain,Execute"-->
+    </CardLayouts>
+  </CUnit>
+  <CAbilEffectTarget id="MedivhLeyLineSealMedivhCheats">
+    <ParentAbil value="MedivhLeyLineSealMedivhCheats" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="MedivhPortal2">
+    <ParentAbil value="MedivhPortalPortalMastery" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="MedivhPortalCancel">
+    <ParentAbil value="MedivhPortalPortalMastery" />
+  </CAbilEffectInstant>
+</Catalog>

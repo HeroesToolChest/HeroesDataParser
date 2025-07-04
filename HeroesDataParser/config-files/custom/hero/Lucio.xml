@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroLucio" parent="StormHeroMountedCustom">
+    <CardLayouts index="0">
+      <!--Hide the passive and use the abilcmd so that the talents can correctly have an ability type of Z-->
+      <LayoutButtons index="30" Slot="Hidden" /> <!--Type="Passive" Slot="Mount"-->
+    </CardLayouts>
+  </CUnit>
+  <CButton id="LucioCrossfadeActivateSpeedBoost" parent="StormButtonParent">
+    <hdp-ParentAbil value="LucioCrossfade" />
+  </CButton>
+  <CButton id="LucioWallRide" parent="StormButtonParent">
+    <hdp-IsActive value="0" />
+  </CButton>
+</Catalog>

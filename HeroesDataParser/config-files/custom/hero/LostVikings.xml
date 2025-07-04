@@ -11,23 +11,23 @@
   </CUnit>
   <CUnit id="HeroErik" parent="StormHeroMountedCustom">
     <CardLayouts index="0">
-      <LayoutButtons index="26" Face="LostVikingsLockedAbilityQ" Type="Passive" Requirements="LostVikingsQAbilitiesNotEnabled" Slot="Hidden" />
-      <LayoutButtons index="31" Face="LostVikingsLockedAbilityW" Type="Passive" Requirements="LostVikingsWAbilitiesNotEnabled" Slot="Hidden" />
-      <LayoutButtons index="34" Face="LostVikingsLockedAbilityE" Type="Passive" Requirements="LostVikingsVikingBriberyNotEnabled" Slot="Hidden" />
+      <LayoutButtons index="26" Slot="Hidden" /> <!--Face="LostVikingsLockedAbilityQ" Type="Passive" Requirements="LostVikingsQAbilitiesNotEnabled"-->
+      <LayoutButtons index="31" Slot="Hidden" /> <!--Face="LostVikingsLockedAbilityW" Type="Passive" Requirements="LostVikingsWAbilitiesNotEnabled"-->
+      <LayoutButtons index="34" Slot="Hidden" /> <!--Face="LostVikingsLockedAbilityE" Type="Passive" Requirements="LostVikingsVikingBriberyNotEnabled"-->
     </CardLayouts>
   </CUnit>
   <CUnit id="HeroBaleog" parent="StormHeroMountedCustom">
     <CardLayouts index="0">
-      <LayoutButtons index="26" Face="LostVikingsLockedAbilityQ" Type="Passive" Requirements="LostVikingsQAbilitiesNotEnabled" Slot="Hidden" />
-      <LayoutButtons index="31" Face="LostVikingsLockedAbilityW" Type="Passive" Requirements="LostVikingsWAbilitiesNotEnabled" Slot="Hidden" />
-      <LayoutButtons index="34" Face="LostVikingsLockedAbilityE" Type="Passive" Requirements="LostVikingsVikingBriberyNotEnabled" Slot="Hidden" />
+      <LayoutButtons index="26" Slot="Hidden" /> <!--Face="LostVikingsLockedAbilityQ" Type="Passive" Requirements="LostVikingsQAbilitiesNotEnabled"-->
+      <LayoutButtons index="31" Slot="Hidden" /> <!--Face="LostVikingsLockedAbilityW" Type="Passive" Requirements="LostVikingsWAbilitiesNotEnabled"-->
+      <LayoutButtons index="34" Slot="Hidden" /> <!--Face="LostVikingsLockedAbilityE" Type="Passive" Requirements="LostVikingsVikingBriberyNotEnabled"-->
     </CardLayouts>
   </CUnit>
   <CUnit id="HeroOlaf" parent="StormHeroMountedCustom">
     <CardLayouts index="0">
-      <LayoutButtons index="26" Face="LostVikingsLockedAbilityQ" Type="Passive" Requirements="LostVikingsQAbilitiesNotEnabled" Slot="Hidden" />
-      <LayoutButtons index="31" Face="LostVikingsLockedAbilityW" Type="Passive" Requirements="LostVikingsWAbilitiesNotEnabled" Slot="Hidden" />
-      <LayoutButtons index="34" Face="LostVikingsLockedAbilityE" Type="Passive" Requirements="LostVikingsVikingBriberyNotEnabled" Slot="Hidden" />
+      <LayoutButtons index="26" Slot="Hidden" /> <!--Face="LostVikingsLockedAbilityQ" Type="Passive" Requirements="LostVikingsQAbilitiesNotEnabled"-->
+      <LayoutButtons index="31" Slot="Hidden" /> <!--Face="LostVikingsLockedAbilityW" Type="Passive" Requirements="LostVikingsWAbilitiesNotEnabled"-->
+      <LayoutButtons index="34" Slot="Hidden" /> <!--Face="LostVikingsLockedAbilityE" Type="Passive" Requirements="LostVikingsVikingBriberyNotEnabled"-->
     </CardLayouts>
   </CUnit>
   <CHero id="LostVikings">

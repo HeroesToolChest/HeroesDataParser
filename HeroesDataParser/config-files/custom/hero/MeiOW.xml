@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectInstant id="MeiOWIcingCancel">
+    <ParentAbil value="MeiOWIcing" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="MeiOWCryoFreezeCancel">
+    <ParentAbil value="MeiOWCryoFreeze" />
+  </CAbilEffectInstant>
+</Catalog>
