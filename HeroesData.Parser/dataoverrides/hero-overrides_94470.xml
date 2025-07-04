@@ -27,14 +27,19 @@
     </Ability>
     <Ability id="AlarakDeadlyChargeActivate2ndHeroic,AlarakDeadlyCharge2ndHeroicSadism" abilityType="Trait">
       <Override>
-        <ParentLink value="AlarakMightOfTheHighlord|AlarakMightOfTheHighlord" />
+        <ParentLink value="AlarakDeadlyChargeSecondHeroic|AlarakDeadlyCharge" />
       </Override>
     </Ability>
     <Ability id="AlarakCounterStrikeTargeted2ndHeroic,AlarakCounterStrike2ndHeroicSadism" abilityType="Trait">
       <Override>
-        <ParentLink value="AlarakMightOfTheHighlord|AlarakMightOfTheHighlord" />
+        <ParentLink value="AlarakCounterStrikeItem|AlarakCounterStrike2ndHeroic" />
       </Override>
     </Ability>
+    <Talent id="AlarakCounterStrikeItem,AlarakCounterStrike2ndHeroic" abilityType="Heroic">
+      <Override>
+        <AbilityTalentLinkIds value="AlarakCounterStrikeTargeted" />
+      </Override>
+    </Talent>
   </CHero>
   <CHero id="Alexstrasza">
     <Talent id="AlexstraszaCleansingFlame" abilityType="Heroic">
@@ -90,9 +95,9 @@
       </Override>
     </Ability>
     <Ability id="AnaEyeOfHorusAttack,AnaEyeOfHorusHighPoweredRound" abilityType="Heroic">
-	  <Override>
-	    <AbilityTier value="Hidden" />
-	  </Override>
+      <Override>
+        <ParentLink value="AnaEyeOfHorusActivate|AnaEyeOfHorusActivate|Heroic" />
+      </Override>
     </Ability>
     <Ability id="AnaAimDownSightsDeactivate" abilityType="Trait">
       <Override>
