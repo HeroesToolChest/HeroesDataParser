@@ -435,4 +435,28 @@
     <TooltipFlags index="ShowCooldown" value="0" />
     <hdp-IsActive value="1" />
   </CButton>
+  <CButton id="MeiOWAcclimation" parent="StormButtonParent">
+    <TooltipCooldownOverrideText value="Button/TooltipCooldownOverride/MeiOWAcclimation" />
+    <Icon value="Assets\Textures\storm_ui_icon_jaina_frostarmor.dds" />
+  </CButton>
+  <CButton id="MaievUmbralBindPrimed" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_maiev_umbra_2.dds" />
+    <Tooltip value="Button/Tooltip/MaievUmbralBind" />
+    <TooltipAppender Validator="MaievHasUmbralBindBondsOfJusticeTalent" Face="MaievUmbralBindBondsOfJustice" />
+    <TooltipAppender Validator="MaievHasUmbralBindPursuitOfVengeanceTalent" Face="MaievUmbralBindPursuitOfVengeance" />
+    <TooltipAppender Validator="MaievHasUmbralBindBondsOfCorruptionTalent" Face="MaievUmbralBindBondsOfCorruption" />
+    <TooltipAppender Validator="MaievHasUmbralBindChainGangTalent" Face="MaievUmbralBindChainGang" />
+    <TooltipAppender Validator="MaievHasUmbralBindCruelChainTalent" Face="MaievUmbralBindCruelChain" />
+    <TooltipCooldownOverrideText value="Button/CooldownOverride/MaievUmbralBindPrimed" />
+  </CButton>
+  <CButton id="MonkIronFists" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\storm_ui_icon_monk_trait_ironfist.dds" />
+    <AlertTooltip value="Button/Tooltip/MonkIronFistsTalent" />
+    <TooltipAppender Validator="MonkHasFistsofLegendTalent" Face="MonkTranscendenceTalent" />
+    <TooltipAppender Validator="MonkHasFistsofLegendTalent" Face="MonkInsightTalent" />
+    <TooltipAppender Validator="MonkHasFistsofLegendTalent" Face="MonkFistsofLegend" />
+  </CButton>
+  <CButton id="MonkIronFists" parent="StormButtonParentTrait">
+    <hdp-ParentLink elementId=":PASSIVE:" buttonElementId="MonkBlankTrait" abilityType="Trait" />
+  </CButton>
 </Button>

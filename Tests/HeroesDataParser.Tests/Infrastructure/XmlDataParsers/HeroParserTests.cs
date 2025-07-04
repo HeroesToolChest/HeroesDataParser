@@ -596,4 +596,60 @@ public class HeroParserTests
         hero.Talents[TalentTier.Level16][0].UpgradeLinkIds.Should().HaveCount(2);
         hero.Talents[TalentTier.Level16][0].UpgradeLinkIds.Should().ContainInConsecutiveOrder(new LinkId("GuldanLifeTap", "GuldanLifeTap", AbilityType.Trait), new LinkId("GuldanLifeTapFree", "GuldanLifeTapFree", AbilityType.Trait));
     }
+
+    [TestMethod]
+    public void Parse_HasSubAbilitiesToOtherSubAbilities_ReturnsSubAbilities()
+    {
+        // arrange
+        string heroUnit = "MalGanis";
+
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+
+        Ability malGanisFelClawsFirstAbility = new()
+        {
+            AbilityElementId = "MalGanisFelClawsFirst",
+            ButtonElementId = "MalGanisFelClawsFirst",
+            AbilityType = AbilityType.Q,
+            Tier = AbilityTier.Basic,
+        };
+
+        Ability malGanisFelClawsSecondSubAbility = new()
+        {
+            AbilityElementId = "MalGanisFelClawsSecond",
+            ButtonElementId = "MalGanisFelClawsSecond",
+            AbilityType = AbilityType.Q,
+            Tier = AbilityTier.Basic,
+            ParentAbilityElementId = "MalGanisFelClawsFirst",
+        };
+
+        Ability malGanisFelClawsThirdSubAbility = new()
+        {
+            AbilityElementId = "MalGanisFelClawsThird",
+            ButtonElementId = "MalGanisFelClawsThird",
+            AbilityType = AbilityType.Q,
+            Tier = AbilityTier.Basic,
+            ParentAbilityElementId = "MalGanisFelClawsSecond",
+        };
+
+        _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
+            .Do(x =>
+            {
+                Unit argUnit = x.Arg<Unit>();
+                argUnit.Id = "HeroMalGanis";
+                argUnit.AddAbility(malGanisFelClawsFirstAbility);
+                argUnit.AddSubAbility(malGanisFelClawsThirdSubAbility);
+                argUnit.AddSubAbility(malGanisFelClawsSecondSubAbility);
+            });
+
+
+        // act
+        Hero? hero = heroParser.Parse(heroUnit);
+
+        // assert
+        hero.Should().NotBeNull();
+        hero.Abilities[AbilityTier.Basic].Should().ContainSingle();
+        hero.Abilities[AbilityTier.Basic][0].LinkId.ToString().Should().Be("MalGanisFelClawsFirst|MalGanisFelClawsFirst|Q");
+        hero.SubAbilities[new LinkId("MalGanisFelClawsFirst", "MalGanisFelClawsFirst", AbilityType.Q)][AbilityTier.Basic][0].LinkId.ToString().Should().Be("MalGanisFelClawsSecond|MalGanisFelClawsSecond|Q");
+        hero.SubAbilities[new LinkId("MalGanisFelClawsSecond", "MalGanisFelClawsSecond", AbilityType.Q)][AbilityTier.Basic][0].LinkId.ToString().Should().Be("MalGanisFelClawsThird|MalGanisFelClawsThird|Q");
+    }
 }

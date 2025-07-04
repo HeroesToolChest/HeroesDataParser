@@ -466,4 +466,19 @@
       </Modifications>
     </AbilityModificationArray>
   </CTalent>
+  <CTalent id="MeiOWAcclimation">
+    <Face value="MeiOWAcclimation" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="MeiOWAcclimationBuffApply" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <RankArray>
+      <BehaviorArray value="MeiOWAcclimationArmorCarry" />
+    </RankArray>
+  </CTalent>
 </Talent>

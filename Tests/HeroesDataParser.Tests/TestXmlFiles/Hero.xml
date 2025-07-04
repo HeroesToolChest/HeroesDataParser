@@ -4439,4 +4439,43 @@
     <TalentTreeArray Talent="MalGanisFelClawsVanquishTheWeak" Tier="7" Column="3" />
     <TalentTreeArray Talent="MalGanisNightRushAloneInTheDark" Tier="7" Column="4" />
   </CHero>
+  <CHero id="MeiOW">
+    <AttributeId value="HMEI" />
+    <Flags index="GoodForModeA" value="1" />
+    <ExpandedRole value="Tank" />
+    <RolesMultiClass value="Warrior" />
+    <SkinArray value="MeiOWPajama" />
+    <SkinArray value="MeiOWDeathKnight19" />
+    <VoiceLineArray value="MeiOWBase_VoiceLine01" />
+    <VoiceLineArray value="MeiOWBase_VoiceLine02" />
+    <VoiceLineArray value="MeiOWBase_VoiceLine03" />
+    <VoiceLineArray value="MeiOWBase_VoiceLine04" />
+    <VoiceLineArray value="MeiOWBase_VoiceLine05" />
+    <DefaultMount value="HorseCommon" />
+    <TalentTreeArray Talent="MeiOWHeavyPack" Tier="1" Column="1" />
+    <TalentTreeArray Talent="MeiOWIceStorm" Tier="1" Column="2" />
+    <TalentTreeArray Talent="MeiOWHeatTransfer" Tier="1" Column="3" />
+    <TalentTreeArray Talent="MeiOWSlushball" Tier="2" Column="1" />
+    <TalentTreeArray Talent="MeiOWColdFront" Tier="2" Column="2" />
+    <TalentTreeArray Talent="MeiOWCrystallize" Tier="2" Column="3" />
+    <TalentTreeArray Talent="MeiOWInduceHibernation" Tier="3" Column="1" />
+    <TalentTreeArray Talent="MeiOWSkatingAway" Tier="3" Column="2" />
+    <TalentTreeArray Talent="MeiOWBackupBattery" Tier="3" Column="3" />
+    <TalentTreeArray Talent="MeiOWAvalanche" Tier="4" Column="1" />
+    <TalentTreeArray Talent="MeiOWIceWall" Tier="4" Column="2" />
+    <TalentTreeArray Talent="MeiOWFlurry" Tier="5" Column="1" />
+    <TalentTreeArray Talent="MeiOWCryoFreezeCoolingServos" Tier="5" Column="2" />
+    <TalentTreeArray Talent="MeiOWPolarVortex" Tier="5" Column="3" />
+    <TalentTreeArray Talent="MeiOWFreshPowder" Tier="6" Column="1" />
+    <TalentTreeArray Talent="MeiOWBlackIce" Tier="6" Column="2" />
+    <TalentTreeArray Talent="MeiOWAcclimation" Tier="6" Column="3" />
+    <TalentTreeArray Talent="MeiOWCascade" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="MeiOWAvalanche" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="MeiOWShatter" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="MeiOWIceWall" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="MeiOWTheBigOne" Tier="7" Column="3" />
+    <TalentTreeArray Talent="MeiOWFlashFreeze" Tier="7" Column="4" />
+  </CHero>
 </Hero>

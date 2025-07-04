@@ -1604,4 +1604,82 @@
       <LayoutButtons Face="LostVikingSelectOlaf" Type="Passive" Slot="Active" />
     </CardLayouts>
   </CUnit>
+  <CUnit id="HeroMaiev" parent="StormHeroMounted">
+    <LifeStart value="2021" />
+    <LifeMax value="2021" />
+    <LifeRegenRate value="4.211" />
+    <AbilArray Link="MaievSpiritOfVengeance" />
+    <AbilArray Link="MaievSpiritOfVengeanceBlink" />
+    <AbilArray Link="MaievFanOfKnives" />
+    <AbilArray Link="MaievUmbralBind" />
+    <AbilArray Link="MaievContainmentDisc" />
+    <AbilArray Link="MaievContainmentDiscContain" />
+    <AbilArray Link="MaievWardensCage" />
+    <AbilArray Link="MaievVaultOfTheWardens" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="MaievFanOfKnivesTargetCounter" />
+    <BehaviorArray Link="MaievUmbralBindTargetCounter" />
+    <BehaviorArray Link="MaievVigorousVaulterTokenCounter" />
+    <WeaponArray Link="HeroMaievWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="MaievContainmentDiscContain" Type="AbilCmd" AbilCmd="MaievContainmentDiscContain,Execute" Slot="Heroic" />
+      <LayoutButtons Face="MaievContainmentDisc" Type="AbilCmd" AbilCmd="MaievContainmentDisc,Execute" Slot="Heroic" />
+      <LayoutButtons Face="MaievWardensCage" Type="AbilCmd" AbilCmd="MaievWardensCage,Execute" Slot="Heroic" />
+      <LayoutButtons Face="MaievFanOfKnives" Type="AbilCmd" AbilCmd="MaievFanOfKnives,Execute" Slot="Ability1" />
+      <LayoutButtons Face="MaievVaultOfTheWardens" Type="AbilCmd" AbilCmd="MaievVaultOfTheWardens,Execute" Slot="Trait" />
+      <LayoutButtons Face="MaievSpiritOfVengeanceBlink" Type="AbilCmd" AbilCmd="MaievSpiritOfVengeanceBlink,Execute" Slot="Ability3" />
+      <LayoutButtons Face="MaievSpiritOfVengeance" Type="AbilCmd" AbilCmd="MaievSpiritOfVengeance,Execute" Slot="Ability3" />
+      <LayoutButtons Face="MaievUmbralBindPrimed" Type="Passive" Requirements="MaievUmbralBindPrimedRequirement" Slot="Ability2" />
+      <LayoutButtons Face="MaievUmbralBind" Type="AbilCmd" AbilCmd="MaievUmbralBind,Execute" Slot="Ability2" />
+    </CardLayouts>
+    <Radius value="0.75" />
+    <InitializerFunction value="libHMAI_gf_HeroMaievIncrementHeroCountFunction" />
+    <DestructionFunction value="libHMAI_gf_HeroMaievDecrementHeroCountFunction" />
+    <AIThinkTree value="AI\Maiev.aitree" />
+    <AIHealthThresholds index="ReturnToSpawn" value="0.15" />
+    <AIHealthThresholds index="EndOffensive" value="0.25" />
+    <AIHealthThresholds index="StartOffensive" value="0.5" />
+    <AIHealthThresholds index="High" value="0.7" />
+  </CUnit>
+  <CUnit id="HeroMonk" parent="StormHeroMounted">
+    <LifeStart value="$MonkLifeMax" />
+    <LifeMax value="$MonkLifeMax" />
+    <LifeRegenRate value="$MonkLifeRegen" />
+    <AbilArray Link="MonkDeadlyReach" />
+    <AbilArray Link="MonkBreathOfHeaven" />
+    <AbilArray Link="MonkRadiantDash" />
+    <AbilArray Link="MonkSevenSidedStrike" />
+    <AbilArray Link="MonkVultureClawKick" />
+    <AbilArray Link="MonkWatchingAlly" />
+    <AbilArray Link="MonkDivinePalm" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="MonkBreathOfHeavenCasterSearch" />
+    <BehaviorArray Link="MonkComboWeaponCarryBehavior" />
+    <WeaponArray Link="MonkHeroWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="MonkSevenSidedStrike" Type="AbilCmd" AbilCmd="MonkSevenSidedStrike,Execute" Slot="Heroic" />
+      <LayoutButtons Face="MonkDivinePalm" Type="AbilCmd" AbilCmd="MonkDivinePalm,Execute" Slot="Heroic" />
+      <LayoutButtons Face="MonkRadiantDash" Type="AbilCmd" AbilCmd="MonkRadiantDash,Execute" Slot="Ability1" />
+      <LayoutButtons Face="MonkBreathOfHeaven" Type="AbilCmd" AbilCmd="MonkBreathOfHeaven,Execute" Slot="Ability2" />
+      <LayoutButtons Face="MonkDeadlyReachActive" Type="Passive" Requirements="MonkHasDeadlyReachPrimedBehavior" Slot="Ability3" />
+      <LayoutButtons Face="MonkDeadlyReach" Type="AbilCmd" AbilCmd="MonkDeadlyReach,Execute" Slot="Ability3" />
+      <LayoutButtons Face="MonkIronFists" Type="Passive" Requirements="MonkHasIronFistsCarryBehavior" Slot="Trait" />
+      <LayoutButtons Face="MonkInsight" Type="Passive" Requirements="MonkHasInsightCarryBehavior" Slot="Trait" />
+      <LayoutButtons Face="MonkTranscendence" Type="Passive" Requirements="MonkHasTranscendenceCarryBehavior" Slot="Trait" />
+      <LayoutButtons Face="MonkBlankTrait" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.625" />
+    <InnerRadius value="0.625" />
+    <AIThinkTree value="AI/Monk.aitree" />
+    <AIEvalFactor value="1.3" />
+    <InitializerFunction value="libGDHL_gf_HeroMonkIncrementHeroCountFunction" />
+    <DestructionFunction value="libGDHL_gf_HeroMonkDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="AllyHealer" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleSupport" value="1" />
+    <HeroPlaystyleFlags index="SelfHealer" value="1" />
+  </CUnit>
 </Unit> 

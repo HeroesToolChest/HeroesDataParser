@@ -622,4 +622,32 @@ public class TalentParserTests
         talent.Charges.Should().BeNull();
         talent.CooldownText!.RawDescription.Should().Be("Cooldown: 50 seconds");
     }
+
+    [TestMethod]
+    public void GetTalent_TalentHasNotAbilWithCooldownOverrideText_ReturnsTalentWithNoCooldown()
+    {
+        // arrange
+        string heroUnit = "MeiOW";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("16");
+
+        Hero hero = new(heroUnit);
+        hero.AddAbility(new Ability()
+        {
+            AbilityElementId = "DVaLiquidCoolingAbility",
+            ButtonElementId = "DVaLiquidCooling",
+            AbilityType = AbilityType.Active,
+        });
+
+        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("MeiOWAcclimation|MeiOWAcclimation|Passive");
+        talent.CooldownText.Should().BeNull();
+    }
 }

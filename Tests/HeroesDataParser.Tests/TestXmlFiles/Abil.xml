@@ -922,4 +922,13 @@
     <CmdButtonArray index="Execute" DefaultButtonFace="LucioWallRide" />
     <PrepEffect value="DismountDecloakCasterSet" />
   </CAbilEffectInstant>
+  <CAbilEffectInstant id="MaievUmbralBind">
+    <Effect value="MaievUmbralBindInitialSet" />
+    <Flags index="TransientPreferred" value="1" />
+    <Cost>
+      <Vital index="Energy" value="55" />
+      <Cooldown TimeUse="14" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="MaievUmbralBind" />
+  </CAbilEffectInstant>
 </Abil>

@@ -128,6 +128,8 @@ public static class TestHeroesXmlLoader
                         "Button/Tooltip/DVaBunnyHopOff=Cancel Bunny Hop",
                         "Button/OverrideText/DVaMechBoosters=<d ref=\"Effect,DVaBoostersApplyCooldown,Cost[0].CooldownTimeUse\"/> seconds",
                         "Button/OverrideText/DVaBunnyHop=<d ref=\"Abil,DVaMechBunnyHopHeroic,OffCost.Cooldown.TimeUse\"/> seconds",
+                        "Button/TooltipCooldownOverride/MeiOWAcclimation=<d ref=\"Effect,MeiOWBlizzardPolarVortexCooldownModifyUnit,Cost[0].CooldownTimeUse\" player=\"0\"/> seconds",
+                        "Button/CooldownOverride/MaievUmbralBindPrimed=<d ref=\"Abil,MaievUmbralBind,Cost.Cooldown.TimeUse\"/> seconds",
                         "Hero/AdditionalSearchText/Abathur=Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug Double Soak ",
                         "Hero/AlternateNameSearchText/Abathur=Abathur",
                         "Hero/Description/Abathur=A unique Hero that can manipulate the battle from anywhere on the map.",

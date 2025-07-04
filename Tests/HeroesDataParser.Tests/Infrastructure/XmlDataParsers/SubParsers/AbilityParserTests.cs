@@ -984,7 +984,7 @@ public class AbilityParserTests
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be("AmazonWarTravelerSummonMount|AmazonWarTravelerSummonMount|Z");
         ability.CooldownText!.RawDescription.Should().Be("Cooldown: 4 seconds");
-        ability.FullText.Should().BeNull();
+        ability.FullText!.RawDescription.Should().Be("After Channeling for 1 second, gain 30% Movement Speed");
     }
 
     [TestMethod]
@@ -1229,6 +1229,46 @@ public class AbilityParserTests
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be(":PASSIVE:|LostVikingSelectOlaf|Active");
         ability.IsActive.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void GetAbility_PassiveAbilityWithCooldown_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroMaiev";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("32");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be(":PASSIVE:|MaievUmbralBindPrimed|W");
+        ability.CooldownText!.RawDescription.Should().Be("Cooldown: 14 seconds");
+    }
+
+    [TestMethod]
+    public void GetAbility_ButtonWithHdpParentLink_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroMonk";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("31");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be(":PASSIVE:|MonkIronFists|Trait");
+        ability.ParentLinkId!.ToString().Should().Be(":PASSIVE:|MonkBlankTrait|Trait");
     }
 
     private static void AssertAbathurSymbioteAbility(Ability ability)

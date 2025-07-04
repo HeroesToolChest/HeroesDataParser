@@ -111,23 +111,7 @@ public class AbilityTalentParserBase : ParserBase
         }
 
         if (buttonDataValues.TryGetElementDataAt("TooltipCooldownOverrideText", out StormElementData? tooltipCooldownOverrideTextData))
-        {
-            string? cooldownText = TooltipDescriptionService.GetStormGameString(tooltipCooldownOverrideTextData.Value.GetString());
-            if (!string.IsNullOrEmpty(cooldownText))
-            {
-                string? defaultCooldownText = TooltipDescriptionService.GetStormGameString(GameStringConstants.StringCooldownColon);
-
-                if (!string.IsNullOrEmpty(defaultCooldownText))
-                {
-                    TooltipDescription cooldownTooltip = TooltipDescriptionService.GetTooltipDescription(cooldownText);
-
-                    if (!cooldownTooltip.PlainText.StartsWith(defaultCooldownText, StringComparison.OrdinalIgnoreCase))
-                        abilityTalent.CooldownText = TooltipDescriptionService.GetTooltipDescriptionFromGameString($"{defaultCooldownText}{cooldownText}");
-                    else
-                        abilityTalent.CooldownText = cooldownTooltip;
-                }
-            }
-        }
+            SetTooltipCooldownOverrideText(abilityTalent, tooltipCooldownOverrideTextData);
 
         if (buttonDataValues.TryGetElementDataAt("TooltipFlags", out StormElementData? tooltipFlagsData))
         {
@@ -209,6 +193,9 @@ public class AbilityTalentParserBase : ParserBase
             else if (hdpIsActiveData.Value.GetInt() == 0)
                 abilityTalent.IsActive = false;
         }
+
+        if (buttonDataValues.TryGetElementDataAt(HdpParentLinkName, out StormElementData? hdpParentLinkNameData))
+            SetHdpParentLink(abilityTalent, hdpParentLinkNameData);
     }
 
     //protected void SetAbilityData(AbilityTalentBase abilityTalent, string? abilCmdIndex = null)
@@ -266,14 +253,7 @@ public class AbilityTalentParserBase : ParserBase
         }
 
         if (abilityDataValues.TryGetElementDataAt(HdpParentLinkName, out StormElementData? hdpParentLinkNameData))
-        {
-            if (hdpParentLinkNameData.TryGetElementDataAt("elementId", out StormElementData? elementIdData) &&
-                hdpParentLinkNameData.TryGetElementDataAt("buttonElementId", out StormElementData? buttonElementIdData) &&
-                hdpParentLinkNameData.TryGetElementDataAt("abilityType", out StormElementData? abilityTypeData) && Enum.TryParse(abilityTypeData.Value.GetString(), true, out AbilityType abilityType))
-            {
-                abilityTalent.ParentLinkId = new LinkId(elementIdData.Value.GetString(), buttonElementIdData.Value.GetString(), abilityType);
-            }
-        }
+            SetHdpParentLink(abilityTalent, hdpParentLinkNameData);
 
         if (abilityDataValues.TryGetElementDataAt("Flags", out StormElementData? flagsData))
         {
@@ -291,6 +271,16 @@ public class AbilityTalentParserBase : ParserBase
             {
                 SetCmdButtonArrayData(abilityTalent, executeData);
             }
+        }
+    }
+
+    private static void SetHdpParentLink(AbilityTalentBase abilityTalent, StormElementData hdpParentLinkNameData)
+    {
+        if (hdpParentLinkNameData.TryGetElementDataAt("elementId", out StormElementData? elementIdData) &&
+            hdpParentLinkNameData.TryGetElementDataAt("buttonElementId", out StormElementData? buttonElementIdData) &&
+            hdpParentLinkNameData.TryGetElementDataAt("abilityType", out StormElementData? abilityTypeData) && Enum.TryParse(abilityTypeData.Value.GetString(), true, out AbilityType abilityType))
+        {
+            abilityTalent.ParentLinkId = new LinkId(elementIdData.Value.GetString(), buttonElementIdData.Value.GetString(), abilityType);
         }
     }
 
@@ -465,14 +455,7 @@ public class AbilityTalentParserBase : ParserBase
         if (cmdButtonArrayElementData.TryGetElementDataAt(HdpParentLinkName, out StormElementData? hdpParentLinkNameIndexData))
         {
             if (hdpParentLinkNameIndexData.TryGetElementDataAt("0", out StormElementData? hdpParentLinkNameData))
-            {
-                if (hdpParentLinkNameData.TryGetElementDataAt("elementId", out StormElementData? elementIdData) &&
-                    hdpParentLinkNameData.TryGetElementDataAt("buttonElementId", out StormElementData? buttonElementIdData) &&
-                    hdpParentLinkNameData.TryGetElementDataAt("abilityType", out StormElementData? abilityTypeData) && Enum.TryParse(abilityTypeData.Value.GetString(), true, out AbilityType abilityType))
-                {
-                    abilityTalent.ParentLinkId = new LinkId(elementIdData.Value.GetString(), buttonElementIdData.Value.GetString(), abilityType);
-                }
-            }
+                SetHdpParentLink(abilityTalent, hdpParentLinkNameData);
         }
 
         SetButtonData(abilityTalent);
@@ -571,6 +554,28 @@ public class AbilityTalentParserBase : ParserBase
                 string valueValue = combineArrayData.GetElementDataAt(combineIndex).Value.GetString();
 
                 ProcessValidatorData(abilityTalent, valueValue);
+            }
+        }
+    }
+
+    private void SetTooltipCooldownOverrideText(AbilityTalentBase abilityTalent, StormElementData tooltipCooldownOverrideTextData)
+    {
+        if (abilityTalent is Talent && (string.IsNullOrEmpty(abilityTalent.AbilityElementId) || abilityTalent.AbilityElementId == PassiveAbilityElementId))
+            return; // if a talent has no ability element id or is passive, then we don't set the cooldown text
+
+        string? cooldownText = TooltipDescriptionService.GetStormGameString(tooltipCooldownOverrideTextData.Value.GetString());
+        if (!string.IsNullOrEmpty(cooldownText))
+        {
+            string? defaultCooldownText = TooltipDescriptionService.GetStormGameString(GameStringConstants.StringCooldownColon);
+
+            if (!string.IsNullOrEmpty(defaultCooldownText))
+            {
+                TooltipDescription cooldownTooltip = TooltipDescriptionService.GetTooltipDescription(cooldownText);
+
+                if (!cooldownTooltip.PlainText.StartsWith(defaultCooldownText, StringComparison.OrdinalIgnoreCase))
+                    abilityTalent.CooldownText = TooltipDescriptionService.GetTooltipDescriptionFromGameString($"{defaultCooldownText}{cooldownText}");
+                else
+                    abilityTalent.CooldownText = cooldownTooltip;
             }
         }
     }
