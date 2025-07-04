@@ -390,7 +390,7 @@ namespace HeroesData.Parser.GameStrings
 
                 if (!string.IsNullOrEmpty(hexValue))
                 {
-                    tooltip = tooltip.Replace(valueMatch[0].Value, $"\"{hexValue}\" name={valueMatch[0].Value}", StringComparison.OrdinalIgnoreCase);
+                    tooltip = tooltip.Replace(valueMatch[0].Value, $"\"{hexValue}\" hlt-name={valueMatch[0].Value}", StringComparison.OrdinalIgnoreCase);
                 }
             }
 
