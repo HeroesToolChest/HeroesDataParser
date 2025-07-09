@@ -238,4 +238,9 @@
   <CBehaviorAbility id="DeathwingFormSwitchAbility">
     <Buttons Face="DeathwingFormSwitch" Type="AbilCmd" AbilCmd="DeathwingFormSwitch,Execute" />
   </CBehaviorAbility>
+  <CBehaviorAbility id="NecromancerBoneArmor">
+    <Buttons Face="NecromancerBoneArmor" Type="AbilCmd" AbilCmd="NecromancerBoneArmor,Execute" ShowValidator="DoesNotHaveNecromancerBoneArmorTalentsOrHasBoneArmorShadeTalent" />
+    <Buttons Face="NecromancerBoneArmorAbilBacklash" Type="AbilCmd" AbilCmd="NecromancerBoneArmor,Execute" ShowValidator="HasNecromancerTalentBacklash" />
+    <Buttons Face="NecromancerBoneArmorAbilShackler" Type="AbilCmd" AbilCmd="NecromancerBoneArmor,Execute" ShowValidator="HasNecromancerTalentShackler" />
+  </CBehaviorAbility>
 </Behavior>

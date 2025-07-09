@@ -61,10 +61,10 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         }
     }
 
-    private static void ProcessAbility(Unit elementObject, Ability ability, List<Ability> abilitesWithParentAbils)
+    private static void ProcessAbility(Unit elementObject, Ability ability, List<Ability> abilitiesWithParentAbils)
     {
         if (!string.IsNullOrEmpty(ability.ParentAbilityElementId) || ability.ParentLinkId is not null)
-            abilitesWithParentAbils.Add(ability);
+            abilitiesWithParentAbils.Add(ability);
         else
             elementObject.AddAbility(ability);
 
@@ -441,13 +441,18 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         {
             if (behaviorStormElement.DataValues.TryGetElementDataAt("buttons", out StormElementData? buttonsData))
             {
-                Ability? behaviorAbility = _abilityParser.GetBehaviorAbility(buttonsData);
-                if (behaviorAbility is null)
-                    continue;
+                IEnumerable<string> buttonIndexes = buttonsData.GetElementDataIndexes();
 
-                abilityIdChecklist.Remove(behaviorAbility.AbilityElementId);
+                foreach (string buttonIndex in buttonIndexes)
+                {
+                    Ability? behaviorAbility = _abilityParser.GetBehaviorAbility(buttonsData.GetElementDataAt(buttonIndex));
+                    if (behaviorAbility is null)
+                        continue;
 
-                ProcessAbility(elementObject, behaviorAbility, abilitiesWithParentAbils);
+                    abilityIdChecklist.Remove(behaviorAbility.AbilityElementId);
+
+                    ProcessAbility(elementObject, behaviorAbility, abilitiesWithParentAbils);
+                }
             }
         }
 

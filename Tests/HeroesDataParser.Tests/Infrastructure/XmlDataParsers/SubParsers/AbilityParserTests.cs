@@ -1042,7 +1042,7 @@ public class AbilityParserTests
         AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
-        Ability? ability = abilityParser.GetBehaviorAbility(behaviorElement.DataValues.GetElementDataAt("buttons"));
+        Ability? ability = abilityParser.GetBehaviorAbility(behaviorElement.DataValues.GetElementDataAt("buttons")["0"]);
 
         // assert
         ability.Should().NotBeNull();

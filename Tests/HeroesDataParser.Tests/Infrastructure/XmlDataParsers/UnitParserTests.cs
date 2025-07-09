@@ -395,7 +395,7 @@ public class UnitParserTests
 
         UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
 
-        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons")).Returns(new Ability()
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[0]")).Returns(new Ability()
         {
             AbilityElementId = "Test",
             ButtonElementId = "Test",
@@ -434,7 +434,7 @@ public class UnitParserTests
             },
         };
 
-        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons")).Returns(new Ability()
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[0]")).Returns(new Ability()
         {
             AbilityElementId = "DeathwingFormSwitch",
             ButtonElementId = "DeathwingFormSwitch",
@@ -531,5 +531,52 @@ public class UnitParserTests
         unit.Should().NotBeNull();
         unit.Abilities[AbilityTier.Trait][0].LinkId.ToString().Should().Be(":PASSIVE:|FenixShieldCapacitor|Trait");
         unit.SubAbilities[new LinkId(":PASSIVE:", "FenixShieldCapacitor", AbilityType.Trait)][AbilityTier.Trait][0].LinkId.ToString().Should().Be("FenixShieldCapacitorVisual|FenixShieldCapacitor|Trait");
+    }
+
+    [TestMethod]
+    public void Parse_BehaviorAbilities_ReturnsBehaviorAbilities()
+    {
+        // arrange
+        string unitId = "HeroNecromancer";
+
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+
+        Ability necromancerBoneArmorBehaviorAbility = new()
+        {
+            AbilityElementId = "NecromancerBoneArmor",
+            ButtonElementId = "NecromancerBoneArmor",
+            AbilityType = AbilityType.Active,
+            Tier = AbilityTier.Activable,
+        };
+
+        Ability necromancerBoneArmorAbilBacklashBehaviorAbility = new()
+        {
+            AbilityElementId = "NecromancerBoneArmor",
+            ButtonElementId = "NecromancerBoneArmorAbilBacklash",
+            AbilityType = AbilityType.Active,
+            Tier = AbilityTier.Activable,
+        };
+
+        Ability necromancerBoneArmorAbilShacklerAbility = new()
+        {
+            AbilityElementId = "NecromancerBoneArmor",
+            ButtonElementId = "NecromancerBoneArmorAbilShackler",
+            AbilityType = AbilityType.Active,
+            Tier = AbilityTier.Activable,
+        };
+
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[0]")).Returns(necromancerBoneArmorBehaviorAbility);
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[1]")).Returns(necromancerBoneArmorAbilBacklashBehaviorAbility);
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[2]")).Returns(necromancerBoneArmorAbilShacklerAbility);
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        unit.Abilities[AbilityTier.Activable].Should().HaveCount(3);
+        unit.Abilities[AbilityTier.Activable][0].LinkId.ToString().Should().Be("NecromancerBoneArmor|NecromancerBoneArmor|Active");
+        unit.Abilities[AbilityTier.Activable][1].LinkId.ToString().Should().Be("NecromancerBoneArmor|NecromancerBoneArmorAbilBacklash|Active");
+        unit.Abilities[AbilityTier.Activable][2].LinkId.ToString().Should().Be("NecromancerBoneArmor|NecromancerBoneArmorAbilShackler|Active");
     }
 }

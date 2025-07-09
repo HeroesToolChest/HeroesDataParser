@@ -1682,4 +1682,46 @@
     <HeroPlaystyleFlags index="RoleSupport" value="1" />
     <HeroPlaystyleFlags index="SelfHealer" value="1" />
   </CUnit>
+  <CUnit id="HeroNecromancer" parent="StormHeroMounted">
+    <LifeStart value="2080" />
+    <LifeMax value="2080" />
+    <LifeRegenRate value="4.332" />
+    <Radius value="0.6875" />
+    <InnerRadius value="0.6875" />
+    <AbilArray Link="NecromancerSpectralScythe" />
+    <AbilArray Link="NecromancerBonePrison" />
+    <AbilArray Link="NecromancerPoisonNovaInstant" />
+    <AbilArray Link="NecromancerCursedStrikes" />
+    <AbilArray Link="NecromancerSkeletalMages" />
+    <AbilArray Link="NecromancerRaiseSkeletonDisplayAbility" />
+    <AbilArray Link="NecromancerCursedStrikesDisplayAbility" />
+    <WeaponArray Link="NecromancerCursedStrikesWeapon" />
+    <WeaponArray Link="NecromancerHeroWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="NecromancerSkeletalMages" Type="AbilCmd" AbilCmd="NecromancerSkeletalMages,Execute" Slot="Heroic" />
+      <LayoutButtons Face="NecromancerPoisonNova" Type="AbilCmd" AbilCmd="NecromancerPoisonNovaInstant,Execute" Slot="Heroic" />
+      <LayoutButtons Face="NecromancerSpectralScythe" Type="AbilCmd" AbilCmd="NecromancerSpectralScythe,Execute" Slot="Ability1" />
+      <LayoutButtons Face="NecromancerSpectralScythe" Type="Passive" Requirements="NecromancerHasSpectralScytheActivePassiveUseDisallow" Slot="Ability1" />
+      <LayoutButtons Face="NecromancerBonePrison" Type="AbilCmd" AbilCmd="NecromancerBonePrison,Execute" Slot="Ability3" />
+      <LayoutButtons Face="NecromancerCursedStrikesPassive" Type="Passive" AbilCmd="NecromancerCursedStrikesDisplayAbility,Execute" Requirements="NecromancerHasCursedStrikesPrimed" Slot="Ability2" />
+      <LayoutButtons Face="NecromancerCursedStrikes" Type="AbilCmd" AbilCmd="NecromancerCursedStrikes,Execute" Slot="Ability2" />
+      <LayoutButtons Face="NecromancerRaiseSkeleton" Type="AbilCmd" AbilCmd="NecromancerRaiseSkeletonDisplayAbility,Execute" Slot="Trait" />
+    </CardLayouts>
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="RaiseSkeletonMaxCountController" />
+    <BehaviorArray Link="NecromancerBoneArmor" />
+    <BehaviorArray Link="NecromancerRaiseSkeletonTracker" />
+    <BehaviorArray Link="NecromancerBonePrisonTracker" />
+    <BehaviorArray Link="NecromancerRaiseSkeletonAllSpawnTypesUnitTracker" />
+    <AIThinkTree value="AI/Necromancer.aitree" />
+    <InitializerFunction value="libGDHL_gf_HeroNecromancerIncrementHeroCountFunction" />
+    <DestructionFunction value="libGDHL_gf_HeroNecromancerDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleSpecialist" value="1" />
+    <HeroPlaystyleFlags index="SoloLaner" value="1" />
+    <HeroPlaystyleFlags index="TowerPusher" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+  </CUnit>
 </Unit> 

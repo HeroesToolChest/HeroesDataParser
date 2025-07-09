@@ -459,4 +459,20 @@
   <CButton id="MonkIronFists" parent="StormButtonParentTrait">
     <hdp-ParentLink elementId=":PASSIVE:" buttonElementId="MonkBlankTrait" abilityType="Trait" />
   </CButton>
+  <CButton id="NecromancerBoneArmor" parent="StormButtonParent">
+    <TooltipAppender Validator="HasNecromancerTalentShade" Face="NecromancerBoneArmorShade" />
+    <TooltipAppender Validator="HasNecromancerTalentBacklash" Face="NecromancerBoneArmorBacklash" />
+    <TooltipAppender Validator="HasNecromancerTalentShackler" Face="NecromancerBoneArmorShackler" />
+    <TooltipAppender Validator="HasNecromancerTalentBoneArmorWallOfBones" Face="NecromancerWallOfBonesBoneArmorTalent" />
+    <TooltipCooldownOverrideText value="Necromancer/BoneArmor/CooldownOverride" />
+    <Icon value="Assets\Textures\storm_ui_icon_Necromancer_BoneArmor.dds" />
+  </CButton>
+  <CButton id="NecromancerBoneArmorAbilBacklash" parent="NecromancerBoneArmor">
+    <Icon value="Assets\Textures\storm_ui_icon_Necromancer_BoneArmor_B.dds" />
+    <TooltipCooldownOverrideText value="" />
+  </CButton>
+  <CButton id="NecromancerBoneArmorAbilShackler" parent="NecromancerBoneArmor">
+    <Icon value="Assets\Textures\storm_ui_icon_Necromancer_BoneArmor_C.dds" />
+    <TooltipCooldownOverrideText value="" />
+  </CButton>
 </Button>

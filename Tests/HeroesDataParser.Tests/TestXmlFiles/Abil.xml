@@ -931,4 +931,17 @@
     </Cost>
     <CmdButtonArray index="Execute" DefaultButtonFace="MaievUmbralBind" />
   </CAbilEffectInstant>
+  <CAbilEffectInstant id="NecromancerBoneArmor">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="NecromancerBoneArmorCastSet" />
+    <Flags index="BestUnit" value="1" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="30" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="NecromancerBoneArmor">
+      <Flags index="AllowMinimap" value="0" />
+      <Flags index="Continuous" value="0" />
+    </CmdButtonArray>
+  </CAbilEffectInstant>
 </Abil>
