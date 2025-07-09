@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CHero id="Orphea">
+    <!--Set to target portrait instead of heroselect btn-->
+    <Portrait value="Assets\Textures\ui_targetportrait_hero_orphea.dds" /> <!--Assets\Textures\storm_ui_ingame_heroselect_btn_orphea.dds-->
+  </CHero>
+  <CAbilEffectInstant id="OrpheaOverflowingChaosInvasiveMiasma">
+    <ParentAbil value="OrpheaInvasiveMiasma" />
+  </CAbilEffectInstant>
+</Catalog>

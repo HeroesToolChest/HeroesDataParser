@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CButton id="RagnarosEmpowerSulfurasActive" parent="StormButtonParent">
+    <hdp-ParentAbil value="RagnarosEmpowerSulfuras" />
+  </CButton>
+  <CAbilEffectTarget id="RagnarosLivingMeteorShiftingMeteor">
+    <ParentAbil value="RagnarosLivingMeteorShiftingMeteor" />
+  </CAbilEffectTarget>
+  <CButton id="RagnarosBigRagCancelReturnMoltenCore">
+    <hdp-ParentAbil value="RagnarosBigRagReturnMoltenCore" />
+  </CButton>
+  <CAbilEffectTarget id="RagnarosBigRagSulfurasSmash">
+    <!--clear parent abil so it appears a baseline ability-->
+    <ParentAbil value="" />
+  </CAbilEffectTarget>
+</Catalog>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroNecromancer" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <LayoutButtons index="28" Slot="Hidden" /> <!--Face="NecromancerSpectralScythe" Type="Passive" Requirements="NecromancerHasSpectralScytheActivePassiveUseDisallow"-->
+    </CardLayouts>
+  </CUnit>
+  <CButton id="NecromancerCursedStrikesPassive" parent="StormButtonParent">
+    <hdp-ParentAbil value="NecromancerCursedStrikes" />
+  </CButton>
+  <CButton id="NecromancerBoneArmorAbilBacklash" parent="NecromancerBoneArmor">
+    <hdp-ParentAbil value="NecromancerTalentBoneArmorBacklash" />
+  </CButton>
+  <CButton id="NecromancerBoneArmorAbilShackler" parent="NecromancerBoneArmor">
+    <hdp-ParentAbil value="NecromancerTalentBoneArmorShackler" />
+  </CButton>
+</Catalog>
