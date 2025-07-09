@@ -53,7 +53,8 @@
           "FallOfKingsCrest",
           "GreymaneWorgen",
           "InvisibleHero",
-          "LegacyVOHero"
+          "LegacyVOHero",
+          "Random"
         ],
         "Regex": [
           "\\b\\w*Event\\b" // exclude all heroes ending with 'Event'
