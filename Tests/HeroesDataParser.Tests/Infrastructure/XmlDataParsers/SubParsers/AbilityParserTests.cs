@@ -578,6 +578,26 @@ public class AbilityParserTests
     }
 
     [TestMethod]
+    public void GetAbility_AlarakCounterStrikeTargeted2ndHeroicCommand_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroAlarak";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("34");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("AlarakCounterStrikeTargeted2ndHeroic|AlarakCounterStrike2ndHeroicSadism|Trait");
+        ability.ParentTalentElementId.Should().Be("AlarakCounterStrikeItem");
+    }
+
+    [TestMethod]
     public void GetAbility_AlarakLightningSurgeLightningBarrageAbil_ReturnsAbility()
     {
         // arrange
@@ -1095,7 +1115,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_AbilityWithCustomParentLink_ReturnsAbility()
+    public void GetAbility_AbilityWithCustomAbilityParentLink_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroFenix";
@@ -1111,7 +1131,7 @@ public class AbilityParserTests
         // assert
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be("FenixShieldCapacitorVisual|FenixShieldCapacitor|Trait");
-        ability.ParentLinkId!.ToString().Should().Be(":PASSIVE:|FenixShieldCapacitor|Trait");
+        ability.ParentAbilityLinkId!.ToString().Should().Be(":PASSIVE:|FenixShieldCapacitor|Trait");
     }
 
     [TestMethod]
@@ -1168,7 +1188,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.ParentLinkId!.ToString().Should().Be(":PASSIVE:|JainaTraitFrostbite|Trait");
+        ability.ParentAbilityLinkId!.ToString().Should().Be(":PASSIVE:|JainaTraitFrostbite|Trait");
     }
 
     [TestMethod]
@@ -1252,7 +1272,7 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetAbility_ButtonWithHdpParentLink_ReturnsAbility()
+    public void GetAbility_ButtonWithHdpAbilityParentLink_ReturnsAbility()
     {
         // arrange
         string heroUnit = "HeroMonk";
@@ -1268,7 +1288,7 @@ public class AbilityParserTests
         // assert
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be(":PASSIVE:|MonkIronFists|Trait");
-        ability.ParentLinkId!.ToString().Should().Be(":PASSIVE:|MonkBlankTrait|Trait");
+        ability.ParentAbilityLinkId!.ToString().Should().Be(":PASSIVE:|MonkBlankTrait|Trait");
     }
 
     private static void AssertAbathurSymbioteAbility(Ability ability)

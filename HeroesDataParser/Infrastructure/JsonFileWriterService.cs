@@ -34,8 +34,8 @@ public class JsonFileWriterService : IJsonFileWriterService
                 new JsonStringEnumConverter(),
                 new DoubleRoundingConverter(),
                 new LinkIdConverter(),
+                new AbilityLinkIdConverter(),
                 new TalentLinkIdConverter(),
-                new LinkIdConverter(),
                 new TooltipDescriptionWriteConverter(_options.DescriptionText),
             },
             TypeInfoResolver = new HeroesElementResolver()

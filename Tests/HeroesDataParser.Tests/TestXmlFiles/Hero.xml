@@ -1486,50 +1486,6 @@
     <DisplayModel value="HeroGarroshCommon" />
     <RolesMultiClass value="Warrior" />
     <Melee value="1" />
-    <HeroAbilArray Abil="GarroshGroundbreaker" Button="GarroshGroundbreaker">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="GarroshBloodthirst" Button="GarroshBloodthirst">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="UsesCharges" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="GarroshWreckingBall" Button="GarroshWreckingBall">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="GarroshWreckingBallIntotheFray" Button="GarroshWreckingBallIntotheFray">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="ShowInQuickCastSetting" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="GarroshWarlordsChallenge" Button="GarroshWarlordsChallenge">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="Heroic" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="GarroshDecimate" Button="GarroshDecimate">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-      <Flags index="Heroic" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Button="GarroshArmorUp">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="Trait" value="1" />
-      <Flags index="HideHotkey" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="GarroshArmorUpDoubleUp" Button="GarroshArmorUpDoubleUp">
-      <Flags index="ShowInQuickCastSetting" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="Trait" value="1" />
-    </HeroAbilArray>
     <SkinArray value="GarroshRoad" />
     <SkinArray value="GarroshSummer18" />
     <SkinArray value="GarroshWCAV" />
@@ -1708,60 +1664,6 @@
     <ExpandedRole value="Tank" />
     <ReleaseDate Month="8" Day="8" Year="2017" />
     <Rarity value="Legendary" />
-    <TalentAIBuildsArray ChanceToPick="16">
-      <TalentsArray value="GarroshGroundbreakerWarbreaker" />
-      <TalentsArray value="GarroshBloodthirstThirstforBattle" />
-      <TalentsArray value="GarroshGroundbreakerIntimidation" />
-      <TalentsArray value="GarroshHeroicAbilityDecimate" />
-      <TalentsArray value="GarroshGroundbreakerDefensiveMeasures" />
-      <TalentsArray value="GarroshArmorUpSeasonedSoldier" />
-      <TalentsArray value="GarroshDecimateDeadlyCalm" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray ChanceToPick="16">
-      <TalentsArray value="GarroshWreckingBallUnrivaledStrength" />
-      <TalentsArray value="GarroshIndomitable" />
-      <TalentsArray value="GarroshIntotheFrayLoktarOgar" />
-      <TalentsArray value="GarroshHeroicAbilityWarlordsChallenge" />
-      <TalentsArray value="GarroshArmorUpDoubleUp" />
-      <TalentsArray value="GarroshWreckingBallEarthshaker" />
-      <TalentsArray value="GarroshWreckingBallTitanicMight" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray ChanceToPick="16">
-      <TalentsArray value="GarroshArmorUpBodyCheck" />
-      <TalentsArray value="GarroshBloodthirstThirstforBattle" />
-      <TalentsArray value="GarroshOppressor" />
-      <TalentsArray value="GarroshHeroicAbilityDecimate" />
-      <TalentsArray value="GarroshBloodthirstBloodcraze" />
-      <TalentsArray value="GarroshGroundbreakerMortalCombo" />
-      <TalentsArray value="GarroshArmorUpInnerRage" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray ChanceToPick="16">
-      <TalentsArray value="GarroshWreckingBallUnrivaledStrength" />
-      <TalentsArray value="GarroshBloodthirstThirstforBattle" />
-      <TalentsArray value="GarroshOppressor" />
-      <TalentsArray value="GarroshHeroicAbilityWarlordsChallenge" />
-      <TalentsArray value="GarroshBloodthirstBloodcraze" />
-      <TalentsArray value="GarroshGroundbreakerMortalCombo" />
-      <TalentsArray value="GarroshWarlordsChallengeDeathWish" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
-      <TalentsArray value="GarroshGroundbreakerWarbreaker" />
-      <TalentsArray value="GarroshIndomitable" />
-      <TalentsArray value="GarroshOppressor" />
-      <TalentsArray value="GarroshHeroicAbilityDecimate" />
-      <TalentsArray value="GarroshGroundbreakerDefensiveMeasures" />
-      <TalentsArray value="GarroshArmorUpSeasonedSoldier" />
-      <TalentsArray value="GarroshDecimateDeadlyCalm" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
-      <TalentsArray value="GarroshWreckingBallUnrivaledStrength" />
-      <TalentsArray value="GarroshBloodthirstThirstforBattle" />
-      <TalentsArray value="GarroshGroundbreakerIntimidation" />
-      <TalentsArray value="GarroshHeroicAbilityWarlordsChallenge" />
-      <TalentsArray value="GarroshBloodthirstBloodcraze" />
-      <TalentsArray value="GarroshWreckingBallEarthshaker" />
-      <TalentsArray value="GarroshWarlordsChallengeDeathWish" />
-    </TalentAIBuildsArray>
   </CHero>
   <CHero id="Barbarian" parent="LegacyVOHero">
     <AIComplexityTier value="Mid" />
@@ -1814,76 +1716,6 @@
     </TalentTreeArray>
     <TalentTreeArray Talent="BarbarianCompositeSpear" Tier="7" Column="3" />
     <TalentTreeArray Talent="BarbarianIgnorePain" Tier="7" Column="4" />
-    <TalentAIBuildsArray ChanceToPick="16">
-      <TalentsArray value="BarbarianWarPaint" />
-      <TalentsArray value="BarbarianHurricane" />
-      <TalentsArray value="BarbarianPoisonedSpear" />
-      <TalentsArray value="BarbarianHeroicAbilityWrathoftheBerserker" />
-      <TalentsArray value="BarbarianMysticalSpear" />
-      <TalentsArray value="BarbarianNervesOfSteel" />
-      <TalentsArray value="BarbarianIgnorePain" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray ChanceToPick="16">
-      <TalentsArray value="BarbarianFuriousBlow" />
-      <TalentsArray value="BarbarianShatteredGround" />
-      <TalentsArray value="BarbarianLifeFunnel" />
-      <TalentsArray value="BarbarianHeroicAbilityWrathoftheBerserker" />
-      <TalentsArray value="BarbarianMysticalSpear" />
-      <TalentsArray value="BarbarianGiantSlammer" />
-      <TalentsArray value="BarbarianIgnorePain" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray ChanceToPick="16">
-      <TalentsArray value="BarbarianToughAsNails" />
-      <TalentsArray value="BarbarianShatteredGround" />
-      <TalentsArray value="BarbarianLifeFunnel" />
-      <TalentsArray value="BarbarianHeroicAbilityLeap" />
-      <TalentsArray value="BarbarianRuthless" />
-      <TalentsArray value="BarbarianNervesOfSteel" />
-      <TalentsArray value="BarbarianIgnorePain" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray ChanceToPick="16">
-      <TalentsArray value="BarbarianWarPaint" />
-      <TalentsArray value="BarbarianHurricane" />
-      <TalentsArray value="BarbarianPoisonedSpear" />
-      <TalentsArray value="BarbarianHeroicAbilityLeap" />
-      <TalentsArray value="BarbarianMysticalSpear" />
-      <TalentsArray value="BarbarianRampage" />
-      <TalentsArray value="BarbarianIgnorePain" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
-      <TalentsArray value="BarbarianToughAsNails" />
-      <TalentsArray value="BarbarianHurricane" />
-      <TalentsArray value="BarbarianLifeFunnel" />
-      <TalentsArray value="BarbarianHeroicAbilityLeap" />
-      <TalentsArray value="BarbarianNoEscape" />
-      <TalentsArray value="BarbarianRampage" />
-      <TalentsArray value="BarbarianCompositeSpear" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
-      <TalentsArray value="BarbarianFuriousBlow" />
-      <TalentsArray value="BarbarianHurricane" />
-      <TalentsArray value="BarbarianBattleRage" />
-      <TalentsArray value="BarbarianHeroicAbilityWrathoftheBerserker" />
-      <TalentsArray value="BarbarianRuthless" />
-      <TalentsArray value="BarbarianRampage" />
-      <TalentsArray value="BarbarianStridingGiant" />
-    </TalentAIBuildsArray>
-    <VOArray index="Cheer" value="Barbarian_VOX_Cheer" />
-    <VOArray index="MatchEnd" value="Barbarian_MatchEnd" />
-    <VOArray index="PingCapture" value="Barbarian_Ping_Capture" />
-    <VOArray index="PingCollect" value="Barbarian_Ping_Collect" />
-    <VOArray index="PingDefendStructure" value="Barbarian_Ping_DefendStructure" />
-    <VOArray index="PingDefendThing" value="Barbarian_Ping_DefendThing" />
-    <VOArray index="PingDestroyStructure" value="Barbarian_Ping_DestroyStructure" />
-    <VOArray index="PingDestroyThing" value="Barbarian_Ping_DestroyThing" />
-    <VOArray index="PingTransport" value="Barbarian_Ping_Transport" />
-    <VOArray index="PingTurnIn" value="Barbarian_Ping_TurnIn" />
-    <VOArray index="VOPing_AssistMe" value="Barbarian_VOPing_AssistMe" />
-    <VOArray index="VOPing_Danger" value="Barbarian_VOPing_Danger" />
-    <VOArray index="VOPing_Defend" value="Barbarian_VOPing_Defend" />
-    <VOArray index="VOPing_EnemyMissing" value="Barbarian_VOPing_EnemyMissing" />
-    <VOArray index="VOPing_OnMyWay" value="Barbarian_VOPing_OnMyWay" />
-    <VOArray index="VOPing_Retreat" value="Barbarian_VOPing_Retreat" />
     <Difficulty value="Medium" />
     <HeroTierAchievementId value="5216701565563773679" />
     <Gender value="Female" />
@@ -2006,36 +1838,6 @@
         <AffectedByOverdrive value="1" />
       </Modifications>
     </LevelScalingArray>
-    <HeroAbilArray Abil="BarbarianAncientSpear" Button="BarbarianAncientSpear">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="BarbarianSeismicSlam" Button="BarbarianSeismicSlam">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="BarbarianWhirlwind" Button="BarbarianWhirlwind">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="BarbarianLeap" Button="BarbarianLeap">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="Heroic" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="BarbarianWrathoftheBerserker" Button="BarbarianWrathoftheBerserker">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="Heroic" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Button="BarbarianFury">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="Trait" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="BarbarianShotofFury">
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="Trait" value="1" />
-    </HeroAbilArray>
     <AllowedMountCategoryArray value="Ride" />
     <AllowedMountCategoryArray value="Ridebeast" />
     <AllowedMountCategoryArray value="Ridebike" />
@@ -2053,9 +1855,6 @@
     <VoiceLineArray value="BarbarianBase_VoiceLine03" />
     <VoiceLineArray value="BarbarianBase_VoiceLine04" />
     <VoiceLineArray value="BarbarianBase_VoiceLine05" />
-    <HeroSpecificUIArray Location="ConsoleUICommandCardStatus" DescName="Sonya/BarbarianCommandCardFrame" />
-    <HeroSpecificUIArray Location="CommandButton05Status" DescName="Sonya/BarbarianFuryButtonOverride" />
-    <HeroSpecificUIArray Location="FullscreenStatus" DescName="Sonya/BarbarianWrathoftheBerserkerDuration" />
     <Rarity value="Epic" />
     <ReleaseDate Month="3" Day="13" />
     <ExpandedRole value="Bruiser" />
@@ -4477,5 +4276,488 @@
     </TalentTreeArray>
     <TalentTreeArray Talent="MeiOWTheBigOne" Tier="7" Column="3" />
     <TalentTreeArray Talent="MeiOWFlashFreeze" Tier="7" Column="4" />
+  </CHero>
+  <CHero id="Ragnaros">
+    <AIComplexityTier value="Mid" />
+    <AttributeId value="Ragn" />
+    <Flags index="GoodForModeA" value="1" />
+    <Flags index="GoodForModeB" value="1" />
+    <AlternateUnitArray value="RagnarosBigRag" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <Melee value="1" />
+    <Portrait value="Assets\Textures\ui_targetportrait_hero_ragnaros.dds" />
+    <SkinArray value="RagnarosUltimate" />
+    <SkinArray value="RagnarosLil" />
+    <DefaultMount value="MountRagnarosWake" />
+    <VOArray index="GluePurchase" value="RagnarosBase_UI_Lockin" />
+    <TalentTreeArray Talent="RagnarosEmpowerSulfurasSulfurasHungers" Tier="1" Column="1" />
+    <TalentTreeArray Talent="RagnarosLivingMeteorShiftingMeteor" Tier="1" Column="2" />
+    <TalentTreeArray Talent="RagnarosBlastWaveEngulfingFlame" Tier="1" Column="3" />
+    <TalentTreeArray Talent="RagnarosLivingMeteorFireWard" Tier="2" Column="1" />
+    <TalentTreeArray Talent="RagnarosBlastWaveSlowBurn" Tier="2" Column="2" />
+    <TalentTreeArray Talent="RagnarosCatchingFire" Tier="2" Column="3" />
+    <TalentTreeArray Talent="RagnarosEmpowerSulfurasHandOfRagnaros" Tier="3" Column="1" />
+    <TalentTreeArray Talent="RagnarosLivingMeteorMoltenPower" Tier="3" Column="2" />
+    <TalentTreeArray Talent="RagnarosBlisteringAttacks" Tier="3" Column="3" />
+    <TalentTreeArray Talent="RagnarosSulfurasSmash" Tier="4" Column="1" />
+    <TalentTreeArray Talent="RagnarosLavaWave" Tier="4" Column="2" />
+    <TalentTreeArray Talent="RagnarosEmpowerSulfurasCauterizeWounds" Tier="5" Column="1" />
+    <TalentTreeArray Talent="RagnarosBlastWaveTemperedFlame" Tier="5" Column="2" />
+    <TalentTreeArray Talent="RagnarosResilientFlame" Tier="5" Column="3" />
+    <TalentTreeArray Talent="RagnarosEmpowerSulfurasGiantScorcher" Tier="6" Column="1" />
+    <TalentTreeArray Talent="RagnarosLivingMeteorMeteorBomb" Tier="6" Column="2" />
+    <TalentTreeArray Talent="RagnarosBlastWaveBlastEcho" Tier="6" Column="3" />
+    <TalentTreeArray Talent="RagnarosSulfurasSmashFlamesOfSulfuron" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="RagnarosSulfurasSmash" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="RagnarosLavaWaveLavaSurge" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="RagnarosLavaWave" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="RagnarosMoltenCoreHeroicDifficulty" Tier="7" Column="3" />
+    <TalentTreeArray Talent="RagnarosSubmerge" Tier="7" Column="4" />
+    <VariationIcon value="Assets\Textures\ui_glues_swatch_orange.dds" />
+    <Difficulty value="Medium" />
+    <Universe value="Warcraft" />
+    <UniverseIcon value="Assets\Textures\ui_glues_store_gameicon_wow.dds" />
+    <ProductId value="22675" />
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroRagnaros" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroRagnaros" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroRagnaros" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosWeaponDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="RagnarosEmpowerSulfuras">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosEmpowerSulfurasHeroicSplashDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosEmpowerSulfurasNonHeroicSplashDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="RagnarosLivingMeteor">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosLivingMeteorLandingDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosLivingMeteorPeriodicDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosLivingMeteorMeteorBombDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="RagnarosBlastWave">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosBlastWaveDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosBlastWaveSuperheatedDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Behavior" />
+        <Entry value="RagnarosBlastWaveTemperedFlame" />
+        <Field value="DamageResponse.ModifyLimit" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="RagnarosSulfurasSmash">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosSulfurasSmashDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosSulfurasSmashEpicenterDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="RagnarosLavaWaveTargetPoint">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosLavaWaveDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosLavaWaveHeal" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="RagnarosMoltenCore">
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="RagnarosBigRag" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="RagnarosBigRag" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="RagnarosBigRag" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="RagnarosBigRagMoltenSwing">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosBigRagMoltenSwingDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="RagnarosBigRagMeteorShower">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosBigRagMeteorShowerDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="RagnarosBigRagExplosiveRune">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosBigRagExplosiveRuneDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="RagnarosSubmerge">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="RagnarosSubmergeHeal" />
+        <Field value="RechargeVitalRate" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <VariationArray value="RagnarosBaseVar1" />
+    <VariationArray value="RagnarosBaseVar2" />
+    <ReleaseDate Month="12" Day="14" Year="2016" />
+    <AllowedMountCategoryArray value="MountRagnarosWake" />
+    <Ratings>
+      <Damage value="8" />
+      <Utility value="7" />
+      <Survivability value="8" />
+      <Complexity value="7" />
+    </Ratings>
+    <VoiceLineArray value="RagnarosBase_VoiceLine01" />
+    <VoiceLineArray value="RagnarosBase_VoiceLine02" />
+    <VoiceLineArray value="RagnarosBase_VoiceLine03" />
+    <VoiceLineArray value="RagnarosBase_VoiceLine04" />
+    <VoiceLineArray value="RagnarosBase_VoiceLine05" />
+    <Rarity value="Epic" />
+    <ExpandedRole value="Bruiser" />
+  </CHero>
+  <CHero id="Junkrat">
+    <AIComplexityTier value="Mid" />
+    <AttributeId value="Junk" />
+    <Flags index="GoodForModeA" value="1" />
+    <Role value="Damage" />
+    <RolesMultiClass value="Damage" />
+    <VoiceLineArray value="JunkratBase_VoiceLine01" />
+    <VoiceLineArray value="JunkratBase_VoiceLine02" />
+    <VoiceLineArray value="JunkratBase_VoiceLine03" />
+    <VoiceLineArray value="JunkratBase_VoiceLine04" />
+    <VoiceLineArray value="JunkratBase_VoiceLine05" />
+    <DefaultMount value="HorseCommon" />
+    <TalentTreeArray Talent="JunkratFragLauncherTrickyShuffles" Tier="1" Column="1" />
+    <TalentTreeArray Talent="JunkratFragLauncherExtraWoundTimers" Tier="1" Column="2" />
+    <TalentTreeArray Talent="JunkratConcussionMineBlowEmUp" Tier="1" Column="3" />
+    <TalentTreeArray Talent="JunkratFragLauncherTasteForExplosions" Tier="2" Column="1" />
+    <TalentTreeArray Talent="JunkratConcussionMineBOOMPOW" Tier="2" Column="2" />
+    <TalentTreeArray Talent="JunkratSteelTrapChatteringTeeth" Tier="2" Column="3" />
+    <TalentTreeArray Talent="JunkratConcussionMineBoggedDown" Tier="3" Column="1" />
+    <TalentTreeArray Talent="JunkratSteelTrapStickyWicket" Tier="3" Column="2" />
+    <TalentTreeArray Talent="JunkratTotalMayhemDirtyTricksterTalent" Tier="3" Column="3" />
+    <TalentTreeArray Talent="JunkratRIPTire" Tier="4" Column="1" />
+    <TalentTreeArray Talent="JunkratRocketRide" Tier="4" Column="2" />
+    <TalentTreeArray Talent="JunkratFragLauncherBombsAwayTalent" Tier="5" Column="1" />
+    <TalentTreeArray Talent="JunkratConcussionMineRipperAir" Tier="5" Column="2" />
+    <TalentTreeArray Talent="JunkratSteelTrapGottaTrapEmAll" Tier="5" Column="3" />
+    <TalentTreeArray Talent="JunkratSteelTrapBigAs" Tier="5" Column="4" />
+    <TalentTreeArray Talent="JunkratFragLauncherBurstFire" Tier="6" Column="1" />
+    <TalentTreeArray Talent="JunkratFragLauncherEndlessNades" Tier="6" Column="2" />
+    <TalentTreeArray Talent="JunkratFragLauncherSpreadVolley" Tier="6" Column="3" />
+    <TalentTreeArray Talent="JunkratRIPTireExtraOomph" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="JunkratRIPTire" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="JunkratRocketRidePuckishScamp" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="JunkratRocketRide" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="JunkratFragLauncherCannonball" Tier="7" Column="3" />
+    <TalentTreeArray Talent="JunkratIHateWaitingTalent" Tier="7" Column="4" />
+    <Universe value="Overwatch" />
+    <UniverseIcon value="Assets\Textures\ui_glues_store_gameicon_ow.dds" />
+    <SkinArray value="JunkratFallen" />
+    <SkinArray value="JunkratWCAV" />
+    <SkinArray value="JunkratMobster19" />
+    <ProductId value="27749" />
+    <LevelScalingArray>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroJunkrat" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroJunkrat" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="HeroJunkrat" />
+        <Field value="LifeRegenRate" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratHeroWeaponRangedTargetDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratHeroWeaponRangedExplosionDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratTotalMayhemDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="JunkratFragLauncher">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratFragLauncherExplosionDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="JunkratConcussionMine">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratConcussionMineDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="JunkratConcussionMine" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="JunkratConcussionMine" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="JunkratSteelTrap">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratSteelTrapDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="JunkratSteelTrap" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="JunkratSteelTrap" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="JunkratRIPTire">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratRIPTireDamageNear" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratRIPTireDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Accumulator" />
+        <Entry value="JunkratRIPTireDistanceAccumulator" />
+        <Field value="MinAccumulation" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Accumulator" />
+        <Entry value="JunkratRIPTireDistanceAccumulator" />
+        <Field value="Scale" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="JunkratRIPTire" />
+        <Field value="LifeStart" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+      <Modifications>
+        <Catalog value="Unit" />
+        <Entry value="JunkratRIPTire" />
+        <Field value="LifeMax" />
+        <Value value="0.040000" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <LevelScalingArray Ability="JunkratRocketRide">
+      <Modifications>
+        <Catalog value="Effect" />
+        <Entry value="JunkratRocketRideExplosionDamage" />
+        <Field value="Amount" />
+        <Value value="0.040000" />
+        <AffectedByAbilityPower value="1" />
+        <AffectedByOverdrive value="1" />
+      </Modifications>
+    </LevelScalingArray>
+    <VariationArray value="JunkratBaseVar1" />
+    <VariationArray value="JunkratBaseVar2" />
+    <VariationArray value="JunkratBaseVar3" />
+    <VariationArray value="JunkratBaseVar4" />
+    <AllowedMountCategoryArray value="Ride" />
+    <AllowedMountCategoryArray value="Ridebeast" />
+    <AllowedMountCategoryArray value="Ridebike" />
+    <AllowedMountCategoryArray value="Ridesurf" />
+    <HeroSpecificUIArray Location="Status" DescName="Junkrat/JunkratFrame" />
+    <Difficulty value="Hard" />
+    <Ratings>
+      <Damage value="7" />
+      <Utility value="8" />
+      <Survivability value="5" />
+      <Complexity value="6" />
+    </Ratings>
+    <Rarity value="Legendary" />
+    <ReleaseDate Month="10" Day="17" Year="2017" />
+    <ExpandedRole value="RangedAssassin" />
   </CHero>
 </Hero>

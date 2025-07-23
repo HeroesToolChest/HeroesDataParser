@@ -270,8 +270,8 @@ public class HeroParserTests
             {
                 Unit argUnit = x.Arg<Unit>();
                 argUnit.Id = "HeroAbathur";
-                argUnit.AddAbility(abathurSymbioteAbility);
-                argUnit.AddAbility(envenomedNestAbility);
+                argUnit.AddLayoutAbility(abathurSymbioteAbility);
+                argUnit.AddLayoutAbility(envenomedNestAbility);
                 argUnit.AddAbilityByTooltipTalentElementId("AbathurMasteryPressurizedGlands", abathurSymbioteAbility);
                 argUnit.AddAbilityByTooltipTalentElementId("AbathurMasteryEnvenomedNestsToxicNest", envenomedNestAbility);
             });
@@ -290,6 +290,7 @@ public class HeroParserTests
             Tier = TalentTier.Level1,
             AbilityType = AbilityType.W,
         });
+        _talentParser.GetBehaviorAbilitiesFromTalent(Arg.Any<Talent>()).Returns([]);
 
         // hero unit Symbiote
         Unit abathurSymbioteUnit = new("AbathurSymbiote");
@@ -303,7 +304,7 @@ public class HeroParserTests
         };
         abathurSymbioteAbility.TooltipAppendersTalentElementIds.Add("AbathurMasteryPressurizedGlands");
 
-        abathurSymbioteUnit.AddAbility(abathurSymbioteSpikeBurstAbility);
+        abathurSymbioteUnit.AddLayoutAbility(abathurSymbioteSpikeBurstAbility);
         abathurSymbioteUnit.AddAbilityByTooltipTalentElementId("AbathurMasteryPressurizedGlands", abathurSymbioteSpikeBurstAbility);
 
         _unitParser.Parse("AbathurSymbiote").Returns(abathurSymbioteUnit);
@@ -315,12 +316,12 @@ public class HeroParserTests
         hero.Should().NotBeNull();
         hero.HeroUnits.Should().ContainSingle();
         hero.Talents[TalentTier.Level1].Should().HaveCount(2);
-        hero.Talents[TalentTier.Level1][0].LinkId.ToString().Should().Be("AbathurMasteryPressurizedGlands|AbathurSymbiotePressurizedGlandsTalent|W");
-        hero.Talents[TalentTier.Level1][0].UpgradeLinkIds.Should()
-            .ContainInConsecutiveOrder([new LinkId("AbathurSymbiote", "AbathurSymbiote", AbilityType.Q), new LinkId("AbathurSymbioteSpikeBurst", "AbathurSymbioteSpikeBurst", AbilityType.W)]);
-        hero.Talents[TalentTier.Level1][1].LinkId.ToString().Should().Be("AbathurMasteryEnvenomedNestsToxicNest|AbathurToxicNestEnvenomedNestTalent|W");
-        hero.Talents[TalentTier.Level1][1].UpgradeLinkIds.Should()
-            .ContainInConsecutiveOrder([new LinkId("AbathurToxicNest", "AbathurToxicNest", AbilityType.W)]);
+        hero.Talents[TalentTier.Level1][0].LinkId.ToString().Should().Be("AbathurMasteryPressurizedGlands|AbathurSymbiotePressurizedGlandsTalent|W|Level1");
+        hero.Talents[TalentTier.Level1][0].UpgradeAbilityLinkIds.Should()
+            .ContainInConsecutiveOrder([new AbilityLinkId("AbathurSymbiote", "AbathurSymbiote", AbilityType.Q), new AbilityLinkId("AbathurSymbioteSpikeBurst", "AbathurSymbioteSpikeBurst", AbilityType.W)]);
+        hero.Talents[TalentTier.Level1][1].LinkId.ToString().Should().Be("AbathurMasteryEnvenomedNestsToxicNest|AbathurToxicNestEnvenomedNestTalent|W|Level1");
+        hero.Talents[TalentTier.Level1][1].UpgradeAbilityLinkIds.Should()
+            .ContainInConsecutiveOrder([new AbilityLinkId("AbathurToxicNest", "AbathurToxicNest", AbilityType.W)]);
     }
 
     [TestMethod]
@@ -337,14 +338,14 @@ public class HeroParserTests
             {
                 Unit argUnit = x.Arg<Unit>();
                 argUnit.Id = "HeroAlarak";
-                argUnit.AddAbility(new Ability()
+                argUnit.AddLayoutAbility(new Ability()
                 {
                     AbilityElementId = "someability",
                     ButtonElementId = "someability",
                     Tier = AbilityTier.Trait,
                     AbilityType = AbilityType.Trait,
                 });
-                argUnit.AddSubAbility(new Ability()
+                argUnit.AddAsLayoutSubAbilityToAbility(new Ability()
                 {
                     AbilityElementId = "AlarakDeadlyChargeExecute2ndHeroic",
                     ButtonElementId = "AlarakUnleashDeadlyCharge",
@@ -352,13 +353,13 @@ public class HeroParserTests
                     AbilityType = AbilityType.Trait,
                     ParentAbilityElementId = "AlarakDeadlyChargeActivate2ndHeroic",
                 });
-                argUnit.AddSubAbility(new Ability()
+                argUnit.AddAsUnknownSubAbility(new Ability()
                 {
                     AbilityElementId = "AlarakDeadlyChargeActivate2ndHeroic",
                     ButtonElementId = "AlarakDeadlyCharge2ndHeroicSadism",
                     Tier = AbilityTier.Trait,
                     AbilityType = AbilityType.Trait,
-                    ParentAbilityElementId = "AlarakDeadlyChargeSecondHeroic",
+                    ParentTalentElementId = "AlarakDeadlyChargeSecondHeroic",
                 });
             });
 
@@ -369,6 +370,7 @@ public class HeroParserTests
             Tier = TalentTier.Level20,
             AbilityType = AbilityType.Heroic,
         });
+        _talentParser.GetBehaviorAbilitiesFromTalent(Arg.Any<Talent>()).Returns([]);
 
         // act
         Hero? hero = heroParser.Parse(heroUnit);
@@ -377,8 +379,8 @@ public class HeroParserTests
         hero.Should().NotBeNull();
         hero.SubAbilities.Should().HaveCount(2)
             .And.ContainKeys(
-                new LinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait),
-                new LinkId("AlarakDeadlyChargeSecondHeroic", "AlarakDeadlyCharge", AbilityType.Heroic));
+                new AbilityLinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait),
+                new TalentLinkId("AlarakDeadlyChargeSecondHeroic", "AlarakDeadlyCharge", AbilityType.Heroic, TalentTier.Level20));
     }
 
     [TestMethod]
@@ -431,9 +433,9 @@ public class HeroParserTests
             {
                 Unit argUnit = x.Arg<Unit>();
                 argUnit.Id = "HeroAlarak";
-                argUnit.AddAbility(sadismAbility);
-                argUnit.AddAbility(alarakCounterStrikeTargeted2ndHeroicAbility);
-                argUnit.AddAbility(alarakDeadlyChargeActivate2ndHeroicmAbility);
+                argUnit.AddLayoutAbility(sadismAbility);
+                argUnit.AddLayoutAbility(alarakCounterStrikeTargeted2ndHeroicAbility);
+                argUnit.AddLayoutAbility(alarakDeadlyChargeActivate2ndHeroicmAbility);
                 argUnit.AddAbilityByTooltipTalentElementId("AlarakShowofForce", sadismAbility);
                 argUnit.AddAbilityByTooltipTalentElementId("AlarakShowofForce", alarakCounterStrikeTargeted2ndHeroicAbility);
                 argUnit.AddAbilityByTooltipTalentElementId("AlarakShowofForce", alarakDeadlyChargeActivate2ndHeroicmAbility);
@@ -447,23 +449,25 @@ public class HeroParserTests
             AbilityType = AbilityType.Trait,
         });
 
+        _talentParser.GetBehaviorAbilitiesFromTalent(Arg.Any<Talent>()).Returns([]);
+
         // act
         Hero? hero = heroParser.Parse(heroUnit);
 
         // assert
         hero.Should().NotBeNull();
         hero.Talents[TalentTier.Level4].Should().ContainSingle();
-        hero.Talents[TalentTier.Level4][0].UpgradeLinkIds.Should()
+        hero.Talents[TalentTier.Level4][0].UpgradeAbilityLinkIds.Should()
             .ContainInConsecutiveOrder(
                 [
-                    new LinkId(":PASSIVE:", "AlarakSadism", AbilityType.Trait),
-                    new LinkId("AlarakCounterStrikeTargeted2ndHeroic", "AlarakCounterStrike2ndHeroicSadism", AbilityType.Trait),
-                    new LinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait),
+                    new AbilityLinkId(":PASSIVE:", "AlarakSadism", AbilityType.Trait),
+                    new AbilityLinkId("AlarakCounterStrikeTargeted2ndHeroic", "AlarakCounterStrike2ndHeroicSadism", AbilityType.Trait),
+                    new AbilityLinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait),
                 ]);
     }
 
     [TestMethod]
-    public void Parse_TalentUpgradeLinksShouldOnlyBeAddedIfAbilityorSubAbilityAvailable_ReturnsCorrectUpgradeTalentLinks()
+    public void Parse_TalentUpgradeLinksShouldOnlyBeAddedIfAbilityOrSubAbilityAvailable_ReturnsCorrectUpgradeTalentLinks()
     {
         // arrange
         string heroUnit = "Deathwing";
@@ -500,8 +504,8 @@ public class HeroParserTests
             {
                 Unit argUnit = x.Arg<Unit>();
                 argUnit.Id = "HeroDeathwing";
-                argUnit.AddAbility(deathwingIncinerateAbility);
-                argUnit.AddSubAbility(deathwingLavaBurstAbility);
+                argUnit.AddLayoutAbility(deathwingIncinerateAbility);
+                argUnit.AddAsLayoutSubAbilityToAbility(deathwingLavaBurstAbility);
                 argUnit.AddAbilityByTooltipTalentElementId("DeathwingDragonSoul", deathwingIncinerateAbility);
                 argUnit.AddAbilityByTooltipTalentElementId("DeathwingDragonSoul", deathwingLavaBurstAbility);
             });
@@ -514,13 +518,15 @@ public class HeroParserTests
             AbilityType = AbilityType.W,
         });
 
+        _talentParser.GetBehaviorAbilitiesFromTalent(Arg.Any<Talent>()).Returns([]);
+
         // act
         Hero? hero = heroParser.Parse(heroUnit);
 
         // assert
         hero.Should().NotBeNull();
-        hero.Talents[TalentTier.Level1][0].UpgradeLinkIds.Should().HaveCount(1);
-        hero.Talents[TalentTier.Level1][0].UpgradeLinkIds.First().ToString().Should().Be("DeathwingIncinerate|DeathwingIncinerate|W");
+        hero.Talents[TalentTier.Level1][0].UpgradeAbilityLinkIds.Should().ContainSingle();
+        hero.Talents[TalentTier.Level1][0].UpgradeAbilityLinkIds.First().ToString().Should().Be("DeathwingIncinerate|DeathwingIncinerate|W");
     }
 
     [TestMethod]
@@ -555,7 +561,7 @@ public class HeroParserTests
                 "GuldanLifeTapImprovedLifeTap",
                 "GuldanLifeTapDarknessWithin",
             },
-            ParentAbilityElementId = "GuldanLifeTapDarknessWithin",
+            ParentTalentElementId = "GuldanLifeTapDarknessWithin",
         };
 
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
@@ -563,8 +569,8 @@ public class HeroParserTests
             {
                 Unit argUnit = x.Arg<Unit>();
                 argUnit.Id = "HeroGuldan";
-                argUnit.AddAbility(guldanLifeTapAbility);
-                argUnit.AddSubAbility(guldanLifeTapFreeSubAbility);
+                argUnit.AddLayoutAbility(guldanLifeTapAbility);
+                argUnit.AddLayoutAbility(guldanLifeTapFreeSubAbility);
                 argUnit.AddAbilityByTooltipTalentElementId("GuldanLifeTapImprovedLifeTap", guldanLifeTapAbility);
                 argUnit.AddAbilityByTooltipTalentElementId("GuldanLifeTapDarknessWithin", guldanLifeTapAbility);
                 argUnit.AddAbilityByTooltipTalentElementId("GuldanLifeTapImprovedLifeTap", guldanLifeTapFreeSubAbility);
@@ -585,16 +591,17 @@ public class HeroParserTests
             Tier = TalentTier.Level16,
             AbilityType = AbilityType.Trait,
         });
+        _talentParser.GetBehaviorAbilitiesFromTalent(Arg.Any<Talent>()).Returns([]);
 
         // act
         Hero? hero = heroParser.Parse(heroUnit);
 
         // assert
         hero.Should().NotBeNull();
-        hero.Talents[TalentTier.Level4][0].UpgradeLinkIds.Should().HaveCount(2);
-        hero.Talents[TalentTier.Level4][0].UpgradeLinkIds.Should().ContainInConsecutiveOrder(new LinkId("GuldanLifeTap", "GuldanLifeTap", AbilityType.Trait), new LinkId("GuldanLifeTapFree", "GuldanLifeTapFree", AbilityType.Trait));
-        hero.Talents[TalentTier.Level16][0].UpgradeLinkIds.Should().HaveCount(2);
-        hero.Talents[TalentTier.Level16][0].UpgradeLinkIds.Should().ContainInConsecutiveOrder(new LinkId("GuldanLifeTap", "GuldanLifeTap", AbilityType.Trait), new LinkId("GuldanLifeTapFree", "GuldanLifeTapFree", AbilityType.Trait));
+        hero.Talents[TalentTier.Level4][0].UpgradeAbilityLinkIds.Should().HaveCount(2);
+        hero.Talents[TalentTier.Level4][0].UpgradeAbilityLinkIds.Should().ContainInConsecutiveOrder(new AbilityLinkId("GuldanLifeTap", "GuldanLifeTap", AbilityType.Trait), new AbilityLinkId("GuldanLifeTapFree", "GuldanLifeTapFree", AbilityType.Trait));
+        hero.Talents[TalentTier.Level16][0].UpgradeAbilityLinkIds.Should().HaveCount(2);
+        hero.Talents[TalentTier.Level16][0].UpgradeAbilityLinkIds.Should().ContainInConsecutiveOrder(new AbilityLinkId("GuldanLifeTap", "GuldanLifeTap", AbilityType.Trait), new AbilityLinkId("GuldanLifeTapFree", "GuldanLifeTapFree", AbilityType.Trait));
     }
 
     [TestMethod]
@@ -636,11 +643,10 @@ public class HeroParserTests
             {
                 Unit argUnit = x.Arg<Unit>();
                 argUnit.Id = "HeroMalGanis";
-                argUnit.AddAbility(malGanisFelClawsFirstAbility);
-                argUnit.AddSubAbility(malGanisFelClawsThirdSubAbility);
-                argUnit.AddSubAbility(malGanisFelClawsSecondSubAbility);
+                argUnit.AddLayoutAbility(malGanisFelClawsFirstAbility);
+                argUnit.AddAsLayoutSubAbilityToAbility(malGanisFelClawsThirdSubAbility);
+                argUnit.AddAsLayoutSubAbilityToAbility(malGanisFelClawsSecondSubAbility);
             });
-
 
         // act
         Hero? hero = heroParser.Parse(heroUnit);
@@ -649,7 +655,115 @@ public class HeroParserTests
         hero.Should().NotBeNull();
         hero.Abilities[AbilityTier.Basic].Should().ContainSingle();
         hero.Abilities[AbilityTier.Basic][0].LinkId.ToString().Should().Be("MalGanisFelClawsFirst|MalGanisFelClawsFirst|Q");
-        hero.SubAbilities[new LinkId("MalGanisFelClawsFirst", "MalGanisFelClawsFirst", AbilityType.Q)][AbilityTier.Basic][0].LinkId.ToString().Should().Be("MalGanisFelClawsSecond|MalGanisFelClawsSecond|Q");
-        hero.SubAbilities[new LinkId("MalGanisFelClawsSecond", "MalGanisFelClawsSecond", AbilityType.Q)][AbilityTier.Basic][0].LinkId.ToString().Should().Be("MalGanisFelClawsThird|MalGanisFelClawsThird|Q");
+        hero.SubAbilities[new AbilityLinkId("MalGanisFelClawsFirst", "MalGanisFelClawsFirst", AbilityType.Q)][AbilityTier.Basic][0].LinkId.ToString().Should().Be("MalGanisFelClawsSecond|MalGanisFelClawsSecond|Q");
+        hero.SubAbilities[new AbilityLinkId("MalGanisFelClawsSecond", "MalGanisFelClawsSecond", AbilityType.Q)][AbilityTier.Basic][0].LinkId.ToString().Should().Be("MalGanisFelClawsThird|MalGanisFelClawsThird|Q");
+    }
+
+    [TestMethod]
+    public void Parse_TalentThatGrantsAnActiveAbilityAsItem_ReturnsSubAbility()
+    {
+        // arrange
+        string heroUnit = "Ragnaros";
+
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+
+        Ability ragnarosCatchingFireAbility = new()
+        {
+            AbilityElementId = "RagnarosCatchingFire",
+            ButtonElementId = "RagnarosCatchingFireItem",
+            AbilityType = AbilityType.Active,
+            Tier = AbilityTier.Activable,
+            ParentTalentLinkId = new TalentLinkId("RagnarosCatchingFire", "RagnarosCatchingFireTalent", AbilityType.Active, TalentTier.Level4),
+        };
+
+        _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
+            .Do(x =>
+            {
+                Unit argUnit = x.Arg<Unit>();
+                argUnit.Id = "HeroRagnaros";
+            });
+
+        Talent ragnarosCatchingFireTalent = new Talent()
+        {
+            TalentElementId = "RagnarosCatchingFire",
+            ButtonElementId = "RagnarosCatchingFireTalent",
+            Tier = TalentTier.Level4,
+            AbilityType = AbilityType.Active,
+        };
+
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[5]")).Returns(ragnarosCatchingFireTalent);
+        _talentParser.GetBehaviorAbilitiesFromTalent(ragnarosCatchingFireTalent).Returns([ragnarosCatchingFireAbility]);
+
+        // act
+        Hero? hero = heroParser.Parse(heroUnit);
+
+        // assert
+        hero.Should().NotBeNull();
+        hero.SubAbilities.Should().ContainSingle();
+        hero.SubAbilities[new TalentLinkId("RagnarosCatchingFire", "RagnarosCatchingFireTalent", AbilityType.Active, TalentTier.Level4)][AbilityTier.Activable][0].LinkId.ToString().Should().Be("RagnarosCatchingFire|RagnarosCatchingFireItem|Active");
+    }
+
+    [TestMethod]
+    public void Parse_GarroshArmorUpInnerRageAffectsSubAbility_ReturnsSubAbility()
+    {
+        // arrange
+        string heroUnit = "Garrosh";
+
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+
+        Ability garroshArmorUpBodyCheckAbility = new()
+        {
+            AbilityElementId = "GarroshArmorUpBodyCheck",
+            ButtonElementId = "GarroshArmorUpBodyCheck",
+            AbilityType = AbilityType.Active,
+            Tier = AbilityTier.Activable,
+            TooltipAppendersTalentElementIds =
+            {
+                "GarroshArmorUpInnerRage",
+            },
+            ParentTalentLinkId = new TalentLinkId("GarroshArmorUpBodyCheck", "GarroshArmorUpBodyCheck", AbilityType.Active, TalentTier.Level1),
+        };
+
+        _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
+            .Do(x =>
+            {
+                Unit argUnit = x.Arg<Unit>();
+                argUnit.Id = "HeroGarrosh";
+            });
+
+        Talent garroshArmorUpBodyCheckTalent = new()
+        {
+            TalentElementId = "GarroshArmorUpBodyCheck",
+            ButtonElementId = "GarroshArmorUpBodyCheck",
+            Tier = TalentTier.Level1,
+            AbilityType = AbilityType.Active,
+        };
+
+        Talent garroshArmorUpInnerRageTalent = new()
+        {
+            TalentElementId = "GarroshArmorUpInnerRage",
+            ButtonElementId = "GarroshArmorUpInnerRage",
+            Tier = TalentTier.Level20,
+            AbilityType = AbilityType.Active,
+        };
+
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[2]")).Returns(garroshArmorUpBodyCheckTalent);
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[20]")).Returns(garroshArmorUpInnerRageTalent);
+        _talentParser.GetBehaviorAbilitiesFromTalent(garroshArmorUpBodyCheckTalent).Returns([garroshArmorUpBodyCheckAbility]);
+        _talentParser.GetBehaviorAbilitiesFromTalent(garroshArmorUpInnerRageTalent).Returns([]);
+
+        // act
+        Hero? hero = heroParser.Parse(heroUnit);
+
+        // assert
+        hero.Should().NotBeNull();
+        hero.SubAbilities.Should().ContainSingle();
+        hero.Talents.Should().HaveCount(2);
+        hero.Talents[TalentTier.Level20][0].LinkId.ToString().Should().Be("GarroshArmorUpInnerRage|GarroshArmorUpInnerRage|Active|Level20");
+
+        Ability subAbility = hero.SubAbilities[new TalentLinkId("GarroshArmorUpBodyCheck", "GarroshArmorUpBodyCheck", AbilityType.Active, TalentTier.Level1)][AbilityTier.Activable][0];
+        subAbility.LinkId.ToString().Should().Be("GarroshArmorUpBodyCheck|GarroshArmorUpBodyCheck|Active");
+        subAbility.TooltipAppendersTalentElementIds.Should().ContainSingle().And
+            .ContainInConsecutiveOrder("GarroshArmorUpInnerRage");
     }
 }

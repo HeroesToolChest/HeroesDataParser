@@ -242,7 +242,7 @@ public class HeroParser : CollectionParserBase<Hero>
     {
         foreach (Talent talent in collectionObject.Talents.Values.SelectMany(x => x))
         {
-            List<LinkId> abilityLinkIds = collectionObject.GetTooltipAbilityLinkIdsByTalentElementId(talent.TalentElementId);
+            List<AbilityLinkId> abilityLinkIds = collectionObject.GetTooltipAbilityLinkIdsByTalentElementId(talent.TalentElementId);
 
             // also search the hero units
             foreach (Unit heroUnit in collectionObject.HeroUnits.Values)
@@ -251,21 +251,18 @@ public class HeroParser : CollectionParserBase<Hero>
             }
 
             // for each ability link id, add it to the talent
-            foreach (LinkId linkId in abilityLinkIds)
+            foreach (AbilityLinkId abilityLinkId in abilityLinkIds)
             {
-                talent.UpgradeLinkIds.Add(linkId);
+                talent.UpgradeAbilityLinkIds.Add(abilityLinkId);
             }
         }
     }
 
-    private static void SetSubAbilities(Hero collectionObject)
+    private static void AddAbilityByTooltipTalentElementIds(Hero collectionObject, Ability ability)
     {
-        IEnumerable<Ability> unknownSubAbilities = collectionObject.UnknownSubAbilities.SelectMany(x => x.Value);
-
-        foreach (Ability unknownSubAbility in unknownSubAbilities)
+        foreach (string talentElementId in ability.TooltipAppendersTalentElementIds)
         {
-            collectionObject.AddAsSubAbilityToTalent(unknownSubAbility);
-            collectionObject.AddAsSubAbilityToSubAbility(unknownSubAbility);
+            collectionObject.AddAbilityByTooltipTalentElementId(talentElementId, ability);
         }
     }
 
@@ -314,14 +311,54 @@ public class HeroParser : CollectionParserBase<Hero>
     {
         if (stormElement.DataValues.TryGetElementDataAt("TalentTreeArray", out StormElementData? talentTreeArray))
         {
-            foreach (string item in talentTreeArray.GetElementDataIndexes())
+            IEnumerable<string> talentTreeArrayIndexes = talentTreeArray.GetElementDataIndexes();
+
+            foreach (string talentTreeArrayIndex in talentTreeArrayIndexes)
             {
-                StormElementData talentTreeArrayData = talentTreeArray.GetElementDataAt(item);
+                StormElementData talentTreeArrayData = talentTreeArray.GetElementDataAt(talentTreeArrayIndex);
                 Talent? talent = _talentParser.GetTalent(collectionObject, talentTreeArrayData);
 
                 if (talent is not null)
-                    collectionObject.AddTalent(talent);
+                {
+                    AddTalent(collectionObject, talent);
+                }
             }
+        }
+    }
+
+    private void AddTalent(Hero collectionObject, Talent talent)
+    {
+        collectionObject.AddTalent(talent);
+
+        List<Ability> behaviorAbilities = _talentParser.GetBehaviorAbilitiesFromTalent(talent);
+
+        foreach (Ability behaviorAbility in behaviorAbilities)
+        {
+            if ((!string.IsNullOrEmpty(behaviorAbility.ParentTalentElementId) || behaviorAbility.ParentTalentLinkId is not null) &&
+                (talent.LinkId.ElementId.Equals(behaviorAbility.ParentTalentElementId, StringComparison.Ordinal) || talent.LinkId.Equals(behaviorAbility.ParentTalentLinkId)))
+                collectionObject.AssignLayoutSubAbilityToLink(behaviorAbility, talent.LinkId);
+            else
+                collectionObject.AddAsUnknownSubAbility(behaviorAbility);
+
+            AddAbilityByTooltipTalentElementIds(collectionObject, behaviorAbility);
+        }
+    }
+
+    private void SetSubAbilities(Hero collectionObject)
+    {
+        IEnumerable<Ability> unknownSubAbilities = collectionObject.UnknownSubAbilities.SelectMany(x => x.Value);
+
+        try
+        {
+            foreach (Ability unknownSubAbility in unknownSubAbilities)
+            {
+                collectionObject.AddAsSubAbilityToTalent(unknownSubAbility);
+                collectionObject.AddAsSubAbilityToSubAbility(unknownSubAbility);
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            Logger.LogError(ex, "Failed to add an unknown sub ability {AbilityId} to a talent for hero {HeroId}", unknownSubAbilities.Last().LinkId.ToString(), collectionObject.Id);
         }
     }
 

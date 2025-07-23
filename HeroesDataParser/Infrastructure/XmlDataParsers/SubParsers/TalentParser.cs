@@ -2,9 +2,12 @@
 
 public class TalentParser : AbilityTalentParserBase, ITalentParser
 {
-    public TalentParser(ILogger<TalentParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
+    private readonly IAbilityParser _abilityParser;
+
+    public TalentParser(ILogger<TalentParser> logger, IOptions<RootOptions> options, IAbilityParser abilityParser, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
         : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
     {
+        _abilityParser = abilityParser;
     }
 
     // <TalentTreeArray Talent="SamuroWayOfIllusion" Tier="1" Column="1" />
@@ -35,8 +38,8 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
             Column = int.Parse(columnValue),
         };
 
-        SetTalentData(hero, talent);
         SetTalentTier(talent, tierValue);
+        SetTalentData(hero, talent);
 
         if (talentTreeData.TryGetElementDataAt("PrerequisiteTalentArray", out StormElementData? prerequisiteTalentArrayDataArray))
         {
@@ -56,6 +59,20 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
             return null;
 
         return talent;
+    }
+
+    public List<Ability> GetBehaviorAbilitiesFromTalent(Talent talent)
+    {
+        List<Ability> behaviorAbilities = [];
+
+        StormElement? talentElement = HeroesData.GetCompleteStormElement("Talent", talent.TalentElementId);
+        if (talentElement is null)
+            return behaviorAbilities;
+
+        // find any behavior abilities (activable abilities granted from talents)
+        AddBehaviorAbilities(talent, talentElement.DataValues, behaviorAbilities);
+
+        return behaviorAbilities;
     }
 
     private static void SetTalentTier(Talent talent, string tier)
@@ -156,12 +173,57 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
             talent.AbilityType = AbilityType.Active;
     }
 
-    private void SetAbilityData(string abilityId, AbilityTalentBase abilityTalent, string? abilCmdIndex = null)
+    private void SetAbilityData(string abilityId, AbilityTalentBase abilityTalent)
     {
         StormElement? abilityElement = HeroesData.GetCompleteStormElement("Abil", abilityId);
         if (abilityElement is null)
             return;
 
-        SetAbilityData(abilityElement, abilityTalent, abilCmdIndex);
+        SetAbilityData(abilityElement, abilityTalent, abilCmdIndex: null);
+
+        // for talents, don't set the charges
+        abilityTalent.Charges = null;
+    }
+
+    private void AddBehaviorAbilities(Talent talent, StormElementData talentDataValues, List<Ability> behaviorAbilities)
+    {
+        if (talentDataValues.TryGetElementDataAt("RankArray", out StormElementData? rankArrayData) &&
+            rankArrayData.TryGetElementDataAt("0", out StormElementData? rankArray0Data) &&
+            rankArray0Data.TryGetElementDataAt("BehaviorArray", out StormElementData? behaviorArrayData))
+        {
+            IEnumerable<string> behaviorArrayIndexes = behaviorArrayData.GetElementDataIndexes();
+
+            foreach (string behaviorArrayIndex in behaviorArrayIndexes)
+            {
+                string behaviorArrayValue = behaviorArrayData.GetElementDataAt(behaviorArrayIndex).Value.GetString();
+
+                StormElement? behaviorElement = HeroesData.GetCompleteStormElement("Behavior", behaviorArrayValue);
+                if (behaviorElement is null || !behaviorElement.ElementType.Equals("CBehaviorAbility", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                if (behaviorElement.DataValues.TryGetElementDataAt("buttons", out StormElementData? buttonsData))
+                    AddBehaviorAbilitiesFromButtons(talent, buttonsData, behaviorAbilities);
+            }
+        }
+    }
+
+    private void AddBehaviorAbilitiesFromButtons(Talent talent, StormElementData buttonsData, List<Ability> behaviorAbilities)
+    {
+        IEnumerable<string> buttonIndexes = buttonsData.GetElementDataIndexes();
+
+        foreach (string buttonIndex in buttonIndexes)
+        {
+            Ability? ability = _abilityParser.GetBehaviorAbility(buttonsData.GetElementDataAt(buttonIndex));
+
+            if (ability is null)
+                continue;
+
+            ability.AbilityType = talent.AbilityType;
+
+            if (string.IsNullOrEmpty(ability.ParentAbilityElementId) && ability.ParentAbilityLinkId is null && ability.ParentTalentElementId is null && ability.ParentTalentLinkId is null)
+                ability.ParentTalentLinkId = new TalentLinkId(talent.TalentElementId, talent.ButtonElementId, talent.AbilityType, talent.Tier);
+
+            behaviorAbilities.Add(ability);
+        }
     }
 }

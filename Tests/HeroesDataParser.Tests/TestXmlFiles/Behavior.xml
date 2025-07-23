@@ -243,4 +243,28 @@
     <Buttons Face="NecromancerBoneArmorAbilBacklash" Type="AbilCmd" AbilCmd="NecromancerBoneArmor,Execute" ShowValidator="HasNecromancerTalentBacklash" />
     <Buttons Face="NecromancerBoneArmorAbilShackler" Type="AbilCmd" AbilCmd="NecromancerBoneArmor,Execute" ShowValidator="HasNecromancerTalentShackler" />
   </CBehaviorAbility>
+  <CBehaviorTokenCounter id="RagnarosCatchingFireTokenCounter" parent="StormQuestToken">
+    <Face value="RagnarosCatchingFireQuest" />
+    <Max value="15" />
+    <AtMaxEvents index="0" EventId="QuestComplete" Effect="RagnarosCatchingFireAbilityAvailabilityControllerApplyBehavior" />
+    <SortIndex value="20" />
+  </CBehaviorTokenCounter>
+  <CBehaviorBuff id="RagnarosCatchingFireRegenIncreaseCarryBehavior" parent="CarryBehaviorParent">
+    <Modification>
+      <VitalRegenArray index="Life" value="0">
+        <AccumulatorArray value="RagnarosCatchingFireTalentAccumulator" />
+      </VitalRegenArray>
+    </Modification>
+  </CBehaviorBuff>
+  <CBehaviorAbility id="RagnarosCatchingFireItem">
+    <Buttons Face="RagnarosCatchingFireItem" Type="AbilCmd" AbilCmd="RagnarosCatchingFire,Execute" />
+    <DisableValidatorArray value="RagnarosHasMaxCatchingFireTokens" />
+  </CBehaviorAbility>
+  <CBehaviorAbility id="JunkratTotalMayhemDirtyTricksterItem">
+    <Buttons Face="JunkratDirtyTrickster" Type="AbilCmd" AbilCmd="JunkratTotalMayhemDirtyTrickster,Execute" />
+  </CBehaviorAbility>
+  <CBehaviorAbility id="AnubarakLegionOfBeetlesItem">
+    <Buttons Face="AnubarakScarabHostToggleLegionOfBeetlesOn" Type="AbilCmd" AbilCmd="AnubarakLegionOfBeetlesToggle,Off" />
+    <Buttons Face="AnubarakScarabHostToggleLegionOfBeetlesOff" Type="AbilCmd" AbilCmd="AnubarakLegionOfBeetlesToggle,On" />
+  </CBehaviorAbility>
 </Behavior>

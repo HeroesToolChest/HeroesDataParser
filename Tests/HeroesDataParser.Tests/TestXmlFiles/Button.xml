@@ -299,6 +299,9 @@
     <TooltipCooldownOverrideText value="GarroshBodyCheckCooldown" />
     <Icon value="Assets\Textures\storm_ui_icon_garrosh_slam.dds" />
   </CButton>
+  <CButton id="GarroshArmorUpInnerRage" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_garrosh_slam.dds" />
+  </CButton>
   <CButton id="AnaEyeOfHorusActivate" parent="StormButtonParent">
     <TooltipAppender Validator="AnaHasEyeOfHorusDeadeyeTalent" Face="AnaEyeOfHorusDeadeye" />
     <Icon value="Assets\Textures\storm_ui_icon_ana_overwatch.dds" />
@@ -457,7 +460,7 @@
     <TooltipAppender Validator="MonkHasFistsofLegendTalent" Face="MonkFistsofLegend" />
   </CButton>
   <CButton id="MonkIronFists" parent="StormButtonParentTrait">
-    <hdp-ParentLink elementId=":PASSIVE:" buttonElementId="MonkBlankTrait" abilityType="Trait" />
+    <hdp-ParentAbilLink abilityId=":PASSIVE:" buttonId="MonkBlankTrait" abilityType="Trait" />
   </CButton>
   <CButton id="NecromancerBoneArmor" parent="StormButtonParent">
     <TooltipAppender Validator="HasNecromancerTalentShade" Face="NecromancerBoneArmorShade" />
@@ -474,5 +477,27 @@
   <CButton id="NecromancerBoneArmorAbilShackler" parent="NecromancerBoneArmor">
     <Icon value="Assets\Textures\storm_ui_icon_Necromancer_BoneArmor_C.dds" />
     <TooltipCooldownOverrideText value="" />
+  </CButton>
+  <CButton id="RagnarosCatchingFireTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_ragnaros_catchingfire.dds" />
+    <TooltipFlags index="ShowCooldown" value="0" />
+  </CButton>
+  <CButton id="RagnarosCatchingFireItem" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_ragnaros_catchingfire.dds" />
+    <TooltipAppender Validator="RagnarosHasCatchingFireAndNotComplete" Text="Button/TooltipAppender/GenericLockedUntilQuestComplete" />
+  </CButton>
+  <CButton id="JunkratDirtyTrickster" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_junkrat_bomb_pack.dds" />
+    <HotkeyAlias value="JunkratTotalMayhem" />
+    <UseHotkeyLabel value="0" />
+  </CButton>
+  <CButton id="AnubarakScarabHostToggleLegionOfBeetlesOff" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
+  </CButton>
+  <CButton id="AnubarakScarabHostToggleLegionOfBeetlesOn" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\storm_ui_icon_Anubarak_ScarabHost.dds" />
+  </CButton>
+  <CButton id="BarbarianFuryShotOfFuryTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_fury.dds" />
   </CButton>
 </Button>

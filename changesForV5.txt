@@ -51,12 +51,12 @@ v5 changes heroes
   - abilities -> 'abilityId'
   - talents -> 'talentId'
 - Added 'linkId' to abilities (abilityId|buttonId|abilityType)
-- Added 'linkId' to talents (talentId|buttonId|abilityType)
+- Added 'linkId' to talents (talentId|buttonId|abilityType|tier)
 - Added 'abilityId' to talents
 - Removed 'isPassive' from abilities
 - Removed 'isPassive' from talents
-- The "id" for subabilities changed to the linkId
-- Added upgradeLinkIds (updated from the abilityTalentLinkIds - also kept for legacy reasons)
+- The "id" for subabilities changed to the linkId (either ability or talent `linkId`)
+- Added upgradeAbilityLinkIds (updated from the abilityTalentLinkIds - also kept for legacy reasons)
 - 'units' -> 'summonedUnitIds'
 - removed more 'charges' from talents
 - remove 'upgradeLinkIds' from ultimates that had pointed to itself
@@ -66,7 +66,7 @@ v5 changes heroes
 - Fixed Ana's `AnaEyeOfHorusAttackDummy|AnaEyeOfHorusHighPoweredRound|Heroic` and `AnaEyeOfHorusAttack|AnaEyeOfHorusHighPoweredRound|Heroic` abilities missing cooldown text
 - Fixed Anubarak's `AnubarakLegionOfBeetlesVisual|AnubarakScarabHostTrait|Trait` having cooldown text
 - Fixed Deathwing's `DeathwingMoltenFlame|DeathwingMoltenFlame|Q` incorrent energy text
-- Changed Greymane's `GreymaneRazorSwipe|GreymaneRazorSwipe|Q` and `GreymaneDisengage|GreymaneDisengage|E` abilities parent ability to `GreymaneDarkflight|GreymaneDarkflight|E`
+- Changed Greymane's `GreymaneRazorSwipe|GreymaneRazorSwipe|Q` and `GreymaneDisengage|GreymaneDisengage|E` abilities' parent ability to `GreymaneDarkflight|GreymaneDarkflight|E`
 - Fixed Greymane's `Dismount|UnsummonMount|Z` ability having the incorrect parent ability (should be `Mount|GreymaneSummonMount|Z`)
 - Removed basic abilities from `LostVikings` (the `HeroLostVikingsController`)
 - Fixed Lost Vikings' `LostVikingsMasteryVikingBribery|LostVikingsVikingBribery|E` ability type
@@ -80,5 +80,9 @@ v5 changes heroes
 - Fixed `MedivhPortalCancel|MedivhPortalCancel|Trait` having energy text
 - Fixed Amazon's `AmazonWarTravelerSummonMount|AmazonWarTravelerSummonMount|Z` name
 - Fixed Deckard's `DeckardAncientBlessings|DeckardFortitudeOfTheFaithfulAncientBlessings|Trait` missing short text and incorrect full text
+- Added the abilities (as subabilities) from talents that grant a new activable ability (those that appear in the item bar)
+- Removed `charges` from talents
+- Changed Jaina's `ImprovedIceBlock|JainaImprovedIceBlockCancel|Active` from being a subability to a (baseline) ability
+- Changed Kel'Thuzad's `KelThuzadGlacialSpike|KelThuzadGlacialSpike|Active` from being a subability to a (baseline) ability
 
 

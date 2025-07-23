@@ -6,6 +6,7 @@ public class TalentParserTests
     private readonly ILogger<TalentParser> _talentLogger;
     private readonly ILogger<TooltipDescriptionService> _tooltipLogger;
     private readonly IOptions<RootOptions> _options;
+    private readonly IAbilityParser _abilityParser = Substitute.For<IAbilityParser>();
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly ITooltipDescriptionService _tooltipDescriptionService;
 
@@ -16,6 +17,7 @@ public class TalentParserTests
         _talentLogger = Substitute.For<ILogger<TalentParser>>();
         _tooltipLogger = Substitute.For<ILogger<TooltipDescriptionService>>();
         _options = Substitute.For<IOptions<RootOptions>>();
+        _abilityParser = Substitute.For<IAbilityParser>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
         _tooltipDescriptionService = Substitute.For<ITooltipDescriptionService>();
 
@@ -44,7 +46,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
         Unit abathurSymbioteUnit = new("AbathurSymbiote");
-        abathurSymbioteUnit.AddAbility(new Ability()
+        abathurSymbioteUnit.AddLayoutAbility(new Ability()
         {
             AbilityElementId = "AbathurSymbioteSpikeBurst",
             ButtonElementId = "AbathurSymbioteSpikeBurst",
@@ -53,14 +55,14 @@ public class TalentParserTests
 
         hero.HeroUnits.Add(abathurSymbioteUnit.Id, abathurSymbioteUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
         // assert
         talent.Should().NotBeNull();
-        talent.LinkId.ToString().Should().Be("AbathurMasteryPressurizedGlands|AbathurSymbiotePressurizedGlandsTalent|W");
+        talent.LinkId.ToString().Should().Be("AbathurMasteryPressurizedGlands|AbathurSymbiotePressurizedGlandsTalent|W|Level1");
         talent.TalentElementId.Should().Be("AbathurMasteryPressurizedGlands");
         talent.ButtonElementId.Should().Be("AbathurSymbiotePressurizedGlandsTalent");
         talent.Icon.Should().Be("storm_ui_icon_abathur_spikeburst.png");
@@ -90,21 +92,21 @@ public class TalentParserTests
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("1");
 
         Hero hero = new(heroUnit);
-        hero.AddAbility(new Ability()
+        hero.AddLayoutAbility(new Ability()
         {
             AbilityElementId = "AbathurToxicNest",
             ButtonElementId = "AbathurToxicNest",
             AbilityType = AbilityType.W,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
         // assert
         talent.Should().NotBeNull();
-        talent.LinkId.ToString().Should().Be("AbathurMasteryEnvenomedNestsToxicNest|AbathurToxicNestEnvenomedNestTalent|W");
+        talent.LinkId.ToString().Should().Be("AbathurMasteryEnvenomedNestsToxicNest|AbathurToxicNestEnvenomedNestTalent|W|Level1");
         talent.TalentElementId.Should().Be("AbathurMasteryEnvenomedNestsToxicNest");
         talent.ButtonElementId.Should().Be("AbathurToxicNestEnvenomedNestTalent");
         talent.Icon.Should().Be("storm_ui_icon_abathur_toxicnest.png");
@@ -132,7 +134,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -166,14 +168,14 @@ public class TalentParserTests
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("10");
 
         Hero hero = new(heroUnit);
-        hero.AddAbility(new Ability()
+        hero.AddLayoutAbility(new Ability()
         {
             AbilityElementId = "AbathurUltimateEvolution",
             ButtonElementId = "AbathurUltimateEvolution",
             AbilityType = AbilityType.Heroic,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -205,7 +207,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -230,7 +232,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -265,14 +267,14 @@ public class TalentParserTests
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("16");
 
         Hero hero = new(heroUnit);
-        hero.AddAbility(new Ability()
+        hero.AddLayoutAbility(new Ability()
         {
             AbilityElementId = "Stoneform",
             ButtonElementId = "MuradinSecondWindActivateable",
             AbilityType = AbilityType.Trait,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -304,14 +306,14 @@ public class TalentParserTests
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("2");
 
         Hero hero = new(heroUnit);
-        hero.AddAbility(new Ability()
+        hero.AddLayoutAbility(new Ability()
         {
             AbilityElementId = "AlarakLightningSurge",
             ButtonElementId = "AlarakLightningSurge",
             AbilityType = AbilityType.E,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -339,14 +341,14 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
         // assert
         talent.Should().NotBeNull();
-        talent.LinkId.ToString().Should().Be("AlarakRiteofRakShir|AlarakRiteofRakShir|Trait");
+        talent.LinkId.ToString().Should().Be("AlarakRiteofRakShir|AlarakRiteofRakShir|Trait|Level13");
         talent.Column.Should().Be(3);
         talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
@@ -366,14 +368,14 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
         // assert
         talent.Should().NotBeNull();
-        talent.LinkId.ToString().Should().Be("AlarakShowofForce|AlarakShowofForce|Trait");
+        talent.LinkId.ToString().Should().Be("AlarakShowofForce|AlarakShowofForce|Trait|Level4");
         talent.Column.Should().Be(3);
         talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
@@ -393,14 +395,14 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
         // assert
         talent.Should().NotBeNull();
-        talent.LinkId.ToString().Should().Be("AlarakMockingStrikes|AlarakMockingStrikes|Passive");
+        talent.LinkId.ToString().Should().Be("AlarakMockingStrikes|AlarakMockingStrikes|Passive|Level16");
         talent.Column.Should().Be(3);
         talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Passive);
@@ -420,14 +422,14 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
         // assert
         talent.Should().NotBeNull();
-        talent.LinkId.ToString().Should().Be("GarroshArmorUpBodyCheck|GarroshArmorUpBodyCheck|Active");
+        talent.LinkId.ToString().Should().Be("GarroshArmorUpBodyCheck|GarroshArmorUpBodyCheck|Active|Level1");
         talent.TalentElementId.Should().Be("GarroshArmorUpBodyCheck");
         talent.ButtonElementId.Should().Be("GarroshArmorUpBodyCheck");
         talent.Column.Should().Be(3);
@@ -436,15 +438,40 @@ public class TalentParserTests
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level1);
-        talent.Charges!.CountMax.Should().Be(1);
-        talent.Charges.CountStart.Should().Be(1);
-        talent.Charges.CountUse.Should().Be(1);
-        talent.Charges.HasCharges.Should().BeTrue();
-        talent.Charges.IsCountHidden.Should().BeTrue();
-        talent.Charges.RecastCooldown.Should().Be(1);
+        talent.Charges.Should().BeNull();
         talent.CooldownText!.RawDescription.Should().Be("Cooldown: 15 seconds");
         talent.TooltipAppendersTalentElementIds.Should().HaveCount(2).And
             .Contain(["GarroshBodyCheckBruteForce", "GarroshArmorUpInnerRage"]);
+    }
+
+    [TestMethod]
+    public void GetTalent_GarroshArmorUpInnerRage_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Garrosh";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("20");
+
+        Hero hero = new(heroUnit);
+        hero.AssignLayoutSubAbilityToLink(
+            new Ability()
+            {
+                AbilityElementId = "GarroshArmorUpBodyCheck",
+                ButtonElementId = "GarroshArmorUpBodyCheck",
+                AbilityType = AbilityType.Active,
+                Tier = AbilityTier.Activable,
+            },
+            new TalentLinkId("GarroshArmorUpBodyCheck", "GarroshArmorUpBodyCheck", AbilityType.Active, TalentTier.Level1));
+
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("GarroshArmorUpInnerRage|GarroshArmorUpInnerRage|Active|Level20");
     }
 
     [TestMethod]
@@ -458,14 +485,14 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
         // assert
         talent.Should().NotBeNull();
-        talent.LinkId.ToString().Should().Be("BarbarianBattleRage|BarbarianBattleRage|Active");
+        talent.LinkId.ToString().Should().Be("BarbarianBattleRage|BarbarianBattleRage|Active|Level7");
         talent.Column.Should().Be(3);
         talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Active);
@@ -473,12 +500,7 @@ public class TalentParserTests
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level7);
         talent.ToggleCooldown.Should().BeNull();
-        talent.Charges!.CountMax.Should().Be(2);
-        talent.Charges.CountStart.Should().BeNull();
-        talent.Charges.CountUse.Should().Be(1);
-        talent.Charges.HasCharges.Should().BeTrue();
-        talent.Charges.IsCountHidden.Should().BeFalse();
-        talent.Charges.RecastCooldown.Should().Be(8);
+        talent.Charges.Should().BeNull();
         talent.CooldownText!.RawDescription.Should().Be("Charge Cooldown: 30 seconds");
     }
 
@@ -493,14 +515,14 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
         // assert
         talent.Should().NotBeNull();
-        talent.LinkId.ToString().Should().Be("ThrallAncestralWrath|ThrallAncestralWrath|Active");
+        talent.LinkId.ToString().Should().Be("ThrallAncestralWrath|ThrallAncestralWrath|Active|Level7");
         talent.Column.Should().Be(2);
         talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Active);
@@ -508,12 +530,7 @@ public class TalentParserTests
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level7);
         talent.ToggleCooldown.Should().BeNull();
-        talent.Charges!.CountMax.Should().Be(8);
-        talent.Charges.CountStart.Should().BeNull();
-        talent.Charges.CountUse.Should().Be(8);
-        talent.Charges.HasCharges.Should().BeTrue();
-        talent.Charges.IsCountHidden.Should().BeFalse();
-        talent.Charges.RecastCooldown.Should().Be(1);
+        talent.Charges.Should().BeNull();
         talent.CooldownText.Should().BeNull();
     }
 
@@ -527,21 +544,21 @@ public class TalentParserTests
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("0");
 
         Hero hero = new(heroUnit);
-        hero.AddAbility(new Ability()
+        hero.AddLayoutAbility(new Ability()
         {
             AbilityElementId = "GallShove",
             ButtonElementId = "GallShoveHotbar",
             AbilityType = AbilityType.Z,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
         // assert
         talent.Should().NotBeNull();
-        talent.LinkId.ToString().Should().Be("GallKeepMoving|GallKeepMoving|Z");
+        talent.LinkId.ToString().Should().Be("GallKeepMoving|GallKeepMoving|Z|Level1");
         talent.Column.Should().Be(1);
         talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Z);
@@ -563,20 +580,20 @@ public class TalentParserTests
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("1");
 
         Hero hero = new(heroUnit);
-        hero.AddAbility(new Ability()
+        hero.AddLayoutAbility(new Ability()
         {
             AbilityElementId = "AnubarakLegionOfBeetlesToggle",
             ButtonElementId = AbilityTalentParserBase.NoButtonElementId,
             AbilityType = AbilityType.Hidden,
         });
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
         // assert
         talent.Should().NotBeNull();
-        talent.LinkId.ToString().Should().Be("AnubarakCombatStyleLegionOfBeetles|AnubarakLegionOfBeetlesTalent|Trait");
+        talent.LinkId.ToString().Should().Be("AnubarakCombatStyleLegionOfBeetles|AnubarakLegionOfBeetlesTalent|Trait|Level1");
         talent.Column.Should().Be(2);
         talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
@@ -597,21 +614,21 @@ public class TalentParserTests
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("2");
 
         Hero hero = new(heroUnit);
-        hero.AddAbility(new Ability()
+        hero.AddLayoutAbility(new Ability()
         {
             AbilityElementId = "DVaLiquidCoolingAbility",
             ButtonElementId = "DVaLiquidCooling",
             AbilityType = AbilityType.Active,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
         // assert
         talent.Should().NotBeNull();
-        talent.LinkId.ToString().Should().Be("DVaLiquidCooling|DVaLiquidCooling|Active");
+        talent.LinkId.ToString().Should().Be("DVaLiquidCooling|DVaLiquidCooling|Active|Level1");
         talent.Column.Should().Be(3);
         talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Active);
@@ -633,21 +650,173 @@ public class TalentParserTests
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("16");
 
         Hero hero = new(heroUnit);
-        hero.AddAbility(new Ability()
+        hero.AddLayoutAbility(new Ability()
         {
             AbilityElementId = "DVaLiquidCoolingAbility",
             ButtonElementId = "DVaLiquidCooling",
             AbilityType = AbilityType.Active,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
         // assert
         talent.Should().NotBeNull();
-        talent.LinkId.ToString().Should().Be("MeiOWAcclimation|MeiOWAcclimation|Passive");
+        talent.LinkId.ToString().Should().Be("MeiOWAcclimation|MeiOWAcclimation|Passive|Level16");
         talent.CooldownText.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void GetTalent_RagnarosCatchingFireTalentCreatesAbility_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Ragnaros";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("5");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        Ability ragnarosCatchingFileAbility = new()
+        {
+            AbilityElementId = "RagnarosCatchingFire",
+            ButtonElementId = "RagnarosCatchingFireItem",
+            AbilityType = AbilityType.Active,
+            Tier = AbilityTier.Activable,
+        };
+
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[0]")).Returns(ragnarosCatchingFileAbility);
+
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // act
+        List<Ability> abilities = talentParser.GetBehaviorAbilitiesFromTalent(talent!);
+
+        // assert
+        talent!.LinkId.ToString().Should().Be("RagnarosCatchingFire|RagnarosCatchingFireTalent|Active|Level4");
+        abilities.Should().ContainSingle();
+        abilities[0].LinkId.ToString().Should().Be("RagnarosCatchingFire|RagnarosCatchingFireItem|Active");
+        abilities[0].ParentTalentLinkId!.ToString().Should().Be("RagnarosCatchingFire|RagnarosCatchingFireTalent|Active|Level4");
+    }
+
+    [TestMethod]
+    public void GetTalent_JunkratTotalMayhemDirtyTricksterTalentCreateAbility_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Junkrat";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("8");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        Ability junkratDirtyTricksterAbility = new()
+        {
+            AbilityElementId = "JunkratTotalMayhemDirtyTrickster",
+            ButtonElementId = "JunkratDirtyTrickster",
+            AbilityType = AbilityType.Active,
+            Tier = AbilityTier.Activable,
+        };
+
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[0]")).Returns(junkratDirtyTricksterAbility);
+
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // act
+        List<Ability> abilities = talentParser.GetBehaviorAbilitiesFromTalent(talent!);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("JunkratTotalMayhemDirtyTricksterTalent|JunkratDirtyTrickster|Trait|Level7");
+        abilities.Should().ContainSingle();
+        abilities[0].LinkId.ToString().Should().Be("JunkratTotalMayhemDirtyTrickster|JunkratDirtyTrickster|Trait");
+        abilities[0].ParentTalentLinkId!.ToString().Should().Be("JunkratTotalMayhemDirtyTricksterTalent|JunkratDirtyTrickster|Trait|Level7");
+    }
+
+    [TestMethod]
+    public void GetTalent_SubAbilityToSubAbilityToTalent_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Anubarak";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("1");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        Ability anubarakScarabHostToggleLegionOfBeetlesOnAbility = new()
+        {
+            AbilityElementId = "AnubarakLegionOfBeetlesToggle",
+            ButtonElementId = "AnubarakScarabHostToggleLegionOfBeetlesOn",
+            AbilityType = AbilityType.Trait,
+            Tier = AbilityTier.Activable,
+            ParentAbilityLinkId = new AbilityLinkId("AnubarakLegionOfBeetlesToggle", "AnubarakScarabHostToggleLegionOfBeetlesOff", AbilityType.Trait),
+        };
+
+        Ability anubarakScarabHostToggleLegionOfBeetlesOffAbility = new()
+        {
+            AbilityElementId = "AnubarakLegionOfBeetlesToggle",
+            ButtonElementId = "AnubarakScarabHostToggleLegionOfBeetlesOff",
+            AbilityType = AbilityType.Trait,
+            Tier = AbilityTier.Activable,
+        };
+
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[0]")).Returns(anubarakScarabHostToggleLegionOfBeetlesOnAbility);
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[1]")).Returns(anubarakScarabHostToggleLegionOfBeetlesOffAbility);
+
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // act
+        List<Ability> abilities = talentParser.GetBehaviorAbilitiesFromTalent(talent!);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("AnubarakCombatStyleLegionOfBeetles|AnubarakLegionOfBeetlesTalent|Trait|Level1");
+
+        abilities.Should().HaveCount(2);
+        abilities[0].LinkId.ToString().Should().Be("AnubarakLegionOfBeetlesToggle|AnubarakScarabHostToggleLegionOfBeetlesOn|Trait");
+        abilities[0].ParentAbilityLinkId!.ToString().Should().Be("AnubarakLegionOfBeetlesToggle|AnubarakScarabHostToggleLegionOfBeetlesOff|Trait");
+        abilities[1].LinkId.ToString().Should().Be("AnubarakLegionOfBeetlesToggle|AnubarakScarabHostToggleLegionOfBeetlesOff|Trait");
+        abilities[1].ParentTalentLinkId!.ToString().Should().Be("AnubarakCombatStyleLegionOfBeetles|AnubarakLegionOfBeetlesTalent|Trait|Level1");
+    }
+
+    [TestMethod]
+    public void GetTalent_AbilityWithParentTalentElementId_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Barbarian";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("5");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        Ability barbarianShotofFuryAbility = new()
+        {
+            AbilityElementId = "BarbarianShotofFury",
+            ButtonElementId = "BarbarianFuryShotOfFury",
+            AbilityType = AbilityType.Trait,
+            Tier = AbilityTier.Trait,
+            ParentTalentElementId = "BarbarianShotOfFury",
+        };
+
+        hero.AddAsLayoutUnknownSubAbility(barbarianShotofFuryAbility);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("BarbarianShotOfFury|BarbarianFuryShotOfFuryTalent|Trait|Level4");
     }
 }

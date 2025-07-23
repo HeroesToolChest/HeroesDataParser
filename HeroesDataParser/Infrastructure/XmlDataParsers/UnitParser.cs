@@ -61,12 +61,14 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         }
     }
 
-    private static void ProcessAbility(Unit elementObject, Ability ability, List<Ability> abilitiesWithParentAbils)
+    private static void ProcessAbility(Unit elementObject, Ability ability, List<Ability> abilitiesWithParentIds)
     {
-        if (!string.IsNullOrEmpty(ability.ParentAbilityElementId) || ability.ParentLinkId is not null)
-            abilitiesWithParentAbils.Add(ability);
+        if (!string.IsNullOrEmpty(ability.ParentAbilityElementId) || ability.ParentAbilityLinkId is not null)
+            abilitiesWithParentIds.Add(ability);
+        else if (!string.IsNullOrEmpty(ability.ParentTalentElementId) || ability.ParentTalentLinkId is not null)
+            elementObject.AddAsLayoutUnknownSubAbility(ability);
         else
-            elementObject.AddAbility(ability);
+            elementObject.AddLayoutAbility(ability);
 
         AddAbilityByTooltipTalentElementIds(elementObject, ability);
     }
@@ -385,8 +387,8 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         // when we add an ability, we remove it from the checklist
         HashSet<string> abilityIdChecklist = new(StringComparer.OrdinalIgnoreCase);
 
-        // keep track of abilites that have parent abils
-        List<Ability> abilitiesWithParentAbils = [];
+        // keep track of abilities that have parent ids
+        List<Ability> abilitiesWithParentIds = [];
 
         // loop through the abilArray to get the ability ids
         if (stormElement.DataValues.TryGetElementDataAt("AbilArray", out StormElementData? abilArrayData))
@@ -431,7 +433,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                         (AllowHiddenAbilities is false && ability is { AbilityType: AbilityType.Hidden }))
                         continue;
 
-                    ProcessAbility(elementObject, ability, abilitiesWithParentAbils);
+                    ProcessAbility(elementObject, ability, abilitiesWithParentIds);
                 }
             }
         }
@@ -451,7 +453,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
                     abilityIdChecklist.Remove(behaviorAbility.AbilityElementId);
 
-                    ProcessAbility(elementObject, behaviorAbility, abilitiesWithParentAbils);
+                    ProcessAbility(elementObject, behaviorAbility, abilitiesWithParentIds);
                 }
             }
         }
@@ -466,14 +468,14 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                 if (ability is null)
                     continue;
 
-                ProcessAbility(elementObject, ability, abilitiesWithParentAbils);
+                ProcessAbility(elementObject, ability, abilitiesWithParentIds);
             }
         }
 
         // for any abilities that have parent abilities, we add them as subabilities
-        foreach (Ability ability in abilitiesWithParentAbils)
+        foreach (Ability ability in abilitiesWithParentIds)
         {
-            elementObject.AddSubAbility(ability);
+            elementObject.AddAsLayoutSubAbilityToAbility(ability);
         }
     }
 

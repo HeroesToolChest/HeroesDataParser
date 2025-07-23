@@ -481,4 +481,56 @@
       <BehaviorArray value="MeiOWAcclimationArmorCarry" />
     </RankArray>
   </CTalent>
+  <CTalent id="RagnarosCatchingFire">
+    <Face value="RagnarosCatchingFireTalent" />
+    <Abil value="RagnarosCatchingFire" />
+    <RankArray>
+      <BehaviorArray value="RagnarosCatchingFireTokenCounter" />
+      <BehaviorArray value="RagnarosCatchingFireRegenIncreaseCarryBehavior" />
+      <BehaviorArray value="RagnarosCatchingFireItem" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="RagnarosCatchingFireAddToken" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <QuestData StackBehavior="RagnarosCatchingFireTokenCounter" TargetCount="15" />
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="JunkratTotalMayhemDirtyTricksterTalent">
+    <Face value="JunkratDirtyTrickster" />
+    <RankArray>
+      <BehaviorArray value="JunkratTotalMayhemDirtyTricksterItem" />
+      <BehaviorArray value="JunkratTotalMayhemDirtyTricksterDamageResponseBehavior" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="JunkratTotalMayhemSearchArea" />
+        <Field value="AreaArray[0].Radius" />
+        <Value value="0.400000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Actor" />
+        <Entry value="JunkratTotalMayhemGrenadeExplosion" />
+        <Field value="Scale" />
+        <Value value="0.200000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="BarbarianShotOfFury">
+    <Face value="BarbarianFuryShotOfFuryTalent" />
+    <Abil value="BarbarianShotofFury" />
+    <RankArray>
+      <BehaviorArray value="BarbarianShotofFuryCarryBehavior" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
 </Talent>

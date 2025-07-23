@@ -291,6 +291,28 @@
     </CmdButtonArray>
     <ParentAbil value="AlarakLightningSurge" />
   </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakCounterStrikeTargeted2ndHeroic">
+    <PrepEffect value="AlarakCounterStrikeCastSet" />
+    <Effect value="AlarakCounterStrikeCasterPersistentExpireSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TargetVectorLock" value="1" />
+    <CastIntroTime value="1" />
+    <Cost>
+      <Vital index="Energy" value="50" />
+      <Cooldown Link="Abil/AlarakCounterStrikeTargeted" TimeUse="30" />
+    </Cost>
+    <Range value="500" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <CursorEffect value="AlarakCounterStrikeDummySearch" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakCounterStrikeTargeted" Requirements="AlarakHasCounterStrike2ndHeroicCarry">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakCounterStrikeTargeted2ndHeroic">
+    <hdp-ParentTalent value="AlarakCounterStrikeItem" />
+  </CAbilEffectTarget>
   <CAbilEffectInstant id="AbathurAssumingDirectControlCancel">
     <Effect value="AbathurAssumingDirectControlCancelSet" />
     <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
@@ -833,7 +855,7 @@
       <Flags index="ShowInGlossary" value="0" />
     </CmdButtonArray>
     <SharedFlags index="AllowQuickCastCustomization" value="0" />
-    <hdp-ParentLink elementId=":PASSIVE:" buttonElementId="FenixShieldCapacitor" abilityType="Trait" />
+    <hdp-ParentAbilLink abilityId=":PASSIVE:" buttonId="FenixShieldCapacitor" abilityType="Trait" />
   </CAbilEffectInstant>
   <CAbilEffectInstant id="GallShadowBoltVolleyMoltenBlockDummy">
     <CmdButtonArray index="Execute" DefaultButtonFace="GallShadowboltVolley" Requirements="GallShadowboltVolleyMoltenBlockDummyRequirements" />
@@ -892,7 +914,7 @@
   <!--custom-->
   <CAbilBehavior id="ImprovedIceBlock">
     <CmdButtonArray index="On">
-      <hdp-ParentLink elementId=":PASSIVE:" buttonElementId="JainaTraitFrostbite" abilityType="Trait" />
+      <hdp-ParentAbilLink abilityId=":PASSIVE:" buttonId="JainaTraitFrostbite" abilityType="Trait" />
     </CmdButtonArray>
     <CmdButtonArray index="Off" hdp-ParentAbil="ImprovedIceBlock" />
   </CAbilBehavior>
@@ -943,5 +965,32 @@
       <Flags index="AllowMinimap" value="0" />
       <Flags index="Continuous" value="0" />
     </CmdButtonArray>
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="RagnarosCatchingFire">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="RagnarosCatchingFireResistant" />
+    <Cost>
+      <Cooldown TimeUse="30" />
+    </Cost>
+    <UninterruptibleArray index="Cast" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="RagnarosCatchingFireItem" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="JunkratTotalMayhemDirtyTrickster">
+    <Effect value="JunkratTotalMayhemDirtyTricksterDummySet" />
+    <Flags index="ValidateButtonState" value="0" />
+    <Cost>
+      <Cooldown TimeUse="20" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="JunkratDirtyTrickster">
+      <Flags index="IgnoreUser" value="1" />
+    </CmdButtonArray>
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="BarbarianShotofFury">
+    <Effect value="BarbarianShotOfFurySet" />
+    <Cost>
+      <Cooldown TimeUse="40" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianFuryShotOfFury" Requirements="BarbarianHasShotofFury" />
+    <PrepEffect value="DecloakCasterSet" />
   </CAbilEffectInstant>
 </Abil>
