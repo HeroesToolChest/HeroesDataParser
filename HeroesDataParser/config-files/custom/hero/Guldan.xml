@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
   <CAbilEffectInstant id="GuldanLifeTapFree">
-    <ParentAbil value="GuldanLifeTapDarknessWithin" />
+    <!--clear out so it can be on the parent talent instead-->
+    <ParentAbil value="" />
+    <hdp-ParentTalent value="GuldanLifeTapDarknessWithin" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="GuldanDemonicCircleTeleport">
+    <ParentAbil value="GuldanDemonicCircleSummon" />
   </CAbilEffectInstant>
 </Catalog>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
   <CAbilEffectInstant id="HanzoPOTG">
-    <ParentAbil value="HanzoPOTG" />
+    <hdp-ParentTalent value="HanzoPOTG" />
   </CAbilEffectInstant>
 </Catalog>

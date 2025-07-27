@@ -4,7 +4,7 @@
     <hdp-ParentAbil value="RagnarosEmpowerSulfuras" />
   </CButton>
   <CAbilEffectTarget id="RagnarosLivingMeteorShiftingMeteor">
-    <ParentAbil value="RagnarosLivingMeteorShiftingMeteor" />
+    <hdp-ParentTalent value="RagnarosLivingMeteorShiftingMeteor" />
   </CAbilEffectTarget>
   <CButton id="RagnarosBigRagCancelReturnMoltenCore">
     <hdp-ParentAbil value="RagnarosBigRagReturnMoltenCore" />
@@ -13,4 +13,7 @@
     <!--clear parent abil so it appears a baseline ability-->
     <ParentAbil value="" />
   </CAbilEffectTarget>
+  <CButton id="RagnarosSubmergeCancel" parent="StormButtonParent">
+    <hdp-ParentAbilLink abilityId="RagnarosSubmerge" buttonId="RagnarosSubmerge" abilityType="Active" />
+  </CButton>
 </Catalog>

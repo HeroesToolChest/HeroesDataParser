@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Catalog>
-  <CButton id="ChoOgreHidePassive" parent="StormButtonParent">
-    <hdp-ParentAbil value="ChoOgreHide" />
-  </CButton>
-</Catalog>

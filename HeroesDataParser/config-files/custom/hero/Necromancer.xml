@@ -9,9 +9,9 @@
     <hdp-ParentAbil value="NecromancerCursedStrikes" />
   </CButton>
   <CButton id="NecromancerBoneArmorAbilBacklash" parent="NecromancerBoneArmor">
-    <hdp-ParentAbil value="NecromancerTalentBoneArmorBacklash" />
+    <hdp-ParentTalent value="NecromancerTalentBoneArmorBacklash" />
   </CButton>
   <CButton id="NecromancerBoneArmorAbilShackler" parent="NecromancerBoneArmor">
-    <hdp-ParentAbil value="NecromancerTalentBoneArmorShackler" />
+    <hdp-ParentTalent value="NecromancerTalentBoneArmorShackler" />
   </CButton>
 </Catalog>

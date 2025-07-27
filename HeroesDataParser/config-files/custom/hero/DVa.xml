@@ -26,6 +26,6 @@
     <CmdButtonArray index="Off" hdp-ParentAbil="DVaMechBunnyHopHeroic" />
   </CAbilBehavior>
   <CAbilEffectInstant id="DVaLiquidCoolingAbility">
-    <ParentAbil value="DVaLiquidCooling" />
+    <hdp-ParentTalent value="DVaLiquidCooling" />
   </CAbilEffectInstant>
 </Catalog>

@@ -4,12 +4,12 @@
     <hdp-ParentAbil value="MonkDeadlyReach" />
   </CButton>
   <CButton id="MonkIronFists" parent="StormButtonParentTrait">
-    <hdp-ParentAbil value="MonkIronFists" />
+    <hdp-ParentTalent value="MonkIronFists" />
   </CButton>
   <CButton id="MonkInsight" parent="StormButtonParentTrait">
-    <hdp-ParentAbil value="MonkInsight" />
+    <hdp-ParentTalent value="MonkInsight" />
   </CButton>
   <CButton id="MonkTranscendence" parent="StormButtonParentTrait">
-    <hdp-ParentAbil value="MonkTranscendence" />
+    <hdp-ParentTalent value="MonkTranscendence" />
   </CButton>
 </Catalog>

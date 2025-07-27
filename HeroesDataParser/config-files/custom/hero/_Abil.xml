@@ -3,4 +3,7 @@
   <CAbilEffectInstant id="Dismount">
     <ParentAbil value="Mount" />
   </CAbilEffectInstant>
+  <CButton id="GenericSpellShieldItemDisabled" parent="StormButtonParent">
+    <hdp-ParentAbil value="HeroGenericSpellShield" />
+  </CButton>
 </Catalog>

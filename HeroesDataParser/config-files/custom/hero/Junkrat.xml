@@ -4,7 +4,7 @@
     <ParentAbil value="JunkratRIPTire" />
   </CAbilEffectInstant>
   <CAbilEffectInstant id="JunkratIHateWaitingSummonMount">
-    <ParentAbil value="JunkratIHateWaitingTalent" />
+    <hdp-ParentTalent value="JunkratIHateWaitingTalent" />
   </CAbilEffectInstant>
   <CAbilEffectInstant id="JunkratRocketRideDismount">
     <ParentAbil value="JunkratIHateWaitingSummonMount" />

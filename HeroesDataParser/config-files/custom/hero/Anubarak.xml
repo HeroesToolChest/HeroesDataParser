@@ -7,4 +7,7 @@
     <ProducedUnitArray value="AnubarakCocoonNormal" />
     <ProducedUnitArray value="AnubarakCocoonFat" />
   </CAbilEffectTarget>
+  <CButton id="AnubarakScarabHostToggleLegionOfBeetlesOn" parent="StormButtonParentTrait">
+    <hdp-ParentAbilLink abilityId="AnubarakLegionOfBeetlesToggle" buttonId="AnubarakScarabHostToggleLegionOfBeetlesOff" abilityType="Trait" />
+  </CButton>
 </Catalog>

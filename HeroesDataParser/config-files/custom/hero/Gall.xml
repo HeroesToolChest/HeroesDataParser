@@ -7,7 +7,7 @@
     <ParentAbil value="GallTwistingNether" />
   </CAbilEffectInstant>
   <CAbilEffectTarget id="GallShiftingNether">
-    <ParentAbil value="GallShiftingNether" />
+    <hdp-ParentTalent value="GallShiftingNether" />
   </CAbilEffectTarget>
   <CButton id="GallOgreRagePassive" parent="StormButtonParent">
     <hdp-ParentAbil value="GallOgreRage" />

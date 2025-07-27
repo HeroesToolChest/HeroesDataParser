@@ -3,7 +3,4 @@
   <CAbilEffectTarget id="KelThuzadChainsLink">
     <ParentAbil value="KelThuzadChains" />
   </CAbilEffectTarget>
-  <CAbilEffectTarget id="KelThuzadGlacialSpike">
-    <ParentAbil value="KelThuzadMasterOfTheColdDark" />
-  </CAbilEffectTarget>
 </Catalog>

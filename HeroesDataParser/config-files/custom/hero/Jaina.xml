@@ -7,9 +7,6 @@
     </CardLayouts>
   </CUnit>
   <CAbilBehavior id="ImprovedIceBlock">
-    <CmdButtonArray index="On">
-      <hdp-ParentLink elementId=":PASSIVE:" buttonElementId="JainaTraitFrostbite" abilityType="Trait" />
-    </CmdButtonArray>
     <CmdButtonArray index="Off" hdp-ParentAbil="ImprovedIceBlock" />
   </CAbilBehavior>
 </Catalog>

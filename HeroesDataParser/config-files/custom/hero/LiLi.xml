@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
   <CAbilEffectInstant id="LiLiSafetySprint">
-    <ParentAbil value="LiLiMasteryFastFeetSafetySprint" />
+    <hdp-ParentTalent value="LiLiMasteryFastFeetSafetySprint" />
   </CAbilEffectInstant>
 </Catalog>

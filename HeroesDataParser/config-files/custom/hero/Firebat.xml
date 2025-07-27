@@ -1,7 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
   <CHero id="Firebat">
-    <!--remove FirebatBunkerDropTurretUnit, has only the abilities; FirebatBunkerDropBunkerUnit is the proper unit-->
+    <!--remove FirebatBunkerDropTurretUnit, which has the abilities; FirebatBunkerDropBunkerUnit is the acutally unit-->
     <AlternateUnitArray index="0" value="" />
+    <AlternateUnitArray index="" value="FirebatBunkerDropBunkerUnit" />
   </CHero>
+  
+  <!--take the abilities from FirebatBunkerDropTurretUnit and put them on the bunker unit-->
+  <CUnit id="FirebatBunkerDropBunkerUnit" parent="StormSummonPassive">
+    <AbilArray Link="FirebatBunkerDropFlamethrower" />
+    <AbilArray Link="FirebatBunkerDropExitBunker" />
+    <AbilArray Link="FirebatBunkerDropFortifiedBunkerOilSpill" />
+    <CardLayouts>
+      <LayoutButtons Face="FirebatBunkerDropFlamethrower" Type="AbilCmd" AbilCmd="FirebatBunkerDropFlamethrower,Execute" Slot="Ability1" />
+      <LayoutButtons Face="FirebatBunkerDropExitBunker" Type="AbilCmd" AbilCmd="FirebatBunkerDropExitBunker,Execute" Slot="Trait" />
+      <LayoutButtons Face="FirebatBunkerDropFortifiedBunkerOilSpill" Type="AbilCmd" AbilCmd="FirebatBunkerDropFortifiedBunkerOilSpill,Execute" Slot="Ability2" />
+    </CardLayouts>
+  </CUnit>
 </Catalog>

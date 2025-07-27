@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
   <CAbilEffectInstant id="DeckardAncientBlessings">
-    <ParentAbil value="DeckardAncientBlessings" />
+    <hdp-ParentTalent value="DeckardAncientBlessings" />
   </CAbilEffectInstant>
 </Catalog>

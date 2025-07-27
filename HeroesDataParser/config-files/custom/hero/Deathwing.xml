@@ -20,6 +20,6 @@
     <ParentAbil value="DeathwingFormSwitch" />
   </CAbilEffectTarget>
   <CAbilEffectTarget id="DeathwingSkyfall">
-    <ParentAbil value="DeathwingSkyfall" />
+    <hdp-ParentTalent value="DeathwingSkyfall" />
   </CAbilEffectTarget>
 </Catalog>
