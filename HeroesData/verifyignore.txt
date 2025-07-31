@@ -31,6 +31,8 @@
 # has three heroic subabilities
 [Zeratul] has more than 2 Heroic subabilities for ZeratulMightOfTheNerazimDummy|ZeratulMightOfTheNerazimPassive|Heroic|False
 
+[Alarak] has more than 1 Trait subability for AlarakMightOfTheHighlord|AlarakMightOfTheHighlord|Unknown|False
+
 # missing
 [Deathwing] SearchText is null or emtpy
 
