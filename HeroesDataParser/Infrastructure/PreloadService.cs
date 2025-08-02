@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -33,6 +34,17 @@ public class PreloadService : IPreloadService
         AnsiConsole.WriteLine();
     }
 
+    private static string? GetExtractorSubPath(ReadOnlySpan<char> directoryPath)
+    {
+        Span<Range> paths = stackalloc Range[4];
+        int count = directoryPath.Split(paths, Path.DirectorySeparatorChar);
+
+        if (count < 4)
+            return null;
+
+        return directoryPath[paths[3]].ToString();
+    }
+
     private void SelectedLocalizations()
     {
         _logger.LogInformation("Selected localizations: {Locales}", string.Join(',', _options.Localizations));
@@ -65,7 +77,12 @@ public class PreloadService : IPreloadService
 
         foreach (string relativeFilePath in files)
         {
-            root.AddNode(Path.GetFileName(relativeFilePath));
+            string? subDirectory = GetExtractorSubPath(Path.GetDirectoryName(relativeFilePath));
+
+            if (!string.IsNullOrWhiteSpace(subDirectory))
+                root.AddNode($"{Path.GetFileName(relativeFilePath)} (.{Path.DirectorySeparatorChar}{subDirectory})");
+            else
+                root.AddNode(Path.GetFileName(relativeFilePath));
             //AnsiConsole.MarkupLine($"- {Path.GetFileName(relativeFilePath)}");
         }
 

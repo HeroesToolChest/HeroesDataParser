@@ -5,6 +5,7 @@ namespace HeroesDataParser.Infrastructure.Configurations;
 public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfigurationService
 {
     private const string _customDataExtension = ".xml";
+    private const int _maxDepth = 2;
 
     private readonly ILogger<CustomConfigurationService> _logger;
     private readonly IFileProvider _fileProvider;
@@ -86,20 +87,29 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
             if (!Options.Extractors.ContainsKey(fileInfo.Name))
                 continue;
 
-            IDirectoryContents extractorDirectoryContents = _fileProvider.GetDirectoryContents(Path.Join(_customConfigurationDirectory, fileInfo.Name));
+            string directoryPath = Path.Join(_customConfigurationDirectory, fileInfo.Name);
+            IDirectoryContents extractorDirectoryContents = _fileProvider.GetDirectoryContents(directoryPath);
 
             // load the files in the extractor directories
-            LoadCustomDataFiles(extractorDirectoryContents, fileInfo.Name, relativeFilePathByDefaultFileName);
+            LoadCustomDataFiles(extractorDirectoryContents, directoryPath, fileInfo.Name, relativeFilePathByDefaultFileName);
         }
     }
 
-    private void LoadCustomDataFiles(IDirectoryContents directoryContents, string extractorName, Dictionary<string, string> relativeFilePathByDefaultFileName)
+    private void LoadCustomDataFiles(IDirectoryContents directoryContents, string currentRelativeDirectoryPath, string extractorName, Dictionary<string, string> relativeFilePathByDefaultFileName, int currentDepth = 0)
     {
+        currentDepth++;
+
         foreach (IFileInfo fileInfo in directoryContents)
         {
-            // we only want files...
-            if (!fileInfo.Exists || fileInfo.PhysicalPath is null || fileInfo.IsDirectory)
+            if (!fileInfo.Exists || fileInfo.PhysicalPath is null)
                 continue;
+
+            // check directory depth, dont check any more inner directories
+            if (currentDepth < _maxDepth && fileInfo.IsDirectory)
+            {
+                string directoryPath = Path.Join(currentRelativeDirectoryPath, fileInfo.Name);
+                LoadCustomDataFiles(_fileProvider.GetDirectoryContents(directoryPath), directoryPath, extractorName, relativeFilePathByDefaultFileName, currentDepth);
+            }
 
             // ...with the custom data extension
             if (!fileInfo.Name.EndsWith(_customDataExtension, StringComparison.OrdinalIgnoreCase))
@@ -108,7 +118,7 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
             ReadOnlySpan<char> filePathSpan = Path.GetFileNameWithoutExtension(fileInfo.Name.AsSpan());
             int index = filePathSpan.LastIndexOf('_');
 
-            string relativeFilePath = Path.Join(_customConfigurationDirectory, extractorName, fileInfo.Name);
+            string relativeFilePath = Path.Join(currentRelativeDirectoryPath, fileInfo.Name);
 
             // check for default file (no build number suffix)
             if (index < 1)
