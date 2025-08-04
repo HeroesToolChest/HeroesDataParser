@@ -581,4 +581,37 @@ public class UnitParserTests
         unit.Abilities[AbilityTier.Activable][1].LinkId.ToString().Should().Be("NecromancerBoneArmor|NecromancerBoneArmorAbilBacklash|Active");
         unit.Abilities[AbilityTier.Activable][2].LinkId.ToString().Should().Be("NecromancerBoneArmor|NecromancerBoneArmorAbilShackler|Active");
     }
+
+    [TestMethod]
+    public void Parse_UnitButtonAbilities_ReturnsUnitButtonAbilities()
+    {
+        // arrange
+        string unitId = "HeroSamuro";
+
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+
+        _abilityParser.GetUnitButtonAbility("SamuroSelectSamuroPrime").Returns(new Ability()
+        {
+            AbilityElementId = AbilityTalentParserBase.PassiveAbilityElementId,
+            ButtonElementId = "SamuroSelectSamuroPrime",
+            AbilityType = AbilityType.Active,
+            Tier = AbilityTier.Activable,
+        });
+        _abilityParser.GetUnitButtonAbility("SamuroSelectAll").Returns(new Ability()
+        {
+            AbilityElementId = AbilityTalentParserBase.PassiveAbilityElementId,
+            ButtonElementId = "SamuroSelectAll",
+            AbilityType = AbilityType.Active,
+            Tier = AbilityTier.Activable,
+        });
+
+        // act
+        Unit? unit = unitParser.Parse(unitId);
+
+        // assert
+        unit.Should().NotBeNull();
+        unit.Abilities[AbilityTier.Activable].Should().HaveCount(2);
+        unit.Abilities[AbilityTier.Activable][0].LinkId.ToString().Should().Be(":PASSIVE:|SamuroSelectSamuroPrime|Active");
+        unit.Abilities[AbilityTier.Activable][1].LinkId.ToString().Should().Be(":PASSIVE:|SamuroSelectAll|Active");
+    }
 }

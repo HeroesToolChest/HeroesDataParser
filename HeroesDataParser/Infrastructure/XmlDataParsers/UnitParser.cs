@@ -42,15 +42,13 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
     protected override void SetProperties(Unit elementObject, StormElement stormElement)
     {
-        SetActorData(elementObject);
+        SetActorData(elementObject, out List<Ability> unitButtonAbilities);
         SetUnitData(elementObject, stormElement);
         SetArmorData(elementObject, stormElement);
         SetWeaponData(elementObject, stormElement);
+        SetBehaviors(elementObject, stormElement, out List<StormElement> behaviorAbilityStormElements);
 
-        // behaviors, could have abilities as well
-        List<StormElement> behaviorAbilityStormElements = ParseBehaviors(elementObject, stormElement);
-
-        SetAbilityData(elementObject, stormElement, behaviorAbilityStormElements);
+        SetAbilityData(elementObject, stormElement, unitButtonAbilities, behaviorAbilityStormElements);
     }
 
     private static void AddAbilityByTooltipTalentElementIds(Unit elementObject, Ability ability)
@@ -73,8 +71,10 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         AddAbilityByTooltipTalentElementIds(elementObject, ability);
     }
 
-    private void SetActorData(Unit elementObject)
+    private void SetActorData(Unit elementObject, out List<Ability> unitButtonAbilities)
     {
+        unitButtonAbilities = [];
+
         string? unitId = HeroesData.GetStormElementIdByUnitName(elementObject.Id, _actorDataObjectType);
 
         StormElement? actorElement;
@@ -103,8 +103,6 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                 elementObject.Energy.EnergyType = TooltipDescriptionService.GetTooltipDescriptionFromId(energyData.Value.GetString());
         }
 
-        //// TODO additional actor abilities
-
         if (actorElement.DataValues.TryGetElementDataAt("GroupIcon", out StormElementData? groupIconData) && groupIconData.TryGetElementDataAt("Image", out StormElementData? groupImageData))
         {
             ImageFilePath? imageFilePath = GetImageFilePath(groupImageData);
@@ -123,6 +121,16 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                 elementObject.UnitPortraits.MiniMapIcon = imageFilePath.Image;
                 elementObject.UnitPortraits.MiniMapIconPath = imageFilePath.FilePath;
             }
+        }
+
+        if (actorElement.DataValues.TryGetElementDataAt("UnitButton", out StormElementData? unitButtonData))
+        {
+            AddUnitButtonAbility(unitButtonAbilities, unitButtonData);
+        }
+
+        if (actorElement.DataValues.TryGetElementDataAt("UnitButtonMultiple", out StormElementData? unitButtonMultipleData))
+        {
+            AddUnitButtonAbility(unitButtonAbilities, unitButtonMultipleData);
         }
     }
 
@@ -230,13 +238,12 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         }
     }
 
-    // returns the behavior abilities
-    private List<StormElement> ParseBehaviors(Unit elementObject, StormElement stormElement)
+    private void SetBehaviors(Unit elementObject, StormElement stormElement, out List<StormElement> behaviorAbilityElements)
     {
-        List<StormElement> behaviorAbilities = [];
+        behaviorAbilityElements = [];
 
         if (!stormElement.DataValues.TryGetElementDataAt("BehaviorArray", out StormElementData? behaviorArrayData))
-            return behaviorAbilities;
+            return;
 
         foreach (string item in behaviorArrayData.GetElementDataIndexes())
         {
@@ -253,10 +260,8 @@ public class UnitParser : DataParser<Unit>, IUnitParser
             if (behaviorStormElement.ElementType.Equals("CBehaviorVeterancy", StringComparison.OrdinalIgnoreCase))
                 elementObject.ScalingLinkIds.Add(linkId);
             else if (behaviorStormElement.ElementType.Equals("CBehaviorAbility", StringComparison.OrdinalIgnoreCase))
-                 behaviorAbilities.Add(behaviorStormElement);
+                behaviorAbilityElements.Add(behaviorStormElement);
         }
-
-        return behaviorAbilities;
     }
 
     private void SetArmorData(Unit elementObject, StormElement stormElement)
@@ -381,7 +386,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         }
     }
 
-    private void SetAbilityData(Unit elementObject, StormElement stormElement, IEnumerable<StormElement> behaviorAbilityStormElements)
+    private void SetAbilityData(Unit elementObject, StormElement stormElement, IEnumerable<Ability> unitButtonAbilities, IEnumerable<StormElement> behaviorAbilityStormElements)
     {
         // keep track of abilities that are being added; by their nameId
         // when we add an ability, we remove it from the checklist
@@ -436,6 +441,12 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                     ProcessAbility(elementObject, ability, abilitiesWithParentIds);
                 }
             }
+        }
+
+        // loop through the unit button abilities
+        foreach (Ability unitButtonAbility in unitButtonAbilities)
+        {
+            ProcessAbility(elementObject, unitButtonAbility, abilitiesWithParentIds);
         }
 
         // loop through the behavior abilities
@@ -501,6 +512,18 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                     }
                 }
             }
+        }
+    }
+
+    private void AddUnitButtonAbility(List<Ability> unitButtonAbilities, StormElementData unitButtonData)
+    {
+        string unitButtonId = unitButtonData.Value.GetString();
+
+        // these are just buttons and have no abil
+        Ability? ability = _abilityParser.GetUnitButtonAbility(unitButtonId);
+        if (ability is not null)
+        {
+            unitButtonAbilities.Add(ability);
         }
     }
 }

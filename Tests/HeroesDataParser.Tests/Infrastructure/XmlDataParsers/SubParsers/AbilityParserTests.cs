@@ -1291,6 +1291,20 @@ public class AbilityParserTests
         ability.ParentAbilityLinkId!.ToString().Should().Be(":PASSIVE:|MonkBlankTrait|Trait");
     }
 
+    [TestMethod]
+    public void GetUnitButtonAbility_ButtonWithHdpAbilityParentLink_ReturnsAbility()
+    {
+        // arrange
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetUnitButtonAbility("SamuroSelectSamuroPrime");
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be(":PASSIVE:|SamuroSelectSamuroPrime|Active");
+    }
+
     private static void AssertAbathurSymbioteAbility(Ability ability)
     {
         ability.Name!.RawDescription.Should().Be("Symbiote");

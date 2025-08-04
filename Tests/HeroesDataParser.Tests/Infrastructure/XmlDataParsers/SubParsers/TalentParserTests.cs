@@ -217,8 +217,6 @@ public class TalentParserTests
         talent.Tier.Should().Be(TalentTier.Level20);
         talent.PrerequisiteTalentIds.Should().ContainSingle().And
             .Contain("AbathurHeroicAbilityEvolveMonstrosity");
-
-        _talentLogger.Received(1).Log(LogLevel.Warning, 0, Arg.Any<object>(), null, Arg.Any<Func<object, Exception?, string>>());
     }
 
     [TestMethod]

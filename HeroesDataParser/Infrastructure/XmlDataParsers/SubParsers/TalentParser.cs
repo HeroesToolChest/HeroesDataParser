@@ -50,8 +50,6 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
                 string value = prerequisiteTalentArrayData.Value.GetString();
                 if (!string.IsNullOrEmpty(value) && HeroesData.StormElementExists("Talent", value))
                     talent.PrerequisiteTalentIds.Add(value);
-                else
-                    Logger.LogWarning("Talent {Talent} has an unknown prerequisite talent id {PrerequisiteTalentId}.", talentValue, value);
             }
         }
 

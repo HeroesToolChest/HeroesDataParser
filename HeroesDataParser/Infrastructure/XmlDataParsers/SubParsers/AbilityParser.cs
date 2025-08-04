@@ -7,28 +7,6 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
     {
     }
 
-    public static (string AbilityId, string Index) GetAbilCmdSplit(string abilCmdValue)
-    {
-        ReadOnlySpan<char> abilCmdSpan = abilCmdValue.AsSpan();
-        ReadOnlySpan<char> firstPartAbilCmdSpan;
-        ReadOnlySpan<char> indexPartAbilCmdSpan;
-
-        int index = abilCmdSpan.IndexOf(',');
-
-        if (index > 0)
-        {
-            firstPartAbilCmdSpan = abilCmdSpan[..index];
-            indexPartAbilCmdSpan = abilCmdSpan[(index + 1)..];
-        }
-        else
-        {
-            firstPartAbilCmdSpan = abilCmdSpan;
-            indexPartAbilCmdSpan = string.Empty;
-        }
-
-        return (firstPartAbilCmdSpan.ToString(), indexPartAbilCmdSpan.ToString());
-    }
-
     public Ability? GetAbility(StormElementData layoutButtonData)
     {
         string? faceValue = null;
@@ -148,6 +126,22 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
         return ability;
     }
 
+    public Ability? GetUnitButtonAbility(string buttonElementId)
+    {
+        Ability ability = new()
+        {
+            AbilityElementId = PassiveAbilityElementId,
+            ButtonElementId = buttonElementId,
+        };
+
+        SetButtonData(ability);
+
+        ability.AbilityType = AbilityType.Active;
+        ability.Tier = AbilityTier.Activable;
+
+        return ability;
+    }
+
     private static bool IgnoreAbilityType(Ability ability) => ability.AbilityType == AbilityType.Attack ||
         ability.AbilityType == AbilityType.Stop ||
         ability.AbilityType == AbilityType.Hold ||
@@ -164,7 +158,11 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
         slotsValue.Equals("Hidden3", StringComparison.OrdinalIgnoreCase);
 
     private static bool IsRequirementsValueMatch(string requirementsValue) =>
-        requirementsValue.Equals("UltimateNotUnlocked", StringComparison.OrdinalIgnoreCase);
+        requirementsValue.Equals("UltimateNotUnlocked", StringComparison.OrdinalIgnoreCase) ||
+        requirementsValue.Equals("AbathurIsUltimateEvolutionClone", StringComparison.OrdinalIgnoreCase) ||
+        requirementsValue.Equals("LostVikingsQAbilitiesNotEnabled", StringComparison.OrdinalIgnoreCase) ||
+        requirementsValue.Equals("LostVikingsWAbilitiesNotEnabled", StringComparison.OrdinalIgnoreCase) ||
+        requirementsValue.Equals("LostVikingsVikingBriberyNotEnabled", StringComparison.OrdinalIgnoreCase);
 
     private static bool IsTypeValueMatch(string typeValue) =>
         typeValue.Equals("CancelTargetMode", StringComparison.OrdinalIgnoreCase);
@@ -213,6 +211,28 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
             AbilityType.Hidden => AbilityTier.Hidden,
             _ => AbilityTier.Unknown,
         };
+    }
+
+    private static (string AbilityId, string Index) GetAbilCmdSplit(string abilCmdValue)
+    {
+        ReadOnlySpan<char> abilCmdSpan = abilCmdValue.AsSpan();
+        ReadOnlySpan<char> firstPartAbilCmdSpan;
+        ReadOnlySpan<char> indexPartAbilCmdSpan;
+
+        int index = abilCmdSpan.IndexOf(',');
+
+        if (index > 0)
+        {
+            firstPartAbilCmdSpan = abilCmdSpan[..index];
+            indexPartAbilCmdSpan = abilCmdSpan[(index + 1)..];
+        }
+        else
+        {
+            firstPartAbilCmdSpan = abilCmdSpan;
+            indexPartAbilCmdSpan = string.Empty;
+        }
+
+        return (firstPartAbilCmdSpan.ToString(), indexPartAbilCmdSpan.ToString());
     }
 
     private void SetAbilityData(AbilityTalentBase abilityTalent, string? abilCmdIndex = null)

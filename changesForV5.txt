@@ -73,7 +73,6 @@ v5 changes heroes
 - Fixed Lost Vikings' `LostVikingsMasterySpinToWin|LostVikingsSpinToWin|Q` ability type
 - Fixed Lost Vikings' `LostVikingsMasteryNorseForce|LostVikingsNorseForce|Q` ability type
 - Fixed Lost Vikings' `LostVikingsMasteryJump|LostVikingsJump|W` ability type
-- Removed the `Activable` abilities from Baleog, Erik, and Olaf
 - Fixed Dva's `DVaMechBunnyHopHeroic|DVaBunnyHopOff|Heroic` incorrect cooldown
 - Added `MedicMedivacDropship` as a heroUnit to Medic
 - Added `HeroMedivhRaven` as a heroUnit to Medivh

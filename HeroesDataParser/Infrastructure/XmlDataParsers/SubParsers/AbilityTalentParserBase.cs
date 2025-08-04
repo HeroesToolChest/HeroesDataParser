@@ -595,8 +595,6 @@ public class AbilityTalentParserBase : ParserBase
             // check if it exists
             if (HeroesData.StormElementExists("Talent", valueValue))
                 abilityTalent.TooltipAppendersTalentElementIds.Add(valueValue);
-            else
-                Logger.LogWarning("Talent element {ValueValue} not found for button {ButtonId}", valueValue, abilityTalent.ButtonElementId);
         }
         else if (validatorElement.DataValues.TryGetElementDataAt("CombineArray", out StormElementData? combineArrayData))
         {
