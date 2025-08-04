@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
   <CHero id="Firebat">
-    <!--remove FirebatBunkerDropTurretUnit, which has the abilities; FirebatBunkerDropBunkerUnit is the acutally unit-->
+    <!--remove FirebatBunkerDropTurretUnit, which has the abilities; FirebatBunkerDropBunkerUnit is the unit-->
     <AlternateUnitArray index="0" value="" />
-    <AlternateUnitArray index="" value="FirebatBunkerDropBunkerUnit" />
+    <AlternateUnitArray value="FirebatBunkerDropBunkerUnit" />
   </CHero>
   
   <!--take the abilities from FirebatBunkerDropTurretUnit and put them on the bunker unit-->

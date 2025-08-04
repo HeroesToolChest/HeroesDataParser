@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectInstant id="RaynorRaynorsRaidersDummy">
+    <!--clear, should not be a subability-->
+    <ParentAbil value="" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="RaynorRaynorsRaidersRedirect">
+    <ParentAbil value="RaynorRaynorsRaidersDummy" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="RaynorBountyHunter">
+    <hdp-ParentTalent value="RaynorBountyHunter" />
+  </CAbilEffectInstant>
+</Catalog>

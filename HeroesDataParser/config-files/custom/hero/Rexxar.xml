@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CHero id="Rexxar">
+    <hdp-PartyFrameImageArray value="Assets\Textures\storm_ui_ingame_partyframe_rexxar_misha.dds" />
+    <AlternateUnitArray value="RexxarMisha" />
+  </CHero>
+  <CAbilBehavior id="RexxarFeignDeath">
+    <CmdButtonArray index="Off" DefaultButtonFace="RexxarFeignDeathCancel" />
+  </CAbilBehavior>
+  <CButton id="RexxarFeignDeathCancel" parent="StormButtonParent">
+    <hdp-ParentAbilLink abilityId="RexxarFeignDeath" buttonId="RexxarFeignDeath" abilityType="Active" />
+  </CButton>
+</Catalog>
