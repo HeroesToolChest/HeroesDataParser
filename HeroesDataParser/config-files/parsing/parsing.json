@@ -54,7 +54,8 @@
           "GreymaneWorgen",
           "InvisibleHero",
           "LegacyVOHero",
-          "Random"
+          "Random",
+          "Resistance"
         ],
         "Regex": [
           "\\b\\w*Event\\b" // exclude all heroes ending with 'Event'
