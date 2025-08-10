@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroTassadar" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <LayoutButtons index="25" hdp-ParentAbil="TassadarArchon" /> <!--Face="TassadarArchon" Type="Passive" Requirements="TassadarArchonActive" Slot="Heroic"-->
+    </CardLayouts>
+  </CUnit>
+  <CAbilEffectInstant id="TassadarCancelOracle">
+    <ParentAbil value="TassadarOracleTargeted" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="TassadarCancelShadowWalk">
+    <ParentAbil value="TassadarShadowWalk" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="TassadarResonanceBeamArcDischargeDummy">
+    <hdp-ParentTalent value="TassadarArcDischarge" />
+  </CAbilEffectInstant>
+</Catalog>

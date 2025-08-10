@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectInstant id="TracerLockedandLoadedFailReload">
+    <ParentAbil value="" />
+    <hdp-parentTalent value="TracerLockedandLoaded" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="TracerLockedandLoaded">
+    <ParentAbil value="" />
+    <hdp-parentTalent value="TracerLockedandLoaded" />
+  </CAbilEffectInstant>
+</Catalog>

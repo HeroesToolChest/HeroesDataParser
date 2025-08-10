@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectTarget id="TychusOdinAnnihilate">
+    <ParentAbil value="TychusOdinNoHealth" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="TychusOdinRagnarokMissilesTargeted">
+    <ParentAbil value="TychusOdinNoHealth" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="TychusOdinThrusters" parent="StormSkillshotDashParent">
+    <ParentAbil value="TychusOdinNoHealth" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="TychusMinigunActive">
+    <hdp-ParentAbilLink abilityId=":PASSIVE:" buttonId="TychusMinigun" abilityType="Trait" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="TychusRunAndGunOverkill" parent="StormSkillshotDashParent">
+    <ParentAbil value="TychusOverkillTargeted" />
+  </CAbilEffectTarget>
+</Catalog>

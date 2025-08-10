@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectInstant id="SylvanasMindControlCancel">
+    <ParentAbil value="SylvanasMindControlMissile" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="SylvanasHauntingWaveWindrunnerTalent">
+    <ParentAbil value="" />
+    <hdp-ParentTalent value="SylvanasTalentWindrunnerHauntingWave" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="SylvanasHauntingWaveActivateWindrunnerTalent">
+    <ParentAbil value="SylvanasHauntingWaveWindrunnerTalent" /> 
+  </CAbilEffectInstant>
+</Catalog>

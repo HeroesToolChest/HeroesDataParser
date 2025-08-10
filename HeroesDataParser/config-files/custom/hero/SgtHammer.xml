@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <!--point to trait-->
+  <CAbilEffectTarget id="SgtHammerSpiderMinesSiegeMode">
+    <ParentAbil value="SgtHammerSiegeMode" />
+  </CAbilEffectTarget>
+  <!--point to trait-->
+  <CAbilEffectTarget id="SgtHammerNapalmStrikeSiege">
+    <ParentAbil value="SgtHammerSiegeMode" />
+  </CAbilEffectTarget>
+  
+  <CAbilEffectInstant id="ConcussiveBlastScrapCancel">
+    <ParentAbil value="" />
+    <hdp-ParentTalent value="SgtHammerBarricade" />
+  </CAbilEffectInstant>
+</Catalog>
