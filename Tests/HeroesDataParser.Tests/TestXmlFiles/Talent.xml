@@ -533,4 +533,38 @@
     </RankArray>
     <Active value="1" />
   </CTalent>
+  <CTalent id="VarianTwinBladesOfFury">
+    <Face value="VarianTwinBladesOfFury" />
+    <RankArray>
+      <BehaviorArray value="Ultimate3Unlocked" />
+      <BehaviorArray value="VarianTwinBladesOfFuryHeroModifications" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="VarianTwinBladesOfFuryApplyCasterMoveSpeed" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="VarianBaseModifyHeroicStrikeCooldown" />
+        <Field value="Cost[0].CooldownTimeUse" />
+        <Value value="-7.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="VarianTwinBladesofFury" />
+  </CTalent>
+  <CTalent id="AlarakMightOfTheHighlord">
+    <Face value="AlarakMightOfTheHighlord" />
+    <Abil value="AlarakMightOfTheHighlordSetDeadlyChargeAsHeroic" />
+    <RankArray>
+      <BehaviorArray value="Ultimate1Unlocked" />
+      <BehaviorArray value="Ultimate2Unlocked" />
+      <BehaviorArray value="AlarakMightOfTheHighlordHeroicSelector" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
 </Talent>

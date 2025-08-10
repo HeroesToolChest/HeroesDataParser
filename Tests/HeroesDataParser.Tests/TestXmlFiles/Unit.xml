@@ -1780,4 +1780,35 @@
       <DisabledSlots index="Dynamic4" value="1" />
     </CardLayouts>
   </CUnit>
+  <CUnit id="HeroTassadar" parent="StormHeroMounted">
+    <LifeStart value="1650" />
+    <LifeMax value="1650" />
+    <LifeRegenRate value="3.4375" />
+    <AbilArray Link="TassadarOracleTargeted" />
+    <AbilArray Link="TassadarForceWall" />
+    <AbilArray Link="TassadarForceWallCancel" />
+    <AbilArray Link="TassadarArchon" />
+    <AbilArray Link="TassadarPsionicStorm" />
+    <AbilArray Link="TassadarShockRay" />
+    <AbilArray Link="TassadarBlackHole" />
+    <AbilArray Link="TassadarResonanceBeamArcDischargeDummy" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="TassadarResonanceBeamTokenCounter" />
+    <BehaviorArray Link="TassadarForceWallUnitTracker" />
+    <BehaviorArray Link="TassadarResonanceBeamCarry" />
+    <WeaponArray Link="TassadarResonanceBeam" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="TassadarArchon" Type="Passive" Requirements="TassadarArchonActive" Slot="Heroic">
+        <hdp-ParentAbil value="TassadarArchon" />
+      </LayoutButtons>
+      <LayoutButtons Face="TassadarArchon" Type="AbilCmd" AbilCmd="TassadarArchon,Execute" Slot="Heroic" />
+      <LayoutButtons Face="TassadarBlackHole" Type="AbilCmd" AbilCmd="TassadarBlackHole,Execute" Slot="Heroic" />
+      <LayoutButtons Face="TassadarForceWallCancel" Type="AbilCmd" AbilCmd="TassadarForceWallCancel,Execute" Slot="Ability3" />
+      <LayoutButtons Face="TassadarForceWall" Type="AbilCmd" AbilCmd="TassadarForceWall,Execute" Slot="Ability3" />
+      <LayoutButtons Face="TassadarShockRay" Type="AbilCmd" AbilCmd="TassadarShockRay,Execute" Slot="Ability1" />
+      <LayoutButtons Face="TassadarResonanceBeam" Type="AbilCmd" AbilCmd="TassadarResonanceBeamArcDischargeDummy,Execute" ShowInGlossary="0" Slot="Trait" />
+      <LayoutButtons Face="TassadarResonanceBeam" Type="Passive" Slot="Trait" />
+      <LayoutButtons Face="TassadarPsionicStorm" Type="AbilCmd" AbilCmd="TassadarPsionicStorm,Execute" Slot="Ability2" />
+    </CardLayouts>
+  </CUnit>
 </Unit> 

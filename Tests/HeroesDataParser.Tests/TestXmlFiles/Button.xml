@@ -500,4 +500,17 @@
   <CButton id="BarbarianFuryShotOfFuryTalent" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_sonya_fury.dds" />
   </CButton>
+  <CButton id="TassadarArchon" parent="StormButtonParent">
+    <Name value="Button/Name/TassadarArchonSelectButton" />
+    <TooltipAppender Validator="TassadarHasTwilightArchon" Face="TassadarArchonTwilightArchonTalent" />
+    <Icon value="Assets\Textures\storm_ui_icon_tassadar_archon.dds" />
+    <AlertTooltip value="Button/Tooltip/TassadarArchonSelectButton" />
+  </CButton>
+  <CButton id="VarianTwinBladesOfFury" parent="StormButtonParent">
+    <TooltipAppender Validator="VarianTwinBladesOfFuryHasFrenzyTalent" Face="VarianTwinBladesOfFuryFrenzy" />
+    <Icon value="Assets\Textures\storm_ui_icon_varian_twinbladesoffury.dds" />
+  </CButton>
+  <CButton id="AlarakMightOfTheHighlord" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_sadism_a.dds" />
+  </CButton>
 </Button>

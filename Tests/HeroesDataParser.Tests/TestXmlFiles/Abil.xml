@@ -993,4 +993,14 @@
     <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianFuryShotOfFury" Requirements="BarbarianHasShotofFury" />
     <PrepEffect value="DecloakCasterSet" />
   </CAbilEffectInstant>
+  <CAbilEffectInstant id="VarianTwinBladesofFury">
+    <CmdButtonArray index="Execute" DefaultButtonFace="VarianTwinBladesOfFury" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="AlarakMightOfTheHighlordSetDeadlyChargeAsHeroic">
+    <Effect value="AlarakMightOfTheHighlordSetHeroicAsDeadlyChargeSet" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="0.5" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakMightOfTheHighlord" />
+  </CAbilEffectInstant>
 </Abil>

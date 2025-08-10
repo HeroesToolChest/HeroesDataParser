@@ -706,6 +706,10 @@
     </TalentTreeArray>
     <TalentTreeArray Talent="AlarakLastLaugh" Tier="7" Column="3" />
     <TalentTreeArray Talent="AlarakHastyBargain" Tier="7" Column="4" />
+    
+    <!--NewerTalent-->
+    <TalentTreeArray Talent="AlarakMightOfTheHighlord" Tier="7" Column="5" />
+    
     <Difficulty value="VeryHard" />
     <UniverseIcon value="Assets\Textures\ui_glues_store_gameicon_sc2.dds" />
     <ProductId value="22256" />
@@ -4759,5 +4763,35 @@
     <Rarity value="Legendary" />
     <ReleaseDate Month="10" Day="17" Year="2017" />
     <ExpandedRole value="RangedAssassin" />
+  </CHero>
+  <CHero id="Varian">
+    <TalentTreeArray Talent="VarianLionsFangLionsMawQuest" Tier="1" Column="1" />
+    <TalentTreeArray Talent="VarianParryOverpower" Tier="1" Column="2" />
+    <TalentTreeArray Talent="VarianHighKingsQuestQuest" Tier="1" Column="3" />
+    <TalentTreeArray Talent="VarianTaunt" Tier="2" Column="1" />
+    <TalentTreeArray Talent="VarianColossusSmash" Tier="2" Column="2" />
+    <TalentTreeArray Talent="VarianTwinBladesOfFury" Tier="2" Column="3" />
+    <TalentTreeArray Talent="VarianLionsFangLionheart" Tier="3" Column="1" />
+    <TalentTreeArray Talent="VarianSecondWind" Tier="3" Column="2" />
+    <TalentTreeArray Talent="VarianVictoryRush" Tier="3" Column="3" />
+    <TalentTreeArray Talent="VarianParryShieldWall" Tier="4" Column="1" />
+    <TalentTreeArray Talent="VarianChargeWarbringer" Tier="4" Column="2" />
+    <TalentTreeArray Talent="VarianChargeJuggernaut" Tier="5" Column="1" />
+    <TalentTreeArray Talent="VarianMortalStrike" Tier="5" Column="2" />
+    <TalentTreeArray Talent="VarianShatteringThrow" Tier="5" Column="3" />
+    <TalentTreeArray Talent="VarianBannerOfStormwind" Tier="6" Column="1" />
+    <TalentTreeArray Talent="VarianBannerOfIronforge" Tier="6" Column="2" />
+    <TalentTreeArray Talent="VarianBannerOfDalaran" Tier="6" Column="3" />
+    <TalentTreeArray Talent="VarianTauntVigilance" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="VarianTaunt" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="VarianColossusSmashMasterAtArms" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="VarianColossusSmash" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="VarianTwinBladesOfFuryFrenzy" Tier="7" Column="3">
+      <PrerequisiteTalentArray value="VarianTwinBladesOfFury" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="VarianBannersGloryToTheAlliance" Tier="7" Column="4" />
+    <TalentTreeArray Talent="VarianDemoralizingShout" Tier="7" Column="5" />
   </CHero>
 </Hero>

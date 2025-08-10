@@ -267,4 +267,10 @@
     <Buttons Face="AnubarakScarabHostToggleLegionOfBeetlesOn" Type="AbilCmd" AbilCmd="AnubarakLegionOfBeetlesToggle,Off" />
     <Buttons Face="AnubarakScarabHostToggleLegionOfBeetlesOff" Type="AbilCmd" AbilCmd="AnubarakLegionOfBeetlesToggle,On" />
   </CBehaviorAbility>
+  <CBehaviorBuff id="Ultimate1Unlocked">
+  </CBehaviorBuff>
+  <CBehaviorBuff id="Ultimate2Unlocked">
+  </CBehaviorBuff>
+  <CBehaviorBuff id="Ultimate3Unlocked">
+  </CBehaviorBuff>
 </Behavior>
