@@ -817,4 +817,46 @@ public class TalentParserTests
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("BarbarianShotOfFury|BarbarianFuryShotOfFuryTalent|Trait|Level4");
     }
+
+    [TestMethod]
+    public void GetTalent_VarianTwinBladesOfFury_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Varian";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("5");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("VarianTwinBladesOfFury|VarianTwinBladesOfFury|Heroic|Level4");
+    }
+
+    [TestMethod]
+    public void GetTalent_AlarakMightOfTheHighlord_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Alarak";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("21");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("AlarakMightOfTheHighlord|AlarakMightOfTheHighlord|Active|Level20");
+    }
 }

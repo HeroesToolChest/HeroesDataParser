@@ -137,6 +137,10 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
                 SetAbilityData(talent.AbilityElementId, talent);
         }
 
+        // only set if IsActive is false
+        if (!talent.IsActive && talentDataValues.TryGetElementDataAt("RankArray", out StormElementData? rankArrayData))
+            SetHeroicAbilityTypeFromRankArray(talent, rankArrayData);
+
         // the trait check should come after the ability data is set
         // hidden means that it was an ability that is in the AbilArray but not in the command array
         if (((talent.IsActive is true && (talent.AbilityType == AbilityType.Unknown)) ||
@@ -162,7 +166,7 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
         if (string.IsNullOrEmpty(talent.ButtonElementId))
             talent.ButtonElementId = NoButtonElementId;
 
-        // if it's not an IsActive and if the abilityType is still Unknown or Hidden, then set it to a Passive abilityType
+        // if it's NOT an IsActive and if the abilityType is still Unknown or Hidden, then set it to a Passive abilityType
         if (talent is { IsActive: false, AbilityType: AbilityType.Unknown or AbilityType.Hidden })
             talent.AbilityType = AbilityType.Passive;
 
@@ -222,6 +226,30 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
                 ability.ParentTalentLinkId = new TalentLinkId(talent.TalentElementId, talent.ButtonElementId, talent.AbilityType, talent.Tier);
 
             behaviorAbilities.Add(ability);
+        }
+    }
+
+    private void SetHeroicAbilityTypeFromRankArray(Talent talent, StormElementData rankArrayData)
+    {
+        IEnumerable<string> rankArrayIndexes = rankArrayData.GetElementDataIndexes();
+
+        foreach (string rankArrayIndex in rankArrayIndexes)
+        {
+            StormElementData rankArray = rankArrayData.GetElementDataAt(rankArrayIndex);
+            if (rankArray.TryGetElementDataAt("BehaviorArray", out StormElementData? behaviorArrayData))
+            {
+                IEnumerable<string> behaviorArrayIndexes = behaviorArrayData.GetElementDataIndexes();
+                foreach (string behaviorArrayIndex in behaviorArrayIndexes)
+                {
+                    string value = behaviorArrayData.GetElementDataAt(behaviorArrayIndex).Value.GetString();
+
+                    if ((value == "Ultimate1Unlocked" || value == "Ultimate2Unlocked" || value == "Ultimate3Unlocked") && HeroesData.StormElementExists("Behavior", value))
+                    {
+                        talent.AbilityType = AbilityType.Heroic;
+                        break;
+                    }
+                }
+            }
         }
     }
 }

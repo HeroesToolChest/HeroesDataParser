@@ -1292,17 +1292,23 @@ public class AbilityParserTests
     }
 
     [TestMethod]
-    public void GetUnitButtonAbility_ButtonWithHdpAbilityParentLink_ReturnsAbility()
+    public void GetAbility_LayoutButtonParentAbil_ReturnsAbilityWithParentAbil()
     {
         // arrange
+        string heroUnit = "HeroTassadar";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("25");
+
         AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
 
         // act
-        Ability? ability = abilityParser.GetUnitButtonAbility("SamuroSelectSamuroPrime");
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
 
         // assert
         ability.Should().NotBeNull();
-        ability.LinkId.ToString().Should().Be(":PASSIVE:|SamuroSelectSamuroPrime|Active");
+        ability.LinkId.ToString().Should().Be(":PASSIVE:|TassadarArchon|Heroic");
+        ability.ParentAbilityElementId!.ToString().Should().Be("TassadarArchon");
     }
 
     private static void AssertAbathurSymbioteAbility(Ability ability)

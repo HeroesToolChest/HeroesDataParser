@@ -65,6 +65,18 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
             ability.IsActive = false;
 
             SetButtonData(ability);
+
+            if (layoutButtonData.TryGetElementDataAt(HdpParentAbilName, out StormElementData? hdpParentAbilData))
+                ability.ParentAbilityElementId = hdpParentAbilData.Value.GetString();
+
+            if (layoutButtonData.TryGetElementDataAt(HdpParentTalentName, out StormElementData? hdpParentTalentData))
+                ability.ParentTalentElementId = hdpParentTalentData.Value.GetString();
+
+            if (layoutButtonData.TryGetElementDataAt(HdpParentAbilLinkName, out StormElementData? hdpParentLinkNameData))
+                SetHdpParentAbilLink(ability, hdpParentLinkNameData);
+
+            if (layoutButtonData.TryGetElementDataAt(HdpParentTalentLinkName, out StormElementData? hdpTalentParentLinkNameData))
+                SetHdpParentTalentLink(ability, hdpTalentParentLinkNameData);
         }
         else if (!string.IsNullOrEmpty(abilCmdValue))
         {
