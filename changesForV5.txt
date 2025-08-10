@@ -83,5 +83,7 @@ v5 changes heroes
 - Removed `charges` from talents
 - Changed Jaina's `ImprovedIceBlock|JainaImprovedIceBlockCancel|Active` from being a subability to a (baseline) ability
 - Changed Kel'Thuzad's `KelThuzadGlacialSpike|KelThuzadGlacialSpike|Active` from being a subability to a (baseline) ability
+- Fixed Sgt. Hammer's `ConcussiveBlastScrapCancel|SgtHammerConcussiveBlastBarricadeCancel|W` parent ability to `SgtHammerBarricade|SgtHammerConcussiveBlastBarricadeTalent|W|Level4`
+- Fixed Tracer's `TracerLockedandLoadedFailReload|TracerLockedandLoadedAbility|Trait` parent ability to `TracerLockedandLoaded|TracerLockedandLoaded|Trait|Level7`
 
 
