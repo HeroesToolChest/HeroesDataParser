@@ -222,8 +222,8 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 
             ability.AbilityType = talent.AbilityType;
 
-            if (string.IsNullOrEmpty(ability.ParentAbilityElementId) && ability.ParentAbilityLinkId is null && ability.ParentTalentElementId is null && ability.ParentTalentLinkId is null)
-                ability.ParentTalentLinkId = new TalentLinkId(talent.TalentElementId, talent.ButtonElementId, talent.AbilityType, talent.Tier);
+            if (ability.ParentAbilityElementIds.Count < 1 && ability.ParentAbilityLinkIds.Count < 1 && ability.ParentTalentElementIds.Count < 1 && ability.ParentTalentLinkIds.Count < 1)
+                ability.ParentTalentLinkIds.Add(new TalentLinkId(talent.TalentElementId, talent.ButtonElementId, talent.AbilityType, talent.Tier));
 
             behaviorAbilities.Add(ability);
         }

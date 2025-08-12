@@ -698,7 +698,7 @@ public class TalentParserTests
         talent!.LinkId.ToString().Should().Be("RagnarosCatchingFire|RagnarosCatchingFireTalent|Active|Level4");
         abilities.Should().ContainSingle();
         abilities[0].LinkId.ToString().Should().Be("RagnarosCatchingFire|RagnarosCatchingFireItem|Active");
-        abilities[0].ParentTalentLinkId!.ToString().Should().Be("RagnarosCatchingFire|RagnarosCatchingFireTalent|Active|Level4");
+        abilities[0].ParentTalentLinkIds.Should().ContainInConsecutiveOrder(new TalentLinkId("RagnarosCatchingFire", "RagnarosCatchingFireTalent", AbilityType.Active, TalentTier.Level4));
     }
 
     [TestMethod]
@@ -734,7 +734,7 @@ public class TalentParserTests
         talent.LinkId.ToString().Should().Be("JunkratTotalMayhemDirtyTricksterTalent|JunkratDirtyTrickster|Trait|Level7");
         abilities.Should().ContainSingle();
         abilities[0].LinkId.ToString().Should().Be("JunkratTotalMayhemDirtyTrickster|JunkratDirtyTrickster|Trait");
-        abilities[0].ParentTalentLinkId!.ToString().Should().Be("JunkratTotalMayhemDirtyTricksterTalent|JunkratDirtyTrickster|Trait|Level7");
+        abilities[0].ParentTalentLinkIds!.Should().Contain(new TalentLinkId("JunkratTotalMayhemDirtyTricksterTalent", "JunkratDirtyTrickster", AbilityType.Trait, TalentTier.Level7));
     }
 
     [TestMethod]
@@ -756,7 +756,7 @@ public class TalentParserTests
             ButtonElementId = "AnubarakScarabHostToggleLegionOfBeetlesOn",
             AbilityType = AbilityType.Trait,
             Tier = AbilityTier.Activable,
-            ParentAbilityLinkId = new AbilityLinkId("AnubarakLegionOfBeetlesToggle", "AnubarakScarabHostToggleLegionOfBeetlesOff", AbilityType.Trait),
+            ParentAbilityLinkIds = [new AbilityLinkId("AnubarakLegionOfBeetlesToggle", "AnubarakScarabHostToggleLegionOfBeetlesOff", AbilityType.Trait)],
         };
 
         Ability anubarakScarabHostToggleLegionOfBeetlesOffAbility = new()
@@ -781,9 +781,9 @@ public class TalentParserTests
 
         abilities.Should().HaveCount(2);
         abilities[0].LinkId.ToString().Should().Be("AnubarakLegionOfBeetlesToggle|AnubarakScarabHostToggleLegionOfBeetlesOn|Trait");
-        abilities[0].ParentAbilityLinkId!.ToString().Should().Be("AnubarakLegionOfBeetlesToggle|AnubarakScarabHostToggleLegionOfBeetlesOff|Trait");
+        abilities[0].ParentAbilityLinkIds.Should().ContainInConsecutiveOrder(new AbilityLinkId("AnubarakLegionOfBeetlesToggle", "AnubarakScarabHostToggleLegionOfBeetlesOff", AbilityType.Trait));
         abilities[1].LinkId.ToString().Should().Be("AnubarakLegionOfBeetlesToggle|AnubarakScarabHostToggleLegionOfBeetlesOff|Trait");
-        abilities[1].ParentTalentLinkId!.ToString().Should().Be("AnubarakCombatStyleLegionOfBeetles|AnubarakLegionOfBeetlesTalent|Trait|Level1");
+        abilities[1].ParentTalentLinkIds.Should().ContainInConsecutiveOrder(new TalentLinkId("AnubarakCombatStyleLegionOfBeetles", "AnubarakLegionOfBeetlesTalent", AbilityType.Trait, TalentTier.Level1));
     }
 
     [TestMethod]
@@ -805,7 +805,7 @@ public class TalentParserTests
             ButtonElementId = "BarbarianFuryShotOfFury",
             AbilityType = AbilityType.Trait,
             Tier = AbilityTier.Trait,
-            ParentTalentElementId = "BarbarianShotOfFury",
+            ParentTalentElementIds = ["BarbarianShotOfFury"],
         };
 
         hero.AddAsLayoutUnknownSubAbility(barbarianShotofFuryAbility);

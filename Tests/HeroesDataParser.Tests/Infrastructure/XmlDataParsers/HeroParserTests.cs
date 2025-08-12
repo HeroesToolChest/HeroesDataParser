@@ -351,7 +351,7 @@ public class HeroParserTests
                     ButtonElementId = "AlarakUnleashDeadlyCharge",
                     Tier = AbilityTier.Trait,
                     AbilityType = AbilityType.Trait,
-                    ParentAbilityElementId = "AlarakDeadlyChargeActivate2ndHeroic",
+                    ParentAbilityElementIds = ["AlarakDeadlyChargeActivate2ndHeroic"],
                 });
                 argUnit.AddAsUnknownSubAbility(new Ability()
                 {
@@ -359,7 +359,7 @@ public class HeroParserTests
                     ButtonElementId = "AlarakDeadlyCharge2ndHeroicSadism",
                     Tier = AbilityTier.Trait,
                     AbilityType = AbilityType.Trait,
-                    ParentTalentElementId = "AlarakDeadlyChargeSecondHeroic",
+                    ParentTalentElementIds = ["AlarakDeadlyChargeSecondHeroic"],
                 });
             });
 
@@ -492,7 +492,7 @@ public class HeroParserTests
             ButtonElementId = "DeathwingLavaBurst",
             AbilityType = AbilityType.W,
             Tier = AbilityTier.Basic,
-            ParentAbilityElementId = "DeathwingFormSwitch",
+            ParentAbilityElementIds = ["DeathwingFormSwitch"],
             TooltipAppendersTalentElementIds =
             {
                 "DeathwingDragonSoul",
@@ -561,7 +561,7 @@ public class HeroParserTests
                 "GuldanLifeTapImprovedLifeTap",
                 "GuldanLifeTapDarknessWithin",
             },
-            ParentTalentElementId = "GuldanLifeTapDarknessWithin",
+            ParentTalentElementIds = ["GuldanLifeTapDarknessWithin"],
         };
 
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
@@ -626,7 +626,7 @@ public class HeroParserTests
             ButtonElementId = "MalGanisFelClawsSecond",
             AbilityType = AbilityType.Q,
             Tier = AbilityTier.Basic,
-            ParentAbilityElementId = "MalGanisFelClawsFirst",
+            ParentAbilityElementIds = ["MalGanisFelClawsFirst"],
         };
 
         Ability malGanisFelClawsThirdSubAbility = new()
@@ -635,7 +635,7 @@ public class HeroParserTests
             ButtonElementId = "MalGanisFelClawsThird",
             AbilityType = AbilityType.Q,
             Tier = AbilityTier.Basic,
-            ParentAbilityElementId = "MalGanisFelClawsSecond",
+            ParentAbilityElementIds = ["MalGanisFelClawsSecond"],
         };
 
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
@@ -673,7 +673,7 @@ public class HeroParserTests
             ButtonElementId = "RagnarosCatchingFireItem",
             AbilityType = AbilityType.Active,
             Tier = AbilityTier.Activable,
-            ParentTalentLinkId = new TalentLinkId("RagnarosCatchingFire", "RagnarosCatchingFireTalent", AbilityType.Active, TalentTier.Level4),
+            ParentTalentLinkIds = [new TalentLinkId("RagnarosCatchingFire", "RagnarosCatchingFireTalent", AbilityType.Active, TalentTier.Level4)],
         };
 
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
@@ -721,7 +721,7 @@ public class HeroParserTests
             {
                 "GarroshArmorUpInnerRage",
             },
-            ParentTalentLinkId = new TalentLinkId("GarroshArmorUpBodyCheck", "GarroshArmorUpBodyCheck", AbilityType.Active, TalentTier.Level1),
+            ParentTalentLinkIds = [new TalentLinkId("GarroshArmorUpBodyCheck", "GarroshArmorUpBodyCheck", AbilityType.Active, TalentTier.Level1)],
         };
 
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))

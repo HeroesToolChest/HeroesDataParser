@@ -217,7 +217,7 @@ public class AbilityParserTests
         ability.LinkId.ToString().Should().Be("AbathurSymbiote|AbathurSymbiote|Hidden");
         ability.Tier.Should().Be(AbilityTier.Hidden);
         ability.AbilityType.Should().Be(AbilityType.Hidden);
-        ability.ParentAbilityElementId.Should().BeNull();
+        ability.ParentAbilityElementIds.Should().BeEmpty();
 
         AssertAbathurSymbioteAbility(ability);
     }
@@ -241,7 +241,7 @@ public class AbilityParserTests
         ability.LinkId.ToString().Should().Be("AbathurEvolveMonstrosityActiveSymbiote|EvolveMonstrosityActiveHotbar|Hidden");
         ability.Tier.Should().Be(AbilityTier.Hidden);
         ability.AbilityType.Should().Be(AbilityType.Hidden);
-        ability.ParentAbilityElementId.Should().Be("AbathurEvolveMonstrosity");
+        ability.ParentAbilityElementIds.Should().ContainSingle("AbathurEvolveMonstrosity");
     }
 
     [TestMethod]
@@ -550,7 +550,7 @@ public class AbilityParserTests
         ability.LifeText.Should().BeNull();
         ability.EnergyText.Should().BeNull();
         ability.ToggleCooldown.Should().Be(0.125);
-        ability.ParentAbilityElementId.Should().Be("AlarakLightningSurge");
+        ability.ParentAbilityElementIds.Should().ContainInConsecutiveOrder("AlarakLightningSurge");
     }
 
     [TestMethod]
@@ -574,7 +574,7 @@ public class AbilityParserTests
         ability.Tier.Should().Be(AbilityTier.Trait);
         ability.AbilityType.Should().Be(AbilityType.Trait);
         ability.ToggleCooldown.Should().Be(0.25);
-        ability.ParentAbilityElementId.Should().Be("AlarakDeadlyChargeActivate2ndHeroic"); // extra
+        ability.ParentAbilityElementIds.Should().ContainInConsecutiveOrder("AlarakDeadlyChargeActivate2ndHeroic"); // extra
     }
 
     [TestMethod]
@@ -594,7 +594,7 @@ public class AbilityParserTests
         // assert
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be("AlarakCounterStrikeTargeted2ndHeroic|AlarakCounterStrike2ndHeroicSadism|Trait");
-        ability.ParentTalentElementId.Should().Be("AlarakCounterStrikeItem");
+        ability.ParentTalentElementIds.Should().ContainInConsecutiveOrder("AlarakCounterStrikeItem");
     }
 
     [TestMethod]
@@ -1046,7 +1046,7 @@ public class AbilityParserTests
         // assert
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be(":PASSIVE:|TestButtonWithParentAbil|W");
-        ability.ParentAbilityElementId.Should().Be("SomeParentAbil");
+        ability.ParentAbilityElementIds.Should().ContainInConsecutiveOrder("SomeParentAbil");
     }
 
     [TestMethod]
@@ -1108,7 +1108,7 @@ public class AbilityParserTests
         // assert
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be("DVaMechBunnyHopHeroic|DVaBunnyHopOff|Heroic");
-        ability.ParentAbilityElementId.Should().Be("DVaMechBunnyHopHeroic");
+        ability.ParentAbilityElementIds.Should().ContainInConsecutiveOrder("DVaMechBunnyHopHeroic");
         ability.FullText!.RawDescription.Should().Be("Cancel Bunny Hop");
         ability.ShortText!.RawDescription.Should().Be("Cancel Bunny Hop");
         ability.CooldownText!.RawDescription.Should().Be("Cooldown: 70 seconds");
@@ -1131,7 +1131,7 @@ public class AbilityParserTests
         // assert
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be("FenixShieldCapacitorVisual|FenixShieldCapacitor|Trait");
-        ability.ParentAbilityLinkId!.ToString().Should().Be(":PASSIVE:|FenixShieldCapacitor|Trait");
+        ability.ParentAbilityLinkIds.Should().ContainInConsecutiveOrder(new AbilityLinkId(":PASSIVE:", "FenixShieldCapacitor", AbilityType.Trait));
     }
 
     [TestMethod]
@@ -1168,8 +1168,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.SummonedUnitIds.Should().ContainSingle()
-            .And.ContainSingle("AnubarakBeetleSpitBeetle");
+        ability.SummonedUnitIds.Should().ContainInConsecutiveOrder("AnubarakBeetleSpitBeetle");
     }
 
     [TestMethod]
@@ -1188,7 +1187,7 @@ public class AbilityParserTests
 
         // assert
         ability.Should().NotBeNull();
-        ability.ParentAbilityLinkId!.ToString().Should().Be(":PASSIVE:|JainaTraitFrostbite|Trait");
+        ability.ParentAbilityLinkIds.Should().ContainInConsecutiveOrder(new AbilityLinkId(":PASSIVE:", "JainaTraitFrostbite", AbilityType.Trait));
     }
 
     [TestMethod]
@@ -1288,7 +1287,7 @@ public class AbilityParserTests
         // assert
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be(":PASSIVE:|MonkIronFists|Trait");
-        ability.ParentAbilityLinkId!.ToString().Should().Be(":PASSIVE:|MonkBlankTrait|Trait");
+        ability.ParentAbilityLinkIds.Should().ContainInConsecutiveOrder(new AbilityLinkId(":PASSIVE:", "MonkBlankTrait", AbilityType.Trait));
     }
 
     [TestMethod]
@@ -1308,7 +1307,27 @@ public class AbilityParserTests
         // assert
         ability.Should().NotBeNull();
         ability.LinkId.ToString().Should().Be(":PASSIVE:|TassadarArchon|Heroic");
-        ability.ParentAbilityElementId!.ToString().Should().Be("TassadarArchon");
+        ability.ParentAbilityElementIds.Should().ContainInConsecutiveOrder("TassadarArchon");
+    }
+
+    [TestMethod]
+    public void GetAbility_WhitemaneInquisitionCancelWithTwoParentAbils_ReturnsAbilityWithParentAbil()
+    {
+        // arrange
+        string heroUnit = "HeroWhitemane";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("29");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|W");
+        ability.ParentAbilityElementIds.Should().ContainInConsecutiveOrder("WhitemaneInquisition", "WhitemaneInquisitionClemency");
     }
 
     private static void AssertAbathurSymbioteAbility(Ability ability)

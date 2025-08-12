@@ -15,22 +15,22 @@ public class AbilityTalentParserBase : ParserBase
     /// <summary>
     /// Gets the name of the custom hdp parentAbil attribute or element name.
     /// </summary>
-    public const string HdpParentAbilName = "hdp-ParentAbil";
+    public const string HdpParentAbilName = "hdp-ParentAbilArray";
 
     /// <summary>
     /// Gets the name of the custom hdp parentTalent attribute or element name.
     /// </summary>
-    public const string HdpParentTalentName = "hdp-ParentTalent";
+    public const string HdpParentTalentName = "hdp-ParentTalentArray";
 
     /// <summary>
     /// Gets the name of the custom hdp ability parentLink element name.
     /// </summary>
-    public const string HdpParentAbilLinkName = "hdp-ParentAbilLink";
+    public const string HdpParentAbilLinkName = "hdp-ParentAbilLinkArray";
 
     /// <summary>
     /// Gets the name of the custom hdp talent parentLink element name.
     /// </summary>
-    public const string HdpParentTalentLinkName = "hdp-ParentTalentLink";
+    public const string HdpParentTalentLinkName = "hdp-ParentTalentLinkArray";
 
     public AbilityTalentParserBase(ILogger<AbilityTalentParserBase> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
         : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
@@ -187,12 +187,6 @@ public class AbilityTalentParserBase : ParserBase
             }
         }
 
-        if (buttonDataValues.TryGetElementDataAt(HdpParentAbilName, out StormElementData? hdpParentAbilData))
-            abilityTalent.ParentAbilityElementId = hdpParentAbilData.Value.GetString();
-
-        if (buttonDataValues.TryGetElementDataAt(HdpParentTalentName, out StormElementData? hdpParentTalentData))
-            abilityTalent.ParentTalentElementId = hdpParentTalentData.Value.GetString();
-
         if (buttonDataValues.TryGetElementDataAt("hdp-IsActive", out StormElementData? hdpIsActiveData))
         {
             if (hdpIsActiveData.Value.GetInt() == 1)
@@ -201,11 +195,7 @@ public class AbilityTalentParserBase : ParserBase
                 abilityTalent.IsActive = false;
         }
 
-        if (buttonDataValues.TryGetElementDataAt(HdpParentAbilLinkName, out StormElementData? hdpParentLinkNameData))
-            SetHdpParentAbilLink(abilityTalent, hdpParentLinkNameData);
-
-        if (buttonDataValues.TryGetElementDataAt(HdpParentTalentLinkName, out StormElementData? hdpTalentParentLinkNameData))
-            SetHdpParentTalentLink(abilityTalent, hdpTalentParentLinkNameData);
+        SetCustomParentElements(abilityTalent, buttonDataValues);
     }
 
     //protected void SetAbilityData(AbilityTalentBase abilityTalent, string? abilCmdIndex = null)
@@ -258,16 +248,15 @@ public class AbilityTalentParserBase : ParserBase
         }
 
         if (abilityDataValues.TryGetElementDataAt("ParentAbil", out StormElementData? parentAbilData))
-            abilityTalent.ParentAbilityElementId = parentAbilData.Value.GetString();
+        {
+            string value = parentAbilData.Value.GetString();
+            if (!string.IsNullOrEmpty(value))
+            {
+                abilityTalent.ParentAbilityElementIds.Add(parentAbilData.Value.GetString());
+            }
+        }
 
-        if (abilityDataValues.TryGetElementDataAt(HdpParentTalentName, out StormElementData? parentTalentData))
-             abilityTalent.ParentTalentElementId = parentTalentData.Value.GetString();
-
-        if (abilityDataValues.TryGetElementDataAt(HdpParentAbilLinkName, out StormElementData? hdpParentLinkNameData))
-            SetHdpParentAbilLink(abilityTalent, hdpParentLinkNameData);
-
-        if (abilityDataValues.TryGetElementDataAt(HdpParentTalentLinkName, out StormElementData? hdpParentTalentLinkNameData))
-            SetHdpParentTalentLink(abilityTalent, hdpParentTalentLinkNameData);
+        SetCustomParentElements(abilityTalent, abilityDataValues);
 
         if (abilityDataValues.TryGetElementDataAt("Flags", out StormElementData? flagsData))
         {
@@ -288,24 +277,67 @@ public class AbilityTalentParserBase : ParserBase
         }
     }
 
-    protected void SetHdpParentAbilLink(AbilityTalentBase abilityTalent, StormElementData hdpParentAbilLinkNameData)
+    protected void SetCustomParentElements(AbilityTalentBase abilityTalent, StormElementData elementData)
+    {
+        if (elementData.TryGetElementDataAt(HdpParentAbilName, out StormElementData? hdpParentAbilNameData))
+        {
+            IEnumerable<string> indexes = hdpParentAbilNameData.GetElementDataIndexes();
+            foreach (string item in indexes)
+            {
+                string value = hdpParentAbilNameData.GetElementDataAt(item).Value.GetString();
+                if (!string.IsNullOrEmpty(value))
+                    abilityTalent.ParentAbilityElementIds.Add(value);
+            }
+        }
+
+        if (elementData.TryGetElementDataAt(HdpParentTalentName, out StormElementData? hdpParentTalentNameData))
+        {
+            IEnumerable<string> indexes = hdpParentTalentNameData.GetElementDataIndexes();
+            foreach (string item in indexes)
+            {
+                string value = hdpParentTalentNameData.GetElementDataAt(item).Value.GetString();
+                if (!string.IsNullOrEmpty(value))
+                    abilityTalent.ParentTalentElementIds.Add(value);
+            }
+        }
+
+        if (elementData.TryGetElementDataAt(HdpParentAbilLinkName, out StormElementData? hdpParentAbilLinkNameIndexData))
+        {
+            IEnumerable<string> indexes = hdpParentAbilLinkNameIndexData.GetElementDataIndexes();
+            foreach (string item in indexes)
+            {
+                SetHdpParentAbilLink(abilityTalent, hdpParentAbilLinkNameIndexData.GetElementDataAt(item));
+            }
+        }
+
+        if (elementData.TryGetElementDataAt(HdpParentTalentLinkName, out StormElementData? hdpParentTalentLinkNameIndexData))
+        {
+            IEnumerable<string> indexes = hdpParentTalentLinkNameIndexData.GetElementDataIndexes();
+            foreach (string item in indexes)
+            {
+                SetHdpParentTalentLink(abilityTalent, hdpParentTalentLinkNameIndexData.GetElementDataAt(item));
+            }
+        }
+    }
+
+    private static void SetHdpParentAbilLink(AbilityTalentBase abilityTalent, StormElementData hdpParentAbilLinkNameData)
     {
         if (hdpParentAbilLinkNameData.TryGetElementDataAt("abilityId", out StormElementData? abilityIdData) &&
             hdpParentAbilLinkNameData.TryGetElementDataAt("buttonId", out StormElementData? buttonIdData) &&
             hdpParentAbilLinkNameData.TryGetElementDataAt("abilityType", out StormElementData? abilityTypeData) && Enum.TryParse(abilityTypeData.Value.GetString(), true, out AbilityType abilityType))
         {
-            abilityTalent.ParentAbilityLinkId = new AbilityLinkId(abilityIdData.Value.GetString(), buttonIdData.Value.GetString(), abilityType);
+            abilityTalent.ParentAbilityLinkIds.Add(new AbilityLinkId(abilityIdData.Value.GetString(), buttonIdData.Value.GetString(), abilityType));
         }
     }
 
-    protected void SetHdpParentTalentLink(AbilityTalentBase abilityTalent, StormElementData hdpParentTalentLinkNameData)
+    private static void SetHdpParentTalentLink(AbilityTalentBase abilityTalent, StormElementData hdpParentTalentLinkNameData)
     {
         if (hdpParentTalentLinkNameData.TryGetElementDataAt("talentId", out StormElementData? talentIdData) &&
             hdpParentTalentLinkNameData.TryGetElementDataAt("buttonId", out StormElementData? buttonIdData) &&
             hdpParentTalentLinkNameData.TryGetElementDataAt("abilityType", out StormElementData? abilityTypeData) && Enum.TryParse(abilityTypeData.Value.GetString(), true, out AbilityType abilityType) &&
             hdpParentTalentLinkNameData.TryGetElementDataAt("talentTier", out StormElementData? talentTierData) && Enum.TryParse(talentTierData.Value.GetString(), true, out TalentTier talentTier))
         {
-            abilityTalent.ParentTalentLinkId = new TalentLinkId(talentIdData.Value.GetString(), buttonIdData.Value.GetString(), abilityType, talentTier);
+            abilityTalent.ParentTalentLinkIds.Add(new TalentLinkId(talentIdData.Value.GetString(), buttonIdData.Value.GetString(), abilityType, talentTier));
         }
     }
 
@@ -470,18 +502,7 @@ public class AbilityTalentParserBase : ParserBase
                 abilityTalent.ButtonElementId = defaultButtonFaceValue;
         }
 
-        if (cmdButtonArrayElementData.TryGetElementDataAt(HdpParentAbilName, out StormElementData? hdpParentAbilNameData))
-            abilityTalent.ParentAbilityElementId = hdpParentAbilNameData.Value.GetString();
-
-        if (cmdButtonArrayElementData.TryGetElementDataAt(HdpParentTalentName, out StormElementData? hdpParentTalentNameData))
-            abilityTalent.ParentTalentElementId = hdpParentTalentNameData.Value.GetString();
-
-        if (cmdButtonArrayElementData.TryGetElementDataAt(HdpParentAbilLinkName, out StormElementData? hdpParentAbilLinkNameIndexData))
-            SetHdpParentAbilLink(abilityTalent, hdpParentAbilLinkNameIndexData);
-
-        if (cmdButtonArrayElementData.TryGetElementDataAt(HdpParentTalentLinkName, out StormElementData? hdpParentTalentLinkNameIndexData))
-            SetHdpParentTalentLink(abilityTalent, hdpParentTalentLinkNameIndexData);
-
+        SetCustomParentElements(abilityTalent, cmdButtonArrayElementData);
         SetButtonData(abilityTalent);
 
         if (cmdButtonArrayElementData.TryGetElementDataAt("Requirements", out StormElementData? requirementsData))

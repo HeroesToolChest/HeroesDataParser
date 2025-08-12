@@ -311,7 +311,7 @@
     </CmdButtonArray>
   </CAbilEffectTarget>
   <CAbilEffectTarget id="AlarakCounterStrikeTargeted2ndHeroic">
-    <hdp-ParentTalent value="AlarakCounterStrikeItem" />
+    <hdp-ParentTalentArray value="AlarakCounterStrikeItem" />
   </CAbilEffectTarget>
   <CAbilEffectInstant id="AbathurAssumingDirectControlCancel">
     <Effect value="AbathurAssumingDirectControlCancelSet" />
@@ -829,7 +829,9 @@
   <CAbilBehavior id="DVaMechBunnyHopHeroic">
     <BehaviorArray value="DvaMechBunnyHopActive" />
     <CmdButtonArray index="On" DefaultButtonFace="DVaBunnyHopOn" Requirements="DVaMechAbilityUseAndBunnyHopUnlockedRequirement" />
-    <CmdButtonArray index="Off" DefaultButtonFace="DVaBunnyHopOff" hdp-ParentAbil="DVaMechBunnyHopHeroic" />
+    <CmdButtonArray index="Off" DefaultButtonFace="DVaBunnyHopOff">
+      <hdp-ParentAbilArray value="DVaMechBunnyHopHeroic" />
+    </CmdButtonArray>
     <Flags index="Toggle" value="1" />
     <Flags index="Transient" value="1" />
     <Cost>
@@ -855,7 +857,7 @@
       <Flags index="ShowInGlossary" value="0" />
     </CmdButtonArray>
     <SharedFlags index="AllowQuickCastCustomization" value="0" />
-    <hdp-ParentAbilLink abilityId=":PASSIVE:" buttonId="FenixShieldCapacitor" abilityType="Trait" />
+    <hdp-ParentAbilLinkArray abilityId=":PASSIVE:" buttonId="FenixShieldCapacitor" abilityType="Trait" />
   </CAbilEffectInstant>
   <CAbilEffectInstant id="GallShadowBoltVolleyMoltenBlockDummy">
     <CmdButtonArray index="Execute" DefaultButtonFace="GallShadowboltVolley" Requirements="GallShadowboltVolleyMoltenBlockDummyRequirements" />
@@ -914,9 +916,11 @@
   <!--custom-->
   <CAbilBehavior id="ImprovedIceBlock">
     <CmdButtonArray index="On">
-      <hdp-ParentAbilLink abilityId=":PASSIVE:" buttonId="JainaTraitFrostbite" abilityType="Trait" />
+      <hdp-ParentAbilLinkArray abilityId=":PASSIVE:" buttonId="JainaTraitFrostbite" abilityType="Trait" />
     </CmdButtonArray>
-    <CmdButtonArray index="Off" hdp-ParentAbil="ImprovedIceBlock" />
+    <CmdButtonArray index="Off">
+      <hdp-ParentAbilArray value="ImprovedIceBlock" />
+    </CmdButtonArray>
   </CAbilBehavior>
   <CAbilBehavior id="LucioCrossfade">
     <CmdButtonArray index="On" DefaultButtonFace="LucioCrossfadeActivateHealingBoost">
@@ -1002,5 +1006,13 @@
       <Cooldown Location="Player" TimeUse="0.5" />
     </Cost>
     <CmdButtonArray index="Execute" DefaultButtonFace="AlarakMightOfTheHighlord" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="WhitemaneInquisitionCancel">
+    <Cost>
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <CmdButtonArray index="Execute" AutoQueueId="" DefaultButtonFace="WhitemaneInquisitionCancel" ShowValidator="WhitemaneInquisitionOrClemencyIsCasting" />
+    <ParentAbil value="WhitemaneInquisition" />
+    <hdp-ParentAbilArray value="WhitemaneInquisitionClemency" />
   </CAbilEffectInstant>
 </Abil>

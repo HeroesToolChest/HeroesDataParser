@@ -61,9 +61,9 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
     private static void ProcessAbility(Unit elementObject, Ability ability, List<Ability> abilitiesWithParentIds)
     {
-        if (!string.IsNullOrEmpty(ability.ParentAbilityElementId) || ability.ParentAbilityLinkId is not null)
+        if (ability.ParentAbilityElementIds.Count > 0 || ability.ParentAbilityLinkIds.Count > 0)
             abilitiesWithParentIds.Add(ability);
-        else if (!string.IsNullOrEmpty(ability.ParentTalentElementId) || ability.ParentTalentLinkId is not null)
+        else if (ability.ParentTalentElementIds.Count > 0 || ability.ParentTalentLinkIds.Count > 0)
             elementObject.AddAsLayoutUnknownSubAbility(ability);
         else
             elementObject.AddLayoutAbility(ability);

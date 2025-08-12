@@ -334,8 +334,9 @@ public class HeroParser : CollectionParserBase<Hero>
 
         foreach (Ability behaviorAbility in behaviorAbilities)
         {
-            if ((!string.IsNullOrEmpty(behaviorAbility.ParentTalentElementId) || behaviorAbility.ParentTalentLinkId is not null) &&
-                (talent.LinkId.ElementId.Equals(behaviorAbility.ParentTalentElementId, StringComparison.Ordinal) || talent.LinkId.Equals(behaviorAbility.ParentTalentLinkId)))
+            if (behaviorAbility.ParentTalentElementIds.Count > 0 && behaviorAbility.ParentTalentElementIds.Any(x => x.Equals(talent.LinkId.ElementId, StringComparison.Ordinal)))
+                collectionObject.AssignLayoutSubAbilityToLink(behaviorAbility, talent.LinkId);
+            else if (behaviorAbility.ParentTalentLinkIds.Count > 0 && behaviorAbility.ParentTalentLinkIds.Any(x => x.Equals(talent.LinkId)))
                 collectionObject.AssignLayoutSubAbilityToLink(behaviorAbility, talent.LinkId);
             else
                 collectionObject.AddAsUnknownSubAbility(behaviorAbility);

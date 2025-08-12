@@ -24,7 +24,7 @@
     <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Fury"/>
   </CButton>
   <CButton id="TestButtonWithParentAbil" parent="StormButtonParent">
-    <hdp-ParentAbil value="SomeParentAbil" />
+    <hdp-ParentAbilArray value="SomeParentAbil" />
   </CButton>
   <CButton id="Hearthstone" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_miscrune_1.dds"/>
@@ -460,7 +460,7 @@
     <TooltipAppender Validator="MonkHasFistsofLegendTalent" Face="MonkFistsofLegend" />
   </CButton>
   <CButton id="MonkIronFists" parent="StormButtonParentTrait">
-    <hdp-ParentAbilLink abilityId=":PASSIVE:" buttonId="MonkBlankTrait" abilityType="Trait" />
+    <hdp-ParentAbilLinkArray abilityId=":PASSIVE:" buttonId="MonkBlankTrait" abilityType="Trait" />
   </CButton>
   <CButton id="NecromancerBoneArmor" parent="StormButtonParent">
     <TooltipAppender Validator="HasNecromancerTalentShade" Face="NecromancerBoneArmorShade" />
@@ -512,5 +512,8 @@
   </CButton>
   <CButton id="AlarakMightOfTheHighlord" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_alarak_sadism_a.dds" />
+  </CButton>
+  <CButton id="WhitemaneInquisitionCancel" parent="StormButtonParent">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
   </CButton>
 </Button>

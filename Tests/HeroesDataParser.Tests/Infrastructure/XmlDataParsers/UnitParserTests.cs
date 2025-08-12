@@ -182,7 +182,7 @@ public class UnitParserTests
             AbilityElementId = "AbathurEvolveMonstrosityActiveSymbiote",
             ButtonElementId = "EvolveMonstrosityActiveHotbar",
             AbilityType = AbilityType.Heroic,
-            ParentAbilityElementId = "AbathurEvolveMonstrosity",
+            ParentAbilityElementIds = ["AbathurEvolveMonstrosity"],
         });
         _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[26]")).Returns(new Ability()
         {
@@ -216,7 +216,7 @@ public class UnitParserTests
             ButtonElementId = "AlarakUnleashDeadlyCharge",
             AbilityType = AbilityType.Trait,
             Tier = AbilityTier.Trait,
-            ParentAbilityElementId = "AlarakDeadlyChargeActivate2ndHeroic",
+            ParentAbilityElementIds = ["AlarakDeadlyChargeActivate2ndHeroic"],
         });
         _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[33]")).Returns(new Ability()
         {
@@ -224,7 +224,7 @@ public class UnitParserTests
             ButtonElementId = "AlarakDeadlyCharge2ndHeroicSadism",
             AbilityType = AbilityType.Trait,
             Tier = AbilityTier.Trait,
-            ParentTalentElementId = "AlarakDeadlyChargeSecondHeroic",
+            ParentTalentElementIds = ["AlarakDeadlyChargeSecondHeroic"],
         });
 
         // act
@@ -234,7 +234,6 @@ public class UnitParserTests
         unit.Should().NotBeNull();
         unit.Abilities.Should().BeEmpty();
         unit.SubAbilities.Should().BeEmpty();
-        //unit.SubAbilities[new AbilityLinkId("AlarakDeadlyChargeActivate2ndHeroic", "AlarakDeadlyCharge2ndHeroicSadism", AbilityType.Trait)][AbilityTier.Trait][0].LinkId.ToString().Should().Be("AlarakDeadlyChargeExecute2ndHeroic|AlarakUnleashDeadlyCharge|Trait");
     }
 
     [TestMethod]
@@ -429,7 +428,7 @@ public class UnitParserTests
             ButtonElementId = "DeathwingLavaBurst",
             AbilityType = AbilityType.W,
             Tier = AbilityTier.Basic,
-            ParentAbilityElementId = "DeathwingFormSwitch",
+            ParentAbilityElementIds = ["DeathwingFormSwitch"],
             TooltipAppendersTalentElementIds =
             {
                 "DeathwingHasDragonSoulTalent",
@@ -475,7 +474,7 @@ public class UnitParserTests
             ButtonElementId = "DVaBunnyHopOff",
             AbilityType = AbilityType.Heroic,
             Tier = AbilityTier.Heroic,
-            ParentAbilityElementId = "DVaMechBunnyHopHeroic",
+            ParentAbilityElementIds = ["DVaMechBunnyHopHeroic"],
         };
 
         Ability dVaMechBunnyHopHeroicOn = new()
@@ -520,7 +519,7 @@ public class UnitParserTests
             ButtonElementId = "FenixShieldCapacitor",
             AbilityType = AbilityType.Trait,
             Tier = AbilityTier.Trait,
-            ParentAbilityLinkId = new AbilityLinkId(AbilityTalentParserBase.PassiveAbilityElementId, "FenixShieldCapacitor", AbilityType.Trait),
+            ParentAbilityLinkIds = [new AbilityLinkId(AbilityTalentParserBase.PassiveAbilityElementId, "FenixShieldCapacitor", AbilityType.Trait)],
         };
 
         _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[32]")).Returns(fenixShieldCapacitorPassiveAbility);
