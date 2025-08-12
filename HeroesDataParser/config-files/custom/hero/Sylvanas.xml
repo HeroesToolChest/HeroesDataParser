@@ -5,7 +5,7 @@
   </CAbilEffectInstant>
   <CAbilEffectTarget id="SylvanasHauntingWaveWindrunnerTalent">
     <ParentAbil value="" />
-    <hdp-ParentTalent value="SylvanasTalentWindrunnerHauntingWave" />
+    <hdp-ParentTalentArray value="SylvanasTalentWindrunnerHauntingWave" />
   </CAbilEffectTarget>
   <CAbilEffectInstant id="SylvanasHauntingWaveActivateWindrunnerTalent">
     <ParentAbil value="SylvanasHauntingWaveWindrunnerTalent" /> 

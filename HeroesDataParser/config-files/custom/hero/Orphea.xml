@@ -5,6 +5,6 @@
     <Portrait value="Assets\Textures\ui_targetportrait_hero_orphea.dds" /> <!--Assets\Textures\storm_ui_ingame_heroselect_btn_orphea.dds-->
   </CHero>
   <CAbilEffectInstant id="OrpheaOverflowingChaosInvasiveMiasma">
-    <hdp-ParentTalent value="OrpheaInvasiveMiasma" />
+    <hdp-ParentTalentArray value="OrpheaInvasiveMiasma" />
   </CAbilEffectInstant>
 </Catalog>

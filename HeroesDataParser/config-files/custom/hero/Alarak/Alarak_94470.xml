@@ -4,17 +4,17 @@
     <ParentAbil value="AlarakDeadlyChargeActivate" />
   </CAbilEffectInstant>
   <CAbilEffectTarget id="AlarakDeadlyChargeActivate2ndHeroic">
-    <hdp-ParentTalent value="AlarakDeadlyChargeSecondHeroic" />
+    <hdp-ParentTalentArray value="AlarakDeadlyChargeSecondHeroic" />
   </CAbilEffectTarget>
   <CAbilEffectInstant id="AlarakDeadlyChargeExecute2ndHeroic">
     <ParentAbil value="AlarakDeadlyChargeActivate2ndHeroic" />
   </CAbilEffectInstant>
   <CAbilEffectTarget id="AlarakCounterStrikeTargeted2ndHeroic">
-    <hdp-ParentTalent value="AlarakCounterStrikeItem" />
+    <hdp-ParentTalentArray value="AlarakCounterStrikeItem" />
   </CAbilEffectTarget>
   <CAbilEffectTarget id="AlarakLightningSurgeLightningBarrage">
     <!--blank out-->
     <ParentAbil value="" />
-    <hdp-ParentTalent value="AlarakLightningBarrage" />
+    <hdp-ParentTalentArray value="AlarakLightningBarrage" />
   </CAbilEffectTarget>
 </Catalog>

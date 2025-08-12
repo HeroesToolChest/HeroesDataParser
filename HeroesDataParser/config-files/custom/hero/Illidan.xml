@@ -6,7 +6,7 @@
     </CardLayouts>
   </CUnit>
   <CAbilEffectInstant id="IllidanMetamorphosisMountCustom">
-    <hdp-ParentTalent value="IllidanMasteryDemonicFormMetamorphosis" />
+    <hdp-ParentTalentArray value="IllidanMasteryDemonicFormMetamorphosis" />
   </CAbilEffectInstant>
   <CAbilEffectInstant id="IllidanMetamorphosisDismountCustom">
     <ParentAbil value="IllidanMetamorphosisMountCustom" />

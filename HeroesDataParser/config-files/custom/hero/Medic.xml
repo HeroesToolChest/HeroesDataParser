@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
   <CButton id="MedicMedivacDropshipDepartReinforcementsTalent" parent="StormButtonParent">
-    <hdp-ParentAbil value="MedicReinforcements" />
+    <hdp-ParentAbilArray value="MedicReinforcements" />
   </CButton>
   <CAbilEffectInstant id="MedicMedivacDropshipDepart">
     <!--clear from MedicMedivacDropship-->

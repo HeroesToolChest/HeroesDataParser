@@ -3,7 +3,7 @@
   <CAbilEffectInstant id="GuldanLifeTapFree">
     <!--clear out so it can be on the parent talent instead-->
     <ParentAbil value="" />
-    <hdp-ParentTalent value="GuldanLifeTapDarknessWithin" />
+    <hdp-ParentTalentArray value="GuldanLifeTapDarknessWithin" />
   </CAbilEffectInstant>
   <CAbilEffectInstant id="GuldanDemonicCircleTeleport">
     <ParentAbil value="GuldanDemonicCircleSummon" />

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
   <CAbilEffectInstant id="DryadGallopingGait">
-    <hdp-ParentTalent value="DryadGallopingGait" />
+    <hdp-ParentTalentArray value="DryadGallopingGait" />
   </CAbilEffectInstant>
   <CButton id="DryadGreaterSpellShieldItemDisabled" parent="StormButtonParent">
-    <hdp-ParentAbilLink abilityId="DryadGreaterSpellShield" buttonId="DryadGreaterSpellShieldItemEnabled" abilityType="Passive" />
+    <hdp-ParentAbilLinkArray abilityId="DryadGreaterSpellShield" buttonId="DryadGreaterSpellShieldItemEnabled" abilityType="Passive" />
   </CButton>
 </Catalog>

@@ -4,6 +4,6 @@
     <ParentAbil value="FenixPhaseBomb" />
   </CAbilEffectInstant>
   <CAbilEffectInstant id="FenixShieldCapacitorVisual">
-    <hdp-ParentAbilLink abilityId=":PASSIVE:" buttonId="FenixShieldCapacitor" abilityType="Trait" />
+    <hdp-ParentAbilLinkArray abilityId=":PASSIVE:" buttonId="FenixShieldCapacitor" abilityType="Trait" />
   </CAbilEffectInstant>
 </Catalog>

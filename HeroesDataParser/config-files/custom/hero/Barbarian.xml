@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
   <CAbilEffectInstant id="BarbarianShotofFury">
-    <hdp-ParentTalent value="BarbarianShotOfFury" />
+    <hdp-ParentTalentArray value="BarbarianShotOfFury" />
   </CAbilEffectInstant>
 </Catalog>

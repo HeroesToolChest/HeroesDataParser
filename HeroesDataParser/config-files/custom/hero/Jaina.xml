@@ -7,6 +7,8 @@
     </CardLayouts>
   </CUnit>
   <CAbilBehavior id="ImprovedIceBlock">
-    <CmdButtonArray index="Off" hdp-ParentAbil="ImprovedIceBlock" />
+    <CmdButtonArray index="Off">
+      <hdp-ParentAbilArray value="ImprovedIceBlock" />
+    </CmdButtonArray>
   </CAbilBehavior>
 </Catalog>

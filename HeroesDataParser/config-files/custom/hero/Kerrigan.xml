@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
   <CAbilEffectInstant id="KerriganChrysalisCancel">
-    <hdp-ParentAbilLink abilityId="KerriganChrysalis" buttonId="KerriganChrysalis" abilityType="Active" />
+    <hdp-ParentAbilLinkArray abilityId="KerriganChrysalis" buttonId="KerriganChrysalis" abilityType="Active" />
   </CAbilEffectInstant>
 </Catalog>

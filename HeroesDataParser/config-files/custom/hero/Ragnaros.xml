@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
   <CButton id="RagnarosEmpowerSulfurasActive" parent="StormButtonParent">
-    <hdp-ParentAbil value="RagnarosEmpowerSulfuras" />
+    <hdp-ParentAbilArray value="RagnarosEmpowerSulfuras" />
   </CButton>
   <CAbilEffectTarget id="RagnarosLivingMeteorShiftingMeteor">
-    <hdp-ParentTalent value="RagnarosLivingMeteorShiftingMeteor" />
+    <hdp-ParentTalentArray value="RagnarosLivingMeteorShiftingMeteor" />
   </CAbilEffectTarget>
   <CButton id="RagnarosBigRagCancelReturnMoltenCore">
-    <hdp-ParentAbil value="RagnarosBigRagReturnMoltenCore" />
+    <hdp-ParentAbilArray value="RagnarosBigRagReturnMoltenCore" />
   </CButton>
   <CAbilEffectTarget id="RagnarosBigRagSulfurasSmash">
     <!--clear parent abil so it appears a baseline ability-->
     <ParentAbil value="" />
   </CAbilEffectTarget>
   <CButton id="RagnarosSubmergeCancel" parent="StormButtonParent">
-    <hdp-ParentAbilLink abilityId="RagnarosSubmerge" buttonId="RagnarosSubmerge" abilityType="Active" />
+    <hdp-ParentAbilLinkArray abilityId="RagnarosSubmerge" buttonId="RagnarosSubmerge" abilityType="Active" />
   </CButton>
 </Catalog>

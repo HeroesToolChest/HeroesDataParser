@@ -7,14 +7,14 @@
     </CardLayouts>
   </CUnit>
   <CAbilEffectTarget id="MedivhLeyLineSealMedivhCheats">
-    <hdp-ParentTalent value="MedivhLeyLineSealMedivhCheats" />
+    <hdp-ParentTalentArray value="MedivhLeyLineSealMedivhCheats" />
   </CAbilEffectTarget>
   <CAbilEffectTarget id="MedivhPortal2">
     <ParentAbil value="" />
-    <hdp-ParentTalent value="MedivhPortalPortalMastery" />
+    <hdp-ParentTalentArray value="MedivhPortalPortalMastery" />
   </CAbilEffectTarget>
   <CAbilEffectInstant id="MedivhPortalCancel">
     <ParentAbil value="" />
-    <hdp-ParentTalent value="MedivhPortalPortalMastery" />
+    <hdp-ParentTalentArray value="MedivhPortalPortalMastery" />
   </CAbilEffectInstant>
 </Catalog>

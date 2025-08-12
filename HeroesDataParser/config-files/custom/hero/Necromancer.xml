@@ -6,12 +6,12 @@
     </CardLayouts>
   </CUnit>
   <CButton id="NecromancerCursedStrikesPassive" parent="StormButtonParent">
-    <hdp-ParentAbil value="NecromancerCursedStrikes" />
+    <hdp-ParentAbilArray value="NecromancerCursedStrikes" />
   </CButton>
   <CButton id="NecromancerBoneArmorAbilBacklash" parent="NecromancerBoneArmor">
-    <hdp-ParentTalent value="NecromancerTalentBoneArmorBacklash" />
+    <hdp-ParentTalentArray value="NecromancerTalentBoneArmorBacklash" />
   </CButton>
   <CButton id="NecromancerBoneArmorAbilShackler" parent="NecromancerBoneArmor">
-    <hdp-ParentTalent value="NecromancerTalentBoneArmorShackler" />
+    <hdp-ParentTalentArray value="NecromancerTalentBoneArmorShackler" />
   </CButton>
 </Catalog>

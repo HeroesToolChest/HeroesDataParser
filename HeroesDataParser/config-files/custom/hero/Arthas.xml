@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
   <CButton id="ArthasFrostmourneHungersPrimed" parent="StormButtonParentTrait">
-    <hdp-ParentAbil value="ArthasFrostmourneHungers" />
+    <hdp-ParentAbilArray value="ArthasFrostmourneHungers" />
   </CButton>
 </Catalog>

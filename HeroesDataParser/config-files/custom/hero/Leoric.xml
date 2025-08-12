@@ -2,10 +2,10 @@
 <Catalog>
   <CAbilEffectTarget id="LeoricGhastlySwing">
     <!--Point to trait-->
-    <hdp-ParentAbilLink abilityId=":PASSIVE:" buttonId="LeoricUndyingTrait" abilityType="Trait" />
+    <hdp-ParentAbilLinkArray abilityId=":PASSIVE:" buttonId="LeoricUndyingTrait" abilityType="Trait" />
   </CAbilEffectTarget>
   <CAbilEffectTarget id="LeoricDrainEssence">
     <!--Point to trait-->
-    <hdp-ParentAbilLink abilityId=":PASSIVE:" buttonId="LeoricUndyingTrait" abilityType="Trait" />
+    <hdp-ParentAbilLinkArray abilityId=":PASSIVE:" buttonId="LeoricUndyingTrait" abilityType="Trait" />
   </CAbilEffectTarget>
 </Catalog>

@@ -7,7 +7,7 @@
     </CardLayouts>
   </CUnit>
   <CButton id="LucioCrossfadeActivateSpeedBoost" parent="StormButtonParent">
-    <hdp-ParentAbil value="LucioCrossfade" />
+    <hdp-ParentAbilArray value="LucioCrossfade" />
   </CButton>
   <CButton id="LucioWallRide" parent="StormButtonParent">
     <hdp-IsActive value="0" />

@@ -8,6 +8,6 @@
     <CmdButtonArray index="Off" DefaultButtonFace="RexxarFeignDeathCancel" />
   </CAbilBehavior>
   <CButton id="RexxarFeignDeathCancel" parent="StormButtonParent">
-    <hdp-ParentAbilLink abilityId="RexxarFeignDeath" buttonId="RexxarFeignDeath" abilityType="Active" />
+    <hdp-ParentAbilLinkArray abilityId="RexxarFeignDeath" buttonId="RexxarFeignDeath" abilityType="Active" />
   </CButton>
 </Catalog>

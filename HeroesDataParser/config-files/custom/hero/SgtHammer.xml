@@ -11,6 +11,6 @@
   
   <CAbilEffectInstant id="ConcussiveBlastScrapCancel">
     <ParentAbil value="" />
-    <hdp-ParentTalent value="SgtHammerBarricade" />
+    <hdp-ParentTalentArray value="SgtHammerBarricade" />
   </CAbilEffectInstant>
 </Catalog>

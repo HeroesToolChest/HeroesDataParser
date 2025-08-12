@@ -10,7 +10,7 @@
     <ParentAbil value="TychusOdinNoHealth" />
   </CAbilEffectTarget>
   <CAbilEffectInstant id="TychusMinigunActive">
-    <hdp-ParentAbilLink abilityId=":PASSIVE:" buttonId="TychusMinigun" abilityType="Trait" />
+    <hdp-ParentAbilLinkArray abilityId=":PASSIVE:" buttonId="TychusMinigun" abilityType="Trait" />
   </CAbilEffectInstant>
   <CAbilEffectTarget id="TychusRunAndGunOverkill" parent="StormSkillshotDashParent">
     <ParentAbil value="TychusOverkillTargeted" />

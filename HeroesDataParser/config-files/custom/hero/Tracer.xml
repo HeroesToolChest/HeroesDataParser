@@ -2,10 +2,10 @@
 <Catalog>
   <CAbilEffectInstant id="TracerLockedandLoadedFailReload">
     <ParentAbil value="" />
-    <hdp-parentTalent value="TracerLockedandLoaded" />
+    <hdp-ParentTalentArray value="TracerLockedandLoaded" />
   </CAbilEffectInstant>
   <CAbilEffectInstant id="TracerLockedandLoaded">
     <ParentAbil value="" />
-    <hdp-parentTalent value="TracerLockedandLoaded" />
+    <hdp-ParentTalentArray value="TracerLockedandLoaded" />
   </CAbilEffectInstant>
 </Catalog>

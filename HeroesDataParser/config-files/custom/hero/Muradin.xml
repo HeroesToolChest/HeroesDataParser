@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Catalog>
   <CAbilEffectInstant id="Stoneform">
-    <hdp-ParentTalent value="MuradinMasteryPassiveStoneform" />
+    <hdp-ParentTalentArray value="MuradinMasteryPassiveStoneform" />
   </CAbilEffectInstant>
 </Catalog>

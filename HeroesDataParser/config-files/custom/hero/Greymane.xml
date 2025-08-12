@@ -7,6 +7,6 @@
     <ParentAbil value="GreymaneDarkflight" />
   </CAbilEffectTarget>
   <CButton id="GreymaneInnerBeastActive" parent="StormButtonParent">
-    <hdp-ParentAbil value="GreymaneInnerBeast" />
+    <hdp-ParentAbilArray value="GreymaneInnerBeast" />
   </CButton>
 </Catalog>

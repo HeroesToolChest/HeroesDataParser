@@ -8,10 +8,10 @@
   </CUnit>
   <CAbilEffectTarget id="UtherHolyShock">
     <ParentAbil value="" />
-    <hdp-ParentTalent value="UtherMasteryHolyShock" />
+    <hdp-ParentTalentArray value="UtherMasteryHolyShock" />
   </CAbilEffectTarget>
   <CAbilEffectTarget id="UtherFlashofLight">
     <ParentAbil value="" />
-    <hdp-ParentAbilLink abilityId=":PASSIVE:" buttonId="UtherEternalDevotion" abilityType="Trait" />
+    <hdp-ParentAbilLinkArray abilityId=":PASSIVE:" buttonId="UtherEternalDevotion" abilityType="Trait" />
   </CAbilEffectTarget>
 </Catalog>

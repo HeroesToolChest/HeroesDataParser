@@ -8,6 +8,6 @@
     <ParentAbil value="RaynorRaynorsRaidersDummy" />
   </CAbilEffectTarget>
   <CAbilEffectInstant id="RaynorBountyHunter">
-    <hdp-ParentTalent value="RaynorBountyHunter" />
+    <hdp-ParentTalentArray value="RaynorBountyHunter" />
   </CAbilEffectInstant>
 </Catalog>
