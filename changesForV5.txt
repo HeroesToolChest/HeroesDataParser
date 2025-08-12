@@ -85,5 +85,6 @@ v5 changes heroes
 - Changed Kel'Thuzad's `KelThuzadGlacialSpike|KelThuzadGlacialSpike|Active` from being a subability to a (baseline) ability
 - Fixed Sgt. Hammer's `ConcussiveBlastScrapCancel|SgtHammerConcussiveBlastBarricadeCancel|W` parent ability to `SgtHammerBarricade|SgtHammerConcussiveBlastBarricadeTalent|W|Level4`
 - Fixed Tracer's `TracerLockedandLoadedFailReload|TracerLockedandLoadedAbility|Trait` parent ability to `TracerLockedandLoaded|TracerLockedandLoaded|Trait|Level7`
+- For Whitemane's `WhitemaneInquisition|WhitemaneInquisition|W` and `WhitemaneInquisitionClemency|WhitemaneInquisitionClemency|Active` abilities, both now have `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|W` and `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|Active` as subabilities
 
 
