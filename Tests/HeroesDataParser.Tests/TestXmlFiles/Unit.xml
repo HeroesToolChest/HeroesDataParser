@@ -1799,7 +1799,7 @@
     <WeaponArray Link="TassadarResonanceBeam" />
     <CardLayouts index="0">
       <LayoutButtons Face="TassadarArchon" Type="Passive" Requirements="TassadarArchonActive" Slot="Heroic">
-        <hdp-ParentAbil value="TassadarArchon" />
+        <hdp-ParentAbilArray value="TassadarArchon" />
       </LayoutButtons>
       <LayoutButtons Face="TassadarArchon" Type="AbilCmd" AbilCmd="TassadarArchon,Execute" Slot="Heroic" />
       <LayoutButtons Face="TassadarBlackHole" Type="AbilCmd" AbilCmd="TassadarBlackHole,Execute" Slot="Heroic" />
@@ -1809,6 +1809,34 @@
       <LayoutButtons Face="TassadarResonanceBeam" Type="AbilCmd" AbilCmd="TassadarResonanceBeamArcDischargeDummy,Execute" ShowInGlossary="0" Slot="Trait" />
       <LayoutButtons Face="TassadarResonanceBeam" Type="Passive" Slot="Trait" />
       <LayoutButtons Face="TassadarPsionicStorm" Type="AbilCmd" AbilCmd="TassadarPsionicStorm,Execute" Slot="Ability2" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit id="HeroWhitemane" parent="StormHeroMounted">
+    <LifeStart value="1400" />
+    <LifeMax value="1400" />
+    <LifeRegenRate value="2.9218" />
+    <AbilArray Link="WhitemaneDesperatePlea" />
+    <AbilArray Link="WhitemaneInquisition" />
+    <AbilArray Link="WhitemaneInquisitionCancel" />
+    <AbilArray Link="WhitemaneSearingLash" />
+    <AbilArray Link="WhitemaneScarletAegis" />
+    <AbilArray Link="WhitemaneDivineReckoning" />
+    <AbilArray Link="WhitemaneFanaticalPower" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="WhitemaneZealUnitTracker" />
+    <BehaviorArray Link="WhitemaneZealCasterBehavior" />
+    <BehaviorArray Link="WhitemaneDesperatePleaDesperationTokenCounter" />
+    <BehaviorArray Link="WhitemaneClemencyItem" />
+    <BehaviorArray Link="WhitemaneZealTokenCounter" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="WhitemaneScarletAegis" Type="AbilCmd" AbilCmd="WhitemaneScarletAegis,Execute" Slot="Heroic" />
+      <LayoutButtons Face="WhitemaneDivineReckoning" Type="AbilCmd" AbilCmd="WhitemaneDivineReckoning,Execute" Slot="Heroic" />
+      <LayoutButtons Face="WhitemaneTraitZeal" Type="AbilCmd" AbilCmd="WhitemaneFanaticalPower,Execute" Slot="Trait" />
+      <LayoutButtons Face="WhitemaneDesperatePlea" Type="AbilCmd" AbilCmd="WhitemaneDesperatePlea,Execute" Slot="Ability1" />
+      <LayoutButtons Face="WhitemaneInquisitionCancel" Type="AbilCmd" AbilCmd="WhitemaneInquisitionCancel,Execute" Slot="Ability2" />
+      <LayoutButtons Face="WhitemaneInquisition" Type="AbilCmd" AbilCmd="WhitemaneInquisition,Execute" Slot="Ability2" />
+      <LayoutButtons Face="WhitemaneSearingLash" Type="AbilCmd" AbilCmd="WhitemaneSearingLash,Execute" Slot="Ability3" />
+      <LayoutButtons />
     </CardLayouts>
   </CUnit>
 </Unit> 
