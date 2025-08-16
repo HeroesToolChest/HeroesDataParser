@@ -85,6 +85,8 @@ v5 changes heroes
 - Changed Kel'Thuzad's `KelThuzadGlacialSpike|KelThuzadGlacialSpike|Active` from being a subability to a (baseline) ability
 - Fixed Sgt. Hammer's `ConcussiveBlastScrapCancel|SgtHammerConcussiveBlastBarricadeCancel|W` parent ability to `SgtHammerBarricade|SgtHammerConcussiveBlastBarricadeTalent|W|Level4`
 - Fixed Tracer's `TracerLockedandLoadedFailReload|TracerLockedandLoadedAbility|Trait` parent ability to `TracerLockedandLoaded|TracerLockedandLoaded|Trait|Level7`
-- For Whitemane's `WhitemaneInquisition|WhitemaneInquisition|W` and `WhitemaneInquisitionClemency|WhitemaneInquisitionClemency|Active` abilities, both now have `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|W` and `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|Active` as subabilities
-
+- Changed Whitemane's `WhitemaneInquisition|WhitemaneInquisition|W` and `WhitemaneInquisitionClemency|WhitemaneInquisitionClemency|Active` abilities, both should have subabilities `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|W` and `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|Active`
+- Fixed Li-Mings `WizardArchonPurePower|WizardArchonPurePowerHotbar|Active` ability, should have two subabilities `WizardArchonPurePowerDisintegrate|WizardArchonPurePowerDisintegrate|Heroic` and `WizardArchonPurePower|WizardArchonPurePowerHotbarCancel|Active`
+- Fixed Yrel's `YrelAvengingWrathChannel|YrelAvengingWrath|E` and `YrelAvengingWrath|YrelAvengingWrath|E` being swapped
+- Added Yrel's `YrelVindicationCast|YrelVindication|Q` as a subability to `YrelDivinePurpose|YrelDivinePurpose|Trait`
 
