@@ -6,4 +6,7 @@
   <CButton id="GenericSpellShieldItemDisabled" parent="StormButtonParent">
     <hdp-ParentAbilArray value="HeroGenericSpellShield" />
   </CButton>
+  <CButton id="GenericIceBlockCancel" parent="StormButtonParent">
+    <hdp-ParentAbilArray value="TalentBucketIceBlock" />
+  </CButton>
 </Catalog>

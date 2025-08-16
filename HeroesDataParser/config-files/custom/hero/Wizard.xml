@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectTarget id="WizardArchonPurePowerDisintegrate">
+    <ParentAbil value="" />
+    <hdp-ParentAbilLinkArray abilityId="WizardArchonPurePower" buttonId="WizardArchonPurePowerHotbar" abilityType="Active" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="WizardArchonPurePowerDisintegrateCancel">
+    <ParentAbil value="WizardArchonPurePowerDisintegrate" />
+  </CAbilEffectInstant>
+  <CButton id="WizardArchonPurePowerHotbarCancel" parent="StormButtonParent">
+    <hdp-ParentAbilArray value="WizardArchonPurePower" />
+  </CButton>
+</Catalog>
