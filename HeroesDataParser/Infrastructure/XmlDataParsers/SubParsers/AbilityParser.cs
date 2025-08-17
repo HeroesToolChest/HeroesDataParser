@@ -84,14 +84,6 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
         if (ability.IsValid is false)
             return null;
 
-        //// if no NameId and it is not a passive ability, return null
-        //if (string.IsNullOrEmpty(ability.NameId) && ability.IsPassive is not true)
-        //    return null;
-
-        // if no NameId and it is a passive ability, set the NameId to the ButtonId
-        //if (string.IsNullOrEmpty(ability.NameId) && ability.IsPassive is true)
-        //   ability.NameId = ability.ButtonId;
-
         return ability;
     }
 
@@ -244,21 +236,4 @@ public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 
         SetAbilityData(abilityElement, abilityTalent, abilCmdIndex);
     }
-
-    //private void SetTooltipDescriptions(AbilityTalentBase abilityTalent, StormElement buttonElement)
-    //{
-    //    StormElementData buttonDataValues = buttonElement.DataValues;
-
-    //    if (buttonDataValues.TryGetElementDataAt("Name", out StormElementData? nameData))
-    //        abilityTalent.Name = GetTooltipDescriptionFromId(nameData.Value.GetString());
-
-    //    //if (abilityTalent.Name is null)
-    //    // TODO: if name is still null, try to get it from the ability element, need to have it passed down
-
-    //    if (buttonDataValues.TryGetElementDataAt("SimpleDisplayText", out StormElementData? simpleDisplayTextData))
-    //        abilityTalent.ShortTooltip = GetTooltipDescriptionFromId(simpleDisplayTextData.Value.GetString());
-    //    if (buttonDataValues.TryGetElementDataAt("Tooltip", out StormElementData? tooltipData))
-    //        abilityTalent.FullTooltip = GetTooltipDescriptionFromId(tooltipData.Value.GetString());
-
-    //}
 }

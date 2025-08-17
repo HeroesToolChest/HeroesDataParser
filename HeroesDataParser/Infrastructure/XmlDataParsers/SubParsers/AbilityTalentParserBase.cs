@@ -45,8 +45,6 @@ public class AbilityTalentParserBase : ParserBase
             return;
 
         StormElementData buttonDataValues = buttonElement.DataValues;
-        //SetTooltipDescriptions(abilityTalent, buttonElement);
-        //SetTooltipData(abilityTalent, buttonElement);
 
         if (buttonDataValues.TryGetElementDataAt("Name", out StormElementData? nameData))
             abilityTalent.Name = TooltipDescriptionService.GetTooltipDescriptionFromId(nameData.Value.GetString());
@@ -88,9 +86,6 @@ public class AbilityTalentParserBase : ParserBase
                 string? energyText = TooltipDescriptionService.GetStormGameString(energyData.Value.GetString());
                 if (!string.IsNullOrEmpty(energyText))
                 {
-                    // TODO: check if the override text starts with the default energy text
-                    //new TooltipDescription(energyData.Value.GetString(), StormLocale.ENUS).PlainText.StartsWith("", StringComparison.OrdinalIgnoreCase);
-
                     if (buttonDataValues.TryGetElementDataAt("TooltipVitalName", out StormElementData? tooltipVitalNameData) && tooltipVitalNameData.TryGetElementDataAt("Energy", out StormElementData? vitalNameEnergyData))
                     {
                         string? defaultEnergyText = TooltipDescriptionService.GetStormGameString(vitalNameEnergyData.Value.GetString());
@@ -106,9 +101,6 @@ public class AbilityTalentParserBase : ParserBase
                 string? lifeText = TooltipDescriptionService.GetStormGameString(lifeData.Value.GetString());
                 if (!string.IsNullOrEmpty(lifeText))
                 {
-                    // TODO: check if the override text starts with the default life text
-                    //new TooltipDescription(energyData.Value.GetString(), StormLocale.ENUS).PlainText.StartsWith("", StringComparison.OrdinalIgnoreCase);
-
                     if (buttonDataValues.TryGetElementDataAt("TooltipVitalName", out StormElementData? tooltipVitalNameData) && tooltipVitalNameData.TryGetElementDataAt("Life", out StormElementData? vitalNameLifeData))
                     {
                         string? defaultLifeText = TooltipDescriptionService.GetStormGameString(vitalNameLifeData.Value.GetString());
@@ -164,12 +156,6 @@ public class AbilityTalentParserBase : ParserBase
                 abilityTalent.IsActive = false; // ability has no hotkey, not activable
         }
 
-        // validate, check if the tooltip for energy and life still contain the replacement character, if so then then set them to null
-        //if (abilityTalent.EnergyTooltip is not null && abilityTalent.EnergyTooltip.RawDescription.Contains(GameStringConstants.ReplacementCharacter, StringComparison.OrdinalIgnoreCase))
-        //    abilityTalent.EnergyTooltip = null;
-        //if (abilityTalent.LifeTooltip is not null && abilityTalent.LifeTooltip.RawDescription.Contains(GameStringConstants.ReplacementCharacter, StringComparison.OrdinalIgnoreCase))
-        //    abilityTalent.LifeTooltip = null;
-
         if (buttonDataValues.TryGetElementDataAt("TooltipAppender", out StormElementData? tooltipAppenderArray))
         {
             IEnumerable<string> tooltipAppenders = tooltipAppenderArray.GetElementDataIndexes();
@@ -197,24 +183,6 @@ public class AbilityTalentParserBase : ParserBase
 
         SetCustomParentElements(abilityTalent, buttonDataValues);
     }
-
-    //protected void SetAbilityData(AbilityTalentBase abilityTalent, string? abilCmdIndex = null)
-    //{
-    //    StormElement? abilityElement = _heroesData.GetCompleteStormElement("Abil", abilityTalent.NameId);
-    //    if (abilityElement is null)
-    //        return;
-
-    //    SetAbilityData(abilityElement, abilityTalent, abilCmdIndex);
-    //}
-
-    //protected void SetAbilityData(string abilityId, AbilityTalentBase abilityTalent, string? abilCmdIndex = null)
-    //{
-    //    StormElement? abilityElement = _heroesData.GetCompleteStormElement("Abil", abilityId);
-    //    if (abilityElement is null)
-    //        return;
-
-    //    SetAbilityData(abilityElement, abilityTalent, abilCmdIndex);
-    //}
 
     protected void SetAbilityData(StormElement abilityElement, AbilityTalentBase abilityTalent, string? abilCmdIndex)
     {

@@ -6,8 +6,6 @@ global using Heroes.LocaleText;
 global using Heroes.XmlData;
 global using Heroes.XmlData.StormData;
 global using HeroesDataParser.Core;
-global using HeroesDataParser.Infrastructure;
-global using HeroesDataParser.Infrastructure.XmlDataParsers;
 global using HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
 global using HeroesDataParser.Options;
 global using HeroesDataParser.Tests.TestHelpers;
