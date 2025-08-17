@@ -156,6 +156,7 @@ public class TalentParserTests
         talent.AbilityType.Should().Be(AbilityType.Trait);
         talent.IsActive.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level1);
+        talent.UpgradesAbilityType.Should().BeTrue();
     }
 
     [TestMethod]
@@ -326,6 +327,7 @@ public class TalentParserTests
         talent.IsActive.Should().BeFalse();
         talent.IsQuest.Should().BeTrue();
         talent.Tier.Should().Be(TalentTier.Level1);
+        talent.UpgradesAbilityType.Should().BeFalse();
     }
 
     [TestMethod]
@@ -353,6 +355,7 @@ public class TalentParserTests
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level13);
+        talent.UpgradesAbilityType.Should().BeTrue();
     }
 
     [TestMethod]
@@ -380,6 +383,7 @@ public class TalentParserTests
         talent.IsActive.Should().BeFalse();
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level4);
+        talent.UpgradesAbilityType.Should().BeTrue();
     }
 
     [TestMethod]
@@ -440,6 +444,7 @@ public class TalentParserTests
         talent.CooldownText!.RawDescription.Should().Be("Cooldown: 15 seconds");
         talent.TooltipAppendersTalentElementIds.Should().HaveCount(2).And
             .Contain(["GarroshBodyCheckBruteForce", "GarroshArmorUpInnerRage"]);
+        talent.UpgradesAbilityType.Should().BeFalse();
     }
 
     [TestMethod]
@@ -470,6 +475,7 @@ public class TalentParserTests
         // assert
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("GarroshArmorUpInnerRage|GarroshArmorUpInnerRage|Active|Level20");
+        talent.UpgradesAbilityType.Should().BeTrue();
     }
 
     [TestMethod]
@@ -636,6 +642,7 @@ public class TalentParserTests
         talent.ToggleCooldown.Should().BeNull();
         talent.Charges.Should().BeNull();
         talent.CooldownText!.RawDescription.Should().Be("Cooldown: 50 seconds");
+        talent.UpgradesAbilityType.Should().BeTrue();
     }
 
     [TestMethod]
@@ -837,6 +844,35 @@ public class TalentParserTests
         // assert
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("VarianTwinBladesOfFury|VarianTwinBladesOfFury|Heroic|Level4");
+        talent.UpgradesAbilityType.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void GetTalent_VarianLionsFangLionheart_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Varian";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("6");
+
+        Hero hero = new(heroUnit);
+        hero.AddLayoutAbility(new Ability()
+        {
+            AbilityElementId = "VarianLionsFang",
+            ButtonElementId = "VarianLionsFang",
+            AbilityType = AbilityType.Q,
+        });
+
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("VarianLionsFangLionheart|VarianLionsFangLionheart|Q|Level7");
+        talent.UpgradesAbilityType.Should().BeTrue();
     }
 
     [TestMethod]
@@ -858,5 +894,77 @@ public class TalentParserTests
         // assert
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("AlarakMightOfTheHighlord|AlarakMightOfTheHighlord|Active|Level20");
+    }
+
+    [TestMethod]
+    public void GetTalent_AlexstraszaPacify_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Alexstrasza";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("12");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("AlexstraszaPacify|AlexstraszaPacify|Active|Level13");
+        talent.UpgradesAbilityType.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void GetTalent_AnduinVariansLegacy_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Anduin";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("21");
+
+        Hero hero = new(heroUnit);
+
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("AnduinVariansLegacy|AnduinVariansLegacy|Passive|Level20");
+        talent.UpgradesAbilityType.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void GetTalent_DeathwingSkyfall_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Deathwing";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("8");
+
+        Hero hero = new(heroUnit);
+        hero.AddLayoutAbility(new Ability()
+        {
+            AbilityElementId = "DeathwingSkyfall",
+            ButtonElementId = "DeathwingSkyfall",
+            AbilityType = AbilityType.E,
+        });
+
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("DeathwingSkyfall|DeathwingSkyfall|E|Level7");
+        talent.UpgradesAbilityType.Should().BeFalse();
     }
 }

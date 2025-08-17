@@ -516,4 +516,16 @@
   <CButton id="WhitemaneInquisitionCancel" parent="StormButtonParent">
     <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
   </CButton>
+  <CButton id="VarianLionsFangLionheart" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_varian_lionsfang.dds" />
+  </CButton>
+  <CButton id="AlexstraszaPacify" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alexstrasza_pacify.dds" />
+  </CButton>
+  <CButton id="AnduinVariansLegacy" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_anduin_varians_legacy.dds" />
+  </CButton>
+  <CButton id="DeathwingSkyfall" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_deathwing_skyfall.dds" />
+  </CButton>
 </Button>

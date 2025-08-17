@@ -93,6 +93,21 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
             talent.Tier = TalentTier.Unknown;
     }
 
+    private static void SetAbilityUpgradeFlag(Talent talent, StormElementData abilityModificationData)
+    {
+        IEnumerable<string> abilityModificationIndexes = abilityModificationData.GetElementDataIndexes();
+
+        foreach (string abilityModificationIndex in abilityModificationIndexes)
+        {
+            StormElementData abilityModificationArray = abilityModificationData.GetElementDataAt(abilityModificationIndex);
+            if (abilityModificationArray.ContainsIndex("Modifications"))
+            {
+                talent.UpgradesAbilityType = true;
+                break;
+            }
+        }
+    }
+
     private void SetTalentData(Hero hero, Talent talent)
     {
         StormElement? talentElement = HeroesData.GetCompleteStormElement("Talent", talent.TalentElementId);
@@ -100,6 +115,14 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
             return;
 
         StormElementData talentDataValues = talentElement.DataValues;
+
+        bool isTraitElement = false;
+
+        if (talentDataValues.TryGetElementDataAt("Trait", out StormElementData? traitData) && traitData.Value.GetString() == "1")
+        {
+            isTraitElement = true;
+            talent.UpgradesAbilityType = true;
+        }
 
         if (talentDataValues.TryGetElementDataAt("QuestData", out StormElementData? questData) &&
             questData.TryGetElementDataAt("StackBehavior", out StormElementData? stackBehaviorData) &&
@@ -135,7 +158,14 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 
             if (talent.IsActive)
                 SetAbilityData(talent.AbilityElementId, talent);
+
+            if (!talent.IsActive)
+                talent.UpgradesAbilityType = true;
         }
+
+        // if NOT IsActive and UpgradesAbilityId then check for AbilityModificationArray
+        if (!talent.IsActive && !talent.UpgradesAbilityType && talentDataValues.TryGetElementDataAt("AbilityModificationArray", out StormElementData? abilityModificationData))
+            SetAbilityUpgradeFlag(talent, abilityModificationData);
 
         // only set if IsActive is false
         if (!talent.IsActive && talentDataValues.TryGetElementDataAt("RankArray", out StormElementData? rankArrayData))
@@ -144,10 +174,10 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
         // the trait check should come after the ability data is set
         // hidden means that it was an ability that is in the AbilArray but not in the command array
         if (((talent.IsActive is true && (talent.AbilityType == AbilityType.Unknown)) ||
-            (talent.IsActive is false && (talent.AbilityType == AbilityType.Unknown || talent.AbilityType == AbilityType.Hidden))) &&
-            talentDataValues.TryGetElementDataAt("Trait", out StormElementData? traitData) && traitData.Value.GetString() == "1")
+            (talent.IsActive is false && (talent.AbilityType == AbilityType.Unknown || talent.AbilityType == AbilityType.Hidden))) && isTraitElement)
         {
             talent.AbilityType = AbilityType.Trait;
+            talent.UpgradesAbilityType = true;
         }
 
         // button data should come after ability data
@@ -168,11 +198,17 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 
         // if it's NOT an IsActive and if the abilityType is still Unknown or Hidden, then set it to a Passive abilityType
         if (talent is { IsActive: false, AbilityType: AbilityType.Unknown or AbilityType.Hidden })
+        {
             talent.AbilityType = AbilityType.Passive;
+            talent.UpgradesAbilityType = false;
+        }
 
         // if it's an IsActive and if the abilityType is still Unknown or Hidden, then set it to an Active abilityType
         if (talent is { IsActive: true, AbilityType: AbilityType.Unknown or AbilityType.Hidden })
             talent.AbilityType = AbilityType.Active;
+
+        if (talent.IsQuest)
+            talent.UpgradesAbilityType = false;
     }
 
     private void SetAbilityData(string abilityId, AbilityTalentBase abilityTalent)

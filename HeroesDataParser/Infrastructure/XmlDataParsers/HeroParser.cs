@@ -253,7 +253,7 @@ public class HeroParser : CollectionParserBase<Hero>
             // for each ability link id, add it to the talent
             foreach (AbilityLinkId abilityLinkId in abilityLinkIds)
             {
-                talent.UpgradeAbilityLinkIds.Add(abilityLinkId);
+                talent.TooltipAbilityLinkIds.Add(abilityLinkId);
             }
         }
     }

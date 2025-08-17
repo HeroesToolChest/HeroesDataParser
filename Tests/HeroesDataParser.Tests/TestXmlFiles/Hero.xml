@@ -3152,68 +3152,6 @@
     <Unit value="HeroDVaPilot" />
     <RolesMultiClass value="Warrior" />
     <RoleScoreValueOverride value="Warrior" />
-    <HeroSpecificUIArray Location="Status" DescName="DVa/DVaMechDefenceMatrixFrame" />
-    <HeroSpecificUIArray Location="CommandButton02Status" DescName="DVa/DVaMechCommandCardFrame" />
-    <HeroSpecificUIArray Location="FullscreenStatus" DescName="Dva/DVaPilotEnterFrame" />
-    <HeroSpecificUIArray Location="HeroSpecificStackingBuffsStatus" DescName="DVa/DVaBunnyHopStacksFrameContainer" />
-    <HeroAbilArray Abil="DVaPilotCallMech" Button="DVaPilotCallMech">
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DVaBoostersOn" Button="DVaMechBoosters">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DVaMechDefenseMatrixOn" Button="DVaMechDefenseMatrix">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DVaMechDefenseMatrixRetarget">
-      <Flags index="ShowInQuickCastSetting" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DVaMechSelfDestruct" Button="DVaMechSelfDestruct">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DVaPilotBigShot" Button="DVaPilotBigShot">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-      <Flags index="HideHotkey" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Button="DVaMechanizedWalker">
-      <Flags index="MountReplacement" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Button="DVaMechMechMode">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="Trait" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DVaPilotTorpedoDash" Button="DVaPilotTorpedoDashAbility">
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DVaPilotConcussivePulse" Button="DVaPilotConcussivePulseAbility">
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DVaLiquidCoolingAbility" Button="DVaLiquidCooling" />
-    <HeroAbilArray Abil="DVaMechBunnyHopHeroic" Button="DVaBunnyHopOn">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-      <Flags index="Heroic" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DVaMicroMissiles" Button="DVaMicroMissiles">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-      <Flags index="Heroic" value="1" />
-    </HeroAbilArray>
     <TalentTreeArray Talent="DVaFullMetal" Tier="1" Column="1" />
     <TalentTreeArray Talent="DVaMechProMoves" Tier="1" Column="2" />
     <TalentTreeArray Talent="DVaLiquidCooling" Tier="1" Column="3" />
@@ -3458,60 +3396,6 @@
     <AlternateUnitArray value="HeroDVaPilot" />
     <Gender value="Female" />
     <ReleaseDate Month="5" Day="16" Year="2017" />
-    <TalentAIBuildsArray ChanceToPick="16">
-      <TalentsArray value="DVaFullMetal" />
-      <TalentsArray value="DVaDefenseMatrixAggressionMatrix" />
-      <TalentsArray value="DVaDefenseMatrixFusionGenerator" />
-      <TalentsArray value="DVaBunnyHop" />
-      <TalentsArray value="DVaTargetLocked" />
-      <TalentsArray value="DVaDefenseMatrixDivertingPower" />
-      <TalentsArray value="DVaMechAblativeArmor" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray ChanceToPick="16">
-      <TalentsArray value="DVaFullMetal" />
-      <TalentsArray value="DVaBoostersRushdown" />
-      <TalentsArray value="DVaBoostersHitTheNitrous" />
-      <TalentsArray value="DVaBunnyHop" />
-      <TalentsArray value="DVaGoodToGo" />
-      <TalentsArray value="DVaInForTheKill" />
-      <TalentsArray value="DVaBunnyHopStopAndPop" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray ChanceToPick="16">
-      <TalentsArray value="DVaMechProMoves" />
-      <TalentsArray value="DVaSelfDestructNuclearOption" />
-      <TalentsArray value="DVaDefenseMatrixFusionGenerator" />
-      <TalentsArray value="DVaBunnyHop" />
-      <TalentsArray value="DVaBigShotPewPewPew" />
-      <TalentsArray value="DVaMechEmergencyShielding" />
-      <TalentsArray value="DVaHeadshot" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray ChanceToPick="16">
-      <TalentsArray value="DVaLiquidCooling" />
-      <TalentsArray value="DVaSelfDestructNuclearOption" />
-      <TalentsArray value="DVaBoostersHitTheNitrous" />
-      <TalentsArray value="DVaMicroMissiles" />
-      <TalentsArray value="DVaTargetLocked" />
-      <TalentsArray value="DVaDefenseMatrixDivertingPower" />
-      <TalentsArray value="DVaTimingAttack" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
-      <TalentsArray value="DVaMechProMoves" />
-      <TalentsArray value="DVaDefenseMatrixAggressionMatrix" />
-      <TalentsArray value="DvaGetOnThePoint" />
-      <TalentsArray value="DVaMicroMissiles" />
-      <TalentsArray value="DVaTargetLocked" />
-      <TalentsArray value="DVaInForTheKill" />
-      <TalentsArray value="DVaTimingAttack" />
-    </TalentAIBuildsArray>
-    <TalentAIBuildsArray AIOnly="1" ChanceToPick="16">
-      <TalentsArray value="DVaLiquidCooling" />
-      <TalentsArray value="DVaBoostersRushdown" />
-      <TalentsArray value="DvaGetOnThePoint" />
-      <TalentsArray value="DVaBunnyHop" />
-      <TalentsArray value="DVaGoodToGo" />
-      <TalentsArray value="DVaInForTheKill" />
-      <TalentsArray value="DVaMechAblativeArmor" />
-    </TalentAIBuildsArray>
     <Rarity value="Epic" />
     <ExpandedRole value="Bruiser" />
   </CHero>
@@ -3835,50 +3719,6 @@
     <PairedHero value="DeathwingWorldBreaker" />
     <PortraitPaired value="Assets\Textures\storm_ui_icon_deathwing_destroyer.dds" />
     <PortraitPairedText value="Hero/PortraitPairedText/Deathwing" />
-    <HeroAbilArray Abil="DeathwingMoltenFlame" Button="DeathwingMoltenFlame">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="ShowInQuickCastSetting" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DeathwingIncinerate" Button="DeathwingIncinerate">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="ShowInQuickCastSetting" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DeathwingLavaBurst" Button="DeathwingLavaBurst">
-      <Flags index="ShowInQuickCastSetting" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DeathwingOnslaught" Button="DeathwingOnslaught">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="ShowInQuickCastSetting" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DeathwingEarthShatter" Button="DeathwingEarthShatter">
-      <Flags index="ShowInQuickCastSetting" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DeathwingCataclysm" Button="DeathwingCataclysm">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="ShowInQuickCastSetting" value="1" />
-      <Flags index="AffectedByCooldownReduction" value="1" />
-      <Flags index="AffectedByOverdrive" value="1" />
-      <Flags index="Heroic" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DeathwingDragonflight" Button="DeathwingDragonflight">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="MountReplacement" value="1" />
-    </HeroAbilArray>
-    <HeroAbilArray Abil="DeathwingFormSwitch" Button="DeathwingAspectOfDeath">
-      <Flags index="ShowInHeroSelect" value="1" />
-      <Flags index="ShowInQuickCastSetting" value="1" />
-      <Flags index="Trait" value="1" />
-    </HeroAbilArray>
     <Melee value="1" />
     <ExpandedRole value="Bruiser" />
     <RolesMultiClass value="Warrior" />
@@ -4793,5 +4633,61 @@
     </TalentTreeArray>
     <TalentTreeArray Talent="VarianBannersGloryToTheAlliance" Tier="7" Column="4" />
     <TalentTreeArray Talent="VarianDemoralizingShout" Tier="7" Column="5" />
+  </CHero>
+  <CHero id="Alexstrasza">
+    <AttributeId value="Alex" />
+    <TalentTreeArray Talent="AlexstraszaLiveAndLetLiveGiftOfLife" Tier="1" Column="1" />
+    <TalentTreeArray Talent="AlexstraszaCircleOfLifeAbundance" Tier="1" Column="2" />
+    <TalentTreeArray Talent="AlexstraszaFlamesOfFuryFlameBuffet" Tier="1" Column="3" />
+    <TalentTreeArray Talent="AlexstraszaSurgeOfVitalityAbundance" Tier="2" Column="1" />
+    <TalentTreeArray Talent="AlexstraszaHeatExhaustionFlameBuffet" Tier="2" Column="2" />
+    <TalentTreeArray Talent="AlexstraszaExuberance" Tier="2" Column="3" />
+    <TalentTreeArray Talent="AlexstraszaLifeblossomGiftOfLife" Tier="3" Column="1" />
+    <TalentTreeArray Talent="AlexstraszaVerdantFlourishAbundance" Tier="3" Column="2" />
+    <TalentTreeArray Talent="AlexstraszaFireWithinFlameBuffet" Tier="3" Column="3" />
+    <TalentTreeArray Talent="AlexstraszaLifebinder" Tier="4" Column="1" />
+    <TalentTreeArray Talent="AlexstraszaCleansingFlame" Tier="4" Column="2" />
+    <TalentTreeArray Talent="AlexstraszaDragonScales" Tier="5" Column="1" />
+    <TalentTreeArray Talent="AlexstraszaPacify" Tier="5" Column="2" />
+    <TalentTreeArray Talent="AlexstraszaLifeUnbound" Tier="5" Column="3" />
+    <TalentTreeArray Talent="AlexstraszaToughLoveGiftOfLife" Tier="6" Column="1" />
+    <TalentTreeArray Talent="AlexstraszaOverprotectiveAbundance" Tier="6" Column="2" />
+    <TalentTreeArray Talent="AlexstraszaDraconicDisciplineDragonqueen" Tier="6" Column="3" />
+    <TalentTreeArray Talent="AlexstraszaRitualOfLife" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="AlexstraszaLifebinder" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="AlexstraszaOnRubyWingsCleansingFlame" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="AlexstraszaCleansingFlame" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="AlexstraszaAncientFlameFlameBuffet" Tier="7" Column="3" />
+    <TalentTreeArray Talent="AlexstraszaBlessingOfTheRed" Tier="7" Column="4" />
+  </CHero>
+  <CHero id="Anduin">
+    <TalentTreeArray Talent="AnduinFlashHealEvenhandedBlessings" Tier="1" Column="1" />
+    <TalentTreeArray Talent="AnduinDivineStarPowerWordShield" Tier="1" Column="2" />
+    <TalentTreeArray Talent="AnduinLightwell" Tier="1" Column="3" />
+    <TalentTreeArray Talent="AnduinDivineStarMoralCompass" Tier="2" Column="1" />
+    <TalentTreeArray Talent="AnduinSurgeofLight" Tier="2" Column="2" />
+    <TalentTreeArray Talent="AnduinPiercingLight" Tier="2" Column="3" />
+    <TalentTreeArray Talent="AnduinFlashHealBindingHeal" Tier="3" Column="1" />
+    <TalentTreeArray Talent="AnduinBlessedRecovery" Tier="3" Column="2" />
+    <TalentTreeArray Talent="AnduinFlashHealDesperatePrayer" Tier="3" Column="3" />
+    <TalentTreeArray Talent="AnduinHolyWordSalvation" Tier="4" Column="1" />
+    <TalentTreeArray Talent="AnduinLightBomb" Tier="4" Column="2" />
+    <TalentTreeArray Talent="AnduinDivineStarSpeedOfThePious" Tier="5" Column="1" />
+    <TalentTreeArray Talent="AnduinPushForward" Tier="5" Column="2" />
+    <TalentTreeArray Talent="AnduinLeapOfFaithEnchantBootsLionsSpeed" Tier="5" Column="3" />
+    <TalentTreeArray Talent="AnduinFlashHealRenew" Tier="6" Column="1" />
+    <TalentTreeArray Talent="AnduinDivineStarHolyNova" Tier="6" Column="2" />
+    <TalentTreeArray Talent="AnduinLeapOfFaithGlyphOfFaith" Tier="6" Column="3" />
+    <TalentTreeArray Talent="AnduinFlashHealInnerFocus" Tier="6" Column="4" />
+    <TalentTreeArray Talent="AnduinHolyWordSalvationLightOfStormwind" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="AnduinHolyWordSalvation" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="AnduinInnerFire" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="AnduinLightBomb" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="AnduinCensure" Tier="7" Column="3" />
+    <TalentTreeArray Talent="AnduinVariansLegacy" Tier="7" Column="4" />
   </CHero>
 </Hero>

@@ -1015,4 +1015,49 @@
     <ParentAbil value="WhitemaneInquisition" />
     <hdp-ParentAbilArray value="WhitemaneInquisitionClemency" />
   </CAbilEffectInstant>
+  <CAbilEffectTarget id="VarianLionsFang">
+    <PrepEffect value="VarianLionsFangPrepSet" />
+    <Effect value="VarianLionsFangInitialOffset" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TargetVectorLock" value="1" />
+    <Cost>
+      <Vital index="Energy" value="50" />
+      <Cooldown TimeUse="8" />
+    </Cost>
+    <Range value="500" />
+    <CastIntroTime value="0.125" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <CursorEffect value="VarianLionsFangMissileSearch" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="VarianLionsFang">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Arc value="360" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="DeathwingSkyfall">
+    <Effect value="DeathwingSkyfallInitialSet" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RangeUseCasterRadius" value="0" />
+    <Cost>
+      <Charge>
+        <CountMax value="3" />
+        <CountStart value="3" />
+        <CountUse value="1" />
+        <TimeUse value="10" />
+      </Charge>
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="DeathwingSkyfallActive" ShowValidator="DeathwingSkyfallShowValidator">
+      <Flags index="AllowMinimap" value="1" />
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Range value="500" />
+    <Arc value="360" />
+    <CursorEffect value="DeathwingSkyfallExplosionSearch" />
+    <AbilityCategories index="Reveals" value="1" />
+  </CAbilEffectTarget>
 </Abil>

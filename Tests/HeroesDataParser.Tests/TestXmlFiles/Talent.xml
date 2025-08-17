@@ -567,4 +567,56 @@
     </RankArray>
     <Active value="1" />
   </CTalent>
+  <CTalent id="VarianLionsFangLionheart">
+    <Face value="VarianLionsFangLionheart" />
+    <Abil value="VarianLionsFang" />
+  </CTalent>
+  <CTalent id="AlexstraszaPacify">
+    <Face value="AlexstraszaPacify" />
+    <Abil value="AlexstraszaPacify" />
+    <RankArray>
+      <BehaviorArray value="AlexstraszaPacifyItem" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AlexstraszaPacifyLifeUnboundModifyCooldownHealSet" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AlexstraszaPacifyLifeUnboundModifyCooldownHealSetDragonCone" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AlexstraszaPacifyModifyCooldownHealed" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="AnduinVariansLegacy">
+    <Face value="AnduinVariansLegacy" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AnduinVariansLegacyDoTApplyBehavior" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="DeathwingSkyfall">
+    <Face value="DeathwingSkyfall" />
+    <Abil value="DeathwingSkyfall" />
+    <Active value="1" />
+  </CTalent>
 </Talent>

@@ -317,10 +317,10 @@ public class HeroParserTests
         hero.HeroUnits.Should().ContainSingle();
         hero.Talents[TalentTier.Level1].Should().HaveCount(2);
         hero.Talents[TalentTier.Level1][0].LinkId.ToString().Should().Be("AbathurMasteryPressurizedGlands|AbathurSymbiotePressurizedGlandsTalent|W|Level1");
-        hero.Talents[TalentTier.Level1][0].UpgradeAbilityLinkIds.Should()
+        hero.Talents[TalentTier.Level1][0].TooltipAbilityLinkIds.Should()
             .ContainInConsecutiveOrder([new AbilityLinkId("AbathurSymbiote", "AbathurSymbiote", AbilityType.Q), new AbilityLinkId("AbathurSymbioteSpikeBurst", "AbathurSymbioteSpikeBurst", AbilityType.W)]);
         hero.Talents[TalentTier.Level1][1].LinkId.ToString().Should().Be("AbathurMasteryEnvenomedNestsToxicNest|AbathurToxicNestEnvenomedNestTalent|W|Level1");
-        hero.Talents[TalentTier.Level1][1].UpgradeAbilityLinkIds.Should()
+        hero.Talents[TalentTier.Level1][1].TooltipAbilityLinkIds.Should()
             .ContainInConsecutiveOrder([new AbilityLinkId("AbathurToxicNest", "AbathurToxicNest", AbilityType.W)]);
     }
 
@@ -457,7 +457,7 @@ public class HeroParserTests
         // assert
         hero.Should().NotBeNull();
         hero.Talents[TalentTier.Level4].Should().ContainSingle();
-        hero.Talents[TalentTier.Level4][0].UpgradeAbilityLinkIds.Should()
+        hero.Talents[TalentTier.Level4][0].TooltipAbilityLinkIds.Should()
             .ContainInConsecutiveOrder(
                 [
                     new AbilityLinkId(":PASSIVE:", "AlarakSadism", AbilityType.Trait),
@@ -525,8 +525,8 @@ public class HeroParserTests
 
         // assert
         hero.Should().NotBeNull();
-        hero.Talents[TalentTier.Level1][0].UpgradeAbilityLinkIds.Should().ContainSingle();
-        hero.Talents[TalentTier.Level1][0].UpgradeAbilityLinkIds.First().ToString().Should().Be("DeathwingIncinerate|DeathwingIncinerate|W");
+        hero.Talents[TalentTier.Level1][0].TooltipAbilityLinkIds.Should().ContainSingle();
+        hero.Talents[TalentTier.Level1][0].TooltipAbilityLinkIds.First().ToString().Should().Be("DeathwingIncinerate|DeathwingIncinerate|W");
     }
 
     [TestMethod]
@@ -598,10 +598,10 @@ public class HeroParserTests
 
         // assert
         hero.Should().NotBeNull();
-        hero.Talents[TalentTier.Level4][0].UpgradeAbilityLinkIds.Should().HaveCount(2);
-        hero.Talents[TalentTier.Level4][0].UpgradeAbilityLinkIds.Should().ContainInConsecutiveOrder(new AbilityLinkId("GuldanLifeTap", "GuldanLifeTap", AbilityType.Trait), new AbilityLinkId("GuldanLifeTapFree", "GuldanLifeTapFree", AbilityType.Trait));
-        hero.Talents[TalentTier.Level16][0].UpgradeAbilityLinkIds.Should().HaveCount(2);
-        hero.Talents[TalentTier.Level16][0].UpgradeAbilityLinkIds.Should().ContainInConsecutiveOrder(new AbilityLinkId("GuldanLifeTap", "GuldanLifeTap", AbilityType.Trait), new AbilityLinkId("GuldanLifeTapFree", "GuldanLifeTapFree", AbilityType.Trait));
+        hero.Talents[TalentTier.Level4][0].TooltipAbilityLinkIds.Should().HaveCount(2);
+        hero.Talents[TalentTier.Level4][0].TooltipAbilityLinkIds.Should().ContainInConsecutiveOrder(new AbilityLinkId("GuldanLifeTap", "GuldanLifeTap", AbilityType.Trait), new AbilityLinkId("GuldanLifeTapFree", "GuldanLifeTapFree", AbilityType.Trait));
+        hero.Talents[TalentTier.Level16][0].TooltipAbilityLinkIds.Should().HaveCount(2);
+        hero.Talents[TalentTier.Level16][0].TooltipAbilityLinkIds.Should().ContainInConsecutiveOrder(new AbilityLinkId("GuldanLifeTap", "GuldanLifeTap", AbilityType.Trait), new AbilityLinkId("GuldanLifeTapFree", "GuldanLifeTapFree", AbilityType.Trait));
     }
 
     [TestMethod]
