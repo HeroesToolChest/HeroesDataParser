@@ -53,16 +53,17 @@ v5 changes heroes
 - Added 'linkId' to abilities (abilityId|buttonId|abilityType)
 - Added 'linkId' to talents (talentId|buttonId|abilityType|tier)
 - Added 'abilityId' to talents
-- Removed 'isPassive' from abilities
-- Removed 'isPassive' from talents
+- Removed `isPassive` and `IsActive` from abilities
+- Removed `isPassive` and `IsActive` from talents
+- Added `UpgradesAbilityType` to talents
 - The "id" for subabilities changed to the linkId (either ability or talent `linkId`)
-- Added upgradeAbilityLinkIds (updated from the abilityTalentLinkIds - also kept for legacy reasons)
+- Added `tooltipAbilityLinkIds` (updated from the abilityTalentLinkIds - also kept for legacy reasons)
 - 'units' -> 'summonedUnitIds'
 - removed more 'charges' from talents
 - remove 'upgradeLinkIds' from ultimates that had pointed to itself
 - Added 'weapons' to 'herounits'
 - Fixed missing sortname for some heroes
-- Fixed some abilities having that have a 1 second cooldown where it should not
+- Fixed some abilities having a 1 second cooldown where it should not
 - Fixed Ana's `AnaEyeOfHorusAttackDummy|AnaEyeOfHorusHighPoweredRound|Heroic` and `AnaEyeOfHorusAttack|AnaEyeOfHorusHighPoweredRound|Heroic` abilities missing cooldown text
 - Fixed Anubarak's `AnubarakLegionOfBeetlesVisual|AnubarakScarabHostTrait|Trait` having cooldown text
 - Fixed Deathwing's `DeathwingMoltenFlame|DeathwingMoltenFlame|Q` incorrent energy text
