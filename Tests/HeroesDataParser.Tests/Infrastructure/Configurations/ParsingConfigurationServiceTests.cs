@@ -52,7 +52,7 @@ public class ParsingConfigurationServiceTests
         parsingConfigurationService.Load();
 
         // act
-        List<string> result = parsingConfigurationService.FilterAllowedItems("AnnouncerPack", items).ToList();
+        List<string> result = [.. parsingConfigurationService.FilterAllowedItems("AnnouncerPack", items)];
 
         // assert
         result.Should().BeEquivalentTo(new List<string> { "item1", "item3", "item4" });
@@ -92,7 +92,7 @@ public class ParsingConfigurationServiceTests
         parsingConfigurationService.Load();
 
         // act
-        List<string> result = parsingConfigurationService.FilterAllowedItems("AnnouncerPack", items).ToList();
+        List<string> result = [.. parsingConfigurationService.FilterAllowedItems("AnnouncerPack", items)];
 
         // assert
         result.Should().BeEquivalentTo(new List<string> { "base1", "base2" });
@@ -123,7 +123,7 @@ public class ParsingConfigurationServiceTests
         parsingConfigurationService.Load();
 
         // act
-        List<string> result = parsingConfigurationService.FilterAllowedItems("AnnouncerPack", items).ToList();
+        List<string> result = [.. parsingConfigurationService.FilterAllowedItems("AnnouncerPack", items)];
 
         // assert
         result.Should().BeEquivalentTo(new List<string> { "item1", "item2", "item3" });

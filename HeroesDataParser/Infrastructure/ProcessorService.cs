@@ -215,19 +215,22 @@ public class ProcessorService : IProcessorService
     }
 
     private async Task WriteImages<TElementObject>(Dictionary<string, TElementObject> itemsToSerialize)
-    where TElementObject : IElementObject
+        where TElementObject : IElementObject
     {
-        IImageWriter<TElementObject>? imageWriter = _serviceProvider.GetService<IImageWriter<TElementObject>>();
+        IEnumerable<IImageWriter<TElementObject>> imageWriters = _serviceProvider.GetServices<IImageWriter<TElementObject>>();
 
-        if (imageWriter is null)
+        if (!imageWriters.Any())
         {
-            _logger.LogInformation("No image writer found for {ElementType}", typeof(TElementObject).Name);
+            _logger.LogInformation("No image writers found for {ElementType}", typeof(TElementObject).Name);
             return;
         }
 
-        if (_extractImageOptions.HasFlag(imageWriter.ExtractImageOption))
+        foreach (IImageWriter<TElementObject> imageWriter in imageWriters)
         {
-            await imageWriter.WriteImages(itemsToSerialize);
+            if (_extractImageOptions.HasFlag(imageWriter.ExtractImageOption))
+            {
+                await imageWriter.WriteImages(itemsToSerialize);
+            }
         }
     }
 
@@ -304,6 +307,24 @@ public class ProcessorService : IProcessorService
 
         foreach (var extractDataOption in _options.Extractors)
         {
+            if (extractDataOption.Key.Equals("hero", StringComparison.OrdinalIgnoreCase))
+            {
+                if (_options.Hidden.HeroImages.HeroPortraits)
+                    selectImageExtractOptions |= ExtractImageOptions.HeroPortrait;
+                if (_options.Hidden.HeroImages.Talents)
+                    selectImageExtractOptions |= ExtractImageOptions.Talent;
+                if (_options.Hidden.HeroImages.Abilities)
+                    selectImageExtractOptions |= ExtractImageOptions.Ability;
+                if (_options.Hidden.HeroImages.AbilityTalents)
+                    selectImageExtractOptions |= ExtractImageOptions.AbilityTalent;
+                if (_options.Hidden.HeroImages.HeroData)
+                    selectImageExtractOptions |= ExtractImageOptions.HeroData;
+                if (_options.Hidden.HeroImages.HeroDataSplit)
+                    selectImageExtractOptions |= ExtractImageOptions.HeroDataSplit;
+
+                continue;
+            }
+
             if (!Enum.TryParse(extractDataOption.Key, true, out ExtractImageOptions result) || extractDataOption.Value.IsEnabled is false || extractDataOption.Value.Images is false)
                 continue;
 

@@ -47,7 +47,7 @@ public abstract class ImageWriterBase<TElement> : IImageWriter<TElement>
     /// <summary>
     /// Saves the images files to the output directory.
     /// </summary>
-    /// <param name="relativePathsByFileName">A dictionary of relative file paths to the original image file by the key which is a the final file name.</param>
+    /// <param name="relativePathsByFileName">A dictionary of relative file paths to the original image file by the key which is the final file name.</param>
     /// <param name="directory">The output (sub)directory.</param>
     /// <returns>A <see cref="Task"/>.</returns>
     private protected async Task SaveImagesFiles(IDictionary<string, ImageRelativePath> relativePathsByFileName, string directory)

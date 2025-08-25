@@ -8,7 +8,7 @@ public class RootOptions
 
     public string OutputDirectory { get; set; } = ".";
 
-    public Dictionary<string, ExtractorOptions> Extractors { get; } = new Dictionary<string, ExtractorOptions>(StringComparer.OrdinalIgnoreCase);
+    public Dictionary<string, ExtractorOptions> Extractors { get; } = new(StringComparer.OrdinalIgnoreCase);
 
     public HashSet<StormLocale> Localizations { get; set; } = [];
 

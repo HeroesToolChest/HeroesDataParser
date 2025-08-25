@@ -207,7 +207,7 @@ public static class TestHeroesXmlLoader
                     Path.Join("Assets", "Textures", "UI_targetportrait_Hero_Abathur.dds"),
                     Path.Join("Assets", "Textures", "storm_ui_glues_draft_portrait_Abathur.dds"),
                     Path.Join("Assets", "Textures", "storm_ui_ingame_partyframe_Abathur.dds"),
-                    ])
+                ])
                 .AddLevelScalingArrayElements(heroDocument.Root.Descendants("LevelScalingArray"))
                 .AddStormStyleElements(stormStyleDocument.Root!.Elements()))
             .LoadGameStrings();

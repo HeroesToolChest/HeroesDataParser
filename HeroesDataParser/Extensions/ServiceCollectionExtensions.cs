@@ -65,6 +65,10 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IImageWriter<Announcer>, AnnouncerImageWriter>();
         services.AddTransient<IImageWriter<Bundle>, BundleImageWriter>();
         services.AddTransient<IImageWriter<Map>, MapImageWriter>();
+        services.AddTransient<IImageWriter<Hero>, HeroTalentImageWriter>();
+        services.AddTransient<IImageWriter<Hero>, HeroAbilityImageWriter>();
+        services.AddTransient<IImageWriter<Hero>, HeroAbilityTalentImageWriter>();
+        services.AddTransient<IImageWriter<Hero>, HeroPortraitImageWriter>();
 
         return services;
     }
