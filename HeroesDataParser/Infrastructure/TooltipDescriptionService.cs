@@ -113,7 +113,7 @@ public class TooltipDescriptionService : ITooltipDescriptionService
             {
                 if (ValByStyleConstantName.TryGetValue(item, out string? existingValue))
                 {
-                    tooltipDescription.AddFontValueReplacement(item, existingValue, FontTagType.Constant, _options.DescriptionText.PreserveFontStyleConstantVars);
+                    tooltipDescription.AddFontValueReplacement(item, existingValue, FontTagType.Constant, _options.DescriptionText.PreserveFont.PreserveFontStyleConstantVars);
                     continue;
                 }
 
@@ -123,7 +123,7 @@ public class TooltipDescriptionService : ITooltipDescriptionService
 
                 ValByStyleConstantName[item] = styleConstantElement.Val;
 
-                tooltipDescription.AddFontValueReplacement(item, styleConstantElement.Val, FontTagType.Constant, _options.DescriptionText.PreserveFontStyleConstantVars);
+                tooltipDescription.AddFontValueReplacement(item, styleConstantElement.Val, FontTagType.Constant, _options.DescriptionText.PreserveFont.PreserveFontStyleConstantVars);
             }
 
             List<string> fontStyleValues = [.. tooltipDescription.FontStyleValues];
@@ -132,7 +132,7 @@ public class TooltipDescriptionService : ITooltipDescriptionService
             {
                 if (ValByStyleName.TryGetValue(item, out string? existingValue))
                 {
-                    tooltipDescription.AddFontValueReplacement(item, existingValue, FontTagType.Style, _options.DescriptionText.PreserveFontStyleVars);
+                    tooltipDescription.AddFontValueReplacement(item, existingValue, FontTagType.Style, _options.DescriptionText.PreserveFont.PreserveFontStyleVars);
                     continue;
                 }
 
@@ -150,7 +150,7 @@ public class TooltipDescriptionService : ITooltipDescriptionService
                 else
                     ValByStyleName[item] = styleConstantElement.Val;
 
-                tooltipDescription.AddFontValueReplacement(item, ValByStyleName[item], FontTagType.Style, _options.DescriptionText.PreserveFontStyleVars);
+                tooltipDescription.AddFontValueReplacement(item, ValByStyleName[item], FontTagType.Style, _options.DescriptionText.PreserveFont.PreserveFontStyleVars);
             }
         }
     }

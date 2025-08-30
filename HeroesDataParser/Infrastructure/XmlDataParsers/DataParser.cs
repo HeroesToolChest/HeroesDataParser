@@ -16,8 +16,21 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
     {
         Logger.LogTrace("Parsing id {Id}", id);
 
-        StormElement? stormElement = HeroesData.GetCompleteStormElement(DataObjectType, id) ?? throw new Exception($"Could not find data for {id}");
-        T? elementObject = (T?)Activator.CreateInstance(typeof(T), id) ?? throw new Exception($"Failed to create instance of type {typeof(T)} for {id}");
+        StormElement? stormElement = HeroesData.GetCompleteStormElement(DataObjectType, id);
+
+        if (stormElement is null)
+        {
+            Logger.LogWarning("Could not find data for id {Id}", id);
+            return null;
+        }
+
+        T? elementObject = (T?)Activator.CreateInstance(typeof(T), id);
+
+        if (elementObject is null)
+        {
+            Logger.LogError("Failed to create instance of type {Type} for id {Id}", typeof(T), id);
+            return null;
+        }
 
         using (LogContext.PushProperty("XmlPaths", stormElement.OriginalXElements.Select(x => x.StormPath)))
         {

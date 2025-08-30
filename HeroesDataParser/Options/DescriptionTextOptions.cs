@@ -6,7 +6,6 @@ public class DescriptionTextOptions
 
     public bool ReplaceFontStyles { get; set; }
 
-    public bool PreserveFontStyleVars { get; set; }
-
-    public bool PreserveFontStyleConstantVars { get; set; }
+    // only enable if ReplaceFontStyles is true
+    public PreserveFontOptions PreserveFont { get; set; } = new();
 }

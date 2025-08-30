@@ -20,16 +20,6 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
     public bool AllowSpecialAbilities { get; set; } = true;
 
-    public override Unit? Parse(string id)
-    {
-        Unit? unit = base.Parse(id);
-
-        if (unit is null || !IsValidUnit(unit))
-            return null;
-
-        return unit;
-    }
-
     public void Parse(Unit unit)
     {
         Logger.LogTrace("Parsing unit for existing id {Id}", unit.Id);
@@ -79,18 +69,6 @@ public class UnitParser : DataParser<Unit>, IUnitParser
             elementObject.AddLayoutAbility(ability);
 
         AddAbilityByTooltipTalentElementIds(elementObject, ability);
-    }
-
-    private bool IsValidUnit(Unit unit)
-    {
-        if (unit.FlagArrayItems.Contains("Missile") ||
-            (unit.Attributes.Contains("Heroic") && unit.ScalingLinkIds.Contains("HeroDummyVeterancy")))
-        {
-            Logger.LogTrace("Unit {Id} is not valid (missile or heroic dummy)", unit.Id);
-            return false;
-        }
-
-        return true;
     }
 
     private void SetActorData(Unit elementObject, out List<Ability> unitButtonAbilities)

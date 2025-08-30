@@ -101,8 +101,11 @@ public class TooltipDescriptionServiceTests
             {
                 Type = DescriptionType.RawDescription,
                 ReplaceFontStyles = true,
-                PreserveFontStyleConstantVars = true,
-                PreserveFontStyleVars = true,
+                PreserveFont = new PreserveFontOptions()
+                {
+                    PreserveFontStyleConstantVars = true,
+                    PreserveFontStyleVars = true,
+                },
             },
         });
 
