@@ -86,6 +86,23 @@
           "^Summer.*LootChest$"
         ]
       }
-    }
+    },
+    "Unit" : {
+      "Disallow": {
+        "Exact": [
+          "AbathurSymbiote",
+          "SamuroMirrorImage",
+          "RagnarosBigRag",
+          "NovaHoloClone",
+          "RexxarMisha",
+          "MedicMedivacDropship",
+          "FirebatBunkerDropBunkerUnit"
+        ],
+        "Regex": [
+          // viking gravestones
+          ".*Parent$Gravestone"
+        ]
+      }
+    },
   }
 }
