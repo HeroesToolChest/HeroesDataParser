@@ -50,9 +50,14 @@ public class DataExtractorService : IDataExtractorService
                 {
                     TElement? element = parser.Parse(id);
                     if (element is not null)
+                    {
                         parsedItems.Add(id, element);
+                    }
                     else
-                        _logger.LogWarning("Unable to parse id {id}", id);
+                    {
+                        totalCount--;
+                        _logger.LogTrace("Return is null, Id {id} not adding", id);
+                    }
                 }
                 catch (Exception ex)
                 {
